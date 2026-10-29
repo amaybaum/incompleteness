@@ -1566,6 +1566,24 @@
       "note": "Research companion: uses the finite image of the actual entire future sequence, proves pointwise orbit decoding and exact equality criterion, and applies discrete Shannon CMI on that finite image. Proves whole-trace capacity and a genuine supremum over all natural times. No infinite-product measure/limit equivalence, physical preparation or publication promotion is claimed before independent review and CI."
     },
     {
+      "name": "known-model nonempty record-fibre state identification (P24.5 partial formalization)",
+      "modules": [
+        "RecordFibreIdentification"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research proof candidate for the set-theoretic core of P24.5(i): nonempty preparation-supported record fibres, quantity constancy, initial/current state singleton criterion, and current hidden criterion for product visible projection and permutation dynamics with at least one retained reading. Swap and empty-word controls are included. Not the Bayesian support calculation, N−1 refinement bound, physical record availability, or the whole proposition; no manuscript/ledger promotion is made before exact-head CI and independent review."
+    },
+    {
+      "name": "exact microscopic iterate return to actual rooted identity and horizon indivisibility",
+      "modules": [
+        "RootedRecurrenceBridge"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research candidate on the actual RootedRealization: microscopic iterate return gives rootedMap n = I; finite permutation order supplies a positive shared rooted period. Non-permutation plus a later return excludes a stochastic right divisor via the existing stochastic-inverse theorem and implies whole-horizon P-indivisibility. The existing overlap route is retained. Positive-history/common-endpoint to non-permutation and accessible-window upgrades are not asserted. No whole-Main theorem or manuscript/ledger promotion before exact CI and independent review."
+    },
+    {
       "name": "conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction)",
       "modules": [
         "KTokenMaxCone"
