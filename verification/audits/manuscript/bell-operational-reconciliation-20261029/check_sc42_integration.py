@@ -308,7 +308,7 @@ REGISTER = re.compile(r'should not be read|the reader should|reader should note|
 HISTORY = re.compile(r'is now settled|now settled|in its current form|the corrected form|as redefined|'
                      r'no longer|formerly|withdrawn|earlier revisions|previously stated', re.I)
 CAPS = re.compile(r'(?<=[a-z,;:] )([A-Z]{4,})\b')
-CAPS_OK = {'PASS', 'FAIL', 'NEW', 'POSITIVE', 'CHSH'}  # A.33 permits scientific acronyms.
+CAPS_OK = {'PASS', 'FAIL', 'NEW', 'POSITIVE', 'CHSH', 'CLPW'}  # CLPW names the cited GR [39] authors, not emphasis.
 SECRET = re.compile(r'ghp_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|'
                     r'-----BEGIN [A-Z ]*PRIVATE KEY|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}')
 LOCAL = re.compile(r'/(?:tmp|home|root|Users)/|scratch' + r'pad|[A-Z]:\\\\')

@@ -65,7 +65,7 @@ original table. Counts are never inferred as the expected values at test time.
 
 The paper register/capitals/history scan follows AGENTS §§A.32–A.33 and applies
 to `papers/`; security-pattern checks still cover added text. Scientific acronyms
-such as CHSH are allowed. Retained historical code comments are not paper prose.
+such as CHSH are allowed. CLPW (Chandrasekaran–Longo–Penington–Witten, GR [39]) is likewise a cited scientific initialism; allowing it resolves six post-integration caps hits in GR and Main without disabling the `paper_caps` negative control. Retained historical code comments are not paper prose.
 The historical checker remains unchanged at blob `fe433673a6c007b9436a0796d496c7f34c893362`;
 its earlier failures remain in `validation.json` as a historical result, not a
 current passing result.
