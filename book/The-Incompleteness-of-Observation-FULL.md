@@ -1011,7 +1011,7 @@ The connection becomes precise once the observations are specified. A uniform hi
 
 **Unresolved facts within a model.** A fixed finite model can contain determinate facts that a particular record does not identify. Let $F_r$ be the nonempty set of microscopic states compatible with an observed record $r$. A quantity $q$ is determined by that record exactly when it is constant on $F_r$ [Substratum Proposition 24.5]. This applies to a future visible value as well as to a hidden-state quantity. If two compatible states give different values, no decision using only that record determines which value obtains. If the value is constant, the observer may know it without reconstructing all of $S$. Proper embedding alone does not imply inability to predict the next visible state.
 
-So observational incompleteness comes in two species, and the framework should name them apart:
+These comparisons distinguish different questions:
 
 *Gauge incompleteness* is redundancy relative to specified observations. A uniform hidden-coordinate relabelling, or an independently prepared, normalized, exactly decoupled finite ancillary factor, can leave a fixed observed channel unchanged. This does not make every inaccessible state or every deeper physical implementation gauge. The preparations, readouts and dynamics included in an observational comparison determine what its equivalence relation identifies.
 
@@ -1019,7 +1019,7 @@ So observational incompleteness comes in two species, and the framework should n
 
 The distinction separates unresolved facts within a model from redundancies between descriptions. Hidden states may have different future effects even when a present record does not distinguish them; their physical relevance depends on the permitted observations and dynamics. A proved representational redundancy is a different matter. Neither kind of incompleteness supplies a complete classification of the other.
 
-**Where the comparison sits in the hierarchy.** Representative freedoms identify descriptions relative to specified data. A separately established computational resource bound is a different restriction. Neither the ancillary identity nor the observer's being a proper part of $S$ supplies such a bound on its own. The hierarchy organizes these questions without proving an exhaustive classification of observational or computational limitations.
+**Where the comparison sits in the hierarchy.** Representative freedoms identify descriptions relative to specified data. A separately established computational resource bound is a different restriction. Neither the ancillary identity nor the observer's being a proper part of $S$ supplies such a bound on its own. The hierarchy organizes these questions, while a full classification of observational or computational limitations remains open.
 
 **A consequence worth stating.** The methodology of physics modulo gauge asks for the structure fixed by specified observations, rather than a preferred representative among descriptions that give the same data. The exact invariances above illustrate that programme. For the full substratum, however, the observable interfaces and their correspondence must be specified, and a complete inverse classification remains open. The programme does not establish that every question beyond a chosen interface lacks physical content.
 
