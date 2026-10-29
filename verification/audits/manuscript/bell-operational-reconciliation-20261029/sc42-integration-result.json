@@ -1296,6 +1296,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Part I — Foundations.** Chapters 1–4 develop the framework..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: This chapter proves those statements, then adds their spatia..."
     },
     {
@@ -1333,6 +1337,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The game extends upward. Replace the two-card swap with a li..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The substratum that the framework's algorithm operates on is..."
     },
     {
       "ok": true,
@@ -1440,6 +1448,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework is a hidden-variable theory in the literal sen..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Bell's theorem.** Bell's theorem binds directly on the det..."
     },
     {
@@ -1448,7 +1460,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The framework's evasion is structural, and it is worth stati..."
+      "predicate": "chapter line mirrored in FULL: The framework's response is structural, and it is worth stat..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: In hierarchy language: Kochen-Specker non-contextuality conc..."
     },
     {
       "ok": true,
@@ -1505,6 +1521,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The chapter has three pieces of work. §4.2 develops the sing..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework is a hidden-variable theory in the literal sen..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The principle is straightforward to state. Each no-go theore..."
     },
     {
       "ok": true,
