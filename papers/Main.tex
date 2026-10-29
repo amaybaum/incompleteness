@@ -1057,11 +1057,21 @@ process-tensor sense.
 finite-dimensional phase space preserves Liouville measure on compact
 energy surfaces. \(T_{ij}(t)\) is continuous with \(T(0) = I\). With the
 full-support Liouville measure as hidden prior, (C1) makes \(T(t)\)
-depart from the permutation class for some \(t > 0\). By Poincaré
-recurrence, \(\exists t_R\): the set of hidden states with
-\(\pi_V(\varphi_{t_R}(x_i, h)) = x_i\) has measure \(> 1 - \delta\) for
-any \(\delta > 0\). For small \(\delta\), this gives non-monotonic trace
-distance, establishing P-indivisibility in continuous time.
+depart from the permutation class at some \(t_1 > 0\). If the flow then
+returns near-totally at a common time --- some \(t_R > t_1\) at which,
+for every root \(x_i\), the set of hidden states with
+\(\pi_V(\varphi_{t_R}(x_i, h)) = x_i\) has measure \(> 1 - \delta\) ---
+then for small \(\delta\) the trace distance between rooted laws is
+non-monotonic on \([0, t_R]\) and the continuous-time family is
+P-indivisible. This common-time return is the continuous-time
+counterpart of \(\Gamma_L = I\), which holds exactly for a bijection of
+finite order (theorem above). Poincaré recurrence does not supply it for
+a general Hamiltonian flow: it returns almost every state to its cell at
+a state-dependent time, and for a mixing flow \(T_{ii}(t)\) tends to the
+normalized Liouville measure of the cell of \(x_i\), which is less than
+\(1\) whenever another cell has positive measure, so near-total return
+fails at every sufficiently late time. Continuous-time P-indivisibility
+for general Hamiltonian flows is open.
 
 The recurrence argument establishes P-indivisibility across the
 recurrence cycle. The readback lemma below shows that a readback gap at
@@ -1159,7 +1169,7 @@ bath (\(\tau_B = \infty\)), vast capacity, and
 (\texttt{review3\_probes.py}). Influence plus storage plus capacity,
 without readback, is noise.
 
-\textbf{Role of (C2)--(C4).} The Poincaré recurrence argument and the
+\textbf{Role of (C2)--(C4).} The finite-recurrence argument and the
 readback lemma are independent: the former establishes P-indivisibility
 from a non-permutation one-step witness and finiteness alone, at the
 recurrence time; the latter locates observable conditional memory inside
@@ -1169,13 +1179,23 @@ P-indivisible there. (C2) keeps stored history alive between couplings;
 only the reading produces memory an observer can measure.
 
 \textbf{Weak-coupling and fast-bath regimes.} Known P-divisible systems
-with non-zero coupling illustrate the necessity of (C2), not a failure
-of the theorem. The Jaynes-Cummings model with Lorentzian spectral
-density is P-divisible when dissipation dominates coupling --- the
-fast-bath regime (\(\tau_B \ll \tau_S\)), violating (C2). The
-Davies-Merkli Markovian convergence theorem likewise applies in the
-Born-Markov (fast-bath) limit. The §3.4 necessity proof for (C2)
-establishes this formally.
+with non-zero coupling are not counterexamples to the recurrence
+theorem, whose hypotheses they do not meet. The Jaynes-Cummings model
+with Lorentzian spectral density is P-divisible when dissipation
+dominates coupling, and the Davies-Merkli Markovian convergence theorem
+applies in the Born-Markov limit; both couple to a continuum reservoir,
+so the finite recurrence the theorem uses is absent. Both sit in the
+fast-bath regime (\(\tau_B \ll \tau_S\)), where (C2) fails in its
+timescale form. The recurrence theorem uses no form of (C2), deriving
+recurrence-cycle P-indivisibility from a non-permutation rooted map and
+finite order alone; in particular the timescale form of (C2) is not
+necessary for it in a finite bijective realization, where
+(C2-structural) holds by reversibility (§1.3). What the §3.4
+physical-memory theorem bounds is conditional memory, not
+P-divisibility: under the mixing hypothesis, for
+\(\varepsilon \leq 1 - 1/n_V\), a fast bath leaves at most
+\(2[\varepsilon \log(n_V - 1) + h(\varepsilon)]\) of it, with
+\(\varepsilon\) the residue of relaxation at the coupling time.
 
 \hypertarget{explicit-construction-a-minimal-model}{%
 \subsubsection{2.4 Explicit Construction: A Minimal
@@ -2853,14 +2873,12 @@ load-bearing assumption, so relaxations or failures of ETH bear on how
 the hypothesis is argued for the framework's hidden sector, not on the
 theorem that uses it. For the framework's specific substratum, moreover,
 the chaoticity underlying ETH is not merely the standard assumption: the
-realized bijection's discretization nonlinearity is numerically
-demonstrated to be chaotic --- two-trajectory Lyapunov measurement,
-\(\lambda_{\max} > 0\); spectral-continuity, thermalization,
-cycle-consolidation, and orbit diagnostics concur, the quantitative rate
-being ensemble-dependent --- so the hidden sector is a measured-chaotic
-system rather than an idealized one, with the analytic characterization
-of its cycle structure the open residual recorded there. The C1 and C3
-necessity theorems do not depend on ETH.}
+realized bijection's discretization nonlinearity behaves chaotically at
+the sizes measured --- spectral-continuity, thermalization and
+cycle-consolidation diagnostics ({[}SM §4.2{]}) --- so the hidden sector
+is a measured-chaotic system rather than an idealized one, with the
+analytic characterization of its cycle structure the open residual
+recorded there. The C1 and C3 necessity theorems do not depend on ETH.}
 
 \textbf{Remark (Consequence for the characterization theorem).}
 \emph{Within the characterization below, (C2) is not part of (iii); the
@@ -4779,32 +4797,37 @@ dimension and explicit stochasticity.
 The present framework converges with these programs on the foundational
 substance --- observation is not external to physics; the algebra of
 observables depends on the observer; the partition structure carries
-physical content --- while differing in mechanism and scope. CLPW
-achieves type II algebra by adding observer degrees of freedom to QFT;
-the present framework derives the characterization of embedded
-observation directly from the deterministic substratum, with the type II
-structure as a consequence rather than a postulate. Maldacena requires
-an explicit observer-with-clock; here the partition trace-out is the
-\emph{defining} operation, so the cancellation is structurally forced.
-HUZ argues that dimension is observer-determined; the present framework
-provides a microscopic realization in which the Hilbert-space dimension
-is computed directly from the partition geometry, with AAIL's
-\(d_{Ob} \cdot e^{2S_0}\) formula matching the form of the substratum
-count. Slagle-Preskill demonstrates the logical possibility of
-QM-from-classical with an extra spatial dimension and stochastic
-dynamics; the present framework achieves the same emergence with neither
---- pure determinism on a finite substratum, no extra dimensions. The
-convergence of multiple independent programs on the foundational
-observer-essentiality move strengthens the empirical case for all of
-them; the present framework's distinguishing feature is that it derives
-this content from a finite deterministic substratum and, in doing so,
-produces a quantitative empirical record that the comparison programs do
-not currently match. The convergence is not a competition for priority
---- the deposit record is clear --- but a triangulation: when several
-independent investigations of the foundations of physics arrive at
-structurally similar conclusions through different routes, the
-conclusions deserve more weight than any one of them alone would
-warrant.
+physical content --- while differing in mechanism and scope. CLPW obtain
+a type II algebra by adding observer degrees of freedom to QFT; the
+present framework derives the characterization of embedded observation
+directly from the deterministic substratum. Its observable algebra on
+each finite region is the full matrix algebra on the region's
+configuration space, and its infinite-region completion is a quasilocal
+\(C^{*}\)-algebra with no state or representation selected ({[}GR
+§3.3{]}; §3.4). No von Neumann closure of that algebra, no relation to
+CLPW's observer-dressed algebra and no identification of CLPW's entropy
+with a substratum quantity is derived; whether the construction
+reproduces CLPW's algebra and its entropy is open. Maldacena requires an
+explicit observer-with-clock; here the partition trace-out is the
+\emph{defining} operation, so the observer is present from the outset,
+but the de Sitter sphere partition function and its phase are not
+computed, and whether the trace-out reproduces the cancellation is open.
+HUZ argues that dimension is observer-determined; in the present
+framework the representation dimensions are finite counts fixed by the
+partition --- the permutation unitary acts on
+\(\mathcal{H}_V \otimes \mathcal{H}_H\), spanned by
+\(\mathcal{C}_V \times \mathcal{C}_H\) (§3.2) --- and AAIL's
+\(d_{Ob} \cdot e^{2S_0}\) scaling is not derived. Slagle-Preskill
+demonstrates the logical possibility of QM-from-classical with an extra
+spatial dimension and stochastic dynamics; the present framework uses
+neither --- deterministic dynamics on a finite substratum, no extra
+dimension --- and obtains an exact fixed-basis representation
+equivalence on every finite horizon (\(S \iff D \iff Q_{\mathrm{fb}}\),
+§3.4). A continuous-time Hamiltonian law is additional structure ({[}GR
+§3.3{]}), and exact finite operational quantum mechanics follows only
+with the added principles of the quantum-complete extension (§3.4). The
+present framework's distinguishing feature is that it derives this
+content from a finite deterministic substratum.
 
 Witten's Type II algebra program achieves finite entropy without
 finite-dimensional Hilbert spaces; this is compatible, since the
@@ -4927,38 +4950,44 @@ records'') --- a standard but substantive epistemic postulate, not
 derived; (v) the hidden-sector mixing hypothesis (ETH-motivated)
 conditioning the slow-bath form of the C2-necessity direction, for a
 system class (emergent descriptions of linear-mod-\(q\) automata) on
-which the standard ETH evidence base is silent --- this is the same open
-dynamical question as the chaotic-mixing suppression invoked to motivate
-laboratory setting/preparation decorrelation (§3.3) and the typicality
-selection in (iv), one conditional wearing three hats; (vi) spatial
-isotropy, entering as empirical input E4 of the reconstruction; (vii)
-linearity of the substratum update (A5), equivalent to amplitude-scale
-gauge invariance and owned at that more primitive location; and, for the
-spatial results --- the causal cone and Bell ceiling of §3.3, the
-observer selection of §4.6 and the companion reconstruction --- the
-spatial constitution, which the characterization theorem of §3.4 does
-not use: (viii) site factorization --- the configuration space is
-identified with a product of local configuration spaces over a set of
-sites; given that identification the dynamics determines its coupling
-graph, the dynamics alone has not been shown to select the
-identification, and the coupling graph, its causal cone and the regions
-of §3.3 and §4.6 are read relative to it; (ix) bounded coupling degree
-(A3), as one degree bound across the family of finite representatives
---- at a single finite lattice the bound holds automatically, so the
-item has content only in family form, where it gives the cone of §3.3
-bounded growth and is used by §4.6; (x) the nearest-neighbour range ---
-the coupling graph is the simple-cubic graph --- on which the form of
-the wave rule, its dispersion and the six-link carrier of the companion
-construction rest, and which the cone of §3.3 does not require; (xi)
-center independence (A4), in two logically independent clauses: the
-update commutes with lattice translations up to gauge, and the update at
-a site contains no explicit copy of that site's present value; and (xii)
-background independence (A6), covariance of the dynamics under
-site-dependent internal-index transformations with the link coupling
-transformed alongside, which in the form formalized imposes no
-restriction on the rule and fixes the interface through which the gauge
-symmetry is read locally. Twelve items, of unequal weight, and not
-twelve independent physical assumptions: (viii) is foundational and
+which the standard ETH evidence base is silent, and whose exact linear
+rule conserves a quadratic invariant for every symmetric
+translation-invariant coupling and, at prime \(q\) not dividing the
+lattice size, for \(d\ge2\) splits its largest energy shell into
+exponentially many cycles {[}SM §4.2{]}, so that the hypothesis's ETH
+motivation concerns the rounding nonlinearity of the realized rule,
+which is chaotic numerically and whose cycle structure is open --- this
+is the same open dynamical question as the chaotic-mixing suppression
+invoked to motivate laboratory setting/preparation decorrelation (§3.3)
+and the typicality selection in (iv), one conditional wearing three
+hats; (vi) spatial isotropy, entering as empirical input E4 of the
+reconstruction; (vii) linearity of the substratum update (A5),
+equivalent to amplitude-scale gauge invariance and owned at that more
+primitive location; and, for the spatial results --- the causal cone and
+Bell ceiling of §3.3, the observer selection of §4.6 and the companion
+reconstruction --- the spatial constitution, which the characterization
+theorem of §3.4 does not use: (viii) site factorization --- the
+configuration space is identified with a product of local configuration
+spaces over a set of sites; given that identification the dynamics
+determines its coupling graph, the dynamics alone has not been shown to
+select the identification, and the coupling graph, its causal cone and
+the regions of §3.3 and §4.6 are read relative to it; (ix) bounded
+coupling degree (A3), as one degree bound across the family of finite
+representatives --- at a single finite lattice the bound holds
+automatically, so the item has content only in family form, where it
+gives the cone of §3.3 bounded growth and is used by §4.6; (x) the
+nearest-neighbour range --- the coupling graph is the simple-cubic graph
+--- on which the form of the wave rule, its dispersion and the six-link
+carrier of the companion construction rest, and which the cone of §3.3
+does not require; (xi) center independence (A4), in two logically
+independent clauses: the update commutes with lattice translations up to
+gauge, and the update at a site contains no explicit copy of that site's
+present value; and (xii) background independence (A6), covariance of the
+dynamics under site-dependent internal-index transformations with the
+link coupling transformed alongside, which in the form formalized
+imposes no restriction on the rule and fixes the interface through which
+the gauge symmetry is read locally. Twelve items, of unequal weight, and
+not twelve independent physical assumptions: (viii) is foundational and
 (ix)--(xi) are stated relative to it; (x) implies the bound of (ix); the
 second clause of (xi) depends on the identification of (viii) as well as
 on the rule; and (xii) restricts no rule. Part I of the companion
@@ -4974,7 +5003,7 @@ agree on the substance, including that the determinism recovery closes
 its hidden-sector margin with an empirical input and that finiteness is
 delivered only per-moment. The two-axiom statement remains correct about
 what is \emph{primitive}; this ledger states what is \emph{assumed}, and
-the framework's claims should be read as conditional on the full list.
+the framework's claims are conditional on the full list.
 
 \textbf{Status ledger (theorems and conditions).} The table transcribes
 the standing status of each load-bearing claim of this paper's
@@ -5170,21 +5199,21 @@ observer. This matters for the de Sitter route, where
 \(\tau_{\rm thermal}\sim\hbar/(k_BT_{\rm GH})=2\pi/H\) is Hubble-order
 and hence enormously longer than laboratory \(\tau_S\): a de Sitter
 thermal state does not erase observer memory on accessible timescales.
-Under \(\tau_{\rm mix}\ll\tau_S\): For \((S, \varphi)\) in its typical
-orbit phase --- equivalently, in its equilibrium macrostate ---
-canonical typicality {[}31{]} implies every local subsystem is also in
-its local equilibrium. By the theorem --- under (EM) for each region's
-effective channel, in the coarse-grained description it generates ---
-\(\tau_B(V)\) is bounded by the local \(\tau_{\text{mix}}\) for every
-bounded-diameter partition \(V\). No partition supports (C2) in that
-description. That every relevant equilibrium region satisfies (EM) at
-the required rate is itself a physical hypothesis, to be established
-model by model; the theorem converts it into the selection rule and does
-not supply it. In that description the framework's observers therefore
-exist only in the non-equilibrium phase of \((S, \varphi)\). The
-low-entropy initial condition commonly imported as a ``past hypothesis''
-to select observer-compatible configurations is replaced here, within
-that description, by a structural selection rule: observers exist where
+Under \(\tau_{\rm mix}\ll\tau_S\): For \((S, \varphi)\) in its
+equilibrium macrostate, canonical typicality {[}31{]} implies every
+local subsystem is also in its local equilibrium. By the theorem ---
+under (EM) for each region's effective channel, in the coarse-grained
+description it generates --- \(\tau_B(V)\) is bounded by the local
+\(\tau_{\text{mix}}\) for every bounded-diameter partition \(V\). No
+partition supports (C2) in that description. That every relevant
+equilibrium region satisfies (EM) at the required rate is itself a
+physical hypothesis, to be established model by model; the theorem
+converts it into the selection rule and does not supply it. In that
+description the framework's observers therefore exist only in the
+non-equilibrium phase of \((S, \varphi)\). The low-entropy initial
+condition commonly imported as a ``past hypothesis'' to select
+observer-compatible configurations is replaced here, within that
+description, by a structural selection rule: observers exist where
 (C1)--(C4) are satisfiable, and (C1)--(C4) are not satisfiable in the
 coarse-grained description of the equilibrium phase.
 
@@ -5204,11 +5233,16 @@ to the coarse-grained effective channel \(\mathcal{K}_\Sigma\), not to
 has modulus-one spectrum and cannot mix, so no spectral gap on typical
 orbits of \(\varphi\) is available or assumed. A gap for
 \(\mathcal{K}_\Sigma\) is exactly the content of (EM) and does not
-follow from statistical isotropy or bounded-coupling regularity;
-pathological non-ergodic \(\varphi\) (many short orbits) is excluded by
-the structural assumptions already in force, but that exclusion is a
-necessary, not a sufficient, condition for (EM). (EM) concerns the
-one-step compression. The exact \(n\)-step compressions
+follow from statistical isotropy or bounded-coupling regularity. The
+cycle structure of \(\varphi\) does not settle (EM), which concerns the
+one-step compression: a single cycle does not make the exact
+compressions relax (below), and orbits of length at most \(2\) do not
+prevent a gap (on four states with cells \(\{0,1\}\), \(\{2,3\}\), the
+transposition \((0\,2)\) gives \(\mathcal{K}_\Sigma\) with eigenvalues
+\(1\) and \(0\)). The exact linear rule of {[}SM §4.2{]}, whose largest
+energy shell for \(d\ge2\) splits into exponentially many cycles, is
+therefore not excluded by its cycle structure; whether it or the rounded
+bijection satisfies (EM) is open. The exact \(n\)-step compressions
 \(P_\Sigma\, \mathcal{U}_\varphi^n\, P_\Sigma\) are compressions of a
 permutation, recur, and need not equal \(\mathcal{K}_\Sigma^n\): for the
 cyclic shift on five states with a coarse variable marking one of them,
@@ -5580,4 +5614,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 8e326e67b65986a55502aae8e085c9b0b5570289c6cf596416d27e4bd5a6a1f7
+% source-sha256: 7e84e2b1b3e6f6aa9b98dd975bd51531a9ba15eb5b9dbe2d6797426f96ccc87f
