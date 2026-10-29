@@ -3,7 +3,7 @@ name: PR 997 canonical publication regeneration (temporary)
 on:
   push:
     branches:
-      - correction/dimension-scope-20261029
+      - editorial/issue-996-dimension-scope-20261029
     paths:
       - .github/workflows/rebuild-pr997-temporary.yml
 
@@ -48,7 +48,7 @@ jobs:
       - name: Verify branch lease, commit only regenerated artifacts, and remove this temporary workflow
         shell: bash
         env:
-          BRANCH: correction/dimension-scope-20261029
+          BRANCH: editorial/issue-996-dimension-scope-20261029
         run: |
           set -euo pipefail
           git fetch --no-tags origin "$BRANCH"
