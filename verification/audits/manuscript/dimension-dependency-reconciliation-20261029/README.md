@@ -21,3 +21,7 @@ This revision does not certify the existing quantitative viable-fraction measure
 ## Validation status
 
 This source checkpoint has stale generated TeX/PDF artifacts until canonical rebuild. Cheap checks and final build/review results are recorded in the PR checkpoint; no green run on the parent certifies this revision. Mathematical theorem bodies, Lean sources, proof grades and workflows are not modified. Final independent scientific/editorial review, fresh candidate CI, and separate owner exact-SHA approval remain required. No merge, release, special dispatch or native designation is authorized.
+
+## Minimum-change cleanup (2026-10-29)
+
+Restored the eleven pre-existing Markdown horizontal-rule spellings in `papers/Complexity.md` (`***` back to `---`), with no scientific prose or derivation changes. The generated Complexity TeX/PDF remain STALE, as do other affected publications listed for this source checkpoint; canonical `sh ./build.sh Complexity SM GR Substratum Explainer` and `sh ./build.sh --book`, page inspection, source-stamp checks, independent exact-head review and CI are still required before merge. This cleanup neither promotes the science grade nor closes #946.
