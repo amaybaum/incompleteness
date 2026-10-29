@@ -114,3 +114,14 @@ results be kept. The revision makes these changes.
   restored. Corollary 15b replaces the unconditional corollary $|q_p|=|q_e|$, which fails on the exceptional branch.
   The book and README state the identity on the nonzero-$Y_Q$ branch. Proposition 9.7c is not restored: Structure's
   Proposition 9.7b already states the general minimal Stinespring uniqueness with its citation.
+
+## Follow-up: the "Theorems 1–6" citations (#995)
+
+SM Theorems 1–6 are the conditional Klein–Gordon branch, the Susskind factorization, chirality, the mass spectrum, the condensate stabilizer and the link-carrier count. All six are specific to the cubic lattice, so they do not support claims about general bounded-degree graphs. The citations are replaced as follows:
+- Main §3.4 for the graph-independent finite-law representation;
+- SM §3.2 for dimensional selection;
+- SM §3.1 for the conditional continuum-curvature construction.
+
+GR is cited only for the horizon and thermodynamic arguments.
+
+Graphs with the same growth exponent, mode count and isotropy admit the same finite-law representation and share the growth exponent, a hypothesis of Theorem 24(iv). They need not give the same $T_{ij}(t)$, and no gravitational equivalence is claimed without the continuum conditions. The same correction reaches Structure, Methodology, Explainer and book Chapter 2, with FULL.md mirrored. No Gromov-type quasi-isometry classification of general bounded-degree graphs is asserted.
