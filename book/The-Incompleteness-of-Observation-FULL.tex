@@ -3324,9 +3324,11 @@ wave equation, the internal-index structure, the gauge group, the matter
 content, and the discrete symmetries.
 
 The dimension argument follows the three-filter convergence described
-above. By Gromov's theorem combined with statistical isotropy (E4), the
-coupling graph is quasi-isometric to \(\mathbb{Z}^d\) for some integer
-\(d\). The three filters from E5, E6, E7 then force \(d = 3\).
+above. Under the lattice translations of A4, which act on the coupling
+graph with finitely many orbits, the coupling graph is quasi-isometric
+to \(\mathbb{Z}^d\) for some integer \(d\) (Švarc--Milnor); statistical
+isotropy (E4) alone would not supply this. The three filters from E5,
+E6, E7 then force \(d = 3\).
 
 The wave equation follows from center independence (A4), isotropy (E4),
 and linearity (A5), together with the nearest-neighbor restriction (an
@@ -7089,14 +7091,15 @@ a different operator structure; asking whether \emph{that} theory is
 renormalizable at \emph{that} dimension is not a dimension-independent
 question.
 
-\textbf{Integer dimension is derived, not presupposed.} The
-self-consistency argument might appear to assume that the coupling graph
-has a well-defined integer dimension. In fact, every bounded-degree
-graph falls into one of three growth classes: exponential growth
+\textbf{Integer dimension.} The self-consistency argument assumes that
+the coupling graph has a well-defined integer dimension. A general
+bounded-degree graph need not have one: besides exponential growth
 (\(|B(r)| \sim k^r\) for some \(k > 1\)), fractal growth
-(\(|B(r)| \sim r^\alpha\) for some non-integer \(\alpha\)), or
-integer-polynomial growth (\(|B(r)| \sim r^d\) for some integer \(d\)).
-Self-consistency excludes the first two classes.
+(\(|B(r)| \sim r^\alpha\) for some non-integer \(\alpha\)) and
+integer-polynomial growth (\(|B(r)| \sim r^d\) for some integer \(d\)),
+there are graphs of intermediate growth (Grigorchuk) and graphs with no
+single growth exponent. Self-consistency excludes the first two classes;
+the integer degree comes from translation invariance, below.
 
 Exponential growth fails because the wave equation on
 exponentially-growing graphs does not produce Lorentz-invariant
@@ -7115,17 +7118,19 @@ which has no fractal-graph analog. The cubic-group decomposition of
 \(2d\) link directions, which constrains the gauge structure, requires
 cubic lattice symmetry --- absent in fractals.
 
-Only integer-polynomial growth survives. By Gromov's theorem on finitely
-generated groups of polynomial growth being virtually nilpotent,
-combined with statistical isotropy, the graph is quasi-isometric to
-\(\mathbb{Z}^d\) for some integer \(d\). The three filters then select
-\(d = 3\).
+Integer-polynomial growth follows from translation invariance (A4,
+Chapter 2), not from Gromov's theorem, which concerns finitely generated
+groups and their Cayley graphs: when a free abelian translation group of
+rank \(d\) acts on the coupling graph by automorphisms with finitely
+many orbits, the graph is quasi-isometric to \(\mathbb{Z}^d\)
+(Švarc--Milnor). Statistical isotropy alone does not supply such an
+action. The three filters then select \(d = 3\).
 
-\textbf{Corollary.} \emph{Any bijection whose coupling graph has
-\(d \neq 3\) produces internal contradictions in its emergent
-description. The coupling-graph dimension is not a free parameter or a
-property of a specific \(\varphi\); it is the unique value compatible
-with self-consistency.}
+\textbf{Corollary.} \emph{Any bijection whose coupling graph is
+quasi-isometric to \(\mathbb{Z}^d\) with \(d \neq 3\) produces internal
+contradictions in its emergent description. The coupling-graph dimension
+is not a free parameter or a property of a specific \(\varphi\); it is
+the unique value compatible with self-consistency.}
 
 The argument's structure is worth marking explicitly. The framework's
 definition of observation requires an embedded observer as a
@@ -7138,15 +7143,15 @@ multiverse of dimensions. The observer is a structural prerequisite for
 the framework's definition to have content, not a contingent feature of
 one universe among many.
 
-The combination of the three filters and the structural argument that
-integer-polynomial growth is the only consistent option produces an
-unusual claim: the spatial dimension is fixed structurally rather than
-as an input to the framework. Where the conventional picture treats
-\(d = 3\) as an observed fact requiring no explanation, the framework
-derives it as a forced consequence of the structural conditions that any
-embedded observer's universe must satisfy. The empirical fact that space
-appears three-dimensional is then evidence for the framework's
-structural commitments rather than independent of them.
+The combination of the three filters with the integer dimension fixed by
+translation invariance produces an unusual claim: the spatial dimension
+is fixed structurally rather than as an input to the framework. Where
+the conventional picture treats \(d = 3\) as an observed fact requiring
+no explanation, the framework derives it as a forced consequence of the
+structural conditions that any embedded observer's universe must
+satisfy. The empirical fact that space appears three-dimensional is then
+evidence for the framework's structural commitments rather than
+independent of them.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -30741,4 +30746,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 6d1e1a1e60c36ca855fcad994d00914e27307d88998e766035b5a2aead4c7ec6
+% source-sha256: 545b5d9dcd8471f1976164b8fe49637c1d8a883bc099b41853cf1c83b7e4e025

@@ -1433,14 +1433,14 @@
       "note": ""
     },
     {
-      "id": "SM:C-unnamed-faf4656b",
+      "id": "SM:C-unnamed-9238b5c8",
       "paper": "papers/SM.md",
       "line": 210,
       "kind": "Corollary",
       "label": "",
-      "fingerprint": "faf4656b6c23bd43",
+      "fingerprint": "9238b5c827312172",
       "area": "sm",
-      "assumptions": "see the statement",
+      "assumptions": "see the statement; coupling graph quasi-isometric to Z^d (from A4's lattice translations)",
       "checks": [],
       "kernel": "GAP",
       "delta": "not formalized",
