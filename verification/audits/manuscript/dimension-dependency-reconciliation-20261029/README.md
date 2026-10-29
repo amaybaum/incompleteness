@@ -25,3 +25,7 @@ This source checkpoint has stale generated TeX/PDF artifacts until canonical reb
 ## Minimum-change cleanup (2026-10-29)
 
 Restored the eleven pre-existing Markdown horizontal-rule spellings in `papers/Complexity.md` (`***` back to `---`), with no scientific prose or derivation changes. The generated Complexity TeX/PDF remain STALE, as do other affected publications listed for this source checkpoint; canonical `sh ./build.sh Complexity SM GR Substratum Explainer` and `sh ./build.sh --book`, page inspection, source-stamp checks, independent exact-head review and CI are still required before merge. This cleanup neither promotes the science grade nor closes #946.
+
+## Forward integration after #1000
+
+Source reconcile candidate incorporates #997's exact correction hunks against main merge `6e219231483bb404c0d055ab9a447278422a597e` (which includes #998/#999/#1000), preserving unchanged main content and the existing, independently reviewed #997 source corrections. The branch carries both parent histories. This is a **source-only integration checkpoint**: the affected paper and book `.tex`/`.pdf` are **STALE**, not approved publications, until canonical regeneration, source-stamp comparison, rendered-page inspection, independent exact-head scientific/editorial review, and fresh complete CI. Historical source and generated-asset checks do not certify this new head. The Introduction #918 remains on hold. No merge or scientific-grade promotion is authorized by this checkpoint.

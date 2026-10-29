@@ -42,7 +42,7 @@ On this selected three-dimensional continuum branch, rotational symmetry supplie
 
 The framework derives spin-1/2 fermions from the staggered structure on the d = 3 lattice [2, §4.2]. The spin-statistics theorem — a consequence of the emergent QFT's Lorentz invariance [2, §3.1] — gives the Pauli exclusion principle: each orbital holds at most 2 electrons (spin up and spin down). The shell capacities follow:
 
-$$s: 2, \quad p: 6, \quad d: 10, \quad f: 14$$
+$s: 2, \quad p: 6, \quad d: 10, \quad f: 14$
 
 The periodic table's period lengths — 2, 8, 8, 18, 18, 32 — are determined by the filling order of these shells. This orbital counting is conditional on the selected $d = 3$ branch and the stated spin and statistics assumptions. The dimension selection inherits A4, E5–E7 and the continuum conditions [2, §3.2].
 
@@ -92,21 +92,21 @@ For chemistry to support complexity, a thermal window must exist where bond ener
 
 The dimensional premise in these chains is conditional on A4, E5–E7 and the continuum conditions [2, §3.2]; the downstream steps retain the field-theory and atomic assumptions cited above.
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\text{SO(3)}} \text{orbitals} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\text{SO(3)}} \text{orbitals} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
+$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$
 
 These chains combine results of [1, 2] with textbook relations on the selected three-dimensional continuum branch, conditional on A4's lattice class, E5–E7, the continuum conditions, and the stated spin, statistics and atomic assumptions. Each downstream link retains its own hypotheses; the chiral-SU(2) arrow additionally assumes H-χ' [2, §4.8]. The conclusions about atoms, nuclei, the periodic table, organic chemistry, matter-antimatter asymmetry and chirally selected molecules inherit these conditions.
 
@@ -326,8 +326,8 @@ $$\xrightarrow{\text{statistical}} \text{autocatalytic networks (}N \times p \si
 $$\xrightarrow{\text{von Neumann}} \text{self-reproducing configurations}$$
 $$\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{inevitable}} \text{Darwinian evolution}$$
 $$\xrightarrow{\text{generic}} \text{information processing} \xrightarrow{\text{contingent}} \text{general intelligence}$$
-$$\xrightarrow{\text{structural}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
-$$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$$
+$\xrightarrow{\text{structural}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$
+$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$
 
 The chain combines conditional physical results, statistical models and contingent biological or computational steps. Its chemical starting point inherits the selected lattice/continuum branch and the stated matter assumptions; later conclusions retain their own premises. General intelligence is one contingent step, not the sole additional assumption in the chain.
 

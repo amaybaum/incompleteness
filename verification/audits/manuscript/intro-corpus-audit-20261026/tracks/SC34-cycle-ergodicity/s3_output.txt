@@ -1,0 +1,109 @@
+K-1 step_b reproduces lyapunov_v3.step and mixing_battery 1D step exactly: True
+
+=== (a) control, alpha=1: d=1 L=5 q=3 |S|=59049
+  K1 E_q (mod q, alpha=1): changed by one step at 0.00% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 93.70% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 92.20% of states
+  K2 degree<=2 polynomial invariants over F_3: dimension 10 (all verified on every state: True)
+  [a] cycles 6565; largest 15 = 0.03% of |S|; top5 [15, 15, 15, 15, 15]; fixed points 3; complete True; traversal-match True
+  K4 largest cycle visits 1 distinct E_q values (of 3) and 15 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+=== (b) rounded new=((nn+1)//2 - prv) % q: d=1 L=5 q=3 |S|=59049
+  K1 E_q (mod q, alpha=1): changed by one step at 63.65% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 93.88% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 78.18% of states
+  K2 degree<=2 polynomial invariants over F_3: dimension 0 (all verified on every state: True)
+  [b] cycles 719; largest 1100 = 1.86% of |S|; top5 [1100, 1100, 1085, 1085, 755]; fixed points 6; complete True; traversal-match True
+  K4 largest cycle visits 3 distinct E_q values (of 3) and 33 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+=== (b) rounded new=((nn+1)//2 - prv) % q: d=1 L=5 q=4 |S|=1048576
+  K1 E_q (mod q, alpha=1): changed by one step at 73.44% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 97.15% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 90.02% of states
+  [b] cycles 2792; largest 8110 = 0.77% of |S|; top5 [8110, 8110, 5210, 5210, 4625]; fixed points 1; complete True; traversal-match None
+  K4 largest cycle visits 4 distinct E_q values (of 4) and 108 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K3 census complete and cross-checked
+
+=== (b) rounded new=((nn+1)//3 - prv) % q: d=3 L=2 q=2 |S|=65536
+  K1 E_q (mod q, alpha=1): changed by one step at 50.00% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 83.26% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 64.65% of states
+  [b] cycles 6382; largest 12 = 0.02% of |S|; top5 [12, 12, 12, 12, 12]; fixed points 4; complete True; traversal-match True
+  K4 largest cycle visits 2 distinct E_q values (of 2) and 2 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K3 census complete and cross-checked
+
+=== (b) rounded new=((nn+1)//3 - prv) % q: d=3 L=2 q=3 |S|=43046721
+  K1 E_q (mod q, alpha=1): changed by one step at 66.41% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 84.68% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 89.64% of states
+  K2 degree<=2 polynomial invariants over F_3: dimension 0 (all verified on every state: True)
+  [b] cycles 776681; largest 836 = 0.00% of |S|; top5 [836, 836, 836, 836, 836]; fixed points 29; complete True; traversal-match None
+  K4 largest cycle visits 3 distinct E_q values (of 3) and 29 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+=== (a) control, alpha=1: d=1 L=4 q=3 |S|=6561
+  K1 E_q (mod q, alpha=1): changed by one step at 0.00% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 85.75% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 85.14% of states
+  K2 degree<=2 polynomial invariants over F_3: dimension 7 (all verified on every state: True)
+  [a] cycles 679; largest 12 = 0.18% of |S|; top5 [12, 12, 12, 12, 12]; fixed points 3; complete True; traversal-match True
+  K4 largest cycle visits 1 distinct E_q values (of 3) and 6 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+=== (c) SM 3.1 explicit state-dependent ring: d=1 L=4 q=3 |S|=6561
+  K1 E_q (mod q, alpha=1): changed by one step at 52.67% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 91.24% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 87.94% of states
+  K2 degree<=2 polynomial invariants over F_3: dimension 0 (all verified on every state: True)
+  [c] cycles 195; largest 140 = 2.13% of |S|; top5 [140, 140, 140, 140, 136]; fixed points 7; complete True; traversal-match True
+  K4 largest cycle visits 3 distinct E_q values (of 3) and 14 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+=== (c) SM 3.1 explicit state-dependent ring: d=1 L=5 q=3 |S|=59049
+  K1 E_q (mod q, alpha=1): changed by one step at 57.61% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 94.78% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 92.83% of states
+  K2 degree<=2 polynomial invariants over F_3: dimension 0 (all verified on every state: True)
+  [c] cycles 357; largest 844 = 1.43% of |S|; top5 [844, 844, 844, 844, 844]; fixed points 3; complete True; traversal-match True
+  K4 largest cycle visits 3 distinct E_q values (of 3) and 55 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+=== (c) SM 3.1 explicit state-dependent ring: d=1 L=4 q=5 |S|=390625
+  K1 E_q (mod q, alpha=1): changed by one step at 47.10% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 96.29% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 95.36% of states
+  K2 degree<=2 polynomial invariants over F_5: dimension 0 (all verified on every state: True)
+  [c] cycles 2325; largest 1780 = 0.46% of |S|; top5 [1780, 1780, 1780, 1780, 1780]; fixed points 5; complete True; traversal-match True
+  K4 largest cycle visits 5 distinct E_q values (of 5) and 141 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+=== (c) SM 3.1 explicit state-dependent ring: d=1 L=6 q=3 |S|=531441
+  K1 E_q (mod q, alpha=1): changed by one step at 60.72% of states
+  K1 E_R3 = 3|u|^2+3|v|^2-u.Av (Z): changed by one step at 96.01% of states
+  K1 E_R2 = 2|u|^2+2|v|^2-u.Av (Z): changed by one step at 93.83% of states
+  K2 degree<=2 polynomial invariants over F_3: dimension 0 (all verified on every state: True)
+  [c] cycles 1827; largest 3846 = 0.72% of |S|; top5 [3846, 3846, 3846, 3846, 1938]; fixed points 3; complete True; traversal-match None
+  K4 largest cycle visits 3 distinct E_q values (of 3) and 40 distinct E_R3 values
+  [PASS] K0 bijection
+  [PASS] K2 invariant basis verified
+  [PASS] K3 census complete and cross-checked
+
+ALL CONTROLS GREEN

@@ -233,6 +233,16 @@ only.
 desynchronizes the corpus — this has bitten us in both directions (the book once lagged the papers on the
 dark-energy downgrade; the book once *led* the papers on the Cabibbo `c_λ` closure).
 
+**Minimum necessary manuscript changes.** Each manuscript edit must be limited to the smallest
+change that corrects a specific, evidenced scientific, mathematical, status, or consistency defect
+and its necessary consequences. Preserve correct claims, proofs, derivations, structure, and voice;
+do not bundle stylistic rewrites, reorganization, speculative additions, or unrelated cleanup with
+a correction. Apply the corpus-wide propagation rule below to every genuinely affected passage,
+including maintained mirrors, and regenerate only the affected publication artifacts. Before review,
+map each substantive edited passage to its triggering finding; separately justify and review any
+broader change that is demonstrably unavoidable. A passing build or checker does not by itself
+justify enlarging the manuscript diff.
+
 Whenever you change a **claim**, its **classification** (status / layer / tier; any of
 *theorem / derived / forced / open / hypothesis / conditional / retrodiction*), or a **numeric value**:
 

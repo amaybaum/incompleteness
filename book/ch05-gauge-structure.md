@@ -57,7 +57,7 @@ Within A4's periodic-lattice class and the continuum conditions of SM §3.1–§
 The intersection of Filter 1 and Filter 2 is already $d = 3$ uniquely. A third filter provides a consistency check.
 
 **Filter 3: Boundary-entropy concordance gives $d = 3$ exactly.** The cosmological observation that the universe is spatially flat near the critical density — $\Omega_{\text{total}} \approx 1$ — is, in the framework's gravitational sector developed in Chapter 7, a structural feature rather than an initial condition. The ratio $\rho_s / \rho_{\text{crit}}$ between the boundary-derived entropy density and the critical density, computed in $d$ spatial dimensions, satisfies
-$$\frac{\rho_s}{\rho_{\text{crit}}} = \frac{2}{d - 1}.$$
+$\frac{\rho_s}{\rho_{\text{crit}}} = \frac{2}{d - 1}.$
 This ratio equals unity exactly at $d = 3$. At $d = 2$ the ratio is $2$ (overclosure); at $d = 4$ the ratio is $2/3$ (deficit, requiring an unsourced gravitational contribution). The filter selects $d = 3$ as the unique value at which the observed spatial flatness is structurally explained rather than fine-tuned.
 
 Within A4's assumed periodic-lattice class and the stated continuum conditions, the first two bounds select $d=3$ and boundary-entropy concordance supplies a further consistency check. The specified Yang–Mills coupling is dimensionless at $3+1$ spacetime dimensions; its renormalizability result is downstream of that selection. The six-link octahedral carrier and H-link used here are stated for the selected simple-cubic branch. A comparison with another dimension requires its own carrier and matter assumptions.

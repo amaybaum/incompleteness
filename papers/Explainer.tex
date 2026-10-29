@@ -334,16 +334,22 @@ Schrödinger/unitary interpolation and the \(p=|U|^2\) dictionary belong
 to that exact representation layer. What does \textbf{not} follow from
 the definition alone is that every coherent preparation, noncommuting
 instrument, and composite is already one standard quantum operational
-theory; on a finite carrier it follows exactly when five further
-operational conditions hold --- valid probabilities, trivial-ancilla
-consistency, inert spectators, full reversible control, and iterated
-composition --- and each is genuinely additional to embedded observation
-(Main §3.4; GR §3.3). Bell is a separate fork: a response-complete
-deterministic completion that is both measurement-independent and
-ontically parameter-independent is Bell-local, so the framework retains
-measurement independence and takes ontic parameter dependence for
-Bell-violating substrata while preserving operational no-signaling. The
-hidden-sector conditions are:
+theory; on a finite carrier, taking as given that operations act on
+complex matrices indexed by the system's configurations (deriving that
+kinematics is open), it follows exactly when five further operational
+conditions hold --- valid probabilities, trivial-ancilla consistency,
+inert spectators, full reversible control, and iterated composition ---
+and each is genuinely additional to embedded observation (Main §3.4; GR
+§3.3). Bell is a separate fork: when a \(\pm1\) outcome is recorded at
+each wing in every run, a response-complete deterministic completion
+that is both measurement-independent and ontically parameter-independent
+is Bell-local, so a completion reproducing quantum Bell correlations
+gives up at least one of the two. The framework retains measurement
+independence and takes ontic parameter dependence for Bell-violating
+substrata; whether the SM/GR substratum supplies that dependence,
+through preparation-indexed adjacency, while preserving operational
+no-signaling and its continuum-curvature limit is the open hypothesis
+H-Bell (Main §3.3). The hidden-sector conditions are:
 
 \textbf{C1: Non-zero coupling (H\_int ≠ 0).} The visible and hidden
 sectors interact. Information flows between them. Without this, the
@@ -665,9 +671,15 @@ non-trivial (C1). It is purely combinatorial.
 continued)}\label{the-accessible-timescale-lemma-2.3-continued}}
 
 The recurrence proof shows P-indivisibility exists as a mathematical
-property. But the recurrence time is absurdly long --- for the
-cosmological case, it's e\textsuperscript{(10}122) years. Nobody will
-ever observe it.
+property. But the recurrence time can be absurdly long. It is the order
+of the bijection. On \(n\) configurations, a bijection has order at most
+Landau's function \(g(n)\), the largest order of any permutation of
+\(n\) points, with \(\ln g(n) \approx \sqrt{n \ln n}\), and every such
+order divides \(\mathrm{lcm}(1, \ldots, n) \approx e^n\); an exactly
+linear rule has order below \(n\). The number of configurations is not
+fixed by visible data, so the framework bounds the recurrence time but
+does not compute it. A recurrence on a timescale of astronomical size
+will never be observed.
 
 The accessible-timescale lemma shows that conditional memory is present
 on \emph{laboratory timescales}, independently of recurrence. A revival
@@ -937,13 +949,17 @@ together they ensure that \emph{layer} rests on no single recent result.
   select the quantum correlation set. The stochastic causal-local
   indivisible construction has a Tsirelson bound, but the framework's
   response-complete deterministic layer is more restrictive: pointwise
-  graph locality plus a measurement-independent pre-setting ensemble
-  gives a Bell-local model with \(|S_{\rm CHSH}|\le2\). The framework
-  therefore takes the ontic-parameter-dependent branch for
-  Bell-violating substrata while retaining operational no-signaling
-  (Main §3.3). Unrestricted/global composites remain a post-quantum
-  negative control, so neither hidden memory nor indivisibility is a
-  selector of the quantum Bell set.
+  graph locality --- setting interventions that each read and write only
+  their own wing, and \(\pm1\) outcomes recorded in every run from
+  readout regions the remote setting's graph cone has not reached ---
+  plus a measurement-independent pre-setting ensemble gives a Bell-local
+  model with \(|S_{\mathrm{CHSH}}|\le2\). A Bell-violating completion
+  therefore gives up ontic parameter independence, which that graph
+  locality secures, or measurement independence; the framework gives up
+  the first for Bell-violating substrata, with operational no-signaling
+  required (Main §3.3). Unrestricted/global composites remain a
+  post-quantum negative control, so neither hidden memory nor
+  indivisibility is a selector of the quantum Bell set.
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -1014,10 +1030,12 @@ theorem?
 response-complete deterministic layer, the decisive conjunction is
 measurement independence plus ontic parameter independence. If one
 pre-setting microstate fixes the responses at both wings, one common
-setting-independent ensemble is used, and the Bell-relevant coupling
-range does not connect the wings before readout, the result is an
-ordinary local hidden-variable model and \(|S_{\rm CHSH}|\le2\). Hidden
-memory and indivisibility do not change that conclusion.
+setting-independent ensemble is used, each setting intervention reads
+and writes only its own wing, and each wing's \(\pm1\) outcome, recorded
+in every run, is read out before the other wing's setting can reach it
+through the coupling graph, the result is an ordinary local
+hidden-variable model and \(|S_{\mathrm{CHSH}}|\le2\). Hidden memory and
+indivisibility do not change that conclusion.
 
 \textbf{The branch the framework takes.} The framework declines the
 measurement-dependent/superdeterministic horn and instead relinquishes
@@ -1027,16 +1045,15 @@ representative this need not be a static all-to-all sector: {[}SM
 branch-(a) target is preparation-indexed adjacency --- a geometric
 bounded-range reference graph in the uniform/vacuum class, with
 bounded-degree long links (or an equivalent nonlocal response map)
-supplied by an entangling preparation. The operational distribution
-remains no-signaling. The unresolved cost is H-Bell's
-curvature-stability condition: the prepared graph must retain the
-metric/Ollivier--Ricci continuum behavior required by the Einstein
-reconstruction. That condition is now downstream of a harder one. The
-cited convergence theorem is arbitrary-dimensional only for the
+supplied by an entangling preparation. Whether those prepared graphs
+preserve operational no-signaling and the metric/Ollivier--Ricci
+continuum behavior required by the Einstein reconstruction is the open
+hypothesis H-Bell. The curvature condition is downstream of a harder
+one. The cited convergence theorem is arbitrary-dimensional only for the
 manifold-distance-weighted graph metric, and for the degree-\(6\) cubic
 reference graph the intrinsic hop metric is exactly \(\ell_1\) --- a
 \(\sqrt2\) diagonal stretch that does not decay at any scale --- so the
-hop-metric curvature route FAILS for the reference family, before any
+hop-metric curvature route fails for the reference family, before any
 Bell edge is added, and no \(D=3\) extension of that theorem would
 rescue it. The emergent geometry itself is not in question: the
 substratum's dispersion relation is isotropic at leading order. What
@@ -1169,14 +1186,17 @@ records through the permutation-unitary realization. It does
 \textbf{not} by itself derive the whole operational category of quantum
 mechanics. The visible--hidden tensor factor used by the dilation is
 part of the representation construction; for two spatial laboratories,
-the OI dependency graph supplies exact causal cones, but a common local
-tensor/composite instrument structure is part of the coherent
-operational lift, characterized in Main §3.4 and GR §3.3 by five
-operational conditions. Conditioning on a registered classical outcome
-is represented by ordinary conditioning on the substratum ensemble;
-identifying every coherent quantum update with that construction is
-likewise part of the operational lift. The memory-bearing sector
-(\(M_t>0\)) carries the specifically OI content.
+the OI dependency graph supplies exact causal cones, but they do not
+supply a common local tensor/composite instrument structure: the
+characterization of Main §3.4 and GR §3.3 takes the tensor-product
+composite as part of the complex matrix kinematics it assumes, and
+within that kinematics characterizes by five operational conditions when
+the available instruments are exactly the quantum instruments.
+Conditioning on a registered classical outcome is represented by
+ordinary conditioning on the substratum ensemble; identifying every
+coherent quantum update with that construction is likewise part of the
+operational lift. The memory-bearing sector (\(M_t>0\)) carries the
+specifically OI content.
 
 \textbf{And it does not fix which unitary relates two times.} The
 equivalence says which visible laws have a fixed-basis unitary
@@ -1227,12 +1247,13 @@ stating together.} Finite observable-law representability is
 \textbf{settled}: every finite-horizon law has the fixed-basis
 unitary/Born representation, and the three descriptions are equivalent.
 Exact finite operational quantum mechanics is \textbf{characterized
-conditionally}: it holds exactly when the five completion conditions
-hold, none of them supplied by embedded observation alone. And selecting
-one relative quantum evolution from the coherent lifts compatible with a
-single visible family is \textbf{open} --- the remaining bare-OI
-question, on which ordinary coherence has been shown insufficient and
-nothing further is claimed.
+conditionally}: taking complex matrix kinematics as given, it holds
+exactly when the five completion conditions hold, none of them supplied
+by embedded observation alone, and deriving that kinematics is open. And
+selecting one relative quantum evolution from the coherent lifts
+compatible with a single visible family is \textbf{open} --- the
+remaining bare-OI question, on which ordinary coherence has been shown
+insufficient and nothing further is claimed.
 
 \emph{A note on what is proved versus imported, to keep the claim
 honest.} The exact finite-law representation is internal: every finite
@@ -1246,82 +1267,83 @@ predictive memory. The Barandes stochastic--quantum correspondence
 remains useful for a compressed representation and its interpretive
 apparatus; it is not needed to prove that some Hilbert/Born
 representation exists. The remaining foundational qualification is
-narrower than a selection claim: the coherent preparations, noncommuting
-instruments, and composites of one OI system form one standard quantum
-operational theory exactly when five operational conditions hold ---
-valid probabilities, trivial-ancilla consistency, inert spectators, full
-reversible control, and iterated composition --- none supplied by
-embedded observation alone, so the framework classifies the quantum
-completions rather than deriving quantum mechanics outright (Main §3.4;
-GR §3.3). The layered form of that classification, quantum-complete OI
-(OI⁺) --- the unchanged OI core with well-formedness, observational
-independence, reversible richness, and observer recursion --- is
-equivalent on every nonempty finite carrier to exact finite endomorphic
-operational quantum mechanics, with no claim that bare OI entails the
-added principles (GR §3.3). A primitive-source refinement restates those
-principles at the level of physical implementations and embedded
-observers --- implementation locality, phase-free richness --- one
-continuously driven transition and the exchanges of distinguishable
-states, with no phase operation --- and embedded observation, with no
-closure of the implementations under the adjoint and no inverse
-accessibility assumed --- equivalent to the same operational quantum
-mechanics on every nonempty finite carrier (GR §3.3). A
-substratum-source form completes that refinement: the concrete OI
-substratum supplies the structural architecture --- closure under
-composition and coarse-graining, stability under an uncoupled spectator,
-relabelling invariance, reversibility, the exchanges of distinguishable
-states, and, as a stated intervention principle rather than a
-consequence of its finite states and bijective dynamics, the phases ---
-but, under finite bijective read-write dynamics, not the continuously
-tunable state-mixing operation; with that one operation added as an
-empirical controllability resource it is equivalent to the same
-operational quantum mechanics on every nonempty finite carrier, while
-finite reversible read-write dynamics, even with genuine hidden-memory
-and readback behavior, does not itself generate quantum state mixing (GR
-§3.3). Its typed form removes the endomorphic qualifier: under the
-carrier-general typed operational interface --- identity, composition,
-coarse-graining, relabelling, uniform finite attachment, discard, and
-factor readout, an interface that itself carries no quantum content ---
-the same equivalence holds with exact finite-dimensional typed
-operational quantum mechanics, operations between any two nonempty
-finite carriers included, so the remaining qualifier is
-finite-dimensional rather than endomorphic (GR §3.3). The finite theory
-admits a canonical infinite-region completion without a continuum limit:
-the finite regions of the fixed-spacing lattice carry full matrix
-algebras joined by compatible injective unital embeddings with
-observables of disjoint regions commuting, the norm completion of their
-union is a quasilocal \(C^{*}\)-algebra on which every consistent family
-of finite-region density matrices is a state and the reversible
-finite-range substratum update is an isometric \(*\)-automorphism, and
-any system carrying the same local stages is canonically and uniquely
-\(*\)-isomorphic to it, intertwining the dynamics; this removes the
-finite-region cutoff for the algebra, the state space, and the
-OI-induced discrete dynamics rather than characterizing all
-infinite-dimensional quantum instruments or all locality-preserving
-quantum dynamics; the lattice spacing stays fundamental, no
-Hilbert-space representation and no superselection sector is selected at
-the level of the laws, the restriction to the substratum-induced
-dynamics is a theorem rather than a convention --- a phase automorphism
-at one site preserves locality without arising from any reversible
-finite-range bijection --- and, while the update is joined to the
-identity by an exact norm-continuous path of local \(*\)-automorphisms
-of that algebra, with no one-parameter-group law established and no
-generator exhibited, a continuous-time Hamiltonian law remains
-additional structure (GR §3.3). Within the structural architecture the
-substratum supplies, with the phase intervention stated, exact finite
-endomorphic operational quantum mechanics holds exactly when one
-continuous layer flow of an involution of the configuration space moving
-some configuration is an available operation at every level and every
-intermediate time, the executability of that flow being an assumption
-not derived by configuration-level generation, as the phase intervention
-is an assumption on the substratum class and not a consequence of the
-finite states with the bijective dynamics (GR §3.3). The stated
-substratum dynamics with the observer's read and write access do not
-source that executability, the layers being available at time one and
-not at intermediate times, and the observer-level lift, in every
-formulation stated that lands in the operational interface, derives
-neither a non-monomial admissible operator nor the layer flow, the
-site-space wave-operator formulation being unresolved rather than
+narrower than a selection claim: with operations taken to act on the
+complex matrices indexed by the configurations of the system and of its
+composites, the coherent preparations, noncommuting instruments, and
+composites of one OI system form one standard quantum operational theory
+exactly when five operational conditions hold --- valid probabilities,
+trivial-ancilla consistency, inert spectators, full reversible control,
+and iterated composition --- none supplied by embedded observation
+alone, so the framework classifies the quantum completions rather than
+deriving quantum mechanics outright (Main §3.4; GR §3.3). The layered
+form of that classification, quantum-complete OI (OI⁺) --- the unchanged
+OI core with well-formedness, observational independence, reversible
+richness, and observer recursion --- is equivalent on every nonempty
+finite carrier to exact finite endomorphic operational quantum
+mechanics, with no claim that bare OI entails the added principles (GR
+§3.3). A primitive-source refinement restates those principles at the
+level of physical implementations and embedded observers ---
+implementation locality, phase-free richness --- one continuously driven
+transition and the exchanges of distinguishable states, with no phase
+operation --- and embedded observation, with no closure of the
+implementations under the adjoint and no inverse accessibility assumed
+--- equivalent to the same operational quantum mechanics on every
+nonempty finite carrier (GR §3.3). A substratum-source form completes
+that refinement: the concrete OI substratum supplies the structural
+architecture --- closure under composition and coarse-graining,
+stability under an uncoupled spectator, relabelling invariance,
+reversibility, the exchanges of distinguishable states, and, as a stated
+intervention principle rather than a consequence of its finite states
+and bijective dynamics, the phases --- but, under finite bijective
+read-write dynamics, not the continuously tunable state-mixing
+operation; with that one operation added as an empirical controllability
+resource it is equivalent to the same operational quantum mechanics on
+every nonempty finite carrier, while finite reversible read-write
+dynamics, even with genuine hidden-memory and readback behavior, does
+not itself generate quantum state mixing (GR §3.3). Its typed form
+removes the endomorphic qualifier: under the carrier-general typed
+operational interface --- identity, composition, coarse-graining,
+relabelling, uniform finite attachment, discard, and factor readout, an
+interface that itself carries no quantum content --- the same
+equivalence holds with exact finite-dimensional typed operational
+quantum mechanics, operations between any two nonempty finite carriers
+included, so the remaining qualifier is finite-dimensional rather than
+endomorphic (GR §3.3). The finite theory admits a canonical
+infinite-region completion without a continuum limit: the finite regions
+of the fixed-spacing lattice carry full matrix algebras joined by
+compatible injective unital embeddings with observables of disjoint
+regions commuting, the norm completion of their union is a quasilocal
+\(C^{*}\)-algebra on which every consistent family of finite-region
+density matrices is a state and the reversible finite-range substratum
+update is an isometric \(*\)-automorphism, and any system carrying the
+same local stages is canonically and uniquely \(*\)-isomorphic to it,
+intertwining the dynamics; this removes the finite-region cutoff for the
+algebra, the state space, and the OI-induced discrete dynamics rather
+than characterizing all infinite-dimensional quantum instruments or all
+locality-preserving quantum dynamics; the lattice spacing stays
+fundamental, no Hilbert-space representation and no superselection
+sector is selected at the level of the laws, the restriction to the
+substratum-induced dynamics is a theorem rather than a convention --- a
+phase automorphism at one site preserves locality without arising from
+any reversible finite-range bijection --- and, while the update is
+joined to the identity by an exact norm-continuous path of local
+\(*\)-automorphisms of that algebra, with no one-parameter-group law
+established and no generator exhibited, a continuous-time Hamiltonian
+law remains additional structure (GR §3.3). Within the structural
+architecture the substratum supplies, with the phase intervention
+stated, exact finite endomorphic operational quantum mechanics holds
+exactly when one continuous layer flow of an involution of the
+configuration space moving some configuration is an available operation
+at every level and every intermediate time, the executability of that
+flow being an assumption not derived by configuration-level generation,
+as the phase intervention is an assumption on the substratum class and
+not a consequence of the finite states with the bijective dynamics (GR
+§3.3). The stated substratum dynamics with the observer's read and write
+access do not source that executability, the layers being available at
+time one and not at intermediate times, and the observer-level lift, in
+every formulation stated that lands in the operational interface,
+derives neither a non-monomial admissible operator nor the layer flow,
+the site-space wave-operator formulation being unresolved rather than
 excluded (GR §3.3). Bell is kept separate from that operational-lift
 residue: the response-complete deterministic layer retains measurement
 independence and requires ontic parameter dependence for quantum Bell
@@ -1824,14 +1846,15 @@ are indistinguishable.
 \textbf{Entanglement.} Two particles prepared together share a joint
 transition structure inherited from the trace-out, but Bell violation
 cannot be explained merely by calling that reduced law indivisible. At
-the response-complete deterministic level, measurement independence plus
+the response-complete deterministic level, with a \(\pm1\) outcome
+recorded at each wing in every run, measurement independence plus ontic
 parameter independence would force Bell factorization and CHSH \(\le2\).
 The framework therefore gives up \textbf{ontic parameter independence}:
 the microstate response of one wing may depend on the remote setting,
-while the averaged operational statistics remain no-signaling.
-Superdeterminism --- ontic measurement dependence --- is the alternative
-it records and declines. The stochastic indivisible construction's
-Tsirelson theorem remains a separate reduced-law result.
+with operational no-signaling required. Superdeterminism --- ontic
+measurement dependence --- is the alternative it records and declines.
+The stochastic indivisible construction's Tsirelson theorem remains a
+separate reduced-law result.
 
 \textbf{The measurement problem.} Measurement produces definite outcomes
 through the indivisible dynamics. When Wigner can't access his Friend's
@@ -2379,14 +2402,15 @@ consequence.
 
 \textbf{``Doesn't Bell's theorem rule out hidden variable theories?''}
 Bell's theorem applies directly to the deterministic completion. If its
-response-complete hidden state is measurement-independent and
-parameter-independent, the model is Bell-local and obeys
-\(|S_{\rm CHSH}|\le2\). The Bell mechanism is separate from temporal
-indivisibility: the framework retains measurement independence, gives up
-ontic parameter independence for Bell-violating substrata, and
-separately requires operational no-signaling. The \(2\sqrt2\) Tsirelson
-theorem belongs to the weaker stochastic causal-local construction, not
-to a Bell-local deterministic completion.
+response-complete hidden state is measurement-independent and ontically
+parameter-independent, and each wing records a \(\pm1\) outcome in every
+run, the model is Bell-local and obeys \(|S_{\mathrm{CHSH}}|\le2\). The
+Bell mechanism is separate from temporal indivisibility: the framework
+retains measurement independence, gives up ontic parameter independence
+for Bell-violating substrata, and separately requires operational
+no-signaling. The \(2\sqrt2\) Tsirelson theorem belongs to the weaker
+stochastic causal-local construction, not to a Bell-local deterministic
+completion.
 
 \textbf{``If everything is deterministic underneath, where does
 randomness come from?''} From ignorance. The total system is
@@ -2447,14 +2471,12 @@ mechanics and the gravitational sector as consequences of that
 structural setup. There is no extra spatial dimension as in
 Slagle-Preskill, and no fundamental stochasticity. The substratum is
 finite and deterministic; the observer's incomplete access to it is what
-produces the appearance of quantum behavior. Among emergent-QM programs
-the framework is distinguished by carrying twenty-two classified
-quantitative predictions to data (two parameter-free structural and five
-conditional structural) --- a comparable empirical record is not
-currently produced by the alternatives. The convergence on
-observer-essentiality from many independent directions is encouraging
-context; the framework's empirical record is what makes the case
-specifically for this realization.
+produces the appearance of quantum behavior. The framework carries
+twenty-two classified quantitative predictions to data (two
+parameter-free structural and five conditional structural). The
+framework does not reproduce the specific results of those programs: it
+computes neither the de Sitter partition-function phase nor a type II
+algebra, and whether its trace-out reproduces either result is open.
 
 \textbf{``How does this relate to string theory specifically?''} String
 theory is the dominant unification program in fundamental physics, with
@@ -2594,8 +2616,9 @@ order \(k\) exactly when history readback holds at that order ({[}Main
 §3.4{]}). Under the translation hypothesis (T), processes in the
 correspondence's class admit the compressed form of the representation;
 identifying one standard quantum theory for all coherent interventions
-and composites, the algorithm whose features follow, requires the
-operational-lifting and composition hypotheses of {[}Main §3.4{]}.
+and composites, the algorithm whose features follow, requires the five
+completion conditions of {[}Main §3.4{]}, on a finite carrier with
+complex matrix kinematics taken as given.
 
 Granted that identification, everything in QM is a feature of that
 algorithm, not a feature of the underlying reality. The wave function is
@@ -2604,11 +2627,20 @@ uses to track what it knows and what it doesn't. Complex amplitudes are
 the algorithm's arithmetic --- the specific number system the
 reconstruction requires. Interference is what happens when the algorithm
 combines two incomplete pathways and their bookkeeping entries partially
-cancel. Entanglement is the algorithm's encoding of correlations that
-were written into the hidden sector during preparation and haven't been
-read back yet. The Born rule is the algorithm's output format --- the
-way it converts its internal state into predictions the observer can
-check.
+cancel. Entanglement is the algorithm's encoding of the correlations
+that the shared preparation and the indivisible joint process carry
+between subsystems. Where those correlations violate a Bell inequality,
+they are not a record written at preparation and read out locally: given
+deterministic dynamics and a \(\pm1\) outcome in every run, a completion
+that keeps ontic parameter independence and measurement independence
+obeys \(|S_{\mathrm{CHSH}}|\le2\), so a completion reproducing quantum
+Bell correlations gives up at least one of the two. The framework gives
+up ontic parameter independence; whether the SM/GR substratum supplies
+that dependence, through preparation-indexed adjacency, while preserving
+operational no-signaling and its continuum-curvature limit is the open
+hypothesis H-Bell ({[}Main §3.3{]}). The Born rule is the algorithm's
+output format --- the way it converts its internal state into
+predictions the observer can check.
 
 None of these are properties of the deterministic substratum. In the
 substratum, there are no wave functions, no complex numbers, no
@@ -2951,24 +2983,27 @@ viewed at different scales or from different angles. The framework does
 not unify them by reducing them to a common material. It unifies them by
 showing they were never separate.
 
-\textbf{Dimensional selection and open bridges.} A4 assumes a finite
-periodic lattice with integer rank \(d\). The filters E5--E7
-(propagating gravity, stable matter and boundary-entropy concordance)
-select \(d = 3\) on the stated continuum branch {[}SM §3.2{]};
-renormalizability of the specified Yang--Mills coupling is a downstream
-consequence. The continuum-curvature identification remains open {[}SM
-§3.1{]}. The observer conditions are partly generic: for any connected
-coupling graph and proper visible subgraph, C1 holds and the realized
-process meets the C3 capacity floor, while C2 and C4 are explicit
-hypotheses {[}SM §2.1{]}. Reconstruction of the physical description
-from the finite pair (S, φ) also uses the site factorization, lattice,
-carrier and matter assumptions stated in the technical papers. Those
-physical bridges and the Standard Model parameter values remain separate
-obligations.
-
+\textbf{What remains.} The structural reading leaves little genuinely
+open. The spatial dimensionality \(d = 3\) is derived by three
+independent self-consistency filters (propagating gravity, stable
+matter, and the boundary entropy concordance), with renormalizability of
+the emergent Yang-Mills coupling as a downstream consequence rather than
+an independent filter. Background independence is achieved through
+state-dependent bijections, with the discrete Einstein equation
+identified as the Ollivier-Ricci curvature condition. The observer
+conditions are partly generic: for any connected coupling graph and
+proper visible subgraph, C1 holds and the realized process meets the C3
+capacity floor, while C2 and C4 are explicit hypotheses {[}SM §2.1{]}.
 The fundamental object is (S, φ) --- a finite set and a bijection. The
-proposed emergence of observers, spatial geometry and physical laws is
-conditional on the structural assumptions and physical bridges above.
+partition V, the dimension, and the laws of physics are derived from (S,
+φ) under A4, the filters E5--E7 and the hypotheses C2 and C4. What
+remains undetermined are the 18+ parameter values of the Standard Model,
+which depend on the specific bijection φ --- analogous to how Einstein's
+equations don't determine the mass of Jupiter.
+
+But the central claim stands: the fundamental object is (S, φ) --- a
+finite set and a bijection. The observer, the dimension, and the laws of
+physics are all emergent.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3013,12 +3048,11 @@ The factorization produces a specific structure: on a three-dimensional
 lattice, the staggered construction yields exactly 4 ``tastes'' ---
 independent species of fermions. These decompose as 1 + 3 under the
 cubic symmetry of the lattice: one singlet and one triplet. The triplet
-count equals the selected spatial dimension \(d = 3\). The E5--E7
-filters select that value within the assumed A4 periodic-lattice class,
-subject to the continuum qualifications {[}Substratum §3; SM §3.2{]}.
-This connects the candidate triplet count to the selected dimension; the
-interpretation as three physical generations retains H-spin' {[}SM
-§4.7{]}.
+count equals the spatial dimension \(d = 3\). Since \(d = 3\) is derived
+in \href{Substratum.md}{\texttt{Substratum}}, the three-generation
+structure of the Standard Model --- the fact that there are three copies
+of each type of quark and lepton --- is traced back to the
+dimensionality of space.
 
 Numerically, the singlet and triplet are not just distinguished by
 symmetry --- they have quantitatively different coupling strengths. The
@@ -3305,22 +3339,18 @@ The papers derive what (S, φ) \emph{produces}. But what kind of thing
 \hypertarget{storage-and-memory}{%
 \subsubsection{Storage and memory}\label{storage-and-memory}}
 
-S is the set of all distinguishable states. Its physical meaning is
-\emph{finite capacity}: there are \textbar S\textbar{} configurations
-that can be told apart, carrying log₂\textbar S\textbar{} bits of
-information. The finiteness is not a regularization --- it's
-load-bearing. Finite sets recur (φ\^{}N = id), recurrence, together with
-a non-permutation rooted map, produces P-indivisibility, and the
-imported correspondence supplies the quantum representation --- for its
-whole class, with P-indivisibility fixing whether the represented
-dynamics is nontrivially indivisible. Strictly, only the visible sector
-and boundary layer need to be finite --- the deep hidden sector may be
-infinite, because the readback lemma (Main, §2.3) establishes
-conditional memory without recurrence (P-indivisibility, which the
-recurrence theorem supplies, uses the finiteness of the whole state
-space), and the boundary-only dependence lemma (GR, §3.2) ensures the
-deep sector's contribution is suppressed by
-\(\tau_S/\tau_B \sim 10^{-32}\).
+S is the finite set of distinguishable configurations in the exact OI
+model, with capacity log₂\textbar S\textbar{} bits. A bijection on this
+finite set has an exact return, φ\^{}N = id. An identity return together
+with an earlier non-permutation rooted map gives the recurrence-cycle
+P-indivisibility result. The finite-law representation theorem is
+independent of this diagnostic: every finite observable law admits a
+fixed-basis unitary/Born representation {[}Main §3.4{]}. A bound on the
+visible sector and boundary layer does not by itself establish
+total-carrier finiteness. Infinite extensions require specified
+normalized states or measures and dynamics; a boundary-only
+leading-order approximation is not an exact infinite-extension
+construction.
 
 φ is a bijection: every state has exactly one predecessor and exactly
 one successor. Its physical meaning is \emph{perfect memory}.
@@ -3369,46 +3399,43 @@ unreadable storage. The Bekenstein-Hawking entropy is the storage
 capacity of the partition boundary. ℏ is the conversion factor between
 storage geometry and read-write statistics.
 
-An immediate objection: ``Memory made of \emph{what}?'' In everyday
-life, memory requires a physical substrate --- silicon, magnetic
-domains, neurons. The answer: (S, φ) is a \emph{complete description} of
-reality --- it determines every observable, with nothing left over that
-any measurement could detect. S is the totality of distinguishable
-configurations; φ is the structure of dynamical dependence. Space, time,
-and matter are all derived from (S, φ), so they can't appear in its
-definition without circularity. Whether (S, φ) \emph{is} reality or
-\emph{describes} reality is a question the framework proves to be gauge
---- undecidable by any experiment. The ``memory'' is a complete
-mathematical description from which everything observable is derived.
-Asking what it's made of presupposes a deeper level that no measurement
-can access --- like asking what the number 7 is made of.
+The question of what implements the memory is separate from its
+structural description. \((S,\varphi)\) specifies states and dynamics.
+Two implementations that induce identical data at a specified
+observation interface cannot be distinguished by a decision based only
+on those data. An independently prepared, normalized, exactly decoupled
+finite ancillary factor leaves the original reduced channel unchanged
+{[}Substratum Theorem 24(iii){]}. This does not establish that every
+deeper implementation is observationally redundant, or that a sector
+which later couples to the observer has no physical effect. A complete
+observable-to-substratum classification remains open; the ancillary
+invariance does not establish that the explanatory regress terminates.
 
 \hypertarget{computation-from-within}{%
 \subsubsection{Computation from within}\label{computation-from-within}}
 
-A Turing machine has a tape (storage), a head (read/write access), and a
-transition function (update rule). Under effective finiteness --- where
-the visible sector and boundary layer are finite but the deep hidden
-sector may be infinite (Main, §4.3) --- the correspondence between (S,
-φ, V) and a reversible Turing machine is not an analogy. It is
-structural.
+Storage, partial read/write access and reversible update connect the
+vocabulary of (S, φ, V) with reversible computation. The exact model
+used for the recurrence results is finite. A comparison with an
+unbounded tape requires additional state, measure and dynamical
+specifications; effective boundary-only dependence alone does not
+establish it.
 
-The visible sector V is the head: a finite-state subsystem with bounded
-local coupling. The hidden sector H is the tape: a memory register that
-stores correlations written by past interactions. φ is a reversible
-transition function: no erasure, no halting, no information loss. The
-conditions C1--C4 characterize this architecture: C1 (coupling) is the
-read/write mechanism, and C4 (readback) closes the loop:
-history-sensitive hidden mediation, realized cosmologically as a
-read-write cycle. C2 (memory persistence) says the tape retains its
-contents between head operations. C3 (capacity) says the tape is large
-enough to store the full interaction history.
+The visible sector V is the access window. The hidden sector H stores
+correlations written by previous interactions, and φ updates the joint
+configuration reversibly. C1 supplies coupling, C2 the record
+persistence needed in the specified regime, C3 sufficient capacity for
+the predictive information used at readback, and C4 history readback.
+These conditions concern the realized law and its accessible horizon,
+not an assertion that a finite tape retains a literal copy of an
+unbounded history.
 
-So what's different? Not the finiteness --- the tape can be infinite.
-Not the reversibility --- that's a specialization (reversible Turing
-machines are a well-studied subclass, going back to Bennett and
-Fredkin-Toffoli). The one genuine difference is the \emph{question
-asked}.
+The finite closed OI system and an idealized machine with an unbounded
+tape are different models. Reversible machines illustrate lossless
+update, but neither that analogy nor proper embedding proves a universal
+prediction or hidden-state-identification impossibility. The question
+here is which finite law the specified observer records and which latent
+distinctions that record retains.
 
 Turing asked: what can a machine compute for an external observer who
 feeds in input and reads output?
@@ -3423,9 +3450,11 @@ marginalizing over unread tape cells. With readback those statistics are
 non-Markovian. The fixed-basis Hilbert/unitary/Born-form description is
 exact (\(S \iff D \iff Q_{\mathrm{fb}}\)). The stronger statement that
 superposition, entanglement, and arbitrary coherent instruments all
-belong to one standard local quantum operational theory is the separate
-coherent/composite lifting problem, not something the tape analogy
-proves by itself.
+belong to one standard quantum operational theory holds, on a finite
+carrier with complex matrix kinematics taken as given, exactly under
+five further completion conditions (Main §3.4; GR §3.3); which of them
+the substratum supplies is open, and the tape analogy does not prove it
+by itself.
 
 People ask: ``Is the universe a computer?'' The framework's answer: the
 universe is a reversible computation. And physics --- quantum mechanics,
@@ -3533,41 +3562,35 @@ state. The emergent description isn't random --- it has a precise
 structure (unitary quantum mechanics with the Schrödinger equation, Born
 rule, and Bell violations).
 
-The precise OI analog of the halting problem is: \emph{can the observer
-determine the hidden-sector state h?} The hidden state has a definite
-value at every moment --- the total system is deterministic. Different
-hidden states send the same visible state to different futures (the
-particle goes left or right, the spin is measured up or down). But the
-observer cannot determine the hidden degrees of freedom beyond causal
-reach, and transition probabilities are averages over h. The structural
-consequence is quantum mechanics --- just as the structural consequence
-of the halting problem is the architecture of computability theory.
+In a known finite model, hidden-state identification depends on the
+record. If \(F_r\) is the nonempty set of microscopic states compatible
+with the retained record \(r\), a quantity is determined by that record
+exactly when it is constant on \(F_r\) {[}Substratum Proposition
+24.5{]}. When it varies on the fibre, the record alone cannot decide its
+value. When it is constant, even a hidden coordinate or a future visible
+value can be identifiable. This is distinct from the Turing halting
+problem and from the universal finite-law representation theorem.
 
-The framework also identifies a distinct class of inaccessible
-quantities: the deep-sector cardinality \textbar C\_D\textbar{} and,
-under the alphabet-size hypothesis {[}SM §2.7{]}, the alphabet size q.
-These are not undecidable --- they are \emph{gauge}. Different values of
-\textbar C\_D\textbar{} produce the same transition data at leading
-order on accessible timescales, and under the hypothesis different
-values of q produce identical observables, so within those data there is
-no fact of the matter to be inaccessible. The hidden degrees of freedom
-beyond causal reach are inaccessible: they have definite values the
-observer cannot reach. The cardinality \textbar C\_D\textbar{} is gauge:
-in the accessible-timescale data there is nothing there to reach.
+A fixed observation interface may identify descriptions that differ in
+hidden labels or ancillary cardinality. Theorem 24(iii) of
+{[}Substratum{]} gives an exact example: a finite independently
+prepared, normalized factor with exactly decoupled product dynamics
+leaves the original coherent channel unchanged. A slowly coupled deep
+sector instead preserves only the leading-order law on accessible
+timescales. Alphabet-size changes retain the separate hypothesis of
+{[}SM §2.7{]}. These comparisons concern specified data; they do not
+show that every inaccessible hidden property lacks a fact of the matter
+or a possible later physical effect.
 
-The common thread: a system with finite resources tries to completely
-model something it's part of, and the structural impossibility of doing
-so determines the \emph{form} of what it produces instead. The
-limitation and the law are the same object viewed from two sides. The
-Turing connection is direct: the observer is the head of a reversible
-computation; the halting problem (the head cannot determine the tape's
-global state) and the QM emergence theorem (the head's finite read-write
-statistics, Markov laws included, have an exact fixed-basis unitary/Born
-representation on every finite horizon, and carry positive conditional
-memory \(I(X_{<k}; X_{k+1} \mid X_k)\) at an accessible order \(k\)
-exactly when history readback holds at that order) are two consequences
-of the same structural constraint --- finite self-referential access to
-a lossless computation.
+The reversible-computation comparison concerns a finite system observed
+through partial access. Its exact results have separate hypotheses: the
+finite observable law has a fixed-basis unitary/Born representation, and
+history readback gives conditional memory at the accessible order stated
+in {[}Main §3.4{]}. A finite observer's record can leave model facts
+unresolved, as the record-fibre criterion specifies. A further
+computational limitation requires a model-specific resource bound;
+neither the representation theorem nor the observer's proper embedding
+supplies a general inability to predict its own next state.
 
 Gödel and Turing are usually read as negative results --- limits on
 knowledge. The framework recasts the physical instance as
@@ -3575,9 +3598,9 @@ knowledge. The framework recasts the physical instance as
 stochastic/reversible/fixed-basis quantum representation equivalence,
 together with the memory-bearing sector selected by readback. Calling
 the resulting description \textbf{full operational quantum mechanics}
-requires the additional coherent/composite lifting and locality
-conditions stated above; the stronger uniqueness claim is not being
-smuggled into the analogy.
+requires, within complex matrix kinematics taken as given, the five
+completion conditions and the locality conditions stated above; the
+stronger uniqueness claim is not being smuggled into the analogy.
 
 \hypertarget{why-does-mathematics-describe-physics}{%
 \subsubsection{Why does mathematics describe
@@ -3608,8 +3631,12 @@ and that finite observable law has an exact fixed-basis quantum
 representation. Not because QM was designed to describe nature, and not
 because nature is mysteriously mathematical, but because the structural
 constraints of embedded observation determine this representation class.
-The step from that exact representation class to the unique full local
-operational theory is the explicitly separated lifting problem.
+The full operational theory is a separate question from that exact
+representation class: on a finite carrier with complex matrix kinematics
+taken as given, an operational theory's available instruments on the
+carrier and its composites are the standard quantum instruments exactly
+when five completion conditions hold, and which of them the substratum
+supplies is open.
 
 The trace-out is the mechanism. It takes the complete mathematical
 structure --- the full evolution matrix with all its eigenvalues, Jordan
@@ -3849,11 +3876,15 @@ trivial-ancilla case) \\
 §3.1: Phase-locking & Under H-BG and the stated genericity hypotheses,
 Hamiltonian fixed up to shift, rephasing, and the antiunitary conjugate
 & Conditional classification and Fourier analysis \\
-§3.2: Bell analysis & Deterministic screened graph-local completion is
-Bell-local; quantum CHSH therefore requires ontic parameter dependence
-with operational no-signaling & local deterministic completion
-\(\Rightarrow S_{\rm CHSH}\le 2\); stochastic causal-local class has the
-separate Tsirelson bound; bare/global OI has PR negative control \\
+§3.2: Bell analysis & Deterministic screened graph-local completion with
+a \(\pm1\) outcome in every run is Bell-local; quantum CHSH requires
+ontic parameter dependence (the branch taken, with operational
+no-signaling; whether preparation-indexed adjacency supplies it with
+no-signaling and the continuum-curvature limit is the open hypothesis
+H-Bell) or measurement dependence & local deterministic completion
+\(\Rightarrow S_{\mathrm{CHSH}}\le 2\); stochastic causal-local class
+has the separate Tsirelson bound; bare/global OI has PR negative
+control \\
 §3.3: Necessity of C1 & Accessible memory requires coupling & No
 coupling → permutation → P-divisible \\
 §3.3: Necessity of C2 & Physical memory requires record persistence ---
@@ -3986,4 +4017,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 816b9ea47c650e81db8c955beb399dc7a1e00ecdc0e9df75bc2993552b870cf1
+% source-sha256: 447582bcf1680b2c1b0e0a796a3e4ef9818deac90a7b41a6aef73b4b8b1a13e9

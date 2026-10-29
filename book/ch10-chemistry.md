@@ -66,7 +66,7 @@ The framework's prediction is therefore: any chemistry-supporting universe with 
 On the selected three-dimensional continuum branch, and subject to the stated spin, statistics and atomic assumptions, these hybridization modes supply the molecular geometries used in the biological discussion of Chapters 11 and 12.
 
 **Step 5: The structural chain.** The first arrow below inherits A4, E5–E7 and the continuum conditions of Chapter 5 §5.3. The remaining steps use the stated spin, statistics and atomic assumptions:
-$$(S, \varphi) \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\mathrm{SO}(3)} \text{orbital algebra} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}.$$
+$(S, \varphi) \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\mathrm{SO}(3)} \text{orbital algebra} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}.$
 The dimensional selection consumes the physical inputs E5–E7 within A4's assumed lattice class. The downstream orbital and bonding relations are conditional on that selected continuum branch and the stated spin, statistics and atomic assumptions.
 
 The empirical confirmation of this chain is *concordance*: the framework's derivation reproduces the periodic table and the geometry of carbon's bonding, with no deviations from standard chemistry at currently accessible energy scales. The framework does not add new chemistry; it provides structural foundations for the chemistry that has been empirically established over the past century. The value of the framework's content here is the structural account of why chemistry has the architecture it does.
