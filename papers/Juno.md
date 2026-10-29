@@ -3,13 +3,13 @@
 **Author:** Alex Maybaum  
 **Date:** July 2026
 
----
+***
 
 ## Abstract
 
 Discrete flavor symmetries yield characteristic correlations among the PMNS mixing angles, with the trimaximal TM1 and TM2 sum rules serving as benchmark targets for the current generation of reactor experiments. We present a distinct pattern arising from octahedral (cubic-group) flavor structure: tri-bimaximal mixing at zeroth order, corrected at O(λ²) by a perturbation whose scale λ = 1/(π√2) = 0.22508 is fixed by the Brillouin-zone geometry of an underlying lattice flavor construction [18] and coincides with the observed Cabibbo angle to 0.04%. The resulting angles are sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30798, sin²θ₁₃ = 4/(18π²) = 0.02252, and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066, with no parameter fitted to any mixing angle; the system is closed by one Wilson-coefficient relation (Condition 2), stated as an explicit condition whose derivation from the underlying construction remains open. The pattern agrees with the post-JUNO global fit sin²θ₁₂ = 0.3085 ± 0.0073 at 0.07σ — a retrodiction, the derivation postdating JUNO's first results (November 2025), with no claim of temporal priority — and with NuFIT 6.0 within 1.1σ on the remaining angles. The forward content is twofold: the exact sum rule 2 sin²θ₁₂ + sin²θ₂₃ = 7/6 (currently satisfied at 0.6σ), which discriminates this pattern from the TM1 and TM2 patterns at JUNO precision, and the exposure of the exact value sin²θ₁₂ = 0.30798 to JUNO's design-lifetime precision of ±0.0014 — a ~4σ discriminator if the current central value holds.
 
----
+***
 
 ## 1. Introduction
 
