@@ -137,10 +137,6 @@
         {
           "file": "papers/SM.md",
           "anchor": "`theorem_19`"
-        },
-        {
-          "file": "papers/Structure.md",
-          "anchor": "`StinespringUniqueness.proposition_9_7b`"
         }
       ],
       "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D, for the realization from an initial law that may correlate the hidden and visible coordinates; the independence of the hidden prior from the visible initial state is not formalized), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Main 1.5's Layer-1 summary carries its pointers inline, in the summary paragraph itself (S_imp_D, D_imp_Qfb, Qfb_imp_S, finite_horizon_equivalence; pushforward_identity, distinguishability_floor). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers. Structure Proposition 9.7b now explicitly states the nonzero finite-dimensional scope of StinespringUniqueness.proposition_9_7b; the general separable dense-span proof is preserved separately as Proposition 9.7c and is not claimed kernel-proved. The fixed-channel scope does not classify full unitary extensions or OI multi-time dynamics."
@@ -1546,14 +1542,10 @@
       "manuscript": [
         {
           "file": "papers/SM.md",
-          "anchor": "first-order operator with arbitrary onsite coefficients"
-        },
-        {
-          "file": "book/ch05-gauge-structure.md",
-          "anchor": "arbitrary site-dependent onsite coefficients"
+          "anchor": "`scalar_center_chiral_iff` in `OIBridge/ChiralCenterRecovery.lean`"
         }
       ],
-      "note": "Complete grading algebra under no additive 2-torsion: arbitrary even perturbations, arbitrary onsite coefficients, and uniform coefficient uniqueness when both parity sectors occur. The supersession replaces center_anticommutator as an insufficient publication-facing biconditional witness; that old identity remains valid and retained. No identification with the second-order update, physical spin or weak chirality is asserted."
+      "note": "SM Theorem 3 at its proved scope: site-independent coefficients m*eps + p0, no additive 2-torsion, both parity sectors present (scalar_center_chiral_iff). The supersession replaces center_anticommutator, whose identity alone does not identify the coefficients."
     },
     {
       "name": "known-model nonempty record-fibre state identification (P24.5 partial formalization)",

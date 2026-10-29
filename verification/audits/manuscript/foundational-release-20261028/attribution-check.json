@@ -1,0 +1,52 @@
+{
+  "base_head": "20f818f072036ea99fc4588fd2e3116dec898393",
+  "scope": "classical attribution and bibliography only; no mathematical strengthening",
+  "unchanged_statement_and_proof_sha256": {
+    "24.2": "0b7e95c7d6f2474882e45b96331765dc53ef2853583ef754a353bf303690ea19",
+    "24.3": "ffb7adfeff9842f45fcf19691fa577ba8ac3015b9f5bd435022c03a955851f98"
+  },
+  "canonical_statement_count": 134,
+  "ledger_lean_registry_workflows_unchanged": true,
+  "new_reference_ids": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "source_verification": {
+    "Wiegmann": "https://doi.org/10.1017/S1446788700026422",
+    "tuple_trace_criterion": "https://arxiv.org/abs/1701.08826",
+    "weighted_automata_historical_lineage": "https://www.jmlr.org/papers/v16/thon15a.html"
+  },
+  "publication": {
+    "pages": 54,
+    "median_characters_per_page": 3086.5,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "a8daee0844982283d99eef518111a2944b19046ba8b5c1a0f475381981e2f651",
+    "tex_sha256": "f847dcccd78843d8ec13b6f0936ca5476c047bac53b25b3e18b039adf131c66d",
+    "pdf_sha256": "ba0e814e2456c036fb27854b181d4dc6ab7ee9d166b5ec0bd0d150804c4c7a82",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Specht's trace criterion": 28,
+      "originates in": 29,
+      "Necessary and sufficient conditions for unitary similarity": 53,
+      "Matrices de Hankel": 54
+    },
+    "rendered_pages": [
+      28,
+      29,
+      53,
+      54
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "local_checks": {
+    "coverage": "PASS:134 canonical statements",
+    "lean_manuscript_census": "PASS",
+    "whitespace": "PASS"
+  },
+  "previous_acceptances_not_broadened": true,
+  "merge_authorized": false
+}
