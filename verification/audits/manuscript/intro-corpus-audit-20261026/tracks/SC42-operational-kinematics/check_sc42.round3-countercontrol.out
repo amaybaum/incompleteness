@@ -1,0 +1,114 @@
+[1] FiniteOperationalTheory fields vs GR §3.3 setting
+  ok    kernel fields ['avail', 'availExt', 'avail_id', 'avail_coarse', 'availExt_coarse', 'availExt_bind', 'prepAvail', 'prepAvail_uniform', 'prepAvail_post', 'readout', 'readout_avail', 'readout_local', 'prepAvail_discard'] == mapped fields (none added, none omitted)
+  ok    field avail stated in the setting
+  ok    field availExt stated in the setting
+  ok    field avail_id stated in the setting
+  ok    field avail_coarse stated in the setting
+  ok    field availExt_coarse stated in the setting
+  ok    field availExt_bind stated in the setting
+  ok    field prepAvail stated in the setting
+  ok    field prepAvail_uniform stated in the setting
+  ok    field prepAvail_post stated in the setting
+  ok    field readout stated in the setting
+  ok    field readout_avail stated in the setting
+  ok    field readout_local stated in the setting
+  ok    field prepAvail_discard stated in the setting
+  ok    kinematics clause: 'The setting takes complex matrix kinematics as given'
+  ok    kinematics clause: 'M_A(\\mathbb{C})'
+  ok    kinematics clause: 'A derivation of this kinematics'
+  ok    kinematics clause: 'is open'
+  ok    kernel anchors cited in the setting
+  ok    kernel (i) quantifies over availExt (ancilla levels) only
+  ok    systemLoose makes every system family available (amplifier X -> 2X included)
+  ok    GR (i) stated at every ancilla level
+  ok    GR: no premise beyond its stated setting
+[2] theorem statement
+  ok    GR theorem line identical at base and head
+[3] re-grep
+  ok    stale 'delivers QM on a finite-dimensional': 0
+  ok    stale 'quantum instruments open)': 0
+  ok    stale 'Level three (open)': 0
+  ok    stale 'operational-lifting problem': 0
+  ok    stale 'remains open (§19.2.12)': 0
+  ok    stale 'instrument algebra still open': 0
+  ok    stale 'residual common coherent/composite lift': 0
+  ok    stale 'on every ancilla level are exactly': 0
+  ok    stale 'lifting problem': 0
+  ok    stale 'operational lifting': 0
+  ok    stale 'operational-lifting': 0
+  ok    stale 'lifting debt': 0
+  ok    stale 'lifting result': 0
+  ok    stale 'lifting frontier': 0
+  ok    stale 'active-lifting': 0
+  ok    stale 'open coherent operational lift': 0
+  ok    stale 'stated as open (§3.2': 0
+  ok    stale 'states as open (§3.2': 0
+  ok    stale 'stated as open ([Main §3.2': 0
+  ok    stale 'with no external premise': 0
+  ok    stale 'one-step coherence for the linear lattice realization, and': 0
+  FAIL  stale 'the fixed-basis representation extends to the standard noncommuting': 2
+  FAIL  stale 'Whether they do is characterized': 1
+  FAIL  stale 'full operational theory of instruments on that space': 1
+  FAIL  stale 'The step from that exact representation class': 1
+  FAIL  stale 'full coherent observable/instrument structure holds': 1
+  FAIL  stale 'instrument and composite structure of standard quantum mechanics holds': 2
+  FAIL  stale 'tensor/composite instrument structure is part of the coherent operational lift': 1
+        kinematics mentions papers/GR.md: 1
+        kinematics mentions papers/Main.md: 14
+        kinematics mentions papers/Methodology.md: 1
+        kinematics mentions papers/Explainer.md: 6
+        kinematics mentions papers/Structure.md: 1
+        kinematics mentions papers/Substratum.md: 2
+        kinematics mentions papers/SM.md: 0
+        kinematics mentions book/preface.md: 1
+        kinematics mentions book/ch00-introduction.md: 1
+        kinematics mentions book/ch01-observation.md: 3
+        kinematics mentions book/ch02-substratum.md: 0
+        kinematics mentions book/ch03-structural-realism.md: 1
+        kinematics mentions book/ch04-methodology.md: 0
+        kinematics mentions book/ch09-universality.md: 1
+        kinematics mentions book/ch14-quantum-computing.md: 0
+        kinematics mentions book/ch18-beyond.md: 0
+        kinematics mentions book/ch19-open-problems.md: 2
+        kinematics mentions book/glossary.md: 2
+        kinematics mentions book/appendix-b-derivations.md: 0
+        kinematics mentions book/appendix-c-objections.md: 0
+        kinematics mentions book/readers-guide.md: 0
+        kinematics mentions book/The-Incompleteness-of-Observation-FULL.md: 11
+  ok    kinematics mentions at base: 0
+  FAIL  kinematics mention counts match the site table (61)
+[3b] pinned texts and witnesses
+  FAIL  pinned in papers/Main.md: The operational-completion characterization ([GR §3.3]) take...
+  FAIL  pinned in book/glossary.md: What remains is operational: on a finite carrier, within com...
+  FAIL  pinned in papers/GR.md: whether an operational theory's available instruments on a f...
+  FAIL  pinned in papers/Explainer.md: The full operational theory is a separate question from that...
+  FAIL  pinned in papers/Explainer.md: takes the tensor-product composite as part of the complex ma...
+  FAIL  pinned in papers/Structure.md: whether an operational theory's available instruments on a f...
+  FAIL  pinned in book/preface.md: within complex matrix kinematics taken as given, the tensor-...
+  FAIL  glossary and preface pins mirrored in FULL
+  ok    witness conditions => exact: exactAll_of_physical_general (GeneralCarrier.lean:93)
+  ok    witness exact => conditions: physical_of_exactAll (PhysicalCharacterization.lean:301)
+  ok    exactness is about the available families (T.avail), not a representation of a law
+[4] book/FULL mirror parity
+  ok    chapter line mirrored in FULL: For spatially separated systems, the coupling graph supplies...
+  ok    chapter line mirrored in FULL: The Born rule in the fixed-basis representation is therefore...
+  ok    chapter line mirrored in FULL: **Operational boundary.** These theorems do not prove that t...
+  ok    chapter line mirrored in FULL: The remaining qualification is localized. To identify the co...
+  ok    chapter line mirrored in FULL: The quantum input to this reconstruction should be read in t...
+  ok    chapter line mirrored in FULL: The observer-level statistics of this read-write cycle have ...
+  ok    chapter line mirrored in FULL: The framework's evasion is structural, and it is worth stati...
+  ok    chapter line mirrored in FULL: The framework's PBR response must be stated conditionally. P...
+  ok    chapter line mirrored in FULL: **The characteristic trait.** Schrödinger called entanglemen...
+  ok    chapter line mirrored in FULL: Fourth, verify that the framework's predictions match quantu...
+  ok    chapter line mirrored in FULL: *Chapter 1 (Quantum Mechanics from Embedded Observation).* T...
+  ok    chapter line mirrored in FULL: **Operational closure (a model hypothesis).** The computatio...
+  ok    chapter line mirrored in FULL: The standard dilation picture motivates the model choice — m...
+  ok    chapter line mirrored in FULL: The inventory has two parts. Section 19.2 develops the probl...
+  ok    chapter line mirrored in FULL: **Framework status.** Split — fixed-basis representation set...
+  ok    chapter line mirrored in FULL: **Born rule.** The quantum-mechanical prescription that the ...
+  ok    chapter line mirrored in FULL: **Operational gluing theorem.** The framework's finite-resol...
+  ok    chapter line mirrored in FULL: The qualification is equally important. Universal Hilbert-sp...
+[5] added-text scan
+        scanned 349 added text chunk(s)
+  ok    added-text scan: 0 hit(s)
+check_sc42: FAIL (16 failure(s))
