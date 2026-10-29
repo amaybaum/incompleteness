@@ -18,6 +18,7 @@
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.Averaging
+import OIBridge.TrajectoryMemory
 import OIBridge.ChiralCenterRecovery
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
