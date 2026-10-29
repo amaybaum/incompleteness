@@ -284,7 +284,7 @@ jobs:
           set -euo pipefail
           git fetch --no-tags --depth=1 origin ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf
           record="verification/audits/manuscript/bell-operational-reconciliation-20261029"
-          python3 -I -B "$record/check_sc42_integration.py" > "$RUNNER_TEMP/sc42-integration-normal.json"
+          python3 -I -B "$record/check_sc42_integration.py" --verbose > "$RUNNER_TEMP/sc42-integration-normal.json" || { cat "$RUNNER_TEMP/sc42-integration-normal.json"; exit 1; }
           python3 -I -O -B "$record/check_sc42_integration.py" > "$RUNNER_TEMP/sc42-integration-optimized.json"
           cmp "$RUNNER_TEMP/sc42-integration-normal.json" "$RUNNER_TEMP/sc42-integration-optimized.json"
           cmp "$RUNNER_TEMP/sc42-integration-normal.json" "$record/sc42-integration-result.json"
