@@ -1,3 +1,25 @@
+# Integration-review correction checkpoint
+
+Current source work answers review #1000 comment 6497997935, forward from
+`4b49669a06cb010dc60b541632d9a1edf1aed09b`. It narrows the complete no-go
+summary chain in Methodology and the book, supplies a concrete §15 comparison
+using the Bell ceiling and operational-completion theorem, distinguishes required
+from achieved physical no-signaling, and restores the entanglement mechanism
+proposal hedge. No unsupported prior-design chronology is asserted.
+
+**WIP / UNVERIFIED:** generated publications are stale at this source checkpoint.
+A successor SC-42 integration checker, annotated site table, must-fail controls
+and ordinary core-B CI replay are in progress. Historical SC39/SC42 scripts and
+results remain unchanged. This checkpoint does not inherit source acceptance
+from the earlier candidate; independent review and fresh final-head CI remain.
+The Main summary stays SUM; its new fingerprint is `d523a2d67d4e4451`.
+No change to #918, #998, another writer's branch or any proof grade is authorized.
+
+The following record describes the earlier author candidate and remains
+provenance; its checker failures are not claimed resolved by the source edits.
+
+***
+
 # Bell and operational-completion source reconciliation
 
 Base: main `ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf`.
