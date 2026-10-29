@@ -1,0 +1,432 @@
+{
+  "schema": "sc42-integration-sites-v1",
+  "historical_checker_blob": "fe433673a6c007b9436a0796d496c7f34c893362",
+  "basis": "Original SC42 scope-restatement table, with two intentionally added Methodology premises: the concrete Bell/completion comparison and its separate-assumption conclusion. Every counted paragraph is anchored explicitly.",
+  "files": {
+    "papers/GR.md": {
+      "expected_mentions": 3,
+      "sites": [
+        {
+          "anchor": "**Classical microreversibility already gives the classical half.** With $M_i$ the shell microstates compatible with visible macrostate $i$, $N_i=|M_i|$ and $N_{ij}=|\\{x\\in M_i:\\var",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**The operational-completion characterization.** The classification above is a uniqueness statement conditional on existence. The existence side — which operational theories genera",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**From finite-dimensional QM to QFT.** Part I delivers an exact fixed-basis unitary/Born representation of the observer's finite-horizon law on a finite-dimensional Hilbert space; ",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "papers/Main.md": {
+      "expected_mentions": 17,
+      "sites": [
+        {
+          "anchor": "**Theorem statement.** The claims divide into three exact layers and one explicitly conditional extension. **(1) Representation equivalence:** on every finite accessible horizon, t",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "that is $S \\iff D$, Markov laws included, so the existence of a realization does not distinguish non-Markovian laws (kernel: `S_imp_D` for $\\subseteq$; `D_imp_Qfb` with `Qfb_imp_S`",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "So the obstruction above is priced rather than fatal: total dimension $n^2$ suffices at a single step, within the source's $\\leq n^3$ bound for the full process family. Representab",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Scope of the correspondence (what it does and does not deliver).** Because the compressed-representation clause rests on this external result — the equivalence (ii) $\\iff$ (iii) ",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The Barandes route is more general (any finite-configuration member of the source's class); the Stinespring route requires only textbook results [15, 16] and delivers additional st",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**An independent necessity statement.** Both routes above are constructive: they exhibit quantum mechanics as a description of the marginalized process. **Operational-reconstructio",
+          "mentions": 2,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*Remark (what this equivalence does and does not say).* The theorem says the three classes **coincide** at the level of finite-horizon fixed-basis observable statistics. A Born-for",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*Remark (the operational-extension boundary).* The exact finite representation theorem and the finite-substratum obstruction answer different questions. At fixed observable horizon",
+          "mentions": 2,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*Remark (what the gluing theorem does and does not deliver).* At finite resolution it crosses most of the gap between $Q_{\\mathrm{fb}}$ and operational quantum experiments: incompa",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The operational-completion theorem also admits a physically layered formulation. Keeping the original OI core unchanged, define quantum-complete OI (OI⁺) by adding well-formedness ",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*Corollary (finite-test density of deterministic realizations in operational quantum theory).* *Along any $K_n \\to \\infty$, $\\varepsilon_n \\to 0$, the quantum-shadow realizations $",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "At the level of finite-horizon fixed-basis observable laws, embedded observation and unitary Born-rule representation are not merely *compatible* — they are mathematically *equival",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*Remark (scope: representability, not selection of the relating evolution).* The equivalence $S \\iff D \\iff Q_{\\mathrm{fb}}$ is a representability theorem at the finite observable-",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*(iii) State update, measurement, and multi-time predictions.* Projective measurement in the emergent description corresponds to conditioning on a visible-sector outcome and re-mar",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "Accordingly, the phrase *equivalence of quantum mechanics and embedded observation* has a precise theorem-level meaning: **exact bidirectional equivalence of finite observable stoc",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "papers/Methodology.md": {
+      "expected_mentions": 3,
+      "sites": [
+        {
+          "anchor": "One status distinction inside the organized physics is worth stating here, because the parts are easy to run together. On the bridge between embedded observation and quantum mechan",
+          "mentions": 1,
+          "role": "Original SC42 overview: the three-status summary retains the assumed kinematics and open physical sourcing."
+        },
+        {
+          "anchor": "Two results show the distinction. The deterministic Bell ceiling gives $|S_{\\mathrm{CHSH}}|\\le2$ under the stated local-response and setting-independence premises, even though the ",
+          "mentions": 1,
+          "role": "New §15 substantive comparison: Bell ceiling and operational completion have different additional premises."
+        },
+        {
+          "anchor": "The Bell and Frauchiger–Renner discussions are developed in Main and summarized here; the Kochen–Specker and PBR discussions in Section 14 remain conditional on their separately st",
+          "mentions": 1,
+          "role": "Earlier integration §15 conclusion: operational algebra/tensor kinematics are assumptions, not fixed-basis consequences."
+        }
+      ]
+    },
+    "papers/Explainer.md": {
+      "expected_mentions": 8,
+      "sites": [
+        {
+          "anchor": "That's it. The precise claim is layered. At the finite observable-law level, the resulting stochastic law has an exact fixed-basis Hilbert/unitary/Born-form representation ($S \\iff",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**What \"unitarily evolving QM\" means precisely.** At the finite observable-law layer the framework gives an exact fixed-basis Hilbert/unitary/Born representation: $S \\iff D \\iff Q_",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**The bridge therefore has three statuses, and they are worth stating together.** Finite observable-law representability is **settled**: every finite-horizon law has the fixed-basi",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*A note on what is proved versus imported, to keep the claim honest.* The exact finite-law representation is internal: every finite stochastic law has a reversible deterministic re",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "An observer inside the universe receives incomplete data — the visible sector only. On every finite horizon those statistics, Markov laws included, have an exact fixed-basis quantu",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "At the finite observable-law layer, the answer is an exact quantum **representation**. The head cannot access the tape's global state. It sees only local statistics — transition pr",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. What is mathematically rigid here is the f",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The mathematical structure is (S, φ) — a finite set and a bijection. An observer embedded in that structure, seeing only part of it through the partition V, produces a stochastic d",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "papers/Structure.md": {
+      "expected_mentions": 1,
+      "sites": [
+        {
+          "anchor": "**OI's framing.** At the finite observable-law layer, OI supplies an exact fixed-basis Born-form representation rather than a parameter-free derivation of the quadratic probability",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "papers/Substratum.md": {
+      "expected_mentions": 2,
+      "sites": [
+        {
+          "anchor": "Quantum mechanics and general relativity are conventionally treated as two fundamental theories awaiting unification. This paper develops the alternative that they are two projecti",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Visible-sector projection.** At the level of the embedded observer's epistemic access, the trace-out over the hidden sector produces the exact finite observable-law correspondenc",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "papers/SM.md": {
+      "expected_mentions": 0,
+      "sites": []
+    },
+    "book/preface.md": {
+      "expected_mentions": 1,
+      "sites": [
+        {
+          "anchor": "The qualification is equally important. Universal Hilbert-space representability is not by itself a uniqueness theorem for the whole operational theory of quantum mechanics. Finite",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch00-introduction.md": {
+      "expected_mentions": 1,
+      "sites": [
+        {
+          "anchor": "For spatially separated systems, the coupling graph supplies an exact causal cone. Bell adds a sharper deterministic constraint: if each wing's setting intervention, applied at one",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch01-observation.md": {
+      "expected_mentions": 3,
+      "sites": [
+        {
+          "anchor": "The Born rule in the fixed-basis representation is therefore part of the representation dictionary, not a selector derived uniquely from C1–C4. The full operational problem is narr",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Operational boundary.** These theorems do not prove that the entire family of coherent instruments and composites equals the standard quantum operational theory. On a finite carr",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The remaining qualification is localized. To identify the complete local operational theory of complex quantum mechanics, rather than its exact stochastic representation, one must ",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch02-substratum.md": {
+      "expected_mentions": 2,
+      "sites": [
+        {
+          "anchor": "The quantum input to this reconstruction should be read in the scoped sense established in Chapter 1. The visible law has an exact quantum representation, spatial OI provides graph",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The observer-level statistics of this read-write cycle have an exact finite quantum representation. The structural form of C2 is persistence: information written into the hidden se",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch03-structural-realism.md": {
+      "expected_mentions": 2,
+      "sites": [
+        {
+          "anchor": "The framework's PBR response must be stated conditionally. PBR assumes Preparation Independence: independently prepared systems have a product joint distribution over their ontic s",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**The characteristic trait.** Schrödinger called entanglement *the* characteristic trait of quantum mechanics, the one forcing its entire departure from classical lines. The framew",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch04-methodology.md": {
+      "expected_mentions": 1,
+      "sites": [
+        {
+          "anchor": "Fourth, verify that the framework's predictions match quantum mechanics in the regime where the no-go theorem applies, without silently importing the very condition under test. For",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch09-universality.md": {
+      "expected_mentions": 1,
+      "sites": [
+        {
+          "anchor": "*Chapter 1 (Quantum Mechanics from Embedded Observation).* The derivation lives at Level O2 × Level G1: the framework's most general structural commitments produce accessible non-M",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch14-quantum-computing.md": {
+      "expected_mentions": 1,
+      "sites": [
+        {
+          "anchor": "**Operational closure (a model hypothesis).** The computational model assumes — it does not derive from C1–C4 — that any admissible operation the observer performs on the visible s",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/ch18-beyond.md": {
+      "expected_mentions": 0,
+      "sites": []
+    },
+    "book/ch19-open-problems.md": {
+      "expected_mentions": 3,
+      "sites": [
+        {
+          "anchor": "**Framework status.** Split — fixed-basis representation settled exactly; coherent operational extension characterized by five conditions. Every finite-horizon stochastic law has a",
+          "mentions": 2,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*conditionally*: within complex matrix kinematics taken as given, it holds exactly when the explicit completion principles hold, none of which bare",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/glossary.md": {
+      "expected_mentions": 2,
+      "sites": [
+        {
+          "anchor": "**Born rule.** The quantum-mechanical prescription that the probability of measurement outcome $i$ on state $|\\psi\\rangle$ is $|\\langle i|\\psi\\rangle|^2$. Conventionally treated as",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Operational gluing theorem.** The framework's finite-resolution operational result ([Main §3.4]): every finite adaptive quantum experiment — instrument family $\\mathcal{F}$, hori",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    },
+    "book/appendix-b-derivations.md": {
+      "expected_mentions": 0,
+      "sites": []
+    },
+    "book/appendix-c-objections.md": {
+      "expected_mentions": 0,
+      "sites": []
+    },
+    "book/readers-guide.md": {
+      "expected_mentions": 0,
+      "sites": []
+    },
+    "book/The-Incompleteness-of-Observation-FULL.md": {
+      "expected_mentions": 17,
+      "sites": [
+        {
+          "anchor": "The qualification is equally important. Universal Hilbert-space representability is not by itself a uniqueness theorem for the whole operational theory of quantum mechanics. Finite",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "For spatially separated systems, the coupling graph supplies an exact causal cone. Bell adds a sharper deterministic constraint: if each wing's setting intervention, applied at one",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The Born rule in the fixed-basis representation is therefore part of the representation dictionary, not a selector derived uniquely from C1–C4. The full operational problem is narr",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Operational boundary.** These theorems do not prove that the entire family of coherent instruments and composites equals the standard quantum operational theory. On a finite carr",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The remaining qualification is localized. To identify the complete local operational theory of complex quantum mechanics, rather than its exact stochastic representation, one must ",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The quantum input to this reconstruction should be read in the scoped sense established in Chapter 1. The visible law has an exact quantum representation, spatial OI provides graph",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The observer-level statistics of this read-write cycle have an exact finite quantum representation. The structural form of C2 is persistence: information written into the hidden se",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "The framework's PBR response must be stated conditionally. PBR assumes Preparation Independence: independently prepared systems have a product joint distribution over their ontic s",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**The characteristic trait.** Schrödinger called entanglement *the* characteristic trait of quantum mechanics, the one forcing its entire departure from classical lines. The framew",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "Fourth, verify that the framework's predictions match quantum mechanics in the regime where the no-go theorem applies, without silently importing the very condition under test. For",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*Chapter 1 (Quantum Mechanics from Embedded Observation).* The derivation lives at Level O2 × Level G1: the framework's most general structural commitments produce accessible non-M",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Operational closure (a model hypothesis).** The computational model assumes — it does not derive from C1–C4 — that any admissible operation the observer performs on the visible s",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Framework status.** Split — fixed-basis representation settled exactly; coherent operational extension characterized by five conditions. Every finite-horizon stochastic law has a",
+          "mentions": 2,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "*conditionally*: within complex matrix kinematics taken as given, it holds exactly when the explicit completion principles hold, none of which bare",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Born rule.** The quantum-mechanical prescription that the probability of measurement outcome $i$ on state $|\\psi\\rangle$ is $|\\langle i|\\psi\\rangle|^2$. Conventionally treated as",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        },
+        {
+          "anchor": "**Operational gluing theorem.** The framework's finite-resolution operational result ([Main §3.4]): every finite adaptive quantum experiment — instrument family $\\mathcal{F}$, hori",
+          "mentions": 1,
+          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
+        }
+      ]
+    }
+  }
+}

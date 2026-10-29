@@ -1,0 +1,157 @@
+{
+  "base": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
+  "source_checkpoint": "6a4e1194df7f3eaa77346082bd0941c325668bf1",
+  "status": "author_validation_not_independent_acceptance",
+  "checks": {
+    "coverage": {
+      "command": [
+        "python3",
+        "tools/coverage_check.py"
+      ],
+      "exit_code": 0
+    },
+    "voice": {
+      "command": [
+        "python3",
+        "tools/voice_check.py"
+      ],
+      "exit_code": 0
+    },
+    "mirrors": {
+      "command": [
+        "python3",
+        "papers/oi_lattice_code/mirror_check.py"
+      ],
+      "exit_code": 0
+    },
+    "source_stamps": {
+      "command": [
+        "python3",
+        "tools/staleness_check.py"
+      ],
+      "exit_code": 0
+    },
+    "card_exact": {
+      "command": [
+        "python3",
+        "-I",
+        "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC39-card-bell/card_bell_check.py"
+      ],
+      "exit_code": 0,
+      "expected_output_matches": true
+    },
+    "sc42_historical_global": {
+      "command": [
+        "python3",
+        "-I",
+        "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC42-operational-kinematics/check_sc42.py",
+        "--base",
+        "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf"
+      ],
+      "exit_code": 1,
+      "limitation": "Original script unchanged. Its fixed site-count fixture predates the additional explicitly scoped Methodology summary; its global capitals scan flags retained original card-checker comments. Complete checker remains FAILED. Field/kernel and pinned-source/mirror predicates hold.",
+      "failed_predicates": [
+        "kinematics mention counts match the site table (66)",
+        "added-text scan: 27 hit(s)"
+      ],
+      "original_script_git_blob": "fe433673a6c007b9436a0796d496c7f34c893362"
+    },
+    "sc42_base_setting_countercontrol": {
+      "command": [
+        "python3",
+        "-I",
+        "verification/audits/manuscript/intro-corpus-audit-20261026/tracks/SC42-operational-kinematics/check_sc42.py",
+        "--base",
+        "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
+        "--setting-from",
+        "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf"
+      ],
+      "exit_code": 1
+    }
+  },
+  "layout": {
+    "papers/Main.pdf": {
+      "baseline": {
+        "pages": 96,
+        "median_chars": 3151.0
+      },
+      "pages": 97,
+      "median_chars": 3192,
+      "inspected_pages": [
+        21,
+        79
+      ]
+    },
+    "papers/GR.pdf": {
+      "baseline": {
+        "pages": 88,
+        "median_chars": 3028.5
+      },
+      "pages": 88,
+      "median_chars": 3028.0,
+      "inspected_pages": [
+        22,
+        23
+      ]
+    },
+    "papers/Methodology.pdf": {
+      "baseline": {
+        "pages": 54,
+        "median_chars": 3054.0
+      },
+      "pages": 54,
+      "median_chars": 3059.5,
+      "inspected_pages": [
+        29,
+        34
+      ]
+    },
+    "papers/Structure.pdf": {
+      "baseline": {
+        "pages": 98,
+        "median_chars": 2868.0
+      },
+      "pages": 99,
+      "median_chars": 2854,
+      "inspected_pages": [
+        4
+      ]
+    },
+    "papers/Substratum.pdf": {
+      "baseline": {
+        "pages": 55,
+        "median_chars": 3097
+      },
+      "pages": 55,
+      "median_chars": 3097,
+      "inspected_pages": [
+        45
+      ]
+    },
+    "papers/Explainer.pdf": {
+      "baseline": {
+        "pages": 70,
+        "median_chars": 2865.0
+      },
+      "pages": 71,
+      "median_chars": 2844,
+      "inspected_pages": [
+        16,
+        16
+      ]
+    },
+    "book/The-Incompleteness-of-Observation-FULL.pdf": {
+      "baseline": {
+        "pages": 557,
+        "median_chars": 2976
+      },
+      "pages": 559,
+      "median_chars": 2969,
+      "inspected_pages": [
+        100,
+        60
+      ]
+    }
+  },
+  "visual_scope": "Representative changed pages were rendered and inspected. GR pages 22–23 retain pre-existing long Lean identifier margin overflow; the matching overflow text and positions on baseline GR22 were checked against pinned main. No full-layout certification is claimed for that inherited formatting."
+}

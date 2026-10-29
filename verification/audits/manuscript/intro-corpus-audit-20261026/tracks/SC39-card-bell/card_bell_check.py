@@ -1,0 +1,399 @@
+#!/usr/bin/env python3
+"""SC-39: exact check of the restricted card-game Bell sentence and of why each condition is needed.
+
+A two-player card table: a deal Omega (a tuple of hidden cards, red = +1 / black = -1), settings a, b in
+{0, 1}, and each player's outcome in {+1, -1}. CHSH = E00 + E01 + E10 - E11, in exact Fractions.
+
+  K1  Under the book's conditions -- once the deal is down every operation (rule-prescribed shuffle, move,
+      setting choice) reads and writes one player's own cards only; which operation is applied to a
+      player's cards, and how that player's +-1 outcome is read from them, depends only on those cards,
+      that player's own setting and on chance that, taken together with the deal, is independent of the
+      settings (Omega' = (deal, all chance), p(Omega' | a, b) = p(Omega')); an outcome in every run, no run
+      set aside -- every outcome is
+      q_a(own cards), r_b(own cards). Over every pair of deterministic local response tables (4 x 4 = 16
+      pairs) and hence every deal distribution, |CHSH| <= 2 (exact, vertex enumeration; the set of such
+      models is the convex hull of these).
+  K2  An explicit deal with shared hidden cards (the coin-and-burn style correlation written at the deal)
+      reaches CHSH = 2 exactly: the ceiling is attained, not just respected.
+  Countercontrols (each drops one condition and must exceed 2):
+  X1  a shared move after the settings acting on both hands (setting-dependent global dynamics,
+      Main §3.3's PR-box remark): CHSH = 4.
+  X1' the players' moves stay on their own cards, but the game-rule shuffle between streets, after the
+      settings, is a deterministic whole-deck permutation that carries A's setting card into B's hand:
+      CHSH = 4. So the shuffle, not only the players' moves, must stay on one player's cards.
+  X2  a deal chosen with knowledge of the settings (measurement dependence): CHSH = 4.
+  X3  runs without a +-1 outcome discarded (no outcome in every run): CHSH = 4 on the kept runs.
+  ADM An admissibility checker for the book's per-operation condition "reads and writes one player's own
+      cards only": a deterministic map on the whole deck is admitted iff, for one player's region R, it
+      WRITES only R (every card outside R unchanged) and READS only R (the new cards in R are a function of
+      the cards in R alone). It checks reading as well as writing. X1''s whole-deck shuffle and L1's
+      write-B-only, read-A shuffle are rejected by it.
+  L1  (reading) a rule-prescribed shuffle that writes only B's cards but reads A's setting card, flipping B's
+      hand iff both setting cards are 1: CHSH = 4. A write-only reading of "acts on one player's cards"
+      would admit it; the read-and-write condition and ADM reject it.
+  L2  (schedule) the rules choose, depending on b, between two operations on A's cards that ADM admits one
+      at a time (identity; flip A's hand iff A's own setting card is 1): CHSH = 4. The schedule clause
+      ("which operation is applied to a player's cards depends on those cards alone") excludes it, and E3
+      shows the resulting setting-indexed map fails the product test.
+  P1  (admit) each player's table chosen by its own coin, independent of the other's and of the settings,
+      over all local table pairs and coin biases 1/2 and 1/3: max |CHSH| = 2.
+  P2  (countercontrol) a coin shared by both players and correlated with the settings: CHSH = 4.
+  C1  (countercontrol) two coins, each uniform for every (a, b) and each used by one player only, with
+      x_B = x_A (-1)^(ab): each marginal is setting-independent, the pair is not. CHSH = 4.
+  C2  (countercontrol) A's coin uniform for every (a, b), but jointly with A's dealt card it encodes ab:
+      CHSH = 4. C1 and C2 show the chance must be independent of the settings JOINTLY with the deal.
+  C3  (countercontrol) each readout reads only the player's own cards, but which readout function A uses
+      is selected by b: CHSH = 4. The readout rule must obey the same dependence clause as the operations.
+  O3  (own setting admitted, other setting not) operation choice and readout may depend on the player's own
+      setting: E3 accepts an operation schedule chosen from A's own setting and rejects one chosen by b; O3a
+      enumerates every readout rule selected by the player's own setting (all 16 x 16 per player) over every
+      deal, max |CHSH| = 2; C3 (readout selected by b) still fires.
+  PIN the exact book sentences this check supports are present in book/ch01-observation.md,
+      book/ch03-structural-realism.md and twice in the FULL mirror.
+  C4  (admit) a coin shared by both players, jointly independent of the settings and the deal, over all
+      coin-indexed local table pairs: max |CHSH| = 2. Chance need not be private; it is part of Omega'.
+  E   Exhaustive check on a four-card deck (A: hand, setting card; B: hand, setting card; cards 0/1):
+      every deal (16), the setting writes, then EVERY sequence of length <= 2 of admitted operations drawn
+      from all 256 + 256 own-region maps and all 24 whole-deck position permutations (the checker admits 3),
+      interleaved in any order, then every +-1 readout of each player's own region (16 each). E1' shows
+      these reach all 65,536 product maps, a set closed under composition, so every longer sequence is
+      covered too.
+      E1 (the reduction, checked): after every such sequence, A's final region is a function of A's dealt
+         hand and a alone, and B's of B's dealt hand and b alone, so every admitted strategy induces a
+         response-table pair q_a(own hand), r_b(own hand), which is the K1 class.
+      E2 every induced pair and every deal gives |CHSH term| <= 2, so every deal law gives |CHSH| <= 2
+         (CHSH is linear in the deal law).
+      E3 the product test applied to setting-indexed schedules M_{a,b}: the L2 schedule fails it (A's final
+         cards depend on b); a schedule that chooses A's operation from A's own setting card passes.
+  E0-E3 are an exhaustive finite instance of the general reduction on a four-card deck, not its proof; the
+  proof is the paper argument in the README (any deck, any finite sequence).
+Usage: python3 -I card_bell_check.py
+"""
+import sys
+from fractions import Fraction as F
+from itertools import product
+
+FAIL = []
+def check(name, ok, msg=""):
+    print(("PASS " if ok else "FAIL ") + name + ((" : " + msg) if msg else ""))
+    if not ok:
+        FAIL.append(name)
+
+S = (0, 1)
+def chsh(E):
+    return E[(0, 0)] + E[(0, 1)] + E[(1, 0)] - E[(1, 1)]
+
+# K1: local deterministic responses q_a(Omega_A), r_b(Omega_B); every deal fixes one such pair of tables.
+tables = list(product((1, -1), repeat=2))           # (q_0, q_1)
+vals = []
+for q in tables:
+    for r in tables:
+        vals.append(chsh({(a, b): F(q[a] * r[b]) for a in S for b in S}))
+check("K1 every pair of local deterministic response tables has |CHSH| <= 2 (4 x 4 = 16 pairs, exact)",
+      max(abs(v) for v in vals) == 2, f"values {sorted(set(vals))}")
+
+# K2: a deal of two shared hidden cards c1, c2 copied into both hands; outcomes read from own copy.
+deal = {(c1, c2): F(1, 4) for c1 in (1, -1) for c2 in (1, -1)}
+def local_play(omega, a, b):
+    c1, c2 = omega
+    hand_A, hand_B = (c1, c2), (c1, c2)            # each player holds own copies, written at the deal
+    q = hand_A[0]                                  # A's outcome: first card, either setting
+    r = hand_B[0]                                  # B likewise
+    return q, r
+E = {(a, b): sum(p * local_play(o, a, b)[0] * local_play(o, a, b)[1] for o, p in deal.items()) for a in S for b in S}
+check("K2 a shared-deal local game attains CHSH = 2", chsh(E) == 2)
+
+# X1: after both settings, one move acts on both hands: B's card is flipped iff a = b = 1.
+def global_play(omega, a, b):
+    c1, _ = omega
+    q = c1
+    r = -c1 if (a == 1 and b == 1) else c1          # needs both settings: crosses the wings
+    return q, r
+E = {(a, b): sum(p * global_play(o, a, b)[0] * global_play(o, a, b)[1] for o, p in deal.items()) for a in S for b in S}
+check("X1 CONTROL (must exceed 2): a post-setting move on both hands gives CHSH = 4", chsh(E) == 4)
+
+# X1': a five-card deck. Positions 0-1 are A's region (hand, setting card); positions 2-4 are B's region
+# (hand, setting card, spare). The deal puts a copy of the shared card c1 in each hand and a blank (0) in
+# B's spare. Each player writes the setting onto its own setting card (own-card move). The game-rule
+# shuffle between streets is a fixed deterministic permutation of the whole deck that swaps positions 1
+# and 4, carrying A's setting card into B's region. B reads its outcome from its own region by a fixed
+# rule: flip the hand card iff its own setting card and its spare are both 1. Every player action is
+# own-card; only the shuffle crosses the hands.
+A_REGION, B_REGION = (0, 1), (2, 3, 4)
+SHUFFLE = [0, 4, 2, 3, 1]                  # new position of the card at each old position; a bijection
+assert sorted(SHUFFLE) == list(range(5))
+def shuffle_play(omega, a, b):
+    c1, _ = omega
+    deck = [c1, 0, c1, 0, 0]               # the deal
+    deck[1] = a                            # A's own-card setting move
+    deck[3] = b                            # B's own-card setting move
+    new = [None] * 5
+    for old, pos in enumerate(SHUFFLE):
+        new[pos] = deck[old]
+    hand_A = [new[i] for i in A_REGION]
+    hand_B = [new[i] for i in B_REGION]
+    q = hand_A[0]
+    r = -hand_B[0] if (hand_B[1] == 1 and hand_B[2] == 1) else hand_B[0]
+    return q, r
+E = {(a, b): sum(p * shuffle_play(o, a, b)[0] * shuffle_play(o, a, b)[1] for o, p in deal.items()) for a in S for b in S}
+check("X1' CONTROL (must exceed 2): own-card moves but a whole-deck shuffle after the settings gives CHSH = 4",
+      chsh(E) == 4)
+
+
+def admissible(deck_map, n, regions):
+    """deck_map: function on tuples of length n with entries in a finite card set (enumerated over VALUES).
+    Admitted iff for some region R it changes nothing outside R and sets R from R alone."""
+    decks = list(product(VALUES, repeat=n))
+    for R in regions:
+        out = [i for i in range(n) if i not in R]
+        ok, seen = True, {}
+        for d in decks:
+            e = deck_map(d)
+            if any(e[i] != d[i] for i in out):
+                ok = False
+                break
+            key = tuple(d[i] for i in R)
+            val = tuple(e[i] for i in R)
+            if seen.setdefault(key, val) != val:
+                ok = False
+                break
+        if ok:
+            return True
+    return False
+
+
+VALUES = (-1, 0, 1)
+def perm_map(perm):
+    def f(d):
+        e = [None] * len(d)
+        for old, pos in enumerate(perm):
+            e[pos] = d[old]
+        return tuple(e)
+    return f
+check("ADM1 the X1' whole-deck shuffle (positions 1 <-> 4) is rejected by the own-cards condition",
+      not admissible(perm_map(SHUFFLE), 5, (A_REGION, B_REGION)))
+check("ADM2 CONTROL (must admit): a shuffle within B's region (positions 3 <-> 4) is admitted",
+      admissible(perm_map([0, 1, 2, 4, 3]), 5, (A_REGION, B_REGION)))
+
+# X2: the deal is drawn from a law that depends on (a, b); play is local.
+def dependent_deal(a, b):
+    return {(c, -c if (a == 1 and b == 1) else c): F(1, 2) for c in (1, -1)}
+def split_play(omega, a, b):
+    return omega[0], omega[1]                       # A reads card 1, B reads card 2: local
+E = {(a, b): sum(p * split_play(o, a, b)[0] * split_play(o, a, b)[1] for o, p in dependent_deal(a, b).items())
+     for a in S for b in S}
+check("X2 CONTROL (must exceed 2): a deal that depends on the settings gives CHSH = 4", chsh(E) == 4)
+
+# X3: local deterministic play, but A reports an outcome only on some runs (a rule on A's own cards and
+# setting), and runs without an outcome are discarded: no +-1 outcome in every run.
+deal3 = {(c, s): F(1, 4) for c in (1, -1) for s in (1, -1)}
+def lossy_local(omega, a, b):
+    c, s = omega
+    q = c
+    r = c if b == 0 else c * s
+    kept = (s == 1) if a == 0 else (s == -1)        # depends only on A's own cards and setting
+    return q, r, kept
+E = {}
+for a in S:
+    for b in S:
+        num = sum(p * lossy_local(o, a, b)[0] * lossy_local(o, a, b)[1] for o, p in deal3.items() if lossy_local(o, a, b)[2])
+        den = sum(p for o, p in deal3.items() if lossy_local(o, a, b)[2])
+        E[(a, b)] = num / den
+check("X3 CONTROL (must exceed 2): local play with runs lacking an outcome discarded gives CHSH = 4 on kept runs",
+      chsh(E) == 4)
+
+# E: exhaustive own-region operation sequences on a four-card deck, bits 0/1.
+# Positions: 0 A hand, 1 A setting card, 2 B hand, 3 B setting card. Deck state = 4-bit tuple.
+RA, RB = (0, 1), (2, 3)
+VALUES = (0, 1)
+STATES = list(product((0, 1), repeat=4))
+IDX = {st: i for i, st in enumerate(STATES)}
+def as_table(f):
+    return tuple(IDX[f(st)] for st in STATES)
+ops = set()
+for R in (RA, RB):
+    regs = list(product((0, 1), repeat=2))
+    for images in product(regs, repeat=4):               # all 4^4 = 256 maps of a two-card region
+        g = dict(zip(regs, images))
+        def f(st, R=R, g=g):
+            e = list(st)
+            e[R[0]], e[R[1]] = g[(st[R[0]], st[R[1]])]
+            return tuple(e)
+        assert admissible(f, 4, (RA, RB))
+        ops.add(as_table(f))
+from itertools import permutations
+n_perm_adm = 0
+for perm in permutations(range(4)):                      # every whole-deck position permutation
+    if admissible(perm_map(perm), 4, (RA, RB)):
+        n_perm_adm += 1
+        ops.add(as_table(perm_map(perm)))
+check("E0 the checker admits exactly 3 of the 24 whole-deck permutations (identity, swap within A, within B)",
+      n_perm_adm == 3)
+ops = sorted(ops)
+ident = tuple(range(16))
+seqs = {ident}
+for o in ops:
+    seqs.add(o)
+for o1 in ops:
+    for o2 in ops:
+        seqs.add(tuple(o2[o1[i]] for i in range(16)))   # o1 then o2, any interleaving of the two players
+a_maps, b_maps, red_ok = set(), set(), True
+for M in seqs:
+    fa, fb = {}, {}
+    for st in STATES:
+        for a in S:
+            for b in S:
+                w = list(st)
+                w[1], w[3] = a, b                       # the setting writes, each on its own card
+                fin = STATES[M[IDX[tuple(w)]]]
+                ka, va = (st[0], a), (fin[0], fin[1])
+                kb, vb = (st[2], b), (fin[2], fin[3])
+                if fa.setdefault(ka, va) != va or fb.setdefault(kb, vb) != vb:
+                    red_ok = False
+    a_maps.add(tuple(sorted(fa.items())))
+    b_maps.add(tuple(sorted(fb.items())))
+check(f"E1 reduction: after all {len(seqs)} distinct admitted sequence maps each player's final cards depend only on its own hand and setting",
+      red_ok)
+check("E1' closure: the length-<=2 sequences already reach all 256 x 256 product maps f_A x f_B, a set closed under "
+      "composition that contains every admitted operation, so longer sequences add no strategy",
+      len(seqs) == 256 * 256)
+regs = list(product((0, 1), repeat=2))
+readouts = list(product((1, -1), repeat=4))
+def tables(maps):
+    out = set()
+    for m in maps:
+        m = dict(m)
+        for ro in readouts:
+            g = dict(zip(regs, ro))
+            out.add(tuple(g[m[(h, x)]] for h in (0, 1) for x in S))   # q[(h, setting)]
+    return out
+TA, TB = tables(a_maps), tables(b_maps)
+worst = 0
+for qa in TA:
+    for rb in TB:
+        for hA in (0, 1):
+            for hB in (0, 1):
+                q = {x: qa[2 * hA + x] for x in S}
+                r = {y: rb[2 * hB + y] for y in S}
+                worst = max(worst, abs(q[0] * r[0] + q[0] * r[1] + q[1] * r[0] - q[1] * r[1]))
+check(f"E2 every admitted strategy pair ({len(TA)} x {len(TB)} induced tables) and every deal: |CHSH| <= 2",
+      worst == 2, f"max |CHSH term| = {worst}")
+
+# ---- L1, L2, E3: reading and schedule loopholes on the four-card deck (hands +-1, setting cards 0/1)
+D4 = list(product((1, -1), (0, 1), (1, -1), (0, 1)))
+VALUES = (-1, 0, 1)
+def L1_op(d):                       # writes only B's hand, reads A's setting card
+    e = list(d)
+    if d[1] == 1 and d[3] == 1:
+        e[2] = -d[2]
+    return tuple(e)
+def play4(ops_for, c, a, b):
+    d = (c, a, c, b)                # the deal copies c into both hands; own-card setting writes
+    for op in ops_for(a, b):
+        d = op(d)
+    return d[0], d[2]
+E = {(a, b): sum(F(1, 2) * play4(lambda a, b: [L1_op], c, a, b)[0] * play4(lambda a, b: [L1_op], c, a, b)[1]
+                 for c in (1, -1)) for a in S for b in S}
+writes_only_B = all(L1_op(d)[i] == d[i] for d in D4 for i in (0, 1))
+check("L1 CONTROL (must exceed 2): a shuffle writing only B's cards but reading A's setting card gives CHSH = 4",
+      chsh(E) == 4 and writes_only_B)
+check("L1a the read-and-write checker rejects L1 (it writes only B's cards, but reads A's)",
+      not admissible(L1_op, 4, (RA, RB)))
+flipA = lambda d: (-d[0] if d[1] == 1 else d[0], d[1], d[2], d[3])
+ident = lambda d: d
+L2_sched = lambda a, b: [flipA] if b == 1 else [ident]          # the choice depends on b (turn order)
+E = {(a, b): sum(F(1, 2) * play4(L2_sched, c, a, b)[0] * play4(L2_sched, c, a, b)[1] for c in (1, -1))
+     for a in S for b in S}
+check("L2 CONTROL (must exceed 2): a b-dependent choice between two admitted operations on A's cards gives CHSH = 4",
+      chsh(E) == 4 and admissible(flipA, 4, (RA, RB)) and admissible(ident, 4, (RA, RB)))
+def product_test(sched):
+    """A's final cards a function of (A's dealt cards, a) and B's of (B's dealt cards, b), over all deals."""
+    fa, fb = {}, {}
+    for d0 in D4:
+        for a in S:
+            for b in S:
+                d = (d0[0], a, d0[2], b)
+                for op in sched(a, b):
+                    d = op(d)
+                if fa.setdefault((d0[0], a), d[:2]) != d[:2] or fb.setdefault((d0[2], b), d[2:]) != d[2:]:
+                    return False
+    return True
+own_sched = lambda a, b: [flipA] if a == 1 else [ident]          # chosen from A's own setting card
+check("E3 the product test rejects the L2 schedule M_{a,b} and accepts a schedule chosen from A's own card",
+      not product_test(L2_sched) and product_test(own_sched))
+
+# ---- P1, P2: private chance and its countercontrol
+tabs = list(product((1, -1), repeat=2))
+worst = 0
+for pA in (F(1, 2), F(1, 3)):
+    for pB in (F(1, 2), F(1, 3)):
+        wA, wB = (pA, 1 - pA), (pB, 1 - pB)
+        for qa in product(tabs, repeat=2):          # A's table for coin 0 and coin 1
+            for rb in product(tabs, repeat=2):
+                E = {(a, b): sum(wA[x] * wB[y] * qa[x][a] * rb[y][b] for x in S for y in S) for a in S for b in S}
+                worst = max(worst, abs(chsh(E)))
+check("P1 private coins independent of the settings over all local table pairs: max |CHSH| = 2", worst == 2)
+def coin_law(a, b):                                  # shared coin correlated with the settings
+    return {1: F(1)} if (a, b) == (1, 1) else {0: F(1)}
+E = {(a, b): sum(p * 1 * (-1) ** x for x, p in coin_law(a, b).items()) for a in S for b in S}
+check("P2 CONTROL (must exceed 2): a coin shared by both players and correlated with the settings gives CHSH = 4",
+      chsh(E) == 4)
+
+# ---- C1-C4: joint setting-independence of (deal, chance), and the readout rule
+def law_C1(a, b):                                    # (x_A, x_B), each uniform for every (a, b)
+    return {(x, x * (-1) ** (a * b)): F(1, 2) for x in (1, -1)}
+E = {(a, b): sum(p * xa * xb for (xa, xb), p in law_C1(a, b).items()) for a in S for b in S}
+marg_ok = all(sum(p for (xa, xb), p in law_C1(a, b).items() if (xa if k == 0 else xb) == v) == F(1, 2)
+              for a in S for b in S for k in (0, 1) for v in (1, -1))
+check("C1 CONTROL (must exceed 2): two one-player coins, each uniform for every (a,b), jointly setting-dependent: CHSH = 4",
+      chsh(E) == 4 and marg_ok)
+def law_C2(a, b):                                    # (shared dealt card c, A's coin x_A)
+    return {(c, c * (-1) ** (a * b)): F(1, 2) for c in (1, -1)}
+E = {(a, b): sum(p * (c * x) * 1 for (c, x), p in law_C2(a, b).items()) for a in S for b in S}   # q = c x, r = +1
+coin_uniform = all(sum(p for (c, x), p in law_C2(a, b).items() if x == v) == F(1, 2)
+                   for a in S for b in S for v in (1, -1))
+check("C2 CONTROL (must exceed 2): A's coin uniform for every (a,b) but jointly with the deal encodes ab: CHSH = 4",
+      chsh(E) == 4 and coin_uniform)
+def q_C3(c, a, b):                                   # A reads its own hand; b selects which readout function
+    return c if b == 0 else (c if a == 0 else -c)
+E = {(a, b): sum(F(1, 2) * q_C3(c, a, b) * c for c in (1, -1)) for a in S for b in S}
+check("C3 CONTROL (must exceed 2): own-card readouts with the readout function selected by b: CHSH = 4", chsh(E) == 4)
+worst = 0
+for pc in (F(1, 2), F(1, 3)):
+    wc = (pc, 1 - pc)
+    for qa in product(tabs, repeat=2):              # A's table for shared coin 0 / 1
+        for rb in product(tabs, repeat=2):
+            E = {(a, b): sum(wc[x] * qa[x][a] * rb[x][b] for x in S) for a in S for b in S}
+            worst = max(worst, abs(chsh(E)))
+check("C4 admit: a shared coin jointly independent of the settings, all coin-indexed local tables: max |CHSH| = 2",
+      worst == 2)
+
+# ---- O3: dependence on the player's own setting is admitted; on the other's is not
+fns = list(product((1, -1), repeat=2))                      # readout of the hand card h in {+1,-1}: (g(+1), g(-1))
+worst = 0
+for gA in product(fns, repeat=2):                           # A's readout function selected by a
+    for gB in product(fns, repeat=2):                       # B's readout function selected by b
+        for hA in (1, -1):
+            for hB in (1, -1):
+                q = {x: gA[x][0 if hA == 1 else 1] for x in S}
+                r = {y: gB[y][0 if hB == 1 else 1] for y in S}
+                worst = max(worst, abs(q[0] * r[0] + q[0] * r[1] + q[1] * r[0] - q[1] * r[1]))
+check("O3a every readout rule selected by the player's own setting, every deal: max |CHSH| = 2", worst == 2)
+check("O3b E3 still separates: own-setting schedule accepted, other-setting (b) schedule rejected",
+      product_test(own_sched) and not product_test(L2_sched))
+
+# ---- PIN: the exact book sentences
+import pathlib
+ROOT = pathlib.Path(__file__).resolve().parents[6]
+PIN_CH01 = "but it violates no Bell inequality when, once the deal is down, every operation — each shuffle the rules prescribe, each move and each setting choice — reads and writes one player's own cards only; which operation is applied to a player's cards, and how that player's $\\pm1$ outcome is read from them, depends only on those cards, that player's own setting and on chance that, taken together with the deal, is independent of the settings; an outcome is recorded in every run and no run is set aside; and the settings are chosen independently of the deal: such a game is a local hidden-variable model (Main §3.3)."
+PIN_CH03 = "a card game in which, once the deal is down, every operation, including each shuffle the rules prescribe, each move and each setting choice, reads and writes one player's own cards only, and which operation is applied to a player's cards, and how that player's outcome is read from them, depends only on those cards, that player's own setting and on chance that, taken together with the deal, is independent of the settings, with each outcome a $\\pm1$ result in every run, no run set aside, and the settings chosen independently of the deal, violates no Bell inequality."
+PIN_GLOSS = 'the deal, taken together with any chance the game uses, does not know the settings'
+t01 = (ROOT / "book" / "ch01-observation.md").read_text(encoding="utf-8")
+t03 = (ROOT / "book" / "ch03-structural-realism.md").read_text(encoding="utf-8")
+tfull = (ROOT / "book" / "The-Incompleteness-of-Observation-FULL.md").read_text(encoding="utf-8")
+check("PIN the ch01/FULL and ch03/FULL card sentences and the ch03 gloss are present exactly",
+      PIN_CH01 in t01 and PIN_CH03 in t03 and PIN_GLOSS in t03
+      and tfull.count(PIN_CH01) == 1 and tfull.count(PIN_CH03) == 1 and tfull.count(PIN_GLOSS) == 1)
+
+print("\ncard_bell_check:", "ALL CHECKS PASS" if not FAIL else f"{len(FAIL)} FAILURE(S): {FAIL}")
+sys.exit(1 if FAIL else 0)
