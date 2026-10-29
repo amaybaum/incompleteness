@@ -84,9 +84,9 @@
           "pattern": "minimal realization",
           "disposition": "clean",
           "expect": {
-            "papers/Structure.md": 2
+            "papers/Structure.md": 1
           },
-          "why": "Structure §9's synthesis and Corollary 9.8 both state the negative result: non-minimal realizations permit enlargement, while a prepared minimal isometry does not determine its full-unitary extension. Both occurrences are qualified to the fixed-channel carrier; the following scope paragraph excludes a completeness claim about OI dynamics or multi-time records. Re-read at 344d066; neither occurrence asserts a minimal realization is the physical substratum."
+          "why": "Corollary 9.8, which states the NEGATIVE -- the embedded-observer triple does not determine a unique substratum realization, non-minimal ones adding further freedom. The one licensed use."
         },
         {
           "id": "A-follows-automatically",
@@ -220,19 +220,11 @@
           "pattern": "not inputs to this",
           "disposition": "repaired",
           "expect": {
+            "papers/SM.md": 1,
             "book/ch04-methodology.md": 1,
             "book/The-Incompleteness-of-Observation-FULL.md": 1
           },
-          "why": "The book's maintained Chapter 4 and FULL retain the literal qualification that C1-C4 are observer diagnostics, not inputs to Layer 0. SM's selected-family revision expresses the same distinction as 'diagnose the observer at the cut and do not select this branch'; its complete current qualification is separately required by B2-required-SM-selected-family. This pattern is unchanged and the SM requirement is retained under that separate exact vocabulary."
-        },
-        {
-          "id": "B2-required-SM-selected-family",
-          "pattern": "C1–C4 diagnose the observer at the cut and do not select this branch. The statements are family-level conditional results, with the physical generation/chirality interpretation retaining H-spin'/H-χ'.",
-          "disposition": "repaired",
-          "expect": {
-            "papers/SM.md": 1
-          },
-          "why": "SM §8.3 deliberately replaced the old Layer-0 summary with a selected-cubic-family statement. This exact qualification preserves C1-C4's diagnostic role, denies that they select the physical branch, and retains the physical generation/chirality premises H-spin'/H-χ'. It replaces the missing SM literal hit in B2-required; deleting either the observer/branch distinction or the conditional physical-premise sentence must fail the census."
+          "why": "the repaired attribution: C1-C4 are diagnostics of the observer at the cut, not inputs to Layer 0."
         },
         {
           "id": "B3-forbidden-inventory",
@@ -246,9 +238,10 @@
           "pattern": "C2 and C4 are explicit hypotheses",
           "disposition": "repaired",
           "expect": {
+            "papers/Explainer.md": 1,
             "papers/SM.md": 1
           },
-          "why": "the inventory now carries Theorem 22's status: C1 structural, C3 floor, C2 and C4 hypotheses."
+          "why": "the inventory now carries Theorem 22's status: C1 structural, C3 floor, C2 and C4 hypotheses. The Explainer's summary of the minimal structure states the same status, replacing a claim that any small subgraph satisfies the emergent-QM conditions."
         },
         {
           "id": "B4-forbidden-automatic",

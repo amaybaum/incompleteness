@@ -1,0 +1,25 @@
+{
+  "candidate": "d10a01a59e55684cf7fb09e519c3bc65798526d0",
+  "tree": "d8ab8b94a1eec79dee14b1a4951af7331a99b742",
+  "local_commit": "d6f8961a6489ef3872c1033d0cd73f2911234ec5",
+  "prior_candidate": "c0844bd287a3bcc04b75f79db140af1c75e70d90",
+  "verdict": "ACCEPT",
+  "scope": "R1-R4 closure and preserved prior scoped foundational scientific-source repairs",
+  "closed_findings": [
+    "R1",
+    "R2",
+    "R3",
+    "R4"
+  ],
+  "remaining_blockers_within_scope": [],
+  "remote_blob_matches": 3,
+  "manifest_files_checked": 87,
+  "manifest_hash_failures": [],
+  "appendix_FULL_exact_mirror": true,
+  "canonical_statements_and_grades_changed_in_followup": false,
+  "Lean_source_changed_in_followup": false,
+  "strongest_results_preserved": true,
+  "new_scientific_regression_within_followup": false,
+  "CI_or_full_release_acceptance_inferred": false,
+  "merge_authorized": false
+}

@@ -1,0 +1,114 @@
+{
+  "SM": {
+    "pages": 147,
+    "median_characters_per_page": 2974,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "5049cccd53351793c578df0c47634dc10abb54f886cac3d5b1b7bc00692fd2a2",
+    "tex_sha256": "2bc2162ad432e56e1680ee5cd66259d5935ed3e27518787b6b11cd82f247a79a",
+    "pdf_sha256": "fa6b1608249c96be98426ec9f8601637703dc674ca91db94118bcb3984899d3c",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "The selected six-link carrier has": 44,
+      "The conditional block-adjoint sector": 45,
+      "Fixed-family anomaly-free hypercharges": 55,
+      "Correlated central quotient": 36
+    },
+    "rendered_pages": [
+      36,
+      44,
+      45,
+      55
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Substratum": {
+    "pages": 54,
+    "median_characters_per_page": 3086.5,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "a8daee0844982283d99eef518111a2944b19046ba8b5c1a0f475381981e2f651",
+    "tex_sha256": "f847dcccd78843d8ec13b6f0936ca5476c047bac53b25b3e18b039adf131c66d",
+    "pdf_sha256": "ba0e814e2456c036fb27854b181d4dc6ab7ee9d166b5ec0bd0d150804c4c7a82",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Specht's trace criterion": 28,
+      "originates in": 29,
+      "Necessary and sufficient conditions for unitary similarity": 53,
+      "Matrices de Hankel": 54
+    },
+    "rendered_pages": [
+      28,
+      29,
+      53,
+      54
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Explainer": {
+    "pages": 68,
+    "median_characters_per_page": 2840.5,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "137b6eb39496fec5e14b2be9a9cac02cbf59ab13d8368aed87efc67cd0095062",
+    "tex_sha256": "41057be3767e32eaeb00228d6d49939b4cd6a28b282d70a66d5a95aa33d109fa",
+    "pdf_sha256": "262a983c49d3e7743ec3728185f653d4586ceb7b513043914940f197b69c3311",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "Where the matter representations come from.": 53,
+      "What the framework does not determine.": 53
+    },
+    "rendered_pages": [
+      53,
+      54
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Methodology": {
+    "pages": 47,
+    "median_characters_per_page": 2989,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "54981766838f0968135e133900f53ae2d465bcf12eb9e90f5efa401cc75869c3",
+    "tex_sha256": "f7da5f028c8f4133d3990f640d85065a535d23680b7c0fe644c83dcdff26761b",
+    "pdf_sha256": "ef86e64de77d142a7529e11ed530169052b2ca0147f0a6e665122bf9ab6612f5",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "The operational condition of": 41,
+      "The physics-sector and cross-domain audits": 42
+    },
+    "rendered_pages": [
+      41,
+      42
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "Juno": {
+    "pages": 22,
+    "median_characters_per_page": 2443.5,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "4098156c7286ee65ed68294e268e53bbe2042ccfa94360caef87be33e041a671",
+    "tex_sha256": "84fc9707b863314756a24ad5183fb4cb9460281d20e05dc4f0b673eebaa36cc3",
+    "pdf_sha256": "042e10c022e5ba463768c1640bfa52ce105c8ca46bfac833fadaa2f001498680",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "six-element set is the geometric link set": 4
+    },
+    "rendered_pages": [
+      4
+    ],
+    "out_of_page_word_boxes": []
+  },
+  "book": {
+    "pages": 548,
+    "median_characters_per_page": 2971.5,
+    "extractor": "PyMuPDF page.get_text().strip()",
+    "source_sha256": "7e7ef7d2f2ad68be3d3a8c101240994d327d525bfe3ccc06f63172c88322de27",
+    "tex_sha256": "56ae706a6c2b65fe63c3631dd9aabf1df474a85c51d297f16e8b28f98736b1e8",
+    "pdf_sha256": "50fbd342ca537d8e11a5f37c6cadce1790f32dda93b922b4d01b053a1fb01fde",
+    "tex_source_stamp_matches": true,
+    "query_pages": {
+      "The selected H-link single-copy branch has six": 467
+    },
+    "rendered_pages": [
+      467
+    ],
+    "out_of_page_word_boxes": []
+  }
+}

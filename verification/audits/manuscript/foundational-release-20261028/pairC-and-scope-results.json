@@ -1,0 +1,99 @@
+{
+  "pairC_balanced_word_operators": {
+    "C": [
+      [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    ],
+    "Cprime": [
+      [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    ]
+  },
+  "exceptional_charges": [
+    0,
+    1,
+    -1,
+    0,
+    0
+  ],
+  "exceptional_anomaly_coefficients": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "standard_anomaly_coefficients": [
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "stabilizer_lie_dimension": 14,
+  "SM_lie_dimension": 12,
+  "swap_two_reading_fibres": 4,
+  "all_swap_two_reading_fibres_singleton": true
+}
