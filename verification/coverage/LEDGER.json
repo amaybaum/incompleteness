@@ -1433,14 +1433,14 @@
       "note": ""
     },
     {
-      "id": "SM:C-unnamed-9238b5c8",
+      "id": "SM:C-unnamed-d21b5ca7",
       "paper": "papers/SM.md",
       "line": 210,
       "kind": "Corollary",
       "label": "",
-      "fingerprint": "9238b5c827312172",
+      "fingerprint": "d21b5ca70d34c2fd",
       "area": "sm",
-      "assumptions": "see the statement; coupling graph quasi-isometric to Z^d (from A4's lattice translations)",
+      "assumptions": "see the statement; coupling graph a d-dimensional periodic lattice (A4); filters E5-E7 applied to the continuum description, conditional on SM 3.1",
       "checks": [],
       "kernel": "GAP",
       "delta": "not formalized",

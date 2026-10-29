@@ -3244,9 +3244,12 @@ description.
 
 \emph{(A4) Center independence.} The dynamics does not depend on a
 choice of preferred site or origin: \(\varphi\) commutes with lattice
-translations up to gauge, and the update at a site contains no explicit
-copy of that site's present value. The second property is what the
-derivation of the wave equation in Stage 2 below uses.
+translations up to gauge (the coupling graph is a finite periodic
+lattice, the quotient of a rank-\(d\) lattice by a finite-index
+sublattice, \(d\) being its dimension), and the update at a site
+contains no explicit copy of that site's present value. The second
+property is what the derivation of the wave equation in Stage 2 below
+uses.
 
 \emph{(A5) Linearity.} The wave equation governing \(\varphi\) is
 linear. This is a sharpened stipulation: it is equivalent to
@@ -3324,11 +3327,10 @@ wave equation, the internal-index structure, the gauge group, the matter
 content, and the discrete symmetries.
 
 The dimension argument follows the three-filter convergence described
-above. Under the lattice translations of A4, which act on the coupling
-graph with finitely many orbits, the coupling graph is quasi-isometric
-to \(\mathbb{Z}^d\) for some integer \(d\) (Švarc--Milnor); statistical
-isotropy (E4) alone would not supply this. The three filters from E5,
-E6, E7 then force \(d = 3\).
+above. Under A4 the coupling graph is a finite periodic lattice of some
+integer dimension \(d\), an input of the assumption; statistical
+isotropy (E4) alone would not supply it. The three filters from E5, E6,
+E7 then force \(d = 3\).
 
 The wave equation follows from center independence (A4), isotropy (E4),
 and linearity (A5), together with the nearest-neighbor restriction (an
@@ -7098,8 +7100,11 @@ bounded-degree graph need not have one: besides exponential growth
 (\(|B(r)| \sim r^\alpha\) for some non-integer \(\alpha\)) and
 integer-polynomial growth (\(|B(r)| \sim r^d\) for some integer \(d\)),
 there are graphs of intermediate growth (Grigorchuk) and graphs with no
-single growth exponent. Self-consistency excludes the first two classes;
-the integer degree comes from translation invariance, below.
+single growth exponent. Under A4 (Chapter 2) the integer is an input:
+the coupling graph is a finite periodic lattice, the quotient of a
+rank-\(d\) lattice by a finite-index sublattice, so \(|B(r)| \sim r^d\)
+below the system size and none of the other classes arises.
+Independently, self-consistency excludes the first two classes.
 
 Exponential growth fails because the wave equation on
 exponentially-growing graphs does not produce Lorentz-invariant
@@ -7118,19 +7123,18 @@ which has no fractal-graph analog. The cubic-group decomposition of
 \(2d\) link directions, which constrains the gauge structure, requires
 cubic lattice symmetry --- absent in fractals.
 
-Integer-polynomial growth follows from translation invariance (A4,
-Chapter 2), not from Gromov's theorem, which concerns finitely generated
-groups and their Cayley graphs: when a free abelian translation group of
-rank \(d\) acts on the coupling graph by automorphisms with finitely
-many orbits, the graph is quasi-isometric to \(\mathbb{Z}^d\)
-(Švarc--Milnor). Statistical isotropy alone does not supply such an
-action. The three filters then select \(d = 3\).
+The integer \(d\) therefore enters through A4 as the rank of the
+translation lattice, not through Gromov's theorem, which concerns
+finitely generated groups and their Cayley graphs; statistical isotropy
+alone does not supply it. Applied to the continuum description,
+conditional on the continuum step of §3.1 of the SM paper, the three
+filters then select \(d = 3\).
 
-\textbf{Corollary.} \emph{Any bijection whose coupling graph is
-quasi-isometric to \(\mathbb{Z}^d\) with \(d \neq 3\) produces internal
-contradictions in its emergent description. The coupling-graph dimension
-is not a free parameter or a property of a specific \(\varphi\); it is
-the unique value compatible with self-consistency.}
+\textbf{Corollary.} \emph{Any bijection whose coupling graph is a
+\(d\)-dimensional periodic lattice with \(d \neq 3\) fails at least one
+of the filters E5--E7 in its emergent description. The coupling-graph
+dimension is not a free parameter or a property of a specific
+\(\varphi\); it is the unique value compatible with the filters.}
 
 The argument's structure is worth marking explicitly. The framework's
 definition of observation requires an embedded observer as a
@@ -7143,15 +7147,15 @@ multiverse of dimensions. The observer is a structural prerequisite for
 the framework's definition to have content, not a contingent feature of
 one universe among many.
 
-The combination of the three filters with the integer dimension fixed by
-translation invariance produces an unusual claim: the spatial dimension
-is fixed structurally rather than as an input to the framework. Where
-the conventional picture treats \(d = 3\) as an observed fact requiring
-no explanation, the framework derives it as a forced consequence of the
-structural conditions that any embedded observer's universe must
-satisfy. The empirical fact that space appears three-dimensional is then
-evidence for the framework's structural commitments rather than
-independent of them.
+The combination of the three filters with the integer dimension supplied
+by A4's lattice produces an unusual claim: given that lattice, the
+spatial dimension is selected by the filters rather than set as a free
+parameter. Where the conventional picture treats \(d = 3\) as an
+observed fact requiring no explanation, the framework derives it as a
+forced consequence of the structural conditions that any embedded
+observer's universe must satisfy. The empirical fact that space appears
+three-dimensional is then evidence for the framework's structural
+commitments rather than independent of them.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -30746,4 +30750,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 545b5d9dcd8471f1976164b8fe49637c1d8a883bc099b41853cf1c83b7e4e025
+% source-sha256: 494ce5c3a42c9525282ab97528c749aac81aeb394be952c7428bfbdf42f5745e

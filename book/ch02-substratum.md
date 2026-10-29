@@ -79,7 +79,7 @@ The convergence has an external echo. A literature independent of this framework
 
 *(A3) Bounded coupling degree.* Each site of the substratum is coupled to a bounded number of neighbors through $\varphi$. This is required for the emergence of a coupling graph with well-defined dimensional structure and underlies locality in the emergent description.
 
-*(A4) Center independence.* The dynamics does not depend on a choice of preferred site or origin: $\varphi$ commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value. The second property is what the derivation of the wave equation in Stage 2 below uses.
+*(A4) Center independence.* The dynamics does not depend on a choice of preferred site or origin: $\varphi$ commutes with lattice translations up to gauge (the coupling graph is a finite periodic lattice, the quotient of a rank-$d$ lattice by a finite-index sublattice, $d$ being its dimension), and the update at a site contains no explicit copy of that site's present value. The second property is what the derivation of the wave equation in Stage 2 below uses.
 
 *(A5) Linearity.* The wave equation governing $\varphi$ is linear. This is a sharpened stipulation: it is equivalent to amplitude-scale gauge — the unobservability of the absolute field scale — which is an adjoined operational input rather than a theorem; nonlinear alternatives are excluded exactly to the extent that input is assumed, and would otherwise require a separate derivation.
 
@@ -93,7 +93,7 @@ At Stage 1, the Stinespring theorem controls only the **finite channel/dilation 
 
 **Stage 2: From deterministic embedding to specific lattice and gauge structure.** Stage 2 takes Stage 1's output and the remaining empirical and structural inputs E4–E7 and A3–A6, and derives the specific architecture of $(S, \varphi)$: the spatial dimension, the wave equation, the internal-index structure, the gauge group, the matter content, and the discrete symmetries.
 
-The dimension argument follows the three-filter convergence described above. Under the lattice translations of A4, which act on the coupling graph with finitely many orbits, the coupling graph is quasi-isometric to $\mathbb{Z}^d$ for some integer $d$ (Švarc–Milnor); statistical isotropy (E4) alone would not supply this. The three filters from E5, E6, E7 then force $d = 3$.
+The dimension argument follows the three-filter convergence described above. Under A4 the coupling graph is a finite periodic lattice of some integer dimension $d$, an input of the assumption; statistical isotropy (E4) alone would not supply it. The three filters from E5, E6, E7 then force $d = 3$.
 
 The wave equation follows from center independence (A4), isotropy (E4), and linearity (A5), together with the nearest-neighbor restriction (an assumption beyond A3's bounded coupling degree). The unique second-order reversible nearest-neighbor dynamics compatible with these constraints has the form $f = \alpha(x_1 + x_2 + \cdots + x_{2d}) \bmod q$, with coupling coefficient $\alpha$. The coefficient is not the propagation speed: causal support travels at most one lattice edge per update whatever its value, and on the observer-level normalized branch it equals $1/d$.
 
