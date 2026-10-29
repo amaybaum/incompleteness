@@ -1204,6 +1204,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | F8 | Cosmic recurrence | period at most $g(|S|)$; $|S|$ no..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Role of C2, C3, and observability.* The recovery above is g..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The framework's response.** Bell applies directly to the r..."
     },
     {
@@ -1252,6 +1260,34 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The empirical signatures.** Finiteness has specific empiri..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Erdős, P., & Turán, P. (1965). On some problems of a statist..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Erdős, P., & Turán, P. (1967). On some problems of a statist..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Landau, E. (1903). Über die Maximalordnung der Permutationen..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The thought experiment captures the framework's central move..."
     },
     {
@@ -1261,6 +1297,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: This chapter proves those statements, then adds their spatia..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The proof uses only Lemma 1 (finiteness, hence Step 1's recu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The accessible-timescale lemma.** A potential objection to..."
     },
     {
       "ok": true,
@@ -1300,6 +1344,38 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The substrate objection asks an obvious question: what is th..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: First, a Turing machine's tape is potentially unbounded whil..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Hidden-state identification is a record question in a specif..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Two further comparisons deserve separation from unresolved h..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For the reconstructed dilation/local datum, observational eq..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(iii) Finite decoupled ancillary enlargement.* Adjoin a fin..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof for the specified data under the stated hypotheses.* ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Substrate freedom and the realism question.** A uniform hi..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The visible-sector projection: quantum mechanics.** Chapte..."
     },
     {
@@ -1312,7 +1388,55 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The universality-class structure is broader than the substra..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Level D: OI's specific local structural residue.** The fra..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Level G3: substratum observational equivalences.** Theorem..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Gauge freedom supplies a form of observational incompletenes..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The connection becomes precise once the observations are spe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Unresolved facts within a model.** A fixed finite model ca..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: These comparisons distinguish different questions:..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Gauge incompleteness* is redundancy relative to specified o..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Computational limitations* concern the resources needed to ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The distinction separates unresolved facts within a model fr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where the comparison sits in the hierarchy.** Representati..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **A consequence worth stating.** The methodology of physics ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The comparison is an interpretive proposal about the fixed-i..."
     },
     {
       "ok": true,
@@ -1345,6 +1469,34 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The ledger.** Conceded: Bell's mathematics; EPR's logic an..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's programme relative to Worrall is to specify ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The exact result concerns a specified observation interface...."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This distinguishes redundancy between descriptions from unre..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Starting from observation reverses the direction of the expl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The justificatory regress is cut by declared premises rather..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's position in this comparison consists of decl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The hierarchical structure developed in this chapter — the o..."
     },
     {
       "ok": true,
@@ -1384,11 +1536,23 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The choice among representatives related by the stated fixed..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The methodological posture sketched in this chapter is devel..."
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework shares the starting point of these results: th..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Chapter 1 (Quantum Mechanics from Embedded Observation).* T..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Finiteness.* The substratum $S$ has finite cardinality. Thi..."
     },
     {
       "ok": true,
@@ -1404,7 +1568,87 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The middle of the chapter takes up the framework's foundatio..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content in this chapter has a particular epi..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Bell's theorem and the chosen nonlocality.** Bell does not..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 18.7 Finite information and exact finite recurrence..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's commitment to a finite substratum has struct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Exact finite recurrence.** A bijection $\\varphi$ acting on..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The recurrence period can be astronomically large. For an ar..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The substratum's cardinality is not fixed by visible data. [..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: $N \\le \\mathrm{lcm}(1, 2, \\ldots, |S|) = e^{\\psi(|S|)} \\sim ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: in the sense $\\ln N \\le \\psi(|S|) = (1 + o(1))\\,|S|$. The se..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The exactly linear rule on a fixed coupling graph is far mor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: $N \\le q^D - 1 = |S| - 1$..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: for every alphabet size $q \\ge 2$. For prime $q$ some linear..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The return itself is definite: the universe returns to its e..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Falsifiability.** The recurrence prediction is falsifiable..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The conceptual content is significant. The framework predict..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Implications for the framework's logical structure.** The ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Structural commitments with limited empirical access.* The ..."
     },
     {
       "ok": true,
