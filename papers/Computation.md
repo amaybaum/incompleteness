@@ -67,9 +67,9 @@ The paper's structure: §2 carries the structural chain from evolution to genera
 
 The chain from (S, φ) to a universal computer is structural — given someone to build it. That is the same contingent step (general intelligence) identified in §2. The reconstruction theorem [5, §3] implies that a sufficiently sophisticated observer can reconstruct the local lattice/gauge invariants fixed by Theorem 23; it does not identify a unique Bell-inclusive microphysical completion. An observer can nevertheless exploit the reconstructed local physics to build computational devices.
 
-**The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.4] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
+**The self-referential loop.** AI is an embedded observer building another embedded observer within the same (S, φ). The characterization theorem [1, §3.4] applies to the new observer. It sees the same QM, the same ℏ, the same SM, the same dark sector. Not because it is limited by human design, but because the physics is structural — determined by the partition, not by the observer's complexity. A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine the hidden degrees of freedom beyond causal reach. It cannot see past the cosmological horizon. It can build better instruments, but it cannot overcome the partition.
 
-The recursion — AI building AI building AI — produces ever more sophisticated embedded observers, each subject to the same structural limits. The Gödel-Turing-OI incompleteness family applies at every level: a formal system cannot prove its own consistency (Gödel), a computer cannot decide its own halting (Turing), an embedded observer cannot determine the hidden state (OI). No level of recursive self-improvement overcomes the partition. The limits are not technological — they are mathematical.
+The recursion — AI building AI building AI — produces ever more sophisticated embedded observers, each subject to the same structural limits. The Gödel-Turing-OI incompleteness family applies at every level: a formal system cannot prove its own consistency (Gödel), a computer cannot decide its own halting (Turing), an embedded observer cannot access the complete state (OI). No level of recursive self-improvement overcomes the partition. The limits are not technological — they are mathematical.
 
 **What AI can and cannot do.**
 
@@ -77,7 +77,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 |-----------|--------|
 | Reconstruct the local lattice/gauge invariants from observations | Structurally possible under Theorem 23's conditions |
 | Build better models of the visible sector | No structural limit |
-| Determine the hidden-sector state $h$ | Provably impossible [13] |
+| Determine the complete state, its own records included | Provably impossible [13] |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
 | Replace a visible process with nonzero conditional memory by a faithful memoryless (Markov) model at the same horizon | Provably impossible ([Main §3.4]) |
@@ -181,7 +181,7 @@ A positive complement to this silence is worth noting briefly. The framework's f
 
 ### 5.5 The boundary-characterization pattern across the Gödel-Turing-OI family
 
-The framework's silence on P vs NP fits a broader pattern across the incompleteness family identified in [1, Ch. 12 §12.8]: Gödel's incompleteness, Turing's halting result, OI's hidden-sector inaccessibility, and Deutsch's universality-of-explanation are all *boundary-characterization* results that share a common structural feature — each establishes a structural limit on access from inside a system, and each is silent on the internal organization of what falls within the accessible domain.
+The framework's silence on P vs NP fits a broader pattern across the incompleteness family identified in [1, Ch. 12 §12.8]: Gödel's incompleteness, Turing's halting result, OI's inaccessibility of the complete state, and Deutsch's universality-of-explanation are all *boundary-characterization* results that share a common structural feature — each establishes a structural limit on access from inside a system, and each is silent on the internal organization of what falls within the accessible domain.
 
 Concretely:
 
@@ -189,7 +189,7 @@ Concretely:
 
 - **Turing** sets a boundary at *computability by a Turing machine*. The halting problem statement is about what crosses that boundary (instances whose halting cannot be decided). Turing's theorems are silent on the internal organization of the computable: which decidable problems are tractable, which are intractable, is not a question Turing's theorems answer.
 
-- **OI** sets a boundary at *embedded observability of the substratum* (the hidden-sector state $h$, the cosmological horizon, the substratum representative). The OI incompleteness statements are about what crosses that boundary. They are silent on the internal organization of the observable: which physical phenomena have particular structure within the framework's accessible domain is content of a different kind, addressed by the framework's specific structural commitments (gauge group, generations, etc.) rather than by the incompleteness statement itself.
+- **OI** sets a boundary at *embedded observability of the substratum* (the complete state, the cosmological horizon, the substratum representative). The OI incompleteness statements are about what crosses that boundary. They are silent on the internal organization of the observable: which physical phenomena have particular structure within the framework's accessible domain is content of a different kind, addressed by the framework's specific structural commitments (gauge group, generations, etc.) rather than by the incompleteness statement itself.
 
 - **Deutsch** sets a boundary at *universal explanation* in the constructor-theoretic sense. Deutsch's universality-of-explanation is about what crosses that boundary (explanations attainable by sufficient knowledge-creation). It is silent on which problems within explanatory reach get solved in which order, by which methods.
 
@@ -255,7 +255,7 @@ Three concrete checks remain testable. (1) The known exponential-BQP-advantage d
 
 ### 7.3 Gauge equivalence and complexity-theoretic reductions
 
-The framework's substratum gauge group $\mathcal{G}_{\text{sub}}$ partitions the space of bijections into equivalence classes; the gauge group includes state relabeling, alphabet change (under the alphabet-size hypothesis; [5, §4, Theorem 24(ii)]), deep-sector enlargement, and graph isomorphism up to statistical isotropy (cubic-structure-preserving for the gauge sector; [5, §4, Theorem 24(iv)]). A natural question is whether $\mathcal{G}_{\text{sub}}$ has an image in the space of polynomial-time reductions among NP-complete problems. If gauge equivalence at the substratum level corresponds (in some precise sense) to polynomial-time reducibility at the algorithm level, the framework's gauge structure would provide a *physical* account of why NP-complete problems are reducible to each other. This is speculative — the correspondence has not been made precise — but the structural similarity is suggestive: gauge equivalence is "no observable distinction" at the substratum level, and polynomial-time reducibility is "no complexity distinction" at the algorithm level. Both are equivalence relations on otherwise distinct structures.
+The framework's substratum gauge group $\mathcal{G}_{\text{sub}}$ partitions the space of bijections into equivalence classes; the gauge group includes state relabeling, alphabet change (under the alphabet-size hypothesis; [5, §4, Theorem 24(ii)]), and deep-sector enlargement. A natural question is whether $\mathcal{G}_{\text{sub}}$ has an image in the space of polynomial-time reductions among NP-complete problems. If gauge equivalence at the substratum level corresponds (in some precise sense) to polynomial-time reducibility at the algorithm level, the framework's gauge structure would provide a *physical* account of why NP-complete problems are reducible to each other. This is speculative — the correspondence has not been made precise — but the structural similarity is suggestive: gauge equivalence is "no observable distinction" at the substratum level, and polynomial-time reducibility is "no complexity distinction" at the algorithm level. Both are equivalence relations on otherwise distinct structures.
 
 ### 7.4 Conditions and the right kind of research question
 

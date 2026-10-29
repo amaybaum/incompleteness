@@ -277,9 +277,9 @@ The roots of $x^2 - (1/3) x - 2/9 = 0$ are $x = (1/3 \pm \sqrt{1/9 + 8/9})/2 = (
 $$Y_Q = 1/6, \quad Y_u = 2/3, \quad Y_d = -1/3, \quad Y_L = -1/2, \quad Y_e = -1$$
 determined by the six anomaly conditions with no free parameters beyond the overall normalization (fixed above by the neutrality of $\nu_L$) and the $Y_u \leftrightarrow Y_d$ root labeling (fixed by the electric-charge identification). $\square$
 
-**Corollary.** $|q_p| = |q_e|$ is a *theorem*, not a coincidence.
+**Corollary.** On the nonzero-$Y_Q$ branch, $|q_p| = |q_e|$ is a *theorem*, not a coincidence.
 
-Proton charge: $q_p = 2 q_u + q_d = 2(2/3) + (-1/3) = 4/3 - 1/3 = 1$. Electron charge: $q_e = Y_e + T_3 = -1 + 0 = -1$ (since $e_R$ is a singlet, $T_3 = 0$). So $|q_p| = |q_e| = 1$, with the equality forced by anomaly cancellation. This is one of the framework's distinctive structural predictions: the proton-electron charge equality, which is a free parameter in the Standard Model, is a theorem of the framework.
+Proton charge: $q_p = 2 q_u + q_d = 2(2/3) + (-1/3) = 4/3 - 1/3 = 1$. Electron charge: $q_e = Y_e + T_3 = -1 + 0 = -1$ (since $e_R$ is a singlet, $T_3 = 0$). So $|q_p| = |q_e| = 1$, with the equality forced by anomaly cancellation. This is one of the framework's distinctive structural predictions: the proton-electron charge equality, which is a free parameter in the Standard Model, is a theorem of the framework on that branch.
 
 ## B.6 Gauge-theoretic derivations
 

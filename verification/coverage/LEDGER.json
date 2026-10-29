@@ -2062,9 +2062,23 @@
       "note": ""
     },
     {
+      "id": "SM:P-14a",
+      "paper": "papers/SM.md",
+      "line": 577,
+      "kind": "Proposition",
+      "label": "14a",
+      "fingerprint": "2288ba1f9977caa4",
+      "area": "sm",
+      "assumptions": "compact G0=U(3)xU(2)xU(1); the explicitly correlated central two-torus K",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "Written surjective homomorphism, explicit right section and exact full-kernel proof; no Lean proof or physical K-selection theorem.",
+      "note": "Positive constructive recovery: G0/K is S(U3xU2) and retains a relative circle. The native full-End conjugation kernel is only the common scalar circle, so the second K circle and charged observer action are additional physical obligations."
+    },
+    {
       "id": "SM:T-15",
       "paper": "papers/SM.md",
-      "line": 579,
+      "line": 587,
       "kind": "Theorem",
       "label": "15",
       "fingerprint": "2ae4229f337e2d0f",
@@ -2076,23 +2090,37 @@
       "note": ""
     },
     {
-      "id": "SM:C-unnamed-66dedb9a",
+      "id": "SM:P-15a",
       "paper": "papers/SM.md",
-      "line": 583,
-      "kind": "Corollary",
-      "label": "",
-      "fingerprint": "66dedb9af46d7da9",
+      "line": 591,
+      "kind": "Proposition",
+      "label": "15a",
+      "fingerprint": "bc386f3bb7a326b0",
       "area": "sm",
-      "assumptions": "see the statement",
+      "assumptions": "selected chiral SM family plus Higgs with primitive integer circle weights (1,4,-2,-3,-6;3)",
       "checks": [],
       "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
+      "delta": "Written faithful-image/kernel and surjectivity proof; no Lean proof, light-spectrum selection or full global gauge-bundle/line classification.",
+      "note": "The joint local-field action has exactly Z6 kernel and faithful image S(U3xU2). Determinant-character dressings construct the selected representations. Cover/subquotient choices need additional global data; control provenance is in the gauge-global-form recovery audit."
+    },
+    {
+      "id": "SM:C-15b",
+      "paper": "papers/SM.md",
+      "line": 597,
+      "kind": "Corollary",
+      "label": "15b",
+      "fingerprint": "755d83a4dab284a1",
+      "area": "sm",
+      "assumptions": "nonzero-Y_Q branch of the fixed-family Theorem 15; standard u/d labeling and electromagnetic identification",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "Written algebraic charge identity, not formalized; conditional on the selected family and charge branch.",
+      "note": "The exceptional neutral-Q branch need not satisfy this identity; no arbitrary chiral spectrum is classified."
     },
     {
       "id": "SM:T-16",
       "paper": "papers/SM.md",
-      "line": 587,
+      "line": 601,
       "kind": "Theorem",
       "label": "16",
       "fingerprint": "49edbac40239ee5e",
@@ -2119,7 +2147,7 @@
     {
       "id": "SM:T-17",
       "paper": "papers/SM.md",
-      "line": 609,
+      "line": 623,
       "kind": "Theorem",
       "label": "17",
       "fingerprint": "d4ff945f3de05b59",
@@ -2150,7 +2178,7 @@
     {
       "id": "SM:T-18",
       "paper": "papers/SM.md",
-      "line": 617,
+      "line": 631,
       "kind": "Theorem",
       "label": "18",
       "fingerprint": "f16e5a756dd9aee2",
@@ -2164,7 +2192,7 @@
     {
       "id": "SM:T-19",
       "paper": "papers/SM.md",
-      "line": 625,
+      "line": 639,
       "kind": "Theorem",
       "label": "19",
       "fingerprint": "15482d2e00da0d62",
@@ -2191,7 +2219,7 @@
     {
       "id": "SM:P-20",
       "paper": "papers/SM.md",
-      "line": 631,
+      "line": 645,
       "kind": "Proposition",
       "label": "20",
       "fingerprint": "0ecbb951f7fb33b7",
@@ -2205,7 +2233,7 @@
     {
       "id": "SM:T-21",
       "paper": "papers/SM.md",
-      "line": 635,
+      "line": 649,
       "kind": "Theorem",
       "label": "21",
       "fingerprint": "f2236da0bec98ef3",
@@ -2219,7 +2247,7 @@
     {
       "id": "SM:T-22",
       "paper": "papers/SM.md",
-      "line": 1360,
+      "line": 1374,
       "kind": "Theorem",
       "label": "22",
       "fingerprint": "66c883710a56ac79",
@@ -2233,7 +2261,7 @@
     {
       "id": "SM:C-unnamed-235f5cba",
       "paper": "papers/SM.md",
-      "line": 1372,
+      "line": 1386,
       "kind": "Corollary",
       "label": "",
       "fingerprint": "235f5cba7fc10e49",
@@ -2533,7 +2561,7 @@
       "line": 251,
       "kind": "Theorem",
       "label": "24",
-      "fingerprint": "0eed8d062caa6e2c",
+      "fingerprint": "3ccdd47c6a7819b1",
       "area": "reconstruction",
       "assumptions": "see the statement; family (ii) under the alphabet-size hypothesis of SM §2.7",
       "checks": [],
@@ -2948,6 +2976,48 @@
       "kernel": "K3",
       "delta": "",
       "note": "The displayed same-carrier block-word rigidity biconditional is kernel proved with both directions separately named. The result does not follow from equality of visible single-time channels; ST3_pairC provides a counterexample to that old transfer claim. It does not prove that the exhibited substratum gauge generators are complete, nor that a hidden unitary is an allowed finite-state relabelling. This row replaces the false and retired manuscript Lemma 24.1 entry, not its research-round history."
+    },
+    {
+      "id": "SUBSTRATUM:P-24.3",
+      "paper": "papers/Substratum.md",
+      "line": 285,
+      "kind": "Proposition",
+      "label": "24.3",
+      "fingerprint": "8737d2fb12a8b31b",
+      "area": "reconstruction",
+      "assumptions": "finite alphabet; one time-homogeneous freely composable linear word realization per model; reachability and observability for uniqueness; known finite dimension bounds for finite access; exact required word statistics",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "No Lean statement or kernel proof; complete written proof with bounded exact rational controls only.",
+      "note": "Standard predictive-realization theory/native future-trace quotient recovery, scoped to the stated observational interface. Exact control provenance: verification/audits/manuscript/multitime-predictive-recovery-20261028/exact-controls-v2.py SHA-256 f0549188f68e3afcd14a7e59430b1919758568c9b68467a934644de911fb3274; results SHA-256 2bb425b1ff2f26dcd79f9c47c938bbbc4ce3e9224a46f52c10ec5ffa459bde28; independently reviewed frozen proof SHA-256 3b6b7a4c64a1d4ffa8b756995123ebdc9f6309748b79f89ed89805426a896043. Independently replayed with exit 0 and byte-identical results. These are bounded controls, not a machine proof of the universal proposition; checks remains empty to preserve the GAP contract. No microscopic/hidden-factor/coherent-channel/all-partitions gauge-completeness claim."
+    },
+    {
+      "id": "SUBSTRATUM:P-24.4",
+      "paper": "papers/Substratum.md",
+      "line": 310,
+      "kind": "Proposition",
+      "label": "24.4",
+      "fingerprint": "d6f59841d88a2d55",
+      "area": "reconstruction",
+      "assumptions": "one fixed finite permutation per compared model; passive deterministic readout; each compared model has a full-support pushed-forward initial law on its own future-trace quotient; known common upper bound B on both quotient-state counts; exact required passive word statistics; no stationarity of either initial law",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "No Lean statement or kernel proof; complete written proof with bounded exact rational controls only.",
+      "note": "Standard predictive-realization theory/native future-trace quotient recovery, scoped to the stated observational interface. Exact control provenance: verification/audits/manuscript/multitime-predictive-recovery-20261028/exact-controls-v2.py SHA-256 f0549188f68e3afcd14a7e59430b1919758568c9b68467a934644de911fb3274; results SHA-256 2bb425b1ff2f26dcd79f9c47c938bbbc4ce3e9224a46f52c10ec5ffa459bde28; independently reviewed frozen proof SHA-256 3b6b7a4c64a1d4ffa8b756995123ebdc9f6309748b79f89ed89805426a896043. Independently replayed with exit 0 and byte-identical results. These are bounded controls, not a machine proof of the universal proposition; checks remains empty to preserve the GAP contract. No microscopic/hidden-factor/coherent-channel/all-partitions gauge-completeness claim."
+    },
+    {
+      "id": "SUBSTRATUM:P-24.5",
+      "paper": "papers/Substratum.md",
+      "line": 327,
+      "kind": "Proposition",
+      "label": "24.5",
+      "fingerprint": "0bab27ebe3d6d475",
+      "area": "reconstruction",
+      "assumptions": "known finite permutation P and deterministic passive readout; known initial law with positive support A; exact retained word with positive probability; whole-carrier size N for finite partition bound; product visible/hidden coordinates for the current-hidden singleton equivalence",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "Complete written finite record-fibre/partition-refinement proof; not formalized in Lean. Bounded exact controls are not a universal kernel certificate.",
+      "note": "A quantity is identified iff constant on its compatible record fibre. Full future classes are resolved by max(1,N-1) readings of the whole carrier, then restricted to A; A need not be invariant. C4 predictive memory does not force residual posterior opacity. Known-model state identification is distinct from unknown-model P24.4 quotient reconstruction and from physical record retention/actions. Exact control source: verification/audits/manuscript/hidden-state-identifiability-20261028/independent_controls.py SHA256 c674bca3a1b3dbba0cddee1bb3fcd5fab79b4e3098ed623194840766990b41a4; original result SHA256 fa5019a86231e515c86aa75ccc41c62eda827c983791a1fee7e90ea2ca4e8190. GAP/checks=[] retained."
     }
   ],
   "unattached": [

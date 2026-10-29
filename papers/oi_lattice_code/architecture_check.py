@@ -12,7 +12,7 @@
 #   (b) every invariant carries a known-bad EXEMPLAR, and the guard fails if an
 #       invariant does not match its own exemplar — a pattern that matches nothing
 #       can no longer pass quietly.
-import os, re, sys, glob
+import os, re, sys, glob, json, subprocess
 
 root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 targets = sorted(glob.glob(os.path.join(root, "papers", "*.md"))) \
@@ -22,6 +22,26 @@ targets = sorted(glob.glob(os.path.join(root, "papers", "*.md"))) \
 E = r"[*_`\s-]*"          # markdown emphasis / hyphen / space tolerance
 
 INVARIANTS = [
+    (r"multiple hidden states[^.\n]{0,90}compatible with (?:any|every)[^.\n]{0,50}history",
+     "proper instantaneous access does not imply all-history opacity; use record fibres and Substratum Proposition 24.5",
+     [],
+     "multiple hidden states are compatible with any visible-sector history"),
+    (r"observer provably cannot determine (?:\$h\$|h\b|the hidden state)",
+     "finite known-model state inference can succeed through retained records; it is not universally forbidden",
+     [],
+     "the observer provably cannot determine $h$"),
+    (r"[Tt]he hidden sector is permanently inaccessible",
+     "permanent non-identifiability requires the full permitted record/interface conditions, not hidden-sector status alone",
+     [],
+     "The hidden sector is permanently inaccessible"),
+    (r"\|\s*(?:Determine|Infer)[^|\n]*hidden[^|\n]*\|\s*Provably impossible",
+     "the characterization theorem does not prohibit hidden-state identification; C4 memory is compatible with point posteriors",
+     [],
+     "| Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |"),
+    (r"[Tt]he hidden state[^.\n]{0,15}is undecidable",
+     "known finite record-fibre non-identifiability is not Turing undecidability",
+     [],
+     "The hidden state h is undecidable"),
     (rf"P{E}indivisib\w*{E}(subclass)",
      "the imported representation applies across the correspondence's class, not to a P-indivisible subclass",
      [r'does not apply only to a "P-indivisible subclass"', r"P-indivisible-subclass representation clause"],
@@ -1135,6 +1155,27 @@ INVARIANTS = [
      "graph locality establishes local tomography"),
 ]
 
+# --- bounded semantic regression: retained records can identify hidden states ---
+# These exact finite controls are evidence, not a machine proof of P24.5.
+# Running them here includes the new regression in the existing CI gate without
+# changing workflow permissions or treating the lexical guard as a theorem prover.
+record_failures = []
+record_probe = os.path.join(root, "verification", "audits", "manuscript",
+                            "hidden-state-identifiability-20261028", "independent_controls.py")
+try:
+    record_run = subprocess.run([sys.executable, "-I", "-B", record_probe],
+                                text=True, capture_output=True, timeout=30)
+    record_result = json.loads(record_run.stdout)
+    if record_run.returncode or record_result.get("status") != "PASS":
+        record_failures.append("record-fibre exact controls failed")
+    else:
+        print(f"record-fibre controls: PASS ({record_result['checks']} predicates; "
+              f"{record_result['nonempty_support_cases']} support cases)")
+except (OSError, ValueError, subprocess.TimeoutExpired) as exc:
+    record_failures.append(f"record-fibre controls unavailable: {exc}")
+for why in record_failures:
+    print(f"RECORD-FIBRE REGRESSION FAILURE: {why}")
+
 # --- self-test: every invariant must match its own known-bad exemplar ---
 selftest_failures = [why for pat, why, _, ex in INVARIANTS if not re.search(pat, ex)]
 for why in selftest_failures:
@@ -1157,4 +1198,4 @@ for f, ln, hit, why in violations[:LIMIT]:
 if len(violations) > LIMIT: print(f"    … and {len(violations)-LIMIT} more (set OI_ARCH_FULL=1 for all)")
 print(f"architecture_check: {len(INVARIANTS)} invariant(s), {len(violations)} violation(s), "
       f"{len(selftest_failures)} self-test failure(s)")
-sys.exit(1 if (violations or selftest_failures) else 0)
+sys.exit(1 if (violations or selftest_failures or record_failures) else 0)

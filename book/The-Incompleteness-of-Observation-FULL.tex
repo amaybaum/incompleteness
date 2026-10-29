@@ -3102,26 +3102,25 @@ observer determine the hidden-sector state \(h\)? The question is
 well-posed. The hidden state has a definite value at every moment,
 because \((S, \varphi)\) is deterministic. Different \(h\) values
 produce different physical outcomes through the bijection. But the
-observer provably cannot determine \(h\): multiple hidden states are
-compatible with any visible-sector history, and the transition
-probabilities \(T_{ij}(t)\) are averages over them. The structural
-consequence of this inaccessibility is quantum mechanics, just as the
-structural consequence of the halting problem's undecidability is
-computability theory.
+observer cannot determine the hidden degrees of freedom beyond causal
+reach, and the transition probabilities \(T_{ij}(t)\) are averages over
+\(h\). The structural consequence of this inaccessibility is quantum
+mechanics, just as the structural consequence of the halting problem's
+undecidability is computability theory.
 
-Two further classes of inaccessible quantities deserve separation from
-the undecidable hidden state. The cardinality of the deep hidden sector
-beyond the partition boundary is \emph{gauge} rather than undecidable,
-and so is the alphabet size \(q\) at each lattice site under the
-alphabet-size hypothesis of Chapter 5. Different deep-sector
+Two further classes of quantities deserve separation from the
+inaccessible hidden degrees of freedom. The cardinality of the deep
+hidden sector beyond the partition boundary is \emph{gauge} rather than
+inaccessible, and so is the alphabet size \(q\) at each lattice site
+under the alphabet-size hypothesis of Chapter 5. Different deep-sector
 cardinalities --- including infinite ones --- produce the same visible
 transition data at leading order on accessible timescales, through the
 boundary-only dependence lemma of Chapter 7; under the hypothesis,
 different values of \(q\) produce identical observables. The hidden
-state \(h\) is undecidable: there is a real answer, but the observer
-cannot find it. A gauge quantity has no answer to find, because the
-question is empty. This distinction will be made precise in §2.5, where
-the gauge group is constructed explicitly.
+degrees of freedom beyond causal reach are inaccessible: there is a real
+answer, but the observer cannot find it. A gauge quantity has no answer
+to find, because the question is empty. This distinction will be made
+precise in §2.5, where the gauge group is constructed explicitly.
 
 The reconstruction theorem developed in the next section fixes the
 \textbf{local lattice/gauge residue} --- under its stated conditions ---
@@ -3474,7 +3473,7 @@ group}\label{the-substratum-gauge-group}}
 The reconstruction theorem identifies
 \([(S, \varphi)] / \mathcal{G}_{\text{sub}}\) as the framework's central
 object. This section makes \(\mathcal{G}_{\text{sub}}\) explicit by
-exhibiting four families of generators; whether they exhaust the group
+exhibiting three families of generators; whether they exhaust the group
 is open.
 
 For the reconstructed dilation/local datum, the substratum gauge group
@@ -3497,9 +3496,10 @@ Lagrangian symmetries in the standard sense, derived from the substratum
 through the trace-out.
 
 \textbf{Theorem (Generators).} \emph{\(\mathcal{G}_{\text{sub}}\)
-contains the independent families of transformations (i), (iii) and (iv)
+contains the independent families of transformations (i) and (iii)
 below, and, under the alphabet-size hypothesis of Chapter 5, the family
-(ii):}
+(ii); (iv) is a structural graph comparison outside
+\(\mathcal{G}_{\text{sub}}\):}
 
 \emph{(i) Hidden-state relabeling.} For any bijection \(\sigma\) of the
 hidden configurations \(\mathcal{C}_H\), applied in every visible fibre
@@ -3545,24 +3545,26 @@ probabilities themselves.
 gauge-sector qualification.} Two coupling graphs \(G_\varphi\) and
 \(G_{\varphi'}\) that are quasi-isometric, with the same polynomial
 growth exponent \(d\), the same spectral mode count, and the same
-statistical isotropy at large scales, produce the same emergent
-\emph{quantum-mechanical, dimensional, and gravitational} physics; for
-that content the regular cubic lattice \(\mathbb{Z}^3\) and any
-bounded-degree random graph with \(d = 3\) polynomial growth and
-statistical isotropy are gauge-equivalent, and the reconstruction's
-output specifies the \emph{equivalence class} of such graphs, not the
-specific graph. The \emph{Standard Model gauge group} is where this
-crystallography is read out: its multiplicities \((3,2,1)\) come from
-the octahedral point group on the six link directions, which is not a
-quasi-isometry invariant, so only the spectral mode count \(2d_s = 6\)
-transfers to a generic isotropic graph --- not the cubic decomposition.
-For the gauge sector, therefore, generator (iv) is restricted to
-orientation- and octahedral-structure-preserving isomorphisms, and the
-simple-cubic Bravais type is an empirically-selected input rather than a
-gauge choice. The gauge group itself is a universality-class invariant,
-shared with any Standard-Model-reproducing class through different
-machinery ({[}Structure §2.3, §14.4{]}); within OI's class it is
-realized through the cubic-group commutant.
+statistical isotropy at large scales, produce the same structural
+\emph{quantum-mechanical, dimensional, and gravitational} outputs,
+though not, in general, the same transition probabilities \(T_{ij}(t)\)
+at a fixed observer interface; for that structural content the regular
+cubic lattice \(\mathbb{Z}^3\) and any bounded-degree random graph with
+\(d = 3\) polynomial growth and statistical isotropy are structurally
+equivalent, and the reconstruction's output specifies the
+\emph{equivalence class} of such graphs, not the specific graph. The
+\emph{Standard Model gauge group} is where this crystallography is read
+out: its multiplicities \((3,2,1)\) come from the octahedral point group
+on the six link directions, which is not a quasi-isometry invariant, so
+only the spectral mode count \(2d_s = 6\) transfers to a generic
+isotropic graph --- not the cubic decomposition. For the gauge sector,
+therefore, comparison (iv) is restricted to orientation- and
+octahedral-structure-preserving isomorphisms, and the simple-cubic
+Bravais type is an empirically-selected input rather than a gauge
+choice. The gauge group itself is a universality-class invariant, shared
+with any Standard-Model-reproducing class through different machinery
+({[}Structure §2.3, §14.4{]}); within OI's class it is realized through
+the cubic-group commutant.
 
 \emph{Proof that each family preserves all inputs to the derivation
 chain.} Generator (i): conjugation by the hidden permutation leaves the
@@ -3573,19 +3575,19 @@ bijectively, so every transition probability is unchanged. Generator
 (ii): this is the alphabet-size hypothesis of Chapter 5, under which the
 family is stated. Generator (iii): the adjoined degrees of freedom are
 decoupled, so averaging over them leaves the visible marginal, and every
-transition probability, unchanged. Generator (iv): the derivation chain
-in Stage 2 uses only statistical properties of \(G_\varphi\) ---
-dimension, spectral dimension, bounded degree, isotropy --- never
-specific graph features. \(\square\)
+transition probability, unchanged. Comparison (iv): the structural
+derivation chain in Stage 2 uses only statistical properties of
+\(G_\varphi\) --- dimension, spectral dimension, bounded degree,
+isotropy --- never specific graph features. \(\square\)
 
 \textbf{Completeness.} For the reconstructed dilation/local datum, it is
-open whether the four families exhaust \(\mathcal{G}_{\text{sub}}\) ---
-whether any observables-preserving transformation of that scoped datum
-decomposes as a composition of generators (i)--(iv). This completeness
-question does not extend to preparation-indexed Bell adjacency or other
-Bell-composite data.
+open whether families (i)--(iii) exhaust \(\mathcal{G}_{\text{sub}}\)
+--- whether any observables-preserving transformation of that scoped
+datum decomposes as a composition of generators (i)--(iii). This
+completeness question does not extend to preparation-indexed Bell
+adjacency or other Bell-composite data.
 
-Three candidate fifth generators are compared with the four already
+Three candidate further generators are compared with the three already
 listed:
 
 \emph{Time reversal} (\(\varphi \to \varphi^{-1}\)). The wave equation
@@ -3609,66 +3611,55 @@ transformation. It is the identity on \((S, \varphi)\).
 
 \textbf{The three-level gauge hierarchy.} The framework has three
 distinct gauge symmetries, each appearing at a different level of the
-derivation, with each level projecting onto the next through the
-trace-out:
+derivation, with its own equivalence notion:
 
 \emph{Level 3 --- reconstructed-datum substratum gauge.}
 \(\mathcal{G}_{\text{sub}}\) acts on the reconstructed dilation/local
-representative \((S, \varphi)\) before any marginalization. It is the
-largest of the three gauge groups within that scoped reconstruction and
-includes transformations with no analog at lower levels (deep-sector
-enlargement, and alphabet change under the alphabet-size hypothesis).
-Bell-composite preparation rules are outside its scope.
+representative \((S, \varphi)\) before any marginalization. Within that
+scoped reconstruction it includes transformations with no analog at
+lower levels (deep-sector enlargement, and alphabet change under the
+alphabet-size hypothesis). Bell-composite preparation rules are outside
+its scope.
 
 \emph{Level 2 --- emergent quantum field theory gauge.} The Standard
 Model gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) acts on
 the emergent fields after Stage 2 of the reconstruction has produced
-them. It is the image of \(\mathcal{G}_{\text{sub}}\) restricted to
-transformations that permute internal components within the eigenspaces
-of the coupling matrix. The Standard Model gauge group is, in this
-picture, the visible-sector shadow of the substratum gauge group --- the
-image of \(\mathcal{G}_{\text{sub}}\) under the trace-out.
+them. It follows from the substratum construction (Stage 2) and acts on
+internal components within the eigenspaces of the coupling matrix.
 
 \emph{Level 1 --- emergent Hamiltonian gauge.} A residual
 diagonal-unitary freedom \(H \to D H D^\dagger\) (where \(D\) is a
 diagonal unitary on the emergent Hilbert space) remains after all
-transition-probability data has been extracted. This is the smallest of
-the three gauge groups, corresponding to the rephasing of basis states
-in the emergent quantum description.
+transition-probability data has been extracted. It corresponds to the
+rephasing of basis states in the emergent quantum description.
 
-Each level is contained in the one above:
-\(\mathrm{Level\ 1} \subset \mathrm{Level\ 2} \subset \mathrm{Level\ 3}\).
-The trace-out projects Level 3 onto Level 2 (substratum gauge → Standard
-Model gauge); restriction to the Hamiltonian projects Level 2 onto Level
-1.
+The levels carry distinct equivalence notions; inclusions between them
+and a map from \(\mathcal{G}_{\text{sub}}\) onto the Standard Model
+gauge group are not established.
 
-The three-level hierarchy provides a structural account of why the
+The substratum construction provides a structural account of why the
 Standard Model gauge group is what it is. The conventional puzzle is:
 why \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) rather
 than some other group? Standard Grand Unified Theories address this by
 embedding the Standard Model in a larger simple group at high energy and
 then breaking it; the framework here answers differently. The Standard
-Model gauge group is the image of the substratum's symmetry under the
-partial-trace operation. The substratum has a larger symmetry group (all
-the freedom in generators (i)--(iv) plus the SM gauge structure); the
-trace-out projects this onto the smaller emergent gauge group; the
-residual freedom in the emergent description is the smaller Level 1
-diagonal gauge. The Standard Model gauge group is fixed by the structure
-of the substratum, not chosen from a landscape.
+Model gauge group follows from the substratum construction (Stage 2).
+The Standard Model gauge group is fixed by the structure of the
+substratum, not chosen from a landscape.
 
 \textbf{Substrate freedom and the realism question.} The substratum
 gauge group makes precise an earlier claim. Different gauge
 representatives within an equivalence class produce identical
-observables: hidden-state relabelings, decoupled deep-sector
-enlargements and graph isomorphisms leave every measurement outcome
-unchanged, and so, under the alphabet-size hypothesis, do alphabet
-changes. The question ``which specific substratum representative is
-real?'' therefore has no empirical content. Two representatives in the
-same equivalence class are observably indistinguishable, in the
-strongest possible sense --- every measurement on either gives the same
-result. The framework's ontic commitment is to the equivalence class,
-not to any specific representative within it.
+observables: hidden-state relabelings and decoupled deep-sector
+enlargements leave every measurement outcome unchanged, and so, under
+the alphabet-size hypothesis, do alphabet changes. The question ``which
+specific substratum representative is real?'' therefore has no empirical
+content. Two representatives in the same equivalence class are
+observably indistinguishable, in the strongest possible sense --- every
+measurement on either gives the same result. The framework's ontic
+commitment is to the equivalence class, not to any specific
+representative within it.
 
 This is what makes the framework's scoped structural realism
 non-trivial. The invariants of the \textbf{reconstructed local
@@ -3953,12 +3944,11 @@ and the category error is fixed by the substratum-level construction.
 The persistent failure of unification programs is no longer puzzling ---
 they were trying to merge two descriptions of different things, which
 cannot be done. Second, it provides an explanation for why the Standard
-Model has the gauge group it does. The Standard Model gauge group is the
-visible-sector shadow of the substratum gauge group
-\(\mathcal{G}_{\text{sub}}\), projected through the trace-out. The gauge
-group is not chosen from a landscape of alternatives; it is the unique
-image of the substratum's symmetry under the partial-trace operation,
-given the reconstruction theorem's structural inputs.
+Model has the gauge group it does. The Standard Model gauge group
+follows from the substratum construction (Stage 2). The gauge group is
+not chosen from a landscape of alternatives; it is obtained from the
+commutant of the cubic-symmetric coupling matrix, given the
+reconstruction theorem's structural inputs.
 
 The framework's synthesis claim is structural and architectural, not
 predictive in the conventional sense. It does not claim to produce
@@ -4422,31 +4412,30 @@ observation axis. Where the observation axis is about scope --- which
 substrata fall within the framework's domain --- the gauge axis is about
 transformations: which substratum-level operations leave all observables
 unchanged. Like the observation axis, the gauge axis has four levels,
-with each broader level absorbing more degrees of freedom as gauge.
+each with its own equivalence notion.
 
-\textbf{Level G1: D-gauge on the emergent Hamiltonian.} The narrowest
-gauge freedom in the framework is the diagonal-unitary equivalence on
-the emergent Hamiltonian: \(H \to D H D^\dagger\) with \(D\) a diagonal
-unitary in the measurement-outcome basis. This freedom preserves
-transition probabilities exactly. Energy shifts and the antiunitary
-reflection also preserve them; completeness of these alternatives under
-the stated gap and overlap hypotheses is conditional on the sign-aware
-integer classification H-BG ({[}GR §3.3{]}; Appendix B.7). Two
-Hamiltonians \(H\) and \(D H D^\dagger\) produce identical Born-rule
-probabilities \(T_{ij}(t) = |\langle j | e^{-iHt/\hbar} | i \rangle|^2\)
-in the measurement basis, so they are operationally indistinguishable.
-The transformation rephases the measurement basis, changing off-diagonal
+\textbf{Level G1: D-gauge on the emergent Hamiltonian.} The first level
+of gauge freedom is the diagonal-unitary equivalence on the emergent
+Hamiltonian: \(H \to D H D^\dagger\) with \(D\) a diagonal unitary in
+the measurement-outcome basis. This freedom preserves transition
+probabilities exactly. Energy shifts and the antiunitary reflection also
+preserve them; completeness of these alternatives under the stated gap
+and overlap hypotheses is conditional on the sign-aware integer
+classification H-BG ({[}GR §3.3{]}; Appendix B.7). Two Hamiltonians
+\(H\) and \(D H D^\dagger\) produce identical Born-rule probabilities
+\(T_{ij}(t) = |\langle j | e^{-iHt/\hbar} | i \rangle|^2\) in the
+measurement basis, so they are operationally indistinguishable. The
+transformation rephases the measurement basis, changing off-diagonal
 phases of \(H\) while leaving its diagonal entries and every transition
 probability unchanged.
 
-Level G1 is the smallest gauge group in the hierarchy. It operates
-within a single Hamiltonian realization in a single emergent quantum
-mechanics --- within Level D × Level G1 in the joint hierarchy, the
-framework's most specific intersection. Its content is the bookkeeping
-freedom in choosing phase conventions for the emergent basis states,
-with no implications beyond that.
+Level G1 operates within a single Hamiltonian realization in a single
+emergent quantum mechanics --- within Level D × Level G1 in the joint
+hierarchy, the framework's most specific intersection. Its content is
+the bookkeeping freedom in choosing phase conventions for the emergent
+basis states, with no implications beyond that.
 
-\textbf{Level G2: the Standard Model gauge group.} The next broader
+\textbf{Level G2: the Standard Model gauge group.} The next level of
 gauge freedom is the Standard Model gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) acting on
 the emergent quantum fields. Chapter 2 §2.5 developed this as the
@@ -4463,9 +4452,7 @@ removes only the common phase. Background independence promotes this
 global commutant symmetry to local gauge invariance, giving the full SM
 gauge structure of standard quantum field theory.
 
-Level G2 contains Level G1 as a sub-symmetry: every G1 transformation is
-also a G2 transformation (specifically, an element of the maximal torus
-of the gauge group). G2 is broader than G1 because it includes the
+An inclusion of Level G1 in Level G2 is not established. G2 includes the
 off-diagonal gauge transformations that mix different internal
 components, which G1 does not access.
 
@@ -4488,20 +4475,17 @@ group itself.
 gauge group as the set of transformations on the underlying bijection
 \((S, \varphi)\) that preserve all observables --- identical transition
 probabilities, identical emergent Hamiltonian (up to G1), identical
-value of \(\hbar\) across all partitions of OI's structural class. Four
+value of \(\hbar\) across all partitions of OI's structural class. Three
 families of generators were identified: hidden-sector relabeling,
-alphabet change (under the alphabet-size hypothesis of Chapter 5),
-deep-sector enlargement, and graph isomorphism up to statistical
-isotropy. Whether these four families exhaust the freedom is open
-(Substratum §4).
+alphabet change (under the alphabet-size hypothesis of Chapter 5), and
+deep-sector enlargement. Whether these three families exhaust the
+freedom is open (Substratum §4).
 
-Level G3 contains both G1 and G2. The Standard Model gauge group is the
-visible-sector shadow of \(\mathcal{G}_{\text{sub}}\) --- the image of
-the substratum gauge group under the trace-out. The framework's
-structural account of why the Standard Model has its specific gauge
-group is precisely this: the SM gauge group is what
-\(\mathcal{G}_{\text{sub}}\) looks like after the partial trace over the
-hidden sector has been performed.
+Inclusions of G1 and G2 in G3, and a map from
+\(\mathcal{G}_{\text{sub}}\) onto the Standard Model gauge group, are
+not established. The framework's structural account of why the Standard
+Model has its specific gauge group is the cubic-group commutant of Level
+G2, which follows from the substratum construction (Stage 2).
 
 Level G3 differs from G1 and G2 in an important structural respect: it
 is an \emph{equivalence-class symmetry}, not a Lagrangian symmetry.
@@ -4523,10 +4507,11 @@ visible observables and the channel's dynamical content. Level G4
 captures equivalences that may not be expressible as transformations
 within any single structural class.
 
-Level G4 is broader than \(\mathcal{G}_{\text{sub}}\). Substrata related
-by \(\mathcal{G}_{\text{sub}}\) are universality-class equivalent (since
-they produce the same algebra-channel pair), but substrata not related
-by any \(\mathcal{G}_{\text{sub}}\) transformation may still be
+Level G4 is broader than generators (i) and (iii) of
+\(\mathcal{G}_{\text{sub}}\). Substrata related by them are
+universality-class equivalent (since they produce the same
+algebra-channel pair), but substrata not related by any
+\(\mathcal{G}_{\text{sub}}\) transformation may still be
 universality-class equivalent if they produce the same algebra-channel
 pair through structurally different machinery. The classic candidate is
 the relationship between OI's cubic-lattice substratum and
@@ -4545,15 +4530,12 @@ entirely; the algebra-channel pair is undefined for them because there
 is no embedded observer to define the algebra of visible observables or
 the channel induced by the partial trace.
 
-\textbf{The gauge hierarchy nests.} Each broader level absorbs more
-degrees of freedom as gauge, with
-\(\mathrm{G1} \subset \mathrm{G2} \subset \mathrm{G3} \subset \mathrm{G4}\).
-The trace-out projects higher levels onto lower: trace-out of
-\(\mathcal{G}_{\text{sub}}\) produces the SM gauge group as the image;
-restriction to the emergent Hamiltonian projects G2 onto G1. The
-framework commits to all four levels of gauge simultaneously, with
-different levels of gauge being relevant to different questions about
-the substratum and its emergent physics.
+\textbf{The levels of the gauge hierarchy.} The levels carry distinct
+equivalence notions; inclusions among G1, G2 and G3 and a map from
+\(\mathcal{G}_{\text{sub}}\) onto the Standard Model gauge group are not
+established. The framework commits to all four levels of gauge
+simultaneously, with different levels of gauge being relevant to
+different questions about the substratum and its emergent physics.
 
 \hypertarget{orthogonality-multi-level-realism-and-stratified-predictions}{%
 \subsection{3.5 Orthogonality, multi-level realism, and stratified
@@ -4738,7 +4720,7 @@ access.
 
 The opposition dissolves on inspection. Consider why a gauge degree of
 freedom counts as surplus in the first place. The substratum gauge group
-\(\mathcal{G}_{\text{sub}}\) contains, among its four families,
+\(\mathcal{G}_{\text{sub}}\) contains, among its three families,
 hidden-sector relabeling: permute the labels on the hidden-sector states
 and every visible observable is unchanged. The labels are surplus ---
 but they are surplus \emph{because no observation distinguishes the
@@ -5223,7 +5205,7 @@ precise specification of what the appropriate quotient is. Worrall's
 structural realism left the structure under-specified: which structures
 are real, which are gauge, how to determine the boundary. The
 framework's \(\mathcal{G}_{\text{sub}}\) characterizes the
-substratum-level gauge explicitly, with four generator families whose
+substratum-level gauge explicitly, with three generator families whose
 completeness is open. The framework's universality-class structure at
 Level C characterizes broader equivalences across structural classes.
 The framework's hierarchical structure stratifies the realism claims by
@@ -5317,7 +5299,7 @@ read-write access, what is the hardware the memory runs on?
 The framework takes none of the three classical exits, because it can
 prove that the question loses reference before it needs an answer. The
 reconstruction determines the substratum at most up to the gauge group
-\(\mathcal{G}_{\text{sub}}\) (Chapter 2 §2.5), and one of its four
+\(\mathcal{G}_{\text{sub}}\) (Chapter 2 §2.5), and one of its three
 generator families is deep-sector enlargement: add substrate structure
 beneath the boundary layer that no dynamics couples to it, and every
 observable --- every transition probability, the emergent Hamiltonian,
@@ -7657,14 +7639,15 @@ effects, exactly the structure observed in the Standard Model.
 
 A corollary of the hypercharge derivation deserves explicit mention: the
 equality of the magnitudes of the proton and electron charges,
-\(|q_p| = |q_e|\), follows from the framework's structural derivation
-rather than being a coincidence. The proton charge
-\(q_p = 2 Y_u + Y_d = 2 \cdot (2/3) + (-1/3) = 1\) and the electron
-charge \(q_e = Y_e = -1\) are equal in magnitude because the anomaly
-conditions force the specific ratios that produce this cancellation. The
-famous one-to-one ratio between proton and electron charge magnitudes
---- observed to fantastic precision in atomic neutrality measurements
---- is a theorem of the framework, not a parameter fixed by observation.
+\(|q_p| = |q_e|\), follows on the nonzero-\(Y_Q\) branch from the
+framework's structural derivation rather than being a coincidence. The
+proton charge \(q_p = 2 Y_u + Y_d = 2 \cdot (2/3) + (-1/3) = 1\) and the
+electron charge \(q_e = Y_e = -1\) are equal in magnitude because the
+anomaly conditions force the specific ratios that produce this
+cancellation. The famous one-to-one ratio between proton and electron
+charge magnitudes --- observed to fantastic precision in atomic
+neutrality measurements --- is, on that branch, a theorem of the
+framework, not a parameter fixed by observation.
 
 \hypertarget{what-follows-3}{%
 \subsection{5.7 What follows}\label{what-follows-3}}
@@ -16136,11 +16119,11 @@ observer's complexity; they are determined by the partition.
 \textbf{Self-referential limits.} A superintelligent AI has the same
 observational access as any other embedded observer: it reads the
 visible sector and writes to the hidden sector through the same
-coupling. It cannot determine \(h\) (the specific hidden-sector
-configuration). It cannot see past the cosmological horizon. It can
-build better instruments --- higher-resolution telescopes, more precise
-atomic clocks, more sensitive particle detectors --- but it cannot
-overcome the partition itself. The framework's structural limits are not
+coupling. It cannot determine the hidden degrees of freedom beyond
+causal reach. It cannot see past the cosmological horizon. It can build
+better instruments --- higher-resolution telescopes, more precise atomic
+clocks, more sensitive particle detectors --- but it cannot overcome the
+partition itself. The framework's structural limits are not
 technological but mathematical.
 
 The recursion --- AI building AI building AI --- produces ever more
@@ -16164,9 +16147,9 @@ there is no algorithm that, given an arbitrary program, determines
 whether the program will eventually halt. The limit is on what a
 computational system can determine about itself.
 
-\emph{OI (framework).} An embedded observer cannot determine the
-hidden-sector state. The limit is on what a physical observer can
-establish about its own substratum from within.
+\emph{OI (framework).} An embedded observer cannot access the complete
+state. The limit is on what a physical observer can establish about its
+own substratum from within.
 
 The three results share a structural pattern: a system that is
 sufficiently rich to refer to itself contains questions it cannot answer
@@ -16283,8 +16266,8 @@ Status
 Discover the local invariants of \((S, \varphi)\) from observations &
 Structurally possible (reconstruction theorem) \\
 Build better models of the visible sector & No structural limit \\
-Determine the hidden-sector state \(h\) & Provably impossible
-(characterization theorem) \\
+Determine the complete state, its own records included & Provably
+impossible (Breuer 1995) \\
 Observe beyond the cosmological horizon & Provably impossible (causal
 partition) \\
 Build faster computers & Structurally possible (derived physics permits
@@ -16313,8 +16296,8 @@ embedded observers (the framework's authors, the readers, the AIs that
 may eventually engage with the framework) about the structure that
 produced them. The framework's commitments include the structural limits
 that apply to the framework's own development: the framework cannot
-determine the hidden-sector state, cannot see beyond the cosmological
-horizon, cannot derive its own initial conditions (Chapter 19 §19.3.5).
+access the complete state, cannot see beyond the cosmological horizon,
+cannot derive its own initial conditions (Chapter 19 §19.3.5).
 
 The framework's self-reference is therefore not paradoxical but
 consistent. The framework's commitments are \emph{closed under
@@ -17499,7 +17482,7 @@ information --- modified or nonlinear evolution acting on the same state
 description already changes the complexity class, which is what the
 closure hypothesis excludes. The observer can detect the
 \emph{statistical} effect of the hidden sector through the density
-matrix's mixedness but cannot detect the specific hidden-sector
+matrix's mixedness but cannot detect the complete hidden-sector
 configuration. Hidden-sector access would be one possible route beyond
 the model, but not the only one; nonlinear or other post-quantum
 operations on the same state space are excluded separately --- by the
@@ -18328,19 +18311,18 @@ reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}}
 The framework's substratum gauge group \(\mathcal{G}_{\text{sub}}\)
 partitions the space of bijections into equivalence classes; the gauge
 group includes hidden-state relabeling, alphabet change (under the
-alphabet-size hypothesis), deep-sector enlargement, and graph
-isomorphism up to statistical isotropy (Substratum §4). A natural
-question is whether \(\mathcal{G}_{\text{sub}}\) has an image in the
-space of polynomial-time reductions among NP-complete problems. If gauge
-equivalence at the substratum level corresponds (in some precise sense)
-to polynomial-time reducibility at the algorithm level, the framework's
-gauge structure would provide a \emph{physical} account of why
-NP-complete problems are reducible to each other. This is speculative
---- the correspondence has not been made precise --- but the structural
-similarity is suggestive: gauge equivalence is ``no observable
-distinction'' at the substratum level, and polynomial-time reducibility
-is ``no complexity distinction'' at the algorithm level. Both are
-equivalence relations on otherwise distinct structures.
+alphabet-size hypothesis) and deep-sector enlargement (Substratum §4). A
+natural question is whether \(\mathcal{G}_{\text{sub}}\) has an image in
+the space of polynomial-time reductions among NP-complete problems. If
+gauge equivalence at the substratum level corresponds (in some precise
+sense) to polynomial-time reducibility at the algorithm level, the
+framework's gauge structure would provide a \emph{physical} account of
+why NP-complete problems are reducible to each other. This is
+speculative --- the correspondence has not been made precise --- but the
+structural similarity is suggestive: gauge equivalence is ``no
+observable distinction'' at the substratum level, and polynomial-time
+reducibility is ``no complexity distinction'' at the algorithm level.
+Both are equivalence relations on otherwise distinct structures.
 
 \hypertarget{conditions-and-the-right-kind-of-research-question}{%
 \subsubsection{14.9.4 Conditions and the right kind of research
@@ -22242,20 +22224,19 @@ dynamics; the substratum is strictly deterministic.
 The apparent randomness arises because the observer sees only \(x\), not
 \(h\). Different hidden states \(h_1, h_2, \ldots\) compatible with the
 same visible state \(x\) lead to different successor visible states
-\(x_1', x_2', \ldots\) under the bijection. The observer cannot
-distinguish among the hidden states; they appear as a probability
-distribution over the possible successors. The probabilities are
-\emph{not} features of the dynamics --- the dynamics is deterministic
---- but features of the observer's reduced description of the dynamics,
-given the observer's incomplete information about the hidden-sector
-configuration.
+\(x_1', x_2', \ldots\) under the bijection. From \(x\) alone the
+observer cannot distinguish among the hidden states; they appear as a
+probability distribution over the possible successors. The probabilities
+are \emph{not} features of the dynamics --- the dynamics is
+deterministic --- but features of the observer's reduced description of
+the dynamics, given the observer's incomplete information about the
+hidden-sector configuration.
 
 This is what ``deterministic but inaccessible'' means in the framework:
 the outcomes are fully determined by the substratum dynamics, but the
-observer cannot in principle access the hidden-sector information that
-determines them. The randomness is unavoidable for any embedded
-observer, but it is not fundamental --- it is the cost of partial
-observation.
+observer cannot in principle access the complete state that determines
+them. The randomness is unavoidable for any embedded observer, but it is
+not fundamental --- it is the cost of partial observation.
 
 \textbf{Bell's theorem and the chosen nonlocality.} Bell does not rule
 out determinism by itself; it rules out reproducing the observed
@@ -24529,9 +24510,8 @@ ultraviolet smearing.
 \textbf{A framing note on the gauge hierarchy.} Several of the items
 above can be stated in terms of the substratum gauge group
 \(\mathcal{G}_{\text{sub}}\) --- the transformations preserving all
-observables of \((S,\varphi)\) --- of which the emergent Standard Model
-gauge group is the image under trace-out. On this description each
-physical quantity falls into one of three classes:
+observables of \((S,\varphi)\). On this description each physical
+quantity falls into one of three classes:
 \(\mathcal{G}_{\text{sub}}\)-gauge and unobservable (quotiented away);
 observable but solution-specific (the absolute mass scale, the CP
 phases, the neutrino Yukawas --- properties of the particular
@@ -26961,8 +26941,8 @@ the overall normalization (fixed above by the neutrality of \(\nu_L\))
 and the \(Y_u \leftrightarrow Y_d\) root labeling (fixed by the
 electric-charge identification). \(\square\)
 
-\textbf{Corollary.} \(|q_p| = |q_e|\) is a \emph{theorem}, not a
-coincidence.
+\textbf{Corollary.} On the nonzero-\(Y_Q\) branch, \(|q_p| = |q_e|\) is
+a \emph{theorem}, not a coincidence.
 
 Proton charge: \(q_p = 2 q_u + q_d = 2(2/3) + (-1/3) = 4/3 - 1/3 = 1\).
 Electron charge: \(q_e = Y_e + T_3 = -1 + 0 = -1\) (since \(e_R\) is a
@@ -26970,7 +26950,7 @@ singlet, \(T_3 = 0\)). So \(|q_p| = |q_e| = 1\), with the equality
 forced by anomaly cancellation. This is one of the framework's
 distinctive structural predictions: the proton-electron charge equality,
 which is a free parameter in the Standard Model, is a theorem of the
-framework.
+framework on that branch.
 
 \hypertarget{b.6-gauge-theoretic-derivations}{%
 \subsection{B.6 Gauge-theoretic
@@ -30761,4 +30741,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 661cab696dfa33f9befee9cc1206677f5ec315317a76f96bd79eed74fdc73037
+% source-sha256: 949b1761b7e42d25c5998502b3e98f9f6ab1ba62c56f821da17060e0a157af55

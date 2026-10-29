@@ -90,3 +90,27 @@ added all stay unchanged.
 On this commit: `sh ./build.sh` succeeds for every changed paper and for the book. The release gate passes
 every step except lean-axioms, legacy-records, v3-corpus, v3-receipts and citation-roles. Those steps need
 the Lean toolchain or full history and run in CI.
+
+## Owner review at `ee007c89`: revise
+
+The owner did not approve `ee007c89`. The review named three regressions and asked that the reviewed recovery
+results be kept. The revision makes these changes.
+
+- **Hidden-state identifiability.** The claims that the observer provably cannot determine $h$, that multiple
+  hidden states are compatible with any visible history, and that $h$ is undecidable are false: for
+  $\varphi(v,h)=(h,v)$, two readings determine $h_0$. They are narrowed to the degrees of freedom beyond causal
+  reach (Main §1.1) and to the complete state. Substratum §2 cites the record-fibre criterion of
+  Proposition 24.5. #982's five lexical guards and its record-fibre controls run are restored in
+  `architecture_check.py`.
+- **Gauge hierarchy.** No inclusion Level 1 ⊂ Level 2 ⊂ Level 3 (G1 ⊂ G2 ⊂ G3) and no map from
+  $\mathcal{G}_{\text{sub}}$ onto the Standard Model gauge group is established. The "image" and "shadow" assertions
+  are replaced by that statement, or by "follows from the substratum construction (Stage 2)".
+- **Theorem 24(iv).** $\mathcal{G}_{\text{sub}}$ is defined by equal $T_{ij}(t)$. Graphs with equal growth
+  dimension, mode count and isotropy share the structural outputs of Theorems 1–6, not $T_{ij}(t)$ at a fixed
+  interface. (iv) is therefore a structural graph comparison outside $\mathcal{G}_{\text{sub}}$. The
+  "four families" counts become three, and the completeness question concerns (i)–(iii).
+- **Recovery results kept.** Propositions 24.3–24.5 (Substratum §4.1) and Propositions 14a and 15a with
+  Corollary 15b (SM §4.9) are restored from #982 with their proofs and scope notes, and their ledger entries are
+  restored. Corollary 15b replaces the unconditional corollary $|q_p|=|q_e|$, which fails on the exceptional branch.
+  The book and README state the identity on the nonzero-$Y_Q$ branch. Proposition 9.7c is not restored: Structure's
+  Proposition 9.7b already states the general minimal Stinespring uniqueness with its citation.

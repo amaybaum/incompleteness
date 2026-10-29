@@ -196,7 +196,7 @@ The framework's content here is that AI is *not* an independent technological ac
 
 AI is an embedded observer building another embedded observer within the same $(S, \varphi)$. The framework's characterization theorem (Chapter 1) applies to the new observer just as it applies to the original: any embedded observer satisfying C1–C4 has the same memory-bearing architecture with its admitted quantum representation ([Main §3.4]); the further observer-independent structures — the action-scale relation $\hbar = c^3\epsilon^2/(4G\sigma)$, the Standard Model, the gravitational and dark sectors — follow through the additional, chapter-specific derivation chains (Chapters 5–8), not from C1–C4 alone. The framework's structural commitments are not limited by the observer's complexity; they are determined by the partition.
 
-**Self-referential limits.** A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine $h$ (the specific hidden-sector configuration). It cannot see past the cosmological horizon. It can build better instruments — higher-resolution telescopes, more precise atomic clocks, more sensitive particle detectors — but it cannot overcome the partition itself. The framework's structural limits are not technological but mathematical.
+**Self-referential limits.** A superintelligent AI has the same observational access as any other embedded observer: it reads the visible sector and writes to the hidden sector through the same coupling. It cannot determine the hidden degrees of freedom beyond causal reach. It cannot see past the cosmological horizon. It can build better instruments — higher-resolution telescopes, more precise atomic clocks, more sensitive particle detectors — but it cannot overcome the partition itself. The framework's structural limits are not technological but mathematical.
 
 The recursion — AI building AI building AI — produces ever more sophisticated embedded observers, each subject to the same structural limits. No level of recursive self-improvement overcomes the partition. The limits are *structural* in the strongest sense: they follow from the framework's mathematical commitments rather than from technological constraints that future progress might overcome.
 
@@ -206,7 +206,7 @@ The recursion — AI building AI building AI — produces ever more sophisticate
 
 *Turing.* A computer cannot decide its own halting problem — there is no algorithm that, given an arbitrary program, determines whether the program will eventually halt. The limit is on what a computational system can determine about itself.
 
-*OI (framework).* An embedded observer cannot determine the hidden-sector state. The limit is on what a physical observer can establish about its own substratum from within.
+*OI (framework).* An embedded observer cannot access the complete state. The limit is on what a physical observer can establish about its own substratum from within.
 
 The three results share a structural pattern: a system that is sufficiently rich to refer to itself contains questions it cannot answer about itself. The framework's content unifies the three under a single structural reading: each is a consequence of the same self-referential structure, with different specific instantiations (formal systems, computational systems, embedded observers in finite deterministic substrata) producing different specific limits.
 
@@ -226,7 +226,7 @@ One feature of Deutsch's broader program is read differently by the framework, a
 |-----------|--------|
 | Discover the local invariants of $(S, \varphi)$ from observations | Structurally possible (reconstruction theorem) |
 | Build better models of the visible sector | No structural limit |
-| Determine the hidden-sector state $h$ | Provably impossible (characterization theorem) |
+| Determine the complete state, its own records included | Provably impossible (Breuer 1995) |
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
 | Replace a visible process with nonzero conditional memory by a faithful memoryless (Markov) model at the same horizon | Provably impossible ([Main §3.4]) |
@@ -235,7 +235,7 @@ One feature of Deutsch's broader program is read differently by the framework, a
 
 The framework's content places several capabilities in the impossible column — the structural entries as mathematical impossibilities that no level of AI sophistication, computational resources, or theoretical insight can overcome; the BQP entry as a conditional one, impossible under global coverage of Chapter 14's computational model, with a device outside that model falsifying coverage first. The framework's substratum picture provides a unified mathematical basis for understanding what AI can and cannot achieve.
 
-**The framework's self-reference.** The framework's content includes its own status: the framework is a description developed by embedded observers (the framework's authors, the readers, the AIs that may eventually engage with the framework) about the structure that produced them. The framework's commitments include the structural limits that apply to the framework's own development: the framework cannot determine the hidden-sector state, cannot see beyond the cosmological horizon, cannot derive its own initial conditions (Chapter 19 §19.3.5).
+**The framework's self-reference.** The framework's content includes its own status: the framework is a description developed by embedded observers (the framework's authors, the readers, the AIs that may eventually engage with the framework) about the structure that produced them. The framework's commitments include the structural limits that apply to the framework's own development: the framework cannot access the complete state, cannot see beyond the cosmological horizon, cannot derive its own initial conditions (Chapter 19 §19.3.5).
 
 The framework's self-reference is therefore not paradoxical but consistent. The framework's commitments are *closed under self-application*: applying the framework's content to the framework itself produces predictions about what the framework can and cannot establish, and those predictions are consistent with the framework's structural commitments. The framework is an embedded observer's account of embedded observation, with the account itself subject to the structural limits the account identifies.
 
