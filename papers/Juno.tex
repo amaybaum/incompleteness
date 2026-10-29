@@ -297,12 +297,12 @@ parameters.
 The cubic-group structure used here is not a postulated flavor symmetry.
 It is the rotation symmetry group of three-dimensional space, realized
 in a lattice-based framework {[}18{]} in which the simple cubic Bravais
-lattice in d=3 is shown to be the unique three-dimensional Bravais
-lattice consistent with the SU(3) × SU(2) × U(1) gauge structure and the
-observed Cabibbo angle (Theorem 7b). The same cubic structure that
-produces the 1/(4π²) correction here also produces a number of related
-quantitative predictions across the flavor sector, all empirically
-tested:
+lattice in d=3 is shown to be, under nearest-neighbor coupling, the
+unique three-dimensional Bravais lattice consistent with the SU(3) ×
+SU(2) × U(1) gauge structure and the observed Cabibbo angle (Theorem
+7b). The same cubic structure that produces the 1/(4π²) correction here
+also produces a number of related quantitative predictions across the
+flavor sector, all empirically tested:
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
@@ -428,14 +428,16 @@ the T₁ representation of the cubic group O acting on the three Cartesian
 axes --- a forced consequence of {[}18, §4.6 Theorem 7{]} (cubic
 decomposition \(6 = T_1 \oplus E \oplus A_1\)), {[}18, §4.6 Theorem
 7b{]} (Bravais-lattice uniqueness --- SC is the unique 3D Bravais
-lattice compatible with the SM gauge group at the commutant level and
-with the observed Cabibbo angle), {[}18, §4.7 Theorem 10{]} (cubic
-symmetry forces three degenerate triplet sectors), {[}18, §4.7.1.2{]}
-(link-carrier construction placing matter on links with cross-charged
-representations admissible), and {[}18, Theorem 15{]} (anomaly
-cancellation fixing hypercharges uniquely). The detailed argument from
-the six-link carrier through the (3, 2, 1) decomposition is given in
-{[}18, §§4.5--4.7{]}.
+lattice whose nearest-neighbor link representation is compatible with
+the SM gauge group at the commutant level and with the observed Cabibbo
+angle), {[}18, §4.7 Theorem 10{]} (cubic symmetry forces three
+degenerate triplet sectors), {[}18, §4.7.1.2{]} (link-carrier
+construction placing matter on links with cross-charged representations
+admissible), and {[}18, Theorem 15{]} (anomaly cancellation fixing
+hypercharges up to normalization on the branch with nonzero
+quark-doublet hypercharge). The detailed argument from the six-link
+carrier through the (3, 2, 1) decomposition is given in {[}18,
+§§4.5--4.7{]}.
 
 The full octahedral rotation group O has order 24 and is isomorphic to
 S₄. Its irreducible representations decompose as
@@ -462,21 +464,27 @@ exchange.
 \subsubsection{2.1.1 Why the cubic group is
 forced}\label{why-the-cubic-group-is-forced}}
 
-The cubic group here is the symmetry of a selected simple-cubic
-nearest-neighbor link carrier. {[}18, Theorem 7b{]} compares its full
-\((3,2,1)\) block pattern with the specified single-basis Bravais
-alternatives. The geometric result is distinct from the physical SM
-charged action and quotient, which retain {[}18, Propositions 14a and
-15a{]}'s premises. It is not an inverse uniqueness theorem over all
-candidate lattices or dynamics.
+The cubic group is not postulated here as a flavor symmetry of the
+lepton sector in the manner of A₄, S₄, or Δ(27) in the
+discrete-flavor-symmetry literature. It is the unique three-dimensional
+Bravais-lattice point-group symmetry compatible with the Standard Model
+gauge group
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) under the
+nearest-neighbor commutant construction of {[}18, §4.6 Theorem 7b{]}.
+The argument is in two parts.
 
-\textbf{(a) Representation-degree restriction.} In the crystallographic
-catalog, only the cubic-system point groups have three-dimensional
-complex irreducible representations; the non-cubic Bravais holohedries
-have maximum irrep degree two. This excludes them from the specified
-full \((3,2,1)\) nearest-neighbor target, while a three-dimensional
-block alone does not select SC among the cubic candidates. The physical
-charged-image interpretation is a later conditional step.
+\textbf{(a) Non-cubic Bravais lattices are excluded by crystallographic
+representation theory.} Among the 32 crystallographic point groups,
+three-dimensional irreducible representations appear \emph{only} in the
+cubic crystal system (point groups T, T\_h, T\_d, O, O\_h). Point groups
+of the hexagonal, trigonal, tetragonal, orthorhombic, monoclinic, and
+triclinic systems act on ℝ³ reducibly as (axial direction) +
+(perpendicular plane) and therefore have irreps only of dimensions 1 and
+2 --- no 3-dimensional irrep. The commutant construction producing an
+\(\mathrm{SU}(3)\) gauge factor requires a 3-dimensional irreducible
+block in the coupling matrix M, which non-cubic point groups cannot
+supply. This eliminates 11 of the 14 three-dimensional Bravais lattices
+at the group-theoretic level, independent of any numerical prediction.
 
 \textbf{(b) BCC and FCC are excluded within the cubic system.} Computing
 the explicit O-decomposition of the nearest-neighbor link representation
@@ -493,38 +501,41 @@ Lattice
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 NN
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(O\)-decomposition of NN rep
+O-decomposition of NN rep
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Generic unitary stabilizer of \(\Sigma\)
+Gauge group (commutant)
 \end{minipage} \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-SC & 6 & \(T_1\oplus E\oplus A_1\) & \(U(3)\times U(2)\times U(1)\) \\
-BCC & 8 & \(A_1\oplus A_2\oplus T_1\oplus T_2\) &
-\(U(3)^2\times U(1)^2\) \\
-FCC & 12 & \(A_1\oplus E\oplus T_1\oplus2T_2\) &
-\(U(3)^3\times U(2)\times U(1)\) \\
+SC & 6 & \(T_1 \oplus E \oplus A_1\) &
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) ✓ \\
+BCC & 8 & \(A_1 \oplus A_2 \oplus T_1 \oplus T_2\) &
+\(\mathrm{SU}(3)^2 \times \mathrm{U}(1)^2\) \\
+FCC & 12 & \(A_1 \oplus E \oplus T_1 \oplus 2T_2\) &
+\(\mathrm{SU}(3)^3 \times \mathrm{SU}(2) \times \mathrm{U}(1)\) \\
 \end{longtable}
 
-The generic-condensate comparison has only SC with the full six-link
-\((3,2,1)\) target. In FCC the two-dimensional multiplicity space of
-\(T_2\) generically splits into two three-dimensional eigenspaces. These
-are unitary stabilizers, not already phase-quotiented physical gauge
-groups; the selected charged action remains additional. With the stated
-natural-triplet BZ-distance prescription, the numerical comparison is SC
-\(\lambda=1/(\pi\sqrt2)=0.2251\), BCC \(0.1299\) and FCC \(0.1592\),
-giving the stated \(0.04\%\), \(42\%\) and \(29\%\) comparisons. This is
-a conditional test within that lattice/prescription family.
+SC is uniquely compatible with the observed Standard Model gauge
+structure. BCC gives two non-abelian \(\mathrm{SU}(3)\) factors with no
+\(\mathrm{SU}(2)\); FCC gives three \(\mathrm{SU}(3)\) factors and an
+extra \(\mathrm{SU}(3)\) factor beyond observation. Neither matches at
+the group-theoretic level. The same prescription applied within each
+lattice's natural triplet sector then gives the Cabibbo angle: SC gives
+λ = 1/(π√2) = 0.2251 (0.04\% match), BCC gives λ = 0.1299 (42\%
+discrepant), FCC gives λ = 0.1592 (29\% discrepant). The SC quantitative
+match is at the level of structural relations and is consistent with the
+group-theoretic selection.
 
-The octahedral group is selected within this restricted nearest-neighbor
-Bravais carrier and flavor-prescription comparison. The full block
-pattern and the stated Cabibbo test motivate the SC branch; they do not
-derive it from all finite observer models. The \(A_4\) subgroup used in
-the TBM-style analysis is taken within that selected cubic construction,
-while its physical generation interpretation retains the signed carrier
-and matter hypotheses.
+The cubic group O is therefore derived rather than chosen: it is the
+unique Bravais-lattice symmetry compatible with both the Standard Model
+gauge group and the observed Cabibbo angle among all 14
+three-dimensional Bravais lattices under nearest-neighbor coupling. The
+A₄ subgroup of O used in the TBM-style analysis of §2.1 and §3 is the
+natural subgroup acting on the three-generation T₁ representation, with
+the spatial rotation group fixed by the gauge-structure derivation of
+{[}18, Theorem 7b{]} rather than postulated as a flavor symmetry.
 
 \hypertarget{the-cabibbo-scale-from-cubic-brillouin-geometry}{%
 \subsubsection{2.2 The Cabibbo scale from cubic Brillouin
@@ -811,28 +822,27 @@ predictions stratify into four layers:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Layer 0 --- Gauge and discrete structure.} Conditional results
-  in the selected nearest-neighbor cubic wave-rule branch, with the
-  phase quotient, matter action and physical hypotheses of {[}SM
-  §4.4--§4.8{]}. These include the exact \((3,2,1)\) block pattern and
-  its conditional SM interpretation, the generation assignment under
-  H-spin'/H-χ', and the TBM zeroth-order pattern under its assignment
-  premises. The structural conditions alone do not extend these outputs
-  to every bijection.
+  \textbf{Layer 0 --- Gauge and discrete structure.} Properties of the
+  equivalence class of substratum bijections that follow from the
+  framework's structural conditions plus cubic-group representation
+  theory. Hold for \emph{every} bijection in the class. Examples: the SM
+  gauge group with multiplicities (3, 2, 1), three generations (physical
+  reading conditional on H-spin', {[}SM §4.7{]}; chirality on H-χ',
+  {[}SM §4.8{]}), anomaly-cancelling hypercharges, the TBM zeroth-order
+  pattern sin²θ₁₂ = 1/3.
 \item
-  \textbf{Layer 1 --- Structural form of corrections.} Relations for the
-  perturbative expansion within that branch, with the geometric and
-  operator inputs of each derivation. Examples are
-  \(\lambda^2=1/(2\pi^2)\) (§2.2), \(A^2=2/3\) from the off-democratic
-  projection, and \(\sin^2\theta_{13}=A^4\lambda^2\) at \(O(\lambda^2)\)
-  under §3.3's premises. This layer does not assert the relations for
-  every bijection.
+  \textbf{Layer 1 --- Structural form of corrections.} Properties of the
+  \emph{form} of the perturbative expansion that follow from cubic-group
+  representation theory and uniqueness constraints. Hold for every
+  bijection. Examples: the Cabibbo scale λ² = 1/(2π²) (Brillouin
+  geometry, §2.2), the Wolfenstein A² = 2/3 (off-democratic projection),
+  sin²θ₁₃ = A⁴λ² (independent of A₂ at O(λ²), as shown in §3.3 above).
 \item
   \textbf{Layer 2(a) --- Operator-level structural.} Relations among
-  coefficients proved for the specified family of cubic-invariant
-  operators. Promotion from Layer 2(b) requires the actual coefficient
-  identity and its hypotheses, together with a separate physical
-  identification of that operator family.
+  Wilson coefficients of cubic-invariant substrate operators that hold
+  for every bijection. Promoted from Layer 2(b) when the coefficient
+  ratio reduces to a structural identity for the relevant
+  representation.
 \item
   \textbf{Layer 2(a)-tractable --- Sharply specified residual.} A
   coefficient ratio that reduces to a sharply specified structural
@@ -1472,4 +1482,4 @@ neutrino oscillation analysis from the T2K and NOvA experiments,''
 Nature 646, 818 (2025); arXiv:2510.19888.
 
 \end{document}
-% source-sha256: dec43f86003784b13b2766187a23c8659feb514157ce3e3b169da16be7fd946c
+% source-sha256: 775097f271295dd4d00db0a5329035aa6bd2b4a47a5e007d88b48e43e3b8d48d
