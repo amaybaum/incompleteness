@@ -10,7 +10,7 @@
 
 ## Abstract
 
-The Observational Incompleteness (OI) framework reproduces the Standard Model's gauge structure as a forced consequence of a cubic-lattice commitment — its dimension argued by self-consistency filters, its cubic structure empirically anchored by the observed SU(3) — starting from a single definition of embedded observation [1, 2]. We trace the consequences of this derived structure from atomic physics through biological evolution. The structural chain is entirely parameter-free: d = 3 determines the orbital algebra SO(3), the periodic table, carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window. Three generations guarantee CP violation; the Higgs guarantees a mass hierarchy; chiral SU(2) — carried in the framework as the open taste-selectivity hypothesis H-χ' [2, §4.8] — produces a parity-violating energy difference whose sign the framework inherits from the observed weak sector rather than derives. The viable fraction of the 18-dimensional parameter space is estimated at ~16%.
+The Observational Incompleteness (OI) framework develops a conditional lattice/gauge construction [1, 2]. Within A4's assumed periodic-lattice class, E5–E7 select $d=3$ subject to the continuum conditions of [2, §3.1–§3.2]; identifying the geometric link space with the physical carrier requires H-link, with H-spin' and H-χ' entering the generation and chirality readings. This paper explores consequences for orbital structure, the periodic table, bonding geometry, scale hierarchies and chemistry, conditional on the stated spin, statistics, atomic and matter assumptions. Three generations permit a physical CKM phase, whose value is a solution-specific input; a mass hierarchy also requires the stated Yukawa and taste-breaking assumptions. Chiral SU(2), conditional on H-χ' [2, §4.8], supplies a parity-violating interaction whose molecular energy difference and preferred sign require the stated molecular and observed weak-sector inputs. The viable fraction of the chosen 18-dimensional parameter space is estimated at ~16%.
 
 The combinatorial diversity of carbon chemistry ($\sim 20^N$ peptides of length $N$) exceeds both Kauffman's autocatalytic threshold and von Neumann's self-reproducing automaton threshold by $\sim 10^{56}$. Template replication follows from three independently structural capabilities (linear polymers, complementary pairing, catalysis). The origin of life is identified as the first molecular system to satisfy C1–C4: RNA is the unique molecule that simultaneously serves as template (C2, C3) and catalyst (C1), making the RNA world a structural prediction. C1–C4 systems are exponential-growth attractors in chemical space; the transition from prebiotic chemistry to life is inevitable and irreversible. Darwinian evolution follows from imperfect template replication. The chain has a natural terminus at biological evolution; the continuation from evolution through general intelligence, AI, the BQP characterization theorem for embedded observers, and the framework's position on the P vs NP question is the subject of the companion paper *Embedded Computation in the Incompleteness of Observation Framework* [38].
 
@@ -60,9 +60,9 @@ The *possibility* of these hybridizations — and hence the possibility of three
 
 Four additional structural results extend the chain beyond orbital chemistry.
 
-**Matter-antimatter asymmetry.** Three generations [2, §4.7] give the CKM matrix with a physical CP-violating phase — one of the three Sakharov conditions for baryogenesis [5]. The partition breaks P [2, §4.8, Theorem 13]. Combined with CP violation, baryogenesis is structurally possible. Without three generations, the CKM matrix has no CP-violating phase and the standard electroweak baryogenesis mechanism does not operate.
+**Matter-antimatter asymmetry.** The three-generation branch inherits H-link and H-spin' [2, §4.7] and permits a physical CKM phase; its actual value is a solution-specific input [2, §5.4]. A nonzero CP-violating phase supplies one of the Sakharov conditions for baryogenesis [5]. The weak-chirality reading of partition-induced parity violation additionally assumes H-χ' [2, §4.8, Theorem 13]. Whether these ingredients produce the observed asymmetry depends on the remaining baryogenesis dynamics and parameters.
 
-**Mass hierarchy.** The Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings to a single doublet. The taste-breaking mechanism [2, §4.7] produces generation-dependent couplings generically, ensuring different generations have different masses. This guarantees the existence of light fermions (electron, u and d quarks) — not as a coincidence, but as a structural feature of the staggered lattice.
+**Mass hierarchy.** On the stated physical-carrier and matter branch, the Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings. The taste-breaking construction permits generation-dependent couplings, but the existence of the observed light fermions also requires the stated mass and coupling inputs; it is not fixed by the Higgs field alone.
 
 **Nuclear binding.** SU(3) color confinement [2, §4.6] produces bound hadrons. The existence of multi-nucleon bound states (nuclei) requires specific parameter values (§3), but the *mechanism* — color confinement binding quarks into hadrons, residual strong force binding hadrons into nuclei — is structural.
 
@@ -94,17 +94,17 @@ The dimensional premise in these chains is conditional on A4, E5–E7 and the co
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\text{SO(3)}} \text{orbitals} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
 
@@ -151,7 +151,7 @@ This is a rough estimate, but the order of magnitude is robust: the viable fract
 
 ### 3.4 Comparison to fine-tuning claims
 
-Traditional fine-tuning arguments quote numbers like $10^{-120}$ (for the cosmological constant) or $10^{-50}$ (for the Higgs mass). These numbers arise from varying the *structure* — asking what happens if the gauge group is different, or if there are different numbers of generations, or if d ≠ 3. The OI framework eliminates all of these variations. What remains is a 16% viable fraction in the critical parameter subspace — not fine-tuned by any reasonable standard.
+Comparisons of fine-tuning depend on which structural choices and parameters are varied. The estimate here holds the selected three-dimensional lattice/gauge branch fixed and varies the chosen parameter subspace. It does not exclude other dimensions or gauge structures using embedded observation alone. The ~16% estimate applies only to the stated ranges and weighting assumptions.
 
 ***
 
@@ -329,7 +329,7 @@ $$\xrightarrow{\text{generic}} \text{information processing} \xrightarrow{\text{
 $$\xrightarrow{\text{structural}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
 $$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$$
 
-One step is contingent (general intelligence). Everything else is structural, statistical, or inevitable. The chain is closed: (S, φ) is a mathematical structure that contains observers who discover (S, φ).
+The chain combines conditional physical results, statistical models and contingent biological or computational steps. Its chemical starting point inherits the selected lattice/continuum branch and the stated matter assumptions; later conclusions retain their own premises. General intelligence is one contingent step, not the sole additional assumption in the chain.
 
 ### 6.5 What cannot be answered
 
@@ -337,7 +337,7 @@ One question is outside the framework's scope — not contingently but necessari
 
 **Why is there mathematical structure at all?** The framework takes mathematical existence as given. It does not explain why logical consistency is a property that structures can have, or why "exists" and "is logically consistent" are related. This is not a gap in the framework — it is the boundary of all possible frameworks. Any explanation of mathematical existence would itself be a mathematical structure, requiring explanation in turn. The regress has no bottom.
 
-The framework's contribution is not to answer this question but to make it the *only* question. Everything else — the laws, the constants, the dark sector, the periodic table, life, intelligence, the fine-tuning problem, the anthropic principle — is derived, dissolved, or identified as generic. The mystery of existence is real. But it is the *only* mystery. And the framework proves it is the *same* mystery for every possible observer in every possible structure.
+The existence question is distinct from the conditional physical and biological programme developed here. The named lattice, continuum, matter and operational bridge assumptions remain obligations within that programme, and the biological extensions retain their own model assumptions. The framework does not turn these unresolved steps into a single completed derivation.
 
 ***
 
