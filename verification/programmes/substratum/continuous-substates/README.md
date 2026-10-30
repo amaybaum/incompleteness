@@ -257,7 +257,11 @@ freedom. No manuscript or physics-status upgrade follows.
 
 The [native sourcing analysis](native-link-sourcing-gate.md) compares the
 **actual** finite two-slice cubic OI wave update with an explicitly
-**added** gauge/link-pointer model. It separates a rigorous negative
+**added** gauge/link-pointer model. The new research Lean module
+`OIBridge.GradientLinkFlatness` attempts to certify the square-gradient
+telescope and generic two-slice inverse, with its source imported into
+the Mathlib bridge and categorized **kernel-only** in the maintained
+Lean manuscript census. Its exact-head CI/axiom report is **pending**. It separates a rigorous negative
 result from a usable mathematical consistency control:
 
 - **Native pure-gradient negative:** assigning links by site
