@@ -1,0 +1,97 @@
+{
+  "Yang_Mills_action_derived": false,
+  "all_state_theorem": "integer coefficients commute with ring reductions modulo 2^m; induction for all times",
+  "controls": 9344,
+  "dimension": 3,
+  "general_nonlinear_padic_readouts_excluded": false,
+  "lattice_side": 3,
+  "native_Y_or_intervention_sourcing_derived": false,
+  "native_deeper_digit_can_change_low_bit": false,
+  "non_native_positive_control": "fixed bit1-to-bit0 reversible source-site kick",
+  "quantum_operational_completion_derived": false,
+  "reference": "actual six-neighbor cubic two-slice integer-coefficient OI wave equation",
+  "sites": 27,
+  "stages": [
+    {
+      "forward_backward_horizon": 16,
+      "lower_projections_tested": [],
+      "modified_higher_to_lower_witness": false,
+      "n": 1,
+      "native_reversible": true,
+      "q": 2,
+      "sites": 27,
+      "sources": 12
+    },
+    {
+      "forward_backward_horizon": 16,
+      "lower_projections_tested": [
+        1
+      ],
+      "modified_higher_to_lower_witness": true,
+      "n": 2,
+      "native_reversible": true,
+      "q": 4,
+      "sites": 27,
+      "sources": 12
+    },
+    {
+      "forward_backward_horizon": 16,
+      "lower_projections_tested": [
+        1,
+        2
+      ],
+      "modified_higher_to_lower_witness": true,
+      "n": 3,
+      "native_reversible": true,
+      "q": 8,
+      "sites": 27,
+      "sources": 12
+    },
+    {
+      "forward_backward_horizon": 16,
+      "lower_projections_tested": [
+        1,
+        2,
+        3
+      ],
+      "modified_higher_to_lower_witness": true,
+      "n": 4,
+      "native_reversible": true,
+      "q": 16,
+      "sites": 27,
+      "sources": 12
+    },
+    {
+      "forward_backward_horizon": 16,
+      "lower_projections_tested": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "modified_higher_to_lower_witness": true,
+      "n": 5,
+      "native_reversible": true,
+      "q": 32,
+      "sites": 27,
+      "sources": 12
+    },
+    {
+      "forward_backward_horizon": 16,
+      "lower_projections_tested": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "modified_higher_to_lower_witness": true,
+      "n": 6,
+      "native_reversible": true,
+      "q": 64,
+      "sites": 27,
+      "sources": 12
+    }
+  ],
+  "status": "PASS_NATIVE_CONGRUENCE_NO_BACKFLOW"
+}
