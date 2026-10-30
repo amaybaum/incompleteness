@@ -1,5 +1,5 @@
 import OIBridge.ObservableFactorRecurrence
-import Mathlib.MeasureTheory.Measure.Basic
+import Mathlib.MeasureTheory.Measure.MeasureSpace
 import Mathlib.Data.ENNReal.Inv
 
 /-!
