@@ -1,0 +1,151 @@
+{
+  "all_embedded_observers_have_finite_horizons": false,
+  "continuous_preparation_family_proved_by_finite_enumeration": false,
+  "finite_history_quotients": [
+    {
+      "record_classes": 2,
+      "time_horizon": 0
+    },
+    {
+      "record_classes": 4,
+      "time_horizon": 1
+    },
+    {
+      "record_classes": 8,
+      "time_horizon": 2
+    },
+    {
+      "record_classes": 16,
+      "time_horizon": 3
+    },
+    {
+      "record_classes": 32,
+      "time_horizon": 4
+    },
+    {
+      "record_classes": 64,
+      "time_horizon": 5
+    },
+    {
+      "record_classes": 128,
+      "time_horizon": 6
+    },
+    {
+      "record_classes": 256,
+      "time_horizon": 7
+    },
+    {
+      "record_classes": 512,
+      "time_horizon": 8
+    }
+  ],
+  "finite_observer_partitions": [
+    {
+      "distinct_records": 2,
+      "resolved_bits": 1
+    },
+    {
+      "distinct_records": 4,
+      "resolved_bits": 2
+    },
+    {
+      "distinct_records": 8,
+      "resolved_bits": 3
+    },
+    {
+      "distinct_records": 16,
+      "resolved_bits": 4
+    },
+    {
+      "distinct_records": 32,
+      "resolved_bits": 5
+    },
+    {
+      "distinct_records": 64,
+      "resolved_bits": 6
+    },
+    {
+      "distinct_records": 128,
+      "resolved_bits": 7
+    },
+    {
+      "distinct_records": 256,
+      "resolved_bits": 8
+    },
+    {
+      "distinct_records": 512,
+      "resolved_bits": 9
+    },
+    {
+      "distinct_records": 1024,
+      "resolved_bits": 10
+    },
+    {
+      "distinct_records": 2048,
+      "resolved_bits": 11
+    },
+    {
+      "distinct_records": 4096,
+      "resolved_bits": 12
+    }
+  ],
+  "finite_operational_state_space_derived": false,
+  "nonclosure_witness": {
+    "different_next_bits": [
+      0,
+      1
+    ],
+    "same_present_bit": 0,
+    "states": [
+      0,
+      7
+    ]
+  },
+  "ontic_state_cardinality_derived": false,
+  "quantum_or_Yang_Mills_derived": false,
+  "status": "PASS_OBSERVER_RELATIVE_FINITE_RECORD_CONTROLS",
+  "two_outcome_distinct_response_laws": [
+    {
+      "binary_outcome_count": 2,
+      "denominator": 1,
+      "distinct_exact_laws": 2
+    },
+    {
+      "binary_outcome_count": 2,
+      "denominator": 2,
+      "distinct_exact_laws": 3
+    },
+    {
+      "binary_outcome_count": 2,
+      "denominator": 3,
+      "distinct_exact_laws": 4
+    },
+    {
+      "binary_outcome_count": 2,
+      "denominator": 4,
+      "distinct_exact_laws": 5
+    },
+    {
+      "binary_outcome_count": 2,
+      "denominator": 8,
+      "distinct_exact_laws": 9
+    },
+    {
+      "binary_outcome_count": 2,
+      "denominator": 16,
+      "distinct_exact_laws": 17
+    },
+    {
+      "binary_outcome_count": 2,
+      "denominator": 32,
+      "distinct_exact_laws": 33
+    },
+    {
+      "binary_outcome_count": 2,
+      "denominator": 64,
+      "distinct_exact_laws": 65
+    }
+  ],
+  "unbounded_observer_family_proved_by_finite_enumeration": false,
+  "whole_state_count_in_regression": 4096
+}
