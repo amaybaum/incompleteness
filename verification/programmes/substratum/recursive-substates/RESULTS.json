@@ -1,0 +1,112 @@
+{
+  "A": {
+    "joint_probabilities": {
+      "010": "1/2",
+      "101": "1/2"
+    },
+    "rooted_nonpermutation": false,
+    "stages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "status": "PASS_NEGATIVE_CONTROL",
+    "visible_period": 2
+  },
+  "B1": {
+    "Gamma_1": [
+      [
+        "1/2",
+        "1/2"
+      ],
+      [
+        "1/2",
+        "1/2"
+      ]
+    ],
+    "Gamma_2": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "conditional_memory_bits": 1,
+    "hidden_depths_checked": [
+      1,
+      2,
+      3,
+      5,
+      7
+    ],
+    "status": "PASS_FEEDBACK_ROOTED_INDIVISIBLE",
+    "three_time_law": {
+      "000": "1/4",
+      "010": "1/4",
+      "101": "1/4",
+      "111": "1/4"
+    },
+    "visible_period": 2
+  },
+  "B2": {
+    "cycle_lengths_checked": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "infinite_shift_common_visible_return": false,
+    "pre_return_rooted": [
+      [
+        "1/2",
+        "1/2"
+      ],
+      [
+        "1/2",
+        "1/2"
+      ]
+    ],
+    "status": "PASS_SHIFT_CONVEYOR"
+  },
+  "C": {
+    "action_nonuniqueness": {
+      "haar_mean_w": "1",
+      "haar_mean_w2": "3/2",
+      "k1_w": "1",
+      "k1_w2": "1",
+      "k2_w": "2",
+      "k2_w2": "4"
+    },
+    "finite_visible_period": 2,
+    "full_link_prior": "independent counting Haar",
+    "gauge_action": "local additive vertex shifts on finite Z/2^n links",
+    "levels": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "max_link_states_enumerated": 65536,
+    "nonflat_witness": true,
+    "status": "PASS_KINEMATICS_ACTION_NOT_SELECTED"
+  },
+  "YM_action_derived": false,
+  "finite_physical_boundary_entropy_derived": false,
+  "lean_status": "no Lean evidence from this script",
+  "log_periodic_signal_derived": false,
+  "native_OI_dynamics_derived": false,
+  "operational_QM_derived": false,
+  "status": "PASS_EXACT_FINITE_CONTROLS"
+}
