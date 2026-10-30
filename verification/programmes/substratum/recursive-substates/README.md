@@ -161,3 +161,55 @@ Bernoulli hierarchy is an explicit physical *candidate
 prior*, not one OI has selected. The next gate is native
 sourcing and an independent falsifiable quantum/YM
 observable. No manuscript or main-branch upgrade is allowed.
+
+
+## NATIVE-PADIC-1: unchanged cubic wave cannot access deeper low digits
+
+[Source test and exact proof](native-padic-bridge/REPORT.md) compares
+the existing 3-D integer-coefficient OI two-slice wave rule to
+its **hypothetical** compatible \(\mathbb Z/2^n\) alphabet
+lifts. [Preregistration](native-padic-bridge/PREREGISTRATION.md)
+was committed before computation.
+
+For every \(m<n\), coordinatewise reduction modulo \(2^m\)
+**commutes with the actual native step and inverse**. Hence
+arbitrarily fine digits never influence the lower-m passive
+readout through this same equation. The resulting infinite
+\(\mathbb Z_2\)-valued lift has exact **visible**
+common returns for each fixed low-m factor (a finite
+permutation), even though the whole infinite carrier
+need not have a common return at all scales.
+
+The [exact regression](native-padic-bridge/native_padic_probe.py)
+covers the 27-site L=3 cubic torus, q=2,4,8,16,32,64,
+twelve deterministic initial pairs per q, 16 forward
+and inverse ticks for every relevant quotient, and
+higher-digit perturbations at every tested depth:
+**9,344 exact arithmetic controls** independently
+reproduced by an alternate computation. The
+[structured result](native-padic-bridge/RESULTS.json)
+and [pinned replay](native-padic-bridge/replay.py)
+are retained. A deliberately **non-native but reversible**
+bit1-to-low-bit kick breaks the reduction property,
+showing the test does not reject all deeper-to-visible
+couplings by construction.
+
+A new research Lean candidate,
+\`OIBridge.NativePadicReduction\`, formalizes
+commutation of a finite neighbor-sum stencil and
+the two-slice step/inverse with an arbitrary additive
+alphabet homomorphism. It is imported into
+the Mathlib bridge and entered in the maintained
+census as \`kernel-only\`; its **exact-head compilation
+and axioms remain unverified**, as does the separately
+written topological \(\mathbb Z_2\) inverse-limit
+identification. The result does not cover nonlinear
+observer-access mechanisms, the native-Y triple
+interaction, genuine gauge fields or quantum
+operational structure.
+
+**Disposition:** narrow passive low-digit NO-BACKFLOW,
+pending independent review. This rules out a simple
+fractal-alphabet shortcut without prohibiting a
+sourced cross-scale physical mechanism. Do not
+promote it to any OI manuscript claim.
