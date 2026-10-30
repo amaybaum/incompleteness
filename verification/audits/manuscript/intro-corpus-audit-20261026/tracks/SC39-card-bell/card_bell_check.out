@@ -1,0 +1,27 @@
+PASS K1 every pair of local deterministic response tables has |CHSH| <= 2 (4 x 4 = 16 pairs, exact) : values [Fraction(-2, 1), Fraction(2, 1)]
+PASS K2 a shared-deal local game attains CHSH = 2
+PASS X1 CONTROL (must exceed 2): a post-setting move on both hands gives CHSH = 4
+PASS X1' CONTROL (must exceed 2): own-card moves but a whole-deck shuffle after the settings gives CHSH = 4
+PASS ADM1 the X1' whole-deck shuffle (positions 1 <-> 4) is rejected by the own-cards condition
+PASS ADM2 CONTROL (must admit): a shuffle within B's region (positions 3 <-> 4) is admitted
+PASS X2 CONTROL (must exceed 2): a deal that depends on the settings gives CHSH = 4
+PASS X3 CONTROL (must exceed 2): local play with runs lacking an outcome discarded gives CHSH = 4 on kept runs
+PASS E0 the checker admits exactly 3 of the 24 whole-deck permutations (identity, swap within A, within B)
+PASS E1 reduction: after all 65536 distinct admitted sequence maps each player's final cards depend only on its own hand and setting
+PASS E1' closure: the length-<=2 sequences already reach all 256 x 256 product maps f_A x f_B, a set closed under composition that contains every admitted operation, so longer sequences add no strategy
+PASS E2 every admitted strategy pair (16 x 16 induced tables) and every deal: |CHSH| <= 2 : max |CHSH term| = 2
+PASS L1 CONTROL (must exceed 2): a shuffle writing only B's cards but reading A's setting card gives CHSH = 4
+PASS L1a the read-and-write checker rejects L1 (it writes only B's cards, but reads A's)
+PASS L2 CONTROL (must exceed 2): a b-dependent choice between two admitted operations on A's cards gives CHSH = 4
+PASS E3 the product test rejects the L2 schedule M_{a,b} and accepts a schedule chosen from A's own card
+PASS P1 private coins independent of the settings over all local table pairs: max |CHSH| = 2
+PASS P2 CONTROL (must exceed 2): a coin shared by both players and correlated with the settings gives CHSH = 4
+PASS C1 CONTROL (must exceed 2): two one-player coins, each uniform for every (a,b), jointly setting-dependent: CHSH = 4
+PASS C2 CONTROL (must exceed 2): A's coin uniform for every (a,b) but jointly with the deal encodes ab: CHSH = 4
+PASS C3 CONTROL (must exceed 2): own-card readouts with the readout function selected by b: CHSH = 4
+PASS C4 admit: a shared coin jointly independent of the settings, all coin-indexed local tables: max |CHSH| = 2
+PASS O3a every readout rule selected by the player's own setting, every deal: max |CHSH| = 2
+PASS O3b E3 still separates: own-setting schedule accepted, other-setting (b) schedule rejected
+PASS PIN the ch01/FULL and ch03/FULL card sentences and the ch03 gloss are present exactly
+
+card_bell_check: ALL CHECKS PASS

@@ -1,9 +1,7 @@
 # Whole-future memory companion
 
-Scoped finite-image whole-future companion, independently accepted. The unchanged
-Lean source passed Build and Release gate at `10c2a5a4`; corrected-control head
-`96a3020b` still requires its own exact-head integrated verification. Based on the
-accepted finite-block trajectory recovery at PR #990, `a958bc54`.
+Research candidate, not yet independently accepted or compiler verified. Based on
+the accepted finite-block trajectory recovery at PR #990, `a958bc54`.
 
 ## Exact object and entropy convention
 

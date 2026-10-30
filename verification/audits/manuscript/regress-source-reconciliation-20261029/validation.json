@@ -1,0 +1,194 @@
+{
+  "review_requirements": "PR998 comment6498003796",
+  "scientific_source_checkpoint": "d9b2e53cd446bfa9ab36013f8bc49044e4a50142",
+  "author_status": "validation_not_independent_acceptance",
+  "final_source_delta": "Two wording clarifications in ch03 and FULL after the reviewedsource: connective names differentquestions, and a fullclassification of observational/computational limitations explicitly remainsopen. No other scientific source changed.",
+  "checks": {
+    "coverage": {
+      "command": [
+        "python",
+        "tools/coverage_check.py"
+      ],
+      "exit_code": 0
+    },
+    "voice": {
+      "command": [
+        "python",
+        "tools/voice_check.py"
+      ],
+      "exit_code": 0
+    },
+    "mirrors": {
+      "command": [
+        "python",
+        "papers/oi_lattice_code/mirror_check.py"
+      ],
+      "exit_code": 0
+    },
+    "staleness": {
+      "command": [
+        "python",
+        "tools/staleness_check.py"
+      ],
+      "exit_code": 0
+    },
+    "census": {
+      "command": [
+        "python",
+        "tools/lean_manuscript_census.py"
+      ],
+      "exit_code": 0
+    },
+    "audit_census": {
+      "command": [
+        "python",
+        "verification/lean/audit_census_probe.py"
+      ],
+      "exit_code": 0
+    },
+    "claims": {
+      "command": [
+        "python",
+        "tools/claims_check.py"
+      ],
+      "exit_code": 0
+    },
+    "architecture": {
+      "command": [
+        "python",
+        "papers/oi_lattice_code/architecture_check.py"
+      ],
+      "exit_code": 0
+    }
+  },
+  "source_stamps": {
+    "papers/Main.md": true,
+    "papers/Juno.md": true,
+    "papers/Medicine.md": true,
+    "papers/Complexity.md": true,
+    "papers/Structure.md": true,
+    "papers/Explainer.md": true,
+    "papers/Computation.md": true,
+    "papers/Methodology.md": true,
+    "papers/Substratum.md": true,
+    "papers/GR.md": true,
+    "papers/Bioinformatics.md": true,
+    "papers/SM.md": true,
+    "book/The-Incompleteness-of-Observation-FULL.md": true
+  },
+  "ledger_changes": [
+    {
+      "id": "SUBSTRATUM:C-effective-finiteness-gauge-class-transfer",
+      "changes": {
+        "fingerprint": [
+          "2a8021590988a99b",
+          "4f8577fff9f60573"
+        ]
+      }
+    }
+  ],
+  "canonical_statement_count": 133,
+  "source_blobs": {
+    "book/ch02-substratum.md": "1b2e2330dbbd82ca2f0b6a93b79f51f04ce38cf5",
+    "book/ch03-structural-realism.md": "6a5fcf4879752391949b97f467e10ac2d62e9ecd",
+    "book/ch04-methodology.md": "4bcfbbf932801f14b33ebc0154683a6ee1080653",
+    "papers/Explainer.md": "e28ef40f1a812e8924ac65bb6126333027dc4682",
+    "papers/SM.md": "d08887eb02e58eb877fbef6a65a490678c73567f",
+    "papers/Structure.md": "8f5b917c18986633bb2d1d7af4f621b9527ecbbd",
+    "papers/Substratum.md": "622a02fa3f9a88323ef6661bffa58e8ae7148123",
+    "book/The-Incompleteness-of-Observation-FULL.md": "95635e76208e482cb6108f5bd08cd6dcb45afa2f",
+    "verification/coverage/LEDGER.json": "c639c83598ca3d361f6d68d50b444a80392cf97e"
+  },
+  "layout": {
+    "Substratum": {
+      "pages": 54,
+      "median_chars": 3211.0,
+      "hits": {
+        "Finite decoupled ancillary enlargement": [
+          25
+        ],
+        "The substrate objection": [
+          7
+        ]
+      },
+      "inspected_pages": [
+        25,
+        26
+      ]
+    },
+    "Explainer": {
+      "pages": 70,
+      "median_chars": 2914.5,
+      "hits": {
+        "The question of what implements the memory": [
+          58
+        ],
+        "In a known finite model, hidden-state identification": [
+          61
+        ]
+      },
+      "inspected_pages": [
+        58,
+        61
+      ]
+    },
+    "SM": {
+      "pages": 148,
+      "median_chars": 3141.5,
+      "hits": {
+        "The structural reading is compatible": [
+          121
+        ]
+      },
+      "inspected_pages": [
+        121
+      ]
+    },
+    "Structure": {
+      "pages": 98,
+      "median_chars": 2951.0,
+      "hits": {
+        "Fixed-interface substratum representative": [
+          10
+        ]
+      },
+      "inspected_pages": [
+        10
+      ]
+    },
+    "book": {
+      "pages": 555,
+      "median_chars": 3047,
+      "hits": {
+        "The exact result concerns a specified observation interface": [
+          103
+        ],
+        "These comparisons distinguish different questions": [
+          93
+        ],
+        "Finite decoupled ancillary enlargement": [
+          71
+        ]
+      },
+      "inspected_pages": [
+        71,
+        93,
+        103,
+        104
+      ]
+    }
+  },
+  "validation_scope": "Canonical builds completed without dropped glyphs; selected final pages rendered and visually inspected. No full-page-by-page certification, new Lean build or physical implementation theorem. Infinite/all-interface/classification/computation residuals remain assigned under981/946 inREADME.",
+  "independent_selected_visual": {
+    "Substratum": [
+      25,
+      26
+    ],
+    "book": [
+      93,
+      103,
+      104
+    ],
+    "scope": "Independent read-only selected-page inspection; not a fullPDF rebuild or page-by-page certification."
+  }
+}

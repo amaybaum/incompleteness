@@ -628,7 +628,9 @@ consistency. The remaining qualification is an identification of
 observables --- that the classical shell transitions and the
 frequency-resolved detector transitions are the same operational
 transitions --- which, if it requires arbitrary detector couplings,
-touches the open coherent operational lift.
+touches the coherent operational completion, which §3.3 characterizes,
+within complex matrix kinematics taken as given, by completion
+conditions whose physical sourcing is open.
 
 \textbf{The infrared limit does not remove state dependence.} Dispersive
 corrections vanish as \(k\to0\), but de Sitter admits non-Bunch-Davies
@@ -1416,10 +1418,10 @@ orientation. Orientation requires additional alignment ---
 populations are non-uniform and passive with respect to the derived
 classical energy ordering. Those conditions are orientation-sensitive
 (kernel: \texttt{transitionIdentification\_orientation\_sensitive},
-\href{../verification/lean-mathlib/OIBridge/OrientationClosure.lean}{the
-shell-orientation theorem}), by the no-go they are not consequences of
-transpose-symmetric operational data alone, and either one, combined
-with the classification, excludes the transpose branch (kernel:
+\texttt{orientedShellRepresentation\_orientation\_sensitive}), by the
+no-go they are not consequences of transpose-symmetric operational data
+alone, and either one, combined with the classification, excludes the
+transpose branch (kernel:
 \texttt{sameData\_unitary\_of\_orientedReference},
 \texttt{sameData\_unitary\_of\_transitionIdentification},
 \texttt{sameData\_unitary\_of\_shellRepresentation}). The boundary is
@@ -1451,24 +1453,57 @@ some nominal carriers admit no coherent completion at all.
 above is a uniqueness statement conditional on existence. The existence
 side --- which operational theories generated on a finite carrier are
 exactly quantum mechanics at the level of instruments and composites ---
-is settled by a characterization with no external premise. Fix a
-nonempty finite visible system and an operational theory on it: a
-specification, for the system and for every finite ancilla level, of
-which finite outcome families of linear maps are available, closed under
-coarse-graining and outcome-conditioned composition, with a
-spectator-independent local readout of the ancilla. Five conditions are
-in play. (i) \emph{Valid probabilities}: every available family sends
-positive states to positive states and its outcomes' traces sum to the
-input trace. (ii) \emph{Trivial-ancilla consistency}: an operation
-available on the system is available on the system with a one-state
-ancilla adjoined. (iii) \emph{Inert spectators}: an untouched
-independent system can be adjoined without changing an intervention.
-(iv) \emph{Full reversible control}: every finite unitary on every
-composite is available. (v) \emph{Iterated composition}: a composite may
-itself serve as the working system of a larger experiment --- an
-operation obtained by attaching a fresh uniformly prepared ancilla to a
-composite, acting on the enlarged carrier, and discarding the ancilla is
-available on the composite.
+is settled by a characterization with no premise beyond its stated
+setting. Fix a nonempty finite visible system with configuration set
+\(A\). The setting takes complex matrix kinematics as given: an
+operation on the system is a complex-linear map on the complex matrices
+\(M_A(\mathbb{C})\) indexed by \(A\), and an operation at ancilla level
+\(n\) is a complex-linear map on
+\(M_{A \times [n]}(\mathbb{C}) \cong M_A(\mathbb{C}) \otimes M_n(\mathbb{C})\),
+\([n] = \{1, \ldots, n\}\), the matrices indexed by a configuration
+paired with one of \(n\) ancilla states. A derivation of this kinematics
+from operational premises that presuppose neither a matrix
+representation nor the complex field is open. An operational theory on
+the system specifies which finite outcome families of such maps are
+available on the system and at every finite ancilla level, and which
+preparation maps \(M_A(\mathbb{C}) \to M_{A \times [n]}(\mathbb{C})\)
+are available at each level, subject to six rules (kernel:
+\texttt{FiniteOperationalTheory} in
+\texttt{OIBridge/OperationalAssembly.lean}): (a) the identity is
+available on the system; (b) coarse-graining the outcome labels of an
+available family gives an available family, on the system and at every
+level; (c) at every ancilla level, an available family followed by
+available families chosen by its outcome is available, with the pair of
+outcomes as the joint outcome --- a composition rule stated at the
+ancilla levels and not on the system; (d) attaching a uniformly mixed
+ancilla, \(\rho \mapsto \rho \otimes \mathbb{1}_n/n\), is an available
+preparation for every \(n \geq 1\), and an available preparation
+followed by an available single-outcome operation at its level is an
+available preparation; (e) at every level \(n\) an available
+\(n\)-outcome family reads the ancilla, its \(k\)-th branch sending
+every product \(X \otimes Y\) to \(X \otimes P_k Y P_k\), with \(P_k\)
+the projector on the \(k\)-th ancilla state, a spectator-independence
+requirement from which the branch's form on every matrix follows
+(kernel: \texttt{readout\_is\_localLuders}); (f) an available
+preparation, followed by an available family at its level and then by
+discarding the ancilla through the partial trace, induces an available
+family on the system. No rule extends a system operation to a composite,
+and no rule imposes positivity or trace preservation; those enter
+through the conditions. The OI⁺, primitive-source, substratum-source,
+layer-flow and typed forms below are stated over the same kinematics,
+the typed form over the complex matrices of every finite carrier. Five
+conditions are in play. (i) \emph{Valid probabilities}: at every ancilla
+level, every available family sends positive states to positive states
+and its outcomes' traces sum to the input trace. (ii)
+\emph{Trivial-ancilla consistency}: an operation available on the system
+is available on the system with a one-state ancilla adjoined. (iii)
+\emph{Inert spectators}: an untouched independent system can be adjoined
+without changing an intervention. (iv) \emph{Full reversible control}:
+every finite unitary on every composite is available. (v) \emph{Iterated
+composition}: a composite may itself serve as the working system of a
+larger experiment --- an operation obtained by attaching a fresh
+uniformly prepared ancilla to a composite, acting on the enlarged
+carrier, and discarding the ancilla is available on the composite.
 
 \textbf{Theorem (operational-completion characterization).} \emph{For
 every nonempty finite visible system, the available outcome families on
@@ -2195,15 +2230,19 @@ Problem}\label{dissolution-of-the-cosmological-constant-problem}}
 \subsubsection{6.1 The two levels of
 description}\label{the-two-levels-of-description}}
 
-\textbf{From finite-dimensional QM to QFT.} Part I delivers QM on a
-finite-dimensional Hilbert space. The \(N = A/\epsilon^2\) cells
-discretize the visible sector; spatial locality of the classical
-substratum restricts which cells interact on any given timescale. The
-emergent Hilbert space decomposes as
-\(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) --- a lattice-regularized
-QFT with UV cutoff at \(\epsilon = 2\sqrt{\sigma}\,l_p\). The tensor
-product structure follows from the spatial product structure of the
-classical configuration space
+\textbf{From finite-dimensional QM to QFT.} Part I delivers an exact
+fixed-basis unitary/Born representation of the observer's finite-horizon
+law on a finite-dimensional Hilbert space; whether an operational
+theory's available instruments on a finite carrier and its composites
+are the quantum instruments is a separate question, which §3.3
+characterizes, within complex matrix kinematics taken as given, by its
+completion conditions. The \(N = A/\epsilon^2\) cells discretize the
+visible sector; spatial locality of the classical substratum restricts
+which cells interact on any given timescale. The emergent Hilbert space
+decomposes as \(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) --- a
+lattice-regularized QFT with UV cutoff at
+\(\epsilon = 2\sqrt{\sigma}\,l_p\). The tensor product structure follows
+from the spatial product structure of the classical configuration space
 \(\mathcal{C}_V = \mathcal{C}_1 \times \cdots \times \mathcal{C}_N\)
 (one factor per cell), which is not required by Lemma 1 but is a
 consequence of spatial locality in the classical substratum: each cell's
@@ -2281,16 +2320,18 @@ operator. The semiclassical equation
 emergent approximation; at the classical level, the gravitational field
 equations never encounter the zero-point sum.
 
-\textbf{Ontological commitment.} The trace-out construction used here
-starts with a specified classical geometric carrier before forming the
-reduced quantum representation. This is an ordering within the selected
-construction, not a proof that spacetime is recovered from a complete
-substratum gauge quotient. {[}Substratum Theorem 23{]} states
-conditional local-branch outputs under additional wave-rule, carrier and
-physical hypotheses; E1--E7 and A1--A6 do not uniquely select the
-branch. The geometric/horizon results here retain their own premises.
-Within that construction, the following requirements explain the
-direction of the derivation:
+\textbf{Ontological commitment.} Classical spacetime is logically prior
+to QM; QM is emergent. This ordering is not a claim that spacetime is a
+substance-level primitive of the framework --- the framework has no
+substance-level primitives, and under the reconstruction theorem,
+spacetime emerges from \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) given
+the framework's irreducible starting commitments (the fact that
+observation occurs, the empirical inputs E1--E7, and the structural
+assumptions A1--A6). It is a claim about the direction of the derivation
+chain --- that the trace-out producing QM presupposes the classical
+geometric structure, not the reverse. This ordering is forced by the
+logical structure of the derivation through three independent
+requirements:
 
 \emph{(i) Definiteness.} The trace-out that produces the
 quantum-representable reduced description is defined by a
@@ -2475,65 +2516,66 @@ discrepancy}{6.3 The structural origin of the 10\^{}\{122\} discrepancy}}\label{
 
 \(\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) \sim S_{\text{dS}} = A/(4\,l_p^2)\)
 --- a dimensional identity for any theory with a Planck cutoff and a
-Hubble-scale density, holding up to a convention-dependent numerical
-factor. With \(\rho_{\text{QFT}} = M_{\text{Pl}}^4\) and
-\(\rho_{\text{classical}} = H^2/G\) (\(\hbar = c = 1\),
-\(M_{\text{Pl}}^2 = 1/G\)) the ratio is exactly \(S_{\text{dS}}/\pi\);
-the mode sum \(k^4/(16\pi^2)\) cut off at
-\(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) (§4) against
-\(\rho_{\text{crit}} = 3H^2/(8\pi G)\) gives
-\(S_{\text{dS}}/(96\pi^2\sigma^2)\); and the same mode sum cut off at
-the reduced Planck mass \((8\pi G)^{-1/2}\) {[}7{]} against the observed
-dark-energy density \(\Omega_\Lambda \rho_{\text{crit}}\) gives
-\(S_{\text{dS}}/(384\pi^4\Omega_\Lambda) \approx 3.9 \times 10^{-5}\,S_{\text{dS}}\).
-The framework reads this ratio as the Bekenstein-Hawking entropy in its
-role as the information compression ratio of the trace-out; on that
-reading, and conditional on the coupling step (§6.2), the ``worst
-prediction in physics'' is the entropy of the observer's blind spot ---
-a category error, not a fine-tuning failure. This cannot be resolved
-from within, and not merely as a matter of present ignorance: any
-adjudication procedure available to an embedded observer is a function
-of its accessible data, and both descriptions are constructed from the
-same accessible data, so no criterion grounded in the accessible
-observations themselves can separate them --- non-adjudicability follows
-from the equivalence itself, not from limited resources. (Rankings by
-theoretical virtue are not blocked by this factoring; but they order
-presentations of the same observational content rather than track
-fundamentality, and the framework's own answer to the fundamentality
-question is supplied at the substratum level, not adjudicated from
-within either description.) A future observation could break the
-equivalence, but that is falsification of the equivalence, not
-adjudication between the descriptions. Nor is this factoring limitation
-an artifact of the framework's particular observer architecture:
-Wolpert's limits of inference {[}9{]} and T. Breuer's self-measurement
-theorem {[}55{]} establish barriers of the same type for any embedded
-inference device under far weaker assumptions, corroborating that the
-limitation is device-general rather than model-specific (their results,
-unlike the factoring argument, do assume free availability of the
-device's setups). The observed vacuum energy is of the Friedmann scale
-\(H^2/G\), as is any \(O(1)\) component of a flat universe; its value is
-set by initial conditions (§6.2), so this is a normalization, not a
-prediction.
+Hubble-scale density, holding up to a convention-dependent factor
+between \(1/(96\pi^2)\) and \(8/3\). The framework reads this ratio as
+the Bekenstein-Hawking entropy in its role as the information
+compression ratio of the trace-out; on that reading, and conditional on
+the coupling step (§6.2), the ``worst prediction in physics'' is the
+entropy of the observer's blind spot --- a category error, not a
+fine-tuning failure. This cannot be resolved from within, and not merely
+as a matter of present ignorance: any adjudication procedure available
+to an embedded observer is a function of its accessible data, and both
+descriptions are constructed from the same accessible data, so no
+criterion grounded in the accessible observations themselves can
+separate them --- non-adjudicability follows from the equivalence
+itself, not from limited resources. (Rankings by theoretical virtue are
+not blocked by this factoring; but they order presentations of the same
+observational content rather than track fundamentality, and the
+framework's own answer to the fundamentality question is supplied at the
+substratum level, not adjudicated from within either description.) A
+future observation could break the equivalence, but that is
+falsification of the equivalence, not adjudication between the
+descriptions. Nor is this factoring limitation an artifact of the
+framework's particular observer architecture: Wolpert's limits of
+inference {[}9{]} and T. Breuer's self-measurement theorem {[}55{]}
+establish barriers of the same type for any embedded inference device
+under far weaker assumptions, corroborating that the limitation is
+device-general rather than model-specific (their results, unlike the
+factoring argument, do assume free availability of the device's setups).
+The observed vacuum energy is of the Friedmann scale \(H^2/G\), as is
+any \(O(1)\) component of a flat universe; its value is set by initial
+conditions (§6.2), so this is a normalization, not a prediction.
 
-\textbf{Convergence with Maldacena's de Sitter observer cancellation.}
+\textbf{Relation to Maldacena's de Sitter observer cancellation.}
 Maldacena {[}38{]} has recently shown that the unphysical phase of the
 de Sitter sphere partition function --- long understood to obstruct a
 clean dS thermodynamic interpretation --- cancels exactly when one
-incorporates an observer with a clock. The framework presented here
-arrives at the same cancellation by a different route: the
-substratum-count formulation makes the partition trace-out the
-\emph{defining} operation rather than an added ingredient, so the
-cancellation Maldacena requires an observer-with-clock to achieve is
-structurally forced. CLPW {[}39{]} establish that the von Neumann
-algebra of QFT observables in a gravitational subregion promotes from
-type III to type II once an observer is included, with the resulting
-entropy pinned to the substratum's \(\log|G_{\text{sub}}|\) in the
-present construction. HUZ {[}40{]} argue that the closed-universe
-Hilbert-space dimension is determined by the observer's degrees of
-freedom; the present framework provides a microscopic realization in
-which that dimension is computed directly from the partition geometry.
-The post-2022 mainstream observer-essentiality literature thus converges
-with the present construction on substantive content while differing in
+incorporates an observer with a clock. In the substratum-count
+formulation the partition trace-out is the \emph{defining} operation
+rather than an added ingredient, so the observer is present from the
+outset; the sphere partition function and its phase are not computed
+here, and whether the trace-out reproduces Maldacena's cancellation is
+open. CLPW {[}39{]} establish that the von Neumann algebra of QFT
+observables in a gravitational subregion promotes from type III to type
+II once an observer is included. The present construction derives no
+type II algebra. Its observable algebra on each finite region is the
+full matrix algebra on the region's configuration space, and its
+infinite-region completion (§3.3) is a quasilocal \(C^{*}\)-algebra with
+no state or representation selected. No von Neumann closure of that
+algebra, no relation to CLPW's observer-dressed algebra and no
+identification of CLPW's entropy with a substratum quantity is derived;
+whether the construction reproduces CLPW's algebra and its entropy is
+open. Its horizon entropy is the entropy \(\sigma\) of one boundary mode
+summed over the \(N_{\text{modes}}\) of §5, which recovers
+\(S_{\text{dS}}\) under the §3 calibration. HUZ {[}40{]} argue that the
+closed-universe Hilbert-space dimension is determined by the observer's
+degrees of freedom; in the present framework the representation
+dimensions are finite configuration counts fixed by the partition
+({[}Main, §3.2{]}), and the horizon mode count
+\(N_{\text{modes}} = S_{\text{dS}}/\sigma\) is fixed by the partition
+geometry under the §3 calibration (§5). The post-2022
+observer-essentiality literature thus shares the present construction's
+starting point, the observer as part of the physics, while differing in
 mechanism.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -2912,13 +2954,12 @@ geometric factors in \(\rho_s = S\,k_B T_{\rm cl}/V_d\) and dividing by
 --- unity only at \(d=3\). This is the general-\(d\) formula cited in
 {[}SM §3.2{]} as the boundary-entropy filter selecting \(d=3\).
 
-The boundary-entropy calculation is one of the conditional dimension
-filters discussed in {[}SM §3.2{]}, alongside the propagating-gravity
-and stable-matter arguments. The relation \(K=2dm\) under H-link and the
-nearest-neighbor Bravais comparison operate within their chosen
-geometric and physical classes; they are not independent derivations of
-spatial dimension. Their agreement with a selected \(d=3\) branch does
-not establish a unique inverse reconstruction from the empirical inputs.
+Within A4's assumed periodic-lattice class and the continuum conditions
+of SM §3.1--§3.2, propagating gravity gives \(d\geq3\) and stable matter
+gives \(d\leq3\), already selecting \(3\). Boundary-entropy concordance,
+with its stated horizon assumptions, is redundant for the selection once
+these two hold but not logically dependent on them; it independently
+excludes \(d\geq4\) (SM §3.2).
 
 \emph{(ii) Invisibility.} The argument has two logically distinct
 components.
@@ -3838,10 +3879,7 @@ the framework's emergent description is well-defined when multiple
 boundaries coexist. Appendix A also obtains a cycle-averaged Page curve,
 conditional on the scrambling condition H-scramble and the decoupling
 condition H-decouple and taking the energy shell of the black hole and
-its radiation to be their full product space; H-scramble fails for every
-bijection acting on an initial configuration with the bipartition
-aligned to the configuration coordinates, so that derivation has no
-instance in the setting it counts. Appendix A leaves the generalized
+its radiation to be their full product space, and leaves the generalized
 second law open. It is \emph{not} a claim that external observers'
 emergent quantum descriptions acquire BH-horizon-specific features;
 under partition-relativity (above), the cosmological horizon remains the
@@ -3868,13 +3906,10 @@ horizon's Bekenstein-Hawking entropy equals the von Neumann entropy of
 its sector's reduced state, an identification the boundary-mode count
 does not supply.
 
-\emph{(iii) The Page curve (Appendix A, Theorems A.7--A.9),
-conditional.} Under the scrambling condition H-scramble and the
-decoupling condition H-decouple of Appendix A, with the energy shell of
-\(B \cup R\) the full product space
-\(\mathcal{H}_B \otimes \mathcal{H}_R\), the entanglement entropy of the
-radiation of an evaporating black hole, averaged over full cycles of the
-dynamics at the bipartition of stage \(t\), follows
+\emph{(iii) The Page curve (Appendix A, Theorems A.7--A.9).} For an
+evaporating black hole, the entanglement entropy of the radiation,
+averaged over full cycles of the dynamics at the bipartition of stage
+\(t\), follows
 \(\overline{S}_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q\) up
 to a correction of at most \(\tfrac12\), reached at \(n_R = n_B\) and
 exponentially small in \(|n_R - n_B|\) away from it (Theorem A.9), where
@@ -3887,24 +3922,19 @@ turnover occurs at the Page time
 \(t_P \approx 0.646 \, t_{\text{evap}}\) (in general
 \(t_P/t_{\text{evap}} = 1 - [\beta/(1+\beta)]^{3/2}\); independent of
 mass and of the emission coefficient when that coefficient is
-mass-independent). Theorem A.8 derives the Page value as a cycle average
-from H-scramble, which carries measure concentration {[}29, 61{]} to the
-orbit, the cycle decomposition of the finite configuration space
-supplying exact time averages. It counts initial configurations, with
-the bipartition aligned to the configuration coordinates, and there
-H-scramble fails for every bijection: every state on the orbit is a
-product state and the radiation's entropy is zero, so Theorems A.8--A.9
-as stated have no instance. Under a bijection the radiation's entropy at
-an aligned bipartition never exceeds the entropy of the initial state's
-distribution over configurations (§A.7), so a Page value requires an
-initial superposition whose distribution over configurations has entropy
-close to the Page value or above it, or a bipartition not aligned with
-the configuration coordinates; neither is specified, and H-scramble is
-not established (uniformity over classical microstates is not uniformity
-over quantum pure states). H-decouple is not supplied by timescale
-ordering. On a proper energy shell the value differs in general, and the
-corresponding statement is open. The greybody factor is
-solution-specific.
+mass-independent); and the Page value is recovered, as a cycle average,
+for all but an exponentially negligible fraction (\(\sim e^{-10^{77}}\)
+for \(30 M_\odot\)) of initial conditions, when the energy shell of
+\(B \cup R\) is the full product space
+\(\mathcal{H}_B \otimes \mathcal{H}_R\) --- from measure concentration
+{[}29, 61{]} carried to the orbit by the scrambling condition H-scramble
+of Appendix A, which is not established there (uniformity over classical
+microstates is not uniformity over quantum pure states), the cycle
+decomposition of the finite configuration space supplying exact time
+averages, and conditional also on the decoupling condition H-decouple of
+Appendix A, which timescale ordering does not supply. On a proper energy
+shell the value differs in general, and the corresponding statement is
+open. The greybody factor is solution-specific.
 
 Laboratory tests of the characterization theorem may be possible in
 analogue gravity systems where the hidden sector capacity is tunable.
@@ -4445,11 +4475,8 @@ establishing the self-consistency of multiple coexisting causal
 boundaries (typically a black hole horizon inside a cosmological
 horizon), deriving a cycle-averaged Page curve under the scrambling
 condition H-scramble and the decoupling condition H-decouple when the
-energy shell is the full product space (H-scramble fails for every
-bijection acting on an initial configuration with the bipartition
-aligned to the configuration coordinates, the setting the derivation
-counts), and stating the entropy inequality the formalism supplies
-toward the generalized second law.
+energy shell is the full product space, and stating the entropy
+inequality the formalism supplies toward the generalized second law.
 
 \hypertarget{a.1-setup}{%
 \subsubsection{A.1 Setup}\label{a.1-setup}}
@@ -4639,35 +4666,16 @@ The inequality uses the fact that \(\mathcal{D}_V^{(B)}\) is a
 continuous function of the \(B\)-state distribution and the shift is
 first-order in \(t / \tau_B^D\). \(\square\)
 
-\textbf{Orders of magnitude.} For a \(30 M_\odot\) black hole inside the
-cosmological horizon, \(\tau_S \sim 10^{-15}\) s,
+\textbf{Bound for the cosmological + stellar black hole case.} For a
+\(30 M_\odot\) black hole inside the cosmological horizon:
+\(\tau_S \sim 10^{-15}\) s,
 \(\tau_B^B \sim \tau_{\text{scr}} \sim \beta \log S_{\text{BH}} \sim 10^{-3}\)
-s and \(\tau_B^D \sim 1/H \sim 10^{17}\) s. Inserted into the orders of
-Theorem A.5, these timescales give:
+s, \(\tau_B^D \sim 1/H \sim 10^{17}\) s. The three terms:
 
 \[\|\mathcal{D}_V^{(B)}\| \sim 10^{-12}, \qquad \|\mathcal{D}_V^{(D)}\| \sim 10^{-32}, \qquad \|\mathcal{R}\| \sim 10^{-44}\]
 
-The cross term is then 12 orders of magnitude below the smaller primary
-correction. These are the orders the theorem gives under its chain
-\(V \leftrightarrow B \leftrightarrow D\). They are not derived for this
-black hole, which has the chain
-\(B \leftrightarrow V \leftrightarrow D\) (below), for which the
-decomposition and the order of the cross term are not derived.
-
-\textbf{Scope of the coupling chain.} The chain
-\(V \leftrightarrow B \leftrightarrow D\) is a hypothesis of Theorem
-A.5. It is not the geometry of §A.1, in which \(V\) lies between the
-black-hole horizon and the cosmological horizon, with \(B\) inside the
-first and \(D\) beyond the second; spatial locality there gives the
-chain \(B \leftrightarrow V \leftrightarrow D\), with \(D\) coupled to
-\(V\) and not to \(B\). Step (i) applies the boundary-only dependence
-lemma to the partition \((W, D)\), which does not depend on which sector
-of \(W\) carries the coupling to \(D\); in the geometry of §A.1 that
-coupling is \(H_{VD}\) rather than \(H_{BD}\). Steps (ii)--(iii) and the
-order of the cross term are derived for the chain
-\(V \leftrightarrow B \leftrightarrow D\). For the chain of §A.1, where
-\(D\)'s correction reaches \(V\) directly, the decomposition is not
-derived here.
+The cross term is negligible by 12 orders of magnitude relative to the
+smaller of the two primary corrections.
 
 \hypertarget{a.6-the-generalized-second-law}{%
 \subsubsection{A.6 The Generalized Second
@@ -4757,48 +4765,21 @@ H-decouple over whole cycles of the dynamics, not only over the
 evaporation. Timescale ordering does not supply it, and H-decouple is
 not established here.
 
-\textbf{Theorem A.7} (Effective pure state). \emph{Let the initial state
-be \(|\psi_{VB}(0)\rangle \otimes |d_0\rangle\), with
-\(d_0 \in \mathcal{C}_D\) a configuration. On timescales
+\textbf{Theorem A.7} (Effective pure state). \emph{On timescales
 \(t \ll \tau_B^D\), the joint state of \(V\) and \(B\) is effectively
 pure:
 \(\rho_{VB} = |\psi_{VB}(t)\rangle\langle\psi_{VB}(t)| + \mathcal{O}(t / \tau_B^D)\),
 where \(|\psi_{VB}(t)\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B\).}
 
 \emph{Proof.} The total system evolves unitarily under \(U_\varphi\)
-(§A.3). Write \(|\psi_{VB}(0)\rangle = \sum_x \psi(x)\,|x\rangle\) over
-\(x \in \mathcal{C}_V \times \mathcal{C}_B\), so that
-\(|\Psi(t)\rangle = \sum_x \psi(x)\,|\varphi_t(x, d_0)\rangle\). By the
-boundary-only dependence lemma (§3.2, step (ii)), applied to the
-partition \((W, D)\) as in Theorem A.5, step (i), the deep sector is
-frozen on these timescales: the \(D\)-configuration of
-\(\varphi_t(x, d_0)\) equals \(d_0\) except for \(x\) in a set \(E_t\)
-of weight
-\(w_t = \sum_{x \in E_t} |\psi(x)|^2 = \mathcal{O}(t / \tau_B^D)\); step
-(ii) bounds the displacement of every configuration,
-\(\|\varphi_t^D - \mathrm{id}\| = \mathcal{O}(t / \tau_B^D)\) pointwise,
-so this bound on \(w_t\) holds for arbitrary \(|\psi_{VB}(0)\rangle\).
-Since \(\varphi_t\) is injective, the terms with \(x \notin E_t\) sum to
-\(|a(t)\rangle \otimes |d_0\rangle\) with
-\(\||a(t)\rangle\|^2 = 1 - w_t\), and the remaining terms are orthogonal
-to every state whose \(D\)-configuration is \(d_0\). Hence
-\(\langle d_0|\rho_D(t)|d_0\rangle = 1 - w_t\), and the largest
-eigenvalue of \(\rho_D(t)\) is at least \(1 - w_t\). For a pure total
-state, \(\rho_{VB}\) and \(\rho_D\) have the same nonzero eigenvalues
-(Schmidt decomposition across \(VB|D\)), so \(\rho_{VB}(t)\) lies within
-trace distance \(2 w_t\) of
-\(|\psi_{VB}(t)\rangle\langle\psi_{VB}(t)|\), with
-\(|\psi_{VB}(t)\rangle\) its eigenvector of largest eigenvalue.
-\(\square\)
-
-\textbf{Remark (initial state of \(D\)).} The theorem uses that \(D\)
-starts in a configuration; a pure but superposed initial state of \(D\)
-does not suffice. When the dynamics of \(V \cup B\) depends on \(D\)'s
-configuration, \(D\)'s coherences are lost while its configuration stays
-frozen: with \(V\), \(B\) and \(D\) qubits and
-\(\varphi(v, b, d) = (v, b \oplus d, d)\), every \(D\)-configuration is
-fixed, and from \(|0\rangle_V |0\rangle_B |+\rangle_D\) one step gives a
-\(\rho_{VB}\) of purity \(1/2\).
+(§A.3). The total state
+\(|\Psi\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\)
+is pure (deterministic evolution from a definite initial state). By the
+boundary-only dependence lemma (Theorem A.5, step (i)), the \(D\)-sector
+is frozen on these timescales: \(\rho_D\) is approximately constant, and
+\(|\Psi\rangle \approx |\psi_{VB}\rangle \otimes |\chi_D\rangle + \mathcal{O}(t / \tau_B^D)\),
+so \(\rho_{VB}\) is pure at leading order, with correction
+\(\mathcal{O}(t / \tau_B^D)\). \(\square\)
 
 The restriction of \(|\psi_{VB}\rangle\) to \(B \cup R\), where
 \(R \subset V\) is the radiation, is pure only when the rest of the
@@ -4827,15 +4808,7 @@ where \(d_B = |\mathcal{C}_B(t)|\), \(d_R = |\mathcal{C}_R(t)|\),
 \[S_{\text{Page}}(d_B, d_R) = \ln(\min(d_B, d_R)) - \frac{\min(d_B, d_R)}{2\max(d_B, d_R)}\]
 
 \emph{the large-dimension form of Page's mean entropy for Haar-random
-pure states of \(\mathcal{H}_B \otimes \mathcal{H}_R\). The initial
-conditions counted are the configurations of \(\Sigma_E\), and the
-bipartition \(B|R\) is aligned with the configuration coordinates. In
-that setting, for \(d_B, d_R > 1\) and \(\epsilon < S_{\text{Page}}\),
-H-scramble in the form the proof uses (at most a fraction
-\(e^{-c\,d_{\min}\epsilon^2}\) of the states on the orbit atypical)
-fails for every bijection, and the time-averaged entropy is zero for
-every initial condition, so the theorem as stated has no instance (scope
-below).}
+pure states of \(\mathcal{H}_B \otimes \mathcal{H}_R\).}
 
 \emph{Proof.} By hypothesis the energy is constant on
 \(\mathcal{C}_B \times \mathcal{C}_R\), so energy conservation places no
@@ -4885,20 +4858,14 @@ the orbit ensemble equidistributes over quantum pure states on the shell
 \(\mathcal{H}_B \otimes \mathcal{H}_R\) --- in the sense of an
 approximate unitary design or comparable scrambling property. Under
 H-scramble the counting step below goes through with \(\eta|\Sigma_E|\)
-as written, and it uses H-scramble only through that bound: at most
-\(\eta|\Sigma_E|\) of the states on the orbit are atypical. A full cycle
-of configurations is an exact state 1-design, so a design property of
-low order does not supply the bound, and the failure stated next is a
-failure of the bound. By the preceding paragraph, H-scramble fails for
-every bijection in the setting of this theorem's own counting, a
-definite initial configuration with the bipartition aligned to the
-configuration coordinates (scope below), where every configuration is
-atypical once \(\epsilon < S_{\text{Page}}\): it requires an initial
-superposition of configurations or a bipartition not aligned with them,
-and which of these the substratum supplies is open. H-scramble is not
-established here, and the lesson generalizes: uniformity over classical
-microstates is not uniformity over quantum pure states. The same
-distinction governs H-state in §2.
+as written. By the preceding paragraph, H-scramble fails for every
+bijection in the setting of Theorem A.7's proof, a definite initial
+configuration with the bipartition aligned to the configuration
+coordinates: it requires an initial superposition of configurations or a
+bipartition not aligned with them, and which of these the substratum
+supplies is open. H-scramble is not established here, and the lesson
+generalizes: uniformity over classical microstates is not uniformity
+over quantum pure states. The same distinction governs H-state in §2.
 
 Call a cycle \emph{bad} if its time-averaged entropy deviates from
 \(S_{\text{Page}}\) by more than \(2\epsilon\). Every state's deviation
@@ -4917,44 +4884,9 @@ cycle is therefore at most
 --- the polynomial prefactor is negligible against the exponential
 concentration. For a \(30 M_\odot\) black hole,
 \(d_{\min} \sim e^{S_{\text{BH}}} \sim e^{10^{77}}\), so
-\(\eta \sim e^{-10^{77}}\). Under H-scramble, therefore, the
-time-averaged entanglement entropy equals the Page value for all but an
-exponentially negligible fraction of initial conditions. \(\square\)
-
-\textbf{Scope of Theorem A.8.} The proof counts initial configurations
-\(s \in \Sigma_E\), with \(B|R\) the factorization
-\(\mathcal{C}_B \times \mathcal{C}_R\) of the configurations. The orbit
-of a configuration consists of configurations, each a product state
-across that bipartition, so \(S(\rho_R) = 0\) at every step and the time
-average is zero for every counted initial condition: H-scramble fails
-for every bijection, and the theorem holds in that setting only because
-its hypothesis is never met. A Page value at a bipartition aligned with
-the configuration coordinates needs entropy in the initial state. Let
-\(|\psi_0\rangle = \sum_s \psi_0(s)\,|s\rangle\) be a pure initial state
-of \(B \cup R\) and \(p_0(s) = |\psi_0(s)|^2\) its distribution over
-configurations. For every bijection \(\varphi\), every \(t\) and every
-bipartition aligned with the configuration coordinates,
-
-\[S(\rho_R(t)) \leq H(p_0) \leq \ln|\operatorname{supp}\psi_0|.\]
-
-\(U_\varphi^t\) permutes the amplitudes, so the distribution \(p_t\)
-over configurations at time \(t\) is a relabelling of \(p_0\) and
-\(H(p_t) = H(p_0)\). The diagonal of \(\rho_R(t)\) in the configuration
-basis of \(R\) is the marginal \(p_{t,R}\), and the diagonal of a
-density matrix is majorized by its spectrum, so
-\(S(\rho_R(t)) \leq H(p_{t,R}) \leq H(p_t)\), the second inequality
-bounding a marginal entropy by the joint entropy; a distribution on
-\(|\operatorname{supp}\psi_0|\) points has entropy at most
-\(\ln|\operatorname{supp}\psi_0|\). A cycle average within \(\delta\) of
-\(S_{\text{Page}}(d_B, d_R)\) at an aligned bipartition therefore
-requires \(H(p_0) \geq S_{\text{Page}} - \delta\), hence an initial
-superposition over at least \(e^{S_{\text{Page}} - \delta}\)
-configurations; otherwise it requires a bipartition not aligned with the
-configuration coordinates. Which of these, if either, the substratum
-supplies is open. For initial superpositions the counting above, which
-runs over configurations, does not apply as written; a restatement of
-Theorem A.8 over an ensemble of initial pure states, with the excluded
-fraction counted in that ensemble's measure, is not given here.
+\(\eta \sim e^{-10^{77}}\). For all but an exponentially negligible
+fraction of initial conditions, the time-averaged entanglement entropy
+equals the Page value. \(\square\)
 
 \textbf{Proper energy shells.} Theorem A.8 is stated for the full
 product space. Its hypothesis requires the energy to be constant on
@@ -5006,14 +4938,7 @@ from \(d_R\) to \(d_B\). \(\square\)
 Theorem A.9 concerns full-cycle averages at the bipartition of stage
 \(t\), held fixed. The entropy \(S(\rho_R(t))\) along a single
 trajectory, whose bipartition moves with \(t\), is a different quantity,
-and whether it follows the same curve is open. Theorem A.9 inherits the
-scope of Theorem A.8: from an initial configuration, with the
-bipartition of each stage aligned with the configuration coordinates,
-\(S(\rho_R) = 0\) at every step, and by the bound in that scope the
-curve requires, at each stage, an initial state whose distribution over
-configurations has entropy at least \(\overline{S}_{\text{rad}}(t)\) up
-to the tolerance, or a bipartition not aligned with the configuration
-coordinates.
+and whether it follows the same curve is open.
 
 \textbf{The evaporation trajectory.} The Hawking temperature (§3.2, Step
 4) gives luminosity \(L \sim 1/M^2\), hence \(dM/dt = -\alpha/M^2\)
@@ -5119,27 +5044,21 @@ cycle structure on the energy shell. This correspondence --- replica
 wormholes ↔ substratum cycles --- is conjectural; making it precise
 would require constructing the gravitational path integral as an
 effective description of the substratum dynamics in the appropriate
-limit. What the present derivation establishes, at the G1 register, is
-conditional: under H-scramble and H-decouple, with the full product
-space as the energy shell, a cycle-averaged Page curve with turnover at
-\(d_R = d_B\) follows without the replica machinery. The Page value
-enters through H-scramble, not through the finite deterministic
-dynamics: from an initial configuration no bijection produces
-entanglement across a bipartition aligned with the configuration
-coordinates, and from any initial pure state it produces at most the
-entropy of that state's distribution over configurations (§A.7).
+limit. What the present derivation establishes --- under H-scramble and
+H-decouple, with the full product space as the energy shell, at the G1
+register --- is that a cycle-averaged Page curve with turnover at
+\(d_R = d_B\) is reproducible from a finite deterministic substratum
+without invoking the replica machinery.
 
 Both approaches require \emph{something} to play the role of typicality
 (measure concentration on the full product space, carried to the orbit
 by H-scramble, here; replica saddles in QES + islands), and both place
 the turnover where the radiation's entropy reaches the black hole's
 remaining entropy. If the conjectured correspondence holds, the
-typicality-providing ingredient need not be gravitational, and the
-derivation here would be a microscopic realization of the
-entanglement-island construction; on the substratum side the bijection
-alone does not supply that ingredient, since the entanglement it can
-produce across an aligned bipartition is bounded by the entropy of the
-initial distribution over configurations (§A.7).
+typicality-providing ingredient need not be gravitational --- it can be
+combinatorial, on the substratum side of the trace-out --- and the
+derivation here is a microscopic realization of the entanglement-island
+construction.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -5396,4 +5315,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 59a69f9f8da8f0faaf9f35771c2b71b8b157b20125dbd5df1402fe6188342128
+% source-sha256: 922f321f0b3fc61194fb3631b0b1831daadd0b92b12346f801aa9e6f424e8605

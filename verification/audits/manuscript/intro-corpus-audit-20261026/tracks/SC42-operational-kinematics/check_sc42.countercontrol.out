@@ -1,0 +1,25 @@
+[1] FiniteOperationalTheory fields vs GR §3.3 setting (GR at 0d917665d32287e5d0ce649012175f2c7bf75b09)
+  ok    kernel fields ['avail', 'availExt', 'avail_id', 'avail_coarse', 'availExt_coarse', 'availExt_bind', 'prepAvail', 'prepAvail_uniform', 'prepAvail_post', 'readout', 'readout_avail', 'readout_local', 'prepAvail_discard'] == mapped fields (none added, none omitted)
+  FAIL  field avail stated in the setting
+  FAIL  field availExt stated in the setting
+  FAIL  field avail_id stated in the setting
+  FAIL  field avail_coarse stated in the setting
+  FAIL  field availExt_coarse stated in the setting
+  FAIL  field availExt_bind stated in the setting
+  FAIL  field prepAvail stated in the setting
+  FAIL  field prepAvail_uniform stated in the setting
+  FAIL  field prepAvail_post stated in the setting
+  FAIL  field readout stated in the setting
+  FAIL  field readout_avail stated in the setting
+  FAIL  field readout_local stated in the setting
+  FAIL  field prepAvail_discard stated in the setting
+  FAIL  kinematics clause: 'The setting takes complex matrix kinematics as given'
+  FAIL  kinematics clause: 'M_A(\\mathbb{C})'
+  FAIL  kinematics clause: 'A derivation of this kinematics'
+  FAIL  kinematics clause: 'is open'
+  FAIL  kernel anchors cited in the setting
+  ok    kernel (i) quantifies over availExt (ancilla levels) only
+  ok    systemLoose makes every system family available (amplifier X -> 2X included)
+  FAIL  GR (i) stated at every ancilla level
+  FAIL  GR: no premise beyond its stated setting
+setting-only mode: FAIL

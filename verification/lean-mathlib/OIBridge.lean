@@ -20,6 +20,8 @@
 import OIBridge.Averaging
 import OIBridge.TrajectoryMemory
 import OIBridge.FullFutureMemory
+import OIBridge.RecordFibreIdentification
+import OIBridge.RootedRecurrenceBridge
 import OIBridge.ChiralCenterRecovery
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
@@ -99,7 +101,6 @@ import OIBridge.CycleFibreHull
 import OIBridge.DynamicsGlue
 import OIBridge.DomainGlue
 import OIBridge.ObservabilityQuotient
-import OIBridge.RecordFibreIdentification
 import OIBridge.PassiveQuotient
 import OIBridge.ControlledQuotient
 import OIBridge.CoherentExtension
@@ -236,7 +237,6 @@ import OIBridge.ProductOffLocusUniqueness
 import OIBridge.SemigroupTransfer
 import OIBridge.WordTraceSufficiency
 import OIBridge.RecurrenceHorizon
-import OIBridge.RootedRecurrenceBridge
 import OIBridge.ScalingFamily
 import OIBridge.RootedClassification
 import OIBridge.RootedClassificationT2
