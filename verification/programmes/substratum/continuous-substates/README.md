@@ -124,10 +124,15 @@ than inferred from the cardinality of the internal state space.
   A separate paper-level Fourier proof in [observable-recurrence.md](observable-recurrence.md)
   covers the stated difference readouts for every `L ≥ 3`; it is **not Lean-checked**
   or independently reviewed.
-- **The `d = 3` map.** It uses `α = 1/3`, which is not an endomorphism of `R/Z`. The
-  real-type lift of the `d = 3` map is therefore not defined on the torus; it needs `R`
-  or another carrier. In `Z_p` with `p ≠ 3`, `1/3` exists, which matches SM's condition
-  `3 ∤ q`.
+- **The `d = 3` coefficient has two levels.** SM §4.1 treats `α=1/3`
+  as the normalized *observer-level* wave-operator coefficient; it is
+  not established as the microscopic update coefficient. Division by
+  three is not a well-defined circle-group endomorphism on `R/Z`,
+  but the actual observer-level operator may act on real vectors.
+  A compact 3-solenoid supplies a mathematical carrier supporting
+  multiplication by `1/3`, and `Z_p` does so for `p≠3`; neither
+  construction derives the missing map `φ → L_obs → Δ_g`.
+  See [equivalence-and-d3-scope.md](equivalence-and-d3-scope.md).
 - **What is established:** P-indivisibility of the rooted family `Γ_t` only. Multi-time
   memory and the readback route are not examined.
 - **The prior:** the hidden prior is Haar measure; other invariant measures are not
@@ -137,8 +142,9 @@ than inferred from the cardinality of the internal state space.
 
 1. Obtain independent mathematical review of the all-`L` Fourier proof and
    observable-factor criterion; keep this as an unverified paper-level proof.
-2. Choose a mathematically valid `d = 3` carrier, real-type or `p`-adic, and
-   repeat the analysis with a pinned map and invariant prior.
+2. Separate the actual microscopic `d=3` bijection from the observer-level
+   `α=1/3` harmonic operator; pin a carrier, observation and invariant
+   prior for each model **before** comparing their visible statistics.
 3. Test the *actual* gauge-coupled update, not a surrogate, for any exact or
    near-total common-time return.
 4. Complete the literature controls in #1007 and test whether an induced
@@ -153,3 +159,19 @@ Wilson lattice gauge theory uses compact **link** variables, invariant measure,
 and a specified plaquette action; these are separate choices, as in these
 [QCD foundations lectures](https://www.phenix.bnl.gov/WWW/publish/elke/EIC/BOOKs/Lectures-on-QCD.Foundations.pdf).
 A full literature and novelty audit is still pending.
+
+## Formal and operational dependency status
+
+The existing Lean module `OIBridge.RecurrenceHorizon` already proves the
+**carrier-independent** rooted identity-return/overlap obstruction;
+`OIBridge.EquivalenceChain` already proves stochastic-inverse rigidity.
+A new research Lean module `OIBridge.ObservableFactorRecurrence` states the
+arbitrary-carrier off-diagonal event decomposition and the observable-matrix
+non-permutation version. It is imported into the Mathlib bridge build,
+but **must not be called kernel-verified until CI passes on its exact head**.
+The measure-theoretic equivalence between an almost-sure observable
+return and `Γ_L=I` remains a paper proof, not part of this new Lean module.
+
+[Equivalence and 3-D scope audit](equivalence-and-d3-scope.md) explains why
+removing fixed finite-carrier restrictions does **not** by itself discharge
+the five independently characterized operational quantum conditions.
