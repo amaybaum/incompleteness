@@ -185,9 +185,12 @@ at the preceding PR head, with permitted axioms. A second module,
 `OIBridge.ObservableMeasureReturn`, constructs the **actual** rooted
 conditional transition entries as ratios of measured joint-cell masses,
 under positive finite visible-cell measures, and states the equivalence
-of `Γ_L=I` and almost-everywhere visible return. This second proof is
-**pending exact-head Mathlib build**, following the pinned-import
-correction; its current source must not be called machine-checked yet.
+of `Γ_L=I` and almost-everywhere visible return. This second proof **compiled in Mathlib at commit `c2cdbd4e`**,
+and that head's Mathlib release gate passed (CI run `41051921067`).
+The overall workflow on that head nevertheless failed an unrelated
+KTOKEN-MAXCONE-1 native-control mutation self-test; this is **not a
+whole-CI-green conclusion**, and no exact-head all-checks verdict
+is claimed for this current research head.
 Neither module proves the all-L Fourier claim, a gauge-coupled law or QM.
 
 [Equivalence and 3-D scope audit](equivalence-and-d3-scope.md) explains why
@@ -233,6 +236,15 @@ native gauge dynamics or an action. Full attempted/rejected records and
 a physically sourced intervention are required. The probe does NOT
 implement Yang–Mills, SU(3), an OI native link dynamics or a quantum
 gate; it does not select #1003's Wilson action or its squared alternative.
+The [bridge note](yangmills-substate-bridge.md) also records a
+**restricted Haar-stationarity obstruction**: if the microscopic
+state is exactly the full link configuration with product Haar prior
+and the evolution preserves that measure, its one-time full-link law
+cannot become a nonconstant Wilson Gibbs weight without an actual
+change in prior, readout or physical coupling. This does not exclude
+nontrivial time-correlations, constrained ensembles or genuinely
+interacting alternatives.
+
 
 The native observation-context sourcing gate remains **BLOCKED** for
 the current retained interface: no paired same-preparation selectable
