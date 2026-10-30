@@ -89,6 +89,17 @@ def check():
         print(f"PASS SHIFT-XOR horizon={horizon}, q={q}: "
               f"{2**(horizon+1)} equiprobable records, "
               f"H(record)={horizon+1} bits; decoupled=2 constant records")
+    # Finite reversible surrogate agrees with the unbounded stream for n < q,
+    # but reveals its finite recurrence at 2q. The infinite stream has
+    # P(b_{2q}=b_0)=1/2 instead (independent fresh increments).
+    for q in range(2, 9):
+        for bits in product((0, 1), repeat=q):
+            for pointer in (0, 1):
+                x, b = bits, pointer
+                for _ in range(2 * q):
+                    x, b = shift_and_xor(x, b)
+                assert (x, b) == (bits, pointer)
+        print(f"PASS FINITE-LONG-HORIZON q={q}: T^(2q)=identity")
     q = 5
     toggle = fixed_hidden_toggle_counts(q, 3)
     N = 2 ** (q + 1)
