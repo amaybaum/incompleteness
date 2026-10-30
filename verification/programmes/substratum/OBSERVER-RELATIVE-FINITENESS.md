@@ -172,6 +172,32 @@ For background, compare:
 These are context references, not proof that OI's horizon
 thermodynamics applies universally.
 
+## 4A. Finite-data countercontrol and pending source check
+
+The companion bounded_observer_controls.py is a verification-only
+finite regression separating finite deterministic record classes
+from finite numbers of exact statistical states. An independent
+integer-arithmetic implementation passed 30 relevant checks:
+
+- A 12-bit truncation gives each prefix observer of depth n=1..12
+  exactly 2^n finite public records. No universal bound over a
+  hypothetical infinite family of observers follows.
+- A binary response with Bernoulli parameter k/d for d in
+  {1,2,3,4,8,16,32,64} has d+1 distinct exact response laws
+  despite only two possible outcomes in each trial.
+- For each bounded horizon K=0..8, the complete 12-bit source
+  census gives 2^(K+1) deterministic K+1-bit records.
+- States 0 and 7 have the same current bit-3 readout, yet
+  reversible increment takes them to 1 and 8 with different
+  next bit-3 readouts. A finite current-record quotient
+  is not automatically an autonomous dynamical model.
+
+The finite checks above were reproduced independently using
+exact arithmetic. The Python source was pushed for ordinary
+CI, but its exact-head Python execution has not been verified.
+The all-observer and continuum-preparation results are
+mathematical arguments, not extrapolations from these finite sweeps.
+
 ## 5. Relationship to OI gauge, and the hard-to-vary physical target
 
 A putative ontology-neutral physics is a *family* of models
