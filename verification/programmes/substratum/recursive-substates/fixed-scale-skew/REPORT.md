@@ -68,6 +68,44 @@ The two-time rooted distributions are completely uniform, yet this full-record p
 **Classical countercontrol:** if the r term is removed, the single-step relation
 \(a_{t+1}=a_t\oplus c_t\) holds, so the visible process is Markov and CMI is zero. The three-time parity relation then still holds; it **does not uniquely identify persistent hidden memory on its own**. Use the parity diagnostic **together with** the one-step uncertainty and the complete three-time law. This additional parity prediction was deduced from the preregistered fixed rule; it is a mathematical follow-up, not an independent preregistered physical forecast.
 
+## Matched-classical reference: identical rooted maps, different full records
+
+A stronger follow-up negative control uses a **separate reversible iid
+four-symbol shift**, rather than only disabling r within the same
+skew model. Let its hidden tape have independent uniform symbols
+\(d_i\in\{0,1,2,3\}\), shifted invertibly on a bi-infinite
+index set, and let the visible record at time t be \(d_t\).
+For every \(t\ge1\), this iid model has **exactly the same
+rooted matrix \(\Gamma_t=J_4/4\)** as the fixed-skew model,
+but the full three-time distributions differ:
+
+| Quantity | Fixed skew T | Matched iid shift |
+|---|---:|---:|
+| \(\Gamma_t(i,j)\), all \(i,j\), all \(t>0\) | 1/4 | 1/4 |
+| Three-record support | 32 of 64 | 64 of 64 |
+| Probability per supported triple | 1/32 | 1/64 |
+| \(I(O_0;O_2\mid O_1)\) | 1 bit | 0 bits |
+
+The **exact total-variation distance** between their three-time
+joint laws is \(1/2\), because the fixed-skew law has 32
+events of probability \(1/32\), while the iid reference has
+all 64 at \(1/64\). No model parameters were adjusted to match
+the two-time channels: they agree *identically* by the analytic
+rules. This isolates the missing information in a purely
+two-time experimental description.
+
+A separate [matched classical control](matched_control.py)
+exhaustively checks cyclic four-symbol tapes of lengths 3–7
+(up to **16,384** tape configurations), all earlier rooted
+two-time maps, all 64 triple probabilities, and the rational
+three-time total variation \(1/2\). Both normal and optimized
+Python gave byte-identical [MATCHED.json](MATCHED.json);
+the [joint replay driver](replay.py) pins the script and
+structured evidence hashes. This follow-up comparison was
+added **after** the initial FIXED-SCALE-1 preregistration;
+it is a stronger classical negative control, not an
+original preregistered or physically predicted quantum effect.
+
 ## Exact finite approximation and boundary effects
 
 For each \(n=3,\ldots,9\), replace the bi-infinite tape by a cyclic n-bit tape, leaving the update rule, the a/r variables, and the observer unchanged. The full state has \(2^{n+2}\) configurations; the largest test exhausts **2,048**.
