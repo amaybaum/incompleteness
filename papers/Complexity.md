@@ -6,7 +6,7 @@
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Foundations / Astrobiology
 
----
+***
 
 ## Abstract
 
@@ -16,7 +16,7 @@ The combinatorial diversity of carbon chemistry ($\sim 20^N$ peptides of length 
 
 The same C1–C4 conditions that diagnose an accessible non-Markovian realization cosmologically — finite-horizon memory in the visible law, not generic quantum non-Markovianity — are satisfied in proteins ($\tau_S / \tau_B \sim 10^{-9}$ to $10^{-12}$), predicting non-Markovian enzyme kinetics consistent with single-molecule experiments. The non-Markovian corrections grow as $\tau_S / \tau_B$ increases, approaching engineering relevance in quantum computing ($10^{-3}$) and quantum sensing ($10^{-6}$). The framework identifies a new design space — engineered C1–C4 architectures — in which the environment is programmable quantum memory rather than noise.
 
----
+***
 
 > **Status — conjectural extension.** This paper applies the core framework to quantum computation and complexity, and is offered as a *conjecture*, not an established result: the central claim — that the framework's emergent dynamics realizes the complexity class BQP — is a theoretical conjecture rather than a proven correspondence; it would be supported by a rigorous derivation from the finite substratum to BQP and undercut if that dynamics proves efficiently classically simulable or fails to reproduce known quantum-complexity separations. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
 
@@ -28,7 +28,7 @@ The OI framework [1, 2] challenges the premise. The companion papers prove that 
 
 This paper traces the consequences. §2 establishes the structural chain from (S, φ) to the full preconditions for organic chemistry — orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window for dynamic chemistry. §3 estimates the viable fraction of the parameter space using existing literature. §4 traces the chirality chain from the electroweak sector to biological homochirality, its first link conditional on the framework's open hypothesis H-χ' [2, §4.8]. §5 extends the chain through autocatalytic networks, template replication, the origin of life (identified as the first molecular C1–C4 system), and Darwinian evolution — closing with a forward-pointer to the companion paper [38] that continues the chain through general intelligence, AI, and the BQP characterization for embedded observers. §6 addresses the existence question. §7 applies C1–C4 to biological systems, predicting non-Markovian enzyme kinetics with implications for drug design. §8 identifies where OI corrections reach engineering relevance — quantum computing, quantum sensing, and precision metrology — and proposes three engineering frontiers: engineered partitions (the bath as programmable memory), non-Markovian quantum computation (P-indivisible gate sequences), and quantum materials with designed C1–C4 architectures.
 
----
+***
 
 ## 2. The Structural Chain
 
@@ -110,7 +110,7 @@ $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xr
 
 These chains combine results of [1, 2] with textbook relations on the selected three-dimensional continuum branch, conditional on A4's lattice class, E5–E7, the continuum conditions, and the stated spin, statistics and atomic assumptions. Each downstream link retains its own hypotheses; the chiral-SU(2) arrow additionally assumes H-χ' [2, §4.8]. The conclusions about atoms, nuclei, the periodic table, organic chemistry, matter-antimatter asymmetry and chirally selected molecules inherit these conditions.
 
----
+***
 
 ## 3. The Viable Parameter Space
 
@@ -153,7 +153,7 @@ This is a rough estimate, but the order of magnitude is robust: the viable fract
 
 Comparisons of fine-tuning depend on which structural choices and parameters are varied. The estimate here holds the selected three-dimensional lattice/gauge branch fixed and varies the chosen parameter subspace. It does not exclude other dimensions or gauge structures using embedded observation alone. The ~16% estimate applies only to the stated ranges and weighting assumptions.
 
----
+***
 
 ## 4. The Chirality Chain
 
@@ -189,7 +189,7 @@ If the amplification chain is robust — every step being known physics or exper
 | 4 | Statistical fluctuation + directional bias → homochirality | Demonstrated mechanisms [13, 14, 15]; sign from Step 1 |
 | 5 | Biological homochirality | Observed |
 
----
+***
 
 ## 5. Implications
 
@@ -291,7 +291,7 @@ The OI framework's characterization theorem is scale-independent: whenever a fas
 
 The structural chain established through §5.6 reaches biological evolution as a natural terminus. The next link — from evolved biological observers to information-processing systems, neural computation, semiconductor-based universal computation, and the embedded-computation theory that follows — is the subject of the companion paper *Embedded Computation in the Incompleteness of Observation Framework* [38]. There, the chain is continued through general intelligence, AI as embedded-observer construction, the Gödel-Turing-OI incompleteness family applied recursively, the BQP characterization theorem for embedded observers, and the framework's position on the P vs NP question. The dividing line between this paper and the companion reflects the qualitative shift from *material-structural* consequence-tracing (chemistry-biology) to *informational-structural* consequence-tracing (computation-complexity).
 
----
+***
 
 ## 6. The Existence Question
 
@@ -339,7 +339,7 @@ One question is outside the framework's scope — not contingently but necessari
 
 The existence question is distinct from the conditional physical and biological programme developed here. The named lattice, continuum, matter and operational bridge assumptions remain open hypotheses within that programme, and the biological extensions retain their own model assumptions.
 
----
+***
 
 ## 7. Quantum Biology: C1–C4 Inside Living Systems
 
@@ -397,7 +397,7 @@ The application of C1–C4 to protein systems rests on the model-independent con
 
 The summary: the framework expects enzyme kinetics to be non-Markovian wherever the scaffold writes and reads back catalytic history. The prediction is consistent with existing evidence and makes specific testable claims. Whether the non-Markovian corrections are large enough to matter for practical drug design is an empirical question — the corrections are $\mathcal{O}(\tau_S / \tau_B) \sim 10^{-9}$ to $10^{-12}$ for individual catalytic events, but may accumulate over many cycles or in systems with exceptionally slow conformational dynamics.
 
----
+***
 
 ## 8. The GPS Analogy: Where OI Corrections Reach Engineering Relevance
 
@@ -532,13 +532,13 @@ For the four enzymes and the qubit — all with "typical" C3 capacity (conformat
 
 The myoglobin outlier ($H = 0.95$) has an anomalously deep conformational hierarchy — Frauenfelder's "protein energy landscape" involves $\sim 10^6$–$10^9$ conformational substates organized in a fractal-like tier structure, far exceeding typical enzyme C3 capacity. This suggests $H$ increases with C3: typical capacity gives $H \approx 0.8$; deep capacity gives $H \to 1$. The genuinely distinctive content of this section is not the single-system value (degenerate, above) but this *cross-substrate* law $H(C3)$ — the claim that one memory-strength relation holds across an enzyme, a qubit, and an ion channel, which per-system classical models do not unify. As stated, however, it is derived only "in principle" from the characterization theorem's dependence on hidden-sector dimension, and it is fit in-sample (the single deep point, myoglobin, motivates it). The operative test is therefore out-of-sample: measure $H$ on systems of independently known hidden-sector dimension and check the predicted $H(C3)$.
 
----
+***
 
 ## Acknowledgements
 
 During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, refining argumentation, and surveying the relevant literature in nuclear physics, prebiotic chemistry, origin-of-life research, quantum biology, and quantum computing. The author reviewed and edited all content and takes full responsibility for the publication.
 
----
+***
 
 ## References
 
