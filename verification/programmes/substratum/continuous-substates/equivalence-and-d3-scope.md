@@ -42,23 +42,16 @@ Already present in the repository:
   characterization of finite operational QM, not a derivation of its
   conditions from bare OI.
 
-This draft adds `OIBridge.ObservableFactorRecurrence` with a
-carrier-arbitrary change-event identity and an abstract finite-visible
-stochastic-inverse obstruction. The file is imported by the bridge root
-for the automatic GitHub Lean/Mathlib build. **Do not mark it
-kernel-verified until CI explicitly succeeds on its exact head.**
-
-The **important remaining formal gap** is not another stochastic
-inverse proof. It is the measurable factor theorem: under a probability
-measure, finite positive-mass visible cells, and a measurable
-measure-preserving bijection `T`, define
-`Γ_n(a,b) = μ({π=a} ∩ {π∘T^n=b})/μ({π=a})`.
-Then prove `Γ_L=I ⇔ μ({π∘T^L ≠ π})=0`.
-The paper proof is elementary, but it has **not** been mechanized here.
-A next Lean unit should prove the measure bridge separately with
-null-cell handling and the ratio well-defined, then instantiate the
-already machine-checked matrix no-go. Do not fake this by assuming
-`Γ_L=I` as a field of a purportedly physical realization.
+The modules `OIBridge.ObservableFactorRecurrence` and
+`OIBridge.ObservableMeasureReturn` were both **kernel-built** at exact
+head `a02e197d` (automatic CI run `41094894776`, release gate PASS).
+The first proves the finite-visible change-event set identity and the
+stochastic-inverse obstruction. The second proves the **ENNReal** ratio
+identity `measuredGamma = I ↔ μ({π∘T^L ≠ π})=0` for positive finite
+observable-cell masses. **Still missing in Lean:** explicit measurability
+hypotheses for `π` and `T`, a real row-stochastic transition matrix with
+normalization, and its composition with the P-indivisibility lemma.
+This is not yet the whole physical measure-to-indivisibility theorem.
 
 The free-wave all-`L` Fourier proof is another **paper proof**
 pending separate Lean verification; the finite-range exact matrix

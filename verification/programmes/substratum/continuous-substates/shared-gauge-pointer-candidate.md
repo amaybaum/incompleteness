@@ -40,7 +40,7 @@ The *original incident* loop is uniform on all eight values in either context. H
 
 The settings are genuinely distinct reversible **classical** operations. For \(u=(0,0,0,0),b=0\), applying \(s=0\) then \(s=2\) gives \((4,0,0,0),b=0\), while applying \(s=2\) then \(s=0\) gives \((4,0,0,0),b=1\). The two operations **do not commute** as microscopic permutations. Without the kick they are just commuting conditional bit flips.
 
-**Critical negative control:** noncommuting classical reversible operations still do not supply noncommuting *quantum* gates, complex phase interference, complete positivity, a purification resource or the five finite operational completion conditions in \`OIBridge.GeneralCarrier\`. This toy has a perfectly classical joint hidden state and public record. It is **not** a double-slit derivation or a demonstration of coherent quantum measurement.
+**Critical negative control:** noncommuting classical reversible operations still do not supply noncommuting *quantum* gates, complex phase interference, complete positivity, a purification resource or the five finite operational completion conditions in \`OIBridge.GeneralCarrier\`. This toy has a fully public classical joint state **with no traced-out sector**; it does not imply general quantum operational noncommutativity. It is **not** a double-slit derivation or a demonstration of coherent quantum measurement.
 
 ## Continuous carrier analogue and limits
 

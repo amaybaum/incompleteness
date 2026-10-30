@@ -94,6 +94,10 @@ def main():
         checks[f'unchanged_loop_without_kick_{s}'] = all(
             loop(transform(x, s, False)[0]) == loop(x[0])
             for x in states)
+        allowed = ({4, 5, 6, 7} if s == 0 else {0, 1, 6, 7})
+        checks[f'outgoing_loop_distribution_{s}'] = all(
+            sum(v for (k, b, l), v in rows.items() if l == j) ==
+            (N**4 // 4 if j in allowed else 0) for j in range(N))
         checks[f'unconditional_Haar_no_pointer_prep_{s}'] = all(
             sum(1 for x in states if loop(transform(x, s)[0]) == j)
             == N**4 * 2 // N for j in range(N))

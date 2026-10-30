@@ -14,10 +14,12 @@ This research module isolates two logically separate, carrier-independent steps:
   earlier rooted matrix is not a permutation. This reuses the existing
   kernel theorem about stochastic inverses.
 
-NO MEASURE-THEORETIC CONVERSION HAS BEEN FORMALIZED HERE: turning the first
-identity into the equality Gamma_L = I for a measure-induced conditional
-law requires finite positive cell measures and a null-set argument. The
-paper-level proof is in the SUBSTATE-1 research note, pending its own check.
+The separate `ObservableMeasureReturn` module now kernel-proves the
+positive-finite-cell **ENNReal** measured-return iff zero-change-mass
+identity. THIS module proves only the set identity and the conditional
+stochastic-matrix obstruction. Neither module supplies a measurable,
+real row-stochastic rooted law or composes the measure-based identity
+with the P-indivisibility result.
 
 In particular, nothing here derives the five finite-QM operational
 completion conditions or chooses a continuous gauge action.

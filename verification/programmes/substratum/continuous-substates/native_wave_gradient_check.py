@@ -68,6 +68,16 @@ def main():
     lhs = step(shifted_cur, shifted_prev)[0]
     rhs = {p: (step(zero, zero)[0][p] + delta[p]) % Q for p in SITES}
     checks['native_update_not_covariant_under_local_site_shift'] = lhs != rhs
+    h = (2, 4, 4)  # 1-D nearest-neighbor operator eigenvalue 4 mod 5
+    commuting = {p: h[p[0]] * h[p[1]] * h[p[2]] % Q for p in SITES}
+    checks['nonconstant_commuting_site_shift'] = (
+        len(set(commuting.values())) > 1
+        and all((sum(commuting[add(p, d)] + commuting[add(p, neg(d))]
+                     for d in AXES) - 2 * commuting[p]) % Q == 0 for p in SITES)
+        and all(wave({p: (a[p] + commuting[p]) % Q for p in SITES},
+                     {p: (b[p] + commuting[p]) % Q for p in SITES}) ==
+                {p: (wave(a, b)[p] + commuting[p]) % Q for p in SITES}
+                for a in fields for b in fields))
     checks['specific_source_site_witness'] = (
         lhs[(0, 0, 0)], rhs[(0, 0, 0)]) == (Q-1, 1)
 
@@ -80,7 +90,7 @@ def main():
         'controls': checks,
         'local_shift_witness': {'native_next_origin': lhs[(0, 0, 0)],
                                 'required_covariant_origin': rhs[(0, 0, 0)]},
-        'mathematical_scope': 'Pure-gradient links flat for every field and time; arbitrary local site shifts do not commute with the tested native update',
+        'mathematical_scope': 'Pure-gradient links flat for every field and time; not every site shift commutes; the commuting subgroup obeys (A-2I)g=0',
         'H_link_other_constructions_ruled_out': False,
         'YM_action_derived': False
     }, sort_keys=True, indent=2))

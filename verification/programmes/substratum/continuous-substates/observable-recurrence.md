@@ -1,7 +1,9 @@
 # SUBSTATE-1: observable-level recurrence without a finite carrier
 
-**Status: research-only mathematical argument, not Lean-checked or independently
-reviewed.** Related to #1007 and draft #1009. This is a statement about
+**Status: research-only; the all-`L` Fourier proof below is on paper,
+not Lean-checked. Separate finite-visible set, stochastic-inverse and
+conditional ENNReal measured-return lemmas were kernel-built on
+`a02e197d`. The full physical bridge remains independently unreviewed.** Related to #1007 and draft #1009. This is a statement about
 measure-preserving dynamics and its observations, **not** a proof of OI's full
 substratum reconstruction, gauge dynamics, or quantum equivalence.
 

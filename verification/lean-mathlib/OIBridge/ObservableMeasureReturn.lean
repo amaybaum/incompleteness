@@ -5,19 +5,23 @@ import Mathlib.Data.ENNReal.Inv
 /-!
 # SUBSTATE-1: measurable visible return (research candidate)
 
-For an arbitrary *measurable* hidden carrier, measure on it, and a finite
-observable alphabet, the mass of the visible-change event is zero iff every
-off-diagonal joint-observation cell has zero mass.
+For a type equipped with a measurable space, an arbitrary supplied
+measure and a finite observable alphabet, the visible-change event
+has zero mass iff each off-diagonal joint-observation cell has zero
+mass. The statements do not assume or prove measurability of the
+supplied observation and update functions.
 
-With all visible initial cells of positive finite measure, the actual
-conditional rooted transition matrix, defined from joint cell measures,
-equals the identity iff the visible label returns almost everywhere.
+With positive finite visible initial-cell masses, an **ENNReal**
+matrix *defined as the ratio of joint-cell masses* equals the identity
+iff the visible label returns almost everywhere. This does not yet
+show a real row-stochastic physically measured transition family.
 No assumption of finite hidden cardinality or of microscopic periodicity
 is used. The measure is a parameter; T-invariance is needed for other
 physical questions, not this equivalence itself.
 
-Status: candidate submitted for Lean/Mathlib CI. No Lean proof of the
-all-L Fourier wave statement, no quantum operational completion claim.
+Status: kernel-built on exact #1009 head `a02e197d`
+(automatic CI `41094894776`, Lean/Mathlib and release gate PASS).
+No Lean proof of the all-L Fourier statement or operational QM.
 -/
 
 namespace OIBridge
@@ -63,9 +67,10 @@ theorem measure_change_zero_iff (μ : Measure X) (obs : X → V)
   rw [changeEvent_eq_iUnion]
   simp only [measure_iUnion_null_iff]
 
-/-- Rooted transition built from actual conditional joint cell measures.
-A positive finite measure is required for each initial visible cell in
-the identity-return theorem. -/
+/-- ENNReal matrix defined from ratios of joint visible-cell measures.
+The identity-return theorem assumes positive finite initial-cell masses;
+this definition alone establishes neither measurable observation/update,
+row normalization, nor an ℝ-valued stochastic physical law. -/
 noncomputable def measuredGamma (μ : Measure X) (obs : X → V)
     (advance : X → X) : Matrix V V ENNReal :=
   fun a b => μ (OffDiagonalEvent obs advance a b) / μ (VisibleCell obs a)
