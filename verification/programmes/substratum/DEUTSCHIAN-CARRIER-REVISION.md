@@ -86,7 +86,7 @@ visible configuration to "the configuration space is finite"
 when discussing exact recurrence. These errors are distinct
 from deciding whether the true physical ontology is infinite.
 
-The correction should remove only those mistaken inferences,
+The minimal source-correction task is tracked in [issue #1013](https://github.com/amaybaum/incompleteness/issues/1013), separately from the ontology revision. The correction should remove only those mistaken inferences,
 while retaining every properly scoped finite-carrier theorem
 and the independently named A1 posit. All affected book
 mirrors, generated artifacts and Lean prose summaries must
