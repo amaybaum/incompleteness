@@ -1288,6 +1288,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework developed in this book proposes a different ro..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The thought experiment captures the framework's central move..."
     },
     {
@@ -1588,10 +1592,6 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: $\\frac{\\rho_s}{\\rho_{\\text{crit}}} = \\frac{2}{d - 1}.$..."
-    },
-    {
-      "ok": true,
       "predicate": "chapter line mirrored in FULL: Within A4's assumed periodic-lattice class and the stated co..."
     },
     {
@@ -1644,7 +1644,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: $(S, \\varphi) \\xrightarrow{\\text{conditional}} d = 3 \\xright..."
+      "predicate": "chapter line mirrored in FULL: $$(S, \\varphi) \\xrightarrow{\\text{conditional}} d = 3 \\xrigh..."
     },
     {
       "ok": true,
@@ -1665,6 +1665,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Carbon's combinatorial productivity.* Given the selected $d..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 12.7 develops the structural chain from intelligence..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: If general intelligence exists — for whatever contingent or ..."
     },
     {
       "ok": true,

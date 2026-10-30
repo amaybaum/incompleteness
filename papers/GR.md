@@ -443,7 +443,7 @@ $$\frac{\rho_s}{\rho_{\rm crit}} = \frac{2}{d-1}$$
 
 — unity only at $d=3$. This is the general-$d$ formula cited in [SM §3.2] as the boundary-entropy filter selecting $d=3$.
 
-Within A4's assumed periodic-lattice class and the continuum conditions of SM §3.1–§3.2, propagating gravity gives $d\geq3$ and stable matter gives $d\leq3$, already selecting $3$. Boundary-entropy concordance is an additional cosmological consistency check with its stated horizon assumptions, not a logically independent third constraint.
+Within A4's assumed periodic-lattice class and the continuum conditions of SM §3.1–§3.2, propagating gravity gives $d\geq3$ and stable matter gives $d\leq3$, already selecting $3$. Boundary-entropy concordance, with its stated horizon assumptions, is redundant for the selection once these two hold but not logically dependent on them; it independently excludes $d\geq4$ (SM §3.2).
 
 *(ii) Invisibility.* The argument has two logically distinct components.
 
