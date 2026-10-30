@@ -1652,6 +1652,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's reading.** The framework's chemistry deriv..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The chemistry discussion inherits A4's lattice class, E5–E7,..."
     },
     {
@@ -1833,6 +1837,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The qualification is equally important. Universal Hilbert-sp..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's value depends on what follows from this reve..."
     },
     {
       "ok": true,
