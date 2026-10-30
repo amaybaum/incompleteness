@@ -1601,6 +1601,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Research-only mathematical bridge: arbitrary hidden carrier, event partition identity, measured conditional transition as off-diagonal joint-cell mass / positive finite initial-cell mass, identity rooted return iff zero measure of observable changes, and finite visible stochastic-inverse obstruction. Proof-level statuses depend on exact-head Mathlib build. Does not establish all-L Fourier result, complete operational QM, gauge action or physics. PR #1009, issue #1007."
+    },
+    {
+      "name": "SUBSTATE-1 pure-gradient gauge link negative control and two-slice inverse",
+      "modules": [
+        "GradientLinkFlatness"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only, no publication claim: square_gradient_flat is the additive four-link telescope (so the naive pure-gradient link has trivial plaquette holonomy); waveUnstep_waveStep and waveStep_waveUnstep prove the generic reversible two-slice pattern. Does NOT establish or exclude the physical OI H-link, a Yang-Mills action, curved gauge fields, native observer interventions or quantum operational equivalence. Submitted to Mathlib bridge on draft PR #1009; theorem kernel certification requires exact-head build and axiom check."
     }
   ]
 }
