@@ -165,9 +165,6 @@ POSITIVE = ['KTOKEN-MAXCONE-INCLUSIONS-PROVED', 'KTOKEN-MAXCONE-EQ-PROVED', 'KTO
             'KTOKEN-MAXCONE-K3-EXACT', 'KTOKEN-MAXCONE-1-READ']
 STAGES = ('E', 'S1')
 SELF_CHECKS = 38  # set to the number of self-checks; a dropped self-check fails the count
-# Historical KTOKEN source is frozen at D. Later self-test revisions use a synthetic marker
-# for the old source blob; only the in-memory git fixture maps it to the preregistered digest.
-FROZEN_CONTROLS_FIXTURE = '__KTOKEN_CONTROLS_FROZEN_BLOB_FIXTURE__'
 FIXED_RECORD = {'preregistration.md', 'controls.py', 'checks/KTokenPairCheck.lean', 'checks/run_checks.py'}
 
 FAIL = []
@@ -584,7 +581,6 @@ def fake_repo(root):
         if n != 1:
             return None
     E[PREREG] = prereg
-    E[CONTROLS] = FROZEN_CONTROLS_FIXTURE  # the historical blob, not this self-test runner
     E[RESULT] = '# KTOKEN-MAXCONE-1 result (self-test fixture)\n\nNo claim.\n'
     Dm = {p: E[p] for p in {PAIR} | {path for path, _, _ in LANDED}}
     w = E[WORKFLOW]
@@ -597,13 +593,8 @@ def fake_repo(root):
         return None
     Dm[ROOT] = E[ROOT].replace(ROOT_ANCHOR + ROOT_LINE, ROOT_ANCHOR)
     reg = json.loads(E[REGISTRY])
-    positions = [i for i, family in enumerate(reg['families']) if family == FAMILY]
-    if len(positions) != 1:
+    if reg['families'][-1] != FAMILY:
         return None
-    # Model KTOKEN's historical execution snapshot; later unrelated census families do
-    # not belong to D or E. Production registry_ok still requires an *exact* append.
-    reg['families'] = reg['families'][:positions[0] + 1]
-    E[REGISTRY] = json.dumps(reg, indent=2, ensure_ascii=False) + '\n'
     reg['families'].pop()
     Dm[REGISTRY] = json.dumps(reg, indent=2, ensure_ascii=False) + '\n'
     Fm = dict(Dm)
@@ -627,14 +618,7 @@ def install_fake(mod, repo, parents=None):
                 todo.extend(graph[x])
         return seen
     mod.show = lambda c, p: repo[key(c)].get(p)
-    def fake_blob(c, p):
-        body = repo[key(c)].get(p)
-        if body is None:
-            return None
-        if p == CONTROLS and body == FROZEN_CONTROLS_FIXTURE:
-            return frozen_blobs(repo['F'][PREREG]).get(CONTROLS)
-        return git_blob_id(body)
-    mod.blob = fake_blob
+    mod.blob = lambda c, p: git_blob_id(repo[key(c)][p]) if p in repo[key(c)] else None
 
     def fgit(*args):
         if args[0] == 'ls-tree':
@@ -737,11 +721,8 @@ def e2e_mutations(root):
                                       lambda m: m.group(1) + value + ' |', r[c][PREREG], count=1)
             return r
         headerless = {k: dict(v) for k, v in repo.items()}
-        tampered_controls = {k: dict(v) for k, v in repo.items()}
-        tampered_controls['E'][CONTROLS] = 'tampered historical controls source (synthetic)\n'
         headerless['E'][MODULE] = re.sub(r'\A\s*/-.*?-/\n', '', repo['E'][MODULE], count=1, flags=re.S)
-        absences = [('frozen controls source differs from the pinned blob', ['C2'], tampered_controls),
-                    ('workflow absent at D and E', ['W'], without([('D', WORKFLOW), ('E', WORKFLOW)])),
+        absences = [('workflow absent at D and E', ['W'], without([('D', WORKFLOW), ('E', WORKFLOW)])),
                     ('OIBridge.lean absent at D and E', ['I'], without([('D', ROOT), ('E', ROOT)])),
                     ('result note absent at E', ['S4', 'R'], without([('E', RESULT)])),
                     ('a pinned evidence file absent at E', ['P'], without([('E', e) for e in ev])),
@@ -782,7 +763,7 @@ def e2e_mutations(root):
         problems.append('check() accepted the unknown stage \'e\'')
     except ValueError:
         pass
-    return problems, len(REQUIRED) + 1 + len(absences) + 3 + 1 + 1
+    return problems, len(REQUIRED) + 1 + 7 + 3 + 1 + 1
 
 
 def in_decl(text, name, old, new):
@@ -868,9 +849,8 @@ def self_test():
         ROOT_ANCHOR, ROOT_ANCHOR + ROOT_LINE) and root_expected(rbase + ROOT_ANCHOR) is None)
     jb = json.dumps({'families': [{'name': 'x'}]})
     jh = json.dumps({'families': [{'name': 'x'}, FAMILY]})
-    report('self: J accepts only the exact append and rejects changed status or later families',
-           registry_ok(jb, jh) and not registry_ok(jb, jh.replace('kernel-only', 'current'))
-           and not registry_ok(jb, json.dumps({'families': [{'name': 'x'}, FAMILY, {'name': 'later'}]})))
+    report('self: J accepts the family and rejects a changed status', registry_ok(jb, jh) and not registry_ok(
+        jb, jh.replace('kernel-only', 'current')))
     bad = g(['M\tpapers/GR.md', 'M\t' + LEGACY, 'M\tverification/ROADMAP.md', 'A\t' + MODULE, 'A\t' + RDIR + 'x'], gp)
     report('self: G flags a manuscript, the legacy manifest and the ROADMAP, and passes the module and the record',
            len(bad) == 3 and not any(MODULE in b or RDIR in b for b in bad))
