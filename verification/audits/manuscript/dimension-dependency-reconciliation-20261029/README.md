@@ -52,7 +52,7 @@ Owner-bounded correction of the independent final-head review of `613632e4`, fro
 
 Rebuilt with `sh ./build.sh Complexity SM GR Computation Explainer` and `sh ./build.sh --book`, then, after the final-acceptance fixes, `sh ./build.sh Complexity Computation Explainer` and `sh ./build.sh --book`: Complexity 35, SM 150, GR 88, Computation 22, Explainer 71 and book 558 pages (the book's 557 at `613632e4` came from the collapsed displays), no dropped glyphs, `staleness_check: OK (13 matched)`. Rendered Complexity pp. 6 and 18 and book p. 258 show the restored displays as display math; the ch10 chain at book p. 258 runs as close to the right margin as on main. SC-42: 498 predicates pass (338 non-mirror, identical to `613632e4`, and 160 chapter/FULL mirror predicates, which now record the restored `$$` lines), and the controls and optimized run are unchanged.
 
-**Left to #944/#946 (not changed here):** Complexity §5 and §6.4 biological claims (:15 RNA "structural prediction", :327 "inevitable" Darwinian evolution, §5.3–§5.6 inevitability), the §3 viable-fraction weighting, chapters 10–13 chemistry/observer inevitability (ch10:10/:16/:134, ch11:130, ch13:8), ; Complexity horizontal-rule formatting was resolved separately as a safety-only publication correction (see below).
+**Left to #944/#946 (not changed here):** Complexity §5 and §6.4 biological claims (:15 RNA "structural prediction", :327 "inevitable" Darwinian evolution, §5.3–§5.6 inevitability), the §3 viable-fraction weighting, chapters 10–13 chemistry/observer inevitability (ch10:10/:16/:134, ch11:130, ch13:8).
 
 ## Formatting-safety closure (2026-10-30; #997)
 
