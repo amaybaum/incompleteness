@@ -98,6 +98,16 @@ This is a **carrier-existence candidate**, not an
 OI-derived projected operator, gauge interaction or
 physical realization.
 
+The 3-solenoid is connected: any **continuous group homomorphism**
+from it into a nontrivial finite discrete alphabet has only the
+trivial image. Hence a useful finite visible readout on this
+carrier must be a (typically non-homomorphic) **measurable
+partition**, such as thresholding a circle coordinate, rather than
+a finite-group quotient analogous to `Z_p → Z/p^kZ`.
+This makes its recurrence and information-carrying properties
+nonautomatic and is another required control, not an objection
+to measurable observation.
+
 Sources for the mathematical vocabulary: Gopal & Imam,
 *Periodic points of solenoidal automorphisms in terms
 of inverse limits*, Applied General Topology 22 (2021),
@@ -130,7 +140,10 @@ limits see the same article and standard Pontryagin duality.
    one physical dynamical construction must supply
    at least one of the independent operational controls
    missing from bare OI (not simply assume an instrument
-   menu). Keep the `S ⇔ D ⇔ Q_fb` theorem unchanged.
+   menu). Bell behavior still requires testing the setting,
+   locality and no-signaling hypotheses of Main §3.3/H-Bell:
+   a hidden continuum alone changes none of Bell's premises.
+   Keep the `S ⇔ D ⇔ Q_fb` theorem unchanged.
 
 **Status:** Research direction OPEN; no supported native
 gauge-action selection, readback extension, or full
