@@ -58,5 +58,4 @@ def main():
         'full_infinite_shift_mathematics':'analytic Bernoulli iid law; not proved by finite enumerations',
     },indent=2,sort_keys=True))
 
-
 if __name__=='__main__': main()
