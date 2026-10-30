@@ -26,6 +26,8 @@ OI's **general working foundation does not assume a finite total substratum**. F
 
 See the [Deutschian carrier revision and its rejection criteria](verification/programmes/substratum/DEUTSCHIAN-CARRIER-REVISION.md), alongside the research-only [SUBSTATE-1](https://github.com/amaybaum/incompleteness/pull/1009) and [SUBSTATE-2](https://github.com/amaybaum/incompleteness/pull/1011) drafts. Quantum operational equivalence and Yang–Mills action selection remain open; recursive sub-states alone establish neither.
 
+**Observer-relative cardinality gauge.** The number of hidden states is not fixed by an observational equivalence class when the specified public records and physically permitted interventions are unchanged. OI already proves exact invariance for certain decoupled hidden enlargements and, in GR, leading-order independence of deep-sector cardinality under its slow-backreaction conditions. This is *not* an unconditional statement that all finite and infinite carriers are equivalent: some infinite systems have all-time record laws that no single finite reversible carrier reproduces. The [working gauge-scope analysis](verification/programmes/substratum/DEUTSCHIAN-CARRIER-REVISION.md) gives exact positive and negative controls. Gauge here means **redundancy relative to specified observable physics**, not automatically the Yang–Mills gauge group. Finite-carrier reconstruction and recurrence theorems retain their original hypotheses.
+
 ## The foundational correspondence
 
 At finite observational horizon, the framework relates three descriptions:
