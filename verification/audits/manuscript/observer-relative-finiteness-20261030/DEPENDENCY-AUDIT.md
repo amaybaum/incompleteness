@@ -66,6 +66,20 @@ finite-visible Lemma 1 does not prove this. The correct repair must either
 Do **not** claim energy conservation follows just from a finite observable
 alphabet, or conversely that an infinite carrier cannot have conserved energy.
 
+**Two exact model countercontrols for the energy clause:**
+
+- Infinite substratum with a nonconstant conserved quantity:
+  `S = ℝ²`, `T(x,p)=(p,-x)`, `H(x,p)=x²+p²`; then
+  `H(T(x,p))=H(x,p)` exactly, despite `|S|` infinite.
+- Finite substratum without a nonconstant conserved energy:
+  `S=ℤ/qℤ`, `T(x)=x+1 mod q` (one full cycle). If
+  `H(Tx)=H(x)` for every x, then H is constant on all S.
+
+Thus **finite total cardinality is neither necessary nor, by itself,
+sufficient to specify a nontrivial conserved-energy function**.
+Additional physical structure/dynamical selection is required.
+These are mathematical countercontrols for Main:46's causal attribution,
+not a claim that OI already derives a physical Hamiltonian.
 **Proposed textual substitutions, NOT applied to any manuscript:**
 
 | Source | Exact old subspan | Candidate smallest replacement |
