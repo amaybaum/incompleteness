@@ -192,11 +192,20 @@ integer-arithmetic implementation passed 30 relevant checks:
   next bit-3 readouts. A finite current-record quotient
   is not automatically an autonomous dynamical model.
 
-The finite checks above were reproduced independently using
-exact arithmetic. The Python source was pushed for ordinary
-CI, but its exact-head Python execution has not been verified.
-The all-observer and continuum-preparation results are
-mathematical arguments, not extrapolations from these finite sweeps.
+The committed Python source was executed **locally** in
+ordinary and optimized mode with exit 0 and identical JSON bytes.
+The Git blob SHA of those executed bytes is
+`0aab5b831f0d50863618974f797c739073fa1506`;
+the exact result is retained in
+[OBSERVER-RELATIVE-FINITENESS-RESULTS.json](OBSERVER-RELATIVE-FINITENESS-RESULTS.json),
+blob SHA
+`a40041d63cca1fde9fd32fe0c636c58fa34d8871`,
+which matches the reproduced local output. Independent integer
+arithmetic also passed the 30 selected bounded controls.
+This is **not** exact-head whole CI or a Lean theorem.
+The all-observer and continuum-preparation statements
+are mathematical arguments, not extrapolations from
+these finite sweeps.
 
 ## 5. Relationship to OI gauge, and the hard-to-vary physical target
 
