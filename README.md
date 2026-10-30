@@ -3,7 +3,7 @@
 **Author:** Alex Maybaum  
 **Field:** Theoretical physics / foundations
 
-This repository develops the **Observational Incompleteness (OI)** framework: a programme for asking what laws are accessible to an observer embedded inside a finite, reversible system with only partial access to its state.
+This repository develops the **Observational Incompleteness (OI)** framework: a programme for asking what laws are accessible to an embedded observer with finite observational resolution and only partial access to the underlying system. The established reversible-carrier results use finite models; whether the total microscopic carrier must be finite is a separate physical question.
 
 The framework is inspired by the same broad kind of self-reference constraint that appears in Gödel and Turing: an embedded system cannot, in general, obtain complete access to itself. OI studies the physical consequences of that limitation.
 
@@ -19,6 +19,12 @@ The framework is inspired by the same broad kind of self-reference constraint th
 | The live list of proved, conditional, open and refuted obligations | [`verification/ROADMAP.md`](verification/ROADMAP.md) |
 | The full book-length exposition | [`book/README.md`](book/README.md) |
 | The physics papers | [`papers/`](papers/) |
+
+## Working explanatory conjecture: the microscopic carrier
+
+OI treats total substratum finiteness as a **physical posit**, not a theorem of finite observation. The finite-carrier mathematical results retain their stated scope. A recursive or continuously structured internal carrier is now an **active rival working hypothesis**, not an adopted physical law: it must source a fixed reversible cross-scale interaction and genuinely accessible observer operations, and make an independent hard-to-vary prediction. The unchanged cubic wave rule's hypothetical 2-adic lift cannot transfer information from higher digits into a fixed low-digit readout.
+
+See the [Deutschian carrier revision and its rejection criteria](verification/programmes/substratum/DEUTSCHIAN-CARRIER-REVISION.md), alongside the research-only [SUBSTATE-1](https://github.com/amaybaum/incompleteness/pull/1009) and [SUBSTATE-2](https://github.com/amaybaum/incompleteness/pull/1011) drafts. Quantum operational equivalence and Yang–Mills action selection remain open; recursive sub-states alone establish neither.
 
 ## The foundational correspondence
 
