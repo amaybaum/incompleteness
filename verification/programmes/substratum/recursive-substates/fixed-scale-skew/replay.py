@@ -8,6 +8,8 @@ import sys
 
 SOURCE_SHA256 = "524c599e89282f7d1d9e95f60f1a36d4cff630afdac464cbea3057276bf39f8c"
 RESULT_SHA256 = "48e54a1be614627424bc18286d2889dcf366bbbb1f20df91cf7205362d48af7b"
+MATCHED_SOURCE_SHA256 = "cb2c77e9130e89d338c5ac1b760607602ac71b61e41f52f3772847cfae61559d"
+MATCHED_RESULT_SHA256 = "78ee373fc37ffaebab812aa0903a4bd38bfc4327189565e51c4827a5b61b9e99"
 
 
 def require(cond, description):
@@ -40,11 +42,33 @@ def main():
         result = subprocess.run(cmd, capture_output=True, check=False)
         require(result.returncode == 0 and not result.stderr and result.stdout == data,
                 "replay failed in optimized="+str(optimized))
+    matched_script = root / "matched_control.py"
+    matched_expected = root / "MATCHED.json"
+    matched_bytes = matched_expected.read_bytes()
+    require(sha256(matched_script.read_bytes()).hexdigest() == MATCHED_SOURCE_SHA256,
+            "matched classical script digest changed")
+    require(sha256(matched_bytes).hexdigest() == MATCHED_RESULT_SHA256,
+            "matched classical output digest changed")
+    matched_data = json.loads(matched_bytes)
+    require(matched_data["status"] == "PASS_MATCHED_TWOTIME_CLASSICAL_NEGATIVE_CONTROL",
+            "matched classical verdict")
+    require(all(z["three_time_TV_distance_to_skew"] == "1/2" and
+                z["iid_three_time_CMI_bits"] == 0 and
+                z["skew_three_time_CMI_bits"] == 1
+                for z in matched_data["stages"]), "matched model claims")
+    for optimized in (False, True):
+        cmd = [sys.executable, "-I", "-B"] + (["-O"] if optimized else []) + [str(matched_script)]
+        result = subprocess.run(cmd, capture_output=True, check=False)
+        require(result.returncode == 0 and not result.stderr and result.stdout == matched_bytes,
+                "matched classical replay failed in optimized="+str(optimized))
+
     print(json.dumps({"status": "PASS_FIXED_SCALE_EXACT_REPLAY",
                       "normal_and_optimized": "BYTE_IDENTICAL",
                       "finite_full_state_sizes": [x["full_states"] for x in parsed["finite_stages"]],
                       "source_sha256": SOURCE_SHA256,
                       "result_sha256": RESULT_SHA256,
+                      "matched_classical_source_sha256": MATCHED_SOURCE_SHA256,
+                      "matched_classical_result_sha256": MATCHED_RESULT_SHA256,
                       "topological_and_physical_theorems_inferred_from_execution": False},
                      indent=2, sort_keys=True))
 
