@@ -160,17 +160,35 @@ and a specified plaquette action; these are separate choices, as in these
 [QCD foundations lectures](https://www.phenix.bnl.gov/WWW/publish/elke/EIC/BOOKs/Lectures-on-QCD.Foundations.pdf).
 A full literature and novelty audit is still pending.
 
+## Three-solenoid countercontrol (exactly Markov)
+
+[solenoid-countercontrol.md](solenoid-countercontrol.md) proves that the
+reversible automorphism `x → 3x` on the compact 3-solenoid, under Haar,
+with the first circle coordinate read as a binary half-interval, has a
+**stationary Markov** visible law with one-step matrix
+`[[2/3,1/3],[1/3,2/3]]`. Its rooted law obeys `Γ_t=P^t`, is
+P-divisible and has no positive-time common visible identity return.
+[solenoid_markov_probe.py](solenoid_markov_probe.py) independently
+enumerates the exact finite-word cylinders through horizon 7.
+The countercontrol refutes the naive assumption that continuous
+sub-states and division by 3 automatically produce useful recurrence,
+readback or nonclassical control. It is **not** the actual OI
+gauge-coupled 3-D wave map and does not rule out other partitions.
+
 ## Formal and operational dependency status
 
 The existing Lean module `OIBridge.RecurrenceHorizon` already proves the
 **carrier-independent** rooted identity-return/overlap obstruction;
 `OIBridge.EquivalenceChain` already proves stochastic-inverse rigidity.
-A new research Lean module `OIBridge.ObservableFactorRecurrence` states the
-arbitrary-carrier off-diagonal event decomposition and the observable-matrix
-non-permutation version. It is imported into the Mathlib bridge build,
-but **must not be called kernel-verified until CI passes on its exact head**.
-The measure-theoretic equivalence between an almost-sure observable
-return and `Γ_L=I` remains a paper proof, not part of this new Lean module.
+A research Lean module `OIBridge.ObservableFactorRecurrence` kernel-compiled
+at the preceding PR head, with permitted axioms. A second module,
+`OIBridge.ObservableMeasureReturn`, constructs the **actual** rooted
+conditional transition entries as ratios of measured joint-cell masses,
+under positive finite visible-cell measures, and states the equivalence
+of `Γ_L=I` and almost-everywhere visible return. This second proof is
+**pending exact-head Mathlib build**, following the pinned-import
+correction; its current source must not be called machine-checked yet.
+Neither module proves the all-L Fourier claim, a gauge-coupled law or QM.
 
 [Equivalence and 3-D scope audit](equivalence-and-d3-scope.md) explains why
 removing fixed finite-carrier restrictions does **not** by itself discharge
