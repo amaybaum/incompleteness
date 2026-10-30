@@ -2,7 +2,7 @@
 
 **Status: ACTIVE / PARTIAL, research-only.** This is a measured comparison and
 a bounded, evidence-first review of surviving source edits, not certification
-that every hunk is minimal. It changes no scientific statement or manuscript.
+that every hunk is minimal. The original audit-only increment changed no manuscript; subsequent #1005 source and generated-artifact repairs are recorded in [POST997-SOURCE-FIXES.md](./POST997-SOURCE-FIXES.md).
 The minimum-change standard is `AGENTS.md` §A.25. The earlier per-hunk
 minimization is `verification/audits/manuscript/pr982-minimization-20261028/`.
 
@@ -13,7 +13,7 @@ minimization is `verification/audits/manuscript/pr982-minimization-20261028/`.
 - **#994 minimization merged:** `986dab5aabbbd419467109e0b9604c8f19901688`.
 - **Latest-main audit snapshot / this branch's base:** `6e219231483bb404c0d055ab9a447278422a597e`.
 
-Using GitHub's `compare_commits` per-file line statistics, with
+The first three rows preserve the initial GitHub-compare snapshot; the last row corrects a truncated GitHub-compare count using the independent reviewer's untruncated `git diff --numstat` measurement, with
 `papers/*.md` and `book/*.md` at the top level (including FULL.md,
 excluding nested auxiliary text), the following are **net source diffs**
 against the pre-#982 baseline. They are not gross historical edit counts:
@@ -23,7 +23,7 @@ against the pre-#982 baseline. They are not gross historical edit counts:
 | Pre-#982 → #982 merge | 81 | 202 | 1,116 | 1,037 |
 | Pre-#982 → post-#994 | 87 | 201 | 497 | 424 |
 | Post-#994 → current main | 57 | 105 | 449 | 416 |
-| Pre-#982 → current main | 144 | 263 | 711 | 673 |
+| Pre-#982 → original pinned snapshot `6e219231` | 144 | 263 | 895 | 789 |
 
 The last row is a **net** tree diff; it need not equal the sum of intermediate
 diffs, because edits were reverted, changed again or overlapped. Generated
@@ -139,10 +139,7 @@ automatically “unnecessary” because they were absent before #982.
   ([run 40956463456](https://github.com/amaybaum/incompleteness/actions/runs/40956463456)).
   This establishes a successful *check run*, not a minimum-diff verdict,
   a physical correctness result or independent review of this file.
-- **No manuscript, TeX/PDF, Lean, CI workflow, or assertion status is
-  modified in this research increment.** No branch merge, release,
-  special workflow dispatch, native freeze or source restoration is
-  authorized by the existence of this audit record.
+- **The original research-only audit increment** modified no manuscript, TeX/PDF, Lean, CI workflow, or assertion status. Later #1005 commits edited three manuscript source files, the FULL mirror, and generated artifacts, and temporarily added a workflow; see [POST997-SOURCE-FIXES.md](./POST997-SOURCE-FIXES.md). This audit record alone does not authorize another workflow dispatch, merge, release, native freeze or unrelated source restoration.
 
 **Present verdict:** `PARTIAL / MINIMUM-DIFF NOT CERTIFIED`.
 The already reviewed #994 minimization and later correction evidence
@@ -162,9 +159,9 @@ Six source assessment workpapers, the complete index `TRIAGE-370.md`, and [`WRIT
 |---|---:|---|
 | REQUIRED — Pandoc safety | 13 | Explicit AGENTS.md horizontal rule `***` requirement; Complexity/Juno previously reviewed and retained |
 | REQUIRED — provisional scientific/status correction | 354 | Old unqualified statement had a named incorrect assumption, proof-grade or overclaim; correction traced to #995/#997/#998/#999/#1000. Does *not* mean each word is independently certified minimal |
-| SOURCE-SCOPE WATCH | 1 | `papers/Complexity.md:204`; conditional uniqueness/anthropic interpretation remains under whole-framework audit #946, without restoring the original absolute claim |
-| MIXED / EXCESS CANDIDATE | 2 | `book/bibliography.md:355` and `book/ch18-beyond.md:186`; the orphaned Erdős–Turán references and optional uniform-random-permutation numerical sentence, while the rigorous finite recurrence and Landau/linear bounds are necessary. Issue #1008 |
+| SOURCE-SCOPE WATCH (historical; subsequently repaired) | 1 | `papers/Complexity.md:204`; the further #1005 one-clause fix restores Theorem 23's conditional local uniqueness but requires regenerated publication and short re-review; broader #946 remains separate |
+| MIXED / EXCESS CANDIDATE (historical; subsequently repaired) | 2 | `book/bibliography.md:355` and `book/ch18-beyond.md:186`; only optional Erdős–Turán and uniform-random-permutation subspans were removed in #1005, preserving rigorous recurrence, Landau and linear-map bounds. Issue #1008 |
 
 The prior decision to reverse the 13 Pandoc rules was a **false positive**; issue #1006 is closed and no such reversal is proposed. The pre-existing strong-CP contradiction is separately tracked by [#1004](https://github.com/amaybaum/incompleteness/issues/1004), not attributed to #982 or the recent correction PRs.
 
-**Writer verdict: review package READY FOR INDEPENDENT MINIMUM-DIFF REVIEW, not ACCEPTED.** An independent reviewer must check the original/current sentences, substantive proof/Lean and counterexample boundaries, source-to-mirror and generated-publication consistency, and decide the two #1008 candidates and one #946 watch. Any actual manuscript correction goes into a separate minimal source PR with FULL sync and canonical builds. The auditor must not quietly reclassify all 354 claims as independently proved minimal merely because earlier source PRs were accepted. #1005 remains draft, without authority for merge, special workflow dispatch, publication, Explainer retirement or claim-grade promotion. Exact-head CI and explicit owner approval are separate gates.
+**Writer verdict: review package READY FOR INDEPENDENT MINIMUM-DIFF REVIEW, not ACCEPTED.** An independent reviewer must check the original/current sentences, substantive proof/Lean and counterexample boundaries, source-to-mirror and generated-publication consistency, and decide the two #1008 candidates and one #946 watch. The narrow manuscript repairs were incorporated in the same combined #1005 PR, with FULL synchronization and canonical builds; the new Theorem 23 scope sentence still requires a rebuilt Complexity PDF and short re-review. The auditor must not quietly reclassify all 354 claims as independently proved minimal merely because earlier source PRs were accepted. #1005 remains draft, without authority for merge, special workflow dispatch, publication, Explainer retirement or claim-grade promotion. Exact-head CI and explicit owner approval are separate gates.
