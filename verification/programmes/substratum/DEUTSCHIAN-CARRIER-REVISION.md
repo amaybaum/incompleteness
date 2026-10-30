@@ -7,6 +7,130 @@ best live explanatory questions**; it does not alter a formal hypothesis,
 theorem, manuscript, frozen native round or proof status. Existing OI
 finite-carrier results remain in force at exactly their proved scope.
 
+## Operational gauge: what "cardinality of S is gauge" can mean
+
+**Refined working principle:** the number of total ontic states is **not
+an invariant of the observational equivalence class at a specified
+physical interface**. This extends OI's established deep-sector-gauge
+motivation to a carefully scoped working research principle; it does
+NOT assert that every finite and infinite system yields the same laws
+or that the physical carrier has a proved infinite gauge orbit.
+
+Specify a theory as a measured deterministic dynamical system
+\(M=(S,T,\mu,\pi,\mathcal I)\), with normalized state/measure \(\mu\),
+public readout \(\pi\), and an *explicit menu* \(\mathcal I\) of
+physically available interventions, preparations and records. Two
+models are operationally equivalent relative to an interface class
+\(\mathcal P\) and horizon class \(\mathcal H\) iff for every admissible
+protocol and horizon their **full joint record distributions**
+(including heralds, losses, and correlated branches) agree. Denote this
+\(M\sim_{\mathcal P,\mathcal H}M'\). The **gauge/representation
+interpretation** is relative to this equality of accessible physics;
+it is not automatically a microscopic automorphism group or a gauge
+transformation in the Yang–Mills sense.
+
+### Exact positive control: cardinality-changing hidden extension
+
+Let \(M=(S,T,\mu,\pi)\) be a finite reversible model and let \(D\)
+be any nonempty probability space. Define
+\[
+M_D=(S\times D,\ T\times\mathrm{id}_D,\
+      \mu\otimes\nu,\ \pi\circ\mathrm{pr}_S).
+\]
+For every finite visible word and, in fact, every time index,
+\[
+\Pr_{M_D}[(O_0,\ldots,O_K)=w]
+=\Pr_M[(O_0,\ldots,O_K)=w].
+\]
+The proof is exact: the recorded trajectory depends only on \(S\)
+and integrating the independent \(D\)-factor multiplies each
+record probability by \(\nu(D)=1\). Taking \(D\) of size 1, 3,
+countably infinite (with a normalized law), or \([0,1]\) with
+Lebesgue probability changes \(|S\times D|\) while preserving the
+complete passive observed process **at all times**. If all allowed
+interventions also act trivially on \(D\) and their public records
+factor through \(S\), the equivalence extends to that menu.
+
+This is an **inert enlargement**, not the sourced nontrivial
+recursive-feedback theory. It proves that raw total cardinality
+cannot be recovered from the specified accessible physics, even
+from complete passive histories, without a minimality/observability
+condition. The existing finite-kernel source
+\`OIBridge.PassiveQuotient.hiddenExt_same_law\` proves a
+finite hidden-fibre analogue and constructs the minimal passive
+observational quotient. **Its explanatory comment explicitly
+distinguishes observer-relative (Level G4) redundancy from
+the substratum gauge group (G3).** This research note does not
+claim that the kernel theorem already handles arbitrary
+uncountable \(D\), or arbitrary intervention menus.
+
+### Exact negative control: cardinality is not universally gauge
+
+Let \(X=\{0,1\}^{\mathbb Z}\), let \(T\) be the invertible
+bi-infinite Bernoulli shift with product-fair measure, and let
+\(\pi(x)=x_0\). This has one-bit visible records that are iid
+fair across time. For every \(L>0\),
+\[
+\Pr[O_L=O_0]=\tfrac12.
+\]
+Every **fixed finite** reversible model has a positive integer
+\(L\) with \(T^L=\mathrm{id}_S\); therefore it satisfies
+\(\Pr[O_L=O_0]=1\) under every preparation. No fixed finite
+permutation model has this Bernoulli shift's **entire all-time
+visible record law**. The two may nevertheless agree on
+any *predeclared finite horizon* via the finite-horizon
+realization theorem, using a realization that may depend
+on the horizon. This separates "gauge to finite experimental
+precision/horizon" from "gauge across one unlimited
+operational theory".
+
+Nor is mere matching of single-time marginals or rooted
+transition matrices sufficient; SUBSTATE-2 has an explicit
+classical pair with identical rooted two-time matrices and
+different complete three-time records. Enlarging the
+observer's protocol menu can distinguish extensions that
+were invisible to a weaker passive menu.
+
+### How this relates to already stated OI results
+
+- **GR §3.2**, Corollary *deep-sector cardinality is gauge*:
+  boundary-conditioned, slow deep sector is absent from the
+  **leading-order** visible transition law, with an explicit
+  \(\mathcal O(\tau_S/\tau_B)\) backreaction error. Exact
+  invariance is *not* claimed at arbitrary time for a coupled
+  deep sector. GR identifies the finite and infinite
+  deep-sector cardinalities as indistinguishable **within
+  that leading-order transition scope**.
+- **Substratum §4 Theorem 24(iii):** exactly decoupled
+  **finite** ancillary factors preserve the stated
+  channel under its fixed-interface hypotheses; no
+  arbitrary-infinite theorem is silently inherited.
+- **OIBridge.PassiveQuotient:** finite passive
+  itineraries admit an observer-relative quotient and
+  hidden extensions that preserve the passive law.
+  Whether these redundancies remain invisible under
+  all physical interventions or changing observers
+  is an additional source question.
+- **Full-system cardinality versus model minimality:**
+  identifying the physically relevant *minimal
+  observable representative* may make that
+  representative finite at a given horizon, but
+  does not force a finite total physical ontology.
+  Conversely, some infinite processes have no
+  fixed finite all-time observational realization.
+
+**Adopt now:** cardinality of total \(S\) is **non-observable
+and gauge-like within any verified observational-equivalence
+scope**. Do not elevate it to an unconditional Yang–Mills
+gauge symmetry or assert all infinite microstates are
+physically dispensable. Require invariant complete
+record laws under the **actual** available protocols
+before accepting two differently sized models as
+gauge-equivalent. The physical theory must explain the
+interface and its limits; otherwise a claim that any
+unobserved change is "gauge" could immunize OI against
+falsification, contrary to the Deutschian rule.
+
 ## Cardinality clarification: finite observer does not imply finite ontology
 
 The three propositions that must be kept distinct are:
