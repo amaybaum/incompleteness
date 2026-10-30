@@ -193,3 +193,22 @@ Neither module proves the all-L Fourier claim, a gauge-coupled law or QM.
 [Equivalence and 3-D scope audit](equivalence-and-d3-scope.md) explains why
 removing fixed finite-carrier restrictions does **not** by itself discharge
 the five independently characterized operational quantum conditions.
+
+## Observation-context experimental controls (double-slit analogue)
+
+[Observation-context protocol](observation-context-protocol.md) records a
+**preregistered three-way comparison**: (C0) a restricted fixed-path
+classical stochastic baseline, (C1) a **classical coherent-wave positive
+control**, and (C2) an as-yet-unbuilt native OI dynamical construction.
+The [exact benchmark](observation_context_probe.py) verifies the
+subnormalized two-slit, one-slit, which-way and eraser-style *reference*
+probabilities with rational arithmetic. It does **not** implement the
+underlying OI dynamics, show that observations alone create coherence,
+or prove uniquely quantum behavior: ordinary classical waves also
+interfere. The controlled process must generate independently selectable,
+noncommuting operations and demonstrate a composite/spectator test
+without importing a quantum instrument menu. The source, losses and
+full joint setting/marker records must remain comparable. A Markov
+passive readout and a memory-bearing controlled readout may coexist, but
+that is an open hypothesis, not a theorem.
+
