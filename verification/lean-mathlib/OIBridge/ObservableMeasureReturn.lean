@@ -39,7 +39,7 @@ theorem diagonalEvent_eq_diff (obs : X → V) (advance : X → X) (a : V) :
     OffDiagonalEvent obs advance a a =
       VisibleCell obs a \ ChangeEvent obs advance := by
   ext x
-  simp only [OffDiagonalEvent, VisibleCell, ChangeEvent, Set.mem_setOf_eq,
+  simp only [OffDiagonalEvent, VisibleCell, ChangeEvent, Set.mem_ofPred_eq,
     Set.mem_diff, not_ne]
   constructor
   · rintro ⟨ha, hb⟩
@@ -90,7 +90,7 @@ theorem measuredGamma_eq_one_iff (μ : Measure X) (obs : X → V)
     · subst b
       have hdiag : μ (OffDiagonalEvent obs advance a a) =
           μ (VisibleCell obs a) := by
-        rw [diagonalEvent_eq_diff, measure_diff_null hchange]
+        rw [diagonalEvent_eq_diff, measure_sdiff_null hchange]
       simp only [measuredGamma, Matrix.one_apply, if_pos rfl]
       rw [hdiag]
       exact ENNReal.div_self (hpos a) (hfin a)
