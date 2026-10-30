@@ -148,3 +148,10 @@ automatically “unnecessary” because they were absent before #982.
 The already reviewed #994 minimization and later correction evidence
 justify retaining their explicitly supported corrections. A complete
 post-#994 hunk classification is the remaining acceptance condition.
+
+
+## 2026-10-30 follow-up: post-#997 hunk reviews (not independently certified)
+
+The main source endpoint advanced to `f6989a27815c4d715223eebf2859422c1231e3f8` after #997. Rather than silently rewriting this original fixed-snapshot audit, the added `POST997-CHECKPOINT.md` pins new measurements and the complete 370-hunk inventory across 32 maintained source files (the FULL book is a mirror). The `PR-PROVENANCE-370.md` crosswalk records 324 exact new-text matches in the five correction PRs and 46 explicit manual provenance routes, not an independent proof of minimality. Source-scope workpapers for Main 33, SM 32, Methodology 35 and book Chapter 3's 30 hunks give 130 preliminary author-side dispositions: 125 scientific/status changes supported by earlier scoped reviews and 5 wording questions. The other 227 substantive hunk records need individual review. All 13 horizontal-rule changes are **required** under the Pandoc safety rule in AGENTS.md; [issue #1006](https://github.com/amaybaum/incompleteness/issues/1006) was closed as an invalid attempt to revert them. The pre-existing strong-CP contradiction remains independently tracked as [issue #1004](https://github.com/amaybaum/incompleteness/issues/1004).
+
+**Status remains PARTIAL / MINIMUM-DIFF NOT CERTIFIED.** These audit files are additions only: they do not edit manuscripts, regenerated outputs, Lean, coverage/grade records or CI. Current-head success only verifies the checks, not scientific judgment. The independent hunk-by-hunk minimum-scope reviewer and an owner's exact-SHA authorization remain required for merging #1005; #918 stays held.
