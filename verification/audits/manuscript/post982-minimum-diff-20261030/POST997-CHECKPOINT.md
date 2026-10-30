@@ -37,7 +37,6 @@ The provenance map `PR-PROVENANCE-370.md` matches 324 hunks to source PR-added t
 Previous author-side statuses (130 partially reviewed / 227 untouched) are superseded by this **full preliminary triage**, not by an acceptance. Retained prior PR scoped mathematical source reviews remain valuable provenance, but #1005 still needs its own independent cumulative review and exact-head CI. All five original untruncated source diff inventories remain authoritative for line anchors.
 
 | Corrective source PR | Primary scientific trigger to check; do not undo merely for brevity |
- | Primary scientific trigger to check; do not undo merely for brevity |
 |---|---|
 | [#995](https://github.com/amaybaum/incompleteness/pull/995) | Unsupported Theorems 1–6 graph citations, integer-rank and Gromov scope |
 | [#998](https://github.com/amaybaum/incompleteness/pull/998) | Unsupported regress termination, all-interface gauge claims and fixed-interface coherent identity |
