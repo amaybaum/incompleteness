@@ -1595,11 +1595,12 @@
     {
       "name": "SUBSTATE-1 finite observable-factor recurrence (research proof, no manuscript promotion)",
       "modules": [
-        "ObservableFactorRecurrence"
+        "ObservableFactorRecurrence",
+        "ObservableMeasureReturn"
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Research-only formal module: arbitrary microscopic carrier, exact changed-observable event decomposition and a finite visible rooted-matrix stochastic-inverse no-go. The measurable conditional-transition Γ from a general invariant probability measure is NOT constructed by this module; the a.e. visible-return equivalence awaits a separate formal measure bridge. Neither full operational quantum equivalence nor all-L Fourier wave recurrence is claimed by this Lean module. See PR #1009 and issue #1007."
+      "note": "Research-only mathematical bridge: arbitrary hidden carrier, event partition identity, measured conditional transition as off-diagonal joint-cell mass / positive finite initial-cell mass, identity rooted return iff zero measure of observable changes, and finite visible stochastic-inverse obstruction. Proof-level statuses depend on exact-head Mathlib build. Does not establish all-L Fourier result, complete operational QM, gauge action or physics. PR #1009, issue #1007."
     }
   ]
 }
