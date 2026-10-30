@@ -7,6 +7,29 @@ best live explanatory questions**; it does not alter a formal hypothesis,
 theorem, manuscript, frozen native round or proof status. Existing OI
 finite-carrier results remain in force at exactly their proved scope.
 
+## Observer-relative finite *accessible physics*, not finite total S
+
+**Adopted working explanatory refinement:** for each embedded observer with
+a *sourced bounded information budget* (e.g. the finite-area, finite-mode
+horizon premises in GR's cosmological branch), the accessible physics over
+a bounded protocol menu and time window admits a finite classification
+of deterministic complete record words. That is the precise sense in which
+the substratum is **relatively finite** to that observer. It is not a
+theorem that the total substratum is finite, that every observer has a
+finite-area event horizon, or that all exact operational probability
+laws form a finite set. Mere embeddedness, finite horizon area and
+finite statistical entropy each require distinct physical/mathematical
+premises before an exact finite-state-count conclusion follows.
+
+See [observer-relative finiteness](OBSERVER-RELATIVE-FINITENESS.md)
+for the conditional finite-index theorem, its all-observer and
+continuous-preparation counterexamples, a finite-time dynamic
+nonclosure witness, and criteria for physical sourcing. The
+intended OI ontology remains **a family of observer-relative
+effective descriptions with non-unique microscopic
+representations**, not a finite global carrier inferred from
+the relative finiteness of each observer's causal access.
+
 ## Operational gauge: what "cardinality of S is gauge" can mean
 
 **Refined working principle:** the number of total ontic states is **not
