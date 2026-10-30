@@ -62,6 +62,8 @@ def main():
     # Both success/selection contexts have mean 13/16, by construction.
     accept_w = scale(sub(ONE, scale(wilson, F(1, 8))), F(13, 14))
     accept_w2 = sub(ONE, scale(alternative, F(1, 8)))
+    reject_w = sub(ONE, accept_w)
+    reject_w2 = sub(ONE, accept_w2)
 
     edges = ((0, 1), (1, 2), (2, 3), (3, 0))
     balanced = all(
@@ -83,12 +85,22 @@ def main():
             and F(0) <= 1 - F(4, 8) <= 1,
         "equal_full_run_success_probabilities":
             haar(accept_w) == haar(accept_w2) == F(13, 16),
+        "equal_full_run_rejection_probabilities":
+            haar(reject_w) == haar(reject_w2) == F(3, 16),
+        "different_rejected_loop_means":
+            accepted_expectation(cos_loop, reject_w) == -F(13, 42)
+            and accepted_expectation(cos_loop, reject_w2) == -F(2, 3),
         "different_selected_loop_means":
             accepted_expectation(cos_loop, accept_w) == F(1, 14)
             and accepted_expectation(cos_loop, accept_w2) == F(2, 13),
         "selected_second_moments":
             accepted_expectation(cos2, accept_w) == F(1, 2)
             and accepted_expectation(cos2, accept_w2) == F(25, 52),
+        "full_attempted_record_restores_Haar":
+            haar(mul(cos_loop, accept_w)) + haar(mul(cos_loop, reject_w)) == 0
+            and haar(mul(cos_loop, accept_w2)) + haar(mul(cos_loop, reject_w2)) == 0
+            and haar(mul(cos2, accept_w)) + haar(mul(cos2, reject_w)) == F(1, 2)
+            and haar(mul(cos2, accept_w2)) + haar(mul(cos2, reject_w2)) == F(1, 2),
     }
     if not all(checks.values()):
         raise AssertionError({k: value for k, value in checks.items() if not value})
@@ -104,6 +116,12 @@ def main():
         "selected_mean_cos_squared": [
             str(accepted_expectation(cos2, accept_w)),
             str(accepted_expectation(cos2, accept_w2))],
+        "rejected_mean_cos": [
+            str(accepted_expectation(cos_loop, reject_w)),
+            str(accepted_expectation(cos_loop, reject_w2))],
+        "rejected_mean_cos_squared": [
+            str(accepted_expectation(cos2, reject_w)),
+            str(accepted_expectation(cos2, reject_w2))],
         "physical_Yang_Mills_action_derived": False,
         "native_OI_link_dynamics_derived": False,
         "quantum_operational_completion_derived": False
