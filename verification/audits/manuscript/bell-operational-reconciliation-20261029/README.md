@@ -70,7 +70,7 @@ The historical checker remains unchanged at blob `fe433673a6c007b9436a0796d496c7
 its earlier failures remain in `validation.json` as a historical result, not a
 current passing result.
 
-The successor passes **471 predicates** on post-#999 main (67 additional chapter/FULL mirror predicates beyond the earlier 404-predicate source checkpoint). Its bounded control suite contains one
+The successor passes **498 predicates** at #997's head: 338 non-mirror predicates and 160 chapter/FULL mirror predicates (133 at #1000's landing, the rest for chapter lines #997 changes). Its bounded control suite contains one
 unmodified positive source and **8 must-fail variants**: remove single-outcome
 preparation closure, move validity to the system alone, derive rather than assume
 kinematics, break the glossary/FULL mirror, add an unlisted kinematics occurrence,
