@@ -50,3 +50,43 @@ A minimal new Lean module may certify (i) finite-family maximum-depth aggregatio
 The real OI cubic wave carrier and observer-access constraints are not modified here. SUBSTATE-1 rejected one pure site-gradient link candidate and showed a separately invented gauge-pointer toy can be reversible and covariant without supplying quantum mechanics. SUBSTATE-2 tests a different *structure hypothesis*. It does not import those unreviewed constructions as axioms or copy their physics claims.
 
 **Verdicts to record:** A is a negative control, B1 a positive finite-depth memory control, B2 a positive all-depth-over-time/no-common-return control, C a gauge-kinematic but action/operational negative control. All require independent review before moving from research to manuscripts. No merge or special CI launch is authorized.
+
+
+## Executed exact controls and replay
+
+The preregistered finite controls were executed locally on the **same
+source bytes** as committed in \`recursive_controls.py\`, and both
+ordinary Python and \`-O\` runs reproduced the committed
+\`RESULTS.json\` byte-for-byte. The separate \`replay.py\` enforces
+these checks, validates the structured result labels, checks that
+no quantum/Yang–Mills/physical-fractal claim is being asserted, and
+fails if stderr, exit status or expected bytes differ.
+
+From the repository root:
+
+    python3 -I -B verification/programmes/substratum/recursive-substates/replay.py
+
+Source SHA-256: \`a81c8622263e52d864b85ca0363d65eb3ff8b305933972eb819f59ac99086144\`.
+Results SHA-256: \`8b949aa7cbd688f7c41fa079f761424afea98700e387db42c2b15320174e2b64\`.
+
+**Finite checks completed:**
+- A: all quotient states at depths 1–9.
+- B1: 256 8-bit states per feedback depth in {1,2,3,5,7}, with exact three-time laws and minimal-prefix witness.
+- B2: complete cyclic-shift state spaces for cycle lengths 3–9 and uniform finite words before return.
+- C: exact complete four-link configurations at levels 1–4, including 65,536 states at level 4, with four local gauge-generator checks, inverse, reduction and uniform holonomy; separate rational quarter-turn Wilson-vs-squared controls.
+
+**Formal status:** \`OIBridge.RecursiveFiniteFactor\` is an explicitly
+*conditional* Lean theorem candidate, imported into the pinned
+Mathlib bridge and classified \`kernel-only\` in the manuscript
+census. It proves finite-horizon/max-depth assembly and periodic
+extension given finite-stage hypotheses, plus a reversible
+hidden-controlled Boolean flip. An exact-head CI build and axiom
+report have **not yet been confirmed**. The separate compactness
+lemma that continuous finite readouts factor through a finite
+stage is a paper-level argument only (see \`ANALYSIS.md\`).
+
+These controls neither select a unique physical recursive coupling
+nor derive quantum instruments, a continuous nonabelian gauge
+group, Wilson/Yang–Mills dynamics, a physical boundary entropy law,
+or a log-periodic prediction. Independent mathematical and
+scientific review are required.
