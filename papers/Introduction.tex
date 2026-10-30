@@ -209,16 +209,17 @@ cycle whenever some table of forecasts from the start is not a
 permutation, in particular whenever a visible step is not fully
 predictable from the current observation; with every start of positive
 probability, this is equivalent to conditional memory at some order
-below the recurrence time. For an operational theory with a stated
-minimal structure on a nonempty finite system, the available operations,
-on the system and with every finite ancilla attached, are exactly the
-normalized finite Kraus instruments if and only if five completion
-conditions hold, and OI alone does not imply them. Applied to physics,
-OI places the zero-point sum and the effective cosmological constant at
-different levels of description, and separates conservation of
-black-hole information from its accessible recovery. Open are the
-completion conditions a physical substratum supplies, the Born exponent
-and the gravitational field equations.
+below the recurrence time. For an operational theory on a nonempty
+finite system that assumes complex matrix kinematics and tensor-product
+composites, the available operations on the system and at every finite
+ancilla level are exactly the normalized finite Kraus instruments if and
+only if five completion conditions hold. Neither that kinematics nor
+those conditions follow from bare OI. Applied to physics, OI places the
+zero-point sum and the effective cosmological constant at different
+levels of description, and separates conservation of black-hole
+information from its accessible recovery. Open are the completion
+conditions a physical substratum supplies, the Born exponent and the
+gravitational field equations.
 
 \hypertarget{introduction}{%
 \subsection{1. Introduction}\label{introduction}}
@@ -1020,8 +1021,14 @@ comes from overwriting the record, not from looking. With anticorrelated
 cards (\(b=1-x\)), \(\Gamma_1\) is a permutation and the game is
 divisible.
 
-On card inputs the game is a classical stochastic process, and no card
-arrangement violates a Bell inequality {[}Book §1.11; Main §3.3{]}.
+For the card protocol with every post-deal operation and readout
+restricted to its own wing's causal cone, admissible timing and setting
+choices, a deal and any shared randomness jointly independent of those
+settings, and a recorded outcome at both wings in every run without
+postselection, deterministic responses obey the Bell ceiling
+\(|S_{\mathrm{CHSH}}|\leq2\) {[}Main §3.3; Book §1.11{]}. This does not
+rule out every conceivable card arrangement: changing those premises
+changes the claim.
 
 \hypertarget{quantum-emergence-scope-and-open-steps}{%
 \subsection{3. Quantum emergence: scope and open
@@ -1124,29 +1131,39 @@ with outcomes, \emph{coherence} is the capacity of a quantum state to be
 a superposition rather than a mixture of definite states, and a
 \emph{qubit} is the simplest quantum system, with two basic states.
 
-Fix a nonempty finite system and an operational theory specifying which
-finite outcome families of linear maps are available on the system and
-at every ancilla level, that is, with each finite ancilla adjoined. The
-theory contains the identity and is closed under coarse-graining of
-outcomes and, at every ancilla level, under outcome-conditioned
-composition. It has an available preparation of a uniformly mixed
-ancilla, which an available operation may follow, an available
-spectator-independent readout of the ancilla, one that acts on every
-product input as the identity on the system, and ancilla discard: an
-available preparation followed by an available instrument, with the
-ancilla then discarded, is an available instrument on the system with
-the same outcomes {[}GR §3.3{]}. That is, the experimenter can always
-leave the system alone, combine operations, lump outcomes together,
-prepare an evenly mixed helper and act after preparing it, read the
-helper without disturbing the system, and discard it. The five
-completion conditions are:
+Fix a nonempty finite system and \textbf{take complex matrix kinematics,
+including tensor-product composites, as given}: operations are
+complex-linear maps on matrices indexed by the system's configurations,
+and an operation with an \(n\)-state ancilla acts on matrices indexed by
+the configuration paired with an ancilla state. This matrix and
+tensor-product setting is not derived from OI. An operational theory
+specifies which finite outcome families of these maps, and which
+preparations, are available on the system and at every finite ancilla
+level {[}GR §3.3{]}. It includes the identity on the system,
+coarse-graining of outcomes on the system and at every level, and
+outcome-conditioned composition at the ancilla levels. It permits
+preparation of a uniformly mixed ancilla; an available preparation
+followed by an available \textbf{single-outcome} operation at its level
+remains an available preparation. At every ancilla level it has a
+readout whose individual \(k\)-th branch acts on each product input
+\(X\otimes Y\) as \(X\otimes P_k YP_k\), so the system is an inert
+spectator even branch by branch; and an available preparation followed
+by an available outcome family and discarding the ancilla induces an
+available family on the system. These availability rules do not already
+impose positivity, trace preservation, or the ability to extend
+arbitrary system operations to composites. In everyday terms, the
+experimenter can leave the system alone, combine admissible operations,
+lump outcomes together, prepare and act on a helper, read it without
+disturbing the system, and discard it. The five completion conditions
+are:
 
 \begin{enumerate}
 \def\labelenumi{(\roman{enumi})}
 \tightlist
 \item
-  \emph{valid probabilities}: available families send positive states to
-  positive states, and their outcome traces sum to the input trace;
+  \emph{valid probabilities}: at every ancilla level, available families
+  send positive states to positive states, and their outcome traces sum
+  to the input trace;
 \item
   \emph{trivial-ancilla consistency}: operations remain available with a
   one-state ancilla adjoined;
@@ -1169,14 +1186,14 @@ families on the system and at every positive ancilla level are exactly
 the normalized finite Kraus instruments if and only if conditions
 (i)--(v) hold.}
 
-That is, for a theory with the structure above, the operations available
-on a nonempty finite system, with any finite helper attached, are
-exactly the quantum ones (the normalized finite Kraus instruments) if
-and only if all five requirements hold: probabilities make sense; adding
-a trivial helper or an untouched bystander changes nothing; every
-reversible quantum operation on any combined system is available; and a
-fresh, evenly mixed helper can be added to any combined system, used and
-discarded.
+That is, \textbf{within the assumed complex matrix and tensor-product
+setting}, the operations available on a nonempty finite system, with any
+finite helper attached, are exactly the quantum ones (the normalized
+finite Kraus instruments) if and only if all five requirements hold:
+probabilities make sense; adding a trivial helper or an untouched
+bystander changes nothing; every reversible quantum operation on any
+combined system is available; and a fresh, evenly mixed helper can be
+added to any combined system, used and discarded.
 
 Each condition is independent of the other four and of the observation
 process itself: for one fixed finite embedded-observation process
@@ -1187,8 +1204,10 @@ realizes the observation process and is not quantum, so OI alone does
 not imply quantum mechanics (both machine-checked) {[}GR §3.3{]}.
 Conditions (i) and (ii) only make the theory well formed; (iii)--(v) are
 the substantive requirements, which {[}GR §3.3{]} calls selection
-principles. Which of (iii)--(v) a physical substratum supplies is the
-open step toward full operational equivalence.
+principles. Which of (iii)--(v) a physical substratum supplies, and why
+its operational kinematics should be complex matrices and tensor-product
+composites in the first place, remain open physical steps toward full
+operational equivalence.
 
 \textbf{Proofs and sources.} Both directions are machine-checked
 (Appendix A). The sufficiency direction rests on the Stinespring
@@ -1565,20 +1584,20 @@ finite reversible world whose hidden part starts with the same odds
 whatever is visible at the start, any visible step that is not fully
 predictable forces, somewhere in the world's cycle, forecasts from the
 starting points that cannot be chained step by step. For an operational
-theory with the structure of §3.2 on a nonempty finite system, the
-available operations, on the system and with every finite ancilla
-attached, are exactly the normalized finite Kraus instruments,
-incompatible measurements included, if and only if five stated
-conditions hold, and a physical substratum is not shown to meet them;
-nor is the squared form of quantum probabilities selected. Each of these
-is a statement about what partial access to a deterministic world does
-and does not produce. In the applications OI separates two levels of
-description for vacuum energy and separates keeping information from
-showing it for black holes; the gravitational field equations remain
-open, and the configuration-state Page theorem has no instances. Hidden
-predictive memory does not imply permanent hidden-state uncertainty:
-identification is relative to specified records and operations
-{[}Substratum, Prop. 24.5{]}.
+theory on a nonempty finite system with the complex matrix and
+tensor-product setting of §3.2 assumed, available operations on the
+system and every finite ancilla level are exactly the normalized finite
+Kraus instruments, incompatible measurements included, if and only if
+five stated conditions hold; bare OI supplies neither the assumed
+kinematics nor those conditions; nor is the squared form of quantum
+probabilities selected. Each of these is a statement about what partial
+access to a deterministic world does and does not produce. In the
+applications OI separates two levels of description for vacuum energy
+and separates keeping information from showing it for black holes; the
+gravitational field equations remain open, and the configuration-state
+Page theorem has no instances. Hidden predictive memory does not imply
+permanent hidden-state uncertainty: identification is relative to
+specified records and operations {[}Substratum, Prop. 24.5{]}.
 
 \textbf{Established mathematical results.} Machine-checked: Theorem 1;
 the cores of Theorem 2 and of the capacity bound, their actual
@@ -1633,8 +1652,9 @@ curve beyond the configuration-state obstruction (§5).
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  full operational equivalence: which of completion conditions
-  (iii)--(v) a physical substratum supplies (§3.2);
+  full operational equivalence: how complex matrix and tensor-product
+  kinematics arise physically and which of completion conditions
+  (iii)--(v) a substratum supplies (§3.2);
 \item
   a selection principle for the quadratic Born exponent (§2.3) and for
   the evolution relating two times (§3.3);
@@ -2041,4 +2061,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 31fd29102a0b271e75896385255bfe6795b8098dc42b435dfb6ac2964314bc5e
+% source-sha256: 32dd208519e8c69132e2eee736f935a2095fa1ce4f3ff7dc76e83906ede3325a
