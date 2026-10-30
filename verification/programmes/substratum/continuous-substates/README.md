@@ -252,3 +252,42 @@ which-path/complementary interventions have been established. This is
 not an OI-wide no-go. The next candidate must be derived from one
 microscopic update and observer contract rather than post-hoc decoder
 freedom. No manuscript or physics-status upgrade follows.
+
+## Shared link and pointer source gate (bounded native/no-go pair)
+
+The [native sourcing analysis](native-link-sourcing-gate.md) compares the
+**actual** finite two-slice cubic OI wave update with an explicitly
+**added** gauge/link-pointer model. It separates a rigorous negative
+result from a usable mathematical consistency control:
+
+- **Native pure-gradient negative:** assigning links by site
+  differences `U_xy=exp[2πi(f_y−f_x)/q]` makes every closed
+  plaquette holonomy exactly 1 by telescoping, for **every**
+  microstate and every time. Local site-dependent shifts also fail to
+  commute with the existing cubic wave update; the exact q=5,
+  L=3 witness gives origin values 4 versus 1. The
+  [native-wave exact check](native_wave_gradient_check.py) provides
+  positive inverse controls, nonconstant open links, evolved
+  plaquette checks and the shift witness. This rejects only the
+  **naive site-gradient link assignment**, not H-link or other
+  physical carriers.
+- **Reversible gauge-pointer toy:** an independently specified
+  [U(1) link/pointer construction](shared-gauge-pointer-candidate.md)
+  has two selectable reversible gauge-covariant read/kick updates,
+  one physical pointer bit, genuine link back-action, and
+  complete raw input/loop/pointer records. The
+  [exact Z/8 control](gauge_pointer_toy_probe.py) tested 8192
+  states and 30 controls, with normal/optimized replay agreeing.
+  Removing the kick makes its two classical control settings
+  commute. With the kick they do not commute, **as classical
+  permutations**; this is not quantum operational noncommutation,
+  interference, or a YM action. The toy adds its own links and
+  apparatus as **new premises** and must not be called native OI.
+
+**Physical sourcing remains BLOCKED** on a nontrivial covariant
+native link carrier and a public reusable measurement interface.
+The next proposed candidate must supply both from one actual OI
+microscopic state/update and invariant prior, with the
+independent Wilson/squared-action, contextual observation,
+full attempted-record, decoupled, and composite-controls retained.
+Neither result authorizes a manuscript claim change or merge.
