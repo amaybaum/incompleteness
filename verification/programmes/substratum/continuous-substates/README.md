@@ -31,7 +31,13 @@ and treats the free wave map for every ring size `L ≥ 3`.
 `wave_torus_probe.py` uses exact integer and rational arithmetic only and runs in
 about two seconds. `expected-result.json` is its byte-exact output; the run is
 deterministic. Verdict text is generated from the measurements and printed only when
-every control passes. The controls are:
+every control passes.
+
+`observable_recurrence_check.py` provides an additional exact-integer,
+finite-range (`L = 3…20`) regression and even-`L` countercontrol for the
+all-`L` proof note. Run with `python3 observable_recurrence_check.py`
+from this directory. This finite regression is **not** evidence by itself
+of a universal theorem. The controls are:
 
 1. `F mod q` has order `qL` for prime `q ∤ L` (SM Theorem A.1).
 2. `M = F^L − I` is nonzero with `M² = 0` over `Z` (SM Theorem A.2, over `Z`).
