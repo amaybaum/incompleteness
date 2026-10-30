@@ -76,9 +76,17 @@ whichever properties the chosen lower-level source has.
 The inverse limit of these compatible steps is a
 continuous reversible \(\mathbb Z_2\)-valued wave map on
 the fixed finite cubic lattice. It still fails to provide
-new low-digit backflow. A genuine level-coupling
-mechanism would have to break this passive factorization
-or change the accessible observable class.
+new low-digit backflow. Importantly, for any **fixed**
+m, the quotient on the complete two-slice fields over
+\(\mathbb Z/2^m\) is a finite permutation. Consequently
+it has some positive common period \(P_m\), and every
+low-m digit observable of the **infinite inverse-limit**
+system has an exact common visible return at \(P_m\).
+This does **not** imply that the full infinite hidden state
+returns, nor one period working for all depths m.
+A genuine unlimited-depth coupling mechanism would have
+to break this passive factorization or change the
+accessible observable class.
 
 ## Exact regression and nonvacuity control
 
