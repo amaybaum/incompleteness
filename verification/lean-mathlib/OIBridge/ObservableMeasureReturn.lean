@@ -37,15 +37,21 @@ def VisibleCell (obs : X → V) (a : V) : Set X := {x | obs x = a}
 /-- The diagonal joint event is the visible cell minus visible changes. -/
 theorem diagonalEvent_eq_diff (obs : X → V) (advance : X → X) (a : V) :
     OffDiagonalEvent obs advance a a =
-      VisibleCell obs a \ ChangeEvent obs advance := by
+      VisibleCell obs a \\ ChangeEvent obs advance := by
   ext x
-  simp only [OffDiagonalEvent, VisibleCell, ChangeEvent, Set.mem_ofPred_eq,
-    Set.mem_diff, not_ne]
+  change (obs x = a ∧ obs (advance x) = a) ↔
+    (obs x = a ∧ ¬ obs (advance x) ≠ obs x)
   constructor
   · rintro ⟨ha, hb⟩
-    exact ⟨ha, hb.trans ha.symm⟩
-  · rintro ⟨ha, hb⟩
-    exact ⟨ha, hb.trans ha⟩
+    refine ⟨ha, ?_⟩
+    intro hne
+    exact hne (hb.trans ha.symm)
+  · rintro ⟨ha, hnot⟩
+    refine ⟨ha, ?_⟩
+    by_contra hne
+    apply hnot
+    intro h
+    exact hne (h.trans ha)
 
 /-- A visible return holds almost everywhere exactly when every
 off-diagonal joint cell has zero measure. This applies to any hidden
