@@ -1591,6 +1591,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Conditional k-token infrastructure on WK k = (Fin k → Fin 4) → ℝ. subset_QK_of_maxCone_drive uses the k-fold maxCone bound, CNOT into later tokens and the rotation/cyclic actions off the first token for the upper inclusion; QK_subset_of_products_cone_drive uses products of eball 3 states, addition, nonnegative scaling and the same actions for the lower. kCone_eq_QK_of_drive_maxCone assembles equality; kCone_eq_QK_iff_drive_maxCone has the witnesses driveInvariantK_of_eq_QK and kCone_eq_QK_of_drive_maxCone. pairCone_eq_Q3_of_kToken proves the statement of EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone from the k-token theorem; EqvK2MaxCone is not imported. This family is carried by no manuscript. The k-token carrier, products, test validity and the invariance remain explicit premises; arbitrary unitary invariance and Kn are not asserted. Record: verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/."
+    },
+    {
+      "name": "SUBSTATE-2 recursive finite-factor observation bound (research)",
+      "modules": [
+        "RecursiveFiniteFactor"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only: finite_horizon_depth_bound combines individually finite-stage-dependent visible functions into one finite-depth bound for a finite horizon; all_time_depth_bound_of_exact_period uses an EXPLICIT common exact period assumption to extend that bound to all times; feedbackStep_involution proves a static hidden-predicate controlled Boolean flip returns in two steps on any hidden type. Does NOT prove that continuous maps from compact inverse limits factor through a finite stage, that OI has fractal sub-states, a.e. recurrence, physically sourced quantum instruments, gauge links, area law or Yang-Mills action. Issue #1010 draft PR #1011, kernel status subject to exact-head Lean build/axiom evidence."
     }
   ]
 }
