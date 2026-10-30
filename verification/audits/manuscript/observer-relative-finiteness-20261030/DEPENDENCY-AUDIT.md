@@ -13,6 +13,31 @@ snapshot; its later `ecec14ac644eaf33927113c92d3f39284e79b974` head
 still changes no Main/GR/ch01/ch02 source files. #1005 stays separately
 gated. Exact line references below are to these pinned sources, not moving main.
 
+## Reproducible controls (not a certification)
+
+`verification/audits/manuscript/observer-relative-finiteness-20261030/scope_controls.py`
+has two deliberately separate modes:
+
+- `python3 -I -B verification/audits/manuscript/observer-relative-finiteness-20261030/scope_controls.py`:
+  checks the infinite carrier with a nonconstant invariant quadratic
+  function, the single-cycle finite permutation obstruction to a
+  nonconstant invariant, and a binary observation of an infinite set.
+  Exact integer regressions are a cross-check of the accompanying
+  algebraic arguments, not a Lean proof.
+- Add `--sources .` at the original main baseline (or on the audit branch
+  while those source manuscripts remain unchanged) to verify that eight
+  precisely named old-claim fragments occur exactly once across Main,
+  GR, ch01, glossary and ch05. This is a **historical-source fixture**:
+  an eventual surgical manuscript correction is expected to change
+  those fragments, so this command is *not* a perpetual release check.
+
+The writer's initial local standalone probe returned
+`PASS INFINITE-CARRIER`, `PASS FINITE-CYCLE` and
+`PASS FINITE-OBSERVER`. The source-phrase check is **not claimed
+executed locally** and still needs independent verification.
+Automatic repository CI on the exact new head must be inspected
+separately; none of these controls proves a physical OI energy law.
+
 ## Owner direction — foundation versus implementation
 
 **General OI principle (choice of framework):** for a specified bounded embedded
