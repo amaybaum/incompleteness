@@ -90,6 +90,56 @@ the audit note, not an independent review. Require a distinct reviewer to
 verify source identity, minimum science diff and all proof boundaries.
 
 ---
+## Further corpus-propagation findings (exact main source, not manuscript edits)
+
+**M7 — `book/glossary.md:11`: a foundational attribution defect.**
+The glossary has an entry labelled **“Axiom 2 (Finiteness)”**, describing
+finiteness of the *total* substratum as foundational. This contradicts
+Main §1.2 even at the historical baseline: Main's second axiom is that
+**differentiation recurs**, while the finite-total-carrier requirement
+is separately identified as a posit. The owner's revised formulation
+makes the discrepancy still clearer. A candidate *one-entry replacement*
+for independent editorial review is:
+
+> **Axiom 2 (recurrence of differentiation).** Differentiated content
+> recurs across more than one moment; the first observation axiom alone
+> does not imply recurrence. Finite observer distinguishability is
+> addressed by Lemma 1 under its observational premises; finite total
+> substratum cardinality is an additional restriction of the finite
+> reversible reconstruction, not Axiom 2. See Main §1.2.
+
+Do not replace the term by a new *axiom of infinite S*: microscopic
+cardinality is intentionally **not specified** in the general framework.
+
+**M8 — `book/ch05-gauge-structure.md:11,15,23`: finite branch framed
+as universal.** The opening and §5.2 say respectively that Part I
+established an observer embedded in a *finite deterministic universe*,
+that the section establishes the *minimal mathematical object* as a finite
+set, and that the **framework's content rests on** a finite set S.
+These are correct descriptions **only of the finite-carrier realization**
+that supplies the subsequent factorization and cubic reconstruction.
+Proposed scope repair is the minimum phrase-level qualifier:
+“Within the finite reversible reconstruction...” at 11,
+“the finite-branch mathematical object” at 15, and
+“The finite-carrier reconstruction considered in this chapter rests
+on...” at 23. Preserve the actual finite-q formulas, coupling-graph
+derivation and A1–A6 hypotheses unchanged. Independently check whether
+ch05 §5.2's claim that *finiteness follows from Chapter 1's lemma*
+also requires an explicit separate finite-model premise.
+
+**Adjacent but separately scoped:** `book/ch04-methodology.md:22`
+calls observation the single founding premise, whereas current
+Main §1.2 counts two axioms (differentiation and recurrence).
+That may merit a **separate** foundational-consistency review, but
+it is not authorization to rewrite Chapter 4 in this finite-S patch.
+
+These findings come from a targeted source-text search, not a completed
+whole-corpus closure scan. Before any manuscript correction claims
+propagation complete, check all source papers, chapter openings, book
+glossary, Intro, Explainer and FULL mirrors for synonyms and inherited
+finite-total-S premises, classifying each **genuinely** affected location.
+
+---
 ## Proof-dependency matrix: a non-negotiable review gate
 
 | Result | General observer-relative formulation | Finite-S proof retained |
