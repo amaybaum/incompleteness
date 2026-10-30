@@ -27,7 +27,11 @@ protocol and horizon their **full joint record distributions**
 \(M\sim_{\mathcal P,\mathcal H}M'\). The **gauge/representation
 interpretation** is relative to this equality of accessible physics;
 it is not automatically a microscopic automorphism group or a gauge
-transformation in the Yang–Mills sense.
+transformation in the Yang–Mills sense. **A bijection of one fixed
+state space preserves its cardinality**, so changing |S| is
+not literally a bijective gauge transformation of the same
+configuration space. It can be an *equivalence of differently sized
+presentations* after unused fibres are adjoined or quotiented.
 
 ### Exact positive control: cardinality-changing hidden extension
 
@@ -90,6 +94,20 @@ classical pair with identical rooted two-time matrices and
 different complete three-time records. Enlarging the
 observer's protocol menu can distinguish extensions that
 were invisible to a weaker passive menu.
+
+**Executed bounded checks (author, not an independent review).**
+An exact rational enumeration found identical complete visible word
+laws for inert hidden fibres of sizes 1, 2, 3 and 7 at horizons
+0 through 8. A separate finite sweep checked all **153** permutations
+of sets with 1 through 5 states and **4,282** binary readout
+assignments, confirming the common-period return. These are
+regression controls only; the arbitrary-cardinality enlargement
+and infinite Bernoulli non-equivalence are supported by their
+separate analytic arguments, **not** by an extrapolation from
+finite computation. The attempted standalone replay-file
+publication was not completed in this writer round; no retained
+executable evidence or CI acceptance is claimed for these
+bounded sweeps.
 
 ### How this relates to already stated OI results
 
