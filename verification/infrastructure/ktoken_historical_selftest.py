@@ -15,13 +15,13 @@ import json
 from pathlib import Path
 import tempfile
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = Path(__file__).resolve().parents[2]
 CONTROLS = ROOT / "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py"
 WORKFLOW = ROOT / ".github/workflows/verify.yml"
 REGISTRY = ROOT / "verification/lean-manuscript-census.json"
 SEALED_BLOB = "7c9672a170210f8c2496787cb8cb3bc16cb30ba2"
 OLD_STEP = "run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py --self-test"
-NEW_STEP = "run: python3 -I -B verification/programmes/substratum/continuous-substates/ktoken_historical_selftest.py"
+NEW_STEP = "run: python3 -I -B verification/infrastructure/ktoken_historical_selftest.py"
 
 
 def require(condition, message):

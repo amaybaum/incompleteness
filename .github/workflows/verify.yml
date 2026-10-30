@@ -556,7 +556,7 @@ jobs:
         run: python3 -I -B verification/lean/ktoken_maxcone1_probe.py --self-test
 
       - name: Native control mutation tests
-        run: python3 -I -B verification/programmes/substratum/continuous-substates/ktoken_historical_selftest.py
+        run: python3 -I -B verification/infrastructure/ktoken_historical_selftest.py
 
   probes_preserveinduct1:
     name: Numerical probes / PRESERVE-INDUCT-1 preservation induction
