@@ -56,3 +56,50 @@ If only C0 fails while C1 and OI both fit the two-slit intensity, record "interf
 The companion exact benchmark \`observation_context_probe.py\` tests the arithmetic in the table, its incomplete-trial bookkeeping, three-way comparison and a conditional-vs-unconditional no-signaling guard. It contains **no native OI microdynamics**. Its verdict cannot be promoted to a physical prediction, QM equivalence theorem or Lean certification.
 
 The **first valid native run** requires an explicit realization dossier, rather than guessing a gauge-coupled map: a pinned microscopic \(d=3\) update and prior (separate from the observer-level \(\alpha=1/3\) harmonic lift), finite observer/setting interfaces, evidence of actual reversibility, baseline data, hard-to-vary prediction, and the controls above. A physically meaningful result may be negative; record that result without editing the manuscripts to protect the framework.
+
+
+## Sourcing audit: why this is F2, not an unproven F1 upgrade
+
+The maintained \`verification/programmes/oi-qm/PROGRAMME.md\`, §1, identifies
+**F2 as the active endpoint**. Its existing sourcing audit concludes that
+operations available to the *present observer interface* preserve
+\`NonnegBounded\`, excluding the required general quantum phase control.
+The bare-interface F1 endpoint is retired. Thus "specific observations"
+must mean a **specific, new physically sourced observer intervention**
+whose existence is independently proved, not the post hoc choice of a
+different coarse-graining of the same passive record.
+
+A possible point of contact is the bounded native instrument research in
+\`verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/\`,
+especially \`CURRENT-HANDOFF.md\`, \`EQUIVALENCE-OBLIGATIONS.md\`, and
+\`native_vread_v15/REPORT.md\`:
+
+- A native nonlinear old-sign/new-pool product occurs in the retained
+  geometry, but masks remain and no selectable gate has been isolated.
+- A prepared q10.A value can carry an old sign under specified source
+  laws, but q10 is private under the retained observer interface.
+- The one-tick whole-V read is negative for that specific construction,
+  due to unseen free complement cells; neither the access extension
+  nor the required preparation changes are adopted.
+- A post-Y selected raw phase has conditional statistics and terminal
+  records, but it is not a reusable instrument or the noncommuting
+  menu the full protocol requires.
+
+**New native test gate (before making any benchmark comparison).**
+For one immutable native-source snapshot, list the actual permitted
+preparation, setting, terminal record and outgoing carrier fields.
+Determine whether a putative which-path marker and an alternative
+complementary read are *both* physically selectable on the same
+incident preparation and whether their complete raw histories have
+known joint probabilities. If either setting is only a decoder applied
+afterward to inaccessible fields, return **BLOCKED: no available
+intervention**. Do not compute a Born benchmark from it.
+
+If that availability gate passes in a later construction, run the
+raw-count controls above with one fixed initial prior and tracked
+success/failure branches. This test specifically targets F2's
+missing resource without relabeling an existing restricted passive
+observer as a quantum measurement.
+
+No manuscript change or quantum-equivalence status upgrade is
+authorized by this sourcing audit.
