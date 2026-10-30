@@ -48,8 +48,22 @@ def haar(poly):
 
 def accepted_expectation(obs, acceptance):
     z = haar(acceptance)
-    assert z > 0
+    if z <= 0:
+        raise ValueError("acceptance has nonpositive Haar mass")
     return haar(mul(obs, acceptance)) / z
+
+
+def acceptance_bounds_ok(linear, quadratic):
+    # Bind the interval argument to the actual Laurent coefficients.
+    # With c=cos(theta), these are 13/16+13c/112 and 1-(1-c)^2/8.
+    neg = tuple(-e for e in LOOP)
+    double = tuple(2*e for e in LOOP)
+    minus_double = tuple(-2*e for e in LOOP)
+    return (linear == {ZERO: F(13, 16), LOOP: F(13, 224), neg: F(13, 224)}
+            and quadratic == {ZERO: F(13, 16), LOOP: F(1, 8), neg: F(1, 8),
+                              double: -F(1, 32), minus_double: -F(1, 32)}
+            and F(0) < F(13, 14)*F(3, 4) <= F(13, 14) <= 1
+            and F(0) < F(1, 2) <= 1)
 
 
 def main():
@@ -88,8 +102,10 @@ def main():
         # gives 0<=w/8<=1/4, 0<=w**2/8<=1/2, so both acceptance
         # polynomials have the stated strict positive lower bounds.
         "acceptance_in_unit_interval":
-            F(0) < F(13, 14)*F(3, 4) <= F(13, 14) <= 1
-            and F(0) < F(1, 2) <= 1,
+            acceptance_bounds_ok(accept_w, accept_w2),
+        "invalid_high_harmonic_acceptance_rejected":
+            not acceptance_bounds_ok(accept_w, add(accept_w2,
+                {tuple(5*e for e in LOOP): F(1), tuple(-5*e for e in LOOP): F(1)})),
         "equal_full_run_success_probabilities":
             haar(accept_w) == haar(accept_w2) == F(13, 16),
         "equal_full_run_rejection_probabilities":

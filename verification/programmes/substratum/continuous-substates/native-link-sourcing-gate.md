@@ -69,7 +69,7 @@ A physical gauge transformation acting differently on link-carrier
 variables is not excluded.
 
 The companion \`native_wave_gradient_check.py\` checks the
-inverse map and six scoped exact controls on four fixed fields
+inverse map and seven scoped exact controls on four fixed fields
 (including nonconstant fields and 3-D evolution), all positive.
 The *universal flatness* statement is the algebraic telescope
 above, not an extrapolation from those finite samples.
@@ -83,7 +83,7 @@ remain independently unverified.
 \`shared-gauge-pointer-candidate.md\` constructs a **new** U(1)
 link and pointer microstate and two gauge-covariant reversible
 read-and-kick maps. Its exact finite-grid control
-\`gauge_pointer_toy_probe.py\` tests 8,192 states, 30
+\`gauge_pointer_toy_probe.py\` tests 8,192 states, 32
 controls, full pointer/loop records, local gauge covariance,
 inverse dynamics and back-action.
 
