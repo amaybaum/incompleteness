@@ -121,6 +121,22 @@ approximations instead return after no more than \(2n\)
 updates, a **boundary effect that disappears in the
 infinite model**.
 
+A **matched two-time negative control** now uses an independent
+reversible four-symbol iid shift: it has exactly the same
+four-by-four rooted matrices as this model for all positive
+times, but all 64 three-time words occur at probability
+\(1/64\), unlike the skew model's 32 words at \(1/32\).
+Their exact three-record total-variation distance is
+**1/2**, with conditional memory 0 versus 1 bit.
+The [matched-control program](fixed-scale-skew/matched_control.py)
+checked all four-symbol cyclic tapes of lengths 3–7
+(up to 16,384 states) and retained exact
+[MATCHED.json](fixed-scale-skew/MATCHED.json).
+The [joint replay](fixed-scale-skew/replay.py) verifies both
+results against pinned hashes, normally and optimized.
+This follow-up was not included in the original
+FIXED-SCALE-1 preregistration and remains classical.
+
 Exact finite controls exhaust all states for tape lengths
 \(n=3,\ldots,9\) (up to **2,048** full states), including
 inverse, complete three-time words, rooted matrices before
