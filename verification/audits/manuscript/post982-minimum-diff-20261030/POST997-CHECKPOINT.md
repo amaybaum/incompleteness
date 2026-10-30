@@ -24,9 +24,9 @@ Five companion files enumerate **370 exact contiguous net changed-line hunks** w
 - `HUNKS-BOOK-B.md` — 69 hunks in ch03–ch12 (changed chapters only).
 - `HUNKS-BOOK-C.md` — 32 hunks in ch13, ch14, ch18, ch19, glossary and preface.
 
-The first pass has a concrete **EXCESS-RESTORE** finding: 11 standalone Markdown rule changes in `papers/Complexity.md` and two in `papers/Juno.md` replace `---` with `***` while leaving the displayed rule meaning unchanged. They do not repair a finding on the available evidence. [Issue #1006](https://github.com/amaybaum/incompleteness/issues/1006) tracks the narrow restoration, with a renderer-dependency check before modifying publications.
+**Correction to the initial review:** the 11 standalone `---` → `***` substitutions in `papers/Complexity.md` and two in `papers/Juno.md` are **REQUIRED (documented Pandoc-formatting safety)**, not excess. `AGENTS.md` build instructions explicitly require `***` over `---` to prevent silent Pandoc table-layout corruption; the Complexity exception was [independently accepted on #997](https://github.com/amaybaum/incompleteness/pull/997#issuecomment-6514996762) and the Juno exception was [explicitly applied on #999](https://github.com/amaybaum/incompleteness/pull/999#issuecomment-6504621056). The previously opened [issue #1006](https://github.com/amaybaum/incompleteness/issues/1006) was based on an incorrect reviewer premise and is closed as not planned. Do not revert these formatting-safety edits.
 
-The remaining **357** net hunk records are labelled **REVIEW**, *not* `REQUIRED`: their individual triggering defects, authoritative proofs, minimal replacements, mirrored scope and independently checked dispositions are **not yet supplied for all hunks**. Existing accepted correction PRs offer strong source-level provenance, but do not independently prove the minimum-change requirement for every surviving hunk. In particular:
+The remaining **357** net hunk records are labelled **REVIEW**, not yet independently classified: their individual triggering defects, authoritative proofs, minimal replacements, mirrored scope and independently checked dispositions are **not yet supplied for all hunks**. Existing accepted correction PRs offer strong source-level provenance, but do not independently prove the minimum-change requirement for every surviving hunk. In particular:
 
 | Corrective source PR | Primary scientific trigger to check; do not undo merely for brevity |
 |---|---|
@@ -46,8 +46,8 @@ All 32 net-changed top-level Markdown source paths appear in at least one of the
 
 1. An independent reviewer must assign `REQUIRED`, `EXCESS-RESTORE`, `NEW-RESULT-REVIEW`, or `UNDECIDED` to *every substantive surviving hunk*, naming the exact finding and source proof and checking whether the retained replacement is the smallest accurate text. The five inventory files are line anchors, **not** finished proof judgments.
 2. Check necessary downstream propagation in Main, seven core papers as applicable, Explainer, book chapters, FULL mirror, Lean names and statuses; do not count generated TeX/PDF as distinct conceptual edits. Preserve legitimate correct passages.
-3. Resolve or explicitly disposition #1006's 13 cosmetic changes and any other proven excess via separate, minimal manuscript corrections. #1004 is separately routed.
+3. Retain the 13 verified Pandoc-safety changes and their source/approval links; independently review any other alleged excess before minimal source correction. #1004 is separately routed.
 4. Confirm updated endpoint, exact audit SHA, independent review and current-head green checks. A past success on #1005's earlier head does not certify this head.
 5. Only then consider making the PR ready/merging, with the owner's exact-SHA approval. **No Introduction release or Explainer retirement is authorized by this checkpoint.**
 
-**Verdict:** substantial forward coverage and a concrete finding, but **minimum-diff not certified**. This is not a basis for closing the audit, promoting science, or proceeding as if the source-survival gate is complete.
+**Verdict:** substantial forward coverage and a resolved false-positive triage, but **minimum-diff not certified**. This is not a basis for closing the audit, promoting science, or proceeding as if the source-survival gate is complete.
