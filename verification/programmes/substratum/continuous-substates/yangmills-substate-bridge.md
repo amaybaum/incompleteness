@@ -22,6 +22,38 @@ On one SU(2) plaquette define \(w(U_p)=1-\frac12\operatorname{Re}\operatorname{T
 
 Replacing the site's finite alphabet with a continuum does not resolve the ambiguity. It may support continuous gauge-group kinematics, but does not select the Wilson action, continuum QFT, reflection positivity, confinement or a mass gap.
 
+## Simple Haar-stationarity obstruction (restricted)
+
+Suppose the complete microscopic state **is** the finite collection
+of link variables \(X=G^E\), the actual invariant initial
+probability is the product normalized Haar measure \(\mu\),
+the microscopic evolution \(T:X\to X\) preserves \(\mu\),
+and the full link readout at time \(t\) is literally \(T^t x\).
+Then \((T^t)_*\mu=\mu\) at every \(t\). Consequently the
+one-time full-link distribution remains product Haar and
+cannot equal a **nonconstant** Wilson Gibbs density
+\(Z^{-1}e^{-\beta S_W}\,d\mu\) for nonzero coupling
+\(\beta\), unless \(S_W\) is almost everywhere constant.
+In particular for independent U(1) Haar links on one
+plaquette, the unconditioned mean \(\mathbb E[\cos\theta_p]\)
+remains zero at all times.
+
+**Proof:** invariance of the measure gives
+\(\mu((T^t)^{-1}B)=\mu(B)\) for every measurable \(B\).
+Equality of a Gibbs-weighted probability with \(\mu\)
+would require its Radon–Nikodym derivative to equal one
+almost everywhere. A nonconstant \(S_W\) at
+\(\beta\ne0\) forbids this. □
+
+This is a no-go **only for that full-link, uncorrelated-Haar,
+stationary-readout setup**; it neither excludes correlated
+stationary measures nor non-invertible/many-to-one observer
+maps, constrained physical state spaces, conditional laws or
+dynamically nontrivial time-correlations. Those must be
+explicitly sourced, not assumed. This obstruction reinforces
+the need to derive the physical gauge measure rather than
+replace a finite alphabet and declare victory.
+
 ## New exact observation-selection countercontrol: continuous U(1)
 
 Take four independently Haar-distributed U(1) links around one oriented closed square. Their holonomy \(U_p=e^{i\theta}\) is also Haar. Let \(c=\cos\theta\), \(w=1-c\); both \(w\) and \(w^2\) are gauge-invariant.
