@@ -1,5 +1,7 @@
 # Methodology.md: 35 surviving net hunk scientific-scope decisions
 
+
+**Writer follow-up for the initial undecided rows (2026-10-30).** This file preserves its original provisional review and its source citations. The later exact-old/new assessment in [WRITER-22-RESOLUTION.md](./WRITER-22-RESOLUTION.md) **supersedes only the undecided labels** at the corresponding line anchors; the authoritative 370-row status is [TRIAGE-370.md](./TRIAGE-370.md). The updated writer decisions are 19 REQUIRED corrections, one #946 source-scope watch, and two #1008 mixed/excess candidates across the full corpus. This is **writer-side**, not an independent minimum-diff acceptance. No scientific statement or output artifact is changed here.
 Exact original [post-#994](https://github.com/amaybaum/incompleteness/blob/986dab5aabbbd419467109e0b9604c8f19901688/papers/Methodology.md) and corrected [post-#997 main](https://github.com/amaybaum/incompleteness/blob/f6989a27815c4d715223eebf2859422c1231e3f8/papers/Methodology.md) were compared at all 35 changed lines. This **internal source-scope pass**, relying on the earlier independent #1000 scientific review and #995 citation repair, is **not an independently signed minimum-diff acceptance**. REQUIRED below means the old *claim* or status required correction; it does not immunize optional rhetorical wording from further minimization.
 
 | Current/old hunk anchor | Decision | Exact scientific/status deficiency of old text | Source |
