@@ -1,6 +1,6 @@
 # Post-#994 → post-#997 main: book hunk inventory A
 
-**Evidence inventory, not an independent scientific verdict.** Base `986dab5aabbbd419467109e0b9604c8f19901688`; current main `f6989a27815c4d715223eebf2859422c1231e3f8`. Book chapter Markdown and source README; the maintained FULL book is a mirror and is not counted separately. REVIEW rows need finding/proof assessment; no manuscript changed here.
+**Evidence inventory, not an independent scientific verdict.** Base `986dab5aabbbd419467109e0b9604c8f19901688`; current main `f6989a27815c4d715223eebf2859422c1231e3f8`. Book chapter Markdown and source README; the maintained FULL book is a mirror and is not counted separately. REVIEW rows need finding/proof assessment; the historical inventory itself did not edit manuscripts; the later scoped #1005 source repairs are documented in [POST997-SOURCE-FIXES.md](./POST997-SOURCE-FIXES.md).
 
 ## book/README.md (5 net hunks)
 

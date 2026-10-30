@@ -1,6 +1,6 @@
 # Post-#994 → post-#997 main: book hunk inventory C
 
-**Evidence inventory, not independent scientific acceptance.** Base `986dab5aabbbd419467109e0b9604c8f19901688`; current main `f6989a27815c4d715223eebf2859422c1231e3f8`. Book Markdown, excluding the maintained FULL mirror. REVIEW requires source/proof-to-finding dispositions. No changes to manuscript in this PR.
+**Evidence inventory, not independent scientific acceptance.** Base `986dab5aabbbd419467109e0b9604c8f19901688`; current main `f6989a27815c4d715223eebf2859422c1231e3f8`. Book Markdown, excluding the maintained FULL mirror. REVIEW requires source/proof-to-finding dispositions. This historical source census did not itself edit manuscripts; subsequent scoped #1005 source repairs are documented in [POST997-SOURCE-FIXES.md](./POST997-SOURCE-FIXES.md).
 
 ## book/ch13-quantum-biology.md (1 net hunks)
 

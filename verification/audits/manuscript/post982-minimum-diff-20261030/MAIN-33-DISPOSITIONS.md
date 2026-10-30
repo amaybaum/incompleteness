@@ -45,4 +45,4 @@
 - **31/33 source-line hunks:** provisional **REQUIRED** scientific scope correction, with the mapped proof/report family; review the individual sentence's minimal wording separately.
 - **2/33 source-line hunks:** **UNDECIDED** as to lexical minimality, at Main:558 and Main:618. Main:558 also contains a mandatory operational-kinematics premise, which must not be restored away.
 - No direct unnecessary substantive text has been proved. Do not mark these two EXCESS-RESTORE without a safer full replacement and fresh independent review.
-- No book or core paper was modified by this assessment. It does not certify all remaining papers/chapters or the resulting corpus, and cannot be used to close #1005 or release #918.
+- This assessment itself modified no book or core paper. The subsequent combined #1005 source/build delta is separately recorded in [POST997-SOURCE-FIXES.md](./POST997-SOURCE-FIXES.md); the assessment cannot close #1005 or release #918.
