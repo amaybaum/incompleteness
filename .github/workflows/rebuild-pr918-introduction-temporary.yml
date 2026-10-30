@@ -41,7 +41,7 @@ jobs:
           import re
           current=Path('papers/Introduction.md').read_text()
           historical=check_output(['git','show','fde5cbbe2ec21a1b66ccce3465dafbd5e0194f59:papers/Introduction.md'],text=True)
-          markers=['**Theorem 1**','**Theorem 2**','**Theorem 3**','**Theorem 4**','**Corollary** (recurrence-cycle indivisibility)','**Corollary** (proved on paper']
+          markers=['**Theorem 1**','**Theorem 2**','**Theorem 3**','**Theorem 4**','**Corollary (recurrence-cycle indivisibility).**','**Corollary** (proved on paper']
           for marker in markers:
             a=[s for s in current.splitlines() if s.startswith(marker)]
             b=[s for s in historical.splitlines() if s.startswith(marker)]
