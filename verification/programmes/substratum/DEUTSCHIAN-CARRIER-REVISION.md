@@ -7,6 +7,95 @@ best live explanatory questions**; it does not alter a formal hypothesis,
 theorem, manuscript, frozen native round or proof status. Existing OI
 finite-carrier results remain in force at exactly their proved scope.
 
+## Cardinality clarification: finite observer does not imply finite ontology
+
+The three propositions that must be kept distinct are:
+
+1. **Finite accessible outcome alphabet at a specified resolution and time.**
+   OI's visible-sector Lemma 1 is scoped to this. Its retained Lean Finiteness
+   certificate is **conditional** on finitely many boundary modes, finitely many
+   settings per mode and an observer state determined by those modes. Mere
+   *embeddedness* does not logically entail finite observer capacity:
+   an embedded infinite register is a possible countermodel unless a capacity
+   restriction is also supplied.
+2. **Finite recorded law at a specified finite horizon.** If there are n
+   observable outcomes and K+1 observation moments, at most n^(K+1)
+   histories can be resolved. The established finite-horizon equivalence
+   supplies finite reversible representatives of these laws; that is not
+   a theorem about the cardinality of the actual world's hidden carrier.
+3. **Total substratum finiteness.** The full ontic configuration set is
+   finite, giving a finite permutation's exact global recurrence. This is
+   the separate **physical A1 posit** under which the spatial
+   reconstruction and exact finite-total recurrence have been derived.
+   Neither proposition 1 nor proposition 2 implies proposition 3.
+
+**Revised working baseline:** remain **cardinality-neutral** about the
+total ontic substrate, while keeping a finite observable readout and a
+properly specified dynamics, preparation state and observer interface.
+Total finiteness remains the useful, already analyzed model branch,
+not an explanatory necessity silently inferred from observation.
+This is a working foundation-level research stance, not a theorem
+that nature is infinite.
+
+### Strict infinite-state mathematical countermodel
+
+Take the compact hidden-state space
+\[
+X=\{0,1\}\times\{0,1\}\times\{0,1\}^{\mathbb Z}
+\]
+with product-fair probability. Let
+\[
+T(a,r,c)=(a\oplus r\oplus c_0,\ r,\ Sc),
+\qquad (Sc)_i=c_{i+1},
+\]
+and let the observer register only the four-valued record
+\(O(a,r,c)=(a,c_0)\). The microscopic space is uncountable.
+The rule is a bijective, continuous measure-preserving homeomorphism,
+and the hidden r-bit genuinely influences the visible evolution.
+The two-step visible records recover r from
+\(r=a_{t-1}\oplus a_t\oplus c_{t-1}\), so the hidden sector
+does not merely sit alongside observation as an inert enlargement.
+
+Its rooted two-time conditional matrices have entries 1/4 for all
+positive times, yet the full three-time visible law has one bit
+of conditional predictive memory, with no common exact visible
+return period. The paper-level proof and independently matched
+classical controls are retained under SUBSTATE-2 draft PR #1011,
+at the fixed-scale-skew result folder; independent mathematical
+review is still pending.
+
+This construction disproves the purported **logical entailment**
+"finite observation plus reversibility and hidden readback forces
+finite S". It is not evidence that *nature's* S is infinite or that
+this is OI's physical update. Indeed, finite-horizon recorded
+laws of this model admit finite reversible representatives under
+the already established S⇔D⇔Qfb correspondence. Finite-window
+observations do not uniquely determine microscopic cardinality;
+a physical preference requires an additional hard-to-vary
+source or scale-sensitive prediction.
+
+### A narrow source inconsistency (correction required separately)
+
+The existing Main §1.2 paragraph says the dynamics "acts on a
+finite S (Lemma 1)", while **Lemma 1 itself** only asserts that the
+visible configuration space is finite. A nearby status remark
+correctly labels finite total S as a separate *physical posit*.
+The former inference is therefore invalid as written. The
+Explainer's Lemma-1 exposition likewise slides from finite
+visible configuration to "the configuration space is finite"
+when discussing exact recurrence. These errors are distinct
+from deciding whether the true physical ontology is infinite.
+
+The correction should remove only those mistaken inferences,
+while retaining every properly scoped finite-carrier theorem
+and the independently named A1 posit. All affected book
+mirrors, generated artifacts and Lean prose summaries must
+be reviewed under AGENTS.md §A.25. This research-only PR
+records the concrete defect rather than silently modifying
+the publication sources without their required propagation.
+The science error can be corrected regardless of which
+carrier conjecture survives later tests.
+
 ## 1. What is retained
 
 The established finite mathematical model uses finite visible sectors and
