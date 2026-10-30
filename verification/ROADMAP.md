@@ -56,6 +56,10 @@ equivalence class of quantum histories. Only an empirically distinguishable resi
 the physically appropriate equivalence relation would license a claim of physics beyond standard
 quantum mechanics.
 
+### Carrier-ontology working conjecture (not a proof-status change)
+
+The finite-total-substratum posit remains a premise of the established finite reconstruction and exact finite-recurrence results, **not** a consequence of finite observer resolution. A recursively structured internal carrier is now an active **Deutschian rival conjecture** to that physical posit, not an adopted physical model. The [working carrier revision](programmes/substratum/DEUTSCHIAN-CARRIER-REVISION.md) records hard-to-vary preservation and rejection criteria, while the active [SUBSTATE-1](https://github.com/amaybaum/incompleteness/pull/1009) and [SUBSTATE-2](https://github.com/amaybaum/incompleteness/pull/1011) drafts retain their mathematical countercontrols. In particular, a hypothetical 2-adic refinement of the **unchanged** integer-linear cubic wave update cannot generate higher-digit influence on fixed lower-digit readouts. Neither recursive topology nor this negative result supplies the F2 quantum resource, a Yang–Mills action, or a new independent physical prediction. **No proof, premise, or open-obligation status below changes.**
+
 ## The queue
 
 | Priority | Obligation | Track | Status | Unlocks |
