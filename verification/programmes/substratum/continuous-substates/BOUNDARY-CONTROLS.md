@@ -104,6 +104,21 @@ with the indicated rooted matrices. The independently derived
 infinite-product result is algebraic and **not** inferred from
 testing only nine horizons.
 
+**Finite-versus-infinite horizon discriminant.** For a finite cyclic register of length
+(q), (T_R^q(x,b)=(x,boplus igoplus_{i=0}^{q-1}x_i)), so
+(T_R^{2q}=I) and (b_{2q}=b_0) in **every** realization. By contrast,
+the unbounded independent stream satisfies
+(Pr(b_{2q}=b_0)=1/2) for every (q>0). Thus the finite model
+agrees exactly with the infinite observer's full visible law for any
+preselected horizon (n<q), but **cannot be equated to it for all
+future times**. The script separately tests the finite full return
+for (q=2,ldots,8); the infinite probability follows algebraically
+from independent fair increments.
+
+This is an exact countercontrol to promoting *finite-horizon surrogate
+equivalence* into an *all-horizon gauge equivalence* solely because
+the observer has finite instantaneous resolution.
+
 ### Discriminant for subsequent GR/SM work
 
 A source model must fix its **same** microscopic update, invariant
