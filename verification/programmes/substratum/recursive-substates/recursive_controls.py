@@ -48,6 +48,7 @@ def model_b():
         expected = Counter({(0, 0, 0): q//4, (0, 1, 0): q//4,
                             (1, 0, 1): q//4, (1, 1, 1): q//4})
         need(counts == expected, f'B full triple depth{m}')
+        # Two initial states agree below level m+1, but yield opposite next bits.
         need((0 % (1 << m) == (1 << m) % (1 << m))
              and ((step(0) & 1) != (step(1 << m) & 1)), f'B depth witness {m}')
         fixed.append({'hidden_bit_depth': m, 'states_enumerated': q,
@@ -110,6 +111,7 @@ def model_c():
             counts[k]+=1
         need(all(counts[k] == q**3 for k in range(q)), f'C Haar holonomy n{n}')
         need(sum((counts[k] for k in range(q))) == q**4, f'C Haar normalization n{n}')
+        # Pure gradient test checks every site potential for q <= 4.
         if n<=2:
             for f in product(range(q), repeat=4):
                 u=tuple((f[b]-f[a])%q for a,b in EDGE)
