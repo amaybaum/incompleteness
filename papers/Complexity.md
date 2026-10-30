@@ -6,17 +6,17 @@
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Foundations / Astrobiology
 
----
+***
 
 ## Abstract
 
-The Observational Incompleteness (OI) framework reproduces the Standard Model's gauge structure as a forced consequence of a cubic-lattice commitment — its dimension argued by self-consistency filters, its cubic structure empirically anchored by the observed SU(3) — starting from a single definition of embedded observation [1, 2]. We trace the consequences of this derived structure from atomic physics through biological evolution. The structural chain is entirely parameter-free: d = 3 determines the orbital algebra SO(3), the periodic table, carbon's tetrahedral bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window. Three generations guarantee CP violation; the Higgs guarantees a mass hierarchy; chiral SU(2) — carried in the framework as the open taste-selectivity hypothesis H-χ' [2, §4.8] — produces a parity-violating energy difference whose sign the framework inherits from the observed weak sector rather than derives. The viable fraction of the 18-dimensional parameter space is estimated at ~16%.
+The Observational Incompleteness (OI) framework develops a conditional lattice/gauge construction [1, 2]. Within A4's assumed periodic-lattice class, E5–E7 select $d=3$ subject to the continuum conditions of [2, §3.1–§3.2]; identifying the geometric link space with the physical carrier requires H-link, with H-spin' and H-χ' entering the generation and chirality readings. This paper explores consequences for orbital structure, the periodic table, bonding geometry, scale hierarchies and chemistry, conditional on the stated spin, statistics, atomic and matter assumptions. Three generations permit a physical CKM phase, whose value is a solution-specific input; a mass hierarchy also requires the stated Yukawa and taste-breaking assumptions. Chiral SU(2), conditional on H-χ' [2, §4.8], supplies a parity-violating interaction whose molecular energy difference and preferred sign require the stated molecular and observed weak-sector inputs. The viable fraction of the chosen 18-dimensional parameter space is estimated at ~16%.
 
 The combinatorial diversity of carbon chemistry ($\sim 20^N$ peptides of length $N$) exceeds both Kauffman's autocatalytic threshold and von Neumann's self-reproducing automaton threshold by $\sim 10^{56}$. Template replication follows from three independently structural capabilities (linear polymers, complementary pairing, catalysis). The origin of life is identified as the first molecular system to satisfy C1–C4: RNA is the unique molecule that simultaneously serves as template (C2, C3) and catalyst (C1), making the RNA world a structural prediction. C1–C4 systems are exponential-growth attractors in chemical space; the transition from prebiotic chemistry to life is inevitable and irreversible. Darwinian evolution follows from imperfect template replication. The chain has a natural terminus at biological evolution; the continuation from evolution through general intelligence, AI, the BQP characterization theorem for embedded observers, and the framework's position on the P vs NP question is the subject of the companion paper *Embedded Computation in the Incompleteness of Observation Framework* [38].
 
 The same C1–C4 conditions that diagnose an accessible non-Markovian realization cosmologically — finite-horizon memory in the visible law, not generic quantum non-Markovianity — are satisfied in proteins ($\tau_S / \tau_B \sim 10^{-9}$ to $10^{-12}$), predicting non-Markovian enzyme kinetics consistent with single-molecule experiments. The non-Markovian corrections grow as $\tau_S / \tau_B$ increases, approaching engineering relevance in quantum computing ($10^{-3}$) and quantum sensing ($10^{-6}$). The framework identifies a new design space — engineered C1–C4 architectures — in which the environment is programmable quantum memory rather than noise.
 
----
+***
 
 > **Status — conjectural extension.** This paper applies the core framework to quantum computation and complexity, and is offered as a *conjecture*, not an established result: the central claim — that the framework's emergent dynamics realizes the complexity class BQP — is a theoretical conjecture rather than a proven correspondence; it would be supported by a rigorous derivation from the finite substratum to BQP and undercut if that dynamics proves efficiently classically simulable or fails to reproduce known quantum-complexity separations. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
 
@@ -24,19 +24,19 @@ The same C1–C4 conditions that diagnose an accessible non-Markovian realizatio
 
 The fine-tuning problem in physics rests on a counterfactual: if the laws of physics or the values of fundamental constants were different, the universe would not permit complex structures, and we would not exist to observe it. The anthropic principle elevates this observation into an explanatory principle — our existence selects the laws from an ensemble of possibilities.
 
-The OI framework [1, 2] challenges the premise. The companion papers prove that an embedded observer in a finite deterministic system with conditions C1–C4 (coupling, record persistence, sufficient capacity, history readback) has a visible-sector description with positive conditional memory at an accessible order, and that this description, like every finite observable law, admits an exact fixed-basis unitary representation [1], and that the dynamics selected by the framework's additional structural requirements determines the Standard Model's complete structure [2]. If the laws are derived rather than contingent, the largest source of anthropic variation — the structure of the laws themselves — is eliminated.
+The OI framework [1, 2] challenges the premise. The companion papers prove that an embedded observer in a finite deterministic system with conditions C1–C4 (coupling, record persistence, sufficient capacity, history readback) has a visible-sector description with positive conditional memory at an accessible order, and that this description, like every finite observable law, admits an exact fixed-basis unitary representation [1], and that, under the hypotheses stated there, the dynamics selected by the framework's additional structural requirements determines the Standard Model's complete structure [2]. If the laws are derived rather than contingent, the largest source of anthropic variation — the structure of the laws themselves — is eliminated.
 
 This paper traces the consequences. §2 establishes the structural chain from (S, φ) to the full preconditions for organic chemistry — orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window for dynamic chemistry. §3 estimates the viable fraction of the parameter space using existing literature. §4 traces the chirality chain from the electroweak sector to biological homochirality, its first link conditional on the framework's open hypothesis H-χ' [2, §4.8]. §5 extends the chain through autocatalytic networks, template replication, the origin of life (identified as the first molecular C1–C4 system), and Darwinian evolution — closing with a forward-pointer to the companion paper [38] that continues the chain through general intelligence, AI, and the BQP characterization for embedded observers. §6 addresses the existence question. §7 applies C1–C4 to biological systems, predicting non-Markovian enzyme kinetics with implications for drug design. §8 identifies where OI corrections reach engineering relevance — quantum computing, quantum sensing, and precision metrology — and proposes three engineering frontiers: engineered partitions (the bath as programmable memory), non-Markovian quantum computation (P-indivisible gate sequences), and quantum materials with designed C1–C4 architectures.
 
----
+***
 
 ## 2. The Structural Chain
 
 ### 2.1 From (S, φ) to orbitals
 
-The framework derives d = 3 [2, §3.2] from three independent self-consistency filters (propagating gravity, stable matter, and the boundary entropy concordance), with renormalizability of the emergent Yang-Mills coupling as a downstream consequence rather than an independent filter. In three spatial dimensions, the rotation group is SO(3), whose irreducible representations are labeled by angular momentum quantum number $l = 0, 1, 2, 3, \ldots$ with $(2l+1)$ states each. These are the atomic orbitals: s ($l = 0$, spherical, 1 orientation), p ($l = 1$, dumbbell, 3 orientations), d ($l = 2$, 5 orientations), f ($l = 3$, 7 orientations).
+Within A4's assumed periodic-lattice class, the physical filters E5–E7 select $d = 3$ subject to the continuum conditions [2, §3.1–§3.2]. Integer rank is an input of A4; renormalizability of the specified Yang–Mills coupling is a downstream consequence. In three spatial dimensions, the rotation group is SO(3), whose irreducible representations are labeled by angular momentum quantum number $l = 0, 1, 2, 3, \ldots$ with $(2l+1)$ states each. These are the atomic orbitals: s ($l = 0$, spherical, 1 orientation), p ($l = 1$, dumbbell, 3 orientations), d ($l = 2$, 5 orientations), f ($l = 3$, 7 orientations).
 
-This is the *only* orbital algebra consistent with embedded observation. In $d = 2$, angular momentum has a single component — only circular harmonics exist, with no three-dimensional bonding geometry. In $d \geq 4$, the Coulomb potential $V(r) \sim r^{2-d}$ does not support stable bound states [3, 4]: classical orbits spiral into the nucleus, and the quantum Hamiltonian is unbounded below.
+On this selected three-dimensional continuum branch, rotational symmetry supplies the SO(3) orbital algebra. In $d = 2$, angular momentum has a single component — only circular harmonics exist, with no three-dimensional bonding geometry. In $d \geq 4$, the Coulomb potential $V(r) \sim r^{2-d}$ does not support stable bound states [3, 4]: classical orbits spiral into the nucleus, and the quantum Hamiltonian is unbounded below.
 
 ### 2.2 From orbitals to the periodic table
 
@@ -44,7 +44,7 @@ The framework derives spin-1/2 fermions from the staggered structure on the d = 
 
 $$s: 2, \quad p: 6, \quad d: 10, \quad f: 14$$
 
-The periodic table's period lengths — 2, 8, 8, 18, 18, 32 — are determined by the filling order of these shells. This architecture is entirely structural: it depends on d = 3, spin-1/2, and the Pauli principle, all of which are derived.
+The periodic table's period lengths — 2, 8, 8, 18, 18, 32 — are determined by the filling order of these shells. This orbital counting is conditional on the selected $d = 3$ branch and the stated spin and statistics assumptions. The dimension selection inherits A4, E5–E7 and the continuum conditions [2, §3.1–§3.2].
 
 ### 2.3 Carbon's bonding geometry
 
@@ -60,9 +60,9 @@ The *possibility* of these hybridizations — and hence the possibility of three
 
 Four additional structural results extend the chain beyond orbital chemistry.
 
-**Matter-antimatter asymmetry.** Three generations [2, §4.7] give the CKM matrix with a physical CP-violating phase — one of the three Sakharov conditions for baryogenesis [5]. The partition breaks P [2, §4.8, Theorem 13]. Combined with CP violation, baryogenesis is structurally possible. Without three generations, the CKM matrix has no CP-violating phase and the standard electroweak baryogenesis mechanism does not operate.
+**Matter-antimatter asymmetry.** The three-generation branch inherits H-link and H-spin' [2, §4.7] and permits a physical CKM phase; its actual value is a solution-specific input [2, §5.4]. A nonzero CP-violating phase supplies one of the Sakharov conditions for baryogenesis [5]. The weak-chirality reading of partition-induced parity violation additionally assumes H-χ' [2, §4.8, Theorem 13]. Whether these ingredients produce the observed asymmetry depends on the remaining baryogenesis dynamics and parameters.
 
-**Mass hierarchy.** The Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings to a single doublet. The taste-breaking mechanism [2, §4.7] produces generation-dependent couplings generically, ensuring different generations have different masses. This guarantees the existence of light fermions (electron, u and d quarks) — not as a coincidence, but as a structural feature of the staggered lattice.
+**Mass hierarchy.** On the stated physical-carrier and matter branch, the Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings. The taste-breaking construction permits generation-dependent couplings, but the existence of the observed light fermions also requires the stated mass and coupling inputs; it is not fixed by the Higgs field alone.
 
 **Nuclear binding.** SU(3) color confinement [2, §4.6] produces bound hadrons. The existence of multi-nucleon bound states (nuclei) requires specific parameter values (§3), but the *mechanism* — color confinement binding quarks into hadrons, residual strong force binding hadrons into nuclei — is structural.
 
@@ -90,25 +90,27 @@ For chemistry to support complexity, a thermal window must exist where bond ener
 
 ### 2.8 Summary of the structural chain
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} d = 3 \xrightarrow{\text{SO(3)}} \text{orbitals} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}$$
+The dimensional premise in these chains is conditional on A4, E5–E7 and the continuum conditions [2, §3.1–§3.2]; the downstream steps retain the field-theory and atomic assumptions cited above.
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\text{SO(3)}} \text{orbitals} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{derived}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
+
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
 
-Every arrow is a theorem from [1, 2], a standard textbook result applied to the derived structure, or — for the chiral-SU(2) arrow — the named open hypothesis H-χ' [2, §4.8]. No parameter values enter. The possibility of a universe with atoms, nuclei, a periodic table, organic chemistry, matter-antimatter asymmetry, and chirally selected molecules is, up to that flagged link, a theorem about embedded observation.
+These chains combine results of [1, 2] with textbook relations on the selected three-dimensional continuum branch, conditional on A4's lattice class, E5–E7, the continuum conditions, and the stated spin, statistics and atomic assumptions. Each downstream link retains its own hypotheses; the chiral-SU(2) arrow additionally assumes H-χ' [2, §4.8]. The conclusions about atoms, nuclei, the periodic table, organic chemistry, matter-antimatter asymmetry and chirally selected molecules inherit these conditions.
 
----
+***
 
 ## 3. The Viable Parameter Space
 
@@ -116,7 +118,7 @@ Every arrow is a theorem from [1, 2], a standard textbook result applied to the 
 
 The structural chain establishes that organic chemistry is *possible*. For it to be *actual*, the 18 free parameters of the SM must fall in a viable region. How large is this region?
 
-Traditional fine-tuning studies [6, 7, 8] vary both the structure and the parameters. The OI framework fixes the structure, reducing the question to parameters alone. This sharpens the problem considerably: the gauge group, dimension, generation count, and discrete symmetries are no longer free variables.
+Traditional fine-tuning studies [6, 7, 8] vary both the structure and the parameters. Here the structure is held fixed on the selected lattice/gauge branch, reducing the question to parameters alone: the gauge group, dimension, generation count, and discrete symmetries are not varied (§3.4).
 
 ### 3.2 The most constrained parameters
 
@@ -149,9 +151,9 @@ This is a rough estimate, but the order of magnitude is robust: the viable fract
 
 ### 3.4 Comparison to fine-tuning claims
 
-Traditional fine-tuning arguments quote numbers like $10^{-120}$ (for the cosmological constant) or $10^{-50}$ (for the Higgs mass). These numbers arise from varying the *structure* — asking what happens if the gauge group is different, or if there are different numbers of generations, or if d ≠ 3. The OI framework eliminates all of these variations. What remains is a 16% viable fraction in the critical parameter subspace — not fine-tuned by any reasonable standard.
+Comparisons of fine-tuning depend on which structural choices and parameters are varied. The estimate here holds the selected three-dimensional lattice/gauge branch fixed and varies the chosen parameter subspace. It does not exclude other dimensions or gauge structures using embedded observation alone. The ~16% estimate applies only to the stated ranges and weighting assumptions.
 
----
+***
 
 ## 4. The Chirality Chain
 
@@ -187,19 +189,19 @@ If the amplification chain is robust — every step being known physics or exper
 | 4 | Statistical fluctuation + directional bias → homochirality | Demonstrated mechanisms [13, 14, 15]; sign from Step 1 |
 | 5 | Biological homochirality | Observed |
 
----
+***
 
 ## 5. Implications
 
 ### 5.1 The dissolution of fine-tuning
 
-The fine-tuning problem assumes two freedoms: the laws could have been different, and the parameters could have been different. The OI framework removes the first — the structure is derived. §3 shows the second is not as constrained as traditionally claimed: the viable parameter fraction is $\mathcal{O}(10\%)$, not $\mathcal{O}(10^{-50})$. The apparent fine-tuning was dominated by structural variation that the framework proves doesn't exist.
+The fine-tuning problem assumes two freedoms: the laws could have been different, and the parameters could have been different. On the selected branch the OI framework removes the first: the structure is fixed by the stated hypotheses rather than varied. §3 shows the second is not as constrained as traditionally claimed: the viable parameter fraction is $\mathcal{O}(10\%)$, not $\mathcal{O}(10^{-50})$. The apparent fine-tuning was dominated by structural variation that the selected branch excludes; embedded observation alone does not exclude it (§3.4).
 
-The substratum gauge group $\mathcal{G}_{\text{sub}}$ [33, §4] makes this precise. The structural chain of §2 — $d = 3$, orbitals, the periodic table, carbon's tetrahedral bonding, water, the thermal window, and (conditional on H-χ') chirality — is invariant under the generators of $\mathcal{G}_{\text{sub}}$: state relabeling, alphabet change (under the alphabet-size hypothesis; [Substratum §4, Theorem 24(ii)]), and deep-sector enlargement. These preconditions for complexity are not contingent features that happen to hold in our universe. They are gauge-invariant properties of the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ — they hold for every $(S, \varphi)$ in the class. The only quantities that could have been different are the solution-specific parameters (gauge couplings, fermion masses, mixing angles), and §3 shows these have a viable fraction of $\mathcal{O}(10\%)$.
+The substratum gauge group $\mathcal{G}_{\text{sub}}$ [33, §4] makes this precise. The structural chain of §2 — $d = 3$, orbitals, the periodic table, carbon's tetrahedral bonding, water, the thermal window, and (conditional on H-χ') chirality — is invariant under the generators of $\mathcal{G}_{\text{sub}}$: state relabeling, alphabet change (under the alphabet-size hypothesis; [Substratum §4, Theorem 24(ii)]), and deep-sector enlargement. These preconditions for complexity are not contingent features that happen to hold in our universe. They are gauge-invariant properties of the equivalence class $[(S, \varphi)]/\mathcal{G}_{\text{sub}}$ — they hold for every $(S, \varphi)$ in the class. On the selected branch, the only quantities that could have been different are the solution-specific parameters (gauge couplings, fermion masses, mixing angles), and §3 shows these have a viable fraction of $\mathcal{O}(10\%)$.
 
 ### 5.2 The dissolution of the anthropic principle
 
-The anthropic principle assumes there is an ensemble of possible universes from which observation selects. The framework removes the ensemble: the structure is the only structure consistent with embedded observation under the reconstruction theorem's stated inputs, within the nearest-neighbor class (characterization theorem [1, §3.4]; reconstruction theorem [33, §3]). The preconditions for organic chemistry — atoms, carbon bonding geometry, the scale hierarchy, water, the thermal window, chiral selection — are structural (§2). The parameters have a viable fraction of $\mathcal{O}(10\%)$ (§3). There is nothing for observation to select, because there is nothing that could have been otherwise.
+The anthropic principle assumes there is an ensemble of possible universes from which observation selects. The framework removes the structural ensemble: the structure is the only structure consistent with embedded observation under the reconstruction theorem's stated inputs, within the nearest-neighbor class (characterization theorem [1, §3.4]; reconstruction theorem [33, §3]). The preconditions for organic chemistry — atoms, carbon bonding geometry, the scale hierarchy, water, the thermal window, chiral selection — are structural (§2). The parameters have a viable fraction of $\mathcal{O}(10\%)$ (§3).
 
 A closely related concern — the Boltzmann-brain problem, where thermal fluctuations in a long-lived finite universe should overwhelmingly produce observers with random memories — is also dissolved at the framework level, by a theorem rather than by an anthropic filter. The structural observer-selection theorem [1, §4.6] shows, under its effective-mixing hypothesis, for sufficiently fast-mixing equilibria ($\tau_{\rm mix} \ll \tau_S$) and for the coarse-grained description generated by iterating the one-step effective channel, that C1–C4-satisfying observers cannot exist in the equilibrium phase of $(S, \varphi)$: the hidden-sector correlation time $\tau_B$ is bounded by the local mixing time on equilibrium microstates, so C2 fails there and — by the fast-bath erasure lemma [Main §2.3] — C4 fails with it, which is the condition the characterization requires. Boltzmann brains are by construction local fluctuations in a thermally equilibrated environment, so their $\tau_B$ is bounded by local thermal decorrelation and is at least six orders of magnitude too short for C2 when the bath's correlation time is set by the thermal scale — at most $\sim 10^{-12}$ s at temperatures warm enough to support structured matter, against $\tau_S \gtrsim 10^{-6}$ s for any currently envisioned brain-like observer [Main §4.6]; the estimate fails for protected slow modes. In that description they do not see emergent quantum mechanics; they are not observers in the framework's sense. The "past hypothesis" of low initial entropy — usually imported as a separate axiom to explain why we observe a low-entropy universe — is replaced by the same theorem, since, in that description, observers exist only in the non-equilibrium phase.
 
@@ -207,7 +209,7 @@ Substrata related by $\mathcal{G}_{\text{sub}}$ share every observable [33, §4]
 
 ### 5.3 The autocatalytic argument
 
-The structural chain derives the preconditions for life. This section argues that the transition from prebiotic chemistry to self-replication is not merely possible but statistically expected, given the derived structure.
+On the selected branch, the structural chain supplies the preconditions for life. This section argues that the transition from prebiotic chemistry to self-replication is not merely possible but statistically expected, given that structure.
 
 **Combinatorial diversity is structural.** Carbon's sp³ hybridization in d = 3 (§2.3) produces chain-forming chemistry with four bonding directions. The number of distinct molecules constructible from C, H, O, N grows exponentially with chain length: $\sim 20^N$ for amino acid sequences, $\sim 4^N$ for nucleotide sequences. For chains of length 50: $\sim 10^{65}$ possible peptides, $\sim 10^{30}$ possible RNA sequences. This combinatorial explosion is structural — it follows from the orbital algebra in d = 3 with four valence electrons. No other element in the derived periodic table produces comparable diversity: silicon has similar valence but weaker bonds ($\sim 2.3$ eV for Si-Si vs. $\sim 3.6$ eV for C-C), insufficient for stable long chains at thermal window temperatures.
 
@@ -265,7 +267,7 @@ Template replication requires three capabilities, each independently structural:
 | Selection | Inevitable (competition for finite resources) |
 | Darwinian evolution | Consequence of replication + variation + selection |
 
-Each row follows from the preceding rows. No row requires contingent facts about our universe beyond the derived structure and the ~16% viable parameter fraction.
+Each row follows from the preceding rows. No row requires contingent facts about our universe beyond the selected structure and the ~16% viable parameter fraction.
 
 **Caveats.** The argument establishes that Darwinian evolution is *structurally expected* in any system with carbon chemistry, a thermal window, and a chiral aqueous environment. It does not determine: the specific molecular system that first replicates (RNA, PNA, or something else), the timescale for the transition (millions or billions of years), or the specific pathway from simple replicators to cellular organization. These depend on the specific φ, local geochemistry, and contingent history.
 
@@ -289,7 +291,7 @@ The OI framework's characterization theorem is scale-independent: whenever a fas
 
 The structural chain established through §5.6 reaches biological evolution as a natural terminus. The next link — from evolved biological observers to information-processing systems, neural computation, semiconductor-based universal computation, and the embedded-computation theory that follows — is the subject of the companion paper *Embedded Computation in the Incompleteness of Observation Framework* [38]. There, the chain is continued through general intelligence, AI as embedded-observer construction, the Gödel-Turing-OI incompleteness family applied recursively, the BQP characterization theorem for embedded observers, and the framework's position on the P vs NP question. The dividing line between this paper and the companion reflects the qualitative shift from *material-structural* consequence-tracing (chemistry-biology) to *informational-structural* consequence-tracing (computation-complexity).
 
----
+***
 
 ## 6. The Existence Question
 
@@ -318,8 +320,8 @@ At the level Theorem 23 actually controls, the structural inputs, within the nea
 The complete chain:
 
 $$(S, \varphi) \text{ exists (mathematical structure)}$$
-$$\xrightarrow{\text{theorem}} \text{contains embedded observers seeing QM, GR, SM}$$
-$$\xrightarrow{\text{structural}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal window, chirality (H-}\chi\text{)}$$
+$$\xrightarrow{\text{conditional}} \text{contains embedded observers seeing QM, GR, SM}$$
+$$\xrightarrow{\text{conditional}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal window, chirality (H-}\chi\text{)}$$
 $$\xrightarrow{\text{statistical}} \text{autocatalytic networks (}N \times p \sim 10^{56}\text{)}$$
 $$\xrightarrow{\text{von Neumann}} \text{self-reproducing configurations}$$
 $$\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{inevitable}} \text{Darwinian evolution}$$
@@ -327,7 +329,7 @@ $$\xrightarrow{\text{generic}} \text{information processing} \xrightarrow{\text{
 $$\xrightarrow{\text{structural}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
 $$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$$
 
-One step is contingent (general intelligence). Everything else is structural, statistical, or inevitable. The chain is closed: (S, φ) is a mathematical structure that contains observers who discover (S, φ).
+The chain combines conditional physical results, statistical models and contingent biological or computational steps. Its chemical starting point inherits the selected lattice/continuum branch and the stated matter assumptions; later conclusions retain their own premises. General intelligence is one of the contingent steps.
 
 ### 6.5 What cannot be answered
 
@@ -335,9 +337,9 @@ One question is outside the framework's scope — not contingently but necessari
 
 **Why is there mathematical structure at all?** The framework takes mathematical existence as given. It does not explain why logical consistency is a property that structures can have, or why "exists" and "is logically consistent" are related. This is not a gap in the framework — it is the boundary of all possible frameworks. Any explanation of mathematical existence would itself be a mathematical structure, requiring explanation in turn. The regress has no bottom.
 
-The framework's contribution is not to answer this question but to make it the *only* question. Everything else — the laws, the constants, the dark sector, the periodic table, life, intelligence, the fine-tuning problem, the anthropic principle — is derived, dissolved, or identified as generic. The mystery of existence is real. But it is the *only* mystery. And the framework proves it is the *same* mystery for every possible observer in every possible structure.
+The existence question is distinct from the conditional physical and biological programme developed here. The named lattice, continuum, matter and operational bridge assumptions remain open hypotheses within that programme, and the biological extensions retain their own model assumptions.
 
----
+***
 
 ## 7. Quantum Biology: C1–C4 Inside Living Systems
 
@@ -395,7 +397,7 @@ The application of C1–C4 to protein systems rests on the model-independent con
 
 The summary: the framework expects enzyme kinetics to be non-Markovian wherever the scaffold writes and reads back catalytic history. The prediction is consistent with existing evidence and makes specific testable claims. Whether the non-Markovian corrections are large enough to matter for practical drug design is an empirical question — the corrections are $\mathcal{O}(\tau_S / \tau_B) \sim 10^{-9}$ to $10^{-12}$ for individual catalytic events, but may accumulate over many cycles or in systems with exceptionally slow conformational dynamics.
 
----
+***
 
 ## 8. The GPS Analogy: Where OI Corrections Reach Engineering Relevance
 
@@ -530,13 +532,13 @@ For the four enzymes and the qubit — all with "typical" C3 capacity (conformat
 
 The myoglobin outlier ($H = 0.95$) has an anomalously deep conformational hierarchy — Frauenfelder's "protein energy landscape" involves $\sim 10^6$–$10^9$ conformational substates organized in a fractal-like tier structure, far exceeding typical enzyme C3 capacity. This suggests $H$ increases with C3: typical capacity gives $H \approx 0.8$; deep capacity gives $H \to 1$. The genuinely distinctive content of this section is not the single-system value (degenerate, above) but this *cross-substrate* law $H(C3)$ — the claim that one memory-strength relation holds across an enzyme, a qubit, and an ion channel, which per-system classical models do not unify. As stated, however, it is derived only "in principle" from the characterization theorem's dependence on hidden-sector dimension, and it is fit in-sample (the single deep point, myoglobin, motivates it). The operative test is therefore out-of-sample: measure $H$ on systems of independently known hidden-sector dimension and check the predicted $H(C3)$.
 
----
+***
 
 ## Acknowledgements
 
 During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, refining argumentation, and surveying the relevant literature in nuclear physics, prebiotic chemistry, origin-of-life research, quantum biology, and quantum computing. The author reviewed and edited all content and takes full responsibility for the publication.
 
----
+***
 
 ## References
 
