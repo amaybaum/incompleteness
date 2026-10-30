@@ -51,6 +51,19 @@ def fixed_hidden_toggle_counts(q, n):
     return counts
 
 
+
+def rooted_matrix(counts, time):
+    out = []
+    for a in (0, 1):
+        denom = sum(n for word, n in counts.items() if word[0] == a)
+        assert denom
+        out.append(tuple(Fraction(
+            sum(n for word, n in counts.items()
+                if word[0] == a and word[time] == b), denom
+        ) for b in (0, 1)))
+    return tuple(out)
+
+
 def check():
     for horizon in range(1, 10):
         q = horizon + 1
@@ -66,6 +79,12 @@ def check():
         assert sum(shifted.values()) == 2 ** (q + 1)
         assert len(decoupled) == 2
         assert set(decoupled.values()) == {2 ** q}
+        ident = ((Fraction(1), Fraction(0)), (Fraction(0), Fraction(1)))
+        mixed = ((Fraction(1, 2), Fraction(1, 2)),
+                 (Fraction(1, 2), Fraction(1, 2)))
+        for t in range(1, horizon + 1):
+            assert rooted_matrix(shifted, t) == mixed
+            assert rooted_matrix(decoupled, t) == ident
         assert 2 ** (horizon + 1) * Fraction(1, 2 ** (horizon + 1)) == 1
         print(f"PASS SHIFT-XOR horizon={horizon}, q={q}: "
               f"{2**(horizon+1)} equiprobable records, "
@@ -76,6 +95,11 @@ def check():
     assert toggle[(0, 0, 0, 0)] == toggle[(0, 1, 0, 1)] == N // 4
     assert toggle[(1, 1, 1, 1)] == toggle[(1, 0, 1, 0)] == N // 4
     assert len(toggle) == 4
+    mixed = ((Fraction(1, 2), Fraction(1, 2)),
+             (Fraction(1, 2), Fraction(1, 2)))
+    ident = ((Fraction(1), Fraction(0)), (Fraction(0), Fraction(1)))
+    assert rooted_matrix(toggle, 1) == mixed
+    assert rooted_matrix(toggle, 2) == ident
     print("PASS TOGGLE: rooted Gamma_1=[[1/2,1/2],[1/2,1/2]], "
           "Gamma_2=I; nonpermutation+identity return => P-indivisible")
     print("PASS TOTAL: 9 shift-XOR exact finite-prefix cases + 1 toggle case")
