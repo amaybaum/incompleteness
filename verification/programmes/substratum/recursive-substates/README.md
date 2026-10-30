@@ -90,3 +90,58 @@ nor derive quantum instruments, a continuous nonabelian gauge
 group, Wilson/Yang–Mills dynamics, a physical boundary entropy law,
 or a log-periodic prediction. Independent mathematical and
 scientific review are required.
+
+
+## FIXED-SCALE-1: one continuous reversible rule across all depths
+
+After the predeclared A/B/C controls, the active **single-law**
+candidate is specified in
+[FIXED-SCALE-1 preregistration](fixed-scale-skew/PREREGISTRATION.md).
+[Proof and finite result](fixed-scale-skew/REPORT.md) and
+[exact source](fixed-scale-skew/fixed_scale_probe.py) are separate.
+
+The entire infinite hidden state is \((a,r,c)\), with a current
+visible bit \(a\), one persistent hidden bit \(r\), and a
+bi-infinite fair bit hierarchy \(c_i\). One fixed update
+\[
+T(a,r,c)=(a\oplus r\oplus c_0,\ r,\ Sc)
+\]
+works at **every** depth, rather than choosing one coupling
+index m for each target. The observer sees \((a,c_0)\).
+
+**Mathematical prediction:** For each positive time, the
+four-by-four rooted two-time matrix has every entry \(1/4\)
+(and is P-divisible), yet the full three-time visible law
+has **one bit** of conditional predictive memory. The
+three-record identity
+\(a_{t-1}\oplus a_{t+1}=c_{t-1}\oplus c_t\) holds with
+probability one. The infinite shift has no exact shared
+positive-time visible return. The finite cyclic
+approximations instead return after no more than \(2n\)
+updates, a **boundary effect that disappears in the
+infinite model**.
+
+Exact finite controls exhaust all states for tape lengths
+\(n=3,\ldots,9\) (up to **2,048** full states), including
+inverse, complete three-time words, rooted matrices before
+wraparound, hidden-bit ablation, growing-depth witnesses
+and finite-size return. This experiment was run locally
+both normally and with optimized Python on byte-identical
+source, with result matching the committed
+[RESULTS.json](fixed-scale-skew/RESULTS.json). The
+[fixed-law replay](fixed-scale-skew/replay.py) pins both
+source and results by SHA-256 and rejects missing checks
+or output mismatches. This is **written infinite proof
+plus finite executable controls**, not Lean certification
+of the infinite probability law.
+
+**Status:** one parameter-free (after specifying the
+model) **classical** construction with hidden memory and
+indefinitely deeper state access. It does not source an
+OI-native gate, a nonclassical operational repertoire, a
+physical fractal dimension, Yang–Mills link dynamics, a
+Wilson action, or finite boundary entropy. Its fair
+Bernoulli hierarchy is an explicit physical *candidate
+prior*, not one OI has selected. The next gate is native
+sourcing and an independent falsifiable quantum/YM
+observable. No manuscript or main-branch upgrade is allowed.
