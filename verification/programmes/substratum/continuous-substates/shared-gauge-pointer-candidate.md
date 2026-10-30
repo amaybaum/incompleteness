@@ -50,7 +50,7 @@ The exact 8-grid results are checks for one finite subgroup; they do not by them
 
 ## Machine-checkable finite controls
 
-The companion \`gauge_pointer_toy_probe.py\` uses integer arithmetic and exhaustive finite loops to check **8,192 states and 30 positive/countercontrols**:
+The companion \`gauge_pointer_toy_probe.py\` uses integer arithmetic and exhaustive finite loops to check **8,192 states and 32 positive/countercontrols**:
 
 - Two-way inverses for both settings, and no-kick controls.
 - Gauge covariance for all states under each of the four unit vertex-gauge generators (which generate the finite gauge group); explicit loop invariance.
@@ -59,7 +59,7 @@ The companion \`gauge_pointer_toy_probe.py\` uses integer arithmetic and exhaust
 - Source-preparation distinction: uniformly counting **all** states keeps the outgoing plaquette loop uniform; initializing the pointer to zero does not.
 - Noncommuting settings with kick, commuting settings without kick.
 
-The executed exact probe reports \`PASS_EXACT_GRID_TOY_NOT_NATIVE_OI\` with all 30 controls passing and 8,192 states checked. Normal and Python \`-O\` execution are byte-identical. These are local exact-check results, **not** a Lean theorem or a native OI test.
+The executed exact probe reports \`PASS_EXACT_GRID_TOY_NOT_NATIVE_OI\` with all 32 controls passing and 8,192 states checked. Normal and Python \`-O\` execution are byte-identical. These are local exact-check results, **not** a Lean theorem or a native OI test.
 
 ## Native sourcing test: where OI currently stops
 

@@ -62,7 +62,8 @@ def main():
         "loss_right_1_over_2": sum(right) == Q(1, 2),
         "both_coherent_reference": both == (Q(1), Q(0)),
         "classical_fixed_path_additive_countercontrol": additive == uniform,
-        "classical_wave_positive_control": both == (Q(1), Q(0)),
+        # Same supplied amplitude benchmark, not a second independent wave model.
+        "classical_wave_reference_matches_coherent_intensity": both == (Q(1), Q(0)),
         "contrast_not_proof_of_unique_quantumness": contrast == (Q(1, 2), Q(-1, 2)),
         "which_path_full_joint": all(p == Q(1, 4) for p in path.values()),
         "unread_marker_screen_uniform": marginal(path) == uniform,

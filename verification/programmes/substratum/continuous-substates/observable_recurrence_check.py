@@ -6,8 +6,17 @@ in observable-recurrence.md. It reuses the integer wave matrix from the pinned
 free-map probe, and prints PASS only if every positive and countercontrol passes.
 """
 import json
+import sys
+from pathlib import Path
 
+# Python -I omits the script directory from sys.path; import this pinned sibling explicitly.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from wave_torus_probe import mat_mul, mat_pow, row_mul, unit, wave_matrix
+
+
+def require(condition, reason):
+    if not condition:  # Unlike bare assert, survives Python -O.
+        raise AssertionError(reason)
 
 
 def checked():
@@ -23,18 +32,18 @@ def checked():
         d2 = [a - b for a, b in zip(site, unit(n, 2))]
 
         # Structural controls and an observable that fails to annihilate M.
-        assert any(any(row) for row in M), ("zero M", L)
-        assert not any(any(row) for row in mat_mul(M, M)), ("M^2", L)
-        assert any(row_mul(site, M)), ("site countercontrol", L)
+        require(any(any(row) for row in M), ("zero M", L))
+        require(not any(any(row) for row in mat_mul(M, M)), ("M^2", L))
+        require(any(row_mul(site, M)), ("site countercontrol", L))
 
         # Proposed recurrent observables annihilate both parabolic modes.
-        assert not any(row_mul(d2, M)), ("distance-two return", L)
-        assert row_mul(d2, F)[L:] == [-x for x in d2[:L]], ("time-one", L)
+        require(not any(row_mul(d2, M)), ("distance-two return", L))
+        require(row_mul(d2, F)[L:] == [-x for x in d2[:L]], ("time-one", L))
         if L % 2:
-            assert not any(row_mul(d1, M)), ("odd nearest return", L)
+            require(not any(row_mul(d1, M)), ("odd nearest return", L))
             counts["odd_difference_controls"] += 1
         else:
-            assert any(row_mul(d1, M)), ("even nearest countercontrol", L)
+            require(any(row_mul(d1, M)), ("even nearest countercontrol", L))
             counts["even_difference_countercontrols"] += 1
         counts["ring_sizes"] += 1
 

@@ -72,17 +72,24 @@ def main():
         for v in range(4)
     )  # local gauge phases cancel on the closed oriented loop
 
+    # Test action evaluations derived from independent cos(theta) inputs, not
+    # a list of expected pairs compared with itself.
+    action_pair = lambda c: (F(1) - c, (F(1) - c)**2)
+    samples = tuple(action_pair(c) for c in (F(1, 2), -F(1)))
     checks = {
         "gauge_loop_vertex_balance": balanced,
         "Haar_loop_cos_mean_zero": haar(cos_loop) == 0,
         "Haar_cos_square_half": haar(cos2) == F(1, 2),
         "Haar_cos_fourth_three_eighths": haar(mul(cos2, cos2)) == F(3, 8),
         "distinct_invariant_actions_on_two_holonomies":
-            [(F(1, 2), F(1, 4)), (F(2), F(4))] ==
-            [(F(1, 2), F(1, 2)**2), (F(2), F(2)**2)],
+            samples == ((F(1, 2), F(1, 4)), (F(2), F(4)))
+            and samples[0][0]*samples[1][1] != samples[1][0]*samples[0][1],
+        # Whole-interval argument (not endpoint sampling): 0<=w<=2
+        # gives 0<=w/8<=1/4, 0<=w**2/8<=1/2, so both acceptance
+        # polynomials have the stated strict positive lower bounds.
         "acceptance_in_unit_interval":
-            F(0) <= F(13, 14) * (1 - F(2, 8)) <= F(13, 14) <= 1
-            and F(0) <= 1 - F(4, 8) <= 1,
+            F(0) < F(13, 14)*F(3, 4) <= F(13, 14) <= 1
+            and F(0) < F(1, 2) <= 1,
         "equal_full_run_success_probabilities":
             haar(accept_w) == haar(accept_w2) == F(13, 16),
         "equal_full_run_rejection_probabilities":
@@ -96,7 +103,9 @@ def main():
         "selected_second_moments":
             accepted_expectation(cos2, accept_w) == F(1, 2)
             and accepted_expectation(cos2, accept_w2) == F(25, 52),
-        "full_attempted_record_restores_Haar":
+        "partition_identity_restores_Haar_not_independent_action_test":
+            add(accept_w, reject_w) == ONE and add(accept_w2, reject_w2) == ONE
+            and
             haar(mul(cos_loop, accept_w)) + haar(mul(cos_loop, reject_w)) == 0
             and haar(mul(cos_loop, accept_w2)) + haar(mul(cos_loop, reject_w2)) == 0
             and haar(mul(cos2, accept_w)) + haar(mul(cos2, reject_w)) == F(1, 2)

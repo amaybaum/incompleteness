@@ -282,7 +282,8 @@ result from a usable mathematical consistency control:
   one physical pointer bit, genuine link back-action, and
   complete raw input/loop/pointer records. The
   [exact Z/8 control](gauge_pointer_toy_probe.py) tested 8192
-  states and 30 controls, with normal/optimized replay agreeing.
+  states and 32 controls, including the explicitly enumerated outgoing
+  plaquette distributions; normal/optimized replay still needs fresh confirmation.
   Removing the kick makes its two classical control settings
   commute. With the kick they do not commute, **as classical
   permutations**; this is not quantum operational noncommutation,
