@@ -1600,6 +1600,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Research-only: finite_horizon_depth_bound combines individually finite-stage-dependent visible functions into one finite-depth bound for a finite horizon; all_time_depth_bound_of_exact_period uses an EXPLICIT common exact period assumption to extend that bound to all times; feedbackStep_involution proves a static hidden-predicate controlled Boolean flip returns in two steps on any hidden type. Does NOT prove that continuous maps from compact inverse limits factor through a finite stage, that OI has fractal sub-states, a.e. recurrence, physically sourced quantum instruments, gauge links, area law or Yang-Mills action. Issue #1010 draft PR #1011, kernel status subject to exact-head Lean build/axiom evidence."
+    },
+    {
+      "name": "SUBSTATE-2 native cubic wave congruence no-backflow (research)",
+      "modules": [
+        "NativePadicReduction"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only: neighborSum_map, project_waveStep and project_waveUnstep certify that arbitrary additive alphabet homomorphisms commute with the identical finite neighbor stencil and two-slice integer-coefficient wave step/inverse. Covers compatible mod-2^m reductions algebraically, but does not create the ZMod instance in this file or derive actual p-adic physical OI, a nonlinear readout, native quantum control or YM action. Preregistered NATIVE-PADIC-1 source test under #1010/#1011; exact-head Lean build/axiom result pending."
     }
   ]
 }
