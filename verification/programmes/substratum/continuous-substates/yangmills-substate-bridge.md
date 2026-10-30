@@ -42,9 +42,18 @@ They both lie in \([0,1]\) for every holonomy and **both** accept exactly \(13/1
 | Mean cos(θ) | 0 | 1/14 | 2/13 |
 | Mean cos²(θ) | 1/2 | 1/2 | 25/52 |
 
+The two **rejected** populations are not interchangeable, either:
+conditional means of cos(θ) are −13/42 and −2/3, respectively,
+and conditional means of cos²(θ) are 1/2 and 7/12. Both
+rejection rates are 3/16. Combining the accepted and rejected
+moments with their actual probabilities recovers the **same** original
+Haar values in both contexts. Thus the *whole attempted record*
+correctly detects the conditioning effect even when an accepted-only
+comparison and herald-rate match would not.
+
 **Proof:** Fourier monomials in four independent Haar phases integrate to zero unless every exponent vanishes. Thus \(E[c]=E[c^3]=0\), \(E[c^2]=1/2\), \(E[c^4]=3/8\). Substituting these into the two acceptance polynomials yields the table. Gauge phases cancel around the closed loop, so both rules are gauge-invariant.
 
-The deterministic script **yangmills_context_probe.py** checks the exact rational Laurent-polynomial arithmetic, gauge-loop vertex balance, positivity range, equal acceptance rates and differing selected moments. Its symbolic controls are not a continuum dynamical simulation, a nonabelian SU(3) test, a Wilson Gibbs measure, or a physical OI prediction.
+The deterministic script **yangmills_context_probe.py** checks the exact rational Laurent-polynomial arithmetic, gauge-loop vertex balance, positivity range, equal acceptance and rejection rates, selected and rejected moments, and recovery of the original Haar moments from the full attempted record. Its symbolic controls are not a continuum dynamical simulation, a nonabelian SU(3) test, a Wilson Gibbs measure, or a physical OI prediction.
 
 **Negative result:** Even matching herald rates cannot distinguish a genuine gauge action from observation-based reweighting of an unchanged Haar ensemble. Full *attempted and rejected* records, a physically sourced observation mechanism and an unconditioned gauge-invariant observable map are essential. This is an independent U(1) ambient countercontrol alongside #1003's SU(2) action non-uniqueness; it is not a no-go against a properly sourced OI construction.
 
