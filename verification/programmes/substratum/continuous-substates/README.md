@@ -212,3 +212,31 @@ full joint setting/marker records must remain comparable. A Markov
 passive readout and a memory-bearing controlled readout may coexist, but
 that is an open hypothesis, not a theorem.
 
+
+## Yang–Mills/QCD bridge: action selection versus observational selection
+
+[Yang–Mills sub-state bridge](yangmills-substate-bridge.md) relates this
+research programme to draft [#1003](https://github.com/amaybaum/incompleteness/pull/1003).
+A continuous internal carrier could support gauge **link** variables,
+but the link identification, local gauge covariance, invariant measure,
+and Wilson/Yang–Mills *action selection* are separate physical obligations.
+A gauge redundancy is not an observer-controlled quantum measurement.
+
+The self-contained [exact U(1) probe](yangmills_context_probe.py)
+uses four independent Haar-distributed links on one closed plaquette.
+Two nonnegative gauge-invariant heralding contexts have the **same**
+overall acceptance rate 13/16, but different conditional loop means:
+1/14 versus 2/13. The unconditional mean is zero in both cases.
+This proves, **for that ambient countercontrol only**, that a difference
+in selected Wilson-loop statistics is not enough to infer different
+native gauge dynamics or an action. Full attempted/rejected records and
+a physically sourced intervention are required. The probe does NOT
+implement Yang–Mills, SU(3), an OI native link dynamics or a quantum
+gate; it does not select #1003's Wilson action or its squared alternative.
+
+The native observation-context sourcing gate remains **BLOCKED** for
+the current retained interface: no paired same-preparation selectable
+which-path/complementary interventions have been established. This is
+not an OI-wide no-go. The next candidate must be derived from one
+microscopic update and observer contract rather than post-hoc decoder
+freedom. No manuscript or physics-status upgrade follows.
