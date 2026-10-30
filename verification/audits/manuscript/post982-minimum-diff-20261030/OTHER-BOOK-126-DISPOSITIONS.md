@@ -1,5 +1,7 @@
 # Other book chapters: exact 126-hunk source-scope assessment
 
+
+**Writer follow-up for the initial undecided rows (2026-10-30).** This file preserves its original provisional review and its source citations. The later exact-old/new assessment in [WRITER-22-RESOLUTION.md](./WRITER-22-RESOLUTION.md) **supersedes only the undecided labels** at the corresponding line anchors; the authoritative 370-row status is [TRIAGE-370.md](./TRIAGE-370.md). The updated writer decisions are 19 REQUIRED corrections, one #946 source-scope watch, and two #1008 mixed/excess candidates across the full corpus. This is **writer-side**, not an independent minimum-diff acceptance. No scientific statement or output artifact is changed here.
 **Author-side, bounded review; NOT independent minimum-change acceptance.** Pinned old source is `986dab5aabbbd419467109e0b9604c8f19901688` (post-#994) and current source `f6989a27815c4d715223eebf2859422c1231e3f8` (post-#997). This file covers every net change outside the already reviewed book Chapter 3. The maintained `FULL.md` is a duplication/mirror, not a second scientific claim. `REQUIRED (provisional)` denotes the scientific *need to qualify the old text* based on the reviewed correction workstreams; it does not attest that every new phrase is the smallest possible replacement. `UNDECIDED` means the corrected claim must be retained while a possible lexical, narrative or bibliography excess is assessed independently.
 
 | Book source line | Classification | Finding / minimum-scope rationale | Original source workstream |
