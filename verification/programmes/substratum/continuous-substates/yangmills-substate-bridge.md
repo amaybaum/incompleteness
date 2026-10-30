@@ -49,7 +49,10 @@ This is a no-go **only for that full-link, uncorrelated-Haar,
 stationary-readout setup**; it neither excludes correlated
 stationary measures nor non-invertible/many-to-one observer
 maps, constrained physical state spaces, conditional laws or
-dynamically nontrivial time-correlations. Those must be
+dynamically nontrivial time-correlations. In particular it does not
+address conjugate electric variables on an energy-shell measure, or
+SM §6.5's hypothesized many-to-one exponential-link pushforward
+from a scalar energy-shell prior. Those must be
 explicitly sourced, not assumed. This obstruction reinforces
 the need to derive the physical gauge measure rather than
 replace a finite alphabet and declare victory.
@@ -87,7 +90,7 @@ comparison and herald-rate match would not.
 
 The deterministic script **yangmills_context_probe.py** checks the exact rational Laurent-polynomial arithmetic, gauge-loop vertex balance, positivity range, equal acceptance and rejection rates, selected and rejected moments, and recovery of the original Haar moments from the full attempted record. Its symbolic controls are not a continuum dynamical simulation, a nonabelian SU(3) test, a Wilson Gibbs measure, or a physical OI prediction.
 
-**Negative result:** Even matching herald rates cannot distinguish a genuine gauge action from observation-based reweighting of an unchanged Haar ensemble. Full *attempted and rejected* records, a physically sourced observation mechanism and an unconditioned gauge-invariant observable map are essential. This is an independent U(1) ambient countercontrol alongside #1003's SU(2) action non-uniqueness; it is not a no-go against a properly sourced OI construction.
+**Negative result (tested scope):** Matching herald rates does not distinguish these *two observation-only reweightings* of the same Haar ensemble: selected loop means differ, but unconditioned means agree. No genuine gauge action was implemented or compared by this probe. Full *attempted and rejected* records, a physically sourced observation mechanism and an unconditioned gauge-invariant observable map are essential. This is an independent U(1) ambient countercontrol alongside #1003's SU(2) action non-uniqueness; it is not a no-go against a properly sourced OI construction.
 
 ## Concrete link to the active quantum-reconstruction programme
 

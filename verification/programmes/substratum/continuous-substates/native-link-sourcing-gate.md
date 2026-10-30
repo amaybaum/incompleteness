@@ -1,6 +1,6 @@
 # SUBSTATE-1: smallest shared native gauge/observation sourcing gate
 
-**Status:** research-only, independent of the conditional SM H-link premises.
+**Status:** research-only; compare the conditional non-Abelian exponential-link candidate in SM §6.5 and its still-unproved physical/measure premises.
 Tracking #1007, draft PR #1009 and #1003. This note distinguishes (i) a
 rigorous rejection of one simple link extraction from the *actual* cubic
 wave rule; (ii) a successful **invented** gauge-pointer extension toy;
@@ -21,6 +21,14 @@ This is a **genuine two-slice reversible microscopic update** (for the
 stated model), but it has neither a sourced link variable nor a pointer
 readout in the formula. SM §4.1 distinguishes it from the normalized
 \(\alpha=1/3\) observer-level wave operator.
+
+**Existing conditional link candidate, not a verified native gauge interaction.**
+SM §6.5 proposes \(M_{xy}=\exp[(2\pi i/q)\,\mathrm{Lie}(\phi_y-\phi_x)]\)
+under separately stated scalar energy-shell and gauge-principle hypotheses.
+The abelian restriction is a flat coboundary; non-Abelian commutators
+can give second-order curvature. Neither local covariance under the
+actual wave update nor the physical link measure and nontrivial
+holonomy has been independently verified for this candidate.
 
 ## Decisive native countercontrol: scalar site differences are pure gauge
 
@@ -43,8 +51,8 @@ functional vanishes identically, so this candidate cannot yield a
 nontrivial gauge-field distribution, Wilson-loop correlation or Yang–Mills
 action, whatever the recurrence of the underlying scalar wave.
 
-The implied local site-shift transformations also do **not**
-generally commute with the native evolution. If a shift \(g\) is
+The implied local site-shift transformations do **not all**
+commute with the native evolution. If a shift \(g\) is
 applied to both current and previous slices, the difference between
 "evolve shifted" and "shift evolved" in the new current slice
 is \(Ag-2g\), where \(Ag(x)=\sum_{y\sim x}g(y)\).
@@ -54,6 +62,9 @@ At that site \(Ag=0\), so the shifted state's native next
 field is \(-1=4\bmod5\), whereas the claimed transformed
 unshifted next field is \(1\bmod5\). This supplies an
 exact covariance counterexample for this *naive shift action*.
+The commuting shifts satisfy \((A-2I)g=0\), a proper subgroup
+at \(L=3,q=5\); the nonconstant tensor-product example
+\(g_{xyz}=h_xh_yh_z\), \(h=(2,4,4)\), does commute.
 A physical gauge transformation acting differently on link-carrier
 variables is not excluded.
 
@@ -62,8 +73,10 @@ inverse map and six scoped exact controls on four fixed fields
 (including nonconstant fields and 3-D evolution), all positive.
 The *universal flatness* statement is the algebraic telescope
 above, not an extrapolation from those finite samples.
-This calculation does **not** inspect or refute the conditional
-H-link/H-cust carrier construction of SM.
+This calculation excludes only the abelian scalar gradient source;
+it does **not** refute the conditional non-Abelian exponential map
+or H-link/H-cust carrier of SM §6.5, whose covariance and dynamics
+remain independently unverified.
 
 ## Fully specified but non-native link/pointer model
 
@@ -118,8 +131,9 @@ rules are unsourced physical resources relative to current OI.
 is REJECTED by an exact all-state flatness proof and an
 explicit local-shift covariance counterexample. The added
 link-pointer toy is ACCEPTED only as a mathematical
-consistency control. An actual **shared native** OI
-link/pointer interaction is **BLOCKED — missing sourced
-physical link and permitted observer interface**.
+consistency control. A **shared physically established native** OI link/pointer interaction
+remains **BLOCKED**: SM §6.5 gives a *conditional* non-Abelian link
+candidate, not a verified covariant dynamical source with nontrivial
+holonomy, action selection and a permitted public measurement interface.
 A bounded negative result is useful; no manuscript
 or full-equivalence promotion is authorized.

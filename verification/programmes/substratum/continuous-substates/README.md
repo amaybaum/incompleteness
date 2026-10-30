@@ -180,18 +180,18 @@ gauge-coupled 3-D wave map and does not rule out other partitions.
 The existing Lean module `OIBridge.RecurrenceHorizon` already proves the
 **carrier-independent** rooted identity-return/overlap obstruction;
 `OIBridge.EquivalenceChain` already proves stochastic-inverse rigidity.
-A research Lean module `OIBridge.ObservableFactorRecurrence` kernel-compiled
-at the preceding PR head, with permitted axioms. A second module,
-`OIBridge.ObservableMeasureReturn`, constructs the **actual** rooted
-conditional transition entries as ratios of measured joint-cell masses,
-under positive finite visible-cell measures, and states the equivalence
-of `Γ_L=I` and almost-everywhere visible return. This second proof **compiled in Mathlib at commit `c2cdbd4e`**,
-and that head's Mathlib release gate passed (CI run `41051921067`).
-The overall workflow on that head nevertheless failed an unrelated
-KTOKEN-MAXCONE-1 native-control mutation self-test; this is **not a
-whole-CI-green conclusion**, and no exact-head all-checks verdict
-is claimed for this current research head.
-Neither module proves the all-L Fourier claim, a gauge-coupled law or QM.
+At independently reviewed head `a02e197d`, both research modules
+`OIBridge.ObservableFactorRecurrence` and `OIBridge.ObservableMeasureReturn`
+compiled in Lean/Mathlib; the whole automatic CI run `41094894776`
+passed (25 jobs passed, 1 skipped). They establish the carrier-independent
+change-event identity, stochastic inverse obstruction, and a conditional
+**ENNReal-valued** measured ratio identity `measuredGamma = I ↔
+μ(visible-change event) = 0` for positive finite initial-cell masses.
+**Still missing in Lean:** measurability assumptions for the observation
+and update, an ℝ-valued row-stochastic rooted physical transition law,
+and a composition of the measured criterion with the P-indivisibility
+obstruction. The all-L free-wave Fourier argument remains a paper proof,
+not a Lean theorem; no gauge-coupled law or full QM is derived.
 
 [Equivalence and 3-D scope audit](equivalence-and-d3-scope.md) explains why
 removing fixed finite-carrier restrictions does **not** by itself discharge
@@ -261,15 +261,16 @@ The [native sourcing analysis](native-link-sourcing-gate.md) compares the
 `OIBridge.GradientLinkFlatness` attempts to certify the square-gradient
 telescope and generic two-slice inverse, with its source imported into
 the Mathlib bridge and categorized **kernel-only** in the maintained
-Lean manuscript census. Its exact-head CI/axiom report is **pending**. It separates a rigorous negative
+Lean manuscript census. Its Lean build and release-gate checks passed on automatic exact-head run `41094894776`; the independent review still requires revisions. It separates a rigorous negative
 result from a usable mathematical consistency control:
 
 - **Native pure-gradient negative:** assigning links by site
   differences `U_xy=exp[2πi(f_y−f_x)/q]` makes every closed
   plaquette holonomy exactly 1 by telescoping, for **every**
-  microstate and every time. Local site-dependent shifts also fail to
-  commute with the existing cubic wave update; the exact q=5,
-  L=3 witness gives origin values 4 versus 1. The
+  microstate and every time. Not every local site-dependent shift commutes
+  with the cubic wave update: a delta-site shift fails (q=5, L=3,
+  origin values 4 versus 1), while commuting shifts satisfy
+  `ker(A−2I)`, including `g=h⊗h⊗h`, `h=(2,4,4)`. The
   [native-wave exact check](native_wave_gradient_check.py) provides
   positive inverse controls, nonconstant open links, evolved
   plaquette checks and the shift witness. This rejects only the
@@ -288,8 +289,9 @@ result from a usable mathematical consistency control:
   interference, or a YM action. The toy adds its own links and
   apparatus as **new premises** and must not be called native OI.
 
-**Physical sourcing remains BLOCKED** on a nontrivial covariant
-native link carrier and a public reusable measurement interface.
+**Unified physical sourcing remains BLOCKED** on verifying SM §6.5's
+conditional non-Abelian exponential link as a covariant dynamical link
+with nontrivial loop holonomy, and a public reusable measurement interface.
 The next proposed candidate must supply both from one actual OI
 microscopic state/update and invariant prior, with the
 independent Wilson/squared-action, contextual observation,
