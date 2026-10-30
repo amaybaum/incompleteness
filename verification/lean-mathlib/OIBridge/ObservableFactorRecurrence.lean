@@ -47,7 +47,7 @@ theorem changeEvent_eq_iUnion (obs : X → V) (advance : X → X) :
     ChangeEvent obs advance =
       ⋃ a : V, ⋃ b : V, ⋃ (_ : a ≠ b), OffDiagonalEvent obs advance a b := by
   ext x
-  simp only [ChangeEvent, OffDiagonalEvent, Set.mem_setOf_eq, Set.mem_iUnion]
+  simp only [ChangeEvent, OffDiagonalEvent, Set.mem_ofPred_eq, Set.mem_iUnion]
   constructor
   · intro h
     exact ⟨obs x, obs (advance x), Ne.symm h, rfl, rfl⟩
