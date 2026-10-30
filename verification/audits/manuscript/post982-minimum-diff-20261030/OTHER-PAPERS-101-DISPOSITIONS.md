@@ -1,5 +1,7 @@
 # Remaining top-level papers: 101 net scientific-text hunk triage
 
+
+**Writer follow-up for the initial undecided rows (2026-10-30).** This file preserves its original provisional review and its source citations. The later exact-old/new assessment in [WRITER-22-RESOLUTION.md](./WRITER-22-RESOLUTION.md) **supersedes only the undecided labels** at the corresponding line anchors; the authoritative 370-row status is [TRIAGE-370.md](./TRIAGE-370.md). The updated writer decisions are 19 REQUIRED corrections, one #946 source-scope watch, and two #1008 mixed/excess candidates across the full corpus. This is **writer-side**, not an independent minimum-diff acceptance. No scientific statement or output artifact is changed here.
 **Scope:** all net post-#994→post-#997 edits in `Complexity`, `Computation`, `Explainer`, `GR`, `Juno`, `Structure` and `Substratum`, excluding the **13 independently accepted Pandoc `***` safety rules**. Source baseline `986dab5a`; final comparison `f6989a27`. The actual changed-line anchors were checked against the five per-file hunk inventories before writing these rows. The cited original PR acceptances establish scientific correction *scope*, but this writer-side workpaper is **not independent minimum-diff certification** and no new Lean proof or manuscript edit was performed.
 
 | Source / current line | Provisional scientific finding and required scope | Likely source PR(s) | Hunk-level review status |
