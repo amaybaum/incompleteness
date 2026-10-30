@@ -11,10 +11,15 @@ from itertools import product
 import json
 
 
+def check(ok, context):
+    if not ok:
+        raise AssertionError(context)
+
+
 def step(x, n, feedback=True):
     a,r,b=x
     mask=(1<<n)-1
-    assert 0<=b<=mask
+    check(0<=b<=mask, "check line 17")
     return (a ^ (r if feedback else 0) ^ (b & 1), r,
             (b>>1) | ((b&1)<<(n-1)))
 
@@ -74,21 +79,21 @@ def main():
     for n in range(3,10):
         S=states(n)
         for fb in (True,False):
-            assert all(undo(step(x,n,fb),n,fb)==x and step(undo(x,n,fb),n,fb)==x for x in S)
-            assert len({step(x,n,fb) for x in S})==len(S)
+            check(all(undo(step(x,n,fb),n,fb)==x and step(undo(x,n,fb),n,fb)==x for x in S), "check line 77")
+            check(len({step(x,n,fb) for x in S})==len(S), "check line 78")
         traces=trajectories(n)
         baseline=trajectories(n,False)
-        assert all(y==x for x,_,y in traces), f'full cycle 2n n={n}'
-        assert all(y==x for x,_,y in baseline), f'baseline cycle 2n n={n}'
-        assert rooted(traces,0)==eye
+        check(all(y==x for x,_,y in traces), f'full cycle 2n n={n}')
+        check(all(y==x for x,_,y in baseline), f'baseline cycle 2n n={n}')
+        check(rooted(traces,0)==eye, "check line 83")
         for t in range(1,n):
-            assert rooted(traces,t)==j4,(n,t,'skew rooted')
-        assert rooted(traces,n)!=j4,('finite boundary',n)
-        assert rooted(traces,2*n)==eye,('cycle return',n)
+            check(rooted(traces,t)==j4, (n,t,'skew rooted'))
+        check(rooted(traces,n)!=j4, ('finite boundary',n))
+        check(rooted(traces,2*n)==eye, ('cycle return',n))
         triples=Counter(tuple(v[:3]) for _,v,_ in traces)
-        assert len(triples)==32 and set(triples.values())=={len(S)//32},(n,triples)
-        assert cmi_3(traces)==1
-        assert cmi_3(baseline)==0
+        check(len(triples)==32 and set(triples.values())=={len(S)//32}, (n,triples))
+        check(cmi_3(traces)==1, "check line 90")
+        check(cmi_3(baseline)==0, "check line 91")
         # Markov decoupled control a_next=a xor c_t, fresh c_next.
         for a in range(2):
             for c in range(2):
@@ -97,7 +102,7 @@ def main():
                     for c2 in range(2):
                         v0=2*a+c;v1=2*a2+c2
                         expected = len(S)//8 if a2 == (a^c) else 0
-                        assert rows[(v0,v1)]==expected,(n,v0,v1)
+                        check(rows[(v0,v1)]==expected, (n,v0,v1))
         # A distinction at arbitrarily chosen initial depth m in finite tape:
         # the two source states agree on positions 0..m-1 but at t=m
         # have different public tape bits; at t=m+1 their public a differ.
@@ -106,9 +111,9 @@ def main():
             a=x;b=y
             for _ in range(m):
                 a=step(a,n);b=step(b,n)
-            assert a[0]==b[0] and obs(a)!=obs(b),(n,m,'initial depth')
+            check(a[0]==b[0] and obs(a)!=obs(b), (n,m,'initial depth'))
             a=step(a,n);b=step(b,n)
-            assert a[0]!=b[0],(n,m,'backflow')
+            check(a[0]!=b[0], (n,m,'backflow'))
         summaries.append({'tape_length':n,'full_states':len(S),'prewrap_rooted_uniform_times':n-1,
                           'exact_return_time_upper_bound':2*n,
                           'supported_three_time_words':len(triples),
