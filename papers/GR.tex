@@ -4811,8 +4811,13 @@ not established here.
 
 \textbf{Theorem A.7} (Effective pure state). \emph{Let the initial state
 be \(|\psi_{VB}(0)\rangle \otimes |d_0\rangle\), with
-\(d_0 \in \mathcal{C}_D\) a configuration. On timescales
-\(t \ll \tau_B^D\), the joint state of \(V\) and \(B\) is effectively
+\(d_0 \in \mathcal{C}_D\) a configuration, and assume, as the
+boundary-only dependence lemma (§3.2, step (ii)) gives at the level of
+its sketch, that on timescales \(t \ll \tau_B^D\) the
+\(D\)-configuration of \(\varphi_t(x, d_0)\) equals \(d_0\) except for
+\(x\) in a set \(E_t\) of weight
+\(w_t = \sum_{x \in E_t} |\psi(x)|^2 = \mathcal{O}(t / \tau_B^D)\). Then
+on these timescales the joint state of \(V\) and \(B\) is effectively
 pure:
 \(\rho_{VB} = |\psi_{VB}(t)\rangle\langle\psi_{VB}(t)| + \mathcal{O}(t / \tau_B^D)\),
 where \(|\psi_{VB}(t)\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B\).}
@@ -4820,18 +4825,10 @@ where \(|\psi_{VB}(t)\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B\).}
 \emph{Proof.} The total system evolves unitarily under \(U_\varphi\)
 (§A.3). Write \(|\psi_{VB}(0)\rangle = \sum_x \psi(x)\,|x\rangle\) over
 \(x \in \mathcal{C}_V \times \mathcal{C}_B\), so that
-\(|\Psi(t)\rangle = \sum_x \psi(x)\,|\varphi_t(x, d_0)\rangle\). By the
-boundary-only dependence lemma (§3.2, step (ii)), applied to the
-partition \((W, D)\) as in Theorem A.5, step (i), the deep sector is
-frozen on these timescales: the \(D\)-configuration of
-\(\varphi_t(x, d_0)\) equals \(d_0\) except for \(x\) in a set \(E_t\)
-of weight
-\(w_t = \sum_{x \in E_t} |\psi(x)|^2 = \mathcal{O}(t / \tau_B^D)\); step
-(ii) bounds the displacement of every configuration,
-\(\|\varphi_t^D - \mathrm{id}\| = \mathcal{O}(t / \tau_B^D)\) pointwise,
-so this bound on \(w_t\) holds for arbitrary \(|\psi_{VB}(0)\rangle\).
-Since \(\varphi_t\) is injective, the terms with \(x \notin E_t\) sum to
-\(|a(t)\rangle \otimes |d_0\rangle\) with
+\(|\Psi(t)\rangle = \sum_x \psi(x)\,|\varphi_t(x, d_0)\rangle\). By
+hypothesis the \(D\)-configuration of \(\varphi_t(x, d_0)\) equals
+\(d_0\) except on \(E_t\). Since \(\varphi_t\) is injective, the terms
+with \(x \notin E_t\) sum to \(|a(t)\rangle \otimes |d_0\rangle\) with
 \(\||a(t)\rangle\|^2 = 1 - w_t\), and the remaining terms are orthogonal
 to every state whose \(D\)-configuration is \(d_0\). Hence
 \(\langle d_0|\rho_D(t)|d_0\rangle = 1 - w_t\), and the largest
@@ -5448,4 +5445,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 73623c09f8d820a1e5f3b732b3c39148b284824e2708e79392e4b48071e18b27
+% source-sha256: af25e6e2aeb5ffdecef6d2578221fdbb8c39a8753b14d7ef94c778a4aceda53b
