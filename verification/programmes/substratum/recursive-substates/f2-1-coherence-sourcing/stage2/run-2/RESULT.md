@@ -96,14 +96,14 @@ no special dispatch.
 
 | Item | Value |
 |---|---|
-| Exact head | `1d3451269fe981c95eb6b560230a9d970aa6d5e1` |
+| Exact head | PR head `1d3451269fe981c95eb6b560230a9d970aa6d5e1`; the PR run tested its synthetic merge with `main` (ordinary draft-PR CI) |
 | CI run | 41221595790, concluded `success`: 25 jobs succeeded, 1 skipped |
 | Job | `Mathlib bridge`, 124597107812 |
 | Step 5, `Build` | `success` |
 | Step 6, `Release gate` | `success` |
 
 **Axiom evidence.** In the job log, the module `OIBridge.F2CoherenceControls` was built, and its 16
-`#print axioms` reports (module lines 362–377) each read `[propext, Classical.choice, Quot.sound]`.
+`#print axioms` reports (module lines 363–378) each read `[propext, Classical.choice, Quot.sound]`.
 None mentions `sorryAx`. The `Release gate` step decided these through `lean_axiom_check`. The build
 warnings are not errors: unused simp arguments at L73, and unused tactic alternatives at L94 and
 L267.
@@ -122,7 +122,7 @@ The result is **`INCONCLUSIVE (gap)`**: row 1, no void reasons. `run-2/results.j
 and keeps its pre-CI form, with the kernel fields `pending` and the token withheld, as its
 regeneration check requires.
 
-**Independent exact-head review:** _pending; to be recorded on PR #1011._
+**Independent exact-head review:** FINAL — INCONCLUSIVE (gap) confirmed at PR head `1d345126`, record at `2155273f`. The reviewer re-ran `--kernel` in normal and `-O` mode (byte-identical to `kernel-decision.json`), confirmed the step conclusions through the host's run and job records, and confirmed that clause 0 does not fire and clause 1 applies.
 
 ## What this result does not establish
 
