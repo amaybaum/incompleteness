@@ -11,7 +11,7 @@ exact finite endomorphic operational quantum mechanics on every nonempty finite 
 structural part of that package and, under finite bijective read-write dynamics, not the
 continuously driven off-diagonal transition (`StructuralClosure.substratum_residual`,
 `ReadWriteControl.readWriteSourced_not_qm`). Route B asks whether the drive is independent of
-everything the kernel derives from the substratum:
+the kernel's consequence closure:
 
 > Is there a finite operational theory satisfying every consequence the kernel derives from the
 > substratum and the OI core, and failing phase-free richness?
@@ -138,8 +138,8 @@ def ReadWriteAvailable (T : FiniteOperationalTheory A) : Prop :=
   ∀ (n : ℕ) (a b : A × Fin n) (F : ReadWriteFamily a b) (l : ℝ),
     T.availExt n Unit (fun _ => conjChannel (readWriteOperator F l))
 
-/-- **THE CONSEQUENCE CLOSURE, `DerivedOI`**: every theory-level predicate the kernel derives
-from the substratum, in the strongest form it derives it — reversible implementation locality
+/-- **THE CONSEQUENCE CLOSURE, `DerivedOI`**: the theory-level predicates the kernel proves for
+the substratum-generated theory and for exact QM — reversible implementation locality
 (the substratum class is dagger-stable), embedded observation, and the availability at every
 level of the exchanges, the phases and the read-write operators. The phases conjunct is
 stipulated, not derived from the stated access. -/

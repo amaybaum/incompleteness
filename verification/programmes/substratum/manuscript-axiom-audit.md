@@ -18,8 +18,8 @@ that section records each of them. Nothing here is a manuscript claim.
 ## The question
 
 Route B1 (`ROUTE-B-AUDIT.md`) proved `routeB_target`: the substratum theory on the two-state
-carrier satisfies `DerivedOICore`, every theory-level consequence the kernel derives from the
-substratum together with the sealed OI core, and fails phase-free richness. That result is
+carrier satisfies `DerivedOICore`, the consequence closure `DerivedOI` (whose phase conjunct is
+stipulated) together with the sealed OI core, and fails phase-free richness. That result is
 scoped to `DerivedOI`, the kernel's closure. The manuscripts' own structural assumptions are
 A1–A6 of `[Substratum §3.1]`. This audit asks what B1 leaves open:
 

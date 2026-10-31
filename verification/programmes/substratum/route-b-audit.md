@@ -17,6 +17,9 @@ phase-free richness (`derivedOICore_not_phaseFree`), the preregistered Outcome 1
 Nothing here is a manuscript claim; the manuscripts' statement that the controllability resource
 is not entailed by A1–A6 is consistent with it, and any narration is a propagation round of its
 own.
+The consequence closure `DerivedOI` includes the phase conjunct `PhasesAvailable`, which is
+stipulated rather than derived from the stated access: `DerivedOI` is `SourcedOI` with that
+conjunct added (`derivedOI_iff_sourcedOI_phases`; `audits/foundations/phase-source-audit.md`).
 
 ## The question
 
@@ -29,10 +32,6 @@ whether it is independent:
 
 > Is there a finite operational theory satisfying every consequence the kernel derives from the
 > substratum and the OI core, and failing phase-free richness?
-
-The consequence closure `DerivedOI` includes the phase conjunct `PhasesAvailable`, which is
-stipulated rather than derived from the stated access: `DerivedOI` is `SourcedOI` with that
-conjunct added (`derivedOI_iff_sourcedOI_phases`; `audits/foundations/phase-source-audit.md`).
 
 Two outcomes are preregistered.
 

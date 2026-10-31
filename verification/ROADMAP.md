@@ -1552,17 +1552,17 @@ dense finite quantum instruments. The remaining fixed nonclassical gate/control 
 therefore an **independent empirical datum relative to the present architecture**, not an unproved
 lemma. This does not say an extended architecture cannot source it.
 
+Under the programme's retirement rule ([PROGRAMME §5, Arc F](programmes/oi-qm/PROGRAMME.md)) this
+verdict retires the equivalence endpoint F1 for the present architecture; the active endpoint is F2,
+the `P1 — F2` row above.
+
 Route B adds a class-level separation on the two-state carrier. Some finite operational theory
 satisfies `DerivedOICore`, the consequence closure `DerivedOI` together with the sealed OI core, and
 fails phase-free richness (`routeB_target`, `derivedOICore_not_phaseFree`); exact finite quantum
 mechanics satisfies the closure (`derivedOI_of_qm`), and under the closure it is equivalent to
 phase-free richness (`derivedOI_qm_iff_phaseFree`). The closure's phase conjunct is stipulated, not
-sourced, so the continuous drive is independent of the derived core even with the phases granted.
+sourced; the separation holds with the phases granted (`DerivedOICore ⊬ PhaseFreeRichness`).
 The separation is proved on `Fin 2` only and concerns the kernel's closure, not A1–A6.
-
-Under the programme's retirement rule ([PROGRAMME §5, Arc F](programmes/oi-qm/PROGRAMME.md)) this
-verdict retires the equivalence endpoint F1 for the present architecture; the active endpoint is F2,
-the `P1 — F2` row above.
 
 → [`PHASE-SOURCE-AUDIT.md`](audits/foundations/phase-source-audit.md),
 [`FLOW-ENDPOINT-AUDIT.md`](audits/foundations/flow-endpoint-audit.md),
