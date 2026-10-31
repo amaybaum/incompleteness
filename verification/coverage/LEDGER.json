@@ -380,7 +380,7 @@
       "line": 82,
       "kind": "Theorem",
       "label": "statement",
-      "fingerprint": "d523a2d67d4e4451",
+      "fingerprint": "9dc06d98eba944bd",
       "area": "oi-foundations",
       "assumptions": "see the constituent rows",
       "checks": [],
@@ -979,9 +979,9 @@
       "line": 463,
       "kind": "Theorem",
       "label": "(physical memory: C2, process form)",
-      "fingerprint": "4c4f0d290436802c",
+      "fingerprint": "c5a8951201a17fcb",
       "area": "memory-conditions",
-      "assumptions": "the coupling-step model of §3.4 (next visible state determined by the current visible and hidden states; any hidden map between couplings) with reference prior π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
+      "assumptions": "the coupling-step model of §3.4 (given the whole visible past and H_k = h, X_{k+1} has law K(x_k, h; ·); any hidden map between couplings) with reference prior π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
       "checks": [
         {
           "kind": "probe",
@@ -3064,7 +3064,7 @@
       "kind": "probe",
       "path": "papers/oi_lattice_code/foundations/primitive_probes.py",
       "names": [],
-      "certifies": "Main §1.3: C4 is primitive; C1 and C3 are its consequences within any faithful realization.",
+      "certifies": "Main §1.3: C1 follows from C4 (zero-coupling realizations show no readback gap at orders 1 and 2, exact, at (2,2), (2,3), (3,2)); the per-order capacity bound max_k M_k <= log2|C_H| on realizations with a readback gap at (2,2), (2,3), (2,4), (3,2) (floating point); C4 coincides with condition (ii) on every realization at (2,2), (2,3), (3,2), orders 1 and 2 (the gap exact, CMI > 0 by a 1e-12 floating-point threshold). Uniform prior throughout.",
       "note": "The conditions C1-C4 are introduced in §1.3 as a numbered list rather than as bold-headed statements, so they carry no census row."
     },
     {
