@@ -1,4 +1,4 @@
-import Mathlib.Tactic.Omega
+import Mathlib.Logic.Basic
 
 /-!
 # SUBSTATE-2: finite-depth aggregation and exact visible-period scope
