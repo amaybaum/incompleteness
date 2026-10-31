@@ -548,15 +548,15 @@
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: *A note on what is proved versus imported.* The "
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: *A note on what is proved versus imported.* The "
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: *A note on what is proved versus imported.* The "
     },
     {
       "ok": true,
@@ -2030,6 +2030,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "bb4c45465eb42efadf05ea7fbc2437417b2cec8d5d2bad5a71e19d6a638806f6",
+  "site_table_sha256": "637bc99afcacbac41b2170dc545f316fb9967477fc6203241817fa242c67f8ff",
   "verdict": "PASS"
 }
