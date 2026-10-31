@@ -1609,6 +1609,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Research-only: neighborSum_map, project_waveStep and project_waveUnstep certify that arbitrary additive alphabet homomorphisms commute with the identical finite neighbor stencil, the two-slice coefficient-1 wave step and waveUnstep, its intended inverse (the inverse property is not proved there). Covers compatible mod-2^m reductions algebraically, but does not create the ZMod instance in this file or derive actual p-adic physical OI, a nonlinear readout, native quantum control or YM action. Preregistered NATIVE-PADIC-1 source test under #1010/#1011. The module builds and its axiom report passes in CI."
+    },
+    {
+      "name": "SUBSTATE-2 unit F2-1 stage-2 kernel controls (research)",
+      "modules": [
+        "F2CoherenceControls"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only controls for the F2-1 preregistration (frozen at 66eb48ca) and amendment A-star (b86f0547), statements copied verbatim from A-star: OnesBounded; rot moves the all-ones ray and does not preserve nonnegative entries, so nonnegativity- or ones-bounded two-state theories lack the falsifier; ones-fixing classes give ones-bounded theories (permTheory, onesTheory); a nonnegative implementation class with its architecture, nonnegativity bound and ones-fixing property; a real-amplitude class whose theory has rot and lacks the quarter phase; the full class as the positive control. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Issue #1010, draft PR #1011; kernel predicates enter the unit's results only from CI step conclusions."
     }
   ]
 }

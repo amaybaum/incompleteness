@@ -1,0 +1,743 @@
+{
+ "G4d_pass": true,
+ "amendment": {
+  "commit": "b86f0547011ab7ce0465d7a15cdcacc726b13b57",
+  "sha256": "3d84c2054872046bdff88b52ba5ba7dfaa86bf5519fbf2e36d94efb25fdd5b05",
+  "stage1_log_sha256": "5ce6cdc88eeb8ee9785f78410be4960dca8ac3ece87c7e561bc624de9c7bfd00"
+ },
+ "control_records": {
+  "C1": {
+   "N": true,
+   "O": true,
+   "P": false,
+   "R": false,
+   "exhibits_verified": false,
+   "screen_flags": []
+  },
+  "C10": {
+   "N": true,
+   "O": true,
+   "P": false,
+   "R": false,
+   "exhibits_verified": false,
+   "screen_flags": []
+  },
+  "C2": {
+   "N": true,
+   "O": true,
+   "P": false,
+   "R": false,
+   "exhibits_verified": false,
+   "screen_flags": []
+  },
+  "C3": {
+   "P": true,
+   "R": false,
+   "exhibits_verified": false,
+   "screen_flags": [
+    "nonreal_diagonal_unitary"
+   ]
+  },
+  "C4": {
+   "N": null,
+   "O": true,
+   "P": false,
+   "R": false,
+   "exhibits_verified": false,
+   "screen_flags": []
+  },
+  "C6": {
+   "N": true,
+   "O": true,
+   "P": false,
+   "R": false,
+   "exhibits_verified": true,
+   "screen_flags": []
+  },
+  "C7": {
+   "G4": {
+    "a": true,
+    "b": true,
+    "b_label": "sourced",
+    "b_provenance": "semantics",
+    "c": true
+   },
+   "G5a": "derived",
+   "N": false,
+   "O": false,
+   "P": true,
+   "R": true,
+   "Rdag": true,
+   "Rdag_source": "kernel",
+   "exhibits_verified": false,
+   "screen_flags": [
+    "fullClass"
+   ]
+  },
+  "C8": {
+   "N": false,
+   "O": false,
+   "P": false,
+   "R": true,
+   "exhibits_verified": false,
+   "screen_flags": [
+    "rot"
+   ]
+  }
+ },
+ "controls": {
+  "C1": {
+   "expected_row": "8",
+   "reference_pass": true,
+   "row": "8",
+   "token": "COUNTEREXAMPLE"
+  },
+  "C10": {
+   "expected_row": "8",
+   "reference_pass": true,
+   "row": "8",
+   "token": "COUNTEREXAMPLE"
+  },
+  "C2": {
+   "expected_row": "8",
+   "reference_pass": true,
+   "row": "8",
+   "token": "COUNTEREXAMPLE"
+  },
+  "C3": {
+   "expected_row": "3a",
+   "reference_pass": true,
+   "row": "3a",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C4": {
+   "expected_row": "8",
+   "reference_pass": true,
+   "row": "8",
+   "token": "COUNTEREXAMPLE"
+  },
+  "C5": {
+   "expected_row": null,
+   "reference_pass": true,
+   "row": null,
+   "token": null
+  },
+  "C6": {
+   "expected_row": "3b",
+   "reference_pass": true,
+   "row": "3b",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C7": {
+   "expected_row": "3a",
+   "reference_pass": true,
+   "row": "3a",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C8": {
+   "expected_row": "3a",
+   "reference_pass": true,
+   "row": "3a",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C9": {
+   "expected_row": null,
+   "reference_pass": true,
+   "row": null,
+   "token": null
+  }
+ },
+ "exact": {
+  "C1": {
+   "class": "permClass (Theta-A) and nonnegClass (Theta-K)",
+   "compressions": [
+    {
+     "depth": 1,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 2,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 3,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 4,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 5,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 6,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    }
+   ],
+   "measure": "Haar, selected by unique ergodicity (paper; invariance checked m<=6)"
+  },
+  "C10": {
+   "G4a": "1",
+   "G4b": "337/625",
+   "containment_theta_K": "paper: compressions onto hemisphere indicators are nonnegative",
+   "frequencies": {
+    "rot": "16/25",
+    "rot2": "576/625",
+    "rot_S_S_rot": "0"
+   },
+   "measure": "as published (state-dependent hidden density); a control, not a Gate 3 selection"
+  },
+  "C2": {
+   "class": "permClass (Theta-A: bijections of finite stages)",
+   "models": [
+    {
+     "bijective": true,
+     "model": "B1 depth 1",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 2",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 3",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 5",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 7",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 3",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 4",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 5",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 6",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 7",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 8",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 9",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 3",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 4",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 5",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 6",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 7",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 8",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 9",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "infinite-XOR cyclic truncation, 3 blocks",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "infinite-XOR cyclic truncation, 4 blocks",
+     "return": [
+      "1",
+      "1"
+     ]
+    }
+   ]
+  },
+  "C3": {
+   "phaseOperator": "diag(i, 1)",
+   "phaseOperator_nonreal_ratio": true
+  },
+  "C6": {
+   "odometer": {
+    "basis": "characters of Z/4 (not the computed readout basis)",
+    "diagonal": [
+     "1+0i",
+     "0+1i",
+     "-1+0i",
+     "0+-1i"
+    ],
+    "relative_phase_verified": true
+   },
+   "wave": {
+    "a_k": "1+0*sqrt(-3)",
+    "diagonal": [
+     "1/2+1/2*sqrt(-3)",
+     "1/2+-1/2*sqrt(-3)"
+    ],
+    "lattice": "periodic cubic L=6, alpha=1 two-slice rule over C",
+    "mode": [
+     1,
+     1,
+     4
+    ],
+    "ratio": "-1/2+1/2*sqrt(-3)",
+    "relative_phase_verified": true
+   }
+  },
+  "C7": {
+   "G4a": "1",
+   "G4b": "337/625",
+   "frequencies": {
+    "rot": "16/25",
+    "rot2": "576/625",
+    "rot_S_S_rot": "0"
+   }
+  },
+  "C9": {
+   "cases": [
+    {
+     "alpha1_backflow": false,
+     "mutant_backflow": true,
+     "q": 4
+    },
+    {
+     "alpha1_backflow": false,
+     "mutant_backflow": true,
+     "q": 8
+    }
+   ]
+  }
+ },
+ "freeze": {
+  "ok": true
+ },
+ "kernel": {
+  "F2CoherenceControls.OnesBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "ca5a780aef401ef352a4d94c5045aedc75d16a37f6e5c24ea0e761b762affc79",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.falsifierUnavailable_of_nonnegBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "aab60341150c338d416a4531023fd90b00589d8940bfff9ae7e8460611041528",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.falsifierUnavailable_of_onesBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "daa04869a79f782c79502253d37608e6a4feb493af0c4e350e050ab302cab695",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.fullTheory_phases": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "44896c9e71b69b2d6688a00bf63c23d7665a190a846c1c86db1db2963246963d",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.fullTheory_rot": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "aa7d163085000219847fe36a95141d6e587de040dc3db71fe87557bb61fe5a64",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.fullTheory_rotDagger": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "1a14a6a3d6562d38515f64c5184c030689769733c4bf79ebbe02940ad7a8c64f",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.nonnegClass": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "0442e82e1febdfe0062677902c5857f06b5877508d22fc6a2dca2a252809e1e2",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.nonnegClass_arch": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "8b0f3899e3ae902edf8a5b7c009ae291093a7f979159dc60ce43065fdf4b1a5a",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.nonnegClass_nonnegBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "2ba9a7adcb1e84896853044a24479a6dd4e230efe2768ef95ec160e97f015162",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.nonnegClass_onesFixing": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "38778839677136914faa94da81166a5e219303ada81497ef1a57fa0c8049fe68",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.onesBounded_of_onesFixing": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "0fd3fa9b489e3b0f09cb829a54fa1946b65a7918dd3d458e4fa0175abffe9dec",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.onesTheory_falsifierUnavailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "1d12f11ba87c988907463e0f7d7a2c70365ebc4fcd1cf79cf2a4e692d7550703",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.permTheory_onesBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "4445000e19eeecbb6570455bef79ecc1de8193c7669a782a4c941dbb2e32a66a",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.realClass": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "24a871a5b99105b22db0606298a80123dc61322974b40bbc43a90c63f233716a",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.realClass_arch": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "e9b667c38e423195347c0f02ddbaad7d4d718acef0de3e859de0718365f3fdd7",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.realTheory_not_phases": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "72fbf03898979884713e3a1f2b1480748fbcb8c684f9b497a6f2b909a8565f59",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.realTheory_rot": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "ff2463bead80562b2ebf649680556b9f8fb10fc639deda7054548f5044103fed",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.rot_moves_ones": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "5632c158fa1c1887c45a1b05540bf162a27d84a82b05390ddd689128206d6e2e",
+   "statement_verbatim_in_module": true
+  },
+  "F2CoherenceControls.rot_not_preservesNonneg": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": "9f8f95080d250efa528ae9db248f849a886a348eb5942a4efad638a502744550",
+   "statement_verbatim_in_module": true
+  },
+  "FlowEndpoint.onesTheory_layerFlowExecutable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "FlowEndpoint.onesTheory_not_phasesAvailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "FrozenSourcing.nonnegBounded_not_phasesAvailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "FrozenSourcing.nonnegBounded_verdict": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "FrozenSourcing.permTheory_nonnegBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "FrozenSourcing.permTheory_phase_ceiling": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "InterventionLocality.genTheory_mono": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "PhaseSource.onesFixing_not_phasesAvailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "RouteB.substratumTheory_derivedOI": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "RouteB.substratumTheory_falsifierUnavailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  },
+  "SubstratumInterfaceAudit.permTheory_falsifierUnavailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "statement_sha256": null,
+   "statement_verbatim_in_module": true
+  }
+ },
+ "labels": {
+  "G4b_dephasing": "n/a"
+ },
+ "measure_post_hoc": false,
+ "mutations": {
+  "M1": {
+   "caught": true,
+   "returns": [
+    "1",
+    "1"
+   ],
+   "what": "rot replaced by the swap"
+  },
+  "M10": {
+   "caught": true,
+   "flags": [
+    "rot"
+   ],
+   "rows": [
+    "3a",
+    "2a"
+   ],
+   "what": "constant rule := rot applied to a C2 model"
+  },
+  "M2": {
+   "caught": true,
+   "flags": [
+    "nonreal_diagonal_unitary",
+    "phaseGate"
+   ],
+   "what": "phaseGate added to the C3 generator set"
+  },
+  "M3": {
+   "caught": true,
+   "what": "non-invariant measure on the depth-3 odometer stage"
+  },
+  "M4": {
+   "caught": true,
+   "what": "a float in a decision path"
+  },
+  "M5": {
+   "caught": true,
+   "row": "8",
+   "what": "a C2 model in place of the candidate"
+  },
+  "M6": {
+   "caught": true,
+   "what": "an inserted dephasing relabelled sourced"
+  },
+  "M7": {
+   "caught": true,
+   "frequencies": {
+    "rot": "4/7",
+    "rot2": "24/31"
+   },
+   "row": "2b",
+   "what": "amplitudes encoded as measures (p = 1)"
+  },
+  "M8": {
+   "caught": true,
+   "row": "6",
+   "what": "R-dagger assumed instead of proved"
+  },
+  "M9": {
+   "caught": true,
+   "what": "a verdict template hardcoding success"
+  }
+ },
+ "prereg": {
+  "commit": "66eb48ca64a79ffef98c8b086293f454a3dbeab6",
+  "sha256": "389e7556bb2e23d165a9bcaf91b22a552bbad8dc3d1954f374add7b25bdfe17a"
+ },
+ "probe_runs": {},
+ "probes": {
+  "C1": null,
+  "C10": null,
+  "C2": null
+ },
+ "review": {
+  "grade": null,
+  "quote": null,
+  "reviewer": null,
+  "time": null
+ },
+ "schema": "f2-1-results/1",
+ "selftest": {
+  "0(i)": true,
+  "0(ii)": true,
+  "0(iii)": true,
+  "0(iv)": true,
+  "0(v)": true,
+  "0(vi)": true,
+  "0(vii)": true,
+  "1": true,
+  "2(a)": true,
+  "2(b) G4a": true,
+  "2(b) Gate 5a": true,
+  "3(a)": true,
+  "3(b)": true,
+  "4 available": true,
+  "4 derived": true,
+  "5": true,
+  "6": true,
+  "7 not transplantable": true,
+  "7 one of R, P": true,
+  "8": true,
+  "8 not transplantable": true,
+  "9": true,
+  "pending": true
+ },
+ "stage1": {
+  "candidate": null,
+  "clause4_reachable": false,
+  "forbidden_computations": [],
+  "gap": "G-star (A-star 4)"
+ },
+ "token": null,
+ "token_if_kernel_steps_succeed": "INCONCLUSIVE (gap)",
+ "verdict_status": "awaiting CI step conclusions for the kernel declarations",
+ "void_reasons": []
+}
