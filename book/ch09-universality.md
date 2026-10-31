@@ -105,7 +105,7 @@ The framework's universality-class commitments — the conditions that define me
 
 *Finiteness.* The substratum $S$ has finite cardinality. This is load-bearing for the recurrence route specifically: the recurrence theorem (Chapter 18 §18.7) requires finiteness for the exact recurrence of a finite bijection, which supplies recurrence-scale P-indivisibility. It is not required for accessible non-Markovianity, which has its own finite-horizon route through readback, nor for the imported representation, which is gated by (T).
 
-*Deterministic bijection.* The substratum dynamics $\varphi: S \to S$ is a bijection. Bijectivity is load-bearing because it preserves information at the substratum level (the information-preservation half of Chapter 7 §7.6) and produces the recurrence structure (Chapter 18 §18.7).
+*Deterministic bijection.* The substratum dynamics $\varphi: S \to S$ is a bijection. Bijectivity is load-bearing because it preserves information at the substratum level (the premise of information conservation in Chapter 7 §7.6) and produces the recurrence structure (Chapter 18 §18.7).
 
 *Causal partition.* The configuration space partitions as $S = \mathcal{C}_V \times \mathcal{C}_H$ for an embedded observer, with the partition determined by causal structure at the cosmological horizon. This is load-bearing because the partition is what makes the visible law stochastic: history readback across it marks the memory-bearing sector, and every finite law it yields admits the quantum representation.
 
