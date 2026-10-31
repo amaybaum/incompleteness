@@ -154,6 +154,15 @@ The exact checks of `K` and `U` (`UᵀU = 1`, `UᵀK` symmetric positive semidef
 are recorded, as checks of the fixed model, not as exhibits. With `¬R ∧ ¬P₁`, row 3(a) does not
 fire. Row 3(b) does not fire because the exhibit is not verified. Row 9 applies.
 
+**Evidence footing.** Frozen §6 lists row 9's evidence layer as kernel. C13's `¬R` rests on kernel
+steps (`instAvail_mono`, `exists_scaled_mem_of_instAvail_unitary`) together with a paper class
+bound and a paper Gaussian-integer factorization (§3). Its `¬P₁` rests on the kernel statement
+`realSubclass_not_p1` with a paper containment. Row 9's evidence column is therefore met in this
+mixed form, as PC-S2 already accepts for C10 (paper containment) and C12 (paper transport), and the
+paper steps are independently reviewed. It is not a kernel-only proof and is not labelled as one.
+If the owner reads row 9's "kernel" strictly, the owner's own rule applies instead: C13 routes to
+row 10, with `R` named as the predicate not settled in the kernel.
+
 **The wiring changes.** These are exact and complete. They are made at stage 2, not here.
 - **W1.** In `stage2/controls.py`, the C13 record has these fields: `R = False`, with
   `R_source = "paper:PC-S2-C13 §3"`; `P1 = False`, with `P1_source = "kernel:realSubclass_not_p1"`;
