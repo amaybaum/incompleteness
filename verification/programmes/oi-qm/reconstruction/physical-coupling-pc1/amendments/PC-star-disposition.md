@@ -35,9 +35,13 @@ is presented. The exception is a post-hoc governance decision, not a statement t
 preregistration was followed.
 
 No other deviation is waived. No protocol text, expectation or historical record is rewritten.
-SC-1 to SC-3 stay in the record permanently as supplementary, superseded evidence, not as proof of
-compliance. The original execution restriction stays in the record. This disposition is not
-permission to disregard any future preregistration.
+
+Further conditions, from the owner (`amaybaum`) in the coordinating session's chat on
+2026-10-31, given after comment 6547077354 and not posted on GitHub: SC-1 to SC-3 stay in the
+record permanently as supplementary, superseded evidence, not as proof of compliance; the
+original execution restriction stays in the record; and this disposition is not permission to
+disregard any future preregistration. They elaborate the comment's "one-time" and "permanently
+logged" and change neither track.
 
 ## Consequences for stage 2
 
