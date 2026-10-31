@@ -215,10 +215,18 @@ at `PC★`:
 
 The branch is frozen separately for each leg, `Obs` and `μ`. Each leg is either varied over the
 invariance class or fixed by a selection argument. A leg taken under invariance must have at least
-two inequivalent admissible members. For `Obs`, inequivalent means not related by a relabelling of
-register values or by coarse-graining one into the other. So a coupling `C` with a single readout
-does not make the invariance branch: two members of `𝒜` that differ only in `μ` leave `Obs` a
-single, conveniently chosen map. Such a `C` must instead give a selection argument that its readout
+two inequivalent admissible members. For both legs, two members are **inequivalent** only if
+neither is obtained from the other by any of the following:
+- a relabelling of register values;
+- a coarse-graining;
+- conjugation by a symmetry of the joint dynamics `(φ, C, μ)` (for example a lattice translation
+  carrying a readout at site `x` to one at site `y`);
+- composition with a reversible process in `Proc` (for example `Obs` against `Obs ∘ φᵏ`).
+
+For measures, the same clause applies: `μ` and its push-forward under such a symmetry or reversible
+process are one member. Members related in these ways are one convenient choice counted twice. So a
+coupling `C` with a single readout, up to this equivalence, does not make the invariance branch:
+two members of `𝒜` that differ only in `μ` leave `Obs` a single, conveniently chosen map. Such a `C` must instead give a selection argument that its readout
 is the unique native readout of the apparatus, with the necessity assessment and IP-Σ of the
 selection branch. An invariance leg with fewer than two inequivalent members is vacuous, and is
 treated as a selection with its justification owed. A finite sample of `𝒜` does
@@ -232,7 +240,8 @@ presented as the class.
 `Σ` are frozen at `PC★`, and every decision quantity has been decided over that class (by proof for
 an infinite class). A **measure-dependent** outcome is a resolved fork: some decision quantity
 varies over the admissible members, recorded with the dependence table. It is compatible with L1
-and excludes L2. With an L2 criterion varying over the members, it gives `PARTIAL` 6(a).
+and excludes L2. With an L2 criterion varying over the members, and `R` or `P₁` holding for at
+least one member, it gives `PARTIAL` 6(a).
 
 ## 5. Success levels, kept separate
 
@@ -315,7 +324,7 @@ carries its named obstruction.
 | 3 | `REPRESENTATION-ONLY` | (a) `R`, `P₁` or `P` holds only through a generator or projector that fails a screen item (including 11, no executing process); or (b) L1 not met, `¬R ∧ ¬P₁` decided, and an exhibit in `E★` verified | screen record; kernel; exact exhibit |
 | 4 | `L3-SUCCESS/{AVAILABLE, DERIVED}` | L2, and every L3 item of §5 | kernel; exact; paper |
 | 5 | `L2-SUCCESS/{AVAILABLE, DERIVED}` | every L1 and L2 criterion of §5 | as in §5 |
-| 6 | `PARTIAL` | L1 met, L2 not met, and one of these, recorded by sub-label: (a) the fork measure-dependent, with an L2 criterion (such as `R`, `P₁` or a §7 value) holding for some admissible member and failing for another; (b) `Φ_min` without `P`; (c) `R ∧ ¬P₁` (a real-amplitude escape; `Gauge_O` status recorded per PC-F1), or `P₁ ∧ ¬R` (a Route B shape); (d) `R ∧ P` with `R†`, `S`, a sourced dephasing or the qualifying §8 decision missing, or with the probes not run because `C` is not transplantable | kernel for what is established |
+| 6 | `PARTIAL` | L1 met, L2 not met, and one of these, recorded by sub-label, with the sub-labels evaluated first-match from (a) to (d): (a) the fork measure-dependent, with an L2 criterion (such as `R`, `P₁` or a §7 value) holding for some admissible member and failing for another, and `R` or `P₁` holding for at least one admissible member; (b) `Φ_min` without `P`; (c) `R ∧ ¬P₁` (a real-amplitude escape; `Gauge_O` status recorded per PC-F1), or `P₁ ∧ ¬R` (a Route B shape); (d) `R ∧ P` with `R†`, `S`, a sourced dephasing or the qualifying §8 decision missing, or with the probes not run because `C` is not transplantable | kernel for what is established |
 | 7 | `L1-SUCCESS/{grade}` (L2 refuted) | L1 met; `¬R ∧ ¬P₁` decided in the kernel; the obstruction named (`N`, `O`, `Gauge_N`, `Gauge_O`, monomiality, or a new named invariant) | kernel; reviewed paper |
 | 8 | `L1-SUCCESS/{grade}` (L2 not established) | L1 met; not matched by rows 5–7 (for example, one of `R`, `P₁` refuted and the other undecided, or both undecided) | reviewed paper |
 | 9 | `COUNTEREXAMPLE (countertheory)` | L1 not met and `¬R ∧ ¬P₁` decided, with no verified exhibit | kernel |
@@ -450,6 +459,7 @@ decision function, and each must give its row:
 - a file with L1 met, `R` refuted and `P₁` undecided gives 8;
 - a file with L1 met, `P₁ ∧ ¬R` and no `P` gives 6(c);
 - a file with L1 met, a measure-dependent fork and `R` on some members only gives 6(a);
+- a file with L1 met, `¬R ∧ ¬P₁` on every admissible member and only `S` varying gives 7, never 6(a);
 - a file meeting L2 with `Π_C = ℤ/4` and IP-2 undecided gives 6(d);
 - a file with L1 met and `Φ_min` but no `P` gives 6(b), never 5;
 - a file with `R`, `Gauge_N` and failing `Gauge_O` (C15's shape) gives 6(c), never 7.
