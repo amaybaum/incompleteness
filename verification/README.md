@@ -2373,7 +2373,8 @@ corpus. So sufficiency on general pairs is UNDECIDED, the frozen spanning-class 
 asserted and no higher, and the P1 obligation remains OPEN: Lemma 24.1 is not repaired, the four
 generators are neither called complete nor called incomplete, the manuscripts' route is not
 restored, and round 24.1B — whether the reconstruction framework supplies the block-word trace
-data — is named and not begun. Forty named results, each printing only `propext`,
+data — has a frozen control plane that was never executed (as does 24.1C, the spanning-class
+decision); either is taken up only by a new native round citing its freeze. Forty named results, each printing only `propext`,
 `Classical.choice`, `Quot.sound`; five of six definition slots fired; no manuscript edit. Guard
 `R7-WTS` pins the preregistration blob by content and certifies the strengthened execution
 ancestry with the archive-mode pins carried as `None` until the post-merge follow-up, and checks

@@ -30,6 +30,10 @@ whether it is independent:
 > Is there a finite operational theory satisfying every consequence the kernel derives from the
 > substratum and the OI core, and failing phase-free richness?
 
+The consequence closure `DerivedOI` includes the phase conjunct `PhasesAvailable`, which is
+stipulated rather than derived from the stated access: `DerivedOI` is `SourcedOI` with that
+conjunct added (`derivedOI_iff_sourcedOI_phases`; `audits/foundations/phase-source-audit.md`).
+
 Two outcomes are preregistered.
 
 - **Outcome 1 — a countertheory exists.** Then `DerivedOI ⊬ PhaseFreeRichness`: the drive is
