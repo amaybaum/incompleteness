@@ -100,12 +100,15 @@ structured data (§A.44). No log text was read.
 | `Numerical probes / core B` | job 124631852236, conclusion `failure`. Only the step `SC-42 integration source scope and must-fail controls` failed. The SC-42 added-text scan's local-path pattern matched one word on line 54 of this file, as reproduced locally. It is not a proof or controls defect. The record commit that adds this table fixes it by the wording change in the disclosure; the meaning is unchanged. The local SC-42 rerun gives 0 hits and `PASS`, and its result and controls files are byte-identical to the committed records |
 | Other jobs at record time | 20 more `success`, 1 `skipped` (a matrix job), 2 still in progress (A42 census01, A41 independent; unrelated to PC-1) |
 | `run-2/kernel-steps.json` | the structured input above |
-| `run-2/kernel-decision.json` | `controls.py --kernel kernel-steps.json`, byte-identical in normal and `-O` runs: token `INCONCLUSIVE (void)`, `void_reasons ["0(vi)"]`; `scientific_finding.status` is `pending exact-head review` |
-| Independent exact-head review (`run-2/review.json`) | *pending*. When it is recorded, the decision is re-run with `--review run-2/review.json` |
+| `run-2/kernel-decision.json` | `controls.py --kernel kernel-steps.json --review review.json`, byte-identical in normal and `-O` runs: token `INCONCLUSIVE (void)`, `void_reasons ["0(vi)"]`; `scientific_finding.status` is `carried under exception`, with the review attached |
+| Independent exact-head review (`run-2/review.json`) | `CONFIRM` at `0979a53e`. CI run 41233995158 concluded `success`: `Mathlib bridge` job 124633812638 with `Build` and `Release gate` both `success`; core B job 124633812782 with its SC-42 step `success`; 25 jobs `success` and 1 `skipped` by design |
+
+The table above reflects run 41233325635 at record time. `review.json` records the run at
+`0979a53e`.
 
 **Reading.** Both kernel steps succeeded at run-2's head, so no `0(v)` is added. The strict token
-stays `INCONCLUSIVE (void)` under `0(vi)`. The scientific finding stays a separate field. It
-becomes `carried under exception` only once the independent exact-head review is recorded.
+stays `INCONCLUSIVE (void)` under `0(vi)`. The scientific finding is a separate field, carried
+under exception (PR #1022 comment 6547077354).
 
 A failure is recorded here as it occurred and is not repaired. A further substantive defect stops
 the run for a new owner decision.

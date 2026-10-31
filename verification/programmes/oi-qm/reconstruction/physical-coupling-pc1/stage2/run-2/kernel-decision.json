@@ -5,10 +5,49 @@
  "run_url": "https://github.com/amaybaum/incompleteness/actions/runs/41233325635",
  "scientific_finding": {
   "exception": "PR #1022 comment 6547077354",
-  "review": null,
+  "review": {
+   "checks": [
+    "remote ref = 0979a53e; parents 0afc035e -> f14b59b2",
+    "0979a53e changes only stage2/run-2/{RESULT.md, kernel-decision.json, kernel-steps.json}; RESULT.md:54 wording change only",
+    "frozen files (prereg, PC-star, stage1-log, disposition, PC-S2, PC-S2-C13), run-1 files and F2CoherenceControls.lean byte-identical f14b59b2 -> 0979a53e; lean-mathlib unchanged 0afc035e -> 0979a53e",
+    "PC1Controls: PC-S2 header and 14 statements verbatim; #print axioms lines unchanged",
+    "run-2/controls.py normal and -O: byte-identical to results.json, no failures; run-1 controls.py reproduces its results.json",
+    "--kernel kernel-steps.json reproduces kernel-decision.json in normal and -O: INCONCLUSIVE (void), void_reasons [0(vi)]"
+   ],
+   "ci": {
+    "note": "pull_request runs test a synthetic merge with main; conclusions read from the REST job/step records, no log text",
+    "run_at_execution_commit": {
+     "build_step": "success",
+     "core_b_job": 124631852236,
+     "head_sha": "0afc035ee4b64851b89752dc2cfe52ebd0bcaa7b",
+     "id": 41233325635,
+     "mathlib_bridge_job": 124631852061,
+     "release_gate_step": "success",
+     "sc42_step": "failure (added-text scan, one word in run-2/RESULT.md:54; fixed in 0979a53e)"
+    },
+    "run_at_head": {
+     "build_step": "success",
+     "conclusion": "success",
+     "core_b_job": 124633812782,
+     "event": "pull_request",
+     "head_sha": "0979a53e82fe134ae482f35f7a35f1384161ba00",
+     "id": 41233995158,
+     "jobs": "25 success, 1 skipped (A42 exclusion matrix, by design)",
+     "mathlib_bridge_job": 124633812638,
+     "release_gate_step": "success",
+     "sc42_step": "success"
+    }
+   },
+   "execution_commit": "0afc035ee4b64851b89752dc2cfe52ebd0bcaa7b",
+   "head": "0979a53e82fe134ae482f35f7a35f1384161ba00",
+   "quote": "Strict token INCONCLUSIVE (void) under 0(vi) only; both kernel steps succeeded, so no 0(v). The scientific finding (no admissible candidate among the 25 screened; obstruction G-star item 3 for native couplings; scoped as PC-star section PC-star4; not a no-go) may be carried under the owner's exception, PR #1022 comment 6547077354.",
+   "reviewer": "independent read-only reviewer (Claude subagent, coordinated session 013T6pfKuv5mi3MXtKjH2tZb)",
+   "time": "2026-10-31T19:34:07Z",
+   "verdict": "CONFIRM"
+  },
   "scope": "PC★ §PC★4: couplings whose joint process is a classical measurable bijection with function-valued records; the sources at 5914c17c and the named branches; not a no-go.",
   "statement": "No admissible candidate among the 25 screened (F2-1's 13 rules and Q1–Q12); the obstruction is G★ item 3 for native couplings: A★2 premise (ii) is broken by no native source.",
-  "status": "pending exact-head review"
+  "status": "carried under exception"
  },
  "token": "INCONCLUSIVE (void)",
  "verdict_text": "PC-1 stage 2: strict token INCONCLUSIVE (void).",
