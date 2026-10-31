@@ -744,7 +744,7 @@ rule of this note depends. A load-bearing item read only as an abstract, or not 
 owed a first-hand reading in the stage-1 amendment before the element it supports is frozen. For
 Mazurek et al. 2016, the Kochen–Specker instance and the 2022 PRL proof of Props. V.1–V.2 this is an
 execution blocker: no execution step
-whose decision depends on a claim from either proceeds until that source is read first-hand and the
+whose decision depends on a claim from any of them proceeds until that source is read first-hand and the
 read is recorded (§7.1).
 
 | Reference | Used for | Load-bearing | Read |
