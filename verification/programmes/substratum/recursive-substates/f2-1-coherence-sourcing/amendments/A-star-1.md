@@ -147,17 +147,38 @@ acceptance of this commit, then the owner-authorized proof-only repair.
     `AncillaClosure.ancBlock` applied to a real matrix;
   - the `simp` that makes no progress.
 
-  Strictly necessary dependent tactic corrections may follow from these. No statement text,
-  definition, hypothesis or declaration meaning changes, and there is no `sorry`, `admit`, new
-  axiom or weakening. Any other substantive defect stops the work pending fresh authorization.
-- **A new results file.** It is written at `stage2/run-2/results.json`, beside the preserved
-  `stage2/results.json`, with its own note and its own CI record.
-- **The only permitted output differences** from the preserved `stage2/results.json`:
-  - run-specific metadata: the run directory, commit and CI identifiers, and the amendment
-    reference;
+  The authorization (PR #1011, comment 6546214912) permits, verbatim, "only the strictly necessary
+  dependent proof/tactic corrections caused by these defects and the notation context", and states:
+  "No sorry, admit, new axioms, weakening, alternative target, new candidates, additional
+  assumptions or broad proof rewrites. If another substantive defect is encountered, stop and
+  request fresh authorization". No statement text, definition, hypothesis or declaration meaning
+  changes.
+- **A separate run directory.** The attempt lives in `stage2/run-2/`. The preserved `stage2/`
+  files of `05ecc873` (`controls.py`, `results.json`, `RESULT.md`) are not edited.
+  - `stage2/run-2/controls.py` is a copy of the preserved `stage2/controls.py`.
+  - `stage2/run-2/results.json` is the new results file.
+  - `stage2/run-2/RESULT.md` is the run's own note.
+- **The only permitted differences** between `stage2/run-2/controls.py` and the preserved script:
+  - the path constants (`HERE`, `UNIT`, `ROOT`, `SUBSTATE2`, `RESULTS`) re-anchored to the run
+    directory;
+  - one added constant holding the sha256 of this file, `A-star-1.md`, and the matching term in the
+    freeze check, beside the existing digests of the preregistration, A★ and the stage-1 log;
+  - run metadata: the run identifier, and the commit and amendment references written into the
+    results.
+- **The only permitted differences** between `stage2/run-2/results.json` and the preserved
+  `stage2/results.json`:
+  - the run metadata above;
   - the build-status and kernel fields: each declaration's `build_step` and `axiom_check_step`,
-    and the resulting `token` and `verdict_status`;
-  - the sha256 of this file, `A-star-1.md`, bound into `controls.py`'s freeze check as the
-    reviewer required, beside the existing digests of the preregistration, A★ and the stage-1 log.
+    and the resulting `token`, `verdict_status` and `void_reasons`.
 
   Every other control, mutation, self-test and exact value must reproduce byte for byte.
+- **The record the run carries** (owner step 3). The run's note and record state:
+  - the exact head SHA of the run;
+  - the 19 statement checksums of A★-1.3, together with the check that each statement occurs
+    verbatim in the module;
+  - the axiom-output evidence: the `#print axioms` reports, decided by the `Release gate` step's
+    `lean_axiom_check`;
+  - the conclusions of the `Mathlib bridge` job's `Build` and `Release gate` steps at that exact
+    head, read from the host's step records;
+  - an independent exact-head review of the change set and outputs;
+  - ordinary draft-PR CI only; no special dispatch.
