@@ -244,7 +244,7 @@ alone (a splitter of reflectivity `r` and a phase `ϕ`), the which-way predictab
 `P = |P(L) − P(R)|` and the which-phase predictability `V`. Quantum states obey `V² + P² ≤ 1`; for a
 preparation that satisfies their A21 orbit-realizability condition (a quadruple of preparations with
 equal predictabilities up to sign and a stated operational equivalence among them), noncontextuality
-implies `V + P ≤ 1` (their Props. V.1–V.2), which quantum states with `0 < V < 1` on the curve
+implies `V + P ≤ 1` (their Props. V.1–V.2, proved in Catani et al., *Phys. Rev. Lett.* 129, 240401 (2022), not yet read; §9), which quantum states with `0 < V < 1` on the curve
 exceed. `P` is not the marker distinguishability `D` above: for the §3.5 state the carrier has
 `P = 0`. The relation is therefore admitted as a T7 instance (W1, §5.7) on sourced carrier
 preparations, only when the orbit-realizability quadruple and its operational equivalence are
@@ -558,8 +558,10 @@ and T6 with operational no-signalling.
 
 The instances of CC1, CC3, CC4, CC5 and CC7 are fixed at stage 1 together with a paper proof that each
 admits a generalized-noncontextual model for the §5.3 equivalences (for CC4, Catani et al. 2023). The
-CC2 instance is fixed by a stated constraint from K1, K3 or K6, frozen with `K★` and before the
-candidate screen, so that its strength is set by that constraint and not chosen to be separable.
+CC2 instance is fixed by a constraint that OI holds at `D`, cited under Q1's rule (§4.4), frozen with
+`K★` and before the candidate screen; at `D` only K1 qualifies. Under K1 the Kochen–Specker-type
+deterministic class contains `𝔐★`-type models (A1), so a 2.4 token is relative to the frozen CC2
+instance only, and the class-level ceiling is 2.5 with `CC2-unseparated`.
 
 | ID | Countercontrol | Reference behaviour | Separated from PC-Q by |
 |---|---|---|---|
@@ -617,9 +619,10 @@ text.
 | 2.3 | `CLASSICAL-REPRODUCED/<CC>` | the whole T0–T7 law of `𝔐★` is reproduced by an exhibited model that is generalized-noncontextual for the §5.3 equivalences | the reproducing model |
 | 2.4 | `NONCLASSICAL/W1[+W2]` | W1 decided positive; every countercontrol CC1–CC7 outcome-separated from `𝔐★`'s law by its named test (§5.8); T8 removes the witness when the responsible element is deleted | mandatory sub-label `CC8-unseparated`; T3 undo (`unconditional`, `heralded-probabilistic`, `none`); `BENCHMARK-MATCH` or `BENCHMARK-MISMATCH(test)` |
 | 2.5 | `CONTEXTUAL/W1[+W2]` | W1 decided positive; T8 removes the witness when the responsible element is deleted; some countercontrol among CC1–CC7 not outcome-separated from `𝔐★`'s law | mandatory sub-labels naming each unseparated countercontrol (for example `CC2-unseparated`) and `CC8-unseparated`; the T3 and benchmark sub-labels as in 2.4 |
-| 2.6 | `BELL-STRUCTURAL/W2` | W2 decided positive and W1 not decided positive; operational no-signalling decided | the relinquished premise of Main:368 (i)–(iv); obstruction: no W1, so no claim of nonclassical recombination |
-| 2.7 | `CONSISTENT-ONLY` | T0 passes; T1–T6 consistent with PC-Q; no admitted witness decided positive | the witness not decided positive |
-| 2.8 | `UNDECIDED` | otherwise | what remains undecided |
+| 2.6 | `BELL-STRUCTURAL/W2` | W2 decided positive and W1 not decided positive; operational no-signalling decided true | the relinquished premise of Main:368 (i)–(iv); obstruction: no W1, so no claim of nonclassical recombination |
+| 2.7 | `SIGNALLING/W2` | W2 decided positive, W1 not decided positive, and operational no-signalling decided false | the wing and setting whose change alters the other wing's complete record law; obstruction: operational signalling, against Main §3.3's requirement |
+| 2.8 | `CONSISTENT-ONLY` | T0 passes; T1–T6 consistent with PC-Q; no admitted witness decided positive | the witness not decided positive |
+| 2.9 | `UNDECIDED` | otherwise | what remains undecided |
 
 **Axis 3 — instrument and composite compatibility** (evaluated only after 1.4, independently of axis 2).
 
@@ -663,7 +666,9 @@ or to `𝔐★` and `Acc`; none is promoted to a global no-go. If no physical ca
   countercontrols; the mutation list; the results schema; PC-Q's reference values derived in closed
   form on paper; the epistemic-restriction question of AW-MR5 as a stated sub-question; the
   first-hand readings §9 marks as owed. **Execution blocker:** no execution step whose decision
-  depends on a claim from Mazurek et al. 2016 or from the Kochen–Specker instance (CC2) proceeds until
+  depends on a claim from Mazurek et al. 2016, from the Kochen–Specker instance (CC2), or from the
+  proof of Props. V.1–V.2 in Catani et al., *Phys. Rev. Lett.* 129, 240401 (2022) (the T7
+  predictability–visibility instance and CC4's separation) proceeds until
   that source has been read first-hand and the read is recorded in the stage-1 log. **Void clause:** any computation before this
   amendment's frozen, reviewed commit that evaluates a candidate, control, physical or algebraic
   quantity voids the unit (0(vi)); only the repository hygiene tools may run, and every run is logged.
@@ -706,7 +711,7 @@ fit any T0–T7 law, or if its outcome law is defined from the quantum benchmark
 | inverses executed | T9; CC6 |
 | `K★` frozen before any candidate law is derived | stage-1 commit order; mutation "`K★` fixed after a candidate law"; 0(iii), 0(vi) |
 | nonclassical reserved for laws outcome-separated from CC1–CC7 | per-countercontrol control-separation and outcome-separation fields; `CC8-unseparated` sub-label; token 2.4 against 2.5 in the self-test |
-| owed first-hand reads (Mazurek et al. 2016; the Kochen–Specker instance) done before any execution step that depends on them | read record in `stage1-log.json`; a dependent stage-2 step refuses to run without it |
+| owed first-hand reads (Mazurek et al. 2016; the Kochen–Specker instance; the 2022 PRL proof of Props. V.1–V.2) done before any execution step that depends on them | read record in `stage1-log.json`; a dependent stage-2 step refuses to run without it |
 | exact arithmetic | type assertions; mutation "float" |
 | verdict from structured data | schema-validated results file; 0(viii) |
 | deterministic replay | two runs byte-identical, sha256 recorded |
@@ -737,14 +742,16 @@ fit any T0–T7 law, or if its outcome law is defined from the quantum benchmark
 the full text were read. "Load-bearing" marks a reference on which a definition, control or decision
 rule of this note depends. A load-bearing item read only as an abstract, or not read first-hand, is
 owed a first-hand reading in the stage-1 amendment before the element it supports is frozen. For
-Mazurek et al. 2016 and the Kochen–Specker instance this is an execution blocker: no execution step
+Mazurek et al. 2016, the Kochen–Specker instance and the 2022 PRL proof of Props. V.1–V.2 this is an
+execution blocker: no execution step
 whose decision depends on a claim from either proceeds until that source is read first-hand and the
 read is recorded (§7.1).
 
 | Reference | Used for | Load-bearing | Read |
 |---|---|---|---|
 | L. Catani, M. Leifer, D. Schmid, R. W. Spekkens, *Quantum* 7, 1119 (2023), arXiv:2111.13727 | CC4; AW-MR5; T4 | yes | text: toy field theory over the integers modulo 2, set kinematics, local deterministic dynamics (a footnote calls them symplectic), epistemic restriction; reproduces Mach–Zehnder, which-way, eraser, delayed-choice, bomb tester; generalized-noncontextual; "cannot reproduce the full scope of quantum phenomenology" |
-| L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, *Phys. Rev. A* 108, 022207 (2023), arXiv:2211.09850 | §3.5; W1; CC4 | yes | text: abstract, the main result (under the A21-symmetry condition noncontextuality implies `V + P ≤ 1`, `P = |⟨Z⟩|` the carrier's which-way predictability, `V = |⟨X⟩|` the which-phase predictability), Proposition V.1 as stated, the operational-equivalence condition and the tomographic-completeness caveat; the appendix proof was not checked |
+| L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, *Phys. Rev. A* 108, 022207 (2023), arXiv:2211.09850 | §3.5; W1; CC4 | yes | text: abstract, the main result (under the A21-symmetry condition noncontextuality implies `V + P ≤ 1`, `P = |⟨Z⟩|` the carrier's which-way predictability, `V = |⟨X⟩|` the which-phase predictability), Proposition V.1 as stated, the operational-equivalence condition and the tomographic-completeness caveat; the paper contains no proof of Props. V.1–V.2 and defers it to its ref. [50] (next row) |
+| L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, "What is nonclassical about uncertainty relations?", *Phys. Rev. Lett.* 129, 240401 (2022), arXiv:2207.11779 | proof of Props. V.1–V.2; W1 instance; CC4 | yes | not read; execution blocker (§7.1) |
 | R. W. Spekkens, *Phys. Rev. A* 71, 052108 (2005), arXiv:quant-ph/0406166 | K4; U2; AW-MR3 | yes | text: eq. (1) (operational equivalence over every measurement procedure), the definitions of preparation noncontextuality, §IV (preparation contextuality in 2D) |
 | M. D. Mazurek, M. F. Pusey, R. Kunjwal, K. J. Resch, R. W. Spekkens, *Nat. Commun.* 7, 11780 (2016) | T7 form | yes | abstract only; owed at stage 1 |
 | D. Schmid, R. W. Spekkens, *Phys. Rev. X* 8, 011015 (2018); M. F. Pusey, *Phys. Rev. Lett.* 113, 200401 (2014) | T7 options | if chosen at stage 1 | abstracts; owed at stage 1 if chosen |
