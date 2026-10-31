@@ -1,0 +1,18 @@
+{
+ "axiom_check_step": "success",
+ "build_step": "success",
+ "head_sha": "0afc035ee4b64851b89752dc2cfe52ebd0bcaa7b",
+ "run_url": "https://github.com/amaybaum/incompleteness/actions/runs/41233325635",
+ "scientific_finding": {
+  "exception": "PR #1022 comment 6547077354",
+  "review": null,
+  "scope": "PC★ §PC★4: couplings whose joint process is a classical measurable bijection with function-valued records; the sources at 5914c17c and the named branches; not a no-go.",
+  "statement": "No admissible candidate among the 25 screened (F2-1's 13 rules and Q1–Q12); the obstruction is G★ item 3 for native couplings: A★2 premise (ii) is broken by no native source.",
+  "status": "pending exact-head review"
+ },
+ "token": "INCONCLUSIVE (void)",
+ "verdict_text": "PC-1 stage 2: strict token INCONCLUSIVE (void).",
+ "void_reasons": [
+  "0(vi)"
+ ]
+}

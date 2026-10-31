@@ -51,7 +51,7 @@
 ## Disclosure: an implementation-aid Python check (owner's requirement)
 
 - **What it computed.** While implementing stage 2, before commit `f14b59b2`, one `python3 -I`
-  script was run in the session scratchpad, outside the repository. It checked, with exact
+  script was run in a temporary working directory outside the repository. It checked, with exact
   Gaussian-rational arithmetic at random points, the polynomial identities behind three
   `linear_combination` steps in `scaled_rot_not_gauge_nonneg`:
   - `hzero`;
@@ -84,16 +84,28 @@ From the PC-1 unit directory:
     python3 -I -B -O stage2/run-2/controls.py
     python3 -I -B stage2/run-2/controls.py --kernel stage2/run-2/kernel-steps.json [--review stage2/run-2/review.json]
 
-## Exact-head record for run-2 (to be completed from the host's records; ordinary draft-PR CI only)
+## Exact-head record for run-2 (ordinary draft-PR CI only)
+
+Everything below is read from the host's run, job and step records through the REST API as
+structured data (§A.44). No log text was read.
 
 | Item | Value |
 |---|---|
-| Exact head SHA | *pending* (the PR run tests a synthetic merge with `main`) |
-| CI run id / job id | *pending* |
-| `Mathlib bridge` → `Build` | *pending* |
-| `Mathlib bridge` → `Release gate` (`lean_axiom_check`) | *pending* |
-| `run-2/kernel-steps.json`, `run-2/kernel-decision.json` | *pending* |
-| Independent exact-head review (`run-2/review.json`) | *pending* |
+| Exact head SHA | `0afc035ee4b64851b89752dc2cfe52ebd0bcaa7b` (event `pull_request`, PR #1022; the run tests a synthetic merge with `main`) |
+| CI run | 41233325635 |
+| `Mathlib bridge` job | 124631852061; job conclusion `success` |
+| `Mathlib bridge` → `Build` | `success` |
+| `Mathlib bridge` → `Release gate` | `success`. Its `lean_axiom_check` decides every `#print axioms` report, those of `PC1Controls` and `F2CoherenceControls` included: no `sorryAx`, and only `propext`, `Classical.choice`, `Quot.sound` |
+| Other `Mathlib bridge` steps | all `success`, except the KTRANS-SEP-2 outside-axiom marker step, `skipped` as designed |
+| `Numerical probes / core B` | job 124631852236, conclusion `failure`. Only the step `SC-42 integration source scope and must-fail controls` failed. The SC-42 added-text scan's local-path pattern matched one word on line 54 of this file, as reproduced locally. It is not a proof or controls defect. The record commit that adds this table fixes it by the wording change in the disclosure; the meaning is unchanged. The local SC-42 rerun gives 0 hits and `PASS`, and its result and controls files are byte-identical to the committed records |
+| Other jobs at record time | 20 more `success`, 1 `skipped` (a matrix job), 2 still in progress (A42 census01, A41 independent; unrelated to PC-1) |
+| `run-2/kernel-steps.json` | the structured input above |
+| `run-2/kernel-decision.json` | `controls.py --kernel kernel-steps.json`, byte-identical in normal and `-O` runs: token `INCONCLUSIVE (void)`, `void_reasons ["0(vi)"]`; `scientific_finding.status` is `pending exact-head review` |
+| Independent exact-head review (`run-2/review.json`) | *pending*. When it is recorded, the decision is re-run with `--review run-2/review.json` |
+
+**Reading.** Both kernel steps succeeded at run-2's head, so no `0(v)` is added. The strict token
+stays `INCONCLUSIVE (void)` under `0(vi)`. The scientific finding stays a separate field. It
+becomes `carried under exception` only once the independent exact-head review is recorded.
 
 A failure is recorded here as it occurred and is not repaired. A further substantive defect stops
 the run for a new owner decision.
