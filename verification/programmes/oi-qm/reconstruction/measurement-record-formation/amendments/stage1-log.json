@@ -1,0 +1,252 @@
+{
+  "schema": "mr1-stage1-log",
+  "schema_version": 1,
+  "append_only": true,
+  "unit": "MR-1, measurement as physical record formation",
+  "frozen_preregistration": {
+    "path": "verification/programmes/oi-qm/reconstruction/measurement-record-formation/preregistration.md",
+    "commit": "1a236f332e8ea12b7fdb125bf8c5098ccd71d36c",
+    "unchanged_by_this_log": true
+  },
+  "authority": {
+    "stage": "stage 1, step 1 of the owner's order: first-hand literature log",
+    "source": "PR #1023 comment 6549252522 (amaybaum, OWNER)",
+    "scope": "literature-first and paper-only; no candidate screen, no K-star, no MR-star.md in this step",
+    "ks_decision_pending": "PR #1023 comment 6549290592"
+  },
+  "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run for this step. The readers ran only fetch, hash, text-extraction and view commands, listed per entry. The writer of this log ran only git and the three repository hygiene tools, listed under writer_runs. No PDF or downloaded text is committed; only URLs and sha256 digests are recorded.",
+  "readers": "Three independent first-hand literature readers (Claude subagents), 2026-10-31, reading only; their verbatim records are held off-repository by the coordinator and are summarized here field by field.",
+  "entries": [
+    {
+      "id": "LIT-1",
+      "source": "L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, 'What is nonclassical about uncertainty relations?', Phys. Rev. Lett. 129, 240401 (2022)",
+      "doi": "10.1103/PhysRevLett.129.240401",
+      "edition_read": "arXiv:2207.11779v2 (12 Dec 2022; latest version; v1 24 Jul 2022)",
+      "fetched": [
+        {
+          "url": "https://arxiv.org/pdf/2207.11779v2",
+          "sha256": "5b0d53204320c109376506d819426b72b7d7c798bae2dc9e7250b6ccfb832b3c",
+          "pages_read": "1-13 of 13 (main text pp. 1-6; Appendices A-D pp. 6-13)"
+        },
+        {
+          "url": "https://arxiv.org/pdf/2211.09850",
+          "sha256_as_recorded_by_reader": "26f2e357...6b7e (truncated in the reader record)",
+          "pages_read": "5-7 of arXiv:2211.09850v2, for the mapping of Props. V.1-V.2 to the PRL"
+        }
+      ],
+      "read": "complete",
+      "claim_consumed": "Under preparation noncontextuality, V + P <= 1 holds for every preparation that belongs to a realized quadruple satisfying exactly the PRL's Eqs. (10)-(11) (A21-orbit realizability), relative to the fixed which-way measurement Z and the fixed which-phase measurement X; P = |<Z>| and V = |<X>| for that fixed X; the operational equivalence of Eq. (11) holds over all measurements on the carrier (Eq. 8). The PRL's main result is its Eq. (12), p. 4; the companion's Props. V.1 (theory level) and V.2 (experiment level) restate it. Proof: App. A, Eqs. (A1)-(A33); tightness: Eqs. (A35)-(A38); alternative derivation: App. B.",
+      "conditions": [
+        "single-system prepare-measure scenario with two binary-outcome measurements (p. 2)",
+        "generalized preparation noncontextuality only (fn. 3; Eq. 9)",
+        "operational equivalence over all possible measurements (Eq. 8)",
+        "finite ontic space (p. 3)",
+        "no outcome-determinism assumption; reduction to deterministic ontic states via the PRL's ref. [41], checked independently by the reader as a linear convex decomposition"
+      ],
+      "proof_followed": "All steps followed on paper by the reader: the parametrizations (A13), (A18), (A23), the ranges (A14)-(A27) and (A28)-(A33), the tightness distributions and the reduction to four ontic states.",
+      "caveats": [
+        {
+          "id": "LIT-1-C1",
+          "kind": "scope caveat",
+          "text": "V in the consumed claim is |<X>| for a FIXED recombination setting X (companion Eq. 7), the which-phase predictability. It is not the contrast over a varying phase used for the complementarity benchmark of section 3.5. The orbit-realizability quadruple must be certified relative to the same X that is used for V.",
+          "frozen_text_lines_at_1a236f33": [234, 244, 246]
+        },
+        {
+          "id": "LIT-1-C2",
+          "kind": "scope caveat",
+          "text": "'Equal predictabilities up to sign' (frozen L246) must be read as all three sign-flipped partners of Eq. (10), paired by the equivalence of Eq. (11). Section 5.3's certification 'over the whole of Acc' (L468-469) matches Eq. (8) only if Acc contains every carrier measurement.",
+          "frozen_text_lines_at_1a236f33": [246, 468, 469]
+        },
+        {
+          "id": "LIT-1-C3",
+          "kind": "scope caveat",
+          "text": "The result covers single-shot prepare-measure with preparation noncontextuality only. Use in sequential, transformation (T3) or composite settings, or on a carrier correlated with a marker (carrier marginals treated as preparations), is MR-1's own obligation and is not supplied by the source.",
+          "frozen_text_lines_at_1a236f33": [500, 501, 519]
+        },
+        {
+          "id": "LIT-1-C4",
+          "kind": "scope caveat (section A.34 direction)",
+          "text": "The companion states Props. V.1-V.2 as 'if and only if'. The PRL proves the direction 'noncontextual implies bound' (App. A) and scenario-level tightness (App. B and its ref. [41]); it does not prove the theory-level converse of Prop. V.1. MR-1 consumes only the proved direction. The frozen phrase 'their Props. V.1-V.2, proved in Catani et al., Phys. Rev. Lett. 129, 240401 (2022)' (L247) is to be read as covering that direction only.",
+          "frozen_text_lines_at_1a236f33": [247]
+        },
+        {
+          "id": "LIT-1-C5",
+          "kind": "typo in source",
+          "text": "p. 8 has 'epsilon'' = epsilon'; per (A13) it should be epsilon'' = -epsilon. It does not affect the result.",
+          "frozen_text_lines_at_1a236f33": []
+        },
+        {
+          "id": "LIT-1-C6",
+          "kind": "not consumed",
+          "text": "The three-measurement bound Eq. (C7) has no analytic proof in the source (a computer-algebra check is reported). MR-1 does not use it.",
+          "frozen_text_lines_at_1a236f33": []
+        }
+      ],
+      "agreement_with_frozen_text": [
+        "P = |P(L) - P(R)| = |<Z>| agrees with companion Eq. (6) (frozen L244).",
+        "'Quantum states with 0 < V < 1 on the curve exceed' is supported for pure states on V^2 + P^2 = 1: the bound meets that circle only where |<X>| = 1 or |<Z>| = 1 (PRL p. 5).",
+        "'No bound on V + D is claimed' (frozen L251-252) is consistent: the source treats only two measurements on one system.",
+        "CC4 returning no W1 is consistent: the stabilizer theory 'precisely saturates' the bound, and PRL p. 12 ties the octahedral state space to epistemic restriction."
+      ],
+      "contradiction_check": "NO. No load-bearing assumption of the frozen text is contradicted; the caveats above are scope statements.",
+      "reader_commands": [
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '230,265p;490,580p;735,765p'",
+        "mkdir -p .../lit-catani-prl && ls -A .../lit-catani-prl",
+        "curl -sSL -o abs.html https://arxiv.org/abs/2207.11779, then a grep for the version and DOI lines",
+        "grep -A3 -E '[v[0-9]]' abs.html | sed 's/<[^>]*>//g' | head -20",
+        "curl -sSL -o 2207.11779v2.pdf https://arxiv.org/pdf/2207.11779v2 && file ... && sha256sum ... && ls -l ...",
+        "curl -sSL -o abs-2211.html https://arxiv.org/abs/2211.09850 with a version grep; then curl -sSL -o 2211.09850.pdf https://arxiv.org/pdf/2211.09850 && file && sha256sum",
+        "pdftotext -layout 2211.09850.pdf - | grep -n -iE 'Proposition|Prop. V|[50]|orbit' | head -40",
+        "pdftotext -layout 2211.09850.pdf - | grep -n -E 'Proposition V|^formfeed|Ref. [50]' | cut -c1-120 | head -30; ... | grep -c formfeed",
+        "pdftotext -layout 2211.09850.pdf - | sed -n '480,560p'",
+        "Read-tool views: PRL pp. 1-13; companion pp. 5-7"
+      ],
+      "gate": {
+        "status": "MET",
+        "reason": "Full first-hand read of the proof of the consumed direction; no contradiction; caveats LIT-1-C1 to LIT-1-C6 recorded as scope caveats."
+      }
+    },
+    {
+      "id": "LIT-2",
+      "source": "M. D. Mazurek, M. F. Pusey, R. Kunjwal, K. J. Resch, R. W. Spekkens, Nat. Commun. 7, 11780 (2016) (arXiv:1505.06244v1 is titled '...unwarranted idealizations')",
+      "doi": "10.1038/ncomms11780",
+      "edition_read": "published version, open access (CC-BY), 13 Jun 2016, with its Supplementary Information",
+      "fetched": [
+        {
+          "url": "https://www.nature.com/articles/ncomms11780.pdf",
+          "sha256": "9e825f48157d9226808be4c8471ae7a7606d866c4217bb6e32108df3ed1df612",
+          "pages_read": "1-7 of 7 (Results, Discussion, Methods, references)"
+        },
+        {
+          "url": "Supplementary Information PDF on static-content.springer.com (file ...MOESM1461_ESM.pdf), linked from https://www.nature.com/articles/ncomms11780",
+          "sha256": "b1434bb92457377493b62bc56c4de282eb927a201f7216713e2579c47b301c32",
+          "pages_read": "1-17 of 17 (Supplementary Figs 1-4, Tables 1-4, Notes 1-4)"
+        },
+        {
+          "url": "https://arxiv.org/pdf/1505.06244",
+          "sha256": "b2467badf4c9b4d9f7ac5b6afece3afbf7923c0274b49fb7b10062e2cfd230cc",
+          "pages_read": "none (arXiv:1505.06244v1, 22 pp, downloaded and hashed only; the published version was read)"
+        }
+      ],
+      "not_read": "Supplementary Data 1-2 (xlsx) and Supplementary Software 1",
+      "read": "complete (article and Supplementary Information)",
+      "claim_consumed": "T7 form for a single prepare-and-measure system: operational equivalences are defined over all measurements (respectively preparations) and made operational through a set assumed tomographically complete; secondary procedures are convex mixtures of primaries (and, for measurements, post-processings), chosen by a linear program to satisfy the equivalences exactly (SI Note 3, eqs 22-27); the inequality A <= 5/6 (eqs 6 and 8, p. 3) is derived without outcome determinism or noiseless measurements (SI Note 2, eqs 7-18) and refutes the conjunction of preparation and measurement noncontextuality; statistical equivalence relative to a set of measurements does not imply it relative to all measurements (SI p. 15).",
+      "conditions": [
+        "ontological-model framework with mixtures represented as mixtures (eq. 1; SI eq. 12)",
+        "both preparation noncontextuality (SI eq. 6) and measurement noncontextuality (SI eq. 5) are assumed; a preparation-noncontextual, measurement-contextual model reaches A = 9/10 (SI Fig. 3)",
+        "tomographic completeness of the fiducial sets (SI eqs 3-6), tested by a GPT fit and called by the authors the most significant remaining loophole (p. 6)",
+        "acknowledged loopholes also include fair sampling, multiphoton events, polarization-spatial coupling and the absence of a rigorous p-value bound (SI p. 17)"
+      ],
+      "caveats": [
+        {
+          "id": "LIT-2-C1",
+          "kind": "scope caveat (tomographic completeness)",
+          "text": "Section 5.3 supplies tomographic completeness only relative to Acc, by definition. If stage 1 certifies equivalences through a finite subset of Acc, it owes a proved completeness lemma relative to Acc; and the residual assumption that Acc exhausts the relevant physical procedures remains, which is the source's own loophole.",
+          "frozen_text_lines_at_1a236f33": [468, 469, 501]
+        },
+        {
+          "id": "LIT-2-C2",
+          "kind": "scope caveat (setting)",
+          "text": "The source is prepare-and-measure only; it has no transformation, sequential or adaptive inequality. T7's transformation clause ('T3's undo enters as a transformation') and the adaptive continuations draw on the source for form only, not for content.",
+          "frozen_text_lines_at_1a236f33": [500, 501]
+        },
+        {
+          "id": "LIT-2-C3",
+          "kind": "attribution nuance",
+          "text": "AW-MR3 cites 'Mazurek et al. 2016 on inexact operational equivalences' for the relativity of equivalences to the access. The relativity point comes from the source's tomographic-completeness passage (SI p. 15); enlarging the test set can only dissolve equivalences between fixed procedures, and 'create' is supported only through new mixtures when the procedure set is enlarged (p. 4).",
+          "frozen_text_lines_at_1a236f33": [393, 399]
+        },
+        {
+          "id": "LIT-2-C4",
+          "kind": "scope caveat (labelling)",
+          "text": "A W1 violation of an inequality of this form refutes the conjunction of preparation and measurement noncontextuality; it is not to be labelled preparation contextuality alone.",
+          "frozen_text_lines_at_1a236f33": [519]
+        },
+        {
+          "id": "LIT-2-C5",
+          "kind": "consistency note",
+          "text": "Secondary procedures require convex mixing to be available in Acc as a sourced procedure, consistent with convention c1.",
+          "frozen_text_lines_at_1a236f33": []
+        }
+      ],
+      "contradiction_check": "NO. MR-1's universal quantification over Acc is the stronger, in-model form of the source's completeness assumption; the caveats above are scope statements.",
+      "reader_commands": [
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | grep -n -E 'AW-MR3|T7|Mazurek|^#+ |5.3|tomograph' | head -80",
+        "mkdir -p .../lit-mazurek && ls -A .../lit-mazurek",
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '240,255p;387,425p;429,560p;656,675p;739,760p'",
+        "cd .../lit-mazurek && curl -sSL -o mazurek-1505.06244.pdf https://arxiv.org/pdf/1505.06244 && curl -sSL -o abs.html https://arxiv.org/abs/1505.06244 && ls -l && sha256sum mazurek-1505.06244.pdf && file mazurek-1505.06244.pdf",
+        "grep -o -E '...' abs.html | head -20; grep -o -E 'submission-history.{0,1500}' abs.html | sed ... | head -20",
+        "grep -n -A25 'submission-history' abs.html | sed ... | head -30; grep -n -i 'journal-ref|Comments' abs.html | sed ... | head",
+        "curl -sSL -A 'Mozilla/5.0' -o ncomms11780.pdf https://www.nature.com/articles/ncomms11780.pdf; ls -l; file; sha256sum",
+        "curl -sSL -A 'Mozilla/5.0' -o article.html https://www.nature.com/articles/ncomms11780 && grep -o -E 'https://static-content.springer.com/esm/[^\"]+' article.html | sort -u",
+        "curl -sSL -A 'Mozilla/5.0' -o ncomms11780-SI.pdf '<MOESM1461 URL>' && ls -l && file && sha256sum"
+      ],
+      "gate": {
+        "status": "MET",
+        "reason": "Full first-hand read of the article and Supplementary Information; no contradiction; caveats LIT-2-C1 to LIT-2-C5 recorded as scope caveats."
+      }
+    },
+    {
+      "id": "LIT-3",
+      "source": "S. Kochen, E. P. Specker, 'The problem of hidden variables in quantum mechanics', J. Math. Mech. 17(1), 59-87 (1967)",
+      "doi": "none located; JSTOR stable 24902153",
+      "edition_read": "partial copies only (see fetched)",
+      "fetched": [
+        {
+          "url": "https://www.iumj.indiana.edu/IUMJ/FTDLOAD/1968/17/17004/pdf",
+          "sha256": "d76d792cf8db8fe5603c455495ff960681c24b755c58118376b83c4a5f850d4b",
+          "pages_read": "59-64 (free 6-page preview; the djvu link serves the same PDF; full text subscriber-only)"
+        },
+        {
+          "url": "https://cqi.inf.usi.ch/qic/Kochen1967.pdf",
+          "sha256": "fd7af55a5a601c3277e1a620530a7fcb96b731d784c5a07c03697d3ca97f3611",
+          "pages_read": "cover and journal pp. 59-68 (11 pp.; JSTOR cover gives J. Math. Mech. 17(1), 59-87)"
+        }
+      ],
+      "routes_tried_and_failed": [
+        "JSTOR PDF (stable 24902153): paywalled",
+        "Springer reprint in Hooker (ed.) 1975, DOI 10.1007/978-94-010-1795-4_17: paywalled",
+        "archive.org: the Hooker volume is restricted lending; advanced searches for the Hooker volume and Specker's Selecta found no open copy",
+        "nLab Kochen-Specker page: links to the same IUMJ preview",
+        "IUMJ full-text page: subscriber-only",
+        "two web searches: no other full copy"
+      ],
+      "not_read": "pp. 69-87: the rest of section 3 (the 117-vector graph and the non-colourability argument), section 4 (spin-1 realization), section 5 (the von Neumann comparison and the two-dimensional spin-1/2 classical model), and the quantum-logic section. Section 5 is the part MR-1 needs for the CC2 instance.",
+      "read": "partial (pp. 59-68 of 59-87)",
+      "substitute_used": "none. Possible substitute primary sources (Peres, J. Phys. A 24 (1991) L175; Mermin, PRL 65 (1990) 3373; Mermin, RMP 65 (1993) 803) were not read and do not satisfy this gate.",
+      "claim_consumed": "none. The claim MR-1 needs (the section 5 classical spin-1/2 model, for the CC2 instance) lies in the unread pages.",
+      "pages_read_content_for_owner_only": "Section 1 (pp. 63-64): conditions (1) and (4) on a hidden-variable space. Section 2: p. 66, embedding of the partial algebra of observables into a commutative algebra as a necessary condition; p. 67, Theorem 0. Section 3 (pp. 67-68): B(E3), condition (6), Lemmas 1-2. Introduction (p. 60) announces the section 5 classical spin-1/2 model. None of this satisfies the gate.",
+      "caveats": [],
+      "contradiction_check": "UNDETERMINED. Pages 59-68 contradict nothing in the frozen text; the decisive pages were not read.",
+      "frozen_text_lines_at_1a236f33": [569, 668, 758],
+      "reader_commands": [
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '255,345p;520,580p;735,765p'",
+        "mkdir -p .../lit-ks1967; ls -A; curl -sS -L -o .../iumj_17004.pdf -w ... https://www.iumj.indiana.edu/IUMJ/FTDLOAD/1968/17/17004/pdf; file ...",
+        "sha256sum .../iumj_17004.pdf",
+        "mkdir -p .../lit-ks1967/usi; ls -A; curl -sS -L -o .../usi/Kochen1967.pdf -w ... https://cqi.inf.usi.ch/qic/Kochen1967.pdf; file ...; sha256sum ...",
+        "curl -sS -L https://ncatlab.org/nlab/show/Kochen-Specker+theorem | grep -o 'href=...' | grep -i -E 'pdf|jstor|doi|kochen' | head -40",
+        "mkdir -p .../lit-ks1967/springer; ls -A; curl ... https://link.springer.com/content/pdf/10.1007/978-94-010-1795-4_17.pdf; file ...; curl -o /dev/null ... https://www.jstor.org/stable/pdf/24902153.pdf",
+        "curl archive.org advancedsearch (kochen specker hidden variables); curl -o /dev/null + grep on https://www.iumj.indiana.edu/IUMJ/fulltext.php?artid=17004&year=1968&volume=17",
+        "curl IUMJ fulltext page | sed | grep; mkdir -p .../lit-ks1967/djvu; ls -A; curl ... FTDLOAD/1968/17/17004/djvu; file ...",
+        "curl archive.org advancedsearch (Hooker volume / Specker selecta; exact title)"
+      ],
+      "gate": {
+        "status": "NOT-MET",
+        "reason": "Access: only pp. 59-68 of 59-87 could be obtained; section 5, which the CC2 instance needs, is unread. No substitute was used.",
+        "consequence": "K-star (including the CC2 instance and the constraint that fixes it) is blocked pending the owner's decision, PR #1023 comment 6549290592. Under the frozen execution blocker (L668) no execution step whose decision depends on a claim from this source proceeds."
+      }
+    }
+  ],
+  "disagreement_disposition": "Every disagreement with the frozen text recorded above (LIT-1-C1 to LIT-1-C4, LIT-2-C1 to LIT-2-C4) is a scope caveat, not a contradiction of a load-bearing assumption. The preregistration is not edited; the caveats bind the stage-1 amendment.",
+  "writer_runs": [
+    {"run": 1, "command": "git log -1 --format=%H", "purpose": "confirm HEAD", "result": "1a236f332e8ea12b7fdb125bf8c5098ccd71d36c"},
+    {"run": 2, "command": "git grep -n -E '<phrases>' 1a236f33 -- .../preregistration.md", "purpose": "frozen-text line references for LIT-1 and LIT-2", "result": "lines 234, 244, 246, 247, 251, 373, 399, 468, 469, 501"},
+    {"run": 3, "command": "git grep -n -E '<phrases>' 1a236f33 -- .../preregistration.md", "purpose": "frozen-text line references", "result": "lines 393, 500, 519, 569, 668, 754, 756, 758"},
+    {"run": 4, "command": "git add .../amendments/stage1-log.json", "purpose": "stage this file", "result": "staged"},
+    {"run": 5, "command": "python3 -I tools/artifact_placement_check.py", "purpose": "hygiene", "result": "OK (no unaccounted root artifact; 95 names permitted; self-test passed)"},
+    {"run": 6, "command": "python3 -I tools/lean_manuscript_census.py", "purpose": "hygiene", "result": "OK"},
+    {"run": 7, "command": "python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene", "result": "PASS; added-text scan 0 hits"},
+    {"run": 8, "command": "git status --short; git diff --cached --stat 1a236f33 -- .../preregistration.md", "purpose": "confirm only this file is added and the preregistration is unchanged", "result": "one added file; empty diff for the preregistration"},
+    {"run": 9, "command": "re-stage this file, rerun runs 5-7 on the final content, git diff --stat 1a236f33 -- .../preregistration.md, git commit, git log -1", "purpose": "final hygiene on the committed content and the single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+  ]
+}
