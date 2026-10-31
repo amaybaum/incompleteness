@@ -84,9 +84,8 @@ theorem aux_G11 :
     F2CoherenceControls.rot_11]
   first
     | (simp [Complex.star_def]; done)
-    | (simp [Complex.star_def] <;> ring)
-    | (apply Complex.ext <;> simp [Complex.star_def] <;> norm_num)
-    | (apply Complex.ext <;> norm_num [Complex.star_def])
+    | (simp [Complex.star_def]
+       linear_combination (-3 / 5 : ℂ) * Complex.I_sq)
 
 theorem gauged_rot_fixes_ones :
     (gaugeDᴴ * DiagonalTheory.rot * gaugeD) *ᵥ InstrumentRealization.ones (Fin 2 × Fin 1)
@@ -249,7 +248,7 @@ theorem scaled_rot_not_gauge_nonneg :
         * h00
       + (a * ((N ((0 : Fin 2), (0 : Fin 1)) ((0 : Fin 2), (0 : Fin 1)) : ℝ) : ℂ)) * h11
   have h0c : c ^ 2 * (9 / 25 : ℂ) = 0 := by
-    rw [hcc, ← Complex.ofReal_mul, hn, Complex.ofReal_zero, _root_.mul_zero]
+    rw [hcc, ← Complex.ofReal_mul, hn, Complex.ofReal_zero, mul_zero]
   have hc2 : c ^ 2 = 0 := by
     linear_combination (25 / 9 : ℂ) * h0c
   first
@@ -345,15 +344,24 @@ theorem realSubclass_not_p1 {𝓘 : InterventionLocality.ImplementationClass}
   intro hav
   obtain ⟨c, hc, hmem⟩ := MicroReversibility.exists_scaled_mem_of_instAvail_unitary arch hav
   obtain ⟨b, M, -, hM⟩ := hle _ _ hmem
+  have hentry : ∀ p q, c * LieRankSource.phaseGate ((0 : Fin 2), (0 : Fin 1)) p q
+      = b * ((M p q : ℝ) : ℂ) := by
+    intro p q
+    have h := congrFun (congrFun hM p) q
+    rw [Matrix.smul_apply, Matrix.smul_apply, smul_eq_mul, smul_eq_mul, Matrix.map_apply] at h
+    exact h
+  have hne : ¬ (((0 : Fin 2), (0 : Fin 1)) = ((1 : Fin 2), (0 : Fin 1))) := by decide
   have h0 : c * Complex.I = b * ((M ((0 : Fin 2), (0 : Fin 1)) ((0 : Fin 2), (0 : Fin 1)) : ℝ) : ℂ) := by
-    simpa [LieRankSource.phaseGate] using
-      congrFun (congrFun hM ((0 : Fin 2), (0 : Fin 1))) ((0 : Fin 2), (0 : Fin 1))
+    have h := hentry ((0 : Fin 2), (0 : Fin 1)) ((0 : Fin 2), (0 : Fin 1))
+    rw [LieRankSource.phaseGate, Matrix.diagonal_apply_eq, if_pos rfl] at h
+    exact h
   have h1 : c = b * ((M ((1 : Fin 2), (0 : Fin 1)) ((1 : Fin 2), (0 : Fin 1)) : ℝ) : ℂ) := by
-    simpa [LieRankSource.phaseGate] using
-      congrFun (congrFun hM ((1 : Fin 2), (0 : Fin 1))) ((1 : Fin 2), (0 : Fin 1))
+    have h := hentry ((1 : Fin 2), (0 : Fin 1)) ((1 : Fin 2), (0 : Fin 1))
+    rw [LieRankSource.phaseGate, Matrix.diagonal_apply_eq, if_neg hne, _root_.mul_one] at h
+    exact h
   have hb : b ≠ 0 := by
     rintro rfl
-    rw [_root_.zero_mul] at h1
+    rw [zero_mul] at h1
     exact hc h1
   have h2 : b * (((M ((1 : Fin 2), (0 : Fin 1)) ((1 : Fin 2), (0 : Fin 1)) : ℝ) : ℂ) * Complex.I)
       = b * ((M ((0 : Fin 2), (0 : Fin 1)) ((0 : Fin 2), (0 : Fin 1)) : ℝ) : ℂ) := by
@@ -362,7 +370,7 @@ theorem realSubclass_not_p1 {𝓘 : InterventionLocality.ImplementationClass}
   have h3 := mul_left_cancel₀ hb h2
   have h4 := congrArg Complex.im h3
   simp at h4
-  rw [h4, Complex.ofReal_zero, _root_.mul_zero] at h1
+  rw [h4, Complex.ofReal_zero, mul_zero] at h1
   exact hc h1
 
 theorem realSubclass_not_phases {𝓘 : InterventionLocality.ImplementationClass}
