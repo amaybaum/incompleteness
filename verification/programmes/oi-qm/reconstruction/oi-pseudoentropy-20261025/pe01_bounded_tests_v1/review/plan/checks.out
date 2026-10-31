@@ -1,0 +1,66 @@
+== EX4 primitivity and reciprocal table
+3 ord(p)= 7 ord(p')= 7 want 7 p' is reciprocal: True
+4 ord(p)= 15 ord(p')= 15 want 15 p' is reciprocal: True
+5 ord(p)= 31 ord(p')= 31 want 31 p' is reciprocal: True
+6 ord(p)= 63 ord(p')= 63 want 63 p' is reciprocal: True
+7 ord(p)= 127 ord(p')= 127 want 127 p' is reciprocal: True
+8 ord(p)= 255 ord(p')= 255 want 255 p' is reciprocal: True
+primitive counts: {3: 2, 4: 2, 5: 6, 6: 6, 7: 18, 8: 16}
+== EX1 bijection by image count, orbit structure, K_cx, K_max vs 2*Lmax
+lin n=3 bij ok; Lmax=7 median=(7, 7) Kcx=3..3 Kmax=28 2Lmax-2=12 ok=True
+lin n=4 bij ok; Lmax=15 median=(15, 15) Kcx=7..7 Kmax=60 2Lmax-2=28 ok=True
+lin n=5 bij ok; Lmax=31 median=(31, 31) Kcx=15..15 Kmax=124 2Lmax-2=60 ok=True
+lin n=6 bij ok; Lmax=63 median=(63, 63) Kcx=31..31 Kmax=252 2Lmax-2=124 ok=True
+lin n=7 bij ok; Lmax=127 median=(127, 127) Kcx=63..63 Kmax=508 2Lmax-2=252 ok=True
+lin n=8 bij ok; Lmax=255 median=(255, 255) Kcx=127..127 Kmax=1020 2Lmax-2=508 ok=True
+filt n=3 bij ok; Lmax=7 median=(7, 7) Kcx=3..3 Kmax=28 2Lmax-2=12 ok=True
+filt n=4 bij ok; Lmax=15 median=(15, 15) Kcx=7..7 Kmax=60 2Lmax-2=28 ok=True
+filt n=5 bij ok; Lmax=31 median=(31, 31) Kcx=15..15 Kmax=124 2Lmax-2=60 ok=True
+filt n=6 bij ok; Lmax=63 median=(63, 63) Kcx=31..31 Kmax=252 2Lmax-2=124 ok=True
+filt n=7 bij ok; Lmax=127 median=(127, 127) Kcx=63..63 Kmax=508 2Lmax-2=252 ok=True
+filt n=8 bij ok; Lmax=255 median=(255, 255) Kcx=127..127 Kmax=1020 2Lmax-2=508 ok=True
+clk n=3 bij ok; Lmax=10 median=(10, 10) Kcx=5..5 Kmax=28 2Lmax-2=18 ok=True
+clk n=4 bij ok; Lmax=19 median=(19, 19) Kcx=9..9 Kmax=60 2Lmax-2=36 ok=True
+clk n=5 bij ok; Lmax=40 median=(40, 40) Kcx=20..20 Kmax=124 2Lmax-2=78 ok=True
+clk n=6 bij ok; Lmax=85 median=(85, 85) Kcx=42..42 Kmax=252 2Lmax-2=168 ok=True
+clk n=7 bij ok; Lmax=169 median=(169, 169) Kcx=84..84 Kmax=508 2Lmax-2=336 ok=True
+clk n=8 bij ok; Lmax=337 median=(337, 337) Kcx=168..168 Kmax=1020 2Lmax-2=672 ok=True
+dec n=3 bij ok; Lmax=7 median=(7, 7) Kcx=3..3 Kmax=28 2Lmax-2=12 ok=True
+dec n=4 bij ok; Lmax=15 median=(15, 15) Kcx=7..7 Kmax=60 2Lmax-2=28 ok=True
+dec n=5 bij ok; Lmax=31 median=(31, 31) Kcx=15..15 Kmax=124 2Lmax-2=60 ok=True
+dec n=6 bij ok; Lmax=63 median=(63, 63) Kcx=31..31 Kmax=252 2Lmax-2=124 ok=True
+dec n=7 bij ok; Lmax=127 median=(127, 127) Kcx=63..63 Kmax=508 2Lmax-2=252 ok=True
+dec n=8 bij ok; Lmax=255 median=(255, 255) Kcx=127..127 Kmax=1020 2Lmax-2=508 ok=True
+== IM2-style: LC count formula vs enumeration, N<=14
+formula matches enumeration for N=1..14
+DP vs closed form mismatches: []
+== PC zero, NC-1, NC-2 on G_lin; NC-2 separation on G_filt
+NC-1 TV = max(0,1-2^(n-K)) and LC<=n+1 surely: verified n=3..6, both siblings, K<=3n+3
+G_filt n=4 [(10, 32, '11/32', 0.01025390625, 0.66650390625), (14, 32, '1/16', 0.041656494140625, 0.979156494140625), (16, 32, '1/16', 0.05728912353515625, 0.9947891235351562)]
+G_filt n=5 [(12, 64, '29/64', 0.1197509765625, 0.6666259765625), (16, 64, '1/16', 0.04166412353515625, 0.9791641235351562), (20, 64, '1/32', 0.029947757720947266, 0.9986977577209473)]
+G_filt n=6 [(14, 128, '25/64', 0.057281494140625, 0.666656494140625), (18, 128, '5/128', 0.018228530883789062, 0.9791660308837891), (24, 128, '1/64', 0.015299469232559204, 0.9996744692325592)]
+G_filt n=7 [(16, 256, '45/128', 0.01822662353515625, 0.6666641235351562), (20, 256, '5/128', 0.018229007720947266, 0.9791665077209473), (28, 256, '1/128', 0.00773111917078495, 0.999918619170785)]
+== PC firing on G_dec at K=1
+3 {(0, 0): 8, (1, 1): 8}
+4 {(0, 0): 16, (1, 1): 16}
+== P_emb counts
+m=1: 16 m=2: 9216 F count m=2: 256
+== B4 trivial-annihilator horizon by monomial counting vs 2^(n+1) support
+n=3 d=1: annihilator guaranteed by counting at K=15
+n=3 d=2: annihilator guaranteed by counting at K=5
+n=3 d=3: annihilator guaranteed by counting at K=4
+n=4 d=1: annihilator guaranteed by counting at K=31
+n=4 d=2: annihilator guaranteed by counting at K=7
+n=4 d=3: annihilator guaranteed by counting at K=5
+n=5 d=1: annihilator guaranteed by counting at K=63
+n=5 d=2: annihilator guaranteed by counting at K=10
+n=5 d=3: annihilator guaranteed by counting at K=7
+n=6 d=1: annihilator guaranteed by counting at K=127
+n=6 d=2: annihilator guaranteed by counting at K=15
+n=6 d=3: annihilator guaranteed by counting at K=8
+n=7 d=1: annihilator guaranteed by counting at K=255
+n=7 d=2: annihilator guaranteed by counting at K=22
+n=7 d=3: annihilator guaranteed by counting at K=11
+n=8 d=1: annihilator guaranteed by counting at K=511
+n=8 d=2: annihilator guaranteed by counting at K=31
+n=8 d=3: annihilator guaranteed by counting at K=14
