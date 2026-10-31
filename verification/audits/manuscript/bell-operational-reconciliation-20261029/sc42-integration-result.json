@@ -2212,6 +2212,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Developed in:* Chapters 1, 7, and 18. The three components ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Framework status.** Observer-relative account. In the prop..."
     },
     {
