@@ -129,8 +129,8 @@ def run(root):
             need(all(values[v] != values[v ^ 4] for v in range(8)),
                  'clean program pair necessarily changes forced original cell')
             backward_worlds += 8
-    # Independently index the full finite periodic update to check backward
-    # recursion against forward evolution from its reconstructed two slices.
+    # Independently check the two-slice inverse by a backward/forward
+    # roundtrip of the full finite periodic update.
     sites = list(itertools.product(range(5), repeat=3))
     neighbors = {v: [tuple((v[j]+d[j]) % 5 for j in range(3)) for d in D]
                  for v in sites}
