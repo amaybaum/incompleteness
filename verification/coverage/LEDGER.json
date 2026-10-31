@@ -1620,7 +1620,7 @@
       "line": 300,
       "kind": "Theorem",
       "label": "3",
-      "fingerprint": "78abc2acbf80c5bf",
+      "fingerprint": "cc625c5a5b0a4456",
       "area": "sm",
       "assumptions": "fixed opposite-parity hopping; site-independent coefficients m·eps + p_0; no additive 2-torsion; both parity sectors present",
       "checks": [
@@ -1659,7 +1659,7 @@
       ],
       "kernel": "K3",
       "delta": "",
-      "note": "Proposed K3 only for the exact restricted first-order statement printed in SM Theorem 3 after integration and canonical verification. The unrestricted second-order-update/physical-chirality equivalence remains a separate open recovery target; mass_square is an auxiliary identity, not that missing bridge."
+      "note": "K3 for the exact restricted first-order statement printed in SM Theorem 3: vanishing onsite terms m = p_0 = 0 iff exact chirality. The unrestricted second-order-update/physical-chirality equivalence remains a separate open recovery target; mass_square is an auxiliary identity, not that missing bridge."
     },
     {
       "id": "SM:T-4-conditional-observer-level-mass-spectrum",
