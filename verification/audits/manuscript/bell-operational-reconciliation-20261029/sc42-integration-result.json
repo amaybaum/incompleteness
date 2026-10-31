@@ -1276,6 +1276,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: These features — coupling, memory persistence, large capacit..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The thought experiment captures the framework's central move..."
     },
     {
@@ -1300,6 +1304,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: C4's readback therefore produces accessible-timescale non-Ma..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **A worked six-hidden-state model.** A concrete example make..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The Born rule in the fixed-basis representation is therefore..."
     },
     {
@@ -1321,6 +1333,18 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The remaining qualification is localized. To identify the co..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The characterization theorem establishes the dilation equiva..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Together, the limits characterize the kind of observer we ar..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A small such game deals the write-then-read mechanism of the..."
     },
     {
       "ok": true,
@@ -1588,6 +1612,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework shares the starting point of these results: th..."
     },
     {
@@ -1801,6 +1829,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Born rule.** The quantum-mechanical prescription that the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **C2 (Memory persistence).** A physical-regime premise rathe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **C3 (Hidden-sector capacity).** The second of the framework..."
     },
     {
       "ok": true,
