@@ -27,6 +27,7 @@ namespace F2CoherenceControls
 
 open scoped ComplexOrder
 open OperationalAssembly MonoidalCompletion
+open Matrix
 
 /-! ### Auxiliary entry lemmas for `rot` (not among the fixed statements) -/
 
@@ -189,10 +190,12 @@ theorem nonnegClass_onesFixing : InstrumentRealization.OnesFixing nonnegClass :=
   obtain ⟨N, hN0, rfl⟩ : ∃ N : Matrix S S ℝ, (∀ i j, 0 ≤ N i j)
       ∧ M = N.map (fun x : ℝ => (x : ℂ)) := by
     refine ⟨fun i j => (M i j).re, fun i j => (Complex.nonneg_iff.mp (hM i j)).1, ?_⟩
-    ext i j
+    refine Matrix.ext fun i j => ?_
+    show M i j = (((M i j).re : ℝ) : ℂ)
     apply Complex.ext
-    · simp
-    · simp [← (Complex.nonneg_iff.mp (hM i j)).2]
+    · rw [Complex.ofReal_re]
+    · rw [Complex.ofReal_im]
+      exact (Complex.nonneg_iff.mp (hM i j)).2.symm
   have hKe : ∀ i j, (a • N.map (fun x : ℝ => (x : ℂ))) i j = a * (N i j : ℂ) := fun _ _ => rfl
   have hterm : ∀ i j k, star ((a • N.map (fun x : ℝ => (x : ℂ))) i j)
       * (a • N.map (fun x : ℝ => (x : ℂ))) i k
@@ -292,7 +295,7 @@ theorem realClass_arch : InterventionLocality.Architecture realClass where
     split_ifs <;> simp
   block := fun S _ _ m K f e hK => by
     obtain ⟨a, M, ha, rfl⟩ := hK
-    exact ⟨a, AncillaClosure.ancBlock M f e, ha, by ext i j; rfl⟩
+    exact ⟨a, Matrix.of fun s t => M (s, f) (t, e), ha, by ext i j; rfl⟩
 
 /-- Auxiliary: the real matrix whose complexification is `rot`. -/
 noncomputable def rotR : Matrix (Fin 2 × Fin 1) (Fin 2 × Fin 1) ℝ :=
