@@ -2998,7 +2998,7 @@ for _t in ('What the substratum does determine is a path',
            'its reversibility a consequence of the factorization',
            'time-one map of a strongly continuous one-parameter group of isometric $*$-automorphisms of the quasilocal algebra',
            'run in the order the Heisenberg picture forces, the swap first',
-           'norm-continuous path of isometric $*$-automorphisms from the identity to the update\'s own Heisenberg action',
+           'strongly continuous path of isometric $*$-automorphisms from the identity to the update\'s own Heisenberg action',
            'For the composite path no one-parameter-group law is established and no generator is exhibited',
            'whether the path satisfies a one-parameter-group law, and whether one time-independent finite-range interaction has the update as its unit-time map, are open, and nothing here decides either',
            'A continuous-time Hamiltonian law is additional structure where that formulation is wanted',
@@ -3006,10 +3006,10 @@ for _t in ('What the substratum does determine is a path',
            '`layerQ_one_eq_heisQ`', '`swapQ_one_eq_heisQ`', '`heisQ_of_comp`',
            '`driveQ_isContinuousPath`', '`driveQ_one_eq_heisQ`', '`continuous_extension_not_unique`'):
     ok_ctn &= _t in _gct
-ok_ctn &= ('an exact norm-continuous path of local $*$-automorphisms of the quasilocal algebra from the '
+ok_ctn &= ('an exact strongly continuous path of $*$-automorphisms of the quasilocal algebra from the '
            'identity to the update\'s Heisenberg action, for which no one-parameter-group law is established '
            'and no generator is exhibited') in _ctn_files['papers/Main.md']
-_ctn_sum = ('while the update is joined to the identity by an exact norm-continuous path of local '
+_ctn_sum = ('while the update is joined to the identity by an exact strongly continuous path of '
             '$*$-automorphisms of that algebra, with no one-parameter-group law established and no generator exhibited, a '
             'continuous-time Hamiltonian law remains additional structure')
 for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
@@ -3041,7 +3041,7 @@ ok_ctn &= len(_ctn_fam) == 1 and _ctn_fam[0]['status'] == 'current' and len(_ctn
 ok_ctn &= '| continuous time (CT2) | 4 | current |' in open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
 check('R7-CTN', ok_ctn,
       'CT2 narration guard: GR 3.3 states the depth-two factorization, the two layer groups and the '
-      'norm-continuous path of isometric *-automorphisms from the identity to the update, as a path '
+      'strongly continuous path of isometric *-automorphisms from the identity to the update, as a path '
       'with no one-parameter-group law for the composite established, no generator exhibited and '
       'CT3 stated open, citing the '
       'SecondOrder modules; Main 2.3 and the quasilocal summaries in Main, the Explainer and both '
