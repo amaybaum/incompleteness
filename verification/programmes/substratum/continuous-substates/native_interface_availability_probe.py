@@ -124,14 +124,19 @@ def run(root):
     # plus one raw port triple. This is arithmetic, not a large-L replay.
     passive={a:Counter() for a in (0,1)}
     active={a:Counter() for a in (0,1)}
+    whole_g_joint=Counter()
     for record,output,newraw in itertools.product(range(8),repeat=3):
         setting=record>>2
+        record_tail=record&3
+        need(4*setting+record_tail==record,'selector branch and retained B/D reconstruct whole G')
         vrecord=output
         need(vrecord==output,'stipulated V record copies the actual carrier field')
-        passive[setting][(output,vrecord,newraw)]+=Fraction(1,512)
+        whole_g_joint[(record,output,vrecord,newraw)]+=Fraction(1,512)
+        passive[setting][(record_tail,output,vrecord,newraw)]+=Fraction(1,512)
+    need(whole_g_joint==Counter({(g,v,v,r):Fraction(1,512) for g,v,r in itertools.product(range(8),repeat=3)}),'complete whole-G/carrier/record product factor')
     for setting in (0,1):
         need(sum(passive[setting].values())==Fraction(1,2),'selector raw branch mass')
-        need({v:2*p for v,p in passive[setting].items()}=={(v,v,r):Fraction(1,64) for v,r in itertools.product(range(8),repeat=2)},'selector-conditioned joint carrier/record factor identical')
+        need({v:2*p for v,p in passive[setting].items()}=={(b,v,v,r):Fraction(1,256) for b,v,r in itertools.product(range(4),range(8),range(8))},'selector-conditioned joint carrier/record factor identical')
     # Deliberately supplied classical reversible actuator, only to ensure
     # the test detects a real conditional change when one is present.
     for setting in (0,1):

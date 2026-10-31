@@ -164,7 +164,10 @@ successor geometry and57 distinct original blocks,64 equal controller
 q9 rows with all16 terminal rows, and a changed-preparation countercontrol
 that differs in24 rows. A512-row exact product-factor check retains whole
 G, a whole boundary field and its identical V record, and a raw public
-triple. It verifies equal sigma-conditioned joint factors; the full product
+triple. It stores whole G explicitly and compares the selector branches
+while retaining G.B/D, rather than summing those fields out. A correlation
+between those fields and the output must fail the full joint check.
+It verifies equal sigma-conditioned joint factors; the full product
 law follows from the written source proof, not that small arithmetic table.
 A deliberately supplied classical actuator changes a fixed input with
 TV1, ensuring the comparator can detect actuation. This positive control
