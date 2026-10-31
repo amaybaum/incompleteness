@@ -84,9 +84,11 @@ Route B countertheory.
   `(T_Θ (Fin 2)).availExt 1 Unit (fun _ => conjChannel rot)` (`RouteB.lean:174`). Here `rot` is
   the matrix `[[3/5, 4/5], [−4/5, 3/5]]` on `Fin 2 × Fin 1` (`DiagonalTheory.lean:368`), and the
   test is on this `rot`. Its inverse `rotᴴ = rotᵀ` is the separate predicate `R†`. If a
-  construction yields only `rotᴴ`, `R` must be established by a physically sourced route, for
-  example a proof that `𝓘_Θ` is `DaggerStable` (`MicroscopicReversibility.lean:216`) from a stated
-  reversal of the coupling. It is never assumed.
+  construction yields only `rotᴴ`, `R` must still be proved, for example by showing that `𝓘_Θ`
+  is `DaggerStable` (`MicroscopicReversibility.lean:216`) from a stated reversal of the coupling.
+  Because `𝓘_Θ★` is computed by the rule of §3, "proved" for `R` or `R†` means kernel-proved for
+  `T_Θ★` with no added hypothesis. Assuming either one is excluded: `DaggerStable` taken as a
+  premise, or `rot` or `rotᴴ` added to the generators.
 - `P` := `PhasesAvailable (T_Θ A)` (`RouteB.lean:128`): the quarter phase `phaseGate a`
   (`LieRankSource.lean:209`) at every level and every state, on `Fin 2` and on every nonempty
   carrier the candidate is stated for. `P` and `R` are independent obligations: `substratumTheory`
@@ -150,6 +152,10 @@ computation.
     processes of `C`.
   - **One rule for every model:** the same `Θ_rule` is applied, unchanged, to every model written as
     `(K, T, μ, C)` in C1, C2 and C10. Those are the falsification probes of clause 2(a).
+  - **One coupling for every probe:** at `A★`, each probe's coupling is fixed as the candidate's
+    `C` transplanted to the probe's `K`, with the same register and the same readout process. If
+    `C` cannot be transplanted to a probe's `K`, `A★` states why, and clause 4 is then
+    unreachable.
   - **The rule's form is the hypothesis.** The baseline rule is compression of the joint Koopman
     unitary onto the indicator embedding of the register values. It is the Θ-K row below, and AW5
     applies to it. A candidate rule must state how it differs from that baseline and which property
@@ -185,7 +191,8 @@ computation.
   up to a scalar or carries a relative phase in the named basis.
 - **The representation predicate is membership in `E★`,** with the exhibit verified by exact
   computation. Nothing outside the list counts, for the candidate or for any control. Each control
-  in §6 has its list fixed in this note.
+  in §6 has its list fixed in this note. The reviewer of `A★` may add exhibits to `E★` before the
+  freeze.
 
 **The enumerated family.** Stage 1 chooses from the following, or states a new `Θ★` that passes the
 screen. The first three are decided in stage 2 as controls, whatever `Θ★` is. The right column is
@@ -210,13 +217,13 @@ tokens total and exclusive.
 
 | # | Token | Criterion | Evidence layer required |
 |---|---|---|---|
-| 0 | `INCONCLUSIVE` (void) | any of: (i) a clause-0 control returns other than its preregistered result: the reference classifications of C1–C10 (§6), G4d, the mutations M1–M10, or the decision-function self-test; (ii) a freeze violation (G1); (iii) a measure chosen after an outcome; (iv) floating point in a decision path; (v) a kernel predicate entering the results without its CI step conclusion and axiom check (§9); (vi) a candidate computation before `A★` that the screen forbids or the log omits | the failing checkpoint record |
+| 0 | `INCONCLUSIVE` (void) | any of: (i) a clause-0 control returns other than its preregistered result: the reference classifications of C1–C10 (§6), G4d, the mutations M1–M10, or the decision-function self-test; (ii) a freeze violation (G1); (iii) a measure chosen after an outcome; (iv) floating point in a decision path; (v) a kernel predicate entering the results without its CI step conclusion and axiom check (§9); (vi) a candidate computation before `A★` that the screen forbids or the log omits; (vii) a probe run with a coupling other than the transplanted `C` fixed at `A★` | the failing checkpoint record |
 | 1 | `INCONCLUSIVE` (gap) | stage 1 fixes no admissible `Θ★` | paper: the named operator condition |
-| 2 | `COUNTEREXAMPLE` (falsified) | (a) a falsification probe, i.e. C1, C2 or C10 pushed through `Θ_rule`, yields `R` or `P`; or (b) for `Θ★`, `R ∧ R†` hold and any of the following fails: G4a (coherent return = 1), G4b (return under a *sourced* dephasing = 337/625), G4c (model frequencies = `T_Θ★` statistics), or a Gate 5a held-out frequency against its trace-rule value; or `R` holds while the candidate's own dagger claim is refuted | kernel for `R`, `R†`; exact computation |
+| 2 | `COUNTEREXAMPLE` (falsified) | (a) a falsification probe, i.e. C1, C2 or C10 pushed through `Θ_rule`, yields `R` or `P`; or (b) for `Θ★`: `R` holds and a Gate 5a held-out frequency differs from its trace-rule value; or `R ∧ R†` hold and any of G4a (coherent return = 1), G4b (return under a *sourced* dephasing = 337/625) or G4c (model frequencies = `T_Θ★` statistics) fails; or `R` holds while the candidate's own dagger claim is refuted | kernel for `R`, `R†`; exact computation |
 | 3 | `REPRESENTATION-ONLY` | (a) `R` or `P` holds only through a generator or readout projector that fails the screen; or (b) `¬R ∧ ¬P` are decided in the kernel, and at least one exhibit in `E★` is verified | screen record; kernel; exact exhibit |
-| 4 | `SOURCED-SUCCESS` | `R`, `R†` (by a sourced route), `P` (on `Fin 2` and every carrier stated) and `S`, all kernel-proved for `T_Θ★`; `¬N ∧ ¬O`; Gate 3 selects `μ` or shows no dependence; G4a, G4b with a sourced dephasing, and G4c pass; Gate 5a derived | kernel for `R, R†, P, S, ¬N, ¬O`; exact for Gates 3–5; paper for the physical justification |
+| 4 | `SOURCED-SUCCESS` | `R`, `R†`, `P` (on `Fin 2` and every carrier stated) and `S`, all kernel-proved for `T_Θ★`; `¬N ∧ ¬O`; Gate 3 selects `μ` or shows no dependence; G4a, G4b with a sourced dephasing, and G4c pass; Gate 5a derived | kernel for `R, R†, P, S, ¬N, ¬O`; exact for Gates 3–5; paper for the physical justification |
 | 5 | `PARTIAL` (loses `S`) | `R ∧ P ∧ ¬S` kernel-proved: the candidate is not an extension of what is already sourced | kernel |
-| 6 | `PARTIAL` (dagger unsourced) | `R ∧ P ∧ S`, with `R†` not proved by a sourced route, so Gate 4 cannot be run | kernel |
+| 6 | `PARTIAL` (dagger unproved) | `R ∧ P ∧ S ∧ ¬(R† proved)`, so Gate 4 cannot be run | kernel |
 | 7 | `PARTIAL` (other) | exactly one of `R`, `P` kernel-proved; or `R ∧ R† ∧ P ∧ S` with the measure dependence of Gate 3, Gate 5a undetermined, or only a diagnostic dephasing available for G4b | kernel for what is established |
 | 8 | `COUNTEREXAMPLE` (countertheory) | `¬R ∧ ¬P` decided in the kernel (through a class invariant `N`, `O`, monomiality, a new named invariant, or directly), with no verified exhibit in `E★` | kernel |
 | 9 | `INCONCLUSIVE` (undecided) | otherwise, for example `R` neither proved nor refuted | paper: what remains undecided |
@@ -334,7 +341,10 @@ falsification probes (clause 2(a)).
 
 The **reference** column is a clause-0 control: any other result voids the run. The **probe**
 column applies to C1, C2 and C10 only: the model is pushed through `Θ★`'s `Θ_rule`, and `R` or `P`
-there fires clause 2(a). The exhibit list of each control is fixed here.
+there fires clause 2(a). Each probe's coupling is the candidate's `C` transplanted to the probe's
+`K`, with the same register and readout process, fixed at `A★` (§3). A probe run with any other
+coupling, such as cylinder access, is void (clause 0(vii)). The exhibit list of each control is fixed
+here.
 
 | ID | Control | Reference result (clause 0) | Probe through `Θ_rule` (clause 2(a)) | `E` |
 |---|---|---|---|---|
@@ -347,7 +357,7 @@ there fires clause 2(a). The exhibit list of each control is fixed here.
 | C7 | positive: exact QM, `genTheory fullClass fullClass_arch (Fin 2)` (`genTheory_fullClass_control`, `ImplementationLocality.lean:915`) | `R`, `R†`, `P`, `¬N`, `¬O` (`falsifier_available_of_control`, `phasesAvailable_of_control`); G4a = 1, G4b = 337/625; Gate 5a trace-rule values; the screen flags `fullClass`, so the token is `REPRESENTATION-ONLY` (row 3(a)). This shows the predicates and numerics fire when they should, and that the screen catches stipulation when everything else succeeds | — | ∅ |
 | C8 | real-amplitude class (complex scalar × real contraction), built at execution | `R`, `¬P` (the bridge would force a nonzero multiple of `phaseGate` to be a scalar times a real matrix), separating `P` from `R`; the screen flags it; token `REPRESENTATION-ONLY` (row 3(a)), never `PARTIAL` | — | ∅ |
 | C9 | NATIVE-PADIC-1 bit-1 mutant | any depth-coupling claim of `Θ★` detects the mutant's backflow and reports none for the unmodified α=1 rule | — | — |
-| C10 | Kochen–Specker 1967 single-qubit model: hidden state on the sphere, SU(2)-invariant `μ`, disturbing readout | exact reproduction of 1, 337/625 and the 5a qubit frequencies (G4d) | expected `¬R ∧ ¬P` | ∅ |
+| C10 | Kochen–Specker 1967 single-qubit model: hidden state on the sphere, SU(2)-invariant `μ`, disturbing readout | exact reproduction of 1, 337/625 and the 5a qubit frequencies (G4d); through Θ-K, `¬R`, `¬P`, token `COUNTEREXAMPLE` (row 8) | expected `¬R ∧ ¬P` | ∅ |
 
 **Mutations** (each must change the outcome as stated; run in CI; each is a clause-0 control):
 
@@ -367,7 +377,7 @@ there fires clause 2(a). The exhibit list of each control is fixed here.
 
 **Decision-function self-test (clause-0 control).** Synthetic results files, one or more for each
 row of §4, are fed to the decision function. Each must yield its row's token. The rows covered are
-0 (each of i–vi), 1, 2(a), 2(b), 3(a), 3(b), 4 (both grades, with the grade read from `review.grade`),
+0 (each of i–vii), 1, 2(a), 2(b), 3(a), 3(b), 4 (both grades, with the grade read from `review.grade`),
 5, 6, 7, 8 and 9. This exercises the rows that no physical control reaches, 2(b), 4 and 5–7 among
 them.
 
@@ -383,7 +393,7 @@ them.
 | obstruction lemmas precede the candidate | G2b (commit order) |
 | availability decided in `genTheory` semantics at the exact types of §2 | fixed-statement declarations; CI step conclusions; axiom check (§9) |
 | `R ⇒ ¬N ∧ ¬O` | C5 lemmas; void rule |
-| `R†` established by a sourced route, not assumed | `DaggerStable` proof or direct derivation; M8 |
+| `R†` proved in the kernel for `T_Θ★`, not assumed | `DaggerStable` proof or direct derivation, with no added hypothesis; M8 |
 | G4b dephasing carries its source label | label field in the results file; M6 |
 | all decision quantities exact | M4; type assertions in scripts |
 | measure selected or dependence reported | G3 |
