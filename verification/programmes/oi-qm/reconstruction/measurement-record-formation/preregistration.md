@@ -235,13 +235,21 @@ sourced recombination as a sourced phase setting varies) and `D` (best discrimin
 acting on the marker) are both executed quantities on the frozen interface. An overlap
 `0 < |⟨d_R|d_L⟩| < 1` assigned to marker vectors, or a partial overlap of two classical conditional
 distributions, is not evidence. A classical model need not obey the relation: a non-invasive copy
-of the path leaves a classical fringe intact (§5.8, CC1). A noncontextual model cannot reproduce the
-quantum tradeoff: Catani, Leifer, Scala, Schmid and Spekkens 2023 show that, under a symmetry
-condition that holds in quantum theory and fixes operational equivalences among four preparations,
-noncontextuality implies the linear bound `V + D ≤ 1` (their `P` is the path distinguishability),
-which the quantum curve exceeds for `0 < V < 1`. The duality relation is therefore admitted as a T7
-instance (W1, §5.7) when those operational equivalences are certified by §5.3; a bare numeric match
-of `D` and `V` to the quantum curve is not admitted.
+of the path leaves a classical fringe intact (§5.8, CC1). A complementarity match of `D` and `V` is
+a consistency requirement, not a witness.
+
+**Predictability–visibility witness (carrier preparations, not markers).** Catani, Leifer, Scala,
+Schmid and Spekkens 2023 treat a different pair of quantities: for a preparation of the carrier
+alone (a splitter of reflectivity `r` and a phase `ϕ`), the which-way predictability
+`P = |P(L) − P(R)|` and the which-phase predictability `V`. Quantum states obey `V² + P² ≤ 1`; for a
+preparation that satisfies their A21 orbit-realizability condition (a quadruple of preparations with
+equal predictabilities up to sign and a stated operational equivalence among them), noncontextuality
+implies `V + P ≤ 1` (their Props. V.1–V.2), which quantum states with `0 < V < 1` on the curve
+exceed. `P` is not the marker distinguishability `D` above: for the §3.5 state the carrier has
+`P = 0`. The relation is therefore admitted as a T7 instance (W1, §5.7) on sourced carrier
+preparations, only when the orbit-realizability quadruple and its operational equivalence are
+certified by §5.3; a bare numeric match to the quantum curve is not admitted, and no bound on
+`V + D` is claimed.
 
 ***
 
@@ -319,8 +327,8 @@ at accuracy `ε`). **No record-law test on
 a fixed finite menu separates C from A.** A separation exists only relative to a frozen constraint
 set `K` on the A side:
 
-- **K1** the dynamics is the one fixed native `φ` with the frozen `π` and `μ`, not a construction
-  made per law;
+- **K1** the dynamics is the one fixed native `φ`, not a construction made per law (the battery
+  freezes `π` and `μ` for `𝔐★`; Q1 lets them range over their admissible classes, §4.4);
 - **K2** causal-cone locality with measurement independence (Main:368);
 - **K3** one finite ontic cardinality for every menu (Main:488, Main:560);
 - **K4** generalized noncontextuality relative to declared operational equivalences;
@@ -347,9 +355,12 @@ C changes P-bij, P-obs or P-set (A2). Before C may be proposed:
   reproduces an **external** benchmark law: a raw/direct laboratory record law (§A.24) or, as a
   stated stand-in, the exact PC-Q law. The quantifier runs over every interface meeting `K★`, not
   over a frozen `𝔐★`, which is itself an A-model on the native `φ` and reproduces its own law.
-  `K★` is frozen before any candidate law is derived, on paper or otherwise (§6, 0(iii) and 0(vi)).
-  Without such a proof, C is a posit. OI holds K1 on its physical reading, K3 through the total-finiteness
-  posit (Main:62), and K6 where a budget is stated. It relinquishes the conjunction K2 in its adopted
+  Under K1, `π` and `μ` range over every admissible value (the classes of PC-1's fork rule), not the
+  frozen pair of `𝔐★`. `K★` is frozen before any candidate law is derived, on paper or otherwise (§6,
+  0(iii) and 0(vi)). Without such a proof, C is a posit. OI holds K1 on its physical reading; it holds
+  K3 through the total-finiteness posit (Main:62) without an upper bound on `N`, and the inputs of §2
+  state no resource budget. A bound used in Q1 must be one OI holds at `D`, cited, not chosen; where OI
+  states none, Q1 cannot use that constraint, so at `D` Q1 cannot use K3 or K6. OI relinquishes the conjunction K2 in its adopted
   Bell option (Main:414), and it holds neither K4 (Main:566 clause (3) claims no Spekkens
   noncontextuality) nor K5 (its instruments are invasive, Main:486).
 - **Q2 independent justification.** A physical argument for the changed premise that does not cite
@@ -404,8 +415,9 @@ not bear on C.
   dynamics are both linear symplectic maps; no identification of the two theories is claimed.
   Whether the native access implements an epistemic restriction is open (stage-1 obligation). An
   epistemically restricted countercontrol is therefore natural on this rule (CC4).
-- **AW-MR6 a complementarity match is not a witness**; the duality relation enters only as a
-  certified T7 instance (§3.5).
+- **AW-MR6 a complementarity match is not a witness**; the predictability–visibility relation on
+  carrier preparations enters only as a certified T7 instance (§3.5). Marker distinguishability `D`
+  and carrier predictability `P` are different quantities.
 - **AW-MR7 (ELABORATING) settings in a closed deterministic substratum.** Settings are functions of
   the complete pre-setting state when the generators are internal (Main:408); the comb's actions are
   exogenous labels (Main:482); the gluing corollary's protocol is a program-register preparation
@@ -505,7 +517,8 @@ conditional preparations, and #912 equation (1) at each stage on the declared ad
 
 **Admitted for outcome (2):**
 - **W1** a violation of a T7 inequality with equivalences certified by §5.3 over `Acc`; the
-  duality-relation inequality `V + D ≤ 1` (§3.5) is one admissible instance;
+  predictability–visibility inequality `V + P ≤ 1` on sourced carrier preparations (§3.5) is one
+  admissible instance;
 - **W2** a T6 Bell violation, reported with the premise it relinquishes; it does not establish W1
   outside that premise set.
 
@@ -515,9 +528,12 @@ external benchmark law, in the primitive-proposal track (Q1, §4.4).
 
 **Nonclassical against contextual.** W1 alone places the law outside the noncontextual class, which
 A-models also leave (U2). A law is reported as nonclassical (token 2.4) only when W1 holds and every
-countercontrol CC1–CC7 is separated by its named test (§5.8). CC8 is excluded from that criterion: it
-reproduces any law of the menu by construction (Prop. U) and is separated only by not being the native
-`φ`, a fact recorded for the primitive-proposal track.
+countercontrol CC1–CC7 is separated **from `𝔐★`'s own law** by its named test (§5.8, outcome
+separation). "Nonclassical" is relative to the CC1–CC7 instances frozen at stage 1, not to every
+classical model. CC8, a per-law invasive deterministic A-model in the class of CC2, reproduces any
+law of the menu by construction (Prop. U) and is not separable at the level of the law; every 2.4 and
+2.5 token carries the mandatory sub-label `CC8-unseparated`, so that the token is not read as
+excluding that class.
 
 **Not admitted, each alone:** a single fringe; one phase; a partial overlap of two distributions or of
 assigned detector states; an eraser fringe; a Leggett–Garg violation (U1); noncommutation (PC-1
@@ -532,22 +548,29 @@ stage 2. PC-Q must return the T0 witness, the complementarity relation, an uncon
 T4 branch masses that sum, composed-phase coherence, a T7 violation of the preregistered inequality,
 and T6 with operational no-signalling.
 
-**Countercontrols.** Each is run on the same battery. Its reference behaviour and the test that must
-separate it from PC-Q are fixed here; a countercontrol that departs from its reference behaviour, or
-that the named test fails to separate, is a control failure (§6, 0(i)). The instances of CC1, CC3,
-CC4, CC5 and CC7 are fixed at stage 1 together with a paper proof that each admits a
-generalized-noncontextual model for the §5.3 equivalences (for CC4, Catani et al. 2023).
+**Countercontrols.** Each is run on the same battery, and two separations are kept apart:
+- **control separation**, from PC-Q's law: a battery control. A countercontrol that departs from its
+  reference behaviour, or that its named test fails to separate from PC-Q, is a control failure (§6,
+  0(i)), except where the table records non-separation as admissible (CC2, CC8);
+- **outcome separation**, from `𝔐★`'s own law by the same named test: the quantity tokens 2.4 and 2.5
+  read. Control separation implies outcome separation only under `BENCHMARK-MATCH` on the tests
+  concerned; otherwise outcome separation is decided directly.
+
+The instances of CC1, CC3, CC4, CC5 and CC7 are fixed at stage 1 together with a paper proof that each
+admits a generalized-noncontextual model for the §5.3 equivalences (for CC4, Catani et al. 2023). The
+CC2 instance is fixed by a stated constraint from K1, K3 or K6, frozen with `K★` and before the
+candidate screen, so that its strength is set by that constraint and not chosen to be separable.
 
 | ID | Countercontrol | Reference behaviour | Separated from PC-Q by |
 |---|---|---|---|
 | CC1 | classical hidden memory: a non-invasive copy of the path on a classical wave or occupation model (PC★3 Q1 class); a static-ledger memory | no W1 | T1 against the complementarity relation; T7 |
 | CC2 | disturbance and contextuality: a Kochen–Specker-type deterministic model with disturbing readout, extended by a disturbing marker | may return W1 (U2) | a test named at stage 1 among T3, T5 and T6 (T6 under K2 is not available to OI, Main:414); if none separates it, the law can be at most `CONTEXTUAL` (§6), which is not a control failure |
 | CC3 | noncommuting classical permutations packaged by a controlled lift (N7) | no W1; T8 fails | T8 (no sourced setting change); T7 |
-| CC4 | an epistemically restricted classical field (Catani et al. 2023; Spekkens 2007) | no W1 | T1 + T7 (the duality relation, Catani, Leifer, Scala, Schmid, Spekkens 2023) |
+| CC4 | an epistemically restricted classical field (Catani et al. 2023; Spekkens 2007) | no W1 | T7, including the predictability–visibility instance on carrier preparations (Catani, Leifer, Scala, Schmid, Spekkens 2023); T1 is a consistency check only |
 | CC5 | a classical eraser: a phase variable keyed into the marker, with full branch masses | no W1 | T7; T4 bookkeeping |
 | CC6 | a supplied, physically inaccessible inverse; a private decoder | `REPRESENTATION-ONLY` | T9 |
 | CC7 | classical dephasing with no record | (ii) with R1 failing | §3.5 |
-| CC8 | the per-law A-realization of PC-Q's law (Main:482, Main:566) | reproduces PC-Q's law; may return W1 | not separable at the level of the law (Prop. U); recorded as not native, for the primitive-proposal track; not a control failure |
+| CC8 | the per-law A-realization of PC-Q's law (Main:482, Main:566) | reproduces PC-Q's law; may return W1 | not separable at the level of the law (Prop. U); recorded as `CC8-unseparated` and as not native; not a control failure |
 
 **Mutations, fixed at stage 1:** renormalize the success branch; drop a failure branch; replace the
 sourced dephasing by an inserted one; a single phase in place of composed phases; equivalence on the
@@ -592,10 +615,11 @@ text.
 | 2.1 | `NOT-REACHED` | axis 1 is not 1.4 | axis-1 token |
 | 2.2 | `NO-PRIOR-COHERENCE` | T0 fails | the T0 element |
 | 2.3 | `CLASSICAL-REPRODUCED/<CC>` | the whole T0–T7 law of `𝔐★` is reproduced by an exhibited model that is generalized-noncontextual for the §5.3 equivalences | the reproducing model |
-| 2.4 | `NONCLASSICAL/W1[+W2]` | W1 decided positive; every countercontrol CC1–CC7 separated by its named test (§5.8); T8 removes the witness when the responsible element is deleted | sub-labels: T3 undo (`unconditional`, `heralded-probabilistic`, `none`); `BENCHMARK-MATCH` or `BENCHMARK-MISMATCH(test)` |
-| 2.5 | `CONTEXTUAL/W1[+W2]` | W1 decided positive; T8 removes the witness when the responsible element is deleted; some countercontrol among CC1–CC7 not separated | mandatory sub-label naming each unseparated countercontrol (for example `CC2-unseparated`); the T3 and benchmark sub-labels as in 2.4 |
-| 2.6 | `CONSISTENT-ONLY` | T0 passes; T1–T6 consistent with PC-Q; no admitted witness decided positive | the witness not decided positive |
-| 2.7 | `UNDECIDED` | otherwise | what remains undecided |
+| 2.4 | `NONCLASSICAL/W1[+W2]` | W1 decided positive; every countercontrol CC1–CC7 outcome-separated from `𝔐★`'s law by its named test (§5.8); T8 removes the witness when the responsible element is deleted | mandatory sub-label `CC8-unseparated`; T3 undo (`unconditional`, `heralded-probabilistic`, `none`); `BENCHMARK-MATCH` or `BENCHMARK-MISMATCH(test)` |
+| 2.5 | `CONTEXTUAL/W1[+W2]` | W1 decided positive; T8 removes the witness when the responsible element is deleted; some countercontrol among CC1–CC7 not outcome-separated from `𝔐★`'s law | mandatory sub-labels naming each unseparated countercontrol (for example `CC2-unseparated`) and `CC8-unseparated`; the T3 and benchmark sub-labels as in 2.4 |
+| 2.6 | `BELL-STRUCTURAL/W2` | W2 decided positive and W1 not decided positive; operational no-signalling decided | the relinquished premise of Main:368 (i)–(iv); obstruction: no W1, so no claim of nonclassical recombination |
+| 2.7 | `CONSISTENT-ONLY` | T0 passes; T1–T6 consistent with PC-Q; no admitted witness decided positive | the witness not decided positive |
+| 2.8 | `UNDECIDED` | otherwise | what remains undecided |
 
 **Axis 3 — instrument and composite compatibility** (evaluated only after 1.4, independently of axis 2).
 
@@ -632,11 +656,15 @@ or to `𝔐★` and `Acc`; none is promoted to a global no-go. If no physical ca
 
 - **Stage 0.** This preregistration and its independent exact-commit review. Nothing else.
 - **Stage 1 (separate owner gate).** An append-only amendment `amendments/MR-star.md` with
-  `amendments/stage1-log.json`: a screen of candidate interfaces against §3.1 and the PC-1 screen
-  items; the freeze of one `𝔐★` or the `GAP` token; `K★`; `Acc`; `𝒯` and the sourced dephasing;
-  the T7 inequalities; the T8 deleted interfaces; instantiations of CC1–CC8; the mutation list; the
-  results schema; PC-Q's reference values derived in closed form on paper; the epistemic-restriction
-  question of AW-MR5 as a stated sub-question; the first-hand readings §9 marks as owed. **Void clause:** any computation before this
+  `amendments/stage1-log.json`, committed in this order: first `K★`, including the CC2 instance and
+  the constraint that fixes it, before any candidate screen; then a screen of candidate interfaces
+  against §3.1 and the PC-1 screen items; the freeze of one `𝔐★` or the `GAP` token; `Acc`; `𝒯` and
+  the sourced dephasing; the T7 inequalities; the T8 deleted interfaces; instantiations of the other
+  countercontrols; the mutation list; the results schema; PC-Q's reference values derived in closed
+  form on paper; the epistemic-restriction question of AW-MR5 as a stated sub-question; the
+  first-hand readings §9 marks as owed. **Execution blocker:** no execution step whose decision
+  depends on a claim from Mazurek et al. 2016 or from the Kochen–Specker instance (CC2) proceeds until
+  that source has been read first-hand and the read is recorded in the stage-1 log. **Void clause:** any computation before this
   amendment's frozen, reviewed commit that evaluates a candidate, control, physical or algebraic
   quantity voids the unit (0(vi)); only the repository hygiene tools may run, and every run is logged.
 - **Stage 2 (separate owner gate).** Controls first (PC-Q, CC1–CC8, mutations, a decision-function
@@ -677,7 +705,8 @@ fit any T0–T7 law, or if its outcome law is defined from the quantum benchmark
 | setting changes sourced; free choice decided | T8 for `Z`; `μ`-independence field; CC3 |
 | inverses executed | T9; CC6 |
 | `K★` frozen before any candidate law is derived | stage-1 commit order; mutation "`K★` fixed after a candidate law"; 0(iii), 0(vi) |
-| nonclassical reserved for laws separating CC1–CC7 | per-countercontrol separation fields; token 2.4 against 2.5 in the self-test |
+| nonclassical reserved for laws outcome-separated from CC1–CC7 | per-countercontrol control-separation and outcome-separation fields; `CC8-unseparated` sub-label; token 2.4 against 2.5 in the self-test |
+| owed first-hand reads (Mazurek et al. 2016; the Kochen–Specker instance) done before any execution step that depends on them | read record in `stage1-log.json`; a dependent stage-2 step refuses to run without it |
 | exact arithmetic | type assertions; mutation "float" |
 | verdict from structured data | schema-validated results file; 0(viii) |
 | deterministic replay | two runs byte-identical, sha256 recorded |
@@ -707,12 +736,15 @@ fit any T0–T7 law, or if its outcome law is defined from the quantum benchmark
 "Abstract" means the abstract and bibliographic record were read; "text" means the named passages of
 the full text were read. "Load-bearing" marks a reference on which a definition, control or decision
 rule of this note depends. A load-bearing item read only as an abstract, or not read first-hand, is
-owed a first-hand reading in the stage-1 amendment before the element it supports is frozen.
+owed a first-hand reading in the stage-1 amendment before the element it supports is frozen. For
+Mazurek et al. 2016 and the Kochen–Specker instance this is an execution blocker: no execution step
+whose decision depends on a claim from either proceeds until that source is read first-hand and the
+read is recorded (§7.1).
 
 | Reference | Used for | Load-bearing | Read |
 |---|---|---|---|
 | L. Catani, M. Leifer, D. Schmid, R. W. Spekkens, *Quantum* 7, 1119 (2023), arXiv:2111.13727 | CC4; AW-MR5; T4 | yes | text: toy field theory over the integers modulo 2, set kinematics, local deterministic dynamics (a footnote calls them symplectic), epistemic restriction; reproduces Mach–Zehnder, which-way, eraser, delayed-choice, bomb tester; generalized-noncontextual; "cannot reproduce the full scope of quantum phenomenology" |
-| L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, *Phys. Rev. A* 108, 022207 (2023), arXiv:2211.09850 | §3.5; W1; CC4 | yes | text: abstract, the main result (under the A21-symmetry condition noncontextuality implies `V + P ≤ 1`), Proposition V.1 as stated, the operational-equivalence condition and the tomographic-completeness caveat; the appendix proof was not checked |
+| L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, *Phys. Rev. A* 108, 022207 (2023), arXiv:2211.09850 | §3.5; W1; CC4 | yes | text: abstract, the main result (under the A21-symmetry condition noncontextuality implies `V + P ≤ 1`, `P = |⟨Z⟩|` the carrier's which-way predictability, `V = |⟨X⟩|` the which-phase predictability), Proposition V.1 as stated, the operational-equivalence condition and the tomographic-completeness caveat; the appendix proof was not checked |
 | R. W. Spekkens, *Phys. Rev. A* 71, 052108 (2005), arXiv:quant-ph/0406166 | K4; U2; AW-MR3 | yes | text: eq. (1) (operational equivalence over every measurement procedure), the definitions of preparation noncontextuality, §IV (preparation contextuality in 2D) |
 | M. D. Mazurek, M. F. Pusey, R. Kunjwal, K. J. Resch, R. W. Spekkens, *Nat. Commun.* 7, 11780 (2016) | T7 form | yes | abstract only; owed at stage 1 |
 | D. Schmid, R. W. Spekkens, *Phys. Rev. X* 8, 011015 (2018); M. F. Pusey, *Phys. Rev. Lett.* 113, 200401 (2014) | T7 options | if chosen at stage 1 | abstracts; owed at stage 1 if chosen |
