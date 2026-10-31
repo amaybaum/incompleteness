@@ -489,7 +489,31 @@
       ],
       "kernel": "P",
       "delta": "no Lean statement",
-      "note": ""
+      "note": "The final clause, that the rooted family is not P-divisible on {0,...,n} once two distinct rows of Gamma_s share positive mass and Gamma_n = I, is kernel-proved through MAIN:T-overlap-return, its own K3 entry. The step from two positive-probability histories with a common endpoint to a non-permutation Gamma_s, the step from a non-permutation square stochastic matrix to two overlapping rows, and Gamma_L = I stay on paper, so the grade stays P."
+    },
+    {
+      "id": "MAIN:T-overlap-return",
+      "paper": "papers/Main.md",
+      "line": 143,
+      "kind": "Theorem",
+      "label": "(overlap and return)",
+      "fingerprint": "ab039975db4bdd77",
+      "area": "memory-conditions",
+      "assumptions": "finite visible and hidden sets; a bijection of their product; one hidden prior shared by every root, not required to have full support; rooted maps for every root; an identity return Gamma_n = I and an overlap of two distinct rooted rows at some s < n",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/RecurrenceHorizon.lean",
+          "names": [
+            "pIndivisible_of_rooted_identity_return_of_overlap",
+            "c4r_of_rooted_identity_return_of_overlap",
+            "pIndivisible_of_identity_return_of_overlap"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "The manuscript statement transcribes pIndivisible_of_rooted_identity_return_of_overlap (RecurrenceHorizon.lean:148) on RootedRealization (CausalReadback.lean): step a bijection of V x H, prior nonnegative and normalized with no support condition, rootedMap for every root, conclusion PIndivisibleWithin n, the negation of right-multiplication P-divisibility for all s' < t' <= n."
     },
     {
       "id": "MAIN:L-fast-bath-erases-readback",
