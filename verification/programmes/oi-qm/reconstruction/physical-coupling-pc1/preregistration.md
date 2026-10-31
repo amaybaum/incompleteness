@@ -193,9 +193,12 @@ verdict does not vary over the remaining set.
   outcome, or a Gibbs weight with its action fixed in advance (as F2-1 Gate 3, with #1003's `w`
   and `w²` both run).
 - *Necessity assessed* means: a deletion control replaces `Σ` with every alternative in a stated
-  admissible neighbourhood fixed at `PC★`, and records whether the verdict changes. If it does not,
-  `Σ` is not load-bearing, and the result is reported under the invariance branch. If it does, `Σ`
-  is load-bearing and must carry its own independent prediction (§8, IP-Σ).
+  admissible neighbourhood fixed at `PC★`, and records whether the verdict changes. If it changes,
+  `Σ` is load-bearing within that neighbourhood. If it does not, that is recorded as "not
+  load-bearing within the neighbourhood" and nothing more. The result moves to the invariance
+  branch only if invariance is shown over that branch's full class `𝒜` (below); a neighbourhood
+  chosen by the author does not substitute for `𝒜`. Otherwise the result stays a selection result.
+  A selection result carries IP-Σ (§8) whether or not `Σ` was found load-bearing.
 - A principle defined as "the choice under which L2 holds", or tuned after any outcome, voids the
   run (clause 0).
 
@@ -210,15 +213,26 @@ at `PC★`:
   a physical reason stated at `PC★`, such as that no preparation can be implemented under it. It
   may not cite the verdict.
 
-`𝒜` must be shown nonempty, with at least two inequivalent members. Otherwise the branch is vacuous
-and the result is treated as a selection, with its justification owed. A finite sample of `𝒜` does
+The branch is frozen separately for each leg, `Obs` and `μ`. Each leg is either varied over the
+invariance class or fixed by a selection argument. A leg taken under invariance must have at least
+two inequivalent admissible members. For `Obs`, inequivalent means not related by a relabelling of
+register values or by coarse-graining one into the other. So a coupling `C` with a single readout
+does not make the invariance branch: two members of `𝒜` that differ only in `μ` leave `Obs` a
+single, conveniently chosen map. Such a `C` must instead give a selection argument that its readout
+is the unique native readout of the apparatus, with the necessity assessment and IP-Σ of the
+selection branch. An invariance leg with fewer than two inequivalent members is vacuous, and is
+treated as a selection with its justification owed. A finite sample of `𝒜` does
 not establish invariance over an infinite `𝒜`: that needs a symbolic, paper or kernel proof
 (finite test → universal claim).
 
 **What fails the gate.** Showing the result for one convenient `(Obs, μ)`, or for a finite sample
-presented as the class. A result that holds for some admissible members and not others is
-**measure-dependent**. It is reported as `PARTIAL (fork)` with the dependence table, never as L1
-or L2 success.
+presented as the class.
+
+**"Resolved" (used by L1).** The fork is resolved when, for each leg, the branch and its `𝒜` or
+`Σ` are frozen at `PC★`, and every decision quantity has been decided over that class (by proof for
+an infinite class). A **measure-dependent** outcome is a resolved fork: some decision quantity
+varies over the admissible members, recorded with the dependence table. It is compatible with L1
+and excludes L2. With an L2 criterion varying over the members, it gives `PARTIAL` 6(a).
 
 ## 5. Success levels, kept separate
 
@@ -229,7 +243,7 @@ described as a higher level, and the verdict text is generated from the computed
 **L1 — physical sourcing.** All of the following:
 - `Π★` passes screen items 1–12;
 - the fork is resolved (§4);
-- `Rec` is complete and `C` is transplantable to the probes;
+- `Rec` is complete;
 - the physical justification of `C`, `Obs` and `μ` is accepted in independent review of the paper
   argument, which names the A★2 premise broken and the G★ item 3 branch used.
 
@@ -252,14 +266,19 @@ Evidence layer: paper (reviewed), with exact computation for record completeness
 >    or `P`.
 
 The ellipses mark A★'s explanatory sentences and sub-bullets, which carry over by reference to that
-file. In Route B semantics, L2 additionally requires:
+file, with one exception. Item 2's sentence "This is necessary for `R`" is carried only for the
+ungauged clause and for `Gauge_N`. For the ones-fixing half of the gauge clause it is false
+(PC-F1, §2). In Route B semantics, L2 additionally requires:
 - `R`, `R†`, `P` (on `Fin 2` and on every carrier stated) and `S`, kernel-proved for `T_C`, with
   `¬N ∧ ¬O` and `Gauge` (§2). For L2, `Gauge` is read at the generated class `𝓘_C`. This agrees
   with G★'s form for `G_Θ` once the gauge-transport lemma (§13) shows that readout-commuting
   conjugation commutes with the `Architecture` operations;
 - the coherence discriminators of §7, with a sourced dephasing;
-- the probes, extended to C11 and C14, run with the transplanted `C` and yielding neither `R` nor `P`;
-- the independent prediction of §8 decided and not refuted.
+- the fork resolved with no L2 predicate varying over its admissible members (§4);
+- `C` transplantable unchanged to the probes C1, C2, C10, C11 and C14, with the probes run and
+  yielding neither `R` nor `P` nor a `Gauge`-robust escape (§9);
+- a qualifying independent prediction decided and not refuted: IP-1 with content beyond `⟨i⟩`, or
+  otherwise IP-2 (§8).
 
 "Available" here means in `genTheory` semantics with sourced generators. Representable does not
 qualify. Evidence layer: kernel for `R, R†, P, S, ¬N, ¬O, Gauge`; exact computation for §7 and §8.
@@ -292,13 +311,13 @@ carries its named obstruction.
 |---|---|---|---|
 | 0 | `INCONCLUSIVE (void)` | any of: (i) a control in §9, a mutation in §10 or a self-test case returns other than its reference; (ii) freeze violation; (iii) `(Obs, μ)` chosen after an outcome, or a single convenient choice presented as selection or invariance; (iv) floating point in a decision path; (v) a kernel predicate entering without its CI step conclusion and axiom check; (vi) a computation before `PC★` that is forbidden or unlogged; (vii) a probe run with a coupling other than the transplanted `C` | the failing checkpoint |
 | 1 | `INCONCLUSIVE (gap)` | stage 1 fixes no admissible `Π★` | paper: the unbroken A★2 premise, as an operator condition |
-| 2 | `COUNTEREXAMPLE (falsified)` | a probe (C1, C2, C10, C11, C14 through `Θ_rule`) yields `R`, `P` or `Gauge`-robust escape; or, for `Π★`, a §7 value with `R ∧ R†` differs from its coherent value, a held-out frequency differs from its trace-rule value, or a §8 prediction is refuted | kernel; exact |
-| 3 | `REPRESENTATION-ONLY` | (a) `R`, `P₁` or `P` holds only through a generator or projector that fails a screen item (including 11, no executing process); or (b) `¬R ∧ ¬P₁` decided, and an exhibit in `E★` verified | screen record; kernel; exact exhibit |
+| 2 | `COUNTEREXAMPLE (falsified)` | a probe (C1, C2, C10, C11, C14 through `Θ_rule`) yields `R`, `P` or a `Gauge`-robust escape (§9); or, for `Π★`, a §7 value with `R ∧ R†` differs from its coherent value, or with `R` (and `P₁` for the phase hold-out) a held-out frequency differs from its trace-rule value, or a §8 prediction is refuted | kernel; exact |
+| 3 | `REPRESENTATION-ONLY` | (a) `R`, `P₁` or `P` holds only through a generator or projector that fails a screen item (including 11, no executing process); or (b) L1 not met, `¬R ∧ ¬P₁` decided, and an exhibit in `E★` verified | screen record; kernel; exact exhibit |
 | 4 | `L3-SUCCESS/{AVAILABLE, DERIVED}` | L2, and every L3 item of §5 | kernel; exact; paper |
 | 5 | `L2-SUCCESS/{AVAILABLE, DERIVED}` | every L1 and L2 criterion of §5 | as in §5 |
-| 6 | `PARTIAL` | L1 met, L2 not met, and one of these, recorded by sub-label: (a) `R ∧ P` with the fork measure-dependent; (b) `Φ_min` without `P`; (c) `R ∧ ¬P₁` (a real-amplitude escape; `Gauge_O` status recorded per PC-F1), or `P ∧ ¬R` (a Route B shape); (d) `R ∧ P` with `R†`, `S`, a sourced dephasing or the §8 decision missing | kernel for what is established |
+| 6 | `PARTIAL` | L1 met, L2 not met, and one of these, recorded by sub-label: (a) the fork measure-dependent, with an L2 criterion (such as `R`, `P₁` or a §7 value) holding for some admissible member and failing for another; (b) `Φ_min` without `P`; (c) `R ∧ ¬P₁` (a real-amplitude escape; `Gauge_O` status recorded per PC-F1), or `P₁ ∧ ¬R` (a Route B shape); (d) `R ∧ P` with `R†`, `S`, a sourced dephasing or the qualifying §8 decision missing, or with the probes not run because `C` is not transplantable | kernel for what is established |
 | 7 | `L1-SUCCESS/{grade}` (L2 refuted) | L1 met; `¬R ∧ ¬P₁` decided in the kernel; the obstruction named (`N`, `O`, `Gauge_N`, `Gauge_O`, monomiality, or a new named invariant) | kernel; reviewed paper |
-| 8 | `L1-SUCCESS/{grade}` (L2 undecided) | L1 met; `R` and `P₁` neither proved nor refuted | reviewed paper |
+| 8 | `L1-SUCCESS/{grade}` (L2 not established) | L1 met; not matched by rows 5–7 (for example, one of `R`, `P₁` refuted and the other undecided, or both undecided) | reviewed paper |
 | 9 | `COUNTEREXAMPLE (countertheory)` | L1 not met and `¬R ∧ ¬P₁` decided, with no verified exhibit | kernel |
 | 10 | `INCONCLUSIVE (undecided)` | otherwise | paper: what remains undecided |
 
@@ -338,15 +357,19 @@ statistics.** The statistics are consistency requirements, and they fail loudly 
 The stage-1 amendment must state each item from `Π★` alone, before any computation. Stage 2
 decides each one by exact computation. A refutation gives row 2.
 
-- **IP-1, the available phase group (required).** The set `Π_C` of relative phases that the
-  readout-diagonal operations of `𝓘_C` carry, derived from `C`. For example, the phases may come
+- **IP-1, the available phase group (required to be stated).** The set `Π_C` of relative phases
+  that the readout-diagonal operations of `𝓘_C` carry, derived from `C`. For example, the phases may come
   from an `N`-periodic native orbit and form `ℤ/N`, or form a dense subgroup. `P` requires
   `i ∈ Π_C`. A stated `Π_C` is hard to vary: it fixes which fringe values
   `(288/625)(1 + cos θ)`, `θ ∈ Π_C`, are available, and which are not. If `Π_C` is finite, the
   candidate predicts a departure from QM's continuous phase group, and must state its scale. Only a
   correctness-axis comparison could confirm it (§A.23). This unit only requires that it be stated
-  and decided internally.
-- **IP-2, a composite constraint (required for `DERIVED`; recorded otherwise).** Local tomography
+  and decided internally. **IP-1 qualifies as the independent prediction only for content beyond
+  `⟨i⟩`**, the group the quarter phase generates, which `P` already requires. Examples are a stated
+  `N > 4` or a dense subgroup, each fixed from `C` before computation. `Π_C = ℤ/4` predicts nothing
+  beyond the target, and then IP-2 is required for L2 at either grade.
+- **IP-2, a composite constraint (required for `DERIVED`, and for `AVAILABLE` when IP-1 does not
+  qualify; recorded otherwise).** Local tomography
   of the two-copy state space generated by `C`, with each copy coupled only through its own `C`.
   Composite dimension is built into the semantics and does not count. Local tomography separates
   complex from real amplitude theories (control C8; Renou et al. 2021 for the network form). A
@@ -365,7 +388,9 @@ the screen (§A.29: reject variants adjustable to any outcome).
 
 The **reference** is a clause-0 control: any other result voids the run. The **probe** applies the
 candidate's `Θ_rule` with `C` transplanted unchanged. A probe yielding `R`, `P` or a
-`Gauge`-robust escape gives row 2. Each control's exhibit list is fixed here.
+`Gauge`-robust escape gives row 2. A **`Gauge`-robust escape** is a probe whose generated class
+satisfies `¬N ∧ ¬O ∧ Gauge_N ∧ Gauge_O`, with both gauge halves decided at the probe's computed
+readout projectors. Each control's exhibit list is fixed here.
 
 **Reused from F2-1** (definitions, reference results and exhibits as in F2-1 prereg §6 and A★5):
 
@@ -391,7 +416,7 @@ C1–C10 are the F2-1 controls reused here. Their kernel facts are cited in F2-1
 |---|---|---|---|---|
 | C11a | **Noncommuting permutations**: `S₃` on `Fin 3` (a transposition and a 3-cycle), and the Spekkens 2007 toy theory (reversible maps in `S₄` on four ontic states, with qubit-like complementarity and disturbance) | class `⊆ permClass` (`SubstratumInterfaceAudit.lean:236`; `permClass_permMatrix`, `:406`), hence `N`, `O`, `Gauge` fails; `¬P` (`permTheory_phase_ceiling`); on a 2-valued register through the baseline compression, `¬R` (`falsifierUnavailable_of_nonnegBounded`); row 9 | yes | ∅ |
 | C11b | C11a with the representation exhibits | as C11a; row 3(b) | — | the 3-cycle in the standard representation (rotation by `2π/3`, exact over `ℚ(√3)`, trace `−1`); `diag(ω, ω²)` in the Fourier basis, `ω = e^{2πi/3}` |
-| C12 | **Phase gauge**: the passively rephased permutation class `D·permClass·D†` with `D = diag(1, i)`; it contains `D·swap·D† = [[0, −i], [i, 0]]`, which is neither nonnegative nor ones-fixing | `Gauge` detector flags it; `¬R ∧ ¬P` through a gauge-transport lemma (to prove: availability is carried by readout-commuting conjugation); row 9 with obstruction `Gauge_N` | — | ∅ |
+| C12 | **Phase gauge**: the passively rephased permutation class `D·permClass·D†` with `D = diag(1, i)`; it contains `D·swap·D† = [[0, −i], [i, 0]]`, which is neither nonnegative nor ones-fixing | `Gauge` detector flags it; `¬R ∧ ¬P` through a gauge-transport lemma (to prove: availability is carried by readout-commuting conjugation); row 9 with obstruction `Gauge_N`. The class is `K ∈ C12 S ⇔ D_S† K D_S ∈ permClass S`. Here `D_S` is a diagonal unitary fixed at `PC★` for every carrier `S`, with `D_{S × Fin m} = D_S ⊗ 1` so that it commutes with the register projectors and the ancilla blocks, and `D_{Fin 2 × Fin 1} = diag(1, i)`. `Architecture` is proved by transport from `permClass_arch` (`SubstratumInterfaceAudit.lean:350`) | — | ∅ |
 | C13 | Polar factor (A★ N7) of a non-permutation baseline compression | screen item 11 flags it (no executing process); row 3(a) | — | the polar factor, real and non-monomial where it arises |
 | C14 | Controlled lift `F(x, s) = (T_s x, s)` with noncommuting `T₀, T₂` (#866) | screen item 8: `s` conserved, so the source-deletion check fails and L1 is not met; class `⊆ permClass`; row 9 | yes | ∅ |
 | C15 | Gauge-necessity record for PC-F1: the class generated by `rot` alone | `R`; `Gauge_N` holds; `Gauge_O` fails via `D = diag(1, i)`; `¬P` (to prove); row 3(a), since `rot` is a declared generator. It records that `Gauge_O` does not refute `R` | — | ∅ |
@@ -419,7 +444,13 @@ Each mutation must change the outcome as stated; each is a clause-0 control, run
 **Self-test.** Synthetic results files, at least one per row and sub-row of §6, are fed to the
 decision function, and each must give its row:
 - 0(i)–(vii), 1, 2 (each trigger), 3(a), 3(b), 4 and 5 (both grades), 6(a)–(d), 7, 8, 9 and 10;
-- a row-5 file whose probes did not run because `C` is not transplantable gives 6(d);
+- a file meeting every L1 and L2 criterion except that the probes did not run because `C` is not
+  transplantable gives 6(d) (L1 is met; transplantability is an L2 criterion);
+- a file with L1 met, `¬R ∧ ¬P₁` and a verified exhibit gives 7, never 3(b);
+- a file with L1 met, `R` refuted and `P₁` undecided gives 8;
+- a file with L1 met, `P₁ ∧ ¬R` and no `P` gives 6(c);
+- a file with L1 met, a measure-dependent fork and `R` on some members only gives 6(a);
+- a file meeting L2 with `Π_C = ℤ/4` and IP-2 undecided gives 6(d);
 - a file with L1 met and `Φ_min` but no `P` gives 6(b), never 5;
 - a file with `R`, `Gauge_N` and failing `Gauge_O` (C15's shape) gives 6(c), never 7.
 
@@ -459,7 +490,7 @@ Negative results are stated for the tested class only.
 |---|---|---|
 | `L2-SUCCESS/AVAILABLE` | rows 8, 9 and the nonclassical part of 11: the negatives do not transfer to the extension `C`; row 12: one stated `Θ_rule` with its sourcing argument (L3 sharpened); row 14: `(Obs, μ)` resolved for `C`; `C` eligible for review as the extension part of row 21 | that OI derives `C`; F2 sufficiency or necessity; dense control; L3; QM equivalence |
 | `L2-SUCCESS/DERIVED` | the above, with `C` derived from OI premises | QM equivalence; rows beyond 8, 9, 11, 12, 14 |
-| `L1-SUCCESS` (rows 7, 8) | row 14: a physically sourced coupling, readout and ensemble for `C`. Row 7 also adds a countertheory: the named invariant survives physical sourcing, which strengthens rows 8, 9 and 11 for this class | any nonclassical claim; any L2 language |
+| `L1-SUCCESS` (rows 7, 8; row 8 is "L2 not established") | row 14: a physically sourced coupling, readout and ensemble for `C`. Row 7 also adds a countertheory: the named invariant survives physical sourcing, which strengthens rows 8, 9 and 11 for this class | any nonclassical claim; any L2 language |
 | `PARTIAL` | which of `R`, `P₁`, `P`, `R†`, `S`, `Gauge` and the fork moved, under which principle; 6(b) records a smallest phase mechanism | any row status change |
 | `REPRESENTATION-ONLY` | an assumption-watch instance (representable, not available) | any row change |
 | `COUNTEREXAMPLE` | a falsified candidate (row 2), or a countertheory for this class (row 9) | impossibility of every observer-level extension |
