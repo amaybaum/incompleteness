@@ -227,8 +227,11 @@ their values.
      LA-UNDETERMINED. CP-HIDDEN checks its computation on a small world.
 3. **Bounded witness search** (run only when P1 fails). Let Y be the
    raw triple of port p_i at the first tick t at which P1 fails for
-   f_i(t), which is a Tail coordinate. Let S be every original variable
-   in Y's backward cone within the window, members of D' included. The
+   f_i(t), which is a Tail coordinate. When the failure is an arrival of
+   f_i(t) at another port p_j at an earlier tick t', the raw triple of
+   p_j at t' is searched as well, under the same rules. For each searched
+   coordinate Y, let S be every original variable in Y's backward cone
+   within the window, members of D' included. The
    search runs only if S has at most six triples, and if the joint law of
    S with (c, K0) is derived exactly from the original preparation law
    and H-prior, as unnormalized masses at each k0, in a written
@@ -248,8 +251,9 @@ their values.
 4. **Informativeness flag (always reported, decides no token):**
    EMPTY if Tail is independent of (eta, K0, K1, K2) given D', and
    INFORMATIVE otherwise. Under LA-EQUAL it is computed from the same
-   triangular proof. Under LA-DIFFERENT it is INFORMATIVE, since c is a
-   function of b5 in eta given D'. Under LA-UNDETERMINED it is UNKNOWN.
+   triangular proof. Under LA-DIFFERENT it is INFORMATIVE when the witness
+   is a Tail coordinate, since c is a function of b5 in eta given D', and
+   UNKNOWN otherwise. Under LA-UNDETERMINED it is UNKNOWN.
    An LA-EQUAL with EMPTY means the sourced later read carries no packet
    or key information at all. Its equality across settings then has the
    same cause as its emptiness, and it is reported in that form.
@@ -321,7 +325,8 @@ preparation.
 - **GEO-COUNTER.** A frontier ray moved by a fixed offset onto the
   packet's cone, a ray placed on an eta cell, and a ray that reaches the
   old q9 record cell at L or the V read cell at L+2 by that record's time
-  must each fail P2 or P3.
+  must each fail P2 or P3. One fixture lies exactly on the cone,
+  dist(f_i(t), cell) = time, so that a `>=` in place of `>` is caught.
 - **BREAKPOINT.** A geometry fixture whose minimum lies only at an
   absolute-value breakpoint must be found by the breakpoint method and
   missed by sampling at the endpoints and a fixed tick grid.
