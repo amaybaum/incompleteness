@@ -91,14 +91,38 @@ From the repository root:
 
 ## Record for the exact-head run
 
-To be completed from the host's records, not from logs:
-- the exact head SHA;
-- the 19 statement checksums of A★-1.3 (`statement_sha256` in `results.json`);
-- the axiom-output evidence, through the `Release gate` step;
-- the `Build` and `Release gate` step conclusions;
-- an independent exact-head review.
+All of the following is read from the host's run, job and step records. Ordinary draft-PR CI only;
+no special dispatch.
 
-Ordinary draft-PR CI only; no special dispatch.
+| Item | Value |
+|---|---|
+| Exact head | `1d3451269fe981c95eb6b560230a9d970aa6d5e1` |
+| CI run | 41221595790, concluded `success`: 25 jobs succeeded, 1 skipped |
+| Job | `Mathlib bridge`, 124597107812 |
+| Step 5, `Build` | `success` |
+| Step 6, `Release gate` | `success` |
+
+**Axiom evidence.** In the job log, the module `OIBridge.F2CoherenceControls` was built, and its 16
+`#print axioms` reports (module lines 362–377) each read `[propext, Classical.choice, Quot.sound]`.
+None mentions `sorryAx`. The `Release gate` step decided these through `lean_axiom_check`. The build
+warnings are not errors: unused simp arguments at L73, and unused tactic alternatives at L94 and
+L267.
+
+**Statement checksums.** The 19 A★ statements are unchanged. Their combined digest, from A★-1.3, is
+`ee8a6ce6bbc2badf86d86dc808b17d2d7db987698b01df647a119febfbb0f5a3`. The per-statement digests are
+the `statement_sha256` fields of `results.json`.
+
+**Token.** The frozen decision function in `run-2/controls.py` was run with `--kernel` on the two
+step conclusions.
+- `run-2/kernel-steps.json` is the input: the head SHA, the job URL, and `build_step` and
+  `axiom_check_step` both `success`.
+- `run-2/kernel-decision.json` is the output. Normal and `-O` runs give byte-identical output.
+
+The result is **`INCONCLUSIVE (gap)`**: row 1, no void reasons. `run-2/results.json` is unchanged
+and keeps its pre-CI form, with the kernel fields `pending` and the token withheld, as its
+regeneration check requires.
+
+**Independent exact-head review:** _pending; to be recorded on PR #1011._
 
 ## What this result does not establish
 
