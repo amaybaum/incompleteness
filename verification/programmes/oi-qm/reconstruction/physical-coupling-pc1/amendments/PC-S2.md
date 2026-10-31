@@ -113,7 +113,9 @@ the build nor the run reads the unmerged branch. A reviewer checks the ids with
    and `import OIBridge.PC1Controls`.
 4. `verification/lean-manuscript-census.json`: two entries, both `"status": "kernel-only"` and
    `"manuscript": []`.
-   - F2-1's entry, byte-identical to the one added at `05ecc873`.
+   - F2-1's entry, byte-identical to the one added at `05ecc873`. If both #1011 and #1022 land,
+     the census would carry the F2-1 family twice. The later landing drops the duplicate entry,
+     by reconciliation.
    - A PC-1 entry: name `"PC-1 stage-2 kernel controls (research)"`, modules `["PC1Controls"]`.
      Its note states the content of the statements below, and that it makes no manuscript, sourcing
      or no-go claim.
@@ -123,8 +125,8 @@ Every other `OIBridge` module stays blob-identical to `5914c17c`.
 **The complete context of `PC1Controls.lean`.** The module is:
 - the header block below;
 - the fixed statements, in order, with proofs (proofs are not fixed);
-- one `#print axioms OIBridge.PC1Controls.<name>` line per theorem, after the namespaces close;
-- the closing lines `end PC1Controls` and `end OIBridge`.
+- the closing lines `end PC1Controls`, then `end OIBridge`;
+- then one `#print axioms OIBridge.PC1Controls.<name>` line per theorem.
 
 Auxiliary lemmas are allowed only if named `aux_*`. They are not fixed statements and are not
 evidence.
@@ -193,7 +195,8 @@ That is 14 declarations: 1 `def` and 13 theorems. Together with the 19 vendored 
 
 **The names the statements rely on, checked present at `5914c17c`.**
 - `DiagonalTheory.rot`: `DiagonalTheory.lean:368`.
-- `InstrumentRealization.ones` and `InstrumentRealization.onesClass`: `InstrumentRealization.lean:446`.
+- `InstrumentRealization.ones`: `InstrumentRealization.lean:152`; `InstrumentRealization.onesClass`:
+  `:446`.
 - `FrozenSourcing.NonnegBounded`: `FrozenSourcing.lean:65`.
 - `LieRankSource.phaseGate`: `LieRankSource.lean:209`.
 - `SubstratumInterfaceAudit.permTheory`: `SubstratumInterfaceAudit.lean:606`.
@@ -382,11 +385,18 @@ attempt goes in a new run directory, as F2-1's `run-2` did, and earlier attempts
    - **Consequence at level one.** The generated class contains only multiples of `1` and `U`,
      and products of rank at most one. It does not contain a multiple of `rot`, so `R` fails at
      level one. `P₁` fails too, because the class is real.
-   - **Expected routing.** The exhibit `U` is verified, so `decide_row` would give row 3(b), not the
-     frozen 3(a). Elements generated at ancilla levels are not ruled out by this argument.
-   - **Owner decision requested before execution.** Either (a) run C13 as frozen, with a mismatch
-     recorded as 0(i), which also withholds `scientific_finding`; or (b) a decision on C13's
-     reference. This amendment does not choose. Without a decision, (a) applies.
+   - **The fixed model, checked exactly by the reviewer.** `K = [[0, 2/3], [2/3, 5/9]]`,
+     `U = [[−5/13, 12/13], [12/13, 5/13]]`, and `UK` is positive definite.
+   - **Expected routing: 3(b) or 9.** The row depends on whether C13's listed exhibit counts as
+     verified. Under the inherited exhibit definition (F2-1 prereg §3), an entry must equal `rot` up
+     to a scalar, or carry a relative phase in its named basis. The real reflection `U` does
+     neither, so the exhibit does not verify, and `decide_row` gives row 9. Either way it is not
+     the frozen 3(a). Elements generated at ancilla levels are not ruled out by this argument.
+   - **Owner decision requested before execution.** The decision should cover both C13's reference
+     row and the validity of its exhibit entry. The options are (a) run C13 as frozen, with the
+     mismatch recorded as 0(i), which also withholds `scientific_finding`; or (b) a decision on
+     C13's reference row and its exhibit entry. This amendment does not choose. The default is
+     (a). **Execution should wait for the owner's C13 decision.**
 2. **The C12 and C15 class facts are partly paper.** The transport lemma for C12 and minimality for
    C15 are paper. Formalizing a uniform carrier-indexed gauge or a least-architecture closure was
    not attempted, so the elaboration risk stays bounded. The kernel statements cover the
