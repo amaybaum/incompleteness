@@ -1,0 +1,367 @@
+{
+ "controls": [
+  {
+   "L": 3,
+   "control": "order F mod q == qL",
+   "order": 15,
+   "pass": true,
+   "q": 5
+  },
+  {
+   "L": 3,
+   "control": "order F mod q == qL",
+   "order": 21,
+   "pass": true,
+   "q": 7
+  },
+  {
+   "L": 4,
+   "control": "order F mod q == qL",
+   "order": 12,
+   "pass": true,
+   "q": 3
+  },
+  {
+   "L": 4,
+   "control": "order F mod q == qL",
+   "order": 20,
+   "pass": true,
+   "q": 5
+  },
+  {
+   "L": 4,
+   "control": "order F mod q == qL",
+   "order": 28,
+   "pass": true,
+   "q": 7
+  },
+  {
+   "L": 5,
+   "control": "order F mod q == qL",
+   "order": 15,
+   "pass": true,
+   "q": 3
+  },
+  {
+   "L": 5,
+   "control": "order F mod q == qL",
+   "order": 35,
+   "pass": true,
+   "q": 7
+  },
+  {
+   "L": 3,
+   "control": "grid (Z/8)^6: u0 Gamma_1 uniform",
+   "pass": true
+  },
+  {
+   "L": 3,
+   "control": "grid (Z/8)^6: u0-u1 Gamma_1 uniform",
+   "pass": true
+  },
+  {
+   "L": 3,
+   "control": "grid (Z/8)^6: u0-u1 Gamma_L == I",
+   "pass": true
+  },
+  {
+   "L": 3,
+   "control": "grid (Z/8)^6: u0 Gamma_L != I",
+   "pass": true
+  },
+  {
+   "L": 3,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  },
+  {
+   "L": 4,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  },
+  {
+   "L": 5,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  },
+  {
+   "L": 6,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  },
+  {
+   "L": 7,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  },
+  {
+   "L": 8,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  },
+  {
+   "L": 9,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  },
+  {
+   "L": 10,
+   "control": "M != 0 and M^2 == 0",
+   "pass": true
+  }
+ ],
+ "findings": {
+  "10": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "3": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "4": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ],
+     [
+      2,
+      "all m",
+      "-1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "5": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "6": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "7": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "8": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "9": {
+   "u0": {
+    "proportional_times": [],
+    "vM_zero": false
+   },
+   "u0-u1": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   },
+   "u0-u2": {
+    "proportional_times": [
+     [
+      0,
+      "all m >= 1",
+      "1"
+     ]
+    ],
+    "vM_zero": true
+   }
+  },
+  "grid_orders_L3": {
+   "16": 48,
+   "2": 6,
+   "4": 12,
+   "8": 24
+  },
+  "low_digit_L3_N8": {
+   "ord_F_mod_2": 6,
+   "u0_Gamma_1_low_digit": [
+    [
+     "1/2",
+     "1/2"
+    ],
+    [
+     "1/2",
+     "1/2"
+    ]
+   ],
+   "u0_Gamma_ordmod2_high_digit_is_I": false,
+   "u0_Gamma_ordmod2_low_digit_is_I": true
+  }
+ },
+ "verdict": {
+  "10": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM != 0: the parabolic-mode drift reaches this observable; no exact return at t = mL",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma"
+  },
+  "3": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma"
+  },
+  "4": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM != 0: the parabolic-mode drift reaches this observable; no exact return at t = mL",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); exceptions within the cycle at (r, m, c) = [(2, 'all m', '-1')]; Gamma_1 uniform (H)"
+  },
+  "5": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma"
+  },
+  "6": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM != 0: the parabolic-mode drift reaches this observable; no exact return at t = mL",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma"
+  },
+  "7": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma"
+  },
+  "8": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM != 0: the parabolic-mode drift reaches this observable; no exact return at t = mL",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma"
+  },
+  "9": {
+   "u0": "never proportional for t >= 1: Gamma_t = uniform for every t >= 1 (H); Gamma_t = Gamma_s Pi with Pi uniform, so P-divisible; no visible recurrence",
+   "u0-u1": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma",
+   "u0-u2": "vM = 0: exact visible return at every t = mL (R); Gamma_s uniform for 0 < s < L (H), so P-indivisible on {0..L} by the stochastic-inverse lemma"
+  }
+ }
+}
