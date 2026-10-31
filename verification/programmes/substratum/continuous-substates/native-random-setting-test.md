@@ -87,8 +87,8 @@ Let D contain every other original variable. Require explicitly
 
     Pr(eta=z | D=d)=8^-42.
 
-The retained full independent complement/bank preparation supplies this
-option. It is not inferred from the previous thirteen-key and twenty-eight-
+This is a precise prior hypothesis, supplied where the full independent
+complement/bank preparation is retained. It is not inferred from the previous thirteen-key and twenty-eight-
 key marginal hypotheses separately. The native_route_v13 arbitrary-complement
 contract alone does not supply it. Correlated priors need a separate test.
 
@@ -159,19 +159,21 @@ benchmark or #866 quotient is changed, and no manuscript claim is upgraded.
 
 `native_random_setting_probe.py` pins the primary preparation code, source
 inventory and shared contract under the retained native continuation root.
-It checks all42 source classes and the complete chronological dependency
+It checks all 42 source classes, the 25 ready balls and 17 named exceptions, and the complete chronological dependency
 matrix, the original-bank trace, input exclusion, future history exclusion,
 and every native background/old-local permutation. No astronomical field
 simulation or native actuator is run.
 
-A 4096-row exact arithmetic triangular fixture verifies whole-setting
+A 4096-row exact arithmetic triangular fixture checks whole-setting
 joint factors with all R.B/D fields retained. It is a bookkeeping control,
-not a surrogate native measurement. A deliberately supplied center actuator
-has TV1 at fixed inputs. A joint-only record/carrier leak has TV1 with
-R.B/D retained but TV0 when those fields are discarded, ensuring that a
-marginal-only comparison fails. Four mutation classes reject in normal
-and optimized execution. The full kernel equality rests on the written
-42-key source proof, not on the small fixture alone.
+not a surrogate native measurement, and it cannot itself produce a
+different verdict. A comparator self-test confirms that two distinct
+point masses, as a supplied center actuator would give, have TV1, and the
+terminal-context count is a bookkeeping self-test of the 64 legacy
+contexts. A joint-only record/carrier leak has TV1 with R.B/D retained
+but TV0 when those fields are discarded, ensuring that a marginal-only
+comparison fails. The verdict rests on the native geometry checks and the
+written 42-key source proof, not on the fixture.
 
 From the repository root:
 

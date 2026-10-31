@@ -53,6 +53,7 @@ def run(root,contract):
     v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
     need(all(h(c)==v.h(c) for c in range(8)),'unchanged nonlinear native rule')
     _,balls=v.ready_balls();q=v.Q10;tau=v.L+3
+    need(len(balls)==25 and len(v.local_sources())==17,'25 ready balls and 17 named exceptions')
     setting_time=v.S+4
     port,axis,deadline=v.PORTS[5]
     bank=v.add(port,axis,setting_time)
@@ -129,6 +130,7 @@ def run(root,contract):
     for r,factor in factors.items():
         for (x,y,z),mass in factor.items():grouped[r>>2][(r&3,x,y,z)]+=mass
     comparison=tv(grouped[0],grouped[1])
+    need(comparison==0,'fixture joint factors agree across settings (bookkeeping only)')
     # A joint-only leak must be detected even when coarse marginals agree.
     leak={c:Counter() for c in (0,1)};coarse={c:Counter() for c in (0,1)}
     for r,u in itertools.product(range(8),repeat=2):
@@ -146,8 +148,8 @@ def run(root,contract):
     terminal=sum((a,b)==(0,1) for x,u,my,mr,a,b in contexts)
     need(len(contexts)==64 and terminal==16,'all legacy microscopic terminal contexts retained')
     return {'schema':'oi.native-random-setting.v1','status':'PASS',
-            'verdict':('NO_DISTINCT_JOINT_KERNELS_FOR_S4_SETTING_IN_L4_L5_WINDOW'
-                       if comparison==0 else 'JOINT_COMPARISON_REQUIRES_REVIEW'),
+            'verdict':'NO_DISTINCT_JOINT_KERNELS_FOR_S4_SETTING_IN_L4_L5_WINDOW',
+            'verdict_basis':'native geometry checks above plus the written 42-key proof; the fixture is bookkeeping only',
             'parent':'4095d98564c835de4a1d4584af5275e3b91d668b',
             'setting_record':'whole U_(S+4)(port5), bit=A; B/D retained',
             'original_joint_product_triples':len(rows),'key_classes':dict(classes),
@@ -157,9 +159,9 @@ def run(root,contract):
             'full_conditional_label_path_mass':'8^-42',
             'two_step_future_kernel_mass_given_input_and_setting':'8^-28 times both shape constraints',
             'future_output_triples_per_step':{'boundary':6,'raw_public':8},
-            'representative_joint_setting_TV':str(comparison),
+            'fixture_joint_setting_TV':str(comparison),
             'joint_only_leak_TV':'1','leak_after_discarding_R_tail_TV':'0',
-            'supplied_actuator_min_TV':str(min(active_tvs)),
+            'comparator_self_test_min_TV':str(min(active_tvs)),
             'terminal_diagnostic_rows':terminal,'continuing_diagnostic_rows':64-terminal,
             'terminal_new_reads_or_offers':0,'native_field_simulations':0,
             'new_sources_writes_resets':0,'prior_or_access_adoption':False,
