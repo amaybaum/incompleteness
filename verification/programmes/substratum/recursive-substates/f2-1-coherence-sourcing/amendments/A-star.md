@@ -122,7 +122,9 @@ sub-states `u ∈ (ℤ_2)^4`, gauge re-description `u_vw ↦ u_vw + g_v − g_w`
   - *An amplitude completion:* sub-states carry complex amplitudes transported by the links. That
     posits coherent sub-state amplitudes, the resource itself. The F2 definition records that
     "assuming the resource as a premise states it and does not source it" (`verification/ROADMAP.md:1128-1129`).
-    This completion is recorded under A★6 as borderline; it is not frozen.
+    This completion fails item 4 (an assumed quantum gate: links transporting complex amplitudes
+    linearly) and §1 ("without assuming those operations"); its readout weights fall under Gate 5a
+    "Assumed". It is rejected.
 - **Item 2 holds for the readout.** The readout of `k` is computed from a stated process: an
   indicator readout of a gauge-invariant function.
 - **Transplant fails (A★4, "Where the difference must live").** The rule needs a plaquette holonomy
@@ -141,7 +143,9 @@ N9 fails item 1 as recorded. The stage-1 outcome does not change.
    readout process of `C`.
 2. **Leaving both invariants, as a class.** In the computed readout basis, `G_Θ` lies neither in
    the class of nonnegative matrices times scalars of modulus at most one, nor in any ones-fixing
-   class closed under the `Architecture` operations. This is necessary for `R`. `R` needs `c · rot`
+   class closed under the `Architecture` operations, and no diagonal unitary commuting with the
+   computed readout projectors conjugates `G_Θ` into either class (a passive rephasing does not
+   meet this item). This is necessary for `R`. `R` needs `c · rot`
    in the `Architecture` closure (the Kraus bridge), and `R ⇒ ¬N ∧ ¬O` (§2). A generating set
    inside either class yields `N` or `O` (stage-2 lemmas `nonnegClass_nonnegBounded`,
    `onesBounded_of_onesFixing`). Single images need not leave both invariants: a product of a
@@ -150,7 +154,8 @@ N9 fails item 1 as recorded. The stage-1 outcome does not change.
    structure on `K`, or a stated readout, that has a physical justification in OI's terms. Since
    classical `(K, T, μ)` with set-membership coupling supplies only the baseline (A★2), this means
    one of:
-   - an amplitude or phase structure on sub-states that the measure does not determine;
+   - an amplitude or phase structure on sub-states that the measure does not determine, and that
+     is not itself coherent amplitude transport (item 4);
    - a readout whose computed projectors are not indicator projectors;
    - a function of the baseline data, executed by a stated process. N4 and N7 are such functions,
      with no executing process.
@@ -326,11 +331,10 @@ this file only:
   wording. Mathematical functions of the baseline image can therefore pass the screen's numbered
   items, and a reviewer may wish to test N7 as a candidate under a new amendment.
 - **N9's amplitude completion.** A model in which sub-states carry complex amplitudes transported
-  by model C's links would fix the cocycle and use a computed readout. It is not frozen, because it
-  posits coherent sub-state amplitudes, which is the resource to be sourced
-  (`verification/ROADMAP.md:1128-1129`). No numbered screen item names this directly. It is
-  recorded for the reviewer. Even if admitted, it would not be transplantable, so clause 4 would
-  be unreachable.
+  by model C's links would fix the cocycle and use a computed readout. It fails item 4 (and §1):
+  linear transport of complex amplitudes is the coherent operation taken as a premise, the
+  resource to be sourced (`verification/ROADMAP.md:1128-1129`), and its readout weights fall under
+  Gate 5a "Assumed". It would also not be transplantable, so clause 4 would be unreachable.
 - **N8 (wave-operator lift).** It is the closest candidate to the corpus: SM's real observer-level
   wave operator acts on amplitudes. It fails on the readout and on the native carrier, not on its
   dynamics. This is where L3 stays open.
