@@ -1,0 +1,1809 @@
+[
+ {
+  "source": "papers/Main.md:16@eae01647",
+  "links": [
+   {
+    "row": "I-007",
+    "line": 12,
+    "claim": "The discriminating content concerns memory",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'The discriminating content is history readback'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:592@eae01647",
+  "links": [
+   {
+    "row": "I-007",
+    "line": 12,
+    "claim": "The discriminating content concerns memory",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Theorem (unavoidable hidden predictive memory) is universal over realizations, the equivalence existential",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-107",
+    "line": 86,
+    "claim": "(C1) and (C3) follow from it",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Remark (what this strengthens): (C1) follows 'because a hidden distinction invisible to f_x produces identical pushforwards'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:97@eae01647",
+  "links": [
+   {
+    "row": "I-008",
+    "line": 12,
+    "claim": "every deterministic completion carries the visible memory in its hidden state",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "Identification of a realization's time-t law with the kernel's joint law, stated as 'a step not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-008",
+    "line": 12,
+    "claim": "every deterministic completion carries the visible memory in its hidden state",
+    "verdict": "IMPRECISE",
+    "link_index": 2,
+    "link": "M_t>0 iff every faithful realization carries readout-relevant hidden memory at t: forward by (a) in each realization, converse by (a) in one realization (exists by S_imp_D); uses the CMI vanishing criterion (not formalized)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-010",
+    "line": 12,
+    "claim": "(each with one step not machine-checked)",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Theorem 2: (a)-(c) kernel for a joint law; time-t identification not machine-checked (one step)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-039",
+    "line": 26,
+    "claim": "so the content lies in where the memory of a law must sit (§2.4) and what finite recurrence does with it (§2.5)",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "'The equivalence S<=>D and this universal statement are the paper's core'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-055",
+    "line": 30,
+    "claim": "A *faithful realization* of a law is a bijection $\\varphi$ of $\\mathcal C_V\\times\\mathcal C_H$ with an initial law under which the visible trajectory has that law",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'a faithful realization is a system as in class (D): a bijection phi of C_V x C_H with an initial law ... which may correlate the hidden and visible coordinates, under which the visible trajectory has the given law'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-100",
+    "line": 82,
+    "claim": "**Corollary** (proved on paper [Main §1.5]). $M_t>0$ holds exactly when every faithful realization carries readout-relevant hidden memory at $t$, that is, a pair of posteriors with different pushforwards.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Main §1.5: 'a finite-horizon law has a memory witness at t ... equivalently M_t>0 ... exactly when every faithful realization carries readout-relevant hidden memory at t ... the forward direction is the pushforward identity applied in each realization, the converse the same identity applied in one realization, which exists (kernel: S_imp_D)'; restated at Main:580 Summary (2) and Main:592 Remark",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-105",
+    "line": 86,
+    "claim": "In a faithful realization (C4) coincides with $M_t>0$ by the vanishing criterion [CT06]",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "Main §1.5: memory witness at t = two positive-probability histories ending at the same x_t with different next-step laws, equivalently M_t>0 by the vanishing criterion",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-105.a",
+    "line": 86,
+    "claim": "In a faithful realization (C4) coincides with $M_t>0$ by the vanishing criterion [CT06]",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "Main §1.5: memory witness at t = two positive-probability histories ending at the same x_t with different next-step laws, equivalently M_t>0 by the vanishing criterion",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-105.b",
+    "line": 86,
+    "claim": "In a faithful realization (C4) coincides with $M_t>0$ by the vanishing criterion [CT06]",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Main §1.5: memory witness at t = two positive-probability histories ending at the same x_t with different next-step laws, equivalently M_t>0 by the vanishing criterion",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-106",
+    "line": 86,
+    "claim": "the Corollary places it in the hidden state",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Main §1.5: 'a finite-horizon law has a memory witness at t ... equivalently M_t>0 ... exactly when every faithful realization carries readout-relevant hidden memory at t ... the forward direction is the pushforward identity applied in each realization, the converse the same identity applied in one realization, which exists (kernel: S_imp_D)'; restated at Main:580 Summary (2) and Main:592 Remark",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:137-139@eae01647",
+  "links": [
+   {
+    "row": "I-009",
+    "line": 12,
+    "claim": "on a fixed finite reversible system finite recurrence turns history readback into stochastic indivisibility somewhere in the recurrence cycle",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (history readback + finite recurrence implies indivisibility): finite order L gives Gamma_L = I; if every Gamma_k were a permutation, histories with a common endpoint would identify x_0 and could not differ, contradicting C4; the stochastic-inverse lemma then forbids a divisor from Gamma_k to I",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:580@eae01647",
+  "links": [
+   {
+    "row": "I-010",
+    "line": 12,
+    "claim": "(each with one step not machine-checked)",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "Corollary (readout-relevant form): uses the time-t identification and the CMI vanishing criterion, neither machine-checked (two steps)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-159",
+    "line": 128,
+    "claim": "No fixed finite carrier reproduces a qubit",
+    "verdict": "IMPRECISE",
+    "link_index": 3,
+    "link": "Summary (3): 'No fixed finite classical carrier reproduces full qubit operational behavior — proved under the stated operational interface, the unbounded-dimension half imported'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-164",
+    "line": 130,
+    "claim": "So no fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly",
+    "verdict": "FAITHFUL",
+    "link_index": 3,
+    "link": "Summary (3): 'No fixed finite classical carrier reproduces full qubit operational behavior — proved under the stated operational interface, the unbounded-dimension half imported'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-165",
+    "line": 130,
+    "claim": "the factorization is proved, and the unboundedness is imported [Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form); HKLP24, Thm 4]",
+    "verdict": "FAITHFUL",
+    "link_index": 3,
+    "link": "Summary (3): 'No fixed finite classical carrier reproduces full qubit operational behavior — proved under the stated operational interface, the unbounded-dimension half imported'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:139@eae01647",
+  "links": [
+   {
+    "row": "I-010",
+    "line": 12,
+    "claim": "(each with one step not machine-checked)",
+    "verdict": "IMPRECISE",
+    "link_index": 2,
+    "link": "Readback: machine-checked from routed readback; from history-level C4 the step 'C4 => non-permutation rooted map' is on paper (one step)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:336-340; 356@eae01647",
+  "links": [
+   {
+    "row": "I-016",
+    "line": 12,
+    "claim": "Applied to the cosmological constant, OI places the zero-point sum and the effective cosmological constant at different levels of description",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Descriptive-level distinction: classical substratum (Friedmann value, no zero-point energy) vs emergent QFT (zero-point sum); 'the descriptive-level distinction is established'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:44; 50; 56; 62@eae01647",
+  "links": [
+   {
+    "row": "I-022",
+    "line": 18,
+    "claim": "Embedded observation is modelled by a triple $(S,\\varphi,V)$ [Main §1.2]: a finite total system $S=\\mathcal C_V\\times\\mathcal C_H$ of observer configurations $\\mathcal C_V$ and complement configurations $\\mathcal C_H$, a bijection $\\varphi$ of $S$, and an observer $V$ that registers $x\\in\\mathcal C_",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Definition: observation (S, phi, V), V a proper subsystem with finitely many states; product decomposition by Lemma 2; finiteness and bijectivity enter via Lemma 1, Lemma 3 and the status Remark",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:105@eae01647",
+  "links": [
+   {
+    "row": "I-025",
+    "line": 20,
+    "claim": "Hidden states compatible with the same $x$ send it to different futures, so the visible sector evolves stochastically although the whole evolves deterministically.",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "'different hidden states h_k compatible with the same x send it to different futures'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:704@eae01647",
+  "links": [
+   {
+    "row": "I-028",
+    "line": 22,
+    "claim": "the theorems below are mathematical",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'The characterization theorem is mathematical ... no experiment falsifies the theorem itself'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:572@eae01647",
+  "links": [
+   {
+    "row": "I-030",
+    "line": 22,
+    "claim": "The incompleteness is inaccessibility of the hidden sector, not joint unsharpness of non-commuting observables",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'Observational incompleteness in the sense of the OI core concerns the hidden sector of an embedded observer, not the joint sharpness of non-commuting observables'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-031",
+    "line": 22,
+    "claim": "it is present for a single fixed readout",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'Under (C4) it is present already for a single fixed readout, where no choice between measurements arises'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-032",
+    "line": 22,
+    "claim": "no uncertainty relation constrains fixed-readout visible laws [Main §3.4]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'The visible laws of fixed-readout processes are, by S<=>D<=>Q_fb, exactly the finite stochastic laws, and no uncertainty relation constrains that class'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:534@eae01647",
+  "links": [
+   {
+    "row": "I-039",
+    "line": 26,
+    "claim": "so the content lies in where the memory of a law must sit (§2.4) and what finite recurrence does with it (§2.5)",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'representability alone is not the framework's discriminating content. That content is the readback sector'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-087",
+    "line": 66,
+    "claim": "The quadratic exponent is therefore not selected [Main §3.4; Bar26, Thm 3.1].",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'the construction does not SELECT the quadratic exponent ... no step distinguishes p=2'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-136",
+    "line": 112,
+    "claim": "Operational quantum mechanics requires, beyond Theorem 1's fixed-basis statistics, coherent preparations, noncommuting interventions and composites represented by one instrument theory.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Remark (what this equivalence does and does not say): the theorem does not prove that all coherent preparations, noncommuting interventions and composites are represented by one standard local quantum instrument theory",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-298",
+    "line": 189,
+    "claim": "because the representation is universal, the discriminating content lies in memory",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Main Remark (what this equivalence does and does not say): 'Markov and memory-bearing laws alike lie in Q_fb, so representability alone is not the framework's discriminating content'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:710; 494@eae01647",
+  "links": [
+   {
+    "row": "I-042",
+    "line": 26,
+    "claim": "Proofs, the status ledger and the probe code are in [Main], which this paper introduces",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Main carries the status ledger (§4.5) and points to the probe code papers/oi_lattice_code/foundations/",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/ch01-observation.md:265@eae01647",
+  "links": [
+   {
+    "row": "I-043",
+    "line": 28,
+    "claim": "The paper claims no new theorem or physical result; its contribution is expository.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Every theorem the Intro states traces to Main, GR, BHa/BHb or the kernel (this matrix, rows I-063 onward); the card game is in Book ch01",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:590@eae01647",
+  "links": [
+   {
+    "row": "I-049",
+    "line": 28,
+    "claim": "The memory bounds of §2.4 are forms of the data-processing and Pinsker inequalities.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem 2(b),(c) and the capacity bound are data-processing statements (TV monotone under channels; Markov chain X_<t -> H_t -> X_{t+1} given X_t)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-093",
+    "line": 76,
+    "claim": "*(a) $P(X_{t+1}\\mid p,x)=(f_x)_\\#\\mu_p$;*",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Written proof of Theorem (unavoidable hidden predictive memory) (a)-(c); certified over all 1,464 realizations at (2,2),(2,3),(3,2) in memory_probes.py",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-094",
+    "line": 77,
+    "claim": "*(b) for histories $p,p'$ ending at $x$, $\\|P(X_{t+1}\\mid p,x)-P(X_{t+1}\\mid p',x)\\|_{\\mathrm{TV}}\\le\\|\\mu_p-\\mu_{p'}\\|_{\\mathrm{TV}}$;*",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Written proof of Theorem (unavoidable hidden predictive memory) (a)-(c); certified over all 1,464 realizations at (2,2),(2,3),(3,2) in memory_probes.py",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-095",
+    "line": 78,
+    "claim": "*(c) $M_t\\le I(X_{<t};H_t\\mid X_t)",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Written proof of Theorem (unavoidable hidden predictive memory) (a)-(c); certified over all 1,464 realizations at (2,2),(2,3),(3,2) in memory_probes.py",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-096",
+    "line": 78,
+    "claim": "\\le\\log_2|\\mathcal C_H|$",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Written proof of Theorem (unavoidable hidden predictive memory) (a)-(c); certified over all 1,464 realizations at (2,2),(2,3),(3,2) in memory_probes.py",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-099",
+    "line": 80,
+    "claim": "The written proof is in [Main §3.4, Theorem (unavoidable hidden predictive memory)]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Written proof of Theorem (unavoidable hidden predictive memory) (a)-(c); certified over all 1,464 realizations at (2,2),(2,3),(3,2) in memory_probes.py",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:170@eae01647",
+  "links": [
+   {
+    "row": "I-049",
+    "line": 28,
+    "claim": "The memory bounds of §2.4 are forms of the data-processing and Pinsker inequalities.",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Readback lemma uses Pinsker's inequality",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:121-129@eae01647",
+  "links": [
+   {
+    "row": "I-050",
+    "line": 28,
+    "claim": "The recurrence argument of §2.5 combines finite order with the known contraction criterion for divisibility [RHP14; BD16]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Proof uses finite order (phi^N = id) and the contraction direction of the divisibility criterion [4,5]",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/glossary.md:137@eae01647",
+  "links": [
+   {
+    "row": "I-056",
+    "line": 30,
+    "claim": "the finite reversible system $(S,\\varphi)$ is the *substratum*",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Glossary: 'Substratum. The framework's underlying deterministic, finite-dimensional, bijective dynamical system (S, phi)'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:62@eae01647",
+  "links": [
+   {
+    "row": "I-056",
+    "line": 30,
+    "claim": "the finite reversible system $(S,\\varphi)$ is the *substratum*",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Main: 'The bijective substratum is a representation choice'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:60@eae01647",
+  "links": [
+   {
+    "row": "I-057",
+    "line": 38,
+    "claim": "The visible law of a realization depends on the dynamics, the partition and the initial law",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'the emergent law is a function of (phi, partition, mu_H)'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:56; 60@eae01647",
+  "links": [
+   {
+    "row": "I-058",
+    "line": 38,
+    "claim": "the prior is part of the realization datum, not selected by invariance under $\\varphi$",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'a realization ... carries its own fixed hidden prior mu_H as part of the realization datum'; Lemma 3: invariance fixes the measure only per orbit, the global choice is 'a selection principle, not uniqueness from invariance alone'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-059",
+    "line": 38,
+    "claim": "the counting measure is a maximal-entropy default [Main §1.2, Remark (the measure as a realization datum)]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'the counting measure is selected among invariant measures as the maximal-entropy one'; 'the counting measure is the default, not a constraint on representations'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:496@eae01647",
+  "links": [
+   {
+    "row": "I-071",
+    "line": 56,
+    "claim": "For a law with rational probabilities, a realization whose hidden prior is independent of $x_0$ also exists [Main §3.4, Theorem (finite-horizon process dilation)]",
+    "verdict": "UNDERCLAIM",
+    "link_index": 0,
+    "link": "Theorem (finite-horizon process dilation): rational multi-time law -> finite C_H, bijection, hidden prior independent of the visible initial state, reproducing the full law",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-319",
+    "line": 208,
+    "claim": "Prior independence is proved on paper.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (finite-horizon process dilation): rational multi-time law on a finite horizon K, n ≥ 2 → finite C_H, bijection φ and hidden prior μ_H independent of x_0 reproducing the joint law; constructive proof (history ledger + uniform randomness tape + clock, conditional-quantile step, padded to a bijection). Certified by exact probes.",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:498@eae01647",
+  "links": [
+   {
+    "row": "I-071",
+    "line": 56,
+    "claim": "For a law with rational probabilities, a realization whose hidden prior is independent of $x_0$ also exists [Main §3.4, Theorem (finite-horizon process dilation)]",
+    "verdict": "UNDERCLAIM",
+    "link_index": 1,
+    "link": "Extension (arbitrary priors — the response-table form): product prior mu(u) = prod_c kern_c(u_c), deterministic step x_{k+1} := u_{c(x<=k)}, ledger and clock complete the bijection; reproduces the full joint 'for arbitrary real kernels'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:715@eae01647",
+  "links": [
+   {
+    "row": "I-071",
+    "line": 56,
+    "claim": "For a law with rational probabilities, a realization whose hidden prior is independent of $x_0$ also exists [Main §3.4, Theorem (finite-horizon process dilation)]",
+    "verdict": "UNDERCLAIM",
+    "link_index": 4,
+    "link": "Status ledger: '(ii) => (iii) ... arbitrary-prior form via the response-table extension'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:206-208@eae01647",
+  "links": [
+   {
+    "row": "I-078",
+    "line": 60,
+    "claim": "the one-step $n^2$-dimensional ancilla dilation of [Main §3.1] coincides with the constructions of Barandes [Bar26, Thm 3.3] and Schmidt [Sch21, Thm 2]",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Lemma (one-step ancilla dilation): W|i> = sum_j sqrt(T_ij)|j>|i> is an isometry C^n -> C^n (x) C^n with ancilla-marginal T, extending to a unitary on C^n (x) C^n",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:618@eae01647",
+  "links": [
+   {
+    "row": "I-089",
+    "line": 68,
+    "claim": "so one fixed realization has an $L$-periodic multi-time law",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'any fixed realization with a fixed prior has an exactly L-periodic multi-time law (phi^{k+L} = phi^k)'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-091",
+    "line": 68,
+    "claim": "a nonperiodic law has no exact all-time realization by one fixed finite substratum [Main §3.4]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'a nonperiodic target admits no exact all-time realization by one fixed finite substratum'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:472@eae01647",
+  "links": [
+   {
+    "row": "I-091",
+    "line": 68,
+    "claim": "a nonperiodic law has no exact all-time realization by one fixed finite substratum [Main §3.4]",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Proposition (no horizon-independent intervened representation) for the intervened case",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:582@eae01647",
+  "links": [
+   {
+    "row": "I-093",
+    "line": 76,
+    "claim": "*(a) $P(X_{t+1}\\mid p,x)=(f_x)_\\#\\mu_p$;*",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-094",
+    "line": 77,
+    "claim": "*(b) for histories $p,p'$ ending at $x$, $\\|P(X_{t+1}\\mid p,x)-P(X_{t+1}\\mid p',x)\\|_{\\mathrm{TV}}\\le\\|\\mu_p-\\mu_{p'}\\|_{\\mathrm{TV}}$;*",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-095",
+    "line": 78,
+    "claim": "*(c) $M_t\\le I(X_{<t};H_t\\mid X_t)",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-096",
+    "line": 78,
+    "claim": "\\le\\log_2|\\mathcal C_H|$",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-098",
+    "line": 80,
+    "claim": "Their identification with a realization's time-$t$ law is not machine-checked.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-100",
+    "line": 82,
+    "claim": "**Corollary** (proved on paper [Main §1.5]). $M_t>0$ holds exactly when every faithful realization carries readout-relevant hidden memory at $t$, that is, a pair of posteriors with different pushforwards.",
+    "verdict": "FAITHFUL",
+    "link_index": 3,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-100.a",
+    "line": 82,
+    "claim": "**Corollary** (proved on paper [Main §1.5]). $M_t>0$ holds exactly when every faithful realization carries readout-relevant hidden memory at $t$, that is, a pair of posteriors with different pushforwards.",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-100.b",
+    "line": 82,
+    "claim": "**Corollary** (proved on paper [Main §1.5]). $M_t>0$ holds exactly when every faithful realization carries readout-relevant hidden memory at $t$, that is, a pair of posteriors with different pushforwards.",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-101",
+    "line": 82,
+    "claim": "both use the standard vanishing criterion for conditional mutual information [CT06], which, like the time-$t$ identification, is not machine-checked",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-102",
+    "line": 84,
+    "claim": "A realization of a law whose conditional past–future information reaches $I^*$ needs $|\\mathcal C_H|\\ge2^{I^*}$ (machine-checked in the same form as Theorem 2)",
+    "verdict": "IMPRECISE",
+    "link_index": 4,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-108",
+    "line": 86,
+    "claim": "(C1) and (C3) follow from it",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Reading a faithful realization's time-t law as the kernel's joint law of history, present and hidden state: written argument (determinism makes X_{t+1} a function of (X_t,H_t)); Main states it is 'not formalized'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-324",
+    "line": 209,
+    "claim": "the time-$t$ identification and the standard vanishing criterion for conditional mutual information [CT06] are not machine-checked",
+    "verdict": "FAITHFUL",
+    "link_index": 3,
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:492@eae01647",
+  "links": [
+   {
+    "row": "I-102",
+    "line": 84,
+    "claim": "A realization of a law whose conditional past–future information reaches $I^*$ needs $|\\mathcal C_H|\\ge2^{I^*}$ (machine-checked in the same form as Theorem 2)",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Corollary (per-process capacity bound): any deterministic-bijection realization of a process with I* = sup_t I(X_<t; X_>t | X_t) requires m >= 2^{I*}",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:484@eae01647",
+  "links": [
+   {
+    "row": "I-102",
+    "line": 84,
+    "claim": "A realization of a law whose conditional past–future information reaches $I^*$ needs $|\\mathcal C_H|\\ge2^{I^*}$ (machine-checked in the same form as Theorem 2)",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "Theorem (C3 necessity): I(X_<t;X_>t|X_t) <= log2 m by data processing",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:167@eae01647",
+  "links": [
+   {
+    "row": "I-103",
+    "line": 84,
+    "claim": "If two values of $X_{<k}$ followed by a common present state $X_k$, each of joint probability at least $p_0$, induce next-step laws at total-variation distance at least $\\delta$, then $I(X_{<k};X_{k+1}\\mid X_k)\\ge p_0\\delta^2/\\ln2$ (in bits), by Pinsker's inequality (proved on paper, with exact prob",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Lemma (accessible backflow from readback): two histories with common present, each Pr >= p0, next-step laws at TV >= delta => I(X_<k;X_{k+1}|X_k) >= p0 delta^2/ln2; written proof via mixture divergence, Pinsker, triangle inequality",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:74@eae01647",
+  "links": [
+   {
+    "row": "I-104",
+    "line": 86,
+    "claim": "[Main §1.3] names four conditions on a hidden sector: (C1) influence, (C2) persistence of records, (C3) capacity, and (C4) history readback, in which two histories with the same present induce different next-step laws.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Main §1.3 names (C1) Non-zero coupling (hidden influence on some visible transition), (C2) Memory persistence, (C3) Sufficient memory capacity, (C4) History readback: 'at some order, two visible histories with the same current state induce different next-step laws, mediated through the hidden state'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-107",
+    "line": 86,
+    "claim": "(C1) and (C3) follow from it",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "(C1) dependency: a readback gap requires hidden mediation, so any realization satisfying C4 satisfies C1; zero-coupling realizations show no gap (exhaustive enumeration at (2,2),(2,3),(3,2), primitive_probes.py)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:596@eae01647",
+  "links": [
+   {
+    "row": "I-105",
+    "line": 86,
+    "claim": "In a faithful realization (C4) coincides with $M_t>0$ by the vanishing criterion [CT06]",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Remark (the conditions are diagnostics, not hypotheses): in a faithful realization every correlation is mediated through the hidden state, so (C4) coincides with clause (ii) (CMI > 0 at some order); exhaustive enumeration agrees on 24/720/720 realizations",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-106",
+    "line": 86,
+    "claim": "the Corollary places it in the hidden state",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Remark (the conditions are diagnostics, not hypotheses): in a faithful realization every correlation is mediated through the hidden state, so (C4) coincides with clause (ii) (CMI > 0 at some order); exhaustive enumeration agrees on 24/720/720 realizations",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:78@eae01647",
+  "links": [
+   {
+    "row": "I-108",
+    "line": 86,
+    "claim": "(C1) and (C3) follow from it",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "(C3) dependency: like C1, C3 follows from C4 within any faithful realization by data processing",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:121@eae01647",
+  "links": [
+   {
+    "row": "I-118",
+    "line": 94,
+    "claim": "but not sufficient [Main §2.3]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Main §2.3: explicit stochastic pairs whose unique divisor has a negative entry while TV is non-increasing for every p,q (one strictly contracting at n=2, one doubly stochastic at n=3)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:137@eae01647",
+  "links": [
+   {
+    "row": "I-120",
+    "line": 96,
+    "claim": "With this lemma, on a fixed finite reversible substratum, history readback forces indivisibility somewhere in the recurrence cycle [Main §2.3, Theorem (history readback + finite recurrence implies indivisibility)]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (history readback + finite recurrence implies indivisibility): finite order L gives Γ_L=I; if every earlier Γ_k were a permutation, two positive-probability histories with the same endpoint would fix the same x_0 and could not differ, contradicting C4; so some Γ_k is non-permutation and a divisor from k to L would be a stochastic one-sided inverse",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-122",
+    "line": 96,
+    "claim": "from history-level (C4) it is proved on paper",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (history readback + finite recurrence implies indivisibility): finite order L gives Γ_L=I; if every earlier Γ_k were a permutation, two positive-probability histories with the same endpoint would fix the same x_0 and could not differ, contradicting C4; so some Γ_k is non-permutation and a divisor from k to L would be a stochastic one-sided inverse",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-330",
+    "line": 212,
+    "claim": "on paper for (C4)",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (history readback + finite recurrence implies indivisibility): φ has finite order L so Γ_L = I; if every earlier Γ_k were a permutation, histories with the same endpoint identify the same x_0 and cannot have different next-step laws, contradicting C4; so some Γ_k is non-permutation, and a stochastic divisor Γ_k → I would be a stochastic one-sided inverse, forbidden by the stochastic-invers",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:141@eae01647",
+  "links": [
+   {
+    "row": "I-125",
+    "line": 104,
+    "claim": "The indivisibility of §2.5 is global: it occurs somewhere in the recurrence cycle, not on every window.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Scope: 'a global recurrence-cycle result. It does not say that C4 forces P-indivisibility on every accessible short-time window; the XOR control remains a counterexample'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-126",
+    "line": 104,
+    "claim": "Conditional memory does not force short-window indivisibility (Appendix B).",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Scope remark: XOR control is a counterexample to short-window indivisibility from C4",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:326@eae01647",
+  "links": [
+   {
+    "row": "I-129",
+    "line": 106,
+    "claim": "and for them (2) implies CP-indivisibility [Main §3.2, Theorem (CP-indivisibility, framework scope)]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (CP-indivisibility, framework scope): for the permutation-dilation family, P-indivisibility of the populations implies no CPTP Λ with Φ_t2 = Λ∘Φ_t1 (written proof: a CPTP Λ would induce a stochastic population divisor)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-375",
+    "line": 251,
+    "claim": "The family is therefore CP-indivisible [Main §3.2, Theorem (CP-indivisibility, framework scope)].",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (CP-indivisibility, framework scope): for the permutation-dilation family, P-indivisibility ⇒ CP-indivisibility (proof via Lemma (diagonal preservation), Main:322).",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:332@eae01647",
+  "links": [
+   {
+    "row": "I-131",
+    "line": 106,
+    "claim": "Distinguishability backflow witnesses divisibility failure in one direction only [BLP09]",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Main: 'Backflow in the system alone is therefore sufficient evidence of indivisibility, never necessary'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:616@eae01647",
+  "links": [
+   {
+    "row": "I-133",
+    "line": 108,
+    "claim": "Theorem 1 is a representation result: it states which laws admit realizations and quantum representations, not why a physical system exhibits a law with memory [Main §3.4, Remark (representation, not explanation)]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Remark (representation, not explanation)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:538@eae01647",
+  "links": [
+   {
+    "row": "I-159",
+    "line": 128,
+    "claim": "No fixed finite carrier reproduces a qubit",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Elementary factorization: a fixed realization with N ontic configurations has behaviour B = Xi M with M column-stochastic over N states and Xi in [0,1]; nonnegative rank <= N",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-159",
+    "line": 128,
+    "claim": "No fixed finite carrier reproduces a qubit",
+    "verdict": "IMPRECISE",
+    "link_index": 2,
+    "link": "Main's Proposition imports the unboundedness from HKLP [55] (alternative route Garner–Müller [56]); 'the elementary factorization half proved here, the unboundedness imported'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-160",
+    "line": 130,
+    "claim": "A fixed finite realization with $N$ ontic configurations generates only behaviour matrices that factor nonnegatively through $N$ states.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Elementary factorization: a fixed realization with N ontic configurations has behaviour B = Xi M with M column-stochastic over N states and Xi in [0,1]; nonnegative rank <= N",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-164",
+    "line": 130,
+    "claim": "So no fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Elementary factorization: a fixed realization with N ontic configurations has behaviour B = Xi M with M column-stochastic over N states and Xi in [0,1]; nonnegative rank <= N",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-164",
+    "line": 130,
+    "claim": "So no fixed finite realization reproduces the full prepare-and-measure theory of a qubit exactly",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Main's Proposition imports the unboundedness from HKLP [55] (alternative route Garner–Müller [56]); 'the elementary factorization half proved here, the unboundedness imported'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-165",
+    "line": 130,
+    "claim": "the factorization is proved, and the unboundedness is imported [Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form); HKLP24, Thm 4]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Elementary factorization: a fixed realization with N ontic configurations has behaviour B = Xi M with M column-stochastic over N states and Xi in [0,1]; nonnegative rank <= N",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-165",
+    "line": 130,
+    "claim": "the factorization is proved, and the unboundedness is imported [Main §3.4, Proposition (finite-substratum operational obstruction — classical-dimension form); HKLP24, Thm 4]",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Main's Proposition imports the unboundedness from HKLP [55] (alternative route Garner–Müller [56]); 'the elementary factorization half proved here, the unboundedness imported'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-166",
+    "line": 130,
+    "claim": "The obstruction does not touch Theorem 1, whose realization is chosen per law.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Proposition text: 'It does not touch the equivalence theorem — there the realization is chosen per finite-horizon law'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:360@eae01647",
+  "links": [
+   {
+    "row": "I-168",
+    "line": 136,
+    "claim": "A deterministic completion that keeps pointwise causal cones and a setting-independent pre-setting ensemble is Bell-local, $|S_{\\mathrm{CHSH}}|\\le2$ [Bel64; CHSH69; Main §3.3]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (Bell ceiling for a screened local completion): response-fixing pre-setting microstate, determinism, local interventions, readout before cones meet, common pre-setting ensemble p(Ω|a,b)=p(Ω) => deterministic local response functions, |S_CHSH|<=2; certified in equivalence_recovery_probes.py check 11 (no ledger row)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-169",
+    "line": 136,
+    "claim": "so a deterministic completion reproducing quantum Bell correlations must give up one of the two",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Theorem (Bell ceiling for a screened local completion): response-fixing pre-setting microstate, determinism, local interventions, readout before cones meet, common pre-setting ensemble p(Ω|a,b)=p(Ω) => deterministic local response functions, |S_CHSH|<=2; certified in equivalence_recovery_probes.py check 11 (no ledger row)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-249",
+    "line": 168,
+    "claim": "Quantum Bell correlations are not accounted for by memory alone",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Main §3.3 Theorem (Bell ceiling for a screened local completion): deterministic, local setting operations, setting-independent pre-setting ensemble ⇒ |S_CHSH| <= 2",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-250",
+    "line": 168,
+    "claim": "with measurement independence kept, they need ontic parameter dependence",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Bell ceiling theorem",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:379@eae01647",
+  "links": [
+   {
+    "row": "I-169",
+    "line": 136,
+    "claim": "so a deterministic completion reproducing quantum Bell correlations must give up one of the two",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "'Determinism is constitutional here, so exactly two hypotheses remain available'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:338-340@eae01647",
+  "links": [
+   {
+    "row": "I-175",
+    "line": 142,
+    "claim": "In OI (§1.1) the zero-point sum of the emergent quantum description (§§2–3) and the effective cosmological constant are defined at different levels of description.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Two levels: classical substratum assigns ρ~H²/G via Friedmann (no zero-point energy); the emergent QFT assigns the zero-point sum",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:356@eae01647",
+  "links": [
+   {
+    "row": "I-175",
+    "line": 142,
+    "claim": "In OI (§1.1) the zero-point sum of the emergent quantum description (§§2–3) and the effective cosmological constant are defined at different levels of description.",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "'Accordingly the descriptive-level distinction is established and the dissolution is conditional'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-180",
+    "line": 142,
+    "claim": "and its content lies in how the two levels couple to geometry",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'Invisibility to quantum mechanics is not decoupling from gravity; the latter is a coupling theorem'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-181",
+    "line": 144,
+    "claim": "Whether the offset also fails to source curvature is a separate coupling question.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'That the zero-point sum belongs to the emergent description does not entail that it cannot source geometry: the two are different claims'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-182",
+    "line": 144,
+    "claim": "Settling it requires covariant field equations derived from the substratum, with their coupling to sources (Level G3 of [GR])",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "'the latter is a coupling theorem and is what G3 names as open'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-184",
+    "line": 144,
+    "claim": "The quantum description therefore does not decide between gravitational completions that differ by a term $\\rho_C\\,g_{\\mu\\nu}$, such as $\\mathcal G_{\\mu\\nu}=8\\pi G\\,T^{\\rm cl}_{\\mu\\nu}$ and $\\mathcal G_{\\mu\\nu}=8\\pi G\\,(T^{\\rm cl}_{\\mu\\nu}-\\rho_C\\,g_{\\mu\\nu})$, with $\\mathcal G_{\\mu\\nu}$ the gravita",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Two completions 𝒢=8πG T^cl and 𝒢=8πG(T^cl−ρ_C g) 'can share the same substratum, partition, reduced transition law, fixed-basis representation and action-scale calibration while differing in exactly that offset'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/ch07-gravity.md:167@eae01647",
+  "links": [
+   {
+    "row": "I-175",
+    "line": 142,
+    "claim": "In OI (§1.1) the zero-point sum of the emergent quantum description (§§2–3) and the effective cosmological constant are defined at different levels of description.",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Book mirror: 'The descriptive distinction is established'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:12@eae01647",
+  "links": [
+   {
+    "row": "I-182",
+    "line": 144,
+    "claim": "Settling it requires covariant field equations derived from the substratum, with their coupling to sources (Level G3 of [GR])",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "Dependency ladder: 'G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open'; 'the decisive Level-G3 target'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-186",
+    "line": 146,
+    "claim": "the form [GR] targets, $E_{\\mu\\nu}[g,\\mathrm{OI}]=8\\pi G\\,(T_{\\mu\\nu}-\\mathcal F[g,T]\\,g_{\\mu\\nu})$",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Target: 'E_μν[g, OI] = 8πG (T_μν − F[g,T] g_μν) under which the distinct-descriptions argument becomes a theorem of the dynamics'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-204",
+    "line": 152,
+    "claim": "A derivation of the covariant field equations, with their conservation and source coupling, from the substratum would turn the proposal into a theorem or refute it.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'… under which the distinct-descriptions argument becomes a theorem of the dynamics'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-275",
+    "line": 178,
+    "claim": "No prediction of the value of Λ or $\\Omega_\\Lambda$",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "link_status": "open"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:344@eae01647",
+  "links": [
+   {
+    "row": "I-186",
+    "line": 146,
+    "claim": "the form [GR] targets, $E_{\\mu\\nu}[g,\\mathrm{OI}]=8\\pi G\\,(T_{\\mu\\nu}-\\mathcal F[g,T]\\,g_{\\mu\\nu})$",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Source is the classical stress-energy of the total microstate",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-202",
+    "line": 150,
+    "claim": "The present proposal differs in locating the gravitational source in the substratum microstate",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'The stress-energy sourcing gravity is the classical stress-energy of the total microstate'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:360@eae01647",
+  "links": [
+   {
+    "row": "I-189",
+    "line": 146,
+    "claim": "It does not explain the observed value of Λ",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'The framework does not explain why ρ ~ H²/G; this is set by initial conditions via the Friedmann equation'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/ch07-gravity.md:201@eae01647",
+  "links": [
+   {
+    "row": "I-189",
+    "line": 146,
+    "claim": "It does not explain the observed value of Λ",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Book: 'does not explain why ρ ~ H²/G takes its specific observed value'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:583@eae01647",
+  "links": [
+   {
+    "row": "I-195",
+    "line": 148,
+    "claim": "How the energy of electroweak and QCD vacuum transitions couples to gravity is not fixed by the descriptive distinction",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'How the energy released in the electroweak and QCD transitions couples to gravity is not fixed by the relative/absolute distinction and requires the same open coupling step'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40@eae01647",
+  "links": [
+   {
+    "row": "I-207",
+    "line": 156,
+    "claim": "Because the dynamics of OI is a bijection observed through a partition (§1.1), two questions separate: whether information is conserved in the global reversible dynamics, and whether it can be recovered from the records an observer can access, its *access class*",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "BHa: 'Bijectivity is a statement about the global configuration; the records are a projection of it'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/ch07-gravity.md:110@eae01647",
+  "links": [
+   {
+    "row": "I-207",
+    "line": 156,
+    "claim": "Because the dynamics of OI is a bijection observed through a partition (§1.1), two questions separate: whether information is conserved in the global reversible dynamics, and whether it can be recovered from the records an observer can access, its *access class*",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Book: 'how much of that information an observer can recover from the radiation is a separate question, which bijectivity alone does not settle'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:88-142@eae01647",
+  "links": [
+   {
+    "row": "I-208",
+    "line": 156,
+    "claim": "The results below are finite computations in toy models of configurations, permutations and configuration reads.",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "BHa results: written proofs (C1, C2, C3, C4, D1) checked exhaustively at small size; counterexamples by enumeration",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14-21@eae01647",
+  "links": [
+   {
+    "row": "I-208",
+    "line": 156,
+    "claim": "The results below are finite computations in toy models of configurations, permutations and configuration reads.",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "BHb: C1, C2 written universal proofs; C6 textual audit of GR A.8-A.9",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:817-851@eae01647",
+  "links": [
+   {
+    "row": "I-208",
+    "line": 156,
+    "claim": "The results below are finite computations in toy models of configurations, permutations and configuration reads.",
+    "verdict": "IMPRECISE",
+    "link_index": 2,
+    "link": "GR Thms A.8-A.9: measure-concentration argument, not a finite computation",
+    "link_status": "conditional"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292@eae01647",
+  "links": [
+   {
+    "row": "I-209",
+    "line": 156,
+    "claim": "They concern the framework's nested-partition construction [GR App. A; Book §7.6], not a particular black hole.",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "BHa takes from the framework only 'the hidden-uniform prior, the nested V/B/D layout and the moving-partition emission'; 'None [of the maps] is derived from OI's substratum dynamics … The generic maps impose neither A.5's coupling chain nor A.8's energy-shell conservation'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:196@eae01647",
+  "links": [
+   {
+    "row": "I-209",
+    "line": 156,
+    "claim": "They concern the framework's nested-partition construction [GR App. A; Book §7.6], not a particular black hole.",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "BHb: 'No specific substratum map was tested'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/PROGRAMME.md:13@eae01647",
+  "links": [
+   {
+    "row": "I-211",
+    "line": 158,
+    "claim": "Conservation neither implies",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Written counterexample: F(b,r)=(b,r), all input information in the unread b — reversible, radiation reveals nothing",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647; verification/programmes/black-hole-information/bh01_access_v1/review/REVIEW.md:3@eae01647",
+  "links": [
+   {
+    "row": "I-216",
+    "line": 160,
+    "claim": "For bijective dynamics, complete endpoint access gives exact recovery",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "C1: 'If every F_t is bijective and α(T) is every register, … ρ_T is injective on X … P_succ = 1' (written proof; review: correct)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647",
+  "links": [
+   {
+    "row": "I-217",
+    "line": 160,
+    "claim": "with $\\mathcal U$ inaccessible $P_{\\mathrm{succ}}\\ge1/|\\mathcal U|$",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "C2: endpoint snapshot fibres have |K| points; the cumulative record refines it; P_succ = (1/(|M|N)) Σ_y max_m c_m(y) ≥ 1/|K| (written proof)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:297@eae01647",
+  "links": [
+   {
+    "row": "I-217",
+    "line": 160,
+    "claim": "with $\\mathcal U$ inaccessible $P_{\\mathrm{succ}}\\ge1/|\\mathcal U|$",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "Scope: 'Uniform message prior with equal-size supports'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647; verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:318@eae01647",
+  "links": [
+   {
+    "row": "I-218",
+    "line": 160,
+    "claim": "so zero advantage in a bijective instance requires $|\\mathcal U|\\ge|\\mathcal M|$",
+    "verdict": "IMPRECISE",
+    "link_index": 0,
+    "link": "From C2: zero advantage means P_succ = 1/|M| (blind guess under a uniform prior), so 1/|K| ≤ 1/|M|, i.e. |K| ≥ |M|; 'Claim A qualified by C2: zero advantage requires |K| ≥ |M|'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112@eae01647",
+  "links": [
+   {
+    "row": "I-221",
+    "line": 160,
+    "claim": "The bound is the remnant-capacity form of a known fact",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'This is the remnant-capacity form of a known fact (guessing probability rises by at most a factor |K| with |K|-valued side information)'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:719@eae01647; papers/GR.md:807@eae01647",
+  "links": [
+   {
+    "row": "I-224",
+    "line": 162,
+    "claim": "Its configuration space is $\\mathcal C_V\\times\\mathcal C_B\\times\\mathcal C_D$, with $V$ the exterior visible region, $B$ the black-hole interior and $D$ the sector beyond the cosmological horizon; the radiation $R$, a subsystem of $V$, is emitted from $B$ [GR App. A.1, A.7].",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "A.1: C_V × C_B × C_D, V between the black-hole and cosmological horizons, B interior, D trans-cosmological; A.7: modes move from B to R, a subsystem of V",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:833@eae01647",
+  "links": [
+   {
+    "row": "I-227",
+    "line": 162,
+    "claim": "H-scramble fails for every bijection acting on a definite initial configuration with the bipartition aligned to the configuration coordinates",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'The same holds for every bijection: acting on a definite configuration, φ visits only configurations, each a product state across a bipartition aligned with the configuration coordinates, so S(ρ_R) = 0 along every such orbit'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/ch07-gravity.md:126@eae01647",
+  "links": [
+   {
+    "row": "I-227",
+    "line": 162,
+    "claim": "H-scramble fails for every bijection acting on a definite initial configuration with the bipartition aligned to the configuration coordinates",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Book mirror: 'every finite bijection acting on a definite configuration, with the bipartition aligned …, visits only product states'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:809@eae01647",
+  "links": [
+   {
+    "row": "I-230",
+    "line": 162,
+    "claim": "timescale ordering does not supply it [BHa, item F]",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "'Timescale ordering does not supply it'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-267",
+    "line": 175,
+    "claim": "that [GR, Thm A.7] fails within its stated scope",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "GR A.7 setup: 'Theorem A.7 is stated for t ≪ τ_B^D'; evaporation is longer than τ_B^D for black holes above ~10^11 kg; A.7 does not establish B∪R purity (H-decouple)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:817@eae01647",
+  "links": [
+   {
+    "row": "I-232",
+    "line": 162,
+    "claim": "Theorem A.8 of [GR] takes the whole configuration space $\\mathcal C_B\\times\\mathcal C_R$ as a single energy shell.",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "A.8: 'with its whole configuration space as a single energy shell, Σ_E = C_B × C_R'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:843@eae01647",
+  "links": [
+   {
+    "row": "I-233",
+    "line": 162,
+    "claim": "That requires the energy to be constant there, so that energy conservation places no constraint on the orbit",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'Its hypothesis requires the energy to be constant on C_B × C_R, so that energy conservation places no constraint on the orbit of B ∪ R'",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-234",
+    "line": 162,
+    "claim": "and it does not follow from the conservation of a Hamiltonian that takes more than one value there",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'it does not follow from the conservation of a Hamiltonian that takes more than one value there, whose energy shells all span proper subspaces'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:843@eae01647; book/ch07-gravity.md:126@eae01647",
+  "links": [
+   {
+    "row": "I-235",
+    "line": 162,
+    "claim": "An evaporating black hole whose radiation carries away its energy is in the proper-shell case",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'An evaporating black hole whose radiation carries away its energy is in that proper-shell case'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:853@eae01647",
+  "links": [
+   {
+    "row": "I-238",
+    "line": 162,
+    "claim": "The result is a time average at a fixed bipartition",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "'Theorem A.9 concerns full-cycle averages at the bipartition of stage t, held fixed'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:356@eae01647",
+  "links": [
+   {
+    "row": "I-249",
+    "line": 168,
+    "claim": "Quantum Bell correlations are not accounted for by memory alone",
+    "verdict": "FAITHFUL",
+    "link_index": 2,
+    "link": "Main §3.3: with globally coupled setting-dependent hidden dynamics the response-table construction realizes PR-box behaviour — the selector is causal locality, not representability",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:22@eae01647",
+  "links": [
+   {
+    "row": "I-250",
+    "line": 168,
+    "claim": "with measurement independence kept, they need ontic parameter dependence",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Main §3.3 / abstract: 'Reproducing them requires ontic parameter dependence ... or else setting-dependent ontic ensembles' (Bell ceiling contrapositive)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:334@eae01647",
+  "links": [
+   {
+    "row": "I-261",
+    "line": 174,
+    "claim": "no identification of P-indivisibility with quantum non-Markovianity",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Main Remark (three notions, kept apart)",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-371",
+    "line": 251,
+    "claim": "and its P-indivisibility is notion (2) of §3.1",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Notion (2) = \"stochastic P-indivisibility: failure of stochastic divisibility of the visible population law\".",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:20@eae01647",
+  "links": [
+   {
+    "row": "I-265",
+    "line": 175,
+    "claim": "the results of §5 reported from [BHa; BHb] concern finite toy models, each proved on paper or checked exhaustively at small size or by exact arithmetic",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "BHa C1/C2 [PROVED]: bijectivity + complete endpoint access gives exact recovery; P_succ >= 1/|K| (written proofs + exhaustive checks)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:20@eae01647",
+  "links": [
+   {
+    "row": "I-265",
+    "line": 175,
+    "claim": "the results of §5 reported from [BHa; BHb] concern finite toy models, each proved on paper or checked exhaustively at small size or by exact arithmetic",
+    "verdict": "IMPRECISE",
+    "link_index": 4,
+    "link": "BHb C6(b)–(d): textual analyses of GR Thms A.8–A.9 (where the Page value enters; shell factorization CONDITIONAL with certified bounds; time average vs instantaneous value OPEN)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:811@eae01647",
+  "links": [
+   {
+    "row": "I-267",
+    "line": 175,
+    "claim": "that [GR, Thm A.7] fails within its stated scope",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "GR Theorem A.7 (Effective pure state): on t ≪ τ_B^D the joint state of V and B is effectively pure, O(t/τ_B^D)",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/ch01-observation.md:286@eae01647",
+  "links": [
+   {
+    "row": "I-270",
+    "line": 177,
+    "claim": "No claim that the card game (Appendix B) produces quantum rather than classical statistics",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Card game on card inputs is a classical stochastic process; Book: \"a card mechanism is a local classical toy\"",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-274",
+    "line": 177,
+    "claim": "it violates no Bell inequality",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Book §1.11: 'no arrangement of cards on a table violates a Bell inequality'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/GR.md:551@eae01647",
+  "links": [
+   {
+    "row": "I-275",
+    "line": 178,
+    "claim": "No prediction of the value of Λ or $\\Omega_\\Lambda$",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "GR §7.4: the vacuum-energy normalization ρ_Λ ~ H²/G is the Friedmann scale 'whose value is an input'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:99@eae01647",
+  "links": [
+   {
+    "row": "I-299",
+    "line": 189,
+    "claim": "which every deterministic completion carries in its hidden state",
+    "verdict": "IMPRECISE",
+    "link_index": 1,
+    "link": "Identification of a realization's time-t law with the kernel's joint law (stated in Main §1.5 as 'a step not formalized')",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-299",
+    "line": 189,
+    "claim": "which every deterministic completion carries in its hidden state",
+    "verdict": "IMPRECISE",
+    "link_index": 2,
+    "link": "Corollary: M_t>0 exactly when every faithful realization carries readout-relevant hidden memory at t (forward: pushforward identity in each realization; converse: in one realization from S_imp_D); CMI vanishing criterion not formalized",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:20@eae01647",
+  "links": [
+   {
+    "row": "I-299",
+    "line": 189,
+    "claim": "which every deterministic completion carries in its hidden state",
+    "verdict": "IMPRECISE",
+    "link_index": 3,
+    "link": "Main abstract: 'When (C4) holds, every faithful deterministic completion contains readout-relevant hidden predictive memory'",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "book/ch01-observation.md:265@eae01647 (FULL:609)",
+  "links": [
+   {
+    "row": "I-360",
+    "line": 236,
+    "claim": "The two-card game of [Book §1.11] uses two cards, each red or black: a visible *hole card* $h$, and a face-down *burn card* $b$, uniform and independent of $h$. A *street* is one shuffle step, in which the two cards trade places: $\\varphi(h,b)=(b,h)$. A *peek* reveals the hole card and overwrites th",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "§1.11: one hole card (red/black), one burn card face down, shuffle = hole and burn trade places, peek with forced re-burn.",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:278@eae01647",
+  "links": [
+   {
+    "row": "I-372",
+    "line": 251,
+    "claim": "The one-step channel is then the constant channel $\\rho\\mapsto\\operatorname{tr}(\\rho)\\,I/2$",
+    "verdict": "FAITHFUL",
+    "link_index": 1,
+    "link": "Main's embedding: Φ(ρ_V) = Tr_H[U_φ(ρ_V ⊗ I/m)U_φ†].",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:286@eae01647",
+  "links": [
+   {
+    "row": "I-373",
+    "line": 251,
+    "claim": "which is entanglement-breaking [Main §3.2, Remark (failure of (C1))]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Remark (failure of (C1)): for φ(x,h) = (h,x), Φ(ρ) = I/2 identically, \"a constant channel, hence measure-and-prepare\" (hence entanglement-breaking).",
+    "link_status": "proved"
+   }
+  ]
+ },
+ {
+  "source": "papers/Main.md:702@eae01647",
+  "links": [
+   {
+    "row": "I-377",
+    "line": 253,
+    "claim": "With the hidden slot initialized to a fixed card instead, the swap has the maps $\\rho\\mapsto|0\\rangle\\langle0|$ and $\\rho\\mapsto\\rho$",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Swap with hidden slot initialized: maps ρ ↦ |0⟩⟨0| and ρ ↦ ρ.",
+    "link_status": "proved"
+   },
+   {
+    "row": "I-378",
+    "line": 253,
+    "claim": "and admits no such decomposition [Main §4.5]",
+    "verdict": "FAITHFUL",
+    "link_index": 0,
+    "link": "Main §4.5: every Kraus operator of the first map has one-dimensional range, so every outcome-conditioned processing is entanglement-breaking and the identity is not; \"this swap realization admits no classical-memory decomposition\". Re-derived: each instrument branch I_o ≤ Φ_1 has output ∝ |0⟩⟨0|, so Σ_o C_o∘I_o is measure-and-prepare.",
+    "link_status": "proved"
+   }
+  ]
+ }
+]

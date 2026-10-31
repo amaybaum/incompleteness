@@ -1,0 +1,2 @@
+P-indivisible instances: 3924; with M_t > 0 for some t: 3924
+PASS: (2) => exists t, M_t > 0 on every instance

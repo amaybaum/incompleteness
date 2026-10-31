@@ -1,0 +1,11 @@
+PASS |G_T| = 48 for the time-oriented cubic kernel
+PASS every element fixes n (G_T subset Stab(n))
+PASS spatial blocks are exactly the 48 signed permutations (O_h)
+PASS -1 (parity) in G_T
+PASS fixed subspace of G_T is exactly R n (n still selected)
+PASS control: rational rotation (3/5,4/5) about z lies in Stab(n) ∩ O(3,1)
+PASS control: that rotation is NOT an invariance (Stab(n) ⊄ G_T)
+PASS countercontrol: boost is in O(3,1), moves n, and is not an invariance
+PASS time-symmetric data: |G| = 96 = |O_h x O(1)|
+PASS time-symmetric data: Lambda n = ±n for all, and -n occurs (G ⊄ Stab(n), G ⊆ Stab(R n))
+ALL CONTROLS GREEN

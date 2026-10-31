@@ -1,0 +1,51 @@
+SC-16 Track B -- preregistered decision rule (written before any enumeration result was seen)
+Date: 2026-10-27. Corpus: origin/main 6bc2c4af10863c2cdfd9f5c1b88abdc8b64f9ed0.
+
+Claim under test (K): (C1)-(C4), as stated in Main.md Sec. 1.3, with (C4) holding at an accessible
+order k inside a window {0..n}, imply that the visible process is P-indivisible on {0..n}.
+
+Model class. phi a bijection of V x H (|V| = nV, |H| = nH), hidden prior mu_H shared by every root,
+visible prior uniform (full support), root and hidden state independent. Rooted maps
+Gamma_t(a,j) = mu_H{h : pi_V phi^t(a,h) = j}. r = least t >= 1 with Gamma_t = I (visible recurrence),
+L = order of phi (r <= L, r | L). Accessible window: {0..n} with 2 <= n < r.
+
+Condition operationalizations (all exact, Fractions):
+ C4(n):  exists k <= n-1 and two positive-probability visible histories (x_0..x_k) != (x'_0..x'_k)
+         with x_k = x'_k whose next-step laws P(X_{k+1} | history) differ.            [Main :80, :137, :167]
+ C1(n):  exists t <= n-1, c, and two positive-probability full states (c,h), (c,h') at time t
+         with different visible successors (the conditional law of the visible transition depends
+         on the hidden state).                                                         [Main :74]
+         Also reported: C1-hist (some next-step law given visible history is not a point mass)
+         and the witness T = Gamma_1 non-permutation.
+ C2s(n): at the gap order k, two histories with common x_k carry different conditional laws of H_k
+         (the record persists to the readback that uses it).                           [Main :76, C2-structural]
+         C2-slow is checked only in its literal limit: static bath (phi preserves h).  [Main :76, :472]
+ C3:     log2 nH >= I*, I* = sup_t I(X_{<t}; X_{>t} | X_t) on the realized process, checked exactly
+         by integer powers (2^{D I*} vs nH^D).  Also the window-restricted I*_n.       [Main :78, :508]
+
+Readings of "P-divisible on {0..n}":
+ R1  Main :137: for all 0 <= s < t <= n there is a stochastic Lambda with Gamma_t = Gamma_s Lambda.
+     Decided by an exact rational phase-1 simplex; every 'feasible' carries a Lambda verified by exact
+     multiplication, every 'infeasible' carries a Farkas vector z with z^T A <= 0, z^T b > 0 verified
+     exactly.  A verdict with an unverified certificate is void.
+ R2  process-kernel divisor: Lambda_{s,t} = P(X_t | X_s) of the realized process works for all s<t<=n.
+ R3  Main :121 TV-monotonicity for all initial p, q: ||v Gamma_{t+1}||_1 <= ||v Gamma_t||_1 for all
+     zero-sum v and 0 <= t < n (checked exactly on all extreme rays of the sign arrangement).
+ R4  TV-monotonicity for root pairs only (p, q point masses).
+
+Decision rule.  A countermodel to K under reading R is (phi, mu_H, n) with n < r, C1(n), C2s(n),
+C3, C4(n) and R holding on {0..n}.  If at least one exact countermodel is found and every control
+below is green, K is REFUTED under R.  If none is found in the searched range, K is NOT REFUTED at
+those sizes (no positive conclusion is drawn from absence).
+
+Controls (all must be green or every verdict is void):
+ K1  swap phi(v,h)=(h,v), (2,2), uniform: R1 must FAIL on {0,1,2} with a verified Farkas vector.
+ K2  matrix pair (Gamma_s,Gamma_t) = (J/2, I): R1 infeasible; (I, X): feasible.
+ K3  invertible Gamma_s with Gamma_s^{-1} Gamma_t having a negative entry: infeasible;
+     Gamma_t = Gamma_s Q with Q stochastic: feasible.
+ K4  for nV = 2, an independent closed-form 2x2 feasibility test must agree with the LP on every pair.
+ K5  Main Sec. 2.3 Scope equivalence, applied to every enumerated full-support model:
+     (gap at some order k < L) <=> (some Gamma_s, 0<s<L, non-permutation) <=> (R1 fails on {0..L}).
+     Also R1 must fail on {0..r} whenever some Gamma_s (0<s<r) is a non-permutation.
+ K6  TV checker: (I, J/2, I) must be flagged non-monotone; (I, J/2, J/2) monotone.
+ K7  C3 data-processing: I* <= log2 nH must hold on every model (a theorem; a failure means a bug).

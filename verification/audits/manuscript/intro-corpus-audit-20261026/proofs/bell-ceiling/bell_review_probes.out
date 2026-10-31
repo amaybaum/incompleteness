@@ -1,0 +1,9 @@
+C0 cone lemma exhaustive on finite reversible ring (N=8,k<=3): True graph degree {0: 2, 1: 4, 2: 2, 3: 4, 4: 2, 5: 4, 6: 2, 7: 4}
+CE2 write-local / read-nonlocal intervention: CHSH = 4  p(Omega|a,b) uniform; graph edgeless
+CE2' simultaneous (pre-setting reads): CHSH = 2
+CE3 readout function not localized: CHSH = 4
+CE4 post-selected on coincidences, MI + local deterministic tables (A detection eff 1/2): max CHSH found = 4
+CE4' unconditioned pointwise max with outcomes in {-1,0,1}: 2
+control(b) setting-dependent ensemble: CHSH = 4 I(Omega;Z) bits = 0.8112781244591328 distinct tables 2
+bound at I=2 bits: 4
+cubic alpha=1/3: long-wavelength speed 1/sqrt3 = 0.5773502691896258  max group speed (sampled) = 0.5773502707049205  graph cone speed = 1 edge/step

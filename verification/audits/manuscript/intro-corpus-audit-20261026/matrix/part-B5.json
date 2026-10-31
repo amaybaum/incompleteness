@@ -1,0 +1,2796 @@
+[
+ {
+  "id": "I-123",
+  "section": "§2.5",
+  "line": 98,
+  "text": "a minimal model of Theorem 3 with six hidden states",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main §2.4 is titled \"A Minimal Model\" and ch01:135 \"A worked minimal model\"; neither states a measure nor proves minimality. Corpus-wide search (papers/, book/, OIBridge, verification/) finds no minimality statement or proof for this model.",
+    "source": "papers/Main.md:178@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "unsupported"
+   },
+   {
+    "link": "Refuted under hidden-state count: (i) a 2-hidden-state model realizes Theorem 3 (the card game; exhaustive: 16 of 24 bijections at |C_V| = |C_H| = 2 with uniform prior); (ii) a 3-hidden-state model (h = 1 flips x; h = 2 ↔ 3 swap) reproduces every B.1 number exactly: Γ_1 = [[2/3,1/3],[1/3,2/3]], Γ_2 = I, divisor [[2,−1],[−1,2]], conditionals 1 and 1/3; at |C_V| = 2, |C_H| = 3 all 648 Theorem-3 witnesses have invertible Γ_s, so even the \"unique divisor with negative entries\" feature needs only 3 hidden states (2 with a non-uniform prior, e.g. φ(x,h) = (x ⊕ h, h) with P(h=1) ≠ 1/2).",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "refuted"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "unsupported",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "UNSUPPORTED",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:178@eae01647",
+    "text": "### 2.4 Explicit Construction: A Minimal Model",
+    "nature": "source of the \"minimal\" label; no measure or minimality proof"
+   },
+   {
+    "site": "book/ch01-observation.md:135@eae01647 (FULL:479)",
+    "text": "**A worked minimal model.** … a six-state hidden sector … — call it a die",
+    "nature": "same label, no measure or proof"
+   }
+  ],
+  "proposed_fix": "Line 98: \"Appendix B works examples: the six-hidden-state model of [Main §2.4], memory without short-window indivisibility, and a two-card game, which realizes Theorem 3 with two visible and two hidden states, the fewest possible.\" Heading \"B.1 A minimal model\" → \"B.1 A six-hidden-state model\".",
+  "notes": "Assigned to B5 by the lead (outside I-313–I-385); may duplicate the §2.5 mapper's row. Attention resolved: no sense of \"minimal\" survives — not hidden-state count, not configuration count, not \"smallest with a unique negative divisor\". The label is inherited from Main §2.4's section title, where it means \"simple\"."
+ },
+ {
+  "id": "I-124",
+  "section": "§2.5",
+  "line": 98,
+  "text": "a two-card game, the smallest realization of Theorem 3",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Measure and proof (supplied by this audit; absent from the corpus): a realization of Theorem 3 needs two distinct rows (|C_V| ≥ 2) and an overlap; with |C_H| = 1 the step is a permutation of C_V, so every Γ_t is a permutation matrix and no two distinct rows overlap; hence |C_V| ≥ 2 and |C_H| ≥ 2, and s ≥ 1 (Γ_0 = I has no overlap) so n ≥ 2. The card game attains |C_V| = |C_H| = 2, s = 1, n = 2.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Exhaustive confirmation: no Theorem-3 witness at (|C_V|,|C_H|) ∈ {(1,2),(2,1),(1,3),(3,1)}; 16 of 24 bijections at (2,2) with uniform prior are witnesses.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Corpus wording: book ch01:273 \"The minimal such game is the coin-and-die model of §1.5 dealt onto a table\" — no measure or proof, and the die has six states while the burn card has two.",
+    "source": "book/ch01-observation.md:273@eae01647 (FULL:617)",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "unsupported"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "book/ch01-observation.md:273@eae01647 (FULL:617)",
+    "text": "The minimal such game is the coin-and-die model of §1.5 dealt onto a table.",
+    "nature": "identifies the 2-card game with the 6-state coin-and-die model; no measure; corpus finding for the book"
+   }
+  ],
+  "proposed_fix": "\"a two-card game, which realizes Theorem 3 with two visible and two hidden states, the fewest possible\" (with one hidden state every Γ_t is a permutation matrix, so no two rows overlap).",
+  "notes": "Assigned to B5 by the lead (outside I-313–I-385); may duplicate the §2.5 mapper's row. True under the natural measures (configuration count, each alphabet size, return time), by a two-line argument the corpus does not contain. \"The smallest\" implies uniqueness, which fails: other 2×2 bijections realize Theorem 3 at the same size, e.g. φ(v,h) = (v ⊕ h, h) of Main:421 (Γ_1 = ½J, Γ_2 = I) with a different hidden dynamics."
+ },
+ {
+  "id": "I-313",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`finite_horizon_equivalence` (Equivalence:462)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence exists at Equivalence:462 (sources identical at 17b830bc, b64919cd, eae01647). Statement: ∀ P : Traj V K → ℝ, (Stochastic P ↔ RevRealizable P) ∧ (RevRealizable P ↔ QfbRealizable P) ∧ (QfbRealizable P ↔ Stochastic P); takes none of the three inclusions as hypothesis.",
+    "source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.finite_horizon_equivalence: exactly one report (print line Equivalence:480), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module Equivalence complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 1 (Intro §2.2): FULL. Lean classes match the Introduction's definitions: Stochastic = nonnegative, sums to 1 (all laws on C_V^{K+1}); RevReal = bijection of V×Hid, Hid finite, initial law on V×Hid not required to factor (may correlate); QfbReal = unitary U, initial law on a basis (diagonal state), Born weight |U b' b|^2 at every step with collapse, readout read : Bas → V (fixed function of each outcome). Paper-only parts of §2.2: the independent-prior realization (Main:496, proved on paper, rational laws; the response-table extension there covers arbitrary real kernels) and the U_φ = e^{-iĤ} remark (Equivalence.lean header: deliberately unformalized, not a clause of Q_K)."
+ },
+ {
+  "id": "I-314",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`S_imp_D` (:422)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "S_imp_D exists at Equivalence:422 (sources identical at 17b830bc, b64919cd, eae01647). Statement: Stochastic P → RevRealizable P (clock + trajectory-ledger hidden register, padded to a permutation by exists_perm_extending).",
+    "source": "lean:Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.S_imp_D: exactly one report (print line Equivalence:479), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module Equivalence complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction S_K ⊆ D_K as glossed. Coverage: full for this inclusion."
+ },
+ {
+  "id": "I-315",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`D_imp_Qfb` (:294)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "D_imp_Qfb exists at Equivalence:294 (sources identical at 17b830bc, b64919cd, eae01647). Statement: RevRealizable P → QfbRealizable P, with U = permMatrix of the bijection, init = R.init, read = Prod.fst; unitarity discharged by EquivalenceChain.permMatrix_mem_unitaryGroup.",
+    "source": "lean:Equivalence.lean:294:D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.D_imp_Qfb: exactly one report (print line Equivalence:475), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module Equivalence complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:294:D_imp_Qfb",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction D_K ⊆ Q_K; the construction is the permutation unitary read in the configuration basis, matching Intro §2.2 \"Quantum representation\"."
+ },
+ {
+  "id": "I-316",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "`Qfb_imp_S` (:245)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Qfb_imp_S exists at Equivalence:245 (sources identical at 17b830bc, b64919cd, eae01647). Statement: QfbRealizable P → Stochastic P (normalisation from unitarity via QfbReal.sum_born and Equivalence.sum_chain, not a definitional unfolding).",
+    "source": "lean:Equivalence.lean:245:Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.Qfb_imp_S: exactly one report (print line Equivalence:474), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module Equivalence complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:245:Qfb_imp_S",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction Q_K ⊆ S_K (\"the Born rule\")."
+ },
+ {
+  "id": "I-317",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "compositions :466–468",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Equivalence.lean:466–468 is the proof term of finite_horizon_equivalence: ⟨⟨S_imp_D P, fun h => Qfb_imp_S P (D_imp_Qfb P h)⟩, ⟨D_imp_Qfb P, fun h => S_imp_D P (Qfb_imp_S P h)⟩, ⟨Qfb_imp_S P, fun h => D_imp_Qfb P (S_imp_D P h)⟩⟩ — each reverse inclusion is the composition of the other two.",
+    "source": "lean:Equivalence.lean:466:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.finite_horizon_equivalence: exactly one report (print line Equivalence:480), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module Equivalence complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "The compositions are not separate declarations; they are covered by finite_horizon_equivalence's axiom report (as papers/introduction_repro/README.md@4a260ca9 states)."
+ },
+ {
+  "id": "I-318",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "supporting `permMatrix_mem_unitaryGroup` (EquivalenceChain:179)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "permMatrix_mem_unitaryGroup exists at EquivalenceChain:179 (sources identical at 17b830bc, b64919cd, eae01647). Statement: ∀ φ : Equiv.Perm (V × H), φ.permMatrix ℂ ∈ unitaryGroup (V × H) ℂ (Main §3.2 Lemma (permutation unitarity), Main.md:264).",
+    "source": "lean:EquivalenceChain.lean:179:permMatrix_mem_unitaryGroup",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Used by D_imp_Qfb to discharge unitarity of its constructed U (Equivalence.lean:340 `refine ⟨Q, ⟨EquivalenceChain.permMatrix_mem_unitaryGroup _, …⟩, …⟩`).",
+    "source": "lean:Equivalence.lean:294:D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.permMatrix_mem_unitaryGroup: exactly one report (print line EquivalenceChain:392), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module EquivalenceChain complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:EquivalenceChain.lean:179:permMatrix_mem_unitaryGroup",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "\"Supporting\" is accurate: it is a lemma consumed by D_imp_Qfb."
+ },
+ {
+  "id": "I-319",
+  "section": "Appendix A",
+  "line": 208,
+  "text": "Prior independence is proved on paper.",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem (finite-horizon process dilation): rational multi-time law on a finite horizon K, n ≥ 2 → finite C_H, bijection φ and hidden prior μ_H independent of x_0 reproducing the joint law; constructive proof (history ledger + uniform randomness tape + clock, conditional-quantile step, padded to a bijection). Certified by exact probes.",
+    "source": "papers/Main.md:496@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "rational multi-time law",
+     "finite horizon K",
+     "|C_V| ≥ 2"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Ledger row MAIN:T-finite-horizon-process-dilation: kernel \"P\", delta \"no Lean statement\"; check process_dilation_probes.py.",
+    "source": "verification/coverage/LEDGER.json@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "No OIBridge declaration states prior independence: Equivalence.lean:150–156 says RevReal's initial law need not factor and that the stronger independent-prior form is \"the manuscript's separate finite-horizon process-dilation theorem … NOT what this theorem's class (D) asks for\".",
+    "source": "lean:Equivalence.lean:157:RevReal",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite horizon K",
+   "rational multi-time law",
+   "|C_V| ≥ 2"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:496@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Status \"proved on paper\" is exact: written constructive proof, exact probes, no kernel statement (ledger P). Cross-note for the §2.2 mapper: Main:498 (response-table extension) gives an independent product prior for arbitrary real kernels, so the Intro's restriction \"for a law with rational probabilities\" (§2.2) states only the uniform-tape case; that extension is argued in text with probe review4_probes.py P-G."
+ },
+ {
+  "id": "I-320",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`pushforward_identity`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "pushforward_identity exists at HiddenMemory:83 (sources identical at 17b830bc, b64919cd, eae01647). Statement: nextLaw R p x = marg (post R p x) (nextVis R x), i.e. P(X_{t+1} | p, x) = (f_x)_# μ_p with f_x(h) = π_V(step(x,h)).",
+    "source": "lean:HiddenMemory.lean:83:pushforward_identity",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.pushforward_identity: exactly one report (print line HiddenMemory:197), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module HiddenMemory complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "source": "papers/Main.md:582@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful deterministic realization"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "faithful deterministic realization"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:HiddenMemory.lean:83:pushforward_identity",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: Theorem 2(a)."
+ },
+ {
+  "id": "I-321",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`distinguishability_floor`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "distinguishability_floor exists at HiddenMemory:114 (sources identical at 17b830bc, b64919cd, eae01647). Statement: tv (nextLaw R p x) (nextLaw R p' x) ≤ tv (post R p x) (post R p' x), tv = ½Σ|·|.",
+    "source": "lean:HiddenMemory.lean:114:distinguishability_floor",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.distinguishability_floor: exactly one report (print line HiddenMemory:199), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module HiddenMemory complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "source": "papers/Main.md:582@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful deterministic realization"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "faithful deterministic realization"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:HiddenMemory.lean:114:distinguishability_floor",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: Theorem 2(b)."
+ },
+ {
+  "id": "I-322",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`capacity_floor`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "capacity_floor exists at HiddenMemory:170 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty H] memory R ≤ cmiBits w X_<t X_t H_t ∧ cmiBits w X_<t X_t H_t ≤ log₂|H|, memory R = I(X_<t; X_{t+1} | X_t) in bits.",
+    "source": "lean:HiddenMemory.lean:170:capacity_floor",
+    "layer": "kernel",
+    "hypotheses": [
+     "H nonempty"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.capacity_floor: exactly one report (print line HiddenMemory:201), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module HiddenMemory complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "source": "papers/Main.md:582@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful deterministic realization"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "H nonempty",
+   "faithful deterministic realization"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:HiddenMemory.lean:170:capacity_floor",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: Theorem 2(c). The [Nonempty H] hypothesis is implicit in any realization."
+ },
+ {
+  "id": "I-323",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "`unavoidable_hidden_predictive_memory`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "unavoidable_hidden_predictive_memory exists at HiddenMemory:185 (sources identical at 17b830bc, b64919cd, eae01647). Statement: conjunction of (a) ∀p x, (b) ∀p p' x, (c), for every Realization R.",
+    "source": "lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+    "layer": "kernel",
+    "hypotheses": [
+     "H nonempty"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.unavoidable_hidden_predictive_memory: exactly one report (print line HiddenMemory:202), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module HiddenMemory complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "source": "papers/Main.md:582@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful deterministic realization"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "H nonempty",
+   "faithful deterministic realization"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 2: PARTIAL. Kernel: (a)–(c) for an arbitrary finite joint law w on Hist × V × H together with a bijection step on V × H, X_{t+1} defined as the visible part of step(X_t,H_t) (HiddenMemory.Realization). Paper-only: that w is the time-t law of a faithful realization reproducing the visible process (the \"time-t identification\", Main:582 proof). Appendix A and §2.4 say exactly this. Attention item resolved: (a) = pushforward_identity, (b) = distinguishability_floor, (c) = capacity_floor, all three = unavoidable_hidden_predictive_memory. This row: the combined statement."
+ },
+ {
+  "id": "I-324",
+  "section": "Appendix A",
+  "line": 209,
+  "text": "the time-$t$ identification and the standard vanishing criterion for conditional mutual information [CT06] are not machine-checked",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "No kernel statement of the CMI vanishing criterion (I = 0 iff conditional independence): FiniteEntropy.lean proves only cmi_nonneg, cmi_le_of_deterministic, cmi_le_log_card and entropy lemmas (grep of OIBridge/*.lean).",
+    "source": "lean:FiniteEntropy.lean:372:cmi_nonneg",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "HiddenMemory.Realization carries an arbitrary joint law w; nothing ties it to a realization run from time 0, so the time-t identification is outside the kernel.",
+    "source": "lean:HiddenMemory.lean:54:Realization",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Vanishing criterion: standard (Cover–Thomas).",
+    "source": "CT06",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "source": "papers/Main.md:582@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful deterministic realization"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "faithful deterministic realization"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:582@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Negative kernel-scope statement verified by search; it is not an underclaim (no kernel vanishing criterion exists)."
+ },
+ {
+  "id": "I-325",
+  "section": "Appendix A",
+  "line": 210,
+  "text": "`c3_necessity`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "c3_necessity exists at C3Necessity:80 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty H] cmiBits w X_<t X_t (varFuture R L) ≤ log₂|H|, the whole visible future at horizon L defined by iterating step.",
+    "source": "lean:C3Necessity.lean:80:c3_necessity",
+    "layer": "kernel",
+    "hypotheses": [
+     "H nonempty"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.c3_necessity: exactly one report (print line C3Necessity:140), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module C3Necessity complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "source": "papers/Main.md:582@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful deterministic realization"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "H nonempty",
+   "faithful deterministic realization"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:C3Necessity.lean:80:c3_necessity",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of the capacity bound (§2.4): PARTIAL in the same sense as Theorem 2, as the Introduction says (\"machine-checked in the same form as Theorem 2\"). Kernel: c3_necessity bounds I(X_<t; X_>t | X_t) at every horizon L for a joint law; card_hidden_ge_two_pow_Istar gives 2^{I*} ≤ |H| with I* the maximum over a finite nonempty family of slices sharing the hidden alphabet (each slice may carry its own law and step). Paper-only: identification of the slices with a realization's time-t laws (Main §3.4)."
+ },
+ {
+  "id": "I-326",
+  "section": "Appendix A",
+  "line": 210,
+  "text": "`card_hidden_ge_two_pow_Istar`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "card_hidden_ge_two_pow_Istar exists at C3Necessity:117 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty H] (2:ℝ)^(Istar hF R L) ≤ |H|, Istar = F.sup' of the slices' past–future CMI.",
+    "source": "lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar",
+    "layer": "kernel",
+    "hypotheses": [
+     "H nonempty",
+     "I* taken over a finite nonempty family of slices sharing one hidden alphabet"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.card_hidden_ge_two_pow_Istar: exactly one report (print line C3Necessity:143), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module C3Necessity complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of HiddenMemory.Realization.w with a faithful realization's law of (X_<t, X_t, H_t): written proof of Theorem (unavoidable hidden predictive memory).",
+    "source": "papers/Main.md:582@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful deterministic realization"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "H nonempty",
+   "I* taken over a finite nonempty family of slices sharing one hidden alphabet",
+   "faithful deterministic realization"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:C3Necessity.lean:117:card_hidden_ge_two_pow_Istar",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of the capacity bound (§2.4): PARTIAL in the same sense as Theorem 2, as the Introduction says (\"machine-checked in the same form as Theorem 2\"). Kernel: c3_necessity bounds I(X_<t; X_>t | X_t) at every horizon L for a joint law; card_hidden_ge_two_pow_Istar gives 2^{I*} ≤ |H| with I* the maximum over a finite nonempty family of slices sharing the hidden alphabet (each slice may carry its own law and step). Paper-only: identification of the slices with a realization's time-t laws (Main §3.4). \"Reaches I*\" matches the finite-family maximum."
+ },
+ {
+  "id": "I-327",
+  "section": "Appendix A",
+  "line": 211,
+  "text": "`isPermMatrix_of_stochastic_inverse` (EquivalenceChain:110)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "isPermMatrix_of_stochastic_inverse exists at EquivalenceChain:110 (sources identical at 17b830bc, b64919cd, eae01647). Statement: A, B row-stochastic n×n real, A*B = 1 ∨ B*A = 1 → ∃ σ, A = σ.permMatrix ℝ.",
+    "source": "lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.isPermMatrix_of_stochastic_inverse: exactly one report (print line EquivalenceChain:391), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module EquivalenceChain complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Paper statement and proof: Lemma (stochastic inverse); ledger MAIN:L-stochastic-inverse kernel K3.",
+    "source": "papers/Main.md:133@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage: FULL (\"a finite square stochastic matrix with a stochastic one-sided inverse is a permutation matrix\")."
+ },
+ {
+  "id": "I-328",
+  "section": "Appendix A",
+  "line": 211,
+  "text": "`pIndivisible_of_rooted_identity_return_of_overlap` (RecurrenceHorizon:148)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "pIndivisible_of_rooted_identity_return_of_overlap exists at RecurrenceHorizon:148 (sources identical at 17b830bc, b64919cd, eae01647). Statement: R : RootedRealization V H (bijection step on V × H, one fixed hidden prior), s < n, rootedMap R n = 1, a ≠ b, 0 < rootedMap R s a x, 0 < rootedMap R s b x → PIndivisibleWithin n (rootedMap R), where PDivisible K Γ := ∀ s<t≤K, ∃ row-stochastic Λ, Γ t = Γ s * Λ.",
+    "source": "lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.pIndivisible_of_rooted_identity_return_of_overlap: exactly one report (print line RecurrenceHorizon:190), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module RecurrenceHorizon complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 3: FULL. The Introduction states Theorem 3 in rooted form (Γ_t rooted, rows indexed by x_0; P-divisibility on {0..n} with Λ on the right), which is exactly the Lean PDivisible/PIndivisibleWithin; \"two rows\" = distinct a ≠ b. The kernel proof does not use reversibility (RecurrenceHorizon.lean header), so the Lean result is slightly stronger than stated."
+ },
+ {
+  "id": "I-329",
+  "section": "Appendix A",
+  "line": 212,
+  "text": "`routed_forces_indivisible_somewhere` (PhysicalC4Discharge:122) for routed readback",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "routed_forces_indivisible_somewhere exists at PhysicalC4Discharge:122 (sources identical at 17b830bc, b64919cd, eae01647). Statement: RoutedReadback K R → ∃ n, PIndivisibleWithin n (rootedMap R); proof: store clause gives an overlap at storage time s, rootedMap is periodic with period M, identity return at (s+1)·M, then RecurrenceHorizon.horizon_verdict.",
+    "source": "lean:PhysicalC4Discharge.lean:122:routed_forces_indivisible_somewhere",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.routed_forces_indivisible_somewhere: exactly one report (print line PhysicalC4Discharge:668), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module PhysicalC4Discharge complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "RoutedReadback (PhysicalC4Discharge.lean:68): write, store, causal-read, rooted-reappearance clauses with 0<w≤s<t≤K — a formalization of the realization clause; the module records that its store clause uses the root-conditioned weight of the initial hidden seed rather than Law(H_s | X_s = x, X_0 = a), \"not the same predicate\". The proof uses only the overlap consequence (0 < rootedMap s a x, 0 < rootedMap s b x), which both readings supply.",
+    "source": "lean:PhysicalC4Discharge.lean:68:RoutedReadback",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:PhysicalC4Discharge.lean:122:routed_forces_indivisible_somewhere",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of \"readback forces indivisibility\": PARTIAL by design and as stated — kernel for the routed-readback form (the Introduction says \"a routed-readback form\", which the frozen spelling is), paper for history-level (C4) (I-330). The kernel conclusion ∃ n, PIndivisibleWithin n matches \"somewhere in the recurrence cycle\" (n is a multiple of the visible period beyond the storage time). Owner note: the kernel predicate's store clause is the frozen seed-posterior spelling, recorded in the module as differing from the discovery round's storage-time clause; since only the overlap is consumed, the conclusion holds for either reading, but only the frozen spelling is kernel-checked."
+ },
+ {
+  "id": "I-330",
+  "section": "Appendix A",
+  "line": 212,
+  "text": "on paper for (C4)",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem (history readback + finite recurrence implies indivisibility): φ has finite order L so Γ_L = I; if every earlier Γ_k were a permutation, histories with the same endpoint identify the same x_0 and cannot have different next-step laws, contradicting C4; so some Γ_k is non-permutation, and a stochastic divisor Γ_k → I would be a stochastic one-sided inverse, forbidden by the stochastic-inverse lemma. Re-read for this audit: the argument is valid for rooted rows conditioned on x_0.",
+    "source": "papers/Main.md:137@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "fixed finite reversible OI representative",
+     "history-level (C4)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Stochastic-inverse step is kernel-checked.",
+    "source": "lean:EquivalenceChain.lean:110:isPermMatrix_of_stochastic_inverse",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Ledger MAIN:T-history-readback-finite-recurrence-implies: kernel \"P\", delta \"no Lean statement\"; probes equivalence_recovery_probes.py, review4_probes.py.",
+    "source": "verification/coverage/LEDGER.json@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "fixed finite reversible OI representative",
+   "history-level (C4)"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:137@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "The history-level step (C4 ⇒ some rooted map is not a permutation) is paper-only; the rest of the chain is kernel. The routed form implies the history-level condition (PhysicalC4Discharge.lean header), so the paper result is the more general one."
+ },
+ {
+  "id": "I-331",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`gl2_strong_gauge_moves_relative_candidate`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "gl2_strong_gauge_moves_relative_candidate exists at CoherentLiftGauge:537 (sources identical at 17b830bc, b64919cd, eae01647). Statement: ∃ Γ U U' K on Fin 2 × Fin 2: CoherentLift 0 Γ U ∧ CoherentLift 0 Γ U' ∧ (∀t, StrongAnchorStabilizer 0 (K t)) ∧ (∀t, U' t = U t * K t) ∧ (∃ t s, K t ≠ K s) ∧ readback(|U 1 (U 0)ᴴ|²) ≠ readback(|U' 1 (U' 0)ᴴ|²).",
+    "source": "lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.gl2_strong_gauge_moves_relative_candidate: exactly one report (print line CoherentLiftGauge:758), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module CoherentLiftGauge complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Paper statement: Remark (scope: representability, not selection of the relating evolution).",
+    "source": "papers/Main.md:624@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of §3.3 \"both machine-checked\": FULL for what §3.3 asserts — GL2 is existential (\"can differ\"), one exhibited visible family on |V| = |A| = 2, one anchor, one time pair; GL3 is general. Lean CoherentLift is \"admissible for the visible family at every time on one fixed carrier and anchor\"; the docstring of GL2 notes the cocycle (exact composition) condition is vacuous for every family, so \"compose exactly across times\" (Intro §3.3, Main:624) adds no hypothesis. \"Different relating evolutions\" is witnessed by different anchored readbacks of |U_1 U_0†|², which implies different U_1 U_0†."
+ },
+ {
+  "id": "I-332",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`gl3_constant_gauge_preserves_relative`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "gl3_constant_gauge_preserves_relative exists at CoherentLiftGauge:451 (sources identical at 17b830bc, b64919cd, eae01647). Statement: K unitary → (U t * K) * (U s * K)ᴴ = U t * (U s)ᴴ for every family U and all t, s.",
+    "source": "lean:CoherentLiftGauge.lean:451:gl3_constant_gauge_preserves_relative",
+    "layer": "kernel",
+    "hypotheses": [
+     "K unitary"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.gl3_constant_gauge_preserves_relative: exactly one report (print line CoherentLiftGauge:754), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module CoherentLiftGauge complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "K unitary"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:CoherentLiftGauge.lean:451:gl3_constant_gauge_preserves_relative",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of §3.3 \"both machine-checked\": FULL for what §3.3 asserts — GL2 is existential (\"can differ\"), one exhibited visible family on |V| = |A| = 2, one anchor, one time pair; GL3 is general. Lean CoherentLift is \"admissible for the visible family at every time on one fixed carrier and anchor\"; the docstring of GL2 notes the cocycle (exact composition) condition is vacuous for every family, so \"compose exactly across times\" (Intro §3.3, Main:624) adds no hypothesis. \"Different relating evolutions\" is witnessed by different anchored readbacks of |U_1 U_0†|², which implies different U_1 U_0†."
+ },
+ {
+  "id": "I-333",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`bridge_traj`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "bridge_traj exists at TrackBQfbBridge:276 (sources identical at 17b830bc, b64919cd, eae01647). Statement: AdmissibleDilationAt G (0,0) (pad U), AdmissibleDilationAt G (0,0) (pad U'), M N ∈ permClass → ∀ K a, (realData (M*U*N)).rootTraj K a = (realData (M*U'*N)).rootTraj K a.",
+    "source": "lean:TrackBQfbBridge.lean:276:bridge_traj",
+    "layer": "kernel",
+    "hypotheses": [
+     "trivial ancilla",
+     "same one-step visible matrix G"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.bridge_traj: exactly one report (print line TrackBQfbBridge:282), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module TrackBQfbBridge complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "same one-step visible matrix G",
+   "trivial ancilla"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:TrackBQfbBridge.lean:276:bridge_traj",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of the §3.3 fixed-basis paragraph: FULL for the three sentences, under the scope the Introduction states (trivial ancilla, uniform initial law, identity readout = realData). bridge_traj is more general than glossed (arbitrary permClass interventions M, N on either side); the gloss is its M = N = 1 case (1 ∈ permClass by SubstratumInterfaceAudit.scaled_one_aux; also directly rootTraj_congr with visible_congr)."
+ },
+ {
+  "id": "I-334",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`rooted_eq_iff_slice_eq` (forward direction)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "rooted_eq_iff_slice_eq exists at TrackBQfbBridge:180 (sources identical at 17b830bc, b64919cd, eae01647). Statement: for trivial-ancilla admissible dilations of G and G': (∀ t a j, rooted families agree) ↔ G = G'; forward (mp) is rooted ⇒ G = G', via slice_eq_of_rooted_eq.",
+    "source": "lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq",
+    "layer": "kernel",
+    "hypotheses": [
+     "trivial ancilla"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.rooted_eq_iff_slice_eq: exactly one report (print line TrackBQfbBridge:192), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module TrackBQfbBridge complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "trivial ancilla"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:TrackBQfbBridge.lean:180:rooted_eq_iff_slice_eq",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of the §3.3 fixed-basis paragraph: FULL for the three sentences, under the scope the Introduction states (trivial ancilla, uniform initial law, identity readout = realData). bridge_traj is more general than glossed (arbitrary permClass interventions M, N on either side); the gloss is its M = N = 1 case (1 ∈ permClass by SubstratumInterfaceAudit.scaled_one_aux; also directly rootTraj_congr with visible_congr). \"(forward direction)\" correctly selects rooted ⇒ slice; the backward direction is also proved (visible_congr), so citing the forward one only is conservative."
+ },
+ {
+  "id": "I-335",
+  "section": "Appendix A",
+  "line": 213,
+  "text": "`realData_traj_stochastic`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "realData_traj_stochastic exists at TrackBQfbBridge:286 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty V] U unitary → ∀ K a, QfbRealizable ((realData U).rootTraj K a) ∧ Stochastic (…), via qfbRealizable_rootTraj and Equivalence.Qfb_imp_S.",
+    "source": "lean:TrackBQfbBridge.lean:286:realData_traj_stochastic",
+    "layer": "kernel",
+    "hypotheses": [
+     "V nonempty",
+     "U unitary"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.realData_traj_stochastic: exactly one report (print line TrackBQfbBridge:292), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module TrackBQfbBridge complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "U unitary",
+   "V nonempty"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:TrackBQfbBridge.lean:286:realData_traj_stochastic",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of the §3.3 fixed-basis paragraph: FULL for the three sentences, under the scope the Introduction states (trivial ancilla, uniform initial law, identity readout = realData). bridge_traj is more general than glossed (arbitrary permClass interventions M, N on either side); the gloss is its M = N = 1 case (1 ∈ permClass by SubstratumInterfaceAudit.scaled_one_aux; also directly rootTraj_congr with visible_congr)."
+ },
+ {
+  "id": "I-336",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`exactAll_iff_physical_general` (GeneralCarrier:100)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "exactAll_iff_physical_general exists at GeneralCarrier:100 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty A] ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T := ⟨physical_of_exactAll T, exactAll_of_physical_general T⟩.",
+    "source": "lean:GeneralCarrier.lean:100:exactAll_iff_physical_general",
+    "layer": "kernel",
+    "hypotheses": [
+     "A nonempty finite"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.exactAll_iff_physical_general: exactly one report (print line GeneralCarrier:221), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module GeneralCarrier complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Paper statement: Theorem (operational-completion characterization), same wording; cites the same kernel anchors.",
+    "source": "papers/GR.md:218@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "A nonempty finite"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:GeneralCarrier.lean:100:exactAll_iff_physical_general",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 4: FULL, both directions, for every nonempty finite carrier. The Introduction's description of the operational theory matches the fields of FiniteOperationalTheory (OperationalAssembly.lean:594): avail_id, avail_coarse/availExt_coarse, availExt_bind (every ancilla level), prepAvail_uniform, prepAvail_post, readout with readout_local (spectator-independent), prepAvail_discard. Conditions: (i) CompositeOperationalValidity, (ii) SystemToLevelOne, (iii) InertSpectatorCompositionality, (iv) HasCompositeUnitaryControl, (v) IteratedAncillaClosure (PhysicalCompletionConditions, PhysicalCharacterization.lean:295). Endpoint ExactAllFiniteEndomorphicQuantumOps = system exactness ∧ exactness at every positive level k+1. Minor wording point (not a coverage gap): Lean (i) constrains families at ancilla levels only; for system families it follows via (ii) and transport, and in the ⇒ direction from system exactness, so the Introduction's \"available families\" reading is equivalent within the theorem. Attention item resolved: the iff is literally the pair of the two directional declarations (GeneralCarrier.lean:102)."
+ },
+ {
+  "id": "I-336.a",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`exactAll_iff_physical_general` (GeneralCarrier:100)",
+  "status_as_stated": "proved-kernel",
+  "chain": [
+   {
+    "link": "physical_of_exactAll exists at PhysicalCharacterization:301 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty A] (section Necessity) ExactAllFiniteEndomorphicQuantumOps T → PhysicalCompletionConditions T.",
+    "source": "lean:PhysicalCharacterization.lean:301:physical_of_exactAll",
+    "layer": "kernel",
+    "hypotheses": [
+     "A nonempty finite"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.physical_of_exactAll: exactly one report (print line PhysicalCharacterization:597), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module PhysicalCharacterization complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "A nonempty finite"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:PhysicalCharacterization.lean:301:physical_of_exactAll",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Sub-claim of I-336: exactAll ⇒ physical (conditions (i)–(v)). Direction ⇒ (exact QM ⇒ (i)–(v)), one-direction witness per §A.34."
+ },
+ {
+  "id": "I-336.b",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`exactAll_iff_physical_general` (GeneralCarrier:100)",
+  "status_as_stated": "proved-kernel",
+  "chain": [
+   {
+    "link": "exactAll_of_physical_general exists at GeneralCarrier:93 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty A] PhysicalCompletionConditions T → ExactAllFiniteEndomorphicQuantumOps T (via exactComposite_of_validity_general and exactAll_of_levelOne).",
+    "source": "lean:GeneralCarrier.lean:93:exactAll_of_physical_general",
+    "layer": "kernel",
+    "hypotheses": [
+     "A nonempty finite"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.exactAll_of_physical_general: exactly one report (print line GeneralCarrier:220), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module GeneralCarrier complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "A nonempty finite"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:GeneralCarrier.lean:93:exactAll_of_physical_general",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Sub-claim of I-336: physical ⇒ exactAll. Direction ⇐ ((i)–(v) ⇒ exact QM), separately witnessed per §A.34; no external premise (isometry extension discharged)."
+ },
+ {
+  "id": "I-337",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "$\\Rightarrow$ `physical_of_exactAll` (PhysicalCharacterization:301)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "physical_of_exactAll exists at PhysicalCharacterization:301 (sources identical at 17b830bc, b64919cd, eae01647). Statement: ExactAll → PhysicalCompletionConditions, [Nonempty A].",
+    "source": "lean:PhysicalCharacterization.lean:301:physical_of_exactAll",
+    "layer": "kernel",
+    "hypotheses": [
+     "A nonempty finite"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.physical_of_exactAll: exactly one report (print line PhysicalCharacterization:597), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module PhysicalCharacterization complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "A nonempty finite"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:PhysicalCharacterization.lean:301:physical_of_exactAll",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 4: FULL, both directions, for every nonempty finite carrier. The Introduction's description of the operational theory matches the fields of FiniteOperationalTheory (OperationalAssembly.lean:594): avail_id, avail_coarse/availExt_coarse, availExt_bind (every ancilla level), prepAvail_uniform, prepAvail_post, readout with readout_local (spectator-independent), prepAvail_discard. Conditions: (i) CompositeOperationalValidity, (ii) SystemToLevelOne, (iii) InertSpectatorCompositionality, (iv) HasCompositeUnitaryControl, (v) IteratedAncillaClosure (PhysicalCompletionConditions, PhysicalCharacterization.lean:295). Endpoint ExactAllFiniteEndomorphicQuantumOps = system exactness ∧ exactness at every positive level k+1. Minor wording point (not a coverage gap): Lean (i) constrains families at ancilla levels only; for system families it follows via (ii) and transport, and in the ⇒ direction from system exactness, so the Introduction's \"available families\" reading is equivalent within the theorem."
+ },
+ {
+  "id": "I-338",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "$\\Leftarrow$ `exactAll_of_physical_general` (GeneralCarrier:93)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "exactAll_of_physical_general exists at GeneralCarrier:93 (sources identical at 17b830bc, b64919cd, eae01647). Statement: PhysicalCompletionConditions → ExactAll, [Nonempty A].",
+    "source": "lean:GeneralCarrier.lean:93:exactAll_of_physical_general",
+    "layer": "kernel",
+    "hypotheses": [
+     "A nonempty finite"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.exactAll_of_physical_general: exactly one report (print line GeneralCarrier:220), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module GeneralCarrier complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "A nonempty finite"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:GeneralCarrier.lean:93:exactAll_of_physical_general",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of Theorem 4: FULL, both directions, for every nonempty finite carrier. The Introduction's description of the operational theory matches the fields of FiniteOperationalTheory (OperationalAssembly.lean:594): avail_id, avail_coarse/availExt_coarse, availExt_bind (every ancilla level), prepAvail_uniform, prepAvail_post, readout with readout_local (spectator-independent), prepAvail_discard. Conditions: (i) CompositeOperationalValidity, (ii) SystemToLevelOne, (iii) InertSpectatorCompositionality, (iv) HasCompositeUnitaryControl, (v) IteratedAncillaClosure (PhysicalCompletionConditions, PhysicalCharacterization.lean:295). Endpoint ExactAllFiniteEndomorphicQuantumOps = system exactness ∧ exactness at every positive level k+1. Minor wording point (not a coverage gap): Lean (i) constrains families at ancilla levels only; for system families it follows via (ii) and transport, and in the ⇒ direction from system exactness, so the Introduction's \"available families\" reading is equivalent within the theorem."
+ },
+ {
+  "id": "I-339",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`krausSoundExt_of_validity_inert` (OperationalValidity:124)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "krausSoundExt_of_validity_inert exists at OperationalValidity:124 (sources identical at 17b830bc, b64919cd, eae01647). Statement: [Nonempty A] CompositeOperationalValidity T → InertSpectatorCompositionality T → KrausSoundExt T (composite soundness).",
+    "source": "lean:OperationalValidity.lean:124:krausSoundExt_of_validity_inert",
+    "layer": "kernel",
+    "hypotheses": [
+     "A nonempty finite"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.krausSoundExt_of_validity_inert: exactly one report (print line OperationalValidity:242), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module OperationalValidity complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Consumed by GeneralCarrier.exactComposite_of_validity_general (GeneralCarrier.lean:83).",
+    "source": "lean:GeneralCarrier.lean:79:exactComposite_of_validity_general",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "A nonempty finite"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OperationalValidity.lean:124:krausSoundExt_of_validity_inert",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "A step of ⇐: (i) + (iii) ⇒ every available composite family is a Kraus family."
+ },
+ {
+  "id": "I-340",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`compositeCompleteness_unconditional` (IsometryExtension:179",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "compositeCompleteness_unconditional exists at IsometryExtension:179 (sources identical at 17b830bc, b64919cd, eae01647). Statement: HasCompositeUnitaryControl T → InertSpectatorCompositionality T → IteratedAncillaClosure T → HasFullCompositeInstruments T, with the isometry-extension premise supplied by finiteIsometryExtensionSF_discharged.",
+    "source": "lean:IsometryExtension.lean:179:compositeCompleteness_unconditional",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.compositeCompleteness_unconditional: exactly one report (print line IsometryExtension:294), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module IsometryExtension complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:IsometryExtension.lean:179:compositeCompleteness_unconditional",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "A step of ⇐: (iii)–(v) ⇒ composite completeness. GR:218 names the conditional `compositeCompleteness` plus the discharge; the Introduction names the unconditional wrapper — same content."
+ },
+ {
+  "id": "I-341",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "premise discharged by `finiteIsometryExtensionSF_discharged`, :116)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finiteIsometryExtensionSF_discharged exists at IsometryExtension:116 (sources identical at 17b830bc, b64919cd, eae01647). Statement: ∀ finite A, FiniteIsometryExtensionSF A (every isometry from the seed extends to a unitary on A × Fin (n+1)), from Mathlib's orthonormal-basis extension.",
+    "source": "lean:IsometryExtension.lean:116:finiteIsometryExtensionSF_discharged",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.finiteIsometryExtensionSF_discharged: exactly one report (print line IsometryExtension:288), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module IsometryExtension complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:IsometryExtension.lean:116:finiteIsometryExtensionSF_discharged",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Discharges the premise of compositeCompleteness (IsometryExtension.lean:182–183)."
+ },
+ {
+  "id": "I-342",
+  "section": "Appendix A",
+  "line": 214,
+  "text": "`exactAll_of_levelOne` (LevelOneSeam:196)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "exactAll_of_levelOne exists at LevelOneSeam:196 (sources identical at 17b830bc, b64919cd, eae01647). Statement: SystemToLevelOne T → ExactCompositeQuantumOps T → ExactAllFiniteEndomorphicQuantumOps T.",
+    "source": "lean:LevelOneSeam.lean:196:exactAll_of_levelOne",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.exactAll_of_levelOne: exactly one report (print line LevelOneSeam:407), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module LevelOneSeam complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:LevelOneSeam.lean:196:exactAll_of_levelOne",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "A step of ⇐: (ii) lifts composite exactness to system exactness."
+ },
+ {
+  "id": "I-343",
+  "section": "Appendix A",
+  "line": 215,
+  "text": "`five_way_minimality` (RankGapTheory:702)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "five_way_minimality exists at RankGapTheory:702 (sources identical at 17b830bc, b64919cd, eae01647). Statement: five existentials over FiniteOperationalTheory (Fin 2), each: four conditions ∧ RealizesSealedOICore T ∧ ¬(the fifth).",
+    "source": "lean:RankGapTheory.lean:702:five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.five_way_minimality: exactly one report (print line RankGapTheory:777), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module RankGapTheory complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:RankGapTheory.lean:702:five_way_minimality",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of the §3.2 independence paragraph: FULL on the qubit. five_way_minimality gives, for each of the five conditions, a FiniteOperationalTheory (Fin 2) satisfying the other four and RealizesSealedOICore and failing that one (witnesses everywhereAvailable, countermodel, diagTheory, gapTheory, systemLoose). RealizesSealedOICore (OIRealization.lean:234) includes CoreC1C4 for a fixed finite core with its actual visible readout, matching \"a fixed finite observation process satisfying (C1)–(C4)\". Not claimed in Lean or Intro: minimality on other carriers. Joint satisfiability is in GeneralCarrier.main_result (not cited, not needed for the sentence)."
+ },
+ {
+  "id": "I-344",
+  "section": "Appendix A",
+  "line": 215,
+  "text": "`oi_alone_not_qm` (GeneralCarrier:160)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "oi_alone_not_qm exists at GeneralCarrier:160 (sources identical at 17b830bc, b64919cd, eae01647). Statement: ∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ ¬ ExactAllFiniteEndomorphicQuantumOps T, witnessed by diagTheory (\"instruments whose branches preserve computational-basis diagonal states\", DiagonalTheory.lean:244).",
+    "source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained axiom report for OIBridge.*.oi_alone_not_qm: exactly one report (print line GeneralCarrier:227), axioms [propext, Classical.choice, Quot.sound]; build success, gate PASS, sorryAx/ofReduceBool/error markers 0; module GeneralCarrier complete (report count = #print axioms count in source)",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Paper statement: \"a theory that never creates coherence realizes the OI core and is not quantum\".",
+    "source": "papers/GR.md:220@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Coverage of the §3.2 independence paragraph: FULL on the qubit. five_way_minimality gives, for each of the five conditions, a FiniteOperationalTheory (Fin 2) satisfying the other four and RealizesSealedOICore and failing that one (witnesses everywhereAvailable, countermodel, diagTheory, gapTheory, systemLoose). RealizesSealedOICore (OIRealization.lean:234) includes CoreC1C4 for a fixed finite core with its actual visible readout, matching \"a fixed finite observation process satisfying (C1)–(C4)\". Not claimed in Lean or Intro: minimality on other carriers. Joint satisfiability is in GeneralCarrier.main_result (not cited, not needed for the sentence)."
+ },
+ {
+  "id": "I-345",
+  "section": "Appendix B.1",
+  "line": 221,
+  "text": "Let $\\mathcal C_V=\\{0,1\\}$ and $\\mathcal C_H=\\{1,\\dots,6\\}$ [Main §2.4]. For $h\\in\\{1,2\\}$, $\\varphi$ swaps $(0,h)$ with $(1,h)$. It flips the visible bit and keeps $h$, which then records the flip. At fixed $x$, $\\varphi$ swaps $h=3$ with $4$, and $5$ with $6$.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Model: x ∈ {0,1}, h ∈ {1..6}, σ = (0,1↔1,1)(0,2↔1,2)(0,3↔0,4)(0,5↔0,6)(1,3↔1,4)(1,5↔1,6). The Introduction's description is the same permutation.",
+    "source": "papers/Main.md:180@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Bijection checked: φ is an involution on the 12 configurations.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:178@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:178@eae01647",
+    "text": "### 2.4 Explicit Construction: A Minimal Model",
+    "nature": "source of the \"minimal\" label; no measure or minimality proof"
+   },
+   {
+    "site": "book/ch01-observation.md:135@eae01647 (FULL:479)",
+    "text": "**A worked minimal model.** … a six-state hidden sector … — call it a die",
+    "nature": "same label, no measure or proof"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Attention resolved: the model is Main §2.4 (lines 178–198, \"Explicit Construction: A Minimal Model\"), so [Main §2.4] is the correct citation; Theorem 3 is cited to §2.3, where the recurrence argument is. The heading \"B.1 A minimal model\" carries the unsupported minimality of I-123 (see that row)."
+ },
+ {
+  "id": "I-346",
+  "section": "Appendix B.1",
+  "line": 221,
+  "text": "A second application reads the record and flips the bit back.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "σ² = id (Main:184 \"Since σ² = id\"); h ∈ {1,2} flips x and keeps h, the second step flips it back; h ∈ {3..6} never flips x.",
+    "source": "papers/Main.md:184@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Γ_2 = I computed exactly.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:184@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-347",
+  "section": "Appendix B.1",
+  "line": 223,
+  "text": "\\Gamma_1=\\begin{pmatrix}2/3&1/3\\\\1/3&2/3\\end{pmatrix}",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "h uniform"
+   ]
+  },
+  "chain": [
+   {
+    "link": "T(1,0) = [[2/3,1/3],[1/3,2/3]] with h uniform.",
+    "source": "papers/Main.md:186@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "h uniform, independent of x_0"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed: Γ_1 = [[2/3,1/3],[1/3,2/3]].",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "h uniform, independent of x_0"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "h uniform, independent of x_0"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:186@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-348",
+  "section": "Appendix B.1",
+  "line": 223,
+  "text": "\\Gamma_2=I",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "h uniform"
+   ]
+  },
+  "chain": [
+   {
+    "link": "T(2,0) = I.",
+    "source": "papers/Main.md:188@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed: Γ_2 = I.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:188@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact; holds for every hidden prior since σ² = id."
+ },
+ {
+  "id": "I-349",
+  "section": "Appendix B.1",
+  "line": 224,
+  "text": "\\Gamma_1^{-1}\\Gamma_2=\\begin{pmatrix}2&-1\\\\-1&2\\end{pmatrix}",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Λ(2,1) = T(2,0)·T(1,0)^{-1} = [[2,-1],[-1,2]] (Main's column convention; equal to Γ_1^{-1}Γ_2 here since Γ_2 = I).",
+    "source": "papers/Main.md:190@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed: det Γ_1 = 1/3, Γ_1^{-1}Γ_2 = [[2,-1],[-1,2]].",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:190@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact. The Introduction's row convention (Γ_t = Γ_s Λ) is consistent with its §2.5 definition."
+ },
+ {
+  "id": "I-350",
+  "section": "Appendix B.1",
+  "line": 226,
+  "text": "The only candidate divisor has negative entries, so the family is P-indivisible.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Γ_1 invertible ⇒ the divisor for (s,t) = (1,2) is unique and has negative entries ⇒ not P-divisible on {0,1,2}.",
+    "source": "papers/Main.md:192@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed: unique divisor has a negative entry.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:192@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "\"Only candidate\" is justified by det Γ_1 = 1/3 ≠ 0."
+ },
+ {
+  "id": "I-351",
+  "section": "Appendix B.1",
+  "line": 226,
+  "text": "A Markov chain with the same one-step matrix would instead give $\\Gamma_1^2$, with diagonal entries 5/9 and off-diagonal entries 4/9.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "T(1,0)^2 = [[5/9,4/9],[4/9,5/9]].",
+    "source": "papers/Main.md:188@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:188@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-352",
+  "section": "Appendix B.1",
+  "line": 228,
+  "text": "With $x_0$ uniform and independent of $h$, $P(x_2{=}0\\mid x_1{=}1,x_0{=}0)=1$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "x_0 uniform, independent of h"
+   ]
+  },
+  "chain": [
+   {
+    "link": "P(x_2=0 | x_1=1, x_0=0) = 1.",
+    "source": "papers/Main.md:194@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "x_0 independent of h"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed with x_0 uniform: 1.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "x_0 uniform, independent of h"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "x_0 independent of h",
+   "x_0 uniform, independent of h"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:194@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact; independent of the x_0 law as long as P(x_0=0) > 0."
+ },
+ {
+  "id": "I-353",
+  "section": "Appendix B.1",
+  "line": 228,
+  "text": "while $P(x_2{=}0\\mid x_1{=}1)=1/3$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [
+    "x_0 uniform, independent of h"
+   ]
+  },
+  "chain": [
+   {
+    "link": "P(x_2=0 | x_1=1) = 1/3 (Main does not state the x_0 law).",
+    "source": "papers/Main.md:194@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed with x_0 uniform: 1/3.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "x_0 uniform, independent of h"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "x_0 uniform, independent of h"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact. The Introduction supplies the x_0 law Main omits."
+ },
+ {
+  "id": "I-354",
+  "section": "Appendix B.1",
+  "line": 228,
+  "text": "For $P(x_0{=}0)=a$, the second value is $a/(2-a)$.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Recomputed symbolically: P(x_2=0 | x_1=1) = a/(2−a) for P(x_0=0) = a.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "x_0 independent of h"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "x_0 independent of h"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact (sympy returns −a/(a−2)). Not stated in the corpus; it supplies the x_0 law Main:194 leaves unstated, so it is a computation in the Introduction itself, now re-verified."
+ },
+ {
+  "id": "I-355",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "Every two-time transition matrix is $\\tfrac12J$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "X_1 uniform independent of X_0, X_2 = X_0 ⊕ X_1; P(X_1|X_0) = P(X_2|X_1) = P(X_2|X_0) = ½J.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "X_0, X_1 independent uniform bits"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Same family, \"matrix family factors through Λ = I\".",
+    "source": "papers/Main.md:606@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "X_0, X_1 independent uniform bits"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:606@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact. Uniform X_0 is needed for P(X_2|X_1) = ½J; the Introduction states it (Main:606 states only X_1 uniform and independent)."
+ },
+ {
+  "id": "I-356",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "so the family factors through $\\Lambda=I$ and is P-divisible",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Γ_1 = Γ_2 = ½J, so Γ_2 = Γ_1·I, Γ_1 = Γ_0·Γ_1, Γ_2 = Γ_0·Γ_2: P-divisible on {0,1,2}.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:606@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact. Doukas (Dou26 App. A eq. 128) factors through ½J instead; both are valid divisors."
+ },
+ {
+  "id": "I-357",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "Yet $I(X_0;X_2\\mid X_1)=1$ bit.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "I(X_0;X_2|X_1) = H(X_2|X_1) − H(X_2|X_0,X_1) = 1 − 0 = 1 bit.",
+    "source": "papers/Main.md:606@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recomputed.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:606@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-358",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "Up to flipping the final bit, this is the process of [RHP14, Eq. (15)]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "RHP14 Eq. (15) (arXiv:1405.0303v2, p. 6, opened for this audit): joint law ¼ on (x1,x2,x3) ∈ {(1,0,0),(0,1,0),(0,0,1),(1,1,1)}, i.e. x3 = 1 ⊕ x1 ⊕ x2 — the XOR process with the final bit flipped; RHP show all transition matrices are ½ and the process is divisible and non-Markovian.",
+    "source": "RHP14",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Checked mechanically: every support point satisfies x3 = NOT(x1 ⊕ x2).",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main makes the same attribution (\"up to flipping the final bit, the process of [5], Eq. (15)\").",
+    "source": "papers/Main.md:606@eae01647",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "RHP14",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Attribution confirmed first-hand."
+ },
+ {
+  "id": "I-359",
+  "section": "Appendix B.2",
+  "line": 232,
+  "text": "it appears concurrently in [Dou26, App. A]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Dou26 v3 App. A \"The XOR process: CK consistency without Markovianity\": trajectories with x2 = x0 ⊕ x1, each ¼; two-time kernels all ½J; non-Markovian (opened: S/lit/doukas2602/2602.22095v3.txt).",
+    "source": "Dou26",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "Dou26",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Attribution confirmed first-hand; same process, unflipped."
+ },
+ {
+  "id": "I-360",
+  "section": "Appendix B.3",
+  "line": 236,
+  "text": "The two-card game of [Book §1.11] uses two cards, each red or black: a visible *hole card* $h$, and a face-down *burn card* $b$, uniform and independent of $h$. A *street* is one shuffle step, in which the two cards trade places: $\\varphi(h,b)=(b,h)$. A *peek* reveals the hole card and overwrites the burn card, which holds the record, with a fresh card drawn uniformly and independently.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "§1.11: one hole card (red/black), one burn card face down, shuffle = hole and burn trade places, peek with forced re-burn.",
+    "source": "book/ch01-observation.md:265@eae01647 (FULL:609)",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "book/ch01-observation.md:265@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Definition matches the book. The book (ch01:273, FULL:617) calls this game \"the coin-and-die model of §1.5 dealt onto a table\"; the die has six states, the burn card two — see I-124 contradictions."
+ },
+ {
+  "id": "I-361",
+  "section": "Appendix B.3",
+  "line": 242,
+  "text": "| one shuffle | 1/2 |",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "chain": [
+   {
+    "link": "Exact enumeration over (h_0, b_0, fresh card): one swap: hole = b_0, P(b_0 = h_0) = 1/2; recomputed value 1/2.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "b uniform, independent of h",
+     "fresh card uniform"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book table gives the same four values.",
+    "source": "book/ch01-observation.md:265@eae01647 (table at ch01:277–280)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "b uniform, independent of h",
+   "fresh card uniform"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point."
+ },
+ {
+  "id": "I-362",
+  "section": "Appendix B.3",
+  "line": 243,
+  "text": "| two shuffles | 1 |",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "chain": [
+   {
+    "link": "Exact enumeration over (h_0, b_0, fresh card): two swaps return h_0; recomputed value 1.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "b uniform, independent of h",
+     "fresh card uniform"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book table gives the same four values.",
+    "source": "book/ch01-observation.md:265@eae01647 (table at ch01:277–280)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "b uniform, independent of h",
+   "fresh card uniform"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point."
+ },
+ {
+  "id": "I-363",
+  "section": "Appendix B.3",
+  "line": 244,
+  "text": "| two shuffles, with a peek between them | 1/2 |",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "chain": [
+   {
+    "link": "Exact enumeration over (h_0, b_0, fresh card): swap, peek overwrites burn with fresh c, swap: hole = c, P(c = h_0) = 1/2; recomputed value 1/2.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "b uniform, independent of h",
+     "fresh card uniform"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book table gives the same four values.",
+    "source": "book/ch01-observation.md:265@eae01647 (table at ch01:277–280)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "b uniform, independent of h",
+   "fresh card uniform"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point."
+ },
+ {
+  "id": "I-364",
+  "section": "Appendix B.3",
+  "line": 245,
+  "text": "| Markov prediction for two shuffles, $\\Gamma_1^2$ | 1/2 |",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "'obtained by exact enumeration of the equally likely cases' (line 238)"
+  },
+  "chain": [
+   {
+    "link": "Exact enumeration over (h_0, b_0, fresh card): Markov prediction (Γ_1²)_{hh} = (½J·½J)_{hh} = 1/2; recomputed value 1/2.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "b uniform, independent of h",
+     "fresh card uniform"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book table gives the same four values.",
+    "source": "book/ch01-observation.md:265@eae01647 (table at ch01:277–280)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "b uniform, independent of h",
+   "fresh card uniform"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact enumeration; \"numerical\" in the inventory means a stated number, not floating point."
+ },
+ {
+  "id": "I-365",
+  "section": "Appendix B.3",
+  "line": 247,
+  "text": "Here $\\Gamma_1=\\tfrac12J$ and $\\Gamma_2=I$.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Γ_1 = ½J (hole after one swap is the uniform burn card), Γ_2 = I.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "b uniform, independent of h"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "b uniform, independent of h"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-366",
+  "section": "Appendix B.3",
+  "line": 247,
+  "text": "The two rows of $\\Gamma_1$ are equal, so for every $\\Lambda$ the two rows of $\\Gamma_1\\Lambda$ are equal and $\\Gamma_1\\Lambda\\neq I$: the family is P-indivisible.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Equal rows of Γ_1 ⇒ equal rows of Γ_1Λ for every Λ ⇒ Γ_1Λ ≠ I (|C_V| = 2) ⇒ no divisor for (1,2).",
+    "source": "papers/Introduction.md:247@4a260ca9",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Introduction.md:247@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Self-contained exact argument, valid. (Also an instance of Theorem 3: overlap at s = 1, return at n = 2.)"
+ },
+ {
+  "id": "I-367",
+  "section": "Appendix B.3",
+  "line": 249,
+  "text": "if the peek only reveals or replaces the hole card, the probability is 1",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Recomputed: reveal-only peek gives 1; replacing the hole card (burn keeps h_0) gives 1.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact; the corpus does not state these controls, the Introduction adds them."
+ },
+ {
+  "id": "I-368",
+  "section": "Appendix B.3",
+  "line": 249,
+  "text": "so the 1/2 comes from overwriting the record, not from looking",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Inference from I-363 vs I-367: only the burn-card overwrite lowers 1 to 1/2.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Follows from the two exact controls."
+ },
+ {
+  "id": "I-369",
+  "section": "Appendix B.3",
+  "line": 249,
+  "text": "With anticorrelated cards ($b=1-h$), $\\Gamma_1$ is a permutation and the game is divisible.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "b = 1 − h: hole after one swap = 1 − h_0, Γ_1 = [[0,1],[1,0]] (recomputed P(match) = 0); Γ_t alternates Γ_1, I; every divisor needed is a permutation, so P-divisible on every horizon.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact. The prior is then correlated with x_0, which Theorem 3's \"fixed hidden prior\" excludes; no claim is made that this case satisfies Theorem 3."
+ },
+ {
+  "id": "I-370",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "On card inputs the game is a classical stochastic process",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "On card inputs the swap with a uniform hidden card induces a classical joint law on visible trajectories.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Trivial."
+ },
+ {
+  "id": "I-371",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "and its P-indivisibility is notion (2) of §3.1",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Notion (2) = \"stochastic P-indivisibility: failure of stochastic divisibility of the visible population law\".",
+    "source": "papers/Main.md:334@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:334@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Classification matches Main's Remark (three notions, kept apart)."
+ },
+ {
+  "id": "I-372",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "The one-step channel is then the constant channel $\\rho\\mapsto\\operatorname{tr}(\\rho)\\,I/2$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Tr_H[SWAP (ρ ⊗ I/2) SWAP] = tr(ρ) I/2, computed symbolically for general 2×2 ρ.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main's embedding: Φ(ρ_V) = Tr_H[U_φ(ρ_V ⊗ I/m)U_φ†].",
+    "source": "papers/Main.md:278@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:286@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-373",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "which is entanglement-breaking [Main §3.2, Remark (failure of (C1))]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Remark (failure of (C1)): for φ(x,h) = (h,x), Φ(ρ) = I/2 identically, \"a constant channel, hence measure-and-prepare\" (hence entanglement-breaking).",
+    "source": "papers/Main.md:286@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:286@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Citation exact; the card swap is Main's example."
+ },
+ {
+  "id": "I-374",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "The two-step map is the identity channel.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "SWAP² = 1, so the two-step map is the identity channel; computed symbolically.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-375",
+  "section": "Appendix B.3",
+  "line": 251,
+  "text": "The family is therefore CP-indivisible [Main §3.2, Theorem (CP-indivisibility, framework scope)].",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem (CP-indivisibility, framework scope): for the permutation-dilation family, P-indivisibility ⇒ CP-indivisibility (proof via Lemma (diagonal preservation), Main:322).",
+    "source": "papers/Main.md:326@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "permutation-dilation family with diagonal hidden state"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Direct check: Φ_2 = Λ∘Φ_1 would need Λ(I/2) = ρ for every ρ, impossible.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Ledger MAIN:T-cp-indivisibility-framework-scope: kernel \"P\"; probe c1_cp_scope_probes.py.",
+    "source": "verification/coverage/LEDGER.json@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "permutation-dilation family with diagonal hidden state"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:326@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "book/appendix-b-derivations.md:92@eae01647",
+    "text": "Theorem B.2.5 (CP-indivisibility). The P-indivisibility of the substratum dynamics (under C1–C4) implies CP-indivisibility of {Φ_t}",
+    "nature": "book restatement attaches \"(under C1–C4)\" where Main's theorem is scoped to the permutation-dilation family (inventory signal S3); the Introduction follows Main correctly. Corpus finding, not an Introduction defect."
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Hypotheses of the cited theorem hold (permutation unitary, uniform diagonal burn card, P-indivisible populations)."
+ },
+ {
+  "id": "I-376",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "Following Bäcker, Beyer and Strunz [BBS24], a two-step process has classical memory when the second map can be written as an instrument realizing the first map, followed by channels conditioned on its outcome.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "BBS24 classical memory: second map = instrument realizing the first map followed by outcome-conditioned channels; Introduction reference note records a first-hand read of arXiv:2310.01205v2 Def. 1 (SUPPORTED) in the earlier references review.",
+    "source": "BBS24",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main's restatement of the same definition.",
+    "source": "papers/Main.md:702@eae01647",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "BBS24",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Not re-opened here; consistent with Main §4.5 and the retained first-hand check cited in the Introduction source."
+ },
+ {
+  "id": "I-377",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "With the hidden slot initialized to a fixed card instead, the swap has the maps $\\rho\\mapsto|0\\rangle\\langle0|$ and $\\rho\\mapsto\\rho$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Swap with hidden slot initialized: maps ρ ↦ |0⟩⟨0| and ρ ↦ ρ.",
+    "source": "papers/Main.md:702@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "One-step map Tr_H[SWAP(ρ⊗|0⟩⟨0|)SWAP] = tr(ρ)|0⟩⟨0| computed symbolically.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:702@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-378",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "and admits no such decomposition [Main §4.5]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main §4.5: every Kraus operator of the first map has one-dimensional range, so every outcome-conditioned processing is entanglement-breaking and the identity is not; \"this swap realization admits no classical-memory decomposition\". Re-derived: each instrument branch I_o ≤ Φ_1 has output ∝ |0⟩⟨0|, so Σ_o C_o∘I_o is measure-and-prepare.",
+    "source": "papers/Main.md:702@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:702@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Argument checked."
+ },
+ {
+  "id": "I-379",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "With the uniform burn card it does",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Explicit decomposition (I-380–I-382) exhibits classical memory for the uniform burn card.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Consistent with Main:702 (\"the classification depends on the realization rather than on the visible law\")."
+ },
+ {
+  "id": "I-380",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "the instrument $\\rho\\mapsto\\tfrac14\\sigma_o\\rho\\sigma_o$, $o\\in\\{0,x,y,z\\}$, sums to the one-step map",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Σ_o ¼σ_oρσ_o = ¼·2tr(ρ)I = tr(ρ)I/2 = the one-step map; each branch CP.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact (symbolic)."
+ },
+ {
+  "id": "I-381",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "the identity $\\sum_o\\sigma_oX\\sigma_o=2\\operatorname{tr}(X)\\,I$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Σ_{o∈{0,x,y,z}} σ_o X σ_o = 2 tr(X) I for general 2×2 X, verified symbolically.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-382",
+  "section": "Appendix B.3",
+  "line": 253,
+  "text": "and the channels $\\rho\\mapsto\\sigma_o\\rho\\sigma_o$, conditioned on $o$, return $\\rho$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Σ_o σ_o(¼σ_oρσ_o)σ_o = ρ, verified symbolically; equals the two-step identity map.",
+    "source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "S/b5_check.py (exact rationals and sympy; scratch, not a repository artifact)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact."
+ },
+ {
+  "id": "I-383",
+  "section": "Appendix B.3",
+  "line": 255,
+  "text": "A card arrangement violates no Bell inequality [Book §1.11; Main §3.3].",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem (Bell ceiling for a screened local completion): deterministic dynamics, setting interventions supported in their regions, readout before the cones meet, common pre-setting ensemble ⇒ |S_CHSH| ≤ 2.",
+    "source": "papers/Main.md:360@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "setting operations local to each wing",
+     "readout before post-setting cones meet",
+     "settings independent of the pre-setting ensemble (measurement independence)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book: \"a card mechanism is a local classical toy … no arrangement of cards on a table violates a Bell inequality\".",
+    "source": "book/ch01-observation.md:286@eae01647 (FULL:630)",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "card mechanism local"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Without the locality hypotheses the statement fails: \"if the two wings are allowed to share globally coupled setting-dependent hidden dynamics, the same reversible response-table construction … also realizes PR-box behavior\" — a finite reversible deterministic system, i.e. realizable with cards.",
+    "source": "papers/Main.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "refuted"
+   }
+  ],
+  "required_assumptions": [
+   "card mechanism local",
+   "readout before post-setting cones meet",
+   "setting operations local to each wing",
+   "settings independent of the pre-setting ensemble (measurement independence)"
+  ],
+  "proof_status": "conditional",
+  "strongest_verified_source": "papers/Main.md:360@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:356@eae01647",
+    "text": "if the two wings are allowed to share globally coupled setting-dependent hidden dynamics, the same reversible response-table construction that realizes arbitrary finite stochastic laws also realizes PR-box behavior",
+    "nature": "the unqualified statement conflicts with the cited section; the qualifier (locality, measurement independence) is missing"
+   }
+  ],
+  "proposed_fix": "A card arrangement whose moves act only on each player's own cards, with settings chosen independently of the deal, violates no Bell inequality [Book §1.11; Main §3.3, Theorem (Bell ceiling for a screened local completion)].",
+  "notes": "Attention resolved: read as \"any card arrangement\". True for card arrangements whose moves act locally on each player's cards with settings chosen independently of the deal (Main:360 theorem; the book's \"local classical toy\"), false without that hypothesis by Main:356 itself. The Introduction drops the qualifier the book carries and cites [Main §3.3], which contains the counterexample. Low severity (Appendix B illustration).",
+  "conditional_on": [
+   "local card moves (setting interventions supported in each wing)",
+   "measurement independence"
+  ]
+ },
+ {
+  "id": "I-384",
+  "section": "References",
+  "line": 267,
+  "text": "unpublished research record, internally reviewed",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "PROGRAMME.md status: \"BH-01 … executed, each with a separate-agent internal review retained in its review/ directory … No manuscript amendment or theorem designation follows\".",
+    "source": "verification/programmes/black-hole-information/PROGRAMME.md@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "bh01_access_v1/review/: REVIEW.md of 587d4196 (BLOCK, wording only), RECHECK-95458016 (ACCEPT WITH NITS), RECHECK-df2ea6f5 (ACCEPT, no remaining findings); README: \"Separate-agent internal review … not external validation or owner adoption\". Changes after df2ea6f5 (606c98d8, 84aca6b0) are wording and record retention under a scoped landing audit.",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/review/README.md@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Unpublished: the directory is export-ignored (not in the release archive), as the Introduction's code section says.",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/review/RECHECK-df2ea6f5.md@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "\"Internally reviewed\" matches the record exactly. The package REPORT's status line reads \"exploratory research, unreviewed for adoption\" — consistent (reviewed, not adopted). The descriptive title \"recovery from accessible records in finite reversible models\" fits REPORT (\"BH-01 access audit\"); optional: add \"not adopted\" to mirror the record's own status. Status-type claim: proof_status here means the status is verified, not a mathematical proof."
+ },
+ {
+  "id": "I-385",
+  "section": "References",
+  "line": 269,
+  "text": "unpublished research record, internally reviewed",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "bh02_scramble_v1/review/REVIEW.md: review of 1739f4e0 (ACCEPT WITH NITS), re-checks 91e2230a (ACCEPT WITH NITS), 1f1aec6f (ACCEPT), ce7937d2 (ACCEPT). README: \"separate-agent internal review … not external validation or owner adoption\".",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/review/README.md@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "REPORT.md title \"BH-02 / BH-04 — permutation dynamics versus quantum scrambling; Page-time fraction\"; status \"exploratory research under OI-BH-1, internally reviewed (review/REVIEW.md), not adopted\".",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Post-ce7937d2 changes (606c98d8: C7 verdict attribution wording, report status line, audit header; result.json changes only at /C7/verdict) went through a scoped landing audit and re-check recorded in PROVENANCE.json post_review_5 and the commit messages; that audit text is not retained in review/.",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/PROVENANCE.json@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh02_scramble_v1/review/REVIEW.md@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Title quoted verbatim from the package REPORT. Minor: the last wording change to the landed C7 verdict text is covered by a landing audit recorded in PROVENANCE/commit messages, not by the retained REVIEW.md. Optional: add \"not adopted\"."
+ }
+]

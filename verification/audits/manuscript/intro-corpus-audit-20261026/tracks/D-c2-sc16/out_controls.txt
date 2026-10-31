@@ -1,0 +1,5 @@
+C-LP+    GREEN  [True, True]
+C-LP+x   GREEN  [True, True]
+C-LP-    GREEN  [True, True]
+C-gap    GREEN  [True, True, True, True, True, True, True]
+CONTROLS ALL GREEN

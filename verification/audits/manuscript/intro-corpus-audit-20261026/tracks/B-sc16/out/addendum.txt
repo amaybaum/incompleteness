@@ -1,0 +1,43 @@
+A1  V={0,1}, H={0,1,2}, index 3x+h, phi=[0,3,4,1,5,2], uniform mu_H
+    L = 6  r = 6
+    Gamma_0 = [['1', '0'], ['0', '1']]
+    Gamma_1 = [['1/3', '2/3'], ['2/3', '1/3']]
+    Gamma_2 = [['2/3', '1/3'], ['1/3', '2/3']]
+    Gamma_3 = [['2/3', '1/3'], ['1/3', '2/3']]
+    Gamma_4 = [['2/3', '1/3'], ['1/3', '2/3']]
+    Gamma_5 = [['1/3', '2/3'], ['2/3', '1/3']]
+    Gamma_6 = [['1', '0'], ['0', '1']]
+    claimed Gamma family reproduced: True
+    R1 on {0..5}: True   R1 on {0..6}: False
+      Lambda_{1,2} = [['0', '1'], ['1', '0']]
+      Lambda_{2,3} = [['1', '0'], ['0', '1']]
+      Lambda_{3,4} = [['1', '0'], ['0', '1']]
+      Lambda_{4,5} = [['0', '1'], ['1', '0']]
+      Lambda_{5,6} = none (Farkas ['1', '-5', '-5', '1', '1', '1'])
+    gaps (order k: TV): {1: '1', 2: '1', 3: '1', 4: '1', 5: '1', 6: '1'}
+    T = Gamma_1 non-permutation: True ; literal C1 (n=2): True ; C1-hist: True
+    C3 exact (log2 nH >= I*):  (True, True)
+    TV-monotone (all p,q) on {0..5}: True
+    RoutedReadbackAtStorage K=2 witnesses: [(0, 1, 1, 1, 2, 0), (0, 1, 1, 1, 2, 1), (1, 0, 1, 1, 2, 0), (1, 0, 1, 1, 2, 1)] ; claimed (0,1,1,1,2,0) present: True
+    RoutedReadbackAtStorage K=1: False
+
+A2(c) LFSR: Gamma_t = J/2 for 1<=t<L, R1 on {0..L-1}, gaps by order
+    coeffs=[1, 1] (m=1): L=3 r=3 2^(m+1)-1=3  Gamma_t=J/2 all 1<=t<L: True  R1 on {0..L-1}: by Lambda=J/2  no gap below m: True  gap=1 at every order m..L-1: True
+    coeffs=[1, 1, 0] (m=2): L=7 r=7 2^(m+1)-1=7  Gamma_t=J/2 all 1<=t<L: True  R1 on {0..L-1}: by Lambda=J/2  no gap below m: True  gap=1 at every order m..L-1: True
+    coeffs=[1, 1, 0, 0] (m=3): L=15 r=15 2^(m+1)-1=15  Gamma_t=J/2 all 1<=t<L: True  R1 on {0..L-1}: by Lambda=J/2  no gap below m: True  gap=1 at every order m..L-1: True
+    coeffs=[1, 0, 1, 0, 0] (m=4): L=31 r=31 2^(m+1)-1=31  Gamma_t=J/2 all 1<=t<L: True  R1 on {0..L-1}: by Lambda=J/2  no gap below m: True  gap=1 at every order m..L-1: True
+    coeffs=[1, 1, 0, 0, 0, 0] (m=5): L=63 r=63 2^(m+1)-1=63  Gamma_t=J/2 all 1<=t<L: True  R1 on {0..L-1}: by Lambda=J/2  no gap below m: True  gap=1 at every order m..L-1: True
+    coeffs=[1, 0, 0, 1] (m=3): L=15 r=15 2^(m+1)-1=15  Gamma_t=J/2 all 1<=t<L: True  R1 on {0..L-1}: by Lambda=J/2  no gap below m: True  gap=1 at every order m..L-1: True
+
+A2(d) HMM: g_{t+1} = g_t xor Bern(1/50), X_{t+1} = X_t xor Bern(p_{g_t}), p_0=1/5, p_1=2/5, g_0 uniform, ledger l_{t+1} = l_t xor X_t
+    Gamma_t = B((1+lambda_t)/2) with lambda_t = E[prod(1-2p_g)] for t<=9: True
+    lambda_t positive and strictly decreasing for t<=9: True
+    lambda_1..4 = ['2/5', '124/625', '8552/78125', '614896/9765625']
+    R1 on {0..9} by exact LP: True
+    max gap TV at orders 1..5: ['8/175', '215208/2591675', '1542696856/13988321725', '31050550457976/240327821656225', '203304315113653832/1428963646547893575']
+    R(1) at s=1, t=2, x=0: Law(X_t|X_s=x,X_0=0)=['1249/1750', '501/1750'] vs X_0=1: ['167/250', '83/250']  differ: True
+    R(1) at s=1, t=2, x=1: Law(X_t|X_s=x,X_0=0)=['83/250', '167/250'] vs X_0=1: ['501/1750', '1249/1750']  differ: True
+    R(1) at s=1, t=4, x=0: Law(X_t|X_s=x,X_0=0)=['15355771/27343750', '11987979/27343750'] vs X_0=1: ['2104493/3906250', '1801757/3906250']  differ: True
+    R(1) at s=1, t=4, x=1: Law(X_t|X_s=x,X_0=0)=['1801757/3906250', '2104493/3906250'] vs X_0=1: ['11987979/27343750', '15355771/27343750']  differ: True
+    R(1) at s=3, t=4, x=0: Law(X_t|X_s=x,X_0=0)=['15355771/21669250', '6313479/21669250'] vs X_0=1: ['3995993/5797750', '1801757/5797750']  differ: True
+    R(1) at s=3, t=4, x=1: Law(X_t|X_s=x,X_0=0)=['1801757/5797750', '3995993/5797750'] vs X_0=1: ['6313479/21669250', '15355771/21669250']  differ: True

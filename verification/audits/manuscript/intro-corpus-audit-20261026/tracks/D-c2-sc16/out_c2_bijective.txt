@@ -1,0 +1,10 @@
+class B (2,2) uniform init: bijections=24 C2s-full violations=0 C2s-supp violations=0
+class B (2,3) uniform init: bijections=720 C2s-full violations=0 C2s-supp violations=0
+class B (3,2) uniform init: bijections=720 C2s-full violations=0 C2s-supp violations=0
+class B (2,4) uniform init: bijections=40320 C2s-full violations=0 C2s-supp violations=0
+class B (2,3) correlated init: C2s-full violations=0 C2s-supp violations=0
+C-bij countercontrol (hidden-reset map): C2s-full violations=6 C2s-supp violations=6 -> GREEN
+class N quotient, law='iid coin', t=1: history pairs with common endpoint: identical posteriors=2, disjoint=0, partial=0; clause (b) holds=True
+class N quotient, law='XOR', t=1: history pairs with common endpoint: identical posteriors=0, disjoint=2, partial=0; clause (b) holds=True
+class N quotient, law='ternary root', t=1: history pairs with common endpoint: identical posteriors=2, disjoint=4, partial=0; clause (b) holds=True
+Q1 CHECKS ALL GREEN

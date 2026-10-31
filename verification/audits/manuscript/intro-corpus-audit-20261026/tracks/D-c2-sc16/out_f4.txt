@@ -1,0 +1,7 @@
+C-F4: core F4(2) true and F4(1) false: True; decoupled F4 false K<=6: True; LFSR(m=2) F4 false K<=6 (R(2) control): True
+(2,2): bijections with F4 at some K <= L-1: 2; of these P-divisible on {0..K_F4}: 0; best (n_div - K_F4, perm, L, K_F4, n_div, witness (a,b,w,s,t,x)) = None
+(2,3): bijections with F4 at some K <= L-1: 570; of these P-divisible on {0..K_F4}: 552; best (n_div - K_F4, perm, L, K_F4, n_div, witness (a,b,w,s,t,x)) = (3, [0, 3, 4, 1, 5, 2], 6, 2, 5, (0, 1, 1, 1, 2, 0))
+(3,2): bijections with F4 at some K <= L-1: 540; of these P-divisible on {0..K_F4}: 180; best (n_div - K_F4, perm, L, K_F4, n_div, witness (a,b,w,s,t,x)) = (2, [0, 2, 4, 1, 5, 3], 5, 2, 4, (0, 1, 1, 1, 2, 0))
+(2,4): bijections with F4 at some K <= L-1: 34000; of these P-divisible on {0..K_F4}: 6912; best (n_div - K_F4, perm, L, K_F4, n_div, witness (a,b,w,s,t,x)) = (2, [0, 1, 2, 4, 5, 6, 7, 3], 5, 2, 4, (0, 1, 1, 1, 2, 0))
+EM/C2-slow modulated-flip bijection: |S|=80000, bijective=True; eigenvalues of Gamma_t: ['1', '2/5', '124/625', '8552/78125', '614896/9765625']; P-divisible on {0..4}: True; F4(4) witness (a,b,w,s,t,x): (0, 1, 1, 1, 2, 0); gaps: {1: (True, '8/175'), 2: (True, '215208/2591675'), 3: (True, '1542696856/13988321725')} -> OK
+F4 RUN CONTROLS GREEN

@@ -1,0 +1,21 @@
+b=12: s=Tr rho=4*2^-b  Q=Tr C=1*2^-b  s/Q=4
+   raw drift E=7.324e-04  (Rounding-Lemma bound eta*||rho||_1=7.507e-01: holds=True)
+   normalized-kernel error ||K~(rho)-I(rho)||_1 = 3.0020
+   claimed per-parent bound 4*eta*s + 8*nu = 4.0029   exceeded: False  (ratio 0.750)
+   negativity out (s/Q)*||C_-||_1 = 2.0010  vs nu_in + E = 0.5007: amplified=True
+   p=['197482/1464227', '385638/1464227', '387458/1464227', '493649/1464227']
+   q=['765497/1972502', '57584/986251', '948203/1972502', '71817/986251']
+b=16: s=Tr rho=4*2^-b  Q=Tr C=1*2^-b  s/Q=4
+   raw drift E=4.578e-05  (Rounding-Lemma bound eta*||rho||_1=4.688e-02: holds=True)
+   normalized-kernel error ||K~(rho)-I(rho)||_1 = 3.0002
+   claimed per-parent bound 4*eta*s + 8*nu = 4.0000   exceeded: False  (ratio 0.750)
+   negativity out (s/Q)*||C_-||_1 = 2.0001  vs nu_in + E = 0.5000: amplified=True
+   p=['116447/684465', '27625/136893', '14140/45631', '217793/684465']
+   q=['8530/59999', '58173/1499975', '282368/1499975', '946184/1499975']
+b=20: s=Tr rho=4*2^-b  Q=Tr C=1*2^-b  s/Q=4
+   raw drift E=2.861e-06  (Rounding-Lemma bound eta*||rho||_1=2.930e-03: holds=True)
+   normalized-kernel error ||K~(rho)-I(rho)||_1 = 3.0000
+   claimed per-parent bound 4*eta*s + 8*nu = 4.0000   exceeded: False  (ratio 0.750)
+   negativity out (s/Q)*||C_-||_1 = 2.0000  vs nu_in + E = 0.5000: amplified=True
+   p=['271024/864091', '87271/864091', '174151/864091', '331645/864091']
+   q=['958646/2370885', '64883/215535', '12016/790295', '220826/790295']

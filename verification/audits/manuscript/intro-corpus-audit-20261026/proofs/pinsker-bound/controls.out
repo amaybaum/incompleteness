@@ -1,0 +1,38 @@
+PASS Q1: formulas overlap
+PASS Q1: I = 1 bit (interval contains 1)
+PASS Q1: p0=1/4, delta=1 at both presents
+PASS Q1: bound holds
+PASS Q2: formulas overlap
+PASS Q2: I = 2/3 bit
+PASS Q2: best pair p0=1/6, delta=1
+PASS Q2: bound holds for every pair
+    Q2 pairs: [(1, '1/6', '1/6', '1'), (2, '1/6', '1/6', '1')]
+PASS Q5: p0=1/4, delta=1/4
+PASS Q5: bound holds
+    Q5: I_bits in [0.04556599707503503546410143639, 0.04556599707503503546410216017]  bound_bits = [0.02254211001389005323999879741, 0.02254211001389005323999884911]
+Tightness family: ratio bound/I  (-> 1 as delta -> 0; = 1/(2 ln 2) at delta = 1)
+    delta=      1  I_bits in [1, 1]   ratio in [0.721347520444, 0.721347520444]
+PASS tight delta=1: bound holds (ratio < 1)
+    delta=    1/2  I_bits in [0.1887218755, 0.1887218755]   ratio in [0.955569562852, 0.955569562852]
+PASS tight delta=1/2: bound holds (ratio < 1)
+    delta=   1/10  I_bits in [0.007225546012, 0.007225546012]   ratio in [0.998329426215, 0.998329426215]
+PASS tight delta=1/10: bound holds (ratio < 1)
+    delta=  1/100  I_bits in [7.213595434e-05, 7.213595434e-05]   ratio in [0.999983332944, 0.999983332944]
+PASS tight delta=1/100: bound holds (ratio < 1)
+    delta= 1/1000  I_bits in [7.213476407e-07, 7.213476407e-07]   ratio in [0.999999833333, 0.999999833333]
+PASS tight delta=1/1000: bound holds (ratio < 1)
+PASS tight family closed form 2p0(ln2 - h((1+d)/2)) matches
+PASS constant is sharp: 1.0001 * p0 d^2 exceeds I at delta=1/100
+PASS delta=0: bound is 0 and I = 0 (tie at 0; strict ">0" of Main.md:168 fails)
+PASS p0=1/2 (max), delta=1: I = 1 bit
+PASS p0=1/2, delta=1: bound 1/(2ln2)=0.7213 bits < 1 = H(B|C) max for binary B
+PASS tiny P(c)=1e-3, disjoint laws: I = P(c) bits = 1e-3
+PASS tiny P(c): stated bound (joint p0) holds
+PASS tiny P(c): CONDITIONAL-p0 variant (p0=1/2) is violated
+PASS w=(1e-3, 0.999), disjoint: stated bound (min weight) holds
+PASS w=(1e-3, 0.999), disjoint: average-weight variant violated
+PASS w=(1e-3, 0.999), disjoint: harmonic form 2w1w2/(w1+w2) holds
+PASS l1-norm reading (delta = ||.||_1) of the bound is violated
+PASS three pasts at c: every pair satisfies the bound
+
+ALL CONTROLS PASS

@@ -1,0 +1,26 @@
+== CC1 countercontrol: ID1 must fail if X_{t+1} is read through the WRONG map ==
+  wrong-readout mismatches detected: 40/48  (control is live iff > 0)
+
+== CC2: a deterministic NON-injective map: (a)-(c) survive, disjoint supports fail ==
+  I(X_<2;H_2|X_2) = 0.0000  H(X_<2|X_2) = 2.0000  (differ => disjointness is a bijectivity fact)
+
+== CE-zero: unqualified 'pair of posteriors with different pushforwards' under 0/0 := 0 ==
+  M_1 = 0.0000; Lean nextLaw at zero-prob history (0,),x=1: {}; at (1,),x=1: {1: Fraction(1, 1)}
+  => without 'positive-probability', a Markov law would carry a 'readout-relevant pair'.
+
+== CE-C3: (c) alone does not give (C3); the whole-future bound is needed ==
+  M_1 = 0.0000, I(X_<1;X_>1|X_1) = 1.0000: (c) at t=1 gives log2|C_H| >= 0, (C3) needs >= 1
+
+== S_imp_D replica: clock + stored trajectory; faithful in the Main:99 sense ==
+  trial 0: law reproduced=True; initial law is a product (hidden prior indep. of x_0)=False; witness(t=1,2)=[True, True]; readout pair in replica=[True, True]
+  trial 1: law reproduced=True; initial law is a product (hidden prior indep. of x_0)=False; witness(t=1,2)=[True, True]; readout pair in replica=[True, True]
+  trial 2: law reproduced=True; initial law is a product (hidden prior indep. of x_0)=False; witness(t=1,2)=[True, True]; readout pair in replica=[True, True]
+
+== CE-594: in EVERY bijective realization I(X_<t;H_t|X_t) = H(X_<t|X_t); i.i.d. fair coin ==
+  replica (|C_H|=64): t=1: M_t=0, I(X_<t;H_t|X_t)=1.0000 = H(X_<t|X_t)=1
+  replica (|C_H|=64): t=2: M_t=0, I(X_<t;H_t|X_t)=2.0000 = H(X_<t|X_t)=2
+  shift-register realization (prior independent of x_0): t=1: I(X_<t;H_t|X_t)=1.0000
+  shift-register realization (prior independent of x_0): t=2: I(X_<t;H_t|X_t)=2.0000
+  => inf over bijective realizations of I(X_<t;H_t|X_t) is H(X_<t|X_t) > M_t = 0 at every hidden dimension
+
+ ALL CONTROLS LIVE / CONSTRUCTIONS AS STATED

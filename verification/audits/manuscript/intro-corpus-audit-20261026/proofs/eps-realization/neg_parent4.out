@@ -1,0 +1,3 @@
+d=2 R=4 b=16: Tr rho=4*2^-b, Q=1*2^-b, s/Q=4; raw drift E=4.58e-05 (<= eta||rho||_1=4.69e-02: True); ||K~(rho)-I(rho)||_1=3.0002 vs claimed 4 eta s + 8 nu = 4.0000: EXCEEDED=False
+d=3 R=9 b=16: Tr rho=6*2^-b, Q=1*2^-b, s/Q=6; raw drift E=7.63e-05 (<= eta||rho||_1=5.34e-01: True); ||K~(rho)-I(rho)||_1=5.0007 vs claimed 4 eta s + 8 nu = 4.0002: EXCEEDED=True
+d=4 R=16 b=16: Tr rho=9*2^-b, Q=1*2^-b, s/Q=9; raw drift E=1.22e-04 (<= eta||rho||_1=3.00e+00: True); ||K~(rho)-I(rho)||_1=8.0022 vs claimed 4 eta s + 8 nu = 4.0016: EXCEEDED=True

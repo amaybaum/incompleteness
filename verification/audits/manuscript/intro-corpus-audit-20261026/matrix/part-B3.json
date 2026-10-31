@@ -1,0 +1,2507 @@
+[
+ {
+  "id": "I-172",
+  "section": "§4",
+  "line": 140,
+  "text": "Summing zero-point energies of the quantum fields up to a Planck-scale cutoff gives a vacuum energy density some 120 orders of magnitude above the observational value [Wei89, §I; §III, Eqs. (3.4)–(3.6)]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Weinberg §I p.1: theoretical expectations 'exceed observational limits by some 120 orders of magnitude'; §III Eqs.(3.4)-(3.6): zero-point sum to a wave-number cutoff Λ≈(8πG)^{-1/2} gives ⟨ρ⟩≈2×10^71 GeV^4 against |ρ_V|≲10^-47 GeV^4 (read first-hand from a scan; record verification/audits/manuscript/introductory-paper-20261025/draft/review/references/WEI89.md@4a260ca9)",
+    "source": "Wei89 §I; §III Eqs.(3.4)-(3.6)",
+    "layer": "literature",
+    "hypotheses": [
+     "Planck-scale wave-number cutoff",
+     "comparison against an observational bound of the order of the measured density"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Corpus restatement: zero-point energy summed to the Planck cutoff gives ρ_QFT~10^113 J/m^3, a ~10^122 discrepancy",
+    "source": "papers/GR.md:340@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "Planck-scale wave-number cutoff",
+   "comparison against an observational bound of the order of the measured density"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "Wei89 §I and §III Eqs.(3.4)-(3.6), first-hand record verification/audits/manuscript/introductory-paper-20261025/draft/review/references/WEI89.md@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:340@eae01647",
+    "text": "a ~10^122 discrepancy with the observed value",
+    "nature": "different cutoff convention (10^122 vs Weinberg's 10^118); consistent with I-173's convention clause"
+   },
+   {
+    "site": "book/ch07-gravity.md:165@eae01647",
+    "text": "ρ_QFT/ρ_obs ~ 10^122",
+    "nature": "same convention difference; not a contradiction"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Citation placement checked against WEI89.md (#918 at 4a260ca9): its 'Citation applied (r14)' is Option A, '[Wei89, §I; §III, Eqs. (3.4)–(3.6)]' after 'observational value' and '[Wei89, §III]' after the cancellation clause, with the convention clause uncited; the Introduction at line 140 matches exactly. Qualification 1 of WEI89.md (Weinberg compares with an upper bound, not a measured value) is covered by 'observational value'. The label '(the mismatch)' sits after the citation; harmless. Independent of ħ's status: Weinberg's estimate uses the measured G and natural units."
+ },
+ {
+  "id": "I-173",
+  "section": "§4",
+  "line": 140,
+  "text": "the exact power depending on the cutoff convention",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Elementary: Weinberg's convention gives 10^118; G^{-2} against the same density gives ~10^123 (WEI89.md qualification 2); corpus gives the convention range of the ratio as 1/(96π²) to 8/3",
+    "source": "papers/GR.md:366@eae01647; verification/audits/manuscript/introductory-paper-20261025/draft/review/references/WEI89.md@4a260ca9",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:366@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Uncited by design (WEI89.md: 'The clause stays the paper's own and is not attributed to [Wei89]')."
+ },
+ {
+  "id": "I-174",
+  "section": "§4",
+  "line": 140,
+  "text": "if that density sources curvature, it must be cancelled to that accuracy [Wei89, §III]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Weinberg §III p.3: 'the two terms here must cancel to better than 118 decimal places'",
+    "source": "Wei89 §III Eq.(3.6) (first-hand, verification/audits/manuscript/introductory-paper-20261025/draft/review/references/WEI89.md@4a260ca9)",
+    "layer": "literature",
+    "hypotheses": [
+     "the zero-point density sources curvature"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "the zero-point density sources curvature"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "Wei89 §III, p.3",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Literature argument; conditional form ('if that density sources curvature') matches Weinberg's."
+ },
+ {
+  "id": "I-175",
+  "section": "§4",
+  "line": 142,
+  "text": "In OI (§1.1) the zero-point sum of the emergent quantum description (§§2–3) and the effective cosmological constant are defined at different levels of description.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Two levels: classical substratum assigns ρ~H²/G via Friedmann (no zero-point energy); the emergent QFT assigns the zero-point sum",
+    "source": "papers/GR.md:338-340@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment')"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'Accordingly the descriptive-level distinction is established and the dissolution is conditional'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment')"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book mirror: 'The descriptive distinction is established'",
+    "source": "book/ch07-gravity.md:167@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment')"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:352@eae01647; book/ch07-gravity.md:185@eae01647",
+    "text": "Uniqueness of ħ: 'The emergent action scale is determined by the boundary geometry … The geometry-first ordering is the only one consistent with a universal ħ'",
+    "nature": "corpus-internal, not an Introduction issue: requirement (iii) was not touched by #939 and now reads stronger than book/ch07-gravity.md:305@eae01647 ('fixes only the ratio ε/√σ = 2 l_p, not an independent determination of ħ'), and omits the H-slope condition the ħ relation carries"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Status: structural/definitional within the framework's ontological commitment that gravity acts at the classical level (GR.md:346). ħ check (#939): the distinction does not use ħ's value. Of the three requirements GR gives for the geometry-first ordering, (i) definiteness and (ii) non-circularity do not involve ħ; only (iii) does, and §4 of the Introduction does not use (iii). #939 reworded ch09's rows on 'the descriptive distinction behind the cosmological constant dissolution' (ch09:14, :48, :71, :118); the reworded rows remain consistent with the Introduction."
+ },
+ {
+  "id": "I-176",
+  "section": "§4",
+  "line": 142,
+  "text": "A uniform shift of the emergent Hamiltonian changes no visible transition probability",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'H ↦ H + E_0 multiplies U(t) by the phase e^{-iE_0 t}, leaving every T_ij(t) unchanged'",
+    "source": "papers/GR.md:140@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "'Quantum transition data are invariant under Ω_eff → Ω_eff + CI (a global phase)'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:140@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "One-line algebra (|e^{-iCt}|=1). No kernel declaration states this direction; the kernel's phase_families_shift (cited for GR Cor. A.3) is the converse-type uniqueness statement, not this invariance. Independent of ħ (any constant shift of Ω_eff)."
+ },
+ {
+  "id": "I-177",
+  "section": "§4",
+  "line": 142,
+  "text": "so the offset has no content in the visible statistics of the quantum description [GR §6.2]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Uniform offset 'present in no visible transition statistics at any precision'; 'no ordinary observer statistic detects C'",
+    "source": "papers/GR.md:581@eae01647; papers/GR.md:356@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:581@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Holds also for the coherent extension: a global phase leaves UρU† unchanged."
+ },
+ {
+  "id": "I-178",
+  "section": "§4",
+  "line": 142,
+  "text": "The invariance is the familiar statement that no non-gravitational measurement sees the absolute vacuum energy",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "no citation given"
+  },
+  "chain": [
+   {
+    "link": "Standard physics: only energy differences (Casimir forces, Lamb shifts) are seen non-gravitationally; corpus: 'relative effects depending on energy differences'",
+    "source": "papers/GR.md:573@eae01647",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:573@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Uncited 'familiar statement'; acceptable as textbook knowledge. Optional: add a citation if the owner wants every attribution sourced."
+ },
+ {
+  "id": "I-179",
+  "section": "§4",
+  "line": 142,
+  "text": "OI's proposal is that the mismatch requires no cancellation",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [
+    "covariant field equations (open; line 144)"
+   ],
+   "note": "'proposal'; line 144 makes it conditional"
+  },
+  "chain": [
+   {
+    "link": "'that it does not enter the stress-energy tensor is the geometry-first proposal of this section, and establishing it is the coupling step that G3 leaves open'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Stated as a proposal; I-185 makes the condition explicit."
+ },
+ {
+  "id": "I-180",
+  "section": "§4",
+  "line": 142,
+  "text": "and its content lies in how the two levels couple to geometry",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Invisibility to quantum mechanics is not decoupling from gravity; the latter is a coupling theorem'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Scope statement."
+ },
+ {
+  "id": "I-181",
+  "section": "§4",
+  "line": 144,
+  "text": "Whether the offset also fails to source curvature is a separate coupling question.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'That the zero-point sum belongs to the emergent description does not entail that it cannot source geometry: the two are different claims'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-182",
+  "section": "§4",
+  "line": 144,
+  "text": "Settling it requires covariant field equations derived from the substratum, with their coupling to sources (Level G3 of [GR])",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Dependency ladder: 'G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open'; 'the decisive Level-G3 target'",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "'the latter is a coupling theorem and is what G3 names as open'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:30@eae01647; papers/GR.md:597@eae01647",
+    "text": "'Level C × Level G4', 'Level D × Levels G1–G2' (Structure's gauge axis)",
+    "nature": "label collision within GR (S12)"
+   },
+   {
+    "site": "papers/Structure.md:154@eae01647",
+    "text": "'Level G3 — Substratum gauge group 𝒢_sub'",
+    "nature": "same label, different object"
+   }
+  ],
+  "proposed_fix": "(rung G3 of the dependency ladder of [GR])",
+  "notes": "Content faithful. The label is ambiguous inside [GR] itself: GR uses 'Level G1–G4' for its dependency ladder (GR.md:12, :356, :581, :705) and for [Structure §2]'s gauge axis (GR.md:30 'Level C × Level G4', GR.md:597 and :681 'Level D × Levels G1–G2'), where Level G3 is the substratum gauge group (papers/Structure.md:154). Signal S12 of the proof inventory. ch19 says 'rung G3'."
+ },
+ {
+  "id": "I-183",
+  "section": "§4",
+  "line": 144,
+  "text": "which are open [GR §6.2]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "G3 'open'",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP P2 'Covariant matter→boundary coupling (the G3 map)' OPEN",
+    "source": "verification/ROADMAP.md:75@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "'The covariant field equations, their coupling to sources and their continuum-limit consistency make up G3 and are open'",
+    "source": "book/ch19-open-problems.md:28@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-184",
+  "section": "§4",
+  "line": 144,
+  "text": "The quantum description therefore does not decide between gravitational completions that differ by a term $\\rho_C\\,g_{\\mu\\nu}$, such as $\\mathcal G_{\\mu\\nu}=8\\pi G\\,T^{\\rm cl}_{\\mu\\nu}$ and $\\mathcal G_{\\mu\\nu}=8\\pi G\\,(T^{\\rm cl}_{\\mu\\nu}-\\rho_C\\,g_{\\mu\\nu})$, with $\\mathcal G_{\\mu\\nu}$ the gravitational side of the field equations (the Einstein tensor in general relativity), $T^{\\rm cl}_{\\mu\\nu}$ the classical stress-energy of the substratum and $\\rho_C$ the energy density of the offset [GR §6.2].",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Two completions 𝒢=8πG T^cl and 𝒢=8πG(T^cl−ρ_C g) 'can share the same substratum, partition, reduced transition law, fixed-basis representation and action-scale calibration while differing in exactly that offset'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "By construction: the field equation is structure that the quantum data (invariant under the offset, I-176) do not fix. The Introduction's symbols match GR verbatim."
+ },
+ {
+  "id": "I-185",
+  "section": "§4",
+  "line": 144,
+  "text": "The proposal that the mismatch requires no cancellation is therefore conditional on that open step.",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations with source coupling"
+   ]
+  },
+  "chain": [
+   {
+    "link": "'the descriptive-level distinction is established and the dissolution is conditional'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-186",
+  "section": "§4",
+  "line": 146,
+  "text": "the form [GR] targets, $E_{\\mu\\nu}[g,\\mathrm{OI}]=8\\pi G\\,(T_{\\mu\\nu}-\\mathcal F[g,T]\\,g_{\\mu\\nu})$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Target: 'E_μν[g, OI] = 8πG (T_μν − F[g,T] g_μν) under which the distinct-descriptions argument becomes a theorem of the dynamics'",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Source is the classical stress-energy of the total microstate",
+    "source": "papers/GR.md:344@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment')"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment')"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Accurately reported as a target, not a derived equation. F[g,T] occurs nowhere else in papers/ or book/ (grepped)."
+ },
+ {
+  "id": "I-187",
+  "section": "§4",
+  "line": 146,
+  "text": "the zero-point sum of the emergent description is not a source and needs no cancellation",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "field equations of GR's target form",
+    "classical substratum stress-energy as source"
+   ]
+  },
+  "chain": [
+   {
+    "link": "Under the target form with T the classical substratum stress-energy, the zero-point sum is not in the source: 'The zero-point sum does not contribute to H_tot'",
+    "source": "papers/GR.md:362@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "field equations of GR's target form",
+     "classical substratum stress-energy as source"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR asserts the argument then 'becomes a theorem of the dynamics'",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "field equations of GR's target form"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "field equations of GR's target form",
+   "classical substratum stress-energy as source"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "field equations of GR's target form",
+   "classical substratum stress-energy as source"
+  ],
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Pressure test: the conclusion is carried by the hypothesis (the source is T^cl by stipulation), so the conditional is near-immediate; the Introduction states it as a conditional and adds that the remaining vacuum term is not computed. Not an overclaim."
+ },
+ {
+  "id": "I-188",
+  "section": "§4",
+  "line": 146,
+  "text": "the vacuum term that remains, from the substratum's classical energy density and from $\\mathcal F$, is not computed",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "No computation of F[g,T] or of the classical vacuum term's value: ρ~H²/G 'is set by initial conditions'; F appears only in GR's abstract",
+    "source": "papers/GR.md:360@eae01647; papers/GR.md:12@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:360@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Negative claim checked by grepping papers/ and book/ for F[g,T]: one occurrence (GR.md:12)."
+ },
+ {
+  "id": "I-189",
+  "section": "§4",
+  "line": 146,
+  "text": "It does not explain the observed value of Λ",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The framework does not explain why ρ ~ H²/G; this is set by initial conditions via the Friedmann equation'",
+    "source": "papers/GR.md:360@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book: 'does not explain why ρ ~ H²/G takes its specific observed value'",
+    "source": "book/ch07-gravity.md:201@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:360@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "ch19:54 keeps Λ_0 a free constant in the running-vacuum form; consistent."
+ },
+ {
+  "id": "I-190",
+  "section": "§4",
+  "line": 146,
+  "text": "which enters as a cosmological input",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Value of Λ (equivalently H) set by initial conditions; 'its value is an input'",
+    "source": "papers/GR.md:338@eae01647; papers/GR.md:360@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "calibration",
+  "strongest_verified_source": "papers/GR.md:360@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-191",
+  "section": "§4",
+  "line": 146,
+  "text": "The scale $\\rho\\sim H_{\\rm Hub}^2/G$, with $H_{\\rm Hub}$ the Hubble rate, is the Friedmann normalization of the total density",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'ρ ~ H²/G … the Friedmann scale at which any O(1) component of a flat universe sits; its value is an input' (Friedmann: ρ_crit = 3H²c²/8πG)",
+    "source": "papers/GR.md:338@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:338@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "GR labels ρ~H²/G 'Total vacuum energy density' at GR.md:338; the Introduction's 'Friedmann normalization of the total density' is the more careful reading and matches GR.md:358 item (1)."
+ },
+ {
+  "id": "I-192",
+  "section": "§4",
+  "line": 146,
+  "text": "and the fraction carried by Λ is an input",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Dark-sector fraction partly definitional (1−Ω_B by construction); matter-like split calibrated (ρ_E ≈ Ω_CDM ρ_crit); Λ's value from initial conditions",
+    "source": "papers/GR.md:358@eae01647; papers/GR.md:536@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "calibration",
+  "strongest_verified_source": "papers/GR.md:358@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-193",
+  "section": "§4",
+  "line": 148,
+  "text": "With a Planck-scale cutoff the mismatch equals the de Sitter entropy up to a numerical factor fixed by the cutoff convention",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'ρ_QFT/ρ_classical ~ M_Pl^4/(H²/G) ~ S_dS = A/(4 l_p²) — a dimensional identity for any theory with a Planck cutoff and a Hubble-scale density, holding up to a convention-dependent factor between 1/(96π²) and 8/3'",
+    "source": "papers/GR.md:366@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "Planck-scale cutoff"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book mirror",
+    "source": "book/ch07-gravity.md:191-193@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "Planck-scale cutoff"
+  ],
+  "proof_status": "calibration",
+  "strongest_verified_source": "papers/GR.md:366@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "ħ check (#939): the identity uses measured ħ through l_p and does not depend on the framework's calibration ħ = c³ε²/(4Gσ). GR's reading of the ratio as the trace-out compression ratio does share that calibration (GR.md:162: the S_dS compression ratio is a consequence of the calibration, 'not an independent check'); the Introduction does not adopt that reading."
+ },
+ {
+  "id": "I-194",
+  "section": "§4",
+  "line": 148,
+  "text": "this is a dimensional identity, not an independent prediction",
+  "status_as_stated": {
+   "level": "calibration",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'a dimensional identity'; 'so this is a normalization, not a prediction'",
+    "source": "papers/GR.md:366@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "calibration",
+  "strongest_verified_source": "papers/GR.md:366@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-195",
+  "section": "§4",
+  "line": 148,
+  "text": "How the energy of electroweak and QCD vacuum transitions couples to gravity is not fixed by the descriptive distinction",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'How the energy released in the electroweak and QCD transitions couples to gravity is not fixed by the relative/absolute distinction and requires the same open coupling step'",
+    "source": "papers/GR.md:583@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:583@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:573@eae01647",
+    "text": "'The framework denies that the absolute zero-point sum gravitates'",
+    "nature": "corpus-internal: unconditional phrasing in the same section that GR.md:581-583 makes conditional on the open coupling step"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-196",
+  "section": "§4",
+  "line": 148,
+  "text": "and requires the same open coupling step",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Same open coupling step (G3)",
+    "source": "papers/GR.md:583@eae01647; papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+    ],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:583@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-197",
+  "section": "§4",
+  "line": 150,
+  "text": "Removing the vacuum energy of matter as a source of curvature is also the aim of the trace-free Einstein equations",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "EvEMU11 §2 p.2: 'If these trace-free equations are adopted, the vacuum energy …' (first-hand, SUPPORTED)",
+    "source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "EvEMU11 (arXiv:1008.1196v2) abstract and §2; verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Literature attribution read first-hand in the #918 reference review."
+ },
+ {
+  "id": "I-198",
+  "section": "§4",
+  "line": 150,
+  "text": "which leave the observed value of Λ unexplained [EvEMU11]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "EvEMU11 abstract: 'this does not solve the fundamental issue of why the cosmological constant has the value that is observed'",
+    "source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:30@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-199",
+  "section": "§4",
+  "line": 150,
+  "text": "and of vacuum-energy sequestering",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "KP14 abstract: sequestering 'prevents any of its vacuum energy … from sourcing the curvature'",
+    "source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-200",
+  "section": "§4",
+  "line": 150,
+  "text": "which also renders contributions from phase transitions small [KP14]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "KP14 abstract and p.6: 'renders all contributions from phase transitions automatically small'",
+    "source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:32@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-201",
+  "section": "§4",
+  "line": 150,
+  "text": "Volovik argues from the thermodynamics of quantum many-body ground states that the ultraviolet zero-point sum does not set the vacuum energy [Vol06]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Vol06 abstract and §5.2: zero-point dominance is a myth 'when one considers the thermodynamics of the ground state of the quantum many-body system'",
+    "source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:35@4a260ca9",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:35@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-202",
+  "section": "§4",
+  "line": 150,
+  "text": "The present proposal differs in locating the gravitational source in the substratum microstate",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The stress-energy sourcing gravity is the classical stress-energy of the total microstate'",
+    "source": "papers/GR.md:344@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment')"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "geometry-first ordering: the gravitational field equations act at the classical substratum level (GR §6.2 'Ontological commitment')"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:344@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Scope distinction from EvEMU11/KP14/Vol06; accurate as a description of the proposal."
+ },
+ {
+  "id": "I-203",
+  "section": "§4",
+  "line": 150,
+  "text": "and its coupling step is open",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Coupling step open (G3)",
+    "source": "papers/GR.md:356@eae01647; papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+    ],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-204",
+  "section": "§4",
+  "line": 152,
+  "text": "A derivation of the covariant field equations, with their conservation and source coupling, from the substratum would turn the proposal into a theorem or refute it.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'… under which the distinct-descriptions argument becomes a theorem of the dynamics'",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Pressure test: a derived equation with source coupling either excludes or includes the emergent offset, so 'theorem or refute' is correct."
+ },
+ {
+  "id": "I-205",
+  "section": "§4",
+  "line": 152,
+  "text": "Until then the proposal reinterprets the problem and does not resolve it.",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Descriptive distinction established, dissolution conditional on G3",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'Descriptive distinction established; the dissolution is conditional on the covariant coupling theorem'",
+    "source": "book/ch19-open-problems.md:38@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "'## 6. Dissolution of the Cosmological Constant Problem'",
+    "nature": "heading stronger than the body (GR.md:356: dissolution conditional)"
+   },
+   {
+    "site": "book/ch07-gravity.md:163@eae01647",
+    "text": "'## 7.7 Dissolution of the cosmological constant problem'",
+    "nature": "heading stronger than the body (ch07:167)"
+   },
+   {
+    "site": "book/ch19-open-problems.md:20@eae01647; book/The-Incompleteness-of-Observation-FULL.md:5180@eae01647",
+    "text": "'## 19.2 Problems resolved' (lists §19.2.2 the cosmological constant)",
+    "nature": "section title stronger than the entry's status cell ('Descriptive distinction established; gravitational form conditional (G3)', ch19:330)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "The Introduction matches the corpus bodies; several corpus headings are stronger than their bodies (contradictions)."
+ },
+ {
+  "id": "I-206",
+  "section": "§5",
+  "line": 156,
+  "text": "The black-hole information problem asks whether the radiation of an evaporating black hole carries the information of what formed it [Haw76; Pag93; Pag13].",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Haw76: 'Breakdown of predictability in gravitational collapse' (information-loss argument; canonical, not read in this audit)",
+    "source": "Haw76",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Pag13 abstract (arXiv:1301.4995, read): unitary evaporation, radiation entropy rises then falls",
+    "source": "Pag13",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Pag93 abstract (arXiv:gr-qc/9305007, read): average entropy of a subsystem of a random pure state; no black-hole content in the abstract",
+    "source": "Pag93",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "unsupported"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "Haw76; Pag13",
+  "verdict": "MISCITED",
+  "contradictions": [],
+  "proposed_fix": "[Haw76; Pag13]  (or add Page, 'Information in black hole radiation', PRL 71, 3743 (1993), hep-th/9306083, and cite it here in place of Pag93)",
+  "notes": "Pag93 ('Average entropy of a subsystem') is the right source for S_Page at I-225 but not for the statement of the information problem; Page's black-hole paper of the same year is 'Information in black hole radiation', Phys. Rev. Lett. 71, 3743 (1993), arXiv:hep-th/9306083 (abstract read). Checked at abstract level only; if the owner confirms Pag93's body discusses black-hole radiation, the citation can stay."
+ },
+ {
+  "id": "I-207",
+  "section": "§5",
+  "line": 156,
+  "text": "Because the dynamics of OI is a bijection observed through a partition (§1.1), two questions separate: whether information is conserved in the global reversible dynamics, and whether it can be recovered from the records an observer can access, its *access class*",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "BHa: 'Bijectivity is a statement about the global configuration; the records are a projection of it'",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book: 'how much of that information an observer can recover from the radiation is a separate question, which bijectivity alone does not settle'",
+    "source": "book/ch07-gravity.md:110@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-208",
+  "section": "§5",
+  "line": 156,
+  "text": "The results below are finite computations in toy models of configurations, permutations and configuration reads.",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "BHa results: written proofs (C1, C2, C3, C4, D1) checked exhaustively at small size; counterexamples by enumeration",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:88-142@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHb: C1, C2 written universal proofs; C6 textual audit of GR A.8-A.9",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14-21@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR Thms A.8-A.9: measure-concentration argument, not a finite computation",
+    "source": "papers/GR.md:817-851@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition",
+     "H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established",
+     "single energy shell = full product space C_B × C_R"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports",
+   "H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition",
+   "H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established",
+   "single energy shell = full product space C_B × C_R"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:88-142@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "papers/Introduction.md:175@4a260ca9",
+    "text": "'each proved on paper or checked exhaustively at small size or by exact arithmetic'",
+    "nature": "the Introduction's own §6.2 describes the same results more accurately"
+   }
+  ],
+  "proposed_fix": "The results below from [BHa; BHb] are written proofs and exhaustive finite computations in toy models of configurations, permutations and configuration reads.",
+  "notes": "'Finite computations' mis-describes the section: BHa C1/C2 (I-216, I-217) and BHb C1 (I-227) are universal written proofs, checked exhaustively only at small size (BHa REPORT:302 'the universal statements rest on the written proofs'), and the Page-value result (I-225) is GR's analytic conditional theorem. §6.2 item 4 (Introduction line 175) says it correctly: 'each proved on paper or checked exhaustively at small size or by exact arithmetic'."
+ },
+ {
+  "id": "I-209",
+  "section": "§5",
+  "line": 156,
+  "text": "They concern the framework's nested-partition construction [GR App. A; Book §7.6], not a particular black hole.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "BHa takes from the framework only 'the hidden-uniform prior, the nested V/B/D layout and the moving-partition emission'; 'None [of the maps] is derived from OI's substratum dynamics … The generic maps impose neither A.5's coupling chain nor A.8's energy-shell conservation'",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHb: 'No specific substratum map was tested'",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:196@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:288-292@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "They use the layout of the framework's nested-partition construction [GR App. A; Book §7.6], with arbitrary bijections in place of the substratum dynamics, and concern no particular black hole.",
+  "notes": "Code Review Rules (surrogate check): the toy results use the construction's layout with arbitrary bijections in place of the substratum dynamics. 'Concern the framework's nested-partition construction' can be read as results about the construction's own dynamics."
+ },
+ {
+  "id": "I-210",
+  "section": "§5",
+  "line": 158,
+  "text": "Under OI, information is conserved in the global reversible dynamics because the dynamics is a bijection, which is a premise of the framework.",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "bijective dynamics (framework premise)"
+   ]
+  },
+  "chain": [
+   {
+    "link": "Bijectivity is the reversible representative of the hidden dynamics, a posit ('part-empirical', or adopted as the information-conservation postulate)",
+    "source": "papers/Main.md:708@eae01647; papers/Introduction.md:20@4a260ca9",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "bijective dynamics (framework premise)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "A bijection is injective, so global information is conserved",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:35-40@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "bijective dynamics (framework premise)"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "bijective dynamics (framework premise)"
+  ],
+  "strongest_verified_source": "papers/Main.md:708@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Methodology.md:158@eae01647; papers/Methodology.md:166@eae01647",
+    "text": "bijectivity 'as a lemma on the visible factor'; rung 6 among the rungs that follow",
+    "nature": "corpus-internal (signal S10): Methodology calls bijectivity a lemma (with scoping), Main's posit ledger calls it part-empirical; the Introduction's 'premise' matches Main"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Conditional on the premise, as stated."
+ },
+ {
+  "id": "I-211",
+  "section": "§5",
+  "line": 158,
+  "text": "Conservation neither implies",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Written counterexample: F(b,r)=(b,r), all input information in the unread b — reversible, radiation reveals nothing",
+    "source": "verification/programmes/black-hole-information/PROGRAMME.md:13@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Claim A: 1376 of 40320 bijections of {0,1}^3 (and 2688 in the nested layout) give zero accessible advantage",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:17-18@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:17-18@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "A counterexample proves the non-implication outright; also hand-checkable."
+ },
+ {
+  "id": "I-212",
+  "section": "§5",
+  "line": 158,
+  "text": "nor is necessary for recovery from the records an observer can access",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "60 non-injective maps of {0,1}^2 recover the message exactly under complete access (e.g. erase the hidden bit, keep the message bit)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647; verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Exact counterexample; establishes 'not necessary'."
+ },
+ {
+  "id": "I-213",
+  "section": "§5",
+  "line": 158,
+  "text": "finite exhaustive computations exhibit bijections with no accessible advantage, that is, no gain in success probability over a blind guess",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "1376/40320 (MP1, one mode unread after two emissions); 2688 nested; zero total-variation advantage = blind-guess success",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647; verification/programmes/black-hole-information/bh01_access_v1/result.json@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Counts re-read in result.json (bijections_zero_advantage_MP1_t2 = 1376, nested_t3 = 2688). Exact rational arithmetic; controls K1-K8 passed."
+ },
+ {
+  "id": "I-214",
+  "section": "§5",
+  "line": 158,
+  "text": "and non-injective maps with exact recovery [BHa]",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "nonbijective_maps_exact_recovery_complete_access = 60",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647; verification/programmes/black-hole-information/bh01_access_v1/result.json@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:153@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-215",
+  "section": "§5",
+  "line": 160,
+  "text": "Of the 40,320 bijections of $\\{0,1\\}^3$, 1,376 give zero accessible advantage for a binary message with one register unread after two emissions.",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": [],
+   "note": "40,320 = 8!"
+  },
+  "chain": [
+   {
+    "link": "'1376 of 40320 bijections of {0,1}^3 give zero accessible advantage with one mode unread after two emissions (|K| = |M| = 2)'",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647; verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:148@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports",
+     "moving-partition layout, binary message, one mode unread after two emissions"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports",
+   "moving-partition layout, binary message, one mode unread after two emissions"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "40320 = 8! checked by control K4."
+ },
+ {
+  "id": "I-216",
+  "section": "§5",
+  "line": 160,
+  "text": "For bijective dynamics, complete endpoint access gives exact recovery",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "C1: 'If every F_t is bijective and α(T) is every register, … ρ_T is injective on X … P_succ = 1' (written proof; review: correct)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647; verification/programmes/black-hole-information/bh01_access_v1/review/REVIEW.md:3@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "bijective dynamics",
+     "every register read at the endpoint"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Exhaustive check: 0 violations over the tested classes",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:20@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "bijective dynamics",
+   "every register read at the endpoint",
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:98-102@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Holds for every prior (injectivity). Unpublished, internally reviewed record; the review (REVIEW.md:3) confirms the proof."
+ },
+ {
+  "id": "I-217",
+  "section": "§5",
+  "line": 160,
+  "text": "with $\\mathcal U$ inaccessible $P_{\\mathrm{succ}}\\ge1/|\\mathcal U|$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "C2: endpoint snapshot fibres have |K| points; the cumulative record refines it; P_succ = (1/(|M|N)) Σ_y max_m c_m(y) ≥ 1/|K| (written proof)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "bijective dynamics",
+     "uniform message prior",
+     "hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Scope: 'Uniform message prior with equal-size supports'",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:297@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "bijective dynamics",
+   "uniform message prior",
+   "hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:104-112@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "For bijective dynamics with uniformly distributed messages and unread initial data, complete endpoint access gives exact recovery, and with $\\mathcal U$ inaccessible $P_{\\mathrm{succ}}\\ge1/|\\mathcal U|$, so zero advantage in a bijective instance requires $|\\mathcal U|\\ge|\\mathcal M|$",
+  "notes": "BHa proves the bound in its model's prior (uniform message prior, uniform unread data, equal-size supports); the Introduction states no prior. Auditor's note, not a corpus result: the bound holds for every prior on initial configurations, since each fibre of the record contains at most |U| initial points and so at most |U| messages, and the MAP guess takes at least 1/|U| of each fibre's weight. The Introduction's statement is therefore true, but its corpus support covers only BHa's prior. Fix shared with I-218."
+ },
+ {
+  "id": "I-218",
+  "section": "§5",
+  "line": 160,
+  "text": "so zero advantage in a bijective instance requires $|\\mathcal U|\\ge|\\mathcal M|$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "From C2: zero advantage means P_succ = 1/|M| (blind guess under a uniform prior), so 1/|K| ≤ 1/|M|, i.e. |K| ≥ |M|; 'Claim A qualified by C2: zero advantage requires |K| ≥ |M|'",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647; verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:318@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "bijective dynamics",
+     "uniform message prior",
+     "hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Two-bit message, one-bit remnant: min P_succ over S_8 = 1/2, none at the blind value 1/4",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:21@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "bijective dynamics",
+   "uniform message prior",
+   "hidden-uniform unread data on equal-size supports",
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:42-47@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "see I-217 (one sentence carries the prior for I-216–I-218)",
+  "notes": "Attention resolved: the 'so' inference uses the blind-guess value 1/|M|, which is the uniform-prior value; BHa states this scope (REPORT:297, PLAN.md:64). Auditor's note, not a corpus result: with equal-size supports the conclusion survives a non-uniform message prior by a different count (every record fibre must contain a point of the most likely message, so |M|·N ≤ N·|U|), but the inference as written needs the uniform prior. Fix: see I-217 (state the prior once)."
+ },
+ {
+  "id": "I-219",
+  "section": "§5",
+  "line": 160,
+  "text": "32 non-injective maps of $\\{0,1\\}^2$ violate the bound on $P_{\\mathrm{succ}}$ [BHa]",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "C2 countercontrol: all 256 maps {0,1}^2→{0,1}^2, two-bit message in both registers, one step, register 1 read (|K| = 2, bound 1/2): 0 bijective and 32 non-injective violations",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647; verification/programmes/black-hole-information/bh01_access_v1/checks.py:506-513@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "two-bit message",
+     "one register read, one unread",
+     "one step"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Analytic count 2·2^4: the 32 are the maps whose read register is constant",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/review/REVIEW.md:176@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "two-bit message",
+   "one register read, one unread",
+   "one step"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:155@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "32 non-injective maps of $\\{0,1\\}^2$, with a two-bit message and one register unread, fall below the bound $P_{\\mathrm{succ}}\\ge1/2$ [BHa]",
+  "notes": "Attention resolved: the population is the 256 self-maps of {0,1}^2 with a two-bit message, one register unread (|U| = 2) and bound P_succ ≥ 1/2. The Introduction gives neither |U| nor |M| here, so 'the bound' has no fixed value in the sentence. The countercontrol is trivial (constant read register), which is all it needs to be."
+ },
+ {
+  "id": "I-220",
+  "section": "§5",
+  "line": 160,
+  "text": "These endpoint guarantees are sufficient, not necessary.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Endpoint guarantees (sufficient, not necessary). Under the following conditions, C1-C3 guarantee the stated recovery … They are not necessary: the enumeration also exhibits exact recovery when they fail' (36416 bijections recover with D never read; 14496 with one mode unread)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:66-86@eae01647; verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:24@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "BHa toy access model: classical messages written into configurations, configuration reads of a permutation, uniform message prior, hidden-uniform unread data on equal-size supports"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:66-86@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "These endpoint conditions are sufficient for recovery, not necessary: exact recovery also occurs with registers unread [BHa].",
+  "notes": "Attention resolved: 'sufficient' and 'not necessary' are for recovery (exact recovery under C1, the P_succ floor under C2). The Introduction does not say for what, and calls the guarantees, rather than their conditions, sufficient. Review F1 (REVIEW.md:11-30) is the origin of the wording."
+ },
+ {
+  "id": "I-221",
+  "section": "§5",
+  "line": 160,
+  "text": "The bound is the remnant-capacity form of a known fact",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'This is the remnant-capacity form of a known fact (guessing probability rises by at most a factor |K| with |K|-valued side information)'",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:109-112@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "BHa supports it. The 'known fact' (the min-entropy chain rule) has no literature source in BHa or in the Introduction; the sentence-final [Sha79] does not contain it. Optional: cite a source for the known fact."
+ },
+ {
+  "id": "I-222",
+  "section": "§5",
+  "line": 160,
+  "text": "and its linear case is the secret-sharing threshold [BHa; Sha79]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "[Sha79] reference carries a VERIFY comment: content not read"
+  },
+  "chain": [
+   {
+    "link": "C4 (Lemma L): for a linear bijection on GF(2)^n, max(0, t−(n−k)) ≤ r_t ≤ min(k,t); 'This is the linear secret-sharing threshold'",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:125-132@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification with Shamir's threshold scheme: [Sha79] not read first-hand (reference VERIFY; #918 reference review: UNREACHABLE)",
+    "source": "verification/audits/manuscript/introductory-paper-20261025/draft/review/references/FINDINGS.md:33@4a260ca9",
+    "layer": "literature",
+    "hypotheses": [
+     "Sha79 content as recalled, not read"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "Sha79 content as recalled, not read"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "first-hand check of Sha79"
+  ],
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:125-132@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "Resolve the [Sha79] VERIFY by a first-hand read before landing; if it cannot be read, cite [BHa] alone for the linear case.",
+  "notes": "The mathematics (C4) is proved in BHa; the literature identification is unverified. BH-01 names the threshold without a source. As recalled, Shamir's (k,n) scheme is a linear threshold scheme, and BHa's lower bound is the rank bound that such schemes attain; 'is the secret-sharing threshold' is a loose identification."
+ },
+ {
+  "id": "I-223",
+  "section": "§5",
+  "line": 162,
+  "text": "The Page-curve calculation of [GR App. A] addresses recovery under its own conditions and is a conditional result [Book §7.6, §18.5].",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR App. A derives 'a cycle-averaged Page curve under the scrambling condition H-scramble and the decoupling condition H-decouple'",
+    "source": "papers/GR.md:715@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition",
+     "H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established",
+     "single energy shell = full product space C_B × C_R"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "'the Page curve at the emergent level is a conditional result'",
+    "source": "book/ch18-beyond.md:146@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "conditional"
+   },
+   {
+    "link": "'which the Page-curve derivation below addresses under its own conditions'",
+    "source": "book/ch07-gravity.md:110@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition",
+   "H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established",
+   "single energy shell = full product space C_B × C_R"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "H-scramble",
+   "H-decouple",
+   "single energy shell = full product space"
+  ],
+  "strongest_verified_source": "papers/GR.md:715@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-224",
+  "section": "§5",
+  "line": 162,
+  "text": "Its configuration space is $\\mathcal C_V\\times\\mathcal C_B\\times\\mathcal C_D$, with $V$ the exterior visible region, $B$ the black-hole interior and $D$ the sector beyond the cosmological horizon; the radiation $R$, a subsystem of $V$, is emitted from $B$ [GR App. A.1, A.7].",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "A.1: C_V × C_B × C_D, V between the black-hole and cosmological horizons, B interior, D trans-cosmological; A.7: modes move from B to R, a subsystem of V",
+    "source": "papers/GR.md:719@eae01647; papers/GR.md:807@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:719@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "BHa's assumption-watch (REPORT:277-281) notes that A.5's coupling chain V↔B↔D reads B as a boundary layer, while A.1 reads B as the interior; not an Introduction issue."
+ },
+ {
+  "id": "I-225",
+  "section": "§5",
+  "line": 162,
+  "text": "For all but an exponentially negligible fraction of initial conditions, the full-cycle time average of the radiation's entanglement entropy, at the bipartition of each stage held fixed, equals the Page value $S_{\\rm Page}(d_B,d_R)$ for factor dimensions $d_B,d_R$, up to the correction term of Theorem A.8 [Pag93; GR, Thms A.8–A.9].",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "H-scramble",
+    "H-decouple",
+    "single energy shell C_B × C_R"
+   ]
+  },
+  "chain": [
+   {
+    "link": "Thm A.8: under H-scramble and the single-shell hypothesis, time-averaged S(ρ_R) = S_Page + O(ε) for all initial conditions except a fraction ≤ (ln d_min/ε)e^{-c d_min ε²}",
+    "source": "papers/GR.md:817@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition",
+     "single energy shell = full product space C_B × C_R"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "A.8 counts initial conditions as configurations s ∈ Σ_E = C_B × C_R with d_B = |C_B|, d_R = |C_R| (bipartition aligned)",
+    "source": "papers/GR.md:837-841@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "In that setting every orbit visits only product states, S(ρ_R) = 0, so H-scramble fails for every bijection and the conclusion fails for every initial configuration",
+    "source": "papers/GR.md:833@eae01647; verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:18@eae01647; verification/programmes/black-hole-information/bh02_scramble_v1/review/REVIEW.md:69-76@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "refuted"
+   },
+   {
+    "link": "Thm A.9: substitution of d_B = q^{n_B(t)}, d_R = q^{n_R(t)} at each stage, bipartition held fixed",
+    "source": "papers/GR.md:845@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition",
+     "H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established",
+     "single energy shell = full product space C_B × C_R"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Page's mean entropy for random pure states",
+    "source": "Pag93 (abstract read: arXiv:gr-qc/9305007)",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "H-scramble (orbit ensemble equidistributes over pure states on the shell), not established; fails for every bijection on a definite configuration with aligned bipartition",
+   "single energy shell = full product space C_B × C_R",
+   "H-decouple (B∪R uncoupled from D and V∖R, jointly pure, over whole cycles), not established"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "H-scramble",
+   "H-decouple (A.9)",
+   "single energy shell = full product space"
+  ],
+  "strongest_verified_source": "papers/GR.md:817@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:835@eae01647",
+    "text": "'H-scramble fails for every bijection in the setting of Theorem A.7's proof'",
+    "nature": "corpus-internal: A.8's own statement (GR.md:817) and counting (GR.md:837-841) use the same configuration setting, but GR does not say so; BHb review recommends A.8's counting as the anchor"
+   },
+   {
+    "site": "book/appendix-a-prediction-status.md:111@eae01647",
+    "text": "G11 Page curve, class C: 'Scrambling, decoupling, proper-shell value open'",
+    "nature": "class C ('chain walks modulo a stated open assumption') understates that H-scramble is refuted in the stated setting, not merely open"
+   },
+   {
+    "site": "book/ch19-open-problems.md:72@eae01647",
+    "text": "'The Page curve follows … under the scrambling condition H-scramble and the decoupling condition H-decouple …, neither of which is established'",
+    "nature": "omits that H-scramble fails in the configuration setting (ch07:126 states it)"
+   }
+  ],
+  "proposed_fix": "Amend the next sentence (I-227) to: \"H-scramble fails for every bijection acting on a definite initial configuration with the bipartition aligned to the configuration coordinates, which is the setting in which Theorem A.8 counts its initial conditions; it requires an initial superposition of configurations or a bipartition not aligned with them, and is not established [GR App. A.7; BHb, C1, C6(a)–(b)].\"",
+  "notes": "Most consequential finding in this range. The Introduction reports A.8-A.9 faithfully as a conditional and says next that H-scramble fails for a definite configuration with an aligned bipartition. It does not say that this is the setting in which A.8 counts its 'initial conditions'. GR's own text attributes the failing setting only to 'Theorem A.7's proof' (GR.md:835), while A.8's statement and proof count configurations of Σ_E (GR.md:837-841). BHb C6(a) and its independent review (REVIEW.md:69-76: 'H-scramble cannot hold for any φ, and A.8's conclusion fails for every initial configuration … Recommend citing A.8's counting over configurations as the textual anchor') make the point exactly. So the conditional has no instance where its fraction is counted. It needs an initial superposition or a non-aligned factorization that GR does not specify, and even then BHb C2 caps the entanglement at the initial basis entropy H(p_0), so the state must spread over about e^{S_Page} configurations. 'Exponentially negligible fraction of initial conditions' therefore reads stronger than the theorem's content. Severity: moderate. The status line (I-244) is right, but this sentence invites a non-vacuous reading."
+ },
+ {
+  "id": "I-226",
+  "section": "§5",
+  "line": 162,
+  "text": "This holds under the scrambling hypothesis H-scramble, that the orbit ensemble equidistributes over quantum pure states on the shell",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "H-scramble"
+   ]
+  },
+  "chain": [
+   {
+    "link": "'H-scramble: the orbit ensemble equidistributes over quantum pure states on the shell … in the sense of an approximate unitary design'",
+    "source": "papers/GR.md:835@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "H-scramble"
+  ],
+  "strongest_verified_source": "papers/GR.md:835@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-227",
+  "section": "§5",
+  "line": 162,
+  "text": "H-scramble fails for every bijection acting on a definite initial configuration with the bipartition aligned to the configuration coordinates",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The same holds for every bijection: acting on a definite configuration, φ visits only configurations, each a product state across a bipartition aligned with the configuration coordinates, so S(ρ_R) = 0 along every such orbit'",
+    "source": "papers/GR.md:833@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHb C1 PROVED: 'P_π maps configuration basis vectors to configuration basis vectors … S(R)=0 exactly, at every aligned bipartition'; the sweeps exercise code, 'the universal claim rests on the one-line proof'",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:14@eae01647; verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:26-29@eae01647; verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:194-195@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Book mirror: 'every finite bijection acting on a definite configuration, with the bipartition aligned …, visits only product states'",
+    "source": "book/ch07-gravity.md:126@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:833@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Attention resolved: the universal 'for every bijection' claim does not rest only on the unpublished BHb. It has a one-line universal written proof (a permutation unitary maps basis vectors to basis vectors, which are product states across an aligned cut), stated in the published corpus at GR App. A.7 (GR.md:833) and ch07:126, and proved in BHb C1; the exhaustive sweeps (24/40320/362880 permutations) only exercise the code. The cited [GR App. A.7] already carries it. See I-225 for the missing link to Theorem A.8's own setting."
+ },
+ {
+  "id": "I-228",
+  "section": "§5",
+  "line": 162,
+  "text": "and is not established [GR App. A.7; BHb, C1, C6(a)–(b)]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'H-scramble is not established here'",
+    "source": "papers/GR.md:835@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "BHb C6(b): the Page value enters only through the Haar ensemble H-scramble posits",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:19@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:835@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "C6(b) bears on 'not established' (the value is supplied by the hypothesis); C1 and C6(a) bear on 'fails'. Completeness note: BHb C2 (proved: a permutation cannot raise the aligned-cut entanglement above the initial basis entropy H(p_0)) sharpens what H-scramble would require and is not reported in the Introduction."
+ },
+ {
+  "id": "I-229",
+  "section": "§5",
+  "line": 162,
+  "text": "It also needs the decoupling condition H-decouple: $B\\cup R$ evolves with no coupling to $D$ or to the rest of the visible sector, $V\\setminus R$, and its joint state is pure, over whole cycles of the dynamics",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "H-decouple"
+   ]
+  },
+  "chain": [
+   {
+    "link": "H-decouple: 'B ∪ R evolves with no coupling to the trans-cosmological sector D or to the rest of the visible sector, V ∖ R, and its joint state is pure. The full-cycle averages of Theorem A.9 use H-decouple over whole cycles'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "H-decouple"
+  ],
+  "strongest_verified_source": "papers/GR.md:809@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-230",
+  "section": "§5",
+  "line": 162,
+  "text": "timescale ordering does not supply it [BHa, item F]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Item F: t_evap/τ_B^D ∈ [1.785×10^57, 1.786×10^65] at 30 M_sun (rational interval bounds); removes the timescale support for D-decoupling over the evaporation",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:211-239@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "τ_B^D ∈ [10^16, 10^19] s",
+     "Γ ∈ [1/100, 1000]"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'Timescale ordering does not supply it'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "τ_B^D ∈ [10^16, 10^19] s",
+   "Γ ∈ [1/100, 1000]"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:809@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Item F shows the support is removed, not that A.7 fails within t ≪ τ_B^D (BHa REPORT:241-245), consistent with §6.2 item 4 (I-267: [GR, Thm A.7] is the Effective-pure-state theorem, GR.md:811). The published GR text now carries the same sentence, so [GR App. A.7] could be cited alongside [BHa, item F]."
+ },
+ {
+  "id": "I-231",
+  "section": "§5",
+  "line": 162,
+  "text": "and it is not established [GR App. A.7]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'H-decouple is not established here'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:809@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-232",
+  "section": "§5",
+  "line": 162,
+  "text": "Theorem A.8 of [GR] takes the whole configuration space $\\mathcal C_B\\times\\mathcal C_R$ as a single energy shell.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "A.8: 'with its whole configuration space as a single energy shell, Σ_E = C_B × C_R'",
+    "source": "papers/GR.md:817@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:817@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-233",
+  "section": "§5",
+  "line": 162,
+  "text": "That requires the energy to be constant there, so that energy conservation places no constraint on the orbit",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Its hypothesis requires the energy to be constant on C_B × C_R, so that energy conservation places no constraint on the orbit of B ∪ R'",
+    "source": "papers/GR.md:843@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:843@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-234",
+  "section": "§5",
+  "line": 162,
+  "text": "and it does not follow from the conservation of a Hamiltonian that takes more than one value there",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'it does not follow from the conservation of a Hamiltonian that takes more than one value there, whose energy shells all span proper subspaces'",
+    "source": "papers/GR.md:843@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:843@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-235",
+  "section": "§5",
+  "line": 162,
+  "text": "An evaporating black hole whose radiation carries away its energy is in the proper-shell case",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'An evaporating black hole whose radiation carries away its energy is in that proper-shell case'",
+    "source": "papers/GR.md:843@eae01647; book/ch07-gravity.md:126@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:843@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "A physical modelling statement argued on paper (the B and R energies vary while the total is conserved)."
+ },
+ {
+  "id": "I-236",
+  "section": "§5",
+  "line": 162,
+  "text": "where the mean entropy depends on the shell and in general differs from the Page value",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Haar mean on a proper shell depends on the shell: diagonal shell exactly H_m − 1 (above S_Page); Hamming-weight shells below S_Page (certified in 3 cases)",
+    "source": "papers/GR.md:843@eae01647; verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:20@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:843@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "BHb shows the direction is shell-dependent; 'in general differs' is exact."
+ },
+ {
+  "id": "I-237",
+  "section": "§5",
+  "line": 162,
+  "text": "that case is open [GR App. A.7; BHb, C6(c)]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Theorem A.8 on a proper energy shell … and the Page curve of Theorem A.9 on such a shell, are open'",
+    "source": "papers/GR.md:843@eae01647; verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:20@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:843@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-238",
+  "section": "§5",
+  "line": 162,
+  "text": "The result is a time average at a fixed bipartition",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Theorem A.9 concerns full-cycle averages at the bipartition of stage t, held fixed'",
+    "source": "papers/GR.md:853@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:853@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-239",
+  "section": "§5",
+  "line": 162,
+  "text": "whether the entropy along a single trajectory follows the same curve is open [GR App. A.7; BHb, C6(d)]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'whether it follows the same curve is open'",
+    "source": "papers/GR.md:853@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "BHb C6(d): open proof obligation",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:21@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:853@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-240",
+  "section": "§5",
+  "line": 162,
+  "text": "In the dependency ladder of [GR] the Page curve is also conditional on the covariant field equations.",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations"
+   ]
+  },
+  "chain": [
+   {
+    "link": "Ladder: 'G4, the cosmological implications (cosmological constant, dark sector, Page curve, MOND and the Bullet Cluster), conditional on G3'",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "covariant field equations derived from the substratum, with conservation/Bianchi structure, source coupling and continuum limit (GR rung G3), open"
+  ],
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-241",
+  "section": "§5",
+  "line": 162,
+  "text": "The generalized second law is not derived [GR App. A.6]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The generalized second law is open'; Theorem A.6 (sector-entropy inequality) proved, but the identification S_BH = S(ρ_B) is not supplied",
+    "source": "papers/GR.md:803@eae01647; papers/GR.md:797@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "Book mirror: 'The framework does not derive it'",
+    "source": "book/ch07-gravity.md:155@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:803@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Completeness note: Theorem A.6 is proved on paper and not mentioned; optional."
+ },
+ {
+  "id": "I-242",
+  "section": "§5",
+  "line": 162,
+  "text": "agreement with quantum-extremal-surface computations [Pen20] is not established",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'so agreement on the Page time and the Page entropy is not established'; the form agrees only under H-scramble, H-decouple and the full-product shell",
+    "source": "papers/GR.md:875@eae01647; book/ch07-gravity.md:147@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:875@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Agreement in form is itself conditional on unestablished hypotheses, so the unqualified 'not established' is correct."
+ },
+ {
+  "id": "I-243",
+  "section": "§5",
+  "line": 162,
+  "text": "the correspondence between islands and substratum cycles is conjectural [Book §7.6]",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'This correspondence — replica wormholes ↔ substratum cycles — is conjectural'; book: 'suggestive but not yet rigorous'",
+    "source": "papers/GR.md:875@eae01647; book/ch07-gravity.md:149@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "book/ch07-gravity.md:149@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-244",
+  "section": "§5",
+  "line": 162,
+  "text": "The Page curve of [GR App. A] is therefore not established",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "H-scramble not established (refuted in the configuration setting); H-decouple not established; proper-shell and single-trajectory versions open",
+    "source": "papers/GR.md:809-853@eae01647; verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:18-21@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:809-853@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-245",
+  "section": "§5",
+  "line": 162,
+  "text": "and the black-hole information problem is not resolved here",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Problem as defined (whether the radiation carries the information) needs recovery from accessible records; bijectivity alone does not give it",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:259-265@eae01647; book/ch07-gravity.md:110@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:259-265@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "book/ch07-gravity.md:110@eae01647; book/The-Incompleteness-of-Observation-FULL.md:1989@eae01647",
+    "text": "'The framework resolves the paradox at the level of information preservation'",
+    "nature": "framing stronger than the Introduction; the same paragraph concedes recovery is a separate question"
+   },
+   {
+    "site": "book/ch19-open-problems.md:72@eae01647; book/The-Incompleteness-of-Observation-FULL.md:5232@eae01647",
+    "text": "'Resolved at the level of information preservation; the Page curve is conditional' (under '19.2 Problems resolved', ch19:20)",
+    "nature": "status label stronger than the Introduction's 'not resolved'"
+   },
+   {
+    "site": "book/ch18-beyond.md:130@eae01647",
+    "text": "three problems 'receive the same structural resolution in the framework'",
+    "nature": "framing; qualified in the same paragraph as 'framework-level interpretations and conditional results'"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "The Introduction defines the problem as recovery (line 156), so 'not resolved' is right. Parts of the book claim resolution 'at the level of information preservation'. Under BHa that is a premise, not a resolution of the problem as posed."
+ }
+]

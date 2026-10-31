@@ -1,0 +1,56 @@
+== CF2-a bijectivity ==
+  [PASS] CF2-a M1 coupling map (and B) bijective 
+  [PASS] CF2-a M2 coupling map (and B) bijective 
+  [PASS] CF2-a M3 coupling map (and B) bijective 
+  [PASS] CF2-a M4 coupling map (and B) bijective 
+  [PASS] CF2-a N1 coupling map (and B) bijective 
+  [PASS] CF2-a N2 coupling map (and B) bijective 
+== controls ==
+  [PASS] CF2-b N1 Dk == 0 exactly for k=1..5 {1: '0', 2: '0', 3: '0', 4: '0', 5: '0', 6: '4/729'}
+  [PASS] CF2-b N2 Dk == 0 exactly for k=1..6 
+  [PASS] CF2-c M1 ||T^(k)-T^k|| <= (k-1) max eps_FR 
+  [PASS] CF2-c M2 ||T^(k)-T^k|| <= (k-1) max eps_FR 
+  [PASS] CF2-c M3 ||T^(k)-T^k|| <= (k-1) max eps_FR 
+  [PASS] CF2-c M4 ||T^(k)-T^k|| <= (k-1) max eps_FR 
+  [PASS] CF2-c N1 ||T^(k)-T^k|| <= (k-1) max eps_FR 
+  [PASS] CF2-c N2 ||T^(k)-T^k|| <= (k-1) max eps_FR 
+  [PASS] CF2-d M1 TV(P(H_t|X_0..X_t), pi_H) == 1 - P(X_1..X_t|X_0) on every record 
+  [PASS] CF2-d M2 TV(P(H_t|X_0..X_t), pi_H) == 1 - P(X_1..X_t|X_0) on every record 
+  [PASS] CF2-d M3 TV(P(H_t|X_0..X_t), pi_H) == 1 - P(X_1..X_t|X_0) on every record 
+  [PASS] CF2-d M4 TV(P(H_t|X_0..X_t), pi_H) == 1 - P(X_1..X_t|X_0) on every record 
+  [PASS] CF2-d N1 TV(P(H_t|X_0..X_t), pi_H) == 1 - P(X_1..X_t|X_0) on every record 
+  [PASS] CF2-e M1 reproduces Main 2.4 numbers (T=[[Fraction(2, 3), Fraction(1, 3)], [Fraction(1, 3), Fraction(2, 3)]], T2=[[Fraction(1, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(1, 1)]], P(x2=0|x1=1,x0=0)=1, P(x2=0|x1=1)=1/3)
+== data ==
+ M1 Main 2.4 sigma: OST(all t<6)=True  CL(all t)=False  T=[['2/3', '1/3'], ['1/3', '2/3']]
+    Dk=||T^(k)-T^k||: ['0', '4/9', '4/27', '40/81', '40/243', '364/729']
+    eps_FR(t), t=0..5: ['0', '2/3', '2/3', '2/3', '2/3', '2/3']
+    delta_k, k=1..5: ['1', '1', '1', '1', '1']
+ M2 (x^h, x): OST(all t<6)=True  CL(all t)=False  T=[['1/2', '1/2'], ['1/2', '1/2']]
+    Dk=||T^(k)-T^k||: ['0', '0', '1/2', '0', '0', '1/2']
+    eps_FR(t), t=0..5: ['0', '1/2', '1/2', '1/2', '1/2', '1/2']
+    delta_k, k=1..5: ['1', '1', '1', '1', '1']
+ M3 rotation z->z+1 mod 3: OST(all t<6)=True  CL(all t)=False  T=[['1/3', '2/3'], ['2/3', '1/3']]
+    Dk=||T^(k)-T^k||: ['0', '2/9', '14/27', '14/81', '40/243', '364/729']
+    eps_FR(t), t=0..5: ['0', '2/3', '2/3', '2/3', '2/3', '2/3']
+    delta_k, k=1..5: ['1/2', '1', '1', '1', '1']
+ M4 random phi on Z2xZ16, B=perm^5: OST(all t<6)=True  CL(all t)=False  T=[['5/8', '3/8'], ['3/8', '5/8']]
+    Dk=||T^(k)-T^k||: ['0', '1/32', '9/128', '1/512', '255/2048', '1023/8192']
+    eps_FR(t), t=0..5: ['0', '5/8', '7/8', '15/16', '15/16', '15/16']
+    delta_k, k=1..5: ['1/15', '1/4', '1', '1', '1']
+ N1 tape {0,1,2}^5 (closure holds): OST(all t<6)=True  CL(all t)=False  T=[['2/3', '1/3'], ['1/3', '2/3']]
+    Dk=||T^(k)-T^k||: ['0', '0', '0', '0', '0', '4/729']
+    eps_FR(t), t=0..5: ['0', '2/3', '8/9', '26/27', '80/81', '242/243']
+    delta_k, k=1..5: ['0', '0', '0', '0', '1']
+    k=10: T^(k)=[['1', '0'], ['0', '1']]  ||T^(k)-T^k||=29524/59049
+ N2 M1 sigma + hidden reset: OST(all t<6)=True  CL(all t)=True  T=[['2/3', '1/3'], ['1/3', '2/3']]
+    Dk=||T^(k)-T^k||: ['0', '0', '0', '0', '0', '0']
+    eps_FR(t), t=0..5: ['0', '0', '0', '0', '0', '0']
+    delta_k, k=1..5: ['0', '0', '0', '0', '0']
+== exhaustive: all bijections of Z2xZ2 and Z2xZ3 (B=id) ==
+  m=2: bijections=24  OST holds at all t<6: 24  with T^(k)!=T^k for some k<=6: 16  with a gap (delta_k>0, k<6): 16
+  m=3: bijections=720  OST holds at all t<6: 720  with T^(k)!=T^k for some k<=6: 648  with a gap (delta_k>0, k<6): 648
+== verdicts ==
+  V2-1: PRINT — models with exact OST and T^(k)!=T^k: ['M1', 'M2', 'M3', 'M4']
+  V2-2: PRINT — models with exact OST and a positive gap: ['M1', 'M2', 'M3', 'M4']
+  V2-3: PRINT — OST holds for every bijection tested ({2: (24, 24, 16, 16), 3: (720, 720, 648, 648)})
+f2: ALL CONTROLS GREEN

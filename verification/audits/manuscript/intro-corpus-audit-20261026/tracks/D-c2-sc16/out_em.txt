@@ -1,0 +1,5 @@
+(A) shared prior: Gamma_t rank one for 1<=t<=6: True; P-divisible on {0..6}: True; gaps by order: {1: (False, '0'), 2: (True, '108/589'), 3: (True, '164052/514189'), 4: (True, '225246852/577195189'), 5: (True, '305268654852/728348206189')}
+(B) stationary init (stationary=True): eigenvalues lambda_t of Gamma_t: ['1', '6/25', '144/625', '3456/15625', '82944/390625', '1990656/9765625', '47775744/244140625']; P-divisible on {0..6}: True; gaps by order: {1: (True, '108/589'), 2: (True, '164052/514189'), 3: (True, '225246852/577195189'), 4: (True, '305268654852/728348206189'), 5: (True, '412772910402852/961114306717189')}
+hidden channel BSC(eta=1/50): second eigenvalue 24/25 (<1: mixes); 1/(1-second_eig) = 25 steps
+(C) bijection on |S|=1024: bijective=True, order L=40; visible law equals coarse model (A) on horizon 4: True; P-divisible on {0..4}: True; gaps: {1: (False, '0'), 2: (True, '108/589'), 3: (True, '164052/514189')}
+EM COUNTERMODEL ALL VERIFIED

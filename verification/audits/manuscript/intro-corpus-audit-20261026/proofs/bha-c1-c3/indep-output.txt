@@ -1,0 +1,13 @@
+S8 size 40320 40320
+MP1 t=2 TV histogram {'0': 1376, '1/2': 12672, '3/4': 11776, '1': 14496}
+MP1 t=2 endpoint-snapshot-only TV histogram {'0': 10944, '1/2': 25920, '1': 3456}
+MP2 t=2 P_succ histogram {'1/2': 2368, '5/8': 768, '3/4': 21120, '7/8': 5888, '1': 10176}
+nested t=3 TV histogram {'0': 2688, '1/2': 10944, '1': 26688}
+nested W-endpoint exact recovery True/False 36416 3904
+W-autonomous 384 products 48 W-autonomous failing 0
+snapshot decreasing 21632
+AM1 (bij,recover) counts {(False, False): 172, (False, True): 60, (True, True): 24}
+AM2 violations 32 bijective among them 0 == maps with read register constant: True 32
+GL(4,2) 20160
+k=1 profiles {(0, 0, 0, 0, 1): 10752, (0, 0, 0, 1, 1): 5376, (0, 0, 1, 1, 1): 2688, (0, 1, 1, 1, 1): 1344}
+k=2 profiles {(0, 0, 0, 1, 2): 9216, (0, 0, 1, 1, 2): 4608, (0, 0, 1, 2, 2): 2304, (0, 1, 1, 1, 2): 2304, (0, 1, 1, 2, 2): 1152, (0, 1, 2, 2, 2): 576}
