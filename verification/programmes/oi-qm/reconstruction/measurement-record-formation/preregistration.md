@@ -60,17 +60,17 @@ graphs (H-Bell); continuum completion; continuous timing records (convention c4,
 | Input | Anchor | Used for | Scope |
 |---|---|---|---|
 | `S ⇔ D ⇔ Q_fb` | Main:548; `finite_horizon_equivalence`, `S_imp_D` (`Equivalence.lean`) | Prop. U (§4) | finite-horizon fixed-basis laws; representability only (Main:556) |
-| Process dilation, response-table form | Main:518 | Props. B1, U | per finite horizon; hidden space grows |
-| Action-labelled comb dilation | Main:482; scope remark Main:486; Main:488; Main:494 | Props. B1, U; U1 | per finite action menu; invasive ledger-writing instruments; no uniform finite realization |
+| Process dilation; its response-table form for arbitrary kernels | Main:518; Main:520 | Props. B1, U | per finite horizon; hidden space grows |
+| Action-labelled comb dilation; adaptive families | Main:482; Main:558; scope remark Main:486; Main:488; Main:494 | Props. B1, U; U1 | per finite action menu; invasive ledger-writing instruments; no uniform finite realization |
 | Operational gluing, ε-form; single controlled dynamics | Main:566 (clause (3): Spekkens noncontextuality not claimed); Main:582 | Prop. U; AW-MR7 | finite family, horizon and accuracy; protocol enters as a program-register preparation |
-| Classical-dimension obstruction | Main:560 | constraint K3 | no fixed finite `N` reproduces one qubit's full prepare-measure theory |
+| Classical-dimension obstruction | Main:560 | constraint K3; §4.4 | no fixed finite `N` reproduces one qubit's full prepare-measure theory |
 | Canonical predictive quotient; purification remark | Main:622, Main:624 | §4.4 | substratum-level ingredient, not CDP purification |
 | Relating-evolution remark; scope remark (iii) | Main:646; Main:648 | §3.4 | Lüders update as Bayesian conditioning for the diagonal sector only |
 | Deterministic Bell ceiling; option (a) adopted, (b) recorded | Main:368–372; Main:414; Main:418; Main:408 | T6; K2; AW-MR7 | under (i)–(iv); operational no-signalling required; H-Bell open |
 | `FiniteOperationalTheory` | `OperationalAssembly.lean:594` | §3.4; AW-MR4 | fields `avail`, `availExt`, `avail_coarse`, `availExt_bind`, `prepAvail` (only the maximally mixed ancilla assumed, `prepAvail_uniform`), `readout` (form derived, `readout_is_localLuders`), `prepAvail_discard` |
 | `InstAvail`, `Architecture`, `instAvail_mono` | `ImplementationLocality.lean:260–316`, `:506` | §3.4 | five constructors, no sum constructor; availability monotone in the implementation class |
 | `exists_scaled_mem_of_instAvail_unitary` | `MicroscopicReversibility.lean:251` | §3.4 | an available unitary conjugation makes a nonzero multiple of the unitary admissible; its inverse needs dagger stability and ray saturation (module header) |
-| Route B | `RouteB.lean:132` (`PhasesAvailable`), `:146` (`DerivedOI`, phase conjunct stipulated), `:179` (`FalsifierUnavailable`), `routeB_target` | preserved negative | `Fin 2`; the kernel's closure, phases granted |
+| Route B | `RouteB.lean:132` (`PhasesAvailable`), `:146` (`DerivedOI`, phase conjunct stipulated), `:179` (`FalsifierUnavailable`), `:257` (`RouteBTarget`, existential), `routeB_target` | preserved negative | `Fin 2`; the kernel's closure, phases granted |
 | Frozen sourcing | `NonnegBounded` (`FrozenSourcing.lean:65`), `frozen_sourcing_verdict` (`:318`), `obsTheory_rule_independent` (`SubstratumInterfaceAudit.lean:779`) | preserved negative | the presently stated architecture |
 | F2 row; instrument obligation; `INDEPENDENT` rows | `verification/ROADMAP.md:69`, `:1137–1141`, `:1536–1541` | §1 | row-level statuses unchanged |
 
@@ -82,20 +82,25 @@ uses are restated here.
 | Source | Exact commit and path | Content used |
 |---|---|---|
 | PC-1 (#1022) | `99dce4b6087d74842d8b0cf032ec1bbe2bbb9b4d`, `verification/programmes/oi-qm/reconstruction/physical-coupling-pc1/`: `preregistration.md` §4 (the `(Obs, μ)` fork), §7; `amendments/PC-star.md` §PC★2, §PC★2a, §PC★4; `amendments/PC-star-disposition.md`; `stage2/run-2/RESULT.md` | fork rule; A★2 indicator-readout baseline; scoped gap; void discipline |
-| F2-1 (#1011) | `4e7ddb70749e7ee49f43f5af2707a84524d1226a`, `verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/amendments/A-star.md` §A★2, §A★4 | baseline; G★; coherence discriminators |
+| F2-1 (#1011) | `4e7ddb70749e7ee49f43f5af2707a84524d1226a`, `verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/`: `amendments/A-star.md` §A★2, §A★4; `preregistration.md` Gates 4–5a (lines 284–315) | baseline; G★; coherence discriminators and their scope |
 | #1009 later access | `8af2d904cba527d89c800d809b753bfb32d07712`, `verification/programmes/substratum/continuous-substates/later-access-result.md` | `LA-EQUAL` and its scope |
 | #912 | `2af1d5d5b5fff4375e9fe9460f892c680ae99f0c`, `verification/programmes/oi-qm/reconstruction/composition-access-20261024/REPORT.md` | contract (1), freshness condition, countercontrols |
 | #866 | comments 6526292899 (controlled lift), 6541293037 (relation), 6541615446 (ACCEPT, conventions) | §5.3, N7 |
 
 ### 2.3 Preserved negatives, with exact scope
 
-- **N1 Frozen sourcing.** The presently stated architecture sources neither the quarter phase nor
-  dense unitary control. Scope: that architecture; not an extended one.
-- **N2 Route B.** On `Fin 2`, a theory satisfying `DerivedOICore` lacks the falsifier `rot`, with
-  phases stipulated. Scope: the kernel's closure on `Fin 2`, not A1–A6.
+- **N1 Frozen sourcing.** The presently stated architecture sources neither the quarter phase (on
+  every nonempty carrier) nor dense unitary control (on the `Fin 2` carrier). Scope: that
+  architecture; not an extended one.
+- **N2 Route B.** There exists a theory on `Fin 2`, the substratum theory, that satisfies
+  `DerivedOICore` and lacks the falsifier `rot`, with phases stipulated (`RouteBTarget` is
+  existential). Scope: the kernel's closure on `Fin 2`, not A1–A6; no statement about every theory
+  satisfying the closure.
 - **N3 F2-1.** No admissible `Θ★` among Θ-A to Θ-D and N1–N9; G★ named; coherence discriminators:
   coherent return `1` against dephased `337/625`, phase hold-out `0` against `288/625`, one quarter
-  phase uninformative. Scope: that family and those candidates, judged on structure.
+  phase uninformative. Scope: that family and those candidates, judged on structure; and, by F2-1's
+  own G4d, the discriminators separate a candidate from non-invasive classical models only, since the
+  disturbing-readout control C10 reproduces `1` and `337/625`.
 - **N4 PC-1.** Strict token `INCONCLUSIVE (void)` under clause 0(vi). Scientific finding, carried
   under the owner's one-time exception: no admissible candidate among the 25 screened; obstruction
   G★ item 3 for native couplings. Scope (§PC★4): couplings whose joint process is a classical
@@ -174,10 +179,12 @@ amplification (`k` grows) → registration (R2 holds) → outgoing.
 `o`. *Proof.* Injectivity. `□`
 
 So a reset of the record to a ready value with everything else unchanged is impossible: the
-distinguishing information moves into `E` or `L`. The reset cost is booked as that transfer (Landauer's
-thermodynamic reading is not used and was not read first-hand). Under a bijection the Shannon entropy
-of the pushed-forward `μ` is invariant, so a ready supply of low-entropy pointer states is a
-resource, entered in `Res`.
+distinguishing information moves into `E` or `L`. The reset cost is booked as that transfer. Heat
+is not defined by the OI inputs at `D` (no energy function or temperature is among them), so `Res`
+books information transfer only; Landauer's thermodynamic reading is not used and was not read
+first-hand. For finite `S` under a bijection, and for measurable `S` under a bijection that preserves
+the reference measure, the entropy of the pushed-forward `μ` is invariant, so a ready supply of
+low-entropy pointer states is a resource, entered in `Res`.
 
 ### 3.4 Controls and inverses
 
@@ -207,10 +214,10 @@ mass, and its failure branches are records.
 | (i) | (ii) | (iii) | Example (standard unless marked) |
 |---|---|---|---|
 | no | yes | no | reversible which-path marking by a two-level marker, undone by repeating the controlled coupling; Scully–Englert–Walther 1991 propose marking by a cavity photon |
-| no | yes | no | dephasing by a random classical phase kick: no record anywhere |
+| no | yes | no if the kick value is accessible to `Acc` (the inverse kick is then executable), yes otherwise | dephasing by a random classical phase kick: no record of the path anywhere |
 | no | yes | yes | redundant environmental copies (`k ≫ 1`) with `Acc` lacking joint control of the fragments (Zurek 2003) |
-| yes | no | yes | detection after recombination: the absorbed, irreversibly amplified counts display the fringe |
-| yes | no | no | after recombination, absorption by a two-level absorber followed by coherent re-emission (vacuum Rabi oscillation; textbook, no source read for this note) |
+| yes | no | yes | on the common segment before the first splitter, absorption and re-emission of the carrier, with an irreversibly amplified record of the path-independent absorption time |
+| yes | no | no | on the common segment before the first splitter, absorption by a two-level absorber followed by coherent re-emission (vacuum Rabi oscillation; textbook, no source read for this note) |
 | no | no | yes | an irreversible record of a path-independent property, such as a passage time recorded on the common segment before the first splitter |
 | yes | yes | yes | an absorbing detector in one arm |
 
@@ -228,9 +235,13 @@ sourced recombination as a sourced phase setting varies) and `D` (best discrimin
 acting on the marker) are both executed quantities on the frozen interface. An overlap
 `0 < |⟨d_R|d_L⟩| < 1` assigned to marker vectors, or a partial overlap of two classical conditional
 distributions, is not evidence. A classical model need not obey the relation: a non-invasive copy
-of the path leaves a classical fringe intact, and an epistemically restricted model with
-disturbing measurements can obey it (§5.8, CC1 and CC4). A complementarity match is a consistency
-requirement, not a nonclassicality witness.
+of the path leaves a classical fringe intact (§5.8, CC1). A noncontextual model cannot reproduce the
+quantum tradeoff: Catani, Leifer, Scala, Schmid and Spekkens 2023 show that, under a symmetry
+condition that holds in quantum theory and fixes operational equivalences among four preparations,
+noncontextuality implies the linear bound `V + D ≤ 1` (their `P` is the path distinguishability),
+which the quantum curve exceeds for `0 < V < 1`. The duality relation is therefore admitted as a T7
+instance (W1, §5.7) when those operational equivalences are certified by §5.3; a bare numeric match
+of `D` and `V` to the quantum curve is not admitted.
 
 ***
 
@@ -266,40 +277,45 @@ general not a function of `x_0`: that is OI's emergent stochasticity (Main §2.1
 **"Record not a function of configuration" is new physics only when "configuration" means the
 complete state `s_0`.**
 
-**Proposition A2 (which premise C changes; proved on paper here).** Suppose a formed record persists
-in the configuration (R2 with P-obs: the record is part of `V`'s later state) and the configuration
+**Proposition A2 (which premise C changes; proved on paper here).** Let `S` be the total system
+(Main:44), so that no stochastic input enters from outside `S`. Suppose a formed record persists in
+the configuration (R2 with P-obs: the record is part of `V`'s later state) and the configuration
 evolves by a function (the determinism half of Lemma 3). Then the record is a function of the
-complete pre-interaction state. *Proof.* A1 applied to the stored value. `□` Hence a C-model
+complete pre-interaction state, or of `(s_0, a_{≤t})` when settings enter as exogenous labels applied
+by bijections `I_a`. *Proof.* A1 applied to the stored value. `□` Hence a C-model
 abandons at least one of: **P-bij** (determinism; Main:62's argument for it then needs an answer),
 **P-obs** (records as values of `V`'s configuration), **P-set** (states as points of a set, for
 example an amplitude-carrying ontic state). Weakening injectivity alone does not help. A C proposal
 names which; that is the OI premise it changes.
 
-**Proposition B1 (A and B coincide as classes of finite record laws; proved, Main:482 and Main:518).**
+**Proposition B1 (A and B coincide as classes of finite record laws; proved, Main:482, Main:518, Main:520, Main:558).**
 For finite alphabets, a finite action menu and a finite horizon, every B-model's joint law of
 action-labelled records is reproduced by an A-model: the state is enlarged by a response table
 `u = (u_c)` over history-and-action contexts, with product prior independent of the actions and of
-`x_0`, plus ledgers and clock. Deterministic adaptive policies are covered because the contexts are
-history-indexed (paper; the reviewer is asked to confirm, §8). Conversely A is B with deterministic
-kernels.
+`x_0`, plus ledgers and clock (Main:520 for arbitrary real kernels). Deterministic adaptive policies
+are covered because the contexts are history-indexed (Main:558). Conversely A is B with
+deterministic kernels.
 
-**Proposition B2 (availability-level reduction, one direction; proved on paper from #912's proof).**
+**Proposition B2 (availability-level reduction; sufficient, not necessary; proved on paper from #912's proof).**
 If the B-model's randomness is a physical latent resource `U` in `L` that is conditionally fresh at
 every use (#912's condition, §3.1), and `U` is outside the access (or its reads are records), then the
 A-model with `U` in `S` is an available realization of the B-model's record law under every policy
 in `Acc` whose controller randomness is independent of `U` given the public history. **The converse
-is open:** failure of conditional freshness can change the record law (#912's heralding control,
-TV 1/2) but need not in every case.
+fails in general:** a kernel that does not read `U` reproduces its law whatever `U`'s correlations,
+and #912 states that statistical freshness "is a sufficient construction method, not necessary for
+every possible instrument" (REPORT.md, "Fresh resources"). Failure of freshness can still change a
+record law (#912's heralding control, TV 1/2).
 
 So B reduces to A by enlarging the state: at the representation level always (B1); at the
-availability level when conditional freshness and controller independence hold (B2, sufficient).
-Whether those conditions are also necessary is not established.
+availability level when conditional freshness and controller independence hold (B2), a sufficient
+condition that is not necessary.
 
 **Proposition U (finite-law universality of A; corollary of Main:482, Main:518, Main:566).** Every
 model, B, C or the quantum benchmark, whose records over a fixed finite adaptive menu and horizon
 have a well-defined joint law with all branch masses has an A-realization reproducing that joint
-law, including the outgoing carrier's law under the menu's continuations (exactly for a stated law
-by Main:482; to accuracy `ε` for quantum instrument families by Main:566). **No record-law test on
+law, including the outgoing carrier's law under the menu's continuations (exactly by Main:482 with
+Main:520's arbitrary-kernel form, quantum laws included; Main:566 gives one fixed map per instrument
+at accuracy `ε`). **No record-law test on
 a fixed finite menu separates C from A.** A separation exists only relative to a frozen constraint
 set `K` on the A side:
 
@@ -315,9 +331,9 @@ set `K` on the A side:
 `K = 3/2`): it refutes K5 only (the clumsiness loophole; Wilde–Mizel 2012).
 *Corollary U2.* Contextuality is reached by A: A-realizations of quantum record laws exist
 (Main:482, Main:566), and no preparation-noncontextual ontological model reproduces quantum
-statistics (Spekkens 2005), so on a menu containing a preparation-contextuality scenario these
-realizations are contextual. A contextuality witness refutes
-K4-models, not A.
+statistics (Spekkens 2005, §IV: six pure qubit states and five decompositions of the maximally
+mixed state), so on a menu containing that scenario these realizations are contextual. A
+contextuality witness refutes K4-models, not A.
 *Corollary U3 (literature, not load-bearing).* Bohm's 1952 completion (not read first-hand) is
 deterministic with records functions of configuration given the guiding wave; at the level of
 phenomenology, coherent recombination therefore does not require non-functional records, and the
@@ -327,9 +343,12 @@ cost there falls on P-set (amplitude-carrying ontic structure) and locality.
 
 C changes P-bij, P-obs or P-set (A2). Before C may be proposed:
 
-- **Q1 necessity.** A proof that no A-model satisfying a constraint set `K` that OI already holds
-  reproduces a benchmark joint law that a sourced experiment on the frozen interface produces.
-  Without it, C is a posit. OI holds K1 on its physical reading, K3 through the total-finiteness
+- **Q1 necessity.** A proof that no A-model satisfying a constraint set `K★` that OI already holds
+  reproduces an **external** benchmark law: a raw/direct laboratory record law (§A.24) or, as a
+  stated stand-in, the exact PC-Q law. The quantifier runs over every interface meeting `K★`, not
+  over a frozen `𝔐★`, which is itself an A-model on the native `φ` and reproduces its own law.
+  `K★` is frozen before any candidate law is derived, on paper or otherwise (§6, 0(iii) and 0(vi)).
+  Without such a proof, C is a posit. OI holds K1 on its physical reading, K3 through the total-finiteness
   posit (Main:62), and K6 where a budget is stated. It relinquishes the conjunction K2 in its adopted
   Bell option (Main:414), and it holds neither K4 (Main:566 clause (3) claims no Spekkens
   noncontextuality) nor K5 (its instruments are invasive, Main:486).
@@ -337,6 +356,14 @@ C changes P-bij, P-obs or P-set (A2). Before C may be proposed:
   the target, does not build in `p = 2`, and does not select a representation by its target (F2-1 and
   PC-1 screen item 4).
 - **Q3 hard to vary** (§7.3).
+
+*K3 and the classical-dimension obstruction.* For each fixed `N`, Main:560 gives a finite qubit
+experiment that no `N`-state model reproduces exactly. This is not Q1: the total-finiteness posit
+fixes no bound on `N`, so no single finite experiment excludes every finite `N`, and exact
+reproduction is not decided by finite-precision data. Q1 through K3 needs a stated bound on `N`. The
+obstruction binds C-models that keep P-set as well: a model whose outcome is drawn stochastically
+from a finite ontic state still factorizes as `B = ΞM` with `Ξ ∈ [0, 1]` (Main:560), so a
+stochastic-response C-model escapes it only by changing P-set.
 
 **C is not adopted.** On the inputs of §2, no necessity argument for C exists: by Prop. U every
 finite record law, contextual laws and (through ontic parameter dependence, Main:414)
@@ -352,9 +379,11 @@ not bear on C.
   standard incompleteness. A claim of non-functional access names the state it is relative to.
 - **AW-MR2 (NEW) constraint-relative discrimination.** By Prop. U, every verdict separating C from
   A is a statement about a named frozen `K`. A C-discrimination verdict without its `K` is void.
-- **AW-MR3 (NEW) interface-relative equivalence.** The #866 relation is the operational-equivalence
-  relation that generalized noncontextuality requires (Spekkens 2005; Schmid et al. 2021), extended
-  to adaptive sequential continuations with unnormalized branch masses. Contextuality witnesses are
+- **AW-MR3 (NEW) interface-relative equivalence.** Within the scope of the ACCEPT review
+  (6541615446), the #866 relation plays the role of the operational-equivalence relation that
+  generalized noncontextuality requires (Spekkens 2005, eq. (1): equality of statistics for every
+  possible measurement procedure), extended to adaptive sequential continuations with unnormalized
+  branch masses. Contextuality witnesses are
   therefore relative to `Acc`: enlarging the access (for example reading `L`) can dissolve or create
   equivalences (#912's access countercontrol; Mazurek et al. 2016 on inexact operational
   equivalences).
@@ -364,16 +393,19 @@ not bear on C.
   is proved, and `NonnegBounded` and simplex-embeddability (Schmid et al. 2021) are distinct
   classicality notions; neither is identified with the other here.
 - **AW-MR5 (ELABORATING) the native step is symplectic (proved on paper here).** For the native step
-  `φ(u_prev, u) = (u, Au − u_prev)` (PC★2a) over a commutative ring, with `A = a·Adj` and `Adj` the
-  adjacency matrix of a symmetric neighbour relation, `M = [[0, I], [−I, A]]` satisfies
-  `Mᵀ J M = [[0, I], [−I, A − Aᵀ]]` with `J = [[0, I], [−I, 0]]`, hence `Mᵀ J M = J` iff `A = Aᵀ`,
-  which holds. The native dynamics is therefore a linear symplectic map of a discrete phase space,
-  the dynamical class in which Catani et al. place their toy field theory (sets for kinematics,
-  bijective symplectic functions for dynamics), which reproduces Mach–Zehnder, which-way, eraser,
-  delayed-choice and bomb-tester phenomenology and is generalized-noncontextual. Whether the native
-  access implements an epistemic restriction is open and is not decided here (stage-1 obligation).
-  Consequence: phenomenology reproducible by that theory does not discriminate on this rule.
-- **AW-MR6 complementarity is not a witness** (§3.5).
+  `φ(u_prev, u) = (u, Au − u_prev)` (PC★2a) on `𝐑^{2Λ}`, `𝐑` an abelian value group and
+  `A = a·Adj` with `a` an integer and `Adj` the adjacency matrix of a symmetric neighbour relation,
+  the step acts by the integer matrix `M = [[0, I], [−I, A]]`, and as integer matrices
+  `Mᵀ J M = [[0, I], [−I, A − Aᵀ]]` with `J = [[0, I], [−I, 0]]`; hence `Mᵀ J M = J` iff `A = Aᵀ`,
+  which holds. Catani et al.'s toy field theory has set kinematics over the integers modulo 2 and
+  dynamics they stipulate to be local and deterministic, described in a footnote as symplectic
+  functions on a discrete phase space; it reproduces Mach–Zehnder, which-way, eraser, delayed-choice
+  and bomb-tester phenomenology and is generalized-noncontextual. The native step and that theory's
+  dynamics are both linear symplectic maps; no identification of the two theories is claimed.
+  Whether the native access implements an epistemic restriction is open (stage-1 obligation). An
+  epistemically restricted countercontrol is therefore natural on this rule (CC4).
+- **AW-MR6 a complementarity match is not a witness**; the duality relation enters only as a
+  certified T7 instance (§3.5).
 - **AW-MR7 (ELABORATING) settings in a closed deterministic substratum.** Settings are functions of
   the complete pre-setting state when the generators are internal (Main:408); the comb's actions are
   exogenous labels (Main:482); the gluing corollary's protocol is a program-register preparation
@@ -387,9 +419,9 @@ not bear on C.
 ### 5.1 One interface
 
 Every test runs on one RFI `𝔐★` frozen at stage 1, with each element of §3.1, a justification grade
-per element (derived, motivated or posited), and `K★ ⊆ {K1, …, K6}`, the constraint set of the A-side
-comparison class. `K★` must contain K1 for a W3 claim (§5.7). Changing any element of `𝔐★` or `K★`
-after an outcome voids the run (§6, 0(iii)).
+per element (derived, motivated or posited). `K★ ⊆ {K1, …, K6}`, the held constraint set used only by
+the primitive-proposal track (Q1, §4.4), is frozen at stage 1 before any candidate law is derived, on
+paper or otherwise. Changing any element of `𝔐★` or `K★` after an outcome voids the run (§6, 0(iii)).
 
 ### 5.2 The joint-law object
 
@@ -406,7 +438,9 @@ complete future accessible records and all declared accessible reference records
 all branches and masses retained, failures included; no success renormalization; hidden
 environmental correlations propagated through declared permitted interactions; a private
 mathematical inverse is not an allowed continuation without its native implementation; composability
-requires closure under continuation and branchwise equivalence of outgoing conditional preparations.
+requires closure under continuation and branchwise equivalence of outgoing conditional preparations;
+zero-probability histories are specified rather than conditioned on; finite-budget equivalence is not
+all-time equivalence.
 (#866 writes the interface as C; it is `Acc` here, since C names class (C) of §4.)
 Conventions (review 6541615446):
 
@@ -436,10 +470,11 @@ Without T0 no later test counts toward outcome (2).
   `D` as executed quantities on one preparation (§3.5). Consistency only.
 - **T2 repeat and sequence.** The RFI applied twice, then with an intervening different setting in
   both orders, each order executed by sourced setting changes; joint law of the records and of `Out`.
-- **T3 undo.** A policy in `Acc` returns marker and carrier. Pass: the post-undo preparation is
-  equivalent (§5.3) to the pre-marking preparation as a whole joint law, unconditionally and without
-  postselection, and T0's witness returns. A probabilistic undo reports its success mass and compares
-  the success branch conditionally.
+- **T3 undo.** A policy in `Acc` returns marker and carrier. The result is a sub-label, not a gate:
+  `unconditional` when the post-undo preparation is equivalent (§5.3) to the pre-marking preparation
+  as a whole joint law, without postselection, and T0's witness returns; `heralded-probabilistic`
+  when this holds on a heralded success branch, reported with its success mass (Koashi–Ueda; Katz et
+  al.); `none` otherwise.
 - **T4 eraser.** A conjugate readout of the marker; conditional fringes with full unnormalized branch
   masses that sum to the marked law. Consistency only: CC4 and CC5 reproduce erasers.
 - **T5 composition.** Two markers with independent sourced settings, in both orders; each stage
@@ -469,11 +504,20 @@ conditional preparations, and #912 equation (1) at each stage on the declared ad
 ### 5.7 Witnesses
 
 **Admitted for outcome (2):**
-- **W1** a violation of a T7 inequality with equivalences certified by §5.3 over `Acc`;
-- **W3** a T0–T6 joint law that no A-model in the frozen class `K★` (with K1) reproduces, by paper or
-  kernel proof, never by search over a finite sample;
-- **W2** a T6 Bell violation, reported with the premise it relinquishes; it does not establish W1 or
-  W3 outside that premise set.
+- **W1** a violation of a T7 inequality with equivalences certified by §5.3 over `Acc`; the
+  duality-relation inequality `V + D ≤ 1` (§3.5) is one admissible instance;
+- **W2** a T6 Bell violation, reported with the premise it relinquishes; it does not establish W1
+  outside that premise set.
+
+There is no law-level witness of the form "no A-model reproduces this law of `𝔐★`": `𝔐★` is itself an
+A-model on the native `φ` and reproduces its own law. A necessity argument is made only against an
+external benchmark law, in the primitive-proposal track (Q1, §4.4).
+
+**Nonclassical against contextual.** W1 alone places the law outside the noncontextual class, which
+A-models also leave (U2). A law is reported as nonclassical (token 2.4) only when W1 holds and every
+countercontrol CC1–CC7 is separated by its named test (§5.8). CC8 is excluded from that criterion: it
+reproduces any law of the menu by construction (Prop. U) and is separated only by not being the native
+`φ`, a fact recorded for the primitive-proposal track.
 
 **Not admitted, each alone:** a single fringe; one phase; a partial overlap of two distributions or of
 assigned detector states; an eraser fringe; a Leggett–Garg violation (U1); noncommutation (PC-1
@@ -496,19 +540,20 @@ generalized-noncontextual model for the §5.3 equivalences (for CC4, Catani et a
 
 | ID | Countercontrol | Reference behaviour | Separated from PC-Q by |
 |---|---|---|---|
-| CC1 | classical hidden memory: a non-invasive copy of the path on a classical wave or occupation model (PC★3 Q1 class); a static-ledger memory | no W1, no W3 | T1 against the complementarity relation; T7 |
-| CC2 | disturbance and contextuality: a Kochen–Specker-type deterministic model with disturbing readout, extended by a disturbing marker | may return W1 (U2); no W3 for a `K★` it satisfies | W3 with K1 or K3 in `K★`; T6 only if K2 ∈ `K★`, which OI does not hold; otherwise recorded as not separated, which is not a control failure |
-| CC3 | noncommuting classical permutations packaged by a controlled lift (N7) | no W1, no W3; T8 fails | T8 (no sourced setting change); T7 |
-| CC4 | an epistemically restricted classical field (Catani et al. 2023; Spekkens 2007) | no W1, no W3 | T7 only |
-| CC5 | a classical eraser: a phase variable keyed into the marker, with full branch masses | no W1, no W3 | T7; T4 bookkeeping |
+| CC1 | classical hidden memory: a non-invasive copy of the path on a classical wave or occupation model (PC★3 Q1 class); a static-ledger memory | no W1 | T1 against the complementarity relation; T7 |
+| CC2 | disturbance and contextuality: a Kochen–Specker-type deterministic model with disturbing readout, extended by a disturbing marker | may return W1 (U2) | a test named at stage 1 among T3, T5 and T6 (T6 under K2 is not available to OI, Main:414); if none separates it, the law can be at most `CONTEXTUAL` (§6), which is not a control failure |
+| CC3 | noncommuting classical permutations packaged by a controlled lift (N7) | no W1; T8 fails | T8 (no sourced setting change); T7 |
+| CC4 | an epistemically restricted classical field (Catani et al. 2023; Spekkens 2007) | no W1 | T1 + T7 (the duality relation, Catani, Leifer, Scala, Schmid, Spekkens 2023) |
+| CC5 | a classical eraser: a phase variable keyed into the marker, with full branch masses | no W1 | T7; T4 bookkeeping |
 | CC6 | a supplied, physically inaccessible inverse; a private decoder | `REPRESENTATION-ONLY` | T9 |
 | CC7 | classical dephasing with no record | (ii) with R1 failing | §3.5 |
-| CC8 | the per-law A-realization of PC-Q's law (Main:482, Main:566) | reproduces PC-Q's law; may return W1 | only through K1 in `K★`; if not separated, `K★` is vacuous for W3 and W3 is recorded unreachable, which is not a control failure |
+| CC8 | the per-law A-realization of PC-Q's law (Main:482, Main:566) | reproduces PC-Q's law; may return W1 | not separable at the level of the law (Prop. U); recorded as not native, for the primitive-proposal track; not a control failure |
 
 **Mutations, fixed at stage 1:** renormalize the success branch; drop a failure branch; replace the
 sourced dephasing by an inserted one; a single phase in place of composed phases; equivalence on the
 test menu in place of `Acc`; add a read of `L` to `Acc` after an outcome; an external setting switch; a
-private inverse; floating point in a decision path; `K★` emptied. Each must be caught by a named
+private inverse; floating point in a decision path; `K★` fixed after a candidate law is derived.
+Each must be caught by a named
 checkpoint.
 
 ***
@@ -522,9 +567,11 @@ carries its named obstruction. No row refers to an expected number.
 **Row 0, common to every axis: `VOID`** if any of: (i) a control, mutation or self-test returns other
 than its reference, including a countercontrol not separated where §5.8 requires; (ii) a freeze
 violation; (iii) `𝔐★`, `K★`, `(Obs, μ)`, `Acc`, an inequality or a deleted-interface definition
-chosen or changed after any outcome; (iv) floating point in a decision path; (v) a kernel predicate
-entering without its CI step conclusion and axiom check; (vi) a computation before the stage-1 freeze
-evaluating any candidate, control, physical or algebraic quantity, forbidden or unlogged; (vii) a
+chosen or changed after any outcome, or `K★` fixed after any candidate law has been derived, on paper
+or otherwise; (iv) floating point in a decision path; (v) a kernel predicate entering without its CI
+step conclusion and axiom check; (vi) a computation before the stage-1 freeze evaluating any
+candidate, control, physical or algebraic quantity, forbidden or unlogged, or a paper derivation of a
+candidate's law before `K★` and the battery definitions are frozen; (vii) a
 success renormalization or an omitted branch mass in a decision; (viii) a verdict read from log
 text.
 
@@ -544,19 +591,17 @@ text.
 |---|---|---|---|
 | 2.1 | `NOT-REACHED` | axis 1 is not 1.4 | axis-1 token |
 | 2.2 | `NO-PRIOR-COHERENCE` | T0 fails | the T0 element |
-| 2.3 | `CLASSICAL-REPRODUCED/<CC>` | the whole T0–T7 law of `𝔐★` is reproduced by an exhibited model in `K★` that is generalized-noncontextual for the §5.3 equivalences | the reproducing model |
-| 2.4 | `NONCLASSICAL/{W1, W3}[+W2]` | W1 or W3; T3 unconditional undo passes; T8 removes the witness when the responsible element is deleted | sub-label `BENCHMARK-MATCH` or `BENCHMARK-MISMATCH(test)` recorded, not affecting the token |
-| 2.5 | `CONSISTENT-ONLY` | T0 passes; T1–T6 consistent with PC-Q; no admitted witness decided | the witness not decided |
-| 2.6 | `UNDECIDED` | otherwise | what remains undecided |
+| 2.3 | `CLASSICAL-REPRODUCED/<CC>` | the whole T0–T7 law of `𝔐★` is reproduced by an exhibited model that is generalized-noncontextual for the §5.3 equivalences | the reproducing model |
+| 2.4 | `NONCLASSICAL/W1[+W2]` | W1 decided positive; every countercontrol CC1–CC7 separated by its named test (§5.8); T8 removes the witness when the responsible element is deleted | sub-labels: T3 undo (`unconditional`, `heralded-probabilistic`, `none`); `BENCHMARK-MATCH` or `BENCHMARK-MISMATCH(test)` |
+| 2.5 | `CONTEXTUAL/W1[+W2]` | W1 decided positive; T8 removes the witness when the responsible element is deleted; some countercontrol among CC1–CC7 not separated | mandatory sub-label naming each unseparated countercontrol (for example `CC2-unseparated`); the T3 and benchmark sub-labels as in 2.4 |
+| 2.6 | `CONSISTENT-ONLY` | T0 passes; T1–T6 consistent with PC-Q; no admitted witness decided positive | the witness not decided positive |
+| 2.7 | `UNDECIDED` | otherwise | what remains undecided |
 
-A law reproduced in `K★` by a contextual model (for example CC2) with W1 holding is
-`NONCLASSICAL/W1`, with W3 not claimed.
-
-**Axis 3 — instrument and composite compatibility** (evaluated only after 2.4).
+**Axis 3 — instrument and composite compatibility** (evaluated only after 1.4, independently of axis 2).
 
 | # | Token | Criterion |
 |---|---|---|
-| 3.1 | `NOT-REACHED` | axis 2 is not 2.4 |
+| 3.1 | `NOT-REACHED` | axis 1 is not 1.4 |
 | 3.2 | `FAIL` | #912 equation (1) fails at a named stage, record and admissible measure, or T6's composite fails with matched local operations |
 | 3.3 | `COMPATIBLE/{menu, horizon}` | equation (1), initialization and terminal-effect matching hold on the admissible cone at every stage; a composite boundary with matched local operations and complete joint records; converse access coverage audited for the menu |
 | 3.4 | `PARTIAL` | serial compatibility holds; composite or coverage open |
@@ -576,7 +621,7 @@ uniqueness claim. No axis-3 token moves row 12; a map `Θ` from `𝔐★` into t
 | P.4 | `PROPOSED-FOR-DECISION` | P.3 together with Q1 relative to a `K` that OI holds |
 
 No token adopts a premise. `GAP`, `FAIL` and `CLASSICAL-REPRODUCED` are scoped to the sources screened
-or to `𝔐★`, `K★` and `Acc`; none is promoted to a global no-go. If no physical candidate is sourced,
+or to `𝔐★` and `Acc`; none is promoted to a global no-go. If no physical candidate is sourced,
 `GAP` with its named element is the result.
 
 ***
@@ -591,7 +636,7 @@ or to `𝔐★`, `K★` and `Acc`; none is promoted to a global no-go. If no phy
   items; the freeze of one `𝔐★` or the `GAP` token; `K★`; `Acc`; `𝒯` and the sourced dephasing;
   the T7 inequalities; the T8 deleted interfaces; instantiations of CC1–CC8; the mutation list; the
   results schema; PC-Q's reference values derived in closed form on paper; the epistemic-restriction
-  question of AW-MR5 as a stated sub-question. **Void clause:** any computation before this
+  question of AW-MR5 as a stated sub-question; the first-hand readings §9 marks as owed. **Void clause:** any computation before this
   amendment's frozen, reviewed commit that evaluates a candidate, control, physical or algebraic
   quantity voids the unit (0(vi)); only the repository hygiene tools may run, and every run is logged.
 - **Stage 2 (separate owner gate).** Controls first (PC-Q, CC1–CC8, mutations, a decision-function
@@ -631,7 +676,8 @@ fit any T0–T7 law, or if its outcome law is defined from the quantum benchmark
 | access fixed before outcomes | `Acc` digest; mutation "read `L`"; 0(iii) |
 | setting changes sourced; free choice decided | T8 for `Z`; `μ`-independence field; CC3 |
 | inverses executed | T9; CC6 |
-| `K★` non-vacuous for W3 | CC8 separated through K1, or W3 recorded unreachable |
+| `K★` frozen before any candidate law is derived | stage-1 commit order; mutation "`K★` fixed after a candidate law"; 0(iii), 0(vi) |
+| nonclassical reserved for laws separating CC1–CC7 | per-countercontrol separation fields; token 2.4 against 2.5 in the self-test |
 | exact arithmetic | type assertions; mutation "float" |
 | verdict from structured data | schema-validated results file; 0(viii) |
 | deterministic replay | two runs byte-identical, sha256 recorded |
@@ -642,14 +688,15 @@ fit any T0–T7 law, or if its outcome law is defined from the quantum benchmark
 1. Authority and scope against #866 c. 6548283392, item by item; nothing outside it.
 2. Every on-`main` anchor at `D` and every provenance SHA and path in §2; the restated #866 relation
    against comment 6541293037 and conventions c1–c4 against 6541615446.
-3. Props. A1, A2, B2 and Lemma R as written; Prop. B1's adaptive-policy claim from Main:482's
-   context indexing; Prop. U's reliance on Main:482, Main:518 and Main:566 and its accuracy clause;
-   B2's stated direction and open converse (§A.34).
+3. Props. A1, A2, B2 and Lemma R as written; Prop. B1's adaptive-policy claim against Main:482's
+   context indexing and Main:558; Prop. U's reliance on Main:482, Main:520 and Main:566 and its
+   accuracy clause; B2 as sufficient and not necessary (§A.34); the K3 paragraph of §4.4 against
+   Main:560.
 4. AW-MR5's matrix identity, and that it is not read as the native access realizing an epistemic
    restriction.
 5. Each literature citation against the read-status column of §9; Corollaries U2 and U3 against what
    was read.
-6. The decision rule: totality and exclusivity per axis; that 2.3 and 2.4 cannot both apply; that no
+6. The decision rule: totality and exclusivity per axis; that 2.3 excludes 2.4 and 2.5; that no
    row references an expected number; that `GAP` and `FAIL` carry their scope.
 7. Register (§A.32–A.33 style) and the absence of local paths (SC-42 scan).
 
@@ -657,26 +704,28 @@ fit any T0–T7 law, or if its outcome law is defined from the quantum benchmark
 
 ## 9. Literature and read status
 
-"Abstract" means the abstract (and bibliographic record) was read; "text" means the cited passages
-of the full text were read. Items marked *not read first-hand* are cited from standard knowledge and
-are not load-bearing for any decision rule.
+"Abstract" means the abstract and bibliographic record were read; "text" means the named passages of
+the full text were read. "Load-bearing" marks a reference on which a definition, control or decision
+rule of this note depends. A load-bearing item read only as an abstract, or not read first-hand, is
+owed a first-hand reading in the stage-1 amendment before the element it supports is frozen.
 
-| Reference | Used for | Read |
-|---|---|---|
-| L. Catani, M. Leifer, D. Schmid, R. W. Spekkens, "Why interference phenomena do not capture the essence of quantum theory", *Quantum* 7, 1119 (2023), arXiv:2111.13727 | CC4; AW-MR5; T4 | text: toy field theory with set kinematics and bijective symplectic dynamics, epistemic restriction; reproduces Mach–Zehnder, which-way, eraser, delayed-choice, bomb tester; generalized-noncontextual; nonclassicality located in failures of generalized noncontextuality (state-discrimination tradeoffs, anomalous weak values); "cannot reproduce the full scope of quantum phenomenology" |
-| R. W. Spekkens, *Phys. Rev. A* 71, 052108 (2005) | K4; U2; AW-MR3 | abstract |
-| R. W. Spekkens, *Phys. Rev. A* 75, 032110 (2007) | CC4 | abstract (fails Bell violations and a Kochen–Specker theorem) |
-| M. D. Mazurek, M. F. Pusey, R. Kunjwal, K. J. Resch, R. W. Spekkens, *Nat. Commun.* 7, 11780 (2016) | T7 | abstract |
-| D. Schmid, J. Selby, E. Wolfe, R. Kunjwal, R. W. Spekkens, *PRX Quantum* 2, 010331 (2021) | AW-MR3, AW-MR4 | abstract |
-| D. Schmid, R. W. Spekkens, *Phys. Rev. X* 8, 011015 (2018); M. F. Pusey, *Phys. Rev. Lett.* 113, 200401 (2014) | T7 options | abstracts |
-| B.-G. Englert, *Phys. Rev. Lett.* 77, 2154 (1996) | §3.5 | abstract; the form `D² + V² ≤ 1` is standard, the pure-marker equality derived here |
-| M. O. Scully, B.-G. Englert, H. Walther, *Nature* 351, 111 (1991); M. O. Scully, K. Drühl, *Phys. Rev. A* 25, 2208 (1982) | §3.5; T4 | abstracts |
-| A. J. Leggett, A. Garg, *Phys. Rev. Lett.* 54, 857 (1985); M. M. Wilde, A. Mizel, *Found. Phys.* 42, 256 (2012) | K5; U1 | abstracts |
-| N. Katz et al., *Phys. Rev. Lett.* 101, 200401 (2008) | §3.4; T3 | abstract |
-| M. Koashi, M. Ueda, *Phys. Rev. Lett.* 82, 2598 (1999) | §3.4; T3 | not read first-hand |
-| W. H. Zurek, *Rev. Mod. Phys.* 75, 715 (2003) | R4; §3.5 | abstract; quantum Darwinism not read first-hand |
-| G. Chiribella, G. M. D'Ariano, P. Perinotti, *Phys. Rev. A* 84, 012311 (2011) | §4.4 (via Main:624) | abstract |
-| S. Kochen, E. P. Specker, *J. Math. Mech.* 17, 59 (1967) | CC2 | not read first-hand |
-| J. von Neumann, *Mathematische Grundlagen der Quantenmechanik* (1932) | §3.2 premeasurement | not read first-hand |
-| D. Bohm, *Phys. Rev.* 85, 166 (1952) | U3 | not read first-hand |
-| R. Landauer, *IBM J. Res. Dev.* 5, 183 (1961) | §3.3 (not used) | not read first-hand |
+| Reference | Used for | Load-bearing | Read |
+|---|---|---|---|
+| L. Catani, M. Leifer, D. Schmid, R. W. Spekkens, *Quantum* 7, 1119 (2023), arXiv:2111.13727 | CC4; AW-MR5; T4 | yes | text: toy field theory over the integers modulo 2, set kinematics, local deterministic dynamics (a footnote calls them symplectic), epistemic restriction; reproduces Mach–Zehnder, which-way, eraser, delayed-choice, bomb tester; generalized-noncontextual; "cannot reproduce the full scope of quantum phenomenology" |
+| L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, *Phys. Rev. A* 108, 022207 (2023), arXiv:2211.09850 | §3.5; W1; CC4 | yes | text: abstract, the main result (under the A21-symmetry condition noncontextuality implies `V + P ≤ 1`), Proposition V.1 as stated, the operational-equivalence condition and the tomographic-completeness caveat; the appendix proof was not checked |
+| R. W. Spekkens, *Phys. Rev. A* 71, 052108 (2005), arXiv:quant-ph/0406166 | K4; U2; AW-MR3 | yes | text: eq. (1) (operational equivalence over every measurement procedure), the definitions of preparation noncontextuality, §IV (preparation contextuality in 2D) |
+| M. D. Mazurek, M. F. Pusey, R. Kunjwal, K. J. Resch, R. W. Spekkens, *Nat. Commun.* 7, 11780 (2016) | T7 form | yes | abstract only; owed at stage 1 |
+| D. Schmid, R. W. Spekkens, *Phys. Rev. X* 8, 011015 (2018); M. F. Pusey, *Phys. Rev. Lett.* 113, 200401 (2014) | T7 options | if chosen at stage 1 | abstracts; owed at stage 1 if chosen |
+| S. Kochen, E. P. Specker, *J. Math. Mech.* 17, 59 (1967) | CC2 instance | at stage 1 | not read first-hand; owed at stage 1 |
+| D. Schmid, J. Selby, E. Wolfe, R. Kunjwal, R. W. Spekkens, *PRX Quantum* 2, 010331 (2021) | AW-MR4 (a non-identification) | no | abstract |
+| R. W. Spekkens, *Phys. Rev. A* 75, 032110 (2007) | CC4 alternative | no | abstract |
+| B.-G. Englert, *Phys. Rev. Lett.* 77, 2154 (1996) | §3.5 | no (the pure-marker equality is derived here) | abstract |
+| M. O. Scully, B.-G. Englert, H. Walther, *Nature* 351, 111 (1991); M. O. Scully, K. Drühl, *Phys. Rev. A* 25, 2208 (1982) | §3.5 examples; T4 | no | abstracts |
+| A. J. Leggett, A. Garg, *Phys. Rev. Lett.* 54, 857 (1985); M. M. Wilde, A. Mizel, *Found. Phys.* 42, 256 (2012) | K5; U1 | no (U1 rests on Main:486) | abstracts |
+| N. Katz et al., *Phys. Rev. Lett.* 101, 200401 (2008) | §3.4; T3 sub-label | no | abstract |
+| M. Koashi, M. Ueda, *Phys. Rev. Lett.* 82, 2598 (1999) | §3.4; T3 sub-label | no | not read first-hand |
+| W. H. Zurek, *Rev. Mod. Phys.* 75, 715 (2003) | R4; §3.5 example | no | abstract; quantum Darwinism not read first-hand |
+| G. Chiribella, G. M. D'Ariano, P. Perinotti, *Phys. Rev. A* 84, 012311 (2011) | §4.4 (via Main:624) | no | abstract |
+| J. von Neumann, *Mathematische Grundlagen der Quantenmechanik* (1932) | §3.2 premeasurement | no | not read first-hand |
+| D. Bohm, *Phys. Rev.* 85, 166 (1952) | U3 | no | not read first-hand |
+| R. Landauer, *IBM J. Res. Dev.* 5, 183 (1961) | §3.3 (not used) | no | not read first-hand |
