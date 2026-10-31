@@ -205,13 +205,15 @@ their values.
    - **LA-EQUAL** iff P1-P6b all hold. Under the hypotheses, the written
      proof then gives mu_0^k0 = mu_1^k0 exactly for every k0, k0=⊥
      included, so TV_win(k0)=0 and TV_acc(k0)=0 as exact Fractions.
-   - **LA-DIFFERENT** iff a precondition fails and the bounded witness
-     search (item 3) returns an exact witness: a k0, a set of accessible
-     coordinates and a value of them whose masses under mu_0^k0 and
-     mu_1^k0 differ. Since the TV of a projection of A(X) is at most
-     TV_acc(k0), this gives TV_acc(k0) > 0.
-   - **LA-UNDETERMINED** in every other case: a precondition fails and
-     the search returns no witness or is outside its bound. Failure of a
+   - **LA-DIFFERENT** iff P1 fails and the bounded witness search
+     (item 3) returns an exact witness: a k0 and a value of the reached
+     tail triple Y whose masses under mu_0^k0 and mu_1^k0 differ. Since
+     the TV of a projection of A(X) is at most TV_acc(k0), this gives
+     TV_acc(k0) > 0.
+   - **LA-UNDETERMINED** in every other case: P1 fails and the search
+     returns no witness or is outside its bound, or any of P2-P6b fails,
+     in which case no search is run. A P6b failure is in this case and is
+     not VOID. Failure of a
      sufficient condition is not a difference, and nothing is
      extrapolated. The output names the failing precondition, the first
      (cell, tick) at which it fails and the search outcome, and the test
@@ -223,20 +225,26 @@ their values.
      is the proof of LA-EQUAL, which also gives TV_win = 0. So the flag is
      false under LA-EQUAL and LA-DIFFERENT and unknown under
      LA-UNDETERMINED. CP-HIDDEN checks its computation on a small world.
-3. **Bounded witness search** (run only when a precondition fails). Let Y
-   be the accessible port triple at the first failing (cell, tick), and S
-   the original variables in its dependence set within the window. The
+3. **Bounded witness search** (run only when P1 fails). Let Y be the
+   raw triple of port p_i at the first tick t at which P1 fails for
+   f_i(t), which is a Tail coordinate. Let S be every original variable
+   in Y's backward cone within the window, members of D' included. The
    search runs only if S has at most six triples, and if the joint law of
-   S with (c, K0) is derived exactly from H-prior and the checked
-   geometry, in a written derivation with every input checked. It then
-   evaluates the native rule over all 8^|S| assignments and both values
-   of c, for each k0 class the derivation distinguishes. It computes the
-   law of Y under each c in Fractions. Unequal laws are a witness. Equal
-   laws, or a failed bound or derivation, give no witness. The procedure
+   S with (c, K0) is derived exactly from the original preparation law
+   and H-prior, as unnormalized masses at each k0, in a written
+   derivation with every input checked. It then evaluates the native rule
+   over all 8^|S| assignments and both values of c, for each k0 class the
+   derivation distinguishes, and computes the unnormalized law of Y under
+   each c, averaged over every variable of S, in Fractions. A difference
+   at a fixed value of a background variable is not a witness. Unequal
+   laws are a witness. Equal laws, or a failed bound or derivation, give
+   no witness. The procedure
    is asymmetric: LA-EQUAL is certified by proof over the whole window,
    and LA-DIFFERENT only by a local exact witness. A difference that needs
    more than six triples to exhibit, or appears only in the joint law of
-   several tail coordinates, is reported LA-UNDETERMINED.
+   several tail coordinates, is reported LA-UNDETERMINED. At actual scale a
+   tail port's backward cone is large, so the bound can be met only for a
+   local P1 failure; the result note states this.
 4. **Informativeness flag (always reported, decides no token):**
    EMPTY if Tail is independent of (eta, K0, K1, K2) given D', and
    INFORMATIVE otherwise. Under LA-EQUAL it is computed from the same
@@ -298,6 +306,10 @@ preparation.
   the accepted unit: TV 1 with R.B/D retained and TV 0 without.
 - **NULL.** Two identical branch laws must give TV exactly 0, and the
   bounded witness search on them must return no witness.
+- **SEARCH-COUNTER.** A fixture Y=c XOR d, with d a uniform background
+  variable, differs at every fixed d and is equal on average. The search
+  must return no witness. The same fixture with d omitted from S must be
+  rejected as an incomplete dependence set.
 - **SUPPORT.** On four frontier triples the tail support is 4096. Pinning
   one must reduce it to 512 and be detected, as in `history_v11` line 140.
 - **HIDDEN.** A fixture whose window laws differ only in K coordinates,
@@ -347,6 +359,8 @@ preparation.
 | Marginal comparator misses joint-only difference | CP-MARG: joint > 0, marginal = 0 |
 | R.B/D retained | CP-LEAK: TV 1 with R.B/D, 0 without |
 | Comparator and search not trivially positive | CP-NULL: TV = 0, no witness |
+| Search averages the whole backward cone | CP-SEARCH-COUNTER: no witness on Y=c XOR d; incomplete S rejected |
+| Search recorded | CP-SEARCH: the JSON records the trigger (failing f_i(t) or none), \|S\|, the derivation status and the outcome |
 | Frontier triples padded | CP-SUPPORT: 4096 -> 512 on pinning |
 | Hidden-only case reported | CP-HIDDEN: TV_win > 0, TV_acc = 0, hidden_only=true |
 | Informativeness flag can take both values | CP-INFO: EMPTY fixture and INFO-COUNTER |
@@ -357,27 +371,31 @@ preparation.
 | All branches retained, no renormalization | CP-BRANCH: 64 contexts, 16 at k0=⊥, masses summing to source-context masses |
 | Exact arithmetic only | CP-EXACT: every measured quantity is int or Fraction; a float anywhere is VOID |
 | Replay | CP-REPLAY: normal and `-O` structured outputs byte-identical to each other and to the committed expected JSON; controls use explicit checks, never `assert` |
-| Verdict over green controls only | CP-GATE: token generated from measurements after all controls. Exit 0 with the token (LA-EQUAL, LA-DIFFERENT or LA-UNDETERMINED) in the JSON; exit 2 VOID; exit 3 output differs from the committed expected JSON |
+| Verdict over green controls only | CP-GATE: token generated from measurements after all controls. Exit 0 with the token (LA-EQUAL, LA-DIFFERENT or LA-UNDETERMINED) in the JSON; exit 2 VOID; exit 3 output differs from the committed expected JSON. The first execution writes the expected JSON, and later replays compare against it |
 
 ## Mutation targets
 
-Each mutant must exit 2 with VOID naming its control, in both modes:
+Each mutant is a mutation of the probe's own code, not of the inputs: a
+mutated input geometry can legitimately fail a precondition and give
+LA-UNDETERMINED. Each mutant must exit 2 with VOID naming its control, in
+both modes:
 
-| Mutant | Control that catches it |
+| Mutant (code change) | Control that catches it |
 | --- | --- |
-| drop R.B/D from X | CP-LEAK |
-| replace the joint comparator by the marginal one | CP-MARG |
-| pin one frontier triple | CP-SUPPORT |
-| shift one ray onto the packet cone | CP-GEO-EXCL |
-| truncate the minimization to sampled ticks | CP-BREAKPOINT |
-| reverse the equal-time order | CP-ORDER-COUNTER |
-| substitute the non-bijective rule | CP-RULE, CP-PERM-A |
-| omit the terminal contexts | CP-BRANCH (count) |
-| renormalize branch masses | CP-BRANCH (mass sums) |
-| introduce a float | CP-EXACT |
-| expose an extra field without flagging an access change | CP-READSET |
-| let a stop rule read R.A | CP-STOP-COUNTER |
-| compute the token before the controls | CP-GATE |
+| the comparator drops R.B/D from X | CP-LEAK |
+| the joint comparator is replaced by the marginal one | CP-MARG |
+| the fixture builder pins one frontier triple | CP-SUPPORT |
+| the P2 test is weakened (`>=` for `>`, or record cells skipped) | CP-GEO-COUNTER |
+| the minimization samples ticks instead of breakpoints | CP-BREAKPOINT |
+| the P4 check accepts a reversed equal-time order | CP-ORDER-COUNTER |
+| the rule is replaced by the non-bijective rule | CP-RULE, CP-PERM-A |
+| terminal contexts are omitted | CP-BRANCH (count) |
+| branch masses are renormalized | CP-BRANCH (mass sums) |
+| a float enters a measured quantity | CP-EXACT |
+| an extra field is read without an access-change flag | CP-READSET |
+| the stop-rule domain check is removed | CP-STOP-COUNTER |
+| the search conditions on a fixed background value | CP-SEARCH-COUNTER |
+| the token is computed before the controls | CP-GATE |
 
 ## Execution, evidence and limits
 
