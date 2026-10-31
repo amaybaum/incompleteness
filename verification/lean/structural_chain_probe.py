@@ -11,8 +11,8 @@ C2 Theorem 2 (SM 4.2): (2 D_st)^2 = sum_mu (T_mu - T_mu^{-1})^2 EXACTLY (int64,
    d = 3, 4) — cross terms cancel; the box convention pinned constructively
    (box := -sum (T - T^{-1})^2); chirality {D, eps} = 0 exact; the harmonic dispersion
    cos w = (1/d) sum cos k exact.
-C3 Theorem 3 (SM 4.3): {D + m*eps + p0, eps} = 2m + 2 p0 eps exactly — center
-   independence of the diagonal of D_st iff exact chirality; (D + m*eps)^2 = D^2 + m^2.
+C3 Theorem 3 (SM 4.3): {D + m*eps + p0, eps} = 2m + 2 p0 eps exactly — vanishing
+   onsite terms (m = p0 = 0) iff exact chirality; (D + m*eps)^2 = D^2 + m^2.
 C4 GR detailed balance: on a connected level graph, detailed balance forces the Gibbs
    state (unique to 1e-10); a disconnected control has a per-component stationary family
    — connectedness is load-bearing.
@@ -133,8 +133,8 @@ Dc=D2+p02*np.eye(L**d,dtype=np.int64)
 anti_c=Dc@eps+eps@Dc
 assert np.array_equal(anti_c,2*p02*eps)
 assert np.array_equal(Dm@Dm,box_neg+m2*m2*np.eye(L**d,dtype=np.int64))
-print("C3 PASS: {D+mε+p₀, ε} = 2m·I + 2p₀·ε exactly — center-free in D_st ⟺ exact chirality; (D+mε)² = D²+m²")
-print("     (the 'squares to −¼(□−4m²)' claim pinned); the Remark's C=2(1−d) exclusion respected in the statement")
+print("C3 PASS: {D+mε+p₀, ε} = 2m·I + 2p₀·ε exactly — onsite terms m = p₀ = 0 ⟺ exact chirality; (D+mε)² = D²+m²")
+print("     (the mass-square identity, auxiliary); the Remark's C=2(1−d) exclusion respected in the statement")
 # ---------- C4 ----------
 nlev=9; om=rng.uniform(0,3,nlev); tau=0.7
 edges=[(i,i+1) for i in range(nlev-1)]+[(0,4),(2,7)]

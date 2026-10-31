@@ -2998,7 +2998,7 @@ for _t in ('What the substratum does determine is a path',
            'its reversibility a consequence of the factorization',
            'time-one map of a strongly continuous one-parameter group of isometric $*$-automorphisms of the quasilocal algebra',
            'run in the order the Heisenberg picture forces, the swap first',
-           'norm-continuous path of isometric $*$-automorphisms from the identity to the update\'s own Heisenberg action',
+           'strongly continuous path of isometric $*$-automorphisms from the identity to the update\'s own Heisenberg action',
            'For the composite path no one-parameter-group law is established and no generator is exhibited',
            'whether the path satisfies a one-parameter-group law, and whether one time-independent finite-range interaction has the update as its unit-time map, are open, and nothing here decides either',
            'A continuous-time Hamiltonian law is additional structure where that formulation is wanted',
@@ -3006,10 +3006,10 @@ for _t in ('What the substratum does determine is a path',
            '`layerQ_one_eq_heisQ`', '`swapQ_one_eq_heisQ`', '`heisQ_of_comp`',
            '`driveQ_isContinuousPath`', '`driveQ_one_eq_heisQ`', '`continuous_extension_not_unique`'):
     ok_ctn &= _t in _gct
-ok_ctn &= ('an exact norm-continuous path of local $*$-automorphisms of the quasilocal algebra from the '
+ok_ctn &= ('an exact strongly continuous path of $*$-automorphisms of the quasilocal algebra from the '
            'identity to the update\'s Heisenberg action, for which no one-parameter-group law is established '
            'and no generator is exhibited') in _ctn_files['papers/Main.md']
-_ctn_sum = ('while the update is joined to the identity by an exact norm-continuous path of local '
+_ctn_sum = ('while the update is joined to the identity by an exact strongly continuous path of '
             '$*$-automorphisms of that algebra, with no one-parameter-group law established and no generator exhibited, a '
             'continuous-time Hamiltonian law remains additional structure')
 for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
@@ -3041,7 +3041,7 @@ ok_ctn &= len(_ctn_fam) == 1 and _ctn_fam[0]['status'] == 'current' and len(_ctn
 ok_ctn &= '| continuous time (CT2) | 4 | current |' in open(_artifact('LEAN-MANUSCRIPT-CENSUS.md'), encoding='utf-8').read()
 check('R7-CTN', ok_ctn,
       'CT2 narration guard: GR 3.3 states the depth-two factorization, the two layer groups and the '
-      'norm-continuous path of isometric *-automorphisms from the identity to the update, as a path '
+      'strongly continuous path of isometric *-automorphisms from the identity to the update, as a path '
       'with no one-parameter-group law for the composite established, no generator exhibited and '
       'CT3 stated open, citing the '
       'SecondOrder modules; Main 2.3 and the quasilocal summaries in Main, the Explainer and both '
@@ -6655,17 +6655,35 @@ for _t in ('only the store clause', 'the write clause, the causal read leg and t
     ok_rch &= _t.lower() in ' '.join(_rh.split()).lower()
 # the preregistration is frozen and its amendment controls the horizon; execution claims nothing below it
 ok_rch &= 'RECURRENCE-TIGHTNESS-AUDIT.md' in _rhflat and 'RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md' in _rhflat
-# no manuscript carries the round
+# Main 2.3 states the rooted theorem at the level proved, with every hypothesis; no manuscript carries the
+# audit's vocabulary or a horizon below the return
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    for _bad in ('RecurrenceHorizon', 'RECURRENCE-TIGHTNESS', 'N_CR', 'horizon_verdict',
+    for _bad in ('RECURRENCE-TIGHTNESS', 'N_CR', 'horizon_verdict',
                  'c4r_of_identity_return_of_overlap', 'PIndivisibleWithin'):
         ok_rch &= _bad not in _t
+    # the module is cited from Main only
+    ok_rch &= _rel == 'papers/Main.md' or 'RecurrenceHorizon' not in _t
+_rh_main = [p for p in open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read().split('\n\n')
+            if p.startswith('**Theorem (overlap and return).**')]
+ok_rch &= len(_rh_main) == 1
+for _t in ('$\\varphi$ a bijection of', 'not required to have full support', 'whatever the root',
+           'for every $a \\in \\mathcal{C}_V$', 'If $\\Gamma_n = I$ for some $n$', 'for some $s < n$ two distinct roots',
+           '$\\Gamma_s(a, x) > 0$ and $\\Gamma_s(b, x) > 0$',
+           'not P-divisible on $\\{0, \\ldots, n\\}$'):
+    ok_rch &= bool(_rh_main) and _t in _rh_main[0]
 _rh_fam = [f for f in _ptr_reg['families']
            if f['name'] == 'recurrence horizon: an identity return with an earlier overlap forbids divisibility']
-ok_rch &= len(_rh_fam) == 1 and _rh_fam[0]['status'] == 'kernel-only' and _rh_fam[0]['modules'] == ['RecurrenceHorizon']
-ok_rch &= _rh_fam[0]['manuscript'] == []
+ok_rch &= len(_rh_fam) == 1 and _rh_fam[0]['status'] == 'current' and _rh_fam[0]['modules'] == ['RecurrenceHorizon']
+# the routed-readback paragraph carries the return-horizon scope and the open physical status
+_rr_main = [p for p in open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read().split('\n\n')
+            if p.startswith('*Routed readback.*')]
+ok_rch &= len(_rr_main) == 1
+for _t in ('not an accessible window', 'is not established'):
+    ok_rch &= bool(_rr_main) and _t in _rr_main[0]
+ok_rch &= ({a['anchor'] for a in _rh_fam[0]['manuscript'] if a['file'] == 'papers/Main.md'}
+           >= {'**Theorem (overlap and return).**', '`pIndivisible_of_rooted_identity_return_of_overlap`'})
 for _t in ('only the store clause', 'reused rather than reproved', 'no stochastic-inverse rigidity lemma is introduced',
            'not a redefinition', 'layer-independent', 'separate tightness question',
            'no accessibility claim is made for the horizon itself'):
@@ -6673,7 +6691,7 @@ for _t in ('only the store clause', 'reused rather than reproved', 'no stochasti
 for _bad in ('the architecture is refuted', 'OI supplies the', 'A6 is filled', 'minimal', 'non-Markovian',
              'before recurrence', 'accessible quantum'):
     ok_rch &= _bad not in _rh_fam[0]['note']
-ok_rch &= ('| recurrence horizon: an identity return with an earlier overlap forbids divisibility | 1 | kernel-only |'
+ok_rch &= ('| recurrence horizon: an identity return with an earlier overlap forbids divisibility | 1 | current |'
            in _cen_ps)
 for _t in ('`R7-RCH`', 'RECURRENCE-TIGHTNESS-AUDIT.md', 'RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md',
            'c4r_of_identity_return_of_overlap', 'pIndivisible_of_identity_return_of_overlap',
@@ -6700,8 +6718,10 @@ check('R7-RCH', ok_rch,
       'clause is consumed and the write clause and both read legs play no part -- and the abstract '
       'section is layer-independent; the preregistration and its controlling amendment are named '
       'in the module, and nothing is claimed for any horizon below the one proved, the tightness '
-      'question being neither answered nor prejudged and no accessibility claim made; no '
-      'manuscript carries the round; the registry and the census carry the family as kernel-only; '
+      'question being neither answered nor prejudged and no accessibility claim made; Main 2.3 '
+      'states the rooted theorem with every hypothesis, its routed-readback paragraph keeps the '
+      'return-horizon scope and the unestablished physical status, no manuscript carries the audit '
+      'vocabulary, and only Main names the module; the registry and the census carry the family as current with Main anchors; '
       'the README carries the paragraph and the counts.')
 
 
@@ -6894,22 +6914,38 @@ for _t in ('realize the requested prefix', 'free to depend on the horizon',
     ok_rcl &= _t.lower() in _rc_flat.lower()
 # the frozen preregistration and its amendment are named where the reconciliation lives
 ok_rcl &= 'OI-ROOTED-CLASSIFICATION-AUDIT.md' in _rd1
-# no manuscript carries the round
+# Main 3.4 states the classification for finite visible sets with the witness of each direction
+# beside it (AGENTS.md A.34) and narrows open item (a) to multi-time laws; no manuscript carries the
+# audit's predicate names
 for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
-    for _bad in ('RootedClassification', 'FiniteRootedRealizable', 'PPer', 'OI-ROOTED-CLASSIFICATION'):
+    for _bad in ('FiniteRootedRealizable', 'PPer', 'OI-ROOTED-CLASSIFICATION'):
         ok_rcl &= _bad not in _t
-# registry and census carry the family as kernel-only over all three modules
+    # the modules are cited from Main only
+    ok_rcl &= _rel == 'papers/Main.md' or 'RootedClassification' not in _t
+_rc_main = [p for p in open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read().split('\n\n')
+            if p.startswith('*Remark (consolidation).*')]
+ok_rcl &= len(_rc_main) == 1
+for _t in ('on a finite $\\mathcal{C}_V$', 'not required to have full support', 'if and only if $\\Gamma_0 = I$',
+           '`pper_of_finiteRootedRealizable` in `OIBridge/RootedClassification.lean` for the forward direction',
+           '`pper_has_responseRealization` in `OIBridge/RootedClassificationAllTime.lean` for the converse',
+           '`finiteRootedRealizable_iff_pper`',
+           '(a) exact all-time gluing for recurrent families of multi-time laws'):
+    ok_rcl &= bool(_rc_main) and _t in _rc_main[0]
+# registry and census carry the family as current over all three modules, anchored in Main
 _rc_fam = [f for f in _ptr_reg['families'] if f['name'].startswith('rooted classification:')]
-ok_rcl &= len(_rc_fam) == 1 and _rc_fam[0]['status'] == 'kernel-only'
-ok_rcl &= _rc_fam[0]['modules'] == list(_RC_MODS) and _rc_fam[0]['manuscript'] == []
+ok_rcl &= len(_rc_fam) == 1 and _rc_fam[0]['status'] == 'current'
+ok_rcl &= _rc_fam[0]['modules'] == list(_RC_MODS)
+ok_rcl &= ({a['anchor'] for a in _rc_fam[0]['manuscript'] if a['file'] == 'papers/Main.md'}
+           >= {'`finiteRootedRealizable_iff_pper`', '`pper_of_finiteRootedRealizable`',
+               '`pper_has_responseRealization`'})
 for _t in ('finite-visible only', 'rather than a reader', 'no full-support realization',
            'depend on it', 'no accessibility claim'):
     ok_rcl &= _t.lower() in _rc_fam[0]['note'].lower()
 for _bad in ('decidable', 'arbitrary visible', 'accessible', 'minimal'):
     ok_rcl &= _bad not in _rc_fam[0]['note'].lower()
-ok_rcl &= ('| rooted classification: the finite-visible intrinsic characterization of the realizable class | 3 | kernel-only |'
+ok_rcl &= ('| rooted classification: the finite-visible intrinsic characterization of the realizable class | 3 | current |'
            in _cen_ps)
 # the README carries the paragraph, the guard name, and the updated counts
 for _t in ('`R7-RCL`', 'finiteRootedRealizable_iff_pper', 'finiteRootedRealizable_of_realization',
@@ -6945,8 +6981,9 @@ check('R7-RCL', ok_rcl,
       'distinct named predicate and its carrier universe shown harmless rather than assumed so; '
       'the finite-visible restriction is pinned as stated text, not left to the typeclass; control '
       '13 is pinned as three separated statements with the horizon distinction carried in the '
-      'kernel; no manuscript carries the round; the registry and census carry the family as '
-      'kernel-only over all three modules and claim neither decidability nor accessibility nor a '
+      'kernel; Main 3.4 states the classification with the witness of each direction and narrows '
+      'open item (a) to multi-time laws, and only Main names the modules; the registry and census carry the family as current over '
+      'all three modules with Main anchors and claim neither decidability nor accessibility nor a '
       'wider universe; and the README carries the paragraph, the guard name and the counts.')
 
 
