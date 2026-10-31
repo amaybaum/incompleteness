@@ -1,0 +1,52 @@
+    1-    9    76w  overlap  0.00  # The Incompleteness of Observation
+   17-   32   234w  overlap  0.04  ## The Worst Prediction in Physics
+   33-   74  1108w  overlap  0.20  ## The Starting Point: Observation Exists
+   75-   96   647w  overlap  0.10  ## The Observer's Blind Spot
+   97-  123   505w  overlap  0.30  ## Partition-Relativity (§1.4)
+  124-  137   245w  overlap  0.03  ## Emergent Stochasticity and the Slow-Bath Regime (§§2.1–2.2)
+  138-  177   549w  overlap  0.13  ## The P-Indivisibility Theorem (§2.3)
+  178-  203   270w  overlap  0.11  ## The Accessible-Timescale Lemma (§2.3 continued)
+  204-  274   633w  overlap  0.11  ## The Coin-and-Die Model (§2.4)
+  275-  282   130w  overlap  0.01  ### Why conditions C2 and C3 matter physically
+  283-  308   793w  overlap  0.09  ## The Stochastic-Quantum Correspondence (§3.1 and Appendix A)
+  309-  338   338w  overlap  0.13  ## The Phase-Locking Lemma (§3.1 continued)
+  339-  350   452w  overlap  0.36  ## Bell Inequality Violations (§3.2)
+  351-  393  2675w  overlap  0.54  ## The Characterization Theorem (§3.3)
+  396-  405   119w  overlap  0.08  ### 4.1 The Partition
+  406-  413   113w  overlap  0.18  ### 4.2 Verification of the Conditions
+  414-  419    53w  overlap  0.24  ### 4.3 Application
+  420-  423    33w  overlap  0.07  ## Where Planck's Constant Comes From (§5)
+  424-  441   219w  overlap  0.34  ### The Classical Horizon Temperature (§5.1)
+  442-  485   728w  overlap  0.26  ### The Four-Step Derivation (§5.2)
+  486-  501   306w  overlap  0.11  ## Frequencies and the D-Gauge Question (§5.3)
+  504-  515   155w  overlap  0.13  ### What ε = 2√σ l_p means
+  516-  529   192w  overlap  0.26  ### The Bekenstein-Hawking Entropy — Where the 1/4 factor comes from
+  530-  535    67w  overlap  0.11  ### What self-consistency does not bound
+  536-  559   747w  overlap  0.16  ## The Two Levels
+  560-  577   672w  overlap  0.06  ## What Quantum Weirdness Looks Like From Here
+  578-  601  1849w  overlap  0.29  ## Predictions
+  602-  605    71w  overlap  0.10  ## Philosophical Lineage
+  606-  619   188w  overlap  0.05  ### The seven claims
+  620-  631  1048w  overlap  0.07  ### The Gödel connection
+  632-  637   157w  overlap  0.06  ### Closest ancestor: Nicholas of Cusa
+  638-  643   133w  overlap  0.05  ### Deepest ontological parallel: Spinoza
+  644-  655   262w  overlap  0.00  ### The recurring fault line: Claim 4
+  656-  663   170w  overlap  0.00  ### What's genuinely new
+  664-  707  1716w  overlap  0.14  ## Frequently Asked Questions
+  708-  717   238w  overlap  0.04  ## The Decompression Algorithm
+  718-  733   282w  overlap  0.05  ### Antimatter as algorithmic artifact
+  734-  753   587w  overlap  0.02  ### Nothing in quantum mechanics explains a fundamental phenomenon
+  754-  763   142w  overlap  0.02  ## What This Means
+  764-  781   547w  overlap  0.04  ## Corroboration: The Rigidity Test
+  782-  816  1178w  overlap  0.14  ## What Is the Lattice?
+  817-  870  1999w  overlap  0.10  ## Why These Particles?
+  871-  890   363w  overlap  0.18  ## The Full Picture
+  891-  894    13w  overlap  0.00  ## What Is (S, φ)?
+  895-  908   674w  overlap  0.18  ### Storage and memory
+  909-  924   378w  overlap  0.09  ### Computation from within
+  925-  938   596w  overlap  0.09  ### The arrow of time
+  939-  956   521w  overlap  0.17  ### The incompleteness family
+  957- 1000  1577w  overlap  0.08  ### Why does mathematics describe physics?
+ 1003- 1015   177w  overlap  0.02  ### Sections 1–2: What Each Piece Does
+ 1016- 1043   353w  overlap  0.04  ### Sections 3–6: The Logical Flow
+ 1044- 1065   601w  overlap  0.22  ## Appendix: Key Mathematical Subtleties

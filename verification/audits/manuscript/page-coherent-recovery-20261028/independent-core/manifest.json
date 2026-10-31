@@ -1,0 +1,36 @@
+{
+  "candidate": "bdcbd32bb55a5464d72b61682721f0b4bfaf446c",
+  "tree": "700fa72b23aaa37245d136804d0ad62bb5337a21",
+  "inputs": [
+    {
+      "path": "AGENTS.md",
+      "git_blob": "ca0d37ad1b4aa95b266bac3d4b27acab207eefe6",
+      "sha256": "4a41a4ab10e55772c5f0827b2e8c189cd896a783bfebd65a30d9d216aa41d500",
+      "bytes": 69332
+    },
+    {
+      "path": "verification/audits/manuscript/page-coherent-recovery-20261028/README.md",
+      "git_blob": "a1888fbbca258ca42252a1aa42ab44ba6050e882",
+      "sha256": "6e4c55375ce9609c8f8cd2371959de8c7dd0a0888faf388ff8ac9a0461719db9",
+      "bytes": 3694
+    },
+    {
+      "path": "verification/audits/manuscript/page-coherent-recovery-20261028/entropy-profile-proof.md",
+      "git_blob": "16bdf99ae069f2300a46dd91d037a7d073378baf",
+      "sha256": "ab4cf8740ba3b0b57c425c3afa3dd8c3b91a231fb51c9176066b496ba815b21f",
+      "bytes": 6874
+    },
+    {
+      "path": "verification/audits/manuscript/page-coherent-recovery-20261028/exact_controls.py",
+      "git_blob": "dc6c3483069428bf7f15d0a1fdf22d428b094a19",
+      "sha256": "3e3ae193fcd91b2bf092addc7e2285c9ee73a4468b18014c1cd812fa3bb1c4dd",
+      "bytes": 7191
+    },
+    {
+      "path": "verification/audits/manuscript/page-coherent-recovery-20261028/exact-results.json",
+      "git_blob": "908608aec3554876ae9757708eb3f04eddf4b74e",
+      "sha256": "7a59d97eed7a28403eb4bc012becbb1e42758746b869d706c70512611d305908",
+      "bytes": 1522
+    }
+  ]
+}

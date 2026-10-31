@@ -1,0 +1,12 @@
+{
+  "inputs": [
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/intro-r32-integration/papers/Introduction.pdf",
+      "sha256": "08658e5720b12955fd2712b150fbe3bef376f6601e80fe6bbbf97bce0b2adfe0"
+    },
+    {
+      "path": "/workspace/scratch/cb6cdacd02d4/intro-r32-integration/verification/audits/manuscript/introductory-paper-20261025/r32-integration/READER-QUESTIONS-r32-v2.md",
+      "sha256": "f275a7dca58059360834be6a4ca11b578b0a79403522d968cb28e8c5984e938d"
+    }
+  ]
+}

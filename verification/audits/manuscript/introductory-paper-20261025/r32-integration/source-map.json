@@ -1,0 +1,115 @@
+{
+  "schema": "oi-introduction-r32-source-map-v1",
+  "disposition": "candidate; independent integrated scientific/editorial/reader review and exact-head CI pending",
+  "source_base": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+  "historical_intro_head_preserved": "9dc2b06919423afeb2f11b9e859e40ec0c09fdfe",
+  "r32_drafting_checkpoint": "3887a09e8ba45b310e0c4ef8131d0cc8076b1057",
+  "source_units": [
+    {
+      "source": "021850d9fd3b483c5cd76f32655dbae71695b710",
+      "unit": "SC-36 / PR978",
+      "baseline": "0d917665d32287e5d0ce649012175f2c7bf75b09",
+      "reconciliation": "three-way line merge onto20ca; reviewed changes preserve later gauge-scope edits. GR A7 definite-D premise retained; no-instances A8/A9 retained; G11 identifier retained Open research target and excluded from counts; black-hole Tier1 comparison row removed; 4+7+8=19tiers and5C+2L=7gravity. SC37 branch not adopted as accepted.",
+      "source_paths": [
+        "book/README.md",
+        "book/The-Incompleteness-of-Observation-FULL.md",
+        "book/appendix-a-prediction-status.md",
+        "book/appendix-c-objections.md",
+        "book/ch07-gravity.md",
+        "book/ch08-juno.md",
+        "book/ch09-universality.md",
+        "book/ch17-bioinformatics.md",
+        "book/ch18-beyond.md",
+        "book/ch19-open-problems.md",
+        "book/glossary.md",
+        "book/preface.md",
+        "papers/GR.md"
+      ]
+    },
+    {
+      "source": "a2be1e4573662d1331f2560ea06c2d8ed10bcd73",
+      "unit": "book regress summary / PR992",
+      "reconciliation": "exact narrow source patch on20ca retained in chapter3 andFULL; no regress-termination claim."
+    },
+    {
+      "source": "4f962b61aca490cec326542be0cbaee201c82796",
+      "unit": "P24.5 set core",
+      "status": "accepted partial kernel theorem; not fullP24.5",
+      "scope": "nonempty-fibre constant-value equivalence; initial/current/current-hidden identification; swap/empty-word controls",
+      "excluded": "Bayesian-support derivation, passiveN-1 bound, unknown-model reconstruction, physicalstorage/interventions"
+    },
+    {
+      "source": "db658fd30512dcab66d7de86e1f4d1bbd9cd8bb0",
+      "unit": "actual return bridge",
+      "status": "accepted partial kernel theorem",
+      "scope": "given actual microscopic iterate return, actual common-prior rooted identity; composition with overlap",
+      "excluded": "finite-order existence, common-endpoint-history bridge, short-window witness; Main grade unchanged"
+    },
+    {
+      "source": "ce978ce5db4165dd1e618e9f44bb67281ac152df",
+      "unit": "finite entropy and reversible release",
+      "mathematical_checkpoints": [
+        "bdcbd32",
+        "2624d49"
+      ],
+      "status": "independently accepted written finite mathematics, exact controls; not Lean",
+      "scope": "same sampled coherent subspace, ensemble bound and definite-clock reversible releasewindow",
+      "excluded": "physicalPage theorem, coherent preparation mechanism, scrambling, energy conservation and permanent decoupling"
+    },
+    {
+      "source": "a958bc5479cb9728b2f374fcd2b4873b8cdecbf7",
+      "unit": "finite actual trajectory memory/C3",
+      "status": "independently accepted finite mathematics with exact-head Build+Release-gate success",
+      "scope": "actual one-step and finite-future-block trajectory CMI bounds; genuine supremum over all natural time/finite-horizon pairs",
+      "excluded": "literal infinite-tail identification; entire Main theorem promotion, physical memory-retention mechanism"
+    }
+  ],
+  "not_adopted": [
+    {
+      "unit": "SC37",
+      "reason": "no independently accepted live sourcehead established; preserve20calatergaugecorrections and mark provenancegap"
+    },
+    {
+      "unit": "full physicalT23/T24",
+      "reason": "separate active programmes, not Introductionprerequisites"
+    }
+  ],
+  "formal_blocks": {
+    "count": 6,
+    "comparison": "byte-identical to9dc2b069 usingtools/proof_census.py statement_text",
+    "ledger": "six inherited MIRROR entries added;GR A7fingerprint reaffirmed GAP; no proof-grade promotions"
+  },
+  "historical_reader_records": "all918Introduction audit records restored byte-for-byte; run7MET remains r31-only; prospective r32protocol separate; no freshreader verdict yet",
+  "publication": {
+    "commands": [
+      "sh ./build.sh Introduction GR",
+      "sh ./build.sh --book",
+      "sh ./build.sh Introduction"
+    ],
+    "pages": {
+      "Introduction": 24,
+      "GR": 90,
+      "book": 548
+    },
+    "glyph_drop_count": 0,
+    "source_and_output_hashes": {
+      "papers/Introduction.md": "a84ccb4257d58d90d8daa88547c7d47d2bd820d54bea76b083a0c481bd344176",
+      "papers/Introduction.tex": "22e54d78d870011309bfdf13c685de41695643cd632678f4343792caa1defe28",
+      "papers/Introduction.pdf": "ad559f3134473f045ef9ded503f27d2d10066afbe115e9aae37d13def4f74edc",
+      "papers/GR.md": "59a69f9f8da8f0faaf9f35771c2b71b8b157b20125dbd5df1402fe6188342128",
+      "papers/GR.tex": "bcd19345dc83dd7026c82fd07541ec4a0c713894e2b8d8ef7683d73f55411cda",
+      "papers/GR.pdf": "797e29453faada92248b82b56fc622f46eb6c09ae87e3dc6be185e4c5ea2cec6",
+      "book/The-Incompleteness-of-Observation-FULL.md": "472db1cfb9420b0f2f76989f9b03e5a5f067079d231e19099827133c5c9f7b2b",
+      "book/The-Incompleteness-of-Observation-FULL.tex": "25c7cc2cc40a5e1f1d4359e753f6c791a6f2341e78d39d186e0ad4f9d4fd50c5",
+      "book/The-Incompleteness-of-Observation-FULL.pdf": "0bd13db40c01043d44b45f8e4ece94db652c2d1c10dcdc261c02dbe8cf0ff597"
+    },
+    "visual_qa": "Final24pageIntroduction contact review and individualpages7/19 checked; priorunchangedrecord-fibrepage6,GR79,book229 checked; no clipping/overlap/droppednotation found."
+  },
+  "local_static_checks": {
+    "coverage": "PASS140canonical statements; sixIntroductionmirrors",
+    "lean_manuscript_census": "PASS231modules115families214citedidentifiers17supersessions",
+    "audit_census": "PASS",
+    "full_Lean_and_release_suite": "not run locally; normal researchPR CI required"
+  },
+  "authority": "local isolated reconciliation and normal checkpoint publication only; no main/PR merge, retarget, forcepush, native action, unit closure, or Explainer retirement"
+}
