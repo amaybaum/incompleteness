@@ -69,7 +69,8 @@ postulate, and no kernel-bypassing decision procedure; every named result prints
 
 Nothing here says Lemma 24.1 is repaired, nothing says the four generator families are complete
 or incomplete, and nothing says the manuscripts' route is restored: whether the reconstruction
-framework supplies the block-word trace data is round 24.1B, named and not begun.
+framework supplies the block-word trace data is round 24.1B, whose frozen control plane was never
+executed; it is taken up only by a new native round citing its freeze.
 -/
 
 namespace OIBridge
