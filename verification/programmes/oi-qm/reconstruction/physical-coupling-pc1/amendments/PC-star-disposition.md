@@ -35,6 +35,9 @@ is presented. The exception is a post-hoc governance decision, not a statement t
 preregistration was followed.
 
 No other deviation is waived. No protocol text, expectation or historical record is rewritten.
+SC-1 to SC-3 stay in the record permanently as supplementary, superseded evidence, not as proof of
+compliance. The original execution restriction stays in the record. This disposition is not
+permission to disregard any future preregistration.
 
 ## Consequences for stage 2
 
