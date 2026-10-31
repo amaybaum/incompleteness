@@ -1204,6 +1204,26 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Twenty-two Standard Model observables, seven gravitational-s..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The horizon and radiation entries inherit H-slope and the ho..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | G11 | Page curve | Nested trace-out, H-scramble (fails fro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 5 C + 2 L. Total: 7. G11, an..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Consistency relations.** Four gravitational-sector results..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | F1 | BEC analogue-gravity $\\mathcal{F}(r) = 2r - r^2$ (pro..."
     },
     {
@@ -1216,7 +1236,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Cumulative assessment.** The framework's empirical record ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Role of C2, C3, and observability.* The recovery above is g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content is unusual. It combines a substantia..."
     },
     {
       "ok": true,
@@ -1269,6 +1297,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The empirical signatures.** Finiteness has specific empiri..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *What the framework retrodicts.* Twenty-two classified Stand..."
     },
     {
       "ok": true,
@@ -1632,11 +1664,51 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: This chapter develops seven structural results. Section 7.2 ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content in the Bekenstein-Hawking sector ext..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The dispute between Hawking's calculation (thermal radiation..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The Page curve from cycle typicality.** The framework's de..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This conjectured correspondence — replica wormholes $\\leftri..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Both approaches require *something* to play the role of typi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The identification holds up to a convention-dependent numeri..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework shares the starting point of these results: th..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The gravitational sector combines unconditional partition-ge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Forward pointers.** Chapter 9 develops the framework's uni..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Chapters 5 through 8 developed twenty-two classified Standar..."
     },
     {
       "ok": true,
@@ -1652,6 +1724,22 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Deterministic bijection.* The substratum dynamics $\\varphi:..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Four universality-class entries tested against current empir..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Why the tier stratification matters.** The stratification ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The three tiers contain nineteen entries of unequal evidenti..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Where the framework extends DSW.** The framework's content..."
     },
     {
@@ -1661,6 +1749,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The BEC analogue-gravity setup of Chapter 15 is precisely a ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content across Chapters 5 through 8 establis..."
     },
     {
       "ok": true,
@@ -1956,6 +2048,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's reach across Chapters 13-17 — quantum biolog..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 18.2 develops the framework's *account* of the Born ..."
     },
     {
@@ -2009,6 +2105,18 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Bell's theorem and the chosen nonlocality.** Bell does not..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content on the quantum gravity problem exten..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The second component: the black hole information paradox.*..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: On the framework's reading, the non-renormalizability of per..."
     },
     {
       "ok": true,
@@ -2096,7 +2204,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: This section develops the framework's claimed resolutions, d..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's treatment has three components, developed as..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Framework status.** Observer-relative account. In the prop..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Framework status.** Information is conserved by the biject..."
     },
     {
       "ok": true,
@@ -2108,7 +2228,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | BH information paradox | Hawking vs unitarity | Not resolv..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Condensed matter and many-body physics.* The framework deri..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's epistemic position.** The cumulative recor..."
     },
     {
       "ok": true,
@@ -2149,6 +2277,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Operational gluing theorem.** The framework's finite-resol..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Page curve.** The time-dependence of black-hole entangleme..."
     },
     {
       "ok": true,
