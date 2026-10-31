@@ -63,7 +63,12 @@
     "https://arxiv.org/abs/1804.01394v1",
     "https://arxiv.org/abs/1005.2420v2",
     "https://arxiv.org/pdf/1512.09084"
-   ]
+   ],
+   "primary_reference": {
+    "citation": "T. C. Wallstrom, Phys. Rev. A 49, 1613 (1994)",
+    "flag": "cited from memory; not re-verified online"
+   },
+   "url_note": "the URLs listed are responses to Wallstrom's objection and secondary discussions, not the original paper"
   },
   {
    "id": "L2",
@@ -102,6 +107,8 @@
   }
  ],
  "structural_checks": {
+  "status": "run under the coordinator's brief, outside the letter of owner point 4 ('no Python test'); not candidate testing; superseded by paper proofs in PC★; not relied on.",
+  "scope_note": "1-D two-neighbour analogue (rings L=3,4); superseded by PC★ section PC★2a, proofs P-1 (bijectivity, explicit inverse), P-2 (additivity; commutation with neighbour-relation automorphisms, including SM sec 4.1's 3-D six-neighbour rule), P-3 (zero fixed), valid for every neighbour structure",
   "script_name": "pc1_stage1_structural.py",
   "run": "python3 -I pc1_stage1_structural.py (scratchpad, outside the repository)",
   "script_sha256": "dd4ea8ae36244775035a6809f7dc47a3506af17538da8f45baab60ed7024b9bd",
@@ -135,19 +142,22 @@
     "id": "SC-1",
     "what": "native wave rule (SM sec 4.1 form, alpha=1) on rings (L,q) in {(3,2),(3,4),(4,3)} is bijective and additive (f(s+g)=f(s)+f(g) for every state s and every generator g, hence a group homomorphism)",
     "result": "true for all three",
-    "use": "Q1 definability (native linear superposition); PC-star2 step 1"
+    "use": "Q1 definability (native linear superposition); PC-star2 step 1",
+    "status": "superseded by PC★ P-1, P-2; not relied on"
    },
    {
     "id": "SC-2",
     "what": "the same rule commutes with lattice translation",
     "result": "true for all three",
-    "use": "fork Obs leg: site readouts related by translation are one member under the inequivalence clause"
+    "use": "fork Obs leg: site readouts related by translation are one member under the inequivalence clause",
+    "status": "superseded by PC★ P-2; not relied on"
    },
    {
     "id": "SC-3",
     "what": "the same rule fixes the zero configuration",
     "result": "true for all three",
-    "use": "fork mu leg: invariance alone does not select (consistent with ensemble_underdetermined)"
+    "use": "fork mu leg: invariance alone does not select (consistent with ensemble_underdetermined)",
+    "status": "superseded by PC★ P-3; not relied on"
    }
   ]
  },
@@ -183,5 +193,6 @@
    "0(vi)": "no forbidden or unlogged computation"
   },
   "clause0_stage2": "not exercised; controls-only stage 2 not authorized"
- }
+ },
+ "computations_disclosure": "Only SC-1 to SC-3 were run (see structural_checks.status). No outcome quantity was computed. The fixes to PC★ after review ran no computation of any kind."
 }

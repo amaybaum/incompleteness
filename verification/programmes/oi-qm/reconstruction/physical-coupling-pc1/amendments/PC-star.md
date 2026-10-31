@@ -17,9 +17,17 @@ authorizes no stage-2 work.
 `stage1-log.json`. Both files are under `amendments/`, following the round layout of §A.36.
 
 **What was computed.** No outcome quantity (`R`, `R†`, `P`, `P₁`, `N`, `O`, `Gauge`, a §7 value or a
-§8 value) was computed on any candidate. The computations run during selection were structural
-only. They are listed, with source and output, in `stage1-log.json`. Section references without a
-prefix are to the preregistration.
+§8 value) was computed on any candidate.
+
+**Disclosure.** Three structural Python checks, SC-1 to SC-3, were run during selection under the
+coordinator's brief. They concern the native wave rule only. The owner's point 4 excludes any
+"Python test" before the `PC★` freeze, so these runs are outside the letter of that point. They
+are not candidate testing and computed no outcome quantity. They were a 1-D two-neighbour
+analogue, and they are superseded by the paper proofs P-1 to P-3 (§PC★2a), which cover every
+neighbour structure, including SM §4.1's three-dimensional six-neighbour rule. Nothing in this
+amendment relies on them. They stay in `stage1-log.json` as provenance, marked as superseded.
+
+Section references without a prefix are to the preregistration.
 
 ***
 
@@ -53,7 +61,7 @@ any theory.
    an external switch"). Every native update in the sources is a bijection of a classical
    configuration set:
    - the finite substratum (Main §1);
-   - SM §4.1's wave rule over `ℤ/q`, checked bijective and additive in the log (SC-1);
+   - SM §4.1's wave rule over `ℤ/q`, bijective and additive by P-1 and P-2 (§PC★2a);
    - its profinite and torus completions in SUBSTATE-1 and SUBSTATE-2.
 
    A joint process `g ∈ Proc` is therefore a measurable bijection of the joint configuration space
@@ -68,11 +76,14 @@ any theory.
    functions on it, not physically executed readouts (A★3 on Θ-F and Θ-D; AW1).
 4. **Premise (iii) is the only remaining freedom.** The operator that a joint bijection induces on
    register-measurable functions is the compressed Koopman operator `f ↦ E[f ∘ g | 𝓡]`, a positive
-   unital Markov operator (A★2 step 2). Any other assignment is a function of the baseline image.
-   For example:
+   unital Markov operator (A★2 step 2). Any other assignment is a function of the joint data,
+   computed rather than executed. The joint data are the baseline image, the full joint Koopman
+   operator, or the multi-time record law. For example:
    - the polar factor (N7, control C13);
    - the generator `i log` (N4);
-   - an eigenbasis rewriting (Θ-F, 't Hooft, Elze; §PC★3).
+   - an eigenbasis rewriting (Θ-F, 't Hooft, Elze; §PC★3);
+   - a unitary dilation of the multi-time record law: the fixed-basis representation `Q_fb`, and
+     Q8's dilation.
 
    Screen item 11 admits such a function only with an executing process. An executing process is
    itself a joint process `g' ∈ Proc`, whose physically induced operator is again a compressed
@@ -84,6 +95,32 @@ configuration space and whose records are functions of the configuration. That i
 native coupling in the sources screened (§PC★3). It is not a theorem about F2 extensions that posit
 non-classical sub-state structure or non-function records. Those break premise (i) or (ii) by
 posit, and are what G★ item 3's first two branches describe.
+
+## PC★2a. Paper proofs P-1 to P-3 (superseding SC-1 to SC-3)
+
+**Setting.**
+- `Λ` is any finite site set with any neighbour relation `∼`. Examples are the ring with two
+  neighbours, and SM §4.1's `(ℤ/L)³` with six nearest neighbours.
+- `𝐑` is the value group: `ℤ/q`, `ℤ_p` or `ℝ/ℤ`, and in general any abelian group, with an
+  integer coefficient `a`.
+- `A : 𝐑^Λ → 𝐑^Λ` is the neighbour sum, `(A u)_i = a · Σ_{j∼i} u_j`. It is a group endomorphism.
+- The native step is `φ(u_prev, u) = (u, A u − u_prev)`.
+
+**P-1, bijectivity.** Let `ψ(x, y) = (A x − y, x)`. Then
+- `ψ(φ(u_prev, u)) = (A u − (A u − u_prev), u) = (u_prev, u)`;
+- `φ(ψ(x, y)) = (x, A x − (A x − y)) = (x, y)`.
+
+So `φ` is a bijection with inverse `ψ`. This uses no property of `A`: it holds for every
+coefficient and every neighbour structure. On `ℤ_p` and `ℝ/ℤ`, `φ` and `ψ` are continuous, so `φ`
+is a homeomorphism.
+
+**P-2, additivity and translation.** `φ` is built from a projection, the endomorphism `A` and
+negation, so `φ(s + t) = φ(s) + φ(t)`. Let `τ` be an automorphism of the neighbour relation
+(`j ∼ i ⇔ τj ∼ τi`), acting by `(τu)_i = u_{τ⁻¹i}`. Then
+`(A τu)_i = a Σ_{j∼i} u_{τ⁻¹j} = a Σ_{k∼τ⁻¹i} u_k = (τ A u)_i`, so `Aτ = τA`, and `φ` commutes with
+`τ × τ`. Every lattice translation of `(ℤ/L)^d`, with nearest neighbours, is such an automorphism.
+
+**P-3, the zero configuration.** By additivity, `A 0 = 0`, so `φ(0, 0) = (0, 0)`.
 
 ## PC★3. Per-candidate screen record
 
@@ -103,7 +140,7 @@ G★ item 3 branch and the transplant requirement. The justification grades are 
 
 | ID | Candidate and source | A★2 premise it would break | Screen | Justification | Verdict |
 |---|---|---|---|---|---|
-| Q1 | **Native linear-superposition interferometer.** SM §4.1's rule over `ℤ/q` is additive (SC-1). Two packets with a relative delay are recombined, and an indicator detector reads a site | none: the carrier is classical, the readout is an indicator, and the operator is the baseline | passes items 1, 2, 4–7, 9 and 11; item 8 open (no native setting source on record, #866) | derived (it is the native rule) | **not admissible**: it supplies no G★ item 3 source. The "phase" is a configuration difference: both arms are physically occupied, and a which-arm record is a copy that leaves the configuration unchanged. It belongs to the classical-memory class of C2, not to the candidate class |
+| Q1 | **Native linear-superposition interferometer.** SM §4.1's rule over `ℤ/q` is additive (P-2). Two packets with a relative delay are recombined, and an indicator detector reads a site | none: the carrier is classical, the readout is an indicator, and the operator is the baseline | passes items 1–7 (item 3: the detector writes an indicator record, with no private decoder), 9, 11 and 12; item 8 open (no native setting source on record, #866); item 10 not reached (no fork frozen, since Q1 fails §3's difference requirement first) | derived (it is the native rule) | **not admissible**: it supplies no G★ item 3 source. The "phase" is a configuration difference: both arms are physically occupied, and a which-arm record is a copy that leaves the configuration unchanged. It belongs to the classical-memory class of C2, not to the candidate class |
 | Q2 | **Relative timing as phase.** Alternatives tagged by an `N`-periodic native orbit; phase = clock offset; indicator record | none, unless the characters of `ℤ/N` are read, which needs character projectors | if characters: fails 2 (declared) and 4 (phase estimation, AW2); otherwise baseline. Choosing `N` with `4 ∣ N` fails 6 | motivated | rejected; it is AW1 restated |
 | Q3 | **Torus sub-states** (SUBSTATE-1 real type, `(ℝ/ℤ)^{2L}`, Haar) with an angle-recording coupling | none: a recorded angle is a function, so the readout is an indicator; torus characters are representational | fails 2 for character readouts | motivated | rejected (the Θ-F/N1 class) |
 | Q4 | **Classical field interference with energy readout** (the stable observer-level real lift `α ≤ 1/d`; intensity detection) | (ii) only by identifying the register with the mode-amplitude space | fails 2: that identification is a declared embedding (N1, N8). With a configuration register, the detector reads a function of the field, which is an indicator, and the induced operator is Markov. Intensity frequencies need a hidden-threshold measure chosen for the purpose (item 6; AW3 risk). Not native: `φ → L_obs` is unproved (`papers/SM.md:232`), the `ℤ/q` rule has no positive energy form, and `α = 1` is unstable over `ℝ` (`:230`) | posited | rejected. This is the closest physical mechanism: it gives phase-sensitive *statistics*, not register-level *availability* (§7's Kochen–Specker lesson) |
@@ -137,8 +174,10 @@ bijection with set-valued records. In A★2's terms:
   cannot be broken by any coupling within the scope stated there.
 - **Premise (i), classical sub-states, is broken only by posits.** Each posit screened either fails
   item 4 (Q5, N9's amplitude completion, Q6) or is a gauge re-description (D1).
-- **Premise (iii), the induced operator, is broken only by functions of the baseline image with no
-  executing process** (N4, N7, Q7), or by chosen dilations (Q8, N6).
+- **Premise (iii), the induced operator, is broken only by functions of the joint data, computed
+  rather than executed.** The joint data are the baseline image, the full joint Koopman operator,
+  or the multi-time record law. These functions include N4, N7, Q7, and the chosen dilations of Q8
+  and N6. None has an executing process.
 
 **What a future candidate needs.** It must break premise (i) or (ii) by a stated F2 principle with a
 physical justification:
@@ -171,12 +210,12 @@ stated for that class only.
 - **The `(Obs, μ)` fork:** not invoked, since no candidate exists, and no pair was chosen. For any
   future candidate on the native carrier, the following structural facts are recorded:
   - **Obs leg.** The read-write structure privileges no locus (`readWriteFamily_exists`,
-    `StochasticInterface.lean:156`). The native rule commutes with lattice translation (SC-2), so
+    `StochasticInterface.lean:156`). The native rule commutes with lattice translation (P-2), so
     under §4's inequivalence clause, site readouts related by a translation count as one member.
     An invariance leg on `Obs` therefore needs readouts inequivalent under translation and under
     reversible processes in `Proc` (for example `Obs ∘ φᵏ`), or else a uniqueness argument under
     selection.
-  - **μ leg.** The rule fixes the zero configuration (SC-3), so invariance alone does not select
+  - **μ leg.** The rule fixes the zero configuration (P-3), so invariance alone does not select
     `μ` (`ensemble_underdetermined`, `:118`). On the profinite and torus completions, Haar measure
     is the natural candidate, and uniqueness under a stated group would be a selection argument
     owed at that candidate's stage 1.
