@@ -9,7 +9,7 @@
   "native_deeper_digit_can_change_low_bit": false,
   "non_native_positive_control": "fixed bit1-to-bit0 reversible source-site kick",
   "quantum_operational_completion_derived": false,
-  "reference": "actual six-neighbor cubic two-slice integer-coefficient OI wave equation",
+  "reference": "alpha=1 reference rule: six-neighbor cubic two-slice integer-coefficient wave equation of wave_eqn.c; substratum coefficient open",
   "sites": 27,
   "stages": [
     {

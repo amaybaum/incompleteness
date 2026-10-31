@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """NATIVE-PADIC-1: exact modular reduction controls for the OI cubic wave.
 
-Research-only finite regression on the *actual* integer-coefficient
-two-slice wave formula; not exhaustive over microscopic configurations.
+Research-only finite regression on the alpha=1 reference rule (wave_eqn.c),
+the integer-coefficient two-slice wave formula; the substratum coefficient
+is open (SM 4.1). Not exhaustive over microscopic configurations.
 The general all-state reduction theorem is a separate algebraic proof.
 No continuous quantum, nonabelian gauge or physical scale coupling.
 """
@@ -146,7 +147,7 @@ def run():
                        "native_reversible":True})
     require(len(stages)==6,"all stages")
     return {"status":"PASS_NATIVE_CONGRUENCE_NO_BACKFLOW",
-            "reference":"actual six-neighbor cubic two-slice integer-coefficient OI wave equation",
+            "reference":"alpha=1 reference rule: six-neighbor cubic two-slice integer-coefficient wave equation of wave_eqn.c; substratum coefficient open",
             "dimension":3,"lattice_side":L,"sites":N,"controls":checks,
             "stages":stages,
             "all_state_theorem":"integer coefficients commute with ring reductions modulo 2^m; induction for all times",

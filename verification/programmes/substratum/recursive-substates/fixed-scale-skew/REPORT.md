@@ -1,6 +1,6 @@
 # FIXED-SCALE-1 — one reversible hierarchy, indefinitely deep access, classical memory
 
-**Research author result; written infinite-model proof and exact finite enumerations, pending independent mathematical review.** Related to SUBSTATE-2 issue #1010 and draft PR #1011. The test conditions were committed first in \`PREREGISTRATION.md\`. No native OI source, QM instrument, YM action or physical scale prediction is claimed.
+**Research author result; written infinite-model proof and exact finite enumerations, pending independent mathematical review.** Related to SUBSTATE-2 issue #1010 and draft PR #1011. The test conditions were committed first in `PREREGISTRATION.md`. No native OI source, QM instrument, YM action or physical scale prediction is claimed.
 
 ## Mathematical result
 
@@ -110,7 +110,7 @@ original preregistered or physically predicted quantum effect.
 
 For each \(n=3,\ldots,9\), replace the bi-infinite tape by a cyclic n-bit tape, leaving the update rule, the a/r variables, and the observer unchanged. The full state has \(2^{n+2}\) configurations; the largest test exhausts **2,048**.
 
-The committed exact rational \`fixed_scale_probe.py\` verifies for every n:
+The committed exact rational `fixed_scale_probe.py` verifies for every n:
 
 - Both skew and no-r variants are bijections with explicit two-way inverse.
 - Under uniform counting measure, all **32 supported three-time words** have exact probability \(1/32\), and the CMI ratio is exactly one bit (versus zero without r).
@@ -119,12 +119,14 @@ The committed exact rational \`fixed_scale_probe.py\` verifies for every n:
 - A tape bit initially at any predeclared depth \(1\le m<n\) first changes the visible tape bit at time m, and changes the a-bit at time \(m+1\), with exactly the same rule at every level.
 - The no-feedback variant has a deterministic one-step visible a update and no three-time conditional memory.
 
-The source \`fixed_scale_probe.py\` has **no Python assert statements**: each check uses an explicit error-raising function and remains active with optimization. Both \`python3 -I -B\` and \`python3 -I -B -O\` were executed locally and produced byte-identical \`RESULTS.json\`. The immutable source and expected-results SHA-256 are pinned by \`replay.py\`.
+The source `fixed_scale_probe.py` has **no Python assert statements**: each check uses an explicit error-raising function and remains active with optimization. Both `python3 -I -B` and `python3 -I -B -O` were executed locally and produced byte-identical `RESULTS.json`. The immutable source and expected-results SHA-256 are pinned by `replay.py`.
 
 Command from repository root:
-\`\`\`sh
+
+```sh
 python3 -I -B verification/programmes/substratum/recursive-substates/fixed-scale-skew/replay.py
-\`\`\`
+```
+
 This is an exact finite computation, **not** Lean certification of the infinite probabilistic theorem.
 
 ## Scientific boundary and next source gate

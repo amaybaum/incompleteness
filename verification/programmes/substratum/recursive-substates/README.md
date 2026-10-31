@@ -1,6 +1,6 @@
 # SUBSTATE-2 — recursive inverse-limit sub-states, exact controls
 
-**Status: active research-only hypothesis and preregistration, issue #1010.** Based on \`main\` at \`f6989a27815c4d715223eebf2859422c1231e3f8\`; **not** a statement that physical OI contains fractal internal states. Separate from SUBSTATE-1 (#1007 / draft PR #1009) and the Yang–Mills/QCD bridge (#1003). No manuscripts, physical premises, Lean certificates or theorem classifications are changed by this note.
+**Status: active research-only hypothesis and preregistration, issue #1010.** Based on `main` at `f6989a27815c4d715223eebf2859422c1231e3f8`; **not** a statement that physical OI contains fractal internal states. Separate from SUBSTATE-1 (#1007 / draft PR #1009) and the Yang–Mills/QCD bridge (#1003). No manuscripts, physical premises, Lean certificates or theorem classifications are changed by this note.
 
 ## Hypothesis
 
@@ -47,7 +47,7 @@ A minimal new Lean module may certify (i) finite-family maximum-depth aggregatio
 
 ## Native sourcing and scope
 
-The real OI cubic wave carrier and observer-access constraints are not modified here. SUBSTATE-1 rejected one pure site-gradient link candidate and showed a separately invented gauge-pointer toy can be reversible and covariant without supplying quantum mechanics. SUBSTATE-2 tests a different *structure hypothesis*. It does not import those unreviewed constructions as axioms or copy their physics claims.
+The real OI cubic wave carrier and observer-access constraints are not modified here. SUBSTATE-1 rejected one pure site-gradient link candidate and showed a separately invented gauge-pointer toy can be reversible and covariant without supplying quantum mechanics. SUBSTATE-2 tests a different *structure hypothesis*. SUBSTATE-1 Track A has been independently accepted; SUBSTATE-2 still does not import those constructions as axioms or copy their physics claims (see also #1007 comment 6529586144 for a parallel consistency note).
 
 **Verdicts to record:** A is a negative control, B1 a positive finite-depth memory control, B2 a positive all-depth-over-time/no-common-return control, C a gauge-kinematic but action/operational negative control. All require independent review before moving from research to manuscripts. No merge or special CI launch is authorized.
 
@@ -55,19 +55,20 @@ The real OI cubic wave carrier and observer-access constraints are not modified 
 ## Executed exact controls and replay
 
 The preregistered finite controls were executed locally on the **same
-source bytes** as committed in \`recursive_controls.py\`, and both
-ordinary Python and \`-O\` runs reproduced the committed
-\`RESULTS.json\` byte-for-byte. The separate \`replay.py\` enforces
+source bytes** as committed in `recursive_controls.py`, and both
+ordinary Python and `-O` runs reproduced the committed
+`RESULTS.json` byte-for-byte. The separate `replay.py` enforces
 these checks, validates the structured result labels, checks that
 no quantum/Yang–Mills/physical-fractal claim is being asserted, and
-fails if stderr, exit status or expected bytes differ.
+fails if stderr, exit status, expected bytes or the pinned
+source/result SHA-256 differ.
 
 From the repository root:
 
     python3 -I -B verification/programmes/substratum/recursive-substates/replay.py
 
-Source SHA-256: \`a81c8622263e52d864b85ca0363d65eb3ff8b305933972eb819f59ac99086144\`.
-Results SHA-256: \`8b949aa7cbd688f7c41fa079f761424afea98700e387db42c2b15320174e2b64\`.
+Source SHA-256: `6beb25044fc6966a954adc186d1a136f42fedd78c938c2683983316b886af666`.
+Results SHA-256: `8b949aa7cbd688f7c41fa079f761424afea98700e387db42c2b15320174e2b64`.
 
 **Finite checks completed:**
 - A: all quotient states at depths 1–9.
@@ -75,15 +76,15 @@ Results SHA-256: \`8b949aa7cbd688f7c41fa079f761424afea98700e387db42c2b15320174e2
 - B2: complete cyclic-shift state spaces for cycle lengths 3–9 and uniform finite words before return.
 - C: exact complete four-link configurations at levels 1–4, including 65,536 states at level 4, with four local gauge-generator checks, inverse, reduction and uniform holonomy; separate rational quarter-turn Wilson-vs-squared controls.
 
-**Formal status:** \`OIBridge.RecursiveFiniteFactor\` is an explicitly
+**Formal status:** `OIBridge.RecursiveFiniteFactor` is an explicitly
 *conditional* Lean theorem candidate, imported into the pinned
-Mathlib bridge and classified \`kernel-only\` in the manuscript
+Mathlib bridge and classified `kernel-only` in the manuscript
 census. It proves finite-horizon/max-depth assembly and periodic
 extension given finite-stage hypotheses, plus a reversible
-hidden-controlled Boolean flip. An exact-head CI build and axiom
-report have **not yet been confirmed**. The separate compactness
+hidden-controlled Boolean flip. The module builds and its axiom
+report passes in CI. The separate compactness
 lemma that continuous finite readouts factor through a finite
-stage is a paper-level argument only (see \`ANALYSIS.md\`).
+stage is a paper-level argument only (see `ANALYSIS.md`).
 
 These controls neither select a unique physical recursive coupling
 nor derive quantum instruments, a continuous nonabelian gauge
@@ -166,15 +167,19 @@ observable. No manuscript or main-branch upgrade is allowed.
 ## NATIVE-PADIC-1: unchanged cubic wave cannot access deeper low digits
 
 [Source test and exact proof](native-padic-bridge/REPORT.md) compares
-the existing 3-D integer-coefficient OI two-slice wave rule to
-its **hypothetical** compatible \(\mathbb Z/2^n\) alphabet
+the α=1 reference rule (the 3-D integer-coefficient two-slice
+wave rule of `wave_eqn.c`; SM §4.1 leaves the substratum
+coefficient open) to its **hypothetical** compatible \(\mathbb Z/2^n\) alphabet
 lifts. [Preregistration](native-padic-bridge/PREREGISTRATION.md)
 was committed before computation.
 
 For every \(m<n\), coordinatewise reduction modulo \(2^m\)
-**commutes with the actual native step and inverse**. Hence
+**commutes with the reference step and inverse**. Hence
 arbitrarily fine digits never influence the lower-m passive
-readout through this same equation. The resulting infinite
+readout through this same equation. The congruence argument holds for any
+integer \(\alpha\) and any compatible 2-adic \(\alpha\)
+(including \(\alpha=3^{-1}\) in \(\mathbb Z/2^n\)); the
+Lean module covers coefficient 1 only. The resulting infinite
 \(\mathbb Z_2\)-valued lift has exact **visible**
 common returns for each fixed low-m factor (a finite
 permutation), even though the whole infinite carrier
@@ -185,8 +190,7 @@ covers the 27-site L=3 cubic torus, q=2,4,8,16,32,64,
 twelve deterministic initial pairs per q, 16 forward
 and inverse ticks for every relevant quotient, and
 higher-digit perturbations at every tested depth:
-**9,344 exact arithmetic controls** independently
-reproduced by an alternate computation. The
+**9,344 exact arithmetic controls**. The
 [structured result](native-padic-bridge/RESULTS.json)
 and [pinned replay](native-padic-bridge/replay.py)
 are retained. A deliberately **non-native but reversible**
@@ -195,15 +199,15 @@ showing the test does not reject all deeper-to-visible
 couplings by construction.
 
 A new research Lean candidate,
-\`OIBridge.NativePadicReduction\`, formalizes
-commutation of a finite neighbor-sum stencil and
-the two-slice step/inverse with an arbitrary additive
+`OIBridge.NativePadicReduction`, formalizes
+commutation of a finite neighbor-sum stencil, the
+two-slice step and its intended inverse (the inverse
+property is not proved there) with an arbitrary additive
 alphabet homomorphism. It is imported into
 the Mathlib bridge and entered in the maintained
-census as \`kernel-only\`; its **exact-head compilation
-and axioms remain unverified**, as does the separately
-written topological \(\mathbb Z_2\) inverse-limit
-identification. The result does not cover nonlinear
+census as `kernel-only`; it builds and its axiom report
+passes in CI. The separately written topological \(\mathbb Z_2\) inverse-limit
+identification is not formalized. The result does not cover nonlinear
 observer-access mechanisms, the native-Y triple
 interaction, genuine gauge fields or quantum
 operational structure.

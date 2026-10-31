@@ -11,8 +11,8 @@ from pathlib import Path
 import subprocess
 import sys
 
-SOURCE_BLOB = "03499afca26c46be1f0d84952f7aee4c8be8f9ce"
-RESULT_BLOB = "e19da95e2a2b2a757ac8cab732774fcd85101daa"
+SOURCE_BLOB = "0bdb22325d44394bbaa590581a71bc13e6d62608"
+RESULT_BLOB = "a9945b231866e7271d5ff9ca23a1b276915bb86f"
 
 
 def require(ok, label):

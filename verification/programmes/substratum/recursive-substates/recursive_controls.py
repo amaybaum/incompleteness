@@ -18,6 +18,53 @@ def need(cond, title):
         raise AssertionError(title)
 
 
+def fmt(x):
+    x = F(x)
+    return int(x) if x.denominator == 1 else str(x)
+
+
+def exact_log2(x):
+    x = F(x)
+    need(x > 0, 'log2 of nonpositive value')
+    num, den = x.numerator, x.denominator
+    need(num & (num - 1) == 0 and den & (den - 1) == 0, f'non-dyadic ratio {x}')
+    return num.bit_length() - den.bit_length()
+
+
+def triple_cmi_bits(counts):
+    # Exact I(X0;X2|X1) in bits from a complete three-time count table.
+    total = sum(counts.values())
+    p = {k: F(v, total) for k, v in counts.items() if v}
+    def marg(idx):
+        out = Counter()
+        for k, v in p.items():
+            out[tuple(k[i] for i in idx)] += v
+        return out
+    p01, p12, p1 = marg((0, 1)), marg((1, 2)), marg((1,))
+    return sum(v * exact_log2(v * p1[(k[1],)] / (p01[k[:2]] * p12[k[1:]]))
+               for k, v in p.items())
+
+
+def rooted_gamma(counts, t):
+    # Rooted transition matrix P(X_t = j | X_0 = i) from the triple law.
+    row = Counter()
+    joint = Counter()
+    for k, v in counts.items():
+        row[k[0]] += v
+        joint[(k[0], k[t])] += v
+    return [[fmt(F(joint[(i, j)], row[i])) for j in (0, 1)] for i in (0, 1)]
+
+
+def minimal_prefix(step, q, bits):
+    # Least k such that the next visible bit is a function of x mod 2^k.
+    for k in range(bits + 1):
+        table = {}
+        if all(table.setdefault(x & ((1 << k) - 1), step(x) & 1) == (step(x) & 1)
+               for x in range(q)):
+            return k
+    return None
+
+
 def model_a():
     out = []
     for n in range(1, 10):
@@ -48,15 +95,23 @@ def model_b():
         expected = Counter({(0, 0, 0): q//4, (0, 1, 0): q//4,
                             (1, 0, 1): q//4, (1, 1, 1): q//4})
         need(counts == expected, f'B full triple depth{m}')
-        # Two initial states agree below level m+1, but yield opposite next bits.
-        need((0 % (1 << m) == (1 << m) % (1 << m))
-             and ((step(0) & 1) != (step(1 << m) & 1)), f'B depth witness {m}')
+        # States 0 and 2^m agree modulo 2^m (bookkeeping); their next
+        # visible bits must differ.
+        need((step(0) & 1) != (step(1 << m) & 1), f'B depth witness {m}')
+        prefix = minimal_prefix(step, q, bits)
+        need(prefix == m + 1, f'B minimal prefix depth{m}')
+        cmi = triple_cmi_bits(counts)
+        need(cmi == 1, f'B conditional memory depth{m}')
+        gamma1, gamma2 = rooted_gamma(counts, 1), rooted_gamma(counts, 2)
+        need(gamma1 == [['1/2', '1/2'], ['1/2', '1/2']], f'B Gamma1 depth{m}')
+        need(gamma2 == [[1, 0], [0, 1]], f'B Gamma2 depth{m}')
         fixed.append({'hidden_bit_depth': m, 'states_enumerated': q,
-                      'P_X0_X1_X2': {'000':'1/4','010':'1/4','101':'1/4','111':'1/4'},
-                      'rooted_Gamma_1': [['1/2','1/2'],['1/2','1/2']],
-                      'rooted_Gamma_2': [[1,0],[0,1]],
-                      'conditional_mutual_information_bits': 1,
-                      'minimal_initial_prefix_length_for_next_readout': m + 1})
+                      'P_X0_X1_X2': {''.join(map(str, k)): fmt(F(v, q))
+                                     for k, v in sorted(counts.items())},
+                      'rooted_Gamma_1': gamma1,
+                      'rooted_Gamma_2': gamma2,
+                      'conditional_mutual_information_bits': fmt(cmi),
+                      'minimal_initial_prefix_length_for_next_readout': prefix})
     shifts=[]
     for n in range(3, 10):
         total = 1 << n
@@ -116,7 +171,10 @@ def model_c():
             for f in product(range(q), repeat=4):
                 u=tuple((f[b]-f[a])%q for a,b in EDGE)
                 need(sum(u)%q == 0, f'C gradient n{n}')
-        need(sum((1,0,0,0))%q == 1%q, f'C nonflat witness n{n}')
+        witness = (1, 0, 0, 0)
+        need(sum(witness) % q != 0, f'C nonflat witness holonomy n{n}')
+        need(all(tuple((f[b]-f[a]) % q for a, b in EDGE) != witness
+                 for f in product(range(q), repeat=4)), f'C nonflat witness not gradient n{n}')
         stages.append({'level': n, 'link_states_enumerated': q**4,
                        'holonomy_count_per_value': q**3,
                        'nonflat_holonomy_exists': True,
@@ -145,7 +203,8 @@ def main():
                 'three_time_law':b['fixed_depth_feedback'][0]['P_X0_X1_X2'],
                 'Gamma_1':b['fixed_depth_feedback'][0]['rooted_Gamma_1'],
                 'Gamma_2':b['fixed_depth_feedback'][0]['rooted_Gamma_2'],
-                'conditional_memory_bits':1,'visible_period':2},
+                'conditional_memory_bits':b['fixed_depth_feedback'][0]['conditional_mutual_information_bits'],
+                'visible_period':2},
          'B2': {'status':'PASS_SHIFT_CONVEYOR',
                 'cycle_lengths_checked':[s['cycle_length'] for s in b['cyclic_shift_approximations']],
                 'pre_return_rooted':b['cyclic_shift_approximations'][0]['Gamma_for_0_lt_t_lt_n'],

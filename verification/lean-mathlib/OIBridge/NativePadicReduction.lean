@@ -7,7 +7,8 @@ import Mathlib.Algebra.Group.Hom.Defs
 Research only. This theorem is about the exact six-neighbor
 integer-coefficient wave update, at any alphabet additive groups.
 Any additive homomorphism from a fine to coarse alphabet commutes
-with the one-step and inverse two-slice wave update *provided the
+with the one-step two-slice wave update and its intended inverse
+(the inverse property is not proved here) *provided the
 same finite neighbor stencil is used*. Hence compatible modular
 reductions cannot carry high-to-low digit feedback through this
 unchanged native linear update.
@@ -32,7 +33,8 @@ def waveStep (neighbors : I → D → I)
     (s : (I → A) × (I → A)) : (I → A) × (I → A) :=
   ((fun i => neighborSum neighbors s.1 i - s.2 i), s.1)
 
-/-- The exact backward update, not a probabilistic inverse. -/
+/-- The intended exact backward update of `waveStep` (the inverse
+property is not proved here), not a probabilistic inverse. -/
 def waveUnstep (neighbors : I → D → I)
     (s : (I → A) × (I → A)) : (I → A) × (I → A) :=
   (s.2, (fun i => neighborSum neighbors s.2 i - s.1 i))

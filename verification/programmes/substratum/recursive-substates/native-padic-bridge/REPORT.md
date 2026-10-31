@@ -1,4 +1,4 @@
-# NATIVE-PADIC-1 — a precise no-backflow boundary for the existing OI wave rule
+# NATIVE-PADIC-1 — a precise no-backflow boundary for the α=1 reference wave rule
 
 **Status:** research writer result, issue #1010 / draft PR #1011.
 Preregistered before the computation in PREREGISTRATION.md.
@@ -6,10 +6,10 @@ The following all-state argument is exact algebra; the accompanying
 finite regression is a separately controlled check. Neither one
 proves that actual OI has p-adic or fractal hidden degrees of freedom.
 
-## Microscopic source, not an invented new dynamical law
+## Reference rule, not an invented new dynamical law
 
-The existing native *scalar cubic wave reference* is
-papers/oi_lattice_code/trace_out_fractional/wave_eqn.c:
+The tested update is the *α=1 reference rule* of the scalar cubic wave
+code papers/oi_lattice_code/trace_out_fractional/wave_eqn.c:
 \[
 (x_{t+1})_v=\sum_{w\sim v}(x_t)_w-(x_{t-1})_v\pmod q,
 \]
@@ -23,9 +23,18 @@ The inverse is explicitly
 \[
 W_q^{-1}(u,v)=(v,A_qv-u).
 \]
-This is the native formula considered in this test; the real-valued
-normalized \(\alpha=1/3\) observer-level operator of SM §4.1 is **not**
-silently substituted for the microscopic update.
+This α=1 reference rule is the formula considered in this test. It is
+not asserted to be the substratum update: SM §4.1 (remark on the
+coefficient's reading) leaves the substratum coefficient \(\alpha\)
+open, and the real-valued normalized \(\alpha=1/3\) observer-level
+operator of SM §4.1 is not substituted for it either. The phrase
+"actual OI scalar cubic two-slice wave rule" in PREREGISTRATION.md
+denotes this α=1 reference rule.
+
+The congruence argument below holds for any integer \(\alpha\) and for
+any compatible 2-adic \(\alpha\in\mathbb Z_2\) (including
+\(\alpha=3^{-1}\) in \(\mathbb Z/2^n\)); the Lean module
+`OIBridge.NativePadicReduction` covers coefficient 1 only.
 
 To test a recursive candidate, choose alphabets
 \(q_n=2^n\), with reduction homomorphisms
@@ -98,8 +107,7 @@ step of 16 forward and 16 inverse updates, and tests
 paired preparations differing only in digits at or
 above m, across the same forward horizon.
 
-The independently executed arithmetic replica passed
-**9,344 individual exact controls**. Expected structured
+The regression passed **9,344 individual exact controls**. Expected structured
 evidence is retained in RESULTS.json, with every
 tested q and m recorded. The computation is not
 exhaustive over the astronomically large q^54
@@ -143,13 +151,17 @@ its explicit hypotheses. This result is compatible:
 the low-digit quotient is itself an additive coarse
 factor and its dynamics close exactly.
 
-NATIVE-PADIC-1's new contribution is the **particular
-cross-q congruence obstruction** and the non-native
-reversible positive control; it does not reprove or
-replace the existing HydroSourceAudit theorem.
-A new narrow Lean bridge can formalize the
-reduction/intertwining calculation without claiming
-a certified p-adic physical interpretation.
+The cross-q congruence obstruction has a prior in
+SUBSTATE-1 (#1007 / draft PR #1009): its `low_digit_L3_N8`
+check in `wave_torus_probe.py`, commits b40ba681 and
+35055d31 on the research/substate-1 branch (not on `main`;
+cited as provenance only). NATIVE-PADIC-1 adds the 3-D
+regression recorded here, the reversible non-native
+mutant control, and the Lean module
+`OIBridge.NativePadicReduction`, which formalizes the
+reduction/intertwining calculation without claiming a
+certified p-adic physical interpretation. It does not
+reprove or replace the existing HydroSourceAudit theorem.
 
 ## Implications for recursive sub-states, quantum mechanics and Yang–Mills
 

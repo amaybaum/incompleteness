@@ -10,21 +10,30 @@ import json
 import subprocess
 import sys
 
+SOURCE_SHA256 = "6beb25044fc6966a954adc186d1a136f42fedd78c938c2683983316b886af666"
+RESULT_SHA256 = "8b949aa7cbd688f7c41fa079f761424afea98700e387db42c2b15320174e2b64"
+
+
+def require(cond, description):
+    if not cond:
+        raise RuntimeError(description)
+
 
 def main():
     directory = Path(__file__).resolve().parent
     script = directory / "recursive_controls.py"
     expected_path = directory / "RESULTS.json"
     expected = expected_path.read_bytes()
+    require(sha256(script.read_bytes()).hexdigest() == SOURCE_SHA256, "source digest changed")
+    require(sha256(expected).hexdigest() == RESULT_SHA256, "expected result digest changed")
     baseline = json.loads(expected)
-    assert baseline["status"] == "PASS_EXACT_FINITE_CONTROLS"
-    assert baseline["A"]["status"] == "PASS_NEGATIVE_CONTROL"
-    assert baseline["B1"]["status"] == "PASS_FEEDBACK_ROOTED_INDIVISIBLE"
-    assert baseline["B2"]["status"] == "PASS_SHIFT_CONVEYOR"
-    assert baseline["C"]["status"] == "PASS_KINEMATICS_ACTION_NOT_SELECTED"
-    assert not baseline["operational_QM_derived"]
-    assert not baseline["YM_action_derived"]
-    assert not baseline["log_periodic_signal_derived"]
+    require(baseline["status"] == "PASS_EXACT_FINITE_CONTROLS", "not PASS")
+    require(baseline["A"]["status"] == "PASS_NEGATIVE_CONTROL", "A status")
+    require(baseline["B1"]["status"] == "PASS_FEEDBACK_ROOTED_INDIVISIBLE", "B1 status")
+    require(baseline["B2"]["status"] == "PASS_SHIFT_CONVEYOR", "B2 status")
+    require(baseline["C"]["status"] == "PASS_KINEMATICS_ACTION_NOT_SELECTED", "C status")
+    for key in ("operational_QM_derived", "YM_action_derived", "log_periodic_signal_derived"):
+        require(baseline[key] is False, "overclaim in recorded result: " + key)
 
     results = []
     for optimized in (False, True):
@@ -43,8 +52,8 @@ def main():
 
     print(json.dumps({
         "status": "PASS_EXACT_REPLAY",
-        "script_sha256": sha256(script.read_bytes()).hexdigest(),
-        "results_sha256": sha256(expected).hexdigest(),
+        "script_sha256": SOURCE_SHA256,
+        "results_sha256": RESULT_SHA256,
         "runs": results,
         "proof_scope": "finite enumerations only; infinite-limit theorems written separately",
         "native_OI_dynamics_derived": False,
