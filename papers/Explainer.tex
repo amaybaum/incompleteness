@@ -266,8 +266,8 @@ structural lemmas follow from this definition alone:
 
 \emph{A note on ``exactly one.''} The framework's foundational work has
 since looked harder at what ``observation occurs'' actually assumes, and
-found it is most honestly stated as \textbf{two} axioms rather than one.
-The first --- that a distinction occurs, that there is some
+found it is more precisely stated as \textbf{two} axioms rather than
+one. The first --- that a distinction occurs, that there is some
 this-rather-than-that --- genuinely cannot be doubted. The second ---
 that the distinction \emph{recurs}, that there is more than one moment
 --- is a real further assumption: a single frozen instant, however full
@@ -294,10 +294,11 @@ providing a finite minimal cell volume.} There's a smallest meaningful
 size ε --- you can't resolve anything smaller. This means the
 configuration space is finite, not continuous. This matters because
 finite systems have a property infinite systems don't --- they must
-eventually return to their starting state (Poincaré recurrence). In Part
-I, ε is left unspecified. In Part II, self-consistency forces ε = 2√σ
-l\_p, where σ is the entropy carried by one boundary mode --- twice the
-Planck length at σ = 1, one nat per boundary mode.
+eventually return to their starting state (the exact recurrence of a
+finite bijection). In Part I, ε is left unspecified. In Part II,
+self-consistency forces ε = 2√σ l\_p, where σ is the entropy carried by
+one boundary mode --- twice the Planck length at σ = 1, one nat per
+boundary mode.
 
 \textbf{Lemma 2} (Causal partition). \emph{An observer is a proper
 subsystem \(V \subsetneq S\). The complement \(H = S \setminus V\) is
@@ -1255,13 +1256,12 @@ compatible with a single visible family is \textbf{open} --- the
 remaining bare-OI question, on which ordinary coherence has been shown
 insufficient and nothing further is claimed.
 
-\emph{A note on what is proved versus imported, to keep the claim
-honest.} The exact finite-law representation is internal: every finite
-stochastic law has a reversible deterministic realization and an exact
-fixed-basis unitary/Born representation
-(\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}). That statement is
-universal --- ordinary Markov chains are included --- so
-representability itself is not the discriminator. C4 supplies the
+\emph{A note on what is proved versus imported.} The exact finite-law
+representation is internal: every finite stochastic law has a reversible
+deterministic realization and an exact fixed-basis unitary/Born
+representation (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}).
+That statement is universal --- ordinary Markov chains are included ---
+so representability itself is not the discriminator. C4 supplies the
 nontrivial content: accessible history readback and unavoidable hidden
 predictive memory. The Barandes stochastic--quantum correspondence
 remains useful for a compressed representation and its interpretive
@@ -1326,7 +1326,7 @@ sector is selected at the level of the laws, the restriction to the
 substratum-induced dynamics is a theorem rather than a convention --- a
 phase automorphism at one site preserves locality without arising from
 any reversible finite-range bijection --- and, while the update is
-joined to the identity by an exact norm-continuous path of local
+joined to the identity by an exact strongly continuous path of
 \(*\)-automorphisms of that algebra, with no one-parameter-group law
 established and no generator exhibited, a continuous-time Hamiltonian
 law remains additional structure (GR §3.3). Within the structural
@@ -2466,9 +2466,11 @@ meaningful --- while reaching that conclusion through a different route.
 CLPW, Maldacena, and HUZ all add observer degrees of freedom \emph{to}
 an existing quantum-gravitational formalism. The framework here goes the
 other direction: it starts with a deterministic substratum and a
-partition (the observer and the rest), and derives both quantum
-mechanics and the gravitational sector as consequences of that
-structural setup. There is no extra spatial dimension as in
+partition (the observer and the rest), and derives from that structural
+setup an exact quantum representation of the observer's statistics
+({[}Main §3.4{]}), with full operational quantum mechanics and the
+gravitational sector conditional on stated additional principles and
+open hypotheses ({[}GR{]}). There is no extra spatial dimension as in
 Slagle-Preskill, and no fundamental stochasticity. The substratum is
 finite and deterministic; the observer's incomplete access to it is what
 produces the appearance of quantum behavior. The framework carries
@@ -2680,13 +2682,13 @@ propagator:
 
 has entries of \(-1\) --- ``anti-probabilities'' that don't exist in the
 substratum (where every transition probability is between 0 and 1).
-These negative entries are the minimal-model ancestors of antimatter.
-They arise for the same reason: the algorithm can't reconstruct the
-observed dynamics without them. In the toy model, the \(-1\) entries
-encode the fact that the die remembers and reverses the coin flip ---
-information backflow that no positive-entry matrix can describe. In the
-relativistic case, the negative-energy solutions encode the fact that
-the relativistic trace-out requires a doubled Hilbert space to remain
+These negative entries are the toy-model ancestors of antimatter. They
+arise for the same reason: the algorithm can't reconstruct the observed
+dynamics without them. In the toy model, the \(-1\) entries encode the
+fact that the die remembers and reverses the coin flip --- information
+backflow that no positive-entry matrix can describe. In the relativistic
+case, the negative-energy solutions encode the fact that the
+relativistic trace-out requires a doubled Hilbert space to remain
 self-consistent.
 
 In both cases: the substratum has no doubling. The algorithm demands
@@ -2803,29 +2805,42 @@ something the framework wasn't designed to deliver?
 
 It does, on both counts.
 
-\textbf{The dynamics is unique.} Among all second-order reversible
-nearest-neighbor dynamics on a lattice, the requirements of center
-independence (necessary for emergent QM), spatial isotropy, and
-linearity select exactly one: the discrete wave equation. This holds for
-any alphabet size and any dimension. Center independence is necessary
-because center-dependent rules allow the visible sector to partially
-predict itself, suppressing the information backflow that produces the
-quantum phenomenology --- an effect proven analytically on the full
-lattice via an information-screening mechanism. Linearity is selected by
-three independent criteria: it gives maximum propagation speed, it
-uniquely maximizes P-indivisibility among linear rules, and it is the
-only choice for which horizons are in thermal equilibrium (nonlinear
-dispersion breaks the Unruh effect).
+\textbf{The form of the dynamics is fixed up to one coefficient.} Among
+second-order reversible nearest-neighbor rules on a cubic lattice,
+center independence, cubic isotropy and linearity fix the form
+\(x_i(t+1)=\alpha\sum_{j\sim i}x_j(t)-x_i(t-1)\) --- the discrete wave
+equation --- for one coefficient \(\alpha\), at the substratum-symbolic
+level or an observer-level linear lift, for any alphabet size and any
+dimension. The nearest-neighbor range is an assumption beyond bounded
+coupling degree: center-independent rules with next-nearest-neighbor
+couplings exist. Center independence is a condition on the microscopic
+update. It does not by itself make successive visible variables
+statistically independent once the hidden sector is traced out, and the
+memory and recurrence-cycle P-indivisibility of the reduced dynamics do
+not rest on it: Main's readback lemma supplies the first and its
+finite-recurrence theorem the second. Whether center independence
+descends to a zero observer-level self-weight is an open coarse-graining
+condition. Linearity rests on the amplitude-scale-gauge lemma: if the
+embedded observer has no access to an absolute amplitude scale,
+base-point-independent first differences force an affine rule, which the
+center-free branch reduces to a linear one. The real harmonic lift is
+stable exactly for \(\alpha\le1/d\), and the normalization
+\(\alpha=1/d\), the largest stable value, is the one that makes its
+spectrum gapless, \(\omega(0)=0\). It belongs to an observer-level
+operator whose derivation from the finite bijection is open, so Lorentz
+invariance and the Unruh property are tests of that operator, not
+selectors of the substratum rule {[}SM §4.1{]}.
 
-\textbf{The dynamics passes seven independent checks.} The wave equation
---- selected solely by the QM requirement plus symmetry --- turns out to
-produce: (1) non-Markovian reduced dynamics (emergent QM), (2) a causal
-structure with the correct spacetime dimension, (3) the gap equation for
-ℏ, (4) entanglement entropy proportional to boundary area, (5) a
-Lorentz-invariant dispersion relation at leading order, with linear
-Lorentz-invariance violation forbidden at the substrate level (the
-cubic-lattice dispersion admits no \(\mathcal{O}(k^3)\) term) and the
-leading correction fixed at
+\textbf{The dynamics passes seven independent checks.} The wave-equation
+branch --- its form fixed by center independence, isotropy and linearity
+at nearest-neighbor range --- turns out to produce: (1) non-Markovian
+reduced dynamics (emergent QM), (2) a causal structure with the correct
+spacetime dimension, (3) the gap equation for ℏ (conditional on H-slope
+with the horizon and frame conditions), (4) entanglement entropy
+proportional to boundary area, (5) a Lorentz-invariant dispersion
+relation at leading order, with linear Lorentz-invariance violation
+forbidden at the substrate level (the cubic-lattice dispersion admits no
+\(\mathcal{O}(k^3)\) term) and the leading correction fixed at
 \(\omega^2 = k^2[1 - (4\sigma/45)(E/M_{\text{Pl}})^2 + \ldots]\), a
 coefficient \(4/45\) at one nat of entropy per boundary mode ---
 subluminal, with the lattice coefficient \(1/45\) of \((k\epsilon)^2\) a
@@ -2839,30 +2854,34 @@ the dispersion could have been non-relativistic or admitted linear LIV,
 the horizon state could have been non-thermal. None of these failures
 occurs.
 
-\textbf{No free parameters.} The wave equation is selected, not chosen.
-The lattice spacing is fixed by the gap equation. The entropy
-coefficient is determined by thermal matching. The dispersion relation
-is an algebraic identity. There is nothing to tune.
+\textbf{Few free parameters.} The form of the wave equation is fixed by
+the stated conditions up to the coefficient \(\alpha\), whose
+observer-level normalization \(\alpha=1/d\) is the largest stable value
+of the lift, where its spectrum is gapless. The framework has one free
+geometric parameter (ε), and σ, the entropy per boundary mode, is
+undetermined: the gap equation, conditional on H-slope with the horizon
+and frame conditions, fixes only the ratio ε/√σ = 2 l\_p {[}GR §4{]}.
+The Bekenstein-Hawking coefficient 1/4 is fixed by the same thermal
+matching, under the same conditions, whatever σ is {[}GR §5{]}. The
+dispersion relation is an algebraic identity of the observer-level
+operator, and the amplitude \(4\sigma/45\) of its leading correction
+carries σ.
 
-This is what rigidity looks like. A framework that produces the quantum
-description from one set of arguments and then, without modification,
-produces the inputs for GR from a completely different set of arguments
---- lattice dynamics, dispersion relations, entanglement Hamiltonians
---- is making a structural claim that goes well beyond the original
-derivation. Each passed check is a point where the framework could have
-been falsified and wasn't. Seven passed checks with no free parameters
-is not proof, but it is the kind of evidence that distinguishes a
-framework describing something real from one that was engineered to fit.
+The quantum description and the inputs for GR --- lattice dynamics,
+dispersion relations, entanglement Hamiltonians --- come from different
+arguments applied to the same dynamics without modification, and each of
+the seven checks could have failed. They are consistency checks, with
+one free geometric parameter (ε) and σ undetermined, not proof.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{what-is-the-lattice}{%
 \subsection{What Is the Lattice?}\label{what-is-the-lattice}}
 
-The rigidity test proves that the wave equation on a lattice produces
-both QM and GR. But what \emph{is} the lattice? Is the universe
-literally a grid of cells at the Planck scale? What would the grid be
-made of? What would it sit in?
+The rigidity test checks the wave equation on a lattice against both the
+quantum description and the inputs for GR. But what \emph{is} the
+lattice? Is the universe literally a grid of cells at the Planck scale?
+What would the grid be made of? What would it sit in?
 
 The companion papers \href{Substratum.md}{\texttt{Substratum}} and
 \href{SM.md}{\texttt{SM}} address these questions head-on --- and also
@@ -3026,14 +3045,13 @@ always been taken as empirical. We observe three generations, SU(3) ×
 SU(2) × U(1), specific hypercharge assignments, and we accept them as
 given. Nobody has explained \emph{why} these particles and not others.
 
-\href{SM.md}{\texttt{SM}} asks whether the specific lattice dynamics
-selected by the QM and GR requirements --- the wave equation on a d = 3
-hypercubic lattice with checkerboard partition --- determines which
-quantum field theory the observer sees. The answer is yes --- almost
-completely.
+\href{SM.md}{\texttt{SM}} asks whether the specific lattice dynamics of
+the center-free branch --- the wave equation on a d = 3 hypercubic
+lattice with checkerboard partition --- determines which quantum field
+theory the observer sees. The answer is yes --- almost completely.
 
-\textbf{Fermions from the wave equation.} The wave equation selected by
-the QM requirement (the discrete lattice Klein-Gordon equation) has a
+\textbf{Fermions from the wave equation.} The wave equation of the
+center-free branch (the discrete lattice Klein-Gordon equation) has a
 well-known mathematical property: it factors into first-order operators
 called staggered Dirac operators. This factorization, discovered by
 Susskind in 1977, means the \emph{same dynamics} that produces bosonic
@@ -3059,15 +3077,15 @@ triplet members each have \(|\mu| = 1/3\). The triplet members are
 exactly degenerate by cubic symmetry, providing a lattice-level origin
 for ``generation symmetry.''
 
-\textbf{The Higgs mechanism from one condition.} The same center
-independence condition (\(\alpha = 0\)) that produces the quantum
-phenomenology's memory structure also enforces exact chiral symmetry in
-the staggered fermions. This means fermion mass terms are forbidden in
-the fundamental Lagrangian. The \emph{only} way to give fermions mass
-while preserving unitarity and renormalizability is the Higgs mechanism.
-One algebraic condition --- center independence --- simultaneously
-produces the quantum phenomenology, chiral fermions, and the necessity
-of a Higgs boson.
+\textbf{Chiral symmetry and the Higgs mechanism.} On the staggered
+branch, center independence --- no center coupling in the update ---
+gives the massless staggered operator, and its chiral symmetry is exact:
+vanishing onsite terms are equivalent to exact chiral symmetry {[}SM
+§4.3, Theorem 3{]}. This means fermion mass terms are forbidden in the
+fundamental Lagrangian. The \emph{only} way to give fermions mass while
+preserving unitarity and renormalizability is the Higgs mechanism. The
+quantum phenomenology's memory structure is supplied by Main's readback
+lemma, independently of center independence {[}SM §4.3{]}.
 
 \textbf{Gauge structure from a matrix.} The wave equation naturally
 generalizes to multiple components. Each lattice site carries a
@@ -3679,11 +3697,11 @@ reconstruct (S, φ). And the pieces are already in hand.
 
 If you observe quantum mechanics with Bell violations on a finite
 system, the characterization theorem forces you into some (S, φ, V) ---
-there must be a deterministic system with a partition. If your physics
-includes Einstein gravity via the thermodynamic route, the dynamics
-selection theorem pins the wave equation --- it's the unique
-nearest-neighbor dynamics consistent with QM emergence, isotropy, and
-linearity. If you see SU(3) × SU(2) × U(1) with three generations, the
+there must be a deterministic system with a partition. For a rule
+assumed nearest-neighbor, center-free, isotropic and linear, the form
+lemma fixes the wave equation up to one coefficient; these conditions
+are inputs of the lemma and are not derived from observed QM or GR {[}SM
+§4.1{]}. If you see SU(3) × SU(2) × U(1) with three generations, the
 gauge structure pins K = 6 with multiplicities (3, 2, 1) --- the cubic
 group decomposition is unique. If the visible transition counts are
 reciprocal, the substratum dynamics is T-invariant. If ℏ has the
@@ -4016,4 +4034,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 5bec82a7ba3ce1ee3a0f0e890021c9c0df94fc96f945a2932a13fdc2ad716cdb
+% source-sha256: fb21cc4a6bca8e7c08c5a384a35d43478c25e755a9500b73e165a7f3d11bff45
