@@ -221,10 +221,10 @@ tokens total and exclusive.
 | 1 | `INCONCLUSIVE` (gap) | stage 1 fixes no admissible `Θ★` | paper: the named operator condition |
 | 2 | `COUNTEREXAMPLE` (falsified) | (a) a falsification probe, i.e. C1, C2 or C10 pushed through `Θ_rule`, yields `R` or `P`; or (b) for `Θ★`: `R` holds and a Gate 5a held-out frequency differs from its trace-rule value; or `R ∧ R†` hold and any of G4a (coherent return = 1), G4b (return under a *sourced* dephasing = 337/625) or G4c (model frequencies = `T_Θ★` statistics) fails; or `R` holds while the candidate's own dagger claim is refuted | kernel for `R`, `R†`; exact computation |
 | 3 | `REPRESENTATION-ONLY` | (a) `R` or `P` holds only through a generator or readout projector that fails the screen; or (b) `¬R ∧ ¬P` are decided in the kernel, and at least one exhibit in `E★` is verified | screen record; kernel; exact exhibit |
-| 4 | `SOURCED-SUCCESS` | `R`, `R†`, `P` (on `Fin 2` and every carrier stated) and `S`, all kernel-proved for `T_Θ★`; `¬N ∧ ¬O`; Gate 3 selects `μ` or shows no dependence; G4a, G4b with a sourced dephasing, and G4c pass; Gate 5a derived | kernel for `R, R†, P, S, ¬N, ¬O`; exact for Gates 3–5; paper for the physical justification |
+| 4 | `SOURCED-SUCCESS` | `R`, `R†`, `P` (on `Fin 2` and every carrier stated) and `S`, all kernel-proved for `T_Θ★`; `¬N ∧ ¬O`; Gate 3 selects `μ` or shows no dependence; G4a, G4b with a sourced dephasing, and G4c pass; Gate 5a derived; the probes C1, C2 and C10 run with the transplanted `C`, none yielding `R` or `P` | kernel for `R, R†, P, S, ¬N, ¬O`; exact for Gates 3–5; paper for the physical justification |
 | 5 | `PARTIAL` (loses `S`) | `R ∧ P ∧ ¬S` kernel-proved: the candidate is not an extension of what is already sourced | kernel |
 | 6 | `PARTIAL` (dagger unproved) | `R ∧ P ∧ S ∧ ¬(R† proved)`, so Gate 4 cannot be run | kernel |
-| 7 | `PARTIAL` (other) | exactly one of `R`, `P` kernel-proved; or `R ∧ R† ∧ P ∧ S` with the measure dependence of Gate 3, Gate 5a undetermined, or only a diagnostic dephasing available for G4b | kernel for what is established |
+| 7 | `PARTIAL` (other) | exactly one of `R`, `P` kernel-proved; or `R ∧ R† ∧ P ∧ S` with the measure dependence of Gate 3, Gate 5a undetermined, or only a diagnostic dephasing available for G4b; or a probe not transplantable | kernel for what is established |
 | 8 | `COUNTEREXAMPLE` (countertheory) | `¬R ∧ ¬P` decided in the kernel (through a class invariant `N`, `O`, monomiality, a new named invariant, or directly), with no verified exhibit in `E★` | kernel |
 | 9 | `INCONCLUSIVE` (undecided) | otherwise, for example `R` neither proved nor refuted | paper: what remains undecided |
 
@@ -379,7 +379,8 @@ here.
 row of §4, are fed to the decision function. Each must yield its row's token. The rows covered are
 0 (each of i–vii), 1, 2(a), 2(b), 3(a), 3(b), 4 (both grades, with the grade read from `review.grade`),
 5, 6, 7, 8 and 9. This exercises the rows that no physical control reaches, 2(b), 4 and 5–7 among
-them.
+them. One case has every row-4 criterion met except that the probes were not run because `C` is
+not transplantable; it must yield row 7.
 
 ## 7. Invariant → checkpoint table (§A.41)
 
@@ -403,6 +404,7 @@ them.
 | representation judged only by `E★` | exhibit list at `A★`; C6 |
 | controls return their reference results | §6, every row; mutations M1–M10 |
 | every decision row reachable and correctly routed | decision-function self-test |
+| probe coupling = transplanted `C` | `C` read from the `A★` file by digest; 0(vii); self-test |
 | verdict computed from structured data | M9; schema-validated results file |
 | deterministic replay | two runs byte-identical, sha256 pinned |
 | SUBSTATE-2 records at `c811e876` unchanged | blob comparison of `recursive-substates/` outside `f2-1-coherence-sourcing/` |
