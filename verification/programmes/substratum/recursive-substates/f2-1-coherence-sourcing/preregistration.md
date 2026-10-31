@@ -224,7 +224,7 @@ tokens total and exclusive.
 | 4 | `SOURCED-SUCCESS` | `R`, `R†`, `P` (on `Fin 2` and every carrier stated) and `S`, all kernel-proved for `T_Θ★`; `¬N ∧ ¬O`; Gate 3 selects `μ` or shows no dependence; G4a, G4b with a sourced dephasing, and G4c pass; Gate 5a derived; the probes C1, C2 and C10 run with the transplanted `C`, none yielding `R` or `P` | kernel for `R, R†, P, S, ¬N, ¬O`; exact for Gates 3–5; paper for the physical justification |
 | 5 | `PARTIAL` (loses `S`) | `R ∧ P ∧ ¬S` kernel-proved: the candidate is not an extension of what is already sourced | kernel |
 | 6 | `PARTIAL` (dagger unproved) | `R ∧ P ∧ S ∧ ¬(R† proved)`, so Gate 4 cannot be run | kernel |
-| 7 | `PARTIAL` (other) | exactly one of `R`, `P` kernel-proved; or `R ∧ R† ∧ P ∧ S` with the measure dependence of Gate 3, Gate 5a undetermined, or only a diagnostic dephasing available for G4b; or a probe not transplantable | kernel for what is established |
+| 7 | `PARTIAL` (other) | exactly one of `R`, `P` kernel-proved; or `R ∧ R† ∧ P ∧ S` with the measure dependence of Gate 3, Gate 5a undetermined, only a diagnostic dephasing available for G4b, or a probe not transplantable | kernel for what is established |
 | 8 | `COUNTEREXAMPLE` (countertheory) | `¬R ∧ ¬P` decided in the kernel (through a class invariant `N`, `O`, monomiality, a new named invariant, or directly), with no verified exhibit in `E★` | kernel |
 | 9 | `INCONCLUSIVE` (undecided) | otherwise, for example `R` neither proved nor refuted | paper: what remains undecided |
 
@@ -380,7 +380,8 @@ row of §4, are fed to the decision function. Each must yield its row's token. T
 0 (each of i–vii), 1, 2(a), 2(b), 3(a), 3(b), 4 (both grades, with the grade read from `review.grade`),
 5, 6, 7, 8 and 9. This exercises the rows that no physical control reaches, 2(b), 4 and 5–7 among
 them. One case has every row-4 criterion met except that the probes were not run because `C` is
-not transplantable; it must yield row 7.
+not transplantable; it must yield row 7. Another has `¬R ∧ ¬P` with a coupling that is not
+transplantable; it must yield row 8.
 
 ## 7. Invariant → checkpoint table (§A.41)
 
