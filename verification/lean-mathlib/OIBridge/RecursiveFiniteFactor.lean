@@ -31,17 +31,17 @@ variable {X : Type u} {C : Type v} {V : Type w}
 
 /-- A function has the same output on states indistinguishable
     at hierarchy depth n. -/
-def FactorsAt (prefix : ℕ → X → C) (n : ℕ) (f : X → V) : Prop :=
-  ∀ x y, prefix n x = prefix n y → f x = f y
+def FactorsAt (stage : ℕ → X → C) (n : ℕ) (f : X → V) : Prop :=
+  ∀ x y, stage n x = stage n y → f x = f y
 
 /-- Higher stages are at least as informative as lower stages. -/
-def Refines (prefix : ℕ → X → C) : Prop :=
-  ∀ n m, n ≤ m → ∀ x y, prefix m x = prefix m y → prefix n x = prefix n y
+def Refines (stage : ℕ → X → C) : Prop :=
+  ∀ n m, n ≤ m → ∀ x y, stage m x = stage m y → stage n x = stage n y
 
 /-- A factor at depth n is also determined at any deeper stage m. -/
-theorem factorsAt_mono (prefix : ℕ → X → C) (f : X → V)
-    (href : Refines prefix) {n m : ℕ} (hnm : n ≤ m)
-    (hfac : FactorsAt prefix n f) : FactorsAt prefix m f := by
+theorem factorsAt_mono (stage : ℕ → X → C) (f : X → V)
+    (href : Refines stage) {n m : ℕ} (hnm : n ≤ m)
+    (hfac : FactorsAt stage n f) : FactorsAt stage m f := by
   intro x y hxy
   exact hfac x y (href n m hnm x y hxy)
 
@@ -49,11 +49,11 @@ theorem factorsAt_mono (prefix : ℕ → X → C) (f : X → V)
 a possibly different finite stage is enough; one common finite
 stage is enough for the whole finite family. The hypothesis that
 these finite stages exist is EXPLICIT rather than smuggled in. -/
-theorem finite_horizon_depth_bound (prefix : ℕ → X → C)
-    (record : ℕ → X → V) (href : Refines prefix) :
+theorem finite_horizon_depth_bound (stage : ℕ → X → C)
+    (record : ℕ → X → V) (href : Refines stage) :
     ∀ L : ℕ,
-      (∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt prefix n (record t)) →
-      ∃ N : ℕ, ∀ t : ℕ, t < L → FactorsAt prefix N (record t) := by
+      (∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt stage n (record t)) →
+      ∃ N : ℕ, ∀ t : ℕ, t < L → FactorsAt stage N (record t) := by
   intro L
   induction L with
   | zero =>
@@ -63,7 +63,7 @@ theorem finite_horizon_depth_bound (prefix : ℕ → X → C)
       omega
   | succ L ih =>
       intro h
-      have hsmall : ∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt prefix n (record t) := by
+      have hsmall : ∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt stage n (record t) := by
         intro t ht
         exact h t (by omega)
       obtain ⟨N, hN⟩ := ih hsmall
@@ -71,22 +71,22 @@ theorem finite_horizon_depth_bound (prefix : ℕ → X → C)
       refine ⟨max N n, ?_⟩
       intro t ht
       by_cases hlt : t < L
-      · exact factorsAt_mono prefix (record t) href (Nat.le_max_left N n) (hN t hlt)
+      · exact factorsAt_mono stage (record t) href (Nat.le_max_left N n) (hN t hlt)
       · have heq : t = L := by omega
         subst t
-        exact factorsAt_mono prefix (record L) href (Nat.le_max_right N n) hn
+        exact factorsAt_mono stage (record L) href (Nat.le_max_right N n) hn
 
 /-- Full-time bound if all visible time-indexed observation maps
 repeat with one specified period. This is strictly stronger than
 Poincare recurrence, and its proof does not assert that OI
 satisfies the hypotheses. -/
-theorem all_time_depth_bound_of_exact_period (prefix : ℕ → X → C)
-    (record : ℕ → X → V) (href : Refines prefix)
+theorem all_time_depth_bound_of_exact_period (stage : ℕ → X → C)
+    (record : ℕ → X → V) (href : Refines stage)
     (L : ℕ) (hL : 0 < L)
     (hperiod : ∀ t : ℕ, record t = record (t % L))
-    (hlocal : ∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt prefix n (record t)) :
-    ∃ N : ℕ, ∀ t : ℕ, FactorsAt prefix N (record t) := by
-  obtain ⟨N, hN⟩ := finite_horizon_depth_bound prefix record href L hlocal
+    (hlocal : ∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt stage n (record t)) :
+    ∃ N : ℕ, ∀ t : ℕ, FactorsAt stage N (record t) := by
+  obtain ⟨N, hN⟩ := finite_horizon_depth_bound stage record href L hlocal
   refine ⟨N, ?_⟩
   intro t
   rw [hperiod t]
@@ -94,10 +94,10 @@ theorem all_time_depth_bound_of_exact_period (prefix : ℕ → X → C)
 
 /-- One fixed hidden predicate controls a reversible two-step
 visible flip, even when H itself is an infinite type. -/
-def feedbackStep {H : Type*} (h : H → Bool) (p : Bool × H) : Bool × H :=
+def feedbackStep {H : Type _} (h : H → Bool) (p : Bool × H) : Bool × H :=
   (Bool.xor p.1 (h p.2), p.2)
 
-theorem feedbackStep_involution {H : Type*} (h : H → Bool) (p : Bool × H) :
+theorem feedbackStep_involution {H : Type _} (h : H → Bool) (p : Bool × H) :
     feedbackStep h (feedbackStep h p) = p := by
   rcases p with ⟨b, hidden⟩
   cases b <;> cases h hidden <;> rfl
