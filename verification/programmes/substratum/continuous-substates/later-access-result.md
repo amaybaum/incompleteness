@@ -72,7 +72,7 @@ No precondition failed, so there is no first failing (cell, tick).
 | CP-READSET | declared reads are the LA set plus pre-cut records; an extra q10 read is flagged |
 | CP-STOP, CP-STOP-COUNTER | 25 stop rules on A(X)-prefixes give pushforwards with TV <= 1/8; a rule reading R.A is rejected before evaluation |
 | CP-PRECUT | pre-cut factor TV 0 on both fixtures; b5 to K0 slices exceeds tau by 1 |
-| CP-BRANCH | 64 contexts, 16 at k0=⊥; masses 63/256 and 193/256 equal the source-context masses |
+| CP-BRANCH | 64 contexts, 16 at k0=⊥; masses 63/256 and 193/256 equal the fixture's assigned context masses |
 | CP-EXACT, CP-GATE, CP-REPLAY | no float; token computed after the controls; normal and `-O` outputs byte-identical to the JSON |
 
 The mutation suite applies the 14 code mutants of the preregistered table.
@@ -98,13 +98,14 @@ large, so that bound can be met only for a local P1 failure. No outcome
 changes an earlier verdict, the 42-bit benchmark, any #866 quotient, a
 manuscript claim or a status label.
 
-The probe also makes five implementation choices. None of them can change the
-token.
+The probe also makes five implementation choices.
 
 - The P2 record set adds the eight port streams through L+3. P1 already
   implies these, and they make P2 stricter.
 - The flag and timing cells are the source-phase cells q0..q9 at R+k, as in
-  the parent unit.
+  the parent unit; they match the parent's old-core cells and the ready-ball
+  centres. A different cell set could change P2. The measured P2 margin is at
+  least 1 over all 80 entries.
 - P3 also checks that the beta rays are pairwise disjoint.
 - The q9 counter-ray must fail at a record cell, so that a P2 test that skips
   record cells is caught.
@@ -122,7 +123,8 @@ From the repository root:
     python3 -I -O -B verification/programmes/substratum/continuous-substates/native_later_access_probe.py | cmp - verification/programmes/substratum/continuous-substates/later-access-result.json
     python3 -I -B verification/programmes/substratum/continuous-substates/native_later_access_probe.py --mutation-suite
 
-Exit 0 with a token, 2 VOID, 3 for a mismatch with the committed JSON. The
+Exit 0 with a token, 2 VOID, 3 for a mismatch with, or absence of, the
+committed JSON (`--write-expected` writes it on a first execution). The
 suite exits 0 only if every mutant is caught in both modes. A run takes about
 5 s and the suite about 45 s. The result is exact algebra plus a conditional
 paper proof. It is not Lean certification, an operational QM result or a

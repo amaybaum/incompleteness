@@ -1186,8 +1186,9 @@ def decide(gate, pre, geo):
     if holds['P1'] and rest:
         zero = Fraction(0)
         tables = {BOTTOM: (zero, zero), 'every incoming-packet value': (zero, zero)}
-        tail_dep = [k for k in ('P2', 'P3', 'P6a', 'P6b') if not holds[k]]
-        info = 'EMPTY' if not tail_dep else 'INFORMATIVE'
+        # Proof-derived, not measured: under P1-P6b and H-prior each tail
+        # triple is a permutation of its own independent uniform bank triple.
+        info = 'EMPTY'
         search, _ = actual_search(geo, None)
         return 'LA-EQUAL', tables, hidden_only(tables), info, search, None
     if not holds['P1'] and rest:
@@ -1274,8 +1275,8 @@ def execute(root):
     for name, fn in controls:
         try:
             results[name] = {'pass': True, 'measured': fn()}
-        except (CheckFailure, ArithmeticError, KeyError, ValueError, TypeError) as exc:
-            results[name] = {'pass': False, 'reason': str(exc)}
+        except Exception as exc:
+            results[name] = {'pass': False, 'reason': str(exc) or type(exc).__name__}
             failed[name] = str(exc)
     fixture_searches = [results.get(n, {}).get('measured', {}) for n in ('CP-POS', 'CP-NULL')]
     keys = {'trigger', 'S_size', 'derivation', 'outcome'}
@@ -1373,13 +1374,15 @@ def main():
     ap.add_argument('--expected', type=Path, default=EXPECTED)
     ap.add_argument('--mutant', choices=sorted(MUTANTS))
     ap.add_argument('--mutation-suite', action='store_true')
+    ap.add_argument('--write-expected', action='store_true',
+                    help='first execution only: write the expected JSON if absent')
     args = ap.parse_args()
     if args.mutation_suite:
         return mutation_suite()
     MUTANT = args.mutant
     try:
         code, result = execute(args.source_root)
-    except (CheckFailure, OSError, ValueError, KeyError, TypeError, ArithmeticError) as exc:
+    except Exception as exc:
         label = str(exc).split(':')[0] if str(exc).startswith('CP-') else 'INTERNAL-ERROR'
         return emit(*void({label: str(exc)}, []))
     if code != 0:
@@ -1389,6 +1392,9 @@ def main():
         sys.stdout.write(text)
         return 0
     if not args.expected.exists():
+        if not args.write_expected:
+            sys.stdout.write(text)
+            return 3
         args.expected.write_text(text)
     elif args.expected.read_text() != text:
         sys.stdout.write(text)
