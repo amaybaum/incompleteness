@@ -305,7 +305,7 @@ Pure linear dynamics on a cubic lattice is *integrable*, not chaotic: the lattic
 
 **Remark (scope of the center-dependence–mass identification).** Theorem 3 classifies first-order onsite terms within a fixed opposite-parity hopping family; identifying those terms with center dependence of the second-order substratum update requires a separate bridge. The specific self-term $C = 2(1-d)$ is not a mass term: it is the diagonal of the massless 4D lattice Laplacian, whose standard 4D staggered factorization has exact chiral symmetry. The hypercubic alternative is not excluded by this lemma. The later matter/gauge reading uses the spatial cubic group and the exact six-link $(3,2,1)$ representation, but identifying that link representation with the physical carrier is H-link (§4.5–4.6).
 
-**Scope in the chain.** Center independence implies the chiral statement of Theorem 3 on the staggered branch; it is not derived here from P-indivisibility. Main's readback lemma supplies the memory content, and its recurrence-cycle theorem the P-indivisibility content, independently of center independence. Any claim that one algebraic CI condition simultaneously forces memory and chirality is therefore unavailable.
+**Scope in the chain.** Center independence gives, through Theorem 2, the massless staggered operator, whose onsite terms vanish, so it is chirally symmetric by Theorem 3; it is not derived here from P-indivisibility. Main's readback lemma supplies the memory content, and its recurrence-cycle theorem the P-indivisibility content, independently of center independence. Any claim that one algebraic CI condition simultaneously forces memory and chirality is therefore unavailable.
 
 ### 4.4 Multi-component dynamics and gauge structure
 

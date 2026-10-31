@@ -7,7 +7,7 @@ independence ((ii) and (iii) with the cone lemma) or measurement independence ((
 Measurement independence is a posit about the initial condition. Compatibility of preparation-indexed adjacency with
 operational no-signaling and the continuum-curvature limit is the open hypothesis H-Bell (Main §3.3, Corollary). The
 selector and chirality anchors are SM §4.1 (form lemma and its Remark (scope); "Center independence: exact scope after
-projection"; "Linearity and coefficient selection: revised scope") and SM §4.3 (Theorem 3, its Remark, "Revised chain").
+projection"; "Linearity and coefficient selection: revised scope") and SM §4.3 (Theorem 3, its Remark, "Scope in the chain").
 
 | Site | Was | Anchor | Now |
 |---|---|---|---|
