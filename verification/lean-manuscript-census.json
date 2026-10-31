@@ -1659,6 +1659,24 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Conditional k-token infrastructure on WK k = (Fin k → Fin 4) → ℝ. subset_QK_of_maxCone_drive uses the k-fold maxCone bound, CNOT into later tokens and the rotation/cyclic actions off the first token for the upper inclusion; QK_subset_of_products_cone_drive uses products of eball 3 states, addition, nonnegative scaling and the same actions for the lower. kCone_eq_QK_of_drive_maxCone assembles equality; kCone_eq_QK_iff_drive_maxCone has the witnesses driveInvariantK_of_eq_QK and kCone_eq_QK_of_drive_maxCone. pairCone_eq_Q3_of_kToken proves the statement of EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone from the k-token theorem; EqvK2MaxCone is not imported. This family is carried by no manuscript. The k-token carrier, products, test validity and the invariance remain explicit premises; arbitrary unitary invariance and Kn are not asserted. Record: verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/."
+    },
+    {
+      "name": "SUBSTATE-2 unit F2-1 stage-2 kernel controls (research)",
+      "modules": [
+        "F2CoherenceControls"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only controls for the F2-1 preregistration (frozen at 66eb48ca) and amendment A-star (b86f0547), statements copied verbatim from A-star: OnesBounded; rot moves the all-ones ray and does not preserve nonnegative entries, so nonnegativity- or ones-bounded two-state theories lack the falsifier; ones-fixing classes give ones-bounded theories (permTheory, onesTheory); a nonnegative implementation class with its architecture, nonnegativity bound and ones-fixing property; a real-amplitude class whose theory has rot and lacks the quarter phase; the full class as the positive control. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Issue #1010, draft PR #1011; kernel predicates enter the unit's results only from CI step conclusions."
+    },
+    {
+      "name": "PC-1 stage-2 kernel controls (research)",
+      "modules": [
+        "PC1Controls"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only controls for the PC-1 preregistration (frozen at 948b30c1), its stage-2 amendment PC-S2 (4d2c4d56) and the C13 correction PC-S2-C13 (895e5c5b); statements copied verbatim from PC-S2: the diagonal gauge diag(1, i) and the gauged rotation, which fixes the all-ones vector up to the scalar 3/5 + (4/5)i and lies in the ones-fixing class (finding PC-F1); no diagonal gauge makes a nonzero multiple of rot a scalar times a nonnegative matrix; nonnegativity- and ones-bounded two-state theories lack the level-one quarter phase; the permutation theory is ones-bounded on every carrier and lacks the level-one quarter phase and the gauged rotation; a class containing rot has the falsifier; any architecture inside the real-amplitude class lacks the quarter phase. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Draft PR #1022; kernel predicates enter the unit's results only from CI step conclusions."
     }
   ]
 }
