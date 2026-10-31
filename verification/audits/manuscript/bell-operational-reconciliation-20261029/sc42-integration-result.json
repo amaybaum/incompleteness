@@ -1204,7 +1204,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | F1 | BEC analogue-gravity $\\mathcal{F}(r) = 2r - r^2$ (pro..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | F8 | Cosmic recurrence | period at most $g(|S|)$; $|S|$ no..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Most distinctive content.** Two predictions distinguish th..."
     },
     {
       "ok": true,
@@ -1261,6 +1269,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The empirical signatures.** Finiteness has specific empiri..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *What the framework predicts forward.* Specific predictions ..."
     },
     {
       "ok": true,
@@ -1340,7 +1352,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The C2 limit therefore illuminates a different structural po..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Together, the limits characterize the kind of observer we ar..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This reframing has consequences for the framework's empirica..."
     },
     {
       "ok": true,
@@ -1620,11 +1640,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 9.7 develops the Danielson-Satishchandran-Wald (DSW)..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Chapter 1 (Quantum Mechanics from Embedded Observation).* T..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Finiteness.* The substratum $S$ has finite cardinality. Thi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where the framework extends DSW.** The framework's content..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The mechanism proposal predicts that capacity-controlled sys..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The BEC analogue-gravity setup of Chapter 15 is precisely a ..."
     },
     {
       "ok": true,
@@ -1704,6 +1740,82 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 13.7 develops the restricted quantum-statistical reg..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 13.9 closes the chapter with the framework's overall..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content in this chapter is empirically engag..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Empirical access.** The framework's reading is empirically..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Empirical status.** The framework's predictions are *consi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's prediction.** Photosynthetic exciton trans..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Empirical implications.** The framework's content predicts..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Quantitative testability.** The framework's prediction goe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The diagnostic experiments are within reach of current singl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 13.7 The restricted quantum-statistical regime in biology..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content on quantum biology includes a struct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The regime's empirical signature.** A memoryless (Markov) ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Biological systems in the restricted quantum-statistical r..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The proposal's conjecture is that *biological systems show p..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The empirical access.** Testing the prediction of the rest..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's distinctive falsification target in quantum ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's distinctive content.** The restricted quan..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Quantitative predictions that the framework makes.* The spe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Predictions for future empirical work.* The restricted quan..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Operational closure (a model hypothesis).** The computatio..."
     },
     {
@@ -1712,11 +1824,187 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: This chapter develops the framework's content in *engineered..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 15.7 develops the restricted quantum-statistical reg..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 15.7 The restricted quantum-statistical regime in enginee..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Beyond the revival effects developed in §§15.3-15.6 where a ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The structural condition.** C3 is sufficient memory capaci..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: In engineered systems, the hidden capacity is *controllable*..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's prediction.** In the restricted quantum-st..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Multi-time joint distributions.* The joint probability dist..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Memory saturation.* Accessible memory is capped by hidden c..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Capacity dependence.* The mechanism proposal's model gives ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The functional form distinguishes the proposal's prediction ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where the restricted quantum-statistical regime is accessi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Engineered spin chains.* Short spin chains ($L \\sim 5$-10) ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Designed photonic systems.* Photonic crystals with engineer..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Diagnostic measurements.** The mechanism proposal's predic..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's cleanest near-term test of the proposed capa..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's modification.** The framework's content go..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The capacity is controllable through the supersonic region's..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This expression has *no free parameters* once the experiment..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 4. Compute the temporal autocorrelation $G_{\\text{sub}}^{(2)..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 5. Alternatively, prepare two initial perturbations and trac..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *C2 test.* Fixed $L_{\\text{super}}$, variable flow velocity...."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Thermal test.* Variable condensate temperature, fixed geome..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Feasibility.** The predicted effect is not a small correct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The dominant noise source in BEC analogue experiments is ato..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Standard Bogoliubov-de Gennes theory* predicts thermal occu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Relation to DSW horizon decoherence.** The BEC analogue-gr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The convergence is theoretical. DSW derive within standard p..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A positive result confirming the framework's prediction $\\ma..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A null result with the framework's specific quadratic functi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 4. *Restricted quantum-statistical regime.* Engineered syste..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 5. *BEC analogue-gravity test.* A specific tabletop experime..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Structurally consequential.* The restricted quantum-statist..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 18.2 develops the framework's *account* of the Born ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The middle of the chapter takes up the framework's foundatio..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's content in this chapter has a particular epi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 18.3 The quantum-classical boundary and the restricted qu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A system implementing C1–C4 with all four conditions strongl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The restricted quantum-statistical regime.** The mechanism..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: By definition the regime lies strictly between no revival ($..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Partial distinguishability revival itself is standard open-s..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where to look for the restricted quantum-statistical regim..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content is not \"quantum effects in biology\" ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Observational signatures.** Single-molecule enzyme experim..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The distinction is empirically testable. A memoryless (divis..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The restricted quantum-statistical regime is the mechanism p..."
     },
     {
       "ok": true,
@@ -1736,7 +2024,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Exact finite recurrence.** A bijection $\\varphi$ acting on..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -1776,15 +2072,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
-    },
-    {
-      "ok": true,
       "predicate": "chapter line mirrored in FULL: The conceptual content is significant. The framework predict..."
-    },
-    {
-      "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -1792,7 +2080,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Testable forward predictions.* The restricted quantum-stati..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Structural commitments with limited empirical access.* The ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Cumulative case.** The framework's content across the empi..."
     },
     {
       "ok": true,
@@ -1809,6 +2105,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *conditionally*: within complex matrix kinematics taken as g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Condensed matter and many-body physics.* The framework deri..."
     },
     {
       "ok": true,
@@ -1856,6 +2156,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Restricted quantum-statistical regime.** The mechanism pro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Tsirelson bound.** The maximum CHSH inequality violation a..."
     },
     {
@@ -1865,6 +2173,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's value depends on what follows from this reve..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Recommended.** Chapter 10 (chemistry derivation, providing..."
     },
     {
       "ok": true,
