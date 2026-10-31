@@ -31,16 +31,16 @@ variable {X : Type u} {C : Type v} {V : Type w}
 
 /-- A function has the same output on states indistinguishable
     at hierarchy depth n. -/
-def FactorsAt (stage : ℕ → X → C) (n : ℕ) (f : X → V) : Prop :=
+def FactorsAt (stage : Nat → X → C) (n : Nat) (f : X → V) : Prop :=
   ∀ x y, stage n x = stage n y → f x = f y
 
 /-- Higher stages are at least as informative as lower stages. -/
-def Refines (stage : ℕ → X → C) : Prop :=
+def Refines (stage : Nat → X → C) : Prop :=
   ∀ n m, n ≤ m → ∀ x y, stage m x = stage m y → stage n x = stage n y
 
 /-- A factor at depth n is also determined at any deeper stage m. -/
-theorem factorsAt_mono (stage : ℕ → X → C) (f : X → V)
-    (href : Refines stage) {n m : ℕ} (hnm : n ≤ m)
+theorem factorsAt_mono (stage : Nat → X → C) (f : X → V)
+    (href : Refines stage) {n m : Nat} (hnm : n ≤ m)
     (hfac : FactorsAt stage n f) : FactorsAt stage m f := by
   intro x y hxy
   exact hfac x y (href n m hnm x y hxy)
@@ -49,11 +49,11 @@ theorem factorsAt_mono (stage : ℕ → X → C) (f : X → V)
 a possibly different finite stage is enough; one common finite
 stage is enough for the whole finite family. The hypothesis that
 these finite stages exist is EXPLICIT rather than smuggled in. -/
-theorem finite_horizon_depth_bound (stage : ℕ → X → C)
-    (record : ℕ → X → V) (href : Refines stage) :
-    ∀ L : ℕ,
-      (∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt stage n (record t)) →
-      ∃ N : ℕ, ∀ t : ℕ, t < L → FactorsAt stage N (record t) := by
+theorem finite_horizon_depth_bound (stage : Nat → X → C)
+    (record : Nat → X → V) (href : Refines stage) :
+    ∀ L : Nat,
+      (∀ t : Nat, t < L → ∃ n : Nat, FactorsAt stage n (record t)) →
+      ∃ N : Nat, ∀ t : Nat, t < L → FactorsAt stage N (record t) := by
   intro L
   induction L with
   | zero =>
@@ -63,7 +63,7 @@ theorem finite_horizon_depth_bound (stage : ℕ → X → C)
       omega
   | succ L ih =>
       intro h
-      have hsmall : ∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt stage n (record t) := by
+      have hsmall : ∀ t : Nat, t < L → ∃ n : Nat, FactorsAt stage n (record t) := by
         intro t ht
         exact h t (by omega)
       obtain ⟨N, hN⟩ := ih hsmall
@@ -80,12 +80,12 @@ theorem finite_horizon_depth_bound (stage : ℕ → X → C)
 repeat with one specified period. This is strictly stronger than
 Poincare recurrence, and its proof does not assert that OI
 satisfies the hypotheses. -/
-theorem all_time_depth_bound_of_exact_period (stage : ℕ → X → C)
-    (record : ℕ → X → V) (href : Refines stage)
-    (L : ℕ) (hL : 0 < L)
-    (hperiod : ∀ t : ℕ, record t = record (t % L))
-    (hlocal : ∀ t : ℕ, t < L → ∃ n : ℕ, FactorsAt stage n (record t)) :
-    ∃ N : ℕ, ∀ t : ℕ, FactorsAt stage N (record t) := by
+theorem all_time_depth_bound_of_exact_period (stage : Nat → X → C)
+    (record : Nat → X → V) (href : Refines stage)
+    (L : Nat) (hL : 0 < L)
+    (hperiod : ∀ t : Nat, record t = record (t % L))
+    (hlocal : ∀ t : Nat, t < L → ∃ n : Nat, FactorsAt stage n (record t)) :
+    ∃ N : Nat, ∀ t : Nat, FactorsAt stage N (record t) := by
   obtain ⟨N, hN⟩ := finite_horizon_depth_bound stage record href L hlocal
   refine ⟨N, ?_⟩
   intro t
@@ -100,6 +100,8 @@ def feedbackStep {H : Type _} (h : H → Bool) (p : Bool × H) : Bool × H :=
 theorem feedbackStep_involution {H : Type _} (h : H → Bool) (p : Bool × H) :
     feedbackStep h (feedbackStep h p) = p := by
   rcases p with ⟨b, hidden⟩
+  unfold feedbackStep
+  dsimp only
   cases b <;> cases h hidden <;> rfl
 
 #print axioms factorsAt_mono
