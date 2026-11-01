@@ -1,6 +1,6 @@
 # GA-1 Stage S: native gauge-link and action source audit
 
-**Author source assessment: GAP-SOURCE; independent review pending.**
+**Source-audit disposition: GAP-SOURCE.**
 This is a source-audit disposition for the three families fixed in GA-1, not an
 outcome-execution verdict or an impossibility theorem. No GA★ candidate is selected.
 The conditional non-abelian construction in SM §6.5 remains available for research.
