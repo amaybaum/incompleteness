@@ -323,3 +323,94 @@ seven are applied.
   - *It is not frozen.* Freezing `K★` is a separate owner decision.
 - **REV-8.** Correction REV-8 in `stage1-log.json` (under `lit5_errata`) changes §K★.8's two Mermin
   errata to three: *Rev. Mod. Phys.* 85, 919 (2013); 88, 039902 (2016); 89, 049901 (2017).
+
+### K★.F — K★ frozen (owner decision)
+
+**Decision and source.** Owner decision, PR #1023 comment 6554399670 (created
+2026-11-01T06:23:32Z). It was given in the coordinating session's chat, replying to comment
+6554387397.
+
+- **The decision:** once CI is green on the exact commit, and provided the reviewed amendment is
+  unchanged, freeze `K★ = {K1}`, "the single native OI dynamics constraint".
+- **CC2:** retained as the full classical comparison class, not an arbitrarily selected model.
+- **Nonclassicality:** token 2.4 stays unavailable, and the contextuality ceiling stays explicit.
+- **The owner's words:** "Only after that freeze should the paper-only candidate search begin. The
+  goal is still to find a physical measurement mechanism arising from OI itself, rather than
+  reproduce quantum predictions by construction."
+
+**Conditions, verified by this writer with read-only GitHub connector calls.**
+
+- **CI:** workflow run 41279841361 (`verify`, event `pull_request`) has `head_sha`
+  `dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8`, status `completed` and conclusion `success`. It was
+  updated at 2026-11-01T06:21:38Z.
+- **Unchanged reviewed head:** PR #1023's head is `dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8`. That is
+  the commit the independent reviewer accepted, and this freeze commit's parent. No change followed
+  the review.
+- **The reviewed amendment itself** (`D3-CC2-class-level.md`, with §D3.9) is unchanged at that head.
+
+**The freeze: `K★ = {K1}`.**
+
+- **K1, frozen L330–331, verbatim:**
+
+  > **K1** the dynamics is the one fixed native `φ`, not a construction made per law (the battery
+  > freezes `π` and `μ` for `𝔐★`; Q1 lets them range over their admissible classes, §4.4);
+
+- **The native step:** `φ(u_prev, u) = (u, A u − u_prev)`, with `A` the neighbour sum `a·Σ_{j∼i}` on
+  a finite site set and the value group as stated there (§PC★2a at `99dce4b6`). P-1 there proves it
+  a bijection, with inverse `ψ(x, y) = (A x − y, x)`.
+- **Not a per-law construction:** it is one fixed bijection, the same for every law the battery
+  examines (Main:56, Lemma 3). It is not built from a target law, unlike CC8 (L575; Main:482,
+  Main:566).
+- **Under Q1:** "Under K1, `π` and `μ` range over every admissible value (the classes of PC-1's fork
+  rule), not the frozen pair of `𝔐★`." (frozen L358–359).
+
+**K2–K6, excluded (from §K★.2).**
+
+| Constraint | Why it is excluded | Citation |
+|---|---|---|
+| K2 | relinquished as a conjunction: option (a), ontic parameter dependence, is the option taken | Main:414 |
+| K3 | finiteness is a posit, with no bound on `N`; Q1 needs a stated bound (L371–374) | Main:62; Main:560 |
+| K4 | Spekkens noncontextuality "is not claimed" | Main:566 clause (3) |
+| K5 | OI's instruments are invasive | Main:486 |
+| K6 | no resource or reset budget is stated; "budget" does not occur in Main at `D` | §2 inputs; Main at `D` |
+
+**CC2 and the tokens, per D3 (`D3-CC2-class-level.md`).**
+
+- **CC2 is kept at class level.** The class is the L569 description, unrestricted, and under K1 it
+  contains `𝔐★`-type models (L562–563). No instance is fixed, no separating test is named, and CC2
+  is not executed; its separation fields are "not separated (class level, D3)".
+- **Token 2.4 is unreachable.** Token 2.5 is the ceiling on axis 2, with `CC2-unseparated` and
+  `CC8-unseparated`.
+
+**Timing.**
+
+- **The freeze precedes every candidate law.** No candidate law has been derived or considered, on
+  paper or otherwise. No candidate interface appears in any record of this unit, and this writer has
+  looked at, designed or derived none.
+- **The frozen requirements this meets:** 0(iii), "`K★` fixed after any candidate law has been
+  derived"; 0(vi), "a paper derivation of a candidate's law before `K★` and the battery definitions are frozen"; and the
+  checkpoint at L712, "`K★` frozen before any candidate law is derived".
+- **Next step:** the paper-only structural screen under frozen §3–§7 and D3. It ends in one fully
+  specified `𝔐★` or a scoped `GAP`, with the stage-2 interface frozen. It is not started in this
+  commit, and it follows independent review and CI of this freeze (comment 6554399670).
+
+**Hard to vary (§A.29).**
+
+- **No adjustable element.** `K★` has one member. That member's only content is the fixed native
+  rule, and `π` and `μ` range over admissible classes rather than being chosen. Nothing in `K★` can
+  be tuned to an outcome.
+- **No later change.** Any change to `K★` after this commit, whether before or after any outcome,
+  voids the run under 0(iii).
+- **Re-admitting 2.4** needs a new, independently reviewed amendment that supplies a CC2 instance:
+  an OI-held selection principle or an independently justified instance from new first-hand sources
+  (§K★.7 M1, as restated in §K★.11 RC-1). Under L561–562 such an instance belongs to `K★`, so it
+  cannot be introduced after this freeze without voiding the run.
+
+**Commands and hygiene.**
+
+- **Read-only GitHub connector calls:** the comment page of PR #1023 holding 6554399670; workflow
+  run 41279841361; PR #1023's head.
+- **Git:** `git rev-parse HEAD` (`dbf78a86`).
+- **Hygiene runs F-1 (staged draft) and F-2 (staged final content, then the single commit):**
+  placement, census and SC-42. F-1's results are in `stage1-log.json` under `kstar_freeze`. F-2 is
+  declared there before it is made, and its outcome is stated in the commit message.

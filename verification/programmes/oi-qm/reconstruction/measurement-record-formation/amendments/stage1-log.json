@@ -634,5 +634,33 @@
       {"run": "E-2", "command": "grep of this file for local paths; git add of the four files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
     ],
     "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived."
+  },
+  "kstar_freeze": {
+    "date": "2026-11-01",
+    "authority": "owner decision, PR #1023 comment 6554399670 (created 2026-11-01T06:23:32Z), replying to comment 6554387397: freeze K-star = {K1} once CI is green on the exact commit and the reviewed amendment is unchanged",
+    "file": "amendments/MR-star.md, section K-star.F (appended)",
+    "kstar": ["K1"],
+    "k1": "frozen L330-331: the dynamics is the one fixed native phi, not a construction made per law; native step phi(u_prev, u) = (u, A u - u_prev), PC-star-2a at 99dce4b6; pi and mu range over their admissible classes under Q1 (frozen L358-359)",
+    "excluded": {"K2": "Main:414", "K3": "Main:62, Main:560 (no bound on N; L371-374)", "K4": "Main:566 clause (3)", "K5": "Main:486", "K6": "no budget stated in Main at D"},
+    "cc2": "class level (D3)",
+    "token_2_4": "unreachable",
+    "axis_2_ceiling": "2.5 CONTEXTUAL with CC2-unseparated and CC8-unseparated",
+    "conditions_verified": [
+      "workflow run 41279841361 (verify, event pull_request): head_sha dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8, status completed, conclusion success, updated 2026-11-01T06:21:38Z (read-only GitHub connector call by this writer)",
+      "PR #1023 head is dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8, the commit the independent reviewer accepted and the parent of this freeze commit; the reviewed D3 amendment is unchanged at that head"
+    ],
+    "timing": "The freeze precedes every candidate law: no candidate law has been derived or considered, on paper or otherwise, and no candidate interface appears in the unit's records (frozen 0(iii), 0(vi), checkpoint L712). The paper-only structural screen is the next step and is not started in this commit.",
+    "hard_to_vary": "Any change to K-star after this commit, before or after any outcome, voids the run under 0(iii). Re-admitting 2.4 needs a new reviewed amendment supplying a CC2 instance (M1 grounds), which under L561-562 belongs to K-star and so cannot be introduced after this freeze without voiding the run.",
+    "commands": [
+      "GitHub connector reads: the PR #1023 comment page holding 6554399670; workflow run 41279841361; PR #1023 (head sha)",
+      "git rev-parse HEAD (dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8)",
+      "git show 1a236f33:.../preregistration.md | sed -n over L330-331, L358-359 and L712, to check the quotations",
+      "grep of MR-star.md and this file for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "F-1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged draft of section K-star.F", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6)"},
+      {"run": "F-2", "command": "grep of this file for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived, and no screen was started."
   }
 }
