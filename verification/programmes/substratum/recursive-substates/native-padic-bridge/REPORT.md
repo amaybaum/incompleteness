@@ -190,8 +190,10 @@ fractal sub-states in general. It does **not** address:
 
 **Verdict:** ACCEPT the narrow algebraic
 NO-DEEP-TO-LOW-M PASSIVE BACKFLOW statement for the
-specified modular cubic wave family, pending independent
-review; the explicit reversible mutant is a
+specified modular cubic wave family. Independent re-review ACCEPT at `c811e876`
+is author-reported in [#1011 comment 6543745746](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6543745746);
+reviewer identity and a retrievable reviewer-authored verdict remain unresolved
+in the inspected record. The explicit reversible mutant is a
 positive **non-native** control. **BLOCKED** on sourcing
 a genuine scale-mixing mechanism and repeatable
 public measurement interaction from the same OI

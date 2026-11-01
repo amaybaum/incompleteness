@@ -122,7 +122,7 @@ The result is **`INCONCLUSIVE (gap)`**: row 1, no void reasons. `run-2/results.j
 and keeps its pre-CI form, with the kernel fields `pending` and the token withheld, as its
 regeneration check requires.
 
-**Independent exact-head review:** FINAL — INCONCLUSIVE (gap) confirmed at PR head `1d345126`, record at `2155273f`. The reviewer re-ran `--kernel` in normal and `-O` mode (byte-identical to `kernel-decision.json`), confirmed the step conclusions through the host's run and job records, and confirmed that clause 0 does not fire and clause 1 applies.
+**Author-reported independent exact-head review:** FINAL — INCONCLUSIVE (gap) confirmed at PR head `1d345126`, recorded at `2155273f` and summarized in [#1011 comment 6546461983](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546461983). That report says the reviewer re-ran `--kernel` in normal and `-O` mode (byte-identical to `kernel-decision.json`), confirmed the step conclusions through the host's run and job records, and confirmed that clause 0 does not fire and clause 1 applies. Reviewer identity, review time and a retrievable reviewer-authored verdict are not supplied in the inspected record; the reported acceptance retains that provenance qualification.
 
 ## What this result does not establish
 

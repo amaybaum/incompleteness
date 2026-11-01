@@ -1,6 +1,6 @@
 # FIXED-SCALE-1 — one reversible hierarchy, indefinitely deep access, classical memory
 
-**Research author result; written infinite-model proof and exact finite enumerations, pending independent mathematical review.** Related to SUBSTATE-2 issue #1010 and draft PR #1011. The test conditions were committed first in `PREREGISTRATION.md`. No native OI source, QM instrument, YM action or physical scale prediction is claimed.
+**Research author result; written infinite-model proof and exact finite enumerations. Independent re-review ACCEPT at `c811e876` is author-reported in [#1011 comment 6543745746](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6543745746); reviewer identity and a retrievable reviewer-authored verdict remain unresolved in the inspected record.** Related to SUBSTATE-2 issue #1010 and draft PR #1011. The test conditions were committed first in `PREREGISTRATION.md`. No native OI source, QM instrument, YM action or physical scale prediction is claimed.
 
 ## Mathematical result
 
@@ -135,4 +135,4 @@ This is a genuine **one-law**, no horizon-dependent-parameter, *classical* examp
 
 But it does **not** select a unique physical self-similar scaling ratio, a log-periodic spectrum, a finite physical boundary entropy, a gauge action or the five operational QM conditions. Its tape coordinate is a mathematically convenient hierarchy; no derivation ties that hierarchy to the actual OI cubic microscopic lattice, native observer interface or Yang–Mills link variables. A stationary fair Bernoulli shift is also a familiar purely classical construction.
 
-**Decision:** ACCEPT as a bounded mathematical fixed-law control, with independent review pending; PARK any claim of physical emergence. The next honest test must source the same level coupling and accessible apparatus from an actual OI microscopic system, constrain the hidden prior without calibration to the target, and then attempt a genuinely nonclassical or gauge-action-selecting prediction. Do not claim physical quantum equivalence from an exact classical memory witness.
+**Decision:** ACCEPT as a bounded mathematical fixed-law control, with author-reported independent acceptance and the review-provenance qualification above; PARK any claim of physical emergence. The next honest test must source the same level coupling and accessible apparatus from an actual OI microscopic system, constrain the hidden prior without calibration to the target, and then attempt a genuinely nonclassical or gauge-action-selecting prediction. Do not claim physical quantum equivalence from an exact classical memory witness.

@@ -213,7 +213,14 @@ interaction, genuine gauge fields or quantum
 operational structure.
 
 **Disposition:** narrow passive low-digit NO-BACKFLOW,
-pending independent review. This rules out a simple
+with independent re-review ACCEPT at `c811e876` reported in
+[#1011 comment 6543745746](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6543745746).
+The inspected record contains the author's review summary; reviewer identity and
+a retrievable reviewer-authored verdict remain unresolved. This rules out a simple
 fractal-alphabet shortcut without prohibiting a
 sourced cross-scale physical mechanism. Do not
 promote it to any OI manuscript claim.
+
+For F2-1's unchanged scoped gap result, read frozen A★ alongside the
+[post-closeout G★ correction](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546748788).
+The correction does not alter the thirteen-rule outcome; F2/L3 remain open.
