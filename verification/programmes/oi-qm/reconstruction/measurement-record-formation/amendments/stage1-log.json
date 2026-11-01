@@ -417,5 +417,68 @@
     {"run": 12, "command": "GitHub issue-comment read of PR #1023 (read-only connector call, not a git or hygiene tool)", "purpose": "quote the owner's boundaries exactly from comment 6553497955", "result": "comment read; boundaries quoted in KS-substitution.md section 1"},
     {"run": 13, "command": "git add .../amendments/KS-substitution.md .../amendments/stage1-log.json", "purpose": "stage the two files", "result": "staged"},
     {"run": 14, "command": "python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md", "purpose": "hygiene and an unchanged preregistration", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+  ],
+  "corrections": [
+    {
+      "id": "REV-1",
+      "source": "independent review of da558a8c",
+      "target": "LIT-5, gate.status (and gate.reason)",
+      "old_value": "MET for the corrected arXiv text; errata text not obtained",
+      "corrected_value": "PARTIAL: the corrected arXiv text (arXiv:1802.10119v1) is read first-hand in full; the text of the published errata (Rev. Mod. Phys. 88, 039902; 89, 049901) is not obtained, so the gate stays open on that point and the gap is referred to the owner",
+      "reason": "The owner's decision (PR #1023 comment 6553497955) requires that 'Mermin's published corrections must also be considered' and lists the next step as reads of Bell 1966 and Mermin 1993 'including the errata'. The errata text was not obtained, so MET overstates the gate."
+    },
+    {
+      "id": "REV-2",
+      "source": "independent review of da558a8c",
+      "target": "LIT-1, caveats (new caveat LIT-1-C7, from conditions entry 'finite ontic space (p. 3)')",
+      "old_value": "finite ontic space (p. 3) [recorded only as a condition]",
+      "corrected_value": "LIT-1-C7, scope caveat (finite ontic space): the PRL's proof assumes a finite ontic space Lambda (p. 3). A W1 obtained through the bound V + P <= 1 therefore excludes only noncontextual models with finite Lambda. Separating CC1 (a classical wave or occupation model) or any model with a continuum hidden variable through this bound needs its own extension, which the source does not supply.",
+      "reason": "The finite-Lambda assumption limits which models the witness excludes and bears on the CC1 separation; it is a caveat, not only a condition."
+    },
+    {
+      "id": "REV-3",
+      "source": "independent review of da558a8c",
+      "target": "LIT-4, caveats LIT-4-C2 (kind and text); KS-substitution.md section 4, second finding",
+      "old_value": "kind 'scope caveat (per-law construction)'; text 'The models are built from psi's own quantum expectations, so they are of the CC8 kind and agree with PC-Q on single measurements by construction. A CC2 instance is distinguished from CC8 only by a K1-fixed construction, which this source does not supply.'",
+      "corrected_value": "kind 'scope caveat (psi-ontic construction)'; text: Bell's spin-1/2 model, eq. (3), is psi-ontic: its ontic state (psi, lambda), with lambda on a continuum, fixes the outcome of every single measurement alpha + beta.sigma on the system, so it is not a finite-menu A-realization of the CC8 kind; it reproduces the quantum single-measurement statistics by construction. The p. 451 contextual model is also psi-ontic and per state: its ontic state is (psi, lambda) with 0 < lambda <= 1, its thresholds lambda_n are cumulative quantum expectations in psi of the projectors one apparatus measures, it is defined for every such context with an order fixed by the set of projectors, and it reproduces the single-context quantum statistics by construction. Neither model is a K1-fixed construction, so no CC2 instance is supplied by this source.",
+      "reason": "'Per-law, CC8 kind' overstates: CC8 is a finite-menu realization of a stated law, while Bell's models are psi-ontic and cover every single measurement (respectively every context) on the system. The conclusion that no K1-fixed CC2 construction is supplied stands."
+    },
+    {
+      "id": "REV-4",
+      "source": "independent review of da558a8c",
+      "target": "LIT-5, caveat LIT-5-C4 and gate.reason; KS-substitution.md section 5 table",
+      "old_value": "'Claim M-b, and M-c restricted to a finite menu of observables, rest on this source alone and are blocked until the errata text is read.'",
+      "corrected_value": "Rest on this source alone: (i) M-b, the finite four-dimensional square; (ii) M-c restricted to a finite menu of observables; (iii) the product rule of functional composition, Mermin eqs. (1)-(2), used in sections V(c) and VI(c) (Bell 1966 uses additivity of expectation values for commuting operators only); (iv) the agreement with Corollary U3 (LIT-5 agreement_with_frozen_text, Mermin p. 23). Items (i)-(iii) are blocked until the errata text is read. Item (iv) is Mermin-only and not load-bearing (U3 is marked not load-bearing in the frozen text, L345).",
+      "reason": "The list of Mermin-only claims omitted the product rule, on which the square depends, and the U3 agreement."
+    },
+    {
+      "id": "REV-5",
+      "source": "independent review of da558a8c",
+      "target": "LIT-1 reader_commands (entries containing \"grep -A3 -E '[v[0-9]]'\" and \"'Proposition V|^formfeed|Ref. [50]'\"); LIT-2 reader_commands (entry containing \"'AW-MR3|T7|Mazurek|^#+ |5.3|tomograph'\")",
+      "old_value": "regex strings as written in those entries",
+      "corrected_value": "These strings paraphrase the readers' original regular expressions (escapes and a form-feed character were rendered in words or dropped); they are labelled here as paraphrased, not verbatim.",
+      "reason": "Accuracy of the provenance record."
+    },
+    {
+      "id": "REV-6",
+      "source": "independent review of da558a8c",
+      "target": "writer_runs 7, 9 and 14 (SC-42 check)",
+      "old_value": "'PASS; added-text scan 0 hits' (run 7), with runs 9 and 14 reporting the same in the commit messages",
+      "corrected_value": "The SC-42 added-text scan diffs only *.md and *.py files. It never scanned this JSON file; it scanned KS-substitution.md. No SC-42 coverage is claimed for this JSON file.",
+      "reason": "Scope of the hygiene check."
+    },
+    {
+      "id": "REV-7",
+      "source": "independent review of da558a8c",
+      "target": "top-level fields readers and computation_statement",
+      "old_value": "readers: 'Three independent first-hand literature readers (Claude subagents), 2026-10-31, ...'; computation_statement: '... The writer of this log ran only git and the three repository hygiene tools, listed under writer_runs. ...'",
+      "corrected_value": "Both fields predate LIT-4, LIT-5 and run 12. LIT-4 (Bell 1966) and LIT-5 (Mermin 1993) were read by two further independent first-hand literature readers (Claude subagents) on 2026-11-01, reading only. Besides git and the hygiene tools, the writer made one read-only GitHub connector call (run 12) to quote the owner's comment; it evaluated no quantity.",
+      "reason": "The two fields describe the state at the first commit of this log."
+    }
+  ],
+  "corrections_runs": [
+    {"run": 15, "command": "git log -1 --format=%H", "purpose": "confirm HEAD before the review corrections", "result": "da558a8cf53c46d2358c2812f2c5df5cb6593c56"},
+    {"run": 16, "command": "git grep -n -E '<phrases>' HEAD -- .../amendments/stage1-log.json .../amendments/KS-substitution.md", "purpose": "locate the targets of REV-1 to REV-7", "result": "targets located"},
+    {"run": 17, "command": "git add .../amendments/stage1-log.json .../amendments/KS-substitution.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
   ]
 }

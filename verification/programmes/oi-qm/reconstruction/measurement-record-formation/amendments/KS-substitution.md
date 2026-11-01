@@ -107,3 +107,37 @@ point.
   the gate stays unresolved, and CC2 and the nonclassicality criterion are not weakened.
 - No candidate screening precedes a reviewed `K★`; no computation precedes the reviewed stage-1
   freeze.
+
+***
+
+## 7. Review corrections
+
+Source: independent review of `da558a8c`. The text above is kept as written; these corrections
+supersede the passages named. The same corrections are recorded in `stage1-log.json` under
+`corrections` (REV-1 to REV-7).
+
+- **REV-1 (§6, first status line; LIT-5 gate).** Mermin 1993 is **PARTIAL**, not met: the corrected
+  arXiv text is read first-hand in full, but the owner's decision requires Mermin's published
+  corrections to be considered, and the errata text was not obtained. The gate stays open on that
+  point, and the gap is referred to the owner. The first status line reads: the literature input for
+  the Kochen–Specker role is first-hand from Bell 1966 in full; Mermin 1993 is partial, its errata
+  unread.
+- **REV-3 (§4, second finding).** Bell's models are **ψ-ontic**, not per-law constructions of the CC8
+  kind. The spin-½ model, eq. (3), has ontic state `(ψ, λ)` with `λ` on a continuum and fixes the
+  outcome of every single measurement on the system; it reproduces the quantum single-measurement
+  statistics by construction. The p. 451 contextual model is also ψ-ontic and per state: its
+  thresholds are cumulative quantum expectations in `ψ` of the projectors one apparatus measures, it
+  is defined for every such context with an order fixed by the set of projectors, and it reproduces
+  the single-context statistics by construction. Neither is a K1-fixed construction; the conclusion
+  that no CC2 instance is supplied stands.
+- **REV-4 (§5 table).** Two further Mermin-only items: the **product rule** of functional
+  composition, Mermin eqs. (1)–(2), on which the square depends (Bell 1966 uses additivity for
+  commuting operators only), **blocked** until the errata are read; and the agreement with Corollary
+  U3 (Mermin p. 23), Mermin-only and not load-bearing.
+- **REV-2 (literature log, LIT-1).** The PRL proof of the predictability–visibility bound assumes a
+  finite ontic space. A W1 through that bound excludes only finite-`Λ` noncontextual models;
+  separating CC1 or any continuum-`λ` model through it needs its own extension.
+- **REV-5 to REV-7 (literature log only).** Paraphrased reader regexes are labelled; the SC-42 scan
+  covers `*.md` and `*.py` only and never scanned the JSON log; the log's `readers` and
+  `computation_statement` fields predate the 2026-11-01 readings of Bell and Mermin and the one
+  read-only GitHub connector call.
