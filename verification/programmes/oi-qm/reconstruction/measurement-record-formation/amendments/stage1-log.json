@@ -480,5 +480,40 @@
     {"run": 15, "command": "git log -1 --format=%H", "purpose": "confirm HEAD before the review corrections", "result": "da558a8cf53c46d2358c2812f2c5df5cb6593c56"},
     {"run": 16, "command": "git grep -n -E '<phrases>' HEAD -- .../amendments/stage1-log.json .../amendments/KS-substitution.md", "purpose": "locate the targets of REV-1 to REV-7", "result": "targets located"},
     {"run": 17, "command": "git add .../amendments/stage1-log.json .../amendments/KS-substitution.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
-  ]
+  ],
+  "kstar_step": {
+    "date": "2026-11-01",
+    "authority": [
+      "PR #1023 comment 6549252522 (owner): stage-1 order, step 2, precommit K-star including the independently justified concrete CC2 instance and its OI-held constraint before any candidate screen",
+      "PR #1023 comment 6553497955 (owner, Option 2): an independently justified concrete CC2 model with its OI-held constraint before K-star is frozen; if it cannot be justified, the literature gate stays unresolved and CC2 and the nonclassicality criterion are not weakened"
+    ],
+    "file": "amendments/MR-star.md, section K-star only",
+    "outcome": "BLOCKED: the CC2 instance cannot be constructed from the available first-hand sources without an arbitrary choice. K-star is not frozen; the Kochen-Specker literature gate stays unresolved; no candidate screen starts. The CC2 row (frozen L569), the CC2-instance rule (L559-564), the nonclassicality criterion (L529-536) and tokens 2.4 and 2.5 (L620-621) are unchanged.",
+    "membership_reading": "Only K1 qualifies at D (K2 relinquished, Main:414; K3 held without a bound on N, Main:62, Main:488, Main:560; K4 not held, Main:566 clause (3); K5 not held, Main:486; K6 no budget stated). Recorded as a reading, not a freeze: by section 7.1, K-star is frozen together with its CC2 instance.",
+    "missing_elements": [
+      "M1 (decisive): selection within the K1 class. K1 fixes only the dynamics; under Q1, pi and mu range over admissible classes (L358-359); no OI-held constraint at D and no first-hand source selects an instance. Every instance in the K1 class with a readout and a marker is an interface of the frozen-interface type (L562-563, A1), so selecting one is a free choice of a candidate-type object before the screen.",
+      "M2: disturbing readout. No first-hand-sourced form for the post-readout ontic state (LIT-4-C1, LIT-5-C1).",
+      "M3: disturbing marker. No first-hand-sourced form for a marker, its coupling or its strength family (LIT-4-C1, LIT-5-C1; KS-S section 4).",
+      "M4: finite-menu certification of the Kochen-Specker-type character. Bell B-b covers all rays only; a K1-fixed instance on a fixed finite S has a finite menu (Main:488); every finite-set result available is blocked (Mermin errata unread, REV-1 and REV-4; Kochen-Specker 1967 pp. 69-87 unread, LIT-3)."
+    ],
+    "constructions_examined_not_admitted": [
+      "C-a: Bell-type, psi-ontic, with the quantum update and PC-Q's marker coupling. Its law is defined from the quantum benchmark; it is not fixed by K1 (REV-3; P-set); its finite form in the corpus is Main:566, which is CC8's realization (L575).",
+      "C-b: Bell-type with a fixed reference distribution. The threshold order, post-readout update, marker map and preparation assignment are unsourced free choices; it is not the native dynamics.",
+      "C-c: an instance in the K1 class. Not specified, by M1 and M4."
+    ],
+    "not_evaluated": "No construction was evaluated on any test and no law of any construction was derived; exclusions rest on sourcing and fixing only. No candidate interface was looked at, designed, derived or evaluated.",
+    "unblock_options": "Sources: the text of the Mermin errata, or Kochen-Specker 1967 pp. 69-87 (for M4); a first-hand source with a sequential deterministic contextual model with a disturbing readout and a marker (for M2 and M3; pointers in MR-star.md section K-star.8 are unread and their content is not asserted). Owner decisions D1 to D3 in MR-star.md section K-star.8; none adopted.",
+    "commands": [
+      "git rev-parse HEAD (a9bdeca24f038b592d8a5880e64f2facd7c5f7ab); git status; git branch --show-current; git log --oneline",
+      "git show 5914c17c:papers/Main.md | sed -n over Main:44, 56, 60, 62, 368-372, 408-410, 414, 418, 482, 486, 488, 560, 566-574; grep of the same text for 'contextual', 'Spekkens' and 'budget' (no occurrence of 'budget')",
+      "git show 99dce4b6:.../physical-coupling-pc1/amendments/PC-star.md | grep and sed -n over sections PC-star-2 and PC-star-4",
+      "display of the frozen preregistration, KS-substitution.md, this log, and the off-repository reader records for LIT-3, LIT-4 and LIT-5",
+      "grep of MR-star.md for local paths (none); grep and sed -n of check_sc42_integration.py to confirm the scope of its added-text scan"
+    ],
+    "hygiene_runs": [
+      {"run": "K1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged draft", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers *.md and *.py, so MR-star.md; not this JSON file, REV-6)"},
+      {"run": "K2", "command": "grep of this file for local paths; git add .../amendments/MR-star.md .../amendments/stage1-log.json; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene on the staged content, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run for this step. No Python ran except the three repository hygiene tools, each invoked with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. The commands run were git, read-only display commands (cat, sed -n, grep, git show, git diff) and the hygiene tools, listed above. All mathematics in MR-star.md section K-star is paper reasoning, marked with its status."
+  }
 }
