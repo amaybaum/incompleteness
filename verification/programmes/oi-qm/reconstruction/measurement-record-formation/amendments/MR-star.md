@@ -833,3 +833,461 @@ pointer, to its wall. Further passes belong to a successor unit.
 - **Hygiene (run S-1, on the staged section):** placement, census and SC-42, then the single
   commit. Their outcome is stated in the commit message and logged in `stage1-log.json` under
   `screen`.
+
+## M. `GAP`, and the frozen stage-2 interface
+
+**Status.** Append-only. This section fixes the stage-1 result and freezes the whole stage-2
+interface. Stage 2 is not authorized. Nothing here is run, and no record law of any candidate is
+derived. The closed forms in §M.5 are PC-Q's reference values, which frozen §7.1 requires at stage
+1; they are derived on paper here and are standard quantum mechanics. No computation was run.
+
+### M.1 The axis-1 token: `GAP`
+
+- **The token.** Frozen §6 row 1.1, `GAP`: stage 1 freezes no `𝔐★`. The selection rule of §S.5
+  selects no source.
+- **The named element (§3.1): `S_A`, an apparatus pointer.** That is, a subsystem that holds a record
+  (R2) under the native step by an executing apparatus process, with its ready supply booked in
+  `Res`.
+  - **Why it is unsourced:** S-C4a (no confined pointer beyond twice its width); §S.4(a) (the trace
+    route is not admitted); σ8 (global modes are not embedded).
+- **Also unsourced, recorded but not decisive:**
+  - `Z`, a setting source that selects an operation (S-C1);
+  - `L`, a clock or ledger held by a subsystem (S-C4b);
+  - any inverse executed on a subsystem (S-L3, S-L6).
+- **Tested scope.** The token is scoped to the following:
+  - `K★ = {K1}` as frozen: the free additive step on the native cubic graph, with a coefficient
+    acting injectively on `𝐑 ∈ {ℤ/q, ℤ_p, ℝ/ℤ}`;
+  - the declared access: an observer `V ⊊ S` of bounded diameter reading its own configuration,
+    with a budget below the recurrence order;
+  - the sources σ1–σ13 of §S.3.
+- **Not a no-go.** The token is not a no-go for non-additive native rules (σ12), for engineered
+  graphs or zero-divisor coefficients (σ10, §S.4(b)), for an apparatus at the observer level, or
+  for OI generally (frozen L650–652).
+- **D3.** Under D3 it makes no claim that classical explanations are excluded. The token concerns
+  a native mechanism, not the classical class.
+- **Other axes and the track.**
+  - Axis 2: 2.1 `NOT-REACHED`, obstruction "axis-1 token `GAP`".
+  - Axis 3: 3.1 `NOT-REACHED`.
+  - Primitive-proposal track: P.1 `NONE`.
+- **The owner's classification: (G), no sourced mechanism.**
+
+### M.2 Standing of the token
+
+- **When it stands.** The token stands only if a controls-only stage 2, under its own owner gate,
+  returns every reference result of §M.4–§M.8. Otherwise it is `VOID` under 0(i). This is the
+  discipline of PC-1 (§PC★1) and F2-1.
+- **Timing.**
+  - `K★` was frozen at `e16017d6`, before the screen (`f1eb719e`).
+  - No candidate law has been derived, on paper or otherwise.
+  - The battery definitions are those of the frozen text, as instantiated here. This meets 0(iii)
+    and 0(vi) and the checkpoint at L712.
+
+### M.3 Expected classification: a hypothesis, not a result
+
+- **The hypothesis.** (G) stands. Under this freeze, stage 2 runs controls only. There is no `𝔐★`
+  to execute, so stage 2 can establish neither (R) nor (Q).
+- **What stage 2 can establish.**
+  - That the battery's controls return their references, so that 1.1 stands rather than `VOID`.
+  - That the decision function is correct on synthetic inputs.
+- **What would decide otherwise.** A source that meets §S.5. By AW-MR8 and AW-MR9, that needs one of
+  the following:
+  - a native step that is not additive;
+  - an apparatus at the observer level that imports no quantum structure.
+
+  `K★` is frozen (§K★.F and its note), so either is a new unit, with its own preregistration and
+  owner decision.
+
+### M.4 Conventions and the access class
+
+- **Arithmetic.**
+  - It is exact. Elements of `ℚ(√2)` are stored as pairs of rationals `[a, b]`, meaning `a + b√2`.
+  - Every density operator, projector, unitary and kernel used below has entries in `ℚ(√2)`.
+  - No floating-point value appears in a decision path (0(iv)).
+- **Records.**
+  - A protocol is a list of primitives. Its tick is the stage index, from 1 to at most 8.
+  - At each tick the record is the primitive's id, its setting values and its outcome symbol, from
+    the alphabet `{0, 1, ⊥, ∅}`.
+  - No control has a failure, herald or rejection process. So `⊥`, `∅` and attempt marks are
+    listed, with mass `0` where they do not occur, and never omitted.
+- **Masses.**
+  - Every complete history keeps its unnormalized mass. The masses sum exactly to the
+    preparation's mass, `1`.
+  - Zero-mass histories are listed by specification, not conditioned on (c2). Nothing is
+    renormalized.
+- **Outgoing states.** Every terminal branch records its unnormalized conditional state: a density
+  operator on the accessible systems for PC-Q, or a distribution on `Λ` for a classical control.
+- **Settings.**
+  - Every protocol's setting values are written in a program register `Z_reg` at preparation, in
+    product with every other system. Each setting-bearing primitive is controlled by its register
+    entry (Main:582's form; AW-MR7).
+  - So setting independence is decided by the control's own preparation law: a product.
+- **Budget.** `T = 8` primitives per protocol.
+- **The access class `Acc_ctrl`, per control.**
+  - It contains every sequence of at most 8 of the control's declared primitives (§M.5–§M.6).
+    Record-conditioned continuation is permitted.
+  - No primitive acts on PC-Q's environment `E` after `DP`, and none reads it.
+- **Equivalence certificates (§5.3).** These are model-level.
+  - *Equivalence:* equal unnormalized states on the accessible systems. For PC-Q that is the
+    density operator with `E` traced out; for a classical control, the distribution on `Λ`. Equal
+    states imply equal complete future laws under every continuation in `Acc_ctrl`.
+  - *Non-equivalence:* an exhibited protocol in `Acc_ctrl` whose laws differ.
+  - *Classical controls:* by Lemma G (§M.6), equality of distributions is also necessary for
+    equivalence.
+  - *CC8:* certificates are relative to its protocol list only (§M.6); they are recorded and bear
+    on no decision.
+
+### M.5 PC-Q, its primitives and its closed forms
+
+**Systems.**
+- Carrier `C = span{|L⟩, |R⟩}`.
+- Markers `M₁` and `M₂`, and an environment `E`, each `span{|0⟩, |1⟩}`, each starting in `|0⟩`.
+- Write `|±⟩ = (|L⟩ ± |R⟩)/√2`, `R(θ) = [[cos θ, −sin θ], [sin θ, cos θ]]` and `r± = (2 ± √2)/4`.
+
+**Preparations.**
+- `P_bal = |+⟩`.
+- `P_{r,ϕ} = √r|L⟩ + e^{iϕ}√(1−r)|R⟩`, for `r ∈ {r₊, r₋}` and `ϕ ∈ {0, π}`. Since
+  `√(r±(1−r±)) = √2/4`, its density operator has entries in `ℚ(√2)`.
+
+**Primitives** (each controlled by its `Z_reg` entry).
+
+| Primitive | Action |
+|---|---|
+| `PH(ϕ)`, `ϕ ∈ {0, π}` | `|L⟩⟨L| + e^{iϕ}|R⟩⟨R|` |
+| `MK_j(θ)`, `j ∈ {1, 2}`, `θ ∈ Θ = {0, ±π/4, ±π/2}` | `|L⟩⟨L| ⊗ I + |R⟩⟨R| ⊗ R(θ)` on `C ⊗ M_j`; `MK_j(−θ) = MK_j(θ)^{−1}` |
+| `DP`, the sourced dephasing | `MK` with `θ = π/2` on `C ⊗ E`; `E` is never read |
+| `TX`, the recombination `𝒯` | Lüders instrument on `C`: outcome 0 is `|+⟩`, outcome 1 is `|−⟩` |
+| `TZ`, the path test | Lüders instrument on `C`: outcome 0 is `|L⟩`, outcome 1 is `|R⟩` |
+| `RD_j(β)`, `β ∈ B = {0, π/4, π/8, −π/8}` | Lüders instrument on `M_j`: outcome 0 is `R(β)|0⟩`, outcome 1 is `R(β)|1⟩`. The projectors have entries `(2 ± √2)/4` and `√2/4` |
+
+**Closed forms (derived on paper here; standard).** Write `p₀` for the mass of outcome 0 of the last
+`TX`.
+- **B-T0.**
+  - *Coherent* (`P_bal, PH(ϕ₁), PH(ϕ₂), TX`): `p₀ = (1 + cos(ϕ₁ + ϕ₂))/2`. The state is
+    `(|L⟩ + e^{i(ϕ₁+ϕ₂)}|R⟩)/√2`, and `|⟨+|·⟩|² = |1 + e^{iϕ}|²/4`.
+  - *Dephased* (`DP` inserted after `P_bal`): `p₀ = 1/2` for all settings. `C`'s reduced state is
+    `I/2`, which both phases fix.
+  - *T0 witness:* at `(ϕ₁, ϕ₂) = (π, π)`, the value is `1` against `1/2`.
+- **B-T1.**
+  - *Fringe* (`P_bal, MK₁(θ), PH(ϕ), TX`): `p₀ = (1 + cos θ cos ϕ)/2`, since
+    `p₀ = ¼‖|0⟩ + e^{iϕ}R(θ)|0⟩‖²`. So `V(θ) := p₀(ϕ=0) − p₀(ϕ=π) = cos θ`.
+  - *Marker readout* (`P_bal, MK₁(θ), RD₁(β), TZ`): `P(m = 0, z = 0) = ½cos²β` and
+    `P(m = 0, z = 1) = ½cos²(θ − β)`.
+  - So `D(θ) := max_{β∈B} 2|P(0, 0) − P(0, 1)| = max_β |sin θ sin(θ − 2β)| = sin θ`. The maximum is
+    attained at `β = 0` for `θ = π/2`, and at `β = −π/8` for `θ = π/4`. This equals Helstrom's value
+    `√(1 − cos²θ)`.
+  - *Values:* `(V, D) = (1, 0)`, `(√2/2, √2/2)` and `(0, 1)` at `θ = 0`, `π/4` and `π/2`. So
+    `D² + V² = 1`.
+- **B-T2.**
+  - `P_bal, TZ, TZ`: equal outcomes, each value with mass `1/2`.
+  - `P_bal, TZ, TX, TZ`: each of the eight outcome triples has mass `1/8`.
+  - `P_bal, TX, TZ, TX`: the first outcome is 0 with mass `1`, and each later pair has mass `1/4`.
+  - Each branch's outgoing state is its last projector's state.
+- **B-T3** (`P_bal, MK₁(θ), MK₁(−θ), ...`, for `θ ∈ {π/4, π/2}`).
+  - The state returns to `|+⟩ ⊗ |0⟩ ⊗ |0⟩`, so B-T0's coherent law and witness return.
+  - `RD₁(0)` then gives outcome 0 with mass `1`.
+  - Sub-label: `unconditional`, with success mass `1` and no postselection.
+- **B-T4** (`P_bal, MK₁(π/2), PH(ϕ), RD₁(β), TX`).
+  - *For `β = π/4`:* the masses `P(m, port)` are `(1 + cos ϕ)/4` at `(0, 0)` and `(1, 1)`, and
+    `(1 − cos ϕ)/4` at `(0, 1)` and `(1, 0)`.
+  - *For `β = 0`:* every pair has mass `1/4`.
+  - *Bookkeeping:* summed over `m`, port 0 has mass `1/2`, which is B-T1 at `θ = π/2`.
+- **B-T5** (`P_bal, PH(ϕ₁), MK₁(θ₁), MK₂(θ₂), PH(ϕ₂), TX`, in both marker orders).
+  - `p₀ = (1 + cos(ϕ₁ + ϕ₂) cos θ₁ cos θ₂)/2`.
+  - The two markers' maps commute: they act on different markers, controlled on the same
+    projector. So both orders give the same law.
+  - #912 equation (1) holds stage by stage, with PC-Q as its own reference instrument and the
+    identity decoder.
+- **B-T6** (`P_bal, MK₁(π/2)`, then `A_x` on `C` and `B_y` on `M₁`, in either order).
+  - *Settings:* `A₀ = TZ`, `A₁ = TX`, `B₀ = RD₁(π/8)`, `B₁ = RD₁(−π/8)`. The state is
+    `(|L0⟩ + |R1⟩)/√2`, and the observables are `Z`, `X` and `(Z ± X)/√2`.
+  - *Law:* `P(a, b | x, y) = (1 + (−1)^{a+b} E_{xy})/4`, with `E₀₀ = E₀₁ = E₁₀ = √2/2` and
+    `E₁₁ = −√2/2`.
+  - *Consequences:* every marginal is `1/2`, so operational no-signalling holds exactly, and
+    `S = E₀₀ + E₀₁ + E₁₀ − E₁₁ = 2√2`.
+  - *Measurement independence* holds by `Z_reg`'s product preparation. Main:368 (i)–(iv) concern
+    deterministic models and do not apply to PC-Q.
+- **B-T7** (`P_{r,ϕ}`, then `TZ` or `TX`).
+  - *The quadruple.* Its Bloch coordinates are `(⟨Z⟩, ⟨X⟩) = (2r − 1, 2√(r(1−r)) cos ϕ)`, which
+    give the four points `(±√2/2, ±√2/2)`.
+  - *Predictabilities.* For each member, `P = |⟨Z⟩| = √2/2` and `V = |⟨X⟩| = √2/2`, so
+    `V + P = √2`.
+  - *Pairs.* The antipodal pairs are `{(r₊, 0), (r₋, π)}` and `{(r₊, π), (r₋, 0)}`. Their equal
+    mixtures are both `I/2`.
+  - *Reference: W1 positive.*
+
+### M.6 Countercontrols
+
+**Lemma G (classical controls are generalized-noncontextual for their own §5.3 equivalences;
+proved here).**
+- **Setting.** A control has a finite ontic set `Λ`. Each preparation is a distribution on `Λ`, and
+  each primitive an outcome-labelled Markov kernel `K(r, λ′ | λ)`. Deterministic maps and
+  outcome-free kernels are special cases.
+- **Hypothesis**, one of:
+  - (i) `Acc` contains every point preparation `δ_λ` and a readout that returns `λ`; or
+  - (ii) the distributions of `Acc`'s preparations span `ℝ^Λ`, and the response functions of
+    `Acc`'s single readouts span its dual.
+- **Claim.** §5.3-equivalent preparations have equal distributions, and §5.3-equivalent procedures
+  have equal kernels. So the control, read as its own ontological model, is preparation-,
+  measurement- and transformation-noncontextual (Spekkens 2005) for its §5.3 equivalences.
+
+*Proof.* Equivalence over `Acc` implies equal laws for every preparation in `Acc` followed by one
+readout, since those protocols lie in `Acc`.
+- *Preparations.* Under (i), the complete readout's law is the distribution itself. Under (ii),
+  equal pairings with a spanning set of response functions force equal distributions.
+- *Procedures.* Under (i), `δ_λ` followed by the procedure and the complete readout returns
+  `K(r, λ′ | λ)`. Under (ii), the joint mass `Σ μ(λ) K(r, λ′ | λ) e(λ′)` is bilinear in `(μ, e)`,
+  and spanning sets in both arguments determine every matrix `K(r)`. `□`
+
+*Consequence.* By LIT-1 (the proved direction, LIT-1-C4) and with `Λ` finite (LIT-1-C7), a control
+under Lemma G meets `V + P ≤ 1` on every certified quadruple. So it returns no W1 through T7.
+
+**Classical carrier, common to CC1, CC3, CC5 and CC7.**
+- `λ_C = (p, k) ∈ {0,1}²`: `p` is the path (`0` for `L`), and `k` is a phase bit.
+- `P_bal`: `p` uniform, `k = 0`.
+- `P_{r,ϕ}`: `p = 0` with mass `r`, and `k = [ϕ = π]`.
+- `PH(π)`: `k ← k + 1`.
+- `TX`: outcome `k`. `TZ`: outcome `p`. Both are nondemolition.
+- `DP`: `k ← k + f`, with `f` fresh and uniform, and discarded.
+- **Strength settings.** Strengths are `θ ∈ {0, π/2}`, mapped to `g = [θ ≠ 0]`. The setting
+  `θ = ±π/4` is recorded as unavailable. For CC1 and CC3, `MK_j(−π/2) = MK_j(π/2)`, since their
+  marking is an involution. CC5 and CC7 declare `MK_j(−π/2)` unavailable.
+- **Marker readouts.** `RD_j(0)` reads the marker's first bit, and `RD_j(π/4)` the conjugate readout
+  defined per control. `RD_j(±π/8)` is unavailable.
+- **T6.** For T6, `B₀ = RD₁(0)` and `B₁ = RD₁(π/4)`.
+- **Lemma G, hypothesis (i).** `Acc` also contains every point preparation and a complete readout
+  `RDALL`.
+
+**The instances.**
+
+| ID | Instance | Reference behaviour | Control-separated from PC-Q by |
+|---|---|---|---|
+| CC1 | **Classical hidden memory.** Markers `m_j ∈ {0,1}` are static ledgers. `MK_j(g)`: `m_j ← m_j + g·p`, a non-invasive copy. `RD_j(π/4)`: a fresh uniform bit, since the classical marker has no conjugate variable. GNC by Lemma G(i). | no W1 | T1: at `θ = π/2` it gives `(V, D) = (1, 1)`, against PC-Q's `(0, 1)` (derived on paper: `k` is untouched and `m₁ = p`). Also T7. |
+| CC3 | **Noncommuting classical permutations, packaged by a controlled lift.** Adds `s ∈ {0,1}`. `LIFT: (p, k, s) ↦ (T_s(p, k), s)`, with `T₀(p, k) = (p + 1, k)` and `T₁(p, k) = (p, k + p)`; these do not commute. `SET(s′)`: `s ← s′`, written from outside the model's dynamics, since the lift conserves `s` (N7). Its added protocols are `P_bal, SET(s₁), LIFT, SET(s₂), LIFT, TX` (and `TZ`), for `(s₁, s₂) ∈ {(0,1), (1,0)}`. Other primitives as CC1. GNC by Lemma G(i). | no W1; T8 fails (`SET` has no executing process) | T8; T7 |
+| CC4 | **An epistemically restricted classical field** (Spekkens-type toy bits; Catani et al. 2023). Each bit has `(x, p) ∈ (ℤ/2)²`. Its valid states are uniform on a coset of a one-dimensional subspace (six pure states), or uniform on the whole space. Carrier: `x` is the path and `p` the port. `PH(π)`: `p ← p + 1`. `MK_j(g)`: `x_{M_j} ← x_{M_j} + g·x` and `p ← p + g·p_{M_j}` (symplectic, an involution, so `MK_j(−π/2) = MK_j(π/2)`). The ready marker has `x_M = 0` known. Readouts of `x`, `p` and `x + p` on any bit, with the toy disturbance: reading `x` randomizes `p`; reading `p` randomizes `x`; reading `x + p` adds the same fresh bit to both. `TZ`, `TX` and `RD_j(0)`, `RD_j(π/4)` are the `x` and `p` readouts. `DP`: `p ← p + f`. Products of valid single-bit states are prepared. GNC by Lemma G(ii): the six pure distributions of one bit span `ℝ⁴`, since `δ_{(x₀,p₀)} = (1{x=x₀} + 1{p=p₀} + 1{x+p=x₀+p₀} − 1)/2`; the same indicators are the `x`, `p` and `x + p` response functions; products span the product spaces. The T7 quadruple is `Q_{s₁s₂} = ½ z_{s₁} + ½ x_{s₂}`. | no W1 (T7 quadruple certified, `V + P = 1`) | T7; T1 is a consistency check only |
+| CC5 | **A classical eraser.** Markers `m_j = (a_j, b_j)`. `MK_j(1)`: `a_j ← a_j + p`; draw a fresh `e`; `k ← k + e`; `b_j ← b_j + e`. `RD_j(0)` reads `a_j`; `RD_j(π/4)` reads `b_j`. `MK_j(−π/2)` is unavailable. GNC by Lemma G(i). | no W1; T4's conditional masses sum to the marked law | T7 (T4 is bookkeeping) |
+| CC6 | **A supplied, physically inaccessible inverse, and a private decoder.** This is PC-Q with `Acc` restricted to `Θ = {0, π/4, π/2}` and `B = {0}`. The supplied items are the map `MK₁(θ)^{−1}` as an undo, and `RD₁(−π/8)` as a decoder, both outside that `Acc`. | `REPRESENTATION-ONLY` for both | T9 |
+| CC7 | **Classical dephasing with no record.** `MK_j(g)`: `k ← k + g·f`, with `f` fresh and discarded; markers are untouched. `MK_j(−π/2)` is unavailable. GNC by Lemma G(i). | at `g = 1`, `V = 0` and `D = 0`: (ii) with R1 failing | §3.5: PC-Q at `θ = π/2` has `V = 0` and `D = 1`, decoherence; CC7 is dephasing |
+| CC8 | **The per-law A-realization of PC-Q's law** (Main:482 with Main:520's response-table form). Its ontic coordinate holds one response per history-and-action context of the protocol list of §M.7, with product prior equal to PC-Q's conditional masses (entries in `ℚ(√2)`), and a deterministic step. It carries ontic parameter dependence (Main:414) for T6. | reproduces PC-Q's law on that list exactly; may return W1 | not separable at the level of the law; recorded `CC8-unseparated` and not native; not a control failure |
+| CC2 | **The class-level Kochen–Specker-type class** (D3). Not executed. | — | fields fixed: "not separated (class level, D3)" |
+
+**Outcome separation.** With no `𝔐★`, every countercontrol's outcome-separation field is "not
+applicable (`GAP`)".
+
+### M.7 The test menu
+
+Each line below is a protocol, with its setting grid. "Classical" means CC1, CC3, CC4, CC5 and CC7,
+each at the settings it has. A protocol that needs an unavailable primitive is recorded
+`unavailable` for that control; this is not a failure.
+
+- **T0.**
+  - `T0-c(ϕ₁, ϕ₂)`: `P_bal, PH(ϕ₁), PH(ϕ₂), TX`.
+  - `T0-d(ϕ₁, ϕ₂)`: `P_bal, DP, PH(ϕ₁), PH(ϕ₂), TX`.
+  - Grid: `(ϕ₁, ϕ₂) ∈ {0, π}²`.
+  - **T0 is positive** when the laws of `T0-c(π, π)` and `T0-d(π, π)` differ. That is a witness
+    composing two nonzero phase settings; a single-setting difference does not count (AW13). The
+    `DP` used must be the control's declared primitive.
+  - **Recorded:** the composition check `law(ϕ₁, ϕ₂) = law(ϕ₁ + ϕ₂, 0)`.
+- **T1.**
+  - `T1-V(θ, ϕ)`: `P_bal, MK₁(θ), PH(ϕ), TX`.
+  - `T1-D(θ, β)`: `P_bal, MK₁(θ), RD₁(β), TZ`.
+  - Grid: `θ ∈ {0, π/4, π/2}`, `ϕ ∈ {0, π}`, `β ∈ B`.
+  - `V` and `D` are as in B-T1, computed from these executed laws.
+- **T2.** `P_bal, TZ, TZ`; `P_bal, TZ, TX, TZ`; `P_bal, TX, TZ, TX`. For CC3, also the `SET`/`LIFT`
+  protocols in both orders.
+- **T3.**
+  - `P_bal, MK₁(θ), MK₁(−θ), PH(ϕ₁), PH(ϕ₂), TX` and `P_bal, MK₁(θ), MK₁(−θ), RD₁(0)`, for
+    `θ ∈ {π/4, π/2}`.
+  - **Sub-label `unconditional`** when the post-undo state equals the pre-marking state with ready
+    markers (model-level certificate) and T0's witness returns.
+  - **`heralded-probabilistic`** is not applicable: no control has a herald.
+  - **`none`** otherwise.
+- **T4.** `P_bal, MK₁(π/2), PH(ϕ), RD₁(β), TX`, for `β ∈ {0, π/4}` and `ϕ ∈ {0, π}`. Its
+  bookkeeping: summed over the marker outcome, the masses must equal `T1-V(π/2, ϕ)`.
+- **T5.** `P_bal, PH(ϕ₁), MK₁(θ₁), MK₂(θ₂), PH(ϕ₂), TX`, and the same with the two markers in the
+  other order.
+  - Grid: `(θ₁, θ₂) ∈ {π/4, π/2}²` (classical controls: `{π/2}²`) and `(ϕ₁, ϕ₂) ∈ {0, π}²`.
+  - **Recorded:** order independence, and dependence on `ϕ₁ + ϕ₂` alone.
+  - The per-stage #912 check uses the control's own primitive as the reference instrument, with
+    the identity decoder.
+- **T6.** `P_bal, MK₁(π/2)`, then `A_x` and `B_y` in both orders, for `x, y ∈ {0, 1}`.
+  - **Recorded:** `E_{xy}`, `S`, and every marginal.
+  - **Operational no-signalling** is decided exactly: `P(a | x, y)` must not depend on `y`, and
+    `P(b | x, y)` must not depend on `x`.
+- **T7.** `P_{r,ϕ}, TZ` and `P_{r,ϕ}, TX` on the quadruple; CC4 uses `Q_{s₁s₂}`. See §M.8.
+- **T8 and T9.** See §M.9.
+
+**Control references** (frozen §5.8, with D3).
+- **PC-Q:** B-T0 to B-T7 exactly; T8 passes for every element; T9 finds an executing process.
+- **Countercontrols:** the references of §M.6.
+- **Control separation** is decided by the named test, as in §M.6. CC2's and CC8's non-separation
+  is admissible (frozen L553–554).
+- A departure from a reference is a control failure, `VOID` under 0(i).
+
+### M.8 The T7 inequality
+
+- **The inequality.** One noncontextuality inequality is preregistered: the predictability–visibility
+  bound `V + P ≤ 1` on carrier preparations (frozen §3.5; W1, §5.7). Its source is Catani, Leifer,
+  Scala, Schmid and Spekkens, *Phys. Rev. Lett.* 129, 240401 (2022) (LIT-1, MET). Only its proved
+  direction is used: noncontextual implies the bound (LIT-1-C4).
+- **Its caveats are binding.**
+  - **Finite `Λ`** (LIT-1-C7). The bound excludes only noncontextual models with finite `Λ`. Every
+    classical control here has finite `Λ`.
+  - **Fixed `X`** (LIT-1-C1). `V = |⟨X⟩|` for the fixed recombination `TX`, the same `X` relative to
+    which the quadruple is certified. `P = |⟨Z⟩|` for `TZ`.
+  - **Orbit realizability** (LIT-1-C2).
+    - The preparation must belong to a realized quadruple of sign-flipped partners (the source's
+      Eq. (10)), with the equivalence of Eq. (11) between them, certified by §5.3 at model level
+      over `Acc_ctrl`.
+    - *Reading, to be checked before use:* Eq. (11) is the equivalence of the two equal mixtures of
+      antipodal partners. That is the only equality among equal pair mixtures of such a quadruple
+      that a quantum quadruple with `0 < P, V` meets, and the source states that quantum states
+      exceed the bound.
+    - Before the T7 step, stage 2 checks Eqs. (10)–(11) against the source (arXiv:2207.11779v2, as
+      fetched under LIT-1) and records the check. If Eq. (11) is not that equivalence, stage 2
+      halts before any T7 step and reports to the owner, with no token.
+  - **Single-shot prepare–measure only** (LIT-1-C3). The quadruple is prepared unmarked on the
+    carrier alone.
+  - **Tomographic completeness relative to `Acc`** (LIT-2-C1). It holds by model-level certificate
+    for PC-Q (density operators) and for the classical controls (Lemma G). For CC8, certificates are
+    relative to its protocol list, and its T7 field is recorded only.
+  - **Labelling** (LIT-2-C4). A violation refutes preparation noncontextuality for the certified
+    equivalence. It is labelled W1 and nothing stronger.
+- **Secondary procedures** (Mazurek et al. 2016; LIT-2-C5). Every control's equivalences are exact
+  by construction, so no secondary procedure is used. A certificate that fails is recorded
+  `T7-UNCERTIFIED`, and then no W1 is decided.
+- **Decision.** W1 is positive when the certificate holds, the four members' `(P, V)` agree, and
+  `V + P > 1`, decided in `ℚ(√2)`.
+
+### M.9 T8 deleted interfaces, and the T9 audit
+
+**T8.** Each element is replaced by a null native counterpart, fixed here.
+- **The check.** It passes when (a) the element is executed by a declared primitive of the control,
+  acting by its own map and not by an external replacement of the state; and (b) the capability
+  recorded for the element in the full interface vanishes in the deleted one.
+- **"Not attributed".** An element whose capability is absent in the full interface is recorded
+  "not attributed".
+
+| Element | Null counterpart | Capability that must vanish | Protocols re-run |
+|---|---|---|---|
+| marker coupling `MK₁(θ)` | `MK₁(0)` | `D(θ) > 0`; for CC7, `V(π/2) < V(0)` | T1 |
+| dephasing `DP` | identity | T0's non-equivalence at `(π, π)` | T0-d |
+| undo `MK₁(−θ)` | identity | T3's `unconditional` sub-label | T3 |
+| recombination `TX` | `TZ` | `ϕ`-dependence of `T0-c` and `T1-V` | T0-c, T1-V |
+| phase setting `PH(ϕ)` | `PH(0)` | `ϕ`-dependence of `T0-c` | T0-c |
+| setting source `Z_reg` | every entry at its default (`θ = ϕ = β = 0`, `x = y = 0`) | setting dependence of any protocol law | all |
+
+**References.**
+- PC-Q, CC1, CC4, CC5 and CC7 pass every applicable row.
+- CC3 fails (a) for `SET`. CC6 fails (a) for its supplied undo and decoder.
+
+**T9.** Every inverse used in T3 must show its executing process.
+- PC-Q: `MK₁(−θ) ∈ Acc`.
+- CC1, CC3 and CC4: `MK₁(−π/2) = MK₁(π/2)`, an involution in `Acc`.
+- CC5 and CC7: no undo.
+- CC6's supplied `MK₁(θ)^{−1}` and `RD₁(−π/8)` lie outside its `Acc`. Each is classified
+  `REPRESENTATION-ONLY` (frozen L507–508).
+
+### M.10 Mutations, and the checkpoint that catches each
+
+Each mutation must exit with status 2 and `VOID`, naming its checkpoint, in normal and `-O` mode.
+
+| Mutation (frozen L577–580) | Checkpoint | Check |
+|---|---|---|
+| renormalize the success branch | `CP-MASS` | masses over complete histories sum exactly to `1` (0(vii)) |
+| drop a failure branch | `CP-BRANCH` | every history over `{0, 1, ⊥, ∅}` is present, the zero-mass ones included |
+| replace the sourced dephasing by an inserted one | `CP-DEPH-SRC` | T0's `DP` is the control's declared primitive, by id and digest |
+| a single phase in place of composed phases | `CP-T0-SHAPE` | T0's witness protocol has two `PH` stages with nonzero settings |
+| equivalence on the test menu in place of `Acc` | `CP-CERT` | certificates are model-level (§M.4); a certificate built from test-protocol laws alone is rejected |
+| add a read of `L` to `Acc` after an outcome | `CP-ACC-DIGEST` | the `Acc_ctrl` digest equals the frozen one (0(iii)) |
+| an external setting switch | `CP-T8A` | every setting element is executing (CC3's failure is its reference) |
+| a private inverse | `CP-T9` | T9 |
+| floating point in a decision path | `CP-EXACT` | type assertion on every decision value (0(iv)) |
+| `K★` fixed after a candidate law is derived | `CP-ORDER` | in the stage-1 log, the `K★` freeze `e16017d6` is an ancestor of the screen `f1eb719e`, and no candidate-law record exists (0(iii), 0(vi)) |
+
+D3 C-5 adds `CP-SELFTEST-2.4`: the self-test fails if any input returns 2.4.
+
+### M.11 The results schema and the decision function (§A.44)
+
+**The schema:** `mr1-stage2-controls-results`, version 1. One JSON file; numbers as `"n/d"` or
+`[a, b]` in `ℚ(√2)`.
+- **`frozen_inputs`.** The git blob ids of the preregistration, `D3-CC2-class-level.md` and
+  `MR-star.md` at the stage-1 freeze commit the owner designates, and the `Acc_ctrl` digest.
+- **`stage1_token`.**
+  - `axis1 = "GAP"`, with `element` and `scope` copied from §M.1;
+  - `axis2 = "NOT-REACHED"`, `axis3 = "NOT-REACHED"`, `track = "NONE"`.
+- **`controls[]`**, one entry per control in PC-Q and CC1 to CC8:
+  - `id` and `model_digest`;
+  - `protocols[]`: `protocol_id`, `test`, `settings`, and `histories[]` of
+    `{records, ticks, mass}`, with `outgoing[]`;
+  - `derived`, by test:
+    - `T0`: `witness_protocol`, `non_equivalent`, `composition_check`;
+    - `T1`: `V` and `D` per `θ`;
+    - `T2` and `T4`: the laws;
+    - `T3`: `sub_label`;
+    - `T5`: `order_independent`;
+    - `T6`: `E`, `S`, `no_signalling`;
+    - `T7`: `certified` (or `"T7-UNCERTIFIED"`), `P`, `V`, `W1`;
+    - `T8`: per element, `executing` and `capability_vanishes`, or "not attributed";
+    - `T9`: per inverse, `executing` and `class`;
+  - `reference_match`;
+  - `control_separation`: `{test, separated}`;
+  - `outcome_separation = "not applicable (GAP)"`;
+  - CC2's fields are the constant "not separated (class level, D3)".
+- **`reads`.** The T7 check of Eqs. (10)–(11) (§M.8).
+- **`mutations[]`:** `{id, checkpoint, exit, token}`.
+- **`self_test[]`:** `{row, input_digest, expected, returned, pass}`.
+- **`replay`:** two runs' sha256 values, and `identical`.
+- **`kernel_predicates`:** `[]`. No Lean statement is fixed for MR-1, so no kernel step enters.
+
+**The decision function.** It reads this file only, never log text (0(viii)).
+- **Row 0** is `VOID` when any of the following holds:
+  - any `reference_match` is false;
+  - any mutation is uncaught, or the self-test fails;
+  - a frozen digest differs;
+  - `CP-EXACT`, `CP-MASS` or `CP-BRANCH` fails;
+  - `kernel_predicates` is nonempty.
+- **Otherwise** it returns `stage1_token` unchanged: 1.1 `GAP`, 2.1, 3.1 and P.1.
+
+**The self-test.** It runs at least one synthetic results file per row of every axis and per row-0
+clause. Row 2.4's case follows D3 C-5: W1 positive, T8 passing, every countercontrol separated
+except CC2. It must return 2.5 with `CC2-unseparated` and `CC8-unseparated`.
+
+**Determinism.** The two runs are byte-identical.
+
+### M.12 Reads and execution blockers
+
+- **LIT-1 (MET)** supports T7. The Eqs. (10)–(11) check of §M.8 is recorded in stage 2 before the
+  T7 step.
+- **LIT-2 (MET)** supports T7's form. No secondary procedure is used.
+- **LIT-3 (NOT-MET) and LIT-5 (PARTIAL):** no step depends on them (D3 C-7).
+- **Schmid–Spekkens 2018 and Pusey 2014** were not chosen, so they are not owed (frozen L757).
+- **No execution blocker of frozen §7.1 binds a step of this interface.**
+
+### M.13 Invariants and their checkpoints (§A.41)
+
+| Invariant asserted here | Checkpoint |
+|---|---|
+| controls only; no candidate is executed | schema: no candidate field; the decision function returns `stage1_token` unchanged |
+| exact arithmetic in `ℚ(√2)` | `CP-EXACT` |
+| complete branches, no renormalization | `CP-MASS`, `CP-BRANCH` |
+| settings sourced through `Z_reg` | `CP-T8A`, T8(a) |
+| equivalences certified at model level, over `Acc_ctrl` | `CP-CERT` |
+| `Acc_ctrl`, the inequality and the deleted interfaces frozen here | `CP-ACC-DIGEST`; `git diff` from the stage-1 freeze commit, empty on this file |
+| `K★` before the screen; no candidate law | `CP-ORDER` |
+| T7's Eqs. (10)–(11) read before use | `reads` field; a T7 step without it refuses to run |
+| 2.4 unreachable | `CP-SELFTEST-2.4` |
+| deterministic replay | `replay.identical` |
+
+### M.14 Commands and hygiene for this section
+
+- **Read-only commands:**
+  - `git rev-parse HEAD` (`f1eb719e`);
+  - `git show 1a236f33:…/preregistration.md | sed -n` over L190–196, L505–582, L592–600 and
+    L740–760;
+  - `grep` of this file for local paths (none).
+- **Hygiene:**
+  - *Run M-1 (on the staged section and log):* placement, census and SC-42.
+  - *Run M-2:* the same three tools, then `git diff --cached --stat 1a236f33 --
+    ../preregistration.md`, the deleted-line check, and the single commit.
+  - M-1's results are logged in `stage1-log.json` under `mstar_or_gap`. M-2 is declared there, and
+    its outcome is stated in the commit message.

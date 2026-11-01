@@ -662,5 +662,110 @@
       {"run": "F-2", "command": "grep of this file for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
     ],
     "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived, and no screen was started."
+  },
+  "screen": {
+    "date": "2026-11-01",
+    "authority": [
+      "PR #1023 comment 6549252522 (owner): stage-1 order; paper-only; literature, K-star, screen, then one M-star or GAP with the stage-2 interface frozen",
+      "PR #1023 comment 6554399670 (owner): K-star = {K1} frozen; the paper-only candidate search begins after that freeze",
+      "PR #1023 comment 6554185786 (owner): D3, CC2 at class level, token 2.4 unreachable",
+      "owner's scientific requirements for the screen, relayed by the coordinator: seek a native mechanism; import no quantum mechanics; accept a genuine gap; classify each source as R, Q or G; count only operations executable natively under the declared access"
+    ],
+    "kstar_f_note": {
+      "commit": "db2d4fb9",
+      "file": "amendments/MR-star.md, note appended to section K-star.F",
+      "summary": "The sentence 'any change to K-star after this commit, before or after any outcome, voids the run under 0(iii)' overstates 0(iii), which voids K-star changed after any outcome or fixed after any candidate law (frozen L594-596). The stricter rule is restated as the freeze's own commitment. The same reading applies to the next bullet of K-star.F and to this file's kstar_freeze.hard_to_vary, which is not edited.",
+      "hygiene_run": {"run": "N-1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits; preregistration diff empty; 0 deleted lines"}
+    },
+    "commit": "f1eb719e",
+    "file": "amendments/MR-star.md, section S",
+    "lemmas_proved_on_paper": [
+      {"id": "S-L1", "statement": "superposition: pr_Y phi^t(s) = sum over X of Phi^t_YX(s_X), each a homomorphism depending on (t, X, Y) only"},
+      {"id": "S-C1", "statement": "no conditional dynamics: no region's state alters another's transfer; no operation-selecting setting, no adaptive operation"},
+      {"id": "S-L2", "statement": "available transformations are the time shifts phi^n; observer choices change only which region and tick are read"},
+      {"id": "S-L3", "statement": "psi = sigma phi sigma with sigma the slice swap; sigma is no time shift (else phi^2 = id, forcing A = 0); the inverse is representable, not available; on finite S it is the global wait phi^(N-1)"},
+      {"id": "S-L4", "statement": "no confinement: with a injective on the value group, no nonzero solution on Z^d stays in a slab of width w over slices -1..T with T >= 2w; the same on a torus of side N >= 5w + 2"},
+      {"id": "S-C4a", "statement": "no confined pointer: the branch difference is a free solution and no region of width w confines it over 2w + 1 slices"},
+      {"id": "S-C4b", "statement": "fixed points and phi-invariant linear functionals are stationary solutions; none is local (value group Z/q, a a unit)"},
+      {"id": "S-L5", "statement": "marking is non-invasive; loss of interference arises only by additive injection from regions independent of the carrier, never from a record"},
+      {"id": "S-L6", "statement": "on finite S every record is erased at the recurrence order; R2 needs a budget below it"},
+      {"id": "S-L7", "statement": "AW-MR5 sub-question: single-time current-slice readouts are isotropic for J; both slices of a site, or one site at consecutive ticks, are conjugate; conditional on the declared access"}
+    ],
+    "sources": [
+      {"id": "sigma1", "source": "native transport between a carrier region and an apparatus or marker region on the K1 step (includes PC-1 Q1)", "class": "A", "call": "G", "failing_element": "apparatus pointer (S-C4a); trace route not admitted (section S.4(a))"},
+      {"id": "sigma2", "source": "internal settings (Main:408)", "class": "A", "call": "G", "failing_element": "no operation selection; additive offset only (S-C1)"},
+      {"id": "sigma3", "source": "program register (Main:582)", "class": "A", "call": "excluded", "failing_element": "a controlled map, not the K1 step; CC8 class"},
+      {"id": "sigma4", "source": "exogenous action labels (Main:482)", "class": "A", "call": "excluded", "failing_element": "external switch (frozen L134-136; N7)"},
+      {"id": "sigma5", "source": "controlled lift (N7)", "class": "A", "call": "excluded", "failing_element": "s conserved; an s-dependent lift is not the K1 step"},
+      {"id": "sigma6", "source": "global recurrence; inverse as global wait", "class": "A", "call": "excluded as an undo", "failing_element": "acts on all of S and erases every record; beyond the R2 budget"},
+      {"id": "sigma7", "source": "time-reversal swap", "class": "A", "call": "representation only", "failing_element": "sigma not available (S-L3)"},
+      {"id": "sigma8", "source": "global conserved and parabolic modes", "class": "A", "call": "excluded", "failing_element": "no embedded readout (S-C4b)"},
+      {"id": "sigma9", "source": "per-law realizations (Main:482, 518-520, 566, 582)", "class": "A", "call": "excluded", "failing_element": "per-law; CC8 role"},
+      {"id": "sigma10", "source": "engineered coupling graphs", "class": "A", "call": "excluded by K1", "failing_element": "not the native graph; scope boundary for R"},
+      {"id": "sigma11", "source": "other value groups within K1 (R/Z, Z_p)", "class": "A", "call": "G", "failing_element": "as sigma1"},
+      {"id": "sigma12", "source": "non-additive native-type rules (native-Y rule H(A,B,D) = (B, D, A xor BD); SM state-dependent graph; SM 6.5 dynamical links)", "class": "A", "call": "outside K-star; not screened", "failing_element": "not the frozen additive step"},
+      {"id": "sigma13", "source": "candidates of the preserved negatives N1-N7", "class": "-", "call": "respected at their scopes; not reopened", "failing_element": "-"}
+    ],
+    "q_call": "Q is not supplied for any K1 source: Q presupposes R, which is not sourced; marking cannot cause interference loss (S-L5); no subsystem undo exists (S-L2, S-L3, S-L6). T0 is not claimed to fail: an additive offset can act as a classical phase label.",
+    "selection_rule": "section S.5: (s1) K1 step, native cubic graph, corpus coefficient; (s2) every section 3.1 element executing, the apparatus pointer included, with its ready supply; (s3) not excluded by N1-N7; (s4) no per-law or per-design construction and no free structural choice that by itself fixes an axis-1 outcome; fewest posited elements, then smallest state space",
+    "selection_result": "none",
+    "assumption_watch": [
+      {"id": "AW-MR8", "class": "NEW", "summary": "under Substratum A5 with M = mu I the K1 step is a free field; MR-1's 'microscopic interaction' presupposes an interaction the substratum does not have; a native record mechanism needs a non-additive rule or the observer level"},
+      {"id": "AW-MR9", "class": "NEW", "summary": "stable matter (Substratum E6) is an empirical input with no substratum carrier under A5 (S-L4); an observer-level record mechanism risks presupposing the emergent quantum description"},
+      {"id": "AW-MR10", "class": "ELABORATING", "summary": "the frozen ready supply is of pointer states, so it presupposes pointers"},
+      {"id": "AW-MR11", "class": "ELABORATING", "summary": "every R2 and effective irreversibility on finite S is relative to a budget below the recurrence order"},
+      {"id": "AW-MR12", "class": "ELABORATING", "summary": "PC-star-2a's generality over graphs and coefficients is a proof generality, not a licence"}
+    ],
+    "not_done": "No record law of any source, candidate or control was derived; no T-test, control or countercontrol was evaluated; no M-star, GAP token or stage-2 item was fixed in this commit; no no-go was stated; no claim that classical explanations are excluded.",
+    "commands": [
+      "git rev-parse HEAD; git status; git log",
+      "display of the frozen preregistration, KS-substitution.md, D3-CC2-class-level.md, MR-star.md and this file",
+      "git show 99dce4b6 of PC-1 preregistration.md (section 4) and amendments/PC-star.md",
+      "git ls-tree of F2-1 at 4e7ddb70 and of SUBSTATE-1 at 8af2d904; git show 8af2d904 of README.md, later-access-result.md, native-apparatus-register.md, native-sign-echo.md, cubic-wave-revival.md and the heads of eight further notes",
+      "git show 2af1d5d5 of the #912 REPORT.md (equation (1))",
+      "git show 5914c17c with sed -n and grep over papers/Main.md, papers/SM.md and papers/Substratum.md at the lines cited in section S.8",
+      "display of native-y-continuation-20261024/README.md, CURRENT-HANDOFF.md and shared_v12/INTERFACE-CONTRACT.md on the current tree",
+      "read-only display helpers: wc -l, ls, tail, head, cut, od -c (trailing bytes of MR-star.md), df -h (free disk space)"
+    ],
+    "hygiene_runs": [
+      {"run": "S-1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); grep for local paths; git commit", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits; preregistration diff empty; 0 deleted lines; no local paths"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. All mathematics is paper mathematics marked with its status. One shell command misfired harmlessly: a sed -i invocation aimed at /dev/null, which edited nothing and returned an error."
+  },
+  "mstar_or_gap": {
+    "date": "2026-11-01",
+    "file": "amendments/MR-star.md, section M",
+    "token": {"axis": 1, "row": "1.1", "value": "GAP"},
+    "named_element": "section 3.1 S_A: an apparatus pointer, a subsystem that holds a record (R2) under the native step by an executing apparatus process, with its ready supply booked in Res",
+    "also_unsourced": ["Z: an operation-selecting setting source (S-C1)", "L: a clock or ledger held by a subsystem (S-C4b)", "any inverse executed on a subsystem (S-L3, S-L6)"],
+    "scope": "K-star = {K1} as frozen (the free additive step on the native cubic graph, coefficient injective on Z/q, Z_p or R/Z); the declared access (a bounded-diameter observer reading its own configuration; budget below the recurrence order); sources sigma1-sigma13 of section S.3",
+    "not_a_no_go": "not for non-additive native rules, engineered graphs, zero-divisor coefficients, observer-level apparatus, or OI generally; no claim that classical explanations are excluded (D3)",
+    "other_axes": {"axis2": "2.1 NOT-REACHED (axis-1 token GAP)", "axis3": "3.1 NOT-REACHED", "primitive_track": "P.1 NONE"},
+    "owner_classification": "G",
+    "standing": "Stands only if a controls-only stage 2, under its own owner gate, returns every reference result of section M; otherwise VOID under 0(i).",
+    "expected_classification_hypothesis": "G stands. Stage 2 under this freeze runs controls only and can establish neither R nor Q. Deciding otherwise needs a source meeting section S.5, which needs a non-additive native step or an observer-level apparatus importing no quantum structure: a new unit by owner decision.",
+    "stage2_interface": {
+      "section": "MR-star.md section M.4-M.13",
+      "arithmetic": "exact, Q(sqrt 2) as pairs of rationals; no float in a decision path",
+      "acc": "per control, every sequence of at most 8 declared primitives with record-conditioned continuation; settings in a program register prepared in product; model-level equivalence certificates",
+      "controls": ["PC-Q", "CC1 classical hidden memory", "CC3 controlled lift", "CC4 Spekkens-type toy bits", "CC5 classical eraser", "CC6 supplied inverse and private decoder", "CC7 classical dephasing with no record", "CC8 per-law A-realization", "CC2 class level, not executed"],
+      "gnc_proofs": "Lemma G (section M.6), proved here: CC1, CC3, CC5, CC7 by point preparations and complete readout; CC4 by spanning preparations and readouts",
+      "tests": "T0-T7 protocol list of section M.7; T8 deleted interfaces and T9 audit of section M.9",
+      "t7": "V + P <= 1 (LIT-1), proved direction only; caveats LIT-1-C1, C2, C3, C4, C7 and LIT-2-C1, C4 binding; Eqs. (10)-(11) checked against the source before the T7 step, else halt and report",
+      "mutations": ["CP-MASS", "CP-BRANCH", "CP-DEPH-SRC", "CP-T0-SHAPE", "CP-CERT", "CP-ACC-DIGEST", "CP-T8A", "CP-T9", "CP-EXACT", "CP-ORDER", "CP-SELFTEST-2.4"],
+      "schema": "mr1-stage2-controls-results, version 1 (section M.11)",
+      "benchmark_formulas": ["B-T0", "B-T1", "B-T2", "B-T3", "B-T4", "B-T5", "B-T6", "B-T7"],
+      "blockers": "none binding: LIT-1 and LIT-2 MET; no step depends on LIT-3 or LIT-5 (D3 C-7)"
+    },
+    "commands": [
+      "git rev-parse HEAD (f1eb719e)",
+      "git show 1a236f33:.../preregistration.md | sed -n over L190-196, L505-582, L592-600 and L740-760",
+      "grep of MR-star.md and this file for local paths"
+    ],
+    "hygiene_runs": [
+      {"run": "M-1", "command": "git add .../amendments/MR-star.md .../amendments/stage1-log.json; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged section and log", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6); staged diff 0 deleted lines (git aligns the old closing brace of kstar_freeze with the new closing brace, so the added comma shows as an insertion); no local paths in either file"},
+      {"run": "M-2", "command": "grep of both files for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check: at most the one closing line of kstar_freeze, gaining a comma); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. The PC-Q closed forms of section M.5 and Lemma G are paper derivations. No T-test or control was evaluated; no candidate law was derived."
   }
 }
