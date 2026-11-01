@@ -1291,3 +1291,229 @@ except CC2. It must return 2.5 with `CC2-unseparated` and `CC8-unseparated`.
     ../preregistration.md`, the deleted-line check, and the single commit.
   - M-1's results are logged in `stage1-log.json` under `mstar_or_gap`. M-2 is declared there, and
     its outcome is stated in the commit message.
+
+## C. Review corrections (fc68d333)
+
+**Source.** The independent review of `fc68d333` returned REVISE. The owner approved one appended
+correction round, recorded on PR #1023 in comment 6555028014 (from chat, 2026-11-01). The review
+found no integrity or computation issue. It verified S-L1, S-L3, S-L4 (case analysis), S-L6, S-L7,
+B-T0 to B-T7, Lemma G and the countercontrol checks.
+
+**How to read this section.**
+- §S and §M above are kept as written. The items below supersede the passages they name.
+- Each item was checked by this writer before it was applied. All twelve are applied and none is
+  rejected; C-13 adds the consequential changes needed for consistency.
+- The same corrections are logged in `stage1-log.json` under `screen_corrections` (REV-11 to
+  REV-23).
+
+### C-1. Linearity: proved for the frozen step; a posit as physics (§S.1; §S.4(d))
+
+- **What is proved.** Additivity of the step is frozen and proved: K★.F, and §PC★2a P-2 at
+  `99dce4b6`.
+- **What is a posit.** That the native rule describes the physics is a posit of OI. It is item (vii)
+  of Main's posit ledger (Main:726): "linearity of the substratum update (A5), equivalent to
+  amplitude-scale gauge invariance". It is also Substratum A5 (Substratum:100), which is conditional
+  on amplitude-scale gauge. Whether the `q`-size gauge freedom entails amplitude-scale gauge is an
+  identified open step there.
+- **§S.4(d) now reads:** "At `D`, OI posits additivity for the local lattice sector (Main ledger
+  (vii); Substratum A5 with `M = μI`). The posit is conditional on amplitude-scale gauge, an open
+  step. Under `K★ = {K1}` the step is additive by freeze; that this is the physics is not proved."
+
+### C-2. Localized records: the impossibility claim is withdrawn (S-C4a; §S.4(a) reason 2)
+
+- **What S-L4 excludes, and what it does not.** S-L4 excludes confined patterns only. A free field
+  leaves a wake, which can keep a localized region nonzero while the pattern spreads.
+- **The counterexample.** On `ℤ`, with `a = 1`, `u₋₁ = 0` and `u₀ = δ₀`, the solution is
+  `u_t(n) = 1` when `|n| ≤ t` and `n ≡ t (mod 2)`, and `0` otherwise.
+  - *Checked on paper here, by induction:* both neighbours inside the cone give `2 − 1 = 1`; at the
+    front, `1 − 0 = 1`; at the wrong parity, `0`.
+  - So site 0 carries `δ` at every even tick.
+- **Withdrawn as a ground for the `GAP`:** S-C4a. Its lemma content stands, corrected in C-10: no
+  confined pattern. It no longer supports "no localized record".
+- **Withdrawn: §S.4(a) reason 2.**
+  - Its claim that R2 is "a property of the free propagator restricted to `V`, which no source
+    fixes" is wrong. K1 fixes the propagator.
+  - Its claim that R2 needs a `V` of radius about `T` is unproved.
+  - Consequential: the free-choice clause of §S.5 (s4) rested on reason 2, and is withdrawn (C-5).
+- **Withdrawn: the "no pointer" basis everywhere it appears.** This covers σ1's `A` row and call
+  (§S.3); §S.4(a) reason 3, last clause ("and there is no pointer"); §S.6 node 2.2 and its
+  favourable-branch sentence; and §M.1's "why it is unsourced". See C-13.
+
+### C-3. The R gap, reframed (§M.1; §M.3; §S.3 σ1)
+
+- **The named element (frozen §6 row 1.1).** The absence of a physically sourced quiet, ready
+  region. In §3.1 terms, that is the ready supply in `Res` together with the `μ` leg of the fork.
+- **Why it is unsourced.**
+  - *Under the selected measure.* Main Lemma 3's selection principle gives the counting measure
+    (Main:56). Under it, every region is uniform, the observer's own content and `E`'s included.
+  - *The offsets.* By S-L1, the observer's state at `t` is the carrier's image plus additive offsets
+    from that unprepared content. These offsets can mask R1. At `t = 0` they do, since the
+    observer's own uniform content does not depend on the carrier. Whether they do at a later tick
+    depends on whether their image spans the observer's states, which is not decided here.
+  - *No principle supplies a quiet region.* No principle in the corpus supplies one. The fork is
+    unresolved:
+    - invariance does not select a law (`ensemble_underdetermined`, PC-1 §4);
+    - Main §4.6 (conditional on EM) places observers in a non-equilibrium phase, but supplies no
+      prepared region;
+    - no selection principle with its necessity assessment, and no admissible class whose members
+      supply such a region, is stated anywhere.
+- **The owner's caveats, binding on this item.**
+  - A wake does not yet establish a stable, distinguishable, reusable record.
+  - The absence of a proved ready supply is not a proof that none can exist.
+- **§M.3, the routes that would decide otherwise, now has three.**
+  - **(i) A sourced ready supply.** That means a selection principle for `μ`, with its necessity
+    assessment, or an admissible class whose members supply a prepared quiet region. With it, σ1
+    would become a candidate, and stage 2 could decide its R2.
+  - **(ii) A native step that is not additive.**
+  - **(iii) An apparatus at the observer level that imports no quantum structure.**
+
+  Routes (ii) and (iii) remain the routes for Q-type capabilities: settings, adaptive operations
+  and undo (S-C1, S-L3).
+
+### C-4. The trace route is `UNDECIDED` (§S.4(a); §S.6 node 2.2)
+
+Reading the field as it passes through `V` (a wake included) is neither excluded nor admitted.
+- Its R1, R2 and distinguishability for a given geometry are properties of the K1 propagator under
+  a stated `μ`.
+- Deciding them for any instance is a calculation. None was run, and none is authorized here.
+- It is blocked at stage 1 by C-3, the unsourced ready region, not by any property of the
+  propagator.
+
+### C-5. A criterion outside the frozen definitions is withdrawn; σ1 re-evaluated (§S.4(a) reason 1; §S.5)
+
+- **Withdrawn.** §S.4(a) reason 1, and the clause of §S.5 (s2) requiring "a pointer … or another
+  persistence mechanism with an executing apparatus process". "An executing apparatus process
+  distinct from transport" is not in frozen §3.1–§3.3.
+- **(s2) now reads:** "every §3.1 element is supplied by an executing native process under the
+  declared access, with `μ` fixed by the fork rule and the ready supply sourced in `Res`".
+- **(s4) now reads:** "no per-law or per-design construction, and no element chosen by reference to
+  an outcome (frozen §7.3; §A.29)". Its free-choice clause is withdrawn with reason 2 (C-2).
+- **σ1, re-evaluated without the criterion.**
+  - *`A`:* a region of the free field. Its records are transport or wake, and are undecided (C-4).
+  - *`μ` and `Res`:* no sourced quiet, ready region (C-3).
+  - **Call for R: G.** The element is C-3's.
+  - **Call for Q: G**, unchanged. Q presupposes a sourced measurement; marking cannot cause
+    interference loss (S-L5); and no subsystem undo exists (S-L2, S-L3, S-L6).
+- **§S.5's application now reads:** "σ1 fails (s2) at the ready supply and the `μ` leg (C-3); its
+  trace route is undecided (C-4)". The calls for the other sources are unchanged. The rule selects
+  none.
+
+### C-6. AW-MR8, scoped (§S.6)
+
+- **What SM:428 says.** "Couplings emergent" refers to the gauge-coupling values. The same line
+  places the gauge group at the substratum. It does not place interactions at the observer level,
+  and that reading is withdrawn.
+- **The claim, scoped to the K1 step.** The claim concerns the K1 step, not the substratum. SM §6.5's
+  links and the state-dependent coupling graph (SM:104–106) are in the corpus.
+- **AW-MR8 now reads:** "The K1 step is additive and supplies no conditional dynamics (S-C1). MR-1's
+  question (frozen §1) presupposes an interaction that the K1 step does not have. Operation-selecting
+  settings, adaptive operations and subsystem undo therefore need a non-additive step, or structure
+  beyond the K1 step. Whether the K1 step supplies records, through wakes, is undecided (C-4)."
+- **Classification:** NEW, for the presupposition it exposes.
+
+### C-7. AW-MR9, scoped (§S.6)
+
+- **"No carrier at the substratum level under A5" now reads** "no confined carrier on the K1 step
+  (S-L4), under `K★ = {K1}`".
+- **The substratum has more structure than the K1 step.** It also carries link structure (SM:118,
+  SM:523) and the condensate `Σ` (SM:428). Whether that structure supplies bound states is not
+  addressed here.
+- **The hazard stands, scoped to routes at the observer level.**
+
+### C-8. The T7 reference for CC1, CC3, CC5 and CC7 is pinned (§M.6)
+
+- **The reference.** Their T7 reference is `T7-UNCERTIFIED`, with no W1 decided.
+- **Why.**
+  - Their quadruple `P_{r,ϕ}` has `V = 1`, since `TX` reads the fixed `k`, and `P = √2/2`.
+  - It is uncertified because `RDALL` separates the two antipodal pair mixtures: the mixtures have
+    different distributions on `(p, k)`.
+- **Unchanged.** CC4's reference is certified, with `V + P = 1` and no violation. PC-Q's is W1
+  positive.
+
+### C-9. Wording of S-L5
+
+- **"regions whose content does not depend on the carrier" now reads** "regions whose content is
+  not a function of the carrier's content". Under `μ` that content may be correlated with the
+  carrier.
+- **"A record (R1) never causes (ii)" now reads** "a record formed by the interaction
+  (`Φ_{AΣ} s_Σ`) never enters the carrier's transfer, and so never causes (ii)".
+
+### C-10. The slice count: 2w + 2, not 2w + 1 (S-C4a; the log)
+
+- **The correction.** S-L4 gives `T ≤ 2w − 1`, that is, confinement over at most `2w + 1` slices
+  (`t = −1, …, 2w − 1`). So a confined pattern over `2w + 2` slices is impossible. In S-C4a, "over
+  `2w + 1` consecutive slices" now reads "over `2w + 2` consecutive slices", and the same holds for
+  the log's S-C4a statement.
+- **The bound is attained.** With `w = 1`, `u₋₁ = xδ₀`, `u₀ = 0` and `u₁ = −xδ₀` stay in one site for
+  three slices.
+
+### C-11. The torus lift in S-L4
+
+- **What was wrong.** For `d ≥ 2`, the lift to `ℤ^d` with periodization in every direction fails:
+  the transverse translates overlap.
+- **The repair.**
+  - Run the proof on the cylinder `ℤ × (ℤ/N)^{d−1}`, with `ℤ` along `e`. Step 1 uses only that
+    `v` is the one neighbour of `v + e` whose `e`-coordinate is `F`; every other neighbour has
+    `e`-coordinate `F + 1` or `F + 2`. That holds on the cylinder.
+  - Then lift the torus `(ℤ/N)^d` to the cylinder along `e` only. For `N ≥ w + 2(T + 1)` the
+    `e`-translates do not meet within the window.
+- **The conclusion is unchanged.** On a torus of side `N ≥ 5w + 2`, no nonzero solution stays in a
+  slab of `w` consecutive residues for every `−1 ≤ t ≤ 2w`. S-C4b's torus statement follows as
+  before.
+
+### C-12. Citation for clocks
+
+The `L` row of §S.3's σ1 table, and §M.1's "also unsourced" item `L`, cite S-L4 in place of S-C4b.
+A periodic pattern is not stationary, and S-L4 excludes every confined pattern. With C-2, the item
+now reads: "`L`: no clock or ledger held as a confined pattern (S-L4). One held in a wake is
+undecided, as is the trace route (C-4)."
+
+### C-13. Consequential changes, for consistency with C-2 to C-5
+
+- **§S.3, σ1 table, `A` row.** "Unsourced as an apparatus" now reads "a region of the free field;
+  records by transport or wake undecided (C-4)".
+- **§S.3, σ1's call.** It now reads as in C-5.
+- **§S.4(a), reason 3.** It is retained as the ground of C-3, without two of its claims:
+  - "a resource whose size grows with the budget" is unproved and is withdrawn;
+  - "and there is no pointer" is withdrawn.
+- **§S.6, node 2.2.** It reads "undecided (C-4)". The sentence on the favourable branch, which rested
+  on reason 2, is withdrawn.
+- **AW-MR10 now reads:** "Frozen §3.3 books a ready supply of pointer states. On the K1 step no
+  physically sourced quiet, ready region exists in the corpus (C-3)." The claim about the size of
+  that region is withdrawn.
+- **§M.1, the named element and "why it is unsourced".** They now read as in C-3. The "also
+  unsourced" items stay: `Z` (S-C1); `L` (C-12); subsystem inverses (S-L3, S-L6).
+- **§M.3.** The routes are as in C-3. The hypothesis is unchanged: under this freeze, stage 2 runs
+  controls only and can establish neither R nor Q.
+- **The log.** `mstar_or_gap.named_element` and `screen.sources[sigma1].failing_element` are
+  superseded by REV entries; the file is append-only and is not edited.
+
+### C-14. The result after these corrections
+
+- **Axis 1:** frozen §6 row 1.1, `GAP`, owner class **(G)**.
+  - **The named element:** the absence of a physically sourced quiet, ready region (`Res`, and the
+    `μ` leg of the fork).
+  - **Scope:** `K★ = {K1}` as frozen; the declared access; the sources σ1–σ13.
+- **R: G.** The trace route is `UNDECIDED`.
+- **Q: G,** for every K1 source.
+- **Calls for the other sources:** unchanged from §S.3.
+- **Axes 2 and 3, and the track:** 2.1 and 3.1 `NOT-REACHED`; P.1 `NONE`.
+- **Standing:** as §M.2.
+- **The stage-2 interface:** frozen as §M.4–§M.13, with C-8's pinned references.
+- **Limits.** This is not a global no-go. There is no claim that classical explanations are excluded
+  (D3), and no claim that a ready supply cannot exist.
+
+### C-15. Commands and hygiene for this section
+
+- **Read-only commands:**
+  - `git rev-parse HEAD` (`fc68d333`);
+  - one GitHub connector read of PR #1023's comments, which holds 6555028014;
+  - `git show 5914c17c:papers/Main.md | sed -n 726p | grep` for ledger item (vii);
+  - `git show 5914c17c:papers/SM.md | sed -n` over lines 118 and 523;
+  - `tail` of this file and of the log.
+- **Hygiene:**
+  - *Run C-1 (on the staged section and log):* placement, census and SC-42.
+  - *Run C-2:* the same, then the preregistration diff from `1a236f33`, the deleted-line check, and
+    the single commit.
+  - C-1's results are logged under `screen_corrections`. C-2's outcome is stated in the commit
+    message.
