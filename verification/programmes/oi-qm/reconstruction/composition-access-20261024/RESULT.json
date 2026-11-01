@@ -1,0 +1,29 @@
+{
+  "arithmetic": "exact rational, Python fractions.Fraction",
+  "controls_passed": true,
+  "depth_two_adaptive_policies": 81,
+  "failure_mass_mutant_tv": "1/4",
+  "fresh_seed_after_herald_hidden_input_mutant_tv": "1/2",
+  "local_intertwining_cases": 12,
+  "marginals_only_mutant_joint_tv": "1/2",
+  "policy_initial_boundary_cases": 324,
+  "post_y_calibration_controls": [
+    {
+      "carrier_tv": "1/10",
+      "terminal_r_tv": "1/10",
+      "terminal_x_tv": "0",
+      "y": 0
+    },
+    {
+      "carrier_tv": "1/10",
+      "terminal_r_tv": "1/10",
+      "terminal_x_tv": "0",
+      "y": 1
+    }
+  ],
+  "private_fiber_access_mutant_tv": "1",
+  "private_fibers_differ_but_decoded_protocol_laws_match": true,
+  "schema": "oi-composition-access-controls-v1",
+  "scope": "finite abstract instrument contract controls, not native lattice certification",
+  "verdict": "HOLDS_WITHIN_ABSTRACT_FINITE_CONTROL_SCOPE"
+}

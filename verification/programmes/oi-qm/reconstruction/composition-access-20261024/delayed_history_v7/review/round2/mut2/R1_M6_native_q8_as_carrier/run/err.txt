@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "rev912b/mut2/R1_M6_native_q8_as_carrier/run/../checks.py", line 616, in <module>
+    main()
+    ~~~~^^
+  File "rev912b/mut2/R1_M6_native_q8_as_carrier/run/../checks.py", line 567, in main
+    fams = [family(*f) for f in choose_families()]
+            ~~~~~~^^^^
+  File "rev912b/mut2/R1_M6_native_q8_as_carrier/run/../checks.py", line 429, in family
+    need(len({pool[l] for l in fixed_tail}) == 512, 'triangular pool bijection')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "rev912b/mut2/R1_M6_native_q8_as_carrier/run/../checks.py", line 23, in need
+    raise RuntimeError(message)
+RuntimeError: triangular pool bijection

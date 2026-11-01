@@ -1,0 +1,90 @@
+ALIAS_BOTH: rc=0 verdict=NEGATIVE_FOR_CONSTRUCTION controls=all true
+   g1 True slack 76 | cells ['False', 'False', 'False']
+   seed 1 s1 True s2 32768 s3 False tv 131/256 x1mm 0 x2 True c2 131/256 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 32603/262144 c3pre 87/1024
+   seed 2 s1 True s2 32768 s3 False tv 107/256 x1mm 0 x2 True c2 107/256 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 6833/65536 c3pre 43/512
+   seed 4 s1 True s2 32768 s3 False tv 9/32 x1mm 0 x2 True c2 9/32 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 27057/262144 c3pre 311/4096
+   bank_lb True storage_lb True same_as_ref False
+BASE: rc=0 verdict=HOLDS_WITHIN_SCOPE controls=all true
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 131/256 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 107/256 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 9/32 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref True
+C1_NOG: rc=2 verdict=VOID controls={'x3_duplicated_tail_detected': False}
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 0 c1min 0 c3 1813/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 0 c1min 0 c3 1681/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 0 c1min 0 c3 1189/32768 c3pre 0
+   bank_lb False storage_lb True same_as_ref False
+C3_FROZEN: rc=0 verdict=HOLDS_WITHIN_SCOPE controls=all true
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 131/256 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 0 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 107/256 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 0 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 9/32 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 0 c3pre 0
+   bank_lb True storage_lb False same_as_ref False
+G1_SHIFT: rc=0 verdict=NEGATIVE_FOR_CONSTRUCTION controls=all true
+   g1 False slack -1 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 131/256 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 107/256 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 9/32 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+NONUNIF_REC: rc=0 verdict=NEGATIVE_FOR_CONSTRUCTION controls=all true
+   g1 True slack 76 | cells ['False', 'False', 'False']
+   seed 1 s1 True s2 131072 s3 False tv 0 x1mm 0 x2 True c2 131/256 x3sup 16384 c1max 25661/32768 c1min 101173/131072 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 131072 s3 False tv 0 x1mm 0 x2 True c2 107/256 x3sup 16384 c1max 98417/131072 c1min 191673/262144 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 131072 s3 False tv 0 x1mm 0 x2 True c2 9/32 x3sup 16384 c1max 91987/131072 c1min 178335/262144 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+READ_DROP: rc=2 verdict=VOID controls={'carrier_list_equals_v6_read_set': False}
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 131/256 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 107/256 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 9/32 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+READ_TIME: rc=2 verdict=VOID controls={'carrier_list_equals_v6_read_set': False}
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 131/256 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 107/256 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 9/32 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+S1_PRE: rc=0 verdict=NEGATIVE_FOR_CONSTRUCTION controls=all true
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 False s2 262144 s3 True tv 0 x1mm 0 x2 True c2 309/1024 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 1823/32768 c3pre 0
+   seed 2 s1 False s2 262144 s3 True tv 0 x1mm 0 x2 True c2 207/512 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 1503/32768 c3pre 0
+   seed 4 s1 False s2 262144 s3 True tv 0 x1mm 0 x2 True c2 113/512 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+S3_J_TAIL: rc=0 verdict=NEGATIVE_FOR_CONSTRUCTION controls=all true
+   g1 True slack 76 | cells ['False', 'False', 'False']
+   seed 1 s1 True s2 262144 s3 False tv 25/128 x1mm 0 x2 True c2 33/64 x3sup 32768 c1max 229605/262144 c1min 227813/262144 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 False tv 13/64 x1mm 0 x2 True c2 53/128 x3sup 32768 c1max 112035/131072 c1min 109999/131072 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 False tv 19/128 x1mm 0 x2 True c2 75/256 x3sup 32768 c1max 109387/131072 c1min 107601/131072 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+X1_BIT: rc=2 verdict=VOID controls={'x1_scalar_evaluator_agrees': False, 'x2_seven_site_inverse': False}
+   g1 True slack 76 | cells ['False', 'True', 'True']
+   seed 1 s1 False s2 262144 s3 False tv 1 x1mm 378 x2 False c2 1 x3sup 32768 c1max 1 c1min 1 c3 139/4096 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 338 x2 False c2 25/64 x3sup 32768 c1max 216205/262144 c1min 214093/262144 c3 1355/32768 c3pre 0
+   seed 4 s1 False s2 262144 s3 True tv 0 x1mm 361 x2 False c2 131/256 x3sup 32768 c1max 229659/262144 c1min 227845/262144 c3 1387/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+X1_SCALAR: rc=2 verdict=VOID controls={'x1_scalar_evaluator_agrees': False, 'x2_seven_site_inverse': False}
+   g1 True slack 76 | cells ['False', 'True', 'False']
+   seed 1 s1 False s2 262144 s3 False tv 1 x1mm 389 x2 False c2 1 x3sup 32768 c1max 1 c1min 1 c3 1823/32768 c3pre 0
+   seed 2 s1 False s2 262144 s3 True tv 0 x1mm 356 x2 False c2 107/256 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 1503/32768 c3pre 0
+   seed 5 s1 False s2 262144 s3 False tv 1 x1mm 358 x2 False c2 1 x3sup 32768 c1max 1 c1min 1 c3 725/16384 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+X2_BOTH: rc=2 verdict=VOID controls={'x2_seven_site_inverse': False}
+   g1 True slack 76 | cells ['True', 'False', 'False']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 105/256 x3sup 32768 c1max 58057/65536 c1min 230897/262144 c3 1431/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 False tv 1 x1mm 0 x2 False c2 1 x3sup 32768 c1max 1 c1min 1 c3 971/16384 c3pre 0
+   seed 6 s1 True s2 262144 s3 False tv 1 x1mm 0 x2 False c2 1 x3sup 32768 c1max 1 c1min 1 c3 665/16384 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+X3_PIN: rc=2 verdict=VOID controls={'x3_duplicated_tail_detected': False}
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 229177/262144 c1min 227593/262144 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 224605/262144 c1min 55345/65536 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 109011/131072 c1min 107601/131072 c3 1509/32768 c3pre 0
+   bank_lb True storage_lb True same_as_ref False
+X3_TVZERO: rc=2 verdict=VOID controls={'x3_duplicated_tail_detected': False}
+   g1 True slack 76 | cells ['True', 'True', 'True']
+   seed 1 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 0 c1min 0 c3 1823/32768 c3pre 0
+   seed 2 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 0 c1min 0 c3 1503/32768 c3pre 0
+   seed 4 s1 True s2 262144 s3 True tv 0 x1mm 0 x2 True c2 0 x3sup 32768 c1max 0 c1min 0 c3 1509/32768 c3pre 0
+   bank_lb False storage_lb True same_as_ref False

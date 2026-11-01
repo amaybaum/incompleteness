@@ -1,0 +1,24 @@
+{
+  "author_files": {
+    "PLAN.md": "9901dd9bd33346d2b1f0f29efc71ce921c07d6afe114d583d2a80a852c9bbc19",
+    "PROVENANCE.json": "649c71347b3ddcea341900d1bbe74b3e228dd9f78c18c3792dce9d28b1942091",
+    "REPORT.md": "1be10243e16dd0d2eb386ad5657bc7fa330be0da04ca8517031b0f3ad6b9cd1e",
+    "SHA256SUMS": "ac2f58db41c4a46ff77ac6909c9a93729f20418f0fcf62c99dc6791f01441677",
+    "checks.py": "8cf93739b78d17379c48f61e7d081066e6b730752217623f11dbfecda778c2c9",
+    "result.json": "0693a28d81e2c6368e28ddb636fda2945fa0239a6c9e718834e0b23ba1edaedd"
+  },
+  "author_path": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/native-coupling-v5/",
+  "author_sha": "621e1a05776be4bcf870e2db61fa05244a354f1c",
+  "github_blobs": {
+    "PLAN.md": "4c1819060d73b7f2cea55469c2686cf3cca26226",
+    "PROVENANCE.json": "395ffabe5f6868b25856da89aca16de2e3aeda8d",
+    "REPORT.md": "48c75a784dbba53c84287f2f053e326f676d328a",
+    "SHA256SUMS": "07e094a795b4b5bbaa35be8d579c656022b4a123",
+    "checks.py": "0e7e474b953bf738cf4742786c1249b8875a3d89",
+    "result.json": "f36fea7a447d5b4c643290f614c8097cd5476379"
+  },
+  "native_A_author_sha": "f24a57a7c23cc1818c04265cec7604f8bc2f410d",
+  "native_B_author_sha": "1c91d3158e13eaa69c7fd1710932c9995d0288d7",
+  "native_B_table_sha256": "8bc1462854ce5fb80c18a48e8208037eb6bd613aa5babb28721e186aec3387f9",
+  "review_disclosure": "Reviewer authored Native B; review independently checks composition use of its pinned table, not revalidates Native B source engine."
+}

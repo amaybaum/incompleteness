@@ -1,0 +1,26 @@
+{
+  "calibration_x_r_carrier_tv_by_y": [
+    [
+      "0",
+      "1/10",
+      "1/10"
+    ],
+    [
+      "0",
+      "1/10",
+      "1/10"
+    ]
+  ],
+  "complete_two_stage_policy_cases": 324,
+  "controls_passed": true,
+  "correlated_controller_tv": "1/2",
+  "expanded_access_tv": "1",
+  "failure_mass_tv": "1/4",
+  "herald_hidden_correlation_tv": "1/2",
+  "imports_author_code": false,
+  "joint_marginal_tv": "1/2",
+  "local_matrix_cases": 12,
+  "physical_seed_pairs_per_case": 256,
+  "schema": "oi-composition-separate-author-review-v1",
+  "scope": "exact toy diagnostics; written theorem reviewed separately"
+}

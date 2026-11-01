@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -71,7 +71,7 @@
+     axes = [1, 2, 1, 1, 1, 1, 0, 0]
+     signs = [-1, -1, 1, 1, 1, 1, -1, 1]
+     neighbors = {'q8': (0, S, 76), 'q10': (0, S, 78), 'm': (-1, S, 77),
+-                 'q9+x': (1, S, 77), 'q9-y': (0, S-1, 77), 'q9+y': (0, S+1, 77)}
++                 'q9+x': (1, S, 77), 'q9-y': (0, S-1, 77)}
+     carrier = [('q9', q9, L+2), ('q9', q9, L)]
+     carrier += [(name, site, L+1) for name, site in neighbors.items()]
+     sources = {'F8': (-(L+1), S, 76), 'F10': (-(L+1), S, 78), 'F9': (-(L+2), S, 77)}

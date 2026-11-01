@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "rev912/mut/M6_native_q8_as_carrier/checks.py", line 579, in <module>
+    main()
+    ~~~~^^
+  File "rev912/mut/M6_native_q8_as_carrier/checks.py", line 553, in main
+    fams = [family(*f) for f in choose_families()]
+            ~~~~~~^^^^
+  File "rev912/mut/M6_native_q8_as_carrier/checks.py", line 419, in family
+    need(inv_ok, 'seven-site inverse')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "rev912/mut/M6_native_q8_as_carrier/checks.py", line 22, in need
+    raise RuntimeError(message)
+RuntimeError: seven-site inverse

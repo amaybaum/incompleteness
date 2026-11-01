@@ -1,0 +1,41 @@
+{
+  "calibrated_pure_preparations": 8,
+  "conditional_reuse_tv": "1/2",
+  "controls_passed": true,
+  "failure_counts": [
+    3,
+    8,
+    4,
+    7
+  ],
+  "failure_retaining_reuse_tv": "5/32",
+  "pointwise_full_carrier_branches": 96,
+  "posterior_cases": [
+    {
+      "determinant": "-1/4",
+      "metadata_y": 0,
+      "x": 0
+    },
+    {
+      "determinant": "-1/4",
+      "metadata_y": 1,
+      "x": 0
+    },
+    {
+      "determinant": "-1/4",
+      "metadata_y": 0,
+      "x": 1
+    },
+    {
+      "determinant": "-1/4",
+      "metadata_y": 1,
+      "x": 1
+    }
+  ],
+  "same_mass_wrong_kernel_tv": "1/10",
+  "schema": "native-x-independent-review-v1",
+  "source_failure_mass": "11/16",
+  "source_herald_assignments": 32,
+  "source_success_mass": "5/16",
+  "verdict": "PASS_SCOPED_ALGEBRA"
+}

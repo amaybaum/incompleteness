@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -319,7 +319,7 @@
+                 d ^= pd
+             ha, hb, hd = b, d, a ^ (b & d)
+             oa, ob, od = get(tau-2, x)
+-            layer[x] = (oa ^ ha, ob ^ hb, od ^ hd)
++            layer[x] = (ha, hb, hd)
+         fields[tau] = layer
+     return lambda tau, x: get(tau, x)
+ 

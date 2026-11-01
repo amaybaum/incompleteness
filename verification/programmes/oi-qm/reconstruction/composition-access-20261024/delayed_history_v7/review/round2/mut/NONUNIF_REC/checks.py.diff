@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -418,7 +418,7 @@
+     v_cur = vals[Q9, NS+2]
+     others = [vals[o, NS+1][0] for o in OTHERS]
+     w = [(a << 6) | (b << 3) | c for a, b, c in
+-         zip(vals[PORT, TAIL[0]], vals[PORT, TAIL[1]], vals[PORT, TAIL[2]])]
++         zip(vals[PORT, TAIL[0]], vals[PORT, TAIL[1]], [v & 6 for v in vals[PORT, TAIL[2]]])]
+     pool = [(a << 6) | (b << 3) | c for a, b, c in zip(q8, q10, mm)]
+     # (x2) seven-site inverse recovers old q9 in every world.
+     cx = others[0] ^ others[1] ^ others[2]
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):

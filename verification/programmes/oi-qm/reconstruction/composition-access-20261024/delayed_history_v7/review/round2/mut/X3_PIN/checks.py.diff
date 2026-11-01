@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):
+@@ -468,7 +469,7 @@
+         sc = scalar_world(bg, l)
+         scalar_mismatch += sum(int(sc[key] != vals[key][l]) for key in OUTPUTS)
+     # (x3)/(c2) duplicated tail triple: second tail triple equals the first.
+-    dup = [l for l in lanes if (l >> 12) & 7 == (l >> 9) & 7]
++    dup = [l for l in lanes if (l >> 12) & 7 == 0]
+     dup_support = len({(pool[l], w[l]) for l in dup})
+     def joint_tv(subset):
+         # TV of the actual (record, V, A, J) law from Pr(record) x v6 reference,

@@ -1,0 +1,32 @@
+{
+  "abstract_fresh_post_X_reset_branches": 6,
+  "abstract_fresh_post_X_reset_cells": 36,
+  "all_controls_pass": true,
+  "distant_field_controls": 832,
+  "dropped_old_slice_mutant_mismatches": 416,
+  "equal_parity_unequal_hidden_completion_controls": 384,
+  "native_update_cases": 832,
+  "omitted_neighbor_mutant_mismatches": 728,
+  "original_time_reachability_of_local_completions_claimed": false,
+  "per_y": {
+    "0": {
+      "C_A_flip_full_record_tv": "5/16",
+      "C_A_flip_success_conditioned_record_tv": "1",
+      "fresh_correlated_joint_previous_Z_full_tv": "5/32",
+      "fresh_correlated_joint_previous_Z_success_tv": "1/2",
+      "fresh_correlated_next_public_record_tv": "0"
+    },
+    "1": {
+      "C_A_flip_full_record_tv": "5/16",
+      "C_A_flip_success_conditioned_record_tv": "1",
+      "fresh_correlated_joint_previous_Z_full_tv": "5/32",
+      "fresh_correlated_joint_previous_Z_success_tv": "1/2",
+      "fresh_correlated_next_public_record_tv": "0"
+    }
+  },
+  "schema": "oi-native-phase-composition-v4-1",
+  "scope": "local-native-boundary-controls-and-conditional-contract",
+  "unchanged_post_read_determinants": [
+    "-1/4"
+  ]
+}

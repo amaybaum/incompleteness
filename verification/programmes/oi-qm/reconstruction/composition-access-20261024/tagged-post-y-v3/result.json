@@ -1,0 +1,240 @@
+{
+  "controls_passed": true,
+  "fixed_decoder_preparations": 8,
+  "native_splice": "NOT_CONSTRUCTED",
+  "positive_record_reset_branches": 28,
+  "schema": "oi-tagged-post-y-contract-v1",
+  "source_seed_cases": 256,
+  "source_success": "5/16",
+  "source_terminal_failure": "11/16",
+  "strict_raw_history_tv": "1",
+  "tagged_extension": "NOT_ADOPTED",
+  "unchanged_carrier_posteriors": [
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "Y",
+      "mass": "1",
+      "outcome": 0,
+      "unchanged_determinant": "0",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "mass": "4/5",
+      "outcome": 0,
+      "unchanged_determinant": "-1/64",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "mass": "1/5",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "Y",
+      "mass": "1",
+      "outcome": 1,
+      "unchanged_determinant": "0",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "mass": "4/5",
+      "outcome": 1,
+      "unchanged_determinant": "-1/64",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "mass": "1/5",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "Y",
+      "mass": "1",
+      "outcome": 0,
+      "unchanged_determinant": "0",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "mass": "4/5",
+      "outcome": 0,
+      "unchanged_determinant": "-1/64",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "mass": "1/5",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "X",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "Y",
+      "mass": "1",
+      "outcome": 1,
+      "unchanged_determinant": "0",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "mass": "4/5",
+      "outcome": 1,
+      "unchanged_determinant": "-1/64",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "mass": "1/5",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 0,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "mass": "1/2",
+      "outcome": 1,
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    }
+  ],
+  "verdict": "FIXED_TAGGED_COMPARISON_POSSIBLE; UNCHANGED_CARRIER_REUSE_FAILS",
+  "wrong_Y_calibration_tv": "1/10"
+}

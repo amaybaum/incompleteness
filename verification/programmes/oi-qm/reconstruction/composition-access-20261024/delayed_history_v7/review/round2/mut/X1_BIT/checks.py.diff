@@ -1,0 +1,19 @@
+--- checks.py
++++ checks.py
+@@ -327,7 +327,7 @@
+                 a ^= pa
+                 b ^= pb
+                 d ^= pd
+-            ha, hb, hd = b, d, a ^ (b & d)
++            ha, hb, hd = b, d, a ^ (b | d)
+             oa, ob, od = get(tau-2, x)
+             layer[x] = (oa ^ ha, ob ^ hb, od ^ hd)
+         fields[tau] = layer
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):

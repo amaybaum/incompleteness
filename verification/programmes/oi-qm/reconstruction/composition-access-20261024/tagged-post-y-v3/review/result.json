@@ -1,0 +1,265 @@
+{
+  "injective_carrier_tag_codes": 24,
+  "old_seed_reuse": [
+    {
+      "conditional_X_tv": "1/2",
+      "including_failure_tv": "5/32",
+      "success": "5/16",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "conditional_X_tv": "1/2",
+      "including_failure_tv": "5/32",
+      "success": "5/16",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "conditional_X_tv": "1/2",
+      "including_failure_tv": "5/32",
+      "success": "5/16",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "conditional_X_tv": "1/2",
+      "including_failure_tv": "5/32",
+      "success": "5/16",
+      "x": 1,
+      "y": 1
+    }
+  ],
+  "positive_projector_matrix_branches": 28,
+  "posteriors": [
+    {
+      "axis": "X",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "Y",
+      "outcome": 0,
+      "probability": "1",
+      "unchanged_determinant": "0",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "outcome": 0,
+      "probability": "4/5",
+      "unchanged_determinant": "-1/64",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "outcome": 1,
+      "probability": "1/5",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "X",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "Y",
+      "outcome": 1,
+      "probability": "1",
+      "unchanged_determinant": "0",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "outcome": 0,
+      "probability": "1/5",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "outcome": 1,
+      "probability": "4/5",
+      "unchanged_determinant": "-1/64",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "axis": "X",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "Y",
+      "outcome": 0,
+      "probability": "1",
+      "unchanged_determinant": "0",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "outcome": 0,
+      "probability": "4/5",
+      "unchanged_determinant": "-1/64",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "R",
+      "outcome": 1,
+      "probability": "1/5",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "Z",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "axis": "X",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "X",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "Y",
+      "outcome": 1,
+      "probability": "1",
+      "unchanged_determinant": "0",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "outcome": 0,
+      "probability": "1/5",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "R",
+      "outcome": 1,
+      "probability": "4/5",
+      "unchanged_determinant": "-1/64",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "outcome": 0,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    },
+    {
+      "axis": "Z",
+      "outcome": 1,
+      "probability": "1/2",
+      "unchanged_determinant": "-1/4",
+      "x": 1,
+      "y": 1
+    }
+  ],
+  "schema": "oi-tagged-post-y-independent-review-v1",
+  "scope": "supplied calibrated algebra; no native splice or interface adoption",
+  "source_seed_assignments": 256,
+  "strict_raw_history_tv": "1",
+  "verdict": "PASS"
+}

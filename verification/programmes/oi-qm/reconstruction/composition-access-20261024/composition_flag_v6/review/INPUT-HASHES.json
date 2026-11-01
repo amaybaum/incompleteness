@@ -1,0 +1,53 @@
+{
+  "schema": "oi-composition-flag-v6-independent-review-inputs.1",
+  "author_commit": "1cb224db6c17e083849a0f82768e991beac39399",
+  "repository": "amaybaum/incompleteness",
+  "author_directory": "verification/programmes/oi-qm/reconstruction/composition-access-20261024/composition_flag_v6",
+  "local_author_directory": "../composition_flag_v6",
+  "files": [
+    {
+      "name": "PLAN.md",
+      "bytes": 3735,
+      "sha256": "fe75a3d50744dbfb566e1119358993c0bc5141a0f0a19166405b178c4e93fa4e",
+      "git_blob": "d0b569f27e5a821531b6bce71650bcaf1a04415f",
+      "remote_blob_sha": "d0b569f27e5a821531b6bce71650bcaf1a04415f"
+    },
+    {
+      "name": "REPORT.md",
+      "bytes": 13799,
+      "sha256": "425af236158aa9adf2949204fda4e5fc176f020f35264fb445847bbf3b1274ba",
+      "git_blob": "b94a93a21376adf60c3d253931d81394e19b3899",
+      "remote_blob_sha": "b94a93a21376adf60c3d253931d81394e19b3899"
+    },
+    {
+      "name": "checks.py",
+      "bytes": 18794,
+      "sha256": "fa37bef360b5c2ecca4d132265628c7771b43c058fe3a13115d772ef16974f0b",
+      "git_blob": "fd49dd327e5b136fc083db496bb078ccea78d168",
+      "remote_blob_sha": "fd49dd327e5b136fc083db496bb078ccea78d168"
+    },
+    {
+      "name": "result.json",
+      "bytes": 2868,
+      "sha256": "490b1979e581ceab74517ec640c813cff2d1093427e4fb73d753e422b0281c6a",
+      "git_blob": "56f3bca393289d73b0c8559072f474aaba5be09c",
+      "remote_blob_sha": "56f3bca393289d73b0c8559072f474aaba5be09c"
+    },
+    {
+      "name": "PROVENANCE.json",
+      "bytes": 2447,
+      "sha256": "465573890fcbe883fa4452cd260f8f41f6dcf520d3b904114e6da3bf661a0561",
+      "git_blob": "d0fe319ffb8e9f833064a6576076a10dd8f37945",
+      "remote_blob_sha": "d0fe319ffb8e9f833064a6576076a10dd8f37945"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 386,
+      "sha256": "4bef66dc436fe4a38b4adfbd91c4fdacccf45db8aaf22304dae334392836e8e1",
+      "git_blob": "170293db21e9fb0fd5eceda31e06bda360dd8c98",
+      "remote_blob_sha": "170293db21e9fb0fd5eceda31e06bda360dd8c98"
+    }
+  ],
+  "reviewer_imports_author_code": false,
+  "source_geometry_scope": "Native A actual-L independence theorem inherited; only its finite conditional kernel is independently checked here"
+}

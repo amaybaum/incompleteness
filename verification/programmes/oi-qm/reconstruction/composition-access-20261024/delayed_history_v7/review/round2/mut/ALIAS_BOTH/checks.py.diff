@@ -1,0 +1,28 @@
+--- checks.py
++++ checks.py
+@@ -282,7 +282,7 @@
+     if x in SRC:
+         return var_planes(3*SRC.index(x))
+     if x in TAIL_SITES:
+-        return var_planes(9+3*TAIL_SITES.index(x))
++        return var_planes(9+3*(0 if TAIL_SITES.index(x) == 1 else TAIL_SITES.index(x)))
+     return const_planes(cur.get(x, 0))
+ 
+ 
+@@ -362,7 +362,7 @@
+     for i, f in enumerate(SRC):
+         cur[f] = (lane >> (3*i)) & 7
+     for i, t in enumerate(TAIL):
+-        cur[bank_site(t)] = (lane >> (9+3*i)) & 7
++        cur[bank_site(t)] = (lane >> (9+3*(0 if i == 1 else i))) & 7
+     prev = {p: v for p, v in prev.items() if v}
+     cur = {p: v for p, v in cur.items() if v}
+     slices = {-1: prev, 0: cur}
+@@ -451,6 +451,7 @@
+             if counts.get((rec, v, a, j), 0) != target_count(s_old, a, j):
+                 s3 = False
+             s3_cells += 1
++    print('CELLS', seed, s3, file=__import__('sys').stderr)
+     positive = 0
+     if kind == 'success':
+         for rec, v in product(range(512), range(8)):

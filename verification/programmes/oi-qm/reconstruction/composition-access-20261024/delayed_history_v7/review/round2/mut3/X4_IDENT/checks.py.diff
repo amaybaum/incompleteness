@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -494,7 +494,7 @@
+     # enumeration in which the second tail triple is aliased to the first
+     # (each world replaced by its aliased world) must lower the s2 support
+     # below WORLDS and fail the s3 cell comparison.
+-    alias = [(l & ~(7 << 12)) | (((l >> 9) & 7) << 12) for l in lanes]
++    alias = list(lanes)
+     alias_support = len({(pool[l], w[l]) for l in alias})
+     alias_cells_ok, _ = cells_match(Counter((w[l], v_cur[l], acc[l], sel[l]) for l in alias))
+     x4_ok = alias_support < WORLDS and not alias_cells_ok

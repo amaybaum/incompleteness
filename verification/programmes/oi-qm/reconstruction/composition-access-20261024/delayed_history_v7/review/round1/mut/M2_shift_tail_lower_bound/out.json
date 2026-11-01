@@ -1,0 +1,272 @@
+{
+  "actual_astronomical_time_simulated": false,
+  "actual_geometry": {
+    "carrier_site_times": 8,
+    "first_tail_arrival_minus_L_at_carrier_sites": {
+      "m": 0,
+      "q10": 2,
+      "q8": 0,
+      "q9": 1,
+      "q9+x": 0,
+      "q9+y": 0,
+      "q9-y": 2
+    },
+    "g1_min_tail_slack_over_carrier_site_times": -1,
+    "g1_tail_reaches_no_carrier_site_time": false,
+    "g2_G_reaches_no_port_through_L_plus_2": true,
+    "g2_min_G_port_offsets_over_L": {
+      "F10": 79,
+      "F8": 77,
+      "F9": 79
+    },
+    "g2_three_smallest_G_port_offsets_over_L": {
+      "F10": [
+        79,
+        79,
+        449
+      ],
+      "F8": [
+        77,
+        77,
+        447
+      ],
+      "F9": [
+        79,
+        79,
+        449
+      ]
+    },
+    "g3_horizons_within_2L": true,
+    "pre_tail_bank_reaching_carrier": [
+      {
+        "first_arrival": true,
+        "port": 0,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 0,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 0,
+        "site": "q9-y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q9+x",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 2,
+        "site": "q9+y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "m",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 3,
+        "site": "q9+y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 5,
+        "site": "q8",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 5,
+        "site": "q9",
+        "site_time_minus_L": 2,
+        "t_minus_deadline": 2
+      },
+      {
+        "first_arrival": true,
+        "port": 5,
+        "site": "q9+y",
+        "site_time_minus_L": 1,
+        "t_minus_deadline": 2
+      }
+    ],
+    "tail_bank": "f_i(t), max(a_i,L)<t<=H, eight ports, 24 bits per tick",
+    "tail_bits_for_horizon_offsets": {
+      "serial_core_end_offset": 2184,
+      "serial_recorded_dilation_end_offset": 8664
+    },
+    "tail_carrier_family_pairs": 64
+  },
+  "all_required_controls_pass": true,
+  "known_tail_countercontrol_shows_bank_load_bearing": true,
+  "native_continuation_shows_frozen_storage_load_bearing": true,
+  "native_storage_or_compilation_established": false,
+  "observer_access_rule_adopted": false,
+  "scaled_families": [
+    {
+      "accepted_worlds_offered": 81920,
+      "c1_accepted_records": 66656,
+      "c1_known_tail_values": 512,
+      "c1_max_distinct_tail_records_over_G": 48,
+      "c1_max_record_carrier_tv": "229177/262144",
+      "c1_min_accepted_determinant": "-1/2",
+      "c1_min_distinct_tail_records_over_G": 48,
+      "c1_min_record_carrier_tv": "227593/262144",
+      "c1_negative_accepted_records": 66656,
+      "c1_tail_values_with_positive_tv": 512,
+      "c2_duplicated_tail_record_carrier_tv": "131/256",
+      "c3_native_q8_at_horizon_tail_record_tv": "1823/32768",
+      "c3_native_q8_two_ticks_before_tail_arrival_tv": "0",
+      "family": "success",
+      "old_q9": 2,
+      "old_sign": 1,
+      "positive_accepted_complete_records": 16384,
+      "s1_pre_tail_records_constant": true,
+      "s2_joint_bijective": true,
+      "s2_pool_tail_record_support": 262144,
+      "s3_cells_checked_including_pads_and_zeros": 524288,
+      "s3_complete_record_law_matches_v6": true,
+      "s3_fresh_tail_record_carrier_tv": "0",
+      "seed": 1,
+      "world_table_sha256": "4e72f4c7e90b97a431401a0e5cd039100041deaecb3111fa516ecf68494ab540",
+      "worlds": 262144,
+      "x1_scalar_sampled_worlds": 24,
+      "x2_seven_site_inverse_worlds": 262144,
+      "x3_duplicated_tail_support": 32768
+    },
+    {
+      "accepted_worlds_offered": 0,
+      "c1_accepted_records": null,
+      "c1_known_tail_values": 512,
+      "c1_max_distinct_tail_records_over_G": 40,
+      "c1_max_record_carrier_tv": "224605/262144",
+      "c1_min_accepted_determinant": null,
+      "c1_min_distinct_tail_records_over_G": 40,
+      "c1_min_record_carrier_tv": "55345/65536",
+      "c1_negative_accepted_records": null,
+      "c1_tail_values_with_positive_tv": 512,
+      "c2_duplicated_tail_record_carrier_tv": "107/256",
+      "c3_native_q8_at_horizon_tail_record_tv": "1503/32768",
+      "c3_native_q8_two_ticks_before_tail_arrival_tv": "0",
+      "family": "failure",
+      "old_q9": 6,
+      "old_sign": 1,
+      "positive_accepted_complete_records": 0,
+      "s1_pre_tail_records_constant": true,
+      "s2_joint_bijective": true,
+      "s2_pool_tail_record_support": 262144,
+      "s3_cells_checked_including_pads_and_zeros": 524288,
+      "s3_complete_record_law_matches_v6": true,
+      "s3_fresh_tail_record_carrier_tv": "0",
+      "seed": 2,
+      "world_table_sha256": "482df3e8098de358913592d9e94815057fe808c67ac3dc4026976fe23a05aa4b",
+      "worlds": 262144,
+      "x1_scalar_sampled_worlds": 24,
+      "x2_seven_site_inverse_worlds": 262144,
+      "x3_duplicated_tail_support": 32768
+    },
+    {
+      "accepted_worlds_offered": 81920,
+      "c1_accepted_records": 64064,
+      "c1_known_tail_values": 512,
+      "c1_max_distinct_tail_records_over_G": 40,
+      "c1_max_record_carrier_tv": "109011/131072",
+      "c1_min_accepted_determinant": "-1/2",
+      "c1_min_distinct_tail_records_over_G": 40,
+      "c1_min_record_carrier_tv": "107601/131072",
+      "c1_negative_accepted_records": 61760,
+      "c1_tail_values_with_positive_tv": 512,
+      "c2_duplicated_tail_record_carrier_tv": "9/32",
+      "c3_native_q8_at_horizon_tail_record_tv": "1509/32768",
+      "c3_native_q8_two_ticks_before_tail_arrival_tv": "0",
+      "family": "success",
+      "old_q9": 1,
+      "old_sign": 0,
+      "positive_accepted_complete_records": 16384,
+      "s1_pre_tail_records_constant": true,
+      "s2_joint_bijective": true,
+      "s2_pool_tail_record_support": 262144,
+      "s3_cells_checked_including_pads_and_zeros": 524288,
+      "s3_complete_record_law_matches_v6": true,
+      "s3_fresh_tail_record_carrier_tv": "0",
+      "seed": 4,
+      "world_table_sha256": "09c0652724740a99c4d59a767e016731cec336f8571dd16bbc3ec50d800e7466",
+      "worlds": 262144,
+      "x1_scalar_sampled_worlds": 24,
+      "x2_seven_site_inverse_worlds": 262144,
+      "x3_duplicated_tail_support": 32768
+    }
+  ],
+  "scaled_geometry": {
+    "G_port_offsets_over_n": [
+      3,
+      5,
+      5
+    ],
+    "bank_deadline": 0,
+    "horizon": 8,
+    "k": 2,
+    "n": 3,
+    "port": [
+      0,
+      0,
+      -3
+    ],
+    "pre_tail_bank_reaching_carrier": 3,
+    "tail_bank_times": [
+      6,
+      7,
+      8
+    ]
+  },
+  "schema": "oi-delayed-port-history-frozen-carrier-v7.1",
+  "scope": "frozen logical v6 carrier; eight old ports with the supplied history_v11 bank through H<=2L; Native A source contract",
+  "verdict": "NEGATIVE_FOR_CONSTRUCTION"
+}

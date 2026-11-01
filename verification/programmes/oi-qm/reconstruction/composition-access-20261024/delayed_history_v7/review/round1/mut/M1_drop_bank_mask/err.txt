@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "rev912/mut/M1_drop_bank_mask/checks.py", line 579, in <module>
+    main()
+    ~~~~^^
+  File "rev912/mut/M1_drop_bank_mask/checks.py", line 553, in main
+    fams = [family(*f) for f in choose_families()]
+            ~~~~~~^^^^
+  File "rev912/mut/M1_drop_bank_mask/checks.py", line 461, in family
+    need(sc[key] == vals[key][l], 'scalar/bit-sliced disagreement')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "rev912/mut/M1_drop_bank_mask/checks.py", line 22, in need
+    raise RuntimeError(message)
+RuntimeError: scalar/bit-sliced disagreement

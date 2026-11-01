@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "rev912/mut/M5_drop_old_local_term_bitsliced/checks.py", line 579, in <module>
+    main()
+    ~~~~^^
+  File "rev912/mut/M5_drop_old_local_term_bitsliced/checks.py", line 553, in main
+    fams = [family(*f) for f in choose_families()]
+            ~~~~~~^^^^
+  File "rev912/mut/M5_drop_old_local_term_bitsliced/checks.py", line 405, in family
+    need(p_set == {p_expected}, 'old q9 not a C0 function')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "rev912/mut/M5_drop_old_local_term_bitsliced/checks.py", line 22, in need
+    raise RuntimeError(message)
+RuntimeError: old q9 not a C0 function

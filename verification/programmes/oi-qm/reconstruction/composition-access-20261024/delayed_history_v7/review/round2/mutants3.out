@@ -1,0 +1,32 @@
+BASE3 rc 0 HOLDS_WITHIN_SCOPE failed: -
+   seed 1 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+   seed 2 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+   seed 4 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+C1_NOG rc 2 VOID failed: {'x3_duplicated_tail_detected': False}
+   seed 1 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 False
+   seed 2 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 False
+   seed 4 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 False
+CELLS_TRUE rc 2 VOID failed: {'x4_aliased_tail_detected': False}
+   seed 1 s2 262144 True s3 True x4sup 32768 x4cells True x4 False x3 True
+   seed 2 s2 262144 True s3 True x4sup 32768 x4cells True x4 False x3 True
+   seed 4 s2 262144 True s3 True x4sup 32768 x4cells True x4 False x3 True
+M1b_both rc 0 NEGATIVE_FOR_CONSTRUCTION failed: -
+   seed 1 s2 512 False s3 False x4sup 512 x4cells False x4 True x3 True
+   seed 2 s2 512 False s3 False x4sup 512 x4cells False x4 True x3 True
+   seed 4 s2 512 False s3 False x4sup 512 x4cells False x4 True x3 True
+NONUNIF_REC rc 0 NEGATIVE_FOR_CONSTRUCTION failed: -
+   seed 1 s2 131072 False s3 False x4sup 16384 x4cells False x4 True x3 True
+   seed 2 s2 131072 False s3 False x4sup 16384 x4cells False x4 True x3 True
+   seed 4 s2 131072 False s3 False x4sup 16384 x4cells False x4 True x3 True
+S2_LEN rc 0 HOLDS_WITHIN_SCOPE failed: -
+   seed 1 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+   seed 2 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+   seed 4 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+S2_TRUE rc 0 HOLDS_WITHIN_SCOPE failed: -
+   seed 1 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+   seed 2 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+   seed 4 s2 262144 True s3 True x4sup 32768 x4cells False x4 True x3 True
+X4_IDENT rc 2 VOID failed: {'x4_aliased_tail_detected': False}
+   seed 1 s2 262144 True s3 True x4sup 262144 x4cells True x4 False x3 True
+   seed 2 s2 262144 True s3 True x4sup 262144 x4cells True x4 False x3 True
+   seed 4 s2 262144 True s3 True x4sup 262144 x4cells True x4 False x3 True

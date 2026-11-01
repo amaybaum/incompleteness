@@ -1,0 +1,25 @@
+{
+  "author_commit": "75619cb724053a68196896181878b5c823f9796c",
+  "files": {
+    "PLAN.md": {
+      "git_blob": "da9d27ea0fd6814c346c3288b795a205c1030668",
+      "sha256": "ae25dbf7ada3e64690ce32ee1d1448ff729cfa491138812943c2645c10a8c52c"
+    },
+    "REPORT.md": {
+      "git_blob": "65486b23e54f94d22180482bf2863b11a8a431b0",
+      "sha256": "9f983fb58e33ac98576e1c912b4c95293447b52f154a9ad19c360b61901ce18e"
+    },
+    "SHA256SUMS": {
+      "git_blob": "bf56dac3b3b2f7ea75cf1faff0dad42d02cb6a13",
+      "sha256": "f2c8058a79bf31751d3b06473d768c9617c7c0db4b30ba34bf413cd6ba2c8c51"
+    },
+    "checks.py": {
+      "git_blob": "5ed13e0fa544e551890d6ef00fde9dbbbcadbe9e",
+      "sha256": "5c7f2eccfd4260ac3a2b6f20e73365b6906c83e7a1ed029949ac72f0fab22e32"
+    },
+    "result.json": {
+      "git_blob": "a34749847a2f80df78e7e857364377f07d889daf",
+      "sha256": "62ee0e4091e90ebece71e0dd4adfb6e5d8cb9fe5d7ab30e4c046d4f2e5f2f6c5"
+    }
+  }
+}

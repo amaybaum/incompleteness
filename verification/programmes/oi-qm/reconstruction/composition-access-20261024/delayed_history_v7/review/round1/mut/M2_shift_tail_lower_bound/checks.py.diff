@@ -1,0 +1,11 @@
+--- checks.py
++++ checks.py
+@@ -104,7 +104,7 @@
+     tail_rows = 0
+     first_tail_arrival = {}
+     for i in range(8):
+-        lo, hi = max(deadlines[i], L)+1, H2
++        lo, hi = max(deadlines[i], L)-76, H2
+         for name, site, time in carrier:
+             md = min_dist(i, site, lo, hi)
+             tail_slacks.append(md-time)
