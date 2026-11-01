@@ -540,5 +540,75 @@
       {"run": "K4", "command": "grep of this file for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
     ],
     "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived."
+  },
+  "lit5_errata": {
+    "id": "LIT-5-ERRATA",
+    "date": "2026-11-01",
+    "role": "errata provenance for LIT-5 (Mermin 1993), CC2-instance role only (amendment KS-S)",
+    "authority": "owner decision 2, PR #1023 comment 6554185786: include all three notices in the reading record; the owner's access does not satisfy the reading gate; the writer must still read the notices first-hand and record their implications",
+    "errata": [
+      {"id": "E1", "citation": "N. D. Mermin, 'Erratum: Hidden variables and the two theorems of John Bell [Rev. Mod. Phys. 65, 803 (1993)]', Rev. Mod. Phys. 85, 919 (2013), issue 2, published online 2013-06-28", "doi": "10.1103/RevModPhys.85.919", "existence": "confirmed by Crossref metadata", "text_obtained": false},
+      {"id": "E2", "citation": "N. D. Mermin, Erratum (same title), Rev. Mod. Phys. 88, 039902 (2016), issue 3, published online 2016-07-15", "doi": "10.1103/RevModPhys.88.039902", "existence": "confirmed by Crossref metadata", "text_obtained": false},
+      {"id": "E3", "citation": "N. D. Mermin, Erratum (same title), Rev. Mod. Phys. 89, 049901 (2017), issue 4, published online 2017-12-28", "doi": "10.1103/RevModPhys.89.049901", "existence": "confirmed by Crossref metadata", "text_obtained": false}
+    ],
+    "status": "NOT OBTAINED for E1, E2 and E3: no first-hand read of any erratum text",
+    "routes_tried_and_failed": [
+      "journals.aps.org abstract and PDF pages for all three DOIs, with and without a browser user agent: Cloudflare challenge page ('Just a moment...') or HTTP 403",
+      "link.aps.org PDF for all three DOIs (reached through doi.org): Cloudflare challenge page",
+      "Crossref per-DOI records and a Crossref query: metadata only (title, volume, issue, page, dates); no text",
+      "INSPIRE records: metadata only",
+      "OpenAlex records: metadata only; the only located copy is on link.aps.org",
+      "Unpaywall records: no open copy other than link.aps.org",
+      "Semantic Scholar: E1 not found; no text",
+      "arXiv abstract page of arXiv:1802.10119: version history only",
+      "earlier routes recorded in LIT-5 (ui.adsabs.harvard.edu, harvest.aps.org: outside the allowed domains; one web search: no text)",
+      "an archived (Wayback) copy of the paywalled pages was not attempted: the permission system denied it"
+    ],
+    "owner_supplied_summary": {
+      "label": "owner provenance, not a first-hand read; it does not satisfy the reading gate",
+      "source": "PR #1023 comment 6554185786 (the owner verified the original APS PDFs)",
+      "E1": "p. 811: 'contextual' corrected to 'noncontextual'",
+      "E2": "Figure 4 caption: 'three observables in six groups' corrected to 'four observables in five groups'",
+      "E3": "p. 814: 'noncontextuality' corrected to 'contextuality'"
+    },
+    "e2_consistency_check": "Consistent: the corrected arXiv text, p. 17, has 'groups of four on 5 intersecting lines'. That passage concerns the eight-dimensional star (section VI), which MR-1 does not consume.",
+    "e1_e3_mapping": "Unmapped: the journal pages 811 and 814 cannot be located in the arXiv text without the journal layout. Candidate locations: section VII, arXiv pp. 19-20 (for p. 811); sections IX-X, arXiv pp. 23-24 (for p. 814). Both are polarity corrections and may bear on the noncontextuality statements of pp. 18-19 (M-a), the necessity statement of p. 24 (M-c) and the Bohm statement of p. 23 (the U3 agreement).",
+    "arxiv_preface": "The preface of arXiv:1802.10119v1 says it 'corrected the three small errors posted over the years'. The count now matches the three notices, but that the arXiv text incorporates each correction rests on the author's statement, not on a first-hand comparison.",
+    "consumed_claims_affected": [
+      "M-a (noncontextuality named, p. 18): possibly near E1's candidate location; also supported by Bell 1966 (B-b, B-c; LIT-4, MET), on which MR-1 relies",
+      "M-c all-rays form (p. 24): possibly within E3's candidate location; also supported by Bell 1966 (B-b, B-c), on which MR-1 relies",
+      "M-b (the finite four-dimensional square), the product rule and M-c restricted to a finite menu: Mermin-only; stay blocked",
+      "U3 agreement (p. 23): Mermin-only; not load-bearing (frozen L345)"
+    ],
+    "lit5_gate": "PARTIAL (unchanged): the corrected arXiv text is read first-hand in full; the text of E1, E2 and E3 is not obtained. Missing: a first-hand read of the three notices and a mapping of E1 and E3 onto the arXiv text.",
+    "dependence_under_d3": "No step under amendment D3 (D3-CC2-class-level.md section D3.5) rests on a Mermin-only claim. The finite square, the product rule and the finite-menu form of M-c served only to certify a CC2 instance on a finite menu (MR-star.md missing element M4, conditional on the proposed reading c-iv per section K-star.11 RC-3); D3 fixes no instance. M-a and the all-rays form of M-c rest on Bell 1966. The CC2 class description is used as a definition only; its contextual reading is supported by Bell 1966 section V. The U3 agreement is not load-bearing.",
+    "correction": {
+      "id": "REV-8",
+      "source": "owner comment 6554185786 and the errata reader's metadata checks",
+      "targets": "LIT-5 source, doi and errata fields; LIT-5 errata.mapping; KS-substitution.md section 5 ('the two published errata'); MR-star.md section K-star.8 (lists two errata)",
+      "old_value": "two errata: Rev. Mod. Phys. 88, 039902 (2016) and 89, 049901 (2017); 'the preface's three corrected errors do not map one-to-one onto the two errata'",
+      "corrected_value": "three errata: E1 Rev. Mod. Phys. 85, 919 (2013), DOI 10.1103/RevModPhys.85.919; E2 88, 039902 (2016); E3 89, 049901 (2017). The preface's count of three now matches; the correspondence of each to the arXiv corrections is unverified first-hand (see arxiv_preface).",
+      "reason": "The 2013 erratum was missed by the earlier metadata search; the owner identified three notices and Crossref confirms E1."
+    }
+  },
+  "d3_step": {
+    "date": "2026-11-01",
+    "authority": "owner decision 1 (D3), PR #1023 comment 6554185786",
+    "file": "amendments/D3-CC2-class-level.md (new); KS-substitution.md section 8 (appended)",
+    "outcome": "Amendment D3 drafted for independent review. It changes the frozen CC2-instance requirement: no CC2 instance; CC2 at class level (the L569 description, unrestricted); CC2 not executed at stage 2, with separation fields fixed to 'not separated (class level, D3)'; token 2.4 unavailable; 2.5 with CC2-unseparated and CC8-unseparated retained. Frozen lines changed or set aside: L561-564 (instance rule), L569 column 4 (named separating test), L551-557 and L675-676 for CC2 (execution and separation), L529-533 and L620 (2.4 unavailable), L675-676 and L713 (2.4 self-test becomes an unreachability check), L661-664 (commit order: K-star without a CC2 instance). L668-672, L714, L744-748 and L758 are retained; under D3 they bind no step for CC2.",
+    "kstar_under_d3": "K-star = {K1}, with CC2 at class level and no instance. Not frozen: freezing K-star is a separate owner decision after review and green CI.",
+    "mermin_dependence": "none (lit5_errata.dependence_under_d3)",
+    "commands": [
+      "GitHub connector reads of PR #1023 (issue metadata; the comment page holding 6554185786); read-only",
+      "git rev-parse HEAD (41aa6bdd90a676573b6a6a417d3f56908da8361e)",
+      "git show 1a236f33:.../preregistration.md | grep for the CC2, instance, 2.4 and nonclassical lines",
+      "ls, grep and head of the errata reader's off-repository outputs (Crossref, INSPIRE, OpenAlex, Unpaywall, Semantic Scholar, APS and link.aps.org responses)",
+      "grep of the new and appended files for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "D-1", "command": "git add .../amendments/D3-CC2-class-level.md .../amendments/KS-substitution.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged Markdown drafts", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers both Markdown files; not this JSON file, REV-6)"},
+      {"run": "D-2", "command": "grep of this file for local paths; git add of the three files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived, and no screen was started."
   }
 }

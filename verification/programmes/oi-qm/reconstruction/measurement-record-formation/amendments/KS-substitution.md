@@ -141,3 +141,32 @@ supersede the passages named. The same corrections are recorded in `stage1-log.j
   covers `*.md` and `*.py` only and never scanned the JSON log; the log's `readers` and
   `computation_statement` fields predate the 2026-11-01 readings of Bell and Mermin and the one
   read-only GitHub connector call.
+
+## 8. Errata status
+
+Sources: owner comment 6554185786 on PR #1023; `stage1-log.json`, `lit5_errata` (`LIT-5-ERRATA`)
+and correction REV-8. The text above is kept as written.
+
+- **Three errata, not two.** Crossref confirms three notices to Mermin 1993:
+  - E1, *Rev. Mod. Phys.* 85, 919 (2013-06-28);
+  - E2, 88, 039902 (2016-07-15);
+  - E3, 89, 049901 (2017-12-28).
+
+  §5's "the two published errata" reads "the three published errata", E1 included.
+- **None was read first-hand.** Every full-text route returned a Cloudflare challenge or HTTP 403,
+  or lies outside the session's allowed domains. The routes are listed in `LIT-5-ERRATA`.
+- **The owner's summary (owner provenance, not a first-hand read):**
+  - E1: p. 811, "contextual" corrected to "noncontextual";
+  - E2: the Fig. 4 caption, "three observables in six groups" corrected to "four observables in five
+    groups";
+  - E3: p. 814, "noncontextuality" corrected to "contextuality".
+- **Consistency of E2 with the arXiv text.** It agrees: arXiv p. 17 has "groups of four on 5
+  intersecting lines". That passage concerns the eight-dimensional star, which MR-1 does not consume.
+- **E1 and E3 are unmapped.** Their arXiv locations are not known without the journal layout. The
+  candidates are §VII pp. 19–20 and §IX–X pp. 23–24. They may bear on the noncontextuality
+  statements of pp. 18–19, the necessity statement of p. 24 (M-c) and the Bohm statement of p. 23.
+- **LIT-5 stays PARTIAL.** M-b, the product rule and the finite-menu form of M-c stay blocked, as in
+  §5 and REV-4.
+- **What depends on them under D3:** nothing. Under amendment D3 (`D3-CC2-class-level.md` §D3.5), no
+  step rests on a Mermin-only claim. M-a and the all-rays form of M-c rest on Bell 1966. The
+  Kochen–Specker literature gate stays recorded as unresolved.
