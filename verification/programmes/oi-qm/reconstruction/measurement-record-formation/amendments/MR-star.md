@@ -437,3 +437,399 @@ coordinator. The text above is kept as written; this note states how two of its 
 
 **Hygiene for this note:** placement, census and SC-42 on the staged note, then the single commit.
 Their outcome is stated in the commit message.
+
+## S. Structural screen (paper-only)
+
+**Status.** Append-only. This section screens the candidate sources of a record-forming
+interaction under the frozen §3–§7, amendment D3 and `K★ = {K1}` (§K★.F). It is paper-only:
+- it derives no record law, of any candidate or control;
+- it evaluates no T-test, no control and no countercontrol;
+- it runs no computation.
+
+Each mathematical item carries its status: **proved here** (on paper, in this section), **cited**
+(with anchor), or **reading** (an interpretation of a cited text, open to review). `Main:N`, `SM:N`
+and `Substratum:N` are lines of `papers/` at `D` = `5914c17c`. Frozen line numbers `L…` refer to
+`../preregistration.md` at `1a236f33`. The fixing of `𝔐★` or of the `GAP` token, and the stage-2
+interface, are in §M.
+
+**The standard applied throughout** (frozen L37–43, §3.4, §5.3). An operation counts only if it is
+**available**: a finite composition of `φ`-steps on the declared state, under the declared access,
+with a sourced setting. A mathematical inverse, a supplied decoder or a map that exists only as a
+representation is not an allowed continuation without its native implementation (#866; frozen
+L193–194, L451–452). A setting change needs a sourced operation, because the controlled lift
+`F(x, s) = (T_s x, s)` conserves `s` (N7).
+
+### S.1 What K1 fixes
+
+- **The step** (§K★.F). `φ(u_prev, u) = (u, A u − u_prev)` on `S = 𝐑^Λ × 𝐑^Λ`, with
+  `(A u)_i = a Σ_{j∼i} u_j`. The value group `𝐑` is `ℤ/q`, `ℤ_p` or `ℝ/ℤ` (§PC★2a at `99dce4b6`).
+  The map is additive (P-2) and fixes the zero configuration (P-3).
+- **The graph** (reading). The native coupling graph is the simple-cubic lattice (Main:726, posit
+  (x)). The step's form is SM's form lemma: SM:224 for nearest neighbour, centre-free, isotropic
+  and linear. The graph is a finite periodic lattice (Substratum A3–A4, Substratum:96–98).
+  - §PC★2a proves P-1 to P-3 for any neighbour relation. That generality is a proof generality.
+  - A graph chosen for a purpose (a waveguide, a cavity, a junction) would be a per-design
+    construction, which K1 excludes ("not a construction made per law").
+- **The coefficient** (reading). The microscopic coefficient is the integer `a = 1`: the
+  unnormalized update of SM's Theorem A.1 ring rule and of the lattice code cited by SUBSTATE-1.
+  - The normalization `α = 1/d` belongs to the observer-level operator (SM §4.1, Scope).
+  - Where `1/3` exists in `ℤ/q` (`3 ∤ q`), it is a unit.
+  - So for every coefficient the corpus uses, multiplication by `a` is injective on `𝐑`.
+- **Linearity is an axiom of the substratum construction** (cited). Substratum A5 (Substratum:100)
+  states it, and calls it "partly derived" through amplitude-scale gauge (Substratum:270–274).
+  - The step governs the full local lattice sector: "Visible and hidden lattice degrees of freedom
+    in that sector run the same wave equation" (Substratum:48).
+  - The coupling matrix is scalar, `M = μI` (SM:428).
+  - So the K1 step is a free field: it has no interaction term between any two regions.
+
+### S.2 Structural lemmas
+
+Notation. A declared partition of the sites into regions `X` (each region carrying both slices)
+gives `S = ⊕_X S_X`, with inclusion `ι_X` and projection `pr_X`. `Σ` is the carrier region, `A` the
+apparatus or marker region, `E` the environment, `Z` the setting source and `L` the ledgers.
+
+**S-L1 (superposition; proved here).** For all `t` and all regions `X`, `Y`,
+
+    pr_Y φ^t (s) = Σ_X Φ^t_{YX}(s_X),   with   Φ^t_{YX} = pr_Y ∘ φ^t ∘ ι_X.
+
+Each `Φ^t_{YX}` is a homomorphism that depends on `(t, X, Y)` only. *Proof.* `φ^t` is additive
+(P-2) and `s = Σ_X ι_X s_X`. `□`
+
+**S-C1 (no conditional dynamics; proved here, from S-L1).** Changing `s_Z` by `δ` changes every
+region `Y` at time `t` by `Φ^t_{YZ}(δ)`, whatever the other regions hold. Hence:
+- **(a) No selection of operations.** No internal setting, program register or marker selects or
+  modulates the operation applied to the carrier. The carrier's contribution to every region at
+  every time is `Φ^t_{YΣ}(s_Σ)`: the same homomorphism for every value of every other region. A
+  setting enters only as an additive offset.
+- **(b) Every record is a post-processing of one fixed map.** Every record an observer region `V`
+  holds is a function of the one fixed map `s ↦ (pr_V φ^t s)_{t ≤ T}`. Readouts that depend on a
+  setting held in `V` are post-processings of that map, so all of them are coarse-grainings of one
+  joint record.
+- **(c) No adaptive operation.** No record-conditioned operation on the carrier exists: it would
+  make the carrier's transfer depend on another region's state, contrary to (a).
+
+**S-L2 (available operations; from the frozen standard and S-C1).** The available transformations
+of the joint state are the time shifts `φ^n`, `n` within the budget. Observer-side choices change
+only which region and tick are read. The set `{φ^n}` is commutative, since `φ^m φ^n = φ^{m+n}`.
+SUBSTATE-1's operational-control countercontrol at `8af2d904` (provenance) records the same point:
+time shifts have an abelian image.
+
+**S-L3 (time reversal is representable, not available; proved here).** Let `σ(x, y) = (y, x)`.
+- **`ψ = σφσ`.** `σφσ(x, y) = σφ(y, x) = σ(x, A x − y) = (A x − y, x) = ψ(x, y)`, the inverse of
+  P-1.
+- **`σ` is not a time shift.** If `σ = φ^k`, then `σ` commutes with `φ`, so `φ^{−1} = σφσ = φ` and
+  `φ² = id`. Now `φ²(x, y) = (A y − x, A(A y − x) − y)`.
+  - Equality with `(x, y)` at `y = 0` gives `2x = 0` for every `x`.
+  - Then `A y = 2x = 0` for every `y`, so `A = 0`.
+  - With `a` injective and a nonempty neighbour relation, `A ≠ 0`, so `σ` is no time shift.
+- **No region executes `σ` on another** (S-C1(a)).
+- **On finite `S`, `φ^{−1} = φ^{N−1}`,** where `N` is the order of `φ`. So the inverse is executed
+  only as a global wait of `N − 1` steps, which acts on every region, the observer included (S-L6).
+
+**S-L4 (no confinement; proved here).**
+- **Hypotheses.** `Λ = ℤ^d` with nearest neighbours, and multiplication by `a` injective on `𝐑`.
+  Let `(u_t)` solve `u_{t+1} = A u_t − u_{t−1}`, with `(u_{−1}, u_0) ≠ 0` of finite support.
+- **Claim.** Fix an axis `e`, a width `w ≥ 1` and an offset `b`. If every `u_t` with
+  `−1 ≤ t ≤ T` is supported in the slab `{i : b ≤ i·e ≤ b + w − 1}`, then `T ≤ 2w − 1`.
+
+*Proof.* Write `f(t) = max{i·e : u_t(i) ≠ 0}`, with `f(t) = −∞` when `u_t = 0`. Let `C(t)` be the
+condition "`u_t ≠ 0` and `f(t−1) ≤ f(t)`".
+1. **`C(t)` implies `f(t+1) = f(t) + 1`, and hence `C(t+1)`.** Put `F = f(t)` and pick `v` with
+   `v·e = F` and `u_t(v) ≠ 0`. Take `i = v + e`.
+   - Every neighbour of `i` other than `v` has `·e ≥ F + 1`, so `u_t` vanishes there.
+   - `u_{t−1}(i) = 0`, since `F + 1 > f(t−1)`.
+   - So `u_{t+1}(i) = a·u_t(v) ≠ 0`.
+   - At every site with `·e ≥ F + 2`, every term vanishes.
+2. **If `u_s = 0` for some `s ≥ 0`, then `C(s+1)`.** `(u_{s−1}, u_s) = φ^s(u_{−1}, u_0) ≠ 0`, so
+   `u_{s−1} ≠ 0`, and `u_{s+1} = −u_{s−1}`.
+3. **Counting.**
+   - *Case 1: some `t ∈ {0, …, T}` satisfies `C(t)`.* Let `t_0` be the least such `t`. Before it,
+     every nonzero `u_t` has `f(t−1) > f(t)`, and by step 2 at most `u_{t_0−1}` vanishes. So
+     `f(−1) > f(0) > ⋯ > f(t_0−2)` are at least `t_0` distinct values among `w` integers, and
+     `t_0 ≤ w`. By step 1, `f(t_0 + k) = f(t_0) + k ≥ b + k`, which leaves the slab once `k ≥ w`.
+     Hence `T ≤ t_0 + w − 1 ≤ 2w − 1`.
+   - *Case 2: no `t ∈ {0, …, T}` satisfies `C(t)`.* Then `f(−1) > f(0) > ⋯ > f(T−1)` are `T + 1`
+     distinct values among `w` integers, so `T ≤ w − 1`. `□`
+
+*On the torus* of side `N ≥ 5w + 2`, no nonzero solution stays in a slab of `w` consecutive
+residues for every `−1 ≤ t ≤ 2w`.
+- Lift the initial pair to `ℤ^d` inside one period. By finite speed (Main's cone theorem, as
+  quoted at SM:230), the lifted solution's slices up to `T` lie within the slab widened by `T + 1`
+  on each side.
+- By P-2 and translation covariance, the torus solution is the sum of the lifted solution's
+  `N`-periodic translates.
+- For `N ≥ w + 2(T + 1)`, those translates do not meet within the window. So the torus solution
+  agrees there with the lifted one, which by the claim cannot stay in the slab up to `T = 2w`.
+
+**S-C4a (no confined pointer; proved here, from S-L1 and S-L4).**
+- *The branch difference is a free solution.* Let two carrier cells differ by `δ ∈ S_Σ`, with every
+  other region equal. By S-L1, the two branches differ at time `t` by `φ^t(ι_Σ δ)`. That is a
+  solution of the free step, whatever every other region holds.
+- *No region confines it.* By S-L4, no region of width `w` along any axis confines that difference
+  over `2w + 1` consecutive slices.
+- *Consequence.* A record cannot be held as a confined pattern for longer than about twice the
+  pointer's width, its light-crossing time.
+
+**S-C4b (conserved linear quantities are global; proved here, `𝐑 = ℤ/q`, `a` a unit).**
+- *Fixed points.* A fixed point of `φ` is `(u, u)` with `(A − 2I)u = 0`. Indeed,
+  `φ(x, y) = (y, A y − x)` equals `(x, y)` exactly when `y = x` and `A x = 2x`.
+- *Invariant functionals.* A homomorphism `c(u_prev, u) = c₁·u_prev + c₂·u` satisfies `c ∘ φ = c`
+  exactly when `c₁ = −c₂` and `(A − 2I)c₂ = 0`. This follows by comparing coefficients in
+  `c ∘ φ(x, y) = −c₂·x + (c₁ + A c₂)·y`, using `A = Aᵀ`.
+- *Both are stationary solutions.* By S-L4 (any `T`), neither has a nonzero form supported in a slab
+  of width `w` on `ℤ^d`, or on a torus of side `N ≥ 5w + 2`.
+- *Consequence.* Every stationary configuration, and every `φ`-invariant linear functional, extends
+  over at least `(N − 2)/5` sites along every axis. No local occupation is conserved.
+
+**S-L5 (marking and interference loss are decoupled; proved here, from S-L1).**
+- *The carrier's later state.* It is `Φ_{ΣΣ} s_Σ + Σ_{X≠Σ} Φ_{ΣX} s_X`. Likewise, any recombination
+  region `D` receives `Φ_{DΣ} s_Σ` from the carrier.
+- *Marking leaves the carrier's transfers unchanged.* A marker region that records the carrier
+  (`Φ_{AΣ} s_Σ ≠ 0`) changes neither `Φ_{ΣΣ}` nor `Φ_{DΣ}`. The marker affects any later test of the
+  carrier only through the offset `Φ_{DA} s_A`, which comes from its own initial content and does
+  not depend on `s_Σ`.
+- *In §3.5's terms.* (ii), loss of observed interference, can arise only by additive injection from
+  regions whose content does not depend on the carrier. A record (R1) never causes (ii): marking is
+  non-invasive, which is the CC1 kind.
+
+**S-L6 (budget below recurrence; proved here).**
+- On finite `S`, `φ` has finite order `N`, and `φ^N = id`. At `t_0 + N`, every region's state equals
+  its state at `t_0`.
+- If the observer's state at `t_0` does not depend on the carrier cell (a ready observer), it
+  carries no information about the cell at `t_0 + N`.
+- So R2 needs a budget below the period of the orbits in `μ`'s support. On finite `S`, every
+  effective irreversibility of §3.5 (iii) is relative to such a budget.
+
+**S-L7 (the epistemic-restriction sub-question of AW-MR5; proved here, conditional on the
+access).**
+- *The bracket.* For linear readouts `c = (c₁, c₂)` and `c′`, the bracket of `J` is
+  `cJc′ᵀ = c₁·c₂′ − c₂·c₁′`. It is time-independent, because `MᵀJM = J` (AW-MR5).
+- *Current-slice readouts are isotropic.* Any two readouts of the current slice (`c₁ = c₁′ = 0`)
+  have bracket `0`.
+- *Two conjugate pairs.*
+  - The current and previous slice of one site, `(0, e_v)` and `(e_v, 0)`, have bracket `−1`.
+  - The current slice of one site at two consecutive ticks, `(0, e_v)` and `(−e_v, A e_v)`, has
+    bracket `1`.
+- *Answer.* An access that reads the current slice at a single time is an epistemic restriction
+  in Spekkens' sense: its readouts are isotropic. An access that reads both slices, or retains the
+  earlier of two consecutive reads, is not.
+- *Which slices the access reads is not fixed by the sources.* SM's companion realization takes
+  the current field as visible and the retarded register as hidden (SM:252). So the answer is
+  conditional on the declared access.
+
+### S.3 The sources screened
+
+Thirteen sources were considered. They are the native structures of the corpus that could form a
+record or supply a setting, the constructions it uses in their place, and the candidates of the
+preserved negatives. Every source keeps P-set, P-bij and P-obs, and none uses a fresh kernel or a
+non-functional relation. So every source is **class A** (A1, A2). None is B, since no kernel's
+randomness is a sourced, conditionally fresh latent resource (B2). None is C: none drops a premise.
+
+**σ1. Native transport.** A carrier region is coupled to an apparatus or marker region by the free
+step. This includes PC-1's Q1, the native interferometer read by a site detector. It is the one
+native source with content, so its elements are identified one by one:
+
+| Element (§3.1) | What the K1 step supplies | Status |
+|---|---|---|
+| `Σ` | a region of sites carrying the carrier's field, both slices | kinematics derived; partition posited |
+| `A` | a region of the same free field; no dynamics of its own beyond transport (S-L1); no confined pointer (S-C4a); no amplifier gain, only linear fan-out | **unsourced as an apparatus** |
+| `E` | every other site within the budget's causal cone | derived |
+| `Z`, and how `s` changes | a region whose initial content is the setting. Unlike N7's lift, `s` is not conserved: its region radiates and receives like any other (S-L1). But no process writes a chosen value into it, and its value selects no operation (S-C1(a)). | no operation-selecting setting |
+| `L` | a clock or ledger needs a confined periodic pattern; there is none (S-C4b). Timing ticks are global step counts, held by no subsystem. | unsourced |
+| `R`, the record alphabet | values of `ρ` on `V`'s configuration at each tick. No heralding, failure or rejection process exists: `⊥` and attempt marks have no executing process, and `∅` is a coarse value (for example the zero value). | partial |
+| `Out` | the carrier's continuation, `φ^t(ι_Σ s_Σ)` plus additive offsets. The same field carries the record (S-L1), so record and outgoing carrier coincide. | derived |
+| adaptive operations; inverses | none (S-C1(c)). `σ` is not available (S-L3). `φ^{−1}` exists only as a global wait (S-L3, S-L6). | none |
+| `μ`, `π`, fork | **μ leg.** Main Lemma 3's selection principle gives the counting measure (Main:56), under which every region's marginal is uniform, so there is no ready region. The zero configuration is fixed (P-3), and invariance does not select a law (`ensemble_underdetermined`, PC-1 §4 at `99dce4b6`). **π leg.** Readouts of `V`'s configuration; translation-related readouts count as one member (§PC★5). The fork is not resolved. | not resolved |
+| dephasing; record process | dephasing only as additive injection from regions independent of the carrier (S-L5); recording only as transport | transport only |
+
+**Call for σ1: G.** The decisive element is the apparatus pointer (S-C4a; §S.4(a) for the
+remaining route). Q is not supplied, for two separate reasons:
+- Q presupposes a measurement, and R is not sourced.
+- Marking cannot cause interference loss (S-L5), and no subsystem undo exists (S-L2, S-L3, S-L6).
+
+An additive offset can still act as a classical phase label, of the CC1 or CC4 kind. So Q fails
+on the measurement and the undo, not on T0. That T0 fails is not claimed.
+
+The other sources, with the element at which each fails:
+
+| Source | Anchor | Elements and status | A/B/C | R/Q/G |
+|---|---|---|---|---|
+| σ2. Internal settings | Main:408; AW-MR7 | The setting is part of the initial state of a region `Z`. It enters additively (S-C1(a)), selects no operation, and folds into σ1's preparation. | A | G (no setting selection; no separate record mechanism) |
+| σ3. Program register | Main:582 | `Φ(x) = φ_{π(x_vis)}(x)` selects the instrument from a register. That is a controlled map, contrary to S-C1(a) for one additive `φ`, and it is constructed per instrument family on Main:566's realization. | A | excluded: not the K1 step (CC8's class) |
+| σ4. Exogenous action labels | Main:482 | The bijections `I_a` are applied between steps from outside, which is an external switch (frozen L134–136; N7). | A (A1, second clause) | excluded: not available |
+| σ5. Controlled lift | N7 | An additive lift `F(x, s) = (Tx + Bs, s)` has `T` independent of `s` (S-C1). A lift with `s`-dependent `T_s` is not the K1 step. Either way, `s` is conserved. | A | excluded |
+| σ6. Global recurrence | S-L3, S-L6; Main §2.3 | `φ^{N−1}` is executed by waiting, but it acts on all of `S`, erases every record including the observer's, and lies beyond any budget that R2 admits. A reversal of all of `S` is not an operation of an embedded observer (frozen L194–195). | A | excluded as an undo |
+| σ7. Time-reversal swap | S-L3 | `ψ = σφσ`, so the inverse is representable; `σ` is not available. | A | representation only (CC6's class) |
+| σ8. Global conserved and parabolic modes | S-C4b; SM Theorems A.1–A.2 | Invariants and accumulating modes extend over the torus. Reading them needs an observer of torus-wide support, contrary to `V ⊊ S` with bounded diameter (Main §4.6, scope (i)). An invariant cannot be written by the carrier. | A | excluded: no embedded readout |
+| σ9. Per-law realizations | Main:482, Main:518–520, Main:566, Main:582 | These are built from a target law. | A | excluded: CC8's role |
+| σ10. Engineered coupling graphs | §PC★2a generality | Such a graph is not the native graph (§S.1). S-L1–S-L3 and S-L5 hold on every graph, so Q stays excluded. S-L4 uses the cubic lattice, so trapping, and with it R, is the one capability an engineered graph could change. | A | excluded by K1; the scope boundary for R |
+| σ11. Other value groups in K1 | §PC★2a; SUBSTATE-1 (`ℝ/ℤ`, `ℤ_p`) | S-L1–S-L3 and S-L5 hold. S-L4 holds when `a` is injective: `a = ±1` on `ℝ/ℤ`, and any `a ≠ 0` on `ℤ_p`, a domain. | A | as σ1: G |
+| σ12. Non-additive native-type rules | native-Y's rule `U_{t+1} = U_{t−1} ⊕ H(⊕_{w∼v} U_t(w))` with `H(A, B, D) = (B, D, A ⊕ BD)` (on `main`, `native-y-continuation-20261024/shared_v12/INTERFACE-CONTRACT.md`); SM:104–106, state-dependent coupling graph; SM §6.5, dynamical links | These are outside `K★ = {K1}` as frozen: the `BD` product, a state-dependent graph and dynamical links are not the additive step. They are not screened for R or Q here. | A | outside K★; not screened |
+| σ13. Candidates of the preserved negatives | N1–N7 | Respected at their scopes and not reopened. PC-1's Q1 is σ1's interferometer; its remaining candidates (Q2–Q12) and F2-1's rules are posits or representations, not K1 couplings, and their G★ item 3 concerns register operators, consistent with S-C1(b). N5 concerns the native-Y rule. N6 is a composition contract, not a source. N7 is σ5. N1 and N2 are not record sources. | — | as recorded in each unit |
+
+For σ12, the units that worked with those rules recorded their own scoped results, which stand
+unchanged:
+- **native-Y.** Actual fields contain nonlinear products of the old sign with pool operands; no
+  isolated available gate was found (`CURRENT-HANDOFF.md`).
+- **SUBSTATE-1, at `8af2d904`** (provenance):
+  - a clean single-register pair violates the preparation;
+  - the raw echo is masked;
+  - a native random setting fails the distinct-interaction test;
+  - the audited passive-native and read contract supplies no selectable setting operation.
+
+These are the rules on which conditional dynamics, and so pointers and settings, are not excluded
+by S-C1.
+
+### S.4 Maximum skepticism (§A.31), on the screen's negative calls
+
+**(a) The trace route: recording without a confined pointer.** S-L4 excludes a confined pointer. It
+does not exclude a region `V` whose later content, made of the difference solution passing through
+it, still determines the record. The trace route is not refuted here; it is not admitted, for three
+reasons:
+1. **No apparatus process.** `V` does nothing but carry the free field. Record and outgoing carrier
+   are one field (S-L1). None of the stages of §3.2 has an executing apparatus process distinct
+   from transport.
+2. **A free choice would fix the outcome.**
+   - Under a prepared zero configuration on `V`'s causal neighbourhood, R2 holds by injectivity
+     alone whenever `V` contains the difference solution's support over the whole budget, which
+     is a region of radius about `T` around `Σ`. That is Main Lemma 3's record preservation,
+     restated (A1).
+   - For a smaller `V`, R2 is a property of the free propagator restricted to `V`, which no source
+     fixes.
+   - So the axis-1 outcome would be set by the choice of `V` relative to `T`. Freezing that choice
+     would freeze structure that decides the outcome by itself (§A.29; frozen §7.3).
+3. **No sourced ready supply.**
+   - The route needs the zero configuration over `V`'s causal neighbourhood for the whole budget, a
+     resource whose size grows with the budget.
+   - The canonical measure supplies none (§S.3, σ1).
+   - Main §4.6 (Main:744–760, conditional on EM) places observers in a non-equilibrium phase, but
+     supplies no prepared region.
+   - The ready supply of frozen §3.3 is of pointer states, and there is no pointer.
+
+**(b) Loopholes in S-L4.**
+- *A zero-divisor coefficient.* With `a·x = 0` for some `x ≠ 0` (for example `a = 2` on `ℤ/4`),
+  values in `ker a` do not propagate. They can be written when `a𝐑 ∩ ker a ≠ 0`, so a confined
+  pointer would exist. No coefficient the corpus uses is a zero divisor (§S.1). The case lies
+  outside K1 as the corpus fixes it, and is recorded as a scope boundary.
+- *Engineered graphs:* σ10.
+- *Tori smaller than `5w + 2`:* a "pointer" then extends over the whole torus.
+
+**(c) Q.** An additive offset can serve as a classical phase label, and it composes as a group. So
+T0's composed-phase test is not excluded for σ1 or σ2. Q's exclusion rests on S-L5 and on
+S-L2–S-L3–S-L6, as stated in §S.3.
+
+**(d) Is additivity what OI holds?** Yes, at `D`, for the local lattice sector: Substratum A5 with
+`M = μI` (§S.1). The nonlinear alternatives form "the separate class one obtains exactly when that
+gauge principle is dropped" (Substratum:220).
+
+### S.5 Selection rule for `𝔐★`
+
+This rule is fixed by reasons that do not refer to any outcome. `𝔐★` is chosen among the sources
+that meet all of:
+- **(s1)** run on K1's step, on the native cubic graph, with a coefficient the corpus uses;
+- **(s2)** supply every §3.1 element by an executing native process under the declared access.
+  This includes the apparatus: a pointer that holds the record over the budget, or another
+  persistence mechanism with an executing apparatus process, with its ready supply sourced or
+  booked as a pointer resource (§3.3);
+- **(s3)** are not excluded by N1–N7 at their scopes;
+- **(s4)** involve no per-law or per-design construction, and no free structural choice that by
+  itself fixes an axis-1 outcome.
+
+Among the sources that qualify, the one with the fewest posited elements is chosen; a tie goes to
+the smallest finite state space.
+
+**Application: no source qualifies.**
+- σ1 fails (s2) at the pointer (S-C4a). Its trace route fails (s4) and the ready-supply part of
+  (s2) (§S.4(a)).
+- σ2 folds into σ1, and σ11 is σ1 on another value group.
+- σ3, σ4, σ5, σ9 and σ10 fail (s1) or (s4). σ6 and σ7 fail availability. σ8 fails (s2), since it
+  has no embedded readout.
+- σ12 lies outside (s1).
+
+The rule selects none. The result is frozen §6 row 1.1, `GAP`, with its element named in §M.
+
+### S.6 Gem-finding, depth-first (§A.31)
+
+**Productivity test, fixed before the walk.** A finding is a gem if it is strictly stronger than a
+restatement and either constrains something or exposes a hidden assumption.
+
+**The walk.** Each node is closed by the check named.
+
+1. **Does K1 admit conditional dynamics?** No. Check: S-L1 and S-C1.
+2. **Can a record persist without conditional dynamics?**
+   - 2.1, as a confined pattern: no (S-L4, S-C4a).
+   - 2.2, as a trace: not admitted (§S.4(a)).
+   - 2.3, in global modes: not embedded (S-C4b).
+   - 2.4, with a zero-divisor coefficient or an engineered graph: outside K1 (§S.4(b)).
+3. **Is additivity what OI holds?** Yes: Substratum A5 with `M = μI` (§S.4(d)).
+4. **Where could a native mechanism live?** In a non-additive rule, or at the observer level
+   (AW-MR8, AW-MR9).
+
+The favourable-to-OI branch is 2.2, a record "for free" by injectivity. It was given maximum
+skepticism, and it reduces to a restatement of Main Lemma 3 (§S.4(a), reason 2).
+
+**Assumption-watch markers.**
+- **AW-MR8 (NEW): a free substratum and an interacting apparatus.** Under Substratum A5 with
+  `M = μI`, the K1 step is a free field on the full local lattice sector. S-C1 and S-C4a then
+  exclude conditional dynamics and confined pointers at the substratum level.
+  - *The hidden presupposition.* MR-1's question (frozen §1) asks "which microscopic interaction
+    forms a record". It presupposes an interaction at the substratum. Under `K★ = {K1}` there is
+    none.
+  - *What it constrains.* A native record mechanism needs either a non-additive rule, which drops
+    A5's amplitude-scale gauge (Substratum:220), or the observer level. SM:428's commitment, "group
+    structural, couplings emergent", places interactions at the observer level.
+  - *Reach.* It constrains every record-formation or instrument unit on the K1 step. PC-1's Q1
+    detector, for instance, is transport.
+  - *Gem test.* It passes: S-L1 and S-L4 are proved facts, not restatements, and the
+    presupposition was nowhere stated in the unit.
+- **AW-MR9 (NEW): stable matter is an input, not a substratum structure.**
+  - *E6's status.* Substratum's E6 (Substratum:86: "Atoms, planets, and bound states exist on
+    observed timescales") is an empirical filter, evaluated with continuum Coulomb and Tangherlini
+    physics.
+  - *No substratum carrier.* By S-L4, the K1 step has no confined pattern, so bound states and
+    pointers have no carrier at the substratum level under A5. If they exist, they are emergent.
+  - *The hazard.* A record mechanism built from emergent bound states risks presupposing the
+    emergent quantum description that MR-1 is meant to bear on. That is a hazard at the trace-out
+    interface, to be checked by any successor unit.
+- **AW-MR10 (ELABORATING): a ready supply presupposes pointers.** Frozen §3.3 books "a ready
+  supply of low-entropy pointer states". Without a pointer, the only ready resource is a prepared
+  zero region over the observer's causal neighbourhood, whose size grows with the budget (§S.4(a)).
+- **AW-MR11 (ELABORATING): budgets lie below recurrence.** On finite `S`, every R2 and every
+  effective irreversibility is relative to a budget below the order of `φ`. At that order, the
+  global wait executes every inverse and erases every record (S-L6).
+- **AW-MR12 (ELABORATING): proof generality is not licence.** §PC★2a's generality over neighbour
+  relations and coefficients supports P-1 to P-3. It does not make an engineered graph, or a
+  zero-divisor coefficient, native under K1 (§S.1, §S.4(b)).
+- **The AW-MR5 sub-question** is answered by S-L7, conditional on the declared access.
+
+**Fixed point.** It is not claimed. One depth-first pass was run on the decisive branch, the
+pointer, to its wall. Further passes belong to a successor unit.
+
+### S.7 What this section does not do
+
+- It fixes no `𝔐★`, no `GAP` token and no stage-2 item; those are in §M.
+- It derives no record law of any source, candidate or control, and evaluates no test.
+- It does not establish a no-go for OI, for non-additive native rules or for observer-level
+  apparatus.
+- It does not claim that classical explanations are excluded (D3).
+- It changes no frozen file, `K★` or earlier amendment.
+
+### S.8 Commands and hygiene for this section
+
+- **Read-only commands:**
+  - `git rev-parse HEAD`, `git status`, `git log`;
+  - display of the frozen preregistration, `KS-substitution.md`, `D3-CC2-class-level.md`,
+    `MR-star.md` and `stage1-log.json`;
+  - `git show 99dce4b6:` of PC-1's `preregistration.md` (§4) and `amendments/PC-star.md`;
+  - `git ls-tree` of F2-1 at `4e7ddb70` and of SUBSTATE-1 at `8af2d904`;
+  - `git show 8af2d904:` of `README.md`, `later-access-result.md`, `native-apparatus-register.md`,
+    `native-sign-echo.md`, `cubic-wave-revival.md`, and the heads of eight further notes there;
+  - `git show 2af1d5d5:` of #912's `REPORT.md` (equation (1));
+  - `git show 5914c17c:` with `sed -n` and `grep` over `papers/Main.md` (44–62, 408, 482, 486, 520,
+    566, 582, 726, 742–760), `papers/SM.md` (92, 104–106, 222–232, 252, 428, 1604–1612) and
+    `papers/Substratum.md` (48, 86, 96–104, 220, 270–274);
+  - display of `native-y-continuation-20261024/README.md`, `CURRENT-HANDOFF.md` and
+    `shared_v12/INTERFACE-CONTRACT.md` on the current tree.
+- **Hygiene (run S-1, on the staged section):** placement, census and SC-42, then the single
+  commit. Their outcome is stated in the commit message and logged in `stage1-log.json` under
+  `screen`.
