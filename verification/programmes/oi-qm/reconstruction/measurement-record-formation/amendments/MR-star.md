@@ -414,3 +414,26 @@ seven are applied.
 - **Hygiene runs F-1 (staged draft) and F-2 (staged final content, then the single commit):**
   placement, census and SC-42. F-1's results are in `stage1-log.json` under `kstar_freeze`. F-2 is
   declared there before it is made, and its outcome is stated in the commit message.
+
+### K★.F note — wording of the hard-to-vary clause (review nit)
+
+**Source.** Independent review of the freeze commit `e16017d6` (accepted), relayed by the
+coordinator. The text above is kept as written; this note states how two of its sentences read.
+
+- **What overstates.** Under "Hard to vary", the sentence "Any change to `K★` after this commit,
+  whether before or after any outcome, voids the run under 0(iii)" cites 0(iii) for more than it
+  says. Frozen 0(iii) (L594–596) voids `K★` "chosen or changed after any outcome", and "`K★` fixed
+  after any candidate law has been derived, on paper or otherwise". It does not void a change made
+  before any outcome and before any candidate law.
+- **The stricter rule, restated as this freeze's own commitment.** `K★ = {K1}` is not changed after
+  this commit, before or after any outcome. That is a commitment of this freeze, not a consequence
+  of 0(iii). A change made before any outcome and before any candidate law would breach the
+  commitment; it would need its own reviewed owner amendment, and the record would name the breach.
+  A change after any outcome, or after any candidate law, is void under 0(iii) as frozen.
+- **The same reading applies** to the next bullet ("cannot be introduced after this freeze without
+  voiding the run"), and to the mirror sentence in `stage1-log.json`, field
+  `kstar_freeze.hard_to_vary`. That file is append-only and is not edited.
+- **Unchanged:** `K★ = {K1}`, its membership reading, CC2 at class level and the timing record.
+
+**Hygiene for this note:** placement, census and SC-42 on the staged note, then the single commit.
+Their outcome is stated in the commit message.
