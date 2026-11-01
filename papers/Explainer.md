@@ -279,7 +279,7 @@ Because recurrence-scale P-indivisibility shows up only at absurd timescales. On
 
 This is the key link. Section 2 proved that the embedded observer's dynamics are P-indivisible across the recurrence cycle. Section 3 shows how the correspondence supplies the quantum representation for exactly this sector — admitted by every finite law, nontrivial here.
 
-**The core statement.** Any P-indivisible stochastic process on a finite configuration space of size n can be embedded into a unitarily evolving quantum system. Specifically, there exists a Hilbert space H (dimension ≤ n³) and a unitary operator U(t) such that:
+**The core statement.** Any process in Barandes' class — a broad one, including Markov chains — on a finite configuration space of size n can be embedded into a unitarily evolving quantum system. Specifically, there exists a Hilbert space H (dimension ≤ n³) and a unitary operator U(t) such that:
 
 $$T_{ij}(t) = \sum_\alpha |\tilde U_{(i,0)\,(j,\alpha)}(t)|^2 \qquad \text{(ancilla-marginal; the bare visible form is the } m_a = 1 \text{ special case)}$$
 
