@@ -515,5 +515,30 @@
       {"run": "K2", "command": "grep of this file for local paths; git add .../amendments/MR-star.md .../amendments/stage1-log.json; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene on the staged content, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
     ],
     "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run for this step. No Python ran except the three repository hygiene tools, each invoked with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. The commands run were git, read-only display commands (cat, sed -n, grep, git show, git diff) and the hygiene tools, listed above. All mathematics in MR-star.md section K-star is paper reasoning, marked with its status."
+  },
+  "kstar_corrections": {
+    "date": "2026-11-01",
+    "source": "independent review of 3d4759359d1bd707e8a0920a6b7ef5b8915df15f (accept with changes), relayed by the coordinator; the review agrees the block is genuine",
+    "file": "amendments/MR-star.md, section K-star.11 (appended; numbered 11 because K-star.9 is already taken)",
+    "outcome_unchanged": "K-star stays blocked; the block rests on M1 alone.",
+    "items": [
+      {"id": "RC-1", "target": "K-star.5 item 2; K-star.7 M1", "disposition": "applied", "summary": "The ordering sentence is withdrawn as an overreading (L562-564 anticipate a K1 CC2 instance of the frozen-interface type; L661-664 forbid only screening first). M1 rests solely on the absence of any OI-held selection or independent justification of an instance within K1."},
+      {"id": "RC-2", "target": "K-star.4 rows e4 and e5; K-star.7 M2 and M3", "disposition": "applied", "summary": "On the K1 route, the native step supplies the post-readout state and the marker coupling once the regions are chosen (L134-136), so M2 and M3 reduce to M1. As literature gaps they apply only to non-native forms such as C-b."},
+      {"id": "RC-3", "target": "K-star.3 condition c-iv", "disposition": "applied", "summary": "c-iv is relabelled a proposed reading for the owner (frozen reference behaviour 'may return W1', L569; LIT-5-C3). The sentence conflating Kochen-Specker noncontextuality of value assignments with generalized noncontextuality (the CC1/CC4 notion, L559-560) is withdrawn. M4 holds only under that reading."},
+      {"id": "RC-4", "target": "K-star.5 item 1", "disposition": "applied", "summary": "The native step is phi(u_prev, u) = (u, A u - u_prev); psi(x, y) = (A x - y, x) is its inverse (PC-star-2a P-1 at 99dce4b6)."},
+      {"id": "RC-5", "target": "K-star.5 item 1", "disposition": "applied", "summary": "'At least two inequivalent members' is scoped to the fork's invariance leg (L139-140; PC-1 preregistration section 4 at 99dce4b6); the selection leg carries a necessity assessment instead. M1 is unaffected."},
+      {"id": "RC-6", "target": "K-star.5 item 4", "disposition": "applied", "summary": "Main:488 assumes finite S, held through the total-finiteness posit (Main:62). PC-star-2a also allows the value groups Z_p and R/Z, where Main:488 does not apply as stated; item 4 is scoped to finite S."},
+      {"id": "RC-7", "target": "K-star.8 D3", "disposition": "applied", "summary": "D3 removes only the instance obligation (L559-562); the 2.5 ceiling with CC2-unseparated is already frozen at L563-564."}
+    ],
+    "commands": [
+      "git rev-parse HEAD (3d4759359d1bd707e8a0920a6b7ef5b8915df15f)",
+      "git show 99dce4b6:.../physical-coupling-pc1/amendments/PC-star.md | sed -n over section PC-star-2a; git show 99dce4b6:.../physical-coupling-pc1/preregistration.md | grep for the fork's invariance and selection legs",
+      "sed -n and grep of MR-star.md for the cited lines and section headings; sed -n of the frozen preregistration; grep of MR-star.md and this file for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "K3", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged draft of section K-star.11", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6)"},
+      {"run": "K4", "command": "grep of this file for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived."
   }
 }

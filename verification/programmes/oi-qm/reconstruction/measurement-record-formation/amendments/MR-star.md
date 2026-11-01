@@ -245,3 +245,72 @@ Whatever unblocks K★, the instance it yields is admitted only if:
   `git diff --cached --stat 1a236f33 -- ../preregistration.md` and the single commit. This run is
   declared here before it is made. Its outcome is stated in the commit message, since recording it
   in this file would change the file.
+
+### K★.11 Review corrections
+
+**Source.** Independent review of `3d475935` (verdict: accept with changes), relayed by the
+coordinator. The review agrees that the block is genuine: L561–562 require the OI-held constraint
+itself to fix the CC2 instance, and K1 fixes only `φ`.
+
+**How to read this section.** The text above is kept as written, and the corrections below
+supersede the passages they name. This section is numbered K★.11 because the requested number,
+K★.9, is already taken. Each item was checked against its source before it was applied, and all
+seven are applied.
+
+- **RC-1. M1's grounding (§K★.5 item 2, second-to-last sentence; §K★.7 M1).**
+  - *What is withdrawn:* the sentence "Step 2 of the authorization and the boundaries of comment
+    6553497955 place it after a reviewed `K★`." It overreads the authorization. L562–564 already
+    anticipate a CC2 instance of `𝔐★`'s type under K1, and the ordering rule (§7.1, L661–664)
+    forbids only screening before `K★`.
+  - *M1 now reads:* no constraint OI holds at `D`, and no first-hand source or independent
+    justification, selects one instance within the K1 class. L561–562 require the OI-held constraint
+    to fix the instance. K1 fixes only `φ`, leaving the partition, `ρ`, the marker region and
+    `(π, μ)` free. So every K1 instance requires a free choice.
+  - *Effect on the outcome:* none. The block rests on this alone.
+- **RC-2. Scope of M2 and M3 (§K★.4, rows (e4) and (e5); §K★.7 M2 and M3).**
+  - *On the K1 route:* once the carrier and marker regions and the readout are chosen, the native
+    `φ` supplies both the post-readout state and the marker coupling, since every operation is a
+    composition of `φ`-steps (L134–136). On this route M2 and M3 are not literature gaps; they
+    reduce to M1.
+  - *As literature gaps:* M2 and M3 apply only to forms that are not native, such as C-b, where the
+    update and the marker map would have to come from a source.
+- **RC-3. Condition (c-iv) (§K★.3).**
+  - *Its status:* (c-iv) is this section's reading, not frozen text. The frozen reference behaviour
+    of CC2 is "may return W1" (L569), and LIT-5-C3 reads "Kochen–Specker-type" as contextual
+    deterministic. (c-iv) is relabelled a **proposed reading for the owner**.
+  - *A conflation, removed:* the sentence calling an instance that admits a noncontextual value
+    assignment "a weak instance in the role of CC1 or CC4" conflates two notions. Kochen–Specker
+    noncontextuality of value assignments is one; generalized (Spekkens) noncontextuality, the
+    notion by which CC1 and CC4 are characterized (L559–560), is the other. The sentence is
+    withdrawn.
+  - *Effect on M4:* M4 holds only under the proposed reading. The block stands on M1 regardless.
+- **RC-4. The native step (§K★.5 item 1).** The text gives `ψ(x, y) = (Ax − y, x)` as the native
+  step, but that is its inverse. Per §PC★2a at `99dce4b6`, the native step is
+  `φ(u_prev, u) = (u, A u − u_prev)`, and P-1 there proves that `ψ` is its inverse.
+- **RC-5. The fork's two legs (§K★.5 item 1).** "At least two inequivalent members by construction"
+  holds only on the fork's invariance leg (L139–140; PC-1 preregistration §4 at `99dce4b6`: "A leg
+  taken under invariance must have at least two inequivalent admissible members"). A leg fixed by a
+  selection principle carries its necessity assessment instead. The statement is scoped to the
+  invariance leg. M1 is unaffected: on either leg, `(π, μ)` is not fixed by K1.
+- **RC-6. The finite-`S` premise (§K★.5 item 4).**
+  - *The premise:* Main:488 assumes a finite `S`. For OI that finiteness is the total-finiteness
+    posit (Main:62).
+  - *Where it does not apply:* §PC★2a at `99dce4b6` also allows the value groups `ℤ_p` and `ℝ/ℤ`, on
+    which `S` is not finite. There Main:488 does not apply as stated, and the finiteness of the menu
+    is not established here.
+  - *Scope of item 4:* it holds for finite `S` under Main:62. Since it bears only on M4, which RC-3
+    already makes conditional, the block is unaffected.
+- **RC-7. D3 (§K★.8).** D3 removes only the obligation to fix an instance (L559–562). The class-level
+  ceiling, 2.5 with `CC2-unseparated`, is already frozen at L563–564 and is not introduced by D3.
+
+**Hygiene for this section.**
+- *Run 3 (on the staged draft):*
+  - `python3 -I tools/artifact_placement_check.py`;
+  - `python3 -I tools/lean_manuscript_census.py`;
+  - `python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py`.
+
+  Results are recorded in `stage1-log.json` under `kstar_corrections`.
+- *Run 4 (on the staged final content, before the single commit):* the same three tools, then
+  `git diff --cached --stat 1a236f33 -- ../preregistration.md` and `git diff --cached -U0` as the
+  deleted-line check. This run is declared before it is made, and its outcome is stated in the
+  commit message.
