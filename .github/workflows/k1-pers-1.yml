@@ -1,0 +1,62 @@
+name: K1-PERS-1
+
+# Registration stub for round K1-PERS-1. GitHub registers a workflow_dispatch-only workflow only
+# once the file is on the default branch; the round's control plane replaces this body (governed
+# path, op M). workflow_dispatch only: there is no push, pull_request or schedule trigger, so no
+# push launches it. Any dispatch needs separate owner authorization (AGENTS.md §A.43 item 4).
+#
+# The body is a non-scientific smoke test. It checks out the dispatched ref, prints its exact head
+# SHA, reports whether the round directory exists, and uploads a small JSON marker; the marker and
+# the job's exit status are the structured result (AGENTS.md §A.44). It imports and runs no probe
+# or computation code. Actions are pinned by commit.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  ROUND_DIR: verification/programmes/oi-qm/reconstruction/round-k1-pers-1-carrier-persistence
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      - name: Exact head SHA (must equal the dispatched commit)
+        run: |
+          head="$(git rev-parse HEAD)"
+          echo "head_sha=$head"
+          test "$head" = "$GITHUB_SHA"
+      - name: Round directory (present or absent; absence is reported, not a failure)
+        run: |
+          if [ -d "$ROUND_DIR" ]; then echo "round directory present: $ROUND_DIR"
+          else echo "round directory absent: $ROUND_DIR"; fi
+      - name: Write and check the smoke marker
+        run: |
+          mkdir -p out
+          python3 -I -B - <<'PY'
+          import json, os, subprocess
+          head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True,
+                                check=True).stdout.strip()
+          marker = {
+              "schema": "k1-pers-1-smoke-v1",
+              "head_sha": head,
+              "smoke": True,
+              "scientific": False,
+              "round_directory_present": os.path.isdir(os.environ["ROUND_DIR"]),
+          }
+          with open("out/smoke.json", "w") as f:
+              json.dump(marker, f, indent=1, sort_keys=True)
+              f.write("\n")
+          back = json.load(open("out/smoke.json"))
+          assert back == marker and back["head_sha"] == os.environ["GITHUB_SHA"], back
+          assert back["smoke"] is True and back["scientific"] is False, back
+          PY
+          cat out/smoke.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: k1-pers-1-smoke
+          path: out/smoke.json
+          if-no-files-found: error
