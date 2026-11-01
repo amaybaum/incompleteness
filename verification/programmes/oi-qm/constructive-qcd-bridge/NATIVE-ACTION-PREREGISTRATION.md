@@ -51,7 +51,11 @@ instantiation; (c) the native scalar reference construction as a control.
 Use read-only source inspection and written dependency tracing. No new evaluation
 of candidate loops, determinants, spectra, fits or outcome statistics occurs at S.
 If no complete candidate is sourced, close S as `GAP-SOURCE` with the missing
-map, dynamics, measure or access condition named. This is not a global no-go.
+map, dynamics or measure condition named. Otherwise report `SOURCE-CANDIDATE`
+with every conditional input listed. These are source-audit dispositions only,
+separate from §6's outcome-execution table; neither licenses computation.
+Record operational access independently as specified below. This is not a
+global no-go.
 
 **Stage A, prospective candidate amendment:** before any outcome computation,
 the designated writer must publish one immutable, independently reviewed GA★
@@ -65,8 +69,11 @@ containing all the following, then obtain separate owner execution authorization
    state-dependence. Cite a physical source for every map/parameter choice.
    A freely specified background M is not an evolved microscopic link field.
 3. Observer map Obs, normalized μ, preparation, allowed operations, physical
-   setting/readback coupling C, records, timing, flags, failures and residual and
-   outgoing state. A passive mathematical observable is not available readback.
+   setting/readback coupling C where operational access is claimed, records,
+   timing, flags, failures and residual and outgoing state. For a passive-law
+   claim, define the mathematical observable and prior explicitly and mark
+   operational access open or not claimed; do not invent a physical coupling.
+   A passive mathematical observable is not available readback.
 4. An (Obs, μ) fork fixed before outcomes: either an independently justified
    target-independent selection rule with a source-deletion control and one
    independent consequence, or a precisely defined admissible class, with at
@@ -95,8 +102,11 @@ Reading an existing result during S is provenance work, not a new prediction.
 ## 4. Ordered tests for a later, separately authorized run
 
 L1 (native source): establish the physical map and same-update evolution of the
-declared link carrier, gauge-covariance scope, normalized measure and observer
-access. Conditional assumptions are listed rather than adopted.
+declared link carrier, gauge-covariance scope, normalized measure and stated
+observable map. Conditional assumptions are listed rather than adopted.
+Operational access is a separate axis: `ACCESS-SOURCED`, `ACCESS-OPEN` or
+`ACCESS-NOT-CLAIMED`, with evidence and domain. Missing physical readback limits
+operational claims; it does not imply absence of an evolving physical law.
 
 L2 (gauge dynamics): on the *native reachable support*, show at least one
 nonconstant gauge-invariant loop conjugacy class, and its evolution under φ.
@@ -132,7 +142,7 @@ domains and rejection rules; no generic label counts as a passed control.
 | Wilson versus squared action | ACTION: preserve README's exact SU(2) alternative and test distinguishability on native support. If indistinguishable there, report unresolved selection rather than choose one. |
 | Supported measure versus ambient variation | SUPPORT: evaluate whether all perturbations/vertices used in a response lie in the microscopic image; retain abelian flat-image and §6.5 conditional non-abelian candidates separately. |
 | Selection by conditioning | RECORD: compare full attempted/rejected/herald/timing records and unnormalized branch masses; accepted-only agreement cannot select the law. |
-| Physical access and reusable state | ACCESS: remove the sourced actuator/readback, and require loss of the claimed operation; no private decoder or externally switched φ. Any claimed reuse retains the full outgoing/resource state. |
+| Physical access and reusable state | ACCESS: for each claimed operation, remove the sourced actuator/readback and require loss of that operation; no private decoder or externally switched φ. Any claimed reuse retains the full outgoing/resource state. Passive-law-only candidates carry ACCESS-OPEN or ACCESS-NOT-CLAIMED; no actuator/reuse control is asserted passed for them. GA★ fixes applicability before outcomes. |
 | Fixed (Obs, μ) fork and independent consequence | FORK/IP: check the frozen selection/deletion prediction or full class-invariance obligation; evaluate the hold-out with fixed uncertainty and no refit. |
 | Error/decision integrity | VALID: independent exact or error-bounded check, deliberately broken orientation/weight/record/source mutations, structured exit/results evidence and an exhaustive decision self-test. |
 
@@ -142,17 +152,20 @@ a named limitation, never permission to substitute a friendlier coupling.
 
 ## 6. Exhaustive disposition and review boundary
 
-Apply these rows in order for the separately authorized stage:
+Apply these rows in order only to the separately authorized outcome-execution
+stage, not Stage S. Every reported result also carries its independent access
+status; no law token by itself establishes operational readback.
 
 1. `NOT-RUN`: no authorized execution or a missing/review-pending GA★. This is
    GA-1's present execution state; readiness review is reported separately.
 2. `VOID`: any required control, fixed-input check or error bound fails, or a
    measurement starts but is incomplete. Retain the failed attempt.
-3. `GAP-SOURCE`: sources do not supply a required carrier/map/measure/access item.
+3. `GAP-SOURCE`: a required carrier/map/dynamics/measure construction is missing;
+   this differs from an explicitly specified conditional input tested below.
 4. `REJECT-CANDIDATE`: a valid native test falsifies its frozen prediction or
    necessary property. State the precise tested class, not a universal no-go.
 5. `KINEMATIC-ONLY`: covariant links exist but evolving gauge-invariant data is
-   absent, or only mathematical/passive readout is sourced.
+   absent. Passive readout alone does not trigger this row.
 6. `DYNAMICS-ONLY`: L1/L2 pass but no selected law/action is established.
 7. `CONDITIONAL-LAW`: an explicit law is derived only with named independently
    unproved inputs; list every such input and which L-level it affects.
