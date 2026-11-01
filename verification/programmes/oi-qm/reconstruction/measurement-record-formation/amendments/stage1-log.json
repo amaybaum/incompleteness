@@ -235,9 +235,173 @@
         "reason": "Access: only pp. 59-68 of 59-87 could be obtained; section 5, which the CC2 instance needs, is unread. No substitute was used.",
         "consequence": "K-star (including the CC2 instance and the constraint that fixes it) is blocked pending the owner's decision, PR #1023 comment 6549290592. Under the frozen execution blocker (L668) no execution step whose decision depends on a claim from this source proceeds."
       }
+    },
+    {
+      "id": "LIT-4",
+      "role": "substitute primary source for the Kochen-Specker reading gate, CC2-instance role only (amendment KS-S, amendments/KS-substitution.md; owner Option 2, PR #1023 comment 6553497955)",
+      "source": "J. S. Bell, 'On the problem of hidden variables in quantum mechanics', Rev. Mod. Phys. 38, 447-452 (1966)",
+      "doi": "10.1103/RevModPhys.38.447",
+      "edition_read": "the published article, in two independent copies whose texts agree throughout; no separate note added in proof",
+      "fetched": [
+        {
+          "url": "https://informationphilosopher.com/solutions/scientists/bell/Bell1966.pdf",
+          "sha256": "6bdd54c4ef8eac09f5ace39a8d0aafa626daba95158b04a0cdc3e5a0aa63e3f4",
+          "pages_read": "447-452 of 447-452 (6 pp.; scan with OCR text layer), with footnotes 1-19 and acknowledgments"
+        },
+        {
+          "url": "https://fisherp.mit.edu/wp-content/uploads/2020/04/RevModPhys.38.447.pdf",
+          "sha256": "051f5a935ac8a52b47e8d6b23cc3e951b6dfd0d6a10b950da9a390c81267f774",
+          "pages_read": "447-452 of 447-452 (6 pp.), read as page images and as full text"
+        }
+      ],
+      "read": "complete",
+      "claim_consumed": [
+        "B-a: for a two-dimensional system, an explicit deterministic model, eq. (3), p. 448 (outcome alpha + |beta| sign(lambda|beta| + |beta_z|/2) sign X, with lambda uniform on [-1/2, 1/2]), reproduces every single-measurement expectation for a pure psi; its dispersion-free states have additive expectation values only for commuting operators (p. 449); not contextual in the Kochen-Specker sense",
+        "B-b: for state-space dimension greater than two, no dispersion-free state satisfies additivity of expectation values for commuting operators (section V, pp. 450-451; Gleason corollary; 'it is here that we need three dimensions at least')",
+        "B-c: in any dimension, an explicit deterministic contextual model (p. 451; hidden variable 0 < lambda <= 1; P_n gives 1 iff lambda_(n-1) < lambda <= lambda_n) reproduces the single-context statistics; the result for a given P_n 'depends also on the choice of the others'; the tacit noncontextuality assumption is named in the diagnosis that the result 'may reasonably depend ... on the complete disposition of the apparatus'"
+      ],
+      "conditions": [
+        "B-a: single measurements only; no measurement dynamics; no physical significance attributed to lambda (p. 448)",
+        "B-b: continuity argument over all vectors; constrains value assignments to all rays, not a finite set",
+        "B-c: called 'very artificial' by Bell; the lambda_n are built from psi's quantum expectations"
+      ],
+      "caveats": [
+        {
+          "id": "LIT-4-C1",
+          "kind": "scope caveat (disturbing readout and marker)",
+          "text": "Disturbing readout: partial. Outcome dependence on context is supported, but no measurement dynamics and no post-measurement state are given ('we enter upon it no more than is strictly necessary'); the section VI Bohm sketch (pp. 451-452) is not a disturbance model. Disturbing marker: none; no marker, record system or sequential readout appears.",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-4-C2",
+          "kind": "scope caveat (per-law construction)",
+          "text": "The models are built from psi's own quantum expectations, so they are of the CC8 kind and agree with PC-Q on single measurements by construction. A CC2 instance is distinguished from CC8 only by a K1-fixed construction, which this source does not supply.",
+          "frozen_text_lines_at_1a236f33": [561, 562, 569]
+        },
+        {
+          "id": "LIT-4-C3",
+          "kind": "scope caveat (dimension; inference of the reader, not a claim in Bell)",
+          "text": "On the two-dimensional carrier alone, model B-a is not Kochen-Specker contextual; a KS-type obstruction needs dimension at least three, for example carrier together with marker (dimension four).",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-4-C4",
+          "kind": "scope caveat (contextuality notion)",
+          "text": "Bell does not treat preparation contextuality; Corollary U2 rests on Spekkens 2005 and is not affected.",
+          "frozen_text_lines_at_1a236f33": [340]
+        }
+      ],
+      "agreement_with_frozen_text": [
+        "The CC2 row (L569) agrees in part: a contextual deterministic model is supplied, a disturbing readout and a disturbing marker are not, matching the owner's warning in comment 6553497955.",
+        "Bell's results are functions of the hidden state together with the apparatus; in OI the apparatus is internal to S, consistent with Proposition A1 (L280) and with 'Under K1 the Kochen-Specker-type deterministic class contains frozen-interface-type models' (L562), which Bell does not address.",
+        "Bell's footnote 19 records a nonlocality proof found after completion; consistent with the CC2 row's 'T6 under K2 is not available to OI' (L569)."
+      ],
+      "contradiction_check": "NO. Bell p. 451 (dependence 'on the complete disposition of the apparatus') and frozen A1 ('with internal settings, every record ... is a function of s_0') are compatible.",
+      "reader_commands": [
+        "mkdir -p .../lit-bell1966; ls -A; curl -sSL -o bell1966-infophil.pdf <URL A>; curl -sSL -o bell1966-mit.pdf <URL B>; sha256sum; file",
+        "pdfinfo on both PDFs; pdftotext -layout on both for display",
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '250,350p;515,580p;735,765p' | cat -n",
+        "Read tool on pp. 1-6 of copy B, on both text extracts, and on the KS-1967 partial record"
+      ],
+      "gate": {
+        "status": "MET",
+        "role": "CC2-instance literature input only (amendment KS-S)",
+        "reason": "Read first-hand in full in two agreeing copies; no contradiction; caveats LIT-4-C1 to LIT-4-C4 recorded. The concrete CC2 construction is not supplied by this source and remains an obligation before K-star."
+      }
+    },
+    {
+      "id": "LIT-5",
+      "role": "substitute primary source for the Kochen-Specker reading gate, CC2-instance role only (amendment KS-S, amendments/KS-substitution.md; owner Option 2, PR #1023 comment 6553497955)",
+      "source": "N. D. Mermin, 'Hidden variables and the two theorems of John Bell', Rev. Mod. Phys. 65, 803 (1993); errata Rev. Mod. Phys. 88, 039902 (2016) and 89, 049901 (2017)",
+      "doi": "10.1103/RevModPhys.65.803 (errata: 10.1103/RevModPhys.88.039902; 10.1103/RevModPhys.89.049901)",
+      "edition_read": "arXiv:1802.10119v1 (27 Feb 2018), whose preface states that it 'corrected the three small errors posted over the years' without naming them",
+      "fetched": [
+        {
+          "url": "https://arxiv.org/pdf/1802.10119",
+          "sha256": "196577d5166bc5689a9c95038c85ce594a824556d3afcb1cba31cce1f5463d36",
+          "pages_read": "1-27 of 27"
+        }
+      ],
+      "errata": {
+        "existence": "confirmed from metadata: Crossref (88.039902, online 2016-07-15; 89.049901, online 2017-12-28) and INSPIRE record 370690; neither carries an abstract or page",
+        "text_obtained": false,
+        "routes_tried_and_failed": [
+          "journals.aps.org: HTTP 403",
+          "link.aps.org, ui.adsabs.harvard.edu and harvest.aps.org: outside the session's allowed network domains",
+          "one web search: no erratum text found"
+        ],
+        "mapping": "unresolved: the preface's three corrected errors do not map one-to-one onto the two errata"
+      },
+      "residue_in_text": "pp. 21-22 still cite 'Fig. 3/Fig. 4', which are the displays on pp. 15 and 17",
+      "read": "complete for the corrected arXiv text; errata text not obtained",
+      "claim_consumed": [
+        "M-a: the theorem's assumptions: value definiteness and eigenvalue values (section II, pp. 7-8), functional composition (eqs. 1-3, p. 9), and noncontextuality, named on p. 18 as the tacit assumption that an observable gets the same value whichever commuting set it is measured with",
+        "M-b: the four-dimensional square (section V, pp. 15-16): no assignment to its nine observables satisfies those assumptions, for any state",
+        "M-c: deterministic models escape the theorem only through context or apparatus dependence (section X, p. 24); a necessity statement, not a construction"
+      ],
+      "conditions": [
+        "the theorem is state-independent for dimension at least three (fn 11) and impossible in dimension two (fns 12, 17)",
+        "M-b applies to any model that assigns values to all nine observables of a carrier-marker system of dimension four"
+      ],
+      "caveats": [
+        {
+          "id": "LIT-5-C1",
+          "kind": "scope caveat (disturbing readout and marker)",
+          "text": "No contextual deterministic model with disturbing readout and no marker extension is constructed; the only explicit model is Bell's two-dimensional noncontextual one (section III). Disturbance is discussed only conceptually (p. 3; pp. 18 and 24).",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-5-C2",
+          "kind": "scope caveat (contextuality notion)",
+          "text": "Mermin's contextuality is measurement contextuality of value assignments; Corollary U2 rests on Spekkens 2005 preparation contextuality. This source does not substitute for U2's citation; there is no conflict.",
+          "frozen_text_lines_at_1a236f33": [340]
+        },
+        {
+          "id": "LIT-5-C3",
+          "kind": "scope caveat (wording)",
+          "text": "'Kochen-Specker-type deterministic model' (L569) is ambiguous: by the theorem, such a model cannot be noncontextual beyond dimension two; in CC2 it is read as a contextual deterministic model.",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-5-C4",
+          "kind": "errata gap",
+          "text": "Claims M-a and M-c in its all-rays form are also supported by Bell 1966 (LIT-4: B-b, B-c) and are usable. Claim M-b, and M-c restricted to a finite menu of observables, rest on this source alone and are blocked until the errata text is read. No CC2 decision rests on a Mermin claim alone before then.",
+          "frozen_text_lines_at_1a236f33": [561, 562, 569]
+        }
+      ],
+      "agreement_with_frozen_text": [
+        "The no-go side of CC2 (L569) agrees; the model itself must be supplied at stage 1.",
+        "Records that are functions of the complete state, apparatus included (A1, L280), are the context-dependent deterministic models section X permits; consistent with L562. Mermin says nothing about OI.",
+        "Corollary U3 (L345): Bohm 'deterministic with records functions of configuration given the guiding wave' agrees with Mermin p. 23 ('hidden variables are simply the real configuration space coordinates ... guided ... by the wave function'), which the paper asserts rather than derives."
+      ],
+      "contradiction_check": "NO.",
+      "reader_commands": [
+        "mkdir -p .../lit-mermin1993; curl -sSL of the arXiv PDF; sha256sum",
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n over the section 4.3, 5.7-5.8 and 9 ranges",
+        "Read of the PDF: pp. 1-10, 11-20, 21-27; pdfinfo for the page count",
+        "curl of Crossref (CSL and plain JSON) and of the APS abstract pages for both erratum DOIs; sha256sum",
+        "grep of the Crossref JSON for abstract and page fields; none found",
+        "curl of the INSPIRE API (370690) and of harvest.aps.org; the latter did not resolve",
+        "one WebSearch",
+        "WebFetch of link.aps.org and ADS; both outside the allowed domains"
+      ],
+      "gate": {
+        "status": "MET for the corrected arXiv text; errata text not obtained",
+        "role": "CC2-instance literature input only (amendment KS-S)",
+        "reason": "arXiv:1802.10119v1 read first-hand in full; no contradiction; caveats LIT-5-C1 to LIT-5-C4 recorded. Claims resting on this source alone (M-b; M-c for a finite menu) are blocked until the errata are read."
+      }
     }
   ],
   "disagreement_disposition": "Every disagreement with the frozen text recorded above (LIT-1-C1 to LIT-1-C4, LIT-2-C1 to LIT-2-C4) is a scope caveat, not a contradiction of a load-bearing assumption. The preregistration is not edited; the caveats bind the stage-1 amendment.",
+  "disagreement_disposition_lit4_lit5": "The caveats of LIT-4 and LIT-5 are scope caveats, not contradictions of a load-bearing assumption. The preregistration is not edited.",
+  "amendments": [
+    {
+      "path": "amendments/KS-substitution.md",
+      "id": "KS-S",
+      "authority": "owner Option 2, PR #1023 comment 6553497955",
+      "summary": "Bell 1966 and Mermin 1993 substitute for Kochen-Specker 1967 in the CC2-instance role only; LIT-3 stays NOT-MET; the concrete CC2 construction is not established; K-star stays blocked."
+    }
+  ],
   "writer_runs": [
     {"run": 1, "command": "git log -1 --format=%H", "purpose": "confirm HEAD", "result": "1a236f332e8ea12b7fdb125bf8c5098ccd71d36c"},
     {"run": 2, "command": "git grep -n -E '<phrases>' 1a236f33 -- .../preregistration.md", "purpose": "frozen-text line references for LIT-1 and LIT-2", "result": "lines 234, 244, 246, 247, 251, 373, 399, 468, 469, 501"},
@@ -247,6 +411,11 @@
     {"run": 6, "command": "python3 -I tools/lean_manuscript_census.py", "purpose": "hygiene", "result": "OK"},
     {"run": 7, "command": "python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene", "result": "PASS; added-text scan 0 hits"},
     {"run": 8, "command": "git status --short; git diff --cached --stat 1a236f33 -- .../preregistration.md", "purpose": "confirm only this file is added and the preregistration is unchanged", "result": "one added file; empty diff for the preregistration"},
-    {"run": 9, "command": "re-stage this file, rerun runs 5-7 on the final content, git diff --stat 1a236f33 -- .../preregistration.md, git commit, git log -1", "purpose": "final hygiene on the committed content and the single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    {"run": 9, "command": "re-stage this file, rerun runs 5-7 on the final content, git diff --stat 1a236f33 -- .../preregistration.md, git commit, git log -1", "purpose": "final hygiene on the committed content and the single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"},
+    {"run": 10, "command": "git log -1 --format=%H", "purpose": "confirm HEAD before the KS-S amendment", "result": "7f1b1f39758fc2f909d1248e520ee38b6da76a74"},
+    {"run": 11, "command": "git grep -n -E '<phrases>' 1a236f33 -- .../preregistration.md", "purpose": "frozen-text line references for LIT-4, LIT-5 and KS-S", "result": "lines 280, 340, 345, 561, 562, 569, 758"},
+    {"run": 12, "command": "GitHub issue-comment read of PR #1023 (read-only connector call, not a git or hygiene tool)", "purpose": "quote the owner's boundaries exactly from comment 6553497955", "result": "comment read; boundaries quoted in KS-substitution.md section 1"},
+    {"run": 13, "command": "git add .../amendments/KS-substitution.md .../amendments/stage1-log.json", "purpose": "stage the two files", "result": "staged"},
+    {"run": 14, "command": "python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md", "purpose": "hygiene and an unchanged preregistration", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
   ]
 }
