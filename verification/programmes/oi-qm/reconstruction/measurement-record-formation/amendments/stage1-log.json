@@ -610,5 +610,29 @@
       {"run": "D-2", "command": "grep of this file for local paths; git add of the three files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
     ],
     "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived, and no screen was started."
+  },
+  "d3_review_corrections": {
+    "date": "2026-11-01",
+    "source": "independent review of 987ecf5e01fff790d12091d076a97af94a202236 (accept with changes: one should-fix, three nits), relayed by the coordinator",
+    "items": [
+      {"id": "RC-D3-1", "disposition": "applied", "target": "D3-CC2-class-level.md section D3.2", "summary": "Appended section D3.9, C-8: frozen L45-47 (outcome (2)) and L613 (the axis-2 heading) are quoted exactly. They stand as labels only; under D3 their strongest token is 2.5 CONTEXTUAL, and 2.4 is unreachable."},
+      {"id": "RC-D3-2", "disposition": "applied", "target": "MR-star.md", "summary": "Appended section K-star.12: D3 removes the CC2-instance obligation that blocked K-star under M1; K-star under D3 would be {K1}, with CC2 at class level, and is not frozen (a separate owner decision); REV-8 corrects section K-star.8's two errata to three."},
+      {"id": "RC-D3-3", "disposition": "applied", "target": "KS-substitution.md section 8; lit5_errata", "summary": "The owner's requirement to read the three notices first-hand remains open, and LIT-5 stays PARTIAL until it is met (appended to KS-S section 8; correction REV-9 below)."},
+      {"id": "RC-D3-4", "disposition": "applied", "target": "lit5_errata.e1_e3_mapping", "summary": "The arXiv candidate locations for E1 and E3 are the reader's inference, not a mapping (correction REV-10 below; noted in KS-S section 8)."}
+    ],
+    "corrections": [
+      {"id": "REV-9", "source": "independent review of 987ecf5e", "target": "lit5_errata.lit5_gate and lit5_errata.status", "old_value": "PARTIAL (unchanged) ... Missing: a first-hand read of the three notices and a mapping of E1 and E3 onto the arXiv text.", "corrected_value": "Added explicitly: the owner's requirement (PR #1023 comment 6554185786) that the three notices be read first-hand remains open. LIT-5 stays PARTIAL until it is met; the owner's own access does not satisfy it.", "reason": "The open requirement was implicit in 'NOT OBTAINED' and 'PARTIAL'; the review asked that it be stated."},
+      {"id": "REV-10", "source": "independent review of 987ecf5e", "target": "lit5_errata.e1_e3_mapping and lit5_errata.consumed_claims_affected", "old_value": "'Candidate locations: section VII, arXiv pp. 19-20 (for p. 811); sections IX-X, arXiv pp. 23-24 (for p. 814).' and 'possibly near E1's candidate location' / 'possibly within E3's candidate location'", "corrected_value": "These candidate locations are the errata reader's inference from the page order of the journal article, not a mapping. No location of E1 or E3 in the arXiv text is established.", "reason": "To label the status of the locations."}
+    ],
+    "commands": [
+      "git rev-parse HEAD (987ecf5e01fff790d12091d076a97af94a202236)",
+      "git show 1a236f33:.../preregistration.md | sed -n over L45-47 and L613",
+      "tail of the files appended to; grep of this file for the e1_e3_mapping field; grep of all four files for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "E-1", "command": "git add .../amendments/D3-CC2-class-level.md .../amendments/MR-star.md .../amendments/KS-substitution.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged Markdown appends", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers the three Markdown files; not this JSON file, REV-6)"},
+      {"run": "E-2", "command": "grep of this file for local paths; git add of the four files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived."
   }
 }

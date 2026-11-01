@@ -314,3 +314,12 @@ seven are applied.
   `git diff --cached --stat 1a236f33 -- ../preregistration.md` and `git diff --cached -U0` as the
   deleted-line check. This run is declared before it is made, and its outcome is stated in the
   commit message.
+
+### K★.12 Pointers
+
+- **D3.** Owner decision D3 (PR #1023 comment 6554185786; amendment `D3-CC2-class-level.md`) removes
+  the CC2-instance obligation that blocked `K★` under M1 (§K★.7, as restated in §K★.11 RC-1).
+  - *`K★` under D3* would be `{K1}`, with CC2 at class level and no instance (§D3.4 there).
+  - *It is not frozen.* Freezing `K★` is a separate owner decision.
+- **REV-8.** Correction REV-8 in `stage1-log.json` (under `lit5_errata`) changes §K★.8's two Mermin
+  errata to three: *Rev. Mod. Phys.* 85, 919 (2013); 88, 039902 (2016); 89, 049901 (2017).

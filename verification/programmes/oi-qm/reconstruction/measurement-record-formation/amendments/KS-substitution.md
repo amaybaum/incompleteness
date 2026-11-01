@@ -170,3 +170,8 @@ and correction REV-8. The text above is kept as written.
 - **What depends on them under D3:** nothing. Under amendment D3 (`D3-CC2-class-level.md` §D3.5), no
   step rests on a Mermin-only claim. M-a and the all-rays form of M-c rest on Bell 1966. The
   Kochen–Specker literature gate stays recorded as unresolved.
+- **The first-hand read remains open.** The owner requires a first-hand read of the three notices
+  (comment 6554185786). That requirement is not met, and LIT-5 stays PARTIAL until it is.
+- **The arXiv locations above are not a mapping.** The candidate locations given for E1 and E3 are
+  the errata reader's inference. Recorded as REV-9 and REV-10 in `stage1-log.json` under
+  `d3_review_corrections`.

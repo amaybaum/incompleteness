@@ -249,3 +249,25 @@ classical model. Specifically:
   tools, then `git diff --cached --stat 1a236f33 -- ../preregistration.md` and the deleted-line
   check. This run is declared here before it is made, and its outcome is stated in the commit
   message.
+
+## D3.9 Review corrections
+
+**Source.** Independent review of `987ecf5e` (verdict: accept with changes), relayed by the
+coordinator. The text above is kept as written; this section adds to §D3.2.
+
+**C-8. Outcome (2) and the axis-2 heading (§1, L45–47; §6, L613).**
+
+> **Outcomes, reported on separate axes (§6):** (1) a sourced physical interaction and its records
+> (row 20; row 14 through the frozen `(Obs, μ)`); (2) nonclassical coherent recombination,
+> distinguishable within the declared controlled operational class; (3) full instrument and composite
+
+> **Axis 2 — nonclassical coherent recombination** (evaluated only after 1.4).
+
+- **Retained as labels only.** The wording of both lines is unchanged and names the axis.
+- **Their strongest token under D3:** 2.5, `CONTEXTUAL`, with `CC2-unseparated` and
+  `CC8-unseparated`. Token 2.4, `NONCLASSICAL`, is unreachable (C-4).
+- **No claim follows from the label.** No result under D3 is reported as nonclassical coherent
+  recombination in the sense of token 2.4.
+
+**Hygiene for this section:** runs E-1 and E-2, recorded in `stage1-log.json` under
+`d3_review_corrections`.
