@@ -35,7 +35,8 @@ In every Class A instance the setting source Xi_A is a common cause of the recor
 effect it has; that is what a recorded random setting is. NC-1 separates two other things from an
 interaction:
 - correlation through a hidden variable in C_sys, which M and the deletion test (w2) exclude;
-- a carrier-independent kick, which the coupling test (w3) excludes.
+- a carrier-independent action, whether a kick or an output relabelling, which the coupling test
+  (w3) excludes.
 
 K-COUPLED does not exclude a common cause; it shows that the recorded source changes how the carrier
 is mapped. A difference not shown to be such an interaction does not count.
@@ -213,7 +214,7 @@ within-class conditional P_s^κ of the coupling test (§5), and it is made expli
 **Distinctness** means that TV_in(k0)=0 for every k0, that M holds, and that TV_win(k0)>0 for some
 k0. Under M this is equivalent to a difference between the setting-conditioned kernels
 Pr(Y_rec, B_out | sigma, Z_rest, K0, W^-) on a set of positive mass. Distinctness alone does not
-separate an interaction from correlation through C_sys or from a carrier-independent kick.
+separate an interaction from correlation through C_sys or from a carrier-independent action.
 NC-AVAILABLE additionally requires a counted witness (§5, D5). The same native rule, record contract and successor apply to both arms. NC-1
 tests the joint law at the outgoing cut. A later continuation also reads the residual, so equality
 on X' does not imply equality after a continuation. NC-1 claims neither equality nor difference
@@ -367,12 +368,12 @@ reopen the instance.
     drawn from its conditional law under J_κ given (r1, r3, r4), averaged over (sigma, Z_rest), and
     so independent of Z given those inputs. Under M this excludes only correlation through C_sys:
     a difference that survives shows that sigma reaches Y* through a non-r2 input;
-  - (w3) the coupling test returns K-COUPLED at both the law level (w3a) and the mechanism level
-    (w3b).
+  - (w3) the coupling test passes at the law level (w3a), at the mechanism level (w3b), and in the
+    tie of the contrast to the non-kick backgrounds (w3c).
 
   A counted witness proceeds to D6. If the search finds witnesses but none is counted, the token is
   **UNRESOLVED**: the difference is not shown to be a carrier-coupled interaction. This covers a
-  witness that fails w3a or w3b, is UNKNOWN, survives deletion, or lies on A's coordinates
+  witness that fails w3a, w3b or w3c, is UNKNOWN, survives deletion, or lies on A's coordinates
   only. No witness on any searched coordinate,
   or a search that does not run, gives **GAP**, naming the coordinates, the failing preconditions
   and the search outcomes.
@@ -421,7 +422,7 @@ several coordinates, is GAP.
 **Coupling test (w3), on a witness.** Y* is a single coordinate: a raw triple, or a flag or timing
 value encoded in bits. G is the XOR group of its encoding. Write Y* = Phi(k, a, b) for the search's
 native function, with k the r1 inputs, a the r2 inputs, and b the background (the r3 and r4 inputs
-and the source context). The test has two parts, and both must return K-COUPLED.
+and the source context). The test has three parts, and all three must pass.
 
 - **(w3a) Law level.** For each κ with positive mass under both settings, P_s^κ is the restriction
   of the J_κ-induced law of Y* to κ under sigma=s, **normalized by its mass**. By M the class mass
@@ -436,26 +437,41 @@ and the source context). The test has two parts, and both must return K-COUPLED.
   On its own, w3a does not suffice. With Y* = (k_B·r) ⊕ x(sigma) and r uniform, Δ vanishes for
   k_B=1 and not for k_B=0, so w3a passes although sigma enters as the same XOR for every carrier
   value. In general a carrier-dependent noise ν_κ gives Δ_κ = ν_κ * (δ_x0 − δ_x1).
-- **(w3b) Mechanism level.** Phi(·,·,b) is a **kick at b** if there are a bijection π_b of the
-  alphabet and maps c_b of k and d_b of a into G with Phi(k, a, b) = π_b(c_b(k) ⊕ d_b(a)) for all
-  k and a. The setting then acts as one XOR translation, through a fixed relabelling, whatever the
-  carrier value. K-COUPLED at the mechanism level means that, at some background b with positive
-  mass under J_κ for both settings, Phi(·,·,b) is not a kick: the effect of the setting-carrying
-  inputs varies with the K0 inputs beyond an XOR translation through a fixed relabelling. Otherwise
-  the result is K-INDEPENDENT.
+- **(w3b) Mechanism level.** For fixed b and a, write f^a = Phi(·,a,b) as a function of the
+  carrier inputs k. Phi(·,·,b) is a **kick at b** if the partition of the k values into level sets
+  of f^a is the same for every a. The setting then changes only how the output is labelled, not
+  which carrier information the output carries. This covers an XOR translation, a translation
+  through a fixed relabelling, and any setting-dependent output permutation, for example
+  Phi = ρ_a(F(k)) with ρ_1 a 3-cycle. K-COUPLED at the mechanism level means that, at some
+  background b with positive mass under J_κ for both settings, Phi(·,·,b) is not a kick: the
+  setting-carrying inputs change which carrier information Y* carries. Otherwise the result is
+  K-INDEPENDENT. B_nk denotes the set of positive-mass backgrounds at which Phi(·,·,b) is not a
+  kick.
 
-  *Finite form (paper proof).* Fix b, write f_k = Phi(k,·,b), and fix a reference k_0.
-  Phi(·,·,b) is a kick iff some conjugate H = π G π^-1 of the translation group contains, for every
-  k, an element h_k with f_k = h_k ∘ f_(k_0).
-  - (⇒) If Phi = π(c(k) ⊕ d(a)), then f_k = π τ_(c(k) ⊕ c(k_0)) π^-1 ∘ f_(k_0).
-  - (⇐) If h_k = π τ_(g_k) π^-1, take c(k) = g_k and d(a) = π^-1 f_(k_0)(a).
+  *Finite form (paper proof).* Fix b and a reference a_0. Phi(·,·,b) is a kick iff, for every a,
+  there is a permutation g_a of the output alphabet with f^a = g_a ∘ f^(a_0).
+  - (⇒) The level sets of f^a and f^(a_0) coincide, so g_a(f^(a_0)(k)) = f^a(k) is well defined and
+    injective on the image of f^(a_0). The two images have the same size, the number of blocks, so
+    g_a extends to a permutation of the alphabet.
+  - (⇐) A permutation g_a maps the level sets of f^(a_0) onto those of f^a, so the partitions agree.
 
-  The conjugates of G are finitely many and are listed once, so w3b is an exhaustive finite check
-  over the enumerated backgrounds, within the L-search bound.
+  The check compares finitely many partitions over the enumerated (k, a, b) values, within the
+  L-search bound.
+- **(w3c) Tie to the witnessed contrast.** Let Δ_κ^nk be the part of Δ_κ contributed by the
+  backgrounds in B_nk alone, with the same J_κ weights and normalization as w3a. The witness counts
+  only if Δ_κ^nk is nonzero for some κ and the w3a criterion, applied to {Δ_κ^nk}, returns
+  K-COUPLED. A non-kick background whose contribution averages out, for example
+  Y* = k_a ⊕ p with p a pad in b, therefore cannot carry a contrast that comes from kick
+  backgrounds elsewhere.
 
-The coupling test separates an interaction from a carrier-independent kick. It does not exclude
-the setting source as a common cause of Z and the effect. That is inherent in a recorded random
-setting, as §1 states.
+The coupling test separates an interaction from a carrier-independent action, whether a kick or
+an output relabelling. It does not exclude the setting source as a common cause of Z and the
+effect. That is inherent in a recorded random setting, as §1 states.
+
+Some genuine interactions are not certified by this test. A setting-dependent bijective
+transformation of the carrier, seen on one coordinate whose partition it leaves unchanged, is a
+kick in this sense and gives UNRESOLVED. Separating it from an output relabelling would need a
+joint multi-coordinate witness or a later continuation, which lie outside NC-1's local search.
 
 **Reported flag (decides no token).** *Visibility* of a counted witness: ACCESSIBLE for a Y_rec
 coordinate, CARRIER-ONLY for an outgoing-carrier coordinate.
@@ -463,14 +479,15 @@ coordinate, CARRIER-ONLY for an outgoing-carrier coordinate.
 **What each token licenses.**
 
 - **NC-AVAILABLE.** A randomly selected, publicly recorded native setting under which the incoming
-  carrier's interaction differs in a carrier-coupled way, at both the law and the mechanism level,
+  carrier's interaction differs in a carrier-coupled way, at the law and mechanism levels, tied to
+  the witnessed contrast,
   available under §2.3 for this instance, layout and dictionary. The recorded source Xi_A is the
   common cause of Z and of the effect; a hidden common cause in C_sys is excluded by M and w2. It
   is single-use, not chosen and not derived. It is not a quantum instrument, and it shows no
   noncommutation, contextuality or composability.
 - **UNRESOLVED.** Distinct setting-conditioned laws exist, but they are not shown to be a
-  carrier-coupled interaction: correlation through C_sys, or a carrier-independent kick (masked or
-  not), is not excluded. This token is not a positive.
+  carrier-coupled interaction. Correlation through C_sys, or a carrier-independent action (a kick or
+  an output relabelling, masked or not), is not excluded. This token is not a positive.
 - **PASSIVE-ONLY.** The setting is sourced and matched but does not act, for this instance only.
 - **SETTING-CONFOUNDED.** Measurement independence fails for this instance inside P0.
 - **UNSOURCED-ACTUATOR, PREPARATION-CHANGE, PRIVATE-ACCESS.** This instance fails the named
@@ -503,10 +520,16 @@ astronomical preparation.
   fixture seen through a fixed nonlinear relabelling must also fail both.
 - **MASK (carrier-gated pad over a kick).** Y* = (k_B·r) ⊕ x(sigma) with r a uniform padded input.
   w3a must return K-COUPLED, w3b must return K-INDEPENDENT, and the token must be UNRESOLVED.
+- **RELABEL (setting-dependent output permutation).** Y* = ρ_a(F(k)) with ρ_0 the identity and ρ_1
+  a 3-cycle of the alphabet. w3a must return K-COUPLED, w3b must return K-INDEPENDENT, and the token
+  must be UNRESOLVED.
+- **DECOY (non-kick background that averages out).** Y* = k_a ⊕ p on the backgrounds with e=1, with
+  p a pad in b, and a masked kick as in MASK on the backgrounds with e=0. w3a and w3b must return
+  K-COUPLED, w3c must find Δ^nk = 0, and the token must be UNRESOLVED.
 - **A-ONLY.** A difference confined to A's slices must give UNRESOLVED.
-- **COUPLED.** An exact algebraic fixture in which the setting-carrying input selects which carrier
-  bit a record copies, Y* = k_a, with no carrier-gated noise. It must give K-COUPLED at both w3a
-  and w3b. It tests the coupling test only, not sourcing.
+- **COUPLED.** Exact algebraic fixtures with no carrier-gated noise: Y* = k_a, where the
+  setting-carrying input selects which carrier bit a record copies, and Y* = k_A ⊕ a·k_D. Each must
+  pass w3a, w3b and w3c. They test the coupling test only, not sourcing.
 - **DELETE (source deletion).** On the COMMON-like fixture, replacing the r2 inputs by copies
   independent of Z takes the contrast to 0. DELETE-COUNTER: a difference routed through an r4
   input correlated with sigma survives deletion and gives UNRESOLVED.
@@ -606,7 +629,7 @@ independent result review follows.
 | Geometry exact | P-GEO: minima over every tick, at endpoints and absolute-value breakpoints, with giant integers and no sampling |
 | Local search executable and complete | CP-LOCAL: every local-cone input assigned to r1–r4 by the written reduction; one joint law J_κ per class used by comparison, deletion and coupling test; at most six enumerated triples; trigger, inputs, derivation status and outcome recorded |
 | Witness attributed to the setting source | CP-DELETE on the candidate and on DELETE/DELETE-COUNTER |
-| Kick or C_sys correlation never promoted | CP-KCOUP (COMMON, COMMON-π, COUPLED, A-ONLY fixtures); CP-MASK: w3a K-COUPLED, w3b K-INDEPENDENT, token UNRESOLVED; CP-NORM: normalized P_s^κ; CP-UNRES: a non-counted witness yields UNRESOLVED, and no path from UNRESOLVED reaches D6 |
+| Kick or C_sys correlation never promoted | CP-KCOUP (COMMON, COMMON-π, COUPLED, A-ONLY fixtures); CP-MASK: w3a K-COUPLED, w3b K-INDEPENDENT, token UNRESOLVED; CP-RELABEL: an output permutation is a kick, token UNRESOLVED; CP-DECOY: Δ^nk = 0 fails w3c, token UNRESOLVED; CP-NORM: normalized P_s^κ; CP-UNRES: a non-counted witness yields UNRESOLVED, and no path from UNRESOLVED reaches D6 |
 | Reusable boundary | P-SUCC, CP-SUCC |
 | Comparator detects actuation | CP-POS |
 | Passive selector not separated | CP-NEG |
@@ -633,6 +656,8 @@ Each mutant changes the probe's own code and must exit 2 with VOID, naming its c
 - deletion test disabled -> CP-DELETE (DELETE-COUNTER);
 - coupling test skipped, or K-INDEPENDENT treated as counted -> CP-KCOUP (COMMON);
 - mechanism-level test (w3b) skipped -> CP-MASK;
+- w3b kick class narrowed to translations through a fixed relabelling -> CP-RELABEL;
+- witness tie (w3c) skipped, or Δ^nk replaced by the full contrast -> CP-DECOY;
 - unnormalized class restrictions used in w3a -> CP-NORM;
 - deletion applied to non-r2 inputs, or with a law other than J_κ -> CP-DELETE (DELETE-COUNTER);
 - A-coordinate witness counted -> CP-KCOUP (A-ONLY);
@@ -665,10 +690,11 @@ hardest:
 
 1. **Totality and exclusivity of D0–D6.** Can any instance reach no token, or two? Can any path
    carry UNRESOLVED to NC-AVAILABLE?
-2. **Interaction versus kick or correlation.** Does w2 under M exclude correlation through C_sys,
-   and does w3b exclude every carrier-independent kick, masked or not? Is the kick definition of
-   w3b (and its finite form) wide enough, and not so wide that it absorbs a genuine carrier-coupled
-   interaction? The setting source itself remains a common cause by construction.
+2. **Interaction versus carrier-independent action or correlation.** Does w2 under M exclude
+   correlation through C_sys? Do w3b and w3c exclude every carrier-independent kick or output
+   relabelling, masked or not? Is the partition-based kick class, with its finite form, wide
+   enough? Is the stated cost acceptable, namely that a setting-dependent bijection seen on one
+   coordinate is UNRESOLVED? The setting source itself remains a common cause by construction.
 3. **Lemmas 2 and 3 and the pad split.** Check the proofs and the precondition sets, including the
    split into xi_W and xi_Y and P-PADX.
 4. **L-search.** Is the r1–r4 reduction executable and sound, and is the asymmetry stated
