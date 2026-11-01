@@ -800,5 +800,20 @@
       {"run": "C-2", "command": "grep of both files for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
     ],
     "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. The wake solution and the 2w + 2 example were checked on paper. No T-test or control was evaluated; no candidate law was derived."
+  },
+  "screen_corrections_rereview": {
+    "date": "2026-11-01",
+    "source": "re-review of c744d3b923aea59f7a49e6899d6059963bce16db (ACCEPT WITH CHANGES), relayed by the coordinator",
+    "file": "amendments/MR-star.md, section C.1 (appended)",
+    "corrections": [
+      {"id": "REV-24", "target": "MR-star.md C-3; C-13 (AW-MR10); REV-13; REV-23", "old_value": "'no selection principle ... is stated anywhere'; 'no physically sourced quiet, ready region exists in the corpus'", "corrected_value": "both scoped to 'in the sources read (section S.8)'; no corpus-wide search was recorded (section A.19)"},
+      {"id": "REV-25", "target": "MR-star.md C-5 (s2); REV-15", "old_value": "(s2): 'ready supply sourced in Res', with no frozen ground stated", "corrected_value": "grounded in frozen section 3.1 (L137-140): mu, the prior on S, 'and the observation map are fixed by PC-1's fork rule ... applied unchanged'; a prepared quiet region is a property of mu, so a ready region booked but fixed by neither fork leg would set mu outside that rule; the tightening is the frozen mu clause, not a new criterion"},
+      {"id": "REV-26", "target": "MR-star.md C-2; REV-12", "old_value": "wake induction with no transport-versus-memory caveat", "corrected_value": "C-2 is read with C-3's owner caveat: the wake is retained information, not yet a reliable, distinguishable, reusable record"}
+    ],
+    "hygiene_runs": [
+      {"run": "R-1", "command": "git add .../amendments/MR-star.md .../amendments/stage1-log.json; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6)"},
+      {"run": "R-2", "command": "local-path grep; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation. No Python except the three repository hygiene tools, with -I. Read-only commands: git rev-parse HEAD (c744d3b9); git show 1a236f33:.../preregistration.md | sed -n 137,140p; tail of MR-star.md and this file."
   }
 }

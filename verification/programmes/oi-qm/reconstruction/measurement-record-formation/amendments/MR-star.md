@@ -1517,3 +1517,37 @@ undecided, as is the trace route (C-4)."
     the single commit.
   - C-1's results are logged under `screen_corrections`. C-2's outcome is stated in the commit
     message.
+
+### C.1 Re-review clarifications
+
+**Source.** The re-review of `c744d3b9` returned ACCEPT WITH CHANGES, relayed by the coordinator.
+The text above is kept as written; these items supersede the phrasings they name. They are logged
+as REV-24 to REV-26 under `screen_corrections_rereview` in `stage1-log.json`.
+
+- **C.1-1. Two negative claims are scoped to the sources read (§A.19).**
+  - In C-3, "no selection principle … is stated anywhere" now reads "no selection principle … is
+    stated in the sources read (§S.8)".
+  - In C-13 (AW-MR10), "no physically sourced quiet, ready region exists in the corpus" now reads
+    "… exists in the sources read (§S.8)".
+  - No corpus-wide search was recorded, so neither phrase is a corpus-wide claim.
+- **C.1-2. Where C-5's (s2) comes from in the frozen text.** C-5's (s2) requires the ready supply to
+  be sourced. The earlier option of a supply merely "booked" in `Res` is dropped.
+  - *The frozen ground.* A prepared quiet region is a property of `μ`, and frozen §3.1 (L137–140)
+    requires the fork rule to fix `μ`: "**`μ`**, the prior on `S`, with every correlation among
+    `Σ, A, E, Z, L`. It and the observation map are fixed by PC-1's fork rule (preregistration §4 at
+    `99dce4b6`), applied unchanged: per leg, a selection principle with its necessity assessment, or
+    invariance over an admissible class with at least two inequivalent members."
+  - *So it is not a new criterion.* A ready region that is booked but fixed by neither leg would set
+    `μ` outside that rule. The tightening is the frozen `μ` clause, not a criterion introduced
+    outside the frozen text.
+- **C.1-3. The wake is retained information, not yet a record.** The wake exhibited in C-2 shows
+  that information is retained at a site. It is not yet a reliable, distinguishable, reusable record.
+  C-3's owner caveat applies to it: a wake does not yet establish a stable, distinguishable,
+  reusable record. C-2 is read with that caveat attached.
+
+**Hygiene for this section.**
+- *Run R-1:* placement, census and SC-42 on the staged section and log.
+- *Run R-2:* the same, then the preregistration diff from `1a236f33`, the deleted-line check and
+  the single commit.
+- R-1's results are logged under `screen_corrections_rereview`. R-2's outcome is stated in the
+  commit message.
