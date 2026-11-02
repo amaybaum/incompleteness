@@ -1,0 +1,23 @@
+{
+ "commit": "549641460b8ddb536178f95fac2ec9390e84a987",
+ "display_timing_seconds": {
+  "B1": 13.315304040908813,
+  "B2": 16.1432843208313,
+  "B3": 31.115854024887085,
+  "B4": 232.1513547897339,
+  "U": 5.404994249343872,
+  "emb_m1": 23.87248396873474,
+  "emb_m2": 684.8033599853516,
+  "laws": 0.8610079288482666,
+  "plin_m1": 2.0784475803375244,
+  "plin_m2": 2.4151217937469482,
+  "plin_m3": 3.2231717109680176,
+  "plin_m4": 124.99078392982483,
+  "total": 1143.6192190647125
+ },
+ "job": "primary",
+ "recipe": "python3 -I -B verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/run.py shard n8-clk --mode result --out <dir>",
+ "run_attempt": "1",
+ "run_id": "40271434371",
+ "shard": "n8-clk"
+}
