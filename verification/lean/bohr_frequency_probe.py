@@ -258,7 +258,10 @@ ok8 &= '[SM] Proposition 20' in gr
 ok8 &= '0,1,4,10,12,17' in gr and '0,1,8,11,13,17' in gr
 # and the withdrawn conclusion must not be asserted anywhere as a theorem
 ok8 &= '**Theorem (D-gauge completeness).**' not in gr
-# Every statement of Hamiltonian reconstruction in the corpus carries H-BG nearby.
+# Every statement of Hamiltonian reconstruction in the corpus carries its condition nearby: H-BG, or the
+# triangle-genericity condition (G4) under which OIBridge/PairIdentification.lean proves the two branches.
+CONDITION_MARKERS = ('H-BG', 'classification hypothesis', '(G4)', 'triangle-genericity', 'triangle genericity',
+                     'hypotheses of Lemma B.7.5')
 RECON = re.compile(r"uniquely determined by \$\\\{T_\{ij\}"
                    r"|determines? (?:the emergent Hamiltonian|\$\\hat\{H\}_\{\\text\{eff\}\}\$)[^.]{0,120}?up to"
                    r"|two-branch (?:form|theorem|classification|conclusion)"
@@ -269,7 +272,7 @@ def unconditional_recon(text):
     hits = []
     for m in RECON.finditer(text):
         w = text[max(0, m.start() - 250):m.end() + 250]
-        if 'H-BG' not in w and 'classification hypothesis' not in w:
+        if not any(c in w for c in CONDITION_MARKERS):
             hits.append(text[m.start():m.end()])
     return hits
 
@@ -289,6 +292,8 @@ INJECTED = (
     "Where these hold, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
     "from continuous-time transition data up to the lemma's full gauge.",
     "The sharper question is settled by the two-branch theorem below.",
+    "Where these hold, the phase-locking lemma (§3.1), under (G1)–(G3), determines $\\hat{H}_{\\text{eff}}$ "
+    "from continuous-time transition data up to the lemma's full gauge.",
 )
 ok8 &= all(unconditional_recon(t) for t in INJECTED)
 check("F8", ok8,
@@ -299,7 +304,7 @@ check("F8", ok8,
       f"latter conditional on H-BG; the unsigned formal premise is refuted and "
       f"the complete sign-aware classification remains open; the [SM] Proposition 20 cross-reference "
       f"and the homometric rulers stand; the withdrawn theorem heading is absent, and "
-      f"{len(CORPUS)} corpus files carry no Hamiltonian-reconstruction statement without H-BG "
+      f"{len(CORPUS)} corpus files carry no Hamiltonian-reconstruction statement without H-BG or (G4) "
       f"within 250 characters (unconditional hits: {recon_hits or 'none'}; all "
       f"{len(INJECTED)} injected unconditional phrasings caught)")
 
@@ -10079,10 +10084,10 @@ print('     [scope] Settled in Lean: the return-probability expansion, positivit
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
 print('     real time), the |U_ij|^2 expansion over the same frequencies, and both invisible')
 print('     impostors -- the energy origin and the antiunitary reflection -- as exact identities.')
-print('     Full two-branch reconstruction is conditional on the open sign-aware H-BG')
-print('     classification. The unsigned BGIntegerClassification is refuted; its conditional')
-print('     consumers do not establish the physical conclusion. Independent subresults remain')
-print('     valid. Justifying the complete replacement is required before unconditional closure.')
+print('     Full two-branch reconstruction is kernel-proved under the posited triangle-genericity')
+print('     condition (G4) (OIBridge/PairIdentification.lean); without (G4) it is conditional on the')
+print('     open sign-aware H-BG classification. The unsigned BGIntegerClassification is refuted; its')
+print('     conditional consumers do not establish the physical conclusion.')
 print()
 print("bohr_frequency_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)
