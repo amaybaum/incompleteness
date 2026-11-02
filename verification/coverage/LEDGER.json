@@ -1135,7 +1135,7 @@
         }
       ],
       "kernel": "P",
-      "delta": "no Lean statement",
+      "delta": "m >= 2^(I*) for I* a maximum over a finite family of joint-law slices sharing C_H: card_hidden_ge_two_pow_Istar (C3Necessity.lean). The supremum over all times of one realization's time-t laws is in the unreviewed TrajectoryMemory (trajectory_capacity). The conditional accumulated form m >~ 2^(K I_0) is not formalized.",
       "note": "b444 sharpens the same budget from the entropy side; b445/b446 sharpen it again by realization dimension."
     },
     {
@@ -1156,7 +1156,7 @@
         }
       ],
       "kernel": "P",
-      "delta": "no Lean statement",
+      "delta": "independent hidden prior mu_H: no Lean statement. Weaker form, an initial law that may correlate the hidden and visible coordinates: S_imp_D (OIBridge/Equivalence.lean).",
       "note": ""
     },
     {
