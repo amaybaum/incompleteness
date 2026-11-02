@@ -709,12 +709,23 @@ depend on a choice of ``center'' site, in two senses used below:
 graph is a finite periodic lattice, the quotient of a rank-\(d\) lattice
 by a finite-index sublattice, \(d\) being its dimension), and the update
 at a site contains no explicit copy of that site's present value ({[}SM
-§4.1{]}). (The second sense is what the wave-equation derivation of
-Stage 2 uses. Its observational anchor is the homogeneity of physical
-law --- no experiment has found a preferred location in the laws --- the
-cosmological principle's complement to E4's isotropy; whether it is
-independently warranted by the observer architecture remains the
-question flagged in §1.)
+§4.1{]}). The two senses are logically independent for rules of the
+second-order form \(x(t+1) = F(x(t)) - x(t-1)\) over \(\mathbb{Z}_q\) on
+a periodic cubic lattice of side at least \(3\), with gauge acting by
+site-wise bijections of each site's (previous, current) pair. Such a
+gauge preserves which sites each update reads, so a rule that commutes
+with translations up to gauge reads its sites in a translation-invariant
+pattern. The rule
+\(x_i(t+1) = x_i(t) + \sum_{j\sim i} x_j(t) - x_i(t-1)\) commutes with
+translations exactly and reads \(x_i(t)\); the same rule with the
+\(x_i(t)\) term dropped and one neighbour omitted from the sum at a
+single site reads no site's own present value, and its pattern of read
+sites is not translation-invariant. (The second sense is what the
+wave-equation derivation of Stage 2 uses. Its observational anchor is
+the homogeneity of physical law --- no experiment has found a preferred
+location in the laws --- the cosmological principle's complement to E4's
+isotropy; whether it is independently warranted by the observer
+architecture remains the question flagged in §1.)
 
 (A5) \textbf{Linearity.} The wave equation for \(\varphi\) is linear.
 (Amplitude-scale gauge invariance --- that the field-value scale is
@@ -3289,4 +3300,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 61d68de2fb4fea7b75cb00df1b759971ba5929a90ad618b629eb5cf45baa4372
+% source-sha256: 460e634a0986967bd3ebd48105fcb8502b25a6e1a4978b18680d6ba2906cdf97
