@@ -394,11 +394,19 @@
         },
         {
           "file": "papers/GR.md",
+          "anchor": "`driveQ_smul`"
+        },
+        {
+          "file": "papers/GR.md",
           "anchor": "A continuous-time Hamiltonian law is additional structure"
         },
         {
           "file": "papers/Main.md",
           "anchor": "driveQ_one_eq_heisQ"
+        },
+        {
+          "file": "papers/Main.md",
+          "anchor": "`driveQ_smul`"
         },
         {
           "file": "papers/Explainer.md",
