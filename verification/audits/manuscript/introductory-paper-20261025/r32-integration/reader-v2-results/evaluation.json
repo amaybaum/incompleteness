@@ -1,0 +1,27 @@
+{
+  "gate": "MET",
+  "protocol": "r32-v2",
+  "source_commit": "f3c64a5680c38dab02b937c7b6908b3de96c868b",
+  "registry_repair_commit": "b5867e005ac166cfa9810a09d8fb37bd60cc7a36",
+  "paper_PDF_SHA256": "08658e5720b12955fd2712b150fbe3bef376f6601e80fe6bbbf97bce0b2adfe0",
+  "items": {
+    "Q1": "PASS",
+    "Q2": "PASS",
+    "Q3": "PASS",
+    "Q4": "PASS",
+    "Q5": "PASS",
+    "Q6": "PASS",
+    "Q5a": "PASS",
+    "Q5b": "PASS",
+    "Q5c": "PASS",
+    "Q8": "PASS",
+    "Q9": "PASS",
+    "Q10": "PASS"
+  },
+  "Q7": "diagnostic only",
+  "v1_result_unchanged": "NOT MET",
+  "new_scientific_defect_found": false,
+  "integrated_CI_or_release_acceptance": false,
+  "answers_sha256": "cb78d2ce384a7c5abfd757d18e582734e7691d3b440264e8270b7f59d5d3c83d",
+  "evaluation_sha256": "b7a2bdcfc780e0d3c0f917eb9b4e4456a9b94a795144e289916cebd715f08746"
+}

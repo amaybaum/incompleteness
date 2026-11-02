@@ -1,0 +1,106 @@
+{
+  "ensembles": [
+    {
+      "k": 0,
+      "n": 2,
+      "subspaces": 1
+    },
+    {
+      "k": 1,
+      "n": 2,
+      "subspaces": 3
+    },
+    {
+      "k": 2,
+      "n": 2,
+      "subspaces": 1
+    },
+    {
+      "k": 0,
+      "n": 3,
+      "subspaces": 1
+    },
+    {
+      "k": 1,
+      "n": 3,
+      "subspaces": 7
+    },
+    {
+      "k": 2,
+      "n": 3,
+      "subspaces": 7
+    },
+    {
+      "k": 3,
+      "n": 3,
+      "subspaces": 1
+    },
+    {
+      "k": 0,
+      "n": 4,
+      "subspaces": 1
+    },
+    {
+      "k": 1,
+      "n": 4,
+      "subspaces": 15
+    },
+    {
+      "k": 2,
+      "n": 4,
+      "subspaces": 35
+    },
+    {
+      "k": 3,
+      "n": 4,
+      "subspaces": 15
+    },
+    {
+      "k": 4,
+      "n": 4,
+      "subspaces": 1
+    },
+    {
+      "k": 0,
+      "n": 5,
+      "subspaces": 1
+    },
+    {
+      "k": 1,
+      "n": 5,
+      "subspaces": 31
+    },
+    {
+      "k": 2,
+      "n": 5,
+      "subspaces": 155
+    },
+    {
+      "k": 3,
+      "n": 5,
+      "subspaces": 155
+    },
+    {
+      "k": 4,
+      "n": 5,
+      "subspaces": 31
+    },
+    {
+      "k": 5,
+      "n": 5,
+      "subspaces": 1
+    }
+  ],
+  "explicit_predicates": 18837,
+  "larger_exact_moment_cases": 35,
+  "n2_k1_r1_mean_purity": "5/6",
+  "n4_k2_r2_distribution": {
+    "0": 11,
+    "1": 18,
+    "2": 6
+  },
+  "n4_k2_r2_mean_purity": "43/70",
+  "scope": "Finite exact controls, not a universal proof, Lean certificate, physical scrambling or evaporation model.",
+  "state_cut_cases": 2658,
+  "status": "PASS"
+}

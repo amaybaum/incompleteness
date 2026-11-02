@@ -1,0 +1,26 @@
+{
+  "source_commit": "f3c64a5680c38dab02b937c7b6908b3de96c868b",
+  "registry_repaired_commit": "b5867e005ac166cfa9810a09d8fb37bd60cc7a36",
+  "paper_PDF_SHA256": "08658e5720b12955fd2712b150fbe3bef376f6601e80fe6bbbf97bce0b2adfe0",
+  "files": {
+    "READER-PROTOCOL-r32-v2.md": {
+      "git_blob": "d7b3d9dd5fb2d96d781296ebb83c30a6216b6a7b",
+      "sha256": "6225895172a70a918e28ca7d7c65c05796bedaef2d03cfab97d33bc2b893d459",
+      "bytes": 4493
+    },
+    "READER-QUESTIONS-r32-v2.md": {
+      "git_blob": "f75bb6657f01522e0fbff2d150fdcf1fc51d040a",
+      "sha256": "f275a7dca58059360834be6a4ca11b578b0a79403522d968cb28e8c5984e938d",
+      "bytes": 4194
+    },
+    "answers.md": {
+      "sha256": "cb78d2ce384a7c5abfd757d18e582734e7691d3b440264e8270b7f59d5d3c83d",
+      "bytes": 15009
+    },
+    "reader-input-manifest.json": {
+      "sha256": "1ce7364cd4955c08f10a1644f730ca1a2995c45264ab068918865bd15c92972c",
+      "bytes": 481
+    }
+  },
+  "evaluator_role": "independent scorer; not fresh reader; access occurred only after coordinator confirmed answers complete and source verdict fixed"
+}

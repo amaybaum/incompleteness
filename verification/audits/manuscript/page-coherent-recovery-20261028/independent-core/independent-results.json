@@ -1,0 +1,106 @@
+{
+  "status": "PASS",
+  "predicates": 14924,
+  "independent_enumerator": "binary RREF bases",
+  "state_cut_cases": 2658,
+  "larger_exact_moments": 104,
+  "n4_k2_r2_counts": {
+    "0": 11,
+    "1": 18,
+    "2": 6
+  },
+  "n4_k2_r2_purity": "43/70",
+  "ensembles": [
+    {
+      "n": 2,
+      "k": 0,
+      "spaces": 1
+    },
+    {
+      "n": 2,
+      "k": 1,
+      "spaces": 3
+    },
+    {
+      "n": 2,
+      "k": 2,
+      "spaces": 1
+    },
+    {
+      "n": 3,
+      "k": 0,
+      "spaces": 1
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "spaces": 7
+    },
+    {
+      "n": 3,
+      "k": 2,
+      "spaces": 7
+    },
+    {
+      "n": 3,
+      "k": 3,
+      "spaces": 1
+    },
+    {
+      "n": 4,
+      "k": 0,
+      "spaces": 1
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "spaces": 15
+    },
+    {
+      "n": 4,
+      "k": 2,
+      "spaces": 35
+    },
+    {
+      "n": 4,
+      "k": 3,
+      "spaces": 15
+    },
+    {
+      "n": 4,
+      "k": 4,
+      "spaces": 1
+    },
+    {
+      "n": 5,
+      "k": 0,
+      "spaces": 1
+    },
+    {
+      "n": 5,
+      "k": 1,
+      "spaces": 31
+    },
+    {
+      "n": 5,
+      "k": 2,
+      "spaces": 155
+    },
+    {
+      "n": 5,
+      "k": 3,
+      "spaces": 155
+    },
+    {
+      "n": 5,
+      "k": 4,
+      "spaces": 31
+    },
+    {
+      "n": 5,
+      "k": 5,
+      "spaces": 1
+    }
+  ],
+  "scope": "Exact finite controls only; universal statements evaluated separately by written proof."
+}

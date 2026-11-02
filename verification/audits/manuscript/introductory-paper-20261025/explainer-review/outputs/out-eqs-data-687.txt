@@ -1,0 +1,41 @@
+48 FOUND \Gamma = \Gamma_V \times \Gamma_H
+52 FOUND H_{\text{tot}} = H_V + H_H + H_{\text{int}}
+100 FOUND T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}[\pi_V(\phi_{t_2-t_1}(x_i, h))] \, d\mu(h)
+139 FOUND T(t_3, t_1) = \Lambda(t_3, t_2) \cdot T(t_2, t_1)
+147 FOUND T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}
+151 FOUND d(p, q) = \frac{1}{2}\sum_k |p_k - q_k|
+157 FOUND d(\delta_i T^{(N)}, \delta_j T^{(N)}) = d(\delta_i, \delta_j) = 1
+163 FOUND d(\delta_i T, \delta_j T) = \frac{1}{2}\sum_k |T_{ik} - T_{jk}| < 1
+183 notfound e^{-\Delta \tau_S} \approx 1 - \frac{\tau_S}{\tau_B}
+187 notfound e^{-k\Delta\tau_S} \approx 1 - \frac{k\tau_S}{\tau_B}
+191 FOUND I(X_{<t}; X_{>t} \mid X_t) \geq I_0\left(1 - \frac{k\tau_S}{\tau_B}\right)
+240 FOUND T(1,0) = \begin{pmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{pmatrix}
+244 notfound d(\delta_0 T, \delta_1 T) = \frac{1}{2}(|2/3 - 1/3| + |1/3 - 2/3|) = 1/3
+250 FOUND T(1,0)^2 = \begin{pmatrix} 5/9 & 4/9 \\ 4/9 & 5/9 \end{pmatrix}
+256 notfound T(2,0) = I = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+262 notfound \Lambda(2,1) = T(2,0) \cdot [T(1,0)]^{-1} = I \cdot \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{
+284 notfound T_{ij}(t) = \sum_\alpha |\tilde U_{(i,0)\,(j,\alpha)}(t)|^2 \qquad \text{(ancilla-marginal
+312 notfound T_{ij}(t) = \left|\sum_k V_{ik} \, e^{-iE_k t} \, V_{jk}^*\right|^2
+316 FOUND T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}
+320 FOUND a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*
+326 FOUND \arg(a_{ij}^{kl}) = (\varphi_{ik} - \varphi_{il}) - (\varphi_{jk} - \varphi_{jl})
+359 notfound \| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, 
+365 FOUND I(X_{<t} ; X_{>t} \mid X_t) \leq \log_2 m
+369 notfound I(X_{<t} ; X_{>t} \mid X_t) \leq I(X_{<t} ; H_t \mid X_t) \leq H(H_t \mid X_t) \leq H(H_t)
+395 notfound A = \frac{4\pi c^2}{H^2}
+423 notfound dE = \frac{c^2 \kappa}{8\pi G} \, dA
+429 FOUND k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma}
+433 notfound k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G \sigma}
+443 FOUND \mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D
+447 notfound T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b} \delta_{x_j}[\pi_V(\varphi_t^{V
+453 notfound [\hbar] = \frac{[c]^3 \, [\epsilon]^2}{[G]} = \text{kg·m}^2/\text{s} \quad \checkmark
+463 FOUND T_Q = \frac{\hbar \kappa}{2\pi c k_B}
+467 FOUND \frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}
+471 FOUND \boxed{\hbar = \frac{c^3 \epsilon^2}{4G\sigma}}
+489 notfound \delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}
+503 FOUND \epsilon^2 = \frac{4\sigma\hbar G}{c^3} = 4\sigma \, l_p^2
+515 FOUND N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4\sigma \, l_p^2}
+519 notfound S_{\text{BH}} = \sigma N_{\text{modes}} = \frac{A}{4 \, l_p^2}
+723 notfound \Lambda(2,1) = \begin{pmatrix} 2 & -1 \\ -1 & 2 \end{pmatrix}
+836 FOUND 6 = T_1(3) \oplus E(2) \oplus A_1(1)
+840 notfound U(3) \times U(2) \times U(1) \supset SU(3) \times SU(2) \times U(1)

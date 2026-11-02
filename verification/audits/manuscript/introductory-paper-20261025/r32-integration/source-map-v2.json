@@ -1,0 +1,153 @@
+{
+  "schema": "oi-introduction-r32-source-map-v2",
+  "disposition": "candidate; independent integrated scientific/editorial/reader review and exact-head CI pending",
+  "source_base": "20ca05fe9e7e460de29e08f7a21029042fa45b12",
+  "r32_drafting_checkpoint": "3887a09e8ba45b310e0c4ef8131d0cc8076b1057",
+  "source_units": [
+    {
+      "source": "021850d9fd3b483c5cd76f32655dbae71695b710",
+      "unit": "SC-36 / PR978",
+      "baseline": "0d917665d32287e5d0ce649012175f2c7bf75b09",
+      "reconciliation": "three-way line merge onto20ca; reviewed changes preserve later gauge-scope edits. GR A7 definite-D premise retained; no-instances A8/A9 retained; G11 identifier retained Open research target and excluded from counts; black-hole Tier1 comparison row removed; 4+7+8=19tiers and5C+2L=7gravity. SC37 branch not adopted as accepted.",
+      "source_paths": [
+        "book/README.md",
+        "book/The-Incompleteness-of-Observation-FULL.md",
+        "book/appendix-a-prediction-status.md",
+        "book/appendix-c-objections.md",
+        "book/ch07-gravity.md",
+        "book/ch08-juno.md",
+        "book/ch09-universality.md",
+        "book/ch17-bioinformatics.md",
+        "book/ch18-beyond.md",
+        "book/ch19-open-problems.md",
+        "book/glossary.md",
+        "book/preface.md",
+        "papers/GR.md"
+      ]
+    },
+    {
+      "source": "a2be1e4573662d1331f2560ea06c2d8ed10bcd73",
+      "unit": "book regress summary / PR992",
+      "reconciliation": "exact narrow source patch on20ca retained in chapter3 andFULL; no regress-termination claim."
+    },
+    {
+      "source": "4f962b61aca490cec326542be0cbaee201c82796",
+      "unit": "P24.5 set core",
+      "status": "accepted partial kernel theorem; not fullP24.5",
+      "scope": "nonempty-fibre constant-value equivalence; initial/current/current-hidden identification; swap/empty-word controls",
+      "excluded": "Bayesian-support derivation, passiveN-1 bound, unknown-model reconstruction, physicalstorage/interventions"
+    },
+    {
+      "source": "3d54ae745ecc60254cee69ba69ddcd8cc7937066",
+      "unit": "actual finite-order return and rooted periodicity",
+      "status": "accepted scoped kernel source; exact-head Build+Release gate success",
+      "scope": "finite permutation order gives positive actual rooted period and identity return; overlap and non-permutation stochastic-inverse routes give whole-horizon P-indivisibility",
+      "excluded": "common-endpoint/history-to-non-permutation implications, full-support memory equivalence, accessible-window witness; Main history theorem grade unchanged"
+    },
+    {
+      "source": "ce978ce5db4165dd1e618e9f44bb67281ac152df",
+      "unit": "finite entropy and reversible release",
+      "mathematical_checkpoints": [
+        "bdcbd32",
+        "2624d49"
+      ],
+      "status": "independently accepted written finite mathematics, exact controls; not Lean",
+      "scope": "same sampled coherent subspace, ensemble bound and definite-clock reversible releasewindow",
+      "excluded": "physicalPage theorem, coherent preparation mechanism, scrambling, energy conservation and permanent decoupling"
+    },
+    {
+      "source": "a958bc5479cb9728b2f374fcd2b4873b8cdecbf7",
+      "unit": "finite actual trajectory memory/C3",
+      "status": "independently accepted finite mathematics with exact-head Build+Release-gate success",
+      "scope": "actual one-step and finite-future-block trajectory CMI bounds; genuine supremum over all natural time/finite-horizon pairs",
+      "excluded": "thefinite-block theorem alone doesnot identifyentirefuture; no equality withwhole-future supremum, separate infinite-product/limit interpretation, whole-Main promotion or physical memory-retention mechanism"
+    },
+    {
+      "source": "96a3020be0add86ce916bdc103b4067cff79d5d1",
+      "unit": "entire future finite-image bridge",
+      "status": "scoped independent ACCEPT; unchanged Lean/import/census Build+Release gate succeeded at10c2a5a4; final corrected-evidence-head CI pending",
+      "scope": "one finite product permutation, nonempty hidden carrier and arbitrary initial law; exact finite image of actual entire sequences; ordinary discrete Shannon CMI inbits; whole-future hidden-information bound and genuine supremum over all natural times",
+      "excluded": "equality withfinite-block supremum; separate infinite-product measure/limit formulation; physical preparation/retention; whole-Main grade promotion",
+      "control_recipe": "python3 -I -B verification/audits/manuscript/full-future-memory-20261028/controls.py; repeat with -O -I -B; --force-failure must exit nonzero inboth modes",
+      "control_expectation": "status pass,13824 checks:13344exact-coordinate,2exactcountercontrol,478numericalentropy; normal/optimized structured results identical; bounded controls are not universal proof"
+    }
+  ],
+  "not_adopted": [
+    {
+      "unit": "SC37",
+      "reason": "no independently accepted live sourcehead established; preserve20calatergaugecorrections and mark provenancegap"
+    },
+    {
+      "unit": "full physicalT23/T24",
+      "reason": "separate active programmes, not Introductionprerequisites"
+    }
+  ],
+  "formal_blocks": {
+    "count": 6,
+    "comparison": "byte-identical to9dc2b069 usingtools/proof_census.py statement_text",
+    "ledger": "six inherited MIRROR entries added;GR A7fingerprint reaffirmed GAP; no proof-grade promotions"
+  },
+  "historical_reader_records": "all918Introduction audit records restored byte-for-byte; run7MET remains r31-only; prospective r32protocol separate; no freshreader verdict yet",
+  "publication": {
+    "commands": [
+      "sh ./build.sh Introduction"
+    ],
+    "pages": {
+      "Introduction": 24,
+      "GR": 90,
+      "book": 548
+    },
+    "glyph_drop_count": 0,
+    "source_and_output_hashes": {
+      "papers/Introduction.md": "31fd29102a0b271e75896385255bfe6795b8098dc42b435dfb6ac2964314bc5e",
+      "papers/Introduction.tex": "67d3dc6deba950dbf281da718eb451e255aca6b46c1be83a3c7bc8498c326de8",
+      "papers/Introduction.pdf": "08658e5720b12955fd2712b150fbe3bef376f6601e80fe6bbbf97bce0b2adfe0",
+      "papers/GR.md": "59a69f9f8da8f0faaf9f35771c2b71b8b157b20125dbd5df1402fe6188342128",
+      "papers/GR.tex": "bcd19345dc83dd7026c82fd07541ec4a0c713894e2b8d8ef7683d73f55411cda",
+      "papers/GR.pdf": "797e29453faada92248b82b56fc622f46eb6c09ae87e3dc6be185e4c5ea2cec6",
+      "book/The-Incompleteness-of-Observation-FULL.md": "472db1cfb9420b0f2f76989f9b03e5a5f067079d231e19099827133c5c9f7b2b",
+      "book/The-Incompleteness-of-Observation-FULL.tex": "25c7cc2cc40a5e1f1d4359e753f6c791a6f2341e78d39d186e0ad4f9d4fd50c5",
+      "book/The-Incompleteness-of-Observation-FULL.pdf": "0bd13db40c01043d44b45f8e4ece94db652c2d1c10dcdc261c02dbe8cf0ff597"
+    },
+    "visual_qa": "targeted final Conventions, entire-future, recurrence and Appendix pages checked before commit; no clipping/overlap/dropped notation",
+    "unchanged_artifacts": "GR90pages andbook548pages retained byte-for-byte fromcc04"
+  },
+  "local_static_checks": {
+    "coverage": "PASS140canonical statements; sixIntroductionmirrors",
+    "lean_manuscript_census": "PASS232modules116families214citedidentifiers17supersessions",
+    "audit_census": "PASS",
+    "full_Lean_and_release_suite": "not run locally; normal researchPR CI required"
+  },
+  "authority": "one isolated source follow-up and normal checkpoint publication only; no live918/982/main update, PR merge, retarget, forcepush, native action, unit closure or Explainer retirement",
+  "prior_candidate_local": "cc04e3f694932f58f9839e83827e561a9567ce55",
+  "historical_intro_checkpoint_preserved": "9dc2b06919423afeb2f11b9e859e40ec0c09fdfe",
+  "live_PR_ref": "historical9dc checkpoint is preserved; live918 may move only by separately authorized normal fast-forward reconciliation; no live ref is moved by this source follow-up",
+  "follow_up_changes": [
+    "Conventions now distinguishes baseline and additional machine-check source pins",
+    "RootedRecurrenceBridge exactly matches accepted3d54ae source, including seven additional declarations",
+    "surrounding recurrence proof/status text and AppendixA reflect accepted scope; six formal blocks unchanged",
+    "v1 protocol/questions and prior source-map preserved; prospectivev2 protocol/questions fixed before fresh answers",
+    "historical918checkpoint preservation distinguished from future authorized live-ref reconciliation",
+    "accepted FullFutureMemory exact-source finite-image whole-sequence construction with explicit discreteShannon convention; prospective v2Q10 tests precisely that additional scope"
+  ],
+  "accepted_recurrence_replay": {
+    "source": "verification/lean-mathlib/OIBridge/RootedRecurrenceBridge.lean",
+    "exact_source_checkpoint": "3d54ae745ecc60254cee69ba69ddcd8cc7937066",
+    "recipe": [
+      "cd verification/lean-mathlib && lake exe cache get && lake --rehash build",
+      "from repository root: python3 tools/release_gate.py"
+    ],
+    "expected": "Build and Release gate succeed; new declaration axiom reports withinpropext,Classical.choice,Quot.sound; no wholehistory or accessible-window conclusion",
+    "provenance_run": "https://github.com/amaybaum/incompleteness/actions/runs/40728777143",
+    "note": "host run is provenance; retained exact proof source is independently checkable. No off-repository review digest is used."
+  },
+  "published_prior_candidate": "2bcb94f244c8f9078123c236a28163205fa767ae",
+  "prior_candidate_tree": "1e4e520e9fd4c2b705c4a612a89be7479059d603",
+  "prior_reader": {
+    "protocol": "v1 preserved unchanged",
+    "result": "NOT MET",
+    "partial_item": "Q9 omitted uniform ensemble sampling premise; all other graded items PASS",
+    "retained_records": "reader-v1-results/",
+    "interpretation": "no retrospective criterion or answer change; uniform source premise already explicit; no manuscript rewrite inferred from this omission"
+  }
+}

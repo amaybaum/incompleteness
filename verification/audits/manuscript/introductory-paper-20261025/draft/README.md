@@ -1,0 +1,347 @@
+# Introduction paper: working draft (WIP, under review)
+
+`Introduction.md` is the working draft of the Introduction paper, written from `../design/OUTLINE-r4.md` at `main`
+`687e885b`. It is not a manuscript: it lives here, not under `papers/`, until it passes independent scientific and
+editorial review and the owner accepts it. `DRAFT-NOTES.md` maps the outline to the draft, lists the departures from
+r4, and lists every `OWNER` marker (decisions pending) and `VERIFY` marker (bibliography entries to check).
+`probe/swap_memory.py` is the numerical check behind the draft's correction of the r4 card-table clause.
+
+The repository's default build gives 20 pages; with one-inch margins, 14 (page format is an open owner decision).
+
+## Reviews of this draft (r1)
+
+- `review/scientific/REVIEW.md`: independent scientific review, ACCEPT WITH CHANGES. It confirms the draft's
+  correction of the r4 card-table clause by an exact check (`review/scientific/probe/card_exact.py` and its output):
+  the no-classical-memory result of Main:702 holds for the swap with an initialized hidden slot; with the card game's
+  uniform independent burn card the identity two-step map decomposes through classical memory. It finds one false
+  statement and six other required changes, and checks the bibliography against Crossref and arXiv records
+  (`probe/crossref.py`).
+- `review/editorial/REVIEW.md`: independent editorial review, ACCEPT WITH CHANGES (rendering, register, definitions,
+  notation, structure, bibliography form, and a cut list to reach 15 pages in the default format;
+  `scripts/cutprobe*.py` are its cut probes).
+
+`Introduction-r2.md` (with `DRAFT-NOTES-r2.md` and `CHANGES-r2.md`) applies both reviews: 15 pages in the
+repository's default build, no dropped glyphs, `voice_check` and `claims_check` pass. Its owner markers list the
+decisions still open; the paper does not land while any R11 site is uncorrected or the §A.42 expected result is not
+retained.
+
+## Re-checks of r2, and r3
+
+- `review/scientific/RECHECK-r2.md`: BLOCK (narrow). Four required replacements: §6.4(5) stated the framework's
+  adopted Bell branch as a necessity; §6.3 drew its conclusion before the imported unboundedness premise; §5.4 dropped
+  BH-01's scope limit on GR Thm A.7; two steps were labelled "proved on paper" that Main gives no written proof of.
+  Also seven nits and four erratum nits (E1–E4).
+- `review/editorial/RECHECK-r2.md`: ACCEPT WITH NITS, with an overfull-box analysis.
+
+`Introduction-r3.md` (with `CHANGES-r3.md`) applies R2-1 to R2-4 verbatim, the nits, and the owner decisions of
+2026-10-26: the title, a Contributions paragraph that claims no new theorem or physical result, two raw LaTeX lines
+that change layout only, and the conservative handling of D1–D3. 15 pages in the default build, no overfull boxes,
+no dropped glyphs. `CHANGES-r3.md` records where r3 departs from a reviewer's suggested text and why. The R11
+markers, the §A.42 retention marker and five VERIFY markers still gate landing. `../design/ERRATUM-r4.md` applies
+E1–E4.
+
+## Re-checks of r3, and r4
+
+- `review/scientific/RECHECK-r3.md`: ACCEPT WITH NITS. It confirms R2-1 to R2-4, and confirms r3's departure from the
+  suggested N2 text: routed readback implies history-level (C4), and the converse fails on a kernel carrier, so no
+  step from history-level (C4) to the routed form is proved.
+- `review/editorial/RECHECK-r3.md`: ACCEPT WITH NITS. The two raw lines change layout only; the extracted text is
+  identical with and without them. It found that `lean_manuscript_census` checks only `(kernel: …)` parentheticals,
+  which this paper does not use, and checked the 28 Lean identifiers and Appendix A line numbers directly.
+
+`Introduction-r4.md` (with `CHANGES-r4.md`) applies those nits. It is 16 pages in the default build: §1–§7 end on
+p. 12, and the code note, Appendix A and the references take pp. 13–16. There are no overfull boxes and no dropped
+glyphs. The title hyphenation on p. 1 is an open owner decision.
+
+Confirmation re-checks of r4: `review/scientific/RECHECK-r4.md` and `review/editorial/RECHECK-r4.md`, both ACCEPT
+WITH NITS, all nits optional. Layout options are recorded there for the final layout pass: the 16th page, which a
+smaller font in the approved raw group recovers with identical text, and the orphaned last line of §4's lead
+sentence. Landing remains gated by the R11/R12 markers (a separate, reviewed manuscript-consistency change), the
+§A.42 retention of the Lean axiom-check expected result, the five VERIFY markers, and a direct re-check of the Lean
+identifiers at landing, since the census tool does not cover this paper.
+
+
+## Draft r5: one idea, two consequences
+
+`Introduction-r5.md` is written from design r7 (`../design/OUTLINE-r7.md`; its confirmation re-check
+`../design/review/r6/RECHECK-r7.md`: ACCEPT WITH NITS). It follows the owner's narrowing of 2026-10-26:
+- quantum emergence is the central thesis;
+- the cosmological constant and black-hole information are the two applications, each stated as not a
+  demonstrated resolution;
+- derivations are cited, not re-derived.
+
+Main text is 12.0 pages in the default build (17 in total with the appendices and references), with no overfull
+boxes and no dropped glyphs. `voice_check`, `claims_check` and `duplicate_check` pass, and all 28 Lean identifiers
+resolve. `CHANGES-r5.md` maps every paragraph to its outline item and source, and lists the ten places (F1–F10) that
+go beyond reviewed text. `scripts/build_r5.py` assembles the draft and asserts that every carried r4 sentence is
+verbatim. Independent scientific and editorial reviews are in progress. r4 stays the accepted earlier draft.
+
+## Reviews of r5, and r6
+
+- `review/scientific/REVIEW-r5.md`: ACCEPT WITH CHANGES. Two one-line changes. Both applications keep every
+  conditional, and nothing reads as a resolution. The black-hole section matches #936's accepted corrections. F7's
+  "with measurement independence kept" is confirmed.
+- `review/editorial/REVIEW-r5.md`: ACCEPT WITH CHANGES. It checks definitions before use, symbols in §4–§5, flow and
+  length, and confirms the two raw lines change layout only.
+
+`Introduction-r6.md` (with `CHANGES-r6.md`) applies both reviews. Science governs content and the editorial review
+governs presentation; each overlap is recorded. `scripts/build_r6.py` generates it from r5 by exact-once replacements.
+Main text is 11.73 pages, with no overfull boxes and no dropped glyphs, and the checks pass. Confirmation re-checks of
+r6 are in progress.
+
+## Re-checks of r6, and r7
+
+Both confirmation re-checks of r6 (`review/scientific/RECHECK-r6.md`, `review/editorial/RECHECK-r6.md`) returned
+ACCEPT WITH NITS. `Introduction-r7.md` applies four of those nits as exact single replacements (`CHANGES-r7.md`):
+- an operational-QM qualifier in §1.2;
+- the gravitational operator in §4 named generally;
+- a comma;
+- a term used before its definition.
+
+The confirmation of the four-line diff (`review/scientific/RECHECK-r7.md`) is ACCEPT, with no changes.
+`Introduction-r7.md` is the accepted draft. It does not land as `papers/Introduction.md` until these gates clear:
+- the black-hole corrections (#936) have merged;
+- the §A.42 expected result of the Lean check is retained;
+- Weinberg 1989 is read first-hand;
+- the VERIFY markers are resolved;
+- the owner's layout choices (title hyphenation; the raw group's scope) are made;
+- the Lean identifiers are re-checked directly at landing.
+
+## Reference check, and r8
+
+`review/references/FINDINGS.md` is a first-hand check of every VERIFY-marked citation r7 keeps.
+- **Supported, with no wording change needed:** six (BBS24, Cal26, EvEMU11, KP14, tH14, Vol06). The Har04 sentence is
+  supported through Mon08.
+- **Unreachable, VERIFY kept:** four (CT06, Har04 itself, Sha79, Weinberg 1989). The Weinberg landing gate stays
+  open.
+
+The source PDFs are third-party and not committed.
+
+`Introduction-r8.md` (with `CHANGES-r8.md`; generated from r7 by `scripts/build_r8.py`) aligns §5 with #936, merged
+as `17b830bc`, and follows the owner's direction of 2026-10-26. §5 leads with conservation versus operationally
+accessible recovery. The Page-curve calculation is one conditional supporting paragraph, in main's merged wording,
+listing its open conditions:
+- H-scramble;
+- H-decouple;
+- Theorem A.8's full-product-space scope, which removes the energy constraint;
+- the time-average-only form;
+- dependence on the covariant field equations.
+
+All six R11 markers are removed, since every site they named is corrected on main. Main text is 11.73 pages. A
+scientific confirmation of r8 is in progress.
+
+`review/scientific/RECHECK-r8.md`: ACCEPT WITH NITS. `Introduction-r9.md` (with `CHANGES-r9.md`) applies the three
+nits:
+- the Page value is stated up to Theorem A.8's correction term;
+- a referent is restored for §6.2 item 4;
+- six VERIFY markers are cleared by the first-hand reading.
+
+Three VERIFY markers remain, for unreachable sources. Its confirmation (`review/scientific/RECHECK-r9.md`) is ACCEPT. `Introduction-r9.md` is the accepted draft. Before
+it lands as `papers/Introduction.md`:
+- Weinberg 1989 must be read first-hand (owner gate);
+- the §A.42 expected result of the Lean check must be retained;
+- the owner must make the layout choices (title hyphenation; the scope of the raw group);
+- the Lean identifiers must be re-checked directly at landing.
+
+The three remaining VERIFY markers (CT06, Har04, Sha79) record sources that are unreachable from this environment.
+
+## r10 and r11: publication readiness
+
+`Introduction-r10.md` (with `CHANGES-r10.md`; generated from r9 by `scripts/build_r10.py`) applies the owner's
+publication-readiness decisions of 2026-10-26:
+- **Title:** a pandoc title block replaces the `#` heading. The title sets on three lines with no hyphen, so the
+  title-hyphenation decision is resolved.
+- **Length:** five trims of repetition, transitions and nonessential explanation (T1–T5), each listed with its old
+  and new text. They keep the main text within 12 pages.
+- **Weinberg 1989:** the owner gate becomes a VERIFY marker stating that the source is not read first-hand.
+
+Its re-check, `review/scientific/RECHECK-r10.md`, is ACCEPT WITH NITS.
+
+`Introduction-r11.md` (with `CHANGES-r11.md`; generated from r10 by `scripts/build_r11.py`) applies those nits:
+- **T3** is reverted.
+- **T4** is kept, and its reversal of the r2 editorial fix (F10) is recorded.
+- **The Weinberg marker** reads "only after the source is read and checked". On the owner's decision of 2026-10-26
+  ("Keep as landing gate") it also states that it gates landing: the paper does not land until Weinberg 1989 is read
+  first-hand and checked.
+
+It also states the Lean evidence:
+- The §A.42 expected result of the Lean check is retained at `papers/introduction_repro/` (main `17b830bc`).
+- The Conventions and the code note cite that commit, the toolchain (Lean 4.33.0, Mathlib v4.33.0), the build and
+  release-gate recipe, and the retained result.
+- Both §A.42 OWNER markers are removed.
+- One commit is used throughout: the Conventions, the code note, Appendix A's line numbers and the Corpus entry all
+  name `17b830bc`. Every corpus pointer the paper cites was checked there, and none moved (`CHANGES-r11.md`).
+
+r11 measures 17 pages, 11.82 of them main text, with no overfull boxes and no dropped glyphs.
+
+**Current markers:**
+- No OWNER markers.
+- Four VERIFY markers: CT06, Har04, Sha79 and Weinberg 1989. Each records a source that has not been read
+  first-hand. The Weinberg marker is an open landing gate; the other three do not gate landing.
+
+**Owner decision (amaybaum, 2026-10-26), on the "decision 2" wording:** "Accept 'machine-checked' with its existing
+restricted definition. It must refer only to statements actually formalized and checked, not to the entire physical
+theory or its empirical interpretation." r11 defines it in the Conventions paragraph as checked in Lean 4/Mathlib at
+`17b830bc` by the stated recipe, for the declarations in Appendix A; the final scientific review checks every use
+against that scope.
+
+**Before the draft lands as `papers/Introduction.md`:**
+- **open landing gate (owner, 2026-10-26):** a copy of Weinberg 1989 must be supplied and read first-hand and
+  checked;
+- the final scientific review;
+- the direct check of the Lean identifiers at the landing commit.
+- `papers/introduction_repro/`, the paper's expected Lean result, reaches `main` no later than the paper (§A.42
+  item 2).
+
+`review/scientific/RECHECK-r11.md` is the independent re-check of r11 and of `papers/introduction_repro/`: ACCEPT WITH
+NITS for both. The package's two required fixes are applied: the recipe's comparison names the file by its path from
+the repository root, and the cache statement says that `lake exe cache get` still fetches Mathlib's prebuilt files.
+The recipe also states its prerequisites. The expected result no longer lists line positions in the CI log
+(§A.42 item 4), and its comparison still holds against the job's extracted text with the sources at `17b830bc`.
+
+## Final scientific review of r11, and r12
+
+`review/scientific/FINAL-REVIEW-r11.md` is the final scientific review of r11. Its verdict is REVISE (minimal), with
+two blocking findings and eight nits:
+- **B1:** Theorem 4 was stated without the structural hypotheses of the kernel's `FiniteOperationalTheory`.
+- **B2:** the corpus pin `17b830bc` predates #937, so at that commit [GR] contradicts §4 on Λ.
+
+`Introduction-r12.md` (with `CHANGES-r12.md`; generated from r11 by `scripts/build_r12.py`) applies all ten findings:
+- **B1:** Theorem 4's setup now lists every field of the structure, checked against `OperationalAssembly.lean:594`.
+- **B2:** the corpus is repinned to `main` `c967d6a9`. Every cited pointer was checked there, and none moved. The Lean
+  pins stay at `17b830bc`, because the Lean tree, `tools/`, `papers/Main.md` and the black-hole programme are
+  identical between the two commits.
+- **N1–N8:** applied, including [HKLP24], which was read first-hand, for the imported unboundedness, and the release
+  archive's exclusion of the black-hole computations.
+
+One page-budget trim, §6.1's repeated closing sentence, keeps the main text at 11.90 pages. Like r11, r12 has no
+overfull boxes and no dropped glyphs.
+
+**Before the draft lands as `papers/Introduction.md`:**
+- **open landing gate (owner, 2026-10-26):** Weinberg 1989 must be supplied and read first-hand and checked;
+- the direct check of the Lean identifiers at the landing commit;
+- `papers/introduction_repro/` reaches `main` no later than the paper.
+
+## r13: the confirmation's nits
+
+`review/scientific/CONFIRM-r12.md` confirms all ten findings of the final scientific review in r12 (ACCEPT WITH NITS).
+r13 applies its two nits (`CHANGES-r13.md`): Theorem 4's discard clause keeps the outcome family, and the Code section
+says why the Lean pin and the corpus pin differ. `Introduction-r13.md` is the current draft. The landing gates are
+those listed above for r12.
+
+## r14: the Weinberg gate cleared
+
+On 2026-10-26 the owner supplied a third-party hosted copy of Weinberg 1989. The final scientific referee read it
+first-hand: it is *Rev. Mod. Phys.* **61**, 1–23 (1989), complete and legible, and it supports §4's first sentence
+in substance (`review/references/WEI89.md`). The copy is not committed. `Introduction-r14.md` (with
+`CHANGES-r14.md`; generated from r13 by `scripts/build_r14.py`) cites [Wei89] for what Weinberg states, leaves the
+cutoff-convention clause uncited, and removes the marker. Three VERIFY markers remain (CT06, Har04, Sha79); none gates
+landing. `Introduction-r14.md` is the current draft.
+
+## r15 and the landing
+
+`review/scientific/LANDING-REVIEW-r14.md` is the exact-commit landing review of r14 at `9925f683`. Its verdict is
+REVISE (minimal). All 28 Lean declarations of Appendix A resolve at that commit, and the Lean tree is identical to
+`17b830bc`. One clause on line 84 is restated as Main:167 states it at `b64919cd`, and five coverage-ledger rows are
+required for the landing.
+
+`Introduction-r15.md` (with `CHANGES-r15.md`; generated from r14 by `scripts/build_r15.py`) applies the review: the
+readback clause, the corpus repinned to `b64919cd`, and full repository paths in the provenance comments. The landing
+commit copies r15 to `papers/Introduction.md` byte for byte, builds its `.tex` and `.pdf`, and adds the five MIRROR
+rows to the coverage ledger, a README entry and the `build.sh` count. The landing head is checked by an exact-commit
+confirmation and by CI before merge approval is requested.
+
+## Revision against the consolidated audit (main `55e3217b`)
+
+The branch merges main `55e3217b` (#947–#955) at `edac91c9`. The revision of `papers/Introduction.md` against the
+consolidated scientific audit of #942/#946 runs on this branch, with fresh independent reviews:
+
+- `review/editorial/REVIEW-papers-edac91c9.md`: the editorial and presentation review of `papers/Introduction.md` at
+  `edac91c9` (structure against the brief, clarity, voice, notation, typesetting, citation form). Its **[REVISER]**
+  items are scope or status questions passed to the scientific revision; they are not proposed changes.
+- `review/references/CITATIONS-edac91c9.md`: the citations and novelty review of the same text, against `main`
+  `55e3217b` (bibliographic metadata from arXiv and Crossref; no full text read). Three must-fix items (the corpus pin,
+  an open problem Main now answers, and the attribution of Theorem 4's standard ingredients) and a ranked list of
+  missing citations.
+- `review/references/SOURCE-COMMENTS-edac91c9.md`: the reference list's HTML source comments, moved here verbatim so
+  that the paper carries no audit vocabulary.
+
+`CHANGES-r16.md` records r16, the revision of `papers/Introduction.md` that applies those reviews, slice 2's
+alignment items D1–D6 and Track C's Introduction items under the owner's directions of 2026-10-27. It maps each change
+to its finding, lists what was not applied and why, and carries the strength check and the build and gate
+measurements. r16 is a WIP checkpoint: its independent scientific, editorial and citation reviews are to follow.
+
+`CHANGES-r17.md` records r17, which integrates the two independent reviews of r16 at `a32b769c` (both ACCEPT WITH
+CHANGES) under the owner's decisions of 2026-10-27. It is organized for the focused re-review: the recurrence theorem's
+scope across the abstract, §2.5 and §6; each strengthened claim with its proof and verification status; and the
+corrections that neither weaken nor expand a claim. It also lists what was not applied and why. r17 is a WIP
+checkpoint.
+
+`CHANGES-r18.md` records r18, which applies the two focused re-reviews of r17 at `a79add6a` (both ACCEPT WITH
+CHANGES): six required corrections, the verified should-fixes, and 11 pt type with the approved one-inch margins.
+
+Independent reviews of the Introduction from `a32b769c` (r16) onward are in `review/scientific/` and
+`review/editorial/`:
+- `REVIEW-papers-a32b769c.md`: both ACCEPT WITH CHANGES.
+- `RECHECK-papers-a79add6a.md` (r17): both ACCEPT WITH CHANGES.
+- `CONFIRM-papers-0ce9cda9.md` (r18): scientific CONFIRM; editorial CONFIRM after the [Sti55] fix.
+
+`CHANGES-r19.md` records r19, the accessibility revision: explanatory text in the paper's own voice beside every
+verified statement, which itself is unchanged. It maps the owner's eight items, the four-step structure of each topic
+and the six comprehension points to their lines.
+- `review/accessibility/QUESTION-SHEET.md`: the owner-approved reader-comprehension sheet used by the paper-only AI
+  comprehension review (and by optional human reader testing).
+
+`CHANGES-r20.md` records r20, which applies the three gate reviews of r19 (accuracy, narrative and the comprehension
+evaluation of run 1) and the owner's three emphases: each topic in question, picture, statement, reading, implications
+order with a closing proofs-and-sources paragraph; both directions of the memory result; the shared starting
+distribution and memory on a limited window explained; Theorem 4 at its proved scope. It lists the moved paragraphs
+with digests showing their text unchanged.
+
+`CHANGES-r21.md` records r21, which applies the three r20 reviews: Theorem 4 stated with its hypotheses at every site,
+the card, four-bit and XOR examples for the shared starting distribution and for memory against chaining on a window,
+and the narrative fixes. It carries the Theorem 4 consistency table and the checks of each example against §2.6 and
+Main.
+
+`CHANGES-r22.md` records r22, which applies the two r21 reviews and the owner's notes: the never-occurring-rows
+reason in Main's sense, the §2.5 duplication removed, the abstract organized around what OI is, what is established,
+why it matters and what is open, the return horizon and recurrence cycle defined, and the three memory terms kept
+apart. It carries the abstract's sentence-by-sentence old and new text and the terminology sweep.
+
+`CHANGES-r23.md` records r23, a small corrective revision from the two r22 confirmations: hidden predictive memory
+defined correctly as everything the hidden state holds about the past beyond the present (at least the conditional
+memory), the window sentence reworded, L named the recurrence time and distinguished from earlier return horizons,
+and the raw spacing hint removed.
+
+`CHANGES-r24.md` records r24, which applies the four optional wording findings of the two r23 confirmations before
+the third comprehension test: L defined once as the order and recurrence time, the return horizon described without
+"only", the antecedent of "sees neither" restored, and the readout-relevant part named as part of the hidden
+predictive memory.
+
+`CHANGES-r25.md` records r25, which applies the run-3 comprehension evaluation: a second card rule that shows why a
+never-occurring start stays in the comparison (checked exactly), the two cases of late memory, the Bell either/or in
+§6, and a plain gloss of the §3.2 structure.
+
+`CHANGES-r26.md` records r26, which applies the r25 confirmations: the L130 explanation split into three paragraphs
+with the causal chain of the card example stated, terms defined at first use, the late-memory case 2 merged, and the
+§3.2 and Bell glosses trimmed.
+
+`CHANGES-r27.md` records r27, which applies the r26 editorial confirmation's should-fix and two optional findings
+before the fourth comprehension test: the duplicate fixed-rule sentence removed, the shared-prior paragraph split
+before the overlap step, and "Stated precisely:" for the return from the example to the general statement.
+
+`CHANGES-r28.md` records r28, which applies the run-4 comprehension evaluation: plain reasons for the shared
+hidden preparation and for keeping never-occurring starts, what the cycle-wide failure means for a rule rather than a
+record, and the GR names of the five completion conditions.
+
+`CHANGES-r29.md` records r29, which applies two of the r28 editorial findings: the repeated "rule, not the sample"
+clause removed, and the physical-meaning sentence scoped to "any accessible record" and trimmed to its new content.
+The third finding is declined, because it would return the shared-preparation reason to the contrast form that the
+run-4 evaluation found insufficient.
+
+`CHANGES-r30.md` records r30, which applies the run-5 evaluation's two required changes (a never-occurring start is
+not an impossible one; where the order k lies relative to accessible windows) and its recommended Page-curve
+sentence, with one optional editorial trim.
+
+`CHANGES-r31.md` records r31, which applies the r30 checks: the Page-curve sentence restored to all three of its
+conditions, the visible start no longer called a "preparation", and "conditional memory" in the line picture.
