@@ -268,23 +268,34 @@ RECON = re.compile(r"uniquely determined by \$\\\{T_\{ij\}"
                    r"|phase-locking lemma.{0,80}?determines")
 
 
+# A marker counts only where it states the condition. Its scope is its own clause (between the
+# nearest ',', ';', ':' or sentence end on either side), and a clause that negates or sets the
+# condition aside ("without", "aside", "unlike", "regardless of", "independently of", "not needed",
+# "no ...") does not count.
+NEGATION = re.compile(r"\b(?:without|aside|unlike|regardless|irrespective|independent(?:ly)?\s+of|"
+                      r"not\s+(?:needed|required|assumed|using|needing|requiring|assuming)|no\s+need|"
+                      r"dispens\w*|beyond|other\s+than|apart\s+from|rather\s+than|instead\s+of|no)\b", re.I)
+SENTENCE = re.compile(r'(?<=[.!?])\s+(?=[A-Z*(\[])|\n')
+
+
 def conditioned(w):
-    # A marker counts only where it states the condition: an occurrence inside a "without ..." phrase
-    # (a "without" within 30 characters before it, with no clause break between) does not.
     for c in CONDITION_MARKERS:
         for k in [i for i in range(len(w)) if w.startswith(c, i)]:
-            pre = w[max(0, k - 30):k]
-            j = pre.rfind('without')
-            if j < 0 or any(ch in pre[j:] for ch in ',.;:'):
+            s = max(w.rfind(ch, 0, k) for ch in ',;:') + 1
+            ends = [x for x in (w.find(ch, k + len(c)) for ch in ',;:') if x >= 0]
+            e = min(ends) if ends else len(w)
+            if not NEGATION.search(w[s:k]) and not NEGATION.search(w[k + len(c):e]):
                 return True
     return False
 
 
 def unconditional_recon(text):
+    # the window is the sentence that carries the reconstruction statement
     hits = []
     for m in RECON.finditer(text):
-        w = text[max(0, m.start() - 250):m.end() + 250]
-        if not conditioned(w):
+        s = max([x.end() for x in SENTENCE.finditer(text, 0, m.start())] or [0])
+        e = SENTENCE.search(text, m.end())
+        if not conditioned(text[s:e.start() if e else len(text)]):
             hits.append(text[m.start():m.end()])
     return hits
 
@@ -308,6 +319,10 @@ INJECTED = (
     "from continuous-time transition data up to the lemma's full gauge.",
     "Even without (G4) or H-BG, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
     "from continuous-time transition data up to the lemma's full gauge.",
+    "(G4) aside, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
+    "from continuous-time transition data up to the lemma's full gauge.",
+    "Condition (G4) is a posited genericity hypothesis. The phase-locking lemma (§3.1) determines "
+    "$\\hat{H}_{\\text{eff}}$ from continuous-time transition data up to the lemma's full gauge.",
 )
 # and a legitimate two-way condition is not flagged
 ok8 &= not unconditional_recon(
@@ -323,7 +338,7 @@ check("F8", ok8,
       f"the complete sign-aware classification remains open; the [SM] Proposition 20 cross-reference "
       f"and the homometric rulers stand; the withdrawn theorem heading is absent, and "
       f"{len(CORPUS)} corpus files carry no Hamiltonian-reconstruction statement without H-BG or (G4) "
-      f"within 250 characters (unconditional hits: {recon_hits or 'none'}; all "
+      f"in the same sentence (unconditional hits: {recon_hits or 'none'}; all "
       f"{len(INJECTED)} injected unconditional phrasings caught)")
 
 # ---------------------------------------------------------------- F9  antiunitary invariance
