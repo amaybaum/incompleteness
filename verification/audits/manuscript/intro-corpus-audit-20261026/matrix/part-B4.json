@@ -1,0 +1,3319 @@
+[
+ {
+  "id": "I-246",
+  "section": "§6.1",
+  "line": 168,
+  "text": "If the hypothesis holds, the fixed-basis statistics of quantum theory are the visible laws of an embedded observer",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ]
+  },
+  "chain": [
+   {
+    "link": "OI as a physical hypothesis (representation choice, empirically motivated); Main posit ledger",
+    "source": "papers/Main.md:708@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [
+     "OI physical hypothesis"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Q_K ⊆ S_K: fixed-basis Born records are probability laws (chain normalisation)",
+    "source": "lean:Equivalence.lean:245:Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "S_K ⊆ D_K: every stochastic finite-horizon law is the visible marginal of a finite reversible system (clock-and-record carrier)",
+    "source": "lean:Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "All-time scope: Q* (fixed-basis quantum rooted families, all times) is NOT contained in the class realizable by one fixed finite reversible system (Hadamard witness is nonperiodic); C_OI ⊆ Q* holds",
+    "source": "lean:QuantumRepresentationT2.lean:163:qStar_not_subset_finiteRootedRealizable",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit visible carrier",
+     "rooted families, all times"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main Remark (consolidation): 'the universal all-time form is settled negative ... a nonperiodic target admits no exact all-time realization by one fixed finite substratum'",
+    "source": "papers/Main.md:618@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "OI physical hypothesis",
+   "finite horizon",
+   "finite-dimensional unitary system, fixed basis, diagonal initial state"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "OI physical hypothesis"
+  ],
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "verification/lean-manuscript-census.json (family \"quantum representation: the all-time translation layer\")@eae01647",
+    "text": "T2 is REFUTED: the Hadamard datum ... is a member of Q* whose induced rooted family is ... nonperiodic, so Q* is not contained in the OI-realizable class",
+    "nature": "kernel-only all-time result, carried by no manuscript; it falsifies an unscoped reading of the sentence (one fixed finite system cannot record a non-permutation fixed-basis family at all times)"
+   }
+  ],
+  "proposed_fix": "If the hypothesis holds, the fixed-basis statistics of quantum theory are, at every finite horizon, visible laws of an embedded observer",
+  "notes": "Conditional on OI (stated). The identification holds per finite horizon (Theorem 1, Q_K ⊆ D_K, kernel). Under OI the observer is part of ONE fixed finite reversible system, whose rooted family is periodic (kernel rootedMap_periodic); the kernel proves fixed-basis families with non-permutation unitaries are not all-time realizable by any such system (qStar_not_subset_finiteRootedRealizable). The Introduction scopes Theorem 1 per horizon in §2.3 and §6.4, but this §6.1 sentence drops the horizon qualifier. Low severity."
+ },
+ {
+  "id": "I-247",
+  "section": "§6.1",
+  "line": 168,
+  "text": "and their departures from Markov behaviour are memory carried in an inaccessible sector",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ]
+  },
+  "chain": [
+   {
+    "link": "OI as a physical hypothesis (representation choice, empirically motivated); Main posit ledger",
+    "source": "papers/Main.md:708@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [
+     "OI physical hypothesis"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Theorem 2 (a)-(c): pushforward identity, TV floor, M_t <= I(X_<t;H_t|X_t) <= log2|C_H|, for a joint law of history, present and hidden state",
+    "source": "lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+    "layer": "kernel",
+    "hypotheses": [
+     "joint law of (history, present, hidden state) with next visible = f_x(h)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of a realization's time-t law with the kernel's joint law (stated in Main §1.5 as 'a step not formalized')",
+    "source": "papers/Main.md:99@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Corollary: M_t>0 exactly when every faithful realization carries readout-relevant hidden memory at t (forward: pushforward identity in each realization; converse: in one realization from S_imp_D); CMI vanishing criterion not formalized",
+    "source": "papers/Main.md:99@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "standard CMI vanishing criterion [CT06]"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "OI physical hypothesis",
+   "faithful realization",
+   "CMI vanishing criterion (not formalized)",
+   "time-t identification (not formalized)"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "OI physical hypothesis"
+  ],
+  "strongest_verified_source": "lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "A law departs from Markov behaviour iff M_t>0 for some t; Theorem 2(c) and the Corollary place that memory in the hidden state of every faithful realization. Kernel parts plus two paper steps (time-t identification, CMI vanishing criterion); the sentence carries no status word, which §6.1 does not require. Conditional on OI as stated."
+ },
+ {
+  "id": "I-248",
+  "section": "§6.1",
+  "line": 168,
+  "text": "whether the rest of operational quantum mechanics follows depends on completion conditions that OI does not imply (§3.2)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 4 assembled: ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T",
+    "source": "lean:GeneralCarrier.lean:100:exactAll_iff_physical_general",
+    "layer": "kernel",
+    "hypotheses": [
+     "nonempty finite carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Five-way minimality on the qubit: for each of (i)–(v) a theory on Fin 2 realizing the sealed OI core, satisfying the other four, failing that one",
+    "source": "lean:RankGapTheory.lean:702:five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier Fin 2",
+     "sealed C1–C4 OI core"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "OI alone is not QM: the diagonal-preserving theory realizes the sealed OI core and is not exact QM",
+    "source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3: 'Each of the five is independent of the other four and of the observation process itself ... bare finite OI ⇏ QM'",
+    "source": "papers/GR.md:220@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "nonempty finite carrier",
+   "qubit witnesses for non-implication"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:GeneralCarrier.lean:100:exactAll_iff_physical_general",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Theorem 4 (kernel, both directions) plus five_way_minimality/oi_alone_not_qm (kernel). Completeness note shared with I-258: for the stated substratum the corpus settles (iv) negatively (GR §3.3 substratum-source form), which this sentence does not need to state."
+ },
+ {
+  "id": "I-249",
+  "section": "§6.1",
+  "line": 168,
+  "text": "Quantum Bell correlations are not accounted for by memory alone",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main §3.3 Theorem (Bell ceiling for a screened local completion): deterministic, local setting operations, setting-independent pre-setting ensemble ⇒ |S_CHSH| <= 2",
+    "source": "papers/Main.md:360@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "determinism",
+     "pointwise causal cone",
+     "setting-independent pre-setting ensemble"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Bell/CHSH inequality",
+    "source": "[Bel64; CHSH69]",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main §3.3: with globally coupled setting-dependent hidden dynamics the response-table construction realizes PR-box behaviour — the selector is causal locality, not representability",
+    "source": "papers/Main.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "determinism",
+   "locality (pointwise causal cone)",
+   "measurement independence"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:360@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "'Memory alone' is read as hidden memory within a local, measurement-independent deterministic completion; Main §3.3 shows that without locality the finite construction even realizes PR boxes, so the qualifier matters and the sentence is accurate in context (§3.5 states the hypotheses)."
+ },
+ {
+  "id": "I-250",
+  "section": "§6.1",
+  "line": 168,
+  "text": "with measurement independence kept, they need ontic parameter dependence",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main §3.3 / abstract: 'Reproducing them requires ontic parameter dependence ... or else setting-dependent ontic ensembles' (Bell ceiling contrapositive)",
+    "source": "papers/Main.md:22@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "determinism",
+     "measurement independence"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Bell ceiling theorem",
+    "source": "papers/Main.md:360@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "setting-independent ensemble"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "deterministic completion",
+   "measurement independence"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:360@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "For deterministic models parameter independence plus measurement independence is Bell locality; violating CHSH with MI kept requires parameter dependence. The framework's adoption of the ontic option is a choice (Book ch01 §1.7, Main §3.3), stated as such in §3.5."
+ },
+ {
+  "id": "I-251",
+  "section": "§6.1",
+  "line": 168,
+  "text": "whose compatibility with operational no-signalling and the continuum limit is the open hypothesis H-Bell (§3.5)",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": [
+    "H-Bell"
+   ]
+  },
+  "chain": [
+   {
+    "link": "Substratum §3.3 H-Bell: preparation-indexed graphs must (i) supply the ontic parameter dependence, (ii) preserve operational no-signalling, (iii) satisfy a metric/Ollivier–Ricci stability condition for the continuum-curvature step",
+    "source": "papers/Substratum.md:132@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [
+     "H-Bell"
+    ],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP P1 'H-Bell — composite and Bell closure' — OPEN; H-Bell is downstream of a harder obligation (the hop-metric curvature route fails for the reference graph before any Bell edge is added)",
+    "source": "verification/ROADMAP.md:67@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "H-Bell"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "verification/ROADMAP.md:67@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "verification/ROADMAP.md:963@eae01647",
+    "text": "And H-Bell is downstream of a harder obligation ... the hop-metric curvature route fails for the reference family before any Bell edge is added",
+    "nature": "partial negative result on the continuum-limit leg not mentioned in the Introduction (completeness, low)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Open status agrees with Substratum, Main abstract and ROADMAP."
+ },
+ {
+  "id": "I-252",
+  "section": "§6.2",
+  "line": 172,
+  "text": "No derivation of quantum mechanics",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 1, S_K = D_K = Q_K at every finite horizon for every finite visible alphabet; the three biconditionals assembled from S_imp_D, D_imp_Qfb, Qfb_imp_S with no construction as hypothesis",
+    "source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "OI alone is not QM: the diagonal-preserving theory realizes the sealed OI core and is not exact QM",
+    "source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Five-way minimality on the qubit: for each of (i)–(v) a theory on Fin 2 realizing the sealed OI core, satisfying the other four, failing that one",
+    "source": "lean:RankGapTheory.lean:702:five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier Fin 2",
+     "sealed C1–C4 OI core"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3: 'Each of the five is independent of the other four and of the observation process itself ... bare finite OI ⇏ QM'",
+    "source": "papers/GR.md:220@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite carriers"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:2@eae01647",
+    "text": "### The Equivalence of Quantum Mechanics and Embedded Observation",
+    "nature": "[Main]'s title asserts an equivalence of QM and embedded observation; Main itself scopes it ('the exact equivalence claim is at the finite observable-law level', Main:20; the phrase is defined at Main:758 as 'exact bidirectional equivalence of finite observable stochastic laws and their quantum representations'), and GR §3.3 proves bare finite OI ⇏ QM. The Introduction cites the title verbatim (line 261). Owner decision."
+   },
+   {
+    "site": "papers/Methodology.md:585@eae01647; papers/Structure.md:1416@eae01647",
+    "text": "[Main] ... \"The Incompleteness of Observation: The Equivalence of Quantum Mechanics and Embedded Observation\"",
+    "nature": "same title carried in companion reference lists"
+   },
+   {
+    "site": "book/appendix-c-objections.md:315@eae01647",
+    "text": "\"The framework identifies QM with embedded observation, dissolves the cosmological constant problem ...\" (objection voice; the response at :317 does not dispute the identification and says \"the derivations are explicit and the proofs are complete\")",
+    "nature": "book appendix C response leaves the identification standing and asserts complete proofs"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Faithful as a disclaimer: Theorem 1 is a representation result and OI alone does not imply QM (kernel). The [Main] title is recorded as an owner finding (see part-B4.md)."
+ },
+ {
+  "id": "I-253",
+  "section": "§6.2",
+  "line": 172,
+  "text": "Theorem 1 contains every finite law",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 1, S_K = D_K = Q_K at every finite horizon for every finite visible alphabet; the three biconditionals assembled from S_imp_D, D_imp_Qfb, Qfb_imp_S with no construction as hypothesis",
+    "source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet",
+   "finite horizon"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "S_K is by definition every law on C_V^{K+1}; Theorem 1 (kernel) makes D_K and Q_K equal to it."
+ },
+ {
+  "id": "I-254",
+  "section": "§6.2",
+  "line": 172,
+  "text": "and the Born exponent is not selected",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main §3.4 / Intro §2.3: the supplied unitaries are permutations with 0/1 entries, so |U|^p gives the same table for every p>0; p=|U|^2 is part of Q_K's definition",
+    "source": "papers/Main.md:20@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Born exponent not selected by the representation",
+    "source": "[Bar26, Thm 3.1]",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:20@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Immediate algebra. The origin of the exponent is open (§3.5; Main 'named as a frontier item')."
+ },
+ {
+  "id": "I-255",
+  "section": "§6.2",
+  "line": 173,
+  "text": "No unique selection of the operational theory",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 4 assembled: ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T",
+    "source": "lean:GeneralCarrier.lean:100:exactAll_iff_physical_general",
+    "layer": "kernel",
+    "hypotheses": [
+     "nonempty finite carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Five-way minimality on the qubit: for each of (i)–(v) a theory on Fin 2 realizing the sealed OI core, satisfying the other four, failing that one",
+    "source": "lean:RankGapTheory.lean:702:five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier Fin 2",
+     "sealed C1–C4 OI core"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "nonempty finite carrier"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:RankGapTheory.lean:702:five_way_minimality",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "No unique operational theory is selected: each completion condition can fail while the OI core and the other four hold (kernel)."
+ },
+ {
+  "id": "I-256",
+  "section": "§6.2",
+  "line": 173,
+  "text": "conditions (i)–(v) are not implied by OI alone",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Five-way minimality on the qubit: for each of (i)–(v) a theory on Fin 2 realizing the sealed OI core, satisfying the other four, failing that one",
+    "source": "lean:RankGapTheory.lean:702:five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier Fin 2",
+     "sealed C1–C4 OI core"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "OI alone is not QM: the diagonal-preserving theory realizes the sealed OI core and is not exact QM",
+    "source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3: 'Each of the five is independent of the other four and of the observation process itself ... bare finite OI ⇏ QM'",
+    "source": "papers/GR.md:220@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "qubit witnesses"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:RankGapTheory.lean:702:five_way_minimality",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "five_way_minimality covers all five cells (validity, inert spectators, control, iterated closure, system-to-level-one = Intro's (i),(iii),(iv),(v),(ii)). A qubit counter-model suffices for non-implication."
+ },
+ {
+  "id": "I-257",
+  "section": "§6.2",
+  "line": 173,
+  "text": "their independence is shown on the qubit",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Five-way minimality on the qubit: for each of (i)–(v) a theory on Fin 2 realizing the sealed OI core, satisfying the other four, failing that one",
+    "source": "lean:RankGapTheory.lean:702:five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier Fin 2",
+     "sealed C1–C4 OI core"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "qubit carrier Fin 2",
+   "sealed OI core"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:RankGapTheory.lean:702:five_way_minimality",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Statement checked: five existentials over FiniteOperationalTheory (Fin 2), each with RealizesSealedOICore and exactly one condition failing."
+ },
+ {
+  "id": "I-258",
+  "section": "§6.2",
+  "line": 173,
+  "text": "which of (iii)–(v) a physical substratum supplies is open",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR §3.3: 'Each of the five is independent of the other four and of the observation process itself ... bare finite OI ⇏ QM'",
+    "source": "papers/GR.md:220@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Stated substratum class (bijections with the phase intervention stated) is structurally closed but does not drive elementary transitions; its generated theory on Fin 2 is not exact QM",
+    "source": "lean:StructuralClosure.lean:383:substratum_residual",
+    "layer": "kernel",
+    "hypotheses": [
+     "phase intervention assumed on the substratum class"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Read-write sourced theories (finite bijective read-write dynamics with the stated observer access) are not exact QM (monomial operators only)",
+    "source": "lean:ReadWriteControl.lean:174:readWriteSourced_not_qm",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Frozen-sourcing verdict: the bijection-level (permutation) theory sources no phases, no dense unitary control, not DerivedOI; ROADMAP records the resource as INDEPENDENT ('does not say an extended architecture cannot source it')",
+    "source": "lean:FrozenSourcing.lean:318:frozen_sourcing_verdict",
+    "layer": "kernel",
+    "hypotheses": [
+     "two-valued carrier",
+     "NonnegBounded (bijection-level) architecture"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3 substratum-source form: 'the concrete substratum supplies every structural requirement of quantum mechanics but not continuous state-mixing controllability, and quantum mechanics is obtained exactly when that one physical resource is added'; the phase intervention is an assumption on the class",
+    "source": "papers/GR.md:260@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "phase intervention assumed"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3 layer-flow form: stated substratum dynamics with observer access ⇏ one nontrivial layer flow executable; fractional-time access is an additional physical intervention assumption",
+    "source": "papers/GR.md:266@eae01647",
+    "layer": "kernel",
+    "hypotheses": [
+     "phase intervention stated"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "A structurally closed extension of the substratum class is a quantum architecture iff it drives the elementary transitions; with it, exact finite operational QM on every nonempty finite carrier (substratum_plus_control_qm)",
+    "source": "lean:StructuralClosure.lean:408:substratum_extension_quantum_iff_drives",
+    "layer": "kernel",
+    "hypotheses": [
+     "ExtendsSubstratum",
+     "StructurallyClosed"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP 'Settled negatively — INDEPENDENT': 'FrozenSourcing proves that the present configuration-level architecture cannot source DenseUnitaryControl ... an independent empirical datum relative to the present architecture ... does not say an extended architecture cannot source it'",
+    "source": "verification/ROADMAP.md:1538@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP P1 F2: a named extension of OI that sources the nonclassical resource, proved sufficient — OPEN ('the present architecture is settled negatively')",
+    "source": "verification/ROADMAP.md:69@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "stated substratum = finite bijective dynamics with the stated observer access (phase intervention assumed where stated)",
+   "finite carriers"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:StructuralClosure.lean:383:substratum_residual",
+  "verdict": "UNDERCLAIM",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:260@eae01647",
+    "text": "the concrete substratum supplies every structural requirement of quantum mechanics but not continuous state-mixing controllability, and quantum mechanics is obtained exactly when that one physical resource is added",
+    "nature": "corpus settles (iv) negatively for the stated substratum; the Introduction states the whole question as open"
+   },
+   {
+    "site": "verification/ROADMAP.md:1529@eae01647",
+    "text": "| Dense/nonclassical operational control from the presently stated architecture | INDEPENDENT |",
+    "nature": "recorded as settled negatively, not open"
+   },
+   {
+    "site": "papers/GR.md:228@eae01647",
+    "text": "The substantive physical question it isolates is whether the OI substratum supplies (iii)–(v)",
+    "nature": "GR's framing sentence at the characterization, which the Introduction cites; GR's own later paragraphs (:260, :266) narrow it"
+   },
+   {
+    "site": "papers/Main.md:758@eae01647",
+    "text": "It is the remaining operational-lifting problem, not a defect in the exact stochastic–quantum equivalence proved here",
+    "nature": "Main §5 frames the coherent/compositional residual as an open lifting problem without the INDEPENDENT verdict for the present architecture (corpus finding)"
+   }
+  ],
+  "proposed_fix": "which of (iii)–(v) a physical substratum supplies is open, except that the stated substratum, with the observer's stated access, does not supply the continuous state-mixing control that (iv) requires [GR §3.3]",
+  "notes": "The corpus has a kernel-checked negative result for the presently stated architecture: bijection-level (monomial) operations source no phases and no dense unitary control (frozen_sourcing_verdict, readWriteSourced_not_qm, substratum_residual), recorded INDEPENDENT in ROADMAP; with one continuous off-diagonal controllability resource (and the assumed phase intervention) the extension is exact finite operational QM (substratum_extension_quantum_iff_drives, substratum_plus_control_qm). What remains open is whether a physical substratum supplies that resource (ROADMAP F2). Calling the whole question 'open' understates a settled negative (§A.30/code-review rule: state negatives for the class ruled out). The same wording appears in the abstract and §3.2 (other ranges)."
+ },
+ {
+  "id": "I-259",
+  "section": "§6.2",
+  "line": 173,
+  "text": "the visible law does not fix the relating evolution",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GL2: two coherent lifts of the same visible family related by a time-dependent strong gauge have different relative candidates (existential witness, one visible pair, one anchor, frozen readback)",
+    "source": "lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit visible carrier",
+     "frozen readback convention",
+     "anchor 0"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP P0: 'What additional structure determines the relative quantum evolution OI leaves free' — OPEN (acts 11–17 localize it; no selection principle adopted)",
+    "source": "verification/ROADMAP.md:63@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "coherent lifts on a fixed carrier and anchor"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "An existential witness suffices for \"does not fix\". ROADMAP P0 records the selection question as open."
+ },
+ {
+  "id": "I-260",
+  "section": "§6.2",
+  "line": 174,
+  "text": "No characterization of memory by the existence of a realization (§2.3)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "S_K ⊆ D_K: every stochastic finite-horizon law is the visible marginal of a finite reversible system (clock-and-record carrier)",
+    "source": "lean:Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main §1.5: 'S ⇔ D, Markov laws included, so the existence of a realization does not distinguish non-Markovian laws'",
+    "source": "papers/Main.md:99@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite horizon"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Every law, Markov or not, has a realization (kernel)."
+ },
+ {
+  "id": "I-261",
+  "section": "§6.2",
+  "line": 174,
+  "text": "no identification of P-indivisibility with quantum non-Markovianity",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main Remark (scope: P-indivisibility is not quantum non-Markovianity): Hadamard then identity is CP-divisible while its populations ½J → I are P-indivisible",
+    "source": "papers/Main.md:330@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main Remark (three notions, kept apart)",
+    "source": "papers/Main.md:334@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:330@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Explicit counterexample computed in the remark."
+ },
+ {
+  "id": "I-262",
+  "section": "§6.2",
+  "line": 174,
+  "text": "no claim that memory forces indivisibility on short windows (§3.1)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Intro B.2 / Main: X_2 = X_0 ⊕ X_1 has every two-time matrix ½J (P-divisible) and I(X_0;X_2|X_1) = 1 bit",
+    "source": "papers/Introduction.md:232@4a260ca9",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Same process up to relabelling",
+    "source": "[RHP14, Eq. (15)]",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Introduction.md:232@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Counterexample in the Introduction itself (exact)."
+ },
+ {
+  "id": "I-263",
+  "section": "§6.2",
+  "line": 175,
+  "text": "No resolution of the black-hole information problem",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR Thm A.9 (cycle-averaged Page curve) conditional on A.8, hence on H-scramble, and on H-decouple",
+    "source": "papers/GR.md:845@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble",
+     "H-decouple"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR: H-scramble fails for every bijection in the setting of Thm A.7's proof (definite configuration, aligned bipartition); 'H-scramble is not established here'",
+    "source": "papers/GR.md:835@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR A.7 setup: H-decouple 'Timescale ordering does not supply it, and H-decouple is not established here'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR 'Proper energy shells': Thm A.8 on a proper shell and the Page curve of A.9 on such a shell are open",
+    "source": "papers/GR.md:843@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR: entropy along a single trajectory 'is a different quantity, and whether it follows the same curve is open'",
+    "source": "papers/GR.md:853@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "H-scramble",
+   "H-decouple",
+   "G3"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:609@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "book/ch18-beyond.md:146@eae01647",
+    "text": "The second dissolution: the black hole information paradox ... The apparent information loss in Hawking radiation is an artifact of the trace-out",
+    "nature": "book voice calls the information paradox 'dissolved' and asserts the trace-out reading; the same paragraph says the Page curve is conditional (tone tension, corpus finding)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "GR §8.4(iii) and App. A state every leg of the Page result as conditional or open."
+ },
+ {
+  "id": "I-264",
+  "section": "§6.2",
+  "line": 175,
+  "text": "the Page curve of [GR App. A] is not established (§5)",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR Thm A.8 (cycle typicality) conditional on H-scramble, full product space as a single shell",
+    "source": "papers/GR.md:817@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble",
+     "whole configuration space a single energy shell"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR Thm A.9 (cycle-averaged Page curve) conditional on A.8, hence on H-scramble, and on H-decouple",
+    "source": "papers/GR.md:845@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble",
+     "H-decouple"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR: H-scramble fails for every bijection in the setting of Thm A.7's proof (definite configuration, aligned bipartition); 'H-scramble is not established here'",
+    "source": "papers/GR.md:835@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR A.7 setup: H-decouple 'Timescale ordering does not supply it, and H-decouple is not established here'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR 'Proper energy shells': Thm A.8 on a proper shell and the Page curve of A.9 on such a shell are open",
+    "source": "papers/GR.md:843@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR: entropy along a single trajectory 'is a different quantity, and whether it follows the same curve is open'",
+    "source": "papers/GR.md:853@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "H-scramble",
+   "H-decouple",
+   "full-product-space shell",
+   "G3"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:845@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:609@eae01647",
+    "text": "(iii) The Page curve ... the Page value is recovered, as a cycle average, ... conditional also on the decoupling condition H-decouple",
+    "nature": "consistent: conditional result whose hypotheses are not established"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "GR states Theorems A.8–A.9 as conditional on H-scramble (which fails in the framework's own configuration setting) and H-decouple (not established)."
+ },
+ {
+  "id": "I-265",
+  "section": "§6.2",
+  "line": 175,
+  "text": "the results of §5 reported from [BHa; BHb] concern finite toy models, each proved on paper or checked exhaustively at small size or by exact arithmetic",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "mixed proved-paper / numerical per result"
+  },
+  "chain": [
+   {
+    "link": "BHa claim A: 1376 of 40320 bijections of {0,1}^3 give zero accessible advantage; 60 non-injective maps of {0,1}^2 recover exactly (exhaustive)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "finite toy classes"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHa C1/C2 [PROVED]: bijectivity + complete endpoint access gives exact recovery; P_succ >= 1/|K| (written proofs + exhaustive checks)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:20@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "bijective dynamics"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHb C1/C6(a): permutation orbit of a configuration is a product basis state at every aligned bipartition (proof + exhaustive sweeps 24/40320/362880 permutations)",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:18@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "aligned bipartition",
+     "definite initial configuration"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHa item F: 'GR A.7 decoupling statement at 30 M_sun is contradicted; t_evap/τ_B^D ∈ [1.785e57, 1.786e65]' — an audit observation on GR's own timescale formulas, not a toy-model result",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:30@eae01647",
+    "layer": "numerical",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHb C6(b)–(d): textual analyses of GR Thms A.8–A.9 (where the Page value enters; shell factorization CONDITIONAL with certified bounds; time average vs instantaneous value OPEN)",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:20@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite toy classes"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:3@eae01647",
+    "text": "Status: exploratory research, unreviewed for adoption.",
+    "nature": "BHa's own status line; the Introduction's reference entry says 'internally reviewed' (outside this range; a review/REVIEW.md exists)"
+   }
+  ],
+  "proposed_fix": "the results of §5 reported from [BHa; BHb] are finite toy-model computations, each proved on paper or checked exhaustively at small size or by exact arithmetic, and analyses of the hypotheses of [GR App. A]",
+  "notes": "The toy-model results cited in §5 (claim A counts, C1, C2, BHb C1/C6(a), the diagonal-shell value) are exhaustive or proved. But §5 also cites BHa item F (timescale arithmetic on GR's formulas, 'audit observation') and BHb C6(b)–(d) (textual analyses of GR's theorems), which are not toy models. BHb also carries NUMERICAL (double-precision) items (C3) that §5 does not use. Low severity."
+ },
+ {
+  "id": "I-266",
+  "section": "§6.2",
+  "line": 175,
+  "text": "No claim is made that information reaches $D$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "§5 makes no claim that information reaches D; BHa C3 shows a single B–D coupling defeats recovery even with all of W read",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:22@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Introduction.md:175@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Scope disclaimer. Whether information reaches D is not established anywhere in the corpus (proof_status records that open state, not a defect)."
+ },
+ {
+  "id": "I-267",
+  "section": "§6.2",
+  "line": 175,
+  "text": "that [GR, Thm A.7] fails within its stated scope",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR Theorem A.7 (Effective pure state): on t ≪ τ_B^D the joint state of V and B is effectively pure, O(t/τ_B^D)",
+    "source": "papers/GR.md:811@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "t ≪ τ_B^D",
+     "boundary-only dependence (A.5 step (i))"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR A.7 setup: 'Theorem A.7 is stated for t ≪ τ_B^D'; evaporation is longer than τ_B^D for black holes above ~10^11 kg; A.7 does not establish B∪R purity (H-decouple)",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHa item F contradicts the A.7 decoupling statement at 30 M_sun (outside A.7's stated scope)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:30@eae01647",
+    "layer": "numerical",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "t ≪ τ_B^D"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:811@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "ATTENTION RESOLVED: GR Thm A.7 is the 'Effective pure state' theorem (decoupling of D on t ≪ τ_B^D), distinct from the Page results A.8–A.9. The disclaimer is correctly aimed: BHa item F shows timescale ordering fails at astrophysical evaporation times, which is outside A.7's stated scope, so no claim is made that A.7 fails within it. Optional clarity: name what A.7 states."
+ },
+ {
+  "id": "I-268",
+  "section": "§6.2",
+  "line": 175,
+  "text": "or that no other decoupling argument exists",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR A.7 setup: H-decouple 'Timescale ordering does not supply it, and H-decouple is not established here'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Introduction.md:175@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Scope disclaimer."
+ },
+ {
+  "id": "I-269",
+  "section": "§6.2",
+  "line": 176,
+  "text": "No claim that the physical hypothesis is established or tested.",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "OI as a physical hypothesis (representation choice, empirically motivated); Main posit ledger",
+    "source": "papers/Main.md:708@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [
+     "OI physical hypothesis"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Main §4.5: 'no memory-witness outcome therefore falsifies the ontology at present' ... 'No ontology-level memory falsifier is established until the completed model supplies the constraint'",
+    "source": "papers/Main.md:702@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP P2 'Direct empirical access to the hidden sector — proposed routes to a discriminating test' — OPEN",
+    "source": "verification/ROADMAP.md:76@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "Main §4.5 theorem-level falsifiability: the characterization theorem is mathematical; what is falsifiable is the physical identification",
+    "source": "papers/Main.md:704@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "OI physical hypothesis"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:704@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "book/appendix-a-prediction-status.md:28@eae01647",
+    "text": "S — Structural prediction ... S-class predictions provide the framework's strongest evidence",
+    "nature": "corpus reports empirical comparisons of the SM/GR sectors (OI plus a specific substratum and named hypotheses); the Introduction neither uses nor reports them"
+   },
+   {
+    "site": "book/appendix-c-objections.md:317@eae01647",
+    "text": "the derivations are explicit and the proofs are complete; the predictions match empirical data at substantial precision",
+    "nature": "book voice stronger than the Introduction and than GR (G3 open)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Faithful as a statement of what the paper claims. OWNER DECISION: the corpus's Appendix A empirical comparisons test conjunctions of OI with a specific substratum and named hypotheses, not OI as stated in §1.1; whether the Introduction should say so (and the abstract's 'Open are ... any test of the hypothesis') is a scope choice."
+ },
+ {
+  "id": "I-270",
+  "section": "§6.2",
+  "line": 177,
+  "text": "No claim that the card game (Appendix B) produces quantum rather than classical statistics",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Card game on card inputs is a classical stochastic process; Book: \"a card mechanism is a local classical toy\"",
+    "source": "book/ch01-observation.md:286@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "book/ch01-observation.md:286@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Scope disclaimer backed by B.3 and Book §1.11."
+ },
+ {
+  "id": "I-271",
+  "section": "§6.2",
+  "line": 177,
+  "text": "on card inputs its statistics are classical stochastic ones",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Card game: φ(h,b)=(b,h), uniform independent burn card; trajectory law is a classical stochastic process (exact enumeration)",
+    "source": "papers/Introduction.md:251@4a260ca9",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Introduction.md:251@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Definitional for a classical card model."
+ },
+ {
+  "id": "I-272",
+  "section": "§6.2",
+  "line": 177,
+  "text": "under the unitary embedding its one-step channel is entanglement-breaking",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Unitary embedding with uniform diagonal burn card: one-step channel ρ ↦ tr(ρ) I/2, constant hence entanglement-breaking",
+    "source": "papers/Main.md:286@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "uniform diagonal hidden state"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Constant channel is measure-and-prepare",
+    "source": "papers/Introduction.md:251@4a260ca9",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "uniform diagonal burn card"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:286@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Main Remark (failure of (C1)) computes the same swap channel."
+ },
+ {
+  "id": "I-273",
+  "section": "§6.2",
+  "line": 177,
+  "text": "its two-step family admits a classical-memory decomposition",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Instrument ρ ↦ ¼σ_oρσ_o sums to tr(ρ)I/2 by Σ_o σ_oXσ_o = 2tr(X)I; conditioned channels σ_o·σ_o compose to the identity (checked here: Σ_o σ_o(¼σ_oρσ_o)σ_o = ρ)",
+    "source": "papers/Introduction.md:253@4a260ca9",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "uniform burn card"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Classical-memory definition",
+    "source": "[BBS24, Def. 1]",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "uniform burn card"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Introduction.md:253@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Algebra re-checked in this mapping."
+ },
+ {
+  "id": "I-274",
+  "section": "§6.2",
+  "line": 177,
+  "text": "it violates no Bell inequality",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Book §1.11: 'no arrangement of cards on a table violates a Bell inequality'",
+    "source": "book/ch01-observation.md:286@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "A local classical model is a local hidden-variable model",
+    "source": "[Bel64; CHSH69]",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "book/ch01-observation.md:286@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Immediate: a local classical card model is LHV."
+ },
+ {
+  "id": "I-275",
+  "section": "§6.2",
+  "line": 178,
+  "text": "No prediction of the value of Λ or $\\Omega_\\Lambda$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR §7.4: the vacuum-energy normalization ρ_Λ ~ H²/G is the Friedmann scale 'whose value is an input'",
+    "source": "papers/GR.md:551@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:551@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:545@eae01647",
+    "text": "| Dark sector fraction | Ω_dark ≈ 95% | Ω_CDM + Ω_Λ ≈ 95% | consistent |",
+    "nature": "GR lists a predicted combined dark fraction; not a prediction of Ω_Λ alone, so no contradiction, but the reader may see one"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "No corpus document predicts Λ or Ω_Λ; GR treats the value as an input."
+ },
+ {
+  "id": "I-276",
+  "section": "§6.2",
+  "line": 178,
+  "text": "no resolution of the cosmological constant problem",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR §6.2: 'Descriptive distinction established; dynamical decoupling conditional on G3' — two gravitational completions differing by ρ_C g_μν share the same substratum and transition law",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "G3 open"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "ROADMAP P2 'Covariant matter→boundary coupling (the G3 map)' — OPEN",
+    "source": "verification/ROADMAP.md:75@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "G3 open"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "## 6. Dissolution of the Cosmological Constant Problem",
+    "nature": "GR section heading asserts a dissolution; GR's text (:356) says the decoupling is conditional on G3 (heading-level tension)"
+   },
+   {
+    "site": "book/ch07-gravity.md:163@eae01647",
+    "text": "## 7.7 Dissolution of the cosmological constant problem",
+    "nature": "book heading; body (:167) says \"proposes a dissolution ... conditional\""
+   },
+   {
+    "site": "book/ch18-beyond.md:142@eae01647",
+    "text": "**The first dissolution: the cosmological constant.**",
+    "nature": "book voice; qualified as conditional in the same paragraph"
+   },
+   {
+    "site": "book/appendix-c-objections.md:317@eae01647",
+    "text": "the derivations are explicit and the proofs are complete",
+    "nature": "overstates relative to GR G3 open (corpus finding)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Faithful. The 'Dissolution' headings in GR §6 and Book §7.7 are qualified as conditional in their bodies; recorded as corpus tone findings."
+ },
+ {
+  "id": "I-277",
+  "section": "§6.2",
+  "line": 178,
+  "text": "§4 is conditional on the covariant field equations",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations"
+   ]
+  },
+  "chain": [
+   {
+    "link": "GR §6.2: 'Descriptive distinction established; dynamical decoupling conditional on G3' — two gravitational completions differing by ρ_C g_μν share the same substratum and transition law",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "G3 open"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "G3 covariant field equations"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "covariant field equations (G3)"
+  ],
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "§4's proposal is conditional on the covariant field equations",
+  "notes": "GR: 'Descriptive distinction established; dynamical decoupling conditional on G3'. §4 itself says the descriptive distinction (shift invariance of visible transition probabilities) holds unconditionally; only the gravitational proposal is conditional. 'All of §4 is conditional' is a slight overstatement of the conditionality. Low severity."
+ },
+ {
+  "id": "I-278",
+  "section": "§6.2",
+  "line": 179,
+  "text": "No claim that the viewpoint is new",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Deterministic systems analysed with quantum methods precede OI",
+    "source": "[tH14]",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "[tH14]",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Scope disclaimer (literature-backed). The rendered-out reference comment records [tH14] as read first-hand (abstract, Ch. 2 §2.1) and SUPPORTED; not re-read here."
+ },
+ {
+  "id": "I-279",
+  "section": "§6.2",
+  "line": 179,
+  "text": "deterministic systems analysed with quantum methods have been studied before, for example in [tH14]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'t Hooft's cellular-automaton interpretation",
+    "source": "[tH14]",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "[tH14]",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Attribution only; first-hand read recorded in verification/audits/manuscript/introductory-paper-20261025 (per the reference comment), not repeated here."
+ },
+ {
+  "id": "I-280",
+  "section": "§6.2",
+  "line": 179,
+  "text": "What the paper states are the cited theorems and their scopes.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Self-description of the paper's content",
+    "source": "papers/Introduction.md:179@4a260ca9",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "unsupported"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "unsupported",
+  "strongest_verified_source": "papers/Introduction.md:28@4a260ca9",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "What the paper states are the cited results, with their scopes and status.",
+  "notes": "The paper also states a physical hypothesis (OI), a proposal (§4), finite computations (§5), open problems (§6.3) and its own examples (Appendix B, uncited). 'cited theorems' is narrower than the content. Low severity; the sentence is also self-description that §A.32 discourages in paper prose."
+ },
+ {
+  "id": "I-281",
+  "section": "§6.3",
+  "line": 183,
+  "text": "whether a physical substratum supplies completion conditions (iii)–(v)",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR §3.3: 'Each of the five is independent of the other four and of the observation process itself ... bare finite OI ⇏ QM'",
+    "source": "papers/GR.md:220@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Stated substratum class (bijections with the phase intervention stated) is structurally closed but does not drive elementary transitions; its generated theory on Fin 2 is not exact QM",
+    "source": "lean:StructuralClosure.lean:383:substratum_residual",
+    "layer": "kernel",
+    "hypotheses": [
+     "phase intervention assumed on the substratum class"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Read-write sourced theories (finite bijective read-write dynamics with the stated observer access) are not exact QM (monomial operators only)",
+    "source": "lean:ReadWriteControl.lean:174:readWriteSourced_not_qm",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Frozen-sourcing verdict: the bijection-level (permutation) theory sources no phases, no dense unitary control, not DerivedOI; ROADMAP records the resource as INDEPENDENT ('does not say an extended architecture cannot source it')",
+    "source": "lean:FrozenSourcing.lean:318:frozen_sourcing_verdict",
+    "layer": "kernel",
+    "hypotheses": [
+     "two-valued carrier",
+     "NonnegBounded (bijection-level) architecture"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3 substratum-source form: 'the concrete substratum supplies every structural requirement of quantum mechanics but not continuous state-mixing controllability, and quantum mechanics is obtained exactly when that one physical resource is added'; the phase intervention is an assumption on the class",
+    "source": "papers/GR.md:260@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "phase intervention assumed"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3 layer-flow form: stated substratum dynamics with observer access ⇏ one nontrivial layer flow executable; fractional-time access is an additional physical intervention assumption",
+    "source": "papers/GR.md:266@eae01647",
+    "layer": "kernel",
+    "hypotheses": [
+     "phase intervention stated"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "A structurally closed extension of the substratum class is a quantum architecture iff it drives the elementary transitions; with it, exact finite operational QM on every nonempty finite carrier (substratum_plus_control_qm)",
+    "source": "lean:StructuralClosure.lean:408:substratum_extension_quantum_iff_drives",
+    "layer": "kernel",
+    "hypotheses": [
+     "ExtendsSubstratum",
+     "StructurallyClosed"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP 'Settled negatively — INDEPENDENT': 'FrozenSourcing proves that the present configuration-level architecture cannot source DenseUnitaryControl ... an independent empirical datum relative to the present architecture ... does not say an extended architecture cannot source it'",
+    "source": "verification/ROADMAP.md:1538@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP P1 F2: a named extension of OI that sources the nonclassical resource, proved sufficient — OPEN ('the present architecture is settled negatively')",
+    "source": "verification/ROADMAP.md:69@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "stated substratum with stated observer access",
+   "finite carriers"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "lean:StructuralClosure.lean:383:substratum_residual",
+  "verdict": "UNDERCLAIM",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:260@eae01647",
+    "text": "the concrete substratum supplies every structural requirement of quantum mechanics but not continuous state-mixing controllability, and quantum mechanics is obtained exactly when that one physical resource is added",
+    "nature": "corpus settles (iv) negatively for the stated substratum; the Introduction states the whole question as open"
+   },
+   {
+    "site": "verification/ROADMAP.md:1529@eae01647",
+    "text": "| Dense/nonclassical operational control from the presently stated architecture | INDEPENDENT |",
+    "nature": "recorded as settled negatively, not open"
+   },
+   {
+    "site": "papers/GR.md:228@eae01647",
+    "text": "The substantive physical question it isolates is whether the OI substratum supplies (iii)–(v)",
+    "nature": "GR's framing sentence at the characterization, which the Introduction cites; GR's own later paragraphs (:260, :266) narrow it"
+   },
+   {
+    "site": "papers/Main.md:758@eae01647",
+    "text": "It is the remaining operational-lifting problem, not a defect in the exact stochastic–quantum equivalence proved here",
+    "nature": "Main §5 frames the coherent/compositional residual as an open lifting problem without the INDEPENDENT verdict for the present architecture (corpus finding)"
+   }
+  ],
+  "proposed_fix": "whether a physical substratum supplies the phase intervention and the continuous state-mixing control that the stated substratum lacks, with which exact finite operational quantum mechanics follows [GR §3.3]",
+  "notes": "The decisive test survives, but the corpus has narrowed it: for the presently stated architecture (iv) is settled negatively (kernel; ROADMAP INDEPENDENT), and sufficiency of the one added resource is kernel-proved (substratum_plus_control_qm; layer-flow form derivedOI_qm_iff_layerFlowExecutable'). The open question is ROADMAP F2. The open item stays open; the wording omits the established negative and positive halves. Medium severity."
+ },
+ {
+  "id": "I-282",
+  "section": "§6.3",
+  "line": 183,
+  "text": "whether history readback (C4) holds at the cosmological partition [GR §2.2]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR §2.2 (C4): 'the present paper does not independently demonstrate that a visible-history record written into hidden boundary degrees is routed back ... within the accessible window'",
+    "source": "papers/GR.md:52@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP P1 'Physical C4 discharge at the cosmological and lattice cuts' — OPEN, residual exact per cut (RoutedReadback; LatticeCutReadback)",
+    "source": "verification/ROADMAP.md:66@eae01647",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "verification/ROADMAP.md:66@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "verification/ROADMAP.md:66@eae01647",
+    "text": "Physical C4 discharge at the cosmological and lattice cuts ... OPEN",
+    "nature": "the lattice cut is also open; the Introduction names only the cosmological partition (completeness, low)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Agrees with GR §2.2 and ROADMAP."
+ },
+ {
+  "id": "I-283",
+  "section": "§6.3",
+  "line": 183,
+  "text": "no experiment distinguishing OI from standard quantum theory",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main §4.5: 'no memory-witness outcome therefore falsifies the ontology at present' ... 'No ontology-level memory falsifier is established until the completed model supplies the constraint'",
+    "source": "papers/Main.md:702@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP P2 'Direct empirical access to the hidden sector — proposed routes to a discriminating test' — OPEN",
+    "source": "verification/ROADMAP.md:76@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "Appendix A F7 'Born rule transient violations (conditional prospect: ... form not derived)'",
+    "source": "book/appendix-a-prediction-status.md:180@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:702@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "No corpus item supplies an established discriminating experiment; F7 is explicitly a conditional prospect with no derived form."
+ },
+ {
+  "id": "I-284",
+  "section": "§6.3",
+  "line": 183,
+  "text": "and no memory-witness constraint, is established [Main §4.5]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main §4.5: 'no memory-witness outcome therefore falsifies the ontology at present' ... 'No ontology-level memory falsifier is established until the completed model supplies the constraint'",
+    "source": "papers/Main.md:702@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:702@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Main §4.5: 'none is established here'."
+ },
+ {
+  "id": "I-285",
+  "section": "§6.3",
+  "line": 183,
+  "text": "For the cosmological constant: a derivation of the covariant field equations with their source coupling.",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP P2 'Covariant matter→boundary coupling (the G3 map)' — OPEN",
+    "source": "verification/ROADMAP.md:75@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "G3"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "## 6. Dissolution of the Cosmological Constant Problem",
+    "nature": "GR section heading asserts a dissolution; GR's text (:356) says the decoupling is conditional on G3 (heading-level tension)"
+   },
+   {
+    "site": "book/ch07-gravity.md:163@eae01647",
+    "text": "## 7.7 Dissolution of the cosmological constant problem",
+    "nature": "book heading; body (:167) says \"proposes a dissolution ... conditional\""
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Matches GR Level G3 and ROADMAP P2."
+ },
+ {
+  "id": "I-286",
+  "section": "§6.3",
+  "line": 183,
+  "text": "whether H-scramble and H-decouple hold",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": [
+    "H-scramble",
+    "H-decouple"
+   ]
+  },
+  "chain": [
+   {
+    "link": "GR: H-scramble fails for every bijection in the setting of Thm A.7's proof (definite configuration, aligned bipartition); 'H-scramble is not established here'",
+    "source": "papers/GR.md:835@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR A.7 setup: H-decouple 'Timescale ordering does not supply it, and H-decouple is not established here'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "BHb C1/C6(a): permutation orbit of a configuration is a product basis state at every aligned bipartition (proof + exhaustive sweeps 24/40320/362880 permutations)",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:18@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "aligned bipartition",
+     "definite initial configuration"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "H-scramble",
+   "H-decouple"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:835@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Open, with a partial negative already stated in §5: H-scramble fails in the definite-configuration aligned setting; GR: 'it requires an initial superposition of configurations or a bipartition not aligned with them, and which of these the substratum supplies is open'."
+ },
+ {
+  "id": "I-287",
+  "section": "§6.3",
+  "line": 183,
+  "text": "the Page value on a proper energy shell and along a single trajectory",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR 'Proper energy shells': Thm A.8 on a proper shell and the Page curve of A.9 on such a shell are open",
+    "source": "papers/GR.md:843@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR: entropy along a single trajectory 'is a different quantity, and whether it follows the same curve is open'",
+    "source": "papers/GR.md:853@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "BHb C6(c) CONDITIONAL / C6(d) OPEN proof obligation",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:21@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:843@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Both legs open in GR App. A."
+ },
+ {
+  "id": "I-288",
+  "section": "§6.3",
+  "line": 183,
+  "text": "and, in [GR]'s ladder, the covariant field equations",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "G3"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "GR ladder: 'G4, the cosmological implications (..., Page curve, ...), conditional on G3'."
+ },
+ {
+  "id": "I-289",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(1) machine checks of the steps of §2.2, §2.4 and §2.5 that lack one",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 1 prior-independent realization proved on paper (Main finite-horizon process dilation)",
+    "source": "papers/Main.md:496@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "rational probabilities"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of a realization's time-t law with the kernel's joint law (stated in Main §1.5 as 'a step not formalized')",
+    "source": "papers/Main.md:99@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Corollary: M_t>0 exactly when every faithful realization carries readout-relevant hidden memory at t (forward: pushforward identity in each realization; converse: in one realization from S_imp_D); CMI vanishing criterion not formalized",
+    "source": "papers/Main.md:99@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "standard CMI vanishing criterion [CT06]"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Pinsker readback bound proved on paper",
+    "source": "papers/Main.md:167@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "History-level (C4) ⇒ indivisibility proved on paper; routed form kernel",
+    "source": "lean:PhysicalC4Discharge.lean:122:routed_forces_indivisible_somewhere",
+    "layer": "kernel",
+    "hypotheses": [
+     "routed readback"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Kernel search: no declaration for the CMI vanishing criterion, Pinsker bound, prior-independent dilation or history-level (C4) indivisibility in OIBridge at eae01647",
+    "source": "verification/lean-mathlib/OIBridge/@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:99@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "(1) machine checks of the steps proved only on paper (in §2.2, §2.4, §2.5, §3.1 and §3.4)",
+  "notes": "Every listed step is indeed unchecked (grep of OIBridge found no formalization). The list omits other paper-only steps the Introduction states: §3.1's Hadamard counterexample and §3.4's factorization half. Conversely §2.3's periodicity has a rooted kernel form (rootedMap_periodic, RootedClassification:135) the Introduction does not cite. Low severity."
+ },
+ {
+  "id": "I-290",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(2) whether the minimal hidden predictive memory equals $M_t$ once ledger bits that cannot influence the future are quotiented",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main Remark (a variational identity, open — and false in its naive form): at fixed hidden dimension (2,3) the minimum equals M_t for 1 of 15 processes (memory_probes.py); the canonical predictive quotient is constructed; 'leaving open only the variational VALUE question'",
+    "source": "papers/Main.md:594@eae01647",
+    "layer": "numerical",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "Canonical predictive quotient theorem (existence, universality, canonical quotient), certified exhaustively",
+    "source": "papers/Main.md:600@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:594@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Open item matches Main. Completeness (low): the quotient itself is a proved result (Main:600) that the Introduction does not state."
+ },
+ {
+  "id": "I-291",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(the fixed-dimension form is false)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main Remark (a variational identity, open — and false in its naive form): at fixed hidden dimension (2,3) the minimum equals M_t for 1 of 15 processes (memory_probes.py); the canonical predictive quotient is constructed; 'leaving open only the variational VALUE question'",
+    "source": "papers/Main.md:594@eae01647",
+    "layer": "numerical",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "memory_probes.py: exhaustive over the 720 permutations of C_V×C_H at (2,3), UNIFORM prior only, entropies in floating point; groups processes by their t=2 conditional signature",
+    "source": "papers/oi_lattice_code/foundations/memory_probes.py:94@eae01647",
+    "layer": "numerical",
+    "hypotheses": [
+     "uniform prior",
+     "(n_V,n_H)=(2,3)",
+     "predict X3 from (X0,X1,X2)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Countercontrol run in this mapping (scratchpad b4probe/fixeddim.py): minimizing I(hist;H_2|X_2) over ALL priors reproducing each law (convex in the within-class split, Nelder–Mead with restarts), at (2,3): the minimum attains M_t for 2 of 16 processes (grouped by full law); residuals 1/3 and 2/3 bit otherwise",
+    "source": "b4probe/fixeddim.py (scratchpad, not in corpus)",
+    "layer": "numerical",
+    "hypotheses": [
+     "arbitrary prior on C_V×C_H"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "(n_V,|C_H|)=(2,3)"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "papers/oi_lattice_code/foundations/memory_probes.py:94@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:594@eae01647",
+    "text": "The reading in which the infimum ranges over realizations of FIXED hidden dimension is FALSE: at (n_V,|C_H|)=(2,3) the minimum equals M_t for only one of fifteen distinct processes",
+    "nature": "Main's probe restricts the infimum to the uniform prior, narrower than 'realizations of fixed hidden dimension'; the countercontrol shows the falsity survives arbitrary priors (residuals ≥ 1/3 bit), so the conclusion stands but Main's evidence sentence overstates the probe's scope (corpus finding, low)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "A counterexample with a ≥1/3-bit gap is robust to floating point. The probe searched uniform priors only; this mapping's countercontrol over arbitrary priors confirms falsity (14 of 16 processes fail). Status: numerical evidence, not an exact certificate; no kernel declaration."
+ },
+ {
+  "id": "I-292",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(3) exact gluing for recurrent target families",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main Remark (consolidation): open questions (a) exact gluing for recurrent target families and (b) approximation on windows t ≪ t_R",
+    "source": "papers/Main.md:618@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "Kernel (kernel-only, no manuscript): a complete rooted family over a finite visible carrier is realizable by one finite reversible system with one shared prior, at every time, iff it is the identity at the root, row-stochastic and periodic (C_OI(V) = P_per(V)); sufficiency constructive",
+    "source": "lean:RootedClassificationAllTime.lean:192:finiteRootedRealizable_iff_pper",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible carrier",
+     "rooted families (not full multi-time laws)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP 'Deliberately not prioritized': recurrent-family gluing and pre-recurrence-window approximation remain open in Main.md",
+    "source": "verification/ROADMAP.md:1569@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "multi-time trajectory laws"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:618@eae01647",
+  "verdict": "UNDERCLAIM",
+  "contradictions": [
+   {
+    "site": "verification/lean-manuscript-census.json (family \"rooted classification\")@eae01647",
+    "text": "status kernel-only, manuscript []",
+    "nature": "an established kernel answer at the rooted-family level that no manuscript, including Main and ROADMAP:1569, carries"
+   }
+  ],
+  "proposed_fix": "(3) exact gluing for recurrent families of multi-time laws (for rooted families, periodicity is necessary and sufficient for exact all-time realization, machine-checked as finiteRootedRealizable_iff_pper)",
+  "notes": "At the level of rooted families (the Γ_t of §2.5) the exact all-time realization question is settled positively for every periodic family (kernel, constructive). Whether that settles Main's question (a) depends on whether Main means rooted families or full multi-time laws; the full-law version remains open. The Introduction (and Main, ROADMAP) list the item as open without the rooted-level result. OWNER DECISION on scope. Medium-low severity."
+ },
+ {
+  "id": "I-293",
+  "section": "§6.3",
+  "line": 185,
+  "text": "and approximation on windows short compared with the recurrence time [Main §3.4]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main Remark (consolidation): open questions (a) exact gluing for recurrent target families and (b) approximation on windows t ≪ t_R",
+    "source": "papers/Main.md:618@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP 'Deliberately not prioritized': pre-recurrence-window approximation open",
+    "source": "verification/ROADMAP.md:1569@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:618@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Main (b) and ROADMAP agree."
+ },
+ {
+  "id": "I-294",
+  "section": "§6.3",
+  "line": 185,
+  "text": "(4) (C2) necessity",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main Theorem (C2 necessity, quantitative mixing form): under the mixing hypothesis ||T^(k) − T^k|| <= (k−1)ε, constant optimal; and Theorem (physical memory: C2, process form): observed I* > 0 forces ε >= ε_min(I*, n_V) — 'This is (C2)'s necessity in the currency of condition (ii)'",
+    "source": "papers/Main.md:433@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "hidden-sector mixing hypothesis (TV within ε of π_H)"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Main status ledger: 'C2 necessity | Conditional on the hidden-sector mixing hypothesis; the quantitative bound ε >= δ/(k−1) is proved, its constant saturated (c2_mixing_probes.py); ETH is physical motivation, not a premise'",
+    "source": "papers/Main.md:720@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "mixing hypothesis"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "ROADMAP 'Declared inputs and conditional hypotheses': hidden-sector/effective mixing hypotheses are declared inputs, 'not currently targeted'",
+    "source": "verification/ROADMAP.md:1591@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "hidden-sector mixing hypothesis"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "hidden-sector mixing hypothesis"
+  ],
+  "strongest_verified_source": "papers/Main.md:447@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:565@eae01647",
+    "text": "(C2) lies outside the equivalence, its necessity for physical hidden sectors conditional on the hidden sector's mixing hypothesis",
+    "nature": "GR and Main classify it conditional (proved under the hypothesis), not open"
+   }
+  ],
+  "proposed_fix": "(4) whether the hidden-sector mixing hypothesis, motivated by eigenstate thermalization, holds, on which the proved necessity of (C2) is conditional [Main §3.4]",
+  "notes": "Main proves (C2) necessity on paper under the mixing hypothesis (two theorems, probe-certified); its ledger says 'Conditional', not open. Listing '(C2) necessity' under open problems mislabels a proved conditional theorem as open; the open item is the hypothesis (a declared input in ROADMAP). Low severity."
+ },
+ {
+  "id": "I-295",
+  "section": "§6.3",
+  "line": 185,
+  "text": "which is conditional on a hidden-sector mixing hypothesis motivated by eigenstate thermalization [Main §3.4]",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "hidden-sector mixing hypothesis (ETH-motivated)"
+   ]
+  },
+  "chain": [
+   {
+    "link": "Main Theorem (C2 necessity, quantitative mixing form): under the mixing hypothesis ||T^(k) − T^k|| <= (k−1)ε, constant optimal; and Theorem (physical memory: C2, process form): observed I* > 0 forces ε >= ε_min(I*, n_V) — 'This is (C2)'s necessity in the currency of condition (ii)'",
+    "source": "papers/Main.md:433@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "hidden-sector mixing hypothesis (TV within ε of π_H)"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Main status ledger: 'C2 necessity | Conditional on the hidden-sector mixing hypothesis; the quantitative bound ε >= δ/(k−1) is proved, its constant saturated (c2_mixing_probes.py); ETH is physical motivation, not a premise'",
+    "source": "papers/Main.md:720@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "mixing hypothesis"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Main: 'under the ETH assumption ... dephasing'; ledger: 'ETH is physical motivation, not a premise'",
+    "source": "papers/Main.md:425@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "hidden-sector mixing hypothesis"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "hidden-sector mixing hypothesis"
+  ],
+  "strongest_verified_source": "papers/Main.md:720@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "'conditional on a mixing hypothesis motivated by eigenstate thermalization' matches Main's ledger wording exactly."
+ },
+ {
+  "id": "I-296",
+  "section": "§6.4",
+  "line": 189,
+  "text": "At every finite horizon the laws an embedded observer of a finite reversible system can record are exactly the finite stochastic laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 1, S_K = D_K = Q_K at every finite horizon for every finite visible alphabet; the three biconditionals assembled from S_imp_D, D_imp_Qfb, Qfb_imp_S with no construction as hypothesis",
+    "source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "S_K ⊆ D_K: every stochastic finite-horizon law is the visible marginal of a finite reversible system (clock-and-record carrier)",
+    "source": "lean:Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "D_K ⊆ Q_K: permutation unitary read out in the configuration basis",
+    "source": "lean:Equivalence.lean:294:D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Q_K ⊆ S_K: fixed-basis Born records are probability laws (chain normalisation)",
+    "source": "lean:Equivalence.lean:245:Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet",
+   "finite horizon",
+   "some finite hidden sector and initial law (D_K quantifies over them)"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "D_K = S_K (kernel). 'an embedded observer of a finite reversible system' must be read as 'of some finite reversible system' (D_K is a union over systems); a single fixed system records only its own (periodic) laws, which §2.3 states. Acceptable at the conclusion's level of detail."
+ },
+ {
+  "id": "I-296.a",
+  "section": "§6.4",
+  "line": 189,
+  "text": "At every finite horizon the laws an embedded observer of a finite reversible system can record are exactly the finite stochastic laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "sub-claim D_K ⊆ S_K: Every recordable law is a finite stochastic law."
+  },
+  "chain": [
+   {
+    "link": "D_K ⊆ Q_K: permutation unitary read out in the configuration basis",
+    "source": "lean:Equivalence.lean:294:D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Q_K ⊆ S_K: fixed-basis Born records are probability laws (chain normalisation)",
+    "source": "lean:Equivalence.lean:245:Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite V",
+   "finite K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "D_K ⊆ S_K: composition Qfb_imp_S ∘ D_imp_Qfb inside finite_horizon_equivalence (also immediate: a visible marginal is a probability law)."
+ },
+ {
+  "id": "I-296.b",
+  "section": "§6.4",
+  "line": 189,
+  "text": "At every finite horizon the laws an embedded observer of a finite reversible system can record are exactly the finite stochastic laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "sub-claim S_K ⊆ D_K: Every finite stochastic law is recordable by an embedded observer of some finite reversible system."
+  },
+  "chain": [
+   {
+    "link": "S_K ⊆ D_K: every stochastic finite-horizon law is the visible marginal of a finite reversible system (clock-and-record carrier)",
+    "source": "lean:Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite V",
+   "finite K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "S_K ⊆ D_K: S_imp_D."
+ },
+ {
+  "id": "I-297",
+  "section": "§6.4",
+  "line": 189,
+  "text": "and exactly the fixed-basis unitary Born laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 1, S_K = D_K = Q_K at every finite horizon for every finite visible alphabet; the three biconditionals assembled from S_imp_D, D_imp_Qfb, Qfb_imp_S with no construction as hypothesis",
+    "source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "D_K ⊆ Q_K: permutation unitary read out in the configuration basis",
+    "source": "lean:Equivalence.lean:294:D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Q_K ⊆ S_K: fixed-basis Born records are probability laws (chain normalisation)",
+    "source": "lean:Equivalence.lean:245:Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "S_K ⊆ D_K: every stochastic finite-horizon law is the visible marginal of a finite reversible system (clock-and-record carrier)",
+    "source": "lean:Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet",
+   "finite horizon",
+   "fixed basis, diagonal initial state"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "D_K = Q_K (kernel)."
+ },
+ {
+  "id": "I-297.a",
+  "section": "§6.4",
+  "line": 189,
+  "text": "and exactly the fixed-basis unitary Born laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "sub-claim D_K ⊆ Q_K: Every recordable law is a fixed-basis unitary Born law."
+  },
+  "chain": [
+   {
+    "link": "D_K ⊆ Q_K: permutation unitary read out in the configuration basis",
+    "source": "lean:Equivalence.lean:294:D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite V",
+   "finite K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:294:D_imp_Qfb",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "D_imp_Qfb."
+ },
+ {
+  "id": "I-297.b",
+  "section": "§6.4",
+  "line": 189,
+  "text": "and exactly the fixed-basis unitary Born laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "sub-claim Q_K ⊆ D_K: Every fixed-basis unitary Born law is recordable."
+  },
+  "chain": [
+   {
+    "link": "Q_K ⊆ S_K: fixed-basis Born records are probability laws (chain normalisation)",
+    "source": "lean:Equivalence.lean:245:Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "S_K ⊆ D_K: every stochastic finite-horizon law is the visible marginal of a finite reversible system (clock-and-record carrier)",
+    "source": "lean:Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite V",
+     "finite K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite V",
+   "finite K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Q_K ⊆ D_K: S_imp_D ∘ Qfb_imp_S (composition in finite_horizon_equivalence)."
+ },
+ {
+  "id": "I-298",
+  "section": "§6.4",
+  "line": 189,
+  "text": "because the representation is universal, the discriminating content lies in memory",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 1, S_K = D_K = Q_K at every finite horizon for every finite visible alphabet; the three biconditionals assembled from S_imp_D, D_imp_Qfb, Qfb_imp_S with no construction as hypothesis",
+    "source": "lean:Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main Remark (what this equivalence does and does not say): 'Markov and memory-bearing laws alike lie in Q_fb, so representability alone is not the framework's discriminating content'",
+    "source": "papers/Main.md:534@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Theorem 2 (a)-(c): pushforward identity, TV floor, M_t <= I(X_<t;H_t|X_t) <= log2|C_H|, for a joint law of history, present and hidden state",
+    "source": "lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+    "layer": "kernel",
+    "hypotheses": [
+     "joint law of (history, present, hidden state) with next visible = f_x(h)"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:534@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Interpretive summary matching Main."
+ },
+ {
+  "id": "I-299",
+  "section": "§6.4",
+  "line": 189,
+  "text": "which every deterministic completion carries in its hidden state",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 2 (a)-(c): pushforward identity, TV floor, M_t <= I(X_<t;H_t|X_t) <= log2|C_H|, for a joint law of history, present and hidden state",
+    "source": "lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+    "layer": "kernel",
+    "hypotheses": [
+     "joint law of (history, present, hidden state) with next visible = f_x(h)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of a realization's time-t law with the kernel's joint law (stated in Main §1.5 as 'a step not formalized')",
+    "source": "papers/Main.md:99@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Corollary: M_t>0 exactly when every faithful realization carries readout-relevant hidden memory at t (forward: pushforward identity in each realization; converse: in one realization from S_imp_D); CMI vanishing criterion not formalized",
+    "source": "papers/Main.md:99@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "standard CMI vanishing criterion [CT06]"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main abstract: 'When (C4) holds, every faithful deterministic completion contains readout-relevant hidden predictive memory'",
+    "source": "papers/Main.md:20@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "(C4)"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "faithful realization",
+   "M_t>0 for the memory to be readout-relevant",
+   "CMI vanishing criterion (not formalized)",
+   "time-t identification (not formalized)"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "lean:HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "papers/Introduction.md:12@4a260ca9",
+    "text": "every deterministic completion carries the visible memory in its hidden state",
+    "nature": "abstract restatement (I-008), same wording"
+   },
+   {
+    "site": "papers/Main.md:752@eae01647",
+    "text": "C4 forces conditional memory, readout-relevant hidden predictive structure in every faithful completion",
+    "nature": "Main conditions on (C4) and uses \"faithful\""
+   }
+  ],
+  "proposed_fix": "which every faithful realization carries in its hidden state",
+  "notes": "ATTENTION RESOLVED: 'deterministic completion' is undefined in the Introduction; Main uses 'faithful deterministic completion', which is the Introduction's 'faithful realization' (§1.2 Conventions; Main §1.5). The content is Theorem 2(c) (M_t <= I(X_<t;H_t|X_t), unconditional) and the Corollary (readout-relevant hidden memory exactly when M_t>0). Since the antecedent is 'memory' (a law with M_t>0), no M_t>0 qualifier is missing; the fix is terminological. The step not machine-checked is stated in the abstract and §2.4, not here. Low severity."
+ },
+ {
+  "id": "I-300",
+  "section": "§6.4",
+  "line": 189,
+  "text": "Exact operational quantum mechanics is reached only under completion conditions",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 4 (⇒): exact finite operational QM on a nonempty finite carrier implies (i)–(v)",
+    "source": "lean:PhysicalCharacterization.lean:301:physical_of_exactAll",
+    "layer": "kernel",
+    "hypotheses": [
+     "nonempty finite carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP P1 H-∞: 'no theorem upgrades the full finite OI→QM characterization to arbitrary infinite-dimensional or QFT systems' — OPEN",
+    "source": "verification/ROADMAP.md:71@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "nonempty finite carrier"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:PhysicalCharacterization.lean:301:physical_of_exactAll",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "Exact finite operational quantum mechanics is reached only under completion conditions",
+  "notes": "The necessity direction is kernel-proved for nonempty finite carriers only; the abstract says 'Exact finite operational quantum mechanics'. Dropping 'finite' in the conclusion extends the claim beyond the proved scope (H-∞ open). Low severity."
+ },
+ {
+  "id": "I-301",
+  "section": "§6.4",
+  "line": 189,
+  "text": "that OI alone does not imply",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Five-way minimality on the qubit: for each of (i)–(v) a theory on Fin 2 realizing the sealed OI core, satisfying the other four, failing that one",
+    "source": "lean:RankGapTheory.lean:702:five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier Fin 2",
+     "sealed C1–C4 OI core"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "OI alone is not QM: the diagonal-preserving theory realizes the sealed OI core and is not exact QM",
+    "source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit carrier"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "GR §3.3: 'Each of the five is independent of the other four and of the observation process itself ... bare finite OI ⇏ QM'",
+    "source": "papers/GR.md:220@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "qubit witnesses"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:GeneralCarrier.lean:160:oi_alone_not_qm",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:260@eae01647",
+    "text": "the concrete substratum supplies every structural requirement of quantum mechanics but not continuous state-mixing controllability, and quantum mechanics is obtained exactly when that one physical resource is added",
+    "nature": "corpus settles (iv) negatively for the stated substratum; the Introduction states the whole question as open"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Kernel. Completeness: the stronger result that the stated substratum does not supply (iv) (see I-258) would sharpen this sentence."
+ },
+ {
+  "id": "I-302",
+  "section": "§6.4",
+  "line": 189,
+  "text": "representability does not select the evolution relating two times",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GL2: two coherent lifts of the same visible family related by a time-dependent strong gauge have different relative candidates (existential witness, one visible pair, one anchor, frozen readback)",
+    "source": "lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate",
+    "layer": "kernel",
+    "hypotheses": [
+     "qubit visible carrier",
+     "frozen readback convention",
+     "anchor 0"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "ROADMAP P0: 'What additional structure determines the relative quantum evolution OI leaves free' — OPEN (acts 11–17 localize it; no selection principle adopted)",
+    "source": "verification/ROADMAP.md:63@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:CoherentLiftGauge.lean:537:gl2_strong_gauge_moves_relative_candidate",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Kernel witness; the selection question is ROADMAP P0 (open). §6.3 does not list P0 among open problems although the abstract does (completeness, low)."
+ },
+ {
+  "id": "I-303",
+  "section": "§6.4",
+  "line": 191,
+  "text": "Applied to vacuum energy, OI proposes that the zero-point sum of the emergent description is not a gravitational source",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR §6.2: 'Descriptive distinction established; dynamical decoupling conditional on G3' — two gravitational completions differing by ρ_C g_μν share the same substratum and transition law",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "G3 open"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Book §7.7: 'The framework proposes a dissolution ... the dissolution is conditional on it'",
+    "source": "book/ch07-gravity.md:167@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [
+     "G3"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "G3"
+  ],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "## 6. Dissolution of the Cosmological Constant Problem",
+    "nature": "GR section heading asserts a dissolution; GR's text (:356) says the decoupling is conditional on G3 (heading-level tension)"
+   },
+   {
+    "site": "book/ch07-gravity.md:163@eae01647",
+    "text": "## 7.7 Dissolution of the cosmological constant problem",
+    "nature": "book heading; body (:167) says \"proposes a dissolution ... conditional\""
+   },
+   {
+    "site": "book/ch18-beyond.md:142@eae01647",
+    "text": "**The first dissolution: the cosmological constant.**",
+    "nature": "book voice; qualified as conditional in the same paragraph"
+   },
+   {
+    "site": "book/appendix-c-objections.md:317@eae01647",
+    "text": "the derivations are explicit and the proofs are complete",
+    "nature": "overstates relative to GR G3 open (corpus finding)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Stated as a proposal; matches GR and Book bodies."
+ },
+ {
+  "id": "I-304",
+  "section": "§6.4",
+  "line": 191,
+  "text": "conditional on covariant field equations that are not derived",
+  "status_as_stated": {
+   "level": "conditional",
+   "hypotheses": [
+    "covariant field equations"
+   ]
+  },
+  "chain": [
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "ROADMAP P2 'Covariant matter→boundary coupling (the G3 map)' — OPEN",
+    "source": "verification/ROADMAP.md:75@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "G3"
+  ],
+  "proof_status": "conditional",
+  "conditional_on": [
+   "covariant field equations (G3)"
+  ],
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "## 6. Dissolution of the Cosmological Constant Problem",
+    "nature": "GR section heading asserts a dissolution; GR's text (:356) says the decoupling is conditional on G3 (heading-level tension)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "G3 open in GR and ROADMAP."
+ },
+ {
+  "id": "I-305",
+  "section": "§6.4",
+  "line": 191,
+  "text": "applied to black-hole information, it separates conservation from accessible recovery",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "BHa claim A: 1376 of 40320 bijections of {0,1}^3 give zero accessible advantage; 60 non-injective maps of {0,1}^2 recover exactly (exhaustive)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "finite toy classes"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "BHa C1/C2 [PROVED]: bijectivity + complete endpoint access gives exact recovery; P_succ >= 1/|K| (written proofs + exhaustive checks)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:20@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "bijective dynamics"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite toy classes",
+   "bijective dynamics"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:18@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Non-implication in both directions shown by exhaustive counterexamples in finite toy classes; the sufficient conditions C1/C2 are proved. \"separates\" is a non-implication claim, which counterexamples establish generally."
+ },
+ {
+  "id": "I-306",
+  "section": "§6.4",
+  "line": 191,
+  "text": "while the framework's Page curve is not established",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR Thm A.9 (cycle-averaged Page curve) conditional on A.8, hence on H-scramble, and on H-decouple",
+    "source": "papers/GR.md:845@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble",
+     "H-decouple"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR: H-scramble fails for every bijection in the setting of Thm A.7's proof (definite configuration, aligned bipartition); 'H-scramble is not established here'",
+    "source": "papers/GR.md:835@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR A.7 setup: H-decouple 'Timescale ordering does not supply it, and H-decouple is not established here'",
+    "source": "papers/GR.md:809@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR 'Proper energy shells': Thm A.8 on a proper shell and the Page curve of A.9 on such a shell are open",
+    "source": "papers/GR.md:843@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR: entropy along a single trajectory 'is a different quantity, and whether it follows the same curve is open'",
+    "source": "papers/GR.md:853@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "H-scramble",
+   "H-decouple",
+   "G3"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:609@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "book/ch18-beyond.md:146@eae01647",
+    "text": "The second dissolution: the black hole information paradox ... The apparent information loss in Hawking radiation is an artifact of the trace-out",
+    "nature": "book voice calls the information paradox 'dissolved' and asserts the trace-out reading; the same paragraph says the Page curve is conditional (tone tension, corpus finding)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Same as I-264."
+ },
+ {
+  "id": "I-307",
+  "section": "§6.4",
+  "line": 191,
+  "text": "Neither application is a demonstrated resolution of its problem.",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "GR §6.2: 'Descriptive distinction established; dynamical decoupling conditional on G3' — two gravitational completions differing by ρ_C g_μν share the same substratum and transition law",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "G3 open"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR Thm A.9 (cycle-averaged Page curve) conditional on A.8, hence on H-scramble, and on H-decouple",
+    "source": "papers/GR.md:845@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble",
+     "H-decouple"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "GR dependency ladder: G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4 (cosmological constant, dark sector, Page curve, MOND) conditional on G3",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "G3",
+   "H-scramble",
+   "H-decouple"
+  ],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:12@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "## 6. Dissolution of the Cosmological Constant Problem",
+    "nature": "GR section heading asserts a dissolution; GR's text (:356) says the decoupling is conditional on G3 (heading-level tension)"
+   },
+   {
+    "site": "book/ch07-gravity.md:163@eae01647",
+    "text": "## 7.7 Dissolution of the cosmological constant problem",
+    "nature": "book heading; body (:167) says \"proposes a dissolution ... conditional\""
+   },
+   {
+    "site": "book/ch18-beyond.md:142@eae01647",
+    "text": "**The first dissolution: the cosmological constant.**",
+    "nature": "book voice; qualified as conditional in the same paragraph"
+   },
+   {
+    "site": "book/appendix-c-objections.md:317@eae01647",
+    "text": "the derivations are explicit and the proofs are complete",
+    "nature": "overstates relative to GR G3 open (corpus finding)"
+   },
+   {
+    "site": "book/ch18-beyond.md:146@eae01647",
+    "text": "The second dissolution: the black hole information paradox ... The apparent information loss in Hawking radiation is an artifact of the trace-out",
+    "nature": "book voice calls the information paradox 'dissolved' and asserts the trace-out reading; the same paragraph says the Page curve is conditional (tone tension, corpus finding)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Faithful. Corpus tone findings: 'Dissolution' headings (GR §6, Book §7.7, ch18) and appendix C's 'the proofs are complete'."
+ },
+ {
+  "id": "I-308",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "The declarations in Appendix A were checked in Lean 4.33.0 with Mathlib v4.33.0 at commit 17b830bcd0ecc36e10eff5b9eeca03bdd7198d86",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "verification/lean-mathlib/lean-toolchain at 17b830bc = 'leanprover/lean4:v4.33.0'",
+    "source": "verification/lean-mathlib/lean-toolchain:1@17b830bc",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "lakefile.toml at 17b830bc requires mathlib rev = \"v4.33.0\" (a tag); no lake-manifest.json is committed",
+    "source": "verification/lean-mathlib/lakefile.toml@17b830bc",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Retained expected result: job 121598983127 printed Lean (version 4.33.0, commit d8b18978…) and resolved mathlib to db584cd6…; dependency SHAs recorded",
+    "source": "papers/introduction_repro/README.md@4a260ca9",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/introduction_repro/README.md@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "ATTENTION RESOLVED: toolchain confirmed from the repository (lean-toolchain, lakefile) and from the retained job record. Reproducibility notes: (1) Mathlib is pinned by a tag, not a manifest, so transitive dependencies are resolved at build time (the README records what the job resolved); (2) the attested job restored .lake/build from cache and 'Replayed' all 226 OIBridge modules — the reports are those of an earlier elaboration of the same sources, hash-checked by --rehash (disclosed in the README); the recipe from an empty .lake re-elaborates. Neither makes the sentence false."
+ },
+ {
+  "id": "I-309",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "whose Lean sources are identical at the corpus commit `b64919cd`",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "git diff --stat 17b830bc b64919cd -- verification/lean verification/lean-mathlib is empty (also empty to eae01647)",
+    "source": "git@17b830bc..b64919cd",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "git diff 17b830bc b64919cd",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Checked in this mapping; identical also at eae01647."
+ },
+ {
+  "id": "I-310",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "whose `lean-axioms` step requires every `#print axioms` report to lie within `propext`, `Classical.choice` and `Quot.sound`",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "release_gate.py step 'lean-axioms' runs tools/lean_axiom_check.py --require-lake; PERMITTED = {'propext','Classical.choice','Quot.sound'}; hard fail on sorryAx and on any #print axioms with no report",
+    "source": "tools/lean_axiom_check.py:47@17b830bc",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "tools/lean_axiom_check.py:47@17b830bc",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Unchanged to eae01647."
+ },
+ {
+  "id": "I-311",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "Each declaration in Appendix A reports exactly these three",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Retained expected result (derived from job log 121598983127): each of the 28 Appendix A declarations has exactly one report, each [propext, Classical.choice, Quot.sound]; checked here declaration by declaration, and each declaration's module:line matches its `theorem` line in the source",
+    "source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [
+     "cached replay of an earlier elaboration of identical sources"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "ATTENTION RESOLVED: all 28 declarations report exactly the three axioms (none uses fewer). In the 14 modules one uncited lemma, PhysicalCharacterization.levelOne_eq, depends on propext alone; it is not in Appendix A. 'compositions :466–468' are the proof term of finite_horizon_equivalence, not declarations. NOTE: the file exists at #918's head 4a260ca9, not at main eae01647 or b64919cd (the brief's 'at eae01647' is inaccurate). This verifies the retained record, not an independent rebuild."
+ },
+ {
+  "id": "I-312",
+  "section": "Code, data and formal verification",
+  "line": 195,
+  "text": "the expected result and the comparison recipe are in `papers/introduction_repro/`",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "papers/introduction_repro/ holds README.md (recipe, provenance, checks) and results-121598983127.json (oi-evidence-result v1, kind bridge, derived)",
+    "source": "papers/introduction_repro/README.md@4a260ca9",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Recipe tools at 48b18ac5 exist on main (extract_result.py blob e6f69713 matches the recorded blob)",
+    "source": "verification/audits/evidence-retention/extract_result.py@48b18ac5",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/introduction_repro/README.md@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Present on the Introduction's own commit. Reproducibility notes: the recipe needs network access and a clone whose working tree contains papers/introduction_repro (i.e. #918 or its landing), since the compare step reads it by relative path; this is implicit. No reproduction was run here (no Lean builds)."
+ }
+]

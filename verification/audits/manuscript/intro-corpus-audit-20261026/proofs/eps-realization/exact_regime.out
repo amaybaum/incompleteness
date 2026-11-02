@@ -1,0 +1,2 @@
+runs 1980; violations of TV <= K(|O|max-1)/G: 0; worst TV/bound = 0.4600
+per-step grid bound exhaustive check passed; worst TV / ((|O|-1)/G) = 0.8750

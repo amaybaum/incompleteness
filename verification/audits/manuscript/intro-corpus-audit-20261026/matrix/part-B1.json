@@ -1,0 +1,3486 @@
+[
+ {
+  "id": "I-001",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Observational incompleteness (OI) is the hypothesis that every physical observer is a proper part of a finite reversible deterministic system and records only the visible marginals of its dynamics",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ],
+   "note": "stated as a hypothesis, not established"
+  },
+  "chain": [
+   {
+    "link": "Observation = triple (S, phi, V), observer a proper subsystem with finitely many states",
+    "source": "papers/Main.md:44@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "Axiom 1 (perspectival reading)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Bijective substratum is a representation choice; total finiteness a physical posit; near-unitarity the motivating input",
+    "source": "papers/Main.md:62@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [
+     "posit ledger (ii)-(iii)"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Physical identification of nature with the finite deterministic ontology is what is empirically at stake, not a theorem",
+    "source": "papers/Main.md:704@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [
+   "total finiteness of S (posit)",
+   "bijective representative (representation choice)",
+   "observer registers only C_V"
+  ],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "papers/Main.md:62@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Definition of the hypothesis; presented as a hypothesis, which matches Main's status Remark (representation choice + posit). No proof obligation."
+ },
+ {
+  "id": "I-002",
+  "section": "Abstract",
+  "line": 12,
+  "text": "At every finite horizon, three classes of law on visible trajectories coincide: all finite stochastic laws, the visible marginals of finite reversible dynamics, and the fixed-basis Born records of finite unitary systems",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "abstract carries no status; body (§2.2) states machine-checked"
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main's theorem statement: (S), (D), (Q_fb) coincide for a finite visible alphabet and horizon K; proof (S=>D response table / kernel clock-record carrier, D=>Q_fb permutation unitary, Q_fb=>S Born rule)",
+    "source": "papers/Main.md:526-532@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K",
+   "D_K initial law may correlate visible and hidden coordinates",
+   "Q_K: projective measurement of the whole system in one fixed basis at every step, diagonal initial state, record a fixed function of the outcome"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:16@eae01647",
+    "text": "S <=> D <=> Q_fb at the finite observable-law level",
+    "nature": "same claim, consistent"
+   },
+   {
+    "site": "papers/Main.md:2@eae01647 (title)",
+    "text": "The Equivalence of Quantum Mechanics and Embedded Observation",
+    "nature": "Main's subtitle reads as an equivalence with QM entire; the Intro (I-012, I-145) and Main:624 limit it to fixed-basis finite-horizon laws. Owner item, already raised by the claim inventory."
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Abstract compresses Q_K to 'fixed-basis Born records of finite unitary systems'; the body (line 44) gives the full definition, which matches QfbReal (measurement in a basis of the whole finite space, read : Bas -> V). Each inclusion traced separately in I-002.a-c."
+ },
+ {
+  "id": "I-002.a",
+  "section": "Abstract",
+  "line": 12,
+  "text": "At every finite horizon, three classes of law on visible trajectories coincide: all finite stochastic laws, the visible marginals of finite reversible dynamics, and the fixed-basis Born records of finite unitary systems",
+  "sub_claim": {
+   "label": "S_K ⊆ D_K",
+   "claim": "Every finite-horizon law has a faithful finite reversible realization."
+  },
+  "status_as_stated": "unstated",
+  "chain": [
+   {
+    "link": "S_imp_D: every Stochastic P on Traj V K is RevRealizable (bijection of V x Hid, Hid = clock x trajectory record, initial law on V x Hid that may correlate)",
+    "source": "lean:OIBridge/Equivalence.lean:422:OIBridge.Equivalence.S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction S_K subset D_K. Kernel D-class allows a correlated initial law; the independent-prior form is separate (I-071)."
+ },
+ {
+  "id": "I-002.b",
+  "section": "Abstract",
+  "line": 12,
+  "text": "At every finite horizon, three classes of law on visible trajectories coincide: all finite stochastic laws, the visible marginals of finite reversible dynamics, and the fixed-basis Born records of finite unitary systems",
+  "sub_claim": {
+   "label": "D_K ⊆ Q_K",
+   "claim": "Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system."
+  },
+  "status_as_stated": "unstated",
+  "chain": [
+   {
+    "link": "D_imp_Qfb: every RevRealizable P is QfbRealizable (U = permMatrix of step^-1, init = joint initial law, read = Prod.fst)",
+    "source": "lean:OIBridge/Equivalence.lean:294:OIBridge.Equivalence.D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "permMatrix_mem_unitaryGroup",
+    "source": "lean:OIBridge/EquivalenceChain.lean:179:OIBridge.EquivalenceChain.permMatrix_mem_unitaryGroup",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:294:D_imp_Qfb",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction D_K subset Q_K. The Qfb record measures the full visible x hidden configuration basis and reads the visible factor; this is what Q_K's 'record a fixed function of each outcome' means."
+ },
+ {
+  "id": "I-002.c",
+  "section": "Abstract",
+  "line": 12,
+  "text": "At every finite horizon, three classes of law on visible trajectories coincide: all finite stochastic laws, the visible marginals of finite reversible dynamics, and the fixed-basis Born records of finite unitary systems",
+  "sub_claim": {
+   "label": "Q_K ⊆ S_K",
+   "claim": "Every fixed-basis Born record law is a probability law on visible trajectories."
+  },
+  "status_as_stated": "unstated",
+  "chain": [
+   {
+    "link": "Qfb_imp_S: every QfbRealizable P is Stochastic (chain normalisation from unitarity via sum_chain)",
+    "source": "lean:OIBridge/Equivalence.lean:245:OIBridge.Equivalence.Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:245:Qfb_imp_S",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction Q_K subset S_K. The kernel encodes the every-step projective record by its Born chain formula (QfbReal.chain); that encoding is the standard sequential-measurement formula [SGD19, Eq. (3)], read first-hand."
+ },
+ {
+  "id": "I-003",
+  "section": "Abstract",
+  "line": 12,
+  "text": "The components of this correspondence are known, from the trajectory-labelling realization of Egri et al. and Barandes's treatment of permutation dynamics as unistochastic processes",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "authors named without bracket citations in the abstract"
+  },
+  "chain": [
+   {
+    "link": "EGGH26 Prop. 13: any stochastic process family with finite T is realized by a deterministic system-ancilla dynamics A: T x C x Lambda -> C with a correlated initial family; sketch: 'A large enough ancilla can label a complete system trajectory'",
+    "source": "EGGH26 (arXiv:2602.23491v1), Prop. 13, p. 30",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Barandes: a permutation matrix is unitary and |Sigma_ij|^2 = Sigma_ij, so a permutation process is a special case of a unistochastic process",
+    "source": "Bar25 (arXiv:2302.10778v3), p. 12; Bar23 (arXiv:2309.03085v2) §4.3; Bar26 (arXiv:2608.04354v1) §4",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "EGGH26 Prop. 13; Bar25 p. 12",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Literature read first-hand from the scratch copies S/lit/egri2602, barandes2302, barandes2309, barandes2608. EGGH26's map is time-indexed and not required to be a bijection; the packaging as one iterated bijection is stated in §2.2 (I-074)."
+ },
+ {
+  "id": "I-004",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Each class contains the Markov laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "S_K is all laws on C_V^{K+1} (Stochastic), so it contains every Markov law; equality carries it to D_K and Q_K",
+    "source": "lean:OIBridge/Equivalence.lean:147:OIBridge.Equivalence.Stochastic",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-005",
+  "section": "Abstract",
+  "line": 12,
+  "text": "so representability does not distinguish a law with memory from one without",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Remark: Markov and memory-bearing laws alike lie in Q_fb, so representability alone is not the discriminating content; the bare form 'non-Markovianity <=> a realization exists' is false",
+    "source": "papers/Main.md:534; 596-598@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/Main.md:534@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Immediate from universality of Theorem 1."
+ },
+ {
+  "id": "I-006",
+  "section": "Abstract",
+  "line": 12,
+  "text": "and the Born exponent is not selected",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Q_fb's Born weights are |U|^2 by definition (QfbReal.born); the supplied unitaries are permutations with 0/1 entries, so every exponent p>0 gives the same table (check 6, equivalence_recovery_probes.py)",
+    "source": "papers/Main.md:534@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "QfbReal.born := ||U b' b||^2",
+    "source": "lean:OIBridge/Equivalence.lean:205:OIBridge.Equivalence.QfbReal.born",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:534@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "'Not selected' is a statement about the correspondence's construction; its truth is elementary (entries 0/1)."
+ },
+ {
+  "id": "I-007",
+  "section": "Abstract",
+  "line": 12,
+  "text": "The discriminating content concerns memory",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The discriminating content is history readback'",
+    "source": "papers/Main.md:16@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Theorem (unavoidable hidden predictive memory) is universal over realizations, the equivalence existential",
+    "source": "papers/Main.md:592@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:592@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Scope statement; matches Main's abstract and §3.4 Remark."
+ },
+ {
+  "id": "I-008",
+  "section": "Abstract",
+  "line": 12,
+  "text": "every deterministic completion carries the visible memory in its hidden state",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "abstract: machine-checked except one step (\"each with one step not machine-checked\"); weakest link therefore proved on paper"
+  },
+  "chain": [
+   {
+    "link": "unavoidable_hidden_predictive_memory: for a Realization (bijection step : V x H ~ V x H, joint law w on Hist x V x H) (a) nextLaw = pushforward of posterior, (b) TV floor, (c) M_t <= I(X_<t;H_t|X_t) <= log2|H|",
+    "source": "lean:OIBridge/HiddenMemory.lean:185:OIBridge.HiddenMemory.unavoidable_hidden_predictive_memory",
+    "layer": "kernel",
+    "hypotheses": [
+     "joint law of (history, present, hidden) taken as given",
+     "Nonempty H"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Identification of a realization's time-t law with the kernel's joint law, stated as 'a step not formalized'",
+    "source": "papers/Main.md:97@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful realization"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "M_t>0 iff every faithful realization carries readout-relevant hidden memory at t: forward by (a) in each realization, converse by (a) in one realization (exists by S_imp_D); uses the CMI vanishing criterion (not formalized)",
+    "source": "papers/Main.md:97@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "faithful realization",
+     "CMI vanishing criterion [CT06]"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "faithful (deterministic) realization",
+   "identification of the time-t law with the kernel's joint law (not formalized)"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "lean:OIBridge/HiddenMemory.lean:185:unavoidable_hidden_predictive_memory",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:16@eae01647",
+    "text": "When (C4) holds, every faithful deterministic completion contains readout-relevant hidden predictive memory",
+    "nature": "Main states the readout-relevant form under (C4); the Intro states the capacity-floor form, which holds for every faithful completion and is vacuous when M_t = 0. Consistent."
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Attention resolved: 'deterministic completion' is Main's 'faithful deterministic completion' = faithful realization (Main:582 'ANY faithful deterministic realization'). Read as Theorem 2(c), M_t <= I(X_<t;H_t|X_t), the claim holds for every faithful completion with no condition on M_t (it is vacuous at M_t=0); the readout-relevant form is the Corollary, which is the M_t>0 case. Kernel proves (a)-(c) for a joint law; the time-t identification is the unchecked step. The kernel's Realization is a bijection, but only determinism is used."
+ },
+ {
+  "id": "I-009",
+  "section": "Abstract",
+  "line": 12,
+  "text": "on a fixed finite reversible system finite recurrence turns history readback into stochastic indivisibility somewhere in the recurrence cycle",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "(C4) history readback",
+    "fixed finite reversible system"
+   ],
+   "note": "abstract: machine-checked except one step; body: machine-checked from routed-readback (C4), on paper from history-level (C4)"
+  },
+  "chain": [
+   {
+    "link": "Theorem (history readback + finite recurrence implies indivisibility): finite order L gives Gamma_L = I; if every Gamma_k were a permutation, histories with a common endpoint would identify x_0 and could not differ, contradicting C4; the stochastic-inverse lemma then forbids a divisor from Gamma_k to I",
+    "source": "papers/Main.md:137-139@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "fixed finite bijection",
+     "history-level (C4)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "routed_forces_indivisible_somewhere: RoutedReadback K R -> exists n, PIndivisibleWithin n (rootedMap R)",
+    "source": "lean:OIBridge/PhysicalC4Discharge.lean:122:OIBridge.PhysicalC4Discharge.routed_forces_indivisible_somewhere",
+    "layer": "kernel",
+    "hypotheses": [
+     "RoutedReadback (strictly stronger than history-level C4, per the module header)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "isPermMatrix_of_stochastic_inverse",
+    "source": "lean:OIBridge/EquivalenceChain.lean:110:OIBridge.EquivalenceChain.isPermMatrix_of_stochastic_inverse",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "rootedMap_periodic (finite order)",
+    "source": "lean:OIBridge/RootedClassification.lean:135:OIBridge.RootedClassification.rootedMap_periodic",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "fixed finite reversible substratum",
+   "history-level (C4) (paper) / routed-readback form (kernel)"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:139@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Paper proof checked and sound. The kernel proves the conclusion from the routed-readback form, which implies history-level C4 but not conversely; the history-level step (C4 => some rooted map is non-permutation) is on paper. 'Somewhere in the recurrence cycle' matches the kernel's existential n."
+ },
+ {
+  "id": "I-010",
+  "section": "Abstract",
+  "line": 12,
+  "text": "(each with one step not machine-checked)",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 2: (a)-(c) kernel for a joint law; time-t identification not machine-checked (one step)",
+    "source": "papers/Main.md:97@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Corollary (readout-relevant form): uses the time-t identification and the CMI vanishing criterion, neither machine-checked (two steps)",
+    "source": "papers/Main.md:580@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Readback: machine-checked from routed readback; from history-level C4 the step 'C4 => non-permutation rooted map' is on paper (one step)",
+    "source": "papers/Main.md:139@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:580@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "(each machine-checked except for steps proved on paper)",
+  "notes": "Attention resolved. 'One step' is accurate for Theorem 2(c) (time-t identification) and for readback (the history-level C4 step). If I-008 is read as the Corollary's readout-relevant form, two ingredients are unchecked (line 82 names both). The wording should not count steps."
+ },
+ {
+  "id": "I-011",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Exact finite operational quantum mechanics is characterized by five completion conditions",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "abstract carries no status; body (§3.2) states both directions machine-checked"
+  },
+  "chain": [
+   {
+    "link": "Theorem (operational-completion characterization): for every nonempty finite visible system, available families on the system and every positive ancilla level are exactly the normalized finite Kraus instruments iff (i)-(v)",
+    "source": "papers/GR.md:218@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "operational-theory standing structure (GR:216)"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "exactAll_iff_physical_general := <physical_of_exactAll, exactAll_of_physical_general>",
+    "source": "lean:OIBridge/GeneralCarrier.lean:100:OIBridge.exactAll_iff_physical_general",
+    "layer": "kernel",
+    "hypotheses": [
+     "FiniteOperationalTheory A, A finite nonempty"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "nonempty finite system",
+   "operational theory with the standing structure: identity, coarse-graining, outcome-conditioned composition, uniformly mixed ancilla preparation, spectator-independent readout, ancilla discard"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "'Characterized' is relative to the operational-theory structure, which the body states (line 114). GR gives no paper proof; the kernel is the proof (inventory: kernel-only)."
+ },
+ {
+  "id": "I-011.a",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Exact finite operational quantum mechanics is characterized by five completion conditions",
+  "sub_claim": {
+   "label": "⇒",
+   "claim": "If the available families are exactly the normalized finite Kraus instruments, conditions (i)–(v) hold."
+  },
+  "status_as_stated": "unstated",
+  "chain": [
+   {
+    "link": "physical_of_exactAll: ExactAll -> PhysicalCompletionConditions",
+    "source": "lean:OIBridge/PhysicalCharacterization.lean:301:OIBridge.physical_of_exactAll",
+    "layer": "kernel",
+    "hypotheses": [
+     "FiniteOperationalTheory A"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "operational-theory standing structure"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/PhysicalCharacterization.lean:301:physical_of_exactAll",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction: exact finite OQM => (i)-(v)."
+ },
+ {
+  "id": "I-011.b",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Exact finite operational quantum mechanics is characterized by five completion conditions",
+  "sub_claim": {
+   "label": "⇐",
+   "claim": "If conditions (i)–(v) hold, the available families are exactly the normalized finite Kraus instruments."
+  },
+  "status_as_stated": "unstated",
+  "chain": [
+   {
+    "link": "exactAll_of_physical_general: PhysicalCompletionConditions -> ExactAll (via krausSoundExt_of_validity_inert, compositeCompleteness_unconditional, exactAll_of_levelOne; isometry extension discharged by finiteIsometryExtensionSF_discharged)",
+    "source": "lean:OIBridge/GeneralCarrier.lean:93:OIBridge.exactAll_of_physical_general",
+    "layer": "kernel",
+    "hypotheses": [
+     "FiniteOperationalTheory A, Nonempty A"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "operational-theory standing structure",
+   "A nonempty"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/GeneralCarrier.lean:93:exactAll_of_physical_general",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Direction: (i)-(v) => exact finite OQM. No external premise (GR:218)."
+ },
+ {
+  "id": "I-012",
+  "section": "Abstract",
+  "line": 12,
+  "text": "none implied by OI alone",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "five_way_minimality: for each of the five conditions a qubit theory realizing the sealed OI core satisfies the other four and fails it",
+    "source": "lean:OIBridge/RankGapTheory.lean:702:OIBridge.five_way_minimality",
+    "layer": "kernel",
+    "hypotheses": [
+     "carrier Fin 2",
+     "OI formalized as RealizesSealedOICore"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "oi_alone_not_qm",
+    "source": "lean:OIBridge/GeneralCarrier.lean:160:OIBridge.oi_alone_not_qm",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "'bare finite OI does not imply QM'; every theory with full reversible control realizes the sealed core",
+    "source": "papers/GR.md:220-228@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "OI read as realizing the sealed finite C1-C4 core on the qubit"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/RankGapTheory.lean:702:five_way_minimality",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Non-implication needs one countermodel per condition; the qubit countermodels suffice. 'OI alone' is formalized as RealizesSealedOICore, a specific finite C1-C4 process with its visible readout."
+ },
+ {
+  "id": "I-013",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Open are which of conditions (iii)–(v) a physical substratum supplies",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The substantive physical question it isolates is whether the OI substratum supplies (iii)-(v)'",
+    "source": "papers/GR.md:228@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:228@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-014",
+  "section": "Abstract",
+  "line": 12,
+  "text": "the selection of the evolution relating two times",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'selection of a unique relating evolution from the coherent lifts of one visible family is open'",
+    "source": "papers/Main.md:624@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:624@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-015",
+  "section": "Abstract",
+  "line": 12,
+  "text": "and any test of the hypothesis",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "No memory-witness outcome falsifies the ontology at present; no ontology-level falsifier is established",
+    "source": "papers/Main.md:702-704@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "Framework-level falsification conditions are listed for applications (F1 BEC analogue gravity, F6 DESI Y5 running vacuum)",
+    "source": "book/appendix-a-prediction-status.md:179; 203; 219@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "G3 and application hypotheses"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:704@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "book/appendix-a-prediction-status.md:219@eae01647",
+    "text": "BEC analogue-gravity test (F1) and DESI Year 5 running vacuum test (F6) provide the framework's most consequential near-term empirical exposure",
+    "nature": "the corpus lists falsifiers for the framework's applications (OI jointly with application hypotheses); the abstract's 'any test of the hypothesis' reads more broadly than Main §4.5 and the Intro's own §1.1 and §6.3"
+   },
+   {
+    "site": "papers/Main.md:706@eae01647",
+    "text": "Laboratory tests of the characterization theorem may be possible in tabletop systems",
+    "nature": "Main gestures at tests while :704 says no experiment falsifies the theorem; corpus-side tension, not the Intro's"
+   }
+  ],
+  "proposed_fix": "and any experiment that distinguishes OI from standard quantum theory",
+  "notes": "The body states the narrower, sourced claim twice (line 22: no test at the level of memory witnesses; §6.3: no experiment distinguishing OI from standard QT). The abstract's 'any test of the hypothesis' is broader than either and sits beside application falsifiers the corpus does list. Low severity."
+ },
+ {
+  "id": "I-016",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Applied to the cosmological constant, OI places the zero-point sum and the effective cosmological constant at different levels of description",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Descriptive-level distinction: classical substratum (Friedmann value, no zero-point energy) vs emergent QFT (zero-point sum); 'the descriptive-level distinction is established'",
+    "source": "papers/GR.md:336-340; 356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "framework architecture: substratum vs emergent description"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "substratum/emergent architecture"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "GR calls the descriptive distinction established and the dissolution conditional; the Intro's sentence is the descriptive part and is followed by the conditional status (I-017, I-018)."
+ },
+ {
+  "id": "I-017",
+  "section": "Abstract",
+  "line": 12,
+  "text": "whether the zero-point sum sources curvature depends on covariant field equations that are not derived",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": [
+    "covariant field equations (not derived)"
+   ]
+  },
+  "chain": [
+   {
+    "link": "G3 (covariant field equations, conservation/Bianchi, continuum limit) open; the distinct-descriptions argument becomes a theorem only under E_mu_nu[g,OI] = 8 pi G (T - F g)",
+    "source": "papers/GR.md:12@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "'the dynamical dissolution is conditional on the G3 coupling theorem'",
+    "source": "papers/GR.md:28@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-018",
+  "section": "Abstract",
+  "line": 12,
+  "text": "so this is a proposal, not a resolution",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'the descriptive-level distinction is established and the dissolution is conditional'",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "G3 coupling step"
+    ],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "G3 covariant field equations"
+  ],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "## 6. Dissolution of the Cosmological Constant Problem",
+    "nature": "GR's section heading is unqualified; GR's own text (:28, :32, :356) says the dissolution is conditional. Corpus-side heading, consistent in substance with the Intro"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-019",
+  "section": "Abstract",
+  "line": 12,
+  "text": "Applied to black-hole information, finite computations separate the conservation of information under bijective dynamics from its recovery by an observer with restricted access",
+  "status_as_stated": {
+   "level": "numerical",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "BH-01 claim A: 1376 of 40320 bijections of {0,1}^3 give zero accessible advantage; 60 non-injective maps recover exactly; C1 [PROVED]: bijectivity + complete endpoint access gives exact recovery",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:15-30@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [
+     "finite toy classes",
+     "stated access classes"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Independent review: computations reproduce exactly; written proofs of Lemma 0, C1, C2, C3 (sufficiency), Lemma L, D1 correct",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/review/REVIEW.md:1-5@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite toy models of configurations, permutations and configuration reads"
+  ],
+  "proof_status": "numerical",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "'Finite computations' is accurate (exhaustive enumerations with written proofs of the sufficiency statements). The abstract omits 'toy models'; the body (line 154) states it."
+ },
+ {
+  "id": "I-020",
+  "section": "Abstract",
+  "line": 12,
+  "text": "the framework's Page curve is not established",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Page curve conditional on H-scramble and H-decouple, with the shell taken as the full product space",
+    "source": "papers/GR.md:603; 715@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "H-scramble",
+     "H-decouple"
+    ],
+    "link_status": "conditional"
+   },
+   {
+    "link": "BH-02 C6(a): H-scramble fails for every bijection in the configuration setting; C6(d) open",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:22-26@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:603@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-021",
+  "section": "Abstract",
+  "line": 12,
+  "text": "the information problem is not resolved",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Book and GR present the Page curve as conditional; no claim of resolution",
+    "source": "book/appendix-a-prediction-status.md:102@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:603@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "book/ch07-gravity.md:116@eae01647",
+    "text": "The framework provides an alternative derivation through a substantially different mechanism, conditional on the scrambling condition",
+    "nature": "conditional derivation claim, consistent with 'not resolved'"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-022",
+  "section": "§1.1",
+  "line": 18,
+  "text": "Embedded observation is modelled by a triple $(S,\\varphi,V)$ [Main §1.2]: a finite total system $S=\\mathcal C_V\\times\\mathcal C_H$ of observer configurations $\\mathcal C_V$ and complement configurations $\\mathcal C_H$, a bijection $\\varphi$ of $S$, and an observer $V$ that registers $x\\in\\mathcal C_V$ and not $h\\in\\mathcal C_H$.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Definition: observation (S, phi, V), V a proper subsystem with finitely many states; product decomposition by Lemma 2; finiteness and bijectivity enter via Lemma 1, Lemma 3 and the status Remark",
+    "source": "papers/Main.md:44; 50; 56; 62@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:44@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Main's Definition does not itself make S finite or phi bijective; the Intro adds both and immediately labels them posits/representation choices (I-023, I-024), as Main:62 does."
+ },
+ {
+  "id": "I-023",
+  "section": "§1.1",
+  "line": 20,
+  "text": "The bijection $\\varphi$ is the reversible representative of the hidden dynamics, motivated by observed near-unitarity",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [],
+   "note": "posit, motivated empirically"
+  },
+  "chain": [
+   {
+    "link": "'The bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics; ... observed near-unitarity is the empirical input motivating the choice'",
+    "source": "papers/Main.md:62@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "representation choice"
+  ],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "papers/Main.md:62@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Methodology.md:235@eae01647",
+    "text": "the rungs relationality, proper-part, dynamics-existence, determinism, finiteness-per-moment, and bijectivity follow as lemmas",
+    "nature": "Methodology states bijectivity as a lemma; Main:62 and the posit ledger (Main:708 iii) make it a part-empirical representation choice (signal S10). Corpus-side; the Intro follows Main"
+   },
+   {
+    "site": "papers/Methodology.md:253@eae01647",
+    "text": "Everything else in the foundational layer is a lemma: ... and bijectivity",
+    "nature": "same as above"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-024",
+  "section": "§1.1",
+  "line": 20,
+  "text": "finiteness of all of $S$ is posited [Main §1.2, Remark (status of the early commitments)]",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [],
+   "note": "posit"
+  },
+  "chain": [
+   {
+    "link": "'total finiteness of that representative is a physical posit, carried in the posit ledger (§4.5)'",
+    "source": "papers/Main.md:62@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "conditional"
+   },
+   {
+    "link": "Posit ledger (ii): finiteness of the total state space S",
+    "source": "papers/Main.md:708@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [
+   "total-finiteness posit"
+  ],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "papers/Main.md:708@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:46@eae01647",
+    "text": "What distinguishes the present setting is not the existence of such a map but that it acts on a *finite* $S$ (Lemma 1)",
+    "nature": "Main:46 attributes finiteness of S to Lemma 1, which proves only finite C_V; Main:62 and :113 say total finiteness is a posit. Main-internal inconsistency; the Intro follows the posit reading"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-025",
+  "section": "§1.1",
+  "line": 20,
+  "text": "Hidden states compatible with the same $x$ send it to different futures, so the visible sector evolves stochastically although the whole evolves deterministically.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'different hidden states h_k compatible with the same x send it to different futures'",
+    "source": "papers/Main.md:105@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Counter-case: if f_x is constant on the support of the hidden posterior, the visible step from x is deterministic (e.g. a permutation one-step matrix, Main:115-129)",
+    "source": "papers/Main.md:119@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:105@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:105@eae01647",
+    "text": "different hidden states $h_k$ compatible with the same $x$ send it to different futures",
+    "nature": "Main carries the same universal wording"
+   }
+  ],
+  "proposed_fix": "Hidden states compatible with the same $x$ can send it to different futures, so the visible sector can evolve stochastically although the whole evolves deterministically.",
+  "notes": "Attention resolved: read universally the sentence is false (any realization whose f_x is constant on the posterior's support, e.g. the permutation control in process_dilation_probes.py P4, is visibly deterministic). The existential reading is true and is what the paper uses. Low severity."
+ },
+ {
+  "id": "I-026",
+  "section": "§1.1",
+  "line": 22,
+  "text": "Observational incompleteness (OI) is the physical hypothesis that every physical observer is in this situation.",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": [
+    "OI (physical hypothesis)"
+   ]
+  },
+  "chain": [
+   {
+    "link": "OI as the physical hypothesis; its physical reading conditional on the representation choice",
+    "source": "papers/Main.md:62@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "conditional"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "papers/Main.md:62@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-027",
+  "section": "§1.1",
+  "line": 22,
+  "text": "Identifying nature with such a system is a representation choice, motivated empirically",
+  "status_as_stated": {
+   "level": "conjecture",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The physical reading ... the identification of nature with a finite reversible substratum — is accordingly conditional on that representation choice, an empirically motivated reconstruction'",
+    "source": "papers/Main.md:62@eae01647",
+    "layer": "conjecture",
+    "hypotheses": [],
+    "link_status": "conditional"
+   },
+   {
+    "link": "'what is empirically falsifiable is the framework's physical identification of nature with its deterministic finite ontology'",
+    "source": "papers/Main.md:704@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "conjecture",
+  "strongest_verified_source": "papers/Main.md:62@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Cited to [Main §4.5]; Main:704 supports it, and Main:62 states it most directly."
+ },
+ {
+  "id": "I-028",
+  "section": "§1.1",
+  "line": 22,
+  "text": "the theorems below are mathematical",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The characterization theorem is mathematical ... no experiment falsifies the theorem itself'",
+    "source": "papers/Main.md:704@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:704@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-029",
+  "section": "§1.1",
+  "line": 22,
+  "text": "no test of the identification at the level of memory witnesses is established [Main §4.5]",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'none is established here; no memory-witness outcome therefore falsifies the ontology at present'; 'No ontology-level memory falsifier is established'",
+    "source": "papers/Main.md:702-704@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/Main.md:702@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-030",
+  "section": "§1.1",
+  "line": 22,
+  "text": "The incompleteness is inaccessibility of the hidden sector, not joint unsharpness of non-commuting observables",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Observational incompleteness in the sense of the OI core concerns the hidden sector of an embedded observer, not the joint sharpness of non-commuting observables'",
+    "source": "papers/Main.md:572@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:572@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-031",
+  "section": "§1.1",
+  "line": 22,
+  "text": "it is present for a single fixed readout",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Under (C4) it is present already for a single fixed readout, where no choice between measurements arises'",
+    "source": "papers/Main.md:572@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "(C4) in Main's reading (hidden memory)"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:572@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Main conditions the sentence on (C4) because it identifies the incompleteness with readout-relevant hidden memory. The Intro defines the incompleteness as inaccessibility of the hidden sector, which is present for a single fixed readout without any condition. Both readings are true; no overclaim."
+ },
+ {
+  "id": "I-032",
+  "section": "§1.1",
+  "line": 22,
+  "text": "no uncertainty relation constrains fixed-readout visible laws [Main §3.4]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The visible laws of fixed-readout processes are, by S<=>D<=>Q_fb, exactly the finite stochastic laws, and no uncertainty relation constrains that class'",
+    "source": "papers/Main.md:572@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:572@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "The class is all laws (kernel), so no non-trivial constraint can hold on it; the inference from 'all laws' to 'no uncertainty relation constrains' is on paper and immediate."
+ },
+ {
+  "id": "I-033",
+  "section": "§1.2",
+  "line": 26,
+  "text": "Marginalizing a reversible dynamics over an unobserved register produces stochastic laws",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "D_imp_Qfb: every RevRealizable P is QfbRealizable (U = permMatrix of step^-1, init = joint initial law, read = Prod.fst)",
+    "source": "lean:OIBridge/Equivalence.lean:294:OIBridge.Equivalence.D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Qfb_imp_S: every QfbRealizable P is Stochastic (chain normalisation from unitarity via sum_chain)",
+    "source": "lean:OIBridge/Equivalence.lean:245:OIBridge.Equivalence.Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'The total system evolves deterministically, but the visible sector alone is stochastic'",
+    "source": "papers/Main.md:105@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Every visible marginal of a finite bijection is a stochastic law: D_K subset S_K by composing D_imp_Qfb and Qfb_imp_S."
+ },
+ {
+  "id": "I-034",
+  "section": "§1.2",
+  "line": 26,
+  "text": "conditional memory",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "S_imp_D: every Stochastic P on Traj V K is RevRealizable (bijection of V x Hid, Hid = clock x trajectory record, initial law on V x Hid that may correlate)",
+    "source": "lean:OIBridge/Equivalence.lean:422:OIBridge.Equivalence.S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Examples: XOR family (one bit of conditional memory), §2.4 minimal model",
+    "source": "papers/Main.md:453; 178-198@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Attention resolved: read as 'can produce'. Since S_K subset D_K, every law with conditional memory is a reversible marginal (kernel); the converse universal reading (every marginal has memory) is not asserted."
+ },
+ {
+  "id": "I-035",
+  "section": "§1.2",
+  "line": 26,
+  "text": "and failures of stochastic divisibility, in which no stochastic intermediate transition map exists",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "pIndivisible_of_rooted_identity_return_of_overlap",
+    "source": "lean:OIBridge/RecurrenceHorizon.lean:148:OIBridge.RecurrenceHorizon.pIndivisible_of_rooted_identity_return_of_overlap",
+    "layer": "kernel",
+    "hypotheses": [
+     "rooted form",
+     "fixed hidden prior"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Theorem (§2.3): non-permutation T => P-indivisible",
+    "source": "papers/Main.md:115-129@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "S_imp_D: every Stochastic P on Traj V K is RevRealizable (bijection of V x Hid, Hid = clock x trajectory record, initial law on V x Hid that may correlate)",
+    "source": "lean:OIBridge/Equivalence.lean:422:OIBridge.Equivalence.S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/RecurrenceHorizon.lean:148:pIndivisible_of_rooted_identity_return_of_overlap",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Existential reading; witnesses are kernel-checked (rooted form) and every P-indivisible family is a reversible marginal by S_imp_D."
+ },
+ {
+  "id": "I-036",
+  "section": "§1.2",
+  "line": 26,
+  "text": "(where the candidate intermediate matrix exists, it has negative entries)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "holds when Γ_s is invertible: Γ_s^{-1}Γ_t has unit row sums, so non-stochastic means a negative entry"
+  },
+  "chain": [
+   {
+    "link": "If Gamma_s is invertible, Lambda = Gamma_s^-1 Gamma_t is the unique solution and has unit row sums; if it is not stochastic it has a negative entry",
+    "source": "papers/Main.md:121@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "Gamma_s invertible"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'the inverse matrix, if it exists, will always have negative entries unless both matrices are permutation matrices'",
+    "source": "Bar23 (arXiv:2309.03085v2) fn. 5, p. 11",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "candidate divisor exists (Gamma_s invertible)"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:121@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Elementary: Gamma_s 1 = 1 gives Gamma_s^-1 1 = 1, so row sums are 1. 'Where the candidate exists' is read as invertible Gamma_s; for singular Gamma_s the solution set is affine and 'the candidate' is not unique, a case the parenthesis excludes."
+ },
+ {
+  "id": "I-037",
+  "section": "§1.2",
+  "line": 26,
+  "text": "The stochastic–quantum correspondence relates these features to quantum theory [Bar23; Bar25].",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Barandes's stochastic-quantum correspondence: indivisible stochastic processes correspond to unitarily evolving quantum systems",
+    "source": "Bar23 (arXiv:2309.03085v2); Bar25 (arXiv:2302.10778v3)",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main §3.1 uses [11,12] for the same correspondence",
+    "source": "papers/Main.md:204@eae01647",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "Bar25; Bar23",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-038",
+  "section": "§1.2",
+  "line": 26,
+  "text": "At the level of finite-horizon observable laws the correspondence of §2 (Theorem 1) is exact and universal",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "'Exact and universal at the level of finite-horizon observable laws' is exactly the kernel statement (every law, each horizon)."
+ },
+ {
+  "id": "I-039",
+  "section": "§1.2",
+  "line": 26,
+  "text": "so the content lies in where the memory of a law must sit (§2.4) and what finite recurrence does with it (§2.5)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'representability alone is not the framework's discriminating content. That content is the readback sector'",
+    "source": "papers/Main.md:534@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "'The equivalence S<=>D and this universal statement are the paper's core'",
+    "source": "papers/Main.md:97@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:534@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Completeness check (owner request): Main's Characterization theorem (Main:516, proof :608; no ledger row, signal S1) is not named in the abstract or §1.2. Its content is (ii) non-Markovian at an accessible order <=> (iii) a per-horizon realization with C1, C3, C4 at k and a fixed hidden prior; plus, under (T), (i) a unitarily evolving representation. Both directions are proved on paper only ((iii)=>(ii) by the Pinsker readback lemma, Main:167-170; (ii)=>(iii) by process dilation and its response-table Extension, Main:496-500), neither formalized (Main:608), and (i) is imported from Barandes under (T). Main itself says (ii)=>(iii) adds only existence of a realization because (C4) coincides with (ii) in every faithful realization (Main:608, :596-598). The Intro carries every ingredient (Theorem 1 for existence; line 84's Pinsker bound; line 86's '(C4) coincides with M_t>0 ... (C1) and (C3) follow') and its internal D_K subset Q_K supersedes (i). Not an understatement of the abstract or §1.2; see part-B1.md, completeness item 1, for an optional sentence."
+ },
+ {
+  "id": "I-040",
+  "section": "§1.2",
+  "line": 26,
+  "text": "its foundation and quantum-emergence results, which stop short of operational quantum mechanics (§§2–3)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'the equivalence identifies the representation class exactly and stops short of operational quantum mechanics: the instrument algebra is reached exactly when the five operational completion conditions hold'",
+    "source": "papers/Main.md:622@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "oi_alone_not_qm",
+    "source": "lean:OIBridge/GeneralCarrier.lean:160:oi_alone_not_qm",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/Main.md:622@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "book/ch01-observation.md:261@eae01647",
+    "text": "quantum mechanics is not a separate physical theory ... It is the dynamics that our specific kind of observation produces",
+    "nature": "book essay register asserts more than Theorem 4 and oi_alone_not_qm allow; corpus-side overstatement"
+   },
+   {
+    "site": "papers/Main.md:22@eae01647",
+    "text": "In this precise sense the stochastic description of embedded observation and its quantum representation are mathematically equivalent",
+    "nature": "Main limits this to the finite-law level in the same paragraph; consistent"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Faithful for exact operational QM. Completeness: the corpus proves on paper (ledger P, exact probes at d=2) that every bounded quantum experiment of dimension d, horizon K has a finite reversible deterministic epsilon-realization with gluing, and a uniform continuum epsilon-density (Main:544-578; Summary item 4, Main:580). The Intro omits these; they concern realizing quantum statistics inside OI (approximately), not deriving QM from OI, so 'stop short' stays true. Flagged as completeness item 2 in part-B1.md for the §3.4 mapper."
+ },
+ {
+  "id": "I-041",
+  "section": "§1.2",
+  "line": 26,
+  "text": "Neither application is a demonstrated resolution of its problem",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "CC: descriptive distinction established, dissolution conditional on G3",
+    "source": "papers/GR.md:356@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   },
+   {
+    "link": "BH: Page curve conditional on H-scramble and H-decouple",
+    "source": "papers/GR.md:603@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "papers/GR.md:356@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/GR.md:326@eae01647",
+    "text": "## 6. Dissolution of the Cosmological Constant Problem",
+    "nature": "unqualified heading; text conditional (see I-018)"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-042",
+  "section": "§1.2",
+  "line": 26,
+  "text": "Proofs, the status ledger and the probe code are in [Main], which this paper introduces",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Main carries the status ledger (§4.5) and points to the probe code papers/oi_lattice_code/foundations/",
+    "source": "papers/Main.md:710; 494@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Theorem 4 and qubit independence are stated in GR §3.3 with kernel proofs and no paper proof",
+    "source": "papers/GR.md:218-228@eae01647",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "§5's results are in BHa/BHb research records and GR App. A",
+    "source": "verification/programmes/black-hole-information/@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Theorems 1-3 and the §3.3 lift results are proved in OIBridge modules (Appendix A)",
+    "source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:710@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "Most proofs, the status ledger and the probe code are in [Main], which this paper introduces; the operational-completion results are in [GR §3.3], the black-hole computations in [BHa; BHb], and the machine-checked declarations are listed in Appendix A; gravitational applications are in [GR] and [Book].",
+  "notes": "Attention resolved: 'Proofs ... are in [Main]' is broader than the paper's own citations (Theorem 4 to GR §3.3; §5 to BHa/BHb and GR App. A; kernel proofs in OIBridge). Content is not overclaimed; the location is."
+ },
+ {
+  "id": "I-043",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The paper claims no new theorem or physical result; its contribution is expository.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Every theorem the Intro states traces to Main, GR, BHa/BHb or the kernel (this matrix, rows I-063 onward); the card game is in Book ch01",
+    "source": "book/ch01-observation.md:265@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:526@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Within my range every result traces to a corpus source. Whether Appendix B adds new content is for the B.x mapper."
+ },
+ {
+  "id": "I-044",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The black-hole results of §5 are reported from unpublished repository research records [BHa; BHb]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "BH-01 and BH-02 are repository research records, not adopted ('exploratory research ... not adopted')",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:3@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:3@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "BH-01's header still says 'unreviewed for adoption' while its review/REVIEW.md records an independent review (BLOCK on wording only) and the report lists post-review changes; the reference list's 'internally reviewed' is consistent with the review file. Reference-list item, not this claim."
+ },
+ {
+  "id": "I-045",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "with written proofs and exact or exhaustive checks",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "also numerical (exact/exhaustive checks)"
+  },
+  "chain": [
+   {
+    "link": "BH-01 verdicts generated by checks.py; written proofs of C1, C2, C3 (sufficiency), Lemma L, D1; exhaustive enumerations over S_8 and GL(4,2)",
+    "source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:15-30@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "BH-02: proofs of C1, C2, C4, C6(a); NUMERICAL (double precision) items C2(ii) and C3, with exact purity controls",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:7-30@eae01647",
+    "layer": "numerical",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Accurate for every BH result the Intro cites (BH-01 A, C1, C2, item F; BH-02 C1, C6(a)-(b)). BH-02 also contains double-precision items (C2(ii), C3) that are neither exact nor exhaustive; the Intro does not cite them."
+ },
+ {
+  "id": "I-046",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "whose novelty has not been established",
+  "status_as_stated": {
+   "level": "open",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Status lines: 'not adopted', no theorem designation",
+    "source": "verification/programmes/black-hole-information/bh02_scramble_v1/REPORT.md:3@eae01647",
+    "layer": "none",
+    "hypotheses": [],
+    "link_status": "open"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "open",
+  "strongest_verified_source": "verification/programmes/black-hole-information/bh01_access_v1/REPORT.md:3@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "An epistemic disclaimer; no corpus source establishes novelty, and the remnant bound is described in §5 as 'the remnant-capacity form of a known fact'."
+ },
+ {
+  "id": "I-047",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The components of Theorem 1 are known [EGGH26; Bar23; Bar25; Bar26; SGD19]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "EGGH26 Prop. 13 (S=>D), Prop. 16 (independent prior); Bar25 p.12, Bar23 §4.3, Bar26 §4 (permutation = unistochastic); SGD19 Eq. (3) (every-step record)",
+    "source": "EGGH26; Bar23; Bar25; Bar26; SGD19 (all read first-hand from arXiv copies)",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "EGGH26 Prop. 13",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "SGD19 (arXiv:1905.03018v2) Eq. (3) read first-hand for this audit: p(r_n|A_0) = tr{P_rn U ... P_r1 U A_0 rho(t_0)}."
+ },
+ {
+  "id": "I-048",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "the paper states them as one theorem with each direction attributed",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "S_K subset D_K -> EGGH26 Prop. 13 (line 56, 60); D_K subset Q_K -> Bar25 p.12, Bar23 §4.3, Bar26 §4 (line 60); Q_K subset S_K -> 'the Born rule' and SGD19 Eq. (3) (lines 58, 60); reverse inclusions are compositions",
+    "source": "papers/Introduction.md:56-60@4a260ca9",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "SGD19 Eq. (3)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Attention resolved: every inclusion has a literature attribution; Q_K subset S_K is attributed to SGD19 Eq. (3), which writes the every-step projectively measured record as a probability."
+ },
+ {
+  "id": "I-049",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The memory bounds of §2.4 are forms of the data-processing and Pinsker inequalities.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Theorem 2(b),(c) and the capacity bound are data-processing statements (TV monotone under channels; Markov chain X_<t -> H_t -> X_{t+1} given X_t)",
+    "source": "papers/Main.md:590@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Readback lemma uses Pinsker's inequality",
+    "source": "papers/Main.md:170@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:590@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-050",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The recurrence argument of §2.5 combines finite order with the known contraction criterion for divisibility [RHP14; BD16]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Proof uses finite order (phi^N = id) and the contraction direction of the divisibility criterion [4,5]",
+    "source": "papers/Main.md:121-129@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Buscemi-Datta: equivalence between divisibility and monotonic decrease of information",
+    "source": "BD16 (arXiv:1408.7062v3)",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:121@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-051",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "stated concurrently by Doukas [Dou26]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Doukas Prop. 1 (No distinguishability revival): Markov compatibility implies D(t) <= D(u); 'a distinction that has disappeared cannot reappear'; applied to Rabi oscillations",
+    "source": "Dou26 (arXiv:2602.22095v3), Prop. 1, p. 20",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "Dou26 Prop. 1",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Doukas states the contraction criterion and the revival obstruction (coincide-then-separate) and applies it to Rabi oscillations; he does not use the finite order of a bijection. Read as 'the contraction criterion ... stated concurrently by Doukas' the clause is exact; read as Doukas stating the finite-recurrence argument, it is slightly loose. Line 92's 'overlap-and-return argument' (another mapper's I-11x) carries the same reading."
+ },
+ {
+  "id": "I-052",
+  "section": "§1.2 Contributions",
+  "line": 28,
+  "text": "The results of §3.2–§3.3 are proved in [GR] and [Main].",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [],
+   "note": "wording 'proved' does not name the layer; Appendix A lists kernel declarations for §3.2–§3.3"
+  },
+  "chain": [
+   {
+    "link": "Theorem 4, independence, oi_alone_not_qm: stated in GR §3.3 with kernel citations; no paper proof (proof inventory: kernel-only)",
+    "source": "papers/GR.md:218-228@eae01647",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "§3.3 lift results: stated in Main's Remark with kernel citations (CoherentLiftGauge, TrackBQfbBridge); no written proofs",
+    "source": "papers/Main.md:624@eae01647",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "bridge_traj, rooted_eq_iff_slice_eq, realData_traj_stochastic",
+    "source": "lean:OIBridge/TrackBQfbBridge.lean:276:bridge_traj",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/GeneralCarrier.lean:100:exactAll_iff_physical_general",
+  "verdict": "MISCITED",
+  "contradictions": [],
+  "proposed_fix": "The results of §3.2–§3.3 are stated in [GR §3.3] and [Main §3.4] and proved in the Lean declarations of Appendix A.",
+  "notes": "Attention resolved: GR and Main carry the statements, but the proofs are the OIBridge declarations; neither paper writes them out (GR:218 is kernel-only per the inventory; Main:624 is a Remark). The content is fine and kernel-proved; 'proved in [GR] and [Main]' names the wrong location."
+ },
+ {
+  "id": "I-053",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "\"Machine-checked\" means checked in Lean 4/Mathlib [dMU21; Mathlib20] at commit `17b830bc` by the recipe under \"Code, data and formal verification\" (declarations in Appendix A)",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "introduction_repro: commit 17b830bc, run 40330683786 (verify, push, success), job 121598983127 'Mathlib bridge' success, toolchain leanprover/lean4:v4.33.0, Mathlib rev v4.33.0 resolved to db584cd6",
+    "source": "papers/introduction_repro/README.md@4a260ca9",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Lean sources identical: git diff 17b830bc eae01647 -- verification/lean verification/lean-mathlib is empty",
+    "source": "verification/lean-mathlib@eae01647",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/introduction_repro/results-121598983127.json@4a260ca9",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Restricted definition checked: 'machine-checked' names the Appendix A declarations at 17b830bc. What is machine-checked is each declaration's formal statement; where that is narrower than the prose (Theorem 2 for a joint law; Theorem 3 rooted form; readback from routed readback; Theorem 1 with Q_K encoded by its Born chain formula) the Intro says so. No lake-manifest.json is committed, so the Mathlib revision is a tag resolved at run time (README)."
+ },
+ {
+  "id": "I-054",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "an \"exact probe\" is an exhaustive computation in exact rational arithmetic at small size",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "process_dilation_probes.py: exact Fractions, full-joint equality on specific laws P1-P3 and a permutation control P4",
+    "source": "papers/oi_lattice_code/foundations/process_dilation_probes.py:1-16@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "review4_probes.py P-G: one non-Markov kernel set, exact",
+    "source": "papers/oi_lattice_code/foundations/review4_probes.py:170-221@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "c4_backflow_probes.py: laws exact, but I(X_<k;X_{k+1}|X_k) and the bound are evaluated in floating point (float(p)*log2(...), LN2 = log(2.0))",
+    "source": "papers/oi_lattice_code/foundations/c4_backflow_probes.py:15-43@eae01647",
+    "layer": "numerical",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "numerical",
+  "strongest_verified_source": "papers/oi_lattice_code/foundations/process_dilation_probes.py@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "an \"exact probe\" is a computation on small instances in exact rational arithmetic",
+  "notes": "Attention resolved. The definition promises an exhaustive exact-rational computation. Line 56's probes are exact but check named instances (each enumerated in full), not every law of a small class. Line 84's probe (c4_backflow_probes.py) computes the conditional mutual information and the bound in floating point, so it is not exact-rational; that bears on I-10x (§2.4 mapper). Either narrow the definition or say 'with exact and floating-point probes' at line 84."
+ },
+ {
+  "id": "I-055",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "A *faithful realization* of a law is a bijection $\\varphi$ of $\\mathcal C_V\\times\\mathcal C_H$ with an initial law under which the visible trajectory has that law",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'a faithful realization is a system as in class (D): a bijection phi of C_V x C_H with an initial law ... which may correlate the hidden and visible coordinates, under which the visible trajectory has the given law'",
+    "source": "papers/Main.md:97@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "RevReal / RevRealizable",
+    "source": "lean:OIBridge/Equivalence.lean:157:OIBridge.Equivalence.RevReal",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:97@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-056",
+  "section": "§1.2 Conventions",
+  "line": 30,
+  "text": "the finite reversible system $(S,\\varphi)$ is the *substratum*",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Glossary: 'Substratum. The framework's underlying deterministic, finite-dimensional, bijective dynamical system (S, phi)'",
+    "source": "book/glossary.md:137@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main: 'The bijective substratum is a representation choice'",
+    "source": "papers/Main.md:62@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "book/glossary.md:137@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Attention resolved: the generic usage matches Main and the book glossary. The cubic-lattice bijection with coupling matrix (AGENTS.md, SM, Substratum) is the specific construction of the matter sector, a special case. No conflict for this paper, which never uses the cubic lattice."
+ },
+ {
+  "id": "I-057",
+  "section": "§2.1",
+  "line": 38,
+  "text": "The visible law of a realization depends on the dynamics, the partition and the initial law",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'the emergent law is a function of (phi, partition, mu_H)'",
+    "source": "papers/Main.md:60@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:60@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-058",
+  "section": "§2.1",
+  "line": 38,
+  "text": "the prior is part of the realization datum, not selected by invariance under $\\varphi$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'a realization ... carries its own fixed hidden prior mu_H as part of the realization datum'; Lemma 3: invariance fixes the measure only per orbit, the global choice is 'a selection principle, not uniqueness from invariance alone'",
+    "source": "papers/Main.md:56; 60@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:60@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-059",
+  "section": "§2.1",
+  "line": 38,
+  "text": "the counting measure is a maximal-entropy default [Main §1.2, Remark (the measure as a realization datum)]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'the counting measure is selected among invariant measures as the maximal-entropy one'; 'the counting measure is the default, not a constraint on representations'",
+    "source": "papers/Main.md:56; 60@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:60@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-060",
+  "section": "§2.1",
+  "line": 42,
+  "text": "**$\\mathsf S_K$**: all probability distributions on $\\mathcal C_V^{K+1}$.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "(S) the finite stochastic laws",
+    "source": "papers/Main.md:528@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Stochastic P := nonneg and sums to 1",
+    "source": "lean:OIBridge/Equivalence.lean:147:OIBridge.Equivalence.Stochastic",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:147:Stochastic",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-061",
+  "section": "§2.1",
+  "line": 43,
+  "text": "**$\\mathsf D_K$**: the visible trajectory laws of a bijection of $\\mathcal C_V\\times\\mathcal C_H$, for some finite $\\mathcal C_H$, under an initial law that may correlate the visible and hidden coordinates.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "(D) visible marginals of finite reversible deterministic systems; the kernel carrier's initial law 'may correlate the hidden and visible coordinates'",
+    "source": "papers/Main.md:529; 532@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "RevReal: Hid finite, step : (V x Hid) ~ (V x Hid), init : V x Hid -> R",
+    "source": "lean:OIBridge/Equivalence.lean:157:RevReal",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:157:RevReal",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-062",
+  "section": "§2.1",
+  "line": 44,
+  "text": "**$\\mathsf Q_K$**: the laws of finite-dimensional unitary systems read out by projective Born measurement in one fixed basis at every step, from an initial state diagonal in that basis, the record being a fixed function of each outcome.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "(Q_fb) finite-dimensional unitary systems, projective Born measurement in a fixed basis at every step, initial state diagonal, record a fixed function of each outcome",
+    "source": "papers/Main.md:530@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "QfbReal: Bas finite, U unitary, init : Bas -> R (diagonal weights), read : Bas -> V; law = marg of the Born chain",
+    "source": "lean:OIBridge/Equivalence.lean:190:OIBridge.Equivalence.QfbReal",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:190:QfbReal",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "The kernel class has no autonomous-generator clause (Equivalence.lean header); neither does the Intro's definition. Match."
+ },
+ {
+  "id": "I-063",
+  "section": "§2.2",
+  "line": 48,
+  "text": "**Theorem 1** (finite-horizon stochastic–reversible–unitary equivalence [Main §3.4]). *For every finite visible alphabet and every finite horizon $K$,*\n$$\n\\mathsf S_K=\\mathsf D_K=\\mathsf Q_K ,\n$$\n*so each class is the set of all probability laws on $\\mathcal C_V^{K+1}$.*",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": [
+    "finite C_V (|C_V| ≥ 2, line 36)",
+    "finite horizon K"
+   ],
+   "note": "status from line 54 (machine-checked)"
+  },
+  "line_end": 52,
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Main's theorem statement: (S), (D), (Q_fb) coincide for a finite visible alphabet and horizon K; proof (S=>D response table / kernel clock-record carrier, D=>Q_fb permutation unitary, Q_fb=>S Born rule)",
+    "source": "papers/Main.md:526-532@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Ledger MAIN:T-finite-horizon-stochastic-reversible-unitary: K3 ('the exact manuscript statement is proved in Lean')",
+    "source": "verification/coverage/LEDGER.json@eae01647",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Introduction.md:36@4a260ca9",
+    "text": "Fix finite sets C_V (with |C_V|>=2)",
+    "nature": "§2.1's standing |C_V|>=2 is not needed: the kernel holds for every finite type. 'For every finite visible alphabet' in Theorem 1 is the accurate (stronger) statement; the restriction is harmless"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": "Each direction traced separately (I-063.a-c). Hypotheses of the kernel: Fintype and DecidableEq on V, any K. No |V|>=2, no Nonempty."
+ },
+ {
+  "id": "I-063.a",
+  "section": "§2.2",
+  "line": 48,
+  "text": "**Theorem 1** (finite-horizon stochastic–reversible–unitary equivalence [Main §3.4]). *For every finite visible alphabet and every finite horizon $K$,*\n$$\n\\mathsf S_K=\\mathsf D_K=\\mathsf Q_K ,\n$$\n*so each class is the set of all probability laws on $\\mathcal C_V^{K+1}$.*",
+  "sub_claim": {
+   "label": "S_K ⊆ D_K",
+   "claim": "Every finite-horizon law has a faithful finite reversible realization."
+  },
+  "status_as_stated": "proved-kernel",
+  "chain": [
+   {
+    "link": "S_imp_D: every Stochastic P on Traj V K is RevRealizable (bijection of V x Hid, Hid = clock x trajectory record, initial law on V x Hid that may correlate)",
+    "source": "lean:OIBridge/Equivalence.lean:422:OIBridge.Equivalence.S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-063.b",
+  "section": "§2.2",
+  "line": 48,
+  "text": "**Theorem 1** (finite-horizon stochastic–reversible–unitary equivalence [Main §3.4]). *For every finite visible alphabet and every finite horizon $K$,*\n$$\n\\mathsf S_K=\\mathsf D_K=\\mathsf Q_K ,\n$$\n*so each class is the set of all probability laws on $\\mathcal C_V^{K+1}$.*",
+  "sub_claim": {
+   "label": "D_K ⊆ Q_K",
+   "claim": "Every visible law of a finite bijection is a fixed-basis Born record of a finite unitary system."
+  },
+  "status_as_stated": "proved-kernel",
+  "chain": [
+   {
+    "link": "D_imp_Qfb: every RevRealizable P is QfbRealizable (U = permMatrix of step^-1, init = joint initial law, read = Prod.fst)",
+    "source": "lean:OIBridge/Equivalence.lean:294:OIBridge.Equivalence.D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:294:D_imp_Qfb",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-063.c",
+  "section": "§2.2",
+  "line": 48,
+  "text": "**Theorem 1** (finite-horizon stochastic–reversible–unitary equivalence [Main §3.4]). *For every finite visible alphabet and every finite horizon $K$,*\n$$\n\\mathsf S_K=\\mathsf D_K=\\mathsf Q_K ,\n$$\n*so each class is the set of all probability laws on $\\mathcal C_V^{K+1}$.*",
+  "sub_claim": {
+   "label": "Q_K ⊆ S_K",
+   "claim": "Every fixed-basis Born record law is a probability law on visible trajectories."
+  },
+  "status_as_stated": "proved-kernel",
+  "chain": [
+   {
+    "link": "Qfb_imp_S: every QfbRealizable P is Stochastic (chain normalisation from unitarity via sum_chain)",
+    "source": "lean:OIBridge/Equivalence.lean:245:OIBridge.Equivalence.Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:245:Qfb_imp_S",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-064",
+  "section": "§2.2",
+  "line": 54,
+  "text": "Theorem 1 is machine-checked as `finite_horizon_equivalence`",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Declaration at Equivalence.lean:462 confirmed at eae01647 (sources identical to 17b830bc); #print axioms at :480."
+ },
+ {
+  "id": "I-065",
+  "section": "§2.2",
+  "line": 54,
+  "text": "$\\mathsf S_K\\subseteq\\mathsf D_K$ (`S_imp_D`)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "S_imp_D: every Stochastic P on Traj V K is RevRealizable (bijection of V x Hid, Hid = clock x trajectory record, initial law on V x Hid that may correlate)",
+    "source": "lean:OIBridge/Equivalence.lean:422:OIBridge.Equivalence.S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Declaration at :422 confirmed."
+ },
+ {
+  "id": "I-066",
+  "section": "§2.2",
+  "line": 54,
+  "text": "$\\mathsf D_K\\subseteq\\mathsf Q_K$ (`D_imp_Qfb`)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "D_imp_Qfb: every RevRealizable P is QfbRealizable (U = permMatrix of step^-1, init = joint initial law, read = Prod.fst)",
+    "source": "lean:OIBridge/Equivalence.lean:294:OIBridge.Equivalence.D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:294:D_imp_Qfb",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Declaration at :294 confirmed."
+ },
+ {
+  "id": "I-067",
+  "section": "§2.2",
+  "line": 54,
+  "text": "$\\mathsf Q_K\\subseteq\\mathsf S_K$ (`Qfb_imp_S`)",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Qfb_imp_S: every QfbRealizable P is Stochastic (chain normalisation from unitarity via sum_chain)",
+    "source": "lean:OIBridge/Equivalence.lean:245:OIBridge.Equivalence.Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:245:Qfb_imp_S",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Declaration at :245 confirmed."
+ },
+ {
+  "id": "I-068",
+  "section": "§2.2",
+  "line": 54,
+  "text": "and the reverse inclusions as their compositions",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Reverse arrows: fun h => Qfb_imp_S P (D_imp_Qfb P h); fun h => S_imp_D P (Qfb_imp_S P h); fun h => D_imp_Qfb P (S_imp_D P h)",
+    "source": "lean:OIBridge/Equivalence.lean:466:finite_horizon_equivalence (lines 466-468)",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:466:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-069",
+  "section": "§2.2",
+  "line": 54,
+  "text": "no construction enters as a hypothesis",
+  "status_as_stated": {
+   "level": "proved-kernel",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence has only P as argument; no realization or construction hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-070",
+  "section": "§2.2",
+  "line": 56,
+  "text": "For $\\mathsf S_K\\subseteq\\mathsf D_K$ the realization stores a sampled trajectory, with a clock, in the hidden register [Main §3.4, Theorem (finite-horizon stochastic–reversible–unitary equivalence); EGGH26, Prop. 13]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "S_imp_D carrier: Hid = Fin (K+1) x Traj V K (clock and complete trajectory record); init = pushforward of P along tau -> (tau 0, (0, tau)); padded to a bijection by exists_perm_extending",
+    "source": "lean:OIBridge/Equivalence.lean:422:S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "EGGH26 Prop. 13: 'A large enough ancilla can label a complete system trajectory'",
+    "source": "EGGH26 (arXiv:2602.23491v1) Prop. 13, p. 30",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:422:S_imp_D",
+  "verdict": "FAITHFUL",
+  "contradictions": [
+   {
+    "site": "papers/Main.md:532@eae01647",
+    "text": "(S => D) is the response-table construction of §3.4 ... (kernel: S_imp_D, by a different carrier, a clock with the complete trajectory record ...)",
+    "nature": "Main's written proof uses the response-table construction; the Intro describes the kernel's carrier. Both are stated in Main; consistent"
+   }
+  ],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-071",
+  "section": "§2.2",
+  "line": 56,
+  "text": "For a law with rational probabilities, a realization whose hidden prior is independent of $x_0$ also exists [Main §3.4, Theorem (finite-horizon process dilation)]",
+  "status_as_stated": {
+   "level": "proved-paper",
+   "hypotheses": [
+    "rational probabilities"
+   ],
+   "note": "'it is proved on paper, with exact probes' (same line)"
+  },
+  "chain": [
+   {
+    "link": "Theorem (finite-horizon process dilation): rational multi-time law -> finite C_H, bijection, hidden prior independent of the visible initial state, reproducing the full law",
+    "source": "papers/Main.md:496@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "rational law",
+     "|C_V|>=2"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "Extension (arbitrary priors — the response-table form): product prior mu(u) = prod_c kern_c(u_c), deterministic step x_{k+1} := u_{c(x<=k)}, ledger and clock complete the bijection; reproduces the full joint 'for arbitrary real kernels'",
+    "source": "papers/Main.md:498@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "finite horizon"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "process_dilation_probes.py (exact, instances P1-P5) and review4_probes.py P-G (exact, one non-Markov kernel set)",
+    "source": "papers/oi_lattice_code/foundations/process_dilation_probes.py@eae01647",
+    "layer": "exhaustive-computation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "EGGH26 Prop. 16: independent fixed ancilla distribution for an arbitrary stochastic dynamical system (no rationality; not reversible)",
+    "source": "EGGH26 (arXiv:2602.23491v1) Prop. 16, p. 34",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Status ledger: '(ii) => (iii) ... arbitrary-prior form via the response-table extension'",
+    "source": "papers/Main.md:715@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Partial kernel analogue, rooted families only: responseRealization / responsePrior put any row-stochastic rooted family on one finite seed with one prior shared by every visible root, 'without assuming rational probabilities' (module header); covers Gamma_t(x_0 -> x_t), not the full multi-time law",
+    "source": "lean:OIBridge/RootedClassification.lean:330:OIBridge.RootedClassification.responseRealization",
+    "layer": "kernel",
+    "hypotheses": [
+     "rooted (one-time) family, not the trajectory law"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite horizon K",
+   "finite visible alphabet"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:498@eae01647",
+  "verdict": "UNDERCLAIM",
+  "contradictions": [],
+  "proposed_fix": "A realization whose hidden prior is independent of $x_0$ also exists for every law [Main §3.4, Theorem (finite-horizon process dilation) and its Extension (response-table form)]; it is proved on paper, with exact probes.",
+  "notes": "The rationality restriction belongs to the uniform-tape presentation only; Main's Extension (Main:498), its status ledger (Main:715) and the Characterization theorem (which 'quantifies over general finite-horizon laws') give the independent-prior reversible realization for every finite-horizon law. The argument is short and sound (x_0 drawn independently of the product prior; conditioning exposes u only at visited contexts). Not formalized for the full multi-time law (Main:500: 'the independence of mu_H from the visible initial state rests on the construction above and the cited probes and is not formalized'); the kernel has the independent-prior response-table construction only for rooted families (RootedClassification.responseRealization, no rationality assumption). Coordinator relay from B5 checked and confirmed. The Intro's own attribution sentence cites EGGH26 Prop. 16, which is likewise unrestricted. Also see I-054 on what the probes are."
+ },
+ {
+  "id": "I-072",
+  "section": "§2.2",
+  "line": 58,
+  "text": "For $\\mathsf D_K\\subseteq\\mathsf Q_K$ the representation is the permutation unitary $U_\\varphi|x,h\\rangle=|\\varphi(x,h)\\rangle$, read out in the configuration basis at every step [Main §3.4]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "D_imp_Qfb: every RevRealizable P is QfbRealizable (U = permMatrix of step^-1, init = joint initial law, read = Prod.fst)",
+    "source": "lean:OIBridge/Equivalence.lean:294:OIBridge.Equivalence.D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'for a bijection phi set U_phi|x,h> = |phi(x,h)> and take the initial law diagonal ... sequential projective measurements in the configuration basis do not disturb the state'",
+    "source": "papers/Main.md:532@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:294:D_imp_Qfb",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Kernel uses permMatrix of step.symm, i.e. U|s> = |phi(s)> in its convention."
+ },
+ {
+  "id": "I-073",
+  "section": "§2.2",
+  "line": 58,
+  "text": "$\\mathsf Q_K\\subseteq\\mathsf S_K$ is the Born rule",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Qfb_imp_S: every QfbRealizable P is Stochastic (chain normalisation from unitarity via sum_chain)",
+    "source": "lean:OIBridge/Equivalence.lean:245:OIBridge.Equivalence.Qfb_imp_S",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'(Q_fb => S) is the Born rule: the record of any finite quantum experiment is a finite stochastic law'",
+    "source": "papers/Main.md:532@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:245:Qfb_imp_S",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Kernel content is that the Born chain weights are nonnegative and normalize by unitarity (sum_chain), 'not a definitional unfolding'."
+ },
+ {
+  "id": "I-074",
+  "section": "§2.2",
+  "line": 60,
+  "text": "The trajectory-labelling realization is that of Egri et al. [EGGH26, Prop. 13], packaged as one iterated bijection",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "EGGH26 Prop. 13: deterministic system-ancilla dynamics A : T x C x Lambda -> C, family of correlated initial distributions, M_A = M",
+    "source": "EGGH26 (arXiv:2602.23491v1) Prop. 13, p. 30",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "S_imp_D: every Stochastic P on Traj V K is RevRealizable (bijection of V x Hid, Hid = clock x trajectory record, initial law on V x Hid that may correlate)",
+    "source": "lean:OIBridge/Equivalence.lean:422:OIBridge.Equivalence.S_imp_D",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "EGGH26 Prop. 13",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "EGGH26's A is time-indexed and need not be a bijection; the clock-and-pad construction (exists_perm_extending) is the packaging into one iterated bijection, which the sentence acknowledges."
+ },
+ {
+  "id": "I-075",
+  "section": "§2.2",
+  "line": 60,
+  "text": "the independent-prior form is their Prop. 16, without reversibility",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "EGGH26 Prop. 16: fixed ancilla distribution lambda_0, uncorrelated initial family (114), M_A = M_S; A not required bijective",
+    "source": "EGGH26 (arXiv:2602.23491v1) Prop. 16, p. 34",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "EGGH26 Prop. 16",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-076",
+  "section": "§2.2",
+  "line": 60,
+  "text": "its Markov one-step case is the random-mapping representation [LP17, Prop. 1.5]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "LP17 Prop. 1.5: 'Every transition matrix on a finite state space has a random mapping representation'",
+    "source": "LP17 (Levin-Peres-Wilmer, 2nd ed.) Prop. 1.5",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "LP17 Prop. 1.5",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-077",
+  "section": "§2.2",
+  "line": 60,
+  "text": "A permutation dynamics is a special case of a unistochastic process [Bar25, p. 12; Bar23 §4.3; Bar26 §4]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'every permutation matrix is unistochastic ... a stochastic process defined by a permutation matrix Sigma is a special case of a unistochastic process'",
+    "source": "Bar25 (arXiv:2302.10778v3) p. 12; Bar23 (arXiv:2309.03085v2) §4.3; Bar26 (arXiv:2608.04354v1) §4",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "Bar25 p. 12",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-078",
+  "section": "§2.2",
+  "line": 60,
+  "text": "the one-step $n^2$-dimensional ancilla dilation of [Main §3.1] coincides with the constructions of Barandes [Bar26, Thm 3.3] and Schmidt [Sch21, Thm 2]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": [],
+   "note": "'n' is not defined in the Introduction"
+  },
+  "chain": [
+   {
+    "link": "Lemma (one-step ancilla dilation): W|i> = sum_j sqrt(T_ij)|j>|i> is an isometry C^n -> C^n (x) C^n with ancilla-marginal T, extending to a unitary on C^n (x) C^n",
+    "source": "papers/Main.md:206-208@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Bar26 Thm 3.3 (Unistochastic Theorem): N^2 x N^2 unitary with marginalization formula; constructive proof via Theta with |Theta|^2 = Gamma and Kraus K_i = Theta P_i",
+    "source": "Bar26 (arXiv:2608.04354v1) Thm 3.3, pp. 7-10",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Sch21 Thm 2: every stochastic matrix admits a standard dilation by an N^2 x N^2 bi-stochastic, indeed unistochastic, matrix",
+    "source": "Sch21 (arXiv:2106.03513v1) Thm 2, p. 10",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Bar26 fn. 1: 'Schmidt (2021) presented a similar theorem, but the proof there appears to have an error in its construction of the required partial isometry'",
+    "source": "Bar26 (arXiv:2608.04354v1) fn. 1, p. 8",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:206@eae01647",
+  "verdict": "IMPRECISE",
+  "contradictions": [],
+  "proposed_fix": "the one-step $n^2$-dimensional ancilla dilation of [Main §3.1], for a stochastic matrix on $n$ states, has the form of the dilations of Barandes [Bar26, Thm 3.3] and Schmidt [Sch21, Thm 2]",
+  "notes": "Main's W coincides with Bar26's construction for Theta = entrywise sqrt(Gamma). Schmidt's theorem has the same N^2 form, but Barandes reports an apparent error in Schmidt's partial-isometry construction, so 'coincides with the constructions of ... Schmidt' asserts more than is checked. 'n' is undefined in the Intro. Main itself makes no coincidence claim. Low severity."
+ },
+ {
+  "id": "I-079",
+  "section": "§2.2",
+  "line": 60,
+  "text": "The every-step projectively measured record as a probability law is in [SGD19, Eq. (3)]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "SGD19 Eq. (3): p(r_n|A_0) = tr_SE{P_rn U_{n,n-1} ... P_r1 U_{1,0} A_0 rho_SE(t_0)}",
+    "source": "SGD19 (arXiv:1905.03018v2) Eq. (3), p. 1",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "SGD19 Eq. (3)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Read first-hand for this audit."
+ },
+ {
+  "id": "I-080",
+  "section": "§2.2",
+  "line": 60,
+  "text": "that work and [Milz20] study whether such records are consistent with omitting measurements",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "SGD19 asks when the consistency condition (2), sum over r_k of the joint = the joint with t_k omitted, holds",
+    "source": "SGD19 (arXiv:1905.03018v2) Eq. (2), pp. 1-2",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Milz et al., 'When is a non-Markovian quantum process classical?' (read first-hand in the earlier introductory-paper audit, FT-r4 list)",
+    "source": "Milz20 (arXiv:1907.05807v3)",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "SGD19 Eq. (2)",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-081",
+  "section": "§2.2",
+  "line": 60,
+  "text": "a question $\\mathsf Q_K$, which measures at every step, does not meet",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Q_K measures at every step (definition, line 44; QfbReal.chain)",
+    "source": "lean:OIBridge/Equivalence.lean:209:OIBridge.Equivalence.QfbReal.chain",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:209:QfbReal.chain",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Definitional."
+ },
+ {
+  "id": "I-082",
+  "section": "§2.3",
+  "line": 64,
+  "text": "Markov laws lie in all three classes.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:462:finite_horizon_equivalence",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-083",
+  "section": "§2.3",
+  "line": 64,
+  "text": "So neither a finite reversible realization nor a fixed-basis unitary representation distinguishes a law with memory from one without [Main §3.4, Remark (the conditions are diagnostics, not hypotheses)]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'the process-dilation construction of §3.4 realizes Markov laws as well, so the right-hand side is satisfied by processes with no memory at all'",
+    "source": "papers/Main.md:598@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/Main.md:598@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-084",
+  "section": "§2.3",
+  "line": 66,
+  "text": "The relation $p=|U|^2$ is part of the definition of $\\mathsf Q_K$, not an output.",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'Inside Q_fb the Born dictionary p=|U|^2 is ... part of the definition of the class'",
+    "source": "papers/Main.md:534@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "QfbReal.born := ||U b' b||^2",
+    "source": "lean:OIBridge/Equivalence.lean:205:QfbReal.born",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:205:QfbReal.born",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-085",
+  "section": "§2.3",
+  "line": 66,
+  "text": "The unitaries supplied are permutations, with entries 0 and 1",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "D_imp_Qfb: every RevRealizable P is QfbRealizable (U = permMatrix of step^-1, init = joint initial law, read = Prod.fst)",
+    "source": "lean:OIBridge/Equivalence.lean:294:OIBridge.Equivalence.D_imp_Qfb",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   },
+   {
+    "link": "'the unitaries it supplies are permutations, whose entries are 0 or 1'",
+    "source": "papers/Main.md:534@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+   "finite horizon K"
+  ],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/Equivalence.lean:294:D_imp_Qfb",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-086",
+  "section": "§2.3",
+  "line": 66,
+  "text": "so the recovered table is the same for $|U|^p$ at every $p>0$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "Entries 0/1 give |U|^p = |U|^2 for every p>0; check 6 of equivalence_recovery_probes.py",
+    "source": "papers/Main.md:534@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [
+     "U a permutation matrix"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [
+   "U a permutation"
+  ],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:534@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-087",
+  "section": "§2.3",
+  "line": 66,
+  "text": "The quadratic exponent is therefore not selected [Main §3.4; Bar26, Thm 3.1].",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'the construction does not SELECT the quadratic exponent ... no step distinguishes p=2'",
+    "source": "papers/Main.md:534@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Bar26 Thm 3.1 (Born Representation Theorem): every M x N stochastic matrix has Gamma_ij = tr(E_i P_j) with diagonal POVM and PVM",
+    "source": "Bar26 (arXiv:2608.04354v1) Thm 3.1, p. 5",
+    "layer": "literature",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:534@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "The exponent argument is Main's (0/1 entries). Bar26 Thm 3.1 shows Born form is available for every stochastic matrix, the related non-selection point; it does not discuss exponents. Acceptable as supporting citation."
+ },
+ {
+  "id": "I-088",
+  "section": "§2.3",
+  "line": 68,
+  "text": "A finite bijection has finite order $L$",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'a bijection on a finite set has finite order L'",
+    "source": "papers/Main.md:618@eae01647",
+    "layer": "exact-algebra",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "rootedMap_periodic (period from card of Perm(V x H))",
+    "source": "lean:OIBridge/RootedClassification.lean:135:rootedMap_periodic",
+    "layer": "kernel",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "lean:OIBridge/RootedClassification.lean:135:rootedMap_periodic",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-089",
+  "section": "§2.3",
+  "line": 68,
+  "text": "so one fixed realization has an $L$-periodic multi-time law",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'any fixed realization with a fixed prior has an exactly L-periodic multi-time law (phi^{k+L} = phi^k)'",
+    "source": "papers/Main.md:618@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [
+     "fixed prior"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:618@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-090",
+  "section": "§2.3",
+  "line": 68,
+  "text": "the correspondence holds per horizon",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'The equivalence is per-horizon'",
+    "source": "papers/Main.md:618@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "finite_horizon_equivalence: (Stochastic<->RevRealizable) and (RevRealizable<->QfbRealizable) and (QfbRealizable<->Stochastic), each reverse arrow a composition (lines 466-468); no construction taken as hypothesis",
+    "source": "lean:OIBridge/Equivalence.lean:462:OIBridge.Equivalence.finite_horizon_equivalence",
+    "layer": "kernel",
+    "hypotheses": [
+     "finite visible alphabet V (Fintype, DecidableEq; no |V|>=2 needed)",
+     "finite horizon K"
+    ],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-kernel",
+  "strongest_verified_source": "papers/Main.md:618@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": ""
+ },
+ {
+  "id": "I-091",
+  "section": "§2.3",
+  "line": 68,
+  "text": "a nonperiodic law has no exact all-time realization by one fixed finite substratum [Main §3.4]",
+  "status_as_stated": {
+   "level": "unstated",
+   "hypotheses": []
+  },
+  "chain": [
+   {
+    "link": "'a nonperiodic target admits no exact all-time realization by one fixed finite substratum'",
+    "source": "papers/Main.md:618@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   },
+   {
+    "link": "Proposition (no horizon-independent intervened representation) for the intervened case",
+    "source": "papers/Main.md:472@eae01647",
+    "layer": "paper-derivation",
+    "hypotheses": [],
+    "link_status": "proved"
+   }
+  ],
+  "required_assumptions": [],
+  "proof_status": "proved-paper",
+  "strongest_verified_source": "papers/Main.md:618@eae01647",
+  "verdict": "FAITHFUL",
+  "contradictions": [],
+  "proposed_fix": null,
+  "notes": "Every trajectory of one fixed finite bijection is L-periodic, so a law not supported on L-periodic trajectories for any L has no exact all-time realization. Elementary and sound."
+ }
+]

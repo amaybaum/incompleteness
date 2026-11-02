@@ -1,0 +1,104 @@
+PREREG sc23 — frozen before any computation. Base: origin/main 1a60e06b27ff5e41833dcd1e013ddb1c3aab1947.
+Arithmetic: fractions.Fraction for all probabilities, gaps, matrices. Entropies/MI only via
+decimal at prec=200 (used only for inequality checks with stated margins, never to certify an
+exact zero; exact zero/positivity is decided by exact rational gaps).
+
+======================================================================
+F1  "Exponential bound != exact zero"
+======================================================================
+Definitions (frozen)
+ D1 (order-k gap, the (C4) reading R1; Main §1.3 (C4) and the backflow lemma's "gap at order k"):
+    for a visible law P on {0,1}^{K+1},
+    delta_k := max TV( P(X_{k+1} | X_{<k}=p, X_k=c), P(X_{k+1} | X_{<k}=p', X_k=c) )
+    over p != p' (length k) and c with both histories of positive probability.
+    (C4) holds at order k  iff  delta_k > 0.
+ D2 (lemma inequality, reading R1): delta_k <= delta_0 * r^(k-1), r := e^{-tau_S/tau_B}, with delta_0
+    any number in [0,1] (TV range). Refuted at (k) iff delta_k > r^(k-1)  (then false for every delta_0<=1).
+ D3 Model E(d,r) (eroding delay register; coarse-grained channel level):
+    visible x_t in {0,1}; hidden register cells c_1..c_d in {0,1}.
+    init: x_0 uniform, cells iid uniform, independent.
+    step t -> t+1: (i) erosion: each cell independently kept w.p. r, else replaced by a fresh
+    uniform bit (channel E_r: uniform-invariant, TV contraction coefficient exactly r per cell —
+    every stored record eroded uniformly by r per step); (ii) read: x_{t+1} := c_d;
+    (iii) shift/write: c_{i+1} := c_i (i<d), c_1 := x_{t+1}.
+    [Note: with this write order, at time t the register holds x_t, x_{t-1}, ..., x_{t-d+1}.]
+ D4 M_k := I(X_{<k}; X_{k+1} | X_k) in bits.
+ D5 eps_coarse(t) := TV(law of the read cell c_d after erosion at coupling t+1 given the full
+    visible record, uniform); eps_full(t) := same for the full register (all d cells).
+Parameters: d in {2,3}; r in {0, 1/10^12, 1/2^20, 1/1000, 1/2, 1}; horizon K=7 (k=1..6).
+Decision rules
+ V1-1 (inequality refuted under R1): print iff all F1 controls green and exists d, r in (0,1), k with
+      delta_k > r^(k-1).
+ V1-2 (exact vanishing unsupported): print iff all F1 controls green and for some r in (0,1) with
+      tau_B/tau_S = 1/ln(1/r) < 0.2 we have delta_k > 0 at every computed k >= max(1,d-1), and the
+      exact rational lower bound p0*delta_k^2 (backflow lemma, times 1/ln2) is > 0.
+ V1-3 (physical-memory bound consistency): report M_k vs 2*h(eps) for eps in {eps_coarse, eps_full}
+      and vs the closed-form envelope (2/ln2) e^{-x}(x+1+ln(n_V-1)), x = ln(1/r) (n_V=2: ln1=0).
+Controls (all must be green or every F1 verdict is void)
+ CF1-a  r=0 countercontrol: delta_k = 0 exactly for all k, M_k = 0 (exactly: all next-step
+        conditionals equal).
+ CF1-b  r=1 positive control: delta_k = 1 for all k >= max(1,d-1).
+ CF1-c  independent realization: an explicit finite bijection phi (state: x, cells, coin tape,
+        fresh tape; read-time compounded coins) for (d=2, r=1/2), horizon 4, tape length 4:
+        phi bijective by exhaustive check AND its visible trajectory law under the uniform hidden
+        prior equals the Model-E HMM law exactly on all 2^5 trajectories.
+ CF1-d  backflow-lemma control: M_k >= p0*delta^2/ln2 for the witnessing pair (decimal check).
+ CF1-e  physical-memory theorem control: M_k <= 2 h(eps_coarse) and <= 2 h(eps_full) whenever
+        eps <= 1/2 (it is a theorem; a violation means a code bug -> void).
+
+======================================================================
+F2  "One-step thermalization != window-wide Markovianity"
+======================================================================
+Definitions (frozen)
+ E1 T^(k)_{ij} := P(X_k=j | X_0=i), hidden prior uniform (pi_H), alternating coupling map phi and
+    an inter-coupling hidden map B (B=id unless stated). T := T^(1).
+ E2 OST(t) (one-step thermalization, "conditioned on the current/previous visible state"):
+    with x_0 uniform and h_0 ~ pi_H independent, P(H_t^pre = . | X_t = x) = pi_H exactly for every
+    x of positive probability, where H_t^pre is the hidden state entering coupling t (t=0..K-1).
+ E3 CL(t) (closure actually used by the composition step): P(H_t^pre | X_0, X_t) = pi_H.
+    FR(t): eps_FR(t) := max over realized records TV(P(H_t^pre | X_0..X_t), pi_H).
+ E4 Departure: ||A||_TV := max_i (1/2) sum_j |A_ij|; Dk := ||T^(k) - T^k||_TV.
+ E5 Memory: exact gap delta_k as in D1.
+Models (frozen)
+ M1  Main §2.4 sigma on {0,1}x{1..6}, B=id.
+ M2  phi(x,h) = (x xor h, x) on Z2 x Z2, B=id.
+ M3  rotation bath: phi(x,z) = (x xor b(z), z+1 mod 3), b=(1,1,0), B=id (fast autonomous circulation).
+ M4  scrambled generic: phi = uniformly random bijection of Z2 x Z16, B = (random hidden permutation)^5,
+     python random.Random(2310) drawn in that order (phi first, then B).
+ N1  countercontrol (closure holds): hidden tape s in {0,1,2}^5, phi(x,s) = (x xor [s_0==0], rotate-left(s)),
+     B=id; also report k = 10 (tape recurrence).
+ N2  countercontrol (reset, non-bijective, the theorem's "any map"): phi = M1's sigma, B = reset of
+     hidden conditional to pi_H after each coupling.
+Horizon K=6 (k=1..6), plus N1 at k=10.
+Decision rules
+ V2-1 print "OST does not imply T^(k)=T^k" iff F2 controls green and some bijective model satisfies
+      OST(t) exactly for all t<K and has Dk != 0 exactly for some 2<=k<=K.
+ V2-2 print "OST does not imply absence of multi-time memory" iff same, with delta_k > 0 exactly.
+ V2-3 print "OST is automatic" iff, over ALL bijections of Z2xZ2 (24) and Z2xZ3 (720), OST(t) holds
+      exactly for all t<K (with B=id); report how many have Dk != 0 for some k<=K.
+Controls (all must be green or every F2 verdict is void)
+ CF2-a every map declared bijective is bijective (exhaustive).
+ CF2-b N1: Dk = 0 exactly for k=1..5; N2: Dk = 0 exactly for k=1..K (code detects equality).
+ CF2-c Main's C2 quantitative theorem: Dk <= (k-1)*max_{t<k} eps_FR(t) on every model (theorem; a
+       violation -> code bug -> void).
+ CF2-d identity check (paper-derived, bijections, uniform prior): for every realized record,
+       TV(P(H_t^pre | X_0..X_t), pi_H) = 1 - P(X_1..X_t | X_0) exactly, on M1-M4 and N1.
+ CF2-e M1 reproduces Main §2.4's printed numbers: T(1,0) = [[2/3,1/3],[1/3,2/3]], T(2,0)=I,
+       P(x2=0|x1=1,x0=0)=1, P(x2=0|x1=1)=1/3.
+
+----------------------------------------------------------------------
+AMENDMENT A1 (appended BEFORE any computation; original text above unchanged, sha256 of the
+original file recorded in the session log: see the hash printed when A1 was appended)
+Reason: while designing the CF1-c bijection (no code run), noticed that D3's dynamics never write
+x_0 (c_1 starts uniform), so the bracketed note in D3 is wrong at t=0 and Model E has delta_k = 0
+at the lowest orders (k < d) by construction; the V1-2 clause "every computed k >= max(1,d-1)"
+would then fail for a reason unrelated to erosion. Also the planned bijection realizes x_0-written
+dynamics, not E.
+ - The original D3/V1-2/CF1-c remain in force and are evaluated and reported as frozen.
+ - ADDED Model E'(d,r): identical to E except initial c_1 := x_0 (cells c_2..c_d iid uniform).
+ - ADDED V1-2' : V1-2 with E' in place of E and "every computed k >= d-1" (k>=1).
+ - CF1-c is evaluated against E' (the bijection: x' = c_d-read with compounded keep-prob r^d from
+   a coin tape, else fresh-tape bit; register shift with c_1 := old x; displaced bit to tape).
+   For d=2 the register reduces to one cell m: (x, m, coins, fresh) -> (sel(m), x, rot(coins), rot'(fresh)).
+ - ADDED CF1-c' : for Model E itself, an independent brute-force enumeration over all erosion
+   coins and fresh bits must reproduce the HMM-forward law exactly at d=2, r=1/2, horizon 4.

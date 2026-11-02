@@ -1,0 +1,5 @@
+2x2: total=24 with_gap=16 C-rec_violations=0 Kbar_mismatch=0 F3!=gap=0 | C4-alone countermodels=8 best n_div-(kmin+1)=0 | F2 countermodels=8 best F2 window n=2 | F2max countermodels=8
+2x3: total=720 with_gap=648 C-rec_violations=0 Kbar_mismatch=0 F3!=gap=0 | C4-alone countermodels=576 best n_div-(kmin+1)=3 | F2 countermodels=576 best F2 window n=5 | F2max countermodels=288
+3x2: total=720 with_gap=672 C-rec_violations=0 Kbar_mismatch=0 F3!=gap=0 | C4-alone countermodels=240 best n_div-(kmin+1)=2 | F2 countermodels=240 best F2 window n=4 | F2max countermodels=240
+C-2x2 closed-form cross-checks: 5664 pairs, disagreements=0
+INLINE CONTROLS ALL GREEN

@@ -1,0 +1,36 @@
+== Main 2.4 six-hidden model: order L=2
+   Gamma_0 = [['1', '0'], ['0', '1']] perm
+   Gamma_1 = [['2/3', '1/3'], ['1/3', '2/3']] NONPERM
+   Gamma_2 = [['1', '0'], ['0', '1']] perm
+   C4 gap orders <= L: [1, 2]  first witness: (1, ((0,), (1,), 1))
+   pair (s=1, L=2): stochastic right inverse exists? False  overlaps: [(0, 1, 0)]
+   control (Main 2.4 text): P(x2=0|x1=1,x0=0) = 1  P(x2=0|x1=1) = 1/3
+== short-window XOR control phi(x,u)=(u,x^u): order L=3
+   Gamma_0 = [['1', '0'], ['0', '1']] perm
+   Gamma_1 = [['1/2', '1/2'], ['1/2', '1/2']] NONPERM
+   Gamma_2 = [['1/2', '1/2'], ['1/2', '1/2']] NONPERM
+   Gamma_3 = [['1', '0'], ['0', '1']] perm
+   C4 gap orders <= L: [1, 2, 3]  first witness: (1, ((0,), (1,), 0))
+   pair (s=1, L=3): stochastic right inverse exists? False  overlaps: [(0, 1, 0)]
+   P-divisible on {0,1,2} by exhibited stochastic witnesses: True
+   C4 at order 1 lies inside {0,1,2}: True
+== single supported root (pV = delta_0), phi as in 2
+   C4 gap orders with pV=delta_0: [3]  witness: ((0, 0, 0), (0, 1, 1), 0)
+   restricted (supported-root rows only) family P-divisible on {0..L}: True
+   full-row family: pair (1,L) has stochastic right inverse? False ; overlap at s=1 uses rows [(0, 1, 0)] (row 1 has visible prior 0)
+== decoupled negative control: order L=4
+   Gamma_0 = [['1', '0'], ['0', '1']] perm
+   Gamma_1 = [['0', '1'], ['1', '0']] perm
+   Gamma_2 = [['1', '0'], ['0', '1']] perm
+   Gamma_3 = [['0', '1'], ['1', '0']] perm
+   Gamma_4 = [['1', '0'], ['0', '1']] perm
+   C4 gap orders <= L: []  first witness: None
+== tape shift (x,(a,b))->(a,(b,x)), uniform tape: order L=3
+   Gamma_0 = [['1', '0'], ['0', '1']] perm
+   Gamma_1 = [['1/2', '1/2'], ['1/2', '1/2']] NONPERM
+   Gamma_2 = [['1/2', '1/2'], ['1/2', '1/2']] NONPERM
+   Gamma_3 = [['1', '0'], ['0', '1']] perm
+   C4 gap orders <= L: [2, 3]  first witness: (2, ((0, 0), (1, 0), 0))
+   pair (s=1, L=3): stochastic right inverse exists? False  overlaps: [(0, 1, 0)]
+== Lemma scope: 1x2 A=[1/2,1/2], 2x1 B=[1;1] stochastic, AB = [[Fraction(1, 1)]] (non-square: lemma needs square)
+   inverse of [[2/3,1/3],[1/3,2/3]] = [['2', '-1'], ['-1', '2']] (Main 2.4 Lambda(2,1))

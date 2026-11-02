@@ -1,0 +1,55 @@
+== controls ==
+  [PASS] G-a d=2 r=0 
+  [PASS] G-b d=2 r=1 ['1', '1', '1', '1', '1', '1']
+  [PASS] G-a d=3 r=0 
+  [PASS] G-b d=3 r=1 ['0', '1', '1', '1', '1', '1']
+  [PASS] G-c d=2 horizon 5 brute == HMM 
+  [PASS] G-c d=3 horizon 4 brute == HMM 
+  [checked] G-d on all cells (failures above)
+== data ==
+ G d=2 r=1/1000000000000  tauB/tauS=0.0362
+   k=1 delta_k=1.000000e-24 (exact 1/1000000000000000000000000) delta_k/r^d=1.000000 r^(k-1)=1.000e+00 refutes=n M_k=7.213475e-49 eps_coarse=5.000e-25
+   k=2 delta_k=1.000000e-24 (exact 1000000000001/1000000000000000000000001000000000000) delta_k/r^d=1.000000 r^(k-1)=1.000e-12 refutes=n M_k=7.213475e-49 eps_coarse=5.000e-25
+   k=3 delta_k=1.000000e-24 (exact ...) delta_k/r^d=1.000000 r^(k-1)=1.000e-24 refutes=Y M_k=7.213475e-49 eps_coarse=5.000e-25
+   k=4 delta_k=1.000000e-24 (exact ...) delta_k/r^d=1.000000 r^(k-1)=1.000e-36 refutes=Y M_k=7.213475e-49 eps_coarse=5.000e-25
+   k=5 delta_k=1.000000e-24 (exact ...) delta_k/r^d=1.000000 r^(k-1)=1.000e-48 refutes=Y M_k=7.213475e-49 eps_coarse=5.000e-25
+   k=6 delta_k=1.000000e-24 (exact ...) delta_k/r^d=1.000000 r^(k-1)=1.000e-60 refutes=Y M_k=7.213475e-49 eps_coarse=5.000e-25
+ G d=2 r=1/1000  tauB/tauS=0.1448
+   k=1 delta_k=1.000000e-06 (exact 1/1000000) delta_k/r^d=1.000000 r^(k-1)=1.000e+00 refutes=n M_k=7.213475e-13 eps_coarse=5.000e-07
+   k=2 delta_k=1.000999e-06 (exact 1001/1000001000) delta_k/r^d=1.000999 r^(k-1)=1.000e-03 refutes=n M_k=7.213482e-13 eps_coarse=5.005e-07
+   k=3 delta_k=1.001000e-06 (exact 500501/500001000500) delta_k/r^d=1.001000 r^(k-1)=1.000e-06 refutes=Y M_k=7.213482e-13 eps_coarse=5.005e-07
+   k=4 delta_k=1.001000e-06 (exact 1001003003/1000003002002000) delta_k/r^d=1.001000 r^(k-1)=1.000e-09 refutes=Y M_k=7.213482e-13 eps_coarse=5.005e-07
+   k=5 delta_k=1.001000e-06 (exact 200200801001/200000800601000600) delta_k/r^d=1.001000 r^(k-1)=1.000e-12 refutes=Y M_k=7.213482e-13 eps_coarse=5.005e-07
+   k=6 delta_k=1.001000e-06 (exact 125125625876251/125000625501126000625) delta_k/r^d=1.001000 r^(k-1)=1.000e-15 refutes=Y M_k=7.213482e-13 eps_coarse=5.005e-07
+ G d=2 r=1/2  tauB/tauS=1.4427
+   k=1 delta_k=2.500000e-01 (exact 1/4) delta_k/r^d=1.000000 r^(k-1)=1.000e+00 refutes=n M_k=4.556600e-02 eps_coarse=1.250e-01
+   k=2 delta_k=3.000000e-01 (exact 3/10) delta_k/r^d=1.200000 r^(k-1)=5.000e-01 refutes=n M_k=4.875668e-02 eps_coarse=1.500e-01
+   k=3 delta_k=3.076923e-01 (exact 4/13) delta_k/r^d=1.230769 r^(k-1)=2.500e-01 refutes=Y M_k=4.903215e-02 eps_coarse=1.538e-01
+   k=4 delta_k=3.088235e-01 (exact 21/68) delta_k/r^d=1.235294 r^(k-1)=1.250e-01 refutes=Y M_k=4.905429e-02 eps_coarse=1.544e-01
+   k=5 delta_k=3.089888e-01 (exact 55/178) delta_k/r^d=1.235955 r^(k-1)=6.250e-02 refutes=Y M_k=4.905611e-02 eps_coarse=1.545e-01
+   k=6 delta_k=3.090129e-01 (exact 72/233) delta_k/r^d=1.236052 r^(k-1)=3.125e-02 refutes=Y M_k=4.905626e-02 eps_coarse=1.545e-01
+ G d=3 r=1/1000000000000  tauB/tauS=0.0362
+   k=1 delta_k=0.000000e+00 (exact 0) delta_k/r^d=0.000000 r^(k-1)=1.000e+00 refutes=n M_k=0.000000e+00 eps_coarse=0.000e+00
+   k=2 delta_k=1.000000e-36 (exact 1/1000000000000000000000000000000000000) delta_k/r^d=1.000000 r^(k-1)=1.000e-12 refutes=n M_k=7.213475e-73 eps_coarse=5.000e-37
+   k=3 delta_k=1.000000e-36 (exact 1/999999999999000000000001000000000000) delta_k/r^d=1.000000 r^(k-1)=1.000e-24 refutes=n M_k=7.213475e-73 eps_coarse=5.000e-37
+   k=4 delta_k=1.000000e-36 (exact ...) delta_k/r^d=1.000000 r^(k-1)=1.000e-36 refutes=Y M_k=7.213475e-73 eps_coarse=5.000e-37
+   k=5 delta_k=1.000000e-36 (exact ...) delta_k/r^d=1.000000 r^(k-1)=1.000e-48 refutes=Y M_k=7.213475e-73 eps_coarse=5.000e-37
+   k=6 delta_k=1.000000e-36 (exact ...) delta_k/r^d=1.000000 r^(k-1)=1.000e-60 refutes=Y M_k=7.213475e-73 eps_coarse=5.000e-37
+ G d=3 r=1/1000  tauB/tauS=0.1448
+   k=1 delta_k=0.000000e+00 (exact 0) delta_k/r^d=0.000000 r^(k-1)=1.000e+00 refutes=n M_k=0.000000e+00 eps_coarse=0.000e+00
+   k=2 delta_k=1.000000e-09 (exact 1/1000000000) delta_k/r^d=1.000000 r^(k-1)=1.000e-03 refutes=n M_k=7.213475e-19 eps_coarse=5.000e-10
+   k=3 delta_k=1.001000e-09 (exact 1/999001000) delta_k/r^d=1.001000 r^(k-1)=1.000e-06 refutes=n M_k=7.213482e-19 eps_coarse=5.005e-10
+   k=4 delta_k=1.001002e-09 (exact 500501/500000001000500) delta_k/r^d=1.001002 r^(k-1)=1.000e-09 refutes=Y M_k=7.213482e-19 eps_coarse=5.005e-10
+   k=5 delta_k=1.001002e-09 (exact 250250501/250000000750500500) delta_k/r^d=1.001002 r^(k-1)=1.000e-12 refutes=Y M_k=7.213482e-19 eps_coarse=5.005e-10
+   k=6 delta_k=1.001002e-09 (exact 1001002005007/1000000004003004004000) delta_k/r^d=1.001002 r^(k-1)=1.000e-15 refutes=Y M_k=7.213482e-19 eps_coarse=5.005e-10
+ G d=3 r=1/2  tauB/tauS=1.4427
+   k=1 delta_k=0.000000e+00 (exact 0) delta_k/r^d=0.000000 r^(k-1)=1.000e+00 refutes=n M_k=0.000000e+00 eps_coarse=0.000e+00
+   k=2 delta_k=1.250000e-01 (exact 1/8) delta_k/r^d=1.000000 r^(k-1)=5.000e-01 refutes=n M_k=1.130059e-02 eps_coarse=6.250e-02
+   k=3 delta_k=1.666667e-01 (exact 1/6) delta_k/r^d=1.333333 r^(k-1)=2.500e-01 refutes=n M_k=1.293535e-02 eps_coarse=8.333e-02
+   k=4 delta_k=1.904762e-01 (exact 4/21) delta_k/r^d=1.523810 r^(k-1)=1.250e-01 refutes=Y M_k=1.327457e-02 eps_coarse=9.524e-02
+   k=5 delta_k=2.000000e-01 (exact 1/5) delta_k/r^d=1.600000 r^(k-1)=6.250e-02 refutes=Y M_k=1.333983e-02 eps_coarse=1.000e-01
+   k=6 delta_k=2.041667e-01 (exact 49/240) delta_k/r^d=1.633333 r^(k-1)=3.125e-02 refutes=Y M_k=1.335326e-02 eps_coarse=1.021e-01
+== verdicts ==
+  W1: PRINT: refuted cells 21; first per d: {2: 3, 3: 4}
+  W2: PRINT: [(2, '1/1000000000000'), (2, '1/1000'), (3, '1/1000000000000'), (3, '1/1000')]
+f1b: ALL CONTROLS GREEN

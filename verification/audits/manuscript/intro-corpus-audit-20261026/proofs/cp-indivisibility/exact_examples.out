@@ -1,0 +1,11 @@
+X1  Ad_H.Ad_H = id, Ad_H CPTP (exact Choi PSD, TP): pair CP-divisible with Lambda = Ad_H
+    T(t1) = J/2, T(t2) = I: no stochastic divisor (exact Farkas): ['-1', '3', '3', '-1', '-1', '-1']
+    Ad_H maps |0><0| to a non-diagonal state: outside the diagonal-preserving class
+    whole family {id, Ad_H, id} at t = 0,1,2: CP-divisible for every pair (0,t) trivially,
+    (1,2) by Ad_H; populations P-indivisible at (1,2).  Remark verified exactly.
+X2  CNOT dilation, priors (1/2,1/2),(1/3,2/3),(1,0): Phi_1 = dephasing, Phi_2 = id,
+    T(1) = T(2) = I (P-divisible) yet no linear Lambda: CP-indivisible.  Converse fails
+    inside the permutation-dilation class.
+X3  card game: Phi_1 = tr(.) I/2, Phi_2 = id; populations P-indivisible (exact Farkas),
+    CP-indivisible (exact, both by the theorem's lift and by linear incompatibility).
+ALL EXACT CHECKS PASS

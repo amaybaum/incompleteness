@@ -1,0 +1,163 @@
+mode=full1 N=8: instances with a gap = 4920, pairs tested = 6044, pairs with delta=1 = 1848, time 2.4s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =       0   undecided = 0
+   CC l1: p0 (2d)^2             violations =    4660   undecided = 0
+   CC conditional p0            violations =    1292   undecided = 0
+   CC average weight            violations =    1056   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.980974758953
+     at {'((0,), 1, (0,))': '1/8', '((0,), 1, (1,))': '1/4', '((1,), 0, (1,))': '1/4', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '1/8'}  pair {'c': '1', 'w1': '3/8', 'w2': '3/8', 'pc': '3/4', 'p0': '3/8', 'delta': '1/3'}
+   first CC l1: p0 (2d)^2 violation: ({'((0,), 1, (1,))': '1/8', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '5/8'}, {'c': '1', 'w1': '1/8', 'w2': '7/8', 'pc': '1', 'p0': '1/8', 'delta': '2/7'})
+   first CC average weight violation: ({'((0,), 1, (1,))': '1/8', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '5/8'}, {'c': '1', 'w1': '1/8', 'w2': '7/8', 'pc': '1', 'p0': '1/8', 'delta': '2/7'})
+   first CC conditional p0 violation: ({'((0,), 1, (1,))': '1/8', '((1,), 0, (1,))': '1/2', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '1/8'}, {'c': '1', 'w1': '1/8', 'w2': '3/8', 'pc': '1/2', 'p0': '1/8', 'delta': '2/3'})
+mode=full1 N=10: instances with a gap = 16416, pairs tested = 21712, pairs with delta=1 = 5148, time 9.4s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =       4   undecided = 0
+   CC l1: p0 (2d)^2             violations =   15240   undecided = 0
+   CC conditional p0            violations =    4524   undecided = 0
+   CC average weight            violations =    3640   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.993269923295
+     at {'((0,), 1, (0,))': '1/5', '((0,), 1, (1,))': '3/10', '((1,), 1, (0,))': '3/10', '((1,), 1, (1,))': '1/5'}  pair {'c': '1', 'w1': '1/2', 'w2': '1/2', 'pc': '1', 'p0': '1/2', 'delta': '1/5'}
+   first CC average weight violation: ({'((0,), 1, (1,))': '1/10', '((1,), 1, (0,))': '1/5', '((1,), 1, (1,))': '7/10'}, {'c': '1', 'w1': '1/10', 'w2': '9/10', 'pc': '1', 'p0': '1/10', 'delta': '2/9'})
+   first CC l1: p0 (2d)^2 violation: ({'((0,), 1, (1,))': '1/10', '((1,), 1, (0,))': '3/10', '((1,), 1, (1,))': '3/5'}, {'c': '1', 'w1': '1/10', 'w2': '9/10', 'pc': '1', 'p0': '1/10', 'delta': '1/3'})
+   first CC conditional p0 violation: ({'((0,), 1, (1,))': '1/10', '((1,), 0, (1,))': '1/2', '((1,), 1, (0,))': '3/10', '((1,), 1, (1,))': '1/10'}, {'c': '1', 'w1': '1/10', 'w2': '2/5', 'pc': '1/2', 'p0': '1/10', 'delta': '3/4'})
+   first CC 1.01 p0 d^2 violation: ({'((0,), 1, (0,))': '1/5', '((0,), 1, (1,))': '3/10', '((1,), 1, (0,))': '3/10', '((1,), 1, (1,))': '1/5'}, {'c': '1', 'w1': '1/2', 'w2': '1/2', 'pc': '1', 'p0': '1/2', 'delta': '1/5'})
+mode=full1 N=12: instances with a gap = 45016, pairs tested = 63216, pairs with delta=1 = 12012, time 26.1s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =      32   undecided = 0
+   CC l1: p0 (2d)^2             violations =   41336   undecided = 0
+   CC conditional p0            violations =   12652   undecided = 0
+   CC average weight            violations =   10368   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.993269923295
+     at {'((0,), 1, (0,))': '1/6', '((0,), 1, (1,))': '1/4', '((1,), 0, (1,))': '1/6', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '1/6'}  pair {'c': '1', 'w1': '5/12', 'w2': '5/12', 'pc': '5/6', 'p0': '5/12', 'delta': '1/5'}
+   first CC average weight violation: ({'((0,), 1, (1,))': '1/12', '((1,), 1, (0,))': '1/6', '((1,), 1, (1,))': '3/4'}, {'c': '1', 'w1': '1/12', 'w2': '11/12', 'pc': '1', 'p0': '1/12', 'delta': '2/11'})
+   first CC l1: p0 (2d)^2 violation: ({'((0,), 1, (1,))': '1/12', '((1,), 1, (0,))': '1/3', '((1,), 1, (1,))': '7/12'}, {'c': '1', 'w1': '1/12', 'w2': '11/12', 'pc': '1', 'p0': '1/12', 'delta': '4/11'})
+   first CC conditional p0 violation: ({'((0,), 1, (1,))': '1/12', '((1,), 0, (1,))': '7/12', '((1,), 1, (0,))': '1/6', '((1,), 1, (1,))': '1/6'}, {'c': '1', 'w1': '1/12', 'w2': '1/3', 'pc': '5/12', 'p0': '1/12', 'delta': '1/2'})
+   first CC 1.01 p0 d^2 violation: ({'((0,), 1, (0,))': '1/6', '((0,), 1, (1,))': '1/4', '((1,), 0, (1,))': '1/6', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '1/6'}, {'c': '1', 'w1': '5/12', 'w2': '5/12', 'pc': '5/6', 'p0': '5/12', 'delta': '1/5'})
+mode=full1 N=14: instances with a gap = 107544, pairs tested = 158552, pairs with delta=1 = 24752, time 66.0s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =      72   undecided = 0
+   CC l1: p0 (2d)^2             violations =   97144   undecided = 0
+   CC conditional p0            violations =   32128   undecided = 0
+   CC average weight            violations =   24704   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.996582286595
+     at {'((0,), 1, (0,))': '3/14', '((0,), 1, (1,))': '2/7', '((1,), 1, (0,))': '2/7', '((1,), 1, (1,))': '3/14'}  pair {'c': '1', 'w1': '1/2', 'w2': '1/2', 'pc': '1', 'p0': '1/2', 'delta': '1/7'}
+   first CC average weight violation: ({'((0,), 1, (1,))': '1/14', '((1,), 1, (0,))': '1/7', '((1,), 1, (1,))': '11/14'}, {'c': '1', 'w1': '1/14', 'w2': '13/14', 'pc': '1', 'p0': '1/14', 'delta': '2/13'})
+   first CC l1: p0 (2d)^2 violation: ({'((0,), 1, (1,))': '1/14', '((1,), 1, (0,))': '2/7', '((1,), 1, (1,))': '9/14'}, {'c': '1', 'w1': '1/14', 'w2': '13/14', 'pc': '1', 'p0': '1/14', 'delta': '4/13'})
+   first CC conditional p0 violation: ({'((0,), 1, (1,))': '1/14', '((1,), 0, (1,))': '4/7', '((1,), 1, (0,))': '3/14', '((1,), 1, (1,))': '1/7'}, {'c': '1', 'w1': '1/14', 'w2': '5/14', 'pc': '3/7', 'p0': '1/14', 'delta': '3/5'})
+   first CC 1.01 p0 d^2 violation: ({'((0,), 1, (0,))': '1/7', '((0,), 1, (1,))': '3/14', '((1,), 0, (1,))': '2/7', '((1,), 1, (0,))': '3/14', '((1,), 1, (1,))': '1/7'}, {'c': '1', 'w1': '5/14', 'w2': '5/14', 'pc': '5/7', 'p0': '5/14', 'delta': '1/5'})
+mode=full1 N=16: instances with a gap = 231784, pairs tested = 355600, pairs with delta=1 = 46512, time 132.0s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =     144   undecided = 0
+   CC l1: p0 (2d)^2             violations =  208432   undecided = 0
+   CC conditional p0            violations =   71260   undecided = 0
+   CC average weight            violations =   53632   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.996582286595
+     at {'((0,), 1, (0,))': '3/16', '((0,), 1, (1,))': '1/4', '((1,), 0, (1,))': '1/8', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '3/16'}  pair {'c': '1', 'w1': '7/16', 'w2': '7/16', 'pc': '7/8', 'p0': '7/16', 'delta': '1/7'}
+   first CC average weight violation: ({'((0,), 1, (1,))': '1/16', '((1,), 1, (0,))': '1/8', '((1,), 1, (1,))': '13/16'}, {'c': '1', 'w1': '1/16', 'w2': '15/16', 'pc': '1', 'p0': '1/16', 'delta': '2/15'})
+   first CC l1: p0 (2d)^2 violation: ({'((0,), 1, (1,))': '1/16', '((1,), 1, (0,))': '5/16', '((1,), 1, (1,))': '5/8'}, {'c': '1', 'w1': '1/16', 'w2': '15/16', 'pc': '1', 'p0': '1/16', 'delta': '1/3'})
+   first CC conditional p0 violation: ({'((0,), 1, (1,))': '1/16', '((1,), 0, (1,))': '9/16', '((1,), 1, (0,))': '1/4', '((1,), 1, (1,))': '1/8'}, {'c': '1', 'w1': '1/16', 'w2': '3/8', 'pc': '7/16', 'p0': '1/16', 'delta': '2/3'})
+   first CC 1.01 p0 d^2 violation: ({'((0,), 1, (0,))': '1/8', '((0,), 1, (1,))': '3/16', '((1,), 0, (1,))': '3/8', '((1,), 1, (0,))': '3/16', '((1,), 1, (1,))': '1/8'}, {'c': '1', 'w1': '5/16', 'w2': '5/16', 'pc': '5/8', 'p0': '5/16', 'delta': '1/5'})
+mode=full2 N=4: instances with a gap = 2356, pairs tested = 3240, pairs with delta=1 = 2520, time 1.1s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =       0   undecided = 0
+   CC l1: p0 (2d)^2             violations =    3144   undecided = 0
+   CC conditional p0            violations =     576   undecided = 0
+   CC average weight            violations =      48   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.721347520444
+     at {'((1, 0), 1, (1,))': '1/4', '((1, 1), 0, (1,))': '1/2', '((1, 1), 1, (0,))': '1/4'}  pair {'c': '1', 'w1': '1/4', 'w2': '1/4', 'pc': '1/2', 'p0': '1/4', 'delta': '1'}
+   first CC l1: p0 (2d)^2 violation: ({'((1, 0), 1, (1,))': '1/4', '((1, 1), 1, (0,))': '1/4', '((1, 1), 1, (1,))': '1/2'}, {'c': '1', 'w1': '1/4', 'w2': '3/4', 'pc': '1', 'p0': '1/4', 'delta': '1/3'})
+   first CC average weight violation: ({'((1, 0), 1, (1,))': '1/4', '((1, 1), 1, (0,))': '1/2', '((1, 1), 1, (1,))': '1/4'}, {'c': '1', 'w1': '1/4', 'w2': '3/4', 'pc': '1', 'p0': '1/4', 'delta': '2/3'})
+   first CC conditional p0 violation: ({'((1, 0), 1, (1,))': '1/4', '((1, 1), 0, (1,))': '1/2', '((1, 1), 1, (0,))': '1/4'}, {'c': '1', 'w1': '1/4', 'w2': '1/4', 'pc': '1/2', 'p0': '1/4', 'delta': '1'})
+mode=full2 N=5: instances with a gap = 11536, pairs tested = 19248, pairs with delta=1 = 13440, time 6.7s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =       0   undecided = 0
+   CC l1: p0 (2d)^2             violations =   17280   undecided = 0
+   CC conditional p0            violations =    1728   undecided = 0
+   CC average weight            violations =     528   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.802576950828
+     at {'((1, 0), 1, (0,))': '1/5', '((1, 0), 1, (1,))': '1/5', '((1, 1), 1, (0,))': '1/5', '((1, 1), 1, (1,))': '2/5'}  pair {'c': '1', 'w1': '2/5', 'w2': '3/5', 'pc': '1', 'p0': '2/5', 'delta': '1/6'}
+   first CC l1: p0 (2d)^2 violation: ({'((1, 0), 1, (1,))': '1/5', '((1, 1), 1, (0,))': '2/5', '((1, 1), 1, (1,))': '2/5'}, {'c': '1', 'w1': '1/5', 'w2': '4/5', 'pc': '1', 'p0': '1/5', 'delta': '1/2'})
+   first CC average weight violation: ({'((1, 0), 1, (1,))': '1/5', '((1, 1), 1, (0,))': '2/5', '((1, 1), 1, (1,))': '2/5'}, {'c': '1', 'w1': '1/5', 'w2': '4/5', 'pc': '1', 'p0': '1/5', 'delta': '1/2'})
+   first CC conditional p0 violation: ({'((1, 0), 1, (1,))': '1/5', '((1, 1), 0, (1,))': '3/5', '((1, 1), 1, (0,))': '1/5'}, {'c': '1', 'w1': '1/5', 'w2': '1/5', 'pc': '2/5', 'p0': '1/5', 'delta': '1'})
+mode=full2 N=6: instances with a gap = 45256, pairs tested = 90408, pairs with delta=1 = 57120, time 28.1s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =       0   undecided = 0
+   CC l1: p0 (2d)^2             violations =   69912   undecided = 0
+   CC conditional p0            violations =   13632   undecided = 0
+   CC average weight            violations =    2640   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.980974758953
+     at {'((1, 0), 1, (0,))': '1/6', '((1, 0), 1, (1,))': '1/3', '((1, 1), 1, (0,))': '1/3', '((1, 1), 1, (1,))': '1/6'}  pair {'c': '1', 'w1': '1/2', 'w2': '1/2', 'pc': '1', 'p0': '1/2', 'delta': '1/3'}
+   first CC l1: p0 (2d)^2 violation: ({'((1, 0), 1, (1,))': '1/6', '((1, 1), 1, (0,))': '1/3', '((1, 1), 1, (1,))': '1/2'}, {'c': '1', 'w1': '1/6', 'w2': '5/6', 'pc': '1', 'p0': '1/6', 'delta': '2/5'})
+   first CC average weight violation: ({'((1, 0), 1, (1,))': '1/6', '((1, 1), 1, (0,))': '1/3', '((1, 1), 1, (1,))': '1/2'}, {'c': '1', 'w1': '1/6', 'w2': '5/6', 'pc': '1', 'p0': '1/6', 'delta': '2/5'})
+   first CC conditional p0 violation: ({'((1, 0), 1, (1,))': '1/6', '((1, 1), 0, (1,))': '1/2', '((1, 1), 1, (0,))': '1/3'}, {'c': '1', 'w1': '1/6', 'w2': '1/3', 'pc': '1/2', 'p0': '1/6', 'delta': '1'})
+mode=full2 N=7: instances with a gap = 151968, pairs tested = 357360, pairs with delta=1 = 205632, time 104.4s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =       0   undecided = 0
+   CC l1: p0 (2d)^2             violations =  210864   undecided = 0
+   CC conditional p0            violations =   41088   undecided = 0
+   CC average weight            violations =    9168   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.980974758953
+     at {'((1, 0), 1, (0,))': '1/7', '((1, 0), 1, (1,))': '2/7', '((1, 1), 0, (1,))': '1/7', '((1, 1), 1, (0,))': '2/7', '((1, 1), 1, (1,))': '1/7'}  pair {'c': '1', 'w1': '3/7', 'w2': '3/7', 'pc': '6/7', 'p0': '3/7', 'delta': '1/3'}
+   first CC l1: p0 (2d)^2 violation: ({'((1, 0), 1, (1,))': '1/7', '((1, 1), 1, (0,))': '2/7', '((1, 1), 1, (1,))': '4/7'}, {'c': '1', 'w1': '1/7', 'w2': '6/7', 'pc': '1', 'p0': '1/7', 'delta': '1/3'})
+   first CC average weight violation: ({'((1, 0), 1, (1,))': '1/7', '((1, 1), 1, (0,))': '2/7', '((1, 1), 1, (1,))': '4/7'}, {'c': '1', 'w1': '1/7', 'w2': '6/7', 'pc': '1', 'p0': '1/7', 'delta': '1/3'})
+   first CC conditional p0 violation: ({'((1, 0), 1, (1,))': '1/7', '((1, 1), 0, (1,))': '4/7', '((1, 1), 1, (0,))': '1/7', '((1, 1), 1, (1,))': '1/7'}, {'c': '1', 'w1': '1/7', 'w2': '2/7', 'pc': '3/7', 'p0': '1/7', 'delta': '1/2'})
+mode=slice1 N=48: instances with a gap = 264652, pairs tested = 264652, pairs with delta=1 = 2256, time 140.0s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =     152   undecided = 0
+   CC l1: p0 (2d)^2             violations =  242924   undecided = 0
+   CC conditional p0            violations =   42394   undecided = 0
+   CC average weight            violations =  108932   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.999684801048
+     at {"(0, 'c', 0)": '11/48', "(0, 'c', 1)": '1/4', "(1, 'c', 0)": '1/4', "(1, 'c', 1)": '11/48', "('s', 'other', 0)": '1/24'}  pair {'c': 'c', 'w1': '23/48', 'w2': '23/48', 'pc': '23/24', 'p0': '23/48', 'delta': '1/23'}
+   first CC l1: p0 (2d)^2 violation: ({"(0, 'c', 1)": '1/48', "(1, 'c', 0)": '1/48', "('s', 'other', 0)": '23/24'}, {'c': 'c', 'w1': '1/48', 'w2': '1/48', 'pc': '1/24', 'p0': '1/48', 'delta': '1'})
+   first CC conditional p0 violation: ({"(0, 'c', 1)": '1/48', "(1, 'c', 0)": '1/48', "('s', 'other', 0)": '23/24'}, {'c': 'c', 'w1': '1/48', 'w2': '1/48', 'pc': '1/24', 'p0': '1/48', 'delta': '1'})
+   first CC average weight violation: ({"(0, 'c', 1)": '1/48', "(1, 'c', 0)": '1/24', "(1, 'c', 1)": '1/48', "('s', 'other', 0)": '11/12'}, {'c': 'c', 'w1': '1/48', 'w2': '1/16', 'pc': '1/12', 'p0': '1/48', 'delta': '2/3'})
+   first CC 1.01 p0 d^2 violation: ({"(0, 'c', 0)": '1/24', "(0, 'c', 1)": '1/16', "(1, 'c', 0)": '1/16', "(1, 'c', 1)": '1/24', "('s', 'other', 0)": '19/24'}, {'c': 'c', 'w1': '5/48', 'w2': '5/48', 'pc': '5/24', 'p0': '5/48', 'delta': '1/5'})
+mode=slice2 N=13: instances with a gap = 198048, pairs tested = 741264, pairs with delta=1 = 148512, time 164.8s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =      36   undecided = 0
+   CC l1: p0 (2d)^2             violations =  306072   undecided = 0
+   CC conditional p0            violations =    4572   undecided = 0
+   CC average weight            violations =   31944   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.993269923295
+     at {"(2, 'c', 0)": '2/13', "(2, 'c', 1)": '3/13', "(3, 'c', 0)": '3/13', "(3, 'c', 1)": '2/13', "('s', 'other', 0)": '3/13'}  pair {'c': 'c', 'w1': '5/13', 'w2': '5/13', 'pc': '10/13', 'p0': '5/13', 'delta': '1/5'}
+   first CC l1: p0 (2d)^2 violation: ({"(2, 'c', 1)": '1/13', "(3, 'c', 0)": '1/13', "('s', 'other', 0)": '11/13'}, {'c': 'c', 'w1': '1/13', 'w2': '1/13', 'pc': '2/13', 'p0': '1/13', 'delta': '1'})
+   first CC conditional p0 violation: ({"(2, 'c', 1)": '1/13', "(3, 'c', 0)": '1/13', "('s', 'other', 0)": '11/13'}, {'c': 'c', 'w1': '1/13', 'w2': '1/13', 'pc': '2/13', 'p0': '1/13', 'delta': '1'})
+   first CC average weight violation: ({"(2, 'c', 1)": '1/13', "(3, 'c', 0)": '2/13', "(3, 'c', 1)": '1/13', "('s', 'other', 0)": '9/13'}, {'c': 'c', 'w1': '1/13', 'w2': '3/13', 'pc': '4/13', 'p0': '1/13', 'delta': '2/3'})
+   first CC 1.01 p0 d^2 violation: ({"(2, 'c', 0)": '2/13', "(2, 'c', 1)": '3/13', "(3, 'c', 0)": '3/13', "(3, 'c', 1)": '2/13', "('s', 'other', 0)": '3/13'}, {'c': 'c', 'w1': '5/13', 'w2': '5/13', 'pc': '10/13', 'p0': '5/13', 'delta': '1/5'})
+mode=slice1t N=20: instances with a gap = 225486, pairs tested = 225486, pairs with delta=1 = 7980, time 126.7s
+   stated  p0 d^2               violations =       0   undecided = 0
+   harmonic 2w1w2/(w1+w2) d^2   violations =       0   undecided = 0
+   CC 1.01 p0 d^2               violations =      30   undecided = 0
+   CC l1: p0 (2d)^2             violations =  203130   undecided = 0
+   CC conditional p0            violations =   11226   undecided = 0
+   CC average weight            violations =   49722   undecided = 0
+   bound > H(X_k+1|X_k) (not certified <=): 0
+   max ratio bound/I (upper end) = 0.997936425202
+     at {"(0, 'c', 1)": '1/5', "(0, 'c', 2)": '1/4', "(1, 'c', 1)": '1/4', "(1, 'c', 2)": '1/5', "('s', 'other', 0)": '1/10'}  pair {'c': 'c', 'w1': '9/20', 'w2': '9/20', 'pc': '9/10', 'p0': '9/20', 'delta': '1/9'}
+   first CC l1: p0 (2d)^2 violation: ({"(0, 'c', 2)": '1/20', "(1, 'c', 1)": '1/20', "('s', 'other', 0)": '9/10'}, {'c': 'c', 'w1': '1/20', 'w2': '1/20', 'pc': '1/10', 'p0': '1/20', 'delta': '1'})
+   first CC conditional p0 violation: ({"(0, 'c', 2)": '1/20', "(1, 'c', 1)": '1/20', "('s', 'other', 0)": '9/10'}, {'c': 'c', 'w1': '1/20', 'w2': '1/20', 'pc': '1/10', 'p0': '1/20', 'delta': '1'})
+   first CC average weight violation: ({"(0, 'c', 2)": '1/20', "(1, 'c', 1)": '1/10', "(1, 'c', 2)": '1/20', "('s', 'other', 0)": '4/5'}, {'c': 'c', 'w1': '1/20', 'w2': '3/20', 'pc': '1/5', 'p0': '1/20', 'delta': '2/3'})
+   first CC 1.01 p0 d^2 violation: ({"(0, 'c', 1)": '1/10', "(0, 'c', 2)": '3/20', "(1, 'c', 1)": '3/20', "(1, 'c', 2)": '1/10', "('s', 'other', 0)": '1/2'}, {'c': 'c', 'w1': '1/4', 'w2': '1/4', 'pc': '1/2', 'p0': '1/4', 'delta': '1/5'})

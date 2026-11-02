@@ -1,0 +1,6 @@
+GENERIC n=2 K=1: 2 contexts, kernel entries free indeterminates -> joint identity holds as a POLYNOMIAL identity (all real kernels)
+GENERIC n=2 K=2: 6 contexts, kernel entries free indeterminates -> joint identity holds as a POLYNOMIAL identity (all real kernels)
+GENERIC n=3 K=1: 3 contexts, kernel entries free indeterminates -> joint identity holds as a POLYNOMIAL identity (all real kernels)
+rational n=2 K=3: 14 contexts, domain 229376: injective, completion exists, full joint exact
+rational n=3 K=2: 12 contexts, domain 6377292: injective, full joint exact
+response_generic: COMPLETE

@@ -1,0 +1,3 @@
+(n_V,n_H)=(2,2): bijections 24; C4-gap inside W: 12; of these R_W>0: 4, R_W=0: 8; R_W>0 without a gap in W: 0; max R_W = 1
+(n_V,n_H)=(2,3): bijections 720; C4-gap inside W: 576; of these R_W>0: 36, R_W=0: 540; R_W>0 without a gap in W: 0; max R_W = 2/3
+(n_V,n_H)=(3,2): bijections 720; C4-gap inside W: 616; of these R_W>0: 424, R_W=0: 192; R_W>0 without a gap in W: 0; max R_W = 1

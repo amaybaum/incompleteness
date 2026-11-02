@@ -1,0 +1,5 @@
+irrational K=1: n=2 K=1 contexts=2 |S|=48: bijection OK, prior normalised, all roots/all k<=K/all joints EXACT
+irrational non-Markov w/ zero contexts K=2: n=2 K=2 contexts=6 |S|=3456: bijection OK, prior normalised, all roots/all k<=K/all joints EXACT
+irrational n=3 K=1: |S|=648: EXACT
+E: non-product prior with correct one-context marginals FAILS on the joint (control live): (0, 2, (0, 1))
+response_check: COMPLETE
