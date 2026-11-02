@@ -710,9 +710,9 @@ probabilities under relabelling) but changes the fluctuation dispersion,
 so it is not a symmetry of the physical observables; the gauge group is
 the additive-automorphism group, a proper subgroup of all permutations.
 This amplitude-scale (additive-automorphism) gauge is what the §4.1
-linearity argument invokes; whether it is entailed by the alphabet-size
-hypothesis, or is an additional principle, is an identified open
-structural question.
+argument for an affine rule invokes; whether it is entailed by the
+alphabet-size hypothesis, or is an additional principle, is an
+identified open structural question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1758,8 +1758,19 @@ breaking the isotropy that Lorentz invariance demands.
 \textbf{Linearity and coefficient selection: revised scope.} The
 strongest non-QM argument retained here is the amplitude-scale-gauge
 lemma: if the embedded observer has no access to an absolute
-field-amplitude scale, base-point-independent first differences force an
-affine rule, and the center-free branch reduces it to a linear one. The
+field-amplitude scale, in the form that every first difference of the
+update over \(\mathbb{Z}/q\mathbb{Z}\) is independent of its base point,
+the rule is affine, an additive map plus a constant. Linearity (A5) is a
+further restriction imposed on the selected lattice model, not a
+consequence of center independence: on a ring of four sites over
+\(\mathbb{Z}/5\mathbb{Z}\) the rule
+\(x_i(t+1)=x_{i-1}(t)+x_{i+1}(t)+1-x_i(t-1)\) is reversible, commutes
+with translations, and is center-free and affine; it has no fixed point,
+since a fixed state has equal slices \(x\) with
+\(2x_i-x_{i-1}-x_{i+1}=1\) at every site, and summing over the ring
+gives \(0\equiv4 \pmod 5\), which is false; a linear map fixes the zero
+state and a relabelling carries fixed points to fixed points, so no
+time-independent relabelling of the states makes this rule linear. The
 earlier coefficient arguments based on ``maximum propagation speed'' and
 on \(\alpha=1\) maximizing P-indivisibility do not hold as selectors of
 the \(d>1\) real lift: microscopic causal speed is fixed by dependency
@@ -9137,4 +9148,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: 7da4e1c16e00dd06ebda425f99710b52c073182a9c533933519f68e36bbc6a49
+% source-sha256: 592d48548bcde72c17f6dbcb3e7d9040b13b791cc115974275e32ad197a0e0a5
