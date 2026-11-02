@@ -1244,6 +1244,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reverse direction (necessity) is per-condition (Appendix..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's content is unusual. It combines a substantia..."
     },
     {
@@ -1296,6 +1300,18 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's response.** The necessity direction is pro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Necessity of C2 (memory persistence).* The hidden sector mu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Each theorem is a contrapositive: violating C1, C3, C4 or th..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The empirical signatures.** Finiteness has specific empiri..."
     },
     {
@@ -1337,6 +1353,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: This chapter proves those statements, then adds their spatia..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: In the Markovian regime — a fast-mixing bath, system slow re..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The conditions are independent in statement but coupled in c..."
     },
     {
       "ok": true,
@@ -1384,7 +1408,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: No laboratory observer occupies the thermal limit completely..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The C2 limit therefore illuminates a different structural po..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A corollary, stated carefully: what the framework requires i..."
     },
     {
       "ok": true,
@@ -1468,6 +1500,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The horizon-clock projection: the arrow of time.** A third..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The cosmological horizon entropy provides a structural clock..."
     },
     {
@@ -1485,6 +1521,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Level D: OI's specific local structural residue.** The fra..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A concrete example clarifies the structural distinction. Con..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This structural distinction has implications for several con..."
     },
     {
       "ok": true,
@@ -1645,6 +1689,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The choice among representatives related by the stated fixed..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The equilibrium phase of $(S, \\varphi)$.* Chapter 1's centr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: These silences are structural rather than methodological. Th..."
     },
     {
       "ok": true,
@@ -1824,6 +1876,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The Markovian character of ordinary chemistry follows from t..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 12.7 develops the structural chain from intelligence..."
     },
     {
@@ -1929,6 +1985,26 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 15.7 develops the restricted quantum-statistical reg..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: By tuning the chain length $L$ — the lengths below are illus..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: - Short chain ($L \\lesssim 5$, $\\tau_B \\sim \\tau_S$): how fa..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: - Long chain ($L \\gtrsim 20$, $\\tau_B \\gg \\tau_S$): memory-b..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Whether a record survives to readback depends on the chain's..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The platform is testable on existing technologies: supercond..."
     },
     {
       "ok": true,
@@ -2056,6 +2132,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework predicts that aging-associated gene expression..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's reach across Chapters 13-17 — quantum biolog..."
     },
     {
@@ -2073,6 +2153,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: ## 18.3 The quantum-classical boundary and the restricted qu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's account is structurally different. The bound..."
     },
     {
       "ok": true,
@@ -2196,6 +2280,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Direction 1: Consciousness requires observation.* Any consc..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Testable forward predictions.* The restricted quantum-stati..."
     },
     {
@@ -2277,6 +2365,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **C3 (Hidden-sector capacity).** The second of the framework..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **C4 (History readback).** The third of the framework's thre..."
     },
     {
       "ok": true,

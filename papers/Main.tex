@@ -654,23 +654,24 @@ the distinction is load-bearing. C1, C3 and C4 are the structural
 conditions: the characterization's equivalence runs over those three
 (§3.4), and the existential realization satisfies C2 trivially with a
 static bath. What C2 supplies is physical: it is the mechanism by which
-a stored record survives to be read in realistic models, so that C4
-holds rather than failing by erasure (§2.3); and in the other direction,
-in the coupling-step model of the physical-memory theorem (§3.4) ---
-next visible state determined by the current visible and hidden states,
-any hidden map between couplings --- observed conditional memory
-\(M_k = I(X_{<k}; X_{k+1} \mid X_k) > 0\) at an accessible order \(k\)
-forces some realized hidden conditional at that coupling time to lie at
-total-variation distance at least \(\varepsilon_{\min}(M_k, n_V)\)
-(§3.4) from the model's reference prior \(\pi_H\) --- the contrapositive
-of the physical-memory theorem of §3.4, in which \(\varepsilon\) is the
-realized distance and no mixing hypothesis enters --- while the
-timescale form, a lower bound on bath persistence, follows from it under
-the hidden-sector mixing hypothesis. Note also that C2 does not imply
-C4: a slow bath can store without reading, certified by a C1--C3
-realization with identically zero conditional memory on arbitrarily long
-horizons (\texttt{review3\_probes.py}), which is why C4 is a separate
-condition and not a consequence. ETH, C2's physical motivation --- a
+a stored record survives to be read in realistic models, so that the
+readback gap C4 asserts survives rather than being suppressed by erosion
+(§2.3); and in the other direction, in the coupling-step model of the
+physical-memory theorem (§3.4) --- next visible state determined by the
+current visible and hidden states, any hidden map between couplings ---
+observed conditional memory \(M_k = I(X_{<k}; X_{k+1} \mid X_k) > 0\) at
+an accessible order \(k\) forces some realized hidden conditional at
+that coupling time to lie at total-variation distance at least
+\(\varepsilon_{\min}(M_k, n_V)\) (§3.4) from the model's reference prior
+\(\pi_H\) --- the contrapositive of the physical-memory theorem of §3.4,
+in which \(\varepsilon\) is the realized distance and no mixing
+hypothesis enters --- while the timescale form, a lower bound on bath
+persistence, follows from it under the hidden-sector mixing hypothesis.
+Note also that C2 does not imply C4: a slow bath can store without
+reading, certified by a C1--C3 realization with identically zero
+conditional memory on arbitrarily long horizons
+(\texttt{review3\_probes.py}), which is why C4 is a separate condition
+and not a consequence. ETH, C2's physical motivation --- a
 well-supported conjecture rather than a theorem --- is discussed at the
 remark in §3.4. Realization --- \(\tau_S/\tau_B \sim 10^{-32}\) at the
 horizon.)
@@ -1180,7 +1181,8 @@ genuinely additional requirement.
 
 Run backwards, the same estimate bounds what the failure of (C2) costs.
 Since the equivalence of §3.4 does not quantify over (C2), its failure
-carries no consequence except through that bound.
+carries no consequence for the characterization except through that
+bound.
 
 \textbf{Lemma (fast bath erases readback).} \emph{Suppose the
 coarse-grained channel mixes fast relative to the visible step,
@@ -1188,9 +1190,8 @@ coarse-grained channel mixes fast relative to the visible step,
 \(e^{-\tau_S/\tau_B}\) per step, across the history pairs at issue. Then
 for any \(k \geq 2\) the order-\(k\) readback gap obeys}
 \[\delta_k \;\leq\; \delta_0\, e^{-(k-1)\tau_S/\tau_B}.\] \emph{A fast,
-uniformly erasing bath therefore drives the readback gap to zero
-exponentially, and (C4) --- which requires a gap at some order in the
-accessible window --- fails.}
+uniformly erasing bath therefore suppresses the readback gap
+exponentially in \(\tau_S/\tau_B\) at every order \(k \geq 2\).}
 
 \emph{Remark (what this lemma does not give).} The readback lemma below
 is a lower bound on \(I(X_{<k}; X_{k+1} \mid X_k)\) given a gap; an
@@ -1199,7 +1200,9 @@ from above. The corresponding upper bound on conditional mutual
 information is available, but by the continuity route --- uniform
 total-variation closeness through the Fannes--Audenaert estimate --- and
 it is proved where it is used, at the physical-memory theorem of §3.4.
-The statement above is confined to the gap.
+The statement above is confined to the gap. It does not make the gap
+vanish at any finite \(\tau_S/\tau_B\), and it does not bound the gap at
+order \(k = 1\).
 
 \emph{Remark (why this matters for the exclusion arguments).} Since (C2)
 sits outside the equivalence (§3.4), its failure excludes nothing by the
@@ -1208,14 +1211,20 @@ play. Under the \emph{evolution} reading --- fast hidden dynamics ---
 failure is compatible with (C4) holding at full strength: a
 shift-register bath rotating five cells per visible step supports a
 maximal order-2 gap (\texttt{fastbath\_probes.py}), which is why (C2) is
-stated as persistence rather than slowness (§1.3). It is the failure of
-PERSISTENCE, with the uniform erosion hypothesis of the lemma above,
-that carries (C4) down with it. The exclusion arguments below --- the
-equilibrium phase, and the anti-Boltzmann-brain corollary of §4.6 ---
-therefore run through this lemma: fast mixing erases the stored record
-before it can be read, (C4) fails, and it is (C4)'s failure that the
-characterization registers. (C2) is the mechanism; (C4) is the
-exclusion.
+stated as persistence rather than slowness (§1.3). It is erosion of the
+stored record, under the uniform erosion hypothesis of the lemma above,
+that suppresses the readback gap (C4) requires. In the exclusion
+arguments below --- the equilibrium phase, and the anti-Boltzmann-brain
+corollary of §4.6 --- this lemma bounds what fast mixing leaves of the
+readback: fast mixing erodes the stored record before it can be read,
+and the readback gap that (C4) asserts, which is what the
+characterization registers, is suppressed exponentially in
+\(\tau_S/\tau_B\) at every order \(k \geq 2\). The exclusion itself
+rests on reading (C2), in the C1--C4 selection condition (§1.2), in its
+timescale form (C2-slow), which \(\tau_B \ll \tau_S\) contradicts by
+definition when \(\tau_B\) is the mixing time of the coarse-grained
+description (§4.6, Scope (ii)); for the persistence form (C2-structural)
+and for (C4), the fast-bath chain gives suppression, not exclusion.
 
 \textbf{Lemma (accessible conditional memory from readback).}
 \emph{Suppose the visible process has a gap at order \(k\) in the
@@ -2652,15 +2661,17 @@ Hamiltonian \(H_H\) satisfies the eigenstate thermalization hypothesis
 (ETH) {[}17, 18{]}. Then in the fast-bath regime
 (\(\tau_B \ll \tau_S\)), the hidden sector dephases to its diagonal
 ensemble between coupling events, so the marginal dynamics on
-\(\mathcal{C}_V\) is Markovian on accessible timescales
-(\(T^{(k)} = T^k\)) and hence P-divisible; contrapositively, observable
-P-indivisibility in an ETH hidden sector requires \(\tau_S \ll \tau_B\).
-This is the physical mechanism behind the mixing hypothesis; the
-load-bearing necessity statement is the quantitative theorem below,
-whose contrapositive makes the requirement operational. The dephasing
-picture imports from ETH a conditional-distribution equilibration that
-ETH's few-body form does not by itself deliver (Remark, \emph{Status of
-ETH}), which is why it is carried as motivation rather than theorem.
+\(\mathcal{C}_V\) approaches the homogeneous Markov benchmark \(T^k\) on
+accessible timescales, within the bound of the quantitative theorem
+below, \(\|T^{(k)} - T^k\|_{\mathrm{TV}} \leq (k-1)\,\varepsilon\);
+contrapositively, a departure \(\delta\) from that benchmark at step
+order \(k \geq 2\) forces \(\varepsilon \geq \delta/(k-1)\). This is the
+physical mechanism behind the mixing hypothesis; the load-bearing
+necessity statement is the quantitative theorem below, whose
+contrapositive makes the requirement operational. The dephasing picture
+imports from ETH a conditional-distribution equilibration that ETH's
+few-body form does not by itself deliver (Remark, \emph{Status of ETH}),
+which is why it is carried as motivation rather than theorem.
 
 The mechanism: between coupling events (separated by \(\tau_S\)), the
 hidden sector evolves under its own Hamiltonian \(H_H\). The substratum
@@ -2684,24 +2695,32 @@ small: from the visible sector's perspective the hidden sector ``looks''
 thermalized at every coupling event regardless of its post-coupling
 state, even though the underlying trajectory remains reversible and
 quasi-periodic with recurrence only at \(t \sim t_R\). Each single-step
-transition matrix \(T\) is therefore computed against the same effective
-equilibrium distribution, so \(T^{(k)} = T^k\) --- a homogeneous Markov
-chain on accessible timescales \(t \ll t_R\), hence P-divisible in the
-observable sense.
+transition matrix is therefore computed against nearly the same
+effective equilibrium distribution as the reference \(T\). Under the
+quantitative theorem's hypotheses --- the reference prior \(\pi_H\)
+defining \(T\), and every realized post-relaxation hidden conditional
+within \(\varepsilon\) of \(\pi_H\) in total variation --- its bound
+\(\|T^{(k)} - T^k\|_{\mathrm{TV}} \leq (k-1)\,\varepsilon\) holds on
+accessible timescales \(t \ll t_R\). Its specialisation
+\(\varepsilon = 0\), an exact reset, gives \(T^{(k)} = T^k\) for every
+\(k\), so \(T^{(t)} = T^{(s)}\,T^{t-s}\) with a stochastic factor and
+the family is P-divisible in the sense of §2.3; for \(\varepsilon > 0\)
+the bound limits the departure from the benchmark but does not by itself
+determine P-divisibility.
 
 Contrapositively, within the mixing class this analysis presupposes ---
 hidden dynamics that relax toward the reference prior between couplings
---- observable P-indivisibility requires \(\tau_S \lesssim \tau_B\): the
-visible sector must couple back into the hidden sector before dephasing
-erases the memory. (Fast \emph{non-mixing} hidden dynamics evade the
-premise, not the theorem: conserved circulation retains records with no
-timescale separation, \texttt{fastbath\_probes.py}, §1.3.) For the
-strong, persistent memory of the characterization theorem, the
-separation must be \(\tau_S \ll \tau_B\). The continuous-time extension
-to general Hamiltonian flow replaces the collision-model picture with
-the full ETH/dephasing condition; the relevant machinery for chaotic
-open quantum systems in the weak-memory regime is established in {[}3,
-8, 17, 18{]}.
+--- a departure \(\delta\) from the homogeneous Markov benchmark at step
+order \(k \geq 2\) requires a residue \(\varepsilon \geq \delta/(k-1)\)
+at some coupling time before step \(k\): the visible sector must couple
+back into the hidden sector before dephasing has relaxed the record that
+far. (Fast \emph{non-mixing} hidden dynamics evade the premise, not the
+theorem: conserved circulation retains records with no timescale
+separation, \texttt{fastbath\_probes.py}, §1.3.) The continuous-time
+extension to general Hamiltonian flow replaces the collision-model
+picture with the full ETH/dephasing condition; the relevant machinery
+for chaotic open quantum systems in the weak-memory regime is
+established in {[}3, 8, 17, 18{]}.
 
 \textbf{Theorem (C2 necessity, quantitative mixing form).} \emph{Model
 one coupling step as the uniform-prior bijection marginal of §3.2's
@@ -5260,9 +5279,11 @@ hypothesis'' of low initial entropy, in its role of selecting
 observer-compatible configurations --- with a theorem conditional on the
 effective-mixing hypothesis (EM) below and on the rate condition
 \(\tau_{\rm mix}\ll\tau_S\) stated in the past-hypothesis corollary;
-under (EM) it is derived from the framework's own definitions for the
-coarse-grained description that the effective channel generates (Scope
-(ii)), and without (EM) it is a conjectural application.
+under (EM) it is derived from the framework's own definitions, with (C2)
+read in its timescale form (C2-slow) --- record persistence and readback
+being suppressed there, not excluded --- for the coarse-grained
+description that the effective channel generates (Scope (ii)), and
+without (EM) it is a conjectural application.
 
 \textbf{Setup.} Let \(V\) be a partition with hidden sector
 \(B = S \setminus V\). Define the coupling-graph neighborhood
@@ -5319,66 +5340,74 @@ that is what ``fluctuation from equilibrium'' means. The exclusion is
 the conditional chain, in the coarse-grained description generated by
 iterating \(\mathcal{K}_{\Sigma_{\text{BB}}}\) (Scope (ii)): (EM)
 together with \(\tau_{\text{mix}}(\Sigma_{\text{BB}}) \ll \tau_S\)
-implies the candidate partition fails (C2), and hence --- by the
-fast-bath erasure lemma of §2.3, under its uniform-erosion hypothesis,
-which suppresses the order-\(k\) readback gap as
-\(e^{-(k-1)\tau_S/\tau_B}\) --- fails (C4), which is the condition the
-characterization actually requires. For a numeric illustration under a
-further generic-thermal estimate --- (GT): the region's
-effective-channel correlation time is set by the thermal scale,
-\(\sim \hbar/(k_B T_{\text{local}}) \cdot O(1)\), an estimate that fails
-for protected slow modes (conserved-quantity bottlenecks, activation
-barriers, glassy or critical slowing) --- the bound is at most
-\(\sim 10^{-12}\) s for temperatures warm enough to support structured
-matter. The illustration rides (GT); the exclusion itself rides only the
-chain. Any finite-information observer has \(\tau_S\) bounded below by
-its own internal processing time --- for biological or synthetic BBs of
-any currently-envisioned type, \(\tau_S \gtrsim 10^{-6}\) s. The slow
-form (C2-slow), \(\tau_S \ll \tau_B\), therefore fails by at least six
-orders of magnitude for any BB whose local environment satisfies (GT)
---- and because (EM) posits genuine mixing rather than mere speed, the
-persistence form (C2-structural) fails with it: records are scrambled
-before readback. The chain closes in the memory currency:
-\(\neg\)(C2-structural) \(\Rightarrow\) \(\neg\)(C4) by the fast-bath
-erasure lemma \(\Rightarrow\) \(M_t = 0\) on accessible windows of that
-description (§3.4) --- Boltzmann-brain observers so described see no
-accessible memory, so within that description they are not observers in
-the sense the framework's definitions require; the fixed-basis quantum
+implies the candidate partition fails (C2-slow), and hence --- by the
+fast-bath erasure lemma of §2.3, under its uniform-erosion hypothesis
+--- has its order-\(k\) readback gap suppressed as
+\(e^{-(k-1)\tau_S/\tau_B}\) for every \(k \geq 2\); that gap is what
+(C4), the condition the characterization actually requires, asserts. For
+a numeric illustration under a further generic-thermal estimate ---
+(GT): the region's effective-channel correlation time is set by the
+thermal scale, \(\sim \hbar/(k_B T_{\text{local}}) \cdot O(1)\), an
+estimate that fails for protected slow modes (conserved-quantity
+bottlenecks, activation barriers, glassy or critical slowing) --- the
+bound is at most \(\sim 10^{-12}\) s for temperatures warm enough to
+support structured matter. The illustration rides (GT); the exclusion
+itself rides only the chain. Any finite-information observer has
+\(\tau_S\) bounded below by its own internal processing time --- for
+biological or synthetic BBs of any currently-envisioned type,
+\(\tau_S \gtrsim 10^{-6}\) s. The slow form (C2-slow),
+\(\tau_S \ll \tau_B\), therefore fails by at least six orders of
+magnitude for any BB whose local environment satisfies (GT) --- and
+because (EM) posits genuine mixing rather than mere speed, the record
+the persistence form (C2-structural) requires is degraded with it:
+records are scrambled before readback up to a residue suppressed
+exponentially in \(\tau_S/\tau_{\text{mix}}\). The chain bounds the
+readback gap: by the fast-bath erasure lemma, the failure of (C2-slow)
+with uniform erosion bounds the order-\(k\) gap by
+\(\delta_0\, e^{-(k-1)\tau_S/\tau_B}\) for every \(k \geq 2\) ---
+Boltzmann-brain observers so described carry at most exponentially
+suppressed readback at those orders, and since they fail (C2-slow),
+within that description they are not observers in the sense of
+(C1)--(C4) with (C2) read in its timescale form; the fixed-basis quantum
 representation they trivially possess
 (\(S \iff D \iff Q_{\mathrm{fb}}\)) carries no discriminating content.
 The exclusion is structural, not measure-theoretic --- it follows from
-the incompatibility of (C2) with local equilibrium, not from arguments
-about the ratio of BBs to ``ordinary'' observers in an anthropic sample.
+the incompatibility of (C2-slow) with fast-mixing local equilibrium, not
+from arguments about the ratio of BBs to ``ordinary'' observers in an
+anthropic sample.
 
 \textbf{Corollary (past-hypothesis replacement, with its rate
 condition).} The theorem above bounds
 \(\tau_B(V)\le\tau_{\rm mix}(\Sigma_{\rm loc}(V))+O(\varepsilon)\),
 while (C2)-slow requires \(\tau_S\ll\tau_B\); those do not compose.
-Contradicting (C2) additionally requires \(\tau_{\rm mix}\ll\tau_S\) ---
-the condition the Boltzmann-brain corollary states explicitly. A slowly
-mixing equilibrium with \(\tau_S\ll\tau_{\rm mix}\) is entirely
-compatible with \(\tau_S\ll\tau_B\le\tau_{\rm mix}\), so the valid form
-is that a sufficiently fast-mixing equilibrium supports no (C2)/(C4)
-observer. This matters for the de Sitter route, where
-\(\tau_{\rm thermal}\sim\hbar/(k_BT_{\rm GH})=2\pi/H\) is Hubble-order
-and hence enormously longer than laboratory \(\tau_S\): a de Sitter
-thermal state does not erase observer memory on accessible timescales.
-Under \(\tau_{\rm mix}\ll\tau_S\): For \((S, \varphi)\) in its
-equilibrium macrostate, canonical typicality {[}31{]} implies every
+Contradicting (C2-slow) additionally requires
+\(\tau_{\rm mix}\ll\tau_S\) --- the condition the Boltzmann-brain
+corollary states explicitly. A slowly mixing equilibrium with
+\(\tau_S\ll\tau_{\rm mix}\) is entirely compatible with
+\(\tau_S\ll\tau_B\le\tau_{\rm mix}\), so the valid form is that a
+sufficiently fast-mixing equilibrium supports no observer satisfying
+(C2) in its timescale form (C2-slow); for (C2-structural) and (C4) it
+gives suppression, not exclusion (§2.3). This matters for the de Sitter
+route, where \(\tau_{\rm thermal}\sim\hbar/(k_BT_{\rm GH})=2\pi/H\) is
+Hubble-order and hence enormously longer than laboratory \(\tau_S\): a
+de Sitter thermal state does not erase observer memory on accessible
+timescales. Under \(\tau_{\rm mix}\ll\tau_S\): For \((S, \varphi)\) in
+its equilibrium macrostate, canonical typicality {[}31{]} implies every
 local subsystem is also in its local equilibrium. By the theorem ---
 under (EM) for each region's effective channel, in the coarse-grained
 description it generates --- \(\tau_B(V)\) is bounded by the local
 \(\tau_{\text{mix}}\) for every bounded-diameter partition \(V\). No
-partition supports (C2) in that description. That every relevant
-equilibrium region satisfies (EM) at the required rate is itself a
-physical hypothesis, to be established model by model; the theorem
-converts it into the selection rule and does not supply it. In that
-description the framework's observers therefore exist only in the
-non-equilibrium phase of \((S, \varphi)\). The low-entropy initial
-condition commonly imported as a ``past hypothesis'' to select
-observer-compatible configurations is replaced here, within that
-description, by a structural selection rule: observers exist where
-(C1)--(C4) are satisfiable, and (C1)--(C4) are not satisfiable in the
+bounded-diameter partition supports (C2-slow) in that description. That
+every relevant equilibrium region satisfies (EM) at the required rate is
+itself a physical hypothesis, to be established model by model; the
+theorem converts it into the selection rule and does not supply it. In
+that description, with (C2) read in its timescale form, the framework's
+observers therefore exist only in the non-equilibrium phase of
+\((S, \varphi)\). The low-entropy initial condition commonly imported as
+a ``past hypothesis'' to select observer-compatible configurations is
+replaced here, within that description, by a structural selection rule:
+observers exist where (C1)--(C4), with (C2) read as (C2-slow), are
+satisfiable, and (C1)--(C4), so read, are not satisfiable in the
 coarse-grained description of the equilibrium phase.
 
 \textbf{Scope.} The theorem uses bounded coupling, finiteness of \(S\),
@@ -5787,4 +5816,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: fe50923659744dbc270470e9486ab31cc2966b65cc9b49ec98e9b93d72a3b2e7
+% source-sha256: add5b1cda31f0f56e6b8c7df4d4ae02a240a9ccbcafb160b2952fd60dbd87cee
