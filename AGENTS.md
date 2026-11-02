@@ -63,6 +63,20 @@ confers no protection, and "the framework needs this to be true" is never an arg
   correction: unsupported claims must be independently established, narrowed
   or withdrawn.
 
+- Proof preservation comes before narrowing in correction work. When a claim
+  depends on a downstream paper or an omitted proof, first trace the strongest
+  valid statement and its evidence across the whole corpus. If the claim is
+  already established, bring the minimal sufficient proof or an exact,
+  independently verifiable kernel citation into Main, stating every necessary
+  hypothesis, before removing the downstream reference; do not weaken a valid
+  theorem merely to eliminate a citation. If support is incomplete, seek a
+  bounded, independently reviewed proof repair before proposing a narrowing.
+  A missing proof in Main is not a disproof. A refuted inference or an
+  unresolved proof gap must not be presented as established: retain the
+  strongest verified result with its conditions, and track the stronger claim
+  as an open proof obligation or conjecture, including any counterexamples.
+  Do not introduce unsupported premises merely to rescue a desired conclusion.
+
 - Trace each claim to where it is actually proved or derived, with its
   dependencies and assumptions across documents, before classifying it. A
   proof's absence from Main is not evidence that the result is unproved: "the
