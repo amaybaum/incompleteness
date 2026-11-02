@@ -297,16 +297,17 @@ determined by the partition, with any parameters of the emergent theory
 depending only on the partition boundary's geometric and thermodynamic
 properties (partition-relativity); (iii) the emergent transition
 probabilities \(T_{ij}(t)\) determine the Bohr-frequency set of the
-emergent Hamiltonian and, conditional on the classification hypothesis
-H-BG of §3.3, the emergent Hamiltonian itself up to a diagonal-unitary
-D-gauge, an energy origin, and one global antiunitary conjugation ---
-the two-branch form of §3.3 --- via the phase-locking lemma applied to
-continuous-time sampling. The technical bridge from P-indivisible
-classical stochastic processes on finite configuration spaces to unitary
-quantum evolution on finite Hilbert spaces is Barandes'
-stochastic-quantum correspondence {[}35, 36{]}, used by the companion
-paper for compression and interpretation --- the fixed-basis
-representation itself is supplied internally there
+emergent Hamiltonian and, under the genericity hypotheses (G1)--(G4) of
+the phase-locking lemma or, without (G4), conditional on the
+classification hypothesis H-BG of §3.3, the emergent Hamiltonian itself
+up to a diagonal-unitary D-gauge, an energy origin, and one global
+antiunitary conjugation --- the two-branch form of §3.3 --- via the
+phase-locking lemma applied to continuous-time sampling. The technical
+bridge from P-indivisible classical stochastic processes on finite
+configuration spaces to unitary quantum evolution on finite Hilbert
+spaces is Barandes' stochastic-quantum correspondence {[}35, 36{]}, used
+by the companion paper for compression and interpretation --- the
+fixed-basis representation itself is supplied internally there
 (\(S \iff D \iff Q_{\mathrm{fb}}\)). We treat these results as inputs
 and apply them to the cosmological horizon. The cosmological horizon
 independently verifies C1--C3: causal coupling via the Einstein
@@ -1257,18 +1258,28 @@ completeness, the real-to-integer transfer (kernel:
 \texttt{real\_to\_integer\_surrogate} in
 \texttt{OIBridge/TurnpikeScopeTransfer.lean}), congruent reconstruction
 and the positive six-mode obstruction remain kernel-proved independently
-of it. The listed ambiguities are exactly invisible: \(H+E_0\)
-contributes only a global phase, while \(-\bar H\) conjugates the
-propagator entrywise. The gap condition is used where coefficient
-matching induces a bijection of ordered mode pairs: with degenerate gaps
-one frequency's coefficient is a sum over several mode pairs. The
-\(C_4\) ring of {[}SM{]} Proposition 20 has distinct eigenvalues,
-uniform overlaps and degenerate gaps; its conjugate \(\bar H\)
-reproduces every \(|U_{ij}(t)|^2\) and conjugates the loop product
-\(H_{01}H_{12}H_{23}H_{30}\), which no diagonal conjugation changes. The
-ring therefore does not exhibit a failure, without the gap condition, of
-the two-branch form conditional on H-BG: \(\bar H\) lies in the
-reflection branch, \(\bar H = -D_s\bar H D_s^\dagger\) with
+of it. The exclusion of the reversed orientation and the assembly of the
+two branches from H-BG are kernel-checked
+(\texttt{twoBranch\_of\_signed\_spectral\_classification},
+\texttt{twoBranch\_of\_BGSignedClassification} in
+\texttt{OIBridge/PairIdentification.lean}), so the proof from H-BG is
+kernel-checked and H-BG is the theorem's only unproved premise. Under
+the triangle-genericity condition (G4) of the phase-locking lemma
+({[}Main §3.1{]}), with which spectra that have distinct gaps and equal
+gap sets are congruent, the two branches follow without H-BG (kernel:
+\texttt{twoBranch\_of\_triangleGeneric}). The listed ambiguities are
+exactly invisible: \(H+E_0\) contributes only a global phase, while
+\(-\bar H\) conjugates the propagator entrywise. The gap condition is
+used where coefficient matching induces a bijection of ordered mode
+pairs: with degenerate gaps one frequency's coefficient is a sum over
+several mode pairs. The \(C_4\) ring of {[}SM{]} Proposition 20 has
+distinct eigenvalues, uniform overlaps and degenerate gaps; its
+conjugate \(\bar H\) reproduces every \(|U_{ij}(t)|^2\) and conjugates
+the loop product \(H_{01}H_{12}H_{23}H_{30}\), which no diagonal
+conjugation changes. The ring therefore does not exhibit a failure,
+without the gap condition, of the two-branch form conditional on H-BG:
+\(\bar H\) lies in the reflection branch,
+\(\bar H = -D_s\bar H D_s^\dagger\) with
 \(D_s = \mathrm{diag}(1,-1,1,-1)\). The raw frequency set alone cannot
 distinguish the non-congruent homometric rulers; reconstruction uses
 coefficient-labelled frequency data.
@@ -3770,20 +3781,22 @@ falsifiability}\label{assumptions-limitations-and-falsifiability}}
 consequence of geometry in Part II), the stochastic-quantum bridge
 ({[}Main, §3.1{]} and Appendix A; two routes reach its
 transition-statistics layer, neither reaching the operational instrument
-algebra), and genericity conditions (non-degenerate spectrum,
-non-vanishing overlaps), which hold for all but a measure-zero set. The
-P-indivisibility proof uses finiteness via the recurrence argument
-(\(\varphi^N = \text{id}\)). For the leading-order visible transition
-data on accessible timescales, the deep-sector cardinality corollary
-(§3.2) establishes that only \(\mathcal{C}_V\) and \(\mathcal{C}_B\)
-need be finite --- both guaranteed by holographic entropy bounds
-{[}26{]} independently of the de Sitter finite-dimensionality conjecture
---- while the deep sector \(\mathcal{C}_D\) may be infinite;
-recurrence-scale P-indivisibility is proved on a finite representative.
-The readback lemma ({[}Main, §2.3{]}) provides accessible conditional
-memory independently of \(|\mathcal{C}_H|\); it does not by itself make
-the rooted family P-indivisible on accessible windows. The
-characterization theorem becomes an equivalence on observable timescales
+algebra), and genericity conditions (the phase-locking hypotheses
+(G1)--(G4) of {[}Main §3.1{]}: non-degenerate spectrum and gaps,
+non-vanishing overlaps, triangle genericity), which hold for all but a
+measure-zero set. The P-indivisibility proof uses finiteness via the
+recurrence argument (\(\varphi^N = \text{id}\)). For the leading-order
+visible transition data on accessible timescales, the deep-sector
+cardinality corollary (§3.2) establishes that only \(\mathcal{C}_V\) and
+\(\mathcal{C}_B\) need be finite --- both guaranteed by holographic
+entropy bounds {[}26{]} independently of the de Sitter
+finite-dimensionality conjecture --- while the deep sector
+\(\mathcal{C}_D\) may be infinite; recurrence-scale P-indivisibility is
+proved on a finite representative. The readback lemma ({[}Main, §2.3{]})
+provides accessible conditional memory independently of
+\(|\mathcal{C}_H|\); it does not by itself make the rooted family
+P-indivisible on accessible windows. The characterization theorem
+becomes an equivalence on observable timescales
 (\(T_{\text{obs}} \ll \tau_B \sim 10^{17}\) s) --- physically
 indistinguishable from a timeless identity for all experiments within
 the age of the universe.
@@ -5457,4 +5470,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 0949cb0437361d868bddbc590b38cab4b9e4996307d3da2c30c899fe741ca4ae
+% source-sha256: 6c4bd1a860916031c60585d20b2894e79a34b0aa20bd9179edb4ae46ec734eff

@@ -154,10 +154,19 @@
         "TurnpikeScopeTransfer",
         "AntiunitaryInvariance",
         "ThermalOrientation",
-        "ShellAssignment"
+        "ShellAssignment",
+        "PairIdentification"
       ],
       "status": "scope-consistent",
       "manuscript": [
+        {
+          "file": "papers/Main.md",
+          "anchor": "`twoBranch_of_triangleGeneric`"
+        },
+        {
+          "file": "papers/GR.md",
+          "anchor": "`twoBranch_of_BGSignedClassification`"
+        },
         {
           "file": "papers/GR.md",
           "anchor": "D-gauge completeness, two-branch form"
@@ -183,7 +192,7 @@
           "anchor": "*Conditional proof.* Equality of the probability families"
         }
       ],
-      "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Full two-branch reconstruction is conditional on the open global sign-aware classification; the unsigned BGIntegerClassification is refuted. The design package landed with #842 is pre-freeze design evidence, not adopted certification."
+      "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Main 3.1's phase-locking lemma holds under the posited triangle-genericity condition (G4), with no classification premise (PairIdentification: twoBranch_of_triangleGeneric, twoBranch_of_triangleGeneric_source). Without (G4), full two-branch reconstruction is conditional on the open global sign-aware classification H-BG, from which it is kernel-derived (twoBranch_of_BGSignedClassification); the unsigned BGIntegerClassification is refuted. The design package landed with #842 is pre-freeze design evidence, not adopted certification."
     },
     {
       "name": "coherent completions",
