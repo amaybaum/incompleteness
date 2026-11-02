@@ -71,15 +71,19 @@ confers no protection, and "the framework needs this to be true" is never an arg
   at its actual support level into Main, with every necessary hypothesis
   stated and no downstream proof dependency, before removing the downstream
   reference; do not weaken a valid theorem merely to eliminate a citation.
-  If support is incomplete, Main states only what is already verified; seek
+  If support is incomplete, Main presents only independently supported
+  claims as established, with their actual hypotheses and evidence; seek
   a separately scoped, independently reviewed proof repair before proposing
   a narrowing. A missing proof in Main is not a disproof. A claim refuted by
-  a counterexample is withdrawn. A broken inference or an unresolved proof
-  gap must not be presented as established: retain the strongest verified
-  result with its conditions, and track the stronger claim, unless refuted,
-  as an open proof obligation or conjecture. Legitimate conditional results
-  may name independently justified hypotheses; do not introduce unsupported
-  premises merely to rescue a desired conclusion.
+  a valid counterexample or disproof is withdrawn. A broken inference or an
+  unresolved proof gap must not be presented as established: retain the
+  strongest verified result with its conditions, and track the stronger claim,
+  unless refuted, as an open proof obligation or conjecture. A conditional
+  result may rest on a named hypothesis that is stated explicitly, labelled
+  with its status (justified, posited or open), and carried into the
+  conclusion; do not introduce unstated or ad hoc premises, or present a
+  conditional conclusion as unconditional or independently derived merely
+  to rescue a desired result.
 
 - Trace each claim to where it is actually proved or derived, with its
   dependencies and assumptions across documents, before classifying it. A
