@@ -81,6 +81,6 @@
     }
   ],
   "schema": "sc42-integration-controls-v1",
-  "site_table_sha256": "637bc99afcacbac41b2170dc545f316fb9967477fc6203241817fa242c67f8ff",
+  "site_table_sha256": "ba9c899c2c75c659b3bff32a32b6e106937c5bf46153f97bd11112870a50cf1b",
   "verdict": "PASS"
 }
