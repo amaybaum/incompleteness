@@ -66,16 +66,20 @@ confers no protection, and "the framework needs this to be true" is never an arg
 - Proof preservation comes before narrowing in correction work. When a claim
   depends on a downstream paper or an omitted proof, first trace the strongest
   valid statement and its evidence across the whole corpus. If the claim is
-  already established, bring the minimal sufficient proof or an exact,
-  independently verifiable kernel citation into Main, stating every necessary
-  hypothesis, before removing the downstream reference; do not weaken a valid
-  theorem merely to eliminate a citation. If support is incomplete, seek a
-  bounded, independently reviewed proof repair before proposing a narrowing.
-  A missing proof in Main is not a disproof. A refuted inference or an
-  unresolved proof gap must not be presented as established: retain the
-  strongest verified result with its conditions, and track the stronger claim
-  as an open proof obligation or conjecture, including any counterexamples.
-  Do not introduce unsupported premises merely to rescue a desired conclusion.
+  already established, bring the minimal sufficient standalone proof, exact
+  independently verifiable kernel citation, or an appropriate evidence record
+  at its actual support level into Main, with every necessary hypothesis
+  stated and no downstream proof dependency, before removing the downstream
+  reference; do not weaken a valid theorem merely to eliminate a citation.
+  If support is incomplete, Main states only what is already verified; seek
+  a separately scoped, independently reviewed proof repair before proposing
+  a narrowing. A missing proof in Main is not a disproof. A claim refuted by
+  a counterexample is withdrawn. A broken inference or an unresolved proof
+  gap must not be presented as established: retain the strongest verified
+  result with its conditions, and track the stronger claim, unless refuted,
+  as an open proof obligation or conjecture. Legitimate conditional results
+  may name independently justified hypotheses; do not introduce unsupported
+  premises merely to rescue a desired conclusion.
 
 - Trace each claim to where it is actually proved or derived, with its
   dependencies and assumptions across documents, before classifying it. A
