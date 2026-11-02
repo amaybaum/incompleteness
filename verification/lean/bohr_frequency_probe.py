@@ -268,11 +268,23 @@ RECON = re.compile(r"uniquely determined by \$\\\{T_\{ij\}"
                    r"|phase-locking lemma.{0,80}?determines")
 
 
+def conditioned(w):
+    # A marker counts only where it states the condition: an occurrence inside a "without ..." phrase
+    # (a "without" within 30 characters before it, with no clause break between) does not.
+    for c in CONDITION_MARKERS:
+        for k in [i for i in range(len(w)) if w.startswith(c, i)]:
+            pre = w[max(0, k - 30):k]
+            j = pre.rfind('without')
+            if j < 0 or any(ch in pre[j:] for ch in ',.;:'):
+                return True
+    return False
+
+
 def unconditional_recon(text):
     hits = []
     for m in RECON.finditer(text):
         w = text[max(0, m.start() - 250):m.end() + 250]
-        if not any(c in w for c in CONDITION_MARKERS):
+        if not conditioned(w):
             hits.append(text[m.start():m.end()])
     return hits
 
@@ -294,7 +306,13 @@ INJECTED = (
     "The sharper question is settled by the two-branch theorem below.",
     "Where these hold, the phase-locking lemma (§3.1), under (G1)–(G3), determines $\\hat{H}_{\\text{eff}}$ "
     "from continuous-time transition data up to the lemma's full gauge.",
+    "Even without (G4) or H-BG, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
+    "from continuous-time transition data up to the lemma's full gauge.",
 )
+# and a legitimate two-way condition is not flagged
+ok8 &= not unconditional_recon(
+    "The two-branch form is proved under the triangle-genericity condition (G4) or, without (G4), "
+    "conditional on H-BG.")
 ok8 &= all(unconditional_recon(t) for t in INJECTED)
 check("F8", ok8,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "

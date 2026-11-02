@@ -305,7 +305,7 @@ The in-house route, given in Appendix A, uses Stinespring's dilation theorem (19
 
 A potential objection: the relation T_ij = |U_ij|² throws away phase information. Different unitaries could give the same transition probabilities. Does this make the quantum description ambiguous?
 
-The complete two-branch answer requires either the triangle-genericity condition G4 of [Main §3.1] — every relation ω₁ + ω₂ = ω₃ among the gaps of three different pairs of levels is a triangle identity ω_kl + ω_lm = ω_km — or, without it, the sign-aware classification hypothesis H-BG ([GR §3.3]); Fourier extraction alone does not classify the unlabelled mode correspondences.
+The complete two-branch answer is proved under the triangle-genericity condition G4 of [Main §3.1] — every relation ω₁ + ω₂ = ω₃ among the gaps of three different pairs of levels is a triangle identity ω_kl + ω_lm = ω_km — and, without it, is conditional on the sign-aware classification hypothesis H-BG ([GR §3.3]); Fourier extraction alone does not classify the unlabelled mode correspondences.
 
 **Setup:** The transition probability at time t is:
 

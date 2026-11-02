@@ -1265,8 +1265,8 @@ two branches from H-BG are kernel-checked
 \texttt{OIBridge/PairIdentification.lean}), so the proof from H-BG is
 kernel-checked and H-BG is the theorem's only unproved premise. Under
 the triangle-genericity condition (G4) of the phase-locking lemma
-({[}Main §3.1{]}), which excludes non-congruent spectra with equal gap
-sets, the two branches follow without H-BG (kernel:
+({[}Main §3.1{]}), with which spectra that have distinct gaps and equal
+gap sets are congruent, the two branches follow without H-BG (kernel:
 \texttt{twoBranch\_of\_triangleGeneric}). The listed ambiguities are
 exactly invisible: \(H+E_0\) contributes only a global phase, while
 \(-\bar H\) conjugates the propagator entrywise. The gap condition is
@@ -3781,20 +3781,22 @@ falsifiability}\label{assumptions-limitations-and-falsifiability}}
 consequence of geometry in Part II), the stochastic-quantum bridge
 ({[}Main, §3.1{]} and Appendix A; two routes reach its
 transition-statistics layer, neither reaching the operational instrument
-algebra), and genericity conditions (non-degenerate spectrum,
-non-vanishing overlaps), which hold for all but a measure-zero set. The
-P-indivisibility proof uses finiteness via the recurrence argument
-(\(\varphi^N = \text{id}\)). For the leading-order visible transition
-data on accessible timescales, the deep-sector cardinality corollary
-(§3.2) establishes that only \(\mathcal{C}_V\) and \(\mathcal{C}_B\)
-need be finite --- both guaranteed by holographic entropy bounds
-{[}26{]} independently of the de Sitter finite-dimensionality conjecture
---- while the deep sector \(\mathcal{C}_D\) may be infinite;
-recurrence-scale P-indivisibility is proved on a finite representative.
-The readback lemma ({[}Main, §2.3{]}) provides accessible conditional
-memory independently of \(|\mathcal{C}_H|\); it does not by itself make
-the rooted family P-indivisible on accessible windows. The
-characterization theorem becomes an equivalence on observable timescales
+algebra), and genericity conditions (the phase-locking hypotheses
+(G1)--(G4) of {[}Main §3.1{]}: non-degenerate spectrum and gaps,
+non-vanishing overlaps, triangle genericity), which hold for all but a
+measure-zero set. The P-indivisibility proof uses finiteness via the
+recurrence argument (\(\varphi^N = \text{id}\)). For the leading-order
+visible transition data on accessible timescales, the deep-sector
+cardinality corollary (§3.2) establishes that only \(\mathcal{C}_V\) and
+\(\mathcal{C}_B\) need be finite --- both guaranteed by holographic
+entropy bounds {[}26{]} independently of the de Sitter
+finite-dimensionality conjecture --- while the deep sector
+\(\mathcal{C}_D\) may be infinite; recurrence-scale P-indivisibility is
+proved on a finite representative. The readback lemma ({[}Main, §2.3{]})
+provides accessible conditional memory independently of
+\(|\mathcal{C}_H|\); it does not by itself make the rooted family
+P-indivisible on accessible windows. The characterization theorem
+becomes an equivalence on observable timescales
 (\(T_{\text{obs}} \ll \tau_B \sim 10^{17}\) s) --- physically
 indistinguishable from a timeless identity for all experiments within
 the age of the universe.
@@ -5468,4 +5470,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 1dabcb70e392e35158fc18558b6759c8d845b2f1bff13d7ba23a6d3024d844b7
+% source-sha256: 6c4bd1a860916031c60585d20b2894e79a34b0aa20bd9179edb4ae46ec734eff
