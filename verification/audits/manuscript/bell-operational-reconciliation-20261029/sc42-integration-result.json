@@ -1468,6 +1468,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A5) Linearity.* The wave equation governing $\\varphi$ is l..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Stage 2: From deterministic embedding to specific lattice ..."
     },
     {
