@@ -97,14 +97,25 @@ confers no protection, and "the framework needs this to be true" is never an arg
   If a claim needs downstream science or mathematics, remove or relocate
   that claim to the appropriate downstream paper, preserving its strongest
   valid result there; do not transplant its proof into Main simply to keep
-  the claim. Relocating a valid result is not retracting it from OI. If a
-  genuinely foundational statement lacks an independent argument, seek a
-  separately scoped, independently reviewed proof repair; Main must not
-  present it as established until independently supported. A missing
-  proof in Main does not make a corpus result false. Withdraw a claim
-  refuted by a valid counterexample or disproof; track unrefuted, unresolved
-  stronger claims as open, retaining the strongest verified result with
-  its exact conditions. Conditional claims may rely on explicitly named
+  the claim. Relocating a valid result is not retracting it from OI. Theorem
+  recovery before concession. If a mathematical claim lacks a complete
+  independent proof, it must not be presented as established. Before
+  approving a substantive narrowing or withdrawal of an unrefuted
+  mathematical claim solely because its proof is missing or incomplete,
+  reviewers must require a documented, proportionate attempt to recover the
+  proof in the paper where the result logically belongs. The attempt must
+  identify the strongest existing result, its hypotheses and dependencies,
+  the proposed derivation or repair, the verification performed, and the
+  precise remaining gap. A short recovery note within the correction unit is
+  sufficient for a minor gap; substantial theorem gaps require their own
+  scoped, independently reviewed recovery work. Failure to recover a proof
+  is not disproof. Preserve established weaker results and classify the
+  unrefuted stronger claim as open. Relocating a valid result and its proof
+  downstream without weakening it is not a concession and does not trigger
+  recovery. A valid counterexample or disproof requires correction or
+  withdrawal of the refuted claim without delay. An unsupported claim must
+  not remain presented as established while recovery proceeds. Conditional
+  claims may rely on explicitly named
   hypotheses labelled by their status (justified, posited or open), with
   every condition carried into the conclusion. Never disguise a
   conditional assertion as unconditional or independently derived, and
