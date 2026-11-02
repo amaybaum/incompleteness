@@ -1,0 +1,103 @@
+{
+  "Yang_Mills_action_derived": false,
+  "continuous_time_dynamics_derived": false,
+  "finite_boundary_entropy_derived": false,
+  "finite_stages": [
+    {
+      "earliest_wrap_time": 3,
+      "exact_return_time_upper_bound": 6,
+      "full_states": 32,
+      "no_feedback_conditional_memory_bits": 0,
+      "predictive_conditional_memory_bits": 1,
+      "prewrap_rooted_uniform_times": 2,
+      "supported_three_time_words": 32,
+      "tape_length": 3,
+      "word_probability": "1/32"
+    },
+    {
+      "earliest_wrap_time": 4,
+      "exact_return_time_upper_bound": 8,
+      "full_states": 64,
+      "no_feedback_conditional_memory_bits": 0,
+      "predictive_conditional_memory_bits": 1,
+      "prewrap_rooted_uniform_times": 3,
+      "supported_three_time_words": 32,
+      "tape_length": 4,
+      "word_probability": "1/32"
+    },
+    {
+      "earliest_wrap_time": 5,
+      "exact_return_time_upper_bound": 10,
+      "full_states": 128,
+      "no_feedback_conditional_memory_bits": 0,
+      "predictive_conditional_memory_bits": 1,
+      "prewrap_rooted_uniform_times": 4,
+      "supported_three_time_words": 32,
+      "tape_length": 5,
+      "word_probability": "1/32"
+    },
+    {
+      "earliest_wrap_time": 6,
+      "exact_return_time_upper_bound": 12,
+      "full_states": 256,
+      "no_feedback_conditional_memory_bits": 0,
+      "predictive_conditional_memory_bits": 1,
+      "prewrap_rooted_uniform_times": 5,
+      "supported_three_time_words": 32,
+      "tape_length": 6,
+      "word_probability": "1/32"
+    },
+    {
+      "earliest_wrap_time": 7,
+      "exact_return_time_upper_bound": 14,
+      "full_states": 512,
+      "no_feedback_conditional_memory_bits": 0,
+      "predictive_conditional_memory_bits": 1,
+      "prewrap_rooted_uniform_times": 6,
+      "supported_three_time_words": 32,
+      "tape_length": 7,
+      "word_probability": "1/32"
+    },
+    {
+      "earliest_wrap_time": 8,
+      "exact_return_time_upper_bound": 16,
+      "full_states": 1024,
+      "no_feedback_conditional_memory_bits": 0,
+      "predictive_conditional_memory_bits": 1,
+      "prewrap_rooted_uniform_times": 7,
+      "supported_three_time_words": 32,
+      "tape_length": 8,
+      "word_probability": "1/32"
+    },
+    {
+      "earliest_wrap_time": 9,
+      "exact_return_time_upper_bound": 18,
+      "full_states": 2048,
+      "no_feedback_conditional_memory_bits": 0,
+      "predictive_conditional_memory_bits": 1,
+      "prewrap_rooted_uniform_times": 8,
+      "supported_three_time_words": 32,
+      "tape_length": 9,
+      "word_probability": "1/32"
+    }
+  ],
+  "infinite_mathematical_prediction": {
+    "P_divisible": true,
+    "exact_common_visible_return": false,
+    "growing_initial_depth_with_time": true,
+    "rooted_Gamma_t_for_all_positive_t": "all rows 1/4",
+    "three_time_conditional_memory_bits": 1
+  },
+  "native_OI_update_derived": false,
+  "negative_controls": {
+    "disable_static_feedback": "Markov; one_step_a=a XOR c0; three-time CMI zero",
+    "finite_wraparound": "at t=n rooted matrix not uniform and at 2n identity",
+    "observe_tape_alone": "iid fair"
+  },
+  "observable": "O_t=(a_t,c_t), four visible outcomes",
+  "physical_log_periodicity_derived": false,
+  "quantum_interference_derived": false,
+  "single_rule": "T(a,r,c)=(a XOR r XOR c0,r,shift c)",
+  "state_model": "a visible bit, r persistent hidden bit, invertible bi-infinite fair tape shift",
+  "status": "PASS_FIXED_RULE_CLASSICAL_MEMORY_CONTROL"
+}

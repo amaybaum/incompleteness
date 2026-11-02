@@ -1,0 +1,62 @@
+{
+  "Yang_Mills_action_derived": false,
+  "different_exact_three_time_laws": true,
+  "full_infinite_shift_mathematics": "analytic Bernoulli iid law; not proved by finite enumerations",
+  "matched_exact_rooted_two_time_maps": true,
+  "model": "four-symbol iid stationary reversible shift, cyclic finite control",
+  "native_OI_dynamics_derived": false,
+  "physical_quantum_interference_derived": false,
+  "stages": [
+    {
+      "iid_states": 64,
+      "iid_three_time_CMI_bits": 0,
+      "iid_three_time_full_support": 64,
+      "rooted_pair_entry_for_1_le_t_lt_n": "1/4",
+      "skew_three_time_CMI_bits": 1,
+      "skew_three_time_support": 32,
+      "tape_length": 3,
+      "three_time_TV_distance_to_skew": "1/2"
+    },
+    {
+      "iid_states": 256,
+      "iid_three_time_CMI_bits": 0,
+      "iid_three_time_full_support": 64,
+      "rooted_pair_entry_for_1_le_t_lt_n": "1/4",
+      "skew_three_time_CMI_bits": 1,
+      "skew_three_time_support": 32,
+      "tape_length": 4,
+      "three_time_TV_distance_to_skew": "1/2"
+    },
+    {
+      "iid_states": 1024,
+      "iid_three_time_CMI_bits": 0,
+      "iid_three_time_full_support": 64,
+      "rooted_pair_entry_for_1_le_t_lt_n": "1/4",
+      "skew_three_time_CMI_bits": 1,
+      "skew_three_time_support": 32,
+      "tape_length": 5,
+      "three_time_TV_distance_to_skew": "1/2"
+    },
+    {
+      "iid_states": 4096,
+      "iid_three_time_CMI_bits": 0,
+      "iid_three_time_full_support": 64,
+      "rooted_pair_entry_for_1_le_t_lt_n": "1/4",
+      "skew_three_time_CMI_bits": 1,
+      "skew_three_time_support": 32,
+      "tape_length": 6,
+      "three_time_TV_distance_to_skew": "1/2"
+    },
+    {
+      "iid_states": 16384,
+      "iid_three_time_CMI_bits": 0,
+      "iid_three_time_full_support": 64,
+      "rooted_pair_entry_for_1_le_t_lt_n": "1/4",
+      "skew_three_time_CMI_bits": 1,
+      "skew_three_time_support": 32,
+      "tape_length": 7,
+      "three_time_TV_distance_to_skew": "1/2"
+    }
+  ],
+  "status": "PASS_MATCHED_TWOTIME_CLASSICAL_NEGATIVE_CONTROL"
+}
