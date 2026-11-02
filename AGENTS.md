@@ -77,8 +77,12 @@ confers no protection, and "the framework needs this to be true" is never an arg
   be checked against Main's own foundation and independent sources.
   Main may independently establish a statement also discussed downstream
   using only its explicit foundational inputs and independently checkable
-  mathematics or evidence without downstream proof dependencies. An
-  external foundational input remains permissible only when its role,
+  mathematics or evidence without downstream proof dependencies. Main does
+  not prove a result merely because a downstream paper uses it or to replace
+  a downstream citation: a result that no Main claim depends on belongs in
+  the downstream paper and is removed from Main. When a result is proved
+  in Main, downstream papers cite Main's proof instead of repeating it.
+  An external foundational input remains permissible only when its role,
   status, assumptions and independent support are explicit; calling a
   downstream result "foundational" does not make it so.
   For each Main claim, trace actual dependencies across the whole corpus.
