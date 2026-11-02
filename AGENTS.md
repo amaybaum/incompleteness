@@ -63,31 +63,35 @@ confers no protection, and "the framework needs this to be true" is never an arg
   correction: unsupported claims must be independently established, narrowed
   or withdrawn.
 
-- Preserve proved mathematics while enforcing Main's upstream role.
-  First trace a disputed Main claim to its strongest valid proof, actual
-  hypotheses and logical dependencies across the whole corpus. If its
-  justification requires a downstream result, normally relocate the claim to
-  the appropriate downstream work instead of copying downstream-specific
-  mathematics into Main. This changes the claim's placement, not its validity
-  elsewhere in OI. Only when a result genuinely belongs to Main's foundational
-  scope should Main establish it directly through a sufficient independent
-  argument or an appropriately cited, independently verifiable theorem or
-  evidence record, at its actual support level, with all hypotheses explicit
-  and no downstream dependency. Do not weaken a valid theorem merely to
-  remove a citation, or retain downstream claims in Main merely to preserve
-  its previous scope. If support is incomplete, Main presents only
-  independently supported claims as established, with their actual hypotheses
-  and evidence; seek a separately scoped, independently reviewed proof
-  repair before proposing a narrowing. A missing proof in Main is not a
-  disproof. A claim refuted by a valid counterexample or disproof is withdrawn.
-  A broken inference or an unresolved proof gap must not be presented as
-  established: retain the strongest verified result with its conditions, and
-  track the stronger claim, unless refuted, as an open proof obligation or
-  conjecture. A conditional result may rest on a named hypothesis that is
-  stated explicitly, labelled with its status (justified, posited or open),
-  and carried into the conclusion; do not introduce unstated or ad hoc
-  premises, or present a conditional conclusion as unconditional or
-  independently derived merely to rescue a desired result.
+- Main is wholly upstream of every downstream companion paper. Its
+  scientific claims, mathematical statements, proofs, premises, and their
+  logical justifications must be independent of all downstream scientific
+  results and mathematical proofs, directly and indirectly. Do not cite,
+  rely on, copy, adapt or repackage a downstream claim, proof, lemma or
+  calculation as Main's justification, whether named, unnamed, relabelled
+  or hidden behind an intermediate citation or Lean theorem. Main may
+  independently establish a statement also discussed downstream only from
+  its own explicitly stated foundational inputs and independently checkable
+  mathematics or evidence that has no downstream proof dependency. An
+  external foundational input remains permissible only when its role,
+  status, assumptions and independent support are explicit; calling a
+  downstream result "foundational" does not make it so.
+  For each Main claim, trace actual dependencies across the whole corpus.
+  If a claim needs downstream science or mathematics, remove or relocate
+  that claim to the appropriate downstream paper, preserving its strongest
+  valid result there; do not transplant its proof into Main simply to keep
+  the claim. Relocating a valid result is not retracting it from OI. If a
+  genuinely foundational statement lacks an independent argument, seek a
+  separately scoped, independently reviewed proof repair; Main must not
+  present it as established until independently supported. A missing
+  proof in Main does not make a corpus result false. Withdraw a claim
+  refuted by a valid counterexample or disproof; track unrefuted, unresolved
+  stronger claims as open, retaining the strongest verified result with
+  its exact conditions. Conditional claims may rely on explicitly named
+  hypotheses labelled by their status (justified, posited or open), with
+  every condition carried into the conclusion. Never disguise a
+  conditional assertion as unconditional or independently derived, and
+  never introduce unstated or ad hoc premises to rescue a conclusion.
 
 - Trace each claim to where it is actually proved or derived, with its
   dependencies and assumptions across documents, before classifying it. A
