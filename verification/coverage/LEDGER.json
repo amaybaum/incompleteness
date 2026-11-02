@@ -61,7 +61,7 @@
       "line": 44,
       "kind": "Lemma",
       "label": "1",
-      "fingerprint": "45e383a53d95ea1a",
+      "fingerprint": "2c0b989cfcb95664",
       "area": "mirror",
       "assumptions": "mirrors the corresponding Main statement",
       "checks": [],
@@ -253,10 +253,10 @@
     {
       "id": "GR:T-a.7",
       "paper": "papers/GR.md",
-      "line": 811,
+      "line": 813,
       "kind": "Theorem",
       "label": "A.7",
-      "fingerprint": "ef7fd4160d9c1506",
+      "fingerprint": "e3853bb11fb1b6bd",
       "area": "gr",
       "assumptions": "see the statement",
       "checks": [],
@@ -380,7 +380,7 @@
       "line": 82,
       "kind": "Theorem",
       "label": "statement",
-      "fingerprint": "d523a2d67d4e4451",
+      "fingerprint": "9dc06d98eba944bd",
       "area": "oi-foundations",
       "assumptions": "see the constituent rows",
       "checks": [],
@@ -489,7 +489,31 @@
       ],
       "kernel": "P",
       "delta": "no Lean statement",
-      "note": ""
+      "note": "The final clause, that the rooted family is not P-divisible on {0,...,n} once two distinct rows of Gamma_s share positive mass and Gamma_n = I, is kernel-proved through MAIN:T-overlap-return, its own K3 entry. The step from two positive-probability histories with a common endpoint to a non-permutation Gamma_s, the step from a non-permutation square stochastic matrix to two overlapping rows, and Gamma_L = I stay on paper, so the grade stays P."
+    },
+    {
+      "id": "MAIN:T-overlap-return",
+      "paper": "papers/Main.md",
+      "line": 143,
+      "kind": "Theorem",
+      "label": "(overlap and return)",
+      "fingerprint": "ab039975db4bdd77",
+      "area": "memory-conditions",
+      "assumptions": "finite visible and hidden sets; a bijection of their product; one hidden prior shared by every root, not required to have full support; rooted maps for every root; an identity return Gamma_n = I and an overlap of two distinct rooted rows at some s < n",
+      "checks": [
+        {
+          "kind": "lean",
+          "path": "verification/lean-mathlib/OIBridge/RecurrenceHorizon.lean",
+          "names": [
+            "pIndivisible_of_rooted_identity_return_of_overlap",
+            "c4r_of_rooted_identity_return_of_overlap",
+            "pIndivisible_of_identity_return_of_overlap"
+          ]
+        }
+      ],
+      "kernel": "K3",
+      "delta": "",
+      "note": "The manuscript statement transcribes pIndivisible_of_rooted_identity_return_of_overlap (RecurrenceHorizon.lean:148) on RootedRealization (CausalReadback.lean): step a bijection of V x H, prior nonnegative and normalized with no support condition, rootedMap for every root, conclusion PIndivisibleWithin n, the negation of right-multiplication P-divisibility for all s' < t' <= n."
     },
     {
       "id": "MAIN:L-fast-bath-erases-readback",
@@ -917,7 +941,7 @@
       "line": 410,
       "kind": "Corollary",
       "label": "(Bell–lattice obstruction and state-dependent escape)",
-      "fingerprint": "63dcfdf7800b1f34",
+      "fingerprint": "f49292415fde543f",
       "area": "locality-combs",
       "assumptions": "Bell-relevant degrees of freedom governed by the nearest-neighbour cubic update; interventions reading and writing only their own wing; ±1 readouts in every run at graph distance from the remote setting region exceeding the setting-to-readout interval",
       "checks": [],
@@ -979,9 +1003,9 @@
       "line": 463,
       "kind": "Theorem",
       "label": "(physical memory: C2, process form)",
-      "fingerprint": "4c4f0d290436802c",
+      "fingerprint": "c5a8951201a17fcb",
       "area": "memory-conditions",
-      "assumptions": "the coupling-step model of §3.4 (next visible state determined by the current visible and hidden states; any hidden map between couplings) with reference prior π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
+      "assumptions": "the coupling-step model of §3.4 (given the whole visible past and H_k = h, X_{k+1} has law K(x_k, h; ·); any hidden map between couplings) with reference prior π_H; persistence form: ε the realized maximum distance of the hidden conditionals from π_H, no mixing hypothesis; timescale (slow-bath) form: the conditional-mixing hypothesis at coupling time",
       "checks": [
         {
           "kind": "probe",
@@ -1305,7 +1329,7 @@
       "line": 616,
       "kind": "Theorem",
       "label": "(canonical predictive quotient — a purification ingredient, substratum form)",
-      "fingerprint": "8b180e8ae437af19",
+      "fingerprint": "9f4f8626d7c3bc87",
       "area": "memory-conditions",
       "assumptions": "a finite-horizon law on visible trajectories",
       "checks": [
@@ -1620,7 +1644,7 @@
       "line": 300,
       "kind": "Theorem",
       "label": "3",
-      "fingerprint": "78abc2acbf80c5bf",
+      "fingerprint": "cc625c5a5b0a4456",
       "area": "sm",
       "assumptions": "fixed opposite-parity hopping; site-independent coefficients m·eps + p_0; no additive 2-torsion; both parity sectors present",
       "checks": [
@@ -1659,7 +1683,7 @@
       ],
       "kernel": "K3",
       "delta": "",
-      "note": "Proposed K3 only for the exact restricted first-order statement printed in SM Theorem 3 after integration and canonical verification. The unrestricted second-order-update/physical-chirality equivalence remains a separate open recovery target; mass_square is an auxiliary identity, not that missing bridge."
+      "note": "K3 for the exact restricted first-order statement printed in SM Theorem 3: vanishing onsite terms m = p_0 = 0 iff exact chirality. The unrestricted second-order-update/physical-chirality equivalence remains a separate open recovery target; mass_square is an auxiliary identity, not that missing bridge."
     },
     {
       "id": "SM:T-4-conditional-observer-level-mass-spectrum",
@@ -3064,7 +3088,7 @@
       "kind": "probe",
       "path": "papers/oi_lattice_code/foundations/primitive_probes.py",
       "names": [],
-      "certifies": "Main §1.3: C4 is primitive; C1 and C3 are its consequences within any faithful realization.",
+      "certifies": "Main §1.3: C1 follows from C4 (zero-coupling realizations show no readback gap at orders 1 and 2, exact, at (2,2), (2,3), (3,2)); the per-order capacity bound max_k M_k <= log2|C_H| on realizations with a readback gap at (2,2), (2,3), (2,4), (3,2) (floating point); C4 coincides with condition (ii) on every realization at (2,2), (2,3), (3,2), orders 1 and 2 (the gap exact, CMI > 0 by a 1e-12 floating-point threshold). Uniform prior throughout.",
       "note": "The conditions C1-C4 are introduced in §1.3 as a numbered list rather than as bold-headed statements, so they carry no census row."
     },
     {

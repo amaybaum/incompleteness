@@ -384,12 +384,12 @@ differentiation) but is not derivable from it: a structure containing a
 single tokened differentiation and nothing further satisfies Axiom 1
 while containing no recurrence, so no analysis of Axiom 1 alone can
 yield Axiom 2 --- non-derivability by countermodel. The framework's
-foundation is therefore most honestly described not as a single axiom
-but as a \emph{two-axiom observation base}: one indubitable claim, and
-one substantive posit that the first does not yield. The two invoke a
-single principle --- tokened differentiation --- and are thematically
-one; they are numerically two. The Definition and Lemmas below unpack
-this structure.
+foundation is therefore described not as a single axiom but as a
+\emph{two-axiom observation base}: one indubitable claim, and one
+substantive posit that the first does not yield. The two invoke a single
+principle --- tokened differentiation --- and are thematically one; they
+are numerically two. The Definition and Lemmas below unpack this
+structure.
 
 The perspectival reading of the primitive is a commitment, and it is
 worth stating what the alternative would cost. One could instead read
@@ -573,7 +573,8 @@ Sector}\label{conditions-on-the-hidden-sector}}
 diagnostics of a realization rather than hypotheses of the
 characterization: the equivalence of §3.4 quantifies over none of them
 (Remark, \emph{the conditions are diagnostics, not hypotheses}), (C1)
-and (C3) follow from (C4) in any faithful realization, and (C2) is a
+follows from (C4) in any faithful realization, (C3) holds in every
+faithful realization by the capacity bound of §3.4, and (C2) is a
 physical-regime premise. They are stated and used because they are what
 one can check of a candidate partition --- a cosmological horizon, a
 laboratory apparatus, an equilibrium fluctuation --- where the bare
@@ -655,20 +656,21 @@ conditions: the characterization's equivalence runs over those three
 static bath. What C2 supplies is physical: it is the mechanism by which
 a stored record survives to be read in realistic models, so that C4
 holds rather than failing by erasure (§2.3); and in the other direction,
-in the coupling-step model of §3.4 --- next visible state determined by
-the current visible and hidden states, any hidden map between couplings
---- observed conditional memory \(I^* > 0\) forces some realized hidden
-conditional at the coupling time to lie at total-variation distance at
-least \(\varepsilon_{\min}(I^*, n_V)\) (§3.4) from the model's reference
-prior \(\pi_H\) --- the contrapositive of the physical-memory theorem of
-§3.4, in which \(\varepsilon\) is the realized distance and no mixing
-hypothesis enters --- while the timescale form, a lower bound on bath
-persistence, follows from it under the hidden-sector mixing hypothesis.
-Note also that C2 does not imply C4: a slow bath can store without
-reading, certified by a C1--C3 realization with identically zero
-conditional memory on arbitrarily long horizons
-(\texttt{review3\_probes.py}), which is why C4 is a separate condition
-and not a consequence. ETH, C2's physical motivation --- a
+in the coupling-step model of the physical-memory theorem (§3.4) ---
+next visible state determined by the current visible and hidden states,
+any hidden map between couplings --- observed conditional memory
+\(M_k = I(X_{<k}; X_{k+1} \mid X_k) > 0\) at an accessible order \(k\)
+forces some realized hidden conditional at that coupling time to lie at
+total-variation distance at least \(\varepsilon_{\min}(M_k, n_V)\)
+(§3.4) from the model's reference prior \(\pi_H\) --- the contrapositive
+of the physical-memory theorem of §3.4, in which \(\varepsilon\) is the
+realized distance and no mixing hypothesis enters --- while the
+timescale form, a lower bound on bath persistence, follows from it under
+the hidden-sector mixing hypothesis. Note also that C2 does not imply
+C4: a slow bath can store without reading, certified by a C1--C3
+realization with identically zero conditional memory on arbitrarily long
+horizons (\texttt{review3\_probes.py}), which is why C4 is a separate
+condition and not a consequence. ETH, C2's physical motivation --- a
 well-supported conjecture rather than a theorem --- is discussed at the
 remark in §3.4. Realization --- \(\tau_S/\tau_B \sim 10^{-32}\) at the
 horizon.)
@@ -682,15 +684,21 @@ the margin is astronomical: \(A/\epsilon^2 \sim 10^{122}\) hidden modes
 at one nat per boundary mode against \(\sim 10^{80}\) baryons, a
 hierarchy \(N_H \gg N_V\) with the bath imperturbable on laboratory
 timescales; the hierarchy and the imperturbability belong to this
-realization clause, not to the condition. Dependency --- like C1, C3
-follows from C4 within any faithful realization: the observed
-conditional information must pass through the hidden sector, so data
-processing gives \(\log_2|\mathcal{C}_H| \geq I^*\) automatically.
-Exhaustive enumeration confirms it and finds the bound SATURATED ---
-realizations attaining \(I^* = \log_2|\mathcal{C}_H|\) exist at
-\((2,2)\) and \((3,2)\) (\texttt{primitive\_probes.py}) --- so C3 is
-tight rather than slack, and is retained as a separately checkable
-condition.)
+realization clause, not to the condition. Dependency --- C3 does not
+depend on C4: it holds in every faithful realization, Markov ones
+included, because the whole visible future is a function of the present
+visible and hidden states, so data processing gives
+\(\log_2|\mathcal{C}_H| \geq I^*\) (Theorem (C3 necessity), §3.4).
+Exhaustive enumeration over the realizations with a readback gap at
+\((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (2,4), (3,2)\) checks the
+per-order form \(\max_k M_k \leq \log_2|\mathcal{C}_H|\) and finds it
+attained at \((2,2)\) and \((3,2)\) (\texttt{primitive\_probes.py},
+uniform prior, orders 1 and 2, floating point). Attainment is exact: at
+\((2,2)\) the swap \(\varphi(v,h)=(h,v)\) under the uniform prior has
+\(X_{k+1}=X_{k-1}\), so \(M_k=1\) bit \(=\log_2|\mathcal{C}_H|\), and
+since \(M_k\le I^*\le\log_2|\mathcal{C}_H|\) it attains
+\(I^*=\log_2|\mathcal{C}_H|\), so C3 is tight rather than slack. It is
+retained as a separately checkable condition.)
 
 \textbf{(C4) History readback.} History-sensitive hidden mediation: on
 accessible windows, hidden degrees of freedom carry information about
@@ -725,21 +733,21 @@ representative follows from any non-deterministic visible step,
 including in laws that are Markov on every accessible window, and does
 not require C4; with a full-support visible prior it is equivalent to
 memory at some order below the recurrence time, which an observer
-reaches only when that order is accessible, as C4 asserts (§2.3). C1 and
-C3 follow as necessary diagnostics of the mediation and its capacity;
-C2-structural, the persistence of the record to readback, holds by
-reversibility in every bijective realization and constrains
-coarse-grained descriptions of the hidden sector, with C2-slow one
-physical mechanism. \textbf{(3) Reverse finite realization:} every
-finite stochastic law, including every finite quantum record, has a
-finite reversible OI realization; bounded quantum instrument families
-are uniformly realizable to arbitrary finite accuracy (§3.4).
-\textbf{(4) Full operational extension:} one common \emph{standard
-quantum instrument/composite theory} for all coherent interventions is
-obtained, on a finite carrier with complex matrix kinematics taken as
-given, exactly under the five completion conditions of §3.4 ({[}GR
-§3.3{]}); which of them the substratum supplies is open. Bell is a
-separate constraint rather than one of those conditions: for a
+reaches only when that order is accessible, as C4 asserts (§2.3). C1
+follows as a necessary diagnostic of the mediation, and C3 holds in
+every faithful realization by the capacity bound; C2-structural, the
+persistence of the record to readback, holds by reversibility in every
+bijective realization and constrains coarse-grained descriptions of the
+hidden sector, with C2-slow one physical mechanism. \textbf{(3) Reverse
+finite realization:} every finite stochastic law, including every finite
+quantum record, has a finite reversible OI realization; bounded quantum
+instrument families are uniformly realizable to arbitrary finite
+accuracy (§3.4). \textbf{(4) Full operational extension:} one common
+\emph{standard quantum instrument/composite theory} for all coherent
+interventions is obtained, on a finite carrier with complex matrix
+kinematics taken as given, exactly under the five completion conditions
+of §3.4 ({[}GR §3.3{]}); which of them the substratum supplies is open.
+Bell is a separate constraint rather than one of those conditions: for a
 response-complete deterministic completion that records a \(\pm1\)
 outcome in every run, measurement independence plus ontic parameter
 independence would force \(|S_{\rm CHSH}|\le2\), so the Bell-violating
@@ -975,9 +983,16 @@ stochastic \(\Lambda\) with \(\Gamma_n = \Gamma_s \Lambda = I\) would be
 a stochastic right inverse of \(\Gamma_s\), which the lemma forbids.
 \(\square\) (kernel: the lemma is
 \texttt{isPermMatrix\_of\_stochastic\_inverse} in
-\texttt{OIBridge/EquivalenceChain.lean}; its composition with
-P-divisibility and the step from two positive-probability histories with
-a common endpoint to a non-permutation rooted map are proved on paper)
+\texttt{OIBridge/EquivalenceChain.lean}; the final clause, that the
+rooted family is not P-divisible on \(\{0, \ldots, n\}\), follows from
+two distinct rows of \(\Gamma_s\) sharing positive mass and
+\(\Gamma_n = I\) by the overlap-and-return theorem below,
+\texttt{pIndivisible\_of\_rooted\_identity\_return\_of\_overlap}; the
+step from two positive-probability histories with a common endpoint to a
+non-permutation rooted map, the step from a non-permutation square
+stochastic matrix to two distinct rows sharing positive mass (a square
+stochastic matrix whose rows have pairwise disjoint supports is a
+permutation), and \(\Gamma_L = I\) are proved on paper)
 
 \emph{Scope.} This is a global recurrence-cycle result. It does
 \textbf{not} say that C4 forces P-indivisibility on every accessible
@@ -1008,6 +1023,69 @@ its whole recurrence cycle; an observer's statistics are its restriction
 to accessible windows, and on them the memory is witnessed only by a gap
 at an accessible order. What (C4) adds within accessible windows is the
 positive conditional memory of the readback lemma below.
+
+\textbf{Theorem (overlap and return).} \emph{Let \(\mathcal{C}_V\) and
+\(\mathcal{C}_H\) be finite sets, \(\varphi\) a bijection of
+\(\mathcal{C}_V \times \mathcal{C}_H\), and \(\mu_H\) a probability
+distribution on \(\mathcal{C}_H\), not required to have full support,
+from which the hidden state is drawn whatever the root, with rooted
+visible maps \(\Gamma_t(a, j) = \mu_H\{h : \pi_V \varphi^t(a, h) = j\}\)
+for every \(a \in \mathcal{C}_V\). If \(\Gamma_n = I\) for some \(n\),
+and for some \(s < n\) two distinct roots \(a \neq b\) and a visible
+value \(x\) have \(\Gamma_s(a, x) > 0\) and \(\Gamma_s(b, x) > 0\), then
+the rooted family is not P-divisible on \(\{0, \ldots, n\}\).}
+
+\emph{Proof.} Distinct rows of \(\Gamma_n = I\) are at total variation
+distance \(1\). Two rows sharing positive mass at \(x\) are at distance
+at most \(1 - \min(\Gamma_s(a, x), \Gamma_s(b, x)) < 1\). Right
+multiplication by a stochastic matrix does not increase the total
+variation distance between two rows, so no stochastic \(\Lambda\)
+satisfies \(\Gamma_n = \Gamma_s \Lambda\), and the pair \(s < n\)
+violates P-divisibility. \(\square\) (kernel:
+\texttt{pIndivisible\_of\_rooted\_identity\_return\_of\_overlap},
+through \texttt{c4r\_of\_rooted\_identity\_return\_of\_overlap}, in
+\texttt{OIBridge/RecurrenceHorizon.lean}; the matrix form
+\texttt{pIndivisible\_of\_identity\_return\_of\_overlap} assumes only
+that \(\Gamma_s\) is row-stochastic)
+
+\emph{Routed readback.} The realization clause of (C4) (§1.3), a
+visible-history record written into the hidden state and routed back
+into later visible conditionals, has two formalizations on the rooted
+maps above, which differ in the hidden variable that carries the record
+at the storage time. Both fix roots \(a \neq b\), times
+\(0 < w \leq s < t \leq K\) and a visible value \(x\), and require four
+clauses: a write, some seed \(h\) with \(\mu_H(h) > 0\) for which
+\(\varphi^w(a, h)\) and \(\varphi^w(b, h)\) have different hidden
+components; a store, \(\Gamma_s(a, x) > 0\), \(\Gamma_s(b, x) > 0\) and
+different root-conditioned hidden laws at \((s, x)\) for the two roots;
+a read, those two hidden laws placed beside \(x\) and evolved for
+\(t - s\) steps giving different visible laws at \(t\); and a
+reappearance, \(\Gamma_t(a, \cdot) \neq \Gamma_t(b, \cdot)\). In the
+storage-time reading the hidden law is that of the hidden state at the
+storage time, \(\mathrm{Law}(H_s \mid X_s = x, X_0 = a)\); in the
+seed-conditioned reading it is that of the initial hidden state,
+\(\mathrm{Law}(H_0 \mid X_s = x, X_0 = a)\). Under either reading, the
+rooted family is not P-divisible on \(\{0, \ldots, n\}\) for every
+\(n > s\) with \(\Gamma_n = I\), and so for some \(n\), because
+\((\Gamma_t)\) is periodic and \(\Gamma_0 = I\) (kernel:
+\texttt{routedAtStorage\_forces\_return\_indivisibility},
+\texttt{routedAtStorage\_forces\_indivisible\_somewhere} in
+\texttt{OIBridge/PhysicalC4StorageReadback.lean} for the storage-time
+reading; \texttt{routed\_forces\_return\_indivisibility},
+\texttt{routed\_forces\_indivisible\_somewhere} in
+\texttt{OIBridge/PhysicalC4Discharge.lean} for the seed-conditioned
+reading; the period and the root identity are
+\texttt{rootedMap\_periodic} and \texttt{rootedMap\_zero} in
+\texttt{OIBridge/RootedClassification.lean}). Both proofs use only the
+two positivity conditions of the store clause, so both conclusions are
+instances of the overlap-and-return theorem, and the horizon reached is
+a return of the rooted map, not an accessible window. Neither reading
+implies the other: each holds at \(K = 2\) on an exhibited finite
+reversible realization on which the other fails at \(K = 2\) (kernel:
+\texttt{storageReadback\_not\_implies\_routedReadback},
+\texttt{routedReadback\_not\_implies\_storageReadback}). Whether the
+clause holds at a physical cut, in either reading, is not established
+(§1.3; {[}GR §2.2{]}).
 
 \textbf{Genericity.} The theorem's precondition --- that \(T\) is not a
 permutation matrix --- is a sufficient first-step \emph{witness} of (C1)
@@ -1161,9 +1239,11 @@ in bits. By the triangle inequality
 Multiplying by \(\Pr[X_k = c]\) converts conditional weights to path
 probabilities, each at least \(p_0\); hence
 \(I(X_{<k}; X_{k+1} \mid X_k) \geq \tfrac{2}{\ln 2} \cdot p_0 \cdot \tfrac{\delta^2}{2} = p_0\delta^2/\ln 2\).
-\(\square\) (Certified exactly on gap families, the revival family, and
-a small-gap parametric family, with the coin silent, in
-\texttt{c4\_backflow\_probes.py}.)
+\(\square\) (Checked on a gap family, the revival family and a small-gap
+parametric family, with the coin silent, in
+\texttt{c4\_backflow\_probes.py}: the laws and gaps in exact rational
+arithmetic, the information quantities and the inequality in floating
+point.)
 
 \emph{Remark (why (C4) is a separate condition).} (C1)--(C3) admit
 realizations with zero conditional memory throughout arbitrarily long
@@ -1203,9 +1283,9 @@ P-divisibility: under the mixing hypothesis, for
 \(2[\varepsilon \log(n_V - 1) + h(\varepsilon)]\) of it, with
 \(\varepsilon\) the residue of relaxation at the coupling time.
 
-\hypertarget{explicit-construction-a-minimal-model}{%
-\subsubsection{2.4 Explicit Construction: A Minimal
-Model}\label{explicit-construction-a-minimal-model}}
+\hypertarget{explicit-construction-a-six-hidden-state-model}{%
+\subsubsection{2.4 Explicit Construction: A Six-Hidden-State
+Model}\label{explicit-construction-a-six-hidden-state-model}}
 
 Visible sector: \(x \in \{0, 1\}\). Hidden sector:
 \(h \in \{1, \ldots, 6\}\). Dynamics: the permutation
@@ -1342,7 +1422,7 @@ in-house (§3.4), and the fixed-basis representation's existence is
 internal (the equivalence theorem), neither resting on it ---, we state
 its scope precisely rather than treat it as a black-box equivalence. The
 correspondence is a published theorem (Barandes, \emph{Philosophy of
-Physics} 3(1):8, 2025 {[}11{]}; proof in {[}12{]}) and is genuinely
+Physics} 3(1):8, 2025 {[}12{]}; proof in {[}11{]}) and is genuinely
 load-bearing here, but four scope conditions are carried throughout the
 framework and should be read as standing qualifications on every
 downstream statement that leans on the compressed representation. (i)
@@ -1749,11 +1829,11 @@ finite discrete configuration space the dynamics is the discrete group
 \(\{U_\varphi^k\}\), and any continuous one-parameter interpolation is
 \emph{additional structure}, chosen rather than derived. The depth-two
 structure of the substratum update supplies something weaker and
-derived: an exact norm-continuous path of local \(*\)-automorphisms of
-the quasilocal algebra from the identity to the update's Heisenberg
-action, for which no one-parameter-group law is established and no
-generator is exhibited ({[}GR §3.3{]}; kernel:
-\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+derived: an exact strongly continuous path of \(*\)-automorphisms of the
+quasilocal algebra from the identity to the update's Heisenberg action,
+for which no one-parameter-group law is established and no generator is
+exhibited ({[}GR §3.3{]}; kernel: \texttt{driveQ\_isContinuousPath},
+\texttt{driveQ\_one\_eq\_heisQ} in
 \texttt{OIBridge/SecondOrderDrive.lean}). When such an interpolation is
 introduced --- a strongly continuous one-parameter unitary group \(U_t\)
 with \(U_1 = U_\varphi\), which always exists but is not unique (any
@@ -2453,7 +2533,7 @@ reference uniform/vacuum graph local. What remains to be proved is
 H-Bell: the prepared graph family must preserve operational no-signaling
 and satisfy a curvature/metric convergence condition strong enough for
 the Ollivier--Ricci continuum step used by the Einstein reconstruction.
-That condition is now downstream of a harder one. The cited convergence
+That condition is downstream of a harder one. The cited convergence
 theorem is arbitrary-dimensional only for the manifold-distance-weighted
 graph metric, and for the degree-\(6\) cubic reference graph the
 intrinsic hop metric is exactly \(\ell_1\) --- a \(\sqrt2\) diagonal
@@ -2636,7 +2716,7 @@ Contrapositively, departure of magnitude \(\delta\) from the homogeneous
 Markov benchmark at step order \(k\) forces
 \(\varepsilon \geq \delta/(k-1)\) --- the benchmark form; the operative
 contrapositive in condition (ii)'s currency is the physical-memory
-theorem's \(\varepsilon \geq \varepsilon_{\min}(I^*, n_V)\) below.}
+theorem's \(\varepsilon \geq \varepsilon_{\min}(M_k, n_V)\) below.}
 
 \emph{Proof.} For \(k = 2\): with \(\mu'_{x_0 x_1}\) the post-relaxation
 conditional given the visible record \((x_0, x_1)\) and
@@ -2669,10 +2749,13 @@ variation. (The theorem's bound \(\|T^{(k)} - T^k\|\) measures departure
 from the homogeneous Markov benchmark; it is not itself a measure of
 P-indivisibility --- two-notions Remark, §3.4.)
 
-\textbf{Theorem (physical memory: C2, process form).} \emph{Under the
-conditional-mixing hypothesis --- every realized hidden conditional lies
-within \(\varepsilon\) of \(\pi_H\) in total variation at the coupling
-time --- every history-conditional next-step law satisfies
+\textbf{Theorem (physical memory: C2, process form).} \emph{In the
+coupling-step model of the previous theorem --- given the whole visible
+past and \(H_k = h\), \(X_{k+1}\) has law \(K(x_k, h; \cdot)\), with
+\(\pi_H\) the reference prior --- and under the conditional-mixing
+hypothesis, that every realized hidden conditional lies within
+\(\varepsilon\) of \(\pi_H\) in total variation at the coupling time,
+every history-conditional next-step law satisfies
 \(\|P(X_{k+1} \mid X_{\leq k}) - \bar{K}_{x_k}\|_{\mathrm{TV}} \leq \varepsilon\)
 with \(\bar{K}_{x_k} := \sum_h \pi_H(h)\, K(x_k, h; \cdot)\); hence the
 departure
@@ -2681,11 +2764,16 @@ uniformly in the history, and for \(\varepsilon \leq 1 - 1/n_V\),}
 \[I(X_{<k}; X_{k+1} \mid X_k) \;\leq\; 2\left[\varepsilon \log(n_V - 1) + h(\varepsilon)\right],\]
 \emph{\(h\) the binary entropy (for \(n_V = 2\) the bound is
 \(2h(\varepsilon)\)). Contrapositive: observed conditional memory
-\(I^* > 0\) at an accessible order forces
-\(\varepsilon \geq \varepsilon_{\min}(I^*, n_V) > 0\) --- the hidden
-sector has not mixed by the coupling time. This is (C2)'s necessity in
-the currency of condition (ii), in two forms. Taking \(\varepsilon\) as
-the realized maximum of
+\(M_k := I(X_{<k}; X_{k+1} \mid X_k) > 0\) at an accessible order \(k\)
+forces \(\varepsilon \geq \varepsilon_{\min}(M_k, n_V) > 0\) --- the
+hidden sector has not mixed by coupling time \(k\). Here
+\(\varepsilon_{\min}(M, n_V)\) is the least
+\(\varepsilon \in [0, 1 - 1/n_V]\) at which the right-hand side of the
+display equals \(M\); the right-hand side increases on that interval
+from \(0\) to \(2\log n_V\), and \(M_k \leq \log n_V\), so
+\(\varepsilon_{\min}(M_k, n_V)\) exists and lies below \(1 - 1/n_V\).
+This is (C2)'s necessity in the currency of condition (ii), in two
+forms. Taking \(\varepsilon\) as the realized maximum of
 \(\mathrm{TV}(P(H_k = \cdot \mid x_{\leq k}), \pi_H)\) over
 positive-probability histories \(x_{\leq k}\), the hypothesis holds by
 definition, so the contrapositive needs no mixing hypothesis: this is
@@ -2727,8 +2815,9 @@ role: two theorems).} The characterization's realization clause needs
 \(\tau_B = \infty\) --- so the structural equivalence is carried by
 (C1), (C3), (C4), with (C2) automatic in that limit. The physical
 content of (C2) is the memory theorem above: observed conditional memory
-\(I^*\) keeps some realized hidden conditional at least
-\(\varepsilon_{\min}(I^*, n_V)\) from \(\pi_H\), and under the
+\(M_k > 0\) at an accessible order \(k\) keeps some realized hidden
+conditional at that coupling time at least
+\(\varepsilon_{\min}(M_k, n_V)\) from \(\pi_H\), and under the
 conditional-mixing hypothesis it lower-bounds the bath's mixing time.
 The structural equivalence and the physical-memory bound are distinct
 results with distinct hypotheses; (C1)--(C4) are not four necessities of
@@ -2859,7 +2948,7 @@ statement in the homogeneous-Markov benchmark: memory of magnitude
 the bath's conditional mixing to \(\varepsilon < \delta/(k-1)\)
 completes --- the benchmark form. For condition (ii)'s currency the
 operative statement is the physical-memory theorem's
-\(\varepsilon \geq \varepsilon_{\min}(I^*, n_V)\) (§3.4); the benchmark
+\(\varepsilon \geq \varepsilon_{\min}(M_k, n_V)\) (§3.4); the benchmark
 inequality is not the general process-memory bound.
 
 \emph{Remark (role of ETH, restated).} \emph{The timescale (slow-bath)
@@ -3714,8 +3803,8 @@ the level of the laws, the restriction to the substratum-induced
 dynamics is a theorem rather than a convention --- a phase automorphism
 at one site preserves locality without arising from any reversible
 finite-range bijection --- and, while the update is joined to the
-identity by an exact norm-continuous path of local \(*\)-automorphisms
-of that algebra, with no one-parameter-group law established and no
+identity by an exact strongly continuous path of \(*\)-automorphisms of
+that algebra, with no one-parameter-group law established and no
 generator exhibited, a continuous-time Hamiltonian law remains
 additional structure ({[}GR §3.3{]}; kernel:
 \texttt{closure\_iUnion\_stage}, \texttt{quasiState\_unique} in
@@ -3963,9 +4052,10 @@ total variation is monotone under channels. (c)
 \(X_{<t} \to H_t \to X_{t+1}\) is a Markov chain given \(X_t\), by the
 same functional dependence; data processing gives the first inequality
 and \(I \leq H(H_t) \leq \log_2|\mathcal{C}_H|\) the second. \(\square\)
-(All three certified over every bijection at
+(All three checked over every bijection at
 \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) under the uniform prior
---- 1\{,\}464 cases --- in \texttt{memory\_probes.py}.)
+--- 1\{,\}464 cases --- in \texttt{memory\_probes.py}, (a) and (b) in
+exact rational arithmetic and (c) in floating point.)
 
 \emph{Remark (what this strengthens).} The equivalence of §3.4 is
 existential: some finite reversible realization exists. That statement
@@ -4011,13 +4101,16 @@ not equal \(M_t\) in general at any hidden dimension: every bijective
 completion has \(I(X_{<t}; H_t \mid X_t) = H(X_{<t} \mid X_t)\) (Remark
 above), which exceeds \(M_t\) by \(H(X_{<t} \mid X_t, X_{t+1})\) --- for
 an i.i.d. fair coin at \(t = 1\), \(M_1 = 0\) while every reversible
-completion carries \(1\) bit. At \((n_V, |\mathcal{C}_H|) = (2,3)\) the
-two agree for one of fifteen distinct processes with \(M_t > 0\), with
-residuals up to \(0.667\) bits (\texttt{memory\_probes.py}); the
-agreeing process is the one with \(H(X_{<t} \mid X_t, X_{t+1}) = 0\),
-and each residual equals that entropy by the identity above. Without the
-bijectivity requirement the infimum is attained: in every deterministic
-completion the whole visible future is a function of \((X_t, H_t)\), so
+completion carries \(1\) bit. At \((n_V, |\mathcal{C}_H|) = (2,3)\) and
+\(t = 2\), the uniform prior on \(\mathcal{C}_V \times \mathcal{C}_H\)
+gives sixteen distinct laws of \((X_0,\ldots,X_3)\) with \(M_t > 0\),
+and \(M_{\mathrm{det}} = M_t\) for two of them, with residuals up to
+\(2/3\) bit (\texttt{memory\_probes.py}). The agreeing laws are those
+with \(H(X_{<t} \mid X_t, X_{t+1}) = 0\), and each residual equals that
+entropy by the identity above, so it is the same under every hidden
+prior that realizes the law. Without the bijectivity requirement the
+infimum is attained: in every deterministic completion the whole visible
+future is a function of \((X_t, H_t)\), so
 \(I(X_{<t}; H_t \mid X_t) \geq I(X_{<t}; X_{>t} \mid X_t)\) (kernel:
 \texttt{c3\_necessity\_via\_hidden} in
 \texttt{OIBridge/C3Necessity.lean}, stated there for bijective
@@ -4105,7 +4198,9 @@ and the predictive floor
 \(\log_2 |\mathrm{tails}_t| \geq I(X_{<t}; X_{>t} \mid X_t)\) --- over
 all 1\{,\}464 \(\varphi\)-realizations at
 \((n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)\) under two priors,
-2\{,\}928 instances, exact: \texttt{purification\_probes.py}.)
+2\{,\}928 instances, in exact rational arithmetic except the predictive
+floor, which is checked in floating point:
+\texttt{purification\_probes.py}.)
 
 \emph{Remark (relation to the purification axiom).} In the
 Chiribella--D'Ariano--Perinotti reconstruction {[}53{]}, purification
@@ -4127,18 +4222,23 @@ principle itself.
 \emph{Remark (which condition is primitive).} Of the three structural
 conditions, only (C4) is logically independent. (C1) follows from it ---
 a readback gap requires hidden mediation, and zero-coupling realizations
-exhibit no gap at any order --- and (C3) follows by data processing,
-with the bound \(\log_2|\mathcal{C}_H| \geq I^*\) saturated by
-realizations that attain it; both are certified by exhaustive
-enumeration in \texttt{primitive\_probes.py}. The equivalence could
-therefore be stated with (C4) alone. It is not, deliberately: (C1) and
-(C3) are independently \emph{checkable} --- on the adopted
+exhibit no gap at any order --- and (C3) holds in every faithful
+realization by data processing applied to the whole visible future, with
+the bound \(\log_2|\mathcal{C}_H| \geq I^*\) attained by some
+realizations. Exhaustive enumeration in \texttt{primitive\_probes.py}
+checks the first at small sizes in exact rational arithmetic, and checks
+the second in its per-order form
+\(\max_k M_k \leq \log_2|\mathcal{C}_H|\) over realizations with a
+readback gap, in floating point (§1.3). The equivalence could therefore
+be stated with (C4) alone. It is not, deliberately: (C1) and (C3) are
+independently \emph{checkable} --- on the adopted
 ontic-parameter-dependent branch of §3.3 Bell violation requires
 cross-wing coupling and so checks (C1) directly, and capacity arguments
 use (C3) directly --- and a characterization that lists checkable
-consequences alongside its primitive is more useful than a minimal one,
-in the way that axiom lists for groups are conventionally redundant. The
-dependency is recorded at each condition's definition (§1.3).*
+necessary conditions alongside its primitive is more useful than a
+minimal one, in the way that axiom lists for groups are conventionally
+redundant. The dependency is recorded at each condition's definition
+(§1.3).*
 
 \emph{Remark (two notions of memory).} Non-Markovianity of the process
 --- condition (ii) --- and P-indivisibility of the transition-matrix
@@ -4249,11 +4349,26 @@ universal all-time form is settled \emph{negative}: a bijection on a
 finite set has finite order \(L\), so any fixed realization with a fixed
 prior has an exactly \(L\)-periodic multi-time law
 (\(\varphi^{k+L} = \varphi^k\)) --- a nonperiodic target admits no exact
-all-time realization by one fixed finite substratum. The honest open
-questions are (a) exact gluing for recurrent target families --- which
-compatibility conditions on the per-horizon realizations suffice --- and
-(b) the physically operative form: quantitative approximation of the
-target on windows \(t \ll t_R\) by one fixed substratum before its
+all-time realization by one fixed finite substratum. For the rooted
+visible maps the all-time question has an exact answer: on a finite
+\(\mathcal{C}_V\), a family \((\Gamma_t)_{t \geq 0}\) of real square
+matrices equals, at every \(t \geq 0\), the rooted maps
+\(\Gamma_t(a, j) = \mu_H\{h : \pi_V \varphi^t(a, h) = j\}\) of some
+finite \(\mathcal{C}_H\), one bijection \(\varphi\) of
+\(\mathcal{C}_V \times \mathcal{C}_H\) and one probability distribution
+\(\mu_H\) on \(\mathcal{C}_H\) shared by every root, not required to
+have full support, if and only if \(\Gamma_0 = I\), every \(\Gamma_t\)
+is row-stochastic, and \(\Gamma_{t+M} = \Gamma_t\) for some \(M > 0\)
+and all \(t\) (kernel: \texttt{pper\_of\_finiteRootedRealizable} in
+\texttt{OIBridge/RootedClassification.lean} for the forward direction,
+from finiteness and bijectivity; \texttt{pper\_has\_responseRealization}
+in \texttt{OIBridge/RootedClassificationAllTime.lean} for the converse,
+by a response-table construction; the two directions assembled in
+\texttt{finiteRootedRealizable\_iff\_pper}). The open questions are (a)
+exact all-time gluing for recurrent families of multi-time laws ---
+which compatibility conditions on the per-horizon realizations suffice
+--- and (b) the physically operative form: quantitative approximation of
+the target on windows \(t \ll t_R\) by one fixed substratum before its
 recurrence. Form (b) coincides with the accessible-timescale scoping of
 §4.5.
 
@@ -5084,8 +5199,9 @@ physical hidden sectors is the C2-necessity row (persistence form
 without a mixing hypothesis, timescale form conditional on it);
 arbitrary-kernel form via the response-table extension; Consolidation:
 universal exact all-time form impossible (finite-order periodicity);
-recurrent-family gluing and pre-recurrence window approximation open &
-§3.4 \\
+all-time realizability of rooted visible maps classified (identity root,
+row-stochastic, periodic; kernel); recurrent multi-time-law gluing and
+pre-recurrence window approximation open & §3.4 \\
 Fixed-\(\hat{H}\) form for realized processes & Proved, uncompressed ---
 the realization's permutation unitary, \(\hat{H} = i\log U\), exact at
 integer horizon times for uniform, slice, and weighted priors
@@ -5105,18 +5221,18 @@ hidden influence at some accessible step (none anywhere ⟹ Markov); a
 non-permutation one-step \(T\) is the sufficient first-step witness, not
 an equivalence & §3.4, §1.3 \\
 C2 necessity & Non-mixing (persistence) form proved: in the
-coupling-step model of §3.4 --- next visible state determined by the
-current visible and hidden states, any hidden map between couplings ---
-observed conditional memory \(I^*\) places some realized hidden
-conditional at the coupling time at least
-\(\varepsilon_{\min}(I^*, n_V)\) from its reference prior \(\pi_H\)
-(physical-memory theorem, realized-\(\varepsilon\) contrapositive); in a
-bijective realization the retention of (C2-structural) holds for every
-law. Slow-bath form conditional on the hidden-sector mixing hypothesis;
-the quantitative bound \(\varepsilon \geq \delta/(k-1)\) is proved, its
-constant saturated in the certification suite
-(\texttt{c2\_mixing\_probes.py}); ETH is physical motivation, not a
-premise & §3.4, §1.3 \\
+coupling-step model of the physical-memory theorem (§3.4) --- next
+visible state determined by the current visible and hidden states, any
+hidden map between couplings --- observed conditional memory \(M_k > 0\)
+at an accessible order \(k\) places some realized hidden conditional at
+that coupling time at least \(\varepsilon_{\min}(M_k, n_V)\) from its
+reference prior \(\pi_H\) (physical-memory theorem,
+realized-\(\varepsilon\) contrapositive); in a bijective realization the
+retention of (C2-structural) holds for every law. Slow-bath form
+conditional on the hidden-sector mixing hypothesis; the quantitative
+bound \(\varepsilon \geq \delta/(k-1)\) is proved, its constant
+saturated in the certification suite (\texttt{c2\_mixing\_probes.py});
+ETH is physical motivation, not a premise & §3.4, §1.3 \\
 C3 necessity & Proved --- data-processing bound in per-process form,
 \(m \geq 2^{I^*}\) & §3.4, §1.3 \\
 C4 necessity & Immediate given observed non-Markovianity (any
@@ -5132,11 +5248,13 @@ Observers}\label{structural-exclusion-of-equilibrium-phase-observers}}
 An immediate corollary of (C1)--(C4) is a structural selection rule on
 where in a finite bijective \((S, \varphi)\) observers can exist. The
 rule replaces a postulate often imported from elsewhere --- the ``past
-hypothesis'' of low initial entropy --- with a theorem conditional on
-the effective-mixing hypothesis (EM) below; under (EM) it is derived
-from the framework's own definitions for the coarse-grained description
-that the effective channel generates (Scope (ii)), and without (EM) it
-is a conjectural application.
+hypothesis'' of low initial entropy, in its role of selecting
+observer-compatible configurations --- with a theorem conditional on the
+effective-mixing hypothesis (EM) below and on the rate condition
+\(\tau_{\rm mix}\ll\tau_S\) stated in the past-hypothesis corollary;
+under (EM) it is derived from the framework's own definitions for the
+coarse-grained description that the effective channel generates (Scope
+(ii)), and without (EM) it is a conjectural application.
 
 \textbf{Setup.} Let \(V\) be a partition with hidden sector
 \(B = S \setminus V\). Define the coupling-graph neighborhood
@@ -5661,4 +5779,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 8dd01f2c04d257c6c5b89de241b4b79dceac4c67ec09f3af2b8b16d7899e417d
+% source-sha256: 86465a838922367ae264a795b2ecc97d021874fb3389a4a4d2a0bacbd0fc0770
