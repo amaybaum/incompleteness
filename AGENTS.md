@@ -63,6 +63,53 @@ confers no protection, and "the framework needs this to be true" is never an arg
   correction: unsupported claims must be independently established, narrowed
   or withdrawn.
 
+- Main is wholly upstream of every downstream companion paper. Its
+  scientific claims, mathematical statements, proofs, premises, and their
+  logical justifications must be independent of all downstream scientific
+  results and mathematical proofs, directly and indirectly. A claim, proof,
+  lemma, calculation or Lean theorem is downstream for this rule when its
+  direct or transitive logical dependencies require downstream-specific
+  science or mathematics, not merely because it first appeared in another
+  paper. Main must not rely on such support, whether named, unnamed,
+  relabelled or hidden behind intermediate citations or Lean theorems.
+  Reproducing an argument from a downstream paper does not by itself
+  establish independence: its premises and all proof dependencies must
+  be checked against Main's own foundation and independent sources.
+  Main may independently establish a statement also discussed downstream
+  using only its explicit foundational inputs and independently checkable
+  mathematics or evidence without downstream proof dependencies. Main's
+  declared foundational contributions are the roots of its proof graph:
+  its headline theorems and characterizations, and the statements of their
+  premises and scope, need not be consumed by another Main result. An
+  auxiliary result belongs in Main only if one of these roots depends on
+  it directly or transitively; merely stating a result in Main does not
+  make it a root. Do not add a proof to Main merely because a downstream
+  paper uses the result or to replace a downstream citation. Relocate
+  unneeded results together with their necessary proofs to the upstream-most
+  downstream paper that uses them. When Main proves a result, downstream
+  papers cite Main's proof rather than repeat it; this does not bar the
+  required book/FULL/Explainer mirrors, independent Lean verification or
+  genuinely new downstream extensions.
+  An external foundational input remains permissible only when its role,
+  status, assumptions and independent support are explicit; calling a
+  downstream result "foundational" does not make it so.
+  For each Main claim, trace actual dependencies across the whole corpus.
+  If a claim needs downstream science or mathematics, remove or relocate
+  that claim to the appropriate downstream paper, preserving its strongest
+  valid result there; do not transplant its proof into Main simply to keep
+  the claim. Relocating a valid result is not retracting it from OI. If a
+  genuinely foundational statement lacks an independent argument, seek a
+  separately scoped, independently reviewed proof repair; Main must not
+  present it as established until independently supported. A missing
+  proof in Main does not make a corpus result false. Withdraw a claim
+  refuted by a valid counterexample or disproof; track unrefuted, unresolved
+  stronger claims as open, retaining the strongest verified result with
+  its exact conditions. Conditional claims may rely on explicitly named
+  hypotheses labelled by their status (justified, posited or open), with
+  every condition carried into the conclusion. Never disguise a
+  conditional assertion as unconditional or independently derived, and
+  never introduce unstated or ad hoc premises to rescue a conclusion.
+
 - Trace each claim to where it is actually proved or derived, with its
   dependencies and assumptions across documents, before classifying it. A
   proof's absence from Main is not evidence that the result is unproved: "the
