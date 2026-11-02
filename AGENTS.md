@@ -50,6 +50,19 @@ confers no protection, and "the framework needs this to be true" is never an arg
   `verification/`. A review of what OI has
   established audits that whole corpus, not Main alone.
 
+- `papers/Main.md` must be independent of downstream companion papers. Main
+  must not reference or cite downstream results, including through indirect
+  labels or unnamed references. Every claim, proof, hypothesis and scope
+  qualification in Main must retain sufficient support within Main, through
+  its own argument or an appropriately cited, independently verifiable theorem
+  or evidence record, with all necessary assumptions explicit. Genuine
+  foundational inputs may be cited as inputs, with their content and
+  assumptions stated. Whether an item is foundational or downstream is
+  determined by its actual logical role, not merely by the paper containing
+  it. Removing a reference without preserving the claim's support is not a
+  correction: unsupported claims must be independently established, narrowed
+  or withdrawn.
+
 - Trace each claim to where it is actually proved or derived, with its
   dependencies and assumptions across documents, before classifying it. A
   proof's absence from Main is not evidence that the result is unproved: "the
