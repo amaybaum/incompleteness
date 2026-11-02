@@ -66,13 +66,18 @@ confers no protection, and "the framework needs this to be true" is never an arg
 - Main is wholly upstream of every downstream companion paper. Its
   scientific claims, mathematical statements, proofs, premises, and their
   logical justifications must be independent of all downstream scientific
-  results and mathematical proofs, directly and indirectly. Do not cite,
-  rely on, copy, adapt or repackage a downstream claim, proof, lemma or
-  calculation as Main's justification, whether named, unnamed, relabelled
-  or hidden behind an intermediate citation or Lean theorem. Main may
-  independently establish a statement also discussed downstream only from
-  its own explicitly stated foundational inputs and independently checkable
-  mathematics or evidence that has no downstream proof dependency. An
+  results and mathematical proofs, directly and indirectly. A claim, proof,
+  lemma, calculation or Lean theorem is downstream for this rule when its
+  direct or transitive logical dependencies require downstream-specific
+  science or mathematics, not merely because it first appeared in another
+  paper. Main must not rely on such support, whether named, unnamed,
+  relabelled or hidden behind intermediate citations or Lean theorems.
+  Reproducing an argument from a downstream paper does not by itself
+  establish independence: its premises and all proof dependencies must
+  be checked against Main's own foundation and independent sources.
+  Main may independently establish a statement also discussed downstream
+  using only its explicit foundational inputs and independently checkable
+  mathematics or evidence without downstream proof dependencies. An
   external foundational input remains permissible only when its role,
   status, assumptions and independent support are explicit; calling a
   downstream result "foundational" does not make it so.
