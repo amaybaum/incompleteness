@@ -746,7 +746,7 @@ The gauge group follows from the cubic-group decomposition of the six internal c
 
 The matter content — three chiral fermion generations with anomaly-free hypercharges and one Higgs doublet — follows from the staggered-fermion reduction, the link-carrier construction, partition-spinor identification, chirality emergence from the trace-out, and anomaly cancellation. Chapters 5 and 6 develop each step in detail; the chain ends with hypercharges $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$ uniquely determined on the nonzero-$Y_Q$ branch, up to normalization.
 
-T-invariance of the bijection $\varphi$ combined with detailed balance gives reciprocal visible transition counts and narrows the QCD angle to $\theta\in\{0,\pi\}$; it does not fix $\bar\theta$, which is open (SM §5). The QCD theta-angle, which has been measured to be smaller than $10^{-10}$ but has no explanation within the Standard Model as conventionally formulated, is exactly zero as a consequence of the substratum's structural T-symmetry.
+T-invariance of the bijection $\varphi$ combined with detailed balance gives reciprocal visible transition counts and narrows the QCD angle to $\theta\in\{0,\pi\}$; it does not fix $\bar\theta$, which is open (SM §5).
 
 Uniqueness at Stage 2 follows from the if-and-only-if character of each step. Each derivation is the unique consistent choice given its inputs, the wave-equation step within the nearest-neighbor class and the hypercharge step apart from its exceptional branch; the chain is a composition of unique selections, and the output is unique within those qualifications.
 
