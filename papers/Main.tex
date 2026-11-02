@@ -1386,17 +1386,21 @@ explicitly for the displayed witness as a \(9 \times 9\) unitary over
 the algebraic numbers, in \texttt{tdilate\_probes.py}.)
 
 So the obstruction above is priced rather than fatal: total dimension
-\(n^2\) suffices at a single step, within the source's \(\leq n^3\)
-bound for the full process family. Representability is not what (T) is
-about. \textbf{What (T) asserts is tuple instantiation}, and the
-source's membership conditions are the tuple's own --- a finite
-configuration space, transition maps normalized and trivializing at the
-conditioning time, a prior, and the observable algebra --- not a
-divisibility property. Divisibility failure is generic in the class
-rather than a condition of entry, so P-indivisibility is not what admits
-the framework's processes to it. What remains genuinely open is
-downstream: whether the ancilla-dilated representation can be made
-compatible with the passive \(\hat{H}\) across horizons (§3.4). The
+\(n^2\) suffices at a single step, and at every time separately:
+extending \(|i\rangle \otimes |a_0\rangle \mapsto W|i\rangle\), for one
+fixed ancilla configuration \(a_0\) and \(W\) built from \(T(t)\), to a
+unitary \(U(t)\) gives
+\(\mathrm{Tr}[P_j\, U(t) (|i\rangle\langle i| \otimes |a_0\rangle\langle a_0|) U(t)^\dagger] = T_{ij}(t)\),
+the form of the §3.4 definition on dimension \(n^2 \leq n^3\).
+Representability is not what (T) is about. \textbf{What (T) asserts is
+tuple instantiation}, and the source's membership conditions are the
+tuple's own --- a finite configuration space, transition maps normalized
+and trivializing at the conditioning time, a prior, and the observable
+algebra --- not a divisibility property. Divisibility failure is generic
+in the class rather than a condition of entry, so P-indivisibility is
+not what admits the framework's processes to it. What remains genuinely
+open is downstream: whether the ancilla-dilated representation can be
+made compatible with the passive \(\hat{H}\) across horizons (§3.4). The
 proof requires a finite-dimensional configuration space (Lemma 1); Calvo
 {[}13{]} extends the correspondence to infinite dimensions, but this is
 not required here. Pimenta {[}14{]} distinguishes P-divisible and
@@ -2311,10 +2315,10 @@ remainder suppressed by the tidal factor
 equivalence-principle tests. The two routes agree on the
 configuration-transition probabilities \(T_{ij}(t)\); equivalence of the
 complete operational observable structure is part of level three. The
-internal permutation-unitary route now carries (i) for realized
-processes (the equivalence theorem, §3.4), with the Barandes route
-supplying the compressed form under (T); the Stinespring route supplies
-the level-one representation of (iii) independently.
+internal permutation-unitary route carries (Q2) for realized processes
+(the fixed-\(\hat{H}\) lemma, §3.4), with the Barandes route supplying
+the compressed form, (Q1), under (T); the Stinespring route supplies the
+level-one representation of (iii) independently.
 
 \textbf{Dependency scope of the correspondence.} The equivalence theorem
 of §3.4 fixes the framework's exposure to the correspondence precisely,
@@ -2325,22 +2329,23 @@ Born representation for every finite-horizon law, the framework's own
 processes included, by the permutation unitary of any realization ---
 together with the fixed-\(\hat{H}\) lemma, the phase-locking gauge, and
 the universal hidden-memory theorem. \emph{Imported, under (T):} the
-compressed representation --- the source's \(\leq n^3\) dilation bound
-for its finite-configuration class --- and the interpretive apparatus
-that travels with it (basis independence, the general-observable
-reading). \emph{Additional, with neither route supplying it:} the
-operational instrument algebra and coherent preparation --- supplied
-exactly by the five operational completion conditions of the
-characterization in {[}GR §3.3{]} (§3.4 Remark), none of which bare
-finite OI provides --- and representation consistency across growing
-horizons (the obstruction theorem of §3.4). A failure of the
-correspondence would therefore cost the framework the compressed form
-and its interpretation, and nothing else: existence of the
-representation, the equivalence, and the necessity results are internal.
-P-indivisibility appears nowhere in this division of labor --- it gates
-neither membership in the source's class nor the representation's
-existence (§3.4, Remark) --- and its role is confined to nontriviality
-at the recurrence scale and to the Bell-class constructions of §3.3.
+source's \(\leq n^3\) dilation bound for its finite-configuration class,
+which the per-time form on dimension \(n^2\) (§3.1) does not need, and
+the interpretive apparatus that travels with it (basis independence, the
+general-observable reading). \emph{Additional, with neither route
+supplying it:} the operational instrument algebra and coherent
+preparation --- supplied exactly by the five operational completion
+conditions of the characterization in {[}GR §3.3{]} (§3.4 Remark), none
+of which bare finite OI provides --- and representation consistency
+across growing horizons (the obstruction theorem of §3.4). A failure of
+the correspondence would therefore cost the framework the interpretive
+apparatus, and nothing else: existence of the representation, its
+per-time form on dimension \(n^2\) (§3.1), the equivalence, and the
+necessity results are internal. P-indivisibility appears nowhere in this
+division of labor --- it gates neither membership in the source's class
+nor the representation's existence (§3.4, Remark) --- and its role is
+confined to nontriviality at the recurrence scale and to the Bell-class
+constructions of §3.3.
 
 \textbf{An independent necessity statement.} Both routes above are
 constructive: they exhibit quantum mechanics as a description of the
@@ -3151,9 +3156,9 @@ of uniform-prior marginals, not of deterministic realizability as such.
 equivalent to unitarily evolving quantum mechanics} if there exists a
 Hilbert space
 \(\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_{\text{anc}}\) of
-total dimension \(\leq n^3\), a Hermitian operator \(\hat{H}\) on
-\(\mathcal{H}\), a unitary family \(U(t) = e^{-i\hat{H}t}\), and
-orthogonal projectors
+total dimension \(\leq n^3\), a unitary \(U(t)\) on \(\mathcal{H}\) for
+each time \(t\) (a time-indexed family, with no composition law or fixed
+generator required), and orthogonal projectors
 \(P_i = |i\rangle\langle i| \otimes \mathbb{1}_{\text{anc}}\) onto the
 configuration sectors, such that the transition probabilities are the
 ancilla-uniform marginal of the dilated Born-rule probabilities:
@@ -3255,7 +3260,8 @@ sense}: the internal representation is exact at integer horizon times on
 a space of dimension \(n \cdot |\mathcal{C}_H|\), which generally
 exceeds the \(n^3\) bound in (i)'s definition. The \(\leq n^3\)
 compression is the imported correspondence's result for the source's
-finite-configuration class, under its hypotheses; continuous-\(t\)
+finite-configuration class, under its hypotheses, and bounds one unitary
+for each time rather than a fixed-\(\hat{H}\) form; continuous-\(t\)
 interpolation beyond integer times likewise carries no internal claim.
 The import therefore retains the compressed representation and the
 interpretive apparatus --- basis independence and the general-observable
@@ -4289,11 +4295,11 @@ and (iii) \(\implies\) (ii) is the readback lemma. Finally, a unitarily
 evolving representation is available for \(\mathcal{S}\) regardless ---
 internally by the permutation unitary of any realization (the
 equivalence above), and under (T) by the imported correspondence {[}11,
-12{]}, which represents it by a unitarily evolving quantum system; under
-the time-homogeneity restriction the representation takes the
-fixed-\(\hat{H}\) ancilla-marginal form of (i) (scope Remark) --- the
-paper's single external import, sitting outside the equivalence.
-\(\square\)
+12{]}, which represents it by a unitarily evolving quantum system, one
+unitary for each time on dimension \(\leq n^3\) as in (i) --- the
+paper's single external import, sitting outside the equivalence; the
+fixed-\(\hat{H}\) form is the in-house one, for realized processes at
+integer horizon times (Lemma above). \(\square\)
 
 \emph{Remark (the horizon restriction is forced).} The witness-anchored
 quantifier in (iii) is not a courtesy. Any order \(k\) satisfying (iii)
@@ -4374,20 +4380,21 @@ recurrence. Form (b) coincides with the accessible-timescale scoping of
 
 \emph{Remark (scope: time-homogeneity).} The restriction to
 time-homogeneous processes is load-bearing for the fixed-\(\hat{H}\)
-form of (i). A non-autonomous quantum evolution such as
+form. A non-autonomous quantum evolution such as
 \(U(t) = e^{-i \sigma_x t^2}\) (generated by \(H(t) = 2t\,\sigma_x\))
 has P-indivisible computational-basis populations, but \(\cos^2(t^2)\)
 is not almost-periodic and therefore not any fixed-\(\hat{H}\)
-ancilla-marginal --- (ii) without homogeneity does not deliver (i) as
-defined. Autonomy is not homogeneity: a single fixed bijection applied
-every step can still produce time-dependent visible kernels through a
-hidden clock --- the §3.4 construction is the explicit example.
-Homogeneity is an additional property of the visible process; the
-imported correspondence is invoked in its fixed-\(\hat{H}\) form only
-where it holds, and there the restriction costs the framework nothing.
-The fixed-\(\hat{H}\) form itself is constructive for realized processes
---- the realization's permutation unitary with \(\hat{H} = i \log U\)
-(Lemma above) --- at the horizon's integer times; the almost-periodicity
+ancilla-marginal --- (ii) without homogeneity does not deliver a
+fixed-\(\hat{H}\) form. Autonomy is not homogeneity: a single fixed
+bijection applied every step can still produce time-dependent visible
+kernels through a hidden clock --- the §3.4 construction is the explicit
+example. Homogeneity is an additional property of the visible process;
+the imported correspondence assumes no homogeneity and supplies one
+unitary for each time, with a time-dependent \(\hat{H}(t)\) where
+\(U(t)\) is differentiable {[}11, 12{]}, not a fixed generator. The
+fixed-\(\hat{H}\) form itself is constructive for realized processes ---
+the realization's permutation unitary with \(\hat{H} = i \log U\) (Lemma
+above) --- at the horizon's integer times; the almost-periodicity
 obstruction of this Remark concerns the all-real-time reading.
 
 At the level of finite-horizon fixed-basis observable laws, embedded
@@ -4585,18 +4592,19 @@ are inter-translatable in compressed form. The import is load-bearing
 only where the internal results stop: existence of a fixed-basis unitary
 Born representation is internal (the equivalence theorem --- the
 permutation unitary of any realization), as are the dilation
-construction, the C1/C3/C4 necessity theorems, and the C2
-physical-memory bound (persistence form without a mixing hypothesis;
-slow-bath form conditional on the mixing hypothesis, which ETH
-motivates); the import retains the compressed (\(\leq n^3\))
-representation and the interpretive apparatus that travels with it,
-under (T). This gives the dependency a clean falsification profile: if
-the correspondence were shown to be incomplete or to require additional
-hypotheses, the framework would lose the compressed form and its
-interpretation --- and nothing else, since existence, equivalence, and
-necessity are internal. Skepticism about the import therefore bears on
-the compression and interpretation claims only; the framework's own
-results do not route through it.
+construction, the per-time ancilla-marginal form on dimension \(n^2\)
+(§3.1), the C1/C3/C4 necessity theorems, and the C2 physical-memory
+bound (persistence form without a mixing hypothesis; slow-bath form
+conditional on the mixing hypothesis, which ETH motivates); the import
+retains the interpretive apparatus that travels with it, under (T), the
+\(\leq n^3\) bound standing as the source's own result. This gives the
+dependency a clean falsification profile: if the correspondence were
+shown to be incomplete or to require additional hypotheses, the
+framework would lose the interpretive apparatus --- and nothing else,
+since existence, the per-time form on dimension \(n^2\), equivalence,
+and necessity are internal. Skepticism about the import therefore bears
+on the interpretation claims only; the framework's own results do not
+route through it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -5186,8 +5194,8 @@ Site
 (i) under (T): quantum representation for every process of the class,
 (ii) or not; P-indivisibility bears only on whether the represented
 dynamics is nontrivially indivisible (the representation itself
-universal, §3.4) & Imported ({[}11, 12{]}); accessible timescales;
-fixed-\(\hat{H}\) under time-homogeneity; (i) does not imply (ii)
+universal, §3.4) & Imported ({[}11, 12{]}); accessible timescales; one
+unitary per time, no fixed generator; (i) does not imply (ii)
 (diagonal-\(\hat{H}\); slow clock; \texttt{review3\_probes.py}) &
 §3.4 \\
 (ii) \(\implies\) (iii): process \(\implies\) deterministic realization
@@ -5205,9 +5213,9 @@ pre-recurrence window approximation open & §3.4 \\
 Fixed-\(\hat{H}\) form for realized processes & Proved, uncompressed ---
 the realization's permutation unitary, \(\hat{H} = i\log U\), exact at
 integer horizon times for uniform, slice, and weighted priors
-(\texttt{review4\_probes.py}, P-F(a)--(c)); the \(\leq n^3\)-bounded
-form is the external correspondence's, for the source's
-finite-configuration class & §3.4 \\
+(\texttt{review4\_probes.py}, P-F(a)--(c)); the external
+correspondence's \(\leq n^3\) bound is for one unitary per time, with no
+fixed generator, for the source's finite-configuration class & §3.4 \\
 (iii) \(\implies\) (ii): realization \(\implies\) accessible
 non-Markovianity & Proved --- the readback lemma: a (C4) gap forces
 \(I(X_{<k}; X_{k+1} \mid X_k) \geq p_0\delta^2/\ln 2\) on the window;
@@ -5779,4 +5787,4 @@ degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
 \end{document}
-% source-sha256: 86465a838922367ae264a795b2ecc97d021874fb3389a4a4d2a0bacbd0fc0770
+% source-sha256: fe50923659744dbc270470e9486ab31cc2966b65cc9b49ec98e9b93d72a3b2e7
