@@ -77,11 +77,19 @@ confers no protection, and "the framework needs this to be true" is never an arg
   be checked against Main's own foundation and independent sources.
   Main may independently establish a statement also discussed downstream
   using only its explicit foundational inputs and independently checkable
-  mathematics or evidence without downstream proof dependencies. Main does
-  not prove a result merely because a downstream paper uses it or to replace
-  a downstream citation: a result that no Main claim depends on belongs in
-  the downstream paper and is removed from Main. When a result is proved
-  in Main, downstream papers cite Main's proof instead of repeating it.
+  mathematics or evidence without downstream proof dependencies. Main's
+  declared foundational contributions are the roots of its proof graph:
+  its headline theorems and characterizations, and the statements of their
+  premises and scope, need not be consumed by another Main result. An
+  auxiliary result belongs in Main only if one of these roots depends on
+  it directly or transitively; merely stating a result in Main does not
+  make it a root. Do not add a proof to Main merely because a downstream
+  paper uses the result or to replace a downstream citation. Relocate
+  unneeded results together with their necessary proofs to the upstream-most
+  downstream paper that uses them. When Main proves a result, downstream
+  papers cite Main's proof rather than repeat it; this does not bar the
+  required book/FULL/Explainer mirrors, independent Lean verification or
+  genuinely new downstream extensions.
   An external foundational input remains permissible only when its role,
   status, assumptions and independent support are explicit; calling a
   downstream result "foundational" does not make it so.
