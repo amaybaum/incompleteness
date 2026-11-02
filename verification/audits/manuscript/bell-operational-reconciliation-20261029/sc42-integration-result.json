@@ -1240,7 +1240,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *B.7 The lemma chain for the characterization.* The framewor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: with $\\hat{H}_{\\text{eff}} = H_V + \\mathrm{Tr}_H[V_{\\text{in..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Role of C2, C3, and observability.* The recovery above is g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma B.7.5 (Phase locking).** *Assume dimension at least ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* The transition data $\\{T_{ij}(t)\\}$ determines the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Scope.* The complete comparison of H-BG with the published ..."
     },
     {
       "ok": true,
