@@ -1,0 +1,198 @@
+{
+ "schema": "pc1-stage1-log/1",
+ "prereg": {
+  "path": "verification/programmes/oi-qm/reconstruction/physical-coupling-pc1/preregistration.md",
+  "commit": "948b30c10e575aec2f449f97428192c4bba2628f",
+  "blob": "414f31686e7890117abaa599b7e7ef18b7049ae8",
+  "sha256": "9754d93187b8ffc68645f4873247aaac73dc26b78880a05dec0b3ef5b8ee87fc"
+ },
+ "authority": {
+  "issue_or_pr": "#1022",
+  "comment_id": 6546845219,
+  "author": "amaybaum (OWNER)",
+  "time": "2026-10-31T17:36:49Z",
+  "scope": "stage 1 screen and amendment only; no outcome computation, probe, Python test, Lean build or special CI dispatch before PC-star freeze and exact-head review"
+ },
+ "outcome_quantities_computed": [],
+ "outcome_quantity_statement": "No R, R-dagger, P, P1, N, O, Gauge, section-7 or section-8 value was computed on any candidate or on any rejected candidate.",
+ "sources_read": [
+  {
+   "ref": "main 5914c17c",
+   "paths": [
+    "verification/ROADMAP.md",
+    "verification/lean-mathlib/OIBridge/{StochasticInterface,RouteB,DiagonalTheory,FrozenSourcing,SubstratumInterfaceAudit,FlowEndpoint,InstrumentRealization,ImplementationLocality}.lean",
+    "verification/audits/foundations/{lift-source-audit,phase-source-audit}.md",
+    "papers/SM.md (sec 4.1, lines 220-240)"
+   ]
+  },
+  {
+   "ref": "origin/research/substate-2-recursive-20261030 4e7ddb70749e7ee49f43f5af2707a84524d1226a",
+   "paths": [
+    "recursive-substates/README.md (models A, B1, B2, C)",
+    "f2-1-coherence-sourcing/{preregistration.md, amendments/A-star.md, amendments/A-star-1.md, stage2/run-2/RESULT.md}",
+    "verification/lean-mathlib/OIBridge/F2CoherenceControls.lean"
+   ]
+  },
+  {
+   "ref": "origin/research/substate-1 8af2d904cba527d89c800d809b753bfb32d07712",
+   "paths": [
+    "verification/programmes/substratum/continuous-substates/README.md",
+    "native-port5-record-carrier-fibres.md",
+    "native-sign-echo.md",
+    "native-apparatus-register.md",
+    "later-access-result.md",
+    "native-link-sourcing-gate.md (headings and verdict lines only)"
+   ]
+  },
+  {
+   "ref": "GitHub issues",
+   "items": [
+    "#914 body and comments (rows 12, 14, 21; comment 6525724169; 6526294143)",
+    "#866 body and comments (6526292899 controlled lift; 6541293037 and 6541615446 record-equivalence definition)"
+   ]
+  }
+ ],
+ "literature": [
+  {
+   "id": "L1",
+   "query": "Wallstrom 1994 inequivalence Nelson stochastic mechanics Schrodinger quantization condition",
+   "tool": "WebSearch (standard)",
+   "conclusion": "Madelung/Nelson equations equal Schrodinger only with an added single-valuedness (quantization) condition; responses exist (arXiv:1101.5774, 1804.01394, 1005.2420) and the point is debated. Supports Q5's rejection grounds together with the sqrt(rho) and linear-psi-transport failures, which do not depend on the debate.",
+   "urls": [
+    "https://arxiv.org/abs/1101.5774v2",
+    "https://arxiv.org/abs/1804.01394v1",
+    "https://arxiv.org/abs/1005.2420v2",
+    "https://arxiv.org/pdf/1512.09084"
+   ],
+   "primary_reference": {
+    "citation": "T. C. Wallstrom, Phys. Rev. A 49, 1613 (1994)",
+    "flag": "cited from memory; not re-verified online"
+   },
+   "url_note": "the URLs listed are responses to Wallstrom's objection and secondary discussions, not the original paper"
+  },
+  {
+   "id": "L2",
+   "query": "Barandes stochastic-quantum correspondence indivisible stochastic processes phases gauge arXiv 2302.10778",
+   "tool": "WebSearch (standard)",
+   "conclusion": "A dictionary from stochastic matrices to Hilbert-space ingredients via dilation; its phases are not computed from the stochastic data. Classified with N6 and the fixed-basis representation P6 (Q8).",
+   "urls": [
+    "https://arxiv.org/abs/2302.10778v3",
+    "https://arxiv.org/abs/2507.21192"
+   ]
+  },
+  {
+   "id": "L3",
+   "query": "Wetterich quantum mechanics from classical statistics probabilistic automata complex structure",
+   "tool": "WebSearch (standard)",
+   "conclusion": "Quantum subsystems of classical ensembles under a purity constraint, with a complex structure introduced on the classical wave function; signed sqrt(p) and a target-selected subsystem (Q6).",
+   "urls": [
+    "https://www.arxiv.org/abs/0811.0927",
+    "https://arxiv.org/abs/hep-th/0104074v2",
+    "https://arxiv.org/abs/2408.06379v1"
+   ]
+  },
+  {
+   "id": "L4",
+   "query": "none (cited from prior knowledge, not re-verified online)",
+   "items": [
+    "'t Hooft, The Cellular Automaton Interpretation of Quantum Mechanics (Springer, 2016)",
+    "Elze, Phys. Rev. A 89, 012111 (2014)",
+    "Spekkens, Phys. Rev. A 75, 032110 (2007)",
+    "Kochen and Specker, J. Math. Mech. 17, 59 (1967)",
+    "Hardy, quant-ph/0101012 (2001)",
+    "Chiribella, D'Ariano and Perinotti, Phys. Rev. A 84, 012311 (2011)",
+    "Couder and Fort walking droplets (pilot-wave hydrodynamics)"
+   ],
+   "conclusion": "Each maps to an existing failure or control class (Q7, Q9, Q12)."
+  }
+ ],
+ "structural_checks": {
+  "status": "run under the coordinator's brief, outside the letter of owner point 4 ('no Python test'); not candidate testing; superseded by paper proofs in PC★; not relied on.",
+  "scope_note": "1-D two-neighbour analogue (rings L=3,4); superseded by PC★ section PC★2a, proofs P-1 (bijectivity, explicit inverse), P-2 (additivity; commutation with neighbour-relation automorphisms, including SM sec 4.1's 3-D six-neighbour rule), P-3 (zero fixed), valid for every neighbour structure",
+  "script_name": "pc1_stage1_structural.py",
+  "run": "python3 -I pc1_stage1_structural.py (scratchpad, outside the repository)",
+  "script_sha256": "dd4ea8ae36244775035a6809f7dc47a3506af17538da8f45baab60ed7024b9bd",
+  "script_source": "\"\"\"PC-1 stage 1 structural checks. No outcome quantity (R, R-dagger, P, P1, N, O, Gate or\ncoherence value) is computed on any candidate. Exact integer arithmetic only.\"\"\"\nimport itertools, json\n\ndef step(state, L, q, a):\n    # native second-order wave rule on a ring of L sites over Z/q, coefficient a:\n    # (u_prev, u) -> (u, a*(u[n+1]+u[n-1]) - u_prev)  (SM Sec. 4.1 form)\n    up, u = state\n    new = tuple((a * (u[(n + 1) % L] + u[(n - 1) % L]) - up[n]) % q for n in range(L))\n    return (u, new)\n\ndef states(L, q):\n    for flat in itertools.product(range(q), repeat=2 * L):\n        yield (tuple(flat[:L]), tuple(flat[L:]))\n\ndef add(s, t, q):\n    return tuple(tuple((x + y) % q for x, y in zip(a, b)) for a, b in zip(s, t))\n\ndef shift(s, L):\n    return tuple(tuple(v[(n + 1) % L] for n in range(L)) for v in s)\n\nout = {}\nfor (L, q, a) in [(3, 2, 1), (3, 4, 1), (4, 3, 1)]:\n    S = list(states(L, q))\n    img = {step(s, L, q, a) for s in S}\n    bij = len(img) == len(S)\n    gens = []\n    for half in range(2):\n        for n in range(L):\n            g = [[0] * L, [0] * L]; g[half][n] = 1\n            gens.append((tuple(g[0]), tuple(g[1])))\n    additive = all(step(add(s, g, q), L, q, a) == add(step(s, L, q, a), step(g, L, q, a), q)\n                   for s in S for g in gens)\n    trans = all(step(shift(s, L), L, q, a) == shift(step(s, L, q, a), L) for s in S)\n    zero = tuple(tuple([0] * L) for _ in range(2))\n    out[f\"L{L}_q{q}_a{a}\"] = {\"states\": len(S), \"bijective\": bij,\n                              \"additive_on_generators\": additive,\n                              \"commutes_with_translation\": trans,\n                              \"fixes_zero\": step(zero, L, q, a) == zero}\nprint(json.dumps(out, sort_keys=True))\n",
+  "output_sha256": "95b7009a8b1c16bdf54db51734616ad45c2f4bc5464bbd39a53c5f4bf8c1caed",
+  "output": {
+   "L3_q2_a1": {
+    "additive_on_generators": true,
+    "bijective": true,
+    "commutes_with_translation": true,
+    "fixes_zero": true,
+    "states": 64
+   },
+   "L3_q4_a1": {
+    "additive_on_generators": true,
+    "bijective": true,
+    "commutes_with_translation": true,
+    "fixes_zero": true,
+    "states": 4096
+   },
+   "L4_q3_a1": {
+    "additive_on_generators": true,
+    "bijective": true,
+    "commutes_with_translation": true,
+    "fixes_zero": true,
+    "states": 6561
+   }
+  },
+  "checks": [
+   {
+    "id": "SC-1",
+    "what": "native wave rule (SM sec 4.1 form, alpha=1) on rings (L,q) in {(3,2),(3,4),(4,3)} is bijective and additive (f(s+g)=f(s)+f(g) for every state s and every generator g, hence a group homomorphism)",
+    "result": "true for all three",
+    "use": "Q1 definability (native linear superposition); PC-star2 step 1",
+    "status": "superseded by PC★ P-1, P-2; not relied on"
+   },
+   {
+    "id": "SC-2",
+    "what": "the same rule commutes with lattice translation",
+    "result": "true for all three",
+    "use": "fork Obs leg: site readouts related by translation are one member under the inequivalence clause",
+    "status": "superseded by PC★ P-2; not relied on"
+   },
+   {
+    "id": "SC-3",
+    "what": "the same rule fixes the zero configuration",
+    "result": "true for all three",
+    "use": "fork mu leg: invariance alone does not select (consistent with ensemble_underdetermined)",
+    "status": "superseded by PC★ P-3; not relied on"
+   }
+  ]
+ },
+ "candidates": {
+  "F2-1 (Theta-A, Theta-K, Theta-F, Theta-D, N1-N9)": "A-star verdicts stand; PC-F1 changes none (no rejection rested on the ones-fixing half of the gauge clause); item 11 adds a failure for N4 and N7",
+  "Q1 native linear-superposition interferometer": "not admissible: no A-star2 premise broken; classical-memory class",
+  "Q2 relative timing as phase": "rejected: items 2, 4 or 6; AW1",
+  "Q3 torus sub-states with angle record": "rejected: item 2 for characters; otherwise baseline",
+  "Q4 classical field interference with energy readout": "rejected: item 2 (declared amplitude register); not native",
+  "Q5 Madelung/Nelson phase field": "rejected: item 4 (sqrt(rho), linear psi transport); not transplantable",
+  "Q6 Wetterich classical statistics": "rejected: items 1 and 4",
+  "Q7 't Hooft ontological basis; Elze linearization": "rejected: items 2 and 11",
+  "Q8 Barandes stochastic-quantum correspondence": "rejected: items 1 and 4 (N6 class)",
+  "Q9 Spekkens, Kochen-Specker, Aerts, walking droplets": "controls C11a, C10, C2; not candidates",
+  "Q10 SUBSTATE-1 native apparatus constructions; gauge-pointer toy": "rejected as Pi-star: no premise broken; toy non-native",
+  "Q11 SUBSTATE-2 model C (N9)": "rejected as in A-star",
+  "Q12 axiomatic reconstructions": "not candidates (posit the resource)"
+ },
+ "pi_star": null,
+ "transplant": null,
+ "fork": {
+  "invoked": false,
+  "obs_leg": "no locus privileged; translation-related readouts equivalent (SC-2)",
+  "mu_leg": "zero fixed (SC-3); invariance does not select"
+ },
+ "disposition": {
+  "row": 1,
+  "token": "INCONCLUSIVE (gap)",
+  "obstructed_condition": "G-star item 3 for native couplings: no source supplies a physically executed register operator other than the compressed-Koopman Markov image of a joint bijection with set-valued records; A-star2 premise (ii) unbroken by any native source",
+  "clause0_stage1": {
+   "0(ii)": "prereg blob unchanged",
+   "0(iii)": "no (Obs, mu) chosen",
+   "0(vi)": "no forbidden or unlogged computation"
+  },
+  "clause0_stage2": "not exercised; controls-only stage 2 not authorized"
+ },
+ "computations_disclosure": "Only SC-1 to SC-3 were run (see structural_checks.status). No outcome quantity was computed. The fixes to PC★ after review ran no computation on the native rule or on any candidate; this log file was rewritten by a small python3 -I script that only edits its own JSON."
+}
