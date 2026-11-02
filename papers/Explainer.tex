@@ -366,7 +366,7 @@ rotating five cells per visible step supports a maximal readback gap
 τ\_B is the timescale of hidden-sector processes. This is the
 \emph{opposite} of the usual assumption in physics. Normally, people
 assume the environment is fast and chaotic (a ``heat bath'' that quickly
-forgets everything). Here, the environment is slow and has a long
+forgets nearly everything). Here, the environment is slow and has a long
 memory. This is what makes the dynamics non-Markovian.
 
 \textbf{C3: Sufficient capacity (log₂\textbar C\_H\textbar{} ≥ I*).} The
@@ -448,19 +448,19 @@ Bekenstein-Hawking entropy of the cosmological horizon. No experiment
 you could ever perform would appreciably disturb its state. Its memory
 never saturates. (Condition C3.)
 
-A fast environment with vast capacity would wash out correlations
-(Markovian noise). A slow environment with limited capacity would
-eventually fill up and stop recording. What the observer needs is an
-environment that couples to it, retains the record long enough to be
-read, has the capacity to hold it, and feeds it back --- and it is the
-feedback (C4) that does the work, the other three following from it or
-supporting it. Such an environment sustains persistent conditional
-memory --- transition probabilities that depend on the history, not just
-the present. A distinct property, which the paper calls
-\emph{P-indivisibility} --- the system's transition probabilities at
-different times cannot be broken into independent steps --- holds across
-the recurrence cycle, and on accessible windows only where a
-divisibility witness shows it.
+A fast-mixing environment with vast capacity would, under the mixing
+hypothesis, suppress correlations toward the Markov benchmark. A slow
+environment with limited capacity would eventually fill up and stop
+recording. What the observer needs is an environment that couples to it,
+retains the record long enough to be read, has the capacity to hold it,
+and feeds it back --- and it is the feedback (C4) that does the work,
+the other three following from it or supporting it. Such an environment
+sustains persistent conditional memory --- transition probabilities that
+depend on the history, not just the present. A distinct property, which
+the paper calls \emph{P-indivisibility} --- the system's transition
+probabilities at different times cannot be broken into independent steps
+--- holds across the recurrence cycle, and on accessible windows only
+where a divisibility witness shows it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -561,9 +561,10 @@ so they see: P(Heads → Tails) = 2/6 = 1/3. The randomness is epistemic
 (from ignorance) not ontological (from fundamental indeterminacy).
 
 In a normal ``heat bath'' scenario, the environment is fast and chaotic.
-It scrambles any information you write into it before you can read it
-back. This produces Markovian (memoryless) dynamics --- each step is
-independent of previous steps.
+It scrambles nearly all the information you write into it before you can
+read it back. This drives the dynamics toward the Markovian (memoryless)
+benchmark --- each step's dependence on earlier history bounded in terms
+of the residue of mixing.
 
 C2 inverts this --- the condition itself is persistence, the record
 surviving to readback, with a slow hidden sector our universe's
@@ -1139,13 +1140,17 @@ is:
 \[\| e^{\mathcal{L}_H \tau_S} \mu_H(\cdot | x_i) - \mu_{\text{eq}} \|_{\text{TV}} \leq C \, e^{-\Delta \tau_S}\]
 
 In the fast-bath regime (Δ·τ\_S ≫ 1), this is exponentially small. The
-hidden sector forgets everything between interactions. Each transition
-is computed against the same equilibrium distribution, so T\^{}(k) =
-T\^{}k --- a Markov chain, hence P-divisible. Contrapositive, within the
-mixing class: P-indivisibility requires τ\_S ≪ τ\_B --- conditional
-because the convergence bound presupposes a relaxation gap Δ. Fast
-\emph{non-mixing} hidden dynamics --- conserved circulation --- retain
-records with no timescale separation at all
+hidden sector keeps only a residue ε of its conditional between
+interactions, and Main's quantitative theorem bounds the departure from
+the Markov benchmark under its mixing hypothesis: ‖T\^{}(k) −
+T\^{}k‖\_TV ≤ (k−1)ε ({[}Main §3.4{]}). Its specialisation ε = 0, an
+exact reset, gives T\^{}(k) = T\^{}k --- a Markov chain, hence
+P-divisible; for ε \textgreater{} 0 the bound limits the departure but
+does not by itself determine P-divisibility. Contrapositive, within the
+mixing class: a departure δ from the benchmark at step order k ≥ 2
+requires ε ≥ δ/(k−1); the relaxation gap Δ enters only when ε is read as
+a timescale. Fast \emph{non-mixing} hidden dynamics --- conserved
+circulation --- retain records with no timescale separation at all
 (\texttt{fastbath\_probes.py}, {[}Main §1.3{]}), which is why (C2) is
 stated in two forms and this necessity belongs to the slow form.
 
@@ -3497,36 +3502,43 @@ stated mixing hypothesis for equilibrium regions and for the
 coarse-grained description generated by iterating the one-step effective
 channel. Observers satisfying C1--C4 --- the conditions that make their
 description non-Markovian, quantum for the source's finite-configuration
-class --- cannot exist in the equilibrium phase of (S, φ). The reason is
-direct. C2 requires the written record to persist to readback --- and in
-a thermal bath the record lives in correlations, so persistence needs
-the hidden sector's correlation time \(\tau_B\) to exceed the observer's
-measurement timescale \(\tau_S\) (the conserve-and-route alternative
-being unavailable in an equilibrated bath). In equilibrium, local
-correlations decay on thermal timescales (a picosecond or so at ordinary
-temperatures), for a generic thermal bath (protected slow modes
-excepted), while any physical observer's internal processing time is
-many orders of magnitude longer. So in equilibrium, C2 fails --- and
-with it C4: a bath that thermalizes between steps erases the stored
-record before it can be read (the erasure lemma, {[}Main §2.3{]}). Since
-C4 is what the characterization requires, no observer satisfying the
-framework's definition can exist there.
+class --- cannot exist in the equilibrium phase of (S, φ) when C2 is
+read in its timescale form, \(\tau_S \ll \tau_B\). The reason is direct.
+C2 requires the written record to persist to readback --- and in a
+thermal bath the record lives in correlations, so persistence
+essentially intact needs the hidden sector's correlation time \(\tau_B\)
+to exceed the observer's measurement timescale \(\tau_S\) (the
+conserve-and-route alternative being unavailable in an equilibrated
+bath). In equilibrium, local correlations decay on thermal timescales (a
+picosecond or so at ordinary temperatures), for a generic thermal bath
+(protected slow modes excepted), while any physical observer's internal
+processing time is many orders of magnitude longer. So in equilibrium,
+C2 fails in its timescale form (\(\tau_S \ll \tau_B\)) --- and the
+readback C4 asks for is suppressed with it: a bath that thermalizes
+between steps erodes the stored record before it can be read, shrinking
+the readback gap exponentially in \(\tau_S/\tau_B\) at every order
+\(k \geq 2\) (the erasure lemma, {[}Main §2.3{]}). With C2 read in that
+timescale form, as one of the conditions C1--C4 that define the
+framework's observers, no observer satisfying that definition can exist
+there.
 
-This has two striking consequences. First, the ``Boltzmann brain''
-problem dissolves at the level of definitions. A Boltzmann brain is by
-construction a local fluctuation out of a thermally equilibrated
-environment --- that's what ``fluctuation from equilibrium'' means. Its
-hidden sector is therefore the thermally equilibrated bath around it,
-with τ\_B bounded by thermal decorrelation --- too short for C2 to hold,
-by six or more orders of magnitude for any brain-like observer when the
-bath's correlation time is set by the thermal scale (at most about 10⁻¹²
-s at temperatures that support structured matter, against an internal
+This has two striking consequences. First, for C2 read in its timescale
+form, the ``Boltzmann brain'' problem dissolves at the level of
+definitions. A Boltzmann brain is by construction a local fluctuation
+out of a thermally equilibrated environment --- that's what
+``fluctuation from equilibrium'' means. Its hidden sector is therefore
+the thermally equilibrated bath around it, with τ\_B bounded by thermal
+decorrelation --- too short for C2's timescale form to hold, by six or
+more orders of magnitude for any brain-like observer when the bath's
+correlation time is set by the thermal scale (at most about 10⁻¹² s at
+temperatures that support structured matter, against an internal
 processing time of at least about 10⁻⁶ s), a generic thermal estimate
 that fails for protected slow modes. In the coarse-grained description
 generated by iterating the one-step effective channel, Boltzmann brains
-carry no memory-bearing quantum phenomenology --- no persistent record,
-no readback --- though their statistics, like any finite law's, admit
-the representation; they aren't observers in the framework's sense. The
+carry records eroded before readback and at most exponentially
+suppressed readback at orders beyond the first --- though their
+statistics, like any finite law's, admit the representation; they aren't
+observers in the sense of C1--C4 with C2 read in its timescale form. The
 exclusion is structural, not anthropic --- it doesn't depend on any
 argument about ``typical observers'' or the trustworthiness of memory.
 
@@ -3541,8 +3553,10 @@ definition of observation together with the mixing hypothesis for
 equilibrium regions, which select for the non-equilibrium phase.
 Observers exist where C1--C4 hold. Under that hypothesis, and in the
 coarse-grained description generated by iterating the one-step effective
-channel, C1--C4 don't hold in equilibrium regions that mix fast compared
-with the observer's own timescale. Therefore observers exist in
+channel, C1--C4, with C2 read in its timescale form, don't hold in
+equilibrium regions that mix fast compared with the observer's own
+timescale; there, record persistence and readback are suppressed, not
+ruled out. Therefore, in that formulation, observers exist in
 non-equilibrium. The mixing hypothesis is the premise that takes the
 place of the postulate.
 
@@ -3552,13 +3566,14 @@ cosmological horizon. The horizon's expansion sets
 structurally (not thermally) generated and is vastly longer than any
 laboratory timescale. This is why we see the memory-bearing quantum
 phenomenology at all: we're in the one phase of the universe where the
-framework's observer-conditions can be met --- representability itself
-is universal; what the phase selects is the nontrivial sector. Entropy
-increase, the Second Law, and the felt direction of time emerge as
-coarse-grained descriptions of the dynamics accessible to observers in
-this non-equilibrium phase. Like quantum mechanics itself, the direction
-of time is emergent --- a consequence of observing a lossless cycle from
-within, during the phase when such observation is structurally possible.
+framework's observer-conditions, with C2 read in its timescale form, can
+be met --- representability itself is universal; what the phase selects
+is the nontrivial sector. Entropy increase, the Second Law, and the felt
+direction of time emerge as coarse-grained descriptions of the dynamics
+accessible to observers in this non-equilibrium phase. Like quantum
+mechanics itself, the direction of time is emergent --- a consequence of
+observing a lossless cycle from within, during the phase when such
+observation is structurally possible.
 
 \hypertarget{the-incompleteness-family}{%
 \subsubsection{The incompleteness
@@ -3909,8 +3924,9 @@ control \\
 §3.3: Necessity of C1 & Accessible memory requires coupling & No
 coupling → permutation → P-divisible \\
 §3.3: Necessity of C2 & Physical memory requires record persistence ---
-slow-bath form conditional on mixing & Fast-mixing bath → Markov →
-P-divisible \\
+slow-bath form conditional on mixing & Mixing residue ε: ‖T\^{}(k) −
+T\^{}k‖ ≤ (k−1)ε; ε = 0 → Markov → P-divisible; ε \textgreater{} 0 → not
+determined by the bound \\
 §3.3: Necessity of C3 & Accessible memory requires capacity & I ≤ log₂ m
 bounds memory \\
 §3.4: Characterization theorem & non-Markovianity ⟺ C1, C3, C4 per
@@ -4038,4 +4054,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 4f00d6daeaa22bb5383bbf2dce13e0a10b5f7036951df2a9a0f97a8b40802c0b
+% source-sha256: da6ab6016ee3c1321d676b599e42eb7de3cd9d3453609c3c90e138a2414b6822
