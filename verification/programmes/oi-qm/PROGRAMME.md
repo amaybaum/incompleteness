@@ -1,6 +1,6 @@
 # OI → QM research programme map
 
-Status base: `main` at `a3695ce27b25a468a9593e796fade1a1e938895c` (post-PR #550, Arc C closed); later edits through `fe5c7fb518181eb20f42169622cf56119fcf3c0d` (F1 retired for the presently stated architecture, F2 active) are applied in place. For the current status of each obligation, `verification/ROADMAP.md` controls.
+Status base: `main` at `a3695ce27b25a468a9593e796fade1a1e938895c` (post-PR #550, Arc C closed); later edits through `fe5c7fb518181eb20f42169622cf56119fcf3c0d` (F1 retired for the presently stated architecture, F2 active) are applied in place. Planning and priorities are kept in GitHub Issues; the status of each result is what its proof, kernel module and record establish. `verification/ROADMAP.md` is frozen at `9613b21c` as a historical record.
 
 The formalization-first manuscript synchronization gate and the theorem-to-prose spine are carried by `verification/programmes/oi-qm/amendments/amendment-1.md`, referenced from §7 rule 11 and §9.
 
@@ -625,7 +625,7 @@ Use the following sources for detailed status:
 - `verification/lean-mathlib/OIBridge/` — kernel statements and their hypotheses;
 - `papers/GR.md`, `papers/Main.md`, the Explainer, and book chapters — publication-facing statements under their scope guards.
 
-`verification/ROADMAP.md` remains the historical roadmap for the original zero-import verification layer. It is not the strategic roadmap for the larger OI → QM equivalence/classification programme.
+`verification/lean/ROADMAP.md` is the historical roadmap for the original zero-import verification layer. It is not the strategic roadmap for the larger OI → QM equivalence/classification programme.
 
 ---
 
