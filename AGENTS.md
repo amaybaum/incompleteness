@@ -1073,7 +1073,7 @@ local checkout, agent scratchpad or private worktree is not the authoritative tr
 Reuse a thread's guiding PR; reviewers and checkpoints do not each need separate PRs.
 A draft PR is neither approval nor certification nor the durable evidence on `main`
 required by §A.42.
-The open Issues, indexed by the pinned umbrella Issue, are the repository's record of planning and
+The open Issues, under §A.45, are the repository's record of planning and
 priorities; `verification/ROADMAP.md` is frozen and is not updated. Neither confers scientific
 status, which rests on the proofs, Lean modules, manuscripts and verification records themselves.
 
@@ -1164,3 +1164,101 @@ A preregistration frozen before this section keeps the evidence form it froze (�
 planes not yet at `F` move to this form.
 
 Adopted 2026-10-23 after the KTRANS-SEP-1 halt and its successor's drafting (lessons register).
+
+---
+
+## §A.45 Planning, priorities and authorization in Issues
+
+GitHub Issues carry the planning record: what is owed, its priority, its prerequisites, its
+readiness and its authorization. Each accountable Issue opens with a planning-status block. The
+rules below govern that record (owner, 2026-11-03).
+
+1. **Planning only.** GitHub Issues govern planning and priorities (§A.43). Scientific status lives
+   in the linked evidence: proofs, Lean modules, manuscript statements and verification records on
+   `main`. It never lives in an Issue, a label, a Project card or an Issue's open or closed state.
+   Where an Issue and its source disagree, the source governs, and the disagreement is a finding.
+2. **Administrative acts are not scientific acts.**
+   - Closing an Issue never changes scientific status.
+   - Creating a tracking Issue does not constitute proof, does not adopt a premise and does not
+     authorize execution.
+3. **A planning-status block grants no authorization.** An *Authorization* entry links the owner's
+   recorded comment that grants it. It reads `not authorized` when no such record exists. **A
+   priority is never authorization.** No work starts without readiness, recorded owner
+   authorization, a designated writer and an available execution slot:
+   - the item is `ready`;
+   - a recorded owner authorization covers that work;
+   - a designated writer is recorded for that work;
+   - the execution slot is free.
+
+   *Maintenance.* Planning-status entries, labels and Project cards may be updated directly to
+   record an existing owner decision or a sourced fact, with a short source-citing comment. Such
+   updates may not resolve an undecided question, widen an authorization or change scientific
+   status. Changes to the rules of this section, to tiers, or to permission to start, integrate or
+   publish require explicit owner approval.
+4. **Four attributes, kept separate.** The planning-status block records:
+   - *Tier* (priority);
+   - *Prerequisites*;
+   - *Readiness:* `ready`, `blocked: <prerequisite>`, `blocked: owner questions` or `undetermined
+     pending owner decision`;
+   - *Authorization:* `not authorized`, `read-only audit`, `paper-only`, `execution` or
+     `undetermined pending owner decision`;
+
+   and a *Status source* that links where the item's scientific status is established. Scientific
+   status is not an attribute. `undetermined pending owner decision` names an open owner question,
+   stated in the entry. It is not `ready`, it is not an authorization, and it grants no permission
+   to start work. An Issue that carries several obligations lists them as rows of one table in its
+   block, each with its own identifier and attributes.
+
+   **Labels** summarize the block for filtering and never replace it: `tier: foundational`,
+   `tier: high`, `tier: supporting` or `tier: exploratory`; `tier: provisional`; and
+   `readiness: ready`, `readiness: blocked` or `readiness: partly ready`. An Issue with several
+   obligations takes the highest tier among them. `readiness: partly ready` marks a block in which
+   some parts are `ready` and others are not; a block whose readiness entry reads only `per part`
+   takes no readiness label. Authorization has no label: it is read from the block and its linked owner
+   record.
+5. **New premises.** A proposal that adds a premise, mechanism or selection principle is judged
+   under §A.29.
+6. **One obligation, one accountable Issue.** A pull request is never an accountable home. A new
+   deferral names its Issue when it is recorded.
+7. **No formal holds** (owner, 2026-11-03). Formal holds are retired as a scheduling mechanism. All
+   five previously held PRs enter the ordinary prioritized backlog. Backlog inclusion does not
+   authorize execution, integration, publication or scientific claim promotion. Retiring the holds
+   authorizes no new work, integration or publication, and waives no review or CI requirement. This
+   rule supersedes the hold statements about #1009, #1023, #1011, #1003 and #918, wherever recorded,
+   as a scheduling mechanism only; every other requirement in those statements, such as merge
+   gates, reviews, CI or audits, remains in force as last recorded by the owner. Apart from the hold
+   itself, a requirement that lasts while a hold is active, or that waits for a hold's release or
+   lifting, is not discharged by this retirement; it stands until a recorded owner decision
+   resolves it. This retirement affects only the five named formal PR holds. Separate restrictions,
+   including #914 decision 7's readiness-dependent condition, are unaffected. Work starts only
+   under rule 3. Integration and publication remain separately gated; each needs its own recorded
+   owner authorization:
+   - **Integrate:** reviewed work enters `main` with its scientific scope preserved.
+   - **Publish or strengthen claims:** this requires physical justification, proof and
+     publication-specific verification.
+
+   Permission to investigate is not adoption of a proposed mechanism.
+
+**Priority tiers.**
+- **Foundational:** questions that determine OI's mathematical validity, its physical foundations
+  or its central explanatory claims.
+- **High:** major obligations that unlock foundational results.
+- **Supporting:** important corrections, subsidiary derivations and dependencies.
+- **Exploratory:** longer-term hypotheses and extensions.
+
+A tier not marked provisional in its block is the owner's ranking (2026-11-03). A tier marked
+provisional — `(provisional)` in the block, summarized by the `tier: provisional` label — is a
+classification proposed in the 2026-11-03 migration of the planning record: it is not an
+owner-adopted priority, implies no authorization or scientific acceptance, and is not a permanent
+priority decision. These names are
+distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
+
+**Where things live.**
+- The Issues hold each question, its scope, its quoted status and its planning-status block.
+- #914 holds the OI ↔ QM dependency edges; its L-edges are the prerequisite source for the OI ↔ QM
+  programme.
+- The GitHub Project *OI Research Programme* shows administrative activity and the execution slot.
+  Project Status grants no authorization and confers no scientific status.
+- `PO-1102`, cited in Authorization entries, is the paper-only authorization in #914 comment
+  6567198108 for its named workstreams A–F: "planning, source reading, paper derivations and review
+  preparation, not reopening any frozen execution stage".

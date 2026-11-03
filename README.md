@@ -16,7 +16,7 @@ The framework is inspired by the same broad kind of self-reference constraint th
 | The foundational finite-observer result | [`papers/Main.md`](papers/Main.md) |
 | A short, self-contained phenomenology paper | [`papers/Juno.md`](papers/Juno.md) |
 | The current formal-verification programme | [`verification/README.md`](verification/README.md) |
-| Tracked obligations, planned work and priorities | the pinned umbrella Issue (#1074) and the open [Issues](https://github.com/amaybaum/incompleteness/issues) |
+| Tracked obligations, planned work and priorities | the open [Issues](https://github.com/amaybaum/incompleteness/issues), under the rules of [`AGENTS.md`](AGENTS.md) §A.45 |
 | The full book-length exposition | [`book/README.md`](book/README.md) |
 | The physics papers | [`papers/`](papers/) |
 
@@ -97,7 +97,7 @@ The verification suite is the authoritative place for machine-checked status. It
 
 CI checks the proof layers, probes, coverage and governed receipts. Exact theorem counts and current obligations change as the programme advances, so this README intentionally does **not** hard-code those counts.
 
-The verification architecture and flagship formal results are described in `verification/README.md`, and planning and priorities are kept in GitHub Issues, indexed by the pinned umbrella Issue; both are linked under *Start here*. `verification/ROADMAP.md` is the obligation queue as it stood at `9613b21c`, kept as a historical record. To run the zero-import checks, see [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md); the narrower zero-import formalization roadmap is [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md).
+The verification architecture and flagship formal results are described in `verification/README.md`, and planning and priorities are kept in GitHub Issues, under the rules of `AGENTS.md` §A.45; both are linked under *Start here*. `verification/ROADMAP.md` is the obligation queue as it stood at `9613b21c`, kept as a historical record. To run the zero-import checks, see [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md); the narrower zero-import formalization roadmap is [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md).
 
 ## Repository map
 
@@ -120,8 +120,8 @@ The core papers are tabulated above; the conjectural-extension papers are listed
 ## Current research frontier
 
 The verification programme changes faster than this README should. Planning and priorities —
-which obligations are tracked and in what order — are kept in GitHub Issues, indexed by the pinned
-umbrella Issue (#1074). The status of a result is what its proof, Lean module, manuscript statement
+which obligations are tracked and in what order — are kept in GitHub Issues, under the rules of
+`AGENTS.md` §A.45. The status of a result is what its proof, Lean module, manuscript statement
 and verification record establish; the coverage ledger and the Lean-to-manuscript census keep the
 manuscripts aligned with the kernel.
 

@@ -26,7 +26,7 @@ mistaken for a verdict on the other.
 
 | If you want | Go to |
 | --- | --- |
-| **What is being worked on, and what is still owed** | the open [GitHub Issues](https://github.com/amaybaum/incompleteness/issues), indexed by the pinned umbrella Issue (#1074); [`ROADMAP.md`](ROADMAP.md) is the obligation queue as it stood at `9613b21c`, kept as a historical record and not maintained |
+| **What is being worked on, and what is still owed** | the open [GitHub Issues](https://github.com/amaybaum/incompleteness/issues), under the rules of [`AGENTS.md`](../AGENTS.md) §A.45; [`ROADMAP.md`](ROADMAP.md) is the obligation queue as it stood at `9613b21c`, kept as a historical record and not maintained |
 | The flagship result and the layer contents | the sections below, in this file |
 | Where an artifact named below actually lives | [`MIGRATION-RECORD.md`](MIGRATION-RECORD.md) — the name → path table |
 | The mapping the migration was planned from | [`MIGRATION-MANIFEST.md`](MIGRATION-MANIFEST.md) |

@@ -4,7 +4,7 @@
 > as it stood at commit `9613b21c296a841b9d7bfbc86b8f02338ad9059e`, and it is not updated after
 > that commit. Each status label below is the label recorded at that commit. Planning and
 > priorities — which obligations are tracked, their order and the work on them — are kept in
-> GitHub Issues, indexed by the pinned umbrella Issue (#1074), with active work in draft pull
+> GitHub Issues, under the rules of `AGENTS.md` §A.45, with active work in draft pull
 > requests (`AGENTS.md` §A.43). Neither this file nor an Issue confers scientific status: what a
 > result establishes, and under which hypotheses, is what its proof, its Lean module, its
 > manuscript statement and its verification record on `main` establish. Frozen records that cite
