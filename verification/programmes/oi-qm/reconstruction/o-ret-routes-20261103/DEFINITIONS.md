@@ -32,7 +32,7 @@ A **declared preparation set** `P` is a finite set of carrier values `σ` with `
 **Data fixed before any candidate is tested.**
 
 - A register `A`: a declared set of cells, together with its readout `ρ_A`.
-    - The readout is a function of `A`'s cells only, the same at every tick. Write `A_t` for `A`'s full cell content at
+  - The readout is a function of `A`'s cells only, the same at every tick. Write `A_t` for `A`'s full cell content at
     `t`.
   - The values of `A`'s cells may change from tick to tick.
 - A nonconstant carrier property `f : P → Z`.
@@ -87,7 +87,7 @@ state at `t` on the support of `μ_t`. It is computed from `φ`.
     `u ⊕ c` are each independent of `c`, yet together they determine `c`. S-1 read cell by cell would pass them.
   - *Proposed J-1 at a hold tick `t`.*
     - (J-i) the **joint** vector `B_t` is independent of `κ`;
-        - (J-ii) `κ ⫫ B_t | A_t`.
+    - (J-ii) `κ ⫫ B_t | A_t`.
   - *Consequence of (J-ii), one direction.* `A_{t+1}` is a function of `(A_t, B_t)`. The chain
     `κ → A_t → (A_t, B_t) → A_{t+1}` is then Markov, so `I(κ; A_{t+1}) ≤ I(κ; A_t)` (data processing): the register's
     full content gains no carrier information at the hold tick. A readout of part of `A` can still gain information

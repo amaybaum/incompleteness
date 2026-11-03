@@ -54,7 +54,7 @@ and does not replace it.
 
 - Approximate retention. In a toy model outside copy form, carrier information is retained approximately under the counting
   measure with no support restriction (worst-case error 1/4 at the hold tick, HC-F0 in the same file); whether this
-  meets a tolerance is undecided while `ε*` is unset.
+  meets a tolerance is undecided while the tolerance `ε*` (D-MET in `DEFINITIONS.md`, PR #1078 from `7aaf9f97`) is unset.
 - Readouts or decoders that change with the tick.
 - Laws or rules outside hypotheses 1–2.
 - Any claim of a no-go for observer-level extensions.
