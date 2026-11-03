@@ -3,7 +3,8 @@
 **Status.** WIP / UNVERIFIED, paper-only design under PO-1102 workstream B (owner authorization 2026-11-03, #1032).
 Drafted against branch `research/o-ret-routes-20261103` at `473b5e34`, reading `ROUTES.md`, `DEFINITIONS.md`,
 `SOURCES.md` and `ANNOTATION.md` in `verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/`. Revised
-after an independent review of `ad70d41b` (REVISE); this revision has not been re-reviewed.
+after independent reviews of `ad70d41b` (REVISE) and `aceba574` (ACCEPT WITH CHANGES); this revision has not been
+re-reviewed.
 
 - *What it is.* A test design for the question: does a proposed retention mechanism store information locally,
   or does the information only travel through a multi-cell register `A`? It contains candidate definitions, hand-checked
@@ -149,23 +150,29 @@ For a large period the bound is vacuous.
 
 **Proposed definitions [D, unreviewed].**
 - **Transit time.** `τ(R)` is the least `k ≥ 1` for which some `ℓ ∈ supp R_{t₀+1}` and some `q₁, …, q_k ∈ 𝒬_W`
-  satisfy `g(f_R(⋯f_R(ℓ, q₁)⋯, q_k)) ≠ g(ℓ)`. If there is none, `τ(R) = ∞`.
-  - `τ(R) < ∞` implies that DIL∃ fails. The converse need not hold.
+  give an end configuration `ℓ_k := f_R(⋯f_R(ℓ, q₁)⋯, q_k)` with `ℓ_k ∈ 𝓛_W` and `g(ℓ_k) ≠ g(ℓ)`. If there is none,
+  `τ(R) = ∞`.
+  - `τ(R) < ∞` implies that DIL∃ fails: `ℓ` and `ℓ_k` lie in `𝓛_W`, in one class, and decode differently. The
+    converse need not hold.
   - HC-TS has `τ = 2`, and HC-TM has `τ = m`.
+- **Extension window.** `T′ := max(T, τ(R))` if `τ(R) < ∞`, and `T′ := T` if `τ(R) = ∞`.
 - **Storage in `R` over `W_T` (ST).** (R-a)–(R-c) hold within `ε*`, together with either exact DIL∃, or DIL∃-η whose
   Lemma H bound is `≤ ε*` at every `t ∈ W_T`. Once `w*` and `T*` are set, ST also requires `w ≥ w*` and `T ≥ T*`.
   - *Static* storage if SCH also holds.
   - *Circulating* storage otherwise: the record moves inside a closed `R`.
-- **Transport established (TR).** All of the following:
-  - DIL∃ fails through carrier-independent inputs: J-1 [U] holds at every hold tick of `W_{T′}`, where
-    `T′ := max(T, τ(R))`;
+- **Record lost (TR, EX).** All of the following hold:
+  - DIL∃ fails through carrier-independent inputs: J-1 [U] holds at every hold tick of `W_{T′}`;
   - `τ(R) < ∞`;
   - `ε_max > ε*` is **observed** at some tick of the gap-free window `W_{T′}`.
 
-  TR includes export of the record by exchange (HC-SK at small `k`, HC-R3 on `W₂`).
-- **Transport indicated (TI).** DIL∃ fails through carrier-independent inputs, but no failure is observed. TI is
-  inconclusive.
-- **Re-supply (RS).** J-1 [U] fails at a hold tick of `W_T`, with `B_t := Q`, the cells outside `A`.
+  (R-a) and (R-b) are not required. The case is then one of two:
+  - **Transport established (TR):** no nonempty `G ⊆ 𝒬_W` makes `~_G` consistent. The record leaves `R` under
+    every supported input.
+  - **Exported or overwritten (EX):** some nonempty `G` makes `~_G` consistent. The register holds the record under
+    the inputs in `G` and loses it under the others (HC-SK at small `k`, HC-R3 on `W₂`).
+- **Transport indicated (TI).** `W_{T′}` has been computed. DIL∃ fails through carrier-independent inputs, but no
+  failure is seen on `W_{T′}`. TI is inconclusive.
+- **Re-supply (RS).** J-1 [U] fails at a hold tick of `W_{T′}`, with `B_t := Q`, the cells outside `A`.
 
 ### 2.4 Which parts are native (no imposed starting law)
 
@@ -217,8 +224,9 @@ Shifts are `u_j ← u_{j−1}`.
   - Inside cut of `u₁`: `ε = 1/2`.
   - Inside cut of `u₂` (marginal `δ₀`): `ε = 0`.
 - *Row.*
-  - On `W₁` with `W₂` observed: TR, since the failure is observed at `t₀+3`.
-  - On `W₁` alone: TI.
+  - On `W₁` with `W₂` computed: TR. The failure is observed at `t₀+3`, and the only input `q = 0` gives a single
+    class.
+  - On `W₁` alone: I-9.
 
 **HC-TM (HC-P generalized to an `m`-cell register).**
 - *Dynamics.* HC-P's rule [C]: `u₁ ← u₁ ⊕ u₀`, then shift, on `ℤ/L` with `L ≥ m+3`.
@@ -239,7 +247,8 @@ Shifts are `u_j ← u_{j−1}`.
 - *DIL∃ fails.* `f_R(ℓ; 0) = (0, ℓ₁, …, ℓ_{m−1})`, so `m` iterations send every `ℓ` to `0`, and `e₁ + e₂` (decoded 1)
   `~ 0`. Here `τ(R) = m`.
   - The chain passes through `e_m`, which is supported only at `t₀+m`.
-  - For `T < m−1` the DIL∃ failure alone is TI. TR follows from the failure observed at `t₀+m+1 ∈ W_m`.
+  - For `T < m`, without the extension window the case is I-9. TR follows from the failure observed at
+    `t₀+m+1 ∈ W_m`.
 - *DEFINITIONS' limitation case.* The case `m = 2`, `g = u₂`, with HC-P's own law (DEFINITIONS limitation [C/U]) has
   `ε_max = 0, 0, 1/2` at `t₀+1, +2, +3`.
   - `f_R` is the same, so DIL∃ fails.
@@ -294,7 +303,8 @@ Shifts are `u_j ← u_{j−1}`.
 - *Row.* DIL∃ fails exactly.
   - At `T = 1`: `k = 4` is I-6 (`ε_max = 1/32 ≤ ε*`, but the bound is `1/16 > ε*`), and `k ≥ 5` is approximate static
     storage.
-  - `k ≤ 3` is TR, by export through exchange: the failure is observed at `t₀+2`.
+  - `k ≤ 3` is EX: the record is exported by exchange, the failure is observed at `t₀+2`, and `G = {not all ones}`
+    is consistent.
   - Candidate-specific evidence only: a designed E-reg, `P` conditioned on a fired trigger, and `w*` unset (D-SML).
 
 ### 3.3 Delayed-readback controls
@@ -331,45 +341,59 @@ Shifts are `u_j ← u_{j−1}`.
   - At `t₀+4 → t₀+5`, the arriving `C = (1, c)` fails J-1 [U]: re-supply by the returning carrier.
 - Lemma P gives `n = 4`, so `T ≤ 2`, which is consistent with failure at `t₀+3`.
 - A readback at `{t₀+1, t₀+5, t₀+6}` alone would report retention.
-- *Row.* On `W₁`: static storage, as S1. On `W₂`: TR, export by exchange observed at `t₀+3`.
+- *Row.* On `W₁`: static storage, as S1. On `W₂`: EX. The export by exchange is observed at `t₀+3`, and `G = {p = 0}`
+  is consistent.
 
 ### 3.4 Classification matrix
 
 | Control | (R-a)–(R-c) on `W₁` | S-1 / J-1 [U] | ICH | SCH | CHC | outside cut | DIL∃ | gap-free `W_T` | single late readback | §4 row |
 |---|---|---|---|---|---|---|---|---|---|---|
-| HC-TS | pass, exact | pass | pass | fail | pass | pass | **fail**, `τ = 2` | fails at `W₂` | passes at `t₀+1+L` | TR |
-| HC-TM | pass on `W_{m−1}` | pass | pass | fail | fail | pass | **fail**, `τ = m` | fails at `W_m` | passes at `t₀+L` | TR |
+| HC-TS | pass, exact | pass | pass | fail | pass | pass | **fail**, `τ = 2` | fails at `W₂` | passes at `t₀+1+L` | TR\* |
+| HC-TM | pass on `W_{m−1}` | pass | pass | fail | fail | pass | **fail**, `τ = m` | fails at `W_m` | passes at `t₀+L` | TR\* |
 | S1 | pass, exact | pass | pass | pass | pass | pass | pass | quiet bits needed | — | static |
 | HC-SW | pass, exact | pass | pass | fail | pass | pass | pass | quiet bits needed | — | I-4 |
 | HC-SK, `k = 4` | `ε = 1/32` | pass | pass | pass | pass | pass | DIL∃-η, bound `1/16` | `T = 1` only, by (R-c) | — | I-6 |
 | HC-SK, `k = 5` | `ε = 1/64` | pass | pass | pass | pass | pass | DIL∃-η, bound `1/32` | ST at `T = 1`; (R-c) to `T = 3` | — | static (approx.) |
 | HC-R2 | pass | **fail** | fail | fail | fail | **fail** | **fail** | passes on `W_{L−1}`, fails at `t₀+L+1` | passes | RS |
-| HC-R3 | pass | fails at `t₀+4` | — | fails at `t₀+4` | — | — | fails on `W₂` | fails at `W₂` | passes at `t₀+5` | `W₁`: static; `W₂`: TR |
+| HC-R3 | pass | fails at `t₀+4` | — | fails at `t₀+4` | — | — | fails on `W₂` | fails at `W₂` | passes at `t₀+5` | `W₁`: static; `W₂`: EX |
+
+\* TR assumes the extension window `W_{T′}` is computed; on `W_T` alone both cases are I-9. TR does not require (R-a)
+or (R-b).
 
 ***
 
 ## 4. Decision table
 
-**Precedence.**
-- Rows 1–8 are tested in order, and a case takes the first row whose condition holds. Given every criterion, every
-  case reaches some row, so the assignment is a function.
+**Precedence and coverage.**
+- Rows 1, 2a, 2b and 3–8 are tested in that order, and a case takes the first row whose condition holds.
 - If the criterion that decides the first matching row is unavailable, because it is not admitted or not computed,
-  the case takes evidence row I-1, I-2 or I-3 instead.
+  the case takes evidence row I-1, I-2, I-3 or I-9 instead.
 - I-5 qualifies every row.
+- **Coverage [D].** With every criterion available, every case takes exactly one row. Uniqueness follows from
+  first-match. For existence, suppose rows 1–4 fail. Then J-1 holds on `W_{T′}`, (R-a) and (R-b) hold,
+  `ε_max ≤ ε*` on `W_T`, and there is no clock.
+  - If ST holds, row 5 or 6 applies, according to SCH.
+  - Otherwise ST fails. Either it fails only on `w*` or `T*`, which is row 8, or DIL∃ fails exactly and no `G` meets
+    the bound.
+  - In the second case, if `0 < ε_max` somewhere on `W_T`, row 8 applies.
+  - If instead `ε_max = 0` on `W_T`, then no failure is seen on `W_{T′}`. When `τ = ∞` this is because `T′ = T`;
+    otherwise row 2a or 2b would have applied. So row 7 applies. ∎
 
 | # | Row | Condition | Exact / approximate | Required assumptions | Does not establish |
 |---|---|---|---|---|---|
-| 1 | **RS: not storage, re-supply** | J-1 [U] fails at a hold tick of `W_T` (`B_t := Q`, cells outside `A`) | exact | J-1 [U]; supports | that the carrier is itself a record (a display, requirement 2) |
-| 2 | **TR: transport established** | DIL∃ fails with J-1 holding; `τ(R) < ∞`; `ε_max > ε*` observed on the gap-free `W_{T′}`, `T′ = max(T, τ(R))` | exact on the declared supports; the failure is observed, not predicted | H-cur (`R` declared); supports | that no other register or decoder stores the record; any rule-wide no-go |
+| 1 | **RS: not storage, re-supply** | J-1 [U] fails at a hold tick of `W_{T′}` (`B_t := Q`, cells outside `A`) | exact | J-1 [U]; supports | that the carrier is itself a record (a display, requirement 2) |
+| 2a | **TR: transport established** | the "record lost" conditions of §2.3 hold, and no nonempty `G ⊆ 𝒬_W` makes `~_G` consistent | exact on the declared supports; the failure is observed, not predicted | H-cur (`R` declared); supports; (R-a) and (R-b) not required | that no other register or decoder stores the record; any rule-wide no-go |
+| 2b | **EX: exported or overwritten** | the "record lost" conditions of §2.3 hold, and some nonempty `G` makes `~_G` consistent (HC-SK at small `k`; HC-R3 on `W₂`) | as 2a | as 2a | that the record passed through `A`; transport |
 | 3 | **No retention** | (R-a) or (R-b) fails, or `ε_max > ε*` at a tick of `W_T` | — | — | anything about transport |
 | 4 | **I-8** | the decoder reads a clock `K`, and Remark C is unreviewed | — | Remark C [U] | fixed-decoder status |
 | 5 | **Storage, static** | ST together with SCH | exact: DIL∃ on the declared supports. Approximate: DIL∃-η with the Lemma H bound `≤ ε* = 0.05` on all of `W_T` | H-cur (declared) read of `R`; preparation (`supp Q_t` excluding `Wr`, by Lemma Q); E-reg if designed; DIL∃ adopted | O1 (the law is imposed), O3, O4; persistence beyond `W_T` (Lemma P); the "smallest" ranking (D-SML); independence from the choice of cells |
 | 6 | **I-4: circulating, pending Q1** | ST without SCH | as row 5 | as row 5; the owner's ruling on Q1; with a clock decoder, Remark C [U] and an accounted `K` | storage, until Q1 is ruled; locality below the scale of `R` |
-| 7 | **TI: transport indicated (inconclusive)** | `ε_max = 0` on `W_T`; DIL∃ fails with J-1 holding; no `G` meets the ST bound; no failure observed on `W_{T′}` (HC-TS or HC-TM read on `W_T` alone; CX-4; CX-4b) | — | — | transport, because DIL∃ over-rejects (CX-4b) |
+| 7 | **TI: transport indicated (inconclusive)** | `ε_max = 0` on `W_T`; DIL∃ fails with J-1 holding; no `G` meets the ST bound; `W_{T′}` computed and no failure seen (CX-4; CX-4b) | — | — | transport, because DIL∃ over-rejects (CX-4b) |
 | 8 | **I-6: approximate boundary** | `0 < ε_max ≤ ε*` on `W_T`, and no `G` gives the Lemma H bound `≤ ε*` (HC-SK, `k = 4`); or ST fails only on `w ≥ w*` or `T ≥ T*` once those are set | — | — | storage; a D-SML comparison |
 | I-1 | **evidence: trajectory only** | only trajectory-level data over `W_T` with `T < τ(R)`, with no DIL∃ and no extension of the window (the HC-TS / HC-SW pair, §7 L1) | — | — | either verdict |
 | I-2 | **evidence: inflow only** | only S-1, J-1, ICH and the outside cut, or CHC over the window's own ticks (CHC separates HC-TM but not HC-TS) | — | — | separation of HC-TS from S1 / HC-SW |
 | I-3 | **evidence: delayed readback only** | only a non-contiguous delayed readback | — | — | anything (HC-R1, HC-R3) |
+| I-9 | **evidence: extension not computed** | DIL∃ computed and failing with J-1 holding, `T < τ(R) < ∞`, and `W_{T′}` beyond `W_T` not computed (HC-TS on `W₁` alone; HC-TM on `W_T`, `T < m`) | — | — | either verdict |
 | I-5 | **qualifier** | the verdict changes under a change of cell coordinates or of `A` (§6 CX-3) | — | cell decomposition fixed only as a datum | a φ-intrinsic distinction |
 
 **Recurrence rule.** A readback success at a tick after a failure observed on a gap-free window is recurrence (Lemma
@@ -419,12 +443,15 @@ The branches favourable to OI are pressure-tested first (§A.31).
 - **CX-4b (DIL∃ over-rejection at a single tick, through joint support).**
   - *Setup.* `A = R = {r, s}` with `g = r`. `s` is a junk bit with `s′ = s`. One outside cell `q` arrives each tick,
     and `r ← r ⊕ (q ∧ s)`, a Toffoli, so the update is a bijection.
-  - *Law.* `s` is uniform, and every arriving `q` is 0 whenever `s = 1`.
+  - *Law.* `s` is uniform. Given `s = 0`, each arriving `q` is uniform; given `s = 1`, it is 0. So
+    `μ(q = 1) = 1/4`.
   - *Actual behaviour.* After an exact write, `r` is held exactly. J-1 holds, because `Q` depends on `A` only through
     `s`.
   - *DIL∃.* `q = 1 ∈ 𝒬_W` sends `(1,1) ↦ (0,1)`, so supported `(1,1)` (decoded 1) and `(0,1)` (decoded 0) lie in one
     class. DIL∃ fails with `τ = 1`, and no failure is ever observed.
-  - *Row.* TI. This case meets F-1.
+  - *Approximate form.* The only consistent nonempty choice is `G = {q = 0}`, with `η = 1/4` per tick. Its Lemma H
+    bound `1/4 > ε*`, so no `G` meets ST.
+  - *Row.* TI: `ε_max = 0`, `T′ = T` is computed, and no failure is seen. This case meets F-1.
 - **CX-5 (ABL over-rejects error correction; DIL∃ does not).**
   - Take `R = {r₁, r₂}` with the code `{00, 11}`, ancilla `z` (ready, supplied fresh), and the tick
     `z ← z ⊕ r₁ ⊕ r₂; r₂ ← r₂ ⊕ z`.
@@ -530,13 +557,13 @@ This is a specification only. It is not authorized (OQ-4 decision [C]) and nothi
 - **Decision rule (preregistered: the rule, not the numbers).** Each tuple (rule, `A`, law, `T`) is assigned one §4
   row by the precedence of §4. The verdict text is generated from the structured output.
 - **Controls that must be green.**
-  - HC-TS and HC-TM give TR when the extension window is computed, and TI on `W_T` alone.
+  - HC-TS and HC-TM give TR when the extension window is computed, and I-9 on `W_T` alone.
   - S1 gives static storage. HC-SW gives I-4, or the row the Q1 ruling assigns.
   - HC-SK:
-    - `T = 1`: TR at `k ≤ 3`, I-6 at `k = 4`, static storage at `k ≥ 5`.
-    - `T = 2, 3`: static storage at `k = 6`.
+    - `T = 1`: EX at `k ≤ 3`, I-6 at `k = 4`, static storage at `k ≥ 5`.
+    - `T = 2, 3`: EX at `k ≤ 4`, I-6 at `k = 5`, static storage at `k = 6`.
   - HC-R2 gives RS.
-  - HC-R1 and HC-R3 trigger the recurrence rule, and HC-R3 on `W₂` gives TR.
+  - HC-R1 and HC-R3 trigger the recurrence rule, and HC-R3 on `W₂` gives EX.
   - Countercontrol mutations:
     - (a) remove S1's quiet bit, and exact DIL∃ must fail;
     - (b) replace HC-SW's swap by a shift-out into the channel, and DIL∃ must fail;
