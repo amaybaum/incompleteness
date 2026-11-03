@@ -134,7 +134,8 @@ def read_board(transport):
         counts[e["status"]] += 1
     if not items:
         raise Fail("the board returned no items")
-    items.sort(key=lambda e: (e["type"], e.get("repo", ""), e.get("number", 0), e.get("title", "")))
+    items.sort(key=lambda e: (e["type"], e.get("repo", ""), e.get("number", 0), e.get("title", ""),
+                              e["status"]))
     board = {
         "schema": SCHEMA,
         "project": {"owner": OWNER, "number": PROJECT_NUMBER, "title": project["title"]},
@@ -176,21 +177,29 @@ def do_write(out, number, expected, status, apply, transport):
     current = item_status(board, number)
     if current != expected:
         raise Fail("#%d has Status %r, not the expected %r: nothing written" % (number, current, expected))
+    if status == expected:
+        raise Fail("#%d already has Status %r: nothing to write" % (number, status))
     plan = {"schema": SCHEMA, "number": number, "from": current, "to": status, "applied": False}
     if not apply:
         dump(out, "plan.json", plan)
         return plan
     dump(out, "before.json", board)
-    transport(WRITE_MUTATION, {"project": h["project"], "item": h["items"][number],
-                               "field": h["field"], "option": h["options"][status]})
+    try:
+        transport(WRITE_MUTATION, {"project": h["project"], "item": h["items"][number],
+                                   "field": h["field"], "option": h["options"][status]})
+    except Exception as e:
+        after, _ = read_board(transport)
+        dump(out, "after.json", after)
+        raise Fail("mutation failed (%s); after.json records the board" % type(e).__name__)
     after, _ = read_board(transport)
     dump(out, "after.json", after)
     now = item_status(after, number)
     if now != status:
         raise Fail("readback: #%d has Status %r, not %r" % (number, now, status))
     changed = [(a, b) for a, b in zip(board["items"], after["items"]) if a != b]
-    if len(board["items"]) != len(after["items"]) or len(changed) != 1:
-        raise Fail("readback: the write changed more than the one item")
+    if (len(board["items"]) != len(after["items"]) or len(changed) != 1
+            or changed[0][1].get("repo") != REPO or changed[0][1].get("number") != number):
+        raise Fail("readback: the write did not change exactly item #%d" % number)
     plan["applied"] = True
     dump(out, "plan.json", plan)
     return plan
@@ -286,6 +295,48 @@ def self_test():
             return r
     check(fails(lambda: do_write(d, 1032, "Planned", "Active", True, Spill())),
           "readback detects a write that changed another item")
+
+    noop = FakeBoard()
+    check(fails(lambda: do_write(d, 914, "Planned", "Planned", True, noop)) and noop.writes == 0,
+          "a write to the current Status is refused")
+
+    class LiarSpill(Liar):
+        def __call__(self, query, v):
+            r = Liar.__call__(self, query, v)
+            if query is WRITE_MUTATION:
+                self.items[1]["status"] = "Closed (administrative)"
+            return r
+    check(fails(lambda: do_write(d, 1032, "Planned", "Active", True, LiarSpill())),
+          "readback detects a missed write masked by another item's change")
+
+    class Wrong(FakeBoard):
+        def __call__(self, query, v):
+            if query is WRITE_MUTATION:
+                v = dict(v, option="o3")
+            return FakeBoard.__call__(self, query, v)
+    check(fails(lambda: do_write(d, 1032, "Planned", "Active", True, Wrong())),
+          "readback detects a write that set another Status")
+
+    other = FakeBoard()
+    other.items.append({"id": "x1", "number": 1032, "repo": "a/other", "kind": "Issue",
+                        "status": "Active"})
+    check(not fails(lambda: do_write(d, 1032, "Planned", "Active", True, other))
+          and [i["status"] for i in other.items if i.get("number") == 1032] == ["Active", "Active"]
+          and other.writes == 1, "an item of another repository is neither matched nor written")
+
+    dup = FakeBoard()
+    dup.items.append(dict(dup.items[1], id="i914b"))
+    check(fails(lambda: do_read(d, dup)), "an Issue that appears twice fails")
+
+    class Boom(FakeBoard):
+        def __call__(self, query, v):
+            if query is WRITE_MUTATION:
+                self.writes += 1
+                raise OSError("timeout")
+            return FakeBoard.__call__(self, query, v)
+    check(fails(lambda: do_write(d, 1032, "Planned", "Active", True, Boom()))
+          and os.path.exists(os.path.join(d, "after.json")),
+          "a failed mutation still leaves after.json")
 
     empty = FakeBoard()
     empty.items = []
