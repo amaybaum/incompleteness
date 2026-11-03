@@ -1,6 +1,6 @@
 # O-RET first deliverable: route pages I, II, III
 
-**Status.** WIP / UNVERIFIED; revised after independent review of ff4d4beb. Paper-only draft for #1032 under PO-1102 workstream B. Authority: the owner's authorization recorded at
+**Status.** WIP / UNVERIFIED; revised after independent review of ff4d4beb; criteria refined under the owner's decisions at #1032 c.6611966162 (see `DEFINITIONS.md`). Paper-only draft for #1032 under PO-1102 workstream B. Authority: the owner's authorization recorded at
 #1032 c.6610742427. Base: `main` `ac558b570d0012a73369ebc1fbc1c09ac523ca94`. This revision has not been re-reviewed. It runs no
 computation, Lean or search. Its hand checks (HC-K1 to HC-K4, HC-P, HC-F, HC-F0) are small enough to redo with pencil and paper, and
 every step is written out. It adopts no premise and promotes nothing. The new interactions in route III are labelled
@@ -28,6 +28,10 @@ listed in `SOURCES.md`, and all line numbers refer to `ac558b57`.
 - **Ledger.** `D(μ) = D_KL(μ ‖ π₀)`, where `π₀` is the normalized counting measure (the uniform probability on `S`), so `D(μ) = log|S| − H(μ)`.
 
 ### 0.2 Criteria (my operationalization of requirements 2 and 4; see OQ-2)
+
+The adopted operational criteria are now those of `DEFINITIONS.md` (D-RET, D-MET, D-TRN, D-ACC, D-SEN, D-SML), under
+the owner's decisions at #1032 c.6611966162. RET-fd and RET-st below are kept as the criteria the route analyses used. RET-st is
+not the adopted definition of retention (OQ-2 decision).
 
 - **NB-1 (carrier sensitivity, single time).** There are carrier preparations `σ ≠ σ′` and a tick
   `t ∈ {t₀+1, t₀+2}` at which the law of `ρ(s_t)` given `σ` differs from its law given `σ′`, with `ν` fixed. A
@@ -104,6 +108,8 @@ time-independent. If `a(s_{t₀+2}) = a(s_{t₀+1})` μ-a.s., then `a(s_{t₀+1}
 - *Reading.* Under a register of maximal entropy (`D = 0`), a write that preserves the carrier (`c′ = h(c)`) is
   blind. A write that is sensitive to the carrier must export at least as much entropy into the carrier as it gains.
   This generalizes the CNOT control of #1032 c.6567189236 (`D = log 2`, `I = log 2`, `H(c′|c) = 0`).
+  The inequality is an entropy trade-off, not a uniqueness statement. It does not single out exchange: writes that
+  disturb the carrier partially, and writes that use readiness (`D > 0`) instead of disturbance, also satisfy it.
 
 **Lemma L (for linear rules, the transfer does not depend on the prior).**
 - *Hypotheses.* K1 with any additive `A` over `ℤ/q`, and a product prior with full carrier support.
@@ -229,8 +235,9 @@ previous-slice information. That is H-2s expressed through a nonlinear statistic
   member, every full-support law), exact retention, any time-independent readout (fixed or state-selected). With
   `a(s_{t₀}) ⫫ κ` the retained function is blind; otherwise the write tick transfers nothing.
 - With `a(s_{t₀})` depending on the carrier, the route fails requirement 2 (no transfer; overlap).
-- **UNDECIDED** outside this scope: decoders that change with the tick (they need a clock), approximate retention
-  (Lemma S's bound only), laws whose support is not φ-invariant (that is route II), and derived observers (O-OBS).
+- **UNDECIDED** outside this scope: decoders that change with the tick (they need a clock; under the OQ-2 decision they
+  are admissible only with an accounted clock, and `DEFINITIONS.md` Remark C, unreviewed, shows that Lemma S′ then
+  applies to exact retention), approximate retention (Lemma S's bound only), laws whose support is not φ-invariant (that is route II), and derived observers (O-OBS).
 - **Circularity (requirement 5).**
   - (I-ad) presupposes that `R_t` is retained, which is circular: H-ret.
   - (I-gl) and an "observer = selected region" reading presuppose the observer, which is O-OBS.
@@ -308,9 +315,16 @@ Against the countercontrols:
   `y′_V = drive − x_V` is of this kind, with `x_V` as the one-time pad.
 
 ### 6. Classification
-- **BLOCKED[Lemma L + HC-K2]** for linear K1 at K-18(b). Scope: `V ⊆` the current slice of sites 1–4, every product
-  law with full carrier support, RET-st, consecutive pairs in `[t₀, t₀+3]`. It is not extended to other N, q, V, Σ or
-  ticks. Under RET-fd a fixed-decoder witness exists (HC-K3); it reads a tick marker and fails countercontrol (g).
+- **Under RET-st: BLOCKED[Lemma L + HC-K2]** for linear K1 at K-18(b). Scope: `V ⊆` the current slice of sites 1–4,
+  every product law with full carrier support, RET-st, consecutive pairs in `[t₀, t₀+3]`. It is not extended to other
+  N, q, V, Σ or ticks. Under RET-fd a fixed-decoder witness exists (HC-K3); it reads a tick marker and fails
+  countercontrol (g).
+- **Under D-RET (adopted): UNDECIDED** for linear K1 at K-18(b), in the same scope.
+  - *Reason for the change.* The OQ-2 decision (#1032 c.6611966162) does not adopt static cells as the definition, so the
+    RET-st block no longer classifies the route.
+  - HC-K3 is a fixed-decoder candidate. Its admissibility turns on (R-d), whose test (S-1 or J-1) is unadopted, and on
+    requirement 2's rejection of simple advection.
+  - Approximate retention at this instance is not addressed.
 - **BLOCKED[Lemma S′]** for every law with φ-invariant support (RET-st/RET-fd, exact), every invariant and every
   full-support law included.
 - **UNDECIDED** for nonlinear copy-form rules (SM:112 ring, rule h) under a law named in advance whose support is not
@@ -379,13 +393,15 @@ presence switch.
 - With `κ = (p₀, v₀)` (four values, mass 1/4 each), `δ = P(p₀ = 1, v₀ ≠ r) = 1/4`, and the TV at `t₀+1` between
   `(1,0)` and `(1,1)` is 1 `= (1/4)/(1/4)`: Lemma S's bound is attained with equality.
 - Under maximum skepticism this branch still rests on E-reg (unjustified), on H-cur (declared), and on an exchange
-  write (OQ-1). It is favorable only to the extent that H-sel drops out.
+  write (admissible as transfer under the OQ-1 decision, D-TRN). It is favorable only to the extent that H-sel drops out.
 
 ### 5. Strongest counterexample
 - `M_F` and `M_T` are an apparatus designed for this purpose, so requirement 5 is the first attack.
 - Under `π₀` neither retains exactly (Lemma S), `M_T` is blind (CN), and `M_F` retains approximately (HC-F0).
-- `M_F`'s carrier-sensitive write is an exchange: the register takes the carrier's value. This may be "simple
-  advection" (OQ-1).
+- `M_F`'s carrier-sensitive write is an exchange: the register takes the carrier's value. Under the OQ-1 decision an
+  exchange counts as transfer, given a distinct readable register and retention after the carrier has left
+  (`DEFINITIONS.md` D-TRN). `M_F`'s register `r` is distinct, and HC-F shows the hold after the carrier cell has moved
+  on. Its (R-d) status is provisional: S-1 and J-1 are unadopted.
 
 Against the countercontrols:
 - (a) H-2s: **passes.** `r` is a current cell and its self-update is the identity.
@@ -407,8 +423,13 @@ Against the countercontrols:
   Scope: the toy models `M_F` and `M_T`, exact, one hold tick.
   CONDITIONAL classifies `M_F` and `M_T` as toy witnesses of what such an apparatus needs from the law. As an O-RET
   mechanism route III is not a candidate while E-reg is unjustified (§A.29) and designed for the purpose.
-- **BLOCKED[Lemma S′]** for exact retention under any law with φ-invariant support. Under `π₀`, `M_F` gives
-  approximate one-step retention (HC-F0), CONDITIONAL[E-reg; H-μ; H-cur (declared)], with no quiet bit.
+- **BLOCKED[Lemma S′]** for exact retention under any law with φ-invariant support.
+- Under `π₀`, `M_F` gives approximate one-step retention with no quiet bit (HC-F0: `ε_max` = 1/4 at `t₀+2`). The OQ-7
+  decision makes this admissible in principle.
+  - Whether it is a witness is **UNDECIDED[`ε*` not set]**, under E-reg, H-μ and H-cur (declared). The ¼ error is a
+    result, not a threshold (`DEFINITIONS.md` D-MET).
+  - *Reason for the change from CONDITIONAL.* The OQ-7 decision (#1032 c.6611966162) makes success relative to a tolerance fixed
+    in advance.
 - It is not a SOURCE-CANDIDATE.
 - **Circularity (requirement 5).** E-reg *is* observer-level apparatus (MR★ M.3(iii); O-ACC §6.2), built to have a
   register and a trigger. As designed here, that presupposes the instrument; an interaction justified independently of
@@ -433,10 +454,11 @@ Against the countercontrols:
     φ-invariant (a resource of O-RDY type) is necessary. Approximate retention is not covered: `M_F` under `π₀` retains
     approximately (HC-F0). The resource is a quiet hold, not necessarily E-readiness. The
     owner decides whether to record this (OQ-6).
-- **Smallest witness found on paper:** route III's `M_F`, with one quiet bit and an exchange write. Minimality is not
+- **Witnesses found on paper.** Under the OQ-8 decision these are compared by the resource table of `DEFINITIONS.md`
+  D-SML, not by one scalar. No ranking is issued while `T*`, `ε*` and `w*` are unset. The witnesses are route III's `M_F`, with one quiet bit and an exchange write. Minimality is not
   shown: a trigger on `k` presence bits lowers the ledger to `log(2^k/(2^k−1))`, at write probability `2^{−k−1}`. With a copy write it is
   `M_T`, with two bits. It is CONDITIONAL on a new, unjustified F2 extension and on H-sel. It is not selected.
-- **Smallest open native route:** route II on a nonlinear copy-form rule already in the corpus. It adds no interaction,
+- **Open native route with no added interaction:** route II on a nonlinear copy-form rule already in the corpus. It adds no interaction,
   is UNDECIDED, and has ceiling CONDITIONAL[H-sel]. On linear K1 at K-18(b) it is BLOCKED.
 - **Open:**
   - a source for a quiet law whose support is not φ-invariant;
@@ -456,14 +478,19 @@ Against the countercontrols:
   analogue must change decoders, retain only approximately within Lemma S's bound, or transfer nothing (the retained
   function already depended on the carrier at `t₀`).
 
-## Open owner questions
+## Owner questions and decisions
+
+Each question below is followed by the owner's decision at #1032 c.6611966162, in one line. The operational form is in
+`DEFINITIONS.md`.
 
 - **OQ-1.** Does an exchange write (the register takes the carrier's value and the carrier leaves with the register's
   old content) count as "nontrivial transfer", or as the "simple advection" that requirement 2 rejects? Under a
-  register of maximal entropy, Lemma C makes exchange the only carrier-sensitive write that needs no readiness.
+  register of maximal entropy, Lemma C bounds the information a carrier-sensitive write can gain by the entropy it
+  exports into the carrier. That is an entropy trade-off and does not single out exchange.
   *Partial source answer (found by the review).* The CN comment (#1032 c.6567189236) treats `m′ = c` with a ready
   memory as "a perfect one-bit readable record" conditional on the readiness resource, so "simple advection/copy" most
   plausibly targets countercontrol (a). Exchange stays open.
+  *Decision (#1032 c.6611966162):* exchange can count as nontrivial transfer, with a distinct readable register and retention after the carrier has left; carrier preservation is a separate property (D-TRN).
 - **OQ-2.** Adopt RET-st (static readable cells, full carrier support) as the operational reading of requirement 4?
   Or also admit records whose decoder depends on the tick? Those need a clock, and (d) applies to them.
   RET-st is too weak and too strict for this purpose. It admits the duplicated pulse of HC-P. It excludes a record
@@ -471,21 +498,28 @@ Against the countercontrols:
   reads without a clock. A screening condition (proposed by the review, not yet reviewed), under which `A`'s hold-tick
   update reads only `A` and cells whose `t₀+1` values are independent of the carrier, separates these cases on HC-K3,
   HC-K4, HC-P, `M_F` and the swapped pair. It is offered for review, not adopted.
+  *Decision (#1032 c.6611966162):* static cells are not the definition; a record may persist in a fixed, physically readable function of changing cells, not continually re-supplied by the carrier; readouts that change with the tick need an accounted clock, identity and access; S-1 awaits independent review, with joint-information checks (D-RET).
 - **OQ-3.** O-ACC makes the readable σ-algebra a datum for a fixed region, so requirement 1 ("derivable accessible
   register") is unmet by every route. Is H-cur (declared) on a fixed register the admissible baseline, carried as a
   named hypothesis? Or is requirement 1 to be read as unmeetable in the present architecture?
   *Partial source answer (found by the review).* K-8 ("H-cur is **declared**, not native") and the owner's record at
   #1032 c.6610742427 ("D-07(a) discharges the O-ACC prerequisite for this scoped unit") make H-cur (declared), carried
   as a named hypothesis, the recorded baseline. Whether requirement 1 can be met remains the owner's question.
+  *Decision (#1032 c.6611966162):* H-cur (declared) is the named conditional baseline; physical sourcing of access stays an outstanding obligation for any SOURCE-CANDIDATE (D-ACC).
 - **OQ-4.** Authorize, separately, a preregistered bounded exact check of route II on the SM ring or rule h, with a law
   fixed in advance? This needs computation and is not requested here.
+  *Decision (#1032 c.6611966162):* no computational check yet; the criterion and metric are to be settled and reviewed first, then a proposal is presented for separate authorization.
 - **OQ-5.** For O-RET, use NB-1 (a single-time law) rather than K1-RDY's path-law NB, which presupposes H-ret?
   *Partial source answer (found by the review).* Requirement 2's wording, "some future readable register law
   differs", is a single-time law, which largely answers this.
+  *Decision (#1032 c.6611966162):* NB-1 is accepted; a path-law comparison is additional evidence only and never supplies access across time (D-SEN).
 - **OQ-6.** Record the cross-route constraint (Lemmas S′ and Q) against MM's O-RET L-edge after review?
+  *Decision (#1032 c.6611966162):* record the constraint as a scoped annotation with its hypotheses, not a replacement of the edge (`ANNOTATION.md`, draft).
 - **OQ-7.** Is approximate retention admissible for O-RET, and in which metric? `M_F` under `π₀` realizes it (HC-F0).
-- **OQ-8.** What does "smallest" measure? `D` has no minimum attained by one quiet bit (Comparison, smallest
-  witness).
+  *Decision (#1032 c.6611966162):* approximate retention is admissible; the primary metric is worst-case decoding error, with TV reported per tick; the tolerance `ε*` is to be set from the record's requirements before testing (D-MET).
+- **OQ-8.** What does "smallest" measure? `D` has no minimum attained by one quiet bit (Comparison, witnesses
+  found on paper).
+  *Decision (#1032 c.6611966162):* use a resource comparison at fixed performance requirements, not one scalar; a vanishing write probability cannot win by the ledger alone (D-SML).
 
 ## Review requests (for the independent reviewer)
 
