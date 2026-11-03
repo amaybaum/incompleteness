@@ -184,13 +184,19 @@ def do_write(out, number, expected, status, apply, transport):
         dump(out, "plan.json", plan)
         return plan
     dump(out, "before.json", board)
+    variables = {"project": h["project"], "item": h["items"][number],
+                 "field": h["field"], "option": h["options"][status]}
     try:
-        transport(WRITE_MUTATION, {"project": h["project"], "item": h["items"][number],
-                                   "field": h["field"], "option": h["options"][status]})
+        transport(WRITE_MUTATION, variables)
     except Exception as e:
-        after, _ = read_board(transport)
+        first = type(e).__name__
+        try:
+            after, _ = read_board(transport)
+        except Exception as e2:
+            raise Fail("mutation failed (%s) and the readback failed (%s): board state unknown"
+                       % (first, type(e2).__name__))
         dump(out, "after.json", after)
-        raise Fail("mutation failed (%s); after.json records the board" % type(e).__name__)
+        raise Fail("mutation failed (%s); after.json records the board" % first)
     after, _ = read_board(transport)
     dump(out, "after.json", after)
     now = item_status(after, number)
@@ -334,8 +340,10 @@ def self_test():
                 self.writes += 1
                 raise OSError("timeout")
             return FakeBoard.__call__(self, query, v)
-    check(fails(lambda: do_write(d, 1032, "Planned", "Active", True, Boom()))
-          and os.path.exists(os.path.join(d, "after.json")),
+    bd, boom = tempfile.mkdtemp(), Boom()
+    check(fails(lambda: do_write(bd, 1032, "Planned", "Active", True, boom)) and boom.writes == 1
+          and os.path.exists(os.path.join(bd, "after.json"))
+          and not os.path.exists(os.path.join(bd, "plan.json")),
           "a failed mutation still leaves after.json")
 
     empty = FakeBoard()
