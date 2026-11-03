@@ -8,9 +8,9 @@ name: Project board (read / Status update)
 # only; Issues hold planning status and authorization (§A.45). The verdict is the job's exit
 # status and the JSON artifact (§A.44). Actions are pinned by commit.
 # The job runs in the `project-board` environment, which the owner creates BEFORE the first run,
-# restricted to `main` with the owner as required reviewer; GH_PROJECTS_TOKEN is an environment
-# secret of it, never a repository secret. A reference to an undefined environment would create
-# it unprotected, so that order matters.
+# restricted to `main`; GH_PROJECTS_TOKEN is an environment secret of it, never a repository
+# secret. A reference to an undefined environment would create it unprotected, so that order
+# matters.
 on:
   workflow_dispatch:
     inputs:

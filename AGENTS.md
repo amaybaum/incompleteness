@@ -1184,11 +1184,14 @@ rules below govern that record (owner, 2026-11-03).
 3. **A planning-status block grants no authorization.** An *Authorization* entry links the owner's
    recorded comment that grants it. It reads `not authorized` when no such record exists. **A
    priority is never authorization.** No work starts without readiness, recorded owner
-   authorization, a designated writer and an available execution slot:
+   authorization, a designated writer and no conflicting writer:
    - the item is `ready`;
    - a recorded owner authorization covers that work;
    - a designated writer is recorded for that work;
-   - the execution slot is free.
+   - no active item with a different writer writes the same branch, file or artifact.
+
+   Several items may be active at once (owner, 2026-11-03). Each new start also respects §A.40's
+   resource limits.
 
    *Maintenance.* Planning-status entries, labels and Project cards may be updated directly to
    record an existing owner decision or a sourced fact, with a short source-citing comment. Such
@@ -1257,8 +1260,8 @@ distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
 - The Issues hold each question, its scope, its quoted status and its planning-status block.
 - #914 holds the OI ↔ QM dependency edges; its L-edges are the prerequisite source for the OI ↔ QM
   programme.
-- The GitHub Project *OI Research Programme* shows administrative activity and the execution slot.
-  Project Status grants no authorization and confers no scientific status.
+- The GitHub Project *OI Research Programme* shows administrative activity, including which items
+  are active. Project Status grants no authorization and confers no scientific status.
 - `PO-1102`, cited in Authorization entries, is the paper-only authorization in #914 comment
   6567198108 for its named workstreams A–F: "planning, source reading, paper derivations and review
   preparation, not reopening any frozen execution stage".
