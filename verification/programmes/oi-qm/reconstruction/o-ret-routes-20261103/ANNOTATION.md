@@ -44,15 +44,17 @@ and does not replace it.
   would overwrite it** at the hold tick.
 - *Together.* Under hypotheses 1–5, exact one-step retention of newly transferred carrier information requires a law
   whose support is not φ-invariant and that excludes the overwriting configurations.
-  - This is a resource of the O-RDY type.
+  - It is a preparation resource, the kind the O-RDY branch of the edge supplies. Whether O-RDY's readiness provides
+    this particular restriction is not shown.
   - O-ACC, being a convention (CONVENTION-H-2s, D-07(a)), does not discharge it.
   - The resource is necessary, not sufficient.
   - "Quiet" names only this support restriction. It need not be a low-energy or spatially quiet region.
 
 **Outside this conclusion.**
 
-- Approximate retention. In a toy model outside copy form, approximate one-step retention occurs under the counting
-  measure with no support restriction (HC-F0 in the same file).
+- Approximate retention. In a toy model outside copy form, carrier information is retained approximately under the counting
+  measure with no support restriction (worst-case error 1/4 at the hold tick, HC-F0 in the same file); whether this
+  meets a tolerance is undecided while `ε*` is unset.
 - Readouts or decoders that change with the tick.
 - Laws or rules outside hypotheses 1–2.
 - Any claim of a no-go for observer-level extensions.

@@ -322,8 +322,8 @@ Against the countercontrols:
 - **Under D-RET (adopted): UNDECIDED** for linear K1 at K-18(b), in the same scope.
   - *Reason for the change.* The OQ-2 decision (#1032 c.6611966162) does not adopt static cells as the definition, so the
     RET-st block no longer classifies the route.
-  - HC-K3 is a fixed-decoder candidate. Its admissibility turns on (R-d), whose test (S-1 or J-1) is unadopted, and on
-    requirement 2's rejection of simple advection.
+  - HC-K3 is not a candidate: its hold-tick update reads `y₀(t₀+1) = x₀`, so it fails (R-d) under S-1 and under J-1
+    (J-i), and it fails countercontrol (g).
   - Approximate retention at this instance is not addressed.
 - **BLOCKED[Lemma S′]** for every law with φ-invariant support (RET-st/RET-fd, exact), every invariant and every
   full-support law included.
@@ -421,12 +421,13 @@ Against the countercontrols:
 - **CONDITIONAL[new F2 extension E-reg (designed register and gate, unjustified under §A.29: no preserved results stated,
   no independent prediction); H-sel (quiet bit; plus `r = 0` for `M_T`); H-cur (declared) read of `r`]**.
   Scope: the toy models `M_F` and `M_T`, exact, one hold tick.
+  Under D-RET this is provisional on (R-d): both models pass S-1 and J-1, which are unadopted.
   CONDITIONAL classifies `M_F` and `M_T` as toy witnesses of what such an apparatus needs from the law. As an O-RET
   mechanism route III is not a candidate while E-reg is unjustified (§A.29) and designed for the purpose.
 - **BLOCKED[Lemma S′]** for exact retention under any law with φ-invariant support.
 - Under `π₀`, `M_F` gives approximate one-step retention with no quiet bit (HC-F0: `ε_max` = 1/4 at `t₀+2`). The OQ-7
   decision makes this admissible in principle.
-  - Whether it is a witness is **UNDECIDED[`ε*` not set]**, under E-reg, H-μ and H-cur (declared). The ¼ error is a
+  - Whether it is a witness is **UNDECIDED[`ε*` not set; (R-d) test unadopted]**, under E-reg, H-μ and H-cur (declared). The ¼ error is a
     result, not a threshold (`DEFINITIONS.md` D-MET).
   - *Reason for the change from CONDITIONAL.* The OQ-7 decision (#1032 c.6611966162) makes success relative to a tolerance fixed
     in advance.
@@ -459,7 +460,7 @@ Against the countercontrols:
   shown: a trigger on `k` presence bits lowers the ledger to `log(2^k/(2^k−1))`, at write probability `2^{−k−1}`. With a copy write it is
   `M_T`, with two bits. It is CONDITIONAL on a new, unjustified F2 extension and on H-sel. It is not selected.
 - **Open native route with no added interaction:** route II on a nonlinear copy-form rule already in the corpus. It adds no interaction,
-  is UNDECIDED, and has ceiling CONDITIONAL[H-sel]. On linear K1 at K-18(b) it is BLOCKED.
+  is UNDECIDED, and has ceiling CONDITIONAL[H-sel]. On linear K1 at K-18(b) it is BLOCKED under RET-st and UNDECIDED under D-RET.
 - **Open:**
   - a source for a quiet law whose support is not φ-invariant;
   - nonlinear native rules;
@@ -489,7 +490,7 @@ Each question below is followed by the owner's decision at #1032 c.6611966162, i
   exports into the carrier. That is an entropy trade-off and does not single out exchange.
   *Partial source answer (found by the review).* The CN comment (#1032 c.6567189236) treats `m′ = c` with a ready
   memory as "a perfect one-bit readable record" conditional on the readiness resource, so "simple advection/copy" most
-  plausibly targets countercontrol (a). Exchange stays open.
+  plausibly targets countercontrol (a).
   *Decision (#1032 c.6611966162):* exchange can count as nontrivial transfer, with a distinct readable register and retention after the carrier has left; carrier preservation is a separate property (D-TRN).
 - **OQ-2.** Adopt RET-st (static readable cells, full carrier support) as the operational reading of requirement 4?
   Or also admit records whose decoder depends on the tick? Those need a clock, and (d) applies to them.

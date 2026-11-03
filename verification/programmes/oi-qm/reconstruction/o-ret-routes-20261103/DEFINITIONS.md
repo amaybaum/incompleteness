@@ -1,6 +1,6 @@
 # O-RET operational definitions (refinement under the owner's decisions on OQ-1 to OQ-8)
 
-**Status.** WIP / UNVERIFIED. This is a paper-only refinement for #1032 under PO-1102 workstream B and has not been reviewed.
+**Status.** WIP / UNVERIFIED. This is a paper-only refinement for #1032 under PO-1102 workstream B, revised after independent review of 7aaf9f97; this revision has not been re-reviewed.
 
 - **Authority.** The owner decisions recorded verbatim at #1032 c.6611966162 (chat, 2026-11-03), on the reviewed checkpoint 3 of PR #1078 at `b9000ae2410a554ef54616bcfe85d5707f4a307f`, which is unmerged.
 - **Scope of this document.** It fixes the criteria and the metric. It runs no computation, Lean or search, adopts no premise, and selects no candidate.
@@ -32,7 +32,8 @@ A **declared preparation set** `P` is a finite set of carrier values `σ` with `
 **Data fixed before any candidate is tested.**
 
 - A register `A`: a declared set of cells, together with its readout `ρ_A`.
-  - The readout is a function of the state, the same at every tick.
+    - The readout is a function of `A`'s cells only, the same at every tick. Write `A_t` for `A`'s full cell content at
+    `t`.
   - The values of `A`'s cells may change from tick to tick.
 - A nonconstant carrier property `f : P → Z`.
 - A deterministic decoder `g`.
@@ -58,15 +59,18 @@ A **declared preparation set** `P` is a finite set of carrier values `σ` with `
 
 - (i) `t` is supplied by a declared clock register `K` inside the model, whose cells, dynamics and preparation are
   entered in the resource table (D-SML);
-- (ii) the identity of `A` across ticks is fixed by the rule, as a fixed declared region or a selector fixed in advance;
+- (ii) the identity of `A` across ticks is fixed by the rule, as a fixed declared region or a function of the state
+  fixed by the rule; a schedule fixed in advance but not physically derived is countercontrol (d) and is not
+  admissible;
 - (iii) the read of `K` is declared under the same access baseline as `A` (D-ACC).
 
 A decoder indexed by an external tick count that is not in the state is not admissible.
 
 *Remark C (paper derivation, unreviewed).* Under (i) to (iii), `(ρ_A, ρ_K)` is a function of the state that is the
 same at every tick, and `g'(ρ_A, ρ_K) := g_{ρ_K}(ρ_A)` is a fixed decoder. So for **exact** retention Lemma S′ of
-ROUTES.md applies unchanged to readouts that change with the tick through an accounted clock. Approximate retention is
-not addressed by this remark.
+ROUTES.md applies unchanged to readouts that change with the tick through an accounted clock. Approximate retention is not addressed by this remark. A clock that indicates `t − t₀` is prepared at a fixed phase, so
+its support is not φ-invariant and Lemma S′ does not apply to it. The remark reduces accounted-clock readouts to fixed
+decoders. It does not exclude them, and the clock's preparation restriction enters D-SML.
 
 **Proposals awaiting independent review (not adopted).**
 
@@ -83,10 +87,11 @@ state at `t` on the support of `μ_t`. It is computed from `φ`.
     `u ⊕ c` are each independent of `c`, yet together they determine `c`. S-1 read cell by cell would pass them.
   - *Proposed J-1 at a hold tick `t`.*
     - (J-i) the **joint** vector `B_t` is independent of `κ`;
-    - (J-ii) `κ ⫫ B_t | ρ_A(s_t)`.
-  - *Consequence of (J-ii), one direction.* `A`'s value at `t+1` is a function of `(ρ_A(s_t), B_t)`. The chain
-    `κ → ρ_A(s_t) → (ρ_A(s_t), B_t) → ρ_A(s_{t+1})` is then Markov, so
-    `I(κ; ρ_A(s_{t+1})) ≤ I(κ; ρ_A(s_t))` (data processing): the register gains no carrier information at the hold tick.
+        - (J-ii) `κ ⫫ B_t | A_t`.
+  - *Consequence of (J-ii), one direction.* `A_{t+1}` is a function of `(A_t, B_t)`. The chain
+    `κ → A_t → (A_t, B_t) → A_{t+1}` is then Markov, so `I(κ; A_{t+1}) ≤ I(κ; A_t)` (data processing): the register's
+    full content gains no carrier information at the hold tick. A readout of part of `A` can still gain information
+    from `A`'s unread cells.
   - *Why both parts are needed (hand examples).*
     - (J-ii) alone admits HC-P. There `A = {u₂}` holds `c`, and `B = (u₁, u₀) = (c, 0)` at `t₀+1` is a function of
       `A`, so (J-ii) holds, but the value is re-supplied. (J-i) rejects it.
@@ -95,7 +100,11 @@ state at `t` on the support of `μ_t`. It is computed from `φ`.
   - *Checks on witnesses already in ROUTES.md.*
     - `M_F`: `B` is the arriving background channel cell, independent of `(κ, r)`, so J-1 holds.
     - The swapped pair: `B` is empty.
-  - Neither check is a verdict, because J-1 is not adopted.
+    - Neither check is a verdict, because J-1 is not adopted.
+  - *Limitation (found in review).* S-1 and J-1 test re-supply from outside `A` only. They do not exclude advection
+    inside a declared register: HC-P with `A = {u₁, u₂}` and `g = u₂` satisfies (R-a) to (R-c), S-1, J-1 and D-TRN's
+    'left' over `W₁`, while the pulse passes through `A`. Requirement 2's rejection of simple advection within the
+    register has no operational test yet.
 - **Countercontrol (h), the duplicated passing pulse (HC-P of ROUTES.md; proposed by the review, awaiting independent
   review).** A candidate must not be counted as retention when its register value is re-supplied, over the hold tick,
   by a ready background's duplicate of the passing imprint.
@@ -115,8 +124,8 @@ state at `t` on the support of `μ_t`. It is computed from `φ`.
 `ε_max(t) := max_{σ ∈ P} μ( g(ρ_A(s_t)) ≠ f(σ) | σ )`.
 
 - `f`, `g` and `P` are fixed before testing.
-- A deterministic decoder that ignores the register has `ε_max = 1` for nonconstant `f`. A randomized guess over the
-  `m = |f(P)|` values has worst-case error at least `1 − 1/m`. A tolerance at or above these values is vacuous.
+- A decoder of a blind register has `ε_max ≥ 1 − 1/m`, where `m = |f(P)|`, and a deterministic decoder reading a
+  uniform blind register attains it. A tolerance `ε* ≥ 1 − 1/m` is therefore vacuous.
 
 **Secondary metric (reported, not deciding).** For each `t ∈ W_T` and each pair `σ ≠ σ′` in `P`,
 `TV_t(σ, σ′) := TV( L(ρ_A(s_t) | σ), L(ρ_A(s_t) | σ′) )`, computed on the full register readout.
@@ -158,7 +167,7 @@ state at `t` on the support of `μ_t`. It is computed from `φ`.
 
 - (T-1) the register is distinct (R-a), and the transfer is new (R-b);
 - (T-2) retention per D-RET is shown over a window whose hold ticks all come after the incoming carrier has left. "Left"
-  means `B_t` contains no cell whose state at `t` depends on the carrier.
+  means the joint vector `B_t` is independent of the carrier (cf. J-1 (J-i)); a cell-by-cell test is insufficient.
   - Testing "left" uses the same (R-d) operationalization, which is still open (S-1 and J-1 above).
   - A report states which proposal it used.
 
@@ -223,14 +232,14 @@ tick.
   not compared, however small its preparation restriction.
 - While `T*`, `ε*` and `w*` are unset, no comparison is issued.
 
-**Table for the witnesses in ROUTES.md (entries as stated there; no new derivation).**
+**Table for the witnesses in ROUTES.md (entries as stated there; the `M_F` write probability and the HC-K3 ledger follow directly from the stated laws).**
 
 | Mechanism | Added dynamical assumptions | Access and clock assumptions | Preparation restriction | Register and interaction size | Write probability | Retention duration | Error |
 |---|---|---|---|---|---|---|---|
-| `M_F` (HC-F) | new F2 extension E-reg: Fredkin gate on `(p₀, v₀, r)`, presence-bit channel, identity self-update of `r` | H-cur (declared) read of `r`; no clock | `π₀(· \| p_{L−1} = 0)`, `D = log 2` | 1 register bit; 3-bit gate; channel of `L ≥ 2` two-bit cells | write iff `p₀ = 1`; no probability stated in ROUTES | one hold tick. `k` ticks need `k` quiet cells and `L ≥ k+1` | 0 on the support |
+| `M_F` (HC-F) | new F2 extension E-reg: Fredkin gate on `(p₀, v₀, r)`, presence-bit channel, identity self-update of `r` | H-cur (declared) read of `r`; no clock | `π₀(· \| p_{L−1} = 0)`, `D = log 2` | 1 register bit; 3-bit gate; channel of `L ≥ 2` two-bit cells | write iff `p₀ = 1`; `w = 1/2` under the stated law | one hold tick. `k` ticks need `k` quiet cells and `L ≥ k+1` | 0 on the support |
 | `M_F` under `π₀` (HC-F0) | as `M_F` | as `M_F` | none, `D = 0` | as `M_F` | write iff `p₀ = 1`; no probability stated in ROUTES | one hold tick | `ε_max`: 0 at `t₀+1`, 1/4 at `t₀+2`. TV: 1, then 1/2 |
 | `M_T` (variant) | new F2 extension E-reg: Toffoli write `r ← r ⊕ p₀v₀` | as `M_F` | quiet bit and `r = 0`, `D = 2 log 2` | 1 register bit; 3-bit gate | write iff `p₀ = 1`; no probability stated in ROUTES | one hold tick | 0 on the support |
-| HC-K3 | none (K1 at K-18(b)) | H-cur (declared) read of sites 1–4; the decoder reads a marker planted by the background as a tick indicator, with no accounted clock | `ν = δ_b`, a point mass on the 8 background cells. The ledger is not stated in ROUTES for `δ_b` (for `δ₀` it is `8 log 2`) | 4 readable cells; K1 nearest-neighbour update | imprint for every carrier value (linear); no probability stated | `t₀+1` to `t₀+2` | 0 (fixed decoder) |
+| HC-K3 | none (K1 at K-18(b)) | H-cur (declared) read of sites 1–4; the decoder reads a marker planted by the background as a tick indicator, with no accounted clock | `ν = δ_b`, a point mass on the 8 background cells. `D = 8 log 2`, as for any point mass on 8 bits | 4 readable cells; K1 nearest-neighbour update | imprint for every carrier value (linear); no probability stated | `t₀+1` to `t₀+2` | 0 (fixed decoder) |
 | HC-P | a toy rule outside the corpus: `u₁ ← u₁ ⊕ u₀`, then shift | declared read of `u₂`; no clock | `π₀(· \| u₁ = 0, u_{L−1} = 0)`, `D = 2 log 2` | 1 register cell; 2-cell gate; ring of `L ≥ 4` | no probability stated | one hold tick, then the pulse moves on | 0 at `u₂` |
 
 **Notes, not part of the comparison.**
