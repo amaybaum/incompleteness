@@ -203,7 +203,7 @@ Arithmetic is mod 2, with `x′ = y` and `y′_i = y_{i−1} + y_{i+1} + x_i`, i
   - If `a(s_{t₀})` does depend on the carrier, which under a product preparation requires `a` to read Σ's cells at `t₀`, then the "record"
     already existed at `t₀`. No transfer occurs (requirement 2), and the readout overlaps the carrier (the matrix
     excludes overlap; MM O-RET row).
-- A witness is possible only with decoders that change with the tick (outside Lemma S). Those are H-2s-type re-reads of
+- An exact witness is possible only with decoders that change with the tick (outside Lemma S′). Those are H-2s-type re-reads of
   `x_t`, or need a clock.
 - No candidate passes requirement 2 together with requirement 4.
 
@@ -228,7 +228,7 @@ previous-slice information. That is H-2s expressed through a nonlinear statistic
 - **BLOCKED[Lemma S′].** Scope: finite `S`, any bijection, any law with φ-invariant support (`π₀`, every K-17(a)
   member, every full-support law), exact retention, any time-independent readout (fixed or state-selected). With
   `a(s_{t₀}) ⫫ κ` the retained function is blind; otherwise the write tick transfers nothing.
-- With the initial readout depending on the carrier, the route fails requirement 2 (no transfer; overlap).
+- With `a(s_{t₀})` depending on the carrier, the route fails requirement 2 (no transfer; overlap).
 - **UNDECIDED** outside this scope: decoders that change with the tick (they need a clock), approximate retention
   (Lemma S's bound only), laws whose support is not φ-invariant (that is route II), and derived observers (O-OBS).
 - **Circularity (requirement 5).**
@@ -251,7 +251,7 @@ previous-slice information. That is H-2s expressed through a nonlinear statistic
 
 ### 2. Dependency it breaks
 - The full-support prior of P2-G (E), and the uniform prior of A′.
-- Lemma S adds a requirement: an exact static record requires a law whose support is not φ-invariant (Lemma S′): in
+- Lemma S′ adds a requirement: an exact static record requires a law whose support is not φ-invariant (Lemma S′): in
   particular a non-invariant law that is not of full support. Every measure that Main Lemma 3
   selects or makes canonical (`π₀`, the uniform measure on a cycle) is invariant.
 - Lemma Q adds that the law must exclude the configurations that overwrite at the hold tick. P2-G's necessary
@@ -447,6 +447,7 @@ Against the countercontrols:
   - persistence and renewal beyond one tick.
 - **Findings under §A.31.**
   - Lemma S: NEW (candidate).
+  - Lemma S′: NEW (candidate; found in review).
   - Countercontrol (g) / HC-K3: NEW (a proposed countercontrol).
   - Lemma L and HC-K2: ELABORATING (they sharpen the A/B separation at the instance).
   - Lemma Q: ELABORATING.
@@ -481,7 +482,7 @@ Against the countercontrols:
 - **OQ-5.** For O-RET, use NB-1 (a single-time law) rather than K1-RDY's path-law NB, which presupposes H-ret?
   *Partial source answer (found by the review).* Requirement 2's wording, "some future readable register law
   differs", is a single-time law, which largely answers this.
-- **OQ-6.** Record the cross-route constraint (Lemmas S and Q) against MM's O-RET L-edge after review?
+- **OQ-6.** Record the cross-route constraint (Lemmas S′ and Q) against MM's O-RET L-edge after review?
 - **OQ-7.** Is approximate retention admissible for O-RET, and in which metric? `M_F` under `π₀` realizes it (HC-F0).
 - **OQ-8.** What does "smallest" measure? `D` has no minimum attained by one quiet bit (Comparison, smallest
   witness).
