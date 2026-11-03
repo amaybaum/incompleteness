@@ -1344,7 +1344,15 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **The empirical signatures.** Finiteness has specific empiri..."
+      "predicate": "chapter line mirrored in FULL: **The \"finite degrees of freedom\" framing.** The standard in..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The structural signatures.** Finiteness has specific struc..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's finiteness commitment is therefore not just ..."
     },
     {
       "ok": true,
@@ -1396,11 +1404,19 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The proof uses only Lemma 1 (finiteness, hence Step 1's recu..."
+      "predicate": "chapter line mirrored in FULL: The structural source of the asymmetry, for our cosmological..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The proof uses only finiteness of the total set — Lemma 1 fo..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The accessible-timescale lemma.** A potential objection to..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For the cosmological partition the numbers are striking. The..."
     },
     {
       "ok": true,
@@ -2016,6 +2032,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: One refinement sharpens the exposure from principally negati..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: This chapter develops the framework's content in *engineered..."
     },
     {
@@ -2256,6 +2276,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Finite information content.** The substratum's information..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
     },
     {
@@ -2313,6 +2337,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Implications for the framework's logical structure.** The ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Second, the framework's finiteness *does not require* compac..."
     },
     {
       "ok": true,

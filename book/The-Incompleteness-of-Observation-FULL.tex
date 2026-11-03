@@ -1752,8 +1752,8 @@ law.
 The structural source of the asymmetry, for our cosmological situation
 specifically, is that the cosmological horizon is one physical structure
 that sets \emph{both} C2 and C3 simultaneously. The horizon's area sets
-the hidden sector's capacity through the Bekenstein bound:
-\(N_H \sim A/\epsilon^2 \sim 10^{122}\) at one nat per mode. The
+the capacity of the hidden sector at the horizon through the Bekenstein
+bound: \(N_H \sim A/\epsilon^2 \sim 10^{122}\) at one nat per mode. The
 horizon's surface gravity sets the correlation relaxation timescale:
 \(\tau_B \sim 1/\kappa \sim 1/H_0 \sim 10^{17}\) s. These two quantities
 --- area and surface gravity --- are related through horizon
@@ -1989,18 +1989,20 @@ distinguishability is therefore
 P-divisible process cannot produce this trajectory because \(d\) would
 be non-increasing throughout. The process is P-indivisible. \(\square\)
 
-The proof uses only Lemma 1 (finiteness, hence Step 1's recurrence) and
-condition C1 (non-trivial coupling, under the uniform hidden prior that
-defines \(T\), hence Step 2's overlap). It does not use C2, C3, or any
-further structural input. In continuous time, for a Hamiltonian flow on
-compact energy surfaces, the same argument needs the flow to return
-near-totally at a common time after the rooted maps have left the
-permutation class --- the counterpart of \(\varphi^N = \mathrm{id}\).
-Poincaré recurrence does not supply this for a general flow: it returns
-almost every state at its own time, and a mixing flow never again
-returns a whole visible cell at once at late times. The extension
-therefore holds for flows with such a common return and is open for
-general Hamiltonian flows ({[}Main §2.3{]}).
+The proof uses only finiteness of the total set --- Lemma 1 for the
+visible sector and the finiteness posit A1 (Chapter 2 §2.4) for the
+hidden sector, hence Step 1's recurrence --- and condition C1
+(non-trivial coupling, under the uniform hidden prior that defines
+\(T\), hence Step 2's overlap). It does not use C2, C3, or any further
+structural input. In continuous time, for a Hamiltonian flow on compact
+energy surfaces, the same argument needs the flow to return near-totally
+at a common time after the rooted maps have left the permutation class
+--- the counterpart of \(\varphi^N = \mathrm{id}\). Poincaré recurrence
+does not supply this for a general flow: it returns almost every state
+at its own time, and a mixing flow never again returns a whole visible
+cell at once at late times. The extension therefore holds for flows with
+such a common return and is open for general Hamiltonian flows ({[}Main
+§2.3{]}).
 
 \textbf{The accessible-timescale lemma.} A potential objection to the
 proof as stated is that the recurrence time \(N\) can be astronomically
@@ -2069,11 +2071,12 @@ than any conceivable single experiment --- the cumulative decay is
 retains essentially all of the information written into it over any
 observation window short of \(\tau_B\). Condition C3 then guarantees
 that this storage does not saturate: the maximum information the hidden
-sector can hold is \(\log_2 m\) bits, and at the cosmological scale that
-is of order \(10^{122}\) bits --- the horizon's entropy is
-\(S_{\text{dS}} \sim 10^{122}\), hence \(m \sim e^{S_{\text{dS}}}\)
-states. (The figure \(\log_2 10^{122} \approx 405\) counts the digits of
-the degree-of-freedom count, not the capacity; the two differ by the
+sector can hold is \(\log_2 m\) bits, and at the cosmological scale the
+horizon's degrees of freedom alone can hold of order \(10^{122}\) bits
+--- the horizon's entropy is \(S_{\text{dS}} \sim 10^{122}\), hence
+\(m \gtrsim e^{S_{\text{dS}}}\) states. (The figure
+\(\log_2 10^{122} \approx 405\) counts the digits of the
+degree-of-freedom count, not the capacity; the two differ by the
 exponentiation.) The margin over anything a laboratory experiment can
 write is correspondingly vast.
 
@@ -18482,17 +18485,17 @@ provides a sharp falsification target --- but the structural content is
 substantial.
 
 One refinement sharpens the exposure from principally negative to
-positively dated. A finite substratum bounds the classical resources of
-any causal patch --- about \(10^{145}\) elementary operations for a
-day-long computation --- and a quantum computation whose statistics
-would cost more than the budget to produce classically cannot have them
-produced at all. The consequence is a ceiling near five to six hundred
-full-fidelity logical qubits, binding only on tasks that are genuinely
-exponentially hard to simulate: factoring at practical key sizes fits
-comfortably inside the budget and survives (the crossover sits near
-86-kilobit keys), while full-fidelity random-circuit sampling beyond the
-ceiling does not. The signature would be unlike any ordinary noise:
-fidelity tracking what the circuit \emph{means} --- its classical
+positively dated. The holographic bound on a causal patch limits the
+substratum's classical resources there --- about \(10^{145}\) elementary
+operations for a day-long computation --- and a quantum computation
+whose statistics would cost more than the budget to produce classically
+cannot have them produced at all. The consequence is a ceiling near five
+to six hundred full-fidelity logical qubits, binding only on tasks that
+are genuinely exponentially hard to simulate: factoring at practical key
+sizes fits comfortably inside the budget and survives (the crossover
+sits near 86-kilobit keys), while full-fidelity random-circuit sampling
+beyond the ceiling does not. The signature would be unlike any ordinary
+noise: fidelity tracking what the circuit \emph{means} --- its classical
 simulation cost --- rather than how large it is, with Clifford-dominated
 circuits immune at any scale. Finding no such wall at a thousand
 high-fidelity logical qubits would falsify, first, the quantitative cost
@@ -22617,16 +22620,18 @@ map, produces P-indivisibility at the embedded-observer level; a
 fixed-basis unitary quantum representation is internal and universal
 ({[}Main §3.4{]}), the compressed form supplied across the
 correspondence's class under (T), with P-indivisibility fixing its
-nontriviality. The framework's logic chain requires finite \(S\).
+nontriviality. The recurrence route in the framework's logic chain
+requires finite \(S\).
 
 \textbf{Finite information content.} The substratum's information
 content is \(\log_2 |S|\) bits --- finite for any finite \(S\). This is
 distinct from the Bekenstein-Hawking entropy
 \(S_{\text{BH}} = A/(4 l_p^2)\), which bounds the \emph{accessible}
-information at any given partition (the visible sector's capacity). The
-total information content of \(S\) --- including the hidden sector at
-the cosmological boundary --- exceeds the Bekenstein-Hawking bound but
-remains finite.
+information at any given partition (the capacity of the visible sector
+and the boundary layer). The total information content of \(S\) is at
+least that of the boundary layer at the cosmological horizon; whether it
+exceeds the Bekenstein-Hawking bound is not fixed by visible data, and
+under the finiteness posit A1 (Chapter 2 §2.4) it is finite.
 
 A clarification is essential. The cardinality \(|\mathcal{C}_D|\) of the
 deep hidden sector is \emph{gauge} in the framework: different values of
@@ -22681,8 +22686,7 @@ of finite sets typically lack the structure C1--C4 require.
 The substratum's cardinality is not fixed by visible data. {[}Substratum
 §4{]} bounds only the visible-plus-boundary sector,
 \(|\mathcal{C}_V \times \mathcal{C}_B| \le e^{10^{122}}\) at the de
-Sitter horizon; the deep sector's cardinality is gauge, and the total
-information of \(S\) exceeds the Bekenstein-Hawking bound (above). For
+Sitter horizon; the deep sector's cardinality is gauge (above). For
 illustration only, if \(|S|\) were of order \(e^{10^{122}}\), the first
 bound would give
 \(N \le \mathrm{lcm}(1, 2, \ldots, |S|) = e^{\psi(|S|)} \sim e^{e^{10^{122}}},\)
@@ -22784,11 +22788,12 @@ The framework's commitment to finite information is therefore
 load-bearing for the recurrence route specifically, not for
 representability or for accessible non-Markovianity: readback at order
 \(k\) has its own finite-horizon route, and the imported representation
-is gated by (T) rather than by recurrence, so an infinite deep hidden
-sector remains admissible ({[}Main §2.3{]}, §3.1). Removing finiteness
---- replacing \(|S| < \infty\) with \(|S| = \infty\) --- would break the
-logical chain and require a different account of how quantum mechanics
-emerges from substratum dynamics.
+is gated by (T) rather than by recurrence, so those routes do not
+exclude an infinite deep hidden sector, which would need its own
+normalized state or measure and well-defined dynamics ({[}Main §2.3{]},
+§3.1; Chapter 2 §2.3). Removing finiteness --- replacing
+\(|S| < \infty\) with \(|S| = \infty\) --- would remove the recurrence
+route rather than the framework's quantum representation.
 
 \hypertarget{the-arrow-of-time}{%
 \subsection{18.8 The arrow of time}\label{the-arrow-of-time}}
@@ -23018,10 +23023,8 @@ identification at some cosmological scale.
 Second, the framework's finiteness \emph{does not require} compact
 spatial topology. The substratum's finiteness could also be realized as
 a cubic lattice with trivial \(\mathbb{R}^3\) topology but with a finite
-extent set by other structural features (the cosmological horizon's
-expanding past light cone, for instance, defines a finite region of
-substratum at any moment). Levin's compactness is sufficient but not
-necessary for the framework's finiteness.
+extent set by other structural features. Levin's compactness is
+sufficient but not necessary for the framework's finiteness.
 
 Third, the framework's predictions in Chapters 5 through 17 are
 \emph{independent} of global topology choices. Nothing in the
@@ -28447,11 +28450,10 @@ normalized, exactly decoupled finite deep-sector factor is not fixed by
 the data at the observation interface (Chapter 2 §2.3). The discreteness
 scale \(\epsilon\) does not smuggle in a quantum assumption --- it is
 motivated by the \emph{classical} fact that finite-area boundaries admit
-finitely many modes, with holographic entropy bounds providing
-independent, non-quantum motivation. The result
-\(\epsilon = 2\sqrt{\sigma}\, l_p\), with \(\sigma\) the entropy of one
-boundary mode, is a consequence of self-consistency at the cosmological
-horizon (Chapter 7 §7.4), not an input.
+finitely many modes. The result \(\epsilon = 2\sqrt{\sigma}\, l_p\),
+with \(\sigma\) the entropy of one boundary mode, is a consequence of
+self-consistency at the cosmological horizon (Chapter 7 §7.4), not an
+input.
 
 A referee who rejects Axiom 2 for the universe as a whole (in this
 section's usage, the finiteness of the total configuration space, A1 of
@@ -28471,10 +28473,10 @@ comes from quantum field theory treated as a continuum theory --- a
 continuum spacetime with field values at every point producing an
 infinite-dimensional Hilbert space. But this is the \emph{emergent}
 description in the framework. At the substratum level, the framework
-predicts a discrete lattice at \(\epsilon = 2\sqrt{\sigma}\, l_p\) with
-finite total boundary cell count
-\(A/\epsilon^2 = S_{\text{dS}}/\sigma\), \(\sim 10^{122}\) at
-\(\sigma = 1\).
+posits a discrete lattice, with the horizon self-consistency relation
+\(\epsilon = 2\sqrt{\sigma}\, l_p\) and finite boundary cell count
+\(A/\epsilon^2 = S_{\text{dS}}/\sigma\) at the cosmological horizon,
+\(\sim 10^{122}\) at \(\sigma = 1\).
 
 The framework's content is therefore that the continuum QFT description
 is the \emph{emergent} description --- finite at the substratum level
@@ -28491,7 +28493,7 @@ two levels of description coexist; the apparent infinite-dimensionality
 of QFT is an artifact of the continuum limit rather than a property of
 the underlying physics.
 
-\textbf{The empirical signatures.} Finiteness has specific empirical
+\textbf{The structural signatures.} Finiteness has specific structural
 signatures developed in Chapter 18 §18.7: exact cosmic recurrence, at a
 period at most Landau's \(g(|S|)\), with \(|S|\) not fixed by visible
 data (falsifiable only in the logical sense, and without practical
@@ -28499,13 +28501,12 @@ empirical consequences at periods of astronomical size) and constraints
 on cosmic information content (compatible with the Bekenstein bound).
 
 The framework's finiteness commitment is therefore not just a
-mathematical convenience but a structurally consequential commitment
-with specific empirical content. The commitment is supported by the
-Bekenstein bound (established physics), compatible with continuum QFT
-(the framework's emergent description), and has specific empirical
-signatures (Chapter 18). A referee rejecting finiteness must engage
-these supports and signatures specifically rather than dismissing the
-commitment in general.
+mathematical convenience but a structurally consequential commitment.
+The commitment is supported by the Bekenstein bound (established
+physics), compatible with continuum QFT (the framework's emergent
+description), and has specific structural signatures (Chapter 18). A
+referee rejecting finiteness must engage these supports and signatures
+specifically rather than dismissing the commitment in general.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -30921,4 +30922,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: b35ed2259352d99be32eae98a999ada6dc0e2a10bd62b7689bad633e32fb4097
+% source-sha256: 98249234c8ff17247c689989c1cb9bea9937e9c0687b0c19f4228a8d13ee786d
