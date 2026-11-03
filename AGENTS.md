@@ -1181,7 +1181,7 @@ rules below govern that record (owner, 2026-11-03).
    - Closing an Issue never changes scientific status.
    - Creating a tracking Issue does not constitute proof, does not adopt a premise and does not
      authorize execution.
-3. **Planning records grant no authorization.** An *Authorization* entry links the owner's
+3. **A planning-status block grants no authorization.** An *Authorization* entry links the owner's
    recorded comment that grants it. It reads `not authorized` when no such record exists. **A
    priority is never authorization.** No work starts without readiness, recorded owner
    authorization, a designated writer and an available execution slot:
@@ -1212,8 +1212,9 @@ rules below govern that record (owner, 2026-11-03).
    **Labels** summarize the block for filtering and never replace it: `tier: foundational`,
    `tier: high`, `tier: supporting` or `tier: exploratory`; `tier: provisional`; and
    `readiness: ready`, `readiness: blocked` or `readiness: partly ready`. An Issue with several
-   obligations takes the highest tier among them. Readiness that the block states per part takes
-   no aggregate label. Authorization has no label: it is read from the block and its linked owner
+   obligations takes the highest tier among them. `readiness: partly ready` marks a block in which
+   some parts are `ready` and others are not; a block whose readiness entry reads only `per part`
+   takes no readiness label. Authorization has no label: it is read from the block and its linked owner
    record.
 5. **New premises.** A proposal that adds a premise, mechanism or selection principle is judged
    under §A.29.
@@ -1245,17 +1246,19 @@ rules below govern that record (owner, 2026-11-03).
 - **Supporting:** important corrections, subsidiary derivations and dependencies.
 - **Exploratory:** longer-term hypotheses and extensions.
 
-A tier without `tier: provisional` is the owner's ranking (2026-11-03). `tier: provisional` marks a
-classification proposed while drafting the index: it is not an owner-adopted priority, implies no
-authorization or scientific acceptance, and is not a permanent priority decision. These names are
+A tier not marked provisional in its block is the owner's ranking (2026-11-03). A tier marked
+provisional — `(provisional)` in the block, summarized by the `tier: provisional` label — is a
+classification proposed in the 2026-11-03 migration of the planning record: it is not an
+owner-adopted priority, implies no authorization or scientific acceptance, and is not a permanent
+priority decision. These names are
 distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
 
 **Where things live.**
 - The Issues hold each question, its scope, its quoted status and its planning-status block.
 - #914 holds the OI ↔ QM dependency edges; its L-edges are the prerequisite source for the OI ↔ QM
   programme.
-- The GitHub Project *OI Research Programme* shows execution activity only. Project Status grants
-  no authorization and confers no scientific status.
+- The GitHub Project *OI Research Programme* shows administrative activity and the execution slot.
+  Project Status grants no authorization and confers no scientific status.
 - `PO-1102`, cited in Authorization entries, is the paper-only authorization in #914 comment
   6567198108 for its named workstreams A–F: "planning, source reading, paper derivations and review
   preparation, not reopening any frozen execution stage".

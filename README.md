@@ -97,7 +97,7 @@ The verification suite is the authoritative place for machine-checked status. It
 
 CI checks the proof layers, probes, coverage and governed receipts. Exact theorem counts and current obligations change as the programme advances, so this README intentionally does **not** hard-code those counts.
 
-The verification architecture and flagship formal results are described in `verification/README.md`, and planning and priorities are kept in GitHub Issues, indexed by the pinned umbrella Issue; both are linked under *Start here*. `verification/ROADMAP.md` is the obligation queue as it stood at `9613b21c`, kept as a historical record. To run the zero-import checks, see [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md); the narrower zero-import formalization roadmap is [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md).
+The verification architecture and flagship formal results are described in `verification/README.md`, and planning and priorities are kept in GitHub Issues, under the rules of `AGENTS.md` §A.45; both are linked under *Start here*. `verification/ROADMAP.md` is the obligation queue as it stood at `9613b21c`, kept as a historical record. To run the zero-import checks, see [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md); the narrower zero-import formalization roadmap is [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md).
 
 ## Repository map
 
