@@ -806,8 +806,9 @@ destinations of the **existing grandfathered root artifacts**. It is not, and
 cannot be, the authority on where a future artifact belongs — a new round has
 no source entry in a mapping built from the old root set.
 
-The root is reserved for `README.md` (the landing page), `ROADMAP.md` (the live
-obligation queue) and the manifest itself.
+The root is reserved for `README.md` (the landing page), `ROADMAP.md` (the obligation
+queue frozen as a historical record at `9613b21c`; planning and priorities are kept in GitHub
+Issues, §A.43) and the manifest itself.
 
 Preregistration and outcome stay **together**, inside the round that produced
 them, with amendments in that round's `amendments/` subdirectory. They are not
@@ -1072,6 +1073,9 @@ local checkout, agent scratchpad or private worktree is not the authoritative tr
 Reuse a thread's guiding PR; reviewers and checkpoints do not each need separate PRs.
 A draft PR is neither approval nor certification nor the durable evidence on `main`
 required by §A.42.
+The open Issues, indexed by the pinned umbrella Issue, are the repository's record of planning and
+priorities; `verification/ROADMAP.md` is frozen and is not updated. Neither confers scientific
+status, which rests on the proofs, Lean modules, manuscripts and verification records themselves.
 
 1. **Make the work visible at the right stage.** Open an Issue for a proposal or backlog
    item. When substantive work starts, open or reuse its guiding draft PR after the first
