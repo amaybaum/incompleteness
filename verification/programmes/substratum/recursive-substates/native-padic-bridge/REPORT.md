@@ -1,6 +1,6 @@
 # NATIVE-PADIC-1 — a precise no-backflow boundary for the α=1 reference wave rule
 
-**Status:** research writer result, issue #1010 / draft PR #1011.
+**Status:** research writer result, issue #1010; landed on `main` by #1096 (#1011 closed unmerged).
 Preregistered before the computation in PREREGISTRATION.md.
 The following all-state argument is exact algebra; the accompanying
 finite regression is a separately controlled check. Neither one
