@@ -1,7 +1,7 @@
 # BORN-SEL C-1 preregistration: single-orbit frequencies against the Born-form weights on small wave substrata (#1059, part (b))
 
-**Status.** WIP / UNVERIFIED preregistration, draft r3. Revised after the independent review of `3be25e7f` (ACCEPT WITH
-CHANGES) and the delta review of `c610b2b8` (ACCEPT WITH CHANGES); not re-reviewed. Paper only. Nothing has been run or
+**Status.** WIP / UNVERIFIED preregistration, draft r4. Revised after the independent review of `3be25e7f` (ACCEPT WITH
+CHANGES) and the delta reviews of `c610b2b8` and `1962c378` (each ACCEPT WITH CHANGES); not re-reviewed. Paper only. Nothing has been run or
 written as code, and no native instance has been enumerated.
 
 **Not a candidate freeze yet.** The freeze sequence is in §7. First, the owner answers OQ-1 to OQ-14 (§8.2). This text
@@ -73,8 +73,11 @@ P-divisible on `{0, …, |O|}` (BSB:411, B4).
 - any selection of a measure, a new premise, a manuscript edit, a status change, merge or publication.
 
 **What a completed run establishes.** For each evaluated native instance, at the frozen sizes and conventions, it
-records four verdicts: R0, S1, S2 and S3. Each is FREQ (every candidate orbit matches), NOT (some candidate does not),
-or VOID_NO_ORBIT (no candidate). It also records the per-orbit P-divisibility. The reported C-1 verdict is the variant
+records four verdicts: R0, S1, S2 and S3. Each verdict is one of:
+- FREQ: every candidate orbit matches, and at least one comparison is not automatic;
+- FREQ_VACUOUS: every candidate matches, but only by construction, because `shared_rows = 0` (§4.1);
+- NOT: some candidate does not match;
+- VOID_NO_ORBIT: there is no candidate. It also records the per-orbit P-divisibility. The reported C-1 verdict is the variant
 that the OQ-13 answer selects (§4.2). This is a result on the consistency axis (§A.23): it compares objects the
 framework itself defines and confronts no external measurement.
 
@@ -417,35 +420,50 @@ numbers" applies to the native decision rule of §4, which is frozen without ref
 value is given for any native instance.**
 
 **Execution order.**
-- The 16 controls and mutations run first, in the order of `C1-INSTANCES.json` (orders 1–16):
-  - the nine toys of §3.1;
+- The 17 controls and mutations run first, in the order of `C1-INSTANCES.json` (orders 1–17):
+  - the ten toys of §3.1;
   - M-INJ, EX-ARITH, EX-SCHEMA and EX-CERT;
   - WF-q2-L5, WF-q3-L4 and WF-0.
-- The 11 native instances follow (orders 17–27), in §2.2's order.
+- The 11 native instances follow (orders 18–28), in §2.2's order.
 - Native instances run only if every control and mutation has matched. A mismatch halts the run before any native
   instance is evaluated, so no native verdict is ever printed over a failed control (§A.29).
 
 ### 3.1 Toy controls (explicit maps; `s = v + n·h`)
 
-| id | `n`, `m` | `φ` as an array over `s = 0, 1, …` | R0 / S1 / S2 / S3 | Purpose |
-|---|---|---|---|---|
-| CE-8 | 2, 4 | `[1, 2, 3, 0, 6, 7, 5, 4]` | NOT / NOT / NOT / FREQ | the assessment's counterexample (BSB:129–138); S3 differs from R0, S1 and S2 |
-| TT-4 | 2, 2 | `[1, 3, 0, 2]` | FREQ ×4 | transitive toy, A2 (BSB:246) |
-| TT-6 | 3, 2 | `[1, 4, 3, 5, 2, 0]` | FREQ ×4 | transitive toy with unequal rows and `n = 3` |
-| CC-TWIN | 2, 4 | `[1, 3, 0, 2, 5, 7, 4, 6]` | FREQ ×4 | non-transitive with two matching orbits: FREQ is reachable |
-| CC-SHORT | 2, 4 | `[1, 3, 0, 2, 4, 6, 5, 7]` | FREQ ×4 | short orbits that balance, excluded by `ℓ_min` |
-| CC-UNVIS | 3, 2 | `[1, 3, 5, 4, 0, 2]` | FREQ / VOID / FREQ / VOID | unvisited row; orbit length exactly `ℓ_min`; `Long′ = ∅` |
-| CC-VOID | 2, 1 | `[1, 0]` | VOID ×4 | no orbit reaches `ℓ_min`; void takes precedence over equality |
-| CC-SKEW | 2, 3 | `[1, 3, 0, 2, 4, 5]` | NOT / NOT / FREQ / FREQ | short orbits that skew `T^β` |
-| CC-PERM | 2, 6 | `[1, 2, 3, 0, 5, 7, 4, 6, 8, 9, 10, 11]` | NOT / FREQ / NOT / FREQ | a long orbit with a permutation `T^{α,O}` |
+In the table, `FREQ_V` abbreviates FREQ_VACUOUS. `sr` gives `shared_rows` for R0 / S1 / S2 / S3 (§4.1).
 
-Together these separate every pair of variants:
-- R0 and S1: CC-PERM, CC-UNVIS;
-- R0 and S2: CC-SKEW;
-- R0 and S3: CE-8;
-- S1 and S2: CC-SKEW, CC-PERM;
-- S1 and S3: CE-8;
-- S2 and S3: CE-8, CC-PERM, CC-UNVIS.
+| id | `n`, `m` | `φ` as an array over `s = 0, 1, …` | R0 / S1 / S2 / S3 | `sr` | Purpose |
+|---|---|---|---|---|---|
+| CE-8 | 2, 4 | `[1, 2, 3, 0, 6, 7, 5, 4]` | NOT / NOT / NOT / FREQ_V | 2/2/2/0 | the assessment's counterexample (BSB:129–138) |
+| TT-4 | 2, 2 | `[1, 3, 0, 2]` | FREQ_V ×4 | 0/0/0/0 | transitive toy, A2 (BSB:246): equality by construction |
+| TT-6 | 3, 2 | `[1, 4, 3, 5, 2, 0]` | FREQ_V ×4 | 0/0/0/0 | transitive toy with unequal rows and `n = 3` |
+| CC-TWIN | 2, 4 | `[1, 3, 0, 2, 5, 7, 4, 6]` | FREQ ×4 | 2/2/2/2 | non-transitive, two matching orbits: non-vacuous FREQ under every variant |
+| CC-SHORT | 2, 4 | `[1, 3, 0, 2, 4, 6, 5, 7]` | FREQ / FREQ / FREQ_V / FREQ_V | 2/2/0/0 | short orbits that balance, excluded by `ℓ_min` |
+| CC-UNVIS | 3, 2 | `[1, 3, 5, 4, 0, 2]` | FREQ_V / VOID / FREQ_V / VOID | 0/0/0/0 | unvisited row; orbit length exactly `ℓ_min`; `Long′ = ∅` |
+| CC-VOID | 2, 1 | `[1, 0]` | VOID ×4 | 0/0/0/0 | no orbit reaches `ℓ_min`; void takes precedence over equality |
+| CC-SKEW | 2, 3 | `[1, 3, 0, 2, 4, 5]` | NOT / NOT / FREQ_V / FREQ_V | 2/2/0/0 | short orbits that skew `T^β` |
+| CC-PERM | 2, 6 | `[1, 2, 3, 0, 5, 7, 4, 6, 8, 9, 10, 11]` | NOT / FREQ / NOT / FREQ_V | 2/2/2/0 | a long orbit with a permutation `T^{α,O}` |
+| CC-S3NOT | 2, 4 | `[2, 3, 1, 0, 6, 4, 5, 7]` | NOT ×4 | 2/2/2/2 | two C4-bearing long orbits that disagree: S3 reaches NOT |
+
+Each outcome reached per variant:
+
+| Variant | Non-vacuous FREQ | FREQ_VACUOUS | NOT | VOID_NO_ORBIT |
+|---|---|---|---|---|
+| R0 | CC-TWIN, CC-SHORT | TT-4, TT-6, CC-UNVIS | CE-8, CC-SKEW, CC-PERM, CC-S3NOT | CC-VOID |
+| S1 | CC-TWIN, CC-SHORT, CC-PERM | TT-4, TT-6 | CE-8, CC-SKEW, CC-S3NOT | CC-UNVIS, CC-VOID |
+| S2 | CC-TWIN | TT-4, TT-6, CC-SHORT, CC-UNVIS, CC-SKEW | CE-8, CC-PERM, CC-S3NOT | CC-VOID |
+| S3 | CC-TWIN | TT-4, TT-6, CE-8, CC-SHORT, CC-SKEW, CC-PERM | CC-S3NOT | CC-UNVIS, CC-VOID |
+
+Every pair of variants is separated by at least one control:
+
+| Pair | Separating controls |
+|---|---|
+| R0 / S1 | CC-UNVIS, CC-PERM |
+| R0 / S2 | CC-SHORT (FREQ against FREQ_VACUOUS), CC-SKEW (NOT against FREQ_VACUOUS) |
+| R0 / S3 | CE-8, CC-SHORT, CC-UNVIS, CC-SKEW, CC-PERM |
+| S1 / S2 | CC-SHORT, CC-UNVIS, CC-SKEW, CC-PERM |
+| S1 / S3 | CE-8, CC-SHORT, CC-SKEW, CC-PERM |
+| S2 / S3 | CE-8, CC-UNVIS, CC-PERM |
 
 **Hand derivations [D].** In each toy, `ℓ_min = n + 1`.
 
@@ -463,21 +481,25 @@ Together these separate every pair of variants:
     - S1: `O_A` is a permutation, so `Long′ = {O_B}`. `O_B` against `T^β` gives NOT, with mismatch `(0, 0)`, `1/2`
       against `1/4`.
     - S2: `U_long = S`, so `T^{β_long} = T^β`. S2 is NOT.
-    - S3: `T^{β_c4} = T^{α,O_B} = J/2`. S3 is FREQ.
+    - S3: `T^{β_c4} = T^{α,O_B} = J/2`. Every comparison matches, but `Long′ = {O_B}` is a single orbit, so each row's
+      credence pools one orbit and `shared_rows = 0`. S3 is FREQ_VACUOUS.
+    - `shared_rows`: R0, S1 and S2 have 2, since both orbits visit rows 0 and 1 and each credence pools both; S3 has 0.
   - P-divisibility (BSB:153–154): `O_A` is divisible (`Γ₁` = swap, `Γ₂ = I`). `O_B` is not (`Γ₁ = J/2`, `Γ₄ = I`). β is
     not, with `ord(φ) = 4`.
 - **TT-4.** One orbit, `0→1→3→2→0`, that is `(0,0)→(1,0)→(1,1)→(0,1)`.
   - `T^β = T^{α,S} = J/2`, and every restricted credence is `J/2`.
-  - All four verdicts are FREQ.
+  - There is one orbit, so every credence pools that orbit alone and `shared_rows = 0` under every variant. All four
+    verdicts are FREQ_VACUOUS, which is the A2 equality holding by construction.
   - α and β are both indivisible, and `ord(φ) = 4`.
 - **TT-6.** The states are `(v,h) = v + 3h`. One orbit, `0→1→4→2→3→5→0`, that is
   `(0,0)→(1,0)→(1,1)→(2,0)→(0,1)→(2,1)`, with visible sequence `011202`.
   - `T^β = T^{α,S} = [[0, 1/2, 1/2], [0, 1/2, 1/2], [1, 0, 0]]`, and every restricted credence equals it.
-  - All four verdicts are FREQ.
+  - There is one orbit, so `shared_rows = 0` under every variant. All four verdicts are FREQ_VACUOUS.
   - α and β are indivisible, and `ord(φ) = 6`.
 - **CC-TWIN.** The orbits are rep 0 (`0→1→3→2→0`) and rep 4 (`4→5→7→6→4`); rep 4 is the TT-4 pattern on `h ∈ {2, 3}`.
   - Every credence is `J/2`, and both orbits give `J/2`.
-  - All four verdicts are FREQ, on a non-transitive map.
+  - All four verdicts are FREQ, on a non-transitive map. Both orbits visit both rows and are both candidates under
+    every variant, so `shared_rows = 2` throughout and no FREQ is vacuous.
   - Every family is indivisible, and `ord(φ) = 4`.
 - **CC-SHORT.** The orbits are:
   - rep 0, of length 4 (TT-4 on `h ∈ {0, 1}`);
@@ -489,7 +511,9 @@ Together these separate every pair of variants:
   - `T^β = J/2`: root 0 over `h = 0..3` gives `1, 0, 0, 1`, and so does root 1.
   - Only rep 0 is long. It is `J/2` and not a permutation, so `Long = Long′ = {rep 0}`, and
     `T^{β_long} = T^{β_c4} = J/2`.
-  - All four verdicts are FREQ.
+  - R0 and S1 are FREQ, with `shared_rows = 2`: `T^β` pools rep 0 with rep 4 and rep 5 on row 0, and with reps 5 and 7
+    on row 1.
+  - S2 and S3 are FREQ_VACUOUS, with `shared_rows = 0`: their credence pools rep 0 alone.
   - The short orbits do not match, but on each row they balance to `J/2`:
     - rep 4: `V_O = {0}`, row `[1, 0]`, unvisited rows `{1}`;
     - rep 5: rows `[[0, 1], [1, 0]]`;
@@ -501,9 +525,10 @@ Together these separate every pair of variants:
 
   Then:
   - `T^β = [[0, 1, 0], [1, 0, 0], [0, 0, 1]]`.
-  - `ℓ_min = 4 = |O|` for rep 0, the inclusive boundary. Row 2 is unvisited and excluded. On rows 0 and 1, `eq = true`,
-    so R0 is FREQ.
-  - `T^{β_long}` has rows `{0, 1}`, `[0, 1, 0]` and `[1, 0, 0]`, so S2 is FREQ.
+  - `ℓ_min = 4 = |O|` for rep 0, the inclusive boundary. Row 2 is unvisited and excluded. On rows 0 and 1, `eq = true`.
+    Rows 0 and 1 are visited by rep 0 alone, so `T^β` there is rep 0's own rows, and `shared_rows = 0`. R0 is
+    FREQ_VACUOUS.
+  - `T^{β_long}` has rows `{0, 1}`, `[0, 1, 0]` and `[1, 0, 0]`. With `shared_rows = 0`, S2 is FREQ_VACUOUS.
   - `T^{α,rep 0}` is a permutation matrix on `{0, 1}`, so `Long′ = ∅`. S1 and S3 are VOID_NO_ORBIT, and `T^{β_c4}` is the
     empty map.
   - A tool that compared the unvisited row, or failed on `n_2(O) = 0`, would return NOT or error, and the control would
@@ -521,8 +546,8 @@ Together these separate every pair of variants:
   - `T^β`: root 0 over `h = 0, 1, 2` gives `1, 0, 0`, and root 1 gives `1, 0, 1`. So `T^β = [[2/3, 1/3], [1/3, 2/3]]`.
   - `ℓ_min = 3`, so `Long = Long′ = {rep 0}` and `T^{β_long} = T^{β_c4} = J/2`.
   - Verdicts:
-    - R0 and S1 are NOT, with mismatch `(0, 0)`, `1/2` against `2/3`.
-    - S2 and S3 are FREQ.
+    - R0 and S1 are NOT, with mismatch `(0, 0)`, `1/2` against `2/3`, and `shared_rows = 2`.
+    - S2 and S3 match, but their credence pools rep 0 alone, so `shared_rows = 0` and both are FREQ_VACUOUS.
   - Short orbits: rep 4 has row `[1, 0]` (mismatch `1` against `2/3`), and rep 5 has row `[0, 1]` (mismatch at
     `(1, 0)`, `0` against `1/3`). Both are P-divisible.
   - rep 0 and β are indivisible, and `ord(φ) = 4`.
@@ -535,13 +560,35 @@ Together these separate every pair of variants:
   - Reps 0 and 4 are long, and `Long′ = {rep 4}`.
   - Verdicts:
     - R0: rep 4 has `eq = true`. Rep 0 fails at `(0, 0)`, `0` against `1/2`. R0 is NOT.
-    - S1: rep 4 against `T^β`. S1 is FREQ.
+    - S1: rep 4 against `T^β`. `T^β` pools rep 4 with rep 0 and the fixed points on both rows, so `shared_rows = 2`.
+      S1 is FREQ.
     - S2: `T^{β_long}` has row 0 counts `[0, 2] + [1, 1] = [1, 3]`, giving `[1/4, 3/4]`, and row 1 counts
       `[2, 0] + [1, 1] = [3, 1]`, giving `[3/4, 1/4]`. Both long orbits fail at `(0, 0)` (`0` against `1/4`, and `1/2`
       against `1/4`), so S2 is NOT.
-    - S3: `T^{β_c4} = J/2`, and rep 4 matches. S3 is FREQ.
+    - S3: `T^{β_c4} = J/2`, and rep 4 matches. `Long′ = {rep 4}` is a single orbit, so `shared_rows = 0` and S3 is
+      FREQ_VACUOUS.
+    - `shared_rows` is 2 for R0, S1 and S2, and 0 for S3.
   - The fixed points do not match `T^β`, and each is P-divisible.
   - Rep 0 is P-divisible; rep 4 and β are not. `ord(φ) = 4`.
+- **CC-S3NOT** (proposed in the review of `1962c378`; values derived here by hand). The states are
+  `(0,0)=0, (1,0)=1, (0,1)=2, (1,1)=3, (0,2)=4, (1,2)=5, (0,3)=6, (1,3)=7`. `φ`: `0→2, 1→3, 2→1, 3→0, 4→6, 5→4, 6→5,
+  7→7`.
+  - The orbits are:
+    - rep 0, `0→2→1→3→0`, visible `0011`. Row 0: `(0,0)→(0,1)` gives 0 and `(0,1)→(1,0)` gives 1. Row 1:
+      `(1,0)→(1,1)` gives 1 and `(1,1)→(0,0)` gives 0. So `T^α = J/2`, which is not a permutation.
+    - rep 4, `4→6→5→4`, visible `001`. Row 0: `(0,2)→(0,3)` gives 0 and `(0,3)→(1,2)` gives 1. Row 1: `(1,2)→(0,2)`
+      gives 0. So `T^α = [[1/2, 1/2], [1, 0]]`, with `n_a = {0: 2, 1: 1}`, which is not a permutation.
+    - rep 7, the fixed point `(1,3)`, with row 1 `[0, 1]`.
+  - `T^β`: root 0 over `h = 0..3` gives `0, 1, 0, 1`, and root 1 gives `1, 0, 0, 1`. So `T^β = J/2`.
+  - `ℓ_min = 3`, so `Long = Long′ = {rep 0, rep 4}`. Both visit rows 0 and 1, so `shared_rows = 2` under every variant.
+  - Verdicts:
+    - R0 and S1: rep 0 matches `J/2`. Rep 4 fails at `(1, 0)`, `1` against `1/2`. Both are NOT, with the first
+      mismatch at rep 4.
+    - S2 and S3: since `Long = Long′`, `T^{β_long} = T^{β_c4}`. Row 0 is `([1, 1] + [1, 1])/4 = [1/2, 1/2]`. Row 1 is
+      `([1, 1] + [1, 0])/3 = [2/3, 1/3]`. Rep 0 fails at `(1, 0)`, `1/2` against `2/3`, and rep 4 fails at `(1, 0)`, `1`
+      against `2/3`. Both variants are NOT, with the first mismatch at rep 0, failing on row 1.
+  - P-divisibility: reps 0 and 4 are indivisible (witnesses `[1, 4]` and `[1, 3]`). Rep 7 is divisible. β is
+    indivisible. `ord(φ) = lcm(4, 3, 1) = 12`.
 
 ### 3.2 Native-faithfulness controls (hand-derived, [D])
 
@@ -618,7 +665,9 @@ The controls:
   - CC-SHORT: `ℓ_min` excludes short orbits.
   - CC-UNVIS: unvisited rows are excluded, and `Long′ = ∅` is handled.
   - CC-VOID: the void rule takes precedence over equality.
-  - CE-8, CC-SKEW, CC-PERM and CC-UNVIS together separate every pair of variants.
+  - CE-8, CC-SHORT, CC-SKEW, CC-PERM and CC-UNVIS together separate every pair of variants.
+  - Every variant reaches NOT; CC-S3NOT is the only control in which S3 does.
+  - Every variant reaches a non-vacuous FREQ (CC-TWIN) and FREQ_VACUOUS (TT-4).
   - The definitional check on every toy is the countercontrol for Lemma PD (§2.4).
 
 ### 3.4 Recorded cross-checks (recorded only in this draft; owner item OQ-7)
@@ -646,13 +695,33 @@ admitted as `O*`) and its credence `K`:
 | S2 | `Long` | `T^{β_long}` (prior over `U_Long`) | `s2_verdict`, `s2_first_mismatch` |
 | S3 | `Long′` | `T^{β_c4}` (prior over `U_Long′`) | `s3_verdict`, `s3_first_mismatch` |
 
-For each variant, with its `C` and `K`:
-1. If `C = ∅`, the verdict is `VOID_NO_ORBIT`.
-2. Otherwise, if `T^{α,O}` equals `K` on `V_O` × `𝒞_V` for every `O ∈ C`, the verdict is `FREQ`.
-3. Otherwise the verdict is `NOT`. The first mismatch reported is the least-`rep` failing orbit's first mismatch
-   against `K`.
+**The credence pool and `shared_rows` [D].**
+- The **pool** of a variant at row `a` is the set of orbits whose counts enter `K(a, ·)`:
+  - for R0 and S1, every orbit of `S` that visits `a`, since `K = T^β` pools all of `S`;
+  - for S2 and S3, the candidates that visit `a`, since `K = T^{β|C}`.
+- `K(a, ·)` is the `n_a`-weighted mixture of the pool's `T^{α,O}(a, ·)`. This follows from the mixture identity of §2.3,
+  applied to the pool.
+- `shared_rows := #{a ∈ W_C : the pool at a has at least two orbits}`, where `W_C = ⋃_{O ∈ C} V_O`.
+  - For S2 and S3 this is the number of rows visited by two or more candidates.
+- **Lemma V (vacuity).** If `shared_rows = 0`, every row a candidate visits has that candidate as its only pooled orbit.
+  Then `K(a, ·) = T^{α,O}(a, ·)` there, and every candidate matches by construction. Consequently:
+  - FREQ with `shared_rows = 0` carries no information;
+  - NOT with `shared_rows = 0` is impossible.
+- **Lemma V′ (for S2 and S3) [D].** Under S2 and S3, FREQ holds iff, on every row, all candidates that visit that row
+  have identical `T^{α,O}(a, ·)`. So S2 and S3 test whether the candidate orbits agree with one another.
+  - (⇐) If they agree, every positive-weight mixture of the identical rows equals each of them.
+  - (⇒) Suppose two candidates differ on a row. A positive-weight mixture of distinct vectors cannot equal every one
+    of them, so at least one candidate mismatches.
 
-All four are computed and recorded on every instance.
+**The rule.** For each variant, with its `C` and `K`:
+1. If `C = ∅`, the verdict is `VOID_NO_ORBIT`.
+2. Otherwise, if `T^{α,O}` equals `K` on `V_O × 𝒞_V` for every `O ∈ C`:
+   - the verdict is `FREQ` if `shared_rows ≥ 1`;
+   - the verdict is `FREQ_VACUOUS` if `shared_rows = 0`.
+3. Otherwise the verdict is `NOT`. The first mismatch reported is the least-`rep` failing orbit's first mismatch
+   against `K`. A `NOT` with `shared_rows = 0` contradicts Lemma V and exits 4.
+
+All four verdicts, and each variant's `shared_rows`, are computed and recorded on every instance.
 
 Also recorded with every instance:
 - `|Long|` and `|Long′|`;
@@ -665,11 +734,15 @@ The P-divisibility counts are descriptive and carry no verdict.
 ### 4.2 Overall verdicts, and the OQ-13 selection rule
 
 **Aggregation.** The same map is applied separately to each variant. For a variant, let `Ev` be the set of native
-instances whose verdict under that variant is not VOID_NO_ORBIT. The variant's overall verdict is:
+instances whose verdict under that variant is FREQ or NOT. FREQ_VACUOUS and VOID_NO_ORBIT instances are excluded from
+`Ev` and listed separately. The variant's overall verdict is:
 - `FREQ_ALL` if `Ev ≠ ∅` and every instance in `Ev` is FREQ;
 - `NOT_ALL` if `Ev ≠ ∅` and every instance in `Ev` is NOT;
 - `MIXED` if `Ev` contains both;
-- `VOID_ALL` if `Ev = ∅`.
+- `VACUOUS_ALL` if `Ev = ∅` and at least one instance is FREQ_VACUOUS;
+- `VOID_ALL` if every instance is VOID_NO_ORBIT.
+
+These five cases are exhaustive and mutually exclusive.
 
 These are recorded as `c1_r0_verdict`, `c1_s1_verdict`, `c1_s2_verdict` and `c1_s3_verdict`.
 
@@ -702,13 +775,16 @@ is the overall verdict of the variant this table assigns to that answer:
 - **The run is complete** iff all three of the following hold.
   - **Step (a) exits 0.** This requires:
     - every control and mutation matches its frozen expected values (§3);
-    - every invariant of §2 holds on every instance: the budget, injectivity, agreement of the two implementations of
-      `φ`, the mixture identity, double stochasticity, the partition `Σ_O |O| = |S|`, agreement of the two
-      P-divisibility methods, and every certificate verifying under (i)–(iv);
+    - every invariant of §2 and §4.1 holds on every instance:
+      - the budget, injectivity and agreement of the two implementations of `φ`;
+      - the mixture identity, double stochasticity and the partition `Σ_O |O| = |S|`;
+      - agreement of the two P-divisibility methods, and every certificate verifying under (i)–(iv);
+      - no NOT with `shared_rows = 0`;
     - the frozen-input check passes, and `oq13_answer` is valid;
     - every output validates against `C1-OUTPUT-SCHEMA.json`.
   - **Step (b) exits 0.** The step recomputes, from the orbits files and `T_beta`:
-    - every `eq`, `long_c4`, `eq_beta_long`, `eq_beta_c4`, `T_beta_long` and `T_beta_c4`;
+    - every `eq`, `long_c4`, `eq_beta_long`, `eq_beta_c4`, `T_beta_long` and `T_beta_c4`, and each variant's
+      `shared_rows`;
     - each instance's four verdicts and the four overall verdicts;
     - `c1_verdict`, from `oq13_answer` and the table of §4.2;
     - every `orbits_sha256`.
@@ -759,7 +835,10 @@ one workflow artifact named `bornsel-c1`.
 | `c1/<id>.json`, unit control or mutation | `unit_record` | `params` (M-INJ, WF); `phi_impls_agree` (M-INJ, WF); `injective` and `evaluated_beyond_injectivity` (M-INJ); `results` and `reduced` (EX-ARITH); `schema_results` (EX-SCHEMA); `cert_results` and `cert_failed_clauses` (EX-CERT); `hand_steps` (WF-q*, items `{step, prev, cur, state, visible}`); `phi_of_zero` (WF-0); `expected`, `comparisons`, `match` |
 | `c1/<id>.orbits.jsonl`, toys and natives | `orbit_record`, one per line | `rep`, `length`, `cycle`, `visited_rows`, `unvisited_rows`, `n_a`, `T_alpha`, `long`, `eq`, `first_mismatch`, `pdiv_alpha`, `pdiv_witness`, `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4`, `first_mismatch_beta_c4`, `pdiv_alpha_definitional` (`null` on natives) |
 | `c1/<id>.pdiv-certs.json`, toys | `pdiv_certs` | `schema`, `id`, `entries`: `{family, rep, rows, pair, kind, lambda, farkas_y}` |
-| `c1/summary.json` | `summary` | `schema`, `oq13_answer`, `selected_variant`, `controls_frozen` (16), `controls_matched`, `natives_frozen` (11), `natives_evaluated`, `native_verdicts` (R0), `native_s1_verdicts`, `native_s2_verdicts`, `native_s3_verdicts`, `c1_verdict`, `c1_r0_verdict`, `c1_s1_verdict`, `c1_s2_verdict`, `c1_s3_verdict`, `run_status`, `first_failure`, `verdict_text` |
+| `c1/summary.json` | `summary` | `schema`, `oq13_answer`, `selected_variant`, `controls_frozen` (17), `controls_matched`, `natives_frozen` (11), `natives_evaluated`, `native_verdicts` (R0), `native_s1_verdicts`, `native_s2_verdicts`, `native_s3_verdicts`, `c1_verdict`, `c1_r0_verdict`, `c1_s1_verdict`, `c1_s2_verdict`, `c1_s3_verdict`, `run_status`, `first_failure`, `verdict_text` |
+
+On a halt, `oq13_answer` and `selected_variant` may be `null`, which covers the exit-2 halt on an unset answer. On a
+complete run both must be set; the schema enforces this through a conditional on `run_status`.
 
 **Analysis fields** (toy and native records):
 - `params`;
@@ -769,10 +848,13 @@ one workflow artifact named `bornsel-c1`.
 - `T_beta`;
 - `doubly_stochastic`, `mixture_identity`;
 - `beta_is_permutation`, `pdiv_beta`, `pdiv_beta_horizon`;
-- `long_orbit_count`, `long_orbits_equal`, `long_orbits_pdiv_alpha`, `first_mismatch`, `verdict` (R0);
-- `s1_long_count`, `s1_long_equal`, `s1_first_mismatch`, `s1_verdict`;
-- `T_beta_long`, `s2_long_equal`, `s2_first_mismatch`, `s2_verdict`;
-- `T_beta_c4`, `s3_long_equal`, `s3_first_mismatch`, `s3_verdict`;
+- `long_orbit_count`, `long_orbits_equal`, `long_orbits_pdiv_alpha`, `first_mismatch`, `shared_rows`, `verdict` (R0);
+- `s1_long_count`, `s1_long_equal`, `s1_first_mismatch`, `s1_shared_rows`, `s1_verdict`;
+- `T_beta_long`, `s2_long_equal`, `s2_first_mismatch`, `s2_shared_rows`, `s2_verdict`;
+- `T_beta_c4`, `s3_long_equal`, `s3_first_mismatch`, `s3_shared_rows`, `s3_verdict`;
+
+Each verdict field takes one of `FREQ`, `FREQ_VACUOUS`, `NOT` and `VOID_NO_ORBIT`. Each overall verdict takes one of
+`FREQ_ALL`, `NOT_ALL`, `MIXED`, `VACUOUS_ALL` and `VOID_ALL`, or `null` on a halt.
 - `orbits_file`, `orbits_sha256`.
 
 Every record also carries the common fields `schema`, `id`, `order`, `kind`, `frozen_inputs` and `run`.
@@ -809,13 +891,17 @@ whitespace, lines are in increasing `rep`, and each line ends with `\n`. `orbits
   - `<N>` is the negation of `<P>`: "for some candidate orbit, T^{α,O} differs from the variant's credence on a visited
     row".
   - `<R>` is "Recorded: R0 <c1_r0_verdict>; S1 <c1_s1_verdict>; S2 <c1_s2_verdict>; S3 <c1_s3_verdict>."
+  - `<X>` is "Vacuous instances (every candidate matched by construction, shared_rows = 0): <ids>. Void instances:
+    <ids>."
 - **COMPLETE runs.**
-  - FREQ_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. On every evaluated native instance
-    (<ids>), <P>. Void instances: <ids>. <R>"
-  - NOT_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. On every evaluated native instance
-    (<ids>), <N>. Void instances: <ids>. <R>"
-  - MIXED: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. FREQ on <ids>; NOT on <ids>; void on <ids>.
-    <R>"
+  - FREQ_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. On every native instance with a
+    non-vacuous verdict (<ids>), <P>. <X> <R>"
+  - NOT_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. On every native instance with a
+    non-vacuous verdict (<ids>), <N>. <X> <R>"
+  - MIXED: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. FREQ on <ids>; NOT on <ids>. <X> <R>"
+  - VACUOUS_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. No native instance has a non-vacuous
+    verdict under variant <V>: every candidate matched only by construction, or there was no candidate. The C-1 verdict
+    carries no information. <X> <R>"
   - VOID_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. No native instance has a candidate orbit
     under variant <V>; the C-1 verdict is void. <R>"
 - **Halted runs** (the run is void in every case).
@@ -835,7 +921,7 @@ whitespace, lines are in increasing `rep`, and each line ends with `\n`. `orbits
 | 1 | (a) | a control, mutation or WF value mismatch |
 | 2 | (a) | a schema violation, in an output or in the expected file against `expected_file`; a frozen parameter inconsistent with §2.2's formulas or with Theorem 22's region conditions; an invalid `oq13_answer`; or a floating-point value in a probability field |
 | 3 | (a) | a frozen input does not match its git blob id at `F`, or `F` is not in the checkout |
-| 4 | (a) | an invariant failure: the `φ` implementations disagree; the mixture identity or double stochasticity fails; the orbits do not partition `S`; the two P-divisibility methods disagree; or a certificate or its coverage fails |
+| 4 | (a) | an invariant failure: the `φ` implementations disagree; the mixture identity or double stochasticity fails; the orbits do not partition `S`; the two P-divisibility methods disagree; a certificate or its coverage fails; or a NOT has `shared_rows = 0` (Lemma V) |
 | 5 | (a) | `φ` is not injective on a toy or native instance |
 | 6 | (b) | the re-application step found a stored field that differs from its recomputation |
 | 7 | (a) | `state_count > 2¹⁶` |
@@ -867,10 +953,11 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 | `T^{α,O}` on visited rows only; unvisited rows excluded and recorded | CC-UNVIS (compared, including `unvisited_rows`); `unvisited_rows` recorded per orbit |
 | `ℓ_min = n + 1`, inclusive, fixed by parameters | `ell_min` compared on every toy and checked against the formula on every native instance (exit 2); CC-UNVIS exercises `|O| = ℓ_min`, and CC-SHORT exercises exclusion |
 | the void rule takes precedence | CC-VOID (compared) |
-| FREQ and NOT are both reachable on non-transitive maps | CC-TWIN and CE-8 (compared) |
-| A2: a transitive map gives equality | TT-4 and TT-6 (compared) |
+| FREQ (non-vacuous) and NOT are both reachable under every variant | CC-TWIN (FREQ under all four); CE-8, CC-PERM and CC-S3NOT (NOT under each variant, with CC-S3NOT the only S3 NOT); see the §3.1 outcome table |
+| a FREQ that holds by construction is not reported as FREQ | `shared_rows` and `s1_shared_rows`, `s2_shared_rows`, `s3_shared_rows` compared on every toy; FREQ_VACUOUS reached under every variant (TT-4) and separated from FREQ (CC-SHORT under S2 and S3); step (b) recomputes them (exit 6); a NOT with `shared_rows = 0` exits 4 |
+| A2: a transitive map gives equality, by construction | TT-4 and TT-6 (compared; FREQ_VACUOUS) |
 | CE-8 gives `3/4` against `{1, 1/2}`; α on `O_A` is divisible; β is indivisible | `sketch_check`, `T_beta`, `orbits` (`T_alpha`, `pdiv_alpha`) and `pdiv_beta` compared on CE-8 |
-| the four variants are computed as frozen, and each pair is separated | CE-8, CC-SKEW, CC-PERM and CC-UNVIS (§3.1); every `s1_*`, `s2_*`, `s3_*`, `T_beta_long` and `T_beta_c4` field, and every per-orbit `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4` and `first_mismatch_beta_c4`, compared on every toy |
+| the four variants are computed as frozen, and each pair is separated | CE-8, CC-SHORT, CC-SKEW, CC-PERM, CC-UNVIS and CC-S3NOT (§3.1); every `s1_*`, `s2_*`, `s3_*`, `T_beta_long` and `T_beta_c4` field, and every per-orbit `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4` and `first_mismatch_beta_c4`, compared on every toy |
 | the permutation-matrix test is as frozen | `beta_is_permutation`, `pdiv_alpha` and `long_c4` compared on every toy, including the partial row set of CC-UNVIS |
 | Lemma PD agrees with the definition | the definitional check on every toy, compared with the Lemma PD value and the expected value; exit 4 on disagreement |
 | definitional results are certified; the checker rebuilds `A` and `b`, checks shapes and evaluates every clause | every certificate is verified under (i)–(iv) (exit 4); `pdiv_certs_verified` is compared; EX-CERT has a case in which each clause is the only failure (`cert_failed_clauses` compared) |
@@ -956,9 +1043,15 @@ of `3be25e7f` and `c610b2b8`.
    alternative is the current value only.
    - *Reviewer recommends:* accept the `(prev, cur)` pairs. The corpus answers this, and the current-value split would
      be a surrogate.
+   - *Reviewer: corpus answers* — forced by the kernel's `cutRealization` (`PhysicalC4Discharge.lean:578–582`), which
+     takes the region's phase-space data, the `(prev, cur)` pairs, as the visible carrier. (Review of `1962c378`;
+     the item stays open.)
 3. **OQ-3, the coupling.** The draft uses `a = 1` only (SM:1602; SM:222–224, :230; §2.1). At `q = 3`, `a = 2 ≡ −1` is
    not covered.
    - *Reviewer recommends:* accept `a = 1`. The corpus answers this, and `a = 2` is not a manuscript instance.
+   - *Reviewer: corpus answers* — forced by SM:1602, which gives the `d = 1` ring with coefficient 1, and by
+     SM:222–230, which give the observer-level `α = 1/d`, equal to 1 at `d = 1`. (Review of `1962c378`; the item stays
+     open.)
 4. **OQ-4, the instance list.** The draft has eleven instances, including the non-coprime ones, and excludes
    W-q2-L7-r2. Theorem 22's diameter hypothesis holds only at `L = 8`. The question is also which instances count toward
    the overall verdicts.
@@ -968,6 +1061,8 @@ of `3be25e7f` and `c610b2b8`.
      - add a recorded secondary over N10 and N11 for the diameter hypothesis.
 5. **OQ-5, the α-rooted family's row set.** The draft uses `V_O` only, with horizon `{0, …, |O|}` (§2.4).
    - *Reviewer recommends:* accept `V_O`.
+   - *Reviewer: corpus answers* — forced, because α defines no hidden conditional on an unvisited row. Any other row
+     set adds an arbitrary datum (BSB:147). (Review of `1962c378`; the item stays open.)
 6. **OQ-6, β's P-divisibility on native instances.** The draft records it.
    - *Reviewer recommends:* record it. It is free, and the theorem covering its (⇒) direction is kernel-checked
      (`RootedRecurrenceBridge.lean:93`).
@@ -982,12 +1077,15 @@ of `3be25e7f` and `c610b2b8`.
    method on toys (§2.4).
    - *Reviewer recommends:* accept, with the surjectivity line and a certified definitional method. Both are added, and
      the checker requirements are frozen in §2.4 (i)–(iv).
-10. **OQ-10, the controls.** The draft has the 16 gating controls of §3.
+   - *Reviewer: corpus answers* — this is a proof, not a choice. The reviewer checked it in both directions. (Review of
+     `1962c378`; the item stays open.)
+10. **OQ-10, the controls.** The draft has the 17 gating controls of §3.
     - *Reviewer recommends:*
       - accept all as gating;
       - add CC-SKEW and an S1 toy (added: CC-SKEW, CC-PERM);
       - make EX-SCHEMA two-sided (done);
       - give EX-CERT a case for each clause (done: cases 6–9);
+      - add CC-S3NOT, so that S3 reaches NOT (done);
       - add an `n = 3` toy that discriminates the order of `first_mismatch` (not added);
       - add a WF step at `r = 2` at N6's parameters (not added).
 11. **OQ-11, the QB readings.** The draft identifies the variant's credence as the QB-2 credence, and `T^{α,O}` as the
@@ -1010,6 +1108,14 @@ of `3be25e7f` and `c610b2b8`.
     - An answer outside the table is written in as a new variant before `F` (§4.2).
     - *Reviewer recommends:* that the owner decide it. The review's B1 shows that the R0 verdict alone does not settle
       it.
+    - *Reviewer: corpus answers* — the corpus leans but does not force. (Review of `1962c378`; the item stays open.)
+      - On part (ii): Main:56 (Lemma 3, clause 2) and posit (iv) state the global counting prior, which favours 13a or
+        13b. But BSB N4 shows that clauses 1 and 2 conflict for non-transitive `φ`, and QB-2 left the prior's source
+        open.
+      - On part (i): Main:74 makes (C1) the hidden-influence diagnostic, and a permutation orbit has no hidden influence,
+        which supports `Long′`. Nothing in the corpus excludes such orbits outright.
+    - Under 13c or 13d, Lemma V′ applies: the selected variant tests whether the candidate orbits agree with one another
+      (§4.1, §9).
 14. **OQ-14, the rerun policy for a runner failure before step (a) starts.** For example, provisioning, checkout or
     environment set-up fails, and no output exists. `run_attempt = 1`, with no exception, would let such a failure
     spend the freeze.
@@ -1073,10 +1179,23 @@ These are the points of BSB:404–416 that needed a choice, with the choice this
   - S2 removes (i).
   - S3 removes both, so a NOT under S3 locates (iii).
 
-  Comparing the recorded variants on one instance therefore shows which mechanism a disagreement comes from. Which
-  variant answers C-1's question is a question about the prior and the candidates, not a computation (OQ-13). The four
-  variants are frozen before the result. The C-1 verdict is the one the OQ-13 answer selects, and no variant outside
-  the four can be adopted from this run.
+  Comparing the recorded variants on one instance therefore shows which mechanism a disagreement comes from.
+- **What S2 and S3 test, and vacuity.**
+  - Under S2 and S3, the credence is a positive-weight mixture of the candidates' own rows. By Lemma V′ (§4.1), these
+    variants test whether the candidate orbits agree with one another on the rows they share. They do not compare the
+    candidates with an independent credence.
+  - A row visited by one candidate only can never mismatch. When no row is shared, `shared_rows = 0` and the FREQ is
+    automatic.
+  - Such a FREQ is reported as FREQ_VACUOUS under every variant (Lemma V) and is excluded from the overall verdict.
+    When no instance has a non-vacuous verdict and at least one is vacuous, the overall verdict is VACUOUS_ALL, which
+    carries no information.
+  - A FREQ with `shared_rows ≥ 1` shows that at least one row's credence pools two or more orbits and the candidates
+    still match. It does not show that every row was a non-trivial comparison. `shared_rows` is recorded for that
+    reason.
+- **The variants are frozen.**
+  - Which variant answers C-1's question is a question about the prior and the candidates, not a computation (OQ-13).
+  - The four variants are frozen before the result. The C-1 verdict is the one the OQ-13 answer selects, and no variant
+    outside the four can be adopted from this run.
 - **Under QB-1.** A NOT in the selected variant means that its credence numbers are not the operational target on that
   instance without a further premise, such as a typicality hypothesis or a selection of the actual orbit. No verdict
   says which orbit is actual.

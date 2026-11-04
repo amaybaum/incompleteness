@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "bornsel-c1-output-schema/1",
-  "title": "BORN-SEL C-1 output and expected-file schema (draft r3; not yet a candidate freeze; WIP / UNVERIFIED)",
+  "title": "BORN-SEL C-1 output and expected-file schema (draft r4; not yet a candidate freeze; WIP / UNVERIFIED)",
   "$comment": "Frozen together with PREREG-C1.md at the owner-designated commit F. The format c1-reduced-rational is asserted: a string matching ^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$, not '-0', and, when a denominator is present, with denominator >= 2 and coprime to the numerator. Outputs are validated against toy_record, native_record, unit_record, orbit_record (one per line of an orbits file), pdiv_certs and summary; C1-CONTROLS-EXPECTED.json against expected_file.",
   "$defs": {
     "probability": {"type": "string", "pattern": "^(0|[1-9][0-9]*)(/[1-9][0-9]*)?$", "format": "c1-reduced-rational"},
@@ -25,8 +25,8 @@
     },
     "mismatch_or_null": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/mismatch"}]},
     "mismatch_rep_or_null": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/mismatch_rep"}]},
-    "verdict": {"enum": ["FREQ", "NOT", "VOID_NO_ORBIT"]},
-    "overall": {"enum": ["FREQ_ALL", "NOT_ALL", "MIXED", "VOID_ALL", null]},
+    "verdict": {"enum": ["FREQ", "FREQ_VACUOUS", "NOT", "VOID_NO_ORBIT"]},
+    "overall": {"enum": ["FREQ_ALL", "NOT_ALL", "MIXED", "VACUOUS_ALL", "VOID_ALL", null]},
     "params": {
       "type": "object", "additionalProperties": false, "required": ["n", "m", "state_count"],
       "properties": {
@@ -47,7 +47,7 @@
     "common": {
       "type": "object", "required": ["schema", "id", "order", "kind", "frozen_inputs", "run"],
       "properties": {
-        "schema": {"const": "bornsel-c1/1"}, "id": {"type": "string"}, "order": {"type": "integer", "minimum": 1, "maximum": 27},
+        "schema": {"const": "bornsel-c1/1"}, "id": {"type": "string"}, "order": {"type": "integer", "minimum": 1, "maximum": 28},
         "kind": {"enum": ["toy", "unit", "native"]}, "frozen_inputs": {"$ref": "#/$defs/frozen_inputs"}, "run": {"$ref": "#/$defs/run"}
       }
     },
@@ -64,10 +64,10 @@
       "type": "object",
       "required": ["params", "injective", "ell_min", "ell_min_rule", "orbit_count", "orbit_length_histogram", "ord_phi", "T_beta",
                    "doubly_stochastic", "mixture_identity", "beta_is_permutation", "pdiv_beta", "pdiv_beta_horizon",
-                   "long_orbit_count", "long_orbits_equal", "long_orbits_pdiv_alpha", "first_mismatch", "verdict",
-                   "s1_long_count", "s1_long_equal", "s1_first_mismatch", "s1_verdict",
-                   "T_beta_long", "s2_long_equal", "s2_first_mismatch", "s2_verdict",
-                   "T_beta_c4", "s3_long_equal", "s3_first_mismatch", "s3_verdict", "orbits_file", "orbits_sha256"],
+                   "long_orbit_count", "long_orbits_equal", "long_orbits_pdiv_alpha", "first_mismatch", "shared_rows", "verdict",
+                   "s1_long_count", "s1_long_equal", "s1_first_mismatch", "s1_shared_rows", "s1_verdict",
+                   "T_beta_long", "s2_long_equal", "s2_first_mismatch", "s2_shared_rows", "s2_verdict",
+                   "T_beta_c4", "s3_long_equal", "s3_first_mismatch", "s3_shared_rows", "s3_verdict", "orbits_file", "orbits_sha256"],
       "properties": {
         "params": {"$ref": "#/$defs/params"},
         "injective": {"const": true},
@@ -84,6 +84,8 @@
         "s2_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s2_verdict": {"$ref": "#/$defs/verdict"},
         "T_beta_c4": {"$ref": "#/$defs/matrix"}, "s3_long_equal": {"$ref": "#/$defs/nat"},
         "s3_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s3_verdict": {"$ref": "#/$defs/verdict"},
+        "shared_rows": {"$ref": "#/$defs/nat"}, "s1_shared_rows": {"$ref": "#/$defs/nat"},
+        "s2_shared_rows": {"$ref": "#/$defs/nat"}, "s3_shared_rows": {"$ref": "#/$defs/nat"},
         "orbits_file": {"type": "string", "pattern": "^c1/[A-Za-z0-9-]+\\.orbits\\.jsonl$"}, "orbits_sha256": {"$ref": "#/$defs/sha256"}
       }
     },
@@ -194,9 +196,9 @@
                    "run_status", "first_failure", "verdict_text"],
       "properties": {
         "schema": {"const": "bornsel-c1-summary/1"},
-        "oq13_answer": {"enum": ["13a", "13b", "13c", "13d"]},
-        "selected_variant": {"enum": ["R0", "S1", "S2", "S3"]},
-        "controls_frozen": {"const": 16}, "controls_matched": {"type": "integer", "minimum": 0, "maximum": 16},
+        "oq13_answer": {"enum": ["13a", "13b", "13c", "13d", null]},
+        "selected_variant": {"enum": ["R0", "S1", "S2", "S3", null]},
+        "controls_frozen": {"const": 17}, "controls_matched": {"type": "integer", "minimum": 0, "maximum": 17},
         "natives_frozen": {"const": 11}, "natives_evaluated": {"type": "array", "items": {"type": "string"}},
         "native_verdicts": {"$ref": "#/$defs/verdict_map"}, "native_s1_verdicts": {"$ref": "#/$defs/verdict_map"},
         "native_s2_verdicts": {"$ref": "#/$defs/verdict_map"}, "native_s3_verdicts": {"$ref": "#/$defs/verdict_map"},
@@ -208,16 +210,20 @@
            "properties": {"exit": {"type": "integer"}, "id": {"type": ["string", "null"]}, "field": {"type": ["string", "null"]},
                           "expected": true, "computed": true, "detail": {"type": ["string", "null"]}}}]},
         "verdict_text": {"type": "string"}
-      }
+      },
+      "if": {"properties": {"run_status": {"const": "COMPLETE"}}},
+      "then": {"properties": {"oq13_answer": {"type": "string"}, "selected_variant": {"type": "string"},
+                              "c1_verdict": {"type": "string"}, "c1_r0_verdict": {"type": "string"}, "c1_s1_verdict": {"type": "string"},
+                              "c1_s2_verdict": {"type": "string"}, "c1_s3_verdict": {"type": "string"}}}
     },
     "toy_expected": {
       "type": "object", "additionalProperties": false,
       "required": ["injective", "ell_min", "orbit_count", "orbit_length_histogram", "ord_phi", "T_beta", "doubly_stochastic", "mixture_identity",
                    "beta_is_permutation", "pdiv_beta", "pdiv_beta_horizon", "pdiv_beta_definitional", "pdiv_certs_verified",
-                   "long_orbit_count", "long_orbits_equal", "long_orbits_pdiv_alpha", "first_mismatch", "verdict",
-                   "s1_long_count", "s1_long_equal", "s1_first_mismatch", "s1_verdict",
-                   "T_beta_long", "s2_long_equal", "s2_first_mismatch", "s2_verdict",
-                   "T_beta_c4", "s3_long_equal", "s3_first_mismatch", "s3_verdict", "orbits"],
+                   "long_orbit_count", "long_orbits_equal", "long_orbits_pdiv_alpha", "first_mismatch", "shared_rows", "verdict",
+                   "s1_long_count", "s1_long_equal", "s1_first_mismatch", "s1_shared_rows", "s1_verdict",
+                   "T_beta_long", "s2_long_equal", "s2_first_mismatch", "s2_shared_rows", "s2_verdict",
+                   "T_beta_c4", "s3_long_equal", "s3_first_mismatch", "s3_shared_rows", "s3_verdict", "orbits"],
       "properties": {
         "injective": {"type": "boolean"}, "ell_min": {"type": "integer"}, "orbit_count": {"type": "integer"},
         "orbit_length_histogram": {"$ref": "#/$defs/histogram"}, "ord_phi": {"type": "integer"},
@@ -232,6 +238,8 @@
         "s2_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s2_verdict": {"$ref": "#/$defs/verdict"},
         "T_beta_c4": {"$ref": "#/$defs/matrix"}, "s3_long_equal": {"$ref": "#/$defs/nat"},
         "s3_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s3_verdict": {"$ref": "#/$defs/verdict"},
+        "shared_rows": {"$ref": "#/$defs/nat"}, "s1_shared_rows": {"$ref": "#/$defs/nat"},
+        "s2_shared_rows": {"$ref": "#/$defs/nat"}, "s3_shared_rows": {"$ref": "#/$defs/nat"},
         "sketch_check": {"$ref": "#/$defs/toy_record/allOf/3/properties/sketch_check"},
         "orbits": {"type": "array", "items": {"$ref": "#/$defs/orbit_record"}}
       }
@@ -255,13 +263,13 @@
         "schema": {"const": "bornsel-c1-expected/1"}, "status": {"type": "string"}, "companions": {"type": "object"}, "note": {"type": "string"},
         "expected": {
           "type": "object", "additionalProperties": false,
-          "required": ["CE-8", "TT-4", "TT-6", "CC-TWIN", "CC-SHORT", "CC-UNVIS", "CC-VOID", "CC-SKEW", "CC-PERM",
+          "required": ["CE-8", "TT-4", "TT-6", "CC-TWIN", "CC-SHORT", "CC-UNVIS", "CC-VOID", "CC-SKEW", "CC-PERM", "CC-S3NOT",
                        "M-INJ", "EX-ARITH", "EX-SCHEMA", "EX-CERT", "WF-q2-L5", "WF-q3-L4", "WF-0"],
           "properties": {
             "CE-8": {"$ref": "#/$defs/toy_expected", "required": ["sketch_check"]},
             "TT-4": {"$ref": "#/$defs/toy_expected"}, "TT-6": {"$ref": "#/$defs/toy_expected"},
             "CC-TWIN": {"$ref": "#/$defs/toy_expected"}, "CC-SHORT": {"$ref": "#/$defs/toy_expected"}, "CC-UNVIS": {"$ref": "#/$defs/toy_expected"},
-            "CC-VOID": {"$ref": "#/$defs/toy_expected"}, "CC-SKEW": {"$ref": "#/$defs/toy_expected"}, "CC-PERM": {"$ref": "#/$defs/toy_expected"},
+            "CC-VOID": {"$ref": "#/$defs/toy_expected"}, "CC-SKEW": {"$ref": "#/$defs/toy_expected"}, "CC-PERM": {"$ref": "#/$defs/toy_expected"}, "CC-S3NOT": {"$ref": "#/$defs/toy_expected"},
             "M-INJ": {"$ref": "#/$defs/unit_expected", "required": ["phi_impls_agree", "injective", "evaluated_beyond_injectivity"]},
             "EX-ARITH": {"$ref": "#/$defs/unit_expected", "required": ["results", "reduced"]},
             "EX-SCHEMA": {"$ref": "#/$defs/unit_expected", "required": ["schema_results"]},
