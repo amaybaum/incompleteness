@@ -51,6 +51,24 @@ what is the smallest missing ingredient?
 - Issue comments: #866 c.6526292899, c.6541293037, c.6541615446, c.6548283392, c.6567167742,
   c.6600176951, c.6627392555, c.6631480154, c.6641545083, c.6642599988; #914 c.6563412926;
   #1007 c.6526897139, c.6527637527. These are provenance and planning records, not evidence.
+- Literature, under the owner's arXiv authorization of 2026-11-04 (relayed by the coordinator):
+  arXiv:2309.03085v2 §3.1 read directly; the other sources are listed in `ANALYSIS.md` §3.8,
+  each marked as read directly or taken from a named secondary source. External results do not
+  establish that anything follows from OI's assumptions; where one supplies an ingredient, that
+  ingredient is an additional assumption.
+
+## Headline (unreviewed)
+
+- The consumers of an induced law differ in what they need (`ANALYSIS.md` §1). The
+  representation layer needs nothing from `(Obs, μ)` beyond a finite alphabet. The
+  recurrence-cycle indivisibility verdict depends on the hidden law only through its supports
+  (Theorem SI, PD-here). Specific laws, Bell screening and readiness need a measure, and
+  invariance fails for them by Main's own example.
+- On the additive native step, no choice of `(Obs, μ)` supplies selectable interactions or
+  confined records (Lemma D). O-OBSMU bears on preparation and outcome statistics only.
+- The smallest missing ingredient for the measure-dependent consumers is a readiness event
+  defined on states (Q11, stated nowhere as a premise). Two candidates are written out as
+  unadopted proposals with their §A.29 assessments. Both fail hard-to-vary as stated.
 
 ## Not authorized, and not done
 
