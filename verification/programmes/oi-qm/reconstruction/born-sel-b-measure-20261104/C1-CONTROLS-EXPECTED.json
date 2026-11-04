@@ -1,141 +1,281 @@
 {
   "schema": "bornsel-c1-expected/1",
-  "status": "draft r1; candidate freeze input; frozen together with PREREG-C1.md at the owner-designated commit F; WIP / UNVERIFIED",
-  "companions": {"prereg": "PREREG-C1.md", "instances": "C1-INSTANCES.json"},
-  "note": "Hand-derived values [D] for controls and mutations only (PREREG-C1.md section 3). No expected value is given for any native instance. Every probability is an exact rational string; null means the field must be null. Every listed field is compared exactly.",
+  "status": "draft r2; candidate freeze input; frozen together with PREREG-C1.md at the owner-designated commit F; WIP / UNVERIFIED",
+  "companions": {"prereg": "PREREG-C1.md", "instances": "C1-INSTANCES.json", "output_schema": "C1-OUTPUT-SCHEMA.json"},
+  "note": "Hand-derived values [D] for controls and mutations only (PREREG-C1.md section 3). No expected value is given for any native instance. Every probability is an exact rational string; null means the field must be null. The compared fields of a control are exactly its keys here; 'orbits' is compared with the orbits file (PREREG-C1.md section 5). This file must validate against #/$defs/expected_file of C1-OUTPUT-SCHEMA.json.",
   "expected": {
     "CE-8": {
       "injective": true, "ell_min": 3, "orbit_count": 2, "orbit_length_histogram": {"4": 2}, "ord_phi": 4,
       "T_beta": {"0": ["1/4", "3/4"], "1": ["3/4", "1/4"]},
       "doubly_stochastic": true, "mixture_identity": true,
-      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4, "pdiv_beta_definitional": false, "pdiv_certs_verified": true,
       "long_orbit_count": 2, "long_orbits_equal": 0, "long_orbits_pdiv_alpha": 1,
       "first_mismatch": {"rep": 0, "a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
       "verdict": "NOT",
+      "s1_long_count": 1, "s1_long_equal": 0,
+      "s1_first_mismatch": {"rep": 4, "a": 0, "j": 0, "alpha": "1/2", "beta": "1/4"},
+      "s1_verdict": "NOT",
+      "T_beta_long": {"0": ["1/4", "3/4"], "1": ["3/4", "1/4"]},
+      "s2_long_equal": 0,
+      "s2_first_mismatch": {"rep": 0, "a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
+      "s2_verdict": "NOT",
       "sketch_check": {"T_beta_0_1": "3/4", "T_alpha_rep0_0_1": "1", "T_alpha_rep4_0_1": "1/2"},
       "orbits": [
         {"rep": 0, "length": 4, "cycle": [0, 1, 2, 3], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
          "T_alpha": {"0": ["0", "1"], "1": ["1", "0"]}, "long": true, "eq": false,
          "first_mismatch": {"a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
-         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": false, "first_mismatch_beta_long": {"a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
+         "pdiv_alpha_definitional": true},
         {"rep": 4, "length": 4, "cycle": [4, 6, 5, 7], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
          "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": false,
          "first_mismatch": {"a": 0, "j": 0, "alpha": "1/2", "beta": "1/4"},
-         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false}
-      ],
-      "pdiv_beta_definitional": false
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "long_c4": true,
+         "eq_beta_long": false, "first_mismatch_beta_long": {"a": 0, "j": 0, "alpha": "1/2", "beta": "1/4"},
+         "pdiv_alpha_definitional": false}
+      ]
     },
     "TT-4": {
       "injective": true, "ell_min": 3, "orbit_count": 1, "orbit_length_histogram": {"4": 1}, "ord_phi": 4,
       "T_beta": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
       "doubly_stochastic": true, "mixture_identity": true,
-      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4, "pdiv_beta_definitional": false, "pdiv_certs_verified": true,
       "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 0,
       "first_mismatch": null, "verdict": "FREQ",
+      "s1_long_count": 1, "s1_long_equal": 1, "s1_first_mismatch": null, "s1_verdict": "FREQ",
+      "T_beta_long": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "s2_long_equal": 1, "s2_first_mismatch": null, "s2_verdict": "FREQ",
       "orbits": [
         {"rep": 0, "length": 4, "cycle": [0, 1, 3, 2], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
          "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false}
-      ],
-      "pdiv_beta_definitional": false
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "long_c4": true,
+         "eq_beta_long": true, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": false}
+      ]
     },
     "TT-6": {
       "injective": true, "ell_min": 4, "orbit_count": 1, "orbit_length_histogram": {"6": 1}, "ord_phi": 6,
       "T_beta": {"0": ["0", "1/2", "1/2"], "1": ["0", "1/2", "1/2"], "2": ["1", "0", "0"]},
       "doubly_stochastic": true, "mixture_identity": true,
-      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 6,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 6, "pdiv_beta_definitional": false, "pdiv_certs_verified": true,
       "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 0,
       "first_mismatch": null, "verdict": "FREQ",
+      "s1_long_count": 1, "s1_long_equal": 1, "s1_first_mismatch": null, "s1_verdict": "FREQ",
+      "T_beta_long": {"0": ["0", "1/2", "1/2"], "1": ["0", "1/2", "1/2"], "2": ["1", "0", "0"]},
+      "s2_long_equal": 1, "s2_first_mismatch": null, "s2_verdict": "FREQ",
       "orbits": [
         {"rep": 0, "length": 6, "cycle": [0, 1, 4, 2, 3, 5], "visited_rows": [0, 1, 2], "unvisited_rows": [], "n_a": {"0": 2, "1": 2, "2": 2},
          "T_alpha": {"0": ["0", "1/2", "1/2"], "1": ["0", "1/2", "1/2"], "2": ["1", "0", "0"]}, "long": true, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": false, "pdiv_witness": [1, 6], "pdiv_alpha_definitional": false}
-      ],
-      "pdiv_beta_definitional": false
+         "pdiv_alpha": false, "pdiv_witness": [1, 6], "long_c4": true,
+         "eq_beta_long": true, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": false}
+      ]
     },
     "CC-TWIN": {
       "injective": true, "ell_min": 3, "orbit_count": 2, "orbit_length_histogram": {"4": 2}, "ord_phi": 4,
       "T_beta": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
       "doubly_stochastic": true, "mixture_identity": true,
-      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4, "pdiv_beta_definitional": false, "pdiv_certs_verified": true,
       "long_orbit_count": 2, "long_orbits_equal": 2, "long_orbits_pdiv_alpha": 0,
       "first_mismatch": null, "verdict": "FREQ",
+      "s1_long_count": 2, "s1_long_equal": 2, "s1_first_mismatch": null, "s1_verdict": "FREQ",
+      "T_beta_long": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "s2_long_equal": 2, "s2_first_mismatch": null, "s2_verdict": "FREQ",
       "orbits": [
         {"rep": 0, "length": 4, "cycle": [0, 1, 3, 2], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
          "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false},
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "long_c4": true,
+         "eq_beta_long": true, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": false},
         {"rep": 4, "length": 4, "cycle": [4, 5, 7, 6], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
          "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false}
-      ],
-      "pdiv_beta_definitional": false
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "long_c4": true,
+         "eq_beta_long": true, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": false}
+      ]
     },
     "CC-SHORT": {
       "injective": true, "ell_min": 3, "orbit_count": 4, "orbit_length_histogram": {"1": 2, "2": 1, "4": 1}, "ord_phi": 4,
       "T_beta": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
       "doubly_stochastic": true, "mixture_identity": true,
-      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4, "pdiv_beta_definitional": false, "pdiv_certs_verified": true,
       "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 0,
       "first_mismatch": null, "verdict": "FREQ",
+      "s1_long_count": 1, "s1_long_equal": 1, "s1_first_mismatch": null, "s1_verdict": "FREQ",
+      "T_beta_long": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "s2_long_equal": 1, "s2_first_mismatch": null, "s2_verdict": "FREQ",
       "orbits": [
         {"rep": 0, "length": 4, "cycle": [0, 1, 3, 2], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
          "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false},
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "long_c4": true,
+         "eq_beta_long": true, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": false},
         {"rep": 4, "length": 1, "cycle": [4], "visited_rows": [0], "unvisited_rows": [1], "n_a": {"0": 1},
          "T_alpha": {"0": ["1", "0"]}, "long": false, "eq": false,
          "first_mismatch": {"a": 0, "j": 0, "alpha": "1", "beta": "1/2"},
-         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true},
         {"rep": 5, "length": 2, "cycle": [5, 6], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 1, "1": 1},
          "T_alpha": {"0": ["0", "1"], "1": ["1", "0"]}, "long": false, "eq": false,
          "first_mismatch": {"a": 0, "j": 0, "alpha": "0", "beta": "1/2"},
-         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true},
         {"rep": 7, "length": 1, "cycle": [7], "visited_rows": [1], "unvisited_rows": [0], "n_a": {"1": 1},
          "T_alpha": {"1": ["0", "1"]}, "long": false, "eq": false,
          "first_mismatch": {"a": 1, "j": 0, "alpha": "0", "beta": "1/2"},
-         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true}
-      ],
-      "pdiv_beta_definitional": false
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true}
+      ]
     },
     "CC-UNVIS": {
       "injective": true, "ell_min": 4, "orbit_count": 2, "orbit_length_histogram": {"2": 1, "4": 1}, "ord_phi": 4,
       "T_beta": {"0": ["0", "1", "0"], "1": ["1", "0", "0"], "2": ["0", "0", "1"]},
       "doubly_stochastic": true, "mixture_identity": true,
-      "beta_is_permutation": true, "pdiv_beta": true, "pdiv_beta_horizon": 4,
+      "beta_is_permutation": true, "pdiv_beta": true, "pdiv_beta_horizon": 4, "pdiv_beta_definitional": true, "pdiv_certs_verified": true,
       "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 1,
       "first_mismatch": null, "verdict": "FREQ",
+      "s1_long_count": 0, "s1_long_equal": 0, "s1_first_mismatch": null, "s1_verdict": "VOID_NO_ORBIT",
+      "T_beta_long": {"0": ["0", "1", "0"], "1": ["1", "0", "0"]},
+      "s2_long_equal": 1, "s2_first_mismatch": null, "s2_verdict": "FREQ",
       "orbits": [
         {"rep": 0, "length": 4, "cycle": [0, 1, 3, 4], "visited_rows": [0, 1], "unvisited_rows": [2], "n_a": {"0": 2, "1": 2},
          "T_alpha": {"0": ["0", "1", "0"], "1": ["1", "0", "0"]}, "long": true, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": true, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true},
         {"rep": 2, "length": 2, "cycle": [2, 5], "visited_rows": [2], "unvisited_rows": [0, 1], "n_a": {"2": 2},
          "T_alpha": {"2": ["0", "0", "1"]}, "long": false, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true}
-      ],
-      "pdiv_beta_definitional": true
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true}
+      ]
     },
     "CC-VOID": {
       "injective": true, "ell_min": 3, "orbit_count": 1, "orbit_length_histogram": {"2": 1}, "ord_phi": 2,
       "T_beta": {"0": ["0", "1"], "1": ["1", "0"]},
       "doubly_stochastic": true, "mixture_identity": true,
-      "beta_is_permutation": true, "pdiv_beta": true, "pdiv_beta_horizon": 2,
+      "beta_is_permutation": true, "pdiv_beta": true, "pdiv_beta_horizon": 2, "pdiv_beta_definitional": true, "pdiv_certs_verified": true,
       "long_orbit_count": 0, "long_orbits_equal": 0, "long_orbits_pdiv_alpha": 0,
       "first_mismatch": null, "verdict": "VOID_NO_ORBIT",
+      "s1_long_count": 0, "s1_long_equal": 0, "s1_first_mismatch": null, "s1_verdict": "VOID_NO_ORBIT",
+      "T_beta_long": {},
+      "s2_long_equal": 0, "s2_first_mismatch": null, "s2_verdict": "VOID_NO_ORBIT",
       "orbits": [
         {"rep": 0, "length": 2, "cycle": [0, 1], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 1, "1": 1},
          "T_alpha": {"0": ["0", "1"], "1": ["1", "0"]}, "long": false, "eq": true, "first_mismatch": null,
-         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true}
-      ],
-      "pdiv_beta_definitional": true
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true}
+      ]
+    },
+    "CC-SKEW": {
+      "injective": true, "ell_min": 3, "orbit_count": 3, "orbit_length_histogram": {"1": 2, "4": 1}, "ord_phi": 4,
+      "T_beta": {"0": ["2/3", "1/3"], "1": ["1/3", "2/3"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4, "pdiv_beta_definitional": false, "pdiv_certs_verified": true,
+      "long_orbit_count": 1, "long_orbits_equal": 0, "long_orbits_pdiv_alpha": 0,
+      "first_mismatch": {"rep": 0, "a": 0, "j": 0, "alpha": "1/2", "beta": "2/3"},
+      "verdict": "NOT",
+      "s1_long_count": 1, "s1_long_equal": 0,
+      "s1_first_mismatch": {"rep": 0, "a": 0, "j": 0, "alpha": "1/2", "beta": "2/3"},
+      "s1_verdict": "NOT",
+      "T_beta_long": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "s2_long_equal": 1, "s2_first_mismatch": null, "s2_verdict": "FREQ",
+      "orbits": [
+        {"rep": 0, "length": 4, "cycle": [0, 1, 3, 2], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "1/2", "beta": "2/3"},
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "long_c4": true,
+         "eq_beta_long": true, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": false},
+        {"rep": 4, "length": 1, "cycle": [4], "visited_rows": [0], "unvisited_rows": [1], "n_a": {"0": 1},
+         "T_alpha": {"0": ["1", "0"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "1", "beta": "2/3"},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true},
+        {"rep": 5, "length": 1, "cycle": [5], "visited_rows": [1], "unvisited_rows": [0], "n_a": {"1": 1},
+         "T_alpha": {"1": ["0", "1"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 1, "j": 0, "alpha": "0", "beta": "1/3"},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true}
+      ]
+    },
+    "CC-PERM": {
+      "injective": true, "ell_min": 3, "orbit_count": 6, "orbit_length_histogram": {"1": 4, "4": 2}, "ord_phi": 4,
+      "T_beta": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4, "pdiv_beta_definitional": false, "pdiv_certs_verified": true,
+      "long_orbit_count": 2, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 1,
+      "first_mismatch": {"rep": 0, "a": 0, "j": 0, "alpha": "0", "beta": "1/2"},
+      "verdict": "NOT",
+      "s1_long_count": 1, "s1_long_equal": 1, "s1_first_mismatch": null, "s1_verdict": "FREQ",
+      "T_beta_long": {"0": ["1/4", "3/4"], "1": ["3/4", "1/4"]},
+      "s2_long_equal": 0,
+      "s2_first_mismatch": {"rep": 0, "a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
+      "s2_verdict": "NOT",
+      "orbits": [
+        {"rep": 0, "length": 4, "cycle": [0, 1, 2, 3], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["0", "1"], "1": ["1", "0"]}, "long": true, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "0", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": false, "first_mismatch_beta_long": {"a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
+         "pdiv_alpha_definitional": true},
+        {"rep": 4, "length": 4, "cycle": [4, 5, 7, 6], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "long_c4": true,
+         "eq_beta_long": false, "first_mismatch_beta_long": {"a": 0, "j": 0, "alpha": "1/2", "beta": "1/4"},
+         "pdiv_alpha_definitional": false},
+        {"rep": 8, "length": 1, "cycle": [8], "visited_rows": [0], "unvisited_rows": [1], "n_a": {"0": 1},
+         "T_alpha": {"0": ["1", "0"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "1", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true},
+        {"rep": 9, "length": 1, "cycle": [9], "visited_rows": [1], "unvisited_rows": [0], "n_a": {"1": 1},
+         "T_alpha": {"1": ["0", "1"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 1, "j": 0, "alpha": "0", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true},
+        {"rep": 10, "length": 1, "cycle": [10], "visited_rows": [0], "unvisited_rows": [1], "n_a": {"0": 1},
+         "T_alpha": {"0": ["1", "0"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "1", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true},
+        {"rep": 11, "length": 1, "cycle": [11], "visited_rows": [1], "unvisited_rows": [0], "n_a": {"1": 1},
+         "T_alpha": {"1": ["0", "1"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 1, "j": 0, "alpha": "0", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "long_c4": false,
+         "eq_beta_long": null, "first_mismatch_beta_long": null,
+         "pdiv_alpha_definitional": true}
+      ]
     },
     "M-INJ": {
-      "injective": false, "evaluated_beyond_injectivity": false, "verdict": null
+      "phi_impls_agree": true, "injective": false, "evaluated_beyond_injectivity": false
     },
     "EX-ARITH": {
       "results": ["unequal", "equal", "equal", "equal"],
       "reduced": [["1/3", "6004799503160661/18014398509481984"], ["1/3", "1/3"], ["3/4", "3/4"], ["0", "0"]]
     },
     "EX-SCHEMA": {
-      "schema_valid": false, "violation_field": "T_beta"
+      "schema_results": [
+        {"schema_valid": true, "violation_path": null},
+        {"schema_valid": false, "violation_path": ""},
+        {"schema_valid": true, "violation_path": null},
+        {"schema_valid": false, "violation_path": "/0/0"},
+        {"schema_valid": false, "violation_path": "/1/1"},
+        {"schema_valid": true, "violation_path": null},
+        {"schema_valid": false, "violation_path": "/alpha"}
+      ]
+    },
+    "EX-CERT": {
+      "cert_results": ["valid", "invalid", "invalid", "valid", "invalid"]
     },
     "WF-q2-L5": {
       "hand_steps": [

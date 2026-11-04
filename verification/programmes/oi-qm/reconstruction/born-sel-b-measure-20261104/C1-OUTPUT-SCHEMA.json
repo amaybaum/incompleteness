@@ -1,0 +1,250 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bornsel-c1-output-schema/1",
+  "title": "BORN-SEL C-1 output and expected-file schema (draft r2; candidate freeze input; WIP / UNVERIFIED)",
+  "$comment": "Frozen together with PREREG-C1.md at the owner-designated commit F. The format c1-reduced-rational is asserted: a string matching ^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$, not '-0', and, when a denominator is present, with denominator >= 2 and coprime to the numerator. Outputs are validated against toy_record, native_record, unit_record, orbit_record (one per line of an orbits file), pdiv_certs and summary; C1-CONTROLS-EXPECTED.json against expected_file.",
+  "$defs": {
+    "probability": {"type": "string", "pattern": "^(0|[1-9][0-9]*)(/[1-9][0-9]*)?$", "format": "c1-reduced-rational"},
+    "rational": {"type": "string", "pattern": "^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$", "format": "c1-reduced-rational"},
+    "row_key": {"type": "string", "pattern": "^(0|[1-9][0-9]*)$"},
+    "nat": {"type": "integer", "minimum": 0},
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "matrix": {"type": "object", "propertyNames": {"$ref": "#/$defs/row_key"}, "additionalProperties": {"type": "array", "items": {"$ref": "#/$defs/probability"}}},
+    "signed_matrix": {"type": "object", "propertyNames": {"$ref": "#/$defs/row_key"}, "additionalProperties": {"type": "array", "items": {"$ref": "#/$defs/rational"}}},
+    "histogram": {"type": "object", "propertyNames": {"$ref": "#/$defs/row_key"}, "additionalProperties": {"type": "integer", "minimum": 1}},
+    "row_counts": {"type": "object", "propertyNames": {"$ref": "#/$defs/row_key"}, "additionalProperties": {"type": "integer", "minimum": 1}},
+    "rows": {"type": "array", "items": {"$ref": "#/$defs/nat"}},
+    "mismatch": {
+      "type": "object", "additionalProperties": false, "required": ["a", "j", "alpha", "beta"],
+      "properties": {"a": {"$ref": "#/$defs/nat"}, "j": {"$ref": "#/$defs/nat"}, "alpha": {"$ref": "#/$defs/probability"}, "beta": {"$ref": "#/$defs/probability"}}
+    },
+    "mismatch_rep": {
+      "type": "object", "additionalProperties": false, "required": ["rep", "a", "j", "alpha", "beta"],
+      "properties": {"rep": {"$ref": "#/$defs/nat"}, "a": {"$ref": "#/$defs/nat"}, "j": {"$ref": "#/$defs/nat"}, "alpha": {"$ref": "#/$defs/probability"}, "beta": {"$ref": "#/$defs/probability"}}
+    },
+    "mismatch_or_null": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/mismatch"}]},
+    "mismatch_rep_or_null": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/mismatch_rep"}]},
+    "verdict": {"enum": ["FREQ", "NOT", "VOID_NO_ORBIT"]},
+    "overall": {"enum": ["FREQ_ALL", "NOT_ALL", "MIXED", "VOID_ALL", null]},
+    "params": {
+      "type": "object", "additionalProperties": false, "required": ["n", "m", "state_count"],
+      "properties": {
+        "n": {"type": "integer", "minimum": 1}, "m": {"type": "integer", "minimum": 1}, "state_count": {"type": "integer", "minimum": 1, "maximum": 65536},
+        "q": {"enum": [2, 3]}, "L": {"type": "integer", "minimum": 3}, "d": {"const": 1}, "a": {"const": 1},
+        "r": {"type": "integer", "minimum": 1}, "R": {"$ref": "#/$defs/rows"}
+      }
+    },
+    "frozen_inputs": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {"type": "object", "additionalProperties": false, "required": ["path", "blob_at_F", "blob_read"],
+                "properties": {"path": {"type": "string"}, "blob_at_F": {"$ref": "#/$defs/sha"}, "blob_read": {"$ref": "#/$defs/sha"}}}
+    },
+    "run": {
+      "type": "object", "additionalProperties": false, "required": ["F", "run_commit", "run_attempt"],
+      "properties": {"F": {"$ref": "#/$defs/sha"}, "run_commit": {"$ref": "#/$defs/sha"}, "run_attempt": {"type": "integer", "minimum": 1}}
+    },
+    "common": {
+      "type": "object", "required": ["schema", "id", "order", "kind", "frozen_inputs", "run"],
+      "properties": {
+        "schema": {"const": "bornsel-c1/1"}, "id": {"type": "string"}, "order": {"type": "integer", "minimum": 1, "maximum": 27},
+        "kind": {"enum": ["toy", "unit", "native"]}, "frozen_inputs": {"$ref": "#/$defs/frozen_inputs"}, "run": {"$ref": "#/$defs/run"}
+      }
+    },
+    "control_part": {
+      "type": "object", "required": ["expected", "comparisons", "match"],
+      "properties": {
+        "expected": {"type": "object"},
+        "comparisons": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["field", "expected", "computed", "match"],
+                                                   "properties": {"field": {"type": "string"}, "expected": true, "computed": true, "match": {"type": "boolean"}}}},
+        "match": {"type": "boolean"}
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["params", "injective", "ell_min", "ell_min_rule", "orbit_count", "orbit_length_histogram", "ord_phi", "T_beta",
+                   "doubly_stochastic", "mixture_identity", "beta_is_permutation", "pdiv_beta", "pdiv_beta_horizon",
+                   "long_orbit_count", "long_orbits_equal", "long_orbits_pdiv_alpha", "first_mismatch", "verdict",
+                   "s1_long_count", "s1_long_equal", "s1_first_mismatch", "s1_verdict",
+                   "T_beta_long", "s2_long_equal", "s2_first_mismatch", "s2_verdict", "orbits_file", "orbits_sha256"],
+      "properties": {
+        "params": {"$ref": "#/$defs/params"},
+        "injective": {"const": true},
+        "ell_min": {"type": "integer", "minimum": 2}, "ell_min_rule": {"const": "n+1"},
+        "orbit_count": {"type": "integer", "minimum": 1}, "orbit_length_histogram": {"$ref": "#/$defs/histogram"}, "ord_phi": {"type": "integer", "minimum": 1},
+        "T_beta": {"$ref": "#/$defs/matrix"},
+        "doubly_stochastic": {"const": true}, "mixture_identity": {"const": true},
+        "beta_is_permutation": {"type": "boolean"}, "pdiv_beta": {"type": "boolean"}, "pdiv_beta_horizon": {"type": "integer", "minimum": 1},
+        "long_orbit_count": {"$ref": "#/$defs/nat"}, "long_orbits_equal": {"$ref": "#/$defs/nat"}, "long_orbits_pdiv_alpha": {"$ref": "#/$defs/nat"},
+        "first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "verdict": {"$ref": "#/$defs/verdict"},
+        "s1_long_count": {"$ref": "#/$defs/nat"}, "s1_long_equal": {"$ref": "#/$defs/nat"},
+        "s1_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s1_verdict": {"$ref": "#/$defs/verdict"},
+        "T_beta_long": {"$ref": "#/$defs/matrix"}, "s2_long_equal": {"$ref": "#/$defs/nat"},
+        "s2_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s2_verdict": {"$ref": "#/$defs/verdict"},
+        "orbits_file": {"type": "string", "pattern": "^c1/[A-Za-z0-9-]+\\.orbits\\.jsonl$"}, "orbits_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "toy_record": {
+      "allOf": [
+        {"$ref": "#/$defs/common"}, {"$ref": "#/$defs/analysis"}, {"$ref": "#/$defs/control_part"},
+        {"type": "object",
+         "required": ["pdiv_beta_definitional", "pdiv_certs_file", "pdiv_certs_sha256", "pdiv_certs_verified", "sketch_check"],
+         "properties": {
+           "kind": {"const": "toy"},
+           "pdiv_beta_definitional": {"type": "boolean"},
+           "pdiv_certs_file": {"type": "string", "pattern": "^c1/[A-Za-z0-9-]+\\.pdiv-certs\\.json$"},
+           "pdiv_certs_sha256": {"$ref": "#/$defs/sha256"},
+           "pdiv_certs_verified": {"const": true},
+           "sketch_check": {"oneOf": [{"type": "null"},
+             {"type": "object", "additionalProperties": false, "required": ["T_beta_0_1", "T_alpha_rep0_0_1", "T_alpha_rep4_0_1"],
+              "properties": {"T_beta_0_1": {"$ref": "#/$defs/probability"}, "T_alpha_rep0_0_1": {"$ref": "#/$defs/probability"}, "T_alpha_rep4_0_1": {"$ref": "#/$defs/probability"}}}]}
+         }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "native_record": {
+      "allOf": [
+        {"$ref": "#/$defs/common"}, {"$ref": "#/$defs/analysis"},
+        {"type": "object",
+         "required": ["phi_impls_agree", "phi_zero_fixed", "ord_phi_eq_qL", "diameter_ge_4"],
+         "properties": {
+           "kind": {"const": "native"},
+           "params": {"$ref": "#/$defs/params", "required": ["n", "m", "state_count", "q", "L", "d", "a", "r", "R"]},
+           "phi_impls_agree": {"const": true}, "phi_zero_fixed": {"const": true},
+           "ord_phi_eq_qL": {"type": ["boolean", "null"]}, "diameter_ge_4": {"type": "boolean"}
+         }}
+      ],
+      "unevaluatedProperties": false
+    },
+    "unit_record": {
+      "allOf": [
+        {"$ref": "#/$defs/common"}, {"$ref": "#/$defs/control_part"},
+        {"type": "object",
+         "properties": {
+           "kind": {"const": "unit"},
+           "params": {"$ref": "#/$defs/params"},
+           "phi_impls_agree": {"type": "boolean"},
+           "injective": {"type": "boolean"}, "evaluated_beyond_injectivity": {"type": "boolean"},
+           "results": {"type": "array", "items": {"enum": ["equal", "unequal"]}},
+           "reduced": {"type": "array", "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/probability"}}},
+           "schema_results": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["schema_valid", "violation_path"],
+                                                        "properties": {"schema_valid": {"type": "boolean"}, "violation_path": {"type": ["string", "null"]}}}},
+           "cert_results": {"type": "array", "items": {"enum": ["valid", "invalid"]}},
+           "hand_steps": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["step", "prev", "cur", "state", "visible"],
+                                                    "properties": {"step": {"$ref": "#/$defs/nat"}, "prev": {"$ref": "#/$defs/rows"}, "cur": {"$ref": "#/$defs/rows"},
+                                                                   "state": {"$ref": "#/$defs/nat"}, "visible": {"$ref": "#/$defs/nat"}}}},
+           "phi_of_zero": {"type": "object", "additionalProperties": {"$ref": "#/$defs/nat"}}
+         }},
+        {"if": {"properties": {"id": {"const": "M-INJ"}}}, "then": {"required": ["params", "phi_impls_agree", "injective", "evaluated_beyond_injectivity"]}},
+        {"if": {"properties": {"id": {"const": "EX-ARITH"}}}, "then": {"required": ["results", "reduced"]}},
+        {"if": {"properties": {"id": {"const": "EX-SCHEMA"}}}, "then": {"required": ["schema_results"]}},
+        {"if": {"properties": {"id": {"const": "EX-CERT"}}}, "then": {"required": ["cert_results"]}},
+        {"if": {"properties": {"id": {"enum": ["WF-q2-L5", "WF-q3-L4"]}}}, "then": {"required": ["params", "hand_steps", "phi_impls_agree"]}},
+        {"if": {"properties": {"id": {"const": "WF-0"}}}, "then": {"required": ["phi_of_zero", "phi_impls_agree"]}}
+      ],
+      "unevaluatedProperties": false
+    },
+    "orbit_record": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rep", "length", "cycle", "visited_rows", "unvisited_rows", "n_a", "T_alpha", "long", "eq", "first_mismatch",
+                   "pdiv_alpha", "pdiv_witness", "long_c4", "eq_beta_long", "first_mismatch_beta_long", "pdiv_alpha_definitional"],
+      "properties": {
+        "rep": {"$ref": "#/$defs/nat"}, "length": {"type": "integer", "minimum": 1},
+        "cycle": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nat"}},
+        "visited_rows": {"$ref": "#/$defs/rows"}, "unvisited_rows": {"$ref": "#/$defs/rows"},
+        "n_a": {"$ref": "#/$defs/row_counts"}, "T_alpha": {"$ref": "#/$defs/matrix"},
+        "long": {"type": "boolean"}, "eq": {"type": "boolean"}, "first_mismatch": {"$ref": "#/$defs/mismatch_or_null"},
+        "pdiv_alpha": {"type": "boolean"},
+        "pdiv_witness": {"oneOf": [{"type": "null"}, {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 1}}]},
+        "long_c4": {"type": "boolean"}, "eq_beta_long": {"type": ["boolean", "null"]},
+        "first_mismatch_beta_long": {"$ref": "#/$defs/mismatch_or_null"},
+        "pdiv_alpha_definitional": {"type": ["boolean", "null"]}
+      }
+    },
+    "pdiv_certs": {
+      "type": "object", "additionalProperties": false, "required": ["schema", "id", "entries"],
+      "properties": {
+        "schema": {"const": "bornsel-c1-pdiv-certs/1"}, "id": {"type": "string"},
+        "entries": {"type": "array", "items": {
+          "type": "object", "additionalProperties": false, "required": ["family", "rep", "rows", "pair", "kind", "lambda", "farkas_y"],
+          "properties": {
+            "family": {"enum": ["alpha", "beta"]}, "rep": {"type": ["integer", "null"], "minimum": 0},
+            "rows": {"$ref": "#/$defs/rows"},
+            "pair": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/nat"}},
+            "kind": {"enum": ["lambda", "farkas"]},
+            "lambda": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/signed_matrix"}]},
+            "farkas_y": {"oneOf": [{"type": "null"}, {"type": "array", "items": {"$ref": "#/$defs/rational"}}]}
+          }}}
+      }
+    },
+    "verdict_map": {"type": "object", "additionalProperties": {"$ref": "#/$defs/verdict"}},
+    "summary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema", "controls_frozen", "controls_matched", "natives_frozen", "natives_evaluated", "native_verdicts",
+                   "native_s1_verdicts", "native_s2_verdicts", "c1_verdict", "c1_s1_verdict", "c1_s2_verdict",
+                   "run_status", "first_failure", "verdict_text"],
+      "properties": {
+        "schema": {"const": "bornsel-c1-summary/1"},
+        "controls_frozen": {"const": 16}, "controls_matched": {"type": "integer", "minimum": 0, "maximum": 16},
+        "natives_frozen": {"const": 11}, "natives_evaluated": {"type": "array", "items": {"type": "string"}},
+        "native_verdicts": {"$ref": "#/$defs/verdict_map"}, "native_s1_verdicts": {"$ref": "#/$defs/verdict_map"}, "native_s2_verdicts": {"$ref": "#/$defs/verdict_map"},
+        "c1_verdict": {"$ref": "#/$defs/overall"}, "c1_s1_verdict": {"$ref": "#/$defs/overall"}, "c1_s2_verdict": {"$ref": "#/$defs/overall"},
+        "run_status": {"enum": ["COMPLETE", "HALT"]},
+        "first_failure": {"oneOf": [{"type": "null"},
+          {"type": "object", "additionalProperties": false, "required": ["exit", "id", "field", "expected", "computed", "detail"],
+           "properties": {"exit": {"type": "integer"}, "id": {"type": ["string", "null"]}, "field": {"type": ["string", "null"]},
+                          "expected": true, "computed": true, "detail": {"type": ["string", "null"]}}}]},
+        "verdict_text": {"type": "string"}
+      }
+    },
+    "toy_expected": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "injective": {"type": "boolean"}, "ell_min": {"type": "integer"}, "orbit_count": {"type": "integer"},
+        "orbit_length_histogram": {"$ref": "#/$defs/histogram"}, "ord_phi": {"type": "integer"},
+        "T_beta": {"$ref": "#/$defs/matrix"}, "doubly_stochastic": {"type": "boolean"}, "mixture_identity": {"type": "boolean"},
+        "beta_is_permutation": {"type": "boolean"}, "pdiv_beta": {"type": "boolean"}, "pdiv_beta_horizon": {"type": "integer"},
+        "pdiv_beta_definitional": {"type": "boolean"}, "pdiv_certs_verified": {"type": "boolean"},
+        "long_orbit_count": {"$ref": "#/$defs/nat"}, "long_orbits_equal": {"$ref": "#/$defs/nat"}, "long_orbits_pdiv_alpha": {"$ref": "#/$defs/nat"},
+        "first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "verdict": {"$ref": "#/$defs/verdict"},
+        "s1_long_count": {"$ref": "#/$defs/nat"}, "s1_long_equal": {"$ref": "#/$defs/nat"},
+        "s1_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s1_verdict": {"$ref": "#/$defs/verdict"},
+        "T_beta_long": {"$ref": "#/$defs/matrix"}, "s2_long_equal": {"$ref": "#/$defs/nat"},
+        "s2_first_mismatch": {"$ref": "#/$defs/mismatch_rep_or_null"}, "s2_verdict": {"$ref": "#/$defs/verdict"},
+        "sketch_check": {"$ref": "#/$defs/toy_record/allOf/3/properties/sketch_check"},
+        "orbits": {"type": "array", "items": {"$ref": "#/$defs/orbit_record"}}
+      }
+    },
+    "unit_expected": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "phi_impls_agree": {"type": "boolean"}, "injective": {"type": "boolean"}, "evaluated_beyond_injectivity": {"type": "boolean"},
+        "results": {"$ref": "#/$defs/unit_record/allOf/2/properties/results"},
+        "reduced": {"$ref": "#/$defs/unit_record/allOf/2/properties/reduced"},
+        "schema_results": {"$ref": "#/$defs/unit_record/allOf/2/properties/schema_results"},
+        "cert_results": {"$ref": "#/$defs/unit_record/allOf/2/properties/cert_results"},
+        "hand_steps": {"$ref": "#/$defs/unit_record/allOf/2/properties/hand_steps"},
+        "phi_of_zero": {"$ref": "#/$defs/unit_record/allOf/2/properties/phi_of_zero"}
+      }
+    },
+    "expected_file": {
+      "type": "object", "additionalProperties": false, "required": ["schema", "status", "companions", "note", "expected"],
+      "properties": {
+        "schema": {"const": "bornsel-c1-expected/1"}, "status": {"type": "string"}, "companions": {"type": "object"}, "note": {"type": "string"},
+        "expected": {
+          "type": "object", "additionalProperties": false,
+          "required": ["CE-8", "TT-4", "TT-6", "CC-TWIN", "CC-SHORT", "CC-UNVIS", "CC-VOID", "CC-SKEW", "CC-PERM",
+                       "M-INJ", "EX-ARITH", "EX-SCHEMA", "EX-CERT", "WF-q2-L5", "WF-q3-L4", "WF-0"],
+          "properties": {
+            "CE-8": {"$ref": "#/$defs/toy_expected"}, "TT-4": {"$ref": "#/$defs/toy_expected"}, "TT-6": {"$ref": "#/$defs/toy_expected"},
+            "CC-TWIN": {"$ref": "#/$defs/toy_expected"}, "CC-SHORT": {"$ref": "#/$defs/toy_expected"}, "CC-UNVIS": {"$ref": "#/$defs/toy_expected"},
+            "CC-VOID": {"$ref": "#/$defs/toy_expected"}, "CC-SKEW": {"$ref": "#/$defs/toy_expected"}, "CC-PERM": {"$ref": "#/$defs/toy_expected"},
+            "M-INJ": {"$ref": "#/$defs/unit_expected"}, "EX-ARITH": {"$ref": "#/$defs/unit_expected"}, "EX-SCHEMA": {"$ref": "#/$defs/unit_expected"},
+            "EX-CERT": {"$ref": "#/$defs/unit_expected"}, "WF-q2-L5": {"$ref": "#/$defs/unit_expected"}, "WF-q3-L4": {"$ref": "#/$defs/unit_expected"},
+            "WF-0": {"$ref": "#/$defs/unit_expected"}
+          }
+        }
+      }
+    }
+  }
+}
