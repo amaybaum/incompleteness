@@ -11,15 +11,20 @@ confers no scientific status (`AGENTS.md` §A.45 rule 1, §A.46) and authorizes 
 |---|---|
 | Introduction under audit (start) | #918 head `4028e45db1ba520dc6a1bfb44a26b76a112ba575` |
 | Corpus baseline | `main` `f5c281ae10a913ec68fa41b3b839ad0b164979cd` |
-| Correction commits (this round) | `340961ceb9aa1d9d3b1230cc6a905898644051d8`, `690790584a53813439e6d9b5db3a6e7e5f5ea075` |
+| Correction commits (this round) | `340961ceb9aa1d9d3b1230cc6a905898644051d8`, `690790584a53813439e6d9b5db3a6e7e5f5ea075`; after the independent review (#918 c.6643385201) of `b935150b`: `a17216815d29f0358f3316a110a4c4784ab37f1c` and the record revision that follows it |
 | Prior audit record (provenance only) | #942 branch `audit/intro-corpus-20261026` at `16fc745dd0d787d100ca09553bd0342873f26771` |
 | Handoff and retention records (provenance only) | #941 comments 6628558706, 6631126662; activation 6642597102 |
 
-Authorization: #941 activation record (owner, 2026-11-04), paper-only audit workstream on #918's
-branch; arXiv reads and PDF builds added by owner authorization relayed by the coordinator on
-2026-11-04. Not authorized and not done: merge or publication of #918, workflow dispatch or re-run,
-scientific computations, new physical premises, edits outside `papers/Introduction.*` and this
-directory, changes to frozen records.
+Authorization: #941 activation record (owner, 2026-11-04,
+https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6642597102), a paper-only audit
+workstream on #918's branch. The owner's authorization of arXiv reads and PDF builds was relayed to
+this writer by the coordinator during the session, before the corrections were committed; its
+written records, #941 c.6643207092
+(https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643207092) and #866
+c.6643204362 (https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6643204362), were
+posted after commits `340961ce`, `69079058` and `b935150b`. Not authorized and not done: merge or
+publication of #918, workflow dispatch or re-run, scientific computations, new physical premises,
+edits outside `papers/Introduction.*` and this directory, changes to frozen records.
 
 ## 2. Scope and method
 
@@ -47,17 +52,17 @@ authorization).
 
 | ID | Severity | Locator (Introduction at `69079058`) | Finding and evidence | Class |
 |---|---|---|---|---|
-| F-14 | high | L116, L126–132, L158, L174, L322; App. A L357–360 | NEW-1 / OD-4. Four families the Introduction states as machine-checked (`RecordFibreIdentification`, `RootedRecurrenceBridge`, `TrajectoryMemory`, `FullFutureMemory`) are `kernel-only` in `verification/lean-manuscript-census.json` at `f5c281ae`, with no manuscript anchor; the TrajectoryMemory note reads "No publication-facing promotion or K3 change is made before successful CI and independent proof review". `papers/Introduction.md` is not among the census's 13 manuscripts. The module statements match the Introduction's wording and their checkpoints are ancestors of `main`; the gap is the census contract and proof review, not a known error. Partly resolved since the handoff: `RecurrenceHorizon`, `PhysicalC4Discharge`, `PhysicalC4StorageReadback` and `RootedClassification*` are now `current` with Main anchors. | owner |
-| F-18 | high | Abstract L17; L238; L320; L328 | OD-2 / R-06. The Introduction states as open which of (iii)–(v) a physical substratum supplies. GR:260 (families `PhaseSource`, `SubstratumSource`/`ReadWriteControl`, current) proves that finite bijective read-write dynamics with the stated access supplies neither the quarter phase nor continuous state mixing, so the bare substratum class does not supply (iv); a substratum with a further intervention principle is what remains open. Underclaim. The owner disposition (2026-10-27) adopted reporting these results in full, with Appendix A declarations; that needs their axiom reports in `papers/introduction_repro/` (OD-15), which needs an authorized CI run. | blocked (OD-15) |
+| F-14 | high | L116, L126–132, L158, L174, L322; App. A L357–360 | NEW-1 / OD-4. Four families the Introduction states as machine-checked (`RecordFibreIdentification`, `RootedRecurrenceBridge`, `TrajectoryMemory`, `FullFutureMemory`) are `kernel-only` in `verification/lean-manuscript-census.json` at `f5c281ae`, with `manuscript: []`; the TrajectoryMemory note reads "No publication-facing promotion or K3 change is made before successful CI and independent proof review". `papers/Introduction.md` is not among the census's 13 manuscripts. The modules are imported by `verification/lean-mathlib/OIBridge.lean` (L21–24), so `main`'s build includes them, and their blobs are unchanged from the checkpoints. The gap is the census contract and proof review, not verification or a known error. Partly resolved since the handoff: `RecurrenceHorizon`, `PhysicalC4Discharge`, `PhysicalC4StorageReadback` and `RootedClassification*` are now `current` with Main anchors. | owner |
+| F-18 | high | Abstract L17; L238; L320; L328 | OD-2 / R-06. The Introduction states as open which of (iii)–(v) a physical substratum supplies. Kernel statements at `f5c281ae` (families current): `permClass_onesFixing` (PhaseSource:79: the permutation class fixes the all-ones ray) and `onesFixing_not_phasesAvailable` (PhaseSource:52: a ones-fixing class generates no theory with the phases available, on carriers with at least two states); `substratumClass_not_onesFixing` (PhaseSource:196: once the quarter phase is stipulated, the class is not ones-fixing); `readWriteSourced_not_qm` (ReadWriteControl:174: a read-write-sourced `FiniteOperationalTheory (Fin 2)` is not exact finite endomorphic QM); `substratumClass_structurallyClosed` (StructuralClosure:316: the stated substratum class is closed under the architecture operations, stable under a spectator, relabelling-invariant and adjoint-closed, which bears on (iii) and (v)). That condition (iv) fails for finite bijective read-write dynamics with the stated access follows from these by a one-line inference (no kernel statement names (iv)), and GR:260 states it in prose. What remains open is a substratum with a further intervention principle. Underclaim. The owner disposition (2026-10-27) adopted reporting these results with Appendix A declarations; that needs their axiom reports in `papers/introduction_repro/` (OD-15), which needs an authorized CI run. | blocked (OD-15) |
 | F-19 | high | §3.4, L252–258 | OD-3 / R-07 / R-40. The ε-realization half of Main §3.4 (Main:566–602) is not reported; the owner disposition adopted adding it; R-40 and #945 require that any text rest on the exact regime only (#945's finite-b repair unproved). Needs a drafted text and its review; not a minimum-diff correction. | owner (drafting) |
 | F-15 | high | [CE] L387 (used L314), [CR] L389 (used L316) | NEW-3 / item 26. `bdcbd32bb55a5464d72b61682721f0b4bfaf446c` and `2624d49cffc0794b300517719c879de6b57d395e` diverge from `main` and from #918's head (compare API). The proof and control blobs they contain are byte-identical in #918's tree: `entropy-profile-proof.md` `16bdf99a…`, `exact-results.json` `908608ae…`, `exact_controls.py` `dc6c3483…`, `sequential-release.md` `3f7669ec…`, `sequential-release-results.json` `f9b77129…`, `sequential_release_controls.py` `f005d996…` (READMEs differ). Owner obligation (c.6631126662): durable retention on `main` before any dependent claim lands. | owner |
-| F-16 | medium | L316, L322 | [CR] has no retained independent review (homed on #970) but is listed under "Established mathematical results … Proved on paper also". [CE] has an in-tree independent review (`independent-core/review.md`). §A.46 item 1. | owner / #970 |
-| F-17 | medium | L371 | Pins `021850d9` and `a2be1e45` diverge from `main` and #918's head. The content used (GR App. A.7–A.9 scope, GR:839–853; Book regress, `book/ch03-structural-realism.md`:218) is on `main`. | owner (R0-B pin refresh) |
-| F-20 | medium | L174; App. A L356 | OD-5 / R-13. Main:147 gives two formalizations of routed readback, neither implying the other. The Introduction's gloss matches the storage-time reading (`routedAtStorage_forces_indivisible_somewhere`, `PhysicalC4StorageReadback`), but App. A cites only the seed-conditioned `routed_forces_indivisible_somewhere`. Adding the declaration needs its axiom report (OD-15). | blocked (OD-15) |
-| F-21 | low | L304; [Sha79] L473 | OD-8 / R-19. [Sha79] (Commun. ACM; not on arXiv) is not read first-hand. CT06 locators (L118–138) also unchecked. | owner |
+| F-16 | high (blocking for landing) | L316, L322 | [CR] (`sequential-release.md`) has no independent review: the in-tree `independent-core/review.md` reviews [CE] at `bdcbd32` only, and the obligation is homed on #970 (c.6631126662). The Introduction lists [CR] under "Established mathematical results … Proved on paper also" (§A.46 items 1 and 3). | owner / #970 |
+| F-17 | high (blocking for landing) | L371, L379 | Corpus pin and citations disagree. L371 pins Main, SM and the black-hole computations at `20ca05fe`; the Introduction's Main citations are correct against `f5c281ae` and not all at `20ca05fe`. Absent at `20ca05fe` and used before this round: "Theorem (overlap and return)" and `pIndivisible_of_rooted_identity_return_of_overlap` (Theorem 3), `routed_forces_indivisible_somewhere`, the rooted classification (`finiteRootedRealizable_iff_pper`). Made consistent with `f5c281ae` and not with `20ca05fe` by this round: E3 (Main §2.4's title reads "A Minimal Model" at `20ca05fe`), E5 (Main at `20ca05fe` carries the older gluing wording), E8 (Main §3.3 at `20ca05fe` still carries H-Bell's continuum clause). Separately, the pins `021850d9` and `a2be1e45` diverge from `main` and #918's head; the content used (GR:839–853; `book/ch03-structural-realism.md`:218) is on `main`. Re-pinning is part of R0-B (#918 c.6603786828: "pins and labels"), which is not authorized in this workstream, so L371 is not re-pinned here. | owner (R0-B) |
+| F-20 | low | L174; App. A L356 | OD-5 / R-13. Main:147 gives two formalizations of the routed-readback realization clause, neither implying the other. The Introduction's gloss at L174 is the reading-neutral clause of Main:147, and App. A cites one formalization, the seed-conditioned `routed_forces_indivisible_somewhere`; the storage-time `routedAtStorage_forces_indivisible_somewhere` (`PhysicalC4StorageReadback`) is not listed. A completeness finding, not a mismatch. Adding the declaration needs its axiom report (OD-15). | blocked (OD-15) |
+| F-21 | low | L304; [Sha79] L475 | OD-8 / R-19. [Sha79] (Commun. ACM; not on arXiv) is not read first-hand. CT06 locators (L118–138) also unchecked. | owner |
 | F-23 | low | L41, L304–306, L322; refs L383–385 | CON-03 / O-17. The BH-01 record's own status line reads "exploratory research, unreviewed for adoption" (`bh01_access_v1/REPORT.md`:3) while its review directory exists; the Introduction lists the enumeration and the $1/\vert\mathcal U\vert$ floor among established results. The enumeration reproduces from `main` (`checks.py`, `result.json`). | owner (O-17) / #1029 (record status) |
 | F-24 | low | L41 | NEW-5. The Contributions sentence names [BHa; BHb] as the records of §5's results; the §5 coherent-entropy results are in [CE; CR]. Depends on F-15, F-16. | owner (with F-15/F-16) |
-| F-25 | low | refs L441 [HLW06], L467 [PSW06] | Two reference entries are cited nowhere in the text. No scientific misstatement; not edited (owner guidance: scientific corrections first). | owner (editorial) |
+| F-25 | low | refs L441 [HLW06], L469 [PSW06] | Two reference entries are cited nowhere in the text. No scientific misstatement; not edited (owner guidance: scientific corrections first). | owner (editorial) |
 | F-26 | — | whole paper | OD-13. The PDF is 25 pages; the main text runs to p. 22 (Code, data and Appendix A begin on p. 22). The audit plan's 12-page budget is exceeded; the owner disposition keeps required qualifications regardless of length. | owner |
 | F-27 | — | — | Optional items O-1, O-2, O-3, O-4, O-10, O-13, O-14, O-17, O-23, O-26 (handoff §6) are neither adopted nor waived. | owner |
 
@@ -66,18 +71,19 @@ authorization).
 | ID | Severity | Locator | Finding | Edit |
 |---|---|---|---|---|
 | F-01 | medium | L43, L124 | R-03 / OD-7: "exact probe" defined as exhaustive; the Pinsker probe computes information quantities in floating point (Main:176); the dilation probes are exact on instances, not exhaustive (Main:520, :522). Owner disposition (2026-10-27): correct the definition rather than overstate numerical verification. | E1, E2 |
-| F-02 | low | L178 | R-04 / OD-10: "A minimal model" reads as a size claim; no corpus document states minimality (Main §2.4 title), and a three-hidden-state model reproduces every displayed number (hand derivation: $\varphi$ swaps $(0,1)\leftrightarrow(1,1)$ and fixes the rest; uniform $h$ gives $\Gamma_1$ as displayed, $\Gamma_2=I$ since $\varphi$ is an involution, and $P(x_2{=}0\mid x_1{=}1)=(1/6)/(1/2)=1/3$ for uniform $x_0$). Owner disposition: no minimality claim. | E3 |
+| F-02 | low | L178 | R-04 / OD-10: "A minimal model" reads as a size claim; no corpus document at `f5c281ae` states minimality (Main §2.4 title; at the pin `20ca05fe` the title read "A Minimal Model", F-17), and a three-hidden-state model reproduces every displayed number (hand derivation: $\varphi$ swaps $(0,1)\leftrightarrow(1,1)$ and fixes the rest; uniform $h$ gives $\Gamma_1$ as displayed, $\Gamma_2=I$ since $\varphi$ is an involution, and $P(x_2{=}0\mid x_1{=}1)=(1/6)/(1/2)=1/3$ for uniform $x_0$). Owner disposition: no minimality claim. | E3 |
 | F-03 | medium | L324 | R-05 remainder: fixed-basis statistics stated as the visible laws of an embedded observer without the per-horizon scope; Theorem 1 is per horizon and a nonperiodic law has no exact all-time realization by one fixed substratum (Main:640). | E4 |
-| F-04 | medium | L331 | R-09: open problem 4 listed exact gluing for recurrent target families as open; Main:640 now states the rooted classification (`finiteRootedRealizable_iff_pper`, family current) and narrows the open question to multi-time laws. Outdated. | E5 |
+| F-04 | medium | L331 | R-09: open problem 4 listed exact gluing for recurrent target families as open; Main:640 now states the rooted classification (`finiteRootedRealizable_iff_pper`, family current) and narrows the open question to multi-time laws. Outdated relative to `f5c281ae` (not relative to the pin `20ca05fe`; F-17). | E5 |
 | F-05 | low | L332 | R-27: open problem 5 listed only §§2.2–2.5; §3's Bell ceiling, factorization half and Hadamard example are also paper-only or instance-checked. | E6 |
 | F-06 | low | L242 | R-28: the §3.3 heading read as "nothing selects the relating evolution"; Main:646 says representability (with ordinary coherence) does not select it. | E7 |
-| F-07 | medium | L268 | New. H-Bell's continuum-limit clause was cited to [Main §3.3]; at `f5c281ae` Main §3.3 states only the response-dependence and no-signalling part (Main:416, :429; changed by #1085/#1046); the continuum clause is Substratum:133 (§3.2). Outdated citation. | E8 |
+| F-07 | medium | L268 | New. H-Bell's continuum-limit clause was cited to [Main §3.3]; at `f5c281ae` Main §3.3 states only the response-dependence and no-signalling part (Main:416, :429; changed by #1085/#1046); the continuum clause is Substratum:133 (§3.2). Outdated relative to `f5c281ae` (not relative to the pin `20ca05fe`; F-17). | E8 |
 | F-08 | medium | L216 | NEW-2 / SC-41: [Main §4.5] closed the Pauli-twirl sentence; Main §4.5 (Main:720) supports only the fixed-card half. The twirl identity is now stated in-line. | E9 |
 | F-09 | low | L83, ref. | #941 orphan 36, owner decision 11: [Sch21] was used as support without a first-hand read. Bar26 (arXiv:2608.04354v1, fn. 1, read first-hand) reports that Schmidt's construction "appears to have an error". Main no longer cites Sch21. | E10 |
 | F-10 | low | L172 | R-15: "Doukas states the same argument" overstated: Dou26 Prop. 1 is a no-revival obstruction by ℓ1 contraction under Chapman–Kolmogorov composition, with no overlap or return. | E11 |
 | F-11 | low | L148 | R-16: RHP14 Thm 2.4 is an equivalence of which the text uses one direction; BD16's classical case is Cor. 1. | E12 |
-| F-12 | low | L256 | R-17: Mon08 gives no explicit task; it proves a 2N−2 continuous-variable bound and reports Hardy's result. The explicit tasks are GH03 and HKLP24 Thm 4. | E13 |
+| F-12 | low | L256 | R-17: Mon08 gives no explicit task; it proves a lower bound of 2N−2 continuous ontic variables for Markovian (deterministic or stochastic) ontological theories, and reports Hardy's result. The explicit tasks are GH03 and HKLP24 Thm 4. | E13 |
 | F-13 | low | L300, ref. | R-14 / OD-8: [Pag93] ("Average entropy of a subsystem") does not state the black-hole information problem (no occurrence of "black hole" outside its references). Page's "Information in black hole radiation" does. | E14 |
+| F-28 | medium | L41 | Review item 3 (C-020): "The results of §§3.2–3.5 are proved in [GR] and [Main]" overstated §3.4, whose unbounded classical dimension is imported from [HKLP24] (Main:560 imports it as [55]); Main proves the factorization half. | E15 |
 
 No claim of the Introduction was found refuted on `main`.
 
@@ -102,6 +108,9 @@ commit's source in the same commit (§9).
 | E12 | F-11 | `69079058` | "the divisibility criterion of [RHP14, Thm 2.4] … [BD16, Prop. 1]" → "the "only if" half of the divisibility criterion of [RHP14, Thm 2.4] … [BD16, Prop. 1 and Cor. 1]" |
 | E13 | F-12 | `69079058` | "and Montina [Mon08], and" → "and Heinosaari et al. [HKLP24, Thm 4], and" |
 | E14 | F-13 | `69079058` | [Pag93] entry → Page, "Information in black hole radiation," PRL 71, 3743 (1993); arXiv:hep-th/9306083v2 |
+| E15 | F-28 | `a1721681` | Contributions: adds "and the unbounded classical dimension of §3.4 an imported result [HKLP24]" |
+| E16 | review item 8 | `a1721681` | "the one-step $\vert\mathcal C_V\vert^2$-dimensional ancilla dilation of [Main §3.1]" → "the one-step ancilla dilation of [Main §3.1], of total dimension $\vert\mathcal C_V\vert^2$," |
+| E17 | review item 8 | `a1721681` | "Page's Haar mean" (L314) cited to [Pag93a] = arXiv:gr-qc/9305007v2 (restored entry); the E14 entry relabelled [Pag93b] at L300 and in the references |
 
 Propagation (§A.25) was confined to the Introduction and its `.tex`/`.pdf`, as authorized. The
 `verification/coverage/LEDGER.json` rows `INTRODUCTION:*` cite lines 67, 103, 120, 154, 160 and
@@ -118,7 +127,7 @@ passed after the first commit; staleness, voice, claims and duplicate checks aft
   stochastic-inverse lemma machine-checked, the record-fibre, trajectory, whole-future and
   actual-return statements proved on paper with the modules named as unpromoted formalizations.
   (c) Remove those statements.
-- **F-18 (OD-2) and F-20 (OD-5).** Authorize the axiom-report regeneration of
+- **F-18 (OD-2) and F-20 (OD-5).** Authorize the axiom-report regeneration of `papers/introduction_repro/` (OD-15) so the declarations can enter Appendix A; or report the PhaseSource, ReadWriteControl and StructuralClosure results as proved in [GR §3.3], with the failure of (iv) for the stated class stated as an inference from them, without the "machine-checked" label until then; or defer.
   `papers/introduction_repro/` (OD-15) so the declarations can enter Appendix A; or report the
   GR:260 results as proved in [GR §3.3] without the "machine-checked" label until then; or defer.
 - **F-19 (OD-3).** Commission a drafted ε-realization paragraph restricted to the exact regime,
@@ -126,9 +135,9 @@ passed after the first commit; staleness, voice, claims and duplicate checks aft
 - **F-15.** (a) Land #989's two commits on `main` by an owner-authorized retention change;
   (b) at landing, cite the in-tree files with their blob ids and treat the two commit ids as
   provenance; (c) remove the [CE]/[CR] claims until retained.
-- **F-16.** (a) Keep [CR] as "proved on paper" pending #970's review; (b) move it out of the
+- **F-16.** Before landing, either (a) [CR] receives an independent review (#970), or (b) [CR] leaves "Established mathematical results" (and, if wanted, L316 states it as a written proof without independent review). Option (b) is a change of status for the owner to decide; it is not made here.
   established list until reviewed; (c) remove the [CR] paragraph.
-- **F-17.** Re-pin L371 to a `main` commit during R0-B, or retain the two commits.
+- **F-17.** (a) In R0-B, re-pin L371 (and L379) to a `main` commit such as `f5c281ae`, re-confirming the SM and black-hole content the Introduction uses; (b) keep `20ca05fe` and revert the citations that rely on later Main content (this would undo E3, E5, E8 and earlier rows such as Theorem 3's source); (c) retain `021850d9` and `a2be1e45` on `main` or replace them in the re-pin.
 - **F-21 (OD-8).** Read [Sha79] first-hand before landing, or replace "as in perfect secret
   sharing, … [Sha79]" by the BHa rank law alone (R-19 text). Check the CT06 locators.
 - **F-23 (O-17).** Add "not adopted" to the [BHa]/[BHb] entries, or leave them; the record's own
@@ -181,7 +190,7 @@ compare API on 2026-11-04.
 | `17b830bcd0ecc36e10eff5b9eeca03bdd7198d86` (baseline Lean pin) | L340, L348 | yes | support on `main`; cited modules' sources equal at `f5c281ae` except a doc comment in `C3Necessity.lean` |
 | `4f962b6`, `3d54ae74`, `a958bc54`, `96a3020b` (module checkpoints) | L340 | yes | support on `main`; publication status F-14 |
 | `55e3217b` (probe snapshot) | L342 | yes | support on `main` |
-| `20ca05fe` (Main, SM, BH snapshot; Substratum statements) | L371, L379 | yes | support on `main` |
+| `20ca05fe` (Main, SM, BH snapshot; Substratum statements) | L371, L379 | yes | support on `main` for the Substratum statements and the BH computations; for Main the pinned version differs from the one the Introduction cites: Theorem (overlap and return), `pIndivisible_of_rooted_identity_return_of_overlap`, `routed_forces_indivisible_somewhere`, the rooted classification and the §2.4 title "A Six-Hidden-State Model" are absent at `20ca05fe`, and Main §3.3 there carries H-Bell's continuum clause (F-17) |
 | `021850d9`, `a2be1e45` | L371 | no (diverged) | support off `main` as pins; the content used is on `main` (F-17) |
 | `bdcbd32`, `2624d49` ([CE], [CR]) | L387, L389 | no (diverged) | support off `main`; content byte-identical in #918's tree, so it lands with #918; commit reachability unresolved (F-15) |
 | `papers/introduction_repro/` (expected Lean result, recipe) | L340 | not on `main` | in #918's tree; lands with #918 |
@@ -201,6 +210,7 @@ This record itself cites #942's branch (`16fc745d`), #941 and #918 comments and 
 | Command | `sh ./build.sh Introduction`, from the worktree root |
 | Source commit `340961ce` | 25 pages; median 3,891 characters per page (pdftotext); 0 "Missing character" warnings |
 | Source commit `69079058` | 25 pages; median 3,898 characters per page; 0 "Missing character" warnings |
+| Source commit `a1721681` | 25 pages; median 3,898 characters per page; 0 "Missing character" warnings; stamp `bb045f94…` |
 | Stamp | each `.tex` ends with `% source-sha256:` of its own commit's `Introduction.md` (`3a1b988d…` and `94a2cff2…`) |
 
 Each commit's `.md`, `.tex` and `.pdf` are from that commit's source. No claim is made that the
@@ -210,13 +220,13 @@ output is byte-identical or equivalent to any earlier PDF.
 
 | Source | Read | Passage | Bears on |
 |---|---|---|---|
-| Montina, arXiv:0711.4770v2 | first-hand | abstract; §I, pp. 1–2 | F-12: no explicit task; reports Hardy's finite-ontic-state result |
+| Montina, arXiv:0711.4770v2 | first-hand | abstract; §I, pp. 1–2 | F-12: the 2N−2 bound covers Markovian ontological theories; no explicit task; reports Hardy's finite-ontic-state result |
 | Galvão–Hardy, arXiv:quant-ph/0110166v3 | first-hand | abstract | F-12: an explicit task |
 | Heinosaari–Kerppo–Leppäjärvi–Plávala, arXiv:2308.07727v4 | first-hand | abstract; Thm 4 | F-12: explicit task family with unbounded classical dimension |
 | Doukas, arXiv:2602.22095v3 | first-hand | §4.2.1, Prop. 1 and proof; App. A | F-10; C-055 |
 | Rivas–Huelga–Plenio, arXiv:1405.0303v2 | first-hand | Thm 2.4 and proof | F-11 |
 | Buscemi–Datta, arXiv:1408.7062v3 | first-hand | Prop. 1, Cor. 1 | F-11 |
-| Page, arXiv:gr-qc/9305007v2 | first-hand | abstract; full text searched for "black hole" | F-13 |
+| Page, arXiv:gr-qc/9305007v2 | first-hand | abstract (average entropy of a subsystem in a random pure state); full text searched for "black hole" | F-13; E17 |
 | Page, arXiv:hep-th/9306083v2 | first-hand | abstract; first paragraph; journal reference from the arXiv record | F-13 |
 | Barandes, arXiv:2608.04354v1 | first-hand | Thm 3.3, eqs. (43), (50), fn. 1 | F-09; C-027 |
 | Schmidt, Sch21 | not read | — (Bar26 fn. 1 is the secondary source) | F-09 |
@@ -244,14 +254,15 @@ re-run was made.
 
 ## 12. Review packet
 
-**Head to review:** the commit that adds this file on `draft/oi-introductory-paper-20261025`,
-whose parent is `690790584a53813439e6d9b5db3a6e7e5f5ea075`; the reviewer should confirm the exact
-SHA from the #918 checkpoint comment. Corpus: `main` `f5c281ae`.
+**Head to review:** the record revision that follows `a17216815d29f0358f3316a110a4c4784ab37f1c`
+on `draft/oi-introductory-paper-20261025`; the reviewer should confirm the exact SHA from the #918
+checkpoint comment. The first review (#918 c.6643385201, at `b935150b`) is ACCEPT WITH CHANGES;
+its items 1–8 are addressed as recorded in §13. Corpus: `main` `f5c281ae`.
 
 The reviewer is asked to check, one by one:
 
-1. E1–E14 against their findings and sources (§3.2, §4), including that each is the minimum
-   change and adds no claim beyond its source.
+1. E1–E17 against their findings and sources (§3.2, §4), including that each is the minimum
+   change and adds no claim beyond its source. E15–E17 are new since the first review.
 2. The first-hand literature readings in §10 at the cited passages (F-09–F-13).
 3. The hand derivation in F-02 (three-hidden-state model).
 4. The claim map's part A and the classifications of part B, especially C-006, C-007, C-024,
@@ -264,3 +275,17 @@ The reviewer is asked to check, one by one:
    files.
 
 Nothing in this record is independently reviewed yet.
+
+## 13. Response to the independent review of `b935150b` (#918 c.6643385201)
+
+| Review item | Disposition |
+|---|---|
+| 1 (blocking): corpus pin vs citations | Not re-pinned: #918 c.6603786828 assigns "pins and labels" to R0-B, which this workstream is not authorized to carry out. Recorded as an owner item with F-17, raised to high (§3.1, §5); the §8 `20ca05fe` row now states the differences; F-02, F-04 and F-07 are qualified as relative to `f5c281ae`. |
+| 2 (blocking for landing): [CR] unreviewed | F-16 raised to high; options (#970 review, or moving [CR] out of the established list) stated in §5, not decided. |
+| 3: L41 overstates §3.4 | New finding F-28; corrected by E15 (`a1721681`). CLAIM-MAP C-020 updated. |
+| 4: F-18 rescope | F-18 rewritten with the kernel statements as stated in the modules, the one-line inference to (iv) marked as such, and `substratumClass_structurallyClosed`; CLAIM-MAP C-238 updated. |
+| 5: F-20 | Rewritten: L174's gloss is the reading-neutral clause of Main:147; a completeness finding, severity low. CLAIM-MAP C-174r updated. |
+| 6: Montina's scope | F-12, §10 and CLAIM-MAP C-072 state that the bound covers Markovian ontological theories. |
+| 7: authorization links | §1 links the activation record, #941 c.6643207092 and #866 c.6643204362, and states their timing. |
+| 8: editorial | E16 (L83 "of total dimension") and E17 ([Pag93a] for "Page's Haar mean", the information paper relabelled [Pag93b]) in `a1721681`, rebuilt (§9). |
+
