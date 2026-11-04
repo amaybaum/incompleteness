@@ -1,0 +1,208 @@
+{
+  "purpose": "Replay pin for the PE-01 witness (AGENTS.md §A.42 item 1). The 16 records in this directory are byte-identical to PR #923 at cd4064818fe2cff1ee4b147a9761ed157bcf990c. This file states the previously verified results these records carry, gives instructions for reproducing the checks behind the existence statement at book/ch18-beyond.md:106 (mirrored at book/The-Incompleteness-of-Observation-FULL.md:4919), and names the statements in these records that are provenance only.",
+  "accountable_record": {
+    "issue": "#1088",
+    "comment": "https://github.com/amaybaum/incompleteness/issues/1088#issuecomment-6628737033",
+    "owner_decision": {
+      "author": "amaybaum",
+      "recorded": "2026-11-04T10:46:49Z (Claude Code session chat, quoted in the comment above)",
+      "quote_note": "Verbatim from the comment above, with its four paragraphs joined by spaces.",
+      "quote": "I approve the #923 disposition, with option (a), inclusion of A1–A3, and conditional authorization to close #923 without merging. Use the exact numerical results already independently reviewed, together with the three reproducibility scripts. The recipe must identify the inputs, commands, expected outputs, and provenance sufficiently for another reader to reproduce the checks. No scripts need to run now. Clearly distinguish previously verified results from instructions for future reproduction. Include all three [A1–A3] for completeness and provenance. Label historical decisions and superseded interpretations clearly. These notes must not silently introduce new scientific claims or override accepted conclusions. Authorize preparation and independent review of the separate PR containing the 16 files. Do not merge that PR without my explicit approval of its reviewed head, scope, and CI results. The chapter 18 evidence must remain accurately described as branch-only until it is integrated."
+    }
+  },
+  "landing_commit": "the merge commit of the landing PR. The PR lands by a merge commit, not by squash or rebase. The commit that added this file to main is also given by git log --diff-filter=A --format=%H -- <this file's path>.",
+  "supports": {
+    "statement": "book/ch18-beyond.md:106: an embedded observer whose actions reach the hidden state driving a deterministic source can, for some sources, predict its output better than chance.",
+    "needs": [
+      "a positive prediction advantage against a reference law Q_p = 1/2",
+      "an embedded observer: EX1 (bijective maps) and EX8 (observer maps leave the hidden component fixed)",
+      "activity: the observer's interventions select the generator's clocking (the mechanism)"
+    ],
+    "established_by": [
+      "review/results/mine/indep.py",
+      "review/results/mine/witness.py",
+      "review/results/mine/mech.py"
+    ]
+  },
+  "previously_verified_results": {
+    "status": "These values were computed by the independent results reviewer with the scripts in review/results/mine/, written from PLAN.md alone and importing nothing from the PE-01 package. They are recorded in review/results/REVIEW.md, and the PR #923 coordinator reran every script and found each output matching (PR #923 comment 6409658619). Each value is quoted with its REVIEW.md line. No script was run when this file was written or landed.",
+    "witness": "G_clk, n = 5, p = z^5 + z^2 + 1; observer rho_0 = [1,0,2,3], rho_1 = [0,2,3,1], a = [1,0,0,1], chi = 0 (REVIEW.md:46-49); K = 7 with window K' = 4..7 (REVIEW.md:26, 155)",
+    "for_the_statement": [
+      {
+        "script": "indep.py",
+        "value": "Pr[chi(v_K')=X_K'] - 1/2 for K' = 1..7: 0, 0, 0, 1/8, 5/32, 5/32, 1/8 (indep.py's per-step simulation; agreement with witness.py's joint-state enumeration is IM3)",
+        "source": "REVIEW.md:54-56, 82; review/results/README.md:9"
+      },
+      {
+        "script": "indep.py",
+        "value": "reciprocal tap reading, K' = 4..7: 0, -1/16, 1/64, 3/64 (no window)",
+        "source": "REVIEW.md:65-67"
+      },
+      {
+        "script": "witness.py",
+        "value": "the same curve from the full joint-state enumeration; Pr[out=1 at K=7] - 1/2 = 1/8",
+        "source": "REVIEW.md:51-59"
+      },
+      {
+        "script": "witness.py",
+        "value": "Q_p = 1/2 at K' = 4..7",
+        "source": "REVIEW.md:62-64"
+      },
+      {
+        "script": "witness.py",
+        "value": "EX1, EX4, EX5, EX6 and EX8 hold; EX6 one-step visible matrix [[1/2,1/2],[1/2,1/2]]; the joint-state distribution is normalized ('sum to 1')",
+        "source": "REVIEW.md:74-80; review/results/README.md:10 (normalization)"
+      },
+      {
+        "script": "witness.py",
+        "value": "Z(G_clk,5) = 3; orbit lengths 1 (x2), 22 (x22), 40 (x40); median 40, K_cx = 20; footprint 6 = theta; table size 31",
+        "source": "REVIEW.md:83-84, 88-89, 92"
+      },
+      {
+        "script": "mech.py",
+        "value": "Pr[Y_t == c_t] - 1/2 at t = 3..6: 1/8, 5/32, 5/32, 1/8; c_0 = 0 on every path",
+        "source": "REVIEW.md:112, 116"
+      }
+    ],
+    "not_printed_by_any_script": "EX7 holds by construction (REVIEW.md:81). IM3 is the agreement of the indep.py and witness.py curves (REVIEW.md:82).",
+    "broader_scope": [
+      {
+        "script": "search.py",
+        "value": "the only windows meeting (d) in any admissible cell are G_clk n=5 m=2 at K=7: 36 abs and 12 signed pairs, first (2361, 0); output search_out.json",
+        "source": "REVIEW.md:185-190"
+      },
+      {
+        "script": "family.py",
+        "value": "per-member abs pairs at K=7 over the six primitive quintics: 36, 0, 0, 0, 0, 0; family-wide 0. family.py prints the witness's advantages as unreduced k/128 strings.",
+        "source": "REVIEW.md:151-154"
+      },
+      {
+        "script": "plin.py",
+        "value": "1344 observers; no window in the m=3 cells at n = 7, 8; calibration at n=5 G_clk K=7 m=3: 336 abs and 168 signed pairs",
+        "source": "REVIEW.md:191-194"
+      },
+      {
+        "script": "detail.py",
+        "value": "the three observer classes of REVIEW.md:117-122; trigger readouts 1/8, 5/32, 5/32, 1/8",
+        "source": "REVIEW.md:59-61, 117-122"
+      }
+    ],
+    "scope": "The broader-scope values support statements in REPORT.md and REVIEW.md beyond the existence clause quoted in supports.statement, which does not rely on them."
+  },
+  "instructions_for_future_reproduction": {
+    "status": "Instructions only. None of these commands was run at landing time.",
+    "inputs": "review/results/ in this directory at the landing commit (tree e48ad997ed4bf891b8c57c6cdd6adda883e83b65). review/results/SHA256SUMS (blob 8a7b7b7224ba96e55c3fd41f4bcb1dc56d82d447) lists its other 10 files with their sha256. The witness tables are fixed in the scripts; no file outside review/results/mine/ is read.",
+    "construction": [
+      "Run from the top level of a clone of amaybaum/incompleteness that contains the landing commit. R is an absolute path to an empty directory.",
+      "GIT_INDEX_FILE=\"$R.idx\" git read-tree <landing commit>",
+      "GIT_INDEX_FILE=\"$R.idx\" git --work-tree=\"$R\" checkout-index -f -- $(GIT_INDEX_FILE=\"$R.idx\" git ls-files -- verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/review/results)",
+      "rm \"$R.idx\""
+    ],
+    "construction_note": "verification/programmes is export-ignore in .gitattributes, so git archive omits it. The temporary-index construction writes only review/results/ into $R, which also keeps search.py from overwriting the checked-in search_out.json.",
+    "cwd": "$R/verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/review/results/mine",
+    "environment": {
+      "statement_commands": "python3, standard library only",
+      "broader_scope_commands": "python3 with numpy; the numpy version used by the reviewer is not recorded",
+      "isolation": "python3 -I -B, as review/results/README.md states. Each script that imports a sibling inserts its own directory into sys.path. -I ignores PYTHONPATH and user site-packages, so numpy must be installed in the interpreter's own site-packages or in a virtual environment."
+    },
+    "check_method": "The scripts assert nothing and exit 0. The three statement scripts print exact rationals (fractions.Fraction) and booleans; family.py prints unreduced k/128 strings, and search.py and plin.py print integers and dicts. Compare the printed values with previously_verified_results. The one byte-exact expected file is search_out.json.",
+    "commands_for_the_statement": [
+      {
+        "run": "python3 -I -B indep.py",
+        "expected_exit": 0,
+        "expected_output": "a line 'primary' whose entries for K' = 1..7 are 0, 0, 0, 1/8, 5/32, 5/32, 1/8, and a line 'reciprocal' whose entries for K' = 4..7 are 0, -1/16, 1/64, 3/64",
+        "note": "indep.py prints K' = 0..10; the record states values only for the entries above."
+      },
+      {
+        "run": "python3 -I -B witness.py",
+        "expected_exit": 0,
+        "expected_output": "the curve 0, 0, 0, 1/8, 5/32, 5/32, 1/8 for K' = 1..7; Pr[out=1 at K=7] - 1/2 = 1/8; Q_p 1/2, 1/2, 1/2, 1/2; Z = 3 and the orbit distribution above; K_cx(lower) = K_cx(upper) = 20; footprint 6 and theta 6; table size 31; and True for each of EX1 (6 entries), EX8 (5 entries), EX4, EX5, 'EX6 non-permutation' and 'sum to 1'",
+        "note": "'sum to 1' is the normalization of the exact joint-state enumeration of REVIEW.md:51-52; the record states no separate value for it."
+      },
+      {
+        "run": "python3 -I -B mech.py",
+        "expected_exit": 0,
+        "expected_output": "Pr[Y_t == c_t] - 1/2 entries for t = 3..6 equal to 1/8, 5/32, 5/32, 1/8, and printed control patterns c_0..c_6 that all begin with c_0 = 0",
+        "note": "mech.py also prints the entries for t = 0..2 and 7, and 'does v_t determine x_{t-1}?'; the record states no value for these."
+      }
+    ],
+    "commands_for_the_broader_scope": [
+      {
+        "run": "python3 -I -B search.py",
+        "expected_exit": 0,
+        "expected_file": {
+          "path": "search_out.json",
+          "blob": "836ffb2db762743dee04e9e39534bb09a90d7535",
+          "sha256": "03e2cea59473baeff977f38e7a2154c785025b69191f52c28e99ccaf514390a4"
+        },
+        "check": "search.py rewrites search_out.json in its own directory. After the run in $R the file is byte-identical to the blob above; on a checkout, git diff --exit-code on that path."
+      },
+      {
+        "run": "python3 -I -B family.py",
+        "expected_exit": 0,
+        "expected_output": "as in previously_verified_results.broader_scope"
+      },
+      {
+        "run": "python3 -I -B plin.py",
+        "expected_exit": 0,
+        "expected_output": "as in previously_verified_results.broader_scope"
+      },
+      {
+        "run": "python3 -I -B detail.py",
+        "expected_exit": 0,
+        "expected_output": "as in previously_verified_results.broader_scope; chi and its complement print on separate lines"
+      }
+    ],
+    "construction_alternative": "git worktree add --detach \"$R\" <landing commit>, from the same clone, which export-ignore does not affect; then use the cwd below. In that case run search.py on a copy, or check search_out.json with git diff --exit-code afterwards."
+  },
+  "historical_decision_records": {
+    "files": [
+      "amendments/A1-owner-decisions.md",
+      "amendments/A2-open-items.md",
+      "amendments/A3-literature-tags.md"
+    ],
+    "standing": "A1, A2 and A3 are historical records of the owner's decisions that governed PE-01 before and after its run. They are included for completeness and provenance. They add no scientific claim, and they override no accepted conclusion: PE-01's result and its scope are those of review/results/REVIEW.md, as reported in REPORT.md and narrowed by the scope of book/ch18-beyond.md:106.",
+    "superseded_or_historical_readings": [
+      "A2 item 2 (LF-A): the owner's table entry 'Passive, not part of the deciding criterion' is superseded within A2 itself by the owner's clarification of 2026-10-26 that passive linear filters are fully eligible to produce deciding counterexamples. The pe01-resolutions block's value \"LF-A\": \"passive\" is read with that clarification.",
+      "A3 lists Rueppel (EUROCRYPT '87) and Gollmann–Chambers (1989) as works to read under its tagging rule. REPORT.md records them as unread, so no candidate-NEW tag is assignable. The tag annex A3 refers to (../review/literature/) is not in this directory.",
+      "A1, A2 and A3 refer to files that are not in this directory: ../pe01/ (A2, A3), ../verdict.py (A2), ../results/ (A3) and ../review/literature/ (A3). Those references are provenance only."
+    ]
+  },
+  "historical_readings_in_other_records": [
+    "PLAN.md uses 'PE-02' for the thread's computational-versus-physical-observers stage, now planned in #1092. It is not the charged-tables stage, which was drafted under the working name PE-02 and renamed PE-05 (#934).",
+    "Corpus line numbers in PLAN.md, REPORT.md and REVIEW.md refer to the corpus at c37700ad (PLAN.md:4-5): the branch never changed papers/ or book/, so the run head 549641460b8d has the same corpus. On main several cited lines have moved. Each mapping below is to the paragraph on main that begins with the same words; its text may since have been edited. book/ch18-beyond.md:114 (PLAN.md:296, 328; REPORT.md:28, 178, 191; REVIEW.md:22, 257) is now book/ch18-beyond.md:106, and its universal form was removed by #933 (merge 687e885b); ch18-beyond.md:106 states the narrowed existence form this pin supports. REVIEW.md:10's ch18-beyond.md:105-116 is now 97-108. FULL.md:4932 (REVIEW.md:257) was the mirror's line at c37700ad, 4934 at #933's base 52e2db40, and is 4919 on main. Main.md:560, the corollary 'single controlled dynamics' (PLAN.md:179, 182; REPORT.md:129; REVIEW.md:163), is now Main.md:582; Main.md:560 on main is a different proposition. Main.md:496 (PLAN.md:38, 57) is now Main.md:518, Main.md:708 (PLAN.md:57) is now Main.md:726, and Structure.md:1256 (PLAN.md:10, 326) is now Structure.md:1254. ch18-beyond.md:56 (PLAN.md:380; REPORT.md:135) is unchanged.",
+    "REPORT.md's 'Bearing on the corpus' says any change to that sentence needs owner approval. The change it anticipated was made, with owner approval, by #933."
+  ],
+  "provenance_only": {
+    "statements": [
+      "CI run 40271434371 (78 jobs) and its 38-shard completion and byte-identical replay",
+      "the regeneration of results/verdict.txt by verdict.py from results/measurements.json, and every checkpoint result of that run (EX, IM, PC, NC, SY, MO, FP, CX, K0, RP, PIN, TH, AR, VG)",
+      "the digests in REVIEW.md of files not in this directory: measurements.json f17109f1..., verdict.json eeebc219..., verdict.txt 3b8f5924..., shard-n5-clk 3f6121e8...",
+      "the general passive m = 3 sweep and the linear-filter m = 4 sweep (REVIEW.md:195-196 states these were not enumerated independently)",
+      "REPORT.md's statements on the run, the shards, results/ and the 26 combinations that fail only (f)",
+      "REPORT.md's Literature section: its tags and their independent review are in review/literature/ (REPORT.md:141-142, 187), which is not in this directory",
+      "the independent code review's acceptance of the PE-01 code for dispatch (REPORT.md:15; review/code/)"
+    ],
+    "cited_commits_off_main": {
+      "note": "Cited in the records in this directory. Not reachable from main. Resolvable at refs/pull/923/head and on branch research/oi-pseudoentropy-20261025. The records are not edited (AGENTS.md §A.42 item 6).",
+      "549641460b8ddb536178f95fac2ec9390e84a987": "run head; cited in full by REPORT.md, review/results/README.md and review/results/REVIEW.md",
+      "54964146": "run head as cited by amendments/A3-literature-tags.md:3 (8-character prefix); resolves to 549641460b8ddb536178f95fac2ec9390e84a987",
+      "25e77a3cbd81cd10cd5161dca94d1da6f2a01eb5": "thread plan review; cited by PLAN.md",
+      "af38dc2dde0fbdd190a67debf700ab5c370f92d9": "PLAN.md revision 5; cited by amendments/A1-owner-decisions.md and REPORT.md",
+      "1e025b67": "A1 pin; cited by REPORT.md",
+      "826bd9ba": "A2 pin; cited by REPORT.md",
+      "07f3c127": "code-review head; cited by amendments/A2-open-items.md:13",
+      "cd4064818fe2cff1ee4b147a9761ed157bcf990c": "PR #923 head from which the 16 records were copied; cited by this file"
+    },
+    "cited_commits_on_main": {
+      "c37700ad": "thread base; cited by PLAN.md"
+    },
+    "unresolved_relative_paths": "These paths are cited by the records but are not in this directory on main: PLAN.md refers to ../README.md (the thread plan) and, at PLAN.md:562, to results/measurements.json and results/verdict.json; REVIEW.md refers to review/code/REVIEW.md (REVIEW.md:9), to pe01/ (REVIEW.md:15) and to the thread README; REPORT.md refers to results/, pe01/, verdict.py, review/code/ and review/literature/; A1-A3 as listed under historical_decision_records. All resolve at refs/pull/923/head.",
+    "other_provenance": {
+      "314d2ef2": "commit adding results/ on PR #923",
+      "d1189b64": "commit adding REPORT.md and review/results/ on PR #923",
+      "efbfd0d7": "commit fixing REPORT.md's literature section and adding A3's tag annex on PR #923",
+      "replays": "The results reviewer ran every script in review/results/mine/ on 2026-10-26, and the PR #923 coordinator reran them; each output matched REVIEW.md, and search_out.json reproduced byte for byte (PR #923 comment 6409658619). Neither run's stdout or environment is retained."
+    }
+  }
+}
