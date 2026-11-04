@@ -21,10 +21,10 @@ A proof under hypotheses does not derive them.
 
 | Question | Verdict |
 | --- | --- |
-| Q0 Statement | Stated exactly below. The displayed hypotheses leave the law of `D′` free. |
-| Q1 Pre-cut equality | **Proved under H-pre** (Theorem 1), plus H-rule, H-torus and H-access with its record dictionary. **Counterexample** to the implication from the displayed hypotheses (Theorem 2): with `D′` a point mass, which displayed H-prior permits, a pre-cut public record determines the setting (TV 1). **Open:** whether the specific source-programme law of `D′` gives equality without H-pre. |
-| Q2 Forward kernel | **Proved under the parent's 42-key prior** (implied by H-prior), given the parent's recorded geometry. No step is wrong. Three steps are unwritten in the parent and are supplied here (K4′, K6′, K7′). |
-| Q3 Composition | **Proved under H-prior⁺** (Theorem 3): `μ_0^{k0} = μ_1^{k0}` for every `k0`, `⊥` included. One direction only. Under the five displayed hypotheses it fails (Theorem 2). |
+| Q0 Statement | Stated exactly below. H-prior's displayed equation leaves the law of `D′` free. Its sourcing (the history_v11 bank retained) makes `V5` uniform. |
+| Q1 Pre-cut equality | **Proved under H-pre** (Theorem 1), plus H-rule, H-torus and H-access with its record dictionary. Under the sourced reading of H-prior, H-pre holds (H-bank implies it). **Counterexample** to the implication from H-prior's displayed equation alone (Theorem 2): with `D′` the all-zero point mass, which that equation permits, a pre-cut public record determines the setting (TV 1). The all-zero law is not the original preparation. No source specifies an original law with non-uniform `V5`. |
+| Q2 Forward kernel | **Proved under the parent's 42-key prior** (implied by H-prior), given the parent's recorded geometry. No step is wrong. Three steps are unwritten in the parent and are supplied here: K3's cardinality step, K4′ and K7′. K6′ diagnoses where the LA gap enters. |
+| Q3 Composition | **Proved under H-prior ∧ H-pre** (equivalently H-prior⁺; Theorem 3): `μ_0^{k0} = μ_1^{k0}` for every `k0`, `⊥` included. One direction only. Under H-prior's sourced reading this applies. Under the displayed list alone it fails (Theorem 2). |
 | Q4 Physics | No hypothesis is derived for native OI. H-pre, H-prior, H-inventory, H-access and H-rule are posited; H-torus is a construction parameter, measured. H-rule is the native-Y rule, not the corpus's selected linear rule. |
 
 ***
@@ -82,12 +82,44 @@ A proof under hypotheses does not derive them.
 - **H-prior** (displayed, `later-access-preregistration.md:151`): `P(η=z, β=b | D′=d) = 8^-(42+|β|)`.
 - **H-bank** (named by H-prior's sourcing sentence, `:153–154`; source `NY/history_v11/REPORT.md:23–27`):
   the history_v11 bank `{f_i(t) : a_i < t ≤ 2L}` is uniform conditional on its complement.
-- **H-free:** the 25 FREE keys of `η` are uniform conditional on the rest of the complement. This is
-  the "inherited independent-uniform complement" of `:153`.
-- **H-prior⁺:** `P(η=z, β=b, V5=v | D‴=d) = 8^-(42+|β|+76)`. H-bank and H-free together imply it (chain
-  rule). H-prior⁺ implies H-prior, and H-prior implies the parent's prior `P(η | D) = 8^-42`.
-- **H-pre** (the weakest form used in Theorem 1): `(b5, V5)` is uniform conditional on `E`. H-prior⁺
-  implies it.
+- **H-pre** (the weakest form used in Theorem 1): `(b5, V5)` is uniform conditional on `E`.
+- **H-prior⁺:** `P(η=z, β=b, V5=v | D‴=d) = 8^-(42+|β|+76)`.
+- **H-prior implies the parent's prior** `P(η | D) = 8^-42`, where `D = D′ ∪ β`.
+
+**Lemma 0 (relations among the priors).**
+
+- (a) **H-prior⁺ ⇔ H-prior ∧ H-pre.**
+  - (⇒) Condition the uniform law of `(η, β, V5)` given `D‴` on `V5`, which gives H-prior; or on
+    `(η∖{b5}, β)`, which gives H-pre.
+  - (⇐) By H-prior, `P(η∖{b5}, β | D‴, V5) = Σ_{b5} 8^-(42+|β|) = 8^-(41+|β|)`, which does not depend
+    on `V5`, so `P(η∖{b5}, β | D‴) = 8^-(41+|β|)`. Then
+    `P(η, β, V5 | D‴) = P(η∖{b5}, β | D‴) · P(b5, V5 | D‴, η∖{b5}, β) = 8^-(41+|β|) · 8^-77`, by
+    H-pre. This is the H-prior⁺ mass. ∎
+- (b) **H-bank ⇒ H-pre.**
+  - `b5` and `V5` are port-5 bank triples `f_5(t)` with `a_5 = S < t ≤ L+3`. They are reserved for the
+    history_v11 bank (`NY/history_v11/REPORT.md:41`, `:45`; parent `:42`, `:49–50`).
+  - Every variable of `E` is either in the bank complement or another bank triple.
+  - The whole bank is uniform given its complement, so any sub-block of it is uniform given the
+    complement and the rest of the bank. ∎
+- (c) **H-bank ∧ H-free ⇒ H-prior.** Here H-free means the 25 FREE keys of `η` are uniform given the
+  rest of the complement, the "inherited independent-uniform complement" of `:153`. The proof is the
+  chain rule.
+
+  H-free is not needed as a separate hypothesis once H-prior is assumed. The minimal list for
+  Theorem 3 is H-prior's displayed equation, H-pre, H-access with its dictionary, H-rule with P6a,
+  H-torus with P5, the recorded P1–P4 and the parent's recorded geometry. H-inventory is not used in
+  any proof step.
+
+**Sourced reading of H-prior.** The preregistration keeps "the original preparation" unchanged
+(`later-access-preregistration.md:102–104`). It supplies H-prior "where the inherited
+independent-uniform complement and the independent bank of `history_v11` are both retained"
+(`:153–154`). The parent treats `b5` as "an already reserved independent BANK block" under "the
+retained independent bank law" (`native-random-setting-test.md:42`, `:49–50`). In history_v11 the
+port-5 frontier triples `f_5(t)`, `S < t ≤ H`, are reserved bank triples, uniform given the complement
+(`NY/history_v11/REPORT.md:23–25`, `:41`, `:45`).
+
+On this reading H-bank is part of the preparation. By Lemma 0(b) it implies H-pre. "H-prior as its
+displayed equation" below means the equation at `:151` read without that sourcing sentence.
 - **H-inventory, H-access, H-torus:** as in `later-access-preregistration.md:161–168`.
 - **P1–P5, P6a:** the recorded exact preconditions (`later-access-result.md:41–49`) *(recorded, not
   re-run)*. P6b is a sampled mechanism check and is not used below.
@@ -102,9 +134,14 @@ For `c ∈ {0,1}`, `μ_c(x) = P(X=x | R.A=c)`. This is defined because `P(R.A=c)
 > Equivalently, `TV_win(k0) = 0` for every `k0`. Then also `TV_acc(k0) = 0`, and every stop rule on
 > `A(X)`-prefixes gives equal laws.
 
-**Verdict Q0.** The statement is fixed as above. The displayed H-prior constrains the law of `(η, β)`
-given `D′` and leaves the law of `D′` arbitrary, `V5` included. H-bank is not in the displayed
-hypothesis list. The parent's "D" (`native-random-setting-test.md:86`) is `D′ ∪ β`.
+**Verdict Q0.** The statement is fixed as above.
+
+- H-prior's displayed equation constrains only the law of `(η, β)` given `D′`. It leaves the law of
+  `D′`, `V5` included, arbitrary.
+- H-prior's sourcing sentence retains the history_v11 bank. Under that reading `V5` is uniform, and
+  H-pre holds (Lemma 0(b)).
+- H-bank is not written in the five-item hypothesis list.
+- The parent's "D" (`native-random-setting-test.md:86`) is `D′ ∪ β`.
 
 ***
 
@@ -163,10 +200,26 @@ those triples are in `E` and are fixed.
 
 The footprint minimum is attained at `(0,S+1,78)` and `(0,S,77)`. At `t = S+4` the margins 1 (`K0`)
 and 2 (`Q9`) agree with the recorded CP-PRECUT values `b5_to_K0_slices_minus_tau = 1` and
-`b5_to_q9_minus_L2 = 2` (`later-access-result.json`). The `⊥` label is the terminal source context. It
-is a function of source cells, and `b5` and `V5` are not source cells: for `b5` this is the parent's
-check (`native_random_setting_probe.py:73`); for `V5`, it is history_v11's bank/source distinctness
-(`NY/history_v11/REPORT.md:67–81`) *(recorded, not re-run)*. ∎
+`b5_to_q9_minus_L2 = 2` (`later-access-result.json`).
+
+**The `⊥` label as a function on `Ω`.** `K0 = ⊥` is the value taken in the 16 terminal source
+contexts (`later-access-preregistration.md:120–121`). This is sourced as follows:
+
+- A context is terminal when an earlier terminal flag is set. "An earlier terminal flag still forbids
+  an offered carrier" (`NY/native_x_v12/REPORT.md:160`), and "Earlier terminal flags remain in D"
+  (`NY/phase_joint_v10/review/REPORT.md:77`).
+- Those flags belong to the informative branch record through `L`, which history_v11 shows is a
+  function of the bank complement: "the entire retained selected phase and the informative branch
+  record through L are bank-complement functions" (`NY/history_v11/REPORT.md:83–86`, also `:120–121`).
+- So the indicator of `{K0 = ⊥}` is a function on `Ω` of the bank complement alone.
+- `b5` and `V5` are bank triples, so the indicator does not depend on them. Their distinctness from
+  every source cell is the parent's check for `b5` (`native_random_setting_probe.py:73`) and
+  history_v11's bank/source distinctness for `V5` (`NY/history_v11/REPORT.md:67–81`) *(recorded, not
+  re-run)*.
+- On continuing contexts, `K0` is the field value, and the table above covers it.
+
+The identification of the 16 terminal contexts with those flag values is taken from these records and
+is not re-derived here. ∎
 
 ### Theorem 1 (pre-cut equality; proved under H-pre)
 
@@ -186,13 +239,14 @@ every `w` and every `k0`, `⊥` included, `ν_0^{k0}(w) = ν_1^{k0}(w)`.
 
 Theorem 1 uses neither the parent kernel nor P1–P4. Its only probabilistic input is H-pre.
 
-### Theorem 2 (counterexample to the implication from the displayed hypotheses)
+### Theorem 2 (counterexample to the implication from H-prior's displayed equation)
 
 Let `D′` be the point mass at the all-zero configuration: `U_{-1} ≡ 0`, and `U_0 = 0` on every cell
-outside `η ∪ β`. Let `η` and `β` be uniform and independent of `D′`, so H-prior holds as displayed.
+outside `η ∪ β`. Let `η` and `β` be uniform and independent of `D′`, so H-prior's displayed equation
+holds. H-pre and H-bank fail, because `V5` is constant.
 H-rule, H-torus, P1–P5 and P6a do not involve the law of `D′` and hold as recorded. H-inventory and H-access concern the declared inventory and the read convention, not the law of
-`D′`; whether "the original preparation" requires the source-programme law is the question this
-theorem isolates (see below). Let
+`D′`. The original preparation, read with H-prior's sourcing sentence, excludes this law, because it
+keeps `V5` as uniform bank (Lemma 0 and the standing below). Let
 `Y = (R.B, R.D, U_{S+6}(p5))`. `Y` is a coordinate function of `A(X)`, since port 5's raw triple at
 `S+6 ≤ L+3` is in `W_τ`. Then the laws of `Y` given `c = 0` and `c = 1` have disjoint supports:
 
@@ -279,28 +333,36 @@ in the statement. ∎
 
 **What Theorem 2 shows, and what it does not.**
 
-- It refutes the implication "displayed H-prior, H-rule, H-torus, H-access and P1–P6a imply LA-EQUAL".
-  The step that needs more is the pre-cut equality.
+- It refutes the implication "H-prior as its displayed equation, read without its sourcing sentence,
+  together with H-rule, H-torus, H-access and P1–P6a, implies LA-EQUAL". The step that needs more is
+  the pre-cut equality.
 - The steps S3–S6 of the LA argument (tail uniformity and `EMPTY`) hold for every fixed value of `D′`.
   The pre-cut equality does not.
-- The point mass is not the original preparation: it zeros the source programme inside `B(p5, S+6)`.
-  Theorem 2 is therefore not a counterexample to LA-EQUAL under H-prior⁺ (Theorem 3), nor under the
-  original source-programme law of `D′`.
+- The point mass is not the original preparation. It zeros the source programme inside `B(p5, S+6)`,
+  and it pins `V5`, which the sources reserve as uniform bank. Theorem 2 is therefore not a
+  counterexample under H-pre or under H-prior's sourced reading (Theorem 3).
 - The setting enters `U_{S+6}(p5)` in all three components, not only through
   `A = R.A ⊕ Σ.B`. The `A` bit alone gives TV `1/2` here: the rows `(0,0)` and `(1,1)` agree on it.
 
-### Remaining gap in Q1
+### Standing of Q1 under the two readings of H-prior
 
-Equality for the specific original law of `D′`, the source programme with `V5` not uniform, is
-**open**. It depends on the background inside `B(p5, S+6)`, which is astronomical. No bounded exact
-computation decides it, and none is proposed.
+- **(i) Sourced reading.** Here the original preparation retains history_v11's bank
+  (`later-access-preregistration.md:102–104`, `:153–154`; parent `:42`, `:49–50`;
+  `NY/history_v11/REPORT.md:23–25`, `:41`, `:45`). `V5` is then uniform bank, H-pre holds by
+  Lemma 0(b), and Theorem 1 gives the pre-cut equality. Theorem 3 then gives LA-EQUAL, conditional on
+  the remaining hypotheses.
+- **(ii) Displayed equation alone.** The equation at `:151`, read without its sourcing sentence,
+  admits laws of `D′` for which the pre-cut equality and LA-EQUAL fail (Theorem 2). The all-zero law
+  is not the original preparation.
+- **(iii) No other law is specified.** No source specifies an original law in which `V5` is not
+  uniform. An unresolved case would arise only for a specific law of `D′` with non-uniform `V5`, which
+  would have to be named first. None is named in the inputs.
 
 **Verdict Q1.**
 
 - **Proved under H-pre** (Theorem 1), with H-rule (P6a), H-torus (P5) and H-access with its record
-  dictionary.
-- **Counterexample** to sufficiency of the displayed hypotheses (Theorem 2, TV 1).
-- **Open** for the unmodified source-programme law without H-pre.
+  dictionary. H-pre holds under H-prior's sourced reading.
+- **Counterexample** to sufficiency of H-prior as its displayed equation (Theorem 2, TV 1).
 
 ***
 
@@ -324,7 +386,7 @@ Valid, given the recorded geometry.
 **K2 (`:86–93`). Prior `P(η | D) = 8^-42`.** A hypothesis. It is implied by H-prior, and hence by
 H-prior⁺.
 
-**K3 (`:95–102`). Joint law.** Valid.
+**K3 (`:95–102`). Joint law.** Valid. The cardinality step is supplied here.
 
 - For fixed `d`, the label map from `η` is injective by K1.
 - Its image lies in the compatible set `{π(k0) = Q(d), S(k0,k1), S(k1,k2)}`:
@@ -361,8 +423,9 @@ it does. The LA preregistration bars that substitution (`later-access-preregistr
 recorded exclusions. `V = U_{L+2}(Q9)` is the label `B2:4`, a coordinate of `K0`
 (`native_random_setting_probe.py:94–95`).
 
-**K6′ (supplied here).** K6 is the source of the LA gap: "for fixed `D`" makes the pre-cut history a
-function of `r`. Its law given `c` then depends on the law of `D`, which K2 leaves free (Theorem 2).
+**K6′ (diagnosis, not a proof step).** K6 is where the LA gap enters. "For fixed `D`" makes the
+pre-cut history a function of `r`, so its law given `c` depends on the law of `D`. K2 leaves that law
+free, and H-pre fixes the part that matters (Theorems 1 and 2).
 
 **K7′ (unwritten in the parent; supplied here). Terminal contexts.** Valid. The joint formula covers
 continuing branches only.
@@ -372,27 +435,33 @@ continuing branches only.
 - So `P(ΔW1, ΔW2 | W_τ, K0=⊥, R) = 8^-16`, with `K1` and `K2` absent.
 
 **Verdict Q2.** **Proved under the parent's prior** (implied by H-prior), H-rule (P6a) and H-torus, given
-the recorded 42-row geometry *(recorded, not re-run)*. No step is in error. Steps K4′, K6′ and K7′ are
-written here for the first time. The kernel does not need H-pre.
+the recorded 42-row geometry *(recorded, not re-run)*. No step is in error.
+
+- The supplied steps, unwritten in the parent, are K3's cardinality step, K4′ and K7′.
+- K6′ is a diagnosis.
+- The kernel does not need H-pre.
 
 ***
 
 ## Q3. Composition
 
-### Theorem 3 (LA-EQUAL; proved under H-prior⁺)
+### Theorem 3 (LA-EQUAL; proved under H-prior ∧ H-pre)
 
-Assume H-prior⁺, H-rule with P6a, H-torus with P5, H-access with the record dictionary of Q0, the
-recorded P1–P4, and the parent's recorded 42-row geometry. Then `μ_0^{k0} = μ_1^{k0}` for every `k0`,
-`⊥` included.
+Assume H-prior (its displayed equation) and H-pre, which together are equivalent to H-prior⁺
+(Lemma 0(a)). Assume also H-rule with P6a, H-torus with P5, H-access with the record dictionary of Q0,
+the recorded P1–P4, and the parent's recorded 42-row geometry. Then `μ_0^{k0} = μ_1^{k0}` for every
+`k0`, `⊥` included.
 
 *Proof.* By the chain rule, for each `(w′, k0, f, y)`:
 
-    μ_c^{k0}(w′, f, y) = ν_c^{k0}(w′) · P(Fut=f | W_pre=w′, K0=k0, R.A=c) · P(Tail=y | W=w, R.A=c)
+    μ_c^{k0}(w′, f, y) = ν_c^{k0}(w′)
+                         · P(Fut=f | W_pre=w′, K0=k0, R.A=c)
+                         · P(Tail=y | W_pre=w′, K0=k0, Fut=f, R.A=c)
 
 The second factor is defined when the first is positive, and the third when the product of the first
 two is positive. Each factor in turn:
 
-1. **Pre-cut factor.** `ν_c^{k0}(w′)` does not depend on `c`, by Theorem 1. H-prior⁺ implies H-pre.
+1. **Pre-cut factor.** `ν_c^{k0}(w′)` does not depend on `c`, by Theorem 1.
    Positivity of the conditioning event therefore does not depend on `c` either.
 2. **Future factor.** The event `{W_pre=w′, K0=k0, R.A=c}` equals `{W_τ=w, K0=k0, R=r}` with
    `r = (c, w′.B, w′.D)`. By Q2 (K3, K4, K4′) it equals `8^-28·S(k0,k1)·S(k1,k2)` for `k0 ≠ ⊥`, and by
@@ -400,10 +469,11 @@ two is positive. Each factor in turn:
 3. **Tail factor.** By S3 and S4 of the review reconstruction (`LA-EQUAL-REVIEW.md:299–308`):
    - P1, P4 and the Lemma 1 argument make `β ↦ Tail` triangular with bijective diagonal, for fixed
      `(D′, η)`;
-   - H-prior (implied by H-prior⁺) gives `P(Tail=y | D′, η) = 8^-|β|`;
-   - by P2, `W` and `R.A` are functions of `(D′, η)`.
+   - H-prior gives `P(Tail=y | D′, η) = 8^-|β|`;
+   - by P2, `(W_pre, K0, Fut, R.A)` is a function of `(D′, η)`.
 
-   So the factor equals `8^-|β|`.
+   The conditioning event `{W_pre=w′, K0=k0, Fut=f, R.A=c}` is therefore a union of `(D′, η)`-cells,
+   on each of which the tail has law `8^-|β|`. So the factor equals `8^-|β|`.
 
 Hence `μ_c^{k0}(w′, f, y) = ν^{k0}(w′)·κ_{k0}(f)·8^-|β|` whenever both conditioning events are
 positive, and both sides are `0` otherwise. The expression does not depend on `c`. ∎
@@ -413,7 +483,8 @@ positive, and both sides are `0` otherwise. The expression does not depend on `c
 - Theorem 3 is one implication: the hypotheses imply equality.
 - No converse is claimed. The token rule "LA-EQUAL iff P1–P6b" (`later-access-preregistration.md:205`)
   defines when a token is printed; it is not a mathematical equivalence.
-- Theorem 2 shows that the implication fails when H-prior⁺ is weakened to the displayed H-prior.
+- Theorem 2 shows that the implication fails when H-pre is dropped and H-prior is read as its
+  displayed equation alone.
 - P6b is not used.
 - `EMPTY` uses only H-prior and is unaffected.
 - The sentence that the equality "has the same cause as its emptiness" (`:257–259`;
@@ -422,9 +493,13 @@ positive, and both sides are `0` otherwise. The expression does not depend on `c
 
 **Verdict Q3.**
 
-- **Proved under H-prior⁺** (Theorem 3), together with H-rule, H-torus, H-access and its dictionary,
-  the recorded P1–P5 and P6a, and the parent's recorded geometry.
-- Under the five displayed hypotheses: **counterexample** (Theorem 2).
+- **Proved under H-prior ∧ H-pre**, equivalently H-prior⁺ (Theorem 3). The proof also uses H-rule,
+  H-torus, H-access and its dictionary, the recorded P1–P5 and P6a, and the parent's recorded
+  geometry.
+- H-prior's sourced reading supplies H-pre (Lemma 0(b)), so under that reading LA-EQUAL holds
+  conditionally.
+- Under the five listed hypotheses with H-prior as its displayed equation: **counterexample**
+  (Theorem 2).
 - No conditioning event of zero probability is used.
 
 ***
@@ -433,18 +508,18 @@ positive, and both sides are `0` otherwise. The expression does not depend on `c
 
 | Hypothesis | Mathematical role | Physical standing in native OI |
 | --- | --- | --- |
-| **H-pre / H-prior⁺** (contains H-bank on `b5` and `V5`) | Load-bearing for the pre-cut factor: Theorem 2 fails it and Theorem 1 uses it. | **Posited.** history_v11 supplies its bank as "an explicit resource extension … supplied assumptions rather than derived physical laws" (`NY/history_v11/REPORT.md:23–27`). Not derived; whether native OI supplies it is open. |
+| **H-pre** (implied by H-bank; with H-prior, equivalent to H-prior⁺) | Load-bearing for the pre-cut factor: Theorem 1 uses it, and Theorem 2 shows that dropping it can break LA-EQUAL. | **Posited.** It is part of H-prior's sourced reading. history_v11 supplies its bank as "an explicit resource extension … supplied assumptions rather than derived physical laws" (`NY/history_v11/REPORT.md:23–27`). Not derived; whether native OI supplies it is open. |
 | **H-prior** (displayed) | Tail factor, `EMPTY` and the parent kernel. | **Posited**, from the same source. It is load-bearing: CP-PRIOR gives TV `1/8` when the prior is correlated. |
-| **H-free** (with H-bank, implies H-prior⁺) | Covers the FREE keys' uniformity. | **Posited** ("inherited independent-uniform complement"). |
+| **H-free** | Redundant once H-prior is assumed (Lemma 0(c)). | **Posited** ("inherited independent-uniform complement"). |
 | **H-inventory** | Not used in any proof step here. It underwrites that the record set and source inventory are as listed. | **Posited:** a declared completeness condition of the construction. |
 | **H-access** and the record dictionary | Defines `W_τ`, `A(X)` and the passive no-write read. Lemma 2 is relative to this dictionary. | **Posited:** a retained candidate convention, not adopted (`later-access-preregistration.md:68–75`). A different flag or timing set could change Lemma 2. |
-| **H-rule** | Bijectivity of `H` (P6a) in Lemma 1, the parent kernel and the tail. The specific `H` is used in Theorem 2. | **Posited model rule of native-Y.** It is not the corpus's selected dynamics: center independence, isotropy and linearity give the linear rule `x_i(t+1) = α Σ_{j∼i} x_j(t) − x_i(t−1)` (`papers/SM.md:224`), and `H` is nonlinear. Theorems 1 and 3 use only bijectivity of the update. Theorem 2's table is specific to this `H`. No statement here transfers to OI's selected rule without a new argument. |
+| **H-rule** | Theorems 1 and 3 and the parent kernel use the rule's structure: a bijective `H` in the second-order XOR rule `U_{t+1} = U_{t-1} ⊕ H(Σ)` with finite propagation speed. That gives the light cone and the first-arrival permutations. Theorem 2 uses the specific `H`. | **Posited model rule of native-Y.** It is not the corpus's lattice rule. `papers/SM.md:224` fixes the form `x_i(t+1) = α Σ_{j∼i} x_j(t) − x_i(t−1)` *given* center independence, isotropy and linearity. Linearity is itself a premise, imposed on the selected model rather than derived: A5 at `papers/SM.md:240` and `:1416`, and `papers/Substratum.md:274`. `H` is nonlinear. Theorem 2's table is specific to this `H`. No statement here transfers to the corpus's linear rule without a new argument. |
 | **H-torus** | No wrap; the distances are lattice distances. | A construction parameter, measured exactly by P5 *(recorded)*. Finiteness of the substratum is posited. |
 | **P1–P5, P6a** and the parent's 42-row geometry | Geometric premises. | Exact finite computations *(recorded, not re-run, not independently reviewed)*. Parts used here were re-derived by hand: Lemma 2, Theorem 2(a), and the K0, Q9 and flag distances. |
 
 **Verdict Q4.** None of the hypotheses is derived for native OI. Theorem 3 is a conditional
 mathematical theorem about the native-Y model under posited resources. It is not a physical derivation,
-and it says nothing about OI's selected linear dynamics.
+and it says nothing about the corpus's linear lattice rule, whose linearity is itself posited (A5).
 
 ***
 
@@ -457,7 +532,11 @@ actual-scale values.
 
 - **Inputs.**
   - The pinned rule `H` (`native_random_setting_probe.py:27–29`).
-  - A cubic lattice region containing `B(p, 12)`, with `p = (0,0,0)` and seed cell `s = (0,9,0)`.
+  - Port cell `p = (0,0,0)` and seed cell `s = (0,9,0)`.
+  - A cubic lattice region containing `B(s, 43)`, with every cell outside it held at `000`. With a zero
+    background and non-zero initial cells only within distance 2 of `s`, `U_t` vanishes outside
+    `B(s, t+2)`. Holding the outside at `000` is therefore exact for every `t ≤ 40`, which covers the
+    main run (`t ≤ 11`), C1 and C2.
   - Zero background in both slices, and seed value `x ∈ {0,1}^3`.
 - **Enumerates.** The 8 seed values, with direct six-neighbour evolution to `t = 11`. This uses no
   recursion formula.
@@ -465,17 +544,20 @@ actual-scale values.
 - **Decision rule.** Pass if the 8 rows equal the table in Theorem 2, and the exact Fraction TV between
   the classes `R.A = 0` and `R.A = 1` equals `1`. Otherwise report the mismatch.
 - **Controls.**
-  - **C1 (masking countercontrol).** Add independent uniform triples at `(0,10,0)` and `(0,11,0)`, the
-    analogues of `f_5(S+5)` and `f_5(S+6)`, and enumerate `8^3`. The TV of `Y` must be exactly `0`.
-    This is Theorem 1's mechanism.
-  - **C2.** Direct evolution must equal the `F_t` and `B_t` recursions for all `t ≤ 40` and all `x`.
+  - **C1 (masking countercontrol).** Add an independent uniform triple at `(0,11,0)`, the analogue of
+    `f_5(S+6)` and the decisive mask: it reaches `p` at `t = 11` by first arrival and permutes
+    `U_11(p)`. Enumerate `8^2`. The TV of `Y` must be exactly `0`; this is Theorem 1's mechanism.
+    C1b: a uniform triple at `(0,10,0)` alone (the analogue of `f_5(S+5)`) lies at distance 10 from
+    `p`. That parity is wrong for `t = 11`, and the distance exceeds 9, so it must leave the TV at `1`.
+  - **C2.** Direct evolution in the region above must equal the `F_t` and `B_t` recursions for all
+    `t ≤ 40` and all `x`.
   - **C3.** Iterating the state maps must give periods 15, 12 and 12, and exact integer arithmetic must
     give `S mod 60 = 5`.
   - **C4 (null).** Two identical laws must give TV `0`.
   - **C5 (mutant).** With `H` replaced by the identity, the table must change. This shows the check is
     not vacuous.
 - **Arithmetic and cost.** Exact integers and Fractions only. Seconds-scale, standard library.
-- **Not decided by it.** The original-preparation law (Q1, remaining gap).
+- **Not decided by it.** Theorems 1 and 3. PC-1 replays Theorem 2 only.
 
 ### PC-2: exact recheck of Theorem 2(a) and Lemma 2
 
@@ -496,14 +578,18 @@ for discrete conditional probability. No literature search was needed or made.
 
 The exact head SHA is given in the PR description. A reviewer should check:
 
-1. Lemma 1(2): that `α_s` and `β_s` do not depend on `u`.
+1. Lemma 0: (a) the equivalence H-prior⁺ ⇔ H-prior ∧ H-pre; (b) H-bank ⇒ H-pre; and the sourced
+   reading against `later-access-preregistration.md:102–104`, `:153–154`, parent `:42`, `:49–50` and
+   `NY/history_v11/REPORT.md:23–25`, `:41`, `:45`.
+1a. Lemma 1(2): that `α_s` and `β_s` do not depend on `u`.
 2. Lemma 2: the coordinate table, against `NY/native_vread_v15/checks.py:27–33` and `:377–381`.
-3. Theorem 1, steps 1–5: that `Rest` is `E`-measurable, including the `⊥` context.
+3. Theorem 1, steps 1–5: that `Rest` is `E`-measurable, including the `⊥` label and its sourcing
+   (Lemma 2, closing paragraph).
 4. Theorem 2:
    - (a) the key coordinates against `native_random_setting_probe.py:60–68`;
    - (b) the `B_t` recursion and the transverse-symmetry step;
    - (c) the permutation and periodicity argument, and `S mod 60 = 5`;
    - (d) every table entry, against `H`'s 8-entry table.
 5. Q2, K3: the cardinality step. K4′: `W_τ ∈ σ(D, R, K0)`.
-6. Theorem 3: the factor order and the positivity conditions.
+6. Theorem 3: the factor order, the conditioning of the third factor, and the positivity conditions.
 7. Q4: each standing, against the cited sources.
