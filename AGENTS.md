@@ -1309,9 +1309,9 @@ gap to be fixed.
    item 2 (§A.42 item 8) is not established.
 2. **What lands.** Research evidence may land on `main` when an established claim needs it, or when
    it is needed for reproducibility or to support records already on `main`, even if its programme
-   is unfinished; its provenance, assumptions, status and limitations are stated accurately.
-   Exploratory work that nothing on `main` needs stays on its pull-request branch, tracked in its
-   Issue. §A.42 item 5 and §A.28 govern what is added; item 6 governs removal.
+   is unfinished; its provenance, assumptions, status and limitations are stated accurately. Work
+   that meets none of these conditions stays on its branch, tracked by its guiding pull request or
+   Issue (§A.43). §A.42 item 5 and §A.28 govern what is added; item 6 governs removal.
 3. **Results that are not established.** Incomplete, negative and inconclusive results that do not
    meet item 1's standard are not presented as established conclusions. Keeping or landing a record
    strengthens no claim (§A.42 item 6).
