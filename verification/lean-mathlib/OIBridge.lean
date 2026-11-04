@@ -22,6 +22,8 @@ import OIBridge.TrajectoryMemory
 import OIBridge.FullFutureMemory
 import OIBridge.RecordFibreIdentification
 import OIBridge.RootedRecurrenceBridge
+import OIBridge.RecursiveFiniteFactor
+import OIBridge.NativePadicReduction
 import OIBridge.ChiralCenterRecovery
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
