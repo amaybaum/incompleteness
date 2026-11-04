@@ -2,20 +2,31 @@ name: O-RET Phase A
 
 # O-RET Phase A (verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PREREG-PHASE-A.md,
 # frozen at F below). workflow_dispatch only: there is no push or pull_request trigger, so no push
-# launches it. A dispatch is a special launch and needs separate owner approval (AGENTS.md §A.43
-# item 4; PREREG §7). One job, one pass, no retries, no inputs.
+# launches it. This file reaches main through a reviewed PR; a dispatch is then a separate,
+# owner-authorized special launch (AGENTS.md §A.43 item 4; PREREG §7), made with ref = the reviewed
+# tool branch or tag held at the reviewed commit and confirm_commit = that commit's full SHA. GitHub
+# runs the workflow file at the dispatched ref, so the copy on main and the copy at the reviewed
+# commit should be byte-identical; if they differ, the dispatched ref's copy is the one that runs.
 #
 # The job conclusion carries the verdict (§A.44; PREREG §4 "PASS"): it is success only if
-#   - this is the run's first attempt (marker),
-#   - the check step (the run) exits 0,
+#   - the launch guard holds: the event is workflow_dispatch, confirm_commit is 40 lowercase hex and
+#     equals github.sha, and this is the run's first attempt;
+#   - out/phase-a/run-identity.json records the same and the checkout HEAD equals github.sha;
+#   - the check step (the run) exits 0;
 #   - the regeneration step rebuilds verdict_text from summary.json byte for byte and re-applies
-#     §4 to every per-tuple record without disagreement, and
+#     §4 to every per-tuple record without disagreement; and
 #   - summary.json has verdict PASS (marker).
-# The result reviewer reads the job conclusion from the host's API and applies the four-signal PASS.
-# out/ (summary.json, one JSON file per tuple, check.json) is uploaded on every outcome.
-# Actions are pinned by commit, with the pins used in pe01-bounded-tests.yml.
+# The result reviewer reads the job conclusion and head_sha from the host's API, checks head_sha and
+# run-identity.json against the reviewed commit, and lists every run of this workflow.
+# out/ (summary.json, run-identity.json, check.json and one JSON file per tuple) is uploaded on every
+# outcome. Actions are pinned by commit, with the pins used in pe01-bounded-tests.yml.
 on:
   workflow_dispatch:
+    inputs:
+      confirm_commit:
+        description: "the reviewed tool commit, in full (40 lowercase hex); must equal the dispatched ref's head"
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -28,20 +39,35 @@ env:
   PHASEA_F: 49f0bd41c5323d2191b580460c8703740dd01b30
   TOOL: verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseA/phasea.py
   PYTHON_VERSION: "3.12"
+  CONFIRM_COMMIT: ${{ inputs.confirm_commit }}
 
 jobs:
   phase-a:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      - name: Launch guard - workflow_dispatch, confirm_commit is 40 lowercase hex and equals github.sha, first attempt
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          SHA: ${{ github.sha }}
+          ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -eu
+          [[ "$EVENT" == "workflow_dispatch" ]] || { echo "refused: event is not workflow_dispatch"; exit 1; }
+          [[ "$CONFIRM_COMMIT" =~ ^[0-9a-f]{40}$ ]] || { echo "refused: confirm_commit is not 40 lowercase hex"; exit 1; }
+          [[ "$SHA" == "$CONFIRM_COMMIT" ]] || { echo "refused: github.sha differs from confirm_commit"; exit 1; }
+          [[ "$ATTEMPT" == "1" ]] || { echo "refused: not the run's first attempt (one pass)"; exit 1; }
+          echo "launch guard holds"
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      - name: Marker - this is the run's first attempt (one pass, no rerun within the freeze)
-        run: test "${{ github.run_attempt }}" = "1"
+      - name: Record the run identity (out/phase-a/run-identity.json); checkout HEAD must equal github.sha
+        run: python3 -I -B "$TOOL" --record-identity out
       - name: Byte-compile the tool
         run: python3 -m py_compile "$TOOL"
       - name: Self-test (synthetic cases only)

@@ -1,11 +1,14 @@
 # O-RET Phase A: implementation notes for the test tool and workflow
 
 **Status.** WIP / UNVERIFIED. The tool and workflow were written under the owner's authorization of 2026-11-04
-(#1032). They implement the preregistration frozen at `F = 49f0bd41c5323d2191b580460c8703740dd01b30`. Not reviewed
-and not run. Dispatch is a separate owner approval (PREREG §7, AGENTS.md §A.43 item 4).
+(#1032). They implement the preregistration frozen at `F = 49f0bd41c5323d2191b580460c8703740dd01b30`. This revision
+applies the independent review of `5ca342fc` (ACCEPT WITH CHANGES: S1 self-test coverage, S2 binding of the executed
+head to the reviewed commit) and the owner's choice of the reviewed-PR launcher route (§4). Not run. A dispatch is a
+separate owner approval (PREREG §7, AGENTS.md §A.43 item 4).
 
 - `phaseA/phasea.py`: the tool. Standard library only, with exact `fractions.Fraction` arithmetic throughout.
-- `.github/workflows/oret-phasea.yml`: the workflow, triggered by `workflow_dispatch` only.
+- `.github/workflows/oret-phasea.yml`: the workflow, triggered by `workflow_dispatch` only, with a required
+  `confirm_commit` input.
 - The four frozen inputs in the parent directory are read and hash-checked. They are never written.
 
 ## 1. Where each PREREG section lives in the code
@@ -32,6 +35,7 @@ and not run. Dispatch is a separate owner approval (PREREG §7, AGENTS.md §A.43
 | §5 F and the frozen-input check (exit 3) | `check_frozen_inputs`, `blob_id`, `--verify-inputs`, `--expect-F` |
 | §6 re-application of §4 to the JSON fields | `reapply`, called in `run` on the serialized record and again in `--check-summary` |
 | §6 order, prefix, halt on first red | `validate_docs`, `run`, `check_summary` |
+| §6 one pass; the run tied to the reviewed commit (review S2) | workflow launch guard; `record_identity` (`--record-identity`) |
 
 ## 2. Choices where the PREREG and the data files are silent
 
@@ -103,11 +107,15 @@ and not run. Dispatch is a separate owner approval (PREREG §7, AGENTS.md §A.43
 24. **`B_def`** is the one-backslash string `Par(A)\A on S`, reading PREREG §5's `"Par(A)\\A on S"` as JSON
     escaping.
 25. **Workflow.**
-    - A first step fails when `github.run_attempt ≠ 1`, so a rerun is red before any tuple runs. The PREREG names only
-      the host record as the checkpoint; this is an added mitigation.
+    - A launch guard runs before checkout. It fails unless the event is `workflow_dispatch`, the input
+      `confirm_commit` is exactly 40 lowercase hex characters and equals `github.sha`, and `github.run_attempt` is 1.
+      The input reaches the shell only as the env var `CONFIRM_COMMIT`, never by interpolation into a script.
+    - `--record-identity out` then writes `out/phase-a/run-identity.json`: event, ref, sha, `confirm_commit`, run id
+      and attempt, workflow ref, and the checkout `HEAD`. It exits nonzero unless the same conditions hold and
+      `HEAD = github.sha`.
     - `--check-summary` re-verifies the frozen inputs, regenerates `verdict_text` and re-applies §4 in one step.
       `check.json` records each check separately.
-    - A concurrency group prevents parallel dispatches.
+    - `actions/checkout` runs with `persist-credentials: false`. A concurrency group prevents parallel runs.
 
 ## 3. Points in the PREREG that need the reviewer's decision
 
@@ -124,24 +132,30 @@ and not run. Dispatch is a separate owner approval (PREREG §7, AGENTS.md §A.43
 - **(g)** The PREREG's three in-job signals are the run step, the regeneration step and the marker. The re-application
   of §4 shares the regeneration step.
 
-## 4. Open point for the dispatch gate: `workflow_dispatch` needs the file on the default branch
+## 4. Launch procedure: the reviewed-PR launcher route (owner's choice)
 
-GitHub offers `workflow_dispatch` (UI, API or `gh workflow run`) only for a workflow file that exists on the
-repository's **default branch**. A file that lives only on this disposable branch cannot be dispatched as it stands.
-Two options are recorded here without a choice between them; the owner decides:
+GitHub offers `workflow_dispatch` only for a workflow file on the repository's **default branch**, and it runs the
+file **at the dispatched ref**. The owner chose this route; a push-triggered launch branch is not used.
 
-- **(i)** Land `.github/workflows/oret-phasea.yml` on `main` first, through a reviewed PR, then dispatch it with `ref`
-  set to this branch. The job checks out that ref, and the tool verifies `F` against it.
-- **(ii)** Add a `push` trigger restricted to a dedicated launch branch, so that the push itself is the special
-  launch. That push would need the same separate owner approval (§A.43 item 4). The workflow would then need a
-  reviewed edit, and the reviewed tool commit would have to be the one pushed.
-
-**Push-trigger inspection (§A.43 item 4).**
-- Of the existing workflows, `bg2-orientation-design.yml` and `bridge-compatibility-research.yml` push-trigger on
-  paths outside this directory.
-- `hidden-sector-replay.yml` and `verify.yml` push-trigger on `main` only.
-- So a push of these files to a research branch launches no workflow by push.
-- An open PR from the branch runs `verify.yml` (`pull_request`). It does not run this workflow.
+1. **The workflow file reaches `main` through a reviewed PR.** The copy on `main` and the copy at the reviewed tool
+   commit should be byte-identical. If they differ, the dispatched ref's copy is the one that runs.
+2. **The dispatch is a separate, owner-authorized special launch.**
+   - `ref` is the reviewed tool branch, or a tag, held at the reviewed commit. The dispatch API takes a branch or
+     tag name, not a bare commit.
+   - `confirm_commit` is that commit's full SHA.
+   - The guard refuses the run unless `github.sha = confirm_commit`. A branch that has moved past the reviewed commit
+     is therefore refused before checkout.
+3. **The result reviewer** does all of the following:
+   - reads the job conclusion and `head_sha` from the host's API;
+   - checks `head_sha`, `run-identity.json` (`sha`, `confirm_commit`, `checkout_head`, `run_attempt = 1`) and
+     `summary.json` `run.commit` against the reviewed commit;
+   - lists every run of the workflow. A second dispatch is a new run with attempt 1, which no in-job check can see.
+4. **No push launches the workflow.** It has no `push` or `pull_request` trigger.
+   - Of the existing workflows, `bg2-orientation-design.yml` and `bridge-compatibility-research.yml` push-trigger
+     on paths outside this directory, and `hidden-sector-replay.yml` and `verify.yml` on `main` only.
+   - A push of the tool branch therefore launches no workflow. An open PR runs `verify.yml`, not this workflow.
+   - A dispatch with `ref=main` before the tool is on `main` fails at the guard or at the tool's absence. It would
+     still be a recorded launch.
 
 ## 5. Local checks run (static only, PREREG §7)
 
@@ -149,55 +163,82 @@ Two options are recorded here without a choice between them; the owner decides:
 |---|---|---|
 | `python3 -m py_compile …/phaseA/phasea.py` | 0 | compiles (Python 3.13 locally; CI pins 3.12) |
 | `python3 -I …/phaseA/phasea.py --help` | 0 | usage printed |
-| `python3 -I …/phaseA/phasea.py --self-test` | 0 | 17 of 17 synthetic checks pass |
+| `python3 -I …/phaseA/phasea.py --self-test` | 0 | 31 of 31 synthetic checks pass, in about 1.3 s |
 | `python3 -I …/phaseA/phasea.py --verify-inputs --expect-F 49f0bd41…` | 0 | four blob ids match at `F` |
 | `python3 -I …/phaseA/phasea.py --verify-inputs --expect-F 0000…` | 3 | wrong `F` refused |
 | `git rev-parse F:<path>` and `git hash-object <path>`, for each frozen file | 0 | equal to the tool's ids |
+| `git diff 49f0bd41 -- <the four frozen files>` | 0 | empty |
+| the launch-guard script under `bash`, with synthetic env values | 0 / 1 | accepts only the valid case; refuses push, attempt 2, uppercase, 39 characters, embedded newline and `$(…)` |
 
-**What the self-test covers.** Synthetic models only. Gated hold (row 5) and gated swap (row 6). One-cell shift and
-three-cell pulse (2a, I-9 in noext). A pulse whose `𝒬` grows on `W_{T′}`, and a gated conveyor where
-`G*_{W_T} = ∅ ≠ G*_{W_{T′}}` (2b). An unbiased-pad completion (J-ii fails), a static carrier input (J-i fails), and a
-static Σ input (support under `μ^P` differs from `μ`). A partial read set, and an (R-a)/(R-b) failure.
-Methods and exits:
-- A Toffoli-written channel, by full, sequential and both methods, with hand values.
-- The sequential failures: a re-entering cell, a non-product law, and a forced disagreement (each exit 5).
-- A non-injective sequential 2-cycle (exit 5).
-- Frozen-input mismatches with an injected git (exit 3).
-- Floats in input, record, serialization and comparison (exit 2).
-- The precedence of steps 1–8, including exact `≤` at `ε*` and exit 4 at step 6 only.
-- Re-application.
-- End-to-end runs on a five-tuple synthetic document: PASS, exit 1, exit 2 and exit 5, with `verdict_text`
-  regenerated and a tampered `verdict_text` detected.
+**What the self-test covers.** Synthetic models only. Sizes and parameters are outside the frozen set: HC-SK-model
+cases at `(k, T) = (2, 4)` and `(1, 7)`, and non-dyadic biases `1/40` and `3/40`.
+- *Rows.* 5 and 6 (exact). 5 (DIL∃-η). 2a, 2b, 3, 1 (J-i, J-ii and carrier-return failures), 7, 8, I-9 and I-3.
+  Each is re-applied from its JSON fields.
+- *Branches.* The HC-SK `w`/`w_chg` branch. `method_for` at `|S| = 2¹⁶` and `2¹⁷`. The MD-xor-prefixed sweep (a
+  biased junk bit, sweep `1/4`). All eight cell constructors. The frozen order rule.
+- *Mutant-targeted cases.*
+  - `𝓛` including the last window tick.
+  - The recurrence rule at `ε = ε*`.
+  - `τ` starts under `μ^P` (an unfired preparation would shorten `τ`).
+  - (R-a) on `A ∩ Σ ≠ ∅`.
+  - SCH over the read cells only.
+  - The support conditioning, and `Q` built from `A`.
+  - Sequential failures (a re-entering cell, two non-product laws, a forced disagreement).
+- *Exits and outputs.* Exits 2, 3 and 5. Exits 4 and 6, through `compute_record` and `run` by injection. The
+  `check_summary` prefix and halt-at-last tampers. Run identity, with each condition violated.
+- *End-to-end.* A six-tuple run (PASS; exits 1, 2 and 5), and a two-tuple run with a `full+sequential` HC-SK-model
+  tuple.
 
-**Other local runs.**
-- *Mutation runs of the self-test.* Twenty-four single mutations were run, on scratch copies outside the worktree,
-  against synthetic inputs. In the final run, each mutation was detected. Seven survived their first run; synthetic
-  cases were added until each was detected.
-- *A timing probe.* A 15-cell synthetic Toffoli channel at `T = 6`, run by both methods, took about 1.3 s. That
-  suggests the run fits well inside the 30-minute timeout. It is not a measurement of the frozen set.
-- *One hand error.* One of my synthetic hand values was wrong (`ε = 1/2` where it is 1). It was corrected after
-  re-derivation.
+**Mutation campaign.** Every mutant was run on a copy outside the worktree, against the synthetic self-test only.
+
+| Set | Mutants | Detected | Not detected |
+|---|---|---|---|
+| reviewer M1–M20 (`mutate.py`) | 20 | 15 | M3, M5, M14, M16, M19: equivalent (below) |
+| reviewer N1–N6 (`mutate2.py`) | 6 | 6 | none |
+| author's original A01–A24 | 24 | 24 | none |
+| new paths B1–B8, C1–C2 (re-application rows 7, 8, 5-approx and 1 in both modes; order rule; `sequential_check`; declared method; product test; readback row) | 10 | 10 | none |
+| run identity I1–I6 | 6 | 6 | none |
+
+The equivalent mutants:
+- **M3**, η under `μ`: `μ^P(·|σ) = μ(·|σ)` for `σ ∈ P`.
+- **M5**, the sequential used set dropped: every earlier `Q` origin lies in `R`'s dependency set, which is still
+  checked.
+- **M14**, exit 4 after ST: exact DIL∃ forces a consistent `G*`.
+- **M16**, `C_t` over `Par(A)`: SCH reads only `Par(read) ∩ C_t`.
+- **M19**, the TR/EX observed-failure assertion: the re-applied row implies it.
 
 **No frozen tuple was evaluated locally.**
 - No model, law, decoder or expected value of `PHASEA-TUPLES.json` or `PHASEA-EXPECTED.json` was computed.
   `--run` was never invoked.
 - The only reads of the frozen data were reading the files and one read-only structural comparison. That
   comparison checked that every expected entry's key set equals its mode's compared-field list, that the ids match,
-  and that the orders are 1–49. It computed nothing about any tuple.
+  and that the orders are 1–49.
+- The synthetic cases reuse the frozen cell layouts only through the constructors, with other rules, laws and
+  parameters.
 
 ## 6. Known limitations
 
-- **Re-application** reads only the serialized fields, but it is written by the same author in the same file. Its
-  independence from `assign_row` is one of representation, not of authorship.
+- **Re-application** reads only the serialized fields, but it is written by the same author in the same file.
 - **The self-test's expected values** are my own hand derivations on synthetic models. They test the implementation,
   not the frozen hand algebra.
-- **Exit 4** is exercised only at the level of `assign_row`. No synthetic dynamics reaching step 6 with an
-  inconsistent `G*` was constructed. Row 4 is the declared constant `false` (PREREG §9).
-- **The sequential method** uses syntactic provenance for freshness. It is exact where it accepts, and it may reject a
-  rule that is valid. It is built for channel-type rules such as `trigger-channel`.
-- **Equivalent mutant.** Computing the sequential `Par` syntactically is equivalent on `trigger-channel`. It is
-  detected only on a synthetic rule with a dead dependence.
-- **The workflow** was parsed as YAML locally but not run, and no `actionlint` was available. The Python version
-  differs between local runs (3.13) and CI (3.12).
-- **`run.commit`** is the checkout `HEAD` at dispatch. A run on a disposable branch is provenance only until its
-  `summary.json` lands on `main` (PREREG §7, §A.42).
+- **Exit 4** is exercised by injection only (no synthetic dynamics reaches step 6 with an inconsistent `G*`). Row 4
+  is the declared constant `false` (PREREG §9).
+- **The sequential method** uses syntactic provenance for freshness. It is exact where it accepts, and it may reject
+  a valid rule.
+- **Paths a line trace of the final `--self-test` still does not reach.** The frozen run uses none of them on a
+  correct input. Each can only turn a run red (void), never produce a false PASS.
+  - The wrappers that call git on the real checkout: `git_run`, `repo_root`, the real file read, and `run_info`.
+    `--verify-inputs` exercises them locally.
+  - The exit-3 sub-branches "absent at F" and "unreadable".
+  - The single schema rejections (exit 2) in the parsers and validators, and the summary write's exit-2 fallback.
+  - The internal guards (exit 7): `f_R` factorization, an unknown expression node, `Par` outside `A ∪ Q`, missing
+    presence bits, and the generic handler.
+  - Some exit-5 sub-conditions:
+    - a non-copy or shared-origin `Q` cell;
+    - an oversized support or law;
+    - the full-versus-sequential disagreement on the exit-4 condition.
+  - The `G_status_T = inconsistent` path that sets η and the bound to `null`, which is reached only before exit 4.
+  - Row 4, a declared constant.
+  - The unreadable-file branches of `check_summary`.
+- **The workflow** was parsed as YAML and its guard script run under `bash` locally. It was not run on the host, and
+  no `actionlint` was available.

@@ -11,6 +11,9 @@ Modes
   --run --out DIR        the preregistered run: DIR/phase-a/<tuple_id>.json and DIR/phase-a/summary.json
   --check-summary DIR    regenerate verdict_text from summary.json, re-apply section 4 to every per-tuple
                          record and check the halt bookkeeping; writes DIR/phase-a/check.json
+  --record-identity DIR  write DIR/phase-a/run-identity.json (event, ref, sha, confirm_commit, run id and
+                         attempt, checkout HEAD); exit 0 only for the first attempt of a workflow_dispatch
+                         whose sha equals confirm_commit (40 lowercase hex) and equals the checkout HEAD
   --self-test            synthetic cases only; no frozen tuple is evaluated
 
 Exit codes of --run (PREREG section 5)
@@ -1824,6 +1827,45 @@ def check_summary(out_dir, order_ids, expect_count=TUPLES_FROZEN):
     return report["pass"], report
 
 
+def record_identity(out_dir, env=None, git=git_run, repo=None):
+    """The run's identity as structured data (AGENTS.md section A.44): the host's event, ref and commit, the
+    dispatch input confirm_commit, the run id and attempt, and the checked-out HEAD. The result reviewer
+    compares 'sha' (the host's head_sha) and 'confirm_commit' with the reviewed commit. Returns
+    (ok, identity); ok only for the first attempt of a workflow_dispatch whose confirm_commit is 40
+    lowercase hex characters, equals the dispatched sha, and equals the checkout HEAD. The input is read
+    from the environment variable CONFIRM_COMMIT, never interpolated into a shell."""
+    env = os.environ if env is None else env
+
+    def num(v):
+        return int(v) if type(v) is str and v.isdigit() else None
+    head = None
+    try:
+        rc, out = git(repo or repo_root(git), ["rev-parse", "HEAD"])
+        head = out if rc == 0 and re.fullmatch(r"[0-9a-f]{40}", out) else None
+    except Halt:
+        head = None
+    confirm = env.get("CONFIRM_COMMIT")
+    ident = {
+        "schema": "oret-phase-a-run-identity/1",
+        "event_name": env.get("GITHUB_EVENT_NAME"), "ref": env.get("GITHUB_REF"), "sha": env.get("GITHUB_SHA"),
+        "confirm_commit": confirm, "run_id": num(env.get("GITHUB_RUN_ID")),
+        "run_attempt": num(env.get("GITHUB_RUN_ATTEMPT")), "workflow": env.get("GITHUB_WORKFLOW"),
+        "workflow_ref": env.get("GITHUB_WORKFLOW_REF"), "repository": env.get("GITHUB_REPOSITORY"),
+        "checkout_head": head, "F": F_COMMIT,
+    }
+    fmt = type(confirm) is str and re.fullmatch(r"[0-9a-f]{40}", confirm) is not None
+    ident["checks"] = {
+        "event_is_workflow_dispatch": ident["event_name"] == "workflow_dispatch",
+        "confirm_commit_is_40_lowercase_hex": fmt,
+        "sha_equals_confirm_commit": fmt and ident["sha"] == confirm,
+        "first_attempt": ident["run_attempt"] == 1,
+        "checkout_head_equals_sha": head is not None and head == ident["sha"],
+    }
+    ident["launch_conditions_hold"] = all(ident["checks"].values())
+    write_json(os.path.join(out_dir, "phase-a", "run-identity.json"), ident)
+    return ident["launch_conditions_hold"], ident
+
+
 # ----------------------------------------------------------------------------------------------
 # Self-test (synthetic inputs only; no frozen tuple is evaluated)
 # ----------------------------------------------------------------------------------------------
@@ -1860,7 +1902,7 @@ def _J(*ns):
 
 
 def _st_docs():
-    """Five synthetic tuples with hand-derived expected values (none is a frozen tuple)."""
+    """Six synthetic tuples with hand-derived expected values (none is a frozen tuple)."""
     cf_w = list(KNOWN_FIELDS)
     cf_n = [f for f in KNOWN_FIELDS if not f.endswith("_Tprime") and f not in ("w", "w_chg", "sweep_min_max_eps")]
     hold = _st_tuple(1, "st-hold", "st-gated-hold", "window", 1, ["x"],
@@ -1874,6 +1916,10 @@ def _st_docs():
                    params={"L": 5})
     pw = _st_tuple(5, "st-pulse-window", "st-shift", "window", 1, ["u0"], plaw, ["u1", "u2", "u3"], "01101001",
                    params={"L": 5})
+    # readback on a ring of 3 (period 3): u1 reads c at t0+1 and t0+4 and the pad at t0+2
+    rb = _st_tuple(6, "st-ring3-readback", "st-shift", "readback", None, ["u0"],
+                   {"type": "uniform_conditioned", "equalities": {"u1": 0}}, ["u1"], "01", params={"L": 3})
+    rb["readback_ticks"] = ["t0+1", "t0+2", "t0+4"]
     nul = {"w": None, "w_chg": None, "sweep_min_max_eps": None}
     e_hold = dict(row="5", eps_max={"t0+1": "0", "t0+2": "0"}, tv={"t0+1": "1", "t0+2": "1"}, Ra=True, Rb=True,
                   dil_exact_T=True, tau=INF, T_prime=1, J1=_J(1), SCH={"t0+1": True},
@@ -1895,12 +1941,15 @@ def _st_docs():
     e_pw = dict(e_pn, row="2a", eps_max={"t0+1": "0", "t0+2": "0", "t0+3": "0", "t0+4": "1"},
                 tv={"t0+1": "1", "t0+2": "1", "t0+3": "1", "t0+4": "0"}, T_prime=3, J1=_J(1, 2, 3),
                 Q_missing_Tprime=["1"], G_star_out_Tprime=["0"], G_status_Tprime="empty", **nul)
+    e_rb = dict(row="I-3", eps_max={"t0+1": "0", "t0+2": "1/2", "t0+4": "0"},
+                tv={"t0+1": "1", "t0+2": "0", "t0+4": "1"}, recurrence_flags=["t0+4"], method="full", g="01")
     tdoc = {"schema": TUPLES_SCHEMA, "conventions": {"eps_star": "1/20"},
             "compared_fields": {"window": cf_w, "noext": cf_n, "readback": ["row", "eps_max", "tv",
                                                                              "recurrence_flags", "method", "g"]},
-            "models": ST_MODELS, "tuples": [hold, swap, shift, pn, pw]}
+            "models": ST_MODELS, "tuples": [hold, swap, shift, pn, pw, rb]}
     edoc = {"schema": EXPECTED_SCHEMA, "expected": {"st-hold": e_hold, "st-swap": e_swap, "st-shift1": e_shift,
-                                                    "st-pulse-noext": e_pn, "st-pulse-window": e_pw}}
+                                                    "st-pulse-noext": e_pn, "st-pulse-window": e_pw,
+                                                    "st-ring3-readback": e_rb}}
     return tdoc, edoc
 
 
@@ -2101,6 +2150,9 @@ def self_test():
                        ["r1", "r2"], "0101", read=["r2"])
         rec, extra, _, _ = evaluate_tuple(_ctx(sw), "full")
         assert extra["Q_cells"] == ["k", "x"] and rec["SCH"] == {"t0+1": True}, (rec["SCH"], extra["Q_cells"])
+        # L_{W_T} includes the last window tick: (c, 0) at t0+2 joins 01 in the swap class, so DIL fails and tau = 1
+        assert rec["dil_exact_T"] is False and rec["tau"] == 1 and rec["row"] == "2a", rec
+        assert rec["eps_max"] == {"t0+1": "0", "t0+2": "1"}
         bad = _st_tuple(1, "st-hold-ab", "st-gated-hold", "window", 1, ["x"],
                         {"type": "explicit", "states": {"100": "1/2", "111": "1/2"}}, ["r"], "01")
         rec, _, _, _ = evaluate_tuple(_ctx(bad), "full")
@@ -2122,6 +2174,12 @@ def self_test():
                        {"type": "uniform_conditioned", "equalities": {"a": 0}}, ["a"], "01")
         rec, _, _, _ = evaluate_tuple(_ctx(st, models), "full")
         assert rec["J1"] == {"t0+1": {"Ji": False, "Jii": True}} and rec["row"] == "1", rec
+        assert reapply(dict(rec, mode="window", T=1)) == ("1", [])
+        # noext: row 1 at step 1, with T_prime = T
+        rec, _, _, _ = evaluate_tuple(_ctx(dict(st, mode="noext"), models), "full")
+        assert rec["row"] == "1" and rec["T_prime"] == 1 and "G_status_Tprime" not in rec, rec
+        assert reapply(dict(rec, mode="noext", T=1)) == ("1", [])
+        assert reapply(dict(rec, mode="noext", T=1, T_prime=None))[1]
 
     @check("sequential method: hand values and agreement with full enumeration (Toffoli channel)")
     def _():
@@ -2153,6 +2211,13 @@ def self_test():
                        {"type": "explicit", "states": {"1000000": "1/2", "1100001": "1/2"}}, ["r"], "01",
                        params={"L": 3}, P=("10", "11"))
         h = _expect_halt(5, lambda: evaluate_tuple(_ctx(t3), "sequential"))
+        assert "product" in h.detail
+        # full support, uniform marginals, correlated (v0, r): rejected by the per-state product test
+        corr = {}
+        for v0, r in itertools.product("01", "01"):
+            corr["1" + v0 + "0000" + r] = "3/8" if v0 == r else "1/8"
+        t3b = dict(t3, law={"type": "explicit", "states": corr})
+        h = _expect_halt(5, lambda: evaluate_tuple(_ctx(t3b), "sequential"))
         assert "product" in h.detail
         t4 = dict(t3, law={"type": "uniform"})
 
@@ -2223,46 +2288,67 @@ def self_test():
         assert reapply(dict(rec, T_prime=2))[1]
         flagged = dict(rec, eps_max={"t0+1": "1/2", "t0+2": "0"}, recurrence_flags=["t0+2"])
         assert any("row 5 or 6" in p for p in reapply(flagged)[1])
+        # noext precedence in the JSON re-application: a J-1 failure on H_T gives row 1 before I-9 (T < tau < inf)
+        pn, _, _, _ = evaluate_tuple(_ctx(tdoc["tuples"][3]), "full")
+        pn = dict(pn, mode="noext", T=1)
+        assert reapply(pn) == ("I-9", [])
+        j_fail = dict(pn, J1={"t0+1": {"Ji": False, "Jii": True}}, row="1", T_prime=1)
+        assert reapply(j_fail) == ("1", []), reapply(j_fail)
 
     @check("end-to-end run on synthetic docs: PASS, exit 1, exit 2, exit 5; verdict text regenerates")
     def _():
         tdoc, edoc = _st_docs()
         ids = [t["id"] for t in tdoc["tuples"]]
+        N = len(ids)
         with tempfile.TemporaryDirectory() as d:
-            code = run(d, _b(tdoc), _b(edoc), meta, runm, expect_count=5, frozen_order_rule=False)
+            code = run(d, _b(tdoc), _b(edoc), meta, runm, expect_count=N, frozen_order_rule=False)
             s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
             assert code == 0 and s["verdict"] == "PASS" and s["tuples_evaluated"] == ids, s["first_failure"]
-            assert s["verdict_text"] == "Phase A: all 5 frozen tuples reproduced their expected rows and values."
-            ok, rep = check_summary(d, ids, expect_count=5)
+            assert s["verdict_text"] == "Phase A: all 6 frozen tuples reproduced their expected rows and values."
+            ok, rep = check_summary(d, ids, expect_count=N)
             assert ok, rep
+            assert [e["reapplied_row"] for e in rep["reapply"]] == ["5", "6", "2a", "I-9", "2a", "I-3"], rep
             s["verdict_text"] += " "
             write_json(os.path.join(d, "phase-a", "summary.json"), s)
-            assert not check_summary(d, ids, expect_count=5)[0]
+            assert not check_summary(d, ids, expect_count=N)[0]
         e2 = json.loads(json.dumps(edoc))
         e2["expected"]["st-shift1"]["eps_max"]["t0+2"] = "1/4"
         with tempfile.TemporaryDirectory() as d:
-            code = run(d, _b(tdoc), _b(e2), meta, runm, expect_count=5, frozen_order_rule=False)
+            code = run(d, _b(tdoc), _b(e2), meta, runm, expect_count=N, frozen_order_rule=False)
             s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
             assert code == 1 and s["tuples_evaluated"] == ids[:3] and s["first_failure"]["field"] == "eps_max"
             assert s["verdict_text"] == ('Phase A halted at st-shift1: eps_max expected {"t0+1":"0","t0+2":"1/4"}, '
                                          'computed {"t0+1":"0","t0+2":"1/2"}. The run is void.')
-            assert check_summary(d, ids, expect_count=5)[0]
+            ok, rep = check_summary(d, ids, expect_count=N)
+            assert ok and rep["checks"]["halt_at_last_evaluated"] and rep["checks"]["prefix_of_frozen_order"], rep
+            path = os.path.join(d, "phase-a", "summary.json")
+            # tampered bookkeeping: a reordered prefix, then a halt that is not the last evaluated tuple
+            s2 = dict(s, tuples_evaluated=[ids[1], ids[0], ids[2]])
+            write_json(path, s2)
+            ok, rep = check_summary(d, ids, expect_count=N)
+            assert not ok and not rep["checks"]["prefix_of_frozen_order"] and rep["checks"]["halt_at_last_evaluated"]
+            s3 = dict(s, tuples_evaluated=ids[:2])
+            write_json(path, s3)
+            ok, rep = check_summary(d, ids, expect_count=N)
+            assert not ok and rep["checks"]["prefix_of_frozen_order"] and not rep["checks"]["halt_at_last_evaluated"]
+            write_json(path, dict(s, tuples_frozen=N + 1))
+            assert not check_summary(d, ids, expect_count=N)[0]
         e3 = json.loads(json.dumps(edoc))
         del e3["expected"]["st-swap"]["tau"]
         with tempfile.TemporaryDirectory() as d:
-            assert run(d, _b(tdoc), _b(e3), meta, runm, expect_count=5, frozen_order_rule=False) == 2
+            assert run(d, _b(tdoc), _b(e3), meta, runm, expect_count=N, frozen_order_rule=False) == 2
             s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
             assert s["tuples_evaluated"] == [] and s["verdict_text"].startswith("Phase A halted at start: schema")
         e4 = json.loads(json.dumps(edoc))
         e4["expected"]["st-hold"]["eps_max"]["t0+1"] = 0.0
         with tempfile.TemporaryDirectory() as d:
-            assert run(d, _b(tdoc), json.dumps(e4).encode(), meta, runm, expect_count=5, frozen_order_rule=False) == 2
+            assert run(d, _b(tdoc), json.dumps(e4).encode(), meta, runm, expect_count=N, frozen_order_rule=False) == 2
         t5 = json.loads(json.dumps(tdoc))
         t5["tuples"][1]["model"] = "st-collapse"
         t5["tuples"][1].update({"Sigma": ["a"], "A": ["b"], "read_cells": ["b"], "g": "01",
                                 "law": {"type": "uniform"}})
         with tempfile.TemporaryDirectory() as d:
-            assert run(d, _b(t5), _b(edoc), meta, runm, expect_count=5, frozen_order_rule=False) == 5
+            assert run(d, _b(t5), _b(edoc), meta, runm, expect_count=N, frozen_order_rule=False) == 5
             s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
             assert s["tuples_evaluated"] == ids[:2] and s["first_failure"]["tuple_id"] == "st-swap"
             assert s["verdict_text"] == ("Phase A halted at st-swap: enumeration-method check failed "
@@ -2278,6 +2364,338 @@ def self_test():
         assert render_verdict(mk(exit=4, tuple_id="x")) == \
             "Phase A halted at x: G* undetermined on W_T at storage step. The run is void."
         assert render_verdict(mk(exit=7, tuple_id="x")) == "Phase A halted with exit 7. The run is void."
+
+
+    @check("readback mode: I-3, readback ticks, recurrence flag, and re-application of the readback branch")
+    def _():
+        tdoc, edoc = _st_docs()
+        t = tdoc["tuples"][5]
+        rec, extra, pending, _ = evaluate_tuple(_ctx(t), "full")
+        exp = edoc["expected"][t["id"]]
+        assert pending is None and all(field_equal(f, exp[f], dict(rec, method="full")[f]) for f in exp), rec
+        assert extra["ticks"] == ["t0+1", "t0+2", "t0+4"] and extra["Q_cells"] is None
+        out = dict(rec, mode="readback", T=None)
+        assert reapply(out) == ("I-3", [])
+        assert reapply(dict(out, row="5"))[1] and reapply(dict(out, recurrence_flags=[]))[1]
+
+    @check("recurrence rule at the boundary eps = eps*: no flag; just above eps*: flag")
+    def _():
+        assert recurrence([1, 2, 3], {1: EPS_STAR, 2: Fraction(0), 3: Fraction(0)}) == []
+        assert recurrence([1, 2], {1: Fraction(51, 1000), 2: Fraction(0)}) == [2]
+        base = {"mode": "readback", "row": "I-3", "eps_max": {"t0+1": "1/20", "t0+2": "0"}}
+        assert reapply(dict(base, recurrence_flags=[]))[1] == []
+        assert reapply(dict(base, recurrence_flags=["t0+2"]))[1]
+
+    @check("cell constructors: closed ring, swapped pair, trigger channel, channel and fixed lists")
+    def _():
+        mk = lambda spec, env: Model({"cells": spec, "rule": []}, env, "m").cells
+        assert mk("u0 .. u{L-1}, with L = m+3", {"m": 4, "L": 7}) == ["u%d" % j for j in range(7)]
+        _expect_halt(2, lambda: mk("u0 .. u{L-1}, with L = m+3", {"m": 4, "L": 6}))
+        assert mk("p0, v0, p1, v1, p2, v2, r1, r2 (L = 3)", {"L": 3}) == ["p0", "v0", "p1", "v1", "p2", "v2", "r1", "r2"]
+        _expect_halt(2, lambda: mk("p0, v0, p1, v1, p2, v2, r1, r2 (L = 3)", {"L": 4}))
+        trig = "for j = 0 .. L-1: p{j}_1, .., p{j}_k, v{j}; then r (L = T+1)"
+        assert mk(trig, {"k": 2, "L": 3, "T": 2}) == ["p0_1", "p0_2", "v0", "p1_1", "p1_2", "v1",
+                                                      "p2_1", "p2_2", "v2", "r"]
+        _expect_halt(2, lambda: mk(trig, {"k": 2, "L": 4, "T": 4}))
+        _expect_halt(2, lambda: mk(trig, {"k": 2, "L": 3}))
+        assert mk("p0, v0, p1, v1, .., p{L-1}, v{L-1}, r", {"L": 4}) == ["p0", "v0", "p1", "v1", "p2", "v2",
+                                                                         "p3", "v3", "r"]
+        assert mk("a, z0, z1, z2", {}) == ["a", "z0", "z1", "z2"]
+        assert mk("c, w0, w1, w2, w3", {}) == ["c", "w0", "w1", "w2", "w3"]
+        assert mk("r, s, y0, y1, z0, z1", {}) == ["r", "s", "y0", "y1", "z0", "z1"]
+        assert mk("u0 .. u{L-1}", {"L": 2}) == ["u0", "u1"]
+
+    @check("method_for at the 2^16 boundary, for HC-SK and other models")
+    def _():
+        def ctx_n(model_name, n, sk_env=None):
+            if sk_env:
+                models = {model_name: {"cells": "for j = 0 .. L-1: p{j}_1, .., p{j}_k, v{j}; then r (L = T+1)",
+                                       "rule": []}}
+                t = _st_tuple(1, "st-n", model_name, "window", sk_env["T"], ["p0_1", "v0"] if sk_env["k"] == 1
+                              else ["p0_1", "p0_2", "v0"], {"type": "uniform"}, ["r"], "01",
+                              params={"k": sk_env["k"], "L": sk_env["T"] + 1}, P=("1" * sk_env["k"] + "0",
+                                                                                   "1" * sk_env["k"] + "1"))
+            else:
+                models = {model_name: {"cells": ["c%d" % i for i in range(n)], "rule": []}}
+                t = _st_tuple(1, "st-n", model_name, "window", 1, ["c0"], {"type": "uniform"}, ["c1"], "01")
+            c = TupleCtx(t, models)
+            assert c.model.n == n
+            return c
+        assert method_for(ctx_n("trigger-channel", 16, {"k": 2, "T": 4})) == "full+sequential"
+        assert method_for(ctx_n("trigger-channel", 17, {"k": 1, "T": 7})) == "sequential"
+        assert method_for(ctx_n("st-plain", 16)) == "full"
+        _expect_halt(5, lambda: method_for(ctx_n("st-plain", 17)))
+        assert method_for(ctx_n("st-plain-trigger", 16, {"k": 2, "T": 4})) == "full"  # HC-SK by model name only
+
+    @check("HC-SK branch: w and w_chg, full+sequential at |S| = 2^16 and sequential at 2^17 (Toffoli trigger)")
+    def _():
+        # A synthetic trigger rule (Toffoli write, not the frozen Fredkin swap) on the frozen cell layout,
+        # at (k, T) outside the frozen set, with arriving value bits (and in case A the second presence bit)
+        # held at 1 so that the per-tick flip probability is 1/2.
+        rule = [[{"lhs": "r", "rhs": "r ^ (p0_1 & .. & p0_k & v0)"}],
+                [{"lhs": "p{j}_{i}", "rhs": "p{(j-1) mod L}_{i}", "range": "j = 0 .. L-1, i = 1 .. k"},
+                 {"lhs": "v{j}", "rhs": "v{(j-1) mod L}", "range": "j = 0 .. L-1"}]]
+        models = {"trigger-channel": {"cells": "for j = 0 .. L-1: p{j}_1, .., p{j}_k, v{j}; then r (L = T+1)",
+                                      "rule": rule}}
+        eqA = {"r": 0}
+        for j in range(1, 5):
+            eqA.update({"v%d" % j: 1, "p%d_2" % j: 1})
+        tA = _st_tuple(1, "st-trig-k2-T4", "trigger-channel", "window", 4, ["p0_1", "p0_2", "v0"],
+                       {"type": "uniform_conditioned", "equalities": eqA}, ["r"], "01", params={"k": 2, "L": 5},
+                       P=("110", "111"))
+        cA = TupleCtx(tA, models)
+        assert cA.model.n == 16 and method_for(cA) == "full+sequential"
+        rec, extra, _, _ = evaluate_tuple(cA, "full+sequential")
+        assert extra["sequential_check"]["agree"]
+        half = {"t0+%d" % n: "1/2" for n in range(2, 6)}
+        assert rec["eps_max"] == dict(half, **{"t0+1": "0"}), rec["eps_max"]
+        assert rec["tv"] == {"t0+1": "1", "t0+2": "0", "t0+3": "0", "t0+4": "0", "t0+5": "0"}
+        assert rec["w"] == "1/4" and rec["w_chg"] == "1/8" and rec["sweep_min_max_eps"] is None
+        assert rec["tau"] == 1 and rec["T_prime"] == 4 and rec["row"] == "2b" and rec["D_bits"] == 9
+        assert rec["G_star_out_T"] == ["111"] and rec["G_status_T"] == "consistent"
+        assert rec["Q_missing_T"] == ["000", "001", "010", "100", "101", "110"]
+        assert rec["eta"] == {"t0+%d" % n: "1/2" for n in range(1, 5)}
+        assert rec["lemma_h_bound"] == {"t0+1": "0", "t0+2": "1/2", "t0+3": "1", "t0+4": "3/2", "t0+5": "2"}
+        eqB = {"r": 0}
+        eqB.update({"v%d" % j: 1 for j in range(1, 8)})
+        tB = _st_tuple(1, "st-trig-k1-T7", "trigger-channel", "window", 7, ["p0_1", "v0"],
+                       {"type": "uniform_conditioned", "equalities": eqB}, ["r"], "01", params={"k": 1, "L": 8},
+                       P=("10", "11"))
+        cB = TupleCtx(tB, models)
+        assert cB.model.n == 17 and method_for(cB) == "sequential"
+        rec, extra, _, _ = evaluate_tuple(cB, "sequential")
+        assert rec["w"] == "1/2" and rec["w_chg"] == "1/4" and extra["injective"] is None
+        assert rec["eps_max"] == dict({"t0+%d" % n: "1/2" for n in range(2, 9)}, **{"t0+1": "0"})
+        assert rec["tau"] == 1 and rec["T_prime"] == 7 and rec["row"] == "2b"
+        assert rec["lemma_h_bound"]["t0+8"] == "7/2"
+
+    @check("decoder sweep (MD-xor branch): gated swap with a biased junk bit, sweep 1/4, write_min_eps 0")
+    def _():
+        t = _st_tuple(1, "MD-xor-st-gated-swap", "st-gated-swap", "window", 1, ["x"],
+                      {"type": "explicit", "states": {"1000": "3/8", "1001": "1/8", "1100": "3/8", "1101": "1/8"}},
+                      ["r1", "r2"], "0110")
+        rec, _, _, _ = evaluate_tuple(_ctx(t), "full")
+        assert rec["sweep_min_max_eps"] == "1/4" and rec["write_min_eps"] == "0", rec
+        assert rec["eps_max"] == {"t0+1": "1/4", "t0+2": "1/4"} and rec["row"] == "3" and rec["D_bits"] is None
+        assert rec["tau"] == INF and rec["dil_exact_T"] is True
+        t2 = dict(t, id="st-gated-swap-biased")
+        assert evaluate_tuple(_ctx(t2), "full")[0]["sweep_min_max_eps"] is None
+
+    @check("tau starts from supp R_{t0+1} under mu^P: an unfired preparation would shorten tau to 1")
+    def _():
+        models = dict(ST_MODELS)
+        models["st-unfired"] = {"cells": ["p0", "v0", "p1", "v1", "a0", "b0", "a1", "b1", "r", "s"], "rule": [
+            [{"lhs": "r", "rhs": "r ^ (p0 & v0)"}, {"lhs": "s", "rhs": "s ^ ((p0 ^ 1) & v0)"}],
+            [{"lhs": "r", "rhs": "r ^ (a0 & s)"}, {"lhs": "s", "rhs": "s ^ b0"}],
+            [{"lhs": "p0", "rhs": "p1"}, {"lhs": "p1", "rhs": "p0"}, {"lhs": "v0", "rhs": "v1"},
+             {"lhs": "v1", "rhs": "v0"}, {"lhs": "a0", "rhs": "a1"}, {"lhs": "a1", "rhs": "a0"},
+             {"lhs": "b0", "rhs": "b1"}, {"lhs": "b1", "rhs": "b0"}]]}
+        t = _st_tuple(1, "st-unfired", "st-unfired", "window", 1, ["p0", "v0"],
+                      {"type": "uniform_conditioned",
+                       "equalities": {"p1": 0, "v1": 0, "a0": 0, "b0": 0, "r": 0, "s": 0}},
+                      ["r", "s"], "0011", P=("10", "11"), read=["r"])
+        rec, extra, _, _ = evaluate_tuple(_ctx(t, models), "full")
+        assert extra["Q_cells"] == ["p0", "v0", "a0", "b0"], extra["Q_cells"]
+        assert rec["tau"] == 2 and rec["T_prime"] == 2 and rec["row"] == "1", rec
+        assert rec["eps_max"] == {"t0+1": "0", "t0+2": "0", "t0+3": "1"}
+        assert rec["J1"] == {"t0+1": {"Ji": True, "Jii": True}, "t0+2": {"Ji": False, "Jii": True}}
+        assert reapply(dict(rec, mode="window", T=1)) == ("1", [])  # row 1 from a hold tick of H_T' minus H_T
+
+    @check("(R-a) fails on A meeting Sigma even when rho_A is independent of kappa; SCH over the read cells only")
+    def _():
+        models = dict(ST_MODELS)
+        models["st-static2"] = {"cells": ["s", "v", "r"], "rule": [[{"lhs": "r", "rhs": "r ^ (s & v)"}]]}
+        t = _st_tuple(1, "st-overlap", "st-static2", "window", 1, ["s", "v"],
+                      {"type": "uniform_conditioned", "equalities": {"r": 0}}, ["s", "r"], "0101", P=("10", "11"),
+                      read=["r"])
+        rec, _, _, _ = evaluate_tuple(_ctx(t, models), "full")
+        assert rec["Ra"] is False and rec["Rb"] is True, rec
+        models["st-hold-copy"] = {"cells": ["k", "x", "r", "t"], "rule": [
+            [{"lhs": "x", "rhs": "ite(k, r, x)"}, {"lhs": "r", "rhs": "ite(k, x, r)"}],
+            [{"lhs": "t", "rhs": "t ^ r"}], [{"lhs": "k", "rhs": "k ^ 1"}]]}
+        t2 = _st_tuple(1, "st-hold-copy", "st-hold-copy", "window", 1, ["x"],
+                       {"type": "uniform_conditioned", "equalities": {"k": 1, "r": 0, "t": 0}}, ["r", "t"], "0011",
+                       read=["r"])
+        rec, _, _, _ = evaluate_tuple(_ctx(t2, models), "full")
+        # read cell r takes carrier information only from itself; the unread t takes it from r
+        assert rec["SCH"] == {"t0+1": True} and rec["row"] == "5", rec
+        assert rec["eps_max"] == {"t0+1": "0", "t0+2": "0"}
+
+    @check("strict equality: bool and int never compare equal; probabilities compare as rationals")
+    def _():
+        assert not strict_eq(True, 1) and not strict_eq(1, True) and not strict_eq(0, False)
+        assert not field_equal("D_bits", 1, True) and not field_equal("Ra", True, 1)
+        assert not field_equal("J1", {"t0+1": {"Ji": True, "Jii": True}}, {"t0+1": {"Ji": 1, "Jii": True}})
+        assert field_equal("eps_max", {"t0+1": "1/2"}, {"t0+1": "1/2"})
+        assert not field_equal("eps_max", {"t0+1": "1/2"}, {"t0+1": "1/2", "t0+2": "0"})
+        assert not field_equal("tau", 2, "inf") and field_equal("T_prime", None, None)
+        assert not field_equal("w", None, "1/2")
+
+    @check("D_bits on larger synthetic models (n = 9 and 10)")
+    def _():
+        m10 = Model({"cells": ["c%d" % i for i in range(10)], "rule": []}, {}, "m")
+        assert d_bits({"type": "uniform_conditioned", "equalities": {"c%d" % i: 0 for i in range(6)}}, m10, "l") == 6
+        m9 = Model({"cells": ["c%d" % i for i in range(9)], "rule": []}, {}, "m")
+        st = {"000000000": "1/2", "100000000": "1/8", "010000000": "1/8", "110000000": "1/8", "001000000": "1/8"}
+        assert d_bits({"type": "explicit", "states": st}, m9, "l") == 7
+
+    @check("exit 4 through compute_record and the run, and exit 6 from re-application (injected)")
+    def _():
+        tdoc, edoc = _st_docs()
+        ids = [t["id"] for t in tdoc["tuples"]]
+        g = globals()
+        orig_row, orig_re = g["assign_row"], g["reapply"]
+
+        def fake_row(*a, **k):
+            raise Halt(4, field="G_status_T", detail="injected")
+        try:
+            g["assign_row"] = fake_row
+            rec, extra, pending, _ = evaluate_tuple(_ctx(tdoc["tuples"][0]), "full")
+            assert pending is not None and pending.code == 4 and rec["row"] is None and extra["row_step"] == 6
+            with tempfile.TemporaryDirectory() as d:
+                assert run(d, _b(tdoc), _b(edoc), meta, runm, expect_count=len(ids), frozen_order_rule=False) == 4
+                s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
+                assert s["tuples_evaluated"] == ids[:1] and s["verdict_text"] == (
+                    "Phase A halted at st-hold: G* undetermined on W_T at storage step. The run is void.")
+                r0 = json.load(open(os.path.join(d, "phase-a", "st-hold.json")))
+                assert r0["row"] is None and r0["match"] is False
+                assert check_summary(d, ids, expect_count=len(ids))[0]
+        finally:
+            g["assign_row"] = orig_row
+        try:
+            g["reapply"] = lambda rec: (rec.get("row"), ["injected problem"])
+            with tempfile.TemporaryDirectory() as d:
+                assert run(d, _b(tdoc), _b(edoc), meta, runm, expect_count=len(ids), frozen_order_rule=False) == 6
+                s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
+                assert s["first_failure"]["exit"] == 6 and s["tuples_evaluated"] == ids[:1]
+                assert s["verdict_text"] == "Phase A halted with exit 6. The run is void."
+        finally:
+            g["reapply"] = orig_re
+
+    @check("rows 7, 8 and approximate 5 by dynamics, each re-applied from its JSON fields")
+    def _():
+        models = dict(ST_MODELS)
+        # row 5 by DIL-eta: Toffoli channel, L = 2, arriving presence bit with probability 1/40, value bit 1
+        st5 = {}
+        for p0, v0, p1 in itertools.product("01", "01", "01"):
+            st5[p0 + v0 + p1 + "10"] = "1/160" if p1 == "1" else "39/160"
+        t5 = _st_tuple(1, "st-toffoli-bias", "st-toffoli-channel", "window", 1, ["p0", "v0"],
+                       {"type": "explicit", "states": st5}, ["r"], "01", params={"L": 2}, P=("10", "11"))
+        rec, extra, _, _ = evaluate_tuple(_ctx(t5), "full+sequential")
+        assert extra["sequential_check"]["agree"] and rec["row"] == "5" and rec["dil_exact_T"] is False, rec
+        assert rec["eps_max"] == {"t0+1": "0", "t0+2": "1/40"} and rec["tv"] == {"t0+1": "1", "t0+2": "19/20"}
+        assert rec["eta"] == {"t0+1": "1/40"} and rec["lemma_h_bound"] == {"t0+1": "0", "t0+2": "1/40"}
+        assert rec["G_star_out_T"] == ["11"] and rec["Q_missing_T"] == ["00", "10"] and rec["D_bits"] is None
+        assert reapply(dict(rec, mode="window", T=1)) == ("5", [])
+        # row 8: a renamed swap gate whose arriving presence bit fires with probability 3/40
+        models["st-biased-swap"] = {"cells": ["q0", "w0", "q1", "w1", "m"], "rule": [
+            [{"lhs": "w0", "rhs": "ite(q0, m, w0)"}, {"lhs": "m", "rhs": "ite(q0, w0, m)"}],
+            [{"lhs": "q0", "rhs": "q1"}, {"lhs": "q1", "rhs": "q0"}, {"lhs": "w0", "rhs": "w1"},
+             {"lhs": "w1", "rhs": "w0"}]]}
+        st8 = {}
+        for q0, w0, q1, w1, m in itertools.product("01", repeat=5):
+            st8[q0 + w0 + q1 + w1 + m] = "3/640" if q1 == "1" else "37/640"
+        t8 = _st_tuple(1, "st-biased-swap", "st-biased-swap", "window", 1, ["q0", "w0"],
+                       {"type": "explicit", "states": st8}, ["m"], "01", P=("10", "11"))
+        rec, _, _, _ = evaluate_tuple(_ctx(t8, models), "full")
+        assert rec["row"] == "8" and rec["eps_max"] == {"t0+1": "0", "t0+2": "3/80"}, rec
+        assert rec["eta"] == {"t0+1": "3/40"} and rec["G_star_out_T"] == ["10", "11"] and rec["tau"] == 1
+        assert reapply(dict(rec, mode="window", T=1)) == ("8", [])
+        # row 7: the unfired-preparation register with a carrier ring of 3, so no failure is seen on W_T'
+        models["st-unfired3"] = {"cells": ["p0", "v0", "p1", "v1", "p2", "v2", "a0", "b0", "a1", "b1", "r", "s"],
+                                 "rule": [
+            [{"lhs": "r", "rhs": "r ^ (p0 & v0)"}, {"lhs": "s", "rhs": "s ^ ((p0 ^ 1) & v0)"}],
+            [{"lhs": "r", "rhs": "r ^ (a0 & s)"}, {"lhs": "s", "rhs": "s ^ b0"}],
+            [{"lhs": "p{j}", "rhs": "p{(j-1) mod 3}", "range": "j = 0 .. 2"},
+             {"lhs": "v{j}", "rhs": "v{(j-1) mod 3}", "range": "j = 0 .. 2"},
+             {"lhs": "a0", "rhs": "a1"}, {"lhs": "a1", "rhs": "a0"}, {"lhs": "b0", "rhs": "b1"},
+             {"lhs": "b1", "rhs": "b0"}]]}
+        t7 = _st_tuple(1, "st-unfired3", "st-unfired3", "window", 1, ["p0", "v0"],
+                       {"type": "uniform_conditioned", "equalities": {"p1": 0, "v1": 0, "p2": 0, "v2": 0, "a0": 0,
+                                                                      "b0": 0, "r": 0, "s": 0}},
+                       ["r", "s"], "0011", P=("10", "11"), read=["r"])
+        rec, _, _, _ = evaluate_tuple(_ctx(t7, models), "full")
+        assert rec["row"] == "7" and rec["tau"] == 2 and rec["T_prime"] == 2, rec
+        assert rec["eps_max"] == {"t0+1": "0", "t0+2": "0", "t0+3": "0"} and rec["J1"] == _J(1, 2)
+        assert rec["G_star_out_T"] == ["0010", "0011"] and rec["G_status_T"] == "consistent"
+        assert rec["lemma_h_bound"] == {"t0+1": "0", "t0+2": "1/2"}
+        assert reapply(dict(rec, mode="window", T=1)) == ("7", [])
+
+    @check("frozen order rule and an end-to-end run with an HC-SK-model tuple by both methods")
+    def _():
+        rule = [[{"lhs": "r", "rhs": "r ^ (p0_1 & .. & p0_k & v0)"}],
+                [{"lhs": "p{j}_{i}", "rhs": "p{(j-1) mod L}_{i}", "range": "j = 0 .. L-1, i = 1 .. k"},
+                 {"lhs": "v{j}", "rhs": "v{(j-1) mod L}", "range": "j = 0 .. L-1"}]]
+        models = dict(ST_MODELS)
+        models["trigger-channel"] = {"cells": "for j = 0 .. L-1: p{j}_1, .., p{j}_k, v{j}; then r (L = T+1)",
+                                     "rule": rule}
+        eq = {"r": 0}
+        for j in range(1, 5):
+            eq.update({"v%d" % j: 1, "p%d_2" % j: 1})
+        tdoc, edoc = _st_docs()
+        hold = tdoc["tuples"][0]
+        sk = _st_tuple(2, "st-trig-k2-T4", "trigger-channel", "window", 4, ["p0_1", "p0_2", "v0"],
+                       {"type": "uniform_conditioned", "equalities": eq}, ["r"], "01", params={"k": 2, "L": 5},
+                       P=("110", "111"))
+        sk["method"] = "full+sequential"
+        half = {"t0+%d" % n: "1/2" for n in range(2, 6)}
+        miss = ["000", "001", "010", "100", "101", "110"]
+        e_sk = dict(row="2b", eps_max=dict(half, **{"t0+1": "0"}),
+                    tv={"t0+1": "1", "t0+2": "0", "t0+3": "0", "t0+4": "0", "t0+5": "0"}, Ra=True, Rb=True,
+                    dil_exact_T=False, tau=1, T_prime=4, J1=_J(1, 2, 3, 4),
+                    SCH={"t0+%d" % n: True for n in range(1, 5)}, Q_missing_T=miss, G_star_out_T=["111"],
+                    G_status_T="consistent", Q_missing_Tprime=miss, G_star_out_Tprime=["111"],
+                    G_status_Tprime="consistent", eta={"t0+%d" % n: "1/2" for n in range(1, 5)},
+                    lemma_h_bound={"t0+1": "0", "t0+2": "1/2", "t0+3": "1", "t0+4": "3/2", "t0+5": "2"},
+                    recurrence_flags=[], D_bits=9, method="full+sequential", g="01", write_min_eps="0",
+                    w="1/4", w_chg="1/8", sweep_min_max_eps=None)
+        sk_late = dict(sk, order=3, id="st-trig-k1-T7", T=7, params={"k": 1, "L": 8}, Sigma=["p0_1", "v0"],
+                       P=["10", "11"], method="sequential")
+        t2 = dict(tdoc, models=models, tuples=[hold, sk])
+        e2 = dict(edoc, expected={"st-hold": edoc["expected"]["st-hold"], "st-trig-k2-T4": e_sk})
+        ids = ["st-hold", "st-trig-k2-T4"]
+        validate_docs(t2, e2, 2, True)
+        e3 = dict(edoc, expected=dict(e2["expected"], **{"st-trig-k1-T7": e_sk}))
+        validate_docs(dict(t2, tuples=[hold, sk, sk_late]), e3, 3, True)          # (16, 2) before (17, 1)
+        swapped = [hold, dict(sk_late, order=2), dict(sk, order=3)]
+        _expect_halt(2, lambda: validate_docs(dict(t2, tuples=swapped), e3, 3, True))
+        _expect_halt(2, lambda: validate_docs(dict(t2, tuples=[dict(sk, order=1), dict(hold, order=2)]), e2, 2, True))
+        with tempfile.TemporaryDirectory() as d:
+            code = run(d, _b(t2), _b(e2), meta, runm, expect_count=2, frozen_order_rule=True)
+            s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
+            assert code == 0 and s["verdict"] == "PASS", s["first_failure"]
+            r2 = json.load(open(os.path.join(d, "phase-a", "st-trig-k2-T4.json")))
+            assert r2["sequential_check"]["agree"] and r2["injective"] is True and r2["method"] == "full+sequential"
+            assert check_summary(d, ids, expect_count=2)[0]
+        bad = dict(t2, tuples=[hold, dict(sk, method="full")])
+        with tempfile.TemporaryDirectory() as d:
+            assert run(d, _b(bad), _b(e2), meta, runm, expect_count=2, frozen_order_rule=True) == 5
+            s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
+            assert "differs from the section 2.0 rule" in s["first_failure"]["detail"]
+
+    @check("run identity: only the first attempt of a dispatch with sha = confirm_commit = HEAD holds")
+    def _():
+        sha = "1a" * 20
+        good = {"GITHUB_EVENT_NAME": "workflow_dispatch", "GITHUB_REF": "refs/heads/research/x", "GITHUB_SHA": sha,
+                "GITHUB_RUN_ID": "123", "GITHUB_RUN_ATTEMPT": "1", "CONFIRM_COMMIT": sha}
+        fake = lambda repo, args: (0, sha)
+        with tempfile.TemporaryDirectory() as d:
+            ok, ident = record_identity(d, env=good, git=fake, repo="/x")
+            on_disk = json.load(open(os.path.join(d, "phase-a", "run-identity.json")))
+            assert ok and on_disk == ident and ident["run_id"] == 123 and ident["confirm_commit"] == sha
+            for k, v in (("GITHUB_EVENT_NAME", "push"), ("GITHUB_RUN_ATTEMPT", "2"),
+                         ("CONFIRM_COMMIT", "2b" * 20), ("CONFIRM_COMMIT", sha.upper()),
+                         ("CONFIRM_COMMIT", sha[:39]), ("CONFIRM_COMMIT", sha + "\n"),
+                         ("CONFIRM_COMMIT", '"; exit 0; "'), ("GITHUB_SHA", "2b" * 20)):
+                assert not record_identity(d, env=dict(good, **{k: v}), git=fake, repo="/x")[0], (k, v)
+            assert not record_identity(d, env=good, git=lambda repo, args: (0, "2b" * 20), repo="/x")[0]
+            for bad in (sha.upper(), sha + "\n", sha[:39], "", None):
+                env = dict(good, CONFIRM_COMMIT=bad, GITHUB_SHA=bad)
+                if bad is None:
+                    del env["CONFIRM_COMMIT"]
+                _, ident = record_identity(d, env=env, git=fake, repo="/x")
+                assert ident["checks"]["confirm_commit_is_40_lowercase_hex"] is False, bad
+            assert not record_identity(d, env={}, git=fake, repo="/x")[0]
 
     ok = all(c["ok"] for c in checks)
     print(json.dumps({"self_test": "pass" if ok else "fail", "checks": checks}, indent=1))
@@ -2305,11 +2723,18 @@ def main(argv=None):
     g.add_argument("--run", action="store_true", help="the preregistered run (CI only, PREREG section 7)")
     g.add_argument("--check-summary", metavar="DIR",
                    help="regenerate verdict_text from DIR/phase-a/summary.json and re-apply section 4")
+    g.add_argument("--record-identity", metavar="DIR",
+                   help="write DIR/phase-a/run-identity.json; exit 0 only for the first attempt of a "
+                        "workflow_dispatch whose sha equals CONFIRM_COMMIT and the checkout HEAD")
     ap.add_argument("--out", metavar="DIR", help="output directory for --run (files under DIR/phase-a/)")
     ap.add_argument("--expect-F", metavar="SHA", help="the F constant carried by the workflow; must equal the tool's")
     a = ap.parse_args(argv)
     if a.self_test:
         return self_test()
+    if a.record_identity:
+        ok, ident = record_identity(a.record_identity)
+        print(json.dumps(ident, indent=1))
+        return 0 if ok else 1
     if a.verify_inputs:
         try:
             _, (meta, _) = _verify(a.expect_F)
