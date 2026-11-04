@@ -35,7 +35,9 @@ from memory · [O] owner decision.
 - **(A-aff)** The constant **affine** internal maps z ↦ gz + w, with g ∈ G_0, that commute with Φ.
   This includes shift-conjugates. SM:96 and Substratum:270 declare uniform shifts gauge. The owner
   directs that amplitude shifts be treated "as mathematical relabellings unless their physical gauge
-  status is justified" (#1049 c.6624263637) [O]. Stage 2(d) itself does not include affine internal
+  status is justified" [O]. This decision is quoted from #1049 comment 6624263637, by amaybaum,
+  posted 2026-11-04T06:28:45Z, which records the owner's chat decisions and states "These decisions
+  answer Q1 and Q2". Stage 2(d) itself does not include affine internal
   maps.
 
 **Resonance.** On the lift, with the normalized rule φ(t+1) = (1/d)M Σ_nn φ − φ(t−1) (SM:314), the
@@ -175,11 +177,13 @@ the linear part at the symmetric point has stabilizer U(6).
     stabilizer is τ_p G_0 τ_{−p} ≅ G_0, and in the relabelled coordinate y = z − p the rule is linear.
   - **At resonance (μ_{A₁} = 1).** β ∉ Im(I − L). Over the lift, A commutes with translations, so the
     k = 0 sector of Im(2I − A) on V_1 is (2 − 2μ_{A₁})V_1 = 0. Then (z_g − 1)β lies in that image iff
-    z_g = 1. The **linear parts** form exactly G_v. The affine stabilizer is G_v ⋉ T_0, where T_0 is
-    the group of translations by Ker(L − I), the static solutions of the linear rule. T_0 includes
-    the uniform V_1 translations.
-  - Off resonance, the affine stabilizer likewise contains translations by Ker(L − I) in any
-    resonant block. Its linear parts are G_0.
+    z_g = 1. The **linear parts** form exactly G_v. The affine stabilizer is G_v ⋉ T_0. Here T_0 is
+    the group of translations by the **uniform** static solutions, {(c𝟙, c𝟙) : c ∈ V_a, μ_a = 1}.
+    For uniform c in block a, (A − 2I)c𝟙 = (2μ_a − 2)c𝟙, which vanishes iff μ_a = 1. T_0 includes
+    the uniform V_1 translations. Non-uniform elements of Ker(L − I), such as staggered solutions
+    at μ_a = −1, are not constant internal maps and are excluded.
+  - Off resonance, the affine stabilizer likewise contains the uniform translations in any resonant
+    block. Its linear parts are G_0.
 - **Up to the amplitude gauge.** gΦ_v g⁻¹ = Φ_{z_g v} for every g ∈ G_0. So the set of g that preserve
   the rule up to a common rescaling is G_0.
 
@@ -228,14 +232,19 @@ symmetry, so G_v is already the reduced group.
     - these are the same family, with a = −1−s.
   - At s = 1 this is (1, −2, −3), the weights of Q, d_R and L. Under (A-lin) it is realized by
     (z⁻²I_3, z⁻³I_2, 1).
-  - **[D], hand count (not from SM:597, which gives only the determinant dressings).** u_R (charge 4)
-    and e_R (charge −6) have no home with their SM weights on the raw Hom-type carrier, for any lift
-    and so under either reading.
-    - The singlet blocks (End(V_1), and the trace parts of End(V_3) and End(V_2)) are neutral, so
-      e_R has no home.
-    - The (3,1) slots Hom(V_1,V_3) and Hom(V_3,V_1) carry only ±(1+s). u_R and d_R need magnitudes
-      4 and 2, so they cannot both be housed.
-    - At s = 1, with the lift (z⁻²I_3, z⁻³I_2, 1), the charges on End(V_K) are 0, ±1, ±2 and ±3.
+  - **[D], hand count (not from SM:597, which gives only the determinant dressings).** On the raw
+    Hom-type carrier the count proves three things, and these hold for every lift of the family,
+    hence under either reading:
+    - **(a) e_R has no home for any lift.** The (1,1) slots are End(V_1) and the trace parts of
+      End(V_3) and End(V_2). They all carry charge 0, and e_R needs −6.
+    - **(b) No single lift houses both u_R and d_R.** The only (3,1) slots are Hom(V_1,V_3), as a 3
+      with charge −1−s, and Hom(V_3,V_1), as a 3̄ with charge 1+s.
+      - A (3, q) field fits either slot iff q = −1−s, in the second case as its conjugate (3̄, −q).
+      - u_R (q = 4) needs s = −5, and d_R (q = −2) needs s = 1.
+    - **(c) u_R is absent at s = 1**, the lift that houses Q, d_R and L. With (z⁻²I_3, z⁻³I_2, 1) the
+      charges on End(V_K) are 0, ±1, ±2 and ±3, and the (3,1) slot carries −2, not 4.
+
+    None of these states that u_R has no home at any lift. At s = −5, Hom(V_1,V_3) carries charge 4.
 - Theorem 15 takes SU(3)×SU(2)×U(1) and the family pattern as input. Neither the offset nor the
   number of block circles enters it, and its normalization is fixed by Q_em = T₃ + Y. So the
   hypercharges are unchanged.
@@ -324,7 +333,7 @@ additive links and does not decide this.
 | Q4-1 | No Stage 2(d) site computes the stabilizer of an affine rule. SM's Σ-route and `A6Glob` take the dynamics' symmetry as ambient | holds | — | [P] S1–S6 | which ambient is intended (Q4b) |
 | Q4-2 | The offset stabilizer's linear parts are G_v = U(3)×U(2)×{1} under (A-lin), or under (A-aff) at μ_{A₁} = 1, where the affine stabilizer is G_v ⋉ T_0. Under (A-aff) off resonance the linear parts are G_0 (the conjugate τ_pG_0τ_{−p}, plus translations in any resonant block) | holds | H-b; lift; uniform offset | [D] N1 | which reading or resonance case is physical |
 | Q4-3 | G_v ≅ G_0/U(1)_diag; G_v/(G_v∩𝒦) ≅ G_0/𝒦 ≅ S(U(3)×U(2)); Proposition 15a's representations pull back through F\|_{G_v} | holds | as Q4-2 | [D] N2 | a constructed charged action under either reading |
-| Q4-4 | Hypercharge lifts in G_v form a coset of G_v∩𝒦, e.g. (I_3, zI_2, 1) or (z⁻²I_3, z⁻³I_2, 1). Their Hom-type charge family equals that of (L). Theorem 15's hypercharges are unchanged | holds | as Q4-2 | [D] N2(c), N3; [P] SM:589–597 | Hom-type homes for u_R and e_R ([D] hand count: absent for every lift, under both readings); family selection |
+| Q4-4 | Hypercharge lifts in G_v form a coset of G_v∩𝒦, e.g. (I_3, zI_2, 1) or (z⁻²I_3, z⁻³I_2, 1). Their Hom-type charge family equals that of (L). Theorem 15's hypercharges are unchanged | holds | as Q4-2 | [D] N2(c), N3; [P] SM:589–597 | a Hom-type home for the full family. [D] hand count, under both readings: e_R has no home for any lift; no single lift houses both u_R and d_R; u_R is absent at s = 1. Also not established: family selection |
 | Q4-5 | The unitary part of the symmetry algebra, Lie(G_v), has dimension 13, equal to Lie(G_0)/u(1)_diag | holds | (A-lin), or (A-aff) at resonance | [D] N5 | — |
 | Q4-6 | Residues: N6a (10 cross modes), N4a (V_K action), N6c (wording; SM:577 and :587 counts) | holds | as Q4-5 | [D] | an observable consequence |
 | Q4-7 | H-b is load-bearing: a T₁ offset loses SU(3) | holds | (A-lin); or (A-aff) with μ_{T₁} = 1 | [D] N4b | that the corpus excludes such offsets |
@@ -343,12 +352,19 @@ stabilizer of the affine rule and H = G_v.
   - a carrier choice (the Hom-type carriers), or
   - reading the "singlet-block" identification modulo a subgroup (U(1)_diag or K).
 
-  The (A-aff) off-resonance branch reaches full agreement only by admitting affine internal maps.
-  That too is a choice Stage 2(d) does not state.
+- **What the (iii) verdict rests on.** It rests on the (A-lin) branch, whose elements are Stage
+  2(d)'s U(K).
+- **Caveat, the (A-aff) off-resonance branch.** That branch reaches full agreement on O1–O4, carrier
+  clause included, by admitting affine internal maps, that is, uniform shifts.
+  - Stage 2(d) does not state this. SM:96 and Substratum:270 do declare shifts gauge.
+  - So whether this branch is "a choice the corpus does not state" is contestable under §1 as
+    frozen. If those declarations are accepted, the branch meets (i)'s clauses for O1–O4.
+  - Even then, (i) is not reached overall, because O5 is not examined.
 - **O5 is not classified.** Restricting the classification to O1–O4 is amendment A5 in §8.2.
 - **Group-level component.** The abstract groups O1–O3 and the hypercharges O4 agree in every branch
   (Q4-3, Q4-4). They meet (i)'s group and charge clauses, but not its carrier clause.
-- **Under the amended reading of §8.2 the classification is the same, (iii).**
+- **Under the amended reading of §8.2 the verdict is also (iii).** It rests on the (A-lin) branch, and
+  A3 removes the caveat by listing affine frames as a convention.
 
 ***
 
@@ -422,12 +438,20 @@ amendments below are a reading written after the results were known. They do not
 |---|---|---|---|
 | A1 | (i): "under reading (A) with b ≠ 0" | "under every offset reading, (A-lin) and (A-aff), with v ≠ 0" | Review B1 showed that (A) is ambiguous between linear and affine elements. Requiring both makes (i) harder to reach |
 | A2 | (ii): "no subgroup of H reproduces it" | "no subgroup of the offset stabilizer reproduces it" | Under (A-aff) off resonance the stabilizer's linear parts are G_0, not H |
+| A2′ | (ii): "under (A) with b ≠ 0" | existential: "under some offset reading, (A-lin) or (A-aff), with v ≠ 0" | `c155200d` made this change without recording it. A hidden use under any one admissible reading would suffice for (ii). No effect, since no output fails under any reading |
 | A3 | (iii) examples: "admitting time-dependent frames" | "admitting time-dependent or affine frames" | The (A-aff) off-resonance agreement relies on affine internal maps |
 | A4 | "those the corpus derives from Stage 2(d)" | unchanged | `c155200d` dropped this sentence in editing; it is restored and not amended |
 | A5 | classification over O1–O5 | classification over O1–O4; O5 is recorded as not examined | Review B3: no node examines O5 |
 
-**Effect.** A1–A3 move the outcome away from (i). Under §1 as frozen, the outcome is (iii) for O1–O4
-(§4). Under the amended reading it is also (iii). The two classifications do not differ.
+**Effect.**
+- A1 makes (i) harder to reach.
+- A2 and A2′ bear on (ii), and change nothing, since no output fails.
+- A3 widens (iii)'s examples.
+- A5 restricts the classification to O1–O4.
+
+Under §1 as frozen, the outcome is (iii) for O1–O4 (§4), resting on the (A-lin) branch. The (A-aff)
+off-resonance branch is a contestable caveat (§4). Under the amended reading the outcome is also
+(iii), and A3 removes that caveat.
 
 ### 8.3 Delta review of `c155200d`
 
@@ -446,3 +470,16 @@ amendments below are a reading written after the results were known. They do not
   that "These decisions answer Q1 and Q2" and quotes the Q2 decision. The parent at `f07f55d0`
   predates it, and the review offers "cite the decision" as one fix. The [O] label is kept only on
   that quotation (Readings, (A-aff)).
+
+### 8.4 Second delta review of `a63b7fda`
+
+- **G1:** the "for any lift" claim about u_R is withdrawn. N3 and the Q4-4 cell now state only the
+  three hand-checked claims: (a) e_R has no home for any lift; (b) no single lift houses both u_R and
+  d_R (u_R needs s = −5, d_R needs s = 1); (c) u_R is absent at s = 1.
+- **H1:** amendment row A2′ records `c155200d`'s existential quantifier for (ii).
+- **F5:** the rebuttal is upheld. The quotation now carries its author and time (amaybaum,
+  2026-11-04T06:28:45Z, #1049 comment 6624263637), per §A.42 item 7.
+- **H2:** T_0 is restricted to the uniform static solutions {(c𝟙, c𝟙) : c ∈ V_a, μ_a = 1}.
+- **H3:** §4 and §8.2 now state that the (iii) verdict rests on the (A-lin) branch, and record the
+  (A-aff) off-resonance branch as a contestable caveat under §1 as frozen.
+- **Nit:** the §8.2 Effect paragraph assigns each amendment its own effect.
