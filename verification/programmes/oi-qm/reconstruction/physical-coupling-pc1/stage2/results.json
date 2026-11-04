@@ -1,0 +1,1417 @@
+{
+ "controls": {
+  "C1": {
+   "expected_row": "9",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": true,
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": false,
+    "screen_flags": [],
+    "sources": {
+     "P1": "kernel:not_p1_of_nonnegBounded",
+     "R": "kernel:falsifierUnavailable_of_nonnegBounded+nonnegClass_nonnegBounded",
+     "containment": "exact"
+    }
+   },
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C10": {
+   "expected_row": "9",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": true,
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": false,
+    "screen_flags": [],
+    "sources": {
+     "R": "kernel:as C1",
+     "containment": "paper (hemisphere indicators)"
+    }
+   },
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C11a": {
+   "expected_row": "9",
+   "pass": true,
+   "record": {
+    "Gauge_N": false,
+    "Gauge_O": false,
+    "L1": "not met",
+    "N": true,
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": false,
+    "screen_flags": [],
+    "sources": {
+     "O": "kernel:permTheory_onesBounded_all",
+     "P1": "kernel:not_p1_of_nonnegBounded",
+     "R": "kernel:falsifierUnavailable_of_nonnegBounded",
+     "containment": "exact"
+    }
+   },
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C11b": {
+   "expected_row": "3b",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": true,
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": true,
+    "screen_flags": [],
+    "sources": {
+     "R": "kernel:as C11a"
+    }
+   },
+   "row": "3b",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C12": {
+   "expected_row": "9",
+   "gauge_reference": {
+    "Gauge_N": "fails (detector finds D^dagger)",
+    "pass": true
+   },
+   "pass": true,
+   "record": {
+    "Gauge_N": false,
+    "Gauge_O": false,
+    "L1": "not met",
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": false,
+    "obstruction": "Gauge_N",
+    "screen_flags": [],
+    "sources": {
+     "P1": "kernel:permTheory_not_p1+paper transport",
+     "R": "kernel:permTheory_not_gauged_rot+paper transport"
+    }
+   },
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C13": {
+   "exhibit_listed": "U",
+   "exhibit_verified": false,
+   "expected_row": "9",
+   "pass": true,
+   "reason": "neither rot up to a scalar nor a relative phase in its named basis",
+   "record": {
+    "L1": "not met",
+    "P": false,
+    "P1": false,
+    "P1_source": "kernel:realSubclass_not_p1",
+    "R": false,
+    "R_source": "paper:PC-S2-C13 §3",
+    "exhibits_verified": false,
+    "screen_flags": [
+     "no_executing_process"
+    ]
+   },
+   "reference_source": "amendments/PC-S2-C13.md",
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C14": {
+   "expected_row": "9",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": true,
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": false,
+    "screen_flags": [
+     "external_switch"
+    ],
+    "sources": {
+     "R": "kernel:as C11a",
+     "containment": "exact"
+    }
+   },
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C15": {
+   "expected_row": "3a",
+   "gauge_reference": {
+    "Gauge_N": "holds",
+    "Gauge_O": "fails",
+    "pass": true
+   },
+   "pass": true,
+   "record": {
+    "Gauge_N": true,
+    "Gauge_O": false,
+    "L1": "not met",
+    "P": false,
+    "P1": false,
+    "R": true,
+    "exhibits_verified": false,
+    "screen_flags": [
+     "rot"
+    ],
+    "sources": {
+     "Gauge_N": "kernel:scaled_rot_not_gauge_nonneg",
+     "Gauge_O": "kernel:gauged_rot_mem_onesClass",
+     "P": "kernel:realSubclass_not_phases+rot_mem_realClass",
+     "R": "kernel:falsifier_available_of_mem"
+    }
+   },
+   "row": "3a",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C2": {
+   "G4d": true,
+   "expected_row": "9",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": true,
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": false,
+    "screen_flags": [],
+    "sources": {
+     "P1": "kernel:permTheory_not_p1",
+     "R": "kernel:permTheory_falsifierUnavailable",
+     "containment": "exact"
+    }
+   },
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C3": {
+   "expected_row": "3a",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "P": true,
+    "P1": true,
+    "R": false,
+    "exhibits_verified": false,
+    "screen_flags": [
+     "nonreal_diagonal_unitary"
+    ],
+    "sources": {
+     "P": "kernel:substratumTheory_derivedOI",
+     "R": "kernel:substratumTheory_falsifierUnavailable"
+    }
+   },
+   "row": "3a",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C4": {
+   "expected_row": "9",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": false,
+    "screen_flags": [],
+    "sources": {
+     "P1": "kernel:not_p1_of_onesBounded",
+     "R": "kernel:onesTheory_falsifierUnavailable"
+    }
+   },
+   "row": "9",
+   "token": "COUNTEREXAMPLE (countertheory)"
+  },
+  "C5": {
+   "expected_row": null,
+   "pass": true,
+   "reference": "no record with R and N, or R and O; obstruction lemmas built in CI",
+   "row": null
+  },
+  "C6": {
+   "expected_row": "3b",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": true,
+    "O": true,
+    "P": false,
+    "P1": false,
+    "R": false,
+    "exhibits_verified": true,
+    "screen_flags": [],
+    "sources": {
+     "P1": "kernel:as C1",
+     "R": "kernel:as C1"
+    }
+   },
+   "row": "3b",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C7": {
+   "expected_row": "3a",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": false,
+    "O": false,
+    "P": true,
+    "P1": true,
+    "R": true,
+    "Rdag": true,
+    "Rdag_source": "kernel",
+    "exhibits_verified": false,
+    "screen_flags": [
+     "fullClass"
+    ],
+    "sources": {
+     "P": "kernel:fullTheory_phases",
+     "R": "kernel:fullTheory_rot"
+    }
+   },
+   "row": "3a",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C8": {
+   "expected_row": "3a",
+   "pass": true,
+   "record": {
+    "L1": "not met",
+    "N": false,
+    "O": false,
+    "P": false,
+    "P1": false,
+    "R": true,
+    "exhibits_verified": false,
+    "screen_flags": [
+     "rot"
+    ],
+    "sources": {
+     "P": "kernel:realTheory_not_phases",
+     "P1": "kernel:realSubclass_not_p1",
+     "R": "kernel:realTheory_rot"
+    }
+   },
+   "row": "3a",
+   "token": "REPRESENTATION-ONLY"
+  },
+  "C9": {
+   "expected_row": null,
+   "pass": true,
+   "row": null,
+   "values": {
+    "cases": [
+     {
+      "alpha1_backflow": false,
+      "mutant_backflow": true,
+      "q": 4
+     },
+     {
+      "alpha1_backflow": false,
+      "mutant_backflow": true,
+      "q": 8
+     }
+    ]
+   }
+  }
+ },
+ "exact": {
+  "C1": {
+   "class": "permClass (Theta-A) and nonnegClass (Theta-K)",
+   "compressions": [
+    {
+     "depth": 1,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 2,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 3,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 4,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 5,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    },
+    {
+     "depth": 6,
+     "haar_invariant": true,
+     "nonnegative": true,
+     "ones_fixing": true,
+     "permutation": true
+    }
+   ],
+   "measure": "Haar, selected by unique ergodicity (paper; invariance checked m<=6)"
+  },
+  "C10": {
+   "G4a": "1",
+   "G4b": "337/625",
+   "containment_theta_K": "paper: compressions onto hemisphere indicators are nonnegative",
+   "frequencies": {
+    "rot": "16/25",
+    "rot2": "576/625",
+    "rot_S_S_rot": "0"
+   },
+   "measure": "as published (state-dependent hidden density); a control, not a Gate 3 selection"
+  },
+  "C11a": {
+   "class": "inside permClass; register compressions inside nonnegClass",
+   "gauge": {
+    "Gauge_N": false,
+    "Gauge_O": false,
+    "method": "cycle invariant; gauges diag(1, i^k)"
+   },
+   "models": [
+    {
+     "cells": [
+      [
+       0
+      ],
+      [
+       1,
+       2
+      ]
+     ],
+     "compressions_nonnegative": true,
+     "generators": [
+      [
+       1,
+       0,
+       2
+      ],
+      [
+       1,
+       2,
+       0
+      ]
+     ],
+     "model": "S3 on Fin 3",
+     "noncommuting": true,
+     "permutation_matrices": true
+    },
+    {
+     "cells": [
+      [
+       0,
+       1
+      ],
+      [
+       2,
+       3
+      ]
+     ],
+     "compressions_nonnegative": true,
+     "generators": [
+      [
+       1,
+       0,
+       2,
+       3
+      ],
+      [
+       1,
+       2,
+       3,
+       0
+      ]
+     ],
+     "model": "Spekkens S4 on Fin 4",
+     "noncommuting": true,
+     "permutation_matrices": true
+    }
+   ]
+  },
+  "C11b": {
+   "exhibits": [
+    {
+     "checks": "R^3 = 1, R != 1, trace -1, orthogonal, non-monomial",
+     "exhibit": "3-cycle, standard representation, orthonormal basis (Q(sqrt 3))",
+     "matrix": [
+      [
+       "-1/2+0*sqrt(3)",
+       "0+-1/2*sqrt(3)"
+      ],
+      [
+       "0+1/2*sqrt(3)",
+       "-1/2+0*sqrt(3)"
+      ]
+     ],
+     "reason": "neither rot up to a scalar nor a relative phase in its named basis (inherited definition)",
+     "verified": false
+    },
+    {
+     "diagonal": [
+      "-1/2+1/2*sqrt(-3)",
+      "-1/2+-1/2*sqrt(-3)"
+     ],
+     "exhibit": "diag(omega, omega^2), Fourier basis of Z/3 (Q(sqrt -3))",
+     "ratio": "-1/2+-1/2*sqrt(-3)",
+     "verified": true
+    }
+   ],
+   "exhibits_verified": true
+  },
+  "C12": {
+   "detector": {
+    "Gauge_N": false,
+    "Gauge_O": false,
+    "method": "cycle invariant; gauges diag(1, i^k)"
+   },
+   "gauge": "D = diag(1, i)",
+   "swap_image": [
+    [
+     "0+0i",
+     "0+-1i"
+    ],
+    [
+     "0+1i",
+     "0+0i"
+    ]
+   ],
+   "transport": "paper (PC-S2 S2-4)"
+  },
+  "C13": {
+   "K": [
+    [
+     "0",
+     "2/3"
+    ],
+    [
+     "2/3",
+     "5/9"
+    ]
+   ],
+   "U": [
+    [
+     "-5/13",
+     "12/13"
+    ],
+    [
+     "12/13",
+     "5/13"
+    ]
+   ],
+   "UtK_symmetric_psd": true,
+   "UtU_identity": true,
+   "exhibit_listed": "U",
+   "exhibit_verified": false,
+   "model": {
+    "C0": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "C1": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "X": "Fin 13, uniform",
+    "sigma": "(0 4)(1 5)(2 6)(3 7)"
+   },
+   "reason": "neither rot up to a scalar nor a relative phase in its named basis"
+  },
+  "C14": {
+   "bijective": true,
+   "both_orders_counted_executed": false,
+   "noncommuting": true,
+   "s_conserved": true,
+   "screen_flags": [
+    "external_switch"
+   ],
+   "screen_item_8": "fails (s conserved)"
+  },
+  "C15": {
+   "cycle_ratio": "-16/9",
+   "detector": {
+    "Gauge_N": true,
+    "Gauge_O": false,
+    "method": "cycle invariant; gauges diag(1, i^k)"
+   },
+   "gauged_ones_eigenvalue": "3/5+4/5i"
+  },
+  "C2": {
+   "class": "permClass (Theta-A: bijections of finite stages)",
+   "models": [
+    {
+     "bijective": true,
+     "model": "B1 depth 1",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 2",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 3",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 5",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B1 depth 7",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 3",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 4",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 5",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 6",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 7",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 8",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "B2 cycle 9",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 3",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 4",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 5",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 6",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 7",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 8",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "FIXED-SCALE tape 9",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "infinite-XOR cyclic truncation, 3 blocks",
+     "return": [
+      "1",
+      "1"
+     ]
+    },
+    {
+     "bijective": true,
+     "model": "infinite-XOR cyclic truncation, 4 blocks",
+     "return": [
+      "1",
+      "1"
+     ]
+    }
+   ]
+  },
+  "C3": {
+   "phaseOperator": "diag(i, 1)",
+   "phaseOperator_nonreal_ratio": true
+  },
+  "C6": {
+   "odometer": {
+    "basis": "characters of Z/4 (not the computed readout basis)",
+    "diagonal": [
+     "1+0i",
+     "0+1i",
+     "-1+0i",
+     "0+-1i"
+    ],
+    "relative_phase_verified": true
+   },
+   "wave": {
+    "a_k": "1+0*sqrt(-3)",
+    "diagonal": [
+     "1/2+1/2*sqrt(-3)",
+     "1/2+-1/2*sqrt(-3)"
+    ],
+    "lattice": "periodic cubic L=6, alpha=1 two-slice rule over C",
+    "mode": [
+     1,
+     1,
+     4
+    ],
+    "ratio": "-1/2+1/2*sqrt(-3)",
+    "relative_phase_verified": true
+   }
+  },
+  "C7": {
+   "G4a": "1",
+   "G4b": "337/625",
+   "frequencies": {
+    "rot": "16/25",
+    "rot2": "576/625",
+    "rot_S_S_rot": "0"
+   }
+  },
+  "C9": {
+   "cases": [
+    {
+     "alpha1_backflow": false,
+     "mutant_backflow": true,
+     "q": 4
+    },
+    {
+     "alpha1_backflow": false,
+     "mutant_backflow": true,
+     "q": 8
+    }
+   ]
+  }
+ },
+ "freeze": {
+  "ok": true
+ },
+ "inputs": {
+  "amendments/PC-S2-C13.md": {
+   "blob": "2b68474be1c035f02ecf1fd2dc57a898e2680921",
+   "commit": "895e5c5b1ca99a5efcbab643417cdf1a7c421a8a",
+   "pass": true,
+   "sha256": "bf4aa26fa712fa5d5950038ffb9b3b4ecd6680ab69cec84778aa9f13f5403cca"
+  },
+  "amendments/PC-S2.md": {
+   "blob": "f81dca8cd4bc231a3e97377b73430cc9749590e3",
+   "commit": "4d2c4d56a855decd6ab80a3b512f9f5f7e7cc8fe",
+   "pass": true,
+   "sha256": "ad6ed9b53400451a5b2f0d73d839142263d59ca9b9e871e75c7daf51efcbb5d6"
+  },
+  "amendments/PC-star-disposition.md": {
+   "blob": "a94c531b2e8cedf5fc8b05848bcd41e1cc6b3cf0",
+   "commit": "89a8feba039303d26e4d1c280f2ee082e290ace9",
+   "pass": true,
+   "sha256": "4dac1d3599740af6621138b64e071dba48963ab9974e661bc544fef533c77207"
+  },
+  "amendments/PC-star.md": {
+   "blob": "79aad250aa63558c18739d94ba114baced78ca1d",
+   "commit": "72b4af275193ba65bbe8eea690d83b9c3ec28fb6",
+   "pass": true,
+   "sha256": "97e3567e1303ccda1698f9f19dad069f3bbbf93013021dd281a4751f643532b6"
+  },
+  "amendments/stage1-log.json": {
+   "blob": "744c28c88d31176847c55d89946670706bb39a02",
+   "commit": "9245d542",
+   "pass": true,
+   "sha256": "6f2b74b70dd2d589c3a24975c3ee1d924c296ccf00d72b0d63b8c65d434aa3ab"
+  },
+  "preregistration.md": {
+   "blob": "414f31686e7890117abaa599b7e7ef18b7049ae8",
+   "commit": "948b30c10e575aec2f449f97428192c4bba2628f",
+   "pass": true,
+   "sha256": "9754d93187b8ffc68645f4873247aaac73dc26b78880a05dec0b3ef5b8ee87fc"
+  }
+ },
+ "mutations": {
+  "M1": {
+   "caught": true,
+   "returns": [
+    "1",
+    "1"
+   ],
+   "what": "rot replaced by the swap"
+  },
+  "M10": {
+   "caught": true,
+   "rows": [
+    "3a",
+    "2"
+   ],
+   "what": "constant rule := rot applied to a C2 model"
+  },
+  "M11": {
+   "Gauge_N": true,
+   "caught": true,
+   "what": "gauge check disabled on C12"
+  },
+  "M12": {
+   "caught": true,
+   "flags": [
+    "declared_basis"
+   ],
+   "row": "3b",
+   "what": "C11b standard-representation basis declared as the readout"
+  },
+  "M13": {
+   "caught": true,
+   "flags": [
+    "external_switch"
+   ],
+   "what": "C14 with both orders counted as executed without a sourced s change"
+  },
+  "M14": {
+   "caught": true,
+   "what": "failure branches dropped and success renormalized"
+  },
+  "M15": {
+   "caught": true,
+   "row": "0",
+   "what": "mu chosen as the member giving L2"
+  },
+  "M16": {
+   "caught": true,
+   "row": "7",
+   "what": "a row-7 file whose verdict text says L2"
+  },
+  "M17": {
+   "caught": true,
+   "what": "invariance claimed from a two-member sample of an infinite class"
+  },
+  "M2": {
+   "caught": true,
+   "flags": [
+    "nonreal_diagonal_unitary",
+    "phaseGate"
+   ],
+   "what": "phaseGate added to the C3 generator set"
+  },
+  "M3": {
+   "caught": true,
+   "what": "non-invariant measure on the depth-3 odometer stage"
+  },
+  "M4": {
+   "caught": true,
+   "what": "a float in a decision path"
+  },
+  "M5": {
+   "caught": true,
+   "row": "7",
+   "what": "a C2 model in place of the candidate"
+  },
+  "M6": {
+   "caught": true,
+   "what": "an inserted dephasing relabelled sourced"
+  },
+  "M7": {
+   "caught": true,
+   "frequencies": {
+    "rot": "4/7",
+    "rot2": "24/31"
+   },
+   "row": "2",
+   "what": "amplitudes encoded as measures (p = 1)"
+  },
+  "M8": {
+   "caught": true,
+   "row": "6d",
+   "what": "R-dagger assumed instead of proved"
+  },
+  "M9": {
+   "caught": true,
+   "what": "a verdict template hardcoding success"
+  }
+ },
+ "probes": null,
+ "probes_reason": "no candidate frozen (PC★)",
+ "review": null,
+ "run": {
+  "head": null,
+  "note": "exact-head record in kernel-steps.json and RESULT.md",
+  "script_sha256": "ab9fc95f667ca2db0526a822f7f812220a80bf509cedd54722246dbb4c50526b"
+ },
+ "schema": "pc1-stage2-results/1",
+ "scientific_finding": {
+  "exception": "PR #1022 comment 6547077354",
+  "review": null,
+  "scope": "PC★ §PC★4: couplings whose joint process is a classical measurable bijection with function-valued records; the sources at 5914c17c and the named branches; not a no-go.",
+  "statement": "No admissible candidate among the 25 screened (F2-1's 13 rules and Q1–Q12); the obstruction is G★ item 3 for native couplings: A★2 premise (ii) is broken by no native source.",
+  "status": "pending exact-head review"
+ },
+ "selftest": {
+  "decide_row": {
+   "0(i)": true,
+   "0(ii)": true,
+   "0(iii)": true,
+   "0(iv)": true,
+   "0(v)": true,
+   "0(vi)": true,
+   "0(vii)": true,
+   "1": true,
+   "10": true,
+   "2 coherence": true,
+   "2 held-out": true,
+   "2 phase hold-out": true,
+   "2 prediction": true,
+   "2 probe R": true,
+   "2 probe gauge": true,
+   "3(a)": true,
+   "3(b)": true,
+   "4 AVAILABLE": true,
+   "4 DERIVED": true,
+   "5 AVAILABLE": true,
+   "5 DERIVED": true,
+   "6(a)": true,
+   "6(b) Phi_min without P": true,
+   "6(c) P1, not R": true,
+   "6(c) R, not P1": true,
+   "6(d) Pi_C = Z/4, IP-2 undecided": true,
+   "6(d) R-dagger missing": true,
+   "6(d) not transplantable": true,
+   "7": true,
+   "7 S varying, never 6(a)": true,
+   "7 with exhibit, never 3(b)": true,
+   "8 R refuted, P1 undecided": true,
+   "8 both undecided": true,
+   "9": true,
+   "C15 shape, never 7": true,
+   "Phi_min without P, never 5": true,
+   "pending": true
+  },
+  "unit_token": {
+   "U1": true,
+   "U2": true,
+   "U3": true,
+   "U4": true,
+   "U5": true
+  }
+ },
+ "selftest_ok": {
+  "decide_row:0(i)": true,
+  "decide_row:0(ii)": true,
+  "decide_row:0(iii)": true,
+  "decide_row:0(iv)": true,
+  "decide_row:0(v)": true,
+  "decide_row:0(vi)": true,
+  "decide_row:0(vii)": true,
+  "decide_row:1": true,
+  "decide_row:10": true,
+  "decide_row:2 coherence": true,
+  "decide_row:2 held-out": true,
+  "decide_row:2 phase hold-out": true,
+  "decide_row:2 prediction": true,
+  "decide_row:2 probe R": true,
+  "decide_row:2 probe gauge": true,
+  "decide_row:3(a)": true,
+  "decide_row:3(b)": true,
+  "decide_row:4 AVAILABLE": true,
+  "decide_row:4 DERIVED": true,
+  "decide_row:5 AVAILABLE": true,
+  "decide_row:5 DERIVED": true,
+  "decide_row:6(a)": true,
+  "decide_row:6(b) Phi_min without P": true,
+  "decide_row:6(c) P1, not R": true,
+  "decide_row:6(c) R, not P1": true,
+  "decide_row:6(d) Pi_C = Z/4, IP-2 undecided": true,
+  "decide_row:6(d) R-dagger missing": true,
+  "decide_row:6(d) not transplantable": true,
+  "decide_row:7": true,
+  "decide_row:7 S varying, never 6(a)": true,
+  "decide_row:7 with exhibit, never 3(b)": true,
+  "decide_row:8 R refuted, P1 undecided": true,
+  "decide_row:8 both undecided": true,
+  "decide_row:9": true,
+  "decide_row:C15 shape, never 7": true,
+  "decide_row:Phi_min without P, never 5": true,
+  "decide_row:pending": true,
+  "unit_token:U1": true,
+  "unit_token:U2": true,
+  "unit_token:U3": true,
+  "unit_token:U4": true,
+  "unit_token:U5": true
+ },
+ "stage1": {
+  "candidate": null,
+  "forbidden_precomputation": true,
+  "owner_decision": "PR #1022 comment 6547077354",
+  "source": {
+   "path": "amendments/PC-star-disposition.md",
+   "sha256": "4dac1d3599740af6621138b64e071dba48963ab9974e661bc544fef533c77207"
+  }
+ },
+ "statements": {
+  "F2CoherenceControls.OnesBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "ca5a780aef401ef352a4d94c5045aedc75d16a37f6e5c24ea0e761b762affc79",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.falsifierUnavailable_of_nonnegBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "aab60341150c338d416a4531023fd90b00589d8940bfff9ae7e8460611041528",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.falsifierUnavailable_of_onesBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "daa04869a79f782c79502253d37608e6a4feb493af0c4e350e050ab302cab695",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.fullTheory_phases": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "44896c9e71b69b2d6688a00bf63c23d7665a190a846c1c86db1db2963246963d",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.fullTheory_rot": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "aa7d163085000219847fe36a95141d6e587de040dc3db71fe87557bb61fe5a64",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.fullTheory_rotDagger": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "1a14a6a3d6562d38515f64c5184c030689769733c4bf79ebbe02940ad7a8c64f",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.nonnegClass": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "0442e82e1febdfe0062677902c5857f06b5877508d22fc6a2dca2a252809e1e2",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.nonnegClass_arch": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "8b0f3899e3ae902edf8a5b7c009ae291093a7f979159dc60ce43065fdf4b1a5a",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.nonnegClass_nonnegBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "2ba9a7adcb1e84896853044a24479a6dd4e230efe2768ef95ec160e97f015162",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.nonnegClass_onesFixing": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "38778839677136914faa94da81166a5e219303ada81497ef1a57fa0c8049fe68",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.onesBounded_of_onesFixing": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "0fd3fa9b489e3b0f09cb829a54fa1946b65a7918dd3d458e4fa0175abffe9dec",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.onesTheory_falsifierUnavailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "1d12f11ba87c988907463e0f7d7a2c70365ebc4fcd1cf79cf2a4e692d7550703",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.permTheory_onesBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "4445000e19eeecbb6570455bef79ecc1de8193c7669a782a4c941dbb2e32a66a",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.realClass": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "24a871a5b99105b22db0606298a80123dc61322974b40bbc43a90c63f233716a",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.realClass_arch": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "e9b667c38e423195347c0f02ddbaad7d4d718acef0de3e859de0718365f3fdd7",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.realTheory_not_phases": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "72fbf03898979884713e3a1f2b1480748fbcb8c684f9b497a6f2b909a8565f59",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.realTheory_rot": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "ff2463bead80562b2ebf649680556b9f8fb10fc639deda7054548f5044103fed",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.rot_moves_ones": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "5632c158fa1c1887c45a1b05540bf162a27d84a82b05390ddd689128206d6e2e",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "F2CoherenceControls.rot_not_preservesNonneg": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "F2CoherenceControls",
+   "statement_sha256": "9f8f95080d250efa528ae9db248f849a886a348eb5942a4efad638a502744550",
+   "verbatim_in_module": "by vendored blob fbf47504 (S2-2)"
+  },
+  "FlowEndpoint.onesTheory_not_phasesAvailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "FrozenSourcing.nonnegBounded_not_phasesAvailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "FrozenSourcing.permTheory_nonnegBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "FrozenSourcing.permTheory_phase_ceiling": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "InterventionLocality.genTheory_mono": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "InterventionLocality.instAvail_mono": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "MicroReversibility.exists_scaled_mem_of_instAvail_unitary": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "PC1Controls.falsifier_available_of_mem": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "4e553721bacd3ab02a91092153c035a46266e680081a2f0146e81f7b55322564",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.gaugeD": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "735ecb4d31f4f53699c7354907d8eb22392df55fe1555cd093d73bb9755564c4",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.gaugeD_unitary": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "c75c961f946573c3699640ea95ffe62dcf16acd362cd7d5d4ec8f4f7a3dce7a1",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.gauged_rot_fixes_ones": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "05550c6a6fe4617a45e24ebe42316424e4f179e459aed53184d4ba5fcc31ddeb",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.gauged_rot_mem_onesClass": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "083b06f797061e44f7011a609e7d757806d3f26fcd225a602d3585015f3db2be",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.not_p1_of_nonnegBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "4580b3c969ad3c325f7b7b533bb0d81419d9435446d5e165de28ecda7e233a37",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.not_p1_of_onesBounded": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "9f25541e340b955c6ac526982980bc8ba198d6358859f63e17aab20e828c2b08",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.permTheory_not_gauged_rot": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "643a15d11426ea89acbec3bdefd30c71517ad25365447bb2dc5f4a03e98cf9ca",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.permTheory_not_p1": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "0de7c9e997d9d16546cde41af428965be8e3e0a7fce1c1d0e8ae56c34ff83943",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.permTheory_onesBounded_all": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "8f484fd3a714106f8d01a5c166a6579951bbcc9d9ad700e3ac856632d95bd322",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.realSubclass_not_p1": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "e8d8c7995843624018799b3423ae1fd430665604d1464339aeb32363e5128d6e",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.realSubclass_not_phases": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "9593184ab60a7017677987d504802a2f45760fefdf4ec6898e5ed28751d9f4ec",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.rot_mem_realClass": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "79e2941a576d841326fa5995d87d6a0723eb31ed450bf7756b54d6362646c8da",
+   "verbatim_in_module": true
+  },
+  "PC1Controls.scaled_rot_not_gauge_nonneg": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "PC1Controls",
+   "statement_sha256": "9f5d711dd949e6cb06d1b6e219c46cceceaa82ae38507042f8cee3527b6f41ed",
+   "verbatim_in_module": true
+  },
+  "RouteB.substratumTheory_derivedOI": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "RouteB.substratumTheory_falsifierUnavailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "SubstratumInterfaceAudit.permClass_permMatrix": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  },
+  "SubstratumInterfaceAudit.permTheory_falsifierUnavailable": {
+   "axiom_check_step": "pending",
+   "build_step": "pending",
+   "module": "cited at 5914c17c",
+   "statement_sha256": null,
+   "verbatim_in_module": true
+  }
+ },
+ "statements_check": {
+  "f21_combined_statement_digest (A★-1.3)": "ee8a6ce6bbc2badf86d86dc808b17d2d7db987698b01df647a119febfbb0f5a3",
+  "f21_count": 19,
+  "header_verbatim": true,
+  "ok": true,
+  "pc1_count": 14
+ },
+ "token": "INCONCLUSIVE (void)",
+ "untouched_oibridge": {
+  "modules": 232,
+  "pass": true,
+  "sha256": "2d91bf59c2d8f4b367af458dfa5f44d71ce265a5397c1d4f095d67e24f61ce8a"
+ },
+ "vendor": {
+  "stage2/vendor/recursive-substates/f2-1-coherence-sourcing/stage2/run-2/controls.py": {
+   "actual_blob": "18c519f3a423db7506d1438b8ef22a9ca847e481",
+   "expected_blob": "18c519f3a423db7506d1438b8ef22a9ca847e481",
+   "pass": true
+  },
+  "stage2/vendor/recursive-substates/fixed-scale-skew/fixed_scale_probe.py": {
+   "actual_blob": "313c2f80476d3d464b75f3b98ed48379959b5ac6",
+   "expected_blob": "313c2f80476d3d464b75f3b98ed48379959b5ac6",
+   "pass": true
+  },
+  "stage2/vendor/recursive-substates/native-padic-bridge/native_padic_probe.py": {
+   "actual_blob": "0bdb22325d44394bbaa590581a71bc13e6d62608",
+   "expected_blob": "0bdb22325d44394bbaa590581a71bc13e6d62608",
+   "pass": true
+  },
+  "verification/lean-mathlib/OIBridge/F2CoherenceControls.lean": {
+   "actual_blob": "fbf475043ce589ccf1bfac511898eda821636137",
+   "expected_blob": "fbf475043ce589ccf1bfac511898eda821636137",
+   "pass": true
+  }
+ },
+ "verdict_status": "awaiting CI step conclusions",
+ "verdict_text": "PC-1 stage 2: strict token INCONCLUSIVE (void).",
+ "void_reasons": [
+  "0(vi)"
+ ]
+}
