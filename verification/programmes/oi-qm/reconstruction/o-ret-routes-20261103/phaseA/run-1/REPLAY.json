@@ -1,0 +1,126 @@
+{
+  "purpose": "Replay pin for O-RET Phase A run 1 (AGENTS.md §A.42 item 1): the commits, environment and commands that regenerate the outputs in phase-a/, and the outputs to expect. Paths under phase-a/ are relative to this directory.",
+  "status": "Not replayed. The outputs in phase-a/ are those of run 41813302146; byte-for-byte reproduction outside that run has not been established. PREREG-PHASE-A.md §7 runs the tuple set in CI only, so a replay is a launch that needs its own owner authorization.",
+  "commits": {
+    "F": "49f0bd41c5323d2191b580460c8703740dd01b30",
+    "run_commit": "71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5",
+    "note": "Both are ancestors of main through the merge commit that lands this file. F is the owner-designated Phase A freeze; the run commit adds the tool, its notes and the workflow to F."
+  },
+  "frozen_inputs_at_F": {
+    "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PREREG-PHASE-A.md": "11492996f061c5721f889b219514cb2eb6d7da9e",
+    "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/DESIGN-PULSE.md": "0c1205da34a8d4da1e1d6a22b9eb634d9697d053",
+    "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PHASEA-TUPLES.json": "f915e7b9cc8ab3ab8d3d640324c641743fe4a98e",
+    "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PHASEA-EXPECTED.json": "f4773e70547af2c336e47fa704e02794c4199ca7"
+  },
+  "tool_at_run_commit": {
+    "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseA/phasea.py": "3d5edd97b264a46ce3bb98de19ce60f91aa9e176",
+    "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseA/IMPLEMENTATION-NOTES.md": "2b4f8fa0cf46d6725820bab6a5eb57db4b7a2e41",
+    ".github/workflows/oret-phasea.yml": "4bcb9337971ae0ab7a911b89283e08ef81d0c3ed"
+  },
+  "environment": {
+    "python": "CPython 3.12 (the workflow's PYTHON_VERSION), standard library only, run as python3 -I -B",
+    "git": "required: the tool reads F:<path> with git and requires F in the history of HEAD (exit 3 otherwise), so the checkout must be a clone with full history",
+    "variables": {
+      "GITHUB_RUN_ATTEMPT": "1"
+    },
+    "variables_note": "run.run_attempt in summary.json and in every record is read from GITHUB_RUN_ATTEMPT (null when unset); run.commit is the checkout's HEAD.",
+    "construction": [
+      "R=<a fresh clone of the repository, full history>",
+      "git -C \"$R\" checkout --detach 71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5",
+      "OUT=<an empty directory outside $R>"
+    ]
+  },
+  "commands": [
+    {
+      "cwd": "$R",
+      "run": "python3 -I -B verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseA/phasea.py --verify-inputs --expect-F 49f0bd41c5323d2191b580460c8703740dd01b30",
+      "expected_exit": 0
+    },
+    {
+      "cwd": "$R",
+      "run": "python3 -I -B verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseA/phasea.py --run --out \"$OUT\" --expect-F 49f0bd41c5323d2191b580460c8703740dd01b30",
+      "expected_exit": 0,
+      "expected_files_byte_identical": {
+        "phase-a/summary.json": "2c8053b4d1527b3cf25c4410c04c819495b6ae5a",
+        "phase-a/CX4b-T1.json": "ccde5675e4e5809d63ce6bb321e00f514be2038c",
+        "phase-a/HCPh-T1.json": "6c2b66a25770c01181256a5f80361db466f3a5fe",
+        "phase-a/MA-L2-T1.json": "4450383a929dbce9aa1c7dadb0c777ef2db785fc",
+        "phase-a/MA-L3-T1.json": "f17bb99a2872b76994daa0866f5f93899cb6b15b",
+        "phase-a/MB-T1.json": "5006ad89d0263067f4007be1d2dcc1f688414fe6",
+        "phase-a/MC-m2-T1.json": "28fe670cc4a58fef3256fe361fdd836f06cf12a5",
+        "phase-a/MC-m3-T2.json": "0ff243cd30598c12582efa467d901104c2be9416",
+        "phase-a/MD-xor-T1.json": "b528541a357bd7d62fdc55d9c18f01d452d4663f",
+        "phase-a/R1-T4.json": "2fa4f23f2f4e942a3750544b1ec07d472c6916da",
+        "phase-a/R1-readback.json": "ffbc0e1b569e88cd683493e0699c3233c8d18eeb",
+        "phase-a/R2-T3.json": "e17f3603b5780ec70339509a7a18db93fbb178fc",
+        "phase-a/R2-T4.json": "5cc0c53e27cb7fd4e8adfa9257462e506d8e84d8",
+        "phase-a/R3-T1.json": "49e3c80029d477880272ffacf879d54e71b4b015",
+        "phase-a/R3-T2.json": "4d7346021eb7153086ebaf081ff476144f27df8b",
+        "phase-a/R3-T5.json": "0bb0be3d27cf51f9ed4b3862683d55a7f6bc63db",
+        "phase-a/R3-readback.json": "d21f2dad2d1b73722592d50a0c754a0230a65fd5",
+        "phase-a/S1-L2-T1.json": "526c9e4446743bf3b962a257265853c5ba1d1f5f",
+        "phase-a/S1-L3-T1.json": "af6faa1ad8d0de86ca339076ff1374c502ada136",
+        "phase-a/SC-T1.json": "37a85faecde3788d0c784c86faa79e60c31814f0",
+        "phase-a/SK-k1-T1.json": "02c73435aca075f13e7fb6c70a91252b250da3d9",
+        "phase-a/SK-k1-T2.json": "cc558005a70cd7a22acdd00a29370d70f6d4b7a0",
+        "phase-a/SK-k1-T3.json": "2f210a3ab4c7c912b9909164a2e384a95eadd769",
+        "phase-a/SK-k2-T1.json": "1b14c317953d9ab6b379cd4dee63041dec17c9ce",
+        "phase-a/SK-k2-T2.json": "c238c11d1dab634d014121fa2ddfc85c130623a6",
+        "phase-a/SK-k2-T3.json": "10b09ed0204c4f999d66c313b67ec5fded147341",
+        "phase-a/SK-k3-T1.json": "a780923481170244981aa86544bdec95956d30f1",
+        "phase-a/SK-k3-T2.json": "ebf41ac3b7cb9f561caa903621e2ff4dc5663201",
+        "phase-a/SK-k3-T3.json": "293a095dc1a9fe1245215bafbaf6be75c91f5672",
+        "phase-a/SK-k4-T1.json": "c4fb49fdc95e286954cf036f9b00ca8bc77814ac",
+        "phase-a/SK-k4-T2.json": "ea2bed3c49a63b9d37921283dd88d18f4d01c05a",
+        "phase-a/SK-k4-T3.json": "7cb1c5dce0eeeae2dae2734938d52fa0d9b6adcf",
+        "phase-a/SK-k5-T1.json": "29df368d4b6b05fb6e802f1d40ddffdc9dd5525f",
+        "phase-a/SK-k5-T2.json": "bf12d767844d73d6b9b3b8ce4cf501c7b71860bf",
+        "phase-a/SK-k5-T3.json": "4ead7d26aa4a1167bcfe0ac34d30217fb85bf69a",
+        "phase-a/SK-k6-T1.json": "9ee8f837e3659118a0995661ce73230b87347e40",
+        "phase-a/SK-k6-T2.json": "a365face605e78039b0b6d4ed6f40d65b0da8840",
+        "phase-a/SK-k6-T3.json": "bb73aff63a1f65cacb272b0e3e40cda59389ff91",
+        "phase-a/SW-T1.json": "347a82f7d1e2b1eaf4a661fcf2d31ef00c9e71d0",
+        "phase-a/SW-T2.json": "329038c2efe9a025d43c2eae2f49975cf460a8ce",
+        "phase-a/TM-m2-T1-ext.json": "d2326775213878108fe2b8ea50fb7dc59921a888",
+        "phase-a/TM-m2-T1-noext.json": "0abc1a5811f16216c243630f6051676da5dbb413",
+        "phase-a/TM-m3-T2-ext.json": "327f3bed2b1d6ccfec9311bf6c15e7787b9d6821",
+        "phase-a/TM-m3-T2-noext.json": "4e0ee6bc71a2e76f8c301cc51170b9eee9d4c453",
+        "phase-a/TMP-T1-ext.json": "081ab175c2c05c0bd903535241b04537e97095da",
+        "phase-a/TMP-T1-noext.json": "5be076cb13735a836bd19a6ff2dddb74fb4d5861",
+        "phase-a/TS-L4-T1-ext.json": "033610b4040f53078219cab06ac7fd46dd839635",
+        "phase-a/TS-L4-T1-noext.json": "ca956af650901f992aeb8837350475fcb6cf5fda",
+        "phase-a/TS-L5-T1-ext.json": "6e5cbf85d2832e703e6f2f71fb74308b7b23d63c",
+        "phase-a/TS-L5-T1-noext.json": "0db1ccd424b0c80babb07376698cad6bea4ec5bd"
+      }
+    },
+    {
+      "cwd": "$R",
+      "run": "python3 -I -B verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseA/phasea.py --check-summary \"$OUT\" --expect-F 49f0bd41c5323d2191b580460c8703740dd01b30",
+      "expected_exit": 0,
+      "expected_files_byte_identical": {
+        "phase-a/check.json": "436f64033a8ac43efa7b04c02f2e2644140f9a5e"
+      }
+    }
+  ],
+  "determinism": "Not established. CPython's string-hash randomization was in effect in the run, as it is by default; -I makes the interpreter ignore PYTHONHASHSEED, so the seed was not, and under these commands cannot be, pinned through the environment. That the outputs are independent of the hash seed has not been shown.",
+  "command_notes": [
+    "The workflow's --record-identity, py_compile, --self-test and marker steps are not regeneration commands.",
+    "--check-summary writes phase-a/check.json into the directory it is given: run it on $OUT or on a copy of this directory, never on this directory in place.",
+    "At a later commit the tool reads the four frozen inputs from the working tree and compares them with F:<path>, so it runs there only while those files are byte-identical at that commit."
+  ],
+  "expected_identifiers": "Values in expected_files_byte_identical are git blob ids; each equals the blob id of the file of the same name in this directory. phase-a/summary.json also has sha256 1cdc055a7741d1a8b0d526095f0ce20168081a5b603d1d4b206ca5f2180cf394.",
+  "at_other_commits": "At a commit other than the run commit, such as a later main, run.commit in summary.json and in every record names that commit, so those files are not expected byte-identical; the other fields are expected unchanged. This has not been run.",
+  "not_regenerated": {
+    "phase-a/run-identity.json": {
+      "blob": "f1dd039d5d734c90f60f9030f52d3d5eb092b6e1",
+      "note": "written by --record-identity from the GitHub Actions environment of run 41813302146 (event, ref, sha, confirm_commit, run id and attempt, checkout HEAD); the run's launch record, not a replay output"
+    }
+  },
+  "verdict_evidence": "PREREG-PHASE-A.md §4 at F: the host conclusion of the phase-a job (success, read from the host API), the check step's exit 0, summary.json verdict PASS, and verdict_text regenerated byte for byte (check.json verdict_text_regenerated_equal true).",
+  "provenance": {
+    "run": "GitHub Actions run 41813302146, run_number 1, attempt 1, workflow_dispatch, head_sha 71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5, job phase-a conclusion success",
+    "artifact": "oret-phasea-out, id 13312689701, sha256:1eed06f6466d31f4aae1c307081c635b4727ae120bc66e8c0b52b60aefe117ac (retention ends 2027-02-02); its 52 files are the files of phase-a/, byte for byte",
+    "issue_record": "#1032 comment 6628404473",
+    "review": "REVIEW.md in this directory"
+  }
+}
