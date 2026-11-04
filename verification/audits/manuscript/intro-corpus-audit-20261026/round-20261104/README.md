@@ -11,7 +11,7 @@ confers no scientific status (`AGENTS.md` §A.45 rule 1, §A.46) and authorizes 
 |---|---|
 | Introduction under audit (start) | #918 head `4028e45db1ba520dc6a1bfb44a26b76a112ba575` |
 | Corpus baseline | `main` `f5c281ae10a913ec68fa41b3b839ad0b164979cd` |
-| Correction commits (this round) | `340961ceb9aa1d9d3b1230cc6a905898644051d8`, `690790584a53813439e6d9b5db3a6e7e5f5ea075`; after the independent review (#918 c.6643385201) of `b935150b`: `a17216815d29f0358f3316a110a4c4784ab37f1c` and the record revision that follows it |
+| Correction commits (this round) | `340961ceb9aa1d9d3b1230cc6a905898644051d8`, `690790584a53813439e6d9b5db3a6e7e5f5ea075`; after the independent review (#918 c.6643385201) of `b935150b`: `a17216815d29f0358f3316a110a4c4784ab37f1c`; after the owner decisions ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)): `25a9d9fdc0bfd0ee2aff9d3da3f8d425452a1efe` |
 | Prior audit record (provenance only) | #942 branch `audit/intro-corpus-20261026` at `16fc745dd0d787d100ca09553bd0342873f26771` |
 | Handoff and retention records (provenance only) | #941 comments 6628558706, 6631126662; activation 6642597102 |
 
@@ -52,16 +52,16 @@ authorization).
 
 | ID | Severity | Locator (Introduction at `69079058`) | Finding and evidence | Class |
 |---|---|---|---|---|
-| F-14 | high | L116, L126–132, L158, L174, L322; App. A L357–360 | NEW-1 / OD-4. Four families the Introduction states as machine-checked (`RecordFibreIdentification`, `RootedRecurrenceBridge`, `TrajectoryMemory`, `FullFutureMemory`) are `kernel-only` in `verification/lean-manuscript-census.json` at `f5c281ae`, with `manuscript: []`; the TrajectoryMemory note reads "No publication-facing promotion or K3 change is made before successful CI and independent proof review". `papers/Introduction.md` is not among the census's 13 manuscripts. The modules are imported by `verification/lean-mathlib/OIBridge.lean` (L21–24), so `main`'s build includes them, and their blobs are unchanged from the checkpoints. The gap is the census contract and proof review, not verification or a known error. Partly resolved since the handoff: `RecurrenceHorizon`, `PhysicalC4Discharge`, `PhysicalC4StorageReadback` and `RootedClassification*` are now `current` with Main anchors. | owner |
-| F-18 | high | Abstract L17; L238; L320; L328 | OD-2 / R-06. The Introduction states as open which of (iii)–(v) a physical substratum supplies. Kernel statements at `f5c281ae` (families current): `permClass_onesFixing` (PhaseSource:79: the permutation class fixes the all-ones ray) and `onesFixing_not_phasesAvailable` (PhaseSource:52: a ones-fixing class generates no theory with the phases available, on carriers with at least two states); `substratumClass_not_onesFixing` (PhaseSource:196: once the quarter phase is stipulated, the class is not ones-fixing); `readWriteSourced_not_qm` (ReadWriteControl:174: a read-write-sourced `FiniteOperationalTheory (Fin 2)` is not exact finite endomorphic QM); `substratumClass_structurallyClosed` (StructuralClosure:316: the stated substratum class is closed under the architecture operations, stable under a spectator, relabelling-invariant and adjoint-closed, which bears on (iii) and (v)). That condition (iv) fails for finite bijective read-write dynamics with the stated access follows from these by a one-line inference (no kernel statement names (iv)), and GR:260 states it in prose. What remains open is a substratum with a further intervention principle. Underclaim. The owner disposition (2026-10-27) adopted reporting these results with Appendix A declarations; that needs their axiom reports in `papers/introduction_repro/` (OD-15), which needs an authorized CI run. | blocked (OD-15) |
+| F-14 | high | L116, L126–132, L158, L174, L322; App. A L357–360 | NEW-1 / OD-4. Four families the Introduction states as machine-checked (`RecordFibreIdentification`, `RootedRecurrenceBridge`, `TrajectoryMemory`, `FullFutureMemory`) are `kernel-only` in `verification/lean-manuscript-census.json` at `f5c281ae`, with `manuscript: []`; the TrajectoryMemory note reads "No publication-facing promotion or K3 change is made before successful CI and independent proof review". `papers/Introduction.md` is not among the census's 13 manuscripts. The modules are imported by `verification/lean-mathlib/OIBridge.lean` (L21–24), so `main`'s build includes them, and their blobs are unchanged from the checkpoints. The gap is the census contract and proof review, not verification or a known error. Partly resolved since the handoff: `RecurrenceHorizon`, `PhysicalC4Discharge`, `PhysicalC4StorageReadback` and `RootedClassification*` are now `current` with Main anchors. | decided ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)): not promoted; applied E22 |
+| F-18 | high | Abstract L17; L238; L320; L328 | OD-2 / R-06. The Introduction states as open which of (iii)–(v) a physical substratum supplies. Kernel statements at `f5c281ae` (families current): `permClass_onesFixing` (PhaseSource:79: the permutation class fixes the all-ones ray) and `onesFixing_not_phasesAvailable` (PhaseSource:52: a ones-fixing class generates no theory with the phases available, on carriers with at least two states); `substratumClass_not_onesFixing` (PhaseSource:196: once the quarter phase is stipulated, the class is not ones-fixing); `readWriteSourced_not_qm` (ReadWriteControl:174: a read-write-sourced `FiniteOperationalTheory (Fin 2)` is not exact finite endomorphic QM); `substratumClass_structurallyClosed` (StructuralClosure:316: the stated substratum class is closed under the architecture operations, stable under a spectator, relabelling-invariant and adjoint-closed, which bears on (iii) and (v)). That condition (iv) fails for finite bijective read-write dynamics with the stated access follows from these by a one-line inference (no kernel statement names (iv)), and GR:260 states it in prose. What remains open is a substratum with a further intervention principle. Underclaim. The owner disposition (2026-10-27) adopted reporting these results with Appendix A declarations; that needs their axiom reports in `papers/introduction_repro/` (OD-15), which needs an authorized CI run. | decided: scoped deduction stated, E21; Appendix A entries still blocked (OD-15) |
 | F-19 | high | §3.4, L252–258 | OD-3 / R-07 / R-40. The ε-realization half of Main §3.4 (Main:566–602) is not reported; the owner disposition adopted adding it; R-40 and #945 require that any text rest on the exact regime only (#945's finite-b repair unproved). Needs a drafted text and its review; not a minimum-diff correction. | owner (drafting) |
 | F-15 | high | [CE] L387 (used L314), [CR] L389 (used L316) | NEW-3 / item 26. `bdcbd32bb55a5464d72b61682721f0b4bfaf446c` and `2624d49cffc0794b300517719c879de6b57d395e` diverge from `main` and from #918's head (compare API). The proof and control blobs they contain are byte-identical in #918's tree: `entropy-profile-proof.md` `16bdf99a…`, `exact-results.json` `908608ae…`, `exact_controls.py` `dc6c3483…`, `sequential-release.md` `3f7669ec…`, `sequential-release-results.json` `f9b77129…`, `sequential_release_controls.py` `f005d996…` (READMEs differ). Owner obligation (c.6631126662): durable retention on `main` before any dependent claim lands. | owner |
-| F-16 | high (blocking for landing) | L316, L322 | [CR] (`sequential-release.md`) has no independent review: the in-tree `independent-core/review.md` reviews [CE] at `bdcbd32` only, and the obligation is homed on #970 (c.6631126662). The Introduction lists [CR] under "Established mathematical results … Proved on paper also" (§A.46 items 1 and 3). | owner / #970 |
-| F-17 | high (blocking for landing) | L371, L379 | Corpus pin and citations disagree. L371 pins Main, SM and the black-hole computations at `20ca05fe`; the Introduction's Main citations are correct against `f5c281ae` and not all at `20ca05fe`. Absent at `20ca05fe` and used before this round: "Theorem (overlap and return)" and `pIndivisible_of_rooted_identity_return_of_overlap` (Theorem 3), `routed_forces_indivisible_somewhere`, the rooted classification (`finiteRootedRealizable_iff_pper`). Made consistent with `f5c281ae` and not with `20ca05fe` by this round: E3 (Main §2.4's title reads "A Minimal Model" at `20ca05fe`), E5 (Main at `20ca05fe` carries the older gluing wording), E8 (Main §3.3 at `20ca05fe` still carries H-Bell's continuum clause). Separately, the pins `021850d9` and `a2be1e45` diverge from `main` and #918's head; the content used (GR:839–853; `book/ch03-structural-realism.md`:218) is on `main`. Re-pinning is part of R0-B (#918 c.6603786828: "pins and labels"), which is not authorized in this workstream, so L371 is not re-pinned here. | owner (R0-B) |
+| F-16 | high (blocking for landing) | L316, L322 | [CR] (`sequential-release.md`) has no independent review: the in-tree `independent-core/review.md` reviews [CE] at `bdcbd32` only, and the obligation is homed on #970 (c.6631126662). The Introduction lists [CR] under "Established mathematical results … Proved on paper also" (§A.46 items 1 and 3). | decided: moved out of the established list, E19; review stays on #970 |
+| F-17 | high (blocking for landing) | L371, L379 | Corpus pin and citations disagree. L371 pins Main, SM and the black-hole computations at `20ca05fe`; the Introduction's Main citations are correct against `f5c281ae` and not all at `20ca05fe`. Absent at `20ca05fe` and used before this round: "Theorem (overlap and return)" and `pIndivisible_of_rooted_identity_return_of_overlap` (Theorem 3), `routed_forces_indivisible_somewhere`, the rooted classification (`finiteRootedRealizable_iff_pper`). Made consistent with `f5c281ae` and not with `20ca05fe` by this round: E3 (Main §2.4's title reads "A Minimal Model" at `20ca05fe`), E5 (Main at `20ca05fe` carries the older gluing wording), E8 (Main §3.3 at `20ca05fe` still carries H-Bell's continuum clause). Separately, the pins `021850d9` and `a2be1e45` diverge from `main` and #918's head; the content used (GR:839–853; `book/ch03-structural-realism.md`:218) is on `main`. Re-pinning was assigned to R0-B (#918 c.6603786828: "pins and labels"); the owner then authorized it for this round (#941 c.6643474520), and it is applied by E18 after the verification of §14.1. | decided: re-pinned to `f5c281ae` after verification, E18 (§14) |
 | F-20 | low | L174; App. A L356 | OD-5 / R-13. Main:147 gives two formalizations of the routed-readback realization clause, neither implying the other. The Introduction's gloss at L174 is the reading-neutral clause of Main:147, and App. A cites one formalization, the seed-conditioned `routed_forces_indivisible_somewhere`; the storage-time `routedAtStorage_forces_indivisible_somewhere` (`PhysicalC4StorageReadback`) is not listed. A completeness finding, not a mismatch. Adding the declaration needs its axiom report (OD-15). | blocked (OD-15) |
 | F-21 | low | L304; [Sha79] L475 | OD-8 / R-19. [Sha79] (Commun. ACM; not on arXiv) is not read first-hand. CT06 locators (L118–138) also unchecked. | owner |
 | F-23 | low | L41, L304–306, L322; refs L383–385 | CON-03 / O-17. The BH-01 record's own status line reads "exploratory research, unreviewed for adoption" (`bh01_access_v1/REPORT.md`:3) while its review directory exists; the Introduction lists the enumeration and the $1/\vert\mathcal U\vert$ floor among established results. The enumeration reproduces from `main` (`checks.py`, `result.json`). | owner (O-17) / #1029 (record status) |
-| F-24 | low | L41 | NEW-5. The Contributions sentence names [BHa; BHb] as the records of §5's results; the §5 coherent-entropy results are in [CE; CR]. Depends on F-15, F-16. | owner (with F-15/F-16) |
+| F-24 | low | L41 | NEW-5. The Contributions sentence names [BHa; BHb] as the records of §5's results; the §5 coherent-entropy results are in [CE; CR]. Depends on F-15, F-16. | applied with E20 |
 | F-25 | low | refs L441 [HLW06], L469 [PSW06] | Two reference entries are cited nowhere in the text. No scientific misstatement; not edited (owner guidance: scientific corrections first). | owner (editorial) |
 | F-26 | — | whole paper | OD-13. The PDF is 25 pages; the main text runs to p. 22 (Code, data and Appendix A begin on p. 22). The audit plan's 12-page budget is exceeded; the owner disposition keeps required qualifications regardless of length. | owner |
 | F-27 | — | — | Optional items O-1, O-2, O-3, O-4, O-10, O-13, O-14, O-17, O-23, O-26 (handoff §6) are neither adopted nor waived. | owner |
@@ -83,7 +83,7 @@ authorization).
 | F-11 | low | L148 | R-16: RHP14 Thm 2.4 is an equivalence of which the text uses one direction; BD16's classical case is Cor. 1. | E12 |
 | F-12 | low | L256 | R-17: Mon08 gives no explicit task; it proves a lower bound of 2N−2 continuous ontic variables for Markovian (deterministic or stochastic) ontological theories, and reports Hardy's result. The explicit tasks are GH03 and HKLP24 Thm 4. | E13 |
 | F-13 | low | L300, ref. | R-14 / OD-8: [Pag93] ("Average entropy of a subsystem") does not state the black-hole information problem (no occurrence of "black hole" outside its references). Page's "Information in black hole radiation" does. | E14 |
-| F-28 | medium | L41 | Review item 3 (C-020): "The results of §§3.2–3.5 are proved in [GR] and [Main]" overstated §3.4, whose unbounded classical dimension is imported from [HKLP24] (Main:560 imports it as [55]); Main proves the factorization half. | E15 |
+| F-28 | medium | L41 | Review item 3 (C-020): "The results of §§3.2–3.5 are proved in [GR] and [Main]" overstated §3.4, whose unbounded classical dimension is imported from [HKLP24] (Main:560 imports it as [55]); Main proves the factorization half. | E15; provenance made explicit by E20 (owner decision) |
 
 No claim of the Introduction was found refuted on `main`.
 
@@ -111,6 +111,11 @@ commit's source in the same commit (§9).
 | E15 | F-28 | `a1721681` | Contributions: adds "and the unbounded classical dimension of §3.4 an imported result [HKLP24]" |
 | E16 | review item 8 | `a1721681` | "the one-step $\vert\mathcal C_V\vert^2$-dimensional ancilla dilation of [Main §3.1]" → "the one-step ancilla dilation of [Main §3.1], of total dimension $\vert\mathcal C_V\vert^2$," |
 | E17 | review item 8 | `a1721681` | "Page's Haar mean" (L314) cited to [Pag93a] = arXiv:gr-qc/9305007v2 (restored entry); the E14 entry relabelled [Pag93b] at L300 and in the references |
+| E18 | F-17 | `25a9d9fd` | L371 corpus snapshot → `f5c281ae10a913ec68fa41b3b839ad0b164979cd` for Main, SM, GR, Substratum, the Book and the BH computations (`20ca05fe`, `021850d9`, `a2be1e45` not named); L379's separate Substratum pin removed (covered by L371); L342 probe/BH snapshot `55e3217b` → `f5c281ae` |
+| E19 | F-16 | `25a9d9fd` | L316: "[CR], proved on paper and not independently reviewed,"; L322: [CR] removed from "Proved on paper also" |
+| E20 | F-28, F-24 | `25a9d9fd` | L41: "…, with one imported component: in §3.4 the factorization through finitely many ontic states is proved in [Main], and the unbounded classical dimension of qubit prepare-and-measure behaviour is the result of [HKLP24, Thm 4]. Those of §5 are in unpublished research records … [BHa; BHb; CE; CR]" |
+| E21 | F-18 | `25a9d9fd` | abstract L17, L238, L320, L322, L328: failure of (iv) for the theory generated by the operations of finite bijective dynamics under the stated observer access, on at least two states, stated as a one-step deduction from two statements checked in Lean in [GR §3.3]; "open" kept for substrata with further intervention principles |
+| E22 | F-14 | `25a9d9fd` | L340: the four modules "are built and checked with the library on `main`, their proofs have not been independently reviewed"; L322: one sentence saying the same of the trajectory, entire-future, record-fibre and actual-return statements |
 
 Propagation (§A.25) was confined to the Introduction and its `.tex`/`.pdf`, as authorized. The
 `verification/coverage/LEDGER.json` rows `INTRODUCTION:*` cite lines 67, 103, 120, 154, 160 and
@@ -118,7 +123,9 @@ Propagation (§A.25) was confined to the Introduction and its `.tex`/`.pdf`, as 
 `claims_check.py`, `duplicate_check.py`, `staleness_check.py` and `lean_manuscript_census.py`
 passed after the first commit; staleness, voice, claims and duplicate checks after the second, and the coverage, census and artifact-placement checks on the tree that adds this record.
 
-## 5. Owner decisions needed (options; none decided here)
+## 5. Owner decisions
+
+The owner decided F-14, F-16, F-17, F-18 and F-28 on 2026-11-04 ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)); their application is in §14. The options listed below for those findings are kept as the record of what was decided between. The other items still need a decision.
 
 - **F-14 (OD-4).** (a) Promote the four families in the census (status `current`, anchors, and
   `papers/Introduction.md` added to the census manuscripts) after the CI evidence and independent
@@ -189,9 +196,10 @@ compare API on 2026-11-04.
 |---|---|---|---|
 | `17b830bcd0ecc36e10eff5b9eeca03bdd7198d86` (baseline Lean pin) | L340, L348 | yes | support on `main`; cited modules' sources equal at `f5c281ae` except a doc comment in `C3Necessity.lean` |
 | `4f962b6`, `3d54ae74`, `a958bc54`, `96a3020b` (module checkpoints) | L340 | yes | support on `main`; publication status F-14 |
-| `55e3217b` (probe snapshot) | L342 | yes | support on `main` |
-| `20ca05fe` (Main, SM, BH snapshot; Substratum statements) | L371, L379 | yes | support on `main` for the Substratum statements and the BH computations; for Main the pinned version differs from the one the Introduction cites: Theorem (overlap and return), `pIndivisible_of_rooted_identity_return_of_overlap`, `routed_forces_indivisible_somewhere`, the rooted classification and the §2.4 title "A Six-Hidden-State Model" are absent at `20ca05fe`, and Main §3.3 there carries H-Bell's continuum clause (F-17) |
-| `021850d9`, `a2be1e45` | L371 | no (diverged) | support off `main` as pins; the content used is on `main` (F-17) |
+| `55e3217b` (probe snapshot) | L342 at `a1721681`; not named at `25a9d9fd` (E18) | yes | support on `main`; the BH records are unchanged to `f5c281ae`, and four probe files differ only in wording and in `memory_probes.py`'s grouping by law |
+| `20ca05fe` (Main, SM, BH snapshot; Substratum statements) | L371, L379 at `a1721681`; not named at `25a9d9fd` (E18) | yes | support on `main` for the Substratum statements and the BH computations; for Main the pinned version differs from the one the Introduction cites: Theorem (overlap and return), `pIndivisible_of_rooted_identity_return_of_overlap`, `routed_forces_indivisible_somewhere`, the rooted classification and the §2.4 title "A Six-Hidden-State Model" are absent at `20ca05fe`, and Main §3.3 there carries H-Bell's continuum clause (F-17) |
+| `f5c281ae10a913ec68fa41b3b839ad0b164979cd` (corpus snapshot, E18) | L342, L371 at `25a9d9fd` | yes (it is `main`'s head at the baseline) | support on `main`; every citation verified there (§14) |
+| `021850d9`, `a2be1e45` | L371 at `a1721681`; not named at `25a9d9fd` (E18) | no (diverged) | support off `main` as pins; the content used is on `main` (F-17) |
 | `bdcbd32`, `2624d49` ([CE], [CR]) | L387, L389 | no (diverged) | support off `main`; content byte-identical in #918's tree, so it lands with #918; commit reachability unresolved (F-15) |
 | `papers/introduction_repro/` (expected Lean result, recipe) | L340 | not on `main` | in #918's tree; lands with #918 |
 | `verification/audits/manuscript/page-coherent-recovery-20261028/` | L387 | not on `main` | in #918's tree; lands with #918 (F-15, F-16) |
@@ -211,6 +219,7 @@ This record itself cites #942's branch (`16fc745d`), #941 and #918 comments and 
 | Source commit `340961ce` | 25 pages; median 3,891 characters per page (pdftotext); 0 "Missing character" warnings |
 | Source commit `69079058` | 25 pages; median 3,898 characters per page; 0 "Missing character" warnings |
 | Source commit `a1721681` | 25 pages; median 3,898 characters per page; 0 "Missing character" warnings; stamp `bb045f94…` |
+| Source commit `25a9d9fd` | 25 pages; median 3,884 characters per page; 0 "Missing character" warnings; stamp `9f6fcdcb…` |
 | Stamp | each `.tex` ends with `% source-sha256:` of its own commit's `Introduction.md` (`3a1b988d…` and `94a2cff2…`) |
 
 Each commit's `.md`, `.tex` and `.pdf` are from that commit's source. No claim is made that the
@@ -254,10 +263,11 @@ re-run was made.
 
 ## 12. Review packet
 
-**Head to review:** the record revision that follows `a17216815d29f0358f3316a110a4c4784ab37f1c`
-on `draft/oi-introductory-paper-20261025`; the reviewer should confirm the exact SHA from the #918
-checkpoint comment. The first review (#918 c.6643385201, at `b935150b`) is ACCEPT WITH CHANGES;
-its items 1–8 are addressed as recorded in §13. Corpus: `main` `f5c281ae`.
+**Head to review:** the record revision that follows `25a9d9fdc0bfd0ee2aff9d3da3f8d425452a1efe`
+on `draft/oi-introductory-paper-20261025`; confirm the exact SHA from the #918 checkpoint comment.
+Corpus: `main` `f5c281ae`. The owner asks the reviewer to focus on the corpus pin (E18, §14.1), the
+[CR] classification (E19), the scope of F-18 (E21) and the provenance at L41 (E20); items 1–8 below
+stand for the earlier edits.
 
 The reviewer is asked to check, one by one:
 
@@ -280,7 +290,7 @@ Nothing in this record is independently reviewed yet.
 
 | Review item | Disposition |
 |---|---|
-| 1 (blocking): corpus pin vs citations | Not re-pinned: #918 c.6603786828 assigns "pins and labels" to R0-B, which this workstream is not authorized to carry out. Recorded as an owner item with F-17, raised to high (§3.1, §5); the §8 `20ca05fe` row now states the differences; F-02, F-04 and F-07 are qualified as relative to `f5c281ae`. |
+| 1 (blocking): corpus pin vs citations | At `c806fb67`, not re-pinned (the owner's decision of #941 c.6643474520 then authorized it; applied by E18, §14.1): #918 c.6603786828 assigns "pins and labels" to R0-B, which this workstream is not authorized to carry out. Recorded as an owner item with F-17, raised to high (§3.1, §5); the §8 `20ca05fe` row now states the differences; F-02, F-04 and F-07 are qualified as relative to `f5c281ae`. |
 | 2 (blocking for landing): [CR] unreviewed | F-16 raised to high; options (#970 review, or moving [CR] out of the established list) stated in §5, not decided. |
 | 3: L41 overstates §3.4 | New finding F-28; corrected by E15 (`a1721681`). CLAIM-MAP C-020 updated. |
 | 4: F-18 rescope | F-18 rewritten with the kernel statements as stated in the modules, the one-line inference to (iv) marked as such, and `substratumClass_structurallyClosed`; CLAIM-MAP C-238 updated. |
@@ -289,3 +299,107 @@ Nothing in this record is independently reviewed yet.
 | 7: authorization links | §1 links the activation record, #941 c.6643207092 and #866 c.6643204362, and states their timing. |
 | 8: editorial | E16 (L83 "of total dimension") and E17 ([Pag93a] for "Page's Haar mean", the information paper relabelled [Pag93b]) in `a1721681`, rebuilt (§9). |
 
+## 14. Owner decisions of 2026-11-04 and their application
+
+Decision record: [#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)
+(amaybaum, 2026-11-04). The edits are in `25a9d9fd`; E1–E17 are kept.
+
+### 14.1 Corpus pin (F-17, E18): verification at `f5c281ae`
+
+Before re-pinning, every result the Introduction cites was checked at `f5c281ae` by reading the
+sources (no build, no computation):
+
+- **Main.** Every named anchor the Introduction cites is present: Remarks (status of the early
+  commitments) :62, (the measure as a realization datum) :60, (what this equivalence does and does
+  not say) :556, (a variational question) :616, (why (C4) is a separate condition) :178, (three
+  notions, kept apart) :340, (scope: P-indivisibility is not quantum non-Markovianity) :336,
+  (representation, not explanation) :638, (scope: representability, not selection of the relating
+  evolution) :646; Theorems (finite-horizon process dilation) and its Extension :518–520,
+  (finite-horizon stochastic–reversible–unitary equivalence) :548, (physical memory: C2, process
+  form) :469, (unavoidable hidden predictive memory) :604, (history readback + finite recurrence
+  implies indivisibility) :137 with its Scope :141, (overlap and return) :143, (CP-indivisibility,
+  framework scope) :332, (Bell ceiling for a screened local completion) :366; Lemma (accessible
+  conditional memory from readback) :173; Proposition (finite-substratum operational obstruction —
+  classical-dimension form) :560; Corollary (Bell–lattice obstruction and state-dependent escape)
+  :416; §1.5 corollary :99; §2.4 six-hidden-state model :184; §3.1 one-step dilation :212; §4.5
+  :720; the rooted classification :640. The title matches the [Main] entry.
+- **GR.** §2.2 :44 ((C4) not demonstrated at the horizon, :52), §3.3 :168 with Theorem 4 :218 and
+  its kernel identifiers, :220 (independence, `oi_alone_not_qm`), :260 (substratum source),
+  §6.2 :342 (offset invariance and the G3 condition, :356), §6.3 :364, §8.5 :613 (:637), App. A.6
+  :793, A.7 :807 (Thm A.7 :813), A.8 :821 with its scope :839–853, A.9 :855. Title matches.
+- **Substratum.** §§3–4 :66, :247; H-Bell §3.2 :131–133; Theorem 24(iii) :251–261;
+  Proposition 24.5 :348–360. Title matches.
+- **SM.** Title matches; the Introduction cites SM only through Main §3.3's Corollary (:416).
+- **Book.** §1.11 (`ch01`, :265), §3.8 with the regress paragraph (`ch03-structural-realism.md`
+  :190, :218), §7.6 (`ch07-gravity.md` :108).
+- **BH records.** `bh01_access_v1/REPORT.md` :18, :21, :101–111, :148–155 (all §5 counts and the
+  floor; title matches [BHa]); `bh02_scramble_v1/REPORT.md` :1 (title matches [BHb]). Both
+  directories are unchanged between `55e3217b`, `20ca05fe` and `f5c281ae`.
+- **Lean.** Every Appendix A identifier resolves at `f5c281ae` at the line Appendix A gives (the
+  baseline module sources equal `17b830bc` except a doc comment in `C3Necessity.lean`; the four
+  additional modules' blobs equal their checkpoints).
+- **Superseded pins.** `021850d9` (GR SC-36 scope) and `a2be1e45` (Book regress): the content the
+  Introduction uses is on `main` at `f5c281ae` (GR :839–853; Book `ch03` :218), so L371 cites
+  `f5c281ae` for GR and the Book as well.
+
+No citation failed. The Lean pin `17b830bc` (L340, L348) is not changed: Appendix A's axiom reports
+and expected result were produced at that commit, which is an ancestor of `main`. No rebase or
+merge into #918 was made.
+
+### 14.2 [CR] (F-16, E19)
+
+[CR] is out of "Established mathematical results" (L322) and is stated at L316 as "proved on paper
+and not independently reviewed"; its review stays an obligation on #970. [CE] stays in the list
+(its in-tree review covers `bdcbd32`). The Contributions sentence (L41) now names [CE; CR] among
+§5's records (F-24), without a status claim.
+
+### 14.3 L41 provenance (F-28, E20)
+
+L41 states that in §3.4 the factorization through finitely many ontic states is proved in [Main]
+(Main:560) and that the unbounded classical dimension is the result of [HKLP24, Thm 4]
+(arXiv:2308.07727v4, read first-hand). The literature result is cited as the literature's, not as a
+consequence of OI's premises.
+
+### 14.4 Condition (iv) (F-18, E21)
+
+The statement made, and its assumptions:
+
+- **Class.** The operations that finite bijective dynamics supplies under the stated observer
+  access: in the kernel, `permClass` (`SubstratumInterfaceAudit.lean`:236, scaled partial
+  permutations), the class GR:260 describes.
+- **Carrier.** A nonempty finite system with at least two states (`2 ≤ Fintype.card A`).
+- **Kernel statements used.** `permClass_onesFixing` (PhaseSource:79: every isometry of the class
+  maps the all-ones vector to a multiple of itself) and `onesFixing_not_phasesAvailable`
+  (PhaseSource:52: for a ones-fixing class, the generated theory does not have the quarter phase
+  available at every level; `PhasesAvailable`, RouteB:132). Their composite is also stated as
+  `permTheory_not_phasesAvailable_onesFixing` (PhaseSource:104).
+- **The one step, not itself a kernel statement.** Condition (iv) requires every finite unitary on
+  every composite to be available; the quarter-phase gate (`phaseGate`, LieRankSource:209) is a
+  finite unitary; so (iv) fails for that theory.
+- **Not claimed.** Nothing about a substratum with further intervention principles (open, L238,
+  L328); nothing about (iii) or (v), on which `substratumClass_structurallyClosed`
+  (StructuralClosure:316) bears for the class with the stipulated phase.
+- **Appendix A.** No entry is added: an entry would need its `#print axioms` report in the retained
+  result (OD-15, not authorized). The text says the two statements are checked in Lean in
+  [GR §3.3], outside the checkpoints of Appendix A, so the paper's "machine-checked" convention
+  (L43) is not extended to them.
+
+### 14.5 The four Lean families (F-14, E22)
+
+The text at L322 and L340 says the four modules are built and checked with the library on `main`
+and that their proofs have not been independently reviewed. Evidence for "built and checked":
+`verification/lean-mathlib/OIBridge.lean` imports them (L21–24), and the `verify` workflow's push
+run on `main` at `f5c281ae` (run 41908494436) concluded `success` (Actions API, structured run
+conclusion). The census side is kept out of the paper: the four families are `kernel-only` in
+`verification/lean-manuscript-census.json`, and their registration as `current` with manuscript
+anchors is outstanding. "Census registration" names an internal registry, which §A.27 keeps out of
+manuscript voice; the reader-facing content of the owner's decision, that the formal proofs exist
+and are checked but have not been independently reviewed, is fully stated by the chosen wording, so
+no neutral paraphrase of the registry step was needed.
+
+### 14.6 Checks and build
+
+`sh ./build.sh Introduction` on `25a9d9fd`: 25 pages, 0 "Missing character" warnings, median 3,884
+characters per page (§9). Local checks passed on that tree: staleness, voice, claims, duplicate,
+coverage and the Lean-manuscript census. The `INTRODUCTION:*` ledger lines (67, 103, 120, 154,
+160, 234) did not move.
