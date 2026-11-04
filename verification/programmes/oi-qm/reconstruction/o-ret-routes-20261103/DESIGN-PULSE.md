@@ -3,7 +3,9 @@
 **Status.** WIP / UNVERIFIED, paper-only design under PO-1102 workstream B (owner authorization 2026-11-03, #1032).
 Drafted against branch `research/o-ret-routes-20261103` at `473b5e34`, reading `ROUTES.md`, `DEFINITIONS.md`,
 `SOURCES.md` and `ANNOTATION.md` in `verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/`. Revised
-after independent reviews of `ad70d41b` (REVISE) and `aceba574` (ACCEPT WITH CHANGES); this revision has not been
+after independent reviews of `ad70d41b` (REVISE), `aceba574` (ACCEPT WITH CHANGES) and `e8dfe25e` (ACCEPT, two
+optional nits). Revision r4 applies those two nits, the consequences of the owner's rulings on Q1 and Q5 (#1032,
+2026-11-03/04), and the scope narrowing of S-1, J-1, (h) and Remark C by the Q7 review (2026-11-04); r4 has not been
 re-reviewed.
 
 - *What it is.* A test design for the question: does a proposed retention mechanism store information locally,
@@ -15,8 +17,9 @@ re-reviewed.
 - *Tolerance.* The owner's working threshold `ε* = 0.05` on the worst-case decoding error `ε_max` (D-MET) is used. In
   every control `f(P)` has `m = 2` values, so the blind bound `1 − 1/m = 1/2` lies above `ε*`, and `ε*` is not vacuous.
 - *Support labels.* **[D]** paper derivation in this document (unreviewed). **[C]** text at checkpoint `473b5e34`
-  (ROUTES.md or DEFINITIONS.md). **[U]** unreviewed proposal named at that checkpoint: S-1, J-1, countercontrol (h) and
-  Remark C. **[L]** literature cited from memory, not re-read.
+  (ROUTES.md or DEFINITIONS.md). **[U]** proposal named at that checkpoint: S-1, J-1, countercontrol (h) and
+  Remark C; each is confirmed only within the narrowed scope of the Q7 review, whose frozen wording is in
+  `PREREG-PHASE-A.md` §2.7. **[L]** literature cited from memory, not re-read.
 
 ***
 
@@ -93,6 +96,9 @@ its own marginal law at `t`, then applies `φ`. Report `ε_max(t+1)` under the c
   - **DIL∃ holds** iff no `~`-class contains two members of `𝓛_W` with different decoded values `g(ℓ)`.
   - Equivalently, some extension `g̃` of `g|_{𝓛_W}` satisfies `g̃∘f_R(·, q) = g̃` for all `q ∈ 𝒬_W`.
   - It is a finite connectivity check on `config(R)`.
+  - *Window.* `𝒬_W`, `𝓛_W` and `~` are taken over `W_T`. The same constructions over the evaluated extension
+    `W_{T′}` (§2.3, proposed definitions) are written `𝒬_{W_{T′}}` and `𝓛_{W_{T′}}`. Storage certification (DIL∃,
+    DIL∃-η, Lemma H, ST) uses `W_T`. The `G`-consistency test that separates TR from EX uses `W_{T′}`.
   - **DIL∃-η, the approximate form.** Choose `G ⊆ 𝒬_W`, build `~` from `G` only, require the same consistency, and set
     `η_t(σ) := μ(Q_t ∉ G | σ)`.
 
@@ -166,9 +172,10 @@ For a large period the bound is vacuous.
   - `ε_max > ε*` is **observed** at some tick of the gap-free window `W_{T′}`.
 
   (R-a) and (R-b) are not required. The case is then one of two:
-  - **Transport established (TR):** no nonempty `G ⊆ 𝒬_W` makes `~_G` consistent. The record leaves `R` under
-    every supported input.
-  - **Exported or overwritten (EX):** some nonempty `G` makes `~_G` consistent. The register holds the record under
+  - **Transport established (TR):** no nonempty `G ⊆ 𝒬_{W_{T′}}` makes `~_G` consistent on `𝓛_{W_{T′}}`. No
+    supported input, applied alone, preserves the decoding.
+  - **Exported or overwritten (EX):** some nonempty `G ⊆ 𝒬_{W_{T′}}` makes `~_G` consistent on `𝓛_{W_{T′}}`. The
+    register holds the record under
     the inputs in `G` and loses it under the others (HC-SK at small `k`, HC-R3 on `W₂`).
 - **Transport indicated (TI).** `W_{T′}` has been computed. DIL∃ fails through carrier-independent inputs, but no
   failure is seen on `W_{T′}`. TI is inconclusive.
@@ -195,8 +202,9 @@ For a large period the bound is vacuous.
 
 Arithmetic is over `𝔽₂`. The carrier property is `f = c` (or `v₀`), with `P` its two values, and `TV` is that of D-MET.
 Shifts are `u_j ← u_{j−1}`.
-- S-1, J-1 and D-TRN's "left" are evaluated with `B_t := Q`. This is the structural reading that Observation D0
-  motivates, not DEFINITIONS' support-restricted text.
+- S-1, J-1 and D-TRN's "left" are evaluated with `B_t := Q = Par(A) ∖ A`, computed from `φ` on all of `S`. This is
+  the structural reading that Observation D0 motivates, and it repairs DEFINITIONS' support-restricted text. The
+  carrier variable is `κ := σ`, and independence is evaluated under `μ_t(· | σ ∈ P)` (Q7 review).
 - `τ` and the §4 row of each control follow §2.3 and §4.
 
 ### 3.1 Transport controls
@@ -277,7 +285,7 @@ Shifts are `u_j ← u_{j−1}`.
 - *Other criteria.*
   - SCH fails, since the record moves from `r₂` to `r₁`.
   - CHC, ICH, S-1 [U], J-1 [U] and the outside cut pass. The inside cut of `r₂` gives `ε = 1/2`.
-- *Row.* ST without SCH: I-4, circulating, pending Q1.
+- *Row.* ST without SCH: I-4, register-level circulating storage under the owner's ruling on Q1 (#1032).
 
 **HC-SK (`M_F⁽ᵏ⁾` under `π₀`: approximate storage and the I-6 boundary).**
 - *Dynamics.* `M_F` with `k` presence bits per channel cell. The Fredkin acts iff all `k` bits are 1. This is the
@@ -296,7 +304,9 @@ Shifts are `u_j ← u_{j−1}`.
 - *Write probability and exposure.*
   - The design uses `w = 2⁻ᵏ`, the probability under `π₀` that the trigger fires at `t₀` (D-SML's declared write
     event). This agrees with DEFINITIONS:239, where `w = 1/2` for `M_F` (`k = 1`).
-  - ROUTES:460, restated at DEFINITIONS:250, gives `2⁻ᵏ⁻¹` for the trigger family. The discrepancy is open (§9 Q5).
+  - ROUTES:460, restated at DEFINITIONS:250, gives `2⁻ᵏ⁻¹` for the trigger family. Resolved by the owner (Q5):
+    ROUTES:460's "write probability" is the change probability `w_chg = 2⁻ᵏ⁻¹`; that wording is superseded by `w`
+    (trigger) and `w_chg` (change); ROUTES.md is unchanged under this authorization.
   - Per hold tick, `η = 2⁻ᵏ = w` by direct computation. Lemma E gives only `η ≥ 2⁻ᵏ⁻¹`, the probability that the
     write changes `r`.
   - At `T = 1`, (R-c) alone therefore needs `w ≤ 2ε* = 0.1`, and ST needs `w = η ≤ ε* = 0.05`.
@@ -337,7 +347,9 @@ Shifts are `u_j ← u_{j−1}`.
 - *Trajectory.* Following ROUTES' note [C], the record `r` reads `c, c, ρ, ρ, c, c` at `t₀+1, …, t₀+6`. The period is
   4 on the support, where `p_D = 0`. Then `ε_max = 0, 0, 1/2, 1/2, 0, 0`.
 - *Per-tick criteria.*
-  - At the hold tick `t₀+2 → t₀+3`, the arriving `C = (1, ρ)` passes J-1 [U], but DIL∃ fails: an overwrite.
+  - At the hold tick `t₀+2 → t₀+3`, the arriving `C = (1, ρ)` passes J-1 [U], but DIL∃ fails: an overwrite. This
+    uses `μ(· | σ ∈ P)`. Under the full-support `μ`, the arriving cell is `(p₀, p₀ ? ρ : v₀)`, which depends on `κ`,
+    so J-1 would fail there and the case would be RS.
   - At `t₀+4 → t₀+5`, the arriving `C = (1, c)` fails J-1 [U]: re-supply by the returning carrier.
 - Lemma P gives `n = 4`, so `T ≤ 2`, which is consistent with failure at `t₀+3`.
 - A readback at `{t₀+1, t₀+5, t₀+6}` alone would report retention.
@@ -381,13 +393,13 @@ or (R-b).
 
 | # | Row | Condition | Exact / approximate | Required assumptions | Does not establish |
 |---|---|---|---|---|---|
-| 1 | **RS: not storage, re-supply** | J-1 [U] fails at a hold tick of `W_{T′}` (`B_t := Q`, cells outside `A`) | exact | J-1 [U]; supports | that the carrier is itself a record (a display, requirement 2) |
-| 2a | **TR: transport established** | the "record lost" conditions of §2.3 hold, and no nonempty `G ⊆ 𝒬_W` makes `~_G` consistent | exact on the declared supports; the failure is observed, not predicted | H-cur (`R` declared); supports; (R-a) and (R-b) not required | that no other register or decoder stores the record; any rule-wide no-go |
-| 2b | **EX: exported or overwritten** | the "record lost" conditions of §2.3 hold, and some nonempty `G` makes `~_G` consistent (HC-SK at small `k`; HC-R3 on `W₂`) | as 2a | as 2a | that the record passed through `A`; transport |
+| 1 | **RS: not storage, re-supply** | J-1 [U] fails at a hold tick of `W_{T′}` (`B_t := Q`, cells outside `A`). This extends (R-d), which is stated on `W_T`, to the extension window. | exact | J-1 [U]; supports | that the carrier is itself a record (a display, requirement 2); re-supply over `W_T`, when the failing hold tick lies in `W_{T′} ∖ W_T` |
+| 2a | **TR: transport established** | the "record lost" conditions of §2.3 hold, and no nonempty `G ⊆ 𝒬_{W_{T′}}` makes `~_G` consistent on `𝓛_{W_{T′}}` | exact on the declared supports; the failure is observed, not predicted | H-cur (`R` declared); supports; (R-a) and (R-b) not required | that no other register or decoder stores the record; any rule-wide no-go |
+| 2b | **EX: exported or overwritten** | the "record lost" conditions of §2.3 hold, and some nonempty `G ⊆ 𝒬_{W_{T′}}` makes `~_G` consistent on `𝓛_{W_{T′}}` (HC-SK at small `k`; HC-R3 on `W₂`) | as 2a | as 2a | that the record passed through `A`; transport |
 | 3 | **No retention** | (R-a) or (R-b) fails, or `ε_max > ε*` at a tick of `W_T` | — | — | anything about transport |
-| 4 | **I-8** | the decoder reads a clock `K`, and Remark C is unreviewed | — | Remark C [U] | fixed-decoder status |
+| 4 | **I-8** | the decoder reads a clock `K` that does not meet Remark C in the scope narrowed by the Q7 review: (i)–(iv), with (R-a), (R-b) and (R-d) applied to `A ∪ K`, and `K` disjoint from Σ | — | Remark C [U] | fixed-decoder status |
 | 5 | **Storage, static** | ST together with SCH | exact: DIL∃ on the declared supports. Approximate: DIL∃-η with the Lemma H bound `≤ ε* = 0.05` on all of `W_T` | H-cur (declared) read of `R`; preparation (`supp Q_t` excluding `Wr`, by Lemma Q); E-reg if designed; DIL∃ adopted | O1 (the law is imposed), O3, O4; persistence beyond `W_T` (Lemma P); the "smallest" ranking (D-SML); independence from the choice of cells |
-| 6 | **I-4: circulating, pending Q1** | ST without SCH | as row 5 | as row 5; the owner's ruling on Q1; with a clock decoder, Remark C [U] and an accounted `K` | storage, until Q1 is ruled; locality below the scale of `R` |
+| 6 | **I-4: storage, circulating (register-level)** | ST without SCH: the record circulates inside the fixed `R`, is read by the fixed decoder `g`, and is not re-supplied from outside (row 1 fails) | as row 5 | as row 5; the owner's ruling on Q1 (#1032); with a clock decoder, Remark C [U] and an accounted `K` | as row 5; static cell storage; locality below the scale of `R` |
 | 7 | **TI: transport indicated (inconclusive)** | `ε_max = 0` on `W_T`; DIL∃ fails with J-1 holding; no `G` meets the ST bound; `W_{T′}` computed and no failure seen (CX-4; CX-4b) | — | — | transport, because DIL∃ over-rejects (CX-4b) |
 | 8 | **I-6: approximate boundary** | `0 < ε_max ≤ ε*` on `W_T`, and no `G` gives the Lemma H bound `≤ ε*` (HC-SK, `k = 4`); or ST fails only on `w ≥ w*` or `T ≥ T*` once those are set | — | — | storage; a D-SML comparison |
 | I-1 | **evidence: trajectory only** | only trajectory-level data over `W_T` with `T < τ(R)`, with no DIL∃ and no extension of the window (the HC-TS / HC-SW pair, §7 L1) | — | — | either verdict |
@@ -512,7 +524,9 @@ The branches favourable to OI are pressure-tested first (§A.31).
 - **L4.** Within the span where R-c holds (for HC-R2, `t₀+1, …, t₀+L`), no readback schedule separates re-supply.
   A gap-free window beyond it shows a failure (`ε_max = 1` at `t₀+L+1`), but the failure does not identify re-supply.
   Only J-1, DIL∃ or a cut of `Q` does.
-- **L5.** Closed circulation is not decided by any criterion here (I-4, CX-7).
+- **L5.** Closed circulation is decided by no criterion here. Under the owner's ruling on Q1 it is register-level
+  storage, not static cell storage, when it stays inside a fixed `R` with a fixed decoder and no external re-supply
+  (row 6, I-4; CX-7).
 - **L6.** Verdicts are relative to the cell decomposition and to `A` (CX-3), both declared.
 - **L7.** For nonlinear rules `C_t` depends on the law and is computed cell by cell. SCH, ICH and CHC inherit the
   joint-information blind spot. DIL∃ uses supports only and avoids it, but it carries CX-4 and CX-4b.
@@ -528,7 +542,7 @@ The branches favourable to OI are pressure-tested first (§A.31).
 This is a specification only. It is not authorized (OQ-4 decision [C]) and nothing has been run.
 
 - **Preconditions, to be fixed in the freeze before authorization.**
-  - The ruling on Q1, which sets HC-SW's expected row: I-4, or a storage row.
+  - The ruling on Q1 (#1032): HC-SW's expected row is row 6 (I-4), register-level circulating storage.
   - Q3: the union or the tick-ordered `𝒬_W`.
   - Q8: the decoder rule.
   - The rule for choosing `G` in DIL∃-η.
@@ -546,6 +560,8 @@ This is a specification only. It is not authorized (OQ-4 decision [C]) and nothi
     - HC-R1: `L = 4`.
     - HC-R2: `L = 4`.
     - HC-R3: `L = 2`.
+    - HC-P with `A = {u₂}` (countercontrol (h)), and a share completion with a biased pad (Q7 review; specified in
+      `PREREG-PHASE-A.md` §3).
   - Each value derived in §3 is a replay check. A mismatch halts the run (§A.26 item 3).
 - **Phase B, target.**
   - *K1 at K-18(b).* `|S| = 2¹⁰`; all 15 nonempty `A ⊆` the current slice of sites 1–4; the laws `π₀`, `δ₀` on the
@@ -558,7 +574,7 @@ This is a specification only. It is not authorized (OQ-4 decision [C]) and nothi
   row by the precedence of §4. The verdict text is generated from the structured output.
 - **Controls that must be green.**
   - HC-TS and HC-TM give TR when the extension window is computed, and I-9 on `W_T` alone.
-  - S1 gives static storage. HC-SW gives I-4, or the row the Q1 ruling assigns.
+  - S1 gives static storage. HC-SW gives row 6 (I-4), register-level circulating storage under the Q1 ruling.
   - HC-SK:
     - `T = 1`: EX at `k ≤ 3`, I-6 at `k = 4`, static storage at `k ≥ 5`.
     - `T = 2, 3`: EX at `k ≤ 4`, I-6 at `k = 5`, static storage at `k = 6`.
@@ -622,3 +638,5 @@ Literature, from memory and not re-read [L]: Landauer 1961 and Bennett 1982 (as 
 second-order reversible rules; Lizier, Prokopenko and Zomaya (Phys. Rev. E 77, 026110, 2008; Inf. Sci. 208, 2012) on
 local information storage versus transfer in cellular automata. Their measures are statistical and per cell, and are
 closest to SCH and ICH here.
+
+Owner decisions on Q1–Q9: #1032 (2026-11-03/04); see PREREG-PHASE-A.md.
