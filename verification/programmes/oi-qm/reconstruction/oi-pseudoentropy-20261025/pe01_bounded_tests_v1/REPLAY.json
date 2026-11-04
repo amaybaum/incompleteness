@@ -22,7 +22,19 @@
       "review/results/mine/indep.py",
       "review/results/mine/witness.py",
       "review/results/mine/mech.py"
-    ]
+    ],
+    "witness_scope": {
+      "source": "review/results/REVIEW.md:21-31, 146-160, 247-253",
+      "demonstrated": [
+        "prediction is a guess of the visible bit X_K' against the reference law Q_p = 1/2",
+        "one fixed finite reversible realization: G_clk(z^5+z^2+1) at n = 5, mu uniform, the T-level condition C1 only, C2-C4 unchecked",
+        "one horizon cell: K = 7, window K' = 4..7, advantage 1/8 to 5/32",
+        "an active observer whose tables are chosen for this generator (K1); it gives no window on the other five primitive quintics",
+        "the advantage uses the generator's visible-to-hidden backaction",
+        "admissibility holds in the selected resource model only: theta = n+1 with footprint 6 = theta, and the 31-bit tables held in the dynamics and not charged as state"
+      ],
+      "run_only": "REVIEW.md:250's statement that no passive witness and no autonomous-generator witness exists in any admissible cell rests partly on the run: the general passive m = 3 sweep and the linear-filter m = 4 sweep at n = 8 were not enumerated independently (REVIEW.md:195-196). It is not part of what supports.statement needs."
+    }
   },
   "previously_verified_results": {
     "status": "These values were computed by the independent results reviewer with the scripts in review/results/mine/, written from PLAN.md alone and importing nothing from the PE-01 package. They are recorded in review/results/REVIEW.md, and the PR #923 coordinator reran every script and found each output matching (PR #923 comment 6409658619). Each value is quoted with its REVIEW.md line. No script was run when this file was written or landed.",
