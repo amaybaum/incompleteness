@@ -221,9 +221,38 @@ fractal-alphabet shortcut without prohibiting a
 sourced cross-scale physical mechanism. Do not
 promote it to any OI manuscript claim.
 
-For F2-1's unchanged scoped gap result, read frozen A★ alongside the
-[post-closeout G★ correction](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546748788).
-The correction does not alter the thirteen-rule outcome; F2/L3 remain open.
+**F2-1 status** (`f2-1-coherence-sourcing/`; its preregistration and amendments are frozen
+and are not edited):
+
+- **Run 1** (`stage2/`, commit `05ecc8732160736b538b422114a5a1738d682c16`) is
+  `INCONCLUSIVE (void)`: its pull-request CI run 41220197866 failed the `Build` step
+  (`stage2/run-2/RESULT.md:5–7`; `stage2/run-2/PROOF-REPAIRS.md`). The preserved
+  `stage2/RESULT.md` was written before that build and records no token ("None yet", :89).
+- **Run 2** (`stage2/run-2/`) is `INCONCLUSIVE (gap)`, scoped to the thirteen screened rules
+  (`stage2/run-2/RESULT.md:121`). It is not a no-go; F2/L3 remain open.
+- The reviews of both runs are author-reported; reviewer identity and a retrievable
+  reviewer-authored verdict are unresolved
+  ([#1011 comment 6556076022](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6556076022)).
+
+**G★ item 2 is refuted in part.** Frozen A★ (`f2-1-coherence-sourcing/amendments/A-star.md:144–148`) states that "no
+diagonal unitary commuting with the computed readout projectors conjugates `G_Θ` into either
+class" and that "This is necessary for `R`." The ones-fixing half of that claim is false. For
+`D = diag(1, i)`, which commutes with the readout projectors, `D†·rot·D` lies in `onesClass`:
+this is the kernel theorem `OIBridge.PC1Controls.gauged_rot_mem_onesClass`
+(`verification/lean-mathlib/OIBridge/PC1Controls.lean:132`), built on `main`. Any class
+containing `rot` has `R`, so the gauged ones-fixing condition is not necessary for `R`
+(finding PC-F1,
+`verification/programmes/oi-qm/reconstruction/physical-coupling-pc1/preregistration.md:87–100`).
+The
+nonnegative half of the gauge clause, and the clause without a gauge, stand (same lines).
+The refuted half is not a valid premise. Records that cite G★ item 2 as written, among them
+MR-1's frozen
+`verification/programmes/oi-qm/reconstruction/measurement-record-formation/preregistration.md:99`
+and `:638`, cite the stronger form, which asks more than
+`R` needs. Run 2's verdict is unchanged, because G★ was used only as a stated missing
+condition and not as the criterion of any result
+([#1011 comment 6546748788](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546748788),
+which reported the finding).
 Amendment A★-1 is recorded as accepted at `fdeeb2d5`
 (`f2-1-coherence-sourcing/stage2/run-2/RESULT.md`, `PROOF-REPAIRS.md`); its
 acceptance by an independent reviewer at that exact SHA is author-reported in
