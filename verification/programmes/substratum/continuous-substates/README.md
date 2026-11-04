@@ -185,10 +185,11 @@ The research modules `OIBridge.ObservableFactorRecurrence` and
 reports checked, by the Mathlib bridge job (`Build`; release-gate
 `lean-axioms`); both steps succeeded on `main` in run `41871661965`, at
 `82f0e119fd32122c00716060bbe4e93e97fb05f8`, the commit that landed them.
-An earlier version of both modules was built at #1009 head `a02e197d`
-(run `41094894776`); the landed versions differ from it only in doc
-comments (#1009 commit `798558b7`), so that run is provenance for the
-earlier version, not evidence for the landed files. The author-posted
+An earlier version of both modules was built in pull_request run
+`41094894776` for #1009 head `a02e197d`; the landed versions differ from it
+only in doc comments (#1009 commit `798558b7`), so that run is provenance for
+the earlier version, not evidence for the landed files. Later edits to these
+modules' doc comments change no declaration. The author-posted
 review of `a02e197d`
 ([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978))
 returned REVISE, with no mathematical errors reported; its reviewers are
@@ -270,7 +271,13 @@ The [native sourcing analysis](native-link-sourcing-gate.md) compares the
 `OIBridge.GradientLinkFlatness` attempts to certify the square-gradient
 telescope and generic two-slice inverse, with its source imported into
 the Mathlib bridge and categorized **kernel-only** in the maintained
-Lean manuscript census. Its Lean build and release-gate checks passed on automatic exact-head run `41094894776`; the independent review still requires revisions. It separates a rigorous negative
+Lean manuscript census. Its build and `#print axioms` reports are checked
+by the Mathlib bridge job (`Build`; release-gate `lean-axioms`); both steps
+succeeded on `main` in run `41871661965`, at `82f0e119`. The module is
+byte-identical to the version built in pull_request run `41094894776` for
+#1009 head `a02e197d`, which is provenance. The author-posted review
+([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978))
+returned REVISE. It separates a rigorous negative
 result from a usable mathematical consistency control:
 
 - **Native pure-gradient negative:** assigning links by site

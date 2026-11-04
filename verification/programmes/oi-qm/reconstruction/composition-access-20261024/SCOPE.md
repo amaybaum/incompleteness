@@ -41,11 +41,15 @@ MR-1 uses #912's content as support:
 
 - Proposition B2 ("proved on paper from #912's proof", :307–319) uses
   `REPORT.md`'s contract (1) (:9–32), the conditional theorem with its
-  induction proof and controller condition (:34–55), and the freshness
-  condition (:57–69).
+  induction proof (:34–55), and the freshness condition (:57–69). #912's
+  proof covers randomized controllers under its own condition (:48–53);
+  whether B2's weaker condition (MR-1:311) suffices is open (#1088 comment
+  6636314963).
 - MR-1:48, N6 (:112–114), T5 and §5.6 (:493, :514) and outcome rows 3.2 and
   3.3 (:632–633) use the same contract and the finite controls in `checks.py`
   and `RESULT.json`.
+- `Res` (MR-1:152) uses the freshness condition, and AW-MR3 (MR-1:399) uses
+  the access countercontrol in `checks.py` and `RESULT.json`.
 
 The supporting files are those in the table above, with the same blobs as at
 `2af1d5d5`. None of these uses needs the #885 context that `REPORT.md` cites

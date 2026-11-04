@@ -352,8 +352,10 @@ census has no byte pin. The frozen records that pin the Lean blob or quote these
    no single positive identity return time for the specified finite readout.
    The construction, verbatim from
    [#872 comment 6526240419](https://github.com/amaybaum/incompleteness/issues/872#issuecomment-6526240419)
-   (posted from the author's account, 2026-10-30; its stated research gate is independent
-   mathematical review, which is not recorded on `main`):
+   (posted from the author's account, 2026-10-30; its stated research gate is
+   "independent mathematical review, exact premise scope, and explicit positive
+   comparison with #1009's observable-return lemma", none of which is recorded
+   on `main`):
 
    > **Construction.** Let `X = ⊔_{m≥2} ({m}×Z/mZ)`, `T(m,k)=(m,k+1 mod m)`, and assign each state `μ(m,k)=2^{-(m−1)}/m`. Since `Σ_{m≥2} 2^{-(m−1)}=1`, μ is a full-support invariant probability; each state has finite orbit length m. Define the *binary* readout `π(m,k)=1` iff `k=0`, otherwise 0. Both visible cells have positive μ measure.
    >
@@ -368,7 +370,7 @@ census has no byte pin. The frozen records that pin the Lean blob or quote these
 4. #1003's gauge-invariant squared-action countercontrol shows that, for
    one oriented square plaquette with compact gauge group `SU(2)` in
    ambient lattice gauge theory, local gauge covariance alone does not
-   select the Wilson/Yang–Mills plaquette action. It is not a native OI
+   uniquely select the Wilson/Yang–Mills plaquette action. It is not a native OI
    result and says nothing about continuous internal states or
    cardinality. Whether continuous internal states or cardinality bear
    on the choice of action is unresolved (#1015).
