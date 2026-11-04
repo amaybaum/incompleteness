@@ -1,7 +1,8 @@
 # LA-GAP: proof attempt and counterexample for LA-EQUAL
 
-**Status: WIP / UNVERIFIED. Model-authored by `writer-1007` and not independently reviewed.** No
-computation was run. Every step below is either hand algebra on the 8-element table of `H` or integer
+**Status: WIP / UNVERIFIED.** Model-authored by `writer-1007`. Two independent model reviews exist
+(PR #1111 comments 6643256663 and 6643489504). Neither is an authenticated human or external review,
+and the result is not established (AGENTS.md §A.46 items 1 and 7). No computation was run. Every step below is either hand algebra on the 8-element table of `H` or integer
 arithmetic on coordinates, or it cites a recorded exact check that was read and not re-run. Each such
 citation is marked *(recorded, not re-run)*. Paths are relative to
 `verification/programmes/substratum/continuous-substates/` unless stated otherwise. `NY/` stands for
@@ -22,7 +23,8 @@ A proof under hypotheses does not derive them.
 1. **Conditional proof.** LA-EQUAL follows under the stated sufficient hypotheses, including H-pre
    (Theorem 3, with the sufficient list after Lemma 0).
 2. **Counterexample.** H-prior's displayed equation alone does not guarantee equality (Theorem 2).
-3. **Physical status.** No physical derivation of any hypothesis has been established (Q4).
+3. **Physical status.** No physical derivation of any hypothesis has been established (Q4), and
+   Theorem 3 is not a physical derivation of LA-EQUAL.
 4. **Verification status.** The recorded geometric checks (P1–P5, P6a, the parent's 42-row geometry,
    the `⊥` identification and the bank/source distinctness) have not been re-run. The broader result
    is therefore not verified (AGENTS.md §A.46 items 1 and 7).
@@ -34,8 +36,8 @@ A proof under hypotheses does not derive them.
 | Q0 Statement | Stated exactly below. H-prior's displayed equation leaves the law of `D′` free. Its sourcing (the history_v11 bank retained) makes `V5` uniform. |
 | Q1 Pre-cut equality | **Proved under H-pre** (Theorem 1), plus H-rule, H-torus and H-access with its record dictionary. Under the sourced reading of H-prior, H-pre holds (H-bank implies it). **Counterexample** to the implication from H-prior's displayed equation alone (Theorem 2): with `D′` the all-zero point mass, which that equation permits, a pre-cut public record determines the setting (TV 1). The all-zero law is not the original preparation. No source specifies an original law with non-uniform `V5`. |
 | Q2 Forward kernel | **Proved under the parent's 42-key prior** (implied by H-prior), given the parent's recorded geometry. No step is wrong. Three steps are unwritten in the parent and are supplied here: K3's cardinality step, K4′ and K7′. K6′ diagnoses where the LA gap enters. |
-| Q3 Composition | **Proved under H-prior ∧ H-pre** (equivalently H-prior⁺; Theorem 3): `μ_0^{k0} = μ_1^{k0}` for every `k0`, `⊥` included. One direction only. Under H-prior's sourced reading this applies. Under the displayed list alone it fails (Theorem 2). |
-| Q4 Physics | No hypothesis is derived for native OI. H-pre, H-prior, H-inventory, H-access and H-rule are posited; H-torus is a construction parameter, measured. H-rule is the native-Y rule, not the corpus's selected linear rule. |
+| Q3 Composition | **Proved under the sufficient list** (including H-prior ∧ H-pre, equivalently H-prior⁺; Theorem 3): `μ_0^{k0} = μ_1^{k0}` for every `k0`, `⊥` included. One direction only. Under H-prior's sourced reading this applies. Under the displayed list alone it fails (Theorem 2). |
+| Q4 Physics | No hypothesis is derived for native OI. H-bank, H-pre, H-prior, H-free, H-inventory, H-access and H-rule are posited; H-torus is a construction parameter, measured. H-rule is the native-Y rule, not the corpus's linear (A5) rule. |
 
 ***
 
@@ -262,7 +264,10 @@ is not re-derived here. ∎
 
 ### Theorem 1 (pre-cut equality; proved under H-pre)
 
-Assume H-pre, H-rule with P6a, H-torus with P5, and H-access with the record dictionary of Q0. Then for
+Assume H-pre, H-rule with P6a, H-torus with P5, H-access with the record dictionary of Q0, and the
+recorded inputs that step 1 uses through the `⊥` paragraph: the recorded `⊥` identification, the parent's `b5` distinctness check
+(`native_random_setting_probe.py:73`) and history_v11's bank/source distinctness
+(`NY/history_v11/REPORT.md:67–81`). Then for
 every `w` and every `k0`, `⊥` included, `ν_0^{k0}(w) = ν_1^{k0}(w)`.
 
 *Proof.*

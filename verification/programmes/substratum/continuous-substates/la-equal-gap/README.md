@@ -59,7 +59,8 @@ Discussion read: #1007 comment 6641543358, #866 comment 6641545083, PR #1109's c
 1. **Conditional proof.** LA-EQUAL follows under the stated sufficient hypotheses, including H-pre
    (`PROOF-ATTEMPT.md`, Theorem 3, with the sufficient list after Lemma 0).
 2. **Counterexample.** H-prior's displayed equation alone does not guarantee equality (Theorem 2).
-3. **Physical status.** No physical derivation of any hypothesis has been established (Q4).
+3. **Physical status.** No physical derivation of any hypothesis has been established (Q4), and
+   Theorem 3 is not a physical derivation of LA-EQUAL.
 4. **Verification status.** The recorded geometric checks have not been re-run. The broader result is
    therefore not verified (AGENTS.md §A.46 items 1 and 7).
 
@@ -68,13 +69,15 @@ Discussion read: #1007 comment 6641543358, #866 comment 6641545083, PR #1109's c
 These are mathematical verdicts only. Physical standing is in `PROOF-ATTEMPT.md`, Q4, where no
 hypothesis is derived for native OI.
 
-- **Q1, proved under H-pre.** Under H-pre, H-rule, H-torus and H-access with its record dictionary,
+- **Q1, proved under H-pre.** Under H-pre, H-rule, H-torus, H-access with its record dictionary, and
+  the recorded `⊥` identification, the parent's `b5` distinctness check
+  (`native_random_setting_probe.py:73`) and history_v11's bank/source distinctness (`NY/history_v11/REPORT.md:67–81`),
   the pre-cut history has the same law under both settings, with `K0` mass retained.
   - H-pre states that the setting bank `b5` and port 5's pre-cut bank triples `f_5(t)`,
     `S+4 < t ≤ L+3`, are uniform given everything else.
   - The history_v11 bank law implies it. H-prior's sourcing sentence retains that law, so under H-prior's
     sourced reading H-pre holds.
-- **Q1, counterexample to H-prior as its displayed equation.** Read without its sourcing sentence, the
+- **Q1, counterexample to the sufficiency of H-prior's displayed equation.** Read without its sourcing sentence, the
   displayed equation lets `D′` be a point mass.
   - For the all-zero point mass, the public pre-cut record `(R.B, R.D, U_{S+6}(port 5))` determines
     the setting exactly (TV 1). The proof is by hand from `H`'s 8-entry table.
@@ -83,8 +86,8 @@ hypothesis is derived for native OI.
 - **Q2, valid under the parent's prior.** The parent forward-kernel proof is valid under its prior,
   given its recorded geometry. K3's cardinality step, K4′ and K7′ are supplied here. K6′ diagnoses
   where the LA gap enters.
-- **Q3, proved under H-prior ∧ H-pre.** LA-EQUAL holds under H-prior ∧ H-pre, which is equivalent to
-  H-prior⁺. This is one direction only. Under H-prior's sourced reading it holds conditionally.
+- **Q3, proved under the sufficient list (including H-prior ∧ H-pre).** LA-EQUAL holds under the
+  sufficient list after Lemma 0, which includes H-prior ∧ H-pre (equivalent to H-prior⁺). This is one direction only. Under H-prior's sourced reading it holds conditionally.
 
 ## Plan
 
