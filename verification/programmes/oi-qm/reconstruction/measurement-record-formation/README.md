@@ -50,3 +50,13 @@ is independent of the whole residual boundary. Whether B2's weaker condition suf
 corpus" to the sources read (§S.8), since no corpus-wide search was recorded. The same restriction
 applies to C-3's "No principle in the corpus supplies one" (`amendments/MR-star.md:1353`), which
 C.1-1 does not name.
+
+**N5 / LA-EQUAL proof standing (read-only review, 2026-11-04).**
+The separate review [LA-EQUAL-REVIEW.md](LA-EQUAL-REVIEW.md) finds a
+**partial conditional tail-independence argument**, but a **gap** in establishing
+setting equality for the complete pre-tail history. The output token
+`LA-EQUAL` is a recorded conditional result, not an independently verified
+complete-history theorem. H-prior and H-access remain supplied hypotheses.
+The frozen N5 text is unchanged; the proof obligation belongs to #1007
+and the MR-1 dependency to #866. No scientific status is promoted.
+
