@@ -4,7 +4,7 @@ MR-1's preregistration in this directory is frozen by owner designation (amaybau
 2026-10-31T21:14:51Z: "I hereby designate exact commit `1a236f332e8ea12b7fdb125bf8c5098ccd71d36c`
 as the MR-1 preregistration freeze.";
 [#1023 comment 6549225579](https://github.com/amaybaum/incompleteness/pull/1023#issuecomment-6549225579)),
-and its amendments and stage-1 log are append-only (`amendments/MR-star.md:3–4`,
+and its amendments and stage-1 log are append-only (`amendments/MR-star.md:3–5`,
 `amendments/KS-substitution.md:3–4`). None of them is edited. This note qualifies one premise
 they cite.
 

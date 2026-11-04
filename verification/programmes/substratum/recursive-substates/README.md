@@ -225,10 +225,11 @@ promote it to any OI manuscript claim.
 and are not edited):
 
 - **Run 1** (`stage2/`, commit `05ecc8732160736b538b422114a5a1738d682c16`) is
-  `INCONCLUSIVE (void)` under clause 0(v) (`preregistration.md:220`): its `Build` step failed
-  (`amendments/A-star-1.md:11–14`; `stage2/run-2/RESULT.md:5–7`; the errors are listed in
-  `stage2/run-2/PROOF-REPAIRS.md:7–11`; provenance: pull-request CI run 41220197866). The
-  preserved `stage2/RESULT.md` records no token ("None yet", :89) and states that a failed
+  `INCONCLUSIVE (void)` under clause 0(v) (`f2-1-coherence-sourcing/preregistration.md:220`):
+  its `Build` step failed (`f2-1-coherence-sourcing/amendments/A-star-1.md:12–14`;
+  `f2-1-coherence-sourcing/stage2/run-2/RESULT.md:5–7`; the errors are listed in
+  `f2-1-coherence-sourcing/stage2/run-2/PROOF-REPAIRS.md:7–12`; provenance: pull-request CI run
+  41220197866). The preserved `stage2/RESULT.md` records no token ("None yet", :89) and states that a failed
   step gives `INCONCLUSIVE (void)` (:93). Run 1 records no review; its outcome follows from
   the frozen rule.
 - **Run 2** (`stage2/run-2/`) is `INCONCLUSIVE (gap)`, scoped to the thirteen screened rules
