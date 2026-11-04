@@ -17,7 +17,8 @@ reviews 1 and 2 are recorded below in full:
   Its findings are incorporated in the consolidated assessment below.
 
 All three are model-authored. None is an authenticated human or external review, and together they
-do not discharge AGENTS.md §A.46 item 7. None ran a script, numerical experiment or Lean build,
+do not discharge AGENTS.md §A.46 item 7. None ran a probe, numerical experiment or Lean build (review 3 ran only the repository's
+`legacy_records_check.py` and `duplicate_check.py`),
 and no frozen record is changed. Recorded check results are taken from `later-access-result.json`
 without re-running them. An earlier confirmation of the token posted on #1009 was not relied on.
 
@@ -29,13 +30,13 @@ without re-running them. An earlier confirmation of the token posted on #1009 wa
   exact checks P1–P5 and P6a (H-inventory enters for consistency of the prior with the preparation):
   the passive read of the eight public ports over `L+6 … 2L` adds no setting dependence. The tail is
   uniform and independent of the earlier keys, so `EMPTY` holds, and for every `k0`, including `⊥`,
-  `TV_win(k0)` and `TV_acc(k0)` of the window equal those of its pre-tail part. Both reviews accept
+  `TV_win(k0)` and `TV_acc(k0)` of the window equal those of its pre-tail part. Reviews 1 and 2 accept
   this triangular argument (review 1, §A; review 2, §1.2, steps S1–S6). The argument is not written
   out in the LA files; the probe inserts the zero TV values once P1–P6b hold
   (`native_later_access_probe.py:1186–1193`; `later-access-result.md:25–27`).
 - **Not established: `LA-EQUAL` itself.** Equality of the full window laws across the two setting
-  values also needs the pre-tail (pre-cut) law to be the same for both values. Both reviews locate
-  the gap here (review 1, §A, "Missing bridge"; review 2, §1.3).
+  values also needs the pre-tail (pre-cut) law to be the same for both values. Reviews 1 and 2 locate
+  the gap here (review 1, §A, "Missing bridge"; review 2, §1.3); review 3 concurs.
   - Review 2 identifies the mechanism. The setting bit re-enters port 5's accessible record two ticks
     after `R`: the A-component of `U_{S+6}(p5)` is `R.A ⊕ Σ.B`. It is masked if the pre-cut
     port-5 frontier triples `f_5(t)`, `S+4 < t ≤ L+3`, are uniform and independent; no weaker
@@ -45,18 +46,22 @@ without re-running them. An earlier confirmation of the token posted on #1009 wa
     (`native_later_access_probe.py:1136–1153`).
   - The 42-key law, the parent's forward kernel and the tail argument do not by themselves give the
     pre-tail equality: the 42-key law is conditional on the other variables
-    (`native-random-setting-test.md:88`), the kernel is conditional on the public past
+    (`native-random-setting-test.md:88`) and leaves their law free; for fixed `D` the pre-cut history
+    is a function of `r` (`:122–123`); the kernel is conditional on the public past
     (`:109–110`), and the tail argument covers `β` only (review 3).
   - Review 3 identifies an existing route. H-prior's sourcing sentence
     (`later-access-preregistration.md:153–154`) names the source of those triples, the history_v11
     bank (`native-y-continuation-20261024/history_v11/REPORT.md:23–25`, `:41`). Under that law the
     whole port word through `L+3`, `R` included, is uniform given the bank complement (`:110–112`),
     which, by review 3's hand argument, gives the pre-cut equality. That argument is not recorded as a
-    check. The LA files state neither that law as a hypothesis nor this step.
+    check. The history_v11 result is itself a written paper theorem ("written conditional
+    finite-horizon theorem", `history_v11/REPORT.md:4–5`) with a separate-agent internal review
+    (`history_v11/review/REPORT.md`), not an independent review on `main`. The LA files state neither that law as a hypothesis nor this step.
   - The equality also rests on the parent unit's forward-kernel result
     (`native-random-setting-test.md:95–112`), a paper proof that "awaits its own independent review"
     (`:3–5`); its acceptance on #1009 (`later-access-preregistration.md:5`) is author-reported
-    (`continuous-substates/README.md:12–17`). That unit conditions on the whole public past, which contains `R` (`:118–127`), and the
+    (`continuous-substates/README.md:12–17`). That unit conditions on the whole public past, which
+    contains `R` (`native-random-setting-test.md:118–127`), and the
     LA preregistration bars using equality after a fixed history in place of equality of the
     history masses (`later-access-preregistration.md:139–140`).
   - Review 2 sketches a closure: with H-prior strengthened to include those frontier triples jointly
@@ -114,8 +119,8 @@ that N5 is accurate on ports, horizon and read but incomplete on its hypothesis 
 
 Review 3 confirms review 2's channel and closure inequalities by hand, and identifies the existing
 history_v11 noise-word result as a closure route under the bank law H-prior's sourcing already
-names. Review 1 (§A) anticipated that "a complete proof may be possible from the full chronological
-bank construction". The three verdicts are unchanged: the gap is a missing written composition
+names. Review 1 (§A) noted that "a complete proof may be possible from the full chronological
+bank construction plus the 42-key factorization". The three verdicts are unchanged: the gap is a missing written composition
 under a named but undisplayed stipulation, together with the unreviewed parent kernel.
 
 ### Ownership
