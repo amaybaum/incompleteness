@@ -54,7 +54,16 @@ Discussion read: #1007 comment 6641543358, #866 comment 6641545083, PR #1109's c
 
 - `PROOF-ATTEMPT.md`: questions Q0–Q4, each ending in a verdict, and the proposed computation specs.
 
-## Results (unreviewed)
+## Standing (four separate statements)
+
+1. **Conditional proof.** LA-EQUAL follows under the stated sufficient hypotheses, including H-pre
+   (`PROOF-ATTEMPT.md`, Theorem 3, with the sufficient list after Lemma 0).
+2. **Counterexample.** H-prior's displayed equation alone does not guarantee equality (Theorem 2).
+3. **Physical status.** No physical derivation of any hypothesis has been established (Q4).
+4. **Verification status.** The recorded geometric checks have not been re-run. The broader result is
+   therefore not verified (AGENTS.md §A.46 items 1 and 7).
+
+## Results
 
 These are mathematical verdicts only. Physical standing is in `PROOF-ATTEMPT.md`, Q4, where no
 hypothesis is derived for native OI.

@@ -17,6 +17,16 @@ Two kinds of verdict are kept apart throughout:
 
 A proof under hypotheses does not derive them.
 
+## Standing (four separate statements)
+
+1. **Conditional proof.** LA-EQUAL follows under the stated sufficient hypotheses, including H-pre
+   (Theorem 3, with the sufficient list after Lemma 0).
+2. **Counterexample.** H-prior's displayed equation alone does not guarantee equality (Theorem 2).
+3. **Physical status.** No physical derivation of any hypothesis has been established (Q4).
+4. **Verification status.** The recorded geometric checks (P1–P5, P6a, the parent's 42-row geometry,
+   the `⊥` identification and the bank/source distinctness) have not been re-run. The broader result
+   is therefore not verified (AGENTS.md §A.46 items 1 and 7).
+
 ## Summary of verdicts
 
 | Question | Verdict |
