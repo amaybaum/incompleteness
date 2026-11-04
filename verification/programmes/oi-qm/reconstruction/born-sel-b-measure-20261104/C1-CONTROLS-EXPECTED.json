@@ -1,0 +1,161 @@
+{
+  "schema": "bornsel-c1-expected/1",
+  "status": "draft r1; candidate freeze input; frozen together with PREREG-C1.md at the owner-designated commit F; WIP / UNVERIFIED",
+  "companions": {"prereg": "PREREG-C1.md", "instances": "C1-INSTANCES.json"},
+  "note": "Hand-derived values [D] for controls and mutations only (PREREG-C1.md section 3). No expected value is given for any native instance. Every probability is an exact rational string; null means the field must be null. Every listed field is compared exactly.",
+  "expected": {
+    "CE-8": {
+      "injective": true, "ell_min": 3, "orbit_count": 2, "orbit_length_histogram": {"4": 2}, "ord_phi": 4,
+      "T_beta": {"0": ["1/4", "3/4"], "1": ["3/4", "1/4"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "long_orbit_count": 2, "long_orbits_equal": 0, "long_orbits_pdiv_alpha": 1,
+      "first_mismatch": {"rep": 0, "a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
+      "verdict": "NOT",
+      "sketch_check": {"T_beta_0_1": "3/4", "T_alpha_rep0_0_1": "1", "T_alpha_rep4_0_1": "1/2"},
+      "orbits": [
+        {"rep": 0, "length": 4, "cycle": [0, 1, 2, 3], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["0", "1"], "1": ["1", "0"]}, "long": true, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "0", "beta": "1/4"},
+         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+        {"rep": 4, "length": 4, "cycle": [4, 6, 5, 7], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "1/2", "beta": "1/4"},
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false}
+      ],
+      "pdiv_beta_definitional": false
+    },
+    "TT-4": {
+      "injective": true, "ell_min": 3, "orbit_count": 1, "orbit_length_histogram": {"4": 1}, "ord_phi": 4,
+      "T_beta": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 0,
+      "first_mismatch": null, "verdict": "FREQ",
+      "orbits": [
+        {"rep": 0, "length": 4, "cycle": [0, 1, 3, 2], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false}
+      ],
+      "pdiv_beta_definitional": false
+    },
+    "TT-6": {
+      "injective": true, "ell_min": 4, "orbit_count": 1, "orbit_length_histogram": {"6": 1}, "ord_phi": 6,
+      "T_beta": {"0": ["0", "1/2", "1/2"], "1": ["0", "1/2", "1/2"], "2": ["1", "0", "0"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 6,
+      "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 0,
+      "first_mismatch": null, "verdict": "FREQ",
+      "orbits": [
+        {"rep": 0, "length": 6, "cycle": [0, 1, 4, 2, 3, 5], "visited_rows": [0, 1, 2], "unvisited_rows": [], "n_a": {"0": 2, "1": 2, "2": 2},
+         "T_alpha": {"0": ["0", "1/2", "1/2"], "1": ["0", "1/2", "1/2"], "2": ["1", "0", "0"]}, "long": true, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": false, "pdiv_witness": [1, 6], "pdiv_alpha_definitional": false}
+      ],
+      "pdiv_beta_definitional": false
+    },
+    "CC-TWIN": {
+      "injective": true, "ell_min": 3, "orbit_count": 2, "orbit_length_histogram": {"4": 2}, "ord_phi": 4,
+      "T_beta": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "long_orbit_count": 2, "long_orbits_equal": 2, "long_orbits_pdiv_alpha": 0,
+      "first_mismatch": null, "verdict": "FREQ",
+      "orbits": [
+        {"rep": 0, "length": 4, "cycle": [0, 1, 3, 2], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false},
+        {"rep": 4, "length": 4, "cycle": [4, 5, 7, 6], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false}
+      ],
+      "pdiv_beta_definitional": false
+    },
+    "CC-SHORT": {
+      "injective": true, "ell_min": 3, "orbit_count": 4, "orbit_length_histogram": {"1": 2, "2": 1, "4": 1}, "ord_phi": 4,
+      "T_beta": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": false, "pdiv_beta": false, "pdiv_beta_horizon": 4,
+      "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 0,
+      "first_mismatch": null, "verdict": "FREQ",
+      "orbits": [
+        {"rep": 0, "length": 4, "cycle": [0, 1, 3, 2], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "long": true, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": false, "pdiv_witness": [1, 4], "pdiv_alpha_definitional": false},
+        {"rep": 4, "length": 1, "cycle": [4], "visited_rows": [0], "unvisited_rows": [1], "n_a": {"0": 1},
+         "T_alpha": {"0": ["1", "0"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "1", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+        {"rep": 5, "length": 2, "cycle": [5, 6], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 1, "1": 1},
+         "T_alpha": {"0": ["0", "1"], "1": ["1", "0"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 0, "j": 0, "alpha": "0", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+        {"rep": 7, "length": 1, "cycle": [7], "visited_rows": [1], "unvisited_rows": [0], "n_a": {"1": 1},
+         "T_alpha": {"1": ["0", "1"]}, "long": false, "eq": false,
+         "first_mismatch": {"a": 1, "j": 0, "alpha": "0", "beta": "1/2"},
+         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true}
+      ],
+      "pdiv_beta_definitional": false
+    },
+    "CC-UNVIS": {
+      "injective": true, "ell_min": 4, "orbit_count": 2, "orbit_length_histogram": {"2": 1, "4": 1}, "ord_phi": 4,
+      "T_beta": {"0": ["0", "1", "0"], "1": ["1", "0", "0"], "2": ["0", "0", "1"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": true, "pdiv_beta": true, "pdiv_beta_horizon": 4,
+      "long_orbit_count": 1, "long_orbits_equal": 1, "long_orbits_pdiv_alpha": 1,
+      "first_mismatch": null, "verdict": "FREQ",
+      "orbits": [
+        {"rep": 0, "length": 4, "cycle": [0, 1, 3, 4], "visited_rows": [0, 1], "unvisited_rows": [2], "n_a": {"0": 2, "1": 2},
+         "T_alpha": {"0": ["0", "1", "0"], "1": ["1", "0", "0"]}, "long": true, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true},
+        {"rep": 2, "length": 2, "cycle": [2, 5], "visited_rows": [2], "unvisited_rows": [0, 1], "n_a": {"2": 2},
+         "T_alpha": {"2": ["0", "0", "1"]}, "long": false, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true}
+      ],
+      "pdiv_beta_definitional": true
+    },
+    "CC-VOID": {
+      "injective": true, "ell_min": 3, "orbit_count": 1, "orbit_length_histogram": {"2": 1}, "ord_phi": 2,
+      "T_beta": {"0": ["0", "1"], "1": ["1", "0"]},
+      "doubly_stochastic": true, "mixture_identity": true,
+      "beta_is_permutation": true, "pdiv_beta": true, "pdiv_beta_horizon": 2,
+      "long_orbit_count": 0, "long_orbits_equal": 0, "long_orbits_pdiv_alpha": 0,
+      "first_mismatch": null, "verdict": "VOID_NO_ORBIT",
+      "orbits": [
+        {"rep": 0, "length": 2, "cycle": [0, 1], "visited_rows": [0, 1], "unvisited_rows": [], "n_a": {"0": 1, "1": 1},
+         "T_alpha": {"0": ["0", "1"], "1": ["1", "0"]}, "long": false, "eq": true, "first_mismatch": null,
+         "pdiv_alpha": true, "pdiv_witness": null, "pdiv_alpha_definitional": true}
+      ],
+      "pdiv_beta_definitional": true
+    },
+    "M-INJ": {
+      "injective": false, "evaluated_beyond_injectivity": false, "verdict": null
+    },
+    "EX-ARITH": {
+      "results": ["unequal", "equal", "equal", "equal"],
+      "reduced": [["1/3", "6004799503160661/18014398509481984"], ["1/3", "1/3"], ["3/4", "3/4"], ["0", "0"]]
+    },
+    "EX-SCHEMA": {
+      "schema_valid": false, "violation_field": "T_beta"
+    },
+    "WF-q2-L5": {
+      "hand_steps": [
+        {"step": 0, "prev": [0, 0, 0, 0, 0], "cur": [1, 0, 0, 0, 0], "state": 1, "visible": 1},
+        {"step": 1, "prev": [1, 0, 0, 0, 0], "cur": [0, 1, 0, 0, 1], "state": 262, "visible": 2},
+        {"step": 2, "prev": [0, 1, 0, 0, 1], "cur": [1, 0, 1, 1, 0], "state": 601, "visible": 1}
+      ],
+      "phi_impls_agree": true
+    },
+    "WF-q3-L4": {
+      "hand_steps": [
+        {"step": 0, "prev": [0, 0, 0, 0], "cur": [1, 0, 0, 0], "state": 1, "visible": 1},
+        {"step": 1, "prev": [1, 0, 0, 0], "cur": [0, 1, 0, 1], "state": 741, "visible": 3},
+        {"step": 2, "prev": [0, 1, 0, 1], "cur": [1, 0, 2, 0], "state": 2377, "visible": 1}
+      ],
+      "phi_impls_agree": true
+    },
+    "WF-0": {
+      "phi_of_zero": {"W-q2-L3-r1": 0, "W-q2-L4-r1": 0, "W-q3-L3-r1": 0, "W-q2-L5-r1": 0, "W-q2-L6-r1": 0, "W-q2-L6-r2": 0, "W-q3-L4-r1": 0, "W-q2-L7-r1": 0, "W-q3-L5-r1": 0, "W-q2-L8-r1": 0, "W-q2-L8-r2": 0},
+      "phi_impls_agree": true
+    }
+  }
+}
