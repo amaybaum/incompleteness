@@ -1,6 +1,7 @@
 # BSEL-2: the one-time (⇒) gap, B3 and B5 (paper units)
 
-**Status: WIP / UNVERIFIED.** Paper-only. Not independently reviewed.
+**Status: WIP / UNVERIFIED.** Paper-only.
+**Revision:** Revised after independent review of `4540cbc0` (ACCEPT WITH CHANGES); not re-reviewed.
 **Authorization:** owner, 2026-11-04, #1033 c.6622106693. Its scope is the one-time (⇒) gap and units B3 and B5,
 under the paper-only authorization #914 c.6567372732 (H.2). B6 is out of scope (blocked on O-REC, O-SET).
 **Base:** `origin/main` `1609dc440f5a12d05b750f6d894bb91d09a099a3`; Lean read with `git show` only.
@@ -11,9 +12,18 @@ under the paper-only authorization #914 c.6567372732 (H.2). B6 is out of scope (
 OI physically supplies, and not a gauge classification. It promotes nothing, changes no record, and adopts no reading;
 §5 lists proposals only.
 
-**Support labels.** [K] kernel-checked at the base (identifier, file:line under `verification/lean-mathlib/OIBridge/`);
-[P] reviewed paper result (cited); [D] derived here, unreviewed; [L] literature or standard fact from memory, not
-re-read; [O] owner decision.
+**Support labels.**
+- [K] kernel-checked at the base (identifier, file:line under `verification/lean-mathlib/OIBridge/`).
+- [R] reviewed paper result (cited). This is MM's PD.
+- [P] plan sketch, in the sense of PL-BSEL2 and MM. It grades as CJ (#914 c.6563412926, status legend).
+- [D] derived here, unreviewed.
+- [L] literature or standard fact from memory, not re-read.
+- [O] owner decision.
+
+**Verdict vocabulary** (#1033, "Gate and outcome"):
+- MATHEMATICAL: the implication between the stated objects.
+- CONDITIONAL[…]: the same result read as a statement about OI lifts, with its hypotheses named.
+- COUNTEREXAMPLE[scope]; UNDECIDED; SOURCING-GAP.
 
 **Sources read.** `AGENTS.md`; #1033 body and all six comments (c.6567681563 status; c.6567694252/6567701387 B1(c)
 note and review; c.6567713723/6567723333 B4′ note and review; c.6622106693 start); #914 c.6558834119 (BSEL-1),
@@ -27,9 +37,11 @@ c.6563412926 (master matrix rev 2, "MM"), c.6567372732 (H.2); #866 comments; #10
 - Thread E, `p0five/E/THREAD-E.md` (`00d6bfa0…40ddb`), with reviews `REVIEW.md` (`f624e42b…e93e0`) and
   `REVIEW-r2.md` (`546ca50e…e1787`).
 
-The definitions of B3 and B5 exist only in PL-BSEL2. No public source states them (searched: #1033, #914, #866, #1074;
-`git grep` over all remote branches for `BSEL`, `Γ_W`, `Thread E`, `H-fac`). The label "B5" in #914 c.6567870091
-(BORN-SRC-1) is an unrelated row.
+**Where B3 and B5 are defined.** Public sources state fragments of B3 and B5. MM carries the Thread E row, R2-3 and
+D-36 to D-39, and #1033's body states the lane question. The full statements are off-repo, in PL-BSEL2.
+
+Searched: #1033, #914, #866, #1074, and `git grep` over all remote branches for `BSEL`, `Γ_W`, `Thread E` and `H-fac`.
+The label "B5" in #914 c.6567870091 (BORN-SRC-1) is an unrelated row.
 
 **Disclosure.** Not blind. The reviewer's lead (B1(c) note §4; review F7) was known before §2 was written, and the
 routes of §3.1 and §3.2 were sketched while reading.
@@ -41,8 +53,11 @@ routes of §3.1 and §3.2 were sketched while reading.
 ### 1.0 Objects (common)
 - `V`, `A` finite; anchor `a₀`; `N = |V||A|`; `e_v := e_{(v,a₀)}`; anchored span `𝒜 = span{e_v}`; `C = 𝒜^⊥`, with
   projector `P_C`; `P_w = |w⟩⟨w| ⊗ 1_A`.
-- `𝒢_L` = `LeftFibreGroup` [K TSG:78]: unitaries block-diagonal across fibres, `≅ Π_w U(ℂ^A)` [K `left_block_unitary`
-  TSG:188]. `𝒲` = `WeakAnchorStabilizer a₀` [K CLG:114]: unitaries with `Ke_v = c_ve_v`.
+- `𝒢_L` = `LeftFibreGroup` [K TSG:78]: unitaries block-diagonal across fibres.
+  - Each diagonal block of an element is unitary [K `left_block_unitary` TSG:188].
+  - Conversely, every block-diagonal matrix of unitaries lies in `𝒢_L`. This is elementary, not [K].
+  - So `𝒢_L ≅ Π_w U(ℂ^A)`.
+- `𝒲` = `WeakAnchorStabilizer a₀` [K CLG:114]: unitaries with `Ke_v = c_ve_v`.
 - Readback (visible slice) `Γ(U)_{wv} = Σ_a |U_{(w,a),(v,a₀)}|² = ‖P_wUe_v‖²` [K `AdmissibleDilationAt`, DilationChoice:134].
 - **Interface** (frozen, PL-BSEL2 ll. 48–58 as quoted in #1033 c.6567694252; "proposed, not adopted"): `I = (π, G, ψ, 𝒫)`.
   Under H-fac its law is `p_c(U) = tr(A_c UρU†)` with `A_c = X†P_cX` and `X = G(1⊗|ψ⟩)`. Here `ρ` is `π`'s density
@@ -67,9 +82,13 @@ Not pinned by the sources: the meaning of "fibre-identifying", and the `|A|` sco
 - **FI (operative):** `∀U, U′ ∈ U(N)`: `Γ(U) = Γ(U′) ⇒ p_c(U) = p_c(U′)` for every `c`, at the interface's own `π`.
 - **FI_c:** the same with entrywise `|U|² = |U′|²` on `V × A` in place of `Γ(U) = Γ(U′)`.
 
-At `|A| = 1` the two coincide, since `Γ(U) = |U|²`. FI is operative because the sources' gloss is "visible fibres"
-(BSEL-1: "SH orbits are exactly the visible fibres"), and because §3.1 shows that the recorded (⇐) verdict holds
-under FI at every `|A|` but under FI_c only at `|A| = 1`.
+At `|A| = 1` the two coincide, since `Γ(U) = |U|²`.
+
+FI is operative because the sources' gloss is "visible fibres" (BSEL-1: "SH orbits are exactly the visible fibres").
+The direction of the result does not depend on the choice:
+- `|U|² = |U′|²` implies `Γ(U) = Γ(U′)`, so FI ⇒ FI_c.
+- Hence Q1⇒ (GR ⇒ FI) gives GR ⇒ FI_c as well, so it holds under either reading.
+- Only Q1⇐ at `|A| ≥ 2` depends on the reading (§3.1, CE-3).
 
 **Questions.**
 - **Q1⇒:** for every interface `I` under H-fac at one time, GR(I) ⇒ FI(I).
@@ -82,6 +101,8 @@ under FI at every `|A|` but under FI_c only at `|A| = 1`.
 Sources, verbatim:
 - #1033: "Decide whether the reviewed Thread E / Γ_W candidate and B5 belong in a separate mathematical lane. A
   candidate torus formula or one finite witness is not a general theorem."
+- MM, Thread E row: "B3 reduced to Re c_r = Im c_r (PD [R]); torus form CJ [P] | absent from Main:99's class under a
+  reading only".
 - PL-BSEL2 l. 106 ff.: "**B3. Thread E's decisive question, reduced** […] the condition holds iff `Re c_r = Im c_r`
   for every row. […] **Still open:** the torus form (right phases free, so feasibility on some dephased lift reduces
   to collinearity of `c_0, c_1, c_2` through `0`; [P], unproved), feasibility for any non-monomial `Γ_W`, and the
@@ -97,6 +118,9 @@ Sources, verbatim:
   depend on the orientation.
 - `Feas(Γ_W)`: some lift `W` has `|WH(1)|² = |WH(i)|²` entrywise.
 - **Q3:** is `Feas(Γ_W)` true for every 4×4 unistochastic `Γ_W`? Thread E's "Yes" is the negation.
+- **Scope.** Q3 is the time-homogeneous variant: one lift `W` serves both models. Thread E §5's Step also poses a
+  time-dependent variant, in which some lifts `W, W″` of `Γ_W` satisfy `|WH(1)|² = |W″H(i)|²`. This note does not
+  address that variant.
 - **Sub-questions:**
   - Q3a: the torus/collinearity reduction, both directions;
   - Q3b: 3+1 blocks;
@@ -104,9 +128,11 @@ Sources, verbatim:
   - Q3-lane: the lane question.
 
 ### 1.3 B5
-Source, verbatim. PL-BSEL2 l. 125: "**B5. `PPer` transfer** (kernel). TG3 on `1, J/4, 1, J/4, …` is in `PPer`; lift
-theorems, B1 and B4′ need re-proof; GL2 needs a re-placed gauge time (Thread E §3.3)." MM D-38: "B5's lane: Track B or
-K∞ (choose)". D-39: "B5's Lean work (yes/no)". MM R2-3: the `PPer` membership is [P].
+Sources, verbatim:
+- PL-BSEL2 l. 125: "**B5. `PPer` transfer** (kernel). TG3 on `1, J/4, 1, J/4, …` is in `PPer`; lift theorems, B1
+  and B4′ need re-proof; GL2 needs a re-placed gauge time (Thread E §3.3)."
+- MM D-38: "B5's lane: Track B or K∞ (choose)". D-39: "B5's Lean work (yes/no)".
+- MM R2-3 grades the `PPer` membership as [P] (plan sketch, CJ).
 
 **Precise form.** Let `Γ^alt_t = 1` for even `t` and `J/4` for odd `t`. Let `U^alt_t = 1` (even), `H(1)` (odd), and
 `U′^alt_t = 1` (even), `H(i)` (odd).
@@ -119,14 +145,14 @@ K∞ (choose)". D-39: "B5's Lean work (yes/no)". MM R2-3: the `PPer` membership 
 
 ## §2. Decision criteria (stated before §3)
 
-- **PROVED (MATHEMATICAL):**
+- **MATHEMATICAL:**
   - a complete paper proof under the stated quantifiers;
-  - each step is [K], [P] or elementary algebra;
+  - each step is [K], [R] or elementary algebra;
   - the controls below behave as required.
-- **REFUTED / COUNTEREXAMPLE[scope]:** an explicit instance meeting the hypothesis and failing the conclusion,
-  checked by hand in exact arithmetic.
-- **CONDITIONAL[…]:** proved only with a named extra hypothesis.
-- **OPEN:** neither of the above; the unproved step is named.
+  - A result that bears on OI lifts is reported in addition as CONDITIONAL[…], with its hypotheses named.
+- **COUNTEREXAMPLE[scope]:** an explicit instance meeting the hypothesis and failing the conclusion, checked by hand
+  in exact arithmetic.
+- **UNDECIDED:** neither of the above; the unproved step is named.
 - **VOID:** a control fails, or a reading cannot be fixed.
 - **Lane questions:** an owner choice [O]. They are not decided here. §5 states the facts that bear on them.
 - **Equivalences:** each direction is a separate question (§A.34).
@@ -150,7 +176,7 @@ K∞ (choose)". D-39: "B5's Lean work (yes/no)". MM R2-3: the `PPer` membership 
 `Γ(LUK) = Γ(U)` for every `L ∈ 𝒢_L` and `K ∈ 𝒲`.
 
 [K]: `left_preserves_admissible` (TSG:217) and `weak_preserves_admissible` (CLG:273). Each sends an admissible
-dilation of `Γ` to an admissible dilation of the same `Γ`. Hence FI ⇒ GR. **PROVED** at every `|A|` [D from K].
+dilation of `Γ` to an admissible dilation of the same `Γ`. Hence FI ⇒ GR. **MATHEMATICAL** at every `|A|` [D from K].
 
 Under FI_c, (⇐) fails at `|A| ≥ 2`. **CE-3** [D]:
 - the setting: `V = {0,1}`, `A = {a₀,a₁}`, `π = e_{(0,a₁)}`, `G = 1`, cells `{P_{(0,a₁)}, 1 − P_{(0,a₁)}}`;
@@ -159,7 +185,7 @@ Under FI_c, (⇐) fails at `|A| ≥ 2`. **CE-3** [D]:
 - `p(1) = 1` and `p(K) = 0`.
 
 ### 3.2 Q1⇒ (GR ⇒ FI), any `|A|`
-**Lemma HS** [P: B1(c) note §2 Step 2, review-confirmed]. If `B` is Hermitian and non-scalar, `Δ` is Hermitian and
+**Lemma HS** [R: B1(c) note §2 Step 2, review-confirmed]. If `B` is Hermitian and non-scalar, `Δ` is Hermitian and
 traceless, and `tr(U†BUΔ) = 0` for every unitary `U`, then `Δ = 0`.
 
 **Lemma CM** [D; uses Schur's lemma for `U(n)` on `ℂⁿ`, L].
@@ -181,7 +207,7 @@ traceless, and `tr(U†BUΔ) = 0` for every unitary `U`, then `Δ = 0`.
      `c`: `A_c = Σ_w a_c(w)P_w`.
 4. Then
    `p_c(U) = μ tr A_c + Σ_{v,w} (r_v − μ) a_c(w) ‖P_wUe_v‖² = μ tr A_c + Σ_{v,w} (r_v − μ) a_c(w) Γ(U)_{wv}`.
-   This is a function of `Γ(U)`, so FI holds. ∎
+   This is a function of `Γ(U)`, so FI holds, and with it FI_c. ∎
 
 Neither configuration-diagonality of the cells nor any property of `G` or `ψ` is used.
 
@@ -213,8 +239,8 @@ For pure `π` and `|V| ≥ 2`, `ρ ∈ 𝒲′` has rank 1, so `μ = 0` and `ρ 
 in B1(c) only for mixed preparations.
 
 **Corollary DC (one-time candidates)** [D from K]. Let a one-time candidate `C` be a set of H-fac interfaces, with
-lifts ranging over all unitary families (B4′'s convention). Then `R[C]` (every member is GR) gives `O_C ⊇ Fib`, where
-`Fib` is equality of `Γ` slice by slice. Hence `R[C] ∧ Q[C]` would give `Fib ⊆ G`. That inclusion is false:
+lifts ranging over all unitary families (B4′'s convention, ∀U). Then `R[C]` (every member is GR) gives `O_C ⊇ Fib`,
+where `Fib` is equality of `Γ` slice by slice. Hence `R[C] ∧ Q[C]` would give `Fib ⊆ G`. That inclusion is false:
 - **at `|A| = 1`, `|V| = 4`:** TG3 [K `hadamard_slices_not_twoSided` TSG:907].
 - **at `|V| ≥ 3`, any `|A|`:** `F₃` against `F̄₃` (`F₃ = [ω^{jk}]/√3`), placed on the anchored lines with `1` on `C`
   and `⊕1` on further configurations.
@@ -222,9 +248,21 @@ lifts ranging over all unitary families (B4′'s convention). Then `R[C]` (every
   - The `∼_D`-invariant `G⁽⁰⁾₁₀G⁽¹⁾₀₁` is `ω/9` against `ω̄/9`, so the two are not `GramPhaseEquiv`
     [K `gramPhaseEquiv_cross_invariant` TSG:870] and not two-sided related [K `gramPhaseEquiv_of_twoSided` TSG:263].
 
-So no one-time H-fac candidate both respects the gauge and refines `G`. B4′'s C0/C1/C1′ rows are instances. At
-`|A| = 1` the quotient a GR one-time interface can see is `Fib`, which equals BSEL-1's SH orbits per slice [P #914
-c.6558834119 §5].
+So, at `|V| ≥ 3` and under ∀U, no one-time H-fac candidate both respects the gauge and refines `G`. B4′'s C0/C1/C1′
+rows are instances.
+
+The bound `|V| ≥ 3` is needed. At `|V| = 2`, `|A| = 1`, `Fib = G` [D from K]:
+- Equal moduli fix the diagonal of the fibre-Gram data.
+- Column orthogonality gives `G⁽¹⁾₀₁ = −G⁽⁰⁾₀₁` for each unitary, so one phase `c̄₀c₁` matches both off-diagonal
+  entries. That is `GramPhaseEquiv`.
+- Then `twoSided_of_gramPhaseEquiv` [K TSG:752] gives two-sided relatedness, slice by slice via `twoSidedRelated_iff`
+  [K TSG:839].
+
+So there the C0 candidate has both properties.
+
+At `|A| = 1` a single GR one-time interface sees at most `Fib`. The family of all GR interfaces separates `Fib`
+jointly: with `ρ = e_v` and cells `P_w`, the law reads `Γ_{wv}`. `Fib` equals BSEL-1's SH orbits per slice
+[R #914 c.6558834119 §5].
 
 **Controls** (all by hand, exact).
 
@@ -232,8 +270,8 @@ c.6558834119 §5].
 |---|---|---|
 | K1 | Recover S at `\|A\| = 1` | Step 1 is S with `𝒲′` = diagonal: **pass** |
 | K2 | C0 interface (`ρ = e_j`, configuration cells) satisfies GR | It is D3: **pass** |
-| K3 | B4′'s C1 counterexample fails GR | `ρ = \|+⟩⟨+\|` on `{0,1}` lies outside `𝒲′`, and the cells are not scalar, so CH predicts failure; B4′ HC-A gives `(½,½,0,0)` against `(0,0,½,½)` [P]: **fails as required** |
-| K4 | The RHC5 interface fails GR under ∀U | Not in D1–D3; B1(c) HC-A at `U = R` gives `(1/50,49/50)` against `(49/50,1/50)` [P]: **fails as required** |
+| K3 | B4′'s C1 counterexample fails GR | `ρ = \|+⟩⟨+\|` on `{0,1}` lies outside `𝒲′` and the cells are not scalar, so Q1c predicts failure. B4′ HC-A gives `(½,½,0,0)` against `(0,0,½,½)` [R]: **fails as required** |
+| K4 | The RHC5 interface fails GR under ∀U | Not in D1–D3. B1(c) HC-A at `U = R` gives `(1/50,49/50)` against `(49/50,1/50)` [R]: **fails as required** |
 | K5 | Non-vacuity | The `F₃` pair and TG3 above: **pass** |
 | K6 | Positive and perturbed instances at `\|A\| = 2` | CE-2 passes, also checked directly at `K = swap((0,a₁),(1,a₁))`, where both laws are `¾`. With `ρ′ = ½(e_{(0,a₀)}e† + e_{(0,a₁)}e†)` the same `K` gives `1` against `½`: **pass / fails as required** |
 | K7 | B1(c)'s R2 countermodel is GR | `A_0 = A_1 = ½·1` is D1: **pass** |
@@ -245,8 +283,8 @@ two places:
 - **the H-fac form.** The law is a fixed linear functional of `UρU†`.
 
 It says nothing about a restricted class of `U`, such as one process's lift slices or OI-realizable lifts; that case
-is OPEN. It says nothing about `U`-dependent devices, two times (B4′'s C2 fails GR), physical availability of any
-ingredient, or an identification of OI's gauge with SH's. The last would be a bridge without a formal map.
+is UNDECIDED. It says nothing about `U`-dependent devices, two times (B4′'s C2 fails GR), physical availability of
+any ingredient, or an identification of OI's gauge with SH's. The last would be a bridge without a formal map.
 
 ### 3.3 B3
 **Q3a, reduction (torus form)** [D, both directions]. Fix a lift `W` with columns `w_k`, and put
@@ -254,7 +292,9 @@ ingredient, or an identification of OI's gauge with SH's. The last would be a br
 `W·col₃H(i) = a−ib`, and columns 0 and 2 of `H(1)` and `H(i)` agree.
 
 For each row, `|a+b|² − |a+ib|² = 2(Re c − Im c)` with `c = a b̄`, and the column-3 condition is the same. This
-reproduces PL-BSEL2/RHC7's `Re c_r = Im c_r` [P]. Also `Σ_r c_r = ⟨b,a⟩ = 0`. The following are equivalent:
+reproduces the reduction to `Re c_r = Im c_r` [R: MM Thread E row, "PD [R]"]. Also `Σ_r c_r = ⟨b,a⟩ = 0`.
+
+The following are equivalent:
 - (i) `Feas(Γ_W)`;
 - (ii) some lift has `c_0, c_1, c_2` collinear through `0`;
 - (iii) some lift has `w₀ − w₂ ∈ ℝ⁴` and `w₁ − w₃ ∈ ℝ⁴`.
@@ -265,13 +305,16 @@ Proof:
   real, and `b_r` with it, or make `b_r` real where `a_r = 0`. Both steps keep `|W|²`.
 - (iii)⇒(i): `d₁ = d₃ = e^{−iπ/4}` puts every real `c_r` on `e^{iπ/4}ℝ`.
 
-The torus form [P] is (ii) restricted to one two-sided orbit. Over the whole fibre the existential runs over every
-orbit in it.
+The torus form is (ii) restricted to one two-sided orbit. PL-BSEL2 and MM grade it [P], a plan sketch (CJ). Over the
+whole fibre the existential runs over every orbit in it.
 
-**Sufficient condition** [D]. If `Γ_W` is orthostochastic, then `Feas` holds: take `W = O` real in (iii). This covers
-every Thread E control: monomial `Γ_W`, `J/4 = |H(1)|²`, and every 2+2 sum, since 2×2 doubly stochastic matrices are
-orthostochastic [L]. Countercontrol: the fixed `W = H(1)` gives `c = (0,¼,0,−¼)`, with `Re ≠ Im`, so it separates
-before right phases: **as required**.
+**Sufficient condition** [D]. If `Γ_W` is orthostochastic, then `Feas` holds: take `W = O` real in (iii).
+- This covers every Thread E control: monomial `Γ_W`, `J/4 = |H(1)|²`, and every 2+2 sum, since 2×2 doubly
+  stochastic matrices are orthostochastic [L].
+- Countercontrol: the fixed `W = H(1)` gives `c = (0,¼,0,−¼)`, with `Re ≠ Im`, so it separates before right phases:
+  **as required**.
+- The converse is false: `J₃/3 ⊕ 1` is feasible (Q3b) and not orthostochastic. Its zero pattern forces any orthogonal
+  `O` to be `O₃ ⊕ ±1`, and no real `O₃` has `|O₃|² = J₃/3`, since a sum of three `±⅓` terms is never 0.
 
 **Q3b, 3+1 blocks** [D]. Let `Γ_W = P(B₃ ⊕ 1)Q`, with `P`, `Q` permutations and `B₃` any 3×3 unistochastic
 matrix. Then `Feas` holds.
@@ -289,18 +332,20 @@ matrix. Then `Feas` holds.
 
 Exact instance: `B₃ = J₃/3`, `V = [[1,1,1],[ω,1,ω²],[ω²,1,ω]]/√3`, `d₀ = d₂ = i`. Then `a = (0,−½,½,0)` and
 `b = ½(1/√3,1/√3,1/√3,−1)`. After `d₁ = d₃ = e^{−iπ/4}`, column 1 of `|WH(1)|²` and of `|WH(i)|²` is the same,
-`(1/12, 1/3 − 1/(2√6), 1/3 + 1/(2√6), 1/4)`, and so is column 3. `J₃/3` is not orthostochastic, so Q3b goes beyond the sufficient condition.
+`(1/12, 1/3 − 1/(2√6), 1/3 + 1/(2√6), 1/4)`, and so is column 3. `J₃/3` is not orthostochastic, so Q3b goes beyond
+the sufficient condition.
 
-**Q3c, general `Γ_W`: OPEN.** Counting gives 2 phase parameters, `d₂/d₀` and `d₃/d₁`, against 2 real collinearity
-conditions per orbit. Generic fibres are finite unions of two-sided orbits [L], so existence is a global question. No
-proof of general feasibility and no infeasible `Γ_W` was found. A leading-order check near the identity, in one regime
-`|X₀₁| ≫ |X₁₂|, |X₀₃| ≫ |X₂₃|`, found the leading-order equations solvable: their obstruction phase is
-`≡ 0 (mod π)` by anti-Hermiticity. That is a heuristic only, unverified, with no non-degeneracy or higher-order
-control.
+**Q3c, general `Γ_W`: UNDECIDED.** Counting gives 2 phase parameters, `d₂/d₀` and `d₃/d₁`, against 2 real
+collinearity conditions per orbit. Generic fibres are finite unions of two-sided orbits [L], so existence is a global
+question. No proof of general feasibility and no infeasible `Γ_W` was found.
 
-**B3's relevance (unchanged).** By PL-BSEL2 B1-C(ii) [P], with ancilla-carrying device lifts the process-fixed
-relation identifies TG3 for every `Γ_W`. Q3 bears only on `V`-only lifts, which "under a reading of Main:99's class
-[…] are absent" (PL-BSEL2 l. 85). B3 is pure mathematics with representational relevance only.
+**B3's relevance (unchanged).**
+- With ancilla-carrying device lifts, every stochastic `Γ_W` has an apparatus-record dilation [R: MM row C-16, PD;
+  Main:212]. So the process-fixed relation identifies TG3 once lifts may carry an ancilla.
+- Q3 therefore bears only on `V`-only device lifts. MM's Thread E row records that these are "absent from Main:99's
+  class under a reading only".
+- Q3's statement contains no access, preparation or composition hypothesis. Its bearing on OI's native class runs
+  only through that reading.
 
 ### 3.4 B5
 - **Q5a: MATHEMATICAL** [D].
@@ -308,7 +353,7 @@ relation identifies TG3 for every `Γ_W`. Q3 bears only on `V`-only lifts, which
   - Both slices are symmetric, so `PPer`'s transpose orientation (Thread E §3.3(d)) changes nothing.
   - With `pper_has_responseRealization` [K RootedClassificationAllTime:162], `Γ^alt` has a finite reversible
     realization (Thread E §3.3(e)).
-  - This confirms MM R2-3's [P] on paper.
+  - This confirms on paper the sketch MM R2-3 grades [P].
 - **Q5b: MATHEMATICAL** [D from K].
   - Each slice is admissible: `Γ(1) = 1` and `Γ(H(z)) = J/4`.
   - The slices at `t = 1` are not two-sided related [K TSG:907]. `TwoSidedRelated` needs every slice [K TSG:84], so
@@ -320,73 +365,81 @@ relation identifies TG3 for every `Γ_W`. Q3 bears only on `V`-only lifts, which
     slice and carry over unchanged [D].
   - *C2, R fails* [D]: with `g` given by `K_1 = diag(1,1,1,−1)` and `K_t = 1` otherwise, the procedure reading at
     `(1,3)` gives `𝒪₂(3,1) = |H(1)H(1)ᴴ|² = 1` for `U^alt` and `|H(1)KH(1)ᴴ|² = J/4` for `gU^alt`. The second equality
-    follows from `1 − 2h₃h₃ᵀ`, entries `±½`. The factorized law is B4′ D4 [P], under `Rst-auto`.
-  - *C2, Q fails* [D]: `U^alt` and `U′^alt` have equal C2 laws on every read list from every root `j`. Every factor
-    is the same for both lifts: root `Γ_{t₁} ∈ {1, J/4}`, and `𝒪₂(t,s)` is `1` (same parity) or `J/4` (mixed
-    parity), since `H(z)H(z)ᴴ = 1` and `|H(z)|² = J/4`. Yet the lifts are not `G`-related (Q5b). So
-    COUNTEREXAMPLE[Q[C2], `Γ^alt ∈ PPer`, `|A| = 1`, `Rst-auto`]. It needs no gauge image. Unlike the constant TG3
-    pair, C2 does not separate this pair even raw.
-- **Q5d (GL2 re-placed): OPEN, not attempted.** It needs act 7's `U_B` and a reviewed choice of gauge time.
+    follows from `1 − 2h₃h₃ᵀ`, entries `±½`. The factorized law is B4′ D4 [R], under `Rst-auto`.
+  - *C2, Q fails* [D]: `U^alt` and `U′^alt` have equal C2 laws on every read list from every root `j`.
+    - Every factor is the same for both lifts. The root factor is `Γ_{t₁} ∈ {1, J/4}`. `𝒪₂(t,s)` is `1` at same
+      parity and `J/4` at mixed parity, since `H(z)H(z)ᴴ = 1` and `|H(z)|² = J/4`.
+    - Yet the lifts are not `G`-related (Q5b).
+    - So COUNTEREXAMPLE[Q[C2], `Γ^alt ∈ PPer`, `|A| = 1`, H-comp, Acc₂, Rst-auto, P-conf]. It needs no gauge image.
+    - This differs from the TG3 lift pair (`U ≡ H(1)`; `U′_0 = H(1)`, `U′_{t≥1} = H(i)`; TSG:966). There only `Γ`
+      is constant, and C2 separates the pair raw through `𝒪₂(1,0)`. On `Γ^alt`, C2 does not separate the pair even
+      raw.
+- **Q5d (GL2 re-placed): UNDECIDED, not attempted.** It needs act 7's `U_B` and a reviewed choice of gauge time.
 
 ## §4. Results
 
 | Question | Dir. | Verdict | Hypotheses | Support | Does NOT establish |
 |---|---|---|---|---|---|
-| Q1 | ⇐ | MATHEMATICAL (FI); fails under FI_c at `\|A\|≥2` (CE-3) | H-fac, one time, fixed `a₀` | [K] TSG:217, CLG:273; [D] | anything native |
-| Q1 | ⇒ | MATHEMATICAL, any `\|A\|` | H-fac, one time, ∀U on `ℂ^{V×A}` | [P] Lemma HS; [D] CM, steps 1–4 | restricted `U` classes (OPEN); two times; `U`-dependent devices; physical availability |
-| Q1c | ⇒, ⇐ | MATHEMATICAL: GR ⇔ D1 ∨ D2 ∨ D3 | as Q1⇒ | [D] | that any disjunct is physically supplied |
-| B1(c) S, extended to `\|A\|≥2` | — | COUNTEREXAMPLE[mixed `ρ`] (CE-2); holds for pure `π`, `\|V\|≥2` | as Q1⇒ | [D] | nothing about S at `\|A\| = 1`, which stands |
-| DC | — | MATHEMATICAL: `¬(R[C] ∧ Q[C])` at `\|V\|≥3` | one-time H-fac candidates, ∀U | [D]; [K] TSG:263, :870, :907 | native separation or identification; `\|V\| = 2` |
-| Q3a | ⇔ | MATHEMATICAL ((i)⇔(ii)⇔(iii)) | 4×4, `\|W\|² = Γ_W` | [D]; reproduces [P] RHC7 | Q3 itself |
-| Q3 suff. | ⇒ | orthostochastic ⇒ Feas: MATHEMATICAL | — | [D], [L] | the converse |
-| Q3b | — | MATHEMATICAL: every `P(B₃⊕1)Q` feasible | — | [D] | general `Γ_W` |
-| Q3c | — | OPEN | — | — | Yes or No |
+| Q1 | ⇐ | MATHEMATICAL under FI; COUNTEREXAMPLE under FI_c at `\|A\|≥2` (CE-3) | H-fac, one time, fixed `a₀` | [K] TSG:217, CLG:273; [D] | anything native |
+| Q1 | ⇒ | MATHEMATICAL, any `\|A\|`, under either reading (FI ⇒ FI_c). About OI lifts: CONDITIONAL[H-fac, one time, fixed `a₀`, ∀U on `ℂ^{V×A}`] | as the label | [R] Lemma HS; [D] CM, steps 1–4 | restricted `U` classes (UNDECIDED); two times; `U`-dependent devices; physical availability |
+| Q1c | ⇒, ⇐ | MATHEMATICAL: GR ⇔ D1 ∨ D2 ∨ D3. About OI lifts: CONDITIONAL[H-fac, one time, fixed `a₀`, ∀U on `ℂ^{V×A}`] | as the label | [D] | that any disjunct is physically supplied |
+| B1(c) S, extended to `\|A\|≥2` | — | COUNTEREXAMPLE[mixed `ρ`, `\|A\|=2`] (CE-2); holds for pure `π`, `\|V\|≥2` | H-fac, one time, ∀U | [D] | nothing about S at `\|A\| = 1`, which stands |
+| DC | — | MATHEMATICAL: `¬(R[C] ∧ Q[C])` at `\|V\|≥3`; at `\|V\|=2`, `\|A\|=1`, C0 has both. About OI lifts: CONDITIONAL[H-fac, one time, fixed `a₀`, ∀U on `ℂ^{V×A}`] | one-time H-fac candidates | [D]; [K] TSG:263, :752, :839, :870, :907 | native separation or identification; restricted `U` classes; `\|V\| = 2`, `\|A\| ≥ 2` |
+| Q3a | ⇔ | MATHEMATICAL ((i)⇔(ii)⇔(iii)) | 4×4, `\|W\|² = Γ_W`, time-homogeneous | [D]; reproduces [R] (MM Thread E row) | Q3 itself; the time-dependent variant |
+| Q3 suff. | ⇒ | orthostochastic ⇒ Feas: MATHEMATICAL. Converse: COUNTEREXAMPLE (`J₃/3 ⊕ 1`) | time-homogeneous | [D], [L] | — |
+| Q3b | — | MATHEMATICAL: every `P(B₃⊕1)Q` feasible | time-homogeneous | [D] | general `Γ_W`; the time-dependent variant |
+| Q3c | — | UNDECIDED | time-homogeneous | — | Yes or No |
 | Q5a | — | MATHEMATICAL | — | [D]; [K] RCAT:162 | any native realization of the lifts |
 | Q5b | — | MATHEMATICAL | — | [D from K] TSG:84, :907 | a kernel statement |
-| Q5c | R[C2], Q[C2] | COUNTEREXAMPLE both, at `Γ^alt` | `\|A\|=1`, H-comp, Rst-auto, P-conf | [D], [P] B4′ D4 | `\|A\|≥2` |
-| Q5d | — | OPEN (not attempted) | — | — | — |
+| Q5c | R[C2], Q[C2] | COUNTEREXAMPLE both, at `Γ^alt` | `\|A\|=1`, H-comp, Acc₂, Rst-auto, P-conf | [D], [R] B4′ D4 | `\|A\|≥2` |
+| Q5d | — | UNDECIDED (not attempted) | — | — | — |
 | B3/B5 lanes | — | not decided | — | [O] D-36, D-38, D-39 | — |
 
 Controls K1–K7 and the Q3 controls behaved as required.
 
-## §5. Consequences for #914 (proposals only; nothing applied)
+## §5. Consequences for #914 (proposals only; nothing applied; each takes effect only after independent review)
 
-1. **MM §4c, one-time equivalence.** Proposed: "(⇒) PD, once independently reviewed, under ∀U, H-fac and reading FI. (⇐) holds
-   under FI at every `|A|`, and under FI_c only at `|A| = 1`." This applies only after independent review.
+1. **MM §4c, one-time equivalence.** Proposed text: "(⇒) PD under ∀U, H-fac and reading FI, hence also under FI_c.
+   (⇐) holds under FI at every `|A|`, and under FI_c only at `|A| = 1`."
 2. **MM §4c, the withdrawn clause.** Q1c (D1 ∨ D2 ∨ D3) is a candidate replacement, with CE-1 recorded.
 3. **B1(c) row.** Add the scope note: `|A| = 1` is load-bearing for mixed preparations (CE-2); S′ holds at `|A| ≥ 2`.
 4. **New R-edges (not L-edges).**
-   - DC informs B6 and #1064 (BSEL-3). A one-time H-fac interface that separates two-sided classes cannot be
-     gauge-respecting, so any native separation route is two-time or outside H-fac.
-   - DC also bears on P-22. At `|A| = 1` the GR one-time quotient is the SH/fibre quotient, and no gauge identification
-     follows.
+   - DC informs B6 and #1064 (BSEL-3). At `|V| ≥ 3`, a one-time H-fac interface that separates two-sided classes cannot
+     be gauge-respecting under ∀U. Any native separation route therefore has one of three forms:
+     - two-time;
+     - outside H-fac;
+     - gauge-respecting only on a restricted class of `U`, a case that is UNDECIDED (§3.2).
+   - DC also bears on P-22. At `|A| = 1` a GR one-time interface sees at most the SH/fibre quotient, and no gauge
+     identification follows.
 5. **MM Thread E row (table above §4c).**
-   - "torus form CJ [P]" → reduction PD [D].
-   - Add "3+1 blocks feasible (PD [D]); orthostochastic feasible; general Q3 OP".
+   - "torus form CJ [P]" → reduction PD, after review.
+   - Add "3+1 blocks feasible; orthostochastic feasible (converse false); general Q3 UNDECIDED". Each entry is PD after
+     review, scoped to the time-homogeneous variant.
    - "Stays a candidate" is unchanged.
-6. **MM R2-3.** `PPer` membership of `Γ^alt`: [P] → PD [D], pending review. Add the `Γ^alt` C2 pair as a `PPer`
-   witness for B4′'s C2 rows.
+6. **MM R2-3.** `PPer` membership of `Γ^alt`: [P] → PD, after review. Add the `Γ^alt` C2 pair as a `PPer` witness for
+   B4′'s C2 rows, also after review.
 7. **Unchanged:** B6 ← O-REC, O-SET; O-BSEL's "gauge = operational (Z7)" prohibition; all holds and grades.
 
-## §6. Open items and owner questions
+## §6. Undecided items and owner questions
 
-**Open.**
+**Undecided.**
 - Q1⇒ for restricted `U` classes (one process's slices, OI-realizable lifts).
 - Q3c (general `Γ_W`; fibres enumerated beyond phase orbits).
+- Q3's time-dependent variant (Thread E §5).
 - Q5d (GL2).
-- The `|A| ≥ 2` analogue of DC's strictness at `|V| = 2`.
+- DC's strictness at `|V| = 2`, `|A| ≥ 2`.
 - B2 (`|A| ≥ 2`, PL-BSEL2 l. 102) is partly addressed by Q1c. Its kernel controls (GI2's `A`-read, GL2's off-anchor
-  read, `pq1b`) were not run through CH here.
+  read, `pq1b`) were not run through Q1c here.
 
 **Owner questions.**
-1. Is FI the intended reading of "fibre-identifying"?
+1. Is FI the intended reading of "fibre-identifying"? Only Q1⇐ at `|A| ≥ 2` depends on it.
 2. Is ∀U the intended quantifier of the one-time equivalence?
 3. Should Q1c replace the withdrawn clause, after review?
 4. D-36: B3 as pure mathematics, or park? Q3b removes the 3+1 sub-item.
 5. D-38 and D-39: B5's lane, and its Lean work.
-6. May PL-BSEL2 and Thread E, which exist only off-repo, be quoted as sources? Their B3/B5 text is posted nowhere
-   public.
-7. Who reviews this note independently?
+6. May PL-BSEL2 and Thread E, which exist only off-repo, be quoted as sources? Their full B3/B5 statements are posted
+   nowhere public.
+7. Who re-reviews this revision?
 
 ## §7. Proposed computation (for separate authorization only; none run)
 
@@ -397,7 +450,7 @@ Controls K1–K7 and the Q3 controls behaved as required.
    - a scalar countercontrol.
 2. **Q3c.** Exact fibre enumeration and feasibility for a generic non-block 4-level `Γ_W`, under Thread E's
    preregistered rule, which can certify Yes only. Q3b's family and orthostochastic `Γ_W` serve as positive
-   controls.
+   controls. The time-dependent variant can be added as a separate arm.
 3. **Q5c control.** A complete-record comparison of `U^alt` against `U′^alt` and against `gU^alt`, under `Rst-auto`,
    to horizon 4.
 4. **Lean (D-39).** `PPer Γ^alt`; non-relatedness of the `Γ^alt` lifts; Lemma HS, Lemma CM, Q1 and Q1c. This needs a
