@@ -1,9 +1,9 @@
-# BORNSEL-B-MEASURE (r2): which branch of the hidden-sector measure fixes the probabilities the representation carries? (#1059, part (b))
+# BORNSEL-B-MEASURE (r3): which branch of the hidden-sector measure fixes the probabilities the representation carries? (#1059, part (b))
 
 ## Header
 
 - **Status.** WIP / UNVERIFIED. Paper-only. Part (b) only.
-- **Revision.** Revised after independent review of `f6526fb8` (REVISE); not re-reviewed.
+- **Revision.** Revised after independent reviews of `f6526fb8` (REVISE) and `f88e8710` (ACCEPT WITH CHANGES); not re-reviewed.
 - **Authorization.** Owner, chat 2026-11-04, recorded in #1059 c.6622106065. That authorization covers paper analysis of part (b) starting from the BORN-SRC-1 five-branch fork, plus source reading, derivation on paper, a literature examination, documented assumptions and independent review. It does not cover parts (a), (c) or (d), computation, Lean, adopting a premise, promoting a claim, merging or publishing.
 - **Base.** `origin/main` `1609dc440f5a12d05b750f6d894bb91d09a099a3`. `papers/Main.md` was last changed at `63b4e32e`. The `Main:N` citations are lines at this base. They match the lines that BORN-SRC-1 cites at `02009693` for the passages used here.
 - **Sources read.**
@@ -165,7 +165,7 @@ The premises were searched across `papers/`, `book/` and the kernel (§A.19):
   - It fixes $\mu$ only when $\varphi$ is transitive [K: `ensembleDetermined_of_transitive`, `StochasticInterface.lean:38`].
   - It does not fix $\mu$ for two disjoint invariant sets [K: `invariance_does_not_select`, `CanonicalMeasure.lean:242`].
   - The manuscripts' wave substratum is not transitive [K: `waveSubstratum_stochastic_interface_gap`, `StochasticInterface.lean:191`].
-- **Maximal entropy (Lemma 3, clause 2, Main:56; posit (iv), Main:726).** Posit (iv) is "a standard but substantive epistemic postulate, not derived" [P]. It is a stipulation, not a selection (§2).
+- **Maximal entropy (Lemma 3, clause 2, Main:56; posit (iv), Main:726).** Posit (iv) is "a standard but substantive epistemic postulate, not derived" [P]. It is a stipulation, not a selection (§2). The link that posit (v) asserts to (iv) is treated in the mixing bullet below.
 - **Bijectivity, recurrence, finiteness and C1–C4** constrain $\varphi$ and the partition, not $\mu$.
 - **C3** excludes short orbits as observer-lacking (Main:62) [P]. That narrows the candidates for $O^*$ but chooses nothing among long orbits (CE-8).
 - **Mixing and relaxation.** These are stated only as hypotheses about the coarse-grained channel:
@@ -173,6 +173,8 @@ The premises were searched across `papers/`, `book/` and the kernel (§A.19):
   - posit (v), Main:726, "the hidden-sector mixing hypothesis (ETH-motivated) conditioning the slow-bath form of the C2-necessity direction" [P].
 
   Neither is shown to fix μ on $S$ or to deliver orbit-frequency typicality (N4, N5).
+
+  Posit (v) also links its open question to (iv). It says that "whether the realized hidden sector satisfies the mixing hypothesis remains open — this is the same open dynamical question as the chaotic-mixing suppression invoked to motivate laboratory setting/preparation decorrelation (§3.3) and the typicality selection in (iv), one conditional wearing three hats" (Main:726) [P]. The corpus therefore does tie posit (iv)'s selection to (v)'s mixing hypothesis. That tie is asserted as motivation only: nothing about μ is derived from it, and (v) is itself recorded as open. So the verdict that (iv) is a stipulation, not a selection, stands.
 - **Frequency reading.** No premise in the corpus names a frequency reading of probability.
 - **ch18.** The §18.2 ledger states: "No entry in this section is a theorem of the foundational paper" [P].
 
@@ -196,7 +198,9 @@ This node is decisive because posit (iv) is the only premise in the corpus that 
 - If $\mu$ is invariant and $\mu(A_r)=1$, then $\mu(\varphi^tA_r)=1$ for all $t$. So $\mathrm{supp}\,\mu\subseteq I(A_r):=\bigcap_t\varphi^tA_r$, the largest invariant subset of $A_r$.
 - If also $s^*\in\mathrm{supp}\,\mu$, then $O^*\subseteq I(A_r)\subseteq A_r$, so the record is constant (true) on $O^*$.
 - So for a time-varying record, no invariant law gives the record probability 1 while keeping $s^*$ in its support.
-- Consequently the observer's assignment (P5), which gives its own record probability 1, is non-invariant.
+- Consequently the observer's assignment (P5), which gives its own record probability 1, is non-invariant whenever its support contains $s^*$.
+  - γ-c's support $A_r$ contains $s^*$, so γ-c is covered.
+  - An invariant law that excludes $s^*$, such as $\mathrm{unif}(I(A_r))$ on another orbit, can give the record probability 1. G2 does not exclude it.
 
 **The four readings:**
 - **γ-c (condition on records):** maximal entropy subject to $\mathrm{supp}\subseteq A_r$. By Lemma G it is $\mathrm{unif}(A_r)=\beta(\cdot\mid A_r)$.
@@ -215,7 +219,10 @@ This node is decisive because posit (iv) is the only premise in the corpus that 
   - In CE-8, every visible record has $I(A_r)=\emptyset$.
   - **Verdict: excluded for time-varying records**, and undefined or excluding $s^*$ there.
   - For records that are values of conserved quantities, the law is microcanonical on the level set. That has the form of SM:803–811's "on-shell measure" candidate [P, there a conjecture, with the stationary-law hypothesis open].
-  - On the linear rule this law is not α: posit (v) records that the exact linear rule "conserves a quadratic invariant" and "splits its largest energy shell into exponentially many cycles" (Main:726) [P].
+  - Posit (v) records that the exact linear rule "conserves a quadratic invariant for every symmetric translation-invariant coupling and, at prime $q$ not dividing the lattice size, for $d\ge2$ splits its largest energy shell into exponentially many cycles" (Main:726) [P].
+    - So for an energy-valued record on the largest shell, under (v)'s stated conditions (symmetric translation-invariant coupling, $d\ge2$, prime $q$ not dividing the lattice size), the microcanonical law spans many cycles and is not α.
+    - Outside those conditions this is not established. A conserved record whose level set is a single cycle gives exactly α, since then $I(A_r)=O^*$.
+    - C-1 runs at $d=1$, outside (v)'s splitting clause.
 - **γ-soft (records as expectation constraints):** the maximal-entropy law under $E_\mu[f_i]=c_i$ is an exponential family [L: Jaynes]. It is invariant when the $f_i$ are conserved.
   - **Verdict: undecidable.** The corpus names no constraint functions.
 
@@ -225,7 +232,7 @@ This node is decisive because posit (iv) is the only premise in the corpus that 
 - γ is undecidable as worded.
 - Read as an invariant prior followed by conditioning (Main:62), the wording is literal and gives γ-c, which reduces to β-conditioning.
 - Read as a single invariant law that gives the records probability 1, the wording fails for every time-varying record (G2).
-- NEW finding of this node (a hidden assumption in the posit ledger wording): no invariant law gives a time-varying record probability 1 with $s^*$ in its support, so the observer's assignment (P5) is non-invariant. The ledger's "invariant" applies coherently to the prior over orbits, not to the assignment. This bears directly on O3 (§6).
+- NEW finding of this node (a hidden assumption in the posit ledger wording): no invariant law gives a time-varying record probability 1 with $s^*$ in its support. So the observer's assignment (P5) is non-invariant whenever its support contains $s^*$, as γ-c's does. The ledger's "invariant" applies coherently to the prior over orbits, not to the assignment. This bears directly on O3 (§6).
 
 ### N4. α and the frequency reading
 
@@ -251,12 +258,14 @@ So the branches differ exactly in the regime where the probabilities are nontriv
 **Skepticism toward the favorable reading.** H-freq stipulates α, but:
 1. The horizon is the orbit's cycle, of order up to the recurrence time, which no accessible window reaches (Main:141). On accessible windows, empirical frequencies equal α's only under a typicality hypothesis. (EM) (Main:746) and posit (v) (Main:726) are mixing hypotheses for the coarse-grained channel, and neither is shown to supply orbit-frequency typicality.
 2. α is ontic and the observer does not know $O^*$, so α cannot serve as the observer's assignment (P5) unless records pin the orbit down (A3).
-3. In general α supplies no hidden prior shared by every root, whereas the P2/H-μ results assume a product form (matrix code H-μ, "on a declared product partition"). CE-8 does not show this, because there α is product on each orbit. A minimal instance: $\mathcal C_V=\mathcal C_H=\{0,1\}$ with $\varphi$ swapping $(0,0)\leftrightarrow(1,1)$ and $(0,1)\leftrightarrow(1,0)$. On $O^*=\{(0,0),(1,1)\}$, $\kappa_0=\delta_0$ and $\kappa_1=\delta_1$, which depend on the root.
+3. In general α supplies no hidden prior shared by every root, whereas the P2/H-μ results assume a product form (matrix code H-μ, "on a declared product partition"). CE-8 does not show this, because there α is product on each orbit.
+   - A minimal instance: $\mathcal C_V=\mathcal C_H=\{0,1\}$ with $\varphi$ swapping $(0,0)\leftrightarrow(1,1)$ and $(0,1)\leftrightarrow(1,0)$. On $O^*=\{(0,0),(1,1)\}$, $\kappa_0=\delta_0$ and $\kappa_1=\delta_1$, which depend on the root.
+   - This instance is illustrative only: an orbit of length 2 is outside C3, so Main:62 treats it as observer-lacking.
 4. H-freq is a reading of "probability", not a physical premise. Under §A.29 it delivers no independent prediction at accessible horizons.
 
 **Verdict.**
 - α is compatible with every non-posited premise. For non-transitive φ it conflicts with Lemma 3 clause 2 and posit (iv), which select counting globally (Main:56, :726).
-- The manuscript holds clause 1 (α on the actual orbit, Main:62) and clause 2 together. They are consistent only if clause 2 is read as the epistemic prior over orbits (N3, γ-i as a prior) and clause 1 as the ontic statement.
+- The manuscript holds clause 1 (α on the actual orbit, Main:62) and clause 2 together. A2 proves that for non-transitive φ they cannot describe the same law, since $\mathrm{unif}(O^*)=\mathrm{unif}(S)$ forces $O^*=S$. One consistent reading, not shown to be the only one, takes clause 2 as the epistemic prior over orbits (N3, γ-i as a prior) and clause 1 as the ontic statement about the actual orbit.
 - α is stipulated by (equivalent to) H-freq at the cycle horizon. It is selected by no premise.
 - ELABORATING. As a guard, the result is NEW in the narrow sense that the Born-form theorem's β weights are not single-run frequencies on generic non-transitive bijections (CE-8).
 
@@ -271,7 +280,8 @@ The reading ch18 proposes is coarse-grained: Born statistics as "the stationary 
   - (EM) asserts a dissipative gap of a compression, "the coarse-grained effective channel", and does not identify the compression's stationary state with a measure on $S$.
 
   This reading of the two hypotheses is [D].
-- **Verdict: undecidable from current premises.** Conditional on (EM) or (v), coarse-grained ε reduces to whichever reference prior those hypotheses take as input, and selects none.
+- Posit (v) ties its open mixing question to the typicality selection in (iv), "one conditional wearing three hats" (Main:726) [P]. As in N2, that tie is motivation only, and nothing about the relaxation target is derived from it.
+- **Verdict: undecidable from current premises.** (v) takes the target as input; (EM) is silent on it; neither selects.
 
 **Lemma E (fine-grained: no relaxation; time average)** [K + D].
 - $\varphi_*$ permutes the values of $\mu$. So:
@@ -381,7 +391,9 @@ None of these is a status change. Each needs review and an owner decision.
 - **QB-4 [O].** Should B4 (Main:137's implication under root-dependent κ) and Lemmas G, G2, U, E and N2.1 go to independent review, and later to Lean (§7)?
 - **Open items.**
   - γ-soft needs named constraint functions.
-  - Agreement with α at accessible windows (N4) needs a typicality hypothesis. Coarse-grained ε (N5) needs a closed relaxation law and a relaxation target. (EM) (Main:746) and posit (v) (Main:726) are stated mixing hypotheses for the coarse-grained channel, but neither is shown to fix μ on $S$, to fix a target, or to deliver orbit-frequency typicality.
+  - Agreement with α at accessible windows (N4) needs a typicality hypothesis. Coarse-grained ε (N5) needs a closed relaxation law and a relaxation target.
+    - (EM) (Main:746) and posit (v) (Main:726) are stated mixing hypotheses for the coarse-grained channel. Neither is shown to fix μ on $S$, to fix a target, or to deliver orbit-frequency typicality.
+    - Posit (v) identifies its open mixing question with the typicality selection in (iv) ("one conditional wearing three hats"). That identification is asserted as motivation, and nothing about μ is derived from it.
   - The wave substratum's orbit statistics have not been checked (C-1).
 - **Out of scope, observed.** At the base, Main:20 and Main:556 still point to "§3.1" for the exponent frontier, so BORN-SRC-1's F2 is unapplied. That item belongs to O2.
 
