@@ -85,6 +85,9 @@ A proof under hypotheses does not derive them.
 - **H-pre** (the weakest form used in Theorem 1): `(b5, V5)` is uniform conditional on `E`.
 - **H-prior⁺:** `P(η=z, β=b, V5=v | D‴=d) = 8^-(42+|β|+76)`.
 - **H-prior implies the parent's prior** `P(η | D) = 8^-42`, where `D = D′ ∪ β`.
+- **H-inventory, H-access, H-torus:** as in `later-access-preregistration.md:161–168`.
+- **P1–P5, P6a:** the recorded exact preconditions (`later-access-result.md:41–49`) *(recorded, not
+  re-run)*. P6b is a sampled mechanism check and is not used below.
 
 **Lemma 0 (relations among the priors).**
 
@@ -120,9 +123,6 @@ port-5 frontier triples `f_5(t)`, `S < t ≤ H`, are reserved bank triples, unif
 
 On this reading H-bank is part of the preparation. By Lemma 0(b) it implies H-pre. "H-prior as its
 displayed equation" below means the equation at `:151` read without that sourcing sentence.
-- **H-inventory, H-access, H-torus:** as in `later-access-preregistration.md:161–168`.
-- **P1–P5, P6a:** the recorded exact preconditions (`later-access-result.md:41–49`) *(recorded, not
-  re-run)*. P6b is a sampled mechanism check and is not used below.
 
 ### LA-EQUAL
 
