@@ -53,7 +53,7 @@ $$\Gamma = \Gamma_V \times \Gamma_H, \qquad H_{\text{tot}} = H_V + H_H + H_{\tex
 
 follows, with cross-partition correlations entering only through $H_{\text{int}}$. The product decomposition is idealized; §4.5 addresses approximation quality.
 
-**Lemma 3** (Determinism, reversibility, and the selected measure). *$\varphi$ is a function with a unique successor for every state (determinism) and, as the reversible representative of §1.2, a bijection: distinct states have distinct successors and predecessors (injectivity — reversibility). On each accessible orbit the invariant measure is unique (uniform on the cycle); globally, the counting measure is selected among invariant measures as the maximal-entropy one — a selection principle, not uniqueness from invariance alone.*
+**Lemma 3** (Determinism, reversibility, and the selected measure). *$\varphi$ is a function with a unique successor for every state (determinism) and, as the reversible representative of §1.2, a bijection: distinct states have distinct successors and predecessors (injectivity — reversibility). On each finite cycle of the selected reversible model, the invariant probability measure is unique and uniform; globally, the counting measure is selected among invariant measures as the maximal-entropy one — a selection principle, not uniqueness from invariance alone.*
 
 *Remark (the continuum analogue).* The same distinction appears in the continuum: Liouville measure is invariant but is not, in general, the unique absolutely continuous invariant measure.
 
@@ -265,7 +265,7 @@ Conditions (G1)–(G3) fail only on a measure-zero set of Hamiltonians. A strong
 
 An independent derivation of the emergent quantum description uses only Stinespring's dilation theorem [15] and standard properties of the partial trace [16], without invoking the stochastic-quantum correspondence of §3.1. The two routes are independent in their inputs and in the results they invoke (the correspondence's own proof also proceeds via Stinespring-type dilation, so the shared bedrock is Stinespring's 1955 theorem); either alone suffices.
 
-**Setup.** The finite configuration spaces $\mathcal{C}_V = \{x_1, \ldots, x_n\}$ and $\mathcal{C}_H = \{h_1, \ldots, h_m\}$ (Lemma 1) embed into Hilbert spaces $\mathcal{H}_V = \mathbb{C}^n$ and $\mathcal{H}_H = \mathbb{C}^m$ via $|i\rangle \leftrightarrow x_i$ and $|k\rangle \leftrightarrow h_k$. This introduces no quantum postulates: it is the canonical identification of probability distributions on a finite set with diagonal density matrices.
+**Setup.** The finite configuration spaces $\mathcal{C}_V = \{x_1, \ldots, x_n\}$ and $\mathcal{C}_H = \{h_1, \ldots, h_m\}$ (Lemma 1 for $\mathcal{C}_V$; $\mathcal{C}_H$ under the total-finiteness posit, §1.2, §4.5) embed into Hilbert spaces $\mathcal{H}_V = \mathbb{C}^n$ and $\mathcal{H}_H = \mathbb{C}^m$ via $|i\rangle \leftrightarrow x_i$ and $|k\rangle \leftrightarrow h_k$. This introduces no quantum postulates: it is the canonical identification of probability distributions on a finite set with diagonal density matrices.
 
 **Lemma (permutation unitarity).** *Any bijection $\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H$ defines a unitary $U_\varphi$ on $\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_H$.*
 
