@@ -7,7 +7,8 @@ after independent reviews of `ad70d41b` (REVISE), `aceba574` (ACCEPT WITH CHANGE
 optional nits). Revision r4 applies those two nits, the consequences of the owner's rulings on Q1 and Q5 (#1032,
 2026-11-03/04), and the scope narrowing of S-1, J-1, (h) and Remark C by the Q7 review (2026-11-04). Revision r5
 applies the owner's ruling on Q8 for Phase A, the HC-R1 and HC-R3 rows over their gap-free spans, and CX-4b as a
-Phase A control. r4 and r5 have not been re-reviewed.
+Phase A control. r4 and r5 were checked by the two freeze reviews of `6735ef89`. Revision r6 applies those reviews:
+the read-set exceptions, the tick set of row 1's extension, and the stale §8 and §9 text. r6 has not been re-reviewed.
 
 - *What it is.* A test design for the question: does a proposed retention mechanism store information locally,
   or does the information only travel through a multi-cell register `A`? It contains candidate definitions, hand-checked
@@ -57,7 +58,8 @@ and `TV_t` from D-MET. Also used: Lemmas S, S′, Q, L and C (ROUTES §0.3 [C]);
   its *read cells*. Let `Q := Par(R) ∖ R`, and let `f_R : config(R) × config(Q) → config(R)` be the `R`-part of `φ`.
   - Building `Q` from the read cells alone would put unread register cells into `Q`. Storage held in unread cells
     and fed back into the read cells would then be labelled RS or TR.
-  - In every control of §3, `A` equals its read set.
+  - In every control of §3, `A` equals its read set, except DEFINITIONS' limitation case of HC-TM (`g = u₂`, read cell
+    `u₂`). In CX-4b (§6), `g = r` reads only `r`. `Q` is always built from `A` as a whole.
 - `supp Q_t` is the support of the vector `Q_t` under `μ_t`. Together with the supported configurations of `R`, it is
   the only place a law enters the exact criteria.
 - **Observation D0 (support-restricted dependence is ill-posed) [D].** DEFINITIONS computes `B_t` "as functions of the
@@ -398,7 +400,7 @@ or (R-b).
 
 | # | Row | Condition | Exact / approximate | Required assumptions | Does not establish |
 |---|---|---|---|---|---|
-| 1 | **RS: not storage, re-supply** | J-1 [U] fails at a hold tick of `W_{T′}` (`B_t := Q`, cells outside `A`). This extends (R-d), which is stated on `W_T`, to the extension window. | exact | J-1 [U]; supports | that the carrier is itself a record (a display, requirement 2); re-supply over `W_T`, when the failing hold tick lies in `W_{T′} ∖ W_T` |
+| 1 | **RS: not storage, re-supply** | J-1 [U] fails at a hold tick of `W_{T′}` (`B_t := Q`, cells outside `A`). This extends (R-d), which is stated on `W_T`, to the extension window. | exact | J-1 [U]; supports | that the carrier is itself a record (a display, requirement 2); re-supply over `W_T`, when the failing hold tick lies in `H_{T′} ∖ H_T` |
 | 2a | **TR: transport established** | the "record lost" conditions of §2.3 hold, and no nonempty `G ⊆ 𝒬_{W_{T′}}` makes `~_G` consistent on `𝓛_{W_{T′}}` | exact on the declared supports; the failure is observed, not predicted | H-cur (`R` declared); supports; (R-a) and (R-b) not required | that no other register or decoder stores the record; any rule-wide no-go |
 | 2b | **EX: exported or overwritten** | the "record lost" conditions of §2.3 hold, and some nonempty `G ⊆ 𝒬_{W_{T′}}` makes `~_G` consistent on `𝓛_{W_{T′}}` (HC-SK at small `k`; HC-R3 on `W₂`) | as 2a | as 2a | that the record passed through `A`; transport |
 | 3 | **No retention** | (R-a) or (R-b) fails, or `ε_max > ε*` at a tick of `W_T` | — | — | anything about transport |
@@ -544,16 +546,18 @@ The branches favourable to OI are pressure-tested first (§A.31).
 
 ## 8. Proposed computational experiment (for separate owner authorization)
 
-This is a specification only. It is not authorized (OQ-4 decision [C]) and nothing has been run.
+This is a specification only. It is not authorized (OQ-4 decision [C]) and nothing has been run. Phase A is specified
+by `PREREG-PHASE-A.md`, `PHASEA-TUPLES.json` and `PHASEA-EXPECTED.json`, which govern Phase A wherever they differ
+from this section. Phase B needs a separate owner decision (Q9).
 
 - **Preconditions, to be fixed in the freeze before authorization.**
   - The ruling on Q1 (#1032): HC-SW's expected row is row 6 (I-4), register-level circulating storage.
-  - Q3: the union or the tick-ordered `𝒬_W`.
+  - Q3 (#1032): the pooled union `𝒬_W` (`PREREG-PHASE-A.md` §2.3).
   - Q8 (#1032): Phase A uses the decoders fixed in §3, and Q8's lexicographic tie-break is not applied in Phase A. The
     rule for decoder values off the write-time support is a separate decision before Phase B.
-  - The rule for choosing `G` in DIL∃-η.
-  - The nonlinear rule (the SM:112 ring or rule h) and its instance.
-  - `w*` and `T*`, if any D-SML comparison is wanted (Q5).
+  - The rule for choosing `G` in DIL∃-η: `PREREG-PHASE-A.md` §4.
+  - For Phase B only: the nonlinear rule (the SM:112 ring or rule h) and its instance.
+  - `w*` and `T*`: unset and unused in Phase A (#1032).
 - **Objective.** First, exact replay of the §3 controls under every §2.3 criterion. Then the same criteria on the open
   native route.
 - **Phase A, controls.** Exhaustive enumeration in exact rational arithmetic, with no floating point in any verdict.
@@ -602,15 +606,15 @@ This is a specification only. It is not authorized (OQ-4 decision [C]) and nothi
 |---|---|
 | exact arithmetic | the type check of every probability as a rational, in the output schema |
 | replay of §3 values | a Phase A comparison against the frozen table, by exit status |
-| controls green before Phase B | the Phase B job depends on the Phase A job's conclusion |
+| controls green before any Phase B | Phase B is a separate owner decision after a Phase A pass (Q9); the Phase A workflow has no Phase B job |
 | decoder fixed before testing | the decoder rule's hash recorded in the freeze and in each output |
 | verdict text generated from output | a check step exits nonzero if any verdict line lacks a matching JSON row field |
 | one pass, no adaptive extension | the host's run record shows attempt 1; the frozen tuple list's hash is in the freeze and in each output |
-| halt on first red | each control check exits nonzero on a mismatch; Phase B needs Phase A, with no always-run override, so the host's job conclusions show Phase B skipped |
+| halt on first red | each control check exits nonzero on a mismatch, and the Phase A job halts at the first mismatch |
 
 ***
 
-## 9. Open questions for the owner
+## 9. Questions put to the owner (answered at #1032; the decisions are transcribed in `PREREG-PHASE-A.md` §2)
 
 1. Does closed circulation inside `A` (HC-SW, CX-7) count as storage for O-RET, as D-RET's "fixed function of changing
    cells" suggests? Or does requirement 2's "simple advection" exclude it?
