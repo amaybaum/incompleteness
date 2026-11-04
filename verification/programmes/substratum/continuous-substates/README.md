@@ -188,8 +188,8 @@ reports checked, by the Mathlib bridge job (`Build`; release-gate
 An earlier version of both modules was built in pull_request run
 `41094894776` for #1009 head `a02e197d`; the landed versions differ from it
 only in doc comments (#1009 commit `798558b7`), so that run is provenance for
-the earlier version, not evidence for the landed files. Later edits to these
-modules' doc comments change no declaration. The author-posted
+the earlier version, not evidence for the landed files. The doc-comment edit
+after `82f0e119` changes no declaration. The author-posted
 review of `a02e197d`
 ([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978))
 returned REVISE, with no mathematical errors reported; its reviewers are
@@ -277,7 +277,7 @@ succeeded on `main` in run `41871661965`, at `82f0e119`. The module is
 byte-identical to the version built in pull_request run `41094894776` for
 #1009 head `a02e197d`, which is provenance. The author-posted review
 ([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978))
-returned REVISE. It separates a rigorous negative
+returned REVISE. The analysis separates a rigorous negative
 result from a usable mathematical consistency control:
 
 - **Native pure-gradient negative:** assigning links by site
