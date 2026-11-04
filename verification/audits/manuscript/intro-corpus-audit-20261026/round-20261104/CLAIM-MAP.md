@@ -3,7 +3,7 @@
 Round 2026-11-04 of the #941 audit. **Not independently reviewed.** Every row is the writer's
 reading and is provisional until the independent review recorded on #918.
 
-- **Introduction lines** are those of `25a9d9fd` (this round's text after the owner decisions of #941 c.6643474520; 485 lines; no line moved relative to `a1721681`). Rows changed by those decisions name E18–E22. Where a
+- **Introduction lines** are those of `3e8bc6f3` (this round's text after the owner decisions of #941 c.6643474520; 485 lines; no line moved relative to `a1721681`). Rows changed by those decisions name E18–E23. Where a
   correction of this round changed the claim, the row gives the corrected wording's status and the
   finding ID.
 - **Sources** are `file:line` at `main` `f5c281ae10a913ec68fa41b3b839ad0b164979cd` unless stated.
