@@ -245,8 +245,14 @@ light cone, and at the wrong parity, the values are `0`, since `H(000) = 000`.
 
 - the state `(t mod m, B_t)` evolves by a permutation, because `B_{t-1} ↦ B_t` is bijective for each
   `t`;
-- so the sequence is purely periodic. Its period is 15 for `x` in the 3-cycle (`(2,100)` recurs at
-  `t = 17`) and 12 for `x` in the 4-cycle (`(2,011)` and `(2,110)` recur at `t = 14`).
+- so the sequence is purely periodic. For `x = 100` the period is 15 (`(2,100)` recurs at
+  `t = 17`); for `x = 011` and `x = 110` it is 12 (`(2,011)` and `(2,110)` recur at `t = 14`);
+- the other non-zero seeds are shifts of these. Since `F_t(001) = F_{t-2}(100)`,
+  `F_t(010) = F_{t+2}(100)`, `F_t(111) = F_{t+9}(011)` and `F_t(101) = F_{t-3}(110)`, and the
+  recursions agree from one matching value, `B_t(001) = B_{t-2}(100)` for `t ≥ 4`,
+  `B_t(010) = B_{t+2}(100)` for `t ≥ 3`, `B_t(111) = B_{t+9}(011)` for `t ≥ 3`, and
+  `B_t(101) = B_{t-3}(110)` for `t ≥ 5`. The matching values are in the table below. So every
+  period divides 15 or 12, and hence 60.
 
 Since `60 | 840`, `P ≡ 0 (mod 60)` and `S ≡ 185 ≡ 5 (mod 60)`. So `S+4 ≡ 9` and `S+6 ≡ 11 (mod 60)`,
 which gives `R = F_9 = H^9(x)` and `U_{S+6}(p5) = B_11`.
