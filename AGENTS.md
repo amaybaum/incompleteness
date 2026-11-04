@@ -1266,28 +1266,33 @@ distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
   6567198108 for its named workstreams A–F: "planning, source reading, paper derivations and review
   preparation, not reopening any frozen execution stage".
 
+---
+
 ## §A.46 Research records on `main` and established claims
 
 `main` is the authoritative research record, not only a collection of completed results. Research
-evidence may be kept on `main` whether or not its programme is complete: positive, negative and
-inconclusive results, failed approaches and the files that support them. Its provenance,
-assumptions, verification status and limitations are stated accurately.
+evidence (positive, negative and inconclusive results, failed approaches and the files that support
+them) may be kept on `main` whether or not its programme is complete, provided its provenance,
+assumptions, verification status and limitations are stated accurately. §A.42 item 5 and §A.28 limit
+what is added to `main`; neither is a ground for removing research evidence already on `main`, whose
+removal item 5 governs.
 
 1. **Established claims.** A claim is presented as established only when its supporting evidence
-   meets the verification standard for its kind (§A.42; the verification layers of the Code Review
-   Rules).
-2. **No promotion by retention.** Incomplete, negative and inconclusive results are not presented as
-   established conclusions. Keeping or landing a record on `main` strengthens no claim (§A.42
-   item 6).
-3. **Status is stated.** A research record's verification status is stated as independently
-   verified, partially verified, exploratory or known invalid: in the record, or for a frozen record
-   in a status artifact (§A.27, §A.30).
+   meets the verification standard for its kind (§A.42; the Code Review Rules, "Keep verification
+   layers distinct").
+2. **No promotion by retention.** Incomplete, negative and inconclusive results that do not meet
+   item 1's standard are not presented as established conclusions. Keeping or landing a record on
+   `main` strengthens no claim (§A.42 item 6).
+3. **Status is stated.** A research record distinguishes independently verified, partially verified,
+   exploratory and known-invalid results, in the record or, for a frozen record, in a mutable record
+   on `main` that cites it (§A.42 item 6; §A.45 rule 1).
 4. **Correct the conclusion, keep the evidence.** A conclusion its evidence does not support is
-   corrected where it is stated (§A.27, §A.30), and the evidence behind it stays.
-5. **Removal.** Annotation and correction are preferred to deletion. Removing research evidence
-   from `main` needs a specific justification, an audit of what on `main` depends on it, and
-   separate owner authorization.
+   corrected where it is stated (§A.27, §A.30) or, in a frozen record, by a new native round (§A.42
+   item 6), and the evidence behind it stays.
+5. **Removal.** For research evidence, annotation and correction are preferred to deletion; a
+   manuscript claim that loses its support is handled as §A.27 and §A.30 require. Removing research
+   evidence from `main` needs a specific justification, an audit of what on `main` depends on it,
+   and separate owner authorization.
 
-Adopted 2026-11-04 by owner decision, after a proposal to remove partially verified research
-records from `main` was found to break records, Lean modules and a manuscript sentence that depend
-on them.
+Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
+records from `main` was found to break records on `main` that depend on them.
