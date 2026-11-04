@@ -6,15 +6,18 @@ setting-conditioned later-access unit
 `later-access-result.md`, `later-access-result.json`, `native_later_access_probe.py`), and its use as
 item N5 of MR-1's frozen preregistration (`preregistration.md:109–111` in this directory).
 
-**Reviews.** Two read-only reviews of the same object were made separately on 2026-11-04 and are
-recorded below:
+**Reviews.** Three read-only reviews of the same object were made separately on 2026-11-04;
+reviews 1 and 2 are recorded below in full:
 
 - **Review 1:** ChatGPT (GPT-6), at the owner's request.
 - **Review 2:** a read-only review agent coordinated by the Claude Code session that drafted the
   2026-11-04 status notes. It read `main` at `449b8fa8e732995798b7cbca473cf38b57a037fa`.
+- **Review 3:** a separate read-only agent, coordinated by the same session, that re-reviewed this
+  consolidation and review 2's new claims and checked whether an existing result closes the gap.
+  Its findings are incorporated in the consolidated assessment below.
 
-Both are model-authored. Neither is an authenticated human or external review, and together they
-do not discharge AGENTS.md §A.46 item 7. Neither ran a script, numerical experiment or Lean build,
+All three are model-authored. None is an authenticated human or external review, and together they
+do not discharge AGENTS.md §A.46 item 7. None ran a script, numerical experiment or Lean build,
 and no frozen record is changed. Recorded check results are taken from `later-access-result.json`
 without re-running them. An earlier confirmation of the token posted on #1009 was not relied on.
 
@@ -34,14 +37,26 @@ without re-running them. An earlier confirmation of the token posted on #1009 wa
   values also needs the pre-tail (pre-cut) law to be the same for both values. Both reviews locate
   the gap here (review 1, §A, "Missing bridge"; review 2, §1.3).
   - Review 2 identifies the mechanism. The setting bit re-enters port 5's accessible record two ticks
-    after `R`: the A-component of `U_{S+6}(p5)` is `R.A ⊕ Σ.B`. It is masked only if the pre-cut
-    port-5 frontier triples `f_5(t)`, `S+4 < t ≤ L+3`, are uniform and independent. H-prior as
+    after `R`: the A-component of `U_{S+6}(p5)` is `R.A ⊕ Σ.B`. It is masked if the pre-cut
+    port-5 frontier triples `f_5(t)`, `S+4 < t ≤ L+3`, are uniform and independent; no weaker
+    condition is examined. Review 3 confirmed this channel by hand. H-prior as
     displayed (`later-access-preregistration.md:151`) constrains `(η, β)` given `D′` and not those
     triples, which lie in `D′`. The CP-PRECUT control does not cover this channel
     (`native_later_access_probe.py:1136–1153`).
+  - The 42-key law, the parent's forward kernel and the tail argument do not by themselves give the
+    pre-tail equality: the 42-key law is conditional on the other variables
+    (`native-random-setting-test.md:88`), the kernel is conditional on the public past
+    (`:109–110`), and the tail argument covers `β` only (review 3).
+  - Review 3 identifies an existing route. H-prior's sourcing sentence
+    (`later-access-preregistration.md:153–154`) names the source of those triples, the history_v11
+    bank (`native-y-continuation-20261024/history_v11/REPORT.md:23–25`, `:41`). Under that law the
+    whole port word through `L+3`, `R` included, is uniform given the bank complement (`:110–112`),
+    which, by review 3's hand argument, gives the pre-cut equality. That argument is not recorded as a
+    check. The LA files state neither that law as a hypothesis nor this step.
   - The equality also rests on the parent unit's forward-kernel result
     (`native-random-setting-test.md:95–112`), a paper proof that "awaits its own independent review"
-    (`:3–5`). That unit conditions on the whole public past, which contains `R` (`:118–127`), and the
+    (`:3–5`); its acceptance on #1009 (`later-access-preregistration.md:5`) is author-reported
+    (`continuous-substates/README.md:12–17`). That unit conditions on the whole public past, which contains `R` (`:118–127`), and the
     LA preregistration bars using equality after a fixed history in place of equality of the
     history masses (`later-access-preregistration.md:139–140`).
   - Review 2 sketches a closure: with H-prior strengthened to include those frontier triples jointly
@@ -62,15 +77,17 @@ without re-running them. An earlier confirmation of the token posted on #1009 wa
   the corpus's selected substratum dynamics: center independence, isotropy and linearity select the
   linear wave rule (`papers/SM.md:224`), and `H` is nonlinear.
 - **H-torus** is a construction parameter, measured exactly on the recorded geometry by P5.
-- **The pre-cut port-5 bank law** named in §1 is needed but is not among the five hypotheses. It has
-  the same stipulated source as H-prior.
+- **The pre-cut port-5 bank law** named in §1 is used by the closure route identified and is not
+  among the five hypotheses as displayed. H-prior's sourcing sentence names its source, the
+  history_v11 bank, which is stipulated in the same way ("supplied assumptions rather than derived
+  physical laws", `history_v11/REPORT.md:23–27`).
 
 A valid conditional proof does not establish its hypotheses.
 
 ### 3. Support for MR-1 N5: partial
 
 - `EMPTY` is supported as N5 states it.
-- `LA-EQUAL` is not established under the five hypotheses N5 lists: it needs, in addition, the
+- `LA-EQUAL` is not established under the five hypotheses N5 lists: its written route uses, in addition, the
   pre-cut port-5 bank law and the parent unit's forward-kernel result.
 - N5 is not wider than the established result on ports, horizon or read. It is incomplete on its
   hypothesis list.
@@ -83,17 +100,23 @@ A valid conditional proof does not establish its hypotheses.
 **Overall: partially verified.** The tail independence and `EMPTY` are conditionally supported. The
 full `LA-EQUAL` equality is not established from the stated hypotheses.
 
-### Where the two reviews differ
+### Where the reviews differ
 
 Their overall verdicts and the location of the gap agree. Review 2 adds three points that this
 consolidated assessment adopts:
 
-- the specific re-entry channel and the unstated hypothesis it requires;
+- the specific re-entry channel and the bank law its closure uses;
 - the dependence on the parent unit's unreviewed forward-kernel proof;
 - that H-rule is not the corpus's selected linear rule.
 
 Review 1, §C, reads N5 as accurately reporting #1009's scoped output. The consolidated reading is
 that N5 is accurate on ports, horizon and read but incomplete on its hypothesis list.
+
+Review 3 confirms review 2's channel and closure inequalities by hand, and identifies the existing
+history_v11 noise-word result as a closure route under the bank law H-prior's sourcing already
+names. Review 1 (§A) anticipated that "a complete proof may be possible from the full chronological
+bank construction". The three verdicts are unchanged: the gap is a missing written composition
+under a named but undisplayed stipulation, together with the unreviewed parent kernel.
 
 ### Ownership
 
