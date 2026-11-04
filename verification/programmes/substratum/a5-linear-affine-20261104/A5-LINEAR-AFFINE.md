@@ -6,7 +6,7 @@ examination, documented assumptions and independent review. It does not cover co
 adopting a premise, promoting a claim, a merge or publication. No code, enumeration or Lean was
 written or run. Every algebraic step below was done by hand.
 
-**Revision.** Revised after independent review of `4e096997` (ACCEPT WITH CHANGES); not re-reviewed.
+**Revision.** Revised after independent reviews of `4e096997` (ACCEPT WITH CHANGES) and `fc5cf7e9` (ACCEPT WITH CHANGES; its one should-fix and three nits applied in this revision).
 
 **Base.** `origin/main` at `1609dc440f5a12d05b750f6d894bb91d09a099a3`. Line numbers `File:N` refer to
 `papers/File.md` at that commit.
@@ -136,7 +136,7 @@ offsets, which are flagged where they matter.
 | D13 | `HydroSourceAudit` advection gate | A5 as hypothesis | Extends: an affine closure is degree ≤ 1 in n (Proposition B3.4). | [K] for A5; [D] extension |
 | D14 | `A6Instantiation`, `BackgroundIndependence` (`linkF`) | link couplings typed `V →+ V` | Additivity is built into the carrier's type. See node N9. | [K] definitions |
 | D15 | SM:1416, Layer 2 candidate classes | "linear dynamics (A5)" | Conditional on A5 as stated. | [P] |
-| D16 | Theorem 23 (Substratum §3.5) | through D1 and D3 | Inherits D1 (form plus a constant). Its gauge-group output inherits D3's candidate: if the stabilizer is taken of the affine rule, the hypercharge U(1) is not obtained for b ≠ 0. Open (Q4). | [P]; [D] |
+| D16 | Theorem 23 (Substratum §3.5) | through D1 and D3 | Inherits D1 (form plus a constant). Its gauge-group output inherits D3's candidate: if the stabilizer is taken of the affine rule, the singlet-block U(1) (which Substratum:163 identifies as hypercharge) is lost for b ≠ 0; whether another U(1) can serve is not examined. Open (Q4). | [P]; [D] |
 
 **D3 in detail (candidate, not resolved) [D].** The argument has four steps.
 - **(i) b lies in the A₁ block.** Exact translation commutation makes b uniform (B0.3(a)). Isotropy
@@ -308,6 +308,7 @@ precisely the condition under which a uniform offset cannot be removed by a stat
 an elaboration:
 - For odd q, a substratum shift symmetry would force κ ≡ 2, hence dα ≡ 1. That needs
   gcd(d, q) = 1, the arithmetic SM:92 records for α = 1/d.
+- For even q > 2, the condition is κ ≡ 2 ⇔ dα ≡ 1 (mod q/2).
 - At q = 2, κ ≡ 2 holds for every α and imposes nothing on α.
 
 **N9 — Background independence (A6), as extended here to an offset.** *Statement:* covariance under
@@ -384,7 +385,7 @@ All the other candidates either admit S1 or reduce to N6.
     slices.
     - Readouts of the current slice x_V(t) modulo a constant are included.
     - The velocity x_V(t) − x_V(t−1) is not included: it is invariant under a common shift (c, c) but
-      not under (c, 0).
+      not under (c, 0). Differences of velocities between sites are included.
     - For S1, W = C, so 𝒜_W = 𝒜_C. Hence 𝒜_W is not "every function modulo a common constant"
       for S1.
   - **Non-diagonal elements.** As a commutant, 𝒜_Y also contains non-diagonal operators: the
@@ -544,7 +545,7 @@ degree ≤ 1 in n. The quadratic advective scaling is still excluded, on the sam
 | R7 | Theorem 2.2 and Corollary 2.3, absolute interface | equal up to a time-dependent outcome relabelling; relabelling-invariant statistics, divisibility and representability agree | any readouts | [D] | equality of labelled statistics; admissibility of P(t) |
 | R8 | Spectrum | equal on the W-invariant algebra; differs on the full algebra for S1 | as R6 | [D] | anything about the observer-level L_obs bridge (SM:232) |
 | R9 | Kernel-consumer conclusions extend | B3.1, B3.2 and B3.4 hold for uniform offsets | as stated | [D]; the cited kernel results [K] | any kernel statement for affine rules |
-| R10 | Candidate hidden use of b = 0 at Stage 2(d) | candidate; open (Q4) | lift; uniform, cubic-invariant offset b ≠ 0 | [D] (review finding) | that Stage 2(d) is wrong, or that it uses A5 rather than another premise |
+| R10 | Candidate hidden use of b = 0 at Stage 2(d): the singlet-block U(1) is lost for b ≠ 0; whether another U(1) can serve is not examined | candidate; open (Q4) | lift; uniform, cubic-invariant offset b ≠ 0 | [D] (review finding) | that Stage 2(d) is wrong, or that it uses A5 rather than another premise |
 
 **Outcome reached.**
 - **Criterion 2**, for a precisely specified class (R6, with R7 at Main's interface).
