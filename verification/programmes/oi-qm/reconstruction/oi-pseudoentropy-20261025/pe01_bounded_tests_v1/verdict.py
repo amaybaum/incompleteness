@@ -1,0 +1,598 @@
+"""PE-01 verdict, generated from the measurement JSON alone (PLAN.md §6).
+
+  python3 -I -B verdict.py MEASUREMENTS.json --out DIR      writes DIR/verdict.json and DIR/verdict.txt
+  python3 -I -B verdict.py MEASUREMENTS.json --check        regenerates and runs the VG self-test only
+
+Every number in the text is read from the measurements. VOID takes precedence: if an evaluated
+checkpoint failed, the text names the failed checkpoints and prints nothing else. If a checkpoint
+or a primary shard was not evaluated, the text is INCOMPLETE (no verdict) and names what is
+missing. Horizons are printed from the shards' exactness and determined flags: only statements
+whose values are exact and whose horizons are determined stand under PROVED (exhaustive finite);
+bounds and intervals are printed as such. The VG self-test regenerates the verdict and compares,
+flips each passing control flag in a copy (each must yield VOID naming it), and requires the text
+check to fail on a text without the resource-model limitation sentence.
+
+Where amendment A2 fixes the reading of condition (d) (D-SIGN), sections 1-4 and the verdict class
+are computed under that reading over the complete candidate set, whichever search selected each
+candidate, and the same set is classified under the other reading in a sensitivity analysis
+(section 5) that does not govern. Under governing abs every signed COUNTEREXAMPLE must be a
+governing COUNTEREXAMPLE; otherwise the verdict is VOID naming checkpoint SUBSET. The VG self-test
+then also requires that removing or changing every sensitivity row leave the governing class and
+the governing text byte-identical, that a signed-only candidate meeting (a)-(f) be a governing
+COUNTEREXAMPLE, and that SUBSET fail on a record that breaks it.
+"""
+import copy
+import hashlib
+import json
+import os
+import sys
+from fractions import Fraction
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, HERE)
+from pe01 import cx  # noqa: E402  (standard library only)
+
+CORE = "is a consequence of the selected resource model: memory + clock + output <= theta. It is not a limit OI imposes on observers."
+D8, D4 = Fraction(1, 8), Fraction(1, 4)
+SCOPE = {
+    "emb_m1_all": "all 16 observers with m = 1, every F",
+    "emb_m1_passive": "the 4 passive observers with m = 1, every F",
+    "emb_m2_all": "all 9216 observers with m = 2, every F",
+    "emb_m2_passive": "the 576 passive observers with m = 2, every F",
+    "emb_m3_passive": "passive observers with m = 3 up to simultaneous conjugacy fixing v_0 (306432 canonical forms)",
+}
+for _m in (1, 2, 3, 4):
+    SCOPE["plin_m%d" % _m] = "passive linear filters with m = %d (a = 0; every (A, b) through its class)" % _m
+
+
+def limitation(theta_by_n):
+    """The §7 limitation sentence for the theta the measurements record."""
+    if not theta_by_n:
+        return "The horizon bound K < 2^(theta-m-1) (theta not recorded) " + CORE
+    off = {int(n) - v for n, v in theta_by_n.items()}
+    if off == {-1}:
+        return "The horizon bound K < 2^(n-m) (theta = n+1) " + CORE
+    if off == {0}:
+        return "The horizon bound K < 2^(n-m-1) (theta = n) " + CORE
+    return "The horizon bound K < 2^(theta-m-1) (theta by n: %s) %s" % (theta_by_n, CORE)
+
+
+def check_exact_tree(obj, path="$"):
+    if isinstance(obj, float):
+        raise ValueError("EX3: float at %s" % path)
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if not (isinstance(k, str) and k.startswith("display_")):
+                check_exact_tree(v, path + "." + str(k))
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            check_exact_tree(v, "%s[%d]" % (path, i))
+
+
+def check_text(text):
+    """A verdict text that is neither VOID nor INCOMPLETE must carry the limitation sentence."""
+    if text.startswith("VOID") or text.startswith("INCOMPLETE"):
+        return True
+    return CORE in text and "The horizon bound K < 2^(" in text
+
+
+def void_names(text):
+    head = "VOID: failed checkpoint(s):"
+    if not text.startswith(head):
+        return []
+    return [x.strip() for x in text.split("\n", 1)[0][len(head):].strip().split(",") if x.strip()]
+
+
+def h_text(e):
+    """Horizon statement from a curve entry's values-derived fields and determined flags."""
+    cap = e["K_cap"]
+    zs = ("K_zero = %d" % e["K_zero"]) if e["K_zero_determined"] else ("K_zero >= %d (not determined beyond)" % e["K_zero"])
+    parts = [zs]
+    for d in ("1/8", "1/4"):
+        kd, det = e["K_delta"][d], e["K_delta_determined"][d]
+        if det:
+            parts.append("K_%s = %s" % (d, kd) if kd is not None else "K_%s = null (adv < %s at every K <= %d)" % (d, d, cap))
+        else:
+            parts.append("K_%s <= %d" % (d, kd) if kd is not None else "K_%s undetermined (no certified value >= %s in K <= %d)" % (d, d, cap))
+    return ", ".join(parts) + " (scope K <= %d)" % cap
+
+
+def interval_text(e):
+    lo, hi = e["lower"], e["upper"]
+    z = "K_zero in [%d, %d]" % (hi["K_zero"], lo["K_zero"])
+    out = [z]
+    for d in ("1/8", "1/4"):
+        a, b = hi["K_delta"][d], lo["K_delta"][d]
+        out.append("K_%s in [%s, %s]" % (d, a if a is not None else "> %d" % hi["K_cap"], b if b is not None else "null"))
+    return ", ".join(out) + " (scope K <= %d)" % lo["K_cap"]
+
+
+def horizons_of(values):
+    vals = [cx.exact(v) for v in values]
+    kz = -1
+    for K, v in enumerate(vals):
+        if v == 0:
+            kz = K
+        else:
+            break
+    kd = {nm: next((K for K, v in enumerate(vals) if v >= d), None) for d, nm in ((D8, "1/8"), (D4, "1/4"))}
+    return kz, kd, len(vals) - 1
+
+
+def unrle(runs):
+    out = []
+    for x, c in runs:
+        out.extend([x] * c)
+    return out
+
+
+def tag(e):
+    """Productivity tag (§6 item 5; open item TAG-L), COVERED-corpus first. candidate-NEW is never
+    assigned here: it needs the §9 literature check."""
+    t = e.get("tags", {})
+    c = e["cls"]
+    if c in ("U", "U_bayes"):
+        return "COVERED-corpus (support bound, Structure.md:1256)"
+    if t.get("L3_corpus"):
+        return "COVERED-corpus (B4 at or beyond its counting horizon)"
+    if t.get("L1"):
+        return "COVERED-literature (L1: B1 fires on G_lin at K = n+1)"
+    if t.get("L2"):
+        return "COVERED-literature (L2: Berlekamp-Massey / Gustavson-Rueppel closed form at lambda = n+1)"
+    if t.get("L4"):
+        return "COVERED-literature (L4: the NC-1 value max(0, 1 - 2^(n-K)))"
+    if e.get("generator") == "G_dec":
+        return "control generator"
+    return "untagged: eligible for candidate-NEW review only after the §9 literature check"
+
+
+def region_cell(meas, gname, n, m):
+    reg = (meas.get("AR") or {}).get("region", {}).get("n+1", {})
+    row = reg.get(str(n))
+    if not row or m > 4:
+        return None, False
+    col = ("G_lin", "G_filt", "G_clk").index(gname)
+    return row[m - 1][col], True
+
+
+READINGS = ("abs", "signed")
+VALUE_FIELD = {"abs": "adv_pred", "signed": "pred_minus_half"}
+VALUE_LABEL = {"abs": "|Pr - 1/2|", "signed": "Pr - 1/2"}
+SENS_HEAD = "5. Sensitivity analysis (does not govern): condition (d) under the %s reading."
+
+
+def other_reading(rd):
+    return [r for r in READINGS if r != rd][0]
+
+
+def witness_lines(meas, th, green, readings, tagged, restrict):
+    """Section 2 rows for the given readings of (d), and the witnesses meeting (a)-(f) under them.
+
+    Each reading reads its own window rows and reading-keyed fields. With restrict False, as both
+    the governing test and the sensitivity section use it, every candidate of the cell is
+    classified under the reading, whichever search selected it. restrict True classifies only the
+    candidates selected under the reading; no verdict path uses it."""
+    L, counter = [], []
+    for sid, info in sorted(meas["shard_info"].items()):
+        if sid not in meas["windows"]:
+            continue
+        gname = {"lin": "G_lin", "filt": "G_filt", "clk": "G_clk"}[info["family"]]
+        n = info["n"]
+        for sub, byrd in sorted(meas["windows"][sid].items()):
+            m = int(sub.split("_m")[1][0])
+            cell, known = region_cell(meas, gname, n, m)
+            cell_s = ("admissible region cell (theta = n+1): [%d, %d]" % tuple(cell)) if cell else \
+                "admissible region cell (theta = n+1) empty: 'no admissible witness' here is a fact about the resource model"
+            for rd in readings:
+                ws = [w for w in meas["witnesses"] if w["shard"] == sid and w["subclass"] == sub
+                      and (not restrict or rd in w.get("found_under", []))]
+                rows = [r for r in byrd.get(rd, []) if r[1]]
+                tagr = (" [reading %s]" % rd) if tagged else ""
+                scope_s = "%s; K <= %s" % (SCOPE.get(sub, sub), info.get("K_max") or info.get("K_cap"))
+                if not rows:
+                    L.append("  %s n=%d %s%s: no witness within the enumerated scope at any footprint (%s). %s." % (
+                        gname, n, sub, tagr, scope_s, cell_s))
+                    continue
+                fam_rows = [r for r in rows if r[2]]
+                L.append("  %s n=%d %s%s: windows at %d K values (first K = %d); family-wide windows at %d K values. %s." % (
+                    gname, n, sub, tagr, len(rows), rows[0][0], len(fam_rows), cell_s))
+                kinds = []
+                byK = {}
+                for w in sorted(ws, key=lambda x: x["K"]):
+                    byK.setdefault(w["K"], []).append(w)
+                for K in sorted(byK):
+                    # one line per K: a COUNTEREXAMPLE if one is among the candidates, else the first
+                    # selected under this reading, else the first; every candidate at K enters the
+                    # COUNTEREXAMPLE test and the attribution
+                    graded = [(w,) + cx.classify(w, th, green, rd) for w in byK[K]]
+                    for w, kind, fails in graded:
+                        if "d" not in fails:
+                            kinds.append(kind)
+                        if kind == "COUNTEREXAMPLE":
+                            counter.append((rd, w))
+                    w, kind, fails = next((g for g in graded if g[1] == "COUNTEREXAMPLE"),
+                                          next((g for g in graded if rd in g[0].get("found_under", [])), graded[0]))
+                    sel = ("selected under reading %s" % rd) if rd in w.get("found_under", []) else \
+                        "selected under the other reading only"
+                    L.append("    K=%d: %s (failed: %s); %s; %s at K'=%s: %s; footprint %d "
+                             "(theta %d); table size %d bits; K_cx=%d; K0 status: %s; windows in subclass at K: %s, "
+                             "family-wide: %s; %s." % (
+                                 w["K"], kind, ",".join(fails) or "none", sel, VALUE_LABEL[rd],
+                                 w["window"], ", ".join(w.get(VALUE_FIELD[rd]) or ["not recorded"]), w["footprint"],
+                                 th[str(n)], w["table_size_bits"], w["K_cx"],
+                                 "witness on every phi of the family" if (w.get("K0_status") or {}).get(rd)
+                                 else "not family-wide",
+                                 (w.get("window_count_in_subclass") or {}).get(rd, "not recorded"),
+                                 (w.get("family_window_count") or {}).get(rd, "not recorded"), w["realization"]))
+                if "COUNTEREXAMPLE" not in kinds:
+                    if "unrestricted-footprint witness" in kinds:
+                        L.append("    Attribution%s: unpredictability in this combination is attributed to resources; "
+                                 "a limitation of the resource model (§7)." % tagr)
+                    else:
+                        L.append("    Attribution%s: no witness meeting (a)-(e) within the enumerated scope at any footprint." % tagr)
+    return L, counter
+
+
+def sensitivity_lines(meas, th, green, rd):
+    """The sensitivity section: (d) under the non-governing reading, over the same complete
+    candidate set as the governing test. Its rows and its classification are printed after the
+    governing text and never enter the stage outcome or the verdict class. Returns (lines, its
+    COUNTEREXAMPLE list)."""
+    L = ["", SENS_HEAD % rd,
+         "   Printed as A2 requires: the candidates of section 2, every one classified under %s. The governing "
+         "verdict above is computed without any row of this section." % rd]
+    wl, counter = witness_lines(meas, th, green, [rd], tagged=False, restrict=False)
+    L.extend(wl)
+    L.append("   Sensitivity classification: %s under %s." % (
+        "COUNTEREXAMPLE (%d witness(es) meeting (a)-(f))" % len(counter) if counter else "no COUNTEREXAMPLE", rd))
+    return L, counter
+
+
+def _wkey(w):
+    o = w.get("observer") or {}
+    return (w.get("shard"), w.get("subclass"), w.get("K"), o.get("index"), o.get("chi_index"))
+
+
+def subset_violations(gov, counter, sens_counter):
+    """Under governing abs every signed window is an abs window, so every signed COUNTEREXAMPLE
+    must be a governing COUNTEREXAMPLE (checkpoint SUBSET). Returns the keys that are not."""
+    if gov != "abs":
+        return []
+    g = {_wkey(w) for _, w in counter}
+    return sorted(str(k) for k in {_wkey(w) for _, w in sens_counter} - g)
+
+
+def governing_part(text):
+    """The text before the sensitivity section."""
+    i = text.find("\n" + SENS_HEAD.split(":")[0])
+    return text if i < 0 else text[:i + 1]
+
+
+def generate(meas):
+    """Return (verdict_class, text)."""
+    return _generate(meas)[:2]
+
+
+def _generate(meas):
+    """Return (verdict_class, text, governing COUNTEREXAMPLEs, sensitivity COUNTEREXAMPLEs)."""
+    check_exact_tree(meas)
+    ctl = meas["controls"]
+    scope = meas["control_scope"]
+    failed = sorted(k for k in scope if ctl[k]["pass"] is False)
+    if failed:
+        return "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(failed), [], []
+    unev = sorted(set(meas.get("unevaluated", [])) | {"checkpoint %s" % k for k in scope if ctl[k]["pass"] is not True})
+    if unev:
+        return "INCOMPLETE", "INCOMPLETE (no verdict): not evaluated: %s\n" % "; ".join(unev), [], []
+    mode = meas["mode"]
+    th = meas["theta_by_n"]
+    res = (meas.get("a2") or {}).get("resolutions", {})
+    sign_rule = res.get("D-SIGN")
+    L = []
+    if mode == "smoke":
+        L.append("SMOKE OUTPUT: NOT A RESULT. Local smoke scope only; checkpoints outside it were not evaluated.")
+    if mode == "test":
+        L.append("TEST OUTPUT: NOT A RESULT. Result scope under an unpinned local A2 stub.")
+    L.append("PE-01 verdict, generated by verdict.py from measurements.json. Every number below is read from it.")
+    L.append("Run %s; commit %s; PLAN.md blob %s; A1 blob %s; A2: %s." % (
+        meas["run"]["run_id"], meas["commit"], meas["plan_blob"], meas["a1_blob"],
+        ("blob %s, %s" % (meas["a2"]["a2_blob"], meas["a2"].get("source"))) if res else "none"))
+    L.append("theta by n: %s. K_LP(n): %s. Passive m = 3 scope: option (%s), caps %s." % (
+        th, meas["K_LP_by_n"], meas["m3_passive_scope"], meas["m3_passive_K_cap"]))
+    L.append("Readings of the open items: %s." % (", ".join("%s = %s" % kv for kv in sorted(res.items())) if res
+                                                   else "none fixed; each computed reading is printed"))
+    if sign_rule in READINGS:
+        L.append("Governing rule for condition (d): %s (A2). Sensitivity: %s." % (sign_rule, other_reading(sign_rule)))
+    L.append("Checkpoints green: %s." % ", ".join("%s(%d)" % (k, ctl[k]["checks"]) for k in scope))
+    nd = {k: v["status"] for k, v in meas["shards"].items() if v["status"] != "complete"}
+    if nd:
+        L.append("Shards not complete (their cells carry no verdict): %s." % ", ".join("%s: %s" % kv for kv in sorted(nd.items())))
+    L.append("")
+    proved, bounds = [], []
+    for e in meas["horizons"]:
+        head = "  [%s] %s %s on %s, n=%s: " % (e["shard"], e["cls"], e["level"], e["generator"], e["n"])
+        if e["kind"] == "interval":
+            line = head + "interval; " + interval_text(e)
+            if e.get("exact_everywhere"):
+                proved.append(line + ". Tag: " + tag(e) + ".")
+            else:
+                bounds.append(line + ". Tag: " + tag(e) + ".")
+            continue
+        if e["level"] == "K0-randomized":
+            kz, kd, cap = horizons_of(unrle(e["values"]))
+            kza, kda, _ = horizons_of(unrle(e["all_positive"]))
+            proved.append(head + "exact LP, K <= K_LP = %d: K_zero = %d, K_1/8 = %s, K_1/4 = %s; all-positive pattern: K_zero = %d, K_1/8 = %s." % (
+                e["K_LP"], kz, kd["1/8"], kd["1/4"], kza, kda["1/8"]))
+            continue
+        determined = e["K_zero_determined"] and all(e["K_delta_determined"].values())
+        note = ""
+        if e["level"] == "K0-worst" and e["cls"].startswith("emb_m") and "m3" not in e["cls"]:
+            note = " (deterministic tests: a lower bound on the randomized worst case)"
+        line = head + h_text(e) + note + ". Tag: " + tag(e) + "."
+        (proved if (e["all_exact"] and determined) else bounds).append(line)
+    L.append("1. Horizons. PROVED (exhaustive finite): each statement quantifies only over the named class, "
+             "knowledge level, generator, n and the stated K scope. Embedded distinguishing curves (optimal F) "
+             "are measurements bearing on the second clause of book/ch18-beyond.md:114; they are not COUNTEREXAMPLEs.")
+    L.extend(proved)
+    L.append("")
+    L.append("1b. Bounds and intervals (not PROVED): values here are certified lower bounds, or intervals "
+             "exact only where their ends coincide; the horizons are bounds and bear on no verdict.")
+    L.extend(bounds)
+    # ---- witnesses
+    L.append("")
+    green = meas["status"] == "green" and mode == "result"
+    if sign_rule in READINGS:
+        L.append("2. Prediction witnesses (§6 item 4), per (generator, n, observer subclass); never pooled. "
+                 "Condition (d) is read under the governing rule %s. Every candidate is classified under it, "
+                 "whichever reading selected it." % sign_rule)
+        wl, counter = witness_lines(meas, th, green, [sign_rule], tagged=False, restrict=False)
+    else:
+        L.append("2. Prediction witnesses (§6 item 4), per (generator, n, observer subclass); never pooled.")
+        L.append("   Condition (d) is printed under both readings (open item D-SIGN): 'signed' = the same chi "
+                 "gives Pr - 1/2 >= 1/8 at every K'; 'abs' = |Pr - 1/2| >= 1/8 at every K'.")
+        wl, counter = witness_lines(meas, th, green, list(READINGS), tagged=True, restrict=False)
+    L.append("   Condition (a) is read as the fixed G_lin(p_n), G_filt(p_n), G_clk(p_n); other family members "
+             "enter through the K0 status only, which is conservative toward the claim under audit.")
+    L.extend(wl)
+    # ---- limitation and region
+    L.append("")
+    L.append("3. " + limitation(th))
+    ar = meas.get("AR") or {}
+    reg = ar.get("region", {}).get("n+1", {})
+    L.append("   Admissible region for theta = n+1, recomputed from the measured Z(phi) and K_cx(phi) "
+             "(cells G_lin | G_filt | G_clk; '-' empty):")
+    for n in sorted(reg, key=int):
+        cells = []
+        for m, row in enumerate(reg[n], start=1):
+            cells.append("m=%d: %s" % (m, " | ".join("-" if c is None else "[%d,%d]" % tuple(c) for c in row)))
+        L.append("     n=%s  %s" % (n, "; ".join(cells)))
+    L.append("   Z(phi): %s; l_med(phi): %s; K_cx(phi): %s." % (ar.get("Z"), ar.get("l_med"), ar.get("K_cx")))
+    bind = all(c is None or c[1] < ar["K_cx"][g][int(n) - 3]
+               for n, rows in reg.items() for row in rows for c, g in zip(row, ("G_lin", "G_filt", "G_clk"))) if reg else None
+    if bind:
+        L.append("   In every non-empty cell the footprint bound lies below K_cx, so (f) implies (c) at theta = n+1.")
+    L.append("   The fixed clock charge can overcharge an observer whose memory already keeps time, so (f) is "
+             "conservative toward the claim under audit.")
+    L.append("")
+    if counter:
+        L.append("4. Stage outcome: COUNTEREXAMPLE to the universal form of book/ch18-beyond.md:114 under reading %s of "
+                 "(d), by %d witness(es) meeting (a)-(f). It refutes only the universal form; it says nothing about the "
+                 "realization of the actual world, nor about the 10^-32 statement." % (
+                     ",".join(sorted({rd for rd, _ in counter})), len(counter)))
+    else:
+        L.append("4. Stage outcome: no COUNTEREXAMPLE within the enumerated scope. COVERED findings are tagged above; "
+                 "bounded theorems need a written proof under independent review. Otherwise OPEN.")
+    L.append("   No finite result here establishes the universal form. No asymptotic, circuit-security, "
+             "cryptographic-security or quantum-reproduction claim is made.")
+    cls = mode.upper() if mode != "result" else ("COUNTEREXAMPLE" if counter else "NO-COUNTEREXAMPLE")
+    sens_counter = []
+    if sign_rule in READINGS:
+        sl, sens_counter = sensitivity_lines(meas, th, green, other_reading(sign_rule))
+        L.extend(sl)
+        bad = subset_violations(sign_rule, counter, sens_counter)
+        if bad:
+            return "VOID", ("VOID: failed checkpoint(s): SUBSET\n"
+                            "  signed COUNTEREXAMPLE(s) that are not governing COUNTEREXAMPLEs: %s\n" % "; ".join(bad)), [], []
+    return cls, "\n".join(L) + "\n", counter, sens_counter
+
+
+def strip_sensitivity(meas, gov):
+    """A copy with every sensitivity row removed: the other reading's window rows, its tag in
+    found_under, its keyed fields and its value list on every candidate. The candidate records stay:
+    each one is a candidate of the governing test."""
+    o = other_reading(gov)
+    m = copy.deepcopy(meas)
+    for cells in m["windows"].values():
+        for byrd in cells.values():
+            byrd.pop(o, None)
+    for w in m["witnesses"]:
+        w["found_under"] = [r for r in w.get("found_under", []) if r != o]
+        for k in ("K0_status", "window_count_in_subclass", "family_window_count"):
+            if isinstance(w.get(k), dict):
+                w[k].pop(o, None)
+        w.pop(VALUE_FIELD[o], None)
+    return m
+
+
+def flip_sensitivity(meas, gov, favorable):
+    """A copy with every sensitivity row changed: the other reading's window counts toggled, its
+    keyed fields inverted, and its value list on every candidate made to meet (favorable) or fail
+    condition (d)."""
+    o = other_reading(gov)
+    m = copy.deepcopy(meas)
+    for cells in m["windows"].values():
+        for byrd in cells.values():
+            for r in byrd.get(o, []):
+                r[1] = 0 if r[1] else 1
+                r[2] = 0 if r[2] else 1
+    vals = ["1/4"] * (cx.W + 1) if favorable else ["0"] * (cx.W + 1)
+    for w in m["witnesses"]:
+        if isinstance(w.get("K0_status"), dict) and o in w["K0_status"]:
+            w["K0_status"][o] = not w["K0_status"][o]
+        for k in ("window_count_in_subclass", "family_window_count"):
+            if isinstance(w.get(k), dict) and o in w[k]:
+                w[k][o] = w[k][o] + 1
+        w[VALUE_FIELD[o]] = list(vals)
+    return m
+
+
+def forge_green(meas):
+    """A copy read as a green result, so that (e) can hold and a COUNTEREXAMPLE can be printed."""
+    m = copy.deepcopy(meas)
+    m["mode"], m["status"] = "result", "green"
+    return m
+
+
+def inject_witness(meas, gov, gov_ok, other_ok, idx, selected_by=None):
+    """A copy carrying one synthetic candidate meeting (a)-(c), (e) and (f), with (d) met or failed
+    under each reading as given, selected only by the search of `selected_by` (default: the other
+    reading), with its window row under that reading. The cell is one in which the governing
+    reading also has window rows where there is one. None if no cell admits one."""
+    o = other_reading(gov)
+    sel = selected_by or o
+    m = copy.deepcopy(meas)
+    cells = [(not any(r[1] for r in m["windows"][sid][sub].get(gov, [])), sid, sub)
+             for sid, info in sorted(m["shard_info"].items()) if sid in m["windows"]
+             and isinstance(info.get("K_cx"), int) and info["K_cx"] >= cx.W
+             and str(info.get("n")) in (m.get("theta_by_n") or {}) for sub in sorted(m["windows"][sid])]
+    for _, sid, sub in sorted(cells):
+        info = m["shard_info"][sid]
+        K = info["K_cx"]
+        w = cx.base_witness()
+        w["observer"] = dict(w["observer"], index=-1 - idx, chi_index=-1 - idx)
+        val = {gov: gov_ok, o: other_ok}
+        w.update({"generator": {"lin": "G_lin", "filt": "G_filt", "clk": "G_clk"}[info["family"]], "n": info["n"],
+                  "shard": sid, "subclass": sub, "m": int(sub.split("_m")[1][0]), "K": K,
+                  "window": list(range(K - cx.W, K + 1)), "K_cx": K, "footprint": 0, "found_under": [sel],
+                  "K0_status": {gov: False, o: True}, "window_count_in_subclass": {gov: 1, o: 1},
+                  "family_window_count": {gov: 1, o: 1}, "table_size_bits": 0,
+                  "realization": "synthetic record (VG only)"})
+        for rd in READINGS:
+            w[VALUE_FIELD[rd]] = ["1/4" if val[rd] else "0"] * (cx.W + 1)
+        m["witnesses"] = list(m["witnesses"]) + [w]
+        m["windows"][sid][sub].setdefault(sel, []).append([K, 1, 1])
+        return m
+    return None
+
+
+def _run(m):
+    """(class, governing text, full text, governing keys, sensitivity keys) of a copy; a generation
+    error is recorded, never raised."""
+    try:
+        c, t, gc, sc = _generate(m)
+        return c, governing_part(t), t, {_wkey(w) for _, w in gc}, {_wkey(w) for _, w in sc}
+    except Exception as e:      # noqa: BLE001  (a self-test case fails; it does not crash the verdict)
+        return "ERROR %s: %s" % (type(e).__name__, e), None, "", set(), set()
+
+
+def sensitivity_selftest(meas, text):
+    """The governing verdict must use the complete candidate set and read no sensitivity row; the
+    sensitivity analysis must use the same complete set; SUBSET must be able to fail.
+    - Removing or changing every sensitivity row, on the measurements and on a copy read as a green
+      result, leaves the governing class and text byte-identical.
+    - Two synthetic candidates found only by the sensitivity search and meeting (a)-(f) under the
+      governing reading, differing only in the sensitivity value list, give the same governing class
+      and text; the first is a sensitivity COUNTEREXAMPLE and the second is not.
+    - Coverage: a candidate found only by the sensitivity search and meeting (a)-(f) is a governing
+      COUNTEREXAMPLE, and a candidate found only by the governing search and meeting (a)-(f) under
+      the sensitivity reading is a sensitivity COUNTEREXAMPLE.
+    - SUBSET (governing abs): a record meeting (d) under signed but not under abs (inconsistent by
+      construction) makes the verdict VOID naming SUBSET."""
+    gov = (meas.get("a2") or {}).get("resolutions", {}).get("D-SIGN")
+    if gov not in READINGS:
+        return {"applicable": False, "pass": True}
+    cls0, _ = generate(meas)
+    if cls0 in ("VOID", "INCOMPLETE"):
+        # no governing section is printed, so there is nothing for a sensitivity row to reach
+        return {"applicable": False, "reason": "class %s prints no witness section" % cls0, "pass": True}
+    o = other_reading(gov)
+    out = {"applicable": True, "section_present": text.count(SENS_HEAD % o) == 1
+           and governing_part(text) != text, "unchanged": {}}
+    fg = forge_green(meas)
+    base = {"measured": (cls0, governing_part(text)), "green-copy": _run(fg)[:2]}
+    for src_name, src in (("measured", meas), ("green-copy", fg)):
+        for vname, var in (("removed", strip_sensitivity(src, gov)),
+                           ("flipped-favorable", flip_sensitivity(src, gov, True)),
+                           ("flipped-unfavorable", flip_sensitivity(src, gov, False))):
+            out["unchanged"]["%s/%s" % (src_name, vname)] = _run(var)[:2] == base[src_name]
+    a = inject_witness(fg, gov, gov_ok=True, other_ok=True, idx=0)
+    b = inject_witness(fg, gov, gov_ok=True, other_ok=False, idx=0)
+    d = inject_witness(fg, gov, gov_ok=True, other_ok=True, idx=1, selected_by=gov)
+    c = inject_witness(fg, gov, gov_ok=False, other_ok=True, idx=2) if gov == "abs" else None
+    if a is None or b is None or d is None:
+        out["synthetic"] = {"available": False}
+        out["pass"] = False
+        return out
+    ra, rb, rd_ = _run(a), _run(b), _run(d)
+    ka, kd = _wkey(a["witnesses"][-1]), _wkey(d["witnesses"][-1])
+    out["synthetic"] = {
+        "available": True,
+        "governing_unchanged_by_sensitivity_value": ra[1] is not None and ra[:2] == rb[:2],
+        "sensitivity_counterexample_printed": ka in ra[4] and ka not in rb[4]
+        and "COUNTEREXAMPLE (" in ra[2].rstrip("\n").split("\n")[-1]}
+    out["coverage"] = {
+        "found only by the %s search is a governing COUNTEREXAMPLE" % o: ka in ra[3] and ra[0] == "COUNTEREXAMPLE",
+        "found only by the %s search is a sensitivity COUNTEREXAMPLE" % gov: kd in rd_[4]}
+    if c is not None:
+        rc = _run(c)
+        out["subset"] = {"breaking record gives VOID naming SUBSET": rc[0] == "VOID" and "SUBSET" in void_names(rc[2]),
+                         "no violation on the measurements or the green copy": base["green-copy"][0] != "VOID"}
+    else:
+        out["subset"] = {"applicable": False}
+    out["pass"] = (out["section_present"] and all(out["unchanged"].values())
+                   and out["synthetic"]["governing_unchanged_by_sensitivity_value"]
+                   and out["synthetic"]["sensitivity_counterexample_printed"]
+                   and all(out["coverage"].values())
+                   and all(v for k, v in out["subset"].items() if k != "applicable"))
+    return out
+
+
+def vg_selftest(meas, text):
+    out = {"regenerated_identical": generate(meas)[1] == text, "flips": {}, "text_check": {}}
+    for k in meas["control_scope"]:
+        if meas["controls"][k]["pass"] is not True:
+            continue
+        m2 = copy.deepcopy(meas)
+        m2["controls"][k]["pass"] = False
+        cls, t2 = generate(m2)
+        out["flips"][k] = cls == "VOID" and k in void_names(t2)
+    probe = "PE-01 verdict (probe).\n3. " + limitation(meas["theta_by_n"]) + "\n"
+    out["text_check"]["accepts_generated"] = check_text(text) and check_text(probe)
+    out["text_check"]["rejects_without_sentence"] = not check_text(probe.replace(CORE, ""))
+    out["sensitivity"] = sensitivity_selftest(meas, text)
+    out["pass"] = (out["regenerated_identical"] and all(out["flips"].values())
+                   and out["text_check"]["accepts_generated"] and out["text_check"]["rejects_without_sentence"]
+                   and out["sensitivity"]["pass"])
+    return out
+
+
+def main(argv):
+    src = argv[0]
+    out = argv[argv.index("--out") + 1] if "--out" in argv else None
+    raw = open(src, "rb").read()
+    meas = json.loads(raw)
+    try:
+        cls, text = generate(meas)
+        vg = vg_selftest(meas, text)
+        if not vg["pass"]:
+            prev = void_names(text) if cls == "VOID" else []
+            cls, text = "VOID", "VOID: failed checkpoint(s): %s\n" % ", ".join(prev + ["VG"])
+    except Exception as e:      # the verdict is never silently missing
+        cls, vg = "INCOMPLETE", {"pass": False, "error": "%s: %s" % (type(e).__name__, e)}
+        text = "INCOMPLETE (no verdict): verdict generation failed: %s: %s\n" % (type(e).__name__, e)
+    if "--check" in argv:
+        print(json.dumps({"class": cls, "VG": vg}, indent=1, sort_keys=True))
+        return 0 if vg.get("pass") else 1
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(out, "verdict.json"), "w") as f:
+        json.dump({"class": cls, "text": text, "VG": vg, "measurements_sha256": hashlib.sha256(raw).hexdigest(),
+                   "measurements_commit": meas.get("commit"), "run": meas.get("run")}, f, sort_keys=True, indent=1)
+        f.write("\n")
+    with open(os.path.join(out, "verdict.txt"), "w") as f:
+        f.write(text)
+    print(cls)
+    return 1 if "error" in vg else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
