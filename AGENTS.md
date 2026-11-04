@@ -1299,30 +1299,37 @@ distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
 
 ## §A.46 Research records on `main` and established claims
 
-`main` is the authoritative research record, not only a collection of completed results. Research
-evidence (positive, negative and inconclusive results, failed approaches and the files that support
-them) may be kept on `main` whether or not its programme is complete, provided its provenance,
-assumptions, verification status and limitations are stated accurately. §A.42 item 5 and §A.28 limit
-what is added to `main`; neither is a ground for removing research evidence already on `main`, whose
-removal item 5 below governs.
+`main` is the authoritative research record. An incomplete scientific programme is distinct from an
+incomplete verification of a specific claim: the first may have records on `main`; the second is a
+gap to be fixed.
 
-1. **Established claims.** A claim is presented as established only when its supporting evidence
-   meets the verification standard for its kind (§A.42; the Code Review Rules, "Keep verification
-   layers distinct").
-2. **No promotion by retention.** Incomplete, negative and inconclusive results that do not meet
-   item 1's standard are not presented as established conclusions. Keeping or landing a record on
-   `main` strengthens no claim (§A.42 item 6).
-3. **Status is stated.** A research record distinguishes independently verified, partially verified,
+1. **Established claims.** A claim is presented as established only when it can be verified from
+   `main` and its evidence meets the verification standard for its kind (§A.42; the Code Review
+   Rules, "Keep verification layers distinct"). A claim landed under an owner exception to §A.42
+   item 2 (item 8) is not established.
+2. **What lands.** Research evidence lands on `main` when an established claim needs it, or when it
+   is needed for reproducibility or to support records already on `main`, even if its programme is
+   unfinished; its status and limitations are stated. Exploratory work that nothing on `main` needs
+   stays on its pull-request branch, tracked in its Issue. §A.42 item 5 and §A.28 govern what is
+   added; item 6 governs removal.
+3. **Results that are not established.** Incomplete, negative and inconclusive results that do not
+   meet item 1's standard are not presented as established conclusions. Keeping or landing a record
+   strengthens no claim (§A.42 item 6).
+4. **Unverified claims on `main`.** A claim on `main` that does not meet item 1's standard has a
+   stated status, an accountable Issue and a remediation plan; a status label alone does not resolve
+   a verification gap. A record distinguishes independently verified, partially verified,
    exploratory and known-invalid results, in the record or, for a frozen record, in a mutable record
    on `main` that cites it; a status that contradicts the frozen record's own conclusion is a
-   correction under item 4 (§A.42 item 6; §A.45 rule 1).
-4. **Correct the conclusion, keep the evidence.** A conclusion its evidence does not support is
-   corrected where it is stated (§A.27, §A.30) or, in a frozen record, by a new native round (§A.42
-   item 6), and the evidence behind it stays.
-5. **Removal.** For research evidence, annotation and correction are preferred to deletion; a
-   manuscript claim that loses its support is handled as §A.27 and §A.30 require. Removing research
-   evidence from `main` needs a specific justification, an audit of what on `main` depends on it,
-   and separate owner authorization.
+   correction under item 5 (§A.42 item 6; §A.45 rule 1).
+5. **Remediation.** A gap is fixed by landing the missing evidence, re-running the computation or
+   obtaining a recorded independent review. A conclusion that cannot be verified is narrowed or
+   withdrawn where it is stated (§A.27, §A.30) or, in a frozen record, by the applicable reviewed
+   round (§A.39; §A.42 item 6), and the evidence behind it stays.
+6. **Removal.** Removal is a last resort, not a consequence of failed verification. Removing
+   research evidence from `main` needs a specific justification, an audit of what on `main` depends
+   on it, and separate owner authorization. A manuscript claim that loses its support is handled as
+   §A.27 and §A.30 require.
 
 Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
-records from `main` was found to break records on `main` that depend on them.
+records from `main` was found to break records on `main` that depend on them, and revised the same
+day to require a remediation plan for every unverified claim.
