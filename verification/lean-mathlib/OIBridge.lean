@@ -24,6 +24,9 @@ import OIBridge.RecordFibreIdentification
 import OIBridge.RootedRecurrenceBridge
 import OIBridge.RecursiveFiniteFactor
 import OIBridge.NativePadicReduction
+import OIBridge.ObservableFactorRecurrence
+import OIBridge.ObservableMeasureReturn
+import OIBridge.GradientLinkFlatness
 import OIBridge.ChiralCenterRecovery
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
