@@ -6,7 +6,10 @@
 Nothing here is adopted, promoted or propagated.
 
 **Revision.** Revised after the independent review of `8de75f7c` (ACCEPT WITH CHANGES). It addresses
-B1–B3, S1–S6 and the nits. Points of partial disagreement are in §8.
+B1–B3, S1–S6 and the nits. Points of partial disagreement are in §8. Revised again after the delta
+review of `c155200d` (ACCEPT WITH CHANGES; D1, F1–F6, nits). §1 is restored verbatim from `8de75f7c`.
+Its post-result amendment, and the key from §1's notation (b, H, K, (A)) to the notation below, are
+in §8.2.
 
 **Base.** `origin/main` at `1609dc440f5a12d05b750f6d894bb91d09a099a3`. `File:N` means `papers/File.md`
 line N at that commit. The parent assessment is `A5-LINEAR-AFFINE.md` at `f07f55d0` (D3, D16, R10,
@@ -30,45 +33,54 @@ from memory · [O] owner decision.
 - **(L)** The stabilizer of offset-free data: the O-action, M or Σ.
 - **(A-lin)** The constant **linear** internal unitaries that commute with the affine rule Φ.
 - **(A-aff)** The constant **affine** internal maps z ↦ gz + w, with g ∈ G_0, that commute with Φ.
-  This includes shift-conjugates, consistent with treating shifts as relabellings ([O] Q2).
+  This includes shift-conjugates. SM:96 and Substratum:270 declare uniform shifts gauge. The owner
+  directs that amplitude shifts be treated "as mathematical relabellings unless their physical gauge
+  status is justified" (#1049 c.6624263637) [O]. Stage 2(d) itself does not include affine internal
+  maps.
 
-**Resonance.** On the lift, with the normalized rule φ(t+1) = (1/d)M Σ_nn φ − φ(t−1), the uniform
-mode of block a obeys g(t+1) = 2μ_a g(t) − g(t−1) + v_a. So κ_a = 2μ_a. Block a is **resonant** iff
-μ_a = 1, which by SM:318 (Theorem 4) is exactly when the block is massless at k = 0.
+**Resonance.** On the lift, with the normalized rule φ(t+1) = (1/d)M Σ_nn φ − φ(t−1) (SM:314), the
+uniform mode of block a obeys g(t+1) = 2μ_a g(t) − g(t−1) + v_a. So κ_a = 2μ_a. Block a is
+**resonant** iff μ_a = 1. By SM:320–321 (Theorem 4) that is exactly when the block is massless at
+k = 0.
+
+**Charge coefficients.** SM:577 writes Q = αB + βL + γS. Here those coefficients are a_B, a_L, a_S,
+because β denotes the two-slice offset.
 
 ***
 
 ## §1 Decision criteria (fixed before §3)
 
-The **downstream outputs** are the following:
+The **downstream outputs** are those the corpus derives from Stage 2(d):
 - (O1) the group after the common-phase removal (Substratum:163);
-- (O2) G_0/𝒦 ≅ S(U(3)×U(2)) (SM:579);
+- (O2) G_0/K ≅ S(U(3)×U(2)) (SM:579);
 - (O3) the faithful charged-family image P/ℤ₆ (SM:593);
 - (O4) the anomaly-fixed hypercharges and their normalization (SM:589, Theorem 15; Theorem 14);
 - (O5) the A6 promotion to local invariance (Substratum:163; SM:114).
 
-Each outcome compares these outputs between (L) and an offset reading.
+The readings below compare them under two **readings**: (L) the stabilizer of b-free data, and (A)
+the stabilizer of the affine rule.
 
-- **(i) Independent of the offset.** This is reached if both of the following hold:
-  - the object whose stabilizer Stage 2(d) computes does not contain the offset;
-  - under every offset reading with v ≠ 0, every one of O1–O5 is reproduced. This means isomorphic
-    groups, the same action on every carrier the corpus assigns charges on, and the same charges.
-- **(ii) Hidden use of A5.** This is reached if, under an offset reading with v ≠ 0, some output
-  among O1–O5 fails or changes and no subgroup of the offset stabilizer reproduces it. A changed
-  hypercharge, a missing U(1), or a different global form would each count.
-- **(iii) Conditional on a convention.** This is reached if O1–O5 agree only given a choice the
-  corpus does not state. Examples are a carrier choice, admitting time-dependent or affine frames,
-  or reading the "singlet-block" identification modulo a subgroup.
-- **(iv) Undecidable.** This is reached if the sources do not fix the object, the carrier or the
-  charged action well enough to decide.
+- **(i) Independent of b.** This outcome is reached if both of the following hold:
+  - the object whose stabilizer Stage 2(d) computes does not contain b;
+  - under reading (A) with b ≠ 0, every one of O1–O5 is reproduced. This means isomorphic groups,
+    the same action on every carrier the corpus assigns charges on, and the same charges.
+- **(ii) Hidden use of A5.** This outcome is reached if, under (A) with b ≠ 0, some output among
+  O1–O5 fails or changes, and no subgroup of H reproduces it. A changed hypercharge, a missing
+  U(1), or a different global form would each count.
+- **(iii) Conditional on a convention.** This outcome is reached if O1–O5 agree only given a choice
+  the corpus does not state. Examples are a carrier choice, admitting time-dependent frames, or
+  reading the "singlet-block" identification modulo a subgroup.
+- **(iv) Undecidable.** This outcome is reached if the sources do not fix the object, the carrier or
+  the charged action well enough to decide.
 
 **Controls (§A.29).** The conclusion must preserve the following:
-- (C-a) the v = 0 results exactly;
+- (C-a) the b = 0 results exactly;
 - (C-b) Theorem 7's (3,2,1) decomposition [K];
 - (C-c) Theorem 15's hypercharges.
 
-**Countercontrols.** The note needs a carrier on which the readings differ, so that the equivalence
-is not vacuous. It also needs an offset outside A₁ that does break the construction.
+**Required countercontrols.** A carrier on which (L) and (A) differ, so that an equivalence is not
+vacuous. And an offset outside A₁ that does break the construction, so that the A₁ hypothesis is
+load-bearing.
 
 ***
 
@@ -163,12 +175,17 @@ the linear part at the symmetric point has stabilizer U(6).
     stabilizer is τ_p G_0 τ_{−p} ≅ G_0, and in the relabelled coordinate y = z − p the rule is linear.
   - **At resonance (μ_{A₁} = 1).** β ∉ Im(I − L). Over the lift, A commutes with translations, so the
     k = 0 sector of Im(2I − A) on V_1 is (2 − 2μ_{A₁})V_1 = 0. Then (z_g − 1)β lies in that image iff
-    z_g = 1. The linear parts form exactly G_v.
+    z_g = 1. The **linear parts** form exactly G_v. The affine stabilizer is G_v ⋉ T_0, where T_0 is
+    the group of translations by Ker(L − I), the static solutions of the linear rule. T_0 includes
+    the uniform V_1 translations.
+  - Off resonance, the affine stabilizer likewise contains translations by Ker(L − I) in any
+    resonant block. Its linear parts are G_0.
 - **Up to the amplitude gauge.** gΦ_v g⁻¹ = Φ_{z_g v} for every g ∈ G_0. So the set of g that preserve
   the rule up to a common rescaling is G_0.
 
-So G_v, and the loss of U(1)_S, occurs under (A-lin) always, and under (A-aff) only at resonance.
-Resonance holds at SM:232's observer-level normalization at scalar M (κ = 2). It is not generic on
+So G_v, as the group of linear parts, and with it the loss of U(1)_S, occurs under (A-lin) always,
+and under (A-aff) only at resonance. Resonance holds at SM:232's observer-level normalization at
+M = I₆ (κ = 2). It is not generic on
 the block-scalar M-route.
 
 **N2. Is G_v the group the corpus uses? [D]**
@@ -200,7 +217,7 @@ symmetry, so G_v is already the reduced group.
 **N3. Charges, O4 [D].**
 - On Hom(V_j, V_i)-type carriers an element with block phases (e^{iθ_3}, e^{iθ_2}, e^{iθ_1}) acts by
   e^{i(θ_i − θ_j)}, and U(1)_diag acts trivially. So on End(V_K) and V_K ⊗ V_K*,
-  αB + βL + γS acts as (α−γ)B + (β−γ)L ∈ Lie(G_v). Every charge vector Theorem 14 produces on these
+  a_B B + a_L L + a_S S acts as (a_B − a_S)B + (a_L − a_S)L ∈ Lie(G_v). Every charge vector Theorem 14 produces on these
   carriers is produced inside G_v.
 - **Lift families agree.** Every (L)-lift of the hypercharge circle has the form h·u, with h ∈ G_v and
   u ∈ U(1)_diag ⊂ 𝒦. Since F(u) = 1, h is a G_v-lift, and it has the same action on Hom-type
@@ -211,8 +228,14 @@ symmetry, so G_v is already the reduced group.
     - these are the same family, with a = −1−s.
   - At s = 1 this is (1, −2, −3), the weights of Q, d_R and L. Under (A-lin) it is realized by
     (z⁻²I_3, z⁻³I_2, 1).
-  - u_R (charge 4) and e_R (charge −6) have no SM-weight home on the raw Hom-type carrier under
-    either reading (SM:597).
+  - **[D], hand count (not from SM:597, which gives only the determinant dressings).** u_R (charge 4)
+    and e_R (charge −6) have no home with their SM weights on the raw Hom-type carrier, for any lift
+    and so under either reading.
+    - The singlet blocks (End(V_1), and the trace parts of End(V_3) and End(V_2)) are neutral, so
+      e_R has no home.
+    - The (3,1) slots Hom(V_1,V_3) and Hom(V_3,V_1) carry only ±(1+s). u_R and d_R need magnitudes
+      4 and 2, so they cannot both be housed.
+    - At s = 1, with the lift (z⁻²I_3, z⁻³I_2, 1), the charges on End(V_K) are 0, ±1, ±2 and ±3.
 - Theorem 15 takes SU(3)×SU(2)×U(1) and the family pattern as input. Neither the offset nor the
   number of block circles enters it, and its normalization is fixed by Q_em = T₃ + Y. So the
   hypercharges are unchanged.
@@ -222,9 +245,9 @@ symmetry, so G_v is already the reduced group.
   G_v fixes V_1 pointwise. This holds under (A-lin), or under (A-aff) at resonance. Off resonance
   under (A-aff), G_0 acts on V_K about p.
   - The corpus uses V_K for the singlet-taste Higgs, with its hypercharge as input (SM:468).
-  - Under G_v the A₁ projection is neutral and the E projection carries Y = β.
+  - Under G_v the A₁ projection is neutral and the E projection carries Y = a_L.
   - One illustrative placement is consistent: the lepton doublet on Hom(V_E, V_{A₁}), with
-    Y_{A₁} − Y_E = −β, gives Y_H = 1/2 and Y_L = −1/2. No corpus assignment is tested here, since
+    Y_{A₁} − Y_E = −a_L, gives Y_H = 1/2 and Y_L = −1/2. No corpus assignment is tested here, since
     SM:529 places only Q_L.
 - *(b) An offset outside A₁.*
   - Under (A-lin), an offset with a T₁ component has stabilizer U(2) inside U(3), so SU(3) is lost.
@@ -234,8 +257,9 @@ symmetry, so G_v is already the reduced group.
 
 **N5. Does the offset survive into the generator? [D]**
 - In Koopman form U_Φ = T(β)U_L, with T(β) a field translation, and R_g T(β) R_g⁻¹ = T(gβ). Under
-  (A-lin) the offset is not central: the symmetry algebra is Lie(G_v) = u(3) ⊕ u(2), of
-  dimension 13 rather than 14.
+  (A-lin) the offset is not central. The unitary part of the symmetry algebra is Lie(G_v) =
+  u(3) ⊕ u(2), of dimension 13 rather than 14. Under (A-aff) at resonance the linear parts are the
+  same, and the translations T_0 are added.
 - In a continuum lift the offset is a tadpole v·φ_{A₁} [L]. A field shift removes it iff the mode is
   massive (parent, "Reading" after B0.3), which is the off-resonance branch. There (A-aff) restores
   dimension 14.
@@ -266,8 +290,9 @@ symmetry, so G_v is already the reduced group.
   - They hold only on Hom-type carriers, or modulo U(1)_diag or 𝒦. The corpus places matter and gauge
     bosons there (SM:519–539) but uses V_K for the Higgs (SM:464).
   - Neither reading has a constructed charged action (SM:585).
-  - The (A-aff) off-resonance branch removes the residues only by admitting affine internal maps,
-    which the corpus's U(K) does not state.
+  - The (A-aff) off-resonance branch removes the residues only by admitting affine internal maps.
+    SM:96 and Substratum:270 declare uniform shifts gauge, but Stage 2(d)'s U(K) does not include
+    affine maps.
   - The time-dependent g_t(z) = gz + (I−g)p(t) (Φ∘g_t = g_{t+1}∘Φ) would restore G_0 at resonance.
     It is not admitted, per parent §3.3.7.
   - Only uniform offsets are examined.
@@ -287,8 +312,8 @@ additive links and does not decide this.
   This is a cross-document variance to propagate (§A.25), not adjudicated here.
 - *(b) The SM:587 count.* On Hom-type carriers the abelian part acts through T³/U(1)_diag, which is
   2-dimensional. Removing hypercharge leaves one direction. SM:587's "orthogonal" presupposes an
-  unstated inner product. Two directions act only on V_K under (L). Moderate confidence; the reviewer
-  concurs.
+  unstated inner product. Two directions act only on V_K under (L). Moderate confidence (the reviewer
+  suggested moderate-high).
 
 ***
 
@@ -297,25 +322,33 @@ additive links and does not decide this.
 | # | Claim | Verdict | Hypotheses | Support | Does not establish |
 |---|---|---|---|---|---|
 | Q4-1 | No Stage 2(d) site computes the stabilizer of an affine rule. SM's Σ-route and `A6Glob` take the dynamics' symmetry as ambient | holds | — | [P] S1–S6 | which ambient is intended (Q4b) |
-| Q4-2 | The offset stabilizer is G_v = U(3)×U(2)×{1} under (A-lin), or under (A-aff) at μ_{A₁} = 1. Under (A-aff) off resonance it is τ_pG_0τ_{−p} ≅ G_0 | holds | H-b; lift; uniform offset | [D] N1 | which reading or resonance case is physical |
+| Q4-2 | The offset stabilizer's linear parts are G_v = U(3)×U(2)×{1} under (A-lin), or under (A-aff) at μ_{A₁} = 1, where the affine stabilizer is G_v ⋉ T_0. Under (A-aff) off resonance the linear parts are G_0 (the conjugate τ_pG_0τ_{−p}, plus translations in any resonant block) | holds | H-b; lift; uniform offset | [D] N1 | which reading or resonance case is physical |
 | Q4-3 | G_v ≅ G_0/U(1)_diag; G_v/(G_v∩𝒦) ≅ G_0/𝒦 ≅ S(U(3)×U(2)); Proposition 15a's representations pull back through F\|_{G_v} | holds | as Q4-2 | [D] N2 | a constructed charged action under either reading |
-| Q4-4 | Hypercharge lifts in G_v form a coset of G_v∩𝒦, e.g. (I_3, zI_2, 1) or (z⁻²I_3, z⁻³I_2, 1). Their Hom-type charge family equals that of (L). Theorem 15's hypercharges are unchanged | holds | as Q4-2 | [D] N2(c), N3; [P] SM:589–597 | Hom-type homes for u_R and e_R (absent under both readings); family selection |
-| Q4-5 | Lie(G_v) has dimension 13, equal to Lie(G_0)/u(1)_diag | holds | (A-lin), or (A-aff) at resonance | [D] N5 | — |
+| Q4-4 | Hypercharge lifts in G_v form a coset of G_v∩𝒦, e.g. (I_3, zI_2, 1) or (z⁻²I_3, z⁻³I_2, 1). Their Hom-type charge family equals that of (L). Theorem 15's hypercharges are unchanged | holds | as Q4-2 | [D] N2(c), N3; [P] SM:589–597 | Hom-type homes for u_R and e_R ([D] hand count: absent for every lift, under both readings); family selection |
+| Q4-5 | The unitary part of the symmetry algebra, Lie(G_v), has dimension 13, equal to Lie(G_0)/u(1)_diag | holds | (A-lin), or (A-aff) at resonance | [D] N5 | — |
 | Q4-6 | Residues: N6a (10 cross modes), N4a (V_K action), N6c (wording; SM:577 and :587 counts) | holds | as Q4-5 | [D] | an observable consequence |
 | Q4-7 | H-b is load-bearing: a T₁ offset loses SU(3) | holds | (A-lin); or (A-aff) with μ_{T₁} = 1 | [D] N4b | that the corpus excludes such offsets |
 | Q4-8 | O5 (A6 promotion) | not examined | — | — | anything about O5 |
 
-**Outcome, by §1's rule (review S3).**
-- **Overall: (iii).** O1–O4 agree between (L) and the offset readings either
-  - on Hom-type carriers, or modulo U(1)_diag or 𝒦 (under (A-lin), or (A-aff) at resonance); or
-  - fully, by admitting affine internal maps (under (A-aff) off resonance).
+**Outcome under §1's rule as frozen at `8de75f7c`.** Read with the §8.2 key, so that (A) is the
+stabilizer of the affine rule and H = G_v.
+- **(i) is not reached.**
+  - O5 is not examined (Q4-8).
+  - The carrier clause fails. Under (A) with linear stabilizer elements, which are the elements of
+    Stage 2(d)'s U(K), and under affine elements at resonance, the action on V_K differs (N4a). The
+    corpus uses V_K for the Higgs.
+- **(ii) is not reached.** No output among O1–O4 fails or changes (Q4-3, Q4-4).
+- **(iii) is reached for O1–O4.** They agree only given a choice the corpus does not state, and that
+  choice is one of the rule's listed examples:
+  - a carrier choice (the Hom-type carriers), or
+  - reading the "singlet-block" identification modulo a subgroup (U(1)_diag or K).
 
-  Both are conventions the corpus does not state. On V_K, which the corpus uses for the Higgs, the
-  actions differ in the first case.
+  The (A-aff) off-resonance branch reaches full agreement only by admitting affine internal maps.
+  That too is a choice Stage 2(d) does not state.
+- **O5 is not classified.** Restricting the classification to O1–O4 is amendment A5 in §8.2.
 - **Group-level component.** The abstract groups O1–O3 and the hypercharges O4 agree in every branch
-  (Q4-3, Q4-4). Taken alone, these statements meet (i)'s requirements.
-- **Not (ii).** No output among O1–O4 fails.
-- **O5 is not classified** (Q4-8).
+  (Q4-3, Q4-4). They meet (i)'s group and charge clauses, but not its carrier clause.
+- **Under the amended reading of §8.2 the classification is the same, (iii).**
 
 ***
 
@@ -362,10 +395,54 @@ approval.
 
 ***
 
-## §8 Response to review (`8de75f7c`)
+## §8 Response to review
 
-- **B1, B3, S1–S6 and the nits:** accepted and applied. The table header now reads "Does not".
+### 8.1 Review of `8de75f7c`
+
+- **B1, B3, S1–S6 and the nits:** accepted and applied. The table header now reads "Does not". The
+  nit on §1's garbled sentence is not applied, because §1 is frozen (§8.2).
 - **B2:** accepted, with one refinement. The two lifts the review names are equivalent for F, since
   they differ by an element of G_v ∩ 𝒦, but not on Hom-type carriers. (I_3, zI_2, 1) gives
   (−1, 0, 1) on (Hom(V₂,V₃), Hom(V₁,V₃), Hom(V₁,V₂)), whereas (z⁻²I_3, z⁻³I_2, 1) gives (1, −2, −3).
   Q4-4 therefore states the coset, and the result that the lift families agree.
+
+### 8.2 Amendment to §1 (post-result, written 2026-11-04 after the `8de75f7c` review)
+
+§1 above is the rule as frozen at `8de75f7c`. It is restored verbatim. Revision `c155200d` had edited
+it in place without disclosure, and that edit is withdrawn here (delta review D1, §A.29). The
+amendments below are a reading written after the results were known. They do not replace §1.
+
+**Notation key.** §1's terms correspond to this note's later notation as follows:
+- b is v, and "the b = 0 results" are the v = 0 results;
+- H is G_v;
+- K is 𝒦;
+- (A), "the stabilizer of the affine rule", is refined in §3 into (A-lin) and (A-aff).
+
+| # | Old text (§1) | New reading | Reason |
+|---|---|---|---|
+| A1 | (i): "under reading (A) with b ≠ 0" | "under every offset reading, (A-lin) and (A-aff), with v ≠ 0" | Review B1 showed that (A) is ambiguous between linear and affine elements. Requiring both makes (i) harder to reach |
+| A2 | (ii): "no subgroup of H reproduces it" | "no subgroup of the offset stabilizer reproduces it" | Under (A-aff) off resonance the stabilizer's linear parts are G_0, not H |
+| A3 | (iii) examples: "admitting time-dependent frames" | "admitting time-dependent or affine frames" | The (A-aff) off-resonance agreement relies on affine internal maps |
+| A4 | "those the corpus derives from Stage 2(d)" | unchanged | `c155200d` dropped this sentence in editing; it is restored and not amended |
+| A5 | classification over O1–O5 | classification over O1–O4; O5 is recorded as not examined | Review B3: no node examines O5 |
+
+**Effect.** A1–A3 move the outcome away from (i). Under §1 as frozen, the outcome is (iii) for O1–O4
+(§4). Under the amended reading it is also (iii). The two classifications do not differ.
+
+### 8.3 Delta review of `c155200d`
+
+- **D1:** applied (§8.2).
+- **F1:** SM:577's α, β, γ are written a_B, a_L, a_S here, so β denotes only the two-slice offset.
+- **F2:** the u_R / e_R claim is labelled [D], with the hand argument, and is no longer attributed to
+  SM:597.
+- **F3:** Q4-2, N1 and N5 now say "linear parts" and "unitary part". The resonant affine stabilizer is
+  G_v ⋉ T_0.
+- **F4:** the group-level component meets (i)'s group and charge clauses, not its carrier clause.
+- **F6:** the note now cites SM:96 and Substratum:270 as declaring shifts gauge, and narrows the claim
+  to "Stage 2(d)'s U(K) does not include affine maps".
+- **Nits:** Theorem 4 is cited at SM:320–321; "M = I₆" replaces "scalar M"; the N8b confidence wording
+  is adjusted.
+- **F5, partly rebutted.** The owner's decision is cited, not the parent. #1049 c.6624263637 states
+  that "These decisions answer Q1 and Q2" and quotes the Q2 decision. The parent at `f07f55d0`
+  predates it, and the review offers "cite the decision" as one fix. The [O] label is kept only on
+  that quotation (Readings, (A-aff)).
