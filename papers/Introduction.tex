@@ -343,8 +343,8 @@ analysed with quantum methods before, for example in {[}tH14{]}.
 {[}dMU21; Mathlib20{]} at the baseline or additional source checkpoints
 specified under ``Code, data and formal verification'' and in Appendix
 A, using the stated recipe; ``proved on paper'' means a written proof
-without a machine check; an ``exact probe'' is an exhaustive computation
-in exact rational arithmetic at small size. Where a subsection's
+without a machine check; an ``exact probe'' is a computation in exact
+rational arithmetic on stated small instances. Where a subsection's
 evidence classes and attributions are long, they close it in a paragraph
 labelled \emph{Proofs and sources}; elsewhere they are given inline. A
 \emph{faithful realization} of a law is a bijection \(\varphi\) of
@@ -486,10 +486,10 @@ permutation dynamics is a special case of a unistochastic process, one
 with transition probabilities \(|U_{ij}|^2\) for a unitary \(U\)
 {[}Bar25, p.~12 of arXiv v3; Bar23 §4.3; Bar26 §4{]}; the one-step
 \(|\mathcal C_V|^2\)-dimensional ancilla dilation of {[}Main §3.1{]} is
-that of {[}Bar26, Thm 3.3; Sch21, Thm 2{]}; and the every-step record
-law is {[}SGD19, Eq. (3){]}; whether such records remain consistent when
-measurements are omitted {[}SGD19; Milz20{]} does not arise for
-\(\mathsf Q_K\), which measures at every step.
+that of {[}Bar26, Thm 3.3{]}; and the every-step record law is {[}SGD19,
+Eq. (3){]}; whether such records remain consistent when measurements are
+omitted {[}SGD19; Milz20{]} does not arise for \(\mathsf Q_K\), which
+measures at every step.
 
 \hypertarget{scope-of-the-correspondence}{%
 \subsubsection{2.3 Scope of the
@@ -626,12 +626,11 @@ non-injective ones. Conversely, memory has a floor: if two values of
 \(X_{<t}\) followed by a common present state \(X_t\), each of joint
 probability at least \(p_0\), induce next-step laws at total-variation
 distance at least \(\delta\), then \(M_t\ge p_0\delta^2/\ln2\), by
-Pinsker's inequality (proved on paper, with exact probes) {[}Main §2.3,
-Lemma (accessible conditional memory from readback); CT06{]}. Observed
-memory thus bounds a hidden-sector quantity: measurable conditional
-information fixes a lower bound on the hidden sector's size and the
-exact minimum of the hidden predictive memory a deterministic completion
-must carry.
+Pinsker's inequality (proved on paper) {[}Main §2.3, Lemma (accessible
+conditional memory from readback); CT06{]}. Observed memory thus bounds
+a hidden-sector quantity: measurable conditional information fixes a
+lower bound on the hidden sector's size and the exact minimum of the
+hidden predictive memory a deterministic completion must carry.
 
 For actual finite-permutation trajectories, the capacity bound is also
 machine-checked uniformly in time and in every finite future block. With
@@ -949,14 +948,14 @@ the window {[}Main §1.3{]}.
 \hypertarget{three-examples}{%
 \subsubsection{2.6 Three examples}\label{three-examples}}
 
-\textbf{A minimal model.} A hidden register sometimes flips the visible
-bit and remembers having done so, so that a second step undoes the
-first. Let \(\mathcal C_V=\{0,1\}\) and \(\mathcal C_H=\{1,\dots,6\}\)
-{[}Main §2.4{]}. For \(h\in\{1,2\}\), \(\varphi\) swaps \((0,h)\) with
-\((1,h)\): it flips the visible bit and keeps \(h\), which then records
-the flip. At fixed \(x\), \(\varphi\) swaps \(h=3\) with \(4\), and
-\(5\) with \(6\). A second application reads the record and flips the
-bit back. With \(h\) uniform, \[
+\textbf{A six-hidden-state model.} A hidden register sometimes flips the
+visible bit and remembers having done so, so that a second step undoes
+the first. Let \(\mathcal C_V=\{0,1\}\) and
+\(\mathcal C_H=\{1,\dots,6\}\) {[}Main §2.4{]}. For \(h\in\{1,2\}\),
+\(\varphi\) swaps \((0,h)\) with \((1,h)\): it flips the visible bit and
+keeps \(h\), which then records the flip. At fixed \(x\), \(\varphi\)
+swaps \(h=3\) with \(4\), and \(5\) with \(6\). A second application
+reads the record and flips the bit back. With \(h\) uniform, \[
 \Gamma_1=\begin{pmatrix}2/3&1/3\\1/3&2/3\end{pmatrix},\qquad \Gamma_2=I,\qquad
 \Gamma_1^{-1}\Gamma_2=\begin{pmatrix}2&-1\\-1&2\end{pmatrix}.
 \] The only candidate divisor has negative entries, so the family is
@@ -1102,9 +1101,10 @@ burn card in the uniform diagonal state, the one-step channel
 family is CP-indivisible {[}Main §3.2{]}; its memory is still classical
 in the sense of {[}BBS24{]}, since the two-step identity is obtained by
 realizing the one-step channel as the Pauli twirl
-\(\rho\mapsto\tfrac14\sigma_o\rho\sigma_o\), \(o\in\{0,x,y,z\}\), and
-applying \(\sigma_o\) conditioned on \(o\), a decomposition a fixed
-initial hidden card does not admit {[}Main §4.5{]}.
+\(\rho\mapsto\tfrac14\sigma_o\rho\sigma_o\), \(o\in\{0,x,y,z\}\), which
+sums to it because \(\sum_o\sigma_oX\sigma_o=2\operatorname{tr}(X)\,I\),
+and applying \(\sigma_o\) conditioned on \(o\); with a fixed initial
+hidden card the swap admits no such decomposition {[}Main §4.5{]}.
 
 That is, the embedded card game fails quantum chaining as well, yet its
 memory is ordinary classical memory, so failure of quantum chaining does
@@ -1219,9 +1219,10 @@ interaction with an ancilla followed by ancilla readout and discard
 {[}Sti55; Kra83; Oza84{]}; for reconstructions of finite quantum theory
 from operational axioms see {[}Har01; CDP11; MM11{]}.
 
-\hypertarget{the-evolution-relating-two-times-is-not-selected}{%
-\subsubsection{3.3 The evolution relating two times is not
-selected}\label{the-evolution-relating-two-times-is-not-selected}}
+\hypertarget{representability-does-not-select-the-evolution-relating-two-times}{%
+\subsubsection{3.3 Representability does not select the evolution
+relating two
+times}\label{representability-does-not-select-the-evolution-relating-two-times}}
 
 Two different quantum mechanisms can produce identical records at every
 time, so the records alone cannot tell which evolution connects two
@@ -1348,7 +1349,8 @@ wings outside each other's causal cone {[}Main §3.3, Corollary
 preparation-indexed coupling graph, in which a Bell preparation adds
 bounded-degree long-range edges to the coupling graph, can supply it
 while preserving operational no-signalling and the gravitational
-continuum limit is the open hypothesis H-Bell {[}Main §3.3{]}.
+continuum limit is the open hypothesis H-Bell {[}Main §3.3; Substratum
+§3.2{]}.
 
 So, given determinism and an outcome in every run, a deterministic
 hidden world can produce quantum Bell correlations only if one
@@ -1635,19 +1637,19 @@ not derive their physical mechanism.
 
 \textbf{Conditional physical interpretations.} If OI holds as physics
 (with the bijective substratum an empirically motivated representation
-choice, §1.1), the fixed-basis statistics of quantum theory are the
-visible laws of an embedded observer, and their departures from Markov
-behaviour require hidden predictive memory, which may nevertheless be
-identified by retained records, as the card table of §2.6 illustrates.
-Given determinism and an outcome in every run, quantum Bell correlations
-require giving up ontic parameter independence or measurement
-independence; with measurement independence retained, they require ontic
-parameter dependence, whose realization on the substratum without usable
-signalling and with the gravitational continuum limit is the open
-hypothesis H-Bell (§3.5); the zero-point sum is not a gravitational
-source if the field equations take the targeted form (§4); and the
-finite coherent entropy-curve examples do not establish a physical Page
-curve beyond the configuration-state obstruction (§5).
+choice, §1.1), the fixed-basis statistics of quantum theory are, at
+every finite horizon, visible laws of an embedded observer, and their
+departures from Markov behaviour require hidden predictive memory, which
+may nevertheless be identified by retained records, as the card table of
+§2.6 illustrates. Given determinism and an outcome in every run, quantum
+Bell correlations require giving up ontic parameter independence or
+measurement independence; with measurement independence retained, they
+require ontic parameter dependence, whose realization on the substratum
+without usable signalling and with the gravitational continuum limit is
+the open hypothesis H-Bell (§3.5); the zero-point sum is not a
+gravitational source if the field equations take the targeted form (§4);
+and the finite coherent entropy-curve examples do not establish a
+physical Page curve beyond the configuration-state obstruction (§5).
 
 \textbf{Open problems.} For quantum emergence:
 
@@ -1667,15 +1669,15 @@ curve beyond the configuration-state obstruction (§5).
   quantum theory {[}Main §4.5{]};
 \item
   the dynamical construction problems: exact gluing of per-horizon
-  realizations for recurrent target families, approximation of a target
-  on windows short compared with the recurrence time by one fixed
-  substratum {[}Main §3.4{]}, and the hidden-sector mixing hypothesis,
-  motivated by eigenstate thermalization, under which observed
-  conditional memory gives a lower bound on the hidden sector's
+  realizations for recurrent families of multi-time laws, approximation
+  of a target on windows short compared with the recurrence time by one
+  fixed substratum {[}Main §3.4{]}, and the hidden-sector mixing
+  hypothesis, motivated by eigenstate thermalization, under which
+  observed conditional memory gives a lower bound on the hidden sector's
   coarse-grained mixing time, the slow-bath form of (C2) {[}Main §1.3,
   §3.4{]};
 \item
-  machine checks of the steps of §§2.2--2.5 proved on paper.
+  machine checks of the steps of §§2--3 proved on paper.
 \end{enumerate}
 
 For the applications: a derivation of the covariant field equations with
@@ -2038,9 +2040,6 @@ the foundations of statistical mechanics,'' \emph{Nature Phys.}
 non-Markovianity: characterization, quantification and detection,''
 \emph{Rep.~Prog. Phys.} \textbf{77}, 094001 (2014); arXiv:1405.0303v2.
 
-{[}Sch21{]} H.-J. Schmidt, ``Dilation of stochastic matrices by coarse
-graining,'' arXiv:2106.03513v1 (2021).
-
 {[}SGD19{]} P. Strasberg and M. García Díaz, ``Classical quantum
 stochastic processes,'' \emph{Phys. Rev.~A} \textbf{100}, 022120 (2019);
 arXiv:1905.03018v2.
@@ -2064,4 +2063,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 83a79d1d272f257b570c0a53ab947cef9b726957f770e56b943a4e3bfd84334f
+% source-sha256: 3a1b988d0cef6b3dc525b9e188273aad514c9dcd5a3c60e51288ef137a44bf7f
