@@ -44,6 +44,24 @@ Discussion read: #1007 comment 6641543358, #866 comment 6641545083, PR #1109's c
 
 - `PROOF-ATTEMPT.md`: questions Q0–Q4, each ending in a verdict, and the proposed computation specs.
 
+## Results (unreviewed)
+
+These are mathematical verdicts only. Physical standing is in `PROOF-ATTEMPT.md`, Q4, where no
+hypothesis is derived for native OI.
+
+- **Q1, proved under H-pre.** Under H-pre, H-rule, H-torus and H-access with its record dictionary,
+  the pre-cut history has the same law under both settings, with `K0` mass retained. H-pre states that
+  the setting bank `b5` and port 5's pre-cut bank triples `f_5(t)`, `S+4 < t ≤ L+3`, are uniform given
+  everything else. It is a form of the history_v11 bank law.
+- **Q1, counterexample to the displayed hypotheses.** H-prior as displayed lets `D′` be a point mass.
+  For the all-zero point mass, the public pre-cut record `(R.B, R.D, U_{S+6}(port 5))` determines the
+  setting exactly (TV 1). The proof is by hand from `H`'s 8-entry table. It is not a counterexample
+  under H-pre or under the source-programme law of `D′`; that case is open.
+- **Q2, valid under the parent's prior.** The parent forward-kernel proof is valid under its prior,
+  given its recorded geometry. Three unwritten steps are supplied here.
+- **Q3, proved under H-prior⁺.** LA-EQUAL holds under H-prior⁺ (H-prior with H-pre), one direction
+  only.
+
 ## Plan
 
 1. Q0: state LA-EQUAL with every hypothesis, including the history_v11 bank law (H-bank).
