@@ -1,14 +1,14 @@
 # O-RET Phase A preregistration: exact replay of the pulse-design controls
 
-**Status.** WIP / UNVERIFIED preregistration, revision r3. Candidate freeze; frozen on the owner's designation of the
+**Status.** WIP / UNVERIFIED preregistration, revision r4. Candidate freeze; frozen on the owner's designation of the
 exact commit `F`. **Not authorized to run.** A run needs the owner's go on the reviewed `F` (#1032, Q9).
 - **Frozen inputs at `F`**, all in this directory:
   - this file, `PREREG-PHASE-A.md`;
   - `DESIGN-PULSE.md`, at design revision r6;
-  - `PHASEA-TUPLES.json`, the tuple list, total order, models, decoders and compared fields;
+  - `PHASEA-TUPLES.json` (data revision r2), the tuple list, total order, models, decoders and compared fields;
   - `PHASEA-EXPECTED.json`, the expected rows and values.
-- The design was reviewed ACCEPT at `e8dfe25e`. r4 and r5 were checked by the freeze reviews of `6735ef89`. r6 applies
-  those reviews and is unreviewed.
+- The design was reviewed ACCEPT at `e8dfe25e`. r4 and r5 were checked by the freeze reviews of `6735ef89`, and r6 by
+  the re-reviews of `f76467f1`.
 - Owner decisions: #1032, 2026-11-03/04. Q7 review: `REVIEW-Q7.md` (2026-11-04).
 
 Support labels: **[D]** derivation in DESIGN (`D:n` = line of `DESIGN-PULSE.md` at `e8dfe25e`; `r6:n` = line of
@@ -22,8 +22,8 @@ unreviewed: a derivation or specification made here, or wording frozen from the 
 **Objective.** Replay, by exhaustive exact enumeration, every control instance of DESIGN §8 Phase A (D:537–549,
 r6:563–575), plus the controls the Q7 review adds and CX-4b. For each tuple, check two things: that the assigned §4 row
 (r6:386–418) equals the frozen expected row, and that every frozen hand-derived value is reproduced exactly. The aim
-is to establish that the test correctly distinguishes storage from transport before it is applied to OI's native
-dynamics [O, #1032 c.6622018720].
+is to establish that the test correctly distinguishes storage from transport on the control set before it is applied
+to OI's native dynamics [O, #1032 c.6622018720].
 
 **Non-objectives.** The run does not cover:
 - K1 or any native rule;
@@ -90,6 +90,8 @@ off-run. Any re-run is a new freeze.
   - Any floating-point value in the verdict path is a failure (§5, exit 2).
 - **Enumeration method [U].**
   - *Full:* every state of `S`. This is used for every tuple with `|S| ≤ 2¹⁶`.
+    - For every full-method tuple, the tool first checks that `φ`, built from the frozen rule, is injective on `S`.
+    - A failure exits 5 before that tuple is evaluated.
   - *Sequential:* exact sequential marginalization. This is used only for the six HC-SK tuples with `|S| > 2¹⁶`:
     `(k, T) ∈ {(3,3), (5,2), (4,3), (6,2), (5,3), (6,3)}`.
     - At each tick, the law of `(σ, r)` is updated by the exact law of the arriving cell, which is fresh and
@@ -98,6 +100,7 @@ off-run. Any re-run is a new freeze.
       tick of `H_T` more than once.
     - The program checks both conditions from `φ` and the law, and exits 5 if either fails.
     - It emits every compared field.
+    - The same `trigger-channel` rule is checked injective on its full-method instances, orders 32–43.
   - *Validation:* every HC-SK tuple with `|S| ≤ 2¹⁶` is computed by both methods, and all compared fields must agree
     exactly (exit 5 otherwise). These tuples run before the six sequential tuples.
 - **Not computed in Phase A:**
@@ -250,8 +253,8 @@ For every tuple, (R-a) and (R-b) hold, and `f(σ) = c` is the carrier value bit 
 
 Cells are in `𝔽₂`. "Shift" means `x_j ← x_{j−1}`, with indices mod `L`. Each step's assignments are **simultaneous**:
 every right-hand side reads the state before the step. This matters for MB's 3-cycle and MC's rings; a sequential
-reading of MB's cycle is not a bijection. Full specifications, including the cell order, laws and decoder truth
-tables, are in `PHASEA-TUPLES.json`.
+reading of MB's cycle is not a bijection, and the injectivity check of §2.0 would reject it. Full specifications,
+including the cell order, laws and decoder truth tables, are in `PHASEA-TUPLES.json`.
 
 - **HC-TS(L)** (D:204–229).
   - Ring `u₀…u_{L−1}`, pure shift. `Σ = {u₀}`.
@@ -417,7 +420,8 @@ The total order [U] is the `order` field of `PHASEA-TUPLES.json`:
 The rule applies r6 §4's precedence (r6:386–418) as follows.
 
 **Computed objects.** Every object below is computed from `φ`, the law and the decoder only, by full or sequential
-enumeration (§2.0), for every tuple and unconditionally:
+enumeration (§2.0), for every window and noext tuple and unconditionally. Readback tuples have `T = null`, so they
+compute only `ε_max` and `TV` at the readback ticks and the recurrence flags. The objects are:
 - (R-a), which needs `A ∩ Σ = ∅` and `ρ_A(s_{t₀}) ⫫ κ` under `μ^P`; and (R-b), which needs the law of `g(A_{t₀})` given
   `σ` to be the same for both `σ ∈ P`;
 - `Par`, `Q` (from `A`) and `f_R`;
@@ -444,14 +448,19 @@ enumeration (§2.0), for every tuple and unconditionally:
   `η_t(σ) = μ^P(Q_t ∉ G | σ)` at once.
 - `η_t := max_σ μ^P(Q_t ∉ G*_{W_T} | σ)` for `t ∈ H_T`. With `G*_{W_T} = ∅`, `η_t = 1`.
 - The Lemma H bound at `t ∈ W_T` is `ε_max(t₀+1) + Σ_{s ∈ H_T, s < t} η_s`.
-- `G*_{W_T}` and `G*_{W_{T′}}` (window mode) are computed for every tuple. If `G_status_{W_T}` is `inconsistent`,
-  `η` and the bound are reported as `null`.
+- `G*_{W_T}`, and in window mode `G*_{W_{T′}}`, are computed for every window and noext tuple. If `G_status_{W_T}` is
+  `inconsistent`, `η` and the bound are reported as `null`.
 
 **Row assignment.** The first matching step decides.
 
 0. **Recurrence flags and readback mode.**
    - Flag each evaluated tick `t` with `ε_max(t) ≤ ε*` that follows some evaluated `t′ < t` with `ε_max(t′) > ε*`
-     (the recurrence rule). No tuple with a flag may take row 5 or 6.
+     (the recurrence rule).
+   - *Implied property, not an extra rule.* No flagged window or noext tuple can reach row 5 or 6. A flag needs some
+     evaluated `t′` with `ε_max(t′) > ε*`.
+     - If `t′ ∈ W_T`, step 4 matches, unless an earlier step does.
+     - If `t′ ∈ W_{T′} ∖ W_T`, then `T′ > T`, so `τ < ∞`, and step 3 matches, unless step 2 does.
+     - The re-application step checks this property.
    - Readback mode assigns I-3.
 1. **Noext mode.** With the extension not computed, row 1 applies if J-1 fails at a hold tick of `H_T`. Otherwise
    I-9 applies, with `T_prime = null`, if `T < τ < ∞`. Otherwise `T′ = T`, and evaluation continues at step 2.
@@ -471,11 +480,16 @@ enumeration (§2.0), for every tuple and unconditionally:
 7. **TI (row 7)** if `ε_max = 0` on `W_T`.
 8. **I-6 (row 8)** otherwise.
 
-**PASS.** The run passes iff all four of these hold:
+**PASS.** A run passes iff all four of these hold:
 - the host's conclusion for the Phase A job is `success`;
 - the job's check step exits 0;
 - `summary.json` has `verdict = PASS`;
 - the `verdict_text` regenerated from `summary.json` equals the stored one byte for byte.
+
+A step inside the job cannot read its own job's conclusion, so the job itself produces only the last three signals:
+the exit status, `summary.json`, and a step that regenerates `verdict_text` and compares it. After the run, the result
+reviewer applies the four-signal PASS. The reviewer reads the job conclusion from the host's API record and combines
+it with those three.
 
 Any other combination is a void run.
 - Within a pass, every tuple's computed row equals its frozen expected row, and every compared field equals its
@@ -494,6 +508,7 @@ Any other combination is a void run.
 - `kappa` (`"sigma"`), `independence_law` (`"mu_t(.|sigma in P)"`), `support_conditioning` (`"mu_t(.|sigma in P)"`) and
   `B_def` (`"Par(A)\\A on S"`);
 - `Q_cells` and `read_cells`;
+- `injective` (full-method tuples: the result of the check of §2.0);
 - `law`, `P`, `f`, `T` and `ticks`;
 - `failures`, the D-MET item 4 list of `(σ, t, configuration, probability)`;
 - `classes_T` and `Wr`;
@@ -503,15 +518,18 @@ Any other combination is a void run.
   the bytes the tool read;
 - `run`: `F`, the run commit and `run_attempt`.
 
-**Frozen-input check.**
-- At start, the tool reads `F` and computes, for each of the four frozen files, the git blob id at `F`
-  (`git rev-parse F:<path>`) and the git blob id of the bytes it loads.
-- Any difference exits 3 before any tuple is evaluated.
+**`F` and the frozen-input check.**
+- `F` is a constant written into the workflow and reviewed with it (§7). The job runs on a checkout whose history
+  contains `F`.
+- At start, the tool computes two git blob ids for each of the four frozen files: the one at `F`
+  (`git rev-parse F:<path>`), and the one of the bytes it loads.
+- Any difference, or an `F` absent from the checkout, exits 3 before any tuple is evaluated.
 
 **Encodings.**
 - Every probability is a string matching `^(0|[1-9][0-9]*)(/[1-9][0-9]*)?$` in lowest terms. A JSON number in any of
   these fields is a schema violation.
-- Every other encoding is that of `PHASEA-TUPLES.json` `conventions` and `field_definitions`.
+- Every other encoding, the row codes and booleans included, is that of `PHASEA-TUPLES.json` `conventions` and
+  `field_definitions`.
 
 **`phase-a/summary.json`** carries:
 - `tuples_frozen` (49);
@@ -536,17 +554,17 @@ The verdict text is rendered from these fields only:
 | 0 | all tuples match |
 | 1 | row or value mismatch |
 | 2 | schema violation or floating-point value |
-| 3 | frozen input does not match its git blob id at `F` |
+| 3 | frozen input does not match its git blob id at `F`, or `F` is not in the checkout |
 | 4 | `G*` undetermined at step 6 |
-| 5 | an enumeration-method condition fails, or full and sequential disagree |
+| 5 | `φ` is not injective on `S` for a full-method tuple; or a sequential-method condition fails; or full and sequential disagree |
 | other nonzero | error |
 
-**Where the verdict is read from.** The verdict reads three things:
+**Where the verdict is read from.** The result reviewer reads three things:
 - the exit status of the check step;
 - the host's job and step conclusions, read from its API;
 - `summary.json`.
 
-It never reads log text.
+The verdict never reads log text.
 
 ***
 
@@ -556,6 +574,8 @@ It never reads log text.
 |---|---|
 | exact rationals; no floating point in the verdict path | schema step: rational regex on every probability field; exit 2 |
 | the four frozen inputs exist at `F` and are unchanged | the git blob ids at `F` are compared with the loaded bytes at start; exit 3; recorded in `frozen_inputs` in every output |
+| `F` is the reviewed constant, present in the checkout | `F` is fixed in the reviewed workflow (§7); its absence exits 3; `run.F` is recorded in every output |
+| every model's `φ` is a bijection (simultaneous-step semantics) | the injectivity check on `S` for every full-method tuple; exit 5; `injective` recorded per tuple |
 | 49 tuples in the frozen total order, each with an expected row; no adaptive extension | `tuples_frozen`; `order` compared with `PHASEA-TUPLES.json`; the schema rejects a missing expected row; `tuples_evaluated` is a prefix of the frozen order |
 | one pass | the host run record shows `run_attempt = 1` |
 | halt on first red | `tuples_evaluated` ends at `first_failure.tuple_id`; the step exits nonzero |
@@ -568,14 +588,14 @@ It never reads log text.
 | `κ := σ`; independence and support conditioning under `μ(·|σ∈P)`; `B = Par(A)∖A` | fixed strings in every output; `J1` compared per tick, including R3 at `T = 2` and `T = 5` |
 | `τ` exact; `τ = ∞ ⇒ T′ = T`; `T_prime = null` for I-9 | `tau` and `T_prime` compared; the re-application step asserts the implication |
 | TR/EX only with an observed failure (Q2) | the re-application step asserts that some `t ∈ W_{T′}` has `ε > ε*` for every 2a/2b row |
-| recurrence never supports rows 5 or 6 | `recurrence_flags` compared; the re-application step asserts that no flagged tuple has row 5 or 6 |
-| `G*`, `η` and the bound computed for every tuple | the `_T` and `_Tprime` `G` fields, `eta` and `lemma_h_bound` compared for every window tuple |
+| recurrence never supports rows 5 or 6 (a property implied by §4) | `recurrence_flags` compared; the re-application step checks that no flagged tuple has row 5 or 6 |
+| `G*`, `η` and the bound computed for every window and noext tuple | the `_T` and `_Tprime` `G` fields, `eta` and `lemma_h_bound` compared for every window tuple, and the `_T` fields for every noext tuple |
 | `w*` and `T*` unset and unused (§2.10) | `w_star` and `T_star` are `null`; the schema rejects any other value |
 | sequential method valid and validated (§2.0) | its conditions are checked per tuple; full and sequential agree on orders 32–43; exit 5 |
 | `G`-rule well defined | `G_status` compared; exit 4 at step 6 only |
 | every fixed decoder fails (R-c) in mutation (d) | `sweep_min_max_eps` compared on MD-xor |
 | Q5 quantities kept distinct | `w` and `w_chg` compared for every HC-SK tuple |
-| PASS combines four signals | the check reads the job conclusion, the exit status, `summary.verdict` and the regenerated `verdict_text` |
+| PASS combines four signals | the job emits the exit status, `summary.json` and the regenerated-`verdict_text` comparison; after the run the result reviewer reads the job conclusion from the host's API record and applies all four (§4) |
 | verdict text generated only from structured output | a step regenerates `verdict_text` from `summary.json` and compares it byte for byte |
 | no K1, nonlinear rule or Phase B | the workflow has a single Phase A job; the frozen tuple list covers §3 only; the host's job list for the run |
 | resource limits | the job's `timeout-minutes`; its conclusion is read from the host |
@@ -589,11 +609,12 @@ It never reads log text.
 - **Order of steps.**
   1. The owner designates `F` and gives the go (§8).
   2. Only then does the designated writer, the coordinating session, write the tool and the workflow, on a disposable
-     research branch.
-  3. An independent reviewer reviews the tool and the workflow at their exact commit, before any dispatch.
+     research branch. The workflow carries `F` as a constant.
+  3. An independent reviewer reviews the tool and the workflow at their exact commit, `F`'s value included, before any
+     dispatch.
   4. Dispatch is a separate owner approval (§A.43), and any `workflow_dispatch` launch is a special launch.
   5. The push-triggered workflows are inspected before any push.
-  6. The independent reviewer also reviews the result.
+  6. The independent reviewer reviews the result and applies the four-signal PASS of §4 from the host's API record.
 - **Budget.** An estimate only. The six sequential HC-SK tuples are linear in `T`, and the largest full enumeration
   is `2¹⁶` states. A few minutes is expected and has not been measured. The job timeout is 30 minutes; a timeout is
   red, and there is no extension.
@@ -619,7 +640,7 @@ It never reads log text.
    - the agreement of §3 with the two data files;
    - the transcription of the Q7 wording in §2.7.
 2. **The owner's go on that reviewed `F`.** The go designates `F`. It explicitly accepts each [U] choice that the
-   run depends on:
+   run depends on, and the governance form:
    - (a) the F6 choice: row 1 applies J-1 on `H_{T′} ∖ H_T` (§2.7);
    - (b) the support-conditioning convention: `supp Q_t`, `𝓛`, `C_t` and `η` under `μ(·|σ∈P)` (§2.0);
    - (c) CX-4b as a control. It lies outside the owner's boundary "the frozen controls and the specified mutations"
@@ -628,8 +649,15 @@ It never reads log text.
    - (e) the `G`-rule (§4);
    - (f) the sequential enumeration method (§2.0);
    - (g) the HC-SK tie-break order (§3.3);
-   - (h) the model specifications made here: MB and MC, HCP-h, SC, the CX-4b concretization, `T = m−1` for HC-TM,
-     `L = T+1` for HC-SK, and HC-R1's row at `T = 4`.
+   - (h) the model specifications made here: MB and MC, HCP-h, SC, the CX-4b concretization, `T = m−1` for HC-TM and
+     `L = T+1` for HC-SK (§3.1);
+   - (i) the data-file conventions of `PHASEA-TUPLES.json`: the simultaneous-step semantics, the explicit laws of SC
+     and CX-4b, and the readback tick sets;
+   - (j) the derived rows added in design r5, marked [D, unreviewed]: HC-R1 at `T = 4` (r6:331–332) and HC-R3 at
+     `T = 5` (r6:364);
+   - (k) the governance form, which is the owner's choice. Phase A is a research run on a disposable branch, not a
+     §A.39 native V3 round; it carries no `v3-round` or `v3-governed-paths` block, and its freeze is the
+     owner-designated exact commit `F`.
 
 ***
 
@@ -668,5 +696,4 @@ It never reads log text.
 - **Imposed laws.** Every storage control imposes its preparation (quiet bits and ready registers). Phase A says
   nothing about where such a preparation could come from (O1), about access (O3) or about observers (O4).
 - **Scope.** A pass says nothing about native dynamics, K1 or any nonlinear rule.
-- **Governance form.** Phase A is not a §A.39 native V3 round. It carries no `v3-round` or `v3-governed-paths` block.
-  Its freeze is the owner-designated exact commit `F`, as for the earlier frozen preregistrations here.
+- **Governance form.** This is the owner's choice, accepted with the go (§8 item 2 (k)).
