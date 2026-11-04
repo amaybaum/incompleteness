@@ -105,13 +105,37 @@ A proof under hypotheses does not derive them.
   - The whole bank is uniform given its complement, so any sub-block of it is uniform given the
     complement and the rest of the bank. ∎
 - (c) **H-bank ∧ H-free ⇒ H-prior.** Here H-free means the 25 FREE keys of `η` are uniform given the
-  rest of the complement, the "inherited independent-uniform complement" of `:153`. The proof is the
-  chain rule.
+  rest of the complement, the "inherited independent-uniform complement" of `:153`.
 
-  H-free is not needed as a separate hypothesis once H-prior is assumed. The minimal list for
-  Theorem 3 is H-prior's displayed equation, H-pre, H-access with its dictionary, H-rule with P6a,
-  H-torus with P5, the recorded P1–P4 and the parent's recorded geometry. H-inventory is not used in
-  any proof step.
+  *Proof.* Write `C` for the bank complement and `Bk` for the bank.
+
+  - Then `η = FREE ∪ η_bank`, where `η_bank` is the 17 BANK keys. Also `β ⊂ Bk`, and
+    `D′ = (C∖FREE) ∪ Bk_rest` with `Bk_rest = Bk ∖ (η_bank ∪ β)`.
+  - By the chain rule,
+
+        P(η, β | D′) = P(FREE | C∖FREE, Bk_rest) · P(η_bank, β | C, Bk_rest).
+
+  - The second factor is uniform by H-bank, because a sub-block of a bank that is uniform given `C` is
+    uniform given `C` and the rest of the bank.
+  - For the first factor: under H-bank, `P(Bk | C)` is uniform and does not depend on `C`, so `Bk` is
+    independent of `C` and in particular `Bk_rest` is independent of `(FREE, C∖FREE)`. Hence
+    `P(FREE | C∖FREE, Bk_rest) = P(FREE | C∖FREE)`, which is uniform by H-free.
+  - The product is `8^-(42+|β|)`, which is H-prior. ∎
+
+  H-free is not needed as a separate hypothesis once H-prior is assumed.
+
+**A sufficient list for Theorem 3, in which neither H-prior nor H-pre is implied by the other:**
+
+- H-prior's displayed equation and H-pre;
+- H-access with its record dictionary;
+- H-rule with P6a, and H-torus with P5;
+- the recorded P1–P4 and the parent's recorded 42-row geometry;
+- the recorded identification of the 16 terminal contexts with bank-complement flag values (the `⊥`
+  paragraph after Lemma 2);
+- history_v11's recorded bank/source distinctness (`NY/history_v11/REPORT.md:67–81`).
+
+Minimality of the list is not claimed. H-inventory is not used as a proof step. The inventory-relative
+recorded inputs (P3 and the bank/source distinctness) are discussed in Q4.
 
 **Sourced reading of H-prior.** The preregistration keeps "the original preparation" unchanged
 (`later-access-preregistration.md:102–104`). It supplies H-prior "where the inherited
@@ -211,6 +235,11 @@ contexts (`later-access-preregistration.md:120–121`). This is sourced as follo
 - Those flags belong to the informative branch record through `L`, which history_v11 shows is a
   function of the bank complement: "the entire retained selected phase and the informative branch
   record through L are bank-complement functions" (`NY/history_v11/REPORT.md:83–86`, also `:120–121`).
+  The phase_joint_v10 review states the same of D and the selected phase fields: "D, G and the selected
+  phase fields are functions of the complement because their cones exclude the bank"
+  (`NY/phase_joint_v10/review/REPORT.md:68–69`).
+- The flag cells `(0,S,68+k)` at `R+k` are also excluded from `b5` and `V5` directly, by Lemma 2's
+  flag row.
 - So the indicator of `{K0 = ⊥}` is a function on `Ω` of the bank complement alone.
 - `b5` and `V5` are bank triples, so the indicator does not depend on them. Their distinctness from
   every source cell is the parent's check for `b5` (`native_random_setting_probe.py:73`) and
@@ -333,9 +362,9 @@ in the statement. ∎
 
 **What Theorem 2 shows, and what it does not.**
 
-- It refutes the implication "H-prior as its displayed equation, read without its sourcing sentence,
-  together with H-rule, H-torus, H-access and P1–P6a, implies LA-EQUAL". The step that needs more is
-  the pre-cut equality.
+- It refutes the implication "the five listed hypotheses imply LA-EQUAL", where the five are H-prior as
+  its displayed equation (read without its sourcing sentence), H-inventory, H-access, H-rule and
+  H-torus, together with P1–P6a. The step that needs more is the pre-cut equality.
 - The steps S3–S6 of the LA argument (tail uniformity and `EMPTY`) hold for every fixed value of `D′`.
   The pre-cut equality does not.
 - The point mass is not the original preparation. It zeros the source programme inside `B(p5, S+6)`,
@@ -449,7 +478,8 @@ the recorded 42-row geometry *(recorded, not re-run)*. No step is in error.
 
 Assume H-prior (its displayed equation) and H-pre, which together are equivalent to H-prior⁺
 (Lemma 0(a)). Assume also H-rule with P6a, H-torus with P5, H-access with the record dictionary of Q0,
-the recorded P1–P4, and the parent's recorded 42-row geometry. Then `μ_0^{k0} = μ_1^{k0}` for every
+the recorded P1–P4, the parent's recorded 42-row geometry, the recorded `⊥` identification and
+history_v11's bank/source distinctness (the sufficient list after Lemma 0). Then `μ_0^{k0} = μ_1^{k0}` for every
 `k0`, `⊥` included.
 
 *Proof.* By the chain rule, for each `(w′, k0, f, y)`:
@@ -470,7 +500,8 @@ two is positive. Each factor in turn:
    - P1, P4 and the Lemma 1 argument make `β ↦ Tail` triangular with bijective diagonal, for fixed
      `(D′, η)`;
    - H-prior gives `P(Tail=y | D′, η) = 8^-|β|`;
-   - by P2, `(W_pre, K0, Fut, R.A)` is a function of `(D′, η)`.
+   - by P2, `(W_pre, K0, Fut, R.A)` is a function of `(D′, η)`. For `k0 = ⊥`, the value `⊥` is such a
+     function by the `⊥` paragraph after Lemma 2, being a bank-complement function.
 
    The conditioning event `{W_pre=w′, K0=k0, Fut=f, R.A=c}` is therefore a union of `(D′, η)`-cells,
    on each of which the tail has law `8^-|β|`. So the factor equals `8^-|β|`.
@@ -498,7 +529,8 @@ positive, and both sides are `0` otherwise. The expression does not depend on `c
   geometry.
 - H-prior's sourced reading supplies H-pre (Lemma 0(b)), so under that reading LA-EQUAL holds
   conditionally.
-- Under the five listed hypotheses with H-prior as its displayed equation: **counterexample**
+- Under the five listed hypotheses (H-prior as its displayed equation, read without its sourcing
+  sentence, together with H-inventory, H-access, H-rule and H-torus) with P1–P6a: **counterexample**
   (Theorem 2).
 - No conditioning event of zero probability is used.
 
@@ -509,17 +541,18 @@ positive, and both sides are `0` otherwise. The expression does not depend on `c
 | Hypothesis | Mathematical role | Physical standing in native OI |
 | --- | --- | --- |
 | **H-pre** (implied by H-bank; with H-prior, equivalent to H-prior⁺) | Load-bearing for the pre-cut factor: Theorem 1 uses it, and Theorem 2 shows that dropping it can break LA-EQUAL. | **Posited.** It is part of H-prior's sourced reading. history_v11 supplies its bank as "an explicit resource extension … supplied assumptions rather than derived physical laws" (`NY/history_v11/REPORT.md:23–27`). Not derived; whether native OI supplies it is open. |
+| **H-bank** (history_v11's bank law) | Implies H-pre (Lemma 0(b)), and with H-free implies H-prior (Lemma 0(c)). Not itself a premise of Theorem 3. | **Posited:** an explicit resource extension, "supplied assumptions rather than derived physical laws"; the result "adds no native measurement or physical source of the independent resources" (`NY/history_v11/REPORT.md:5`, `:23–27`). |
 | **H-prior** (displayed) | Tail factor, `EMPTY` and the parent kernel. | **Posited**, from the same source. It is load-bearing: CP-PRIOR gives TV `1/8` when the prior is correlated. |
 | **H-free** | Redundant once H-prior is assumed (Lemma 0(c)). | **Posited** ("inherited independent-uniform complement"). |
-| **H-inventory** | Not used in any proof step here. It underwrites that the record set and source inventory are as listed. | **Posited:** a declared completeness condition of the construction. |
+| **H-inventory** | Not used in any proof step here. It underwrites that the record set and source inventory are as listed. Recorded inputs that are used are stated relative to the declared inventory: P3 checks disjointness from the 1479 listed sources, 17 exceptions and 25 balls, and the bank/source distinctness checks the listed sources. A source outside the inventory would not be covered by them. | **Posited:** a declared completeness condition of the construction. |
 | **H-access** and the record dictionary | Defines `W_τ`, `A(X)` and the passive no-write read. Lemma 2 is relative to this dictionary. | **Posited:** a retained candidate convention, not adopted (`later-access-preregistration.md:68–75`). A different flag or timing set could change Lemma 2. |
-| **H-rule** | Theorems 1 and 3 and the parent kernel use the rule's structure: a bijective `H` in the second-order XOR rule `U_{t+1} = U_{t-1} ⊕ H(Σ)` with finite propagation speed. That gives the light cone and the first-arrival permutations. Theorem 2 uses the specific `H`. | **Posited model rule of native-Y.** It is not the corpus's lattice rule. `papers/SM.md:224` fixes the form `x_i(t+1) = α Σ_{j∼i} x_j(t) − x_i(t−1)` *given* center independence, isotropy and linearity. Linearity is itself a premise, imposed on the selected model rather than derived: A5 at `papers/SM.md:240` and `:1416`, and `papers/Substratum.md:274`. `H` is nonlinear. Theorem 2's table is specific to this `H`. No statement here transfers to the corpus's linear rule without a new argument. |
+| **H-rule** | Theorems 1 and 3 and the parent kernel use the rule's structure: a bijective `H` in the second-order XOR rule `U_{t+1} = U_{t-1} ⊕ H(Σ)` with finite propagation speed. That gives the light cone and the first-arrival permutations. Theorem 2 uses the specific `H`. | **Posited model rule of native-Y.** It is not the corpus's linear (A5) rule. The rounded realization that `papers/SM.md:1416` also names is not addressed here. `papers/SM.md:224` fixes the form `x_i(t+1) = α Σ_{j∼i} x_j(t) − x_i(t−1)` *given* center independence, isotropy and linearity. Linearity is itself a premise, imposed on the selected model rather than derived: A5 at `papers/SM.md:240` and `:1416`, and `papers/Substratum.md:274`. `H` is nonlinear. Theorem 2's table is specific to this `H`. No statement here transfers to the corpus's linear (A5) rule without a new argument. |
 | **H-torus** | No wrap; the distances are lattice distances. | A construction parameter, measured exactly by P5 *(recorded)*. Finiteness of the substratum is posited. |
 | **P1–P5, P6a** and the parent's 42-row geometry | Geometric premises. | Exact finite computations *(recorded, not re-run, not independently reviewed)*. Parts used here were re-derived by hand: Lemma 2, Theorem 2(a), and the K0, Q9 and flag distances. |
 
 **Verdict Q4.** None of the hypotheses is derived for native OI. Theorem 3 is a conditional
 mathematical theorem about the native-Y model under posited resources. It is not a physical derivation,
-and it says nothing about the corpus's linear lattice rule, whose linearity is itself posited (A5).
+and it says nothing about the corpus's linear (A5) rule, whose linearity is itself posited.
 
 ***
 

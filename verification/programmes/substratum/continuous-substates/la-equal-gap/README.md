@@ -1,8 +1,14 @@
 # LA-GAP: the LA-EQUAL proof gap (#1007)
 
-**Status: WIP / UNVERIFIED. Not independently reviewed.** This directory records a paper-only
-study. It is model-authored by `writer-1007`, a Claude Code subagent, and has had no
-independent review. It is not a premise of any established claim (AGENTS.md §A.46 item 7).
+**Status: WIP / UNVERIFIED.** This directory records a paper-only study, model-authored by
+`writer-1007`, a Claude Code subagent. Two independent model reviews exist on PR #1111. Neither is
+an authenticated human or external review.
+
+- [the first review, of `c236c888`](https://github.com/amaybaum/incompleteness/pull/1111#issuecomment-6643256663);
+- [the re-review, of `a013cb7c`](https://github.com/amaybaum/incompleteness/pull/1111#issuecomment-6643489504).
+
+The results are not established (AGENTS.md §A.46 items 1 and 7): their recorded geometric inputs
+have not been re-run or independently reviewed. They are not a premise of any established claim.
 
 ## Scope and authorization
 
@@ -37,6 +43,10 @@ Blob ids are abbreviated to 12 hex digits.
 | `b2baf4cbabba` | `verification/programmes/substratum/continuous-substates/native_later_access_probe.py` (read as specification) |
 | `ed3a7131939f` | `verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/history_v11/REPORT.md` |
 | `cbc5d75e9c43` | `verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_vread_v15/checks.py` (constants and `PORTS`, read as specification) |
+| `bc510615cf9b` | `verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/native_x_v12/REPORT.md` (terminal flags, `:160`) |
+| `e988563dd5c2` | `verification/programmes/oi-qm/reconstruction/native-y-continuation-20261024/phase_joint_v10/review/REPORT.md` (`:68–69`, `:77`) |
+| `b55e55494b2a` | `papers/SM.md` (`:224`, `:240`, `:1416`) |
+| `815258fcdfc2` | `papers/Substratum.md` (`:274`) |
 
 Discussion read: #1007 comment 6641543358, #866 comment 6641545083, PR #1109's comments.
 
