@@ -1,6 +1,6 @@
 {
   "schema": "bornsel-c1-instances/1",
-  "status": "draft r2; candidate freeze input; frozen together with PREREG-C1.md at the owner-designated commit F; WIP / UNVERIFIED",
+  "status": "draft r3; not yet a candidate freeze (PREREG-C1.md section 7: OQ answers, revision and review precede F); WIP / UNVERIFIED",
   "companions": {
     "prereg": "PREREG-C1.md",
     "expected": "C1-CONTROLS-EXPECTED.json",
@@ -8,6 +8,9 @@
     "source": "BORNSEL-B-MEASURE.md at 7b46d36c, section 7 C-1"
   },
   "base": "1609dc440f5a12d05b750f6d894bb91d09a099a3",
+  "oq13_answer": null,
+  "oq13_answer_note": "set before F to one of 13a, 13b, 13c, 13d (PREREG-C1.md section 4.2 table; section 7 step 2); the tool exits 2 if it is not one of the four codes",
+  "oq13_selection": {"13a": "R0", "13b": "S1", "13c": "S2", "13d": "S3"},
   "conventions": {
     "arithmetic": "exact integers; a probability is a reduced integer fraction; equality x/y = u/v is decided by x*v = u*y; no floating point anywhere in the verdict path",
     "probability_encoding": "format c1-reduced-rational of C1-OUTPUT-SCHEMA.json, unsigned; a JSON number in a probability field is a schema violation",
@@ -17,11 +20,14 @@
     "permutation_test": "M is a permutation matrix on row set W iff every entry M(a,j), a,j in W, is 0 or 1; every row sum over W and every column sum over W is 1; and M(a,j) = 0 for a in W, j not in W",
     "first_mismatch": "the lexicographically least (a, j), a-major, a a visited row, j in 0..n-1, with T_alpha(a,j) != the compared credence (T_beta, or T_beta_long for S2)",
     "ell_min_rule": "ell_min = n + 1; an orbit is long iff its length >= ell_min",
-    "long_c4": "long and T_alpha not a permutation matrix on V_O (S1)",
+    "long_c4": "long and T_alpha not a permutation matrix on V_O; Long' is the set of such orbits (S1, S3)",
     "T_beta_long": "for a in the union of V_O over long orbits: sum over long O of c_O(a,j) / sum over long O of n_a(O) (S2); the empty map when no orbit is long",
+    "T_beta_c4": "the same over Long' (S3); the empty map when Long' is empty",
+    "variants": "R0: candidates Long, credence T_beta; S1: Long', T_beta; S2: Long, T_beta_long; S3: Long', T_beta_c4 (PREREG-C1.md section 4.1)",
     "pdiv": "PDivisible N Gamma of CausalReadback.lean:54 on the stated row set; alpha: rows V_O, N = |O|; beta: rows C_V, N = ord(phi); computed by Lemma PD on every toy and native instance and also by the certified definitional method of PREREG-C1.md section 2.4 on every toy",
     "pdiv_lp_indexing": "row set W = (w_0..w_{k-1}) ascending; x_{i*k+j} = Lambda(w_i, w_j); constraint rows ai*k+j: sum_i Gamma_s(w_ai,w_i) x_{i*k+j} = Gamma_t(w_ai,w_j); then rows k^2+i: sum_j x_{i*k+j} = 1; pairs (s,t) in lexicographic order, stopping at the first infeasible pair",
-    "verdicts": "FREQ | NOT | VOID_NO_ORBIT per instance, for primary, S1 and S2 (PREREG-C1.md section 4.1)"
+    "verdicts": "FREQ | NOT | VOID_NO_ORBIT per instance, for each of R0, S1, S2 and S3 (PREREG-C1.md section 4.1)",
+    "cert_checker": "rebuilds A and b from Gamma_s and Gamma_t (never from the certificate); checks shape first (lambda: exactly the rows of W, k entries each; farkas: exactly k^2+k entries); then evaluates every clause: lambda nonnegative, row_sums, equality; farkas ATy_nonnegative, bTy_negative; valid iff no clause fails; failed clauses listed in the order shape, nonnegative, row_sums, equality, ATy_nonnegative, bTy_negative"
   },
   "wave_rule": {
     "source": "SubstratumInterfaceAudit.lean:81, :142-143, :160-161, :177-180; SecondOrderCircuit.lean:67-68, :117-118; SM:1602",
@@ -74,7 +80,11 @@
        {"rows": [0, 1], "Gamma_s": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "Gamma_t": {"0": ["1", "0"], "1": ["0", "1"]}, "kind": "farkas", "farkas_y": ["0", "0", "0", "0", "0", "0"]},
        {"rows": [0, 1], "Gamma_s": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "Gamma_t": {"0": ["1", "0"], "1": ["0", "1"]}, "kind": "lambda", "lambda": {"0": ["1", "0"], "1": ["0", "1"]}},
        {"rows": [0, 1], "Gamma_s": {"0": ["0", "1"], "1": ["1", "0"]}, "Gamma_t": {"0": ["1", "0"], "1": ["0", "1"]}, "kind": "lambda", "lambda": {"0": ["0", "1"], "1": ["1", "0"]}},
-       {"rows": [0, 1], "Gamma_s": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "Gamma_t": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "kind": "lambda", "lambda": {"0": ["2", "-1"], "1": ["-1", "2"]}}
+       {"rows": [0, 1], "Gamma_s": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "Gamma_t": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "kind": "lambda", "lambda": {"0": ["2", "-1"], "1": ["-1", "2"]}},
+       {"rows": [0, 1], "Gamma_s": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "Gamma_t": {"0": ["1", "0"], "1": ["0", "1"]}, "kind": "farkas", "farkas_y": ["-1", "0", "0", "0", "0", "0"]},
+       {"rows": [0, 1], "Gamma_s": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "Gamma_t": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "kind": "lambda", "lambda": {"0": ["1", "1"], "1": ["0", "0"]}},
+       {"rows": [0, 1], "Gamma_s": {"0": ["1/2", "1/2"], "1": ["1/2", "1/2"]}, "Gamma_t": {"0": ["1", "0"], "1": ["0", "1"]}, "kind": "farkas", "farkas_y": ["-1", "0", "1", "0", "0"]},
+       {"rows": [0, 1], "Gamma_s": {"0": ["0", "1"], "1": ["1", "0"]}, "Gamma_t": {"0": ["1", "0"], "1": ["0", "1"]}, "kind": "lambda", "lambda": {"0": ["0", "1"]}}
      ],
      "note": "the certificate checker of PREREG-C1.md section 2.4 applied to each case, with the frozen constraint order",
      "source": "constructed [D]"},
