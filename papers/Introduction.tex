@@ -781,8 +781,8 @@ visible probability zero included. The family is \emph{P-divisible on
 stochastic divisor contracts total variation, so under P-divisibility
 \(\|\delta_a\Gamma_t-\delta_b\Gamma_t\|_{\mathrm{TV}}\), with
 \(\delta_a\) the point mass at \(a\), cannot increase. This is the
-divisibility criterion of {[}RHP14, Thm 2.4{]} and the data-processing
-direction of {[}BD16, Prop. 1{]}.
+``only if'' half of the divisibility criterion of {[}RHP14, Thm 2.4{]}
+and the data-processing direction of {[}BD16, Prop. 1 and Cor. 1{]}.
 
 In words, the family is P-divisible when every later table of
 probabilities from the start can be obtained from every earlier one by
@@ -918,12 +918,13 @@ discriminate is memory at an accessible order, which (C4) asserts
 \textbf{Proofs and sources.} \emph{Theorem 3.} Two such rows are at
 total-variation distance below 1 at time \(s\) and exactly 1 at time
 \(n\), which the contraction criterion forbids; Theorem 3 is
-machine-checked in its rooted form, and Doukas states the same argument
-concurrently {[}Dou26, Prop. 1{]}. Two rows of a square stochastic
-matrix share a positive column exactly when it is not a permutation
-matrix, and {[}Main §2.3{]} also proves the theorem from the lemma that
-a finite square stochastic matrix with a stochastic one-sided inverse is
-a permutation matrix {[}BB12, Problem 23{]} (machine-checked). Monotone
+machine-checked in its rooted form, and Doukas states the contraction
+argument concurrently, as a no-revival obstruction to Markovian
+realizers {[}Dou26, Prop. 1{]}. Two rows of a square stochastic matrix
+share a positive column exactly when it is not a permutation matrix, and
+{[}Main §2.3{]} also proves the theorem from the lemma that a finite
+square stochastic matrix with a stochastic one-sided inverse is a
+permutation matrix {[}BB12, Problem 23{]} (machine-checked). Monotone
 distance is necessary for P-divisibility but not sufficient {[}Main
 §2.3{]}.
 
@@ -1272,14 +1273,14 @@ A fixed finite realization with \(N\) ontic configurations generates
 only behaviour matrices that factor nonnegatively through \(N\) states.
 Simulating a qubit's prepare-and-measure statistics needs classical
 memory unbounded over finite experiments: explicit tasks are given by
-Galvão and Hardy {[}GH03{]} and Montina {[}Mon08{]}, and Montina reports
-Hardy's result that the number of ontic states cannot be finite
-{[}Mon08; Har04{]}. So no fixed finite realization reproduces the full
-prepare-and-measure theory of a qubit exactly; the factorization is
-proved, and the unboundedness is imported {[}Main §3.4, Proposition
-(finite-substratum operational obstruction --- classical-dimension
-form); HKLP24{]}. The obstruction does not touch Theorem 1, whose
-realization is chosen per law.
+Galvão and Hardy {[}GH03{]} and Heinosaari et al.~{[}HKLP24, Thm 4{]},
+and Montina reports Hardy's result that the number of ontic states
+cannot be finite {[}Mon08; Har04{]}. So no fixed finite realization
+reproduces the full prepare-and-measure theory of a qubit exactly; the
+factorization is proved, and the unboundedness is imported {[}Main §3.4,
+Proposition (finite-substratum operational obstruction ---
+classical-dimension form); HKLP24{]}. The obstruction does not touch
+Theorem 1, whose realization is chosen per law.
 
 That is: for any single finite pattern some finite hidden world
 reproduces it, but no one fixed finite hidden world reproduces
@@ -2021,8 +2022,9 @@ theories of quantum mechanics,'' \emph{Phys. Rev.~A} \textbf{77}, 022104
 {[}Oza84{]} M. Ozawa, ``Quantum measuring processes of continuous
 observables,'' \emph{J. Math. Phys.} \textbf{25}, 79 (1984).
 
-{[}Pag93{]} D. N. Page, ``Average entropy of a subsystem,'' \emph{Phys.
-Rev.~Lett.} \textbf{71}, 1291 (1993); arXiv:gr-qc/9305007v2.
+{[}Pag93{]} D. N. Page, ``Information in black hole radiation,''
+\emph{Phys. Rev.~Lett.} \textbf{71}, 3743 (1993);
+arXiv:hep-th/9306083v2.
 
 {[}Pag13{]} D. N. Page, ``Time dependence of Hawking radiation
 entropy,'' \emph{J. Cosmol. Astropart. Phys.} \textbf{09}, 028 (2013);
@@ -2063,4 +2065,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 3a1b988d0cef6b3dc525b9e188273aad514c9dcd5a3c60e51288ef137a44bf7f
+% source-sha256: 94a2cff2b8fe65172967e287534372e93c32bb4d82faeed8143fd898a06e01b9
