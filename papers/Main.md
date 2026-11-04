@@ -53,7 +53,7 @@ $$\Gamma = \Gamma_V \times \Gamma_H, \qquad H_{\text{tot}} = H_V + H_H + H_{\tex
 
 follows, with cross-partition correlations entering only through $H_{\text{int}}$. The product decomposition is idealized; §4.5 addresses approximation quality.
 
-**Lemma 3** (Determinism, reversibility, and the selected measure). *$\varphi$ is a function with a unique successor for every state (determinism) and, as the reversible representative of §1.2, a bijection: distinct states have distinct successors and predecessors (injectivity — reversibility). On each finite cycle of the selected reversible model, the invariant probability measure is unique and uniform; globally, the counting measure is selected among invariant measures as the maximal-entropy one — a selection principle, not uniqueness from invariance alone.*
+**Lemma 3** (Determinism, reversibility, and the selected measure). *$\varphi$ is a function with a unique successor for every state (determinism) and, as the reversible representative of §1.2, a bijection: distinct states have distinct successors and predecessors (injectivity — reversibility). On each finite cycle of the reversible representative, the invariant probability measure is unique and uniform; globally, the counting measure is selected among invariant measures as the maximal-entropy one — a selection principle, not uniqueness from invariance alone.*
 
 *Remark (the continuum analogue).* The same distinction appears in the continuum: Liouville measure is invariant but is not, in general, the unique absolutely continuous invariant measure.
 
