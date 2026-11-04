@@ -1,7 +1,7 @@
 # BORN-SEL C-1 preregistration: single-orbit frequencies against the Born-form weights on small wave substrata (#1059, part (b))
 
-**Status.** WIP / UNVERIFIED preregistration, draft r5. Revised after the independent review of `3be25e7f` (ACCEPT WITH
-CHANGES) and the delta reviews of `c610b2b8`, `1962c378` and `2f59aad7` (each ACCEPT WITH CHANGES); not re-reviewed. Paper only. Nothing has been run or
+**Status.** WIP / UNVERIFIED preregistration, draft r6. Revised after the independent review of `3be25e7f` (ACCEPT WITH
+CHANGES) and the delta reviews of `c610b2b8`, `1962c378`, `2f59aad7` and `df723247` (each ACCEPT WITH CHANGES); not re-reviewed. Paper only. Nothing has been run or
 written as code, and no native instance has been enumerated.
 
 **Not a candidate freeze yet.** The freeze sequence is in §7. First, the owner answers OQ-1 to OQ-15 (§8.2). This text
@@ -209,8 +209,9 @@ Native instances run in this order: increasing `|S|`, with ties broken by `q` an
 - **Budget.** Every instance has `|S| ≤ 2¹⁶`. `q = 2` reaches `2¹⁶` at `L = 8`. `q = 3` stays below it through `L = 5`
   (`3^{10} = 59,049`), so `L = 6` (`3^{12} = 531,441`) is excluded.
 - **Region sizes.** `r ≤ L/3` gives `r = 1` for `L ≤ 5` and `r ∈ {1, 2}` for `L ∈ {6, 7, 8}`.
-- **Frozen symmetry groups (§2.7).** `G = ⟨σ⟩` (reflection about site 0) for the nine `r = 1` instances: N1–N5 and
-  N7–N10. `G` is trivial for the two `r = 2` instances, N6 and N11.
+- **Twin classes (§2.7).** These are intrinsic: orbits with the same primitive cyclic visible word. The frozen
+  cross-check generators are `⟨σ⟩` (reflection about site 0) for the nine `r = 1` instances (N1–N5 and N7–N10) and the
+  trivial group for the two `r = 2` instances (N6 and N11).
 - **W-q2-L7-r2 is excluded in this draft.**
   - By SM Theorem A.1 (SM:1604–1606: "For q prime with gcd(L, q) = 1 — q = 2 included: ord(F mod q) = qL"), every orbit
     length divides `qL = 14 < 17 = ℓ_min`. That instance would therefore be void by construction.
@@ -413,26 +414,60 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     so restricting the support to a union of orbits keeps it invariant.
   - The support is OQ-13. C-1 is silent on the prior's physical source.
 
-### 2.7 Frozen symmetry groups and twin classes [D; owner item OQ-15]
+### 2.7 Twin classes: the intrinsic word relation, with a frozen group as cross-check [D; owner item OQ-15]
 
-- **Why a group is needed.** Let `g` be a permutation of `S` that commutes with `φ` and fixes every visible value
-  (`π_V(g s) = π_V(s)` for all `s`).
-  - Then `g` maps each orbit `O` to an orbit `gO`, with `c_{gO}(a, j) = c_O(a, j)` and `n_a(gO) = n_a(O)`.
-  - So `T^{α,gO} = T^{α,O}` identically, with the same length.
-  - When `gO ≠ O`, the two orbits are **twins**, and their agreement is guaranteed by the symmetry, not found by the
-    comparison (review of `2f59aad7`, N6).
-  - Since `g` preserves length and `T^{α,·}`, it maps `Long` to `Long` and `Long′` to `Long′`. Every candidate set is
-    therefore a union of twin classes.
-- **The frozen groups.** For each instance, `C1-INSTANCES.json` lists generators `symmetry_generators`. `G` is the group
-  they generate. The **twin class** of an orbit is its `G`-orbit in the set of orbits, and `class_rep(O)` is the least
-  `rep` in that class.
-- **The generator check.** Before orbits are compared, the tool checks each generator `g` on all of `S`. It exits 4 if
-  any of the following fails:
-  - `bijective`: `g` is a bijection;
-  - `commutes`: `g(φ(s)) = φ(g(s))` for every `s`;
-  - `visible`: `π_V(g(s)) = π_V(s)` for every `s`.
+- **The visible word of an orbit.** For an orbit `O` with cycle `(s_0, s_1, …, s_{k−1})`, where `s_0 = rep(O)` and
+  `s_{t+1} = φ(s_t)`, its visible word is `w(O) := (π_V s_0, …, π_V s_{k−1})`, read cyclically.
+- **`T^{α,O}` depends only on the primitive cyclic word.**
+  - From the definitions of §2.3, `c_O(a, j) = #{t : w_t = a, w_{t+1 mod k} = j}` and `n_a(O) = #{t : w_t = a}`.
+  - Both counts are unchanged under rotation of `w`.
+  - If `w = u^e` with `u` primitive (not itself a power), both counts are `e` times those of `u`, so their ratio is
+    unchanged.
+  - Hence `T^{α,O}` depends only on the primitive root of `w(O)`, up to rotation.
+- **The intrinsic relation.**
+  - Let `root(O)` be the primitive root of `w(O)` (the shortest prefix `u` with `w = u^e`), and `e = word_power(O)`.
+  - Let `primitive_word(O)` be the lexicographically least rotation of `root(O)`, compared elementwise as integers.
+    This is its necklace (Lyndon) representative.
+  - Two orbits are **twins** iff they have the same `primitive_word`. Twins have identical `T^{α,·}` rows on every row
+    they visit, and their agreement is guaranteed by construction (reviews of `2f59aad7`, N6, and `df723247`, N7).
+  - The **twin class** of an orbit is its class under this relation, and `class_rep(O)` is the least `rep` in the class.
+  - `primitive_word`, `word_power` and `class_rep` are recorded per orbit. EX-WORD (§3.3) checks the primitive-root
+    computation.
+- **Every symmetry twin is a word twin [D].** Let `g` be a permutation of `S` that commutes with `φ` and fixes every
+  visible value. Then `π_V(φ^t(g s)) = π_V(g(φ^t s)) = π_V(φ^t s)` for all `t`. So the orbit of `g s` has the same
+  visible word as the orbit of `s`, read from `g s` and `s` respectively. Hence `gO` and `O` have the same
+  `primitive_word`.
+- **No frozen group can be complete.**
+  - Any two orbits with the same cyclic visible word are exchanged by some visible-fixing bijection that commutes with
+    `φ`: map the cycles onto each other state by state, aligned on matching visible values (review of `df723247`, N7(b)).
+  - A concrete family, derived here by hand from the rule, is missing from `⟨σ⟩`:
+    - **Translations.** By additivity (A5, `SubstratumInterfaceAudit.lean:211`), the phase-space map is additive. So
+      `τ_z : x ↦ x + z` commutes with `φ` iff `φ(z) = z`.
+    - **Fixed points.** `φ(p, c) = (c, Fc − p)` equals `(p, c)` iff `p = c` and `Fc = 2c`, i.e.
+      `c_{i−1} + c_{i+1} = 2c_i` on the ring.
+    - **Solving the recurrence.** The second difference vanishes, so `c_i = α + βi`. This closes around the ring iff
+      `βL ≡ 0 (mod q)`. At `q = 2` the recurrence is `c_{i+1} = c_{i−1}`, with the same solution space.
+    - **Hidden support.** `τ_z` fixes visible values iff `z` vanishes on `R`. At `r = 1` that forces `α = 0`, giving
+      `z = (βi, βi)_i`, which is nonzero iff `q | L` (`q` prime). At `r = 2` it also forces `β = 0`.
+    - **Where it applies.** A nonzero hidden-supported φ-fixed `z` exists exactly at the `r = 1` instances with
+      `q | L`: N2 (`q = 2`, `L = 4`), N3 (`q = 3`, `L = 3`), N5 (`q = 2`, `L = 6`) and N10 (`q = 2`, `L = 8`). At `q = 2`
+      with `L` even, `z` has `c = (0, 1, 0, 1, …)`.
+    - **Further maps.** Maps of the form `x ↦ x + ℓ(x) z`, with `ℓ` a conserved linear functional, give more.
 
-  `symmetry_generators_ok` is recorded. EX-SYM (§3.3) exercises each clause.
+    None of these is in `⟨σ⟩`. No native orbit was computed for this.
+  - So the twin relation is defined intrinsically by the word, not by a group.
+- **The frozen groups, as a cross-check only.**
+  - For each instance, `C1-INSTANCES.json` lists generators `symmetry_generators`, and `G` is the group they generate.
+  - Before orbits are compared, the tool checks each generator `g` on all of `S`, and exits 4 if any of the following
+    fails:
+    - `bijective`: `g` is a bijection;
+    - `commutes`: `g(φ(s)) = φ(g(s))` for every `s`;
+    - `visible`: `π_V(g(s)) = π_V(s)` for every `s`.
+  - **Cross-check.** For every orbit `O` and generator `g`, the orbit `gO` must have the same `primitive_word` as `O`.
+    A violation exits 4. By the lemma above this cannot happen for a valid generator, so a violation exposes an error in
+    the generator, the orbit decomposition or the word computation.
+  - `symmetry_generators_ok` and `group_cross_check_ok` are recorded. EX-SYM (§3.3) exercises each generator clause.
+  - The group does not define the classes. It only tests the tool.
 - **Native instances: the reflection `σ` about site 0.**
   - **Definition.** `(σx)_i := x_{−i mod L}`, applied to both components of each site's `(prev, cur)` pair. On digits,
     `δ_i ↦ δ_{−i}`.
@@ -451,32 +486,35 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     - Translations move `R`.
     - Negation `x ↦ −x` and, at `q = 3`, multiplication by 2 both commute with `φ` by linearity. They change visible
       values when `q = 3`. At `q = 2` negation is the identity.
-    - **Frozen:** `G = ⟨σ⟩` for `r = 1`, and `G` trivial for `r = 2`.
-  - **Not claimed.** These groups are not claimed to be the full group of hidden-only symmetries of `φ`. Any other
-    visible-fixing symmetry that commutes with `φ` would produce further twins, which C-1 does not detect (§9). No
-    native orbit was computed to choose or test these groups.
+    - **Frozen as cross-check generators:** `⟨σ⟩` for `r = 1`, and the trivial group for `r = 2`. The translations
+      `τ_z` above are not listed. The word relation already covers every twin they create.
   - **WF-SIGMA** (§3.2) checks the implemented `σ` against a hand-computed image, so that a `σ` implemented as the
     identity, which would pass the generator check, is caught.
 - **Toys [D, derived by hand].**
-  - **What a twin pair needs.** A twin pair requires two distinct orbits of equal length whose visible cycles agree up
-    to rotation, with the matching states mapped to each other.
-  - **CC-TWIN.** The generator is `s ↦ (s + 4) mod 8`, i.e. `h ↦ h + 2 mod 4`. It maps rep 0's cycle `[0, 1, 3, 2]`
-    onto rep 4's `[4, 5, 7, 6]` and back. It commutes with `φ` (`φ(s+4) = φ(s)+4 mod 8` for each `s`) and adds an even
-    number, so it fixes `v = s mod 2`. Twin classes: `{rep 0, rep 4}`.
-  - **CC-PERM.** The generator swaps the fixed points `(0,4) ↔ (0,5)` and `(1,4) ↔ (1,5)`, i.e. states `8 ↔ 10` and
-    `9 ↔ 11`, and fixes every other state. Fixed points commute with any map that permutes them among themselves, and
-    the swaps preserve `v`. Twin classes: `{0}`, `{4}`, `{8, 10}`, `{9, 11}`.
-    - Reps 0 and 4 have visible cycles `0101` and `0110`, which no rotation matches, so they are not twins.
-  - **Every other toy.** No orbit-exchanging symmetry exists, and `G` is trivial:
-    - CE-8: visible cycles `0101` and `0011`;
-    - CC-SHORT, CC-UNVIS, CC-SKEW: the orbits of each length lie on different rows;
-    - CC-S3NOT: lengths 4, 3 and 1;
-    - CC-AGREE: lengths 4 and 8;
-    - TT-4, TT-6, CC-VOID: one orbit each.
 
-    A visible-fixing symmetry may still map an orbit to itself. The CE-8 orbit `O_A`, under `φ²`, is an example. That
-    does not merge classes.
-- **How classes enter.** The pool and `shared_rows` of §4.1 count twin classes, not orbits.
+  | Toy | rep : `primitive_word` (power) | Word classes |
+  |---|---|---|
+  | CE-8 | 0: `01` (2); 4: `0011` (1) | `{0}`, `{4}` |
+  | TT-4 | 0: `0011` (1) | `{0}` |
+  | TT-6 | 0: `011202` (1) | `{0}` |
+  | CC-TWIN | 0: `0011` (1); 4: `0011` (1) | `{0, 4}` |
+  | CC-SHORT | 0: `0011` (1); 4: `0` (1); 5: `01` (1); 7: `1` (1) | four singletons |
+  | CC-UNVIS | 0: `01` (2); 2: `2` (2) | `{0}`, `{2}` |
+  | CC-VOID | 0: `01` (1) | `{0}` |
+  | CC-SKEW | 0: `0011` (1); 4: `0` (1); 5: `1` (1) | three singletons |
+  | CC-PERM | 0: `01` (2); 4: `0011` (1); 8, 10: `0` (1); 9, 11: `1` (1) | `{0}`, `{4}`, `{8, 10}`, `{9, 11}` |
+  | CC-S3NOT | 0: `0011` (1); 4: `001` (1); 7: `1` (1) | three singletons |
+  | CC-AGREE2 | 0: `0011` (1); 4: `00011101` (1) | `{0}`, `{4}` |
+
+  - **The frozen cross-check generators.**
+    - CC-TWIN: `s ↦ s+4 mod 8`, which maps rep 0 to rep 4. Both have word `0110`, so the generator stays inside one word
+      class.
+    - CC-PERM: the fixed-point swaps `8 ↔ 10` and `9 ↔ 11`, which stay inside `{8, 10}` and `{9, 11}`.
+    - Every other toy: the identity.
+  - **Agreement with r5.** The word classes coincide with the r5 group classes on every toy except the former
+    CC-AGREE. There, words `0011` and `00110011 = (0011)²` form one word class. CC-AGREE is therefore replaced by
+    CC-AGREE2 (§3.1).
+- **How classes enter.** The pool and `shared_rows` of §4.1 count word classes, not orbits.
 
 ***
 
@@ -487,11 +525,11 @@ numbers" applies to the native decision rule of §4, which is frozen without ref
 value is given for any native instance.**
 
 **Execution order.**
-- The 20 controls and mutations run first, in the order of `C1-INSTANCES.json` (orders 1–20):
+- The 21 controls and mutations run first, in the order of `C1-INSTANCES.json` (orders 1–21):
   - the eleven toys of §3.1;
-  - M-INJ, EX-ARITH, EX-SCHEMA, EX-CERT and EX-SYM;
+  - M-INJ, EX-ARITH, EX-SCHEMA, EX-CERT, EX-SYM and EX-WORD;
   - WF-q2-L5, WF-q3-L4, WF-SIGMA and WF-0.
-- The 11 native instances follow (orders 21–31), in §2.2's order.
+- The 11 native instances follow (orders 22–32), in §2.2's order.
 - Native instances run only if every control and mutation has matched. A mismatch halts the run before any native
   instance is evaluated, so no native verdict is ever printed over a failed control (§A.29).
 
@@ -504,25 +542,25 @@ In the table, `FREQ_V` abbreviates FREQ_VACUOUS. `sr` gives `shared_rows` for R0
 | CE-8 | 2, 4 | `[1, 2, 3, 0, 6, 7, 5, 4]` | NOT / NOT / NOT / FREQ_V | 2/2/2/0 | the assessment's counterexample (BSB:129–138) |
 | TT-4 | 2, 2 | `[1, 3, 0, 2]` | FREQ_V ×4 | 0/0/0/0 | transitive toy, A2 (BSB:246): equality by construction |
 | TT-6 | 3, 2 | `[1, 4, 3, 5, 2, 0]` | FREQ_V ×4 | 0/0/0/0 | transitive toy with unequal rows and `n = 3` |
-| CC-TWIN | 2, 4 | `[1, 3, 0, 2, 5, 7, 4, 6]` | FREQ_V ×4 | 0/0/0/0 | two twin orbits (`G = ⟨h ↦ h+2⟩`): agreement guaranteed by symmetry |
+| CC-TWIN | 2, 4 | `[1, 3, 0, 2, 5, 7, 4, 6]` | FREQ_V ×4 | 0/0/0/0 | two twin orbits (same word `0110`): agreement guaranteed by construction |
 | CC-SHORT | 2, 4 | `[1, 3, 0, 2, 4, 6, 5, 7]` | FREQ / FREQ / FREQ_V / FREQ_V | 2/2/0/0 | short orbits that balance, excluded by `ℓ_min` |
 | CC-UNVIS | 3, 2 | `[1, 3, 5, 4, 0, 2]` | FREQ_V / VOID / FREQ_V / VOID | 0/0/0/0 | unvisited row; orbit length exactly `ℓ_min`; `Long′ = ∅` |
 | CC-VOID | 2, 1 | `[1, 0]` | VOID ×4 | 0/0/0/0 | no orbit reaches `ℓ_min`; void takes precedence over equality |
 | CC-SKEW | 2, 3 | `[1, 3, 0, 2, 4, 5]` | NOT / NOT / FREQ_V / FREQ_V | 2/2/0/0 | short orbits that skew `T^β` |
 | CC-PERM | 2, 6 | `[1, 2, 3, 0, 5, 7, 4, 6, 8, 9, 10, 11]` | NOT / FREQ / NOT / FREQ_V | 2/2/2/0 | a long orbit with a permutation `T^{α,O}` |
 | CC-S3NOT | 2, 4 | `[2, 3, 1, 0, 6, 4, 5, 7]` | NOT ×4 | 2/2/2/2 | two C4-bearing long orbits that disagree: S3 reaches NOT |
-| CC-AGREE | 2, 6 | `[2, 3, 1, 0, 6, 7, 5, 8, 10, 11, 9, 4]` | FREQ ×4 | 2/2/2/2 | two non-twin long orbits (lengths 4 and 8) that agree: non-vacuous FREQ under every variant |
+| CC-AGREE2 | 2, 6 | `[2, 3, 1, 0, 6, 7, 8, 9, 5, 10, 11, 4]` | FREQ ×4 | 2/2/2/2 | two long orbits with different primitive words (`0011`, `00011101`) that agree: non-vacuous FREQ under every variant |
 
 Each outcome reached per variant:
 
 | Variant | Non-vacuous FREQ | FREQ_VACUOUS | NOT | VOID_NO_ORBIT |
 |---|---|---|---|---|
-| R0 | CC-SHORT, CC-AGREE | TT-4, TT-6, CC-TWIN, CC-UNVIS | CE-8, CC-SKEW, CC-PERM, CC-S3NOT | CC-VOID |
-| S1 | CC-SHORT, CC-PERM, CC-AGREE | TT-4, TT-6, CC-TWIN | CE-8, CC-SKEW, CC-S3NOT | CC-UNVIS, CC-VOID |
-| S2 | CC-AGREE | TT-4, TT-6, CC-TWIN, CC-SHORT, CC-UNVIS, CC-SKEW | CE-8, CC-PERM, CC-S3NOT | CC-VOID |
-| S3 | CC-AGREE | TT-4, TT-6, CE-8, CC-TWIN, CC-SHORT, CC-SKEW, CC-PERM | CC-S3NOT | CC-UNVIS, CC-VOID |
+| R0 | CC-SHORT, CC-AGREE2 | TT-4, TT-6, CC-TWIN, CC-UNVIS | CE-8, CC-SKEW, CC-PERM, CC-S3NOT | CC-VOID |
+| S1 | CC-SHORT, CC-PERM, CC-AGREE2 | TT-4, TT-6, CC-TWIN | CE-8, CC-SKEW, CC-S3NOT | CC-UNVIS, CC-VOID |
+| S2 | CC-AGREE2 | TT-4, TT-6, CC-TWIN, CC-SHORT, CC-UNVIS, CC-SKEW | CE-8, CC-PERM, CC-S3NOT | CC-VOID |
+| S3 | CC-AGREE2 | TT-4, TT-6, CE-8, CC-TWIN, CC-SHORT, CC-SKEW, CC-PERM | CC-S3NOT | CC-UNVIS, CC-VOID |
 
-CC-TWIN and CC-AGREE give the same verdict under all four variants, so neither enters the separation table.
+CC-TWIN and CC-AGREE2 give the same verdict under all four variants, so neither enters the separation table.
 
 Every pair of variants is separated by at least one control:
 
@@ -568,9 +606,11 @@ Every pair of variants is separated by at least one control:
   - α and β are indivisible, and `ord(φ) = 6`.
 - **CC-TWIN.** The orbits are rep 0 (`0→1→3→2→0`) and rep 4 (`4→5→7→6→4`); rep 4 is the TT-4 pattern on `h ∈ {2, 3}`.
   - Every credence is `J/2`, and both orbits give `J/2`.
-  - Every comparison matches. But `G = ⟨s ↦ s+4 mod 8⟩` (§2.7) maps rep 0 to rep 4, so the two orbits form one twin
-    class. Each row's pool is that one class, so `shared_rows = 0` under every variant, and all four verdicts are
-    FREQ_VACUOUS. The agreement is guaranteed by the hidden shift `h ↦ h + 2`; the comparison does not find it.
+  - Every comparison matches. But both orbits have visible word `0110`, whose primitive word is `0011` (§2.7), so they
+    form one twin class. Each row's pool is that one class, so `shared_rows = 0` under every variant, and all four
+    verdicts are FREQ_VACUOUS. The agreement is guaranteed by construction; the comparison does not find it.
+  - The frozen cross-check generator `s ↦ s+4 mod 8` (the hidden shift `h ↦ h + 2`) maps rep 0 to rep 4, which lies in
+    the same word class.
   - `orbit_class_count = 1`, and `class_rep = 0` for both orbits.
   - Every family is indivisible, and `ord(φ) = 4`.
 - **CC-SHORT.** The orbits are:
@@ -640,8 +680,8 @@ Every pair of variants is separated by at least one control:
     - S3: `T^{β_c4} = J/2`, and rep 4 matches. `Long′ = {rep 4}` is a single orbit, so `shared_rows = 0` and S3 is
       FREQ_VACUOUS.
     - `shared_rows` is 2 for R0, S1 and S2, and 0 for S3.
-    - Twin classes under `G = ⟨8 ↔ 10, 9 ↔ 11⟩` (§2.7) are `{0}`, `{4}`, `{8, 10}` and `{9, 11}`, so
-      `orbit_class_count = 4`.
+    - The word classes (§2.7) are `{0}` (`01`, power 2), `{4}` (`0011`), `{8, 10}` (`0`) and `{9, 11}` (`1`), so
+      `orbit_class_count = 4`. The cross-check generator `8 ↔ 10, 9 ↔ 11` stays inside them.
     - On row 0 the R0/S1 pool is the classes `{0}`, `{4}` and `{8, 10}`. On row 1 it is `{0}`, `{4}` and `{9, 11}`.
       Each row still pools at least two classes, so the `shared_rows` values above are unchanged. `class_rep` is 8 for
       reps 8 and 10, and 9 for reps 9 and 11.
@@ -666,23 +706,31 @@ Every pair of variants is separated by at least one control:
       against `2/3`. Both variants are NOT, with the first mismatch at rep 0, failing on row 1.
   - P-divisibility: reps 0 and 4 are indivisible (witnesses `[1, 4]` and `[1, 3]`). Rep 7 is divisible. β is
     indivisible. `ord(φ) = lcm(4, 3, 1) = 12`.
-- **CC-AGREE** (proposed in the review of `2f59aad7`; values derived here by hand).
-  - The states are `v + 2h`, `h = 0..5`. `φ`: `0→2, 1→3, 2→1, 3→0, 4→6, 5→7, 6→5, 7→8, 8→10, 9→11, 10→9, 11→4`.
+- **CC-AGREE2** (proposed in the review of `df723247`; values derived here by hand). It replaces r5's CC-AGREE, whose
+  words `0011` and `(0011)²` were one word class.
+  - The states are `v + 2h`, `h = 0..5`. `φ`: `0→2, 1→3, 2→1, 3→0, 4→6, 5→7, 6→8, 7→9, 8→5, 9→10, 10→11, 11→4`.
   - The orbits are:
     - rep 0, `[0, 2, 1, 3]`, visible `0011`. Row 0: `0→2` gives 0 and `2→1` gives 1. Row 1: `1→3` gives 1 and `3→0`
       gives 0. So `T^α = J/2`, with `n_a = {0: 2, 1: 2}`.
-    - rep 4, `[4, 6, 5, 7, 8, 10, 9, 11]`, visible `00110011`.
-      - Row 0: `4→6` gives 0, `6→5` gives 1, `8→10` gives 0, and `10→9` gives 1.
-      - Row 1: `5→7` gives 1, `7→8` gives 0, `9→11` gives 1, and `11→4` gives 0.
+    - rep 4, `[4, 6, 8, 5, 7, 9, 10, 11]`, visible `00011101`.
+      - Row 0: `4→6` gives 0, `6→8` gives 0, `8→5` gives 1, and `10→11` gives 1.
+      - Row 1: `5→7` gives 1, `7→9` gives 1, `9→10` gives 0, and `11→4` gives 0.
       - So `T^α = J/2`, with `n_a = {0: 4, 1: 4}`.
-  - Every state is covered, `orbit_count = 2` and `ord(φ) = 8`.
-  - `T^β`: root 0 over `h = 0..5` gives `0, 1, 0, 1, 0, 1`, and root 1 gives `1, 0, 1, 0, 1, 0`. So `T^β = J/2`, which
-    is doubly stochastic.
+  - Every state is covered, `orbit_count = 2` and `ord(φ) = lcm(4, 8) = 8`.
+  - `T^β`:
+    - root 0 over `h = 0..5` (states `0, 2, 4, 6, 8, 10`) gives `0, 1, 0, 0, 1, 1`;
+    - root 1 (states `1, 3, 5, 7, 9, 11`) gives `1, 0, 1, 1, 0, 0`;
+    - so `T^β = J/2`, which is doubly stochastic.
   - `ℓ_min = 3`, so both orbits are long. Neither `T^α` is a permutation, so `Long = Long′ = {0, 4}` and
     `T^{β_long} = T^{β_c4} = T^β = J/2`.
-  - **No twins.** The lengths 4 and 8 differ, so `G` is trivial (§2.7) and the two orbits are distinct classes.
-  - `shared_rows = 2` under every variant, and every comparison matches. All four verdicts are FREQ: two
-    non-isomorphic orbits that agree.
+  - **No twins.**
+    - `0011` is primitive, and its least rotation is `0011`.
+    - `00011101` is primitive: it has no period 1, 2 or 4, since `0001 ≠ 1101`. Its rotations are `00011101`,
+      `00111010`, `01110100`, `11101000`, `11010001`, `10100011`, `01000111` and `10001110`, and the least is
+      `00011101`.
+    - The two primitive words differ, so there are two classes.
+  - `shared_rows = 2` under every variant, and every comparison matches. All four verdicts are FREQ: two orbits with
+    different primitive words that agree.
   - P-divisibility: both orbits and β are indivisible (witnesses `[1, 4]` and `[1, 8]`; β horizon 8).
 
 ### 3.2 Native-faithfulness controls (hand-derived, [D])
@@ -772,10 +820,27 @@ The controls:
   | 3 | `[2, 1, 0, 3, 4, 5, 6, 7]` (swap `0 ↔ 2`) | `v` kept (both even); `g(φ(0)) = g(1) = 1`, `φ(g(0)) = φ(2) = 0` | invalid | `commutes` |
   | 4 | `[0, 1, 0, 3, 4, 5, 6, 7]` | `g(0) = g(2)` | invalid | `bijective` |
 
-- For EX-ARITH, EX-SCHEMA, EX-CERT and EX-SYM, the comparator, validator and checkers are called as units on the frozen inputs.
-  The expected outcome is a compared field and does not exit; a different outcome exits 1.
+- **EX-WORD (the primitive-word computation of §2.7).** The tool's word routine is applied to frozen visible words.
+  Its expected output is the primitive word (least rotation of the primitive root, compared elementwise as integers)
+  and the power. Hand derivations [D]:
+
+  | # | Input word | Case | `primitive_word` | `word_power` |
+  |---|---|---|---|---|
+  | 1 | `[0, 1, 1, 0]` | rotation | `[0, 0, 1, 1]` | 1 |
+  | 2 | `[0, 1, 0, 1]` | power | `[0, 1]` | 2 |
+  | 3 | `[1, 1, 0, 1, 1, 0]` | rotation and power: `(110)²` | `[0, 1, 1]` | 2 |
+  | 4 | `[1, 1, 0, 0, 1, 1, 0, 0]` | `(1100)²`, same class as case 1 | `[0, 0, 1, 1]` | 2 |
+  | 5 | `[0, 0, 0, 1, 1, 1, 0, 1]` | primitive, already least | `[0, 0, 0, 1, 1, 1, 0, 1]` | 1 |
+  | 6 | `[1, 0, 0, 1, 0, 0]` | `(100)²` | `[0, 0, 1]` | 2 |
+  | 7 | `[3, 3, 3]` | constant | `[3]` | 3 |
+  | 8 | `[2]` | single letter | `[2]` | 1 |
+  | 9 | `[10, 2]` | numeric, not string, order | `[2, 10]` | 1 |
+
+- For EX-ARITH, EX-SCHEMA, EX-CERT, EX-SYM and EX-WORD, the comparator, validator, checkers and word routine are called
+  as units on the frozen inputs. The expected outcome is a compared field and does not exit; a different outcome
+  exits 1.
 - **Countercontrols built into §3.1.**
-  - CC-AGREE: a non-vacuous FREQ is reachable on a non-transitive map with no twins.
+  - CC-AGREE2: a non-vacuous FREQ is reachable on a non-transitive map whose two orbits have different primitive words.
   - CC-TWIN: a twin pair is classed as FREQ_VACUOUS, not FREQ.
   - CE-8: NOT is reachable.
   - CC-SHORT: `ℓ_min` excludes short orbits.
@@ -783,7 +848,7 @@ The controls:
   - CC-VOID: the void rule takes precedence over equality.
   - CE-8, CC-SHORT, CC-SKEW, CC-PERM and CC-UNVIS together separate every pair of variants.
   - Every variant reaches NOT; CC-S3NOT is the only control in which S3 does.
-  - Every variant reaches a non-vacuous FREQ (CC-AGREE) and FREQ_VACUOUS (TT-4, CC-TWIN).
+  - Every variant reaches a non-vacuous FREQ (CC-AGREE2) and FREQ_VACUOUS (TT-4, CC-TWIN).
   - The definitional check on every toy is the countercontrol for Lemma PD (§2.4).
 
 ### 3.4 Recorded cross-checks (recorded only in this draft; owner item OQ-7)
@@ -817,15 +882,15 @@ admitted as `O*`) and its credence `K`:
   - for S2 and S3, the candidates that visit `a`, since `K = T^{β|C}`.
 - `K(a, ·)` is the `n_a`-weighted mixture of the pool's `T^{α,O}(a, ·)`. This follows from the mixture identity of §2.3,
   applied to the pool.
-- The pool is a union of twin classes under the frozen group `G` (§2.7):
-  - for R0 and S1, because `G` permutes the orbits visiting `a`;
-  - for S2 and S3, because the candidate sets are `G`-invariant.
-- `shared_rows := #{a ∈ W_C : the pool at a contains at least two twin classes}`, where `W_C = ⋃_{O ∈ C} V_O`.
+- The twin classes are the word classes of §2.7: orbits with the same primitive cyclic visible word. A class can
+  contain orbits of different lengths, for example a word and its square, so a class need not lie wholly inside a
+  candidate set. The pool is counted by the distinct classes of its member orbits.
+- `shared_rows := #{a ∈ W_C : the orbits in the pool at a belong to at least two twin classes}`, where
+  `W_C = ⋃_{O ∈ C} V_O`.
   - For S2 and S3 this is the number of rows visited by candidates from two or more twin classes.
-  - With `G` trivial, a class is a single orbit.
-- **Lemma V (vacuity, modulo `G`).** Suppose `shared_rows = 0`. Then on every row a candidate `O` visits, every pooled
-  orbit lies in `O`'s twin class and has the same row `T^{α,O}(a, ·)` (§2.7). So `K(a, ·) = T^{α,O}(a, ·)` there, and
-  every candidate matches by construction. Consequently:
+- **Lemma V (vacuity, modulo the word relation).** Suppose `shared_rows = 0`. Then on every row a candidate `O` visits,
+  every pooled orbit has `O`'s primitive word. By §2.7 it therefore has the same row `T^{α,O}(a, ·)`. So
+  `K(a, ·) = T^{α,O}(a, ·)` there, and every candidate matches by construction. Consequently:
   - FREQ with `shared_rows = 0` carries no information;
   - NOT with `shared_rows = 0` is impossible.
 - **Lemma V′ (for S2 and S3) [D].** Under S2 and S3, FREQ holds iff, on every row, all candidates that visit that row
@@ -906,7 +971,7 @@ is the overall verdict of the variant this table assigns to that answer:
     - every output validates against `C1-OUTPUT-SCHEMA.json`.
   - **Step (b) exits 0.** The step recomputes, from the orbits files and `T_beta`:
     - every `eq`, `long_c4`, `eq_beta_long`, `eq_beta_c4`, `T_beta_long` and `T_beta_c4`, and each variant's
-      `shared_rows`, and the twin classes from the frozen generators;
+      `shared_rows`, every `primitive_word`, `word_power` and `class_rep`, and the word classes;
     - each instance's four verdicts and the four overall verdicts;
     - `c1_verdict`, from `oq13_answer` and the table of §4.2;
     - every `orbits_sha256`.
@@ -954,10 +1019,10 @@ one workflow artifact named `bornsel-c1`.
 |---|---|---|
 | `c1/<id>.json`, toy control | `toy_record` | the analysis fields below, plus `pdiv_beta_definitional`, `pdiv_certs_file`, `pdiv_certs_sha256`, `pdiv_certs_verified`, `sketch_check` (CE-8 only; `null` elsewhere), `expected`, `comparisons` and `match` |
 | `c1/<id>.json`, native instance | `native_record` | the analysis fields below, plus `phi_impls_agree`, `phi_zero_fixed`, `ord_phi_eq_qL` (`null` outside RX-ORD) and `diameter_ge_4` |
-| `c1/<id>.json`, unit control or mutation | `unit_record` | `params` (M-INJ, WF); `phi_impls_agree` (M-INJ, WF); `injective` and `evaluated_beyond_injectivity` (M-INJ); `results` and `reduced` (EX-ARITH); `schema_results` (EX-SCHEMA); `cert_results` and `cert_failed_clauses` (EX-CERT); `sym_results` and `sym_failed_clauses` (EX-SYM); `hand_steps` (WF-q*, items `{step, prev, cur, state, visible}`); `sigma_check` (WF-SIGMA: `{x, sigma_x, phi_x, sigma_phi_x, phi_sigma_x, visible_x, visible_sigma_x, visible_phi_x, visible_sigma_phi_x}`); `phi_of_zero` (WF-0); `expected`, `comparisons`, `match` |
-| `c1/<id>.orbits.jsonl`, toys and natives | `orbit_record`, one per line | `rep`, `class_rep`, `length`, `cycle`, `visited_rows`, `unvisited_rows`, `n_a`, `T_alpha`, `long`, `eq`, `first_mismatch`, `pdiv_alpha`, `pdiv_witness`, `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4`, `first_mismatch_beta_c4`, `pdiv_alpha_definitional` (`null` on natives) |
+| `c1/<id>.json`, unit control or mutation | `unit_record` | `params` (M-INJ, WF); `phi_impls_agree` (M-INJ, WF); `injective` and `evaluated_beyond_injectivity` (M-INJ); `results` and `reduced` (EX-ARITH); `schema_results` (EX-SCHEMA); `cert_results` and `cert_failed_clauses` (EX-CERT); `sym_results` and `sym_failed_clauses` (EX-SYM); `word_results` (EX-WORD, items `{primitive_word, word_power}`); `hand_steps` (WF-q*, items `{step, prev, cur, state, visible}`); `sigma_check` (WF-SIGMA: `{x, sigma_x, phi_x, sigma_phi_x, phi_sigma_x, visible_x, visible_sigma_x, visible_phi_x, visible_sigma_phi_x}`); `phi_of_zero` (WF-0); `expected`, `comparisons`, `match` |
+| `c1/<id>.orbits.jsonl`, toys and natives | `orbit_record`, one per line | `rep`, `class_rep`, `primitive_word`, `word_power`, `length`, `cycle`, `visited_rows`, `unvisited_rows`, `n_a`, `T_alpha`, `long`, `eq`, `first_mismatch`, `pdiv_alpha`, `pdiv_witness`, `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4`, `first_mismatch_beta_c4`, `pdiv_alpha_definitional` (`null` on natives) |
 | `c1/<id>.pdiv-certs.json`, toys | `pdiv_certs` | `schema`, `id`, `entries`: `{family, rep, rows, pair, kind, lambda, farkas_y}` |
-| `c1/summary.json` | `summary` | `schema`, `oq13_answer`, `selected_variant`, `controls_frozen` (20), `controls_matched`, `natives_frozen` (11), `natives_evaluated`, `native_verdicts` (R0), `native_s1_verdicts`, `native_s2_verdicts`, `native_s3_verdicts`, `c1_verdict`, `c1_r0_verdict`, `c1_s1_verdict`, `c1_s2_verdict`, `c1_s3_verdict`, `run_status`, `first_failure`, `verdict_text` |
+| `c1/summary.json` | `summary` | `schema`, `oq13_answer`, `selected_variant`, `controls_frozen` (21), `controls_matched`, `natives_frozen` (11), `natives_evaluated`, `native_verdicts` (R0), `native_s1_verdicts`, `native_s2_verdicts`, `native_s3_verdicts`, `c1_verdict`, `c1_r0_verdict`, `c1_s1_verdict`, `c1_s2_verdict`, `c1_s3_verdict`, `run_status`, `first_failure`, `verdict_text` |
 
 On a halt, `oq13_answer` and `selected_variant` may be `null`, which covers the exit-2 halt on an unset answer. On a
 complete run both must be set; the schema enforces this through a conditional on `run_status`.
@@ -974,7 +1039,7 @@ complete run both must be set; the schema enforces this through a conditional on
 - `s1_long_count`, `s1_long_equal`, `s1_first_mismatch`, `s1_shared_rows`, `s1_verdict`;
 - `T_beta_long`, `s2_long_equal`, `s2_first_mismatch`, `s2_shared_rows`, `s2_verdict`;
 - `T_beta_c4`, `s3_long_equal`, `s3_first_mismatch`, `s3_shared_rows`, `s3_verdict`;
-- `symmetry_generators_ok`, `orbit_class_count`;
+- `symmetry_generators_ok`, `group_cross_check_ok`, `orbit_class_count`;
 
 Each verdict field takes one of `FREQ`, `FREQ_VACUOUS`, `NOT` and `VOID_NO_ORBIT`. Each overall verdict takes one of
 `FREQ_ALL`, `NOT_ALL`, `MIXED`, `VACUOUS_ALL` and `VOID_ALL`, or `null` on a halt.
@@ -1044,7 +1109,7 @@ whitespace, lines are in increasing `rep`, and each line ends with `\n`. `orbits
 | 1 | (a) | a control, mutation or WF value mismatch |
 | 2 | (a) | a schema violation, in an output or in the expected file against `expected_file`; a frozen parameter inconsistent with §2.2's formulas or with Theorem 22's region conditions; an invalid `oq13_answer`; or a floating-point value in a probability field |
 | 3 | (a) | a frozen input does not match its git blob id at `F`, or `F` is not in the checkout |
-| 4 | (a) | an invariant failure: the `φ` implementations disagree; the mixture identity or double stochasticity fails; the orbits do not partition `S`; the two P-divisibility methods disagree; a certificate or its coverage fails; a NOT has `shared_rows = 0` (Lemma V); or a frozen symmetry generator fails `bijective`, `commutes` or `visible` (§2.7) |
+| 4 | (a) | an invariant failure: the `φ` implementations disagree; the mixture identity or double stochasticity fails; the orbits do not partition `S`; the two P-divisibility methods disagree; a certificate or its coverage fails; a NOT has `shared_rows = 0` (Lemma V); a frozen symmetry generator fails `bijective`, `commutes` or `visible`; or a generator maps an orbit to one with a different primitive word (§2.7) |
 | 5 | (a) | `φ` is not injective on a toy or native instance |
 | 6 | (b) | the re-application step found a stored field that differs from its recomputation |
 | 7 | (a) | `state_count > 2¹⁶` |
@@ -1076,9 +1141,9 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 | `T^{α,O}` on visited rows only; unvisited rows excluded and recorded | CC-UNVIS (compared, including `unvisited_rows`); `unvisited_rows` recorded per orbit |
 | `ℓ_min = n + 1`, inclusive, fixed by parameters | `ell_min` compared on every toy and checked against the formula on every native instance (exit 2); CC-UNVIS exercises `|O| = ℓ_min`, and CC-SHORT exercises exclusion |
 | the void rule takes precedence | CC-VOID (compared) |
-| the frozen symmetry generators are valid, and the implemented `σ` is the §2.7 reflection | the generator check on every instance (exit 4); `symmetry_generators_ok` recorded; EX-SYM has a case for each clause (`sym_failed_clauses` compared); WF-SIGMA compares `σ` and `φσ = σφ` with hand values on N7's parameters |
-| twin orbits are not counted as independent agreement | `class_rep` and `orbit_class_count` compared on every toy; CC-TWIN (twins, FREQ_VACUOUS) and CC-PERM (twin fixed points) compared; step (b) recomputes the classes from the generators (exit 6) |
-| FREQ (non-vacuous) and NOT are both reachable under every variant | CC-AGREE (FREQ under all four, with no twins); CE-8, CC-PERM and CC-S3NOT (NOT under each variant, with CC-S3NOT the only S3 NOT); see the §3.1 outcome table |
+| the frozen symmetry generators are valid, and the implemented `σ` is the §2.7 reflection | the generator check and the word cross-check on every instance (exit 4); `symmetry_generators_ok` and `group_cross_check_ok` recorded; EX-SYM has a case for each clause (`sym_failed_clauses` compared); WF-SIGMA compares `σ` and `φσ = σφ` with hand values on N7's parameters |
+| twin orbits (same primitive cyclic visible word) are not counted as independent agreement | `primitive_word`, `word_power`, `class_rep` and `orbit_class_count` compared on every toy; EX-WORD checks the primitive-word routine on rotation, power, combined, numeric-order and single-letter cases; CC-TWIN (twins, FREQ_VACUOUS), CE-8, CC-UNVIS and CC-PERM (power words) compared; step (b) recomputes the words and classes (exit 6) |
+| FREQ (non-vacuous) and NOT are both reachable under every variant | CC-AGREE2 (FREQ under all four, with two distinct primitive words); CE-8, CC-PERM and CC-S3NOT (NOT under each variant, with CC-S3NOT the only S3 NOT); see the §3.1 outcome table |
 | a FREQ that holds by construction is not reported as FREQ | `shared_rows` and `s1_shared_rows`, `s2_shared_rows`, `s3_shared_rows` compared on every toy; FREQ_VACUOUS reached under every variant (TT-4) and separated from FREQ (CC-SHORT under S2 and S3); step (b) recomputes them (exit 6); a NOT with `shared_rows = 0` exits 4 |
 | A2: a transitive map gives equality, by construction | TT-4 and TT-6 (compared; FREQ_VACUOUS) |
 | CE-8 gives `3/4` against `{1, 1/2}`; α on `O_A` is divisible; β is indivisible | `sketch_check`, `T_beta`, `orbits` (`T_alpha`, `pdiv_alpha`) and `pdiv_beta` compared on CE-8 |
@@ -1204,8 +1269,10 @@ of `3be25e7f` and `c610b2b8`.
      the checker requirements are frozen in §2.4 (i)–(iv).
    - *Reviewer: corpus answers* — this is a proof, not a choice. The reviewer checked it in both directions. (Review of
      `1962c378`; the item stays open.)
-10. **OQ-10, the controls.** The draft has the 20 gating controls of §3. This round added CC-AGREE, which the review of
-    `2f59aad7` proposed, and EX-SYM and WF-SIGMA, which test the §2.7 generator check and `σ`.
+10. **OQ-10, the controls.** The draft has the 21 gating controls of §3. Recent additions:
+    - CC-AGREE2, which the review of `df723247` proposed. It replaces CC-AGREE, whose agreement was by construction.
+    - EX-SYM and WF-SIGMA, which test the §2.7 generator check and `σ`.
+    - EX-WORD, which tests the primitive-word computation.
     - *Reviewer recommends:*
       - accept all as gating;
       - add CC-SKEW and an S1 toy (added: CC-SKEW, CC-PERM);
@@ -1248,16 +1315,28 @@ of `3be25e7f` and `c610b2b8`.
     - Options: no rerun, so the freeze is spent; or a second dispatch, recorded with the failed run's id under a new
       owner approval, with the invariant restated as "the check step ran in exactly one attempt".
     - *Reviewer recommends:* add the policy, as an owner decision, never a silent rerun.
-15. **OQ-15, the frozen symmetry groups (§2.7).**
-    - The draft freezes `⟨σ⟩` for `r = 1` natives and the trivial group for `r = 2`. For toys it freezes `h ↦ h+2`
-      for CC-TWIN, the fixed-point swaps for CC-PERM, and the identity elsewhere.
-    - Alternatives:
-      - a larger generator set, for example one found by a search, which would have to be frozen before `F` and not
-        chosen from results;
-      - no group at all, which would reopen N6.
-    - *Reviewer recommends* (review of `2f59aad7`): `⟨σ⟩` for `r = 1`, trivial for `r = 2`, `h ↦ h+2` for CC-TWIN, and
-      the identity for the other toys.
-    - The CC-PERM fixed-point swap is this draft's addition. It changes no verdict.
+15. **OQ-15, the twin relation and the frozen cross-check groups (§2.7).**
+    - **Twin relation.** The draft defines twin classes intrinsically: orbits with the same primitive cyclic visible
+      word (the necklace representative of the primitive root). This relation determines `shared_rows`.
+    - **Cross-check groups.** The draft keeps frozen generators as a cross-check only: every pair a generator maps
+      together must share a word class, with exit 4 otherwise. The generators are:
+      - `⟨σ⟩` for the `r = 1` natives, and the trivial group for `r = 2`;
+      - `h ↦ h+2` for CC-TWIN;
+      - the fixed-point swaps for CC-PERM;
+      - the identity elsewhere.
+    - **Why a group cannot define the classes** (review of `df723247`, N7, derived by hand in §2.7):
+      - Any two orbits with the same cyclic visible word are exchanged by some visible-fixing bijection that commutes
+        with `φ`.
+      - Concretely, at the `r = 1` instances with `q | L` (N2, N3, N5, N10), translation by `z = (βi, βi)_i` is such a
+        symmetry. Here `z` is a φ-fixed configuration that is zero on `R`, and it exists because `c_i = α + βi` closes
+        around the ring iff `βL ≡ 0 (mod q)`.
+      - It is not in `⟨σ⟩`. No native orbit was computed.
+    - **Alternatives:**
+      - define classes by the frozen group, which is incomplete and is how N6 and N7 arose;
+      - drop the cross-check group altogether. The word relation alone determines the verdict; the group only tests the
+        tool.
+    - *Reviewer recommends* (review of `df723247`): adopt the word relation, and keep the frozen group as a cross-check.
+      If the word relation is adopted, OQ-15 reduces to whether to keep the cross-check.
 
 ### 8.3 Points in the source sketch that cannot be frozen as stated
 
@@ -1328,13 +1407,16 @@ These are the points of BSB:404–416 that needed a choice, with the choice this
   - A FREQ with `shared_rows ≥ 1` shows that at least one row's credence pools two or more twin classes and the
     candidates still match. It does not show that every row was a non-trivial comparison. `shared_rows` is recorded for
     that reason.
-  - **Non-vacuity holds only up to the frozen group `G` (§2.7).** Twins under `G` are merged, and their agreement is
-    not counted. A visible-fixing symmetry of `φ` that is not in `G` would make further orbit pairs agree by
-    construction. Those pairs would still count toward `shared_rows`, so a FREQ can be vacuous in a way C-1 does not
-    detect.
-  - The native groups (`⟨σ⟩` at `r = 1`, trivial at `r = 2`) are derived from the rule's symmetry. They are not shown to
-    be complete.
-  - A native FREQ is therefore a statement modulo `G`.
+  - **Non-vacuity is certified modulo the word relation (§2.7).** Orbits with the same primitive cyclic visible word are
+    merged into one class, and their agreement is not counted.
+    - The relation contains every twin pair that any visible-fixing symmetry commuting with `φ` can produce, since such
+      a symmetry preserves visible words. It also contains every power relation.
+    - So, with respect to symmetry, the certificate is exact. It does not depend on listing symmetries in advance.
+    - This is why the frozen groups are only a cross-check. A group cannot be complete: at the `r = 1` instances with
+      `q | L`, translations by hidden-supported φ-fixed configurations are further symmetries (§2.7).
+  - **What the relation does not cover.** Two orbits with different primitive words can still have equal `T^{α,·}` rows,
+    because the rows depend only on the counts of letter pairs. Such agreement counts as non-vacuous. It is a coincidence
+    of counts, not a consequence of symmetry. CC-AGREE2 is an example.
 - **The variants are frozen.**
   - Which variant answers C-1's question is a question about the prior and the candidates, not a computation (OQ-13).
   - The four variants are frozen before the result. The C-1 verdict is the one the OQ-13 answer selects, and no variant
