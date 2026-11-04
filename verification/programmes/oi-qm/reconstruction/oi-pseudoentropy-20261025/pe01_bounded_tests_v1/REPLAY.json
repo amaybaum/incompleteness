@@ -164,8 +164,8 @@
     "standing": "A1, A2 and A3 are historical records of the owner's decisions that governed PE-01 before and after its run. They are included for completeness and provenance. They add no scientific claim, and they override no accepted conclusion: PE-01's result and its scope are those of review/results/REVIEW.md, as reported in REPORT.md and narrowed by the scope of book/ch18-beyond.md:106.",
     "superseded_or_historical_readings": [
       "A2 item 2 (LF-A): the owner's table entry 'Passive, not part of the deciding criterion' is superseded within A2 itself by the owner's clarification of 2026-10-26 that passive linear filters are fully eligible to produce deciding counterexamples. The pe01-resolutions block's value \"LF-A\": \"passive\" is read with that clarification.",
-      "A3 lists Rueppel (EUROCRYPT '87) and Gollmann–Chambers (1989) as works to read under its tagging rule. REPORT.md records them as unread, so no candidate-NEW tag is assignable. The tag annex A3 refers to (../review/literature/) is not in this directory.",
-      "A1, A2 and A3 refer to files that are not in this directory: ../pe01/ (A2, A3), ../verdict.py (A2), ../results/ (A3) and ../review/literature/ (A3). Those references are provenance only."
+      "A3 lists Rueppel (EUROCRYPT '87) and Gollmann–Chambers (1989) as works to read under its tagging rule. REPORT.md records them as unread, so no candidate-NEW tag is assignable. The tag annex A3 refers to is ../review/literature/.",
+      "A1, A2 and A3 refer to ../pe01/ (A2, A3), ../verdict.py (A2), ../results/ (A3) and ../review/literature/ (A3), which are on main."
     ]
   },
   "historical_readings_in_other_records": [
@@ -175,34 +175,41 @@
   ],
   "provenance_only": {
     "statements": [
-      "CI run 40271434371 (78 jobs) and its 38-shard completion and byte-identical replay",
-      "the regeneration of results/verdict.txt by verdict.py from results/measurements.json, and every checkpoint result of that run (EX, IM, PC, NC, SY, MO, FP, CX, K0, RP, PIN, TH, AR, VG)",
-      "the digests in REVIEW.md of files not in this directory: measurements.json f17109f1..., verdict.json eeebc219..., verdict.txt 3b8f5924..., shard-n5-clk 3f6121e8...",
-      "the general passive m = 3 sweep and the linear-filter m = 4 sweep (REVIEW.md:195-196 states these were not enumerated independently)",
-      "REPORT.md's statements on the run, the shards, results/ and the 26 combinations that fail only (f)",
-      "REPORT.md's Literature section: its tags and their independent review are in review/literature/ (REPORT.md:141-142, 187), which is not in this directory",
-      "the independent code review's acceptance of the PE-01 code for dispatch (REPORT.md:15; review/code/)"
+      "CI run 40271434371 (78 jobs) and its 38-shard completion and byte-identical replay"
     ],
     "cited_commits_off_main": {
       "note": "Cited in the records in this directory. Not reachable from main. Resolvable at refs/pull/923/head and on branch research/oi-pseudoentropy-20261025. The records are not edited (AGENTS.md §A.42 item 6).",
+      "cd4064818fe2cff1ee4b147a9761ed157bcf990c": "PR #923 head from which the 16 records were copied; cited by this file"
+    },
+    "cited_commits_on_main": {
+      "c37700ad": "thread base; cited by PLAN.md",
       "549641460b8ddb536178f95fac2ec9390e84a987": "run head; cited in full by REPORT.md, review/results/README.md and review/results/REVIEW.md",
       "54964146": "run head as cited by amendments/A3-literature-tags.md:3 (8-character prefix); resolves to 549641460b8ddb536178f95fac2ec9390e84a987",
       "25e77a3cbd81cd10cd5161dca94d1da6f2a01eb5": "thread plan review; cited by PLAN.md",
       "af38dc2dde0fbdd190a67debf700ab5c370f92d9": "PLAN.md revision 5; cited by amendments/A1-owner-decisions.md and REPORT.md",
       "1e025b67": "A1 pin; cited by REPORT.md",
       "826bd9ba": "A2 pin; cited by REPORT.md",
-      "07f3c127": "code-review head; cited by amendments/A2-open-items.md:13",
-      "cd4064818fe2cff1ee4b147a9761ed157bcf990c": "PR #923 head from which the 16 records were copied; cited by this file"
+      "07f3c127": "code-review head; cited by amendments/A2-open-items.md:13"
     },
-    "cited_commits_on_main": {
-      "c37700ad": "thread base; cited by PLAN.md"
-    },
-    "unresolved_relative_paths": "These paths are cited by the records but are not in this directory on main: PLAN.md refers to ../README.md (the thread plan) and, at PLAN.md:562, to results/measurements.json and results/verdict.json; REVIEW.md refers to review/code/REVIEW.md (REVIEW.md:9), to pe01/ (REVIEW.md:15) and to the thread README; REPORT.md refers to results/, pe01/, verdict.py, review/code/ and review/literature/; A1-A3 as listed under historical_decision_records. All resolve at refs/pull/923/head.",
+    "unresolved_relative_paths": "The paths the records cite resolve on main: ../README.md (the thread plan), results/measurements.json and results/verdict.json (PLAN.md:562), review/code/REVIEW.md, pe01/, verdict.py, results/, review/literature/, and the files A1-A3 cite.",
     "other_provenance": {
       "314d2ef2": "commit adding results/ on PR #923",
       "d1189b64": "commit adding REPORT.md and review/results/ on PR #923",
       "efbfd0d7": "commit fixing REPORT.md's literature section and adding A3's tag annex on PR #923",
       "replays": "The results reviewer ran every script in review/results/mine/ on 2026-10-26, and the PR #923 coordinator reran them; each output matched REVIEW.md, and search_out.json reproduced byte for byte (PR #923 comment 6409658619). Neither run's stdout or environment is retained."
-    }
+    },
+    "cited_commits_on_main_note": "Each commit above is reachable from main: c37700ad on main's first-parent history, the others through the merge of the run head 549641460b8ddb536178f95fac2ec9390e84a987."
+  },
+  "landed_with_the_run": {
+    "note": "The PE-01 run's files are on main, byte-identical to PR #923 at cd4064818fe2cff1ee4b147a9761ed157bcf990c: results/ (with its 114 shards), verdict.py, pe01/, run.py, review/code/ and review/literature/. The run head 549641460b8ddb536178f95fac2ec9390e84a987 was brought into main's ancestry by an ordinary merge, which also added review/plan/ and the thread's README.md and review/REVIEW.md. The statements below are supported by those files on main. None of their commands was run at landing time.",
+    "statements": [
+      "the regeneration of results/verdict.txt by verdict.py from results/measurements.json, and every checkpoint result of that run (EX, IM, PC, NC, SY, MO, FP, CX, K0, RP, PIN, TH, AR, VG)",
+      "the digests in REVIEW.md of measurements.json f17109f1..., verdict.json eeebc219..., verdict.txt 3b8f5924... and shard-n5-clk 3f6121e8...",
+      "the general passive m = 3 sweep and the linear-filter m = 4 sweep (REVIEW.md:195-196 states these were not enumerated independently)",
+      "REPORT.md's statements on the run, the shards, results/ and the 26 combinations that fail only (f)",
+      "REPORT.md's Literature section: its tags and their independent review are in review/literature/ (REPORT.md:141-142, 187)",
+      "the independent code review's acceptance of the PE-01 code for dispatch (REPORT.md:15; review/code/)"
+    ],
+    "digests": "results/measurements.json, results/verdict.json, results/verdict.txt and results/shards/n5-clk.json have the sha256 prefixes REVIEW.md states (f17109f1, eeebc219, 3b8f5924, 3f6121e8)."
   }
 }
