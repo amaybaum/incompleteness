@@ -58,26 +58,30 @@ what is the smallest missing ingredient?
   establish that anything follows from OI's assumptions; where one supplies an ingredient, that
   ingredient is an additional assumption.
 
-## Headline (revised after the review at #1110 c.6643202940; not re-reviewed)
+## Headline (after two independent model reviews, #1110 c.6643202940 and c.6643501421; this head not re-reviewed)
 
 - **Consumers differ** (`ANALYSIS.md` §1).
   - The representation layer (`S ⇔ D ⇔ Q_fb`) is not a residual-choice consumer.
-  - The recurrence-cycle indivisibility verdict depends on the hidden laws only through their
-    supports (Theorem SI, which elaborates Main:141).
+  - Recurrence-cycle indivisibility depends on the hidden laws only through their supports
+    (Theorem SI, which elaborates Main:141).
   - C4-gap existence and window divisibility depend on the measure itself, even at fixed full
-    support (countercontrol CC-2). Window divisibility on the native step K1 is open.
+    support (CC-2). Window divisibility on the native step K1 is open.
   - Specific laws are refuted as invariant by Main:60.
-- **Lemma D (conditional).** On K1, provided offsets do not count as selectable interactions
-  (D-SEL) and S-L4 holds, no `(Obs, μ)` supplies selectable interactions or confined records.
-- **Additional premises.**
-  - Main §4.6 is "structural, not measure-theoretic". Conditioning the measure on observer
-    presence (H-OC) and the conditioning rule (CR) are therefore new premises, not Main's.
-  - The corpus states a low-entropy initial condition (book) and treats initial data as
-    solution-specific. No source specifies a state-level preparation event (Q11′).
-  - Q11′, conditional on H-OC and CR, is a scoped candidate for consumers L3 and L5 only. It is
-    not shown to be minimal.
-- **Proposals.** P-R and P-SDC are written out as unadopted proposals with failable controls. No
-  independent consequence is identified for either.
+- **Conditioning and preparation, in four separate groups** (`ANALYSIS.md` §4.1):
+  - **(1)** Orbit-level conditioning on the observer's records: b-stated (Main:62, :726 (iv)).
+  - **(2)** A single-time-slice conditioning rule: b-new.
+  - **(3)** Preparation events or laws admitted as starting data: a b-stated category (Main:60,
+    :524; book ch04:170).
+  - **(4)** A physical principle that generates the content of those preparations: none
+    identified.
+- **For preparation-dependent laws**, (3) alone suffices if the preparation is taken as data.
+  (2) is needed only to get it from the canonical measure. (4) is missing either way, and it is
+  the main obstacle to deriving the observer interface rather than assuming it.
+- **Lemma D (conditional on D-SEL and S-L4).** On K1, the native step's additivity blocks
+  selectable interactions and confined records for every `(Obs, μ)`.
+- **Proposals.** P-R and P-SDC are unadopted proposals with failable controls. No independent
+  consequence is identified for either.
+- **Arrow of time.** The cross-document finding is tracked as #1112 and recorded only.
 
 ## Not authorized, and not done
 

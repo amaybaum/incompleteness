@@ -1,8 +1,10 @@
 # O-OBSMU — what `(Obs, μ)` needs, what the corpus supplies, and what is missing
 
 **Status: WIP / UNVERIFIED.** Paper-only analysis by `writer-866`, under the authorization in
-#866 c.6642599988. Revised after the independent review of `1a796918` (#1110 c.6643202940); the
-disposition of each review point is in the #1110 checkpoint comment. No computation was run.
+#866 c.6642599988. Revised twice, after the independent reviews of `1a796918` (#1110 c.6643202940) and of
+`9a34c823` (#1110 c.6643501421). The disposition of each point is in the #1110 checkpoint
+comments. The reviews are model-authored records off `main`. This note cites them as provenance,
+not as verification of any result (§A.46 item 7). No computation was run.
 Nothing here has been independently reviewed at this revision. No statement here is a premise of
 an established claim (AGENTS.md §A.46 item 7).
 
@@ -91,14 +93,14 @@ downstream paper.
 
 **K1** is MR-1's frozen `K★ = {K1}`: the additive second-order step
 `φ(u_prev, u) = (u, A u − u_prev)` on the native cubic graph, with finite or compact value group
-`𝐑` (MR★:461–466).
+`𝐑` (MR★:462–466).
 
 | Capacity | Established (locator, layer) | Conditional (hypotheses) | Open | Physical justification of the hypotheses |
 | --- | --- | --- | --- | --- |
 | **(1) Preparation** | Main:60: a realization "carries its own fixed hidden prior `μ_H` as part of the realization datum" (stated datum). For finite `𝐑` under H-μ, every region is uniform and disjoint regions are independent at equal times (Lemma P-1, PD-here). | For rooted laws with a full-support visible prior, conditioning on the observed initial value replaces preparation (§3.5, PD-here). | O-RDY (#914 row O-RDY). No process on K1 writes a chosen value into a region (MR★:637). | The structured `μ_H` is supplied, not sourced (ROF Q3(ii)). |
-| **(2) Selectable interactions** | On K1, a setting region changes every other region by an additive offset that does not depend on the carrier's state (MR★ S-L1, S-C1, :491–509; PD in a frozen record; re-derived as Lemma D, PD-here). The controlled lift `F(x, s) = (T_s x, s)` conserves `s` (MR-pre:115, N7). | Whether an additive offset counts as a selectable interaction depends on O-SET's definition (Lemma D, premise D-SEL). | O-SET, DEFINITION-OPEN (#1009). Non-additive native-type rules are unscreened (MR★:667, σ12). | Additivity is Substratum A5, "partly derived" from amplitude-scale gauge, an "explicit operational principle" (Substratum:100, :272) (b-stated). |
+| **(2) Selectable interactions** | The controlled lift `F(x, s) = (T_s x, s)` conserves `s` (MR-pre:115, N7; a frozen record). | On K1, a setting region changes every other region only by an additive offset that does not depend on the carrier's state. This is the identity part of Lemma D (MR★ S-L1, S-C1, :479–509; PD in a frozen record; re-derived here, PD-here). Counting offsets as non-selectable needs premise D-SEL, and O-SET's definition is open. | O-SET, DEFINITION-OPEN (#1009). Non-additive native-type rules are unscreened (MR★:667, σ12). | Additivity is Substratum A5, "partly derived" from amplitude-scale gauge, an "explicit operational principle" (Substratum:100, :272) (b-stated). |
 | **(3) Accessible outcomes** | A finite outcome alphabet: Main Definition and Lemma 1 (Main:44, :48; PD with an external holographic input). The readout is configuration-sector (Main:222). Region readout: KC definition `cutRealization` (`PhysicalC4Discharge.lean:582`). | For finite `𝐑`, under H-μ and K1 with a homomorphic readout, conditional next-step laws are flat on cosets of a history-independent subgroup (Proposition C, PD-here). | O-ACC: whether one retained tick is native or a convention (#914 row O-ACC). | The cut exists (a): Main:38–40, :50. The product form is (b-stated): "idealized" (Main:54). A finite readout does not imply a product (§4.1, Q4, PD-here). |
-| **(4) Readable, persistent records** | On K1, no confined pattern lasts beyond about twice its width (MR★ S-L4, S-C4a, :531–571). This is PD in a frozen record. It has not been independently reviewed. Its hypotheses: `ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective. MR-1 stage 1 gives a scoped `GAP` (MR★ §M.1). | — | O-RET (#1032), O-REC (#866). | Finite recurrence bounds every budget (MR★ S-L6). |
+| **(4) Readable, persistent records** | MR-1 stage 1 gives a scoped `GAP` (MR★ §M.1, a frozen record). | On K1, no confined pattern lasts beyond about twice its width (MR★ S-L4, S-C4a, :528–571). PD in a frozen record, not independently reviewed. Hypotheses: `ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective. | O-RET (#1032), O-REC (#866). | Finite recurrence bounds every budget (MR★ S-L6). |
 
 ## 3. The routes, depth-first
 
@@ -134,27 +136,47 @@ and the readout slice are (b-stated).
     observer-relative finiteness decision (§7) keeps it as a branch premise.
   - On an infinite space the counting measure is not a probability, and Haar measure on a
     compact completion would need its own selection argument (PC★:219–220).
-- **S.2.3, what Main §4.6 does and does not state.** Main §4.6 is quoted in full in Appendix A.
-  - Its theorem is conditional on (EM). It concerns the hidden-sector memory time "of the
-    coarse-grained description generated by iterating `𝒦_{Σ_loc(V)}`" (Main:748). It requires
-    bounded coupling-graph diameter, canonical typicality for the equilibrium clause, and finite
-    `S` (Main:760, Scope).
-  - Its corollary (Main:758) needs the further rate condition `τ_mix ≪ τ_S`. It concludes that,
-    "in that description, with (C2) read in its timescale form (C2-slow), the framework's
-    observers therefore exist only in the non-equilibrium phase of `(S, φ)`".
-  - Main:756 states: "The exclusion is structural, not measure-theoretic".
-  - So Main does not state that the observed laws are drawn from a measure conditioned on
-    observer presence. That step is an additional selection premise, which this note names
-    **H-OC (b-new)**: *the ensemble from which an observer's laws are drawn is a reference
-    measure conditioned on an observer-admitting event.*
-  - The first version of this note attributed H-OC to Main. That attribution is withdrawn.
-- **S.2.4, conditioning does not follow from Lemma 3.**
-  - Lemma 3 selects among invariant laws (Main:56). The uniform law on a time-slice event `R` is
-    not invariant unless `R` is.
-  - Conditioning at a time slice and conditioning on the orbits that meet `R` give different
-    laws. Orbit conditioning is invariant. Time-slice conditioning is not.
-  - So "given `R`, the measure follows from Lemma 3" is withdrawn. The conditioning rule is a
-    further free choice, and slice conditioning gives up invariance (Q6).
+- **S.2.3, what Main states about conditioning, and at what level.** Main §4.6 is quoted in full
+  in Appendix A.
+  - **What §4.6 states.** Its theorem (Main:748–752) is conditional on (EM) and concerns "the
+    coarse-grained description generated by iterating `𝒦_{Σ_loc(V)}`". It assumes bounded
+    coupling-graph diameter, canonical typicality for the equilibrium clause, and finite `S`
+    (Main:760, Scope). Its past-hypothesis corollary (Main:758) adds the rate condition
+    `τ_mix ≪ τ_S` and concludes that, "in that description, with (C2) read in its timescale form
+    (C2-slow), the framework's observers therefore exist only in the non-equilibrium phase of
+    `(S, φ)`". §4.6 says where observers can exist. It states no measure.
+  - **The "structural, not measure-theoretic" sentence** (Main:756) belongs to the
+    anti-Boltzmann-brain corollary. The first revision of this note used it to infer that Main
+    states no conditioning, and that inference is withdrawn. The sentence says only how the
+    Boltzmann-brain exclusion is argued.
+  - **What Main does state about the measure** is orbit-level conditioning:
+    - Main:62: "the selection among orbits is fixed by maximal entropy compatible with the
+      observer's records", with "the atypical short orbits … precisely observer-lacking
+      substrata … outside the scope of every theorem below";
+    - the posit ledger, Main:726 (iv): "the measure selection is a maximal-entropy principle ('the
+      maximal-entropy invariant measure compatible with the observer's records') — a standard but
+      substantive epistemic postulate, not derived";
+    - book ch01:85, which says the same.
+  - **Classification.** The note's earlier single label H-OC is split into two:
+    - **H-OC_orb (b-stated):** the measure is the maximal-entropy *invariant* measure compatible
+      with the observer's records, which excludes observer-lacking orbits (Main:62,
+      :726 (iv); ch01:85).
+    - **CR_slice (b-new):** a rule that conditions the measure on an event at a stated time slice.
+      No source states one.
+- **S.2.4, why orbit-level conditioning cannot give a preparation.**
+  - A measure invariant under `φ` gives equal weight to every point of each orbit in its support.
+    It therefore assigns a time-slice event `R` the weight of `R` within each orbit, at every time
+    alike. That is not a preparation made at a time.
+  - Lemma 3's selection is among invariant laws (Main:56, :726 (iv)). The uniform law on a
+    time-slice event `R` is invariant only if `φ(R) = R`. So "given `R`, the measure follows from
+    Lemma 3" stays withdrawn.
+  - A preparation law at a time is obtained in one of two ways:
+    - **(i)** supplied directly as a realization datum. Main:60 allows "its own fixed hidden prior
+      `μ_H`", and Main:524 gives a structured state-level prior, "uniform on the initialized
+      ledger/clock sector times the tape".
+    - **(ii)** derived from the canonical measure by a slice-conditioning rule, CR_slice (b-new).
+  - Route (i) needs no new rule. Its content, which particular state-level law, is supplied, not
+    sourced.
 - **S.2.5, related statements in the corpus** (a §A.19 search).
   - **Main:62:** "the selection among orbits is fixed by maximal entropy compatible with the
     observer's records". This is a stated, records-conditioned, orbit-level selection
@@ -167,40 +189,50 @@ and the readout slice are (b-stated).
     cosmic time, including the time-zero conditions, is not a framework output."
   - **appC:329:** "Why this initial state rather than another is not addressed by the framework's
     structural content."
-  - **Cross-document check: the tension the review reported (checked by hand; partial
-    disagreement).**
-    - Main scopes its replacement of the past hypothesis to one role, at both places it states
+  - **Main versus ch18 (checked by hand; the second review agrees).**
+    - Main limits its replacement of the past hypothesis to one role, at both places it states
       it:
       - Main:744: "in its role of selecting observer-compatible configurations";
-      - Main:758: "The low-entropy initial condition commonly imported as a 'past hypothesis' to
+      - Main:758: "The low-entropy initial condition commonly imported as a "past hypothesis" to
         select observer-compatible configurations is replaced here, within that description, by
         a structural selection rule".
-    - The book (ch18:210, FULL:5023–5033) uses a low-entropy initial condition for a different
-      role: the thermodynamic and cosmological arrows. ch04:170 and appC:329 class initial data
-      as solution-specific and unexplained.
-    - On this reading the two do not contradict each other, so no contradiction is recorded.
-    - What remains is a propagation point (§A.25): the book's arrow-of-time text does not mention
-      Main §4.6's role-limited replacement. Its readers could take the two as rival accounts of
-      one role.
-    - This disagreement with review item 7 is recorded for the next reviewer.
-  - **What is missing.** A state-level preparation event: the set of microstates, at a stated
-    time, that the observer's preparation selects. Main:62 conditions on records at the orbit
-    level. The book states a low-entropy initial condition and classes initial data as
-    solution-specific. No source specifies the event.
+    - Main makes no claim about the source of the arrow of time.
+    - So no contradiction is recorded **between Main and ch18**. This verdict is limited to that
+      pair.
+  - **Cross-document finding, tracked as #1112 (ARROW-1).** Each passage below was read directly
+    at `D`. The corpus disagrees on whether the arrow of time is derived.
+    - **Saying it is derived:**
+      - Substratum:401: "every arrow the observer sees descends from this confinement together
+        with the horizon growth that the accelerating phase produces";
+      - ch02:194–196 (= FULL:837 and the paragraph after it): "it derives a monotonic parameter
+        along observer worldlines and four aligned arrows of time";
+      - ch03:58;
+      - Explainer:930: "You don't need to posit low initial entropy to explain why we see it".
+    - **Saying it is inherited:** ch18:210 and :218–222 (= FULL:5023, :5031–5035): "the arrow is
+      at the level of partition initial conditions, not at the level of substratum dynamics".
+    - This note does not analyze it further, and edits no manuscript.
+  - **What is missing.**
+    - **Its category is stated.** State-level realization or solution-specific data: Main:60,
+      :524; ch01:85; ch04:170.
+    - **Its content is not.** No source specifies which state-level preparation event or law is
+      realized.
+    - **Any principle fixing that content** would be b-new.
 - **S.2.6, ordering against O-RDY.**
   - #914 makes O-RDY depend on the μ leg, "or a named prior [C]", and records two further
     routes: "under H-μ, equal-time readiness is absent, so positives go through conditioned
     patches (I2, open) or cross-time routes". It also forbids assuming "a record that supplies
     readiness (Z1)" (#914 c.6563412926, row 1′).
-  - Read through H-OC and slice conditioning, the μ leg needs the readiness event that O-RDY
-    supplies. That route is circular.
+  - Read through CR_slice, the μ leg needs the readiness event that O-RDY supplies. That route is
+    circular.
   - The named-prior option, conditioned patches and cross-time routes are not circular. So no
     circularity forces O-OBSMU to come before O-RDY.
   - Status: ELABORATING.
 
 **Verdict S.2.** The μ leg is not sourced from the axioms. Main supplies a measure only through
-Q8 (b-stated), which needs finite total `S`. Main's records-conditioned orbit selection (Main:62)
-names no state-level event. Measure conditioning on observer presence (H-OC) is b-new.
+Q8 and H-OC_orb (b-stated: Main:56, :62, :726 (iv)), which need finite total `S`. Orbit-level
+conditioning cannot produce a time-slice preparation. A preparation law at a time is either a
+realization datum with supplied content (b-stated category), or the canonical measure conditioned
+by CR_slice (b-new).
 
 ### 3.1 Node I.1 — non-consumers U1–U3
 
@@ -234,7 +266,7 @@ only through their supports `Σ_a`.
    - Two distinct rows of `Γ_s` then share positive mass (Main:139).
    - KC `pIndivisible_of_identity_return_of_overlap` (`RecurrenceHorizon.lean:119`) assumes only
      that `Γ_s` is row-stochastic. With `Γ_L = I`, it gives P-indivisibility on `{0, …, L}`.
-   - The P-divisibility predicate is `PDivisible` (`CausalReadback.lean:53`). `□`
+   - The P-divisibility predicate is `PDivisible` (`CausalReadback.lean:54`). `□`
 
 **Corollary SI-1** (every `Σ_a = C_H`). A point-mass row forces
 `φ^s({a} × C_H) = {σ(a)} × C_H`, by counting and injectivity. So the verdict depends on
@@ -259,19 +291,41 @@ adds is the root-dependent generalization and the statement that only the suppor
 
 ### 3.3 Node I.3 — consumer R2: generic dichotomy, not invariance
 
-**Proposition G (PD-here; mathematics confirmed by the review).** Fix `(φ, π_V)`, an order `k`
-and a support `Σ`. Over laws with exactly that support, exactly one of the following holds:
+**Proposition G (PD-here).** Fix `(φ, π_V)`, an order `k` and a support `Σ ⊆ C_V × C_H`. Among
+preparation laws with exactly this support, exactly one of the following holds:
 
 - no law has a C4 gap at order `k`;
-- all laws have one, except those in a closed null set.
+- every law has one, except for a closed set of Lebesgue measure zero in the relative open
+  simplex `Δ_Σ` of such laws.
 
-The same dichotomy holds on product preparations `ν ⊗ μ_H`, where `N_p(y)` and `D_p` are
-bilinear (proof as in the first version: support-determined positivity, and a polynomial
-criterion).
+*Proof.*
+
+1. **Positivity depends only on the support.** A visible history `p = (x_0, …, x_k)` has positive
+   probability iff some `(a, h) ∈ Σ` produces it, that is, iff
+   `π_V φ^t(a, h) = x_t` for all `t ≤ k`.
+2. **The criterion is polynomial.** Fix two positive-probability histories `p ≠ p′` with
+   `x_k = x′_k`, and an outcome `y`.
+   - Write `D_p = Σ_{(a,h) ∈ Σ} λ(a, h) 1[(a, h) produces p]`, and `N_p(y)` for the same sum
+     with the further condition `π_V φ^{k+1}(a, h) = y`.
+   - Both are linear in the law `λ`. Their next-step probabilities are `N_p(y)/D_p` and
+     `N_{p′}(y)/D_{p′}`.
+   - Since `D_p, D_{p′} > 0` on `Δ_Σ`, the two differ at `y` iff
+     `Q_{p,p′,y}(λ) = N_p(y) D_{p′} − N_{p′}(y) D_p ≠ 0`, a polynomial in `λ`.
+3. **The dichotomy.** A C4 gap at order `k` exists at `λ` iff `Q_{p,p′,y}(λ) ≠ 0` for some
+   triple. The set of triples is finite and, by step 1, the same for every `λ ∈ Δ_Σ`.
+   - If every `Q` vanishes identically on `Δ_Σ`, no law has a gap.
+   - Otherwise some `Q` is a polynomial that is not identically zero on the open set `Δ_Σ`
+     (open in its affine hull). The laws with no gap lie in its zero set. That set is closed, and
+     it has measure zero, because a polynomial that does not vanish identically on a connected
+     open set has a null zero set. `□`
+
+**Product preparations `λ = ν ⊗ μ_H`** (Main's rooted setting). These form a lower-dimensional
+subset of `Δ_Σ`. Here `Σ = Σ_V × Σ_H`, and `D_p` and `N_p(y)` are bilinear in `(ν, μ_H)`. The same
+argument therefore gives the same dichotomy on the product of the two relative open simplices.
 
 **The dichotomy is not invariance.** The canonical law can lie in the exceptional set.
 
-**Countercontrol CC-2 (PD-here, checked by hand; the reviewer's construction).**
+**Countercontrol CC-2 (PD-here, checked by hand; construction from the first review).**
 
 - **The construction.** `C_V = {0, 1}`, `C_H = {0, 1}^m` with `m ≥ 2`, and
   `φ(x, h) = (x ⊕ h_0, rot h)`, where `(rot h)_i = h_{i+1 mod m}`.
@@ -294,23 +348,44 @@ criterion).
   - So the family is P-divisible on `{0, 1, 2}` at `q = ½` (take `Λ = Γ_2`), and not P-divisible
     for `q ≠ ½`.
 
-**Corpus instance.** Main:178 records the same phenomenon for the uniform tape: the §3.4 fair-coin
-dilation has zero conditional memory "exactly at every horizon time". This note does not check
-whether a correlated full-support tape law in that exact construction gives memory.
+**A related zero-memory uniform-tape instance.** Main:178's §3.4 fair-coin dilation has zero
+conditional memory "exactly at every horizon time" under its uniform tape. It is not the same
+construction as CC-2. This note does not check whether a correlated tape law in that
+construction gives memory.
 
 **Verdict R2.** Not invariant, even at fixed full support. Proposition G still says that the
 verdict at the canonical law is non-generic whenever it differs from the generic one.
 
 ### 3.4 Node I.4 — consumer R3
 
-For a fixed support, the divisible set is relatively closed (PD-here; confirmed by the review).
-CC-2 shows it can be neither empty nor everything. So window P-divisibility is **not invariant in
-general**, even at fixed full support.
+**Closedness (PD-here).** Fix a window `{0, …, n}` and the supports `Σ_a` of the hidden laws
+given each root. Let `Δ` be the product over roots of the relative open simplices of laws with
+those supports. The set `Div ⊆ Δ` of hidden-law families at which the rooted family is
+P-divisible on `{0, …, n}` (`PDivisible`, `CausalReadback.lean:54`) is relatively closed in `Δ`.
 
-**Open for native K1.** Whether some native `(φ, π_V)` has a window verdict that does not depend
-on the prior is open. Settling it needs either a paper argument or a native two-prior
-counterexample. The first version's sentence "finding such a pair is a computation" is withdrawn:
-CC-2 was found by hand.
+*Proof.*
+
+1. Each `Γ_t` is linear in the hidden-law family, so `μ ↦ (Γ_t(μ))_{t ≤ n}` is continuous.
+2. The set `Stoch` of row-stochastic `|C_V| × |C_V|` matrices is compact.
+3. For a pair `s < t`, let `F_{s,t} = {(A, B) : B = A Λ for some Λ ∈ Stoch}`. It is the image of
+   the closed set `{(A, Λ) : A ∈ Stoch}` under the continuous map `(A, Λ) ↦ (A, AΛ)`.
+   - Restricted to `A` in the compact set `Stoch`, the domain `Stoch × Stoch` is compact, and so
+     is its image.
+   - So `F_{s,t}` is closed.
+4. `Div` is the intersection, over the finitely many pairs `s < t ≤ n`, of the preimages of the
+   `F_{s,t}` under the continuous maps `μ ↦ (Γ_s(μ), Γ_t(μ))`. So `Div` is closed in `Δ`. `□`
+
+**Consequences.**
+
+- `Δ` is connected. So the verdict is the same at every point of `Δ` iff `Div` is empty or all of
+  `Δ`, that is, iff `Div` is also relatively open.
+- CC-2 (§3.3) shows that `Div` can be neither, at full support. So window P-divisibility is
+  **not invariant in general**.
+
+**Open for native K1.** Whether some native `(φ, π_V)` has a window verdict that does not depend on
+the prior is open. Settling it needs a paper argument or a native two-prior counterexample. The
+first version said that finding such a pair "is a computation"; that is withdrawn, since CC-2 was
+found by hand.
 
 ### 3.5 Node I.5 — consumers L1–L5, and the root convention
 
@@ -359,21 +434,59 @@ They are conditional on D-SEL and S-L4 respectively.
 **Scope.** `𝐑 = ℤ/q`, so `S` is a finite abelian group. This excludes the `ℤ_p` and `ℝ/ℤ` cases
 of K1.
 
-**Lemma P-1 (PD-here).**
+**Lemma P-1 (PD-here).** Let `S` be a finite abelian group, `φ` an automorphism of `S`, and `μ`
+the Haar (uniform) probability on `S`. For a region `X`, let `S_X` be its factor and
+`pr_X : S → S_X` the projection. Then:
 
-- With `φ` an automorphism and Haar `μ`, each region's law at each time is uniform.
-- Disjoint regions are independent at equal times.
-- A fixed pattern on a region `X` has probability `|S_X|⁻¹`.
+- the law of `pr_X(φ^t s)` is uniform on `S_X` for every `t`;
+- for disjoint `X` and `Y`, `pr_X(φ^t s)` and `pr_Y(φ^t s)` are independent;
+- a fixed pattern on `X` has probability `|S_X|⁻¹`.
 
-**Proposition C (PD-here).** Let `π` be a homomorphic readout. Then:
+*Proof.*
 
-1. The history law is uniform on the image `I_k` of `Ψ_k = (π φ^t)_{t ≤ k}`.
-2. Given any positive-probability history `h`, the next value is uniform on a coset
-   `y_0(h) + K_{k+1}`, where `K_{k+1}` does not depend on `h`.
-3. `M_k = log₂ [K′_{k+1} : K_{k+1}]`.
+1. `φ^t` is a bijection, so it preserves the uniform law.
+2. `pr_X` is a surjective homomorphism. Each fibre `pr_X⁻¹(x)` is a coset of `ker pr_X`, so all
+   fibres have size `|S|/|S_X|`, and the pushforward is uniform.
+3. `pr_{X∪Y} = (pr_X, pr_Y)` is a surjective homomorphism onto `S_X × S_Y`, since the regions are
+   disjoint factors. Its pushforward is uniform on the product, which is the product of the
+   uniform laws. `□`
 
-**Status.** The equal-time part overlaps #914 C-10, which cites an off-`main` record (§7). The
-proofs here do not use it.
+**Proposition C (PD-here).** Take `S`, `φ` and `μ` as in Lemma P-1, and a homomorphic readout
+`π : S → G` onto a finite abelian group `G`.
+
+*Definitions.*
+
+- `Ψ_k(s) = (π φ^0 s, π φ^1 s, …, π φ^k s) ∈ G^{k+1}`. This is a homomorphism. Its image is
+  `I_k ≤ G^{k+1}`.
+- `K_{k+1} = {y ∈ G : (0, …, 0, y) ∈ I_{k+1}}`, with `k + 1` zeros. It is a subgroup of `G`.
+- `π̂ : G^{k+2} → G^2` keeps the last two coordinates, `(g_0, …, g_k, g_{k+1}) ↦ (g_k, g_{k+1})`.
+- `K′_{k+1} = {y ∈ G : (0, y) ∈ π̂(I_{k+1})}`. It is a subgroup of `G` with
+  `K_{k+1} ≤ K′_{k+1}`.
+
+*Claims.*
+
+1. The history `X_{≤k} = Ψ_k(s)` is uniform on `I_k`.
+2. For every `h ∈ I_k`, the conditional law of `X_{k+1}` given `X_{≤k} = h` is uniform on a coset
+   `y_0(h) + K_{k+1}`.
+3. `H(X_{k+1} | X_{≤k} = h) = log₂|K_{k+1}|` for every such `h`. The conditional law given `X_k`
+   alone is uniform on a coset of `K′_{k+1}`, and
+   `M_k = I(X_{<k}; X_{k+1} | X_k) = log₂ [K′_{k+1} : K_{k+1}]`.
+
+*Proof.*
+
+1. By Lemma P-1's step 2 applied to the surjective homomorphism `S → I_k`.
+2. `I_{k+1}` is uniform by step 1. Let `ρ : I_{k+1} → I_k` drop the last coordinate. It is a
+   surjective homomorphism with kernel `{0}^{k+1} × K_{k+1}`. So the fibre over `h` is
+   `{(h, y_0(h) + κ) : κ ∈ K_{k+1}}` for any `y_0(h)` in it, and the uniform law on `I_{k+1}`
+   conditions to the uniform law on that coset.
+3. The same argument applies to `π̂(I_{k+1})`, which is the image of a homomorphism and so carries
+   the uniform pushforward. Its projection to the first coordinate has kernel `{0} × K′_{k+1}`.
+   So `H(X_{k+1} | X_k) = log₂|K′_{k+1}|` at every positive-probability value. Then
+   `M_k = H(X_{k+1} | X_k) − H(X_{k+1} | X_{≤k}) = log₂|K′_{k+1}| − log₂|K_{k+1}|`. Finally,
+   `K_{k+1} ≤ K′_{k+1}`, because `(0, …, 0, y) ∈ I_{k+1}` gives `(0, y) ∈ π̂(I_{k+1})`. `□`
+
+**Status.** ELABORATING. The equal-time part overlaps #914 C-10, which cites an off-`main` record.
+That record is classified in §7. The proofs above are complete in this note and do not use it.
 
 ### 3.8 Literature
 
@@ -408,75 +521,113 @@ proofs here do not use it.
 | Q2 | An observer cut exists | (a) | Main:44, :50; constitutive of Axiom 1 on the adopted reading (Main:38–40). |
 | Q3 | Which cut | (b-stated), as a parameter | Main §1.4, Main:86. |
 | Q4 | Product form `S = C_V × C_H` | (b-stated) | "idealized" (Main:54). A finite readout does not imply it. Take `S = {1, 2, 3}` and `π(1) = π(2) = 0`, `π(3) = 1`: the fibres have sizes 2 and 1, so `S` is not `C_V × C_H` with `π` the projection (PD-here). |
-| Q5 | Readout slice content | (b-stated) | Configuration-sector readout, Main:222. Whether it is native is O-ACC (open). |
-| Q6 | `μ` is invariant | (b-stated) | Part of the canonical-measure posit (Main:56). Realization priors need not be invariant (Main:60, :524). |
+| Q5 | Readout slice content | (b-stated), as a model choice | Main:222 projects the flow onto the configuration sector. This is a construction step in the marginalization, not a labelled posit. Whether the slice is native is O-ACC (open). |
+| Q6 | `μ` is invariant | (b-stated) | Part of the canonical-measure posit (Main:56; ledger Main:726 (iv)). Realization priors need not be invariant (Main:60, :524). |
 | Q7 | `μ` is unique | not available | KC `ensemble_underdetermined`. |
-| Q8 | Maximal-entropy selection of the counting measure | (b-stated) | Main:56; KC `counting_maximal_entropy`. Needs finite total `S` (Main:62, :268), a branch premise under the owner's finiteness decision (§7). |
+| Q8 | Maximal-entropy selection of the counting measure | (b-stated) | Main:56; ledger Main:726 (iv), "a standard but substantive epistemic postulate, not derived"; KC `counting_maximal_entropy`. Needs finite total `S` (Main:62, :268), a branch premise under the owner's finiteness decision (quoted in §7). |
 | Q9 | Root independence `μ = ν ⊗ μ_H` | (b-stated) | Main:60, :137; ROF Q4. |
 | Q9′ | The hidden laws given each root do not change when the visible initial distribution is varied | (b-stated) | Main:137, :284. Implied by Q9. "Measurement independence" is an analogy only. |
 | Q10 | The supports `Σ_a` of the hidden laws | (b-stated) | Part of the realization datum `μ_H` (Main:60). Full support under Q8. |
-| Q11 | A low-entropy or ready initial condition | (b-stated) | The book: ch18:210, FULL:5023–5033. Initial data are solution-specific: ch04:170, appC:329. Main:62's records-conditioned orbit selection is related. |
-| Q11′ | **A state-level preparation event: the set of microstates, at a stated time, that the observer's preparation selects** | **(b-new)** | No source specifies it (S.2.5). |
 | Q12 | The measure beyond its support | (b-stated) | Q8, or a realization datum (Main:60). |
-| H-OC | The observer's laws are drawn from a measure conditioned on an observer-admitting event | **(b-new)** | Not Main's: Main:756, "structural, not measure-theoretic" (S.2.3). |
-| CR | The conditioning rule (time slice or orbit) | **(b-new)** | S.2.4. Slice conditioning gives up Q6. |
 
-None of Q3–Q12 is implied by the axioms. H-OC, CR and Q11′ are stated nowhere.
+The axioms imply none of Q3–Q12. The conditioning and preparation requirements are sorted
+separately below, in the four groups the owner asked to be kept apart.
+
+| Group | Requirement | Classification | Locator |
+| --- | --- | --- | --- |
+| **(1)** | **H-OC_orb:** the measure is the maximal-entropy *invariant* measure compatible with the observer's records; observer-lacking orbits are outside scope | **b-stated** (orbit level) | Main:62; Main:726 (iv); ch01:85 |
+| **(2)** | **CR_slice:** a rule conditioning a reference measure on an event at a stated time slice | **b-new** | Stated nowhere (S.2.3–S.2.4). It drops Q6 unless `φ(R) = R` |
+| **(3)** | **Q11′ category:** a state-level preparation event or law, admitted as starting data | **b-stated** (as a category) | Main:60 ("its own fixed hidden prior `μ_H`"); Main:524 (a structured state-level prior); ch01:85; ch04:170 (initial data "solution-specific"); appC:329. The book states a low-entropy initial condition (ch18:210, FULL:5023–5033) |
+| **(4)** | **G-PREP:** a physical principle that generates the *content* of those events, saying which state-level preparation is realized | **none identified.** Any such principle would be b-new | No source supplies one (S.2.5, "What is missing") |
 
 ### 4.2 By consumer
 
 | Consumer | What it needs |
 | --- | --- |
 | U1–U3 | Q1 only. They are not residual-choice consumers. |
-| R1 | Q1, Q2, Q4, Q10 and finite total `S`. Supports suffice (Theorem SI). Relative to Main nothing new; relative to the axioms Q4 and Q10 are (b-stated). |
+| R1 | Q1, Q2, Q4, Q10 and finite total `S`. Supports suffice (Theorem SI). Relative to Main nothing new; relative to the axioms Q4 and Q10 are b-stated. |
 | R2, R3 | The measure itself (CC-2), so Q12. R3 on native K1 is open. |
 | R4 | Q9′, which Main states. Nothing new. |
 | L1, L2 | Q8 only. |
 | L4 | Setting–hidden independence (Main:366 ff.) and capacity (2). |
 | L3, L5 | A measure for a preparation that is actually made. |
 
-**Scoped candidate, not a minimality result.** For **L3 and L5 only**, the candidate missing
-ingredient is **Q11′, a state-level preparation event**. Under H-OC and a conditioning rule CR, it
-would fix the measure these consumers need.
+**For L3 and L5. A scoped answer, not a minimality result.**
 
-- **Conditional:** it is useful only together with H-OC and CR, both b-new.
-- **Not shown minimal:** this note shows neither that no smaller ingredient serves, nor that Q11′
-  suffices without further choices.
-- **Treated as a datum:** under ch04:170, a preparation event is solution-specific data, not a
-  law-level posit. Predictions that rest on it would carry that status.
+- **Group (1) is not enough.** An invariant measure gives equal weight along each orbit, so it
+  cannot produce a preparation made at a time (S.2.4).
+- **Two routes reach a time-slice preparation law.** Neither uses more than groups (2) and (3):
+  - **Route (i), datum:** take the preparation law directly as group-(3) starting data. No new
+    rule is needed. The content is supplied, not sourced, so L3 and L5 outputs are conditional
+    on supplied data. Under ch04:170 they are solution-specific.
+  - **Route (ii), conditioning:** derive the preparation law from Q8 by CR_slice (group (2),
+    b-new) on a group-(3) event whose content is again supplied.
+- **The second review's formulation** was "a sourced state-level preparation event, whose
+  category is already admitted as data, plus one new slice-conditioning rule". I checked it
+  against route (i), and it holds for route (ii) only. Route (i) needs no new rule. So the
+  slice-conditioning rule is needed only to obtain the preparation law *from the canonical
+  measure*.
+- **Either way, group (4) is missing.** No physical principle generating the content of the
+  preparation event is identified in the corpus. This note does not supply one.
+- **Not shown minimal.** This note does not show that no smaller ingredient serves.
+
+**Which assumptions prevent OI from deriving its own observer and measurement structures.** The
+list is scoped to the sources read and conditional where stated.
+
+1. **No principle generates the content of preparations (group (4)).** Without one, every
+   preparation-dependent law (L3, L5) is relative to supplied data. This is the crux of O-OBSMU's
+   μ leg.
+2. **Main's own measure posit works at orbit level** (group (1); Q6, Q8). An invariant,
+   records-compatible maximal-entropy measure cannot represent a preparation at a time. Getting
+   one from it needs CR_slice, which is b-new.
+3. **The observer's cut and product form are parameters and idealizations** (Q3, Q4), and its
+   readout slice is a construction step (Q5; O-ACC open). No result derives which subsystem
+   observes from `(S, φ)`; this is the separate question #914 row 3′ records as O-OBS.
+4. **For the measurement capacities (2) and (4), the native step's additivity** (Substratum A5,
+   b-stated through amplitude-scale gauge) blocks selectable interactions and confined records
+   for every `(Obs, μ)`. This holds conditionally on D-SEL and S-L4 (Lemma D). It is a dynamical
+   assumption, not an interface one. Removing it is the P-SDC question (§4.4).
 
 ### 4.3 Proposal P-R (not adopted; awaiting the owner)
 
 **Statement.** For a declared cut `V`, the laws are drawn from the counting measure, or Haar
-measure on a compact completion, conditioned by a stated rule CR on a declared state-level
-preparation event `R` (Q11′, with H-OC).
+measure on a compact completion, conditioned by CR_slice on a declared state-level preparation
+event `R`. Group (2) is added; group (3) content is supplied. P-R does not supply group (4).
 
 **Failable controls (§A.29).**
 
-- **(i) Lemma 3, prong 1.** It infers injectivity from doubly stochastic statistics "under the
-  uniform prior" (Main:62). Main:276 and :524 confine double stochasticity to uniform-prior
-  marginals. P-R with slice conditioning generally makes the hidden prior non-uniform. So P-R must
-  not be the measure behind prong 1's empirical input. P-R fails this control if adopting it
-  removes prong 1's input without a replacement.
+- **(i) Lemma 3, prong 1 (Main:62).** Main:62 excludes visible merges "wherever the observed
+  statistics are of that doubly stochastic class under the uniform prior". Main:276 and :524
+  confine double stochasticity to uniform-prior marginals.
+  - **Evaluation (PD-here).** CR_slice on an `R` that constrains hidden sites makes the hidden
+    prior non-uniform. The visible marginals are then generically not doubly stochastic, even for
+    a bijection. So under P-R, observed departures from double stochasticity no longer witness a
+    merge, and prong 1 loses its empirical input.
+  - Lemma 3's conclusion (bijectivity) survives through prong 2, which is structural:
+    finiteness and recurrence on the eventual image (Main:62).
+  - **Verdict:** control (i) **fails as worded**. P-R removes prong 1's empirical input. It does
+    not contradict Lemma 3's conclusion.
+  - P-R could be scoped away from the control only by restricting its conditioning to visible or
+    apparatus sites that leave the hidden prior uniform. That restriction is a further free
+    choice.
 - **(ii) Main §4.6.** Main:744 replaces the past hypothesis "in its role of selecting
   observer-compatible configurations". P-R must not take over that selection role. It fails if
   `R` is required to select observer-compatible configurations rather than a laboratory
   preparation.
-- **(iii) Theorem SI and Lemma D.** These hold for every measure. Listing them as controls is
-  vacuous, so they are not listed.
+- Theorem SI and Lemma D hold for every measure, so they are not controls.
 
 **Independent consequence: none identified.** Proposition C's coset structure already holds under
-unconditioned H-μ, so it is not a consequence of P-R.
+unconditioned H-μ.
 
-**Refuting outcome.** None realizable on K1. MR-1 stage 1 sources no native record law on K1
-(scoped `GAP`), so the record-law test proposed in the first version cannot be carried out there.
+**Refuting outcome.** None realizable on K1. MR-1 stage 1 sources no native record law there
+(scoped `GAP`).
 
-**§A.29.** `R` and CR are free, so P-R fails the hard-to-vary test. Not recommended.
+**§A.29.** `R` and CR_slice are free, so P-R fails the hard-to-vary test. Not recommended.
 
 ### 4.4 Beyond O-OBSMU: capacities (2) and (4)
 
 Capacities (2) and (4) need a dynamical ingredient. SM §3.1 states a state-dependent coupling
-principle. Its explicit construction (SM:110) makes the transfer to site `i` depend on the value
+principle. Its explicit construction (SM:112) makes the transfer to site `i` depend on the value
 at `i + 1`, so in it the transfer does depend on another region's state. MR★:667 lists it as
 outside `K★` and unscreened.
 
@@ -490,7 +641,7 @@ state-dependent coupling.
   "the reference derivation chain survives").
 - A sourced setting region must pass every foil of #866 c.6567167742.
 
-**Refuting outcome.** The first version's first refuting bullet is withdrawn: SM:110 already
+**Refuting outcome.** The first version's first refuting bullet is withdrawn: SM:112 already
 exhibits state-dependent transfer. What remains: if no rule satisfying (i)–(iii) gives a sourced
 setting that passes the foils, with a readable record, P-SDC is refuted for that class.
 
@@ -504,7 +655,7 @@ authorized here.
 
 - That the architecture is refuted, or that no extension supplies `(Obs, μ)`.
 - That O-OBSMU is closed for any consumer.
-- That Q11′ is the minimal missing ingredient.
+- That either route of §4.2 is minimal, or that any group-(4) principle exists or cannot exist.
 - Anything about window divisibility for native K1.
 - That P-R or P-SDC is true, adopted or recommended.
 - Any change to a manuscript, ROADMAP, frozen record or Lean module.
@@ -512,68 +663,96 @@ authorized here.
 ## 5. Owner decisions needed
 
 1. **D-OB1, how O-OBSMU is stated.**
-   - (a) Split it by consumer. U1–U3 are non-consumers. R1 is support-invariant, pending review.
-     R4 needs nothing beyond Main. L1 and L2 carry Q8. R2, R3, L3, L4 and L5 stay open.
+   - (a) Split it by consumer:
+     - U1–U3 are non-consumers;
+     - R1 is support-invariant, pending review;
+     - R4 needs nothing beyond Main;
+     - L1 and L2 carry Q8;
+     - R2, R3, L3, L4 and L5 stay open.
    - (b) Keep it as one open item.
    - (c) Carry it as a named condition `[C: Q8, Q9]` everywhere.
 2. **D-OB2, the entry point for O-RDY.**
    - (a) The named-prior option, as #914 already allows.
    - (b) Conditioned patches or cross-time routes, per #914 row 1′.
-   - (c) Commission a state-level preparation definition (Q11′) first.
-3. **D-OB3, the measure without finite total `S`.**
-   - (a) Q8 as a finite-`S` branch premise.
+   - (c) First commission a search for a group-(4) principle, one that generates preparation
+     content.
+3. **D-OB3, the measure.**
+   - (a) Keep Q8 and H-OC_orb as stated, with finite total `S` as a branch premise.
    - (b) Commission a selection argument for Haar measure on compact completions.
-   - (c) Ask whether H-OC should be proposed, as a b-new premise, with its own §A.29 case.
-4. **D-OB4, the book/Main propagation point (S.2.5).** Whether the book's arrow-of-time text
-   (ch18:210, FULL:5023–5033) should mention Main §4.6's role-limited replacement of the past
-   hypothesis (Main:744, :758). No contradiction was found. This is a question for the manuscript
-   owner, and nothing is edited here.
-5. **D-OB5, P-R and P-SDC.** Record unadopted, decline, or ask for hard-to-vary versions. A screen
-   of P-SDC, on paper or by computation, is outside the present authorization.
-6. **D-OB6, review** of Theorem SI, CC-1, CC-2, Proposition G, Lemma P-1, Proposition C and
-   Lemma D at the revised head.
+   - (c) Ask whether CR_slice (group (2), b-new) should be proposed, with its own §A.29 case. It
+     fails control (i) as worded (§4.3).
+4. **D-OB4, the arrow of time.** This is tracked as #1112 (ARROW-1). This note records the
+   cross-document finding only (S.2.5) and edits no manuscript.
+5. **D-OB5, P-R and P-SDC.** Record them unadopted, decline them, or ask for hard-to-vary
+   versions. A screen of P-SDC, whether on paper or by computation, is outside the present
+   authorization.
+6. **D-OB6, review** of Theorem SI, CC-1, CC-2, Proposition G, the §3.4 closedness argument,
+   Lemma P-1, Proposition C and Lemma D at the revised head.
 
 ## 6. Review packet (revised head)
 
-1. **§1 table.** The U1 description; the R2 and R3 verdicts; the L1 and L2 wording.
-2. **CC-2.** The bijection and its inverse; the order-1 gap iff `q ≠ ½`; the `{0, 1, 2}`
-   divisibility iff `q = ½`; that every `q ∈ (0, 1)` gives full support.
-3. **Theorem SI.** The root-dependent form, its kernel citations
-   (`RecurrenceHorizon.lean:119`, `CausalReadback.lean:53`), and the ELABORATING classification
-   against Main:141.
-4. **§3.5.** The full-support restriction and the null-root convention.
-5. **S.2.3–S.2.6.**
+1. **§1 table:** the U1 description; the R2 and R3 verdicts; the L1 and L2 wording.
+2. **CC-2:**
+   - the bijection and its inverse;
+   - an order-1 gap iff `q ≠ ½`;
+   - divisibility on `{0, 1, 2}` iff `q = ½`;
+   - full support for every `q ∈ (0, 1)`.
+3. **The proofs, which are now complete in this note:**
+   - Proposition G, including its product-form paragraph;
+   - the §3.4 closedness argument;
+   - Lemma P-1;
+   - Proposition C, with the definitions of `Ψ_k`, `I_k`, `K_{k+1}`, `π̂` and `K′_{k+1}`.
+4. **Theorem SI:** the root-dependent form; the kernel citations (`RecurrenceHorizon.lean:119`,
+   `CausalReadback.lean:54`); ELABORATING against Main:141.
+5. **§3.5:** the full-support restriction and the null-root convention.
+6. **S.2.3–S.2.5:**
    - Appendix A matches Main:746–760 at `D`.
-   - H-OC and CR are classified b-new.
-   - The quotations from ch18, FULL, ch04 and appC are accurate.
-   - The cross-document check: both Main:744 and Main:758 carry the role qualifier, so this note
-     records no contradiction, against review item 7.
-6. **Lemma D.** That D-SEL and S-L4 are carried as premises, and the scope (K1).
-7. **§4.1.** Each group label. Check Q6, Q9′, Q10, Q11 versus Q11′, H-OC and CR in particular.
-8. **§4.2.** The scoped-candidate wording: L3 and L5 only, conditional, not minimal.
-9. **§4.3–§4.4.** The failable controls; "no independent consequence identified"; SM:110.
-10. **§7.** Each off-`main` reference, individually.
+   - Main:756's sentence is attributed to the anti-Boltzmann-brain corollary.
+   - H-OC_orb is b-stated (Main:62, :726 (iv), ch01:85).
+   - CR_slice is b-new.
+   - The Main↔ch18 verdict is limited to that pair.
+   - The arrow-of-time finding points to #1112 and quotes its passages accurately.
+7. **Lemma D:** D-SEL and S-L4 carried as premises; the scope is K1; Lemma D and S-L4 appear in
+   the "Conditional" column of §2.
+8. **§4.1:** the Q-table labels, and the four groups kept separate:
+   - (1) b-stated;
+   - (2) b-new;
+   - (3) a b-stated category;
+   - (4) none identified.
+9. **§4.2:**
+   - the two routes, (i) datum and (ii) conditioning;
+   - the partial disagreement with the second review's formulation;
+   - the list of blocking assumptions.
+10. **§4.3–§4.4:**
+    - the evaluation of P-R's control (i);
+    - "no independent consequence identified";
+    - SM:112.
+11. **§7:** each reference, individually.
 
 ## 7. Off-`main` and non-record references (§A.42 item 8)
 
-Each reference is classified by reading the claim it is attached to.
+Each reference was classified by reading the claim it is attached to.
 
 | Reference | Used where | Classification |
 | --- | --- | --- |
-| #866 c.6642599988, c.6643204362 | authorization | governance records. They establish no claim |
-| #866 c.6600176951 (quoting ROADMAP at `9613b21c`) | §1, the obligation's wording | provenance. The quoted text is on `main` in `verification/ROADMAP.md` |
-| #866 c.6567167742 (the foils) | D-SEL, P-SDC | a definitional input carried as a named premise (D-SEL). No claim here is supported by it |
-| #866 c.6526292899 (controlled lift) | — | replaced by MR-pre:115 (N7), on `main`: support on `main` |
-| #914 c.6563412926 (rows O-ACC, O-RDY, O-SET, row 1′, C-10) | status labels; S.2.6 | planning record, used for status labels and the list of recorded routes. No mathematical claim here rests on it |
-| #914 C-10 (MAP §4, off `main`) | §3.7 | provenance. Proposition C is derived here without it |
-| #914 P-16 (P2, C6A-FR off `main`) | — | removed from §2. Not used |
-| #1007 c.6526897139 (owner decision: finite total `S` not assumed) | S.2.2, Q8 | governance record of an owner decision. The mathematical point, that Q8 needs finite `S`, is independent of it |
-| #1007 c.6527637527, #1017 (finite readout without product) | — | replaced by the PD-here three-state example in Q4. Provenance only |
-| #1007 c.6526336447 (infinite-`S` constructions) | — | removed. Not used |
-| #1009, #1032, #1025 | status labels (O-SET, O-RET, O-RDY) | planning records. They support no claim |
-| arXiv sources | §3.8 | external. Classified there |
+| #866 c.6642599988, c.6643204362, c.6643530298 | authorization; owner acceptance of the second review | governance records. They establish no claim |
+| #1110 c.6643202940, c.6643501421 (model-authored reviews) | the status line | provenance. They do not verify any result here (§A.46 item 7) |
+| #866 c.6600176951 (quoting ROADMAP at `9613b21c`) | §1, the wording of the obligation | provenance. The quoted text is on `main` in `verification/ROADMAP.md` |
+| #866 c.6567167742 (the foils) | D-SEL, P-SDC | provenance. The foil list is carried as a named premise (D-SEL); no claim here is supported by it |
+| #866 c.6526292899 (controlled lift) | — | replaced by MR-pre:115 (N7), which is on `main` |
+| #914 c.6563412926 (rows O-ACC, O-RDY, O-SET, 1′, 3′; C-10) | status labels; S.2.6; §4.2 item 3 | planning record, used for status labels and recorded routes. No mathematical claim here rests on it |
+| #914 C-10 (MAP §4, off `main`) | §3.7 | provenance. Proposition C is proved here without it |
+| #1007 c.6526897139 | S.2.2, Q8 | governance record. Quoted: "The *principle* is adopted; its infinite-carrier physical adequacy is **not proved**. Finite total-S remains a conditional branch premise where already consumed by recurrence/gauge/reconstruction theorems." (amaybaum, 2026-10-30T15:44:46Z). That Q8 needs finite `S` follows mathematically, independently of the record |
+| #1007 c.6527637527, #1017 | — | provenance only. Replaced by the three-state example in Q4 (PD-here) |
+| #1009, #1032, #1025, #1112 | status labels (O-SET, O-RET, O-RDY); the arrow-of-time pointer | planning records. They support no claim |
+| arXiv sources | §3.8 | external, classified there |
 
-No claim here rests on content that exists only off `main`.
+The README lists further #866 comments as reading context: c.6541293037, c.6541615446,
+c.6548283392, c.6627392555, c.6631480154 and c.6641545083. They are provenance only, and no claim
+here uses them.
+
+No claim here rests on content that exists only off `main`. The proofs this note relies on are
+stated in it.
 
 ## Appendix A — Main:746–760 at `D`, verbatim
 
