@@ -675,6 +675,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   that `F`'s tree could not produce, and its successor's drafts then spent four review rounds
   fitting their verdict into a 5,000-line served tail whose contents cache replays rearranged.
   Hence §A.44: verdicts read exit statuses and step conclusions, never log text.
+- Evidence landings in one audit were reviewed for byte identity, CI and unchanged verdicts, and
+  their references to branch-only content were accepted as "provenance only" without tracing what
+  each supported. One landed proposition is proved from a proof held only on a closed
+  pull request's kept branch. Keeping that branch and assigning the gap to an Issue were taken as
+  enough. Hence §A.42 item 8: every off-`main` reference is traced to its claim before landing,
+  and responsibility is not retention.
 
 ---
 
@@ -1039,6 +1045,26 @@ by an independent reviewer from `main` alone.
    once the round lands, so the round's workflow run at `E` re-establishes its computational
    claims, and no separate retention pull request is needed. An owner designation a record relies
    on is quoted in that record with its author and time.
+8. **Trace every off-`main` reference.** Before a record lands, every reference it makes to content
+   not on `main`, such as a commit, branch, pull request, Issue, comment, CI run or path, named by
+   id or by number, is traced to the claim it is attached to. Each reference is classified by
+   reading that claim:
+   - **provenance:** the claim does not use the referenced content;
+   - **support on `main`:** the content the claim uses (for a result proved elsewhere, its proof) is
+     on `main` and supports the claim as it stands there; any difference from the cited version is
+     stated;
+   - **support off `main`:** a gap.
+
+   "Provenance only" is a finding about each reference, never a label applied to a group of them. A
+   record that says a result is proved from, inherits, uses or preserves another record's result
+   cites support. A result, control or verdict that depends on commits, such as on their order or
+   ancestry, uses those commits, and copying their files to `main` does not make them reachable from
+   it. A gap is closed no later than the record lands (item 2): by landing the content the claim
+   needs, or, for a mutable record, by narrowing the claim (item 6). Keeping the branch that holds
+   the content does not close a gap. Neither does assigning it to an Issue, which records
+   responsibility, not retention. A gap that cannot be closed lands only by a recorded owner
+   decision; a record on `main` quotes it with its author and time (item 7) and names the claim it
+   leaves unsupported, and it is then an exception to item 2 for that claim alone.
 
 Records frozen under this section's earlier form, and rounds frozen at `F` under it, keep the form
 under which they were frozen; a preregistration is not reinterpreted. That form is `AGENTS.md` at
@@ -1048,7 +1074,10 @@ read from `main`'s history: `verification/audits/evidence-retention/` at
 the objects it retains, its manifests and its tools, and a recipe that names one of those tools runs
 at that commit.
 
-Enforcement: reviewers check items 1–6 on every record that lands.
+Enforcement: reviewers check items 1–6 and 8 on every record that lands, beside byte identity, CI
+and verdicts. Item 8 applies to every landing after its adoption, frozen records included; it
+changes no frozen record's text or verdict. A gap it finds in an earlier landing is closed by
+landing the content the claim needs, or by correcting the citing record as item 6 allows.
 
 Adopted 2026-10-16, after an audit of `main` at `fc5abade` found frozen records citing commits off
 `main`, CI log citations that expire, and cited logs held only in a session scratchpad. Reduced to
@@ -1265,3 +1294,43 @@ distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
 - `PO-1102`, cited in Authorization entries, is the paper-only authorization in #914 comment
   6567198108 for its named workstreams A–F: "planning, source reading, paper derivations and review
   preparation, not reopening any frozen execution stage".
+
+---
+
+## §A.46 Research records on `main` and established claims
+
+`main` is the authoritative research record. An incomplete scientific programme is distinct from an
+incomplete verification of a specific claim: the first may have records on `main`; the second is a
+gap to be fixed.
+
+1. **Established claims.** A claim is presented as established only when it can be verified from
+   `main` and its evidence meets the verification standard for its kind (§A.42; the Code Review
+   Rules, "Keep verification layers distinct"). A claim landed under an owner exception to §A.42
+   item 2 (§A.42 item 8) is not established.
+2. **What lands.** Research evidence may land on `main` when an established claim needs it, or when
+   it is needed for reproducibility or to support records already on `main`, even if its programme
+   is unfinished; its provenance, assumptions, status and limitations are stated accurately. Work
+   that meets none of these conditions stays on its branch, tracked by its guiding pull request or
+   Issue (§A.43). §A.42 item 5 and §A.28 govern what is added; item 6 governs removal.
+3. **Results that are not established.** Incomplete, negative and inconclusive results that do not
+   meet item 1's standard are not presented as established conclusions. Keeping or landing a record
+   strengthens no claim (§A.42 item 6).
+4. **Unverified claims on `main`.** A claim on `main` whose verification is incomplete has a stated
+   status, an accountable Issue and a remediation plan; a status label alone does not resolve a
+   verification gap. Its record distinguishes independently verified, partially verified,
+   exploratory and known-invalid results, in the record or, for a frozen record, in a mutable record
+   on `main` that cites it; a status that contradicts the frozen record's own conclusion is a
+   correction under item 5 (§A.42 item 6; §A.45 rule 1).
+5. **Remediation.** A gap is fixed by meeting item 1's standard, for example by landing the missing
+   evidence, re-running the computation or recording an independent review on `main`. A conclusion
+   that cannot be verified is narrowed or withdrawn where it is stated (§A.27, §A.30) or, in a
+   frozen record, by the applicable reviewed round (§A.39; §A.42 item 6), and the evidence behind it
+   stays.
+6. **Removal.** Removal of research evidence is a last resort, not an automatic consequence of
+   failed verification. Removing research evidence from `main` needs a specific justification, an
+   audit of what on `main` depends on it, and separate owner authorization; a frozen record is
+   removed only by the applicable reviewed round (§A.39). A manuscript claim that loses its support
+   is handled as §A.27 and §A.30 require.
+
+Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
+records from `main` was found to break records on `main` that depend on them.
