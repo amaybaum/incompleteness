@@ -175,7 +175,7 @@ One must source a different connected carrier, non-group
 representation, or suitable physical continuum limit.
 A solenoid, as an inverse limit of circles, is a different
 topological choice; SUBSTATE-1's solenoid countercontrol
-(a paper proof, not independently reviewed on `main`) shows its
+(a paper proof, not independently reviewed on `main`) argues that its
 continuous structure alone does not force memory.
 
 ## "Fractal" / logarithmic scale corrections are not yet predictions

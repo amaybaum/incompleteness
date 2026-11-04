@@ -8,8 +8,8 @@ and 2 are kept unchanged. This note states their standing on `main`; it edits no
 - **Stage 1.** Three Python checks, SC-1 to SC-3, were run before the PC★ freeze, which the
   owner's stage-1 authorization excluded (`amendments/PC-star-disposition.md:14–20`). Under
   clause 0(vi) of the frozen decision rule the stage-1 token is `INCONCLUSIVE (void)` (`:24–27`).
-- **Stage 2, run 1.** `INCONCLUSIVE (void)` under 0(vi) (`stage2/RESULT.md:22`). Its CI rows
-  read *pending* (`:114–118`). The run is resolved in `stage2/run-2/RESULT.md:11–17`: draft-PR
+- **Stage 2, run 1.** `INCONCLUSIVE (void)` under 0(vi) (`stage2/RESULT.md:22`). Its CI and review rows
+  read *pending* (`:114–119`). The run is resolved in `stage2/run-2/RESULT.md:11–17`: draft-PR
   CI run 41231679739 at `f14b59b2`, `Build` failed and `Release gate` was skipped, so the void
   reasons are 0(vi) and 0(v).
 - **Stage 2, run 2.** `INCONCLUSIVE (void)` under 0(vi); both kernel steps succeeded at its head,

@@ -24,7 +24,7 @@
       "review/results/mine/mech.py"
     ],
     "witness_scope": {
-      "source": "review/results/REVIEW.md:21-31, 146-160, 247-253",
+      "source": "review/results/REVIEW.md:21-31, 146-160, 170-179, 247-253",
       "demonstrated": [
         "prediction is a guess of the visible bit X_K' against the reference law Q_p = 1/2",
         "one fixed finite reversible realization: G_clk(z^5+z^2+1) at n = 5, mu uniform, the T-level condition C1 only, C2-C4 unchecked",
@@ -32,6 +32,11 @@
         "an active observer whose tables are chosen for this generator (K1); it gives no window on the other five primitive quintics",
         "the advantage uses the generator's visible-to-hidden backaction",
         "admissibility holds in the selected resource model only: theta = n+1 with footprint 6 = theta, and the 31-bit tables held in the dynamics and not charged as state"
+      ],
+      "limits": [
+        "it refutes the universal form only and says nothing about typical realizations, the actual world or ch18's 10^-32 statement (REVIEW.md:148-149)",
+        "G_clk is the plan's deliberately non-autonomous comparator (REVIEW.md:157-158)",
+        "it does not show predictability for passive observers, for autonomous-hidden generators, at K0, beyond K = 7, asymptotically in n or at theta = n, nor that G_clk(p_5) satisfies C2-C4 (REVIEW.md:170-179)"
       ],
       "run_only": "REVIEW.md:250's statement that no passive witness and no autonomous-generator witness exists in any admissible cell rests partly on the run: the general passive m = 3 sweep and the linear-filter m = 4 sweep at n = 8 were not enumerated independently (REVIEW.md:195-196). It is not part of what supports.statement needs."
     }

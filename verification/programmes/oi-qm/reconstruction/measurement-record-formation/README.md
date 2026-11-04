@@ -6,7 +6,7 @@ as the MR-1 preregistration freeze.";
 [#1023 comment 6549225579](https://github.com/amaybaum/incompleteness/pull/1023#issuecomment-6549225579)),
 and its amendments and stage-1 log are append-only (`amendments/MR-star.md:3–5`,
 `amendments/KS-substitution.md:3–4`). None of them is edited. This note states the standing of
-the stage-1 token and qualifies three premises and claims in them.
+the stage-1 token and qualifies two of their premises and one set of their negative claims.
 
 **G★ item 2.** `preregistration.md:99` names G★ ("G★ named"), and `:638–639` provides that "a
 map `Θ` from `𝔐★` into the carrier meeting G★ items 1–5 is reported as a separate finding for

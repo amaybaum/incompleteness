@@ -5,21 +5,27 @@
 or premise.
 
 **Standing of this directory.** Its files from #1009 were copied to `main` byte-identical from
-#1009 at `8af2d904` by #1099 (commit `86cd47e5`). #1009 is an open draft; nothing here is adopted
+#1009 at `8af2d904` by #1099 (commit `86cd47e5`); `README.md`, `observable-recurrence.md` and
+`equivalence-and-d3-scope.md` have since been corrected on `main`, and `BOUNDARY-CONTROLS.md` and
+`boundary_controls_probe.py` came from #1016. #1009 is an open draft; nothing here is adopted
 from it.
 
-- **Acceptance labels are author-reported.** Where a file here says that a unit, its parent or a
-  result was accepted, reviewed or CI-green (for example
+- **Acceptance labels are author-reported.** Where a file here says that a #1009 unit or its
+  parent was accepted, reviewed or CI-green (for example
   `native-later-operand-and-controller.md:3–6`), it reports a verdict recorded on #1009. Those
-  reviews and runs are not on `main`, and the labels are not independent verification.
+  reviews and runs are not on `main`, and the labels are not independent verification. Review
+  records held elsewhere on `main` (for example the one cited at
+  `later-access-preregistration.md:38–39`) carry their own stated status.
 - **Reproducible finite controls.** The `*.py` probes use exact arithmetic and run from `main`;
   `expected-result.json` and `later-access-result.json` are recorded outputs. CI on `main` does
   not run them. Each establishes its own finite statement only.
-- **Paper proofs not independently reviewed on `main`:** the all-`L` Fourier proof
-  (`observable-recurrence.md`), the solenoid Markov proof (`solenoid-countercontrol.md`), the
-  infinite-tape XOR construction (`infinite-xor-counterexample.md`), the chronological-triangular
-  proof of LA-EQUAL (`later-access-preregistration.md:173`), and the restricted
-  Haar-stationarity obstruction (`yangmills-substate-bridge.md`).
+- **Paper proofs not independently reviewed on `main`:** every written proof in this directory,
+  among them the all-`L` Fourier proof (`observable-recurrence.md`), the solenoid Markov proof
+  (`solenoid-countercontrol.md`), the infinite-tape XOR construction
+  (`infinite-xor-counterexample.md`), the chronological-triangular proof of LA-EQUAL
+  (`later-access-preregistration.md:173`), the restricted Haar-stationarity obstruction
+  (`yangmills-substate-bridge.md`), and the written source, packet and masking proofs of the
+  `native-*.md` units.
 - **Kernel-checked:** `OIBridge.ObservableFactorRecurrence`, `OIBridge.ObservableMeasureReturn`
   and `OIBridge.GradientLinkFlatness`, with the scope stated in the two Lean paragraphs below.
 - None of the paper proofs or author-reported results is a premise until it is independently
