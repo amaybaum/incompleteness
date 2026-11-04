@@ -11,7 +11,7 @@ confers no scientific status (`AGENTS.md` §A.45 rule 1, §A.46) and authorizes 
 |---|---|
 | Introduction under audit (start) | #918 head `4028e45db1ba520dc6a1bfb44a26b76a112ba575` |
 | Corpus baseline | `main` `f5c281ae10a913ec68fa41b3b839ad0b164979cd` |
-| Correction commits (this round) | `340961ceb9aa1d9d3b1230cc6a905898644051d8`, `690790584a53813439e6d9b5db3a6e7e5f5ea075`; after the independent review (#918 c.6643385201) of `b935150b`: `a17216815d29f0358f3316a110a4c4784ab37f1c`; after the owner decisions ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)): `25a9d9fdc0bfd0ee2aff9d3da3f8d425452a1efe`, `3e8bc6f374596aa94a25331240bcc163cf4548f8`; after the re-review of `c806fb67`: `1332505fb133a16ce1c018ee666082cffc7556d7` |
+| Correction commits (this round) | `340961ceb9aa1d9d3b1230cc6a905898644051d8`, `690790584a53813439e6d9b5db3a6e7e5f5ea075`; after the independent review (#918 c.6643385201) of `b935150b`: `a17216815d29f0358f3316a110a4c4784ab37f1c`; after the owner decisions ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)): `25a9d9fdc0bfd0ee2aff9d3da3f8d425452a1efe`, `3e8bc6f374596aa94a25331240bcc163cf4548f8`; after the re-review of `c806fb67`: `1332505fb133a16ce1c018ee666082cffc7556d7`; after the final review of `ba32180e`: `b70d9467bfa6c0c571be9793fc6bf3fb435b2ba3` |
 | Prior audit record (provenance only) | #942 branch `audit/intro-corpus-20261026` at `16fc745dd0d787d100ca09553bd0342873f26771` |
 | Handoff and retention records (provenance only) | #941 comments 6628558706, 6631126662; activation 6642597102 |
 
@@ -50,10 +50,10 @@ authorization).
 
 ### 3.1 Open: need an owner decision, another Issue or a blocked action
 
-| ID | Severity | Locator (Introduction at `1332505f`; line numbering unchanged since `a1721681`) | Finding and evidence | Class |
+| ID | Severity | Locator (Introduction at `b70d9467`; line numbering unchanged since `a1721681`) | Finding and evidence | Class |
 |---|---|---|---|---|
 | F-14 | high | L116, L126–132, L158, L174, L322; App. A L357–360 | NEW-1 / OD-4. Four families the Introduction states as machine-checked (`RecordFibreIdentification`, `RootedRecurrenceBridge`, `TrajectoryMemory`, `FullFutureMemory`) are `kernel-only` in `verification/lean-manuscript-census.json` at `f5c281ae`, with `manuscript: []`; the TrajectoryMemory note reads "No publication-facing promotion or K3 change is made before successful CI and independent proof review". `papers/Introduction.md` is not among the census's 13 manuscripts. The modules are imported by `verification/lean-mathlib/OIBridge.lean` (L21–24), so `main`'s build includes them, and their blobs are unchanged from the checkpoints. The gap is the census contract and proof review, not verification or a known error. Partly resolved since the handoff: `RecurrenceHorizon`, `PhysicalC4Discharge`, `PhysicalC4StorageReadback` and `RootedClassification*` are now `current` with Main anchors. | decided ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)): not promoted; applied E22 |
-| F-18 | high | Abstract L17; L238; L320; L322; L328 | OD-2 / R-06. The Introduction stated as open which of (iii)–(v) a physical substratum supplies. Condition (iv) is formalized as `HasCompositeUnitaryControl` (OperationalAssembly:665; a conjunct of `SubstantiveCompletion`, GeneralCarrier:130). Kernel statements at `f5c281ae` (families current): `readWriteSourced_not_control` (ReadWriteControl:169: a theory on `Fin 2` whose available composite conjugations are all permutation matrices lacks `HasCompositeUnitaryControl`), so on the two-state carrier the failure of (iv) is itself a kernel statement; `permClass_onesFixing` (PhaseSource:79) and `onesFixing_not_phasesAvailable` (PhaseSource:52; composite `permTheory_not_phasesAvailable_onesFixing`, :104), from which the failure of (iv) on every carrier with at least two states follows by a one-line inference (the quarter-phase gate is a finite unitary); `readWriteSourced_not_qm` (ReadWriteControl:174); `substratumClass_structurallyClosed` (StructuralClosure:316, bearing on (iii) and (v) for the class with the stipulated phase). Open: a substratum with a further intervention principle. Underclaim. Appendix A entries for these declarations need their axiom reports (OD-15). | decided ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)): scoped conclusion stated, E21, E23, E24; Appendix A entries blocked (OD-15) |
+| F-18 | high | Abstract L17; L238; L320; L322; L328 | OD-2 / R-06. The Introduction stated as open which of (iii)–(v) a physical substratum supplies. Condition (iv) is formalized as `HasCompositeUnitaryControl` (OperationalAssembly:665; a conjunct of `SubstantiveCompletion`, GeneralCarrier:130). On every carrier with at least two states, including the two-state carrier, its failure for the class of isometries that finite bijective dynamics and the stated observer access supply follows by a one-line inference from `permClass_onesFixing` (PhaseSource:79; isometries only) and `onesFixing_not_phasesAvailable` (PhaseSource:52; composite `permTheory_not_phasesAvailable_onesFixing`, :104): the quarter-phase gate is a finite unitary. `readWriteSourced_not_control` (ReadWriteControl:169) and `readWriteSourced_not_qm` (:174) give no support: their hypothesis `ReadWriteSourced T` (:158) requires every `V` with `conjChannel V` available to be a permutation matrix, and `conjChannel V = conjChannel (−V)` (MonoidalCompletion, `X ↦ V X Vᴴ`), so any available conjugation at a positive ancilla level would force `V` and `−V` both to be permutation matrices; the hypothesis therefore excludes every theory in which a bijective operation is available at a positive level. `substratumClass_structurallyClosed` (StructuralClosure:316) bears on (iii) and (v) for the class with the stipulated phase. Open: a substratum with a further intervention principle. Underclaim. Appendix A entries for the two PhaseSource declarations need their axiom reports (OD-15). | decided ([#941 c.6643474520](https://github.com/amaybaum/incompleteness/issues/941#issuecomment-6643474520)): scoped conclusion stated, E21, E23, E25 (E24 superseded by E25); Appendix A entries blocked (OD-15) |
 | F-19 | high | §3.4, L252–258 | OD-3 / R-07 / R-40. The ε-realization half of Main §3.4 (Main:566–602) is not reported; the owner disposition adopted adding it; R-40 and #945 require that any text rest on the exact regime only (#945's finite-b repair unproved). Needs a drafted text and its review; not a minimum-diff correction. | owner (drafting) |
 | F-15 | high | [CE] L387 (used L314), [CR] L389 (used L316) | NEW-3 / item 26. `bdcbd32bb55a5464d72b61682721f0b4bfaf446c` and `2624d49cffc0794b300517719c879de6b57d395e` diverge from `main` and from #918's head (compare API). The proof and control blobs they contain are byte-identical in #918's tree: `entropy-profile-proof.md` `16bdf99a…`, `exact-results.json` `908608ae…`, `exact_controls.py` `dc6c3483…`, `sequential-release.md` `3f7669ec…`, `sequential-release-results.json` `f9b77129…`, `sequential_release_controls.py` `f005d996…` (READMEs differ). Owner obligation (c.6631126662): durable retention on `main` before any dependent claim lands. | owner |
 | F-16 | high (blocking for landing) | L316, L322 | [CR] (`sequential-release.md`) has no independent review: the in-tree `independent-core/review.md` reviews [CE] at `bdcbd32` only, and the obligation is homed on #970 (c.6631126662). The Introduction lists [CR] under "Established mathematical results … Proved on paper also" (§A.46 items 1 and 3). | decided: moved out of the established list, E19; review stays on #970 |
@@ -117,7 +117,8 @@ commit's source in the same commit (§9).
 | E21 | F-18 | `25a9d9fd` | abstract L17, L238, L320, L322, L328: failure of (iv) for the theory generated by the operations of finite bijective dynamics under the stated observer access, on at least two states, stated as a one-step deduction from two statements checked in Lean in [GR §3.3]; "open" kept for substrata with further intervention principles |
 | E22 | F-14 | `25a9d9fd` | L340: the four modules "are built and checked with the library on `main`, their proofs have not been independently reviewed"; L322: one sentence saying the same of the trajectory, entire-future, record-fibre and actual-return statements |
 | E23 | F-18 | `3e8bc6f3` | abstract, L320, L322: "on systems of two or more states" added, carrying L238's carrier assumption into the summaries |
-| E24 | F-18 | `1332505f` | L238 and L322: the failure of (iv) stated as a Lean statement on two-state systems and as a one-step deduction on every system of two or more states, for the operations of finite bijective dynamics under the stated observer access; identifiers not named in the text |
+| E24 | F-18 | `1332505f` | L238 and L322: a two-state "checked in Lean" sentence resting on `readWriteSourced_not_control`; superseded by E25, because that theorem's hypothesis excludes every theory with an available bijective operation (§14.4) |
+| E25 | F-18 | `b70d9467` | L238: the two-state Lean sentence removed; "every operation of the class generated by those bijective operations" → "every isometry of the class those bijective operations and the stated access supply" (GR:260; `permClass_onesFixing` concerns isometries; diag(1,0) is a non-isometric counterexample); L322: "deduced in one step from statements checked in Lean, on every system of two or more states" |
 
 Propagation (§A.25) was confined to the Introduction and its `.tex`/`.pdf`, as authorized. The
 `verification/coverage/LEDGER.json` rows `INTRODUCTION:*` cite lines 67, 103, 120, 154, 160 and
@@ -143,14 +144,14 @@ Applied as recorded in §14; the options that were before the owner are kept for
   `20ca05fe` and revert the citations that need later content; (c) retain or replace
   `021850d9` and `a2be1e45`.
 - **F-18 (OD-2).** Decided: state the scoped conclusion that (iv) fails for the stated class and
-  access model, with its assumptions, without generalizing (E21, E23, E24; §14.4).
+  access model, with its assumptions, without generalizing (E21, E23, E25; §14.4).
 - **F-28.** Decided: make the provenance explicit (E20).
 
 ### 5.2 Still needing a decision
 
 - **F-18 and F-20, Appendix A entries (OD-15).** Authorize the axiom-report regeneration of
-  `papers/introduction_repro/` so that `readWriteSourced_not_control`, `permClass_onesFixing`,
-  `onesFixing_not_phasesAvailable` and `routedAtStorage_forces_indivisible_somewhere` can enter
+  `papers/introduction_repro/` so that `permClass_onesFixing`, `onesFixing_not_phasesAvailable`
+  and `routedAtStorage_forces_indivisible_somewhere` can enter
   Appendix A; or keep them outside Appendix A, as the text now does.
 - **F-19 (OD-3).** Commission a drafted ε-realization paragraph restricted to the exact regime,
   with its review; or defer to #945.
@@ -234,7 +235,8 @@ This record itself cites #942's branch (`16fc745d`), #941 and #918 comments and 
 | Source commit `25a9d9fd` | 25 pages; median 3,884 characters per page; 0 "Missing character" warnings |
 | Source commit `3e8bc6f3` | 25 pages; median 3,884 characters per page; 0 "Missing character" warnings |
 | Source commit `1332505f` | 25 pages; median 3,884 characters per page; 0 "Missing character" warnings |
-| Stamps | each `.tex` ends with `% source-sha256:` of its own commit's `Introduction.md`: `340961ce` 3a1b988d0cef6b3dc525b9e188273aad514c9dcd5a3c60e51288ef137a44bf7f; `69079058` 94a2cff2b8fe65172967e287534372e93c32bb4d82faeed8143fd898a06e01b9; `a1721681` bb045f940aeed3f4c0077e111e9c6c7e6d2fedae076a9f29e1f57b540fe591e6; `25a9d9fd` 9f6fcdcb14f2f12ac19bcece6952ee9def516e20e15d58cf92f9384ddc41e1f1; `3e8bc6f3` 1de95584d91dfda98769f20e2625041fced9c09424911db964a5deff00837306; `1332505f` d5cd5c573347762741214eecf27a3537292dfcd9c2339c1e883a54bb5a1d04d7 |
+| Source commit `b70d9467` | 25 pages; median 3,884 characters per page; 0 "Missing character" warnings |
+| Stamps; `b70d9467` 7bca4713596cf2ee50fb3392c3ae0423e2f710d9b1d2334d7471a7a15bf7c8b1 | each `.tex` ends with `% source-sha256:` of its own commit's `Introduction.md`: `340961ce` 3a1b988d0cef6b3dc525b9e188273aad514c9dcd5a3c60e51288ef137a44bf7f; `69079058` 94a2cff2b8fe65172967e287534372e93c32bb4d82faeed8143fd898a06e01b9; `a1721681` bb045f940aeed3f4c0077e111e9c6c7e6d2fedae076a9f29e1f57b540fe591e6; `25a9d9fd` 9f6fcdcb14f2f12ac19bcece6952ee9def516e20e15d58cf92f9384ddc41e1f1; `3e8bc6f3` 1de95584d91dfda98769f20e2625041fced9c09424911db964a5deff00837306; `1332505f` d5cd5c573347762741214eecf27a3537292dfcd9c2339c1e883a54bb5a1d04d7; `b70d9467` 7bca4713596cf2ee50fb3392c3ae0423e2f710d9b1d2334d7471a7a15bf7c8b1 |
 
 Each commit's `.md`, `.tex` and `.pdf` are from that commit's source. No claim is made that the
 output is byte-identical or equivalent to any earlier PDF.
@@ -277,7 +279,7 @@ re-run was made.
 
 ## 12. Review packet
 
-**Head to review:** the record revision that follows `1332505fb133a16ce1c018ee666082cffc7556d7`
+**Head to review:** the record revision that follows `b70d9467bfa6c0c571be9793fc6bf3fb435b2ba3`
 on `draft/oi-introductory-paper-20261025`; confirm the exact SHA from the #918 checkpoint comment.
 Corpus: `main` `f5c281ae`. The owner asks the reviewer to focus on the corpus pin (E18, §14.1), the
 [CR] classification (E19), the scope of F-18 (E21) and the provenance at L41 (E20); items 1–8 below
@@ -375,20 +377,16 @@ L41 states that in §3.4 the factorization through finitely many ontic states is
 (arXiv:2308.07727v4, read first-hand). The literature result is cited as the literature's, not as a
 consequence of OI's premises.
 
-### 14.4 Condition (iv) (F-18, E21, E23, E24)
+### 14.4 Condition (iv) (F-18, E21, E23, E25)
 
 The statement made, and its assumptions:
 
 - **Condition (iv) in the kernel.** `HasCompositeUnitaryControl` (OperationalAssembly:665: every
   unitary on every finite ancilla extension is available), one conjunct of `SubstantiveCompletion`
   (GeneralCarrier:130).
-- **Two-state carrier: a kernel statement.** `readWriteSourced_not_control`
-  (ReadWriteControl:169): for `T : FiniteOperationalTheory (Fin 2)` with `ReadWriteSourced T`
-  (ReadWriteControl:158: every available composite conjugation is a permutation matrix),
-  `¬ HasCompositeUnitaryControl T`. GR:260 cites the module and its companion
-  `readWriteSourced_not_qm`, not this identifier.
+- **No two-state kernel statement.** `readWriteSourced_not_control` (ReadWriteControl:169), which E24 used, gives no support: their hypothesis `ReadWriteSourced T` (:158) requires every `V` with `conjChannel V` available to be a permutation matrix, and `conjChannel V = conjChannel (−V)` (MonoidalCompletion, `X ↦ V X Vᴴ`), so any available conjugation at a positive ancilla level would force `V` and `−V` both to be permutation matrices; the hypothesis therefore excludes every theory in which a bijective operation is available at a positive level. The two-state carrier is covered by the general deduction below.
 - **Every carrier with at least two states: a one-step deduction.** Class: `permClass`
-  (SubstratumInterfaceAudit:236, scaled partial permutations), the operations GR:260 describes
+  (SubstratumInterfaceAudit:236, scaled partial permutations), the isometries GR:260 describes
   for finite bijective dynamics under the stated observer access. `permClass_onesFixing`
   (PhaseSource:79) and `onesFixing_not_phasesAvailable` (PhaseSource:52, hypothesis
   `2 ≤ Fintype.card A`; composite `permTheory_not_phasesAvailable_onesFixing`, :104) give that the
@@ -396,7 +394,7 @@ The statement made, and its assumptions:
   every level (`PhasesAvailable`, RouteB:132). The quarter-phase gate is a unitary on a finite
   extension, so `HasCompositeUnitaryControl` would make it available: (iv) fails. This last step
   is not a kernel statement.
-- **Text.** L238 states both, keeping the class and access model explicit, and says the Lean
+- **Text.** L238 states the deduction (E25), keeping the class of isometries and the access model explicit, and says the Lean
   statements lie outside the checkpoints of Appendix A; the abstract, L320 and L322 summarize with
   "on systems of two or more states"; L328 keeps the question open for substrata with further
   intervention principles. Identifiers are not named in the text: the Introduction names Lean
@@ -429,8 +427,44 @@ coverage and the Lean-manuscript census. The `INTRODUCTION:*` ledger lines (67, 
 
 | Point | Disposition |
 |---|---|
-| 1: F-18 two-state kernel statement | Verified at `f5c281ae` (ReadWriteControl:158, :169; OperationalAssembly:665; GeneralCarrier:130); stated by E24 at L238 and L322, in §3.1 (F-18), §5.1, §14.4 and CLAIM-MAP C-238. Identifiers kept out of the text (Appendix A convention; OD-15). |
+| 1: F-18 two-state kernel statement | Applied by E24 and then withdrawn by E25 after the final review of `ba32180e`: `readWriteSourced_not_control` has a hypothesis that excludes every theory with an available bijective operation (§14.4, §16). The two-state case rests on the general one-step deduction. |
 | 2: stray §5 fragments | §5 rewritten as 5.1 (decided, with the options that were open) and 5.2 (still open). |
 | 3: locator baselines and stamps | §3.1 and §3.2 locators stated at `1332505f` numbering; CLAIM-MAP says "line numbering unchanged since `a1721681`"; §9 lists every stamp in full. |
 | 4: F-17 decided | §3.1 F-17 status and §5.1 show the owner decision and its application (E18, §14.1). |
+
+## 16. Final review of `ba32180e` (#918, latest review comment before `b70d9467`)
+
+- **Blocking item, applied (E25).** Read at `f5c281ae`: `conjChannel V` is `X ↦ V X Vᴴ`
+  (MonoidalCompletion, the definition after :358), so `conjChannel (−V) = conjChannel V`;
+  `ReadWriteSourced` (ReadWriteControl:158) demands `V = permMatrix σ` for every `V` whose
+  conjugation is available. An available conjugation at a positive ancilla level would make `V`
+  and `−V` both permutation matrices. The writer's reading of `FiniteOperationalTheory`
+  (OperationalAssembly:594) finds no axiom that itself forces a conjugation to be available at a
+  positive level, so the hypothesis can hold, but only for theories with none; either way the
+  theorem gives no support for a theory generated by bijective operations. E24's sentence is
+  removed and F-18 rests on the general one-step deduction.
+- **Isometries (E25).** `permClass_onesFixing` quantifies over `K` with `Kᴴ * K = 1`
+  (`OnesFixing`, InstrumentRealization:180), so L238 now speaks of isometries, as GR:260 does.
+- **ch03 locator: not changed.** At `f5c281ae`, `book/ch03-structural-realism.md`:218 is the
+  paragraph "Hawking's turtles and the regress of support", which [Book §3.8] supports at L35;
+  line 228 is a different paragraph ("The framework's position in this comparison consists of
+  declared premises, …"). The record keeps :218 (also :218 in #918's tree; FULL mirror :1092).
+  This is stated for the next reviewer to check.
+
+## 17. Open item outside this round: vacuous kernel support cited in GR and Main
+
+GR:260 and Main:590 cite `readWriteSourced_not_qm` (ReadWriteControl:174) as kernel support for
+the statement that read-write control under finite bijective dynamics does not supply
+operational QM. By the argument of §16 its hypothesis excludes every theory with an available
+bijective operation at a positive ancilla level, so it does not support that statement. Options,
+for the owner of GR, Main and the Lean library (not edited here):
+
+- re-anchor the citations to `monomialSource_not_qm` / `monomialSource_not_control`
+  (SubstratumInterface:180–190), whose hypothesis `MonomialSource` (every available conjugation is
+  monomial) is closed under `V ↦ −V`; or
+- repair the definition of `ReadWriteSourced` (for example, up to a unit scalar), re-prove the two
+  theorems, and update the census.
+
+Proposed destination: #1029 (citations and kernel anchors), with the Lean change, if chosen, as
+its own reviewed unit.
 
