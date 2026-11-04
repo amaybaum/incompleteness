@@ -50,25 +50,34 @@ what is the smallest missing ingredient?
   `o-ret-routes-20261103/README.md`. Read only.
 - Issue comments: #866 c.6526292899, c.6541293037, c.6541615446, c.6548283392, c.6567167742,
   c.6600176951, c.6627392555, c.6631480154, c.6641545083, c.6642599988; #914 c.6563412926;
-  #1007 c.6526897139, c.6527637527. These are provenance and planning records, not evidence.
-- Literature, under the owner's arXiv authorization of 2026-11-04 (relayed by the coordinator):
+  #1007 c.6526897139, c.6527637527. These are governance, planning or provenance records, not
+  evidence; `ANALYSIS.md` §7 classifies each reference individually (§A.42 item 8).
+- Literature, under the owner's arXiv authorization recorded at #866 c.6643204362:
   arXiv:2309.03085v2 §3.1 read directly; the other sources are listed in `ANALYSIS.md` §3.8,
   each marked as read directly or taken from a named secondary source. External results do not
   establish that anything follows from OI's assumptions; where one supplies an ingredient, that
   ingredient is an additional assumption.
 
-## Headline (unreviewed)
+## Headline (revised after the review at #1110 c.6643202940; not re-reviewed)
 
-- The consumers of an induced law differ in what they need (`ANALYSIS.md` §1). The
-  representation layer needs nothing from `(Obs, μ)` beyond a finite alphabet. The
-  recurrence-cycle indivisibility verdict depends on the hidden law only through its supports
-  (Theorem SI, PD-here). Specific laws, Bell screening and readiness need a measure, and
-  invariance fails for them by Main's own example.
-- On the additive native step, no choice of `(Obs, μ)` supplies selectable interactions or
-  confined records (Lemma D). O-OBSMU bears on preparation and outcome statistics only.
-- The smallest missing ingredient for the measure-dependent consumers is a readiness event
-  defined on states (Q11, stated nowhere as a premise). Two candidates are written out as
-  unadopted proposals with their §A.29 assessments. Both fail hard-to-vary as stated.
+- **Consumers differ** (`ANALYSIS.md` §1).
+  - The representation layer (`S ⇔ D ⇔ Q_fb`) is not a residual-choice consumer.
+  - The recurrence-cycle indivisibility verdict depends on the hidden laws only through their
+    supports (Theorem SI, which elaborates Main:141).
+  - C4-gap existence and window divisibility depend on the measure itself, even at fixed full
+    support (countercontrol CC-2). Window divisibility on the native step K1 is open.
+  - Specific laws are refuted as invariant by Main:60.
+- **Lemma D (conditional).** On K1, provided offsets do not count as selectable interactions
+  (D-SEL) and S-L4 holds, no `(Obs, μ)` supplies selectable interactions or confined records.
+- **Additional premises.**
+  - Main §4.6 is "structural, not measure-theoretic". Conditioning the measure on observer
+    presence (H-OC) and the conditioning rule (CR) are therefore new premises, not Main's.
+  - The corpus states a low-entropy initial condition (book) and treats initial data as
+    solution-specific. No source specifies a state-level preparation event (Q11′).
+  - Q11′, conditional on H-OC and CR, is a scoped candidate for consumers L3 and L5 only. It is
+    not shown to be minimal.
+- **Proposals.** P-R and P-SDC are written out as unadopted proposals with failable controls. No
+  independent consequence is identified for either.
 
 ## Not authorized, and not done
 
