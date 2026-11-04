@@ -1,0 +1,308 @@
+{
+ "schema": "oret-phase-a-check/1",
+ "checks": {
+  "summary_readable": true,
+  "verdict_text_regenerated_equal": true,
+  "tuples_frozen": true,
+  "prefix_of_frozen_order": true,
+  "verdict_consistent": true,
+  "records_reapply": true
+ },
+ "reapply": [
+  {
+   "tuple_id": "TS-L4-T1-ext",
+   "row": "2a",
+   "reapplied_row": "2a",
+   "problems": []
+  },
+  {
+   "tuple_id": "TS-L4-T1-noext",
+   "row": "I-9",
+   "reapplied_row": "I-9",
+   "problems": []
+  },
+  {
+   "tuple_id": "TS-L5-T1-ext",
+   "row": "2a",
+   "reapplied_row": "2a",
+   "problems": []
+  },
+  {
+   "tuple_id": "TS-L5-T1-noext",
+   "row": "I-9",
+   "reapplied_row": "I-9",
+   "problems": []
+  },
+  {
+   "tuple_id": "TM-m2-T1-ext",
+   "row": "2a",
+   "reapplied_row": "2a",
+   "problems": []
+  },
+  {
+   "tuple_id": "TM-m2-T1-noext",
+   "row": "I-9",
+   "reapplied_row": "I-9",
+   "problems": []
+  },
+  {
+   "tuple_id": "TM-m3-T2-ext",
+   "row": "2a",
+   "reapplied_row": "2a",
+   "problems": []
+  },
+  {
+   "tuple_id": "TM-m3-T2-noext",
+   "row": "I-9",
+   "reapplied_row": "I-9",
+   "problems": []
+  },
+  {
+   "tuple_id": "TMP-T1-ext",
+   "row": "2a",
+   "reapplied_row": "2a",
+   "problems": []
+  },
+  {
+   "tuple_id": "TMP-T1-noext",
+   "row": "I-9",
+   "reapplied_row": "I-9",
+   "problems": []
+  },
+  {
+   "tuple_id": "HCPh-T1",
+   "row": "1",
+   "reapplied_row": "1",
+   "problems": []
+  },
+  {
+   "tuple_id": "SC-T1",
+   "row": "1",
+   "reapplied_row": "1",
+   "problems": []
+  },
+  {
+   "tuple_id": "S1-L2-T1",
+   "row": "5",
+   "reapplied_row": "5",
+   "problems": []
+  },
+  {
+   "tuple_id": "S1-L3-T1",
+   "row": "5",
+   "reapplied_row": "5",
+   "problems": []
+  },
+  {
+   "tuple_id": "SW-T1",
+   "row": "6",
+   "reapplied_row": "6",
+   "problems": []
+  },
+  {
+   "tuple_id": "SW-T2",
+   "row": "6",
+   "reapplied_row": "6",
+   "problems": []
+  },
+  {
+   "tuple_id": "R1-T4",
+   "row": "1",
+   "reapplied_row": "1",
+   "problems": []
+  },
+  {
+   "tuple_id": "R1-readback",
+   "row": "I-3",
+   "reapplied_row": "I-3",
+   "problems": []
+  },
+  {
+   "tuple_id": "R2-T3",
+   "row": "1",
+   "reapplied_row": "1",
+   "problems": []
+  },
+  {
+   "tuple_id": "R2-T4",
+   "row": "1",
+   "reapplied_row": "1",
+   "problems": []
+  },
+  {
+   "tuple_id": "R3-T1",
+   "row": "5",
+   "reapplied_row": "5",
+   "problems": []
+  },
+  {
+   "tuple_id": "R3-T2",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "R3-T5",
+   "row": "1",
+   "reapplied_row": "1",
+   "problems": []
+  },
+  {
+   "tuple_id": "R3-readback",
+   "row": "I-3",
+   "reapplied_row": "I-3",
+   "problems": []
+  },
+  {
+   "tuple_id": "MA-L2-T1",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "MA-L3-T1",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "MB-T1",
+   "row": "2a",
+   "reapplied_row": "2a",
+   "problems": []
+  },
+  {
+   "tuple_id": "MC-m2-T1",
+   "row": "6",
+   "reapplied_row": "6",
+   "problems": []
+  },
+  {
+   "tuple_id": "MC-m3-T2",
+   "row": "6",
+   "reapplied_row": "6",
+   "problems": []
+  },
+  {
+   "tuple_id": "MD-xor-T1",
+   "row": "3",
+   "reapplied_row": "3",
+   "problems": []
+  },
+  {
+   "tuple_id": "CX4b-T1",
+   "row": "7",
+   "reapplied_row": "7",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k1-T1",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k1-T2",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k2-T1",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k1-T3",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k3-T1",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k2-T2",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k4-T1",
+   "row": "8",
+   "reapplied_row": "8",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k2-T3",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k3-T2",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k5-T1",
+   "row": "5",
+   "reapplied_row": "5",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k6-T1",
+   "row": "5",
+   "reapplied_row": "5",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k4-T2",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k3-T3",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k5-T2",
+   "row": "8",
+   "reapplied_row": "8",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k4-T3",
+   "row": "2b",
+   "reapplied_row": "2b",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k6-T2",
+   "row": "5",
+   "reapplied_row": "5",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k5-T3",
+   "row": "8",
+   "reapplied_row": "8",
+   "problems": []
+  },
+  {
+   "tuple_id": "SK-k6-T3",
+   "row": "5",
+   "reapplied_row": "5",
+   "problems": []
+  }
+ ],
+ "pass": true
+}
