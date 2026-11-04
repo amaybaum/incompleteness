@@ -77,7 +77,7 @@ Results SHA-256: `8b949aa7cbd688f7c41fa079f761424afea98700e387db42c2b15320174e2b
 - C: exact complete four-link configurations at levels 1–4, including 65,536 states at level 4, with four local gauge-generator checks, inverse, reduction and uniform holonomy; separate rational quarter-turn Wilson-vs-squared controls.
 
 **Formal status:** `OIBridge.RecursiveFiniteFactor` is an explicitly
-*conditional* Lean theorem candidate, imported into the pinned
+*conditional* Lean theorem module, imported into the pinned
 Mathlib bridge and classified `kernel-only` in the manuscript
 census. It proves finite-horizon/max-depth assembly and periodic
 extension given finite-stage hypotheses, plus a reversible
@@ -198,7 +198,7 @@ bit1-to-low-bit kick breaks the reduction property,
 showing the test does not reject all deeper-to-visible
 couplings by construction.
 
-A new research Lean candidate,
+A research Lean module,
 `OIBridge.NativePadicReduction`, formalizes
 commutation of a finite neighbor-sum stencil, the
 two-slice step and its intended inverse (the inverse
