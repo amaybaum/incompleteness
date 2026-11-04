@@ -675,6 +675,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   that `F`'s tree could not produce, and its successor's drafts then spent four review rounds
   fitting their verdict into a 5,000-line served tail whose contents cache replays rearranged.
   Hence §A.44: verdicts read exit statuses and step conclusions, never log text.
+- Five evidence landings in one audit were reviewed for byte identity, CI and unchanged verdicts.
+  Their references to branch-only commits were accepted as "provenance only" without tracing what
+  each reference supported. One landed proposition is proved from a proof held only on a closed
+  pull request's kept branch. Keeping that branch and assigning the gap to an Issue were taken as
+  enough. Hence §A.42 item 8: every off-`main` reference is traced to its claim before landing,
+  and responsibility is not retention.
 
 ---
 
@@ -1039,6 +1045,22 @@ by an independent reviewer from `main` alone.
    once the round lands, so the round's workflow run at `E` re-establishes its computational
    claims, and no separate retention pull request is needed. An owner designation a record relies
    on is quoted in that record with its author and time.
+8. **Trace every off-`main` reference.** Before a record lands, every reference it makes to content
+   not on `main` is traced to the claim it is attached to: a commit, branch, pull request, comment
+   or path, whether named by id or by number. Each reference is classified by reading that claim:
+   - **provenance:** the claim is re-established from `main` without it;
+   - **support on `main`:** the content the claim uses is on `main`, and any difference from the
+     cited version is stated;
+   - **support off `main`:** a gap.
+
+   "Provenance only" is a finding about each reference, never a label applied to a group of them.
+   A record that says a result is proved from, inherits, uses or preserves another record's result
+   cites support. A gap is closed no later than the record lands (item 2): by landing the content
+   the claim needs, or, for a mutable record, by narrowing the claim (item 6). Keeping the branch
+   that holds the content does not close a gap. Neither does assigning it to an Issue, which
+   records responsibility, not retention. A gap that cannot be closed lands only by owner decision,
+   and the landing record names the claim it leaves unsupported. A review of a landing checks this
+   trace as well as byte identity, CI and verdicts.
 
 Records frozen under this section's earlier form, and rounds frozen at `F` under it, keep the form
 under which they were frozen; a preregistration is not reinterpreted. That form is `AGENTS.md` at
@@ -1048,7 +1070,9 @@ read from `main`'s history: `verification/audits/evidence-retention/` at
 the objects it retains, its manifests and its tools, and a recipe that names one of those tools runs
 at that commit.
 
-Enforcement: reviewers check items 1–6 on every record that lands.
+Enforcement: reviewers check items 1–6 and 8 on every record that lands. Item 8 applies to
+landings after its adoption; it does not reinterpret a frozen record. A gap it finds in an earlier
+landing is corrected as item 6 says.
 
 Adopted 2026-10-16, after an audit of `main` at `fc5abade` found frozen records citing commits off
 `main`, CI log citations that expire, and cited logs held only in a session scratchpad. Reduced to
