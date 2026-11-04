@@ -15,22 +15,35 @@ files `README.md` describes, these are on `main`:
 `SHA256SUMS` lists the other four, and `sha256sum -c SHA256SUMS` from this
 directory checks them. The packages `native-x-v2/`, `tagged-post-y-v3/`,
 `native-phase-v4/`, `native-coupling-v5/`, `composition_flag_v6/`,
-`delayed_history_v7/` and `native_predicate_v8/`, the directory `review/` and
-`CURRENT-HANDOFF.md` are not on `main`; they are on #912's branch at
-`2af1d5d5`. Of `README.md`'s replay commands, only the first
-(`checks.py | cmp - RESULT.json`) reads only files that are on `main`.
+`delayed_history_v7/` and `native_predicate_v8/` and `CURRENT-HANDOFF.md` are
+not on `main`; they are on #912's branch at `2af1d5d5`. Of `README.md`'s replay
+commands, only the first two (`checks.py | cmp - RESULT.json` and
+`review/independent_checks.py | cmp - independent-result.json`) read only
+files that are on `main`.
 
-The review status on `main` is that of `REPORT.md`: "Separate-author review
-remains pending." No review record of this package is on `main`.
+`REPORT.md` states its own review status: "Separate-author review remains
+pending."
 
-#912's branch at `2af1d5d5` also carries `review/REVIEW.md` (blob
-`eceb7060ad337baa2e2161f6e9e0ba58d0c2ac2e`, added in commit
-`5b57321a39525ccd486560628a10ecedefb8dc65`), headed "Separate-author review"
-and returning "ACCEPT within the stated conditional theorem and finite
-toy-control scope" for author commit `a7f22c38503c710f91567628658ed627172cecdf`.
-It was committed from the author's account and names no reviewer. It is an
-author-posted record, not an independently authenticated review, and it is not
-on `main`.
+`review/` holds the review record of this package, copied byte-identically
+from #912's branch at `2af1d5d5`:
+
+| File | Blob |
+| --- | --- |
+| `review/REVIEW.md` | `eceb7060ad337baa2e2161f6e9e0ba58d0c2ac2e` |
+| `review/SHA256SUMS` | `c9a27deaba09519aa5a4e50dac3a79cf9574d7ae` |
+| `review/independent-result.json` | `01cd98056d3d5b0f60fa6d16595d3ee01a3ef1a0` |
+| `review/independent_checks.py` | `fb0aac3f4f2a1ea83bdd18d02abe9e84e9729c09` |
+
+`review/REVIEW.md`, added in commit `5b57321a39525ccd486560628a10ecedefb8dc65`,
+is headed "Separate-author review" and returns "ACCEPT within the stated
+conditional theorem and finite toy-control scope" for author commit
+`a7f22c38503c710f91567628658ed627172cecdf`, whose `REPORT.md`, `checks.py` and
+`RESULT.json` have the same blobs as the copies here. It was committed from the
+author's account and names no reviewer. It is an author-posted record, not an
+independently authenticated review, and it does not make `REPORT.md`'s theorem
+independently reviewed. `review/independent_checks.py` uses the Python standard
+library only and reads no file; its stated replay command is `README.md`'s
+second.
 
 ## Records on `main` that use this package
 
