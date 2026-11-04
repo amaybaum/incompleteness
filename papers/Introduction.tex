@@ -334,10 +334,12 @@ and {[}Book{]}.
 theorem; each known component is attributed where it is stated (§§2.2,
 2.4, 2.5). The results of §§3.2--3.5 are proved in {[}GR{]} and
 {[}Main{]}, the Bell ceiling being Bell's theorem under the framework's
-hypotheses, and those of §5 in unpublished research records with exact
-or exhaustive checks {[}BHa; BHb{]}; the novelty of the §§3.2--3.3 and
-§5 results has not been assessed. Deterministic systems have been
-analysed with quantum methods before, for example in {[}tH14{]}.
+hypotheses and the unbounded classical dimension of §3.4 an imported
+result {[}HKLP24{]}, and those of §5 in unpublished research records
+with exact or exhaustive checks {[}BHa; BHb{]}; the novelty of the
+§§3.2--3.3 and §5 results has not been assessed. Deterministic systems
+have been analysed with quantum methods before, for example in
+{[}tH14{]}.
 
 \emph{Conventions.} ``Machine-checked'' means checked in Lean 4/Mathlib
 {[}dMU21; Mathlib20{]} at the baseline or additional source checkpoints
@@ -485,11 +487,11 @@ case is the random-mapping representation {[}LP17, Prop. 1.5{]}. A
 permutation dynamics is a special case of a unistochastic process, one
 with transition probabilities \(|U_{ij}|^2\) for a unitary \(U\)
 {[}Bar25, p.~12 of arXiv v3; Bar23 §4.3; Bar26 §4{]}; the one-step
-\(|\mathcal C_V|^2\)-dimensional ancilla dilation of {[}Main §3.1{]} is
-that of {[}Bar26, Thm 3.3{]}; and the every-step record law is {[}SGD19,
-Eq. (3){]}; whether such records remain consistent when measurements are
-omitted {[}SGD19; Milz20{]} does not arise for \(\mathsf Q_K\), which
-measures at every step.
+ancilla dilation of {[}Main §3.1{]}, of total dimension
+\(|\mathcal C_V|^2\), is that of {[}Bar26, Thm 3.3{]}; and the
+every-step record law is {[}SGD19, Eq. (3){]}; whether such records
+remain consistent when measurements are omitted {[}SGD19; Milz20{]} does
+not arise for \(\mathsf Q_K\), which measures at every step.
 
 \hypertarget{scope-of-the-correspondence}{%
 \subsubsection{2.3 Scope of the
@@ -1455,7 +1457,7 @@ recovery}\label{black-hole-information-preservation-versus-accessible-recovery}}
 
 The black-hole information problem asks whether the radiation of an
 evaporating black hole carries the information of what formed it
-{[}Haw76; Pag93; Pag13{]}. In OI two questions separate: whether
+{[}Haw76; Pag93b; Pag13{]}. In OI two questions separate: whether
 information is conserved by the global dynamics, which holds because the
 dynamics is a bijection, and whether it can be recovered from the
 records an observer can access {[}HP07{]}. Finite exact computations
@@ -1557,7 +1559,7 @@ For \(n=2m\) and \(k=m\), the same sampled state at every cut has zero
 entropy at both endpoints and mean entropy between
 \(\max(0,\min(r,n-r)-2)\) and \(\min(r,n-r)\). The finite
 subspace-counting proof and independent exact controls establish this
-ensemble statement; it is not Page's Haar mean.
+ensemble statement; it is not Page's Haar mean {[}Pag93a{]}.
 
 A companion construction {[}CR{]} turns this cut profile into an actual
 reversible toy trajectory: a clock in a definite configuration controls
@@ -2022,7 +2024,10 @@ theories of quantum mechanics,'' \emph{Phys. Rev.~A} \textbf{77}, 022104
 {[}Oza84{]} M. Ozawa, ``Quantum measuring processes of continuous
 observables,'' \emph{J. Math. Phys.} \textbf{25}, 79 (1984).
 
-{[}Pag93{]} D. N. Page, ``Information in black hole radiation,''
+{[}Pag93a{]} D. N. Page, ``Average entropy of a subsystem,'' \emph{Phys.
+Rev.~Lett.} \textbf{71}, 1291 (1993); arXiv:gr-qc/9305007v2.
+
+{[}Pag93b{]} D. N. Page, ``Information in black hole radiation,''
 \emph{Phys. Rev.~Lett.} \textbf{71}, 3743 (1993);
 arXiv:hep-th/9306083v2.
 
@@ -2065,4 +2070,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: 94a2cff2b8fe65172967e287534372e93c32bb4d82faeed8143fd898a06e01b9
+% source-sha256: bb045f940aeed3f4c0077e111e9c6c7e6d2fedae076a9f29e1f57b540fe591e6
