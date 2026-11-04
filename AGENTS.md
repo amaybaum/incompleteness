@@ -1301,7 +1301,7 @@ distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
 
 `main` is the authoritative research record. An incomplete scientific programme is distinct from an
 incomplete verification of a specific claim: the first may have records on `main`; the second is a
-gap to be fixed.
+gap to be fixed. Presence on `main` never by itself certifies a premise for future research.
 
 1. **Established claims.** A claim is presented as established only when it can be verified from
    `main` and its evidence meets the verification standard for its kind (§A.42; the Code Review
@@ -1325,12 +1325,29 @@ gap to be fixed.
    evidence, re-running the computation or recording an independent review on `main`. A conclusion
    that cannot be verified is narrowed or withdrawn where it is stated (§A.27, §A.30) or, in a
    frozen record, by the applicable reviewed round (§A.39; §A.42 item 6), and the evidence behind it
-   stays.
-6. **Removal.** Removal of research evidence is a last resort, not an automatic consequence of
-   failed verification. Removing research evidence from `main` needs a specific justification, an
-   audit of what on `main` depends on it, and separate owner authorization; a frozen record is
-   removed only by the applicable reviewed round (§A.39). A manuscript claim that loses its support
-   is handled as §A.27 and §A.30 require.
+   is preserved to the extent needed by surviving claims and their reproducibility; other evidence
+   is assessed under item 6.
+6. **Disposition of unnecessary unverified evidence.** For existing, non-protected material that
+   has not met the verification standard for its specific claims, the normal proposed disposition
+   is removal from the current tree *if an audit establishes that it is unnecessary*: no surviving
+   claim depends on it; it is not needed to reproduce, check or interpret a retained result (including
+   a negative result); and no code, census, CI, audit obligation or retained record relies on it.
+   Check incoming citations and references as well as outgoing dependencies; repair affected
+   mutable references in the same reviewed change. A label of "unverified" is not a substitute for
+   this audit, and lack of a separately named reviewer does not invalidate an otherwise reproducible
+   computation or kernel-checked theorem. Each proposed removal requires a specific justification,
+   a documented dependency and reverse-citation audit, preserved reachable Git history, and
+   separate owner authorization. It is never automatic. Protected legacy records remain excluded;
+   frozen native-round records follow §A.39 and cannot be removed through ordinary cleanup.
+   Where retained claims still need unverified evidence, repair or narrow/withdraw the claims first
+   (§A.27, §A.30; item 5), rather than deleting their evidence.
+7. **No silent reuse of unverified premises.** Before a new result or established claim relies on
+   existing research evidence, its reviewer identifies each material premise, checks the supporting
+   evidence and assumptions against the applicable verification standard from `main`, and traces
+   dependencies under §A.42 item 8. An unverified record, an author-posted acceptance, an Issue,
+   or the mere presence of a file on `main` cannot serve as verification. Such material may be
+   discussed as exploratory or historical context, but cannot silently become an established
+   premise. Verified conditional and negative results are eligible on their actual proved scope.
 
 Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
 records from `main` was found to break records on `main` that depend on them.
