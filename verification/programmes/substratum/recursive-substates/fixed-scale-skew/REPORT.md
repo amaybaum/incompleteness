@@ -1,6 +1,6 @@
 # FIXED-SCALE-1 — one reversible hierarchy, indefinitely deep access, classical memory
 
-**Research author result; written infinite-model proof and exact finite enumerations. Independent re-review ACCEPT at `c811e876` is author-reported in [#1011 comment 6543745746](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6543745746); reviewer identity and a retrievable reviewer-authored verdict remain unresolved in the inspected record.** Related to SUBSTATE-2 issue #1010 and draft PR #1011. The test conditions were committed first in `PREREGISTRATION.md`. No native OI source, QM instrument, YM action or physical scale prediction is claimed.
+**Research author result; written infinite-model proof and exact finite enumerations. Independent re-review ACCEPT at `c811e876` is author-reported in [#1011 comment 6543745746](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6543745746); reviewer identity and a retrievable reviewer-authored verdict remain unresolved in the inspected record.** Related to SUBSTATE-2 issue #1010; landed on `main` by #1096 (#1011 closed unmerged). The test conditions were committed first in `PREREGISTRATION.md`. No native OI source, QM instrument, YM action or physical scale prediction is claimed.
 
 ## Mathematical result
 
