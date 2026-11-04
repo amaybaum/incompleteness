@@ -51,12 +51,12 @@ corpus" to the sources read (§S.8), since no corpus-wide search was recorded. T
 applies to C-3's "No principle in the corpus supplies one" (`amendments/MR-star.md:1353`), which
 C.1-1 does not name.
 
-**N5 / LA-EQUAL proof standing (read-only review, 2026-11-04).**
-The separate review [LA-EQUAL-REVIEW.md](LA-EQUAL-REVIEW.md) finds a
-**partial conditional tail-independence argument**, but a **gap** in establishing
-setting equality for the complete pre-tail history. The output token
-`LA-EQUAL` is a recorded conditional result, not an independently verified
-complete-history theorem. H-prior and H-access remain supplied hypotheses.
-The frozen N5 text is unchanged; the proof obligation belongs to #1007
-and the MR-1 dependency to #866. No scientific status is promoted.
-
+**N5 / LA-EQUAL proof standing.** Two read-only, model-authored reviews of the LA-EQUAL proof are
+consolidated in [LA-EQUAL-REVIEW.md](LA-EQUAL-REVIEW.md). Under the stated hypotheses, the tail
+independence and `EMPTY` have a conditional argument. The full `LA-EQUAL` equality is not
+established: it also needs the setting-independence of the pre-cut history, which requires a
+hypothesis outside H-prior's displayed form (the pre-cut port-5 bank law) and the parent unit's
+forward-kernel proof, which is not independently reviewed on `main`. None of the five hypotheses is
+derived for native OI, and H-rule is the native-Y model rule, not the corpus's selected linear rule.
+The frozen N5 text is unchanged and is not a premise of an established claim (AGENTS.md §A.46
+item 7). The proof gap belongs to #1007 and its consequence for MR-1 to #866.
