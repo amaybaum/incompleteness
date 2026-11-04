@@ -1304,7 +1304,7 @@ evidence (positive, negative and inconclusive results, failed approaches and the
 them) may be kept on `main` whether or not its programme is complete, provided its provenance,
 assumptions, verification status and limitations are stated accurately. §A.42 item 5 and §A.28 limit
 what is added to `main`; neither is a ground for removing research evidence already on `main`, whose
-removal item 5 governs.
+removal item 5 below governs.
 
 1. **Established claims.** A claim is presented as established only when its supporting evidence
    meets the verification standard for its kind (§A.42; the Code Review Rules, "Keep verification
@@ -1314,7 +1314,8 @@ removal item 5 governs.
    `main` strengthens no claim (§A.42 item 6).
 3. **Status is stated.** A research record distinguishes independently verified, partially verified,
    exploratory and known-invalid results, in the record or, for a frozen record, in a mutable record
-   on `main` that cites it (§A.42 item 6; §A.45 rule 1).
+   on `main` that cites it; a status that contradicts the frozen record's own conclusion is a
+   correction under item 4 (§A.42 item 6; §A.45 rule 1).
 4. **Correct the conclusion, keep the evidence.** A conclusion its evidence does not support is
    corrected where it is stated (§A.27, §A.30) or, in a frozen record, by a new native round (§A.42
    item 6), and the evidence behind it stays.
