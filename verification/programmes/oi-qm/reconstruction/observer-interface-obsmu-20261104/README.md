@@ -58,7 +58,10 @@ what is the smallest missing ingredient?
   establish that anything follows from OI's assumptions; where one supplies an ingredient, that
   ingredient is an additional assumption.
 
-## Headline (after two independent model reviews, #1110 c.6643202940 and c.6643501421; this head not re-reviewed)
+## Headline
+
+This head has not been re-reviewed. The final review (#1110 c.6643749363) returned ACCEPT for
+`cd15123b` only. This head adds its non-blocking corrections and the (4a)/(4b) examination.
 
 - **Consumers differ** (`ANALYSIS.md` §1).
   - The representation layer (`S ⇔ D ⇔ Q_fb`) is not a residual-choice consumer.
@@ -67,18 +70,24 @@ what is the smallest missing ingredient?
   - C4-gap existence and window divisibility depend on the measure itself, even at fixed full
     support (CC-2). Window divisibility on the native step K1 is open.
   - Specific laws are refuted as invariant by Main:60.
-- **Conditioning and preparation, in four separate groups** (`ANALYSIS.md` §4.1):
-  - **(1)** Orbit-level conditioning on the observer's records: b-stated (Main:62, :726 (iv)).
-  - **(2)** A single-time-slice conditioning rule: b-new.
-  - **(3)** Preparation events or laws admitted as starting data: a b-stated category (Main:60,
-    :524; book ch04:170).
-  - **(4)** A physical principle that generates the content of those preparations: none
-    identified.
-- **For preparation-dependent laws**, (3) alone suffices if the preparation is taken as data.
-  (2) is needed only to get it from the canonical measure. (4) is missing either way, and it is
-  the main obstacle to deriving the observer interface rather than assuming it.
-- **Lemma D (conditional on D-SEL and S-L4).** On K1, the native step's additivity blocks
-  selectable interactions and confined records for every `(Obs, μ)`.
+- **Conditioning and preparation, sorted into groups** (`ANALYSIS.md` §4.1, §4.6.4):
+  - (1) orbit-level records conditioning: b-stated;
+  - (2a) conditioning on the observer's own records at a time slice: b-stated (Main:88, :99,
+    :105);
+  - (2b) conditioning on stipulated events beyond the records: b-new;
+  - (3) preparation data as a category: b-stated;
+  - (4a) cosmic initial data: partly gauge in a scoped sense, partly stated physical inputs, and
+    the microstate itself unexplained, with no generating principle identified;
+  - (4b) laboratory preparations: these reduce to (2a), retained records (open) and (4a), which
+    supplies record reliability. Creating a preparation is unexplained.
+- **The obstacle for the μ leg and for preparation-dependent laws** is preparation content.
+  Within that, the independent input is the time-asymmetric past boundary data of (4a), shared
+  with #1112.
+- **Lemma D, on K1.** Under the native linear rule, selectable interactions are blocked
+  (conditional on D-SEL), and marking does not destroy interference (S-L5). Under S-L4
+  (unreviewed; `ℤ^d` or a torus with `N ≥ 5w + 2`, and `a` injective), no confined pattern
+  persists beyond about twice its width. This does not show that localized records are
+  impossible.
 - **Proposals.** P-R and P-SDC are unadopted proposals with failable controls. No independent
   consequence is identified for either.
 - **Arrow of time.** The cross-document finding is tracked as #1112 and recorded only.
