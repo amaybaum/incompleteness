@@ -2,7 +2,7 @@
 
 `README.md` and `SHA256SUMS` in this directory are byte-identical to #912's
 commit `2af1d5d5b5fff4375e9fe9460f892c680ae99f0c` and are not edited. Of the
-files `README.md` describes, these are on `main`:
+files `README.md` describes, these are on `main` (`review/` is listed below):
 
 | File | Blob |
 | --- | --- |
@@ -45,6 +45,12 @@ independently reviewed. `review/independent_checks.py` uses the Python standard
 library only and reads no file; its stated replay command is `README.md`'s
 second.
 
+`review/REVIEW.md`'s statements that its reviewed commit differs from its parent
+`34b631c415b43fb7d9c8a3a96f22f42e92096d71` only in `REPORT.md` and
+`SHA256SUMS`, and that `REPORT.md` preserves the requirements of #885's
+acceptance rule at `2d555f17c23bea31d32b3f5eb4c49d245b413a76`, rest on commits
+that are not on `main`.
+
 ## Records on `main` that use this package
 
 MR-1's frozen preregistration
@@ -64,8 +70,8 @@ MR-1 uses #912's content as support:
 - `Res` (MR-1:152) uses the freshness condition, and AW-MR3 (MR-1:399) uses
   the access countercontrol in `checks.py` and `RESULT.json`.
 
-The supporting files are those in the table above, with the same blobs as at
-`2af1d5d5`. None of these uses needs the #885 context that `REPORT.md` cites
+The supporting files are `REPORT.md`, `checks.py` and `RESULT.json` in the
+first table above, with the same blobs as at `2af1d5d5`. None of these uses needs the #885 context that `REPORT.md` cites
 at :105–110. This note corrects the evidence classification only: B2's
 statement and its stated status are unchanged, and the preregistration is not
 edited.
