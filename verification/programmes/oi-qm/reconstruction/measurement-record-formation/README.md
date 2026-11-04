@@ -50,3 +50,14 @@ is independent of the whole residual boundary. Whether B2's weaker condition suf
 corpus" to the sources read (§S.8), since no corpus-wide search was recorded. The same restriction
 applies to C-3's "No principle in the corpus supplies one" (`amendments/MR-star.md:1353`), which
 C.1-1 does not name.
+
+**N5 / LA-EQUAL proof standing.** Read-only, model-authored reviews of the LA-EQUAL proof are
+consolidated in [LA-EQUAL-REVIEW.md](LA-EQUAL-REVIEW.md). Under the stated hypotheses, the tail
+independence and `EMPTY` have a conditional argument. The full `LA-EQUAL` equality is not
+established: it also needs the setting-independence of the pre-cut history, which is not derived
+from H-prior's displayed form; the route identified uses the pre-cut port-5 bank law, which
+H-prior's sourcing sentence names but its displayed equation omits, and the parent unit's
+forward-kernel proof, which is not independently reviewed on `main`. None of the five hypotheses is
+derived for native OI, and H-rule is the native-Y model rule, not the corpus's selected linear rule.
+The frozen N5 text is unchanged and is not a premise of an established claim (AGENTS.md §A.46
+item 7). The proof gap belongs to #1007 and its consequence for MR-1 to #866.
