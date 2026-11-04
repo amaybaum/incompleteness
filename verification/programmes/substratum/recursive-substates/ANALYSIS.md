@@ -1,6 +1,6 @@
 # SUBSTATE-2: exact arguments, gaps, and falsifiable continuation
 
-**Research-only mathematical analysis** for issue #1010 / draft PR #1011.
+**Research-only mathematical analysis** for issue #1010; landed on `main` by #1096 (#1011 closed unmerged).
 No topological statement below is asserted to be Lean certified unless an
 explicit kernel build confirms it. The finite Python controls in
 `recursive_controls.py` are separate from the infinite-limit proofs.
@@ -53,7 +53,7 @@ modulo an invariant null set, but that is a separate proof and does
 not automatically give the pointwise factor theorem. A chosen
 noncontinuous readout is outside these statements.
 
-The new `OIBridge.RecursiveFiniteFactor` Lean candidate is only
+The `OIBridge.RecursiveFiniteFactor` module (landed by #1096; built and axiom-checked in CI) is only
 the second (finite-family aggregation **assuming** individual
 stage factorization) plus a periodic-family wrapper **assuming**
 the observation-period identity. It must not be described as a
