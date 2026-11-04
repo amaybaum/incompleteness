@@ -1,7 +1,8 @@
 # Draft annotation for #914, O-RET edge (OQ-6)
 
-**Status.** WIP / UNVERIFIED. This is draft text. It is to be posted to #914 only after an independent review of the exact
-checkpoint that carries it. It is not posted and not adopted. Authority: the owner's decision on OQ-6, recorded at #1032 c.6611966162:
+**Status.** WIP / UNVERIFIED. This is the draft text. The annotation was posted to #914 as comment 6612951653, from
+checkpoint `473b5e34`, and approved by the owner (#1032 comment 6612956983); the posted comment, not this draft, is
+the annotation. It is not adopted as a premise. Authority: the owner's decision on OQ-6, recorded at #1032 c.6611966162:
 
 > "record the reviewed constraint against O-RET, citing the exact checkpoint and its unmerged status. Preserve its
 > hypotheses: finite state space, time-homogeneous bijection, time-independent retained function, exact holding and
@@ -21,7 +22,7 @@ and does not replace it.
   - The relevant file is `verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/ROUTES.md`: Lemma S′ and
     Lemma Q in §0.3, and the Comparison.
   - The checkpoint was accepted by the owner as the reviewed paper assessment (#1032 c.6611966162).
-- **Status.** These are paper results with independent review. They are not kernel-checked and not on `main`.
+- **Status.** These are paper results. They are not kernel-checked, and no review record of them is on `main`.
 
 **Hypotheses, all required.**
 

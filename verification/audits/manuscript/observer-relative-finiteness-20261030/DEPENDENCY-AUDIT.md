@@ -281,7 +281,7 @@ finite-total-S premises, classifying each **genuinely** affected location.
 | Finite visible resolution (Main Lemma 1) | Yes for a **specified finite-resolution interface** under its resource premises; no total-S inference | Yes |
 | Finite-horizon stochastic ↔ reversible ↔ fixed-basis Born records | Existing **existence of finite representatives** of finite visible laws; not a characterization of the actual infinite substrate | Yes under published horizon, state and measurement conditions |
 | Stochastic-inverse rigidity | Works for a finite *visible* matrix, independent of hidden cardinality | Yes |
-| Measured exact observable return `Gamma_L=I iff pi(T^L)=pi` a.e. | Conditional, after defining finite positive-mass measurable cells; #1009 Lean candidate | Yes |
+| Measured exact observable return `Gamma_L=I iff pi(T^L)=pi` a.e. | Conditional, after defining finite positive-mass measurable cells; ENNReal-valued form kernel-checked on `main` (`OIBridge.ObservableMeasureReturn`), with measurability assumptions and an ℝ-valued rooted law still missing | Yes |
 | Existence of a global synchronized visible return | **Not automatic**: control 3 below gives a binary readout of a countable union of finite cycles, with full-support invariant probability, pointwise periodicity and Poincaré recurrence, whose measured visible matrix is the identity at no positive step. Whether finite-history representability suffices is unresolved (#1015) | Finite total permutation yields exact common finite order |
 | P-indivisibility | Conditional if a nonpermutation rooted step and exact visible return are shown, or another independently justified route is supplied | Finite-cycle route remains |
 | Theorem 23 / gauge uniqueness | No unrestricted generalization; fixed branch, H-link/source and completeness obligations still open | Keep explicit A1_finite and other physical hypotheses |
@@ -346,7 +346,9 @@ census has no byte pin. The frozen records that pin the Lean blob or quote these
    A finite cyclic surrogate agrees through any pinned horizon `n ≤ q` and
    first differs at `n = q+1`; do not upgrade finite-horizon equivalence to all-time.
 2. #1009's solenoid control is a fully reversible infinite carrier with
-   Markov visible process and no exact common visible identity return.
+   Markov visible process and no exact common visible identity return
+   (a paper proof, checked on finite cylinders through horizon 7 and not
+   independently reviewed on `main`).
 3. #872's countably infinite union of finite cycles has full-support
    invariant normalized atomic measure and pointwise periodicity, but
    no single positive identity return time for the specified finite readout.

@@ -1684,7 +1684,7 @@
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Research-only: finite_horizon_depth_bound combines individually finite-stage-dependent visible functions into one finite-depth bound for a finite horizon; all_time_depth_bound_of_exact_period uses an EXPLICIT common exact period assumption to extend that bound to all times; feedbackStep_involution proves a static hidden-predicate controlled Boolean flip returns in two steps on any hidden type. Does NOT prove that continuous maps from compact inverse limits factor through a finite stage, that OI has fractal sub-states, a.e. recurrence, physically sourced quantum instruments, gauge links, area law or Yang-Mills action. Issue #1010 draft PR #1011. The module builds and its axiom report passes in CI."
+      "note": "Research-only: finite_horizon_depth_bound combines individually finite-stage-dependent visible functions into one finite-depth bound for a finite horizon; all_time_depth_bound_of_exact_period uses an EXPLICIT common exact period assumption to extend that bound to all times; feedbackStep_involution proves a static hidden-predicate controlled Boolean flip returns in two steps on any hidden type. Does NOT prove that continuous maps from compact inverse limits factor through a finite stage, that OI has fractal sub-states, a.e. recurrence, physically sourced quantum instruments, gauge links, area law or Yang-Mills action. Issue #1010; landed on main by #1096; #1011 closed unmerged. The module builds and its axiom report passes in CI."
     },
     {
       "name": "SUBSTATE-2 native cubic wave congruence no-backflow (research)",
@@ -1702,7 +1702,7 @@
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Research-only controls for the F2-1 preregistration (frozen at 66eb48ca) and amendment A-star (b86f0547), statements copied verbatim from A-star: OnesBounded; rot moves the all-ones ray and does not preserve nonnegative entries, so nonnegativity- or ones-bounded two-state theories lack the falsifier; ones-fixing classes give ones-bounded theories (permTheory, onesTheory); a nonnegative implementation class with its architecture, nonnegativity bound and ones-fixing property; a real-amplitude class whose theory has rot and lacks the quarter phase; the full class as the positive control. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Issue #1010, draft PR #1011; kernel predicates enter the unit's results only from CI step conclusions."
+      "note": "Research-only controls for the F2-1 preregistration (frozen at 66eb48ca) and amendment A-star (b86f0547), statements copied verbatim from A-star: OnesBounded; rot moves the all-ones ray and does not preserve nonnegative entries, so nonnegativity- or ones-bounded two-state theories lack the falsifier; ones-fixing classes give ones-bounded theories (permTheory, onesTheory); a nonnegative implementation class with its architecture, nonnegativity bound and ones-fixing property; a real-amplitude class whose theory has rot and lacks the quarter phase; the full class as the positive control. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Issue #1010; landed on main by #1089, records by #1096; #1011 closed unmerged; kernel predicates enter the unit's results only from CI step conclusions."
     },
     {
       "name": "PC-1 stage-2 kernel controls (research)",
@@ -1711,7 +1711,7 @@
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Research-only controls for the PC-1 preregistration (frozen at 948b30c1), its stage-2 amendment PC-S2 (4d2c4d56) and the C13 correction PC-S2-C13 (895e5c5b); statements copied verbatim from PC-S2: the diagonal gauge diag(1, i) and the gauged rotation, which fixes the all-ones vector up to the scalar 3/5 + (4/5)i and lies in the ones-fixing class (finding PC-F1); no diagonal gauge makes a nonzero multiple of rot a scalar times a nonnegative matrix; nonnegativity- and ones-bounded two-state theories lack the level-one quarter phase; the permutation theory is ones-bounded on every carrier and lacks the level-one quarter phase and the gauged rotation; a class containing rot has the falsifier; any architecture inside the real-amplitude class lacks the quarter phase. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Draft PR #1022; kernel predicates enter the unit's results only from CI step conclusions."
+      "note": "Research-only controls for the PC-1 preregistration (frozen at 948b30c1), its stage-2 amendment PC-S2 (4d2c4d56) and the C13 correction PC-S2-C13 (895e5c5b); statements copied verbatim from PC-S2: the diagonal gauge diag(1, i) and the gauged rotation, which fixes the all-ones vector up to the scalar 3/5 + (4/5)i and lies in the ones-fixing class (finding PC-F1); no diagonal gauge makes a nonzero multiple of rot a scalar times a nonnegative matrix; nonnegativity- and ones-bounded two-state theories lack the level-one quarter phase; the permutation theory is ones-bounded on every carrier and lacks the level-one quarter phase and the gauged rotation; a class containing rot has the falsifier; any architecture inside the real-amplitude class lacks the quarter phase. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Landed on main by #1089; #1022 closed unmerged; kernel predicates enter the unit's results only from CI step conclusions."
     },
     {
       "name": "SUBSTATE-1 finite observable-factor recurrence (research proof, no manuscript promotion)",
@@ -1730,7 +1730,7 @@
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Research-only, no publication claim: square_gradient_flat is the additive four-link telescope (so the naive pure-gradient link has trivial plaquette holonomy); waveUnstep_waveStep and waveStep_waveUnstep prove the generic reversible two-slice pattern. Does NOT establish or exclude the physical OI H-link, a Yang-Mills action, curved gauge fields, native observer interventions or quantum operational equivalence. Submitted to Mathlib bridge on draft PR #1009; theorem kernel certification requires exact-head build and axiom check."
+      "note": "Research-only, no publication claim: square_gradient_flat is the additive four-link telescope (so the naive pure-gradient link has trivial plaquette holonomy); waveUnstep_waveStep and waveStep_waveUnstep prove the generic reversible two-slice pattern. Does NOT establish or exclude the physical OI H-link, a Yang-Mills action, curved gauge fields, native observer interventions or quantum operational equivalence. From draft PR #1009 (open); landed on main by #1100 and built and axiom-checked by the Mathlib bridge job."
     }
   ]
 }

@@ -174,7 +174,8 @@ can surject onto connected \(U(1)\) or \(SU(2)\).
 One must source a different connected carrier, non-group
 representation, or suitable physical continuum limit.
 A solenoid, as an inverse limit of circles, is a different
-topological choice; SUBSTATE-1 already shows its
+topological choice; SUBSTATE-1's solenoid countercontrol
+(a paper proof, not independently reviewed on `main`) argues that its
 continuous structure alone does not force memory.
 
 ## "Fractal" / logarithmic scale corrections are not yet predictions
