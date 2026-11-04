@@ -129,6 +129,29 @@ No general carrier-independent physics follows merely by relabelling A1.
 | M5 | `papers/Substratum.md:92` and `book/ch02-substratum.md:76`, main baseline | A1 literally says "S is finite", correctly as a condition of that reconstruction's *candidate class*; may be misread as the universal OI foundation. | Keep A1 as an explicitly labelled **finite-carrier branch premise**, including restrictions of Theorem 23/24, finite q and nearest-neighbor/selected lattice conditions. Do not delete A1 from those theorems unless the dependency is reproved. |
 | M6 | `papers/Introduction.md:17,31,33`, #918 `fa32b043` | Abstract/physical hypothesis use "every physical observer ... finite ... system/world" while `:31` correctly defines an illustrative finite-carrier model. | In abstract and physical-hypothesis paragraph, state finite *observer distinguishability* as the general thesis. Keep `:31` and finite-horizon theorem as an explicitly **restricted** illustrative model. Introduction remains independently gated. |
 
+**M6 source text.** `papers/Introduction.md` at #918's draft commit `fa32b043ee1bc23fd78924c5c1c884b9918d2242` (blob `afedb761084ad8d6b4aa8aaec4b32d86e8090ab8`, branch `draft/oi-introductory-paper-20261025`), lines 17, 31, 33 and 67 in full:
+
+Introduction:17 —
+
+> Could the randomness of quantum measurements arise because observers cannot access all the information in an underlying deterministic reality? Observational incompleteness (OI) is the hypothesis that every physical observer is a proper part of a finite reversible deterministic system and records only the visible marginals of its dynamics. At every finite horizon, three classes of law coincide: all finite stochastic laws, the visible marginals of finite reversible dynamics, and the records of finite unitary systems measured in one fixed basis; the known components (Egri et al.; Barandes) are stated as one machine-checked theorem. Because Markov laws lie in every class, the discriminating content is memory: every faithful realization carries the law's conditional memory in its hidden state. Stochastic, quantum-like records can therefore arise exactly from deterministic dynamics, and any memory they show must be stored in the hidden part. In a finite reversible world whose hidden odds are shared by every visible start and drawn independently of it, the forecasts from every start, starts of probability zero included, are P-indivisible somewhere in the recurrence cycle whenever some table of forecasts from the start is not a permutation, in particular whenever a visible step is not fully predictable from the current observation; with every start of positive probability, this is equivalent to conditional memory at some order below the recurrence time. For an operational theory on a nonempty finite system that assumes complex matrix kinematics and tensor-product composites, the available operations on the system and at every finite ancilla level are exactly the normalized finite Kraus instruments if and only if five completion conditions hold. Neither that kinematics nor those conditions follow from bare OI. Applied to physics, OI places the zero-point sum and the effective cosmological constant at different levels of description, and separates conservation of black-hole information from its accessible recovery. Open are the completion conditions a physical substratum supplies, the Born exponent and the gravitational field equations.
+
+Introduction:31 —
+
+> This is modelled by a triple $(S,\varphi,V)$ [Main §1.2]: a finite total system $S=\mathcal C_V\times\mathcal C_H$ of visible configurations $\mathcal C_V$ and hidden configurations $\mathcal C_H$, a bijection $\varphi$ of $S$, and an observer $V$ that registers $x\in\mathcal C_V$ and not $h\in\mathcal C_H$. The bijection is the reversible representative of the hidden dynamics, motivated by observed near-unitarity, and finiteness of all of $S$ is posited [Main §1.2, Remark (status of the early commitments)]. The finite reversible system $(S,\varphi)$ is the *substratum*.
+
+Introduction:33 —
+
+> Observational incompleteness (OI) is the physical hypothesis that every physical observer is in this situation: a part of a finite, reversible, deterministic world with a specified readout and preparation. The hidden coordinates are not directly read at that instant. Whether they can be inferred depends on the retained history and permitted operations, not on embedding alone. In the known swap game, the first two visible readings already identify both cards, even though the visible process has memory. More generally, a quantity is identified exactly when it is constant on the initial states compatible with the retained record [Substratum, Prop. 24.5]. It is not joint unsharpness of non-commuting observables: the restriction can arise for a single fixed readout, and no uncertainty relation constrains fixed-readout visible laws [Main §3.4].
+
+Introduction:67 —
+
+> **Theorem 1** (finite-horizon stochastic–reversible–unitary equivalence [Main §3.4]). *For every finite visible alphabet and every finite horizon $K$,*
+
+At #918's head `4028e45db1ba520dc6a1bfb44a26b76a112ba575` (blob
+`bbf837ffbdf4a33ec9fbb5b02a7c63905ecabb0a`), lines 17 and 33 differ from the
+text quoted above; lines 31 and 67 are unchanged. The quotations are of
+`fa32b043`, the commit this row cites.
+
 **Cross-branch conflict check:** #1005 (merged at `358d03d5`) changed Complexity §5.1–§5.2, book ch18,
 bibliography, regenerated FULL and audit outputs; it did **not** change the
 original source sites Main:46, GR:142, ch01:28 or ch02:76. At `07d94f2c` the FULL
@@ -178,7 +201,8 @@ surrounding global counting/Liouville sentence before treating the whole
 paragraph as an unrestricted infinite-carrier statement. In `#918`, amend
 only the abstract's and physical-hypothesis paragraph's *universal finite
 world* characterization; keep the finite illustrative realization at
-Introduction:31 and the finite-horizon correspondence at Introduction:67.
+Introduction:31 and the finite-horizon correspondence at Introduction:67
+(both quoted under M6 above).
 
 **Exact-head review status:** This is a writer-supplied correction to
 the audit note, not an independent review. Require a distinct reviewer to
@@ -258,7 +282,7 @@ finite-total-S premises, classifying each **genuinely** affected location.
 | Finite-horizon stochastic ↔ reversible ↔ fixed-basis Born records | Existing **existence of finite representatives** of finite visible laws; not a characterization of the actual infinite substrate | Yes under published horizon, state and measurement conditions |
 | Stochastic-inverse rigidity | Works for a finite *visible* matrix, independent of hidden cardinality | Yes |
 | Measured exact observable return `Gamma_L=I iff pi(T^L)=pi` a.e. | Conditional, after defining finite positive-mass measurable cells; #1009 Lean candidate | Yes |
-| Existence of a global synchronized visible return | **Not automatic**; finite visible alphabet, pointwise/Poincaré return and finite-history representability do not suffice | Finite total permutation yields exact common finite order |
+| Existence of a global synchronized visible return | **Not automatic**: control 3 below gives a binary readout of a countable union of finite cycles, with full-support invariant probability, pointwise periodicity and Poincaré recurrence, whose measured visible matrix is the identity at no positive step. Whether finite-history representability suffices is unresolved (#1015) | Finite total permutation yields exact common finite order |
 | P-indivisibility | Conditional if a nonpermutation rooted step and exact visible return are shown, or another independently justified route is supplied | Finite-cycle route remains |
 | Theorem 23 / gauge uniqueness | No unrestricted generalization; fixed branch, H-link/source and completeness obligations still open | Keep explicit A1_finite and other physical hypotheses |
 | Deep hidden cardinality being observational "gauge" | Exact only relative to explicitly decoupled interface; slow-coupling estimate is finite-time/leading-order; not absolute cardinality invariance | Retain original qualified claims |
@@ -326,10 +350,78 @@ census has no byte pin. The frozen records that pin the Lean blob or quote these
 3. #872's countably infinite union of finite cycles has full-support
    invariant normalized atomic measure and pointwise periodicity, but
    no single positive identity return time for the specified finite readout.
-4. #1003's gauge-invariant squared-action countercontrol and #1009's
-   pure-gradient flatness/source failure remain: continuous internal
-   states cannot choose Wilson/Yang–Mills action or generate quantum
-   measurement controls by cardinality alone.
+   The construction, verbatim from
+   [#872 comment 6526240419](https://github.com/amaybaum/incompleteness/issues/872#issuecomment-6526240419)
+   (posted from the author's account, 2026-10-30; its stated research gate is independent
+   mathematical review, which is not recorded on `main`):
+
+   > **Construction.** Let `X = ⊔_{m≥2} ({m}×Z/mZ)`, `T(m,k)=(m,k+1 mod m)`, and assign each state `μ(m,k)=2^{-(m−1)}/m`. Since `Σ_{m≥2} 2^{-(m−1)}=1`, μ is a full-support invariant probability; each state has finite orbit length m. Define the *binary* readout `π(m,k)=1` iff `k=0`, otherwise 0. Both visible cells have positive μ measure.
+   >
+   > For **every** `L≥1`, choose the cycle `m=L+1`. The two states `(m,0)` and `(m,m−L)` change visible labels after L steps, each with positive weight `2^{−L}/(L+1)`. Hence
+   >
+   > `μ{π(T^L x) ≠ π(x)} ≥ 2^{1−L}/(L+1) > 0`,
+   >
+   > so the measured rooted visible matrix `Γ_L` is **never** the identity at any positive L. This is fully compatible with pointwise state periodicity and Poincaré recurrence. It does **not** say that a different finite visible factor cannot return, or that infinite X forbids P-indivisibility by other routes.
+
+   Written argument; the comment's bounded `fractions.Fraction` regression
+   (cycle lengths m = 2…16, L = 1…10) is not retained.
+4. #1003's gauge-invariant squared-action countercontrol shows that, for
+   one oriented square plaquette with compact gauge group `SU(2)` in
+   ambient lattice gauge theory, local gauge covariance alone does not
+   select the Wilson/Yang–Mills plaquette action. It is not a native OI
+   result and says nothing about continuous internal states or
+   cardinality. Whether continuous internal states or cardinality bear
+   on the choice of action is unresolved (#1015).
+
+   The #1009 pure-gradient link control establishes trivial plaquette
+   holonomy for the tested construction. Its sourcing controls do not
+   establish a native mechanism for selectable quantum measurement
+   interactions. These results do not establish a general impossibility
+   for continuous internal states, nor do they derive such measurement
+   controls from continuity or cardinality alone. The broader question
+   is unresolved (#1015).
+
+   #1003's countercontrol, verbatim from
+   `verification/programmes/oi-qm/constructive-qcd-bridge/README.md:60–92` at
+   `0efd67a630fc80ac55fde1ca49fe8c5cbdbf10c3` (blob `948c7ee84dba205da2590a787b06f6020f707c9b`,
+   branch `research/oi-constructive-qcd-bridge-20261029`):
+
+   > **Claim (ambient lattice gauge-theory countercontrol, not a native OI
+   > substratum theorem).** For one oriented square plaquette with compact gauge
+   > group `SU(2)`, local gauge covariance permits distinct gauge-invariant
+   > plaquette functionals. Therefore that covariance alone cannot uniquely
+   > select Wilson/Yang–Mills dynamics.
+   >
+   > **Derivation.** Give an oriented link `x → y` a variable
+   > `U_xy ∈ SU(2)` with transformation
+   > `U_xy ↦ g_x U_xy g_y^{-1}`. The holonomy around a based plaquette obeys
+   > `U_p ↦ g_x U_p g_x^{-1}`. Hence
+   > `w(U_p) = 1 − (1/2) Re Tr(U_p)` is invariant, and so are both
+   > `S_1 = ∑_p w(U_p)` (Wilson plaquette functional, up to normalization)
+   > and `S_2 = ∑_p w(U_p)^2`. These are *different* gauge-invariant
+   > functionals, not merely different normalizations: on a one-plaquette
+   > configuration take `U_p = diag(e^{iθ}, e^{-iθ})`, attainable with three
+   > identity links and one such link. Then `w = 1 − cos θ`:
+   >
+   > | Holonomy | `w` | `w²` |
+   > | --- | ---: | ---: |
+   > | `θ = π/3` | `1/2` | `1/4` |
+   > | `θ = π` | `2` | `4` |
+   >
+   > The ratio `S_2/S_1` changes from `1/2` to `2`. Both actions pass the
+   > same gauge-transformation check, but cannot be proportional across all
+   > configurations. This establishes only **non-uniqueness from covariance
+   > alone**. It does not show that both actions have the same continuum
+   > universality class, that either is generated by the actual OI bijection,
+   > or that OI's other premises fail to select one.
+   >
+   > **Control and countercontrol:** conjugating the plaquette by arbitrary
+   > `g_x ∈ SU(2)` preserves both traces; the two explicitly evaluated
+   > holonomies demonstrate unequal action ratios. The proof is exact
+   > algebra (not a Lean certificate or numerical simulation).
+
+   The source note is "research-only / preliminary mathematical finding" (:3) and lists,
+   as its next independent check, whether the countercontrol is framed correctly (:158–159).
 5. **Unequal fibers (H-product).** `S={a,b,c}`, `V={0,1}`, `π(a)=0`,
    `π(b)=π(c)=1`. If `π` were the first projection of a bijection
    `S≅V×H`, every fiber would have `|H|` elements; here the fibers have

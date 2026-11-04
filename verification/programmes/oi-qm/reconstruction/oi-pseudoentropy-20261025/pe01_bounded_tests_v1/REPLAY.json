@@ -191,7 +191,7 @@
       "826bd9ba": "A2 pin; cited by REPORT.md",
       "07f3c127": "code-review head; cited by amendments/A2-open-items.md:13"
     },
-    "unresolved_relative_paths": "The paths the records cite resolve on main: ../README.md (the thread plan), results/measurements.json and results/verdict.json (PLAN.md:562), review/code/REVIEW.md, pe01/, verdict.py, results/, review/literature/, and the files A1-A3 cite.",
+    "relative_paths": "The paths the records cite resolve on main: ../README.md (the thread plan), results/measurements.json and results/verdict.json (PLAN.md:562), review/code/REVIEW.md, pe01/, verdict.py, results/, review/literature/, and the files A1-A3 cite.",
     "other_provenance": {
       "314d2ef2": "commit adding results/ on PR #923",
       "d1189b64": "commit adding REPORT.md and review/results/ on PR #923",
@@ -210,6 +210,27 @@
       "REPORT.md's Literature section: its tags and their independent review are in review/literature/ (REPORT.md:141-142, 187)",
       "the independent code review's acceptance of the PE-01 code for dispatch (REPORT.md:15; review/code/)"
     ],
-    "digests": "results/measurements.json, results/verdict.json, results/verdict.txt and results/shards/n5-clk.json have the sha256 prefixes REVIEW.md states (f17109f1, eeebc219, 3b8f5924, 3f6121e8)."
+    "digests": "results/measurements.json, results/verdict.json, results/verdict.txt and results/shards/n5-clk.json have the sha256 prefixes REVIEW.md states (f17109f1, eeebc219, 3b8f5924, 3f6121e8).",
+    "rechecking_pin_th_rp": {
+      "status": "Instructions only. None of these commands was run at landing time.",
+      "where": "PIN, TH and RP are checks of the execution at the run commit 549641460b8ddb536178f95fac2ec9390e84a987. Re-check them with HEAD there: git worktree add --detach \"$W\" 549641460b8ddb536178f95fac2ec9390e84a987, from a clone that contains the landing commit, then run every command below from $W. Each shard record stores HEAD's commit and tree (run.py:58-59), so RP's byte comparison holds only at that commit.",
+      "at_a_main_head": "PIN fails there by construction: it walks git rev-list HEAD over the code paths (pe01/params.py:247-251), and at a main head that list includes commits that do not descend from the plan commit, such as the commit that copied these files to main. run.py then refuses to start (run.py:46-49, exit status 3). The recorded PASS refers to the run commit only.",
+      "pin_git_commands": [
+        "git rev-parse HEAD (params.py:237): 549641460b8ddb536178f95fac2ec9390e84a987",
+        "git rev-parse HEAD:verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/PLAN.md, git rev-parse af38dc2dde0fbdd190a67debf700ab5c370f92d9:verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/PLAN.md and git hash-object verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/PLAN.md print the same blob (params.py:239-244)",
+        "git merge-base --is-ancestor af38dc2dde0fbdd190a67debf700ab5c370f92d9 HEAD exits 0 (params.py:245)",
+        "git rev-list HEAD -- verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/pe01 verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/verdict.py verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/run.py .github/workflows/pe01-bounded-tests.yml; for each commit c it lists, c is not af38dc2dde0fbdd190a67debf700ab5c370f92d9 and git merge-base --is-ancestor af38dc2dde0fbdd190a67debf700ab5c370f92d9 c exits 0 (params.py:247-251)",
+        "git status --porcelain -- verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/pe01 verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/verdict.py verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/run.py .github/workflows/pe01-bounded-tests.yml verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/PLAN.md verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/amendments/A1-owner-decisions.md prints nothing (params.py:252-253)"
+      ],
+      "th_git_commands": [
+        "git rev-parse HEAD:verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/amendments/A1-owner-decisions.md, git rev-parse 1e025b672bdeb56e52f32d668f46320e8c4be06e:verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/amendments/A1-owner-decisions.md and git hash-object verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/amendments/A1-owner-decisions.md print the same blob (params.py:219-221, 226)",
+        "git merge-base --is-ancestor 1e025b672bdeb56e52f32d668f46320e8c4be06e HEAD exits 0 (params.py:224, 228)",
+        "git rev-parse HEAD:verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/amendments/A2-open-items.md, git rev-parse 826bd9babd92645b668e37735aee0dafd08cf4bc:verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/amendments/A2-open-items.md and git hash-object verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/amendments/A2-open-items.md print the same blob (params.py:275-276)",
+        "git merge-base --is-ancestor 826bd9babd92645b668e37735aee0dafd08cf4bc HEAD and git merge-base --is-ancestor 1e025b672bdeb56e52f32d668f46320e8c4be06e 826bd9babd92645b668e37735aee0dafd08cf4bc exit 0 (params.py:278)"
+      ],
+      "not_git": "TH's comparison of A1's block with the code's theta, K_LP and m = 3 cap (params.py:172-213) and the A2 block read (params.py:285-294) are Python, re-checked only by running the code at the run commit.",
+      "compare_with": "the preflight.PIN and preflight.TH records in results/shards/<ID>.json, which give the run commit, run tree, plan blob, A1 blob and A2 blob of the recorded run.",
+      "rp_command": "python3 -I -B verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/run.py replay <ID> --mode result --against verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/results/shards --out <empty directory> (run.py:11-12, 121-125): exit 0 and 'RP <ID>: byte-identical'."
+    }
   }
 }

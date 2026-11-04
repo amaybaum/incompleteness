@@ -47,7 +47,7 @@ A minimal new Lean module may certify (i) finite-family maximum-depth aggregatio
 
 ## Native sourcing and scope
 
-The real OI cubic wave carrier and observer-access constraints are not modified here. SUBSTATE-1 rejected one pure site-gradient link candidate and showed a separately invented gauge-pointer toy can be reversible and covariant without supplying quantum mechanics. SUBSTATE-2 tests a different *structure hypothesis*. SUBSTATE-1 Track A has been independently accepted; SUBSTATE-2 still does not import those constructions as axioms or copy their physics claims (see also #1007 comment 6529586144 for a parallel consistency note).
+The real OI cubic wave carrier and observer-access constraints are not modified here. SUBSTATE-1 rejected one pure site-gradient link candidate and showed a separately invented gauge-pointer toy can be reversible and covariant without supplying quantum mechanics. SUBSTATE-2 tests a different *structure hypothesis*. SUBSTATE-1 Track A ([`cubic-wave-revival.md`](../continuous-substates/cubic-wave-revival.md) and `cubic_wave_revival_probe.py`, both unchanged since `7c4e45f7`) is reported as independently accepted at `7c4e45f7`, for the paper-level compact-torus/distributed-readout construction and its bounded exact controls, in [#1009 comment 6533749426](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6533749426); the inspected record contains the author's review summary, and reviewer identity and a retrievable reviewer-authored verdict remain unresolved. SUBSTATE-2 still does not import those constructions as axioms or copy their physics claims (see also #1007 comment 6529586144 for a parallel consistency note).
 
 **Verdicts to record:** A is a negative control, B1 a positive finite-depth memory control, B2 a positive all-depth-over-time/no-common-return control, C a gauge-kinematic but action/operational negative control. All require independent review before moving from research to manuscripts. No merge or special CI launch is authorized.
 
@@ -224,3 +224,11 @@ promote it to any OI manuscript claim.
 For F2-1's unchanged scoped gap result, read frozen A★ alongside the
 [post-closeout G★ correction](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546748788).
 The correction does not alter the thirteen-rule outcome; F2/L3 remain open.
+Amendment A★-1 is recorded as accepted at `fdeeb2d5`
+(`f2-1-coherence-sourcing/stage2/run-2/RESULT.md`, `PROOF-REPAIRS.md`); its
+acceptance by an independent reviewer at that exact SHA is author-reported in
+[#1011 comment 6546255438](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546255438).
+The SUBSTATE-2 acceptance at `c811e876` that F2-1's `preregistration.md` cites
+is the re-review reported in #1011 comment 6543745746 above. For both, the
+inspected record contains the author's review summary; reviewer identity and a
+retrievable reviewer-authored verdict remain unresolved.

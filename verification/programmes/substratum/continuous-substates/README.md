@@ -180,10 +180,19 @@ gauge-coupled 3-D wave map and does not rule out other partitions.
 The existing Lean module `OIBridge.RecurrenceHorizon` already proves the
 **carrier-independent** rooted identity-return/overlap obstruction;
 `OIBridge.EquivalenceChain` already proves stochastic-inverse rigidity.
-At independently reviewed head `a02e197d`, both research modules
-`OIBridge.ObservableFactorRecurrence` and `OIBridge.ObservableMeasureReturn`
-compiled in Lean/Mathlib; the whole automatic CI run `41094894776`
-passed (25 jobs passed, 1 skipped). They establish the carrier-independent
+The research modules `OIBridge.ObservableFactorRecurrence` and
+`OIBridge.ObservableMeasureReturn` are built, with their `#print axioms`
+reports checked, by the Mathlib bridge job (`Build`; release-gate
+`lean-axioms`); both steps succeeded on `main` in run `41871661965`, at
+`82f0e119fd32122c00716060bbe4e93e97fb05f8`, the commit that landed them.
+An earlier version of both modules was built at #1009 head `a02e197d`
+(run `41094894776`); the landed versions differ from it only in doc
+comments (#1009 commit `798558b7`), so that run is provenance for the
+earlier version, not evidence for the landed files. The author-posted
+review of `a02e197d`
+([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978))
+returned REVISE, with no mathematical errors reported; its reviewers are
+not named on `main`. The modules establish the carrier-independent
 change-event identity, stochastic inverse obstruction, and a conditional
 **ENNReal-valued** measured ratio identity `measuredGamma = I ↔
 μ(visible-change event) = 0` for positive finite initial-cell masses.

@@ -19,8 +19,8 @@ No assumption of finite hidden cardinality or of microscopic periodicity
 is used. The measure is a parameter; T-invariance is needed for other
 physical questions, not this equivalence itself.
 
-Status: kernel-built on exact #1009 head `a02e197d`
-(automatic CI `41094894776`, Lean/Mathlib and release gate PASS).
+Status: built, with its `#print axioms` reports checked, by the Mathlib
+bridge job (`Build`; release-gate `lean-axioms`).
 No Lean proof of the all-L Fourier statement or operational QM.
 -/
 
