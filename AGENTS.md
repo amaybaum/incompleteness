@@ -1331,8 +1331,9 @@ premise for future research.
    automatic. It needs a specific justification, a documented audit of what depends on it, a
    recorded disposition, the original kept reachable in Git history without rewriting history, and
    separate owner authorization. A frozen record is removed only by the applicable reviewed round
-   (§A.39; §A.42 item 6), never through ordinary cleanup, and a record listed in
-   `verification/infrastructure/legacy-records.json` only as §A.39 provides for that manifest.
+   (§A.39; §A.42 item 6), never through ordinary cleanup; a record listed in
+   `verification/infrastructure/legacy-records.json` is removed only as §A.39 provides for that
+   manifest.
    Verified evidence, including verified negative and conditional results, is kept on `main`.
    For other material that has not met the verification standard for its specific claims, the
    normal proposed disposition is removal from the current tree *if the audit establishes that it
@@ -1355,9 +1356,10 @@ premise for future research.
    or the mere presence of a file on `main` cannot serve as verification. Such material may be
    discussed as exploratory or historical context. Its use as a premise of an established claim
    requires independent validation of that specific premise; until then a claim that uses it is not
-   established (item 1). A statement refuted on `main` is never a premise; where a frozen record
-   states one, a mutable record on `main` that cites it names the refutation and its evidence
-   (item 4). Verified conditional and negative results are eligible on their actual proved scope.
+   established (item 1). A statement refuted on `main` is never used as true in a premise; where a
+   frozen record states one, a mutable record on `main` that cites it names the refutation and its
+   evidence (item 4; item 5 where it is that record's own conclusion). Verified conditional and
+   negative results are eligible on their actual proved scope.
 
 Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
 records from `main` was found to break records on `main` that depend on them. Amended the same day
