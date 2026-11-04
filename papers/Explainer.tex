@@ -291,14 +291,15 @@ three-part) foundation, and nothing below depends on the refinement.
 distinguishable internal states, so the visible configuration space
 \(\mathcal{C}_V\) is finite, with a discreteness scale \(\epsilon\)
 providing a finite minimal cell volume.} There's a smallest meaningful
-size ε --- you can't resolve anything smaller. This means the
-configuration space is finite, not continuous. This matters because
-finite systems have a property infinite systems don't --- they must
-eventually return to their starting state (the exact recurrence of a
-finite bijection). In Part I, ε is left unspecified. In Part II,
-self-consistency forces ε = 2√σ l\_p, where σ is the entropy carried by
-one boundary mode --- twice the Planck length at σ = 1, one nat per
-boundary mode.
+size ε --- you can't resolve anything smaller. This means the visible
+configuration space is finite, not continuous. This matters, given the
+separate posit that the whole state space is finite {[}Main §1.2,
+§4.5{]}, because finite systems have a property infinite systems don't
+--- they must eventually return to their starting state (the exact
+recurrence of a finite bijection). In Part I, ε is left unspecified. In
+Part II, self-consistency forces ε = 2√σ l\_p, where σ is the entropy
+carried by one boundary mode --- twice the Planck length at σ = 1, one
+nat per boundary mode.
 
 \textbf{Lemma 2} (Causal partition). \emph{An observer is a proper
 subsystem \(V \subsetneq S\). The complement \(H = S \setminus V\) is
@@ -618,10 +619,12 @@ exactly what quantum systems do --- interference, revivals, and
 non-classical correlations all involve information returning from where
 it was stored.
 
-\textbf{The setup.} We work on finite sets (Lemma 1). The visible sector
-has states C\_V = \{x\_1, x\_2, \ldots\} with \textbar C\_V\textbar{} ≥
-2. The hidden sector has states C\_H = \{h\_1, h\_2, \ldots\}. The total
-dynamics is a bijection φ on C\_V × C\_H. The transition matrix is:
+\textbf{The setup.} We work on finite sets (Lemma 1 for the visible
+sector; the total-finiteness posit {[}Main §4.5{]} for the hidden
+sector). The visible sector has states C\_V = \{x\_1, x\_2, \ldots\}
+with \textbar C\_V\textbar{} ≥ 2. The hidden sector has states C\_H =
+\{h\_1, h\_2, \ldots\}. The total dynamics is a bijection φ on C\_V ×
+C\_H. The transition matrix is:
 
 \[T_{ij} = \frac{|\{h \in \mathcal{C}_H : \pi_V(\varphi(x_i, h)) = x_j\}|}{|\mathcal{C}_H|}\]
 
@@ -663,8 +666,8 @@ non-increasing distinguishability. Therefore the process is
 P-indivisible. QED.
 
 The proof uses almost nothing --- just that the dynamics is a bijection
-on a finite set (the definition and Lemma 1) and that the coupling is
-non-trivial (C1). It is purely combinatorial.
+on a finite set (the definition, Lemma 1 and the total-finiteness posit)
+and that the coupling is non-trivial (C1). It is purely combinatorial.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -4062,4 +4065,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: b63bb623c5c22fbd0b422fea6fdf484521b1c52029cc9099dd23b81f7fb6da60
+% source-sha256: 586174960112bcf83aaaf9889bfc15c4f265d9b9e3532e3dbb5e32a99eb9dd16

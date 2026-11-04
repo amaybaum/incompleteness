@@ -61,7 +61,7 @@
       "line": 44,
       "kind": "Lemma",
       "label": "1",
-      "fingerprint": "2c0b989cfcb95664",
+      "fingerprint": "c43d59dae0879b16",
       "area": "mirror",
       "assumptions": "mirrors the corresponding Main statement",
       "checks": [],
@@ -353,9 +353,9 @@
       "line": 56,
       "kind": "Lemma",
       "label": "3",
-      "fingerprint": "bbb0765c47744e94",
+      "fingerprint": "d89d76543f1fffac",
       "area": "oi-foundations",
-      "assumptions": "determinism; reversibility of the selected representative; maximal-entropy SELECTION of the counting measure among invariant measures — not uniqueness from invariance",
+      "assumptions": "determinism; reversibility of the selected representative; finiteness of S (total-finiteness posit, §1.2 Remark, §4.5); maximal-entropy SELECTION of the counting measure among invariant measures — not uniqueness from invariance",
       "checks": [
         {
           "kind": "lean",
