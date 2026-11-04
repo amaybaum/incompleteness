@@ -2673,6 +2673,94 @@ def self_test():
             s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
             assert "differs from the section 2.0 rule" in s["first_failure"]["detail"]
 
+    @check("SF1: G_status inconsistent through the real path: two singly consistent masked inputs chain, exit 4")
+    def _():
+        # A 3-bit copy-code register (r1, r2, j), g = r1, with r1 = r2 = c after the write and j a junk bit
+        # (uniform, independent of c). Input qa = (x, y) = (0, 1) flips r2 when r1 = 0 and j = 1; qb = (1, 0)
+        # flips r1 when r2 = 1 and j = 1. Both arrive only with j = 0, where they act trivially, so the record
+        # is held exactly. Alone each is consistent on L = {(c, c, j)}; together they chain 001 ~ 011 ~ 111.
+        models = dict(ST_MODELS)
+        models["st-masked-pair"] = {
+            "cells": ["z0", "z1", "z2", "x0", "y0", "x1", "y1", "x2", "y2", "r1", "r2", "j"], "rule": [
+                [{"lhs": "r1", "rhs": "r1 ^ z0"}, {"lhs": "r2", "rhs": "r2 ^ z0"}],
+                [{"lhs": "r2", "rhs": "r2 ^ (y0 & (r1 ^ 1) & j)"}],
+                [{"lhs": "r1", "rhs": "r1 ^ (x0 & r2 & j)"}],
+                [{"lhs": "z{i}", "rhs": "z{(i-1) mod 3}", "range": "i = 0 .. 2"},
+                 {"lhs": "x{i}", "rhs": "x{(i-1) mod 3}", "range": "i = 0 .. 2"},
+                 {"lhs": "y{i}", "rhs": "y{(i-1) mod 3}", "range": "i = 0 .. 2"}]]}
+        states = {}
+        for c in "01":
+            for ins in itertools.product(("00", "01", "10"), repeat=3):   # j = 0: each input i.i.d. in {q0, qa, qb}
+                states[c + "00" + "".join(ins) + "000"] = "1/108"
+            states[c + "00" + "000000" + "001"] = "1/4"                  # j = 1: every input quiet
+        t = _st_tuple(1, "st-masked-pair", "st-masked-pair", "window", 1, ["z0"],
+                      {"type": "explicit", "states": states}, ["r1", "r2", "j"], "00001111", read=["r1"])
+        ctx = _ctx(t, models)
+        rec, extra, pending, _ = evaluate_tuple(ctx, "full")
+        assert extra["Q_cells"] == ["z0", "x0", "y0"], extra["Q_cells"]
+        assert rec["G_status_T"] == "inconsistent" and rec["G_star_out_T"] == [], rec
+        assert rec["Q_missing_T"] == ["011", "100", "101", "110", "111"]
+        assert rec["eta"] is None and rec["lemma_h_bound"] is None
+        assert rec["tau"] == 2 and rec["T_prime"] == 2 and rec["dil_exact_T"] is False
+        assert rec["eps_max"] == {"t0+1": "0", "t0+2": "0", "t0+3": "0"} and rec["J1"] == _J(1, 2)
+        assert rec["Ra"] is True and rec["Rb"] is True
+        assert pending is not None and pending.code == 4 and rec["row"] is None and extra["row_step"] == 6
+        assert reapply(dict(rec, mode="window", T=1)) == (None, [])
+        # g_star itself on the pooled sets: each input alone is consistent, the union is not
+        M = FullMethod(ctx)
+        L = {"000", "001", "110", "111"}
+        cfg = all_cfgs(3)
+        assert g_star({"000", "001", "010"}, L, cfg, M.f_R, ctx.decode) == ({"000", "001", "010"}, "inconsistent")
+        assert g_star({"000", "001"}, L, cfg, M.f_R, ctx.decode) == ({"000", "001"}, "consistent")
+        assert g_star({"000", "010"}, L, cfg, M.f_R, ctx.decode) == ({"000", "010"}, "consistent")
+        # the same tuple in a run: exit 4 at step 6, the record written with row null, bookkeeping intact
+        tdoc, edoc = _st_docs()
+        e_m = {f: edoc["expected"]["st-hold"][f] for f in tdoc["compared_fields"]["window"]}
+        t2 = dict(tdoc, models=models, tuples=[t])
+        e2 = dict(edoc, expected={"st-masked-pair": e_m})
+        with tempfile.TemporaryDirectory() as d:
+            assert run(d, _b(t2), _b(e2), meta, runm, expect_count=1, frozen_order_rule=False) == 4
+            s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
+            assert s["verdict_text"] == ("Phase A halted at st-masked-pair: G* undetermined on W_T at storage step. "
+                                         "The run is void.")
+            r0 = json.load(open(os.path.join(d, "phase-a", "st-masked-pair.json")))
+            assert r0["row"] is None and r0["G_status_T"] == "inconsistent" and r0["match"] is False
+            assert check_summary(d, ["st-masked-pair"], expect_count=1)[0]
+
+    @check("SF2: the sequential method rejects a Q cell that is computed, not an unmodified t0 cell (exit 5)")
+    def _():
+        # A Toffoli-trigger channel at (k, T) = (1, 4), L = 5, whose arriving value bit is scrambled
+        # (v4 ^= p4_1) before it reaches position 0: at t0+1, v0 is a computed cell.
+        rule = [[{"lhs": "r", "rhs": "r ^ (p0_1 & .. & p0_k & v0)"}],
+                [{"lhs": "v{L-1}", "rhs": "v{L-1} ^ p{L-1}_1"}],
+                [{"lhs": "p{j}_{i}", "rhs": "p{(j-1) mod L}_{i}", "range": "j = 0 .. L-1, i = 1 .. k"},
+                 {"lhs": "v{j}", "rhs": "v{(j-1) mod L}", "range": "j = 0 .. L-1"}]]
+        models = dict(ST_MODELS)
+        models["trigger-channel"] = {"cells": "for j = 0 .. L-1: p{j}_1, .., p{j}_k, v{j}; then r (L = T+1)",
+                                     "rule": rule}
+        t = _st_tuple(2, "st-trig-scrambled", "trigger-channel", "window", 4, ["p0_1", "v0"],
+                      {"type": "uniform_conditioned", "equalities": {"r": 0}}, ["r"], "01", params={"k": 1, "L": 5},
+                      P=("10", "11"))
+        t["method"] = "full+sequential"
+        ctx = _ctx(t, models)
+        assert ctx.model.n == 11 and method_for(ctx) == "full+sequential"
+        FullMethod(ctx)  # the full method accepts the rule; only the sequential conditions reject it
+        h = _expect_halt(5, lambda: evaluate_tuple(ctx, "sequential"))
+        assert h.field == "sequential" and h.detail == "a cell of Q at t0+1 is not an unmodified t0 cell", h.detail
+        _expect_halt(5, lambda: evaluate_tuple(ctx, "full+sequential"))
+        tdoc, edoc = _st_docs()
+        hold = tdoc["tuples"][0]
+        e_s = {f: edoc["expected"]["st-hold"][f] for f in tdoc["compared_fields"]["window"]}
+        t2 = dict(tdoc, models=models, tuples=[hold, t])
+        e2 = dict(edoc, expected={"st-hold": edoc["expected"]["st-hold"], "st-trig-scrambled": e_s})
+        with tempfile.TemporaryDirectory() as d:
+            assert run(d, _b(t2), _b(e2), meta, runm, expect_count=2, frozen_order_rule=True) == 5
+            s = json.load(open(os.path.join(d, "phase-a", "summary.json")))
+            assert s["tuples_evaluated"] == ["st-hold", "st-trig-scrambled"]
+            assert s["verdict_text"] == ("Phase A halted at st-trig-scrambled: enumeration-method check failed "
+                                         "(a cell of Q at t0+1 is not an unmodified t0 cell). The run is void.")
+            assert check_summary(d, ["st-hold", "st-trig-scrambled"], expect_count=2)[0]
+
     @check("run identity: only the first attempt of a dispatch with sha = confirm_commit = HEAD holds")
     def _():
         sha = "1a" * 20

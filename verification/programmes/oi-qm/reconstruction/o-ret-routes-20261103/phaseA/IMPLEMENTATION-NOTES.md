@@ -3,7 +3,8 @@
 **Status.** WIP / UNVERIFIED. The tool and workflow were written under the owner's authorization of 2026-11-04
 (#1032). They implement the preregistration frozen at `F = 49f0bd41c5323d2191b580460c8703740dd01b30`. This revision
 applies the independent review of `5ca342fc` (ACCEPT WITH CHANGES: S1 self-test coverage, S2 binding of the executed
-head to the reviewed commit) and the owner's choice of the reviewed-PR launcher route (§4). Not run. A dispatch is a
+head to the reviewed commit), the owner's choice of the reviewed-PR launcher route (§4), and the two optional
+self-test additions SF1 and SF2 of the delta review of `6133e0eb`. Not run. A dispatch is a
 separate owner approval (PREREG §7, AGENTS.md §A.43 item 4).
 
 - `phaseA/phasea.py`: the tool. Standard library only, with exact `fractions.Fraction` arithmetic throughout.
@@ -163,7 +164,7 @@ file **at the dispatched ref**. The owner chose this route; a push-triggered lau
 |---|---|---|
 | `python3 -m py_compile …/phaseA/phasea.py` | 0 | compiles (Python 3.13 locally; CI pins 3.12) |
 | `python3 -I …/phaseA/phasea.py --help` | 0 | usage printed |
-| `python3 -I …/phaseA/phasea.py --self-test` | 0 | 31 of 31 synthetic checks pass, in about 1.3 s |
+| `python3 -I …/phaseA/phasea.py --self-test` | 0 | 33 of 33 synthetic checks pass, in about 1.5 s |
 | `python3 -I …/phaseA/phasea.py --verify-inputs --expect-F 49f0bd41…` | 0 | four blob ids match at `F` |
 | `python3 -I …/phaseA/phasea.py --verify-inputs --expect-F 0000…` | 3 | wrong `F` refused |
 | `git rev-parse F:<path>` and `git hash-object <path>`, for each frozen file | 0 | equal to the tool's ids |
@@ -183,8 +184,10 @@ cases at `(k, T) = (2, 4)` and `(1, 7)`, and non-dyadic biases `1/40` and `3/40`
   - (R-a) on `A ∩ Σ ≠ ∅`.
   - SCH over the read cells only.
   - The support conditioning, and `Q` built from `A`.
-  - Sequential failures (a re-entering cell, two non-product laws, a forced disagreement).
-- *Exits and outputs.* Exits 2, 3 and 5. Exits 4 and 6, through `compute_record` and `run` by injection. The
+  - Sequential failures (a re-entering cell, two non-product laws, a forced disagreement, and a computed `Q` cell,
+    SF2).
+  - `G_status_T = inconsistent` through the real code path (SF1).
+- *Exits and outputs.* Exits 2, 3 and 5. Exit 4 through real dynamics (SF1) and by injection. Exit 6 by injection. The
   `check_summary` prefix and halt-at-last tampers. Run identity, with each condition violated.
 - *End-to-end.* A six-tuple run (PASS; exits 1, 2 and 5), and a two-tuple run with a `full+sequential` HC-SK-model
   tuple.
@@ -198,6 +201,8 @@ cases at `(k, T) = (2, 4)` and `(1, 7)`, and non-dyadic biases `1/40` and `3/40`
 | author's original A01–A24 | 24 | 24 | none |
 | new paths B1–B8, C1–C2 (re-application rows 7, 8, 5-approx and 1 in both modes; order rule; `sequential_check`; declared method; product test; readback row) | 10 | 10 | none |
 | run identity I1–I6 | 6 | 6 | none |
+| reviewer P1–P10 (`mutate3.py`) | 10 | 8 | P4, P6: equivalent (below) |
+| SF1 and SF2: `g_star` never inconsistent; the t₀-cell rejection dropped | 2 | 2 | none |
 
 The equivalent mutants:
 - **M3**, η under `μ`: `μ^P(·|σ) = μ(·|σ)` for `σ ∈ P`.
@@ -206,6 +211,10 @@ The equivalent mutants:
 - **M14**, exit 4 after ST: exact DIL∃ forces a consistent `G*`.
 - **M16**, `C_t` over `Par(A)`: SCH reads only `Par(read) ∩ C_t`.
 - **M19**, the TR/EX observed-failure assertion: the re-applied row implies it.
+- **P4**, step 4 over `W_{T′}`: step 3 already catches any failure on `W_{T′} ∖ W_T`.
+- **P6**, τ checking the repeat before the hit: a repeated family cannot carry a new hit.
+
+P10 (`G_status` always consistent) and P5 (provenance kept for computed cells) are now detected, by SF1 and SF2.
 
 **No frozen tuple was evaluated locally.**
 - No model, law, decoder or expected value of `PHASEA-TUPLES.json` or `PHASEA-EXPECTED.json` was computed.
@@ -221,12 +230,22 @@ The equivalent mutants:
 - **Re-application** reads only the serialized fields, but it is written by the same author in the same file.
 - **The self-test's expected values** are my own hand derivations on synthetic models. They test the implementation,
   not the frozen hand algebra.
-- **Exit 4** is exercised by injection only (no synthetic dynamics reaches step 6 with an inconsistent `G*`). Row 4
-  is the declared constant `false` (PREREG §9).
+- **Exit 4** is exercised through real dynamics by one synthetic case (SF1) and by injection. Row 4 is the declared
+  constant `false` (PREREG §9).
+- **The `g_star` "inconsistent" branch** is covered by SF1, a 3-bit copy-code register with two masked inputs, each
+  consistent alone, that chain `001 ~ 011 ~ 111` together. On that case the test establishes four things:
+  - the tool classifies `G_status_T` as `inconsistent`, and `g_star` gives the same classification on the pooled sets
+    directly;
+  - η and the bound are `null`;
+  - the tuple halts with exit 4 at step 6, its record written with row `null`;
+  - a mutant that never reports `inconsistent` fails the self-test.
+
+  This establishes the classification on that synthetic case, not on every input. A wrong `consistent` in a frozen
+  tuple would still need the frozen expected value to be wrong in the same way before it could pass.
 - **The sequential method** uses syntactic provenance for freshness. It is exact where it accepts, and it may reject
   a valid rule.
 - **Paths a line trace of the final `--self-test` still does not reach.** The frozen run uses none of them on a
-  correct input. Each can only turn a run red (void), never produce a false PASS.
+  correct input. Each is a rejection: it can only turn a run red (void), and none can produce a PASS by itself.
   - The wrappers that call git on the real checkout: `git_run`, `repo_root`, the real file read, and `run_info`.
     `--verify-inputs` exercises them locally.
   - The exit-3 sub-branches "absent at F" and "unreadable".
@@ -234,10 +253,9 @@ The equivalent mutants:
   - The internal guards (exit 7): `f_R` factorization, an unknown expression node, `Par` outside `A ∪ Q`, missing
     presence bits, and the generic handler.
   - Some exit-5 sub-conditions:
-    - a non-copy or shared-origin `Q` cell;
+    - a shared-origin `Q` cell (the computed-cell rejection is covered by SF2);
     - an oversized support or law;
     - the full-versus-sequential disagreement on the exit-4 condition.
-  - The `G_status_T = inconsistent` path that sets η and the bound to `null`, which is reached only before exit 4.
   - Row 4, a declared constant.
   - The unreadable-file branches of `check_summary`.
 - **The workflow** was parsed as YAML and its guard script run under `bash` locally. It was not run on the host, and
