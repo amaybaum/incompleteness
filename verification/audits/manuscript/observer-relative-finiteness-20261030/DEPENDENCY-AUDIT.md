@@ -319,8 +319,8 @@ census has no byte pin. The frozen records that pin the Lean blob or quote these
 
 1. #1016 shows one finite instantaneous observer bit on an uncountable
    microscopic product can carry unbounded cumulative public history.
-   A finite cyclic surrogate agrees on any pinned horizon `n<q` but
-   diverges at `2q`; do not upgrade finite-horizon equivalence to all-time.
+   A finite cyclic surrogate agrees through any pinned horizon `n ≤ q` and
+   first differs at `n = q+1`; do not upgrade finite-horizon equivalence to all-time.
 2. #1009's solenoid control is a fully reversible infinite carrier with
    Markov visible process and no exact common visible identity return.
 3. #872's countably infinite union of finite cycles has full-support
