@@ -5,18 +5,21 @@ Drafted against branch `research/o-ret-routes-20261103` at `473b5e34`, reading `
 `SOURCES.md` and `ANNOTATION.md` in `verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/`. Revised
 after independent reviews of `ad70d41b` (REVISE), `aceba574` (ACCEPT WITH CHANGES) and `e8dfe25e` (ACCEPT, two
 optional nits). Revision r4 applies those two nits, the consequences of the owner's rulings on Q1 and Q5 (#1032,
-2026-11-03/04), and the scope narrowing of S-1, J-1, (h) and Remark C by the Q7 review (2026-11-04); r4 has not been
-re-reviewed.
+2026-11-03/04), and the scope narrowing of S-1, J-1, (h) and Remark C by the Q7 review (2026-11-04). Revision r5
+applies the owner's ruling on Q8 for Phase A, the HC-R1 and HC-R3 rows over their gap-free spans, and CX-4b as a
+Phase A control. r4 and r5 have not been re-reviewed.
 
 - *What it is.* A test design for the question: does a proposed retention mechanism store information locally,
   or does the information only travel through a multi-cell register `A`? It contains candidate definitions, hand-checked
   tiny controls, a decision table, an assumption audit, counterexamples, limits, and a computation specification.
 - *What it is not.* No computation, enumeration, simulation or Lean was run, and no computational verdict is
-  claimed. No criterion is adopted, no premise is added, no candidate is selected, and nothing is promoted to
-  SOURCE-CANDIDATE. Every criterion introduced here is an unreviewed proposal.
+  claimed. The design was independently reviewed and accepted at `e8dfe25e`. DIL∃ is admitted by the owner as a
+  sufficient structural certificate (Q2, #1032); no other criterion is adopted. No premise is added, no candidate is
+  selected, and nothing is promoted to SOURCE-CANDIDATE.
 - *Tolerance.* The owner's working threshold `ε* = 0.05` on the worst-case decoding error `ε_max` (D-MET) is used. In
   every control `f(P)` has `m = 2` values, so the blind bound `1 − 1/m = 1/2` lies above `ε*`, and `ε*` is not vacuous.
-- *Support labels.* **[D]** paper derivation in this document (unreviewed). **[C]** text at checkpoint `473b5e34`
+- *Support labels.* **[D]** paper derivation in this document: reviewed and accepted at `e8dfe25e`; a [D] added in r4
+  or r5 is marked unreviewed. **[C]** text at checkpoint `473b5e34`
   (ROUTES.md or DEFINITIONS.md). **[U]** proposal named at that checkpoint: S-1, J-1, countercontrol (h) and
   Remark C; each is confirmed only within the narrowed scope of the Q7 review, whose frozen wording is in
   `PREREG-PHASE-A.md` §2.7. **[L]** literature cited from memory, not re-read.
@@ -323,6 +326,8 @@ Shifts are `u_j ← u_{j−1}`.
 - `φᴸ = id` gives `A(t₀+1+L) = (c, 0)` and `ε_max = 0`. Every tick from `t₀+3` to `t₀+L` has `ε_max = 1/2`.
 - At `t₀+L` the register is blind, as Lemma P requires.
 - A single readback at `t₀+1+L` reports exact retention, while a gap-free readback over the same span rejects it.
+- *Row over the gap-free `W_L`* [D, unreviewed]: RS. At the hold tick `t₀+L → t₀+L+1` the input
+  `u₀(t₀+L) = u₀(t₀) = c` returns the carrier, so both parts of J-1 fail there.
 
 **HC-R2 (re-supply: a static carrier feeding a conveyor).**
 - *Dynamics.* Carrier `c` with `c′ = c`, and conveyor `w ∈ 𝔽₂^{ℤ/L}`. Each tick: `w₀ ← w₀ ⊕ c`, then shift. It is a
@@ -354,7 +359,7 @@ Shifts are `u_j ← u_{j−1}`.
 - Lemma P gives `n = 4`, so `T ≤ 2`, which is consistent with failure at `t₀+3`.
 - A readback at `{t₀+1, t₀+5, t₀+6}` alone would report retention.
 - *Row.* On `W₁`: static storage, as S1. On `W₂`: EX. The export by exchange is observed at `t₀+3`, and `G = {p = 0}`
-  is consistent.
+  is consistent. On `W₅` (`t₀+1, …, t₀+6`) [D, unreviewed]: RS, because J-1 fails at `t₀+4 → t₀+5`.
 
 ### 3.4 Classification matrix
 
@@ -544,7 +549,8 @@ This is a specification only. It is not authorized (OQ-4 decision [C]) and nothi
 - **Preconditions, to be fixed in the freeze before authorization.**
   - The ruling on Q1 (#1032): HC-SW's expected row is row 6 (I-4), register-level circulating storage.
   - Q3: the union or the tick-ordered `𝒬_W`.
-  - Q8: the decoder rule.
+  - Q8 (#1032): Phase A uses the decoders fixed in §3, and Q8's lexicographic tie-break is not applied in Phase A. The
+    rule for decoder values off the write-time support is a separate decision before Phase B.
   - The rule for choosing `G` in DIL∃-η.
   - The nonlinear rule (the SM:112 ring or rule h) and its instance.
   - `w*` and `T*`, if any D-SML comparison is wanted (Q5).
@@ -560,8 +566,8 @@ This is a specification only. It is not authorized (OQ-4 decision [C]) and nothi
     - HC-R1: `L = 4`.
     - HC-R2: `L = 4`.
     - HC-R3: `L = 2`.
-    - HC-P with `A = {u₂}` (countercontrol (h)), and a share completion with a biased pad (Q7 review; specified in
-      `PREREG-PHASE-A.md` §3).
+    - HC-P with `A = {u₂}` (countercontrol (h)), a share completion with a biased pad (Q7 review), and CX-4b (§6) as
+      the control for row 7; specified in `PREREG-PHASE-A.md` §3.
   - Each value derived in §3 is a replay check. A mismatch halts the run (§A.26 item 3).
 - **Phase B, target.**
   - *K1 at K-18(b).* `|S| = 2¹⁰`; all 15 nonempty `A ⊆` the current slice of sites 1–4; the laws `π₀`, `δ₀` on the
@@ -579,7 +585,8 @@ This is a specification only. It is not authorized (OQ-4 decision [C]) and nothi
     - `T = 1`: EX at `k ≤ 3`, I-6 at `k = 4`, static storage at `k ≥ 5`.
     - `T = 2, 3`: EX at `k ≤ 4`, I-6 at `k = 5`, static storage at `k = 6`.
   - HC-R2 gives RS.
-  - HC-R1 and HC-R3 trigger the recurrence rule, and HC-R3 on `W₂` gives EX.
+  - HC-R1 and HC-R3 trigger the recurrence rule, and HC-R3 on `W₂` gives EX. Over their full gap-free spans both give
+    RS.
   - Countercontrol mutations:
     - (a) remove S1's quiet bit, and exact DIL∃ must fail;
     - (b) replace HC-SW's swap by a shift-out into the channel, and DIL∃ must fail;
