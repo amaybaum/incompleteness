@@ -3,7 +3,7 @@
 """CT3-R1: the local-centralizer census for the OI phase-space update.
 
 CT2 closed with `driveQ_one_eq_heisQ`: the OI update is joined to the identity by a
-norm-continuous path of `*`-automorphisms of the quasilocal algebra. What CT2 does NOT give is a
+strongly continuous path of `*`-automorphisms of the quasilocal algebra. What CT2 does NOT give is a
 GROUP law for that path, or a generator. CT3 asks the remaining question, in the form the infinite
 lattice permits -- not whether a bounded `H` in the quasilocal algebra has `e^{iH} = U`, since an
 extensive Hamiltonian is not an element of that algebra, but:

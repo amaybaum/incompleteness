@@ -445,7 +445,8 @@ theorem center_anticommutator (D e m p : R)
     _ = (m + m) + (p * e + p * e) := add_add_add_comm _ _ _ _
 
 /-- **M3.2.** Given {D, ε} = 0, ε² = 1, m central for D and ε:
-(D + m·ε)² = D² + m·m — the manuscript's "squares to −¼(□ − 4m²)". -/
+(D + m·ε)² = D² + m·m — the square of the staggered mass operator, an auxiliary identity;
+it does not identify onsite terms with center dependence of the second-order update. -/
 theorem mass_square (D e m : R)
     (he : e * e = Rng.one) (hDe : D * e = -(e * D))
     (hme : m * e = e * m) (hmD : m * D = D * m) :

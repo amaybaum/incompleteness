@@ -32,7 +32,7 @@ convention.
 Claimed: for each `t`, `driveQ R t` is an isometric `*`-automorphism of the quasilocal algebra;
 `driveQ R 0` is the identity; `driveQ R 1` is the update's own Heisenberg action; and
 `t ↦ driveQ R t A` is norm-continuous for every quasilocal `A`. So the update is joined to the
-identity by a norm-continuous path of automorphisms.
+identity by a strongly continuous path of automorphisms.
 
 **Not claimed: a group law.** `driveQ R (t + s) = driveQ R t ∘ driveQ R s` does not follow from the
 two layers' group laws, because the two layers do not commute; nothing here establishes it and
@@ -192,7 +192,7 @@ theorem driveQ_bijective (t : ℝ) :
   Function.bijective_iff_has_inverse.mpr
     ⟨fun x => swapQ V (-t) (layerQ R (-t) x), driveQ_left_inverse R t, driveQ_right_inverse R t⟩
 
-/-- **THE PATH IS NORM-CONTINUOUS IN TIME.** Neither factor's strong continuity gives this on its
+/-- **THE PATH IS STRONGLY CONTINUOUS IN TIME.** Neither factor's strong continuity gives this on its
 own: the time parameter moves in both slots at once. What closes the gap is that the outer flow is
 isometric *uniformly in its own time parameter*, so the inner motion can be estimated at a frozen
 outer time and the outer motion at a frozen inner argument. -/
@@ -220,7 +220,7 @@ theorem continuous_driveQ_time (x : Quasilocal ι (V × V)) :
 
 /-- **THE UPDATE IS JOINED TO THE IDENTITY BY A CONTINUOUS PATH OF `*`-AUTOMORPHISMS.** The three
 clauses are the whole claim: the path starts at the identity, every point of it is an isometric
-`*`-automorphism of the quasilocal algebra, and it is norm-continuous in the parameter. No group
+`*`-automorphism of the quasilocal algebra, and it is strongly continuous in the parameter. No group
 law and no generator are asserted. -/
 theorem driveQ_isContinuousPath :
     driveQ R 0 = (id : Quasilocal ι (V × V) → Quasilocal ι (V × V)) ∧
@@ -824,7 +824,7 @@ theorem layerQ_one_eq_heisQ (x : Quasilocal ι (V × V)) :
 
 /-- **THE DRIVE ENDS AT THE UPDATE.** The two-piece path at time one is exactly the Heisenberg
 action of the update's own reversible dynamics on the quasilocal algebra. With `driveQ_zero_time`
-this says the update is joined to the identity by a norm-continuous path of `*`-automorphisms —
+this says the update is joined to the identity by a strongly continuous path of `*`-automorphisms —
 still not a one-parameter group, and still with no generator exhibited. -/
 theorem driveQ_one_eq_heisQ (x : Quasilocal ι (V × V)) :
     driveQ R 1 x = heisQ (ruleDynamics R) x := by

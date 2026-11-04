@@ -190,10 +190,12 @@ the three- and four-axis theorems kept as explicit corollaries. Section C is clo
   parity phase, and η_μ fails to anticommute with the shifts of earlier axes
   (`staggered_relations_probe.py`, S6, with the countercontrol at L = 3 and 5). Any statement
   of the factorization on a periodic lattice should carry the even-extent hypothesis.
-- Theorem 3 is formalized at operator level: {D + m·ε + p₀·1, ε} = 2m + 2p₀·ε, so center
-  independence of the diagonal of D_st is equivalent to exact chirality. Per the SM
-  remark, the second-order update's self-term C = 2(1−d) is the Laplacian diagonal, not a
-  mass term; the statement encodes this scope.
+- Theorem 3 is formalized at operator level: {D + m·ε + p₀·1, ε} = 2m + 2p₀·ε, so vanishing
+  of the onsite terms (m = p₀ = 0, given no additive 2-torsion and both parity sectors) is
+  equivalent to exact chirality (`scalar_center_chiral_iff`, `OIBridge/ChiralCenterRecovery.lean`).
+  Per the SM remark, identifying those first-order terms with center dependence of the
+  second-order update requires a separate bridge; the update's self-term C = 2(1−d) is the
+  Laplacian diagonal, not a mass term.
 
 ## E. Further targets
 

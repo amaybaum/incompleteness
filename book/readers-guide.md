@@ -50,7 +50,7 @@ Readers approaching the framework from biology, medicine, or applied biological 
 
 **Essential.** Chapter 0 (framing). Chapter 13 (quantum biology). Chapter 16 (medicine, particularly §§16.9-16.13 on epigenetics and the Rett syndrome confirmation). Chapter 17 (bioinformatics, particularly §17.9 on evolutionary biology empirical confirmations).
 
-**Recommended.** Chapter 10 (chemistry derivation, providing the foundations). Chapter 11 (origin of life). Chapter 12 (evolution and intelligence). Chapter 15 §§15.5-15.7 (the partially-quantum regime, which connects engineering to biology).
+**Recommended.** Chapter 10 (chemistry derivation, providing the foundations). Chapter 11 (origin of life). Chapter 12 (evolution and intelligence). Chapter 15 §§15.5-15.7 (the restricted quantum-statistical regime, which connects engineering to biology).
 
 **Optional.** The fundamental physics chapters (5-9) can be consulted when biological claims rest on physics derivations. The technical foundations (Chapters 1-4) can be consulted for the framework's structural commitments at the molecular scale.
 

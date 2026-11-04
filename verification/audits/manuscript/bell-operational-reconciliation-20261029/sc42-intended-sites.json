@@ -37,7 +37,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "So the obstruction above is priced rather than fatal: total dimension $n^2$ suffices at a single step, within the source's $\\leq n^3$ bound for the full process family. Representab",
+          "anchor": "So the obstruction above is priced rather than fatal: total dimension $n^2$ suffices at a single step, and at every time separately: extending $|i\\rangle \\otimes |a_0\\rangle \\mapst",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
@@ -142,7 +142,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "*A note on what is proved versus imported, to keep the claim honest.* The exact finite-law representation is internal: every finite stochastic law has a reversible deterministic re",
+          "anchor": "*A note on what is proved versus imported.* The exact finite-law representation is internal: every finite stochastic law has a reversible deterministic re",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },

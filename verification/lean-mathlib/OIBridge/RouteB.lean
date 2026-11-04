@@ -11,10 +11,14 @@ exact finite endomorphic operational quantum mechanics on every nonempty finite 
 structural part of that package and, under finite bijective read-write dynamics, not the
 continuously driven off-diagonal transition (`StructuralClosure.substratum_residual`,
 `ReadWriteControl.readWriteSourced_not_qm`). Route B asks whether the drive is independent of
-everything the kernel derives from the substratum:
+the kernel's consequence closure:
 
 > Is there a finite operational theory satisfying every consequence the kernel derives from the
 > substratum and the OI core, and failing phase-free richness?
+
+The closure's phase conjunct `PhasesAvailable` is stipulated rather than derived from the stated
+access: `DerivedOI` is `SourcedOI` with that conjunct added
+(`SubstratumInterfaceAudit.derivedOI_iff_sourcedOI_phases`).
 
 Sections A–E fix the question before any model is examined against it (milestone B0). They
 define `DerivedOI`, the conjunction of the theory-level predicates the kernel proves for a theory
@@ -134,10 +138,11 @@ def ReadWriteAvailable (T : FiniteOperationalTheory A) : Prop :=
   ∀ (n : ℕ) (a b : A × Fin n) (F : ReadWriteFamily a b) (l : ℝ),
     T.availExt n Unit (fun _ => conjChannel (readWriteOperator F l))
 
-/-- **THE CONSEQUENCE CLOSURE, `DerivedOI`**: every theory-level predicate the kernel derives
-from the substratum, in the strongest form it derives it — reversible implementation locality
+/-- **THE CONSEQUENCE CLOSURE, `DerivedOI`**: the theory-level predicates the kernel proves for
+the substratum-generated theory and for exact QM — reversible implementation locality
 (the substratum class is dagger-stable), embedded observation, and the availability at every
-level of the exchanges, the phases and the read-write operators. -/
+level of the exchanges, the phases and the read-write operators. The phases conjunct is
+stipulated, not derived from the stated access. -/
 def DerivedOI (T : FiniteOperationalTheory A) : Prop :=
   ReversibleImplementationLocality T ∧ EmbeddedObservation T
     ∧ ExchangesAvailable T ∧ PhasesAvailable T ∧ ReadWriteAvailable T
@@ -390,7 +395,7 @@ theorem substratumTheory_not_phaseFree : ¬ PhaseFreeRichness (substratumTheory 
     substratumTheory_falsifierUnavailable
 
 /-- **THE CLOSURE WITH THE CORE DOES NOT ENTAIL PHASE-FREE RICHNESS** on the two-state carrier:
-a theory satisfying every consequence the kernel derives from the substratum and the sealed core,
+a theory satisfying the consequence closure, whose phase conjunct is stipulated, and the sealed core,
 and failing the one conjunct of `OIPlusMin` the substratum does not supply. -/
 theorem derivedOICore_not_phaseFree :
     ∃ T : FiniteOperationalTheory (Fin 2), DerivedOICore T ∧ ¬ PhaseFreeRichness T :=

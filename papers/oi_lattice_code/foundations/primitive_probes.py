@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-# primitive_probes.py — b102 (2026-08-13). Certifies the dependency structure of
-# the structural conditions: C4 is primitive; C1 and C3 are its consequences
-# within any faithful realization (Main §1.3).
+# primitive_probes.py — b102 (2026-08-13). Checks the dependency structure of
+# the structural conditions at small sizes (Main §1.3): C1 follows from C4; the
+# per-order capacity bound holds on gap realizations (C3 itself holds in every
+# faithful realization, Main §3.4); C4 coincides with condition (ii).
 import sys
-# b102: is C4 the primitive structural condition, with C1 and C3 derived?
+# b102: is C4 the primitive structural condition, with C1 derived from it?
 #  (A) C4 => C1: enumerate every ZERO-COUPLING realization (visible image
 #      independent of the hidden state at every step) and verify no readback gap
 #      at any order in the accessible window.
-#  (B) C4 => C3: for realizations that DO exhibit a gap, verify the data-processing
-#      bound I* = I(X_<k; X_{k+1} | X_k) <= log2 |C_H| — C3's own stated bound —
-#      and report how tight it gets.
+#  (B) per-order capacity bound on gap realizations: for realizations that DO
+#      exhibit a gap, verify max_k I(X_<k; X_{k+1} | X_k) <= log2 |C_H| (the
+#      per-order form of C3's bound, printed as I*) and report how tight it gets.
 # Exact where it matters (Fractions for the process algebra; logs only for I*).
 from fractions import Fraction as F
 from itertools import permutations, product
@@ -86,7 +87,7 @@ for nV, nH in [(2,2),(2,3),(3,2)]:
     assert worst == 0, "a zero-coupling realization produced a gap"
 print("  => certified: no coupling, no readback. C4 presupposes C1.")
 
-print("\n== (B) C4 => C3: the data-processing bound is C3's bound ==")
+print("\n== (B) per-order capacity bound on gap realizations ==")
 for nV, nH in [(2,2),(2,3),(2,4),(3,2)]:
     cap = log2(nH); worst_ratio = 0.0; worst_I = 0.0; n_gap = 0
     for p in permutations(range(nV*nH)):
@@ -97,7 +98,7 @@ for nV, nH in [(2,2),(2,3),(2,4),(3,2)]:
         worst_I = max(worst_I, I); worst_ratio = max(worst_ratio, I/cap if cap else 0)
     print(f"  (n_V,n_H)=({nV},{nH}): {n_gap} realizations with a gap; max I* = {worst_I:.4f} bits, log2|C_H| = {cap:.4f}, ratio {worst_ratio:.3f}")
     assert worst_I <= cap + 1e-9, "data-processing bound violated"
-print("  => certified: every gap-exhibiting realization respects log2|C_H| >= I*. C4 forces C3.")
+print("  => every gap-exhibiting realization respects max_k M_k <= log2|C_H| (C3 itself holds in every faithful realization, Main §3.4).")
 
 print("\n== (C) is C4 an independent condition, or clause (ii) read on the realization? ==")
 # C4 asserts a readback gap MEDIATED through the hidden state; clause (ii) asserts

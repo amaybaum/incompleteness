@@ -128,4 +128,4 @@ for x0 in (0,1):
 I=I_cond(tab); lb=gap_and_bound(tab)   # delta=1/4, p0=1/4 -> bound=(1/4)(1/16)/ln2
 assert abs(lb-(0.25*0.0625)/LN2)<1e-12 and I>=lb
 print(f"Q5 small-gap family: I = {I:.6f} >= bound {lb:.6f} (p0=1/4, d=1/4)  OK")
-print("c4_backflow probe: COMPLETE — readback lemma certified; coin silent")
+print("c4_backflow probe: COMPLETE — readback lemma checked; coin silent")

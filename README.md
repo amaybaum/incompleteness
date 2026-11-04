@@ -16,7 +16,7 @@ The framework is inspired by the same broad kind of self-reference constraint th
 | The foundational finite-observer result | [`papers/Main.md`](papers/Main.md) |
 | A short, self-contained phenomenology paper | [`papers/Juno.md`](papers/Juno.md) |
 | The current formal-verification programme | [`verification/README.md`](verification/README.md) |
-| The live list of proved, conditional, open and refuted obligations | [`verification/ROADMAP.md`](verification/ROADMAP.md) |
+| Tracked obligations, planned work and priorities | the open [Issues](https://github.com/amaybaum/incompleteness/issues), under the rules of [`AGENTS.md`](AGENTS.md) §A.45 |
 | The full book-length exposition | [`book/README.md`](book/README.md) |
 | The physics papers | [`papers/`](papers/) |
 
@@ -34,7 +34,7 @@ fixed-basis unitary/Born representation (Q_fb)
 
 The representation equivalence is universal at this finite-record level. The specifically OI content is the embedded-observer structure: coupling, hidden capacity, persistence and history readback constrain what a faithful realization must contain.
 
-`Main` develops this finite-horizon correspondence together with the hidden-memory and recurrence results. Later operational/composite refinements, Bell questions and physics-layer bridges are tracked separately rather than folded into the base theorem; their current status lives in the verification roadmap.
+`Main` develops this finite-horizon correspondence together with the hidden-memory and recurrence results. Later operational/composite refinements, Bell questions and physics-layer bridges are tracked separately rather than folded into the base theorem; their planning is tracked in the research backlog (GitHub Issues), and their status in the papers and verification records that state them.
 
 ## What is core, conditional, and conjectural
 
@@ -51,7 +51,7 @@ Several later physics conclusions require explicitly named hypotheses or bridge 
 - **H-link** — identifies the exact six-link cubic representation with a physical gauge carrier; the single-copy clause gives the $K=6$ reading.
 - **H-cust** — the custodial kinetic/condensate premise used by the stabilizer route.
 - **H-Bell** — the open compatibility requirement that preparation-indexed graphs (i) supply the required ontic parameter dependence, (ii) preserve operational no-signaling, and (iii) preserve the metric/Ollivier--Ricci structure strongly enough for the continuum-curvature step.
-- other manuscript-specific bridge hypotheses and obligations recorded in the papers and verification roadmap.
+- other manuscript-specific bridge hypotheses and obligations recorded in the papers and the verification records.
 
 ### 3. Conjectural extensions
 
@@ -97,7 +97,7 @@ The verification suite is the authoritative place for machine-checked status. It
 
 CI checks the proof layers, probes, coverage and governed receipts. Exact theorem counts and current obligations change as the programme advances, so this README intentionally does **not** hard-code those counts.
 
-The verification architecture and flagship formal results are described in `verification/README.md`, and the live obligation queue is `verification/ROADMAP.md`; both are linked under *Start here*. To run the zero-import checks, see [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md); the narrower zero-import formalization roadmap is [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md).
+The verification architecture and flagship formal results are described in `verification/README.md`, and planning and priorities are kept in GitHub Issues, under the rules of `AGENTS.md` §A.45; both are linked under *Start here*. `verification/ROADMAP.md` is the obligation queue as it stood at `9613b21c`, kept as a historical record. To run the zero-import checks, see [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md); the narrower zero-import formalization roadmap is [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md).
 
 ## Repository map
 
@@ -119,9 +119,16 @@ The core papers are tabulated above; the conjectural-extension papers are listed
 
 ## Current research frontier
 
-The verification programme changes faster than this README should. Rather than duplicating a potentially stale list of “open” claims here, the repository keeps the authoritative status of each obligation in [`verification/ROADMAP.md`](verification/ROADMAP.md).
+The verification programme changes faster than this README should. Planning and priorities —
+which obligations are tracked and in what order — are kept in GitHub Issues, under the rules of
+`AGENTS.md` §A.45. The status of a result is what its proof, Lean module, manuscript statement
+and verification record establish; the coverage ledger and the Lean-to-manuscript census keep the
+manuscripts aligned with the kernel.
 
-That roadmap tracks, among other areas, operational/composite refinements; the **K1–K3 / K∞ / Kₙ pre-quantum kinematics programme**; physical-carrier identification; Standard-Model bridge conditions; Bell-compatible completion; gravity/running obligations; and continuum emergence. Individual items may be proved, conditional, refuted or open; use the roadmap for the current verdict.
+The backlog tracks, among other areas, operational/composite refinements; the **K1–K3 / K∞ / Kₙ
+pre-quantum kinematics programme**; physical-carrier identification; Standard-Model bridge
+conditions; Bell-compatible completion; gravity/running obligations; and continuum emergence.
+`verification/ROADMAP.md` records the queue as it stood at `9613b21c` and is not maintained.
 
 ## Book
 

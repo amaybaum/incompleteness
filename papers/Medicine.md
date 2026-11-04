@@ -304,7 +304,7 @@ Cancer is, in OI language, a disease of the epigenetic hidden sector. The malign
 
 ### 9.3 Aging as memory accumulation
 
-The epigenetic clock (Horvath 2013) quantifies progressive accumulation of methylation marks associated with declining function. In OI language, aging is memory accumulation in the slowest epigenetic layers beyond the cell's ability to maintain homeostasis. Partial reprogramming (transient Yamanaka factor expression) erases recent epigenetic memory while preserving deeper developmental identity — the framework predicts a critical pulse duration matching $\tau_B$ of aging-associated marks.
+The epigenetic clock (Horvath 2013) quantifies progressive accumulation of methylation marks associated with declining function. In OI language, aging is memory accumulation in the slowest epigenetic layers beyond the cell's ability to maintain homeostasis. Partial reprogramming (transient Yamanaka factor expression) erases recent epigenetic memory while preserving deeper developmental identity — conditional on those marks eroding on their retention time $\tau_B$, the framework predicts that the pulse durations that erase aging-associated marks are of the order of that $\tau_B$; whether deeper identity then changes gradually or sharply depends on the identity network's mixing, coupling and readback, and is model-dependent unless a specific mechanism establishes it.
 
 ### 9.4 The substratum-emergent operator distinction at chromatin
 
@@ -480,7 +480,7 @@ The following predictions follow from the non-Markovian (memory) architecture. T
 
 **Prediction 18:** During iPSC reprogramming, epigenetic marks are erased in order of increasing $\tau_B$: acetylation first, then methylation, then DNA methylation.
 
-**Prediction 19:** Partial reprogramming (Yamanaka factor pulse) shows a critical duration: methylation age decreases smoothly with pulse length, while cell-type identity remains stable up to a sharp threshold corresponding to $\tau_B$ of developmental memory.
+**Prediction 19:** Partial reprogramming (Yamanaka factor pulse): conditional on the marks eroding on their retention times, methylation age decreases with pulse length on the timescale $\tau_B$ of aging-associated marks, while cell-type identity is preserved for pulses short compared with the $\tau_B$ of developmental memory; whether identity is then lost gradually or sharply depends on the identity network's mixing, coupling and readback, and is model-dependent unless a specific mechanism establishes it.
 
 ### 11.8 Allosteric pharmacology
 

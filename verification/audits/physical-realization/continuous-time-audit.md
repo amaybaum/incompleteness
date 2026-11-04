@@ -208,7 +208,7 @@ argument.
 
 **No group law for the composite.** `driveQ R (t + s) = driveQ R t ∘ driveQ R s` does not follow
 from the two layers' group laws, because the two layers do not commute. Nothing in the modules
-establishes it and nothing should be read as doing so. A norm-continuous path of automorphisms
+establishes it and nothing should be read as doing so. A strongly continuous path of automorphisms
 through the identity is a strictly weaker object than a one-parameter group, and the weaker object
 is what is proved.
 
@@ -261,7 +261,7 @@ theorem,
   `driveQ_one_eq_heisQ : driveQ R 1 = heisQ (ruleDynamics R)`.
 
 So the path starts at the identity and **ends at the update**. That closes CT2': the two-piece
-drive is a norm-continuous path of `*`-automorphisms of the quasilocal algebra from the identity to
+drive is a strongly continuous path of `*`-automorphisms of the quasilocal algebra from the identity to
 the frozen discrete dynamics. It remains not a one-parameter group and exhibits no generator.
 
 **The range hypothesis is now load-bearing** for the shear layer, as the first entry anticipated:
@@ -276,7 +276,7 @@ relating them, and the finite-range hypothesis is a field rather than an ambient
 | CT1. What is the update, as a quasilocal automorphism | **answered** (first entry) |
 | CT2. Existence and per-gate locality | **answered affirmatively** (first entry) |
 | CT2'. The all-sites layer as an automorphism of the quasilocal algebra | **answered affirmatively** (this entry), for each of the two layers separately: a strongly continuous one-parameter group of `*`-automorphisms |
-| CT2''. The composite as a path from the identity | **answered affirmatively** (this entry): a norm-continuous path of `*`-automorphisms through the identity, in the order `heis_of_comp` forces. **Not** a one-parameter group |
+| CT2''. The composite as a path from the identity | **answered affirmatively** (this entry): a strongly continuous path of `*`-automorphisms through the identity, in the order `heis_of_comp` forces. **Not** a one-parameter group |
 | CT3'. A group law for the composite | **open**, and deliberately not asserted: the two layers do not commute |
 | CT2'''. The endpoint identified with the frozen `heisQ` | **answered affirmatively**: `swapQ_one_eq_heisQ`, `layerQ_one_eq_heisQ`, `driveQ_one_eq_heisQ`. The path from the identity ends at the update |
 | CT3. A single time-independent local `H` | **open**. Not implied by depth two, and deliberately not asserted |

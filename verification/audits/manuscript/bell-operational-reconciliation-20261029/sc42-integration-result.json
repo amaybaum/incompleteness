@@ -548,15 +548,15 @@
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: *A note on what is proved versus imported.* The "
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+      "predicate": "intended scope paragraph mention count: papers/Explainer.md: *A note on what is proved versus imported.* The "
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: *A note on what is proved versus imported, to ke"
+      "predicate": "intended scope paragraph rationale: papers/Explainer.md: *A note on what is proved versus imported.* The "
     },
     {
       "ok": true,
@@ -1204,11 +1204,83 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Twenty-two Standard Model observables, seven gravitational-s..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Layer 1 — Substratum-level structural.** Predictions deriv..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The horizon and radiation entries inherit H-slope and the ho..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | G11 | Page curve | Nested trace-out, H-scramble (fails fro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 5 C + 2 L. Total: 7. G11, an..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Consistency relations.** Four gravitational-sector results..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | F1 | BEC analogue-gravity $\\mathcal{F}(r) = 2r - r^2$ (pro..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | F8 | Cosmic recurrence | period at most $g(|S|)$; $|S|$ no..."
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The *rotational* Lorentz sector is deliberately **not** list..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Most distinctive content.** Two predictions distinguish th..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Cumulative assessment.** The framework's empirical record ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *B.7 The lemma chain for the characterization.* The framewor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: with $\\hat{H}_{\\text{eff}} = H_V + \\mathrm{Tr}_H[V_{\\text{in..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Role of C2, C3, and observability.* The recovery above is g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma B.7.5 (Phase locking).** *Assume dimension at least ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* The transition data $\\{T_{ij}(t)\\}$ determines the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Bohr frequencies and the D-gauge classification.** The pro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Scope.* The complete comparison of H-BG with the published ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reverse direction (necessity) is per-condition (Appendix..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content is unusual. It combines a substantia..."
     },
     {
       "ok": true,
@@ -1260,23 +1332,43 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **The empirical signatures.** Finiteness has specific empiri..."
+      "predicate": "chapter line mirrored in FULL: **The framework's response.** The necessity direction is pro..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: Erdős, P., & Turán, P. (1965). On some problems of a statist..."
+      "predicate": "chapter line mirrored in FULL: *Necessity of C2 (memory persistence).* The hidden sector mu..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
+      "predicate": "chapter line mirrored in FULL: Each theorem is a contrapositive: violating C1, C3, C4 or th..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: Erdős, P., & Turán, P. (1967). On some problems of a statist..."
+      "predicate": "chapter line mirrored in FULL: *In Chapter 7's gravitational content.* The cosmological hor..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
+      "predicate": "chapter line mirrored in FULL: A referee who rejects Axiom 2 for the universe as a whole (i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The \"finite degrees of freedom\" framing.** The standard in..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The structural signatures.** Finiteness has specific struc..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's finiteness commitment is therefore not just ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *What the framework retrodicts.* Twenty-two classified Stand..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *What the framework predicts forward.* Specific predictions ..."
     },
     {
       "ok": true,
@@ -1289,6 +1381,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework developed in this book proposes a different ro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: These features — coupling, memory persistence, large capacit..."
     },
     {
       "ok": true,
@@ -1308,11 +1404,35 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The proof uses only Lemma 1 (finiteness, hence Step 1's recu..."
+      "predicate": "chapter line mirrored in FULL: In the Markovian regime — a fast-mixing bath, system slow re..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The conditions are independent in statement but coupled in c..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The structural source of the asymmetry, for our cosmological..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The proof uses only finiteness of the total set — Lemma 1 fo..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The accessible-timescale lemma.** A potential objection to..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For the cosmological partition the numbers are striking. The..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: C4's readback therefore produces accessible-timescale non-Ma..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **A worked six-hidden-state model.** A concrete example make..."
     },
     {
       "ok": true,
@@ -1337,6 +1457,34 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The remaining qualification is localized. To identify the co..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The characterization theorem establishes the dilation equiva..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: No laboratory observer occupies the thermal limit completely..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The C2 limit therefore illuminates a different structural po..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A corollary, stated carefully: what the framework requires i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Together, the limits characterize the kind of observer we ar..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This reframing has consequences for the framework's empirica..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A small such game deals the write-then-read mechanism of the..."
     },
     {
       "ok": true,
@@ -1376,11 +1524,23 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A5) Linearity.* The wave equation governing $\\varphi$ is l..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Stage 2: From deterministic embedding to specific lattice ..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The dimension argument follows the three-filter convergence ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: T-invariance of the bijection $\\varphi$ combined with detail..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The theorem's content is striking. From the empirical inputs..."
     },
     {
       "ok": true,
@@ -1404,6 +1564,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The horizon-clock projection: the arrow of time.** A third..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The cosmological horizon entropy provides a structural clock..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Chapter 3 develops the framework's philosophical positioning..."
     },
     {
@@ -1420,7 +1588,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: A concrete example clarifies the structural distinction. Con..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This structural distinction has implications for several con..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A subtlety in Level G2 deserves explicit treatment. The *uni..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Level G3: substratum observational equivalences.** Theorem..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: At Level G2 × Level D — a narrower intersection in the gauge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Level G2 × Level D predictions — the Standard Model gauge gr..."
     },
     {
       "ok": true,
@@ -1496,6 +1684,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The bill, paid in the open.** A deterministic substratum t..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The characteristic trait.** Schrödinger called entanglemen..."
     },
     {
@@ -1540,6 +1732,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's general rule is *group structural, couplings..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework is a hidden-variable theory in the literal sen..."
     },
     {
@@ -1576,7 +1772,23 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Leading Lorentz-invariance-violation coefficient.* The fram..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Solution-specific properties.** The framework derives the ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The choice among representatives related by the stated fixed..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The equilibrium phase of $(S, \\varphi)$.* Chapter 1's centr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: These silences are structural rather than methodological. Th..."
     },
     {
       "ok": true,
@@ -1600,7 +1812,71 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Center independence, beyond setting the mass to zero in the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Chapter 5 derived the gauge structure of the Standard Model ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: At the group-theoretic level, the Standard Model gauge group..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This chapter develops seven structural results. Section 7.2 ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **An independent route to the same conclusion.** The necessi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content in the Bekenstein-Hawking sector ext..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The dispute between Hawking's calculation (thermal radiation..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The Page curve from cycle typicality.** The framework's de..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This conjectured correspondence — replica wormholes $\\leftri..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Both approaches require *something* to play the role of typi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The identification holds up to a convention-dependent numeri..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework shares the starting point of these results: th..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The gravitational sector combines unconditional partition-ge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Forward pointers.** Chapter 9 develops the framework's uni..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Chapters 5 through 8 developed twenty-two classified Standar..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 9.7 develops the Danielson-Satishchandran-Wald (DSW)..."
     },
     {
       "ok": true,
@@ -1609,6 +1885,42 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Finiteness.* The substratum $S$ has finite cardinality. Thi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Deterministic bijection.* The substratum dynamics $\\varphi:..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Four universality-class entries tested against current empir..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's Tier 2 content includes the Standard Model g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Why the tier stratification matters.** The stratification ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The three tiers contain nineteen entries of unequal evidenti..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where the framework extends DSW.** The framework's content..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The mechanism proposal predicts that capacity-controlled sys..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The BEC analogue-gravity setup of Chapter 15 is precisely a ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content across Chapters 5 through 8 establis..."
     },
     {
       "ok": true,
@@ -1672,6 +1984,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The Markovian character of ordinary chemistry follows from t..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 12.7 develops the structural chain from intelligence..."
     },
     {
@@ -1688,11 +2004,259 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 13.7 develops the restricted quantum-statistical reg..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 13.9 closes the chapter with the framework's overall..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content in this chapter is empirically engag..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Empirical access.** The framework's reading is empirically..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Empirical status.** The framework's predictions are *consi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's prediction.** Photosynthetic exciton trans..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Empirical implications.** The framework's content predicts..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Quantitative testability.** The framework's prediction goe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The diagnostic experiments are within reach of current singl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 13.7 The restricted quantum-statistical regime in biology..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content on quantum biology includes a struct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The regime's empirical signature.** A memoryless (Markov) ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Biological systems in the restricted quantum-statistical r..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The proposal's conjecture is that *biological systems show p..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The empirical access.** Testing the prediction of the rest..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's distinctive falsification target in quantum ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's distinctive content.** The restricted quan..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Quantitative predictions that the framework makes.* The spe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Predictions for future empirical work.* The restricted quan..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Operational closure (a model hypothesis).** The computatio..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The standard dilation picture motivates the model choice — m..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: One refinement sharpens the exposure from principally negati..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The depth of computation is bounded too, and by the same con..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This chapter develops the framework's content in *engineered..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 15.7 develops the restricted quantum-statistical reg..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: By tuning the chain length $L$ — the lengths below are illus..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: - Short chain ($L \\lesssim 5$, $\\tau_B \\sim \\tau_S$): how fa..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: - Long chain ($L \\gtrsim 20$, $\\tau_B \\gg \\tau_S$): memory-b..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Whether a record survives to readback depends on the chain's..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The platform is testable on existing technologies: supercond..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 15.7 The restricted quantum-statistical regime in enginee..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Beyond the revival effects developed in §§15.3-15.6 where a ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The structural condition.** C3 is sufficient memory capaci..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: In engineered systems, the hidden capacity is *controllable*..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's prediction.** In the restricted quantum-st..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Multi-time joint distributions.* The joint probability dist..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Memory saturation.* Accessible memory is capped by hidden c..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Capacity dependence.* The mechanism proposal's model gives ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The functional form distinguishes the proposal's prediction ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where the restricted quantum-statistical regime is accessi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Engineered spin chains.* Short spin chains ($L \\sim 5$-10) ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Designed photonic systems.* Photonic crystals with engineer..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Diagnostic measurements.** The mechanism proposal's predic..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's cleanest near-term test of the proposed capa..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's modification.** The framework's content go..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The capacity is controllable through the supersonic region's..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This expression has *no free parameters* once the experiment..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 4. Compute the temporal autocorrelation $G_{\\text{sub}}^{(2)..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 5. Alternatively, prepare two initial perturbations and trac..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *C2 test.* Fixed $L_{\\text{super}}$, variable flow velocity...."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Thermal test.* Variable condensate temperature, fixed geome..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Feasibility.** The predicted effect is not a small correct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The dominant noise source in BEC analogue experiments is ato..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Standard Bogoliubov-de Gennes theory* predicts thermal occu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Relation to DSW horizon decoherence.** The BEC analogue-gr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The convergence is theoretical. DSW derive within standard p..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A positive result confirming the framework's prediction $\\ma..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A null result with the framework's specific quadratic functi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 4. *Restricted quantum-statistical regime.* Engineered syste..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: 5. *BEC analogue-gravity test.* A specific tabletop experime..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Structurally consequential.* The restricted quantum-statist..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework predicts that aging-associated gene expression..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's reach across Chapters 13-17 — quantum biolog..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 18.2 develops the framework's *account* of the Born ..."
     },
     {
       "ok": true,
@@ -1704,7 +2268,63 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 18.3 The quantum-classical boundary and the restricted qu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's account is structurally different. The bound..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A system implementing C1–C4 with all four conditions strongl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The restricted quantum-statistical regime.** The mechanism..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: By definition the regime lies strictly between no revival ($..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Partial distinguishability revival itself is standard open-s..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where to look for the restricted quantum-statistical regim..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content is not \"quantum effects in biology\" ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Observational signatures.** Single-molecule enzyme experim..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The distinction is empirically testable. A memoryless (divis..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The restricted quantum-statistical regime is the mechanism p..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Bell's theorem and the chosen nonlocality.** Bell does not..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content on the quantum gravity problem exten..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The second component: the black hole information paradox.*..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: On the framework's reading, the non-renormalizability of per..."
     },
     {
       "ok": true,
@@ -1716,11 +2336,23 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Finite information content.** The substratum's information..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Exact finite recurrence.** A bijection $\\varphi$ acting on..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -1760,15 +2392,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
-    },
-    {
-      "ok": true,
       "predicate": "chapter line mirrored in FULL: The conceptual content is significant. The framework predict..."
-    },
-    {
-      "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -1776,7 +2400,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Second, the framework's finiteness *does not require* compac..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Direction 1: Consciousness requires observation.* Any consc..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Testable forward predictions.* The restricted quantum-stati..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Structural commitments with limited empirical access.* The ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Cumulative case.** The framework's content across the empi..."
     },
     {
       "ok": true,
@@ -1784,7 +2428,23 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: This section develops the framework's claimed resolutions, d..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's treatment has three components, developed as..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Developed in:* Chapters 1, 7, and 18. The three components ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Framework status.** Observer-relative account. In the prop..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Framework status.** Information is conserved by the biject..."
     },
     {
       "ok": true,
@@ -1792,7 +2452,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Two results bear on this question. A symmetric-integration a..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This premise has a second dependency alongside the partition..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *conditionally*: within complex matrix kinematics taken as g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | BH information paradox | Hawking vs unitarity | Not resolv..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Condensed matter and many-body physics.* The framework deri..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's epistemic position.** The cumulative recor..."
     },
     {
       "ok": true,
@@ -1808,11 +2488,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Axiom 2 (Finiteness).** The framework's foundational assum..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Bell-inequality violations.** Empirical correlations excee..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Born rule.** The quantum-mechanical prescription that the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **C2 (Memory persistence).** A physical-regime premise rathe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **C3 (Hidden-sector capacity).** The second of the framework..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **C4 (History readback).** The third of the framework's thre..."
     },
     {
       "ok": true,
@@ -1828,7 +2524,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Page curve.** The time-dependence of black-hole entangleme..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Partition-relativity.** The framework's structural feature..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Restricted quantum-statistical regime.** The mechanism pro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -1841,6 +2549,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's value depends on what follows from this reve..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Recommended.** Chapter 10 (chemistry derivation, providing..."
     },
     {
       "ok": true,
@@ -2046,6 +2758,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "bb4c45465eb42efadf05ea7fbc2437417b2cec8d5d2bad5a71e19d6a638806f6",
+  "site_table_sha256": "ba9c899c2c75c659b3bff32a32b6e106937c5bf46153f97bd11112870a50cf1b",
   "verdict": "PASS"
 }
