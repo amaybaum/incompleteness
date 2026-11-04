@@ -1055,16 +1055,16 @@ by an independent reviewer from `main` alone.
      stated;
    - **support off `main`:** a gap.
 
-   "Provenance only" is a finding about each reference, never a label applied to a group of them.
-   A record that says a result is proved from, inherits, uses or preserves another record's result
-   cites support. A claim about commits, such as their order or ancestry, uses those commits, and
-   copying their files to `main` does not make them reachable from it. A gap is closed no later
-   than the record lands (item 2): by landing the content the claim needs, or, for a mutable record,
-   by narrowing the claim (item 6). Keeping the branch that holds the content does not close a gap.
-   Neither does assigning it to an Issue, which records responsibility, not retention. A gap that
-   cannot be closed lands only by a recorded owner decision, quoted as item 7 requires; it is then
-   an exception to item 2 for that claim alone, and the landing names on `main` the claim it leaves
-   unsupported.
+   "Provenance only" is a finding about each reference, never a label applied to a group of them. A
+   record that says a result is proved from, inherits, uses or preserves another record's result
+   cites support. A result, control or verdict that depends on commits, such as on their order or
+   ancestry, uses those commits, and copying their files to `main` does not make them reachable from
+   it. A gap is closed no later than the record lands (item 2): by landing the content the claim
+   needs, or, for a mutable record, by narrowing the claim (item 6). Keeping the branch that holds
+   the content does not close a gap. Neither does assigning it to an Issue, which records
+   responsibility, not retention. A gap that cannot be closed lands only by a recorded owner
+   decision; a record on `main` quotes it with its author and time (item 7) and names the claim it
+   leaves unsupported, and it is then an exception to item 2 for that claim alone.
 
 Records frozen under this section's earlier form, and rounds frozen at `F` under it, keep the form
 under which they were frozen; a preregistration is not reinterpreted. That form is `AGENTS.md` at
