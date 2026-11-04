@@ -1,0 +1,22 @@
+{
+ "schema": "oret-phase-a-run-identity/1",
+ "event_name": "workflow_dispatch",
+ "ref": "refs/heads/research/o-ret-phasea-tool-20261104",
+ "sha": "71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5",
+ "confirm_commit": "71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5",
+ "run_id": 41813302146,
+ "run_attempt": 1,
+ "workflow": "O-RET Phase A",
+ "workflow_ref": "amaybaum/incompleteness/.github/workflows/oret-phasea.yml@refs/heads/research/o-ret-phasea-tool-20261104",
+ "repository": "amaybaum/incompleteness",
+ "checkout_head": "71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5",
+ "F": "49f0bd41c5323d2191b580460c8703740dd01b30",
+ "checks": {
+  "event_is_workflow_dispatch": true,
+  "confirm_commit_is_40_lowercase_hex": true,
+  "sha_equals_confirm_commit": true,
+  "first_attempt": true,
+  "checkout_head_equals_sha": true
+ },
+ "launch_conditions_hold": true
+}
