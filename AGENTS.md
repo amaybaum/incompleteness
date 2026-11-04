@@ -1046,9 +1046,9 @@ by an independent reviewer from `main` alone.
    claims, and no separate retention pull request is needed. An owner designation a record relies
    on is quoted in that record with its author and time.
 8. **Trace every off-`main` reference.** Before a record lands, every reference it makes to content
-   not on `main`, such as a commit, branch, pull request, Issue, comment, CI run or path, named by id
-   or by number, is traced to the claim it is attached to. Each reference is classified by reading
-   that claim:
+   not on `main`, such as a commit, branch, pull request, Issue, comment, CI run or path, named by
+   id or by number, is traced to the claim it is attached to. Each reference is classified by
+   reading that claim:
    - **provenance:** the claim does not use the referenced content;
    - **support on `main`:** the content the claim uses (for a result proved elsewhere, its proof) is
      on `main` and supports the claim as it stands there; any difference from the cited version is
