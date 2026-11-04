@@ -50,5 +50,47 @@
   ],
   "on_later_trees": "Run in place on a later main, the controls report freeze.ok false, untouched_oibridge pass false, an added void reason 0(ii) and scientific_finding.status \"withheld: 0(ii)\", because the other OIBridge modules have changed since 5914c17c. That outcome is the frozen freeze check working as designed. It does not revise the recorded result.",
   "kernel_controls_on_main": "PC1Controls.lean and F2CoherenceControls.lean are built by main's Lean CI (Mathlib bridge: Build, Release gate with #print axioms) like every other OIBridge module.",
+  "review_records": {
+    "note": "The frozen records amendments/PC-star-disposition.md:19 and :30 and amendments/PC-S2-C13.md:162 state that PC-1's paper proofs, screening finding and paper steps were independently reviewed. The reviews of the preregistration (948b30c1) and of the amendments PC★, PC-S2 and PC-S2-C13 are reported in the four PR #1022 comments below, with the verdicts as each states them. Each comment is author-posted; its reviewer is not named on main.",
+    "comments": [
+      {
+        "url": "https://github.com/amaybaum/incompleteness/pull/1022#issuecomment-6546832339",
+        "posted": "2026-10-31T17:35:43Z",
+        "header": "PC-1 preregistration: confirmed for freeze at `948b30c10e575aec2f449f97428192c4bba2628f`",
+        "verdicts": [
+          ["b8738f71", "REVISE (1 blocker)"],
+          ["8ac3c9d7", "REVISE (2 additions)"],
+          ["948b30c1", "CONFIRM FOR FREEZE"]
+        ]
+      },
+      {
+        "url": "https://github.com/amaybaum/incompleteness/pull/1022#issuecomment-6546971199",
+        "posted": "2026-10-31T17:47:37Z",
+        "header": "PC-1 stage 1: PC★ confirmed for freeze at `72b4af27`. Outcome: **INCONCLUSIVE (gap)**, row 1, pending a controls-only stage 2",
+        "verdicts": [
+          ["3e41056d", "ACCEPT WITH CHANGES; gap correct"],
+          ["72b4af27", "CONFIRM PC★ FOR FREEZE"]
+        ]
+      },
+      {
+        "url": "https://github.com/amaybaum/incompleteness/pull/1022#issuecomment-6547246139",
+        "posted": "2026-10-31T18:11:12Z",
+        "header": "PC-1 stage-2 amendment PC-S2 confirmed for freeze at `4d2c4d56a855decd6ab80a3b512f9f5f7e7cc8fe`. Execution waits for an owner decision on C13",
+        "verdicts": [
+          ["341b8a78", "ACCEPT WITH CHANGES"],
+          ["4d2c4d56", "CONFIRM FOR FREEZE"]
+        ]
+      },
+      {
+        "url": "https://github.com/amaybaum/incompleteness/pull/1022#issuecomment-6547450781",
+        "posted": "2026-10-31T18:29:19Z",
+        "header": "PC-1 C13 correction accepted at `895e5c5b1ca99a5efcbab643417cdf1a7c421a8a` (owner option 1). One reading decision remains before stage 2",
+        "verdicts": [
+          ["68b6b900", "ACCEPT WITH CHANGES"],
+          ["895e5c5b", "ACCEPT"]
+        ]
+      }
+    ]
+  },
   "provenance": "PR #1022 at 99dce4b6087d74842d8b0cf032ec1bbe2bbb9b4d; owner decision D-72 (#914 comment 6625889194). Replay verified on 2026-11-04 in normal and -O modes for all three commands."
 }

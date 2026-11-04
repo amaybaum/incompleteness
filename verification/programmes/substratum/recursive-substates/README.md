@@ -47,7 +47,7 @@ A minimal new Lean module may certify (i) finite-family maximum-depth aggregatio
 
 ## Native sourcing and scope
 
-The real OI cubic wave carrier and observer-access constraints are not modified here. SUBSTATE-1 rejected one pure site-gradient link candidate and showed a separately invented gauge-pointer toy can be reversible and covariant without supplying quantum mechanics. SUBSTATE-2 tests a different *structure hypothesis*. SUBSTATE-1 Track A has been independently accepted; SUBSTATE-2 still does not import those constructions as axioms or copy their physics claims (see also #1007 comment 6529586144 for a parallel consistency note).
+The real OI cubic wave carrier and observer-access constraints are not modified here. SUBSTATE-1 rejected one pure site-gradient link candidate and showed a separately invented gauge-pointer toy can be reversible and covariant without supplying quantum mechanics. SUBSTATE-2 tests a different *structure hypothesis*. SUBSTATE-1 Track A ([`cubic-wave-revival.md`](../continuous-substates/cubic-wave-revival.md) and `cubic_wave_revival_probe.py`, both unchanged since `7c4e45f7`) is reported as independently accepted at `7c4e45f7`, for the paper-level compact-torus/distributed-readout construction and its bounded exact controls, in [#1009 comment 6533749426](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6533749426); the inspected record contains the author's review summary, and reviewer identity and a retrievable reviewer-authored verdict remain unresolved. SUBSTATE-2 still does not import those constructions as axioms or copy their physics claims (see also #1007 comment 6529586144 for a parallel consistency note).
 
 **Verdicts to record:** A is a negative control, B1 a positive finite-depth memory control, B2 a positive all-depth-over-time/no-common-return control, C a gauge-kinematic but action/operational negative control. All require independent review before moving from research to manuscripts. No merge or special CI launch is authorized.
 
@@ -221,6 +221,54 @@ fractal-alphabet shortcut without prohibiting a
 sourced cross-scale physical mechanism. Do not
 promote it to any OI manuscript claim.
 
-For F2-1's unchanged scoped gap result, read frozen A★ alongside the
-[post-closeout G★ correction](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546748788).
-The correction does not alter the thirteen-rule outcome; F2/L3 remain open.
+**F2-1 status** (`f2-1-coherence-sourcing/`; its preregistration and amendments are frozen
+and are not edited):
+
+- **Run 1** (`stage2/`, commit `05ecc8732160736b538b422114a5a1738d682c16`) is
+  `INCONCLUSIVE (void)` under clause 0(v) (`f2-1-coherence-sourcing/preregistration.md:220`):
+  its `Build` step failed (`f2-1-coherence-sourcing/amendments/A-star-1.md:12–14`;
+  `f2-1-coherence-sourcing/stage2/run-2/RESULT.md:5–7`; the errors are listed in
+  `f2-1-coherence-sourcing/stage2/run-2/PROOF-REPAIRS.md:7–12`; provenance: pull-request CI run
+  41220197866). The preserved `stage2/RESULT.md` records no token ("None yet", :89) and states that a failed
+  step gives `INCONCLUSIVE (void)` (:93). Run 1 records no review; its outcome follows from
+  the frozen rule.
+- **Run 2** (`stage2/run-2/`) is `INCONCLUSIVE (gap)`, scoped to the thirteen screened rules
+  (`stage2/run-2/RESULT.md:121`, `:129–130`). It is not a no-go; F2/L3 remain open. Its
+  review is author-reported; reviewer identity and a retrievable reviewer-authored verdict are
+  unresolved (`stage2/run-2/RESULT.md:125`; provenance:
+  [#1011 comment 6556076022](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6556076022)).
+
+**G★ item 2 is refuted in part.** Frozen A★ (`f2-1-coherence-sourcing/amendments/A-star.md:144–148`)
+states that "no diagonal unitary commuting with the computed readout projectors conjugates
+`G_Θ` into either class" and that "This is necessary for `R`." The necessity fails for the
+ones-fixing class:
+
+- for `D = diag(1, i)`, which commutes with the readout projectors, `D†·rot·D` lies in
+  `onesClass`: kernel theorem `OIBridge.PC1Controls.gauged_rot_mem_onesClass`
+  (`verification/lean-mathlib/OIBridge/PC1Controls.lean:132`);
+- every architecture containing `rot` has `R`: kernel theorem
+  `OIBridge.PC1Controls.falsifier_available_of_mem` (`PC1Controls.lean:324`), with `R` as
+  F2-1 defines it (`f2-1-coherence-sourcing/preregistration.md:83`).
+
+Both theorems are built on `main`; the argument is finding PC-F1
+(`verification/programmes/oi-qm/reconstruction/physical-coupling-pc1/preregistration.md:87–100`).
+The necessity holds for item 2's clause without a gauge and for the nonnegative half of its
+gauge clause (PC-F1, `:99`; for `rot`, kernel theorem
+`OIBridge.PC1Controls.scaled_rot_not_gauge_nonneg`, `PC1Controls.lean:164`). The necessity of
+the gauged ones-fixing condition for `R` is not a valid premise; PC-F1 keeps that condition as
+an L2 requirement, met by every generated class with `P` (`:96–98`). Records that cite G★
+item 2 as written, among them MR-1's frozen
+`verification/programmes/oi-qm/reconstruction/measurement-record-formation/preregistration.md:99`
+and `:638–639`, cite the stronger form. Run 2's token is unchanged: its criterion is that
+stage 1 fixes no admissible `Θ★` (`f2-1-coherence-sourcing/preregistration.md:221`), and the
+screened candidates fail G★ items 1 and 3 (`amendments/A-star.md:180–183`), not item 2. The
+finding was first reported in
+[#1011 comment 6546748788](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546748788).
+Amendment A★-1 is recorded as accepted at `fdeeb2d5`
+(`f2-1-coherence-sourcing/stage2/run-2/RESULT.md`, `PROOF-REPAIRS.md`); its
+acceptance by an independent reviewer at that exact SHA is author-reported in
+[#1011 comment 6546255438](https://github.com/amaybaum/incompleteness/pull/1011#issuecomment-6546255438).
+The SUBSTATE-2 acceptance at `c811e876` that F2-1's `preregistration.md` cites
+is the re-review reported in #1011 comment 6543745746 above. For both, the
+inspected record contains the author's review summary; reviewer identity and a
+retrievable reviewer-authored verdict remain unresolved.
