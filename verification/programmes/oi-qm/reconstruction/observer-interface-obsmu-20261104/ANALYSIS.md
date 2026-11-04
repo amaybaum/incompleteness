@@ -4,7 +4,9 @@
 #866 c.6642599988. Revised after the independent reviews of `1a796918` (#1110 c.6643202940) and `9a34c823`
 (#1110 c.6643501421). The final review of `cd15123b` (#1110 c.6643749363) returned ACCEPT, and
 that verdict applies to `cd15123b` only. This head adds the non-blocking corrections and §4.6
-(the (4a)/(4b) split), under the owner's bounded extension (#866 c.6643823627). The disposition of each point is in the #1110 checkpoint
+(the (4a)/(4b) split), under the owner's bounded extension (#866 c.6643823627). The extension
+at `478451b5` was reviewed in #1110 c.6644159894 (ACCEPT WITH CHANGES), and this head applies
+those changes. The disposition of each point is in the #1110 checkpoint
 comments. The reviews are model-authored records off `main`. This note cites them as provenance,
 not as verification of any result (§A.46 item 7). No computation was run.
 Nothing here has been independently reviewed at this revision. No statement here is a premise of
@@ -103,7 +105,7 @@ downstream paper.
 | **(1) Preparation** | Main:60: a realization "carries its own fixed hidden prior `μ_H` as part of the realization datum" (stated datum). For finite `𝐑` under H-μ, every region is uniform and disjoint regions are independent at equal times (Lemma P-1, PD-here). | For rooted laws with a full-support visible prior, conditioning on the observed initial value replaces preparation (§3.5, PD-here). | O-RDY (#914 row O-RDY). No process on K1 writes a chosen value into a region (MR★:637). | The structured `μ_H` is supplied, not sourced (ROF Q3(ii)). |
 | **(2) Selectable interactions** | The controlled lift `F(x, s) = (T_s x, s)` conserves `s` (MR-pre:115, N7; a frozen record). | On K1, a setting region changes every other region only by an additive offset that does not depend on the carrier's state. This is the identity part of Lemma D (MR★ S-L1, S-C1, :479–509; PD in a frozen record; re-derived here, PD-here). Counting offsets as non-selectable needs premise D-SEL, and O-SET's definition is open. | O-SET, DEFINITION-OPEN (#1009). Non-additive native-type rules are unscreened (MR★:667, σ12). | Additivity is Substratum A5, "partly derived" from amplitude-scale gauge, an "explicit operational principle" (Substratum:100, :272) (b-stated). |
 | **(3) Accessible outcomes** | A finite outcome alphabet: Main Definition and Lemma 1 (Main:44, :48; PD with an external holographic input). The readout is configuration-sector (Main:222). Region readout: KC definition `cutRealization` (`PhysicalC4Discharge.lean:582`). | For finite `𝐑`, under H-μ and K1 with a homomorphic readout, conditional next-step laws are flat on cosets of a history-independent subgroup (Proposition C, PD-here). | O-ACC: whether one retained tick is native or a convention (#914 row O-ACC). | The cut exists (a): Main:38–40, :50. The product form is (b-stated): "idealized" (Main:54). A finite readout does not imply a product (§4.1, Q4, PD-here). |
-| **(4) Readable, persistent records** | MR-1 stage 1 gives a scoped `GAP` (MR★ §M.1, a frozen record). | On K1, no confined pattern lasts beyond about twice its width (MR★ S-L4, S-C4a, :528–571). PD in a frozen record, not independently reviewed. Hypotheses: `ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective. This excludes confined patterns only. It does not show that localized records are impossible: MR★ §S.4(a)'s trace route is not refuted. | O-RET (#1032), O-REC (#866). | Finite recurrence bounds every budget (MR★ S-L6). |
+| **(4) Readable, persistent records** | MR-1 stage 1 gives a scoped `GAP` (a frozen record). After its correction round, the named element is "the absence of a physically sourced quiet, ready region" (MR★ C-3, :1342–1371; C-14, :1491–1505). MR★ C-2 (:1322–1340) withdraws the claim that localized records are impossible. | On K1, no confined pattern lasts beyond about twice its width (MR★ S-L4, S-C4a, :528–571). PD in a frozen record. MR★:1297–1299 reports that a review verified it "by case analysis"; it is not re-verified here. C-10 corrects the slice count and C-11 the torus lift. Hypotheses: `ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective. This excludes confined patterns only. It does not show that localized records are impossible (C-2), and the trace route is `UNDECIDED` (C-4, :1373–1380). | O-RET (#1032), O-REC (#866). | Finite recurrence bounds every budget (MR★ S-L6). |
 
 ## 3. The routes, depth-first
 
@@ -164,9 +166,10 @@ and the readout slice are (b-stated).
     - **H-OC_orb (b-stated):** the measure is the maximal-entropy *invariant* measure compatible
       with the observer's records, which excludes observer-lacking orbits (Main:62,
       :726 (iv); ch01:85).
-    - **CR_rec (b-stated):** conditioning the stated measure on the observer's own record events
-      at a time slice. Main uses this to define transition probabilities (Main:88, :99, :105).
-      This refinement is introduced in §4.6.2 Q-b.
+    - **CR_rec (b-stated, construction step; proposed, pending D-OB7):** the conditional of the
+      stated measure on the observer's present visible value (Main:88, :105), and the hidden
+      posterior after a visible history within a given realization (Main:99). These lines define
+      predictive quantities given a law. They are not a measure-selection rule. See §4.6.2 Q-b.
     - **CR_slice (b-new):** conditioning on a stipulated event at a time slice that goes beyond the
       observer's records. No source states one.
 - **S.2.4, why orbit-level conditioning cannot give a preparation.**
@@ -180,9 +183,10 @@ and the readout slice are (b-stated).
     - **(i)** supplied directly as a realization datum. Main:60 allows "its own fixed hidden prior
       `μ_H`", and Main:524 gives a structured state-level prior, "uniform on the initialized
       ledger/clock sector times the tape".
-    - **(ii)** derived from the canonical measure by conditioning at a time slice: CR_rec
-      (b-stated) if the event is the observer's own record, CR_slice (b-new) if the event is
-      stipulated beyond the records (§4.6.2).
+    - **(ii)** derived from the canonical measure by conditioning at a time slice. On the
+      observer's own visible record this is CR_rec (proposed, pending D-OB7). Conditioning on an
+      event stipulated beyond the records is CR_slice (b-new). Either way, reading the result as a
+      preparation law is the further identification H-PREP (§4.6.2).
   - Route (i) needs no new rule. Its content, which particular state-level law, is supplied, not
     sourced.
 - **S.2.5, related statements in the corpus** (a §A.19 search).
@@ -238,10 +242,15 @@ and the readout slice are (b-stated).
     patches (I2, open) or cross-time routes". It also forbids assuming "a record that supplies
     readiness (Z1)" (#914 c.6563412926, row 1′).
   - Read through CR_slice on a stipulated readiness event, the μ leg needs the readiness event
-    that O-RDY supplies, so that route is circular. Read through CR_rec, it needs retained records
-    (O-REC), which §4.6.2 examines.
+    that O-RDY supplies, so that route is circular.
+  - Read through CR_rec, it needs retained records (O-REC). On K1, MR★ C-3 (:1342–1371) places
+    the record-formation gap at the unsourced ready region. C-4 (:1373–1380) records the trace
+    route as blocked by C-3, and #914 row 1′ forbids assuming a record that supplies readiness
+    (Z1).
+  - So the CR_rec route has not been shown to be non-circular against O-RDY: μ-leg preparations
+    need CR_rec, CR_rec needs O-REC, O-REC needs O-RDY, and O-RDY needs the μ leg.
   - The named-prior option, conditioned patches and cross-time routes are not circular. So no
-    circularity forces O-OBSMU to come before O-RDY.
+    circularity forces O-OBSMU to come before O-RDY, provided one of those routes is used.
   - Status: ELABORATING.
 
 **Verdict S.2.** The μ leg is not sourced from the axioms. Main supplies a measure only through
@@ -436,23 +445,40 @@ identity in the state `s`, and so it holds under every `μ`.
   - Offsets compose to non-commuting affine maps (`T_s T_{s′} ≠ T_{s′} T_s` in general).
   - So whether they count is a question for O-SET's open definition (#1009), not a fact about
     `μ`.
-- **S-L4 (MR★:531–562).** PD in a frozen record, not independently reviewed. Its hypotheses:
-  `Λ = ℤ^d` with nearest neighbours, or a torus with `N ≥ 5w + 2`, and `a` injective on `𝐑`.
+- **S-L4 (MR★:531–562), as corrected by C-10 (slice count, :1441–1448) and C-11 (torus lift, :1450–1462).** PD in a frozen record.
+  - **Review status.** MR★:1297–1299 records that the review of `fc68d333` "verified S-L1, S-L3,
+    S-L4 (case analysis)". This note has not re-verified S-L4.
+  - **On "unreviewed".** The earlier reviews of #1110 called S-L4 "unreviewed". That is not
+    accurate: the frozen record reports a review. Under §A.46 item 7, though, that report does
+    not count as verification here, so S-L4 is used only as a named premise.
+  - **Hypotheses.** `Λ = ℤ^d` with nearest neighbours, or a torus with `N ≥ 5w + 2` (via C-11's
+    cylinder lift), and `a` injective on `𝐑`.
 
 **Scope of the K1 obstruction.** It concerns two things under the native linear rule:
 
 - **Selectable interactions.** Under D-SEL, no `(Obs, μ)` on K1 supplies capacity (2).
 - **Interference destruction.** On K1, marking leaves the carrier's transfers unchanged, so a
-  record does not cause interference loss (MR★ S-L5, :584–593; PD in a frozen record, re-read
-  here, not independently reviewed).
+  record formed by the interaction does not cause interference loss (MR★ S-L5, :584–593, as
+  reworded by C-9, :1433–1439).
+  - S-L5 is PD in a frozen record. It is not among the lemmas MR★:1297–1299 reports as verified.
+  - It is re-read here, not independently reviewed.
+  - It follows from S-L1, the additivity identity re-derived in Lemma D, so it is conditional on
+    neither D-SEL nor S-L4.
 
-Under S-L4 (unreviewed; `ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective), no confined
-pattern on K1 persists beyond about twice its width, for any `(Obs, μ)`.
+Under S-L4 (review reported in the frozen record, not re-verified here; `ℤ^d`, or a torus with
+`N ≥ 5w + 2`, and `a` injective), no confined pattern on K1 persists over `2w + 2` consecutive
+slices (C-10), for any `(Obs, μ)`.
 
-The obstruction does **not** claim that every localized record is impossible on K1. S-L4 excludes
-confined patterns. It does not exclude records held as traces (MR★ §S.4(a): "not refuted here"),
-or other encodings that have not been examined. Every statement here is scoped to K1, and each is
-conditional on D-SEL or S-L4 as named.
+The obstruction does **not** claim that every localized record is impossible on K1.
+
+- MR★ C-2 (:1322–1340) withdraws that claim: a free field leaves a wake.
+- MR★ C-4 (:1373–1380) records the trace route as `UNDECIDED`.
+
+Every statement here is scoped to K1. Each rests on a stated premise:
+
+- the selectable-interaction statement on D-SEL;
+- the confined-pattern statement on S-L4;
+- the interference statement on S-L1 alone, through S-L5.
 
 **Status: ELABORATING** (a reduction of the MR★ §S lemmas).
 
@@ -567,7 +593,7 @@ now group (3), and its low-entropy content is part of (4a) (§4.6.1).
 | Group | Requirement | Classification | Locator |
 | --- | --- | --- | --- |
 | **(1)** | **H-OC_orb:** the measure is the maximal-entropy *invariant* measure compatible with the observer's records; observer-lacking orbits are outside scope | **b-stated** (orbit level) | Main:62; Main:726 (iv); ch01:85 |
-| **(2a)** | **CR_rec:** conditioning the stated measure on the observer's own record events at a time slice | **b-stated** | Main:88, :99, :105 (§4.6.2 Q-b) |
+| **(2a)** | **CR_rec:** the present-value conditional and the in-realization history posterior | **(b-stated, construction step), proposed, pending D-OB7** | Main:88, :99, :105 (§4.6.2 Q-b) |
 | **(2b)** | **CR_slice:** conditioning on a stipulated event at a time slice that goes beyond the observer's records | **b-new** | Stated nowhere (S.2.3–S.2.4). It drops Q6 unless `φ(R) = R` |
 | **(3)** | **Q11′ category:** a state-level preparation event or law, admitted as starting data | **b-stated** (as a category) | Main:60 ("its own fixed hidden prior `μ_H`"); Main:524 (a structured state-level prior); ch01:85; ch04:170 (initial data "solution-specific"); appC:329. The book states a low-entropy initial condition (ch18:210, FULL:5023–5033) |
 | **(4)** | **G-PREP:** a physical principle that generates the *content* of those events, saying which state-level preparation is realized | **none identified.** Any such principle would be b-new | No source supplies one (S.2.5, "What is missing"). The split into (4a) cosmic data and (4b) laboratory preparations is in §4.6 |
@@ -593,15 +619,17 @@ now group (3), and its low-entropy content is part of (4a) (§4.6.1).
     rule is needed. The content is supplied, not sourced, so L3 and L5 outputs are conditional
     on supplied data. Under ch04:170 they are solution-specific.
   - **Route (ii), conditioning:** derive the preparation law from Q8 by conditioning on an event
-    at the slice. If the event is the observer's own record, this is CR_rec (2a, b-stated). If
-    it is stipulated beyond the records, it is CR_slice (2b, b-new). §4.6.2 tests route (ii)
+    at the slice. If the event is the observer's own record, this is CR_rec (2a, a construction
+    step, proposed, pending D-OB7). If it is stipulated beyond the records, it is CR_slice (2b,
+    b-new). Reading the result as a preparation law is H-PREP (open). §4.6.2 tests route (ii)
     with record events.
 - **The second review's formulation** was "a sourced state-level preparation event, whose
   category is already admitted as data, plus one new slice-conditioning rule". I checked it
   against route (i), and it holds for route (ii) only. Route (i) needs no new rule. So the
   slice-conditioning rule is needed only to obtain the preparation law *from the canonical
-  measure* on stipulated events. §4.6.2 refines this: for the observer's own record events,
-  Main already uses the conditional (CR_rec).
+  measure* on stipulated events. §4.6.2 proposes a refinement, pending D-OB7: for the observer's
+  own visible data, Main already defines the conditional (CR_rec, a construction step). Using it
+  as a preparation law is H-PREP.
 - **Either way, group (4) is missing.** No physical principle generating the content of the
   preparation event is identified in the corpus. This note does not supply one.
 - **Not shown minimal.** This note does not show that no smaller ingredient serves.
@@ -690,7 +718,8 @@ authorized here.
 
 **Origin.** The final review of `cd15123b` (#1110 c.6643749363) raised a hidden-assumption marker:
 group (4) may split into cosmic initial data (4a) and laboratory preparations (4b). The owner
-authorized a bounded, paper-only examination (#866 c.6643823627), quoted: "Determine which parts
+authorized a bounded, paper-only examination (#866 c.6643823627, which quotes amaybaum, Claude
+Code session chat, 2026-11-04; the record was posted 2026-11-04T22:31:55Z): "Determine which parts
 are gauge choices, which are genuine physical inputs, and which remain unexplained"; "A positive
 answer to the first question does not establish the other two"; "My preferred direction is to
 reduce the number of independent assumptions wherever a genuine derivation is possible, rather than
@@ -717,19 +746,26 @@ proof.
 
 **Verdict (4a).**
 
-- **Gauge.** The corpus identifies gauge freedom in two places only: the deep-sector cardinality,
-  for leading-order laws, and the choice of `φ`'s representative within a Theorem-24 class.
-  Neither concerns which configuration is realized. That visible initial data are gauge is
-  uninvestigated (ch19:200).
-- **Physical inputs.** Several inputs enter as hypotheses of particular results: statistical
-  isotropy, the uniform reference class, a product initial state, the expanding phase with
-  horizon growth, and a low-entropy start. They are stated for different results and different
-  state classes. They are not one stated initial datum.
+- **Gauge, for structural data only.** The corpus identifies gauge freedom in two places: the
+  deep-sector cardinality, for leading-order laws, and the choice of `φ`'s representative within
+  a Theorem-24 class. No gauge freedom of the initial *configuration* is identified. ch19:200
+  calls that question uninvestigated.
+- **Physical inputs.** These are of two kinds:
+  - **hypotheses of particular theorems, not asserted data:** the uniform reference class (SM:48,
+    :124) and a product initial state (GR:799);
+  - **stated commitments:** expansion with horizon growth (ch04:30, :32) and a low-entropy start
+    (ch18:214).
+
+  Statistical isotropy (ch19:198) is a stated property whose use there is speculative. None of
+  these is one stated initial datum.
 - **Unexplained.** Which microstate is realized, and the very early universe.
-- **No principle** in the sources read generates the content of (4a). #1112's provisional,
-  unreviewed analysis (c.6643691865; provenance) reports that every "derived" arrow-of-time chain
-  takes its direction from the expanding branch, a low-entropy or product start, or a protocol
-  orientation. This note does not rely on that analysis.
+- **No principle** in the sources read generates the content of (4a).
+- **#1112 is the accountable home for this question** (§A.45 rule 6). Its analysis
+  (c.6643691865) and the independent verification of it (c.6643840329, "SOUND WITH
+  CORRECTIONS") find that no argument in the corpus derives a time direction without an
+  asymmetric input. The inputs they identify are a low-entropy or product start, the expanding
+  branch, and an orientation. Both records are model-authored and off `main`. This note cites
+  them as provenance and does not analyze the arrow further.
 
 #### 4.6.2 (4b) Laboratory preparations
 
@@ -750,8 +786,8 @@ observer's accessible records at a time slice?
 
 **Q-a, mathematics: can the conditional law be defined?**
 
-- **Lemma Q-a1 (PD-here).** `μ(· | A)` is defined iff `μ(A) > 0`.
-  - Under the counting measure, this holds iff `A ≠ ∅`.
+- **Lemma Q-a1 (PD-here).** Take `A ≠ ∅`. Then `μ(· | A)` is defined iff `μ(A) > 0`.
+  - Under the counting measure, this always holds for a nonempty `A`.
   - Under `μ_orb`, it holds by construction, since `A ⊆ U_A`.
 - **Lemma Q-a2 (slice versus orbit; PD-here).** `μ_orb(· | A) = μ_count(· | A)`, the uniform law on
   `A`.
@@ -762,11 +798,18 @@ observer's accessible records at a time slice?
 - **Invariance.** `φ_#(unif_A) = unif_{φ(A)}`. So the conditioned law is `φ`-invariant iff
   `φ(A) = A`. A preparation law at a time is generally not stationary, and that is expected.
 - **Infinite `S`.** There is no counting measure there. Under Haar measure on a compact
-  completion, a cylinder event (one that constrains finitely many sites) has positive measure, so
-  the conditional is defined. Events of measure zero would need regular conditional
-  probabilities, which are not examined here.
-- **Verdict Q-a: yes.** The conditional law is defined on finite `S` for every nonempty record
-  event, and on compact completions for cylinder events. It is not invariant unless `φ(A) = A`.
+  completion, an event constraining finitely many sites has positive measure in two cases:
+  - when `𝐑` is finite;
+  - when the event constrains those sites to sets of positive Haar measure (finite-readout
+    events).
+
+  For `𝐑 = ℤ_p` or `ℝ/ℤ`, an event fixing exact values has measure zero, and conditioning on it
+  would need regular conditional probabilities, which are not examined here.
+- **Verdict Q-a: yes.** The conditional law is defined in two settings:
+  - on finite `S`, for every nonempty record event;
+  - on compact completions, for events of positive Haar measure.
+
+  It is not invariant unless `φ(A) = A`.
 
 **Q-b, supply: does OI supply the records and the conditioning rule?**
 
@@ -786,14 +829,27 @@ observer's accessible records at a time slice?
     marginalizing over the Liouville measure".
   - Main:99 (§1.5): the next-step law after a positive-probability history is the pushforward of
     the hidden posterior given that history.
-- **Refinement of group (2)** (checked against Main:88, :99, :105). Conditioning the stated
-  measure on the observer's own record events, whether its present visible value or its visible
-  history, is the conditional-probability structure Main already uses. Call it **CR_rec**. It is
-  b-stated (group (2a)). What Main does not state is conditioning on stipulated events beyond the
-  observer's records, such as the content of hidden or apparatus sites outside `V`. That is
-  **CR_slice**, b-new (group (2b)).
-  - This refines the earlier classification of the whole slice rule as b-new, which the second
-    review and the owner's decision accepted. The refinement is recorded for the next reviewer.
+- **Proposed refinement of group (2): pending D-OB7.** This was checked against Main:88, :99 and
+  :105, and narrowed after #1110 c.6644159894.
+  - **CR_rec.** It has two parts:
+    - the conditional of the stated measure on the observer's present visible value (Main:88,
+      :105; ROF Q2 and Q4);
+    - the hidden posterior after a visible history within a given realization and its initial
+      law (Main:99).
+  - **Classification of CR_rec: (b-stated, construction step).** These lines define predictive
+    quantities *given* a law. They are not a measure-selection rule.
+  - **CR_slice, b-new (group (2b)).** Conditioning on stipulated events beyond the observer's
+    records, such as the content of hidden or apparatus sites outside `V`.
+  - **Provisional status.** The second review and the owner's decision classified the whole slice
+    rule as b-new. Until D-OB7 is decided, (2a) is proposed, not adopted.
+- **H-PREP, a named hypothesis of the reduction.** A laboratory preparation law is the
+  in-realization conditional of the stated measure on the observer's visible past.
+  - **Main does not state this.** Main uses the history posterior for memory witnesses (§1.5),
+    not as a preparation law.
+  - **Main and ROF treat preparations otherwise.** They treat structured hidden preparations as
+    realization data: Main:60, "its own fixed hidden prior `μ_H` as part of the realization
+    datum"; ROF Q3(ii) (ROF:73), "structured `μ_H` is allowed as realization/preparation data".
+  - **Status.** H-PREP is the reduction's own reading. Its status is open, and it is not adopted.
 
 *(ii) The records.*
 
@@ -810,8 +866,14 @@ observer's accessible records at a time slice?
   posterior (Main:99).
   - For this to be the observer's *accessible* record at `t_0`, `V` must hold at `t_0` a record
     of its past values. That is retention: O-RET, O-REC and O-ACC, all open.
-  - Retention is not excluded on K1. S-L4 (unreviewed) excludes only confined patterns, and the
-    trace route is not refuted (§3.6).
+  - Retention is not excluded on K1. S-L4 excludes only confined patterns, MR★ C-2 withdraws the
+    impossibility claim, and the trace route is `UNDECIDED` (C-4).
+  - On K1, however, retention is not independent of O-RDY.
+    - MR★ C-3 (:1342–1371) places the record-formation gap at "the absence of a physically
+      sourced quiet, ready region".
+    - C-4 (:1373–1380) records the trace route as "blocked at stage 1 by C-3".
+    - #914 row 1′ forbids assuming a record that supplies readiness (Z1).
+    - So this route has not been shown to be non-circular against O-RDY (S.2.6).
 - **Lemma Q-b2 (mirror; PD-here).** Setting: `σ` is an involution of `S` that preserves the
   counting measure and satisfies `σφσ = φ⁻¹`, `A` is an event with `μ(A) > 0`, and
   `σ(A) = φ^m(A)` for some integer `m`. Then for every `t ≥ 0` and every `B ⊆ S`,
@@ -830,21 +892,36 @@ observer's accessible records at a time slice?
       `σ(A) = {u_prev|_X = r} = φ(A)`, so `m = 1`.
     - So the law this conditioning retrodicts at `−t` is the mirror image, under `σ`, of the law
       it predicts at `t + 1`.
-  - *Consequence.* Conditioning on present records cannot by itself make a record more reliable
-    as a record of the past than it is as a predictor of the future. If the conditioned law
-    predicts relaxation forward, it retrodicts the same relaxation backward. That a present record
-    arose from an earlier, lower-entropy preparation therefore needs past boundary data: (4a), or
-    conditioning on an actual past history the observer still holds.
+  - *Consequence, scoped to the lemma's hypotheses.* The lemma needs two things:
+    - time-reversal invariance (`σφσ = φ⁻¹` with `σ` measure-preserving), a property of K1 and a
+      posit in general;
+    - a mirror-compatible event (`σ(A) = φ^m(A)`). On K1 these are configuration-only events.
+      Events that constrain both slices differently, and history events, are excluded.
+
+    For such events, conditioning on a present record retrodicts at `−t` the mirror of what it
+    predicts at `t + m`. So it cannot by itself make the record more reliable as a record of the
+    past than as a predictor of the future, and reliability then needs past boundary data: (4a),
+    or conditioning on an actual past history the observer still holds.
+  - *Not covered.* Records that are reliable by a dynamical identity rather than by conditioning,
+    and events outside the lemma's hypotheses.
+  - *Not proved here.* The general statement, that reversible dynamics with a time-symmetric
+    measure cannot give record reliability without asymmetric boundary data, is the Loschmidt
+    point. It is not proved here. #1112's verification (c.6643840329) gives the related
+    stationarity argument: under Lemma 3's uniform invariant measure the visible process is
+    stationary, so its block entropies and `M_k` are invariant under time reversal.
   - This is the standard reversibility point (Loschmidt, Boltzmann), here written in OI's terms
     and scoped to the hypotheses above. The Albert–Loewer account of the records asymmetry is
     known here only from secondary sources (§3.8 item 4) and is not used.
 - **Verdict Q-b: partly.**
-  - The rule for record events is supplied (CR_rec, b-stated).
-  - A rule for stipulated non-record events is not supplied (CR_slice, b-new).
-  - The present record is supplied.
-  - Retained records are open.
-  - That records are reliable as records of the past is not supplied by slice conditioning
-    (Lemma Q-b2). It needs (4a).
+  - **Conditioning on the observer's own visible data** is Main's predictive construction: CR_rec,
+    a construction step, proposed and pending D-OB7.
+  - **Reading it as a preparation law** is H-PREP, which is open.
+  - **A rule for stipulated non-record events** is not supplied (CR_slice, b-new).
+  - **The present record** is supplied.
+  - **Retained records** are open, and on K1 they are tied to the unsourced ready region (MR★ C-3,
+    C-4).
+  - **Record reliability.** For time-reversal-invariant dynamics and mirror-compatible events,
+    slice conditioning does not supply it (Lemma Q-b2). It then needs (4a).
 
 **Q-c, physics: does OI explain how an observer creates or selects the preparation?**
 
@@ -859,69 +936,100 @@ observer's accessible records at a time slice?
 
 #### 4.6.3 Conclusion on (4b)
 
-**What reduces.** For forward predictions, a laboratory preparation law reduces to two
-ingredients, and no laboratory-specific preparation principle is needed beyond them:
+**What reduces, conditionally.** For forward predictions, a laboratory preparation law reduces to
+conditioning Main's stated measure (Q8, with H-OC_orb) on the observer's own accessible records,
+by CR_rec: the present-value conditional and the in-realization history posterior that Main
+defines (Main:88, :99, :105). The reduction needs every one of these:
 
-- conditioning Main's stated measure (Q8, with H-OC_orb) on the observer's own accessible records;
-- CR_rec, the conditional-probability structure Main already uses (Main:88, :99, :105).
+- **(α) Correlation.** The prepared system is one the dynamics has correlated with the records. By
+  Lemma Q-b1, present-record conditioning alone prepares nothing outside the cut.
+- **(β) Retained records.** The observer holds retained records at `t_0`.
+  - O-RET, O-REC and O-ACC are open.
+  - On K1, retention is not excluded (MR★ C-2, C-4). It is, however, tied to the unsourced quiet,
+    ready region (MR★ C-3, :1342–1371; C-4, :1373–1380), and #914 row 1′ forbids assuming a
+    record that supplies readiness (Z1).
+  - So this route has not been shown to be non-circular against O-RDY.
+- **(γ) Reliability.** The records are reliable as records of the past.
+  - Take time-reversal-invariant dynamics and mirror-compatible record events (`σ(A) = φ^m(A)`;
+    on K1, configuration-only events). Slice conditioning does not supply reliability there
+    (Lemma Q-b2), so it rests on past boundary data, which is (4a).
+  - Records reliable by a dynamical identity, events that constrain both slices, and history
+    events are not covered.
+  - The general Loschmidt statement is not proved here.
+- **(δ) H-PREP.** A laboratory preparation law is identified with that in-realization
+  conditional. This hypothesis is open (§4.6.2 Q-b). Main:60 and ROF Q3(ii) treat structured
+  preparations as realization data instead.
+- **(ε) D-OB7.** The classification of CR_rec as (b-stated, construction step) is proposed,
+  pending D-OB7.
 
-The reduction holds only under three conditions:
+**What remains.** Creating preparations (Q-c) is not explained. It needs selectable interactions
+(O-SET).
 
-- **(α)** the prepared system is one the dynamics has correlated with the records. By Lemma Q-b1,
-  present-record conditioning alone prepares nothing outside the cut.
-- **(β)** the observer holds retained records at `t_0`. O-RET, O-REC and O-ACC are open, and on K1
-  this is not excluded.
-- **(γ)** the records are reliable as records of the past. Slice conditioning cannot supply this
-  (Lemma Q-b2), so it rests on past boundary data, which is (4a).
+**Answer to the owner's question, conditional.** *If* (β), (δ) and (ε) hold and (γ) holds within
+its scope, then laboratory preparations need no observer-specific assumption of their own beyond
+CR_rec. Their independent input is the time-asymmetric past boundary data of (4a), the input #1112
+examines, together with O-REC (tied on K1 to O-RDY) for the records and O-SET for creating the
+preparation.
 
-**What remains.** Creating preparations (Q-c) is not explained.
+None of these conditions is established here:
 
-**Answer to the owner's question.** Laboratory preparations do not need an independent
-observer-specific assumption of their own. They reduce to CR_rec (b-stated) together with (4a) and
-the open O-REC. The genuinely independent assumption that (4b) depends on is the
-**time-asymmetric past boundary data of (4a)**, the same input #1112 examines. CR_slice (b-new) is
-needed only if a preparation is stipulated beyond the observer's records.
+- (β) is open and not shown non-circular against O-RDY;
+- (δ) is an open identification;
+- (ε) awaits the owner;
+- (γ) holds only within Lemma Q-b2's scope.
+
+CR_slice (b-new) is needed only if a preparation is stipulated beyond the observer's records.
 
 **Skepticism (§A.31), applied to this favourable reduction.**
 
 - The reduction is about predictions given records the observer holds. It does not derive the
   records, their reliability, or the act of preparing.
-- It moves the burden onto (4a) and O-REC. It does not remove it.
-- It is therefore not a derivation of laboratory preparations from OI's premises. It shows that,
-  given CR_rec, they add no new independent assumption beyond (4a), O-REC and O-SET.
-- Gem test: ELABORATING. Lemmas Q-a2, Q-b1 and Q-b2 restate standard statistical-mechanics points
-  in OI's terms, and they expose (γ) as the place where the assumption enters.
+- It moves the burden onto (4a), O-REC and O-RDY, and O-SET. It does not remove it.
+- It is a reduction, not a derivation of laboratory preparations from OI's premises.
+- Gem test: ELABORATING.
+  - Lemmas Q-a2, Q-b1 and Q-b2 restate standard statistical-mechanics points in OI's terms, under
+    stated hypotheses.
+  - They expose (β) and (γ) as the places where assumptions enter, and (δ) as an identification
+    that had been implicit.
 
 #### 4.6.4 The four groups, updated
 
 | Group | Content | Classification |
 | --- | --- | --- |
 | (1) | Orbit-level conditioning of the reference measure on records (H-OC_orb) | b-stated: Main:62, :726 (iv); ch01:85 |
-| (2a) | CR_rec: conditioning the stated measure on the observer's own record events at a slice | b-stated: Main:88, :99, :105 |
+| (2a) | CR_rec: the present-value conditional (Main:88, :105) and the in-realization history posterior (Main:99) | (b-stated, construction step), **proposed, pending D-OB7** |
 | (2b) | CR_slice: conditioning on stipulated events beyond the observer's records | b-new |
 | (3) | Preparation events or laws admitted as starting data | b-stated category: Main:60, :524; ch01:85; ch04:170 |
-| (4a) | The content of cosmic initial data | Partly gauge in a scoped sense (GR:142; ch19:210). Partly stated physical inputs (isotropy, the uniform class, a product start, expansion and horizon growth, a low-entropy start). The microstate is unexplained. **No generating principle is identified.** |
-| (4b) | The content of laboratory preparations | Reduces to (2a) plus retained records (open) plus (4a) for record reliability. Creating a preparation (Q-c) is unexplained (O-SET). No (4b)-specific principle is needed beyond these, and none is identified |
+| (4a) | The content of cosmic initial data | Gauge freedom is identified for structural data only: deep-sector cardinality (GR:142) and `φ`'s representative (ch19:210). None is identified for the initial configuration (ch19:200, uninvestigated). Theorem hypotheses (SM:48, :124; GR:799) and stated commitments (ch04:30, :32; ch18:214) enter. Isotropy (ch19:198) is speculative. The microstate is unexplained. **No generating principle is identified.** #1112 is the accountable home |
+| (4b) | The content of laboratory preparations | Conditionally reduces to (2a), via the open identification H-PREP, plus retained records (open, tied on K1 to O-RDY) and (4a) for record reliability (Lemma Q-b2's scope). Creating a preparation (Q-c) is unexplained (O-SET) |
 
 **Which assumptions prevent OI from deriving its own observer and measurement structures, after
 the split.** Scoped to the sources read:
 
-1. **Time-asymmetric past boundary data (4a) are not generated.** Both cosmic initial data and the
-   reliability of laboratory records rest on them (Lemma Q-b2). #1112 examines the same input.
+1. **Time-asymmetric inputs are not generated.** These are a low-entropy or product start, the
+   expanding branch, and an orientation (#1112, c.6643691865, verified in c.6643840329). Cosmic
+   initial data rest on them. Within Lemma Q-b2's scope (time-reversal-invariant dynamics,
+   mirror-compatible record events), the reliability of laboratory records rests on them too.
+   #1112 is the accountable home.
 2. **Retained, readable records are not sourced.** O-RET, O-REC and O-ACC are open. On K1 they are
-   not excluded.
+   not excluded (MR★ C-2, C-4), but they are tied to the unsourced quiet, ready region (MR★ C-3;
+   O-RDY). The CR_rec route has not been shown to be non-circular against O-RDY.
 3. **Creating preparations needs selectable interactions** (O-SET, open). On K1, the native
    linear rule obstructs two things for every `(Obs, μ)`:
    - selectable interactions, conditional on D-SEL;
-   - interference destruction by marking (S-L5).
+   - interference destruction by marking (S-L5, as reworded by C-9). S-L5 is PD in a frozen
+     record, not among the lemmas MR★:1297–1299 reports as verified, and not independently
+     reviewed here.
 
-   Under S-L4, which is unreviewed (`ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective), no
-   confined pattern persists beyond about twice its width. None of this shows that localized
-   records are impossible on K1 (§3.6). This is a dynamical assumption (Substratum A5,
-   b-stated), not an interface one.
+   Under S-L4, no confined pattern persists over `2w + 2` consecutive slices. Its review is
+   reported in the frozen record (MR★:1297–1299) but not re-verified here. Its hypotheses are
+   `ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective.
+
+   None of this shows that localized records are impossible on K1 (§3.6; MR★ C-2). This is a
+   dynamical assumption (Substratum A5, b-stated), not an interface one.
 4. **The measure itself is posited, not derived** (Q8 with H-OC_orb, finite total `S`).
-5. **No result selects the observer's cut.** C1–C4 and §4.6 only restrict it, and the product form
-   and the readout slice are an idealization and a construction step.
+5. **No result selects the observer's cut.** C1–C4 and Main §4.6 only restrict it. The product form
+   is an idealization, and the readout slice is a construction step.
 
 ## 5. Owner decisions needed
 
@@ -952,12 +1060,15 @@ the split.** Scoped to the sources read:
 6. **D-OB6, review** of Theorem SI, CC-1, CC-2, Proposition G, the §3.4 closedness argument,
    Lemma P-1, Proposition C and Lemma D at the revised head, and of §4.6's Lemmas Q-a1, Q-a2,
    Q-b1 and Q-b2.
-7. **D-OB7, the group (2) refinement (§4.6.2 Q-b).** Whether to accept CR_rec as b-stated
-   (Main:88, :99, :105), with only CR_slice on stipulated events b-new. The second review and the
-   owner's decision classified the whole slice rule as b-new.
-8. **D-OB8, (4b) after the split.** Whether to record that laboratory preparations add no
-   independent assumption beyond CR_rec, (4a), O-REC and O-SET, with (4a)'s time-asymmetric
-   boundary data shared with #1112. Or keep (4b) open as a separate item.
+7. **D-OB7, the group (2) refinement (§4.6.2 Q-b).** Whether to accept CR_rec, narrowed to the
+   present-value conditional (Main:88, :105) and the in-realization history posterior (Main:99),
+   as (b-stated, construction step), with only CR_slice on stipulated events b-new. The second
+   review and the owner's decision classified the whole slice rule as b-new. A separate question
+   is whether to record H-PREP as an open hypothesis.
+8. **D-OB8, (4b) after the split.** Whether to record the conditional reduction of §4.6.3.
+   Under (β), (δ) and (ε), and with (γ) within its scope, laboratory preparations add no
+   observer-specific assumption beyond CR_rec, (4a) (whose home is #1112), O-REC and O-RDY, and
+   O-SET. The alternative is to keep (4b) open as a separate item.
 
 ## 6. Review packet (revised head)
 
@@ -1007,7 +1118,20 @@ the split.** Scoped to the sources read:
     - the CR_rec refinement against Main:88, :99, :105;
     - that Q-a, Q-b and Q-c each have their own verdict.
 14. **K1 scope:** every K1 sentence about records says only that confined patterns are excluded
-    (S-L4, unreviewed), not that localized records are impossible (§2, §3.6, §4.6.4, README).
+    (S-L4, review reported in MR★:1297–1299 and not re-verified here), not that localized records
+    are impossible (§2, §3.6, §4.6.4, README; MR★ C-2).
+15. **This revision:**
+    - D-OB7 marked pending at every site;
+    - CR_rec narrowed;
+    - H-PREP named;
+    - Lemma Q-b2's scope carried into (γ), §4.6.3 and §4.6.4;
+    - the O-RDY dependence (MR★ C-3, C-4; Z1);
+    - the conditional answer;
+    - (4a) gauge freedom limited to structural data;
+    - the Haar positivity scope;
+    - `A ≠ ∅` in Q-a1;
+    - S-L5's status;
+    - the MR★ C-2, C-4, C-9 and C-10 locators.
 
 ## 7. Off-`main` and non-record references (§A.42 item 8)
 
@@ -1019,7 +1143,9 @@ Each reference was classified by reading the claim it is attached to.
 | #1110 c.6643202940, c.6643501421, c.6643749363 (model-authored reviews) | the status line; §4.6's origin | provenance. They do not verify any result here (§A.46 item 7) |
 | #866 c.6643823627 (owner decision: bounded extension) | §4.6 | governance record, quoted in §4.6 |
 | Branch commits `1a796918`, `9a34c823`, `cd15123b` (earlier heads of this record, off `main`) | the status line | provenance. This head is self-contained |
-| #1112 c.6643691865 (ARROW-1 analysis, unreviewed) | §4.6.1 verdict | provenance. No claim here relies on it |
+| #1112 c.6643691865 (ARROW-1 analysis) and c.6643840329 (its independent verification) | §4.6.1 verdict; §4.6.4 item 1 | provenance; #1112 is the accountable home. No claim here relies on them |
+| #1110 c.6644159894 (model-authored review of `478451b5`) | the status line | provenance |
+| Branch commit `478451b5` | the status line | provenance |
 | #866 c.6600176951 (quoting ROADMAP at `9613b21c`) | §1, the wording of the obligation | provenance. The quoted text is on `main` in `verification/ROADMAP.md` |
 | #866 c.6567167742 (the foils) | D-SEL, P-SDC | provenance. The foil list is carried as a named premise (D-SEL); no claim here is supported by it |
 | #866 c.6526292899 (controlled lift) | — | replaced by MR-pre:115 (N7), which is on `main` |

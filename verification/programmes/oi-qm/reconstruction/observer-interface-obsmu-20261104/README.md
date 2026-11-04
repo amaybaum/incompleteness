@@ -60,8 +60,11 @@ what is the smallest missing ingredient?
 
 ## Headline
 
-This head has not been re-reviewed. The final review (#1110 c.6643749363) returned ACCEPT for
-`cd15123b` only. This head adds its non-blocking corrections and the (4a)/(4b) examination.
+This head has not been re-reviewed.
+
+- The final review (#1110 c.6643749363) returned ACCEPT for `cd15123b` only.
+- The extension at `478451b5` was reviewed in #1110 c.6644159894 (ACCEPT WITH CHANGES). This head
+  applies those changes.
 
 - **Consumers differ** (`ANALYSIS.md` §1).
   - The representation layer (`S ⇔ D ⇔ Q_fb`) is not a residual-choice consumer.
@@ -70,27 +73,44 @@ This head has not been re-reviewed. The final review (#1110 c.6643749363) return
   - C4-gap existence and window divisibility depend on the measure itself, even at fixed full
     support (CC-2). Window divisibility on the native step K1 is open.
   - Specific laws are refuted as invariant by Main:60.
-- **Conditioning and preparation, sorted into groups** (`ANALYSIS.md` §4.1, §4.6.4):
-  - (1) orbit-level records conditioning: b-stated;
-  - (2a) conditioning on the observer's own records at a time slice: b-stated (Main:88, :99,
-    :105);
-  - (2b) conditioning on stipulated events beyond the records: b-new;
-  - (3) preparation data as a category: b-stated;
-  - (4a) cosmic initial data: partly gauge in a scoped sense, partly stated physical inputs, and
-    the microstate itself unexplained, with no generating principle identified;
-  - (4b) laboratory preparations: these reduce to (2a), retained records (open) and (4a), which
-    supplies record reliability. Creating a preparation is unexplained.
-- **The obstacle for the μ leg and for preparation-dependent laws** is preparation content.
-  Within that, the independent input is the time-asymmetric past boundary data of (4a), shared
-  with #1112.
-- **Lemma D, on K1.** Under the native linear rule, selectable interactions are blocked
-  (conditional on D-SEL), and marking does not destroy interference (S-L5). Under S-L4
-  (unreviewed; `ℤ^d` or a torus with `N ≥ 5w + 2`, and `a` injective), no confined pattern
-  persists beyond about twice its width. This does not show that localized records are
-  impossible.
+- **Conditioning and preparation groups** (`ANALYSIS.md` §4.1, §4.6.4):
+  - (1) orbit-level records conditioning: b-stated.
+  - (2a) CR_rec, the present-value conditional and the in-realization history posterior (Main:88,
+    :99, :105): a construction step, **proposed and pending owner decision D-OB7**.
+  - (2b) conditioning on stipulated events beyond the records: b-new.
+  - (3) preparation data, as a category: b-stated.
+  - (4a) cosmic initial data:
+    - gauge freedom is identified only for structural data (deep-sector cardinality, the
+      representative of `φ`), not for the initial configuration (ch19:200, uninvestigated);
+    - other items enter as theorem hypotheses or stated commitments, and isotropy (ch19:198) is
+      speculative;
+    - the microstate is unexplained, and no generating principle is identified;
+    - #1112 is the accountable home.
+  - (4b) laboratory preparations reduce, conditionally, to (2a), via the open identification
+    H-PREP, plus retained records and (4a) for record reliability. Retained records are open and,
+    on K1, tied to the unsourced ready region (O-RDY). Creating a preparation is unexplained
+    (O-SET).
+- **The obstacle for the μ leg and for preparation-dependent laws** is preparation content. The
+  conditional answer (§4.6.3) has two parts:
+  - **The condition.** H-PREP, D-OB7 and retained records must hold, and record reliability must
+    be read within Lemma Q-b2's scope (time-reversal-invariant dynamics; on K1, configuration-only
+    record events).
+  - **The answer.** Under that condition, laboratory preparations need no observer-specific
+    assumption beyond CR_rec. Their independent inputs are then the time-asymmetric data of (4a),
+    O-REC/O-RDY, and O-SET.
+- **Lemma D, on K1, under the native linear rule.**
+  - Selectable interactions are blocked, conditional on D-SEL.
+  - Marking does not destroy interference (S-L5). S-L5 is PD in a frozen record, reworded by
+    MR★ C-9, and not independently reviewed here.
+  - Under S-L4, no confined pattern persists over `2w + 2` slices. S-L4's review is reported in
+    the frozen record and not re-verified here; it assumes `ℤ^d`, or a torus with `N ≥ 5w + 2`,
+    and `a` injective.
+  - This does not show that localized records are impossible (MR★ C-2), and the trace route is
+    `UNDECIDED` (MR★ C-4).
 - **Proposals.** P-R and P-SDC are unadopted proposals with failable controls. No independent
   consequence is identified for either.
-- **Arrow of time.** The cross-document finding is tracked as #1112 and recorded only.
+- **Arrow of time.** This is tracked in #1112 (analysis c.6643691865, verification c.6643840329)
+  and recorded here only.
 
 ## Not authorized, and not done
 
