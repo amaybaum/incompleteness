@@ -3,7 +3,9 @@
 **Governs:** base lines 159–162, the clause from "If every member row is positive" to "if this is not decided".
 
 **Addition.** "Every weighting supported on `C`" reads as every weighting whose positive entries are exactly the cycles
-of `C`. Proved in `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proofs-20261105/PROOFS.md` §6:
+of `C`. Proved in `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proofs-20261105/PROOFS.md` §6, on `main` at
+`4b4b437cfff9dcf32c882251d1a4c3445ca9e8be` (its independent review, model-authored: `REVIEW.md` §1 in the same
+directory):
 
 - at this instance the clause is not reached in any branch, because the member row of `δ_0` is not a positive in B-pl,
   B-eq or B-ct (CR-6); the class token is decided in every branch by line 158's first sentence, as line 236 states;
@@ -16,4 +18,5 @@ No token, gate or order changes.
 **Source.** Owner direction, #1031 comment 6653233009 (amaybaum, Claude Code session chat, 2026-11-05): "There is one
 important additional point: #1119 does not prove that the complete decision procedure in #1031 is correct. In
 particular, the rule for classifying all invariant probability measures still needs separate justification or
-validation. That should be explicitly checked before the next research round is frozen."
+validation. That should be explicitly checked before the next research round is frozen." The union clause is kept with this scope statement by owner
+decision OD-3, quoted in §12.

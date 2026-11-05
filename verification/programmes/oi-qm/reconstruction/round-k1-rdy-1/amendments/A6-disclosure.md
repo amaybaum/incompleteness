@@ -15,7 +15,8 @@ advance (lines 232–235). No P1 member row is reported evaluated in either.
 
 **Status of the hand checks.** HC-1 (lines 303–310) and the review's HC-A to HC-D are computational claims with no
 retained recipe or output. They are provenance and are not a ground for any gate. The values the controls use are
-derived on paper in `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proofs-20261105/PROOFS.md`: `E` (§1),
+derived on paper in `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proofs-20261105/PROOFS.md`, on `main` at `4b4b437cfff9dcf32c882251d1a4c3445ca9e8be` (its independent review,
+model-authored: `REVIEW.md` §1 in the same directory): `E` (§1),
 CC-ABS's `r(w)` (§4) and the shell counts of CC-LEDGER (§5). Each control's pass condition is decided at execution.
 
 **Line 252.** The drafting log of this round, from `D` to `F`, lists reads and paper derivations only.

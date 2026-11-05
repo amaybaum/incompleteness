@@ -22,3 +22,5 @@
 
 Each token is recomputed from this file by §5.4, A2 and A8. Verdict text quotes tokens read from this file, never from
 printed output (`AGENTS.md` §A.44).
+
+**Source.** Owner decision OD-6, quoted in §12.

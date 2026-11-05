@@ -16,7 +16,7 @@ readiness-dependent condition, are unaffected." The rest of line 229 stands.
 
 The heads recorded at `F` are those listed here at `F`:
 ‹to be re-read and entered in the last control-plane commit before F›. Drafting values only, read on 2026-11-05
-(`git ls-remote`, `refs/pull/<n>/head`): 1009 `d4a80fc8`, 1023 `af1e9be2`, 1011 `947761dd`, 1003 `0efd67a6`, 918
+(`git ls-remote`, `refs/pull/<n>/head`) and read again at 2026-11-05T10:30Z with the same result: 1009 `d4a80fc8`, 1023 `af1e9be2`, 1011 `947761dd`, 1003 `0efd67a6`, 918
 `44236326`, 1025 `e02544d5`. #918's head moved from the drafting value `fa32b043` (line 263) to
 `44236326`, a descendant of it. Every anchor of this round is read at its pinned commit (lines 10–12, A7), never at a
 pull request's head, so a moved head changes no input of the round.

@@ -351,15 +351,34 @@ From the same record:
 The text of each adopted decision, and of the documented owner decisions the base cites, is quoted in
 `amendments/A1-attribution.md`.
 
-**Support on `main`.** The lemmas of lines 95–114 and 244:
-`verification/programmes/oi-qm/reconstruction/k1-rdy-proofs-20261105/LEMMAS.md`, at `4f016afd` (A5). The items that file
-leaves unproved: `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proofs-20261105/PROOFS.md`, at
-‹to be filled before F: its commit on `main`› (A3, A6, A8). The trace of every other reference is A7.
+amaybaum, Claude Code session chat, 2026-11-05, recorded in PR #1114 comment 6653656756 (2026-11-05T08:44:44Z):
 
-**Governed paths.** Execution is paper-only: its output is the round's record, `result.md` and the gate table of A9.
-The governed paths are the round's record directory and its receipt and nothing else, which is the checkpoint for line
-230's "No manuscript, Lean or probe change" (§A.41). A gate that the paper derivations do not decide ends in
-UNDECIDED(Gk) (line 191).
+> 1\. K1-RDY: Approve OD-1 to OD-7 as recommended. Preserve the 313 recovered lines and all scientific limitations. No additional execution or theorem promotion is authorized beyond the approved decisions.
+
+The decisions approved there that this control plane carries: OD-3, the union clause of lines 159–162 kept with A8's
+scope statement; OD-4, paper-only execution (below); OD-5, A2; OD-6, A9. OD-1 and OD-2 are the landings of the
+support below.
+
+amaybaum, Claude Code session chat, 2026-11-05, recorded in #1031 comment 6655647525 (2026-11-05T10:27:34Z):
+
+> ### 5. K1-RDY — Drafting approved
+> Authorize starting the next K1-RDY round draft from a fresh base `D`, following the accepted preregistration and previously approved OD-1 through OD-7 decisions. Preserve the protected 313-line text and its recorded hash. Drafting only. Designation of `F`, freeze, workflow dispatch and scientific execution each require separate approval.
+
+**Support on `main`.** The lemmas of lines 95–114 and 244:
+`verification/programmes/oi-qm/reconstruction/k1-rdy-proofs-20261105/LEMMAS.md` (A5), with the record of its
+independent review, `REVIEW.md` in the same directory. The items that file leaves unproved:
+`verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proofs-20261105/PROOFS.md` (A3, A6, A8), with the record of
+its independent review, `REVIEW.md` in the same directory. Both directories are cited at
+`4b4b437cfff9dcf32c882251d1a4c3445ca9e8be`, this round's `D`: `LEMMAS.md` entered `main` with the merge
+`4f016afd943f5a3939493eab752664949e90dbbb` (#1119); its review record and status lines, `PROOFS.md` and its review
+record entered with the merge `4b4b437c` (#1122). Both reviews are model-authored and read-only. The trace of every
+other reference is A7.
+
+**Governed paths.** Execution is paper-only (OD-4): its output is the round's record, `result.md` and the gate table
+of A9. The governed paths are the round's record directory and its receipt and nothing else, which is the checkpoint
+for line 230's "No manuscript, Lean or probe change" (§A.41). No enumeration tool and no workflow path is declared, so
+none can be used in execution: the set in force is the set at `F` (architecture `S7`). A gate that the paper
+derivations do not decide ends in UNDECIDED(Gk) (line 191).
 
 ```v3-round
 round K1-RDY-1

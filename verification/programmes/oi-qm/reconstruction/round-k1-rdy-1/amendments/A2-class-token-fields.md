@@ -16,4 +16,4 @@ as the sequence of its cells in the order `x_0, …, x_4, y_0, …, y_4`, lexico
 
 **Source.** Owner direction, #1031 comment 6649717044 (amaybaum, Claude Code session chat, 2026-11-05): "Resolve the P1
 token's "first" ambiguity explicitly before any freeze." The list-order reading is the ruling of the independent review
-of PR #1114, #1114 comment 6649791225 (ambiguity A-1).
+of PR #1114, #1114 comment 6649791225 (ambiguity A-1). This amendment is adopted by owner decision OD-5, quoted in §12.
