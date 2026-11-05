@@ -15,7 +15,12 @@ name: evidence replay
 #                     cache), so the OIBridge modules are elaborated in the job. The frozen extractor and
 #                     comparator (48b18ac5) compare the output with the retained expected result (14 modules,
 #                     blob 61cfd6ea at main f5efa7a0, the #1124 landing; first pinned at #918's head
-#                     4a260ca9) and with the staged extension (28 modules, blob 97a2377d at e73f7be3).
+#                     4a260ca9) and with the 28-module extension (blob 97a2377d, retained on main by #1132 at
+#                     2714278a as verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/
+#                     results-121598983127-28.json; first pinned at staging commit e73f7be3, at
+#                     papers/introduction_repro/results-121598983127.json, byte-identical). The 28-module result
+#                     is unreviewed and not independently verified on main; the re-pin to 2714278a preserves
+#                     evidence and is not its acceptance (Issue #941).
 #                     A step fails unless lake built every OIBridge module in the source
 #                     at the commit (228, all reachable from the root module), replayed none, and the 28
 #                     governed modules are among them. Job 121598983127 printed 226 Replayed lines: lake prints
@@ -53,7 +58,7 @@ env:
   ARCHIVE_COMMIT: 48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29
   EXPECTED_14: f5efa7a0813218b580272f7fd80a6b0c87eb6657
   EXPECTED_14_BLOB: 61cfd6ea2df4590cc2ff86f90fc8f50ab71201f7
-  EXPECTED_28: e73f7be3c343ce12c5f64b9dc1485a5a7ba5498c
+  EXPECTED_28: 2714278a7dd9057a73610658478661065152ca97
   EXPECTED_28_BLOB: 97a2377dbfc30987887dffea2b72e423feed079d
   CONFIRM: ${{ inputs.confirm_commit }}
 
@@ -89,7 +94,7 @@ jobs:
             git show "$ARCHIVE_COMMIT:verification/audits/evidence-retention/$f" > "$RUNNER_TEMP/tools/$f"
           done
           test "$(git rev-parse "$EXPECTED_14:papers/introduction_repro/results-121598983127.json")" = "$EXPECTED_14_BLOB"
-          test "$(git rev-parse "$EXPECTED_28:papers/introduction_repro/results-121598983127.json")" = "$EXPECTED_28_BLOB"
+          test "$(git rev-parse "$EXPECTED_28:verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/results-121598983127-28.json")" = "$EXPECTED_28_BLOB"
           git show "$EXPECTED_14_BLOB" > "$RUNNER_TEMP/out/expected-14.json"
           git show "$EXPECTED_28_BLOB" > "$RUNNER_TEMP/out/expected-28.json"
           python3 - <<'PY'
