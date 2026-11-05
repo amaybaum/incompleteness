@@ -582,7 +582,7 @@ This paper articulates, for a philosophy-of-physics readership, the methodologic
 
 ## REFERENCES
 
-[Main] Maybaum, A. (2026). *The Incompleteness of Observation: The Equivalence of Quantum Mechanics and Embedded Observation.* Zenodo. DOI: 10.5281/zenodo.19060318.
+[Main] Maybaum, A. (2026). *The Incompleteness of Observation: Finite-Observer Representations and Quantum Reconstruction.* Zenodo. DOI: 10.5281/zenodo.19060318.
 
 [SM] Maybaum, A. (2026). *The Standard Model from Cubic-Lattice Substratum Dynamics.* In the Incompleteness framework collection, Zenodo. DOI: 10.5281/zenodo.19060318.
 
