@@ -1,8 +1,12 @@
 # K1-RDY-1: execution record
 
-**Status: execution in progress (WIP / UNVERIFIED).** This file is the round's execution log and result note
-(architecture `K1`). It is written linearly from `F` and records only what has been done. Nothing in it is a
-designation of `E`, a receipt, or a promotion of any scientific conclusion.
+**Status: execution stopped at the P1 boundary (WIP / UNVERIFIED).**
+- S0 and P0 are evaluated.
+- P1 and P3 are not evaluated.
+- The S12 halt awaits the owner's go-ahead (§4).
+
+This file is the round's execution log and result note (architecture `K1`). It is written linearly from `F` and records
+only what has been done. Nothing in it is a designation of `E`, a receipt, or a promotion of any scientific conclusion.
 
 ## 1. Execution log
 
@@ -75,7 +79,13 @@ Read between 2026-11-05T13:20:43Z and 2026-11-05T13:21:46Z with the instrument o
 
 No mismatch.
 
-### 1.6 Computation (A11 item 3)
+### 1.6 A4: referenced historical heads at the P1 boundary
+
+Read between 2026-11-05T13:29:54Z and 2026-11-05T13:30:05Z with the same instrument. All six `head.sha` values are
+identical to the table of §1.5 and to A4's table, so there is no mismatch. A `get_commits` call made in the same
+interval returns a pull request's commit list, not its head, and is not counted as a reading.
+
+### 1.7 Computation (A11 item 3)
 
 No computation was performed. No tool, program, script, notebook, computer-algebra system or other machine
 computation was applied to the model, its states, cycles or measures. Each derivation under `derivations/` was
@@ -113,7 +123,64 @@ attain it.
 The values recorded in the base from hand checks (HC-1, HC-A to HC-D) were not used as grounds (A6). Each pass
 condition is decided by the derivation named.
 
-## 8. Derivation files
+## 3. P0 (base line 188; rows in `gate-table.json`)
+
+Each row was derived by hand through G1–G7. The tokens are quoted from `gate-table.json` (`rows`):
+
+| Candidate | Branch | Token | Derivation |
+|---|---|---|---|
+| P0 | B-pl | ABSENT[π_0; B-pl; H-cur (declared)] | `derivations/P0-B-pl-d1.md` |
+| P0 | B-eq | ABSENT[π_0; B-eq; H-cur (declared), H-2s (declared)] | `derivations/P0-B-eq-d1.md` |
+| P0 | B-ct | ABSENT[π_0; B-ct; H-cur (declared), H-2s (declared), H-ret] | `derivations/P0-B-ct-d1.md` |
+
+P0's report is the tuple of these three branch tokens; no aggregate verdict is formed (line 184). No P0 row is
+positive, so no second derivation or adversarial note was required (line 150; gate-3 authorization item 3), and
+`writer-k1rdy1-d2` and `writer-k1rdy1-adv` were not engaged. The B-pl and B-eq rows are among the rows the base lists
+as fixed in advance (lines 233–234); they record the rule's consequences and are not independent tests (line 238).
+
+Two readings are marked in the P0 derivations:
+
+1. **G5–G7 after a G4 token.** A row takes the token of the first gate that issues one (line 183). Here G4 issues
+   ABSENT, so G5, G6 and G7 are recorded as `not-reached`.
+2. **The `hypotheses` field of a row that does not reach G5.** It carries the declaration's hypotheses and the §2
+   access labels that the token's access field names. H-law and H-sel are G5's additions and are not evaluated. Each
+   row's `w_certified` value is recorded separately.
+
+## 4. P1: not evaluated; stopped at the boundary
+
+Under the gate-3 authorization, the exhaustive member stage is declined ("Writing out all 156 cycles and evaluating
+1,024 states manually is still enumeration") and execution stops before it.
+- §5.3 and A9 require one row per member: `π_0` plus each cycle-uniform `u_c`, identified by its cycle's least state.
+  §9 ("No post-selection") requires the cycle sizes to sum to `|S|`. Each row also needs per-member content (`sharp_w`,
+  `weak`, `nb`, `g2.hsel_content`).
+- Proposition CYC (`PROOFS.md` §2) gives the number of cycles and their lengths, not the cycles themselves.
+- The feasibility review (#1031 comment 6658841280, §2) found that this information cannot be established without
+  state-by-state work on the cycles.
+
+Hence, at this boundary:
+- no member row is written;
+- no P1 class token is issued, and `class_tokens` in `gate-table.json` is empty;
+- `E` is not designated.
+
+As the authorization directs, the S12 halt procedure applies, and it awaits the owner's go-ahead.
+
+## 5. P3: not evaluated
+
+The gate-3 authorization states: "P3 must not be evaluated as a completed stage of this frozen round before P1." No P3
+row is written.
+
+## 6. Operational-usefulness reports
+
+None. No evaluated row is positive (lines 144–147).
+
+## 7. Scope and non-claims
+
+- The tokens of §3 are scoped to (`π_0`, branch, access, the fixed instance), as base §7 states (lines 220–230). No
+  token states that a ready supply cannot exist.
+- No P1 or P3 token is issued, so nothing here bears on K-17(a)'s class or on P3.
+- Nothing here is physical sourcing of a ready state, access, renewal, memory, observer emergence or complete QM. No
+  correctness band moves, and no manuscript, Lean or probe file is changed.
+- Each derivation is a written paper derivation. None is a computational or kernel-checked result.
 
 Every file below is in this record directory, has mode `100644` and is a written derivation in Markdown (A11):
 
@@ -128,3 +195,6 @@ Every file below is in this record directory, has mode `100644` and is a written
 - `derivations/S0-CC-T2.md`
 - `derivations/S0-POS-X.md`
 - `derivations/S0-CC-BLIND.md`
+- `derivations/P0-B-pl-d1.md`
+- `derivations/P0-B-eq-d1.md`
+- `derivations/P0-B-ct-d1.md`
