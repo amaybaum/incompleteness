@@ -1,7 +1,7 @@
 # ARROW-1 manuscript correction round (#1112)
 
-**Status: WIP / UNVERIFIED.** Phase 1 (the theorem-recovery note, `RECOVERY.md`) is in
-draft and has not been independently reviewed. No manuscript, book chapter, FULL mirror,
+**Status: WIP / UNVERIFIED.** Phase 1 (the theorem-recovery note, `RECOVERY.md`) is
+complete in draft and awaits independent review. No manuscript, book chapter, FULL mirror,
 `.tex` or `.pdf` is changed on this branch until that review is complete.
 
 ## Scope
