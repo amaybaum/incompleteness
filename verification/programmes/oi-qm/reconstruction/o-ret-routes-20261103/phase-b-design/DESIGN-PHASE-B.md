@@ -695,9 +695,11 @@ of each:
 - **NP:** where NP's hypotheses hold (a product law, and both values of `x₀` in `P` for some `c`),
   `G₀(y(t₀))` is uniform, if J-1 is to hold at `t₀+1`; otherwise NP's hypotheses fail;
 - **AE:** the carrier enters the register's update non-additively or with a state-dependent
-  coefficient, or the law is not a product, or `P` lacks both values of `x₀` for each `c`;
+  coefficient, or the law is not a product, or `P` lacks both values of `x₀` for each `c` (the proof
+  needs both values for only some `c`), or the value group is not `𝔽₂` (`q > 2`);
 - **LS** (it applies only to SMR registers meeting `{N−2, N−1}`): the register is not an arc of width
-  `≤ 3`, or `N < 7`, or the law is not site-level with `A` ready, or the rule is not SMR;
+  `≤ 3`, or `N < 7`, or the law is not site-level with `A` ready, or `P` is not all four values, or the
+  value group is not `𝔽₂` (`q > 2`), or the rule is not SMR;
 - **U:** some cell of `y′_A` reads `y₀`, or the law is not a product;
 - **SS-2:** the register has width `≥ 2`, or its current slice is not fixed at `t₀`.
 
@@ -708,12 +710,16 @@ of each:
   width, and PAD through a previous slice that is not a uniform pad; NP is met by a law with `G₀` uniform.
 - **O5, a register outside LS's hypotheses under the preregistered laws.** An SMR register of width
   `≥ 2` meeting `{N−2, N−1}` that is not an arc of width `≤ 3` at `N ≥ 7` (for example a non-arc
-  register at `N = 8`), under `ν_r`. It fails LS through the register, and the other five as for O1.
+  register at `N = 8`), under `ν_r`, `r ≥ 0` (under `π₀ = ν_{−1}` Lemma PAD decides it). It fails LS
+  through the register, and the other five as for O1.
   No paper argument here decides it.
-- **O4, a restricted carrier.** Fixing `x₀` (Observation W1) fails AE's and NP's preparation
-  hypothesis. It is excluded as a candidate, not decided: a restricted carrier lets the carrier's other
-  slice pass as a held record, which is why RET-st requires full carrier support (HC-K4, R:163–168
-  [R, motivation only]), and requirement 2 of #1032 asks for independently available preparations.
+- **O4, a restricted carrier.** Fixing `x₀` fails AE's and NP's preparation hypothesis. In
+  Observation W1, fixing `x₀ = 0` silences `y₀(t₀+1)`, so J-1 holds at `t₀+1`; the record then reaches
+  site 0 at `t₀+2` (`y₀(t₀+2) = c`) and J-i fails there. O4 is not proposed as a candidate: RET-st, a
+  route-analysis criterion and not the adopted retention definition (R:33–34), requires full carrier
+  support to exclude the static-carrier trick HC-K4 (R:46–50, R:163–168 [R, motivation only]), and
+  requirement 2 of #1032 asks for independently available preparations. Whether O4 is admissible is
+  an owner decision, not a result here.
 - **O6, other rules with non-additive carrier entry.** They fail AE's form, and LS does not apply.
 
 **Whether one route is smallest is not established.** O1 keeps 𝔉's register family and adds a
@@ -774,7 +780,7 @@ The reviewer is asked to check, at the exact head:
 13. **§5.6**: the criterion, and that it acts on no tuple of `𝔉`.
 14. **§6**: that the scope statement claims nothing beyond §4, and that no sentence presents a
     universal no-go or an established result.
-15. **§7**: that each listed family is in fact undecided by §4 (O4 excluded, with its reason), that
+15. **§7**: that each listed family is in fact undecided by §4 (O4 not proposed as a candidate, with its reason), that
     §7.2's six conditions are exactly the failure of a hypothesis of each lemma, and that no route is
     called smallest.
 16. **§10**: each off-`main` reference and its classification.
