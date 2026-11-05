@@ -1289,8 +1289,9 @@ distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
 - The Issues hold each question, its scope, its quoted status and its planning-status block.
 - #914 holds the OI ↔ QM dependency edges; its L-edges are the prerequisite source for the OI ↔ QM
   programme.
-- The GitHub Project *OI Research Programme* shows administrative activity, including which items
-  are active. Project Status grants no authorization and confers no scientific status.
+- The GitHub Project *OI Research Programme* shows administrative activity on Issues only, including
+  which items are active; a pull request is tracked through its accountable Issue (§A.43), not as a
+  card of its own. Project Status grants no authorization and confers no scientific status.
 - `PO-1102`, cited in Authorization entries, is the paper-only authorization in #914 comment
   6567198108 for its named workstreams A–F: "planning, source reading, paper derivations and review
   preparation, not reopening any frozen execution stage".
