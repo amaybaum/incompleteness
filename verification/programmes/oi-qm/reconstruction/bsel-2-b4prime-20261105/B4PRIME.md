@@ -1,6 +1,7 @@
 # BSEL-2 unit B4′: two-sided gauge relatedness against complete-record operational equivalence (paper record)
 
-**Status: WIP / UNVERIFIED (complete draft, not reviewed).** Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695). Not reviewed.
+**Status: WIP / UNVERIFIED (complete draft, not reviewed).** Paper-only, written by the designated BSEL-2 writer
+(#1033 c.6653013695).
 **Scope:** `SCOPE.md` in this directory, a verbatim copy of the reviewed scope r3 (sha256 `df40103e…a3dd54cd`).
 **Authorization:** owner approval to start, #1033 c.6653677971 (amaybaum, Claude Code session chat, 2026-11-05):
 "Approved to start the independently reviewed paper-only unit. Proceed within its reviewed scope. No new scientific
@@ -199,8 +200,17 @@ Each law below is the family of unnormalized masses of every record, indexed by 
   - **Class:** row 0 of `Γ_0` sums to 2, so `Γ_0` is not row-stochastic, and `Γ_0 ≠ 1`. The witness is outside
     `PPer` in either orientation (W9).
   - **Coverage (K-H):** both lifts are constant for `t ≥ 1`, and the argument covers every finite read list.
-- **What this shows** [D]: the complete record determines `𝒪₂(t,s)(·,v)` only on columns `v` reachable at `s`. At
-  `|A| ≥ 2` a fibre can be unreachable at `s`. The frozen `R_C2` is therefore strictly finer than `O_C2` there.
+- **What this shows** [D]. Call `v` *reachable at `s`* when some record whose last read is at `s` with record `v`
+  (under Rst-sel, `(v, ok)`) has positive mass, for some root `j` and some read list ending at `s`.
+  - *Reachable columns are recovered.* If such a record has mass `m > 0`, appending a read at `t > s` to its read list
+    gives masses `m·𝒪₂(t,s)(w,v)` under Rst-auto or Rst-ch, and `m·β_{t,s}(w,v)` and
+    `m·(𝒪₂ − β)_{t,s}(w,v)` under Rst-sel. Dividing by `m` recovers column `v` (W0.4, W0.5).
+  - *Unreachable columns never enter.* In W0.4 and W0.5, every factor in column `v` of the step `(s, t)` multiplies the
+    mass of a record ending at `v` at `s`, or at `(v, ok)` under Rst-sel. If `v` is unreachable at `s`, every such
+    product is 0, so column `v` enters no mass.
+  - So the complete record determines `𝒪₂(t,s)(·,v)` exactly on the columns reachable at `s`. At `|A| = 1` every
+    column is reachable (§2.4). At `|A| ≥ 2` a fibre can be unreachable (WG), and the frozen `R_C2` is then strictly
+    finer than `O_C2`.
   - A reachability-restricted `R_C2` is a proposal only (scope §1, change 16), and is not pursued here.
   - The pair is `G`-related: at `t ≥ 1` both slices have fibre-Gram data `diag(1,0), diag(0,1)`, and `twoSidedRelated_iff`
     (mpr, TSG:839) applies with `c ≡ 1`. So WG bears on no owner-direction cell.
@@ -337,9 +347,14 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
   - `R_C2-ch` and `R_C2-sel` agree by the parity computation of §3.4, and E[C2-x]⊇ gives equal laws.
   - The pair is not `G`-related (§3.1, WA′).
 - **O⇒G at `|V| = 2`: not addressed.**
+  - **Conflict between scope sections.** Scope §9 preregistered this cell as "open (Q2A)". Scope §8 leaves F §6's
+    undecided items untouched.
   - Any pair that disproved this cell would have equal `Γ` (W0) and would not be `G`-related. It would therefore decide
-    F §6's undecided item "DC's strictness at `|V| = 2`, `|A| ≥ 2`" (F l. 430), which scope §8 leaves untouched.
-  - The cell stops at the scope boundary, not at a mathematical wall.
+    F §6's undecided item "DC's strictness at `|V| = 2`, `|A| ≥ 2`" (F l. 430).
+  - The stop resolves the conflict conservatively, in favour of §8. The cell stops at the scope boundary, not at a
+    mathematical wall.
+  - **Owner question.** Only the proof direction (`O_C2-x ⊆ G` at `|V| = 2`) could be pursued without touching F
+    l. 430. Whether to pursue it, or to release the F l. 430 boundary, is left to the owner.
 - **Not equivalent at `|V| ≥ 3`.**
 
 ## §4. S1′: the subgroup C1′ respects
@@ -363,7 +378,9 @@ OI's gauge. Physical supply of H-comp, retention (Acc₂), any reset and P-conf 
 - **Result:** `𝒢_C2-x = {g : (i) K_tK_sᴴ ∈ U(1)·1 for every s, t; (ii) L_tᴴe_v ∈ U(1)·e_v for every t, v}`, for each
   `x`. Both inclusions are proved [D] at `|V| ≥ 2`. At `|A| = 1`, (ii) holds automatically, since `𝒢_L` is then the
   diagonal unitaries.
-  - (i) is equivalent to `K_t = e^{iθ_t}K_0`.
+  - (i) is equivalent to `K_t = e^{iθ_t}K_0` for every `t`:
+    - (⇐) `K_tK_sᴴ = e^{i(θ_t−θ_s)}K_0K_0ᴴ = e^{i(θ_t−θ_s)}1`.
+    - (⇒) `K_tK_0ᴴ = λ_t1` gives `K_t = λ_tK_0`, and `|λ_t| = 1` because both sides are unitary.
   - The result agrees with B4N's `Sub[C2]` (K-A).
 - **(⇐).** Write `M := K_tK_sᴴ = λ1`.
   - Then `T(gU) = λL_tT(U)L_sᴴ`, and by (ii) `T(gU)e_v = λφ_v L_tT(U)e_v`.
@@ -384,6 +401,7 @@ OI's gauge. Physical supply of H-comp, retention (Acc₂), any reset and P-conf 
     - If the `μ_v` are not all equal, take `x = e_j` and `y = e_k` with `μ_j ≠ μ_k`.
     - Otherwise all `μ_v = ν` and `M_C ≠ ν1`. This needs `C ≠ 0`, hence `|A| ≥ 2`. Take `y ∈ C` an eigenvector of
       `M_C` with eigenvalue `μ ≠ ν`, and `x = e_j` for any `j`.
+  - *Eigenvalues.* Write `λ` and `μ` for the eigenvalues of `x` and `y`: `Mx = λx`, `My = μy`, `λ ≠ μ`.
   - *The lift.* Choose `F` unitary with `Fx = (e_0+e_1)/√2` and `Fy = (e_0−e_1)/√2`, and set `U_s = U_t = F`.
   - *Root and first read.* From the root `j` with `x = e_j`, the read at `s` gives record 0 with mass ½, and ok mass ½
     under Rst-sel, for both lifts (Fact L and (ii)). The post-read state is a multiple of `e_0`.
@@ -431,11 +449,11 @@ complete record of C2 a complete invariant of the gauge `𝒢_C2-x` that its law
 
 | Control | Requirement | Result |
 |---|---|---|
-| K-A | Re-derived cells against B4N; a disagreement halts its item | W0 agrees with B4N D1, D2, D2′, D4. §3 agrees with B4N's `R`/`Q` cells at their witnesses' scopes, and §5.1 with B4N `Sub[C2]`. **One finding:** B4N §3(a) says, without a `\|V\|` scope, that C2 is comparable with `G` in neither direction. At `\|V\| = 2`, `\|A\| = 1`, `O_C2-auto ⊆ G` (§3.4). That item was halted and is settled by the hand check written in §3.1. B4N's table cells are unaffected: its witnesses are at `\|V\| = 4`. |
+| K-A | Re-derived cells against B4N; a disagreement halts its item | W0 agrees with B4N D1, D2, D2′, D4. §3 agrees with B4N's `R`/`Q` cells at their witnesses' scopes, and §5.1 with B4N `Sub[C2]`. **One finding:** B4N §3(a) states, under its header scope "fixed anchor `a₀`, `\|V\| ≥ 2`", that C2 is comparable with `G` in neither direction. That claim is false at `\|V\| = 2`, `\|A\| = 1`, where `O_C2-auto ⊆ G` (§3.4). The item was halted and is settled by the hand check written in §3.1. B4N's `Q[C2]` cell is supported only at `\|V\| = 4`, by its witnesses (RHC6 images of TG3). |
 | K-B | `R_C` invariant under `𝒢_C` | C0: `𝒢` (§3.1). C1′: §4 (⊇). C2-x: §5.1 (⇐). C1: checked on the subgroup `{L_t` free, `K_t ∈ U(1)·1}`, which multiplies `FG` by `\|κ\|² = 1`; `Sub[C1]` is not posed here: **pass** |
-| K-C | Identity family against constant `H₂` separated by every `R_C` | `Γ = 1` against `J/2`. This separates `R_C0`, `R_C1` (`FG` diagonal), `R_C1′` (`e_0` against `(e_0+e_1)/√2`) and `R_C2` (contains `R_C0`): **pass** |
+| K-C | Identity family against `H(1)` separated by every `R_C` (as frozen; `\|V\| = 4`, with `H(1)` on `𝒜` and `1` on `C` at `\|A\| ≥ 2`) | `Γ = 1` against `J/4`. This separates `R_C0`; `R_C1`, since `FG` has `Γ` on its diagonal; `R_C1′`, since `e_0` is not in `U(1)·H(1)e_0 = U(1)·½(1,1,1,1)`; and `R_C2`, which contains `R_C0`: **pass** |
 | K-D | Same `Γ` for every pair offered about gauge freedom | WA, WA′, `Γ^alt`, WG, WH and WI have equal `Γ_t` for all `t`. Every G⇒O pair is a gauge image: **pass** |
-| K-E | Explicit witness; class with orientation; frozen procedure, not X | Every witness is explicit. Classes and orientation are stated per witness. Every procedure is a P-conf or P-coh root with Rd reads, one of the candidate's own; none uses global reversibility. Finding: the provenance placement "`U₀ = 1`, then constant" is not periodic (§3): **pass** |
+| K-E | Explicit witness; class with orientation; frozen procedure, not X | Every witness is explicit. Classes and orientation are stated per witness. Every procedure is a P-conf or P-coh root with Rd reads, or an H-fac device read for C1′, one of the candidate's own; none uses global reversibility. Finding: the provenance placement "`U₀ = 1`, then constant" is not periodic (§3): **pass** |
 | K-F | Directions separate; `twoSidedRelated_iff` direction named | §2 and §3 decide each direction on its own. TSG:839 `mpr` is used in §2.5, §3.1 and §3.2; non-relatedness uses TSG:263 (forward) with TSG:870. No uniqueness or extension result is used as a converse: **pass** |
 | K-G | `⊥` kept unnormalized; masses sum to 1 per `j` | W0.4, W0.5, WE and WG checked; the conditioned all-ok statement in §3.5 is labelled: **pass** |
 | K-H | ℕ coverage | WA, WA′ and WB–WD are period 2; WH and WI period 3; WE and WG constant from `t = 1`. Every equal-law claim is shown for every pair `s < t` and hence every finite read list: **pass** |
@@ -462,8 +480,11 @@ All controls pass. One K-A item halted and was settled in the record.
 - **W7:** the embeddings WA′ and WI were re-checked under the larger left group (TSG:263 at every `|A|`), with zero
   `⊥` mass.
 - **W8 (Src′, the branch favourable to native gauge fixing):** under the conditional hypotheses, the fixing that
-  H-comp supplies (`𝒢_C2 ⊊ 𝒢`) is real. It does not yield a quotient of lifts by a gauge: Own fails at every `|V|`
-  (§5.2). So even sourced composition gives no gauge whose classes are C2's operational classes.
+  H-comp supplies (`𝒢_C2 ⊊ 𝒢`) is real. But no subgroup of `𝒢` has C2's operational classes as its orbits.
+  - *Argument.* Suppose a subgroup `H ⊆ 𝒢` has orbits equal to the `O_C2-x` classes. Then `Λ(hU) = Λ(U)` for every
+    `h ∈ H` and every `U`, so `H ⊆ 𝒢_C2-x`, and every `H`-orbit lies inside a `∼_C2-x` class.
+  - The pairs WH, WI, WA and WA′ are `O_C2-x`-related but not `∼_C2-x`-related (§5.2), so they lie in no common
+    `H`-orbit. This contradicts the assumption.
 - **W9 (orientation):** every `PPer` claim checks that `Γ` is doubly stochastic, so that either orientation holds.
   WG's `Γ_0` is neither row-stochastic nor `1`.
 - **Productivity:** the two NEW items (W1, W3) are stronger than restating B4N or F, and each constrains a candidate
@@ -474,25 +495,25 @@ All controls pass. One K-A item halted and was settled in the record.
 Labels follow scope §5: proved, disproved, conditional, unresolved. ★ marks a cell F fixes on its own support. "Not
 addressed" marks a cell stopped at the scope boundary (scope §8).
 
-| Model | `\|V\|` | `\|A\|` | Class | G⇒O | O⇒G | Support |
-|---|---|---|---|---|---|---|
-| C0 | any | any | all | proved★ | (rows below) | F l. 178; TSG:217, CLG:273 |
-| C0 | 2 | 1 | all | proved★ | proved★ | F ll. 254–261, written out in §3.1 |
-| C0 | ≥3 | 1 | all (witness outside `PPer`) | proved★ | disproved★ | TG3 (TSG:907, :966); `F₃` (F ll. 244–249; WA) |
-| C0 | 4 | 1 | `PPer` | proved★ | disproved★ | `Γ^alt` pair (F Q5a, Q5b) |
-| C0 | 3 | 1 | `PPer` | proved | disproved | WA [D] |
-| C0 | ≥5 | 1 | `PPer` | proved | disproved | WA with `⊕ 1`; `Γ^alt ⊕ 1` [D] |
-| C0 | ≥3 | ≥2 | all (witness outside `PPer`) | proved★ | disproved★ | F ll. 245–249 |
-| C0 | ≥3 | ≥2 | `PPer` | proved | disproved | WA′ [D] |
-| C0 | 2 | ≥2 | any | proved | not addressed | F l. 430 undecided; scope §8 |
-| C1 | ≥2 | any | all; `PPer` | disproved | proved | WB; §2.2 with TSG:839 `mpr` [D] |
-| C1′ | ≥2 | any | all; `PPer` | disproved | proved | WC; §2.3, TSG:84 [D] |
-| C2-auto | 2 | 1 | all; `PPer` | disproved | proved | WD; `O_C2 ⊆ O_C0` with F ll. 254–261 [D] |
-| C2-auto | ≥3 | 1 | all; `PPer` | disproved | disproved | WD `⊕ 1`; WA, and the `Γ^alt` pair at 4 [D] |
-| C2-ch | 2 | ≥2 | all; `PPer` | disproved | not addressed | WE; would decide F l. 430 (§3.5) |
-| C2-ch | ≥3 | ≥2 | all; `PPer` | disproved | disproved | WE `⊕ 1`; WA′ [D] |
-| C2-sel | 2 | ≥2 | all; `PPer` | disproved | not addressed | WE (root `(ok,⊥)` and all-ok); as C2-ch |
-| C2-sel | ≥3 | ≥2 | all; `PPer` | disproved | disproved | WE `⊕ 1`; WA′ [D] |
+| Model | `\|V\|` | `\|A\|` | Class | G⇒O | O⇒G | Support | Does NOT establish |
+|---|---|---|---|---|---|---|---|
+| C0 | any | any | all | proved★ | (rows below) | F l. 178; TSG:217, CLG:273 | physical gauge equivalence; native access |
+| C0 | 2 | 1 | all | proved★ | proved★ | F ll. 254–261, written out in §3.1 | the `\|A\| ≥ 2` case; physical equivalence |
+| C0 | ≥3 | 1 | all (witness outside `PPer`) | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`=1, no reset, same Γ, outside `PPer`] | TG3 (TSG:907, :966); `F₃` (F ll. 244–249; WA) | a native separation |
+| C0 | 4 | 1 | `PPer` | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`=4, `\|A\|`=1, no reset, same Γ, `PPer`] | `Γ^alt` pair (F Q5a, Q5b) | a native separation |
+| C0 | 3 | 1 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`=3, `\|A\|`=1, no reset, same Γ, `PPer`] | WA [D] | a native separation |
+| C0 | ≥5 | 1 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥5, `\|A\|`=1, no reset, same Γ, `PPer`] | WA with `⊕ 1`; `Γ^alt ⊕ 1` [D] | a native separation |
+| C0 | ≥3 | ≥2 | all (witness outside `PPer`) | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | F ll. 245–249 | a native separation |
+| C0 | ≥3 | ≥2 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, `PPer`] | WA′ [D] | a native separation |
+| C0 | 2 | ≥2 | any | proved | not addressed | F l. 430 undecided; scope §8 | either answer for O⇒G |
+| C1 | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WB; §2.2 with TSG:839 `mpr` [D] | that P-coh is available |
+| C1′ | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1′, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WC; §2.3, TSG:84 [D] | that any H-fac device is available |
+| C2-auto | 2 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`=2, `\|A\|`=1, Rst-auto, same Γ, `PPer`] | proved | WD; `O_C2 ⊆ O_C0` with F ll. 254–261 [D] | that H-comp or Acc₂ is physical |
+| C2-auto | ≥3 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WD `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WA; `Γ^alt` pair at 4) | WD `⊕ 1`; WA [D] | a native separation |
+| C2-ch | 2 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | not addressed (owner question, §3.5) | WE [D] | either answer for O⇒G |
+| C2-ch | ≥3 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`≥3, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`≥3, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WA′) | WE `⊕ 1`; WA′ [D] | a native separation |
+| C2-sel | 2 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE: root `(ok,⊥)` and all-ok) | not addressed (owner question, §3.5) | WE [D] | either answer for O⇒G |
+| C2-sel | ≥3 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WA′) | WE `⊕ 1`; WA′ [D] | a native separation |
 
 **Equivalence.** Both directions are proved at the same scope only for C0 at `|V| = 2`, `|A| = 1`: there, two-sided
 gauge relatedness and complete-record operational equivalence are equivalent (★, on F's support). In every other
@@ -510,6 +531,32 @@ addressed cell the two notions differ, and the table records in which direction:
   - `𝒢_C2-x` = (i) ∧ (ii) (proved);
   - Own[C2-x] is disproved at every `|V| ≥ 2` in `PPer`;
   - physical supply is a SOURCING-GAP.
+
+**Conditional readings (scope §4(ii)).** Each proved result above is a statement about the stated mathematical
+objects. Read as a statement about OI lifts, it carries the conditions below. A disproved cell is a counterexample to
+a universal statement about the same objects; read physically, it carries its row's tuple as well.
+
+| Result | Reading |
+|---|---|
+| C0: G⇒O; O⇒G at `\|V\| = 2`, `\|A\| = 1`; E[C0]⊇, E[C0]⊆ | CONDITIONAL[C0 = (P-conf, Acc₁, Rd), ∀U, fixed `a₀`, (r1)] |
+| C1: O⇒G; E[C1]⊇, E[C1]⊆ | CONDITIONAL[C1 = (P-coh, Acc₁, Rd), ∀U, fixed `a₀`, (r1)] |
+| C1′: O⇒G; E[C1′]⊆; S1′ | CONDITIONAL[C1′ = (P-conf, Acc₁, H-fac with all devices), ∀U, fixed `a₀`, (r1), (r3) including `dim H_d = 1`] |
+| C1′: E[C1′]⊇ | CONDITIONAL[C1′ = (P-conf, Acc₁, H-fac), ∀U, fixed `a₀`, (r1)]; it holds device by device |
+| C2-auto: O⇒G at `\|V\| = 2`; E[C2-auto]⊇, E[C2-auto]⊆ | CONDITIONAL[C2-auto = (P-conf, Acc₂, Rd, H-comp, Rst-auto), ∀U, fixed `a₀`] |
+| C2-ch: E[C2-ch]⊇ | CONDITIONAL[C2-ch = (P-conf, Acc₂, Rd, H-comp, Rst-ch), ∀U, fixed `a₀`] |
+| C2-sel: E[C2-sel]⊇ | CONDITIONAL[C2-sel = (P-conf, Acc₂, Rd, H-comp, Rst-sel), ∀U, fixed `a₀`, (r2)] |
+| §5: `𝒢_C2-x` = (i) ∧ (ii); Own[C2-x] disproved | CONDITIONAL[C2-x tuple, ∀U, fixed `a₀`, (r2) for x = sel], relative to `𝒢_C2-x` |
+
+**SOURCING-GAP list, per candidate.** None of the following is physically supplied by anything in this record.
+- **C0:** P-conf (`|j,a₀⟩` at the root, for each `j`); Acc₁; Rd.
+- **C1:** P-coh (`ρ ⊗ |a₀⟩⟨a₀|` for every density matrix `ρ`); Acc₁; Rd.
+- **C1′:** P-conf; Acc₁; H-fac with all devices (every `H_d`, unitary `G`, state `ψ` and configuration-diagonal cell
+  partition).
+- **C2-auto:** P-conf; Acc₂ (all records retained jointly); Rd; H-comp (root clause, and `U_tU_sᴴ` between reads);
+  Rst-auto.
+- **C2-ch:** as C2-auto, with Rst-ch (the ancilla-replacement channel) in place of Rst-auto.
+- **C2-sel:** as C2-auto, with Rst-sel (the `|a₀⟩⟨a₀|` test, `⊥` retained) in place of Rst-auto.
+- **Common to all:** which lift is OI's; the anchor `a₀`; which candidate, if any, is native.
 
 ## §9. Premise ledger (§A.42 item 8) and limits
 
