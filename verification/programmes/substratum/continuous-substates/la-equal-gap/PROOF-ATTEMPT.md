@@ -34,7 +34,7 @@ A proof under hypotheses does not derive them.
 | Question | Verdict |
 | --- | --- |
 | Q0 Statement | Stated exactly below. H-prior's displayed equation leaves the law of `D′` free. Its sourcing (the history_v11 bank retained) makes `V5` uniform. |
-| Q1 Pre-cut equality | **Proved under H-pre** (Theorem 1), plus H-rule, H-torus and H-access with its record dictionary. Under the sourced reading of H-prior, H-pre holds (H-bank implies it). **Counterexample** to the implication from H-prior's displayed equation alone (Theorem 2): with `D′` the all-zero point mass, which that equation permits, a pre-cut public record determines the setting (TV 1). The all-zero law is not the original preparation. No source specifies an original law with non-uniform `V5`. |
+| Q1 Pre-cut equality | **Proved under H-pre** (Theorem 1), plus H-rule, H-torus, H-access with its record dictionary, the recorded `⊥` identification, the parent's `b5` distinctness check and history_v11's bank/source distinctness. Under the sourced reading of H-prior, H-pre holds (H-bank implies it). **Counterexample** to the implication from H-prior's displayed equation alone (Theorem 2): with `D′` the all-zero point mass, which that equation permits, a pre-cut public record determines the setting (TV 1). The all-zero law is not the original preparation. No source specifies an original law with non-uniform `V5`. |
 | Q2 Forward kernel | **Proved under the parent's 42-key prior** (implied by H-prior), given the parent's recorded geometry. No step is wrong. Three steps are unwritten in the parent and are supplied here: K3's cardinality step, K4′ and K7′. K6′ diagnoses where the LA gap enters. |
 | Q3 Composition | **Proved under the sufficient list** (including H-prior ∧ H-pre, equivalently H-prior⁺; Theorem 3): `μ_0^{k0} = μ_1^{k0}` for every `k0`, `⊥` included. One direction only. Under H-prior's sourced reading this applies. Under the displayed list alone it fails (Theorem 2). |
 | Q4 Physics | No hypothesis is derived for native OI. H-bank, H-pre, H-prior, H-free, H-inventory, H-access and H-rule are posited; H-torus is a construction parameter, measured. H-rule is the native-Y rule, not the corpus's linear (A5) rule. |
@@ -404,8 +404,10 @@ in the statement. ∎
 
 **Verdict Q1.**
 
-- **Proved under H-pre** (Theorem 1), with H-rule (P6a), H-torus (P5) and H-access with its record
-  dictionary. H-pre holds under H-prior's sourced reading.
+- **Proved under H-pre** (Theorem 1), with H-rule (P6a), H-torus (P5), H-access with its record
+  dictionary, the recorded `⊥` identification, the parent's `b5` distinctness check
+  (`native_random_setting_probe.py:73`) and history_v11's bank/source distinctness
+  (`NY/history_v11/REPORT.md:67–81`). H-pre holds under H-prior's sourced reading.
 - **Counterexample** to sufficiency of H-prior as its displayed equation (Theorem 2, TV 1).
 
 ***
@@ -540,8 +542,8 @@ positive, and both sides are `0` otherwise. The expression does not depend on `c
 **Verdict Q3.**
 
 - **Proved under H-prior ∧ H-pre**, equivalently H-prior⁺ (Theorem 3). The proof also uses H-rule,
-  H-torus, H-access and its dictionary, the recorded P1–P5 and P6a, and the parent's recorded
-  geometry.
+  H-torus, H-access and its dictionary, the recorded P1–P5 and P6a, the parent's recorded
+  geometry, the recorded `⊥` identification and history_v11's bank/source distinctness.
 - H-prior's sourced reading supplies H-pre (Lemma 0(b)), so under that reading LA-EQUAL holds
   conditionally.
 - Under the five listed hypotheses (H-prior as its displayed equation, read without its sourcing
