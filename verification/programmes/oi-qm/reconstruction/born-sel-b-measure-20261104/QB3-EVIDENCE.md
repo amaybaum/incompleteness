@@ -5,8 +5,8 @@
 - **Limitation.** OI has not yet been shown to derive the Born rule or select the physical probability measure.
 - **What this record is.** The QB-3 obligation classification (§1) and the evidence for the parts of it whose
   support was not on `main`: the swap computation (§3), the counterexample CE-8 (§4) and Lemma B4 (§5).
-- **Layer.** Paper derivations [D]. None is kernel-checked. Every other input is a manuscript line or a Lean
-  declaration on `main`, classified in §7.
+- **Layer.** Paper derivations [D]. None is kernel-checked. Every other input is a manuscript line, a Lean
+  declaration or another file on `main`, classified in §7.
 - **Review.** The independent exact-head review of this record is `QB3-EVIDENCE-REVIEW.md`, beside it.
 - **Scope.**
   - The classification sources no physical measure and promotes no manuscript claim. No statement in `papers/` or
@@ -14,8 +14,7 @@
   - The non-invariance is shown on two non-native finite bijections only. Nothing is inferred for the native wave
     substratum.
   - This record makes no other lemma of the source assessment a premise.
-- **Accountable Issue.** #1059. The remaining work is planned there, not here. The QB-4 review ranks B4, with CE-8
-  as a decidable witness, first for Lean formalization; that formalization is not authorized (QB-4 ruling, below).
+- **Accountable Issue.** #1059. The remaining work is planned there, not here.
 - **Owner decisions this record relies on** (quoted with author and time, §A.42 item 7):
   - #1059 c.6650820790 (amaybaum, 2026-11-05; posted 2026-11-05T05:49:40Z), QB-3: "Record the μ-form / μ-number
     distinction on O-OBSMU after an independent review of the exact proposed wording." "This is an obligation
@@ -43,7 +42,7 @@
 
 The obligation it classifies is the O-OBSMU μ leg: "supply independently motivated structure selecting the physical
 observation map and ensemble, or prove that the claims consuming an induced stochastic law are invariant under that
-residual choice" (`verification/ROADMAP.md`:80).
+residual choice" (`verification/ROADMAP.md`:80, row P1).
 
 > **O-OBSMU, μ leg: μ-form / μ-number.** This is an obligation classification. It does not source the physical
 > measure, and it discharges nothing for a consumer that uses numerical probabilities.
@@ -80,10 +79,11 @@ Where each clause is supported is in §7.
 
 - $S=\mathcal C_V\times\mathcal C_H$ is finite, $\varphi$ is a bijection of $S$, and $\pi_V$ projects onto the visible factor. $L$ is the order of $\varphi$. $\mathcal O$ is the set of orbits (cycles), $O^*$ is the orbit of the actual microstate $s^*$, and $n=|\mathcal C_V|$, $m=|\mathcal C_H|$.
 - A **measure** $\mu$ is a probability law on $S$ at the reference time. It factors as a visible prior $\nu(a)=\mu(\{a\}\times\mathcal C_H)$ and a **hidden conditional** $\kappa_a(h)=\mu(a,h)/\nu(a)$ on the roots with $\nu(a)>0$. The measure is a **product** measure when $\kappa_a$ does not depend on $a$, i.e. $\mu=\nu\otimes\mu_H$.
-- the rooted family $\Gamma^\kappa_t(a,j)=\kappa_a\{h:\pi_V\varphi^t(a,h)=j\}$ (Main:137, Main:640; PROGRAMME §3.4);
+- The rooted family $\Gamma^\kappa_t(a,j)=\kappa_a\{h:\pi_V\varphi^t(a,h)=j\}$ (Main:137, Main:640; PROGRAMME §3.4).
 - The Born-form $T_{ij}$ of Main:290 equals $\Gamma^\kappa_1$ with $\kappa_a$ uniform on $\mathcal C_H$. So every $\mu$ whose hidden conditional is uniform on each supported root gives exactly Main:290's numbers, whatever $\nu$ is.
 - α on `O` means `unif(O)`; β means the counting law.
 - `J` is the all-ones matrix.
+- `T^β`, `T^{α,A}` and `T^{α,B}` are the one-step rooted matrix `Γ_1` under β, α on `O_A` and α on `O_B`.
 
 A *branch* is a choice of the measure μ. P-divisibility of the rooted family on `{0,…,n}` is as defined at Main:137.
 
@@ -138,12 +138,13 @@ Every passage of §1, §2, §4 and §5 is the source text at `e50917ca`, except 
    extract.
 3. **BSB:133.** "(C1 witness)" is removed, since the classification makes no (C1) claim.
 4. **Citations of passages not carried.**
-   - BSB:66 drops its list label "(P2) ".
+   - BSB:66 drops its list label "(P2) ", and as a consequence starts with a capital and ends with "." for ";".
    - BSB:126 drops its item number and list label "2. (P3) ", and keeps only its first two sentences.
 5. **Markers in §1.** In `QB3-QB4.md` lines 61 and 69, "[landed record]" becomes "(§4 of this record)" and
    "[landed B4]" becomes "Lemma B4 (§5 of this record)".
 6. **Added definitions** (§2). "α on `O` means `unif(O)`; β means the counting law", which gives the meanings the
-   source assigns at BSB:39–40. "`J` is the all-ones matrix."
+   source assigns at BSB:39–40. "`J` is the all-ones matrix." "`T^β`, `T^{α,A}` and `T^{α,B}` are the one-step
+   rooted matrix `Γ_1` under β, α on `O_A` and α on `O_B`."
 
 Everything else in this record is this record's own text: the status header, the framing sentences of §1 and §2,
 §3, this section and §7.
