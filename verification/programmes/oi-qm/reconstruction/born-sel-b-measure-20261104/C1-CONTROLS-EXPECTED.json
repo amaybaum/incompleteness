@@ -1,6 +1,6 @@
 {
   "schema": "bornsel-c1-expected/1",
-  "status": "draft r8 (expected values unchanged from r7; the values r7 added, and the eleven r6 toys' values, recomputed exactly by the independent review of r7, #1082 c.6651181144); carries the owner's OQ rulings (#1059 c.6650820790); adds CC-ORDER, M-FRAG, WF-q2-L6-r2 and WF-CUR (25 controls), and W-q2-L7-r2 in WF-0; not yet a candidate freeze (PREREG-C1.md section 7); WIP / UNVERIFIED",
+  "status": "draft r9 (expected values unchanged from r7; the values r7 added, and the eleven r6 toys' values, recomputed exactly by the independent review of r7, #1082 c.6651181144); carries the owner's OQ rulings (#1059 c.6650820790); adds CC-ORDER, M-FRAG, WF-q2-L6-r2 and WF-CUR (25 controls), and W-q2-L7-r2 in WF-0; not yet a candidate freeze (PREREG-C1.md section 7); WIP / UNVERIFIED",
   "companions": {"prereg": "PREREG-C1.md", "instances": "C1-INSTANCES.json", "output_schema": "C1-OUTPUT-SCHEMA.json"},
   "note": "Hand-derived values [D] for controls and mutations only (PREREG-C1.md section 3). No expected value is given for any native instance. Every probability is an exact rational string; null means the field must be null. The compared fields of a control are exactly its keys here; 'orbits' is compared with the orbits file (PREREG-C1.md section 5). This file must validate against #/$defs/expected_file of C1-OUTPUT-SCHEMA.json.",
   "expected": {

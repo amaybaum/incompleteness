@@ -4,7 +4,8 @@
 (amaybaum, 2026-11-05; posted 2026-11-05T05:49:40Z).
 - **Review.** The r7 text of this file (`5ea9e4ca`) was independently reviewed in #1082 c.6651169194 (model-authored):
   QB-3 ACCEPT WITH CHANGES (Q1–Q8), and all six QB-4 results proved, B4 with a hypothesis correction and G2, N2.1 and
-  U with precision edits. This revision (r8) applies those changes. The r8 text is not re-reviewed.
+  U with precision edits. r8 (`500b3177`) applied those changes. The recheck of r8 (#1082 c.6651778560,
+  model-authored: ACCEPT WITH CHANGES, minor) required R1–R10, which this revision (r9) applies. r9 is not reviewed.
 - **Part 1** is the corrected QB-3 wording. It is not applied to the O-OBSMU record (#866, #914), and it changes no
   status.
 - **Part 2** lists the QB-4 results, the review's verdicts, and where the corrections stand in `BORNSEL-B-MEASURE.md`
@@ -29,8 +30,11 @@ Neither part edits Main, the book, a Lean module or a frozen record.
 at `9613b21c`: "supply independently motivated structure selecting the physical observation map and ensemble, or
 prove that the claims consuming an induced stochastic law are invariant under that residual choice".
 
-**Route.** The review gives two routes to recording (c.6651169194 §1). Route A is taken (the owner's choice, relayed
-by the coordinating session on 2026-11-05; it is to be quoted with author and time where it is recorded):
+**Route.** The review gives two routes to recording (c.6651169194 §1). Route A is taken.
+#1059 c.6651648653 (amaybaum, Claude Code session chat, 2026-11-05; posted 2026-11-05T06:45:16Z) records: "The owner
+selected **route A** for QB-3: preserve valid mathematical proofs through a reviewed evidence landing on `main`, rather
+than narrowing conclusions purely because their evidence currently exists off-main." and "No proof promotion before
+review and evidence retention." Accordingly:
 - a minimal reviewed record lands on `main` first. It contains CE-8 (the map; `T^β`, `T^{α,O_A}`, `T^{α,O_B}`; the
   permutation status of `Γ_0, …, Γ_4`; divisibility under α on `O_A`; indivisibility under β), B4's root-dependent
   proof with its hypothesis that the hidden law at every root is a probability law, and the review;
@@ -91,13 +95,13 @@ The review's route B, a wording narrowed to the support already on `main`, is no
 | μ-form, the same unitary, basis and readout | the proof term, `Equivalence.lean:297–299` | support on `main`; a paper reading of a kernel proof, not a theorem statement |
 | μ-form, exponent | Main:556 | support on `main` |
 | μ-number, numbers vary with μ | Main:60 (the two-state swap under uniform versus point-mass hidden priors); the map `φ(v,h) = (h,v)` is Main:78's. Under the uniform prior `Γ_1(a, j) = μ_H{h : h = j} = 1/2`, so `Γ_1 = J/2`; under `δ_0`, `Γ_1 = [[1,0],[1,0]]` [D, from those lines] | support on `main` |
-| μ-number, CE-8 | BSB Lemma B3 (lines 129–138 at `7b46d36c`, unchanged in r4) | support off `main`: a gap, closed by the route-A landing |
+| μ-number, CE-8 | BSB Lemma B3 (lines 129–138 at `7b46d36c`, unchanged in r4) | support off `main`: a gap until the route-A landing, which needs separate owner authorization |
 | μ-number, selection open | Main:56; Main:726 | support on `main` |
 | indivisibility, shared hidden prior | Main:137 | support on `main` |
-| indivisibility, root-dependent laws; CE-8 dependence | BSB Lemma B4 (r4, lines 147–167) | support off `main`: a gap, closed by the route-A landing |
+| indivisibility, root-dependent laws; CE-8 dependence | BSB Lemma B4 (r4, lines 147–167) | support off `main`: a gap until the route-A landing, which needs separate owner authorization |
 | BSB B1 (lines 117–122) | redundant with Main:556 | provenance |
 | BSB N2 / §4 | not used: the selection clause rests on Main:56 and Main:726 (Q3) | provenance |
-| BSB lines 142, 342; `PREREG-C1.md` §9 | the scope clause does not cite them (Q7) | provenance |
+| BSB lines 142, 342 at `7b46d36c` (142 and 354 in r4); `PREREG-C1.md` §9 | the scope clause does not cite them (Q7) | provenance |
 | #1082 c.6622453125 and c.6622587957 | a PR comment and an author-posted acceptance | provenance only |
 
 **Consistency with the O-OBSMU note** (provenance only: branch `research/o-obsmu-20261104` at `f67b9f0c`, #1110,
@@ -138,7 +142,7 @@ N2.1. Afterwards, present which results merit Lean formalization. No Lean implem
 | Lemma N2.1 | 183–187 | 191–197 | proved | the characterization stated as an equivalence, with each direction proved; `w_O = μ(O)`; `0 log 0 = 0`; `U ≠ ∅`; the Gibbs proof of uniqueness of the maximizer, with Lemma G as an alternative, so the [L] citation is not needed |
 | Lemma G | 193–195 | 203–205 | proved | unchanged |
 | Lemma G2 | 197–203 | 207–214 | proved | the first two bullets hold for any `A ⊆ S`; the `ℤ`-indexed intersection and the finite-space support step stated; the "Consequently" bullet restricted to time-varying records, with the conserved-record case (`unif(I(A_r))` invariant, `s*` in its support); γ-c's coverage stated for veridical records (`s* ∈ A_r`) |
-| Lemma E | 286–299 | 297–305 | proved | unchanged |
+| Lemma E | 286–299 | 297–310 | proved | unchanged |
 | Lemma U | 303–307 | 314–319 | proved | `n_s ∈ ℕ`, `Σ n_s = D ≥ 1`; the register sits in the hidden factor, `S′ = C_V × (C_H × [D])`; `|A| = D` and the fibre count; trajectories project at every horizon; `A` is not `φ′`-invariant in general, consistent with G2; the converse for a nonempty event |
 
 B4's corrected hypothesis is also carried at BSB r4 lines 353 and 382, where the implication is cited.

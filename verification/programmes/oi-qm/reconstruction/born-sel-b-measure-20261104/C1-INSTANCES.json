@@ -1,6 +1,6 @@
 {
   "schema": "bornsel-c1-instances/1",
-  "status": "draft r8 (instances unchanged from r7); carries the owner's OQ-1 to OQ-15 rulings (#1059 c.6650820790, amaybaum, 2026-11-05); not yet a candidate freeze (PREREG-C1.md section 7: independent review of this revision precedes F); WIP / UNVERIFIED",
+  "status": "draft r9 (instances unchanged from r7); carries the owner's OQ-1 to OQ-15 rulings (#1059 c.6650820790, amaybaum, 2026-11-05); not yet a candidate freeze (PREREG-C1.md section 7: independent review of this revision precedes F); WIP / UNVERIFIED",
   "companions": {
     "prereg": "PREREG-C1.md",
     "expected": "C1-CONTROLS-EXPECTED.json",

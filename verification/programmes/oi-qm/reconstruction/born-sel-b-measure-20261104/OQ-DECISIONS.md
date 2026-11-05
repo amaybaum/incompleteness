@@ -17,7 +17,9 @@ every item (#1059 c.6650820790), and the rulings are recorded in the next sectio
   - r7 (`5ea9e4ca`) records the owner's rulings (#1059 c.6650820790). The r6 recommendation text is unchanged except
     where a ruling resolves an owner question it posed. r7 was reviewed with PREREG r7 in #1082 c.6651181144: ACCEPT
     WITH CHANGES (minor), with the letter check confirmed.
-  - This revision (r8) applies that review's C8 to the references table. r8 has not been reviewed.
+  - r8 (`500b3177`) applied that review's C8 to the references table. Its recheck, #1082 c.6651778560, is ACCEPT
+    WITH CHANGES (minor).
+  - This revision (r9) applies the recheck's R8 and R10 to this file. r9 has not been reviewed.
   - The reviewer's S1/S4 witness for the converse ordering is not adopted; that ordering stays "not shown".
   - Each item gives the delta review's endorsement of r2 as **Review r2**.
 - **Authorization.** #1059 c.6649420231: paper-only, part (b).
@@ -104,8 +106,8 @@ purpose only, not a map; r7 constructs it as CC-ORDER (PREREG §3.1) for indepen
 - No change to Main:62, Main:282, Main:726 or ch01:85 is made in this workstream. Any such change needs a separately
   scoped proposal.
 
-**QB-3 and QB-4.** The μ-form / μ-number wording (QB-3) and the QB-4 lemmas, both corrected after review #1082
-c.6651169194, are in `QB3-QB4.md`.
+**QB-3 and QB-4.** The μ-form / μ-number wording (QB-3), corrected after review #1082 c.6651169194, and the QB-4
+record are in `QB3-QB4.md`; the corrected lemmas are in `BORNSEL-B-MEASURE.md` r4.
 
 ***
 
@@ -685,6 +687,9 @@ by landing the content, or by narrowing the claim.
 | `PREREG-C1.md` r6 (this branch; accepted as a draft, #1082 c.6625738542) | every row (the questions, Lemma PD, Lemma V′, §2.7) | **support off `main`: a gap.** It is the object under decision |
 | The C-1 review findings N6 and N7, and the C-1 reviewer's check of Lemma PD, as recorded in PREREG §2.7 and §8.2 | OQ-9, OQ-15 | **support off `main`: a gap.** The review texts are not posted (#1082 c.6625738542 summarizes them) |
 | #1082 c.6649637586 (model-authored review of r1), c.6649769429, c.6649892041 and c.6650088826 (model-authored delta reviews of r2, r3 and r4–r5) | the [D] items marked as confirmed by them; the Review r2 column | provenance for the endorsement column. The [D] items stand on the derivations stated here, not on the reviews' authority |
+| #1082 c.6651181144 (model-authored review of PREREG r7 and this file at r7) and c.6651778560 (model-authored recheck of r8) | the status header; the letter check; the C8 and R8/R10 edits | provenance. The letter check and the edits stand on the rulings and texts they compare, which are cited directly; the reviews' recomputations are endorsements, not support |
+| #1082 c.6651169194 (model-authored review of `QB3-QB4.md` r7 and of the QB-4 lemmas) | the rulings section's pointer to the corrected lemmas | provenance. The corrected lemmas stand on their proofs in `BORNSEL-B-MEASURE.md` r4, which is support off `main` (the BSB row above) |
+| Owner record #1059 c.6651648653 (amaybaum, Claude Code session chat, 2026-11-05; posted 2026-11-05T06:45:16Z): route A for QB-3 | the QB-3 pointer (through `QB3-QB4.md`) | provenance (§A.42 item 7): an owner choice of route, quoted with author and time in `QB3-QB4.md`; no mathematical claim rests on it |
 | The O-OBSMU note, branch `research/o-obsmu-20261104` at `f67b9f0c` (#1110) | OQ-13, the H-OC_orb reading | provenance. The tension is stated from Main:62 and :282, which are on `main` |
 | #914 row O-ACC | OQ-2 | provenance |
 

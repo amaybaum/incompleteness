@@ -1,20 +1,22 @@
 # BORN-SEL C-1 preregistration: single-orbit frequencies against the Born-form weights on small wave substrata (#1059, part (b))
 
-**Status.** WIP / UNVERIFIED preregistration, draft r8.
+**Status.** WIP / UNVERIFIED preregistration, draft r9.
 - r6 (`cde5ecbc`) was accepted as a draft after the independent review of `3be25e7f` and the delta reviews of
   `c610b2b8`, `1962c378`, `2f59aad7` and `df723247` (#1082 c.6625738542).
 - r7 (`5ea9e4ca`) wrote in the owner's rulings on OQ-1 to OQ-15 (#1059 c.6650820790; quoted in §8.2) and the
   expected-value and schema amendments they require. Its independent review (#1082 c.6651181144, model-authored) is
   ACCEPT WITH CHANGES (minor). It recomputed exactly every expected value r7 added, CC-ORDER's included, and every
   expected field of the eleven r6 toys, and found them correct.
-- r8 applies that review's changes C1–C10. None changes a verdict rule or an expected value. r8 has not been
-  reviewed.
+- r8 (`500b3177`) applied that review's changes C1–C10. None changes a verdict rule or an expected value. Its
+  recheck (#1082 c.6651778560, model-authored) is ACCEPT WITH CHANGES (minor).
+- r9 applies the recheck's changes that bear on this file (R2, R7). Neither changes a verdict rule or an expected
+  value. r9 has not been reviewed.
 - Paper only. Nothing has been run or written as code, and no native instance has been enumerated.
 
 **Not a candidate freeze yet.** The freeze sequence is in §7. Step 1 (owner answers) is done. Step 2 was r7, and
-step 3 on r7 required changes, so this revision repeats step 2. The r8 commit is next independently reviewed
-(step 3). Only then may the owner designate `F`. **Not authorized to run.** A run needs, after `F`, the owner's go,
-the tool, its review, and a separate dispatch approval (§7).
+step 3 on r7 and on r8 required changes, so this revision repeats step 2. The r9 commit is next independently
+reviewed (step 3). Only then may the owner designate `F`. **Not authorized to run.** A run needs, after `F`, the
+owner's go, the tool, its review, and a separate dispatch approval (§7).
 
 - **Frozen inputs at `F`.** All four are in `verification/programmes/oi-qm/reconstruction/born-sel-b-measure-20261104/`,
   beside the assessment (§A.36):
@@ -336,7 +338,8 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
   - `Γ^{α,O}_0 = I`, and `Γ^{α,O}_1` is `T^{α,O}` restricted to `V_O`.
   - `Γ^{α,O}_{|O|} = I`, because `φ^{|O|}` is the identity on `O`.
   - Its rows are indexed by `V_O` only, because α gives no hidden conditional on an unvisited root. BSB:147 lets `κ_a`
-    be arbitrary there for the implication, which would make a full-`𝒞_V` record depend on an arbitrary choice.
+    be arbitrary there for the implication (any probability law, as corrected in BSB r4:149), which would make a
+    full-`𝒞_V` record depend on an arbitrary choice.
   - The restriction to `V_O` is the OQ-5 answer (A).
 - **The recorded quantity.** `pdiv_alpha(O) := PDivisible |O| Γ^{α,O}`, on `V_O`, with horizon `{0, …, |O|}` (BSB:411).
 - **The β family [D].**
@@ -640,7 +643,8 @@ has CC-SKEW's verdict pattern; it is a diagnostic of the `first_mismatch` order 
 exits 1 and halts the run (§3). "Diagnostic" names the field it targets, the order of `first_mismatch`. It does not
 make CC-ORDER a non-gating record like RX-ORD (§3.4). The owner's ruling calls it a "diagnostic toy" (OQ-10) and uses
 "diagnostic record" for RX-ORD (OQ-7); the gating reading, which matches the ruling's total of 25, is put to the owner
-for confirmation at `F`.
+before `F`: the owner's designation of `F` confirms it, and a contrary ruling is written in under §7 steps 2–3 before
+`F`.
 
 Every pair of variants is separated by at least one control:
 
@@ -1363,7 +1367,8 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
      frozen choice: `oq13_answer` is set in `C1-INSTANCES.json`, and any instance, control or exit code an answer adds
      or removes is written in. §8.2 is replaced by a record of the answers, quoted with author and time (§A.42 item 7).
      This is done in r7, and no item remains open. The review of r7 (#1082 c.6651181144) required changes C1–C10;
-     r8 applies them, and step 3 repeats on r8.
+     r8 applied them. The recheck of r8 (#1082 c.6651778560) required R1–R10; r9 applies them, and step 3 repeats on
+     r9.
   3. **Review.** An independent reviewer reviews the exact revised commit carrying the four frozen files. The review
      covers their agreement with each other, with the answers and with BSB:402–416, and the hand derivations of §3. If
      the review requires changes, steps 2 and 3 repeat.

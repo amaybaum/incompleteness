@@ -3,7 +3,7 @@
 ## Header
 
 - **Status.** WIP / UNVERIFIED. Paper-only. Part (b) only.
-- **Revision.** r3 was revised after independent reviews of `f6526fb8` (REVISE) and `f88e8710` (ACCEPT WITH CHANGES), and accepted at `7b46d36c` (#1082 c.6622587957). r4 applies the corrections of the independent QB-4 review of Lemmas B4, N2.1, G, G2, E and U (#1082 c.6651169194, model-authored: all six proved; B4 with a hypothesis correction, G2, N2.1 and U with precision edits). The r4 wording of those four lemmas is not re-reviewed.
+- **Revision.** r3 was revised after independent reviews of `f6526fb8` (REVISE) and `f88e8710` (ACCEPT WITH CHANGES), and accepted at `7b46d36c` (#1082 c.6622587957). r4 applies the corrections of the independent QB-4 review of Lemmas B4, N2.1, G, G2, E and U (#1082 c.6651169194, model-authored: all six proved; B4 with a hypothesis correction, G2, N2.1 and U with precision edits). The r4 wording of those four lemmas is not re-reviewed. The recheck of r4 (#1082 c.6651778560, model-authored: ACCEPT WITH CHANGES, minor) required wording and citation changes to N2.1, G2, the N3 finding and the Q-sel summary, which the r9 commit of this branch applies; they are not reviewed.
 - **Authorization.** Owner, chat 2026-11-04, recorded in #1059 c.6622106065. That authorization covers paper analysis of part (b) starting from the BORN-SRC-1 five-branch fork, plus source reading, derivation on paper, a literature examination, documented assumptions and independent review. It does not cover parts (a), (c) or (d), computation, Lean, adopting a premise, promoting a claim, merging or publishing.
 - **Base.** `origin/main` `1609dc440f5a12d05b750f6d894bb91d09a099a3`. `papers/Main.md` was last changed at `63b4e32e`. The `Main:N` citations are lines at this base. They match the lines that BORN-SRC-1 cites at `02009693` for the passages used here.
 - **Sources read.**
@@ -191,9 +191,9 @@ The premises were searched across `papers/`, `book/` and the kernel (§A.19):
 **Lemma N2.1 (the invariant fork is a law on orbits)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
 - A law μ is invariant **iff** $\mu=\mu_w:=\sum_{O\in\mathcal O}w_O\,\mathrm{unif}(O)$ for some $w\in\Delta(\mathcal O)$, and then $w_O=\mu(O)$. The two directions are separate:
   - ⇒: by `invariant_pow`, μ is constant on each orbit, and the orbits partition $S$;
-  - ⇐: each $\mathrm{unif}(O)$ is invariant, and so is every mixture of them.
+  - ⇐: each $\mathrm{unif}(O)$ is invariant (`unif_invariant`, `CanonicalMeasure.lean:144`), and so is every mixture of them.
 - Its entropy is $H(\mu_w)=H(w)+\sum_Ow_O\log|O|$, with $0\log0=0$.
-- So on any nonempty invariant set $U$, the maximal-entropy invariant law supported in $U$ is unique: it is the one with $w_O=|O|/|U|$ for $O\subseteq U$, which is $\mathrm{unif}(U)$. Proof: $H(\mu_w)=-\sum_Ow_O\log(w_O/|O|)\le\log|U|$ by Gibbs' inequality, with equality iff $w_O=|O|/|U|$. Equivalently, $\mathrm{unif}(U)$ is invariant and is the unique maximizer over all laws supported in $U$ (Lemma G). It agrees with `counting_maximal_entropy` [K] for $U=S$.
+- So on any nonempty invariant set $U$, the maximal-entropy invariant law supported in $U$ is unique: it is the one with $w_O=|O|/|U|$ for $O\subseteq U$, which is $\mathrm{unif}(U)$. Proof: $H(\mu_w)=-\sum_Ow_O\log(w_O/|O|)\le\log|U|$ by Gibbs' inequality, with equality iff $w_O=|O|/|U|$. Alternatively, $\mathrm{unif}(U)$ is invariant and is the unique maximizer over all laws supported in $U$ (Lemma G). It agrees with `counting_maximal_entropy` [K] for $U=S$.
 - So among invariant laws, $\alpha=\delta_{O^*}$-weights and $\beta=$ weights $\propto|O|$.
 
 ### N3 (decisive). γ: what "maximal entropy compatible with the observer's records" can mean
@@ -205,7 +205,7 @@ This node is decisive because posit (iv) is the only premise in the corpus that 
 - for every $B\supseteq A$, $\mathrm{unif}(B)(\cdot\mid A)=\mathrm{unif}(A)$.
 
 **Lemma G2 (no invariant law holds a time-varying record with probability 1)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
-- The first two bullets hold for any $A\subseteq S$, not only record sets; they are stated for $A_r$.
+- The next two bullets hold for any $A\subseteq S$, not only record sets; they are stated for $A_r$.
 - If $\mu$ is invariant and $\mu(A_r)=1$, then $\mu(\varphi^tA_r)=1$ for all $t\in\mathbb Z$, since $\mu(\varphi X)=\mu(X)$ for a bijection. On a finite space $\mu(X)=1$ forces $\mathrm{supp}\,\mu\subseteq X$. So $\mathrm{supp}\,\mu\subseteq I(A_r):=\bigcap_{t\in\mathbb Z}\varphi^tA_r$, the largest invariant subset of $A_r$.
 - If also $s^*\in\mathrm{supp}\,\mu$, then $s^*\in I(A_r)$, and since $I(A_r)$ is invariant, $O^*\subseteq I(A_r)\subseteq A_r$, so the record is constant (true) on $O^*$.
 - So for a time-varying record, no invariant law gives the record probability 1 while keeping $s^*$ in its support.
@@ -243,7 +243,7 @@ This node is decisive because posit (iv) is the only premise in the corpus that 
 - γ is undecidable as worded.
 - Read as an invariant prior followed by conditioning (Main:62), the wording is literal and gives γ-c, which reduces to β-conditioning.
 - Read as a single invariant law that gives the records probability 1, the wording fails for every time-varying record (G2).
-- NEW finding of this node (a hidden assumption in the posit ledger wording): no invariant law gives a time-varying record probability 1 with $s^*$ in its support. So the observer's assignment (P5) is non-invariant whenever its support contains $s^*$, as γ-c's does. The ledger's "invariant" applies coherently to the prior over orbits, not to the assignment. This bears directly on O3 (§6).
+- NEW finding of this node (a hidden assumption in the posit ledger wording): no invariant law gives a time-varying record probability 1 with $s^*$ in its support. So, for a time-varying record, the observer's assignment (P5) is non-invariant whenever its support contains $s^*$, as γ-c's does for a veridical record. The ledger's "invariant" applies coherently to the prior over orbits, not to the assignment. This bears directly on O3 (§6).
 
 ### N4. α and the frequency reading
 
@@ -354,7 +354,7 @@ There was one depth-first pass per branch, N0–N6, and one cross-pass checking 
 - The numbers (P1–P3, P5) are not invariant as a class-wide claim over finite bijections (B3 [D], CE-8). On the manuscripts' wave substratum this is unchecked (C-1).
 - (P2) and (P3) are κ-functionals; (P1) also depends on ν.
 
-**Q-sel, summarized.** No branch is physically selected by a current OI premise. The fork reduces to two components:
+**Q-sel, summarized.** No branch is physically selected by a current OI premise beyond the stipulation of posit (iv). The fork reduces to two components:
 1. the reading of probability: ontic and frequency (stipulating α) versus observer credence (giving β-conditioning);
 2. the conditioning event, i.e. the preparation or record (for rational priors, Lemma U).
 
