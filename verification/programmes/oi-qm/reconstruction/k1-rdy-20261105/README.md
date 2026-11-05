@@ -29,6 +29,8 @@ because a second text could differ from the accepted one only by reinterpretatio
 |---|---|
 | `PREREG-RECOVERED.md` | The 313-line preregistration body of c.6567522034, byte for byte, with no header added, so that its digest can be checked against the recorded one |
 | `SOURCES.md` | Provenance and the digest recipe; a concordance of the recovered text against every finding, fix and decision in the review record and #914's decisions; items left open before freeze; points for the independent review |
+| `SUPERSESSION.md` | Proposal for independent review: the V3 supersession of the recovered text as round `K1-RDY-1`, its amendments, the pre-freeze justification of each premise, and the owner decisions needed |
+| `proposed-k1-rdy-1/` | Draft control-plane files of round `K1-RDY-1` (`preregistration.md`, whose lines 1–313 are `PREREG-RECOVERED.md` byte for byte, and `amendments/`), to be carried byte for byte into the round's record directory on its pull request from `D` |
 | `README.md` | This file |
 
 ## Limits
