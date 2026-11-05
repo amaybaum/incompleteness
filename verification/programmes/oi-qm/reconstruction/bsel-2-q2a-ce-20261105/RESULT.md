@@ -1,7 +1,7 @@
 # BSEL-2 Q2A: verification of the candidate counterexample pair (result)
 
 **Status:** paper derivation by hand in exact arithmetic, independently model-reviewed: ACCEPT WITH CHANGES
-(non-material) at `49021c8c` (#1139 c.6663191565) and recheck ACCEPT at `45bb1b9c`, this file's content on `main`
+(non-material) at `49021c8c` (#1139 c.6663191565) and recheck ACCEPT at `45bb1b9c`, the reviewed content
 (#1139 c.6663209861). The review reports are GitHub comments and are provenance only (§A.42 item 8). What can be
 checked from `main` is this record's hand algebra, against the definitions and kernel statements it cites; the
 counterexample and its verdict are not kernel-checked. Outside the established scope: `PPer`, native OI-realizable
@@ -296,7 +296,7 @@ PREREG §5: "**COUNTEREXAMPLE** iff K-a, K-b, K-c, K-d and K-e all pass and `|g(
 
 ## §8. Scoped conclusion
 
-**Established here** (paper derivation in exact arithmetic; independent review pending):
+**Established here** (paper derivation in exact arithmetic; independently model-reviewed, see status line):
 - O⇒G fails for C0, C2-ch and C2-sel at `|V| = 2`, `|A| ≥ 2`, in the class of all unitary families (∀U).
 - The witness is the constant pair `W = H₄/2` against `W′`, the same matrix with its columns at `(0,a₁)` and `(1,a₀)`
   exchanged.
@@ -314,7 +314,7 @@ PREREG §5: "**COUNTEREXAMPLE** iff K-a, K-b, K-c, K-d and K-e all pass and `|g(
     - `Λ_C0` is the family `Γ_t(·,j)` (§3.1, for any lift by (r1)), so it is unchanged.
 
     O⇒G fails (§7). So C0 is strictly coarser than `G`.
-  - **C2-ch and C2-sel.** G⇒O fails. B4's witness WE (B4 ll. 323–341, [D] there and not reviewed on `main`) is
+  - **C2-ch and C2-sel.** G⇒O fails. B4's witness WE (B4 ll. 323–341, [D] there) is
     re-derived here by hand, at `|V| = 2`, `|A| = 2`.
     - *The pair.* `U_0 = 1` and `U_t = P := swap((0,a₁),(1,a₁))` for `t ≥ 1`. The gauge element is `L_t ≡ L`, the
       §2 matrix of PREREG, which lies in `𝒢_L` (§4), with `K_t ≡ 1`. So `U` and `gU = (LU_t)` are `G`-related by
@@ -397,7 +397,7 @@ Each reference to content not on `main` is classified by reading the claim it is
 | `Q2A.md` at `f3ef3d3d` (#1125 branch) | PREREG §3, §8; §6 | Lemmas R and C | Provenance. Both lemmas are re-derived from `main` in §6 (K-e). #1125 is not changed. |
 | #1033 reviews of B4 (c.6654738032 and others) | not cited as support | — | Not used. B4 and SC supply definitions only (PREREG §1). |
 | PREREG commit `6fad52e1` and this branch's commit order | header; PREREG §7 | The freeze-before-check invariant | **Support off `main` until landing.** (1) This invariant uses the order of the two commits. The gap closes only if the branch lands by a true merge commit. A squash merge or a rebase-merge would rewrite or orphan `6fad52e1` and `49021c8c`, so the cited ids would not be reachable from `main` (§A.42 item 3). (2) No GitHub record shows the push order. The pull request was opened after both commits existed, and commit dates are self-reported. (3) The frozen content that matters, the anchored columns `We_j` and `W′e_j`, was fixed in the host-timestamped assessment (#1033 c.6662297536, 15:43:36Z), before the ruling. (4) The other two columns cannot affect any tested quantity. P-conf roots are `e_j`, and on constant lifts `T = XXᴴ = 1`. So every mass of §3, and `Γ`, `α`, the fibre-Gram data and `g`, depend only on the anchored columns. The two columns only complete them to a unitary. The mathematical verdict depends only on `main` and the text of this record, and can be re-checked from the record alone. |
-| B4 row 506 and WE (B4 ll. 323–341) | §8 "Equivalence picture" | C0 G⇒O; G⇒O fails for C2-ch and C2-sel | Support on `main`. C0 G⇒O rests on kernel lines TSG:217 and CLG:273, with Lemma R (a ⇒ b). WE's Rst-ch and Rst-sel masses are re-derived by hand in §8. Neither rests on B4's unreviewed [D] text or on F l. 178. |
+| B4 row 506 and WE (B4 ll. 323–341) | §8 "Equivalence picture" | C0 G⇒O; G⇒O fails for C2-ch and C2-sel | Support on `main`. C0 G⇒O rests on kernel lines TSG:217 and CLG:273, with Lemma R (a ⇒ b). WE's Rst-ch and Rst-sel masses are re-derived by hand in §8. Neither rests on B4's [D] text or on F l. 178. |
 
 **Definitions taken from B4 and SC** (both on `main`) are the frozen procedures, readings and tuples. No [D] result of
 B4 is used as a premise (§A.46 item 7). The W0 formulas serve as a cross-check only (§3.4).
@@ -406,12 +406,6 @@ B4 is used as a premise (§A.46 item 7). The W0 formulas serve as a cross-check 
 
 ## §11. Review and next steps
 
-- An independent mathematical review is required by the ruling and is pending. It should check:
-  - the definitions;
-  - the frozen pair against the assessment;
-  - the hand algebra of §§1–5;
-  - the decision-rule evaluation;
-  - the scope statement and the §10 trace.
-- Merge is not authorized. The proposed matrix change (§9) awaits the owner.
+- Independent review: see status line. The §9 classification is carried in `B4PRIME.md` §9.
 - The assessment's next open item, if the owner wishes to continue, is O⇒G for C0, C2-ch and C2-sel at `|V| = 2`,
   `|A| ≥ 2` in the `PPer` subclass. Constant lifts with `Γ ≠ 1` do not reach that subclass. It is not started here.
