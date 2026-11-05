@@ -102,7 +102,7 @@ The "compositions :466–468" that Appendix A names under Theorem 1 are the proo
 
 ## Provenance
 
-- **Source text.** The job log was read whole through the API (REST endpoint `actions/jobs/121598983127/logs`) on
+- **Source text.** The job log was read whole through the REST API (`actions/jobs/121598983127/logs`) on
   2026-10-26. It has 43064 lines (sha256 `bc2291bc57d952779f27282211b588321618bf503d39d192840c777074cd0c81`).
   The extractor read its lines 1–38918: job set-up through the Release gate step, ending at the
   gate's verdict line. That text has sha256 `1a83921fb967dad82785ce79b06013f184f4a82e377e39cad21ab4df453e09df`
