@@ -16,7 +16,12 @@ review. Nothing here is merged.
   - `eb74b3e7`: papers;
   - `4081cba0`: book and FULL;
   - `e4ab279a`: regenerated `.tex`/`.pdf`;
-  - then this record.
+  - `24452b01`: this record;
+  - `6010cf44`: `audit-census.json` `B1-required` counts, accepted by ruling A4;
+  - `bd926c76`: Substratum:405 FLRW → Friedmann-Robertson-Walker;
+  - `f6f7dd13`: follow-up edits under ruling c.6650301410, with rebuilds;
+  - `a762d418`: SC-42 result regenerated (ruling A3);
+  - then this record update.
 
 **How to read the table.**
 - Each row is one fragment replacement. Its old text is unique in the file at the base, and
@@ -194,7 +199,7 @@ The rule also requires the update to share a commit with the text change; this u
 in `6010cf44`, after the text change in `4081cba0`. The follow-up edits change no
 audit-census count, and `audit_census_probe.py` passes.
 
-## CI finding: the SC-42 integration step (not resolved here; reported to the coordinator)
+## CI finding: the SC-42 integration step
 
 The ordinary PR `verify` run 41970039595 on `6010cf44` failed one job, "Numerical probes /
 core B", at the step "SC-42 integration source scope and must-fail controls". That step
@@ -208,18 +213,38 @@ diffing against its pinned base `ca3a5bb2`.
    rebuilt (still 55 pages). Run locally after the fix, the checker gives:
    - `verdict: PASS`, with no failed predicates;
    - a `--self-test` byte-identical to the committed `sc42-integration-controls.json`.
-2. **Byte comparison with the committed result: open, outside this round.** The step
-   also runs `cmp` of the checker's output against the committed
-   `sc42-integration-result.json` of that earlier round.
-   - The checker adds one "chapter line mirrored in FULL" predicate per book-chapter line
-     changed since `ca3a5bb2`.
-   - This round's chapter edits add 10 such predicates and replace 1. All of them hold
-     (ok = true), and the verdict is PASS either way.
-   - The output therefore no longer matches the committed file byte for byte.
-   - That file is another round's expected-result record. Per the coordinator's
-     instruction, neither the checker nor its expected files are changed here. A
-     precedent (`d83f8723`, #1013) regenerated the file for a chapter edit; whether to do
-     so for this round is for the coordinator and owner to decide.
+2. **Byte comparison with the committed result: resolved by regeneration (ruling A3).**
+   The step also compares the checker's output byte for byte (`cmp`) against the
+   committed `sc42-integration-result.json`. The checker adds one "chapter line mirrored in
+   FULL" predicate for each book-chapter line changed since `ca3a5bb2`.
+   - **At `bd926c76`** the count was 9 added and 1 replaced, checks 678 → 687. (An
+     earlier draft of this record said "10 and replace 1".)
+   - **After the follow-up edits.** Ruling A1 (ch18:214) and ruling A5 (ch02:220) add two
+     more lines. The final count is 12 new passing records, one of which replaces the old
+     ch02:194 record: 11 added and 1 replaced. Checks go from 678 to 689.
+   - **The new records, by chapter line:**
+     - ch02:176, 184, 194 (replacing "The cosmological horizon entropy provides a
+       structural clock…"), 196, 198, 220;
+     - ch03:202;
+     - ch04:32;
+     - ch18:202, 208, 214, 216.
+   - **Edited lines that add no new record:** ch02:192, ch03:58 and ch18:190. Their
+     60-character prefixes were already recorded for edits made since `ca3a5bb2`.
+   - **Regeneration.** Commit `a762d418` regenerates the file with the existing checker:
+     the stdout of `python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py --verbose`,
+     the same procedure as `d83f8723`. The checker, `sc42-integration-controls.json` and
+     the tests are unchanged.
+   - **Verification:**
+     - Only the `checks` array differs from the previous file; `base`, `checker_sha256`,
+       `site_table_sha256`, the counts, `mode`, `schema` and `verdict` are equal.
+     - The verdict is PASS with `failed_predicates: []`, and every record has `ok: true`.
+     - The `--verbose` run and the `-O` run give identical output.
+     - `--self-test` gives the same output in both modes, equal to the committed controls
+       file.
+     - A fresh run equals the committed file.
+     - The git diff is +45/−1 lines: 11 new four-line records, plus the one predicate line
+       of the replaced record.
+   - **sha256** of the committed result: `fc79539fb4d1dc4eef184320ee5f39b3f5a85ba02d273126abf4d6a78ed96565`.
 
 ## Planned sites left unchanged
 
@@ -283,7 +308,7 @@ are not on the authorized list. They are listed for an owner ruling.
    arrow. Not OI claims; no change.
 8. **Explainer:924–926.** Found by the Phase 2 scientific review, c.6650236439. "A
    structural theorem (Main §4.6) establishes exactly that" attributed the arrow's origin to
-   §4.6. **Resolved:** added by ruling A2, rows 65–66.
+   §4.6. **Resolved:** added by ruling A2, rows 66–67.
 
 ## Build
 
@@ -305,6 +330,20 @@ are not on the authorized list. They are listed for an owner ruling.
 | Main | 100 | 100 | 3277 |
 | Book (FULL) | 560 | 561 | 2978 |
 
+Commit `f6f7dd13` rebuilt the sources it edited, with `sh ./build.sh Substratum SM
+Methodology Explainer` and `sh ./build.sh --book`. Both reported `build: OK`, with 0
+missing-character warnings, and `staleness_check` reports 13 matched.
+
+| Artifact | Pages | Mean characters per page |
+|---|---|---|
+| Substratum | 55 | 3194 |
+| SM | 150 | 3156 |
+| Methodology | 53 | 3022 |
+| Explainer | 72 | 2788 |
+| Book (FULL) | 561 | 2978 |
+
+GR and Main were not edited in the follow-up and were not rebuilt.
+
 ## Local checks
 
 These were run in the worktree after the edits. They are offline and cheap, and none is
@@ -320,7 +359,7 @@ a scientific computation. All exited 0.
 | `python3 tools/lean_manuscript_census.py` | `lean_manuscript_census: OK (… 25 current families; complete relative to the maintained registry)` |
 | `python3 tools/artifact_placement_check.py` | `artifact_placement_check: OK (… self-test passed)` |
 | `python3 verification/lean/audit_census_probe.py` | `audit_census_probe: ALL CHECKS PASS`, after the `B1-required` update |
-| `python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py` | verdict PASS, no failed predicates. Output differs from the committed result file; see the CI finding above |
+| `python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py` | verdict PASS, no failed predicates; after `a762d418` the output equals the committed result (sha256 `fc79539f…`) |
 
 The same checks passed at the base before the edits. No workflow was dispatched, and no
 Lean module was built.
