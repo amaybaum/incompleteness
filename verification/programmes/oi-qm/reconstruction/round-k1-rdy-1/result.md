@@ -85,3 +85,46 @@ MCP reads. Signed: `writer-k1rdy1-exec`, for every file it wrote.
 
 This statement is a declaration by the executor. By itself it is not independent proof that no computation occurred
 (A11).
+
+## 2. S0: the 11 controls (base lines 186–187, 196–216)
+
+Each control was derived by hand at its own instance, on the gate it tests, in isolation (§9). The outcomes are read
+from `gate-table.json` (`controls`):
+
+| Control | Gate under test | Outcome | Derivation |
+|---|---|---|---|
+| CC-ABS | G4 | pass | `derivations/S0-CC-ABS.md` |
+| CC-EXACT | G4 | pass | `derivations/S0-CC-EXACT.md` |
+| CC-SCOPE | G4 | pass | `derivations/S0-CC-SCOPE.md` |
+| CC-LEDGER | G3/G4 | pass | `derivations/S0-CC-LEDGER.md` |
+| CC-IMP | G2, G3 | pass | `derivations/S0-CC-IMP.md` |
+| CC-IMP′ | G2(a) | pass | `derivations/S0-CC-IMP-prime.md` |
+| CC-IMP″ | G2(a); T1; T2's no-image disjunct | pass | `derivations/S0-CC-IMP-dprime.md` |
+| CC-PASS | G2(b) | pass | `derivations/S0-CC-PASS.md` |
+| CC-T2 | G2(b) T2 | pass | `derivations/S0-CC-T2.md` |
+| POS-X | G3, G4, G7 | pass | `derivations/S0-POS-X.md` |
+| CC-BLIND | G4 | pass | `derivations/S0-CC-BLIND.md` |
+
+All 11 controls pass, so VOID[stage] is not issued and row evaluation proceeds (base line 188). One reading is
+marked in `derivations/S0-CC-IMP.md`: when both G2(a) and G2(b) flag, the subtype is taken from (a), which G2 decides
+first. CC-IMP's pass condition, Z1-VOID[IMPORTED], is attained under that reading; carrying both subtypes would also
+attain it.
+
+The values recorded in the base from hand checks (HC-1, HC-A to HC-D) were not used as grounds (A6). Each pass
+condition is decided by the derivation named.
+
+## 8. Derivation files
+
+Every file below is in this record directory, has mode `100644` and is a written derivation in Markdown (A11):
+
+- `derivations/S0-CC-ABS.md`
+- `derivations/S0-CC-EXACT.md`
+- `derivations/S0-CC-SCOPE.md`
+- `derivations/S0-CC-LEDGER.md`
+- `derivations/S0-CC-IMP.md`
+- `derivations/S0-CC-IMP-prime.md`
+- `derivations/S0-CC-IMP-dprime.md`
+- `derivations/S0-CC-PASS.md`
+- `derivations/S0-CC-T2.md`
+- `derivations/S0-POS-X.md`
+- `derivations/S0-CC-BLIND.md`

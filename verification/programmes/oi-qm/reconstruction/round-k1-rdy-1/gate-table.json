@@ -1,0 +1,19 @@
+{
+  "schema": "k1rdy-gate-table",
+  "version": 1,
+  "controls": [
+    {"id": "CC-ABS", "gate": "G4", "outcome": "pass", "derivation": "derivations/S0-CC-ABS.md"},
+    {"id": "CC-EXACT", "gate": "G4", "outcome": "pass", "derivation": "derivations/S0-CC-EXACT.md"},
+    {"id": "CC-SCOPE", "gate": "G4", "outcome": "pass", "derivation": "derivations/S0-CC-SCOPE.md"},
+    {"id": "CC-LEDGER", "gate": "G3/G4", "outcome": "pass", "derivation": "derivations/S0-CC-LEDGER.md"},
+    {"id": "CC-IMP", "gate": "G2, G3", "outcome": "pass", "derivation": "derivations/S0-CC-IMP.md"},
+    {"id": "CC-IMP′", "gate": "G2(a)", "outcome": "pass", "derivation": "derivations/S0-CC-IMP-prime.md"},
+    {"id": "CC-IMP″", "gate": "G2(a); T1; T2's no-image disjunct", "outcome": "pass", "derivation": "derivations/S0-CC-IMP-dprime.md"},
+    {"id": "CC-PASS", "gate": "G2(b)", "outcome": "pass", "derivation": "derivations/S0-CC-PASS.md"},
+    {"id": "CC-T2", "gate": "G2(b) T2", "outcome": "pass", "derivation": "derivations/S0-CC-T2.md"},
+    {"id": "POS-X", "gate": "G3, G4, G7", "outcome": "pass", "derivation": "derivations/S0-POS-X.md"},
+    {"id": "CC-BLIND", "gate": "G4", "outcome": "pass", "derivation": "derivations/S0-CC-BLIND.md"}
+  ],
+  "rows": [],
+  "class_tokens": {}
+}
