@@ -3382,19 +3382,26 @@ diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
 of §3.4, which reproduces the whole multi-time law, not merely the
 one-step matrices (kernel: \texttt{S\_imp\_D}, by a different carrier, a
 clock with the complete trajectory record, whose initial law may
-correlate the hidden and visible coordinates). (D \(\Rightarrow\)
-\(Q_{\mathrm{fb}}\)) is internal and needs no imported correspondence:
-for a bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\)
-set \(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the
-initial law diagonal. A permutation unitary preserves diagonality, so
-sequential projective measurements in the configuration basis do not
-disturb the state, and the measured record reproduces
-\(P(x_0, \ldots, x_K)\) exactly; \(U_\varphi = e^{-i\hat H}\) for a
-Hermitian \(\hat H\), giving a fixed autonomous generator at integer
-times. (\(Q_{\mathrm{fb}}\) \(\Rightarrow\) S) is the Born rule: the
-record of any finite quantum experiment is a finite stochastic law.
-\(\square\) (D \(\Rightarrow\) \(Q_{\mathrm{fb}}\) certified over
-1\{,\}488 realizations at horizons 3 and 4 in \texttt{sdq\_probes.py}.)
+correlate the hidden and visible coordinates). Realizations of this kind
+without the reversibility requirement are due to Egri et al.:
+time-indexed deterministic system--ancilla dynamics realize every
+stochastic process on a finite configuration set over finitely many
+times with an ancilla encoding the trajectory, under an initial law
+correlating system and ancilla {[}64, Prop. 13{]} or under a fixed
+ancilla law independent of the system's initial state {[}64, Prop.
+16{]}. (D \(\Rightarrow\) \(Q_{\mathrm{fb}}\)) is internal and needs no
+imported correspondence: for a bijection \(\varphi\) on
+\(\mathcal{C}_V \times \mathcal{C}_H\) set
+\(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the initial
+law diagonal. A permutation unitary preserves diagonality, so sequential
+projective measurements in the configuration basis do not disturb the
+state, and the measured record reproduces \(P(x_0, \ldots, x_K)\)
+exactly; \(U_\varphi = e^{-i\hat H}\) for a Hermitian \(\hat H\), giving
+a fixed autonomous generator at integer times. (\(Q_{\mathrm{fb}}\)
+\(\Rightarrow\) S) is the Born rule: the record of any finite quantum
+experiment is a finite stochastic law. \(\square\) (D \(\Rightarrow\)
+\(Q_{\mathrm{fb}}\) certified over 1\{,\}488 realizations at horizons 3
+and 4 in \texttt{sdq\_probes.py}.)
 
 \emph{Remark (what this equivalence does and does not say).} The theorem
 says the three classes \textbf{coincide} at the level of finite-horizon
@@ -5870,5 +5877,9 @@ Circle} (Springer, 2009).
 degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
+{[}64{]} G. Egri, M. Gömöri, B. Gyenis, and G. Hofer-Szabó, ``Trajectory
+of probabilities, probability on trajectories, and the
+stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
+
 \end{document}
-% source-sha256: c09cb69d31e590017a27f1a978220ce5204b6dd09f82313c28528c75e8fbd105
+% source-sha256: b91b475185902603608e16c11b587b4f046c1a98cafd82c6446dae6eb2d40dae
