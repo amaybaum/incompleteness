@@ -129,11 +129,11 @@ L-0 to L-3 are stated before evaluation so that their failure is detectable. If 
 is VOID (§7). REV1 reports that L-1 to L-3 hold symbolically. That report is provenance; the evaluation record derives
 them itself.
 
-## §4. The test instance (placeholder; not filled)
+## §4. The test instance (bound by `B_I`, §4.1)
 
 **Instance slot `I_M1`: the M-1 instance and outcome, as independently checked.**
 
-This slot holds no pair. It is filled only by a binding amendment (§7.1), which copies verbatim from M-1's record:
+This slot is filled only by a binding amendment (§7.1, here §4.1), which copies verbatim from M-1's record:
 - the lifts `U`, `U′`: every slice, its placement in `t`, `|V|`, `|A|`, the anchor and the basis order;
 - M-1's verdict and its scope;
 - M-1's reported C0, C2-ch and C2-sel laws for the pair;
@@ -157,6 +157,90 @@ decision, recorded before any law of that instance is computed.
 
 **Not done here.** No law of any candidate instance is computed, estimated or discussed. The spec's candidate F4 (SPEC
 §0) is named only as the pair M-1 is authorized to verify; this draft depends on no property of it.
+
+### 4.1 Binding amendment `B_I`: the instance, bound
+
+This subsection is the binding amendment `B_I` of §7.1 step 4, made after the freeze `Φ`
+(`be5e6311403db36b08cde2e4b0989eb8d57b5fab`). It changes §4 only. Every passage below is quoted verbatim from M-1's
+record on `main` at the merge commit `f810f5eea50807a375878d266192115a6b314ab0` (PR #1151, a true merge). M-1's
+preregistration `7f3e8ffa99a3f841ca1e0c30691b236287c14a20` and its result commit
+`a856d4c24ff62c3ff895051e7538313d2491450f` are reachable from `main`. Paths are under
+`verification/programmes/oi-qm/reconstruction/oiqmsel-m1-alt-w-20261105/`.
+
+**G-M1, checked against `main`.**
+1. M-1's record is on `main` at `f810f5ee`. Its independent review is recorded at #1151 c.6665869201 (ACCEPT WITH
+   CHANGES, no material findings), and its delta check at #1151 c.6665968807 (ACCEPT). **Holds.**
+2. M-1's checked outcome establishes, for its frozen pair:
+   - (a) equal C0 laws: `RESULT.md` §4.2, ll. 97–104 ("C0: LAWS-EQUAL"). **Holds.**
+   - (b) not `G`-related: `RESULT.md` §9 and the verdict row (P2) at l. 331. **Holds.**
+   - (c) T-V-distinct: `RESULT.md` §8 (g1), ll. 253–263, and l. 282 ("T-V: DISTINCT[T-sep₁ …]"). **Holds.**
+   - (d) `Γ` in `PPer`, in either orientation: `RESULT.md` §3, control K-b, ll. 63–82. **Holds.**
+3. The pair below is M-1's frozen pair, copied character for character from `PREREG.md` §2, ll. 108–127. **Holds.**
+
+**G-M1 holds.** The outcome is not NOT-EVALUATED.
+
+**The pair** (M-1 `PREREG.md` ll. 108–127, verbatim):
+
+> **Basis order** (QP ll. 94–95): `p₀ = (0,a₀)`, `p₁ = (0,a₁)`, `p₂ = (1,a₀)`, `p₃ = (1,a₁)`. Rows and columns of every
+> matrix are in this order. `e₀ = e_{p₀}` and `e₁ = e_{p₂}` (QP ll. 97–98).
+>
+> **The slices** (exactly QP ll. 107–125; `W = H₄/2`, and `W′` is `H₄/2` with its columns at `p₁` and `p₂` exchanged):
+>
+> ```
+> I = [ 1  0  0  0 ]      W = ½ · [ 1   1   1   1 ]      W′ = ½ · [ 1   1   1   1 ]
+>     [ 0  1  0  0 ]              [ 1  −1   1  −1 ]               [ 1   1  −1  −1 ]
+>     [ 0  0  1  0 ]              [ 1   1  −1  −1 ]               [ 1  −1   1  −1 ]
+>     [ 0  0  0  1 ]              [ 1  −1  −1   1 ]               [ 1  −1  −1   1 ]
+> ```
+>
+> **The lifts.** Defined for every `t ∈ ℕ` (no finite horizon; every finite read list is covered):
+> - `U_t := I` for even `t` and `U_t := W` for odd `t`: `U = (I, W, I, W, …)`;
+> - `U′_t := I` for even `t` and `U′_t := W′` for odd `t`: `U′ = (I, W′, I, W′, …)`.
+>
+> This is B4's alternating placement (B4 ll. 229–230) with `M = W` and `M = W′`. `|V| = 2`, `|A| = 2`, anchor `a₀`.
+>
+> **Extension to `|A| = m ≥ 3`** (as QP l. 128): `A = {a₀, …, a_{m−1}}`; slices `I`, `W ⊕ 1`, `W′ ⊕ 1`, the identity on
+> the `2(m−2)` added basis vectors `(v,a)`, `a ∉ {a₀,a₁}`; the same alternating placement.
+
+**M-1's verdict and scope** (M-1 `RESULT.md` ll. 337–339, verbatim):
+
+> **Verdict: COUNTEREXAMPLE[C0, C2-ch, C2-sel; `PPer`; `|V| = 2`, `|A| ≥ 2`; alternating lifts `U = (I,W,I,W,…)`,
+> `U′ = (I,W′,I,W′,…)`; equal complete-record laws; not two-sided related; T-V: DISTINCT[T-sep₁: `(1,0)` against
+> `(½,½)`]].**
+
+**M-1's reported laws for the pair.**
+- C0 (M-1 `RESULT.md` ll. 99–104, verbatim):
+
+> Root `e_j`, one read at `t`. By (r1) the state is `U_te_j`; record `v` has mass `‖P_vU_te_j‖² = Γ_t(v,j)`, with no
+> failure record.
+> - Even `t`: `δ_{vj}`, for both lifts.
+> - Odd `t`: `½` for every `(v, j)`, for both lifts (§2).
+>
+> The masses of each root sum to 1. **C0: LAWS-EQUAL** for every root, time and record.
+
+- C2-ch: the closed form at ll. 123–124 and the two-read masses at ll. 129–134 (M-1 `RESULT.md` ll. 123–134,
+  verbatim):
+
+> **Closed form**, for both lifts: the mass is `Π` of one factor per read, where the first factor is `δ_{v₁j}` if `t₁` is
+> even and `½` if odd, and the factor of read `l+1` is `δ_{v_{l+1}v_l}` if `t_{l+1} − t_l` is even and `½` if odd.
+>
+> **Two-read masses**, written out from the closed form. Reads at `s < t`, root `j`, records `(v₁, v₂)`. The masses are the
+> same for `U` and `U′`. Rst-ch has no failure record, so there is no `⊥` mass.
+>
+> | parity of `s` | parity of `t − s` | `p(v₁,v₂ \| j)` | sum over `(v₁,v₂)` |
+> |---|---|---|---|
+> | even | even | `δ_{v₁j}·δ_{v₂v₁}`: `1` if `v₁ = v₂ = j`, else `0` | `1` |
+> | even | odd | `δ_{v₁j}·½`: `½` if `v₁ = j` (either `v₂`), else `0` | `1` |
+> | odd | even | `½·δ_{v₂v₁}`: `½` if `v₁ = v₂` (either `j`), else `0` | `1` |
+> | odd | odd | `½·½ = ¼` for every `(j, v₁, v₂)` | `1` |
+
+- C2-sel: the closed form (M-1 `RESULT.md` ll. 163–165, verbatim):
+
+> **Closed form**, for both lifts: an all-ok record has mass `Π` of one factor per read, `δ` for an even gap (or even
+> `t₁`, against `j`) and `¼` for an odd gap (or odd `t₁`); a record ending in `(v_m,⊥)` has the all-ok factors of reads
+> `1, …, m−1` times `0` (even gap at `m`, or even `t₁` if `m = 1`) or `¼` (odd).
+
+**Before this amendment** no C-pers law of this instance was computed or stated in any commit of this branch.
 
 ## §5. The target-QM comparison (T-V)
 
