@@ -1,7 +1,7 @@
 # O-RET Phase B: Theorem N, the NRR-1 obstruction (landed paper record)
 
-**Status.** A scoped paper negative for the family `𝔉` of §3.2, independently reviewed at exact head,
-reviewed in `REVIEW.md` (this directory). No manuscript or correctness status changes; the recording
+**Status.** A scoped paper negative for the family `𝔉` of §3.2, independently reviewed at exact head
+in `REVIEW.md` (this directory). No manuscript or correctness status changes; the recording
 comment #1115 c.6652197336 notes scientific status unchanged.
 - **Support.** Paper derivations only, marked [D]. No computation, enumeration, simulation or kernel
   check supports them.
@@ -47,9 +47,11 @@ for these adaptations:
    base `53a3eb3d`, where those files are identical;
 9. the reference table (§10) is rebuilt to the references this file cites;
 10. at DPB 661, "(O1, O3, O4)" is retargeted to the DESIGN-PULSE obligations (D:32–37).
+11. at DPB 679, the rule-h locator `INTERFACE-CONTRACT.md:35–36` becomes `:32–36`, which includes
+    the torus side behind `|S| ≥ 2⁴⁸`.
 
 **Support labels.** [PA] Phase A evidence on `main`; [DP] `DESIGN-PULSE.md` r6, definitions only;
-[R] `ROUTES.md` at `F`, motivation only (programme `README.md:30–35`); [MR] the frozen MR-1 record
+[R] `ROUTES.md` at `F`, motivation only (programme `README.md:33–38`); [MR] the frozen MR-1 record
 `../../measurement-record-formation/amendments/MR-star.md`; [O] an owner record quoted with its comment
 id; [D] a paper derivation recorded here.
 
@@ -381,8 +383,7 @@ comment in which an earlier statement appeared; none of those comments is a revi
 ### 4.10 Theorem N (the scoped negative)
 
 - *Status.* [D], assembled from §4.1–§4.7: a scoped paper negative for `𝔉`, independently reviewed
-  at exact head, reviewed in `REVIEW.md` (this directory); no manuscript or correctness status
-  changes.
+  at exact head in `REVIEW.md` (this directory); no manuscript or correctness status changes.
 - *Statement.* For every tuple of `𝔉` (§3.2), every `T ≥ 1` and every deterministic decoder `g` of
   the read cells fixed over `W_T`, one of the following holds:
   - J-1 fails at the hold tick `t₀+1`, so PREREG §4 step 2 assigns row 1; or
@@ -427,8 +428,8 @@ A classifier's J-1 and ST at any `ε* < 1/4` (`1/20` included) and any `T ≥ 1`
 storage row (Theorem N). Within this scope the classifier cannot certify retention, so a run of this
 family cannot discriminate retained information from information passing through.*
 
-- **Status.** A scoped paper negative for `𝔉`, independently reviewed at exact head, reviewed in
-  `REVIEW.md` (this directory); no manuscript or correctness status changes.
+- **Status.** A scoped paper negative for `𝔉`, independently reviewed at exact head in `REVIEW.md`
+  (this directory); no manuscript or correctness status changes.
 - **Wider statements inside §4 are the propositions' own hypotheses, not the negative's scope.**
   Proposition AE holds for K1 on any finite graph and any product law; Lemma SS-2 holds for any
   copy-form centre-free rule. They are recorded with those hypotheses, and the scope
@@ -469,7 +470,7 @@ observer-level or register-level extension (Code Review Rules, "Bridge and no-go
 | O3 | Correlated (non-product) laws, on either rule, except width-1 registers with a fixed current slice, decided by SS-2 for any law | AE, NP, PAD and U use the product form. |
 | O4 | Restricted carrier preparations (for example `x₀ = 0`, the draft's alternative G-6 (b) at `43370576`, provenance), outside `𝔉` by definition | A restricted-carrier mathematical test case (owner ruling (a), §4.9): its preparation is restricted (`x₀(t₀)` fixed), and it is not physically available without independent sourcing. AE's translation needs both `x₀` values. Observation W1 is one instance; it fails J-i at hold tick `t₀+2` (`T = 2`). §4 leaves O4 undecided beyond W1. The family restricts the independent preparations requirement 2 of #1032 asks for. |
 | O5 | SMR registers of width `≥ 2` meeting `{N−2, N−1}` outside LS's hypotheses (non-arc registers, arcs wider than 3, or `N = 6`), under the preregistered `ν_r` or under readiness to nonzero values; and `q > 2`, for both rules | LS needs arcs of width `≤ 3`, `N ≥ 7` and ready = 0; AE needs `q = 2`. Readiness to nonzero values and non-arc registers are open only for SMR registers meeting `{N−2, N−1}`: AE and U decide every other register under any product law. Width-1 registers are decided by SS-2 (or PAD under `π₀`). |
-| O6 | Other copy-form rules, including rule h (`|S| ≥ 2⁴⁸`, `INTERFACE-CONTRACT.md:35–36`) | Only PAD, NP and SS-2 apply; AE applies where the carrier enters additively. |
+| O6 | Other copy-form rules, including rule h (`|S| ≥ 2⁴⁸`, `INTERFACE-CONTRACT.md:32–36`) | Only PAD, NP and SS-2 apply; AE applies where the carrier enters additively. |
 | O7 | Routes outside a fixed current-slice register of a copy-form step: state-selected access (route I, R:233–240), E-reg models (route III, R:421–426), derived, moving or clocked registers (requirement 1 of #1032; row 4 and Remark C) | Outside NRR-1; not examined here. |
 
 The question that bears on O1, O5 and O6 is whether SS-2's `t₀+2` obstruction extends to registers
@@ -545,5 +546,7 @@ The specific slice-level shape of §4.8 is not such an ingredient: it fails at `
 | #1115 c.6651949245, c.6652079353, c.6652150358 | reviews of DPB at `250ab402`, `179acca3` and `4b4cacc9` | provenance. The review this record relies on is `REVIEW.md` |
 | #1032 c.6567189236; #914 c.6563955678 | the CN control; P2-G (§4.1) | provenance |
 | DPB at `4b4cacc9`; drafts `43370576` and `5839e064` on `research/o-ret-phaseb-design-20261105` | the source of this extract; the draft-only terms glossed here | provenance. These commits exist in the repository but are not reachable from `main`, and none is offered as support (§A.42 item 3) |
-| `PREREG-PHASE-A.md` (P:57, P:79–80, P:418–500), `DESIGN-PULSE.md` (D:32–37, D:98–99, D:151–155), `DEFINITIONS.md:215–218`, `papers/SM.md:106`, `:112`, `papers/Main.md:726`, `MR-star.md` (MR:464–465, MR:1342), `../../native-y-continuation-20261024/shared_v12/INTERFACE-CONTRACT.md:35–36` | definitions, rule forms, posits, the unsourced ready region | support on `main` |
-| `ROUTES.md` at `F = 49f0bd41` (R:33–34, R:46–50, R:163–168, R:233–240, R:314–315, R:421–426) | the RET-st and HC-K4 motivation; routes I and III | [R], motivation only; `F` is reachable from `main` |
+| `PREREG-PHASE-A.md` (P:57, P:79–80, P:418–500), `DESIGN-PULSE.md` (D:32–37, D:98–99, D:151–155), `DEFINITIONS.md:215–218`, `papers/SM.md:106`, `:112`, `papers/Main.md:726`, `MR-star.md` (MR:464–465, MR:1342), `../../native-y-continuation-20261024/shared_v12/INTERFACE-CONTRACT.md:32–36` | definitions, rule forms, posits, the unsourced ready region, rule h and its smallest torus | support on `main` |
+| `DEFINITIONS.md` (Remark C, :69–73; HC-K4 named among the rejected cases, :82; D-TRN, :159–183) and `DESIGN-PULSE.md` (K1 at K-18(b), `|S| = 2¹⁰`, sites 1–4, D:577; row 4 and Remark C, D:407), with `PREREG-PHASE-A.md` (Remark C's frozen wording, P:176–185; row 4, P:471–473) | the named definitions K-18(b), D-TRN, HC-K4 and Remark C | support on `main`; HC-K4's construction and K-18(b)'s parameters `(d,N,q,a) = (1,5,2,1)` are at R:163–168 and R:19 [R] |
+| #1032 issue body (amaybaum; opened 2026-11-02T01:50:32Z, read as last edited 2026-11-05T06:15:39Z), "Precisely missing", requirements 1 and 2 | requirement 1 (§7.1, O7): "Physical rule, not access by declaration"; requirement 2 (§4.9, §7): "for at least two independently available incoming carrier preparations, some future readable register law differs while the observer's held background and controls are fixed" | owner record, quoted with author and time (§A.42 item 7) |
+| `ROUTES.md` at `F = 49f0bd41` (R:19, R:33–34, R:46–50, R:163–168, R:233–240, R:314–315, R:421–426) | the RET-st and HC-K4 motivation; routes I and III | [R], motivation only; `F` is reachable from `main` |
