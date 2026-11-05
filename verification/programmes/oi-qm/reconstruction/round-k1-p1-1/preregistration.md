@@ -2,8 +2,9 @@
 
 **Status.** Draft control plane of a native V3 round (`AGENTS.md` §A.39), before `F`. WIP / UNVERIFIED. It authorizes
 no code drafting, enumeration, run on model states, workflow dispatch, designation of `F` or `E`, or merge. Each of
-those needs its own owner authorization (§13). Nothing in this file was computed: every number it states is quoted
-from a proved result on `main` or from a frozen K1-RDY-1 record, at the locator given.
+those needs its own owner authorization (§13). The owner's rulings on the drafting questions OQ-1 to OQ-7 are quoted in
+§17; they authorize none of these. Nothing in this file was computed: every number it states is quoted from a proved
+result on `main` or from a frozen K1-RDY-1 record, at the locator given.
 
 - **Drafting snapshot** `D` = `8418ec342420e6921808b4b6d9352f4857afd292` (`main`, 2026-11-05T13:35:27Z).
 - **Branch** `round/k1-p1-1-20261105`. **Drafting writer** `writer-k1p1-plan`.
@@ -106,32 +107,41 @@ checkpoints). A difference found at execution is stop condition H7 (§14), never
 | Dependency | Where | Status at `D` | Use in this round |
 |---|---|---|---|
 | `K` (rule text, §2) | K1-RDY-1's `F`, branch `round/k1-rdy-1-20261105`, PR #1126 | frozen; not reachable from `main` | governing rule; start condition SC-2 |
-| K1-RDY-1's S0 outcomes (11 pass) and P0 rows (three ABSENT) | `result.md`, `gate-table.json`, `derivations/` at `da1d939e52e71110008cd6534a672897c64c3339` | paper derivations, model-authored; under the independent review of #1031 comment 6659415927 part A; not on `main`; not established | agreement controls only (PR-S0, PR-P0); readings RD-1 to RD-3 |
+| K1-RDY-1's S0 outcomes (11 pass) and P0 rows (three ABSENT) | `result.md`, `gate-table.json`, `derivations/` at `da1d939e52e71110008cd6534a672897c64c3339` | paper derivations, model-authored; independently reviewed (model-authored): ACCEPT WITH CHANGES, all non-material (PR #1126 comment 6659587647), changes rechecked (comment 6659744122); not on `main` at `D` | agreement controls only (PR-S0, PR-P0); readings RD-1 to RD-3 |
 | `LEMMAS.md` (Lemma P1, blindness lemma, L-O) | `verification/programmes/oi-qm/reconstruction/k1-rdy-proofs-20261105/`, blob `bef4441cb9ec885879f29689c581c51499a7df4a` at `D` | written proofs, independently reviewed (model-authored) | controls PR-P1c, PR-BLIND |
 | `PROOFS.md` (`E`, CYC, IND, EN, CR-1 to CR-6, LEDGER) | `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proofs-20261105/`, blob `b50e23e47e107934fb5637158cd9148433d62bc9` at `D` | written proofs, independently reviewed (model-authored) | controls PR-E, PR-CYC, PR-IND, PR-EN, PR-CR6, PR-LEDGER |
 
-The reviews of `LEMMAS.md` and `PROOFS.md` count at the internal-verification level only (owner ruling R5, quoted in
+The reviews of `LEMMAS.md`, `PROOFS.md` and K1-RDY-1's S0/P0 count at the internal-verification level only (owner ruling R5, quoted in
 `K`'s A5). No row token of this round rests on them: every row value is computed (§6), and each proved result enters
 only as a control whose failure stops the round (§4, §14).
 
-**Readings carried from K1-RDY-1's execution, conditional on its review.** K1-RDY-1's `result.md` marks three readings
-that its review (#1031 comment 6659415927, part A item 2) is to evaluate. This round adopts them as stated there:
-- **RD-1** (CC-IMP): when G2(a) and G2(b) both flag, the subtype is taken from (a);
-- **RD-2:** when G4 issues a token, G5, G6 and G7 are recorded as `not-reached`;
-- **RD-3:** a row that does not reach G5 carries in `hypotheses` the declaration's hypotheses and the §2 access labels
-  its token names; H-law and H-sel are not evaluated for it, and `w_certified` is recorded separately.
+**Readings carried from K1-RDY-1's execution.** K1-RDY-1's `result.md` marks three readings, which its independent
+review evaluated (PR #1126 comment 6659587647 §4, with change C2 rechecked in comment 6659744122 §2). The owner accepted
+them subject to that review (§17, OQ-3). This round adopts them in the reviewed form:
+- **RD-1** (CC-IMP): when G2(a) and G2(b) both flag, the subtype is taken from (a). Grounds (review §4(i)): §5.4
+  defines single-subtype row tokens only, A2's subtype set belongs to the class token, and G2 decides (a) first;
+- **RD-2:** when G4 issues a token, G5, G6 and G7 are recorded as `not-reached` (`K` line 183, A9);
+- **RD-3:** two sets are kept distinct for a row that stops at G4. **(i) The `hypotheses` field** holds the
+  declaration's hypotheses (here H-inv[K-17(a)]) and the §2 access labels its token names. It is not `Λ`: `Λ` is
+  written only at G5, and no token of such a row carries it. **(ii) The hypotheses `Λ` would contain at G5** are that
+  set plus H-law exactly when the row is not W-certified (`K` line 56), plus H-sel exactly when R5 recorded non-empty
+  H-sel content. They are not entered in the row; they are fixed by its recorded `w_certified` and H-sel content.
+  For a row that reaches G5, the `hypotheses` field is `Λ` (A9).
 
 **Start conditions** (each is checked before `F` is proposed for designation):
 - **SC-1.** The independent review of K1-RDY-1's S0/P0 has returned ACCEPT, or ACCEPT WITH CHANGES with every change
-  independently rechecked, as recorded by the owner. If it returns BLOCKED, finds a material defect, or rules
-  differently on RD-1 to RD-3, this control plane is revised before `F` and nothing here is executed until the owner
-  decides again.
-- **SC-2.** `d9b3de012e393262adb20f91ad49627bad48de43` and K1-RDY-1's record directory are reachable from `main` (by
-  K1-RDY-1's halted landing), so that the rule this round adopts is on `main` (§A.42 items 2, 3 and 8). Open question
-  OQ-2 asks whether this round should instead carry the adopted clauses verbatim.
+  independently rechecked, as recorded by the owner. Satisfied in part: the review returned ACCEPT WITH CHANGES, all
+  non-material, with no material defect and no change to frozen rules (PR #1126 comment 6659587647); C1 to C4 were
+  rechecked at the exact head of K1-RDY-1's `W` (comment 6659744122); the owner accepted the review (§17, OQ-3).
+  Outstanding: the independent exact-head recheck of K1-RDY-1's corrective `W′` (W1 to W3), which the owner's ruling
+  of #1031 comment 6660591343, item 2, requires.
+- **SC-2.** K1-RDY-1's verified halted landing is on `main`: `d9b3de012e393262adb20f91ad49627bad48de43` and K1-RDY-1's
+  record directory are reachable from `main`, with a receipt `Q` on which `tools/v3_verifier.py --verify-round Q`
+  prints `VERDICT  HOLDS`, so that the rule this round adopts is on `main` (§A.42 items 2, 3 and 8; §17, OQ-2). Not
+  met at this revision.
 - **SC-3.** The implementations and `controls.py` exist as reviewed blobs on a pushed staging branch and are frozen by
-  an amendment before `F` (§8.4), unless the owner chooses otherwise under OQ-1.
-- **SC-4.** The owner has answered the open questions of §17 that this file marks as blocking `F`.
+  an amendment before `F` (§8.4; §17, OQ-1). Code drafting needs its own owner authorization (§13 (a)).
+- **SC-4.** The owner has answered the drafting questions of §17. Satisfied (#1031 comment 6660591343).
 
 ## 4. Preserved results used as controls (§A.29)
 
@@ -148,8 +158,8 @@ stop condition H3 (a preserved result fails) or H10 (a K1-RDY-1 outcome differs)
 | PR-BLIND | an invariant `μ` with `μ(E_{t_0} = 0) = 1` has `NB(μ)` false | `LEMMAS.md` §2 | no B-pl member row is sharp with `NB` true |
 | PR-LEDGER | an equal-time sharp row satisfies its G3 bound | `PROOFS.md` §7.3 | no B-pl or B-eq member row reaches VOID[row] |
 | PR-CR6 | the member row of `δ_0` is not a positive in B-pl, B-eq or B-ct | `PROOFS.md` §6, CR-6 | the computed `δ_0` rows are not positive, and no branch reaches the union clause |
-| PR-S0 | the eleven S0 controls pass | K1-RDY-1 at `da1d939e` (paper; review pending) | every computed S0 part (§11.1) passes |
-| PR-P0 | `π_0`'s G4 outcome is ABSENT in each branch, with weak values B-pl `{"": 1/8}`; B-eq `{00: 1/2, 01: 0, 10: 0, 11: 0}`; B-ct `{00: 1/4, 01: 0, 10: 1/4, 11: 0}`; not W-certified in any branch | K1-RDY-1's `gate-table.json` at `da1d939e` (paper; review pending) | the `π_0` member rows' `sharp_w`, `weak` and `w_certified` equal these |
+| PR-S0 | the eleven S0 controls pass | K1-RDY-1 at `da1d939e` (paper; reviewed, §3) | every computed S0 part (§11.1) passes |
+| PR-P0 | `π_0`'s G4 outcome is ABSENT in each branch, with weak values B-pl `{"": 1/8}`; B-eq `{00: 1/2, 01: 0, 10: 0, 11: 0}`; B-ct `{00: 1/4, 01: 0, 10: 1/4, 11: 0}`; not W-certified in any branch | K1-RDY-1's `gate-table.json` at `da1d939e` (paper; reviewed, §3) | the `π_0` member rows' `sharp_w`, `weak` and `w_certified` equal these |
 
 PR-P0 compares the `π_0` member row of P1 with K1-RDY-1's P0 rows on G4's measured fields only. The two rows carry
 different hypotheses (H-inv[K-17(a)] against H-μ and the finite-`S` posit), so their tokens differ in their fields and
@@ -226,10 +236,13 @@ R6  G3: D(m) = log(|S| / |supp(m)|), recorded as the exact ratio |S|/|supp(m)|.
 R7  G4: no sharp w -> ABSENT[m; b; access].  Else, equal time: a sharp w breaking its bound -> VOID[row].
       Else NB false at every sharp w -> BLIND[m; b; access].  Else G4 passes.
 R8  G5: Lambda := {H-inv[K-17(a)]} ∪ access labels (H-cur (declared) for V; H-2s (declared) when W contains
-      a previous-slice cell; H-ret in B-ct) ∪ {H-law if not W-certified} ∪ {H-sel if R5 recorded content}.
+      a previous-slice cell; H-ret in B-ct) ∪ {H-law if not W-certified} ∪ {H-sel if R5 recorded content};
+      the row's hypotheses field := Lambda. A row stopped at G4 forms no Lambda; its hypotheses field is as
+      RD-3 (i) states.
 R9  G6 (rows that pass G5): implementation A's row = implementation B's row, and the adversarial note's token
-      equals that row's token (section 8.3); otherwise UNDECIDED(G6). Without the adversarial record the row's
-      G6 and token are "pending".
+      equals that row's token (section 8.3); if the note's token differs, UNDECIDED(G6). If A's and B's rows
+      differ, no token is issued for the row and the round stops (H1, section 8.3). Without the adversarial
+      record the row's G6 and token are "pending".
 R10 G7: AVAILABLE[H-sel](Lambda) if H-sel in Lambda, else CONDITIONAL[Lambda]; precedence of K section 5.4.
 
 CLASS (per branch, A2): computed only when the row set is complete (section 9, CT-INC) and no row is pending.
@@ -244,7 +257,7 @@ part and on the member support restriction, and T1, are decided once for the cla
 `derivations/P1-class-paper.md` (§13, X1), committed before any run on the instance. Both implementations read its three
 outcomes from `class-decisions.json` (§10) and apply them to every member row; G1 removes no member (`K` line 124).
 
-**Readings introduced by this round** (each needs owner confirmation; OQ-3):
+**Readings introduced by this round** (accepted by the owner, §17, OQ-3):
 - **RD-4.** A member's support restriction is "a cycle of `φ`", whose only input is `φ`. The least state is a report
   key and enters no token (A2), so T1 does not read it as a literal-coordinate input. (Suggested by the feasibility
   review, #1031 comment 6658841280 §1.)
@@ -272,6 +285,10 @@ outcomes from `class-decisions.json` (§10) and apply them to every member row; 
 - **Implementation A**, `verification/lean/k1p1_enum_a.py`, writer `writer-k1p1-impl-a`.
 - **Implementation B**, `verification/lean/k1p1_enum_b.py`, writer `writer-k1p1-impl-b`.
 - **Controls**, `controls.py` in the record directory, writer `writer-k1p1-ctl`, distinct from both.
+- **Adversarial notes** (§8.3), writer `writer-k1p1-adv`. **Executor** `writer-k1p1-exec`, the sole committer to this
+  round's branch from `F` on (§13). These five designated sessions are accepted by the owner (§17, OQ-7).
+- **Placement** (§17, OQ-6): A and B in `verification/lean/`, as for KT4-PREM-1, each named as an `execution` path in
+  the `v3-governed-paths` block at the end of this file; `controls.py` and every output in the record directory.
 - Each writer receives this preregistration and the adopted text (§2) only, and no other writer's code until its own
   blob is delivered. The coordinator records each hand-off (what was given, when) and the SHA-256 of each delivered
   file. Each file's header records, as `K`'s A10 does for derivations: its author session; whether its writer had
@@ -298,15 +315,16 @@ nothing from the first and matches it row by row: implementations A and B. The a
 written by `writer-k1p1-adv`, a fourth session, after both outputs exist. It addresses each row that passes G5 by its
 key, recomputes G2(b) from the rule part alone, attempts to break the token, and states the token it finds. Its
 structured record is `adversarial.json` (§10). A row passes G6 exactly when A's and B's rows are identical and the
-note's token equals theirs; otherwise it ends UNDECIDED(G6).
+note's token equals theirs. If A's and B's rows are identical and the note's token differs, the row ends UNDECIDED(G6).
 
-A disagreement between A and B anywhere outside a positive row is stop condition H1, not a token: the round issues no
-row or class token from outputs that disagree. Whether a disagreement confined to a positive row also halts, rather
-than ending that row UNDECIDED(G6), is open question OQ-4.
+A disagreement between A and B on any output, a positive row included, is stop condition H1 (§17, OQ-4). H1 is an
+integrity stop on this round's procedure. It changes no gate or token of the adopted rule, under which a positive row
+whose two enumerations disagree takes the path to UNDECIDED(G6) (`K` line 151). The round issues no token for a
+disputed row and no row or class token from outputs that disagree, and halts under `S12` (§14).
 
 ### 8.4 When the code is written and frozen
 
-Drafting code is not authorized by this file (§13). Proposed sequence (OQ-1):
+Drafting code is not authorized by this file (§13). Sequence (§17, OQ-1):
 1. After the owner approves code drafting, the three writers draft A, B and `controls.py` on a linked staging branch,
    never on this round's branch before `F` (§A.43 item 1).
 2. Before `F` the code is reviewed statically, and is run only on the synthetic fixtures of §11.2, which are not the
@@ -348,12 +366,16 @@ Files in the record directory, each written by `controls.py run` from the implem
   `sharp_w`, `weak`, `nb`, `w_certified`, `usefulness`, `hypotheses`, `ledger`, `token`) and adds `support_size`,
   `mass` (each positive-mass `w` to its rational), `pi0_ref` (each positive-mass `w` to `π_0`'s value), `d_ratio` and
   `bound_ok`. `class_tokens` uses A2's fields. Each control carries `id`, `gate`, `computed`, `expected`, `outcome`.
-- `adversarial.json`: for each row that passes G5, its key and the note's token, written by `writer-k1p1-adv`, with
-  `derivations/adversarial-<branch>.md` holding the notes.
+- `adversarial.json`: for each row that passes G5, its key and the note's token, written by `writer-k1p1-adv`.
+- `derivations/adversarial-<branch>.md` (§17, OQ-5): one file for each branch with a row that passes G5. It opens with
+  an index listing, by key in M5's order, every row of that branch that passes G5 (so every positive row), followed by
+  one note per indexed row. `controls.py check` requires each index, and `adversarial.json`, to list exactly the rows of that branch that
+  pass G5 in `gate-table.json`.
 
 Canonical bytes: UTF-8 JSON with sorted keys, separators `(",", ":")`, `ensure_ascii` false, one trailing LF. Token
 strings: the access field lists the labels in the order H-cur (declared), H-2s (declared), H-ret (as K1-RDY-1's P0
-tokens do); `Λ` and `hypotheses` are sorted by code point. A member is named `π_0` or `u_c[<least state>]` in a token.
+tokens do); `Λ` and `hypotheses` are sorted by code point; a row's `hypotheses` field is `Λ` when the row reaches G5 and the set
+of RD-3 (i) when it stops at G4. A member is named `π_0` or `u_c[<least state>]` in a token.
 
 **Recipe.** At a commit holding the outputs, `python3 -I controls.py check` (from the record directory) runs A and B,
 compares each of their outputs byte for byte with the other's and with the committed file, runs every check of §9 and
@@ -468,7 +490,7 @@ checkpoint of §15 at the exact head.
 ## 14. Stop conditions and halt
 
 **Stop and return to the owner** (execution stops; only a factual note in `result.md` is committed):
-- **H1** A and B disagree on any output outside a positive row (and, under OQ-4, on a positive row);
+- **H1** A and B disagree on any output, a positive row included: an integrity stop on procedure, not a token (§8.3);
 - **H2** a completeness check of §9 fails;
 - **H3** a preserved-result control of §4 fails, or a branch reaches the union clause; this is also reported as a
   finding against the cited proof;
@@ -526,27 +548,43 @@ child of `F` changing only record paths carries `result.md`. Then reconciliation
 - No manuscript or Lean change. The only paths outside the record directory are the two implementations and the
   `verify.yml` job. No correctness band moves. Readiness-dependent work stays as `K` lines 226–229 and A4 leave it.
 
-## 17. Open questions for the owner
+## 17. Owner rulings on the drafting questions
 
-- **OQ-1** (blocks `F`). Code timing: drafted and frozen by blob before `F` with synthetic-fixture runs only (§8.4,
-  recommended), or written after `F` as the first execution commit and reviewed at a held head before any run?
-- **OQ-2** (blocks `F`). Is K1-RDY-1's landing on `main` (SC-2) required before `F`, or should this file carry the
-  adopted clauses verbatim so that it is self-contained?
-- **OQ-3** (blocks `F`). Confirm RD-4 to RD-7, and RD-1 to RD-3 subject to the review.
-- **OQ-4.** Does an A/B disagreement confined to a positive row halt the round (H1), or end that row UNDECIDED(G6) as
-  line 151 would give?
-- **OQ-5.** Adversarial notes: one file per branch addressing each positive row by key (proposed), or one per row?
-- **OQ-6.** Placement of the implementations in `verification/lean/` (precedent: KT4-PREM-1) or in the record
-  directory.
-- **OQ-7.** Writers: confirm the five sessions of §8.1 and §8.3 and the executor `writer-k1p1-exec` as sole branch
-  committer after `F`.
+amaybaum, Claude Code session chat, 2026-11-05, adopted about 14:31Z, recorded in #1031 comment 6660591343
+(2026-11-05T14:32:02Z), item 3:
+
+> #1135 P1 computational round — Resolve OQ-1 through OQ-7 as follows. Choose OQ-1's recommended pre-F code freeze,
+> allowing synthetic-fixture testing only before F; no K1-instance computation. For OQ-2, require K1-RDY-1's verified
+> halted landing on `main` before F. For OQ-3, accept RD-1–RD-7, subject to the accepted review and precise distinction
+> between unevaluated hypotheses and hypotheses that would apply at G5. For OQ-4, halt on any A/B disagreement as an
+> integrity failure rather than publishing a disputed classification. For OQ-5, use one indexed adversarial file per
+> branch covering every positive row. For OQ-6, retain the proposed `verification/lean/` placement and explicit
+> execution-path governance. For OQ-7, accept the five designated sessions, with the executor as sole branch
+> committer. These decisions do not authorize F designation, code drafting, execution or merge; those remain separate
+> gates.
+
+The same comment records how OQ-4 is carried out: "The halt on A/B disagreement is to be stated in #1135's
+preregistration as an integrity stop on procedure, not as a change to any gate or token of K1-RDY-1's adopted rule,
+whose positive-row path is UNDECIDED(G6)."
+
+| Question | Ruling | Applied at |
+|---|---|---|
+| OQ-1 code timing | code drafted and frozen by blob before `F`; before `F`, synthetic-fixture runs only and no computation on the K1 instance | §8.4; SC-3; §12 item 2 |
+| OQ-2 adopted text | K1-RDY-1's verified halted landing on `main` before `F`; the adopted clauses are not carried verbatim | SC-2; §18 |
+| OQ-3 readings | RD-1 to RD-7 accepted, subject to the accepted review, with unevaluated hypotheses kept distinct from those `Λ` would contain at G5 | §3 (RD-1 to RD-3, SC-1); §6 (R8, RD-4 to RD-7); §10 |
+| OQ-4 A/B disagreement | any A/B disagreement halts the round as an integrity stop on procedure; no gate or token of the adopted rule changes | §6 R9; §8.3; §14 H1 |
+| OQ-5 adversarial notes | one indexed file per branch covering every row that passes G5 | §10 |
+| OQ-6 placement | `verification/lean/`, with the implementations governed as `execution` paths | §8.1; `v3-governed-paths` block |
+| OQ-7 writers | `writer-k1p1-impl-a`, `writer-k1p1-impl-b`, `writer-k1p1-ctl`, `writer-k1p1-adv`, `writer-k1p1-exec`; the executor is the sole branch committer from `F` on | §8.1 |
 
 ## 18. References to content not on `main` (§A.42 item 8)
 
 | Reference | Claim | Class |
 |---|---|---|
-| K1-RDY-1's `F` `d9b3de01` and its files (§2) | the rule this round adopts | support off `main` at `D`; closed by SC-2 before `F`, or by OQ-2's alternative |
-| K1-RDY-1 at `da1d939e` (`result.md`, `gate-table.json`, `derivations/`) | PR-S0, PR-P0, RD-1 to RD-3 | support off `main`, not established; used only as controls and readings conditional on SC-1 |
+| K1-RDY-1's `F` `d9b3de01` and its files (§2) | the rule this round adopts | support off `main` at `D`; closed by SC-2 before `F` (§17, OQ-2) |
+| K1-RDY-1 at `da1d939e` (`result.md`, `gate-table.json`, `derivations/`) | PR-S0, PR-P0, RD-1 to RD-3 | support off `main` at `D`, reviewed (§3), reaching `main` with K1-RDY-1's halted landing (SC-2); used only as controls and as readings stated in §3 |
+| PR #1126 comments 6659587647 and 6659744122 (independent reviews of K1-RDY-1) | SC-1; the reviewed form of RD-1 to RD-3 | provenance: the readings are stated in §3 and accepted by the ruling quoted in §17 |
+| #1031 comment 6660591343 | the rulings on OQ-1 to OQ-7 | quoted in §17 with author and time |
 | #1031 comments 6658964414 and 6659415927 | this round's authority | quoted in §0 with author and time |
 | #1031 comment 6658841280 (feasibility review), 6658598399 (gate-3 plan); PRs #1114, #1126 | the 471-row count and RD-4's suggestion | provenance |
 | #1031 comment 6651204512 | no enumeration before `F` (K1-RDY-1), applied here | quoted in §8.4 with author and time |
