@@ -382,7 +382,7 @@ other reference is A7.
 of A9. The governed paths are the round's record directory and its receipt and nothing else, which is the checkpoint
 for line 230's "No manuscript, Lean or probe change" (§A.41). No enumeration tool and no workflow path is declared as
 an `execution` entry, and the set in force is the set at `F` (architecture `S7`). That execution performs no
-computation is not a predicate of the verifier; it is the checkpoint of A11. A gate that the paper
+computation is not a predicate of the verifier; it is checked by the reviewer checkpoint of A11. A gate that the paper
 derivations do not decide ends in UNDECIDED(Gk) (line 191).
 
 ```v3-round

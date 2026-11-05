@@ -1,6 +1,6 @@
 # A7. Trace of the base's references to content not on `main`
 
-**Governs:** no base line's content. It adds the classification `AGENTS.md` §A.42 item 8 requires of every reference in
+**Governs:** no base line's content, except that its Main row reads line 81's §4.6 anchor at `D` (a reading only, as the owner directed in #1031 comment 6656166518). It adds the classification `AGENTS.md` §A.42 item 8 requires of every reference in
 lines 1–313 to content not on `main`, read against the claim each is attached to. "Support on `main`" names the
 content on `main` that the claim uses.
 
@@ -43,6 +43,8 @@ content on `main` that the claim uses.
 | `LEMMAS.md`, `PROOFS.md` and the `REVIEW.md` beside each | §12, A3, A5, A6, A8 | the proofs and their independent reviews | support on `main` | at `4b4b437cfff9dcf32c882251d1a4c3445ca9e8be`; both reviews are model-authored. Limitation: the full review of `PROOFS.md` was made on the evidence branch `evidence/k1-rdy-pref-proofs-20261105` (#1114 comments 6653236579, on `06d6ab31` for §1–§6, and 6653410073, the delta check on `7c768f05` adding §7; provenance). Its support on `main` is the hand re-derivation summary of §1–§7 in `k1-rdy-pref-proofs-20261105/REVIEW.md` §1, at the landing's exact head `6ff20b91b869ea09d432d2ae54ca8fb46cd4aa0f`. The blob reviewed at `7c768f05` (`3801aba6c972668fec6ed73a9a01327691fc9018`) is the one landed in `022ae8da`; at `D` the file differs from it only in its two status lines |
 | commits `1901063504f649bd453d7b5f87add395d6974ec7`, `d8bfd07bf591eeeeb107ef9842547dc53e195bef`, `6525ad34b5fc4bd6f25c1c07de4482e35d69ec3c`, `4f016afd943f5a3939493eab752664949e90dbbb`, `4b4b437cfff9dcf32c882251d1a4c3445ca9e8be`; PRs #1119 and #1122 | §12, A5 | the reviewed commit, the review's changes, and where the proofs and reviews entered `main` | support on `main` | each commit is reachable from `main`; the PR numbers are provenance |
 | PR #1114 comment 6653656756 (owner, OD-1 to OD-7, 2026-11-05T08:44:44Z) | §12, A2, A8, A9 | OD-3 to OD-6, carried by A8, §12's governed paths, A2 and A9 | support on `main` once §12 lands | quoted in §12 with author and time; the content of each decision is stated in full where it is carried |
+| #1031 comment 6656645169 (owner ruling F1/F2, 2026-11-05T11:18:22Z) | A5 | the R5 ruling's scope over `LEMMAS.md` and `PROOFS.md` | support on `main` once A5 lands | quoted in A5 with author and time |
+| PR #1126 comment 6656432806 (delta review of `52ae69fb`) | A5 | the findings F1 and F2 answer | provenance | the ruling is quoted in full in A5 |
 | #1031 comment 6656166518 (owner rulings R1–R5, 2026-11-05T10:54:11Z) | §12, A4, A5, A10, A11 | the rulings these files carry | support on `main` once they land | quoted where each applies, with author and time |
 | PR #1126 comments 6656052333 (independent review of this control plane) and 6656066995 (its line correction) | A7, A10, A11 | the findings the owner's rulings answer | provenance | each ruling is quoted in full where it applies |
 | commits `77edc1a1004aa7312bd3ec24eefcaa5a1e6db8af`, `01a096a95a02caa1c471d892f34db919593783d9`, `d3e13c993fbdc17c3c9062c1e0e2d307d4a4a21e`; #1028, #1035, #1112 | A7 | where Main §4.6 changed after `07d94f2c` | support on `main` | each commit is reachable from `main`; the issue and PR numbers are provenance |

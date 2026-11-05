@@ -13,7 +13,7 @@ passes G6 only if a second written derivation of its token is made independently
 - both, and the adversarial note of lines 150–151, give the same token, with G2(b) recomputed from the rule part alone.
 
 If this requirement cannot be met, the row ends in UNDECIDED(G6). Each derivation is a separate derivation file named in
-`result.md` (A11). A written derivation is recorded as a paper derivation and is never presented as a computational or
+`result.md` (A11), and records its author or session and whether the second writer had access to the first derivation. A written derivation is recorded as a paper derivation and is never presented as a computational or
 kernel-checked result.
 
 **Source.** amaybaum, Claude Code session chat, 2026-11-05, recorded in #1031 comment 6656166518
