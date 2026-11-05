@@ -1,11 +1,12 @@
 # OI-QM-SEL M-2: separating power of C-pers on the M-1 instance (result)
 
-**Status: WIP / UNVERIFIED. Independent review pending; merge not authorized.** Paper-only. Writer: `writer-m2`.
+**Status: WIP / UNVERIFIED. Independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1149
+c.6668322323); fixes applied; delta check pending; merge not authorized.** Paper-only. Writer: `writer-m2`.
 **Preregistration:** `PREREG.md` in this directory.
 - Frozen at `Φ` = `be5e6311403db36b08cde2e4b0989eb8d57b5fab`, after the r3 delta review ACCEPT (PR #1149 c.6666080040).
 - Instance bound by `B_I` = `7f9e6b6d00ff3be21ec9ed6b824ecde58f16f00f`, which changes §4 only.
 
-This file is added by the next commit and changes no other file. Definitions, controls and the decision rule are
+This file is added by the commit after `B_I` and changes no other file. Definitions, controls and the decision rule are
 applied as frozen. Nothing was adjusted, and no other pair was examined.
 
 **Authorization.**
@@ -323,6 +324,10 @@ Each outcome is checked in the frozen order, and the first that applies is the o
 
 **Verdict: SEPARATES[C-pers; M-1 instance `U = (I,W,I,W,…)`, `U′ = (I,W′,I,W′,…)`; `|V| = 2`, `|A| ≥ 2`; `PPer`].**
 
+**K13 (reported with the outcome, PREREG §7.2):** the visible family `Γ = (1, J/2, 1, J/2, …)` is in `PPer` in either
+orientation (G-M1 (d)). Reading this as nativeness is CONDITIONAL[F3's hypothesis; S-0]. S-0 is undefined on `main`,
+so K13 is a necessary check only. It does not change the outcome.
+
 ## §5. Consequences (PREREG §7.3, applied as frozen)
 
 - **Qualification.** C-pers meets SPEC §4.3's qualification clause on this instance: its separating power is
@@ -349,7 +354,13 @@ Each outcome is checked in the frozen order, and the first that applies is the o
   ancilla components and their relative sign.
   - `W′` maps each such `x` back into a single fibre, the fibre `j`.
   - `W` spreads each such `x` evenly over both fibres.
-  - With the reset, `x` is replaced by `e_{v₁}`, and that difference no longer enters (K2 (ii)).
+  - With the reset, `x` is replaced by `e_{v₁}`, and that difference does not enter (K2 (ii)).
+  - **Dephasing control** (re-derived by hand). Dephasing the ancilla in the basis `{|a⟩}` after the first read
+    replaces `x` by its two components `x_a = ⟨(v₁,a), x⟩·(v₁,a)`, `a ∈ {a₀, a₁}`, as a mixture. Every entry of `W` and
+    `W′` is `±½`, so each component has amplitude `±½`. Then `Xx_a` has four entries of modulus `¼`, and its
+    fibre-`v₂` part has mass `2·(1/16) = ⅛`. The case-OO mass is `⅛ + ⅛ = ¼` for every `(j, v₁, v₂)`, for both lifts.
+    So under dephasing the lifts are not separated. The separation needs retained ancilla coherence, which is the
+    mode K-P certifies on `U^C`.
   - This agrees with M-1's assumption-watch marker (M-1 `RESULT.md` ll. 383–387): phase information within a fibre is
     discarded by the resets, and survives without them.
 - **Unchanged.** SPEC's present verdict, UNSOURCED, for every declared interface. This mathematical separation, with no
@@ -362,7 +373,8 @@ Each outcome is checked in the frozen order, and the first that applies is the o
   family in `PPer`.
 - C-pers uses configuration-only preparation, two Lüders reads on `V`, a persistent ancilla, and no reset or imposed
   coherence.
-- Since C-pers is a T-V procedure class (D-1), this is a T-V separation of the pair that needs no coherent preparation.
+- Since C-pers is a T-V procedure class (D-1), under (t1) and (t2) this is a T-V separation of the pair that needs no
+  coherent preparation.
 - Read about OI, it is CONDITIONAL[P-conf, Acc_pers, Rd, H-comp, Rst-none with `A` persisting, fixed `a₀`, (r1),
   (p1)–(p4), (t1), (t2)].
 - K-P shows that the computation retains ancilla coherence on the K-P lift `U^C`, and populations on `U^P`.
@@ -377,6 +389,9 @@ Each outcome is checked in the frozen order, and the first that applies is the o
 - Any statement about another pair, another read count or another class.
 - The selection of SPEC §4.3. It waits for the owner re-check (§5).
 - A theorem promotion, Lean statement or manuscript claim.
+- That C-pers resolves `G`-classes. `Λ_C-pers` is invariant under time-dependent `L_t` and constant weak `K` (K-B), but
+  not under time-dependent weak `K_t`, which `TwoSidedRelated` (TSG:84–87) allows. K11's WD is a `G`-related pair that
+  C-pers separates. That the instance is not `G`-related rests on M-1 `RESULT.md` §9, not on this record.
 
 ## §7. Deviations from the frozen plan, and notes
 
@@ -384,15 +399,27 @@ Each outcome is checked in the frozen order, and the first that applies is the o
   at `B_I`.
 - **Base integration.** Before `Φ` the branch merged `origin/main` at `6bf811ae`, by a true merge commit
   `84a012766059edce380d59fbc61d011e919fc7ef`, with no conflicts. That brought in M-1 and #1148.
-  - #1148 edited the status lines of B4 and RES. B4's lines after l. 3 now sit 5 lines lower on `main`.
+  - #1148 edited the status lines of B4 and RES. Checked line by line between `f051916a` and this branch:
+    - B4 ll. 3–4 and l. 604 at `f051916a` are rewritten;
+    - ll. 5–603 move down by 5 on `main`;
+    - ll. 605–609 move down by 6.
+  - Every B4 line cited by PREREG or this record lies in ll. 5–603: ll. 33–34, 35, 40, 41–43, 58–60, 148–151, 229–230,
+    309–315 and 381–383.
   - PREREG and this record cite B4, SC, RES and QP at `f051916a`, as PREREG's base line states. Those citations are
     unaffected.
 - **Stale draft-time wording kept, by the freeze rule.** These words lie inside frozen sections, or in §12, which the
   freeze left unchanged:
   - the headings of PREREG §2 ("frozen at the freeze commit; draft now") and §7 ("fixed at the freeze; draft now");
   - PREREG §12 ("A delta review of r3 is required before the freeze").
+  - Three passages that `B_I` supersedes:
+    - PREREG l. 7, "The test instance is a placeholder (§4)";
+    - the M-1 row of PREREG §10, "Not yet on `main`; PR #1151 is not merged … until then G-M1 fails";
+    - PREREG H7, "M-1 is not landed, so G-M1 does not yet hold".
 
-  Changing them at `Φ` would have exceeded "status lines only". They do not affect any definition or rule.
+    Each described the state before `B_I`. §4.1 records that M-1 landed and that G-M1 holds.
+
+  Changing them at `Φ`, or outside §4 at `B_I`, would have exceeded what those commits may change. They do not affect
+  any definition or rule.
 - **Not applied at `Φ`.** REV3's optional nits (#1149 c.6666080040) were not applied. Nit 2 (a K-P embedding clause for
   `|A| > 2`) is moot: the K-P lifts were evaluated at `|A| = 2`, their frozen dimension.
 - **§9 row 1 checkpoint.** It requires a reviewer to read every commit between `Φ` and this commit, which is `B_I` only,
@@ -407,6 +434,7 @@ Each outcome is checked in the frozen order, and the first that applies is the o
 | SPEC (#1143 c.6665278924), via PREREG Appendix A | §5 consequences | As classified in PREREG §10: support off `main`, closed by verbatim quotation and by narrowing (selection not adopted) |
 | PR #1149 reviews (c.6665799329, c.6665974132, c.6666080040) | PREREG's review history | Provenance |
 | Kernel line CLG:146; B4/SC definitions | K-B (ii); definitions | Support on `main` (read at `f051916a`) |
+| The commit order `Φ` (`be5e6311`) → `B_I` (`7f9e6b6d`) → this commit, on PR #1149's branch | The freeze-before-binding-before-evaluation invariant (PREREG §9 row 1) | **Support off `main` until landing.** The invariant uses the order and ancestry of these commits. The gap closes only if the branch lands by a true merge commit, with no squash and no rebase-merge, so that all three commits become reachable from `main` (§A.42 item 3), as M-1's record required (M-1 `RESULT.md` §15) |
 
 **Checks run at this commit:** `tools/artifact_placement_check.py` and `tools/duplicate_check.py`.
 
