@@ -21,6 +21,8 @@ review. Nothing here is merged.
   - `bd926c76`: Substratum:405 FLRW → Friedmann-Robertson-Walker;
   - `f6f7dd13`: follow-up edits under ruling c.6650301410, with rebuilds;
   - `a762d418`: SC-42 result regenerated (ruling A3);
+  - `98d04808`: record update;
+  - `ca21185e`: ch18:214 second sentence under ruling c.6651202921, with the book rebuild;
   - then this record update.
 
 **How to read the table.**
@@ -171,6 +173,45 @@ recorded here for the next review.
 | 73 | `book/ch18-beyond.md`:202 → :202 | FULL:5015 → :5015 | conditional | N4 | C.3, C.5 | The substratum dynamics is T-symmetric; the observer's reduced description is not. | The substratum dynamics is T-symmetric; the observer's reduced description of a non-equilibrium initial condition is not. |
 | 74 | `book/ch18-beyond.md`:214 → :214 | FULL:5027 → :5027 | unresolved | A1 | B.7, C.6 | The thermodynamic arrow and the cosmological arrow — the direction in which the universe expands — are aligned in the framework. | Whether the thermodynamic arrow and the cosmological arrow — the direction in which the universe expands — are aligned is open in the framework: it is neither established nor refuted. |
 
+## Follow-up edit (owner ruling #1112 c.6651202921)
+
+The Phase 2 scientific review at `98d04808` (#1113 c.6650406439) blocked on item C1. The
+sentence of ch18:214 that follows the initial-condition sentence stated horizon-entropy
+growth without the expanding background, the null energy condition or the calibration
+caveat, and tied it to boundary correlations and hidden-sector disorder. That tie is the
+relation GR:805 leaves open (`RECOVERY.md` B.3, B.7), and the paragraph's first sentence
+calls the alignment open. The owner ruled the replacement text in
+[#1112 c.6651202921](https://github.com/amaybaum/incompleteness/issues/1112#issuecomment-6651202921)
+(amaybaum, 2026-11-05). The ruled text does not assert that the horizon approaches a de
+Sitter value, or that the other arrows align.
+
+The row is a fragment replacement on the text at `98d04808`. The old text is unique in each
+file, line numbers are unchanged, and after the edit ch18:214 and FULL:5027 are
+byte-identical. Nothing else in the paragraph changes.
+
+| # | Site | FULL mirror | Class | Ruling | RECOVERY | Old text | New text |
+|---|---|---|---|---|---|---|---|
+| 75 | `book/ch18-beyond.md`:214 → :214 | FULL:5027 → :5027 | conditional / unresolved | c.6651202921 (C1) | B.1, B.3, B.7 | Time evolution corresponds to the horizon entropy increasing toward equilibrium, with the boundary modes accumulating correlations and the hidden sector approaching maximum disorder. | On an expanding FRW background satisfying the null energy condition, the apparent-horizon area is non-decreasing. Its assigned entropy has that interpretation under the stated calibration assumptions; whether this behavior aligns with boundary correlations or hidden-sector disorder remains open. |
+
+**Corpus grep (§A.25 step 1).** The old sentence and the paraphrases "horizon entropy
+increas", "toward equilibrium", "maximum disorder", "accumulat… correlations", "hidden
+sector approach", "horizon entropy grows/rises" and "de Sitter equilibrium" were searched
+over `papers/*.md` and `book/*.md`. After the edit the old sentence has no manuscript
+occurrence. The one remaining hit is ch18:210 (FULL:5023), "the system moves toward
+equilibrium relative to the substratum's state space". It describes the coarse-grained
+thermodynamic arrow under a non-equilibrium initial condition, not the horizon, so it is
+not a mirror of this sentence and is not edited.
+
+**Consequences.**
+- **Build:** `sh ./build.sh --book` reported `build: OK`, 561 pages (unchanged), mean 2979
+  characters per page, and no dropped glyphs.
+- **SC-42:** the integration check needs no regeneration. ch18:214 already has its "chapter
+  line mirrored in FULL" record, which is keyed by the line's 60-character prefix, and the
+  mirror stays byte-identical. A fresh `--verbose` run equals the committed
+  `sc42-integration-result.json` (sha256 `fc79539f…`, unchanged), with verdict PASS, and
+  `--self-test` equals the committed controls file.
+- **`audit-census.json`:** no count changes; `audit_census_probe.py` passes.
+
 ## Gate-manifest consequence: `verification/audit-census.json`
 
 The ordinary PR `verify` run 41969128746 on `24452b01` failed its job "Numerical probes /
@@ -286,7 +327,8 @@ are not on the authorized list. They are listed for an owner ruling.
    - It asserts alignment (`RECOVERY.md` B.7). It sits beside the edited ch18:216.
    - The plan listed ch18:204–214 as "already correct as unresolved". This record finds
      :214 an exception.
-   - Recommended: the same treatment as ch18:216. **Resolved:** added by ruling A1, row 74.
+   - Recommended: the same treatment as ch18:216. **Resolved:** added by ruling A1, row 74;
+     the horizon sentence by ruling c.6651202921, row 75.
 2. **Substratum:399**, the heading "5.4 The arrow of time as a third projection", and
    **Substratum:393**, "(the arrow-of-time projection is developed in §5.4 …)".
    - These are labels for the narrowed framing.
