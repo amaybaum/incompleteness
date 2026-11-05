@@ -357,7 +357,11 @@ amaybaum, Claude Code session chat, 2026-11-05, recorded in PR #1114 comment 665
 
 The decisions approved there that this control plane carries: OD-3, the union clause of lines 159–162 kept with A8's
 scope statement; OD-4, paper-only execution (below); OD-5, A2; OD-6, A9. OD-1 and OD-2 are the landings of the
-support below.
+support below. OD-7, an administrative decision, keeps PR #1114 open as the research record until this round lands.
+
+The owner's rulings on the independent review of this control plane, amaybaum, Claude Code session chat, 2026-11-05,
+recorded in #1031 comment 6656166518 (2026-11-05T10:54:11Z), are quoted where they apply: R2 in A10, R3 in A11, R4 in
+A4 and R5 in A5.
 
 amaybaum, Claude Code session chat, 2026-11-05, recorded in #1031 comment 6655647525 (2026-11-05T10:27:34Z):
 
@@ -376,8 +380,9 @@ other reference is A7.
 
 **Governed paths.** Execution is paper-only (OD-4): its output is the round's record, `result.md` and the gate table
 of A9. The governed paths are the round's record directory and its receipt and nothing else, which is the checkpoint
-for line 230's "No manuscript, Lean or probe change" (§A.41). No enumeration tool and no workflow path is declared, so
-none can be used in execution: the set in force is the set at `F` (architecture `S7`). A gate that the paper
+for line 230's "No manuscript, Lean or probe change" (§A.41). No enumeration tool and no workflow path is declared as
+an `execution` entry, and the set in force is the set at `F` (architecture `S7`). That execution performs no
+computation is not a predicate of the verifier; it is the checkpoint of A11. A gate that the paper
 derivations do not decide ends in UNDECIDED(Gk) (line 191).
 
 ```v3-round

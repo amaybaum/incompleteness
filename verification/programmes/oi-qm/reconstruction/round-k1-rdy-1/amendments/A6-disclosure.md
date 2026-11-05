@@ -19,4 +19,7 @@ derived on paper in `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-pr
 model-authored: `REVIEW.md` §1 in the same directory): `E` (§1),
 CC-ABS's `r(w)` (§4) and the shell counts of CC-LEDGER (§5). Each control's pass condition is decided at execution.
 
-**Line 252.** The drafting log of this round, from `D` to `F`, lists reads and paper derivations only.
+**Line 252.** The drafting log of this round, from `D` to `F`, is the commit history `D..F` of branch
+`round/k1-rdy-1-20261105` with the checkpoint comments on its pull request, PR #1126; `result.md` quotes it in its first
+section. It lists reads, paper derivations and the repository's static checks only (§12: "the permitted static
+checks").
