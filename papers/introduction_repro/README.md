@@ -172,8 +172,8 @@ These were run on a scratch copy with the archive's tools from `48b18ac5`; no re
 
 ## Location
 
-This package sits beside `papers/Introduction.md`, whose Appendix A at `f5efa7a0` cites it, in the layout
-`papers/main_repro/` has beside `papers/Main.md` (AGENTS.md §A.42 item 1: the result to expect, in a small structured
+This package sits beside `papers/Introduction.md`, which at `f5efa7a0` cites it for the baseline declarations of
+its Appendix A, in the layout `papers/main_repro/` has beside `papers/Main.md` (AGENTS.md §A.42 item 1: the result to expect, in a small structured
 file beside the record). The file keeps the archive's name for an
 expected result, `results-<job>.json`. It is not added to the frozen evidence-retention archive, which left the tree
 at `5c4e5087` and is read only from history.
