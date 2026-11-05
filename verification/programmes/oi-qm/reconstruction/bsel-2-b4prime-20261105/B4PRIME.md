@@ -1,7 +1,12 @@
 # BSEL-2 unit B4′: two-sided gauge relatedness against complete-record operational equivalence (paper record)
 
-**Status: WIP / UNVERIFIED (complete draft, not reviewed).** Paper-only, written by the designated BSEL-2 writer
-(#1033 c.6653013695).
+**Status:** paper derivations by hand, independently model-reviewed: ACCEPT WITH CHANGES at `3ea33001`, delta
+checks ACCEPT at `7fe4cd86` and `25df10c5` (#1123 c.6654184712, c.6654331521, c.6655101546; owner merge approval
+#1033 c.6656671521); the [Q] matrix rows, ACCEPT at `ef45cb76` (#1144 c.6664044354). The review reports are GitHub
+comments and are provenance only (§A.42 item 8). What can be checked from `main` is this record's [D] derivations,
+by hand, against the definitions and [K] statements it cites, subject to the §9 premise ledger; no [D] result is
+kernel-checked. Outside the established scope: the `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2`, native lifts and
+physical sourcing (§9). Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695).
 **Scope:** `SCOPE.md` in this directory, a verbatim copy of the reviewed scope r3 (sha256 `df40103e…a3dd54cd`).
 **Authorization:** owner approval to start, #1033 c.6653677971 (amaybaum, Claude Code session chat, 2026-11-05):
 "Approved to start the independently reviewed paper-only unit. Proceed within its reviewed scope. No new scientific
@@ -601,7 +606,8 @@ a universal statement about the same objects; read physically, it carries its ro
 - The cells marked not addressed: O⇒G at `|V| = 2`, `|A| ≥ 2` in `PPer`, for C0, C2-ch and C2-sel.
 - A global gauge classification.
 
-Nothing here is promoted or propagated. Every [D] result is unreviewed.
+Nothing here is promoted or propagated. Every [D] result is a hand derivation in this record, independently
+model-reviewed as the status line records; none is kernel-checked or physically established.
 
 **Proposals (not pursued; separate scope and authorization needed).**
 - A reachability-restricted `R_C2` for `|A| ≥ 2` (§2.5).
