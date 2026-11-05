@@ -41,15 +41,18 @@ dispatch. Nothing frozen, designated, merged or promoted. No physical premise ad
   registers right of the carrier, any product law); Proposition LS (SMR registers left of the carrier,
   site-level laws); Observation U; the `N = 5` cases; Lemma SS-2 (a ready one-site register of any
   copy-form centre-free rule loses the record at `t₀+2` under J-1); the slice-level shape, which fails
-  at `t₀+2`.
+  at `t₀+2`. A run of `𝔉` could yield only non-storage rows or PREREG's exit-4 halt.
 - **Scope** (§6). Only the rules, registers, preparations, decoder class, readiness laws and
   classifier stated there. It is not a universal no-go theorem for OI retention.
-- **Counting criterion** (§5). Relative to the free-map comparison class, a D2 pass is a strict
-  tautology exactly when the window's inputs all occurred at the first hold tick (the syntactic flag
-  `IP`, with caveats). `IP′` is not such a flag. DT-S1q, DT-S2s and the control DT-SX are informative
-  passes; DT-S2s with `R = (r)` and every `T = 1` D2 pass are strict tautologies. The criterion acts
-  on no tuple of `𝔉`.
-- **Open** (§7). Families not decided by §4, and the smallest unresolved ingredient a discriminating
-  test would need: a readiness law outside the site-level product class on a width-`≥ 2` register
-  with non-additive carrier entry, a paper analysis of its second hold tick, and a reason for the law
-  independent of this analysis.
+- **Counting criterion** (§5). Relative to the free-map comparison class, a D2 pass is implied by
+  D2's construction if the window's inputs all occurred at the first hold tick (the syntactic flag
+  `IP`), and is not implied if some window input lies outside `supp Q_{t₀} ∪ supp Q_{t₀+1}`; inputs
+  seen only at the write tick are undecided (caveats in §5.3). `IP′` is not such a flag. DT-S1q,
+  DT-S2s and the control DT-SX are informative passes; DT-S2s with `R = (r)` and every `T = 1` D2
+  pass are strict D2 tautologies (DT-S2s′ counts through D1). The criterion acts on no tuple of `𝔉`.
+- **Open** (§7). Families not decided by §4, and the unresolved ingredient a discriminating test
+  would need: a paper analysis of the second hold tick for a width-`≥ 2` register with non-additive
+  carrier entry (whether SS-2 extends). It bears on both escape routes found, which are not ranked:
+  registers outside Proposition LS's hypotheses under the preregistered laws (O5), and a readiness law
+  outside the site-level class (O1). Either, chosen after this analysis, also needs an independent
+  reason (§A.29).

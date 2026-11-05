@@ -47,7 +47,8 @@ at `F`, and `MR-star.md`, at the drafting snapshot `D` = `f5c281ae`.
   read cells. Each tuple either fails the storage condition ST on `W_T`, or fails J-1 at the first
   hold tick, which assigns row 1 before the storage step (Theorem N, §4.10). The bounds used are
   `≥ 1/4` throughout, so the same holds for every tolerance `ε* < 1/4`.
-- **Consequence for a test.** A run of `𝔉` can yield only non-storage rows. It could check that an
+- **Consequence for a test.** A run of `𝔉` can yield only non-storage rows or PREREG's exit-4 halt. It
+  could check that an
   implementation agrees with the derivations of §4, but it cannot distinguish retained information
   from information passing through, because the outcome is fixed in advance on paper.
 - **Scope.** The negative is established, if at all, only for the rules, registers, preparations,
@@ -57,14 +58,18 @@ at `F`, and `MR-star.md`, at the drafting snapshot `D` = `f5c281ae`.
   any one-site register whose current slice is fixed at `t₀`, J-1 at `t₀+1` forces the register's
   value at `t₀+2` to be independent of the carrier. Whether this extends to wider registers is open.
 - **The counting criterion [D].** Relative to a stated comparison class (the free-map class, §5.2),
-  a pass under decoder D2 is implied by D2's construction exactly when the window's inputs all
-  occurred at the first hold tick: the syntactic flag `IP` (§5.3), with the caveats stated there.
-  The relation-level flag `IP′` does not have this property (§5.4). The corrected criterion is §5.6.
+  a pass under decoder D2 is implied by D2's construction if the window's inputs all occurred at the
+  first hold tick (the syntactic flag `IP`), and is not implied in `𝓕(φ)` if some window input lies
+  outside `supp Q_{t₀} ∪ supp Q_{t₀+1}`; windows whose new inputs were seen only at the write tick
+  are undecided (§5.3, with the caveats stated there). The relation-level flag `IP′` does not mark
+  implied passes (§5.4). The corrected criterion is §5.6.
   It acts on no tuple of `𝔉`, since none reaches storage.
 - **Open families and the missing ingredient** (§7). The families not decided by §4 are listed. The
-  smallest unresolved ingredient identified is a readiness law outside the site-level product class,
-  on a register of width `≥ 2` into which the carrier enters non-additively, together with a paper
-  analysis of its second hold tick and a reason for the law independent of this analysis.
+  unresolved ingredient common to the escape routes found is a paper analysis of the second hold tick
+  for a register of width `≥ 2` into which the carrier enters non-additively (whether SS-2 extends).
+  Two routes need it and are not ranked against each other: registers outside Proposition LS's
+  hypotheses under the preregistered laws (O5), and a readiness law outside the site-level class
+  (O1). Either, chosen after this analysis, also needs a reason independent of it (§A.29).
 
 ***
 
@@ -108,9 +113,10 @@ that the family's outcome is fixed on paper.
     Main:726, here on a 1-D toy graph rather than the simple-cubic graph of posit (x)).
   - **SMR** (SM:112): `y′_i = y_{i−1} + y_{R(i,y)} − x_i`, `R(i, y) = i+2` if `y_{i+1} = 0`, else
     `i+1`. Over `𝔽₂` this is `y′_i = y_{i−1} ⊕ (y_{i+1} ∨ y_{i+2}) ⊕ x_i`. As physics it is the
-    unadopted F2 extension E-SDC (state-dependent coupling realized by this switching rule); no
+    unadopted F2 extension E-SDC (state-dependent coupling realized by this switching rule). [D] No
     independent consequence of the switching rule is identified, so E-SDC fails §A.29's
-    hard-to-vary test as it stands.
+    hard-to-vary test as it stands (stated in the draft at `5839e064` §2.3, with its scope set by #1115
+    c.6649925951 item 7; not independently reviewed).
 - **Carrier.** `Σ` = site 0, both slices. `σ = κ = (x₀, y₀)(t₀)`, `μ_Σ` uniform, `P` = all four
   values, `f(σ) = c := y₀(t₀)`, so `m = 2`.
 - **Law.** A product `μ = μ_Σ ⊗ ν` at `t₀`.
@@ -126,11 +132,11 @@ that the family's outcome is fixed on paper.
 - **Metrics** (P:79–80). `ε_max(t) = max_{σ∈P} μ(g(y_A(t)) ≠ f(σ) | σ)`. `TV_t` between
   preparation-conditioned readout laws.
 
-**Lemma TV (an elementary bound) [D].** Fix `x₀`. If the readout's laws given `c = 0` and `c = 1`
-differ in total variation by at most `δ`, every decoder, deterministic or randomized, has
-`ε_max ≥ (1 − δ)/2`.
-*Proof.* `μ(g ≠ 0 | c=0) + μ(g ≠ 1 | c=1) = μ₀(g = 1) + 1 − μ₁(g = 1) ≥ 1 − δ`, so the larger term is
-at least `(1 − δ)/2`. ∎
+**Lemma TV (an elementary bound) [D].** Let `σ, σ′ ∈ P` with `f(σ) = 0` and `f(σ′) = 1`. If the
+readout's laws given `σ` and given `σ′` differ in total variation by at most `δ`, every decoder,
+deterministic or randomized, has `ε_max ≥ (1 − δ)/2`.
+*Proof.* `μ(g ≠ 0 | σ) + μ(g ≠ 1 | σ′) = μ_σ(g = 1) + 1 − μ_{σ′}(g = 1) ≥ 1 − δ`, so the larger term
+is at least `(1 − δ)/2`. ∎
 A blind readout (`δ = 0`) gives `ε_max ≥ 1/2`. A readout in which `c` is masked with probability at
 least 1/2 has `δ ≤ 1/2` and gives `ε_max ≥ 1/4`.
 
@@ -373,7 +379,8 @@ comment in which an earlier statement appeared; none of those comments is a revi
 - *Consequence.* `t₀+1 ∈ H_T` and `t₀+2 ∈ W_T` for every `T ≥ 1`. So a one-site register with a
   fixed current slice takes no storage row at any `T`, under any decoder: either J-1 fails at
   `t₀+1` (row 1), or ST fails at `t₀+2`. Every `ν_r` with `r ≥ 0` and every one-sided law fixes the
-  register's slices, so SS-2 gives a second proof for every width-1 register of `𝔉`.
+  register's slices, so SS-2 gives a second proof for every width-1 register of `𝔉` under every law
+  other than `π₀`.
 - *Mechanism.* In a copy-form step the register's previous slice at `t₀+1` is its own current slice
   at `t₀`. A ready current slice is therefore no pad at `t₀+1` (Lemma PAD's mechanism, one tick
   later), and a centre-free one-site update at `t₀+2` reads only inputs that J-1 has made
@@ -500,6 +507,8 @@ vary the law and fix `φ`) define other flags; the definitions alone do not choo
   class. So no class of `~_W` holds two members of `𝓛_{W_T}` decoded differently: DIL∃ holds, no hit
   exists (`τ = ∞`), and `g(R_{t+1}) = g(R_t)` on supported states, so `ε_max` is constant. Every step
   uses only data D2 read and the supports. ∎
+  Under `IP`, every supported `Q_t`, `t ∈ H_T`, lies in `supp Q_{t₀+1}`, where every `φ′ ∈ 𝓕(φ)`
+  equals `φ`; so every `φ′` yields the same laws on `W_T` and the same verdict.
 - *(⇒) If some `q* ∈ 𝒬_{W_T}` lies outside `supp Q_{t₀} ∪ supp Q_{t₀+1}`, and `g∘ρ` is nonconstant
   on the image of `f_R(·, q*)`, then some `φ′ ∈ 𝓕(φ)` has the same D2 table and the same law, and
   under it exact DIL∃ fails on `W_T` and `τ < ∞`.*
@@ -545,7 +554,9 @@ vary the law and fix `φ`) define other flags; the definitions alone do not choo
   storage row, or some window link joins members of `𝓛_{W_T}` with different read configurations in
   different `~₁`-classes). It asks whether D2's extension was tested, not whether the pass is
   implied. In the DT-S2s dynamics with `R = (r)`, `IP` holds (a strict D2 tautology) and `IP*`
-  counts it through its D1 clause. Its second clause has no proof in either direction.
+  counts it through its D1 clause. Its second clause has no proof in either direction. Convention:
+  here "`IP*` counts" means one of its clauses holds; c.6650681094 writes the same case
+  `IP* = false`, by analogy with `IP = false` marking a countable tuple.
 
 ### 5.5 Controls: strict tautologies and informative cases
 
@@ -576,7 +587,8 @@ in #1115 c.6650681094 §2 and c.6650968100 Task 1 (provenance).
     swap preserves `r₁ ⊕ r₂`. So `ε = 0` at `t₀+1, t₀+2, t₀+3`, DIL∃ holds and `τ = ∞`.
   - `(0, 1, v)` lies in neither `supp Q_{t₀}` (whose cells have `p = 1`) nor `supp Q_{t₀+1}`: `IP`
     false, with (C-2) met. The swap joins the write-supported `10` and `01`, both decoded 1, across
-    distinct `~₁`-classes: `IP′` and `IP*` false.
+    distinct `~₁`-classes: `IP′` is false; `IP*` counts it (both clauses hold; c.6650681094 writes this
+  `IP* = false`).
   - J-1 holds at both hold ticks: the arriving cells are old cells 2 and 1, independent of `(κ, R)`.
   - Each single read cell is independent of `κ` at `t₀+1` and `t₀+2`, so SCH holds only vacuously.
     The control does not separate static from circulating storage.
@@ -602,7 +614,8 @@ circulating storage whose invariant decoder differs from D1 (HC-SW, P:212–215)
 
 Under this criterion DT-S1q, DT-S2s, DT-S2s′ (through U-1) and DT-SX count, and DT-S13 does not. The
 verdict on the DT-S2s dynamics is the same for `R = (r)` and `R = (r, s)`. (U-1) carries the analogue
-of (C-2) for D1: a hold-tick input that also occurs at the write tick was partly read by D1.
+of (C-2) for D1: a hold-tick input that also occurs at the write tick was partly read by D1. A D1
+storage row all of whose hold-tick inputs lie in `supp Q_{t₀}` is reported as undecided.
 
 **On `𝔉` the criterion acts on no tuple**, since no tuple reaches a storage row (Theorem N).
 
@@ -642,6 +655,8 @@ Theorem N says nothing about:
 - non-arc registers at `N ≥ 7`, registers wider than 3, moving, derived, state-selected or clocked
   registers, or readouts that change with the tick;
 - decoders that are randomized or that change with the tick;
+- read sets other than the current slice (H-cur);
+- other carriers or record functions `f`;
 - other retention criteria, other loci or other tolerances `ε* ≥ 1/4`;
 - observers, access mechanisms or sources of readiness (O1, O3, O4).
 
@@ -650,45 +665,69 @@ observer-level or register-level extension (Code Review Rules, "Bridge and no-go
 
 ***
 
-## 7. Open families and the smallest missing ingredient
+## 7. Open families and the missing ingredient
 
 ### 7.1 Families not decided by §4
 
 | Id | Family | What §4 leaves open |
 |---|---|---|
 | O1 | SMR registers meeting `{N−2, N−1}`, of width `≥ 2`, under slice-level laws | LS needs site-level laws; AE does not apply (non-additive entry); SS-2 needs width 1. Not decided on paper. |
-| O2 | One-site registers whose current slice is not fixed at `t₀`, with the previous slice restricted (slice-level) | PAD needs `x_A(t₀)` uniform; SS-2 needs `y_i(t₀)` constant. Not decided on paper, except the shape of §4.8. |
-| O3 | Correlated (non-product) laws, on either rule | AE, NP and PAD use the product form. |
+| O2 | SMR one-site registers `{N−2}`, `{N−1}` (and one-site registers of other rules with non-additive carrier entry) whose current slice is not fixed at `t₀`, with the previous slice restricted (slice-level) | PAD needs `x_A(t₀)` uniform; SS-2 needs `y_i(t₀)` constant; AE and U decide every other one-site register of K1 and SMR under product laws. Not decided on paper, except the shape of §4.8. |
+| O3 | Correlated (non-product) laws, on either rule, except width-1 registers with a fixed current slice, decided by SS-2 for any law | AE, NP, PAD and U use the product form. |
 | O4 | Restricted carrier preparations (for example `x₀ = 0`, the draft's G-6 (b)) | AE's translation needs both `x₀` values. Observation W1 is one instance; it fails J-i at `T = 2`. The family restricts the independent preparations requirement 2 of #1032 asks for. |
-| O5 | Readiness to nonzero values; `q > 2`; non-arc registers at `N ≥ 7` | LS uses ready = 0 and arcs; AE uses `q = 2`. |
+| O5 | SMR registers of width `≥ 2` meeting `{N−2, N−1}` outside LS's hypotheses (non-arc registers, arcs wider than 3, or `N = 6`), under the preregistered `ν_r` or under readiness to nonzero values; and `q > 2`, for both rules | LS needs arcs of width `≤ 3`, `N ≥ 7` and ready = 0; AE needs `q = 2`. Readiness to nonzero values and non-arc registers are open only for SMR registers meeting `{N−2, N−1}`: AE and U decide every other register under any product law. Width-1 registers are decided by SS-2 (or PAD under `π₀`). |
 | O6 | Other copy-form rules, including rule h (`|S| ≥ 2⁴⁸`, `INTERFACE-CONTRACT.md:35–36`) | Only PAD, NP and SS-2 apply; AE applies where the carrier enters additively. |
 | O7 | Routes outside a fixed current-slice register of a copy-form step: state-selected access (route I, R:233–240), E-reg models (route III, R:421–426), derived, moving or clocked registers (requirement 1 of #1032; row 4 and Remark C) | Outside NRR-1; not examined here. |
 
-The question that bears on O1, O2 and O6 at once is whether SS-2's `t₀+2` obstruction extends to
-registers of width `≥ 2` under J-1 at `t₀+1` (§4.7, open).
+The question that bears on O1, O5 and O6 is whether SS-2's `t₀+2` obstruction extends to registers
+of width `≥ 2` under J-1 at `t₀+1` (§4.7, open). For O2 the open question is instead a one-site
+register whose current slice is not fixed at `t₀`.
 
-### 7.2 The smallest unresolved ingredient
+### 7.2 The unresolved ingredient
 
 A genuinely discriminating test needs, frozen before any run, a family containing at least one tuple
-whose storage verdict none of Lemma PAD, Lemma NP, Proposition AE, Proposition LS, Observation U or
-Lemma SS-2 fixes. By §4, a fixed current-slice register of a copy-form rule escapes all six only if
-**every** one of the following holds:
-- its previous slice at `t₀` is not a uniform independent pad (PAD);
-- `G₀(y(t₀))` is uniform, if J-1 is to hold at `t₀+1` (NP);
-- the carrier enters its update non-additively or with a state-dependent coefficient, or the
-  preparation set lacks both values of `x₀` for each `c`, or the law is not a product (AE);
-- for SMR's left side, the law is not site-level (LS);
-- it has width `≥ 2`, or its current slice is not fixed at `t₀` (SS-2).
+whose storage verdict none of Lemma PAD, Lemma NP, Proposition AE, Proposition LS, Observation U and
+Lemma SS-2 fixes (Lemma TV is the bound inside several of them). A tuple escapes a lemma only by
+failing at least one of its hypotheses, or, for NP, by meeting its exception. So a fixed
+current-slice register of a copy-form rule escapes all six only if it fails at least one hypothesis
+of each:
+- **PAD:** its previous slice `x_A(t₀)` is not uniform and independent of `(y(t₀), x_{Λ∖A}(t₀))`;
+- **NP:** where NP's hypotheses hold (a product law, and both values of `x₀` in `P` for some `c`),
+  `G₀(y(t₀))` is uniform, if J-1 is to hold at `t₀+1`; otherwise NP's hypotheses fail;
+- **AE:** the carrier enters the register's update non-additively or with a state-dependent
+  coefficient, or the law is not a product, or `P` lacks both values of `x₀` for each `c`;
+- **LS** (it applies only to SMR registers meeting `{N−2, N−1}`): the register is not an arc of width
+  `≤ 3`, or `N < 7`, or the law is not site-level with `A` ready, or the rule is not SMR;
+- **U:** some cell of `y′_A` reads `y₀`, or the law is not a product;
+- **SS-2:** the register has width `≥ 2`, or its current slice is not fixed at `t₀`.
 
-The smallest ingredient identified that meets all five is family O1: a register of width `≥ 2` on
-SMR's left side under a slice-level (or correlated) readiness law. Two things are missing before it
-could serve:
-1. **A paper analysis of its second hold tick**, in particular whether SS-2 extends to width `≥ 2`,
-   so that the family is known, before the run, to contain a tuple whose outcome is open.
-2. **A reason for the readiness law independent of this analysis.** A law shape chosen after the
-   planned families were shown unable to pass is a variant fitted to escape these lemmas, with no
-   independent prediction (§A.29). Without a source for it (the unsourced ready region of MR★ C-3,
-   MR:1342), a positive could be at most a CONDITIONAL witness on E-SDC, H-sel and H-cur.
+**Escape routes.** The combinations found, each listed in §7.1:
+- **O1, a law outside the site-level class.** An SMR register of width `≥ 2` meeting `{N−2, N−1}`,
+  within LS's arc, width and `N` hypotheses, under a slice-level or correlated readiness law. It fails
+  LS through the law, AE through non-additive entry, U because `y′_A` reads `y₀`, SS-2 through its
+  width, and PAD through a previous slice that is not a uniform pad; NP is met by a law with `G₀` uniform.
+- **O5, a register outside LS's hypotheses under the preregistered laws.** An SMR register of width
+  `≥ 2` meeting `{N−2, N−1}` that is not an arc of width `≤ 3` at `N ≥ 7` (for example a non-arc
+  register at `N = 8`), under `ν_r`. It fails LS through the register, and the other five as for O1.
+  No paper argument here decides it.
+- **O4, a restricted carrier.** Fixing `x₀` (Observation W1) fails AE's and NP's preparation
+  hypothesis. It is excluded as a candidate, not decided: a restricted carrier lets the carrier's other
+  slice pass as a held record, which is why RET-st requires full carrier support (HC-K4, R:163–168
+  [R, motivation only]), and requirement 2 of #1032 asks for independently available preparations.
+- **O6, other rules with non-additive carrier entry.** They fail AE's form, and LS does not apply.
+
+**Whether one route is smallest is not established.** O1 keeps 𝔉's register family and adds a
+readiness shape; O5 keeps the preregistered laws and adds a register shape. D-SML compares resources
+rather than ranking by one scalar (DEFINITIONS:215–218), and no comparison here orders them. What O1,
+O5 and O6 have in common, and what this record leaves unresolved, is:
+1. **A paper analysis of the second hold tick** for a register of width `≥ 2` into which the carrier
+   enters non-additively, in particular whether SS-2 extends to width `≥ 2`, so that the family is
+   known, before the run, to contain a tuple whose outcome is open.
+2. **A reason for the chosen shape independent of this analysis.** A law or register shape chosen
+   after the planned family was shown unable to pass is a variant fitted to escape these lemmas, with
+   no independent prediction (§A.29). For O1, without a source for the law (the unsourced ready region
+   of MR★ C-3, MR:1342), a positive could be at most a CONDITIONAL witness on E-SDC, H-sel and H-cur;
+   for O5 the same conditions apply, with the register shape a further declared choice.
 
 The specific slice-level shape of §4.8 is not such an ingredient: it fails at `t₀+2`.
 
@@ -702,7 +741,8 @@ freeze, enumeration, execution, new physical premise or scientific promotion.
 For the record, a run of `𝔉` under the draft's design at `43370576` could only:
 - check that an implementation agrees with §4 on these instances (consistency-axis evidence, which
   could expose an error in §4 or in the implementation);
-- tally which non-storage row removes each record (3w, 1, 2a, 2b, 3).
+- tally which non-storage row removes each record (3w, 1, 2a, 2b, 3; §4 does not exclude rows 7 and
+  8, or the exit-4 halt, for Proposition AE case (b) tuples with `ε_max ≤ ε*` on `W_T`).
 
 It could not establish anything about retention, or any negative beyond §4. The test specification
 of the draft at `43370576` (decision rule, invariant table, output schema, budget and gate items G-1
@@ -734,7 +774,9 @@ The reviewer is asked to check, at the exact head:
 13. **§5.6**: the criterion, and that it acts on no tuple of `𝔉`.
 14. **§6**: that the scope statement claims nothing beyond §4, and that no sentence presents a
     universal no-go or an established result.
-15. **§7**: that each listed family is in fact undecided by §4, and the five conditions of §7.2.
+15. **§7**: that each listed family is in fact undecided by §4 (O4 excluded, with its reason), that
+    §7.2's six conditions are exactly the failure of a hypothesis of each lemma, and that no route is
+    called smallest.
 16. **§10**: each off-`main` reference and its classification.
 
 ***
