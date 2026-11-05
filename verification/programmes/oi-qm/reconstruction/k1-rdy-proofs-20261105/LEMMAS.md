@@ -1,6 +1,7 @@
 # K1-RDY: paper proofs of the P1 lemma, the blindness lemma and L-O(i)/(ii)
 
-**Status of every proof in this file: written proof, not independently reviewed.** Each is a hand derivation. No
+**Status of every proof in this file: written proof, independently reviewed; the review is model-authored and recorded
+in `REVIEW.md` in this directory.** Each is a hand derivation. No
 enumeration, model computation, Lean run or workflow was used. The file changes no statement of the K1-RDY text and
 decides no gate, token or owner question.
 
@@ -79,7 +80,7 @@ reading is marked **(reading)**.
 
 ## 1. The P1 invariant-measure lemma
 
-**Status: written proof, not independently reviewed.**
+**Status: written proof, independently reviewed (`REVIEW.md`).**
 
 ### 1.1 Statement and its source
 
@@ -170,7 +171,7 @@ is (b) with `X = E`, `r = 0`. ∎
 
 ## 2. The blindness lemma
 
-**Status: written proof, not independently reviewed.**
+**Status: written proof, independently reviewed (`REVIEW.md`).**
 
 ### 2.1 Statement and its source
 
@@ -230,7 +231,7 @@ positive mass, `NB(μ)` fails because its existential has no witness. ∎
 
 ## 3. Lemma L-O(i)
 
-**Status: written proof, not independently reviewed.**
+**Status: written proof, independently reviewed (`REVIEW.md`).**
 
 ### 3.1 Statement and its source
 
@@ -285,7 +286,7 @@ It depends on the state only through `E_{t_0}`. ∎
 
 ## 4. Lemma L-O(ii)
 
-**Status: written proof, not independently reviewed.**
+**Status: written proof, independently reviewed (`REVIEW.md`).**
 
 ### 4.1 Statement and its source
 
