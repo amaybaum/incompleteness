@@ -63,8 +63,10 @@ what is the smallest missing ingredient?
 This head has not been re-reviewed.
 
 - The final review (#1110 c.6643749363) returned ACCEPT for `cd15123b` only.
-- The extension at `478451b5` was reviewed in #1110 c.6644159894 (ACCEPT WITH CHANGES). This head
-  applies those changes.
+- The extension at `478451b5` was reviewed in #1110 c.6644159894 (ACCEPT WITH CHANGES).
+- The final check of `55507562` (#1110 c.6644302632) returned ACCEPT for that commit only.
+- This head applies that check's five wording corrections and records the owner's decisions
+  D-OB7 and D-OB8 (#866 c.6649267203).
 
 - **Consumers differ** (`ANALYSIS.md` §1).
   - The representation layer (`S ⇔ D ⇔ Q_fb`) is not a residual-choice consumer.
@@ -76,7 +78,8 @@ This head has not been re-reviewed.
 - **Conditioning and preparation groups** (`ANALYSIS.md` §4.1, §4.6.4):
   - (1) orbit-level records conditioning: b-stated.
   - (2a) CR_rec, the present-value conditional and the in-realization history posterior (Main:88,
-    :99, :105): a construction step, **proposed and pending owner decision D-OB7**.
+    :99, :105): a construction step, **accepted by the owner in D-OB7** (#866 c.6649267203). It
+    establishes no physical mechanism that selects the law or generates a preparation.
   - (2b) conditioning on stipulated events beyond the records: b-new.
   - (3) preparation data, as a category: b-stated.
   - (4a) cosmic initial data:
@@ -92,12 +95,18 @@ This head has not been re-reviewed.
     (O-SET).
 - **The obstacle for the μ leg and for preparation-dependent laws** is preparation content. The
   conditional answer (§4.6.3) has two parts:
-  - **The condition.** H-PREP, D-OB7 and retained records must hold, and record reliability must
-    be read within Lemma Q-b2's scope (time-reversal-invariant dynamics; on K1, configuration-only
-    record events).
+  - **The condition.** Four things must hold:
+    - (α) the prepared system must be correlated with retained records (Lemma Q-b1);
+    - retained records;
+    - H-PREP, an open hypothesis recorded by the owner in D-OB8;
+    - record reliability, read within Lemma Q-b2's scope: time-reversal-invariant dynamics and
+      mirror-compatible events, e.g. configuration-only events on K1.
   - **The answer.** Under that condition, laboratory preparations need no observer-specific
     assumption beyond CR_rec. Their independent inputs are then the time-asymmetric data of (4a),
     O-REC/O-RDY, and O-SET.
+  - **Status (owner, D-OB8).** Retained records, reliability, readiness and selectable
+    interactions remain independent, unresolved requirements. The reduction is neither a
+    derivation nor a proof of minimality.
 - **Lemma D, on K1, under the native linear rule.**
   - Selectable interactions are blocked, conditional on D-SEL.
   - Marking does not destroy interference (S-L5). S-L5 is PD in a frozen record, reworded by
