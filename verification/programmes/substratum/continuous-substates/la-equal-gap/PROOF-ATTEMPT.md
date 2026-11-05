@@ -1,8 +1,8 @@
 # LA-GAP: proof attempt and counterexample for LA-EQUAL
 
-**Status: WIP / UNVERIFIED.** Model-authored by `writer-1007`. Two independent model reviews exist
-(PR #1111 comments 6643256663 and 6643489504). Neither is an authenticated human or external review,
-and the result is not established (AGENTS.md §A.46 items 1 and 7). No computation was run. Every step below is either hand algebra on the 8-element table of `H` or integer
+**Status: WIP / UNVERIFIED.** Model-authored by `writer-1007`. Four independent model reviews exist
+(PR #1111 comments 6643256663, 6643489504, 6643596997 and 6643643958), none of them an authenticated
+human or external review, and the result is not established (AGENTS.md §A.46 items 1 and 7). No computation was run. Every step below is either hand algebra on the 8-element table of `H` or integer
 arithmetic on coordinates, or it cites a recorded exact check that was read and not re-run. Each such
 citation is marked *(recorded, not re-run)*. Paths are relative to
 `verification/programmes/substratum/continuous-substates/` unless stated otherwise. `NY/` stands for

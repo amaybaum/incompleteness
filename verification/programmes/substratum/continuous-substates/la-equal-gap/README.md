@@ -1,11 +1,13 @@
 # LA-GAP: the LA-EQUAL proof gap (#1007)
 
 **Status: WIP / UNVERIFIED.** This directory records a paper-only study, model-authored by
-`writer-1007`, a Claude Code subagent. Two independent model reviews exist on PR #1111. Neither is
+`writer-1007`, a Claude Code subagent. Four independent model reviews exist on PR #1111, none of them
 an authenticated human or external review.
 
 - [the first review, of `c236c888`](https://github.com/amaybaum/incompleteness/pull/1111#issuecomment-6643256663);
-- [the re-review, of `a013cb7c`](https://github.com/amaybaum/incompleteness/pull/1111#issuecomment-6643489504).
+- [the re-review, of `a013cb7c`](https://github.com/amaybaum/incompleteness/pull/1111#issuecomment-6643489504);
+- [the focused final review, of `e9a650b3`](https://github.com/amaybaum/incompleteness/pull/1111#issuecomment-6643596997);
+- [the diff check, of `f6c3030f`](https://github.com/amaybaum/incompleteness/pull/1111#issuecomment-6643643958).
 
 The results are not established (AGENTS.md §A.46 items 1 and 7): their recorded geometric inputs
 have not been re-run or independently reviewed. They are not a premise of any established claim.
@@ -18,7 +20,7 @@ have not been re-run or independently reviewed. They are not a premise of any es
   [#1007 comment 6642603567](https://github.com/amaybaum/incompleteness/issues/1007#issuecomment-6642603567)
   (owner authorization amaybaum, 2026-11-04, quoted there). Paper-only: proof and counterexample work.
 - **Not done here:** no computation, script, probe, Lean build or enumeration was run. No workflow was
-  dispatched. No existing file was edited. N5 and LA-EQUAL are not promoted anywhere.
+  dispatched. N5 and LA-EQUAL are not promoted anywhere.
 - **MR-1 N5** (`measurement-record-formation/preregistration.md:109–111`, frozen) is untouched, and
   its status is unchanged: not established, not usable as a premise.
 
