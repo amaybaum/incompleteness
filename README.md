@@ -13,6 +13,7 @@ The framework is inspired by the same broad kind of self-reference constraint th
 
 | If you want | Start with |
 | --- | --- |
+| A short introduction to the framework's finite-observer results | [`papers/Introduction.md`](papers/Introduction.md) |
 | The foundational finite-observer result | [`papers/Main.md`](papers/Main.md) |
 | A short, self-contained phenomenology paper | [`papers/Juno.md`](papers/Juno.md) |
 | The current formal-verification programme | [`verification/README.md`](verification/README.md) |
@@ -24,12 +25,13 @@ The framework is inspired by the same broad kind of self-reference constraint th
 
 At finite observational horizon, the framework relates three descriptions:
 
-```text
-finite stochastic law (S)
-        ⇅ exact
-finite reversible realization (D)
-        ⇅ exact
-fixed-basis unitary/Born representation (Q_fb)
+```mermaid
+flowchart LR
+    S["<b>S</b><br/>finite stochastic law"]
+    D["<b>D</b><br/>finite reversible realization"]
+    Q["<b>Q_fb</b><br/>fixed-basis unitary /<br/>Born representation"]
+    S <==> D
+    D <==> Q
 ```
 
 The representation equivalence is universal at this finite-record level. The specifically OI content is the embedded-observer structure: coupling, hidden capacity, persistence and history readback constrain what a faithful realization must contain.
@@ -112,6 +114,7 @@ incompleteness/
 
 ### Other materials in `papers/`
 
+- [`papers/Introduction.md`](papers/Introduction.md) — short introduction for newcomers: the finite-horizon correspondence among stochastic laws, reversible realizations and fixed-basis quantum records; why any memory in the records must sit in the hidden state; recurrence-cycle indivisibility; and finite toy models of black-hole information. Its Appendix A lists the Lean declarations it cites with their verification status; the axiom reports for its baseline declarations, and the recipe that reproduces them, are in [`papers/introduction_repro/`](papers/introduction_repro/).
 - [`papers/Explainer.md`](papers/Explainer.md) — older overview, superseded by the book and retained for reference.
 - [`papers/oi_lattice_code/`](papers/oi_lattice_code/) — lattice Monte Carlo and related numerical source.
 
