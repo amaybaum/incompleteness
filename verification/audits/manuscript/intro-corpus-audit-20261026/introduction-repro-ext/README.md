@@ -54,10 +54,11 @@ established from `main` (see Status).
 
 ## Relation to `.github/workflows/evidence-replay.yml`
 
-The workflow's `EXPECTED_28` pin (`e73f7be3…`, blob `97a2377d…`) is unchanged. It still reads the
-blob through that commit, which is reachable only from the staging branch. This record does not make
-the pin durable; that dependency is a separate unresolved issue tracked on #941. The staging branch is
-kept unchanged, and none of its history is merged into `main`.
+The workflow's `EXPECTED_28` pin is `2714278a7dd9057a73610658478661065152ca97`, the commit that adds
+this directory, reachable from `main`. The workflow checks that `results-121598983127-28.json` there is
+blob `97a2377d…` and reads the expected result by that id, so the replay does not depend on the staging
+branch. The pin preserves the evidence and verifies nothing (see Status). The staging branch is kept
+unchanged, and none of its history is merged into `main`.
 
 ## Remediation route
 
