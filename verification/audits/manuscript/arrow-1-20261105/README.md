@@ -1,7 +1,10 @@
 # ARROW-1 manuscript correction round (#1112)
 
-**Status: WIP / UNVERIFIED.** Phase 1 (the theorem-recovery note, `RECOVERY.md`) is
-complete in draft and awaits independent review. No manuscript, book chapter, FULL mirror,
+**Status: WIP / UNVERIFIED.** Phase 1 (the theorem-recovery note, `RECOVERY.md`) was
+reviewed independently at `bd398f05af3d778c149db9d1a627f80efffd998e`
+([#1113 c.6649600806](https://github.com/amaybaum/incompleteness/pull/1113#issuecomment-6649600806),
+ACCEPT WITH CHANGES, model-authored), and is revised here to address that review. Phase 2
+waits for the owner's rulings listed under *Files*. No manuscript, book chapter, FULL mirror,
 `.tex` or `.pdf` is changed on this branch until that review is complete.
 
 ## Scope
@@ -66,20 +69,23 @@ Substratum:56 (selection sentence); Substratum:409 ("§4.6 is symmetric; the dir
 convention"); GR:797–805 (Theorem A.6 and "the generalized second law is open");
 Explainer:924, 926–928; Complexity:206; Structure:717; ch02:194 (only the clause on no
 independent past-hypothesis axiom being required to select where observers exist, with
-(EM)); ch03:58 (the Boltzmann-brain exclusion); ch04:30–32; ch07:155–157.
+(EM)); ch03:58 (the Boltzmann-brain exclusion); ch04:30; ch07:155–157.
 
 **(ii) Conditional language, conditions named:**
 - monotone clock (expanding branch, null energy condition; weak, constant in exact de
   Sitter; replace the ä > 0 criterion): Substratum:379, 405, and 409's "derives the
-  existence of a monotonic parameter"; Main:760 (iii); ch02:192; Methodology:184's "from
-  horizon growth";
+  existence of a monotonic parameter"; ch02:192's last clause ("this phase is the one in
+  which the horizon entropy … is monotonically increasing"; also alignment content, see
+  (iii)); ch04:32's "the structural arrow of horizon growth in the $\Lambda$-dominated phase"
+  (clock-as-arrow wording); Methodology:184's "from horizon growth";
 - cosmological arrow (the expanding branch is an input, selected by no theorem):
   Substratum:407 (cosmological step); Explainer:932; Methodology:227;
 - thermodynamic arrow (product or low-entropy preparation, plus the open identification of
   horizon area with entropy): Substratum:407 (thermodynamic step); Substratum:56's last
   sentence; GR:607;
 - memory and measurement arrows (orientation convention and a non-stationary preparation):
-  Substratum:407 (memory and measurement steps);
+  Substratum:407 (memory and measurement steps); ch02:192's "Condition C2 … picks out one
+  direction along the observer's worldline";
 - "three projections" framing: Substratum:367, 371, 377; GR:32, 561, 709; SM:1366, 1592;
   ch02:176, 182, 184, 198; ch03:62, 202, 204;
 - other: Substratum:401 (the confinement; remove the §A.33 history voice), 411 (citation),
@@ -88,7 +94,8 @@ independent past-hypothesis axiom being required to select where observers exist
 
 **(iii) Describe an unresolved problem:**
 - alignment of arrows: Substratum:401's "every arrow … descends" and 405's "all other
-  arrows align"; ch02:196 ("four aligned arrows"); ch18:216;
+  arrows align"; ch02:192's identification of the selected phase with the phase of growing
+  horizon entropy; ch02:196 ("four aligned arrows"); ch18:216;
 - claims that the arrow is derived or the objection closed: Substratum:14, 26, 403, 409's
   "answers Ellis's objection", 415; Methodology:184's "none is concealed"; Explainer:930's
   sentence "You don't need to posit low initial entropy to explain why we see it"; ch03:58's "account of the arrow … follows from this exclusion"; ch02:194's
@@ -96,13 +103,21 @@ independent past-hypothesis axiom being required to select where observers exist
 - Main:758's corollary title, retitled "Corollary (observer-selection rule, with its rate
   condition)" with the theorem and hypotheses preserved (see `RECOVERY.md` §F).
 - Already correct as unresolved, expected unchanged: ch18:20, 204–214, 218–222, 328, 334;
-  ch00:101; README:90; GR:805.
+  ch00:101; `book/README.md`:90; GR:805.
+- **Main:760 (iii): no change recommended.** `RECOVERY.md` §F.4 finds no ARROW-1 defect
+  there. It makes no monotonicity, direction or low-entropy claim.
 
 ## Side corrections (owner, c.6649271094)
 
-- ch18:208: detailed balance stated as $T_{ij}=T_{ji}$ for transition probabilities; the
-  corpus result is reciprocity of transition counts, $T_{ij}=T_{\theta j,\theta i}$, under
-  the counting hidden measure (SM Theorem 19; ch06:62).
+- ch18:208 states detailed balance as $T_{ij}=T_{ji}$ "at all timescales", as a bare
+  consequence of substratum T-symmetry. The corpus result (SM Theorem 19; ch06:62) is
+  $T_{ij}=T_{\theta j,\theta i}$ at every time scale, under its hypotheses:
+  - an involutive time reversal that preserves the partition;
+  - the counting (uniform) hidden prior.
+
+  It reduces to $T_{ij}=T_{ji}$ only when the visible states carry no T-odd data
+  ($\theta=\mathrm{id}$). The error is the dropped θ and the dropped hypotheses. Under the
+  counting prior, $T_{ij}$ is both the normalized count and the transition probability.
 - ch18:216: "the framework's structural conditions C1–C4 hold at the cosmological boundary";
   (C4) is a named realization condition there, not presently discharged (GR:52; ch07:12).
 - GR:214: the kernel theorem `counting_passive` proves passivity *given* a monotone bath
@@ -121,12 +136,23 @@ independent past-hypothesis axiom being required to select where observers exist
   `ch04`, `ch18` and their FULL mirrors; the regenerated `.tex`/`.pdf`; this directory.
 - Not allowed: GR:260 and Main:590 (the separate #1029 unit); Lean modules; frozen records;
   every other passage.
-- **Open question for the owner (found in Phase 1):** retitling the Main:758 corollary
-  changes its identifier in `tools/proof_census.py` (the identifier is built from the
-  parenthetical label), so `tools/coverage_check.py` would fail on
-  `verification/coverage/LEDGER.json`'s entry `MAIN:C-past-hypothesis-replacement-rate-condition`
-  unless that entry is renamed in the same commit. The ledger is a mutable gate file, not a
-  frozen record, but it is not in the authorized file list. See `RECOVERY.md` §F.4.
+- **Pending owner ruling** (outside the current allowlist; not touched until ruled):
+  1. **Main:744's label phrase.** It reads "the rate condition … stated in the
+     past-hypothesis corollary", the only use of that label, and would dangle after the
+     Main:758 retitle. Recommended scope: that phrase only.
+  2. **`verification/coverage/LEDGER.json`.** The entry
+     `MAIN:C-past-hypothesis-replacement-rate-condition` would no longer match, because
+     `tools/proof_census.py` builds the identifier from the parenthetical label.
+     `tools/coverage_check.py` would then fail. Recommended scope: rename `id` to
+     `MAIN:C-observer-selection-rule-rate-condition` and update `label` and `fingerprint`,
+     with `kernel: GAP` and the assumptions unchanged. The ledger is mutable, not frozen.
+  3. **ch18:190.** It reads "Within a single cycle, the observer's experience is
+     unidirectional (the arrow of time discussed in the next section)". That conflicts with
+     `RECOVERY.md` §C.1: within a cycle no state function is globally monotone, and any
+     monotonicity is windowed and anchored by boundary data. ch18:190 is not among the
+     approved sites.
+
+  See `RECOVERY.md` §F.4.
 
 ## Contents
 

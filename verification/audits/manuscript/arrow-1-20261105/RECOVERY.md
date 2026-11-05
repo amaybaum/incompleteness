@@ -32,7 +32,7 @@ result.
 
 | # | Claim (short) | Verdict |
 |---|---|---|
-| A1 | Horizon area / horizon entropy is monotone along observer worldlines | **Proved [EA, AMB]** for the apparent and event horizons, given an expanding FLRW background with the null energy condition. Non-decreasing, and strict iff ρ + p/c² > 0. **Constant in exact de Sitter.** The criterion "monotonic for as long as ä > 0" is **refuted** (counterexamples in §E.4). |
+| A1 | Horizon clock is monotone along observer worldlines | **Area: proved [EA, AMB]** as ambient FLRW kinematics, given an expanding background with the null energy condition (NEC). Non-decreasing, and strict iff ρ + p/c² > 0. **Constant in exact de Sitter.** Scope of each horizon:<br>• apparent horizon: conditions on the interval considered;<br>• event horizon: conditions on all of [t, ∞).<br>Reading the area as *entropy* along a dynamical horizon is **open** (GR:56). "Monotonic for as long as ä > 0" is **refuted as a general kinematic criterion** (phantom, NEC-violating), and **false as strict increase in exact de Sitter**. In the corpus's NEC-respecting background, ä > 0 is not the operative condition (§E.4). |
 | A2 | Cosmological arrow | **Conditional.** The direction of A1 is the sign of H, which is an input. Why the expanding branch is the one realized: **open.** |
 | A3 | Thermodynamic arrow descends from ρ_s = ρ_crit | **Open.** The cited identity is instantaneous and concerns the boundary entropy only; it does not reach the step. The physical direction of entropy increase is **conditional on asymmetric boundary data**. |
 | A4 | Generalized second law; "non-decreasing from a product initial state" | GSL **open** (as GR:805 states). Theorem A.6 is **proved [PP]** as a two-sided bound relative to t = 0. Its monotone reading at GR:607 is **refuted** (two-qubit counterexample, §C.4). |
@@ -46,9 +46,12 @@ result.
 
 The owner's expectation was "unresolved rather than refuted" for alignment. That holds:
 no counterexample to alignment exists, and §C.6 explains why none of the obstructions
-yields one. The refutations in the table concern three narrower statements: the ä > 0
-criterion, the monotone reading of Theorem A.6, and the two unconditional inventory and
-trace-out sentences.
+yields one. The refutations in the table concern narrower statements, each for the class actually
+ruled out:
+- the ä > 0 criterion, as a general kinematic criterion, and as strict increase in exact
+  de Sitter;
+- the monotone reading of Theorem A.6;
+- the two unconditional inventory and trace-out sentences.
 
 ***
 
@@ -136,12 +139,19 @@ description."
   $dA/dt$. The Lean grep in c.6643840329, re-checked here, finds no horizon-monotonicity
   theorem.
 - **Target statement (T1).** Let the background be an FLRW metric obeying the Friedmann
-  equations with total density ρ and pressure p (Λ included as a component), with
-  $H(t) > 0$ and $\rho + p/c^2 \ge 0$ on an interval $I$. Then:
-  - on $I$ the apparent-horizon area is non-decreasing;
-  - if the flat-space event horizon exists, its radius is non-decreasing;
-  - both are strictly increasing where $\rho + p/c^2 > 0$;
-  - both are constant on $I$ when $\rho + p/c^2 \equiv 0$ (exact de Sitter).
+  equations with total density ρ and pressure p (Λ included as a component).
+  - **(T1a) Apparent horizon, any curvature.** If $H > 0$ and $\rho + p/c^2 \ge 0$ on an
+    interval $I$, then on $I$ the apparent-horizon area is non-decreasing. It is strictly
+    increasing where $\rho + p/c^2 > 0$, and constant where $\rho + p/c^2 \equiv 0$ (exact
+    de Sitter).
+  - **(T1b) Event horizon, flat.** The event horizon at $t$ depends on the whole future
+    $[t,\infty)$. A later phantom phase toward a big rip gives $R_e \to 0$, and so
+    $\dot R_e < 0$ somewhere, whatever holds on a bounded interval. Hence the hypotheses
+    must hold on all of $[t,\infty)$. If the event horizon exists, $H > 0$ and
+    $\dot H \le 0$ on $[t,\infty)$ (NEC, flat), then $\dot R_e(t) \ge 0$. Equality holds
+    iff H is constant on $[t,\infty)$.
+  - Phase 2 names the apparent horizon (F.2), so T1a is the statement Phase 2 relies on.
+    T1b is recorded for completeness.
 - **Proof.** §E [EA, AMB].
 - **Gap.** None for T1 as stated. T1 is an ambient GR calculation: OI's covariant field
   equations are the open Level-G3 step (GR §8.7). T1 is therefore a statement about the
@@ -161,7 +171,8 @@ description."
 - **Inputs.** The expanding branch is taken as given:
   - Main:760 (iii): "The horizon's expansion sets $\tau_B \sim H^{-1}$";
   - ch04:30: "the cosmological initial conditions are taken as given";
-  - Substratum:379: "The framework does not derive that structure".
+  - Substratum:379: "The framework does not derive that structure". This is weak support:
+    "that structure" there is the FRW symmetry pattern, not the expanding branch as such.
 - **Target (T2).** A theorem from (S, φ), the partition and stated preparation data
   selecting $H > 0$ over $H < 0$ for the observer's accessible window.
 - **Closest result.** None. Main §4.6 is symmetric (§C.3) and does not mention expansion.
@@ -358,7 +369,9 @@ Substratum:413 states that "the arrow's single open dependency is the ordering q
 nothing further". The same section conditions its chain on further inputs:
 - (EM) (Substratum:401, :407);
 - the iterated-channel description (Substratum:401, :407, :409);
-- the "regime of interest" $\ddot a > 0$ (Substratum:405), which is the expanding branch;
+- the expanding branch ($H > 0$), implicit in "the $\Lambda$-dominated phase" and "the
+  accelerating phase" (Substratum:405). The condition $\ddot a > 0$ named there does not
+  itself imply $H > 0$.
 - a measurement-protocol orientation (Substratum:407).
 
 The thermodynamic step also needs (P1)–(P3) of B.3. Each of these is a dependency other
@@ -395,11 +408,26 @@ Main's realization, readback and indivisibility results, and Theorem A.6:
 - quantify over all bijections φ of a finite set;
 - start from a preparation at a root time, $P_0\otimes\mu_H$ or a product state.
 
-$\varphi^{-1}$ is a bijection of the same set. Each such result therefore holds for the
-process run backward from the same root. Their conclusions describe evolution *away from
-the root* in both directions. A one-sided arrow cannot come from these results without a
-hypothesis that is not closed under $\varphi\mapsto\varphi^{-1}$, or without a second
-boundary.
+$\varphi^{-1}$ is a bijection of the same set, so each result applies to the process run
+backward from the same root. For the existence theorem at Main:518, this means the class of
+laws realizable from a root is the same for backward runs. For the bound results
+(Main:137, Theorem A.6), the conclusion holds for $t < 0$. Their conclusions describe
+evolution *away from the root* in both directions.
+
+**The abstract step is kernel-checked [K].** `no_universal_oriented_property`
+(`verification/lean-mathlib/OIBridge/OrientationClosure.lean`:249) states:
+- let a class C be closed under a map Θ and inhabited;
+- let a property P satisfy $P(R) \Rightarrow \neg P(\Theta R)$ on C;
+- then P cannot hold throughout C.
+
+The instantiation by hand [HA]:
+- Θ is $\varphi\mapsto\varphi^{-1}$ (with the same root);
+- C is a hypothesis class closed under inversion;
+- P is "the conclusion points toward $t > 0$ and not toward $t < 0$".
+
+A one-sided arrow therefore cannot come from these results without one of:
+- a hypothesis not closed under $\varphi\mapsto\varphi^{-1}$;
+- a second boundary.
 
 ### C.3 Stationarity: block entropies and $M_k$ are reversal-invariant; §4.6 is symmetric [HA]
 
@@ -418,13 +446,29 @@ $t\in\mathbb Z$.
 3. **Consequence for (C4) and (C2).** Under the invariant measure, (C4) holds forward at an
    order exactly when it holds backward, as measured by $M_k>0$. The condition then
    distinguishes no direction.
-4. **Main §4.6 is symmetric.** With $P_\Sigma$ the μ-orthogonal conditional expectation
-   (self-adjoint on $L^2(\mu)$), the compression for $\varphi^{-1}$ is
-   $P_\Sigma\mathcal U_\varphi^{\dagger}P_\Sigma = \mathcal K_\Sigma^{\dagger}$. Its spectrum
-   is the complex conjugate of $\mathcal K_\Sigma$'s: same moduli, same dissipative gap,
-   same $\tau_{\rm mix}$. Hence (EM) holds for φ exactly when it holds for $\varphi^{-1}$,
-   and the theorem and both corollaries hold verbatim for $\varphi^{-1}$. Substratum:409
-   already says the bound "applies equally in both directions"; this is the reason.
+4. **Main §4.6 is symmetric, under two stated assumptions.**
+   - **Assumption (P_Σ).** Main:746 does not define $P_\Sigma$. Read it as the
+     μ-orthogonal conditional expectation onto the coarse observables of Σ, self-adjoint on
+     $L^2(\mu)$. Main's own examples (Main:760 (ii)) fit this reading.
+     - With it, the compression for $\varphi^{-1}$ is
+       $P_\Sigma\mathcal U_\varphi^{\dagger}P_\Sigma = \mathcal K_\Sigma^{\dagger}$.
+     - Its spectrum is the complex conjugate of $\mathcal K_\Sigma$'s, with the same moduli.
+     - With Π the projection onto the invariant part,
+       $\|(\mathcal K_\Sigma^\dagger)^n-\Pi\| = \|(\mathcal K_\Sigma^n-\Pi)^\dagger\| = \|\mathcal K_\Sigma^n-\Pi\|$,
+       so the gap and $\tau_{\rm mix}$ are the same, in the spectral/$L^2$ reading of
+       $\tau_{\rm mix}$.
+   - **Assumption (bounded range of $\varphi^{-1}$).** The proof uses φ's causal cone
+     (Main:754, :364), so the φ⁻¹ version needs $\varphi^{-1}$ to have bounded per-step
+     range. A local bijection's inverse need not be local: $x_i \mapsto x_i + x_{i+1}$
+     mod 3 on an odd ring has a dense inverse. The assumption holds under the corpus's
+     T-invariance posit with a site-local T, where $\varphi^{-1} = \mathcal T\varphi\mathcal T$.
+     That is the case of the second-order wave update of SM Theorem 17 (kernel:
+     `wave_time_reversal_invariant`, `verification/lean/OI_Time_Reversal.lean`), whose time
+     reversal swaps the two time layers site by site.
+   - Under both assumptions, (EM) holds for φ exactly when it holds for $\varphi^{-1}$, and
+     the theorem and both corollaries hold verbatim for $\varphi^{-1}$. Substratum:409
+     already says the bound "applies equally in both directions"; this is the reason.
+   - Items 1–3 need neither assumption.
 
 A stationary process need not be reversible in law. A 3-cycle on visible states has
 $P(0\to1)\ne P(1\to0)$. That asymmetry is a chirality of φ, not an entropy or memory
@@ -480,9 +524,19 @@ reversal is its θ-image. The trace-out alone introduces no asymmetry. That refu
 unconditional reading of ch18:202. ch18:210's conditional reading (initial conditions)
 stands.
 
-**Alignment is unaffected.** $\mathcal T$ maps an expanding history in which entropy
-increases to a contracting history in which entropy decreases. Both are *aligned*. The
-T-image of an aligned history is aligned.
+**Witness: memory without an arrow [EA].** Take $\mathcal C_V = \mathcal C_H = \{0,1\}$,
+$\varphi(v,h) = (h,v)$ and the uniform prior.
+- The visible process is $(a,b,a,b,\dots)$ with $a, b$ independent and uniform.
+- Its law is reversal-symmetric.
+- $M_1 = I(X_0;X_2\mid X_1) = 1$ bit, since $X_2 = X_0$.
+
+So history readback ((C4) at order 1) holds at full strength with no time asymmetry.
+
+**Alignment is unaffected.** This assumes, as standard, that the horizon area A and the
+coarse-grained entropy $S_{\rm cg}$ are T-even: T leaves the value at each instant fixed
+and reverses the order of instants. Then $\mathcal T$ maps an expanding history in which
+entropy increases to a contracting history in which entropy decreases. Both are *aligned*.
+The T-image of an aligned history is aligned.
 
 ### C.6 What alignment can still mean
 
@@ -513,7 +567,7 @@ in four senses.
 
 | Claim | Verdict | Precise content |
 |---|---|---|
-| A1 clock | **proved** (ambient) | T1 under FLRW + Friedmann, $H>0$, $\rho+p/c^2\ge0$; non-decreasing, strict iff $\rho+p/c^2>0$, constant in exact de Sitter. The ä > 0 criterion is **refuted** (§E.4). Entropy reading: open (GR:56). |
+| A1 clock (area) | **proved** (ambient) | **T1a** (apparent horizon): FLRW + Friedmann, with $H>0$ and $\rho+p/c^2\ge0$ on the interval; non-decreasing, strict iff $\rho+p/c^2>0$, constant in exact de Sitter.<br>**T1b** (event horizon, flat): the same conclusions with the conditions on all of $[t,\infty)$.<br>Entropy reading: **open** (GR:56).<br>The ä > 0 criterion is **refuted as a general kinematic criterion** (phantom, NEC-violating) and **false as strict increase in exact de Sitter**. In the corpus's NEC-respecting background, ä > 0 is not the operative condition (§E.4). |
 | A2 cosmological | **conditional** | On the expanding branch, an input. Why that branch: **open**. |
 | A3 thermodynamic | **open** | Gap: (P2) exact monotonicity and (P3) the entropy–area relation. Direction: conditional on asymmetric boundary data. The cited ρ_s = ρ_crit does not reach the step. |
 | A4 GSL | **open** | Gap as at GR:805, plus monotonicity. |
@@ -542,12 +596,14 @@ the **apparent/Hubble horizon**, area $A = 4\pi c^2/H^2$ (GR:56; Substratum:405'
 $S_{\rm dS}=A/4l_p^2$). They coincide only in exact de Sitter. Phase 2 text must name the
 one it uses. Below, both are treated.
 
-Equations used. Cai & Kim, arXiv:hep-th/0501055v1, eqs. (2.3), (2.4), (2.14), (2.15),
-read first-hand **[LIT]**, with n = 3 and c = 1:
-- $\dot H - k/a^2 = -4\pi G(\rho+p)$;
-- $\ddot a/a = -\tfrac{4\pi G}{3}(\rho+3p)$;
-- $\tilde r_A = (H^2+k/a^2)^{-1/2}$;
-- $\dot{\tilde r}_A = -H\tilde r_A^3(\dot H - k/a^2)$.
+Equations used:
+- From Cai & Kim, arXiv:hep-th/0501055v1, read first-hand **[LIT]**, with n = 3 and c = 1:
+  - $\dot H - k/a^2 = -4\pi G(\rho+p)$ (eq. 2.14);
+  - $\tilde r_A = (H^2+k/a^2)^{-1/2}$ (eq. 2.3);
+  - the event horizon (eq. 2.4);
+  - $\dot{\tilde r}_A = -H\tilde r_A^3(\dot H - k/a^2)$ (eq. 2.15).
+- Standard, not from Cai & Kim: the acceleration equation
+  $\ddot a/a = -\tfrac{4\pi G}{3}(\rho+3p)$.
 
 ### E.2 Apparent horizon
 
@@ -557,11 +613,13 @@ read first-hand **[LIT]**, with n = 3 and c = 1:
   $$\frac{dA}{dt} = -\frac{8\pi c^2\dot H}{H^3},\qquad \dot H = -4\pi G\Big(\rho+\frac{p}{c^2}\Big)\ \Rightarrow\ \frac{dA}{dt} = \frac{32\pi^2Gc^2}{H^3}\Big(\rho+\frac{p}{c^2}\Big).$$
 
 **Role of each condition.**
-- **$H>0$** fixes the sign. With the null energy condition (NEC), $\rho+p/c^2\ge0$, the area
-  is non-decreasing exactly when $H>0$.
-- **On the contracting branch ($H<0$)** the same NEC makes it non-increasing.
-- **The NEC** controls only whether the change can be nonzero. Strict growth holds iff
-  $\rho+p/c^2>0$.
+- **The sign is $\operatorname{sign}(H)\cdot\operatorname{sign}(\rho+p/c^2)$.**
+- **Given H, the NEC ($\rho+p/c^2\ge0$) fixes the sign.**
+  - With $H>0$ the area is non-decreasing.
+  - On the contracting branch ($H<0$) it is non-increasing.
+  - In the equality case $\rho+p/c^2\equiv0$ (exact de Sitter) it is constant on either
+    branch.
+- **Strict growth** on the expanding branch holds iff $\rho+p/c^2>0$.
 - **In ΛCDM** today, $\rho+p/c^2 = \rho_m + \tfrac43\rho_r > 0$, so A grows strictly. It
   approaches the de Sitter value asymptotically, as $\rho_m\to0$.
 
@@ -600,9 +658,22 @@ In the phantom row, $H = 2/(3(1+w)t) > 0$ and $\dot H = -2/(3(1+w)t^2) > 0$, so 
 while $\ddot a/a = \dot H + H^2 > 0$.
 
 **The correct criterion is "$H>0$ and the NEC".** It gives non-decreasing A, strict where
-$\rho+p/c^2>0$ and constant in exact de Sitter. Substratum:405's "monotonic for as long as
-$\ddot a>0$" and "every observer in the accelerating phase agrees that $S_{\rm dS}$
-increases" use the wrong criterion: **refuted** by the rows above.
+$\rho+p/c^2>0$, and constant in exact de Sitter.
+
+**Scope of the verdict on ä > 0.** The verdict covers only the class each row rules out.
+Substratum:405 says "monotonic for as long as $\ddot a>0$" and "every observer in the
+accelerating phase agrees that $S_{\rm dS}$ increases".
+- **As a general kinematic criterion it is refuted** by the phantom row. That row violates
+  the NEC.
+- **As strict increase it is false in exact de Sitter**: ä > 0 there, and A is constant.
+  Exact de Sitter is GR's own calibration surface.
+- **Inside the corpus's background it is weakly true but not operative.** That background
+  respects the NEC, and GR excludes phantom crossing, conditionally (GR:12, :358, :553).
+  There, ä > 0 with H > 0 gives $dA/dt\ge0$, so the statement holds weakly. ä > 0 is still
+  not the operative condition: growth is governed by $H>0$ and $\rho+p/c^2>0$, and the
+  criterion omits the decelerating era, in which A also grows.
+- The "not necessary" row shows the criterion is incomplete. It does not refute a
+  sufficiency claim.
 
 ***
 
@@ -639,7 +710,11 @@ Name every input in the sentence that uses it:
 - **Memory and measurement.** Conditional on a non-stationary preparation and the
   orientation convention.
 - **GR:607.** State the bound: "bounded below by its value at a product initial state, at
-  every t".
+  every t". GR:797's "non-decreasing" defines the generalized second law and is followed by
+  "supplies the following inequality toward it". This note reads it as a correct definition,
+  not an overstatement, and leaves it to the reviewer.
+- **Substratum:407's thermodynamic step.** Drop the universal "the entropy of any
+  horizon-bounded system increases with the observer's clock". No result supports it (B.3).
 - **GR:214.** "monotone bath count ⇒ passive (energy orientation)", not a time direction.
 
 ### F.3 Unresolved
@@ -677,9 +752,23 @@ Name every input in the sentence that uses it:
      `tools/coverage_check.py` (release gate) would fail. The entry has to be renamed to
      the new identifier, with its fingerprint updated, in the same commit. The ledger is
      mutable, not a frozen record.
-- **Main:760 (iii).** Name the expanding branch as the observed input. Do not import the
-  horizon kinematics of §E or cite GR or Substratum. Main stays independent of downstream
-  results (Code Review Rules).
+- **Main:760 (iii): no change recommended.** The sentence reads "The horizon's expansion
+  sets $\tau_B \sim H^{-1}$ structurally, not thermally". It makes:
+  - no monotonicity claim;
+  - no time-direction claim;
+  - no low-entropy claim.
+
+  It describes the cosmological realization, which Main states is developed in companion
+  work and consumed by no proof in Main (Main:72). This note finds no ARROW-1 defect in it.
+  If the owner or a reviewer wants the expanding branch named there, the only admissible
+  form names it as an observed input, without importing §E or citing GR or Substratum, so
+  that Main stays independent of downstream results (Code Review Rules).
+- **Pending owner ruling.** Both necessary consequences above stay outside the authorized
+  line list until the owner rules. The reviewer's recommended scope:
+  - the Main:744 label phrase only;
+  - in LEDGER.json, the `id`, `label` and `fingerprint` fields only, with `kernel: GAP`
+    and the assumptions unchanged. The new identifier would be
+    `MAIN:C-observer-selection-rule-rate-condition`.
 
 ***
 
@@ -717,21 +806,25 @@ universe; Davies on cosmological event-horizon area and the generalized second l
 
 ## Review packet: what an independent reviewer must verify
 
-1. **§E.2.** The apparent-horizon derivative in both forms, the sign role of H, and the
-   NEC role.
-2. **§E.3.** The event-horizon bound $R_e\ge c/H$ under $\dot H\le0$; the de Sitter
-   equality case; the event/particle exchange under $t\to-t$.
-3. **§E.4.** The four regimes, especially the phantom solution's signs, and that "ä > 0"
-   is neither necessary nor sufficient.
+1. **§E.2.** The apparent-horizon derivative in both forms, the sign role of H, the NEC
+   role, and the equality case.
+2. **§E.3 and T1b.** The event-horizon bound $R_e\ge c/H$ when $\dot H\le0$ on
+   $[t,\infty)$; the de Sitter equality case; the event/particle exchange under $t\to-t$;
+   and that T1b's hypotheses are stated on $[t,\infty)$.
+3. **§E.4.** The four regimes, especially the phantom solution's signs, and the scope of
+   the ä > 0 verdict: general criterion refuted; strict increase false in exact de Sitter;
+   weakly true but not operative in the NEC background.
 4. **§C.4.** The CNOT table, that it satisfies Theorem A.6's hypotheses, and that it
    refutes only the monotone reading.
-5. **§C.3.** The block-entropy identity for $M_k$, its reversal invariance under the
-   invariant measure, and the adjoint-compression argument (same moduli, same gap). In
-   particular, that $P_\Sigma$ is self-adjoint on $L^2(\mu)$ for the invariant μ.
-6. **§C.5.** The multi-time extension of SM Theorem 19, and the claim that T maps aligned
-   histories to aligned histories.
-7. **§C.2.** That every rooted result cited (Main:137, :518, Theorem A.6) holds for
-   $\varphi^{-1}$ by closure of its hypothesis class.
+5. **§C.3.** The block-entropy identity for $M_k$ and its reversal invariance under the
+   invariant measure. The adjoint-compression argument under the stated $P_\Sigma$
+   reading. The bounded-range assumption for $\varphi^{-1}$, and that it holds for a
+   site-local T.
+6. **§C.5.** The multi-time extension of SM Theorem 19; the swap witness; and, assuming A
+   and $S_{\rm cg}$ are T-even, that T maps aligned histories to aligned histories.
+7. **§C.2.** That each rooted result cited (Main:137, :518, Theorem A.6) has its backward
+   counterpart. That `no_universal_oriented_property` (OrientationClosure.lean:249) states
+   the abstract step as quoted, and that the hand instantiation is valid.
 8. **§B.3 (P3).** That $\rho_s=\rho_{\rm crit}$ concerns the boundary entropy only, and
    cannot by itself supply the entropy–area relation.
 9. **§B.7.** That T7's premises Q1–Q4 are each unproved in the corpus, and that no
