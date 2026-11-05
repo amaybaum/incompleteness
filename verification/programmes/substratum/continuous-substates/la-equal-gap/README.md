@@ -84,7 +84,7 @@ hypothesis is derived for native OI.
   - For the all-zero point mass, the public pre-cut record `(R.B, R.D, U_{S+6}(port 5))` determines
     the setting exactly (TV 1). The proof is by hand from `H`'s 8-entry table.
   - The all-zero law is not the original preparation.
-  - No source specifies an original law with non-uniform `V5`.
+  - None of the inputs specifies an original law with non-uniform `V5`.
 - **Q2, valid under the parent's prior.** The parent forward-kernel proof is valid under its prior,
   given its recorded geometry. K3's cardinality step, K4′ and K7′ are supplied here. K6′ diagnoses
   where the LA gap enters.

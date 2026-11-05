@@ -70,9 +70,11 @@ without re-running them. An earlier confirmation of the token posted on #1009 wa
 - The pre-cut question is addressed in the native-Y model by
   `verification/programmes/substratum/continuous-substates/la-equal-gap/PROOF-ATTEMPT.md`, a
   model-authored paper proof (four model reviews, none human: PR #1111 comments 6643256663,
-  6643489504, 6643596997 and 6643643958). Write `V5` for port 5's pre-cut bank triples `f_5(t)`,
-  `S+4 < t ≤ L+3`, and H-pre for the hypothesis that `b5` and `V5` are uniform given every other
-  initial variable.
+  6643489504, 6643596997 and 6643643958). Its results, Theorem 2 included, are not established
+  (AGENTS.md §A.46 items 1 and 7): they use recorded exact checks that have not been re-run, and the
+  exact replays it specifies (PC-1, PC-2) have not been run. Write `V5` for port 5's pre-cut bank
+  triples `f_5(t)`, `S+4 < t ≤ L+3`, and H-pre for the hypothesis that `(b5, V5)` is jointly uniform
+  given every other initial variable.
   - **Counterexample to the displayed equation (Theorem 2).** H-prior's displayed equation, read
     without its sourcing sentence, together with H-inventory, H-access, H-rule, H-torus and P1–P6a,
     does not imply `LA-EQUAL`. It permits `D′` to be the all-zero point mass, and for that law the
@@ -80,17 +82,17 @@ without re-running them. An earlier confirmation of the token posted on #1009 wa
     is not the original preparation, and Theorem 2 is not a counterexample under it.
   - **The original sourced preparation.** H-prior is supplied "where the inherited
     independent-uniform complement and the independent bank of `history_v11` are both retained"
-    (`later-access-preregistration.md:153–154`). The retained bank law (H-bank) is that the
-    history_v11 bank `{f_i(t) : a_i < t ≤ 2L}` is uniform conditional on its complement. Under it
-    `V5` is uniform bank and H-pre holds (Lemma 0(b)). No source specifies an original law with
-    non-uniform `V5`.
+    (`later-access-preregistration.md:153–154`). On PROOF-ATTEMPT.md's sourced reading (Q0), the
+    retained bank law (H-bank) is that the history_v11 bank `{f_i(t) : a_i < t ≤ 2L}` is uniform
+    conditional on its complement. Under it `V5` is uniform bank and H-pre holds (Lemma 0(b)). None
+    of PROOF-ATTEMPT.md's inputs specifies an original law with non-uniform `V5`.
   - **Conditional `LA-EQUAL` (Theorem 3, one direction only).** `LA-EQUAL` holds, for every `k0`
-    including `⊥`, under H-prior's displayed equation and H-pre (together equivalent to H-prior⁺);
-    H-access with its record dictionary; H-rule with P6a and H-torus with P5; the recorded P1–P4 and
-    the parent's recorded 42-row geometry; the recorded identification of the 16 terminal contexts
-    with bank-complement flag values; and history_v11's recorded bank/source distinctness. These
-    recorded inputs have not been re-run, so the equality is not established (AGENTS.md §A.46 items
-    1 and 7).
+    including `⊥`, under H-prior's displayed equation and H-pre (together equivalent to H-prior⁺,
+    Lemma 0(a)); H-access with its record dictionary; H-rule with P6a and H-torus with P5; the
+    recorded P1–P4 and the parent's recorded 42-row geometry; the recorded identification of the 16
+    terminal contexts with bank-complement flag values; and history_v11's recorded bank/source
+    distinctness. These recorded inputs have not been re-run, so the equality is not established
+    (AGENTS.md §A.46 items 1 and 7).
   - **No native physical derivation.** None of these hypotheses is derived for native OI, and
     Theorem 3 is not a physical derivation of `LA-EQUAL`.
 
