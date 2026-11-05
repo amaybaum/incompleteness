@@ -1,8 +1,11 @@
 name: evidence replay
 
-# Manually dispatched reproductions of retained evidence that the Introduction (papers/Introduction.md)
-# cites and the Introduction corpus audit (verification/audits/manuscript/intro-corpus-audit-20261026/,
-# PR #942) could not reproduce locally. The workflow has no other trigger, so it runs only when dispatched.
+# Manually dispatched reproductions of retained evidence that the Introduction corpus audit
+# (verification/audits/manuscript/intro-corpus-audit-20261026/, PR #942) could not reproduce locally: the
+# black-hole records that the Introduction (papers/Introduction.md) cites as [BHa; BHb], and
+# papers/introduction_repro/, historical verification evidence for Appendix A of the Introduction at
+# f5efa7a0, which supports no claim in the Introduction on main (Issue #941).
+# The workflow has no other trigger, so it runs only when dispatched.
 # Each activity checks out a pinned commit, runs that commit's own recorded recipe, and decides its verdict
 # from exit statuses. It writes nothing to the repository: logs, outputs, a run.json with the commits,
 # inputs and commands, and their sha256 sums are uploaded as one artifact per run.
