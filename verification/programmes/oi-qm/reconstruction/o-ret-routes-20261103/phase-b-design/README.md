@@ -52,37 +52,49 @@ is adopted. Nothing is merged or promoted.
 
 ## Headline
 
-Unreviewed. Every derivation is by hand and is listed in the review packet (`DESIGN-PHASE-B.md`
-§8).
+Revised after the independent review of `fdacce54` (#1115 c.6649925951, ACCEPT WITH CHANGES) and
+the owner's instructions relayed with it. The revision is not re-reviewed. Every derivation is by
+hand and is listed in the review packet (`DESIGN-PHASE-B.md` §8). None is an established result.
 
 - **Starting point.** Phase A's 49/49 PASS is confirmed against `phaseA/run-1/phase-a/summary.json`
   and `RESULT.md:42–49`. It calibrates one implementation of the classifier on 49 toy controls.
   It says nothing about native dynamics, sources, access or observers, or about classification
   outside the control set.
-- **Two paper observations** (§1.3, unreviewed).
-  - *Lemma PAD.* In every copy-form rule (K1, the SM:112 ring rule, rule h), a current-slice
-    register whose own previous slice is uniform and independent at `t₀` is blind at the write
-    tick. Under `π₀` nothing is written. CONFIRMING: it extends `ROUTES.md`'s one-time-pad remark
-    from K1 to every copy-form rule.
-  - *Observation W1.* On K1 at K-18(b), the Phase A rule would call the wavefront crossing sites
-    1–4 one-tick circulating storage, and re-supply one tick later. NEW (candidate): a `T = 1`
-    blind spot on copy-form rules.
+- **Paper observations** (§1.3, unreviewed).
+  - *Lemma PAD* (CONFIRMING): under `π₀`, nothing is written into a current-slice register of any
+    copy-form rule.
+  - *Lemma NP* (ELABORATING): a written register fails J-1 at the first hold tick unless site 0's
+    neighbours pad the carrier.
+  - *Observation D2-T1 and Proposition IP*: under decoder D2, a one-tick pass, and any pass whose
+    later hold ticks bring no new input, is guaranteed by the decoder's construction. Such passes
+    never count. DT-S13 is a concrete `T = 2` case that fails under D2 with every declared
+    assumption holding.
+  - *Observation W1* (ELABORATING): an instance of the Phase A classifier on a K1 wavefront, under
+    D1′ and a restricted carrier.
+  - *Proposition K1-NS*: the reviewer's K1 argument, re-derived. It holds under an explicit
+    independence condition (A5): no K1 register reaches storage. It is not adopted. K1 stays in the
+    planned tuples and controls, and adoption is gate G-14.
 - **Candidate (§2): NRR-1, native ready-register retention.** A fixed declared register (both
-  slices as its locus, current slice read) of an in-corpus copy-form rule, written by the native
-  step from a one-site carrier and held under a preregistered ready-region law `ν_r`. K1 is native
-  under posit (vii). The SM:112 ring rule, taken as physics, is an unadopted F2 extension, E-SDC.
-  `ν_r` (`r ≥ 0`) is imposed (H-sel). Access is declared (H-cur).
-- **Discrimination (§3).** Pulse: DIL∃ on the two-slice locus, an observed failure on the
-  extension window, a locality gate and `T* = 2`. Recurrence: gap-free windows, the recurrence rule
-  and a Lemma P consistency exit. Re-supply: J-1 on the outside neighbours. Each has native and toy
-  countercontrols.
-- **Test (§6).** K1 and the SM:112 rule on rings of 5 and 8 sites, every register in a fixed
-  family, `r ∈ {−1, 0, 1, 2, ∞}`, `T ∈ {1, 2, 3}`; Phase A's classifier with four amendments (locus,
-  write gate, decoder rule D2, locality), each shown to change no Phase A row; hand-derived controls
-  run first; a per-rule verdict STORAGE-ROBUST, STORAGE-ISOLATED or NO-STORAGE computed from
-  structured output.
-- **Sourced or imposed (§5).** Requirements 1 and 3 are imposed. Requirements 2 and 4 are tested,
-  not sourced. Requirement 5 is avoided by labelling the ready region as a premise, not by deriving
-  it.
-- **Owner decisions (§7).** G-1 to G-13, each with a default. Under the defaults the test is
-  decision-complete.
+  slices as its locus, current slice read) of an in-corpus copy-form rule, written by the step from
+  a one-site carrier and held under a preregistered ready-region law `ν_r`.
+  - K1 is the native step form (posit (vii)) on a 1-D toy graph.
+  - The SM:112 ring rule, taken as physics, is an unadopted F2 extension, E-SDC.
+  - `ν_r` (`r ≥ 0`) is imposed (H-sel). Access is declared (H-cur).
+- **Discrimination (§3).**
+  - Pulse: DIL∃ on the two-slice locus, an observed failure on the extension window, a locality
+    gate, `T ≥ T*`, and the `IP = false` condition.
+  - Recurrence: gap-free windows, the recurrence rule and a Lemma P consistency exit.
+  - Re-supply: J-1 on the outside neighbours.
+- **Test (§6).**
+  - Instances: K1 and the SM:112 rule on rings of 5 and 8 sites, a fixed register family,
+    `r ∈ {−1, 0, 1, 2, ∞}`, `T ∈ {1, 2, 3}`.
+  - Rule: Phase A's classifier with amendments B-1 to B-6, each shown to change no Phase A row.
+  - Hand-derived controls run first, with hash-seed determinism checked.
+  - Verdict: per rule, STORAGE-ROBUST (matched local patterns at both ring sizes), STORAGE-ISOLATED
+    or NO-STORAGE, computed from structured output.
+- **Sourced or imposed (§5).**
+  - Requirements 1 and 3 are imposed.
+  - Requirements 2 and 4 are tested, not sourced.
+  - Requirement 5 is avoided by labelling the ready region as a premise, not by deriving it.
+- **Gate items (§7).** G-1 to G-16. Each gives the alternatives, their consequences, tautology risk,
+  new assumptions and a labelled recommendation. No alternative is chosen.
