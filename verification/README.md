@@ -26,7 +26,7 @@ mistaken for a verdict on the other.
 
 | If you want | Go to |
 | --- | --- |
-| **What is being worked on, and what is still owed** | [`ROADMAP.md`](ROADMAP.md) — the live obligation queue, ranked, with a status for each |
+| **What is being worked on, and what is still owed** | the open [GitHub Issues](https://github.com/amaybaum/incompleteness/issues), under the rules of [`AGENTS.md`](../AGENTS.md) §A.45; [`ROADMAP.md`](ROADMAP.md) is the obligation queue as it stood at `9613b21c`, kept as a historical record and not maintained |
 | The flagship result and the layer contents | the sections below, in this file |
 | Where an artifact named below actually lives | [`MIGRATION-RECORD.md`](MIGRATION-RECORD.md) — the name → path table |
 | The mapping the migration was planned from | [`MIGRATION-MANIFEST.md`](MIGRATION-MANIFEST.md) |
@@ -34,12 +34,13 @@ mistaken for a verdict on the other.
 | A specific round's freeze and its outcome | the round's own directory once migrated; until then, the root artifact named in the manifest |
 | How to run the checks | [Running the checks](#running-the-checks), at the end of this file |
 
-**`ROADMAP.md` and this file answer different questions, and the split is deliberate.** This file
-describes the verification *machinery* — the layers, what each certifies, how to run it. The roadmap
-tracks *obligations*: what is load-bearing in the manuscripts, what has a formal result behind it,
-what has only a named hypothesis, and what has been settled negatively. The census keeps registered
-claims synchronized with the strongest applicable formal result; it does not rank what is missing,
-and the roadmap does.
+**The research backlog and this file answer different questions, and the split is deliberate.**
+This file describes the verification *machinery* — the layers, what each certifies, how to run it.
+The backlog, kept in GitHub Issues, plans and ranks the tracked *obligations*. The status of a result —
+proved, conditional on a named hypothesis, open, or settled negatively — is what its proof, Lean
+module, manuscript statement and verification record establish, not what an Issue says. The census
+keeps registered claims synchronized with the strongest applicable formal result; it does not rank
+what is missing, and the backlog does.
 
 ### Where new artifacts go
 

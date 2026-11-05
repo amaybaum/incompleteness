@@ -57,7 +57,7 @@ source pins and mirror predicates. It adds explicit current paragraph anchors,
 required-no-signaling and non-automatic FR guards, and checks all changed book
 sources against FULL. The baseline-zero kinematics guard remains at pinned main.
 
-`sc42-intended-sites.json` is a static intended table with **68** mentions and an
+`sc42-intended-sites.json` is a static intended table with **60** mentions and an
 explicit role for every paragraph. Methodology has **3**: the original SC-42
 three-status overview, the earlier integration's scoped §15 conclusion and the
 new substantive Bell/completion comparison. The other per-file counts retain the

@@ -1,0 +1,819 @@
+{
+  "schema": "mr1-stage1-log",
+  "schema_version": 1,
+  "append_only": true,
+  "unit": "MR-1, measurement as physical record formation",
+  "frozen_preregistration": {
+    "path": "verification/programmes/oi-qm/reconstruction/measurement-record-formation/preregistration.md",
+    "commit": "1a236f332e8ea12b7fdb125bf8c5098ccd71d36c",
+    "unchanged_by_this_log": true
+  },
+  "authority": {
+    "stage": "stage 1, step 1 of the owner's order: first-hand literature log",
+    "source": "PR #1023 comment 6549252522 (amaybaum, OWNER)",
+    "scope": "literature-first and paper-only; no candidate screen, no K-star, no MR-star.md in this step",
+    "ks_decision_pending": "PR #1023 comment 6549290592"
+  },
+  "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run for this step. The readers ran only fetch, hash, text-extraction and view commands, listed per entry. The writer of this log ran only git and the three repository hygiene tools, listed under writer_runs. No PDF or downloaded text is committed; only URLs and sha256 digests are recorded.",
+  "readers": "Three independent first-hand literature readers (Claude subagents), 2026-10-31, reading only; their verbatim records are held off-repository by the coordinator and are summarized here field by field.",
+  "entries": [
+    {
+      "id": "LIT-1",
+      "source": "L. Catani, M. Leifer, G. Scala, D. Schmid, R. W. Spekkens, 'What is nonclassical about uncertainty relations?', Phys. Rev. Lett. 129, 240401 (2022)",
+      "doi": "10.1103/PhysRevLett.129.240401",
+      "edition_read": "arXiv:2207.11779v2 (12 Dec 2022; latest version; v1 24 Jul 2022)",
+      "fetched": [
+        {
+          "url": "https://arxiv.org/pdf/2207.11779v2",
+          "sha256": "5b0d53204320c109376506d819426b72b7d7c798bae2dc9e7250b6ccfb832b3c",
+          "pages_read": "1-13 of 13 (main text pp. 1-6; Appendices A-D pp. 6-13)"
+        },
+        {
+          "url": "https://arxiv.org/pdf/2211.09850",
+          "sha256_as_recorded_by_reader": "26f2e357...6b7e (truncated in the reader record)",
+          "pages_read": "5-7 of arXiv:2211.09850v2, for the mapping of Props. V.1-V.2 to the PRL"
+        }
+      ],
+      "read": "complete",
+      "claim_consumed": "Under preparation noncontextuality, V + P <= 1 holds for every preparation that belongs to a realized quadruple satisfying exactly the PRL's Eqs. (10)-(11) (A21-orbit realizability), relative to the fixed which-way measurement Z and the fixed which-phase measurement X; P = |<Z>| and V = |<X>| for that fixed X; the operational equivalence of Eq. (11) holds over all measurements on the carrier (Eq. 8). The PRL's main result is its Eq. (12), p. 4; the companion's Props. V.1 (theory level) and V.2 (experiment level) restate it. Proof: App. A, Eqs. (A1)-(A33); tightness: Eqs. (A35)-(A38); alternative derivation: App. B.",
+      "conditions": [
+        "single-system prepare-measure scenario with two binary-outcome measurements (p. 2)",
+        "generalized preparation noncontextuality only (fn. 3; Eq. 9)",
+        "operational equivalence over all possible measurements (Eq. 8)",
+        "finite ontic space (p. 3)",
+        "no outcome-determinism assumption; reduction to deterministic ontic states via the PRL's ref. [41], checked independently by the reader as a linear convex decomposition"
+      ],
+      "proof_followed": "All steps followed on paper by the reader: the parametrizations (A13), (A18), (A23), the ranges (A14)-(A27) and (A28)-(A33), the tightness distributions and the reduction to four ontic states.",
+      "caveats": [
+        {
+          "id": "LIT-1-C1",
+          "kind": "scope caveat",
+          "text": "V in the consumed claim is |<X>| for a FIXED recombination setting X (companion Eq. 7), the which-phase predictability. It is not the contrast over a varying phase used for the complementarity benchmark of section 3.5. The orbit-realizability quadruple must be certified relative to the same X that is used for V.",
+          "frozen_text_lines_at_1a236f33": [234, 244, 246]
+        },
+        {
+          "id": "LIT-1-C2",
+          "kind": "scope caveat",
+          "text": "'Equal predictabilities up to sign' (frozen L246) must be read as all three sign-flipped partners of Eq. (10), paired by the equivalence of Eq. (11). Section 5.3's certification 'over the whole of Acc' (L468-469) matches Eq. (8) only if Acc contains every carrier measurement.",
+          "frozen_text_lines_at_1a236f33": [246, 468, 469]
+        },
+        {
+          "id": "LIT-1-C3",
+          "kind": "scope caveat",
+          "text": "The result covers single-shot prepare-measure with preparation noncontextuality only. Use in sequential, transformation (T3) or composite settings, or on a carrier correlated with a marker (carrier marginals treated as preparations), is MR-1's own obligation and is not supplied by the source.",
+          "frozen_text_lines_at_1a236f33": [500, 501, 519]
+        },
+        {
+          "id": "LIT-1-C4",
+          "kind": "scope caveat (section A.34 direction)",
+          "text": "The companion states Props. V.1-V.2 as 'if and only if'. The PRL proves the direction 'noncontextual implies bound' (App. A) and scenario-level tightness (App. B and its ref. [41]); it does not prove the theory-level converse of Prop. V.1. MR-1 consumes only the proved direction. The frozen phrase 'their Props. V.1-V.2, proved in Catani et al., Phys. Rev. Lett. 129, 240401 (2022)' (L247) is to be read as covering that direction only.",
+          "frozen_text_lines_at_1a236f33": [247]
+        },
+        {
+          "id": "LIT-1-C5",
+          "kind": "typo in source",
+          "text": "p. 8 has 'epsilon'' = epsilon'; per (A13) it should be epsilon'' = -epsilon. It does not affect the result.",
+          "frozen_text_lines_at_1a236f33": []
+        },
+        {
+          "id": "LIT-1-C6",
+          "kind": "not consumed",
+          "text": "The three-measurement bound Eq. (C7) has no analytic proof in the source (a computer-algebra check is reported). MR-1 does not use it.",
+          "frozen_text_lines_at_1a236f33": []
+        }
+      ],
+      "agreement_with_frozen_text": [
+        "P = |P(L) - P(R)| = |<Z>| agrees with companion Eq. (6) (frozen L244).",
+        "'Quantum states with 0 < V < 1 on the curve exceed' is supported for pure states on V^2 + P^2 = 1: the bound meets that circle only where |<X>| = 1 or |<Z>| = 1 (PRL p. 5).",
+        "'No bound on V + D is claimed' (frozen L251-252) is consistent: the source treats only two measurements on one system.",
+        "CC4 returning no W1 is consistent: the stabilizer theory 'precisely saturates' the bound, and PRL p. 12 ties the octahedral state space to epistemic restriction."
+      ],
+      "contradiction_check": "NO. No load-bearing assumption of the frozen text is contradicted; the caveats above are scope statements.",
+      "reader_commands": [
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '230,265p;490,580p;735,765p'",
+        "mkdir -p .../lit-catani-prl && ls -A .../lit-catani-prl",
+        "curl -sSL -o abs.html https://arxiv.org/abs/2207.11779, then a grep for the version and DOI lines",
+        "grep -A3 -E '[v[0-9]]' abs.html | sed 's/<[^>]*>//g' | head -20",
+        "curl -sSL -o 2207.11779v2.pdf https://arxiv.org/pdf/2207.11779v2 && file ... && sha256sum ... && ls -l ...",
+        "curl -sSL -o abs-2211.html https://arxiv.org/abs/2211.09850 with a version grep; then curl -sSL -o 2211.09850.pdf https://arxiv.org/pdf/2211.09850 && file && sha256sum",
+        "pdftotext -layout 2211.09850.pdf - | grep -n -iE 'Proposition|Prop. V|[50]|orbit' | head -40",
+        "pdftotext -layout 2211.09850.pdf - | grep -n -E 'Proposition V|^formfeed|Ref. [50]' | cut -c1-120 | head -30; ... | grep -c formfeed",
+        "pdftotext -layout 2211.09850.pdf - | sed -n '480,560p'",
+        "Read-tool views: PRL pp. 1-13; companion pp. 5-7"
+      ],
+      "gate": {
+        "status": "MET",
+        "reason": "Full first-hand read of the proof of the consumed direction; no contradiction; caveats LIT-1-C1 to LIT-1-C6 recorded as scope caveats."
+      }
+    },
+    {
+      "id": "LIT-2",
+      "source": "M. D. Mazurek, M. F. Pusey, R. Kunjwal, K. J. Resch, R. W. Spekkens, Nat. Commun. 7, 11780 (2016) (arXiv:1505.06244v1 is titled '...unwarranted idealizations')",
+      "doi": "10.1038/ncomms11780",
+      "edition_read": "published version, open access (CC-BY), 13 Jun 2016, with its Supplementary Information",
+      "fetched": [
+        {
+          "url": "https://www.nature.com/articles/ncomms11780.pdf",
+          "sha256": "9e825f48157d9226808be4c8471ae7a7606d866c4217bb6e32108df3ed1df612",
+          "pages_read": "1-7 of 7 (Results, Discussion, Methods, references)"
+        },
+        {
+          "url": "Supplementary Information PDF on static-content.springer.com (file ...MOESM1461_ESM.pdf), linked from https://www.nature.com/articles/ncomms11780",
+          "sha256": "b1434bb92457377493b62bc56c4de282eb927a201f7216713e2579c47b301c32",
+          "pages_read": "1-17 of 17 (Supplementary Figs 1-4, Tables 1-4, Notes 1-4)"
+        },
+        {
+          "url": "https://arxiv.org/pdf/1505.06244",
+          "sha256": "b2467badf4c9b4d9f7ac5b6afece3afbf7923c0274b49fb7b10062e2cfd230cc",
+          "pages_read": "none (arXiv:1505.06244v1, 22 pp, downloaded and hashed only; the published version was read)"
+        }
+      ],
+      "not_read": "Supplementary Data 1-2 (xlsx) and Supplementary Software 1",
+      "read": "complete (article and Supplementary Information)",
+      "claim_consumed": "T7 form for a single prepare-and-measure system: operational equivalences are defined over all measurements (respectively preparations) and made operational through a set assumed tomographically complete; secondary procedures are convex mixtures of primaries (and, for measurements, post-processings), chosen by a linear program to satisfy the equivalences exactly (SI Note 3, eqs 22-27); the inequality A <= 5/6 (eqs 6 and 8, p. 3) is derived without outcome determinism or noiseless measurements (SI Note 2, eqs 7-18) and refutes the conjunction of preparation and measurement noncontextuality; statistical equivalence relative to a set of measurements does not imply it relative to all measurements (SI p. 15).",
+      "conditions": [
+        "ontological-model framework with mixtures represented as mixtures (eq. 1; SI eq. 12)",
+        "both preparation noncontextuality (SI eq. 6) and measurement noncontextuality (SI eq. 5) are assumed; a preparation-noncontextual, measurement-contextual model reaches A = 9/10 (SI Fig. 3)",
+        "tomographic completeness of the fiducial sets (SI eqs 3-6), tested by a GPT fit and called by the authors the most significant remaining loophole (p. 6)",
+        "acknowledged loopholes also include fair sampling, multiphoton events, polarization-spatial coupling and the absence of a rigorous p-value bound (SI p. 17)"
+      ],
+      "caveats": [
+        {
+          "id": "LIT-2-C1",
+          "kind": "scope caveat (tomographic completeness)",
+          "text": "Section 5.3 supplies tomographic completeness only relative to Acc, by definition. If stage 1 certifies equivalences through a finite subset of Acc, it owes a proved completeness lemma relative to Acc; and the residual assumption that Acc exhausts the relevant physical procedures remains, which is the source's own loophole.",
+          "frozen_text_lines_at_1a236f33": [468, 469, 501]
+        },
+        {
+          "id": "LIT-2-C2",
+          "kind": "scope caveat (setting)",
+          "text": "The source is prepare-and-measure only; it has no transformation, sequential or adaptive inequality. T7's transformation clause ('T3's undo enters as a transformation') and the adaptive continuations draw on the source for form only, not for content.",
+          "frozen_text_lines_at_1a236f33": [500, 501]
+        },
+        {
+          "id": "LIT-2-C3",
+          "kind": "attribution nuance",
+          "text": "AW-MR3 cites 'Mazurek et al. 2016 on inexact operational equivalences' for the relativity of equivalences to the access. The relativity point comes from the source's tomographic-completeness passage (SI p. 15); enlarging the test set can only dissolve equivalences between fixed procedures, and 'create' is supported only through new mixtures when the procedure set is enlarged (p. 4).",
+          "frozen_text_lines_at_1a236f33": [393, 399]
+        },
+        {
+          "id": "LIT-2-C4",
+          "kind": "scope caveat (labelling)",
+          "text": "A W1 violation of an inequality of this form refutes the conjunction of preparation and measurement noncontextuality; it is not to be labelled preparation contextuality alone.",
+          "frozen_text_lines_at_1a236f33": [519]
+        },
+        {
+          "id": "LIT-2-C5",
+          "kind": "consistency note",
+          "text": "Secondary procedures require convex mixing to be available in Acc as a sourced procedure, consistent with convention c1.",
+          "frozen_text_lines_at_1a236f33": []
+        }
+      ],
+      "contradiction_check": "NO. MR-1's universal quantification over Acc is the stronger, in-model form of the source's completeness assumption; the caveats above are scope statements.",
+      "reader_commands": [
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | grep -n -E 'AW-MR3|T7|Mazurek|^#+ |5.3|tomograph' | head -80",
+        "mkdir -p .../lit-mazurek && ls -A .../lit-mazurek",
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '240,255p;387,425p;429,560p;656,675p;739,760p'",
+        "cd .../lit-mazurek && curl -sSL -o mazurek-1505.06244.pdf https://arxiv.org/pdf/1505.06244 && curl -sSL -o abs.html https://arxiv.org/abs/1505.06244 && ls -l && sha256sum mazurek-1505.06244.pdf && file mazurek-1505.06244.pdf",
+        "grep -o -E '...' abs.html | head -20; grep -o -E 'submission-history.{0,1500}' abs.html | sed ... | head -20",
+        "grep -n -A25 'submission-history' abs.html | sed ... | head -30; grep -n -i 'journal-ref|Comments' abs.html | sed ... | head",
+        "curl -sSL -A 'Mozilla/5.0' -o ncomms11780.pdf https://www.nature.com/articles/ncomms11780.pdf; ls -l; file; sha256sum",
+        "curl -sSL -A 'Mozilla/5.0' -o article.html https://www.nature.com/articles/ncomms11780 && grep -o -E 'https://static-content.springer.com/esm/[^\"]+' article.html | sort -u",
+        "curl -sSL -A 'Mozilla/5.0' -o ncomms11780-SI.pdf '<MOESM1461 URL>' && ls -l && file && sha256sum"
+      ],
+      "gate": {
+        "status": "MET",
+        "reason": "Full first-hand read of the article and Supplementary Information; no contradiction; caveats LIT-2-C1 to LIT-2-C5 recorded as scope caveats."
+      }
+    },
+    {
+      "id": "LIT-3",
+      "source": "S. Kochen, E. P. Specker, 'The problem of hidden variables in quantum mechanics', J. Math. Mech. 17(1), 59-87 (1967)",
+      "doi": "none located; JSTOR stable 24902153",
+      "edition_read": "partial copies only (see fetched)",
+      "fetched": [
+        {
+          "url": "https://www.iumj.indiana.edu/IUMJ/FTDLOAD/1968/17/17004/pdf",
+          "sha256": "d76d792cf8db8fe5603c455495ff960681c24b755c58118376b83c4a5f850d4b",
+          "pages_read": "59-64 (free 6-page preview; the djvu link serves the same PDF; full text subscriber-only)"
+        },
+        {
+          "url": "https://cqi.inf.usi.ch/qic/Kochen1967.pdf",
+          "sha256": "fd7af55a5a601c3277e1a620530a7fcb96b731d784c5a07c03697d3ca97f3611",
+          "pages_read": "cover and journal pp. 59-68 (11 pp.; JSTOR cover gives J. Math. Mech. 17(1), 59-87)"
+        }
+      ],
+      "routes_tried_and_failed": [
+        "JSTOR PDF (stable 24902153): paywalled",
+        "Springer reprint in Hooker (ed.) 1975, DOI 10.1007/978-94-010-1795-4_17: paywalled",
+        "archive.org: the Hooker volume is restricted lending; advanced searches for the Hooker volume and Specker's Selecta found no open copy",
+        "nLab Kochen-Specker page: links to the same IUMJ preview",
+        "IUMJ full-text page: subscriber-only",
+        "two web searches: no other full copy"
+      ],
+      "not_read": "pp. 69-87: the rest of section 3 (the 117-vector graph and the non-colourability argument), section 4 (spin-1 realization), section 5 (the von Neumann comparison and the two-dimensional spin-1/2 classical model), and the quantum-logic section. Section 5 is the part MR-1 needs for the CC2 instance.",
+      "read": "partial (pp. 59-68 of 59-87)",
+      "substitute_used": "none. Possible substitute primary sources (Peres, J. Phys. A 24 (1991) L175; Mermin, PRL 65 (1990) 3373; Mermin, RMP 65 (1993) 803) were not read and do not satisfy this gate.",
+      "claim_consumed": "none. The claim MR-1 needs (the section 5 classical spin-1/2 model, for the CC2 instance) lies in the unread pages.",
+      "pages_read_content_for_owner_only": "Section 1 (pp. 63-64): conditions (1) and (4) on a hidden-variable space. Section 2: p. 66, embedding of the partial algebra of observables into a commutative algebra as a necessary condition; p. 67, Theorem 0. Section 3 (pp. 67-68): B(E3), condition (6), Lemmas 1-2. Introduction (p. 60) announces the section 5 classical spin-1/2 model. None of this satisfies the gate.",
+      "caveats": [],
+      "contradiction_check": "UNDETERMINED. Pages 59-68 contradict nothing in the frozen text; the decisive pages were not read.",
+      "frozen_text_lines_at_1a236f33": [569, 668, 758],
+      "reader_commands": [
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '255,345p;520,580p;735,765p'",
+        "mkdir -p .../lit-ks1967; ls -A; curl -sS -L -o .../iumj_17004.pdf -w ... https://www.iumj.indiana.edu/IUMJ/FTDLOAD/1968/17/17004/pdf; file ...",
+        "sha256sum .../iumj_17004.pdf",
+        "mkdir -p .../lit-ks1967/usi; ls -A; curl -sS -L -o .../usi/Kochen1967.pdf -w ... https://cqi.inf.usi.ch/qic/Kochen1967.pdf; file ...; sha256sum ...",
+        "curl -sS -L https://ncatlab.org/nlab/show/Kochen-Specker+theorem | grep -o 'href=...' | grep -i -E 'pdf|jstor|doi|kochen' | head -40",
+        "mkdir -p .../lit-ks1967/springer; ls -A; curl ... https://link.springer.com/content/pdf/10.1007/978-94-010-1795-4_17.pdf; file ...; curl -o /dev/null ... https://www.jstor.org/stable/pdf/24902153.pdf",
+        "curl archive.org advancedsearch (kochen specker hidden variables); curl -o /dev/null + grep on https://www.iumj.indiana.edu/IUMJ/fulltext.php?artid=17004&year=1968&volume=17",
+        "curl IUMJ fulltext page | sed | grep; mkdir -p .../lit-ks1967/djvu; ls -A; curl ... FTDLOAD/1968/17/17004/djvu; file ...",
+        "curl archive.org advancedsearch (Hooker volume / Specker selecta; exact title)"
+      ],
+      "gate": {
+        "status": "NOT-MET",
+        "reason": "Access: only pp. 59-68 of 59-87 could be obtained; section 5, which the CC2 instance needs, is unread. No substitute was used.",
+        "consequence": "K-star (including the CC2 instance and the constraint that fixes it) is blocked pending the owner's decision, PR #1023 comment 6549290592. Under the frozen execution blocker (L668) no execution step whose decision depends on a claim from this source proceeds."
+      }
+    },
+    {
+      "id": "LIT-4",
+      "role": "substitute primary source for the Kochen-Specker reading gate, CC2-instance role only (amendment KS-S, amendments/KS-substitution.md; owner Option 2, PR #1023 comment 6553497955)",
+      "source": "J. S. Bell, 'On the problem of hidden variables in quantum mechanics', Rev. Mod. Phys. 38, 447-452 (1966)",
+      "doi": "10.1103/RevModPhys.38.447",
+      "edition_read": "the published article, in two independent copies whose texts agree throughout; no separate note added in proof",
+      "fetched": [
+        {
+          "url": "https://informationphilosopher.com/solutions/scientists/bell/Bell1966.pdf",
+          "sha256": "6bdd54c4ef8eac09f5ace39a8d0aafa626daba95158b04a0cdc3e5a0aa63e3f4",
+          "pages_read": "447-452 of 447-452 (6 pp.; scan with OCR text layer), with footnotes 1-19 and acknowledgments"
+        },
+        {
+          "url": "https://fisherp.mit.edu/wp-content/uploads/2020/04/RevModPhys.38.447.pdf",
+          "sha256": "051f5a935ac8a52b47e8d6b23cc3e951b6dfd0d6a10b950da9a390c81267f774",
+          "pages_read": "447-452 of 447-452 (6 pp.), read as page images and as full text"
+        }
+      ],
+      "read": "complete",
+      "claim_consumed": [
+        "B-a: for a two-dimensional system, an explicit deterministic model, eq. (3), p. 448 (outcome alpha + |beta| sign(lambda|beta| + |beta_z|/2) sign X, with lambda uniform on [-1/2, 1/2]), reproduces every single-measurement expectation for a pure psi; its dispersion-free states have additive expectation values only for commuting operators (p. 449); not contextual in the Kochen-Specker sense",
+        "B-b: for state-space dimension greater than two, no dispersion-free state satisfies additivity of expectation values for commuting operators (section V, pp. 450-451; Gleason corollary; 'it is here that we need three dimensions at least')",
+        "B-c: in any dimension, an explicit deterministic contextual model (p. 451; hidden variable 0 < lambda <= 1; P_n gives 1 iff lambda_(n-1) < lambda <= lambda_n) reproduces the single-context statistics; the result for a given P_n 'depends also on the choice of the others'; the tacit noncontextuality assumption is named in the diagnosis that the result 'may reasonably depend ... on the complete disposition of the apparatus'"
+      ],
+      "conditions": [
+        "B-a: single measurements only; no measurement dynamics; no physical significance attributed to lambda (p. 448)",
+        "B-b: continuity argument over all vectors; constrains value assignments to all rays, not a finite set",
+        "B-c: called 'very artificial' by Bell; the lambda_n are built from psi's quantum expectations"
+      ],
+      "caveats": [
+        {
+          "id": "LIT-4-C1",
+          "kind": "scope caveat (disturbing readout and marker)",
+          "text": "Disturbing readout: partial. Outcome dependence on context is supported, but no measurement dynamics and no post-measurement state are given ('we enter upon it no more than is strictly necessary'); the section VI Bohm sketch (pp. 451-452) is not a disturbance model. Disturbing marker: none; no marker, record system or sequential readout appears.",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-4-C2",
+          "kind": "scope caveat (per-law construction)",
+          "text": "The models are built from psi's own quantum expectations, so they are of the CC8 kind and agree with PC-Q on single measurements by construction. A CC2 instance is distinguished from CC8 only by a K1-fixed construction, which this source does not supply.",
+          "frozen_text_lines_at_1a236f33": [561, 562, 569]
+        },
+        {
+          "id": "LIT-4-C3",
+          "kind": "scope caveat (dimension; inference of the reader, not a claim in Bell)",
+          "text": "On the two-dimensional carrier alone, model B-a is not Kochen-Specker contextual; a KS-type obstruction needs dimension at least three, for example carrier together with marker (dimension four).",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-4-C4",
+          "kind": "scope caveat (contextuality notion)",
+          "text": "Bell does not treat preparation contextuality; Corollary U2 rests on Spekkens 2005 and is not affected.",
+          "frozen_text_lines_at_1a236f33": [340]
+        }
+      ],
+      "agreement_with_frozen_text": [
+        "The CC2 row (L569) agrees in part: a contextual deterministic model is supplied, a disturbing readout and a disturbing marker are not, matching the owner's warning in comment 6553497955.",
+        "Bell's results are functions of the hidden state together with the apparatus; in OI the apparatus is internal to S, consistent with Proposition A1 (L280) and with 'Under K1 the Kochen-Specker-type deterministic class contains frozen-interface-type models' (L562), which Bell does not address.",
+        "Bell's footnote 19 records a nonlocality proof found after completion; consistent with the CC2 row's 'T6 under K2 is not available to OI' (L569)."
+      ],
+      "contradiction_check": "NO. Bell p. 451 (dependence 'on the complete disposition of the apparatus') and frozen A1 ('with internal settings, every record ... is a function of s_0') are compatible.",
+      "reader_commands": [
+        "mkdir -p .../lit-bell1966; ls -A; curl -sSL -o bell1966-infophil.pdf <URL A>; curl -sSL -o bell1966-mit.pdf <URL B>; sha256sum; file",
+        "pdfinfo on both PDFs; pdftotext -layout on both for display",
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n '250,350p;515,580p;735,765p' | cat -n",
+        "Read tool on pp. 1-6 of copy B, on both text extracts, and on the KS-1967 partial record"
+      ],
+      "gate": {
+        "status": "MET",
+        "role": "CC2-instance literature input only (amendment KS-S)",
+        "reason": "Read first-hand in full in two agreeing copies; no contradiction; caveats LIT-4-C1 to LIT-4-C4 recorded. The concrete CC2 construction is not supplied by this source and remains an obligation before K-star."
+      }
+    },
+    {
+      "id": "LIT-5",
+      "role": "substitute primary source for the Kochen-Specker reading gate, CC2-instance role only (amendment KS-S, amendments/KS-substitution.md; owner Option 2, PR #1023 comment 6553497955)",
+      "source": "N. D. Mermin, 'Hidden variables and the two theorems of John Bell', Rev. Mod. Phys. 65, 803 (1993); errata Rev. Mod. Phys. 88, 039902 (2016) and 89, 049901 (2017)",
+      "doi": "10.1103/RevModPhys.65.803 (errata: 10.1103/RevModPhys.88.039902; 10.1103/RevModPhys.89.049901)",
+      "edition_read": "arXiv:1802.10119v1 (27 Feb 2018), whose preface states that it 'corrected the three small errors posted over the years' without naming them",
+      "fetched": [
+        {
+          "url": "https://arxiv.org/pdf/1802.10119",
+          "sha256": "196577d5166bc5689a9c95038c85ce594a824556d3afcb1cba31cce1f5463d36",
+          "pages_read": "1-27 of 27"
+        }
+      ],
+      "errata": {
+        "existence": "confirmed from metadata: Crossref (88.039902, online 2016-07-15; 89.049901, online 2017-12-28) and INSPIRE record 370690; neither carries an abstract or page",
+        "text_obtained": false,
+        "routes_tried_and_failed": [
+          "journals.aps.org: HTTP 403",
+          "link.aps.org, ui.adsabs.harvard.edu and harvest.aps.org: outside the session's allowed network domains",
+          "one web search: no erratum text found"
+        ],
+        "mapping": "unresolved: the preface's three corrected errors do not map one-to-one onto the two errata"
+      },
+      "residue_in_text": "pp. 21-22 still cite 'Fig. 3/Fig. 4', which are the displays on pp. 15 and 17",
+      "read": "complete for the corrected arXiv text; errata text not obtained",
+      "claim_consumed": [
+        "M-a: the theorem's assumptions: value definiteness and eigenvalue values (section II, pp. 7-8), functional composition (eqs. 1-3, p. 9), and noncontextuality, named on p. 18 as the tacit assumption that an observable gets the same value whichever commuting set it is measured with",
+        "M-b: the four-dimensional square (section V, pp. 15-16): no assignment to its nine observables satisfies those assumptions, for any state",
+        "M-c: deterministic models escape the theorem only through context or apparatus dependence (section X, p. 24); a necessity statement, not a construction"
+      ],
+      "conditions": [
+        "the theorem is state-independent for dimension at least three (fn 11) and impossible in dimension two (fns 12, 17)",
+        "M-b applies to any model that assigns values to all nine observables of a carrier-marker system of dimension four"
+      ],
+      "caveats": [
+        {
+          "id": "LIT-5-C1",
+          "kind": "scope caveat (disturbing readout and marker)",
+          "text": "No contextual deterministic model with disturbing readout and no marker extension is constructed; the only explicit model is Bell's two-dimensional noncontextual one (section III). Disturbance is discussed only conceptually (p. 3; pp. 18 and 24).",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-5-C2",
+          "kind": "scope caveat (contextuality notion)",
+          "text": "Mermin's contextuality is measurement contextuality of value assignments; Corollary U2 rests on Spekkens 2005 preparation contextuality. This source does not substitute for U2's citation; there is no conflict.",
+          "frozen_text_lines_at_1a236f33": [340]
+        },
+        {
+          "id": "LIT-5-C3",
+          "kind": "scope caveat (wording)",
+          "text": "'Kochen-Specker-type deterministic model' (L569) is ambiguous: by the theorem, such a model cannot be noncontextual beyond dimension two; in CC2 it is read as a contextual deterministic model.",
+          "frozen_text_lines_at_1a236f33": [569]
+        },
+        {
+          "id": "LIT-5-C4",
+          "kind": "errata gap",
+          "text": "Claims M-a and M-c in its all-rays form are also supported by Bell 1966 (LIT-4: B-b, B-c) and are usable. Claim M-b, and M-c restricted to a finite menu of observables, rest on this source alone and are blocked until the errata text is read. No CC2 decision rests on a Mermin claim alone before then.",
+          "frozen_text_lines_at_1a236f33": [561, 562, 569]
+        }
+      ],
+      "agreement_with_frozen_text": [
+        "The no-go side of CC2 (L569) agrees; the model itself must be supplied at stage 1.",
+        "Records that are functions of the complete state, apparatus included (A1, L280), are the context-dependent deterministic models section X permits; consistent with L562. Mermin says nothing about OI.",
+        "Corollary U3 (L345): Bohm 'deterministic with records functions of configuration given the guiding wave' agrees with Mermin p. 23 ('hidden variables are simply the real configuration space coordinates ... guided ... by the wave function'), which the paper asserts rather than derives."
+      ],
+      "contradiction_check": "NO.",
+      "reader_commands": [
+        "mkdir -p .../lit-mermin1993; curl -sSL of the arXiv PDF; sha256sum",
+        "git -C .../wt-f2-1 show 1a236f33:.../preregistration.md | sed -n over the section 4.3, 5.7-5.8 and 9 ranges",
+        "Read of the PDF: pp. 1-10, 11-20, 21-27; pdfinfo for the page count",
+        "curl of Crossref (CSL and plain JSON) and of the APS abstract pages for both erratum DOIs; sha256sum",
+        "grep of the Crossref JSON for abstract and page fields; none found",
+        "curl of the INSPIRE API (370690) and of harvest.aps.org; the latter did not resolve",
+        "one WebSearch",
+        "WebFetch of link.aps.org and ADS; both outside the allowed domains"
+      ],
+      "gate": {
+        "status": "MET for the corrected arXiv text; errata text not obtained",
+        "role": "CC2-instance literature input only (amendment KS-S)",
+        "reason": "arXiv:1802.10119v1 read first-hand in full; no contradiction; caveats LIT-5-C1 to LIT-5-C4 recorded. Claims resting on this source alone (M-b; M-c for a finite menu) are blocked until the errata are read."
+      }
+    }
+  ],
+  "disagreement_disposition": "Every disagreement with the frozen text recorded above (LIT-1-C1 to LIT-1-C4, LIT-2-C1 to LIT-2-C4) is a scope caveat, not a contradiction of a load-bearing assumption. The preregistration is not edited; the caveats bind the stage-1 amendment.",
+  "disagreement_disposition_lit4_lit5": "The caveats of LIT-4 and LIT-5 are scope caveats, not contradictions of a load-bearing assumption. The preregistration is not edited.",
+  "amendments": [
+    {
+      "path": "amendments/KS-substitution.md",
+      "id": "KS-S",
+      "authority": "owner Option 2, PR #1023 comment 6553497955",
+      "summary": "Bell 1966 and Mermin 1993 substitute for Kochen-Specker 1967 in the CC2-instance role only; LIT-3 stays NOT-MET; the concrete CC2 construction is not established; K-star stays blocked."
+    }
+  ],
+  "writer_runs": [
+    {"run": 1, "command": "git log -1 --format=%H", "purpose": "confirm HEAD", "result": "1a236f332e8ea12b7fdb125bf8c5098ccd71d36c"},
+    {"run": 2, "command": "git grep -n -E '<phrases>' 1a236f33 -- .../preregistration.md", "purpose": "frozen-text line references for LIT-1 and LIT-2", "result": "lines 234, 244, 246, 247, 251, 373, 399, 468, 469, 501"},
+    {"run": 3, "command": "git grep -n -E '<phrases>' 1a236f33 -- .../preregistration.md", "purpose": "frozen-text line references", "result": "lines 393, 500, 519, 569, 668, 754, 756, 758"},
+    {"run": 4, "command": "git add .../amendments/stage1-log.json", "purpose": "stage this file", "result": "staged"},
+    {"run": 5, "command": "python3 -I tools/artifact_placement_check.py", "purpose": "hygiene", "result": "OK (no unaccounted root artifact; 95 names permitted; self-test passed)"},
+    {"run": 6, "command": "python3 -I tools/lean_manuscript_census.py", "purpose": "hygiene", "result": "OK"},
+    {"run": 7, "command": "python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene", "result": "PASS; added-text scan 0 hits"},
+    {"run": 8, "command": "git status --short; git diff --cached --stat 1a236f33 -- .../preregistration.md", "purpose": "confirm only this file is added and the preregistration is unchanged", "result": "one added file; empty diff for the preregistration"},
+    {"run": 9, "command": "re-stage this file, rerun runs 5-7 on the final content, git diff --stat 1a236f33 -- .../preregistration.md, git commit, git log -1", "purpose": "final hygiene on the committed content and the single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"},
+    {"run": 10, "command": "git log -1 --format=%H", "purpose": "confirm HEAD before the KS-S amendment", "result": "7f1b1f39758fc2f909d1248e520ee38b6da76a74"},
+    {"run": 11, "command": "git grep -n -E '<phrases>' 1a236f33 -- .../preregistration.md", "purpose": "frozen-text line references for LIT-4, LIT-5 and KS-S", "result": "lines 280, 340, 345, 561, 562, 569, 758"},
+    {"run": 12, "command": "GitHub issue-comment read of PR #1023 (read-only connector call, not a git or hygiene tool)", "purpose": "quote the owner's boundaries exactly from comment 6553497955", "result": "comment read; boundaries quoted in KS-substitution.md section 1"},
+    {"run": 13, "command": "git add .../amendments/KS-substitution.md .../amendments/stage1-log.json", "purpose": "stage the two files", "result": "staged"},
+    {"run": 14, "command": "python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md", "purpose": "hygiene and an unchanged preregistration", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+  ],
+  "corrections": [
+    {
+      "id": "REV-1",
+      "source": "independent review of da558a8c",
+      "target": "LIT-5, gate.status (and gate.reason)",
+      "old_value": "MET for the corrected arXiv text; errata text not obtained",
+      "corrected_value": "PARTIAL: the corrected arXiv text (arXiv:1802.10119v1) is read first-hand in full; the text of the published errata (Rev. Mod. Phys. 88, 039902; 89, 049901) is not obtained, so the gate stays open on that point and the gap is referred to the owner",
+      "reason": "The owner's decision (PR #1023 comment 6553497955) requires that 'Mermin's published corrections must also be considered' and lists the next step as reads of Bell 1966 and Mermin 1993 'including the errata'. The errata text was not obtained, so MET overstates the gate."
+    },
+    {
+      "id": "REV-2",
+      "source": "independent review of da558a8c",
+      "target": "LIT-1, caveats (new caveat LIT-1-C7, from conditions entry 'finite ontic space (p. 3)')",
+      "old_value": "finite ontic space (p. 3) [recorded only as a condition]",
+      "corrected_value": "LIT-1-C7, scope caveat (finite ontic space): the PRL's proof assumes a finite ontic space Lambda (p. 3). A W1 obtained through the bound V + P <= 1 therefore excludes only noncontextual models with finite Lambda. Separating CC1 (a classical wave or occupation model) or any model with a continuum hidden variable through this bound needs its own extension, which the source does not supply.",
+      "reason": "The finite-Lambda assumption limits which models the witness excludes and bears on the CC1 separation; it is a caveat, not only a condition."
+    },
+    {
+      "id": "REV-3",
+      "source": "independent review of da558a8c",
+      "target": "LIT-4, caveats LIT-4-C2 (kind and text); KS-substitution.md section 4, second finding",
+      "old_value": "kind 'scope caveat (per-law construction)'; text 'The models are built from psi's own quantum expectations, so they are of the CC8 kind and agree with PC-Q on single measurements by construction. A CC2 instance is distinguished from CC8 only by a K1-fixed construction, which this source does not supply.'",
+      "corrected_value": "kind 'scope caveat (psi-ontic construction)'; text: Bell's spin-1/2 model, eq. (3), is psi-ontic: its ontic state (psi, lambda), with lambda on a continuum, fixes the outcome of every single measurement alpha + beta.sigma on the system, so it is not a finite-menu A-realization of the CC8 kind; it reproduces the quantum single-measurement statistics by construction. The p. 451 contextual model is also psi-ontic and per state: its ontic state is (psi, lambda) with 0 < lambda <= 1, its thresholds lambda_n are cumulative quantum expectations in psi of the projectors one apparatus measures, it is defined for every such context with an order fixed by the set of projectors, and it reproduces the single-context quantum statistics by construction. Neither model is a K1-fixed construction, so no CC2 instance is supplied by this source.",
+      "reason": "'Per-law, CC8 kind' overstates: CC8 is a finite-menu realization of a stated law, while Bell's models are psi-ontic and cover every single measurement (respectively every context) on the system. The conclusion that no K1-fixed CC2 construction is supplied stands."
+    },
+    {
+      "id": "REV-4",
+      "source": "independent review of da558a8c",
+      "target": "LIT-5, caveat LIT-5-C4 and gate.reason; KS-substitution.md section 5 table",
+      "old_value": "'Claim M-b, and M-c restricted to a finite menu of observables, rest on this source alone and are blocked until the errata text is read.'",
+      "corrected_value": "Rest on this source alone: (i) M-b, the finite four-dimensional square; (ii) M-c restricted to a finite menu of observables; (iii) the product rule of functional composition, Mermin eqs. (1)-(2), used in sections V(c) and VI(c) (Bell 1966 uses additivity of expectation values for commuting operators only); (iv) the agreement with Corollary U3 (LIT-5 agreement_with_frozen_text, Mermin p. 23). Items (i)-(iii) are blocked until the errata text is read. Item (iv) is Mermin-only and not load-bearing (U3 is marked not load-bearing in the frozen text, L345).",
+      "reason": "The list of Mermin-only claims omitted the product rule, on which the square depends, and the U3 agreement."
+    },
+    {
+      "id": "REV-5",
+      "source": "independent review of da558a8c",
+      "target": "LIT-1 reader_commands (entries containing \"grep -A3 -E '[v[0-9]]'\" and \"'Proposition V|^formfeed|Ref. [50]'\"); LIT-2 reader_commands (entry containing \"'AW-MR3|T7|Mazurek|^#+ |5.3|tomograph'\")",
+      "old_value": "regex strings as written in those entries",
+      "corrected_value": "These strings paraphrase the readers' original regular expressions (escapes and a form-feed character were rendered in words or dropped); they are labelled here as paraphrased, not verbatim.",
+      "reason": "Accuracy of the provenance record."
+    },
+    {
+      "id": "REV-6",
+      "source": "independent review of da558a8c",
+      "target": "writer_runs 7, 9 and 14 (SC-42 check)",
+      "old_value": "'PASS; added-text scan 0 hits' (run 7), with runs 9 and 14 reporting the same in the commit messages",
+      "corrected_value": "The SC-42 added-text scan diffs only *.md and *.py files. It never scanned this JSON file; it scanned KS-substitution.md. No SC-42 coverage is claimed for this JSON file.",
+      "reason": "Scope of the hygiene check."
+    },
+    {
+      "id": "REV-7",
+      "source": "independent review of da558a8c",
+      "target": "top-level fields readers and computation_statement",
+      "old_value": "readers: 'Three independent first-hand literature readers (Claude subagents), 2026-10-31, ...'; computation_statement: '... The writer of this log ran only git and the three repository hygiene tools, listed under writer_runs. ...'",
+      "corrected_value": "Both fields predate LIT-4, LIT-5 and run 12. LIT-4 (Bell 1966) and LIT-5 (Mermin 1993) were read by two further independent first-hand literature readers (Claude subagents) on 2026-11-01, reading only. Besides git and the hygiene tools, the writer made one read-only GitHub connector call (run 12) to quote the owner's comment; it evaluated no quantity.",
+      "reason": "The two fields describe the state at the first commit of this log."
+    }
+  ],
+  "corrections_runs": [
+    {"run": 15, "command": "git log -1 --format=%H", "purpose": "confirm HEAD before the review corrections", "result": "da558a8cf53c46d2358c2812f2c5df5cb6593c56"},
+    {"run": 16, "command": "git grep -n -E '<phrases>' HEAD -- .../amendments/stage1-log.json .../amendments/KS-substitution.md", "purpose": "locate the targets of REV-1 to REV-7", "result": "targets located"},
+    {"run": 17, "command": "git add .../amendments/stage1-log.json .../amendments/KS-substitution.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+  ],
+  "kstar_step": {
+    "date": "2026-11-01",
+    "authority": [
+      "PR #1023 comment 6549252522 (owner): stage-1 order, step 2, precommit K-star including the independently justified concrete CC2 instance and its OI-held constraint before any candidate screen",
+      "PR #1023 comment 6553497955 (owner, Option 2): an independently justified concrete CC2 model with its OI-held constraint before K-star is frozen; if it cannot be justified, the literature gate stays unresolved and CC2 and the nonclassicality criterion are not weakened"
+    ],
+    "file": "amendments/MR-star.md, section K-star only",
+    "outcome": "BLOCKED: the CC2 instance cannot be constructed from the available first-hand sources without an arbitrary choice. K-star is not frozen; the Kochen-Specker literature gate stays unresolved; no candidate screen starts. The CC2 row (frozen L569), the CC2-instance rule (L559-564), the nonclassicality criterion (L529-536) and tokens 2.4 and 2.5 (L620-621) are unchanged.",
+    "membership_reading": "Only K1 qualifies at D (K2 relinquished, Main:414; K3 held without a bound on N, Main:62, Main:488, Main:560; K4 not held, Main:566 clause (3); K5 not held, Main:486; K6 no budget stated). Recorded as a reading, not a freeze: by section 7.1, K-star is frozen together with its CC2 instance.",
+    "missing_elements": [
+      "M1 (decisive): selection within the K1 class. K1 fixes only the dynamics; under Q1, pi and mu range over admissible classes (L358-359); no OI-held constraint at D and no first-hand source selects an instance. Every instance in the K1 class with a readout and a marker is an interface of the frozen-interface type (L562-563, A1), so selecting one is a free choice of a candidate-type object before the screen.",
+      "M2: disturbing readout. No first-hand-sourced form for the post-readout ontic state (LIT-4-C1, LIT-5-C1).",
+      "M3: disturbing marker. No first-hand-sourced form for a marker, its coupling or its strength family (LIT-4-C1, LIT-5-C1; KS-S section 4).",
+      "M4: finite-menu certification of the Kochen-Specker-type character. Bell B-b covers all rays only; a K1-fixed instance on a fixed finite S has a finite menu (Main:488); every finite-set result available is blocked (Mermin errata unread, REV-1 and REV-4; Kochen-Specker 1967 pp. 69-87 unread, LIT-3)."
+    ],
+    "constructions_examined_not_admitted": [
+      "C-a: Bell-type, psi-ontic, with the quantum update and PC-Q's marker coupling. Its law is defined from the quantum benchmark; it is not fixed by K1 (REV-3; P-set); its finite form in the corpus is Main:566, which is CC8's realization (L575).",
+      "C-b: Bell-type with a fixed reference distribution. The threshold order, post-readout update, marker map and preparation assignment are unsourced free choices; it is not the native dynamics.",
+      "C-c: an instance in the K1 class. Not specified, by M1 and M4."
+    ],
+    "not_evaluated": "No construction was evaluated on any test and no law of any construction was derived; exclusions rest on sourcing and fixing only. No candidate interface was looked at, designed, derived or evaluated.",
+    "unblock_options": "Sources: the text of the Mermin errata, or Kochen-Specker 1967 pp. 69-87 (for M4); a first-hand source with a sequential deterministic contextual model with a disturbing readout and a marker (for M2 and M3; pointers in MR-star.md section K-star.8 are unread and their content is not asserted). Owner decisions D1 to D3 in MR-star.md section K-star.8; none adopted.",
+    "commands": [
+      "git rev-parse HEAD (a9bdeca24f038b592d8a5880e64f2facd7c5f7ab); git status; git branch --show-current; git log --oneline",
+      "git show 5914c17c:papers/Main.md | sed -n over Main:44, 56, 60, 62, 368-372, 408-410, 414, 418, 482, 486, 488, 560, 566-574; grep of the same text for 'contextual', 'Spekkens' and 'budget' (no occurrence of 'budget')",
+      "git show 99dce4b6:.../physical-coupling-pc1/amendments/PC-star.md | grep and sed -n over sections PC-star-2 and PC-star-4",
+      "display of the frozen preregistration, KS-substitution.md, this log, and the off-repository reader records for LIT-3, LIT-4 and LIT-5",
+      "grep of MR-star.md for local paths (none); grep and sed -n of check_sc42_integration.py to confirm the scope of its added-text scan"
+    ],
+    "hygiene_runs": [
+      {"run": "K1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged draft", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers *.md and *.py, so MR-star.md; not this JSON file, REV-6)"},
+      {"run": "K2", "command": "grep of this file for local paths; git add .../amendments/MR-star.md .../amendments/stage1-log.json; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene on the staged content, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run for this step. No Python ran except the three repository hygiene tools, each invoked with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. The commands run were git, read-only display commands (cat, sed -n, grep, git show, git diff) and the hygiene tools, listed above. All mathematics in MR-star.md section K-star is paper reasoning, marked with its status."
+  },
+  "kstar_corrections": {
+    "date": "2026-11-01",
+    "source": "independent review of 3d4759359d1bd707e8a0920a6b7ef5b8915df15f (accept with changes), relayed by the coordinator; the review agrees the block is genuine",
+    "file": "amendments/MR-star.md, section K-star.11 (appended; numbered 11 because K-star.9 is already taken)",
+    "outcome_unchanged": "K-star stays blocked; the block rests on M1 alone.",
+    "items": [
+      {"id": "RC-1", "target": "K-star.5 item 2; K-star.7 M1", "disposition": "applied", "summary": "The ordering sentence is withdrawn as an overreading (L562-564 anticipate a K1 CC2 instance of the frozen-interface type; L661-664 forbid only screening first). M1 rests solely on the absence of any OI-held selection or independent justification of an instance within K1."},
+      {"id": "RC-2", "target": "K-star.4 rows e4 and e5; K-star.7 M2 and M3", "disposition": "applied", "summary": "On the K1 route, the native step supplies the post-readout state and the marker coupling once the regions are chosen (L134-136), so M2 and M3 reduce to M1. As literature gaps they apply only to non-native forms such as C-b."},
+      {"id": "RC-3", "target": "K-star.3 condition c-iv", "disposition": "applied", "summary": "c-iv is relabelled a proposed reading for the owner (frozen reference behaviour 'may return W1', L569; LIT-5-C3). The sentence conflating Kochen-Specker noncontextuality of value assignments with generalized noncontextuality (the CC1/CC4 notion, L559-560) is withdrawn. M4 holds only under that reading."},
+      {"id": "RC-4", "target": "K-star.5 item 1", "disposition": "applied", "summary": "The native step is phi(u_prev, u) = (u, A u - u_prev); psi(x, y) = (A x - y, x) is its inverse (PC-star-2a P-1 at 99dce4b6)."},
+      {"id": "RC-5", "target": "K-star.5 item 1", "disposition": "applied", "summary": "'At least two inequivalent members' is scoped to the fork's invariance leg (L139-140; PC-1 preregistration section 4 at 99dce4b6); the selection leg carries a necessity assessment instead. M1 is unaffected."},
+      {"id": "RC-6", "target": "K-star.5 item 4", "disposition": "applied", "summary": "Main:488 assumes finite S, held through the total-finiteness posit (Main:62). PC-star-2a also allows the value groups Z_p and R/Z, where Main:488 does not apply as stated; item 4 is scoped to finite S."},
+      {"id": "RC-7", "target": "K-star.8 D3", "disposition": "applied", "summary": "D3 removes only the instance obligation (L559-562); the 2.5 ceiling with CC2-unseparated is already frozen at L563-564."}
+    ],
+    "commands": [
+      "git rev-parse HEAD (3d4759359d1bd707e8a0920a6b7ef5b8915df15f)",
+      "git show 99dce4b6:.../physical-coupling-pc1/amendments/PC-star.md | sed -n over section PC-star-2a; git show 99dce4b6:.../physical-coupling-pc1/preregistration.md | grep for the fork's invariance and selection legs",
+      "sed -n and grep of MR-star.md for the cited lines and section headings; sed -n of the frozen preregistration; grep of MR-star.md and this file for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "K3", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged draft of section K-star.11", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6)"},
+      {"run": "K4", "command": "grep of this file for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived."
+  },
+  "lit5_errata": {
+    "id": "LIT-5-ERRATA",
+    "date": "2026-11-01",
+    "role": "errata provenance for LIT-5 (Mermin 1993), CC2-instance role only (amendment KS-S)",
+    "authority": "owner decision 2, PR #1023 comment 6554185786: include all three notices in the reading record; the owner's access does not satisfy the reading gate; the writer must still read the notices first-hand and record their implications",
+    "errata": [
+      {"id": "E1", "citation": "N. D. Mermin, 'Erratum: Hidden variables and the two theorems of John Bell [Rev. Mod. Phys. 65, 803 (1993)]', Rev. Mod. Phys. 85, 919 (2013), issue 2, published online 2013-06-28", "doi": "10.1103/RevModPhys.85.919", "existence": "confirmed by Crossref metadata", "text_obtained": false},
+      {"id": "E2", "citation": "N. D. Mermin, Erratum (same title), Rev. Mod. Phys. 88, 039902 (2016), issue 3, published online 2016-07-15", "doi": "10.1103/RevModPhys.88.039902", "existence": "confirmed by Crossref metadata", "text_obtained": false},
+      {"id": "E3", "citation": "N. D. Mermin, Erratum (same title), Rev. Mod. Phys. 89, 049901 (2017), issue 4, published online 2017-12-28", "doi": "10.1103/RevModPhys.89.049901", "existence": "confirmed by Crossref metadata", "text_obtained": false}
+    ],
+    "status": "NOT OBTAINED for E1, E2 and E3: no first-hand read of any erratum text",
+    "routes_tried_and_failed": [
+      "journals.aps.org abstract and PDF pages for all three DOIs, with and without a browser user agent: Cloudflare challenge page ('Just a moment...') or HTTP 403",
+      "link.aps.org PDF for all three DOIs (reached through doi.org): Cloudflare challenge page",
+      "Crossref per-DOI records and a Crossref query: metadata only (title, volume, issue, page, dates); no text",
+      "INSPIRE records: metadata only",
+      "OpenAlex records: metadata only; the only located copy is on link.aps.org",
+      "Unpaywall records: no open copy other than link.aps.org",
+      "Semantic Scholar: E1 not found; no text",
+      "arXiv abstract page of arXiv:1802.10119: version history only",
+      "earlier routes recorded in LIT-5 (ui.adsabs.harvard.edu, harvest.aps.org: outside the allowed domains; one web search: no text)",
+      "an archived (Wayback) copy of the paywalled pages was not attempted: the permission system denied it"
+    ],
+    "owner_supplied_summary": {
+      "label": "owner provenance, not a first-hand read; it does not satisfy the reading gate",
+      "source": "PR #1023 comment 6554185786 (the owner verified the original APS PDFs)",
+      "E1": "p. 811: 'contextual' corrected to 'noncontextual'",
+      "E2": "Figure 4 caption: 'three observables in six groups' corrected to 'four observables in five groups'",
+      "E3": "p. 814: 'noncontextuality' corrected to 'contextuality'"
+    },
+    "e2_consistency_check": "Consistent: the corrected arXiv text, p. 17, has 'groups of four on 5 intersecting lines'. That passage concerns the eight-dimensional star (section VI), which MR-1 does not consume.",
+    "e1_e3_mapping": "Unmapped: the journal pages 811 and 814 cannot be located in the arXiv text without the journal layout. Candidate locations: section VII, arXiv pp. 19-20 (for p. 811); sections IX-X, arXiv pp. 23-24 (for p. 814). Both are polarity corrections and may bear on the noncontextuality statements of pp. 18-19 (M-a), the necessity statement of p. 24 (M-c) and the Bohm statement of p. 23 (the U3 agreement).",
+    "arxiv_preface": "The preface of arXiv:1802.10119v1 says it 'corrected the three small errors posted over the years'. The count now matches the three notices, but that the arXiv text incorporates each correction rests on the author's statement, not on a first-hand comparison.",
+    "consumed_claims_affected": [
+      "M-a (noncontextuality named, p. 18): possibly near E1's candidate location; also supported by Bell 1966 (B-b, B-c; LIT-4, MET), on which MR-1 relies",
+      "M-c all-rays form (p. 24): possibly within E3's candidate location; also supported by Bell 1966 (B-b, B-c), on which MR-1 relies",
+      "M-b (the finite four-dimensional square), the product rule and M-c restricted to a finite menu: Mermin-only; stay blocked",
+      "U3 agreement (p. 23): Mermin-only; not load-bearing (frozen L345)"
+    ],
+    "lit5_gate": "PARTIAL (unchanged): the corrected arXiv text is read first-hand in full; the text of E1, E2 and E3 is not obtained. Missing: a first-hand read of the three notices and a mapping of E1 and E3 onto the arXiv text.",
+    "dependence_under_d3": "No step under amendment D3 (D3-CC2-class-level.md section D3.5) rests on a Mermin-only claim. The finite square, the product rule and the finite-menu form of M-c served only to certify a CC2 instance on a finite menu (MR-star.md missing element M4, conditional on the proposed reading c-iv per section K-star.11 RC-3); D3 fixes no instance. M-a and the all-rays form of M-c rest on Bell 1966. The CC2 class description is used as a definition only; its contextual reading is supported by Bell 1966 section V. The U3 agreement is not load-bearing.",
+    "correction": {
+      "id": "REV-8",
+      "source": "owner comment 6554185786 and the errata reader's metadata checks",
+      "targets": "LIT-5 source, doi and errata fields; LIT-5 errata.mapping; KS-substitution.md section 5 ('the two published errata'); MR-star.md section K-star.8 (lists two errata)",
+      "old_value": "two errata: Rev. Mod. Phys. 88, 039902 (2016) and 89, 049901 (2017); 'the preface's three corrected errors do not map one-to-one onto the two errata'",
+      "corrected_value": "three errata: E1 Rev. Mod. Phys. 85, 919 (2013), DOI 10.1103/RevModPhys.85.919; E2 88, 039902 (2016); E3 89, 049901 (2017). The preface's count of three now matches; the correspondence of each to the arXiv corrections is unverified first-hand (see arxiv_preface).",
+      "reason": "The 2013 erratum was missed by the earlier metadata search; the owner identified three notices and Crossref confirms E1."
+    }
+  },
+  "d3_step": {
+    "date": "2026-11-01",
+    "authority": "owner decision 1 (D3), PR #1023 comment 6554185786",
+    "file": "amendments/D3-CC2-class-level.md (new); KS-substitution.md section 8 (appended)",
+    "outcome": "Amendment D3 drafted for independent review. It changes the frozen CC2-instance requirement: no CC2 instance; CC2 at class level (the L569 description, unrestricted); CC2 not executed at stage 2, with separation fields fixed to 'not separated (class level, D3)'; token 2.4 unavailable; 2.5 with CC2-unseparated and CC8-unseparated retained. Frozen lines changed or set aside: L561-564 (instance rule), L569 column 4 (named separating test), L551-557 and L675-676 for CC2 (execution and separation), L529-533 and L620 (2.4 unavailable), L675-676 and L713 (2.4 self-test becomes an unreachability check), L661-664 (commit order: K-star without a CC2 instance). L668-672, L714, L744-748 and L758 are retained; under D3 they bind no step for CC2.",
+    "kstar_under_d3": "K-star = {K1}, with CC2 at class level and no instance. Not frozen: freezing K-star is a separate owner decision after review and green CI.",
+    "mermin_dependence": "none (lit5_errata.dependence_under_d3)",
+    "commands": [
+      "GitHub connector reads of PR #1023 (issue metadata; the comment page holding 6554185786); read-only",
+      "git rev-parse HEAD (41aa6bdd90a676573b6a6a417d3f56908da8361e)",
+      "git show 1a236f33:.../preregistration.md | grep for the CC2, instance, 2.4 and nonclassical lines",
+      "ls, grep and head of the errata reader's off-repository outputs (Crossref, INSPIRE, OpenAlex, Unpaywall, Semantic Scholar, APS and link.aps.org responses)",
+      "grep of the new and appended files for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "D-1", "command": "git add .../amendments/D3-CC2-class-level.md .../amendments/KS-substitution.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged Markdown drafts", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers both Markdown files; not this JSON file, REV-6)"},
+      {"run": "D-2", "command": "grep of this file for local paths; git add of the three files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived, and no screen was started."
+  },
+  "d3_review_corrections": {
+    "date": "2026-11-01",
+    "source": "independent review of 987ecf5e01fff790d12091d076a97af94a202236 (accept with changes: one should-fix, three nits), relayed by the coordinator",
+    "items": [
+      {"id": "RC-D3-1", "disposition": "applied", "target": "D3-CC2-class-level.md section D3.2", "summary": "Appended section D3.9, C-8: frozen L45-47 (outcome (2)) and L613 (the axis-2 heading) are quoted exactly. They stand as labels only; under D3 their strongest token is 2.5 CONTEXTUAL, and 2.4 is unreachable."},
+      {"id": "RC-D3-2", "disposition": "applied", "target": "MR-star.md", "summary": "Appended section K-star.12: D3 removes the CC2-instance obligation that blocked K-star under M1; K-star under D3 would be {K1}, with CC2 at class level, and is not frozen (a separate owner decision); REV-8 corrects section K-star.8's two errata to three."},
+      {"id": "RC-D3-3", "disposition": "applied", "target": "KS-substitution.md section 8; lit5_errata", "summary": "The owner's requirement to read the three notices first-hand remains open, and LIT-5 stays PARTIAL until it is met (appended to KS-S section 8; correction REV-9 below)."},
+      {"id": "RC-D3-4", "disposition": "applied", "target": "lit5_errata.e1_e3_mapping", "summary": "The arXiv candidate locations for E1 and E3 are the reader's inference, not a mapping (correction REV-10 below; noted in KS-S section 8)."}
+    ],
+    "corrections": [
+      {"id": "REV-9", "source": "independent review of 987ecf5e", "target": "lit5_errata.lit5_gate and lit5_errata.status", "old_value": "PARTIAL (unchanged) ... Missing: a first-hand read of the three notices and a mapping of E1 and E3 onto the arXiv text.", "corrected_value": "Added explicitly: the owner's requirement (PR #1023 comment 6554185786) that the three notices be read first-hand remains open. LIT-5 stays PARTIAL until it is met; the owner's own access does not satisfy it.", "reason": "The open requirement was implicit in 'NOT OBTAINED' and 'PARTIAL'; the review asked that it be stated."},
+      {"id": "REV-10", "source": "independent review of 987ecf5e", "target": "lit5_errata.e1_e3_mapping and lit5_errata.consumed_claims_affected", "old_value": "'Candidate locations: section VII, arXiv pp. 19-20 (for p. 811); sections IX-X, arXiv pp. 23-24 (for p. 814).' and 'possibly near E1's candidate location' / 'possibly within E3's candidate location'", "corrected_value": "These candidate locations are the errata reader's inference from the page order of the journal article, not a mapping. No location of E1 or E3 in the arXiv text is established.", "reason": "To label the status of the locations."}
+    ],
+    "commands": [
+      "git rev-parse HEAD (987ecf5e01fff790d12091d076a97af94a202236)",
+      "git show 1a236f33:.../preregistration.md | sed -n over L45-47 and L613",
+      "tail of the files appended to; grep of this file for the e1_e3_mapping field; grep of all four files for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "E-1", "command": "git add .../amendments/D3-CC2-class-level.md .../amendments/MR-star.md .../amendments/KS-substitution.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged Markdown appends", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers the three Markdown files; not this JSON file, REV-6)"},
+      {"run": "E-2", "command": "grep of this file for local paths; git add of the four files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived."
+  },
+  "kstar_freeze": {
+    "date": "2026-11-01",
+    "authority": "owner decision, PR #1023 comment 6554399670 (created 2026-11-01T06:23:32Z), replying to comment 6554387397: freeze K-star = {K1} once CI is green on the exact commit and the reviewed amendment is unchanged",
+    "file": "amendments/MR-star.md, section K-star.F (appended)",
+    "kstar": ["K1"],
+    "k1": "frozen L330-331: the dynamics is the one fixed native phi, not a construction made per law; native step phi(u_prev, u) = (u, A u - u_prev), PC-star-2a at 99dce4b6; pi and mu range over their admissible classes under Q1 (frozen L358-359)",
+    "excluded": {"K2": "Main:414", "K3": "Main:62, Main:560 (no bound on N; L371-374)", "K4": "Main:566 clause (3)", "K5": "Main:486", "K6": "no budget stated in Main at D"},
+    "cc2": "class level (D3)",
+    "token_2_4": "unreachable",
+    "axis_2_ceiling": "2.5 CONTEXTUAL with CC2-unseparated and CC8-unseparated",
+    "conditions_verified": [
+      "workflow run 41279841361 (verify, event pull_request): head_sha dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8, status completed, conclusion success, updated 2026-11-01T06:21:38Z (read-only GitHub connector call by this writer)",
+      "PR #1023 head is dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8, the commit the independent reviewer accepted and the parent of this freeze commit; the reviewed D3 amendment is unchanged at that head"
+    ],
+    "timing": "The freeze precedes every candidate law: no candidate law has been derived or considered, on paper or otherwise, and no candidate interface appears in the unit's records (frozen 0(iii), 0(vi), checkpoint L712). The paper-only structural screen is the next step and is not started in this commit.",
+    "hard_to_vary": "Any change to K-star after this commit, before or after any outcome, voids the run under 0(iii). Re-admitting 2.4 needs a new reviewed amendment supplying a CC2 instance (M1 grounds), which under L561-562 belongs to K-star and so cannot be introduced after this freeze without voiding the run.",
+    "commands": [
+      "GitHub connector reads: the PR #1023 comment page holding 6554399670; workflow run 41279841361; PR #1023 (head sha)",
+      "git rev-parse HEAD (dbf78a86d38d80827c46a49a5c601d2a2e6ae6f8)",
+      "git show 1a236f33:.../preregistration.md | sed -n over L330-331, L358-359 and L712, to check the quotations",
+      "grep of MR-star.md and this file for local paths (none)"
+    ],
+    "hygiene_runs": [
+      {"run": "F-1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged draft of section K-star.F", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6)"},
+      {"run": "F-2", "command": "grep of this file for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. No candidate was looked at, designed or derived, and no screen was started."
+  },
+  "screen": {
+    "date": "2026-11-01",
+    "authority": [
+      "PR #1023 comment 6549252522 (owner): stage-1 order; paper-only; literature, K-star, screen, then one M-star or GAP with the stage-2 interface frozen",
+      "PR #1023 comment 6554399670 (owner): K-star = {K1} frozen; the paper-only candidate search begins after that freeze",
+      "PR #1023 comment 6554185786 (owner): D3, CC2 at class level, token 2.4 unreachable",
+      "owner's scientific requirements for the screen, relayed by the coordinator: seek a native mechanism; import no quantum mechanics; accept a genuine gap; classify each source as R, Q or G; count only operations executable natively under the declared access"
+    ],
+    "kstar_f_note": {
+      "commit": "db2d4fb9",
+      "file": "amendments/MR-star.md, note appended to section K-star.F",
+      "summary": "The sentence 'any change to K-star after this commit, before or after any outcome, voids the run under 0(iii)' overstates 0(iii), which voids K-star changed after any outcome or fixed after any candidate law (frozen L594-596). The stricter rule is restated as the freeze's own commitment. The same reading applies to the next bullet of K-star.F and to this file's kstar_freeze.hard_to_vary, which is not edited.",
+      "hygiene_run": {"run": "N-1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits; preregistration diff empty; 0 deleted lines"}
+    },
+    "commit": "f1eb719e",
+    "file": "amendments/MR-star.md, section S",
+    "lemmas_proved_on_paper": [
+      {"id": "S-L1", "statement": "superposition: pr_Y phi^t(s) = sum over X of Phi^t_YX(s_X), each a homomorphism depending on (t, X, Y) only"},
+      {"id": "S-C1", "statement": "no conditional dynamics: no region's state alters another's transfer; no operation-selecting setting, no adaptive operation"},
+      {"id": "S-L2", "statement": "available transformations are the time shifts phi^n; observer choices change only which region and tick are read"},
+      {"id": "S-L3", "statement": "psi = sigma phi sigma with sigma the slice swap; sigma is no time shift (else phi^2 = id, forcing A = 0); the inverse is representable, not available; on finite S it is the global wait phi^(N-1)"},
+      {"id": "S-L4", "statement": "no confinement: with a injective on the value group, no nonzero solution on Z^d stays in a slab of width w over slices -1..T with T >= 2w; the same on a torus of side N >= 5w + 2"},
+      {"id": "S-C4a", "statement": "no confined pointer: the branch difference is a free solution and no region of width w confines it over 2w + 1 slices"},
+      {"id": "S-C4b", "statement": "fixed points and phi-invariant linear functionals are stationary solutions; none is local (value group Z/q, a a unit)"},
+      {"id": "S-L5", "statement": "marking is non-invasive; loss of interference arises only by additive injection from regions independent of the carrier, never from a record"},
+      {"id": "S-L6", "statement": "on finite S every record is erased at the recurrence order; R2 needs a budget below it"},
+      {"id": "S-L7", "statement": "AW-MR5 sub-question: single-time current-slice readouts are isotropic for J; both slices of a site, or one site at consecutive ticks, are conjugate; conditional on the declared access"}
+    ],
+    "sources": [
+      {"id": "sigma1", "source": "native transport between a carrier region and an apparatus or marker region on the K1 step (includes PC-1 Q1)", "class": "A", "call": "G", "failing_element": "apparatus pointer (S-C4a); trace route not admitted (section S.4(a))"},
+      {"id": "sigma2", "source": "internal settings (Main:408)", "class": "A", "call": "G", "failing_element": "no operation selection; additive offset only (S-C1)"},
+      {"id": "sigma3", "source": "program register (Main:582)", "class": "A", "call": "excluded", "failing_element": "a controlled map, not the K1 step; CC8 class"},
+      {"id": "sigma4", "source": "exogenous action labels (Main:482)", "class": "A", "call": "excluded", "failing_element": "external switch (frozen L134-136; N7)"},
+      {"id": "sigma5", "source": "controlled lift (N7)", "class": "A", "call": "excluded", "failing_element": "s conserved; an s-dependent lift is not the K1 step"},
+      {"id": "sigma6", "source": "global recurrence; inverse as global wait", "class": "A", "call": "excluded as an undo", "failing_element": "acts on all of S and erases every record; beyond the R2 budget"},
+      {"id": "sigma7", "source": "time-reversal swap", "class": "A", "call": "representation only", "failing_element": "sigma not available (S-L3)"},
+      {"id": "sigma8", "source": "global conserved and parabolic modes", "class": "A", "call": "excluded", "failing_element": "no embedded readout (S-C4b)"},
+      {"id": "sigma9", "source": "per-law realizations (Main:482, 518-520, 566, 582)", "class": "A", "call": "excluded", "failing_element": "per-law; CC8 role"},
+      {"id": "sigma10", "source": "engineered coupling graphs", "class": "A", "call": "excluded by K1", "failing_element": "not the native graph; scope boundary for R"},
+      {"id": "sigma11", "source": "other value groups within K1 (R/Z, Z_p)", "class": "A", "call": "G", "failing_element": "as sigma1"},
+      {"id": "sigma12", "source": "non-additive native-type rules (native-Y rule H(A,B,D) = (B, D, A xor BD); SM state-dependent graph; SM 6.5 dynamical links)", "class": "A", "call": "outside K-star; not screened", "failing_element": "not the frozen additive step"},
+      {"id": "sigma13", "source": "candidates of the preserved negatives N1-N7", "class": "-", "call": "respected at their scopes; not reopened", "failing_element": "-"}
+    ],
+    "q_call": "Q is not supplied for any K1 source: Q presupposes R, which is not sourced; marking cannot cause interference loss (S-L5); no subsystem undo exists (S-L2, S-L3, S-L6). T0 is not claimed to fail: an additive offset can act as a classical phase label.",
+    "selection_rule": "section S.5: (s1) K1 step, native cubic graph, corpus coefficient; (s2) every section 3.1 element executing, the apparatus pointer included, with its ready supply; (s3) not excluded by N1-N7; (s4) no per-law or per-design construction and no free structural choice that by itself fixes an axis-1 outcome; fewest posited elements, then smallest state space",
+    "selection_result": "none",
+    "assumption_watch": [
+      {"id": "AW-MR8", "class": "NEW", "summary": "under Substratum A5 with M = mu I the K1 step is a free field; MR-1's 'microscopic interaction' presupposes an interaction the substratum does not have; a native record mechanism needs a non-additive rule or the observer level"},
+      {"id": "AW-MR9", "class": "NEW", "summary": "stable matter (Substratum E6) is an empirical input with no substratum carrier under A5 (S-L4); an observer-level record mechanism risks presupposing the emergent quantum description"},
+      {"id": "AW-MR10", "class": "ELABORATING", "summary": "the frozen ready supply is of pointer states, so it presupposes pointers"},
+      {"id": "AW-MR11", "class": "ELABORATING", "summary": "every R2 and effective irreversibility on finite S is relative to a budget below the recurrence order"},
+      {"id": "AW-MR12", "class": "ELABORATING", "summary": "PC-star-2a's generality over graphs and coefficients is a proof generality, not a licence"}
+    ],
+    "not_done": "No record law of any source, candidate or control was derived; no T-test, control or countercontrol was evaluated; no M-star, GAP token or stage-2 item was fixed in this commit; no no-go was stated; no claim that classical explanations are excluded.",
+    "commands": [
+      "git rev-parse HEAD; git status; git log",
+      "display of the frozen preregistration, KS-substitution.md, D3-CC2-class-level.md, MR-star.md and this file",
+      "git show 99dce4b6 of PC-1 preregistration.md (section 4) and amendments/PC-star.md",
+      "git ls-tree of F2-1 at 4e7ddb70 and of SUBSTATE-1 at 8af2d904; git show 8af2d904 of README.md, later-access-result.md, native-apparatus-register.md, native-sign-echo.md, cubic-wave-revival.md and the heads of eight further notes",
+      "git show 2af1d5d5 of the #912 REPORT.md (equation (1))",
+      "git show 5914c17c with sed -n and grep over papers/Main.md, papers/SM.md and papers/Substratum.md at the lines cited in section S.8",
+      "display of native-y-continuation-20261024/README.md, CURRENT-HANDOFF.md and shared_v12/INTERFACE-CONTRACT.md on the current tree",
+      "read-only display helpers: wc -l, ls, tail, head, cut, od -c (trailing bytes of MR-star.md), df -h (free disk space)"
+    ],
+    "hygiene_runs": [
+      {"run": "S-1", "command": "git add .../amendments/MR-star.md; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); grep for local paths; git commit", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits; preregistration diff empty; 0 deleted lines; no local paths"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. Text was written with the editor tools. All mathematics is paper mathematics marked with its status. One shell command misfired harmlessly: a sed -i invocation aimed at /dev/null, which edited nothing and returned an error."
+  },
+  "mstar_or_gap": {
+    "date": "2026-11-01",
+    "file": "amendments/MR-star.md, section M",
+    "token": {"axis": 1, "row": "1.1", "value": "GAP"},
+    "named_element": "section 3.1 S_A: an apparatus pointer, a subsystem that holds a record (R2) under the native step by an executing apparatus process, with its ready supply booked in Res",
+    "also_unsourced": ["Z: an operation-selecting setting source (S-C1)", "L: a clock or ledger held by a subsystem (S-C4b)", "any inverse executed on a subsystem (S-L3, S-L6)"],
+    "scope": "K-star = {K1} as frozen (the free additive step on the native cubic graph, coefficient injective on Z/q, Z_p or R/Z); the declared access (a bounded-diameter observer reading its own configuration; budget below the recurrence order); sources sigma1-sigma13 of section S.3",
+    "not_a_no_go": "not for non-additive native rules, engineered graphs, zero-divisor coefficients, observer-level apparatus, or OI generally; no claim that classical explanations are excluded (D3)",
+    "other_axes": {"axis2": "2.1 NOT-REACHED (axis-1 token GAP)", "axis3": "3.1 NOT-REACHED", "primitive_track": "P.1 NONE"},
+    "owner_classification": "G",
+    "standing": "Stands only if a controls-only stage 2, under its own owner gate, returns every reference result of section M; otherwise VOID under 0(i).",
+    "expected_classification_hypothesis": "G stands. Stage 2 under this freeze runs controls only and can establish neither R nor Q. Deciding otherwise needs a source meeting section S.5, which needs a non-additive native step or an observer-level apparatus importing no quantum structure: a new unit by owner decision.",
+    "stage2_interface": {
+      "section": "MR-star.md section M.4-M.13",
+      "arithmetic": "exact, Q(sqrt 2) as pairs of rationals; no float in a decision path",
+      "acc": "per control, every sequence of at most 8 declared primitives with record-conditioned continuation; settings in a program register prepared in product; model-level equivalence certificates",
+      "controls": ["PC-Q", "CC1 classical hidden memory", "CC3 controlled lift", "CC4 Spekkens-type toy bits", "CC5 classical eraser", "CC6 supplied inverse and private decoder", "CC7 classical dephasing with no record", "CC8 per-law A-realization", "CC2 class level, not executed"],
+      "gnc_proofs": "Lemma G (section M.6), proved here: CC1, CC3, CC5, CC7 by point preparations and complete readout; CC4 by spanning preparations and readouts",
+      "tests": "T0-T7 protocol list of section M.7; T8 deleted interfaces and T9 audit of section M.9",
+      "t7": "V + P <= 1 (LIT-1), proved direction only; caveats LIT-1-C1, C2, C3, C4, C7 and LIT-2-C1, C4 binding; Eqs. (10)-(11) checked against the source before the T7 step, else halt and report",
+      "mutations": ["CP-MASS", "CP-BRANCH", "CP-DEPH-SRC", "CP-T0-SHAPE", "CP-CERT", "CP-ACC-DIGEST", "CP-T8A", "CP-T9", "CP-EXACT", "CP-ORDER", "CP-SELFTEST-2.4"],
+      "schema": "mr1-stage2-controls-results, version 1 (section M.11)",
+      "benchmark_formulas": ["B-T0", "B-T1", "B-T2", "B-T3", "B-T4", "B-T5", "B-T6", "B-T7"],
+      "blockers": "none binding: LIT-1 and LIT-2 MET; no step depends on LIT-3 or LIT-5 (D3 C-7)"
+    },
+    "commands": [
+      "git rev-parse HEAD (f1eb719e)",
+      "git show 1a236f33:.../preregistration.md | sed -n over L190-196, L505-582, L592-600 and L740-760",
+      "grep of MR-star.md and this file for local paths"
+    ],
+    "hygiene_runs": [
+      {"run": "M-1", "command": "git add .../amendments/MR-star.md .../amendments/stage1-log.json; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged section and log", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6); staged diff 0 deleted lines (git aligns the old closing brace of kstar_freeze with the new closing brace, so the added comma shows as an insertion); no local paths in either file"},
+      {"run": "M-2", "command": "grep of both files for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check: at most the one closing line of kstar_freeze, gaining a comma); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. The PC-Q closed forms of section M.5 and Lemma G are paper derivations. No T-test or control was evaluated; no candidate law was derived."
+  },
+  "screen_corrections": {
+    "date": "2026-11-01",
+    "source": "independent review of fc68d33367752501c53d47ca942672921b0409ee (REVISE), relayed by the coordinator; owner approval of one appended correction round, PR #1023 comment 6555028014 (from chat, 2026-11-01)",
+    "file": "amendments/MR-star.md, section C (appended)",
+    "disposition": "all twelve review items checked by this writer and applied; none rejected; C-13 adds the consequential changes",
+    "corrections": [
+      {"id": "REV-11", "item": "C-1", "target": "MR-star.md S.1 and S.4(d)", "old_value": "S.4(d): 'Is additivity what OI holds? Yes, at D, for the local lattice sector'", "corrected_value": "Additivity of the frozen step is proved (K-star.F; PC-star-2a P-2). That the native rule is the physics is a posit of OI: Main ledger item (vii) (Main:726) and Substratum A5 (Substratum:100), conditional on amplitude-scale gauge, an identified open step."},
+      {"id": "REV-12", "item": "C-2", "target": "MR-star.md S-C4a as a ground for GAP; S.4(a) reason 2; every 'no pointer' basis", "old_value": "S-C4a 'no confined pointer' grounds the GAP; reason 2: R2 'is a property of the free propagator restricted to V, which no source fixes', and R2 by injectivity needs V of radius about T", "corrected_value": "Withdrawn. S-L4 excludes confined patterns only; free fields leave wakes (on Z, a = 1, u_-1 = 0, u_0 = delta_0: u_t(n) = 1 for |n| <= t with n = t mod 2, so site 0 carries delta at every even tick; checked on paper by induction). K1 fixes the propagator; the radius claim is unproved."},
+      {"id": "REV-13", "item": "C-3", "target": "mstar_or_gap.named_element; MR-star.md M.1, M.3", "old_value": "section 3.1 S_A: an apparatus pointer, a subsystem that holds a record (R2) under the native step by an executing apparatus process, with its ready supply booked in Res", "corrected_value": "the absence of a physically sourced quiet, ready region: the ready supply in Res and the mu leg of the fork. Under the counting measure (Main:56) every region is uniform and the offsets from unprepared content can mask R1 (they do at t = 0; later ticks not decided here); no principle in the corpus supplies a quiet region, and the fork is unresolved. Owner caveats: a wake does not yet establish a stable, distinguishable, reusable record; the absence of a proved ready supply is not a proof that none can exist. M.3 routes: (i) a sourced ready supply; (ii) a non-additive step; (iii) an observer-level apparatus importing no quantum structure."},
+      {"id": "REV-14", "item": "C-4", "target": "MR-star.md S.4(a); S.6 node 2.2", "old_value": "trace route not admitted", "corrected_value": "UNDECIDED: neither excluded nor admitted; deciding it for any instance is a calculation, not run; blocked at stage 1 by the unsourced ready region (REV-13)"},
+      {"id": "REV-15", "item": "C-5", "target": "MR-star.md S.4(a) reason 1; S.5 (s2) and (s4); screen.sources[sigma1].failing_element", "old_value": "sigma1 failing_element: 'apparatus pointer (S-C4a); trace route not admitted (section S.4(a))'; (s2) required an executing apparatus process distinct from transport; (s4) included a free-structural-choice clause", "corrected_value": "The criterion 'an executing apparatus process distinct from transport' is not in frozen sections 3.1-3.3 and is withdrawn. (s2): every section 3.1 element executing under the declared access, mu fixed by the fork rule, ready supply sourced in Res. (s4): no per-law or per-design construction, no element chosen by reference to an outcome. sigma1 failing_element: 'ready supply and mu leg (no physically sourced quiet, ready region; REV-13); trace route undecided (REV-14)'. sigma1: R = G, Q = G."},
+      {"id": "REV-16", "item": "C-6", "target": "MR-star.md AW-MR8; screen.assumption_watch[AW-MR8]", "old_value": "free substratum; 'couplings emergent' places interactions at the observer level; a native record mechanism needs a non-additive rule or the observer level", "corrected_value": "Scoped to the K1 step, not the substratum (SM 6.5 links and the state-dependent graph, SM:104-106, are in the corpus). SM:428 places the gauge group at the substratum and gauge-coupling values at the emergent level; the 'interactions at the observer level' reading is withdrawn. The K1 step has no conditional dynamics, so operation-selecting settings, adaptive operations and subsystem undo need a non-additive step or structure beyond it; records through wakes are undecided. Class: NEW."},
+      {"id": "REV-17", "item": "C-7", "target": "MR-star.md AW-MR9; screen.assumption_watch[AW-MR9]", "old_value": "bound states and pointers have no carrier at the substratum level under A5", "corrected_value": "no confined carrier on the K1 step (S-L4), under K-star = {K1}; the substratum also carries link structure (SM:118, SM:523) and the condensate (SM:428), not addressed here"},
+      {"id": "REV-18", "item": "C-8", "target": "MR-star.md M.6 references of CC1, CC3, CC5, CC7", "old_value": "no W1", "corrected_value": "T7-UNCERTIFIED, no W1 decided: the quadruple P_(r,phi) has V = 1 and P = sqrt2/2, and is uncertified because RDALL separates the antipodal pair mixtures"},
+      {"id": "REV-19", "item": "C-9", "target": "MR-star.md S-L5; screen.lemmas_proved_on_paper[S-L5]", "old_value": "regions whose content does not depend on the carrier; a record (R1) never causes (ii)", "corrected_value": "regions whose content is not a function of the carrier's content (mu-correlation allowed); a record formed by the interaction never enters the carrier's transfer and so never causes (ii)"},
+      {"id": "REV-20", "item": "C-10", "target": "MR-star.md S-C4a; screen.lemmas_proved_on_paper[S-C4a]", "old_value": "no region of width w confines it over 2w + 1 slices", "corrected_value": "over 2w + 2 slices (S-L4 gives T <= 2w - 1); the bound is attained: w = 1, u_-1 = x delta_0, u_0 = 0, u_1 = -x delta_0"},
+      {"id": "REV-21", "item": "C-11", "target": "MR-star.md S-L4 torus paragraph", "old_value": "lift to Z^d inside one period and periodize", "corrected_value": "run the proof on the cylinder Z x (Z/N)^(d-1) and lift the torus along e only; for d >= 2 the full lift fails because transverse translates overlap; the conclusion (N >= 5w + 2) holds"},
+      {"id": "REV-22", "item": "C-12", "target": "MR-star.md S.3 sigma1 L row; M.1 also-unsourced L; mstar_or_gap.also_unsourced[1]", "old_value": "L: a clock or ledger held by a subsystem (S-C4b)", "corrected_value": "L: no clock or ledger held as a confined pattern (S-L4); one held in a wake is undecided, like the trace route"},
+      {"id": "REV-23", "item": "C-13", "target": "MR-star.md S.3 sigma1 A row and call; S.4(a) reason 3; S.6 node 2.2 and favourable-branch sentence; AW-MR10; M.1; M.3; screen.assumption_watch[AW-MR10]", "old_value": "A: 'unsourced as an apparatus'; reason 3: resource 'whose size grows with the budget' and 'there is no pointer'; node 2.2 'not admitted'; AW-MR10 'without a pointer ... size grows with the budget'", "corrected_value": "A: a region of the free field, records by transport or wake undecided; reason 3 kept as the ground of REV-13 without the size and no-pointer claims; node 2.2 undecided, favourable-branch sentence withdrawn; AW-MR10: no physically sourced quiet, ready region on the K1 step exists in the corpus, size claim withdrawn; M.1 and M.3 as REV-13"}
+    ],
+    "result_after_corrections": {"axis1": "1.1 GAP", "owner_classification": "G", "named_element": "the absence of a physically sourced quiet, ready region (Res ready supply; mu leg of the fork)", "R": "G; trace route UNDECIDED", "Q": "G for every K1 source", "other_sources": "calls unchanged", "axis2": "2.1 NOT-REACHED", "axis3": "3.1 NOT-REACHED", "track": "P.1 NONE", "scope": "K-star = {K1} as frozen; declared access; sources sigma1-sigma13", "limits": "not a global no-go; no claim that classical explanations are excluded; no claim that a ready supply cannot exist"},
+    "commands": [
+      "git rev-parse HEAD (fc68d33367752501c53d47ca942672921b0409ee)",
+      "one read-only GitHub connector read of PR #1023 comments (holding 6555028014)",
+      "git show 5914c17c:papers/Main.md | sed -n 726p | grep for ledger item (vii); git show 5914c17c:papers/SM.md | sed -n over lines 118 and 523",
+      "tail of MR-star.md and this file"
+    ],
+    "hygiene_runs": [
+      {"run": "C-1", "command": "git add .../amendments/MR-star.md .../amendments/stage1-log.json; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "purpose": "hygiene on the staged section and log", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6); staged diff 0 deleted lines; no local paths in either file"},
+      {"run": "C-2", "command": "grep of both files for local paths; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "purpose": "final hygiene, unchanged preregistration, append-only check, single commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation evaluating any physical, candidate, control or algebraic quantity was run. No Python ran except the three repository hygiene tools, with -I; no Lean, numerics or scripted algebra. The wake solution and the 2w + 2 example were checked on paper. No T-test or control was evaluated; no candidate law was derived."
+  },
+  "screen_corrections_rereview": {
+    "date": "2026-11-01",
+    "source": "re-review of c744d3b923aea59f7a49e6899d6059963bce16db (ACCEPT WITH CHANGES), relayed by the coordinator",
+    "file": "amendments/MR-star.md, section C.1 (appended)",
+    "corrections": [
+      {"id": "REV-24", "target": "MR-star.md C-3; C-13 (AW-MR10); REV-13; REV-23", "old_value": "'no selection principle ... is stated anywhere'; 'no physically sourced quiet, ready region exists in the corpus'", "corrected_value": "both scoped to 'in the sources read (section S.8)'; no corpus-wide search was recorded (section A.19)"},
+      {"id": "REV-25", "target": "MR-star.md C-5 (s2); REV-15", "old_value": "(s2): 'ready supply sourced in Res', with no frozen ground stated", "corrected_value": "grounded in frozen section 3.1 (L137-140): mu, the prior on S, 'and the observation map are fixed by PC-1's fork rule ... applied unchanged'; a prepared quiet region is a property of mu, so a ready region booked but fixed by neither fork leg would set mu outside that rule; the tightening is the frozen mu clause, not a new criterion"},
+      {"id": "REV-26", "target": "MR-star.md C-2; REV-12", "old_value": "wake induction with no transport-versus-memory caveat", "corrected_value": "C-2 is read with C-3's owner caveat: the wake is retained information, not yet a reliable, distinguishable, reusable record"}
+    ],
+    "hygiene_runs": [
+      {"run": "R-1", "command": "git add .../amendments/MR-star.md .../amendments/stage1-log.json; python3 -I tools/artifact_placement_check.py; python3 -I tools/lean_manuscript_census.py; python3 -I -B verification/audits/manuscript/bell-operational-reconciliation-20261029/check_sc42_integration.py", "result": "placement exit 0, OK (95 names permitted, self-test passed); census exit 0, OK; SC-42 exit 0, verdict PASS, added-text scan 0 hits (covers MR-star.md; not this JSON file, REV-6)"},
+      {"run": "R-2", "command": "local-path grep; git add of both files; the three hygiene tools again; git diff --cached --stat 1a236f33 -- .../preregistration.md; git diff --cached -U0 (deleted-line check); git commit", "result": "declared here before running; its outcome is stated in the commit message, since recording it in this file would change the file"}
+    ],
+    "computation_statement": "No computation. No Python except the three repository hygiene tools, with -I. Read-only commands: git rev-parse HEAD (c744d3b9); git show 1a236f33:.../preregistration.md | sed -n 137,140p; tail of MR-star.md and this file."
+  }
+}

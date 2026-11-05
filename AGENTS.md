@@ -50,6 +50,77 @@ confers no protection, and "the framework needs this to be true" is never an arg
   `verification/`. A review of what OI has
   established audits that whole corpus, not Main alone.
 
+- `papers/Main.md` must be independent of downstream companion papers. Main
+  must not reference or cite downstream results, including through indirect
+  labels or unnamed references. Every claim, proof, hypothesis and scope
+  qualification in Main must retain sufficient support within Main, through
+  its own argument or an appropriately cited, independently verifiable theorem
+  or evidence record, with all necessary assumptions explicit. Genuine
+  foundational inputs may be cited as inputs, with their content and
+  assumptions stated. Whether an item is foundational or downstream is
+  determined by its actual logical role, not merely by the paper containing
+  it. Removing a reference without preserving the claim's support is not a
+  correction: unsupported claims must be independently established, narrowed
+  or withdrawn.
+
+- Main is wholly upstream of every downstream companion paper. Its
+  scientific claims, mathematical statements, proofs, premises, and their
+  logical justifications must be independent of all downstream scientific
+  results and mathematical proofs, directly and indirectly. A claim, proof,
+  lemma, calculation or Lean theorem is downstream for this rule when its
+  direct or transitive logical dependencies require downstream-specific
+  science or mathematics, not merely because it first appeared in another
+  paper. Main must not rely on such support, whether named, unnamed,
+  relabelled or hidden behind intermediate citations or Lean theorems.
+  Reproducing an argument from a downstream paper does not by itself
+  establish independence: its premises and all proof dependencies must
+  be checked against Main's own foundation and independent sources.
+  Main may independently establish a statement also discussed downstream
+  using only its explicit foundational inputs and independently checkable
+  mathematics or evidence without downstream proof dependencies. Main's
+  declared foundational contributions are the roots of its proof graph:
+  its headline theorems and characterizations, and the statements of their
+  premises and scope, need not be consumed by another Main result. An
+  auxiliary result belongs in Main only if one of these roots depends on
+  it directly or transitively; merely stating a result in Main does not
+  make it a root. Do not add a proof to Main merely because a downstream
+  paper uses the result or to replace a downstream citation. Relocate
+  unneeded results together with their necessary proofs to the upstream-most
+  downstream paper that uses them. When Main proves a result, downstream
+  papers cite Main's proof rather than repeat it; this does not bar the
+  required book/FULL mirrors, independent Lean verification or
+  genuinely new downstream extensions.
+  An external foundational input remains permissible only when its role,
+  status, assumptions and independent support are explicit; calling a
+  downstream result "foundational" does not make it so.
+  For each Main claim, trace actual dependencies across the whole corpus.
+  If a claim needs downstream science or mathematics, remove or relocate
+  that claim to the appropriate downstream paper, preserving its strongest
+  valid result there; do not transplant its proof into Main simply to keep
+  the claim. Relocating a valid result is not retracting it from OI. Theorem
+  recovery before concession. If a mathematical claim lacks a complete
+  independent proof, it must not be presented as established. Before
+  approving a substantive narrowing or withdrawal of an unrefuted
+  mathematical claim solely because its proof is missing or incomplete,
+  reviewers must require a documented, proportionate attempt to recover the
+  proof in the paper where the result logically belongs. The attempt must
+  identify the strongest existing result, its hypotheses and dependencies,
+  the proposed derivation or repair, the verification performed, and the
+  precise remaining gap. A short recovery note within the correction unit is
+  sufficient for a minor gap; substantial theorem gaps require their own
+  scoped, independently reviewed recovery work. Failure to recover a proof
+  is not disproof. Preserve established weaker results and classify the
+  unrefuted stronger claim as open. Relocating a valid result and its proof
+  downstream without weakening it is not a concession and does not trigger
+  recovery. A valid counterexample or disproof requires correction or
+  withdrawal of the refuted claim without delay. An unsupported claim must
+  not remain presented as established while recovery proceeds. Conditional
+  claims may rely on explicitly named
+  hypotheses labelled by their status (justified, posited or open), with
+  every condition carried into the conclusion. Never disguise a
+  conditional assertion as unconditional or independently derived, and
+  never introduce unstated or ad hoc premises to rescue a conclusion.
+
 - Trace each claim to where it is actually proved or derived, with its
   dependencies and assumptions across documents, before classifying it. A
   proof's absence from Main is not evidence that the result is unproved: "the
@@ -604,6 +675,12 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   that `F`'s tree could not produce, and its successor's drafts then spent four review rounds
   fitting their verdict into a 5,000-line served tail whose contents cache replays rearranged.
   Hence §A.44: verdicts read exit statuses and step conclusions, never log text.
+- Evidence landings in one audit were reviewed for byte identity, CI and unchanged verdicts, and
+  their references to branch-only content were accepted as "provenance only" without tracing what
+  each supported. One landed proposition is proved from a proof held only on a closed
+  pull request's kept branch. Keeping that branch and assigning the gap to an Issue were taken as
+  enough. Hence §A.42 item 8: every off-`main` reference is traced to its claim before landing,
+  and responsibility is not retention.
 
 ---
 
@@ -735,8 +812,9 @@ destinations of the **existing grandfathered root artifacts**. It is not, and
 cannot be, the authority on where a future artifact belongs — a new round has
 no source entry in a mapping built from the old root set.
 
-The root is reserved for `README.md` (the landing page), `ROADMAP.md` (the live
-obligation queue) and the manifest itself.
+The root is reserved for `README.md` (the landing page), `ROADMAP.md` (the obligation
+queue frozen as a historical record at `9613b21c`; planning and priorities are kept in GitHub
+Issues, §A.43) and the manifest itself.
 
 Preregistration and outcome stay **together**, inside the round that produced
 them, with amendments in that round's `amendments/` subdirectory. They are not
@@ -967,6 +1045,26 @@ by an independent reviewer from `main` alone.
    once the round lands, so the round's workflow run at `E` re-establishes its computational
    claims, and no separate retention pull request is needed. An owner designation a record relies
    on is quoted in that record with its author and time.
+8. **Trace every off-`main` reference.** Before a record lands, every reference it makes to content
+   not on `main`, such as a commit, branch, pull request, Issue, comment, CI run or path, named by
+   id or by number, is traced to the claim it is attached to. Each reference is classified by
+   reading that claim:
+   - **provenance:** the claim does not use the referenced content;
+   - **support on `main`:** the content the claim uses (for a result proved elsewhere, its proof) is
+     on `main` and supports the claim as it stands there; any difference from the cited version is
+     stated;
+   - **support off `main`:** a gap.
+
+   "Provenance only" is a finding about each reference, never a label applied to a group of them. A
+   record that says a result is proved from, inherits, uses or preserves another record's result
+   cites support. A result, control or verdict that depends on commits, such as on their order or
+   ancestry, uses those commits, and copying their files to `main` does not make them reachable from
+   it. A gap is closed no later than the record lands (item 2): by landing the content the claim
+   needs, or, for a mutable record, by narrowing the claim (item 6). Keeping the branch that holds
+   the content does not close a gap. Neither does assigning it to an Issue, which records
+   responsibility, not retention. A gap that cannot be closed lands only by a recorded owner
+   decision; a record on `main` quotes it with its author and time (item 7) and names the claim it
+   leaves unsupported, and it is then an exception to item 2 for that claim alone.
 
 Records frozen under this section's earlier form, and rounds frozen at `F` under it, keep the form
 under which they were frozen; a preregistration is not reinterpreted. That form is `AGENTS.md` at
@@ -976,7 +1074,10 @@ read from `main`'s history: `verification/audits/evidence-retention/` at
 the objects it retains, its manifests and its tools, and a recipe that names one of those tools runs
 at that commit.
 
-Enforcement: reviewers check items 1–6 on every record that lands.
+Enforcement: reviewers check items 1–6 and 8 on every record that lands, beside byte identity, CI
+and verdicts. Item 8 applies to every landing after its adoption, frozen records included; it
+changes no frozen record's text or verdict. A gap it finds in an earlier landing is closed by
+landing the content the claim needs, or by correcting the citing record as item 6 allows.
 
 Adopted 2026-10-16, after an audit of `main` at `fc5abade` found frozen records citing commits off
 `main`, CI log citations that expire, and cited logs held only in a session scratchpad. Reduced to
@@ -1001,6 +1102,9 @@ local checkout, agent scratchpad or private worktree is not the authoritative tr
 Reuse a thread's guiding PR; reviewers and checkpoints do not each need separate PRs.
 A draft PR is neither approval nor certification nor the durable evidence on `main`
 required by §A.42.
+The open Issues, under §A.45, are the repository's record of planning and
+priorities; `verification/ROADMAP.md` is frozen and is not updated. Neither confers scientific
+status, which rests on the proofs, Lean modules, manuscripts and verification records themselves.
 
 1. **Make the work visible at the right stage.** Open an Issue for a proposal or backlog
    item. When substantive work starts, open or reuse its guiding draft PR after the first
@@ -1089,3 +1193,176 @@ A preregistration frozen before this section keeps the evidence form it froze (�
 planes not yet at `F` move to this form.
 
 Adopted 2026-10-23 after the KTRANS-SEP-1 halt and its successor's drafting (lessons register).
+
+---
+
+## §A.45 Planning, priorities and authorization in Issues
+
+GitHub Issues carry the planning record: what is owed, its priority, its prerequisites, its
+readiness and its authorization. Each accountable Issue opens with a planning-status block. The
+rules below govern that record (owner, 2026-11-03).
+
+1. **Planning only.** GitHub Issues govern planning and priorities (§A.43). Scientific status lives
+   in the linked evidence: proofs, Lean modules, manuscript statements and verification records on
+   `main`. It never lives in an Issue, a label, a Project card or an Issue's open or closed state.
+   Where an Issue and its source disagree, the source governs, and the disagreement is a finding.
+2. **Administrative acts are not scientific acts.**
+   - Closing an Issue never changes scientific status.
+   - Creating a tracking Issue does not constitute proof, does not adopt a premise and does not
+     authorize execution.
+3. **A planning-status block grants no authorization.** An *Authorization* entry links the owner's
+   recorded comment that grants it. It reads `not authorized` when no such record exists. **A
+   priority is never authorization.** No work starts without readiness, recorded owner
+   authorization, a designated writer and no conflicting writer:
+   - the item is `ready`;
+   - a recorded owner authorization covers that work;
+   - a designated writer is recorded for that work;
+   - no active item with a different writer writes the same branch, file or artifact.
+
+   Several items may be active at once (owner, 2026-11-03). Each new start also respects §A.40's
+   resource limits.
+
+   *Maintenance.* Planning-status entries, labels and Project cards may be updated directly to
+   record an existing owner decision or a sourced fact, with a short source-citing comment. Such
+   updates may not resolve an undecided question, widen an authorization or change scientific
+   status. Changes to the rules of this section, to tiers, or to permission to start, integrate or
+   publish require explicit owner approval.
+4. **Four attributes, kept separate.** The planning-status block records:
+   - *Tier* (priority);
+   - *Prerequisites*;
+   - *Readiness:* `ready`, `blocked: <prerequisite>`, `blocked: owner questions` or `undetermined
+     pending owner decision`;
+   - *Authorization:* `not authorized`, `read-only audit`, `paper-only`, `execution` or
+     `undetermined pending owner decision`;
+
+   and a *Status source* that links where the item's scientific status is established. Scientific
+   status is not an attribute. `undetermined pending owner decision` names an open owner question,
+   stated in the entry. It is not `ready`, it is not an authorization, and it grants no permission
+   to start work. An Issue that carries several obligations lists them as rows of one table in its
+   block, each with its own identifier and attributes.
+
+   **Labels** summarize the block for filtering and never replace it: `tier: foundational`,
+   `tier: high`, `tier: supporting` or `tier: exploratory`; `tier: provisional`; and
+   `readiness: ready`, `readiness: blocked` or `readiness: partly ready`. An Issue with several
+   obligations takes the highest tier among them. `readiness: partly ready` marks a block in which
+   some parts are `ready` and others are not; a block whose readiness entry reads only `per part`
+   takes no readiness label. Authorization has no label: it is read from the block and its linked owner
+   record.
+5. **New premises.** A proposal that adds a premise, mechanism or selection principle is judged
+   under §A.29.
+6. **One obligation, one accountable Issue.** A pull request is never an accountable home. A new
+   deferral names its Issue when it is recorded.
+7. **No formal holds** (owner, 2026-11-03). Formal holds are retired as a scheduling mechanism. All
+   five previously held PRs enter the ordinary prioritized backlog. Backlog inclusion does not
+   authorize execution, integration, publication or scientific claim promotion. Retiring the holds
+   authorizes no new work, integration or publication, and waives no review or CI requirement. This
+   rule supersedes the hold statements about #1009, #1023, #1011, #1003 and #918, wherever recorded,
+   as a scheduling mechanism only; every other requirement in those statements, such as merge
+   gates, reviews, CI or audits, remains in force as last recorded by the owner. Apart from the hold
+   itself, a requirement that lasts while a hold is active, or that waits for a hold's release or
+   lifting, is not discharged by this retirement; it stands until a recorded owner decision
+   resolves it. This retirement affects only the five named formal PR holds. Separate restrictions,
+   including #914 decision 7's readiness-dependent condition, are unaffected. Work starts only
+   under rule 3. Integration and publication remain separately gated; each needs its own recorded
+   owner authorization:
+   - **Integrate:** reviewed work enters `main` with its scientific scope preserved.
+   - **Publish or strengthen claims:** this requires physical justification, proof and
+     publication-specific verification.
+
+   Permission to investigate is not adoption of a proposed mechanism.
+
+**Priority tiers.**
+- **Foundational:** questions that determine OI's mathematical validity, its physical foundations
+  or its central explanatory claims.
+- **High:** major obligations that unlock foundational results.
+- **Supporting:** important corrections, subsidiary derivations and dependencies.
+- **Exploratory:** longer-term hypotheses and extensions.
+
+A tier not marked provisional in its block is the owner's ranking (2026-11-03). A tier marked
+provisional — `(provisional)` in the block, summarized by the `tier: provisional` label — is a
+classification proposed in the 2026-11-03 migration of the planning record: it is not an
+owner-adopted priority, implies no authorization or scientific acceptance, and is not a permanent
+priority decision. These names are
+distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
+
+**Where things live.**
+- The Issues hold each question, its scope, its quoted status and its planning-status block.
+- #914 holds the OI ↔ QM dependency edges; its L-edges are the prerequisite source for the OI ↔ QM
+  programme.
+- The GitHub Project *OI Research Programme* shows administrative activity on Issues only, including
+  which items are active; a pull request is tracked through its accountable Issue (§A.43), not as a
+  card of its own. Project Status grants no authorization and confers no scientific status.
+- `PO-1102`, cited in Authorization entries, is the paper-only authorization in #914 comment
+  6567198108 for its named workstreams A–F: "planning, source reading, paper derivations and review
+  preparation, not reopening any frozen execution stage".
+
+---
+
+## §A.46 Research records on `main` and established claims
+
+`main` is the authoritative research record. An incomplete scientific programme is distinct from an
+incomplete verification of a specific claim: the first may have records on `main`; the second is a
+gap to be fixed. Presence on `main`, or a citation to a file on it, never by itself certifies a
+premise for future research.
+
+1. **Established claims.** A claim is presented as established only when it can be verified from
+   `main` and its evidence meets the verification standard for its kind (§A.42; the Code Review
+   Rules, "Keep verification layers distinct"). A claim landed under an owner exception to §A.42
+   item 2 (§A.42 item 8) is not established.
+2. **What lands.** Research evidence may land on `main` when an established claim needs it, or when
+   it is needed for reproducibility or to support records already on `main`, even if its programme
+   is unfinished; its provenance, assumptions, status and limitations are stated accurately. Work
+   that meets none of these conditions stays on its branch, tracked by its guiding pull request or
+   Issue (§A.43). §A.42 item 5 and §A.28 govern what is added; item 6 governs removal.
+3. **Results that are not established.** Incomplete, negative and inconclusive results that do not
+   meet item 1's standard are not presented as established conclusions. Keeping or landing a record
+   strengthens no claim (§A.42 item 6).
+4. **Unverified claims on `main`.** A claim on `main` whose verification is incomplete has a stated
+   status, an accountable Issue and a remediation plan; a status label alone does not resolve a
+   verification gap. Its record distinguishes independently verified, partially verified,
+   exploratory and known-invalid results, in the record or, for a frozen record, in a mutable record
+   on `main` that cites it; a status that contradicts the frozen record's own conclusion is a
+   correction under item 5 (§A.42 item 6; §A.45 rule 1).
+5. **Remediation.** A gap is fixed by meeting item 1's standard, for example by landing the missing
+   evidence, re-running the computation or recording an independent review on `main`. A conclusion
+   that cannot be verified is narrowed or withdrawn where it is stated (§A.27, §A.30) or, in a
+   frozen record, by the applicable reviewed round (§A.39; §A.42 item 6), and the evidence behind it
+   stays unless it is removed under item 6.
+6. **Removal and disposition of evidence.** Removal of research evidence from `main` is never
+   automatic. It needs a specific justification, a documented audit of what depends on it, a
+   recorded disposition, the original kept reachable in Git history without rewriting history, and
+   separate owner authorization. A frozen record is removed only by the applicable reviewed round
+   (§A.39; §A.42 item 6), never through ordinary cleanup; a record listed in
+   `verification/infrastructure/legacy-records.json` is removed only as §A.39 provides for that
+   manifest.
+   Verified evidence, including verified negative and conditional results, is kept on `main`.
+   For other material that has not met the verification standard for its specific claims, the
+   normal proposed disposition is removal from the current tree *if the audit establishes that it
+   is unnecessary*: no surviving claim depends on it; it is not needed to reproduce, check or
+   interpret a retained result, including a negative result; and no code (Lean imports and scripts
+   included), census, CI, frozen protocol, audit trail, governance requirement or retained record
+   relies on it. The audit checks incoming citations and references as well as outgoing
+   dependencies, and affected mutable references are repaired in the same reviewed change. A label
+   of "unverified" is not a substitute for this audit, and the lack of a separately named reviewer
+   does not by itself make unverified a computation that reproduces from `main` over its controls,
+   or a kernel-checked theorem for the statement it proves. Unverified material that is still
+   needed is kept only with its verification status and limitations stated in it or, for a frozen
+   record, in a mutable record on `main` that cites it (item 4), and item 7 bars its use as
+   established evidence; the evidence is fixed, or the claims that depend on it are narrowed or
+   withdrawn (§A.27, §A.30; item 5), rather than the evidence deleted.
+7. **No silent reuse of unverified premises.** Before a new result or established claim relies on
+   existing research evidence, its reviewer identifies each material premise, checks the supporting
+   evidence and assumptions against the applicable verification standard from `main`, and traces
+   dependencies under §A.42 item 8. An unverified record, an author-posted acceptance, an Issue,
+   or the mere presence of a file on `main` cannot serve as verification. Such material may be
+   discussed as exploratory or historical context. Its use as a premise of an established claim
+   requires independent validation of that specific premise; until then a claim that uses it is not
+   established (item 1). A statement refuted on `main` is never used as true in a premise; where a
+   frozen record states one, a mutable record on `main` that cites it names the refutation and its
+   evidence (item 4; item 5 where it is that record's own conclusion). Verified conditional and
+   negative results are eligible on their actual proved scope.
+
+Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
+records from `main` was found to break records on `main` that depend on them. Amended the same day
+by owner decision, to make removal the proposed disposition of unverified evidence an audit shows
+unnecessary and to bar unverified and refuted premises from established claims.

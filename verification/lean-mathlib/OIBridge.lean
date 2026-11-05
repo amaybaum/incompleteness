@@ -22,6 +22,11 @@ import OIBridge.TrajectoryMemory
 import OIBridge.FullFutureMemory
 import OIBridge.RecordFibreIdentification
 import OIBridge.RootedRecurrenceBridge
+import OIBridge.RecursiveFiniteFactor
+import OIBridge.NativePadicReduction
+import OIBridge.ObservableFactorRecurrence
+import OIBridge.ObservableMeasureReturn
+import OIBridge.GradientLinkFlatness
 import OIBridge.ChiralCenterRecovery
 import Mathlib.RepresentationTheory.Invariants
 import Mathlib.RepresentationTheory.Character
@@ -276,6 +281,9 @@ import OIBridge.KTokenMaxCone
 import OIBridge.PreservationInduction
 import OIBridge.PreservationInductionInstances
 import OIBridge.TransSeparation
+import OIBridge.PairIdentification
+import OIBridge.F2CoherenceControls
+import OIBridge.PC1Controls
 
 namespace OIBridge
 

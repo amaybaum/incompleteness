@@ -3,7 +3,6 @@
   "manuscripts": [
     "papers/GR.md",
     "papers/Main.md",
-    "papers/Explainer.md",
     "papers/SM.md",
     "papers/Structure.md",
     "papers/Substratum.md",
@@ -139,7 +138,7 @@
           "anchor": "`theorem_19`"
         }
       ],
-      "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D, for the realization from an initial law that may correlate the hidden and visible coordinates; the independence of the hidden prior from the visible initial state is not formalized), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Main 1.5's Layer-1 summary carries its pointers inline, in the summary paragraph itself (S_imp_D, D_imp_Qfb, Qfb_imp_S, finite_horizon_equivalence; pushforward_identity, distinguishability_floor). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers. Structure Proposition 9.7b now explicitly states the nonzero finite-dimensional scope of StinespringUniqueness.proposition_9_7b; the general separable dense-span proof is preserved separately as Proposition 9.7c and is not claimed kernel-proved. The fixed-channel scope does not classify full unitary extensions or OI multi-time dynamics."
+      "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D, for the realization from an initial law that may correlate the hidden and visible coordinates; the independence of the hidden prior from the visible initial state is not formalized), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the C3 and memory results (memory clauses (a)–(c)) kernel-checked for the joint-law form; a time-t trajectory form (finite V × H, bijective step, any initial law, Nonempty H) is formalized in an unreviewed Lean module (TrajectoryMemory; for hidden predictive memory, capacity-floor clause (c) only), pending independent confirmation that the theorem statement and its assumptions establish the intended realization interpretation, and is otherwise on paper; the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Main 1.5's Layer-1 summary carries its pointers inline, in the summary paragraph itself (S_imp_D, D_imp_Qfb, Qfb_imp_S, finite_horizon_equivalence; pushforward_identity, distinguishability_floor). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers. Structure Proposition 9.7b now explicitly states the nonzero finite-dimensional scope of StinespringUniqueness.proposition_9_7b; the general separable dense-span proof is preserved separately as Proposition 9.7c and is not claimed kernel-proved. The fixed-channel scope does not classify full unitary extensions or OI multi-time dynamics."
     },
     {
       "name": "Hamiltonian reconstruction",
@@ -154,10 +153,19 @@
         "TurnpikeScopeTransfer",
         "AntiunitaryInvariance",
         "ThermalOrientation",
-        "ShellAssignment"
+        "ShellAssignment",
+        "PairIdentification"
       ],
       "status": "scope-consistent",
       "manuscript": [
+        {
+          "file": "papers/Main.md",
+          "anchor": "`twoBranch_of_triangleGeneric`"
+        },
+        {
+          "file": "papers/GR.md",
+          "anchor": "`twoBranch_of_BGSignedClassification`"
+        },
         {
           "file": "papers/GR.md",
           "anchor": "D-gauge completeness, two-branch form"
@@ -183,7 +191,7 @@
           "anchor": "*Conditional proof.* Equality of the probability families"
         }
       ],
-      "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Full two-branch reconstruction is conditional on the open global sign-aware classification; the unsigned BGIntegerClassification is refuted. The design package landed with #842 is pre-freeze design evidence, not adopted certification."
+      "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Main 3.1's phase-locking lemma holds under the posited triangle-genericity condition (G4), with no classification premise (PairIdentification: twoBranch_of_triangleGeneric, twoBranch_of_triangleGeneric_source). Without (G4), full two-branch reconstruction is conditional on the open global sign-aware classification H-BG, from which it is kernel-derived (twoBranch_of_BGSignedClassification); the unsigned BGIntegerClassification is refuted. The design package landed with #842 is pre-freeze design evidence, not adopted certification."
     },
     {
       "name": "coherent completions",
@@ -288,15 +296,11 @@
           "anchor": "carrier_general_oiPlusPos"
         },
         {
-          "file": "papers/Explainer.md",
-          "anchor": "no closure of the implementations under the adjoint"
-        },
-        {
           "file": "book/The-Incompleteness-of-Observation-FULL.md",
           "anchor": "no closure of the implementations under the adjoint"
         }
       ],
-      "note": "GR 3.3 (the operational-completion characterization, OI+, the primitive-source form), Main 3.4, the Explainer note, book chapters 1 and 19. The strongest package is OIPlusMin (the minimal-repertoire family); OIPlusPos is stated as the elementary-repertoire form beside it, and the OI+ layered form and the five-condition form as the layered and five-condition forms, not as the strongest package. SubstantiveCensus, CompositionalIndependence and LevelOneRecursion are independence scaffolding cited in the verification notes only."
+      "note": "GR 3.3 (the operational-completion characterization, OI+, the primitive-source form), Main 3.4, book chapters 1 and 19. The strongest package is OIPlusMin (the minimal-repertoire family); OIPlusPos is stated as the elementary-repertoire form beside it, and the OI+ layered form and the five-condition form as the layered and five-condition forms, not as the strongest package. SubstantiveCensus, CompositionalIndependence and LevelOneRecursion are independence scaffolding cited in the verification notes only."
     },
     {
       "name": "substratum source",
@@ -394,6 +398,10 @@
         },
         {
           "file": "papers/GR.md",
+          "anchor": "`driveQ_smul`"
+        },
+        {
+          "file": "papers/GR.md",
           "anchor": "A continuous-time Hamiltonian law is additional structure"
         },
         {
@@ -401,15 +409,15 @@
           "anchor": "driveQ_one_eq_heisQ"
         },
         {
-          "file": "papers/Explainer.md",
-          "anchor": "with no one-parameter-group law established and no generator exhibited"
+          "file": "papers/Main.md",
+          "anchor": "`driveQ_smul`"
         },
         {
           "file": "book/The-Incompleteness-of-Observation-FULL.md",
           "anchor": "with no one-parameter-group law established and no generator exhibited"
         }
       ],
-      "note": "GR 3.3, continuous-time paragraph: the depth-two factorization, the two layer groups, and the strongly continuous path of *-automorphisms from the identity to the update's Heisenberg action, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open; Main 2.3 and the quasilocal summaries in Main 3.4, the Explainer and the book chapters carry the same. A continuous-time Hamiltonian law stays additional structure."
+      "note": "GR 3.3, continuous-time paragraph: the depth-two factorization, the two layer groups, and the strongly continuous path of *-automorphisms from the identity to the update's Heisenberg action, stated as a path, with no one-parameter-group law for the composite established, no generator exhibited and CT3 open; Main 2.3 and the quasilocal summaries in Main 3.4 and the book chapters carry the same. A continuous-time Hamiltonian law stays additional structure."
     },
     {
       "name": "minimal repertoire",
@@ -435,10 +443,6 @@
           "anchor": "carrier_general_oiPlusMin"
         },
         {
-          "file": "papers/Explainer.md",
-          "anchor": "phase-free richness"
-        },
-        {
           "file": "book/ch01-observation.md",
           "anchor": "phase-free richness"
         },
@@ -451,7 +455,7 @@
           "anchor": "phase-free richness"
         }
       ],
-      "note": "The elementary repertoire cut to one continuously driven pair and the exchanges, with no quarter phase (OIPlusMin, carrier_general_oiPlusMin, the bipartite obstruction). GR 3.3 states phase-free richness as the second primitive-source principle with the elementary repertoire as its stronger form; Main 3.4, the Explainer and the book chapters carry the summary. The cycle claim is stated at its evidence: the even-carrier countercontrol is cited, no iff over D and no minimality of the driven transition is asserted."
+      "note": "The elementary repertoire cut to one continuously driven pair and the exchanges, with no quarter phase (OIPlusMin, carrier_general_oiPlusMin, the bipartite obstruction). GR 3.3 states phase-free richness as the second primitive-source principle with the elementary repertoire as its stronger form; Main 3.4 and the book chapters carry the summary. The cycle claim is stated at its evidence: the even-carrier countercontrol is cited, no iff over D and no minimality of the driven transition is asserted."
     },
     {
       "name": "route B: consequence closure",
@@ -549,7 +553,7 @@
           "anchor": "as a stated intervention principle rather than a consequence of its finite states and bijective dynamics"
         }
       ],
-      "note": "The preregistered pass of PHASE-SOURCE-AUDIT.md: whether the stated substratum and observer access derive PhasesAvailable, the conjunct by which DerivedOI exceeds SourcedOI, rather than assume it. No architecture whose admissible isometries fix the all-ones ray sources a quarter phase at any level with two or more states (onesFixing_not_phasesAvailable); the sourced class is ones-fixing (permClass_onesFixing), so its theory carries no quarter phase by the invariant that decides the flow endpoint; the bijective interventions, the read-write operators and the layer gate flows fix the all-ones vector; the quarter phase is not a scalar, its conjugation is not the identity, and every diagonal unitary fixes it under conjugation (phaseGate_not_scalar, conjChannel_phaseGate_ne_id, diagonal_conj_phaseGate); the quarter phase moves the all-ones ray and the monomial class of the round-62 interface is not ones-fixing through its declared phase intervention alone (substratumClass_not_onesFixing). Verdict: negative for the stated access, every operation the manuscripts state being ones-fixing, so the kernel's PhasesAvailable on the substratum side rests on the round-62 phase intervention, a stipulation; underdetermined for the phrase the phase structure, what it would have to supply being stated in two parts under a scope amendment at review: necessarily an admissible operator selectable at every level that moves the all-ones ray, and, as the sufficient access tested, the quarter-phase intervention itself, moving the ray alone being no guarantee of a quarter phase. Carried by GR 3.3, whose substratum-source form states the phase intervention as an assumption on the substratum class, citing permClass_onesFixing, onesFixing_not_phasesAvailable and substratumClass_not_onesFixing, with the necessary condition, an operator carrying the all-ones vector off its ray, distinguished from the sufficient access assumed, the quarter-phase intervention itself, a stated member of the class (phase_monomial), and by the substratum-source summaries of Main 3.4, the Explainer and the book chapters, which qualify the phases the same way; consistent with the manuscripts' statement that the substratum carries no complex structure; nothing is asserted about the lift audit's Q3 from DerivedOI, about uniqueness or minimality of relative phase, or about a richer substratum ontology; the substratum-source sentence is requalified in the propagation round of PHASE-PROPAGATION-AUDIT.md."
+      "note": "The preregistered pass of PHASE-SOURCE-AUDIT.md: whether the stated substratum and observer access derive PhasesAvailable, the conjunct by which DerivedOI exceeds SourcedOI, rather than assume it. No architecture whose admissible isometries fix the all-ones ray sources a quarter phase at any level with two or more states (onesFixing_not_phasesAvailable); the sourced class is ones-fixing (permClass_onesFixing), so its theory carries no quarter phase by the invariant that decides the flow endpoint; the bijective interventions, the read-write operators and the layer gate flows fix the all-ones vector; the quarter phase is not a scalar, its conjugation is not the identity, and every diagonal unitary fixes it under conjugation (phaseGate_not_scalar, conjChannel_phaseGate_ne_id, diagonal_conj_phaseGate); the quarter phase moves the all-ones ray and the monomial class of the round-62 interface is not ones-fixing through its declared phase intervention alone (substratumClass_not_onesFixing). Verdict: negative for the stated access, every operation the manuscripts state being ones-fixing, so the kernel's PhasesAvailable on the substratum side rests on the round-62 phase intervention, a stipulation; underdetermined for the phrase the phase structure, what it would have to supply being stated in two parts under a scope amendment at review: necessarily an admissible operator selectable at every level that moves the all-ones ray, and, as the sufficient access tested, the quarter-phase intervention itself, moving the ray alone being no guarantee of a quarter phase. Carried by GR 3.3, whose substratum-source form states the phase intervention as an assumption on the substratum class, citing permClass_onesFixing, onesFixing_not_phasesAvailable and substratumClass_not_onesFixing, with the necessary condition, an operator carrying the all-ones vector off its ray, distinguished from the sufficient access assumed, the quarter-phase intervention itself, a stated member of the class (phase_monomial), and by the substratum-source summaries of Main 3.4 and the book chapters, which qualify the phases the same way; consistent with the manuscripts' statement that the substratum carries no complex structure; nothing is asserted about the lift audit's Q3 from DerivedOI, about uniqueness or minimality of relative phase, or about a richer substratum ontology; the substratum-source sentence is requalified in the propagation round of PHASE-PROPAGATION-AUDIT.md."
     },
     {
       "name": "Q3 from the closure: one executable layer flow",
@@ -571,7 +575,7 @@
           "anchor": "derivedOI_qm_iff_layerFlowExecutable'"
         }
       ],
-      "note": "The preregistered pass of DERIVED-Q3-AUDIT.md: the lift audit's Q3 at its own hypothesis, with PhasesAvailable an explicit hypothesis of the closure and not a consequence of the stated substratum. Under DerivedOI, the executability of one layer flow of an involution with a moved configuration gives phase-free richness (phaseFree_of_derivedOI_layerFlowExecutable, from phaseFree_of_phases_layerFlowExecutable, which uses of the closure only the phases and the exchanges), through the sign-flip identity gateFlow_isolation_flip: the gate flow times the time-reversed gate flow conjugated by the sign flip at the image of the chosen configuration is the transition flow on the chosen pair, time reversal replacing the continuous phase of the lift audit's isolation identity, and the sign flip being the square of one quarter phase (phaseGate_mul_self, flip_avail), the step at which the phase hypothesis is consumed; under DerivedOI alone quantum mechanics is exactly that executability (derivedOI_qm_iff_layerFlowExecutable', the swap-layer instances); the moved-configuration hypothesis is necessary (derivedOI_layerFlowExecutable_one_not_phaseFree) and quantum mechanics satisfies both hypotheses (derivedOI_layerFlowExecutable_of_qm). Carried by GR 3.3, the layer-flow form, with the witness of each direction named beside the display and both sourcing qualifications part of the statement, and by the summaries of Main 3.4, the Explainer and the book chapters; consistent with the manuscripts' statement that the controllability resource is an empirical extension and the phase intervention an assumption; nothing is asserted about sourcing the phases, about uniqueness or minimality of either resource, about the lift or Route A; propagated in the round of Q3-PROPAGATION-AUDIT.md."
+      "note": "The preregistered pass of DERIVED-Q3-AUDIT.md: the lift audit's Q3 at its own hypothesis, with PhasesAvailable an explicit hypothesis of the closure and not a consequence of the stated substratum. Under DerivedOI, the executability of one layer flow of an involution with a moved configuration gives phase-free richness (phaseFree_of_derivedOI_layerFlowExecutable, from phaseFree_of_phases_layerFlowExecutable, which uses of the closure only the phases and the exchanges), through the sign-flip identity gateFlow_isolation_flip: the gate flow times the time-reversed gate flow conjugated by the sign flip at the image of the chosen configuration is the transition flow on the chosen pair, time reversal replacing the continuous phase of the lift audit's isolation identity, and the sign flip being the square of one quarter phase (phaseGate_mul_self, flip_avail), the step at which the phase hypothesis is consumed; under DerivedOI alone quantum mechanics is exactly that executability (derivedOI_qm_iff_layerFlowExecutable', the swap-layer instances); the moved-configuration hypothesis is necessary (derivedOI_layerFlowExecutable_one_not_phaseFree) and quantum mechanics satisfies both hypotheses (derivedOI_layerFlowExecutable_of_qm). Carried by GR 3.3, the layer-flow form, with the witness of each direction named beside the display and both sourcing qualifications part of the statement, and by the summaries of Main 3.4 and the book chapters; consistent with the manuscripts' statement that the controllability resource is an empirical extension and the phase intervention an assumption; nothing is asserted about sourcing the phases, about uniqueness or minimality of either resource, about the lift or Route A; propagated in the round of Q3-PROPAGATION-AUDIT.md."
     },
     {
       "name": "executability source: the stated access and the layer flows",
@@ -841,13 +845,9 @@
         {
           "file": "papers/Main.md",
           "anchor": "cannot coexist with complete passive observation"
-        },
-        {
-          "file": "papers/Explainer.md",
-          "anchor": "cannot coexist with complete passive observation"
         }
       ],
-      "note": "The frozen exploratory thread (OI-N-FREEZE.md), narrated in one paragraph of Main 3.4 and one of the Explainer, outside the assumptions and arrows of the OI->QM characterization: noncommutativity forbids complete passive observation; passive incompleteness is theory-insensitive and does not diagnose OICore (the N4 anti-conflation stated in the same paragraph: not evidence for a hidden ontology, no statement that QM rests on OI); a passive internal observer only reads an existing record; a new internal record changes the joint system. Citable only for what its modules prove; the freeze note is unchanged."
+      "note": "The frozen exploratory thread (OI-N-FREEZE.md), narrated in one paragraph of Main 3.4, outside the assumptions and arrows of the OI->QM characterization: noncommutativity forbids complete passive observation; passive incompleteness is theory-insensitive and does not diagnose OICore (the N4 anti-conflation stated in the same paragraph: not evidence for a hidden ontology, no statement that QM rests on OI); a passive internal observer only reads an existing record; a new internal record changes the joint system. Citable only for what its modules prove; the freeze note is unchanged."
     },
     {
       "name": "rooted classification: the finite-visible intrinsic characterization of the realizable class",
@@ -1038,10 +1038,6 @@
           "anchor": "Remark (three notions, kept apart)"
         },
         {
-          "file": "papers/Explainer.md",
-          "anchor": "it does not fix which unitary relates two times"
-        },
-        {
           "file": "book/ch01-observation.md",
           "anchor": "which unitary evolution relates two times"
         }
@@ -1062,10 +1058,6 @@
         {
           "file": "papers/Main.md",
           "anchor": "the fibre-Gram data — agrees up to the anchored phases"
-        },
-        {
-          "file": "papers/Explainer.md",
-          "anchor": "The invisible freedom itself has two sides"
         },
         {
           "file": "book/ch01-observation.md",
@@ -1363,10 +1355,6 @@
           "anchor": "`realData_traj_stochastic`"
         },
         {
-          "file": "papers/Explainer.md",
-          "anchor": "That residue does not reach the fixed-basis layer"
-        },
-        {
           "file": "book/ch01-observation.md",
           "anchor": "That residue does not reach the fixed-basis layer"
         },
@@ -1659,6 +1647,61 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Conditional k-token infrastructure on WK k = (Fin k → Fin 4) → ℝ. subset_QK_of_maxCone_drive uses the k-fold maxCone bound, CNOT into later tokens and the rotation/cyclic actions off the first token for the upper inclusion; QK_subset_of_products_cone_drive uses products of eball 3 states, addition, nonnegative scaling and the same actions for the lower. kCone_eq_QK_of_drive_maxCone assembles equality; kCone_eq_QK_iff_drive_maxCone has the witnesses driveInvariantK_of_eq_QK and kCone_eq_QK_of_drive_maxCone. pairCone_eq_Q3_of_kToken proves the statement of EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone from the k-token theorem; EqvK2MaxCone is not imported. This family is carried by no manuscript. The k-token carrier, products, test validity and the invariance remain explicit premises; arbitrary unitary invariance and Kn are not asserted. Record: verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/."
+    },
+    {
+      "name": "SUBSTATE-2 recursive finite-factor observation bound (research)",
+      "modules": [
+        "RecursiveFiniteFactor"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only: finite_horizon_depth_bound combines individually finite-stage-dependent visible functions into one finite-depth bound for a finite horizon; all_time_depth_bound_of_exact_period uses an EXPLICIT common exact period assumption to extend that bound to all times; feedbackStep_involution proves a static hidden-predicate controlled Boolean flip returns in two steps on any hidden type. Does NOT prove that continuous maps from compact inverse limits factor through a finite stage, that OI has fractal sub-states, a.e. recurrence, physically sourced quantum instruments, gauge links, area law or Yang-Mills action. Issue #1010; landed on main by #1096; #1011 closed unmerged. The module builds and its axiom report passes in CI."
+    },
+    {
+      "name": "SUBSTATE-2 native cubic wave congruence no-backflow (research)",
+      "modules": [
+        "NativePadicReduction"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only: neighborSum_map, project_waveStep and project_waveUnstep certify that arbitrary additive alphabet homomorphisms commute with the identical finite neighbor stencil, the two-slice coefficient-1 wave step and waveUnstep, its intended inverse (the inverse property is not proved there). Covers compatible mod-2^m reductions algebraically, but does not create the ZMod instance in this file or derive actual p-adic physical OI, a nonlinear readout, native quantum control or YM action. Preregistered NATIVE-PADIC-1 source test under #1010/#1011. The module builds and its axiom report passes in CI."
+    },
+    {
+      "name": "SUBSTATE-2 unit F2-1 stage-2 kernel controls (research)",
+      "modules": [
+        "F2CoherenceControls"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only controls for the F2-1 preregistration (frozen at 66eb48ca) and amendment A-star (b86f0547), statements copied verbatim from A-star: OnesBounded; rot moves the all-ones ray and does not preserve nonnegative entries, so nonnegativity- or ones-bounded two-state theories lack the falsifier; ones-fixing classes give ones-bounded theories (permTheory, onesTheory); a nonnegative implementation class with its architecture, nonnegativity bound and ones-fixing property; a real-amplitude class whose theory has rot and lacks the quarter phase; the full class as the positive control. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Issue #1010; landed on main by #1089, records by #1096; #1011 closed unmerged; kernel predicates enter the unit's results only from CI step conclusions."
+    },
+    {
+      "name": "PC-1 stage-2 kernel controls (research)",
+      "modules": [
+        "PC1Controls"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only controls for the PC-1 preregistration (frozen at 948b30c1), its stage-2 amendment PC-S2 (4d2c4d56) and the C13 correction PC-S2-C13 (895e5c5b); statements copied verbatim from PC-S2: the diagonal gauge diag(1, i) and the gauged rotation, which fixes the all-ones vector up to the scalar 3/5 + (4/5)i and lies in the ones-fixing class (finding PC-F1); no diagonal gauge makes a nonzero multiple of rot a scalar times a nonnegative matrix; nonnegativity- and ones-bounded two-state theories lack the level-one quarter phase; the permutation theory is ones-bounded on every carrier and lacks the level-one quarter phase and the gauged rotation; a class containing rot has the falsifier; any architecture inside the real-amplitude class lacks the quarter phase. No candidate interface, no sourcing of rot or of phases by OI, no no-go for observer-level extensions and no manuscript statement. Landed on main by #1089; #1022 closed unmerged; kernel predicates enter the unit's results only from CI step conclusions."
+    },
+    {
+      "name": "SUBSTATE-1 finite observable-factor recurrence (research proof, no manuscript promotion)",
+      "modules": [
+        "ObservableFactorRecurrence",
+        "ObservableMeasureReturn"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only mathematical bridge: arbitrary hidden carrier, event partition identity, measured conditional transition as off-diagonal joint-cell mass / positive finite initial-cell mass, identity rooted return iff zero measure of observable changes, and finite visible stochastic-inverse obstruction. Proof-level statuses depend on exact-head Mathlib build. Does not establish all-L Fourier result, complete operational QM, gauge action or physics. PR #1009, issue #1007."
+    },
+    {
+      "name": "SUBSTATE-1 pure-gradient gauge link negative control and two-slice inverse",
+      "modules": [
+        "GradientLinkFlatness"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research-only, no publication claim: square_gradient_flat is the additive four-link telescope (so the naive pure-gradient link has trivial plaquette holonomy); waveUnstep_waveStep and waveStep_waveUnstep prove the generic reversible two-slice pattern. Does NOT establish or exclude the physical OI H-link, a Yang-Mills action, curved gauge fields, native observer interventions or quantum operational equivalence. From draft PR #1009 (open); landed on main by #1100 and built and axiom-checked by the Mathlib bridge job."
     }
   ]
 }

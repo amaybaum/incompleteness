@@ -1,6 +1,6 @@
 {
   "base": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
-  "checker_sha256": "c767d094f7faa9bcd6eb1e02a0ed09b97d13ee7fb2b92a84cd90c19d9b45ee98",
+  "checker_sha256": "26966c7d270979d02eba8a2f6b3d1172841dbb439bab3d5ae166dec58dc8ab89",
   "checks": [
     {
       "ok": true,
@@ -512,106 +512,6 @@
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: That's it. The precise claim is layered. At the "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: That's it. The precise claim is layered. At the "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: That's it. The precise claim is layered. At the "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: **The bridge therefore has three statuses, and t"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: **The bridge therefore has three statuses, and t"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: **The bridge therefore has three statuses, and t"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: *A note on what is proved versus imported.* The "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: *A note on what is proved versus imported.* The "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: *A note on what is proved versus imported.* The "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: An observer inside the universe receives incompl"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: An observer inside the universe receives incompl"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: An observer inside the universe receives incompl"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: At the finite observable-law layer, the answer i"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: At the finite observable-law layer, the answer i"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: At the finite observable-law layer, the answer i"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: Gödel and Turing are usually read as negative re"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: Gödel and Turing are usually read as negative re"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: Gödel and Turing are usually read as negative re"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph sum: papers/Explainer.md"
-    },
-    {
-      "ok": true,
       "predicate": "intended scope paragraph exists exactly once: papers/Structure.md: **OI's framing.** At the finite observable-law l"
     },
     {
@@ -1108,7 +1008,7 @@
     },
     {
       "ok": true,
-      "predicate": "kinematics mention counts match the site table (68)"
+      "predicate": "kinematics mention counts match the site table (60)"
     },
     {
       "ok": true,
@@ -1137,18 +1037,6 @@
     {
       "ok": true,
       "predicate": "pinned in papers/GR.md: whether an operational theory's available instruments on a f..."
-    },
-    {
-      "ok": true,
-      "predicate": "pinned in papers/Explainer.md: The full operational theory is a separate question from that..."
-    },
-    {
-      "ok": true,
-      "predicate": "pinned in papers/Explainer.md: takes the tensor-product composite as part of the complex ma..."
-    },
-    {
-      "ok": true,
-      "predicate": "pinned in papers/Explainer.md: and within that kinematics characterizes by five operational..."
     },
     {
       "ok": true,
@@ -1208,6 +1096,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Layer 1 — Substratum-level structural.** Predictions deriv..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The horizon and radiation entries inherit H-slope and the ho..."
     },
     {
@@ -1232,6 +1124,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The *rotational* Lorentz sector is deliberately **not** list..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Most distinctive content.** Two predictions distinguish th..."
     },
     {
@@ -1240,7 +1136,31 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *B.7 The lemma chain for the characterization.* The framewor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: with $\\hat{H}_{\\text{eff}} = H_V + \\mathrm{Tr}_H[V_{\\text{in..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Role of C2, C3, and observability.* The recovery above is g..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma B.7.5 (Phase locking).** *Assume dimension at least ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* The transition data $\\{T_{ij}(t)\\}$ determines the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Bohr frequencies and the D-gauge classification.** The pro..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Scope.* The complete comparison of H-BG with the published ..."
     },
     {
       "ok": true,
@@ -1312,7 +1232,23 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **The empirical signatures.** Finiteness has specific empiri..."
+      "predicate": "chapter line mirrored in FULL: *In Chapter 7's gravitational content.* The cosmological hor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A referee who rejects Axiom 2 for the universe as a whole (i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The \"finite degrees of freedom\" framing.** The standard in..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The structural signatures.** Finiteness has specific struc..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's finiteness commitment is therefore not just ..."
     },
     {
       "ok": true,
@@ -1321,6 +1257,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *What the framework predicts forward.* Specific predictions ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Maybaum, A. (2026). *The Observational Incompleteness Framew..."
     },
     {
       "ok": true,
@@ -1356,6 +1296,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma 3 (Determinism and selected measure).** *$\\varphi$ i..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: In the Markovian regime — a fast-mixing bath, system slow re..."
     },
     {
@@ -1364,11 +1308,19 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The proof uses only Lemma 1 (finiteness, hence Step 1's recu..."
+      "predicate": "chapter line mirrored in FULL: The structural source of the asymmetry, for our cosmological..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The proof uses only finiteness of the total set — Lemma 1 fo..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The accessible-timescale lemma.** A potential objection to..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For the cosmological partition the numbers are striking. The..."
     },
     {
       "ok": true,
@@ -1468,6 +1420,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A5) Linearity.* The wave equation governing $\\varphi$ is l..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Stage 2: From deterministic embedding to specific lattice ..."
     },
     {
@@ -1477,6 +1433,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: T-invariance of the bijection $\\varphi$ combined with detail..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The theorem's content is striking. From the empirical inputs..."
     },
     {
       "ok": true,
@@ -1496,6 +1456,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reconstruction theorem identifies the **local lattice/ga..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's claim is that quantum mechanics and general ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The visible-sector projection: quantum mechanics.** Chapte..."
     },
     {
@@ -1504,7 +1472,19 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The cosmological horizon entropy provides a structural clock..."
+      "predicate": "chapter line mirrored in FULL: The apparent-horizon area provides a structural clock on tha..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content here is precise: on the expanding br..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The common structure.** The three projections share three ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reconstruction theorem and the substratum gauge group es..."
     },
     {
       "ok": true,
@@ -1513,6 +1493,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Chapter 4 articulates the framework's methodological discipl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Level A is shared with the broader observer-essentiality pro..."
     },
     {
       "ok": true,
@@ -1532,7 +1516,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: A subtlety in Level G2 deserves explicit treatment. The *uni..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Level G3: substratum observational equivalences.** Theorem..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: At Level G2 × Level D — a narrower intersection in the gauge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Level G2 × Level D predictions — the Standard Model gauge gr..."
     },
     {
       "ok": true,
@@ -1608,11 +1604,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The bill, paid in the open.** A deterministic substratum t..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The characteristic trait.** Schrödinger called entanglemen..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The ledger.** Conceded: Bell's mathematics; EPR's logic an..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The structural form of Spinoza's account — one substance, mu..."
     },
     {
       "ok": true,
@@ -1652,6 +1656,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: A useful diagnostic for the discipline is what the framework..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's general rule is *group structural, couplings..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework is a hidden-variable theory in the literal sen..."
     },
     {
@@ -1685,6 +1697,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *The Tsirelson bound.* The value $2\\sqrt{2}$ belongs to the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Leading Lorentz-invariance-violation coefficient.* The fram..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Solution-specific properties.** The framework derives the ..."
     },
     {
       "ok": true,
@@ -1724,11 +1744,23 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Chapter 5 derived the gauge structure of the Standard Model ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: At the group-theoretic level, the Standard Model gauge group..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: This chapter develops seven structural results. Section 7.2 ..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **An independent route to the same conclusion.** The necessi..."
     },
     {
       "ok": true,
@@ -1789,6 +1821,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Four universality-class entries tested against current empir..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's Tier 2 content includes the Standard Model g..."
     },
     {
       "ok": true,
@@ -1977,6 +2013,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The standard dilation picture motivates the model choice — m..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: One refinement sharpens the exposure from principally negati..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The depth of computation is bounded too, and by the same con..."
     },
     {
       "ok": true,
@@ -2220,6 +2264,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Finite information content.** The substratum's information..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
     },
     {
@@ -2280,6 +2328,30 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The arrow as observer-emergent.** The framework's answer i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Detailed balance and the thermodynamic arrow.** The framew..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The cosmological arrow.** Whether the thermodynamic arrow ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Both arrows are traced to the same initial conditions of the..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Second, the framework's finiteness *does not require* compac..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Direction 1: Consciousness requires observation.* Any consc..."
     },
     {
@@ -2324,6 +2396,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Two results bear on this question. A symmetric-integration a..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This premise has a second dependency alongside the partition..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *conditionally*: within complex matrix kinematics taken as g..."
     },
     {
@@ -2349,6 +2429,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The inventory above therefore states the status of each prob..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Axiom 2 (Finiteness).** The framework's foundational assum..."
     },
     {
       "ok": true,
@@ -2584,7 +2668,6 @@
     "book/glossary.md": 2,
     "book/preface.md": 1,
     "book/readers-guide.md": 0,
-    "papers/Explainer.md": 8,
     "papers/GR.md": 3,
     "papers/Main.md": 17,
     "papers/Methodology.md": 3,
@@ -2608,7 +2691,6 @@
     "book/glossary.md": 2,
     "book/preface.md": 1,
     "book/readers-guide.md": 0,
-    "papers/Explainer.md": 8,
     "papers/GR.md": 3,
     "papers/Main.md": 17,
     "papers/Methodology.md": 3,
@@ -2618,6 +2700,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "ba9c899c2c75c659b3bff32a32b6e106937c5bf46153f97bd11112870a50cf1b",
+  "site_table_sha256": "77b5ba196337d9ed293a52612fff318826333e7e660d8ca56c336f6913cfef11",
   "verdict": "PASS"
 }

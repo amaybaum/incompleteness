@@ -258,18 +258,44 @@ ok8 &= '[SM] Proposition 20' in gr
 ok8 &= '0,1,4,10,12,17' in gr and '0,1,8,11,13,17' in gr
 # and the withdrawn conclusion must not be asserted anywhere as a theorem
 ok8 &= '**Theorem (D-gauge completeness).**' not in gr
-# Every statement of Hamiltonian reconstruction in the corpus carries H-BG nearby.
+# Every statement of Hamiltonian reconstruction in the corpus carries its condition nearby: H-BG, or the
+# triangle-genericity condition (G4) under which OIBridge/PairIdentification.lean proves the two branches.
+CONDITION_MARKERS = ('H-BG', 'classification hypothesis', '(G4)', 'triangle-genericity', 'triangle genericity',
+                     'hypotheses of Lemma B.7.5')
 RECON = re.compile(r"uniquely determined by \$\\\{T_\{ij\}"
                    r"|determines? (?:the emergent Hamiltonian|\$\\hat\{H\}_\{\\text\{eff\}\}\$)[^.]{0,120}?up to"
                    r"|two-branch (?:form|theorem|classification|conclusion)"
                    r"|phase-locking lemma.{0,80}?determines")
 
 
+# A marker counts only where it states the condition. Its scope is its own clause (between the
+# nearest ',', ';', ':' or sentence end on either side), and a clause that negates or sets the
+# condition aside ("without", "aside", "unlike", "regardless of", "independently of", "not needed",
+# "no ...") does not count.
+NEGATION = re.compile(r"\b(?:without|aside|unlike|regardless|irrespective|independent(?:ly)?\s+of|"
+                      r"not\s+(?:needed|required|assumed|using|needing|requiring|assuming)|no\s+need|"
+                      r"dispens\w*|beyond|other\s+than|apart\s+from|rather\s+than|instead\s+of|no)\b", re.I)
+SENTENCE = re.compile(r'(?<=[.!?])\s+(?=[A-Z*(\[])|\n')
+
+
+def conditioned(w):
+    for c in CONDITION_MARKERS:
+        for k in [i for i in range(len(w)) if w.startswith(c, i)]:
+            s = max(w.rfind(ch, 0, k) for ch in ',;:') + 1
+            ends = [x for x in (w.find(ch, k + len(c)) for ch in ',;:') if x >= 0]
+            e = min(ends) if ends else len(w)
+            if not NEGATION.search(w[s:k]) and not NEGATION.search(w[k + len(c):e]):
+                return True
+    return False
+
+
 def unconditional_recon(text):
+    # the window is the sentence that carries the reconstruction statement
     hits = []
     for m in RECON.finditer(text):
-        w = text[max(0, m.start() - 250):m.end() + 250]
-        if 'H-BG' not in w and 'classification hypothesis' not in w:
+        s = max([x.end() for x in SENTENCE.finditer(text, 0, m.start())] or [0])
+        e = SENTENCE.search(text, m.end())
+        if not conditioned(text[s:e.start() if e else len(text)]):
             hits.append(text[m.start():m.end()])
     return hits
 
@@ -289,7 +315,19 @@ INJECTED = (
     "Where these hold, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
     "from continuous-time transition data up to the lemma's full gauge.",
     "The sharper question is settled by the two-branch theorem below.",
+    "Where these hold, the phase-locking lemma (§3.1), under (G1)–(G3), determines $\\hat{H}_{\\text{eff}}$ "
+    "from continuous-time transition data up to the lemma's full gauge.",
+    "Even without (G4) or H-BG, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
+    "from continuous-time transition data up to the lemma's full gauge.",
+    "(G4) aside, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
+    "from continuous-time transition data up to the lemma's full gauge.",
+    "Condition (G4) is a posited genericity hypothesis. The phase-locking lemma (§3.1) determines "
+    "$\\hat{H}_{\\text{eff}}$ from continuous-time transition data up to the lemma's full gauge.",
 )
+# and a legitimate two-way condition is not flagged
+ok8 &= not unconditional_recon(
+    "The two-branch form is proved under the triangle-genericity condition (G4) or, without (G4), "
+    "conditional on H-BG.")
 ok8 &= all(unconditional_recon(t) for t in INJECTED)
 check("F8", ok8,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "
@@ -299,8 +337,8 @@ check("F8", ok8,
       f"latter conditional on H-BG; the unsigned formal premise is refuted and "
       f"the complete sign-aware classification remains open; the [SM] Proposition 20 cross-reference "
       f"and the homometric rulers stand; the withdrawn theorem heading is absent, and "
-      f"{len(CORPUS)} corpus files carry no Hamiltonian-reconstruction statement without H-BG "
-      f"within 250 characters (unconditional hits: {recon_hits or 'none'}; all "
+      f"{len(CORPUS)} corpus files carry no Hamiltonian-reconstruction statement without H-BG or (G4) "
+      f"in the same sentence (unconditional hits: {recon_hits or 'none'}; all "
       f"{len(INJECTED)} injected unconditional phrasings caught)")
 
 # ---------------------------------------------------------------- F9  antiunitary invariance
@@ -10079,10 +10117,10 @@ print('     [scope] Settled in Lean: the return-probability expansion, positivit
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
 print('     real time), the |U_ij|^2 expansion over the same frequencies, and both invisible')
 print('     impostors -- the energy origin and the antiunitary reflection -- as exact identities.')
-print('     Full two-branch reconstruction is conditional on the open sign-aware H-BG')
-print('     classification. The unsigned BGIntegerClassification is refuted; its conditional')
-print('     consumers do not establish the physical conclusion. Independent subresults remain')
-print('     valid. Justifying the complete replacement is required before unconditional closure.')
+print('     Full two-branch reconstruction is kernel-proved under the posited triangle-genericity')
+print('     condition (G4) (OIBridge/PairIdentification.lean); without (G4) it is conditional on the')
+print('     open sign-aware H-BG classification. The unsigned BGIntegerClassification is refuted; its')
+print('     conditional consumers do not establish the physical conclusion.')
 print()
 print("bohr_frequency_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

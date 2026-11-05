@@ -1617,10 +1617,11 @@ choice but the very definition of embedded observation: an observer with
 access to all of \(S\) would have nothing external to observe.
 
 \textbf{Lemma 3 (Determinism and selected measure).} \emph{\(\varphi\)
-is a bijection on \(S\). On each accessible orbit the invariant measure
-is unique and uniform; globally the counting measure is selected among
-the invariant measures as the one of maximal entropy, becoming the
-Liouville measure on \(\Gamma\) in the continuum limit:}
+is a bijection on \(S\). On each finite cycle of the reversible
+representative, the invariant probability measure is unique and uniform;
+globally the counting measure is selected among the invariant measures
+as the one of maximal entropy, becoming the Liouville measure on
+\(\Gamma\) in the continuum limit:}
 \[\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho.\]
 
 The observer uses standard Kolmogorov probability. The bijection
@@ -1752,8 +1753,8 @@ law.
 The structural source of the asymmetry, for our cosmological situation
 specifically, is that the cosmological horizon is one physical structure
 that sets \emph{both} C2 and C3 simultaneously. The horizon's area sets
-the hidden sector's capacity through the Bekenstein bound:
-\(N_H \sim A/\epsilon^2 \sim 10^{122}\) at one nat per mode. The
+the capacity of the hidden sector at the horizon through the Bekenstein
+bound: \(N_H \sim A/\epsilon^2 \sim 10^{122}\) at one nat per mode. The
 horizon's surface gravity sets the correlation relaxation timescale:
 \(\tau_B \sim 1/\kappa \sim 1/H_0 \sim 10^{17}\) s. These two quantities
 --- area and surface gravity --- are related through horizon
@@ -1989,18 +1990,20 @@ distinguishability is therefore
 P-divisible process cannot produce this trajectory because \(d\) would
 be non-increasing throughout. The process is P-indivisible. \(\square\)
 
-The proof uses only Lemma 1 (finiteness, hence Step 1's recurrence) and
-condition C1 (non-trivial coupling, under the uniform hidden prior that
-defines \(T\), hence Step 2's overlap). It does not use C2, C3, or any
-further structural input. In continuous time, for a Hamiltonian flow on
-compact energy surfaces, the same argument needs the flow to return
-near-totally at a common time after the rooted maps have left the
-permutation class --- the counterpart of \(\varphi^N = \mathrm{id}\).
-Poincaré recurrence does not supply this for a general flow: it returns
-almost every state at its own time, and a mixing flow never again
-returns a whole visible cell at once at late times. The extension
-therefore holds for flows with such a common return and is open for
-general Hamiltonian flows ({[}Main §2.3{]}).
+The proof uses only finiteness of the total set --- Lemma 1 for the
+visible sector and the finiteness posit A1 (Chapter 2 §2.4) for the
+hidden sector, hence Step 1's recurrence --- and condition C1
+(non-trivial coupling, under the uniform hidden prior that defines
+\(T\), hence Step 2's overlap). It does not use C2, C3, or any further
+structural input. In continuous time, for a Hamiltonian flow on compact
+energy surfaces, the same argument needs the flow to return near-totally
+at a common time after the rooted maps have left the permutation class
+--- the counterpart of \(\varphi^N = \mathrm{id}\). Poincaré recurrence
+does not supply this for a general flow: it returns almost every state
+at its own time, and a mixing flow never again returns a whole visible
+cell at once at late times. The extension therefore holds for flows with
+such a common return and is open for general Hamiltonian flows ({[}Main
+§2.3{]}).
 
 \textbf{The accessible-timescale lemma.} A potential objection to the
 proof as stated is that the recurrence time \(N\) can be astronomically
@@ -2069,11 +2072,12 @@ than any conceivable single experiment --- the cumulative decay is
 retains essentially all of the information written into it over any
 observation window short of \(\tau_B\). Condition C3 then guarantees
 that this storage does not saturate: the maximum information the hidden
-sector can hold is \(\log_2 m\) bits, and at the cosmological scale that
-is of order \(10^{122}\) bits --- the horizon's entropy is
-\(S_{\text{dS}} \sim 10^{122}\), hence \(m \sim e^{S_{\text{dS}}}\)
-states. (The figure \(\log_2 10^{122} \approx 405\) counts the digits of
-the degree-of-freedom count, not the capacity; the two differ by the
+sector can hold is \(\log_2 m\) bits, and at the cosmological scale the
+horizon's degrees of freedom alone can hold of order \(10^{122}\) bits
+--- the horizon's entropy is \(S_{\text{dS}} \sim 10^{122}\), hence
+\(m \gtrsim e^{S_{\text{dS}}}\) states. (The figure
+\(\log_2 10^{122} \approx 405\) counts the digits of the
+degree-of-freedom count, not the capacity; the two differ by the
 exponentiation.) The margin over anything a laboratory experiment can
 write is correspondingly vast.
 
@@ -3302,11 +3306,12 @@ property is what the derivation of the wave equation in Stage 2 below
 uses.
 
 \emph{(A5) Linearity.} The wave equation governing \(\varphi\) is
-linear. This is a sharpened stipulation: it is equivalent to
-amplitude-scale gauge --- the unobservability of the absolute field
-scale --- which is an adjoined operational input rather than a theorem;
-nonlinear alternatives are excluded exactly to the extent that input is
-assumed, and would otherwise require a separate derivation.
+linear. This is a sharpened stipulation: amplitude-scale gauge --- the
+unobservability of the absolute field scale, an adjoined operational
+input rather than a theorem --- restricts the rule to an affine one, and
+linearity is the further restriction; non-affine alternatives are
+excluded exactly to the extent that input is assumed, and would
+otherwise require a separate derivation.
 
 \emph{(A6) Background independence.} The dynamics is covariant under
 spatially varying internal-index transformations: a site-dependent
@@ -3480,14 +3485,19 @@ physics --- quantum mechanics, Bell violations, finite boundary entropy,
 spatial isotropy, propagating gravity, stable matter, spatial flatness
 --- together with six structural assumptions and the nearest-neighbor
 restriction, the substratum is forced to be a specific kind of object
-with specific properties. The Standard Model gauge group is not chosen;
-it is derived. The three-generation structure is not posited; it is
-forced. The Bekenstein-Hawking \(1/4\) factor is not a postulate; it is
-fixed by the horizon calibration under the conditions Chapter 7 names.
-The cosmological constant problem is not resolved by tuning; the
-framework's structure makes \(\hbar\) and \(G\) commensurable through
-the boundary thermodynamics, and the apparent \(10^{122}\) discrepancy
-is the compression ratio Chapter 7 develops.
+with specific properties. Conditionally on H-link with its single-copy
+clause --- the open hypothesis that the physical carrier is one copy of
+the six-link representation (Chapter 5 §5.4) --- and, for the gauge
+group, on an octahedrally equivariant condensate (Chapter 5 §5.5), the
+Standard Model gauge group is not chosen; it is derived, and the
+three-sector structure is not posited; it is forced, its reading as
+three physical generations resting further on H-spin'. The
+Bekenstein-Hawking \(1/4\) factor is not a postulate; it is fixed by the
+horizon calibration under the conditions Chapter 7 names. The
+cosmological constant problem is not resolved by tuning; the framework's
+structure makes \(\hbar\) and \(G\) commensurable through the boundary
+thermodynamics, and the apparent \(10^{122}\) discrepancy is the
+compression ratio Chapter 7 develops.
 
 \textbf{Two scope remarks.} First, uniqueness is within the structural
 class A1--A6 with the nearest-neighbor restriction. The theorem does not
@@ -3730,9 +3740,9 @@ reconstruction has no observable content. With both in place, observed
 physics fixes that local residue under the theorem's stated conditions.
 H-Bell separately conditions Bell-inclusive existence, and
 Bell-inclusive uniqueness is not established. The next section turns to
-the synthesis: how quantum mechanics, general relativity, and the arrow
-of time relate to the substratum as three projections of the same
-construction.
+the synthesis: how quantum mechanics and general relativity relate to
+the substratum as projections of the same construction, and what a third
+projection establishes about the arrow of time.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3746,13 +3756,13 @@ relationship \((S, \varphi)\) bears to the framework's three large
 emergent structures: quantum mechanics, general relativity, and the
 arrow of time.
 
-The framework's claim is that quantum mechanics, general relativity, and
-the arrow of time are not three independent theories. Conditional on
-H-Bell at the Bell/local-lattice interface, they are three projections
-of the same finite deterministic construction. Each projection applies
-the same trace-out machinery to the same \((S, \varphi)\) along a
-different axis, and each produces a distinct emergent structure as the
-observer sees the substratum from inside.
+The framework's claim is that quantum mechanics and general relativity
+are not two independent theories. Conditional on H-Bell at the
+Bell/local-lattice interface, they are projections of the same finite
+deterministic construction, and a third projection bears on the arrow of
+time. Each projection applies the same trace-out machinery to the same
+\((S, \varphi)\) along a different axis, and each produces a distinct
+emergent structure as the observer sees the substratum from inside.
 
 \textbf{The visible-sector projection: quantum mechanics.} Chapter 1
 developed this projection in detail. At finite observable horizon the
@@ -3824,60 +3834,75 @@ each of these.
 projection applies the trace-out machinery to the horizon-growth
 parameter along an observer worldline. The substratum is time-symmetric:
 \(\varphi\) and \(\varphi^{-1}\) are equally valid as forward-time maps,
-and there is no preferred direction at the substratum level. Observers,
-however, are not symmetric under this exchange. Condition C2 ---
-persistence, in its slow-bath realization --- picks out one direction
-along the observer's worldline as the direction in which the hidden
-sector's correlations with the visible sector's past are preserved. The
-structural observer-selection theorem developed in Chapter 1's appendix
-material --- under the effective-mixing hypothesis, for sufficiently
-fast-mixing equilibria (\(\tau_{\rm mix} \ll \tau_S\)), and in the
-coarse-grained description generated by iterating the one-step effective
-channel ({[}Main §4.6{]}) --- restricts observers satisfying C1--C4,
-with C2 read in its timescale form (record persistence and readback
-there being suppressed, not excluded), to the non-equilibrium phase of
-\((S, \varphi)\); in the \(\Lambda\)-dominated cosmological phase, this
-phase is the one in which the horizon entropy
-\(S_{\text{dS}}(t) = A(t)/(4\ell_P^2)\) is monotonically increasing.
+and there is no preferred direction at the substratum level. Condition
+C2 --- persistence, in its slow-bath realization --- is a retention
+condition: it requires the hidden sector's correlations with the visible
+sector's past to persist to readback, and the coarse-grained mixing time
+it constrains is the same in the two directions; the direction in which
+records are written and read is fixed by a preparation and the
+observer's orientation convention. The structural observer-selection
+theorem developed in Chapter 1's appendix material --- under the
+effective-mixing hypothesis, for sufficiently fast-mixing equilibria
+(\(\tau_{\rm mix} \ll \tau_S\)), and in the coarse-grained description
+generated by iterating the one-step effective channel ({[}Main §4.6{]})
+--- restricts observers satisfying C1--C4, with C2 read in its timescale
+form (record persistence and readback there being suppressed, not
+excluded), to the non-equilibrium phase of \((S, \varphi)\); the
+restriction is time-symmetric and selects where observers can exist, not
+a direction. On an expanding cosmological background satisfying the null
+energy condition --- inputs, not derived --- the area \(A(t)\) of the
+apparent horizon, and the horizon entropy
+\(S_{\text{dS}}(t) = A(t)/(4\ell_P^2)\) assigned to it at the de Sitter
+calibration, is non-decreasing, strictly increasing while
+\(\rho + p/c^2 > 0\) and constant in exact de Sitter. That the selected
+non-equilibrium phase is ordered by this growth is not established.
 
-The cosmological horizon entropy provides a structural clock. Every
-observer in the accelerating phase agrees that \(S_{\text{dS}}\)
-increases --- the monotonicity is a feature of the causal partition
-rather than of any local frame --- and other arrows of time align with
-this structural clock through a cascade. The thermodynamic arrow
-descends from Jacobson's coupling between boundary entropy and matter
-entropy. The memory arrow descends from C2 --- persistence, realized by
-the slow bath --- which preserves correlations forward along the clock
-rather than backward. The measurement arrow --- the observer records
-past outcomes and prepares future states --- descends from the memory
-arrow. The chain grounds in one structural fact (horizon growth in the
-accelerating phase) and one structural constraint (C1--C4 observer
-selection, conditional on the effective-mixing hypothesis of {[}Main
-§4.6{]} and stated for the coarse-grained description generated by
-iterating the one-step effective channel). No independent
+The apparent-horizon area provides a structural clock on that
+background. Every comoving observer of an expanding homogeneous
+general-relativistic background satisfying the null energy condition
+agrees that it does not decrease --- standard background kinematics, not
+a prediction derived from the substratum --- and the criterion is
+expansion with the null energy condition, not acceleration: in exact de
+Sitter the area is constant. Whether the other arrows of time align with
+this clock is not established. Jacobson's coupling relates the boundary
+energy density to the expansion rate, not matter entropy to horizon
+area, so the direction of the thermodynamic arrow rests on a low-entropy
+or product boundary condition, and the generalized second law is open.
+C2 --- persistence, realized by the slow bath --- holds the same way in
+both directions; the direction of the memory arrow comes from a
+preparation and the observer's orientation convention. The measurement
+arrow --- the observer records past outcomes and prepares future states
+--- inherits the memory arrow's direction. The chain uses one input
+(horizon growth on the expanding branch) and one structural constraint
+(C1--C4 observer selection, conditional on the effective-mixing
+hypothesis of {[}Main §4.6{]} and stated for the coarse-grained
+description generated by iterating the one-step effective channel),
+which fixes where observers can exist, not a direction. No independent
 past-hypothesis axiom is required to select where observers exist, and
 Boltzmann brains are excluded structurally rather than anthropically.
 
-The framework's content here is precise: it derives a monotonic
-parameter along observer worldlines and four aligned arrows of time.
-What it does not derive is the convention of which direction along the
+The framework's content here is precise: on the expanding branch it
+establishes a non-decreasing horizon parameter along observer
+worldlines, and it does not establish that the four arrows of time
+align. Nor does it derive the convention of which direction along the
 horizon-clock parameter to call ``future.'' The two directions are
 related by the layer swap at the substrate level
 (\(\varphi \leftrightarrow \varphi^{-1}\)), and the observer's choice of
-convention is residual freedom. The framework derives the existence of a
-monotonic parameter; the labeling is an observer-imposed convention.
-There is one further qualification worth stating: a monotonic parameter
-is monotonic with respect to an \emph{ordering} of the worldline's
-moments, and the framework's foundational treatment axiomatizes that
-there is more than one moment while leaving the ordering of moments as a
-separate, open question. The derivation here is therefore conditional on
-that ordering --- it establishes that ordered moments yield a directed
-parameter, not that directedness arises from the substratum with no
-assumption about ordering at all. CP violation in CKM and kaon/B systems
-is a flavor-basis feature of the specific bijection \(\varphi\) rather
-than a consequence of the time-arrow cascade --- the framework treats
-flavor-sector CP phases as solution-specific inputs that do not affect
-the cascade's structural content.
+convention is residual freedom. The parameter is conditional on the
+expanding branch; the labeling is an observer-imposed convention. There
+is one further qualification worth stating: a monotonic parameter is
+monotonic with respect to an \emph{ordering} of the worldline's moments,
+and the framework's foundational treatment axiomatizes that there is
+more than one moment while leaving the ordering of moments as a
+separate, open question. The result here is therefore conditional on
+that ordering as well --- it establishes that ordered moments on the
+expanding branch yield a non-decreasing parameter, not that directedness
+arises from the substratum with no assumption about ordering at all. CP
+violation in CKM and kaon/B systems is a flavor-basis feature of the
+specific bijection \(\varphi\) rather than a consequence of the
+time-arrow cascade --- the framework treats flavor-sector CP phases as
+solution-specific inputs that do not affect the cascade's structural
+content.
 
 \textbf{The common structure.} The three projections share three
 features. Under H-Bell they apply to the same total substratum
@@ -3896,8 +3921,9 @@ reduced finite law --- universally admitting the quantum representation
 boundary-thermodynamic projection works on the classical thermal data at
 the partition boundary and produces general relativity with its
 gravitational and cosmological predictions. The horizon-clock projection
-works on the horizon-growth parameter along observer worldlines and
-produces the cascade of emergent arrows.
+works on the horizon-growth parameter along observer worldlines together
+with the observer-selection rule; the alignment of the arrows with that
+parameter is open.
 
 The shared structure is not metaphor or analogy. The same local lattice
 sector that gives the Standard Model gauge group from the commutant of
@@ -4024,9 +4050,10 @@ they are co-derived consequences of a single construction.
 
 The reconstruction theorem and the substratum gauge group establish the
 substratum side of the framework. The three projections establish its
-relationship to the framework's three large emergent structures. With
-both in place, the technical core of Part I is complete; the chapters
-that follow develop its consequences in three directions.
+relationship to quantum mechanics and general relativity, and what it
+establishes about the arrow of time. With both in place, the technical
+core of Part I is complete; the chapters that follow develop its
+consequences in three directions.
 
 Chapter 3 develops the framework's philosophical positioning. The
 substratum's ontological status --- what it means to commit to the
@@ -4196,7 +4223,7 @@ start from analogous commitments. The framework's distinguishing feature
 at Level A is not the commitment itself but what is derived from it: a
 finite deterministic substratum without extra dimensions, without
 intrinsic stochasticity, and without additional postulates beyond those
-identified in Chapter 1's structural lemmas.
+identified in Chapter 1's structural lemmas and posit A1 of Chapter 2.
 
 \textbf{Level B: observer admission.} Not every conceivable substratum
 admits embedded observation. Chapter 1 identified four conditions --- C1
@@ -4433,11 +4460,13 @@ requires exponentially in \(\tau_S/\tau_B\) at every order \(k \geq 2\)
 ({[}Main §2.3{]}). Boltzmann brains are not generic outcomes of
 long-time evolution that just happen to be rare; they are structurally
 excluded from the observer-admitting subset by C2 in that timescale
-form. The framework's account of the arrow of time, developed in Chapter
-2 §2.6, follows from this exclusion: observers are restricted to the
-non-equilibrium phase of the substratum's dynamics, and the structural
-arrow of horizon growth provides the clock the observer's other arrows
-align with.
+form. The framework's treatment of the arrow of time, developed in
+Chapter 2 §2.6, starts from this exclusion: observers are restricted to
+the non-equilibrium phase of the substratum's dynamics. The exclusion is
+time-symmetric; on an expanding homogeneous general-relativistic
+background satisfying the null energy condition, the apparent-horizon
+area supplies a non-decreasing clock, and whether the observer's other
+arrows align with it is not established.
 
 The string-theory landscape problem looks different under the Level B
 reading as well. The conventional landscape picture posits roughly
@@ -4524,14 +4553,17 @@ A subtlety in Level G2 deserves explicit treatment. The
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) --- that
 this specific gauge group is forced rather than chosen from alternatives
 --- depends on the structural inputs A3--A6 and the nearest-neighbor
-restriction plus the empirical input E4 (spatial isotropy). Other
-universality classes that produce the Standard Model at low energies,
-including any successful string-theoretic compactification, would reach
-the same gauge group through different machinery. Level G2 is therefore
-not specific to OI's substratum; it is shared with any framework that
-produces the Standard Model. What is specific to OI is \emph{how} the
-gauge group is derived (cubic-group commutant) rather than the gauge
-group itself.
+restriction plus the empirical input E4 (spatial isotropy), and on
+H-link with its single-copy clause, the open hypothesis that the
+physical carrier is one copy of the six-link representation (Chapter 5
+§5.4), together with an octahedrally equivariant condensate (Chapter 5
+§5.5). Other universality classes that produce the Standard Model at low
+energies, including any successful string-theoretic compactification,
+would reach the same gauge group through different machinery. Level G2
+is therefore not specific to OI's substratum; it is shared with any
+framework that produces the Standard Model. What is specific to OI is
+\emph{how} the gauge group is derived (cubic-group commutant) rather
+than the gauge group itself.
 
 \textbf{Level G3: substratum observational equivalences.} Theorem 24 of
 {[}Substratum{]} exhibits exact invariances for specified visible
@@ -4660,9 +4692,10 @@ content of three generations (physical reading conditional on H-spin',
 SM §4.7; chirality on H-χ', SM §4.8) plus one Higgs doublet, the
 anomaly-free hypercharge assignment on the nonzero-\(Y_Q\) branch. This
 level's realism is forced uniquely within OI by the cubic-group
-commutant structure but is shared with any successful SM-reproducing
-universality class. The realism is about the emergent quantum field
-theory rather than about any specific substratum.
+commutant structure, conditionally on H-link and an octahedrally
+equivariant condensate (Chapter 5 §5.4--§5.5), but is shared with any
+successful SM-reproducing universality class. The realism is about the
+emergent quantum field theory rather than about any specific substratum.
 
 At Level G1 × Level D --- the narrowest intersection --- what is real is
 the emergent Hamiltonian's transition-probability content modulo the
@@ -4700,12 +4733,13 @@ observation seriously.
 Level G2 × Level D predictions --- the Standard Model gauge group, the
 three-generation structure, the anomaly-free hypercharges on the
 nonzero-\(Y_Q\) branch, the composite Higgs --- are forced uniquely
-within OI by the cubic-group commutant structure but are shared with any
-framework that reproduces the Standard Model from observer-admitting
-substrata. Falsifying them would refute the entire class of
-SM-reproducing universality classes, not just OI specifically. They are
-central to the framework's content but do not distinguish OI from
-successful alternative frameworks.
+within OI by the cubic-group commutant structure, conditionally on
+H-link and an octahedrally equivariant condensate (Chapter 5
+§5.4--§5.5), but are shared with any framework that reproduces the
+Standard Model from observer-admitting substrata. Falsifying them would
+refute the entire class of SM-reproducing universality classes, not just
+OI specifically. They are central to the framework's content but do not
+distinguish OI from successful alternative frameworks.
 
 Level G3 × Level D predictions are where OI's distinctive empirical
 content lives. The Cabibbo angle as \(1/(\pi\sqrt{2})\) from a
@@ -5088,9 +5122,11 @@ records rather than derives (SM §3.1). Lorentz invariance is therefore
 wholly emergent, and the framework's obligations are quantitative: no
 linear violation (established at tree level), rotational protection by
 octahedral symmetry to all orders conditional on the emergent theory
-preserving that symmetry at loop level, boost-sector violation
-controlled, conditional on the symmetric-point matching under H-blind
-(SM §4.4), by a decoupling law in the cross-charged mass \(M_X\) whose
+preserving that symmetry at loop level and on the condensate being
+aligned to the cubic axes (H-link with an octahedrally equivariant
+condensate; Chapter 19 §19.3.7), boost-sector violation controlled,
+conditional on the symmetric-point matching under H-blind (SM §4.4), by
+a decoupling law in the cross-charged mass \(M_X\) whose
 quadratic-with-logarithm form was reported by a one-loop calculation
 that is not independently verified, its two-sided window illustrative
 until it is. These are not side technicalities; they are the price of
@@ -5226,15 +5262,15 @@ incommensurable attributes, with the apparent multiplicity being a
 feature of how the substance is expressed rather than of the substance
 itself --- maps directly onto the framework's three-projection
 structure. The substratum \((S, \varphi)\) is the single substance;
-quantum mechanics, general relativity, and the arrow of time are
-projections expressing the substratum's content under different aspects;
-the appearance of three distinct emergent theories is a feature of the
-projections rather than of the substratum. The framework's commitment to
-ontic structural realism on the \textbf{reconstructed local residue
-modulo} \(\mathcal{G}_{\text{sub}}\) is Spinozistic in form: what is
-real is the gauge-invariant local structure, not any specific
-representative; the Bell-inclusive completion is not uniquely
-reconstructed.
+quantum mechanics and general relativity are projections expressing the
+substratum's content under different aspects, with a third bearing on
+the arrow of time; the appearance of three distinct emergent theories is
+a feature of the projections rather than of the substratum. The
+framework's commitment to ontic structural realism on the
+\textbf{reconstructed local residue modulo} \(\mathcal{G}_{\text{sub}}\)
+is Spinozistic in form: what is real is the gauge-invariant local
+structure, not any specific representative; the Bell-inclusive
+completion is not uniquely reconstructed.
 
 The parallel is not complete. Spinoza's substance is unique (there is
 exactly one substance, by argument); the framework's substratum is a
@@ -5667,9 +5703,10 @@ measurement problem beyond the algorithmic-reading developed in Chapter
 1. The framework does not commit to specific values of free parameters
 in the emergent quantum field theory beyond what the reconstruction
 theorem forces. The framework does not commit to a specific cosmological
-history beyond the structural arrow of horizon growth in the
-\(\Lambda\)-dominated phase. These non-commitments are part of the
-foundational economy: each additional commitment would expand the
+history beyond an expanding homogeneous general-relativistic background,
+taken as given, on which, with the null energy condition, the
+apparent-horizon area does not decrease. These non-commitments are part
+of the foundational economy: each additional commitment would expand the
 framework's claims, and the discipline is to make only those commitments
 that the foundational premise plus its derivations require.
 
@@ -5886,9 +5923,10 @@ case for the framework's quantitative predictions in Chapter 5.
 
 The framework's general rule is \emph{group structural, couplings
 emergent}. The gauge group is determined at the substratum level by the
-cubic-group commutant; the gauge couplings at the \(Z\) pole are
-determined at the emergent level by RG running from the
-lattice-determined Planck-scale coupling.
+cubic-group commutant, conditionally on H-link and an octahedrally
+equivariant condensate (Chapter 5 §5.4--§5.5); the gauge couplings at
+the \(Z\) pole are determined at the emergent level by RG running from
+the lattice-determined Planck-scale coupling.
 
 \textbf{Why the classification matters.} A framework that classified all
 its predictions as S-class would either overstate its empirical record
@@ -6201,17 +6239,20 @@ corrections in the interacting theory is a separate, open question ---
 the Lorentz fine-tuning problem common to discrete-substrate approaches
 --- discussed in the Standard Model paper. The tree-level prediction and
 its falsifiers stand regardless; what is open is the loop-level
-protection --- and notably cubic symmetry alone does not supply it (it
-permits power-divergent operator mixing), so the relevant question is
-whether the framework's coarse-graining map acts as a sufficient
-ultraviolet smearing, the mechanism under which rotational-symmetry
-restoration is known to hold at all orders. The protection mechanism
-available here (the framework not being supersymmetric) is
-renormalization-group emergence --- Lorentz-violating couplings flowing
-to an infrared-attractive Lorentz-invariant fixed point
-(Chadha--Nielsen; Bednik--Pujolàs--Sibiryakov), natural because the
-trace-out is a coarse-graining --- with the documented caveat that the
-inter-species velocity flow is slow. The causal-set discreteness results
+protection --- and for the rotational sector it turns on whether the
+emergent theory preserves the octahedral symmetry exactly at loop level,
+with an aligned condensate (Chapter 19 §19.3.7): octahedral-invariant
+dynamics cannot generate the leading rotational anisotropy at any order,
+and the power-divergent operator mixing that cubic symmetry permits is
+mixing among angular-momentum-covariant operators rather than the
+generation of a lower-dimension rotational-violating operator (see the
+Standard Model paper). The protection mechanism available here (the
+framework not being supersymmetric) is renormalization-group emergence
+--- Lorentz-violating couplings flowing to an infrared-attractive
+Lorentz-invariant fixed point (Chadha--Nielsen;
+Bednik--Pujolàs--Sibiryakov), natural because the trace-out is a
+coarse-graining --- with the documented caveat that the inter-species
+velocity flow is slow. The causal-set discreteness results
 (Bombelli--Henson--Sorkin) independently confirm that a finite-valency,
 locally-coupled discrete structure cannot be microscopically
 Lorentz-invariant, so the invariance here is necessarily emergent rather
@@ -6388,10 +6429,12 @@ of pre-registering falsification conditions requires equal honesty about
 what is and is not within the framework's predictive scope.
 
 \textbf{Solution-specific properties.} The framework derives the
-structural form of physics --- the gauge group, the matter content, the
-generation count, the parameter-free retrodictions, the thermodynamic
-content of the gravitational sector. It does not derive every contingent
-feature of the observed universe. Some features are solution-specific:
+structural form of physics --- the gauge group, the matter content and
+the generation count (conditionally on H-link, and for the gauge group
+and matter content on an octahedrally equivariant condensate; Chapter 5
+§5.4--§5.5), the parameter-free retrodictions, the thermodynamic content
+of the gravitational sector. It does not derive every contingent feature
+of the observed universe. Some features are solution-specific:
 properties of the particular bijection \(\varphi\) within the
 framework's equivalence class that describes our universe, as distinct
 from properties of the equivalence class itself. The framework's
@@ -7718,8 +7761,12 @@ taste-blind \(\mathrm{SU}(3)\) vector-like and the chirality of
 forced the observed hypercharges, apart from the exceptional branch
 \(Y_Q=0\). The gauge sector of the Standard Model is forced --- uniquely
 --- by the structural inputs of Part I and the cubic-lattice
-realization, with two qualifiers: the reduction of the natural commutant
-to \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) is
+realization, with three qualifiers: the gauge carrier rests on H-link
+with its single-copy clause --- the open hypothesis that the physical
+carrier is one copy of the six-link representation (Chapter 5 §5.4) ---
+together with an octahedrally equivariant condensate (Chapter 5 §5.5),
+the reduction of the natural commutant to
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) is
 conditional on amplitude-scale gauge invariance, an explicit adjoined
 principle (Chapter 5 §5.2), together with a specified charged matter
 action, and the chirality of the weak sector is conditional on the
@@ -8210,12 +8257,14 @@ underlies the Standard Model gauge group. The prediction has three
 layers.
 
 At the group-theoretic level, the Standard Model gauge group
-\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) emerges
-directly from the cubic decomposition of the six nearest-neighbor link
-directions --- a single-step decomposition with three eigenspaces of the
-condensate \(\Sigma\) and three commutant factors. There is no
-intermediate large gauge group at any scale: no \(\mathrm{SU}(5)\), no
-\(\mathrm{SO}(10)\), no \(\mathrm{E}_6\), no Pati-Salam
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) emerges,
+conditionally on H-link and an octahedrally equivariant condensate
+(Chapter 5 §5.4--§5.5), directly from the cubic decomposition of the six
+nearest-neighbor link directions --- a single-step decomposition with
+three eigenspaces of the condensate \(\Sigma\) and three commutant
+factors. There is no intermediate large gauge group at any scale: no
+\(\mathrm{SU}(5)\), no \(\mathrm{SO}(10)\), no \(\mathrm{E}_6\), no
+Pati-Salam
 \(\mathrm{SU}(4) \times \mathrm{SU}(2)_L \times \mathrm{SU}(2)_R\). The
 framework has no GUT stage, structurally. This contrasts with all
 standard string-phenomenology routes to the Standard Model, each of
@@ -9656,20 +9705,22 @@ boundary, derived from the Einstein equations and the discreteness scale
 of the partition.
 
 \textbf{An independent route to the same conclusion.} The necessity of
-Einstein's equations for the framework's emergent matter is also
-established by an external theorem with an entirely different axiom
-base. The gravitational closure program of Düll, Schuller,
-Stritzelberger and Wolz (Phys. Rev.~D 97, 084036) shows that for matter
-field equations whose causal structure is that of standard-model fields
-on a single Lorentzian light cone --- exactly the class the framework's
-emergent sector occupies, its single-cone structure supported by the
-rotational-protection results of the companion papers and by the
-symmetric-point universality of the block cones under H-blind ({[}SM
-§4.4{]}) --- the requirement that matter and geometry evolve together
-consistently, independently of how spacetime is sliced, forces the
-gravitational action to be Einstein--Hilbert with a cosmological
-constant. No thermodynamics enters that argument at all. The
-thermodynamic derivation of this chapter and the closure theorem
+Einstein's equations for the framework's emergent matter also follows,
+given the single-cone structure qualified below, from an external
+theorem with an entirely different axiom base. The gravitational closure
+program of Düll, Schuller, Stritzelberger and Wolz (Phys. Rev.~D 97,
+084036) shows that for matter field equations whose causal structure is
+that of standard-model fields on a single Lorentzian light cone --- the
+class the framework's emergent sector occupies if its single-cone
+structure holds, that structure being supported by the
+rotational-protection results of the companion papers, conditional on
+loop-level octahedral invariance and an aligned condensate (Chapter 19
+§19.3.7), and by the symmetric-point universality of the block cones
+under H-blind ({[}SM §4.4{]}) --- the requirement that matter and
+geometry evolve together consistently, independently of how spacetime is
+sliced, forces the gravitational action to be Einstein--Hilbert with a
+cosmological constant. No thermodynamics enters that argument at all.
+The thermodynamic derivation of this chapter and the closure theorem
 therefore arrive at the same dynamics from disjoint starting points;
 where the closure route leaves Newton's constant and the cosmological
 constant undetermined, the framework's relation ℏ = c³ε²/(4Gσ) and the
@@ -12842,12 +12893,15 @@ develops, but they do \emph{not} require the specific bijection.
 
 The framework's Tier 2 content includes the Standard Model gauge group
 emerging from cubic decomposition, the three-generation structure from
-\(T_1\) multiplicity, the absence of grand unification, the MOND
-acceleration scale \(a_0 = cH/6\), the baryonic Tully-Fisher relation,
-and the high-redshift evolution of the dark-matter crossover radius
-\(r_M(z) \propto 1/\sqrt{H(z)}\). Each of these holds for any substratum
-with the cubic-lattice properties and the structural conditions C1--C4,
-regardless of how the specific bijection breaks the cubic symmetry.
+\(T_1\) multiplicity, the absence of grand unification (these three on
+the single-copy H-link branch, the gauge group and the absence of grand
+unification also with an octahedrally equivariant condensate; Chapter 5
+§5.4--§5.5, Chapter 6 §6.4), the MOND acceleration scale \(a_0 = cH/6\),
+the baryonic Tully-Fisher relation, and the high-redshift evolution of
+the dark-matter crossover radius \(r_M(z) \propto 1/\sqrt{H(z)}\). Each
+of these holds for any substratum with the cubic-lattice properties and
+the structural conditions C1--C4, regardless of how the specific
+bijection breaks the cubic symmetry.
 
 The empirical record at Tier 2 summarizes as follows.
 
@@ -18481,28 +18535,31 @@ provides a sharp falsification target --- but the structural content is
 substantial.
 
 One refinement sharpens the exposure from principally negative to
-positively dated. A finite substratum bounds the classical resources of
-any causal patch --- about \(10^{145}\) elementary operations for a
-day-long computation --- and a quantum computation whose statistics
-would cost more than the budget to produce classically cannot have them
-produced at all. The consequence is a ceiling near five to six hundred
-full-fidelity logical qubits, binding only on tasks that are genuinely
-exponentially hard to simulate: factoring at practical key sizes fits
-comfortably inside the budget and survives (the crossover sits near
-86-kilobit keys), while full-fidelity random-circuit sampling beyond the
-ceiling does not. The signature would be unlike any ordinary noise:
-fidelity tracking what the circuit \emph{means} --- its classical
+positively dated. The holographic bound constrains the observed causal
+patch; if it also limits all of the substratum's computationally
+relevant classical resources --- the patch-budget hypothesis, posited
+rather than derived --- the budget is about \(10^{145}\) elementary
+operations for a day-long computation, and a quantum computation whose
+statistics would cost more than the budget to produce classically cannot
+have them produced at all. The consequence is a ceiling near five to six
+hundred full-fidelity logical qubits, binding only on tasks that are
+genuinely exponentially hard to simulate: factoring at practical key
+sizes fits comfortably inside the budget and survives (the crossover
+sits near 86-kilobit keys), while full-fidelity random-circuit sampling
+beyond the ceiling does not. The signature would be unlike any ordinary
+noise: fidelity tracking what the circuit \emph{means} --- its classical
 simulation cost --- rather than how large it is, with Clifford-dominated
 circuits immune at any scale. Finding no such wall at a thousand
 high-fidelity logical qubits would falsify, first, the quantitative cost
-model (\(C_{\mathrm{cl}} \geq 2^{\alpha n}\)) and the
-complexity-resource bridge --- and only through them, if every repair
-fails, the classical substratum. The wall is a
+model (\(C_{\mathrm{cl}} \geq 2^{\alpha n}\)), the complexity-resource
+bridge and the patch-budget hypothesis --- and only through them, if
+every repair fails, the classical substratum. The wall is a
 complexity-assumption-dependent proposal: the framework's own theorems
 (the maximal-entropy measure, the gauge status of the microstate) close
 the planted-measure escape, while excluding efficient classical
 algorithms requires the separate complexity assumptions --- the ceiling
-is proposed on those assumptions, not entailed by Main.
+is proposed on the patch-budget hypothesis and those assumptions, not
+entailed by Main.
 
 The depth of computation is bounded too, and by the same construction.
 The residual dissipation --- the framework's irreducible \(10^{-64}\)
@@ -18519,8 +18576,9 @@ cap is a property of uncorrected hardware only. Together with the width
 ceiling, the rate and memory bounds derivable from the same primitives,
 and the exclusion of spacetime hypercomputation tricks, the framework
 proposes the four-axis program of physical computation --- some faces
-derived, the width face resting on the explicit complexity assumptions
-of §14.8, the rate and memory faces awaiting their stated derivations.
+derived, the width face resting on the patch-budget hypothesis and the
+explicit complexity assumptions of §14.8, the rate and memory faces
+awaiting their stated derivations.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -22616,16 +22674,18 @@ map, produces P-indivisibility at the embedded-observer level; a
 fixed-basis unitary quantum representation is internal and universal
 ({[}Main §3.4{]}), the compressed form supplied across the
 correspondence's class under (T), with P-indivisibility fixing its
-nontriviality. The framework's logic chain requires finite \(S\).
+nontriviality. The recurrence route in the framework's logic chain
+requires finite \(S\).
 
 \textbf{Finite information content.} The substratum's information
 content is \(\log_2 |S|\) bits --- finite for any finite \(S\). This is
 distinct from the Bekenstein-Hawking entropy
 \(S_{\text{BH}} = A/(4 l_p^2)\), which bounds the \emph{accessible}
-information at any given partition (the visible sector's capacity). The
-total information content of \(S\) --- including the hidden sector at
-the cosmological boundary --- exceeds the Bekenstein-Hawking bound but
-remains finite.
+information at any given partition (the capacity of the visible sector
+and the boundary layer). The total information content of \(S\) is at
+least that of the boundary layer at the cosmological horizon; whether it
+exceeds the Bekenstein-Hawking bound is not fixed by visible data, and
+under the finiteness posit A1 (Chapter 2 §2.4) it is finite.
 
 A clarification is essential. The cardinality \(|\mathcal{C}_D|\) of the
 deep hidden sector is \emph{gauge} in the framework: different values of
@@ -22680,8 +22740,7 @@ of finite sets typically lack the structure C1--C4 require.
 The substratum's cardinality is not fixed by visible data. {[}Substratum
 §4{]} bounds only the visible-plus-boundary sector,
 \(|\mathcal{C}_V \times \mathcal{C}_B| \le e^{10^{122}}\) at the de
-Sitter horizon; the deep sector's cardinality is gauge, and the total
-information of \(S\) exceeds the Bekenstein-Hawking bound (above). For
+Sitter horizon; the deep sector's cardinality is gauge (above). For
 illustration only, if \(|S|\) were of order \(e^{10^{122}}\), the first
 bound would give
 \(N \le \mathrm{lcm}(1, 2, \ldots, |S|) = e^{\psi(|S|)} \sim e^{e^{10^{122}}},\)
@@ -22749,14 +22808,15 @@ lengths. For a rule fixing the zero configuration on a nontrivial state
 space, no single cycle passes through every configuration. The exact
 linear rule of {[}SM §4.2{]} has this property and therefore at least
 two cycles. The cycle-ergodicity question that {[}SM §4.2{]} treats
-concerns sampling within an energy shell. Within a single cycle, the
-observer's experience is unidirectional (the arrow of time discussed in
-the next section), but at the substratum level the dynamics has no
-preferred direction. The framework's commitment to substratum cyclicity
-is one of the structural commitments that distinguishes it from
-frameworks treating the universe as either fundamentally non-cyclic
-(most cosmological models) or fundamentally infinite (most quantum
-gravity programs).
+concerns sampling within an energy shell. Within a single cycle no state
+function increases throughout; a direction of the observer's experience
+is fixed by boundary conditions on a stretch of the cycle (the arrow of
+time discussed in the next section), and at the substratum level the
+dynamics has no preferred direction. The framework's commitment to
+substratum cyclicity is one of the structural commitments that
+distinguishes it from frameworks treating the universe as either
+fundamentally non-cyclic (most cosmological models) or fundamentally
+infinite (most quantum gravity programs).
 
 \textbf{Implications for the framework's logical structure.} The
 recurrence theorem connects three structural features of the framework:
@@ -22783,11 +22843,12 @@ The framework's commitment to finite information is therefore
 load-bearing for the recurrence route specifically, not for
 representability or for accessible non-Markovianity: readback at order
 \(k\) has its own finite-horizon route, and the imported representation
-is gated by (T) rather than by recurrence, so an infinite deep hidden
-sector remains admissible ({[}Main §2.3{]}, §3.1). Removing finiteness
---- replacing \(|S| < \infty\) with \(|S| = \infty\) --- would break the
-logical chain and require a different account of how quantum mechanics
-emerges from substratum dynamics.
+is gated by (T) rather than by recurrence, so those routes do not
+exclude an infinite deep hidden sector, which would need its own
+normalized state or measure and well-defined dynamics ({[}Main §2.3{]},
+§3.1; Chapter 2 §2.3). Removing finiteness --- replacing
+\(|S| < \infty\) with \(|S| = \infty\) --- would remove the recurrence
+route rather than the framework's quantum representation.
 
 \hypertarget{the-arrow-of-time}{%
 \subsection{18.8 The arrow of time}\label{the-arrow-of-time}}
@@ -22812,12 +22873,14 @@ does the observed arrow come from?
 \textbf{The arrow as observer-emergent.} The framework's answer is that
 the arrow of time is \emph{emergent from the observer's coarse-grained
 description}, not from the substratum dynamics. The substratum dynamics
-is T-symmetric; the observer's reduced description is not. The asymmetry
-is introduced by the trace-out --- the marginalization over the hidden
-sector that produces the embedded observer's reduced description. The
-arrow of time is therefore a structural consequence of embedded
-observation, in the same way that quantum mechanics, the dark sector,
-and the Born rule are.
+is T-symmetric; the observer's reduced description of a non-equilibrium
+initial condition is not. The asymmetry enters through the trace-out of
+a non-equilibrium initial condition --- the marginalization over the
+hidden sector that produces the embedded observer's reduced description;
+under the invariant measure the trace-out alone produces none. The arrow
+of time is therefore a feature of embedded observation of such a
+condition, in the same way that quantum mechanics, the dark sector, and
+the Born rule are.
 
 The mechanism is the standard Boltzmann argument applied to the
 framework's partition. The visible sector starts in a particular
@@ -22843,12 +22906,15 @@ description is asymmetric in ways that the substratum dynamics is not.
 
 \textbf{Detailed balance and the thermodynamic arrow.} The framework's
 content on detailed balance from Chapter 6 §6.3 has a direct implication
-for the arrow of time. Detailed balance asserts that the transition
-probabilities \(T_{ij}\) between any two states satisfy
-\(T_{ij} = T_{ji}\) at all timescales --- the rate of transition from
+for the arrow of time. For a time reversal that preserves the partition,
+and the counting prior on hidden states, the visible transition
+probabilities satisfy reciprocity, \(T_{ij} = T_{\theta j, \theta i}\)
+at all timescales, with \(\theta\) the action of time reversal on
+visible states; when the visible states carry no T-odd data this is
+detailed balance, \(T_{ij} = T_{ji}\) --- the rate of transition from
 \(i\) to \(j\) equals the rate of transition from \(j\) to \(i\). This
-is a \emph{substratum-level} T-symmetry: the dynamics has no preferred
-direction.
+follows from \emph{substratum-level} T-symmetry: the dynamics has no
+preferred direction.
 
 The thermodynamic arrow of time emerges not from any asymmetry in the
 transition probabilities but from the partition's \emph{initial
@@ -22872,23 +22938,28 @@ level, because the H-theorem is about how the observer's information
 about the system evolves rather than about the system's underlying
 dynamics.
 
-\textbf{The cosmological arrow.} The thermodynamic arrow and the
+\textbf{The cosmological arrow.} Whether the thermodynamic arrow and the
 cosmological arrow --- the direction in which the universe expands ---
-are aligned in the framework. The cosmological partition has a specific
-initial condition: the universe begins in a low-entropy configuration
-with most degrees of freedom on the hidden side of the cosmological
-horizon. Time evolution corresponds to the horizon entropy increasing
-toward equilibrium, with the boundary modes accumulating correlations
-and the hidden sector approaching maximum disorder.
+are aligned is open in the framework: it is neither established nor
+refuted. The cosmological partition has a specific initial condition:
+the universe begins in a low-entropy configuration with most degrees of
+freedom on the hidden side of the cosmological horizon. On an expanding
+FRW background satisfying the null energy condition, the
+apparent-horizon area is non-decreasing. Its assigned entropy has that
+interpretation under the stated calibration assumptions; whether this
+behavior aligns with boundary correlations or hidden-sector disorder
+remains open.
 
-The alignment of the thermodynamic and cosmological arrows is structural
-rather than coincidental. Both arrows trace to the same initial
-conditions of the cosmological partition. The universe started with low
-entropy at the cosmological level; the framework's structural conditions
-C1--C4 hold at the cosmological boundary (Chapter 7 §7.2); the
-thermodynamic arrow within the visible sector tracks the cosmological
-arrow because the cosmological boundary is the primary partition for any
-embedded observer.
+Both arrows are traced to the same initial conditions of the
+cosmological partition. That is a common boundary condition, not a
+derived mechanism: that the thermodynamic arrow within the visible
+sector tracks the cosmological arrow is not established. The universe
+started with low entropy at the cosmological level, as an initial
+condition; at the cosmological boundary, coupling C1, persistence C2 and
+capacity C3 are verified, while history readback C4 is a named
+realization condition not presently discharged (Chapter 7 §7.2); the
+cosmological boundary is the primary partition for any embedded
+observer.
 
 \textbf{Why the framework reframes rather than explains.} The
 framework's content on the arrow of time is not an explanation of
@@ -23017,10 +23088,8 @@ identification at some cosmological scale.
 Second, the framework's finiteness \emph{does not require} compact
 spatial topology. The substratum's finiteness could also be realized as
 a cubic lattice with trivial \(\mathbb{R}^3\) topology but with a finite
-extent set by other structural features (the cosmological horizon's
-expanding past light cone, for instance, defines a finite region of
-substratum at any moment). Levin's compactness is sufficient but not
-necessary for the framework's finiteness.
+extent set by other structural features. Levin's compactness is
+sufficient but not necessary for the framework's finiteness.
 
 Third, the framework's predictions in Chapters 5 through 17 are
 \emph{independent} of global topology choices. Nothing in the
@@ -24594,11 +24663,12 @@ shows that an exactly \(O_h\)-invariant action, measure, and
 observer-centered partition yield an \(O_h\)-invariant effective theory
 to all orders, and every ingredient of the checkerboard trace-out is
 \(O_h\)-invariant --- no direction-dependent momentum shell is
-available. A numerical check on the rounded interacting dynamics
-(extraction validated against the analytic tree coefficients to the
-percent level; the allowed \(\ell=4\) anisotropy detected at high
-significance) finds the forbidden \(E_g\) coefficient zero within errors
-at the \(2\times10^{-5}\) level in the perturbative regime and
+available. A numerical check on the rounded interacting dynamics, whose
+code and numerical output are not available for verification (extraction
+reported validated against the analytic tree coefficients to the percent
+level; the allowed \(\ell=4\) anisotropy reported detected at high
+significance), reported the forbidden \(E_g\) coefficient zero within
+errors at the \(2\times10^{-5}\) level in the perturbative regime and
 consistent with zero in the thermalized strong-coupling state.
 Separately, the sector-differential boost violation's custodial
 decoupling law --- conditional on the symmetric-point matching under
@@ -24855,30 +24925,36 @@ axes; the invariance of the dynamics does not descend to the solution,
 since the gauge group arises precisely by that condensate breaking a
 symmetry the dynamics has. The alignment is not secured by the observed
 gauge group alone --- a condensate with the same block sizes but
-misaligned eigenspaces yields the same gauge group while moving the
-forbidden anisotropy from dimension six to dimension four --- but is
-secured by the same geometric identification of blocks with link
-directions that the matter-content and mixing-angle results use. An
-aligned condensate leaves the forbidden anisotropy exactly null at every
-block splitting, and a spatially modulated condensate does not lift it.
-See {[}SM §3.1{]}. This has an identifiable failure point: it assumes
-the visible/hidden partition acts as a state/sublattice trace that
-preserves the octahedral symmetry, rather than an effective
-short-wavelength (momentum-shell) cut that could both ultraviolet-damp
-and, if anisotropic, break it. The gaplessness of \(G_{oo}\) is evidence
-the partition is not a clean momentum shell; whether it is exactly
-octahedral-invariant at loop level is the seam at which the
-dimension-six protection could fail, and is the arbiter --- not the
-kernel width. This premise is grounded in the framework's own
-factorization criterion ({[}Main §3.4{]}): an observer-centered,
-horizon-isotropic partition is spherical and hence octahedrally
-symmetric about the observer's centre, so the lattice octahedral group
---- unlike translations, boosts (when the map determines the horizon
-foliation), and rotations about distant points, which the partition
-breaks --- preserves the visible/hidden factorization and descends to an
-exact symmetry of the effective theory. The same criterion that selects
-the gauge symmetries protects the rotational sector and exposes the
-boost sector, so the dimension-six rotational protection and the
+misaligned eigenspaces yields the same gauge group without being
+octahedrally equivariant, so the equivariance argument that forbids the
+anisotropy below dimension six does not cover it --- and it is not
+derived: it is the hypothesis that the matter-content and mixing-angle
+results also take, namely H-link with its single-copy clause, the open
+hypothesis that the physical carrier is one copy of the six-link
+representation (Chapter 5 §5.4), together with an octahedrally
+equivariant condensate, whose blocks are then the link-direction irreps
+(Chapter 5 §5.5). An aligned condensate leaves the forbidden anisotropy
+exactly null at every block splitting, and a staggered spatial
+modulation of the condensate does not lift it. See {[}SM §3.1{]}. This
+has an identifiable failure point: it assumes the visible/hidden
+partition acts as a state/sublattice trace that preserves the octahedral
+symmetry, rather than an effective short-wavelength (momentum-shell) cut
+that could both ultraviolet-damp and, if anisotropic, break it. The
+gaplessness of \(G_{oo}\) is evidence the partition is not a clean
+momentum shell; whether it is exactly octahedral-invariant at loop level
+is the seam at which the dimension-six protection could fail, and is the
+arbiter --- not the kernel width. This premise is grounded in the
+framework's own factorization criterion ({[}Main §3.1, §3.5{]}): an
+observer-centered, horizon-isotropic partition is spherical and hence
+octahedrally symmetric about the observer's centre, so the lattice
+octahedral group --- unlike translations, boosts (when the map
+determines the horizon foliation), and rotations about distant points,
+which the partition breaks --- preserves the visible/hidden
+factorization and descends to an exact symmetry of the effective theory.
+With the partition exactly octahedral-invariant and the condensate
+aligned (H-link with an equivariant condensate), the same criterion that
+selects the gauge symmetries protects the rotational sector and exposes
+the boost sector, so the dimension-six rotational protection and the
 dimension-four boost exposure are two faces of one structural fact
 rather than independent assumptions.
 
@@ -25392,10 +25468,13 @@ commitments themselves.
 from the substratum's structural properties through dimensional
 analysis, group theory, or other framework-level structural mechanisms.
 Examples: gauge group \(SU(3) \times SU(2) \times U(1)\) from substratum
-dimensionality (Chapter 5), generation count \(K = 2d = 6\) from matter
-content theorem (Chapter 6), Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\)
-from cubic-group symmetry. Layer 1 predictions are \emph{structural
-derivations} from foundational commitments.
+dimensionality (Chapter 5) and generation count from the matter content
+theorem (Chapter 6), both conditional on H-link with its single-copy
+clause, which supplies \(K = 2d = 6\) (Chapter 5 §5.4), the gauge group
+also on an octahedrally equivariant condensate (Chapter 5 §5.5), Cabibbo
+angle \(\lambda = 1/(\pi\sqrt{2})\) from cubic-group symmetry. Layer 1
+predictions are \emph{structural derivations} from foundational
+commitments.
 
 \textbf{Layer 2(a) --- Substratum-level mechanism-specific.} Predictions
 that require specific structural mechanism beyond Layer 1 generic
@@ -26022,9 +26101,12 @@ The \emph{rotational} Lorentz sector is deliberately \textbf{not} listed
 as a forward prediction. Unlike the boost sector (F13), the rotational
 \(E_g\) anisotropy is a custodial-\(\mathrm{U}(6)\) singlet with no
 power-law suppression ally, and its magnitude is undetermined ---
-bifurcating, on the uncomputed smearing-kernel width \(R/\varepsilon\),
-between a negligible dimension-\(\geq 6\) residual (\(\sim 10^{-32}\))
-and an unsuppressed dimension-\(\leq 4\) operator already constrained by
+turning on whether the emergent theory preserves the octahedral symmetry
+exactly at loop level, with an aligned condensate (Chapter 19 §19.3.7),
+between a negligible dimension-\(\geq 6\) residual (\(\sim 10^{-32}\)),
+whose coefficient the smearing-kernel width \(R/\varepsilon\) sets
+without changing its dimension, and, if that symmetry fails, an
+unsuppressed dimension-\(\leq 4\) operator already constrained by
 laboratory sidereal experiments. It is therefore the sharpest \emph{open
 question} in the framework's Lorentz sector, treated as such in SM §3.1
 (\emph{Scope of the emergent-Lorentz claim}, point (iii)), not a
@@ -26247,10 +26329,12 @@ internal and universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main
 partition-relativity, emergent stochasticity, P-indivisibility from a
 non-permutation witness, accessible-timescale conditional memory, and
 phase-locking, together with the results on which phase-locking rests:
-Bohr-frequency completeness, the real-to-integer transfer and the
-two-branch classification conditional on H-BG. This appendix collects
-these lemmas with their proofs in compact form, providing the reader a
-self-contained reference for the framework's logical structure.
+Bohr-frequency completeness and the identification of level pairs under
+the triangle-genericity condition, and, without that condition, the
+real-to-integer transfer and the two-branch classification conditional
+on H-BG. This appendix collects these lemmas with their proofs in
+compact form, providing the reader a self-contained reference for the
+framework's logical structure.
 
 The appendix's content is \emph{complete derivations}, not exposition.
 Each derivation gives the algebraic steps, the lemmas invoked, and the
@@ -26619,10 +26703,10 @@ generated by \(\hat{H}_{\text{eff}}\) to leading order provided both the
 slow-bath condition \(\tau_S\ll\tau_B\) and a weak-coupling condition
 (small conditioned-Hamiltonian spread) hold. The phase-locking lemma
 (Chapter 1 §1.6) then determines \(\hat{H}_{\text{eff}}\) from
-continuous-time transition data, under the classification hypothesis
-H-BG of Lemma B.7.5, up to the lemma's full gauge: an overall energy
-shift, the residual diagonal-unitary rephasing freedom that is
-physically trivial (basis convention), and the antiunitary conjugation
+continuous-time transition data, under the genericity hypotheses of
+Lemma B.7.5, up to the lemma's full gauge: an overall energy shift, the
+residual diagonal-unitary rephasing freedom that is physically trivial
+(basis convention), and the antiunitary conjugation
 \(\hat{H} \to -\hat{H}^*\) --- a genuine twofold ambiguity (Lemma
 B.7.5).
 
@@ -27628,14 +27712,17 @@ requires, is that the memory is \(\mathcal{O}(I_0)\) and observable
 throughout the regime \(k\tau_S \ll \tau_B\). \(\square\)
 
 \textbf{Lemma B.7.5 (Phase locking).} \emph{Assume dimension at least
-three, the global sign-aware classification H-BG of {[}GR §3.3{]}, and
-distinct gaps and non-vanishing overlaps for both Hamiltonians being
-compared. The emergent effective Hamiltonian \(\hat{H}_{\text{eff}}\) on
-the visible sector is then determined by the continuous-time transition
-data \(\{T_{ij}(t)\}\) up to the lemma's full gauge: an overall energy
-shift, the diagonal-unitary rephasing freedom, and the antiunitary
-conjugation \(\hat{H} \to -\hat{H}^*\) --- a genuine twofold ambiguity
-rather than a convention ({[}Main §3.1{]}).}
+three, distinct gaps and non-vanishing overlaps for both Hamiltonians
+being compared, and, for at least one of them, the triangle-genericity
+condition: every relation \(\omega_1 + \omega_2 = \omega_3\) among the
+gaps \(\omega_{kl} = E_k - E_l\) of three different pairs of levels is a
+triangle identity \(\omega_{kl} + \omega_{lm} = \omega_{km}\). The
+emergent effective Hamiltonian \(\hat{H}_{\text{eff}}\) on the visible
+sector is then determined by the continuous-time transition data
+\(\{T_{ij}(t)\}\) up to the lemma's full gauge: an overall energy shift,
+the diagonal-unitary rephasing freedom, and the antiunitary conjugation
+\(\hat{H} \to -\hat{H}^*\) --- a genuine twofold ambiguity rather than a
+convention ({[}Main §3.1{]}).}
 
 \emph{Proof.} The transition data \(\{T_{ij}(t)\}\) determines the
 Born-rule probabilities
@@ -27644,12 +27731,14 @@ squared-modulus structure leaves the phase undetermined; specifically,
 the transformation \(|i\rangle \to e^{i\theta_i}|i\rangle\) leaves all
 \(|U_{ij}|^2\) invariant. This is the basis-convention freedom --- the
 choice of phase for each basis state --- which is physically trivial.
-H-BG and the coefficient-labelled exceptional obstruction classify the
-possible mode correspondences (Theorem B.7.5c below; {[}GR §3.3{]});
-this step is not supplied by Fourier extraction alone. Conditional on
-H-BG, the remaining alternatives are this rephasing freedom, the energy
-shift and the antiunitary conjugation \(\hat{H} \to -\hat{H}^*\) stated
-above. \(\square\)
+The triangle-genericity condition identifies the pair of levels carrying
+each frequency, up to a relabelling and a global reflection of the
+levels ({[}Main §3.1{]}); this step is not supplied by Fourier
+extraction alone, since distinct gaps admit non-congruent spectra with
+equal gap sets (scope note to Theorem B.7.5c below). The remaining
+alternatives are this rephasing freedom, the energy shift and the
+antiunitary conjugation \(\hat{H} \to -\hat{H}^*\) stated above.
+\(\square\)
 
 \emph{Scope.} The lemma is stated in its simplest form,
 \(T_{ij}(t) = |U_{ij}(t)|^2\) --- the trivial-ancilla case of the
@@ -27666,7 +27755,8 @@ each fixed dimension --- together with the antiunitary conjugate
 data.
 
 \textbf{Bohr frequencies and the D-gauge classification.} The proof of
-Lemma B.7.5 rests on the results collected here, each stated with its
+Lemma B.7.5 rests on Theorem B.7.5a and, without the triangle-genericity
+condition, on the further results collected here, each stated with its
 hypotheses ({[}GR §3.3{]}). Throughout, \(U(t) = e^{-iHt}\) with \(H\)
 in frequency units and \(H = V\,\mathrm{diag}(E)\,V^\dagger\) on a
 finite configuration space, so that \(V_{ia}\) is the overlap of
@@ -27791,18 +27881,22 @@ establish reconstruction from the physical hypotheses. The example
 contradicts that formal premise, not the published classification.
 Bohr-frequency completeness, the real-to-integer transfer, congruent
 reconstruction and the positive six-mode obstruction are kernel-proved
-independently of it. The listed ambiguities are exactly invisible:
-\(H+E_0\) contributes only a global phase, while \(-\bar H\) conjugates
-the propagator entrywise. The gap condition is used where coefficient
-matching induces a bijection of ordered mode pairs: with degenerate gaps
-one frequency's coefficient is a sum over several mode pairs. The
-\(C_4\) ring of {[}SM{]} Proposition 20 has distinct eigenvalues,
-uniform overlaps and degenerate gaps; its conjugate \(\bar H\)
-reproduces every \(|U_{ij}(t)|^2\) and conjugates the loop product
-\(H_{01}H_{12}H_{23}H_{30}\), which no diagonal conjugation changes. The
-ring therefore does not exhibit a failure, without the gap condition, of
-the two-branch form conditional on H-BG: \(\bar H\) lies in the
-reflection branch, \(\bar H = -D_s\bar H D_s^\dagger\) with
+independently of it. The exclusion of the reversed orientation and the
+assembly of the two branches from H-BG are kernel-proved as well, so
+H-BG is the theorem's only unproved premise; under the
+triangle-genericity condition of Lemma B.7.5 the two branches follow
+without H-BG ({[}Main §3.1{]}). The listed ambiguities are exactly
+invisible: \(H+E_0\) contributes only a global phase, while \(-\bar H\)
+conjugates the propagator entrywise. The gap condition is used where
+coefficient matching induces a bijection of ordered mode pairs: with
+degenerate gaps one frequency's coefficient is a sum over several mode
+pairs. The \(C_4\) ring of {[}SM{]} Proposition 20 has distinct
+eigenvalues, uniform overlaps and degenerate gaps; its conjugate
+\(\bar H\) reproduces every \(|U_{ij}(t)|^2\) and conjugates the loop
+product \(H_{01}H_{12}H_{23}H_{30}\), which no diagonal conjugation
+changes. The ring therefore does not exhibit a failure, without the gap
+condition, of the two-branch form conditional on H-BG: \(\bar H\) lies
+in the reflection branch, \(\bar H = -D_s\bar H D_s^\dagger\) with
 \(D_s = \mathrm{diag}(1,-1,1,-1)\). The raw frequency set alone cannot
 distinguish the non-congruent homometric rulers; reconstruction uses
 coefficient-labelled frequency data.
@@ -28414,25 +28508,37 @@ proved for finite substrata; whether the theorem's empirical
 applicability requires actual finiteness of the universe is a separate
 question.
 
-\emph{In Chapter 7's gravitational content.} Finiteness is
-\emph{derived} from the cosmological horizon's finite area: the
-Bekenstein entropy bound limits the number of distinguishable states
-inside the cosmological horizon to \(S_{\text{dS}} \sim 10^{122}\). The
-discreteness scale \(\epsilon\) does not smuggle in a quantum assumption
---- it is motivated by the \emph{classical} fact that finite-area
-boundaries admit finitely many modes, with holographic entropy bounds
-providing independent, non-quantum motivation. The result
-\(\epsilon = 2\sqrt{\sigma}\, l_p\), with \(\sigma\) the entropy of one
-boundary mode, is a consequence of self-consistency at the cosmological
-horizon (Chapter 7 §7.4), not an input.
+\emph{In Chapter 7's gravitational content.} The cosmological horizon's
+finite area bounds what is observationally accessible: the Bekenstein
+entropy bound, read as a dimension cutoff (input E3 of Chapter 2 §2.4),
+limits the visible sector and the boundary layer at the cosmological
+horizon to at most \(e^{S_{\text{dS}}}\) effectively distinguishable
+states, with \(S_{\text{dS}} \sim 10^{122}\). This is an entropy-based
+bound that holds under the physical assumptions of E3, not a count of
+microscopic configurations. It does not establish finiteness of the
+total configuration space \(S\). That extension is posited (A1 of
+Chapter 2 §2.4), read as the choice of the minimal finite
+representative: the cardinality of an independently prepared,
+normalized, exactly decoupled finite deep-sector factor is not fixed by
+the data at the observation interface (Chapter 2 §2.3). The discreteness
+scale \(\epsilon\) does not smuggle in a quantum assumption --- it is
+motivated by the \emph{classical} fact that finite-area boundaries admit
+finitely many modes. The result \(\epsilon = 2\sqrt{\sigma}\, l_p\),
+with \(\sigma\) the entropy of one boundary mode, is a consequence of
+self-consistency at the cosmological horizon (Chapter 7 §7.4), not an
+input.
 
-A referee who rejects Axiom 2 for the universe is implicitly rejecting
-the Bekenstein bound, which is independently established in
-semiclassical gravity and string theory across multiple programs
+A referee who rejects Axiom 2 for the universe as a whole (in this
+section's usage, the finiteness of the total configuration space, A1 of
+Chapter 2 §2.4, not the second axiom of Chapter 1, recurrence) does not
+thereby reject the Bekenstein bound, which is independently established
+in semiclassical gravity and string theory across multiple programs
 (Hawking 1976, Bekenstein 1981, `t Hooft 1993, Susskind 1995, Bousso
-1999, and many subsequent developments). The framework's finiteness
-commitment is therefore aligned with mainstream physics' commitment to
-the Bekenstein bound rather than in tension with it.
+1999, and many subsequent developments): the bound constrains the
+observationally accessible sector and does not establish finiteness of
+the whole of \(S\), which is posited. The framework's finiteness
+commitment agrees with mainstream physics' commitment to the Bekenstein
+bound on the accessible sector, and extends beyond it by posit.
 
 \textbf{The ``finite degrees of freedom'' framing.} The standard
 intuition that ``the universe has infinitely many degrees of freedom''
@@ -28440,10 +28546,10 @@ comes from quantum field theory treated as a continuum theory --- a
 continuum spacetime with field values at every point producing an
 infinite-dimensional Hilbert space. But this is the \emph{emergent}
 description in the framework. At the substratum level, the framework
-predicts a discrete lattice at \(\epsilon = 2\sqrt{\sigma}\, l_p\) with
-finite total boundary cell count
-\(A/\epsilon^2 = S_{\text{dS}}/\sigma\), \(\sim 10^{122}\) at
-\(\sigma = 1\).
+posits a discrete lattice, with the horizon self-consistency relation
+\(\epsilon = 2\sqrt{\sigma}\, l_p\) and finite boundary cell count
+\(A/\epsilon^2 = S_{\text{dS}}/\sigma\) at the cosmological horizon,
+\(\sim 10^{122}\) at \(\sigma = 1\).
 
 The framework's content is therefore that the continuum QFT description
 is the \emph{emergent} description --- finite at the substratum level
@@ -28460,7 +28566,7 @@ two levels of description coexist; the apparent infinite-dimensionality
 of QFT is an artifact of the continuum limit rather than a property of
 the underlying physics.
 
-\textbf{The empirical signatures.} Finiteness has specific empirical
+\textbf{The structural signatures.} Finiteness has specific structural
 signatures developed in Chapter 18 §18.7: exact cosmic recurrence, at a
 period at most Landau's \(g(|S|)\), with \(|S|\) not fixed by visible
 data (falsifiable only in the logical sense, and without practical
@@ -28468,13 +28574,12 @@ empirical consequences at periods of astronomical size) and constraints
 on cosmic information content (compatible with the Bekenstein bound).
 
 The framework's finiteness commitment is therefore not just a
-mathematical convenience but a structurally consequential commitment
-with specific empirical content. The commitment is supported by the
-Bekenstein bound (established physics), compatible with continuum QFT
-(the framework's emergent description), and has specific empirical
-signatures (Chapter 18). A referee rejecting finiteness must engage
-these supports and signatures specifically rather than dismissing the
-commitment in general.
+mathematical convenience but a structurally consequential commitment.
+The commitment is supported by the Bekenstein bound (established
+physics), compatible with continuum QFT (the framework's emergent
+description), and has specific structural signatures (Chapter 18). A
+referee rejecting finiteness must engage these supports and signatures
+specifically rather than dismissing the commitment in general.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -29314,10 +29419,14 @@ nonzero-\(Y_Q\) branch, with no free parameters. Developed in Chapter 6
 §6.7 and Appendix B §B.5.
 
 \textbf{Axiom 2 (Finiteness).} The framework's foundational assumption
-that the substratum has finitely many degrees of freedom. Motivated
-physically by the Bekenstein bound at the cosmological horizon
-(\(\sim 10^{122}\) distinguishable states). Discussed in Chapter 2 §2.5,
-with defense in Appendix C §C.6.
+that the substratum has finitely many degrees of freedom: A1 of Chapter
+2 §2.4, under the label Appendix C §C.6 uses, not the second axiom of
+Chapter 1 (recurrence). Motivated physically by the Bekenstein bound at
+the cosmological horizon (an entropy-based bound, under the physical
+assumptions of input E3, of at most \(e^{S_{\text{dS}}}\) effectively
+distinguishable states of the visible sector and boundary layer,
+\(S_{\text{dS}} \sim 10^{122}\)). Discussed in Chapter 2 §2.5, with
+defense in Appendix C §C.6.
 
 \textbf{Background independence (A6).} The sixth of the framework's
 structural assumptions A1--A6: the substratum dynamics is covariant
@@ -30111,13 +30220,15 @@ citations}\label{framework-internal-citations}}
 Maybaum, A. (2026). \emph{The Observational Incompleteness Framework}.
 Zenodo, concept DOI: 10.5281/zenodo.19060318 (resolves to the current
 release). {[}Repository containing the framework's full technical
-content: the core papers --- Main (central theorem and emergent quantum
-mechanics), Substratum (substratum construction and reconstruction
-theorem), Structure (structural realism), SM (Standard Model
-derivation), GR (gravitational sector) --- together with the focused
-presentation Juno (neutrino-sector prediction), the methodology paper
-Physics Modulo Gauge, and the companion documents Explainer, Complexity,
-Medicine, and Bioinformatics.{]}
+content: the core papers --- Main (finite-observer representation: the
+exact finite-horizon correspondence of stochastic laws, reversible
+realizations and fixed-basis unitary/Born representations, and hidden
+memory; quantum reconstruction as an open programme), Substratum
+(substratum construction and reconstruction theorem), Structure
+(structural realism), SM (Standard Model derivation), GR (gravitational
+sector) --- together with the focused presentation Juno (neutrino-sector
+prediction), the methodology paper Physics Modulo Gauge, and the
+companion documents Complexity, Medicine, and Bioinformatics.{]}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -30886,4 +30997,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: bb49eb0bfaf3a83269aeaacaab1a19dcf02e12cf5bc1a72ce7da86d3aad5d782
+% source-sha256: eaa55eb0ec8640efaf03128f15488ee4f3ed0b16f9abd985214700f7b4f55fe4

@@ -1,0 +1,399 @@
+{
+ "schema": "oret-phase-a/1",
+ "tuple_id": "SC-T1",
+ "order": 12,
+ "mode": "window",
+ "params": {},
+ "row": "1",
+ "eps_max": {
+  "t0+1": "1/20",
+  "t0+2": "0"
+ },
+ "tv": {
+  "t0+1": "9/10",
+  "t0+2": "1"
+ },
+ "Ra": true,
+ "Rb": true,
+ "dil_exact_T": false,
+ "tau": 1,
+ "T_prime": 1,
+ "J1": {
+  "t0+1": {
+   "Ji": true,
+   "Jii": false
+  }
+ },
+ "SCH": {
+  "t0+1": true
+ },
+ "Q_missing_T": [],
+ "G_star_out_T": [
+  "1"
+ ],
+ "G_status_T": "consistent",
+ "Q_missing_Tprime": [],
+ "G_star_out_Tprime": [
+  "1"
+ ],
+ "G_status_Tprime": "consistent",
+ "eta": {
+  "t0+1": "1/20"
+ },
+ "lemma_h_bound": {
+  "t0+1": "1/20",
+  "t0+2": "1/10"
+ },
+ "recurrence_flags": [],
+ "D_bits": null,
+ "method": "full",
+ "g": "01",
+ "write_min_eps": "1/20",
+ "w": null,
+ "w_chg": null,
+ "sweep_min_max_eps": null,
+ "eps_star": "1/20",
+ "w_star": null,
+ "T_star": null,
+ "kappa": "sigma",
+ "independence_law": "mu_t(.|sigma in P)",
+ "support_conditioning": "mu_t(.|sigma in P)",
+ "B_def": "Par(A)\\A on S",
+ "Q_cells": [
+  "z0"
+ ],
+ "read_cells": [
+  "a"
+ ],
+ "injective": true,
+ "law": {
+  "type": "explicit",
+  "states": {
+   "0000": "19/40",
+   "0100": "19/40",
+   "1001": "1/40",
+   "1101": "1/40"
+  }
+ },
+ "P": [
+  "0",
+  "1"
+ ],
+ "f": [
+  0,
+  1
+ ],
+ "T": 1,
+ "ticks": [
+  "t0+1",
+  "t0+2"
+ ],
+ "failures": [
+  {
+   "sigma": "0",
+   "t": "t0+1",
+   "config": "1",
+   "prob": "1/20"
+  },
+  {
+   "sigma": "1",
+   "t": "t0+1",
+   "config": "0",
+   "prob": "1/20"
+  }
+ ],
+ "classes_T": [
+  [
+   "0",
+   "1"
+  ]
+ ],
+ "Wr": [
+  "1"
+ ],
+ "row_step": 2,
+ "rd_test": "J-1, Q7-narrowed",
+ "access": "H-cur (declared)",
+ "frozen_inputs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PREREG-PHASE-A.md",
+   "blob_at_F": "11492996f061c5721f889b219514cb2eb6d7da9e",
+   "blob_read": "11492996f061c5721f889b219514cb2eb6d7da9e"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/DESIGN-PULSE.md",
+   "blob_at_F": "0c1205da34a8d4da1e1d6a22b9eb634d9697d053",
+   "blob_read": "0c1205da34a8d4da1e1d6a22b9eb634d9697d053"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PHASEA-TUPLES.json",
+   "blob_at_F": "f915e7b9cc8ab3ab8d3d640324c641743fe4a98e",
+   "blob_read": "f915e7b9cc8ab3ab8d3d640324c641743fe4a98e"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PHASEA-EXPECTED.json",
+   "blob_at_F": "f4773e70547af2c336e47fa704e02794c4199ca7",
+   "blob_read": "f4773e70547af2c336e47fa704e02794c4199ca7"
+  }
+ ],
+ "run": {
+  "F": "49f0bd41c5323d2191b580460c8703740dd01b30",
+  "commit": "71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5",
+  "run_attempt": 1
+ },
+ "expected": {
+  "row": "1",
+  "eps_max": {
+   "t0+1": "1/20",
+   "t0+2": "0"
+  },
+  "tv": {
+   "t0+1": "9/10",
+   "t0+2": "1"
+  },
+  "Ra": true,
+  "Rb": true,
+  "dil_exact_T": false,
+  "tau": 1,
+  "T_prime": 1,
+  "J1": {
+   "t0+1": {
+    "Ji": true,
+    "Jii": false
+   }
+  },
+  "SCH": {
+   "t0+1": true
+  },
+  "Q_missing_T": [],
+  "G_star_out_T": [
+   "1"
+  ],
+  "G_status_T": "consistent",
+  "Q_missing_Tprime": [],
+  "G_star_out_Tprime": [
+   "1"
+  ],
+  "G_status_Tprime": "consistent",
+  "eta": {
+   "t0+1": "1/20"
+  },
+  "lemma_h_bound": {
+   "t0+1": "1/20",
+   "t0+2": "1/10"
+  },
+  "recurrence_flags": [],
+  "D_bits": null,
+  "method": "full",
+  "g": "01",
+  "write_min_eps": "1/20",
+  "w": null,
+  "w_chg": null,
+  "sweep_min_max_eps": null
+ },
+ "comparisons": [
+  {
+   "field": "row",
+   "expected": "1",
+   "computed": "1",
+   "match": true
+  },
+  {
+   "field": "eps_max",
+   "expected": {
+    "t0+1": "1/20",
+    "t0+2": "0"
+   },
+   "computed": {
+    "t0+1": "1/20",
+    "t0+2": "0"
+   },
+   "match": true
+  },
+  {
+   "field": "tv",
+   "expected": {
+    "t0+1": "9/10",
+    "t0+2": "1"
+   },
+   "computed": {
+    "t0+1": "9/10",
+    "t0+2": "1"
+   },
+   "match": true
+  },
+  {
+   "field": "Ra",
+   "expected": true,
+   "computed": true,
+   "match": true
+  },
+  {
+   "field": "Rb",
+   "expected": true,
+   "computed": true,
+   "match": true
+  },
+  {
+   "field": "dil_exact_T",
+   "expected": false,
+   "computed": false,
+   "match": true
+  },
+  {
+   "field": "tau",
+   "expected": 1,
+   "computed": 1,
+   "match": true
+  },
+  {
+   "field": "T_prime",
+   "expected": 1,
+   "computed": 1,
+   "match": true
+  },
+  {
+   "field": "J1",
+   "expected": {
+    "t0+1": {
+     "Ji": true,
+     "Jii": false
+    }
+   },
+   "computed": {
+    "t0+1": {
+     "Ji": true,
+     "Jii": false
+    }
+   },
+   "match": true
+  },
+  {
+   "field": "SCH",
+   "expected": {
+    "t0+1": true
+   },
+   "computed": {
+    "t0+1": true
+   },
+   "match": true
+  },
+  {
+   "field": "Q_missing_T",
+   "expected": [],
+   "computed": [],
+   "match": true
+  },
+  {
+   "field": "G_star_out_T",
+   "expected": [
+    "1"
+   ],
+   "computed": [
+    "1"
+   ],
+   "match": true
+  },
+  {
+   "field": "G_status_T",
+   "expected": "consistent",
+   "computed": "consistent",
+   "match": true
+  },
+  {
+   "field": "Q_missing_Tprime",
+   "expected": [],
+   "computed": [],
+   "match": true
+  },
+  {
+   "field": "G_star_out_Tprime",
+   "expected": [
+    "1"
+   ],
+   "computed": [
+    "1"
+   ],
+   "match": true
+  },
+  {
+   "field": "G_status_Tprime",
+   "expected": "consistent",
+   "computed": "consistent",
+   "match": true
+  },
+  {
+   "field": "eta",
+   "expected": {
+    "t0+1": "1/20"
+   },
+   "computed": {
+    "t0+1": "1/20"
+   },
+   "match": true
+  },
+  {
+   "field": "lemma_h_bound",
+   "expected": {
+    "t0+1": "1/20",
+    "t0+2": "1/10"
+   },
+   "computed": {
+    "t0+1": "1/20",
+    "t0+2": "1/10"
+   },
+   "match": true
+  },
+  {
+   "field": "recurrence_flags",
+   "expected": [],
+   "computed": [],
+   "match": true
+  },
+  {
+   "field": "D_bits",
+   "expected": null,
+   "computed": null,
+   "match": true
+  },
+  {
+   "field": "method",
+   "expected": "full",
+   "computed": "full",
+   "match": true
+  },
+  {
+   "field": "g",
+   "expected": "01",
+   "computed": "01",
+   "match": true
+  },
+  {
+   "field": "write_min_eps",
+   "expected": "1/20",
+   "computed": "1/20",
+   "match": true
+  },
+  {
+   "field": "w",
+   "expected": null,
+   "computed": null,
+   "match": true
+  },
+  {
+   "field": "w_chg",
+   "expected": null,
+   "computed": null,
+   "match": true
+  },
+  {
+   "field": "sweep_min_max_eps",
+   "expected": null,
+   "computed": null,
+   "match": true
+  }
+ ],
+ "match": true,
+ "reapplied_row": "1",
+ "reapply_problems": []
+}

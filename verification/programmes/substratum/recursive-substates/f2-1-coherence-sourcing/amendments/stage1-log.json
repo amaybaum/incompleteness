@@ -1,0 +1,44 @@
+{
+  "schema": "f2-1-stage1-log/1",
+  "unit": "SUBSTATE-2 F2-1",
+  "contract": {
+    "commit": "66eb48ca64a79ffef98c8b086293f454a3dbeab6",
+    "path": "verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/preregistration.md",
+    "blob": "0b0c6502c84a3f8688e88d2390c91f14d446774c",
+    "sha256": "389e7556bb2e23d165a9bcaf91b22a552bbad8dc3d1954f374add7b25bdfe17a"
+  },
+  "forbidden_computations_run": [],
+  "statement": "No R, R-dagger, P, Gate 4 or Gate 5 quantity was computed on any candidate during stage 1.",
+  "computations": [
+    {
+      "id": "S1-1",
+      "purpose": "bind the frozen contract",
+      "command": "sha256sum verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/preregistration.md; git rev-parse 66eb48ca:verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/preregistration.md",
+      "inputs": [
+        "preregistration.md at 66eb48ca"
+      ],
+      "outputs": {
+        "sha256": "389e7556bb2e23d165a9bcaf91b22a552bbad8dc3d1954f374add7b25bdfe17a",
+        "blob": "0b0c6502c84a3f8688e88d2390c91f14d446774c"
+      },
+      "candidate_quantity": false
+    },
+    {
+      "id": "S1-2",
+      "purpose": "structural check for the Theta-F / Theta-D screen: characters of Z/2^m span the depth-m cylinder-function space (character matrix invertible); characters of Z/2 are real, those of Z/4 are not",
+      "command": "python3 -I char_span.py",
+      "script_sha256": "b8981775300260dcec8de347756db4094b522af9ccfe849d196b32471b4bb473",
+      "script_source": "# Stage-1 structural check (F2-1 A*): the characters of Z/2^m span the same\n# 2^m-dimensional space as the depth-m cylinder indicators, i.e. the character\n# matrix X[j][k] = i^(j*k*4/2^m) is invertible, for m = 1, 2 (exact Gaussian\n# integers). No candidate operator, no R, P, Gate 4 or Gate 5 quantity is computed.\nfrom itertools import permutations\ndef gmul(a, b): return (a[0]*b[0]-a[1]*b[1], a[0]*b[1]+a[1]*b[0])\ndef gadd(a, b): return (a[0]+b[0], a[1]+b[1])\nIPOW = [(1, 0), (0, 1), (-1, 0), (0, -1)]\ndef sign(p):\n    s, seen = 1, list(p)\n    for i in range(len(seen)):\n        for j in range(i+1, len(seen)):\n            if seen[i] > seen[j]: s = -s\n    return s\ndef det(M):\n    n, tot = len(M), (0, 0)\n    for p in permutations(range(n)):\n        t = (sign(p), 0)\n        for i in range(n): t = gmul(t, M[i][p[i]])\n        tot = gadd(tot, t)\n    return tot\nfor m in (1, 2):\n    q = 2**m\n    X = [[IPOW[(j*k*(4//q)) % 4] for k in range(q)] for j in range(q)]\n    real = all(e[1] == 0 for row in X for e in row)\n    print(f\"m={m} q={q} det={det(X)} all_real={real}\")\n",
+      "inputs": [
+        "m in {1, 2}"
+      ],
+      "outputs": [
+        "m=1 q=2 det=(-2, 0) all_real=True",
+        "m=2 q=4 det=(0, -16) all_real=False"
+      ],
+      "candidate_quantity": false
+    }
+  ],
+  "transplant_checks": "none run: no candidate coupling C was frozen, so no transplant to C1, C2 or C10 was defined or tested",
+  "pre_freeze_disclosure": "While drafting the preregistration (before its freeze, not during stage 1), the writer computed quantum trace-rule target values in exact Gaussian rationals: rot (16/25, 9/25), rot^2 (576/625), rot.phaseGate.rot (288/625), rot.phaseGate.phaseGate.rot (0), the dephased return 337/625 and the p=1 and p=4 alternatives. These are quantities of exact QM (control C7), not of any candidate."
+}

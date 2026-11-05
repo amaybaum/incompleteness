@@ -667,20 +667,23 @@ BQP's
 floor}\label{the-finite-substratum-refinement-a-ceiling-above-bqps-floor}}
 
 The characterization of §4.3 is exact in the idealized limit
-\(S \to \infty\). The framework, however, asserts that \(S\) is finite
---- the holographic bound caps the substratum resources available to any
-physical computation. This subsection states the finite-size consequence
-as a complexity-assumption-dependent proposal: its status inherits the
-standard conjectures made explicit below, and it is not entailed by
-Main.
+\(S \to \infty\). The total-finiteness posit ({[}Main{]} §1.2, §4.5),
+however, takes \(S\) finite. The holographic bound constrains the
+observed patch under its stated assumptions; that it also caps the
+substratum resources available to any physical computation is a further
+hypothesis, the \emph{patch-budget hypothesis}, posited here and not
+derived. This subsection states the finite-size consequence as a
+proposal conditional on that hypothesis and on the standard conjectures
+made explicit below; it is not entailed by Main.
 
 \textbf{The forced position.} Any interpretation with a finite classical
 substratum faces a standard trilemma {[}7{]}: either (I) quantum
 computation encounters a scale ceiling; or (II) the tasks exhibiting
 quantum advantage possess hidden classical algorithms; or (III) the
 substratum commands resources exponential in the number of emergent
-qubits. The framework closes (III) by construction: the holographic
-bound is a structural commitment. It addresses (II) in one theorem-level
+qubits. Under the patch-budget hypothesis, option (III) is excluded; the
+holographic bound alone does not exclude a computationally relevant deep
+hidden sector. The framework addresses (II) in one theorem-level
 respect: the substratum measure is the unique \(\varphi\)-invariant
 maximal-entropy measure ({[}Main{]}, Lemma 3 and posit (iv) of the posit
 ledger), which excludes a planted-measure escape --- though absence of
@@ -690,19 +693,20 @@ the relevant sampling rests on standard complexity-theoretic evidence
 the polynomial hierarchy), so (II) closes conditionally on those
 assumptions, while escape by conspiracy would additionally require a
 planted measure contradicting the uniqueness clause. What remains,
-granted the complexity assumptions below, is (I): the ceiling is a
-conditional consequence with its assumptions stated, not an
-unconditional entailment.
+granted the patch-budget hypothesis and the complexity assumptions
+below, is (I): the ceiling is a conditional consequence with its
+assumptions stated, not an unconditional entailment.
 
-\textbf{The scale.} The substratum budget for a computation of wall-time
-\(T\) is bounded by the holographic patch:
-\(\mathrm{bits}(T) = \pi (cT)^2/l_p^2\) degrees of freedom updating at
-most once per \(t_p\) {[}10{]}. This gives \(\sim 10^{145}\) operations
-for a day-scale computation, \(\sim 10^{157}\) for thirty years, and
-\(\sim 2 \times 10^{183}\) at the absolute horizon scale. A computation
-whose output statistics require classical sampling resources exceeding
-the budget cannot have those statistics realized by the substratum. The
-ceiling therefore sits, under an explicit quantitative assumption ---
+\textbf{The scale.} Under the patch-budget hypothesis, the substratum
+budget for a computation of wall-time \(T\) is bounded by the
+holographic patch: \(\mathrm{bits}(T) = \pi (cT)^2/l_p^2\) degrees of
+freedom updating at most once per \(t_p\) {[}10{]}. This gives
+\(\sim 10^{145}\) operations for a day-scale computation,
+\(\sim 10^{157}\) for thirty years, and \(\sim 2 \times 10^{183}\) at
+the absolute horizon scale. A computation whose output statistics
+require classical sampling resources exceeding the budget cannot have
+those statistics realized by the substratum. The ceiling therefore sits,
+under an explicit quantitative assumption ---
 \(C_{\mathrm{cl}}(n, \varepsilon) \geq 2^{\alpha n}\) for the chosen
 circuit ensemble and fidelity criterion, an assumption the cited
 hardness evidence supports but does not prove --- at
@@ -740,28 +744,29 @@ machines at \(\sim 10^3\) logical qubits enter the test zone. Clean
 absence of hardness-correlated degradation on sampling-hard circuits at
 that scale --- full-fidelity performance where the budget forbids it ---
 falsifies, in order of exposure, the quantitative cost model (the
-\(\alpha\)-assumption below), then the complexity-resource bridge ---
-and only if those survive every repair does the pressure reach the
-finite classical substratum and {[}Main{]}.
+\(\alpha\)-assumption below), then the complexity-resource bridge, then
+the patch-budget hypothesis --- and only if those survive every repair
+does the pressure reach the finite classical substratum and {[}Main{]}.
 
-\textbf{Corollary (entanglement dimension).} The same budget caps the
-entanglement dimension available to any physical Bell-type experiment at
-\(2^{S_{\mathrm{patch}}}\): correlations requiring strictly
-infinite-dimensional (commuting-operator) strategies, whose existence is
-implied by MIP\(^*\)=RE, are physically unrealizable in-framework. The
-framework thereby takes a definite side on the physical Tsirelson
-question: realizable correlations are those approximable by
-finite-dimensional strategies.
+\textbf{Corollary (entanglement dimension).} Under the patch-budget
+hypothesis, the same budget caps the entanglement dimension available to
+any physical Bell-type experiment at \(2^{S_{\mathrm{patch}}}\):
+correlations requiring strictly infinite-dimensional
+(commuting-operator) strategies, whose existence is implied by
+MIP\(^*\)=RE, are then physically unrealizable in-framework, and
+realizable correlations are those approximable by finite-dimensional
+strategies.
 
-\textbf{Conditions.} The statement is conditional on: standard
-complexity conjectures (no polynomial classical algorithms for the
-sampling tasks; non-collapse of the polynomial hierarchy); the declared
-posits (iv)--(v) of the ledger ({[}Main{]}), which are what certify the
-absence of planted structure; the budget arithmetic at
-order-of-magnitude precision (the exponent is robust; prefactors are
-not); and the full-fidelity qualification, since the constraint binds
-fidelity-weighted cost, so low-fidelity demonstrations do not approach
-it.
+\textbf{Conditions.} The statement is conditional on: the patch-budget
+hypothesis (that the holographic bound caps all computationally relevant
+substratum resources, not only the observed patch); standard complexity
+conjectures (no polynomial classical algorithms for the sampling tasks;
+non-collapse of the polynomial hierarchy); the declared posits (iv)--(v)
+of the ledger ({[}Main{]}), which are what certify the absence of
+planted structure; the budget arithmetic at order-of-magnitude precision
+(the exponent is robust; prefactors are not); and the full-fidelity
+qualification, since the constraint binds fidelity-weighted cost, so
+low-fidelity demonstrations do not approach it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -807,10 +812,10 @@ structure is closed as well: Malament--Hogarth constructions require
 unbounded blueshift and effectively infinite state space, unavailable on
 a finite lattice with \(e^{S}\) states. The account of physical
 computation is therefore a four-axis program: the energy and spacetime
-faces carry derived exclusions, the width face a
-complexity-assumption-dependent proposal (§4.5), and the rate and memory
-faces queued derivations from the same primitives --- a program, not a
-completed box.
+faces carry derived exclusions, the width face a proposal conditional on
+the patch-budget hypothesis and the complexity assumptions (§4.5), and
+the rate and memory faces queued derivations from the same primitives
+--- a program, not a completed box.
 
 \textbf{Near-term texture.} The same partition machinery predicts
 memory-bearing device noise at the engineered-bath level ({[}Complexity
@@ -1441,4 +1446,4 @@ self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
 (1995).
 
 \end{document}
-% source-sha256: 8bcf5c5b67573aeae82db3f3e4620c5aaee8809749abe13abbd8259d6626f40f
+% source-sha256: 3a7e3d7a630c7e24818efd5fbbb004176cca7135e59b8cbb7af7c41387a95d99

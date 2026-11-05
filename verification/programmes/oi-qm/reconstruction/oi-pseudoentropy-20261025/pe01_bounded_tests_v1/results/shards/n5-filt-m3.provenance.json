@@ -1,0 +1,12 @@
+{
+ "commit": "549641460b8ddb536178f95fac2ec9390e84a987",
+ "display_timing_seconds": {
+  "m3": 944.8601319789886,
+  "total": 944.8615505695343
+ },
+ "job": "m3",
+ "recipe": "python3 -I -B verification/programmes/oi-qm/reconstruction/oi-pseudoentropy-20261025/pe01_bounded_tests_v1/run.py shard n5-filt-m3 --mode result --out <dir>",
+ "run_attempt": "1",
+ "run_id": "40271434371",
+ "shard": "n5-filt-m3"
+}

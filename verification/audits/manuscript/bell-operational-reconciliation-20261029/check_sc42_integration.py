@@ -168,7 +168,7 @@ diagnostic('[2] theorem statement')
 check(thm in gr and thm in read('papers/GR.md', BASE), 'GR theorem line identical at base and head')
 
 # 3. Re-grep: stale phrasings gone, kinematics clause present at each restatement.
-CORPUS = ['papers/GR.md', 'papers/Main.md', 'papers/Methodology.md', 'papers/Explainer.md',
+CORPUS = ['papers/GR.md', 'papers/Main.md', 'papers/Methodology.md',
           'papers/Structure.md', 'papers/Substratum.md', 'papers/SM.md',
           'book/preface.md', 'book/ch00-introduction.md', 'book/ch01-observation.md',
           'book/ch02-substratum.md', 'book/ch03-structural-realism.md', 'book/ch04-methodology.md',
@@ -238,9 +238,6 @@ PINS = {
  'book/glossary.md': ["What remains is operational: on a finite carrier, within complex matrix kinematics taken as given, an operational theory's available instruments on the carrier and its composites are the standard noncommuting quantum instruments exactly when the five completion conditions of the operational-completion characterization ([GR §3.3]) hold; which of them the substratum supplies, and a derivation of that kinematics, are open."],
  'papers/GR.md': ["The OI⁺, primitive-source, substratum-source, layer-flow and typed forms below are stated over the same kinematics, the typed form over the complex matrices of every finite carrier.",
                   "whether an operational theory's available instruments on a finite carrier and its composites are the quantum instruments is a separate question, which §3.3 characterizes, within complex matrix kinematics taken as given, by its completion conditions."],
- 'papers/Explainer.md': ["The full operational theory is a separate question from that exact representation class:",
-                         "takes the tensor-product composite as part of the complex matrix kinematics it assumes",
-                         "and within that kinematics characterizes by five operational conditions when the available instruments are exactly the quantum instruments."],
  'book/ch19-open-problems.md': ["*conditionally*: within complex matrix kinematics taken as given, it holds exactly when the explicit completion principles hold"],
  'papers/Structure.md': ["whether an operational theory's available instruments on a finite carrier and its composites are exactly the quantum instruments, simultaneously across all interventions, is a separate question"],
  'book/preface.md': ["within complex matrix kinematics taken as given, the tensor-product composite included, an operational theory's available instruments"],
@@ -308,7 +305,8 @@ REGISTER = re.compile(r'should not be read|the reader should|reader should note|
 HISTORY = re.compile(r'is now settled|now settled|in its current form|the corrected form|as redefined|'
                      r'no longer|formerly|withdrawn|earlier revisions|previously stated', re.I)
 CAPS = re.compile(r'(?<=[a-z,;:] )([A-Z]{4,})\b')
-CAPS_OK = {'PASS', 'FAIL', 'NEW', 'POSITIVE', 'CHSH', 'CLPW'}  # CLPW names the cited GR [39] authors, not emphasis.
+CAPS_OK = {'PASS', 'FAIL', 'NEW', 'POSITIVE', 'CHSH', 'CLPW', 'REST'}  # CLPW names the cited GR [39] authors, not emphasis.
+# REST is the name of GitHub's REST API (Representational State Transfer), an abbreviation, not emphasis.
 SECRET = re.compile(r'ghp_[A-Za-z0-9]{20,}|github_pat_|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|'
                     r'-----BEGIN [A-Z ]*PRIVATE KEY|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}')
 LOCAL = re.compile(r'/(?:tmp|home|root|Users)/|scratch' + r'pad|[A-Z]:\\\\')

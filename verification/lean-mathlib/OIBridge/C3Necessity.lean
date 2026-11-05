@@ -72,7 +72,7 @@ theorem varFuture_zero (R : Realization Hist V H) {L : ℕ} (hL : 0 < L) (s : Hi
 
 /-! ### The theorem -/
 
-/-- **Theorem (C3 necessity), [Main] §3.3.** `I(X_<t ; X_>t | X_t) ≤ log₂ m`, at every horizon.
+/-- **Theorem (C3 necessity), [Main] §3.4.** `I(X_<t ; X_>t | X_t) ≤ log₂ m`, at every horizon.
 
 The whole visible future is a function of `(X_t, H_t)`, so conditioning on `X_t` makes
 `X_<t → H_t → X_>t` a Markov chain; data processing and `I ≤ log₂|C_H|` finish it. Both steps are
@@ -109,7 +109,7 @@ theorem Istar_le_log_card [Nonempty H] {ι : Type*} {F : Finset ι} (hF : F.None
     Istar hF R L ≤ Real.logb 2 (Fintype.card H) :=
   Finset.sup'_le hF _ fun i _ => c3_necessity (R i) (L i)
 
-/-- **Corollary (per-process capacity bound), [Main] §3.3.** `m ≥ 2^{I*}`.
+/-- **Corollary (per-process capacity bound), [Main] §3.4.** `m ≥ 2^{I*}`.
 
 The hidden sector must be at least as large as the backflow it carries. Note what this is NOT: it
 is not `m ≥ n`, and it is not a bound growing with the number of coupling events — the manuscript

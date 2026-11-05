@@ -1,0 +1,3255 @@
+{
+ "schema": "oret-phase-a-summary/1",
+ "tuples_frozen": 49,
+ "tuples_evaluated": [
+  "TS-L4-T1-ext",
+  "TS-L4-T1-noext",
+  "TS-L5-T1-ext",
+  "TS-L5-T1-noext",
+  "TM-m2-T1-ext",
+  "TM-m2-T1-noext",
+  "TM-m3-T2-ext",
+  "TM-m3-T2-noext",
+  "TMP-T1-ext",
+  "TMP-T1-noext",
+  "HCPh-T1",
+  "SC-T1",
+  "S1-L2-T1",
+  "S1-L3-T1",
+  "SW-T1",
+  "SW-T2",
+  "R1-T4",
+  "R1-readback",
+  "R2-T3",
+  "R2-T4",
+  "R3-T1",
+  "R3-T2",
+  "R3-T5",
+  "R3-readback",
+  "MA-L2-T1",
+  "MA-L3-T1",
+  "MB-T1",
+  "MC-m2-T1",
+  "MC-m3-T2",
+  "MD-xor-T1",
+  "CX4b-T1",
+  "SK-k1-T1",
+  "SK-k1-T2",
+  "SK-k2-T1",
+  "SK-k1-T3",
+  "SK-k3-T1",
+  "SK-k2-T2",
+  "SK-k4-T1",
+  "SK-k2-T3",
+  "SK-k3-T2",
+  "SK-k5-T1",
+  "SK-k6-T1",
+  "SK-k4-T2",
+  "SK-k3-T3",
+  "SK-k5-T2",
+  "SK-k4-T3",
+  "SK-k6-T2",
+  "SK-k5-T3",
+  "SK-k6-T3"
+ ],
+ "first_failure": null,
+ "verdict": "PASS",
+ "exit": 0,
+ "eps_star": "1/20",
+ "w_star": null,
+ "T_star": null,
+ "run": {
+  "F": "49f0bd41c5323d2191b580460c8703740dd01b30",
+  "commit": "71a07fa579c4c159cdc3b38fa13e3dc917bbd3d5",
+  "run_attempt": 1
+ },
+ "frozen_inputs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PREREG-PHASE-A.md",
+   "blob_at_F": "11492996f061c5721f889b219514cb2eb6d7da9e",
+   "blob_read": "11492996f061c5721f889b219514cb2eb6d7da9e"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/DESIGN-PULSE.md",
+   "blob_at_F": "0c1205da34a8d4da1e1d6a22b9eb634d9697d053",
+   "blob_read": "0c1205da34a8d4da1e1d6a22b9eb634d9697d053"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PHASEA-TUPLES.json",
+   "blob_at_F": "f915e7b9cc8ab3ab8d3d640324c641743fe4a98e",
+   "blob_read": "f915e7b9cc8ab3ab8d3d640324c641743fe4a98e"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/PHASEA-EXPECTED.json",
+   "blob_at_F": "f4773e70547af2c336e47fa704e02794c4199ca7",
+   "blob_read": "f4773e70547af2c336e47fa704e02794c4199ca7"
+  }
+ ],
+ "tuples": [
+  {
+   "tuple_id": "TS-L4-T1-ext",
+   "order": 1,
+   "mode": "window",
+   "row": "2a",
+   "match": true,
+   "computed": {
+    "row": "2a",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1/2"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "0",
+     "1"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "TS-L4-T1-noext",
+   "order": 2,
+   "mode": "noext",
+   "row": "I-9",
+   "match": true,
+   "computed": {
+    "row": "I-9",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": null,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0"
+   }
+  },
+  {
+   "tuple_id": "TS-L5-T1-ext",
+   "order": 3,
+   "mode": "window",
+   "row": "2a",
+   "match": true,
+   "computed": {
+    "row": "2a",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1/2"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "0",
+     "1"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "TS-L5-T1-noext",
+   "order": 4,
+   "mode": "noext",
+   "row": "I-9",
+   "match": true,
+   "computed": {
+    "row": "I-9",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": null,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0"
+   }
+  },
+  {
+   "tuple_id": "TM-m2-T1-ext",
+   "order": 5,
+   "mode": "window",
+   "row": "2a",
+   "match": true,
+   "computed": {
+    "row": "2a",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [
+     "1"
+    ],
+    "G_star_out_Tprime": [
+     "0"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 4,
+    "method": "full",
+    "g": "0111",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "TM-m2-T1-noext",
+   "order": 6,
+   "mode": "noext",
+   "row": "I-9",
+   "match": true,
+   "computed": {
+    "row": "I-9",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": null,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 4,
+    "method": "full",
+    "g": "0111",
+    "write_min_eps": "0"
+   }
+  },
+  {
+   "tuple_id": "TM-m3-T2-ext",
+   "order": 7,
+   "mode": "window",
+   "row": "2a",
+   "match": true,
+   "computed": {
+    "row": "2a",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0",
+     "t0+4": "1"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1",
+     "t0+4": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 3,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false,
+     "t0+2": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [
+     "1"
+    ],
+    "G_star_out_Tprime": [
+     "0"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1",
+     "t0+3": "2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 5,
+    "method": "full",
+    "g": "01111111",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "TM-m3-T2-noext",
+   "order": 8,
+   "mode": "noext",
+   "row": "I-9",
+   "match": true,
+   "computed": {
+    "row": "I-9",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 3,
+    "T_prime": null,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false,
+     "t0+2": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "eta": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1",
+     "t0+3": "2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 5,
+    "method": "full",
+    "g": "01111111",
+    "write_min_eps": "0"
+   }
+  },
+  {
+   "tuple_id": "TMP-T1-ext",
+   "order": 9,
+   "mode": "window",
+   "row": "2a",
+   "match": true,
+   "computed": {
+    "row": "2a",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1/2"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "0",
+     "1"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0101",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "TMP-T1-noext",
+   "order": 10,
+   "mode": "noext",
+   "row": "I-9",
+   "match": true,
+   "computed": {
+    "row": "I-9",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 2,
+    "T_prime": null,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [
+     "0"
+    ],
+    "G_status_T": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0101",
+    "write_min_eps": "0"
+   }
+  },
+  {
+   "tuple_id": "HCPh-T1",
+   "order": 11,
+   "mode": "window",
+   "row": "1",
+   "match": true,
+   "computed": {
+    "row": "1",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": false,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [
+     "00",
+     "01"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [
+     "00",
+     "01"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SC-T1",
+   "order": 12,
+   "mode": "window",
+   "row": "1",
+   "match": true,
+   "computed": {
+    "row": "1",
+    "eps_max": {
+     "t0+1": "1/20",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "9/10",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": false
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "1"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "1"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/20"
+    },
+    "lemma_h_bound": {
+     "t0+1": "1/20",
+     "t0+2": "1/10"
+    },
+    "recurrence_flags": [],
+    "D_bits": null,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "1/20",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "S1-L2-T1",
+   "order": 13,
+   "mode": "window",
+   "row": "5",
+   "match": true,
+   "computed": {
+    "row": "5",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "recurrence_flags": [],
+    "D_bits": 1,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "S1-L3-T1",
+   "order": 14,
+   "mode": "window",
+   "row": "5",
+   "match": true,
+   "computed": {
+    "row": "5",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "recurrence_flags": [],
+    "D_bits": 1,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SW-T1",
+   "order": 15,
+   "mode": "window",
+   "row": "6",
+   "match": true,
+   "computed": {
+    "row": "6",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "recurrence_flags": [],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SW-T2",
+   "order": 16,
+   "mode": "window",
+   "row": "6",
+   "match": true,
+   "computed": {
+    "row": "6",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false,
+     "t0+2": false
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0"
+    },
+    "recurrence_flags": [],
+    "D_bits": 3,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "R1-T4",
+   "order": 17,
+   "mode": "window",
+   "row": "1",
+   "match": true,
+   "computed": {
+    "row": "1",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1/2",
+     "t0+4": "1/2",
+     "t0+5": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "0",
+     "t0+4": "0",
+     "t0+5": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 4,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+4": {
+      "Ji": false,
+      "Jii": false
+     }
+    },
+    "SCH": {
+     "t0+1": false,
+     "t0+2": true,
+     "t0+3": true,
+     "t0+4": false
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "0",
+     "1"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "0",
+     "1"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1",
+     "t0+4": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1",
+     "t0+3": "2",
+     "t0+4": "3",
+     "t0+5": "4"
+    },
+    "recurrence_flags": [
+     "t0+5"
+    ],
+    "D_bits": 2,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "R1-readback",
+   "order": 18,
+   "mode": "readback",
+   "row": "I-3",
+   "match": true,
+   "computed": {
+    "row": "I-3",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+5": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+5": "1"
+    },
+    "recurrence_flags": [],
+    "method": "full",
+    "g": "0110"
+   }
+  },
+  {
+   "tuple_id": "R2-T3",
+   "order": 19,
+   "mode": "window",
+   "row": "1",
+   "match": true,
+   "computed": {
+    "row": "1",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0",
+     "t0+4": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1",
+     "t0+4": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": false,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": false,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": false,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false,
+     "t0+2": false,
+     "t0+3": false
+    },
+    "Q_missing_T": [
+     "01",
+     "11"
+    ],
+    "G_star_out_T": [
+     "00",
+     "10"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [
+     "01",
+     "11"
+    ],
+    "G_star_out_Tprime": [
+     "00",
+     "10"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1",
+     "t0+3": "2",
+     "t0+4": "3"
+    },
+    "recurrence_flags": [],
+    "D_bits": 4,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "R2-T4",
+   "order": 20,
+   "mode": "window",
+   "row": "1",
+   "match": true,
+   "computed": {
+    "row": "1",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0",
+     "t0+4": "0",
+     "t0+5": "1"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1",
+     "t0+4": "1",
+     "t0+5": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 4,
+    "J1": {
+     "t0+1": {
+      "Ji": false,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": false,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": false,
+      "Jii": true
+     },
+     "t0+4": {
+      "Ji": false,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false,
+     "t0+2": false,
+     "t0+3": false,
+     "t0+4": false
+    },
+    "Q_missing_T": [
+     "01"
+    ],
+    "G_star_out_T": [
+     "00",
+     "10",
+     "11"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [
+     "01"
+    ],
+    "G_star_out_Tprime": [
+     "00",
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1",
+     "t0+4": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1",
+     "t0+3": "2",
+     "t0+4": "3",
+     "t0+5": "4"
+    },
+    "recurrence_flags": [],
+    "D_bits": 4,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "R3-T1",
+   "order": 21,
+   "mode": "window",
+   "row": "5",
+   "match": true,
+   "computed": {
+    "row": "5",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "recurrence_flags": [],
+    "D_bits": 1,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "R3-T2",
+   "order": 22,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1/2"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "10",
+     "11"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 1,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "R3-T5",
+   "order": 23,
+   "mode": "window",
+   "row": "1",
+   "match": true,
+   "computed": {
+    "row": "1",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1/2",
+     "t0+4": "1/2",
+     "t0+5": "0",
+     "t0+6": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "0",
+     "t0+4": "0",
+     "t0+5": "1",
+     "t0+6": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 5,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+4": {
+      "Ji": false,
+      "Jii": false
+     },
+     "t0+5": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true,
+     "t0+3": true,
+     "t0+4": false,
+     "t0+5": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "10",
+     "11"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0",
+     "t0+2": "1",
+     "t0+3": "0",
+     "t0+4": "1",
+     "t0+5": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "1",
+     "t0+4": "1",
+     "t0+5": "2",
+     "t0+6": "2"
+    },
+    "recurrence_flags": [
+     "t0+5",
+     "t0+6"
+    ],
+    "D_bits": 1,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "R3-readback",
+   "order": 24,
+   "mode": "readback",
+   "row": "I-3",
+   "match": true,
+   "computed": {
+    "row": "I-3",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+5": "0",
+     "t0+6": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+5": "1",
+     "t0+6": "1"
+    },
+    "recurrence_flags": [],
+    "method": "full",
+    "g": "01"
+   }
+  },
+  {
+   "tuple_id": "MA-L2-T1",
+   "order": 25,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/4"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1/2"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "10",
+     "11"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/2"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "MA-L3-T1",
+   "order": 26,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/4"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1/2"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "10",
+     "11"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/2"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "MB-T1",
+   "order": 27,
+   "mode": "window",
+   "row": "2a",
+   "match": true,
+   "computed": {
+    "row": "2a",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/2"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "0"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [
+     "100",
+     "101",
+     "110",
+     "111"
+    ],
+    "G_star_out_T": [
+     "000",
+     "001",
+     "010",
+     "011"
+    ],
+    "G_status_T": "empty",
+    "Q_missing_Tprime": [
+     "100",
+     "101",
+     "110",
+     "111"
+    ],
+    "G_star_out_Tprime": [
+     "000",
+     "001",
+     "010",
+     "011"
+    ],
+    "G_status_Tprime": "empty",
+    "eta": {
+     "t0+1": "1"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 3,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "MC-m2-T1",
+   "order": 28,
+   "mode": "window",
+   "row": "6",
+   "match": true,
+   "computed": {
+    "row": "6",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "1"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "recurrence_flags": [],
+    "D_bits": 4,
+    "method": "full",
+    "g": "0111",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "MC-m3-T2",
+   "order": 29,
+   "mode": "window",
+   "row": "6",
+   "match": true,
+   "computed": {
+    "row": "6",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1",
+     "t0+3": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false,
+     "t0+2": false
+    },
+    "Q_missing_T": [
+     "1"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "1"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "0",
+     "t0+3": "0"
+    },
+    "recurrence_flags": [],
+    "D_bits": 5,
+    "method": "full",
+    "g": "01111111",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "MD-xor-T1",
+   "order": 30,
+   "mode": "window",
+   "row": "3",
+   "match": true,
+   "computed": {
+    "row": "3",
+    "eps_max": {
+     "t0+1": "1/2",
+     "t0+2": "1/2"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": true,
+    "tau": "inf",
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": false
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "0"
+    },
+    "lemma_h_bound": {
+     "t0+1": "1/2",
+     "t0+2": "1/2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 1,
+    "method": "full",
+    "g": "0110",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": "1/2"
+   }
+  },
+  {
+   "tuple_id": "CX4b-T1",
+   "order": 31,
+   "mode": "window",
+   "row": "7",
+   "match": true,
+   "computed": {
+    "row": "7",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "0"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [
+     "10",
+     "11"
+    ],
+    "G_star_out_T": [
+     "01"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_star_out_Tprime": [
+     "01"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/4"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/4"
+    },
+    "recurrence_flags": [],
+    "D_bits": 3,
+    "method": "full",
+    "g": "0011",
+    "write_min_eps": "0",
+    "w": null,
+    "w_chg": null,
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k1-T1",
+   "order": 32,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/4"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1/2"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "10",
+     "11"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/2"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/2",
+    "w_chg": "1/4",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k1-T2",
+   "order": 33,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/4",
+     "t0+3": "3/8"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1/2",
+     "t0+3": "1/4"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "10",
+     "11"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/2",
+     "t0+2": "1/2"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/2",
+     "t0+3": "1"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/2",
+    "w_chg": "1/4",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k2-T1",
+   "order": 34,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/8"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "3/4"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "110",
+     "111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "110",
+     "111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/4"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/4"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/4",
+    "w_chg": "1/8",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k1-T3",
+   "order": 35,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/4",
+     "t0+3": "3/8",
+     "t0+4": "7/16"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "1/2",
+     "t0+3": "1/4",
+     "t0+4": "1/8"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true,
+     "t0+3": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "10",
+     "11"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "10",
+     "11"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/2",
+     "t0+2": "1/2",
+     "t0+3": "1/2"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/2",
+     "t0+3": "1",
+     "t0+4": "3/2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/2",
+    "w_chg": "1/4",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k3-T1",
+   "order": 36,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/16"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "7/8"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "1110",
+     "1111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "1110",
+     "1111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/8"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/8"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/8",
+    "w_chg": "1/16",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k2-T2",
+   "order": 37,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/8",
+     "t0+3": "7/32"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "3/4",
+     "t0+3": "9/16"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "110",
+     "111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "110",
+     "111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/4",
+     "t0+2": "1/4"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/4",
+     "t0+3": "1/2"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/4",
+    "w_chg": "1/8",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k4-T1",
+   "order": 38,
+   "mode": "window",
+   "row": "8",
+   "match": true,
+   "computed": {
+    "row": "8",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/32"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "15/16"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "11110",
+     "11111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "11110",
+     "11111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/16"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/16"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/16",
+    "w_chg": "1/32",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k2-T3",
+   "order": 39,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/8",
+     "t0+3": "7/32",
+     "t0+4": "37/128"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "3/4",
+     "t0+3": "9/16",
+     "t0+4": "27/64"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true,
+     "t0+3": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "110",
+     "111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "110",
+     "111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/4",
+     "t0+2": "1/4",
+     "t0+3": "1/4"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/4",
+     "t0+3": "1/2",
+     "t0+4": "3/4"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/4",
+    "w_chg": "1/8",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k3-T2",
+   "order": 40,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/16",
+     "t0+3": "15/128"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "7/8",
+     "t0+3": "49/64"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "1110",
+     "1111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "1110",
+     "1111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/8",
+     "t0+2": "1/8"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/8",
+     "t0+3": "1/4"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/8",
+    "w_chg": "1/16",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k5-T1",
+   "order": 41,
+   "mode": "window",
+   "row": "5",
+   "match": true,
+   "computed": {
+    "row": "5",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/64"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "31/32"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "111110",
+     "111111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "111110",
+     "111111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/32"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/32"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/32",
+    "w_chg": "1/64",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k6-T1",
+   "order": 42,
+   "mode": "window",
+   "row": "5",
+   "match": true,
+   "computed": {
+    "row": "5",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/128"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "63/64"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 1,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "1111110",
+     "1111111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "1111110",
+     "1111111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/64"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/64"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/64",
+    "w_chg": "1/128",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k4-T2",
+   "order": 43,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/32",
+     "t0+3": "31/512"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "15/16",
+     "t0+3": "225/256"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "11110",
+     "11111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "11110",
+     "11111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/16",
+     "t0+2": "1/16"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/16",
+     "t0+3": "1/8"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "full+sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/16",
+    "w_chg": "1/32",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k3-T3",
+   "order": 44,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/16",
+     "t0+3": "15/128",
+     "t0+4": "169/1024"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "7/8",
+     "t0+3": "49/64",
+     "t0+4": "343/512"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true,
+     "t0+3": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "1110",
+     "1111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "1110",
+     "1111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/8",
+     "t0+2": "1/8",
+     "t0+3": "1/8"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/8",
+     "t0+3": "1/4",
+     "t0+4": "3/8"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/8",
+    "w_chg": "1/16",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k5-T2",
+   "order": 45,
+   "mode": "window",
+   "row": "8",
+   "match": true,
+   "computed": {
+    "row": "8",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/64",
+     "t0+3": "63/2048"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "31/32",
+     "t0+3": "961/1024"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "111110",
+     "111111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "111110",
+     "111111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/32",
+     "t0+2": "1/32"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/32",
+     "t0+3": "1/16"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/32",
+    "w_chg": "1/64",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k4-T3",
+   "order": 46,
+   "mode": "window",
+   "row": "2b",
+   "match": true,
+   "computed": {
+    "row": "2b",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/32",
+     "t0+3": "31/512",
+     "t0+4": "721/8192"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "15/16",
+     "t0+3": "225/256",
+     "t0+4": "3375/4096"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true,
+     "t0+3": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "11110",
+     "11111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "11110",
+     "11111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/16",
+     "t0+2": "1/16",
+     "t0+3": "1/16"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/16",
+     "t0+3": "1/8",
+     "t0+4": "3/16"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/16",
+    "w_chg": "1/32",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k6-T2",
+   "order": 47,
+   "mode": "window",
+   "row": "5",
+   "match": true,
+   "computed": {
+    "row": "5",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/128",
+     "t0+3": "127/8192"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "63/64",
+     "t0+3": "3969/4096"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 2,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "1111110",
+     "1111111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "1111110",
+     "1111111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/64",
+     "t0+2": "1/64"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/64",
+     "t0+3": "1/32"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/64",
+    "w_chg": "1/128",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k5-T3",
+   "order": 48,
+   "mode": "window",
+   "row": "8",
+   "match": true,
+   "computed": {
+    "row": "8",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/64",
+     "t0+3": "63/2048",
+     "t0+4": "2977/65536"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "31/32",
+     "t0+3": "961/1024",
+     "t0+4": "29791/32768"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true,
+     "t0+3": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "111110",
+     "111111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "111110",
+     "111111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/32",
+     "t0+2": "1/32",
+     "t0+3": "1/32"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/32",
+     "t0+3": "1/16",
+     "t0+4": "3/32"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/32",
+    "w_chg": "1/64",
+    "sweep_min_max_eps": null
+   }
+  },
+  {
+   "tuple_id": "SK-k6-T3",
+   "order": 49,
+   "mode": "window",
+   "row": "5",
+   "match": true,
+   "computed": {
+    "row": "5",
+    "eps_max": {
+     "t0+1": "0",
+     "t0+2": "1/128",
+     "t0+3": "127/8192",
+     "t0+4": "12097/524288"
+    },
+    "tv": {
+     "t0+1": "1",
+     "t0+2": "63/64",
+     "t0+3": "3969/4096",
+     "t0+4": "250047/262144"
+    },
+    "Ra": true,
+    "Rb": true,
+    "dil_exact_T": false,
+    "tau": 1,
+    "T_prime": 3,
+    "J1": {
+     "t0+1": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+2": {
+      "Ji": true,
+      "Jii": true
+     },
+     "t0+3": {
+      "Ji": true,
+      "Jii": true
+     }
+    },
+    "SCH": {
+     "t0+1": true,
+     "t0+2": true,
+     "t0+3": true
+    },
+    "Q_missing_T": [],
+    "G_star_out_T": [
+     "1111110",
+     "1111111"
+    ],
+    "G_status_T": "consistent",
+    "Q_missing_Tprime": [],
+    "G_star_out_Tprime": [
+     "1111110",
+     "1111111"
+    ],
+    "G_status_Tprime": "consistent",
+    "eta": {
+     "t0+1": "1/64",
+     "t0+2": "1/64",
+     "t0+3": "1/64"
+    },
+    "lemma_h_bound": {
+     "t0+1": "0",
+     "t0+2": "1/64",
+     "t0+3": "1/32",
+     "t0+4": "3/64"
+    },
+    "recurrence_flags": [],
+    "D_bits": 0,
+    "method": "sequential",
+    "g": "01",
+    "write_min_eps": "0",
+    "w": "1/64",
+    "w_chg": "1/128",
+    "sweep_min_max_eps": null
+   }
+  }
+ ],
+ "verdict_text": "Phase A: all 49 frozen tuples reproduced their expected rows and values."
+}

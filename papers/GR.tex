@@ -297,16 +297,17 @@ determined by the partition, with any parameters of the emergent theory
 depending only on the partition boundary's geometric and thermodynamic
 properties (partition-relativity); (iii) the emergent transition
 probabilities \(T_{ij}(t)\) determine the Bohr-frequency set of the
-emergent Hamiltonian and, conditional on the classification hypothesis
-H-BG of §3.3, the emergent Hamiltonian itself up to a diagonal-unitary
-D-gauge, an energy origin, and one global antiunitary conjugation ---
-the two-branch form of §3.3 --- via the phase-locking lemma applied to
-continuous-time sampling. The technical bridge from P-indivisible
-classical stochastic processes on finite configuration spaces to unitary
-quantum evolution on finite Hilbert spaces is Barandes'
-stochastic-quantum correspondence {[}35, 36{]}, used by the companion
-paper for compression and interpretation --- the fixed-basis
-representation itself is supplied internally there
+emergent Hamiltonian and, under the genericity hypotheses (G1)--(G4) of
+the phase-locking lemma or, without (G4), conditional on the
+classification hypothesis H-BG of §3.3, the emergent Hamiltonian itself
+up to a diagonal-unitary D-gauge, an energy origin, and one global
+antiunitary conjugation --- the two-branch form of §3.3 --- via the
+phase-locking lemma applied to continuous-time sampling. The technical
+bridge from P-indivisible classical stochastic processes on finite
+configuration spaces to unitary quantum evolution on finite Hilbert
+spaces is Barandes' stochastic-quantum correspondence {[}35, 36{]}, used
+by the companion paper for compression and interpretation --- the
+fixed-basis representation itself is supplied internally there
 (\(S \iff D \iff Q_{\mathrm{fb}}\)). We treat these results as inputs
 and apply them to the cosmological horizon. The cosmological horizon
 independently verifies C1--C3: causal coupling via the Einstein
@@ -452,9 +453,9 @@ The cubic-lattice realization of the substratum --- which fixes the
 Standard Model gauge structure via the wave equation --- is developed in
 a companion paper {[}SM{]} and is independent of the GR results
 presented here. The reconstruction theorem and the synthesis claim that
-quantum mechanics, general relativity, and the arrow of time descend as
-three projections of the same \((S, \varphi)\) are developed in
-{[}Substratum{]}.
+quantum mechanics and general relativity descend as projections of the
+same \((S, \varphi)\), with a third projection bearing on the arrow of
+time, are developed in {[}Substratum{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -910,7 +911,18 @@ description (Prerequisites; Barandes correspondence {[}35, 36{]}), and
 are characterized by the boundary geometry (\(A\), \(\epsilon\),
 \(\kappa\)) and the constants \(c\), \(G\) appearing in the classical
 Hamiltonian --- the emergent action scale \(\hbar\) inherits
-boundary-only dependence.
+boundary-only dependence. The departure of the reduced visible dynamics
+from its frozen-bath form also enters at first order,
+\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\), as a Hermitian drift of
+the emergent effective Hamiltonian \(\hat{H}_{\text{eff}}\) ({[}Main
+§3.2{]}), and through the constraint coupling of (C1), which acts on
+total energy--momentum, that drift is common-mode: the slow change of
+the traced-out horizon state rescales \(\hat{H}_{\text{eff}}\) uniformly
+and cancels in all dimensionless ratios, which is why the \(10^{-32}\)
+figure is absorbable rather than observable, with the
+composition-differential remainder suppressed by the tidal factor
+\((L_{\text{lab}}/R_H)^2 \sim 10^{-52}\), \(R_H\) the horizon radius,
+and independently capped by equivalence-principle tests.
 
 \textbf{Corollary (deep-sector cardinality is gauge).} \emph{To within
 \(\mathcal{O}(\tau_S/\tau_B)\), no quantity determined by the visible
@@ -1094,21 +1106,23 @@ against UV modifications of the dispersion relation, with corrections at
 horizon, \(\epsilon\kappa/c^2 = \epsilon H / c \sim 10^{-61}\) at
 \(\sigma = 1\), so lattice corrections are \(\sim 10^{-122}\).
 
-\textbf{An independent necessity statement.} The same conclusion is
-forced by an external theorem with a disjoint axiom base. For matter
-field equations whose principal polynomial is that of standard-model
-fields on a Lorentzian metric --- the class in which the emergent sector
-of Part I falls, the single-cone structure being supported by the
-rotational-protection results of {[}SM §3.1{]} and by the
-symmetric-point universality of the block cones under H-blind ({[}SM
-§4.4{]}) --- the gravitational closure theorem of Düll, Schuller,
-Stritzelberger and Wolz {[}Phys. Rev.~D 97, 084036 (2018){]} determines
-the gravitational action to be Einstein--Hilbert with cosmological
-constant, from canonical co-evolution and diffeomorphism invariance
-alone, with no thermodynamic input. The derivation above and the closure
-theorem therefore force the same dynamics from disjoint axiom bases; the
-closure route leaves \(G\) and \(\Lambda\) as undetermined constants,
-which is precisely where the present relation
+\textbf{An independent necessity statement.} The same conclusion
+follows, given the single-cone condition stated below, from an external
+theorem with a disjoint axiom base. For matter field equations whose
+principal polynomial is that of standard-model fields on a Lorentzian
+metric --- the class in which the emergent sector of Part I falls if its
+single-cone structure holds, that structure being supported by the
+rotational-protection results of {[}SM §3.1{]}, conditional there on
+loop-level \(O_h\) invariance and an \(O\)-equivariant condensate under
+H-link, and by the symmetric-point universality of the block cones under
+H-blind ({[}SM §4.4{]}) --- the gravitational closure theorem of Düll,
+Schuller, Stritzelberger and Wolz {[}Phys. Rev.~D 97, 084036 (2018){]}
+determines the gravitational action to be Einstein--Hilbert with
+cosmological constant, from canonical co-evolution and diffeomorphism
+invariance alone, with no thermodynamic input. The derivation above and
+the closure theorem therefore force the same dynamics from disjoint
+axiom bases; the closure route leaves \(G\) and \(\Lambda\) as
+undetermined constants, which is precisely where the present relation
 \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the analysis of §6--7 take
 over. The closure theorem, moreover, is one member of a family of
 independent necessity statements the emergent sector inherits once its
@@ -1246,18 +1260,28 @@ completeness, the real-to-integer transfer (kernel:
 \texttt{real\_to\_integer\_surrogate} in
 \texttt{OIBridge/TurnpikeScopeTransfer.lean}), congruent reconstruction
 and the positive six-mode obstruction remain kernel-proved independently
-of it. The listed ambiguities are exactly invisible: \(H+E_0\)
-contributes only a global phase, while \(-\bar H\) conjugates the
-propagator entrywise. The gap condition is used where coefficient
-matching induces a bijection of ordered mode pairs: with degenerate gaps
-one frequency's coefficient is a sum over several mode pairs. The
-\(C_4\) ring of {[}SM{]} Proposition 20 has distinct eigenvalues,
-uniform overlaps and degenerate gaps; its conjugate \(\bar H\)
-reproduces every \(|U_{ij}(t)|^2\) and conjugates the loop product
-\(H_{01}H_{12}H_{23}H_{30}\), which no diagonal conjugation changes. The
-ring therefore does not exhibit a failure, without the gap condition, of
-the two-branch form conditional on H-BG: \(\bar H\) lies in the
-reflection branch, \(\bar H = -D_s\bar H D_s^\dagger\) with
+of it. The exclusion of the reversed orientation and the assembly of the
+two branches from H-BG are kernel-checked
+(\texttt{twoBranch\_of\_signed\_spectral\_classification},
+\texttt{twoBranch\_of\_BGSignedClassification} in
+\texttt{OIBridge/PairIdentification.lean}), so the proof from H-BG is
+kernel-checked and H-BG is the theorem's only unproved premise. Under
+the triangle-genericity condition (G4) of the phase-locking lemma
+({[}Main §3.1{]}), with which spectra that have distinct gaps and equal
+gap sets are congruent, the two branches follow without H-BG (kernel:
+\texttt{twoBranch\_of\_triangleGeneric}). The listed ambiguities are
+exactly invisible: \(H+E_0\) contributes only a global phase, while
+\(-\bar H\) conjugates the propagator entrywise. The gap condition is
+used where coefficient matching induces a bijection of ordered mode
+pairs: with degenerate gaps one frequency's coefficient is a sum over
+several mode pairs. The \(C_4\) ring of {[}SM{]} Proposition 20 has
+distinct eigenvalues, uniform overlaps and degenerate gaps; its
+conjugate \(\bar H\) reproduces every \(|U_{ij}(t)|^2\) and conjugates
+the loop product \(H_{01}H_{12}H_{23}H_{30}\), which no diagonal
+conjugation changes. The ring therefore does not exhibit a failure,
+without the gap condition, of the two-branch form conditional on H-BG:
+\(\bar H\) lies in the reflection branch,
+\(\bar H = -D_s\bar H D_s^\dagger\) with
 \(D_s = \mathrm{diag}(1,-1,1,-1)\). The raw frequency set alone cannot
 distinguish the non-congruent homometric rulers; reconstruction uses
 coefficient-labelled frequency data.
@@ -1441,10 +1465,12 @@ condition ---
 
 up to ordinary unitary gauge. Two substantive questions accordingly
 remain: whether the actual OI substratum lies in the class admitting an
-OI-compatible coherent completion, and whether its derived classical
-thermodynamic arrow --- \(\beta_E = \partial S_H/\partial E > 0\),
-settled classically by exact counting (kernel:
-\texttt{counting\_passive}) --- enters that completion through an
+OI-compatible coherent completion, and whether its classical
+thermodynamic orientation --- the energy ordering under which exact
+finite-bath counting with \(\beta_E = \partial S_H/\partial E > 0\)
+makes the classical profile passive (kernel: \texttt{counting\_passive},
+from a monotone bath count), an orientation of energy rather than a
+direction of time --- enters that completion through an
 orientation-sensitive bridge. The classification of alternative coherent
 theories is otherwise closed: existing completions are ordinary complex
 quantum mechanics modulo one global antiunitary \(\mathbb{Z}_2\), while
@@ -2071,7 +2097,8 @@ map of a strongly continuous one-parameter group of isometric
 order the Heisenberg picture forces, the swap first, give a strongly
 continuous path of isometric \(*\)-automorphisms from the identity to
 the update's own Heisenberg action (kernel: \texttt{heisQ\_of\_comp},
-\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_smul},
+\texttt{driveQ\_one\_eq\_heisQ} in
 \texttt{OIBridge/SecondOrderDrive.lean}). For the composite path no
 one-parameter-group law is established and no generator is exhibited:
 whether the path satisfies a one-parameter-group law, and whether one
@@ -3635,9 +3662,10 @@ The foundational emergent QM result is treated as established in
 substratum --- which determines the Standard Model gauge structure via
 the wave equation --- is independent of the present results and is
 developed in {[}SM{]}. The reconstruction theorem, the substratum gauge
-group, and the synthesis claim that quantum mechanics, general
-relativity, and the arrow of time descend as three projections of the
-same \((S, \varphi)\) are developed in {[}Substratum{]}.
+group, and the synthesis claim that quantum mechanics and general
+relativity descend as projections of the same \((S, \varphi)\), with a
+third projection bearing on the arrow of time, are developed in
+{[}Substratum{]}.
 
 \hypertarget{scope}{%
 \subsubsection{8.1 Scope}\label{scope}}
@@ -3758,20 +3786,22 @@ falsifiability}\label{assumptions-limitations-and-falsifiability}}
 consequence of geometry in Part II), the stochastic-quantum bridge
 ({[}Main, §3.1{]} and Appendix A; two routes reach its
 transition-statistics layer, neither reaching the operational instrument
-algebra), and genericity conditions (non-degenerate spectrum,
-non-vanishing overlaps), which hold for all but a measure-zero set. The
-P-indivisibility proof uses finiteness via the recurrence argument
-(\(\varphi^N = \text{id}\)). For the leading-order visible transition
-data on accessible timescales, the deep-sector cardinality corollary
-(§3.2) establishes that only \(\mathcal{C}_V\) and \(\mathcal{C}_B\)
-need be finite --- both guaranteed by holographic entropy bounds
-{[}26{]} independently of the de Sitter finite-dimensionality conjecture
---- while the deep sector \(\mathcal{C}_D\) may be infinite;
-recurrence-scale P-indivisibility is proved on a finite representative.
-The readback lemma ({[}Main, §2.3{]}) provides accessible conditional
-memory independently of \(|\mathcal{C}_H|\); it does not by itself make
-the rooted family P-indivisible on accessible windows. The
-characterization theorem becomes an equivalence on observable timescales
+algebra), and genericity conditions (the phase-locking hypotheses
+(G1)--(G4) of {[}Main §3.1{]}: non-degenerate spectrum and gaps,
+non-vanishing overlaps, triangle genericity), which hold for all but a
+measure-zero set. The P-indivisibility proof uses finiteness via the
+recurrence argument (\(\varphi^N = \text{id}\)). For the leading-order
+visible transition data on accessible timescales, the deep-sector
+cardinality corollary (§3.2) establishes that only \(\mathcal{C}_V\) and
+\(\mathcal{C}_B\) need be finite --- both guaranteed by holographic
+entropy bounds {[}26{]} independently of the de Sitter
+finite-dimensionality conjecture --- while the deep sector
+\(\mathcal{C}_D\) may be infinite; recurrence-scale P-indivisibility is
+proved on a finite representative. The readback lemma ({[}Main, §2.3{]})
+provides accessible conditional memory independently of
+\(|\mathcal{C}_H|\); it does not by itself make the rooted family
+P-indivisible on accessible windows. The characterization theorem
+becomes an equivalence on observable timescales
 (\(T_{\text{obs}} \ll \tau_B \sim 10^{17}\) s) --- physically
 indistinguishable from a timeless identity for all experiments within
 the age of the universe.
@@ -3912,9 +3942,10 @@ partial trace within the emergent description agrees with the classical
 marginalization on the substratum: the emergent QM is self-consistent.
 
 \emph{(ii) The generalized second law (Appendix A, §A.6), open.}
-Unitarity of \(\varphi\) and subadditivity make the sum of the von
-Neumann entropies of \(V\), \(B\) and \(D\) non-decreasing from a
-product initial state (Theorem A.6). That sum is
+Unitarity of \(\varphi\) and subadditivity bound the sum of the von
+Neumann entropies of \(V\), \(B\) and \(D\) below by its value at a
+product initial state, at every earlier and later time (Theorem A.6);
+the bound is two-sided and does not make the sum monotone. That sum is
 \(S_{\text{matter}} + S_{\text{BH}} + S_{\text{dS}}\) only if each
 horizon's Bekenstein-Hawking entropy equals the von Neumann entropy of
 its sector's reduced state, an identification the boundary-mode count
@@ -4475,13 +4506,13 @@ recordable laws of an embedded observer and fixed-basis quantum laws,
 the present paper applies it to the cosmological horizon, and the SM
 paper applies it to the microscopic lattice substratum. The
 reconstruction theorem and the synthesis claim --- that quantum
-mechanics, general relativity, and the arrow of time descend as three
-projections of the same deterministic \((S, \varphi)\) --- are developed
-in {[}Substratum{]}. Together, this four-paper synthesis ({[}Main{]},
-{[}SM{]}, {[}GR{]}, {[}Substratum{]}) proposes that the Standard Model,
-general relativity, and the arrow of time descend from one finite
-deterministic construction, with the covariant field equations (G3) and
-the selection of full operational quantum mechanics open. The
+mechanics and general relativity descend as projections of the same
+deterministic \((S, \varphi)\), with a third projection bearing on the
+arrow of time --- are developed in {[}Substratum{]}. Together, this
+four-paper synthesis ({[}Main{]}, {[}SM{]}, {[}GR{]}, {[}Substratum{]})
+proposes that the Standard Model and general relativity descend from one
+finite deterministic construction, with the covariant field equations
+(G3) and the selection of full operational quantum mechanics open. The
 framework's hierarchical structural realism and its relationship to
 other unification programs are developed in the fifth core paper
 {[}Structure{]}.
@@ -5445,4 +5476,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: af25e6e2aeb5ffdecef6d2578221fdbb8c39a8753b14d7ef94c778a4aceda53b
+% source-sha256: 7304c21382c6f0bd3e77784b59fbddf7aff6a04645e99f9ca0929409873f3b7d

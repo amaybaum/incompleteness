@@ -1,0 +1,39 @@
+{
+ "source": "GitHub Actions REST API job records for run 41233325635, read as structured data (AGENTS.md §A.44); no log text read",
+ "head_sha": "0afc035ee4b64851b89752dc2cfe52ebd0bcaa7b",
+ "run_id": 41233325635,
+ "run_url": "https://github.com/amaybaum/incompleteness/actions/runs/41233325635",
+ "event": "pull_request",
+ "event_note": "ordinary draft-PR CI on PR #1022; a pull-request run tests a synthetic merge with main",
+ "mathlib_bridge_job": {
+  "id": 124631852061,
+  "status": "completed",
+  "conclusion": "success",
+  "steps": {
+   "Build": "success",
+   "Release gate": "success",
+   "KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)": "success",
+   "PRESERVE-INDUCT-1 axiom reports": "success",
+   "KTRANS-SEP-2 build the imports of the module": "success",
+   "KTRANS-SEP-2 elaborate the module": "success",
+   "KTRANS-SEP-2 axiom reports within the three axioms": "success",
+   "KTRANS-SEP-2 marker complete reports with an axiom outside the three": "skipped"
+  }
+ },
+ "build_step": "success",
+ "axiom_check_step": "success",
+ "axiom_check_source": "the Release gate step conclusion: its lean_axiom_check decides every #print axioms report, the PC1Controls and F2CoherenceControls reports included (no sorryAx; only propext, Classical.choice, Quot.sound)",
+ "core_b_job": {
+  "id": 124631852236,
+  "conclusion": "failure",
+  "failed_step": "SC-42 integration source scope and must-fail controls",
+  "other_steps": "success",
+  "cause": "the SC-42 added-text scan's local-path pattern matched one word on stage2/run-2/RESULT.md line 54, reproduced locally (failed predicate: added-text scan: 1 hit(s)); not a proof or controls defect",
+  "fixed_in": "the run-2 record commit that adds this file (the word replaced; local SC-42 rerun: 0 hits, PASS, result and controls byte-identical to the committed records)"
+ },
+ "other_jobs_at_record_time": {
+  "success": 20,
+  "skipped": 1,
+  "in_progress": ["Numerical probes / A42 census01", "Numerical probes / A41 independent"]
+ }
+}

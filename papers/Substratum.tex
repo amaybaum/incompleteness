@@ -200,8 +200,11 @@ geometric links.
 Quantum mechanics and general relativity are conventionally treated as
 two fundamental theories awaiting unification. This paper develops the
 alternative that they are two projections of a single finite
-deterministic construction, joined by a third projection that produces
-the arrow of time. The underlying object is the bijection
+deterministic construction, joined by a third projection that supplies a
+time-symmetric observer-selection rule, read against the area of the
+apparent horizon, which on an expanding homogeneous general-relativistic
+background satisfying the null energy condition is non-decreasing as a
+matter of background kinematics. The underlying object is the bijection
 \((S,\varphi)\) on a finite configuration space. Its visible-sector
 reduction has the exact finite stochastic/quantum-representation
 equivalence established in {[}Main{]}: finite observable laws, finite
@@ -354,12 +357,14 @@ content), and the thermodynamic limit at the boundary level produces
 another (the metric, \(\hbar\), the BH entropy, the dynamical dark
 energy), and the framework provides the construction that makes both of
 these descriptions exact projections of the same object. The same
-construction produces a third projection (§5.4) that resolves the
-arrow-of-time question by descending the observer's emergent arrows ---
-cosmological, thermodynamic, memory, measurement --- from the
-horizon-growth clock and the C1--C4 observer-selection theorem of
-{[}Main, §4.6{]}, answering the Ellis objection to bijective substrates
-without adding a structural commitment.
+construction gives a third projection (§5.4): the C1--C4
+observer-selection theorem of {[}Main, §4.6{]}, which is time-symmetric
+and selects where observers can exist, read against the apparent-horizon
+area, which is non-decreasing on an expanding homogeneous
+general-relativistic background satisfying the null energy condition
+(background kinematics, not a substratum prediction); a common mechanism
+aligning the cosmological, thermodynamic, memory and measurement arrows
+is not established.
 
 The paper is organized as follows. §1.1 states the framework's primary
 metaphysical commitment and its relation to explanatory and empirical
@@ -554,8 +559,9 @@ erasure lemma of {[}Main §2.3{]}. In that description, this replaces the
 low-entropy ``past hypothesis'', in its role of selecting
 observer-compatible configurations, with a structural observer-selection
 rule and excludes Boltzmann brains structurally rather than
-anthropically. Entropy increase is then emergent as a coarse-grained
-description of the non-equilibrium dynamics observers necessarily see.
+anthropically. The rule is time-symmetric: the direction in which
+coarse-grained entropy increases rests on a low-entropy or product
+boundary condition, not on the rule (§5.4).
 
 \textbf{The incompleteness family.} The framework's central result
 belongs to a family of impossibility-with-structure theorems. Gödel: a
@@ -709,20 +715,33 @@ depend on a choice of ``center'' site, in two senses used below:
 graph is a finite periodic lattice, the quotient of a rank-\(d\) lattice
 by a finite-index sublattice, \(d\) being its dimension), and the update
 at a site contains no explicit copy of that site's present value ({[}SM
-§4.1{]}). (The second sense is what the wave-equation derivation of
-Stage 2 uses. Its observational anchor is the homogeneity of physical
-law --- no experiment has found a preferred location in the laws --- the
-cosmological principle's complement to E4's isotropy; whether it is
-independently warranted by the observer architecture remains the
-question flagged in §1.)
+§4.1{]}). The two senses are logically independent for rules of the
+second-order form \(x(t+1) = F(x(t)) - x(t-1)\) over \(\mathbb{Z}_q\) on
+a periodic cubic lattice of side at least \(3\), with gauge acting by
+site-wise bijections of each site's (previous, current) pair. Such a
+gauge preserves which sites each update reads, so a rule that commutes
+with translations up to gauge reads its sites in a translation-invariant
+pattern. The rule
+\(x_i(t+1) = x_i(t) + \sum_{j\sim i} x_j(t) - x_i(t-1)\) commutes with
+translations exactly and reads \(x_i(t)\); the same rule with the
+\(x_i(t)\) term dropped and one neighbour omitted from the sum at a
+single site reads no site's own present value, and its pattern of read
+sites is not translation-invariant. (The second sense is what the
+wave-equation derivation of Stage 2 uses. Its observational anchor is
+the homogeneity of physical law --- no experiment has found a preferred
+location in the laws --- the cosmological principle's complement to E4's
+isotropy; whether it is independently warranted by the observer
+architecture remains the question flagged in §1.)
 
 (A5) \textbf{Linearity.} The wave equation for \(\varphi\) is linear.
-(Equivalent to amplitude-scale gauge invariance --- that the field-value
-scale is unphysical --- via the linearity-equivalence lemma of {[}SM
-§4.1{]}; hence necessary \emph{given} that gauge principle and ``partly
-derived'' in exactly that sense. Whether the \(q\)-size gauge freedom of
-{[}SM §2.7{]} entails amplitude-scale gauge is an identified open step;
-pending it, nonlinear alternatives are excluded precisely to the extent
+(Amplitude-scale gauge invariance --- that the field-value scale is
+unphysical --- restricts the update to an affine one via the
+linearity-equivalence lemma of {[}SM §4.1{]}, so A5 is ``partly
+derived'' in exactly that sense: its affine part is necessary
+\emph{given} that gauge principle, and the further restriction to linear
+is imposed. Whether the \(q\)-size gauge freedom of {[}SM §2.7{]}
+entails amplitude-scale gauge is an identified open step; pending it,
+non-affine alternatives are excluded precisely to the extent
 amplitude-scale gauge is assumed, and would otherwise require a separate
 derivation.)
 
@@ -755,16 +774,16 @@ of A3--A6 either requires new derivations or weakens the uniqueness. The
 set A1--A6, with that premise, is sufficient for the reconstruction but
 is not proved to be minimal: A4 (center independence) and A6 (background
 independence) overlap in physical content (A6 promotes the symmetry that
-A4 constrains), and A5 (linearity) is equivalent to amplitude-scale
-gauge invariance via the linearity-equivalence lemma of {[}SM §4.1{]},
-hence partly derived --- necessary \emph{given} amplitude-scale gauge,
-with whether {[}SM §2.7{]}'s \(q\)-size gauge entails it left as an
-identified open step. A tighter axiomatization may be possible but is
-not pursued here; the reconstruction's validity depends on the
-sufficiency of A1--A6 and E1--E7, not on their independence. The
-empirical inputs E5, E6, E7 (propagating gravity, stable matter,
-boundary-entropy concordance) provide explicit forward filters for
-\(d = 3\) --- see Stage 2(a) below.
+A4 constrains), and A5 (linearity) is partly derived --- amplitude-scale
+gauge invariance restricts the update to an affine one via the
+linearity-equivalence lemma of {[}SM §4.1{]}, the further restriction to
+linear being imposed --- with whether {[}SM §2.7{]}'s \(q\)-size gauge
+entails amplitude-scale gauge left as an identified open step. A tighter
+axiomatization may be possible but is not pursued here; the
+reconstruction's validity depends on the sufficiency of A1--A6 and
+E1--E7, not on their independence. The empirical inputs E5, E6, E7
+(propagating gravity, stable matter, boundary-entropy concordance)
+provide explicit forward filters for \(d = 3\) --- see Stage 2(a) below.
 
 \textbf{Critical dependencies.} Theorem 23's proof relies on the
 following prior theorems, whose individual correctness is assumed:
@@ -1228,7 +1247,8 @@ existence is conditional and Bell-inclusive uniqueness remains open.
 
 \textbf{Remark} (Evidential weight of the reconstruction). Within the
 nearest-neighbor class of Stage 2(b), the reconstruction uniquely
-derives \(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\) with
+derives, conditionally on H-link and H-cust {[}SM §4.5--§4.6{]},
+\(\text{SU}(3) \times \text{SU}(2) \times \text{U}(1)\) with
 multiplicities \((3, 2, 1)\), three generations (physical reading
 conditional on H-spin', {[}SM §4.7{]}; chirality on H-χ', {[}SM
 §4.8{]}), one Higgs doublet \((1, 2, +1/2)\), and hypercharges unique up
@@ -1371,11 +1391,11 @@ can in principle be weakened or replaced:
 \item
   A4 (center independence) rules out preferred-frame theories.
 \item
-  A5 (linearity) is the strongest restriction; it is equivalent to
-  amplitude-scale gauge invariance (linearity-equivalence lemma, {[}SM
-  §4.1{]}), so nonlinear wave equations on finite lattices are the
-  separate class one obtains exactly when that gauge principle is
-  dropped.
+  A5 (linearity) is the strongest restriction; amplitude-scale gauge
+  invariance restricts the rule to an affine one (linearity-equivalence
+  lemma, {[}SM §4.1{]}), so non-affine wave equations on finite lattices
+  are the separate class one obtains exactly when that gauge principle
+  is dropped.
 \item
   A6 (background independence), as covariance under local internal-index
   transformations with the link coupling transformed alongside, is the
@@ -1696,15 +1716,15 @@ generator (i) relabels hidden states only and (ii) is
 alphabet-\emph{size} only --- so the results invoking it are conditional
 on it. Stated operationally it is \emph{not} viciously circular: the
 input (absolute amplitude is unobservable) is strictly weaker than the
-output (additive dynamics), and a nonlinear \(F\) on the same alphabet
-is a coherent object the principle \emph{excludes} rather than
-presupposes. The one route that would make linearity
+output (affine dynamics), and a non-affine \(F\) on the same alphabet is
+a coherent object the principle \emph{excludes} rather than presupposes.
+The one route that would make the affine restriction
 \emph{unconditional} --- deriving the unobservability of absolute
 amplitude from the observer architecture itself --- is by contrast
 circular: what the embedded observer can resolve through the trace-out
-is dynamics-dependent (a nonlinear \(F\) induces amplitude-dependent
+is dynamics-dependent (a non-affine \(F\) induces amplitude-dependent
 emergent dispersion, which \emph{is} observable), so ``absolute
-amplitude is unobservable'' already presupposes linearity.
+amplitude is unobservable'' already presupposes an affine rule.
 Amplitude-scale gauge therefore has the status of an operational input
 on a par with center independence and isotropy, not a theorem; whether
 it is independently warranted by the observer architecture is the
@@ -1734,21 +1754,21 @@ emergent transition probabilities up to relabelling) while being
 nonlinear, so it would render a nonlinear rule gauge-equivalent to a
 linear one and thereby \emph{destroy} linearity-necessity rather than
 establish it (verified explicitly on \(\mathbb{Z}/5\mathbb{Z}\)). The
-principled object that delivers exactly what is needed without
+principled object that delivers the affine restriction without
 overshooting is the \textbf{additive-automorphism} group
 \(x \mapsto \lambda x + c\) (\(\lambda\) a unit) --- a proper subgroup
 of all permutations that preserves the alphabet's ``+'', hence the
 dispersion. The upshot, in the framework's three-tier classification
 ({[}SM §8.3{]}): linearity is \textbf{not} promoted to a forced (Tier-1)
 consequence; it is a Tier-3 \emph{definitional stipulation}, but a
-sharpened one --- the bare assumption ``the dynamics is linear'' is
-replaced by the more primitive and better-motivated assumption ``the
-alphabet's additive automorphisms are gauge,'' from which linearity
-follows as a certified theorem. This is the characteristic resolution
-shape for the framework's foundational gaps: pressing for a proof does
-not close the gap to a derivation but relocates the irreducible
-assumption to a more primitive and more defensible place, and names it
-exactly.
+sharpened one --- the more primitive and better-motivated assumption
+``the alphabet's additive automorphisms are gauge'' yields an affine
+rule as a certified theorem, and linearity is the further restriction
+the stipulation adds. This is the characteristic resolution shape for
+the framework's foundational gaps: pressing for a proof does not close
+the gap to a derivation but relocates the irreducible assumption, apart
+from the further restriction from affine to linear, to a more primitive
+and more defensible place, and names it exactly.
 
 \textbf{Completeness of the generators (open).} Whether families
 (i)--(iii) generate \(\mathcal{G}_{\text{sub}}\), family (ii) entering
@@ -2086,9 +2106,9 @@ propagating lattice/gauge residue}. M1-B and H-Bell separately condition
 the existence of a measurement-independent Bell-violating completion;
 Bell-inclusive uniqueness is open. The substratum gauge group (§4) makes
 the equivalence relation precise. This section makes the synthesis claim
-explicit: quantum mechanics, general relativity, and the arrow of time
-are not three independent theories but three projections of the same
-finite deterministic construction.
+explicit: quantum mechanics and general relativity are not two
+independent theories but projections of the same finite deterministic
+construction, and a third projection bears on the arrow of time (§5.4).
 
 \hypertarget{the-three-projections}{%
 \subsubsection{5.1 The three projections}\label{the-three-projections}}
@@ -2098,10 +2118,11 @@ same \((S, \varphi)\) along three projections: a visible-sector
 projection that produces the reduced description admitting the quantum
 representation ({[}Main{]}) and the Standard Model ({[}SM{]}); a
 boundary-thermodynamic projection that produces general relativity
-({[}GR{]}); and an arrow-of-time projection (§5.4) that produces the
-emergent cosmological, thermodynamic, memory, and measurement arrows
-from a single structural clock and the C1--C4 observer-selection theorem
-of {[}Main, §4.6{]}.
+({[}GR{]}); and an arrow-of-time projection (§5.4) that supplies the
+time-symmetric C1--C4 observer-selection theorem of {[}Main, §4.6{]},
+read against the apparent-horizon area, which is non-decreasing, as
+background kinematics, on an expanding homogeneous general-relativistic
+background satisfying the null energy condition.
 
 \textbf{Visible-sector projection.} At the level of the embedded
 observer's epistemic access, the trace-out over the hidden sector
@@ -2187,8 +2208,8 @@ dynamics and produces the quantum-representable reduced description and
 the Standard Model; the boundary-thermodynamic projection (§5.1) works
 on the classical thermal data at the partition boundary and produces
 general relativity; the arrow-of-time projection (§5.4) works on the
-horizon-clock parameter along observer worldlines and produces the
-cascade of emergent arrows.
+horizon-area parameter along observer worldlines together with the
+observer-selection rule.
 
 \textbf{The projections and the Poincaré structure of the partition.}
 The three projections are organized by how the
@@ -2205,15 +2226,17 @@ the CMB frame) and the boost-sector Lorentz residual ({[}SM §3.1{]});
 spatial translations, which merely relabel the observer's origin, are
 broken only observer-relatively and are recovered as spatial homogeneity
 --- the equivalence of all worldline-centered descriptions; and time
-translation is broken intrinsically by the growth of the horizon, which
-is the boundary-thermodynamic and arrow projections (§5.4, {[}GR{]}).
-The partition's symmetry-breaking signature --- isotropy not broken by
-the partition, a preferred rest frame, spatial homogeneity, a
-distinguished cosmic time --- is the symmetry structure of a
-Friedmann-Robertson-Walker cosmology. The framework does not derive that
-structure; it exhibits the partition's symmetry-breaking pattern as
-compatible with it, with ordinary momentum conservation holding in the
-visible sector up to corrections of order (length / horizon radius).
+translation is broken by the growth of the apparent horizon on an
+expanding background with \(\rho + p/c^2 > 0\), an input to the
+boundary-thermodynamic and arrow projections; in exact de Sitter the
+horizon area is constant (§5.4, {[}GR{]}). The partition's
+symmetry-breaking signature --- isotropy not broken by the partition, a
+preferred rest frame, spatial homogeneity, a distinguished cosmic time
+--- is the symmetry structure of a Friedmann-Robertson-Walker cosmology.
+The framework does not derive that structure; it exhibits the
+partition's symmetry-breaking pattern as compatible with it, with
+ordinary momentum conservation holding in the visible sector up to
+corrections of order (length / horizon radius).
 
 \hypertarget{the-qm-gr-incompatibility-as-a-category-error}{%
 \subsubsection{5.2 The QM-GR incompatibility as a category
@@ -2327,74 +2350,89 @@ equations are the open Level-G3 step ({[}GR, §8.7{]}).
 \subsubsection{5.4 The arrow of time as a third
 projection}\label{the-arrow-of-time-as-a-third-projection}}
 
-After Main §4.6 (structural observer-selection theorem), the arrow of
-time joins quantum mechanics and general relativity as a third emergent
-structure that the framework derives from the same underlying
-\((S, \varphi)\) and the same trace-out machinery. Before §4.6, the
-arrow of time was treated as external to the derivation chain --- a past
-hypothesis or an anthropic selection, imposed on the framework rather
-than produced by it. With §4.6 in place, the observer's confinement to
-the non-equilibrium phase of \((S, \varphi)\), with C2 read in its
-timescale form (record persistence and readback there being suppressed,
-not excluded), is a structural consequence of the effective-mixing
-hypothesis, for sufficiently fast-mixing equilibria
+Main §4.6 (structural observer-selection theorem) supplies the selection
+content of the third projection, applied to the same underlying
+\((S, \varphi)\) with the same trace-out machinery. The observer's
+confinement to the non-equilibrium phase of \((S, \varphi)\), with C2
+read in its timescale form (record persistence and readback there being
+suppressed, not excluded), is a structural consequence of the
+effective-mixing hypothesis, for sufficiently fast-mixing equilibria
 (\(\tau_{\rm mix} \ll \tau_S\)), in the coarse-grained description
-generated by iterating the one-step effective channel, and every arrow
-the observer sees descends from this confinement together with the
-horizon growth that the accelerating phase produces. The third
-projection has the same form as the first two: a feature of how the
-embedded observer sees \((S, \varphi)\) from inside, rather than a
-feature of \((S, \varphi)\) itself.
+generated by iterating the one-step effective channel. The confinement
+is time-symmetric and fixes where observers can exist, not a direction
+of time; that the arrows the observer sees descend from it together with
+horizon growth is not established. The third projection has the same
+form as the first two: a feature of how the embedded observer sees
+\((S, \varphi)\) from inside, rather than a feature of \((S, \varphi)\)
+itself.
 
 A distinction should be kept in view here. The \emph{existence} of the
 temporal domain --- that differentiation recurs, that there is more than
 one moment at all --- is not a projection of \((S, \varphi)\) but the
 framework's second foundational axiom (the recurrence axiom of the
 two-axiom observation base; see {[}Main §1.2{]} and Part I of the
-companion paper \emph{Physics Modulo Gauge}). What is a projection, and
-what this section derives, is the \emph{arrow} --- the directedness of
-time within that domain. The framework derives the arrow; it posits the
-existence of the domain. Conflating the two would overstate what the
-projection delivers: §5.4 produces directedness, not the bare existence
-of succession.
+companion paper \emph{Physics Modulo Gauge}). What this section
+addresses is the \emph{arrow} --- the directedness of time within that
+domain. The framework posits the existence of the domain; for the arrow
+it establishes the conditional and time-symmetric results stated below,
+and the direction rests on boundary conditions. Conflating the two would
+overstate what the projection delivers.
 
 \textbf{Horizon growth as the structural clock.} The framework's primary
-arrow is the cosmological horizon entropy
-\(S_{\rm dS}(t) = A(t)/(4 l_p^2)\), monotonically increasing along any
-observer worldline in the \(\Lambda\)-dominated phase. The monotonicity
-is a feature of the causal partition rather than of any local frame:
-every observer in the accelerating phase agrees that \(S_{\rm dS}\)
-increases, just as every observer in a Schwarzschild geometry agrees on
-the exterior direction. The horizon clock is observer-independent,
-continuous, and monotonic for as long as \(\ddot a > 0\), which the
-framework identifies as the regime of interest for the derivations of
-{[}GR{]}. At the substrate level, \((S, \varphi)\) has no preferred
-direction: \(\varphi\) and \(\varphi^{-1}\) are equally valid as
-forward-time maps. At the observer level, the horizon clock picks out a
-direction, and all other arrows align with it.
+clock is the area \(A(t) = 4\pi c^2/H^2\) of the apparent (Hubble)
+horizon, with the horizon entropy \(S_{\rm dS}(t) = A(t)/(4 l_p^2)\)
+assigned to it at the de Sitter calibration ({[}GR, §2.3{]}). On an
+expanding flat Friedmann-Robertson-Walker background (\(H > 0\))
+satisfying the null energy condition,
+\(\dot H = -4\pi G(\rho + p/c^2) \leq 0\) and
+\(dA/dt = -8\pi c^2\dot H/H^3 \geq 0\): the area is non-decreasing along
+any comoving observer worldline, strictly increasing while
+\(\rho + p/c^2 > 0\), and constant in exact de Sitter. This is standard
+general-relativistic background kinematics, computed from the Friedmann
+equations of the background taken as given ({[}GR, §8.7{]}), not a
+prediction derived from the substratum. The criterion is expansion with
+the null energy condition, not \(\ddot a > 0\): the area also grows in
+the decelerating era, and is constant in exact de Sitter, where
+\(\ddot a > 0\). Both are inputs: the expanding branch is observed, not
+derived, and the null energy condition is assumed of the matter content;
+reading \(A/(4 l_p^2)\) as the entropy of a dynamical horizon goes
+beyond the de Sitter calibration ({[}GR, §2.3{]}). The monotonicity
+holds for every comoving observer of the homogeneous background. At the
+substrate level, \((S, \varphi)\) has no preferred direction:
+\(\varphi\) and \(\varphi^{-1}\) are equally valid as forward-time maps.
+At the observer level, the horizon parameter orders the expanding branch
+non-strictly; that the other arrows align with it is not established.
 
-\textbf{The layered cascade.} Four derived arrows align with the horizon
-clock through a structural cascade. \emph{Cosmological:}
-\(S_{\rm dS}(t)\) monotonic in the \(\Lambda\)-dominated phase, as
-above. \emph{Thermodynamic:} via Jacobson's coupling
-\(\rho_s = \rho_{\rm crit}\) ({[}GR, §3{]}), the entropy of any
-horizon-bounded system increases with the observer's clock --- the
-thermodynamic arrow descends from the structural arrow without an
-independent postulate. \emph{Memory:} C2 (memory persistence) implies
-the observer's hidden sector preserves correlations forward along the
-clock rather than backward, because the coarse-grained mixing time of
-the hidden-sector dynamics is uniform in the two directions but the
-observer's measurement protocol commits to one. \emph{Measurement:} the
-observer records ``past'' outcomes and prepares ``future'' states --- an
-asymmetry inherited from the memory layer, not added on top of it. The
-chain grounds in one structural fact (horizon growth) and one structural
+\textbf{The layered cascade.} Four arrows are stated against the horizon
+parameter, with different status. \emph{Cosmological:} \(A(t)\)
+non-decreasing on the expanding branch, as above; the branch is an
+input, and no result here selects it. \emph{Thermodynamic:} Jacobson's
+coupling \(\rho_s = \rho_{\rm crit}\) ({[}GR, §7.2{]}) is an
+instantaneous identity, even in \(H\), between the boundary energy
+density and \(H^2\); it does not relate matter entropy to horizon area.
+The direction of coarse-grained entropy increase rests on a low-entropy
+or product boundary condition: from a product state at \(t = 0\), the
+sum of the sector entropies is bounded below by its value at \(t = 0\)
+at every earlier and later time ({[}GR, §A.6{]}), a two-sided bound
+rather than a monotonicity statement, and the generalized second law is
+open. \emph{Memory:} C2 (memory persistence) is a retention condition;
+the coarse-grained mixing time of the hidden-sector dynamics is the same
+in the two directions, and the direction in which records are written
+and read is fixed by a non-stationary preparation together with the
+observer's orientation convention. \emph{Measurement:} the observer
+records ``past'' outcomes and prepares ``future'' states --- an
+asymmetry inherited from the memory layer, not added on top of it. That
+the thermodynamic, memory and measurement arrows align with the horizon
+parameter through a common mechanism is not established. The chain uses
+one input (horizon growth on the expanding branch) and one structural
 constraint (C1--C4 observer selection via Main §4.6, conditional on its
 effective-mixing hypothesis and stated for the coarse-grained
-description generated by iterating the one-step effective channel). The
-effective-mixing hypothesis is the premise that takes the place of an
-initial-condition axiom in selecting where observers exist.
+description generated by iterating the one-step effective channel),
+which fixes where observers exist, not a direction. The effective-mixing
+hypothesis is the premise that takes the place of an initial-condition
+axiom in selecting where observers exist.
 
-\textbf{What the framework derives, and the directional-language
+\textbf{What the framework establishes, and the directional-language
 subtlety.} The framework's quantitative content at the level of Main
 §4.6 is \emph{symmetric} in time direction --- the spectral-gap bound
 \(\tau_B(V) \leq \tau_{\rm mix}(\Sigma_{\rm loc}(V)) + O(\epsilon)\),
@@ -2405,53 +2443,57 @@ is the convention of which direction along the horizon-clock parameter
 to call ``future.'' The two directions are gauge-equivalent at the
 substrate level (\(\varphi \leftrightarrow \varphi^{-1}\)), and the
 observer's choice of convention is the residual freedom after all
-physical content has been extracted. The framework therefore derives the
-existence of a monotonic parameter along observer worldlines, not a
-substrate-level arrow of time. This distinction answers Ellis's
-objection (a bijective substratum cannot carry an arrow of time) by
-agreeing with the objection's premise while deriving what the observer
-actually sees from the structure the substratum does have.
+physical content has been extracted. What the framework establishes is
+therefore a horizon parameter that is non-decreasing along observer
+worldlines on the expanding branch, given the inputs above, not a
+substrate-level arrow of time. This agrees with the premise of Ellis's
+objection (a bijective substratum cannot carry an arrow of time); the
+observed direction does not follow from the results above without the
+boundary conditions they name.
 
 \textbf{Scope note: causal topology as load-bearing.} The memory-arrow
 step uses ``the observer's worldline has a causal topology'' as the
-carrier of the asymmetry. This is not a new axiom --- {[}Main, §1.3{]}
-already assumes a causal topology on the partition --- but it is
-load-bearing for the cascade and is noted explicitly here rather than
-treated as obvious. A framework in which the observer's worldline had no
-causal topology could not run the memory-arrow step, and the cascade
-would halt at the thermodynamic layer.
+carrier of its orientation convention. This is not a new axiom --- it
+reduces to the ordering of moments together with \(\varphi\) (scope note
+below) --- but it is load-bearing for the cascade and is noted
+explicitly here rather than treated as obvious. A framework in which the
+observer's worldline had no causal topology could not state the
+memory-arrow step.
 
-\textbf{Scope note: the arrow derivation is conditional on the ordering
-of moments.} The cascade derives a \emph{direction} along the observer's
-worldline. It presupposes that the worldline's moments are
-\emph{ordered} --- that they form a sequence --- since a monotonic
-parameter is monotonic with respect to an ordering. This ordering is
-distinct from the bare existence of more than one moment: the
-framework's foundational treatment (Part I of the companion paper
-\emph{Physics Modulo Gauge}) axiomatizes the existence of a temporal
-domain but treats the \emph{ordering} of its moments as a separate
-question, which it leaves open. The arrow derivation of this section is
-therefore conditional: it derives the direction \emph{given} an
-ordering, and inherits the open status of the ordering question. What
-this section establishes is the conditional --- ordered moments yield a
-derived monotonic parameter and an observer-imposed direction-convention
---- not an unconditional derivation of temporal directedness from the
-substratum alone. The causal topology of the worldline reduces to this
-ordering together with the dynamics \(\varphi\) (it introduces no
-commitment beyond the ordering), so the arrow's single open dependency
-is the ordering question and nothing further.
+\textbf{Scope note: the results of this section are conditional on the
+ordering of moments and on further inputs.} The cascade concerns a
+\emph{direction} along the observer's worldline. It presupposes that the
+worldline's moments are \emph{ordered} --- that they form a sequence ---
+since a monotonic parameter is monotonic with respect to an ordering.
+This ordering is distinct from the bare existence of more than one
+moment: the framework's foundational treatment (Part I of the companion
+paper \emph{Physics Modulo Gauge}) axiomatizes the existence of a
+temporal domain but treats the \emph{ordering} of its moments as a
+separate question, which it leaves open. The results of this section
+therefore inherit the open status of the ordering question. What this
+section establishes is conditional --- given ordered moments and the
+expanding branch, a non-decreasing horizon parameter and an
+observer-imposed direction-convention --- not a derivation of temporal
+directedness from the substratum alone. The causal topology of the
+worldline reduces to this ordering together with the dynamics
+\(\varphi\) (it introduces no commitment beyond the ordering). The
+ordering is not the only dependency: the horizon parameter rests on the
+expanding branch and the null energy condition; the observer selection
+on the effective-mixing hypothesis and the iterated-channel description;
+the thermodynamic, memory and measurement directions on a non-stationary
+or low-entropy preparation and the orientation convention; and the
+alignment of the arrows is open.
 
-\textbf{CP violation as the residual Ellis-class objection.} The layered
-cascade closes the Ellis-axis objection for the arrow of time but does
-not automatically close the related question of CP violation. The
-substratum is T-symmetric (load-bearing for the reciprocity of visible
-transition counts, {[}SM, §5{]}; it does not by itself fix
-\(\bar\theta\)), and observed CP violation in CKM and kaon/B systems is
-a flavor-basis feature of the specific bijection rather than a
-consequence of the cascade. The framework treats flavor-sector CP phases
-as solution-specific inputs --- see {[}SM, §5.4{]} for the scope
-statement and §6.4 ``what does not falsify'' for the commitment that the
-framework makes no prediction of \(\delta_{\text{CKM}}\),
+\textbf{CP violation and the Ellis-class objection.} The related
+question of CP violation is separate from the cascade. The substratum is
+T-symmetric (load-bearing for the reciprocity of visible transition
+counts, {[}SM, §5{]}; it does not by itself fix \(\bar\theta\)), and
+observed CP violation in CKM and kaon/B systems is a flavor-basis
+feature of the specific bijection rather than a consequence of the
+cascade. The framework treats flavor-sector CP phases as
+solution-specific inputs --- see {[}SM, §5.4{]} for the scope statement
+and §6.4 ``what does not falsify'' for the commitment that the framework
+makes no prediction of \(\delta_{\text{CKM}}\),
 \(\delta_{\text{PMNS}}\), or the Wolfenstein \((\rho, \eta)\).
 
 \hypertarget{what-the-synthesis-does-and-does-not-claim}{%
@@ -2588,8 +2630,9 @@ independently select the quadratic exponent or close the coherent local
 operational lift.
 
 At intermediate levels, realism applies to the SM gauge group (forced
-uniquely in OI but shared with any SM-reproducing universality class)
-and the algebra-channel structure within the SM-reproducing sub-class.
+uniquely in OI, conditionally on H-link and H-cust {[}SM §4.5--§4.6{]},
+but shared with any SM-reproducing universality class) and the
+algebra-channel structure within the SM-reproducing sub-class.
 
 At the most class-specific theorem-supported level --- the \textbf{local
 reconstructed residue modulo \(\mathcal{G}_{\text{sub}}\)} within OI's
@@ -3135,13 +3178,14 @@ single-construction claim. Under M1-T, C2-mixing and the
 nearest-neighbor premise of Stage 2(b), the reconstruction fixes the
 \textbf{local propagating lattice/gauge residue}; M1-B and H-Bell
 separately condition the existence of a measurement-independent
-Bell-violating completion, whose uniqueness is not established. The
-local reconstruction carries with the Standard Model gauge group as a
-forced retrodiction, and the anomaly-free hypercharge assignment forced
-once the observed family pattern is given, apart from the exceptional
-branch \(Y_Q=0\) (fermion embedding closed via the link-carrier
-construction, with the candidate-sector count locked at three by
-coupling-degree minimality (three physical generations only under
+Bell-violating completion, whose uniqueness is not established. On the
+H-link/H-cust branch {[}SM §4.5--§4.6{]}, the local reconstruction
+carries with the Standard Model gauge group as a forced retrodiction,
+and the anomaly-free hypercharge assignment forced once the observed
+family pattern is given, apart from the exceptional branch \(Y_Q=0\)
+(fermion embedding closed via the link-carrier construction, with the
+candidate-sector count locked at three by the link count under H-link
+with its single-copy clause (three physical generations only under
 H-spin', {[}SM §4.7{]}) jointly with the condensate-stabilizer
 accounting). The substratum gauge group identifies generators of the
 kernel of this inverse map, whose completeness is open. Together, these
@@ -3287,4 +3331,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 58bc1183a71c82a6f31de694d294909ae9922cf191b369843b693ab20bbb5903
+% source-sha256: 986b259db5439232a985de28e38f52b85569f7bd5d12aadc648b233a20f7a0f5
