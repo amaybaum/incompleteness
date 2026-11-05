@@ -1,6 +1,6 @@
 {
   "base": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
-  "checker_sha256": "26966c7d270979d02eba8a2f6b3d1172841dbb439bab3d5ae166dec58dc8ab89",
+  "checker_sha256": "6573db27dcde8faf8a096102e89a2906505a17d395a920b11f20711ba24bea72",
   "checks": [
     {
       "ok": true,
@@ -1024,7 +1024,7 @@
     },
     {
       "ok": true,
-      "predicate": "pinned in papers/Main.md: The operational-completion characterization ([GR §3.3]) take..."
+      "predicate": "pinned in papers/Main.md: The operational-completion characterization of §3.4 takes th..."
     },
     {
       "ok": true,
@@ -2708,6 +2708,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "77b5ba196337d9ed293a52612fff318826333e7e660d8ca56c336f6913cfef11",
+  "site_table_sha256": "eb0b586699684ce23ad9cb8e2c0929c7387d3f5463fcb31d30fc1b6b84a5eee4",
   "verdict": "PASS"
 }
