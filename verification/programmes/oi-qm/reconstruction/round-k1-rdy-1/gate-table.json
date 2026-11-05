@@ -1,0 +1,196 @@
+{
+  "schema": "k1rdy-gate-table",
+  "version": 1,
+  "controls": [
+    {
+      "id": "CC-ABS",
+      "gate": "G4",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-ABS.md"
+    },
+    {
+      "id": "CC-EXACT",
+      "gate": "G4",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-EXACT.md"
+    },
+    {
+      "id": "CC-SCOPE",
+      "gate": "G4",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-SCOPE.md"
+    },
+    {
+      "id": "CC-LEDGER",
+      "gate": "G3/G4",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-LEDGER.md"
+    },
+    {
+      "id": "CC-IMP",
+      "gate": "G2, G3",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-IMP.md"
+    },
+    {
+      "id": "CC-IMP′",
+      "gate": "G2(a)",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-IMP-prime.md"
+    },
+    {
+      "id": "CC-IMP″",
+      "gate": "G2(a); T1; T2's no-image disjunct",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-IMP-dprime.md"
+    },
+    {
+      "id": "CC-PASS",
+      "gate": "G2(b)",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-PASS.md"
+    },
+    {
+      "id": "CC-T2",
+      "gate": "G2(b) T2",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-T2.md"
+    },
+    {
+      "id": "POS-X",
+      "gate": "G3, G4, G7",
+      "outcome": "pass",
+      "derivation": "derivations/S0-POS-X.md"
+    },
+    {
+      "id": "CC-BLIND",
+      "gate": "G4",
+      "outcome": "pass",
+      "derivation": "derivations/S0-CC-BLIND.md"
+    }
+  ],
+  "rows": [
+    {
+      "candidate": "P0",
+      "member": null,
+      "branch": "B-pl",
+      "gates": {
+        "G1": "pass",
+        "G2": "pass",
+        "G3": "pass",
+        "G4": "ABSENT[π_0; B-pl; H-cur (declared)]",
+        "G5": "not-reached",
+        "G6": "not-reached",
+        "G7": "not-reached"
+      },
+      "w_rule": "trivial (B-pl: W trivial, t_u = t_0; line 42)",
+      "w_inputs": [],
+      "g2": {
+        "a": false,
+        "t1": false,
+        "t2": false,
+        "hsel_content": []
+      },
+      "sharp_w": [],
+      "weak": {
+        "": "1/8"
+      },
+      "nb": {},
+      "w_certified": false,
+      "usefulness": null,
+      "hypotheses": [
+        "H-cur (declared)",
+        "H-μ",
+        "finite-S posit"
+      ],
+      "ledger": "D(π_0) = 0 (π_0 uniform; LEDGER (a)). (c1): B-pl sharp readiness needs 3 log 2 ≤ D(π_0) = 0",
+      "token": "ABSENT[π_0; B-pl; H-cur (declared)]"
+    },
+    {
+      "candidate": "P0",
+      "member": null,
+      "branch": "B-eq",
+      "gates": {
+        "G1": "pass",
+        "G2": "pass",
+        "G3": "pass",
+        "G4": "ABSENT[π_0; B-eq; H-cur (declared), H-2s (declared)]",
+        "G5": "not-reached",
+        "G6": "not-reached",
+        "G7": "not-reached"
+      },
+      "w_rule": "W_eq: the site set of V, both slices (K-12(b)'s rule), read at t_u = t_0 (line 43)",
+      "w_inputs": [
+        "V"
+      ],
+      "g2": {
+        "a": false,
+        "t1": false,
+        "t2": false,
+        "hsel_content": []
+      },
+      "sharp_w": [],
+      "weak": {
+        "00": "1/2",
+        "01": "0/1",
+        "10": "0/1",
+        "11": "0/1"
+      },
+      "nb": {},
+      "w_certified": false,
+      "usefulness": null,
+      "hypotheses": [
+        "H-2s (declared)",
+        "H-cur (declared)",
+        "H-μ",
+        "finite-S posit"
+      ],
+      "ledger": "D(π_0) = 0 (π_0 uniform; LEDGER (a)). (c2): sharp readiness on w of mass p needs p · log 2 ≤ D(π_0) = 0 (|E∖W| = 1; overlap cells x_1, y_1 counted in W)",
+      "token": "ABSENT[π_0; B-eq; H-cur (declared), H-2s (declared)]"
+    },
+    {
+      "candidate": "P0",
+      "member": null,
+      "branch": "B-ct",
+      "gates": {
+        "G1": "pass",
+        "G2": "pass",
+        "G3": "pass",
+        "G4": "ABSENT[π_0; B-ct; H-cur (declared), H-2s (declared), H-ret]",
+        "G5": "not-reached",
+        "G6": "not-reached",
+        "G7": "not-reached"
+      },
+      "w_rule": "W_eq: the site set of V, both slices, read at t_u = t_0 − 1 (O-1(b); lines 44–47)",
+      "w_inputs": [
+        "V"
+      ],
+      "g2": {
+        "a": false,
+        "t1": false,
+        "t2": false,
+        "hsel_content": []
+      },
+      "sharp_w": [],
+      "weak": {
+        "00": "1/4",
+        "01": "0/1",
+        "10": "1/4",
+        "11": "0/1"
+      },
+      "nb": {},
+      "w_certified": false,
+      "usefulness": null,
+      "hypotheses": [
+        "H-2s (declared)",
+        "H-cur (declared)",
+        "H-ret",
+        "H-μ",
+        "finite-S posit"
+      ],
+      "ledger": "D(π_0) = 0 (π_0 uniform; LEDGER (a)). Cross time: not bounded by D(μ) (line 62); carriage from t_0 − 1 to t_0 by H-ret, outside the state",
+      "token": "ABSENT[π_0; B-ct; H-cur (declared), H-2s (declared), H-ret]"
+    }
+  ],
+  "class_tokens": {}
+}
