@@ -302,8 +302,33 @@ PREREG §5: "**COUNTEREXAMPLE** iff K-a, K-b, K-c, K-d and K-e all pass and `|g(
   `|A| ≥ 2` counterpart of the `|A| = 1` equality `Fib = G` (B4 §3.1). It bears on F's undecided item l. 430, which the
   owner released for this verification. F itself is off `main` and is not edited.
 - **Equivalence picture at `|V| = 2`, `|A| ≥ 2`, all-unitary class.**
-  - C0: G⇒O holds (B4 row 506) and O⇒G fails, so C0 is strictly coarser than `G`.
-  - C2-ch and C2-sel: G⇒O fails (WE, B4 rows 519, 521) and O⇒G fails, so they are incomparable with `G`.
+  - **C0.** G⇒O holds, by kernel support on `main`.
+    - `left_preserves_admissible` (TSG:217) and `weak_preserves_admissible` (CLG:273) make `L_tU_tK_t` an admissible
+      dilation of the same `Γ_t` as `U_t`.
+    - Lemma R (a ⇒ b) (§6) gives the same equality slice by slice.
+    - `Λ_C0` is the family `Γ_t(·,j)` (§3.1, for any lift by (r1)), so it is unchanged.
+
+    O⇒G fails (§7). So C0 is strictly coarser than `G`.
+  - **C2-ch and C2-sel.** G⇒O fails. B4's witness WE (B4 ll. 323–341, [D] there and not reviewed on `main`) is
+    re-derived here by hand, at `|V| = 2`, `|A| = 2`.
+    - *The pair.* `U_0 = 1` and `U_t = P := swap((0,a₁),(1,a₁))` for `t ≥ 1`. The gauge element is `L_t ≡ L`, the
+      §2 matrix of PREREG, which lies in `𝒢_L` (§4), with `K_t ≡ 1`. So `U` and `gU = (LU_t)` are `G`-related by
+      construction (TSG:84).
+    - *Rst-ch, root `j = 0`, reads `(0,1)`.*
+      - For `U`: the read at 0 gives `0` with mass 1 and resets to `e_{p₀}`. Then `T_{1,0} = P` fixes `e_{p₀}`, so
+        `p(0,0|0) = 1` and `p(0,1|0) = 0`.
+      - For `gU`: `Le_{p₀} = (e_{p₀}+e_{p₁})/√2` lies in fibre 0, so the read gives `0` with mass 1 and resets to
+        `e_{p₀}`. Then `T_{1,0}(gU) = LPLᴴ = LPL`. `L` gives `(e_{p₀}+e_{p₁})/√2`, `P` gives `(e_{p₀}+e_{p₃})/√2`,
+        and `L` gives `½(e_{p₀}+e_{p₁}+e_{p₂}−e_{p₃})`.
+      - So `p(0,0|0) = ¼+¼ = ½` and `p(0,1|0) = ½`.
+      - The laws differ: `(1, 0)` against `(½, ½)`.
+    - *Rst-sel, root `j = 0`, one read at 0.*
+      - For `U`: `(0,ok)` has mass 1.
+      - For `gU`: `(0,ok)` has mass `|⟨e_{p₀}, (e_{p₀}+e_{p₁})/√2⟩|² = ½`, and `(0,⊥)` has mass `½`.
+    - With `⊕ 1` on further ancilla labels, `L` and `P` act as the identity there, so the same masses hold at
+      `|A| ≥ 3`.
+
+    O⇒G fails (§7). So C2-ch and C2-sel are incomparable with `G`, in the all-unitary class.
 
 **Not established** (kept distinct, per the ruling):
 - **`PPer`.** The witness has `Γ_0 = J/2 ≠ 1`. The `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` stay "not addressed".
@@ -333,8 +358,8 @@ is changed by this record.
 
 | Model | `\|V\|` | `\|A\|` | Class | G⇒O | O⇒G | Support | Does NOT establish |
 |---|---|---|---|---|---|---|---|
-| C0 | 2 | ≥2 | all (witness outside `PPer`) | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | the `W`/`W′` pair (this record) | the `PPer` cell; a native separation |
-| C0 | 2 | ≥2 | `PPer` | proved | not addressed | — | either answer for O⇒G |
+| C0 | 2 | ≥2 | all (witness outside `PPer`) | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the `W`/`W′` pair (this record) | the `PPer` cell; a native separation |
+| C0 | 2 | ≥2 | `PPer` | proved (TSG:217, CLG:273) | not addressed | G⇒O: TSG:217, CLG:273 | either answer for O⇒G |
 | C2-ch | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, outside `PPer`] | WE; the `W`/`W′` pair | the `PPer` O⇒G cell; a native separation |
 | C2-ch | 2 | ≥2 | `PPer` | disproved (WE) | not addressed | WE | either answer for O⇒G |
 | C2-sel | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved (WE) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, outside `PPer`] | WE; the `W`/`W′` pair | the `PPer` O⇒G cell; a native separation |
@@ -345,7 +370,11 @@ class would be corrected in place (§A.27) in a separately authorized change:
 - §3.1 l. 273;
 - §3.5 ll. 349–363;
 - the Equivalence summary, ll. 524–529;
-- §9's "Does NOT establish" and "Proposals", ll. 594 and 601.
+- §9's "Does NOT establish" and "Proposals", ll. 594 and 601;
+- §9's premise ledger, l. 577 ("l. 430: the undecided item").
+
+`SCOPE.md` l. 269 states the same cell as "not addressed". That file is a verbatim copy of the reviewed scope, so it is
+not to be edited.
 
 The matching #1033 planning entries would be updated with them. Whether `Q2A.md` on #1125 should carry a pointer is
 the owner's decision; #1125 is not changed.
@@ -362,7 +391,8 @@ Each reference to content not on `main` is classified by reading the claim it is
 | F ll. 254–261 (`\|A\| = 1` case) | PREREG §8 | K-d (ii) | Support on `main`. Re-derived in §5 (ii); also written out on `main` in B4 §3.1 ll. 240–246. |
 | `Q2A.md` at `f3ef3d3d` (#1125 branch) | PREREG §3, §8; §6 | Lemmas R and C | Provenance. Both lemmas are re-derived from `main` in §6 (K-e). #1125 is not changed. |
 | #1033 reviews of B4 (c.6654738032 and others) | not cited as support | — | Not used. B4 and SC supply definitions only (PREREG §1). |
-| PREREG commit `6fad52e1` and this branch's commit order | header; PREREG §7 | The freeze-before-check invariant | **Support off `main` until landing.** This invariant uses the order of the two commits. The gap closes only if both commits land on `main` with their order preserved, by a merge commit and not a squash. The mathematical verdict itself depends only on `main` and the text of this record, and can be re-checked from the record alone. |
+| PREREG commit `6fad52e1` and this branch's commit order | header; PREREG §7 | The freeze-before-check invariant | **Support off `main` until landing.** (1) This invariant uses the order of the two commits. The gap closes only if the branch lands by a true merge commit. A squash merge or a rebase-merge would rewrite or orphan `6fad52e1` and `49021c8c`, so the cited ids would not be reachable from `main` (§A.42 item 3). (2) No GitHub record shows the push order. The pull request was opened after both commits existed, and commit dates are self-reported. (3) The frozen content that matters, the anchored columns `We_j` and `W′e_j`, was fixed in the host-timestamped assessment (#1033 c.6662297536, 15:43:36Z), before the ruling. (4) The other two columns cannot affect any tested quantity. P-conf roots are `e_j`, and on constant lifts `T = XXᴴ = 1`. So every mass of §3, and `Γ`, `α`, the fibre-Gram data and `g`, depend only on the anchored columns. The two columns only complete them to a unitary. The mathematical verdict depends only on `main` and the text of this record, and can be re-checked from the record alone. |
+| B4 row 506 and WE (B4 ll. 323–341) | §8 "Equivalence picture" | C0 G⇒O; G⇒O fails for C2-ch and C2-sel | Support on `main`. C0 G⇒O rests on kernel lines TSG:217 and CLG:273, with Lemma R (a ⇒ b). WE's Rst-ch and Rst-sel masses are re-derived by hand in §8. Neither rests on B4's unreviewed [D] text or on F l. 178. |
 
 **Definitions taken from B4 and SC** (both on `main`) are the frozen procedures, readings and tuples. No [D] result of
 B4 is used as a premise (§A.46 item 7). The W0 formulas serve as a cross-check only (§3.4).
