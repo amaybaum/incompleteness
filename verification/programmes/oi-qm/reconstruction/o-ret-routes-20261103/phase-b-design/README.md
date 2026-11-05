@@ -52,8 +52,9 @@ is adopted. Nothing is merged or promoted.
 
 ## Headline
 
-Revised after the independent review of `fdacce54` (#1115 c.6649925951, ACCEPT WITH CHANGES) and
-the owner's instructions relayed with it. The revision is not re-reviewed. Every derivation is by
+Revised after two independent reviews, of `fdacce54` (#1115 c.6649925951) and of `5839e064`
+(#1115 c.6650383732), both ACCEPT WITH CHANGES, under the owner's decision #1032 c.6649977592. This
+revision is not re-reviewed. Every derivation is by
 hand and is listed in the review packet (`DESIGN-PHASE-B.md` §8). None is an established result.
 
 - **Starting point.** Phase A's 49/49 PASS is confirmed against `phaseA/run-1/phase-a/summary.json`
@@ -65,15 +66,20 @@ hand and is listed in the review packet (`DESIGN-PHASE-B.md` §8). None is an es
     copy-form rule.
   - *Lemma NP* (ELABORATING): a written register fails J-1 at the first hold tick unless site 0's
     neighbours pad the carrier.
-  - *Observation D2-T1 and Proposition IP*: under decoder D2, a one-tick pass, and any pass whose
-    later hold ticks bring no new input, is guaranteed by the decoder's construction. Such passes
-    never count. DT-S13 is a concrete `T = 2` case that fails under D2 with every declared
-    assumption holding.
+  - *Observation D2-T1 and Proposition IP′*: under decoder D2, a one-tick pass is guaranteed by the
+    decoder's construction. So is any pass whose later hold ticks merge no classes of D2's
+    relation. Such passes (`IP′ = true`) never count.
+    - DT-S13 is a concrete `T = 2` case that fails under D2 with every declared assumption holding.
+    - DT-S2s passes where it could have failed.
+    - DT-S1q is a guaranteed pass that must not count.
   - *Observation W1* (ELABORATING): an instance of the Phase A classifier on a K1 wavefront, under
     D1′ and a restricted carrier.
-  - *Proposition K1-NS*: the reviewer's K1 argument, re-derived. It holds under an explicit
-    independence condition (A5): no K1 register reaches storage. It is not adopted. K1 stays in the
-    planned tuples and controls, and adoption is gate G-14.
+  - *Proposition K1-NS*: the first review's K1 argument, restated as the second review showed:
+    - It needs only KN-1 to KN-4, with no independence hypothesis.
+    - No K1 tuple of the family reaches storage, under any decoder rule.
+    - D2 is undetermined on every written K1 tuple that is not blind.
+    - It has no review record on `main` and is not adopted. K1 stays in the planned tuples and
+      controls, and adoption is gate G-14.
 - **Candidate (§2): NRR-1, native ready-register retention.** A fixed declared register (both
   slices as its locus, current slice read) of an in-corpus copy-form rule, written by the step from
   a one-site carrier and held under a preregistered ready-region law `ν_r`.
@@ -82,7 +88,7 @@ hand and is listed in the review packet (`DESIGN-PHASE-B.md` §8). None is an es
   - `ν_r` (`r ≥ 0`) is imposed (H-sel). Access is declared (H-cur).
 - **Discrimination (§3).**
   - Pulse: DIL∃ on the two-slice locus, an observed failure on the extension window, a locality
-    gate, `T ≥ T*`, and the `IP = false` condition.
+    gate, `T ≥ T*`, and the `IP′ = false` condition.
   - Recurrence: gap-free windows, the recurrence rule and a Lemma P consistency exit.
   - Re-supply: J-1 on the outside neighbours.
 - **Test (§6).**
@@ -92,6 +98,9 @@ hand and is listed in the review packet (`DESIGN-PHASE-B.md` §8). None is an es
   - Hand-derived controls run first, with hash-seed determinism checked.
   - Verdict: per rule, STORAGE-ROBUST (matched local patterns at both ring sizes), STORAGE-ISOLATED
     or NO-STORAGE, computed from structured output.
+  - STORAGE-ROBUST is unreachable under the current family, re-derived here by hand. Its repair is
+    the owner's choice at G-9: pair `N = 8` with `N = 6` or `7`, admit one-sided patterns, both, or
+    none.
 - **Sourced or imposed (§5).**
   - Requirements 1 and 3 are imposed.
   - Requirements 2 and 4 are tested, not sourced.
