@@ -1,11 +1,17 @@
 # ARROW-1 manuscript correction round (#1112)
 
 **Status: WIP / UNVERIFIED.** Phase 1 (the theorem-recovery note, `RECOVERY.md`) was
-reviewed independently at `bd398f05af3d778c149db9d1a627f80efffd998e`
-([#1113 c.6649600806](https://github.com/amaybaum/incompleteness/pull/1113#issuecomment-6649600806),
-ACCEPT WITH CHANGES, model-authored), and is revised here to address that review. Phase 2
-waits for the owner's rulings listed under *Files*. No manuscript, book chapter, FULL mirror,
-`.tex` or `.pdf` is changed on this branch until that review is complete.
+reviewed independently twice, both reviews model-authored and both ACCEPT WITH CHANGES:
+- at `bd398f05af3d778c149db9d1a627f80efffd998e`:
+  [#1113 c.6649600806](https://github.com/amaybaum/incompleteness/pull/1113#issuecomment-6649600806);
+- at `37b39d1c5bbea2efd4a10d9a8c69d127dd593bf5` (delta review):
+  [#1113 c.6649698455](https://github.com/amaybaum/incompleteness/pull/1113#issuecomment-6649698455).
+
+The delta review judged the note a sound basis for Phase 2. The owner ruled on the open
+items in
+[#1112 c.6649643759](https://github.com/amaybaum/incompleteness/issues/1112#issuecomment-6649643759)
+(amaybaum, Claude Code session chat, 2026-11-05). Phase 2's manuscript edits follow this
+record commit, and `CHANGES.md` records them site by site.
 
 ## Scope
 
@@ -104,8 +110,8 @@ independent past-hypothesis axiom being required to select where observers exist
   condition)" with the theorem and hypotheses preserved (see `RECOVERY.md` §F).
 - Already correct as unresolved, expected unchanged: ch18:20, 204–214, 218–222, 328, 334;
   ch00:101; `book/README.md`:90; GR:805.
-- **Main:760 (iii): no change recommended.** `RECOVERY.md` §F.4 finds no ARROW-1 defect
-  there. It makes no monotonicity, direction or low-entropy claim.
+- **Main:760 (iii): NO CHANGE** (owner ruling c.6649643759 item 4). `RECOVERY.md` §F.4
+  finds no ARROW-1 defect there: it makes no monotonicity, direction or low-entropy claim.
 
 ## Side corrections (owner, c.6649271094)
 
@@ -136,7 +142,12 @@ independent past-hypothesis axiom being required to select where observers exist
   `ch04`, `ch18` and their FULL mirrors; the regenerated `.tex`/`.pdf`; this directory.
 - Not allowed: GR:260 and Main:590 (the separate #1029 unit); Lean modules; frozen records;
   every other passage.
-- **Pending owner ruling** (outside the current allowlist; not touched until ruled):
+- **Added by owner ruling** [#1112 c.6649643759](https://github.com/amaybaum/incompleteness/issues/1112#issuecomment-6649643759)
+  (amaybaum, 2026-11-05). Quoting item 1: "Approve the retitle, including the necessary
+  Main:744 reference correction and atomic updates to `LEDGER.json` (`id`, `label`,
+  `fingerprint`). Preserve `kernel: GAP`, existing assumptions and traceability." Quoting
+  item 2: "Correct the unconditional unidirectionality claim without introducing a new
+  assertion that observer experience must reverse during recurrence." The added sites:
   1. **Main:744's label phrase.** It reads "the rate condition … stated in the
      past-hypothesis corollary", the only use of that label, and would dangle after the
      Main:758 retitle. Recommended scope: that phrase only.
@@ -149,15 +160,20 @@ independent past-hypothesis axiom being required to select where observers exist
   3. **ch18:190.** It reads "Within a single cycle, the observer's experience is
      unidirectional (the arrow of time discussed in the next section)". That conflicts with
      `RECOVERY.md` §C.1: within a cycle no state function is globally monotone, and any
-     monotonicity is windowed and anchored by boundary data. ch18:190 is not among the
-     approved sites.
+     monotonicity is windowed and anchored by boundary data. It is added with its FULL
+     mirror. Its ground is `RECOVERY.md` §C.1.
 
-  See `RECOVERY.md` §F.4.
+  See `RECOVERY.md` §F.4 for items 1–2.
+- **Main:760 (iii): NO CHANGE**, by ruling c.6649643759 item 4.
+- **Ruling item 3:** ch02:192 and ch04:32 are reclassified within the round. The ruling
+  asks that observational conditions, C2 retention, conditional horizon growth and any
+  genuinely established temporal direction be kept separate.
 
 ## Contents
 
 - `README.md` — this file.
 - `RECOVERY.md` — the theorem-recovery note (Phase 1).
+- `CHANGES.md` — the Phase 2 site-by-site change record.
 
-No computation was run and no Lean module was built for this record. Every argument in
+No scientific computation was run and no Lean module was built for this record. Every argument in
 `RECOVERY.md` is a paper derivation or a reading of the cited source, and is marked as such.

@@ -1,8 +1,12 @@
 # ARROW-1 theorem-recovery note
 
-**Status: WIP / UNVERIFIED.** Phase 1 of the #1112 correction round. Not yet
-independently reviewed. Nothing in this note changes a manuscript statement or promotes a
-result.
+**Status: WIP / UNVERIFIED.** Phase 1 of the #1112 correction round. Reviewed
+independently twice, both reviews model-authored and both ACCEPT WITH CHANGES:
+- at `bd398f05`: #1113 c.6649600806;
+- at `37b39d1c` (delta review): #1113 c.6649698455.
+
+This revision addresses both. Nothing in this note changes a manuscript statement or
+promotes a result.
 
 - **Base:** `f5c281ae10a913ec68fa41b3b839ad0b164979cd`. Every locator `File:line` is at
   this commit.
@@ -32,7 +36,7 @@ result.
 
 | # | Claim (short) | Verdict |
 |---|---|---|
-| A1 | Horizon clock is monotone along observer worldlines | **Area: proved [EA, AMB]** as ambient FLRW kinematics, given an expanding background with the null energy condition (NEC). Non-decreasing, and strict iff ρ + p/c² > 0. **Constant in exact de Sitter.** Scope of each horizon:<br>• apparent horizon: conditions on the interval considered;<br>• event horizon: conditions on all of [t, ∞).<br>Reading the area as *entropy* along a dynamical horizon is **open** (GR:56). "Monotonic for as long as ä > 0" is **refuted as a general kinematic criterion** (phantom, NEC-violating), and **false as strict increase in exact de Sitter**. In the corpus's NEC-respecting background, ä > 0 is not the operative condition (§E.4). |
+| A1 | Horizon clock is monotone along observer worldlines | **Area: proved [EA, AMB]** as ambient FLRW kinematics, given an expanding background with the null energy condition (NEC).<br>• **Apparent horizon** (conditions on the interval considered): non-decreasing; strict iff ρ + p/c² > 0; constant in exact de Sitter.<br>• **Event horizon** (flat; conditions on all of [t, ∞)): non-decreasing; Ṙ_e(t) > 0 iff H is non-constant on [t, ∞); constant iff exact de Sitter on [t, ∞).<br>Reading the area as *entropy* along a dynamical horizon is **open** (GR:56). "Monotonic for as long as ä > 0" is **refuted as a general kinematic criterion** (phantom, NEC-violating), and **false as strict increase in exact de Sitter**. In the corpus's NEC-respecting background, ä > 0 is not the operative condition (§E.4). |
 | A2 | Cosmological arrow | **Conditional.** The direction of A1 is the sign of H, which is an input. Why the expanding branch is the one realized: **open.** |
 | A3 | Thermodynamic arrow descends from ρ_s = ρ_crit | **Open.** The cited identity is instantaneous and concerns the boundary entropy only; it does not reach the step. The physical direction of entropy increase is **conditional on asymmetric boundary data**. |
 | A4 | Generalized second law; "non-decreasing from a product initial state" | GSL **open** (as GR:805 states). Theorem A.6 is **proved [PP]** as a two-sided bound relative to t = 0. Its monotone reading at GR:607 is **refuted** (two-qubit counterexample, §C.4). |
@@ -146,10 +150,14 @@ description."
     de Sitter).
   - **(T1b) Event horizon, flat.** The event horizon at $t$ depends on the whole future
     $[t,\infty)$. A later phantom phase toward a big rip gives $R_e \to 0$, and so
-    $\dot R_e < 0$ somewhere, whatever holds on a bounded interval. Hence the hypotheses
-    must hold on all of $[t,\infty)$. If the event horizon exists, $H > 0$ and
-    $\dot H \le 0$ on $[t,\infty)$ (NEC, flat), then $\dot R_e(t) \ge 0$. Equality holds
-    iff H is constant on $[t,\infty)$.
+    $\dot R_e < 0$ on $I$ can occur whatever holds on a bounded interval $I$. The
+    hypotheses are therefore imposed on all of $[t,\infty)$; this is sufficient, not
+    necessary. If the event horizon exists, $H > 0$ and $\dot H \le 0$ on $[t,\infty)$
+    (NEC, flat), then $\dot R_e(t) \ge 0$. Equality holds iff H is constant on
+    $[t,\infty)$. So $\dot R_e(t) > 0$ iff H is non-constant on $[t,\infty)$. That is not
+    the apparent horizon's "strict iff $\rho+p/c^2>0$" condition: an exact de Sitter
+    stretch followed by an NEC-respecting decrease of H gives $\dot R_e > 0$ during the
+    stretch.
   - Phase 2 names the apparent horizon (F.2), so T1a is the statement Phase 2 relies on.
     T1b is recorded for completeness.
 - **Proof.** §E [EA, AMB].
@@ -567,7 +575,7 @@ in four senses.
 
 | Claim | Verdict | Precise content |
 |---|---|---|
-| A1 clock (area) | **proved** (ambient) | **T1a** (apparent horizon): FLRW + Friedmann, with $H>0$ and $\rho+p/c^2\ge0$ on the interval; non-decreasing, strict iff $\rho+p/c^2>0$, constant in exact de Sitter.<br>**T1b** (event horizon, flat): the same conclusions with the conditions on all of $[t,\infty)$.<br>Entropy reading: **open** (GR:56).<br>The ä > 0 criterion is **refuted as a general kinematic criterion** (phantom, NEC-violating) and **false as strict increase in exact de Sitter**. In the corpus's NEC-respecting background, ä > 0 is not the operative condition (§E.4). |
+| A1 clock (area) | **proved** (ambient) | **T1a** (apparent horizon): FLRW + Friedmann, with $H>0$ and $\rho+p/c^2\ge0$ on the interval; non-decreasing, strict iff $\rho+p/c^2>0$, constant in exact de Sitter.<br>**T1b** (event horizon, flat): with the conditions on all of $[t,\infty)$, non-decreasing; $\dot R_e(t)>0$ iff H is non-constant on $[t,\infty)$; constant iff exact de Sitter on $[t,\infty)$.<br>Entropy reading: **open** (GR:56).<br>The ä > 0 criterion is **refuted as a general kinematic criterion** (phantom, NEC-violating) and **false as strict increase in exact de Sitter**. In the corpus's NEC-respecting background, ä > 0 is not the operative condition (§E.4). |
 | A2 cosmological | **conditional** | On the expanding branch, an input. Why that branch: **open**. |
 | A3 thermodynamic | **open** | Gap: (P2) exact monotonicity and (P3) the entropy–area relation. Direction: conditional on asymmetric boundary data. The cited ρ_s = ρ_crit does not reach the step. |
 | A4 GSL | **open** | Gap as at GR:805, plus monotonicity. |
@@ -711,8 +719,8 @@ Name every input in the sentence that uses it:
   orientation convention.
 - **GR:607.** State the bound: "bounded below by its value at a product initial state, at
   every t". GR:797's "non-decreasing" defines the generalized second law and is followed by
-  "supplies the following inequality toward it". This note reads it as a correct definition,
-  not an overstatement, and leaves it to the reviewer.
+  "supplies the following inequality toward it". It is a correct definition, not an
+  overstatement (delta review c.6649698455, item D), and stays unchanged.
 - **Substratum:407's thermodynamic step.** Drop the universal "the entropy of any
   horizon-bounded system increases with the observer's clock". No result supports it (B.3).
 - **GR:214.** "monotone bath count ⇒ passive (energy orientation)", not a time direction.
@@ -741,8 +749,8 @@ Name every input in the sentence that uses it:
   - The body's last sentence is already scoped ("to select observer-compatible
     configurations … within that description"). The authorization covers the title and
     :760 only, so the body stays.
-- **Necessary consequences outside the authorized line list.** These need an owner or
-  reviewer ruling.
+- **Necessary consequences of the retitle**, authorized by the owner ruling #1112
+  c.6649643759 (amaybaum, 2026-11-05):
   1. **Main:744.** It refers to "the rate condition $\tau_{\rm mix}\ll\tau_S$ stated in the
      past-hypothesis corollary". After the retitle that label dangles. The minimal fix
      changes the label phrase only.
@@ -752,7 +760,9 @@ Name every input in the sentence that uses it:
      `tools/coverage_check.py` (release gate) would fail. The entry has to be renamed to
      the new identifier, with its fingerprint updated, in the same commit. The ledger is
      mutable, not a frozen record.
-- **Main:760 (iii): no change recommended.** The sentence reads "The horizon's expansion
+- **Main:760 (iii): NO CHANGE**, by owner ruling c.6649643759 item 4 ("Record NO CHANGE
+  unless a concrete defect is identified and reviewed").
+  - **Earlier recommendation, now ruled.** The sentence reads "The horizon's expansion
   sets $\tau_B \sim H^{-1}$ structurally, not thermally". It makes:
   - no monotonicity claim;
   - no time-direction claim;
@@ -763,12 +773,13 @@ Name every input in the sentence that uses it:
   If the owner or a reviewer wants the expanding branch named there, the only admissible
   form names it as an observed input, without importing §E or citing GR or Substratum, so
   that Main stays independent of downstream results (Code Review Rules).
-- **Pending owner ruling.** Both necessary consequences above stay outside the authorized
-  line list until the owner rules. The reviewer's recommended scope:
+- **Authorized scope** (c.6649643759 item 1):
   - the Main:744 label phrase only;
   - in LEDGER.json, the `id`, `label` and `fingerprint` fields only, with `kernel: GAP`
-    and the assumptions unchanged. The new identifier would be
+    and the assumptions unchanged. The new identifier is
     `MAIN:C-observer-selection-rule-rate-condition`.
+- **ch18:190 (c.6649643759 item 2).** Correct the unconditional unidirectionality claim
+  (§C.1), without asserting that observer experience must reverse during recurrence.
 
 ***
 
