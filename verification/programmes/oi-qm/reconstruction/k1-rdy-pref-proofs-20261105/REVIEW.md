@@ -138,3 +138,28 @@ These were run with `python3 -I` in a detached worktree at the exact commit, and
 - **Delta check of `17684d77..6ff20b91`:** each hunk is one of those three changes, and nothing else changed.
 
 **Verdict: ACCEPT** (`6ff20b91b869ea09d432d2ae54ca8fb46cd4aa0f`).
+
+## 6. Delta check of `35f4e645..75cb9140` (2026-11-05)
+
+This section is a separate check, model-authored and read-only, by a reviewer other than the writer and other than
+the author of §§1–5. Sections 1–5 review `6ff20b91` and are unchanged.
+
+- `35f4e6455c0119d1f286bfd070b1cd418e418e82` merges `main` at `214d11e9acded3380223ed05e9cee02de3fe1a36` into this
+  branch and changes none of the six evidence files. `75cb9140c9decc6f7e5b93a6a91a5c709e5f0178` is its single-parent
+  child and changes only `k1-rdy-proofs-20261105/REVIEW.md` (+4/−3).
+- In that file the quoted block of PR #1119 comment 6653737476 omits one paragraph of the report: the paragraph after
+  the list of checks and before the line "No edits, commits, pushes, posts or dispatches were made." The omission is
+  marked in place in square brackets, and the file's heading and introduction state it and cite the comment for the
+  complete text.
+- Against the API bodies read on 2026-11-05, the quoted block of comment 6651717259 equals that comment's body byte for
+  byte. The quoted block of comment 6653737476 equals that comment's body byte for byte except for the one omitted
+  paragraph, which is replaced by the marked note. Neither comment was edited after posting.
+- §2's first bullet therefore holds of `6ff20b91`. Of `75cb9140` it holds for comment 6651717259, and for comment
+  6653737476 apart from the marked omission. The omitted paragraph concerns a session file outside the repository, and
+  no verdict in the comment or in this file rests on it. The other statements of §2 are unaffected.
+- Checks at `75cb9140`, run with `python3 -I`, all exit 0: `tools/legacy_records_check.py` (303 records in 75 closed
+  namespaces, all intact), `tools/citation_roles_check.py` (all hold), `tools/duplicate_check.py`,
+  `tools/staleness_check.py` (13 matched), `tools/artifact_placement_check.py`, and the SC-42 integration check
+  (verdict PASS, 0 added-text hits; at `35f4e645` it reports FAIL with one hit, in the paragraph now omitted).
+
+**Verdict: ACCEPT** (`75cb9140c9decc6f7e5b93a6a91a5c709e5f0178`).
