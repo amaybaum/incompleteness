@@ -84,10 +84,11 @@ reading is marked **(reading)**.
 ### 1.1 Statement and its source
 
 The text names the P1 lemma without stating it: "The P1 lemma and the blindness lemma (CC-SCOPE)" (lines 244–245). It
-uses its content at three places:
+uses its content at four places:
 
 - lines 72–73: "`𝓘` = all φ-invariant probability measures on `S`, i.e. the mixtures of the uniform measures `u_c` on
   the cycles `c` of φ, `π_0` included";
+- lines 74–75: "P2's energy-shell measures (SM:294–296) are members";
 - lines 75–76: "each member's support is φ-invariant, so its image at `t_0` is itself";
 - through the blindness lemma's proof (r3 lines 76–77: "Invariance makes the law of the state `μ` at every tick, so
   `P_μ(E_t = 0) = 1` for every `t` (the P1 lemma, confirmed by REV)").
@@ -359,8 +360,8 @@ correction to the text is proposed. Points for the reviewer:
 
 1. **The P1 lemma has no accepted statement.** §1.1 assembles one from lines 72–76 and 244 and from r3 and REV-r3. The
    reviewer should confirm that the assembly carries what the text uses.
-2. **Readings.** D4 (offset), D10 ("determines"/"fixes") and the reading of "the smaller subgroup" in §4.1 are the
-   writer's. Each is the reading under which the text's uses are stated; none changes a statement.
+2. **Readings.** D4 (offset), D10 ("determines"/"fixes"), the reading of "the smaller subgroup" in §4.1 and the
+   reading of "If, in addition" in §3.1 are the writer's. Each is the reading under which the text's uses are stated; none changes a statement.
 3. **Uses not proved here.** §5.3's class rule (Q4); the cycle decomposition of `φ` at the instance; P3's explicit image
    (line 89); the gates that precede G4 for a P1 member row; TA (c4); the conservation of ℰ (SM:294–296) behind lines
    74–75's membership of P2's energy-shell measures. Each is outside the four results.

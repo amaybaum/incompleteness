@@ -19,7 +19,7 @@ round's base `D`. `LEMMAS.md` holds the proofs:
 | L-O(ii) | lines 102–103, 107–110 | proved as stated (§4) |
 
 No counterexample or gap was found, and no correction is proposed. `LEMMAS.md` §5 lists the points the reviewer should
-check: the assembled P1 statement, three marked readings, and the uses that lie outside the four results.
+check: the assembled P1 statement, four marked readings, and the uses that lie outside the four results.
 
 ## Sources
 
