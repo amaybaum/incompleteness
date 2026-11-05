@@ -675,8 +675,8 @@ probability distribution over at most \(N\) underlying states, on which
 the measurements then act; this is proved in {[}Main §3.4, Proposition
 (finite-substratum operational obstruction --- classical-dimension
 form){]}. Simulating a qubit's prepare-and-measure statistics needs
-classical memory that no fixed finite amount suffices for, as the finite
-experiments grow, an imported result {[}HKLP24, Thm 4; GH03{]}, and
+classical memory that no fixed finite amount suffices for as the finite
+experiments grow; this is an imported result {[}HKLP24, Thm 4; GH03{]}.
 Montina reports Hardy's result that the number of underlying states
 cannot be finite {[}Mon08; Har04{]}. So for any single finite pattern
 some finite hidden world reproduces it, but no one fixed finite hidden
@@ -780,13 +780,14 @@ of curvature and needs no cancellation; the vacuum term that remains is
 not computed, and the observed value of the cosmological constant is an
 input. The quantum description alone cannot decide this: two
 gravitational completions, one in which the offset gravitates and one in
-which it does not, can share the same substratum, partition and visible
-transition law. Deciding between them requires field equations derived
-from the substratum, with their coupling to sources, which {[}GR{]}
-leaves open {[}GR §6.2, §8.5{]}. Trace-free Einstein equations
-{[}EvEMU11{]} and vacuum-energy sequestering {[}KP14{]} also remove
-matter vacuum energy as a source of curvature, and Volovik argues that
-the ultraviolet zero-point sum does not set the vacuum energy
+which it does not, can share the same substratum, the same split into
+visible and hidden parts (partition), and the same visible step-to-step
+probabilities (transition law). Deciding between them requires field
+equations derived from the substratum, with their coupling to sources,
+which {[}GR{]} leaves open {[}GR §6.2, §8.5{]}. Trace-free Einstein
+equations {[}EvEMU11{]} and vacuum-energy sequestering {[}KP14{]} also
+remove matter vacuum energy as a source of curvature, and Volovik argues
+that the ultraviolet zero-point sum does not set the vacuum energy
 {[}Vol06{]}.
 
 \hypertarget{black-hole-information-keeping-versus-showing}{%
@@ -821,21 +822,23 @@ which Shamir's scheme is the standard example {[}Sha79{]}.
 The Page curve, the expected rise and fall of the radiation's
 entanglement entropy if information comes out, is a separate matter.
 {[}GR, App. A{]} obtains a Page curve, averaged over full cycles of the
-dynamics, conditional on a scrambling condition, H-scramble, which
+dynamics, conditional on two conditions, a scrambling condition,
+H-scramble, and a decoupling condition, H-decouple, and taking the
+energy shell of the black hole and its radiation (the configurations
+with the given energy) to be all their joint configurations. H-scramble
 requires almost every state the dynamics visits to be as entangled
-between black hole and radiation as a typical random quantum state, and
-a decoupling condition, H-decouple, taking the energy shell of the black
-hole and its radiation (the configurations with the given energy) to be
-all their joint configurations. In the setting of that derivation the
-states are definite configurations and the split into black hole and
-radiation is a split of those configurations, so a reversible rule only
-relabels configurations: it sends definite configurations to definite
-configurations, which carry no entanglement between black hole and
-radiation. The scrambling condition can then never be met, and that
-derivation establishes no Page curve {[}GR §8.4, App. A.7--A.9; BHb{]}.
-A physical recovery model needs a specified coherent preparation or a
-different partition, a scrambling condition that has instances, and an
-entropy statement suited to that model.
+between black hole and radiation as a typical random quantum state;
+H-decouple is not established (section 6). In the setting of that
+derivation the states are definite configurations and the split into
+black hole and radiation is a split of those configurations, so a
+reversible rule only relabels configurations: it sends definite
+configurations to definite configurations, which carry no entanglement
+between black hole and radiation. The scrambling condition can then
+never be met in that setting, and that derivation establishes no Page
+curve {[}GR §8.4, App. A.7--A.9; BHb{]}. A physical recovery model needs
+a specified coherent preparation or a different partition, a scrambling
+condition that has instances, and an entropy statement suited to that
+model.
 
 \hypertarget{what-remains-open}{%
 \subsection{6. What remains open}\label{what-remains-open}}
@@ -878,19 +881,19 @@ needs the following, none of which is established:
   proposal of section 5.2 and the gravitational Page-curve argument both
   depend {[}GR §6.2, §8.5{]}.
 \item
-  \textbf{Black holes.} A physical coherent preparation with a
-  scrambling and entropy statement beyond the finite models. The
-  decoupling condition H-decouple, which is not established: the
+  \textbf{Black holes.} A physical coherent preparation is needed, with
+  a scrambling and entropy statement beyond the finite models. The
+  decoupling condition H-decouple is not established: the
   effective-pure-state result of {[}GR, App. A.7{]} concerns the
   exterior and interior jointly, and only for times short compared with
-  the cosmological timescale. The case of an energy shell smaller than
-  the set of all joint configurations, which an evaporating black hole
-  whose radiation carries away its energy occupies. The entropy along a
-  single trajectory; the generalized second law, that total entropy
-  including black-hole entropy does not decrease {[}GR App. A.6{]}; and
-  the relation to recent semiclassical calculations of the Page curve
-  using quantum extremal surfaces and islands {[}Pen20; AEMM19; AMMZ20;
-  Book §7.6{]}.
+  the cosmological timescale. An evaporating black hole whose radiation
+  carries away its energy occupies an energy shell smaller than the set
+  of all joint configurations, and that case is also open. So are the
+  entropy along a single trajectory, the generalized second law (that
+  total entropy including black-hole entropy does not decrease) {[}GR
+  App. A.6{]}, and the relation to recent semiclassical calculations of
+  the Page curve using quantum extremal surfaces and islands {[}Pen20;
+  AEMM19; AMMZ20; Book §7.6{]}.
 \end{enumerate}
 
 \hypertarget{where-the-details-are}{%
@@ -1103,4 +1106,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: ca2e8fda80cf53668fede37cd75b1a2d84f11118cfe5b12858e57c8fcaec6b1d
+% source-sha256: 688cf326f32b9777cef4d3d1e3bdbcfc68b3e79c5b39ab4a5b75041248a52986
