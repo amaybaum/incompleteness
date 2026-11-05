@@ -353,8 +353,14 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
     F §6's undecided item "DC's strictness at `|V| = 2`, `|A| ≥ 2`" (F l. 430).
   - The stop resolves the conflict conservatively, in favour of §8. The cell stops at the scope boundary, not at a
     mathematical wall.
-  - **Owner question.** Only the proof direction (`O_C2-x ⊆ G` at `|V| = 2`) could be pursued without touching F
-    l. 430. Whether to pursue it, or to release the F l. 430 boundary, is left to the owner.
+  - **Proof direction.** The two candidates differ.
+    - **C2-ch.** A proof of `O_C2-ch ⊆ G` at `|V| = 2`, `|A| ≥ 2` would decide F l. 430's item, in the positive
+      direction. Constant lifts are admitted under ∀U, and on them the C2-ch law is a function of `Γ` alone, so such
+      a proof gives `Fib ⊆ G` slice by slice at that size. The C2-ch proof direction is therefore outside the scope
+      boundary of §8.
+    - **C2-sel.** The proof direction (`O_C2-sel ⊆ G` at `|V| = 2`, `|A| ≥ 2`) can be investigated without deciding
+      F l. 430. No proof of it is established.
+    - Whether to release the F l. 430 boundary is left to the owner.
 - **Not equivalent at `|V| ≥ 3`.**
 
 ## §4. S1′: the subgroup C1′ respects
