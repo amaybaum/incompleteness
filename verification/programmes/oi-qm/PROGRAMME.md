@@ -623,7 +623,7 @@ Use the following sources for detailed status:
 - `verification/programmes/oi-qm/amendments/amendment-1.md` — the formalization-first manuscript synchronization gate, its exception, the theorem-to-prose spine, and the synchronization procedure;
 - `verification/programmes/oi-qm/amendments/amendment-2.md` — the two-track programme, the pause on further Arc D rounds, and the rule that neither track is evidence for the other;
 - `verification/lean-mathlib/OIBridge/` — kernel statements and their hypotheses;
-- `papers/GR.md`, `papers/Main.md`, the Explainer, and book chapters — publication-facing statements under their scope guards.
+- `papers/GR.md`, `papers/Main.md`, and book chapters — publication-facing statements under their scope guards.
 
 `verification/lean/ROADMAP.md` is the historical roadmap for the original zero-import verification layer. It is not the strategic roadmap for the larger OI → QM equivalence/classification programme.
 

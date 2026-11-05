@@ -1,5 +1,5 @@
 {
-  "checker_sha256": "447e0531a987cf6a0b29d91560207b8c42e165383d4f94862bc03bcb09770e52",
+  "checker_sha256": "26966c7d270979d02eba8a2f6b3d1172841dbb439bab3d5ae166dec58dc8ab89",
   "controls": [
     {
       "control": "unchanged_source",
@@ -48,7 +48,7 @@
       "exit_code": 1,
       "expected_failed_predicate": "kinematics mention counts match the site table",
       "failed_predicates": [
-        "kinematics mention counts match the site table (68)"
+        "kinematics mention counts match the site table (60)"
       ],
       "passed": true
     },
@@ -81,6 +81,6 @@
     }
   ],
   "schema": "sc42-integration-controls-v1",
-  "site_table_sha256": "ba9c899c2c75c659b3bff32a32b6e106937c5bf46153f97bd11112870a50cf1b",
+  "site_table_sha256": "77b5ba196337d9ed293a52612fff318826333e7e660d8ca56c336f6913cfef11",
   "verdict": "PASS"
 }

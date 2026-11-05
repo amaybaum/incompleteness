@@ -25,7 +25,7 @@ SOFTWARE.
 Note on scope: This MIT License applies to the source code in this repository,
 including but not limited to the C, Python, and shell scripts under
 `oi_lattice_code/`. The accompanying papers (Main.md, SM.md, GR.md,
-Substratum.md, Explainer.md, Complexity.md, Medicine.md and their compiled
+Substratum.md, Complexity.md, Medicine.md and their compiled
 .tex/.pdf forms) are research manuscripts and are not licensed under MIT.
 Cite the relevant paper if you use the framework or its results in academic
 work; cite this code repository if you use or adapt the lattice utilities.

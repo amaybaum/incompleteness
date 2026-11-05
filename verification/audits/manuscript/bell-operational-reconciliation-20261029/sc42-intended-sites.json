@@ -123,51 +123,6 @@
         }
       ]
     },
-    "papers/Explainer.md": {
-      "expected_mentions": 8,
-      "sites": [
-        {
-          "anchor": "That's it. The precise claim is layered. At the finite observable-law level, the resulting stochastic law has an exact fixed-basis Hilbert/unitary/Born-form representation ($S \\iff",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        },
-        {
-          "anchor": "**What \"unitarily evolving QM\" means precisely.** At the finite observable-law layer the framework gives an exact fixed-basis Hilbert/unitary/Born representation: $S \\iff D \\iff Q_",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        },
-        {
-          "anchor": "**The bridge therefore has three statuses, and they are worth stating together.** Finite observable-law representability is **settled**: every finite-horizon law has the fixed-basi",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        },
-        {
-          "anchor": "*A note on what is proved versus imported.* The exact finite-law representation is internal: every finite stochastic law has a reversible deterministic re",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        },
-        {
-          "anchor": "An observer inside the universe receives incomplete data — the visible sector only. On every finite horizon those statistics, Markov laws included, have an exact fixed-basis quantu",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        },
-        {
-          "anchor": "At the finite observable-law layer, the answer is an exact quantum **representation**. The head cannot access the tape's global state. It sees only local statistics — transition pr",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        },
-        {
-          "anchor": "Gödel and Turing are usually read as negative results — limits on knowledge. The framework recasts the physical instance as *generative*. What is mathematically rigid here is the f",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        },
-        {
-          "anchor": "The mathematical structure is (S, φ) — a finite set and a bijection. An observer embedded in that structure, seeing only part of it through the partition V, produces a stochastic d",
-          "mentions": 1,
-          "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
-        }
-      ]
-    },
     "papers/Structure.md": {
       "expected_mentions": 1,
       "sites": [

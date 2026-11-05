@@ -88,7 +88,7 @@ confers no protection, and "the framework needs this to be true" is never an arg
   unneeded results together with their necessary proofs to the upstream-most
   downstream paper that uses them. When Main proves a result, downstream
   papers cite Main's proof rather than repeat it; this does not bar the
-  required book/FULL/Explainer mirrors, independent Lean verification or
+  required book/FULL mirrors, independent Lean verification or
   genuinely new downstream extensions.
   An external foundational input remains permissible only when its role,
   status, assumptions and independent support are explicit; calling a
