@@ -102,12 +102,12 @@ The "compositions :466–468" that Appendix A names under Theorem 1 are the proo
 
 ## Provenance
 
-- **Source text.** The job log was read whole through the REST API (`actions/jobs/121598983127/logs`) on
+- **Source text.** The job log was read whole through the API (REST endpoint `actions/jobs/121598983127/logs`) on
   2026-10-26. It has 43064 lines (sha256 `bc2291bc57d952779f27282211b588321618bf503d39d192840c777074cd0c81`).
   The extractor read its lines 1–38918: job set-up through the Release gate step, ending at the
   gate's verdict line. That text has sha256 `1a83921fb967dad82785ce79b06013f184f4a82e377e39cad21ab4df453e09df`
   (`source.served_sha256`), counting lines by splitting on newline characters as the archive does.
-  The cut leaves out the later steps of the job (KTOKEN-MAXCONE-1, PRESERVE-INDUCT-1 and KTRANS-SEP-2).
+  The cut leaves out the later steps of the job (`KTOKEN-MAXCONE-1`, `PRESERVE-INDUCT-1` and `KTRANS-SEP-2`).
   They are not part of the recipe, and their deliberate mutation errors and second partial build
   would otherwise enter the marker counts and the reports. The job-log tool's served tail agrees with
   the API text: the same last lines, and `original_length` 43064.
