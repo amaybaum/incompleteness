@@ -1,6 +1,6 @@
 {
   "base": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
-  "checker_sha256": "c767d094f7faa9bcd6eb1e02a0ed09b97d13ee7fb2b92a84cd90c19d9b45ee98",
+  "checker_sha256": "26966c7d270979d02eba8a2f6b3d1172841dbb439bab3d5ae166dec58dc8ab89",
   "checks": [
     {
       "ok": true,
@@ -512,106 +512,6 @@
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: That's it. The precise claim is layered. At the "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: That's it. The precise claim is layered. At the "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: That's it. The precise claim is layered. At the "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: **What \"unitarily evolving QM\" means precisely.*"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: **The bridge therefore has three statuses, and t"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: **The bridge therefore has three statuses, and t"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: **The bridge therefore has three statuses, and t"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: *A note on what is proved versus imported.* The "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: *A note on what is proved versus imported.* The "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: *A note on what is proved versus imported.* The "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: An observer inside the universe receives incompl"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: An observer inside the universe receives incompl"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: An observer inside the universe receives incompl"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: At the finite observable-law layer, the answer i"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: At the finite observable-law layer, the answer i"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: At the finite observable-law layer, the answer i"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: Gödel and Turing are usually read as negative re"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: Gödel and Turing are usually read as negative re"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: Gödel and Turing are usually read as negative re"
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Explainer.md: The mathematical structure is (S, φ) — a finite "
-    },
-    {
-      "ok": true,
-      "predicate": "intended scope paragraph sum: papers/Explainer.md"
-    },
-    {
-      "ok": true,
       "predicate": "intended scope paragraph exists exactly once: papers/Structure.md: **OI's framing.** At the finite observable-law l"
     },
     {
@@ -1108,7 +1008,7 @@
     },
     {
       "ok": true,
-      "predicate": "kinematics mention counts match the site table (68)"
+      "predicate": "kinematics mention counts match the site table (60)"
     },
     {
       "ok": true,
@@ -1137,18 +1037,6 @@
     {
       "ok": true,
       "predicate": "pinned in papers/GR.md: whether an operational theory's available instruments on a f..."
-    },
-    {
-      "ok": true,
-      "predicate": "pinned in papers/Explainer.md: The full operational theory is a separate question from that..."
-    },
-    {
-      "ok": true,
-      "predicate": "pinned in papers/Explainer.md: takes the tensor-product composite as part of the complex ma..."
-    },
-    {
-      "ok": true,
-      "predicate": "pinned in papers/Explainer.md: and within that kinematics characterizes by five operational..."
     },
     {
       "ok": true,
@@ -1372,6 +1260,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Maybaum, A. (2026). *The Observational Incompleteness Framew..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Landau, E. (1903). Über die Maximalordnung der Permutationen..."
     },
     {
@@ -1564,6 +1456,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reconstruction theorem identifies the **local lattice/ga..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's claim is that quantum mechanics and general ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The visible-sector projection: quantum mechanics.** Chapte..."
     },
     {
@@ -1572,7 +1472,19 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The cosmological horizon entropy provides a structural clock..."
+      "predicate": "chapter line mirrored in FULL: The apparent-horizon area provides a structural clock on tha..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content here is precise: on the expanding br..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The common structure.** The three projections share three ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reconstruction theorem and the substratum gauge group es..."
     },
     {
       "ok": true,
@@ -1704,6 +1616,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The structural form of Spinoza's account — one substance, mu..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's programme relative to Worrall is to specify ..."
     },
     {
@@ -1737,6 +1653,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The chapter has three pieces of work. §4.2 develops the sing..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A useful diagnostic for the discipline is what the framework..."
     },
     {
       "ok": true,
@@ -2412,6 +2332,22 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The arrow as observer-emergent.** The framework's answer i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Detailed balance and the thermodynamic arrow.** The framew..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The cosmological arrow.** Whether the thermodynamic arrow ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Both arrows are traced to the same initial conditions of the..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Second, the framework's finiteness *does not require* compac..."
     },
     {
@@ -2732,7 +2668,6 @@
     "book/glossary.md": 2,
     "book/preface.md": 1,
     "book/readers-guide.md": 0,
-    "papers/Explainer.md": 8,
     "papers/GR.md": 3,
     "papers/Main.md": 17,
     "papers/Methodology.md": 3,
@@ -2756,7 +2691,6 @@
     "book/glossary.md": 2,
     "book/preface.md": 1,
     "book/readers-guide.md": 0,
-    "papers/Explainer.md": 8,
     "papers/GR.md": 3,
     "papers/Main.md": 17,
     "papers/Methodology.md": 3,
@@ -2766,6 +2700,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "ba9c899c2c75c659b3bff32a32b6e106937c5bf46153f97bd11112870a50cf1b",
+  "site_table_sha256": "77b5ba196337d9ed293a52612fff318826333e7e660d8ca56c336f6913cfef11",
   "verdict": "PASS"
 }

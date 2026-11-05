@@ -1,4 +1,4 @@
-# main_repro — reproducibility package for "The Equivalence of Quantum Mechanics and Embedded Observation"
+# main_repro — reproducibility package for "Finite-Observer Representations and Quantum Reconstruction"
 
 Scripts reproducing the numerical checks referenced in the paper. Python 3 + numpy only.
 Each script prints explicit PASS/FAIL against the claim it verifies.

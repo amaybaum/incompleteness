@@ -156,9 +156,10 @@
             "papers/GR.md": 2,
             "book/ch01-observation.md": 1,
             "book/ch07-gravity.md": 2,
-            "book/The-Incompleteness-of-Observation-FULL.md": 3
+            "book/ch18-beyond.md": 1,
+            "book/The-Incompleteness-of-Observation-FULL.md": 4
           },
-          "why": "the status sentence in running text: GR's prerequisites and 8.4, the book's 7.1 and 7.2, and since B5 the paragraph after Chapter 1's C4 definition, in both parallel sources. GR 2.2's own entry closes with the capitalized verdict form, counted separately. A count below these means a mirror lost it."
+          "why": "the status sentence in running text: GR's prerequisites and 8.4, the book's 7.1 and 7.2, and since B5 the paragraph after Chapter 1's C4 definition, in both parallel sources; since ARROW-1 (#1112) also the cosmological-arrow paragraph of Chapter 18 section 18.8, in both parallel sources. GR 2.2's own entry closes with the capitalized verdict form, counted separately. A count below these means a mirror lost it."
         },
         {
           "id": "B1-hbar-not-consuming",
@@ -238,10 +239,9 @@
           "pattern": "C2 and C4 are explicit hypotheses",
           "disposition": "repaired",
           "expect": {
-            "papers/Explainer.md": 1,
             "papers/SM.md": 1
           },
-          "why": "the inventory now carries Theorem 22's status: C1 structural, C3 floor, C2 and C4 hypotheses. The Explainer's summary of the minimal structure states the same status, replacing a claim that any small subgraph satisfies the emergent-QM conditions."
+          "why": "the inventory now carries Theorem 22's status: C1 structural, C3 floor, C2 and C4 hypotheses."
         },
         {
           "id": "B4-forbidden-automatic",

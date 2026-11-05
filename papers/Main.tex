@@ -177,9 +177,9 @@
 \section{THE INCOMPLETENESS OF
 OBSERVATION}\label{the-incompleteness-of-observation}}
 
-\hypertarget{the-equivalence-of-quantum-mechanics-and-embedded-observation}{%
-\subsubsection{The Equivalence of Quantum Mechanics and Embedded
-Observation}\label{the-equivalence-of-quantum-mechanics-and-embedded-observation}}
+\hypertarget{finite-observer-representations-and-quantum-reconstruction}{%
+\subsubsection{Finite-Observer Representations and Quantum
+Reconstruction}\label{finite-observer-representations-and-quantum-reconstruction}}
 
 \textbf{Observer geometry and physical carrier.} SM §4.1 distinguishes
 two claims. First, finite equivariant projection is classical and exact:
@@ -554,15 +554,12 @@ paradox, in which the \emph{apparent} violation of unitarity by Hawking
 evaporation is regarded as a paradox to be resolved rather than a
 discovery to be accepted {[}43, 42{]}; the no-hiding theorem {[}42{]}
 makes the underlying conservation statement rigorous. The framework
-therefore assumes no more than standard physics already does --- and it
-is worth noting that the literature independently records the same
-information\(\leftrightarrow\)energy link that the companion Explainer
-draws via Noether's theorem: a violation of unitarity would also violate
-energy conservation. What is non-standard here is not the assumption of
-reversibility but the claim to \emph{recover} it, below, from the
-two-pronged argument of Lemma 3; a reader unwilling to grant that
-recovery may simply take reversibility as the standard postulate it is
-elsewhere, with no cost to the emergence results.
+therefore assumes no more than standard physics already does. What is
+non-standard here is not the assumption of reversibility but the claim
+to \emph{recover} it, below, from the two-pronged argument of Lemma 3; a
+reader unwilling to grant that recovery may simply take reversibility as
+the standard postulate it is elsewhere, with no cost to the emergence
+results.
 
 These properties contain no quantum postulates. The claim is that
 quantum mechanics \emph{emerges} under the conditions below.
@@ -3382,19 +3379,26 @@ diagonal-preservation lemmas \texttt{permMatrix\_mem\_unitaryGroup},
 of §3.4, which reproduces the whole multi-time law, not merely the
 one-step matrices (kernel: \texttt{S\_imp\_D}, by a different carrier, a
 clock with the complete trajectory record, whose initial law may
-correlate the hidden and visible coordinates). (D \(\Rightarrow\)
-\(Q_{\mathrm{fb}}\)) is internal and needs no imported correspondence:
-for a bijection \(\varphi\) on \(\mathcal{C}_V \times \mathcal{C}_H\)
-set \(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the
-initial law diagonal. A permutation unitary preserves diagonality, so
-sequential projective measurements in the configuration basis do not
-disturb the state, and the measured record reproduces
-\(P(x_0, \ldots, x_K)\) exactly; \(U_\varphi = e^{-i\hat H}\) for a
-Hermitian \(\hat H\), giving a fixed autonomous generator at integer
-times. (\(Q_{\mathrm{fb}}\) \(\Rightarrow\) S) is the Born rule: the
-record of any finite quantum experiment is a finite stochastic law.
-\(\square\) (D \(\Rightarrow\) \(Q_{\mathrm{fb}}\) certified over
-1\{,\}488 realizations at horizons 3 and 4 in \texttt{sdq\_probes.py}.)
+correlate the hidden and visible coordinates). Realizations of this kind
+without the reversibility requirement are due to Egri et al.:
+time-indexed deterministic system--ancilla dynamics realize every
+stochastic process on a finite configuration set over finitely many
+times with an ancilla encoding the trajectory, under an initial law
+correlating system and ancilla {[}64, Prop. 13{]} or under a fixed
+ancilla law independent of the system's initial state {[}64, Prop.
+16{]}. (D \(\Rightarrow\) \(Q_{\mathrm{fb}}\)) is internal and needs no
+imported correspondence: for a bijection \(\varphi\) on
+\(\mathcal{C}_V \times \mathcal{C}_H\) set
+\(U_\varphi |x, h\rangle = |\varphi(x,h)\rangle\) and take the initial
+law diagonal. A permutation unitary preserves diagonality, so sequential
+projective measurements in the configuration basis do not disturb the
+state, and the measured record reproduces \(P(x_0, \ldots, x_K)\)
+exactly; \(U_\varphi = e^{-i\hat H}\) for a Hermitian \(\hat H\), giving
+a fixed autonomous generator at integer times. (\(Q_{\mathrm{fb}}\)
+\(\Rightarrow\) S) is the Born rule: the record of any finite quantum
+experiment is a finite stochastic law. \(\square\) (D \(\Rightarrow\)
+\(Q_{\mathrm{fb}}\) certified over 1\{,\}488 realizations at horizons 3
+and 4 in \texttt{sdq\_probes.py}.)
 
 \emph{Remark (what this equivalence does and does not say).} The theorem
 says the three classes \textbf{coincide} at the level of finite-horizon
@@ -5333,7 +5337,7 @@ rule replaces a postulate often imported from elsewhere --- the ``past
 hypothesis'' of low initial entropy, in its role of selecting
 observer-compatible configurations --- with a theorem conditional on the
 effective-mixing hypothesis (EM) below and on the rate condition
-\(\tau_{\rm mix}\ll\tau_S\) stated in the past-hypothesis corollary;
+\(\tau_{\rm mix}\ll\tau_S\) stated in the observer-selection corollary;
 under (EM) it is derived from the framework's own definitions, with (C2)
 read in its timescale form (C2-slow) --- record persistence and readback
 being suppressed there, not excluded --- for the coarse-grained
@@ -5431,8 +5435,8 @@ the incompatibility of (C2-slow) with fast-mixing local equilibrium, not
 from arguments about the ratio of BBs to ``ordinary'' observers in an
 anthropic sample.
 
-\textbf{Corollary (past-hypothesis replacement, with its rate
-condition).} The theorem above bounds
+\textbf{Corollary (observer-selection rule, with its rate condition).}
+The theorem above bounds
 \(\tau_B(V)\le\tau_{\rm mix}(\Sigma_{\rm loc}(V))+O(\varepsilon)\),
 while (C2)-slow requires \(\tau_S\ll\tau_B\); those do not compose.
 Contradicting (C2-slow) additionally requires
@@ -5870,5 +5874,9 @@ Circle} (Springer, 2009).
 degree of non-Markovian behavior of quantum processes in open systems,''
 \emph{Phys. Rev.~Lett.} \textbf{103}, 210401 (2009); arXiv:0908.0238.
 
+{[}64{]} G. Egri, M. Gömöri, B. Gyenis, and G. Hofer-Szabó, ``Trajectory
+of probabilities, probability on trajectories, and the
+stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
+
 \end{document}
-% source-sha256: f041b9a6856791036bba5280a0187e49a3c5774e1bbfc45595392423bd4a5dde
+% source-sha256: fe39c8511c02b070e90adc5555f8457aa5c248f76e8c1f8e7ddf69ae12e7c671

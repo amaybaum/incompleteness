@@ -3,7 +3,7 @@
 **Author:** Alex Maybaum  
 **Field:** Theoretical physics / foundations
 
-This repository develops the **Observational Incompleteness (OI)** framework: a programme for asking what laws are accessible to an observer embedded inside a finite, reversible system with only partial access to its state.
+This repository develops the **Observational Incompleteness (OI)** framework: a programme for investigating what physical laws are accessible to an observer embedded in a dynamical system, given partial access and a specified finite-capacity observation interface. Finite reversible systems provide exact representatives of finite-horizon observable laws under their stated conditions; finiteness of the total substratum is a separate model premise, not a consequence of embedded observation.
 
 The framework is inspired by the same broad kind of self-reference constraint that appears in Gödel and Turing: an embedded system cannot, in general, obtain complete access to itself. OI studies the physical consequences of that limitation.
 
@@ -13,6 +13,7 @@ The framework is inspired by the same broad kind of self-reference constraint th
 
 | If you want | Start with |
 | --- | --- |
+| A short introduction to the framework's finite-observer results | [`papers/Introduction.md`](papers/Introduction.md) |
 | The foundational finite-observer result | [`papers/Main.md`](papers/Main.md) |
 | A short, self-contained phenomenology paper | [`papers/Juno.md`](papers/Juno.md) |
 | The current formal-verification programme | [`verification/README.md`](verification/README.md) |
@@ -24,12 +25,13 @@ The framework is inspired by the same broad kind of self-reference constraint th
 
 At finite observational horizon, the framework relates three descriptions:
 
-```text
-finite stochastic law (S)
-        ⇅ exact
-finite reversible realization (D)
-        ⇅ exact
-fixed-basis unitary/Born representation (Q_fb)
+```mermaid
+flowchart LR
+    S["<b>S</b><br/>finite stochastic law"]
+    D["<b>D</b><br/>finite reversible realization"]
+    Q["<b>Q_fb</b><br/>fixed-basis unitary /<br/>Born representation"]
+    S <==> D
+    D <==> Q
 ```
 
 The representation equivalence is universal at this finite-record level. The specifically OI content is the embedded-observer structure: coupling, hidden capacity, persistence and history readback constrain what a faithful realization must contain.
@@ -112,7 +114,7 @@ incompleteness/
 
 ### Other materials in `papers/`
 
-- [`papers/Explainer.md`](papers/Explainer.md) — older overview, superseded by the book and retained for reference.
+- [`papers/Introduction.md`](papers/Introduction.md) — short introduction for newcomers, written for readers without a background in quantum theory: the finite-horizon correspondence among stochastic laws, reversible realizations and fixed-basis quantum records; why any memory in the records must sit in the hidden state; recurrence and forecasts that cannot be chained; what the correspondence does not establish about quantum mechanics; and scoped applications to vacuum energy and black-hole information. Its proofs and their verification are in the formal papers it cites. [`papers/introduction_repro/`](papers/introduction_repro/) holds historical verification evidence: the Lean axiom reports, with the recipe that reproduces them, for the 28 baseline declarations (at `17b830bc`) listed in Appendix A of the Introduction as landed at `f5efa7a0`.
 - [`papers/oi_lattice_code/`](papers/oi_lattice_code/) — lattice Monte Carlo and related numerical source.
 
 The core papers are tabulated above; the conjectural-extension papers are listed under *3. Conjectural extensions*.

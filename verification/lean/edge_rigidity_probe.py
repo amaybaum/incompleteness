@@ -2867,10 +2867,10 @@ check('R7-MIN', ok_min,
 # accessibility is named ----
 _msroot = os.path.dirname(os.path.dirname(BRIDGE))
 _ms = {}
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
+for _rel in ('papers/GR.md', 'papers/Main.md',
              'book/ch01-observation.md', 'book/ch19-open-problems.md',
              'book/The-Incompleteness-of-Observation-FULL.md',
-             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex',
+             'papers/GR.tex', 'papers/Main.tex',
              'book/The-Incompleteness-of-Observation-FULL.tex'):
     _ms[_rel] = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
 ok_msp = True
@@ -2914,11 +2914,11 @@ ok_msp &= 'Status: complete for the kernel at this commit' not in _cens_note
 _agents = re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'AGENTS.md'), encoding='utf-8').read())
 ok_msp &= '## §A.35 Registry contract for the Lean-to-manuscript census' in _agents
 ok_msp &= 'updates the registry in the same commit' in _agents
-# the summaries in Main, the Explainer and both book mirrors carry the same statement
+# the summaries in Main and both book mirrors carry the same statement
 _msum = ('implementation locality, phase-free richness — one continuously driven transition and the '
          'exchanges of distinguishable states, with no phase operation — and embedded observation, with '
          'no closure of the implementations under the adjoint and no inverse accessibility assumed')
-for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
+for _rel in ('papers/Main.md', 'book/ch01-observation.md',
              'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
     ok_msp &= _msum in re.sub(r'\s+', ' ', _ms[_rel])
 ok_msp &= 'carrier_general_oiPlusPos' in _ms['papers/Main.md']
@@ -2962,7 +2962,7 @@ for _nm in ('"carrier_general_oiPlusPos": "carrier_general_oiPlusMin"', '"oiPlus
 ok_msp &= 'text{current OI substratum} + \\text{continuous off-diagonal controllability}' in _grm1
 # the generated forms carry the propagated statement
 ok_msp &= 'implementation locality} + \\text{phase-free richness}' in re.sub(r'\s+', ' ', _ms['papers/GR.tex'])
-for _rel in ('papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+for _rel in ('papers/Main.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
     ok_msp &= 'no closure of the implementations under the adjoint' in re.sub(r'\s+', ' ', _ms[_rel])
 check('R7-MSP', ok_msp,
       'Manuscript-propagation guard for the inverse-clause result: no manuscript source or '
@@ -2973,8 +2973,8 @@ check('R7-MSP', ok_msp,
       'closure and no inverse accessibility, and states the well-formedness qualification wherever '
       'the derived inverse accessibility is named; the census tool requires an anchor for every '
       'carried family, and the registry, the census note and AGENTS.md A.35 state the same-commit '
-      'registry contract with the census complete relative to the maintained registry; Main, the '
-      'Explainer and both book mirrors carry '
+      'registry contract with the census complete relative to the maintained registry; Main and '
+      'both book mirrors carry '
       'the same summary; the second principle is phase-free richness with the elementary repertoire '
       'as its stronger form, cited from MinimalRepertoire with the even-carrier countercontrol and no '
       'minimality claim, the four supersessions recorded in the registry and the typed corollary '
@@ -2987,9 +2987,9 @@ check('R7-MSP', ok_msp,
 # identity to the update, not as a one-parameter group and not as a generator; CT3 stays open ----
 ok_ctn = True
 _ctn_files = {}
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'book/ch01-observation.md',
              'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md',
-             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex',
+             'papers/GR.tex', 'papers/Main.tex',
              'book/The-Incompleteness-of-Observation-FULL.tex'):
     _ctn_files[_rel] = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
 _gct = _ctn_files['papers/GR.md']
@@ -3012,10 +3012,10 @@ ok_ctn &= ('an exact strongly continuous path of $*$-automorphisms of the quasil
 _ctn_sum = ('while the update is joined to the identity by an exact strongly continuous path of '
             '$*$-automorphisms of that algebra, with no one-parameter-group law established and no generator exhibited, a '
             'continuous-time Hamiltonian law remains additional structure')
-for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
+for _rel in ('papers/Main.md', 'book/ch01-observation.md',
              'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md'):
     ok_ctn &= _ctn_sum in _ctn_files[_rel]
-for _rel in ('papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+for _rel in ('papers/Main.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
     ok_ctn &= 'with no one-parameter-group law established and no generator exhibited' in _ctn_files[_rel]
 ok_ctn &= 'driveQ_isContinuousPath' in _ctn_files['papers/GR.tex'].replace('\\_', '_')
 # no manuscript closes CT3' in either direction (the path promoted to a group, or asserted not to be
@@ -3044,7 +3044,7 @@ check('R7-CTN', ok_ctn,
       'strongly continuous path of isometric *-automorphisms from the identity to the update, as a path '
       'with no one-parameter-group law for the composite established, no generator exhibited and '
       'CT3 stated open, citing the '
-      'SecondOrder modules; Main 2.3 and the quasilocal summaries in Main, the Explainer and both '
+      'SecondOrder modules; Main 2.3 and the quasilocal summaries in Main and both '
       'book mirrors carry the same clause, in source and generated forms; no manuscript closes the '
       'group question in either direction, states cross-layer noncommutation as a theorem, exhibits '
       'a generator or closes CT3; the kernel file asserts no group law and '
@@ -3055,7 +3055,6 @@ check('R7-CTN', ok_ctn,
 # and arrows of the OI->QM characterization, with the N4 anti-conflation in the same paragraph ----
 ok_oinn = True
 _oinn_main = open(os.path.join(_msroot, 'papers', 'Main.md'), encoding='utf-8').read()
-_oinn_expl = open(os.path.join(_msroot, 'papers', 'Explainer.md'), encoding='utf-8').read()
 _oinn_par = [p for p in _oinn_main.split('\n\n') if p.startswith('**Passive observation, kept apart')]
 ok_oinn &= len(_oinn_par) == 1
 _op = re.sub(r'\s+', ' ', _oinn_par[0]) if _oinn_par else ''
@@ -3087,30 +3086,17 @@ for _t in ('enter none of its hypotheses or conclusions',
 # the paragraph sits outside the equivalence: no package name, no arrow, no box
 for _bad in ('carrier_general', 'OIPlus', '\\iff', '\\boxed', 'equivalent to'):
     ok_oinn &= _bad not in _op
-_oe = re.sub(r'\s+', ' ', _oinn_expl)
 for _bad in ('observes the algebra completely, separating its states, exactly when',
              'observes it completely exactly when', 'every passive instrument observes',
              'every passive instrument separates', 'each passive instrument observes'):
-    ok_oinn &= _bad not in _op and _bad not in _oe
-for _t in ('*Passive observation, kept apart.*', 'enter none of its conditions',
-           'is possible exactly when the algebra is commutative',
-           'some passive instrument separates its states exactly then',
-           'cannot coexist with complete passive observation', 'theory-insensitive',
-           'not evidence for a hidden ontology',
-           'nor a statement that quantum mechanics rests on observation incompleteness',
-           'can only read an existing record'):
-    ok_oinn &= _t in _oe
+    ok_oinn &= _bad not in _op
 # GR carries no passive-observation paragraph: the endpoint stays out of the characterization's home
 ok_oinn &= 'Passive observation, kept apart' not in _grm
-# the symmetric vocabulary of N4 and the freeze's other forbidden readings stay out of the papers
-_oinn_epar = [p for p in _oinn_expl.split('\n\n') if p.startswith('*Passive observation, kept apart.*')]
-ok_oinn &= len(_oinn_epar) == 1
-for _t in (_op.lower(), re.sub(r'\s+', ' ', _oinn_epar[0]).lower() if _oinn_epar else ''):
-    # the symmetric vocabulary of N4, forbidden in the two narrating paragraphs
-    for _bad in ('neither implies the other', 'logically independent', 'neither notion carries',
-                 'independent of the oi core', 'orthogonal'):
-        ok_oinn &= _bad not in _t
-for _rel in ('papers/Main.md', 'papers/Explainer.md', 'papers/Main.tex', 'papers/Explainer.tex'):
+# the symmetric vocabulary of N4, forbidden in the narrating paragraph
+for _bad in ('neither implies the other', 'logically independent', 'neither notion carries',
+             'independent of the oi core', 'orthogonal'):
+    ok_oinn &= _bad not in _op.lower()
+for _rel in ('papers/Main.md', 'papers/Main.tex'):
     _l = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).lower()
     for _bad in ('qm requires oi', 'quantum mechanics requires observation',
                  'every block is one-dimensional', 'every block has dimension one',
@@ -3119,7 +3105,7 @@ for _rel in ('papers/Main.md', 'papers/Explainer.md', 'papers/Main.tex', 'papers
                  'passive incompleteness implies the oi core', 'passive observation forbids'):
         ok_oinn &= _bad not in _l
     ok_oinn &= _l.count('evidence for a hidden ontology') == _l.count('not evidence for a hidden ontology')
-for _rel in ('papers/Main.tex', 'papers/Explainer.tex'):
+for _rel in ('papers/Main.tex',):
     ok_oinn &= 'cannot coexist with complete passive observation' in re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
 # the registry carries OI-N as current with its anchors; the census note agrees; the freeze note is untouched
 _oinn_fam = [f for f in _ctn_reg['families'] if f['name'] == 'OI-N passive observation']
@@ -3133,9 +3119,9 @@ check('R7-OINN', ok_oinn,
       'qm_implies_oiCore through realizesSealedOICore_of_control, '
       'the theory-insensitive reading of N4 with the vacuous implication and the failing converse, '
       'and the anti-conflation in the same paragraph (not evidence for a hidden ontology, no '
-      'statement that QM rests on OI, containment as a consequence of control); the Explainer '
-      'carries the compact form; GR carries none; the symmetric N4 vocabulary and the freeze\'s '
-      'forbidden readings are absent from both papers and their generated forms; the registry '
+      'statement that QM rests on OI, containment as a consequence of control); GR carries none; '
+      'the symmetric N4 vocabulary and the freeze\'s '
+      'forbidden readings are absent from Main and its generated form; the registry '
       'carries OI-N as current with its anchors and the census note agrees.')
 
 # ---- kernel-pointer guard: the SM counting layer and the Main 3.4 equivalence chain cite their
@@ -3270,7 +3256,7 @@ for _bad in ('Outcome 2 holds', 'Outcome 2 is proved', 'the drive is independent
              'Route A is closed', 'physical theory', 'derived from bare OI'):
     ok_rb0 &= not _asserted(_rbn, _bad)
 # no manuscript carries Route B; the registry classifies the module as kernel-only, carried by none
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
+for _rel in ('papers/GR.md', 'papers/Main.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_rb0 &= 'RouteB' not in _t and 'Route B' not in _t and 'DerivedOI' not in _t and 'routeB_target' not in _t
@@ -3473,7 +3459,7 @@ for _bad in ('The witness satisfies ManuscriptOI', 'witness satisfies `Manuscrip
              'A1 and A2 hold for the witness', 'the lift is the only', 'only non-configuration-level sourcing is'):
     ok_max &= not _asserted(_man, _bad)
 # no manuscript carries the pass; the registry classifies the module as kernel-only, no anchor
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
+for _rel in ('papers/GR.md', 'papers/Main.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_max &= 'ManuscriptAxioms' not in _t and 'A1Realized' not in _t and 'ConfigurationLevel' not in _t
@@ -3593,7 +3579,7 @@ for _bad in ('the lift is derivable', 'the lift is not derivable', 'Route A is c
              'reads availability off the path', 'derived executable flow'):
     ok_lift &= not _asserted(_lan, _bad)
 # no manuscript carries the audit; registry and census kernel-only; README paragraph
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md',
+for _rel in ('papers/GR.md', 'papers/Main.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_lift &= 'LayerFlowExecutable' not in _t and 'gateFlow_isolation`' not in _t and 'SubstratumAvail' not in _t
@@ -3734,7 +3720,7 @@ for _bad in ('the first preregistered outcome is reached', 'the sourced theory s
              'the second preregistered outcome is reached'):
     ok_sub &= _bad not in _san_out and _bad not in _rd1
 # no manuscript carries the audit; registry and census kernel-only; README paragraph and counts
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_sub &= 'SubstratumInterfaceAudit' not in _t and 'permTheory' not in _t and 'SourcedOI' not in _t and 'obsTheory' not in _t
@@ -3828,7 +3814,7 @@ for _bad in ('the flow endpoint is settled', 'flowTheory fails', 'flowTheory has
              'the countermodel is established', 'the replication loophole is closed', 'OI implies QM',
              'quantum mechanics requires OI', 'bare OI implies'):
     ok_scal &= not _asserted(_scn, _bad)
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_scal &= 'ScalarClosure' not in _t and 'scalarHull' not in _t and 'contractive scalar' not in _t
@@ -3925,7 +3911,7 @@ for _bad in ('settles the flow endpoint', 'the flow endpoint holds', 'the flow e
              'OI implies QM', 'quantum mechanics requires OI', 'bare OI implies',
              'the countermodel is established'):
     ok_inst &= not _asserted(_irn, _bad)
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_inst &= 'InstrumentRealization' not in _t and 'InstAvail' not in _t and 'instrument-realized' not in _t
@@ -4051,7 +4037,7 @@ for _rel, _hdr in (('SUBSTRATUM-INTERFACE-AUDIT.md', '## Migration to instrument
                    ('INVERSE-CLAUSE-AUDIT.md', '## Migration, recorded after the round')):
     _t = open(_artifact(_rel), encoding='utf-8').read()
     ok_mig &= _hdr in _t and 'INSTRUMENT-MIGRATION-AUDIT.md' in _t
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_mig &= 'InstAvail' not in _t and 'UnitaryRaySaturated' not in _t and 'INSTRUMENT-MIGRATION' not in _t
@@ -4153,7 +4139,7 @@ ok_flow &= _fxn.find('## Deferral, recorded after the preregistration') < _fxn.f
 ok_flow &= '## The flow endpoint on the sourced baseline, recorded after the round' in _lan
 ok_flow &= 'stays open as the outcome above records it' in re.sub(r'\s+', ' ', _lan)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_flow &= 'FlowEndpoint' not in _t and 'onesTheory' not in _t and 'flow_endpoint_refuted' not in _t and 'onesClass' not in _t
@@ -4256,7 +4242,7 @@ _ssn = open(_artifact('SUBSTRATUM-SOURCE-AUDIT.md'), encoding='utf-8').read()
 ok_phase &= '## Fifth entry, recorded after the freeze: the phase source' in _ssn and _ssn.find('## Freeze') < _ssn.find('## Fifth entry, recorded after the freeze')
 ok_phase &= 'substratumClass_not_onesFixing' in _ssn
 ok_phase &= '## The phases, decided, recorded after the round' in _san and 'permClass_onesFixing' in _san
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_phase &= 'OnesFixing' not in _t and 'PHASE-SOURCE' not in _t and 'phaseGate_moves_ones' not in _t
@@ -4338,19 +4324,19 @@ for _t in ('Operational interventions are those realized by one protocol built f
     ok_prop &= _t in _pgr1
 ok_prop &= ('`carrier_general_oiPlusPos` in `OIBridge/PositivePackage.lean`, `inverseAccessibility_of_lieRank` in '
             '`OIBridge/MicroscopicReversibility.lean`') in re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'papers/Main.md'), encoding='utf-8').read())
-# the five mirrors of the substratum-source summary qualify the phases the same way
+# the four mirrors of the substratum-source summary qualify the phases the same way
 _pqual = ('the exchanges of distinguishable states, and, as a stated intervention principle rather than a consequence of its '
           'finite states and bijective dynamics, the phases — but, under finite bijective read-write dynamics')
-for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
+for _rel in ('papers/Main.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
     ok_prop &= _pqual in _t1 and 'the exchanges of distinguishable states, and the phases — but' not in _t1
 ok_prop &= _t1.count(_pqual) == 2
 # the superseded clauses, the moved attributions and the sufficiency misreading are absent from every manuscript
 # source and generated form; no manuscript names the kernel predicates of the boundary
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/ch01-observation.md', 'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md',
-             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+             'papers/GR.tex', 'papers/Main.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
     _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).replace('\\_', '_')
     ok_prop &= 'with aggregate probability normalization' not in _t1
     ok_prop &= 'explicit in implementation generation' not in _t1
@@ -4384,7 +4370,7 @@ check('R7-PROP', ok_prop,
       'PositivePackage in GR and Main with the positive reachability theorem keeping its path; the '
       'substratum-source sentence states the phase intervention as an assumption on the substratum class with '
       'the necessary condition and the sufficient access assumed as two parts, citing the three deciding '
-      'theorems and the stated member; the five mirrors qualify the phases the same way; the superseded clauses, '
+      'theorems and the stated member; the four mirrors qualify the phases the same way; the superseded clauses, '
       'the moved attributions, the sufficiency misreading and the kernel predicates of the boundary are absent '
       'from every manuscript source and generated form; the registry carries the phase-source family as current '
       'with anchors in GR and Main and the instrument-realization note corrected; the census note and the README '
@@ -4472,7 +4458,7 @@ ok_q3 &= '## The decision that followed, recorded after the round' in _psn
 ok_q3 &= _psn.find('## What this note does not claim') < _psn.find('## The decision that followed')
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
 # carries the paragraph and the counts
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_q3 &= 'flipAt' not in _t and 'DERIVED-Q3' not in _t and 'LayerFlowExecutable' not in _t
@@ -4547,27 +4533,27 @@ for _t in ('**Layer-flow form.**',
     ok_q3p &= _t in _qgr1
 ok_q3p &= _qgr.find('**Substratum-source form.**') < _qgr.find('**Layer-flow form.**') < _qgr.find('**Typed form.**')
 ok_q3p &= 'text{current OI substratum} + \\text{continuous off-diagonal controllability}' in _qgr1
-# the summary at the six sites, after the pinned continuous-time clause
+# the summary at the five sites, after the pinned continuous-time clause
 _qsum = ('exact finite endomorphic operational quantum mechanics holds exactly when one continuous layer flow of an '
          'involution of the configuration space moving some configuration is an available operation at every level '
          'and every intermediate time, the executability of that flow being an assumption not derived by '
          'configuration-level generation, as the phase intervention is an assumption on the substratum class and not '
          'a consequence of the finite states with the bijective dynamics')
 _qcount = 0
-for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
+for _rel in ('papers/Main.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
     ok_q3p &= _qsum in _t1 and _ctn_sum in _t1
     _qcount += _t1.count(_qsum)
-ok_q3p &= _qcount == 6
+ok_q3p &= _qcount == 5
 ok_q3p &= ("`derivedOI_qm_iff_layerFlowExecutable'` in `OIBridge/DerivedQ3.lean`, "
            '`substratumTheory_not_layerFlowExecutable` in `OIBridge/LiftAudit.lean`') in re.sub(r'\s+', ' ',
            open(os.path.join(_msroot, 'papers/Main.md'), encoding='utf-8').read())
 # the kernel predicates of the boundary, the superseded identifiers, any derivation of either assumption and
 # any minimality claim are absent from every manuscript source and generated form
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/ch01-observation.md', 'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md',
-             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+             'papers/GR.tex', 'papers/Main.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
     _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).replace('\\_', '_')
     for _bad in ('DerivedOI', 'SourcedOI', 'PhasesAvailable', 'SubstratumAvail', 'RouteB', 'LayerFlowExecutable',
                  'phaseFree_of_layerFlowExecutable`', 'phaseFree_of_layerFlowExecutable}', 'phaseFree_of_layerFlowExecutable ',
@@ -4600,7 +4586,7 @@ check('R7-Q3P', ok_q3p,
       'outcome, names both commits and asserts no derivation of either assumption and no minimality; GR 3.3 carries '
       'the layer-flow form after the substratum-source form and before the typed form, with its display, the witness '
       'of each direction named beside it, the swap-layer instance and both sourcing qualifications, the '
-      'substratum-source box standing; the summary sentence occurs at the six sites after the pinned continuous-time '
+      'substratum-source box standing; the summary sentence occurs at the five sites after the pinned continuous-time '
       'clause; no manuscript source or generated form names a kernel predicate of the boundary, a superseded '
       'identifier, a derivation of either assumption or a minimality; the registry carries the Q3 and lift-audit '
       'families as current with anchors and the two supersessions, the census rows follow, and the README carries '
@@ -4688,7 +4674,7 @@ ok_exec &= 'obs_not_layerFlowExecutable' in _lan and 'exists_nonMonomial_of_laye
 ok_exec &= '## The next arrow, decided for the stated access, recorded after the round' in _san
 ok_exec &= _san.find('## The phases, decided, recorded after the round') < _san.find('## The next arrow, decided for the stated access')
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_exec &= 'EXEC-SOURCE' not in _t
@@ -4830,7 +4816,7 @@ ok_lsrc &= '## The third item of the missing interface, decided for the formulat
 ok_lsrc &= _maa_ls.find('## What this note does not claim') < _maa_ls.find('## The third item of the missing interface')
 ok_lsrc &= 'coherentLiftClass_eq_substratumClass' in _maa_ls and 'the lift is derivable' not in _maa_ls[_maa_ls.find('## The third item'):]
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_lsrc &= 'LIFT-SOURCE' not in _t and 'coherentLift_isMonomial' not in _t
@@ -4925,14 +4911,14 @@ for _t in ("Nor is that executability sourced by the substratum's own dynamics w
 ok_srcp &= _sgr.find('`substratumTheory_not_layerFlowExecutable` in `OIBridge/LiftAudit.lean`') < _sgr.find('Nor is that executability sourced') \
     < _sgr.find('stated substratum dynamics with observer access} \;\\not\\Rightarrow') < _sgr.find('No uniqueness or minimality is claimed for the pair of assumptions') < _sgr.find('**Typed form.**')
 ok_srcp &= _sgr1.count('one nontrivial layer flow executable}') == 2
-# the summary at the six sites, directly after the Q3 summary sentence, whose count is unchanged
+# the summary at the five sites, directly after the Q3 summary sentence, whose count is unchanged
 _ssum = ("The stated substratum dynamics with the observer's read and write access do not source that executability, the layers "
          'being available at time one and not at intermediate times, and the observer-level lift, in every formulation stated that '
          'lands in the operational interface, derives neither a non-monomial admissible operator nor the layer flow, the site-space '
          'wave-operator formulation being unresolved rather than excluded')
 _scount = 0
 _qcount2 = 0
-for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
+for _rel in ('papers/Main.md', 'book/ch01-observation.md', 'book/ch19-open-problems.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read())
     ok_srcp &= _ssum in _t1
@@ -4941,14 +4927,14 @@ for _rel in ('papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md'
     for _m in re.finditer(re.escape(_qsum), _t1):
         _tail = _t1[_m.end():_m.end() + 800]
         ok_srcp &= _ssum in _tail
-ok_srcp &= _scount == 6 and _qcount2 == 6
+ok_srcp &= _scount == 5 and _qcount2 == 5
 ok_srcp &= ('`obs_not_layerFlowExecutable` in `OIBridge/ExecSource.lean`, `coherentLiftClass_eq_substratumClass` in `OIBridge/LiftSource.lean`'
             in re.sub(r'\s+', ' ', open(os.path.join(_msroot, 'papers/Main.md'), encoding='utf-8').read()))
 # the kernel predicates of the boundary, the overbroad realization claim, exclusion or derivation of the lift, derivation of
 # either assumption and any minimality claim are absent from every manuscript source and generated form
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/ch01-observation.md', 'book/ch19-open-problems.md', 'book/The-Incompleteness-of-Observation-FULL.md',
-             'papers/GR.tex', 'papers/Main.tex', 'papers/Explainer.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
+             'papers/GR.tex', 'papers/Main.tex', 'book/The-Incompleteness-of-Observation-FULL.tex'):
     _t1 = re.sub(r'\s+', ' ', open(os.path.join(_msroot, _rel), encoding='utf-8').read()).replace('\\_', '_')
     for _bad in ('DerivedOI', 'SourcedOI', 'PhasesAvailable', 'SubstratumAvail', 'RouteB', 'LayerFlowExecutable', 'obsTheory', 'permTheory',
                  'every realization of those channels is configuration-level, and', 'every realization of the coherent',
@@ -4978,7 +4964,7 @@ check('R7-SRCP', ok_srcp,
       'qualification and before the no-uniqueness sentence, with the ExecSource and LiftSource witnesses, the four proved '
       'facts, the two reservations (realizations not classified; the wave-operator lift unresolved rather than excluded), '
       'the second display in the words of the first and the exactness sentence; the summary sentence follows the Q3 '
-      'summary sentence at all six sites, whose count is unchanged, Main carrying the kernel pointers; no manuscript source '
+      'summary sentence at all five sites, whose count is unchanged, Main carrying the kernel pointers; no manuscript source '
       'or generated form names a kernel predicate of the boundary, claims every realization of the channels '
       'configuration-level, excludes or derives the wave-operator lift, derives either assumption or claims uniqueness or '
       'minimality; both families are current with anchors in GR and Main; the note keeps the statement, the items, the '
@@ -5077,7 +5063,7 @@ for _bad in ('C5 is the', 'C5 := ', 'define C5 as', 'we adopt C5', 'C5 holds', '
 for _bad in ('polarizedTheory_not_layerFlowExecutable', 'polarizedTheory_phasesAvailable', 'polarizedTheory_not_phasesAvailable'):
     ok_c5d &= _bad not in _c5flat
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     ok_c5d &= 'C5Discovery' not in _t and 'C5-DISCOVERY' not in _t and 'KillBattery' not in _t and 'polarizedTheory' not in _t
@@ -5238,7 +5224,7 @@ for _bad in ('continuous parameter is necessary', 'continuous parameter necessar
 for _bad in ('the executability is derived', 'the phases are derived'):
     ok_pcl &= _bad not in _pc and not _asserted(_rd, _bad)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('PolarizationClosure', 'POLARIZATION-CLOSURE', 'PolC', 'polarizedTheoryC', "KillBattery'",
@@ -5378,7 +5364,7 @@ for _bad in ('is sufficient for a layer flow', 'therefore the observer can execu
              'outcome 1 is reached'):
     ok_ccs &= _bad not in _cc and _bad not in _rd1
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('CoherentContinuumSource', 'COHERENT-CONTINUUM', 'NonMonomialCountablyCovered', 'UncountableNonMonomialRays',
@@ -5535,7 +5521,7 @@ for _bad in ('the datum is derived', 'the datum is available', 'derives the datu
              'is minimal', 'the datum is a C5'):
     ok_smc &= not _asserted(_smn[_smn.find('## The outcome'):], _bad)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('StateMixingCoupling', 'STATE-MIXING-COUPLING', 'mixImage', 'MixC', 'MixR', 'mixTheory', 'qm_of_mixSourced',
@@ -5691,7 +5677,7 @@ for _bad in ('continuity is necessary', 'the principle is C5', 'is derived from 
              'the corpus sources the pair flow', 'C5 holds', 'a C5 has been found'):
     ok_rpf &= not _asserted(_rpn[_rpn.find('## The outcome'):], _bad)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('RealPairFlow', 'REAL-PAIR-FLOW', 'PairFlow', 'pairFlow', 'shearFlow', 'boostFlow', 'constFlow', 'flowR_eq_mixC',
@@ -5844,7 +5830,7 @@ for _bad in ('The verdict is **outcome 2', 'The verdict is **outcome 3', 'Outcom
 for _bad in ('the pair flow is C5', 'C5 holds', 'the corpus sources the pair flow', 'is necessary at the realization level'):
     ok_pfe &= not _asserted(_pfn[_pfn.find('## The outcome'):], _bad)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('PairFlowEquivalence', 'PAIR-FLOW-EQUIVALENCE', 'PairFlowSourced', 'pairFlowSourced', 'rotFlow',
@@ -6008,7 +5994,7 @@ for _bad in ('The verdict is **outcome 1', 'The verdict is **outcome 3', 'Outcom
 for _bad in ('the fixed gate is C5', 'C5 holds', 'OI supplies the fixed gate', 'KrausDense holds', 'DenseFiniteQM holds', 'the completion holds'):
     ok_dca &= not _asserted(_dcn[_dcn.find('## The outcome'):], _bad)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('DiscreteCompletion', 'DISCRETE-COMPLETION', 'FixedGateSourced', 'DenseUnitaryControl', 'KrausDense', 'DenseFiniteQM',
@@ -6177,7 +6163,7 @@ for _bad in ('the fixed gate is C5', 'C5 holds', 'the gate is supplied by OI', '
              'is exact quantum mechanics'):
     ok_dib &= not _asserted(_din[_din.find('## The outcome'):], _bad)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('DenseInstrumentBridge', 'DENSE-INSTRUMENT-BRIDGE', 'krausDense_of_denseControl', 'fixedGateTheory_denseFiniteQM',
@@ -6342,7 +6328,7 @@ for _bad in ('the architecture is refuted', 'OI supplies the phases', 'A6 has a 
              'no extension could source'):
     ok_fss &= not _asserted(_fsn[_fsn.find('## The outcome'):], _bad)
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('FrozenSourcing', 'FROZEN-SUBSTRATUM-SOURCING', 'NonnegBounded', 'frozen_sourcing_verdict',
@@ -6459,7 +6445,7 @@ for _t in ('def EnsembleDetermined (φ : Equiv.Perm S) : Prop := ∃! p : S → 
            'theorem stochastic_interface_gap (𝒮 : Substratum) [Fintype 𝒮.ι] [Fintype 𝒮.V] [DecidableEq 𝒮.V] (h5 : 𝒮.A5) {y : 𝒮.Conf} (hy : y ≠ 0) : ¬ EnsembleDetermined 𝒮.φ ∧ ¬ ∃ s : 𝒮.Conf, ∀ t : 𝒮.Conf, t ∈ orbit 𝒮.φ s'):
     ok_soi &= _t in _soflat
 # no manuscript carries the round; the registry and the census carry the family as kernel-only; the README
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('StochasticInterface', 'STOCHASTIC-OBSERVER-INTERFACE', 'EnsembleDetermined',
@@ -6564,7 +6550,7 @@ for _t in ('def PDivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ∀
            'multiplication, `Γ t = Γ s * Λ`. Left multiplication mixes over the root index and is not the'):
     ok_c4r &= _t in _crflat
 # no manuscript carries the round, and the manuscript's own C4 is untouched by the audit vocabulary
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('CausalReadback', 'C4-CAUSAL-READBACK', 'C4e', 'C4r', 'C4w', 'PIndivisibleWithin',
@@ -6657,7 +6643,7 @@ for _t in ('only the store clause', 'the write clause, the causal read leg and t
 ok_rch &= 'RECURRENCE-TIGHTNESS-AUDIT.md' in _rhflat and 'RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md' in _rhflat
 # Main 2.3 states the rooted theorem at the level proved, with every hypothesis; no manuscript carries the
 # audit's vocabulary or a horizon below the return
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('RECURRENCE-TIGHTNESS', 'N_CR', 'horizon_verdict',
@@ -6763,7 +6749,7 @@ for _t in ('quantified over the horizon', 'none of it is a check at', 'is not re
 # the frozen preregistration is named and its S1/finite-table discipline is intact
 ok_scf &= 'RECURRENCE-SCALING-AUDIT.md' in _sfflat
 # no manuscript carries the round
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('ScalingFamily', 'RECURRENCE-SCALING', 'Bmat', 'tight_at', 'N_CR'):
@@ -6917,7 +6903,7 @@ ok_rcl &= 'OI-ROOTED-CLASSIFICATION-AUDIT.md' in _rd1
 # Main 3.4 states the classification for finite visible sets with the witness of each direction
 # beside it (AGENTS.md A.34) and narrows open item (a) to multi-time laws; no manuscript carries the
 # audit's predicate names
-for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Explainer.md', 'papers/Substratum.md', 'papers/SM.md',
+for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/SM.md',
              'book/The-Incompleteness-of-Observation-FULL.md'):
     _t = open(os.path.join(_msroot, _rel), encoding='utf-8').read()
     for _bad in ('FiniteRootedRealizable', 'PPer', 'OI-ROOTED-CLASSIFICATION'):
@@ -8549,7 +8535,6 @@ def _a11p_root(rel):
 
 
 _A11P_MAIN = _a11p_root('papers/Main.md')
-_A11P_EXPL = _a11p_root('papers/Explainer.md')
 _A11P_CH01 = _a11p_root('book/ch01-observation.md')
 _A11P_GLOS = _a11p_root('book/glossary.md')
 _A11P_FULL = _a11p_root('book/The-Incompleteness-of-Observation-FULL.md')
@@ -8597,7 +8582,7 @@ def _a11p_stronger_target_open(t=None):
         'related by a left in-fibre move' in x
         and 'not fixed even by the complete trajectory' in x
         and ('both parts are open' in x or 'What remains open is two-part' in x)
-        for x in ((_A11P_MAIN, _A11P_EXPL, _A11P_CH01) if t is None else (t,)))
+        for x in ((_A11P_MAIN, _A11P_CH01) if t is None else (t,)))
 
 
 def _a11p_no_inequivalence(t=None):
@@ -8691,7 +8676,7 @@ def _a11p_ch19_tally(t=None):
 
 
 def _a11p_three_statuses(main=None):
-    """E16 -- Main, Explainer, GR, Methodology and chapter 19 agree on the three statuses.
+    """E16 -- Main, GR, Methodology and chapter 19 agree on the three statuses.
 
     representability established / operational completion conditionally characterized / bare-OI
     relative selection open."""
@@ -8700,8 +8685,6 @@ def _a11p_three_statuses(main=None):
         'This is an open frontier of the correspondence, not a local technical caveat.' in _mn
         and 'selection of a unique relating evolution from the coherent lifts of one visible family '
             'is *open*' in _mn
-        and 'The bridge therefore has three statuses' in _A11P_EXPL
-        and 'characterized conditionally' in _A11P_EXPL
         and 'does not prove that bare OI selects a unique relative quantum evolution' in _A11P_GR
         and 'Selection of a unique relative quantum evolution from the coherent lifts compatible '
             'with one visible family is **open**' in _A11P_METH
@@ -8882,7 +8865,7 @@ check('R7-A11P', ok_a11p,
       'evolution, so the lift-space result is never a relative-evolution no-go; writing back '
       'either the struck inference or the deletion that would license it fails the guard. The '
       'stronger combined target -- outside the uniformly invisible RIGHT class AND different in '
-      'relating evolution -- is checked MET by a left in-fibre move in Main, Explainer and chapter '
+      'relating evolution -- is checked MET by a left in-fibre move in Main and chapter '
       '1 alike, with the two-part cross-time question checked stated OPEN and its second part '
       'checked not fixed by the complete Gram trajectory, the settled reading mutation-tested. The '
       'boundary is checked never escalated into an OI/QM inequivalence claim and never allowed to '
@@ -8903,7 +8886,7 @@ check('R7-A11P', ok_a11p,
       'checked UNCHANGED by a framework-specific addition, and silent inflation of the count is '
       'mutation-tested. The three statuses -- representability established, operational completion '
       'characterized conditionally, bare-OI relative selection open -- are checked to agree across '
-      'Main, Explainer, GR, Methodology and chapter 19, with the demotion of the frontier back to '
+      'Main, GR, Methodology and chapter 19, with the demotion of the frontier back to '
       'a local caveat mutation-tested. Naming a gap is where the temptation to say what fills it '
       'appears, so the chapter is checked to endorse no mechanism AND rule none out: claiming a '
       'connection could not supply it, and escalating the gap into an inequivalence claim, are '
@@ -8916,17 +8899,16 @@ def _a12p_reg():
         return json.load(fh)
 
 
-def _a12p_two_sided(main=None, expl=None, ch01=None):
+def _a12p_two_sided(main=None, ch01=None):
     """P3 -- the invisible freedom is stated TWO-SIDED, each factor maximal among uniform actions of
     its kind, and NOWHERE is the two-sided action itself called maximal."""
     _mn = _A11P_MAIN if main is None else main
-    _ex = _A11P_EXPL if expl is None else expl
     _c1 = _A11P_CH01 if ch01 is None else ch01
     return ('The uniformly invisible deformations of a lift are two-sided' in _mn
             and 'each is maximal among uniform actions of its kind' in _mn
             and all('The invisible freedom itself has two sides' in x
-                    and 'each maximal among uniform actions of its kind' in x for x in (_ex, _c1))
-            and all('the maximal two-sided action' not in x for x in (_mn, _ex, _c1, _A11P_CH19)))
+                    and 'each maximal among uniform actions of its kind' in x for x in (_c1,))
+            and all('the maximal two-sided action' not in x for x in (_mn, _c1, _A11P_CH19)))
 
 
 def _a12p_right_only_bounded(main=None):
@@ -8937,12 +8919,12 @@ def _a12p_right_only_bounded(main=None):
     return ('related by a left in-fibre move, so quotienting by the right class alone does not '
             'determine the relating evolution' in _mn
             and 'no gauge or connection' not in _mn
-            and all('related by a left in-fibre move' in x for x in (_A11P_EXPL, _A11P_CH01)))
+            and all('related by a left in-fibre move' in x for x in (_A11P_CH01,)))
 
 
 def _a12p_per_slice(main=None):
     """P5 -- the per-slice classification in Main, in the merged result's terms and scoped to a
-    single time; Explainer, chapter 1 and chapter 19 carry it at their level."""
+    single time; chapter 1 and chapter 19 carry it at their level."""
     _mn = _A11P_MAIN if main is None else main
     return ('At a single time the residue after the two-sided action is classified exactly' in _mn
             and 'the fibre-Gram data — agrees up to the anchored phases' in _mn
@@ -8951,7 +8933,7 @@ def _a12p_per_slice(main=None):
                 'prescribed diagonal is realized' in _mn
             and 'exactly the off-diagonal fibre-Gram data modulo phases' in _mn
             and all('off-diagonal' in x and 'fibre-Gram data' in x and 'modulo phases' in x
-                    for x in (_A11P_EXPL, _A11P_CH01, _A11P_CH19)))
+                    for x in (_A11P_CH01, _A11P_CH19)))
 
 
 def _a12p_not_inert(main=None):
@@ -8959,7 +8941,7 @@ def _a12p_not_inert(main=None):
     nonempty."""
     _mn = _A11P_MAIN if main is None else main
     return ('that freedom is neither empty nor inert' in _mn
-            and all('that residue is not inert' in x for x in (_A11P_EXPL, _A11P_CH01)))
+            and all('that residue is not inert' in x for x in (_A11P_CH01,)))
 
 
 def _a12p_two_part_open(main=None, ch19=None):
@@ -8971,7 +8953,7 @@ def _a12p_two_part_open(main=None, ch19=None):
             and 'the second not fixed even by the complete trajectory' in _mn
             and all('What remains open is two-part' in x
                     and 'the latter not fixed even by the complete trajectory' in x
-                    for x in (_A11P_EXPL, _A11P_CH01))
+                    for x in (_A11P_CH01,))
             and 'The question is two-part: what selects or constrains, through time, the fibre-Gram '
                 'data of the lift' in _c19
             and 'The complete trajectory of fibre-Gram data does not fix the relating evolution '
@@ -8990,7 +8972,7 @@ def _a12p_coordinate_not_physics(main=None, ch19=None, glos=None):
             and 'The fibre-Gram data is a coordinate on the space of lifts, not a physical quantity, '
                 'and no statement is made about which trajectory of it is selected' in _c19
             and 'It is a coordinate on the space of lifts, not a physical quantity' in _gl
-            and all('No selection principle is named or excluded' in x for x in (_A11P_EXPL, _A11P_CH01)))
+            and all('No selection principle is named or excluded' in x for x in (_A11P_CH01,)))
 
 
 def _a12p_ch19_entry(ch19=None):
@@ -9014,7 +8996,6 @@ def _a12p_three_statuses(main=None):
     return ('selection of a unique relating evolution from the coherent lifts of one visible family '
             'is *open*' in _mn
             and 'none of it makes embedded observation and quantum mechanics inequivalent' in _mn
-            and 'The bridge therefore has three statuses' in _A11P_EXPL
             and 'does not prove that bare OI selects a unique relative quantum evolution' in _A11P_GR
             and 'Selection of a unique relative quantum evolution' in _A11P_METH)
 
@@ -9041,7 +9022,7 @@ def _a12p_census(reg=None):
     fam = fam[0]
     files = {m['file'] for m in fam['manuscript']}
     return (fam['status'] == 'current' and fam['modules'] == ['TwoSidedGauge']
-            and {'papers/Main.md', 'papers/Explainer.md', 'book/ch01-observation.md',
+            and {'papers/Main.md', 'book/ch01-observation.md',
                  'book/ch19-open-problems.md', 'book/glossary.md'} <= files
             and 'NOT EXCEEDING the merged theorems' in fam['note']
             and 'joint maximality neither asserted nor excluded' in fam['note']
@@ -9074,11 +9055,11 @@ _a12p_m2 = _A11P_MAIN.replace(
     'together they form the maximal two-sided action')
 ok_a12p &= _a12p_m2 != _A11P_MAIN and not _a12p_two_sided(main=_a12p_m2)
 
-# the two-sided action called maximal in Explainer
-_a12p_m3 = _A11P_EXPL.replace(
+# the two-sided action called maximal in chapter 1
+_a12p_m3 = _A11P_CH01.replace(
     'each maximal among uniform actions of its kind',
     'each maximal among uniform actions of its kind, forming the maximal two-sided action')
-ok_a12p &= _a12p_m3 != _A11P_EXPL and not _a12p_two_sided(expl=_a12p_m3)
+ok_a12p &= _a12p_m3 != _A11P_CH01 and not _a12p_two_sided(ch01=_a12p_m3)
 
 # the complete trajectory said to fix the relating evolution
 _a12p_m4 = _A11P_MAIN.replace(
@@ -9143,7 +9124,7 @@ check('R7-A12P', ok_a12p,
       'Act 12 scope propagation guard (publication only): the round that carries the merged '
       'two-sided classification into the corpus. Nothing new is proved, so the only failure mode '
       'is the manuscript saying MORE than the merged theorems support. The invisible freedom is '
-      'checked stated TWO-SIDED in Main, Explainer and chapter 1 with each factor maximal among '
+      'checked stated TWO-SIDED in Main and chapter 1 with each factor maximal among '
       'uniform actions of its kind and the two-sided action itself NEVER called maximal (joint '
       'maximality asserted is mutation-tested twice). Right-only insufficiency is checked carried '
       'by a LEFT in-fibre move and read exactly as "quotienting by the right class alone does not '
@@ -9152,7 +9133,7 @@ check('R7-A12P', ok_a12p,
       'to anchored phases, the visible law its diagonal, realizability as stated, the residue '
       'exactly the off-diagonal data modulo phases -- and scoped to a single time; the residue is '
       'checked NEITHER EMPTY NOR INERT with demotion mutation-tested. The cross-time frontier is '
-      'checked TWO-PART and OPEN IN BOTH PARTS on all four surfaces with the complete Gram '
+      'checked TWO-PART and OPEN IN BOTH PARTS on all three surfaces with the complete Gram '
       'trajectory stated NOT to fix the relating evolution; collapsing it to one part, declaring '
       'it closed, and the trajectory said to fix the evolution are separately mutation-tested. The '
       'fibre-Gram data is checked a COORDINATE and not a physical quantity wherever named, no '
