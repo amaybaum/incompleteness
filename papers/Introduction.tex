@@ -182,21 +182,21 @@ Could the randomness of quantum measurements come from observers seeing
 only part of a deterministic world? Observational incompleteness (OI) is
 the hypothesis that every observer is part of a larger world that
 evolves deterministically and reversibly, and can distinguish only
-finitely many configurations of what it sees. This paper explains, for
-non-specialists, what has been proved about the idea in finite models
-and what has not. Over any finite number of steps, every pattern of
-observations, including every record of a quantum system measured in the
-same way at each step, is produced exactly by some partly hidden
-deterministic world. Whenever such a record has memory, the hidden part
-must store it and must be large enough to hold it. If the hidden part is
-prepared in the same way whatever is visible at the start, any visible
-step that is not fully predictable also makes the forecasts from the
-possible starts impossible to chain step by step somewhere in the
-world's cycle. These results represent quantum statistics; they do not
+finitely many configurations of what it sees. In finite models, over any
+finite number of steps, every pattern of observations, including every
+record of a quantum system measured in the same way at each step, is
+produced exactly by some partly hidden deterministic world. Whenever
+such a record has memory, the hidden part must store it and must be
+large enough to hold it. If the hidden part is prepared in the same way
+whatever is visible at the start, any visible step that is not fully
+predictable also makes the forecasts from the possible starts impossible
+to chain step by step within the time the world takes to return to its
+starting state. These results represent quantum statistics; they do not
 derive quantum mechanics, which needs an assumed matrix structure and
-five conditions that OI does not supply, and the quadratic Born rule is
-not selected. Applications to vacuum energy and black-hole information
-are stated as finite-model results and proposals.
+five conditions that OI does not supply, and the rule that quantum
+probabilities are squared amplitudes (the Born rule) is not selected.
+Applications to vacuum energy and black-hole information are stated as
+finite-model results and proposals.
 
 \hypertarget{could-quantum-randomness-reflect-incomplete-observation}{%
 \subsection{1. Could quantum randomness reflect incomplete
@@ -216,12 +216,13 @@ random-looking observations fit together; it proves nothing about
 quantum mechanics, and none of the results below depends on it.
 
 Here is the simplest version. Two cards lie on a table, one face up and
-one face down. The face-down card is dealt at random: it is red or black
-with equal probability, independently of the face-up card. Each shuffle
-then swaps the two cards. After one shuffle the player can predict the
-colour now showing no better than by tossing a coin. After a second
-shuffle the original card is back, with certainty. The player's record
-therefore has memory: what is seen next depends on what was seen
+one face down. The face-up card is red or black. The face-down card is
+dealt at random: it is red or black with equal probability,
+independently of the face-up card. Each shuffle is a fixed move, not a
+randomization: it swaps the two cards. After one shuffle the player can
+predict the colour now showing no better than by tossing a coin. After a
+second shuffle the original card is back, with certainty. The player's
+record therefore has memory: what is seen next depends on what was seen
 earlier, not only on what is showing now. That memory is kept in the
 face-down card. Once the cards are dealt nothing random happens; the
 uncertainty is the player's, and it comes from what the player cannot
@@ -232,23 +233,21 @@ quantum mechanics {[}Book §1.11{]}.
 Framed this way, a question about interpretation becomes three
 mathematical questions. Which patterns of observations can a partly
 hidden deterministic world produce? Where must the hidden information
-sit? What does it force the observations to look like?
+sit? What does storing it force the observations to look like?
 
-\textbf{What is established and what is open.} Section 3 gives three
-answers that are proved for finite models: every finite pattern of
-fixed-measurement records can be reproduced by a hidden deterministic
-world; any memory in such a record must be stored, with a minimum size,
-in the hidden part; and, under a stated assumption about how the hidden
-part is prepared, a visible step that is not fully predictable makes
-forecasts fail to chain somewhere in the world's cycle. Section 4 states
-what is not established: that nature is such a world, that quantum
-theory follows from OI alone, that the operations quantum theory needs
-are physically available, and that the quadratic rule for quantum
-probabilities is selected. Section 5 describes applications that are
-either finite-model results or proposals, and section 6 lists the
-physical steps that remain open. The proofs are in the formal papers
-cited throughout; the last section, ``Where the details are'', says
-where.
+\textbf{What is established and what is open.} For finite models,
+section 3 proves three things: any finite record of one repeated
+measurement can be reproduced by a partly hidden deterministic world;
+any memory in such a record must be stored, with a minimum size, in the
+hidden part; and, under a stated assumption about how the hidden part is
+prepared, a visible step that is not fully predictable forces forecasts
+that cannot be chained step by step (explained in section 3.3). Section
+4 states what is not established: that nature is such a world, that
+quantum theory follows from OI alone, that the operations quantum theory
+needs are physically available, and that the squared-amplitude rule for
+quantum probabilities is selected. Section 5 describes applications that
+are either finite-model results or proposals, and section 6 lists the
+physical steps that remain open.
 
 \hypertarget{the-simple-idea-a-hidden-deterministic-world-can-look-random}{%
 \subsection{2. The simple idea: a hidden deterministic world can look
@@ -271,14 +270,14 @@ visible and hidden parts, and how the hidden part is prepared at the
 start {[}Main §1.2{]}.
 
 \emph{Observational incompleteness} (OI) is the physical hypothesis that
-every physical observer is in this situation: a proper part of a larger
-world that evolves deterministically and reversibly, with a specified
-way of reading and preparing its surroundings {[}Main §1.2{]}. The
-finiteness in the hypothesis belongs to the observer: having finitely
-many distinguishable internal states, an observer can tell apart only
-finitely many visible configurations {[}Main §1.2, Lemma 1{]}. The
-hypothesis does not require the whole world to be finite {[}Main §1.2,
-Remark (status of the early commitments){]}.
+every physical observer is in this situation: only a part, never the
+whole, of a larger world that evolves deterministically and reversibly,
+with a specified way of reading and preparing its surroundings {[}Main
+§1.2{]}. The finiteness in the hypothesis belongs to the observer:
+having finitely many distinguishable internal states, an observer can
+tell apart only finitely many visible configurations {[}Main §1.2, Lemma
+1{]}. The hypothesis does not require the whole world to be finite
+{[}Main §1.2, Remark (status of the early commitments){]}.
 
 The results about hidden worlds in sections 3 and 4 are proved for
 \emph{finite models}, called \emph{substrata}. In a finite model the
@@ -287,34 +286,35 @@ part and a hidden part, and the rule is a reversible map of those pairs.
 Finiteness of the whole is an assumption of these models, not a
 consequence of the observer being embedded in the world. The reversible
 rule is the models' representative of the hidden dynamics, a choice
-motivated by the observed near-unitarity of physical evolution, unitary
-evolution being the reversible evolution of quantum theory {[}Main §1.2,
-Remark (status of the early commitments){]}.
+motivated by the observed near-unitarity of physical evolution (in
+quantum theory, unitary evolution is evolution that loses no
+information) {[}Main §1.2, Remark (status of the early commitments){]}.
+
+What does the substratum itself run on? The old story of a world resting
+on turtles all the way down asks that question. A finite deeper layer
+that is prepared independently of the substratum and never acts back on
+it can be added without changing anything this observer sees
+{[}Substratum, Theorem 24(iii){]}; a deeper layer that can act back may
+change later records. These results neither classify every possible
+deeper level nor show that the regress ends. A finite reversible world
+is the model under investigation, not a demonstrated final description
+of nature {[}Substratum §§2--4; Book §3.8{]}.
 
 Hidden does not mean unknowable. In the two-card game the first two
 colours the player sees already identify both cards, even though the
-record has memory. In general, an observer who keeps a record of past
-observations knows a hidden quantity exactly when every starting
-configuration compatible with that record gives it the same value
-{[}Substratum, Prop. 24.5{]}. Whether hidden information can be inferred
-depends on the records kept and on what the observer can do; the result
-concerns inference from records and supplies no physical mechanism for
-storing, preparing or acting on them.
+record has memory. In general, for an observer who knows the rule and
+how the world was prepared, a record of past observations identifies a
+hidden quantity exactly when every starting configuration compatible
+with that record gives it the same value {[}Substratum, Prop. 24.5{]}.
+Whether hidden information can be inferred depends on the records kept
+and on what the observer can do; the result concerns inference from
+records and supplies no physical mechanism for storing, preparing or
+acting on them.
 
 Nor is this incompleteness the uncertainty principle of quantum theory.
 It arises even when the observer always reads the world in one fixed
 way, and the visible statistics of such a fixed readout are subject to
 no uncertainty relation {[}Main §3.4{]}.
-
-What does the substratum itself run on: turtles all the way down, as in
-the story Hawking retells? A deeper layer that never acts back on the
-substratum can be added without changing anything this observer sees,
-under the preparation assumptions of {[}Substratum, Theorem 24(iii){]};
-a deeper layer that can act back may change later records. These results
-neither classify every possible deeper level nor show that the regress
-ends. A finite reversible world is the model under investigation, not a
-demonstrated final description of nature {[}Substratum §§2--4; Book
-§3.8{]}.
 
 The question of section 1 can now be stated precisely. Fix a number of
 steps. A \emph{pattern} lists the probability of every possible sequence
@@ -325,6 +325,9 @@ observer's sequence of observations has exactly those probabilities.
 \hypertarget{what-the-mathematics-proves}{%
 \subsection{3. What the mathematics
 proves}\label{what-the-mathematics-proves}}
+
+For finite models, the three questions of section 1 have the following
+answers.
 
 \hypertarget{every-finite-pattern-can-be-reproduced-by-a-hidden-deterministic-world}{%
 \subsubsection{3.1 Every finite pattern can be reproduced by a hidden
@@ -337,20 +340,22 @@ steps. Three collections of patterns can be compared {[}Main §3.4{]}:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{S}, every pattern at all: every way of assigning probabilities
-  to the possible sequences of observations;
+  \(\mathsf S\), every pattern at all: every way of assigning
+  probabilities to the possible sequences of observations;
 \item
-  \textbf{D}, the patterns a finite reversible world shows to an
+  \(\mathsf D\), the patterns a finite reversible world shows to an
   observer who sees only its visible part, the hidden part being of any
   finite size and prepared in any way, possibly correlated with the
   first visible observation;
 \item
-  \textbf{Q}\(_{\rm fb}\), the patterns of results of a finite quantum
-  system that evolves by a unitary, the reversible evolution of quantum
-  theory, and is measured in one fixed basis at every step, starting
-  from a state with definite probabilities in that basis; each result
-  has the probability the Born rule assigns, and the record may be any
-  fixed function of each result.
+  \(\mathsf Q_{\rm fb}\) (fb for ``fixed basis''), the patterns of
+  results of a finite quantum system that evolves by a unitary and is
+  measured in one fixed basis at every step, starting from a state with
+  definite probabilities in that basis; the record may be any fixed
+  function of each result. A \emph{basis} is the set of mutually
+  exclusive outcomes that the measurement distinguishes; \emph{unitary}
+  evolution is quantum theory's reversible evolution; the \emph{Born
+  rule} assigns the outcomes' probabilities.
 \end{itemize}
 
 Over any finite number of steps the three collections are the same
@@ -359,36 +364,36 @@ equivalence){]}: \[
 \mathsf S\;\Longleftrightarrow\;\mathsf D\;\Longleftrightarrow\;\mathsf Q_{\rm fb}.
 \]
 
-The scope of this statement is part of its content. It holds for each
-finite stretch of time separately, and it concerns records of one fixed
-measurement repeated at every step. It does not say that the rest of
-quantum theory, with its incompatible measurements, superpositions and
-composite systems, is reproduced; section 4 explains what that would
-take. Within that scope, a fixed-measurement quantum record carries no
-statistical signature that a partly hidden deterministic world could not
-reproduce, and conversely. This settles a question of possibility, not
-of fact: it does not show that nature is such a world.
+The statement holds for each finite stretch of time separately, and it
+concerns records of one fixed measurement repeated at every step. It
+does not say that the rest of quantum theory, with its incompatible
+measurements, superpositions and composite systems, is reproduced;
+section 4 explains what that would take. Within that scope, a
+fixed-measurement quantum record carries no statistical signature that a
+partly hidden deterministic world could not reproduce, and conversely.
+This settles a question of possibility, not of fact: it does not show
+that nature is such a world.
 
-One construction is simple to picture. The hidden part holds a whole
+One construction is simple to picture: the hidden part holds a whole
 sequence of observations drawn in advance from the pattern, together
-with a clock, and each step brings the next entry into view, while the
-rule stays reversible {[}Main §3.4{]}. This trajectory-labelling
-realization is due to Egri, Gömöri, Gyenis and Hofer-Szabó {[}EGGH26,
-Prop. 13{]}. Every pattern also has a realization in which the hidden
-part is prepared independently of the first visible observation {[}Main
-§3.4, Theorem (finite-horizon process dilation) and its Extension{]}; a
-form without reversibility is {[}EGGH26, Prop. 16{]}, and its memoryless
-one-step case is the random-mapping representation of Markov chains
-{[}LP17, Prop. 1.5{]}.
+with a clock, and each step brings the next entry into view while the
+rule stays reversible {[}Main §3.4; EGGH26, Prop. 13{]}. Every pattern
+also has a realization in which the hidden part is prepared
+independently of the first visible observation {[}Main §3.4, Theorem
+(finite-horizon process dilation) and its Extension{]}. A form of this
+without reversibility is due to the same authors {[}EGGH26, Prop. 16{]},
+and for Markov chains, processes without memory, its one-step case is
+the random-mapping representation {[}LP17, Prop. 1.5{]}.
 
 On the quantum side, a reversible rule acts on quantum basis states as a
-permutation, which is a unitary, and measuring in that basis at every
-step reproduces the visible statistics; conversely, the Born rule turns
-every such quantum record into a pattern {[}Main §3.4{]}. A permutation
-dynamics is a special case of the unistochastic processes of Barandes'
-stochastic--quantum correspondence {[}Bar23; Bar25; Bar26{]}, and the
-law of a record measured at every step is that of Strasberg and García
-Díaz {[}SGD19{]}.
+permutation, a relabelling of states, which is a unitary; measuring in
+that basis at every step reproduces the visible statistics. Conversely,
+the Born rule turns every such quantum record into a pattern {[}Main
+§3.4{]}. A permutation dynamics is a special case of Barandes'
+unistochastic processes, whose transition probabilities are the squared
+magnitudes of the entries of a unitary {[}Bar23; Bar25; Bar26{]}, and
+the law of a record measured at every step is that of Strasberg and
+García Díaz {[}SGD19{]}.
 
 Two limits follow at once. Patterns without memory, in which the next
 observation depends only on the present one, belong to all three
@@ -406,27 +411,37 @@ sight}\label{memory-must-be-stored-out-of-sight}}
 
 A record has \emph{memory} at a given step when the observed past says
 something about the next observation beyond what the present observation
-already says. In the card game, after the first shuffle the record
-remembers the dealt card, although the face-up card does not show it,
-because the face-down card holds it.
+already says. In the card game, what will be seen after the second
+shuffle still depends on the colour first showing, although that card is
+face down after the first shuffle: the face-down card holds it.
 
 The same holds in every hidden deterministic world that reproduces a
 record. When observations contain information about the past that cannot
 be recovered from the present observation alone, a deterministic model
 reproducing those observations must retain the relevant information in
-its hidden state. Precisely: the next observation depends on the past
-only through what the past reveals about the hidden state; two pasts can
-lead to different predictions only if they leave at least as different
-odds on the hidden state; and the memory visible in the record, in bits,
-never exceeds the memory held in the hidden state, which never exceeds
-the hidden part's capacity, the base-2 logarithm of its number of states
-{[}Main §3.4, Theorem (unavoidable hidden predictive memory){]}.
+its hidden state. Precisely, in every such world {[}Main §3.4, Theorem
+(unavoidable hidden predictive memory){]}:
 
-The statement also runs the other way. A record has memory exactly when
-every hidden deterministic world that reproduces it keeps, in its hidden
-part, a trace of the past that changes what is seen next; and if any one
-such world keeps a trace of that kind, the record has memory {[}Main
-§1.5; Main §3.4, Remark (what this strengthens){]}.
+\begin{itemize}
+\tightlist
+\item
+  the next observation depends on the past only through what the past
+  reveals about the hidden state;
+\item
+  two pasts can make different predictions only if they leave different
+  odds on the hidden state, and their predictions differ by no more than
+  those odds do;
+\item
+  the memory visible in the record, measured in bits, never exceeds the
+  memory held in the hidden state, which never exceeds the hidden part's
+  capacity, the base-2 logarithm of its number of states.
+\end{itemize}
+
+A record has memory if and only if the hidden worlds that reproduce it
+keep a trace of the past that changes what is seen next: if the record
+has memory, every such world keeps one; if even one such world keeps
+one, the record has memory {[}Main §1.5; Main §3.4, Remark (what this
+strengthens){]}.
 
 Keeping the past is not the same as memory. A reversible world run from
 the start stores its whole visible past, even when the record has no
@@ -463,22 +478,25 @@ shuffle is a coin toss whichever card was dealt face up, yet the
 forecast to the second shuffle is certainty. No forecast from the first
 shuffle to the second can turn two identical coin-toss forecasts into
 two different certainties, so the chain breaks. The property that fails
-is called \emph{P-divisibility}.
+is called, in the technical literature, \emph{P-divisibility}. It
+matters here because the stochastic--quantum correspondence relates such
+features of observed records to quantum theory {[}Bar23; Bar25{]}.
 
-The forecasts here are taken from every visible start the world could
-have, including starts an experiment never uses, with the hidden part
-prepared in the same way whatever the visible start and independently of
-it. That assumption makes the table of forecasts a property of one rule
-and one preparation, so that differences between forecasts come from the
+The forecasts are taken from every visible start the world could have,
+including starts an experiment never uses, with the hidden part prepared
+in the same way whatever the visible start and independently of it. That
+assumption makes the table of forecasts a property of one rule and one
+preparation, so that differences between forecasts come from the
 dynamics, not from a changed setup {[}Main §2.3{]}.
 
-The key fact is simple. A step-by-step forecast can never move two
-forecasts further apart. So if the forecasts from two different starts
-overlap at some time, and at a later time they become two different
-certainties, no chain of step-by-step forecasts connects the two times
-{[}Main §2.3, Theorem (overlap and return){]}. This uses the standard
-contraction criterion for divisibility {[}RHP14, Thm 2.4; BD16{]};
-Doukas states the same argument concurrently {[}Dou26, Prop. 1{]}.
+The key fact is simple. A step-by-step forecast can never make two
+forecasts easier to tell apart. So if the forecasts from two starts
+overlap at some time (some observation is possible under both) and later
+become two different certainties, no chain of step-by-step forecasts
+connects the two times {[}Main §2.3, Theorem (overlap and return){]}.
+This uses the standard contraction criterion for divisibility {[}RHP14,
+Thm 2.4; BD16{]}; Doukas states the same argument concurrently {[}Dou26,
+Prop. 1{]}.
 
 A finite reversible world supplies the return to certainty: after
 finitely many steps, its \emph{recurrence time}, every configuration is
@@ -486,13 +504,16 @@ back where it started, and the forecasts from the start are certainties
 again. Hence, in a finite reversible world whose hidden part is prepared
 as just described, any visible step that is not fully predictable from
 the current observation forces forecasts that cannot be chained
-somewhere within one recurrence cycle; so do any two different observed
-histories of the same length that end at the same observation {[}Main
-§2.3, Theorem (history readback + finite recurrence implies
-indivisibility){]}. When every visible start has positive probability,
-this failure occurs exactly when the record has memory at some step
-before the recurrence time {[}Main §2.3, Scope{]}; otherwise it may sit
-only in forecasts from starts that never occur.
+somewhere within one recurrence cycle {[}Main §2.3, Theorem (history
+readback + finite recurrence implies indivisibility){]}. Two different
+observed histories of the same length that end at the same observation
+have the same effect: if every forecast from the start before the return
+were certain, the current observation would fix the whole history, so
+two such histories could not both occur {[}Main §2.3{]}. When every
+visible start has positive probability, this failure occurs exactly when
+the record has memory at some step before the recurrence time {[}Main
+§2.3, Scope{]}; otherwise it may sit only in forecasts from starts that
+never occur.
 
 This failure is a property of the world's rule, not necessarily of
 anything an observer will see: the stretches of time an observer can
@@ -525,21 +546,21 @@ flipping the last bit, and appears concurrently in {[}Dou26, App. A{]}.
 \subsection{4. What the mathematics does not
 prove}\label{what-the-mathematics-does-not-prove}}
 
+The correspondence of section 3.1 represents fixed-measurement
+statistics in hidden deterministic form. Several things lie outside it.
+
 \hypertarget{representation-is-not-derivation}{%
 \subsubsection{4.1 Representation is not
 derivation}\label{representation-is-not-derivation}}
 
-The correspondence of section 3.1 represents fixed-measurement
-statistics in hidden deterministic form, and its statement leaves
-several things undone.
-
-It does not select the quadratic Born rule. In the quantum collection
-the rule that probabilities are squared magnitudes of amplitudes is part
-of the definition. The unitaries that represent reversible worlds are
-permutations, whose entries are 0 or 1, so they give the same statistics
-for every power of the magnitudes; nothing selects the square {[}Main
-§3.4, Remark (what this equivalence does and does not say); Bar26, Thm
-3.1{]}.
+The correspondence does not select the Born rule. In the quantum
+collection the rule that probabilities are squared magnitudes of
+amplitudes (the complex numbers quantum theory assigns to outcomes) is
+part of the definition. The unitaries that represent reversible worlds
+are permutations, whose entries are 0 or 1, so they give the same
+statistics for every positive power of the magnitudes; nothing selects
+the square {[}Main §3.4, Remark (what this equivalence does and does not
+say); Bar26, Thm 3.1{]}.
 
 It does not select the quantum evolution between two times. Two quantum
 descriptions can reproduce the same visible record at every time and
@@ -552,15 +573,18 @@ It explains nothing on its own. It says which patterns admit hidden
 deterministic and quantum representations, not why a physical system
 shows a pattern with memory {[}Main §3.4, Remark (representation, not
 explanation){]}. Calvo states a derivation of the textbook axioms from
-indivisible stochastic evolution {[}Cal26{]}; the correspondence derives
-no axioms.
+indivisible stochastic evolution, evolution whose forecasts cannot be
+chained {[}Cal26{]}; the correspondence derives no axioms.
 
-Finally, memory in a record, failure of chaining and quantum
-non-Markovian evolution are distinct properties, and no unconditional
-implication among them is asserted {[}Main §3.2, Remark (three notions,
-kept apart){]}; failure of chaining in a record implies failure of
-quantum chaining for one stated class of quantum descriptions, but not
-in general {[}Main §3.2{]}.
+Finally, memory in a record, failure of chaining and memory effects in
+the quantum description itself (non-Markovian quantum evolution) are
+distinct properties, and no unconditional implication among them is
+asserted {[}Main §3.2, Remark (three notions, kept apart){]}. For the
+quantum description of a reversible world whose hidden part starts with
+definite probabilities, failure of chaining in the record implies
+failure of quantum chaining {[}Main §3.2, Theorem (CP-indivisibility,
+framework scope){]}; outside that class it need not {[}Main §3.2, Remark
+(scope: P-indivisibility is not quantum non-Markovianity){]}.
 
 \hypertarget{what-full-quantum-theory-would-need}{%
 \subsubsection{4.2 What full quantum theory would
@@ -572,15 +596,16 @@ of definite states, and systems combined into larger ones. The relevant
 question is operational: which operations can an experimenter perform on
 a finite system, with helper systems attached?
 
-Take as given that the operations are complex-linear maps on matrices,
-with combined systems described by tensor products. That setting is
-assumed, not derived from OI, and a derivation of it is open {[}GR
-§3.3{]}. Suppose also a few basic rules: the experimenter can leave the
-system alone, lump outcomes together, combine operations, prepare a
-helper, read the helper without disturbing the system, and discard it.
-Within that setting, the operations available on a finite system, with
-any finite helper attached, are exactly those of quantum theory if and
-only if five conditions hold {[}GR §3.3, Theorem (operational-completion
+Take as given that states are described by matrices of complex numbers,
+operations by linear maps on them, and two systems together by the
+tensor product of their descriptions. That setting is assumed, not
+derived from OI, and a derivation of it is open {[}GR §3.3{]}. Suppose
+also a few basic rules: the experimenter can leave the system alone,
+lump outcomes together, combine operations, prepare a helper, read the
+helper without disturbing the system, and discard it. Within that
+setting, the operations available on a finite system, with any finite
+helper attached, are exactly those of quantum theory if and only if five
+conditions hold {[}GR §3.3, Theorem (operational-completion
 characterization){]}:
 
 \begin{enumerate}
@@ -598,50 +623,54 @@ characterization){]}:
   \emph{full reversible control}: every reversible quantum operation on
   every combined system is available;
 \item
-  a fresh, evenly mixed helper can be attached to a combined system,
-  used and discarded, so that a combined system can serve as the working
-  system of a larger experiment.
+  a fresh helper in a completely random (evenly mixed) state can be
+  attached to a combined system, used and discarded, so that a combined
+  system can serve as the working system of a larger experiment.
 \end{enumerate}
 
 The first two only make the theory well formed; the last three are the
 substantive requirements. Each condition is independent of the other
-four and of the observation process itself: for one fixed finite
-embedded-observation process with the four properties listed in section
-3.2, and for each condition, there is a qubit theory that realizes the
-process and the other four conditions but fails that one. In particular,
-a theory that never creates coherence, that is, superpositions, realizes
+four and of the observation process itself. A \emph{qubit} is the
+simplest quantum system, with two basic states; for one fixed finite
+observation process with the four properties listed in section 3.2, and
+for each condition, there is a qubit theory that realizes the process
+and the other four conditions but fails that one. In particular, a
+theory that never creates coherence, that is, superpositions, realizes
 the observation process and is not quantum, so OI alone does not imply
-quantum mechanics {[}GR §3.3{]}. The sufficiency direction rests on the
-standard dilation theorems {[}Sti55; Kra83; Oza84{]}; for
+quantum mechanics {[}GR §3.3{]}. That the five conditions suffice rests
+on the standard dilation theorems {[}Sti55; Kra83; Oza84{]}; for
 reconstructions of finite quantum theory from operational axioms, see
 {[}Har01; CDP11; MM11{]}.
 
 A finite reversible world does not supply condition 4 on its own. The
 operations that reversible dynamics of finitely many states supplies,
-under the stated observer access, cannot produce a quarter-turn relative
-phase (a phase factor \(i\) on one state), which full reversible control
-requires; so condition 4 fails for them on every system with two or more
-states {[}GR §3.3{]}. Which of conditions 3--5 a substratum with further
-intervention principles would supply, and why its operations should be
-complex matrices in the first place, are open.
+under the observer access stated in {[}GR §3.3{]}, cannot produce a
+quarter-turn relative phase (a phase factor \(i\) on one state), which
+full reversible control requires; so condition 4 fails for them on every
+system with two or more states {[}GR §3.3{]}. Whether the physical
+substratum supplies further kinds of intervention that would complete
+its repertoire, such as a selectable relative phase or a continuously
+driven transition between two states {[}GR §3.3{]}, and why its
+operations should be complex matrices in the first place, are open.
 
 \hypertarget{no-fixed-finite-world-reproduces-a-qubit}{%
 \subsubsection{4.3 No fixed finite world reproduces a
 qubit}\label{no-fixed-finite-world-reproduces-a-qubit}}
 
 The correspondence chooses a hidden world for each pattern. A single
-qubit, the simplest quantum system, can be prepared and measured in
-infinitely many ways. A fixed finite world with \(N\) hidden
-configurations produces only prepare-and-measure statistics that factor
-through \(N\) states, a fact proved in {[}Main §3.4, Proposition
+qubit can be prepared and measured in infinitely many ways. A fixed
+finite world with \(N\) configurations in all produces only
+prepare-and-measure statistics in which every preparation amounts to a
+probability distribution over at most \(N\) underlying states, on which
+the measurements then act; this is proved in {[}Main §3.4, Proposition
 (finite-substratum operational obstruction --- classical-dimension
-form){]}; simulating a qubit's prepare-and-measure statistics needs
+form){]}. Simulating a qubit's prepare-and-measure statistics needs
 classical memory without bound over finite experiments, an imported
 result {[}HKLP24, Thm 4; GH03{]}, and Montina reports Hardy's result
-that the number of hidden states cannot be finite {[}Mon08; Har04{]}. So
-for any single finite pattern some finite hidden world reproduces it,
-but no one fixed finite hidden world reproduces everything a qubit can
-do.
+that the number of underlying states cannot be finite {[}Mon08;
+Har04{]}. So for any single finite pattern some finite hidden world
+reproduces it, but no one fixed finite hidden world reproduces
+everything a qubit can do.
 
 \hypertarget{bell-correlations}{%
 \subsubsection{4.4 Bell correlations}\label{bell-correlations}}
@@ -660,25 +689,31 @@ deterministic; each laboratory's setting acts only on its own region;
 each outcome is read from a region that the other laboratory's setting
 cannot influence within the time of the experiment; the settings are
 chosen independently of the hidden state that precedes them; and an
-outcome is recorded in every run. Then \(|S_{\rm CHSH}|\le2\). The card
-game obeys the same ceiling when each player's operations and readout
-stay within that player's range of influence, the deal is independent of
-the settings, and both players record an outcome in every run {[}Main
-§3.3; Book §1.11{]}. Reproducing quantum Bell correlations therefore
-requires giving up at least one of these assumptions.
+outcome is recorded in every run. Then \(|S_{\rm CHSH}|\le2\). A
+two-player version of the card game obeys the same ceiling when every
+operation reads and changes only one player's own cards and depends only
+on those cards, that player's setting and chance that, together with the
+deal, is independent of the settings; when both players record an
+outcome in every run; and when the settings are chosen independently of
+the deal {[}Book §1.11; Main §3.3{]}. Reproducing quantum Bell
+correlations therefore requires giving up at least one of these
+assumptions.
 
 OI keeps determinism and an outcome in every run. It also keeps the
 independence of the settings, as an assumption about initial conditions,
 and accepts instead that one laboratory's hidden response may depend on
 the other laboratory's setting, with no usable signal between them. The
-nearest-neighbour update of the lattice substratum {[}SM{]} cannot
-supply that dependence for laboratories outside each other's range of
-influence {[}Main §3.3, Corollary (Bell--lattice obstruction and
-state-dependent escape){]}. Whether a Bell preparation can add a bounded
-number of long-range links to the substratum's coupling graph that
-supply it, while keeping operational no-signalling and the gravitational
-continuum limit, is an open hypothesis, called H-Bell {[}Main §3.3;
-Substratum §3.2{]}.
+particular substratum the companion papers study is a cubic lattice
+whose sites are updated from their nearest neighbours {[}SM{]}; that
+update cannot supply the dependence for laboratories outside each
+other's range of influence {[}Main §3.3, Corollary (Bell--lattice
+obstruction and state-dependent escape){]}. Whether a Bell preparation
+can add long-range links of bounded degree, or an equivalent nonlocal
+response, to the substratum's coupling graph, the record of which sites
+directly affect which, so as to supply it while keeping operational
+no-signalling and the large-scale continuum limit on which the
+framework's account of gravity rests, is an open hypothesis, called
+H-Bell {[}Main §3.3; Substratum §3.2{]}.
 
 \hypertarget{why-it-matters}{%
 \subsection{5. Why it matters}\label{why-it-matters}}
@@ -708,14 +743,15 @@ space}\label{the-energy-of-empty-space}}
 Quantum theory gives empty space an energy: every field keeps a minimum
 jitter even in its lowest state, and adding up that energy down to the
 smallest length at which present physics is expected to apply gives a
-density some 120 orders of magnitude above the observed value, the exact
-power depending on the cutoff convention {[}Wei89{]}. If that density
-sourced the curvature of spacetime, it would have to be cancelled to
-that accuracy.
+density some 120 orders of magnitude above the observed value of the
+cosmological constant, which drives the accelerating expansion of the
+universe; the exact power depends on the cutoff convention {[}Wei89{]}.
+If that density sourced the curvature of spacetime, it would have to be
+cancelled to that accuracy.
 
 What OI establishes is a distinction of levels. The zero-point sum
-belongs to the emergent quantum description, the description of the
-observer's visible statistics, while the effective cosmological constant
+belongs to the emergent quantum description, the quantum description of
+what the observer sees, while the effective cosmological constant
 belongs to the gravitational description of the substratum. Shifting
 every energy of the quantum description by the same constant changes no
 visible probability, so the zero-point offset is absent from every
@@ -724,8 +760,9 @@ sees the absolute vacuum energy is familiar; what OI adds is the second
 level, at which a gravitational source can be defined independently of
 the emergent vacuum.
 
-The proposal goes further. If the field equations of gravity take the
-form that {[}GR{]} targets, whose source is built from the substratum's
+The proposal goes further. If the field equations of gravity, which
+relate the curvature of spacetime to its energy content, take the form
+that {[}GR{]} targets, whose source is built from the substratum's
 classical energy and momentum, then the zero-point sum is not a source
 of curvature and needs no cancellation; the vacuum term that remains is
 not computed, and the observed value of the cosmological constant is an
@@ -753,10 +790,10 @@ ash and heat still encode its words, because the underlying laws lose
 nothing, yet nobody who sees only the smoke can read it.
 
 Unpublished finite-model research makes the separation exact in small
-toy models of registers that pass one by one from an ``interior'' to a
-``radiation'' side, with an observer who reads on a fixed schedule
-{[}BHa{]}. The maps studied range over all reversible and all
-irreversible maps of the registers; none is derived from the
+toy models of registers (small memory cells) that pass one by one from
+an ``interior'' to a ``radiation'' side, with an observer who reads on a
+fixed schedule {[}BHa{]}. The maps studied range over all reversible and
+all irreversible maps of the registers; none is derived from the
 substratum's dynamics. Reversibility does not guarantee recovery: some
 reversible maps leave a message completely hidden from an observer who
 reads only the radiation. Nor is reversibility necessary for recovery:
@@ -769,50 +806,50 @@ Shamir's scheme is the standard example {[}Sha79{]}.
 
 The Page curve, the expected rise and fall of the radiation's
 entanglement entropy if information comes out, is a separate matter.
-{[}GR, App. A{]} obtains a cycle-averaged Page curve conditional on a
-scrambling condition, H-scramble, and a decoupling condition,
-H-decouple, taking the energy shell of the black hole and its radiation
-to be their full product space. For the ensemble of definite
-configurations with the black hole and radiation split along
-configuration coordinates, every reversible map sends definite
-configurations to definite configurations, so H-scramble has no instance
-there and that derivation establishes no Page curve {[}GR §8.4, App.
-A.7--A.9; BHb{]}. A physical recovery model needs a specified coherent
-preparation or a different partition, a scrambling condition that has
-instances, and an entropy statement suited to that model.
+{[}GR, App. A{]} obtains a Page curve, averaged over full cycles of the
+dynamics, conditional on a scrambling condition, H-scramble, and a
+decoupling condition, H-decouple, taking the energy shell of the black
+hole and its radiation (the configurations with the given energy) to be
+all their joint configurations. In the setting of that derivation the
+states are definite configurations and the split into black hole and
+radiation is a split of those configurations, so a reversible rule only
+relabels configurations: it sends definite configurations to definite
+configurations. The scrambling condition then has no instance, and that
+derivation establishes no Page curve {[}GR §8.4, App. A.7--A.9; BHb{]}.
+A physical recovery model needs a specified coherent preparation or a
+different partition, a scrambling condition that has instances, and an
+entropy statement suited to that model.
 
 \hypertarget{what-remains-open}{%
 \subsection{6. What remains open}\label{what-remains-open}}
 
-The results above turn a question about interpretation into mathematics,
-and the mathematics shows what partial access to a deterministic world
-can and cannot produce. Turning mathematical representability into a
-complete physical theory needs the following, none of which is
-established:
+Turning mathematical representability into a complete physical theory
+needs the following, none of which is established:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Operational quantum theory.} How complex matrix kinematics and
-  tensor-product composites arise physically, and which of conditions
-  3--5 of section 4.2 a substratum with intervention principles beyond
-  reversible shuffles supplies {[}GR §3.3{]}.
+  \textbf{Operational quantum theory.} How the complex-matrix and
+  tensor-product description of section 4.2 arises physically, and
+  whether the substratum supplies the interventions that conditions 3--5
+  require {[}GR §3.3{]}.
 \item
-  \textbf{Selection principles.} A reason for the quadratic Born rule,
+  \textbf{Selection principles.} A reason for the Born rule's squares,
   and for the evolution relating two times (section 4.1).
 \item
-  \textbf{Observable memory.} Memory that feeds back into what is seen,
-  at the cosmological partition {[}GR §2.2{]}, and an experiment or
-  memory-witness test that distinguishes OI from standard quantum theory
-  {[}Main §4.5{]}.
+  \textbf{Observable memory.} Memory that feeds back into what is seen
+  at the cosmological horizon, where {[}GR §2.2{]} places the observer's
+  boundary, and an experiment or test for memory in observed records
+  that distinguishes OI from standard quantum theory {[}Main §4.5{]}.
 \item
-  \textbf{Dynamical construction.} Exact gluing of the per-stretch
-  realizations of section 3.1 for recurrent multi-time patterns;
-  approximation of a target over short stretches by one fixed substratum
-  {[}Main §3.4{]}; and the hidden-sector mixing assumption under which
-  observed memory gives a lower bound on how long the hidden part takes
-  to settle {[}Main §1.3, §3.4{]}.
+  \textbf{Dynamical construction.} Joining the realizations of section
+  3.1 for successive stretches of time exactly into one world for
+  recurrent multi-time patterns; approximating a target over short
+  stretches by one fixed substratum {[}Main §3.4{]}; and the
+  hidden-sector mixing assumption under which observed memory gives a
+  lower bound on how long the hidden part takes to settle {[}Main §1.3,
+  §3.4{]}.
 \item
   \textbf{Bell correlations.} The hypothesis H-Bell of section 4.4
   {[}Main §3.3; Substratum §3.2{]}.
@@ -823,15 +860,17 @@ established:
   depend {[}GR §6.2, §8.5{]}.
 \item
   \textbf{Black holes.} A physical coherent preparation with a
-  scrambling and entropy statement beyond the finite models, the
-  decoupling condition H-decouple, which the effective-pure-state result
-  of {[}GR, App. A.7{]} supports only for times short compared with the
-  cosmological timescale, the case of a proper energy shell (which an
-  evaporating black hole whose radiation carries away its energy
-  occupies), the entropy along a single trajectory, the generalized
-  second law {[}GR App. A.6{]}, and the relation to
-  quantum-extremal-surface and island computations {[}Pen20; AEMM19;
-  AMMZ20; Book §7.6{]}.
+  scrambling and entropy statement beyond the finite models; the
+  decoupling condition H-decouple, which is not established (the
+  effective-pure-state result of {[}GR, App. A.7{]} concerns the
+  exterior and interior jointly, and only for times short compared with
+  the cosmological timescale); the case of a proper energy shell, which
+  an evaporating black hole whose radiation carries away its energy
+  occupies; the entropy along a single trajectory; the generalized
+  second law, that total entropy including black-hole entropy does not
+  decrease {[}GR App. A.6{]}; and the relation to recent semiclassical
+  calculations of the Page curve using quantum extremal surfaces and
+  islands {[}Pen20; AEMM19; AMMZ20; Book §7.6{]}.
 \end{enumerate}
 
 \hypertarget{where-the-details-are}{%
@@ -850,12 +889,10 @@ The formal papers state each result with its full hypotheses and
 identify the results they import from other authors.
 
 Several of these proofs are also checked by computer in the Lean 4 proof
-assistant with its Mathlib library {[}dMU21; Mathlib20{]}. The formal
+assistant with its Mathlib library {[}dMU21; Mathlib20{]}; the formal
 papers name the checked declarations beside the statements they support,
-and the repository's Lean-to-manuscript census
-(\texttt{verification/lean-manuscript-census.json}) and proof-coverage
-ledger (\texttt{verification/coverage/LEDGER.json}) record which
-manuscript statement each declaration supports and at what level.
+and the repository's Lean census and proof-coverage ledger under
+\texttt{verification/} record which statement each declaration supports.
 
 The black-hole toy-model results are unpublished finite-model research:
 exhaustive enumerations over small register spaces with a proved
@@ -1046,4 +1083,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: c416f7032539ef029cf4ae29b4e539e94d7ecb9bd89c9e46f61317089b33ee1f
+% source-sha256: 3a5f5b6df88c21101021fe41ad4dc9afca724ca83210bb90c10bfdd734c97823

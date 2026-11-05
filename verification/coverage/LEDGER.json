@@ -3245,7 +3245,7 @@
       "names": [
         "pushforward_identity"
       ],
-      "certifies": "Main §1.5 and Main §3.4, Remark (what this strengthens): M_t > 0 holds exactly when every faithful realization carries readout-relevant hidden predictive memory at t. The kernel supplies the pushforward identity for a joint law of history, present and hidden state (pushforward_identity, here) and the existence of a faithful realization (S_imp_D in OIBridge/Equivalence.lean). Reading a realization's time-t law as that joint law, and the vanishing criterion for conditional mutual information, are proved on paper.",
+      "certifies": "pushforward_identity: for a joint law of history, present and hidden state, the next-step law is the pushforward of the hidden posterior through the readout. Main §1.5 and Main §3.4, Remark (what this strengthens) combine it with S_imp_D (OIBridge/Equivalence.lean), which supplies a faithful realization of every finite-horizon law, into a written result: M_t > 0 holds exactly when every faithful realization carries readout-relevant hidden predictive memory at t. Reading a realization's time-t law as that joint law, and the vanishing criterion for conditional mutual information, are proved on paper.",
       "note": "Stated in Main as prose (§1.5) and as a remark after the unavoidable-hidden-predictive-memory theorem (§3.4), not as a bold-headed statement, so the census assigns it no row, and no ledger entry names it. Recorded here so that the result keeps an accountable ledger entry beside its written proof in Main; the Introduction explains it in plain words and cites Main for it."
     }
   ],
