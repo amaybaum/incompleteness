@@ -52,4 +52,37 @@ is adopted. Nothing is merged or promoted.
 
 ## Headline
 
-Filled in with the design; see `DESIGN-PHASE-B.md`.
+Unreviewed. Every derivation is by hand and is listed in the review packet (`DESIGN-PHASE-B.md`
+§8).
+
+- **Starting point.** Phase A's 49/49 PASS is confirmed against `phaseA/run-1/phase-a/summary.json`
+  and `RESULT.md:42–49`. It calibrates one implementation of the classifier on 49 toy controls.
+  It says nothing about native dynamics, sources, access or observers, or about classification
+  outside the control set.
+- **Two paper observations** (§1.3, unreviewed).
+  - *Lemma PAD.* In every copy-form rule (K1, the SM:112 ring rule, rule h), a current-slice
+    register whose own previous slice is uniform and independent at `t₀` is blind at the write
+    tick. Under `π₀` nothing is written. CONFIRMING: it extends `ROUTES.md`'s one-time-pad remark
+    from K1 to every copy-form rule.
+  - *Observation W1.* On K1 at K-18(b), the Phase A rule would call the wavefront crossing sites
+    1–4 one-tick circulating storage, and re-supply one tick later. NEW (candidate): a `T = 1`
+    blind spot on copy-form rules.
+- **Candidate (§2): NRR-1, native ready-register retention.** A fixed declared register (both
+  slices as its locus, current slice read) of an in-corpus copy-form rule, written by the native
+  step from a one-site carrier and held under a preregistered ready-region law `ν_r`. K1 is native
+  under posit (vii). The SM:112 ring rule, taken as physics, is an unadopted F2 extension, E-SDC.
+  `ν_r` (`r ≥ 0`) is imposed (H-sel). Access is declared (H-cur).
+- **Discrimination (§3).** Pulse: DIL∃ on the two-slice locus, an observed failure on the
+  extension window, a locality gate and `T* = 2`. Recurrence: gap-free windows, the recurrence rule
+  and a Lemma P consistency exit. Re-supply: J-1 on the outside neighbours. Each has native and toy
+  countercontrols.
+- **Test (§6).** K1 and the SM:112 rule on rings of 5 and 8 sites, every register in a fixed
+  family, `r ∈ {−1, 0, 1, 2, ∞}`, `T ∈ {1, 2, 3}`; Phase A's classifier with four amendments (locus,
+  write gate, decoder rule D2, locality), each shown to change no Phase A row; hand-derived controls
+  run first; a per-rule verdict STORAGE-ROBUST, STORAGE-ISOLATED or NO-STORAGE computed from
+  structured output.
+- **Sourced or imposed (§5).** Requirements 1 and 3 are imposed. Requirements 2 and 4 are tested,
+  not sourced. Requirement 5 is avoided by labelling the ready region as a premise, not by deriving
+  it.
+- **Owner decisions (§7).** G-1 to G-13, each with a default. Under the defaults the test is
+  decision-complete.
