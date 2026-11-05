@@ -265,18 +265,8 @@ The S0 and P0 outcomes of §§2–3 are preserved unchanged.
 ### 8.3 A4: referenced historical heads at the halt
 
 Read at 2026-11-05T13:46Z (UTC clock readings 13:46:10Z as the reads were issued and 13:46:12Z after the last returned)
-with the instrument of §1.4:
-
-| Pull | `head.sha` read | A4 table | Match |
-|---|---|---|---|
-| 1009 | `d4a80fc871473285a7c848a4984940d52817ff8c` | `d4a80fc871473285a7c848a4984940d52817ff8c` | yes |
-| 1023 | `af1e9be2ceabd5f6181b8d56b537b7ce1a4a3bba` | `af1e9be2ceabd5f6181b8d56b537b7ce1a4a3bba` | yes |
-| 1011 | `947761dd40c17e4fdedcd8972a0b4e53e8bfba42` | `947761dd40c17e4fdedcd8972a0b4e53e8bfba42` | yes |
-| 1003 | `0efd67a630fc80ac55fde1ca49fe8c5cbdbf10c3` | `0efd67a630fc80ac55fde1ca49fe8c5cbdbf10c3` | yes |
-| 918 | `44236326976d2c9ad743f52595365b64ceb86d35` | `44236326976d2c9ad743f52595365b64ceb86d35` | yes |
-| 1025 | `e02544d54b365b6a123ee284bd16442fb617c0b2` | `e02544d54b365b6a123ee284bd16442fb617c0b2` | yes |
-
-All six heads equal A4's table and the readings of §§1.5–1.6. No scientific dependency of the round has changed.
+with the instrument of §1.4. All six `head.sha` values are identical to the table of §1.5, which records A4's table and
+the readings of §§1.5–1.6, so there is no mismatch. No scientific dependency of the round has changed.
 
 ### 8.4 Candidate heads
 
@@ -288,7 +278,8 @@ Measured heads of this round, none of them certified as `E`:
 | `3efb92332daafe6103cc316d496d39b04e452e18` | execution commit 1: the execution log opened |
 | `291925dacccc949bae57d465b932aac3fd8d1a25` | execution commit 2: S0 |
 | `da1d939e52e71110008cd6534a672897c64c3339` | execution commit 3: P0 and the stop at P1; parent of `W` |
-| `814e57f985781e7d88a57d85526c21aa5f6c6526` | execution commit 4: `W`, the halt record as first written; last execution commit and parent of `W′` (§8.6) |
+| `814e57f985781e7d88a57d85526c21aa5f6c6526` | execution commit 4: `W`, the halt record as first written; parent of `W′` (§8.6) |
+| `1280b76edb6d4a2493f43fa7d5c797bdfd6fb0fb` | execution commit 5: `W′`, W1–W3 applied; last execution commit and parent of `W″` (§8.7) |
 
 `W` is the single-parent child of `da1d939e` that adds this section and the changes listed in §8.2, and changes only
 this file.
@@ -305,7 +296,7 @@ this file.
 - Nothing here is a receipt, a reconciliation or a promotion of any scientific conclusion. The P0 tokens are scoped
   negative results as §7 states, not a general impossibility result.
 
-### 8.6 Corrective withdrawal commit `W′`
+### 8.6 Corrective commit `W′`
 
 An independent, read-only, model-authored exact-head review of `W` = `814e57f985781e7d88a57d85526c21aa5f6c6526`
 (PR #1126 comment 6659744122), by a reviewer that did not write `W`, returned **ACCEPT WITH CHANGES**, all
@@ -319,5 +310,19 @@ amaybaum, Claude Code session chat, 2026-11-05, adopted about 14:31Z, recorded i
 
 > 2. K1-RDY-1 — Choose corrective W′. Preserve the accepted findings: all 11 S0 controls passed, all three P0 branches returned ABSENT, and P1/P3 were not evaluated. Authorize one single-parent correction to W, limited to the reviewer's W1–W3 documentation fixes. Require independent exact-head recheck. […]
 
-`W` (`814e57f9`) is an execution commit. `W′` is the single-parent child of `W`, changes only this file, and is the
+`W` (`814e57f9`) is an execution commit. `W′` is the single-parent child of `W` and changes only this file. No
+outcome, value or token is changed.
+
+### 8.7 Corrective withdrawal commit `W″`
+
+At `W` and `W′`, §8.3 repeated the table of §1.5 byte for byte, and the release gate's duplicate-paragraph check
+(`tools/duplicate_check.py`) failed on this file. `W″` replaces that copy with a reference to the table of §1.5 (§8.3).
+
+amaybaum, Claude Code session chat, 2026-11-05, recorded in #1031 comment 6661119426 (2026-11-05T14:54:39Z):
+
+> Authorize W″ and the required branch-head replacement, subject to these safeguards:
+> * Create W″ as a single-parent successor of W′ (`1280b76e`). Correct only the duplicated A4 table in `result.md`, replacing the redundant copy with an explicit reference to the retained table.
+> […]
+
+`W′` (`1280b76e`) is an execution commit. `W″` is the single-parent child of `W′`, changes only this file, and is the
 round's withdrawal commit. No outcome, value or token is changed.
