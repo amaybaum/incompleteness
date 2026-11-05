@@ -11,7 +11,7 @@ name: evidence replay
 #   lean-fresh-build  papers/introduction_repro/'s recipe at 17b830bc, from an empty .lake/build (no Actions
 #                     cache), so the OIBridge modules are elaborated in the job. The frozen extractor and
 #                     comparator (48b18ac5) compare the output with the retained expected result (14 modules,
-#                     blob 61cfd6ea at main f5efa7a0, the #1124 landing; first carried at #918's head
+#                     blob 61cfd6ea at main f5efa7a0, the #1124 landing; first pinned at #918's head
 #                     4a260ca9) and with the staged extension (28 modules, blob 97a2377d at e73f7be3).
 #                     A step fails unless lake built every OIBridge module in the source
 #                     at the commit (228, all reachable from the root module), replayed none, and the 28
