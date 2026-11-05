@@ -6,7 +6,7 @@ a read-only review by an agent other than the writer. It is not a human review.
 | Item | Value |
 |---|---|
 | Reviewed commit | `1901063504f649bd453d7b5f87add395d6974ec7` |
-| Record | PR #1119 comment 6651717259, posted from the `amaybaum` account at 2026-11-05T06:49:41Z |
+| Record | PR #1119 comment 6651717259, posted from the `amaybaum` account at 2026-11-05T06:49:41Z; authorship clarified in PR #1119 comment 6653843874 (2026-11-05T08:55:04Z) |
 | Verdict | ACCEPT WITH CHANGES; all four proofs correct, every equivalence proved in each direction |
 | Changes applied | `d8bfd07bf591eeeeb107ef9842547dc53e195bef` (the review's changes) and `6525ad34b5fc4bd6f25c1c07de4482e35d69ec3c` (two count corrections from the delta check of `d8bfd07b`); both are reachable from `main` through the merge `4f016afd` |
 | Delta check | of `d8bfd07b`: PR #1119 comment 6653737476, posted from the `amaybaum` account at 2026-11-05T08:49:14Z (model-authored; delivered on 2026-11-05 before `6525ad34` was committed and posted late, as its header states) |
@@ -15,9 +15,11 @@ The review states that its changes are "wording and locator fixes. No statement 
 addition to a statement, the clause "hence `φ^k(supp μ) = supp μ` for all `k ∈ ℤ`" in Lemma P1(c) with its one-clause
 reason, is the optional addition in the review's P1 row.
 
-## The review, verbatim
+## The review as posted, verbatim
 
-PR #1119 comment 6651717259 (amaybaum account, 2026-11-05T06:49:41Z):
+PR #1119 comment 6651717259 (amaybaum account, 2026-11-05T06:49:41Z). The comment is the coordinating session's
+condensed posting of the reviewer's delivered report; the reviewer confirms that its verdicts and findings match that
+report (PR #1119 comment 6653843874, 2026-11-05T08:55:04Z):
 
 > **Independent proof review of `1901063504f649bd453d7b5f87add395d6974ec7`** (read-only, model-authored, not the writer).
 >
@@ -52,8 +54,8 @@ PR #1119 comment 6651717259 (amaybaum account, 2026-11-05T06:49:41Z):
 
 PR #1119 comment 6653737476 (amaybaum account, 2026-11-05T08:49:14Z). The report between its BEGIN and END markers is
 model-authored: the reviewer delivered it to the coordinating session on 2026-11-05, before `6525ad34` was committed,
-and it was posted late, as the comment's header states. The dated statement after the END marker is by the same
-reviewer, written at posting time.
+and it was posted late, as the comment's header states. The dated statement after the END marker condenses a
+statement the same reviewer wrote at posting time; its substance matches.
 
 > **Late posting: the delta check of `d8bfd07b`.** This record is administrative. The independent reviewer (model-authored, read-only) delivered the check to the coordinating session on 2026-11-05, before `6525ad34` was committed (06:53:41Z). It was never posted to GitHub. Under OD-2 (#1114 c.6653656756), the #1119 review must be recorded on `main`, so the check is posted here now. The reviewer returned the text word for word from its own context; nothing in it was reconstructed or edited. The coordinating session has not changed it either.
 >

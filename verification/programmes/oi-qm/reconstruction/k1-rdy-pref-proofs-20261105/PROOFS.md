@@ -1,6 +1,7 @@
 # K1-RDY pre-freeze items: paper proofs and an analysis of the P1 class rule
 
-**Status of every proof in this file: written proof, not independently reviewed.** Each is a hand derivation. No
+**Status of every proof in this file: written proof, independently reviewed; the review is model-authored and recorded
+in `REVIEW.md` in this directory.** Each is a hand derivation. No
 enumeration, model computation, Lean run or workflow was used. The file changes no statement of the K1-RDY text and
 decides no gate, token or owner question.
 
@@ -276,7 +277,7 @@ sentence decides the class token. ∎
 
 ## 7. The equal-time ledger bounds (c1) and (c2)
 
-**Status: written proof, not independently reviewed.**
+**Status: written proof, independently reviewed (`REVIEW.md`).**
 
 ### 7.1 Statement
 

@@ -1,6 +1,6 @@
 # K1-RDY pre-freeze proofs (#1031)
 
-**Status: written proofs, not independently reviewed. WIP / UNVERIFIED.** This directory decides no gate, token,
+**Status: written proofs, independently reviewed; the review is model-authored and recorded in `REVIEW.md`.** This directory decides no gate, token,
 readiness result or owner question, and changes no statement of the K1-RDY text. It authorizes nothing.
 
 ## Purpose
@@ -29,8 +29,7 @@ The gates that precede G4 are not premises; they are decided by the round's own 
 
 - Hand derivations only. No enumeration, model computation, Lean run or workflow dispatch was used; enumeration before
   `F` is not authorized (#1031 comment 6651204512).
-- Until an independent review of these proofs is recorded on `main`, no result here is established (`AGENTS.md` §A.46
-  items 1 and 7).
+- The independent review is model-authored and read-only (`REVIEW.md`).
 - The statements are reproduced from the text, which is not on `main`; that they are the text's is checkable against
   its recorded sha256 once lines 1–313 are on `main`.
 - §6 identifies a gap in the class rule's claimed equivalence (CR-5) and proposes no change to the text. Whether the
