@@ -356,7 +356,7 @@ PREREG §5: "**COUNTEREXAMPLE** iff K-a, K-b, K-c, K-d and K-e all pass and `|g(
 - **∀U admits constant non-identity lifts.** Whether OI's lifts can be of this form is the restricted-class question
   (B4 W1). It is untouched.
 
-## §9. Proposed change to the B4′ matrix (for owner approval; not applied)
+## §9. Change to the B4′ matrix
 
 The proposal is to split each of B4 rows 514, 519 and 521 by class. Proposed wording follows. Nothing in `B4PRIME.md`
 is changed by this record.
@@ -370,8 +370,8 @@ is changed by this record.
 | C2-sel | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved (WE) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, outside `PPer`] | WE; the `W`/`W′` pair | the `PPer` O⇒G cell; a native separation |
 | C2-sel | 2 | ≥2 | `PPer` | disproved (WE) | not addressed | WE | either answer for O⇒G |
 
-If the owner approves, the passages of B4 that state the `|V| = 2`, `|A| ≥ 2` O⇒G cells as not addressed for every
-class would be corrected in place (§A.27) in a separately authorized change:
+The passages of B4 that state the `|V| = 2`, `|A| ≥ 2` O⇒G cells as not addressed for every class (line numbers at
+`a8ab8dae`):
 - §3.1 l. 273;
 - §3.5 ll. 349–363;
 - the Equivalence summary, ll. 524–529;
@@ -381,8 +381,8 @@ class would be corrected in place (§A.27) in a separately authorized change:
 `SCOPE.md` l. 269 states the same cell as "not addressed". That file is a verbatim copy of the reviewed scope, so it is
 not to be edited.
 
-The matching #1033 planning entries would be updated with them. Whether `Q2A.md` on #1125 should carry a pointer is
-the owner's decision; #1125 is not changed.
+#1033 carries the matching planning entries and the pointer for `SCOPE.md` l. 269 and #1125's `Q2A.md`
+(c.6665077255); #1125 is not changed.
 
 ## §10. Premise ledger: §A.42 item 8 trace
 
@@ -396,7 +396,7 @@ Each reference to content not on `main` is classified by reading the claim it is
 | F ll. 254–261 (`\|A\| = 1` case) | PREREG §8 | K-d (ii) | Support on `main`. Re-derived in §5 (ii); also written out on `main` in B4 §3.1 ll. 240–246. |
 | `Q2A.md` at `f3ef3d3d` (#1125 branch) | PREREG §3, §8; §6 | Lemmas R and C | Provenance. Both lemmas are re-derived from `main` in §6 (K-e). #1125 is not changed. |
 | #1033 reviews of B4 (c.6654738032 and others) | not cited as support | — | Not used. B4 and SC supply definitions only (PREREG §1). |
-| PREREG commit `6fad52e1` and this branch's commit order | header; PREREG §7 | The freeze-before-check invariant | **Support off `main` until landing.** (1) This invariant uses the order of the two commits. The gap closes only if the branch lands by a true merge commit. A squash merge or a rebase-merge would rewrite or orphan `6fad52e1` and `49021c8c`, so the cited ids would not be reachable from `main` (§A.42 item 3). (2) No GitHub record shows the push order. The pull request was opened after both commits existed, and commit dates are self-reported. (3) The frozen content that matters, the anchored columns `We_j` and `W′e_j`, was fixed in the host-timestamped assessment (#1033 c.6662297536, 15:43:36Z), before the ruling. (4) The other two columns cannot affect any tested quantity. P-conf roots are `e_j`, and on constant lifts `T = XXᴴ = 1`. So every mass of §3, and `Γ`, `α`, the fibre-Gram data and `g`, depend only on the anchored columns. The two columns only complete them to a unitary. The mathematical verdict depends only on `main` and the text of this record, and can be re-checked from the record alone. |
+| PREREG commit `6fad52e1` and the order of `6fad52e1` and `49021c8c` | header; PREREG §7 | The freeze-before-check invariant | **Support on `main`.** (1) This invariant uses the order of the two commits, both reachable from `main` through the true merge commit `c987b890`. (2) No GitHub record shows the push order. The pull request was opened after both commits existed, and commit dates are self-reported. (3) The frozen content that matters, the anchored columns `We_j` and `W′e_j`, was fixed in the host-timestamped assessment (#1033 c.6662297536, 15:43:36Z), before the ruling. (4) The other two columns cannot affect any tested quantity. P-conf roots are `e_j`, and on constant lifts `T = XXᴴ = 1`. So every mass of §3, and `Γ`, `α`, the fibre-Gram data and `g`, depend only on the anchored columns. The two columns only complete them to a unitary. The mathematical verdict depends only on `main` and the text of this record, and can be re-checked from the record alone. |
 | B4 row 506 and WE (B4 ll. 323–341) | §8 "Equivalence picture" | C0 G⇒O; G⇒O fails for C2-ch and C2-sel | Support on `main`. C0 G⇒O rests on kernel lines TSG:217 and CLG:273, with Lemma R (a ⇒ b). WE's Rst-ch and Rst-sel masses are re-derived by hand in §8. Neither rests on B4's [D] text or on F l. 178. |
 
 **Definitions taken from B4 and SC** (both on `main`) are the frozen procedures, readings and tuples. No [D] result of
@@ -406,6 +406,6 @@ B4 is used as a premise (§A.46 item 7). The W0 formulas serve as a cross-check 
 
 ## §11. Review and next steps
 
-- Independent review: see status line. The §9 classification is carried in `B4PRIME.md` §9.
+- Independent review: see status line. The §9 classification is carried in `B4PRIME.md` §8.
 - The assessment's next open item, if the owner wishes to continue, is O⇒G for C0, C2-ch and C2-sel at `|V| = 2`,
   `|A| ≥ 2` in the `PPer` subclass. Constant lifts with `Γ ≠ 1` do not reach that subclass. It is not started here.
