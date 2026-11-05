@@ -1,19 +1,20 @@
-# OI-QM-SEL M-2: the C-pers record class (preregistration draft)
+# OI-QM-SEL M-2: the C-pers record class (preregistration)
 
-**Status: DRAFT r3, NOT FROZEN. WIP / UNVERIFIED.** This file prepares definitions, controls and a decision rule
+**Status: FROZEN at this commit (r3). WIP / UNVERIFIED.** This file fixes definitions, controls and a decision rule
 only.
 - No evaluation is made. No law is computed for any pair, and nothing here states or bounds the separating power of
   C-pers. The control K-P (§6.1) is a known-answer check of the law on two single control lifts, not an evaluation.
 - The test instance is a placeholder (§4). It is bound only to the M-1 instance and outcome as independently checked.
 - Independent review: r1 (`f737fe0e`) received ACCEPT WITH CHANGES, recorded as PR #1149 comment 6665799329. Its
   delta review of r2 (`7ff0c180`) received ACCEPT WITH CHANGES, recorded as PR #1149 comment 6665974132. r3 applies
-  its items (change log at the end). A further delta review is pending. Merge is not authorized.
+  its items (change log at the end). The delta review of r3 (`4bfe2261`) is ACCEPT, recorded as PR #1149 comment
+  6666080040. Merge is not authorized.
 
 **Writer:** `writer-m2`. **Issue:** #1143 (OI-QM-SEL), unit M-2 of the selection-target specification.
 **Base:** `origin/main` `f051916a113c9412b3efbb1ff813ec57c2ed265d`. Every path:line below is read at this base.
 **Method:** reading only, plus the hand reasoning for K-P written in §6.1. No script, CAS, numerical evaluation, search
 or Lean work. No law is evaluated on any candidate instance.
-**File name:** `PREREG-DRAFT.md` until the freeze, which renames it to `PREREG.md` (§7.1, §9).
+**File name:** renamed from `PREREG-DRAFT.md` to `PREREG.md` at this commit, the freeze `Φ` (§7.1, §9).
 
 **Abbreviations.**
 - `R/` = `verification/programmes/oi-qm/reconstruction/`.
