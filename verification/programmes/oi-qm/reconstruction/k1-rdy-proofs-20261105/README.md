@@ -24,8 +24,8 @@ check: the assembled P1 statement, three marked readings, and the uses that lie 
 ## Sources
 
 - The text: body lines 5–317 of #1031 comment 6567522034, held byte for byte as `PREREG-RECOVERED.md` on PR #1114's
-  branch at `e18b36e3`. "Line N" in `LEMMAS.md` refers to it. The statements proved are quoted from it verbatim, so the
-  proofs are readable without it. It is not copied here.
+  branch at `e18b36e3`. "Line N" in `LEMMAS.md` refers to it. The statements proved are quoted from it verbatim, except
+  the P1 lemma, whose statement is assembled in `LEMMAS.md` §1.1, so the proofs are readable without it. It is not copied here.
 - Earlier arguments, provenance only: proposal K1-RDY r3 (#914 comment 6564008455) and its review (#914 comment
   6564018307); the text's review (#1031 comment 6567537517); the draft proofs in #1114 comment 6650931698, §3.
   `LEMMAS.md` §0.1 gives the line ranges and recorded digest prefixes.

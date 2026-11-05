@@ -12,15 +12,17 @@ decides no gate, token or owner question.
 `a93f3f33f0c5a6e8b2467312d184fa2d2e915296490948938c4dd7832c64bb63`. "Line N" is line N of the text. The text is posted
 as body lines 5–317 of #1031 comment 6567522034 and is held, byte for byte, as `PREREG-RECOVERED.md` on the branch of
 PR #1114 (`research/k1-rdy-reconstruction-20261105`, head `e18b36e3`). Neither location is on `main`; both are
-locators only (§A.42 item 2). Every statement proved below is quoted verbatim from the text, so the statement and its
-proof are readable from this file alone.
+locators only (§A.42 item 2). Every statement proved below is quoted verbatim from the text, except the P1 lemma, whose
+statement is assembled in §1.1, so the statement and its proof are readable from this file alone. The proofs establish
+the statements as reproduced here; that they are the text's is checkable against the recorded sha256 once lines 1–313
+are on `main`.
 
-Earlier arguments, cited as provenance only (none is support for anything here):
+Earlier arguments, cited as provenance only; each row below is provenance: no proof here uses its content.
 
 | Key | Record | Body lines used | Recorded digest prefix |
 |---|---|---|---|
-| r3 | #914 comment 6564008455, proposal K1-RDY r3 | 73–87 (blindness), 77 and 96 (P1 lemma), 104–124 (L-O) | `6ef06b1695d02a14` (body lines 5–325) |
-| REV-r3 | #914 comment 6564018307, independent review of the proposal | 33–41 (F2), 105–107 (P1 lemma), 119–120 and 127–128 (blindness, L-O) | `74e4ead9793c6870` (body lines 5–151) |
+| r3 | #914 comment 6564008455, proposal K1-RDY r3 | 73–87 (blindness), 76–77 and 96 (P1 lemma), 104–124 (L-O) | `6ef06b1695d02a14` (body lines 5–325) |
+| REV-r3 | #914 comment 6564018307, independent review of the proposal | 33–41 (F2), 106–107 (P1 lemma), 119–120 and 127–128 (blindness, L-O) | `74e4ead9793c6870` (body lines 5–151) |
 | REV-pre | #1031 comment 6567537517, independent review of the text | 26 ("correct as stated and scoped") | `fa6c9e0430d4adf2` (body lines 5–182) |
 | PROP | #1114 comment 6650931698, proposal for owner review, §3 "Draft proofs" | — | — |
 
@@ -40,7 +42,7 @@ REV-r3 (lines 106–107).
 The definitions are the text's, quoted or restated with their lines. Where a word is read in a particular way, the
 reading is marked **(reading)**.
 
-- **D1. Instance** (line 31–33). `Λ = ℤ/5`, `𝐑 = ℤ/2`, `S = 𝐑^Λ × 𝐑^Λ`, `|S| = 1024`, `φ(x, y) = (y, Ay − x)` with
+- **D1. Instance** (lines 31–33). `Λ = ℤ/5`, `𝐑 = ℤ/2`, `S = 𝐑^Λ × 𝐑^Λ`, `|S| = 1024`, `φ(x, y) = (y, Ay − x)` with
   `(Ay)_i = y_{i−1} + y_{i+1}`, and `φ^{−1}(x, y) = (Ax − y, x)`. Check of the inverse:
   `φ(Ax − y, x) = (x, Ax − (Ax − y)) = (x, y)` and `φ^{−1}(y, Ay − x) = (Ay − (Ay − x), y) = (x, y)`. So `φ` is a
   bijection of `S`. `A` is additive, so `φ(s + s′) = φ(s) + φ(s′)`: `φ` is an automorphism of the finite abelian group
@@ -53,7 +55,9 @@ reading is marked **(reading)**.
 - **D3.** `Σ = {x_0, y_0}`, `V` = site 1, current slice, `V_t = y_1(t)`, `T = 1`, `V ∩ Σ = ∅` (lines 33–34).
 - **D4. Region `E`** (lines 36–37): "Every cell outside `Σ` that enters `V_t` with a nonzero coefficient, as a linear
   function of the state at `t_0`, for some `0 ≤ t ≤ T`." Here `t` is the offset from `t_0` **(reading;** line 34 uses
-  the same symbol for the tick. Only the offset `0`, the tick `t_0`, is used below, and both readings give it).
+  the same symbol for the tick. Lines 37–38 compute `E` from `(V, Σ, T)`, `V`'s readout class and `φ` alone, without
+  `t_0`, so the tick reading agrees with this one only when ticks are counted from `t_0`. Only the offset `0`, the tick
+  `t_0`, is used below).
 - **D5. Ready set** (line 39). `R_E = {0}`; the ready event is `Z := {E_{t_0} = 0} = {s : pr_E(s) = 0}`.
 - **D6. Measures.** `π_0` is the uniform (counting) probability measure on `S`. For a measure `ν` and an event `B`
   with `ν(B) > 0`, `ν(· | B) = ν(· ∩ B)/ν(B)`. `μ_O = π_0(· | O)` for an event `O ≠ ∅` (line 103). For a map
@@ -61,12 +65,15 @@ reading is marked **(reading)**.
 - **D7. Sharp readiness on `w`** (line 50): "`μ(W_{t_u} = w) > 0` and `μ(E_{t_0} = 0 | W_{t_u} = w) = 1`", and in B-pl
   "`μ(E_{t_0} = 0) = 1`". Write `B_w := {W_{t_u} = w}`.
 - **D8. Non-blindness** (lines 53–54): "`NB(ν)`. There exist `σ ≠ σ′` with `ν(s_Σ(t_0) = σ), ν(s_Σ(t_0) = σ′) > 0`
-  such that the law under `ν` of `(V_{t_0}, …, V_{t_0+T})` given `s_Σ(t_0) = σ` differs from that given `σ′`."
+  such that the law under `ν` of `(V_{t_0}, …, V_{t_0+T})` given `s_Σ(t_0) = σ` differs from that given `σ′` [...]"
+  (the omitted words are the text's citation, "(R1, MR-pre:162)").
 - **D9. Invariance and cycles.** `μ` is φ-invariant if `μ(φ^{−1}A) = μ(A)` for every `A ⊆ S`, that is `φ_*μ = μ`. A
   cycle of `φ` is an orbit `{φ^k(s) : k ∈ ℤ}`; `u_c` is the uniform probability measure on the cycle `c`.
 - **D10. "Determines", "fixes"** **(reading)**. A nonempty event `B` determines (fixes) a function `f` on `S` if `f` is
   constant on `B`. This is the sense of L-O (lines 105–106, 110) and of G2(b) ("the function [...] that
-  `Im ∩ {W_{t_u} = w}` fixes and `{W_{t_u} = w}` does not", lines 133–134).
+  `Im ∩ {W_{t_u} = w}` fixes and `{W_{t_u} = w}` does not", lines 133–134). Since `π_0(· | B_w)` and `μ_O(· | B_w)`
+  have full support on `B_w` and on `O ∩ B_w` respectively, "constant on the event" coincides there with "almost surely
+  constant under the conditioned law", so L-O holds under either reading.
 
 ***
 
@@ -82,7 +89,7 @@ uses its content at three places:
 - lines 72–73: "`𝓘` = all φ-invariant probability measures on `S`, i.e. the mixtures of the uniform measures `u_c` on
   the cycles `c` of φ, `π_0` included";
 - lines 75–76: "each member's support is φ-invariant, so its image at `t_0` is itself";
-- through the blindness lemma's proof (r3 line 77: "Invariance makes the law of the state `μ` at every tick, so
+- through the blindness lemma's proof (r3 lines 76–77: "Invariance makes the law of the state `μ` at every tick, so
   `P_μ(E_t = 0) = 1` for every `t` (the P1 lemma, confirmed by REV)").
 
 r3 line 96 states a further consequence: "for invariant `μ`, sharp quiet `E` holds iff `μ` lives on orbits vanishing on
@@ -90,7 +97,8 @@ r3 line 96 states a further consequence: "for invariant `μ`, sharp quiet `E` ho
 constant, and invariant measures on a finite S are mixtures of cycle-uniform measures".
 
 The statement below assembles these into one lemma. **The assembly is the writer's**; no accepted text states the P1
-lemma, and the reviewer of this file should check that (a)–(d) carry what lines 72–76 and 244 use and nothing more.
+lemma, and the reviewer of this file should check that (a)–(c) carry what lines 72–76 and 244 use and nothing more.
+Part (d) is not used by the text (source: r3 line 96); it is proved here as a corollary.
 
 **Lemma P1.** Let `S` be a finite set, `φ` a bijection of `S`, and `𝒞` the set of cycles of `φ`.
 
@@ -98,7 +106,8 @@ lemma, and the reviewer of this file should check that (a)–(d) carry what line
   with `Σ_c λ_c = 1`. The weights are unique: `λ_c = μ(c)`. In particular `π_0` and every `u_c` are φ-invariant.
 - **(b)** If `μ` is φ-invariant, then `(φ^k)_*μ = μ` for every `k ∈ ℤ`. Hence, for every set `X` of cells, every
   `r ∈ 𝐑^X` and every tick `t`, `μ(X_t = r) = μ(X_{t_0} = r)`.
-- **(c)** If `μ` is φ-invariant, its support is a union of cycles, and `φ(supp μ) = supp μ`.
+- **(c)** If `μ` is φ-invariant, its support is a union of cycles, and `φ(supp μ) = supp μ`; hence
+  `φ^k(supp μ) = supp μ` for all `k ∈ ℤ`.
 - **(d)** If `μ` is φ-invariant and `E` is a set of cells, then `μ(E_{t_0} = 0) = 1` if and only if `μ(c) = 0` for
   every cycle `c` that contains a state `s` with `pr_E(s) ≠ 0`; that is, if and only if `μ` is carried by the union of
   the cycles along which `E` vanishes at every tick. In that case `μ(E_t = 0) = 1` for every tick `t`.
@@ -130,7 +139,7 @@ convex combination. At the instance, `φ(0) = 0` (D1), so `{0}` is a cycle and `
 `μ(X_t = r) = μ({s : pr_X(φ^{t−t_0}(s)) = r}) = (φ^{t−t_0})_*μ({pr_X = r}) = μ({pr_X = r}) = μ(X_{t_0} = r)`.
 
 *(c).* By (a), `μ({s}) = μ(c)/|c|` for `s ∈ c`, so `supp μ = {s : μ({s}) > 0}` is the union of the cycles `c` with
-`μ(c) > 0`. `φ` maps each cycle onto itself, hence maps the union onto itself.
+`μ(c) > 0`. `φ` maps each cycle onto itself, hence maps the union onto itself, and so does each `φ^k`, `k ∈ ℤ`.
 
 *(d), "only if".* Suppose `μ(E_{t_0} = 0) = 1`, so `μ({s : pr_E(s) ≠ 0}) = 0`. If a cycle `c` contains `s` with
 `pr_E(s) ≠ 0`, then `μ(c)/|c| = μ({s}) ≤ μ({pr_E ≠ 0}) = 0`, so `μ(c) = 0`.
@@ -152,7 +161,9 @@ is (b) with `X = E`, `r = 0`. ∎
   with the union-of-cycles condition, decides the class (review question Q4). Part (a) supplies the description of the
   class that rule ranges over; the rule's sufficiency is a separate claim and is not proved here.
 - Relation to the uses: lines 72–73's "i.e." is (a), both directions. Lines 75–76's image statement is (c). The
-  blindness lemma uses (b). `δ_0` as a member of `𝓘` (line 236, CC-SCOPE) is (a).
+  blindness lemma uses (b). `δ_0` as a member of `𝓘` (line 236, CC-SCOPE) is (a). Lines 74–75's "P2's energy-shell
+  measures (SM:294–296) are members" uses (a)'s "if" direction together with the conservation of ℰ (SM:294–296), which
+  is not proved here. (d) is not used by the text (source: r3 line 96); it is proved here as a corollary.
 
 ***
 
@@ -231,7 +242,9 @@ Lines 102–106, verbatim:
 >   `1[E_{t_0} = 0]`, which `{W_{t_u} = w}` alone does not.
 
 Definitions: D2, D5–D7, D10. `μ_O` is defined only for `O ≠ ∅`, which the hypothesis "`w` of positive `μ_O`-mass"
-presupposes. "Sharply ready on `w`" is D7 for the single value `w`.
+presupposes. "Sharply ready on `w`" is D7 for the single value `w`. "If, in addition" is read as adding the hypothesis
+that `π_0` is not sharply ready on `w` to sharp readiness of `μ_O` on `w` **(reading)**; without sharp readiness of
+`μ_O` the clause fails, for example for `O = S`.
 
 ### 3.2 Proof of L-O(i)
 
@@ -349,6 +362,7 @@ correction to the text is proposed. Points for the reviewer:
 2. **Readings.** D4 (offset), D10 ("determines"/"fixes") and the reading of "the smaller subgroup" in §4.1 are the
    writer's. Each is the reading under which the text's uses are stated; none changes a statement.
 3. **Uses not proved here.** §5.3's class rule (Q4); the cycle decomposition of `φ` at the instance; P3's explicit image
-   (line 89); the gates that precede G4 for a P1 member row; TA (c4). Each is outside the four results.
+   (line 89); the gates that precede G4 for a P1 member row; TA (c4); the conservation of ℰ (SM:294–296) behind lines
+   74–75's membership of P2's energy-shell measures. Each is outside the four results.
 4. **Generality noted, not adopted.** L-O(i) holds for any nonempty event, and the P1 lemma for any bijection of a finite
    set (§1.3, §3.3). The text's statements are not widened by this file.
