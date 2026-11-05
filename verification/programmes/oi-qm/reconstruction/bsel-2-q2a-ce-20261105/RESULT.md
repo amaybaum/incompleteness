@@ -358,8 +358,8 @@ PREREG §5: "**COUNTEREXAMPLE** iff K-a, K-b, K-c, K-d and K-e all pass and `|g(
 
 ## §9. Change to the B4′ matrix
 
-The proposal is to split each of B4 rows 514, 519 and 521 by class. Proposed wording follows. Nothing in `B4PRIME.md`
-is changed by this record.
+The change splits each of B4 rows 514, 519 and 521 (line numbers at `a8ab8dae`) by class, as follows. Nothing in
+`B4PRIME.md` is changed by this record.
 
 | Model | `\|V\|` | `\|A\|` | Class | G⇒O | O⇒G | Support | Does NOT establish |
 |---|---|---|---|---|---|---|---|
