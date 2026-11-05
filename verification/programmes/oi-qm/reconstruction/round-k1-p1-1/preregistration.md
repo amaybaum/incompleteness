@@ -157,13 +157,15 @@ them subject to that review (§17, OQ-3). This round adopts them in the reviewed
     6660591343, item 2, requires, returned ACCEPT (PR #1126 comment 6660672560, 2026-11-05T14:35:26Z).
 - **SC-2.** K1-RDY-1's verified halted landing is on `main`: `d9b3de012e393262adb20f91ad49627bad48de43` and K1-RDY-1's
   record directory are reachable from `main`, with a receipt `Q` on which `tools/v3_verifier.py --verify-round Q`
-  prints `VERDICT  HOLDS`, so that the rule this round adopts is on `main` (§A.42 items 2, 3 and 8; §17, OQ-2). Not
-  met at this revision. K1-RDY-1's halted receipt is prepared and verifies (`VERDICT  HOLDS`; PR #1126 comment
-  6660792206, 2026-11-05T14:40:43Z). SC-2 is met once that landing is on `main`.
+  prints `VERDICT  HOLDS`, so that the rule this round adopts is on `main` (§A.42 items 2, 3 and 8; §17, OQ-2).
+  Landed; awaiting `main` CI and the check, at `F` time, that `F` is reachable from `main`. PR #1126 merged as
+  `a8ab8dae3e9af7376c9233f4d474d7ccec1ecdb2` (2026-11-05T16:04:26Z), a descendant of K1-RDY-1's `F` and of its receipt
+  commit `Q₂` = `6664954715b477c84a00684c83fa218d93e7c6a2`, on which `--verify-round` prints `VERDICT  HOLDS` (PR #1126
+  comment 6662407014). The post-merge `main` CI had not concluded at this revision.
 - **SC-3.** The implementations and `controls.py` exist as reviewed blobs on a pushed staging branch and are frozen by
   an amendment before `F` (§8.4; §17, OQ-1). Code drafting needs its own owner authorization (§13 (a)).
-- **SC-4.** The owner has answered the drafting questions of §17 (#1031 comment 6660591343), and has accepted reading
-  RD-8 (§6), which was added after those rulings. Not yet met: RD-8 awaits the owner's decision.
+- **SC-4.** The owner has answered the drafting questions of §17 (#1031 comment 6660591343) and has accepted reading
+  RD-8 (§6; #1031 comment 6662764727, quoted in §17). Satisfied.
 
 ## 4. Preserved results used as controls (§A.29)
 
@@ -266,7 +268,8 @@ R5a G1 and G2 tokens (K lines 122, 136-138, 171, 182), read from class-decisions
         - g1 "undecided" gives every P1 row UNDECIDED(G1).
         - "undecided" at G2(a) or T1 gives the rows it concerns UNDECIDED(G2).
       Z1-VOID supersedes UNDECIDED. Every measured field of the row is still computed and reported.
-      Record, per row (G2 is always recorded, since a Z1-VOID flag supersedes a token already issued, K line 136):
+      G2 is evaluated and recorded for every row, including one to which G1 has issued a token, since a Z1-VOID
+      flag supersedes a token already issued (K line 136). Record, per row:
         G1 undecided, G2 flags:     G1 "UNDECIDED(G1)", G2 the Z1-VOID token, G3-G7 "not-reached",
                                     token the Z1-VOID token.
         G1 undecided, G2 undecided: G1 "UNDECIDED(G1)", G2 "UNDECIDED(G2)", G3-G7 "not-reached",
@@ -276,7 +279,8 @@ R5a G1 and G2 tokens (K lines 122, 136-138, 171, 182), read from class-decisions
                                     token the Z1-VOID token.
         G1 passes, G2 undecided:    G1 "pass", G2 "UNDECIDED(G2)", G3-G7 "not-reached",
                                     token UNDECIDED(G2).
-      The "not-reached" entries are reading RD-8.
+      The "not-reached" entries are reading RD-8, a reporting convention: they change no token value,
+      precedence, hypothesis or conclusion.
 R6  G3: D(m) = log(|S| / |supp(m)|), recorded as the exact ratio |S|/|supp(m)|.
       B-pl bound (c1): holds iff q^|E| * |supp(m)| <= |S|.
       B-eq bound (c2), per sharp w with mass a/b in lowest terms, k := |E \ W| (overlap cells counted in W):
@@ -310,7 +314,7 @@ part and on the member support restriction, and T1, are decided once for the cla
 schema of `class-decisions.json` is fixed in §10.2. Both implementations read its outcomes and apply them by R5a to the
 member rows; G1 removes no member (`K` line 124).
 
-**Readings introduced by this round** (RD-4 to RD-7 accepted by the owner, §17, OQ-3; RD-8 proposed):
+**Readings introduced by this round** (RD-4 to RD-7 accepted by the owner, §17, OQ-3; RD-8 accepted, §17):
 - **RD-4.** A member's support restriction is "a cycle of `φ`", whose only input is `φ`. The least state is a report
   key and enters no token (A2), so T1 does not read it as a literal-coordinate input. (Suggested by the feasibility
   review, #1031 comment 6658841280 §1.)
@@ -321,8 +325,10 @@ member rows; G1 removes no member (`K` line 124).
 - **RD-6.** The image G2 computes for a member's support restriction is the support at `t_0`, and T2 compares it with
   the stated image "itself" through `φ(supp m) = supp m`.
 - **RD-7.** Inequalities between logarithms are decided by the equivalent integer inequalities of R6.
-- **RD-8** (proposed in this revision; awaiting the owner's acceptance, SC-4). When G1 or G2 issues a row's token
-  (R5a), G3 to G7 are recorded `not-reached`. G2 is recorded in every case (R5a's table). These are RD-2's grounds applied to G1 and G2: a row takes the
+- **RD-8** (accepted by the owner, with the reviewer's clarification; §17). G2 is evaluated for every row, also when G1
+  issues the row's token, because a G2 flag can supersede it. Once G2 has been evaluated and an earlier gate determines
+  the outcome (R5a), G3 to G7 are recorded `not-reached`. This is a reporting convention only: it changes no token
+  value, precedence, hypothesis or scientific conclusion. These are RD-2's grounds applied to G1 and G2: a row takes the
   token of the first gate that issues one (`K` line 183), Z1-VOID supersedes every branch token of its candidate or
   member (line 182), and A9 provides the value `"not-reached"`.
 
@@ -345,7 +351,9 @@ member rows; G1 removes no member (`K` line 124).
 - **Adversarial notes** (§8.3), writer `writer-k1p1-adv`. **Executor** `writer-k1p1-exec`, the sole committer to this
   round's branch from `F` on (§13). These five designated sessions are accepted by the owner (§17, OQ-7).
 - **Paper decisions:** `derivations/P1-class-paper.md`, `derivations/S0-paper.md` and `class-decisions.json` are written
-  by `writer-k1p1-exec`, one of the five sessions, at X1 and before any run on the instance.
+  by `writer-k1p1-exec`, as the owner confirmed (§17), at X1 and before any run on the instance. They are independently
+  reviewed and fixed before any instance enumeration (§13). This assignment does not relax the independence of A, B,
+  `controls.py` or the adversarial notes set out in this section and §8.3.
 - **Placement** (§17, OQ-6): A and B in `verification/lean/`, as for KT4-PREM-1, each named as an `execution` path in
   the `v3-governed-paths` block at the end of this file; `controls.py` and every output in the record directory.
 - **Declared inputs of A and B** (§10.1): `class-decisions.json` at every stage; at `rows` and `final`, `members.json`
@@ -522,6 +530,8 @@ are ordered by the serializer.
   - `IMPORTS` (§8.1);
   - `ADV-INDEX` (below; at `final`).
 - `check`'s comparisons against committed bytes (`REPLAY-*`, `RENDER`) are not recorded in any checks file (§10.1).
+- Nor are the mutation self-test results of §11.3. `self-test` reports through its exit status only, and the execution
+  log in `result.md` records each stage's `self-test` exit status at the checkpoints of §11.3 and §13.
 
 **`class-decisions.json`** (by hand; fixed in form at `F`).
 - `schema` is `"k1p1-class-decisions"` and `version` is `1`.
@@ -803,7 +813,13 @@ the candidate `E` and its designation; (g) reconciliation, receipt and merge.
 
 Execution commits, each a single-parent child of the previous, starting at `F`:
 - **X1** adds A, B (execution paths), `controls.py`, `derivations/P1-class-paper.md`, `derivations/S0-paper.md` and
-  `class-decisions.json`. It adds no output file and no workflow edit. Checkpoint: each blob equals the frozen one.
+  `class-decisions.json`. It adds no output file and no workflow edit. Checkpoint: each code blob equals the frozen one.
+  - **Class decisions reviewed and fixed** (§17, writer role): before any instance enumeration, a reviewer independent
+    of `writer-k1p1-exec` reviews the two derivations and `class-decisions.json` at X1's exact head. The review is
+    recorded on the pull request with the reviewed blob ids. From X1 on these three files are fixed: no later commit
+    changes them.
+  - If the review does not accept them, no instance enumeration runs, and execution stops for the owner's decision
+    (§14).
 - **X2** runs `controls.py run --stage members` and adds `members.json`, `cyc2.json`, `gate-table.members.json`
   (region, preserved, completeness and S0 controls; no rows) and `checks.members.json`. Checkpoint:
   `check --stage members` and `self-test --stage members` exit 0 at X2 before the rows stage is run.
@@ -875,6 +891,7 @@ child of `F` changing only record paths carries `result.md`. Then reconciliation
 | Independent implementations | file headers and hand-off records; the reviewer checks no import or shared code between A, B and `controls.py` |
 | Elementwise agreement | `controls.py check` compares A's and B's `members.json` and each stage's gate table byte for byte (`AB-members`, `AB-gate-table`); MU-6 |
 | Members before rows | X2 precedes X3. `checks.members.json` at X2 pins `members_sha256`. `run --stage rows` refuses unless `check --stage members` exits 0 at the committed X2 files. A and B refuse an absent or altered `members.json` against that digest, and `controls.py run` refuses an uncommitted one (MU-14a to MU-14c). No `verify.yml` job runs A or B before X5, as the reviewer checks at each execution commit |
+| Class decisions reviewed and fixed before enumeration | `result.md` quotes the independent review of X1's derivations and `class-decisions.json`, giving reviewer, time and the reviewed blob ids. The review precedes the X2 run. The reviewer checks that the three blobs at X2 and at `E` equal those at X1 |
 | Sole committer | every commit `F..E` ends with `Writer: writer-k1p1-exec`; the reviewer checks `result.md`'s commit list against `git log F..E` |
 | Standard library only | `IMPORTS` in `controls.py check`: an `ast` allowlist over A, B and `controls.py` (§8.1) |
 | No symmetry reduction | `controls.py check` verifies that each row's `support_size` equals its member's `size` and that its masses sum to 1 over all values of `W` (CC-MASS); the reviewer's static reading at the code freeze finds no state filter other than `supp(m)` and `B_w` |
@@ -942,6 +959,24 @@ whose positive-row path is UNDECIDED(G6)."
 | OQ-6 placement | `verification/lean/`, with the implementations governed as `execution` paths | §8.1; `v3-governed-paths` block |
 | OQ-7 writers | `writer-k1p1-impl-a`, `writer-k1p1-impl-b`, `writer-k1p1-ctl`, `writer-k1p1-adv`, `writer-k1p1-exec`; the executor is the sole branch committer from `F` on | §8.1 |
 
+### Rulings on RD-8 and the writer role
+
+amaybaum, Claude Code session chat, 2026-11-05, shortly before 16:03Z, recorded in #1031 comment 6662764727
+(2026-11-05T16:03:45Z):
+
+> RD-8 — Accept, with the reviewer's clarification that G2 must still be evaluated when G1 issues a token, because a
+> G2 flag can supersede it. Once G2 has been evaluated and an earlier gate determines the outcome, G3–G7 may be recorded
+> as `not-reached`. This is a reporting convention only. It must not change token values, precedence, hypotheses or
+> scientific conclusions.
+>
+> Writer role — Confirm `writer-k1p1-exec`. The designated sole branch writer may prepare the class-level paper
+> derivations and `class-decisions.json`. Require those decisions to be independently reviewed and fixed before any
+> instance enumeration. The writer assignment does not waive the independence requirements for the two implementations
+> or their adversarial verification.
+
+The same ruling states that it does not authorize code drafting, `F` designation, workflow dispatch or execution. These
+rulings are applied at RD-8 and R5a (§6), §8.1, §13 X1, §15 and SC-4.
+
 ## 18. References to content not on `main` (§A.42 item 8)
 
 | Reference | Claim | Class |
@@ -951,6 +986,8 @@ whose positive-row path is UNDECIDED(G6)."
 | PR #1126 comments 6659587647 and 6659744122 (independent reviews of K1-RDY-1) | SC-1; the reviewed form of RD-1 to RD-3 | provenance: the readings are stated in §3 and accepted by the ruling quoted in §17 |
 | PR #1126 comment 6660672560 (exact-head recheck of K1-RDY-1's `W′`) | SC-1 | provenance for a start condition; no claim of this round uses its content |
 | PR #1126 comment 6660792206 (K1-RDY-1's halted receipt verifies) | SC-2's status | provenance; SC-2 itself is met only on `main` |
+| PR #1126 comment 6662407014 (`Q₂` verifies) | SC-2's status | provenance; `Q₂` and `a8ab8dae` are on `main` |
+| #1031 comment 6662764727 | the rulings on RD-8 and the writer role | quoted in §17 with author and time |
 | PR #1135 comment 6660883383 (independent review of this draft at `82123bea`) | the revisions to §2, §3, §6, §8, §10, §11 and §12 to §16 | provenance |
 | PR #1135 comment 6662248863 (delta review at `d7660139`) | the revisions to §2, §6, §8, §10, §11.3, §12, §13 and §15 | provenance |
 | #1031 comment 6662166679 | the current authority for drafting | quoted in §0 with author and time |
