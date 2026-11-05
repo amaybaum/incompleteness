@@ -3092,7 +3092,6 @@ for _bad in ('observes the algebra completely, separating its states, exactly wh
     ok_oinn &= _bad not in _op
 # GR carries no passive-observation paragraph: the endpoint stays out of the characterization's home
 ok_oinn &= 'Passive observation, kept apart' not in _grm
-# the symmetric vocabulary of N4 and the freeze's other forbidden readings stay out of the papers
 # the symmetric vocabulary of N4, forbidden in the narrating paragraph
 for _bad in ('neither implies the other', 'logically independent', 'neither notion carries',
              'independent of the oi core', 'orthogonal'):
