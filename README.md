@@ -30,8 +30,8 @@ flowchart LR
     S["<b>S</b><br/>finite stochastic law"]
     D["<b>D</b><br/>finite reversible realization"]
     Q["<b>Q_fb</b><br/>fixed-basis unitary /<br/>Born representation"]
-    S <-->|exact| D
-    D <-->|exact| Q
+    S <==> D
+    D <==> Q
 ```
 
 The representation equivalence is universal at this finite-record level. The specifically OI content is the embedded-observer structure: coupling, hidden capacity, persistence and history readback constrain what a faithful realization must contain.
