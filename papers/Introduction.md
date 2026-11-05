@@ -367,7 +367,7 @@ Modules of the `OIBridge` Lean library; baseline line numbers at commit `17b830b
 
 **Corpus** (concept DOI 10.5281/zenodo.19060318; Main, SM, GR, Substratum, the Book and the underlying black-hole computations at source snapshot `f5c281ae10a913ec68fa41b3b839ad0b164979cd`)
 
-[Main] A. Maybaum, "The Incompleteness of Observation: The Equivalence of Quantum Mechanics and Embedded Observation," `papers/Main.md`.
+[Main] A. Maybaum, "The Incompleteness of Observation: Finite-Observer Representations and Quantum Reconstruction," `papers/Main.md`.
 
 [GR] A. Maybaum, "ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form of Dark Energy from the Cosmological Horizon," `papers/GR.md`.
 
