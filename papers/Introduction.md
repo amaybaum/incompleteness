@@ -1,11 +1,7 @@
----
-title: "Observational Incompleteness: From Deterministic Dynamics to Quantum Observations"
-author: Alex Maybaum
-date: October 2026
-geometry: margin=1in
-fontsize: 11pt
----
+# Observational Incompleteness: From Deterministic Dynamics to Quantum Observations
 
+**Author:** Alex Maybaum  
+**Date:** October 2026  
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Foundations
 
