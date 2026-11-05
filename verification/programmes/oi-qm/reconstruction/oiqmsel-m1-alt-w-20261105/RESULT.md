@@ -345,6 +345,8 @@ For each `C ∈ {C0, C2-ch, C2-sel}`, `Q[C]` (O⇒G) is false at `|V| = 2`, `|A|
 **Established here** (paper derivation in exact arithmetic; independent review pending):
 - O⇒G fails for C0, C2-ch and C2-sel at `|V| = 2`, `|A| ≥ 2`, for lifts whose visible family lies in `PPer`, witnessed by
   the alternating pair above. The same pair is distinguished by a one-read T-V procedure with a coherent preparation.
+  That T-V distinctness is not evidence that the lifts are gauge-unrelated: K-g (g3) shows that T-V also separates the
+  `G`-related pair WB. The non-relatedness rests on §9 alone.
 - With G⇒O for C0 (kernel: `left_preserves_admissible` TSG:217, `weak_preserves_admissible` CLG:273, which make every
   `L_tU_tK_t` an admissible dilation of the same `Γ_t`; `Λ_C0` is the family `Γ_t(·,j)`), C0 is strictly coarser than
   `G` in `PPer` at `|V| = 2`, `|A| ≥ 2`.
@@ -385,20 +387,24 @@ differ between the lifts.
 | l. 526 (C2-sel, same scope, `PPer`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, `PPer`] | this record |
 
 Each row's "Does NOT establish" would read "a native separation; physical availability". If approved, the passages of B4
-that state these cells as not addressed (l. 281, l. 364, the Equivalence summary, §9's "Does NOT establish" and
-"Proposals") would be corrected in place in a separately authorized change. `SCOPE.md` is a frozen copy and is not to be
-edited.
+that state these cells as not addressed (l. 281, l. 364, the Equivalence summary, §9's premise-ledger line l. 584, and
+§9's "Does NOT establish" and "Proposals") would be corrected in place in a separately authorized change. `SCOPE.md` is a
+frozen copy and is not to be edited. RES l. 334 and ll. 362–366 state the same `PPer` cells as "not addressed"; they
+would receive a cross-reference to this record, not an edit.
 
 **#1143 planning record:** the spec's §3 rows "C0, `≥2`, `PPer`, O⇒G open" and "C2-ch, C2-sel, `≥2`, `PPer`, O⇒G open",
 and F4's "C2 laws open", would be updated to cite this record once it is independently reviewed. For the spec's §4.3:
 C0, C2-ch and C2-sel all fail to separate this instance, so no C2 class enters the "smallest test" comparison; the M-2
-comparison (C-pers against `C*`) is unaffected.
+comparison (C-pers against `C*`) is unaffected. Optionally, the spec's §3 row "T-V, any, any", whose G⇒O cell reads
+"open (F5: expected to fail)", would record G⇒O as disproved in `PPer`: WB is `G`-related, lies in `PPer`, and is
+separated by T-sep₁ (re-derived in K-g (g3)). Its O⇒G cell stays open.
 
 ## §14. Premise ledger: §A.42 item 8 trace
 
 | Reference | Where cited | Claim it is attached to | Classification |
 |---|---|---|---|
 | #1031 c.6665461411; #1143 c.6665466217 | PREREG §0; header | Authorization | Provenance: owner designation quoted with author and time (§A.42 item 7). No mathematical claim uses it. |
+| Correction to PREREG §0 l. 15 | PREREG §0 | Time of the ruling | PREREG states the ruling was given "about 18:45Z by the ruling's own header". That is wrong. #1031 c.6665461411 now reads "(before 18:05Z)", and it was posted at 18:05:55Z, so the ruling preceded 18:05:55Z. The header read "(about 18:45Z)" when PREREG was drafted, and the comment was edited at 18:14:44Z. The frozen PREREG is not edited. No mathematical claim uses the time. |
 | #1143 c.6665278924 (spec), c.6665288579 (review) | PREREG §1, §3, §4, §7, §9; §12, §13 | Origin of the candidate (F4) and of the T-V definition; control numbering | Provenance. T-V and T-V+R are restated in full in PREREG §1, and every claim uses the restated definition. Every value F4 anticipates is derived here. |
 | PREREG commit `7f3e8ffa` and this branch's commit order | header; PREREG §8 | Freeze before check | Support off `main` until landing. The order is recorded by the host: pull request #1151 was opened with `7f3e8ffa` as its only commit, before this file existed. The cited ids stay reachable from `main` only if the branch lands by a true merge commit. The mathematical verdict depends only on `main` and the text of both files, and can be re-checked from them. |
 | Reviews of B4 and RES (#1033, #1139 comments) | not cited as support | — | Not used. B4, SC, QP and RES supply definitions, notation and the frozen matrices only. |
@@ -411,5 +417,7 @@ comparison (C-pers against `C*`) is unaffected.
 - Independent mathematical review is required by the ruling and is pending. It should check the pair against PREREG §2
   and QP ll. 107–125, the hand algebra of §§1–10, the decision-rule evaluation (§11) and the scope (§12).
 - Merge is not authorized. The proposed changes (§13) await the owner.
+- If merge is authorized, the pull request lands by a true merge commit, with no squash and no rebase, so that
+  `7f3e8ffa` and its child `a856d4c2` stay reachable from `main` (§A.42 item 3).
 - Per the ruling, M-2's evaluation of C-pers on this instance may start only after this instance and outcome are
   independently checked.
