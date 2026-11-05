@@ -1,6 +1,11 @@
 # BSEL-2 Q2A: verification of the candidate counterexample pair (result)
 
-**Status: WIP / UNVERIFIED. Independent review pending; merge not authorized.** Paper-only. Writer: `writer-bsel2-ce`.
+**Status:** paper derivation by hand in exact arithmetic, independently model-reviewed: ACCEPT WITH CHANGES
+(non-material) at `49021c8c` (#1139 c.6663191565) and recheck ACCEPT at `45bb1b9c`, this file's content on `main`
+(#1139 c.6663209861). The review reports are GitHub comments and are provenance only (§A.42 item 8). What can be
+checked from `main` is this record's hand algebra, against the definitions and kernel statements it cites; the
+counterexample and its verdict are not kernel-checked. Outside the established scope: `PPer`, native OI-realizable
+lifts and physically sourced access. Paper-only. Writer: `writer-bsel2-ce`.
 **Preregistration:** `PREREG.md` in this directory, frozen at commit `6fad52e1767c03a13e84c6c5ba8a4e119984bda4` and pushed
 before any computation below. This file is added by the next commit and changes no other file. The pair, the controls
 and the decision rule are applied as frozen; nothing was adjusted.
