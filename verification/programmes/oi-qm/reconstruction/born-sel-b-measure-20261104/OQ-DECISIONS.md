@@ -2,14 +2,17 @@
 
 **Status.** WIP / UNVERIFIED. Paper only. Recommendations only: **the owner decides every item**, and nothing here is a
 decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as it stands at `cde5ecbc`.
-- **Review.** All three reviews are model-authored, and each returned ACCEPT WITH CHANGES.
+- **Review.** All four reviews are model-authored, and each returned ACCEPT WITH CHANGES.
   - r1 (`16bde823`) was reviewed in #1082 c.6649637586.
   - r2 (`cfdcb83e`) was delta-reviewed in #1082 c.6649769429.
   - r3 (`0797f13e`) was delta-reviewed in #1082 c.6649892041: ACCEPT WITH CHANGES (minor).
   - r4 (`af4aa31f`) applied F1–F7. The owner accepted r4 as the current draft, subject to an independent delta
-    review.
-  - This revision (r5) adds the hand derivation of S4 ≡ S3 under OQ-1 (B), at the owner's request (relayed by the
-    coordinator, 2026-11-05). It has not been re-reviewed.
+    review, and asked for the OQ-1 (B) derivation: #1059 c.6649976339 (amaybaum, 2026-11-05; posted
+    2026-11-05T04:49:54Z).
+  - r5 (`c5aaba30`) added that derivation. r4 and r5 were reviewed in #1082 c.6650088826: ACCEPT WITH CHANGES
+    (minor). The review confirmed the derivation.
+  - This revision (r6) applies that review's C1–C5. Following the owner's direction relayed by the coordinator, it
+    keeps the stronger form with its assumptions stated. It has not been re-reviewed.
   - The reviewer's S1/S4 witness for the converse ordering is not adopted; that ordering stays "not shown".
   - Each item gives the delta review's endorsement of r2 as **Review r2**.
 - **Authorization.** #1059 c.6649420231: paper-only, part (b).
@@ -264,13 +267,35 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
     on the toys, and each pair of variants to be separated by a control. For S4 that means:
     - S4's fields (`s4_verdict`, `s4_first_mismatch`, `s4_shared_rows`, `T_beta_np`, and per orbit `np`,
       `eq_beta_np` and `first_mismatch_beta_np`) are added to all eleven toys' expected values, derived by hand;
-    - S4 is separated from R0, S1, S2 and S3. S4 and S3 differ only through a short non-permutation orbit, which needs
-      `n ≥ 3` (OQ-13). So at least one new toy with `n ≥ 3` and such an orbit is required, for example CC-S4;
-    - whether the existing toys separate S4 from R0, S1 and S2 has to be checked by hand.
+    - S4 is separated from R0, S1, S2 and S3:
+      - **Under OQ-1 (A).** S4 and S3 differ only through a short non-permutation orbit, which needs `n ≥ 3` (OQ-13).
+        So at least one new toy with `n ≥ 3` and such an orbit is required, for example CC-S4.
+      - **Under OQ-1 (C).** A short non-permutation orbit can also occur at `n = 2`, so a CC-S4 toy is required here
+        as well.
+      - **Under OQ-1 (B) or (D).** S4 ≡ S3 on every instance (OQ-13), so no control can separate them. See the owner
+        flag below.
+    - **The existing toys** [D, checked against PREREG §3.1's maps]. On the existing toys, S4 ≡ S3 under OQ-1 (A), (B)
+      and (D).
+      - The nine `n = 2` toys follow from OQ-13.
+      - Of the two `n = 3` toys:
+        - TT-6 (`φ = [1, 4, 3, 5, 2, 0]`) has one orbit, of length 6, which is at least `ℓ_min = 4`;
+        - CC-UNVIS (`φ = [1, 3, 5, 4, 0, 2]`) has orbits with words `(01)²` and `(2)²`, both permutation orbits, so
+          `NP = ∅`.
+
+        In both, `NP ⊆ Long`, and Step S applies.
+      - So S4's expected toy fields equal S3's, and the existing S3 separations separate S4 from R0, S1 and S2.
+  - **Owner flag: S3 and S4 under OQ-1 (B) or (D).** This is a consequence of the derivations, not a change of
+    recommendation.
+    - No control can separate S3 from S4.
+    - PREREG §3.1's requirement that "Every pair of variants is separated by at least one control" (PREREG:565)
+      cannot be met for that pair.
+    - With 13e, the selected verdict is the same as 13d's.
+    - Whether S4 is kept as a distinct variant under those answers is for the owner to decide.
   - **The `n = 3` `first_mismatch` toy is optional.** `first_mismatch` is diagnostic and enters no verdict.
 - **Counts under the combined recommended answers** [D]. The answers are OQ-2 (C), OQ-4 (B), OQ-7 (C) and OQ-10 (C).
   - **Controls.** 21 + M-FRAG + WF at `r = 2` + WF for the `cur` readout = **24**.
-    - Choosing 13e adds CC-S4, giving 25.
+    - Choosing 13e adds CC-S4, giving 25, under OQ-1 (A) or (C). Under (B) or (D), CC-S4 cannot separate S4 from S3
+      (owner flag above).
     - The optional `first_mismatch` toy adds one more.
   - **Native instances.** 12 (eleven plus W-q2-L7-r2), each evaluated under both readouts within one run.
   - **Orders.** The schema's `order` maximum becomes controls + 12, for example 36 at 24 controls, if each instance
@@ -326,8 +351,9 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
         These are the same map, since `Long′ = NP`.
       - They have the same pool at every row. S3's pool is the candidates visiting `a` (PREREG §4.1); S4's is the
         `NP` orbits visiting `a`.
-      - So `W_C`, `shared_rows`, every per-candidate comparison, the first mismatch and the verdict, which the rule of
-        PREREG §4.1 computes from `C`, `K` and the pool alone, all coincide.
+      - So `W_C`, `shared_rows`, every per-candidate comparison, the first mismatch and the verdict all coincide. The
+        rule of PREREG §4.1 computes them from `C`, `K`, the pool and the variant-independent per-orbit data
+        (`T^{α,O}`, `rep`, word class) alone.
     - **Under OQ-1 (A) at `n = 2`** [D]. By the `n ≥ 3` step above, no non-permutation orbit is short. So
       `NP ⊆ Long`, and Step S gives S4 ≡ S3.
     - **Under OQ-1 (B)** (`ℓ_min = 2`; derivation [D], from PREREG §2.0 and §2.3):
@@ -344,6 +370,28 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
          S4 ≡ S3.
       - Steps 1–5 use no property of `n`, so under OQ-1 (B) S4 ≡ S3 holds for every `n`. In particular it holds at
         `n = 2`.
+      - **Scope of the OQ-1 (B) result** (wording from the review c.6650088826, which confirmed the derivation).
+        Assumptions:
+        - OQ-1 (B): `ℓ_min = 2` for every instance and readout, with the inclusive test `long(O) ⇔ |O| ≥ ℓ_min`
+          (PREREG §2.3, §2.5, §8.2 item 1);
+        - `NP` is defined by the permutation-matrix test of PREREG §2.0 with `W = V_O`, and `Long′ = Long ∩ NP`
+          (PREREG §2.3);
+        - S3 is as defined in PREREG §4.1. S4 is as 13e defines it here: candidates `Long′`, credence `T^{β|NP}`, and
+          pool the `NP` orbits visiting `a`;
+        - `φ` is a bijection of the finite set `S`, so its orbits are its cycles (PREREG §2.0).
+
+        The visible map enters only through `π_V φ(s) = π_V(s)` at a fixed point. Under these assumptions, S4 ≡ S3
+        field by field on every evaluated instance:
+        - toy and native;
+        - for every `n`: 2 and 3 on the toys; 4, 9 and 16 under `(prev, cur)`; 2, 3 and 4 under `cur`;
+        - under either readout of OQ-2.
+
+        **Boundaries.**
+        - It is vacuous on M-INJ and M-FRAG, where no variant is computed. The fragmented lists of M-FRAG are not
+          cycles.
+        - It does not cover OQ-1 (A) at `n ≥ 3`, or OQ-1 (C).
+        - It holds for S4 as 13e defines it. If S4 is written into PREREG §4.1–§4.2 with a different pool or credence,
+          the result must be re-derived.
     - **S4 ≡ S3 when `n = 2`, under OQ-1 (A), (B) or (D)**, by the three derivations here. This covers every `n = 2`
       toy and the `q = 2`, `r = 1` instances under the `cur` readout. Under OQ-1 (C), a common threshold can make an
       `n = 2` non-permutation orbit short, and the statement does not hold.
@@ -396,8 +444,11 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
          so `shared_rows = 2`, and the verdict is NOT.
        - **S4.** The cycle matches its own rows. Each row's pool is the cycle alone, so `shared_rows = 0`, and the
          verdict is FREQ_VACUOUS.
-     - **S4 NOT ⇏ S1 NOT is not shown.** A witness would need a short non-permutation orbit, hence `n ≥ 3`. None is
-       given, so no further ordering between S4 and S1 is claimed.
+     - **S4 NOT ⇏ S1 NOT is not shown.** A witness would need a short non-permutation orbit, hence, under OQ-1 (A),
+       `n ≥ 3`. None is given, so no further ordering between S4 and S1 is claimed.
+       - **Open owner question, not claimed here.** The review c.6650088826 notes a possible ordering under OQ-1 (B)
+         or (D). Step S with S3 NOT ⇒ S1 NOT would give S4 NOT ⇒ S1 NOT there, which would confine the "not shown"
+         status to (A) and (C). It is left to the owner and is not asserted in this file.
 - **The Main:62 / Main:282 reading.**
   - Read literally, Main:62's exclusion of short orbits is a scope statement, and Main:288 is a representation
     identity, so they do not contradict each other.
@@ -500,7 +551,8 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
 
 1. **OQ-2, OQ-1, OQ-4 and OQ-10.** The readout fixes `n`, hence `ℓ_min = n + 1`, hence which instances are void
    (W-q2-L7-r2) and which WF controls are needed.
-2. **OQ-1 and OQ-13.** `ℓ_min` defines `Long` and `Long′`, and 13e's prior `NP` drops the length threshold.
+2. **OQ-1 and OQ-13.** `ℓ_min` defines `Long` and `Long′`, and 13e's prior `NP` drops the length threshold. Under
+   OQ-1 (B) or (D), 13e coincides with 13d on every instance (OQ-13, Step S).
 3. **OQ-2 with OQ-13, OQ-8 and OQ-15.**
    - A second readout doubles the variant evaluations and the selection.
    - The aggregation applies per readout.
@@ -558,10 +610,11 @@ by landing the content, or by narrowing the claim.
 | #1059 c.6649420231 (the activation record; it quotes amaybaum, Claude Code session chat, 2026-11-05, posted 2026-11-05T04:08:33Z) | the authorization | provenance |
 | QB-1 and QB-2, #1059 c.6624262539 (amaybaum, chat 2026-11-04; posted 2026-11-04T06:28:41Z). QB-1: "Choose operational frequencies as the eventual physical meaning that OI must explain. Observer credences can describe predictions conditional on preparations, but cannot by themselves establish a Born probability law." QB-2: "Interpret the maximum-entropy branch as an invariant prior followed by conditioning, while leaving the physical source of that prior open." | OQ-11, OQ-13 | **support off `main`: a gap.** The recommendations use these decisions as premises of the comparison |
 | Owner's order of work: #1059 c.6649688361 (2026-11-05T04:28:25Z), quoting amaybaum, Claude Code session chat, 2026-11-05: "For #1032 and #1059, continue within the already authorized scopes. In particular, present #1059's OQ-1–OQ-15 recommendations for owner decisions before proceeding with the dependent measure analysis." | the pause of the dependent analysis | provenance |
+| Owner decision #1059 c.6649976339 (amaybaum, 2026-11-05; posted 2026-11-05T04:49:54Z): r4 "is accepted as the current draft, subject to an independent delta review"; "add the explicit derivation that S4 = S3 at n = 2 under OQ-1 (B), or narrow F1 to the cases actually derived"; the S1/S4 witness "stays **not adopted**, and the question stays **not shown**" | the status header; the scope of the OQ-1 (B) result; the S1/S4 status | provenance (§A.42 item 7). The derivation rests on PREREG and this file, not on the decision |
 | `BORNSEL-B-MEASURE.md` r3 (this branch; reviewed ACCEPT, #1082 c.6622587957) | OQ-5, OQ-11, OQ-13; the dependence section | **support off `main`: a gap** (Lemmas A, A3, G, γ-c) |
 | `PREREG-C1.md` r6 (this branch; accepted as a draft, #1082 c.6625738542) | every row (the questions, Lemma PD, Lemma V′, §2.7) | **support off `main`: a gap.** It is the object under decision |
 | The C-1 review findings N6 and N7, and the C-1 reviewer's check of Lemma PD, as recorded in PREREG §2.7 and §8.2 | OQ-9, OQ-15 | **support off `main`: a gap.** The review texts are not posted (#1082 c.6625738542 summarizes them) |
-| #1082 c.6649637586 (model-authored review of r1), c.6649769429 and c.6649892041 (model-authored delta reviews of r2 and r3) | the [D] items marked as confirmed by them; the Review r2 column | provenance for the endorsement column. The [D] items stand on the derivations stated here, not on the reviews' authority |
+| #1082 c.6649637586 (model-authored review of r1), c.6649769429, c.6649892041 and c.6650088826 (model-authored delta reviews of r2, r3 and r4–r5) | the [D] items marked as confirmed by them; the Review r2 column | provenance for the endorsement column. The [D] items stand on the derivations stated here, not on the reviews' authority |
 | The O-OBSMU note, branch `research/o-obsmu-20261104` at `f67b9f0c` (#1110) | OQ-13, the H-OC_orb reading | provenance. The tension is stated from Main:62 and :282, which are on `main` |
 | #914 row O-ACC | OQ-2 | provenance |
 
