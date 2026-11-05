@@ -122,6 +122,16 @@ with B4 W0.4 (ll. 95–112).
 **Closed form**, for both lifts: the mass is `Π` of one factor per read, where the first factor is `δ_{v₁j}` if `t₁` is
 even and `½` if odd, and the factor of read `l+1` is `δ_{v_{l+1}v_l}` if `t_{l+1} − t_l` is even and `½` if odd.
 
+**Two-read masses**, written out from the closed form. Reads at `s < t`, root `j`, records `(v₁, v₂)`. The masses are the
+same for `U` and `U′`. Rst-ch has no failure record, so there is no `⊥` mass.
+
+| parity of `s` | parity of `t − s` | `p(v₁,v₂ \| j)` | sum over `(v₁,v₂)` |
+|---|---|---|---|
+| even | even | `δ_{v₁j}·δ_{v₂v₁}`: `1` if `v₁ = v₂ = j`, else `0` | `1` |
+| even | odd | `δ_{v₁j}·½`: `½` if `v₁ = j` (either `v₂`), else `0` | `1` |
+| odd | even | `½·δ_{v₂v₁}`: `½` if `v₁ = v₂` (either `j`), else `0` | `1` |
+| odd | odd | `½·½ = ¼` for every `(j, v₁, v₂)` | `1` |
+
 **Explicit states.** Before the reset the branch states differ: from root `j = 1`, read at `t₁ = 1` with record `1`,
 `P₁We₁ = ½(0,0,−1,−1)` against `P₁W′e₁ = ½(0,0,1,−1)`; from `e₁` across an odd step with record `0`,
 `P₀We₁ = ½(1,1,0,0)` against `P₀W′e₁ = ½(1,−1,0,0)`. Each has mass `½`, and the reset sends both to `½·e_we_wᴴ`.
