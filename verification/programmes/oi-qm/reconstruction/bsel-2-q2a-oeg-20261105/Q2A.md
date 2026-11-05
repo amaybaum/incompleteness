@@ -2,10 +2,16 @@
 
 **Status: WIP / UNVERIFIED; paper-only; not reviewed.**
 
-**Authorization.** amaybaum, Claude Code session chat, 2026-11-05, as relayed by the coordinating session:
-> Choose the proof-only direction, without lifting the scope boundary. Correction: the direction is O⇒G, not G⇒O. WE
-> already disproves G⇒O for C2-ch and C2-sel. Authorize a narrowly scoped proof attempt for O⇒G at |V| = 2, |A| ≥ 2,
-> preserving F §6's unresolved boundary.
+**Authorization.** #1033 comment 6654659462, posted 2026-11-05 from the `amaybaum` account by the coordinating
+session. It quotes verbatim the owner's chat decision of about 09:20Z:
+> **1. BSEL-2 B4′ — Q2A**
+>
+> Choose the proof-only direction, without lifting the scope boundary.
+>
+> Correction: the direction is **O⇒G**, not G⇒O. WE already disproves G⇒O for C2-ch and C2-sel.
+>
+> Authorize a narrowly scoped proof attempt for O⇒G at |V| = 2, |A| ≥ 2, preserving F §6's unresolved boundary.
+>
 > - Do not expand into counterexample searches that would resolve the protected F §6 question.
 > - If the proof cannot be established, retain "not addressed"; do not infer a positive result.
 > - Preserve the reviewed B4′ matrix and its conditional assumptions.
@@ -92,13 +98,25 @@ Constant families are lifts under ∀U (B4PRIME l. 34), so each target restricts
 - **Step 2** (where the argument stops). S-ch is slice-wise `Fib ⊆ G` at `|V| = 2`, `|A| ≥ 2`.
   - That inclusion is what F's corollary DC turns on (F l. 243). It is decided at `|A| = 1` (F ll. 254–261), and its
     `|A| ≥ 2` case is the item F l. 430 leaves undecided.
-  - A proof of Q2A-ch would therefore prove S-ch, and so decide F l. 430, in the positive direction.
+  - A proof of Q2A-ch would therefore prove S-ch, and so decide F l. 430 positively. Spelled out:
+    - `G ⊆ Fib` holds at every `|A|` (C0's G⇒O, B4PRIME §3.1), so S-ch true means `Fib = G` at `|V| = 2`, `|A| ≥ 2`.
+    - Then C0 has both `R` and `Q` there.
+    - Hence DC's bound `|V| ≥ 3` (F ll. 251–254) is needed at every `|A|`.
   - The authorization preserves F §6's unresolved boundary. The argument stops here, before any attempt on S-ch.
+- **Converse reduction** [D] (one direction only: S-ch ⇒ Q2A-ch). Equal C2-ch laws give equal `Γ_t` at every `t`,
+  from single-read lists (W0.4). S-ch then relates the slices `U_t` and `U′_t` at each `t`, and TSG:839 (mpr) gives
+  `G`.
+- **Exact relation** [D]: Q2A-ch ⇔ S-ch ⇔ C0's O⇒G cell at `|V| = 2`, `|A| ≥ 2`.
+  - *C0's cell ⇒ S-ch:* restrict to constant lifts, where `O_C0` is equality of `Γ(W)` (B4PRIME §2.1).
+  - *S-ch ⇒ C0's cell:* apply S-ch at each slice, then TSG:839 (mpr).
+  - So the C2-ch cell is F l. 430's item itself.
+  - These equivalences relate statements that are all open. They decide nothing and promote nothing.
 - **The hypothesis a proof would need:** S-ch, or any statement implying it. It is not among the frozen inputs, and it
   is not added.
 - **Verdict: NOT ESTABLISHED.** The B4PRIME matrix cell (l. 513, O⇒G) stays "not addressed".
 - **Finding.** B4PRIME l. 356 says the proof direction "could be pursued without touching F l. 430". By Steps 1–2
-  this does not hold for C2-ch: any proof of the proof direction decides F l. 430, positively. The reviewed record is
+  this does not hold for C2-ch: any proof of the proof direction decides F l. 430 positively, in the sense spelled out
+  in Step 2 (`Fib = G` at `|V| = 2`, `|A| ≥ 2`). The reviewed record is
   not modified; the finding is for the owner.
 
 ## §4. Q2A-sel: NOT ESTABLISHED
@@ -111,6 +129,10 @@ Constant families are lifts under ∀U (B4PRIME l. 34), so each target restricts
   - S-ch implies S-sel, since S-sel has the stronger hypothesis.
   - So a proof of S-sel does not decide F l. 430. A refutation of S-sel would refute S-ch and decide it negatively.
     That route is outside the authorization and is not taken.
+- **Converse reduction** [D] (one direction only: S-sel ⇒ Q2A-sel). Equal C2-sel laws give equal `Γ_t` and `α_t` at
+  every `t`, from the single-read records `(v,ok)` and `(v,⊥)` (W0.5). S-sel then relates the slices at each `t`, and
+  TSG:839 (mpr) gives `G`.
+- **Exact relation** [D]: Q2A-sel ⇔ S-sel. Both sides are open; the equivalence decides nothing and promotes nothing.
 - **Step 3** [D] (proof attempt of S-sel, via Lemma 1).
   - It suffices to show `|g(W)| = |g(W′)|`.
   - *Decomposition.* Split the fibre parts of `u_j`: in fibre 0, `x_j e_{(0,a₀)} + q_j` with `q_j ⊥ e_{(0,a₀)}`; in
@@ -119,10 +141,13 @@ Constant families are lifts under ∀U (B4PRIME l. 34), so each target restricts
     - Orthogonality of `u_0, u_1` gives `x̄_0x_1 + ⟨q_0,q_1⟩ + ȳ_0y_1 + ⟨r_0,r_1⟩ = 0`.
   - *What the data fix.* `α` fixes `|x_j|²` and `|y_j|²`, and `Γ` then fixes `‖q_j‖²` and `‖r_j‖²`. So the data fix
     `|x̄_0x_1|` and `|ȳ_0y_1|`, and bound `|⟨q_0,q_1⟩| ≤ ‖q_0‖‖q_1‖` and `|⟨r_0,r_1⟩| ≤ ‖r_0‖‖r_1‖`.
-  - **Where the argument stops.** `|g|` depends on two things beyond these moduli: the modulus of `⟨q_0,q_1⟩` and its
-    phase relative to `x̄_0x_1`. The frozen data constrain them only through the orthogonality relation. That relation
-    equates `g` with `−(ȳ_0y_1 + ⟨r_0,r_1⟩)`, which carries the same two unknowns in fibre 1. No step from the frozen
-    inputs derives `|g|`.
+  - **Where the argument stops.** `|g|` depends on more than these moduli.
+    - At `|A| = 2`, each `q_j` lies in the one-dimensional span of `e_{(0,a₁)}`. So `|⟨q_0,q_1⟩| = ‖q_0‖‖q_1‖` is fixed.
+      What remains is the phase of `⟨q_0,q_1⟩` relative to `x̄_0x_1`, which no step from the frozen inputs fixes.
+    - At `|A| ≥ 3`, the frozen data give only the bound `|⟨q_0,q_1⟩| ≤ ‖q_0‖‖q_1‖` on the modulus as well.
+    - The frozen data constrain these quantities only through the orthogonality relation. That relation equates `g` with
+      `−(ȳ_0y_1 + ⟨r_0,r_1⟩)`, which carries the corresponding unknowns in fibre 1.
+    - No step from the frozen inputs derives `|g|`.
   - **Candidate obstruction, not developed (outside authorization):** the moduli that `(Γ, α)` fix do not visibly fix
     `|g|`.
 - **The hypothesis a proof would need.**
