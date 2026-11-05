@@ -1,7 +1,7 @@
 # OI-QM-SEL M-1: verification of the alternating-W candidate (result)
 
 **Status: WIP / UNVERIFIED. Independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1151
-c.6665869201); delta check pending; merge not authorized.** Paper-only. Writer: `writer-m1`.
+c.6665869201); delta check ACCEPT (#1151 c.6665968807); merge not authorized.** Paper-only. Writer: `writer-m1`.
 **Preregistration:** `PREREG.md` in this directory, frozen at commit `7f3e8ffa99a3f841ca1e0c30691b236287c14a20`, pushed,
 and the guiding draft pull request #1151 opened, before any computation below. This file is added by the next commit
 and changes no other file. The pair, the controls and the decision rule are applied as frozen; nothing was adjusted, and
@@ -353,7 +353,7 @@ For each `C ∈ {C0, C2-ch, C2-sel}`, `Q[C]` (O⇒G) is false at `|V| = 2`, `|A|
   entries of `W` and `W′` have modulus `½`, so every observed datum coincides.
 - **Visible family:** `Γ = (1, J/2, 1, J/2, …)`, in `PPer` in either orientation. **Scope:** `|A| ≥ 2`.
 
-**Established here** (paper derivation in exact arithmetic; independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1151 c.6665869201); delta check pending):
+**Established here** (paper derivation in exact arithmetic; independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1151 c.6665869201); delta check ACCEPT (#1151 c.6665968807)):
 - O⇒G fails for C0, C2-ch and C2-sel at `|V| = 2`, `|A| ≥ 2`, for lifts whose visible family lies in `PPer`, witnessed by
   the alternating pair above. The same pair is distinguished by a one-read T-V procedure with a coherent preparation.
   That T-V distinctness is not evidence that the lifts are gauge-unrelated: K-g (g3) shows that T-V also separates the
@@ -426,7 +426,7 @@ separated by T-sep₁ (re-derived in K-g (g3)). Its O⇒G cell stays open.
 ## §15. Review and next steps
 
 - Independent mathematical review is required by the ruling. Status: independently model-reviewed: ACCEPT WITH CHANGES,
-  no material findings (#1151 c.6665869201); delta check pending. The review covered the pair against PREREG §2 and QP
+  no material findings (#1151 c.6665869201); delta check ACCEPT (#1151 c.6665968807). The review covered the pair against PREREG §2 and QP
   ll. 107–125, the hand algebra of §§1–10, the decision-rule evaluation (§11) and the scope (§12).
 - Merge is not authorized. The proposed changes (§13) await the owner.
 - If merge is authorized, the pull request lands by a true merge commit, with no squash and no rebase, so that
