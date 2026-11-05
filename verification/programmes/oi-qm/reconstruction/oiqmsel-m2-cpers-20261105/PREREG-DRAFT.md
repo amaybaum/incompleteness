@@ -1,12 +1,13 @@
 # OI-QM-SEL M-2: the C-pers record class (preregistration draft)
 
-**Status: DRAFT r2, NOT FROZEN. WIP / UNVERIFIED.** This file prepares definitions, controls and a decision rule
+**Status: DRAFT r3, NOT FROZEN. WIP / UNVERIFIED.** This file prepares definitions, controls and a decision rule
 only.
 - No evaluation is made. No law is computed for any pair, and nothing here states or bounds the separating power of
-  C-pers. The single-lift, single-record control K-P (§6.1) is a known-answer check of the law, not an evaluation.
+  C-pers. The control K-P (§6.1) is a known-answer check of the law on two single control lifts, not an evaluation.
 - The test instance is a placeholder (§4). It is bound only to the M-1 instance and outcome as independently checked.
-- Independent review: r1 (`f737fe0e`) received ACCEPT WITH CHANGES, recorded as PR #1149 comment 6665799329. r2
-  applies its items (change log at the end). A delta review is pending. Merge is not authorized.
+- Independent review: r1 (`f737fe0e`) received ACCEPT WITH CHANGES, recorded as PR #1149 comment 6665799329. Its
+  delta review of r2 (`7ff0c180`) received ACCEPT WITH CHANGES, recorded as PR #1149 comment 6665974132. r3 applies
+  its items (change log at the end). A further delta review is pending. Merge is not authorized.
 
 **Writer:** `writer-m2`. **Issue:** #1143 (OI-QM-SEL), unit M-2 of the selection-target specification.
 **Base:** `origin/main` `f051916a113c9412b3efbb1ff813ec57c2ed265d`. Every path:line below is read at this base.
@@ -24,7 +25,8 @@ or Lean work. No law is evaluated on any candidate instance.
 - SPEC = the #1143 selection-target specification r3, #1143 comment 6665278924; SREV = its independent review record,
   #1143 comment 6665288579. Both are off `main`. The SPEC passages this record relies on are quoted verbatim in
   Appendix A (§10).
-- REV1 = the independent review of this draft's r1, PR #1149 comment 6665799329.
+- REV1 = the independent review of this draft's r1, PR #1149 comment 6665799329; REV2 = its delta review of r2, PR
+  #1149 comment 6665974132.
 - M-1 = the separately authorized verification of the alternating-`W` candidate, tracked on PR #1151.
 
 ***
@@ -191,14 +193,14 @@ criteria are fixed now. The evaluation record writes out every derivation.
 |---|---|---|
 | K1 | Positive gauge control | For the bound `U` and `L := 1_V ⊗ H₂` on `{a₀, a₁}` (identity on further labels), constant in `t`, `Λ_C-pers(LU) = Λ_C-pers(U)` for every record. `(U, LU)` is `G`-related (TSG:84). A difference makes the outcome VOID. |
 | K-B | Invariance of the law | The record derives, for every lift, that `Λ_C-pers` is unchanged by (i) any time-dependent `L_t ∈ 𝒢_L` and (ii) any constant weak `K`. It states that no step uses an `a₀` reset frame. Failure makes the outcome VOID. |
-| K2 | `\|A\| = 1` countercontrol and reset-form cross-check | **This record's own; it differs from SPEC K2.** SPEC K2 asks that a statistic agree on every `\|A\| = 1` equal-`Γ` pair. Read literally it would fail for C-pers, which at `\|A\| = 1` separates WD, a `G`-related pair with equal `Γ` (B4 ll. 310–315; REV1 M4). Pass iff both hold: (i) L-3; (ii) on the instance, the record evaluates `r_U` and `r_U′` for every `(j; s, t; v₁, v₂)` and they equal the two-read C2-ch masses M-1 reports for the same records. A mismatch makes the outcome VOID. If M-1's record does not state those masses, (ii) is vacuous and the outcome is VOID. |
+| K2 | `\|A\| = 1` countercontrol and reset-form cross-check | **This record's own; it differs from SPEC K2.** SPEC K2 asks that a statistic agree on every `\|A\| = 1` equal-`Γ` pair. Read literally it would fail for C-pers, which at `\|A\| = 1` separates WD, a `G`-related pair with equal `Γ` (B4 ll. 310–315; REV1 M4). Pass iff both hold: (i) L-3; (ii) on the instance, the record evaluates `r_U` and `r_U′` for every record `(j; s, t; v₁, v₂)` over one period of the slices (K-H), and they equal M-1's reported two-read C2-ch law for the same records. M-1's law is accepted either as masses or as the factors `Γ_s` and `𝒪₂(t,s)` (B4 W0.4); in the second case the comparison is factor by factor. A mismatch makes the outcome VOID. If M-1's record states neither form, (ii) is vacuous and the outcome is VOID. |
 | K3 | Fixed-basis control | L-2 holds, and on the instance the C-pers marginals of both lifts equal the C0 laws M-1 reports. |
-| K5 | Re-derivation | The record re-derives L-0 to L-3, D-1, K11's witness WD and K-P's record. No B4 [D] or RES result is a premise. The instance facts G-M1 (a)–(d) enter through G-M1 only (§4). |
+| K5 | Re-derivation | The record re-derives L-0 to L-3, D-1, K11's witness WD and K-P's values (§6.1). No B4 [D] or RES result is a premise. The instance facts G-M1 (a)–(d) enter through G-M1 only (§4). |
 | K7 | Masses | No normalization, no conditioning and no postselection. The empty `⊥` set is stated. L-1 holds. |
 | K9 | No imposed coherence | Roots are `e_j` only. No P-coh, `ρ₊` or phase is chosen apart from the lift. No reset. The ancilla's coherence enters only through `U_s` and `T_{t,s}`. |
 | K10 | Adjustability | Every freedom left open (a reading, a read pair) is listed. The outcome is reported for every admissible value. An outcome that changes across them is UNDECIDED. |
 | K11 | Positive sensitivity (SPEC K11, C-pers) | WD (B4 ll. 309–315): `U` = alternating `H₂`, `g` with `L ≡ 1`, `K_1 = Z`, `K_t = 1` otherwise; at the instance's `\|A\|` it is placed on `𝒜` with `⊕ 1_C`. The record computes both laws from §3 and finds some record with unequal masses. B4's stated values are not premises. |
-| K-P | Persistence sensitivity | §6.1. |
+| K-P | Retention of ancilla coherence | §6.1: exact values on the lifts `U^C` and `U^P`. |
 | K12 | Device identity | Only `U ↦ U′` changes: the same roots, read pairs, projectors, anchor and decoder. |
 | K13 | Joint-lift nativeness (conditional) | The instance's visible family is in `PPer`, orientation checked, as G-M1 (d) supplies. C-pers adds no preparation interaction, so the joint process is the lift itself. Reading "in `PPer`" as "native" is CONDITIONAL[F3's hypothesis that native realizations are finite `RootedRealization`s (RCAT:192–194); S-0]. Without both, K13 is a necessary check only. K13 is reported with every outcome. |
 | K-D | Same `Γ` | The instance has equal `Γ_t` for every `t` (from M-1 through G-M1). |
@@ -208,46 +210,67 @@ criteria are fixed now. The evaluation record writes out every derivation.
 and K8 (carrier change) concern a physical setting variable and decoder. Here the laws are per `j`, no setting is
 selected, and the decoder is the record (§2). They are re-imposed on any native realization, which is not authorized.
 
-### 6.1 K-P: persistence sensitivity (fixed at the freeze)
+### 6.1 K-P: retention of ancilla coherence (fixed at the freeze)
 
-**Purpose (REV1 M1).** The reset form `r_U` satisfies L-1, L-2, L-3, K2 (i), K3 and K11, and K11's WD keeps every state
-in `𝒜`. A computation that dropped the ancilla after the first read would therefore pass every other control.
-DOES-NOT-SEPARATE could then be reached in error with every control green. K-P names one lift and one record at which
-`p_U` and `r_U` differ.
+**Purpose (REV1 M1; delta review D1).** The reset form `r_U` satisfies L-1, L-2, L-3, K2 (i), K3 and K11, and K11's WD
+keeps every state in `𝒜`. A computation that dropped the ancilla after the first read would therefore pass every other
+control, and DOES-NOT-SEPARATE could be reached in error with every control green. Three ways of dropping it are
+distinguished:
+- **(R)** reset to `|a₀⟩`, as Rst-ch does, which gives `r_U`;
+- **(D)** dephasing the ancilla in the basis `{|a⟩}` after the read;
+- **(A)** projecting onto `a₀` without renormalizing, as the Rst-sel ok branch does.
 
-**The lift `U^P`** (`|V| = 2`, `|A| = 2`). Basis order `p₀ = (0,a₀)`, `p₁ = (0,a₁)`, `p₂ = (1,a₀)`, `p₃ = (1,a₁)`, with
+K-P fixes two control lifts, each with one procedure and exact known values. K-Pc separates C-pers from (R), (D) and
+(A). K-Pp separates it from (R) only. Together they show that the computation retains ancilla coherence on the K-P
+lift `U^C`, and ancilla populations on `U^P`. They show nothing more.
+
+**Common notation** (`|V| = 2`, `|A| = 2`). Basis order `p₀ = (0,a₀)`, `p₁ = (0,a₁)`, `p₂ = (1,a₀)`, `p₃ = (1,a₁)`, with
 `e₀ = p₀` and `e₁ = p₂`.
-- `L := 1_V ⊗ H₂` on `{a₀, a₁}`, as in K1, so `Lp₀ = (p₀+p₁)/√2`.
-- `Q :=` the permutation matrix exchanging `p₁` and `p₂`, so `Qp₀ = p₀` and `Qp₁ = p₂`.
-- `U^P_0 := L` and `U^P_t := QL` for every `t ≥ 1`. Each slice is unitary, as a product of unitaries.
+- `L := 1_V ⊗ H₂` on `{a₀, a₁}`, as in K1. It is real symmetric and unitary, so `Lᴴ = L`, `Lp₀ = (p₀+p₁)/√2` and
+  `Lp₁ = (p₀−p₁)/√2`.
+- `Q :=` the permutation matrix exchanging `p₁` and `p₂`, so `Qp₀ = p₀`, `Qp₁ = p₂` and `Qp₂ = p₁`.
+- **The procedure, for both lifts:** root `j = 0`, reads `(s, t) = (0, 1)`.
+- **The first read, for both lifts:** `U_0 = L` gives `U_0e₀ = (p₀+p₁)/√2`, which lies wholly in fibre 0. So
+  `Γ_0(0,0) = 1`, and the unnormalized post-read state is `x := P₀U_0e₀ = (p₀+p₁)/√2`.
 
-`U^P` is a single control lift. It is not one member of a pair, no class membership is claimed for it, and it is not
-related to the M-1 pair.
+Neither lift is one member of a pair. No class membership is claimed for either, and neither is related to the M-1
+pair. The values below are reasoned from the definitions ([D-draft], unreviewed), and K5 re-derives them.
 
-**The record.** Root `j = 0`, reads `(s, t) = (0, 1)`, record `(v₁, v₂) = (0, 0)`.
+**K-Pc: the coherence lift `U^C`.** `U^C_0 := L` and `U^C_t := Q` for every `t ≥ 1`, so `T_{1,0} = QLᴴ = QL`.
+- **C-pers:** `Lx = (Lp₀ + Lp₁)/√2 = ((p₀+p₁) + (p₀−p₁))/2 = p₀` and `Qp₀ = p₀`, so `p_{U^C}(0, 0 | 0; 0, 1) = 1`.
+- **(R), reset form:** the post-read state is `p₀`, with mass 1. Then `QLp₀ = Q(p₀+p₁)/√2 = (p₀+p₂)/√2`, whose fibre-0
+  part has mass ½. So `r_{U^C}(0, 0 | 0; 0, 1) = 1 · ½ = ½`.
+- **(D), dephased:** the state is `½|p₀⟩⟨p₀| + ½|p₁⟩⟨p₁|`. `QLp₀ = (p₀+p₂)/√2` and `QLp₁ = Q(p₀−p₁)/√2 = (p₀−p₂)/√2`
+  each have fibre-0 mass ½. So the mass is `½·½ + ½·½ = ½`.
+- **(A), projected onto `a₀`:** `⟨p₀, x⟩p₀ = p₀/√2`, and `QL(p₀/√2) = (p₀+p₂)/2`, whose fibre-0 part `p₀/2` has mass ¼.
+- **Mechanism:** the value 1 needs the relative phase of the `p₀` and `p₁` components of `x`, which `L` recombines into
+  `p₀`. (R), (D) and (A) each destroy that phase.
 
-**Why the two forms differ** (reasoning from the definitions; [D-draft], unreviewed; K5 re-derives it):
-- `U^P_0e₀ = Lp₀ = (p₀+p₁)/√2` lies wholly in fibre 0. So `P₀U^P_0e₀ = (p₀+p₁)/√2` and `Γ_0(0,0) = 1`.
-- `T_{1,0} = QL·Lᴴ = Q`, since `L` is unitary.
-- **C-pers.** The ancilla persists: `Q(p₀+p₁)/√2 = (p₀+p₂)/√2`, and `P₀` of it is `p₀/√2`. So
-  `p_{U^P}(0, 0 | 0; 0, 1) = ½`.
-- **Reset form.** `𝒪₂(1,0)(0,0) = ‖P₀Qp₀‖² = ‖p₀‖² = 1`. So `r_{U^P}(0, 0 | 0; 0, 1) = 1 · 1 = 1`.
-- The `p₁` component, which Rst-ch replaces by `|a₀⟩`, is carried by `Q` into fibre 1. That moves half the mass out of
-  record `(0,0)`.
+**K-Pp: the population lift `U^P`.** `U^P_0 := L` and `U^P_t := QL` for every `t ≥ 1`, so `T_{1,0} = QLLᴴ = Q`.
+- **C-pers:** `Qx = (p₀+p₂)/√2`, whose fibre-0 and fibre-1 parts each have mass ½. So `p_{U^P}(0, 0 | 0; 0, 1) = ½` and
+  `p_{U^P}(0, 1 | 0; 0, 1) = ½`.
+- **(R), reset form:** `𝒪₂(1,0)(0,0) = ‖P₀Qp₀‖² = ‖p₀‖² = 1`, so `r_{U^P}(0, 0 | 0; 0, 1) = 1 · 1 = 1`.
+- **(D), (A):** dephasing gives `½·‖P₀Qp₀‖² + ½·‖P₀Qp₁‖² = ½ + 0 = ½` at `(0,0)`. Projection gives `Q(p₀/√2) = p₀/√2`,
+  mass ½. Both equal the C-pers value, so K-Pp does not detect (D) or (A). It detects only the loss of the ancilla's
+  population that (R) causes.
 
-**Pass criterion (fail-closed).** K-P passes iff the evaluation record derives, for `U^P` at this record, both
-`p_{U^P}` from §3 by explicit branch states and `r_{U^P}`, and finds them unequal. It must use the same written
-procedure it uses for the instance. Any of the following makes the outcome VOID: equal values; a missing derivation;
-or a procedure for `p_U` on the instance that differs from the one applied to `U^P`.
+**Pass criterion (fail-closed).** K-P passes iff the evaluation record derives the following exact values from §3, by
+explicit branch states, using the same written procedure it uses for the instance:
+- for `U^C` at `(0,0 | 0; 0,1)`: `p = 1` and `r = ½`;
+- for `U^P`: `p(0,0 | 0; 0,1) = ½`, `p(0,1 | 0; 0,1) = ½` and `r(0,0 | 0; 0,1) = 1`.
+
+Any other value, a missing derivation, or a procedure for `p_U` on the instance that differs from the one applied to
+the K-P lifts makes the outcome VOID. The (D) and (A) values are stated to justify the choice of lifts; they are not
+pass conditions.
 
 **Scope of K-P, and the alternative scoping of DOES-NOT-SEPARATE.**
 - REV1 recommends a pair with equal C2-ch laws that C-pers separates. **No such pair is adopted in this draft.**
   Establishing equality of a pair's C2-ch laws means computing full laws, which this preparation stage does not do.
-- K-P shows only that the law, as computed, keeps the ancilla on one lift and one record. It does not show that C-pers
+- K-P shows only that the computation retains ancilla coherence on the K-P lift `U^C`. It does not show that C-pers
   separates any pair the reset classes identify.
 - So a DOES-NOT-SEPARATE outcome carries the qualifier **"no persistence-specific pair witness"**. It then means equal
-  C-pers laws on the instance, with the computation shown to be persistence-sensitive (K-P). It does not mean that
-  C-pers was shown able to separate reset-equal pairs.
+  C-pers laws on the instance, with the computation shown to retain ancilla coherence on the K-P lift. It does not mean
+  that C-pers was shown able to separate reset-equal pairs.
 - If such a pair `K-P′` is adopted before the freeze, by recorded reviewer or owner direction, it is fixed at `Φ`. Its
   criterion: both C2-ch laws equal and the C-pers laws unequal, each derived in the evaluation record; otherwise VOID.
   The qualifier is then dropped.
@@ -258,7 +281,7 @@ or a procedure for `p_U` on the instance that differs from the one applied to `U
 1. **Definitions review.** Each review is independent. Changes it requires are made before the freeze, with a change
    log (this file's end).
 2. **Freeze `Φ`.**
-   - A commit that renames this file to `PREREG.md` and fixes §§1–3 and 5–10, with §4 still a placeholder. It may change
+   - A commit that renames this file to `PREREG.md` and fixes §§1–3, 5–11 and Appendix A, with §4 still a placeholder. It may change
      only the status lines and the edits listed in the change log.
    - Precondition (REV1 N2): either SPEC lands on `main`, or Appendix A quotes verbatim every SPEC passage this record
      relies on. A delta review confirms the list.
@@ -266,7 +289,7 @@ or a procedure for `p_U` on the instance that differs from the one applied to `U
 4. **Binding amendment `B_I`.**
    - A single-parent child of `Φ`, or of a later commit that changes no frozen section. It fills §4 verbatim from M-1
      and changes nothing else.
-   - If G-M1 fails, `B_I` instead records NOT-EVALUATED and its reason.
+   - If G-M1 fails, `B_I` instead writes NOT-EVALUATED and its reason inside §4, and changes nothing else.
 5. **Evaluation.** `RESULT.md` in this directory, in a later commit that changes no other file.
 6. **Independent review** of the result, recorded on the guiding pull request.
 
@@ -299,8 +322,8 @@ SPEC §4.3 is quoted verbatim in Appendix A.2. Its "Selection, frozen now" claus
 **This record does not adopt that selection.**
 - SPEC §4.4's prerequisite list, which the §4.3 criterion counts, has no row for H-comp. `C*₁` uses a single read,
   while C-pers needs a physical between-read evolution, whose supply is a SOURCING-GAP at #866 (B4 ll. 381–383).
-- **Before any native freeze, the selection is re-checked with H-comp counted, by owner decision.** That holds after
-  every outcome.
+- **This record proposes that, before any native freeze, the selection be re-checked with H-comp counted, by owner
+  decision.** The proposal holds after every outcome. Its accountable Issue is #1143.
 
 What each outcome contributes:
 - **SEPARATES.** C-pers meets SPEC §4.3's qualification clause on this instance: "A candidate qualifies only after its
@@ -345,7 +368,7 @@ persisting, fixed `a₀`, (r1), (p1)–(p4), (t1), (t2)].
 
 | Invariant | Checkpoint |
 |---|---|
-| Definitions, controls and rule are fixed at `Φ`, before `B_I` binds the instance, and no C-pers law of the instance is stated in any repository record before `RESULT.md` | `Φ` precedes `B_I`. `git diff Φ B_I --stat` lists `PREREG.md` only, and its hunks lie inside §4. A search of the branch history before the `RESULT.md` commit finds no instance law of C-pers |
+| Definitions, controls and rule are fixed at `Φ`, before `B_I` binds the instance, and no C-pers law of the instance is stated in any repository record before `RESULT.md` | `Φ` precedes `B_I`. `git diff Φ B_I --stat` lists `PREREG.md` only, and its hunks lie inside §4, on the failure path as well. A reviewer reads every commit between `Φ` and the `RESULT.md` commit and records that none states a C-pers law of the instance |
 | The freeze is the reviewed text | `git diff -M Φ^ Φ` shows the rename `PREREG-DRAFT.md → PREREG.md`, plus only the status lines and the edits the change log lists. The delta review of the last draft is recorded on the guiding pull request |
 | SPEC passages relied on are quoted verbatim | Appendix A, checked by the delta review (§7.1 step 2) |
 | No pair is substituted | `B_I` quotes M-1's pair verbatim, with M-1's commit and review location |
@@ -353,7 +376,7 @@ persisting, fixed `a₀`, (r1), (p1)–(p4), (t1), (t2)].
 | Complete-record law, `⊥` set stated | L-0, L-1, K7 |
 | No imposed coherence, no reset | K9 |
 | Controls green before any outcome other than NOT-EVALUATED, sensitivity included | §7.2 order: VOID, which covers K11 and K-P, precedes UNDECIDED, SEPARATES and DOES-NOT-SEPARATE |
-| The computation keeps the ancilla | K-P, with the same written procedure as on the instance |
+| The computation retains ancilla coherence on the K-P lift `U^C` | K-P (§6.1): exact values on `U^C` and `U^P`, with the same written procedure as on the instance |
 | Reset-form cross-check | K2 (ii) against M-1's reported C2-ch masses |
 | Device identity | K12 |
 | ℕ coverage, no horizon | K-H |
@@ -385,10 +408,10 @@ These digests are of the comment bodies, not of a `SPEC.md` file. They pin what 
 | SPEC §4.5 "Present state" (c.6665278924) | §7.3: UNSOURCED is unchanged | Support off `main`, closed by quotation in A.3. This record changes no verdict |
 | SPEC §4.4 and §4.6 (c.6665278924) | Identifiers S-0 to S-8 and K-numbers; the absence of an H-comp row | Provenance for the identifiers. Every control used is defined in §6 as this record's own. The absence of an H-comp row is a finding about SPEC, recorded in §7.3 |
 | SREV (c.6665288579) | SPEC's review status | Provenance |
-| REV1 (PR #1149 c.6665799329) | The r2 changes; the remarks under (p2) and L-3 | Provenance. No claim rests on it |
+| REV1 (PR #1149 c.6665799329); REV2 (PR #1149 c.6665974132) | The r2 and r3 changes; the remarks under (p2) and L-3 | Provenance. No claim rests on them |
 | B4, SC, RES, QP (on `main`) | Notation, procedures, readings, WD's definition, B4 ll. 381–383 | Support on `main`, for definitions and the SOURCING-GAP assignment only. B4's WD values and every [D] result are not premises (K5, K11) |
 | Kernel lines (TSG, CLG, DC, CF, RC, RCAT) | Definitions of §1; K13's conditional reading | Support on `main` |
-| M-1's record (PR #1151) | G-M1 (a)–(d); the instance; K2 (ii) and K3 inputs | Not yet on `main`. It becomes support on `main` only when landed and reviewed; until then G-M1 fails |
+| M-1's record (PR #1151; `RESULT.md` §3 K-b and §4.3 at `594b5128`) | G-M1 (a)–(d); the instance; K2 (ii) and K3 inputs | Not yet on `main`; PR #1151 is not merged. Its locations are cited in H7 as pointers only. It becomes support on `main` only when landed and reviewed; until then G-M1 fails |
 | #866, #914, #1032 | Accountable homes in §8 | Provenance; planning records only (§A.45 rule 1) |
 
 ## §11. Hidden-assumption watch (§A.31)
@@ -398,30 +421,38 @@ These digests are of the comment bodies, not of a `SPEC.md` file. They pin what 
   therefore CONDITIONAL[H-comp]. H-comp's physical supply is a SOURCING-GAP at #866 (B4 ll. 381–383). SPEC §4.4 has no
   row for it, which is why §7.3 does not adopt SPEC's selection.
 - **H2 (retention).** Rst-none with `A` persisting is the content of S-8. A separation that uses ancilla components of
-  `P_{v₁}U_se_j` uses retention. K-P confirms that the computation keeps them, and §7.3's attribution reports where a
-  separation depends on them.
+  `P_{v₁}U_se_j` uses retention. With K-P green, the computation is shown to retain ancilla coherence on the K-P lift
+  `U^C`, and populations on `U^P`; nothing beyond those lifts follows. §7.3's attribution reports where a separation
+  depends on the ancilla.
 - **H3 (no reset frame).** C-pers has no `a₀` reset or test after a read, so SC W3 does not arise for it. The anchor
   still enters through the P-conf roots `e_j`. K-B tests that no step uses a reset frame.
 - **H4 (Lüders read).** Rd is a Lüders read that leaves `A` untouched. A read that disturbs `A` defines a different
   class and is not tested.
 - **H5 (two reads).** Resolved by REV1 (N3): "exactly two" is kept (p2).
-- **H6 (persistence witness).** Resolved by REV1 (M1) through K-P (§6.1). Without a `K-P′` pair, DOES-NOT-SEPARATE
+- **H6 (persistence witness).** Resolved by REV1 (M1) and REV2 (D1) through K-P (§6.1). Without a `K-P′` pair, DOES-NOT-SEPARATE
   carries the qualifier "no persistence-specific pair witness".
 - **H7 (dependence on M-1's report).** K2 (ii), K3 and the attribution read M-1's reported C0, C2-ch and C2-sel
-  masses. If M-1 does not state the two-read C2-ch masses, K2 (ii) is vacuous and the outcome is VOID. M-1's form of
-  report is not changed by this record.
+  masses. If M-1 states the two-read C2-ch law neither as masses nor as factors, K2 (ii) is vacuous and the outcome is
+  VOID. M-1's form of report is not changed by this record.
+  - M-1's record is PR #1151, not merged. At its head `594b5128` it states the two-read C2-ch masses in `RESULT.md`
+    §4.3: the closed form at ll. 123–124 and the two-read table at ll. 126–135. These were delta-checked in #1151
+    c.6665968807. `PPer` membership in both orientations is its control K-b (`RESULT.md` §3, ll. 63–82). The later
+    head `9a7f9961` changes three status lines only. These are locations, not support: M-1 is not landed, so G-M1
+    does not yet hold.
 
 ## §12. Review and next steps
 
-- **A delta review of r2** is required before the freeze. It should check the K-P reasoning (§6.1), the new K2, §7.3
-  against Appendix A, the checkpoints of §9 and the change log.
+- **A delta review of r3** is required before the freeze. It should check the K-P values (§6.1) by hand, K2 (ii), §7.1,
+  §7.3, the §9 checkpoints, H7 and the change log.
 - **Evaluation** waits for M-1's independently reviewed outcome on `main` (G-M1). If M-1 fails, no other pair is
   substituted without a new owner decision.
 - Merge is not authorized.
 
 ## Appendix A. SPEC passages relied on, quoted verbatim from #1143 c.6665278924
 
-### A.1 SPEC §1.4 (T-V and its excluded comparators)
+### A.1 SPEC §1.4, excerpt (T-V and its excluded comparators)
+
+The excerpt omits T-iface, the QM-side uniqueness bullet and the flagged paragraph of SPEC §1.4.
 
 > ### 1.4 The target-QM distinction (fixed before any test)
 >
@@ -496,3 +527,14 @@ These digests are of the comment bodies, not of a `SPEC.md` file. They pin what 
 | N8 | PPer membership enters through G-M1 (d) only; K5 no longer re-derives G-M1 facts |
 | N9 | Persistence attribution compared per `(j; s, t)` |
 | N10 | File name kept; rename to `PREREG.md` at `Φ`, with the `git diff -M` checkpoint in §9 |
+
+## Change log (r2 `7ff0c180` → r3), against REV2
+
+| Item | Change |
+|---|---|
+| D1 | §6.1 rewritten. The coherence lift `U^C` (`U^C_0 = L`, `U^C_t = Q`, `T = QL`) was added as K-Pc, with values re-derived by hand: C-pers 1, reset ½, dephased ½, projected onto `a₀` ¼. `U^P` was kept as K-Pp, with exact values (`p` ½ and ½; `r` 1), and noted to detect (R) only. The pass criterion requires the exact values (`U^C`: `p = 1`, `r = ½`; `U^P` as stated), obtained by the same written procedure as on the instance. The purpose sentence, the DOES-NOT-SEPARATE scoping and H2 now read "shown to retain ancilla coherence on the K-P lift". The K-P row, K5 and §9 were updated |
+| D2 | §7.1 freezes §§1–3, 5–11 and Appendix A. On the failure path `B_I` writes NOT-EVALUATED inside §4. §9 row 1 is now a reviewer reading of every commit between `Φ` and the `RESULT.md` commit |
+| D3 | K2 (ii) covers every record over one period of the slices, and accepts M-1's C2-ch law either as masses or as the factors `Γ_s` and `𝒪₂(t,s)` |
+| D4 | A.1 headed as an excerpt of SPEC §1.4, with the omitted parts named |
+| D5 | §7.3 states the owner re-check as this record's proposal, with #1143 accountable |
+| H7 | M-1's locations cited (PR #1151 at `594b5128`: `RESULT.md` §4.3 ll. 123–135; K-b §3; delta check c.6665968807), as pointers only; M-1 not landed. The §10 row was updated |
