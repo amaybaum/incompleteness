@@ -16,11 +16,12 @@ name: evidence replay
 #                     comparator (48b18ac5) compare the output with the retained expected result (14 modules,
 #                     blob 61cfd6ea at main f5efa7a0, the #1124 landing; first pinned at #918's head
 #                     4a260ca9) and with the 28-module extension (blob 97a2377d, retained on main by #1132 at
-#                     2714278a as verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/
-#                     results-121598983127-28.json; first pinned at staging commit e73f7be3, at
-#                     papers/introduction_repro/results-121598983127.json, byte-identical). The 28-module result
-#                     is unreviewed and not independently verified on main; the re-pin to 2714278a preserves
-#                     evidence and is not its acceptance (Issue #941).
+#                     2714278a as
+#                     verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/results-121598983127-28.json;
+#                     first pinned at staging commit e73f7be3, at papers/introduction_repro/results-121598983127.json,
+#                     byte-identical). The 28-module result has no independent review recorded on main and is not
+#                     independently verified there; the re-pin to 2714278a preserves evidence and is not its
+#                     acceptance (Issue #941).
 #                     A step fails unless lake built every OIBridge module in the source
 #                     at the commit (228, all reachable from the root module), replayed none, and the 28
 #                     governed modules are among them. Job 121598983127 printed 226 Replayed lines: lake prints
