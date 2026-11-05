@@ -33,6 +33,11 @@ amaybaum, Claude Code session chat, 2026-11-05, recorded in #1031 comment 665941
 The same comment's part A authorizes an independent review of K1-RDY-1's S0/P0 execution, and its part B makes
 K1-RDY-1's S12 halt conditional on that review. This round depends on that review (§3).
 
+amaybaum, Claude Code session chat, 2026-11-05 (about 15:35Z), recorded in #1031 comment 6662166679
+(2026-11-05T15:38:03Z), the row for this round in the table of authorized workstreams:
+
+> | #1031 — K1-P1-1 (#1135) | Continue preregistration revisions and independent review | No code drafting, F designation or execution yet |
+
 ***
 
 ## 1. Question
@@ -90,7 +95,11 @@ The first 313 lines of `preregistration.md` at `F` have the SHA-256 recorded the
 - §5.5 (lines 186–194) for S0 and P1. This covers item (1), including the clause that each control runs "at its stated
   instance and in isolation on the gate it tests"; item (2) for P1 only; item (3), whose labelled exact enumeration this
   round's authorization (e) is to cover (§13); and the output clause, with §10's schema extending A9. Its reference to
-  #1031 gate 3 is replaced by §13's authorizations;
+  #1031 gate 3 is replaced by §13's authorizations. Item (3) asks for a written derivation for each gate and admits
+  enumeration where that does not decide the gate. Under the owner's ruling Q1 (amaybaum, #1031 comment 6658964414,
+  2026-11-05T13:16:45Z: "Writing out all 156 cycles and evaluating 1,024 states manually is still enumeration. Calling
+  it a paper derivation does not change its nature."), a written derivation does not decide the member rows' G2(b) to
+  G5, so item (3)'s labelled exact enumeration applies to them. G1, G2(a) and T1 are decided in writing (§6);
 - §6 (lines 196–216), the eleven controls and their pass conditions, as this round's stage S0 (§11.1);
 - §7 (lines 218–239), scope limits and non-claims, except two passages of lines 229–230:
   - "The holds on #1009, #1023, #1011, #1003 and #918 are unchanged. #1025 is untouched." `AGENTS.md` §A.45 rule 7
@@ -256,8 +265,18 @@ R5a G1 and G2 tokens (K lines 122, 136-138, 171, 182), read from class-decisions
       Otherwise:
         - g1 "undecided" gives every P1 row UNDECIDED(G1).
         - "undecided" at G2(a) or T1 gives the rows it concerns UNDECIDED(G2).
-      Z1-VOID supersedes UNDECIDED. A row that takes a token here records its later gates "not-reached"
-      (RD-8). Every measured field of the row is still computed and reported.
+      Z1-VOID supersedes UNDECIDED. Every measured field of the row is still computed and reported.
+      Record, per row (G2 is always recorded, since a Z1-VOID flag supersedes a token already issued, K line 136):
+        G1 undecided, G2 flags:     G1 "UNDECIDED(G1)", G2 the Z1-VOID token, G3-G7 "not-reached",
+                                    token the Z1-VOID token.
+        G1 undecided, G2 undecided: G1 "UNDECIDED(G1)", G2 "UNDECIDED(G2)", G3-G7 "not-reached",
+                                    token UNDECIDED(G1).
+        G1 undecided, G2 passes:    G1 "UNDECIDED(G1)", G2 "pass", G3-G7 "not-reached", token UNDECIDED(G1).
+        G1 passes, G2 flags:        G1 "pass", G2 the Z1-VOID token, G3-G7 "not-reached",
+                                    token the Z1-VOID token.
+        G1 passes, G2 undecided:    G1 "pass", G2 "UNDECIDED(G2)", G3-G7 "not-reached",
+                                    token UNDECIDED(G2).
+      The "not-reached" entries are reading RD-8.
 R6  G3: D(m) = log(|S| / |supp(m)|), recorded as the exact ratio |S|/|supp(m)|.
       B-pl bound (c1): holds iff q^|E| * |supp(m)| <= |S|.
       B-eq bound (c2), per sharp w with mass a/b in lowest terms, k := |E \ W| (overlap cells counted in W):
@@ -303,7 +322,7 @@ member rows; G1 removes no member (`K` line 124).
   the stated image "itself" through `φ(supp m) = supp m`.
 - **RD-7.** Inequalities between logarithms are decided by the equivalent integer inequalities of R6.
 - **RD-8** (proposed in this revision; awaiting the owner's acceptance, SC-4). When G1 or G2 issues a row's token
-  (R5a), the later gates are recorded `not-reached`. These are RD-2's grounds applied to G1 and G2: a row takes the
+  (R5a), G3 to G7 are recorded `not-reached`. G2 is recorded in every case (R5a's table). These are RD-2's grounds applied to G1 and G2: a row takes the
   token of the first gate that issues one (`K` line 183), Z1-VOID supersedes every branch token of its candidate or
   member (line 182), and A9 provides the value `"not-reached"`.
 
@@ -329,8 +348,8 @@ member rows; G1 removes no member (`K` line 124).
   by `writer-k1p1-exec`, one of the five sessions, at X1 and before any run on the instance.
 - **Placement** (§17, OQ-6): A and B in `verification/lean/`, as for KT4-PREM-1, each named as an `execution` path in
   the `v3-governed-paths` block at the end of this file; `controls.py` and every output in the record directory.
-- **Declared inputs of A and B** (§10.1): `class-decisions.json` at every stage, the committed `members.json` at `rows`
-  and `final`, and `adversarial.json` at `final`. They read no other file.
+- **Declared inputs of A and B** (§10.1): `class-decisions.json` at every stage; at `rows` and `final`, `members.json`
+  with its pinned SHA-256 given on the command line; and `adversarial.json` at `final`. They read no other file.
 - Each writer receives this preregistration and the adopted text (§2) only, and no other writer's code until its own
   blob is delivered. The coordinator records each hand-off (what was given, when) and the SHA-256 of each delivered
   file. Each file's header records, as `K`'s A10 does for derivations: its author session; whether its writer had
@@ -349,8 +368,8 @@ member rows; G1 removes no member (`K` line 124).
   it by matrix-vector products, finds `E` from the rows of the matrix powers `M^t`, and partitions `S` into orbits by its
   own traversal. B also computes the second cycle count of §9 (CC-CYC2) from ranks of `M^k − I`, without enumerating
   states, and writes it to its own file `cyc2.json` (§10.1).
-- Both compute every field of the shared outputs `members.json` and `gate-table.json` independently, including tokens
-  and class tokens.
+- Both compute every field of the shared outputs (`members.json` and the stage's gate table, §10.1) independently,
+  including tokens and class tokens.
 
 ### 8.3 G6 for positive rows
 
@@ -408,43 +427,55 @@ byte for byte.
 | File | Written by | Committed at | Compared |
 |---|---|---|---|
 | `members.json` | A and B, each into its own output directory | X2 | A against B byte for byte; regenerated against committed |
-| `gate-table.json` | A and B, each into its own output directory | X2, X3, X5 (one per stage) | A against B byte for byte; regenerated against committed |
+| `gate-table.members.json` | A and B, each into its own output directory | X2 | A against B byte for byte; regenerated against committed |
+| `gate-table.rows.json` | A and B, each into its own output directory | X3 | A against B byte for byte; regenerated against committed |
+| `gate-table.json` (final) | A and B, each into its own output directory | X5 | A against B byte for byte; regenerated against committed |
 | `cyc2.json` | B only (CC-CYC2) | X2 | regenerated against committed; its counts against `members.json`'s histogram and PR-CYC, by `controls.py` |
-| `checks.json` | `controls.py` | X2, X3, X5 | regenerated against committed |
+| `checks.members.json`, `checks.rows.json`, `checks.json` (final) | `controls.py` | X2, X3, X5 | regenerated against committed |
 | `class-decisions.json` | `writer-k1p1-exec`, by hand, from `derivations/P1-class-paper.md` and `derivations/S0-paper.md` | X1 | input |
 | `adversarial.json` | `writer-k1p1-adv` | X4 | input; index check (§10.2) |
 
-Only `members.json` and `gate-table.json` are shared outputs; the A/B comparison covers exactly these two files.
+Each stage has its own file names, and no committed file is overwritten by a later stage. So `check` compares every
+stage's regenerated files with that stage's committed bytes at any later commit, `E` included, without reading git
+history. Regenerating earlier stages in memory only was not chosen, because it would leave the members and rows
+stages' committed bytes unchecked at `E`. The shared outputs are `members.json` and the stage's gate table, and the
+A/B comparison covers exactly these.
 
 Command lines, run from the repository root, with `<rec>` the record directory and `<out>` a fresh empty directory:
 
 ```text
-python3 -I verification/lean/k1p1_enum_a.py --stage {members|rows|final} --record <rec> --out <out>
-python3 -I verification/lean/k1p1_enum_b.py --stage {members|rows|final} --record <rec> --out <out>
+python3 -I verification/lean/k1p1_enum_a.py --stage {members|rows|final} --record <rec> --out <out> [--members-sha256 <hex>]
+python3 -I verification/lean/k1p1_enum_b.py --stage {members|rows|final} --record <rec> --out <out> [--members-sha256 <hex>]
 python3 -I <rec>/controls.py run --stage {members|rows|final}
 python3 -I <rec>/controls.py check [--stage {members|rows|final}]
 python3 -I <rec>/controls.py self-test {--synthetic | --stage {members|rows|final}}
 python3 -I <rec>/controls.py render
 ```
 
-- **Implementations.** At every stage A writes `<out>/members.json` and `<out>/gate-table.json`; B writes those two and
-  `<out>/cyc2.json`. Each reads `<rec>/class-decisions.json` at every stage. At `rows` and `final` each also reads
-  `<rec>/members.json` and refuses unless it equals, byte for byte, the `members.json` it has just computed. At `final`
-  each also reads `<rec>/adversarial.json` and refuses unless it lists every row that passes G5. Exit status: 0 when the
+- **Implementations.** At every stage A writes `<out>/members.json` and the stage's gate table, which is
+  `<out>/gate-table.members.json`, `<out>/gate-table.rows.json` or `<out>/gate-table.json`. B writes those and
+  `<out>/cyc2.json`. Each reads `<rec>/class-decisions.json` at every stage.
+  - At `rows` and `final`, `--members-sha256` is required. Each implementation reads `<rec>/members.json` and refuses
+    if it is absent, if its SHA-256 differs from the pinned digest, or if it differs byte for byte from the
+    `members.json` the implementation has just computed. A and B do no git work, so they cannot tell whether the file
+    is committed; that check belongs to `controls.py`.
+  - At `final`, each also reads `<rec>/adversarial.json` and refuses unless it lists every row that passes G5. Exit status: 0 when the
   files are written; 2 for a refusal (a stage precondition, or CT-INC); 3 for the exactness guard (§7); any other
   nonzero status is a failure. Nothing is written on a nonzero exit.
 - **`controls.py run --stage s`.**
-  - It refuses (exit 2) unless the files of the previous stage are tracked and unmodified at `HEAD`
+  - It refuses (exit 2) unless the files of the previous stages are tracked and unmodified at `HEAD`
     (`git ls-files --error-unmatch`, `git diff --quiet HEAD --`) and `check --stage <previous>` exits 0. For `rows` the
     previous stage is `members`; for `final` it is `rows`, together with `adversarial.json` when a row passes G5.
+  - At `rows` and `final` it passes to A and B the `members_sha256` recorded in the committed `checks.members.json`.
   - It runs A and B into separate temporary directories and compares their two shared files byte for byte (H1 on any
     difference). It then runs the checks of §9, §4 and §11 that the stage's outputs allow.
-  - It writes `checks.json` in every case. It writes the stage's other files into `<rec>` only when every check holds.
-- **`check --stage s`** regenerates every stage up to `s` from the committed inputs, runs A and B, repeats every
-  comparison and check, and compares each regenerated file with the committed one byte for byte. Without `--stage` it
-  checks the last stage whose files are committed. It exits 0 exactly when all of these hold.
+  - It writes the stage's checks file in every case. It writes the stage's other files into `<rec>` only when every
+    check holds.
+- **`check --stage s`** regenerates every stage up to `s` from the committed inputs, running A and B, and repeats every
+  comparison and check. It compares each stage's regenerated files with that stage's committed files byte for byte.
+  Without `--stage` it checks the last stage whose files are committed. It exits 0 exactly when all of these hold.
 - **`self-test`** runs the mutations of §11.3 for a stage, or their synthetic analogues with `--synthetic` (§11.2).
-- **`render`** writes the token tables of `result.md` from `gate-table.json` (§12 item 8).
+- **`render`** writes the token tables of `result.md` from the final `gate-table.json` (§12 item 8).
 
 ### 10.2 Field formats
 
@@ -455,7 +486,7 @@ are ordered by the serializer.
 **Value conventions.**
 - A rational is `"p/q"` in lowest terms with `q > 0`; zero is `"0/1"` and one is `"1/1"`.
 - A count is a JSON integer, a decision a JSON boolean, and an absent value `null`.
-- Strings use exactly the characters shown. `π` is U+03C0, `𝓘` U+1D4D8, `δ` U+03B4, `′` U+2032 and `″` U+2033. Every
+- Strings use exactly the characters shown. `π` is U+03C0, `μ` U+03BC, `𝓘` U+1D4D8, `δ` U+03B4, `′` U+2032 and `″` U+2033. Every
   hyphen and minus sign is U+002D.
 - Cell strings follow A2's order `x_0, …, x_4, y_0, …, y_4`, restricted to the cells concerned:
   - a state is 10 characters;
@@ -478,8 +509,10 @@ are ordered by the serializer.
   `|Fix(φ^k)|`, the number of states of exact period `k`, and the number of cycles of length `k`. Zeros are included.
 - `m10_identity` is a boolean.
 
-**`checks.json`** (`controls.py` only).
+**The checks files** `checks.members.json`, `checks.rows.json` and `checks.json` (`controls.py` only).
 - `schema` is `"k1p1-checks"`, `version` is `1`, and `stage` is the stage.
+- `checks.members.json` also holds `members_sha256`, the SHA-256 of `members.json`'s bytes as 64 lowercase hexadecimal
+  characters. This is the pinned digest of §10.1.
 - `checks` lists `{"id":<check id>,"outcome":"pass"|"fail"|"refused"}` in the order run. The check ids are those of §9,
   §4 and §11, and also:
   - `AB-members` and `AB-gate-table`;
@@ -499,13 +532,13 @@ are ordered by the serializer.
 
 **`adversarial.json`** and the notes.
 - `adversarial.json` has `schema` `"k1p1-adversarial"`, `version` `1`, and `rows`. Each entry of `rows` is
-  `{"branch":b,"member":<key>,"token":<token string>,"note":"derivations/adversarial-<b>.md"}`, in `gate-table.json`'s
-  row order.
+  `{"branch":b,"member":<key>,"token":<token string>,"note":"derivations/adversarial-<b>.md"}`, in
+  `gate-table.rows.json`'s row order.
 - Each note file opens with its index: one line per row, giving its key, in M5's order.
 - `ADV-INDEX` passes exactly when, for each branch, the index and the entries of `adversarial.json` list the same keys as
-  the rows of that branch that pass G5 in `gate-table.json`.
+  the rows of that branch that pass G5 in `gate-table.rows.json`.
 
-**`gate-table.json`.**
+**The gate tables** `gate-table.members.json`, `gate-table.rows.json` and `gate-table.json` (final).
 - `schema` is `"k1p1-gate-table"`, `version` is `1`, and `stage` is `"members"`, `"rows"` or `"final"`.
 - `instance` is `{"N":5,"a":1,"d":1,"q":2}`.
 - `region` holds `E` and `W_eq` (lists of cell names), and `q_pow_minus_E` (a rational).
@@ -649,8 +682,8 @@ only; which rows take them is decided by the run.
 
 At a commit holding the outputs, `python3 -I <rec>/controls.py check`:
 - runs A and B;
-- compares their shared outputs byte for byte with each other's and with the committed files;
-- compares `cyc2.json` and `checks.json` with the committed files;
+- compares their shared outputs byte for byte with each other's and, stage by stage, with the committed files;
+- compares `cyc2.json` and the three checks files with the committed files;
 - runs every check of §9, §4 and §11;
 - exits 0 exactly when all of these hold.
 
@@ -721,7 +754,9 @@ Each mutation must make the named check fail; a mutation that passes fails the s
 | MU-C1 | implementation A with `T = 2` (frozen patch) | PR-E |
 | MU-C2 | implementation B with a wrong `φ^{−1}` (frozen patch) | CC-BIJ |
 | MU-C3 | implementation A with exact division replaced by floating division (frozen patch) | exactness guard |
-| MU-14 | rows stage run against a `members.json` that is absent, uncommitted or altered by one byte | refusal (exit 2) by A, B and `controls.py run --stage rows` |
+| MU-14a | rows stage with `members.json` absent | refusal (exit 2) by A, B and `controls.py run --stage rows` |
+| MU-14b | rows stage with `members.json` altered by one byte, pinned digest unchanged | refusal (exit 2) by A and B (digest and recomputation); by `controls.py run --stage rows` (modified at `HEAD`) |
+| MU-14c | rows stage with `members.json` unaltered but not committed, in a temporary git repository built by the self-test | refusal (exit 2) by `controls.py run --stage rows`; A and B are not tested here, since they do no git work |
 
 The code mutations MU-C1 to MU-C3 are applied by `controls.py` to temporary copies, from patches frozen in the
 code-freeze amendment; the implementations carry no test hooks.
@@ -729,7 +764,7 @@ code-freeze amendment; the implementations carry no test hooks.
 **Timing.** These mutations need instance outputs, so they run only after `F`, under authorization (e).
 - `self-test --stage members` covers MU-3, MU-4, MU-8, MU-13 (on `members.json`), MU-C1 and MU-C2. It is green at X2
   before the rows stage runs.
-- `self-test --stage rows` covers MU-1, MU-2, MU-5, MU-6, MU-7, MU-9, MU-10, MU-12, MU-13, MU-14 and MU-C3. It is
+- `self-test --stage rows` covers MU-1, MU-2, MU-5, MU-6, MU-7, MU-9, MU-10, MU-12, MU-13, MU-14a to MU-14c and MU-C3. It is
   green before X3's row tokens are committed.
 - `self-test --stage final` covers MU-11 and MU-13. It is green before X5.
 - The CI job at `E` runs all three.
@@ -742,7 +777,8 @@ code-freeze amendment; the implementations carry no test hooks.
 2. **No run on the instance before `F`.** Pre-`F` runs use the synthetic fixtures only; the drafting log (the commits
    `D..F` and the pull request's checkpoint comments) lists every run made.
 3. **Members before rows.** Stage M's outputs are committed at X2, and `controls.py check --stage members` passes,
-   before any row is evaluated (X3). The rows stage of A, B and `controls.py run` refuses until then (§10.1; MU-14).
+   before any row is evaluated (X3). A and B refuse an absent or altered `members.json`, checked against its pinned
+   digest, and `controls.py run` refuses an uncommitted one (§10.1; MU-14a to MU-14c).
    No workflow job runs A or B before X5 (§13).
 4. **No stopping rule.** Every member row of every branch is evaluated and reported, whatever earlier rows yield, even
    once a branch's class token is determined. No member is excluded by `NB` or any other outcome (`K` lines 73–74).
@@ -766,10 +802,10 @@ the candidate `E` and its designation; (g) reconciliation, receipt and merge.
 Execution commits, each a single-parent child of the previous, starting at `F`:
 - **X1** adds A, B (execution paths), `controls.py`, `derivations/P1-class-paper.md`, `derivations/S0-paper.md` and
   `class-decisions.json`. It adds no output file and no workflow edit. Checkpoint: each blob equals the frozen one.
-- **X2** runs `controls.py run --stage members` and adds `members.json`, `cyc2.json`, the members-stage
-  `gate-table.json` (region, preserved, completeness and S0 controls; no rows) and `checks.json`. Checkpoint:
+- **X2** runs `controls.py run --stage members` and adds `members.json`, `cyc2.json`, `gate-table.members.json`
+  (region, preserved, completeness and S0 controls; no rows) and `checks.members.json`. Checkpoint:
   `check --stage members` and `self-test --stage members` exit 0 at X2 before the rows stage is run.
-- **X3** runs `--stage rows` and adds the rows-stage `gate-table.json` and `checks.json`. Class tokens are written for
+- **X3** runs `--stage rows` and adds `gate-table.rows.json` and `checks.rows.json`. Class tokens are written for
   branches with no pending row, and `"pending"` otherwise.
 - **X4** adds `adversarial.json` and the adversarial notes, when any row passes G5. The adversarial hand-off follows X3.
 - **X5** runs `--stage final` and adds the final `gate-table.json`, `checks.json` and `result.md`. `result.md` holds
@@ -835,13 +871,13 @@ child of `F` changing only record paths carries `result.md`. Then reconciliation
 | Every member evaluated once per branch | CC-ROWS; MU-1, MU-2, MU-7 |
 | No class token from an incomplete list | CT-INC; MU-1, MU-4 |
 | Independent implementations | file headers and hand-off records; the reviewer checks no import or shared code between A, B and `controls.py` |
-| Elementwise agreement | `controls.py check` compares A's and B's `members.json` and `gate-table.json` byte for byte (`AB-members`, `AB-gate-table`); MU-6 |
-| Members before rows | X2 precedes X3. `checks.json` at X2 records `check --stage members` passing. The rows stage of A, B and `controls.py run` refuses without committed, unaltered members (MU-14). No `verify.yml` job runs A or B before X5, as the reviewer checks at each execution commit |
+| Elementwise agreement | `controls.py check` compares A's and B's `members.json` and each stage's gate table byte for byte (`AB-members`, `AB-gate-table`); MU-6 |
+| Members before rows | X2 precedes X3. `checks.members.json` at X2 records `check --stage members` passing and pins `members_sha256`. A and B refuse an absent or altered `members.json` against that digest, and `controls.py run` refuses an uncommitted one (MU-14a to MU-14c). No `verify.yml` job runs A or B before X5, as the reviewer checks at each execution commit |
 | Sole committer | every commit `F..E` ends with `Writer: writer-k1p1-exec`; the reviewer checks `result.md`'s commit list against `git log F..E` |
 | Standard library only | `IMPORTS` in `controls.py check`: an `ast` allowlist over A, B and `controls.py` (§8.1) |
 | No symmetry reduction | `controls.py check` verifies that each row's `support_size` equals its member's `size` and that its masses sum to 1 over all values of `W` (CC-MASS); the reviewer's static reading at the code freeze finds no state filter other than `supp(m)` and `B_w` |
 | Adversarial notes after both outputs | the hand-off record of `writer-k1p1-adv` is later than X3's commit, and X4 follows X3; `ADV-INDEX` |
-| Deterministic replay | the CI job at `E` regenerates every output and compares with the committed bytes; MU-13 |
+| Deterministic replay | the CI job at `E` regenerates every stage's outputs and compares each with that stage's committed bytes (§10.1), without git history; MU-13 |
 | Structured verdict | tokens read from `gate-table.json`; the job's conclusion is `controls.py check`'s exit status (§A.44) |
 | Controls green before tokens | S0 entries precede rows in `gate-table.json`; MU-12 |
 | Preserved results hold | PR-E to PR-P0 in `controls`; MU-8, MU-10 |
@@ -914,6 +950,8 @@ whose positive-row path is UNDECIDED(G6)."
 | PR #1126 comment 6660672560 (exact-head recheck of K1-RDY-1's `W′`) | SC-1 | provenance for a start condition; no claim of this round uses its content |
 | PR #1126 comment 6660792206 (K1-RDY-1's halted receipt verifies) | SC-2's status | provenance; SC-2 itself is met only on `main` |
 | PR #1135 comment 6660883383 (independent review of this draft at `82123bea`) | the revisions to §2, §3, §6, §8, §10, §11 and §12 to §16 | provenance |
+| PR #1135 comment 6662248863 (delta review at `d7660139`) | the revisions to §2, §6, §8, §10, §11.3, §12, §13 and §15 | provenance |
+| #1031 comment 6662166679 | the current authority for drafting | quoted in §0 with author and time |
 | #1031 comment 6660591343 | the rulings on OQ-1 to OQ-7 | quoted in §17 with author and time |
 | #1031 comments 6658964414 and 6659415927 | this round's authority | quoted in §0 with author and time |
 | #1031 comment 6658841280 (feasibility review), 6658598399 (gate-3 plan); PRs #1114, #1126 | the 471-row count and RD-4's suggestion | provenance |
