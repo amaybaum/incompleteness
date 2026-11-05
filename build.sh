@@ -9,7 +9,7 @@
 # cannot omit a flag that is written into it once.
 #
 # Usage:
-#   ./build.sh        build everything (12 papers + book)
+#   ./build.sh        build everything (13 papers + book)
 #   ./build.sh SM GR  build only the named papers
 #   ./build.sh --book build only the book
 #
