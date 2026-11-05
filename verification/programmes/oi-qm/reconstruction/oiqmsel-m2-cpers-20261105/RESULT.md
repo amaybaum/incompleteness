@@ -1,7 +1,7 @@
 # OI-QM-SEL M-2: separating power of C-pers on the M-1 instance (result)
 
 **Status: WIP / UNVERIFIED. Independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1149
-c.6668322323); fixes applied; delta check pending; merge not authorized.** Paper-only. Writer: `writer-m2`.
+c.6668322323); fixes applied; delta checks recorded on #1149; merge not authorized.** Paper-only. Writer: `writer-m2`.
 **Preregistration:** `PREREG.md` in this directory.
 - Frozen at `Φ` = `be5e6311403db36b08cde2e4b0989eb8d57b5fab`, after the r3 delta review ACCEPT (PR #1149 c.6666080040).
 - Instance bound by `B_I` = `7f9e6b6d00ff3be21ec9ed6b824ecde58f16f00f`, which changes §4 only.
@@ -442,7 +442,7 @@ so K13 is a necessary check only. It does not change the outcome.
 ## §9. Review and next steps
 
 - Independent review (PREREG §7.1 step 6): ACCEPT WITH CHANGES, no material findings (#1149 c.6668322323); its fixes
-  are applied, and a delta check is pending.
+  are applied, and delta checks are recorded on #1149.
 - Merge is not authorized.
 - If merge is authorized, the pull request lands by a true merge commit, with no squash and no rebase, so that `Φ`,
   `B_I` and `ee394ffc` stay reachable from `main` (§A.42 item 3; §8).
