@@ -114,7 +114,7 @@ incompleteness/
 
 ### Other materials in `papers/`
 
-- [`papers/Introduction.md`](papers/Introduction.md) — short introduction for newcomers: the finite-horizon correspondence among stochastic laws, reversible realizations and fixed-basis quantum records; why any memory in the records must sit in the hidden state; recurrence-cycle indivisibility; and finite toy models of black-hole information. Its Appendix A lists the Lean declarations it cites with their verification status; the axiom reports for its baseline declarations, and the recipe that reproduces them, are in [`papers/introduction_repro/`](papers/introduction_repro/).
+- [`papers/Introduction.md`](papers/Introduction.md) — short introduction for newcomers, written for readers without a background in quantum theory: the finite-horizon correspondence among stochastic laws, reversible realizations and fixed-basis quantum records; why any memory in the records must sit in the hidden state; recurrence and forecasts that cannot be chained; what the correspondence does not establish about quantum mechanics; and scoped applications to vacuum energy and black-hole information. Its proofs and their verification are in the formal papers it cites. [`papers/introduction_repro/`](papers/introduction_repro/) holds historical verification evidence: the Lean axiom reports, with the recipe that reproduces them, for the declarations listed in Appendix A of the Introduction as landed at `f5efa7a0`.
 - [`papers/Explainer.md`](papers/Explainer.md) — older overview, superseded by the book and retained for reference.
 - [`papers/oi_lattice_code/`](papers/oi_lattice_code/) — lattice Monte Carlo and related numerical source.
 
