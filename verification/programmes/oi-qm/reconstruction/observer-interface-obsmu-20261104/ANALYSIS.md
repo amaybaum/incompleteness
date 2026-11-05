@@ -767,11 +767,10 @@ proof.
 - **Unexplained.** Which microstate is realized, and the very early universe.
 - **No principle** in the sources read generates the content of (4a).
 - **#1112 is the accountable home for this question** (§A.45 rule 6). Its analysis
-  (c.6643691865) and the independent verification of it (c.6643840329, "SOUND WITH
-  CORRECTIONS") find that no argument in the corpus derives a time direction without an
+  (c.6643691865) and its model-authored verification (c.6643840329, "SOUND WITH CORRECTIONS") find that no argument in the corpus derives a time direction without an
   asymmetric input. The inputs they identify are a low-entropy or product start, the expanding
-  branch, and an orientation. Both records are model-authored and off `main`. This note cites
-  them as provenance and does not analyze the arrow further.
+  branch, and an orientation. Both records are model-authored and off `main`. This note reports
+  their finding and does not establish it (§7), and it does not analyze the arrow further.
 
 #### 4.6.2 (4b) Laboratory preparations
 
@@ -983,7 +982,7 @@ CR_rec. Their independent input is the time-asymmetric past boundary data of (4a
 examines, together with O-REC (tied on K1 to O-RDY) for the records and O-SET for creating the
 preparation.
 
-None of these conditions except (ε) is established here:
+None of (α)–(δ) is established here. (ε) is an owner classification decision:
 
 - (α) restricts which systems can be prepared at all: by Lemma Q-b1, only systems the dynamics
   has correlated with retained records. It is not established for any laboratory system.
@@ -1178,7 +1177,8 @@ Each reference was classified by reading the claim it is attached to.
 | #1110 c.6643202940, c.6643501421, c.6643749363 (model-authored reviews) | the status line; §4.6's origin | provenance. They do not verify any result here (§A.46 item 7) |
 | #866 c.6643823627 (owner decision: bounded extension) | §4.6 | governance record, quoted in §4.6 |
 | Branch commits `1a796918`, `9a34c823`, `cd15123b` (earlier heads of this record, off `main`) | the status line | provenance. This head is self-contained |
-| #1112 c.6643691865 (ARROW-1 analysis) and c.6643840329 (its model-authored verification) | §4.6.1 verdict; §4.6.4 item 1 | **Support off `main`, which is a gap** (§A.42 item 8). The list of time-asymmetric inputs in §4.6.4 item 1 and the §4.6.1 verdict relies on these records, and both are model-authored and off `main`. The gap is narrowed rather than closed: item 1 attributes the list to #1112's report, and this note does not assert it on its own authority. #1112 is the accountable home |
+| #1112 c.6643691865 (ARROW-1 analysis) and c.6643840329 (its model-authored verification) | §4.6.4 item 1; the #1112 bullet of §4.6.1. The rest of §4.6.1's sorting rests on passages on `main` that were read directly | **Support off `main`, which is a gap** (§A.42 item 8). The list of time-asymmetric inputs in §4.6.4 item 1 and the §4.6.1 verdict relies on these records, and both are model-authored and off `main`. The gap is narrowed rather than closed: item 1 attributes the list to #1112's report, and this note does not assert it on its own authority. #1112 is the accountable home |
+| #1112 c.6643840329, the stationarity argument | §4.6.2 Q-b2, "Not proved here"; README, arrow-of-time line | provenance. It is cited for context only, and no claim here relies on it |
 | #1110 c.6644159894 (model-authored review of `478451b5`) | the status line | provenance |
 | Branch commit `478451b5` | the status line | provenance |
 | #866 c.6600176951 (quoting ROADMAP at `9613b21c`) | §1, the wording of the obligation | provenance. The quoted text is on `main` in `verification/ROADMAP.md` |
