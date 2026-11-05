@@ -1,6 +1,6 @@
 {
   "schema": "bornsel-c1-instances/1",
-  "status": "draft r7; carries the owner's OQ-1 to OQ-15 rulings (#1059 c.6650820790, amaybaum, 2026-11-05); not yet a candidate freeze (PREREG-C1.md section 7: independent review of this revision precedes F); WIP / UNVERIFIED",
+  "status": "draft r8 (instances unchanged from r7); carries the owner's OQ-1 to OQ-15 rulings (#1059 c.6650820790, amaybaum, 2026-11-05); not yet a candidate freeze (PREREG-C1.md section 7: independent review of this revision precedes F); WIP / UNVERIFIED",
   "companions": {
     "prereg": "PREREG-C1.md",
     "expected": "C1-CONTROLS-EXPECTED.json",
@@ -119,7 +119,7 @@
     {"order": 21, "id": "WF-0", "kind": "unit", "applies_to": ["W-q2-L3-r1", "W-q2-L4-r1", "W-q3-L3-r1", "W-q2-L5-r1", "W-q2-L6-r1", "W-q2-L6-r2", "W-q3-L4-r1", "W-q2-L7-r1", "W-q2-L7-r2", "W-q3-L5-r1", "W-q2-L8-r1", "W-q2-L8-r2"],
      "check": "phi(0) = 0 under both implementations; sanity check only, not a faithfulness checkpoint", "source": "waveSubstratum_phi_fixes_zero, StochasticInterface.lean:101"},
     {"order": 22, "id": "CC-ORDER", "kind": "toy", "n": 3, "m": 3, "phi": [1, 3, 0, 2, 5, 6, 4, 7, 8], "symmetry_generators": [],
-     "source": "the n = 3 first_mismatch diagnostic toy (PREREG-C1.md section 8.2 item 10 at r6, 'an n = 3 toy that discriminates the order of first_mismatch'; owner ruling OQ-10 = C); map constructed and values derived by hand [D] in this revision; to be independently reviewed before F",
+     "source": "the n = 3 first_mismatch diagnostic toy (PREREG-C1.md section 8.2 item 10 at r6, 'an n = 3 toy that discriminates the order of first_mismatch'; owner ruling OQ-10 = C); map constructed and values derived by hand [D] in r7; every value recomputed exactly by the independent review of r7 (#1082 c.6651181144); gating like every control (PREREG-C1.md section 3.1)",
      "states": "(0,0)=0 (1,0)=1 (2,0)=2 (0,1)=3 (1,1)=4 (2,1)=5 (0,2)=6 (1,2)=7 (2,2)=8"},
     {"order": 23, "id": "M-FRAG", "kind": "unit", "on_phi_of": "TT-4", "n": 2,
      "cases": [[[0, 1, 3, 2]], [[0, 1], [3, 2]]],

@@ -1,16 +1,20 @@
 # BORN-SEL C-1 preregistration: single-orbit frequencies against the Born-form weights on small wave substrata (#1059, part (b))
 
-**Status.** WIP / UNVERIFIED preregistration, draft r7.
+**Status.** WIP / UNVERIFIED preregistration, draft r8.
 - r6 (`cde5ecbc`) was accepted as a draft after the independent review of `3be25e7f` and the delta reviews of
   `c610b2b8`, `1962c378`, `2f59aad7` and `df723247` (#1082 c.6625738542).
-- r7 writes in the owner's rulings on OQ-1 to OQ-15 (#1059 c.6650820790; quoted in §8.2) and the expected-value and
-  schema amendments they require. It has not been reviewed.
+- r7 (`5ea9e4ca`) wrote in the owner's rulings on OQ-1 to OQ-15 (#1059 c.6650820790; quoted in §8.2) and the
+  expected-value and schema amendments they require. Its independent review (#1082 c.6651181144, model-authored) is
+  ACCEPT WITH CHANGES (minor). It recomputed exactly every expected value r7 added, CC-ORDER's included, and every
+  expected field of the eleven r6 toys, and found them correct.
+- r8 applies that review's changes C1–C10. None changes a verdict rule or an expected value. r8 has not been
+  reviewed.
 - Paper only. Nothing has been run or written as code, and no native instance has been enumerated.
 
-**Not a candidate freeze yet.** The freeze sequence is in §7. Step 1 (owner answers) is done, and this revision is
-step 2. The revised commit is next independently reviewed (step 3); the review covers the added diagnostic toy
-CC-ORDER and every other new expected value. Only then may the owner designate `F`. **Not authorized to run.** A run
-needs, after `F`, the owner's go, the tool, its review, and a separate dispatch approval (§7).
+**Not a candidate freeze yet.** The freeze sequence is in §7. Step 1 (owner answers) is done. Step 2 was r7, and
+step 3 on r7 required changes, so this revision repeats step 2. The r8 commit is next independently reviewed
+(step 3). Only then may the owner designate `F`. **Not authorized to run.** A run needs, after `F`, the owner's go,
+the tool, its review, and a separate dispatch approval (§7).
 
 - **Frozen inputs at `F`.** All four are in `verification/programmes/oi-qm/reconstruction/born-sel-b-measure-20261104/`,
   beside the assessment (§A.36):
@@ -130,8 +134,8 @@ windows (agreement there is untested), and does not extend beyond the frozen ins
     with `φ(s_k) = s_{k+1}` and `φ(s_last) = s_0`, and the recorded orbits must partition `S`. Together these make the
     recorded orbits exactly the cycle decomposition [D]. A failure exits 4. Mutation M-FRAG (§3.3) exercises the check
     as a compared field.
-  - The orbits do not depend on the readout. `|O|` is the cycle length, and `ord(φ)` is the least common multiple of the cycle
-  lengths.
+  - The orbits do not depend on the readout. `|O|` is the cycle length, and `ord(φ)` is the least common multiple of
+    the cycle lengths.
 - **Permutation-matrix test [D].** A matrix `M`, with rows indexed by `W` and columns by `𝒞_V`, is a **permutation
   matrix on `W`** iff all three of the following hold:
   - every entry `M(a, j)` with `a, j ∈ W` is `0` or `1`;
@@ -439,7 +443,9 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     `n_a`-weighted aggregate must also equal `T^β`. That aggregate includes the kernel-forced fixed point at state 0
     (`waveSubstratum_phi_fixes_zero`), whose row is `δ₀`.
   - A long orbit whose `T^{α,O}` is a permutation matrix differs from every non-deterministic credence row.
-  - The OQ-13 answer `13b` makes both choices: the candidates are `Long′`, and the prior ranges over all orbits. All
+  - The OQ-13 answer `13b` makes both choices for the comparison: the candidates are `Long′`, and the credence
+    compared is `T^β`, whose prior ranges over all orbits. This fixes the credence C-1 compares, the representation's
+    declared law with the declared uniform hidden input (Main:282). It does not select a physical prior (§1). All
     four combinations stay frozen as variants (§4.1), so that none can be chosen after the result; R0, S2 and S3 are
     diagnostics.
 - **No other threshold yields a verdict.** Every orbit's `eq(O)` and `|O|` are recorded, so the record would support
@@ -458,7 +464,9 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     conditioned on `A_r`. That is `unif({a} × 𝒞_H)` (BSB:209–216), whose one-step numbers are row `a` of `T^β`.
   - QB-2 does not fix which orbits the invariant prior ranges over. Every invariant law is a law on orbits (BSB:183–187),
     so restricting the support to a union of orbits keeps it invariant.
-  - The support is fixed by OQ-13 = `13b`: all orbits, the global prior. C-1 is silent on the prior's physical source.
+  - OQ-13 = `13b` fixes the credence compared in C-1 as `T^β`: the declared law, with the declared uniform hidden input,
+    whose prior ranges over all orbits. It fixes what C-1 compares and does not select the physical prior. C-1 is
+    silent on the prior's physical source.
 - **OQ-11 = A [O].** The variant's credence is the QB-2 credence, and `T^{α,O}` is the QB-1 target at the cycle horizon
   only. The frequency/credence distinction and the cycle-horizon limitation are kept wherever a verdict is reported.
 - **Main:62 and Main:282, as the owner reads them for this workstream [O] (#1059 c.6650820790).**
@@ -614,7 +622,7 @@ In the table, `FREQ_V` abbreviates FREQ_VACUOUS. `sr` gives `shared_rows` for R0
 | CC-PERM | 2, 6 | `[1, 2, 3, 0, 5, 7, 4, 6, 8, 9, 10, 11]` | NOT / FREQ / NOT / FREQ_V | 2/2/2/0 | a long orbit with a permutation `T^{α,O}` |
 | CC-S3NOT | 2, 4 | `[2, 3, 1, 0, 6, 4, 5, 7]` | NOT ×4 | 2/2/2/2 | two C4-bearing long orbits that disagree: S3 reaches NOT |
 | CC-AGREE2 | 2, 6 | `[2, 3, 1, 0, 6, 7, 8, 9, 5, 10, 11, 4]` | FREQ ×4 | 2/2/2/2 | two long orbits with different primitive words (`0011`, `00011101`) that agree: non-vacuous FREQ under every variant |
-| CC-ORDER | 3, 3 | `[1, 3, 0, 2, 5, 6, 4, 7, 8]` | NOT / NOT / FREQ_V / FREQ_V | 3/3/0/0 | diagnostic (OQ-10): the `a`-major order of `first_mismatch` differs from the `j`-major order |
+| CC-ORDER | 3, 3 | `[1, 3, 0, 2, 5, 6, 4, 7, 8]` | NOT / NOT / FREQ_V / FREQ_V | 3/3/0/0 | diagnostic of the `first_mismatch` order (OQ-10), gating: the `a`-major order of `first_mismatch` differs from the `j`-major order |
 
 Each outcome reached per variant:
 
@@ -627,6 +635,12 @@ Each outcome reached per variant:
 
 CC-TWIN and CC-AGREE2 give the same verdict under all four variants, so neither enters the separation table. CC-ORDER
 has CC-SKEW's verdict pattern; it is a diagnostic of the `first_mismatch` order and adds no separation.
+
+**CC-ORDER gates like every control [D].** It is one of the 25 controls, and a mismatch in any of its compared fields
+exits 1 and halts the run (§3). "Diagnostic" names the field it targets, the order of `first_mismatch`. It does not
+make CC-ORDER a non-gating record like RX-ORD (§3.4). The owner's ruling calls it a "diagnostic toy" (OQ-10) and uses
+"diagnostic record" for RX-ORD (OQ-7); the gating reading, which matches the ruling's total of 25, is put to the owner
+for confirmation at `F`.
 
 Every pair of variants is separated by at least one control:
 
@@ -799,7 +813,7 @@ Every pair of variants is separated by at least one control:
     different primitive words that agree.
   - P-divisibility: both orbits and β are indivisible (witnesses `[1, 4]` and `[1, 8]`; β horizon 8).
 - **CC-ORDER** (the `n = 3` first-mismatch diagnostic toy of OQ-10; map constructed and values derived here by hand
-  [D]; to be independently reviewed before `F`).
+  [D] in r7; every value recomputed exactly by the independent review of r7, #1082 c.6651181144).
   - **Its purpose.** PREREG r6 §8.2 item 10 recorded the C-1 reviewers' unadded suggestion: "an `n = 3` toy that
     discriminates the order of `first_mismatch`". The frozen order is `a`-major (§2.3). With `n = 2`, every row that
     mismatches does so at both `j = 0` and `j = 1`, since rows sum to 1, so the `a`-major and `j`-major least mismatches
@@ -901,8 +915,9 @@ The controls:
     partition `S`. Closure fails and the partition holds. This is the fragmented decomposition that the mixture
     identity and `Σ|O| = |S|` cannot detect.
   - Expected: `closure_ok = [true, false]`, `partition_ok = [true, true]` and `evaluated_beyond_closure = false` (no orbit
-    analysis runs on a decomposition that fails closure). The detection is a compared field, as for M-INJ. A different
-    outcome exits 1.
+    analysis runs on a decomposition that fails closure). `evaluated_beyond_closure` is one boolean over both cases: it
+    is `true` iff any orbit analysis ran on a case whose closure check failed. A case that passes closure does not set
+    it. The detection is a compared field, as for M-INJ. A different outcome exits 1.
 - **EX-ARITH (exact comparison).** The comparator of §2.3 is applied to these frozen pairs:
   - `("1/3", "6004799503160661/18014398509481984")` → unequal. The second value is the IEEE-754 double nearest `1/3`,
     `(2⁵⁴ − 1)/(3·2⁵⁴)`, so a floating-point comparison would report equality;
@@ -1057,8 +1072,8 @@ The P-divisibility counts are descriptive and carry no verdict.
 ### 4.2 Overall verdicts, and the OQ-13 selection rule
 
 **Aggregation (OQ-8 = A).** The same map is applied separately to each variant and each readout. For a variant and a
-readout, let `Ev` be the set of native instances whose verdict under that variant and readout is FREQ or NOT. FREQ_VACUOUS and VOID_NO_ORBIT instances are excluded from
-`Ev` and listed separately. The variant's overall verdict is:
+readout, let `Ev` be the set of native instances whose verdict under that variant and readout is FREQ or NOT.
+FREQ_VACUOUS and VOID_NO_ORBIT instances are excluded from `Ev` and listed separately. The variant's overall verdict is:
 - `FREQ_ALL` if `Ev ≠ ∅` and every instance in `Ev` is FREQ;
 - `NOT_ALL` if `Ev ≠ ∅` and every instance in `Ev` is NOT;
 - `MIXED` if `Ev` contains both;
@@ -1134,7 +1149,7 @@ frequencies, without changing the prior to make the comparison easier" (#1059 c.
   - A failure in step (b) or (c) is read from that step's exit status and conclusion. `summary.json` is written by step
     (a) and does not record it.
 - Under §A.29, a halted run establishes nothing about the wave substratum. There is no partial verdict, no rerun within
-  a freeze, and no amendment after `F`.
+  a freeze other than the OQ-14 dispatch below, and no amendment after `F`.
 - **A runner failure before step (a) starts (OQ-14 = B).** One additional dispatch on `F` is admissible only if both
   hold:
   - **a qualifying pre-step failure.** The host's API job record of the failed dispatch shows the step entry for step
@@ -1142,6 +1157,11 @@ frequencies, without changing the prior to make the comparison easier" (#1059 c.
     logs. **These field semantics are to be verified against a real job record before `F`**, and the predicate frozen
     at `F` names the fields as the host actually returns them;
   - **new explicit owner approval** of that dispatch, recorded with the failed run's id.
+
+  The API predicate is necessary, not sufficient. It does not separate a host infrastructure failure from a failure of
+  the workflow's own pre-step code, such as a setup error; whether the failure is an infrastructure failure is judged
+  by the owner in that approval. If the verification of the field semantics before `F` identifies fields that make the
+  separation, the predicate frozen at `F` uses them [D].
 
   No other rerun is admissible. The run-validity invariant is "the check step ran in exactly one attempt": across the
   API job records of every dispatch on `F`, exactly one must show step (a) started (§6).
@@ -1175,7 +1195,7 @@ one workflow artifact named `bornsel-c1`.
 | File | Schema (`$defs`) | Contents |
 |---|---|---|
 | `c1/<id>.json`, toy control | `toy_record` | the analysis fields below, plus `pdiv_beta_definitional`, `pdiv_certs_file`, `pdiv_certs_sha256`, `pdiv_certs_verified`, `sketch_check` (CE-8 only; `null` elsewhere), `expected`, `comparisons` and `match` |
-| `c1/<id>.json`, native instance | `native_record` | `params` (instance parameters), `injective`, `closure_ok`, `phi_impls_agree`, `phi_zero_fixed`, `ord_phi_eq_qL` (`null` outside RX-ORD), `diameter_ge_4` (a secondary diagnostic), and `readouts`: `{pc, cur}`, each a `readout_analysis` object carrying the analysis fields below for that readout |
+| `c1/<id>.json`, native instance | `native_record` | `params` (instance parameters), `injective`, `closure_ok`, `phi_impls_agree`, `phi_zero_fixed`, `ord_phi_eq_qL` (`null` outside RX-ORD), `diameter_ge_4` (a secondary diagnostic), and `readouts`: `{pc, cur}`, each a `readout_analysis` object carrying the analysis fields below for that readout; the schema binds each object's `params.readout` to its key and its `orbits_file` to that readout's `.pc` or `.cur` suffix |
 | `c1/<id>.json`, unit control or mutation | `unit_record` | `params` (M-INJ, WF); `phi_impls_agree` (M-INJ, WF); `injective` and `evaluated_beyond_injectivity` (M-INJ); `closure_ok`, `partition_ok` and `evaluated_beyond_closure` (M-FRAG); `results` and `reduced` (EX-ARITH); `schema_results` (EX-SCHEMA); `cert_results` and `cert_failed_clauses` (EX-CERT); `sym_results` and `sym_failed_clauses` (EX-SYM); `word_results` (EX-WORD, items `{primitive_word, word_power}`); `hand_steps` (WF-q2-L5, WF-q3-L4, WF-q2-L6-r2 and WF-CUR, items `{step, prev, cur, state, visible}`, the visible value under the control's readout); `sigma_check` (WF-SIGMA: `{x, sigma_x, phi_x, sigma_phi_x, phi_sigma_x, visible_x, visible_sigma_x, visible_phi_x, visible_sigma_phi_x}`); `phi_of_zero` (WF-0); `expected`, `comparisons`, `match` |
 | `c1/<id>.orbits.jsonl` (toys) and `c1/<id>.<readout>.orbits.jsonl` (natives, one per readout) | `orbit_record`, one per line | `rep`, `class_rep`, `primitive_word`, `word_power`, `length`, `cycle`, `visited_rows`, `unvisited_rows`, `n_a`, `T_alpha`, `long`, `eq`, `first_mismatch`, `pdiv_alpha`, `pdiv_witness`, `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4`, `first_mismatch_beta_c4`, `pdiv_alpha_definitional` (`null` on natives) |
 | `c1/<id>.pdiv-certs.json`, toys | `pdiv_certs` | `schema`, `id`, `entries`: `{family, rep, rows, pair, kind, lambda, farkas_y}` |
@@ -1226,7 +1246,12 @@ whitespace, lines are in increasing `rep`, and each line ends with `\n`. `orbits
 **Verdict text.** It is rendered from the summary fields only. On a COMPLETE run it has two paragraphs, `pc` then
 `cur`, each rendered from that readout's fields with the templates below and introduced by "Readout <r>:". There is
 no combined sentence across readouts.
+- **Layout [D].** Each paragraph is the string `Readout <r>: ` (one space after the colon) followed by the rendered
+  template, with no line break inside it. The two paragraphs are joined by exactly two line feeds (`\n\n`).
+  `verdict_text` has no leading or trailing whitespace and no final line feed. On a halted run it is the one rendered
+  halt sentence, with no prefix.
 - **Placeholders.**
+  - `<k>` is `controls_frozen` (25).
   - `<ids>` is a comma-separated list in run order, or `none`.
   - `<r>` is the paragraph's readout (`pc` or `cur`); `<V>` is `selected_variant`, and `<A>` is `oq13_answer`. The
     `<ids>` lists, `<P>`, `<N>` and `<X>` refer to that readout's verdicts.
@@ -1293,7 +1318,7 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 | `F` is the reviewed constant, present in the checkout | `F` is fixed in the reviewed workflow; its absence exits 3; `run.F` appears in every output |
 | no frozen item awaits an answer at `F` | `oq13_answer` must be one of `13a`–`13d` (exit 2), and is frozen as `13b`; the review of the revised text (§7 step 3) checks that §8.2 records every answer and carries no open item |
 | the C-1 verdict is the variant the OQ-13 answer selects, per readout | step (b) recomputes `c1_verdict_pc` and `c1_verdict_cur` from `oq13_answer` and the §4.2 table (exit 6); `selected_variant` is recorded |
-| both readouts are evaluated on the same orbits, under shared controls and one halt; no combined verdict | every native record carries `readouts.pc` and `readouts.cur` (schema, exit 2); the controls run once before any native instance (§3); `summary.json` has per-readout fields only (schema) |
+| both readouts are evaluated on the same orbits, under shared controls and one halt; no combined verdict | every native record carries `readouts.pc` and `readouts.cur`, each with its own `params.readout` and orbits-file suffix (schema, exit 2); the controls run once before any native instance (§3); `summary.json` has per-readout fields only (schema) |
 | the `cur` projection is the §2.1 formula | WF-CUR (compared); the two readouts' frozen `n`, `m` and `ℓ_min` are checked against §2.2's formulas (exit 2) |
 | the `r = 2` `pc` projection is the §2.1 formula | WF-q2-L6-r2 (compared) |
 | the recorded orbits are exactly the cycles of `φ` | the closure and partition checks on every toy and native instance (exit 4); M-FRAG detects a fragmented decomposition that still partitions `S` (`closure_ok`, `partition_ok`, `evaluated_beyond_closure` compared) |
@@ -1321,7 +1346,7 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 | per-orbit records are those the summary describes | `orbits_sha256` is recomputed in step (b) (exit 6) |
 | no native verdict over a failed control | controls run first; the run halts on the first mismatch; `natives_evaluated` is empty whenever `first_failure` is a control |
 | frozen order; no adaptive extension | `order` is compared with `C1-INSTANCES.json`; `natives_evaluated` is a prefix of the frozen order |
-| the check step ran in exactly one attempt (OQ-14 = B) | the result reviewer reads the API job records of every dispatch on `F`: exactly one shows step (a) started; any second dispatch has a recorded owner approval citing a failed run whose record satisfies the §4.3 pre-step predicate. The predicate's field semantics are verified against a real job record before `F` |
+| the check step ran in exactly one attempt (OQ-14 = B) | the result reviewer reads the API job records of every dispatch on `F`: exactly one shows step (a) started; any second dispatch has a recorded owner approval citing a failed run whose record satisfies the §4.3 pre-step predicate, with the owner's approval judging that the failure is an infrastructure failure. The predicate's field semantics are verified against a real job record before `F` |
 | PASS combines five signals | the job emits the exit statuses of steps (a), (b) and (c), and `summary.json`; the result reviewer reads the job conclusion from the host's API (§4.3) |
 | verdict text is generated only from structured output | step (c) regenerates `verdict_text` from `summary.json` and compares it byte for byte (exit 8) |
 
@@ -1337,7 +1362,8 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
   2. **Revision.** The text and the data files are revised to carry the answers. Each answer is written in place as the
      frozen choice: `oq13_answer` is set in `C1-INSTANCES.json`, and any instance, control or exit code an answer adds
      or removes is written in. §8.2 is replaced by a record of the answers, quoted with author and time (§A.42 item 7).
-     This is done in r7, and no item remains open.
+     This is done in r7, and no item remains open. The review of r7 (#1082 c.6651181144) required changes C1–C10;
+     r8 applies them, and step 3 repeats on r8.
   3. **Review.** An independent reviewer reviews the exact revised commit carrying the four frozen files. The review
      covers their agreement with each other, with the answers and with BSB:402–416, and the hand derivations of §3. If
      the review requires changes, steps 2 and 3 repeat.
@@ -1355,8 +1381,8 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 - **Governance form (OQ-12 = A): the research-run lifecycle.**
   - This run is not a §A.39 native V3 round. It carries no `v3-round` or `v3-governed-paths` block and has no receipt,
     and it is not protocol-valid under §A.39.
-  - It cannot independently support a correctness-band or status promotion, and it changes no status, label or
-    classification by itself (owner ruling).
+  - It "cannot independently support a correctness-band or status promotion" (owner ruling, OQ-12). It changes no
+    status, label or classification by itself.
   - Any later V3 use needs separate authorization.
 - **Budget (an estimate, not measured).** The largest instances have `2¹⁶` states. The work per instance is:
   - two computations of `φ`, each `O(L·|S|)`;
@@ -1373,7 +1399,8 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
     `main` (§A.42 item 1).
   - Before the result is an enduring claim, `F` and the run commit must be reachable from `main` (§A.42 items 1, 2 and
     8). A verdict that depends on those commits uses them, and copying their files to `main` does not make them
-    reachable. The result note lands with the branch that contains them.
+    reachable. The result note lands with the branch that contains them. That landing is a merge, which needs
+    separate owner authorization; no ruling authorizes it.
   - The per-orbit and certificate files can be regenerated by the command and need not land on `main`.
   - A run on a disposable branch is provenance only until its record lands on `main`.
 - **Exclusions.** No C-2, no C-3, no Lean, no manuscript edit, no status change, no merge or publication.
@@ -1530,7 +1557,7 @@ These are the points of BSB:404–416 that needed a choice, with the choice this
   the implementation reproduces them, and that the native `φ` matches the hand-derived steps. It does not show that the
   rule behaves as intended on inputs unlike the controls. The gating closure check (§2.0) catches an
   orbit-fragmenting bug that still partitions `S` on every native instance; RX-ORD is a diagnostic record only
-  (OQ-7). The added controls CC-ORDER, M-FRAG, WF-q2-L6-r2 and WF-CUR are hand-derived in r7 and need independent
-  review before `F` (OQ-10).
+  (OQ-7). The added controls CC-ORDER, M-FRAG, WF-q2-L6-r2 and WF-CUR are hand-derived in r7, and the independent
+  review of r7 recomputed their values exactly (#1082 c.6651181144; OQ-10).
 - **Consistency axis.** Whatever the verdict, it moves no correctness band (§A.23). A halted run establishes nothing
   about the wave substratum.

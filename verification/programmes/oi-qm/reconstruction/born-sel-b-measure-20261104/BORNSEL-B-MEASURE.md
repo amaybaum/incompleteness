@@ -1,9 +1,9 @@
-# BORNSEL-B-MEASURE (r3): which branch of the hidden-sector measure fixes the probabilities the representation carries? (#1059, part (b))
+# BORNSEL-B-MEASURE (r4): which branch of the hidden-sector measure fixes the probabilities the representation carries? (#1059, part (b))
 
 ## Header
 
 - **Status.** WIP / UNVERIFIED. Paper-only. Part (b) only.
-- **Revision.** Revised after independent reviews of `f6526fb8` (REVISE) and `f88e8710` (ACCEPT WITH CHANGES); not re-reviewed.
+- **Revision.** r3 was revised after independent reviews of `f6526fb8` (REVISE) and `f88e8710` (ACCEPT WITH CHANGES), and accepted at `7b46d36c` (#1082 c.6622587957). r4 applies the corrections of the independent QB-4 review of Lemmas B4, N2.1, G, G2, E and U (#1082 c.6651169194, model-authored: all six proved; B4 with a hypothesis correction, G2, N2.1 and U with precision edits). The r4 wording of those four lemmas is not re-reviewed.
 - **Authorization.** Owner, chat 2026-11-04, recorded in #1059 c.6622106065. That authorization covers paper analysis of part (b) starting from the BORN-SRC-1 five-branch fork, plus source reading, derivation on paper, a literature examination, documented assumptions and independent review. It does not cover parts (a), (c) or (d), computation, Lean, adopting a premise, promoting a claim, merging or publishing.
 - **Base.** `origin/main` `1609dc440f5a12d05b750f6d894bb91d09a099a3`. `papers/Main.md` was last changed at `63b4e32e`. The `Main:N` citations are lines at this base. They match the lines that BORN-SRC-1 cites at `02009693` for the passages used here.
 - **Sources read.**
@@ -144,19 +144,27 @@ So the representation's form and its exponent-insensitivity are branch-free.
 
 This sharpens the audit's "the fork decides which numbers": the fork for (P2) and (P3) is a fork over κ alone. The visible prior belongs to preparations (§4, interface (c)). ELABORATING.
 
-**Lemma B4 (Main:137 as an implication, and its μ-dependent hypothesis)** [D]. Main:137 (gap + finite recurrence ⇒ rooted indivisibility) is stated for "a hidden prior shared by every root", roots of visible probability zero included. As an **implication**, its proof goes through for a root-dependent $\kappa_a$, with $\kappa_a$ chosen arbitrarily on roots of visible probability zero:
-- $\varphi^L=\mathrm{id}$ gives $\Gamma^\kappa_L=I$ for every $\kappa$.
-- If every $\Gamma^\kappa_s$ with $1\le s\le k$ were a permutation matrix, the visible trajectory from each root would be deterministic. Then two distinct positive-probability trajectories with the same endpoint at $k$ would need distinct roots with $\sigma_k(a)=\sigma_k(a')$, which contradicts $\sigma_k$ being a permutation.
-- The no-stochastic-divisor step does not involve κ.
+**Lemma B4 (Main:137 as an implication, and its μ-dependent hypothesis)** [D; corrected after review #1082 c.6651169194, the r4 wording not re-reviewed]. Main:137 (gap + finite recurrence ⇒ rooted indivisibility) is stated for "a hidden prior shared by every root", roots of visible probability zero included. As an **implication**, its proof goes through for a root-dependent hidden law.
 
-The theorem holds under every branch. Whether its **hypothesis** holds, and so whether its **conclusion** holds, depends on μ. CE-8 shows this:
+*Hypotheses.* For **every** $a\in\mathcal C_V$, $\kappa_a$ is a probability law on $\mathcal C_H$; at roots of visible probability zero it is fixed arbitrarily, but it is a probability law there too. Put $\Gamma^\kappa_t(a,j)=\kappa_a\{h:\pi_V\varphi^t(a,h)=j\}$, so every row of every $\Gamma^\kappa_t$ sums to 1. Positivity of a visible history is relative to the joint law $\nu\otimes\kappa$ (root from $\nu$, hidden state from $\kappa_a$).
+
+*Statement.* If two distinct positive-probability visible histories $(x_0,\ldots,x_k)\neq(x'_0,\ldots,x'_k)$ have $x_k=x'_k$, then some $\Gamma^\kappa_s$ with $1\le s\le\min(k,L-1)$ is not a permutation matrix. For every $n>s$ with $\Gamma^\kappa_n=I$ ($n=L$ among them), no row-stochastic $\Lambda$ satisfies $\Gamma^\kappa_n=\Gamma^\kappa_s\Lambda$, so the rooted family is not P-divisible on $\{0,\ldots,n\}$.
+
+*Proof.*
+- (i) $\varphi^L=\mathrm{id}$ gives $\Gamma^\kappa_L=I$ for every $\kappa$, and $\varphi^{t+L}=\varphi^t$ gives $\Gamma^\kappa_{t+L}=\Gamma^\kappa_t$.
+- (ii) Suppose every $\Gamma^\kappa_s$ with $1\le s\le\min(k,L-1)$ is a permutation matrix, with permutation $\sigma_s$. By (i), every $\Gamma^\kappa_t$ with $t\le k$ is then a permutation matrix ($I$ when $L\mid t$, otherwise $\Gamma^\kappa_{t\bmod L}$ with $1\le t\bmod L\le\min(k,L-1)$). So for every root $a$ and $\kappa_a$-almost every $h$, $\pi_V\varphi^t(a,h)=\sigma_t(a)$, and every positive-probability history is $(\sigma_t(x_0))_{t\le k}$. Two distinct such histories therefore have distinct roots $x_0\neq x'_0$, and $\sigma_k(x_0)=x_k=x'_k=\sigma_k(x'_0)$ contradicts $\sigma_k$ being a bijection.
+- (iii) If $\Gamma^\kappa_n=I=\Gamma^\kappa_s\Lambda$ with $\Lambda$ row-stochastic, then $\Gamma^\kappa_s$, which is row-stochastic because every $\kappa_a$ is a probability law, has a stochastic right inverse, so it is a permutation matrix (`isPermMatrix_of_stochastic_inverse`, via Main:133). This contradicts the choice of $s$.
+
+The implication does not depend on the choice of $\kappa_a$ at roots of visible probability zero. What the conclusion says about those roots' rows does depend on it.
+
+The theorem holds under every branch. Whether its **hypothesis** holds, and so whether its **conclusion** holds, depends on μ. CE-8 shows this. Its three laws are **product** laws: $\mathrm{unif}(O_A)=\mathrm{unif}\{0,1\}\otimes\mathrm{unif}\{0,1\}$, $\mathrm{unif}(O_B)=\mathrm{unif}\{0,1\}\otimes\mathrm{unif}\{2,3\}$, and counting $=\mathrm{unif}\{0,1\}\otimes\mathrm{unif}(\mathcal C_H)$. So the μ-dependence of hypothesis and conclusion already lies inside Main:137's shared-prior scope; the root-dependent extension above is needed only for hidden laws that depend on the root.
 - Under α on $O_A$, $\kappa_0$ and $\kappa_1$ are both uniform on $\{0,1\}$. Then $\Gamma_1$ is the swap and $\Gamma_2=I$, and every $\Gamma_t$ is a permutation. The rooted family is P-divisible ($\Gamma_2=\Gamma_1\cdot$swap), and there is no gap.
 - Under β, or under α on $O_B$, $\Gamma_1$ is not a permutation and $\Gamma_4=I$. So no stochastic $\Lambda$ satisfies $\Gamma_4=\Gamma_1\Lambda$, and the family is not P-divisible on $\{0,\ldots,4\}$.
 
 **Verdict.**
 - ELABORATING: the implication is branch-free.
 - The consuming conclusion (indivisibility of the rooted family) is **not** branch-invariant on this class.
-- This needs independent review.
+- The independent review #1082 c.6651169194 found the lemma proved, with the hypothesis correction applied above. The r4 wording is not re-reviewed.
 
 ### N2. Q-sel: does any current premise select?
 
@@ -180,10 +188,12 @@ The premises were searched across `papers/`, `book/` and the kernel (§A.19):
 
 **Verdict.** No branch is selected by a current premise beyond the stipulation of posit (iv). This confirms BORN-SRC-1 §4(b) at the base. CONFIRMING.
 
-**Lemma N2.1 (the invariant fork is a law on orbits)** [D].
-- Every invariant law has the form $\mu_w=\sum_{O\in\mathcal O}w_O\,\mathrm{unif}(O)$ with $w\in\Delta(\mathcal O)$. This follows from `invariant_pow` and the fact that the orbits partition $S$.
-- Its entropy is $H(\mu_w)=H(w)+\sum_Ow_O\log|O|$.
-- So on any invariant set $U$, the maximal-entropy invariant law is the one with $w_O\propto|O|$ for $O\subseteq U$, which is $\mathrm{unif}(U)$. This is the Gibbs variational identity [L: Jaynes 1957; Gibbs inequality], and it agrees with `counting_maximal_entropy` [K] for $U=S$.
+**Lemma N2.1 (the invariant fork is a law on orbits)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
+- A law μ is invariant **iff** $\mu=\mu_w:=\sum_{O\in\mathcal O}w_O\,\mathrm{unif}(O)$ for some $w\in\Delta(\mathcal O)$, and then $w_O=\mu(O)$. The two directions are separate:
+  - ⇒: by `invariant_pow`, μ is constant on each orbit, and the orbits partition $S$;
+  - ⇐: each $\mathrm{unif}(O)$ is invariant, and so is every mixture of them.
+- Its entropy is $H(\mu_w)=H(w)+\sum_Ow_O\log|O|$, with $0\log0=0$.
+- So on any nonempty invariant set $U$, the maximal-entropy invariant law supported in $U$ is unique: it is the one with $w_O=|O|/|U|$ for $O\subseteq U$, which is $\mathrm{unif}(U)$. Proof: $H(\mu_w)=-\sum_Ow_O\log(w_O/|O|)\le\log|U|$ by Gibbs' inequality, with equality iff $w_O=|O|/|U|$. Equivalently, $\mathrm{unif}(U)$ is invariant and is the unique maximizer over all laws supported in $U$ (Lemma G). It agrees with `counting_maximal_entropy` [K] for $U=S$.
 - So among invariant laws, $\alpha=\delta_{O^*}$-weights and $\beta=$ weights $\propto|O|$.
 
 ### N3 (decisive). γ: what "maximal entropy compatible with the observer's records" can mean
@@ -194,12 +204,13 @@ This node is decisive because posit (iv) is the only premise in the corpus that 
 - among laws with support in $A$, the unique entropy maximizer is $\mathrm{unif}(A)$ (`entropy_le_log_card` [K, `FiniteEntropy.lean:98`] on the subtype $A$, with equality only at uniform [L]);
 - for every $B\supseteq A$, $\mathrm{unif}(B)(\cdot\mid A)=\mathrm{unif}(A)$.
 
-**Lemma G2 (no invariant law holds a time-varying record with probability 1)** [D].
-- If $\mu$ is invariant and $\mu(A_r)=1$, then $\mu(\varphi^tA_r)=1$ for all $t$. So $\mathrm{supp}\,\mu\subseteq I(A_r):=\bigcap_t\varphi^tA_r$, the largest invariant subset of $A_r$.
-- If also $s^*\in\mathrm{supp}\,\mu$, then $O^*\subseteq I(A_r)\subseteq A_r$, so the record is constant (true) on $O^*$.
+**Lemma G2 (no invariant law holds a time-varying record with probability 1)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
+- The first two bullets hold for any $A\subseteq S$, not only record sets; they are stated for $A_r$.
+- If $\mu$ is invariant and $\mu(A_r)=1$, then $\mu(\varphi^tA_r)=1$ for all $t\in\mathbb Z$, since $\mu(\varphi X)=\mu(X)$ for a bijection. On a finite space $\mu(X)=1$ forces $\mathrm{supp}\,\mu\subseteq X$. So $\mathrm{supp}\,\mu\subseteq I(A_r):=\bigcap_{t\in\mathbb Z}\varphi^tA_r$, the largest invariant subset of $A_r$.
+- If also $s^*\in\mathrm{supp}\,\mu$, then $s^*\in I(A_r)$, and since $I(A_r)$ is invariant, $O^*\subseteq I(A_r)\subseteq A_r$, so the record is constant (true) on $O^*$.
 - So for a time-varying record, no invariant law gives the record probability 1 while keeping $s^*$ in its support.
-- Consequently the observer's assignment (P5), which gives its own record probability 1, is non-invariant whenever its support contains $s^*$.
-  - γ-c's support $A_r$ contains $s^*$, so γ-c is covered.
+- Consequently, **for a time-varying record**, the observer's assignment (P5), which gives its own record probability 1, is non-invariant whenever its support contains $s^*$. For a conserved record (one constant and true on $O^*$) this fails: $\mathrm{unif}(I(A_r))$ is invariant, gives the record probability 1, and has $s^*$ in its support (γ-strict below).
+  - γ-c's support $A_r$ contains $s^*$ when the record is veridical ($s^*\in A_r$, as N3 assumes). So γ-c is covered for every time-varying veridical record.
   - An invariant law that excludes $s^*$, such as $\mathrm{unif}(I(A_r))$ on another orbit, can give the record probability 1. G2 does not exclude it.
 
 **The four readings:**
@@ -300,11 +311,12 @@ The reading ch18 proposes is coarse-grained: Born statistics as "the stationary 
 
 ### N6. δ, and what "β is selected" would have to contain
 
-**Lemma U (every rational prior is conditioned counting)** [D].
-- Let $\mu(s)=n_s/D$ be rational. Take $S'=S\times[D]$, $\varphi'=\varphi\times\mathrm{id}$ (an inert register), and $A=\{(s,c):c<n_s\}$.
-- Then $\mathrm{unif}(A)$ projects to $\mu$, and the visible law is $P_\mu$.
+**Lemma U (every rational prior is conditioned counting)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
+- Let $\mu(s)=n_s/D$ with $n_s\in\mathbb N$ and $\sum_sn_s=D\ge1$. Take $S'=\mathcal C_V\times(\mathcal C_H\times[D])$, so the register $[D]$ sits in the hidden factor, $\varphi'=\varphi\times\mathrm{id}_{[D]}$ (an inert register), and $A=\{(s,c):c<n_s\}$.
+- Then $|A|=D$ and the fibre of $A$ over $s$ has $n_s$ points, so $\mathrm{unif}(A)=\mathrm{unif}(S')(\cdot\mid A)$ projects to $\mu$. Since $\varphi'$ acts trivially on the register, trajectories project, and the visible trajectory law equals $P_\mu$ at every horizon.
+- $A$ is not $\varphi'$-invariant in general, so the conditioned law is not invariant, consistent with G2.
 - So every rational δ-law is β′ conditioned on an event in an inert enlargement.
-- Counting conditioned on a finite event yields only rational laws. Irrational priors are outside Lemma U's scope.
+- Conversely, counting on a finite set conditioned on a nonempty event yields only rational-valued laws. Irrational priors are outside Lemma U's scope.
 
 **Lemma U2 (β is stable under the posit-(ii) enlargements)** [D]. With an independently prepared, decoupled factor and counting on it, $\mathrm{unif}(S\times D)$ projects to $\mathrm{unif}(S)$, so β-laws are unchanged. This is consistent with Main:726 (ii) [P].
 
@@ -338,7 +350,7 @@ There was one depth-first pass per branch, N0–N6, and one cross-pass checking 
 
 **Q-inv, summarized.**
 - The form is branch-invariant: class membership, $U_\varphi$, $|U_\varphi|^2\in\{0,1\}$, and exponent-insensitivity (B1 [K+D]).
-- The implication of Main:137 holds under every branch (B4 [D]). Its hypothesis and conclusion (rooted indivisibility) do not (B4, CE-8).
+- The implication of Main:137 holds under every branch, with the hidden law at every root a probability law (B4 [D]). Its hypothesis and conclusion (rooted indivisibility) do not (B4, CE-8).
 - The numbers (P1–P3, P5) are not invariant as a class-wide claim over finite bijections (B3 [D], CE-8). On the manuscripts' wave substratum this is unchecked (C-1).
 - (P2) and (P3) are κ-functionals; (P1) also depends on ν.
 
@@ -367,7 +379,7 @@ None of these is a status change. Each needs review and an owner decision.
    - **μ-form**, where the invariance option is proved for S ⇔ D ⇔ Q_fb, the Born form and exponent-insensitivity (B1), once reviewed; and
    - **μ-number**, where the invariance option fails as a class-wide claim over finite bijections, for the numbers (B3) and for Main:137's indivisibility conclusion (B4; CE-8), and the selection option remains open.
 
-   The second clause is scoped to the class tested. Whether it holds for the wave substratum's own orbits is computation item C-1. Main:137's implication holds under every branch (B4). That is not a μ-invariance of the consuming conclusion, and it is not proposed for μ-form.
+   The second clause is scoped to the class tested. Whether it holds for the wave substratum's own orbits is computation item C-1. Main:137's implication holds under every branch, with the hidden law at every root a probability law (B4). That is not a μ-invariance of the consuming conclusion, and it is not proposed for μ-form.
 3. **P-7** (`ensemble_underdetermined`) is unchanged. Its consequence is sharpened by N2.1: the undetermined invariant law is exactly a law on orbits.
 4. **O-RDY ← O-OBSMU (μ leg).** By N6, the μ-number residual coincides with the readiness/preparation event, for rational priors. The matrix edge "O-OBSMU (μ leg) or a named prior [C]" may be two names for one obligation. This is a proposal for D-12.
 

@@ -14,8 +14,10 @@ every item (#1059 c.6650820790), and the rulings are recorded in the next sectio
     (minor). The review confirmed the derivation.
   - r6 (`9364fdcb`) applied that review's C1–C5, keeping the stronger form with its assumptions stated (owner
     direction #1059 c.6650145254). Its delta review, #1082 c.6650140256, is ACCEPT.
-  - This revision (r7) records the owner's rulings (#1059 c.6650820790). The r6 recommendation text is unchanged except
-    where a ruling resolves an owner question it posed. r7 has not been reviewed.
+  - r7 (`5ea9e4ca`) records the owner's rulings (#1059 c.6650820790). The r6 recommendation text is unchanged except
+    where a ruling resolves an owner question it posed. r7 was reviewed with PREREG r7 in #1082 c.6651181144: ACCEPT
+    WITH CHANGES (minor), with the letter check confirmed.
+  - This revision (r8) applies that review's C8 to the references table. r8 has not been reviewed.
   - The reviewer's S1/S4 witness for the converse ordering is not adopted; that ordering stays "not shown".
   - Each item gives the delta review's endorsement of r2 as **Review r2**.
 - **Authorization.** #1059 c.6649420231: paper-only, part (b).
@@ -102,8 +104,8 @@ purpose only, not a map; r7 constructs it as CC-ORDER (PREREG §3.1) for indepen
 - No change to Main:62, Main:282, Main:726 or ch01:85 is made in this workstream. Any such change needs a separately
   scoped proposal.
 
-**QB-3 and QB-4.** The proposed μ-form / μ-number wording (QB-3) and the locations of the lemmas for review (QB-4) are
-in `QB3-QB4.md`.
+**QB-3 and QB-4.** The μ-form / μ-number wording (QB-3) and the QB-4 lemmas, both corrected after review #1082
+c.6651169194, are in `QB3-QB4.md`.
 
 ***
 
@@ -679,7 +681,7 @@ by landing the content, or by narrowing the claim.
 | Owner rulings #1059 c.6650820790 (amaybaum, 2026-11-05; posted 2026-11-05T05:49:40Z), quoted in "Owner rulings (record)" and in PREREG r7 §8.2 | the rulings section; PREREG r7 | provenance (§A.42 item 7): the rulings are choices of what C-1 tests, quoted with author and time; no mathematical claim here rests on them |
 | Owner direction #1059 c.6650145254 (amaybaum, 2026-11-05) and the r6 delta review #1082 c.6650140256 (model-authored) | the status header | provenance |
 | `QB3-QB4.md` (this branch) | the rulings section | a pointer only; that file classifies its own references |
-| `BORNSEL-B-MEASURE.md` r3 (this branch; reviewed ACCEPT, #1082 c.6622587957) | OQ-5, OQ-11, OQ-13; the dependence section | **support off `main`: a gap** (Lemmas A, A3, G, γ-c) |
+| `BORNSEL-B-MEASURE.md` r3 (this branch; reviewed ACCEPT, #1082 c.6622587957) | OQ-5, OQ-11, OQ-13; the dependence section; the rulings section (G2's content, lines 197–203 at `7b46d36c`) | **support off `main`: a gap** (Lemmas A, A3, G, G2, γ-c) |
 | `PREREG-C1.md` r6 (this branch; accepted as a draft, #1082 c.6625738542) | every row (the questions, Lemma PD, Lemma V′, §2.7) | **support off `main`: a gap.** It is the object under decision |
 | The C-1 review findings N6 and N7, and the C-1 reviewer's check of Lemma PD, as recorded in PREREG §2.7 and §8.2 | OQ-9, OQ-15 | **support off `main`: a gap.** The review texts are not posted (#1082 c.6625738542 summarizes them) |
 | #1082 c.6649637586 (model-authored review of r1), c.6649769429, c.6649892041 and c.6650088826 (model-authored delta reviews of r2, r3 and r4–r5) | the [D] items marked as confirmed by them; the Review r2 column | provenance for the endorsement column. The [D] items stand on the derivations stated here, not on the reviews' authority |
