@@ -14,7 +14,7 @@ readiness-dependent condition, are unaffected." The rest of line 229 stands.
 |---|---|
 | Referenced historical heads recorded | `gh api` GET of pulls 1009, 1023, 1011, 1003, 918 and 1025 at the start and end of execution, each compared with the head recorded at `F`. A mismatch is recorded in `result.md` and is not automatically classified as VOID[stage]. If it alters an actual scientific dependency or a frozen input, the affected work stops and is reconciled before proceeding. No silent substitution |
 
-**Heads recorded at `F`.** Read with `git ls-remote origin refs/pull/<n>/head` at 2026-11-05T11:20:15Z, in the commit that is
+**Heads recorded at `F`.** Read with `git ls-remote origin refs/pull/<n>/head` at 2026-11-05T11:58:40Z, in the commit that is
 intended as the last control-plane commit before `F`:
 
 | Pull | Head |
