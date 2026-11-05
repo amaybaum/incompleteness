@@ -3100,12 +3100,12 @@
       "note": "Introduction.md restates Main §3.4's unavoidable hidden predictive memory theorem for a general audience. It is a mirror under AGENTS.md §A.25 and carries no separate obligation."
     },
     {
-      "id": "INTRODUCTION:C-unnamed-b596be8a",
+      "id": "INTRODUCTION:C-unnamed-99fe05c0",
       "paper": "papers/Introduction.md",
       "line": 120,
       "kind": "Corollary",
       "label": "",
-      "fingerprint": "b596be8af06bd797",
+      "fingerprint": "99fe05c0d24d20c3",
       "area": "mirror",
       "assumptions": "mirrors the cited statement",
       "checks": [],
