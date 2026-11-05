@@ -1296,6 +1296,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The definition is weaker than classical mechanics. A shuffle..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Lemma 3 (Determinism and selected measure).** *$\\varphi$ i..."
     },
     {
@@ -1725,6 +1729,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: This chapter's content is structured. Section 5.2 establishe..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content rests on a minimal mathematical stru..."
     },
     {
       "ok": true,

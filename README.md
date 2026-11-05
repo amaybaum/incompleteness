@@ -3,7 +3,7 @@
 **Author:** Alex Maybaum  
 **Field:** Theoretical physics / foundations
 
-This repository develops the **Observational Incompleteness (OI)** framework: a programme for asking what laws are accessible to an observer embedded inside a finite, reversible system with only partial access to its state.
+This repository develops the **Observational Incompleteness (OI)** framework: a programme for investigating what physical laws are accessible to an observer embedded in a dynamical system, given partial access and a specified finite-capacity observation interface. Finite reversible systems provide exact representatives of finite-horizon observable laws under their stated conditions; finiteness of the total substratum is a separate model premise, not a consequence of embedded observation.
 
 The framework is inspired by the same broad kind of self-reference constraint that appears in Gödel and Turing: an embedded system cannot, in general, obtain complete access to itself. OI studies the physical consequences of that limitation.
 
