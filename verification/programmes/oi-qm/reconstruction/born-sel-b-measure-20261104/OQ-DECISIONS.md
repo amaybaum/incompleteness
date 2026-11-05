@@ -2,12 +2,15 @@
 
 **Status.** WIP / UNVERIFIED. Paper only. Recommendations only: **the owner decides every item**, and nothing here is a
 decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as it stands at `cde5ecbc`.
-- **Review.** Both reviews are model-authored, and both returned ACCEPT WITH CHANGES.
+- **Review.** All three reviews are model-authored, and each returned ACCEPT WITH CHANGES.
   - r1 (`16bde823`) was reviewed in #1082 c.6649637586.
   - r2 (`cfdcb83e`) was delta-reviewed in #1082 c.6649769429.
   - r3 (`0797f13e`) was delta-reviewed in #1082 c.6649892041: ACCEPT WITH CHANGES (minor).
-  - This revision (r4) applies that review's findings F1–F7 and has not been re-reviewed. Its S1/S4 witness for the
-    converse ordering is not adopted; that ordering stays "not shown".
+  - r4 (`af4aa31f`) applied F1–F7. The owner accepted r4 as the current draft, subject to an independent delta
+    review.
+  - This revision (r5) adds the hand derivation of S4 ≡ S3 under OQ-1 (B), at the owner's request (relayed by the
+    coordinator, 2026-11-05). It has not been re-reviewed.
+  - The reviewer's S1/S4 witness for the converse ordering is not adopted; that ordering stays "not shown".
   - Each item gives the delta review's endorsement of r2 as **Review r2**.
 - **Authorization.** #1059 c.6649420231: paper-only, part (b).
 - **Writer.** `writer-born`.
@@ -316,11 +319,36 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
       - with `|V_O| = 1`, the 1×1 row is a permutation;
       - so `|V_O| ≥ 2`, and then `|O| ≥ |V_O| + 1 ≥ 3`;
       - with `|O| ≤ n` (that is, `ℓ_min = n + 1`), this gives `n ≥ 3`.
-    - **S4 ≡ S3 when `n = 2`, under OQ-1 (A), (B) or (D).** This covers every `n = 2` toy and the `q = 2`, `r = 1`
-      instances under the `cur` readout. Under OQ-1 (C), a common threshold can make an `n = 2` non-permutation
-      orbit short, and the statement does not hold.
-    - **S4 ≡ S3 under OQ-1 (D).** There, a non-permutation orbit has `max_a n_a ≥ 2`, so `NP ⊆ Long` and
-      `Long′ = NP`.
+    - **Step S (when the two variants coincide)** [D]. Suppose `NP ⊆ Long`.
+      - Then `Long′ = Long ∩ NP = NP`.
+      - The two variants then have the same candidates (`Long′` in both).
+      - They have the same credence: S3 uses `T^{β_c4} = T^{β|Long′}` (PREREG §2.3, §4.1), and S4 uses `T^{β|NP}`.
+        These are the same map, since `Long′ = NP`.
+      - They have the same pool at every row. S3's pool is the candidates visiting `a` (PREREG §4.1); S4's is the
+        `NP` orbits visiting `a`.
+      - So `W_C`, `shared_rows`, every per-candidate comparison, the first mismatch and the verdict, which the rule of
+        PREREG §4.1 computes from `C`, `K` and the pool alone, all coincide.
+    - **Under OQ-1 (A) at `n = 2`** [D]. By the `n ≥ 3` step above, no non-permutation orbit is short. So
+      `NP ⊆ Long`, and Step S gives S4 ≡ S3.
+    - **Under OQ-1 (B)** (`ℓ_min = 2`; derivation [D], from PREREG §2.0 and §2.3):
+      1. **Short orbits.** `Long = {O : |O| ≥ 2}`, so the only short orbits are fixed points, `O = {s}` with
+         `φ(s) = s`.
+      2. **The fixed point's row set.** With `a = π_V(s)`, `V_O = {a}` and `n_a(O) = 1`.
+      3. **Its row.** `c_O(a, j) = 1` if `π_V φ(s) = j` and 0 otherwise. Since `φ(s) = s`, this is `1` exactly at
+         `j = a`. So `T^{α,O}(a, ·) = δ_a`.
+      4. **It is a permutation matrix on `V_O`** (the three clauses of PREREG §2.0, with `W = {a}`):
+         - `M(a, a) = 1` is 0 or 1;
+         - the row sum over `W` is 1, and the column sum over `W` is 1;
+         - `M(a, j) = 0` for every `j ≠ a`.
+      5. **Conclusion.** No fixed point is in `NP`, so every `NP` orbit has `|O| ≥ 2`, i.e. `NP ⊆ Long`. Step S gives
+         S4 ≡ S3.
+      - Steps 1–5 use no property of `n`, so under OQ-1 (B) S4 ≡ S3 holds for every `n`. In particular it holds at
+        `n = 2`.
+    - **S4 ≡ S3 when `n = 2`, under OQ-1 (A), (B) or (D)**, by the three derivations here. This covers every `n = 2`
+      toy and the `q = 2`, `r = 1` instances under the `cur` readout. Under OQ-1 (C), a common threshold can make an
+      `n = 2` non-permutation orbit short, and the statement does not hold.
+    - **S4 ≡ S3 under OQ-1 (D)** [D]. There, a non-permutation orbit has `max_a n_a ≥ 2`, so `NP ⊆ Long`, and
+      Step S applies.
     - **13e keeps the `ℓ_min` asymmetry.** Candidates are admitted by the record and by `ℓ_min`; the prior uses the
       record only. 13e is record-consistent for nondeterminism, not for the length threshold.
 - **The C-1 reviewers' corpus leanings** (PREREG §8.2 item 13).
