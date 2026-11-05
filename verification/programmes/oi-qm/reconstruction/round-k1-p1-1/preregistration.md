@@ -87,10 +87,19 @@ The first 313 lines of `preregistration.md` at `F` have the SHA-256 recorded the
   (including P1 member rows), "independently" means a second, separately written enumeration that imports nothing from
   the first and matches it row by row";
 - §5.3 (lines 156–163) with A2 and A8; §5.4 (lines 165–184), the token map and precedence;
+- §5.5 (lines 186–194) for S0 and P1. This covers item (1), including the clause that each control runs "at its stated
+  instance and in isolation on the gate it tests"; item (2) for P1 only; item (3), whose labelled exact enumeration this
+  round's authorization (e) is to cover (§13); and the output clause, with §10's schema extending A9. Its reference to
+  #1031 gate 3 is replaced by §13's authorizations;
 - §6 (lines 196–216), the eleven controls and their pass conditions, as this round's stage S0 (§11.1);
-- §7 (lines 218–239), scope limits and non-claims, except the sentence of lines 229–230, "No manuscript, Lean or probe
-  change", which is K1-RDY-1's and is replaced here by the governed-path set of §16;
-- A3 for the citations of TA (c4); A9's row fields for the row objects of §10.
+- §7 (lines 218–239), scope limits and non-claims, except two passages of lines 229–230:
+  - "The holds on #1009, #1023, #1011, #1003 and #918 are unchanged. #1025 is untouched." `AGENTS.md` §A.45 rule 7
+    retired those holds as a scheduling mechanism, and this round has no dependency on those pull requests;
+  - "No manuscript, Lean or probe change", which is K1-RDY-1's own and is replaced here by the `v3-governed-paths`
+    block at the end of this file;
+- §10 (lines 272–284), the free-parameter audit, as the symbol map G1 checks (line 122);
+- §11's drafting resolutions Q3 and Q5 and the `W_eq` rule (lines 295–301), on which R6 and R8 rely;
+- A3 for the citations of TA (c4); A9's row fields for the row objects of §10, in the formats of §10.2.
 
 **Not adopted:** `K`'s §12 governed paths and OD-4 (paper-only execution), A10 (G6 under paper-only execution: this
 round enumerates, so line 151's enumeration clause governs G6 directly), A11 (the paper-only checkpoint), A4 (holds and
@@ -130,18 +139,22 @@ them subject to that review (§17, OQ-3). This round adopts them in the reviewed
 
 **Start conditions** (each is checked before `F` is proposed for designation):
 - **SC-1.** The independent review of K1-RDY-1's S0/P0 has returned ACCEPT, or ACCEPT WITH CHANGES with every change
-  independently rechecked, as recorded by the owner. Satisfied in part: the review returned ACCEPT WITH CHANGES, all
-  non-material, with no material defect and no change to frozen rules (PR #1126 comment 6659587647); C1 to C4 were
-  rechecked at the exact head of K1-RDY-1's `W` (comment 6659744122); the owner accepted the review (§17, OQ-3).
-  Outstanding: the independent exact-head recheck of K1-RDY-1's corrective `W′` (W1 to W3), which the owner's ruling
-  of #1031 comment 6660591343, item 2, requires.
+  independently rechecked, as recorded by the owner. Satisfied, subject to the owner's record of the `W′` recheck:
+  - the review returned ACCEPT WITH CHANGES, all non-material, with no material defect and no change to frozen rules
+    (PR #1126 comment 6659587647);
+  - C1 to C4 were rechecked at the exact head of K1-RDY-1's `W` (comment 6659744122);
+  - the owner accepted the review (§17, OQ-3);
+  - the independent exact-head recheck of the corrective `W′` (W1 to W3), which the owner's ruling of #1031 comment
+    6660591343, item 2, requires, returned ACCEPT (PR #1126 comment 6660672560, 2026-11-05T14:35:26Z).
 - **SC-2.** K1-RDY-1's verified halted landing is on `main`: `d9b3de012e393262adb20f91ad49627bad48de43` and K1-RDY-1's
   record directory are reachable from `main`, with a receipt `Q` on which `tools/v3_verifier.py --verify-round Q`
   prints `VERDICT  HOLDS`, so that the rule this round adopts is on `main` (§A.42 items 2, 3 and 8; §17, OQ-2). Not
-  met at this revision.
+  met at this revision. K1-RDY-1's halted receipt is prepared and verifies (`VERDICT  HOLDS`; PR #1126 comment
+  6660792206, 2026-11-05T14:40:43Z). SC-2 is met once that landing is on `main`.
 - **SC-3.** The implementations and `controls.py` exist as reviewed blobs on a pushed staging branch and are frozen by
   an amendment before `F` (§8.4; §17, OQ-1). Code drafting needs its own owner authorization (§13 (a)).
-- **SC-4.** The owner has answered the drafting questions of §17. Satisfied (#1031 comment 6660591343).
+- **SC-4.** The owner has answered the drafting questions of §17 (#1031 comment 6660591343), and has accepted reading
+  RD-8 (§6), which was added after those rulings. Not yet met: RD-8 awaits the owner's decision.
 
 ## 4. Preserved results used as controls (§A.29)
 
@@ -172,7 +185,8 @@ are not compared.
 - **Instance** (`K` lines 31–35). `(d, N, q, a) = (1, 5, 2, 1)`, `Λ = ℤ/5`, `𝐑 = ℤ/2`, `S = 𝐑^Λ × 𝐑^Λ`,
   `φ(x, y) = (y, Ay − x)`, `(Ay)_i = y_{i−1} + y_{i+1}`, `φ^{−1}(x, y) = (Ax − y, x)`. `Σ = {x_0, y_0}`, `V_t = y_1(t)`,
   `T = 1`. The state at tick `t` is `s(t) = φ^{t − t_0}(s(t_0))`, and a member is the law of `s(t_0)`.
-  CC-IMP″ alone uses `(N, q, a) = (6, 2, 1)` (`K` line 212).
+  CC-IMP″ alone uses `(N, q, a) = (6, 2, 1)` (`K` line 212). The conserved form used by CC-LEDGER and PR-EN is
+  `ℰ(x, y) = ⟨x, x⟩ + ⟨y, y⟩ − ⟨x, Ay⟩ mod q` (`PROOFS.md` §5, on `main` at `D`).
 - **State encoding.** A state is the string of its cells in A2's order `x_0, …, x_4, y_0, …, y_4`, each `0` or `1`.
   The lexicographic order of these strings with `0 < 1` is A2's member order. A value `w` of a cell set `X` is the
   string of `X`'s cells in the same order (A9); in B-pl, where `W` is trivial, the only value is `""`.
@@ -221,19 +235,35 @@ R3  NB: for nu := m(. | B_w) (B-pl: nu := m), and each sigma in F_2^Sigma with n
                    an exact distribution on {00, 01, 10, 11}.
       NB(nu) := exists sigma != sigma' with L_sigma != L_sigma'.
       Computed for every sharp w (G4), and in B-pl also for nu = m as G1's record (K line 123).
-      Usefulness (positive rows only): pairs (sigma, sigma') whose L-supports are disjoint; pairs whose laws
-      differ and whose supports intersect.
-R4  W-certified (per branch, over all of S): for every w, B_w ⊆ Z or B_w ∩ Z = ∅.
+      Usefulness (rows that pass G5): at every sharp w, the pairs (sigma, sigma'), sigma < sigma', both of
+      positive nu-mass, whose L-supports are disjoint; and the pairs whose laws differ and whose supports
+      intersect. Both lists are empty where NB fails. The final row keeps it only if positive (A9).
+R4  W-certified (per branch, over all of S; K line 55 read literally): for every w, B_w ⊆ Z or B_w ∩ Z = ∅.
+      It is a property of the branch, not of the member. If PR-P0 holds (otherwise H10), no branch is
+      W-certified. Then every member row that reaches G5 has H-law in Lambda, and RD-3 (ii)'s set contains
+      H-law for every row.
 R5  G2(b) for the member's support restriction (reading RD-4 for T1; RD-5, RD-6 below):
       Im := supp(m). T2: stated image "itself"; computed image phi(Im); T2 fires iff phi(Im) != Im.
-      For each w with n_w > 0:  I_w := {s|E : s in Im ∩ B_w};  J_w := {s|E : s in B_w}.
-      H-sel content at w := I_w (sorted E-values) if I_w is a proper subset of J_w; none otherwise.
+      If neither T1 nor T2 fires (K line 133), for each w with n_w > 0:
+        I_w := {s|E : s in Im ∩ B_w};  J_w := {s|E : s in B_w}.
+        H-sel content at w := I_w (sorted E-values) if I_w is a proper subset of J_w; none otherwise.
+R5a G1 and G2 tokens (K lines 122, 136-138, 171, 182), read from class-decisions.json and R5:
+      Z1-VOID: G2(a) "flag" gives IMPORTED, and T1 "flag" or T2 firing gives DYN; when both apply, the subtype
+      is IMPORTED (RD-1).
+        - A class_rule flag applies to every P1 row and voids the class.
+        - A support_restriction flag applies to every u_c row.
+        - T2 firing applies to that member's rows.
+      Otherwise:
+        - g1 "undecided" gives every P1 row UNDECIDED(G1).
+        - "undecided" at G2(a) or T1 gives the rows it concerns UNDECIDED(G2).
+      Z1-VOID supersedes UNDECIDED. A row that takes a token here records its later gates "not-reached"
+      (RD-8). Every measured field of the row is still computed and reported.
 R6  G3: D(m) = log(|S| / |supp(m)|), recorded as the exact ratio |S|/|supp(m)|.
       B-pl bound (c1): holds iff q^|E| * |supp(m)| <= |S|.
       B-eq bound (c2), per sharp w with mass a/b in lowest terms, k := |E \ W| (overlap cells counted in W):
         holds iff q^(a*k) * |supp(m)|^b <= |S|^b.
       B-ct: no bound; the ledger line names H-ret (K line 62).
-R7  G4: no sharp w -> ABSENT[m; b; access].  Else, equal time: a sharp w breaking its bound -> VOID[row].
+R7  G4 (rows without an R5a token): no sharp w -> ABSENT[m; b; access].  Else, equal time: a sharp w breaking its bound -> VOID[row].
       Else NB false at every sharp w -> BLIND[m; b; access].  Else G4 passes.
 R8  G5: Lambda := {H-inv[K-17(a)]} ∪ access labels (H-cur (declared) for V; H-2s (declared) when W contains
       a previous-slice cell; H-ret in B-ct) ∪ {H-law if not W-certified} ∪ {H-sel if R5 recorded content};
@@ -245,7 +275,9 @@ R9  G6 (rows that pass G5): implementation A's row = implementation B's row, and
       record the row's G6 and token are "pending".
 R10 G7: AVAILABLE[H-sel](Lambda) if H-sel in Lambda, else CONDITIONAL[Lambda]; precedence of K section 5.4.
 
-CLASS (per branch, A2): computed only when the row set is complete (section 9, CT-INC) and no row is pending.
+CLASS (per branch, A2): computed only when the row set is complete (section 9, CT-INC) and no row of the
+      branch is pending; "pending" otherwise. A class_rule flag at R5a makes every member row Z1-VOID, so the
+      class token is Z1-VOID with A2's subtype set (K line 138).
       If some member row is not a positive: the first type in the order VOID[row], Z1-VOID, UNDECIDED(Gk),
       ABSENT, BLIND attained by a member row, with A2's fields.
       If every member row is a positive: emit union_clause_reached = true and no class token (stop condition H3,
@@ -254,20 +286,26 @@ CLASS (per branch, A2): computed only when the row set is complete (section 9, C
 
 **Gates decided on paper.** G1 (the P1 block is complete and every symbol is mapped in `K` §10), G2(a) on the P1 rule
 part and on the member support restriction, and T1, are decided once for the class in the written derivation
-`derivations/P1-class-paper.md` (§13, X1), committed before any run on the instance. Both implementations read its three
-outcomes from `class-decisions.json` (§10) and apply them to every member row; G1 removes no member (`K` line 124).
+`derivations/P1-class-paper.md` (§13, X1), committed before any run on the instance. The paper part of S0 is decided in
+`derivations/S0-paper.md`. Both files, and `class-decisions.json`, are written by `writer-k1p1-exec` (§8.1). The
+schema of `class-decisions.json` is fixed in §10.2. Both implementations read its outcomes and apply them by R5a to the
+member rows; G1 removes no member (`K` line 124).
 
-**Readings introduced by this round** (accepted by the owner, §17, OQ-3):
+**Readings introduced by this round** (RD-4 to RD-7 accepted by the owner, §17, OQ-3; RD-8 proposed):
 - **RD-4.** A member's support restriction is "a cycle of `φ`", whose only input is `φ`. The least state is a report
   key and enters no token (A2), so T1 does not read it as a literal-coordinate input. (Suggested by the feasibility
   review, #1031 comment 6658841280 §1.)
-- **RD-5.** "The function of `E_{t_0}`'s cells that `Im ∩ {W_{t_u} = w}` fixes and `{W_{t_u} = w}` does not" (`K` lines
-  133–134) is recorded by the set `I_w`. A function of `E`'s cells that is constant on `Im ∩ B_w` but not on `B_w`
+- **RD-5.** "The function of `E_{t_0}`'s cells that `Im ∩ {W_{t_u} = w}` fixes and `{W_{t_u} = w}` does not under
+  `π_0`" (`K` lines 133–135) is recorded by the set `I_w`. A function of `E`'s cells that is constant on `Im ∩ B_w` but not on `B_w`
   exists exactly when `I_w ⊊ J_w` (take the indicator of `I_w`; conversely, if `I_w = J_w`, a function constant on
   `I_w` is constant on `J_w`), so content is recorded exactly then.
 - **RD-6.** The image G2 computes for a member's support restriction is the support at `t_0`, and T2 compares it with
   the stated image "itself" through `φ(supp m) = supp m`.
 - **RD-7.** Inequalities between logarithms are decided by the equivalent integer inequalities of R6.
+- **RD-8** (proposed in this revision; awaiting the owner's acceptance, SC-4). When G1 or G2 issues a row's token
+  (R5a), the later gates are recorded `not-reached`. These are RD-2's grounds applied to G1 and G2: a row takes the
+  token of the first gate that issues one (`K` line 183), Z1-VOID supersedes every branch token of its candidate or
+  member (line 182), and A9 provides the value `"not-reached"`.
 
 ## 7. Exactness
 
@@ -287,16 +325,21 @@ outcomes from `class-decisions.json` (§10) and apply them to every member row; 
 - **Controls**, `controls.py` in the record directory, writer `writer-k1p1-ctl`, distinct from both.
 - **Adversarial notes** (§8.3), writer `writer-k1p1-adv`. **Executor** `writer-k1p1-exec`, the sole committer to this
   round's branch from `F` on (§13). These five designated sessions are accepted by the owner (§17, OQ-7).
+- **Paper decisions:** `derivations/P1-class-paper.md`, `derivations/S0-paper.md` and `class-decisions.json` are written
+  by `writer-k1p1-exec`, one of the five sessions, at X1 and before any run on the instance.
 - **Placement** (§17, OQ-6): A and B in `verification/lean/`, as for KT4-PREM-1, each named as an `execution` path in
   the `v3-governed-paths` block at the end of this file; `controls.py` and every output in the record directory.
+- **Declared inputs of A and B** (§10.1): `class-decisions.json` at every stage, the committed `members.json` at `rows`
+  and `final`, and `adversarial.json` at `final`. They read no other file.
 - Each writer receives this preregistration and the adopted text (§2) only, and no other writer's code until its own
   blob is delivered. The coordinator records each hand-off (what was given, when) and the SHA-256 of each delivered
   file. Each file's header records, as `K`'s A10 does for derivations: its author session; whether its writer had
   access to another implementation; and any shared dependency, "none" where there is none.
 - No implementation imports, copies or execs another, or `controls.py`. `controls.py` imports neither implementation:
   it runs each with `python3 -I` as a subprocess and reads its output file.
-- Standard library only: `fractions`, `itertools`, `json`, `hashlib`, `sys`, `os`, `subprocess` (`controls.py` only).
-  Python 3.11, as in `.github/workflows/verify.yml`.
+- Standard library only. A and B may import `fractions`, `itertools`, `json`, `hashlib`, `sys` and `os`;
+  `controls.py` may also import `subprocess`, `tempfile` and `ast`. Check `IMPORTS` in `controls.py` parses all three
+  files with `ast` and fails on any other import. Python 3.11, as in `.github/workflows/verify.yml`.
 
 ### 8.2 Method diversity
 
@@ -305,14 +348,15 @@ outcomes from `class-decisions.json` (§10) and apply them to every member row; 
 - **B** represents states as 10-bit integers, builds the 10×10 matrix of `φ` over `𝔽_2` from the definition, applies
   it by matrix-vector products, finds `E` from the rows of the matrix powers `M^t`, and partitions `S` into orbits by its
   own traversal. B also computes the second cycle count of §9 (CC-CYC2) from ranks of `M^k − I`, without enumerating
-  states.
-- Both compute every field of §10 independently, including tokens and class tokens.
+  states, and writes it to its own file `cyc2.json` (§10.1).
+- Both compute every field of the shared outputs `members.json` and `gate-table.json` independently, including tokens
+  and class tokens.
 
 ### 8.3 G6 for positive rows
 
 Line 151 of `K` defines independence for enumerated rows as a second, separately written enumeration that imports
 nothing from the first and matches it row by row: implementations A and B. The adversarial note of lines 150–151 is
-written by `writer-k1p1-adv`, a fourth session, after both outputs exist. It addresses each row that passes G5 by its
+written by `writer-k1p1-adv`, a fourth session, after both outputs exist: its hand-off follows X3's commit (§15). It addresses each row that passes G5 by its
 key, recomputes G2(b) from the rule part alone, attempts to break the token, and states the token it finds. Its
 structured record is `adversarial.json` (§10). A row passes G6 exactly when A's and B's rows are identical and the
 note's token equals theirs. If A's and B's rows are identical and the note's token differs, the row ends UNDECIDED(G6).
@@ -344,7 +388,7 @@ Drafting code is not authorized by this file (§13). Sequence (§17, OQ-1):
 | CC-COUNT | `\|S\| = q^{2N}` = 1024, states distinct | M1 count against the formula |
 | CC-BIJ | `φ` is a bijection with inverse `φ^{−1}` | M2, both composites at every state |
 | CC-PART | every state in exactly one cycle; lengths sum to `\|S\|`; each cycle closed under `φ` and a single orbit | M3–M4 |
-| CC-CYC2 | second count, by linear algebra: `\|Fix(φ^k)\| = 2^{10 − rank(M^k − I)}` for `k = 1, …, 10`; states of exact period `d` = `Σ_{e \| d} μ(d/e) \|Fix(φ^e)\|`; cycles of length `d` = that number divided by `d`; `M^{10} = I` | B; compared with A's histogram, B's enumerated histogram and PR-CYC |
+| CC-CYC2 | second count, by linear algebra: `\|Fix(φ^k)\| = 2^{10 − rank(M^k − I)}` for `k = 1, …, 10`; states of exact period `d` = `Σ_{e \| d} μ(d/e) \|Fix(φ^e)\|`; cycles of length `d` = that number divided by `d`; `M^{10} = I` | B, in `cyc2.json`; `controls.py` compares it with the shared histogram and PR-CYC |
 | CC-ROWS | per branch, the member keys are `pi0` and each least state exactly once, in M5's order; `3 · (1 + number of cycles)` rows in all | `controls.py` |
 | CC-MASS | for every row, `Σ_w mass(w) = 1`; for every `ν` of R3, `Σ_σ ν(σ) = 1` and each `L_σ` sums to 1 | both implementations; `controls.py` re-sums |
 | CT-INC | the class token is computed only when CC-PART and CC-ROWS hold and no row is pending | both implementations refuse with exit status 2; `controls.py` refuses independently |
@@ -353,35 +397,266 @@ The coverage argument: M3 assigns every state to the cycle of the first unvisite
 once; CC-PART checks it; R runs over M5's list without filtering, and CC-ROWS checks that each member is evaluated
 exactly once per branch.
 
-## 10. Outputs and the replay recipe (§A.42, §A.44)
+## 10. Outputs, schema and the replay recipe (§A.42, §A.44)
 
-Files in the record directory, each written by `controls.py run` from the implementations' outputs:
+### 10.1 Files and command lines
 
-- `members.json`: `{"schema": "k1p1-members", "version": 1, "cell_order": [...], "members": [...], "histogram":
-  {...}}`; each member `{"key", "size", "states"}` (`states` omitted for `pi0`).
-- `class-decisions.json`: the outcomes of G1, G2(a) and T1 for the class, with the derivation they come from (§6).
-- `gate-table.json`: `{"schema": "k1p1-gate-table", "version": 1, "instance", "region": {"E", "W_eq"},
-  "completeness": {...}, "controls": [...], "rows": [...], "class_tokens": {...}, "union_clause_reached": {...}}`.
-  Each row carries A9's fields (`candidate` = `"P1"`, `member`, `branch`, `gates`, `w_rule`, `w_inputs`, `g2`,
-  `sharp_w`, `weak`, `nb`, `w_certified`, `usefulness`, `hypotheses`, `ledger`, `token`) and adds `support_size`,
-  `mass` (each positive-mass `w` to its rational), `pi0_ref` (each positive-mass `w` to `π_0`'s value), `d_ratio` and
-  `bound_ok`. `class_tokens` uses A2's fields. Each control carries `id`, `gate`, `computed`, `expected`, `outcome`.
-- `adversarial.json`: for each row that passes G5, its key and the note's token, written by `writer-k1p1-adv`.
-- `derivations/adversarial-<branch>.md` (§17, OQ-5): one file for each branch with a row that passes G5. It opens with
-  an index listing, by key in M5's order, every row of that branch that passes G5 (so every positive row), followed by
-  one note per indexed row. `controls.py check` requires each index, and `adversarial.json`, to list exactly the rows of that branch that
-  pass G5 in `gate-table.json`.
+Each program writes its own files. No file is written by two programs, and no shared code formats, normalizes or
+post-processes any output (§8.1): agreement means that two independent serializations of the schema below are equal
+byte for byte.
 
-Canonical bytes: UTF-8 JSON with sorted keys, separators `(",", ":")`, `ensure_ascii` false, one trailing LF. Token
-strings: the access field lists the labels in the order H-cur (declared), H-2s (declared), H-ret (as K1-RDY-1's P0
-tokens do); `Λ` and `hypotheses` are sorted by code point; a row's `hypotheses` field is `Λ` when the row reaches G5 and the set
-of RD-3 (i) when it stops at G4. A member is named `π_0` or `u_c[<least state>]` in a token.
+| File | Written by | Committed at | Compared |
+|---|---|---|---|
+| `members.json` | A and B, each into its own output directory | X2 | A against B byte for byte; regenerated against committed |
+| `gate-table.json` | A and B, each into its own output directory | X2, X3, X5 (one per stage) | A against B byte for byte; regenerated against committed |
+| `cyc2.json` | B only (CC-CYC2) | X2 | regenerated against committed; its counts against `members.json`'s histogram and PR-CYC, by `controls.py` |
+| `checks.json` | `controls.py` | X2, X3, X5 | regenerated against committed |
+| `class-decisions.json` | `writer-k1p1-exec`, by hand, from `derivations/P1-class-paper.md` and `derivations/S0-paper.md` | X1 | input |
+| `adversarial.json` | `writer-k1p1-adv` | X4 | input; index check (§10.2) |
 
-**Recipe.** At a commit holding the outputs, `python3 -I controls.py check` (from the record directory) runs A and B,
-compares each of their outputs byte for byte with the other's and with the committed file, runs every check of §9 and
-§11, and exits 0 exactly when all hold. Its exit status and the committed files are the evidence; printed output is
-diagnostic only (§A.44). The workflow job of §13 runs this command; its conclusion is the job's conclusion. Expected
-outputs are the committed files; nothing in them depends on time, randomness, environment or iteration order.
+Only `members.json` and `gate-table.json` are shared outputs; the A/B comparison covers exactly these two files.
+
+Command lines, run from the repository root, with `<rec>` the record directory and `<out>` a fresh empty directory:
+
+```text
+python3 -I verification/lean/k1p1_enum_a.py --stage {members|rows|final} --record <rec> --out <out>
+python3 -I verification/lean/k1p1_enum_b.py --stage {members|rows|final} --record <rec> --out <out>
+python3 -I <rec>/controls.py run --stage {members|rows|final}
+python3 -I <rec>/controls.py check [--stage {members|rows|final}]
+python3 -I <rec>/controls.py self-test {--synthetic | --stage {members|rows|final}}
+python3 -I <rec>/controls.py render
+```
+
+- **Implementations.** At every stage A writes `<out>/members.json` and `<out>/gate-table.json`; B writes those two and
+  `<out>/cyc2.json`. Each reads `<rec>/class-decisions.json` at every stage. At `rows` and `final` each also reads
+  `<rec>/members.json` and refuses unless it equals, byte for byte, the `members.json` it has just computed. At `final`
+  each also reads `<rec>/adversarial.json` and refuses unless it lists every row that passes G5. Exit status: 0 when the
+  files are written; 2 for a refusal (a stage precondition, or CT-INC); 3 for the exactness guard (§7); any other
+  nonzero status is a failure. Nothing is written on a nonzero exit.
+- **`controls.py run --stage s`.**
+  - It refuses (exit 2) unless the files of the previous stage are tracked and unmodified at `HEAD`
+    (`git ls-files --error-unmatch`, `git diff --quiet HEAD --`) and `check --stage <previous>` exits 0. For `rows` the
+    previous stage is `members`; for `final` it is `rows`, together with `adversarial.json` when a row passes G5.
+  - It runs A and B into separate temporary directories and compares their two shared files byte for byte (H1 on any
+    difference). It then runs the checks of §9, §4 and §11 that the stage's outputs allow.
+  - It writes `checks.json` in every case. It writes the stage's other files into `<rec>` only when every check holds.
+- **`check --stage s`** regenerates every stage up to `s` from the committed inputs, runs A and B, repeats every
+  comparison and check, and compares each regenerated file with the committed one byte for byte. Without `--stage` it
+  checks the last stage whose files are committed. It exits 0 exactly when all of these hold.
+- **`self-test`** runs the mutations of §11.3 for a stage, or their synthetic analogues with `--synthetic` (§11.2).
+- **`render`** writes the token tables of `result.md` from `gate-table.json` (§12 item 8).
+
+### 10.2 Field formats
+
+**Serialization.** Each program serializes with its own call `json.dumps(obj, sort_keys=True, separators=(",", ":"),
+ensure_ascii=False)`, encodes the result as UTF-8 and appends one LF. Lists are in the order stated below; object keys
+are ordered by the serializer.
+
+**Value conventions.**
+- A rational is `"p/q"` in lowest terms with `q > 0`; zero is `"0/1"` and one is `"1/1"`.
+- A count is a JSON integer, a decision a JSON boolean, and an absent value `null`.
+- Strings use exactly the characters shown. `π` is U+03C0, `𝓘` U+1D4D8, `δ` U+03B4, `′` U+2032 and `″` U+2033. Every
+  hyphen and minus sign is U+002D.
+- Cell strings follow A2's order `x_0, …, x_4, y_0, …, y_4`, restricted to the cells concerned:
+  - a state is 10 characters;
+  - a value `w` of `W_eq` is 2 characters (`x_1`, `y_1`), and the B-pl value is `""`;
+  - an `E`-value is 3 characters (`x_1`, `y_1`, `y_2`);
+  - a `σ` is 2 characters (`x_0`, `y_0`).
+  Lists of such strings are sorted lexicographically.
+
+**`members.json`.**
+- `schema` is `"k1p1-members"` and `version` is `1`.
+- `cell_order` is `["x_0","x_1","x_2","x_3","x_4","y_0","y_1","y_2","y_3","y_4"]`.
+- `members` lists the members in M5's order:
+  - `π_0` is `{"key":"pi0","size":1024}`;
+  - a cycle is `{"key":<least state>,"size":<length>,"states":[<its states, sorted>]}`.
+- `histogram` is an object from each cycle length that occurs, as a decimal string, to its number of cycles.
+
+**`cyc2.json`** (B only).
+- `schema` is `"k1p1-cyc2"` and `version` is `1`.
+- `fix`, `period_states` and `cycles` are objects from each `k = 1, …, 10`, as a decimal string, to the integers
+  `|Fix(φ^k)|`, the number of states of exact period `k`, and the number of cycles of length `k`. Zeros are included.
+- `m10_identity` is a boolean.
+
+**`checks.json`** (`controls.py` only).
+- `schema` is `"k1p1-checks"`, `version` is `1`, and `stage` is the stage.
+- `checks` lists `{"id":<check id>,"outcome":"pass"|"fail"|"refused"}` in the order run. The check ids are those of §9,
+  §4 and §11, and also:
+  - `AB-members` and `AB-gate-table`;
+  - `REPLAY-<file>`;
+  - `IMPORTS` (§8.1);
+  - `ADV-INDEX` (below);
+  - `RENDER`.
+
+**`class-decisions.json`** (by hand; fixed in form at `F`).
+- `schema` is `"k1p1-class-decisions"` and `version` is `1`.
+- `derivations` is `["derivations/P1-class-paper.md","derivations/S0-paper.md"]`.
+- `g1` is `"pass"` or `"undecided"`.
+- `class_rule` and `support_restriction` are objects `{"a":v,"t1":v}`, with `v` one of `"pass"`, `"flag"` or
+  `"undecided"`.
+- `s0_paper` is an object from each of `CC-LEDGER`, `CC-IMP`, `CC-IMP′`, `CC-IMP″`, `CC-PASS` and `CC-T2` to
+  `"pass"`, `"fail"` or `"undecided"`.
+
+**`adversarial.json`** and the notes.
+- `adversarial.json` has `schema` `"k1p1-adversarial"`, `version` `1`, and `rows`. Each entry of `rows` is
+  `{"branch":b,"member":<key>,"token":<token string>,"note":"derivations/adversarial-<b>.md"}`, in `gate-table.json`'s
+  row order.
+- Each note file opens with its index: one line per row, giving its key, in M5's order.
+- `ADV-INDEX` passes exactly when, for each branch, the index and the entries of `adversarial.json` list the same keys as
+  the rows of that branch that pass G5 in `gate-table.json`.
+
+**`gate-table.json`.**
+- `schema` is `"k1p1-gate-table"`, `version` is `1`, and `stage` is `"members"`, `"rows"` or `"final"`.
+- `instance` is `{"N":5,"a":1,"d":1,"q":2}`.
+- `region` holds `E` and `W_eq` (lists of cell names), and `q_pow_minus_E` (a rational).
+  - It also holds `overlap`, an object from `B-eq` and `B-ct` to the list of cells in both `W` and `E` (`K` lines 48–49).
+    At cross time the cells are distinct by tick, so the B-ct list is `[]`.
+  - `overlap_tautological` is an object from the same two keys to a boolean: true exactly when the list is nonempty.
+- `preserved` holds `energy_conserved` (a boolean, `ℰ ∘ φ = ℰ` at every state), `shell_sizes` (`{"0":n,"1":n}`) and
+  `phi_order` (the least `k ≥ 1` with `φ^k` the identity).
+- `completeness` holds the integers `states`, `length_sum` and `cycles`, and the booleans `distinct`, `bijection`,
+  `partition` and `mass_sums`. `mass_sums` is `null` at `members`.
+- `controls` lists the eleven S0 controls in `K` §6's order. Each is
+  `{"id","gate","computed","expected","paper","outcome"}`, where:
+  - `gate` is `K` §6's "Gate under test" text: `"G4"`, `"G4"`, `"G4"`, `"G3/G4"`, `"G2, G3"`, `"G2(a)"`,
+    `"G2(a); T1; T2's no-image disjunct"`, `"G2(b)"`, `"G2(b) T2"`, `"G3, G4, G7"`, `"G4"`, in that order;
+  - `paper` is the `s0_paper` value, or `null` for a control with no paper part;
+  - `outcome` is `"pass"` exactly when `computed` equals `expected` and `paper` is `null` or `"pass"`, and `"fail"`
+    otherwise;
+  - `computed` and `expected` take these keys and expected values:
+
+| Id | Keys and expected values |
+|---|---|
+| CC-ABS | `{"sharp_w":[],"weak":{"00":"1/8","01":"1/8","10":"1/8","11":"1/8"}}`, `w` over `(x_3, y_3)` |
+| CC-EXACT | `{"sharp_w":[],"weak":{"":"153/160"}}` |
+| CC-SCOPE | `{"B-ct":{"nb_all_false":true,"sharp":true},"B-eq":{…same},"B-pl":{…same}}` |
+| CC-LEDGER | `{"c1":false,"d_ratio":"2/1","shell_size":512}` |
+| CC-IMP | `{"d_ratio":"8/1","support_size":128}` |
+| CC-IMP′ | `null` (paper only) |
+| CC-IMP″ | `{"fixes_x2_zero":true}` |
+| CC-PASS | `{"hsel_content":{"B-eq":[],"B-pl":[{"values":["000","001","110","111"],"w":""}]},"image_equals_stated":true}` |
+| CC-T2 | `{"image_equals_stated":false}` |
+| POS-X | `{"g3_void":false,"mass_w0":"1/64","nb_w0":true,"sharp_w0":true,"token":"CONDITIONAL[H-2s (declared), H-cur (declared), H-ret, H-μ, finite-S posit]","w_certified":true}` |
+| CC-BLIND | `{"mass_w0":"1/256","nb_w0":false,"sharp_w0":true}` |
+
+- `rows` is `[]` at `members`. At `rows` and `final` it holds every row, branch by branch (B-pl, B-eq, B-ct), and within
+  a branch in M5's order.
+- `class_tokens` and `union_clause_reached` are `{}` at `members`. Afterwards they are objects from each branch to its
+  class token (or `"pending"`) and to a boolean.
+
+**Row objects.** These carry A9's fields with the formats below, and the additional fields `nb_g1`, `support_size`,
+`mass`, `pi0_ref`, `d_ratio` and `bound_ok`.
+- `candidate` is `"P1"`. `member` is `"pi0"` or the least state. `branch` is `"B-pl"`, `"B-eq"` or `"B-ct"`.
+- `gates` is an object `G1` … `G7`. Each value is `"pass"`, `"not-reached"`, `"pending"` or a row token. G3 issues no
+  token, so it is `"pass"` when reached.
+- `w_rule` and `w_inputs` take these values:
+  - B-pl: `"W trivial; t_u = t_0"` and `[]`;
+  - B-eq: `"W_eq: site set of V, both slices; t_u = t_0"` and `["V"]`;
+  - B-ct: `"W_eq: site set of V, both slices; t_u = t_0 - 1"` and `["V"]`.
+- `g2` is `{"a":bool,"t1":bool,"t2":bool,"hsel_content":[…]}`.
+  - `a` and `t1` are true exactly when `class-decisions.json` records `"flag"`, in `class_rule` or, for a `u_c` row, in
+    `support_restriction`.
+  - `t2` is R5's.
+  - `hsel_content` is `[]` when T1 or T2 fires. Otherwise it is A9's list of functions, each given by its indicator
+    set: one `{"values":[<E-values of I_w>],"w":w}` for each positive-mass `w` with `I_w ⊊ J_w`, in `w` order (R5).
+- `sharp_w` is a sorted list of `w`. `weak`, `mass` and `pi0_ref` are objects from each positive-mass `w` to a rational.
+- `nb` is an object from each sharp `w` to a boolean. `nb_g1` is the boolean `NB(m)` in B-pl (G1's record, R3) and
+  `null` in B-eq and B-ct.
+- `w_certified` is a boolean (R4).
+- `usefulness`:
+  - For a row that passes G5, it is an object from each sharp `w` to
+    `{"disjoint":[[σ,σ′],…],"law_only":[[σ,σ′],…]}`. The pairs have `σ < σ′`, both of positive `ν`-mass, and the lists
+    are sorted. Both lists are empty where `NB` fails.
+  - At `final` it is kept only for a row whose token is positive (A9).
+  - It is `null` for every other row.
+- `hypotheses` is a list sorted by code point: `Λ` for a row that reaches G5 (R8), and the set of RD-3 (i) otherwise.
+- `token` is the row token, or `"pending"`. `support_size` is an integer. `d_ratio` is the rational
+  `|S| / |supp(m)|`.
+- `bound_ok` is a boolean (c1) in B-pl, an object from each sharp `w` to a boolean (c2) in B-eq, and `null` in B-ct.
+- `ledger` is built from these strings:
+  - B-pl: `"D=log(<d_ratio>); (c1) |E|=<|E|>: <holds|breaks>"`;
+  - B-eq: `"D=log(<d_ratio>); (c2) no sharp w"`, or `"D=log(<d_ratio>); (c2) "` followed by one
+    `"w=<w> p=<mass> k=<|E∖W|>: <holds|breaks>"` per sharp `w`, joined by `"; "`;
+  - B-ct: `"D=log(<d_ratio>); cross time, no D bound; H-ret"`.
+
+**Token strings.**
+- The member name is `π_0` or `u_c[<least state>]`.
+- The access labels of a branch, in this order, are:
+  - B-pl: `H-cur (declared)`;
+  - B-eq: `H-cur (declared), H-2s (declared)`;
+  - B-ct: `H-cur (declared), H-2s (declared), H-ret`.
+- `Λ`'s labels are `H-2s (declared)`, `H-cur (declared)`, `H-inv[K-17(a)]`, `H-law`, `H-ret` and `H-sel`. In a token
+  they are joined by `", "` in code-point order.
+- Row tokens:
+  - `ABSENT[<member>; <branch>; <access>]` and `BLIND[<member>; <branch>; <access>]`;
+  - `VOID[row]`;
+  - `Z1-VOID[IMPORTED]` and `Z1-VOID[DYN]`;
+  - `UNDECIDED(G<k>)`;
+  - `CONDITIONAL[<Λ>]` and `AVAILABLE[H-sel](<Λ>)`.
+- Class tokens (A2):
+  - `ABSENT[𝓘; <branch>; <access>]` and `BLIND[𝓘; <branch>; <access>]`;
+  - `UNDECIDED(G<k>, …)`, with `k` ascending;
+  - `Z1-VOID[<subtypes>]`, with IMPORTED before DYN;
+  - `VOID[row](<member names in M5 order>)`.
+  Lists inside a class token are joined by `", "`.
+
+### 10.3 Worked examples
+
+These examples fix the format. Their values are those PR-P0 and `K` §6 already fix (from K1-RDY-1's `gate-table.json`
+at `da1d939e`, rows `P0`/B-eq and `P0`/B-pl, and `K` line 215). The `g2.a` and `g2.t1` values assume that
+`class-decisions.json` records `"pass"` for the class rule.
+
+The `π_0` member row in B-eq, shown here with line breaks; the committed bytes are the compact form of §10.2:
+
+```json
+{"bound_ok":{},"branch":"B-eq","candidate":"P1","d_ratio":"1/1",
+ "g2":{"a":false,"hsel_content":[],"t1":false,"t2":false},
+ "gates":{"G1":"pass","G2":"pass","G3":"pass","G4":"ABSENT[π_0; B-eq; H-cur (declared), H-2s (declared)]",
+          "G5":"not-reached","G6":"not-reached","G7":"not-reached"},
+ "hypotheses":["H-2s (declared)","H-cur (declared)","H-inv[K-17(a)]"],
+ "ledger":"D=log(1/1); (c2) no sharp w",
+ "mass":{"00":"1/4","01":"1/4","10":"1/4","11":"1/4"},"member":"pi0","nb":{},"nb_g1":null,
+ "pi0_ref":{"00":"1/2","01":"0/1","10":"0/1","11":"0/1"},"sharp_w":[],"support_size":1024,
+ "token":"ABSENT[π_0; B-eq; H-cur (declared), H-2s (declared)]","usefulness":null,"w_certified":false,
+ "w_inputs":["V"],"w_rule":"W_eq: site set of V, both slices; t_u = t_0",
+ "weak":{"00":"1/2","01":"0/1","10":"0/1","11":"0/1"}}
+```
+
+The `π_0` member row in B-pl differs in these fields:
+- `"bound_ok":false`, `"ledger":"D=log(1/1); (c1) |E|=3: breaks"` and `"weak":{"":"1/8"}`;
+- `"nb_g1":false`, `"w_inputs":[]` and `"w_rule":"W trivial; t_u = t_0"`;
+- `"hypotheses":["H-cur (declared)","H-inv[K-17(a)]"]` and `"token":"ABSENT[π_0; B-pl; H-cur (declared)]"`.
+
+The POS-X control entry, compact:
+
+```json
+{"computed":{"g3_void":false,"mass_w0":"1/64","nb_w0":true,"sharp_w0":true,"token":"CONDITIONAL[H-2s (declared), H-cur (declared), H-ret, H-μ, finite-S posit]","w_certified":true},"expected":{"g3_void":false,"mass_w0":"1/64","nb_w0":true,"sharp_w0":true,"token":"CONDITIONAL[H-2s (declared), H-cur (declared), H-ret, H-μ, finite-S posit]","w_certified":true},"gate":"G3, G4, G7","id":"POS-X","outcome":"pass","paper":null}
+```
+
+The first two members in `members.json`: `{"key":"pi0","size":1024}` and
+`{"key":"0000000000","size":1,"states":["0000000000"]}`.
+
+Token strings:
+- `BLIND[u_c[0000000000]; B-ct; H-cur (declared), H-2s (declared), H-ret]`;
+- `CONDITIONAL[H-2s (declared), H-cur (declared), H-inv[K-17(a)], H-law]`;
+- `ABSENT[𝓘; B-eq; H-cur (declared), H-2s (declared)]`;
+- `UNDECIDED(G6)`.
+
+The first is the member-row form of the token CC-SCOPE fixes for `δ_0` in B-ct. The others illustrate the grammar
+only; which rows take them is decided by the run.
+
+### 10.4 Recipe
+
+At a commit holding the outputs, `python3 -I <rec>/controls.py check`:
+- runs A and B;
+- compares their shared outputs byte for byte with each other's and with the committed files;
+- compares `cyc2.json` and `checks.json` with the committed files;
+- runs every check of §9, §4 and §11;
+- exits 0 exactly when all of these hold.
+
+Its exit status and the committed files are the evidence, and printed output is diagnostic only (§A.44). The workflow
+job of §13 runs this command, and its conclusion is the job's conclusion. Expected outputs are the committed files, and
+nothing in them depends on time, randomness, environment or iteration order.
 
 ## 11. Countercontrols
 
@@ -406,7 +681,8 @@ decisions on the text of a declaration are decided in `derivations/P1-class-pape
 | CC-BLIND | `W_ct ∪ {y_4, x_0}`: mass `1/256`, sharp, `NB` false (BLIND) | — |
 
 POS-X is the positive control (a known positive token), CC-ABS and CC-BLIND the negative ones, CC-EXACT the exactness
-control. A computed S0 part that fails gives VOID[stage] under `K`'s §5.4: no row or class token is issued. Because
+control. The `computed` and `expected` objects are fixed in §10.2. A computed S0 part that fails gives VOID[stage]
+under `K`'s §5.4: no row or class token is issued. Because
 K1-RDY-1's paper S0 passed, such a failure is also stop condition H10. The preserved-result controls of §4 run after S0
 and before any row token is written.
 
@@ -419,6 +695,9 @@ Fixed, with hand-derived answers, in the code-freeze amendment. Proposed:
   `[[1,1,0],[0,1,1],[1,0,1]]` (rank 2).
 - **SF-3:** a two-cell toy system with a stated `E`, `W`, `Σ` and readout whose sharp `w`, weak values and `NB` are
   derived by hand in the amendment, with one positive and one blind case.
+- **SF-M:** for each mutation of §11.3, its analogue on the synthetic fixtures' outputs where one exists, with the check
+  it must fail, listed in the code-freeze amendment. `controls.py self-test --synthetic` runs them. This is the pre-`F`
+  self-test of the code review.
 
 ### 11.3 Mutation controls (`controls.py --self-test`)
 
@@ -442,9 +721,19 @@ Each mutation must make the named check fail; a mutation that passes fails the s
 | MU-C1 | implementation A with `T = 2` (frozen patch) | PR-E |
 | MU-C2 | implementation B with a wrong `φ^{−1}` (frozen patch) | CC-BIJ |
 | MU-C3 | implementation A with exact division replaced by floating division (frozen patch) | exactness guard |
+| MU-14 | rows stage run against a `members.json` that is absent, uncommitted or altered by one byte | refusal (exit 2) by A, B and `controls.py run --stage rows` |
 
 The code mutations MU-C1 to MU-C3 are applied by `controls.py` to temporary copies, from patches frozen in the
 code-freeze amendment; the implementations carry no test hooks.
+
+**Timing.** These mutations need instance outputs, so they run only after `F`, under authorization (e).
+- `self-test --stage members` covers MU-3, MU-4, MU-8, MU-13 (on `members.json`), MU-C1 and MU-C2. It is green at X2
+  before the rows stage runs.
+- `self-test --stage rows` covers MU-1, MU-2, MU-5, MU-6, MU-7, MU-9, MU-10, MU-12, MU-13, MU-14 and MU-C3. It is
+  green before X3's row tokens are committed.
+- `self-test --stage final` covers MU-11 and MU-13. It is green before X5.
+- The CI job at `E` runs all three.
+- Before `F`, only SF-M runs (§11.2).
 
 ## 12. Safeguards against post-selection
 
@@ -452,7 +741,9 @@ code-freeze amendment; the implementations carry no test hooks.
    schema, the token strings and every check are fixed at `F`. The code is fixed at `F` by blob (§8.4).
 2. **No run on the instance before `F`.** Pre-`F` runs use the synthetic fixtures only; the drafting log (the commits
    `D..F` and the pull request's checkpoint comments) lists every run made.
-3. **Members before rows.** Stage M's output is committed and checked (X2) before any row is evaluated (X3).
+3. **Members before rows.** Stage M's outputs are committed at X2, and `controls.py check --stage members` passes,
+   before any row is evaluated (X3). The rows stage of A, B and `controls.py run` refuses until then (§10.1; MU-14).
+   No workflow job runs A or B before X5 (§13).
 4. **No stopping rule.** Every member row of every branch is evaluated and reported, whatever earlier rows yield, even
    once a branch's class token is determined. No member is excluded by `NB` or any other outcome (`K` lines 73–74).
 5. **One run of record.** The committed outputs are those of the frozen code on the frozen inputs; CI replays them at
@@ -467,29 +758,50 @@ code-freeze amendment; the implementations carry no test hooks.
 
 Owner approvals, in order, each separate: (a) code drafting on a staging branch (§8.4); (b) the code-freeze amendment
 and any revision of this file before `F`; (c) a `verify.yml` dispatch on the candidate `F`, with the branch held there;
-(d) designation of `F`; (e) execution, naming tools (Python 3.11 with `python3 -I`, `git`, the static checks), inputs
-(the frozen blobs and `K`), scope (§6 at the fixed instance, `N = 6` for CC-IMP″ only) and writers; (f) a dispatch on
+(d) designation of `F`; (e) execution, naming tools (Python 3.11 with `python3 -I`, `git`, the static checks), the
+adversarial writer's tools, inputs (the frozen blobs and `K`), scope (§6 at the fixed instance, `N = 6` for CC-IMP″
+only) and writers; (f) a dispatch on
 the candidate `E` and its designation; (g) reconciliation, receipt and merge.
 
 Execution commits, each a single-parent child of the previous, starting at `F`:
-- **X1** adds A, B (execution paths), `controls.py`, the `verify.yml` edit (one job, "Numerical probes / K1-P1-1 exact
-  P1 enumeration", running `python3 -I controls.py check` with Python 3.11, and its entry in the aggregate `probes`
-  job's `needs` and result lines), `derivations/P1-class-paper.md`, `derivations/S0-paper.md` and
-  `class-decisions.json`. No output file. Checkpoint: each blob equals the frozen one.
-- **X2** adds `members.json` and the S0 and completeness parts of `gate-table.json`.
-- **X3** adds the rows and provisional class tokens (positive rows `pending`).
-- **X4** adds `adversarial.json` and the adversarial notes, when any row passes G5.
-- **X5** adds the final `gate-table.json` and `result.md` (execution log quoting authorization (e) with author and
-  time, the hand-off records, the rendered token tables, scope and non-claims).
+- **X1** adds A, B (execution paths), `controls.py`, `derivations/P1-class-paper.md`, `derivations/S0-paper.md` and
+  `class-decisions.json`. It adds no output file and no workflow edit. Checkpoint: each blob equals the frozen one.
+- **X2** runs `controls.py run --stage members` and adds `members.json`, `cyc2.json`, the members-stage
+  `gate-table.json` (region, preserved, completeness and S0 controls; no rows) and `checks.json`. Checkpoint:
+  `check --stage members` and `self-test --stage members` exit 0 at X2 before the rows stage is run.
+- **X3** runs `--stage rows` and adds the rows-stage `gate-table.json` and `checks.json`. Class tokens are written for
+  branches with no pending row, and `"pending"` otherwise.
+- **X4** adds `adversarial.json` and the adversarial notes, when any row passes G5. The adversarial hand-off follows X3.
+- **X5** runs `--stage final` and adds the final `gate-table.json`, `checks.json` and `result.md`. `result.md` holds
+  the execution log quoting authorization (e) with author and time, the hand-off records, the rendered token tables,
+  scope and non-claims. X5 also adds the `verify.yml` edit: one job, "Numerical probes / K1-P1-1 exact P1
+  enumeration", running `python3 -I controls.py check` with Python 3.11, and its entry in the aggregate `probes` job's
+  `needs` and result lines.
+
+Every commit from `F` to `E` is made by `writer-k1p1-exec`, and its message ends with the line
+`Writer: writer-k1p1-exec`.
+
+**What each push triggers** (§A.43 item 4). These are the workflows as at `D`; the executor inspects them again
+before each push.
+- A push to this round's branch starts no `push`-triggered workflow:
+  - `verify.yml`'s and `hidden-sector-replay.yml`'s `push` triggers are limited to `main`;
+  - the path filters of `bg2-orientation-design.yml` and `bridge-compatibility-research.yml` name none of this round's
+    paths;
+  - the other workflows are dispatch-only.
+- Each push starts the ordinary pull-request run of `verify.yml` on the synthetic merge. Through X4 that run has no job
+  that runs A, B or `controls.py`. From X5 on, its K1-P1-1 job runs `controls.py check`, which replays every stage from
+  the committed inputs.
+- No push starts a dispatch, and a pull-request run is not an exact-head attestation (§A.39).
 
 The executor produces X2–X5's outputs by running `controls.py run` locally under authorization (e); the computation is
-bounded and deterministic (§A.40), and the CI job at `E` replays it (§10). Candidate `E` is X5 or a later single-parent
+bounded and deterministic (§A.40), and the CI job at `E` replays it (§10.4). Candidate `E` is X5 or a later single-parent
 commit. Before its designation the independent reviewer checks every
 checkpoint of §15 at the exact head.
 
 ## 14. Stop conditions and halt
 
-**Stop and return to the owner** (execution stops; only a factual note in `result.md` is committed):
+**Stop and return to the owner.** Execution stops, and only a factual note in `result.md` is committed. Every H
+condition ends in the `S12` halt below, unless the owner records otherwise:
 - **H1** A and B disagree on any output, a positive row included: an integrity stop on procedure, not a token (§8.3);
 - **H2** a completeness check of §9 fails;
 - **H3** a preserved-result control of §4 fails, or a branch reaches the union clause; this is also reported as a
@@ -523,7 +835,12 @@ child of `F` changing only record paths carries `result.md`. Then reconciliation
 | Every member evaluated once per branch | CC-ROWS; MU-1, MU-2, MU-7 |
 | No class token from an incomplete list | CT-INC; MU-1, MU-4 |
 | Independent implementations | file headers and hand-off records; the reviewer checks no import or shared code between A, B and `controls.py` |
-| Elementwise agreement | `controls.py check` compares A's and B's outputs byte for byte; MU-6 |
+| Elementwise agreement | `controls.py check` compares A's and B's `members.json` and `gate-table.json` byte for byte (`AB-members`, `AB-gate-table`); MU-6 |
+| Members before rows | X2 precedes X3. `checks.json` at X2 records `check --stage members` passing. The rows stage of A, B and `controls.py run` refuses without committed, unaltered members (MU-14). No `verify.yml` job runs A or B before X5, as the reviewer checks at each execution commit |
+| Sole committer | every commit `F..E` ends with `Writer: writer-k1p1-exec`; the reviewer checks `result.md`'s commit list against `git log F..E` |
+| Standard library only | `IMPORTS` in `controls.py check`: an `ast` allowlist over A, B and `controls.py` (§8.1) |
+| No symmetry reduction | `controls.py check` verifies that each row's `support_size` equals its member's `size` and that its masses sum to 1 over all values of `W` (CC-MASS); the reviewer's static reading at the code freeze finds no state filter other than `supp(m)` and `B_w` |
+| Adversarial notes after both outputs | the hand-off record of `writer-k1p1-adv` is later than X3's commit, and X4 follows X3; `ADV-INDEX` |
 | Deterministic replay | the CI job at `E` regenerates every output and compares with the committed bytes; MU-13 |
 | Structured verdict | tokens read from `gate-table.json`; the job's conclusion is `controls.py check`'s exit status (§A.44) |
 | Controls green before tokens | S0 entries precede rows in `gate-table.json`; MU-12 |
@@ -540,13 +857,23 @@ child of `F` changing only record paths carries `result.md`. Then reconciliation
   says so.
 - The P1 class token is not positive at this instance by CR-6 (`K` line 236; A8); the informative content is the member
   rows (`K` line 238).
+- **Rows fixed in advance** (as `K` lines 232–238 record for K1-RDY-1). Several outcomes follow from the frozen rule and
+  the preserved results before execution:
+  - The `π_0` member row has no sharp `w` in any branch (PR-P0), so it is ABSENT unless R5a gives it a token. No B-pl
+    or B-eq member row reaches VOID[row] (PR-LEDGER). B-ct has no bound.
+  - T2 cannot fire on a cycle: `φ(c) = c` is M4's closure check and Lemma P1(c).
+  - So by A2's order, each branch's class token is ABSENT[𝓘; branch; access], unless a paper decision of X1 flags or
+    is undecided (R5a), or some row ends UNDECIDED(G6).
+  - The class token is therefore not an enumeration finding.
+  - PR-P1c and the member T2 checks restate the construction and are not independent controls.
+- The rows not fixed in advance are the `u_c` member rows' sharp `w`, weak values, `NB` records and tokens.
 - A positive member row is at most AVAILABLE[H-sel], with its named hypotheses. It is not physical sourcing of a ready
   state, access, renewal, memory, observer emergence or complete QM. Cross-time positives need retention outside the
   state (H-ret).
 - The round's computations are exact finite enumerations, not Lean kernel proofs. Agreement of A and B is independent
   replication, not proof of correctness of either.
 - No manuscript or Lean change. The only paths outside the record directory are the two implementations and the
-  `verify.yml` job. No correctness band moves. Readiness-dependent work stays as `K` lines 226–229 and A4 leave it.
+  `verify.yml` job. No correctness band moves. Readiness-dependent work stays as `K` lines 226–228 leave it.
 
 ## 17. Owner rulings on the drafting questions
 
@@ -584,6 +911,9 @@ whose positive-row path is UNDECIDED(G6)."
 | K1-RDY-1's `F` `d9b3de01` and its files (§2) | the rule this round adopts | support off `main` at `D`; closed by SC-2 before `F` (§17, OQ-2) |
 | K1-RDY-1 at `da1d939e` (`result.md`, `gate-table.json`, `derivations/`) | PR-S0, PR-P0, RD-1 to RD-3 | support off `main` at `D`, reviewed (§3), reaching `main` with K1-RDY-1's halted landing (SC-2); used only as controls and as readings stated in §3 |
 | PR #1126 comments 6659587647 and 6659744122 (independent reviews of K1-RDY-1) | SC-1; the reviewed form of RD-1 to RD-3 | provenance: the readings are stated in §3 and accepted by the ruling quoted in §17 |
+| PR #1126 comment 6660672560 (exact-head recheck of K1-RDY-1's `W′`) | SC-1 | provenance for a start condition; no claim of this round uses its content |
+| PR #1126 comment 6660792206 (K1-RDY-1's halted receipt verifies) | SC-2's status | provenance; SC-2 itself is met only on `main` |
+| PR #1135 comment 6660883383 (independent review of this draft at `82123bea`) | the revisions to §2, §3, §6, §8, §10, §11 and §12 to §16 | provenance |
 | #1031 comment 6660591343 | the rulings on OQ-1 to OQ-7 | quoted in §17 with author and time |
 | #1031 comments 6658964414 and 6659415927 | this round's authority | quoted in §0 with author and time |
 | #1031 comment 6658841280 (feasibility review), 6658598399 (gate-3 plan); PRs #1114, #1126 | the 471-row count and RD-4's suggestion | provenance |
