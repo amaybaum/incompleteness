@@ -23,11 +23,16 @@ c.6567522034's header and in #1031 c.6567502036's table.
 
 **The review record.** #1031 comment **6567537517** (2026-11-02T02:22:00Z). Its body lines 5 to 182 (178 lines, LF,
 final LF) hash to `fa6c9e0430d4adf2b4466d6f90f55d774234bdaaa1b044b22c83c393684c8812`, which matches the recorded prefix
-`fa6c9e0430d4adf2`. It is not copied here; it stays on #1031.
+`fa6c9e0430d4adf2`. Only that line range matches. The whole comment body hashes to `f3a8bb42…`. The review record
+is not copied here; it stays on #1031.
 
-**What was run.** Only the integrity checks above: a sha256 of text and line counts. These are not scientific
-computations. No hand check, enumeration, model calculation, Lean or workflow was run. No statement in the text was
-re-derived.
+**What was run.** Nothing beyond the following:
+- sha256 digests and line counts of the texts above;
+- read-only `git log --all -S` searches and `git ls-remote` reads of the held pull-request heads (§5, P-2);
+- the repository's placement check, `tools/artifact_placement_check.py` (OK).
+
+These are not scientific computations. No hand check, enumeration, model calculation, Lean or workflow was run. No
+statement in the text was re-derived.
 
 **Search for other copies.**
 - `git log --all -S` over the repository's 310 remote branches, for the strings `POS-X`, `CC-PASS`, `CC-T2`, `W_ct`,
@@ -76,7 +81,7 @@ current)"); G = gate record c.6567502036; K = #914 c.6566997020; I = #1031 body.
 | F3(c), VOID[row] before BLIND; ABSENT excludes both | R F3(c); landed | lines 142–143; 183 | yes |
 | F4, B-ct region | R F4 → O-1; landed "pending O-1", then O-1(b) | lines 44–47; 276; 289–290 | yes (as O-1(b)) |
 | F5, "rows fixed in advance", no token values | R F5; landed "without stating any token values" | lines 232–239 | yes |
-| R1, P1 class tokens "as not positive" | R final check R1, wording given | line 236, R1's wording verbatim | yes |
+| R1, P1 class tokens "as not positive" | R final check R1, wording given | line 236: R1's wording, followed by the clause "; which non-positive token results depends on the other members". That clause is R1's own reason ("Which non-positive token results depends on the other members (§5.3's order)") carried into the text | yes, with the appended reason clause |
 | F6, three checkpoints | R F6; landed | lines 267 (isolation), 268 (`W` by rule), 270 (no post-selection, structural) | yes |
 | F6, G6 "independently" defined | R F6; landed | lines 151–152 | yes |
 | F7, P3 B-pl row flagged | R F7 → O-2 | lines 83–85; 276–277; 291 | yes (as O-2) |
@@ -86,7 +91,7 @@ current)"); G = gate record c.6567502036; K = #914 c.6566997020; I = #1031 body.
 | F9(c), lexicographic cell order | R final check: "member order does not affect any token" | line 157, order undefined | not applied, as recorded (see A-1) |
 | F9(d), §10 fixture list | R final check: applied | lines 283–284 (`E := site 2`, `W_ct`, `{y_4, x_0}`) | yes |
 | F9(e), "three words" on D-07(a)'s counting-measure scope | R final check: cosmetic | line 57 cites (K-8, D-07(a)) without the scope words | not applied, as recorded |
-| F9(f), held-head drift note | R final check: cosmetic | line 263 records drafting heads only | not applied, as recorded (see P-2) |
+| F9(f), held-head drift note | R final check: cosmetic | line 263 already requires heads equal to "those recorded at freeze", and lists the drafting values; only the note recording a drafting-vs-freeze difference is missing | not applied, as recorded (see P-2) |
 | Optional T1 nit, "scalar constants" | R final check: optional; Confirmation: "applied" | line 130 | yes |
 | Confirmation (1), §7 "P0 B-ct from POS-X" line removed | R Confirmation | lines 232–236 list P0 B-pl, P0 B-eq, P3, P1 only; line 199–200 "No candidate row uses it" | yes |
 | Confirmation optional nit, P0 B-ct under O-1(b) | R Confirmation optional; G point 2 "not applied" | absent from lines 232–236 | not applied, as recorded |
@@ -99,6 +104,12 @@ current)"); G = gate record c.6567502036; K = #914 c.6566997020; I = #1031 body.
 | O-1(b): `W_eq` at `t_u = t_0 − 1`, H-ret and H-2s (declared), never native; non-positive row stands, no switch | R Confirmation "O-1(b) landed with its no-switch safeguard (§2, §11)"; G | lines 44–47 ("no other readout region is substituted"); 276; 289–290 |
 | O-2 KEEP: P3 B-pl as starting-measure diagnostic, ledger line kept | R Confirmation; G | lines 83–85; 276–277; 291 |
 | O-3 confirmed: Q1 scoping with F3(a)'s precedence; report reporting-only, with checkpoint | R Confirmation; G | lines 122–124; 144–147; 269; 292–293 |
+
+**Attribution of O-1 to O-3.** No owner-authored record of O-1, O-2 or O-3 exists on GitHub. The decisions appear only
+in the coordinating session's gate record G (c.6567502036, "Owner decisions incorporated (2026-11-02)") and in the
+review's Confirmation, which checks that the text records them. Line 288 attributes them to "owner decision,
+2026-11-02, Issue #1031 thread". The #1031 thread contains no owner-decision comment. The content concordance above
+is unaffected. The attribution is recorded as C-2 (§7) and is not resolved here.
 
 ### 3.3 Writer's questions Q1–Q6
 
@@ -135,7 +146,13 @@ current)"); G = gate record c.6567502036; K = #914 c.6566997020; I = #1031 body.
 | I, "Required next gates" 1 | nits: rule-defined `W`; L-O quantifiers | line 41 ("review nit 1"); line 102 ("review nit 2") |
 | I, fixed study choices | instance, priors, G2(b) tailoring, P3 rule, `E`, `R_E`, access, ceiling, single use, hand checks | as the K rows above |
 
-No row of §3 finds a difference between the recovered text and what the records say it carries.
+**Attribution of K-1 to K-18 and D-07(a).** Line 6 calls them "owner decisions K-1 to K-18 and D-07(a) (#914
+c.6566997020, binding verbatim)". Their source, #914 c.6566997020, is headed "Coordinating-session disposition — F2
+paper lanes (2026-11-02)". The comment is posted from the owner's account and quotes no owner statement. The
+discrepancy is recorded as C-3 (§7) and is not resolved here.
+
+No row of §3 finds a difference in content between the recovered text and what the records say it carries. The two
+attribution discrepancies above concern who made the decisions, not what the text says.
 
 ## 4. Items left open before freeze (as recorded; not resolved here)
 
@@ -143,6 +160,15 @@ No row of §3 finds a difference between the recovered text and what the records
   (lines 144–147). The reviewer found this fair and non-filtering. The owner "may want it widened".
 - **G point 2 / R Confirmation optional nit.** P0's B-ct row could be added to "Rows fixed in advance". Not applied.
 - **F8, F9(a), (c), (e), (f).** Not required before freeze (R final check).
+
+**Pre-freeze proposals (#1114 review c.6649791225; proposals only, not edits).** Each would be an append-only
+clarification. None is applied to `PREREG-RECOVERED.md`, and each needs an owner decision before freeze.
+- **PF-1 (A-1 residual, §A.41).** One sentence fixing the P1 class token's parameter fields: for example
+  `[𝓘; branch; access]` for ABSENT and BLIND, the set of `k` for UNDECIDED, the set of subtypes for Z1-VOID, and the set
+  of rows for VOID[row]. The same sentence either defines the cell order behind "lexicographically least state"
+  (line 157) or declares member order reporting-only.
+- **PF-2 (P-3, TA (c4)).** One sentence making line 206's rationale self-contained: `π_0` is uniform on the product
+  space `S`, so the configurations of disjoint sets of cells are independent under it. TA (c4) then becomes provenance.
 
 ## 5. Points for the independent review
 
@@ -170,7 +196,24 @@ and no text is changed for them.
   observation that is not a finding: each fact the gates use from TA or RR appears to be stated in the text itself, so
   those references may classify as provenance. They are the overlap rule (lines 48–49), (c1)/(c2) (lines 60–62), the
   W-certified test (lines 55–56) and `D(μ_O)` from index 8 (lines 88–90). The exceptions are line 206's "TA (c4)" and
-  line 234's use of it, which cite `π_0`'s equal-time independence of disjoint cells as a result.
+  its uses at lines 234 and 243, which cite `π_0`'s equal-time independence of disjoint cells as a result. PF-2 (§4)
+  proposes the one-sentence fix.
+
+  Added on review (c.6649791225):
+  - **Lemma dependency.** Two lemmas are used as results without proofs on `main`. Their proofs exist only in #914
+    comments, off `main`:
+    - the blindness lemma, stated at lines 97–100, used at line 163 ("BLIND by the blindness lemma") and for CC-SCOPE
+      (line 244);
+    - the P1 lemma, cited at line 244.
+
+    Before freeze they need proofs on `main`, or line 163 must defer to G4's direct `NB` decision.
+  - **HC-1** (lines 303–310) is a computational claim with no retained recipe or output. It is to be labelled
+    provenance, not support. Each control's pass condition is stated in §6 and is decided at execution.
+  - **Reachability of the commits the text names**, per the review:
+    - on `main`: `07d94f2c`, `02009693`;
+    - reachable from `main`: `af1e9be2`, `947761dd`;
+    - off `main`: `e02544d5`, `d4a80fc8`, `0efd67a6`, `fa32b043`. The last three are held heads in line 263, not
+      anchors.
 - **P-4 (RR-1 carry-forward; #1025 c.6559037887, `stage1/REVIEW.md` at `e02544d5`).** #1031 c.6625842789
   (2026-11-04) requires any successor readiness test to address these findings. The requirement post-dates the
   acceptance. Writer's mapping, for the reviewer to check:
@@ -179,18 +222,34 @@ and no text is changed for them.
   - Findings 3–5 (RR-1 candidates C2–C4) → no counterpart.
   - Finding 6 (`t_u ≤ t_r`) → K1-RDY fixes `t_u` per branch (lines 42–45).
   - Finding 8 (executor member choice) → §5.3 evaluates every member.
-  - Finding 9 (token labels) → §5.4's fixed table.
-  - Findings 7, 10–12 → specific to RR-1's record.
+  - Finding 9 (a token should name its item, not its class) → the P1 class token's parameter fields, which line 158
+    leaves undefined (A-1 residual; PF-1). §5.4's fixed table covers token types only.
+  - Finding 12 (quote the decision with author and time, §A.42 item 7) → K1-RDY's own owner decisions: K-1 to K-18,
+    D-07(a), O-1 to O-3, and any freeze designation (C-2, C-3).
+  - Findings 7, 10 and 11 → specific to RR-1's record.
+
+  The review confirms the mapping of Findings 1, 3–6 and 8.
 - **P-5 (c.6567152798).** A coordinating-session paper diagnostic, posted on #1031 at 01:49Z before the preregistration
   record and marked UNREVIEWED, evaluates P3 at the fixed instance. The text discloses that P3's rows follow from its
   image statement (lines 232–235). It does not mention the diagnostic. Line 252's checkpoint covers the *drafting* log
-  ("reads and HC-1 only"). Whether the diagnostic bears on that invariant or needs disclosure is for the review.
+  ("reads and HC-1 only").
+
+  Added on review (c.6649791225). Two other records evaluated candidate rows before acceptance:
+  - #914 c.6567198108 (01:53Z) cites the diagnostic, saying it "suggests **P3's exact sharp and NB gates fail at
+    K-18(b)**".
+  - The review's own hand check HC-A evaluated two B-pl rows (R, F3(a) and Q1):
+    - `π_0`: `μ(E=0) = 1/8`, `NB` false;
+    - P3: `μ_O(E=0) = 1/4`, `NB(μ_O)` false.
+
+  So line 312's "No candidate row was evaluated" is true of the preregistration's writer only. The review rules that
+  this does not compromise the non-blindness of the informative P1 member rows: P3's rule was fixed by K-12(b) at
+  01:36Z, and P3's rows are declared fixed in advance (lines 232–235). Disclosure is still needed before freeze.
 
 ## 6. Ambiguities
 
 | Id | Where the record underdetermines | Choice made here | Alternatives | Could it change a gate outcome? |
 |---|---|---|---|---|
-| A-1 | Line 158: the P1 class token is "the first of VOID[row], Z1-VOID, UNDECIDED(Gk), ABSENT, BLIND attained by a member row". "First" may mean first in that list or first in member order (line 157). Member order rests on a cell order that is never defined (F9(c), not applied). | None; the text is recovered as is. The final check reads it as list precedence ("member order does not affect any token"). | Member-order reading. | Under list precedence, no. Under the member-order reading, the *label* of a non-positive P1 class token could depend on the undefined order. The class is not positive under either reading (line 236). This is RR-1's Finding 2 failure mode, so it merits an explicit review ruling. |
+| A-1 | Line 158: the P1 class token is "the first of VOID[row], Z1-VOID, UNDECIDED(Gk), ABSENT, BLIND attained by a member row". "First" may mean first in that list or first in member order (line 157). Member order rests on a cell order that is never defined (F9(c), not applied). | None; the text is recovered as is. The final check reads it as list precedence ("member order does not affect any token"). | Member-order reading. | **Ruled** (#1114 review c.6649791225): "first" means first in the listed order, VOID[row] > Z1-VOID > UNDECIDED(Gk) > ABSENT > BLIND. The member-order reading is not tenable: the grammar, F3(a)'s "ABSENT before BLIND", Q4/line 298's "the precedence", the final check and R1's clause all require the list reading. The class token's *type* therefore does not depend on member order. **Residual:** its *parameter fields* are undefined: UNDECIDED's `k`, Z1-VOID's subtype, VOID's row, and ABSENT/BLIND's `μ` at class level. Filling them from "the first member" would bring member order back in (RR-1 Findings 2 and 9). That cannot make a token positive or change its type. No amendment is required for A-1 as framed; PF-1 (§4) is the recommended pre-freeze clarification. |
 | A-2 | The reviewer's record does not carry the accepted text's digest, and r2's text is lost, so "no other line changed" (R Confirmation) cannot be checked line by line. | The posted text is identified with the accepted r3 by §2's chain. | That the posted text differs from the reviewed file. Nothing found supports this. | Only if the texts differ. §3 finds no difference in any item the record names. |
 | A-3 | "r3" means two things. The preregistration's revisions are r1 (275), r2 (312) and r3 (313, "current"). Lines 7, 95 and 201 use "r3" for the *proposal* r3 (#914 c.6564008455). The brief's "accepted r3" means the preregistration. | Kept as written. | — | No. |
 
@@ -202,4 +261,11 @@ and no text is changed for them.
   conclusion does not follow from the search, because the Issue's own comments were not covered. Resolving this means
   updating the planning block and choosing between this recovery and the authorized reconstruction. That is for the
   coordinator and the owner. It is not done here.
-- No contradiction was found between the review record, the gate record, #914's decisions and the recovered text.
+- **C-2.** Line 288 attributes O-1 to O-3 to "owner decision, 2026-11-02, Issue #1031 thread". The thread holds no
+  owner-authored record of them. They appear only in the coordinating session's gate record c.6567502036 (§3.2).
+- **C-3.** Line 6 calls K-1 to K-18 and D-07(a) "owner decisions … binding verbatim". Their source, #914
+  c.6566997020, is headed "Coordinating-session disposition" (§3.4).
+- Under §A.42 item 7, freeze needs these decisions quoted with author and time, or a record establishing whose
+  decisions they are. That is for the owner. It is not resolved here.
+- No contradiction in content was found between the review record, the gate record, #914's decisions and the
+  recovered text.
