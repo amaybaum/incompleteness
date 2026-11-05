@@ -99,6 +99,29 @@ entry `MAIN:C-past-hypothesis-replacement-rate-condition` is renamed to
 
 Authorized by owner ruling c.6649643759, item 1; justified in `RECOVERY.md` §F.4.
 
+## Gate-manifest consequence: `verification/audit-census.json`
+
+The ordinary PR `verify` run 41969128746 on `24452b01` failed its job "Numerical probes /
+core B". The cause was `audit_census_probe.py`, AUDIT-B, vocabulary `B1-required`
+(pattern "not presently discharged").
+
+**The drift.** Row 51, the authorized ch18:216 side correction, adds a correct instance of
+the required C4 status phrase at ch18:216 and FULL:5029. The counts move as follows:
+- `book/ch18-beyond.md`: 0 → 1;
+- FULL: 3 → 4.
+
+**Disposition.** "repaired" still holds at that location. The phrase is the C4 status
+sentence that the vocabulary requires, now in one more paragraph.
+
+**Change.** Following the manifest's own drift rule, only `expect` and `why` of
+`B1-required` change. The pattern is not widened. `python3 verification/lean/audit_census_probe.py`
+passes locally after the change.
+
+**Scope.** The manifest is a mutable gate file, not a frozen record; it is not listed in
+`verification/infrastructure/legacy-records.json`. It was not in the authorized file list,
+so this consequence is recorded here for the owner and reviewers to confirm, as the
+LEDGER rename was.
+
 ## Planned sites left unchanged
 
 Each was reviewed against `RECOVERY.md`. No change was needed, under minimum change
