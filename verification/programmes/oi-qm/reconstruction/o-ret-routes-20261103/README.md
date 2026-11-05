@@ -12,6 +12,9 @@ physical retention in native OI dynamics or validate the classifier outside this
 reviewer's separate check cannot be regenerated from `main`, since its script is not retained
 (`:51–53`).
 
+**Phase B.** `phaseB-negative/THEOREM-N.md` records a scoped paper negative (Theorem N) for the family it
+names. It is not a universal no-go for OI retention, and no Phase B run is planned.
+
 **Status lines that the later record supersedes.**
 
 - `PREREG-PHASE-A.md:3–4` ("Not authorized to run") and `phaseA/IMPLEMENTATION-NOTES.md:7` ("Not
