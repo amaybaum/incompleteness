@@ -25,12 +25,13 @@ The framework is inspired by the same broad kind of self-reference constraint th
 
 At finite observational horizon, the framework relates three descriptions:
 
-```text
-finite stochastic law (S)
-        ⇅ exact
-finite reversible realization (D)
-        ⇅ exact
-fixed-basis unitary/Born representation (Q_fb)
+```mermaid
+flowchart TB
+    S["<b>S</b><br/>finite stochastic law"]
+    D["<b>D</b><br/>finite reversible realization"]
+    Q["<b>Q_fb</b><br/>fixed-basis unitary / Born representation"]
+    S <-->|exact| D
+    D <-->|exact| Q
 ```
 
 The representation equivalence is universal at this finite-record level. The specifically OI content is the embedded-observer structure: coupling, hidden capacity, persistence and history readback constrain what a faithful realization must contain.
