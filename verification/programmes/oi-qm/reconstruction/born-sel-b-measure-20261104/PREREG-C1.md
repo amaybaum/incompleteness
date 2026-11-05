@@ -1,13 +1,16 @@
 # BORN-SEL C-1 preregistration: single-orbit frequencies against the Born-form weights on small wave substrata (#1059, part (b))
 
-**Status.** WIP / UNVERIFIED preregistration, draft r6. Revised after the independent review of `3be25e7f` (ACCEPT WITH
-CHANGES) and the delta reviews of `c610b2b8`, `1962c378`, `2f59aad7` and `df723247` (each ACCEPT WITH CHANGES); not re-reviewed. Paper only. Nothing has been run or
-written as code, and no native instance has been enumerated.
+**Status.** WIP / UNVERIFIED preregistration, draft r7.
+- r6 (`cde5ecbc`) was accepted as a draft after the independent review of `3be25e7f` and the delta reviews of
+  `c610b2b8`, `1962c378`, `2f59aad7` and `df723247` (#1082 c.6625738542).
+- r7 writes in the owner's rulings on OQ-1 to OQ-15 (#1059 c.6650820790; quoted in §8.2) and the expected-value and
+  schema amendments they require. It has not been reviewed.
+- Paper only. Nothing has been run or written as code, and no native instance has been enumerated.
 
-**Not a candidate freeze yet.** The freeze sequence is in §7. First, the owner answers OQ-1 to OQ-15 (§8.2). This text
-is then revised to carry the answers, and the revised commit is independently reviewed. Only then does the owner
-designate `F`. At `F` no item of this text may still await an answer. **Not authorized to run.** A run needs, after `F`,
-the owner's go, the tool, its review, and a separate dispatch approval (§7).
+**Not a candidate freeze yet.** The freeze sequence is in §7. Step 1 (owner answers) is done, and this revision is
+step 2. The revised commit is next independently reviewed (step 3); the review covers the added diagnostic toy
+CC-ORDER and every other new expected value. Only then may the owner designate `F`. **Not authorized to run.** A run
+needs, after `F`, the owner's go, the tool, its review, and a separate dispatch approval (§7).
 
 - **Frozen inputs at `F`.** All four are in `verification/programmes/oi-qm/reconstruction/born-sel-b-measure-20261104/`,
   beside the assessment (§A.36):
@@ -16,12 +19,13 @@ the owner's go, the tool, its review, and a separate dispatch approval (§7).
     inputs, the wave rule's parameters and the recorded OQ-13 answer;
   - `C1-CONTROLS-EXPECTED.json`, the hand-derived expected values of every control and mutation;
   - `C1-OUTPUT-SCHEMA.json`, the machine-readable schema of every output file and of the expected file.
-- **Source.** `BORNSEL-B-MEASURE.md` r3, accepted at `7b46d36c` (review `REVIEW-7b46d36c.md`: ACCEPT). Its §7 C-1 sketch
+- **Source.** `BORNSEL-B-MEASURE.md` r3, accepted at `7b46d36c` (review #1082 c.6622587957: ACCEPT). Its §7 C-1 sketch
   (lines 404–416 of that file) is the specification frozen here. Base for every corpus citation: `origin/main`
   `1609dc440f5a12d05b750f6d894bb91d09a099a3`.
 - **Authorization.** Owner, chat 2026-11-04, #1059 c.6624262539: draft, but do not run, a frozen preregistration for
   C-1. The run is a separate later decision.
-- **Owner decisions consumed.** QB-1 and QB-2 (§2.6). OQ-1 to OQ-15 are open (§8.2).
+- **Owner decisions consumed.** QB-1 and QB-2 (§2.6), and the rulings on OQ-1 to OQ-15 (§8.2; #1059 c.6650820790,
+  amaybaum, 2026-11-05).
 
 **Support labels.**
 - **[P]** a quotation of, or citation to, a source at the base. This covers a manuscript line (`Main:N`, `SM:N`,
@@ -37,23 +41,32 @@ the owner's go, the tool, its review, and a separate dispatch approval (§7).
   branch "uniform on the actual orbit" [D].
 - `F` and `E` keep their §A.39 meanings: the frozen commit, and the certified execution head. The set of evaluated
   native instances is written `Ev` (§4.2).
-- The four verdict variants are R0, S1, S2 and S3 (§4.1). R0 is the sketch's rule (BSB:406–410). No variant takes
-  precedence until OQ-13 is answered; the frozen rule of §4.2 then selects one.
+- The four verdict variants are R0, S1, S2 and S3 (§4.1). R0 is the sketch's rule (BSB:406–410). The OQ-13 answer
+  `13b` selects **S1** (§4.2); R0, S2 and S3 are diagnostic comparisons, computed and recorded, that do not qualify
+  the C-1 verdict.
+- Every native instance is evaluated under two **readouts**, `pc` and `cur` (§2.1; OQ-2). Its verdicts are per
+  readout, and there is no combined verdict across readouts.
+- The native labels N1–N12 are identifiers, not ordinals. N12 (W-q2-L7-r2) runs between N8 and N9 (§2.2).
 
 ***
 
 ## 1. Objective and non-objectives
 
 **Objective.** By exhaustive exact enumeration over ℚ, on small instances of the manuscripts' wave substratum, decide
-for each instance whether "β's one-step numbers are single-orbit frequencies" (BSB:406). The question is whether, for
-every candidate orbit `O` of `φ`, the orbit's cycle transition frequencies `T^{α,O}` equal the observer's one-step
-credence on every visible row the orbit visits. Two things are left to OQ-13 (§4.2):
-- which orbits are the candidates for `O*`: the long orbits, or the long orbits that carry history readback;
-- which orbits the credence prior ranges over: all orbits, or the candidates only.
+for each instance and readout whether "β's one-step numbers are single-orbit frequencies" (BSB:406). The owner states
+the objective as: "test whether the numerical probabilities carried by OI's representation agree with frequencies of
+the underlying dynamics, without assuming that agreement" (#1059 c.6650820790).
+- **The two objects, kept distinct.** `T^β` is the representation's declared law: the one-step matrix of the
+  Born-form theorem with the declared uniform hidden input (Main:282–290). `T^{α,O}` is a frequency of the dynamics:
+  the cycle-horizon transition frequency on an orbit `O` taken as actual (Lemma A, BSB:239–241). Their agreement is
+  the proposition under test, not a premise.
+- **The selected comparison (OQ-13 = `13b`, variant S1).** For every candidate orbit `O ∈ Long′` (long, and with
+  `T^{α,O}` not a permutation matrix), does `T^{α,O}` equal the global-prior `T^β` on every visible row `O` visits?
+- **Diagnostics.** The other three combinations of candidates and prior support are frozen variants R0, S2 and S3
+  (§4.1). They are computed and recorded, and do not qualify the C-1 verdict.
 
-Each of the four combinations is a frozen verdict variant (§4.1). The C-1 verdict is the one the OQ-13 answer selects,
-and all four are recorded. On the same instances, the run also records per orbit whether the α-rooted family is
-P-divisible on `{0, …, |O|}` (BSB:411, B4).
+On the same instances, the run also records per orbit whether the α-rooted family is P-divisible on `{0, …, |O|}`
+(BSB:411, B4).
 
 **What the question is, in the owner's terms [D].**
 - **Credence side (QB-2).** Under QB-2, the embedded observer's assignment given the present visible value `x₀ = a` is
@@ -63,7 +76,8 @@ P-divisible on `{0, …, |O|}` (BSB:411, B4).
 - **Frequency side (QB-1).** Under QB-1 the physical target is operational frequencies. By BSB:239–241 (Lemma A), the
   transition frequencies along the actual trajectory over a whole cycle of the actual orbit `O*` are `T^{α,O*}`.
 - **The comparison.** C-1 asks, on native instances, whether these two coincide for every orbit admitted as a candidate
-  `O*`.
+  `O*`. Agreement at the cycle horizon says nothing about agreement over accessible windows, which C-1 does not
+  test.
 
 **Non-objectives.** The run does not cover:
 - accessible-window frequencies (C-3, deferred until after QB-1; BSB:424);
@@ -72,17 +86,19 @@ P-divisible on `{0, …, |O|}` (BSB:411, B4).
 - record-constrained measures beyond the present-visible record;
 - any selection of a measure, a new premise, a manuscript edit, a status change, merge or publication.
 
-**What a completed run establishes.** For each evaluated native instance, at the frozen sizes and conventions, it
-records four verdicts: R0, S1, S2 and S3. Each verdict is one of:
+**What a completed run establishes.** For each evaluated native instance and each readout, at the frozen sizes and
+conventions, it records four verdicts: R0, S1, S2 and S3. Each verdict is one of:
 - FREQ: every candidate orbit matches, and at least one comparison is not automatic;
 - FREQ_VACUOUS: every candidate matches, but only by construction, because `shared_rows = 0` (§4.1);
 - NOT: some candidate does not match;
-- VOID_NO_ORBIT: there is no candidate. It also records the per-orbit P-divisibility. The reported C-1 verdict is the variant
-that the OQ-13 answer selects (§4.2). This is a result on the consistency axis (§A.23): it compares objects the
-framework itself defines and confronts no external measurement.
+- VOID_NO_ORBIT: there is no candidate.
+
+It also records the per-orbit P-divisibility. The reported C-1 verdicts are the selected variant S1's overall verdicts,
+one per readout (§4.2). This is a result on the consistency axis (§A.23): it compares objects the framework itself
+defines and confronts no external measurement.
 
 **What it does not establish.** See §9. In particular, it does not select a measure, does not bear on accessible
-windows, and does not extend beyond the frozen instances.
+windows (agreement there is untested), and does not extend beyond the frozen instances and readouts.
 
 ***
 
@@ -95,8 +111,11 @@ windows, and does not extend beyond the frozen instances.
   computation, the comparison or the verdict path. One appearing in an output probability field is a schema violation
   (exit 2) [D].
 - **Configurations.** Every toy or native instance is a finite set `S = 𝒞_V × 𝒞_H`, with `n = |𝒞_V|` and
-  `m = |𝒞_H|`. A state is an integer `s ∈ {0, …, nm − 1}`, with visible value `π_V(s) = s mod n` and hidden value
-  `s div n`, so `s = v + n·h` [D].
+  `m = |𝒞_H|`. A state is an integer `s ∈ {0, …, nm − 1}` [D].
+  - On a toy, the visible value is `π_V(s) = s mod n` and the hidden value is `s div n`, so `s = v + n·h`.
+  - On a native instance, `s` is the state index of §2.1 under both readouts. The visible value is the readout's
+    `π_V(s)` (§2.1), and every count over the hidden factor is a count over the states with that visible value. Each
+    readout is a product split of the same `S`, so the definitions of §2.3–§2.7 apply to it unchanged.
 - **Map.** `φ` is given as an array `φ[s]` over all of `S`: by an explicit table for toy instances
   (`C1-INSTANCES.json`), and by the wave rule of §2.1 for native instances.
 - **Enumeration method.** Full: every state of `S`, for every instance. No sampling, no sequential method.
@@ -106,7 +125,12 @@ windows, and does not extend beyond the frozen instances.
   exits 5 before any other field of that instance is computed. For mutation M-INJ, which is expected to be
   non-injective, the detection is the compared field (§3.3).
 - **Orbits.** The orbits are the cycles of `φ`. An orbit's representative `rep(O)` is its least state index, and orbits
-  are listed in increasing `rep`. `|O|` is the cycle length, and `ord(φ)` is the least common multiple of the cycle
+  are listed in increasing `rep`.
+  - **Closure check (OQ-7).** On every toy and native instance, each recorded orbit must be a list of distinct states
+    with `φ(s_k) = s_{k+1}` and `φ(s_last) = s_0`, and the recorded orbits must partition `S`. Together these make the
+    recorded orbits exactly the cycle decomposition [D]. A failure exits 4. Mutation M-FRAG (§3.3) exercises the check
+    as a compared field.
+  - The orbits do not depend on the readout. `|O|` is the cycle length, and `ord(φ)` is the least common multiple of the cycle
   lengths.
 - **Permutation-matrix test [D].** A matrix `M`, with rows indexed by `W` and columns by `𝒞_V`, is a **permutation
   matrix on `W`** iff all three of the following hold:
@@ -174,13 +198,26 @@ windows, and does not extend beyond the frozen instances.
     (`PhysicalC4Discharge.lean:561`; SM:1376).
 - **The frozen region [D].**
   - `R = {0, 1, …, r−1}`, a contiguous block of `r` sites, with `r ≤ L/3`.
-  - The visible configuration is the `(prev, cur)` pair at each site of `R`, so `n = q^{2r}`. The hidden configuration
-    is the pair at each site outside `R`, so `m = q^{2(L−r)}`.
   - Because the rule commutes with translations (A4Exact), every contiguous block of `r` sites gives the same instance
     up to relabelling. The block at the origin is chosen.
+- **The two readouts (OQ-2 = C) [P, with readings D].** Every native instance is evaluated under both.
+  - **`pc`: the `(prev, cur)` pairs on `R`.** This is the kernel's `cutRealization`
+    (`PhysicalC4Discharge.lean:578–590`): the visible configuration is the pair at each site of `R`, so `n = q^{2r}`;
+    the hidden configuration is the pair at each site outside `R`, so `m = q^{2(L−r)}`. The kernel definition encodes
+    this choice; it does not exclude another split.
+  - **`cur`: the current values on `R`.** This is Main:222's configuration-sector readout: "The transition
+    probabilities `T_ij` are projections of the full phase-space flow onto the configuration sector of `Γ_V`, with
+    momenta and hidden-sector degrees of freedom absorbed into the Liouville marginalization". Read on the
+    second-order rule, the configuration is `cur` and `prev` is absorbed into the hidden side [D]. So `n = q^r` and
+    `m = q^{2L−r}`.
+  - Main:288's theorem holds for every product split, so it does not choose between the readouts. Which one is native
+    is the open planning item O-ACC (#914). Every C-1 verdict is stated for its readout only.
 - **The state encoding [D].**
-  - Site digit `δ_i = p_i·q + c_i ∈ {0, …, q²−1}`; state index `s = Σ_i δ_i·(q²)^i`.
-  - Then `π_V(s) = s mod q^{2r}` and the hidden value is `s div q^{2r}`, consistent with §2.0's `s = v + n·h`.
+  - Site digit `δ_i = p_i·q + c_i ∈ {0, …, q²−1}`; state index `s = Σ_i δ_i·(q²)^i`. The index is the same under both
+    readouts.
+  - `pc`: `π_V(s) = s mod q^{2r}`, and the hidden value is `s div q^{2r}`, consistent with §2.0's `s = v + n·h`.
+  - `cur`: `π_V(s) = Σ_{i<r} (δ_i mod q)·q^i`, where `δ_i = (s div q^{2i}) mod q²`; that is, the current values on `R`
+    read as base-`q` digits.
 - **Two implementations [D].** The tool computes `φ` twice:
   - (i) by the site loop above;
   - (ii) as the linear map `F = [[0, I], [−I, A]]` on `(p, c) ∈ (ℤ/q)^{2L}`, with `A` the circulant ring adjacency
@@ -190,41 +227,46 @@ windows, and does not extend beyond the frozen instances.
 
 ### 2.2 Native instances and sizes [D]
 
-Native instances run in this order: increasing `|S|`, with ties broken by `q` and then by `r`. `|S| = q^{2L}`.
+Native instances run in this order: increasing `|S|`, with ties broken by `q` and then by `r`. `|S| = q^{2L}`. There
+are twelve (OQ-4 = B). The labels are identifiers, not ordinals: N12 runs between N8 and N9.
 
-| Order | id | q | L | r | `n = q^{2r}` | `m = q^{2(L−r)}` | `|S|` | `ℓ_min = n+1` | `gcd(L, q)` |
+| Run order | Label | id | q | L | r | `pc`: `n = q^{2r}`, `m`, `ℓ_min` | `cur`: `n = q^r`, `m`, `ℓ_min` | `|S|` | `gcd(L, q)` |
 |---|---|---|---|---|---|---|---|---|---|
-| N1 | W-q2-L3-r1 | 2 | 3 | 1 | 4 | 16 | 64 | 5 | 1 |
-| N2 | W-q2-L4-r1 | 2 | 4 | 1 | 4 | 64 | 256 | 5 | 2 |
-| N3 | W-q3-L3-r1 | 3 | 3 | 1 | 9 | 81 | 729 | 10 | 3 |
-| N4 | W-q2-L5-r1 | 2 | 5 | 1 | 4 | 256 | 1,024 | 5 | 1 |
-| N5 | W-q2-L6-r1 | 2 | 6 | 1 | 4 | 1,024 | 4,096 | 5 | 2 |
-| N6 | W-q2-L6-r2 | 2 | 6 | 2 | 16 | 256 | 4,096 | 17 | 2 |
-| N7 | W-q3-L4-r1 | 3 | 4 | 1 | 9 | 729 | 6,561 | 10 | 1 |
-| N8 | W-q2-L7-r1 | 2 | 7 | 1 | 4 | 4,096 | 16,384 | 5 | 1 |
-| N9 | W-q3-L5-r1 | 3 | 5 | 1 | 9 | 6,561 | 59,049 | 10 | 1 |
-| N10 | W-q2-L8-r1 | 2 | 8 | 1 | 4 | 16,384 | 65,536 | 5 | 2 |
-| N11 | W-q2-L8-r2 | 2 | 8 | 2 | 16 | 4,096 | 65,536 | 17 | 2 |
+| 1 | N1 | W-q2-L3-r1 | 2 | 3 | 1 | 4, 16, 5 | 2, 32, 3 | 64 | 1 |
+| 2 | N2 | W-q2-L4-r1 | 2 | 4 | 1 | 4, 64, 5 | 2, 128, 3 | 256 | 2 |
+| 3 | N3 | W-q3-L3-r1 | 3 | 3 | 1 | 9, 81, 10 | 3, 243, 4 | 729 | 3 |
+| 4 | N4 | W-q2-L5-r1 | 2 | 5 | 1 | 4, 256, 5 | 2, 512, 3 | 1,024 | 1 |
+| 5 | N5 | W-q2-L6-r1 | 2 | 6 | 1 | 4, 1,024, 5 | 2, 2,048, 3 | 4,096 | 2 |
+| 6 | N6 | W-q2-L6-r2 | 2 | 6 | 2 | 16, 256, 17 | 4, 1,024, 5 | 4,096 | 2 |
+| 7 | N7 | W-q3-L4-r1 | 3 | 4 | 1 | 9, 729, 10 | 3, 2,187, 4 | 6,561 | 1 |
+| 8 | N8 | W-q2-L7-r1 | 2 | 7 | 1 | 4, 4,096, 5 | 2, 8,192, 3 | 16,384 | 1 |
+| 9 | N12 | W-q2-L7-r2 | 2 | 7 | 2 | 16, 1,024, 17 | 4, 4,096, 5 | 16,384 | 1 |
+| 10 | N9 | W-q3-L5-r1 | 3 | 5 | 1 | 9, 6,561, 10 | 3, 19,683, 4 | 59,049 | 1 |
+| 11 | N10 | W-q2-L8-r1 | 2 | 8 | 1 | 4, 16,384, 5 | 2, 32,768, 3 | 65,536 | 2 |
+| 12 | N11 | W-q2-L8-r2 | 2 | 8 | 2 | 16, 4,096, 17 | 4, 16,384, 5 | 65,536 | 2 |
 
 - **Budget.** Every instance has `|S| ≤ 2¹⁶`. `q = 2` reaches `2¹⁶` at `L = 8`. `q = 3` stays below it through `L = 5`
   (`3^{10} = 59,049`), so `L = 6` (`3^{12} = 531,441`) is excluded.
 - **Region sizes.** `r ≤ L/3` gives `r = 1` for `L ≤ 5` and `r ∈ {1, 2}` for `L ∈ {6, 7, 8}`.
-- **Twin classes (§2.7).** These are intrinsic: orbits with the same primitive cyclic visible word. The frozen
-  cross-check generators are `⟨σ⟩` (reflection about site 0) for the nine `r = 1` instances (N1–N5 and N7–N10) and the
-  trivial group for the two `r = 2` instances (N6 and N11).
-- **W-q2-L7-r2 is excluded in this draft.**
-  - By SM Theorem A.1 (SM:1604–1606: "For q prime with gcd(L, q) = 1 — q = 2 included: ord(F mod q) = qL"), every orbit
-    length divides `qL = 14 < 17 = ℓ_min`. That instance would therefore be void by construction.
-  - This uses the theorem's statement only; no orbit of any instance was computed [D].
-  - The exclusion is open as OQ-4.
-- **Coprime and non-coprime.** N1, N4, N7, N8 and N9 satisfy `gcd(L, q) = 1`, inside Theorem A.1's scope. The others
-  have `q | L`, where the parabolic Jordan blocks of SM Appendix A are present. Both kinds are included.
+- **Twin classes (§2.7).** These are intrinsic: orbits with the same primitive cyclic visible word, computed per
+  readout. The frozen cross-check generators are `⟨σ⟩` (reflection about site 0) for the nine `r = 1` instances (N1–N5
+  and N7–N10) and the trivial group for the three `r = 2` instances (N6, N11 and N12).
+- **W-q2-L7-r2 (N12) is included (OQ-4 = B), and counts in each readout's aggregation, on every variant where it is
+  non-void (§4.2 unchanged).**
+  - Under `pc` it is expected to be void, by the statement of SM Theorem A.1 only (SM:1604–1606: "For q prime with
+    gcd(L, q) = 1 — q = 2 included: ord(F mod q) = qL"): every orbit length would divide `qL = 14 < 17 = ℓ_min`.
+  - Under `cur`, `ℓ_min = 5`, and the same statement gives an orbit of length 7 or 14, so `Long ≠ ∅` there. `Long′ ≠ ∅`
+    is not shown.
+  - Both readings use the theorem's statement only; no orbit of any instance was computed [D]. The rule does not
+    depend on them.
+- **Coprime and non-coprime.** N1, N4, N7, N8, N9 and N12 satisfy `gcd(L, q) = 1`, inside Theorem A.1's scope. The
+  others have `q | L`, where the parabolic Jordan blocks of SM Appendix A are present. Both kinds are included.
 - **Theorem 22's hypotheses [P, SM:1376]** are "connected bounded-degree coupling graph with diameter D ≥ 4 … any
   connected subgraph V with |V| ≤ N/3".
   - Every frozen `R` is connected and has `|R| ≤ N/3`. These are checked from the frozen parameters, and the tool exits
     2 if they are violated.
   - The ring's diameter `⌊L/2⌋` is at least 4 only at `L = 8` (N10, N11). It is recorded per instance as
-    `diameter_ge_4`.
+    `diameter_ge_4`, a secondary diagnostic only (OQ-4): it gates nothing and selects no instance for counting.
   - C-1 asserts nothing about (C1) on these instances. Theorem 22's own proof step for (C1) uses only `∂V ≠ ∅`
     (SM:1378); that is SM's statement, not a C-1 result.
   - `beta_is_permutation = false` is only a sufficient witness of (C1) (Main:74). It is recorded, and it is not a
@@ -291,13 +333,15 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
   - `Γ^{α,O}_{|O|} = I`, because `φ^{|O|}` is the identity on `O`.
   - Its rows are indexed by `V_O` only, because α gives no hidden conditional on an unvisited root. BSB:147 lets `κ_a`
     be arbitrary there for the implication, which would make a full-`𝒞_V` record depend on an arbitrary choice.
-  - The restriction to `V_O` is OQ-5.
+  - The restriction to `V_O` is the OQ-5 answer (A).
 - **The recorded quantity.** `pdiv_alpha(O) := PDivisible |O| Γ^{α,O}`, on `V_O`, with horizon `{0, …, |O|}` (BSB:411).
 - **The β family [D].**
-  - `Γ^β_t(a, j) := #{h : π_V φ^t(a, h) = j}/m` on `𝒞_V`. This is the kernel's `rootedMap` for the cut realization
-    with the uniform prior.
+  - `Γ^β_t(a, j) := #{h : π_V φ^t(a, h) = j}/m` on `𝒞_V`. Under the `pc` readout this is the kernel's `rootedMap` for
+    the cut realization with the uniform prior. Under `cur` it is the same construction on the `cur` split, which is
+    not the kernel's `cutRealization` [D].
   - `pdiv_beta := PDivisible ord(φ) Γ^β`, with horizon `{0, …, ord(φ)}`, where `Γ^β_{ord(φ)} = I`.
-  - It is required on CE-8. Recording it on native instances is OQ-6.
+  - It is required on CE-8. It is recorded on native instances (OQ-6 = A). By Lemma PD it is a function of
+    `beta_is_permutation`, so it is not an independent scientific result.
 - **Lemma PD [D].** Let `Γ_t` be either family above, on its row set `W` (`V_O` or `𝒞_V`), with return time `N`
   (`|O|` or `ord(φ)`), so that `Γ_N = I`. Then `PDivisible N Γ` holds iff `Γ_1` is a permutation matrix on `W`.
   - **(PDivisible ⇒ Γ₁ permutation), by contraposition.** Suppose `Γ_1` is not a permutation matrix.
@@ -366,15 +410,16 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
   - **Example [D, a valid certificate, not a compared value].** Take CE-8, orbit `O_B`, pair `(1, 4)`: `Γ_1 = J/2`,
     `Γ_4 = I` and `k = 2`. Then `y = (−1, 0, 1, 0, 0, 0)` has `Aᵀy = 0` and `bᵀy = −1`. This is EX-CERT case 1 (§3.3).
 
-### 2.5 `ℓ_min` (fixed before any result) [D; owner item OQ-1]
+### 2.5 `ℓ_min` (fixed before any result) [D; OQ-1 = A]
 
 - **What the corpus says [P].**
   - Main:62: "the atypical short orbits of the idealized linear dynamics (fixed points, low-period cycles) are precisely
     observer-lacking substrata — an orbit of period `p` makes at most `p` states dynamically accessible, so for small
     `p` no partition of it can satisfy the high-capacity condition C3".
   - C3 is `log₂|𝒞_H| ≥ I*` (Main:78). The corpus does not quantify "small `p`".
-- **The draft rule [D].** `ℓ_min(I) := n_I + 1`, where `n_I = |𝒞_V|` of instance `I`. It depends only on the instance's
-  declared parameters, so it is fixed before any result.
+- **The rule [O, OQ-1 = A].** `ℓ_min(I) := n_I + 1`, where `n_I = |𝒞_V|` of instance `I` under the readout in use
+  (§2.2). It depends only on the declared parameters, so it is fixed before any result. The owner's ruling sets it
+  "as an explicitly selected test criterion, not a physical threshold derived from OI" (#1059 c.6650820790).
 - **Justification [D].**
   - By pigeonhole, an orbit with `|O| ≥ n + 1` revisits some visible value, so `n_a(O) ≥ 2` for some `a`: some root
     carries at least two hidden states on the orbit.
@@ -394,8 +439,9 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     `n_a`-weighted aggregate must also equal `T^β`. That aggregate includes the kernel-forced fixed point at state 0
     (`waveSubstratum_phi_fixes_zero`), whose row is `δ₀`.
   - A long orbit whose `T^{α,O}` is a permutation matrix differs from every non-deterministic credence row.
-  - Both choices, which candidates and which prior support, are OQ-13. Each combination is a frozen variant (§4.1),
-    and §4.2's rule selects one by the answer. All four are frozen now, so that none can be chosen after the result.
+  - The OQ-13 answer `13b` makes both choices: the candidates are `Long′`, and the prior ranges over all orbits. All
+    four combinations stay frozen as variants (§4.1), so that none can be chosen after the result; R0, S2 and S3 are
+    diagnostics.
 - **No other threshold yields a verdict.** Every orbit's `eq(O)` and `|O|` are recorded, so the record would support
   other thresholds. This run issues verdicts only at the frozen `ℓ_min`. Any other threshold or variant needs a new
   freeze.
@@ -412,12 +458,22 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     conditioned on `A_r`. That is `unif({a} × 𝒞_H)` (BSB:209–216), whose one-step numbers are row `a` of `T^β`.
   - QB-2 does not fix which orbits the invariant prior ranges over. Every invariant law is a law on orbits (BSB:183–187),
     so restricting the support to a union of orbits keeps it invariant.
-  - The support is OQ-13. C-1 is silent on the prior's physical source.
+  - The support is fixed by OQ-13 = `13b`: all orbits, the global prior. C-1 is silent on the prior's physical source.
+- **OQ-11 = A [O].** The variant's credence is the QB-2 credence, and `T^{α,O}` is the QB-1 target at the cycle horizon
+  only. The frequency/credence distinction and the cycle-horizon limitation are kept wherever a verdict is reported.
+- **Main:62 and Main:282, as the owner reads them for this workstream [O] (#1059 c.6650820790).**
+  - Main:62's exclusion of observer-lacking orbits constrains candidate observer histories. It does not by itself
+    remove those orbits from the global β prior.
+  - Main:282's uniform hidden-sector input remains a declared assumption.
+  - An observer's posterior comes from conditioning the selected prior on an identified record.
+  - So `T^β`, with all orbits in the prior, is the representation's declared law, and `Long′` restricts only which
+    orbits are taken as candidates for the actual one.
 
-### 2.7 Twin classes: the intrinsic word relation, with a frozen group as cross-check [D; owner item OQ-15]
+### 2.7 Twin classes: the intrinsic word relation, with a frozen group as cross-check [D; OQ-15 = A]
 
 - **The visible word of an orbit.** For an orbit `O` with cycle `(s_0, s_1, …, s_{k−1})`, where `s_0 = rep(O)` and
-  `s_{t+1} = φ(s_t)`, its visible word is `w(O) := (π_V s_0, …, π_V s_{k−1})`, read cyclically.
+  `s_{t+1} = φ(s_t)`, its visible word is `w(O) := (π_V s_0, …, π_V s_{k−1})`, read cyclically. The word depends on
+  `π_V`, so on a native instance the words and twin classes are computed separately for each readout.
 - **`T^{α,O}` depends only on the primitive cyclic word.**
   - From the definitions of §2.3, `c_O(a, j) = #{t : w_t = a, w_{t+1 mod k} = j}` and `n_a(O) = #{t : w_t = a}`.
   - Both counts are unchanged under rotation of `w`.
@@ -480,6 +536,9 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     - `σ` fixes site 0. At `r = 1`, `R = {0}`, so `σ` fixes `R` sitewise and changes only hidden sites.
     - At `r = 2`, `R = {0, 1}`, and `σ` sends site 1 to site `L − 1 ∉ R`, since `L ≥ 6`. It therefore changes the
       visible value of any state whose sites 1 and `L−1` differ, and fails `visible`. It is not a generator there.
+    - The same holds under both readouts [D]: at `r = 1`, `σ` fixes site 0 and so fixes both `(prev_0, cur_0)` and
+      `cur_0`; at `r = 2`, it changes `cur_1` whenever `cur_1 ≠ cur_{L−1}`. The `visible` clause is checked under the
+      readout in use.
   - **Other candidate symmetries, and why they are not frozen.**
     - The reflection `i ↦ 1 − i` preserves `R = {0, 1}` as a set, but it swaps sites 0 and 1, so it changes visible
       values.
@@ -487,7 +546,8 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
     - Negation `x ↦ −x` and, at `q = 3`, multiplication by 2 both commute with `φ` by linearity. They change visible
       values when `q = 3`. At `q = 2` negation is the identity.
     - **Frozen as cross-check generators:** `⟨σ⟩` for `r = 1`, and the trivial group for `r = 2`. The translations
-      `τ_z` above are not listed. The word relation already covers every twin they create.
+      `τ_z` above are not listed. The word relation already covers every twin they create, under either readout (under
+      `cur`, `z` need vanish only on `cur` over `R`, so there can be more such translations; none is listed).
   - **WF-SIGMA** (§3.2) checks the implemented `σ` against a hand-computed image, so that a `σ` implemented as the
     identity, which would pass the generator check, is caught.
 - **Toys [D, derived by hand].**
@@ -505,6 +565,7 @@ For an instance with map `φ` on `S = 𝒞_V × 𝒞_H`:
   | CC-PERM | 0: `01` (2); 4: `0011` (1); 8, 10: `0` (1); 9, 11: `1` (1) | `{0}`, `{4}`, `{8, 10}`, `{9, 11}` |
   | CC-S3NOT | 0: `0011` (1); 4: `001` (1); 7: `1` (1) | three singletons |
   | CC-AGREE2 | 0: `0011` (1); 4: `00011101` (1) | `{0}`, `{4}` |
+  | CC-ORDER | 0: `0102` (1); 4: `012` (1); 7: `1` (1); 8: `2` (1) | four singletons |
 
   - **The frozen cross-check generators.**
     - CC-TWIN: `s ↦ s+4 mod 8`, which maps rep 0 to rep 4. Both have word `0110`, so the generator stays inside one word
@@ -525,11 +586,14 @@ numbers" applies to the native decision rule of §4, which is frozen without ref
 value is given for any native instance.**
 
 **Execution order.**
-- The 21 controls and mutations run first, in the order of `C1-INSTANCES.json` (orders 1–21):
-  - the eleven toys of §3.1;
-  - M-INJ, EX-ARITH, EX-SCHEMA, EX-CERT, EX-SYM and EX-WORD;
-  - WF-q2-L5, WF-q3-L4, WF-SIGMA and WF-0.
-- The 11 native instances follow (orders 22–32), in §2.2's order.
+- The 25 controls and mutations run first, in the order of `C1-INSTANCES.json` (orders 1–25):
+  - orders 1–11: the eleven r6 toys of §3.1;
+  - orders 12–17: M-INJ, EX-ARITH, EX-SCHEMA, EX-CERT, EX-SYM and EX-WORD;
+  - orders 18–21: WF-q2-L5, WF-q3-L4, WF-SIGMA and WF-0;
+  - orders 22–25, added by the OQ-7 and OQ-10 rulings: the diagnostic toy CC-ORDER (§3.1), the mutation M-FRAG
+    (§3.3), and WF-q2-L6-r2 and WF-CUR (§3.2).
+- The 12 native instances follow (orders 26–37), in §2.2's run order, each evaluated under both readouts.
+- The controls are shared by both readouts. One mismatch halts the whole run (OQ-2 = C).
 - Native instances run only if every control and mutation has matched. A mismatch halts the run before any native
   instance is evaluated, so no native verdict is ever printed over a failed control (§A.29).
 
@@ -550,17 +614,19 @@ In the table, `FREQ_V` abbreviates FREQ_VACUOUS. `sr` gives `shared_rows` for R0
 | CC-PERM | 2, 6 | `[1, 2, 3, 0, 5, 7, 4, 6, 8, 9, 10, 11]` | NOT / FREQ / NOT / FREQ_V | 2/2/2/0 | a long orbit with a permutation `T^{α,O}` |
 | CC-S3NOT | 2, 4 | `[2, 3, 1, 0, 6, 4, 5, 7]` | NOT ×4 | 2/2/2/2 | two C4-bearing long orbits that disagree: S3 reaches NOT |
 | CC-AGREE2 | 2, 6 | `[2, 3, 1, 0, 6, 7, 8, 9, 5, 10, 11, 4]` | FREQ ×4 | 2/2/2/2 | two long orbits with different primitive words (`0011`, `00011101`) that agree: non-vacuous FREQ under every variant |
+| CC-ORDER | 3, 3 | `[1, 3, 0, 2, 5, 6, 4, 7, 8]` | NOT / NOT / FREQ_V / FREQ_V | 3/3/0/0 | diagnostic (OQ-10): the `a`-major order of `first_mismatch` differs from the `j`-major order |
 
 Each outcome reached per variant:
 
 | Variant | Non-vacuous FREQ | FREQ_VACUOUS | NOT | VOID_NO_ORBIT |
 |---|---|---|---|---|
-| R0 | CC-SHORT, CC-AGREE2 | TT-4, TT-6, CC-TWIN, CC-UNVIS | CE-8, CC-SKEW, CC-PERM, CC-S3NOT | CC-VOID |
-| S1 | CC-SHORT, CC-PERM, CC-AGREE2 | TT-4, TT-6, CC-TWIN | CE-8, CC-SKEW, CC-S3NOT | CC-UNVIS, CC-VOID |
-| S2 | CC-AGREE2 | TT-4, TT-6, CC-TWIN, CC-SHORT, CC-UNVIS, CC-SKEW | CE-8, CC-PERM, CC-S3NOT | CC-VOID |
-| S3 | CC-AGREE2 | TT-4, TT-6, CE-8, CC-TWIN, CC-SHORT, CC-SKEW, CC-PERM | CC-S3NOT | CC-UNVIS, CC-VOID |
+| R0 | CC-SHORT, CC-AGREE2 | TT-4, TT-6, CC-TWIN, CC-UNVIS | CE-8, CC-SKEW, CC-PERM, CC-S3NOT, CC-ORDER | CC-VOID |
+| S1 | CC-SHORT, CC-PERM, CC-AGREE2 | TT-4, TT-6, CC-TWIN | CE-8, CC-SKEW, CC-S3NOT, CC-ORDER | CC-UNVIS, CC-VOID |
+| S2 | CC-AGREE2 | TT-4, TT-6, CC-TWIN, CC-SHORT, CC-UNVIS, CC-SKEW, CC-ORDER | CE-8, CC-PERM, CC-S3NOT | CC-VOID |
+| S3 | CC-AGREE2 | TT-4, TT-6, CE-8, CC-TWIN, CC-SHORT, CC-SKEW, CC-PERM, CC-ORDER | CC-S3NOT | CC-UNVIS, CC-VOID |
 
-CC-TWIN and CC-AGREE2 give the same verdict under all four variants, so neither enters the separation table.
+CC-TWIN and CC-AGREE2 give the same verdict under all four variants, so neither enters the separation table. CC-ORDER
+has CC-SKEW's verdict pattern; it is a diagnostic of the `first_mismatch` order and adds no separation.
 
 Every pair of variants is separated by at least one control:
 
@@ -732,6 +798,42 @@ Every pair of variants is separated by at least one control:
   - `shared_rows = 2` under every variant, and every comparison matches. All four verdicts are FREQ: two orbits with
     different primitive words that agree.
   - P-divisibility: both orbits and β are indivisible (witnesses `[1, 4]` and `[1, 8]`; β horizon 8).
+- **CC-ORDER** (the `n = 3` first-mismatch diagnostic toy of OQ-10; map constructed and values derived here by hand
+  [D]; to be independently reviewed before `F`).
+  - **Its purpose.** PREREG r6 §8.2 item 10 recorded the C-1 reviewers' unadded suggestion: "an `n = 3` toy that
+    discriminates the order of `first_mismatch`". The frozen order is `a`-major (§2.3). With `n = 2`, every row that
+    mismatches does so at both `j = 0` and `j = 1`, since rows sum to 1, so the `a`-major and `j`-major least mismatches
+    coincide. With `n = 3` they can differ, and CC-ORDER makes them differ.
+  - **The states.** `s = v + 3h`, `h = 0, 1, 2`: `(0,0)=0, (1,0)=1, (2,0)=2, (0,1)=3, (1,1)=4, (2,1)=5, (0,2)=6, (1,2)=7,
+    (2,2)=8`. `φ`: `0→1, 1→3, 2→0, 3→2, 4→5, 5→6, 6→4, 7→7, 8→8`. Every value occurs once, so `φ` is a bijection.
+  - **The orbits.**
+    - rep 0, `[0, 1, 3, 2]`, visible `0102`, which is primitive; its least rotation is `0102`.
+      - Row 0: `0→1` gives 1, and `3→2` gives 2. Row 1: `1→3` gives 0. Row 2: `2→0` gives 0.
+      - So `n_a = {0: 2, 1: 1, 2: 1}` and `T^α = [[0, 1/2, 1/2], [1, 0, 0], [1, 0, 0]]`, which is not a permutation.
+    - rep 4, `[4, 5, 6]`, visible `120`; its least rotation is `012`. Rows: `6→4` gives `0→1`, `4→5` gives `1→2`, and
+      `5→6` gives `2→0`. So `T^α` is the cyclic permutation `0→1→2→0`.
+    - rep 7, the fixed point `(1,2)`, with row 1 `[0, 1, 0]`.
+    - rep 8, the fixed point `(2,2)`, with row 2 `[0, 0, 1]`.
+    - Four orbits with four distinct primitive words, so `orbit_class_count = 4`. `ord(φ) = lcm(4, 3, 1, 1) = 12`.
+  - **`T^β`.**
+    - root 0 (states 0, 3, 6) gives `1, 2, 1`, so row 0 is `[0, 2/3, 1/3]`;
+    - root 1 (states 1, 4, 7) gives `0, 2, 1`, so row 1 is `[1/3, 1/3, 1/3]`;
+    - root 2 (states 2, 5, 8) gives `0, 0, 2`, so row 2 is `[2/3, 0, 1/3]`.
+    - The column sums are `3, 3, 3`, so `T^β` is doubly stochastic. The mixture identity holds on every row: for row 0,
+      `2·[0, 1/2, 1/2] + 1·[0, 1, 0] = [0, 2, 1]`.
+  - **Long orbits.** `ℓ_min = 4`, so `Long = Long′ = {rep 0}`, and `T^{β_long} = T^{β_c4} = T^{α,rep 0}`.
+  - **Verdicts.**
+    - R0 and S1: rep 0 against `T^β`. Row 0 agrees at `j = 0` (`0` against `0`) and first differs at `(0, 1)`, `1/2`
+      against `2/3`. Row 1 differs at `(1, 0)`, `1` against `1/3`, and row 2 at `(2, 0)`, `1` against `2/3`.
+      - The `a`-major first mismatch is `(0, 1)`. A `j`-major order would give `(1, 0)`, and a descending-`j` order
+        would give `(0, 2)`. So a wrong order is caught by the compared `first_mismatch`.
+      - Every row's pool contains rep 0 and rep 4, and rows 1 and 2 also a fixed point: at least two word classes on
+        each of the three rows, so `shared_rows = 3`. Both are NOT.
+    - S2 and S3: the credence is rep 0's own rows and the pool is rep 0 alone, so every comparison matches and
+      `shared_rows = 0`. Both are FREQ_VACUOUS.
+  - **Short orbits.** rep 4 first differs from `T^β` at `(0, 1)`, `1` against `2/3`; rep 7 at `(1, 0)`, `0` against
+    `1/3`; rep 8 at `(2, 0)`, `0` against `2/3`. All three are P-divisible (their rows are permutations).
+  - **P-divisibility.** rep 0 is indivisible (witness `[1, 4]`), and β is indivisible (horizon 12).
 
 ### 3.2 Native-faithfulness controls (hand-derived, [D])
 
@@ -742,8 +844,10 @@ These check that the implemented `φ` is the §2.1 rule.
 - WF-0 is a sanity check only: `φ(0) = 0` holds for every additive map, so it is not a faithfulness checkpoint.
 
 The controls:
-- **WF-0** (for the parameters of each of N1–N11): `φ[0] = 0` (`waveSubstratum_phi_fixes_zero`,
+- **WF-0** (for the parameters of each of N1–N12): `φ[0] = 0` (`waveSubstratum_phi_fixes_zero`,
   `StochasticInterface.lean:101`).
+- The visible values listed for WF-q3-L4, WF-q2-L5 and WF-q2-L6-r2 are under the `pc` readout; WF-CUR lists them under
+  `cur`.
 - **WF-q3-L4** (the parameters of N7), starting from `p = (0,0,0,0)`, `c = (1,0,0,0)`:
   - step 1: `p′ = (1,0,0,0)`, `c′ = (0,1,0,1)`;
   - step 2: `p″ = (0,1,0,1)`, `c″ = (1,0,2,0)`;
@@ -761,6 +865,25 @@ The controls:
   - step 1: `p′ = (1,0,0,0,0)`, `c′ = (0,1,0,0,1)`;
   - step 2: `p″ = (0,1,0,0,1)`, `c″ = (1,0,1,1,0)`;
   - as state indices: `1 → 262 → 601`; visible values (`n = 4`): `1 → 2 → 1`.
+- **WF-q2-L6-r2** (the parameters of N6: `q = 2`, `L = 6`, `r = 2`, readout `pc`, `n = 16`; added by OQ-10 = C). It
+  checks the `r = 2` visible projection `π_V(s) = s mod 16 = δ_0 + 4δ_1`, which no other hand-derived value checks.
+  Starting from `p = 0`, `c = (1,0,0,0,0,0)`:
+  - step 1: `p′ = (1,0,0,0,0,0)`; `c′_1 = c_0 + c_2 = 1`, `c′_5 = c_4 + c_0 = 1`, and the rest are 0, so
+    `c′ = (0,1,0,0,0,1)`;
+  - step 2: `p″ = (0,1,0,0,0,1)`; `c″_0 = c′_5 + c′_1 − p′_0 = 1 + 1 − 1 = 1`, `c″_2 = c′_1 + c′_3 = 1`,
+    `c″_4 = c′_3 + c′_5 = 1`, and `c″_1 = c″_3 = c″_5 = 0`, so `c″ = (1,0,1,0,1,0)`;
+  - digits `δ = (1,0,0,0,0,0)`, `(2,1,0,0,0,1)` and `(1,2,1,0,1,2)`; state indices `1 → 1030 → 2329`; visible values
+    `1 → 6 → 9`. A projection that read site 0 only would give `1 → 2 → 1`.
+- **WF-CUR** (the parameters of N6, readout `cur`, `n = 4`; added by OQ-2 = C and OQ-10 = C). It checks
+  `π_V(s) = Σ_{i<r} (δ_i mod q)·q^i = c_0 + 2c_1`. Starting from `p = 0`, `c = (0,1,0,0,0,0)`:
+  - step 1: `p′ = (0,1,0,0,0,0)`; `c′_0 = c_5 + c_1 = 1`, `c′_2 = c_1 + c_3 = 1`, and the rest are 0, so
+    `c′ = (1,0,1,0,0,0)`;
+  - step 2: `p″ = (1,0,1,0,0,0)`; `c″_1 = c′_0 + c′_2 − p′_1 = 1 + 1 − 1 = 1`, `c″_3 = c′_2 + c′_4 = 1`,
+    `c″_5 = c′_4 + c′_0 = 1`, and `c″_0 = c″_2 = c″_4 = 0`, so `c″ = (0,1,0,1,0,1)`;
+  - digits `δ = (0,1,0,0,0,0)`, `(1,2,1,0,0,0)` and `(2,1,2,1,0,1)`; state indices `4 → 25 → 1126`; `cur` visible
+    values `2 → 1 → 2`.
+  - Wrong projections are caught at step 0: the low index digit `s mod 4 = δ_0` gives 0, the reversed order
+    `2c_0 + c_1` gives 1, and the `pc` value `s mod 16` gives 4.
 
 ### 3.3 Mutations and unit controls
 
@@ -770,6 +893,16 @@ The controls:
   - Two states with the same `c` and different `p` collide, so `φ` is not injective [D].
   - Expected: `phi_impls_agree = true`, `injective = false` and `evaluated_beyond_injectivity = false`. If the tool
     reports `injective = true`, the run exits 1.
+- **M-FRAG (closure check; OQ-7 = C).** The closure and partition checks of §2.0 are applied to two frozen candidate
+  orbit decompositions of TT-4's `φ = [1, 3, 0, 2]`:
+  - case 1, `[[0, 1, 3, 2]]`: `φ(0) = 1`, `φ(1) = 3`, `φ(3) = 2` and `φ(2) = 0`, so the list is closed, and it covers
+    `S`. Closure holds and the partition holds;
+  - case 2, `[[0, 1], [3, 2]]`: `φ(1) = 3 ≠ 0` and `φ(2) = 0 ≠ 3`, so neither list is closed, while the two lists still
+    partition `S`. Closure fails and the partition holds. This is the fragmented decomposition that the mixture
+    identity and `Σ|O| = |S|` cannot detect.
+  - Expected: `closure_ok = [true, false]`, `partition_ok = [true, true]` and `evaluated_beyond_closure = false` (no orbit
+    analysis runs on a decomposition that fails closure). The detection is a compared field, as for M-INJ. A different
+    outcome exits 1.
 - **EX-ARITH (exact comparison).** The comparator of §2.3 is applied to these frozen pairs:
   - `("1/3", "6004799503160661/18014398509481984")` → unequal. The second value is the IEEE-754 double nearest `1/3`,
     `(2⁵⁴ − 1)/(3·2⁵⁴)`, so a floating-point comparison would report equality;
@@ -850,15 +983,18 @@ The controls:
   - Every variant reaches NOT; CC-S3NOT is the only control in which S3 does.
   - Every variant reaches a non-vacuous FREQ (CC-AGREE2) and FREQ_VACUOUS (TT-4, CC-TWIN).
   - The definitional check on every toy is the countercontrol for Lemma PD (§2.4).
+  - CC-ORDER: the frozen `a`-major order of `first_mismatch` is checked on a case where it differs from the `j`-major
+    order.
+  - M-FRAG: the closure check detects a fragmented decomposition that still partitions `S`.
 
-### 3.4 Recorded cross-checks (recorded only in this draft; owner item OQ-7)
+### 3.4 Recorded cross-checks (OQ-7 = C: RX-ORD is a diagnostic record)
 
-- **RX-ORD.** For N1, N4, N7, N8 and N9 (`gcd(L, q) = 1`), SM Theorem A.1 states `ord(φ) = qL` (SM:1604–1606; SM:1610:
-  "Verified computationally for q = 2, 3, 5, 7, 11, 13 and L ≤ 12").
+- **RX-ORD.** For N1, N4, N7, N8, N9 and N12 (`gcd(L, q) = 1`), SM Theorem A.1 states `ord(φ) = qL` (SM:1604–1606;
+  SM:1610: "Verified computationally for q = 2, 3, 5, 7, 11, 13 and L ≤ 12").
   - The tool records `ord(φ)` and the boolean `ord_phi_eq_qL`.
-  - In this draft a disagreement does not void C-1. It would be a finding about SM Appendix A or the tool, diagnosed
-    after the run.
-  - Making RX-ORD gating would need its own exit code. That choice is OQ-7.
+  - A disagreement does not void C-1. It would be a finding about SM Appendix A or the tool, diagnosed after the run.
+  - The fragmentation hazard that motivated making RX-ORD gating is covered by the gating closure check (§2.0) and
+    M-FRAG (§3.3).
 
 ***
 
@@ -866,7 +1002,8 @@ The controls:
 
 ### 4.1 Per native instance: the four frozen variants
 
-Each variant is a deterministic map from the per-orbit record. A variant is given by its candidate set `C` (the orbits
+On a native instance everything in this section is computed separately for each readout, from that readout's
+per-orbit record. Each variant is a deterministic map from the per-orbit record. A variant is given by its candidate set `C` (the orbits
 admitted as `O*`) and its credence `K`:
 
 | Variant | Candidates `C` | Credence `K` | Fields |
@@ -919,8 +1056,8 @@ The P-divisibility counts are descriptive and carry no verdict.
 
 ### 4.2 Overall verdicts, and the OQ-13 selection rule
 
-**Aggregation.** The same map is applied separately to each variant. For a variant, let `Ev` be the set of native
-instances whose verdict under that variant is FREQ or NOT. FREQ_VACUOUS and VOID_NO_ORBIT instances are excluded from
+**Aggregation (OQ-8 = A).** The same map is applied separately to each variant and each readout. For a variant and a
+readout, let `Ev` be the set of native instances whose verdict under that variant and readout is FREQ or NOT. FREQ_VACUOUS and VOID_NO_ORBIT instances are excluded from
 `Ev` and listed separately. The variant's overall verdict is:
 - `FREQ_ALL` if `Ev ≠ ∅` and every instance in `Ev` is FREQ;
 - `NOT_ALL` if `Ev ≠ ∅` and every instance in `Ev` is NOT;
@@ -930,27 +1067,36 @@ instances whose verdict under that variant is FREQ or NOT. FREQ_VACUOUS and VOID
 
 These five cases are exhaustive and mutually exclusive.
 
-These are recorded as `c1_r0_verdict`, `c1_s1_verdict`, `c1_s2_verdict` and `c1_s3_verdict`.
+Every native instance enters each readout's aggregation, W-q2-L7-r2 (N12) included, and counts wherever it is
+non-void (OQ-4 = B). These are recorded per readout as `c1_r0_verdict_pc`, `c1_s1_verdict_pc`, `c1_s2_verdict_pc`,
+`c1_s3_verdict_pc`, and the same four with suffix `_cur`.
 
 **The selection rule.** OQ-13 has two parts:
 - (i) which orbits are the candidates for `O*`: the long orbits, or the long orbits that carry history readback;
 - (ii) whether the credence prior ranges over all orbits or over the candidate orbits only.
 
-Its answer is recorded before `F` as the constant `oq13_answer` in `C1-INSTANCES.json`. The C-1 verdict (`c1_verdict`)
-is the overall verdict of the variant this table assigns to that answer:
+Its answer is recorded as the constant `oq13_answer` in `C1-INSTANCES.json`: **`13b`** (owner ruling, #1059
+c.6650820790). One answer applies to both readouts. For each readout, the C-1 verdict (`c1_verdict_pc`,
+`c1_verdict_cur`) is the overall verdict of the variant this table assigns to that answer:
 
-| `oq13_answer` | (i) candidates | (ii) prior support | Selected variant | `c1_verdict` = |
+| `oq13_answer` | (i) candidates | (ii) prior support | Selected variant | `c1_verdict_<readout>` = |
 |---|---|---|---|---|
-| `13a` | long orbits (`Long`) | all orbits | R0 | `c1_r0_verdict` |
-| `13b` | long C4-bearing orbits (`Long′`) | all orbits | S1 | `c1_s1_verdict` |
-| `13c` | long orbits (`Long`) | the candidates only | S2 | `c1_s2_verdict` |
-| `13d` | long C4-bearing orbits (`Long′`) | the candidates only | S3 | `c1_s3_verdict` |
+| `13a` | long orbits (`Long`) | all orbits | R0 | `c1_r0_verdict_<readout>` |
+| `13b` | long C4-bearing orbits (`Long′`) | all orbits | S1 | `c1_s1_verdict_<readout>` |
+| `13c` | long orbits (`Long`) | the candidates only | S2 | `c1_s2_verdict_<readout>` |
+| `13d` | long C4-bearing orbits (`Long′`) | the candidates only | S3 | `c1_s3_verdict_<readout>` |
+
+With the recorded answer, the selected variant is S1: `Long′` compared against the global-prior `T^β`. The owner's
+reason: it "directly tests the relation between the representation's numerical probabilities and the actual-orbit
+frequencies, without changing the prior to make the comparison easier" (#1059 c.6650820790).
 
 - The table covers every combination of the two binary choices, so it has no gaps on its option space.
 - An answer outside it, such as a different candidate predicate or a different prior support, is written into the text
   as a new frozen variant and a new table row before the review that precedes `F` (§7).
 - If `oq13_answer` is not one of the four codes at run time, the tool exits 2 before any instance.
-- The three variants not selected are recorded and do not qualify the C-1 verdict.
+- The three variants not selected (R0, S2, S3) are diagnostic comparisons. They are recorded and do not qualify the C-1
+  verdicts.
+- There is no combined verdict across readouts. Each readout's C-1 verdict is stated for that readout only.
 
 ### 4.3 Run validity
 
@@ -963,31 +1109,42 @@ is the overall verdict of the variant this table assigns to that answer:
     - every control and mutation matches its frozen expected values (§3);
     - every invariant of §2 and §4.1 holds on every instance:
       - the budget, injectivity and agreement of the two implementations of `φ`;
-      - the mixture identity, double stochasticity and the partition `Σ_O |O| = |S|`;
+      - the mixture identity and double stochasticity, under each readout;
+      - the orbit closure check and the partition `Σ_O |O| = |S|` (§2.0);
       - agreement of the two P-divisibility methods, and every certificate verifying under (i)–(iv);
       - every frozen symmetry generator passing `bijective`, `commutes` and `visible` (§2.7);
       - no NOT with `shared_rows = 0`;
     - the frozen-input check passes, and `oq13_answer` is valid;
     - every output validates against `C1-OUTPUT-SCHEMA.json`.
-  - **Step (b) exits 0.** The step recomputes, from the orbits files and `T_beta`:
+  - **Step (b) exits 0.** The step recomputes, from the orbits files and `T_beta`, for each readout:
     - every `eq`, `long_c4`, `eq_beta_long`, `eq_beta_c4`, `T_beta_long` and `T_beta_c4`, and each variant's
       `shared_rows`, every `primitive_word`, `word_power` and `class_rep`, and the word classes;
     - each instance's four verdicts and the four overall verdicts;
-    - `c1_verdict`, from `oq13_answer` and the table of §4.2;
+    - `c1_verdict_pc` and `c1_verdict_cur`, from `oq13_answer` and the table of §4.2;
     - every `orbits_sha256`.
 
     It compares them with the stored values, and any difference exits 6.
   - **Step (c) exits 0.** It regenerates `verdict_text` from `summary.json` and compares the two byte for byte. A
     difference exits 8.
 - **Otherwise the run halts at the first failure.**
-  - `summary.json` then has `run_status = HALT`, and every `c1_*_verdict` is `null`.
-  - The `native_*_verdicts` maps are empty whenever `run_status = HALT`.
+  - `summary.json` then has `run_status = HALT`, and every `c1_*_verdict_pc` and `c1_*_verdict_cur` is `null`. A halt
+    under either readout halts the whole run (OQ-2 = C).
+  - The `native_*_verdicts_pc` and `native_*_verdicts_cur` maps are empty whenever `run_status = HALT`.
   - A native instance's file written before a halt carries no verdict of the run.
   - A failure in step (b) or (c) is read from that step's exit status and conclusion. `summary.json` is written by step
     (a) and does not record it.
 - Under §A.29, a halted run establishes nothing about the wave substratum. There is no partial verdict, no rerun within
-  a freeze, and no amendment after `F`. A runner failure before step (a) starts is governed by the OQ-14 answer, which
-  is written into this text before `F`.
+  a freeze, and no amendment after `F`.
+- **A runner failure before step (a) starts (OQ-14 = B).** One additional dispatch on `F` is admissible only if both
+  hold:
+  - **a qualifying pre-step failure.** The host's API job record of the failed dispatch shows the step entry for step
+    (a) either absent, or with `started_at` null and conclusion `skipped` or null. It is read from the API, never from
+    logs. **These field semantics are to be verified against a real job record before `F`**, and the predicate frozen
+    at `F` names the fields as the host actually returns them;
+  - **new explicit owner approval** of that dispatch, recorded with the failed run's id.
+
+  No other rerun is admissible. The run-validity invariant is "the check step ran in exactly one attempt": across the
+  API job records of every dispatch on `F`, exactly one must show step (a) started (§6).
 - **PASS (the result reviewer's test).** All five of these hold:
   - the host's conclusion for the C-1 job is `success`, read from its API;
   - step (a) exits 0;
@@ -995,8 +1152,8 @@ is the overall verdict of the variant this table assigns to that answer:
   - step (c) exits 0;
   - `summary.json` has `run_status = COMPLETE`.
 
-  Only under PASS is `summary.json`'s `c1_verdict` read as the result. The other three variants' overall verdicts are
-  recorded with it.
+  Only under PASS are `summary.json`'s `c1_verdict_pc` and `c1_verdict_cur` read as the result, each for its readout.
+  The other three variants' overall verdicts are recorded with them.
 
 ***
 
@@ -1018,17 +1175,17 @@ one workflow artifact named `bornsel-c1`.
 | File | Schema (`$defs`) | Contents |
 |---|---|---|
 | `c1/<id>.json`, toy control | `toy_record` | the analysis fields below, plus `pdiv_beta_definitional`, `pdiv_certs_file`, `pdiv_certs_sha256`, `pdiv_certs_verified`, `sketch_check` (CE-8 only; `null` elsewhere), `expected`, `comparisons` and `match` |
-| `c1/<id>.json`, native instance | `native_record` | the analysis fields below, plus `phi_impls_agree`, `phi_zero_fixed`, `ord_phi_eq_qL` (`null` outside RX-ORD) and `diameter_ge_4` |
-| `c1/<id>.json`, unit control or mutation | `unit_record` | `params` (M-INJ, WF); `phi_impls_agree` (M-INJ, WF); `injective` and `evaluated_beyond_injectivity` (M-INJ); `results` and `reduced` (EX-ARITH); `schema_results` (EX-SCHEMA); `cert_results` and `cert_failed_clauses` (EX-CERT); `sym_results` and `sym_failed_clauses` (EX-SYM); `word_results` (EX-WORD, items `{primitive_word, word_power}`); `hand_steps` (WF-q*, items `{step, prev, cur, state, visible}`); `sigma_check` (WF-SIGMA: `{x, sigma_x, phi_x, sigma_phi_x, phi_sigma_x, visible_x, visible_sigma_x, visible_phi_x, visible_sigma_phi_x}`); `phi_of_zero` (WF-0); `expected`, `comparisons`, `match` |
-| `c1/<id>.orbits.jsonl`, toys and natives | `orbit_record`, one per line | `rep`, `class_rep`, `primitive_word`, `word_power`, `length`, `cycle`, `visited_rows`, `unvisited_rows`, `n_a`, `T_alpha`, `long`, `eq`, `first_mismatch`, `pdiv_alpha`, `pdiv_witness`, `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4`, `first_mismatch_beta_c4`, `pdiv_alpha_definitional` (`null` on natives) |
+| `c1/<id>.json`, native instance | `native_record` | `params` (instance parameters), `injective`, `closure_ok`, `phi_impls_agree`, `phi_zero_fixed`, `ord_phi_eq_qL` (`null` outside RX-ORD), `diameter_ge_4` (a secondary diagnostic), and `readouts`: `{pc, cur}`, each a `readout_analysis` object carrying the analysis fields below for that readout |
+| `c1/<id>.json`, unit control or mutation | `unit_record` | `params` (M-INJ, WF); `phi_impls_agree` (M-INJ, WF); `injective` and `evaluated_beyond_injectivity` (M-INJ); `closure_ok`, `partition_ok` and `evaluated_beyond_closure` (M-FRAG); `results` and `reduced` (EX-ARITH); `schema_results` (EX-SCHEMA); `cert_results` and `cert_failed_clauses` (EX-CERT); `sym_results` and `sym_failed_clauses` (EX-SYM); `word_results` (EX-WORD, items `{primitive_word, word_power}`); `hand_steps` (WF-q2-L5, WF-q3-L4, WF-q2-L6-r2 and WF-CUR, items `{step, prev, cur, state, visible}`, the visible value under the control's readout); `sigma_check` (WF-SIGMA: `{x, sigma_x, phi_x, sigma_phi_x, phi_sigma_x, visible_x, visible_sigma_x, visible_phi_x, visible_sigma_phi_x}`); `phi_of_zero` (WF-0); `expected`, `comparisons`, `match` |
+| `c1/<id>.orbits.jsonl` (toys) and `c1/<id>.<readout>.orbits.jsonl` (natives, one per readout) | `orbit_record`, one per line | `rep`, `class_rep`, `primitive_word`, `word_power`, `length`, `cycle`, `visited_rows`, `unvisited_rows`, `n_a`, `T_alpha`, `long`, `eq`, `first_mismatch`, `pdiv_alpha`, `pdiv_witness`, `long_c4`, `eq_beta_long`, `first_mismatch_beta_long`, `eq_beta_c4`, `first_mismatch_beta_c4`, `pdiv_alpha_definitional` (`null` on natives) |
 | `c1/<id>.pdiv-certs.json`, toys | `pdiv_certs` | `schema`, `id`, `entries`: `{family, rep, rows, pair, kind, lambda, farkas_y}` |
-| `c1/summary.json` | `summary` | `schema`, `oq13_answer`, `selected_variant`, `controls_frozen` (21), `controls_matched`, `natives_frozen` (11), `natives_evaluated`, `native_verdicts` (R0), `native_s1_verdicts`, `native_s2_verdicts`, `native_s3_verdicts`, `c1_verdict`, `c1_r0_verdict`, `c1_s1_verdict`, `c1_s2_verdict`, `c1_s3_verdict`, `run_status`, `first_failure`, `verdict_text` |
+| `c1/summary.json` | `summary` | `schema`, `oq13_answer`, `selected_variant`, `controls_frozen` (25), `controls_matched`, `natives_frozen` (12), `natives_evaluated`; for each readout `<r>` in `pc`, `cur`: `native_verdicts_<r>` (R0), `native_s1_verdicts_<r>`, `native_s2_verdicts_<r>`, `native_s3_verdicts_<r>`, `c1_verdict_<r>`, `c1_r0_verdict_<r>`, `c1_s1_verdict_<r>`, `c1_s2_verdict_<r>`, `c1_s3_verdict_<r>`; then `run_status`, `first_failure`, `verdict_text` |
 
 On a halt, `oq13_answer` and `selected_variant` may be `null`, which covers the exit-2 halt on an unset answer. On a
 complete run both must be set; the schema enforces this through a conditional on `run_status`.
 
-**Analysis fields** (toy and native records):
-- `params`;
+**Analysis fields** (toy records, and each readout object of a native record):
+- `params` (on a native readout object it also carries `readout`, `pc` or `cur`, and that readout's `n` and `m`);
 - `injective`;
 - `ell_min`, `ell_min_rule` (`"n+1"`);
 - `orbit_count`, `orbit_length_histogram`, `ord_phi`;
@@ -1066,10 +1223,13 @@ whitespace, lines are in increasing `rep`, and each line ends with `\n`. `orbits
 - **`orbits`.** The expected key `orbits` is compared with the orbits file, read as an array of its lines in file order.
   Each element must have the expected element's exact key set.
 
-**Verdict text.** It is rendered from the summary fields only.
+**Verdict text.** It is rendered from the summary fields only. On a COMPLETE run it has two paragraphs, `pc` then
+`cur`, each rendered from that readout's fields with the templates below and introduced by "Readout <r>:". There is
+no combined sentence across readouts.
 - **Placeholders.**
   - `<ids>` is a comma-separated list in run order, or `none`.
-  - `<V>` is `selected_variant`, and `<A>` is `oq13_answer`.
+  - `<r>` is the paragraph's readout (`pc` or `cur`); `<V>` is `selected_variant`, and `<A>` is `oq13_answer`. The
+    `<ids>` lists, `<P>`, `<N>` and `<X>` refer to that readout's verdicts.
   - `<P>` is the frozen phrase of the selected variant:
     - R0: "T^{α,O} = T^β on visited rows for every orbit with |O| ≥ ℓ_min";
     - S1: "T^{α,O} = T^β on visited rows for every orbit with |O| ≥ ℓ_min whose T^{α,O} is not a permutation matrix";
@@ -1078,19 +1238,20 @@ whitespace, lines are in increasing `rep`, and each line ends with `\n`. `orbits
       matrix".
   - `<N>` is the negation of `<P>`: "for some candidate orbit, T^{α,O} differs from the variant's credence on a visited
     row".
-  - `<R>` is "Recorded: R0 <c1_r0_verdict>; S1 <c1_s1_verdict>; S2 <c1_s2_verdict>; S3 <c1_s3_verdict>."
+  - `<R>` is "Recorded: R0 <c1_r0_verdict_r>; S1 <c1_s1_verdict_r>; S2 <c1_s2_verdict_r>; S3 <c1_s3_verdict_r>.", with
+    `_r` the paragraph's readout.
   - `<X>` is "Vacuous instances (every candidate matched by construction, shared_rows = 0): <ids>. Void instances:
     <ids>."
 - **COMPLETE runs.**
-  - FREQ_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. On every native instance with a
+  - FREQ_ALL: "C-1 (readout <r>, variant <V>, OQ-13 answer <A>): all <k> controls matched. On every native instance with a
     non-vacuous verdict (<ids>), <P>. <X> <R>"
-  - NOT_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. On every native instance with a
+  - NOT_ALL: "C-1 (readout <r>, variant <V>, OQ-13 answer <A>): all <k> controls matched. On every native instance with a
     non-vacuous verdict (<ids>), <N>. <X> <R>"
-  - MIXED: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. FREQ on <ids>; NOT on <ids>. <X> <R>"
-  - VACUOUS_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. No native instance has a non-vacuous
+  - MIXED: "C-1 (readout <r>, variant <V>, OQ-13 answer <A>): all <k> controls matched. FREQ on <ids>; NOT on <ids>. <X> <R>"
+  - VACUOUS_ALL: "C-1 (readout <r>, variant <V>, OQ-13 answer <A>): all <k> controls matched. No native instance has a non-vacuous
     verdict under variant <V>: every candidate matched only by construction, or there was no candidate. The C-1 verdict
     carries no information. <X> <R>"
-  - VOID_ALL: "C-1 (variant <V>, OQ-13 answer <A>): all <k> controls matched. No native instance has a candidate orbit
+  - VOID_ALL: "C-1 (readout <r>, variant <V>, OQ-13 answer <A>): all <k> controls matched. No native instance has a candidate orbit
     under variant <V>; the C-1 verdict is void. <R>"
 - **Halted runs** (the run is void in every case).
   - Exit 1: "C-1 halted at <id>: <field> expected <expected>, computed <computed>. The run is void."
@@ -1107,9 +1268,9 @@ whitespace, lines are in increasing `rep`, and each line ends with `\n`. `orbits
 |---|---|---|
 | 0 | (a), (b), (c) | complete |
 | 1 | (a) | a control, mutation or WF value mismatch |
-| 2 | (a) | a schema violation, in an output or in the expected file against `expected_file`; a frozen parameter inconsistent with §2.2's formulas or with Theorem 22's region conditions; an invalid `oq13_answer`; or a floating-point value in a probability field |
+| 2 | (a) | a schema violation, in an output or in the expected file against `expected_file`; a frozen parameter inconsistent with §2.2's formulas (either readout) or with Theorem 22's region conditions; an invalid `oq13_answer`; or a floating-point value in a probability field |
 | 3 | (a) | a frozen input does not match its git blob id at `F`, or `F` is not in the checkout |
-| 4 | (a) | an invariant failure: the `φ` implementations disagree; the mixture identity or double stochasticity fails; the orbits do not partition `S`; the two P-divisibility methods disagree; a certificate or its coverage fails; a NOT has `shared_rows = 0` (Lemma V); a frozen symmetry generator fails `bijective`, `commutes` or `visible`; or a generator maps an orbit to one with a different primitive word (§2.7) |
+| 4 | (a) | an invariant failure: the `φ` implementations disagree; the mixture identity or double stochasticity fails under either readout; a recorded orbit is not a closed `φ`-cycle, or the orbits do not partition `S` (§2.0); the two P-divisibility methods disagree; a certificate or its coverage fails; a NOT has `shared_rows = 0` (Lemma V); a frozen symmetry generator fails `bijective`, `commutes` or `visible`; or a generator maps an orbit to one with a different primitive word (§2.7) |
 | 5 | (a) | `φ` is not injective on a toy or native instance |
 | 6 | (b) | the re-application step found a stored field that differs from its recomputation |
 | 7 | (a) | `state_count > 2¹⁶` |
@@ -1130,16 +1291,21 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 | every output has the frozen schema | each output is validated against `C1-OUTPUT-SCHEMA.json` before it is written (exit 2) |
 | the four frozen inputs exist at `F` and are unchanged | at start, the git blob ids at `F` are compared with the loaded bytes (exit 3); `frozen_inputs` appears in every output |
 | `F` is the reviewed constant, present in the checkout | `F` is fixed in the reviewed workflow; its absence exits 3; `run.F` appears in every output |
-| no frozen item awaits an answer at `F` | `oq13_answer` must be one of `13a`–`13d` (exit 2); the review of the revised text (§7 step 3) checks that §8.2 carries no open item |
-| the C-1 verdict is the variant the OQ-13 answer selects | step (b) recomputes `c1_verdict` from `oq13_answer` and the §4.2 table (exit 6); `selected_variant` is recorded |
+| no frozen item awaits an answer at `F` | `oq13_answer` must be one of `13a`–`13d` (exit 2), and is frozen as `13b`; the review of the revised text (§7 step 3) checks that §8.2 records every answer and carries no open item |
+| the C-1 verdict is the variant the OQ-13 answer selects, per readout | step (b) recomputes `c1_verdict_pc` and `c1_verdict_cur` from `oq13_answer` and the §4.2 table (exit 6); `selected_variant` is recorded |
+| both readouts are evaluated on the same orbits, under shared controls and one halt; no combined verdict | every native record carries `readouts.pc` and `readouts.cur` (schema, exit 2); the controls run once before any native instance (§3); `summary.json` has per-readout fields only (schema) |
+| the `cur` projection is the §2.1 formula | WF-CUR (compared); the two readouts' frozen `n`, `m` and `ℓ_min` are checked against §2.2's formulas (exit 2) |
+| the `r = 2` `pc` projection is the §2.1 formula | WF-q2-L6-r2 (compared) |
+| the recorded orbits are exactly the cycles of `φ` | the closure and partition checks on every toy and native instance (exit 4); M-FRAG detects a fragmented decomposition that still partitions `S` (`closure_ok`, `partition_ok`, `evaluated_beyond_closure` compared) |
+| `first_mismatch` is the `a`-major least `(a, j)` | `first_mismatch` and `s1_first_mismatch` compared on CC-ORDER, where the `a`-major and `j`-major orders differ, and on every other toy |
 | budget (§A.40) | `state_count ≤ 2¹⁶` before enumeration (exit 7); the job's `timeout-minutes`, with its conclusion read from the host |
-| frozen parameters satisfy §2.2 (`n = q^{2r}`, `m = q^{2(L−r)}`, `ℓ_min = n+1`, `r ≤ L/3`, `R` contiguous) | checked from `C1-INSTANCES.json` before enumeration (exit 2) |
+| frozen parameters satisfy §2.2 (`pc`: `n = q^{2r}`, `m = q^{2(L−r)}`; `cur`: `n = q^r`, `m = q^{2L−r}`; `ℓ_min = n+1` per readout; `r ≤ L/3`; `R` contiguous) | checked from `C1-INSTANCES.json` before enumeration (exit 2) |
 | `φ` is a bijection on every toy and native instance | the injectivity check (exit 5); `injective` is recorded |
 | the bijectivity check detects a non-bijection | M-INJ, with `injective = false` compared; exit 1 if it is not detected |
-| the implemented `φ` is the §2.1 rule | WF-q3-L4 and WF-q2-L5 (compared); the two implementations agree on all of `S` for every native instance (exit 4). WF-0 is a sanity check only |
+| the implemented `φ` is the §2.1 rule | WF-q3-L4, WF-q2-L5, WF-q2-L6-r2 and WF-CUR (compared); the two implementations agree on all of `S` for every native instance (exit 4). WF-0 is a sanity check only |
 | `T^β` is Main:117's matrix | the mixture identity and double stochasticity (exit 4); `T_beta` compared on every toy control |
 | `T^{α,O}` on visited rows only; unvisited rows excluded and recorded | CC-UNVIS (compared, including `unvisited_rows`); `unvisited_rows` recorded per orbit |
-| `ℓ_min = n + 1`, inclusive, fixed by parameters | `ell_min` compared on every toy and checked against the formula on every native instance (exit 2); CC-UNVIS exercises `|O| = ℓ_min`, and CC-SHORT exercises exclusion |
+| `ℓ_min = n + 1`, inclusive, fixed by parameters, per readout | `ell_min` compared on every toy and checked against the formula on every native instance and readout (exit 2); CC-UNVIS exercises `|O| = ℓ_min`, and CC-SHORT exercises exclusion |
 | the void rule takes precedence | CC-VOID (compared) |
 | the frozen symmetry generators are valid, and the implemented `σ` is the §2.7 reflection | the generator check and the word cross-check on every instance (exit 4); `symmetry_generators_ok` and `group_cross_check_ok` recorded; EX-SYM has a case for each clause (`sym_failed_clauses` compared); WF-SIGMA compares `σ` and `φσ = σφ` with hand values on N7's parameters |
 | twin orbits (same primitive cyclic visible word) are not counted as independent agreement | `primitive_word`, `word_power`, `class_rep` and `orbit_class_count` compared on every toy; EX-WORD checks the primitive-word routine on rotation, power, combined, numeric-order and single-letter cases; CC-TWIN (twins, FREQ_VACUOUS), CE-8, CC-UNVIS and CC-PERM (power words) compared; step (b) recomputes the words and classes (exit 6) |
@@ -1155,7 +1321,7 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 | per-orbit records are those the summary describes | `orbits_sha256` is recomputed in step (b) (exit 6) |
 | no native verdict over a failed control | controls run first; the run halts on the first mismatch; `natives_evaluated` is empty whenever `first_failure` is a control |
 | frozen order; no adaptive extension | `order` is compared with `C1-INSTANCES.json`; `natives_evaluated` is a prefix of the frozen order |
-| one pass | the host run record shows `run_attempt = 1`, or whatever OQ-14's answer, written into this text before `F`, prescribes |
+| the check step ran in exactly one attempt (OQ-14 = B) | the result reviewer reads the API job records of every dispatch on `F`: exactly one shows step (a) started; any second dispatch has a recorded owner approval citing a failed run whose record satisfies the §4.3 pre-step predicate. The predicate's field semantics are verified against a real job record before `F` |
 | PASS combines five signals | the job emits the exit statuses of steps (a), (b) and (c), and `summary.json`; the result reviewer reads the job conclusion from the host's API (§4.3) |
 | verdict text is generated only from structured output | step (c) regenerates `verdict_text` from `summary.json` and compares it byte for byte (exit 8) |
 
@@ -1164,13 +1330,14 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
 ## 7. Execution boundary and governance
 
 - **CI only (§A.40).** Locally, only cheap static checks of the tool may run. The instance set runs only in CI.
-- **One pass**, halting on the first red. A void run is not repaired by re-running.
+- **One pass**, halting on the first red. A void run is not repaired by re-running. The only exception is OQ-14's: one
+  further dispatch after a qualifying pre-step infrastructure failure and new explicit owner approval (§4.3).
 - **Order of steps.**
-  1. **Owner answers.** The owner answers OQ-1 to OQ-15 (§8.2).
+  1. **Owner answers.** Done: #1059 c.6650820790 (amaybaum, 2026-11-05), recorded in §8.2.
   2. **Revision.** The text and the data files are revised to carry the answers. Each answer is written in place as the
      frozen choice: `oq13_answer` is set in `C1-INSTANCES.json`, and any instance, control or exit code an answer adds
-     or removes is written in. §8.2 is then replaced by a record of the answers, quoted with author and time
-     (§A.42 item 7). After the revision no item remains open.
+     or removes is written in. §8.2 is replaced by a record of the answers, quoted with author and time (§A.42 item 7).
+     This is done in r7, and no item remains open.
   3. **Review.** An independent reviewer reviews the exact revised commit carrying the four frozen files. The review
      covers their agreement with each other, with the answers and with BSB:402–416, and the hand derivations of §3. If
      the review requires changes, steps 2 and 3 repeat.
@@ -1185,18 +1352,17 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
   8. **Dispatch approval.** Dispatch is a separate owner approval (§A.43). Any `workflow_dispatch` launch is a special
      launch.
   9. **Result review.** The independent reviewer applies the five-signal PASS of §4.3, using the host's API record.
-- **Governance form (conditional on OQ-12).** If the OQ-12 answer chooses the research-run form, then:
-  - this run is not a §A.39 native V3 round;
-  - it carries no `v3-round` or `v3-governed-paths` block and has no receipt;
-  - it is not protocol-valid under §A.39;
-  - it changes no status, label or classification by itself.
-
-  If the answer chooses a native V3 round, step 2 rewrites this section to the §A.39 lifecycle before review.
+- **Governance form (OQ-12 = A): the research-run lifecycle.**
+  - This run is not a §A.39 native V3 round. It carries no `v3-round` or `v3-governed-paths` block and has no receipt,
+    and it is not protocol-valid under §A.39.
+  - It cannot independently support a correctness-band or status promotion, and it changes no status, label or
+    classification by itself (owner ruling).
+  - Any later V3 use needs separate authorization.
 - **Budget (an estimate, not measured).** The largest instances have `2¹⁶` states. The work per instance is:
   - two computations of `φ`, each `O(L·|S|)`;
-  - a cycle decomposition, `O(|S|)`;
-  - the counts, `O(|S|)`;
-  - the comparisons, `O(n²)` per orbit for each variant.
+  - a cycle decomposition with its closure check, `O(|S|)`;
+  - the counts, `O(|S|)` per readout;
+  - the comparisons, `O(n²)` per orbit for each variant and readout.
 
   P-divisibility uses Lemma PD on native instances, so no linear program runs there. The certified method runs on toys
   only, with `k ≤ 3`. Minutes are expected. The job timeout is 30 minutes; a timeout is red, and there is no extension.
@@ -1205,138 +1371,53 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
     designations and approvals, quoted with author and time (§A.42 item 7).
   - The tool, the checker and the workflow land on `main` with the result note, so that the command can be rerun from
     `main` (§A.42 item 1).
+  - Before the result is an enduring claim, `F` and the run commit must be reachable from `main` (§A.42 items 1, 2 and
+    8). A verdict that depends on those commits uses them, and copying their files to `main` does not make them
+    reachable. The result note lands with the branch that contains them.
   - The per-orbit and certificate files can be regenerated by the command and need not land on `main`.
   - A run on a disposable branch is provenance only until its record lands on `main`.
 - **Exclusions.** No C-2, no C-3, no Lean, no manuscript edit, no status change, no merge or publication.
 
 ***
 
-## 8. Open items
+## 8. Owner answers (record)
 
-### 8.1 Before `F`
+### 8.1 Status at this revision
 
-Per §7, steps 1–3 come before `F`: every OQ of §8.2 is answered, the text is revised to carry the answers, and the
-revised commit is reviewed. This section and §8.2 do not survive into `F` as open items.
+Every OQ is answered (§7 step 1). This section records the answers. No item of this text awaits an answer; the
+revised commit awaits independent review (§7 step 3).
 
-### 8.2 Owner questions (all open)
+### 8.2 The owner's rulings on OQ-1 to OQ-15
 
-Each item below is open for the owner. Each states the draft's default, followed by the recommendation from the reviews
-of `3be25e7f` and `c610b2b8`.
+Recorded on #1059 c.6650820790: "Owner rulings on BORN-SEL (b) (amaybaum, 2026-11-05, given to the coordinating
+session and recorded here)", posted 2026-11-05T05:49:40Z. Basis: the reviewed decision table `OQ-DECISIONS.md` r6
+(`9364fdcb`; review #1082 c.6650140256). The objective is quoted in §1. Each row quotes the ruling and its conditions,
+and says where this text carries it.
 
-1. **OQ-1, `ℓ_min`.** The draft uses `ℓ_min = n + 1` (§2.5). The corpus leaves "small p" unquantified (Main:62).
-   - Alternatives: `ℓ_min = 2`, which excludes fixed points only; or a fixed number common to all instances.
-   - The orbit-level C4 predicate is covered by OQ-13 part (i).
-   - *Reviewer recommends:* accept `n+1` as the length threshold, with the secondaries of B1. This draft freezes those
-     as variants S1–S3, selected by OQ-13.
-2. **OQ-2, the visible content of a site.** The draft uses the full `(prev, cur)` pair at each site of `R`, following
-   `cutRealization` (`PhysicalC4Discharge.lean:578–582`), with the block `R = {0, …, r−1}` and `r ≤ L/3`. The
-   alternative is the current value only.
-   - *Reviewer recommends:* accept the `(prev, cur)` pairs. The corpus answers this, and the current-value split would
-     be a surrogate.
-   - *Reviewer: corpus answers* — forced by the kernel's `cutRealization` (`PhysicalC4Discharge.lean:578–582`), which
-     takes the region's phase-space data, the `(prev, cur)` pairs, as the visible carrier. (Review of `1962c378`;
-     the item stays open.)
-3. **OQ-3, the coupling.** The draft uses `a = 1` only (SM:1602; SM:222–224, :230; §2.1). At `q = 3`, `a = 2 ≡ −1` is
-   not covered.
-   - *Reviewer recommends:* accept `a = 1`. The corpus answers this, and `a = 2` is not a manuscript instance.
-   - *Reviewer: corpus answers* — forced by SM:1602, which gives the `d = 1` ring with coefficient 1, and by
-     SM:222–230, which give the observer-level `α = 1/d`, equal to 1 at `d = 1`. (Review of `1962c378`; the item stays
-     open.)
-4. **OQ-4, the instance list.** The draft has eleven instances, including the non-coprime ones, and excludes
-   W-q2-L7-r2. Theorem 22's diameter hypothesis holds only at `L = 8`. The question is also which instances count toward
-   the overall verdicts.
-   - *Reviewer recommends:*
-     - accept all eleven, all counting;
-     - reinstate W-q2-L7-r2 as recorded. It costs nothing, VOID does not count, and it gives an RX-ORD point at `r = 2`;
-     - add a recorded secondary over N10 and N11 for the diameter hypothesis.
-5. **OQ-5, the α-rooted family's row set.** The draft uses `V_O` only, with horizon `{0, …, |O|}` (§2.4).
-   - *Reviewer recommends:* accept `V_O`.
-   - *Reviewer: corpus answers* — forced, because α defines no hidden conditional on an unvisited row. Any other row
-     set adds an arbitrary datum (BSB:147). (Review of `1962c378`; the item stays open.)
-6. **OQ-6, β's P-divisibility on native instances.** The draft records it.
-   - *Reviewer recommends:* record it. It is free, and the theorem covering its (⇒) direction is kernel-checked
-     (`RootedRecurrenceBridge.lean:93`).
-7. **OQ-7, RX-ORD.** The draft records it only.
-   - *Reviewer recommends:* make it gating, expecting `ord = qL` from SM:1606. It is the only whole-map control of the
-     native `φ`. A cycle-detection bug that fragments orbits while still partitioning `S` would push instances toward
-     VOID_NO_ORBIT, and the WF spot checks cannot see that.
-   - Gating needs its own exit code and halt text.
-8. **OQ-8, the aggregation.** The draft applies §4.2's map, in which void instances do not count, to each variant.
-   - *Reviewer recommends:* accept, after the rename of `E` (done: `Ev`).
-9. **OQ-9, Lemma PD.** The draft adopts the reduction to "`Γ₁` is a permutation matrix", with the certified definitional
-   method on toys (§2.4).
-   - *Reviewer recommends:* accept, with the surjectivity line and a certified definitional method. Both are added, and
-     the checker requirements are frozen in §2.4 (i)–(iv).
-   - *Reviewer: corpus answers* — this is a proof, not a choice. The reviewer checked it in both directions. (Review of
-     `1962c378`; the item stays open.)
-10. **OQ-10, the controls.** The draft has the 21 gating controls of §3. Recent additions:
-    - CC-AGREE2, which the review of `df723247` proposed. It replaces CC-AGREE, whose agreement was by construction.
-    - EX-SYM and WF-SIGMA, which test the §2.7 generator check and `σ`.
-    - EX-WORD, which tests the primitive-word computation.
-    - *Reviewer recommends:*
-      - accept all as gating;
-      - add CC-SKEW and an S1 toy (added: CC-SKEW, CC-PERM);
-      - make EX-SCHEMA two-sided (done);
-      - give EX-CERT a case for each clause (done: cases 6–9);
-      - add CC-S3NOT, so that S3 reaches NOT (done);
-      - add an `n = 3` toy that discriminates the order of `first_mismatch` (not added);
-      - add a WF step at `r = 2` at N6's parameters (not added).
-11. **OQ-11, the QB readings.** The draft identifies the variant's credence as the QB-2 credence, and `T^{α,O}` as the
-    QB-1 target at the cycle horizon (§2.6).
-    - *Reviewer recommends:* accept, conditional on B1. The open question is which orbits the invariant prior ranges
-      over (OQ-13).
-12. **OQ-12, the governance form.** One option is a research run on a disposable branch, not a §A.39 native V3 round:
-    no `v3-round` or `v3-governed-paths` block, `F` the owner-designated exact commit, and the files placed as listed
-    in the header. The other is a native V3 round. §7 states the consequences of each.
-    - *Reviewer recommends:*
-      - accept the research-run form if the result is for the record only;
-      - use a native V3 round if the result is to support the O-OBSMU μ-number proposal (BSB §5.2);
-      - under the research-run form, state that the run is not §A.39-protocol-valid and supports no status change by
-        itself. This draft now states it in §7.
-13. **OQ-13, the candidates and the support of the credence prior.**
-    - (i) Are the candidates for `O*` the long orbits, or the long orbits that carry history readback (`Long′`)?
-    - (ii) Does QB-2's invariant prior range over all orbits, or over the candidate orbits only?
-    - The answer is one of `13a`–`13d`. It selects the C-1 verdict by the table of §4.2, and the other three variants are
-      recorded.
-    - An answer outside the table is written in as a new variant before `F` (§4.2).
-    - *Reviewer recommends:* that the owner decide it. The review's B1 shows that the R0 verdict alone does not settle
-      it.
-    - *Reviewer: corpus answers* — the corpus leans but does not force. (Review of `1962c378`; the item stays open.)
-      - On part (ii): Main:56 (Lemma 3, clause 2) and posit (iv) state the global counting prior, which favours 13a or
-        13b. But BSB N4 shows that clauses 1 and 2 conflict for non-transitive `φ`, and QB-2 left the prior's source
-        open.
-      - On part (i): Main:74 makes (C1) the hidden-influence diagnostic, and a permutation orbit has no hidden influence,
-        which supports `Long′`. Nothing in the corpus excludes such orbits outright.
-    - Under 13c or 13d, Lemma V′ applies: the selected variant tests whether the candidate orbits agree with one another
-      (§4.1, §9).
-14. **OQ-14, the rerun policy for a runner failure before step (a) starts.** For example, provisioning, checkout or
-    environment set-up fails, and no output exists. `run_attempt = 1`, with no exception, would let such a failure
-    spend the freeze.
-    - Options: no rerun, so the freeze is spent; or a second dispatch, recorded with the failed run's id under a new
-      owner approval, with the invariant restated as "the check step ran in exactly one attempt".
-    - *Reviewer recommends:* add the policy, as an owner decision, never a silent rerun.
-15. **OQ-15, the twin relation and the frozen cross-check groups (§2.7).**
-    - **Twin relation.** The draft defines twin classes intrinsically: orbits with the same primitive cyclic visible
-      word (the necklace representative of the primitive root). This relation determines `shared_rows`.
-    - **Cross-check groups.** The draft keeps frozen generators as a cross-check only: every pair a generator maps
-      together must share a word class, with exit 4 otherwise. The generators are:
-      - `⟨σ⟩` for the `r = 1` natives, and the trivial group for `r = 2`;
-      - `h ↦ h+2` for CC-TWIN;
-      - the fixed-point swaps for CC-PERM;
-      - the identity elsewhere.
-    - **Why a group cannot define the classes** (review of `df723247`, N7, derived by hand in §2.7):
-      - Any two orbits with the same cyclic visible word are exchanged by some visible-fixing bijection that commutes
-        with `φ`.
-      - Concretely, at the `r = 1` instances with `q | L` (N2, N3, N5, N10), translation by `z = (βi, βi)_i` is such a
-        symmetry. Here `z` is a φ-fixed configuration that is zero on `R`, and it exists because `c_i = α + βi` closes
-        around the ring iff `βL ≡ 0 (mod q)`.
-      - It is not in `⟨σ⟩`. No native orbit was computed.
-    - **Alternatives:**
-      - define classes by the frozen group, which is incomplete and is how N6 and N7 arose;
-      - drop the cross-check group altogether. The word relation alone determines the verdict; the group only tests the
-        tool.
-    - *Reviewer recommends* (review of `df723247`): adopt the word relation, and keep the frozen group as a cross-check.
-      If the word relation is adopted, OQ-15 reduces to whether to keep the cross-check.
+| OQ | Ruling (quoted) | Conditions (quoted) | Where carried |
+|---|---|---|---|
+| 1 | A | "`ℓ_min = n + 1`, as an explicitly selected test criterion, not a physical threshold derived from OI" | §2.5 |
+| 2 | C | "Both `(prev, cur)` and `cur`; one selected variant; independent per-readout verdicts; shared controls; one halt" | §2.1, §2.2, §3, §4.2, §4.3, §5, WF-CUR |
+| 3 | A | "`a = 1`; keep the odd-length `q = 3` limitation" | §2.1, §9 |
+| 4 | B | "Include W-q2-L7-r2; count every non-void instance; N10/N11 a secondary diagnostic only" | §2.2, §4.2 |
+| 5 | A | "Visited roots `V_O` only" | §2.4 |
+| 6 | A | "Record β's P-divisibility; the redundant field is not an independent scientific result" | §2.4, §9 |
+| 7 | C | "Gating closure check and the M-FRAG mutation; RX-ORD a diagnostic record" | §2.0, §3.3, §3.4, §4.3 |
+| 8 | A | "The stated aggregation, separately per readout" | §4.2 |
+| 9 | A | "Lemma PD, keeping its toy countercontrol" | §2.4 |
+| 10 | C | "The required controls, including the `r = 2` and `cur` projections and M-FRAG, **plus the optional `n = 3` first-mismatch diagnostic toy**. Expected total 25 rather than 24. CC-S4 is not required under OQ-13 = 13b. Update all counts, expectations and schema constraints, and independently review the added diagnostic before any freeze." | §3 (25 controls: CC-ORDER, M-FRAG, WF-q2-L6-r2, WF-CUR added), the JSON files |
+| 11 | A | "Keep QB-1 and QB-2, including the cycle-horizon limitation and the frequency/credence distinction" | §1, §2.6, §9 |
+| 12 | A | "Research-run lifecycle. It cannot independently support a correctness-band or status promotion; any later V3 use needs separate authorization" | §7 |
+| 13 | **13b** | "S1: candidates `Long′`, compared against the global-prior `T^β`. R0, S2 and S3 are diagnostic comparisons" | §1, §4.2, `oq13_answer` |
+| 14 | B | "One additional dispatch only after a qualifying pre-step infrastructure failure **and** new explicit owner approval. Verify the API-field semantics before any freeze" | §4.3, §6, §7 |
+| 15 | A | "Intrinsic visible-word twin classes, with the group cross-check" | §2.7 |
+
+- **The OQ-10 diagnostic toy.** The "optional `n = 3` first-mismatch diagnostic toy" is the item r6 recorded in this
+  section as an unadded reviewer suggestion: "add an `n = 3` toy that discriminates the order of `first_mismatch` (not
+  added)". r6 gave its purpose but no map. r7 constructs it as CC-ORDER (§3.1). It is not the S1/S4 witness toy that
+  the review c.6649892041 (F5) dropped from `OQ-DECISIONS.md`.
+- **The question texts and the reviewers' recommendations** that this section held at r6 are in `PREREG-C1.md` at
+  `cde5ecbc` and, with the options and recommended answers, in `OQ-DECISIONS.md` r6 (`9364fdcb`).
 
 ### 8.3 Points in the source sketch that cannot be frozen as stated
 
@@ -1344,10 +1425,10 @@ These are the points of BSB:404–416 that needed a choice, with the choice this
 
 1. **"`ℓ_min` fixed in advance."** No source fixes a value, and Main:62's "small p" is unquantified. The draft uses
    `n + 1` (§2.5, OQ-1). The sketch's rule is also one-sided: it restricts the candidates but not the credence. The
-   draft therefore freezes four variants and leaves the choice to OQ-13.
+   draft therefore freezes four variants; the OQ-13 answer `13b` selects S1.
 2. **"A declared region R" and "small L".** The sketch fixes neither the visible content of a site nor the sizes. At
    `d = 1`, `L ≥ 3` is needed for distinct neighbours, and Theorem 22's hypotheses fit the budget only at `L = 8`. The
-   draft's choices are in §2.1–§2.2 (OQ-2, OQ-4).
+   choices are in §2.1–§2.2 (OQ-2 = C: both readouts; OQ-4 = B).
 3. **The B4 record "per orbit".** Γ^α is undefined on unvisited roots, so a row set must be chosen; the draft uses `V_O`
    (OQ-5). By Lemma PD the record is a function of the comparison data and adds no independent information.
 4. **"β indivisible" in the CE-8 control.** No horizon is given. The draft uses `{0, …, ord(φ)}`, which is
@@ -1368,14 +1449,20 @@ These are the points of BSB:404–416 that needed a choice, with the choice this
 - **Scope of the comparison.**
   - The assessment's B3 and CE-8 already show that on generic finite bijections β's numbers need not be single-orbit
     frequencies (BSB:129–142, BSB:248).
-  - C-1 asks only whether the native wave dynamics behaves like that at the eleven frozen sizes: `d = 1`, `a = 1`,
-    `q ∈ {2, 3}`, `L ≤ 8`, one contiguous region, and the visible content fixed by OQ-2.
-  - Neither verdict extends to larger `L`, to `d ≥ 2`, to the manuscript instance `d = 3` (§2.1), to other couplings,
-    to the rounded rule, or to other regions or splits.
+  - C-1 asks only whether the native wave dynamics behaves like that at the twelve frozen sizes: `d = 1`, `a = 1`,
+    `q ∈ {2, 3}`, `L ≤ 8`, one contiguous region, and the two readouts `pc` and `cur`.
+  - Each verdict holds for its readout only. Neither extends to larger `L`, to `d ≥ 2`, to the manuscript instance
+    `d = 3` (§2.1), to other couplings, to the rounded rule, or to other regions or splits.
+  - **The coupling (OQ-3 = A).** Only `a = 1` is run. On a ring with even `L`, the staggered negation
+    `g(p, c)_i = (−1)^i (p_i, c_i)` satisfies `g ∘ φ_a = φ_{−a} ∘ g` [D, `OQ-DECISIONS.md` OQ-3], so at `q = 3` the
+    coupling `a = 2 ≡ −1` is isomorphic to `a = 1` at even `L`. At odd `L` (N3, N9) it is not covered, and could add
+    information.
   - At `d = 1` the instances are outside posit (v)'s splitting clause (`d ≥ 2`, BSB:225; Main:726).
-- **Cycle horizon only.** By Lemma A, the frequencies compared are those over a whole cycle of the orbit. A cycle is of
-  order up to the recurrence time, which no accessible window reaches (BSB:259; Main:141). C-1 says nothing about
-  accessible-window frequencies, which are C-3's subject.
+- **Two objects, and the horizon.** `T^β` is the representation's declared law; `T^{α,O}` is the cycle-horizon
+  frequency on an orbit taken as actual. Their agreement is what C-1 tests, not a premise. By Lemma A, the frequencies
+  compared are those over a whole cycle of the orbit. A cycle is of order up to the recurrence time, which no
+  accessible window reaches (BSB:259; Main:141). Agreement over accessible windows is untested by C-1; it is C-3's
+  subject.
 - **No selection.**
   - A FREQ verdict would show that, on those instances, the credence numbers coincide with every candidate orbit's cycle
     frequencies. The identity of the actual orbit then does not matter for one-step numbers there.
@@ -1418,9 +1505,10 @@ These are the points of BSB:404–416 that needed a choice, with the choice this
     because the rows depend only on the counts of letter pairs. Such agreement counts as non-vacuous. It is a coincidence
     of counts, not a consequence of symmetry. CC-AGREE2 is an example.
 - **The variants are frozen.**
-  - Which variant answers C-1's question is a question about the prior and the candidates, not a computation (OQ-13).
-  - The four variants are frozen before the result. The C-1 verdict is the one the OQ-13 answer selects, and no variant
-    outside the four can be adopted from this run.
+  - Which variant answers C-1's question is a question about the prior and the candidates, not a computation. The
+    owner answered it: `13b`, variant S1.
+  - The four variants are frozen before the result. The C-1 verdicts are S1's, one per readout; R0, S2 and S3 are
+    diagnostics, and no variant outside the four can be adopted from this run.
 - **Under QB-1.** A NOT in the selected variant means that its credence numbers are not the operational target on that
   instance without a further premise, such as a typicality hypothesis or a selection of the actual orbit. No verdict
   says which orbit is actual.
@@ -1435,11 +1523,14 @@ These are the points of BSB:404–416 that needed a choice, with the choice this
   predicates can change the verdict (CC-SHORT, CC-PERM). The verdicts hold only for the frozen predicates.
 - **Present-visible records only.** The credence side is conditioned on `x₀`. Records of longer histories change both
   sides (BSB:250–256, Lemma A3) and are not tested.
-- **P-divisibility record.** By Lemma PD the record is a function of whether `T^{α,O}` is a 0/1 matrix. It adds no
-  information independent of the comparison data and carries no verdict.
+- **P-divisibility record.** By Lemma PD the record is a function of whether `T^{α,O}` is a 0/1 matrix, and
+  `pdiv_beta` of whether `T^β` is a permutation matrix. It adds no information independent of the comparison data,
+  carries no verdict, and is not an independent scientific result (OQ-6).
 - **Calibration of the tool.** The controls are constructed toys with hand-derived values. A complete run shows that
   the implementation reproduces them, and that the native `φ` matches the hand-derived steps. It does not show that the
-  rule behaves as intended on inputs unlike the controls. Without RX-ORD gating (OQ-7), an orbit-fragmenting bug that
-  still partitions `S` is not caught on native instances.
+  rule behaves as intended on inputs unlike the controls. The gating closure check (§2.0) catches an
+  orbit-fragmenting bug that still partitions `S` on every native instance; RX-ORD is a diagnostic record only
+  (OQ-7). The added controls CC-ORDER, M-FRAG, WF-q2-L6-r2 and WF-CUR are hand-derived in r7 and need independent
+  review before `F` (OQ-10).
 - **Consistency axis.** Whatever the verdict, it moves no correctness band (§A.23). A halted run establishes nothing
   about the wave substratum.

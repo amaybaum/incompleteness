@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "bornsel-c1-output-schema/1",
-  "title": "BORN-SEL C-1 output and expected-file schema (draft r6; not yet a candidate freeze; WIP / UNVERIFIED)",
+  "title": "BORN-SEL C-1 output and expected-file schema (draft r7, carrying the owner's OQ rulings of #1059 c.6650820790; not yet a candidate freeze; WIP / UNVERIFIED)",
   "$comment": "Frozen together with PREREG-C1.md at the owner-designated commit F. The format c1-reduced-rational is asserted: a string matching ^-?(0|[1-9][0-9]*)(/[1-9][0-9]*)?$, not '-0', and, when a denominator is present, with denominator >= 2 and coprime to the numerator. Outputs are validated against toy_record, native_record, unit_record, orbit_record (one per line of an orbits file), pdiv_certs and summary; C1-CONTROLS-EXPECTED.json against expected_file.",
   "$defs": {
     "probability": {"type": "string", "pattern": "^(0|[1-9][0-9]*)(/[1-9][0-9]*)?$", "format": "c1-reduced-rational"},
@@ -32,7 +32,8 @@
       "properties": {
         "n": {"type": "integer", "minimum": 1}, "m": {"type": "integer", "minimum": 1}, "state_count": {"type": "integer", "minimum": 1, "maximum": 65536},
         "q": {"enum": [2, 3]}, "L": {"type": "integer", "minimum": 3}, "d": {"const": 1}, "a": {"const": 1},
-        "r": {"type": "integer", "minimum": 1}, "R": {"$ref": "#/$defs/rows"}
+        "r": {"type": "integer", "minimum": 1}, "R": {"$ref": "#/$defs/rows"},
+        "readout": {"enum": ["pc", "cur"]}
       }
     },
     "frozen_inputs": {
@@ -47,7 +48,7 @@
     "common": {
       "type": "object", "required": ["schema", "id", "order", "kind", "frozen_inputs", "run"],
       "properties": {
-        "schema": {"const": "bornsel-c1/1"}, "id": {"type": "string"}, "order": {"type": "integer", "minimum": 1, "maximum": 32},
+        "schema": {"const": "bornsel-c1/1"}, "id": {"type": "string"}, "order": {"type": "integer", "minimum": 1, "maximum": 37},
         "kind": {"enum": ["toy", "unit", "native"]}, "frozen_inputs": {"$ref": "#/$defs/frozen_inputs"}, "run": {"$ref": "#/$defs/run"}
       }
     },
@@ -87,7 +88,7 @@
         "shared_rows": {"$ref": "#/$defs/nat"}, "s1_shared_rows": {"$ref": "#/$defs/nat"},
         "s2_shared_rows": {"$ref": "#/$defs/nat"}, "s3_shared_rows": {"$ref": "#/$defs/nat"},
         "symmetry_generators_ok": {"const": true}, "group_cross_check_ok": {"const": true}, "orbit_class_count": {"type": "integer", "minimum": 1},
-        "orbits_file": {"type": "string", "pattern": "^c1/[A-Za-z0-9-]+\\.orbits\\.jsonl$"}, "orbits_sha256": {"$ref": "#/$defs/sha256"}
+        "orbits_file": {"type": "string", "pattern": "^c1/[A-Za-z0-9-]+(\\.(pc|cur))?\\.orbits\\.jsonl$"}, "orbits_sha256": {"$ref": "#/$defs/sha256"}
       }
     },
     "toy_record": {
@@ -108,16 +109,28 @@
       ],
       "unevaluatedProperties": false
     },
+    "readout_analysis": {
+      "allOf": [
+        {"$ref": "#/$defs/analysis"},
+        {"type": "object", "properties": {"params": {"$ref": "#/$defs/params", "required": ["n", "m", "state_count", "q", "L", "d", "a", "r", "R", "readout"]}}}
+      ],
+      "unevaluatedProperties": false
+    },
     "native_record": {
       "allOf": [
-        {"$ref": "#/$defs/common"}, {"$ref": "#/$defs/analysis"},
+        {"$ref": "#/$defs/common"},
         {"type": "object",
-         "required": ["phi_impls_agree", "phi_zero_fixed", "ord_phi_eq_qL", "diameter_ge_4"],
+         "required": ["params", "injective", "closure_ok", "phi_impls_agree", "phi_zero_fixed", "ord_phi_eq_qL", "diameter_ge_4", "readouts"],
          "properties": {
            "kind": {"const": "native"},
-           "params": {"$ref": "#/$defs/params", "required": ["n", "m", "state_count", "q", "L", "d", "a", "r", "R"]},
+           "params": {"type": "object", "additionalProperties": false, "required": ["state_count", "q", "L", "d", "a", "r", "R"],
+                      "properties": {"state_count": {"type": "integer", "minimum": 1, "maximum": 65536}, "q": {"enum": [2, 3]}, "L": {"type": "integer", "minimum": 3},
+                                     "d": {"const": 1}, "a": {"const": 1}, "r": {"type": "integer", "minimum": 1}, "R": {"$ref": "#/$defs/rows"}}},
+           "injective": {"const": true}, "closure_ok": {"const": true},
            "phi_impls_agree": {"const": true}, "phi_zero_fixed": {"const": true},
-           "ord_phi_eq_qL": {"type": ["boolean", "null"]}, "diameter_ge_4": {"type": "boolean"}
+           "ord_phi_eq_qL": {"type": ["boolean", "null"]}, "diameter_ge_4": {"type": "boolean"},
+           "readouts": {"type": "object", "additionalProperties": false, "required": ["pc", "cur"],
+                        "properties": {"pc": {"$ref": "#/$defs/readout_analysis"}, "cur": {"$ref": "#/$defs/readout_analysis"}}}
          }}
       ],
       "unevaluatedProperties": false
@@ -131,6 +144,7 @@
            "params": {"$ref": "#/$defs/params"},
            "phi_impls_agree": {"type": "boolean"},
            "injective": {"type": "boolean"}, "evaluated_beyond_injectivity": {"type": "boolean"},
+           "closure_ok": {"type": "array", "items": {"type": "boolean"}}, "partition_ok": {"type": "array", "items": {"type": "boolean"}}, "evaluated_beyond_closure": {"type": "boolean"},
            "results": {"type": "array", "items": {"enum": ["equal", "unequal"]}},
            "reduced": {"type": "array", "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/probability"}}},
            "schema_results": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["schema_valid", "violation_path"],
@@ -155,7 +169,8 @@
         {"if": {"properties": {"id": {"const": "EX-ARITH"}}}, "then": {"required": ["results", "reduced"]}},
         {"if": {"properties": {"id": {"const": "EX-SCHEMA"}}}, "then": {"required": ["schema_results"]}},
         {"if": {"properties": {"id": {"const": "EX-CERT"}}}, "then": {"required": ["cert_results", "cert_failed_clauses"]}},
-        {"if": {"properties": {"id": {"enum": ["WF-q2-L5", "WF-q3-L4"]}}}, "then": {"required": ["params", "hand_steps", "phi_impls_agree"]}},
+        {"if": {"properties": {"id": {"enum": ["WF-q2-L5", "WF-q3-L4", "WF-q2-L6-r2", "WF-CUR"]}}}, "then": {"required": ["params", "hand_steps", "phi_impls_agree"]}},
+        {"if": {"properties": {"id": {"const": "M-FRAG"}}}, "then": {"required": ["closure_ok", "partition_ok", "evaluated_beyond_closure"]}},
         {"if": {"properties": {"id": {"const": "WF-0"}}}, "then": {"required": ["phi_of_zero", "phi_impls_agree"]}},
         {"if": {"properties": {"id": {"const": "EX-SYM"}}}, "then": {"required": ["sym_results", "sym_failed_clauses"]}},
         {"if": {"properties": {"id": {"const": "WF-SIGMA"}}}, "then": {"required": ["params", "sigma_check", "phi_impls_agree"]}},
@@ -204,19 +219,25 @@
     "summary": {
       "type": "object", "additionalProperties": false,
       "required": ["schema", "oq13_answer", "selected_variant", "controls_frozen", "controls_matched", "natives_frozen", "natives_evaluated",
-                   "native_verdicts", "native_s1_verdicts", "native_s2_verdicts", "native_s3_verdicts",
-                   "c1_verdict", "c1_r0_verdict", "c1_s1_verdict", "c1_s2_verdict", "c1_s3_verdict",
+                   "native_verdicts_pc", "native_s1_verdicts_pc", "native_s2_verdicts_pc", "native_s3_verdicts_pc",
+                   "native_verdicts_cur", "native_s1_verdicts_cur", "native_s2_verdicts_cur", "native_s3_verdicts_cur",
+                   "c1_verdict_pc", "c1_r0_verdict_pc", "c1_s1_verdict_pc", "c1_s2_verdict_pc", "c1_s3_verdict_pc",
+                   "c1_verdict_cur", "c1_r0_verdict_cur", "c1_s1_verdict_cur", "c1_s2_verdict_cur", "c1_s3_verdict_cur",
                    "run_status", "first_failure", "verdict_text"],
       "properties": {
         "schema": {"const": "bornsel-c1-summary/1"},
         "oq13_answer": {"enum": ["13a", "13b", "13c", "13d", null]},
         "selected_variant": {"enum": ["R0", "S1", "S2", "S3", null]},
-        "controls_frozen": {"const": 21}, "controls_matched": {"type": "integer", "minimum": 0, "maximum": 21},
-        "natives_frozen": {"const": 11}, "natives_evaluated": {"type": "array", "items": {"type": "string"}},
-        "native_verdicts": {"$ref": "#/$defs/verdict_map"}, "native_s1_verdicts": {"$ref": "#/$defs/verdict_map"},
-        "native_s2_verdicts": {"$ref": "#/$defs/verdict_map"}, "native_s3_verdicts": {"$ref": "#/$defs/verdict_map"},
-        "c1_verdict": {"$ref": "#/$defs/overall"}, "c1_r0_verdict": {"$ref": "#/$defs/overall"}, "c1_s1_verdict": {"$ref": "#/$defs/overall"},
-        "c1_s2_verdict": {"$ref": "#/$defs/overall"}, "c1_s3_verdict": {"$ref": "#/$defs/overall"},
+        "controls_frozen": {"const": 25}, "controls_matched": {"type": "integer", "minimum": 0, "maximum": 25},
+        "natives_frozen": {"const": 12}, "natives_evaluated": {"type": "array", "items": {"type": "string"}},
+        "native_verdicts_pc": {"$ref": "#/$defs/verdict_map"}, "native_s1_verdicts_pc": {"$ref": "#/$defs/verdict_map"},
+        "native_s2_verdicts_pc": {"$ref": "#/$defs/verdict_map"}, "native_s3_verdicts_pc": {"$ref": "#/$defs/verdict_map"},
+        "native_verdicts_cur": {"$ref": "#/$defs/verdict_map"}, "native_s1_verdicts_cur": {"$ref": "#/$defs/verdict_map"},
+        "native_s2_verdicts_cur": {"$ref": "#/$defs/verdict_map"}, "native_s3_verdicts_cur": {"$ref": "#/$defs/verdict_map"},
+        "c1_verdict_pc": {"$ref": "#/$defs/overall"}, "c1_r0_verdict_pc": {"$ref": "#/$defs/overall"}, "c1_s1_verdict_pc": {"$ref": "#/$defs/overall"},
+        "c1_s2_verdict_pc": {"$ref": "#/$defs/overall"}, "c1_s3_verdict_pc": {"$ref": "#/$defs/overall"},
+        "c1_verdict_cur": {"$ref": "#/$defs/overall"}, "c1_r0_verdict_cur": {"$ref": "#/$defs/overall"}, "c1_s1_verdict_cur": {"$ref": "#/$defs/overall"},
+        "c1_s2_verdict_cur": {"$ref": "#/$defs/overall"}, "c1_s3_verdict_cur": {"$ref": "#/$defs/overall"},
         "run_status": {"enum": ["COMPLETE", "HALT"]},
         "first_failure": {"oneOf": [{"type": "null"},
           {"type": "object", "additionalProperties": false, "required": ["exit", "id", "field", "expected", "computed", "detail"],
@@ -226,8 +247,10 @@
       },
       "if": {"properties": {"run_status": {"const": "COMPLETE"}}},
       "then": {"properties": {"oq13_answer": {"type": "string"}, "selected_variant": {"type": "string"},
-                              "c1_verdict": {"type": "string"}, "c1_r0_verdict": {"type": "string"}, "c1_s1_verdict": {"type": "string"},
-                              "c1_s2_verdict": {"type": "string"}, "c1_s3_verdict": {"type": "string"}}}
+                              "c1_verdict_pc": {"type": "string"}, "c1_r0_verdict_pc": {"type": "string"}, "c1_s1_verdict_pc": {"type": "string"},
+                              "c1_s2_verdict_pc": {"type": "string"}, "c1_s3_verdict_pc": {"type": "string"},
+                              "c1_verdict_cur": {"type": "string"}, "c1_r0_verdict_cur": {"type": "string"}, "c1_s1_verdict_cur": {"type": "string"},
+                              "c1_s2_verdict_cur": {"type": "string"}, "c1_s3_verdict_cur": {"type": "string"}}}
     },
     "toy_expected": {
       "type": "object", "additionalProperties": false,
@@ -262,6 +285,9 @@
       "type": "object", "additionalProperties": false,
       "properties": {
         "phi_impls_agree": {"type": "boolean"}, "injective": {"type": "boolean"}, "evaluated_beyond_injectivity": {"type": "boolean"},
+        "closure_ok": {"$ref": "#/$defs/unit_record/allOf/2/properties/closure_ok"},
+        "partition_ok": {"$ref": "#/$defs/unit_record/allOf/2/properties/partition_ok"},
+        "evaluated_beyond_closure": {"type": "boolean"},
         "results": {"$ref": "#/$defs/unit_record/allOf/2/properties/results"},
         "reduced": {"$ref": "#/$defs/unit_record/allOf/2/properties/reduced"},
         "schema_results": {"$ref": "#/$defs/unit_record/allOf/2/properties/schema_results"},
@@ -282,7 +308,8 @@
         "expected": {
           "type": "object", "additionalProperties": false,
           "required": ["CE-8", "TT-4", "TT-6", "CC-TWIN", "CC-SHORT", "CC-UNVIS", "CC-VOID", "CC-SKEW", "CC-PERM", "CC-S3NOT", "CC-AGREE2",
-                       "M-INJ", "EX-ARITH", "EX-SCHEMA", "EX-CERT", "EX-SYM", "EX-WORD", "WF-q2-L5", "WF-q3-L4", "WF-SIGMA", "WF-0"],
+                       "M-INJ", "EX-ARITH", "EX-SCHEMA", "EX-CERT", "EX-SYM", "EX-WORD", "WF-q2-L5", "WF-q3-L4", "WF-SIGMA", "WF-0",
+                       "CC-ORDER", "M-FRAG", "WF-q2-L6-r2", "WF-CUR"],
           "properties": {
             "CE-8": {"$ref": "#/$defs/toy_expected", "required": ["sketch_check"]},
             "TT-4": {"$ref": "#/$defs/toy_expected"}, "TT-6": {"$ref": "#/$defs/toy_expected"},
@@ -297,7 +324,11 @@
             "WF-q2-L5": {"$ref": "#/$defs/unit_expected", "required": ["hand_steps", "phi_impls_agree"]},
             "WF-q3-L4": {"$ref": "#/$defs/unit_expected", "required": ["hand_steps", "phi_impls_agree"]},
             "WF-SIGMA": {"$ref": "#/$defs/unit_expected", "required": ["sigma_check", "phi_impls_agree"]},
-            "WF-0": {"$ref": "#/$defs/unit_expected", "required": ["phi_of_zero", "phi_impls_agree"]}
+            "WF-0": {"$ref": "#/$defs/unit_expected", "required": ["phi_of_zero", "phi_impls_agree"]},
+            "CC-ORDER": {"$ref": "#/$defs/toy_expected"},
+            "M-FRAG": {"$ref": "#/$defs/unit_expected", "required": ["closure_ok", "partition_ok", "evaluated_beyond_closure"]},
+            "WF-q2-L6-r2": {"$ref": "#/$defs/unit_expected", "required": ["hand_steps", "phi_impls_agree"]},
+            "WF-CUR": {"$ref": "#/$defs/unit_expected", "required": ["hand_steps", "phi_impls_agree"]}
           }
         }
       }

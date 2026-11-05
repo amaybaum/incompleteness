@@ -1,7 +1,8 @@
 # BORN-SEL (b): recommended answers to the C-1 owner questions OQ-1 to OQ-15 (#1059)
 
-**Status.** WIP / UNVERIFIED. Paper only. Recommendations only: **the owner decides every item**, and nothing here is a
-decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as it stands at `cde5ecbc`.
+**Status.** WIP / UNVERIFIED. Paper only. The table below is the r6 record of recommendations. The owner has ruled on
+every item (#1059 c.6650820790), and the rulings are recorded in the next section; they are written into
+`PREREG-C1.md` r7. Nothing here is an adopted premise.
 - **Review.** All four reviews are model-authored, and each returned ACCEPT WITH CHANGES.
   - r1 (`16bde823`) was reviewed in #1082 c.6649637586.
   - r2 (`cfdcb83e`) was delta-reviewed in #1082 c.6649769429.
@@ -11,8 +12,10 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
     2026-11-05T04:49:54Z).
   - r5 (`c5aaba30`) added that derivation. r4 and r5 were reviewed in #1082 c.6650088826: ACCEPT WITH CHANGES
     (minor). The review confirmed the derivation.
-  - This revision (r6) applies that review's C1–C5. Following the owner's direction relayed by the coordinator, it
-    keeps the stronger form with its assumptions stated. It has not been re-reviewed.
+  - r6 (`9364fdcb`) applied that review's C1–C5, keeping the stronger form with its assumptions stated (owner
+    direction #1059 c.6650145254). Its delta review, #1082 c.6650140256, is ACCEPT.
+  - This revision (r7) records the owner's rulings (#1059 c.6650820790). The r6 recommendation text is unchanged except
+    where a ruling resolves an owner question it posed. r7 has not been reviewed.
   - The reviewer's S1/S4 witness for the converse ordering is not adopted; that ordering stays "not shown".
   - Each item gives the delta review's endorsement of r2 as **Review r2**.
 - **Authorization.** #1059 c.6649420231: paper-only, part (b).
@@ -42,6 +45,65 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
 
   The answers fix what C-1 would test. "(b) analysis depends" marks the OQs on which the remaining measure analysis
   depends.
+
+***
+
+## Owner rulings (record)
+
+Recorded on #1059 c.6650820790: "Owner rulings on BORN-SEL (b) (amaybaum, 2026-11-05, given to the coordinating
+session and recorded here)", posted 2026-11-05T05:49:40Z. Basis: this table at r6 (`9364fdcb`; review #1082
+c.6650140256).
+
+**Letter check.** Each ruling's letter was compared with the option of that letter in the table below and with the
+ruling's own description. All fifteen agree:
+
+| OQ | Ruling | Option of that letter here | Owner's description agrees |
+|---|---|---|---|
+| 1 | A | `n + 1` | yes: "`ℓ_min = n + 1`, as an explicitly selected test criterion" |
+| 2 | C | both readouts | yes: "Both `(prev, cur)` and `cur`; one selected variant; independent per-readout verdicts; shared controls; one halt", matching (i)–(iv) |
+| 3 | A | `a = 1` | yes |
+| 4 | B | eleven plus W-q2-L7-r2 | yes: "Include W-q2-L7-r2; count every non-void instance; N10/N11 a secondary diagnostic only" |
+| 5 | A | `V_O` | yes |
+| 6 | A | record | yes |
+| 7 | C | gating closure check, mutation, RX-ORD as a record | yes |
+| 8 | A | accept the aggregation | yes: "separately per readout" |
+| 9 | A | accept Lemma PD | yes: "keeping its toy countercontrol" |
+| 10 | C | "as (B), plus the controls the other answers require"; (B) includes "an `n = 3` toy for the order of `first_mismatch`" | yes: "plus the optional `n = 3` first-mismatch diagnostic toy", total 25, CC-S4 not required under 13b |
+| 11 | A | accept | yes |
+| 12 | A | research run | yes, with the added condition that it "cannot independently support a correctness-band or status promotion" |
+| 13 | 13b | candidates `Long′`, prior over all orbits | yes: "S1: candidates `Long′`, compared against the global-prior `T^β`" |
+| 14 | B | one further dispatch under a new recorded owner approval | yes, with "new explicit owner approval" and "Verify the API-field semantics before any freeze" |
+| 15 | A | word relation with the group cross-check | yes |
+
+**The OQ-10 toy and the total.** The toy is the one PREREG r6 §8.2 item 10 recorded as an unadded reviewer
+suggestion: "add an `n = 3` toy that discriminates the order of `first_mismatch` (not added)". The record defines its
+purpose only, not a map; r7 constructs it as CC-ORDER (PREREG §3.1) for independent review. The total is
+21 + M-FRAG + WF-q2-L6-r2 + WF-CUR + CC-ORDER = 25. It is not the S1/S4 witness toy that the review c.6649892041
+(F5) dropped as redundant with CC-SKEW: that toy was an `n = 2` separation toy for S4, which 13b does not use.
+
+**The S1/S4 questions [O].**
+- **S4 under OQ-1 (B) or (D)** is not retained as an operationally distinct variant where it is proved identical to
+  S3. Its definition stays documented in OQ-13. OQ-1 = A does not invoke that equivalence for every instance.
+- **S4 NOT ⇒ S1 NOT** is accepted as a conditional implication under OQ-1 (B) and (D) only, carried from the reviewed
+  definitions: S4 ≡ S3 there (Step S), and S3 NOT ⇒ S1 NOT. It is not generalized to (A) or (C).
+- **The reviewer's converse witness** (#1082 c.6649892041) is not adopted as an established result. A separate
+  paper-only derivation and independent check is authorized if needed. Until then the general converse, S4 NOT ⇏
+  S1 NOT, remains **not shown**.
+
+**Main:62 and Main:282, as the owner reads them for the measure analysis [O].**
+- Main:62's exclusion of observer-lacking orbits constrains candidate observer histories. It does not by itself
+  remove those orbits from the global β prior.
+- Main:282's uniform hidden-sector input remains a declared assumption.
+- An observer's posterior comes from conditioning the selected prior on an identified record.
+- **G2's distinction is kept** (BSB Lemma G2, `BORNSEL-B-MEASURE.md` lines 197–203 at `7b46d36c`). The prior is
+  invariant. The conditioned assignment need not be: no invariant law gives a time-varying record probability 1
+  while keeping the actual microstate in its support, so an assignment conditioned on such a record, with the actual
+  microstate in its support, is not invariant.
+- No change to Main:62, Main:282, Main:726 or ch01:85 is made in this workstream. Any such change needs a separately
+  scoped proposal.
+
+**QB-3 and QB-4.** The proposed μ-form / μ-number wording (QB-3) and the locations of the lemmas for review (QB-4) are
+in `QB3-QB4.md`.
 
 ***
 
@@ -290,7 +352,8 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
     - PREREG §3.1's requirement that "Every pair of variants is separated by at least one control" (PREREG:565)
       cannot be met for that pair.
     - With 13e, the selected verdict is the same as 13d's.
-    - Whether S4 is kept as a distinct variant under those answers is for the owner to decide.
+    - Whether S4 is kept as a distinct variant under those answers is for the owner to decide. **Ruled:** it is not
+      retained as an operationally distinct variant where it is proved identical to S3 (owner rulings, above).
   - **The `n = 3` `first_mismatch` toy is optional.** `first_mismatch` is diagnostic and enters no verdict.
 - **Counts under the combined recommended answers** [D]. The answers are OQ-2 (C), OQ-4 (B), OQ-7 (C) and OQ-10 (C).
   - **Controls.** 21 + M-FRAG + WF at `r = 2` + WF for the `cur` readout = **24**.
@@ -446,14 +509,16 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
          verdict is FREQ_VACUOUS.
      - **S4 NOT ⇏ S1 NOT is not shown.** A witness would need a short non-permutation orbit, hence, under OQ-1 (A),
        `n ≥ 3`. None is given, so no further ordering between S4 and S1 is claimed.
-       - **Open owner question, not claimed here.** The review c.6650088826 notes a possible ordering under OQ-1 (B)
-         or (D). Step S with S3 NOT ⇒ S1 NOT would give S4 NOT ⇒ S1 NOT there, which would confine the "not shown"
-         status to (A) and (C). It is left to the owner and is not asserted in this file.
+       - **Under OQ-1 (B) or (D) [O].** The review c.6650088826 noted that Step S with S3 NOT ⇒ S1 NOT gives
+         S4 NOT ⇒ S1 NOT there. The owner accepted this as a conditional implication under (B) and (D) only, not
+         generalized to (A) or (C) (owner rulings, above). The general converse stays not shown.
 - **The Main:62 / Main:282 reading.**
   - Read literally, Main:62's exclusion of short orbits is a scope statement, and Main:288 is a representation
     identity, so they do not contradict each other.
   - A tension arises only if Main:62 is read as excluding observer-lacking orbits from the prior itself (the O-OBSMU
     note's H-OC_orb reading). That question belongs to O3/QB-2, not to C-1.
+  - The owner's reading for this workstream is recorded above: Main:62 constrains candidate observer histories and
+    does not by itself remove orbits from the global β prior.
 - **Recommendation: a genuine choice among 13b, 13d and 13e**, decided by which question C-1 is meant to answer.
   - **13b,** if the question is "are the numbers Main:288's representation carries (`T^β`) the cycle frequencies of
     every admissible actual orbit?" This is part (b)'s own question: "which branch … fixes the probabilities the
@@ -611,6 +676,9 @@ by landing the content, or by narrowing the claim.
 | QB-1 and QB-2, #1059 c.6624262539 (amaybaum, chat 2026-11-04; posted 2026-11-04T06:28:41Z). QB-1: "Choose operational frequencies as the eventual physical meaning that OI must explain. Observer credences can describe predictions conditional on preparations, but cannot by themselves establish a Born probability law." QB-2: "Interpret the maximum-entropy branch as an invariant prior followed by conditioning, while leaving the physical source of that prior open." | OQ-11, OQ-13 | **support off `main`: a gap.** The recommendations use these decisions as premises of the comparison |
 | Owner's order of work: #1059 c.6649688361 (2026-11-05T04:28:25Z), quoting amaybaum, Claude Code session chat, 2026-11-05: "For #1032 and #1059, continue within the already authorized scopes. In particular, present #1059's OQ-1–OQ-15 recommendations for owner decisions before proceeding with the dependent measure analysis." | the pause of the dependent analysis | provenance |
 | Owner decision #1059 c.6649976339 (amaybaum, 2026-11-05; posted 2026-11-05T04:49:54Z): r4 "is accepted as the current draft, subject to an independent delta review"; "add the explicit derivation that S4 = S3 at n = 2 under OQ-1 (B), or narrow F1 to the cases actually derived"; the S1/S4 witness "stays **not adopted**, and the question stays **not shown**" | the status header; the scope of the OQ-1 (B) result; the S1/S4 status | provenance (§A.42 item 7). The derivation rests on PREREG and this file, not on the decision |
+| Owner rulings #1059 c.6650820790 (amaybaum, 2026-11-05; posted 2026-11-05T05:49:40Z), quoted in "Owner rulings (record)" and in PREREG r7 §8.2 | the rulings section; PREREG r7 | provenance (§A.42 item 7): the rulings are choices of what C-1 tests, quoted with author and time; no mathematical claim here rests on them |
+| Owner direction #1059 c.6650145254 (amaybaum, 2026-11-05) and the r6 delta review #1082 c.6650140256 (model-authored) | the status header | provenance |
+| `QB3-QB4.md` (this branch) | the rulings section | a pointer only; that file classifies its own references |
 | `BORNSEL-B-MEASURE.md` r3 (this branch; reviewed ACCEPT, #1082 c.6622587957) | OQ-5, OQ-11, OQ-13; the dependence section | **support off `main`: a gap** (Lemmas A, A3, G, γ-c) |
 | `PREREG-C1.md` r6 (this branch; accepted as a draft, #1082 c.6625738542) | every row (the questions, Lemma PD, Lemma V′, §2.7) | **support off `main`: a gap.** It is the object under decision |
 | The C-1 review findings N6 and N7, and the C-1 reviewer's check of Lemma PD, as recorded in PREREG §2.7 and §8.2 | OQ-9, OQ-15 | **support off `main`: a gap.** The review texts are not posted (#1082 c.6625738542 summarizes them) |
