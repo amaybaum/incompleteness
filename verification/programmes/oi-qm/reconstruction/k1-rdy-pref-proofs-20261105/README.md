@@ -7,9 +7,11 @@ readiness result or owner question, and changes no statement of the K1-RDY text.
 
 `verification/programmes/oi-qm/reconstruction/k1-rdy-proofs-20261105/LEMMAS.md` (on `main` at `4f016afd`) proves the
 blindness lemma, the P1 lemma and L-O(i)/(ii), and its §5 item 3 lists what the K1-RDY text uses without proof there.
-The owner asked that each such item be justified before the new round's freeze `F`, by a reviewed paper proof, an
-on-`main` result or a named hypothesis or control (request relayed by the coordinating session, 2026-11-05, under #1031 comment 6651204512).
-`PROOFS.md` treats each item:
+The owner's direction, #1031 comment 6653233009 (amaybaum, Claude Code session chat, 2026-11-05): "There is one
+important additional point: #1119 does not prove that the complete decision procedure in #1031 is correct. In
+particular, the rule for classifying all invariant probability measures still needs separate justification or
+validation. That should be explicitly checked before the next research round is frozen." `PROOFS.md` treats each item,
+and the ledger bounds (c1)/(c2):
 
 | Item | Text lines | `PROOFS.md` |
 |---|---|---|
@@ -18,6 +20,7 @@ on-`main` result or a named hypothesis or control (request relayed by the coordi
 | P3's image at `t_0` | 86–90 | §3, proved |
 | TA (c4) | 206, 234, 243 | §4, proved |
 | ℰ conservation and shell count | 74, 209 | §5, proved |
+| ledger bounds (c1)/(c2) | 60–62, 142, 244 | §7, proved |
 | §5.3's class rule (Q4) | 156–163 | §6: the positive clause is sufficient and the ABSENT clause exact; the converse of the positive clause is not established; at the instance the clause is unreachable, so no token depends on it |
 
 The gates that precede G4 are not premises; they are decided by the round's own procedure at execution.

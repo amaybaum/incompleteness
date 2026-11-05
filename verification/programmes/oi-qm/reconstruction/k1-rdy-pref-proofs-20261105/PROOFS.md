@@ -21,6 +21,7 @@ from the text; that they are the text's is checkable against the recorded sha256
 | TA (c4) | §4, proved in the form lines 206, 234 and 243 use |
 | the conservation of ℰ behind lines 74–75 | §5, proved, with the shell count CC-LEDGER uses |
 | §5.3's class rule (Q4) | §6, analysed: one direction proved, the converse not established, and the clause shown unreachable at the instance |
+| (not in that list) the ledger bounds (c1)/(c2), lines 60–62 | §7, proved |
 | the gates that precede G4 for a P1 member row | not a premise: decided by the round's own gates at execution (§6.4 records what the class-rule analysis needs from them) |
 
 Notation: `𝟙 ∈ 𝐑^Λ` is the vector with every entry 1, and `⟨u, v⟩ = Σ_i u_i v_i` in `ℤ/2`. Over `ℤ/2`, `−1 = 1`.
@@ -272,3 +273,40 @@ sentence decides the class token. ∎
   changes no statement of the text.
 - The parameter fields of the class token ("first ... attained by a member row") are the subject of PF-1 and are not
   treated here.
+
+## 7. The equal-time ledger bounds (c1) and (c2)
+
+**Status: written proof, not independently reviewed.**
+
+### 7.1 Statement
+
+Lines 60–62: "`D(μ) = log|S| − H(μ) = D_KL(μ ‖ π_0)`. Equal-time bounds: B-pl sharp readiness needs
+`|E| log q ≤ D(μ)` (c1); B-eq sharp readiness on `w` of mass `p` needs `p·|E∖W| log q ≤ D(μ)` (c2, the chain rule with
+overlap cells counted in `W`)." G3 writes the bound for each row and G4 voids an equal-time sharp positive that breaks it
+(lines 139–142).
+
+**Proposition LEDGER.** Let `S` be finite with `|𝐑| = q`, `π_0` uniform and `μ` a probability measure on `S`.
+(a) `log|S| − H(μ) = D_KL(μ ‖ π_0)`. (b) (c1): if `μ(E_{t_0} = 0) = 1`, then `D(μ) ≥ |E| log q`. (c) (c2): if `W` is read at
+`t_u = t_0`, `p = μ(W_{t_0} = w) > 0` and `μ(E_{t_0} = 0 | W_{t_0} = w) = 1`, then `D(μ) ≥ p · |E∖W| log q`.
+
+### 7.2 Proof
+
+(a) `D_KL(μ ‖ π_0) = Σ_s μ(s) log(μ(s) |S|) = log|S| − H(μ)`.
+
+(b) As in `LEMMAS.md` §2.3: `supp μ ⊆ Z`, `|Z| = |S| q^{−|E|}`, and `H(μ) ≤ log|supp μ|`, so
+`D(μ) = log|S| − H(μ) ≥ log|S| − log|Z| = |E| log q`.
+
+(c) By the chain rule for relative entropy over the partition `{B_v}` of `S` by the value `v` of `W_{t_0}`,
+`D_KL(μ ‖ π_0) = D_KL(μ_W ‖ π_{0,W}) + Σ_v μ(B_v) D_KL(μ(· | B_v) ‖ π_0(· | B_v))`, where `μ_W` and `π_{0,W}` are the
+laws of `W_{t_0}` and the sum runs over `v` with `μ(B_v) > 0`. Every term is nonnegative, so
+`D(μ) ≥ p · D_KL(μ(· | B_w) ‖ π_0(· | B_w))`. Sharpness puts `ν := μ(· | B_w)` on `A := B_w ∩ Z`, which is then nonempty,
+so `w` is `0` on `W ∩ E`. `π_0(· | B_w)` is uniform on `B_w`, so
+`D_KL(ν ‖ π_0(· | B_w)) = log|B_w| − H(ν) ≥ log(|B_w| / |A|)`. By Proposition IND (§4),
+`|A| / |B_w| = π_0(Z | B_w) = q^{−|E∖W|}`. Hence `D(μ) ≥ p · |E∖W| log q`. ∎
+
+### 7.3 Scope
+
+Equal time only: (c) uses `W` and `E` at the same tick, through IND. Cross-time readiness is not bounded by `D(μ)`
+(line 62), and nothing here bounds it. (b) is (c) with `W` trivial (`p = 1`, `E∖W = E`). Consequence: an equal-time row
+whose sharp readiness holds satisfies its G3 bound, so G4's VOID[row] is reached only by a row whose asserted readiness
+does not hold, as in CC-LEDGER, whose assertion is injected (line 209).
