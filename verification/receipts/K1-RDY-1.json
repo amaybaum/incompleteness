@@ -1,0 +1,118 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "K1-RDY-1",
+ "status": "halted",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "4b4b437cfff9dcf32c882251d1a4c3445ca9e8be",
+ "f": "d9b3de012e393262adb20f91ad49627bad48de43",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A1-attribution.md",
+   "blob": "eff44552af73ab85b0412265af3519dbf2091d1b"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A10-g6-written-derivations.md",
+   "blob": "d8aa055553fcf71354060dfaac80d1853ea15e29"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A11-paper-only-checkpoint.md",
+   "blob": "2a39ced083ac9d1e7352c989152e7ad57573297d"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A2-class-token-fields.md",
+   "blob": "303ddd69dac097dd20a32b143b0bb8befaa428e1"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A3-equal-time-independence.md",
+   "blob": "e6a11893129a5424b9c48f349052f029b7019118"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A4-historical-heads.md",
+   "blob": "f22018d86bde771afcb86343473d26d2b4b8a6ec"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A5-lemmas.md",
+   "blob": "92d8fb7b17ba16dd8f3c229b1ff735db783db7fc"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A6-disclosure.md",
+   "blob": "b5b642c2d47abcc8d965dd36ed36107e49d233a7"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A7-reference-trace.md",
+   "blob": "6109902abfcee8544cd22a359e32f3967ec0f944"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A8-class-rule-scope.md",
+   "blob": "93b67ee08087f00ffc8a4c3b99585c86a3bd4199"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/amendments/A9-gate-table-schema.md",
+   "blob": "d3b5e4b243825a97febb501396cfa4edc2f5b88e"
+  },
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-rdy-1/preregistration.md",
+   "blob": "c7505385d70343189f561ddf747d41592ae4782a"
+  }
+ ],
+ "governed_paths_digest": "c7ecedf33fdab25da74d9ac29e96c13621445d05caafb30d651e869c01300d1d",
+ "withdrawal": "93e1fd3c2a6b231092bde89d2a1bf71f4ebfbc42",
+ "candidates": [
+  {
+   "commit": "3efb92332daafe6103cc316d496d39b04e452e18",
+   "tree": "5021405414103926cad6539bd20c1c4520df36d3",
+   "measured": "execution commit 1: the execution log opened"
+  },
+  {
+   "commit": "291925dacccc949bae57d465b932aac3fd8d1a25",
+   "tree": "f45abc0ba91dc18ceb47bdef0a109758e798110e",
+   "measured": "execution commit 2: S0, all 11 controls derived on paper, all passing"
+  },
+  {
+   "commit": "da1d939e52e71110008cd6534a672897c64c3339",
+   "tree": "88c9907262dcaabf857c52824a1ed7128bb781f3",
+   "measured": "execution commit 3: P0, the three branch tokens ABSENT, and the stop at P1; independent review ACCEPT WITH CHANGES (PR #1126 comment 6659587647)"
+  },
+  {
+   "commit": "814e57f985781e7d88a57d85526c21aa5f6c6526",
+   "tree": "b407717fa9a3d6cc259b5840dd665313dc28449e",
+   "measured": "execution commit 4: W, the halt record as first written; independent exact-head review ACCEPT WITH CHANGES (PR #1126 comment 6659744122)"
+  },
+  {
+   "commit": "1280b76edb6d4a2493f43fa7d5c797bdfd6fb0fb",
+   "tree": "ca9093b8bfec6b25d193eda9f0a18e53aedd6fd5",
+   "measured": "execution commit 5: W′, W1–W3 applied; independent exact-head recheck ACCEPT (PR #1126 comment 6660672560); release gate duplicate_check failed on result.md"
+  }
+ ],
+ "landing": {
+  "base": "63b1cd45f2a59c39a73ab73ffb4a11095e7263b9",
+  "object": "8ac011df62e69f802939e644dabe9fa8f9c97a8f",
+  "reconciliations": [
+   "776593f2d3d4a2a27e8b7b67c870b3b1ccdc3215",
+   "8ac011df62e69f802939e644dabe9fa8f9c97a8f"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "1e9ff3196b44cd7606276627f550ec77c5940bb8da82dccde544eb400905e35c"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "d9b3de012e393262adb20f91ad49627bad48de43",
+   "record": "#1031 comment 6658423367 (amaybaum, 2026-11-05T12:50:29Z)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "d9b3de012e393262adb20f91ad49627bad48de43",
+   "record": "verify.yml workflow_dispatch run 42026370642, head_sha F, conclusion success, 40/40 jobs"
+  }
+ ],
+ "absent": {
+  "e": "halted-before-certification",
+  "tree_e": "halted-before-certification",
+  "execution_delta_digest": "halted-before-certification"
+ }
+}
