@@ -1,0 +1,55 @@
+# O-RET Phase B: native-retention design (design only)
+
+**Status: WIP / UNVERIFIED.** A paper-only design. It is not independently reviewed, not frozen
+and not authorized to run. It establishes no premise, changes no scientific status and is not a
+premise of any established claim (AGENTS.md §A.46 item 7).
+
+## Authorization and scope
+
+- **Authorization:** the owner's grant for the Phase B design unit, recorded at
+  [#1032 comment 6649418760](https://github.com/amaybaum/incompleteness/issues/1032#issuecomment-6649418760)
+  (amaybaum, 2026-11-05T04:08:27Z), quoting the owner: "This authorizes Phase B design only—not
+  its freeze, implementation, execution or scientific promotion. Obtain independent review of the
+  proposed design before requesting further authorization."
+- **Designated writer:** `writer-oret`, on branch `research/o-ret-phaseb-design-20261105`, drafted
+  from `main` at `f5c281ae10a913ec68fa41b3b839ad0b164979cd` (drafting snapshot `D`).
+- **Accountable Issue:** #1032 (O-RET). Dependency index: #914 (master matrix revision 2,
+  comment 6563412926, rows O-ACC, O-RDY, O-RET; scoped annotation, comment 6612951653).
+
+**Not authorized, and not done.** No computation, simulation, enumeration, script, probe or Lean
+build was run. Phase A was not executed, replayed or re-derived by machine. No workflow was
+dispatched. Nothing was frozen or designated. No existing file in `o-ret-routes-20261103/` is
+changed: Phase A's frozen inputs, `phaseA/` and `phaseA/run-1/` are read only. No physical premise
+is adopted. Nothing is merged or promoted.
+
+## Files
+
+| File | Content |
+| --- | --- |
+| `README.md` | this note |
+| `DESIGN-PHASE-B.md` | (a) starting point; (b) the candidate mechanism; (c) discrimination; (d) assumptions; (e) sourced versus imposed; (f) the proposed Phase B test; (g) owner decisions; review packet; off-`main` references |
+
+## Inputs, read at `D` = `f5c281ae`
+
+- This programme directory on `main`: `README.md`, `DEFINITIONS.md`, `DESIGN-PULSE.md` (r6),
+  `SOURCES.md`, `ANNOTATION.md`, `PREREG-PHASE-A.md`, `PHASEA-TUPLES.json`, `PHASEA-EXPECTED.json`,
+  `phaseA/IMPLEMENTATION-NOTES.md`, `phaseA/phasea.py` (read as a specification only, not run),
+  `phaseA/run-1/RESULT.md`, `REVIEW.md`, `REPLAY.json` and `phase-a/summary.json`.
+- `ROUTES.md` at `F` = `49f0bd41c5323d2191b580460c8703740dd01b30`, an ancestor of `main`, read with
+  `git show 49f0bd41:verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/ROUTES.md`.
+- `../measurement-record-formation/` (MR-1, frozen): `README.md` and `amendments/MR-star.md`
+  §S.1–§S.4 and §C (C-1 to C-7, C.1).
+- `papers/SM.md:106–112` (copy form; the state-dependent ring rule), `papers/Main.md:726` (posit
+  ledger item (vii)), and the rule-h definition in
+  `../native-y-continuation-20261024/shared_v12/INTERFACE-CONTRACT.md` (dynamics block).
+- Issues and pull requests (planning and provenance, not evidence): #1032 body and comments
+  6567189236 to 6649418760; #914 body and comments 6563412926, 6562546850, 6563417740,
+  6561476122, 6612951653; PR #1078 (closed, unmerged); PR #1093 (merged, `3f8d900f`).
+- Off-`main` provenance: the O-OBSMU record on `research/o-obsmu-20261104` at `f67b9f0c`
+  (reviewed ACCEPT on #1110, not on `main`). Every use is classified in `DESIGN-PHASE-B.md` §9.
+- Literature: arXiv:0811.2690v2, abstract page read directly. Every other literature item is
+  cited from memory and marked so.
+
+## Headline
+
+Filled in with the design; see `DESIGN-PHASE-B.md`.
