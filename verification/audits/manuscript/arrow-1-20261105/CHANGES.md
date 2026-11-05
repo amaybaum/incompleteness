@@ -99,6 +99,73 @@ entry `MAIN:C-past-hypothesis-replacement-rate-condition` is renamed to
 
 Authorized by owner ruling c.6649643759, item 1; justified in `RECOVERY.md` §F.4.
 
+## Follow-up edits (owner rulings #1112 c.6650301410)
+
+These answer the Phase 2 reviews at `bd926c76`: the scientific review (#1113 c.6650236439) and
+the minimum-change review (#1113 c.6650241392). The owner ruled on both in
+[#1112 c.6650301410](https://github.com/amaybaum/incompleteness/issues/1112#issuecomment-6650301410)
+(amaybaum, 2026-11-05).
+
+Each row is a fragment replacement on the text at `bd926c76`. The old text is unique in its
+file, and line numbers are unchanged. Book rows are applied identically to FULL.
+
+**Ruling items.**
+- **A1** adds ch18:214.
+- **A2** adds Explainer:924–926.
+- **A5:**
+  - the Substratum:409 heading changes. The section still separates the symmetric §4.6
+    content from the parameter that is conditional on its inputs.
+  - ch02:220 changes. "Establish its relationship to the framework's three large emergent
+    structures" overstated the arrow item, so it is narrowed to match ch02:184.
+- **B1:** the apparent horizon replaces the "causal partition" clause, at Substratum:405 and
+  ch02:194.
+- **B2:** the conditions are added at the summary sites:
+  - expanding homogeneous general-relativistic background;
+  - apparent horizon;
+  - null energy condition;
+  - conclusion stated as non-decreasing.
+- **B3:** Methodology:184.
+- **B5:** Substratum:405 now says the result is background kinematics, and :14, :26 and :371
+  say "read against", not that the projection supplies the parameter.
+- **N1–N8** as reviewed:
+  - N1, N2, N7 at Substratum:405;
+  - N3 at ch02:192;
+  - N4 at ch18:202;
+  - N5 at Substratum:411;
+  - N6 at Substratum:56;
+  - N8 at SM:1592.
+
+**Left as it stands.** ch18:214's second sentence, "Time evolution corresponds to the
+horizon entropy increasing toward equilibrium", is unchanged. Ruling A1 covers only the
+alignment sentence. The scientific review's B4 suggestion to make this clause conditional is
+recorded here for the next review.
+
+| # | Site (before → after) | Mirror | Class | Ruling | RECOVERY | Old text | New text |
+|---|---|---|---|---|---|---|---|
+| 52 | `papers/Substratum.md`:14 → :14 | — | conditional | B2, B5 | B.1, E.2 | joined by a third projection that supplies a time-symmetric observer-selection rule and, on the expanding cosmological branch, a non-decreasing horizon-area parameter. | joined by a third projection that supplies a time-symmetric observer-selection rule, read against the area of the apparent horizon, which on an expanding homogeneous general-relativistic background satisfying the null energy condition is non-decreasing as a matter of background kinematics. |
+| 53 | `papers/Substratum.md`:26 → :26 | — | conditional | B2, B5 | B.1, E.2 | together with a horizon-area parameter that is non-decreasing on the expanding cosmological branch; | read against the apparent-horizon area, which is non-decreasing on an expanding homogeneous general-relativistic background satisfying the null energy condition (background kinematics, not a substratum prediction); |
+| 54 | `papers/Substratum.md`:371 → :371 | — | conditional | B2, B5 | B.1, E.2 | that supplies the time-symmetric C1–C4 observer-selection theorem of [Main, §4.6] and, on the expanding cosmological branch, a non-decreasing horizon-area parameter. | that supplies the time-symmetric C1–C4 observer-selection theorem of [Main, §4.6], read against the apparent-horizon area, which is non-decreasing, as background kinematics, on an expanding homogeneous general-relativistic background satisfying the null energy condition. |
+| 55 | `papers/Substratum.md`:56 → :56 | — | conditional | N6 | B.3 | the direction in which coarse-grained entropy increases is fixed by a low-entropy or product boundary condition, not by the rule (§5.4). | the direction in which coarse-grained entropy increases rests on a low-entropy or product boundary condition, not on the rule (§5.4). |
+| 56 | `papers/Substratum.md`:405 → :405 | — | conditional | B5, N2 | B.1, E.2 | satisfying the null energy condition, $dA/dt = -8\pi c^2\dot H/H^3 \geq 0$: the area is non-decreasing along any comoving observer worldline, strictly increasing while $\rho + p/c^2 > 0$, and constant in exact de Sitter. | satisfying the null energy condition, $\dot H = -4\pi G(\rho + p/c^2) \leq 0$ and $dA/dt = -8\pi c^2\dot H/H^3 \geq 0$: the area is non-decreasing along any comoving observer worldline, strictly increasing while $\rho + p/c^2 > 0$, and constant in exact de Sitter. This is standard general-relativistic background kinematics, computed from the Friedmann equations of the background taken as given ([GR, §8.7]), not a prediction derived from the substratum. |
+| 57 | `papers/Substratum.md`:405 → :405 | — | conditional | N1 | B.1, E.2 | Both conditions are inputs: the expanding branch is observed, not derived, and reading $A/(4 l_p^2)$ | Both are inputs: the expanding branch is observed, not derived, and the null energy condition is assumed of the matter content; reading $A/(4 l_p^2)$ |
+| 58 | `papers/Substratum.md`:405 → :405 | — | conditional | B1 | B.1, E.1 | The monotonicity is a feature of the causal partition rather than of any local frame, just as every observer in a Schwarzschild geometry agrees on the exterior direction. | The monotonicity holds for every comoving observer of the homogeneous background. |
+| 59 | `papers/Substratum.md`:405 → :405 | — | conditional | N7 | E.4 | At the observer level, the horizon parameter orders the expanding branch; that the other arrows | At the observer level, the horizon parameter orders the expanding branch non-strictly; that the other arrows |
+| 60 | `papers/Substratum.md`:409 → :409 | — | unresolved (heading) | A5 | B.8 | **What the framework derives, and the directional-language subtlety.** | **What the framework establishes, and the directional-language subtlety.** |
+| 61 | `papers/Substratum.md`:411 → :411 | — | conditional | N5 | B.5 | The memory-arrow step uses "the observer's worldline has a causal topology" as the carrier of the asymmetry. | The memory-arrow step uses "the observer's worldline has a causal topology" as the carrier of its orientation convention. |
+| 62 | `papers/Substratum.md`:411 → :411 | — | conditional | N5 | B.5, B.7 | A framework in which the observer's worldline had no causal topology could not run the memory-arrow step, and the cascade would halt at the thermodynamic layer. | A framework in which the observer's worldline had no causal topology could not state the memory-arrow step. |
+| 63 | `papers/SM.md`:1592 → :1592 | — | conditional | N8 | B.7 | — with the horizon-clock-plus-observer-selection projection developed in [Substratum §5.4], whose alignment of the arrows of time is open. | ; the horizon-clock-plus-observer-selection projection is developed in [Substratum §5.4], where the alignment of the arrows of time is open. |
+| 64 | `papers/Methodology.md`:184 → :184 | — | unresolved | B3 | B.8 | a *causal topology*, and a derived *arrow* of time | a *causal topology*, and an *arrow* of time |
+| 65 | `papers/Methodology.md`:184 → :184 | — | conditional | B2 | B.1, E.2 | on the expanding cosmological branch, horizon growth supplies a non-decreasing parameter, | on an expanding homogeneous general-relativistic background satisfying the null energy condition, the apparent-horizon area is a non-decreasing parameter (background kinematics), |
+| 66 | `papers/Explainer.md`:924 → :924 | — | unresolved | A2 | B.9, C.3 | So the arrow, if there is one, has to come from somewhere else — specifically, from the observer. | So the arrow, if there is one, has to come from somewhere else — from the observer's description of the dynamics, given boundary conditions. |
+| 67 | `papers/Explainer.md`:926 → :926 | — | unresolved | A2 | B.9, C.3 | A structural theorem (Main §4.6) establishes exactly that, under a stated mixing hypothesis | A structural theorem (Main §4.6) constrains the observer side of this — where observers can exist, not which way time runs — under a stated mixing hypothesis |
+| 68 | `book/ch02-substratum.md`:192 → :192 | FULL:835 → :835 | conditional | N3 | B.1 | and the horizon entropy $S_{\text{dS}}(t) = A(t)/(4\ell_P^2)$ assigned to it, is non-decreasing, | and the horizon entropy $S_{\text{dS}}(t) = A(t)/(4\ell_P^2)$ assigned to it at the de Sitter calibration, is non-decreasing, |
+| 69 | `book/ch02-substratum.md`:194 → :194 | FULL:837 → :837 | conditional | B1 | B.1, E.1, E.2 | The horizon area provides a structural clock on that background. Every comoving observer on an expanding background satisfying the null energy condition agrees that it does not decrease — the monotonicity is a feature of the causal partition rather than of any local frame — and the criterion | The apparent-horizon area provides a structural clock on that background. Every comoving observer of an expanding homogeneous general-relativistic background satisfying the null energy condition agrees that it does not decrease — standard background kinematics, not a prediction derived from the substratum — and the criterion |
+| 70 | `book/ch02-substratum.md`:220 → :220 | FULL:863 → :863 | conditional | A5 | B.8 | The three projections establish its relationship to the framework's three large emergent structures. | The three projections establish its relationship to quantum mechanics and general relativity, and what it establishes about the arrow of time. |
+| 71 | `book/ch03-structural-realism.md`:58 → :58 | FULL:932 → :932 | conditional | B2 | B.1, E.2 | on the expanding branch, horizon growth supplies a non-decreasing clock, | on an expanding homogeneous general-relativistic background satisfying the null energy condition, the apparent-horizon area supplies a non-decreasing clock, |
+| 72 | `book/ch04-methodology.md`:32 → :32 | FULL:1149 → :1149 | conditional | B2 | B.1, B.2, E.2 | beyond the expanding branch, taken as given, on which the horizon area does not decrease. | beyond an expanding homogeneous general-relativistic background, taken as given, on which, with the null energy condition, the apparent-horizon area does not decrease. |
+| 73 | `book/ch18-beyond.md`:202 → :202 | FULL:5015 → :5015 | conditional | N4 | C.3, C.5 | The substratum dynamics is T-symmetric; the observer's reduced description is not. | The substratum dynamics is T-symmetric; the observer's reduced description of a non-equilibrium initial condition is not. |
+| 74 | `book/ch18-beyond.md`:214 → :214 | FULL:5027 → :5027 | unresolved | A1 | B.7, C.6 | The thermodynamic arrow and the cosmological arrow — the direction in which the universe expands — are aligned in the framework. | Whether the thermodynamic arrow and the cosmological arrow — the direction in which the universe expands — are aligned is open in the framework: it is neither established nor refuted. |
+
 ## Gate-manifest consequence: `verification/audit-census.json`
 
 The ordinary PR `verify` run 41969128746 on `24452b01` failed its job "Numerical probes /
@@ -121,6 +188,11 @@ passes locally after the change.
 `verification/infrastructure/legacy-records.json`. It was not in the authorized file list,
 so this consequence is recorded here for the owner and reviewers to confirm, as the
 LEDGER rename was.
+
+**Owner ruling.** Accepted by owner ruling c.6650301410, item A4: ch18 0 → 1 and FULL 3 → 4.
+The rule also requires the update to share a commit with the text change; this update came
+in `6010cf44`, after the text change in `4081cba0`. The follow-up edits change no
+audit-census count, and `audit_census_probe.py` passes.
 
 ## CI finding: the SC-42 integration step (not resolved here; reported to the coordinator)
 
@@ -164,7 +236,7 @@ Each was reviewed against `RECOVERY.md`. No change was needed, under minimum cha
     sentences).
 - **GR:797–805:** Theorem A.6 and "the generalized second law is open" are correct as
   written. GR:797 defines the generalized second law (delta review c.6649698455, item D).
-- **Other retained sites:** Explainer:924, 926–928; Complexity:206; Structure:717;
+- **Other retained sites:** Explainer:928 (Explainer:924–926 were later changed by ruling A2); Complexity:206; Structure:717;
   ch04:30; ch07:155–157.
 - **Asking or listing, not asserting:**
   - ch02:182 (FULL:825) asks what relationship (S, φ) bears to the three structures;
@@ -189,26 +261,29 @@ are not on the authorized list. They are listed for an owner ruling.
    - It asserts alignment (`RECOVERY.md` B.7). It sits beside the edited ch18:216.
    - The plan listed ch18:204–214 as "already correct as unresolved". This record finds
      :214 an exception.
-   - Recommended: the same treatment as ch18:216.
+   - Recommended: the same treatment as ch18:216. **Resolved:** added by ruling A1, row 74.
 2. **Substratum:399**, the heading "5.4 The arrow of time as a third projection", and
    **Substratum:393**, "(the arrow-of-time projection is developed in §5.4 …)".
    - These are labels for the narrowed framing.
    - Recommended: no change.
 3. **Substratum:409's heading** "What the framework derives, and the directional-language
-   subtlety". Its paragraph now states what the framework *establishes*. Recommended: no
-   change, or "establishes" if the reviewer prefers.
+   subtlety". Its paragraph now states what the framework *establishes*. **Resolved:**
+   changed to "establishes" by ruling A5, row 60.
 4. **ch02:200 (FULL:843).** It reads "produce the persistence-based observer selection for
    the horizon-clock projection … the three projections are co-derived from a single
    construction". This is framing. Recommended: no change.
 5. **ch02:220 (FULL:863).** It reads "The three projections establish its relationship to
-   the framework's three large emergent structures." Recommended: no change, or narrow it
-   to match ch02:184.
+   the framework's three large emergent structures." **Resolved:** narrowed to match
+   ch02:184 by ruling A5, row 70, because it overstated the arrow item.
 6. **GR:190.** It reads "Its classical layer is settled: exact finite-bath counting with
    $\beta_E>0$ makes the counting-selected profile passive (kernel: `counting_passive`)".
    It states $\beta_E>0$ as the condition, consistent with the GR:214 correction.
    Recommended: no change.
 7. **Methodology:212, 214.** These describe other authors' derivations of ordering and
    arrow. Not OI claims; no change.
+8. **Explainer:924–926.** Found by the Phase 2 scientific review, c.6650236439. "A
+   structural theorem (Main §4.6) establishes exactly that" attributed the arrow's origin to
+   §4.6. **Resolved:** added by ruling A2, rows 65–66.
 
 ## Build
 
