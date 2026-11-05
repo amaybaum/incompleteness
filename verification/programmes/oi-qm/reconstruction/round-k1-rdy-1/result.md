@@ -156,8 +156,8 @@ Two readings are marked in the P0 derivations:
    hypotheses and the §2 access labels that the token's access field names. It is not `Λ`, which is written at G5
    (lines 148–149). By line 56 and the recorded fields, `Λ` would add H-law (each row has `w_certified` false) and
    would not add H-sel (each row's `g2.hsel_content` is empty). No token carries `Λ` for these rows. The G5
-   paragraphs of `derivations/P0-B-pl-d1.md` (lines 64–65), `derivations/P0-B-eq-d1.md` (lines 61–62) and
-   `derivations/P0-B-ct-d1.md` (lines 60–61), which say that H-law and H-sel are not evaluated, are left as executed;
+   paragraphs of `derivations/P0-B-pl-d1.md` (lines 64–65), `derivations/P0-B-eq-d1.md` (lines 60–61) and
+   `derivations/P0-B-ct-d1.md` (lines 59–60), which say that H-law and H-sel are not evaluated, are left as executed;
    this paragraph supersedes them.
 
 ## 4. P1: not evaluated
@@ -225,6 +225,8 @@ in the parts that govern this halt:
 
 > I approve (a) the independent review now, followed by (b) a conditional S12 halt once that review passes.
 >
+> […]
+>
 > ### B. S12 halt — Conditionally approved
 > If the independent review returns ACCEPT, or ACCEPT WITH CHANGES with all changes independently rechecked:
 > - Re-read the six A4 heads through the authorized MCP interface.
@@ -245,7 +247,7 @@ The execution it halts was authorized by #1031 comment 6658964414 (2026-11-05T13
 
 An independent, read-only, model-authored review of the execution at `da1d939e52e71110008cd6534a672897c64c3339`
 against `F`, by a reviewer that wrote none of the work under review, under part A of the decision above, returned
-**ACCEPT WITH CHANGES**. Its report is recorded on PR #1126. Its findings:
+**ACCEPT WITH CHANGES**. Its report is PR #1126 comment 6659587647. Its findings:
 - all 11 S0 controls pass on its own derivations, and the three P0 tokens are correct, including the values 153/160,
   1/256, 1/8, 1/2 and 1/4;
 - there is no material scientific disagreement, no defect in S0 or P0, and nothing that requires a change to frozen
@@ -285,7 +287,8 @@ Measured heads of this round, none of them certified as `E`:
 | `d9b3de012e393262adb20f91ad49627bad48de43` | `F` |
 | `3efb92332daafe6103cc316d496d39b04e452e18` | execution commit 1: the execution log opened |
 | `291925dacccc949bae57d465b932aac3fd8d1a25` | execution commit 2: S0 |
-| `da1d939e52e71110008cd6534a672897c64c3339` | execution commit 3: P0 and the stop at P1; last execution commit and parent of `W` |
+| `da1d939e52e71110008cd6534a672897c64c3339` | execution commit 3: P0 and the stop at P1; parent of `W` |
+| `814e57f985781e7d88a57d85526c21aa5f6c6526` | execution commit 4: `W`, the halt record as first written; last execution commit and parent of `W′` (§8.6) |
 
 `W` is the single-parent child of `da1d939e` that adds this section and the changes listed in §8.2, and changes only
 this file.
@@ -301,3 +304,20 @@ this file.
   constrains no path. The derivation files and `gate-table.json` lie within the record directory and are kept.
 - Nothing here is a receipt, a reconciliation or a promotion of any scientific conclusion. The P0 tokens are scoped
   negative results as §7 states, not a general impossibility result.
+
+### 8.6 Corrective withdrawal commit `W′`
+
+An independent, read-only, model-authored exact-head review of `W` = `814e57f985781e7d88a57d85526c21aa5f6c6526`
+(PR #1126 comment 6659744122), by a reviewer that did not write `W`, returned **ACCEPT WITH CHANGES**, all
+non-material. Its requested changes W1–W3 are applied in this file only:
+- W1: the line citations of the G5 paragraphs of `derivations/P0-B-eq-d1.md` and `derivations/P0-B-ct-d1.md` (§3);
+- W2: the elision marker in the quote of #1031 comment 6659415927 (§8.1);
+- W3: the citation of the review of §8.2 as PR #1126 comment 6659587647.
+
+amaybaum, Claude Code session chat, 2026-11-05, adopted about 14:31Z, recorded in #1031 comment 6660591343
+(2026-11-05T14:32:02Z):
+
+> 2. K1-RDY-1 — Choose corrective W′. Preserve the accepted findings: all 11 S0 controls passed, all three P0 branches returned ABSENT, and P1/P3 were not evaluated. Authorize one single-parent correction to W, limited to the reviewer's W1–W3 documentation fixes. Require independent exact-head recheck. […]
+
+`W` (`814e57f9`) is an execution commit. `W′` is the single-parent child of `W`, changes only this file, and is the
+round's withdrawal commit. No outcome, value or token is changed.
