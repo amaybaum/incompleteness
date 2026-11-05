@@ -1,9 +1,9 @@
 # K1-RDY-1: execution record
 
-**Status: execution stopped at the P1 boundary (WIP / UNVERIFIED).**
-- S0 and P0 are evaluated.
-- P1 and P3 are not evaluated.
-- The S12 halt awaits the owner's go-ahead (§4).
+**Status: halted (architecture `S12`).**
+- S0 and P0 are evaluated (§§2–3).
+- P1 and P3 are not evaluated (§§4–5).
+- No `E` is designated and no P1 class token is issued. The halt is recorded in §8.
 
 This file is the round's execution log and result note (architecture `K1`). It is written linearly from `F` and records
 only what has been done. Nothing in it is a designation of `E`, a receipt, or a promotion of any scientific conclusion.
@@ -116,9 +116,19 @@ from `gate-table.json` (`controls`):
 | CC-BLIND | G4 | pass | `derivations/S0-CC-BLIND.md` |
 
 All 11 controls pass, so VOID[stage] is not issued and row evaluation proceeds (base line 188). One reading is
-marked in `derivations/S0-CC-IMP.md`: when both G2(a) and G2(b) flag, the subtype is taken from (a), which G2 decides
-first. CC-IMP's pass condition, Z1-VOID[IMPORTED], is attained under that reading; carrying both subtypes would also
-attain it.
+marked in `derivations/S0-CC-IMP.md`: when both G2(a) and G2(b) flag, the subtype is taken from (a). Its grounds:
+- §5.4 defines row tokens with a single subtype only; A2's set of subtypes is a field of the P1 class token, not of a
+  row token.
+- G2 decides (a) first (lines 126–135).
+- CC-IMP's frozen pass condition, Z1-VOID[IMPORTED], is written for a fixture whose rule part names `E`, so T1 fires
+  by construction.
+
+CC-IMP's pass condition is attained under that reading. Lines 39–40 of `derivations/S0-CC-IMP.md` add that carrying
+both subtypes would also attain it. No two-subtype row token is defined, so that remark is unsupported; the file is
+left as executed, and this paragraph supersedes those lines.
+
+POS-X is run in isolation (§9): its gates not under test (G1, G2, G5, G6) are not run, and its `Λ` is the fixture's
+stated set.
 
 The values recorded in the base from hand checks (HC-1, HC-A to HC-D) were not used as grounds (A6). Each pass
 condition is decided by the derivation named.
@@ -142,27 +152,34 @@ Two readings are marked in the P0 derivations:
 
 1. **G5–G7 after a G4 token.** A row takes the token of the first gate that issues one (line 183). Here G4 issues
    ABSENT, so G5, G6 and G7 are recorded as `not-reached`.
-2. **The `hypotheses` field of a row that does not reach G5.** It carries the declaration's hypotheses and the §2
-   access labels that the token's access field names. H-law and H-sel are G5's additions and are not evaluated. Each
-   row's `w_certified` value is recorded separately.
+2. **The `hypotheses` field of a row that stops at G4.** For these three rows the field holds the declaration's
+   hypotheses and the §2 access labels that the token's access field names. It is not `Λ`, which is written at G5
+   (lines 148–149). By line 56 and the recorded fields, `Λ` would add H-law (each row has `w_certified` false) and
+   would not add H-sel (each row's `g2.hsel_content` is empty). No token carries `Λ` for these rows. The G5
+   paragraphs of `derivations/P0-B-pl-d1.md` (lines 64–65), `derivations/P0-B-eq-d1.md` (lines 61–62) and
+   `derivations/P0-B-ct-d1.md` (lines 60–61), which say that H-law and H-sel are not evaluated, are left as executed;
+   this paragraph supersedes them.
 
-## 4. P1: not evaluated; stopped at the boundary
+## 4. P1: not evaluated
 
-Under the gate-3 authorization, the exhaustive member stage is declined ("Writing out all 156 cycles and evaluating
-1,024 states manually is still enumeration") and execution stops before it.
+Execution stops before the P1 member stage.
 - §5.3 and A9 require one row per member: `π_0` plus each cycle-uniform `u_c`, identified by its cycle's least state.
   §9 ("No post-selection") requires the cycle sizes to sum to `|S|`. Each row also needs per-member content (`sharp_w`,
   `weak`, `nb`, `g2.hsel_content`).
 - Proposition CYC (`PROOFS.md` §2) gives the number of cycles and their lengths, not the cycles themselves.
-- The feasibility review (#1031 comment 6658841280, §2) found that this information cannot be established without
-  state-by-state work on the cycles.
+- The gate-3 authorization (§1.1) declines the exhaustive member stage: "Writing out all 156 cycles and evaluating
+  1,024 states manually is still enumeration. Calling it a paper derivation does not change its nature. Do not
+  authorize that exhaustive stage under the current F." It directs: "If execution reaches P1 and the required
+  per-member information cannot be established without unauthorized enumeration, use the **S12 halt procedure**."
+- The owner's halt decision (§8.1) fixes the reason recorded for the halt: "P1 requires exhaustive evaluation outside
+  the authorized paper-only scope."
 
-Hence, at this boundary:
+Hence:
 - no member row is written;
 - no P1 class token is issued, and `class_tokens` in `gate-table.json` is empty;
 - `E` is not designated.
 
-As the authorization directs, the S12 halt procedure applies, and it awaits the owner's go-ahead.
+The round is halted under `S12` (§8).
 
 ## 5. P3: not evaluated
 
@@ -198,3 +215,89 @@ Every file below is in this record directory, has mode `100644` and is a written
 - `derivations/P0-B-pl-d1.md`
 - `derivations/P0-B-eq-d1.md`
 - `derivations/P0-B-ct-d1.md`
+
+## 8. S12 halt
+
+### 8.1 Owner authorization
+
+amaybaum, Claude Code session chat, 2026-11-05, recorded in #1031 comment 6659415927 (2026-11-05T13:38:21Z), quoted
+in the parts that govern this halt:
+
+> I approve (a) the independent review now, followed by (b) a conditional S12 halt once that review passes.
+>
+> ### B. S12 halt — Conditionally approved
+> If the independent review returns ACCEPT, or ACCEPT WITH CHANGES with all changes independently rechecked:
+> - Re-read the six A4 heads through the authorized MCP interface.
+> - Confirm that no material scientific dependency has changed.
+> - Have the designated sole branch writer create W as a single-parent child of the last execution commit, changing only the permitted halt record.
+> - Record the reason: P1 requires exhaustive evaluation outside the authorized paper-only scope.
+> - Record the final A4 readings, all candidate heads and the exact authorization.
+> - Preserve the reviewed S0/P0 outcomes, label the round **halted**, and explicitly state that P1 and P3 were not evaluated.
+> - Do not designate E.
+>
+> Obtain an independent exact-head review of W.
+>
+> **If the S0/P0 review is blocked, identifies a material defect, or requires changes to frozen rules, stop and return for a new owner decision.**
+
+The execution it halts was authorized by #1031 comment 6658964414 (2026-11-05T13:16:45Z), quoted in §1.1.
+
+### 8.2 Independent review of the S0/P0 execution
+
+An independent, read-only, model-authored review of the execution at `da1d939e52e71110008cd6534a672897c64c3339`
+against `F`, by a reviewer that wrote none of the work under review, under part A of the decision above, returned
+**ACCEPT WITH CHANGES**. Its report is recorded on PR #1126. Its findings:
+- all 11 S0 controls pass on its own derivations, and the three P0 tokens are correct, including the values 153/160,
+  1/256, 1/8, 1/2 and 1/4;
+- there is no material scientific disagreement, no defect in S0 or P0, and nothing that requires a change to frozen
+  rules;
+- its requested changes are wording and record-accuracy fixes that change no outcome, value or token.
+
+The requested changes are applied in this file only: the grounds of CC-IMP's subtype reading (§2), the scope of the
+`hypotheses` field of rows that stop at G4 (§3), and the grounds of the P1 stop, which rest on the owner decisions
+quoted in §1.1 and §8.1 (§4). §2 also states that POS-X's gates not under test are not run. The derivation files and
+`gate-table.json` are unchanged from `da1d939e`. The independent recheck of these changes is part of the exact-head
+review of `W` that §8.1 requires.
+
+The S0 and P0 outcomes of §§2–3 are preserved unchanged.
+
+### 8.3 A4: referenced historical heads at the halt
+
+Read at 2026-11-05T13:46Z (UTC clock readings 13:46:10Z as the reads were issued and 13:46:12Z after the last returned)
+with the instrument of §1.4:
+
+| Pull | `head.sha` read | A4 table | Match |
+|---|---|---|---|
+| 1009 | `d4a80fc871473285a7c848a4984940d52817ff8c` | `d4a80fc871473285a7c848a4984940d52817ff8c` | yes |
+| 1023 | `af1e9be2ceabd5f6181b8d56b537b7ce1a4a3bba` | `af1e9be2ceabd5f6181b8d56b537b7ce1a4a3bba` | yes |
+| 1011 | `947761dd40c17e4fdedcd8972a0b4e53e8bfba42` | `947761dd40c17e4fdedcd8972a0b4e53e8bfba42` | yes |
+| 1003 | `0efd67a630fc80ac55fde1ca49fe8c5cbdbf10c3` | `0efd67a630fc80ac55fde1ca49fe8c5cbdbf10c3` | yes |
+| 918 | `44236326976d2c9ad743f52595365b64ceb86d35` | `44236326976d2c9ad743f52595365b64ceb86d35` | yes |
+| 1025 | `e02544d54b365b6a123ee284bd16442fb617c0b2` | `e02544d54b365b6a123ee284bd16442fb617c0b2` | yes |
+
+All six heads equal A4's table and the readings of §§1.5–1.6. No scientific dependency of the round has changed.
+
+### 8.4 Candidate heads
+
+Measured heads of this round, none of them certified as `E`:
+
+| Commit | Role |
+|---|---|
+| `d9b3de012e393262adb20f91ad49627bad48de43` | `F` |
+| `3efb92332daafe6103cc316d496d39b04e452e18` | execution commit 1: the execution log opened |
+| `291925dacccc949bae57d465b932aac3fd8d1a25` | execution commit 2: S0 |
+| `da1d939e52e71110008cd6534a672897c64c3339` | execution commit 3: P0 and the stop at P1; last execution commit and parent of `W` |
+
+`W` is the single-parent child of `da1d939e` that adds this section and the changes listed in §8.2, and changes only
+this file.
+
+### 8.5 The halt
+
+- **Status:** halted.
+- **Reason:** P1 requires exhaustive evaluation outside the authorized paper-only scope (§4).
+- **Evaluated:** S0, with all 11 controls passing (§2), and P0, with the three branch tokens of §3.
+- **Not evaluated:** P1 and P3. No P1 member row is written and no P1 class token is issued; no P3 row is written.
+- **`E`:** not designated.
+- **Withdrawal invariant:** the round's `v3-governed-paths` block at `F` has `record` entries only, so the invariant
+  constrains no path. The derivation files and `gate-table.json` lie within the record directory and are kept.
+- Nothing here is a receipt, a reconciliation or a promotion of any scientific conclusion. The P0 tokens are scoped
+  negative results as §7 states, not a general impossibility result.
