@@ -402,7 +402,7 @@ so K13 is a necessary check only. It does not change the outcome.
   - #1148 edited the status lines of B4 and RES. Checked line by line between `f051916a` and this branch:
     - B4 ll. 3–4 and l. 604 at `f051916a` are rewritten;
     - ll. 5–603 move down by 5 on `main`;
-    - ll. 605–609 move down by 6.
+    - ll. 605–608 move down by 6.
   - Every B4 line cited by PREREG or this record lies in ll. 5–603: ll. 33–34, 35, 40, 41–43, 58–60, 148–151, 229–230,
     309–315 and 381–383.
   - PREREG and this record cite B4, SC, RES and QP at `f051916a`, as PREREG's base line states. Those citations are
@@ -422,8 +422,9 @@ so K13 is a necessary check only. It does not change the outcome.
   any definition or rule.
 - **Not applied at `Φ`.** REV3's optional nits (#1149 c.6666080040) were not applied. Nit 2 (a K-P embedding clause for
   `|A| > 2`) is moot: the K-P lifts were evaluated at `|A| = 2`, their frozen dimension.
-- **§9 row 1 checkpoint.** It requires a reviewer to read every commit between `Φ` and this commit, which is `B_I` only,
-  and record that none states a C-pers law of the instance. That reading is left to the independent review.
+- **§9 row 1 checkpoint.** It requires a reviewer to read every commit between `Φ` and the `RESULT.md` commit
+  `ee394ffc`, which is `B_I` only, and record that none states a C-pers law of the instance. The independent review
+  records that it holds (#1149 c.6668322323).
 
 ## §8. Premise ledger (§A.42 item 8)
 
@@ -434,18 +435,16 @@ so K13 is a necessary check only. It does not change the outcome.
 | SPEC (#1143 c.6665278924), via PREREG Appendix A | §5 consequences | As classified in PREREG §10: support off `main`, closed by verbatim quotation and by narrowing (selection not adopted) |
 | PR #1149 reviews (c.6665799329, c.6665974132, c.6666080040) | PREREG's review history | Provenance |
 | Kernel line CLG:146; B4/SC definitions | K-B (ii); definitions | Support on `main` (read at `f051916a`) |
-| The commit order `Φ` (`be5e6311`) → `B_I` (`7f9e6b6d`) → this commit, on PR #1149's branch | The freeze-before-binding-before-evaluation invariant (PREREG §9 row 1) | **Support off `main` until landing.** The invariant uses the order and ancestry of these commits. The gap closes only if the branch lands by a true merge commit, with no squash and no rebase-merge, so that all three commits become reachable from `main` (§A.42 item 3), as M-1's record required (M-1 `RESULT.md` §15) |
+| The commit order `Φ` (`be5e6311`) → `B_I` (`7f9e6b6d`) → the `RESULT.md` commit `ee394ffc`, on PR #1149's branch | The freeze-before-binding-before-evaluation invariant (PREREG §9 row 1) | **Support off `main` until landing.** The invariant uses the order and ancestry of these commits. The gap closes only if the branch lands by a true merge commit, with no squash and no rebase-merge, so that all three commits become reachable from `main` (§A.42 item 3), as M-1's record required (M-1 `RESULT.md` §15) |
 
 **Checks run at this commit:** `tools/artifact_placement_check.py` and `tools/duplicate_check.py`.
 
 ## §9. Review and next steps
 
-- An independent mathematical review of this result is required (PREREG §7.1 step 6). It should check:
-  - the §1 tables by hand;
-  - the controls, K-P's exact values included;
-  - the §9 row 1 reading of `B_I`;
-  - the outcome order;
-  - the scope statements.
+- Independent review (PREREG §7.1 step 6): ACCEPT WITH CHANGES, no material findings (#1149 c.6668322323); its fixes
+  are applied, and a delta check is pending.
 - Merge is not authorized.
+- If merge is authorized, the pull request lands by a true merge commit, with no squash and no rebase, so that `Φ`,
+  `B_I` and `ee394ffc` stay reachable from `main` (§A.42 item 3; §8).
 - The selection under SPEC §4.3 is not made here. Its re-check, with H-comp counted, is proposed to the owner under
   #1143.
