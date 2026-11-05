@@ -5,7 +5,9 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
 - **Review.** Both reviews are model-authored, and both returned ACCEPT WITH CHANGES.
   - r1 (`16bde823`) was reviewed in #1082 c.6649637586.
   - r2 (`cfdcb83e`) was delta-reviewed in #1082 c.6649769429.
-  - This revision (r3) applies the delta review's required revisions 1–9 and has not been re-reviewed.
+  - r3 (`0797f13e`) was delta-reviewed in #1082 c.6649892041: ACCEPT WITH CHANGES (minor).
+  - This revision (r4) applies that review's findings F1–F7 and has not been re-reviewed. Its S1/S4 witness for the
+    converse ordering is not adopted; that ordering stays "not shown".
   - Each item gives the delta review's endorsement of r2 as **Review r2**.
 - **Authorization.** #1059 c.6649420231: paper-only, part (b).
 - **Writer.** `writer-born`.
@@ -93,14 +95,14 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
     - **(ii) One run, one halt.** The controls (§3) run once and gate both readouts. A failure of any control, or of
       any invariant under either readout, halts the whole run. Neither readout's verdict is then printed.
     - **(iii) Per-readout aggregation.** Each readout gets its own §4.1–§4.2 evaluation over its own instance list.
-      W-q2-L7-r2 counts in the `cur` aggregation on every variant where it is non-void. In the `(prev, cur)`
-      aggregation it is VOID and is listed only.
+      W-q2-L7-r2 counts in each readout's aggregation, on every variant where it is non-void (§4.2 unchanged).
+      Under `(prev, cur)` it is expected to be void, by the statement of SM Theorem A.1 only (PREREG §2.2; OQ-4).
     - **(iv) A pair of verdicts.** `c1_verdict` is replaced throughout by the pair `c1_verdict_pc` and
       `c1_verdict_cur`, and each `c1_*_verdict` likewise:
       - in `summary.json` and the schema;
       - in step (b)'s recomputation;
       - in step (c)'s verdict text;
-      - in PREREG §4.3, §5 and §6.
+      - in PREREG §4.2 (where `c1_verdict` and the selection table are defined), §4.3, §5 and §6.
     - There is no combined verdict across readouts. Each verdict is stated for its own readout only.
 - **Consequences.**
   - For (b): the C-1 verdict is a statement about one declared cut. Under (A) alone it says nothing about Main:222's
@@ -204,7 +206,8 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
       - a `closure_ok` field, in the unit record for M-FRAG and in the native per-instance record;
       - the `evaluated_beyond_closure` field.
 
-    The totals under the combined answers are in OQ-10.
+    Under OQ-4 (B), `natives_frozen` (PREREG §5; the schema const 11) also becomes 12. The totals under the combined
+    answers are in OQ-10.
 - **Recommended: (C).**
   - [D, confirmed in c.6649637586] A partition of `S` into closed `φ`-cycles is exactly the cycle decomposition, so (C)
     catches the fragmenting bug directly.
@@ -260,12 +263,11 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
       `eq_beta_np` and `first_mismatch_beta_np`) are added to all eleven toys' expected values, derived by hand;
     - S4 is separated from R0, S1, S2 and S3. S4 and S3 differ only through a short non-permutation orbit, which needs
       `n ≥ 3` (OQ-13). So at least one new toy with `n ≥ 3` and such an orbit is required, for example CC-S4;
-    - whether the existing toys separate S4 from R0, S1 and S2 has to be checked by hand. The OQ-13 witness separates
-      S1 from S4 and could serve as a further toy.
+    - whether the existing toys separate S4 from R0, S1 and S2 has to be checked by hand.
   - **The `n = 3` `first_mismatch` toy is optional.** `first_mismatch` is diagnostic and enters no verdict.
 - **Counts under the combined recommended answers** [D]. The answers are OQ-2 (C), OQ-4 (B), OQ-7 (C) and OQ-10 (C).
   - **Controls.** 21 + M-FRAG + WF at `r = 2` + WF for the `cur` readout = **24**.
-    - Choosing 13e adds CC-S4, giving 25, and the witness toy if it is used, giving 26.
+    - Choosing 13e adds CC-S4, giving 25.
     - The optional `first_mismatch` toy adds one more.
   - **Native instances.** 12 (eleven plus W-q2-L7-r2), each evaluated under both readouts within one run.
   - **Orders.** The schema's `order` maximum becomes controls + 12, for example 36 at 24 controls, if each instance
@@ -307,14 +309,16 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
     - in orbit terms, the prior ranges over `NP := {O : T^{α,O} not a permutation matrix on V_O}`, with no length
       threshold, and the credence is `T^{β|NP}`.
   - **How 13e relates to 13d** [D, consistent with c.6649769429].
-    - `Long′ = Long ∩ NP`. So S4 differs from S3 only through short non-permutation orbits, those with
-      `|V_O| < |O| < ℓ_min`.
-    - Such an orbit needs `n ≥ 3`:
+    - `Long′ = Long ∩ NP`. So S4 differs from S3 only through short non-permutation orbits, which satisfy
+      `|V_O| < |O| < ℓ_min`. This is a necessary condition only: at `n = 2`, the word `00` satisfies it and is a
+      permutation orbit.
+    - Under OQ-1 (A), such an orbit needs `n ≥ 3`:
       - with `|V_O| = 1`, the 1×1 row is a permutation;
       - so `|V_O| ≥ 2`, and then `|O| ≥ |V_O| + 1 ≥ 3`;
-      - with `|O| ≤ n`, this gives `n ≥ 3`.
-    - **S4 ≡ S3 when `n = 2`.** This covers every `n = 2` toy and the `q = 2`, `r = 1` instances under the `cur`
-      readout.
+      - with `|O| ≤ n` (that is, `ℓ_min = n + 1`), this gives `n ≥ 3`.
+    - **S4 ≡ S3 when `n = 2`, under OQ-1 (A), (B) or (D).** This covers every `n = 2` toy and the `q = 2`, `r = 1`
+      instances under the `cur` readout. Under OQ-1 (C), a common threshold can make an `n = 2` non-permutation
+      orbit short, and the statement does not hold.
     - **S4 ≡ S3 under OQ-1 (D).** There, a non-permutation orbit has `max_a n_a ≥ 2`, so `NP ⊆ Long` and
       `Long′ = NP`.
     - **13e keeps the `ℓ_min` asymmetry.** Candidates are admitted by the record and by `ℓ_min`; the prior uses the
@@ -384,13 +388,13 @@ decision, an adopted premise or a change to `PREREG-C1.md` r6, which is left as 
   - **13d,** if the owner reads Main:62 as excluding observer-lacking orbits from the prior. It then tests mutual
     agreement among candidates (Lemma V′) and is weakly the most favourable to FREQ.
   - **13a, not recommended.** It admits long permutation orbits as candidates, which the nondeterminism record
-    excludes. Such an orbit mismatches `T^β` automatically (PREREG §9, mechanism (ii)), so an R0 NOT can reflect only
-    that. R0 is recorded under every answer.
-  - **13c, not recommended.** It restricts the prior to `Long`, a length-based C3 proxy and not a record, while still
-    admitting permutation orbits as candidates. By Lemma V′, it then tests whether all long orbits agree with one
-    another, deterministic ones included. A disagreement can therefore come from mechanism (ii) alone. It carries
-    both asymmetries and resolves neither. S2 is recorded under
-    every answer.
+    excludes. Such an orbit mismatches `T^β` on every row it visits where `T^β` is not deterministic (PREREG §9,
+    mechanism (ii)). So an R0 NOT can arise from such orbits alone, with every nondeterministic candidate matching.
+    R0 is recorded under every answer.
+  - **13c, not recommended.** It uses `Long` on both sides, so it has neither 13b's record asymmetry nor 13e's
+    `ℓ_min` asymmetry. What it lacks is any use of the nondeterminism record. By Lemma V′, it tests whether all
+    long orbits agree with one another, deterministic ones included, so a disagreement can come from mechanism (ii)
+    alone. S2 is recorded under every answer.
 - **Consequences.**
   - For (b):
     - **Under 13b**, a FREQ_ALL would show that on those instances `T^β` equals the cycle frequencies of every
@@ -529,7 +533,7 @@ by landing the content, or by narrowing the claim.
 | `BORNSEL-B-MEASURE.md` r3 (this branch; reviewed ACCEPT, #1082 c.6622587957) | OQ-5, OQ-11, OQ-13; the dependence section | **support off `main`: a gap** (Lemmas A, A3, G, γ-c) |
 | `PREREG-C1.md` r6 (this branch; accepted as a draft, #1082 c.6625738542) | every row (the questions, Lemma PD, Lemma V′, §2.7) | **support off `main`: a gap.** It is the object under decision |
 | The C-1 review findings N6 and N7, and the C-1 reviewer's check of Lemma PD, as recorded in PREREG §2.7 and §8.2 | OQ-9, OQ-15 | **support off `main`: a gap.** The review texts are not posted (#1082 c.6625738542 summarizes them) |
-| #1082 c.6649637586 (model-authored review of r1) and c.6649769429 (model-authored delta review of r2) | the [D] items marked as confirmed by them; the Review r2 column | provenance for the endorsement column. The [D] items stand on the derivations stated here, not on the reviews' authority |
+| #1082 c.6649637586 (model-authored review of r1), c.6649769429 and c.6649892041 (model-authored delta reviews of r2 and r3) | the [D] items marked as confirmed by them; the Review r2 column | provenance for the endorsement column. The [D] items stand on the derivations stated here, not on the reviews' authority |
 | The O-OBSMU note, branch `research/o-obsmu-20261104` at `f67b9f0c` (#1110) | OQ-13, the H-OC_orb reading | provenance. The tension is stated from Main:62 and :282, which are on `main` |
 | #914 row O-ACC | OQ-2 | provenance |
 
