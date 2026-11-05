@@ -26,10 +26,10 @@ The framework is inspired by the same broad kind of self-reference constraint th
 At finite observational horizon, the framework relates three descriptions:
 
 ```mermaid
-flowchart TB
+flowchart LR
     S["<b>S</b><br/>finite stochastic law"]
     D["<b>D</b><br/>finite reversible realization"]
-    Q["<b>Q_fb</b><br/>fixed-basis unitary / Born representation"]
+    Q["<b>Q_fb</b><br/>fixed-basis unitary /<br/>Born representation"]
     S <-->|exact| D
     D <-->|exact| Q
 ```
