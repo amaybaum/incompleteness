@@ -278,7 +278,7 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
   - The fibre-Gram invariants are `|g| = ½` against `0`. Two-sided relatedness would preserve `|g|`
     (`gramPhaseEquiv_of_twoSided`, TSG:263; [Q §6], Lemma R (a ⇒ b)), so `¬G` [Q §7].
   - Both have `Γ_0 = J/2 ≠ 1`, so they lie outside `PPer`. With G⇒O, C0 is strictly coarser than `G` there.
-- **O⇒G at `|V| = 2`, `|A| ≥ 2`, `PPer`: not addressed** (F §6 undecided, F l. 430; scope §8).
+- **O⇒G at `|V| = 2`, `|A| ≥ 2`, `PPer`: not addressed** (F l. 430's item, open for `PPer`; scope §8).
 
 ### 3.2 C1
 - **G⇒O: disproved [D], every `|V| ≥ 2` and every `|A|`, witness WB, in `PPer`.**
@@ -361,8 +361,8 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
     `|A| ≥ 2` [Q §3.5].
   - The pair is not `G`-related (§3.1) and lies outside `PPer`. With WE, C2-ch and C2-sel are incomparable with `G`
     at `|V| = 2`, `|A| ≥ 2`, in the all-unitary class.
-- **O⇒G at `|V| = 2`, `PPer`: not addressed** (F §6 undecided, F l. 430; scope §8). Constant lifts with `Γ ≠ 1` do not
-  lie in `PPer`, so the `W`/`W′` pair does not decide this cell.
+- **O⇒G at `|V| = 2`, `PPer`: not addressed** (F l. 430's item, open for `PPer`; scope §8). Constant lifts with
+  `Γ ≠ 1` do not lie in `PPer`, so the `W`/`W′` pair does not decide this cell.
 - **Not equivalent at `|V| ≥ 3`.**
 
 ## §4. S1′: the subgroup C1′ respects
@@ -581,7 +581,7 @@ a universal statement about the same objects; read physically, it carries its ro
   - ll. 137–144 and 351–362: `Γ^alt`, Q5a, Q5b;
   - ll. 244–249: the `F₃` placement, re-derived here as WA and WA′;
   - ll. 254–261: `Fib = G` at `|V| = 2`, written out in §3.1;
-  - l. 430: the undecided item, which bounds the `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2`.
+  - l. 430: the item, open for `PPer`, which bounds the `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2`.
 - **F lines not used:** F's Lemma HS (l. 188) and the results that inherit it (Q1⇒, Q1c(⇒), DC's
   "R[C] ⇒ O_C ⊇ Fib") are not used. No class-F←c premise enters this record.
 - **Provenance only:**
