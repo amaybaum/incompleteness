@@ -2,7 +2,8 @@
 
 **Governs:** the attributions at base lines 6 ("owner decisions K-1 to K-18 and D-07(a) (#914 c.6566997020, binding
 verbatim)"), 44 ("owner decision O-1(b)"), 84 ("owner decision O-2"), 123–124 ("owner decision O-3"), 130 ("constants
-fixed by an owner decision"), 144 ("owner decision O-3") and 288 ("owner decision, 2026-11-02, Issue #1031 thread").
+fixed by an owner decision"), 144 ("owner decision O-3"), 286 (the heading "Owner decisions and drafting resolutions") and 288 ("owner decision,
+2026-11-02, Issue #1031 thread").
 It changes the content of no decision.
 
 **Replacement reading.** At each of those lines, "owner decision" reads as "decision adopted by the owner prospectively
@@ -13,10 +14,17 @@ O-3 CONFIRM in the gate record #1031 comment 6567502036 (posted 2026-11-02T02:19
 (2026-11-02)"). They are not attributed to the owner for any date before 2026-11-05. Line 130's constants are those of
 K-12(b) and K-18(b).
 
+**Adopted form.** Where the owner record of §12 states the form in which a decision is adopted, that form governs:
+D-07(a) is adopted as the narrower labelling rule ("Previous-slice access requires a derived readout or retention
+mechanism; H-2s remains declared"), and O-3 with its qualification ("distinguishability is evaluated through the
+declared visible readout over the stated finite window. It is not evidence of native access"). D-07(a)'s sentence
+"Under the O-ACC audit's stated fixed-region, counting-measure, copy-form scope, the result is **CONVENTION-H-2s**." is
+provenance and is not adopted.
+
 **The decisions adopted, verbatim.** From #914 comment 6566997020:
 
 > **D-07(a): accept the stricter, operational reading.** Native previous-slice access requires a *derived physical readout/retention mechanism*, not simply the appearance of the previous slice in the update rule. Under the O-ACC audit's stated fixed-region, counting-measure, copy-form scope, the result is **CONVENTION-H-2s**. The physical first-tick obligation is O-RET. This does not decide moving/derived observers or nonuniform preparations.
->
+> [...]
 > - **K-1: YES**, authorize preparation of a *paper-only investigation* and its independent review; not scientific execution.
 > - **K-2:** use a **separate planning issue** for K1-RDY, linked to #914 and #1025, and a guiding **draft** PR only upon a separately scoped first commit. Do not modify the STAGE-VOID #1025.
 > - **K-3: YES:** finite tori, Z/q and unit a; exclude infinite lattice/Haar extrapolation from this unit.

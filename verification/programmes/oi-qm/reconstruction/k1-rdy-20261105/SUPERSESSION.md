@@ -43,7 +43,7 @@ No line of 1–313 is edited; each change is an amendment that names the lines i
 
 | File | Governs (base lines) | Content | Source |
 |---|---|---|---|
-| `A1-attribution.md` | 6, 44, 84, 123–124, 130, 144, 288 | "owner decision" reads as the prospective adoption of 2026-11-05; the adopted decisions and the documented owner decisions the base cites, quoted verbatim | #1031 comment 6651204512; #1114 SOURCES C-2, C-3 |
+| `A1-attribution.md` | 6, 44, 84, 123–124, 130, 144, 286, 288 | "owner decision" reads as the prospective adoption of 2026-11-05; the adopted form of D-07(a) and O-3; the adopted decisions and the documented owner decisions the base cites, quoted verbatim | #1031 comment 6651204512; #1114 SOURCES C-2, C-3 |
 | `A2-class-token-fields.md` | 156–159 | list-order "first"; the class token's fields; member order reporting-only, with a cell order | owner direction #1031 comment 6649717044; #1114 review ruling on A-1 (PF-1) |
 | `A3-equal-time-independence.md` | 206, 234, 243 | TA (c4) replaced by Proposition IND, proved in `PROOFS.md` §4 | PF-2 |
 | `A4-historical-heads.md` | 229, 263 | holds retired by §A.45 rule 7; heads recorded, a mismatch recorded and not VOID[stage], with the material-change stop | owner, #1031 comment 6651204512 (A4 option (a)) |
@@ -57,7 +57,11 @@ None carries a `v3-round` or `v3-governed-paths` block or a near miss of one (`K
 
 ## 4. Pre-freeze justification of each premise
 
-`LEMMAS.md` §5 item 3 lists what the text uses and #1119 does not prove. Each item, and each other premise that rests
+`LEMMAS.md` §5 item 3 lists what the text uses and #1119 does not prove. The owner's direction, #1031 comment
+6653233009 (amaybaum, Claude Code session chat, 2026-11-05), requires the check: "#1119 does not prove that the complete
+decision procedure in #1031 is correct. In particular, the rule for classifying all invariant probability measures
+still needs separate justification or validation. That should be explicitly checked before the next research round is
+frozen." Each item, and each other premise that rests
 on off-`main` content, is justified before `F` in one of three ways: a written paper proof to be reviewed, an on-`main`
 result cited, or a named hypothesis or control carried by the round. None is resolved by computation.
 
@@ -72,7 +76,7 @@ result cited, or a named hypothesis or control carried by the round. None is res
 | TA (c4) | 206, 234, 243 | `PROOFS.md` §4, Proposition IND | written proof, to be reviewed | A3 |
 | the conservation of ℰ and its shells | 74, 209, 244 | `PROOFS.md` §5; SM:294–296 at `07d94f2c` states the conservation | written proof, to be reviewed; on-`main` statement | A7 |
 | `E` at the instance | 198 | `PROOFS.md` §1 | written proof, to be reviewed | A6 |
-| the budget identity and (c1)/(c2) | 60–62, 243–244 | MR-pre:184–187 at `af1e9be2`, reachable from `main` and unchanged on it | on-`main` result | A7 |
+| the ledger bounds (c1)/(c2) | 60–62, 139–142, 243–244 | `PROOFS.md` §7, Proposition LEDGER; MR-pre:184–187 (on `main`) states only the entropy invariance I1 | written proof, to be reviewed | A7 |
 | the anchors Main:56, Main:62, Main §4.6, Main:760, MR★:462–483, MR-pre:137–165 | 10–12 and throughout | `07d94f2c`, `af1e9be2`, both reachable from `main`; differences on `main` stated in A7 | on-`main` result | A7 |
 | H-μ, H-sel, H-inv, H-law, H-ret, H-2s (declared), H-cur (declared), (EM), the finite-`S` posit | §3, §5 | named hypotheses listed in each row's `Λ` (G5) | named hypotheses | base §2, §3, §5.2 |
 | HC-1 | 201, 206, 209, 303–310 | provenance only; its values are derived in `PROOFS.md` §1, §4, §5 | — | A6 |
@@ -81,7 +85,8 @@ result cited, or a named hypothesis or control carried by the round. None is res
 
 1. Independent review of this proposal, of `PROOFS.md` and of the §12 wording.
 2. Landing of `PROOFS.md` on `main` through a separately approved, narrowly scoped pull request, and of a record of the
-   #1119 proof review (OD-1, OD-2). Then the two placeholders marked `‹to be filled before F: …›` (§12; A5) are filled.
+   #1119 proof review (OD-1, OD-2). Then the placeholders marked `‹to be filled before F: …›` (§12; A5) are filled, and A4's heads are re-read and
+   entered in the last control-plane commit before `F`.
 3. The round's guiding draft pull request from a fresh `D`, at or after those landings. Its first commit copies
    `proposed-k1-rdy-1/` byte for byte, as revised by review, into `round-k1-rdy-1/`; every later commit before `F` is
    single-parent and changes only those control-plane files (`AGENTS.md` §A.39, §A.43 item 1; architecture `G9`).
@@ -97,7 +102,7 @@ commits on a round's pull request before `F`, and because the round's `D` should
 | OD-1 | Land `PROOFS.md` (pre-freeze proofs) on `main` before `D`, after its independent review, through a narrowly scoped pull request like #1119? | Yes. Several premises of §4 then rest on `main`, and the round's `D` can postdate the landing |
 | OD-2 | Record the #1119 proof review on `main`? `LEMMAS.md` still marks every proof "written proof, not independently reviewed", and the review (#1119 comment 6651717259) and its delta check are off `main` | Yes: a verbatim review record with author and time in `k1-rdy-proofs-20261105/`, and the status lines corrected in place, in the same pull request as OD-1. Without it the lemmas are not established under §A.46 items 1 and 7, and the owner's "remain conditional until those proofs pass review" stays open on `main` |
 | OD-3 | §5.3's union clause: keep it with A8's scope statement, or restate it in the `∀λ ∃w` form? | Keep it with A8. The clause is unreachable at this instance (CR-6), so no token depends on the choice; a restatement would edit accepted text for no effect here |
-| OD-4 | Execution mode: paper-only, as drafted, or name an enumeration tool's path as an `execution` entry before `F` (paths are fixed at `F`, `G7`; an execution path cannot lie in the record directory, `G6`)? | Paper-only for K1-RDY-1. It matches the ruling of #1031 comment 6651204512 and K-10. Member rows that the paper derivations do not decide end in UNDECIDED(Gk), which A2 reports as the class token's field. An enumeration would need its own tool, its review and its naming at `F`, under a separate authorization |
+| OD-4 | Execution mode: paper-only, as drafted, or reserve an enumeration tool's path as an `execution` entry at `F` (paths are fixed at `F`, `G7`; an execution path cannot lie in the record directory, `G6`)? | Paper-only for K1-RDY-1, with this cost. Any P1 member row (`π_0` and 156 cycle-uniform members per branch) that the paper derivations do not decide makes that branch's class token UNDECIDED(Gk), because UNDECIDED precedes ABSENT and BLIND in A2's order; that removes the content line 238 calls informative. Any S0 control left undecided gives VOID[stage] for the whole round. The alternative is to reserve an execution path at `F`: the reservation authorizes nothing, since execution still needs the #1031 gate-3 authorization naming the exact tools, inputs and scope (#1031 comment 6651204512), but the tool would have to exist and be reviewed before `F`. The recommendation stands because it matches K-10 and the owner's ruling, and because the cycle decomposition (`PROOFS.md` §2) gives the member list on paper; the trade-off is the owner's |
 | OD-5 | Adopt A2's field definitions and cell order? | Yes. The owner directed that "first" be resolved before freeze; A2 also fixes the fields the #1114 review found undefined |
 | OD-6 | Adopt A9's schema? | Yes. §A.44 requires a stated schema for a control plane not yet at `F` |
 | OD-7 | #1114's disposition once the round's pull request opens | Keep #1114 as the research record until the round lands, then close it without merge, keeping its branch (§A.43 item 6); the round's record carries lines 1–313 |

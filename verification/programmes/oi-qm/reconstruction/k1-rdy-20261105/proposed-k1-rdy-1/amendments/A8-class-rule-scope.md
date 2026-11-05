@@ -12,3 +12,8 @@ of `C`. Proved in `verification/programmes/oi-qm/reconstruction/k1-rdy-pref-proo
 - its BLIND outcome does not by itself establish that some member of `𝓘` fails `NB` at every sharp `w` (CR-5).
 
 No token, gate or order changes.
+
+**Source.** Owner direction, #1031 comment 6653233009 (amaybaum, Claude Code session chat, 2026-11-05): "There is one
+important additional point: #1119 does not prove that the complete decision procedure in #1031 is correct. In
+particular, the rule for classifying all invariant probability measures still needs separate justification or
+validation. That should be explicitly checked before the next research round is frozen."
