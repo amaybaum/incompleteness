@@ -1,6 +1,6 @@
 # K1-RDY lemma proofs (#1031, option 1b)
 
-**Status: written proofs, not independently reviewed. WIP / UNVERIFIED.** This directory decides no gate, token,
+**Status: written proofs, independently reviewed; the review is model-authored and recorded in `REVIEW.md`.** This directory decides no gate, token,
 readiness result or owner question, and changes no statement of the K1-RDY text. It authorizes nothing.
 
 ## Purpose
@@ -34,8 +34,7 @@ check: the assembled P1 statement, four marked readings, and the uses that lie o
 
 - Hand derivations only. No enumeration, model computation, Lean run or workflow dispatch was used; enumeration before
   `F` is not authorized (#1031 comment 6651204512).
-- Until an independent review of these proofs is recorded on `main`, no result here is established (`AGENTS.md`
-  §A.46 items 1 and 7), and K1-RDY's uses of the four results remain dependent on that review.
+- The independent review is model-authored and read-only (`REVIEW.md`).
 - The line locators point to a text that is not on `main`. They resolve once lines 1–313 of the text are on `main`.
 - Not covered: §5.3's class rule (Q4), the cycle decomposition of `φ` at the instance, P3's explicit image (line 89),
   TA (c4), and the gates that precede G4.
