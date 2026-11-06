@@ -1,6 +1,7 @@
 # O-RET Phase B: one O5 register screen
 
-**Status: BLOCKED at the physical geometry/read-access screen; independent review pending.**
+**Status: BLOCKED at the physical geometry/read-access screen.**
+Independent model review is recorded on guiding draft [PR #1177](https://github.com/amaybaum/incompleteness/pull/1177).
 Paper-only assessment for #1032, not a freeze, run or physical-retention result.
 Drafting base: `f49b768709d262a05471895cec703b31aff19b57`.
 Writer: `writer-oret`, this coordinating Codex session.
@@ -231,7 +232,7 @@ physically sourced design or a retention demonstration.
 | DPB at `4b4cacc93884039afadd0069373b0ac448761a6b`, §5; decoder definition at historical `43370576` §6.2 | Provenance of the provisional policy restated in §6; no off-main proof used for a candidate result |
 | #1032 c.6692541241 | Owner authorization/provisional-policy provenance, quoted in §§1, 6 |
 | #1143 c.6681999486 and #866 c.6691917468 | Planning provenance of the separate obligations in §7 |
-| First checkpoint `cc2d21b36640c421d28dcca76840e97ba26e6675` | Provenance that the one geometry was fixed before its outcome screen; it must remain reachable if that ordering claim is retained at landing |
+| First checkpoint `cc2d21b36640c421d28dcca76840e97ba26e6675` | Support for the ordering claim in the header, currently off main in this PR's commit ancestry. Any future authorized landing that retains that claim must make this supporting commit reachable from main no later than the claim; preserving a branch alone is insufficient. A normal merge preserving the current ancestry would satisfy this reachability requirement. |
 
 No freeze, scientific computation, enumeration, simulation, Lean build,
 replay, dispatch, implementation, new physical premise adoption, merge or
