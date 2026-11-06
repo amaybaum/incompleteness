@@ -21,8 +21,6 @@ The framework developed in this book rests on the work of many physicists, mathe
 AI assistance in preparing this work is disclosed at\
 <https://github.com/amaybaum/incompleteness#ai-assistance>.
 
-**Personal acknowledgments.** [Author's personal acknowledgments — colleagues, family, institutional support, funding sources — to be added.]
-
 **Errors.** Any remaining errors in the framework's content or its presentation are the author's. The book is the integrated synthesis of work developed in technical papers, and the integration introduces the possibility of inconsistencies between the book's presentation and the underlying technical papers. The technical papers should be consulted as the primary references for framework-internal derivations; the book's role is to make the framework's content accessible.
 
 — Alex Maybaum
