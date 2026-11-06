@@ -4,7 +4,8 @@ name: evidence replay
 # (verification/audits/manuscript/intro-corpus-audit-20261026/, PR #942) could not reproduce locally: the
 # black-hole records that the Introduction (papers/Introduction.md) cites as [BHa; BHb], and
 # papers/introduction_repro/, historical verification evidence for Appendix A of the Introduction at
-# f5efa7a0, which supports no claim in the Introduction on main (Issue #941).
+# f5efa7a0, retained from the Introduction audit (Issue #941). It supports no claim in the current
+# Introduction, and no additional independent reproduction of it is required for #941 closure.
 # The workflow has no other trigger, so it runs only when dispatched.
 # Each activity checks out a pinned commit, runs that commit's own recorded recipe, and decides its verdict
 # from exit statuses. It writes nothing to the repository: logs, outputs, a run.json with the commits,
@@ -19,9 +20,11 @@ name: evidence replay
 #                     2714278a as
 #                     verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/results-121598983127-28.json;
 #                     first pinned at staging commit e73f7be3, at papers/introduction_repro/results-121598983127.json,
-#                     byte-identical). The 28-module result has no independent review recorded on main and is not
-#                     independently verified there; the re-pin to 2714278a preserves evidence and is not its
-#                     acceptance (Issue #941).
+#                     byte-identical). An independent re-comparison of the 28-module result's 14 added modules,
+#                     recorded in verification/audits/manuscript/intro-corpus-audit-20261026/unit5-evidence/,
+#                     classifies them as independently audited historical evidence (no fresh reproduction is
+#                     claimed); that review's acceptance is pending on Issue #941, which remains accountable.
+#                     The re-pin to 2714278a preserves evidence and is not its acceptance.
 #                     A step fails unless lake built every OIBridge module in the source
 #                     at the commit (228, all reachable from the root module), replayed none, and the 28
 #                     governed modules are among them. Job 121598983127 printed 226 Replayed lines: lake prints

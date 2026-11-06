@@ -3,10 +3,11 @@
 `results-121598983127.json` is the expected result of the Lean 4/Mathlib check, at `17b830bc`, of the
 29 baseline declarations listed in Appendix A of the Introduction (`papers/Introduction.md`) as landed at
 `f5efa7a0813218b580272f7fd80a6b0c87eb6657`. The Introduction on `main` has no Appendix A, and this result
-supports no claim in it. It is kept as historical verification evidence: `.github/workflows/evidence-replay.yml`
+supports no claim in it. It is kept as historical verification evidence from the Introduction audit (#941):
+`.github/workflows/evidence-replay.yml`
 reads it from `f5efa7a0` as `EXPECTED_14`, and the 28-module record
-`verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/` extends it. The
-accountable Issue is #941. It uses the `oi-evidence-result` schema
+`verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/` extends it. No
+additional independent reproduction of this historical result is required for #941 closure. It uses the `oi-evidence-result` schema
 (version 1, kind `bridge`) of the evidence-retention archive, which is frozen at
 `48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29` and read from `main`'s history (AGENTS.md §A.42). The
 result is `derived`: it was read from a named job log by that archive's extractor, and the log's
