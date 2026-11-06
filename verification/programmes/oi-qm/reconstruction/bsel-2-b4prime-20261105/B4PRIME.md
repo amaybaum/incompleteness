@@ -2,13 +2,15 @@
 
 **Status:** paper derivations by hand, independently model-reviewed: ACCEPT WITH CHANGES at `3ea33001`, delta
 checks ACCEPT at `7fe4cd86` and `25df10c5` (#1123 c.6654184712, c.6654331521, c.6655101546; owner merge approval
-#1033 c.6656671521); the [Q] matrix rows, ACCEPT at `ef45cb76` (#1144 c.6664044354). The review reports are GitHub
-comments and are provenance only (§A.42 item 8). What can be checked from `main` is this record's [D] derivations,
-by hand, against the definitions and [K] statements it cites, subject to the §9 premise ledger; no [D] result is
-kernel-checked. The `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` rest on [M1], and the C-pers statement of §8 on
-[M2]: hand derivations in those records, independently model-reviewed (#1151 c.6665869201, c.6665968807; #1149
-c.6668322323), none kernel-checked. Outside the established scope: native lifts and physical sourcing (§9).
-Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695).
+#1033 c.6656671521); the [Q] matrix rows, ACCEPT at `ef45cb76` (#1144 c.6664044354); the Unit 2a re-anchoring (the
+[D] re-derivations of §3.1 and W0.3, checked against the cited kernel lines), ACCEPT WITH CHANGES at `4a3621aa`
+(#1161 c.6678645083). The wording changes made after `4a3621aa` in response to that review await a delta check.
+The review reports are GitHub comments and are provenance only (§A.42 item 8). What can be checked from `main` is
+this record's [D] derivations, by hand, against the definitions and [K] statements it cites, subject to the §9
+premise ledger; no [D] result is kernel-checked. The `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` rest on [M1], and the
+C-pers statement of §8 on [M2]: hand derivations in those records, independently model-reviewed (#1151
+c.6665869201, c.6665968807; #1149 c.6668322323), none kernel-checked. Outside the established scope: native lifts
+and physical sourcing (§9). Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695).
 **Scope:** `SCOPE.md` in this directory, a verbatim copy of the reviewed scope r3 (sha256 `df40103e…a3dd54cd`).
 **Authorization:** owner approval to start, #1033 c.6653677971 (amaybaum, Claude Code session chat, 2026-11-05):
 "Approved to start the independently reviewed paper-only unit. Proceed within its reviewed scope. No new scientific
@@ -28,8 +30,8 @@ or probe.
 
 **Support labels.**
 - [K]: kernel at the base (file:line under `verification/lean-mathlib/OIBridge/`).
-- [F]: `BSEL2-B3-B5.md` at `88c175c3` (branch `research/bsel2-b3-b5-20261104`), cited by line, on F's own support.
-  F is off `main`.
+- [F]: `BSEL2-B3-B5.md` at `88c175c3` (branch `research/bsel2-b3-b5-20261104`), cited by line as provenance only.
+  F is off `main`, and no result here rests on it (§9).
 - [D]: derived in this record.
 - [Q]: the Q2A record `../bsel-2-q2a-ce-20261105/RESULT.md` on `main`, cited by section.
 - [M1]: the M-1 record `../oiqmsel-m1-alt-w-20261105/RESULT.md` on `main`, cited by section.
@@ -77,8 +79,9 @@ c.6567713723, used as a cross-check only (scope §0, K-A).
 - **(r2) The Rst-sel test follows every read, the last included.** This is the reading under which a single read
   carries an `(ok, ⊥)` record. The other reading omits the final test; its law is a coarse-graining of this one (the
   last read's ok and `⊥` masses summed). Every inequality reported below states which reads it uses.
-- **(r3) "All devices" in H-fac (F ll. 62–65).** This means every finite internal space `H_d`, the one-dimensional one
-  included; every unitary `G`; every unit `ψ`; and every partition into configuration-diagonal projectors.
+- **(r3) "All devices" in H-fac (interface: F ll. 62–65, provenance).** This means every finite internal space
+  `H_d`, the one-dimensional one included; every unitary `G`; every unit `ψ`; and every partition into
+  configuration-diagonal projectors.
 
 ## §1. W0: the complete-record laws `Λ_C`
 
@@ -104,7 +107,8 @@ Each law below is the family of unnormalized masses of every record, indexed by 
 ### W0.3 C1′
 - **Procedure:** root `j`, one read at `t` through a device `(H_d, G, ψ, {P_c})` as in (r3).
 - **Branch masses:** with `X := G(1 ⊗ |ψ⟩)`, an isometry, and `A_c := XᴴP_cX`, cell `c` has mass
-  `‖P_cG(U_te_j ⊗ ψ)‖² = ⟨U_te_j, A_c U_te_j⟩` (F ll. 62–65).
+  `‖P_cG(U_te_j ⊗ ψ)‖² = ⟨U_te_j, A_c U_te_j⟩`, since `P_c` is an orthogonal projector (interface: F ll. 62–65,
+  provenance).
 - **Bookkeeping:** there is no failure record. `Σ_c A_c = XᴴX = 1`.
 - **Result:** `Λ_C1′(U) = (⟨U_te_j, A_cU_te_j⟩)_{j,t,device,c}`. [D]
 
@@ -250,24 +254,34 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
   so `Γ` is not periodic. The alternating placement is used instead (K-E finding).
 
 ### 3.1 C0
-- **G⇒O: proved★, every `|V|`, `|A|`, all unitary families.**
-  - Support: F l. 178, `left_preserves_admissible` TSG:217 and `weak_preserves_admissible` CLG:273. Each slice
-    `L_tU_tK_t` is an admissible dilation of the same `Γ_t`.
+- **G⇒O: proved, every `|V|`, `|A|`, all unitary families.**
+  - Support: `left_preserves_admissible` TSG:217 and `weak_preserves_admissible` CLG:273. Each slice
+    `L_tU_tK_t` is an admissible dilation of the same `Γ_t`. F l. 178 is provenance.
   - By W0.1 that is equality of `Λ_C0`.
-- **O⇒G at `|V| = 2`, `|A| = 1`: proved★** (F ll. 254–261).
+- **O⇒G at `|V| = 2`, `|A| = 1`: proved [D]**, written out below; also [Q] §5(ii). F ll. 254–261 is provenance.
   - **K-A note.** The same argument is used in §3.5, where it settles a K-A item. It is therefore written out here.
   - At `|A| = 1`, `FG^{(i)}(j,k) = conj(U_{ij})U_{ik}`. Equal `Γ` fixes the diagonal moduli.
   - Column orthogonality gives `FG^{(1)}(0,1) = −FG^{(0)}(0,1)` for each unitary.
   - Equal moduli give `|FG′^{(0)}(0,1)| = |FG^{(0)}(0,1)|`. One phase `c̄_0c_1` therefore matches the `(0,1)` entry of
     both fibres (any phase does if it is 0), and the `(1,0)` entries are its conjugates. That is `GramPhaseEquiv`.
   - `twoSidedRelated_iff` (mpr, TSG:839) then gives `G`.
-- **O⇒G at `|V| ≥ 3`, `|A| = 1`, all: disproved★.**
+- **O⇒G at `|V| ≥ 3`, `|A| = 1`, all: disproved.**
   - TG3 at `|V| = 4` [K TSG:907, :966].
-  - The constant pair `F₃` against `F̄₃` at `|V| ≥ 3` (F ll. 244–249), re-derived under WA below.
+  - The constant pair `F₃` against `F̄₃` at `|V| ≥ 3` [D]: both lifts have `Γ_t = J₃/3 ⊕ 1` at every `t`, so `Λ_C0`
+    agrees (W0.1), and WA's non-relatedness computation at `t = 1` below applies verbatim. F ll. 244–249 is
+    provenance.
   - Both have `Γ_0 ≠ 1`, so they lie outside `PPer`.
-- **O⇒G at `|V| = 4`, `|A| = 1`, `PPer`: disproved★.**
-  - The `Γ^alt` pair: alternating `H(1)` against alternating `H(i)` (F ll. 137–144, Q5a, Q5b).
-  - Orientation re-checked here: `J/4` is symmetric and doubly stochastic.
+- **O⇒G at `|V| = 4`, `|A| = 1`, `PPer`: disproved [D].**
+  - The `Γ^alt` pair (`|V| = 4`, `|A| = 1`): alternating `H(1)` against alternating `H(i)`, the two matrices of
+    TSG:907.
+  - **Equal `Γ`:** every entry of `H(1)` and of `H(i)` has modulus ½, so both lifts have `Γ = (1, J/4, 1, J/4, …)`, and
+    `Λ_C0` agrees (W0.1).
+  - **Class:** `J/4` is symmetric and doubly stochastic, so `Γ ∈ PPer` in either orientation (alternating placement
+    above; RC:32; W9).
+  - **Non-relatedness:** the last conjunct of `hadamard_slices_not_twoSided` (TSG:907) excludes `H(i) = LH(1)K` for
+    every `L ∈ 𝒢_L` and `K ∈ 𝒲`. At `t = 1` the slices are `H(1)` and `H(i)`, and `TwoSidedRelated` requires every
+    slice (TSG:84). So `¬G`.
+  - F ll. 137–144 (Q5a, Q5b) is provenance.
 - **O⇒G at `|V| = 3` and `|V| ≥ 5`, `|A| = 1`, `PPer`: disproved [D], witness WA.**
   - **Witness WA.** Alternating `F₃` against alternating `F̄₃`, with `F₃ = [ω^{jk}]/√3` and `ω = e^{2πi/3}`, and `⊕ 1` on
     further configurations at `|V| > 3` (scope §7).
@@ -280,7 +294,10 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
     - `TwoSidedRelated` requires every slice (TSG:84). So `¬G`.
   - **Scope-named alternative:** `Γ^alt ⊕ 1` also works at `|V| ≥ 5`. Its invariant `z/16` at `z = 1, i` is `1/16`
     against `i/16`.
-- **O⇒G at `|V| ≥ 3`, `|A| ≥ 2`, all: disproved★** (F ll. 245–249: `F₃` on the anchored lines with `1` on `C`).
+- **O⇒G at `|V| ≥ 3`, `|A| ≥ 2`, all: disproved [D]**, by the constant placement of `F₃` (against `F̄₃`) on the
+  anchored lines with `1` on `C`. The anchored columns stay in `𝒜`, so both lifts have `Γ_t = J₃/3 ⊕ 1` at every `t`
+  and `Λ_C0` agrees (W0.1); `Γ_0 ≠ 1`, so the pair lies outside `PPer`. WA′'s non-relatedness computation at `t = 1`
+  below applies verbatim. F ll. 245–249 is provenance.
 - **O⇒G at `|V| ≥ 3`, `|A| ≥ 2`, `PPer`: disproved [D], witness WA′.**
   - **Witness WA′.** `U_t = M_t ⊕ 1_C`, where `M_t` is WA's slice acting on `𝒜` in the basis `e_v`.
   - Since `U_te_j ∈ 𝒜`, only `a = a₀` contributes to the fibre-Gram data. So `FG^{(i)}(j,k) = conj(M_{ij})M_{ik}`, and
@@ -331,7 +348,7 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
   - Root `j = 0`, reads `(1,3)`.
     - For `U`: `T_{3,1} = H₂H₂ᴴ = 1`, so `p(0,0|0) = Γ_1(0,0)·1 = ½` and `p(0,1|0) = 0`.
     - For `gU`: `T = H₂K_3K_1ᴴH₂ᴴ = H₂ZH₂ = σ_x`, so `p(0,0|0) = 0` and `p(0,1|0) = ½`.
-- **O⇒G at `|V| = 2`: proved [D from F].**
+- **O⇒G at `|V| = 2`: proved [D], §3.1.**
   - C2's single-read lists are C0's procedures (W0.1, W0.4), so `O_C2-auto ⊆ O_C0`.
   - `O_C0 ⊆ G` at `|V| = 2`, `|A| = 1` (§3.1, written out).
 - **O⇒G at `|V| ≥ 3`: disproved [D], witness WA, in `PPer`; at `|V| = 4` also the `Γ^alt` pair.**
@@ -402,8 +419,8 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
 ## §5. Conditional block: composition physically sourced (Src′)
 
 Everything in this section is **CONDITIONAL[H-comp, Acc₂, Rst-x, P-conf]**. It is stated relative to `𝒢_C2-x`, not
-OI's gauge. Physical supply of H-comp, retention (Acc₂), any reset and P-conf is a **SOURCING-GAP** (#866, #1009,
-#1023). No cell here fills a G⇒O or O⇒G cell.
+OI's gauge. Physical supply of H-comp, retention (Acc₂), any reset and P-conf is a **SOURCING-GAP** (#866: O-REC,
+O-SET; #1032: O-RET). No cell here fills a G⇒O or O⇒G cell.
 
 ### 5.1 `𝒢_C2-x`, re-derived
 - **Result:** `𝒢_C2-x = {g : (i) K_tK_sᴴ ∈ U(1)·1 for every s, t; (ii) L_tᴴe_v ∈ U(1)·e_v for every t, v}`, for each
@@ -523,23 +540,23 @@ All controls pass. One K-A item halted and was settled in the record.
 
 ## §8. Results (§9 of the scope, filled in)
 
-Labels follow scope §5: proved, disproved, conditional, unresolved. ★ marks a cell F fixes on its own support.
+Labels follow scope §5: proved, disproved, conditional, unresolved.
 
 | Model | `\|V\|` | `\|A\|` | Class | G⇒O | O⇒G | Support | Does NOT establish |
 |---|---|---|---|---|---|---|---|
-| C0 | any | any | all | proved★ | (rows below) | F l. 178; TSG:217, CLG:273 | physical gauge equivalence; native access |
-| C0 | 2 | 1 | all | proved★ | proved★ | F ll. 254–261, written out in §3.1 | the `\|A\| ≥ 2` case; physical equivalence |
-| C0 | ≥3 | 1 | all (witness outside `PPer`) | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`=1, no reset, same Γ, outside `PPer`] | TG3 (TSG:907, :966); `F₃` (F ll. 244–249; WA) | a native separation |
-| C0 | 4 | 1 | `PPer` | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`=4, `\|A\|`=1, no reset, same Γ, `PPer`] | `Γ^alt` pair (F Q5a, Q5b) | a native separation |
+| C0 | any | any | all | proved | (rows below) | TSG:217, CLG:273 (§3.1) | physical gauge equivalence; native access |
+| C0 | 2 | 1 | all | proved | proved | §3.1 [D]: TSG:217, CLG:273; TSG:839 `mpr` | the `\|A\| ≥ 2` case; physical equivalence |
+| C0 | ≥3 | 1 | all (witness outside `PPer`) | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`=1, no reset, same Γ, outside `PPer`] | TG3 (TSG:907, :966); constant `F₃` [D] (§3.1, WA's computation) | a native separation |
+| C0 | 4 | 1 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`=4, `\|A\|`=1, no reset, same Γ, `PPer`] | `Γ^alt` pair [D] (§3.1; TSG:907, TSG:84, RC:32) | a native separation |
 | C0 | 3 | 1 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`=3, `\|A\|`=1, no reset, same Γ, `PPer`] | WA [D] | a native separation |
 | C0 | ≥5 | 1 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥5, `\|A\|`=1, no reset, same Γ, `PPer`] | WA with `⊕ 1`; `Γ^alt ⊕ 1` [D] | a native separation |
-| C0 | ≥3 | ≥2 | all (witness outside `PPer`) | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | F ll. 245–249 | a native separation |
+| C0 | ≥3 | ≥2 | all (witness outside `PPer`) | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | constant `F₃ ⊕ 1_C` [D] (§3.1, WA′'s computation) | a native separation |
 | C0 | ≥3 | ≥2 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, `PPer`] | WA′ [D] | a native separation |
 | C0 | 2 | ≥2 | all (witness outside `PPer`) | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the `W`/`W′` pair [Q §§2–7] | a native separation |
 | C0 | 2 | ≥2 | `PPer` | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
 | C1 | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WB; §2.2 with TSG:839 `mpr` [D] | that P-coh is available |
 | C1′ | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1′, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WC; §2.3, TSG:84 [D] | that any H-fac device is available |
-| C2-auto | 2 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`=2, `\|A\|`=1, Rst-auto, same Γ, `PPer`] | proved | WD; `O_C2 ⊆ O_C0` with F ll. 254–261 [D] | that H-comp or Acc₂ is physical |
+| C2-auto | 2 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`=2, `\|A\|`=1, Rst-auto, same Γ, `PPer`] | proved | WD; `O_C2 ⊆ O_C0` with §3.1 [D] | that H-comp or Acc₂ is physical |
 | C2-auto | ≥3 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WD `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WA; `Γ^alt` pair at 4) | WD `⊕ 1`; WA [D] | a native separation |
 | C2-ch | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, outside `PPer`] | WE [D]; the `W`/`W′` pair [Q §§2–7] | a native separation |
 | C2-ch | 2 | ≥2 | `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] | WE [D]; the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
@@ -549,7 +566,7 @@ Labels follow scope §5: proved, disproved, conditional, unresolved. ★ marks a
 | C2-sel | ≥3 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WA′) | WE `⊕ 1`; WA′ [D] | a native separation |
 
 **Equivalence.** Both directions are proved at the same scope only for C0 at `|V| = 2`, `|A| = 1`: there, two-sided
-gauge relatedness and complete-record operational equivalence are equivalent (★, on F's support). In every other
+gauge relatedness and complete-record operational equivalence are equivalent (§3.1). In every other
 cell the two notions differ, and the table records in which direction:
 - C1 and C1′ refine `G` strictly: O⇒G holds and G⇒O fails.
 - C0 coarsens `G` at `|V| ≥ 3`, and at `|V| = 2`, `|A| ≥ 2` in the all-unitary class and in `PPer`: G⇒O holds and
@@ -608,19 +625,17 @@ a universal statement about the same objects; read physically, it carries its ro
   `|V| = 2`, `|A| ≥ 2` outside `PPer`; the M-1 record [M1], for those cells in `PPer`; the M-2 record [M2], for the
   C-pers statement of §8. [M1] and [M2] are read at `92f4f270`; each derives its laws, witnesses and gauge
   determination itself, with no derived result of this record as a premise ([M1] §9, §14; [M2] §8).
-- **Support off `main` (a gap until F lands):** F (`88c175c3`), used at:
-  - ll. 62–67: the H-fac interface and NI, used for C1′;
-  - l. 178: C0 G⇒O;
-  - ll. 137–144 and 351–362: `Γ^alt`, Q5a, Q5b;
-  - ll. 244–249: the `F₃` placement, re-derived here as WA and WA′;
-  - ll. 254–261: `Fib = G` at `|V| = 2`, written out in §3.1.
 - **F lines not used:** F's Lemma HS (l. 188) and the results that inherit it (Q1⇒, Q1c(⇒), DC's
   "R[C] ⇒ O_C ⊇ Fib") are not used. No class-F←c premise enters this record.
 - **Provenance only:**
   - #1033 c.6567713723 and c.6567723333 (B4N and its review), used as cross-check (K-A);
   - c.6567694252 (the AR definition);
   - c.6652903587, c.6653013695, c.6653677971 and c.6652148478 (rulings, review and authorization);
-  - #914 c.6563412926 and c.6558834119.
+  - #914 c.6563412926 and c.6558834119;
+  - F (`88c175c3`): ll. 62–67 (the H-fac interface and NI, the origin of (r3) and W0.3), l. 178 (C0 G⇒O),
+    ll. 137–144 and 351–362 (`Γ^alt`, Q5a, Q5b), ll. 244–249 (the `F₃` placement) and ll. 254–261 (`Fib = G` at
+    `|V| = 2`). Each of these results that this record uses is restated in (r3) and W0.3, or derived in §3.1 from
+    the [K] lines cited there.
   - None supports a result.
 - **Not used as support:** Main:646 and TSG:49–50 (context).
 
