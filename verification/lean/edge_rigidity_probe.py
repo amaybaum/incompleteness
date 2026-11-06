@@ -4312,7 +4312,7 @@ for _t in ('Operational interventions are those realized by one protocol built f
            '`instAvail_trace`',
            'together with one further intervention principle, that a relative phase on a single state is a selectable intervention at every level',
            'The phase intervention enters as an assumption on the substratum class, not as a consequence of the finite states with the bijective read-write dynamics',
-           'no class whose isometries do so realizes a quarter phase at any level with two or more states',
+           'fails the requirement of a quarter phase on every state at every level, the failure being exhibited at level one, with no claim that the quarter phase is unavailable at each composite level',
            'An operator carrying the all-ones vector off its ray is therefore necessary to any access that supplies the phases, and is not shown sufficient',
            'the access assumed is the quarter-phase intervention itself, a member of the class as stated',
            '`permClass_onesFixing`, `onesFixing_not_phasesAvailable`, `substratumClass_not_onesFixing` in `OIBridge/PhaseSource.lean`',
@@ -4346,7 +4346,8 @@ for _rel in ('papers/GR.md', 'papers/Main.md', 'papers/Substratum.md', 'papers/S
     for _bad in ('moving the all-ones ray is sufficient', 'any operator that moves the all-ones ray supplies',
                  'the phases are derived', 'derives the phases', 'the phase structure is derived',
                  'derives the phase structure', 'supplies the phase structure', 'the phases are a consequence of',
-                 'SourcedOI', 'DerivedOI', 'PhasesAvailable', 'RouteB', 'InstAvail'):
+                 'SourcedOI', 'DerivedOI', 'PhasesAvailable', 'RouteB', 'InstAvail',
+                 'no class whose isometries do so realizes a quarter phase at any level with two or more states'):
         ok_prop &= _bad not in _t1
 # the registry, the census note and the README carry the round; the kernel is untouched
 _pp_fam = [f for f in _ptr_reg['families'] if f['name'] == 'phase source: the stated access and the stipulated phases']
