@@ -1,0 +1,823 @@
+{
+  "schema": "oi-axiom-checker-hardening-fixtures",
+  "version": 1,
+  "tool": {
+    "path": "tools/lean_axiom_check.py",
+    "git_blob": "8dec29c7b2c63fc083536a8f62c9056930c30d65",
+    "sha256": "8db5f0ff257c1dbca663608a377ca62c32408356354a9ee7b684400557f5443a"
+  },
+  "expected_sha256": "43de7965beed9961a3f187f544a340b390edfdfea594b27da70e450654e44503",
+  "controls": {
+    "tool_blob_matches_pin": true,
+    "p_fixtures_pass_without_findings": true,
+    "f_fixtures_fail_with_findings": true,
+    "findings_sorted_and_known": true,
+    "every_kind_but_build_has_a_sole_kind_fixture": true,
+    "mutants_flip_their_killers": true,
+    "tool_self_test_passed_every_run": true,
+    "mutations_verified": true,
+    "current_matches_prediction": true
+  },
+  "controls_green": true,
+  "sole_kind_fixtures_cover": [
+    "AMBIGUOUS",
+    "AXIOM",
+    "DUPLICATE",
+    "EMPTY",
+    "MISMATCH",
+    "MISSING",
+    "ORPHAN",
+    "POSITION",
+    "SORRY",
+    "UNPARSED"
+  ],
+  "current_pass_design_fail": [
+    "F01",
+    "F02",
+    "F03",
+    "F04",
+    "F05",
+    "F08",
+    "F10",
+    "F11",
+    "F12",
+    "F13",
+    "F14",
+    "F15",
+    "F16",
+    "F17",
+    "F22"
+  ],
+  "current_fail_design_pass": [],
+  "fixtures": [
+    {
+      "id": "P01",
+      "purpose": "unique ASCII names, fully qualified, every print reported",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "ee75bf8334151a4dd64ed45eb9eac186dfd57c8d91212b8a1e01f99a6937c58d",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P02",
+      "purpose": "OIBridge.A.foo and OIBridge.B.foo (one short name, two modules), both reported",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "c0b37e9ebedd05e66bbc52ef9b0d628cd40d35dcdf8e2c1a963e3cae3b84d852",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P03",
+      "purpose": "as P02 with namespace-relative prints (#print axioms foo in each namespace)",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "1dcd3091a561a9faf91d21fe8ec6c7a8e4d721ccd2e17813832a3c2bfc8e914a",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P04",
+      "purpose": "`open`: B prints foo under open OIBridge.A, so OIBridge.A.foo is printed at two positions in two modules, both reported",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "22a9940c59dd6ba03222a0f88308fe5513a345fe86c7ed38268bad97ff117233",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P05",
+      "purpose": "subscript name OIBridge.R.G₀_apply printed and reported with permitted axioms",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "fc698f9f228cca658493f538c8261138919ee5d789430d2a77bfe188b9e12166",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P06",
+      "purpose": "escaped name with a space, OIBridge.A.«a b», printed and reported",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "71a9402b3a798f5eaaf743bec27f9bb65ab5421d4abaa60ee6fb8236010f987c",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P07",
+      "purpose": "report whose axiom list wraps over three lines (one-space continuation indent), permitted axioms",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "9377b12dbd858d96d2548e353586f481c133ca726957c1d5ec9a2104a7ea8096",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P08",
+      "purpose": "print indented inside a section (column 2), reported at 3:2",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "957a5f75365b6b6723a958db20aed2ff44a85b93d41d943e7053461c2938ace3",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P09",
+      "purpose": "print written _root_.top, reported as 'top'",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "25f38815b49e28ec144c7d8751ff5c0d3d50cb8e8f4f0f79792e574115189c31",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "P10",
+      "purpose": "print followed by a trailing line comment",
+      "parent": null,
+      "hardened": {
+        "verdict": "PASS",
+        "findings": []
+      },
+      "inputs_sha256": "a375fca9fbc6977172845e08c2b0d0f8a3ceef9bc39031b233d8283838c4e51d",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F01",
+      "purpose": "short-name masking: P02 without the OIBridge.B.foo report",
+      "parent": "P02",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/B.lean:3"
+        ]
+      },
+      "inputs_sha256": "a74e3a097b1e90d2a316bd1ddc77fbc272c4d2cdb810d953b1329f07853ba33b",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F02",
+      "purpose": "short-name masking, namespace-relative prints: P03 without the B report",
+      "parent": "P03",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/B.lean:3"
+        ]
+      },
+      "inputs_sha256": "e8b118be63088eb7b1ee8b56acea186ef441415faa6e9b7c5beaea49fd80d0b6",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F03",
+      "purpose": "same fully qualified name printed in two modules: P04 without the B report (masked even under name-keyed matching)",
+      "parent": "P04",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/B.lean:3"
+        ]
+      },
+      "inputs_sha256": "421437125b1afe2bfd5253addc8e21305e3d33546c17753302d24e431b92a8ec",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F04",
+      "purpose": "subscript name hides a forbidden axiom: P05 with [propext, Lean.ofReduceBool]",
+      "parent": "P05",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/R.lean:3"
+        ]
+      },
+      "inputs_sha256": "d6f1517c6e5204271258a2fc2783098534242d0283450922e1cc037ddbda780d",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F05",
+      "purpose": "subscript print with no report: P05 without the R report",
+      "parent": "P05",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/R.lean:3"
+        ]
+      },
+      "inputs_sha256": "831be6049022ed3b4218b2ea031d9b1097e5757c7515d2034089e7a140dd7d60",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F06",
+      "purpose": "ASCII report with a forbidden axiom (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/A.lean:3"
+        ]
+      },
+      "inputs_sha256": "00afc17fbd74e45b675290d4345b0546d6cc4fa71683227f8cb5a654429e5c02",
+      "mutation_verified": true,
+      "current": {
+        "exit": 1,
+        "stdout": "  AXIOM  foo depends on ['Lean.ofReduceBool']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "AXIOM"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F07",
+      "purpose": "unique ASCII print with no report (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/A.lean:4"
+        ]
+      },
+      "inputs_sha256": "16cf608867ea863e1872ff949a8da18bc896fc6e4691c27a42a62854860b54b2",
+      "mutation_verified": true,
+      "current": {
+        "exit": 1,
+        "stdout": "  SILENT 1 declared `#print axioms` produced no report: ['bar']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "SILENT"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F08",
+      "purpose": "escaped name with a space hides a forbidden axiom (P06 mutated)",
+      "parent": "P06",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/A.lean:4"
+        ]
+      },
+      "inputs_sha256": "cd881ed86b68c1e544b0a999306049340637255f2accd9a38c3dd7915348477a",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F09",
+      "purpose": "forbidden axiom on the continuation line of a wrapped report (P07 mutated)",
+      "parent": "P07",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/A.lean:3"
+        ]
+      },
+      "inputs_sha256": "3f2bd96f686afffd3794cd327a6fd3a2d887865943f08417a7ea2e352cdbf8f4",
+      "mutation_verified": true,
+      "current": {
+        "exit": 1,
+        "stdout": "  AXIOM  foo depends on ['Lean.ofReduceBool']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "AXIOM"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F10",
+      "purpose": "indented print with no report (P08 mutated)",
+      "parent": "P08",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/A.lean:3"
+        ]
+      },
+      "inputs_sha256": "ded5e79c342bd994b7a4f48bf71f66cbfbbc00a4e0f87585e6beb5c8230375b2",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F11",
+      "purpose": "the same report twice at one position (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "DUPLICATE@OIBridge/A.lean:3"
+        ]
+      },
+      "inputs_sha256": "11def6900117ff75a13c6ca48645876e2806a4862b8e194ee24a527e0b52eb76",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F12",
+      "purpose": "report at B's position names OIBridge.A.foo while B prints OIBridge.B.foo (P02 mutated)",
+      "parent": "P02",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISMATCH@OIBridge/B.lean:3"
+        ]
+      },
+      "inputs_sha256": "f32a6721158e97856bcf1a6549567ac49ed45fb3788b2442abf9a730f3c927a3",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F13",
+      "purpose": "report at a position with no print (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "ORPHAN@OIBridge/A.lean:9"
+        ]
+      },
+      "inputs_sha256": "f9b92fc1062dcc6eb2b3a480da9209c5e004354193ab4535d8be65d7712cda23",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (3 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 3,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F14",
+      "purpose": "report-like line that does not parse (axiom list without brackets) (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "UNPARSED@log:3"
+        ]
+      },
+      "inputs_sha256": "90c53c05fd664791c3b812d256f84d3a93097beb8ea09083df1e0b79d24e87c0",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F15",
+      "purpose": "print whose name is on the next line, and no report for it (unsupported form)",
+      "parent": null,
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "UNPARSED@OIBridge/A.lean:4"
+        ]
+      },
+      "inputs_sha256": "c1d01bd87ab0313381ba207b8aa97881e08378f4590373ee44cd8c161c76ef5a",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F16",
+      "purpose": "two prints on one line, both reported (columns 0 and 29)",
+      "parent": null,
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "ORPHAN@OIBridge/A.lean:3",
+          "UNPARSED@OIBridge/A.lean:3"
+        ]
+      },
+      "inputs_sha256": "98574a971829efd6efbba728d403a5cd8f6978f7d76280241156b01ef81378fa",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F17",
+      "purpose": "report column differs from the print's column (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "POSITION@OIBridge/A.lean:3"
+        ]
+      },
+      "inputs_sha256": "c8f0002174bb204a0cb41748e614829dfbb7dadd627df79cea4fbd116c7fedd8",
+      "mutation_verified": true,
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F18",
+      "purpose": "empty log for a tree with prints (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "EMPTY@log",
+          "MISSING@OIBridge/A.lean:3",
+          "MISSING@OIBridge/A.lean:4"
+        ]
+      },
+      "inputs_sha256": "320fee9e55de2d69c4379a8ed61fdac190432425f9ba059ea94715273bfa88f8",
+      "mutation_verified": true,
+      "current": {
+        "exit": 1,
+        "stdout": "  EMPTY  the build produced no axiom report at all; force a rebuild or pass --log from a real compile.\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "EMPTY"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F19",
+      "purpose": "sorryAx outside any report (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "SORRY@log:3"
+        ]
+      },
+      "inputs_sha256": "9969ef82be73fbcc70ed2448878b42bf4e1e16d1898f8eec4f38f992c925a944",
+      "mutation_verified": true,
+      "current": {
+        "exit": 1,
+        "stdout": "  SORRY  1 line(s) of Lean output mention `sorryAx`:\n         warning: OIBridge/A.lean:5:0: declaration uses sorryAx\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "SORRY"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F20",
+      "purpose": "sorryAx in the axiom list of a subscript-name report (P05 mutated)",
+      "parent": "P05",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/R.lean:3",
+          "SORRY@log:2"
+        ]
+      },
+      "inputs_sha256": "e99558e7cf4ce92465649651f9aabcb4b3f8e79a868a0559ff5fcd1e7d29884b",
+      "mutation_verified": true,
+      "current": {
+        "exit": 1,
+        "stdout": "  SORRY  1 line(s) of Lean output mention `sorryAx`:\n         info: OIBridge/R.lean:3:0: 'OIBridge.R.G₀_apply' depends on axioms: [propext, sorryAx]\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "SORRY"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F21",
+      "purpose": "non-ASCII forbidden axiom name on an ASCII report (P01 mutated)",
+      "parent": "P01",
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/A.lean:3"
+        ]
+      },
+      "inputs_sha256": "39919707239ff66f9dd76f86163620fa7b5d5d6fc830549d5a2f3563835c0796",
+      "mutation_verified": true,
+      "current": {
+        "exit": 1,
+        "stdout": "  AXIOM  foo depends on ['OIBridge.A.ax₀']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "AXIOM"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F22",
+      "purpose": "print of foo under open OIBridge.A OIBridge.C resolves to two constants, so two reports share B's position",
+      "parent": null,
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "AMBIGUOUS@OIBridge/B.lean:3"
+        ]
+      },
+      "inputs_sha256": "ee2098de4ec66960a7c0d7bdfde276d4fe3f9a32e9af92e07eb0fc246de29dec",
+      "current": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "current PASS, design FAIL"
+    },
+    {
+      "id": "F23",
+      "purpose": "print of baz under open OIBridge.A renaming foo → baz, reported as OIBridge.A.foo (deliberate fail-closed boundary)",
+      "parent": null,
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "MISMATCH@OIBridge/B.lean:3"
+        ]
+      },
+      "inputs_sha256": "b49c2bef6eba6c2dc1ca3c5d30eec35d066b397e6d02896e2891408275cf487f",
+      "current": {
+        "exit": 1,
+        "stdout": "  SILENT 1 declared `#print axioms` produced no report: ['baz']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "SILENT"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    },
+    {
+      "id": "F24",
+      "purpose": "no prints and an empty log",
+      "parent": null,
+      "hardened": {
+        "verdict": "FAIL",
+        "findings": [
+          "EMPTY@log"
+        ]
+      },
+      "inputs_sha256": "2c98f1c6542cccffaa7e6dd39831ca08ab9a3c598a9c9eef339dddf8e9ebc5e3",
+      "current": {
+        "exit": 1,
+        "stdout": "  EMPTY  the build produced no axiom report at all; force a rebuild or pass --log from a real compile.\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "EMPTY"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "current_matches_prediction": true,
+      "current_vs_design": "agrees"
+    }
+  ]
+}

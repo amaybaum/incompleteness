@@ -123,7 +123,8 @@ verified, and the reference reproduced every hand-written expectation. Over thos
   checker: it reports one named result where two were printed, and the non-ASCII print is seen by
   neither its declared nor its reported set.
 
-A hardening proposal, for separate review, is in [`HARDENING-PROPOSAL.md`](HARDENING-PROPOSAL.md).
+The hardening design, for independent review, is in [`HARDENING-DESIGN.md`](HARDENING-DESIGN.md), with its fixtures in
+[`hardening-design/`](hardening-design/).
 
 ## Limits
 
