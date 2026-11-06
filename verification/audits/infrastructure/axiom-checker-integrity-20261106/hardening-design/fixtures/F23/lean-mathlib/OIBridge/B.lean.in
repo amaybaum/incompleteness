@@ -1,0 +1,4 @@
+namespace OIBridge.B
+open OIBridge.A renaming foo → baz
+#print axioms baz
+end OIBridge.B
