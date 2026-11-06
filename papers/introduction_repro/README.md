@@ -1,7 +1,7 @@
 # introduction_repro — expected result of the Lean 4/Mathlib check for "Observational Incompleteness"
 
 `results-121598983127.json` is the expected result of the Lean 4/Mathlib check, at `17b830bc`, of the
-28 baseline declarations listed in Appendix A of the Introduction (`papers/Introduction.md`) as landed at
+29 baseline declarations listed in Appendix A of the Introduction (`papers/Introduction.md`) as landed at
 `f5efa7a0813218b580272f7fd80a6b0c87eb6657`. The Introduction on `main` has no Appendix A, and this result
 supports no claim in it. It is kept as historical verification evidence: `.github/workflows/evidence-replay.yml`
 reads it from `f5efa7a0` as `EXPECTED_14`, and the 28-module record
@@ -65,7 +65,7 @@ produced no report.
   all. 285 depend on `propext, Classical.choice, Quot.sound`; one, `OIBridge.PhysicalCharacterization.levelOne_eq`,
   which the paper does not cite, depends on `propext` alone.
 
-### The 28 declarations of Appendix A
+### The 29 declarations of Appendix A
 
 Each has exactly one report, and each report is `[propext, Classical.choice, Quot.sound]`, as
 printed. "Decl." is the declaration's line, as Appendix A gives it. "Print" is the line of its
@@ -83,6 +83,7 @@ printed. "Decl." is the declaration's line, as Appendix A gives it. "Print" is t
 | `OIBridge.HiddenMemory.capacity_floor` | HiddenMemory:170 | 201 | `propext, Classical.choice, Quot.sound` |
 | `OIBridge.HiddenMemory.unavoidable_hidden_predictive_memory` | HiddenMemory:185 | 202 | `propext, Classical.choice, Quot.sound` |
 | `OIBridge.C3.c3_necessity` | C3Necessity:80 | 140 | `propext, Classical.choice, Quot.sound` |
+| `OIBridge.C3.c3_necessity_via_hidden` | C3Necessity:88 | 141 | `propext, Classical.choice, Quot.sound` |
 | `OIBridge.C3.card_hidden_ge_two_pow_Istar` | C3Necessity:117 | 143 | `propext, Classical.choice, Quot.sound` |
 | `OIBridge.EquivalenceChain.isPermMatrix_of_stochastic_inverse` | EquivalenceChain:110 | 391 | `propext, Classical.choice, Quot.sound` |
 | `OIBridge.RecurrenceHorizon.pIndivisible_of_rooted_identity_return_of_overlap` | RecurrenceHorizon:148 | 190 | `propext, Classical.choice, Quot.sound` |
