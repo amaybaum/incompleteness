@@ -31,7 +31,7 @@ specified without reference to equality with quantum probabilities.
 | AR-2: drive | `T_k(x,y)=(k X x-y,x)`, `X=[[0,1],[1,0]]`, with exactly loadable `k in [-1,1]`; B1's fixed 24-step words U(theta) are available | The word identities are derived in B1; real coefficients, isolation and control availability are unsourced |
 | AR-3: preparation/composition | Prepare `z=e1`, execute a drive as preparation, then execute an independently selected drive on that same carrier | Explicit composition condition under assessment; not inferred from the single-program B1 example |
 | AR-4: public sign | Copy `1[x1>0]` reversibly into a fresh zero bit and read that bit after the complete copy | B1's declared sensor, now retained in the common interface; physical source open |
-| AR-5: exchange detector | B3's sensor `1[q<|z1|^2/||z||^2]`, record-controlled exchange with a ready reference, and public record after that coupled operation | Added sensor/coupling/resource conditions; no access to an intermediate copy-only factor is inferred |
+| AR-5: exchange detector | B3's sensor `1[q<abs(z1)^2/norm(z)^2]`, record-controlled exchange with a ready reference, and public record after that coupled operation | Added sensor/coupling/resource conditions; no access to an intermediate copy-only factor is inferred |
 | AR-6: resources/access | Keep every physically available record in the correspondence; prepare ready references and independent seeds as stated; provide a common causal reversible controller | The finite witness below is explicit; a compatible realization for all Gate A protocols is not established |
 
 For the B3 benchmark, the two seeds are independent uniform variables in `(0,1)`,
