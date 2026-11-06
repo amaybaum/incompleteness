@@ -237,11 +237,15 @@ that form; no theorem changes.
 
 Preregistration commit `2cc1cbc`, scope amendment above. The kernel module is `OIBridge/PhaseSource.lean`, ten named
 results, each printing only `propext`, `Classical.choice`, `Quot.sound`. Every test reached the
-outcome expected in advance; no proved statement differs from the preregistered one.
+outcome expected in advance. One proved statement is narrower than the preregistered one: T1 was
+preregistered as the absence of a quarter phase at any level with two or more states, and the
+theorem established is the failure of the all-level requirement `PhasesAvailable` on every carrier
+with at least two states, the failure exhibited at level 1, with unavailability at every composite
+level not separately proved; every other proved statement is the preregistered one.
 
 | test | outcome | kernel |
 |---|---|---|
-| T1 | the invariant, general: for every architecture whose admissible isometries fix the all-ones ray, the generated theory has no quarter phase at any level with two or more states, on every carrier with at least two states, by the instrument-realization audit's invariant and `phaseGate_mulVec_ones` | `onesFixing_not_phasesAvailable` |
+| T1 | the invariant, general: for every architecture whose admissible isometries fix the all-ones ray, the generated theory fails the all-level requirement `PhasesAvailable` on every carrier with at least two states, the failure exhibited at level 1 and unavailability at every composite level not separately proved, by the instrument-realization audit's invariant and `phaseGate_mulVec_ones` | `onesFixing_not_phasesAvailable` |
 | T2 | the stated access is ones-fixing: an isometry among the scaled partial permutations has one nonzero entry, the common scalar, in every row, so the sourced class is ones-fixing; its theory has no quarter phase by T1, the same mechanism that decides the flow endpoint; the bijective interventions, the read-write operators and the layer gate flows fix the all-ones vector | `permClass_onesFixing`, `permTheory_not_phasesAvailable_onesFixing`, `bijectiveOperator_mulVec_ones`, `readWriteOperator_mulVec_ones`, `gateFlow_mulVec_ones` |
 | T3 | the distinctions: the quarter phase is not a scalar and its conjugation is not the identity, multiplying the coherence from its state to any other by `i`; every diagonal unitary fixes it under conjugation; a unit scalar acts trivially on every conjugation channel | `phaseGate_not_scalar`, `conjChannel_phaseGate_ne_id`, `diagonal_conj_phaseGate`, `ReachabilitySeam.conjChannel_smul` |
 | T4 | the stipulation, isolated: the quarter phase moves the all-ones ray, and the monomial class of the round-62 interface, which admits it as a phase intervention, is not ones-fixing; it is the one intervention kind of the interface that is not, and the one the kernel's `PhasesAvailable` on the substratum side rests on | `phaseGate_moves_ones`, `substratumClass_not_onesFixing` |

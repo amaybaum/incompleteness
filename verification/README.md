@@ -1014,9 +1014,10 @@ partial permutation matrices, canonical in both directions (`permClass_arch`,
 `permClass_le_of_exchanges`); the observer theory `obsTheory 𝒮 = permTheory (Conf 𝒮)` carries
 the substratum's update and its inverse, the two layers at time one, the read-write operators,
 the exchanges, embedded observation and reversible implementation locality, each an explicit
-sourcing theorem; and it carries no quarter phase, no sign diagonal and no non-scalar diagonal
-unitary, because every operation realized by a bijection-level class preserves matrices with
-nonnegative real entries (`PreservesNonneg`, `bijectionLevel_not_phasesAvailable`,
+sourcing theorem; and it fails the all-level requirement `PhasesAvailable` on every nonempty
+carrier, the failure exhibited at level 2, and at every level carries no sign diagonal and no
+non-scalar diagonal unitary, because every operation realized by a bijection-level class preserves
+matrices with nonnegative real entries (`PreservesNonneg`, `bijectionLevel_not_phasesAvailable`,
 `obs_diagonal_avail_only_scalar`). Q3, the baseline comparison, reaches the third preregistered
 outcome: the sourced theory satisfies `SourcedOI`, the conjuncts of `DerivedOI` other than the
 phases, and is strictly weaker than `DerivedOI` with the exact missing conjunct
