@@ -1,0 +1,5 @@
+namespace OIBridge.R
+
+#print axioms OIBridge.R.G₀_apply
+
+end OIBridge.R
