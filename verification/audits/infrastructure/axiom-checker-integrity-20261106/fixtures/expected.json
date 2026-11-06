@@ -1,0 +1,121 @@
+{
+  "schema": "oi-axiom-checker-demo-expected",
+  "version": 1,
+  "tool": {"path": "tools/lean_axiom_check.py", "git_blob": "8dec29c7b2c63fc083536a8f62c9056930c30d65"},
+  "note": "Written by hand before any run. 'correct' is the outcome a checker keyed on qualified identities and reading Unicode identifiers must return; 'correct_findings' are the defects it must name, as KIND@file:line. 'tool_predicted' is the exit status and problem tags predicted for tools/lean_axiom_check.py by reading its code on main. Tags: SORRY, BUILD, AXIOM, SILENT, EMPTY (the two-space-indented message prefixes the tool prints).",
+  "fixtures": {
+    "C0": {
+      "purpose": "clean: unique ASCII names, every print reported, permitted axioms only",
+      "parent": null,
+      "correct": "PASS",
+      "correct_findings": [],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 2},
+      "justification": "declared_prints gives {foo, bar}; AXIOM_LINE matches foo with only permitted axioms; NO_AXIOM_LINE matches bar; declared - reported is empty."
+    },
+    "C1": {
+      "purpose": "clean: OIBridge.A.foo and OIBridge.B.foo (one short name, two qualified identities), both reported",
+      "parent": null,
+      "correct": "PASS",
+      "correct_findings": [],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 1},
+      "justification": "Both prints collapse to the short name foo, both reports to foo; sets equal; reported has one element."
+    },
+    "C1n": {
+      "purpose": "clean: as C1, but the prints are namespace-relative (`#print axioms foo` inside namespace OIBridge.A / OIBridge.B), the form most prints on main take",
+      "parent": null,
+      "correct": "PASS",
+      "correct_findings": [],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 1},
+      "justification": "As C1: declared {foo}, reported {foo}."
+    },
+    "C2": {
+      "purpose": "clean: an ASCII print and a non-ASCII print (OIBridge.R.G₀_apply), both reported with permitted axioms",
+      "parent": null,
+      "correct": "PASS",
+      "correct_findings": [],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 1},
+      "justification": "The declared pattern [A-Za-z0-9_.']+ followed by \\s*$ fails at the subscript, so the R print is not declared; AXIOM_LINE cannot span the subscript, so the R report is not parsed. Declared {foo}, reported {foo}: PASS, with the non-ASCII result seen by neither side."
+    },
+    "N1": {
+      "purpose": "short-name masking: C1 with the OIBridge.B.foo report removed",
+      "parent": "C1",
+      "mutation": [{"op": "drop", "line": "info: OIBridge/B.lean:3:0: 'OIBridge.B.foo' depends on axioms: [propext, Classical.choice, Quot.sound]"}],
+      "correct": "FAIL",
+      "correct_findings": ["MISSING@OIBridge/B.lean:3"],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 1},
+      "justification": "Declared {foo}; the A report supplies foo; declared - reported is empty, so the missing B report is masked: predicted false PASS."
+    },
+    "N1n": {
+      "purpose": "short-name masking with namespace-relative prints: C1n with the OIBridge.B.foo report removed",
+      "parent": "C1n",
+      "mutation": [{"op": "drop", "line": "info: OIBridge/B.lean:3:0: 'OIBridge.B.foo' depends on axioms: [propext, Classical.choice, Quot.sound]"}],
+      "correct": "FAIL",
+      "correct_findings": ["MISSING@OIBridge/B.lean:3"],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 1},
+      "justification": "As N1: predicted false PASS."
+    },
+    "N2": {
+      "purpose": "non-ASCII name hides a forbidden axiom: C2 with the R report's axioms replaced by [propext, Lean.ofReduceBool]",
+      "parent": "C2",
+      "mutation": [{"op": "replace", "old": "[propext, Quot.sound]", "new": "[propext, Lean.ofReduceBool]"}],
+      "correct": "FAIL",
+      "correct_findings": ["AXIOM@OIBridge/R.lean:3"],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 1},
+      "justification": "The R line is not parsed (C2), so its axiom list is never inspected; the A report keeps reported non-empty: predicted false PASS."
+    },
+    "N2e": {
+      "purpose": "N2 with the ASCII report also removed, so the forbidden non-ASCII report is the only report in the log",
+      "parent": "N2",
+      "mutation": [{"op": "drop", "line": "info: OIBridge/A.lean:3:0: 'OIBridge.A.foo' depends on axioms: [propext, Classical.choice, Quot.sound]"}],
+      "correct": "FAIL",
+      "correct_findings": ["AXIOM@OIBridge/R.lean:3", "MISSING@OIBridge/A.lean:3"],
+      "tool_predicted": {"exit": 1, "tags": ["EMPTY"], "reported_count": null},
+      "justification": "No line parses, so reported is empty and the tool takes the EMPTY branch: a FAIL, but not on the forbidden axiom. Shows N2's false PASS needs at least one parsable report elsewhere in the log, as every real build log has."
+    },
+    "N3": {
+      "purpose": "non-ASCII print with no report: C2 with the R report removed",
+      "parent": "C2",
+      "mutation": [{"op": "drop", "line": "info: OIBridge/R.lean:3:0: 'OIBridge.R.G₀_apply' depends on axioms: [propext, Quot.sound]"}],
+      "correct": "FAIL",
+      "correct_findings": ["MISSING@OIBridge/R.lean:3"],
+      "tool_predicted": {"exit": 0, "tags": [], "reported_count": 1},
+      "justification": "The R print is never declared, so its missing report cannot be SILENT: predicted false PASS."
+    },
+    "N4": {
+      "purpose": "control: ASCII report with a forbidden axiom (C0 mutated)",
+      "parent": "C0",
+      "mutation": [{"op": "replace", "old": "[propext, Classical.choice, Quot.sound]", "new": "[propext, Lean.ofReduceBool]"}],
+      "correct": "FAIL",
+      "correct_findings": ["AXIOM@OIBridge/A.lean:3"],
+      "tool_predicted": {"exit": 1, "tags": ["AXIOM"], "reported_count": null},
+      "justification": "AXIOM_LINE parses foo; Lean.ofReduceBool is outside PERMITTED."
+    },
+    "N5": {
+      "purpose": "control: unique ASCII print with no report (C0 mutated)",
+      "parent": "C0",
+      "mutation": [{"op": "drop", "line": "info: OIBridge/A.lean:4:0: 'OIBridge.A.bar' does not depend on any axioms"}],
+      "correct": "FAIL",
+      "correct_findings": ["MISSING@OIBridge/A.lean:4"],
+      "tool_predicted": {"exit": 1, "tags": ["SILENT"], "reported_count": null},
+      "justification": "Declared {foo, bar}, reported {foo}: SILENT names bar."
+    },
+    "N6": {
+      "purpose": "control: non-ASCII report carrying sorryAx (C2 mutated); the sorryAx rule is a token scan independent of identifiers",
+      "parent": "C2",
+      "mutation": [{"op": "replace", "old": "[propext, Quot.sound]", "new": "[propext, sorryAx]"}],
+      "correct": "FAIL",
+      "correct_findings": ["SORRY@OIBridge/R.lean:3", "AXIOM@OIBridge/R.lean:3"],
+      "tool_predicted": {"exit": 1, "tags": ["SORRY"], "reported_count": null},
+      "justification": "The literal token sorryAx is found on the R line whatever its identifier; the AXIOM rule does not see it (R line unparsed)."
+    },
+    "N7": {
+      "purpose": "control: ASCII declaration whose report names a non-ASCII forbidden axiom (C0 mutated); localizes the character-class gap to declaration names",
+      "parent": "C0",
+      "mutation": [{"op": "replace", "old": "[propext, Classical.choice, Quot.sound]", "new": "[propext, OIBridge.A.ax₀]"}],
+      "correct": "FAIL",
+      "correct_findings": ["AXIOM@OIBridge/A.lean:3"],
+      "tool_predicted": {"exit": 1, "tags": ["AXIOM"], "reported_count": null},
+      "justification": "The axiom list is captured by [^\\]]*, which admits any character, so OIBridge.A.ax₀ is outside PERMITTED and flagged."
+    }
+  }
+}
