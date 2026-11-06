@@ -16,7 +16,10 @@ computation or theorem promotion without separate authorization." The [M1] and [
 c.6676219154 (amaybaum, Claude Code session chat, 2026-11-06, posted 03:38:40Z): "For `|V| = 2`, `|A| ≥ 2`, within
 `PPer`: C0 O⇒G Disproved, strictly coarser; C2-ch O⇒G Disproved, incomparable; C2-sel O⇒G Disproved, incomparable.
 The M-1 alternating-W counterexample supports these changes. M-2 additionally establishes that C-pers separates the
-tested pair without coherent preparation, provided ancilla coherence persists between reads."
+tested pair without coherent preparation, provided ancilla coherence persists between reads. Authorize a separately
+scoped B4′ correction PR with independent review and CI. Preserve frozen `SCOPE.md` and historical results, using
+cross-references instead of rewriting them. Do not infer native physical availability or full OI↔QM equivalence from
+these mathematical results."
 **Base:** `origin/main` `b606ee4116e97e39d90e65a4110dc70f78b7b99d`. The scope's drafting snapshot `D` is `4f016afd`. No
 file under `verification/lean-mathlib/OIBridge/` changed between the two, and every [K] line cited here was re-read at
 the base.
@@ -382,7 +385,8 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
     every root, read list and record [M1 §4.3, §4.4].
   - The pair is not `G`-related (§3.1). With WE, C2-ch and C2-sel are incomparable with `G` in `PPer` at `|V| = 2`,
     `|A| ≥ 2`.
-- **Not equivalent at `|V| ≥ 3`.**
+- **Not equivalent at any `|V| ≥ 2`:** incomparable with `G` (WE with the `W`/`W′` pairs at `|V| = 2`; WE `⊕ 1` with
+  WA′ at `|V| ≥ 3`).
 
 ## §4. S1′: the subgroup C1′ respects
 - **Result:** `𝒢_C1′ = {g : L_t ∈ U(1)·1 for every t; K_t ∈ 𝒲}`. Both inclusions proved [D], at every `|V| ≥ 2` and
@@ -531,22 +535,22 @@ Labels follow scope §5: proved, disproved, conditional, unresolved. ★ marks a
 | C0 | ≥5 | 1 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥5, `\|A\|`=1, no reset, same Γ, `PPer`] | WA with `⊕ 1`; `Γ^alt ⊕ 1` [D] | a native separation |
 | C0 | ≥3 | ≥2 | all (witness outside `PPer`) | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | F ll. 245–249 | a native separation |
 | C0 | ≥3 | ≥2 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, `PPer`] | WA′ [D] | a native separation |
-| C0 | 2 | ≥2 | all (witness outside `PPer`) | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the `W`/`W′` pair [Q §§2–7] | the `PPer` cell; a native separation |
+| C0 | 2 | ≥2 | all (witness outside `PPer`) | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the `W`/`W′` pair [Q §§2–7] | a native separation |
 | C0 | 2 | ≥2 | `PPer` | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
 | C1 | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WB; §2.2 with TSG:839 `mpr` [D] | that P-coh is available |
 | C1′ | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1′, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WC; §2.3, TSG:84 [D] | that any H-fac device is available |
 | C2-auto | 2 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`=2, `\|A\|`=1, Rst-auto, same Γ, `PPer`] | proved | WD; `O_C2 ⊆ O_C0` with F ll. 254–261 [D] | that H-comp or Acc₂ is physical |
 | C2-auto | ≥3 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WD `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WA; `Γ^alt` pair at 4) | WD `⊕ 1`; WA [D] | a native separation |
-| C2-ch | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, outside `PPer`] | WE [D]; the `W`/`W′` pair [Q §§2–7] | the `PPer` O⇒G cell; a native separation |
+| C2-ch | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, outside `PPer`] | WE [D]; the `W`/`W′` pair [Q §§2–7] | a native separation |
 | C2-ch | 2 | ≥2 | `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] | WE [D]; the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
 | C2-ch | ≥3 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`≥3, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`≥3, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WA′) | WE `⊕ 1`; WA′ [D] | a native separation |
-| C2-sel | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE: root `(ok,⊥)` and all-ok) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, outside `PPer`] | WE [D]; the `W`/`W′` pair [Q §§2–7] | the `PPer` O⇒G cell; a native separation |
+| C2-sel | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE: root `(ok,⊥)` and all-ok) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, outside `PPer`] | WE [D]; the `W`/`W′` pair [Q §§2–7] | a native separation |
 | C2-sel | 2 | ≥2 | `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE: root `(ok,⊥)` and all-ok) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, `PPer`] | WE [D]; the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
 | C2-sel | ≥3 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WA′) | WE `⊕ 1`; WA′ [D] | a native separation |
 
 **Equivalence.** Both directions are proved at the same scope only for C0 at `|V| = 2`, `|A| = 1`: there, two-sided
 gauge relatedness and complete-record operational equivalence are equivalent (★, on F's support). In every other
-addressed cell the two notions differ, and the table records in which direction:
+cell the two notions differ, and the table records in which direction:
 - C1 and C1′ refine `G` strictly: O⇒G holds and G⇒O fails.
 - C0 coarsens `G` at `|V| ≥ 3`, and at `|V| = 2`, `|A| ≥ 2` in the all-unitary class and in `PPer`: G⇒O holds and
   O⇒G fails.
@@ -558,9 +562,12 @@ addressed cell the two notions differ, and the table records in which direction:
   - `O_C = R_C` for C0, C1, C1′ and C2-auto (both inclusions proved).
   - For C2-ch and C2-sel, `R_C ⇒ O_C` is proved and `O_C ⇒ R_C` is disproved (WG).
 - **S1′** (§4): `𝒢_C1′ = {L_t scalar, K_t weak}`.
-- **C-pers on the alternating `W`/`W′` pair** [M2 §§4–6]: the reset-free procedure C-pers (roots `e_j`, two Lüders
-  reads on `V`, the ancilla persisting between them) separates the pair with no coherent preparation, provided ancilla
-  coherence persists between the reads (dephasing the ancilla removes the separation, [M2 §5]); it does not resolve
+- **C-pers on the alternating `W`/`W′` pair** [M2 §§1, 4–6]: the reset-free procedure C-pers (root `e_j`; a Lüders
+  read `P_{v₁}` on `V` at `s`; evolution of the full post-read vector, ancilla components kept, by `T_{t,s} = U_tU_sᴴ`
+  (H-comp); a Lüders read `P_{v₂}` at `t`) separates the pair with no coherent preparation [M2 §3 K9, §4], provided
+  ancilla coherence persists between the reads (dephasing the ancilla after the first read removes the separation,
+  [M2 §5]). Read about OI, it is CONDITIONAL[P-conf, Acc_pers, Rd, H-comp, Rst-none with `A` persisting, fixed `a₀`,
+  (r1), (p1)–(p4), (t1), (t2)] [M2 §6]; H-comp and the retention of `A` are SOURCING-GAPs [M2 §6]. It does not resolve
   `G`-classes, since it also separates the `G`-related pair WD [M2 §3 K11, §6], and it establishes no native or
   physical availability.
 - **Conditional block** (§5), each CONDITIONAL[H-comp, Acc₂, Rst-x, P-conf] and relative to `𝒢_C2-x`:
