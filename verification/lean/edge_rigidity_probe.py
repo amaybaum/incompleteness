@@ -4218,7 +4218,9 @@ for _t in ('Preregistration commit `2cc1cbc`', 'Status: pass complete', 'commit 
            '**T1. The invariant, general.**', '**T2. The stated access is ones-fixing.**', '**T3. The distinctions, in the kernel.**',
            '**T4. The stipulation, isolated.**', '**T5. The manuscript census, per entry.**', '**T6. The countercontrol.**',
            '**T7. The surfaces and the checks.**', '| T1 | ', '| T7 | ', 'The verdicts, per entry', 'The headline',
-           'no proved statement differs from the preregistered one', 'negative for the stated access', 'rests on P1, a stipulation',
+           'One proved statement is narrower than the preregistered one: T1 was preregistered as',
+           'the failure exhibited at level 1, with unavailability at every composite level not separately proved; every other proved statement is the preregistered one',
+           'negative for the stated access', 'rests on P1, a stipulation',
            'The missing access, under the scope amendment', 'scope amendment above', 'necessary condition',
            'the sufficient access tested is the quarter-phase intervention itself',
            'Moving the ray is not by itself sufficient', 'moving the all-ones ray is sufficient to source `PhasesAvailable`',
@@ -4230,6 +4232,11 @@ for _bad in ('the manuscripts are wrong', 'DerivedOI is false', 'the phases cann
              'the preregistered Q3 holds', 'Q3 is refuted', 'the phase structure is derived', 'PhasesAvailable is derived',
              'moving the all-ones ray is sufficient', 'the ray-moving condition is sufficient'):
     ok_phase &= not _asserted(_psn, _bad)
+# the outcome states T1 at its proved scope: neither the old identity claim nor the per-level reading returns
+_psn_out1 = re.sub(r'\s+', ' ', _psn[_psn.find('## The outcome'):])
+for _bad in ('no proved statement differs from the preregistered one',
+             'the generated theory has no quarter phase at any level with two or more states'):
+    ok_phase &= _bad not in _psn_out1
 # the amended scope on every outcome-facing surface: the ray-moving condition is necessary, the
 # sufficient access tested is the quarter-phase intervention, and neither is stated as the other
 _psn_out = _psn[_psn.find('## The outcome'):]

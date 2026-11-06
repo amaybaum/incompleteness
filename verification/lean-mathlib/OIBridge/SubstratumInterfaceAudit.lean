@@ -665,7 +665,8 @@ theorem permTheory_sourcedOI : SourcedOI (permTheory A) :=
     fun _ _ _ F l => permTheory_avail_conj (permClass_readWrite F l)
       (by rw [readWriteOperator_eq_perm]; exact permMatrix_isometry _)⟩
 
-/-- **THE SOURCED THEORY CARRIES NO QUARTER PHASE.** -/
+/-- **THE SOURCED THEORY DOES NOT SATISFY `PhasesAvailable`** on a nonempty carrier, the failure
+exhibited at level 2 (`bijectionLevel_not_phasesAvailable`). -/
 theorem permTheory_not_phasesAvailable [Nonempty A] : ¬ PhasesAvailable (permTheory A) :=
   bijectionLevel_not_phasesAvailable permClass_arch permClass_bijectionLevel
 
@@ -840,7 +841,8 @@ theorem obs_availExt_le_substratum {n : ℕ} {O : Type} [Fintype O] [DecidableEq
 
 variable [Nonempty 𝒮.V]
 
-/-- **THE OBSERVER THEORY CARRIES NO QUARTER PHASE.** -/
+/-- **THE OBSERVER THEORY DOES NOT SATISFY `PhasesAvailable`**, the failure exhibited at level 2
+(`permTheory_not_phasesAvailable`). -/
 theorem obs_not_phasesAvailable : ¬ PhasesAvailable (obsTheory 𝒮) :=
   permTheory_not_phasesAvailable
 
