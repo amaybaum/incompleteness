@@ -6542,7 +6542,7 @@ This is not a scientific objection. Scientific content is evaluated on its merit
 
 However, the underlying concern (familiar standards may not be met by an outsider) can be addressed substantively. The framework provides complete proofs in the technical chapters (Chapter 1 for the characterization theorem; Chapter 7 for the gravitational derivations; etc.); two independent derivation routes for key results (Chapter 1 via Barandes correspondence and Stinespring dilation); and explicit falsifiability conditions throughout (Chapter 15 §15.8 BEC test; etc.). The standards the framework meets are *internal scientific standards* (proofs, predictions, falsifiability), not standards based on author identity.
 
-The Acknowledgements section discloses AI assistance transparently. The framework's content is the author's intellectual responsibility; the AI assistance was in drafting, refining argumentation, and literature surveying. The technical content (proofs, derivations, predictions) is the author's work product.
+The author takes responsibility for the framework's scientific content, including its proofs, derivations, predictions, and supporting citations.
 
 **Scope.** "The framework claims to address fundamental physics *and* the origin of life *and* the methodological limits of single-cell bioinformatics. This is too much for a single framework. Each domain deserves its own framework."
 
