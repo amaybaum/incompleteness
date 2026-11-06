@@ -22,8 +22,9 @@ name: evidence replay
 #                     first pinned at staging commit e73f7be3, at papers/introduction_repro/results-121598983127.json,
 #                     byte-identical). An independent re-comparison of the 28-module result's 14 added modules,
 #                     recorded in verification/audits/manuscript/intro-corpus-audit-20261026/unit5-evidence/,
-#                     classifies them as independently audited historical evidence (no fresh reproduction is
-#                     claimed); that review's acceptance is pending on Issue #941, which remains accountable.
+#                     classifies them as independently audited historical evidence, accepted by the owner on
+#                     2026-11-06 (#1031 comment 6681621167); it is not a fresh Lean reproduction, and the
+#                     separate axiom-checker integrity question is Issue #1162.
 #                     The re-pin to 2714278a preserves evidence and is not its acceptance.
 #                     A step fails unless lake built every OIBridge module in the source
 #                     at the commit (228, all reachable from the root module), replayed none, and the 28
