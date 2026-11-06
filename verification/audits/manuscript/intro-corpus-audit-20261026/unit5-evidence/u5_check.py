@@ -15,7 +15,8 @@ SRC = '17b830bcd0ecc36e10eff5b9eeca03bdd7198d86'
 PIN28 = '2714278a7dd9057a73610658478661065152ca97'
 EXP14_C = 'f5efa7a0813218b580272f7fd80a6b0c87eb6657'
 P28 = 'verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-ext/results-121598983127-28.json'
-P14 = 'papers/introduction_repro/results-121598983127.json'
+P14 = 'verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-14/results-121598983127.json'
+P14_HIST = 'papers/introduction_repro/results-121598983127.json'
 LM = 'verification/lean-mathlib'
 PERMITTED = ['propext', 'Classical.choice', 'Quot.sound']
 OD15 = {'PhaseSource': ['permClass_onesFixing', 'onesFixing_not_phasesAvailable'],
@@ -151,7 +152,7 @@ def closure(c, mods, root):
 report = {'main': MAIN, 'source_commit': SRC, 'pin28': PIN28}
 
 # ---- the two expected results -----------------------------------------------------------------
-b28_pin, b28_main, b14 = blob(PIN28, P28), blob(MAIN, P28), blob(EXP14_C, P14)
+b28_pin, b28_main, b14 = blob(PIN28, P28), blob(MAIN, P28), blob(EXP14_C, P14_HIST)
 report['blobs'] = {'28@pin': b28_pin, '28@main': b28_main, '14@f5efa7a0': b14, '14@main': blob(MAIN, P14)}
 if not (b28_pin == b28_main == '97a2377dbfc30987887dffea2b72e423feed079d'):
     fail('28-module blob differs from 97a2377d at the pin or on main')

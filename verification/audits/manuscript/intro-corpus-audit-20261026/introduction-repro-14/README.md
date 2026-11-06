@@ -1,4 +1,4 @@
-# introduction_repro — expected result of the Lean 4/Mathlib check for "Observational Incompleteness"
+# introduction-repro-14 — expected result of the Lean 4/Mathlib check for "Observational Incompleteness"
 
 `results-121598983127.json` is the expected result of the Lean 4/Mathlib check, at `17b830bc`, of the
 29 baseline declarations listed in Appendix A of the Introduction (`papers/Introduction.md`) as landed at
@@ -147,7 +147,7 @@ git show 48b18ac54e39920a4fc4bbb8ee1d1b6cebea2c29:verification/audits/evidence-r
 (cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1
 (cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1
 python3 -I <tools>/extract_result.py <log> > reproduced.json
-python3 -I <tools>/compare_result.py papers/introduction_repro/results-121598983127.json reproduced.json --tree <dir>
+python3 -I <tools>/compare_result.py verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-14/results-121598983127.json reproduced.json --tree <dir>
 ```
 
 The comparison fails closed. It requires a successful build; the gate's verdict and each of the 22
@@ -171,10 +171,17 @@ These were run on a scratch copy with the archive's tools from `48b18ac5`; no re
   and an extra `#print axioms` in a source.
 - `extract_result.check` against the 14 sources: no failure, no gap.
 
-## Location
+## Location and historical references
 
-This package sits beside `papers/Introduction.md`, which at `f5efa7a0` cites it for the baseline declarations of
-its Appendix A, in the layout `papers/main_repro/` has beside `papers/Main.md` (AGENTS.md §A.42 item 1: the result to expect, in a small structured
-file beside the record). The file keeps the archive's name for an
-expected result, `results-<job>.json`. It is not added to the frozen evidence-retention archive, which left the tree
-at `5c4e5087` and is read only from history.
+The 14-module result and this README were relocated from `papers/introduction_repro/` to
+`verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-14/` after the Appendix A source was retired from the Introduction.
+The result JSON is preserved **byte for byte** (Git blob
+`61cfd6ea2df4590cc2ff86f90fc8f50ab71201f7`).
+
+The independent Unit 5 review and closure ledger retain their historical references to
+`papers/introduction_repro/` because they describe the repository at their original reviewed commits.
+They must be interpreted at those commits, not as an assertion about the current file layout.
+The `evidence-replay.yml` workflow intentionally resolves `EXPECTED_14` at the
+historical commit `f5efa7a0` and its original path; this is unaffected by the move.
+The adjacent `../introduction-repro-ext/` directory retains the 28-module extension.
+No current Introduction manuscript claim depends on this historical result.
