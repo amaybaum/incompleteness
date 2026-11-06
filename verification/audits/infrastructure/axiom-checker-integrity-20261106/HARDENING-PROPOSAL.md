@@ -11,7 +11,8 @@ PASS for short-name masking (fixtures N1, N1n) and for non-ASCII identifiers (N2
 ## Constraint from the sources on `main`
 
 Most prints are written relative to an open namespace: of the 6193 `#print axioms` lines in
-`verification/lean-mathlib/OIBridge/`, 1783 begin with `OIBridge.` (counted with
+`verification/lean-mathlib/OIBridge/` (the checker scans all of `verification/lean-mathlib/`, which
+adds 19 prints in `OIBridge.lean`), 1783 begin with `OIBridge.` (counted with
 `grep -rh '^#print axioms' verification/lean-mathlib/OIBridge | awk '{print $3}' | grep -c '^OIBridge\.'`
 at `63671259`). So the name as written is not a qualified identity, and qualifying it from the source
 would need Lean's namespace and `open` resolution. The report, however, carries both the fully
@@ -30,12 +31,17 @@ proposed below.
 
    The checked identity is then `(module, fully qualified name)`. Messages name it in full.
 2. **Unicode-aware parsing.**
-   - Accept any non-whitespace name in the print pattern, `^#print axioms[ \t]+(\S+)[ \t]*$`, which
-     also covers `«»`-escaped names.
+   - Accept any non-whitespace name in the print pattern, `^#print axioms[ \t]+(\S+)[ \t]*$`. This
+     covers `«»`-escaped names that contain no whitespace. An escaped name with a space, such as
+     `«a b»`, does not match and falls to the fail-closed rule of item 3, which is safe but would
+     need a dedicated pattern if such names are ever printed.
    - Parse the report name as the text between the quote after the position prefix and the last
      `' depends on axioms: [` or `' does not depend on any axioms` on that line.
    - Keep the existing `[^\]]*` axiom-list capture, which already spans wrapped lines and any
-     characters.
+     characters. A wrapped report is parsed from its first line: the position prefix, the quoted
+     name and `depends on axioms: [` sit on that line, and the capture runs on to the closing `]`
+     on a later line. The fail-closed rule of item 3 applies to that first line; continuation lines
+     carry neither trigger phrase.
 3. **Fail closed on unparsed input.**
    - Any log line that contains `depends on axioms` or `does not depend on any axioms` and does not
      parse is a failure.

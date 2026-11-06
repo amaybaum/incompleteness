@@ -5,10 +5,10 @@ For every fixture under fixtures/ this script
   1. checks that a mutated fixture is exactly its parent with the stated
      mutation applied to the log, and has the parent's sources;
   2. materializes a synthetic root in a temporary directory
-     (<tmp>/<ID>/root/verification/lean-mathlib/OIBridge/*.lean, from the
+     (<tmp>/<ID>/tree/verification/lean-mathlib/OIBridge/*.lean, from the
      fixture's *.lean.in files, and <tmp>/<ID>/build.log);
   3. runs the unmodified production checker as a subprocess,
-         python3 -I tools/lean_axiom_check.py --root <root> --log <log>
+         python3 -I tools/lean_axiom_check.py --root <tree> --log <log>
      and records its exit status and output;
   4. runs reference_checker.py on the same inputs;
   5. compares both with the hand-written expectations in fixtures/expected.json.
@@ -97,7 +97,7 @@ def main():
                 row['mutation_verified'] = (
                     psrc == sources
                     and apply_mutation(plog, exp['mutation']) == log)
-            root = os.path.join(tmp, fid, 'root')
+            root = os.path.join(tmp, fid, 'tree')
             for rel, data in sources.items():
                 assert rel.endswith('.lean.in')
                 dst = os.path.join(root, 'verification', 'lean-mathlib',

@@ -25,9 +25,17 @@ restated on #1162, comment 6681420259, 2026-11-06T09:14:45Z):
 >
 > Not authorized: editing the production checker, changing proof grades, rerunning unrelated studies, or weakening the current release gate.
 
-**Placement (§A.36).** No existing audit family covers verification tooling. `operational/` and
-`physical-realization/` hold physics audits, `manuscript/` holds corpus audits, and
-`provenance-errata/` holds record provenance. This record therefore opens the family
+**Placement (§A.36).** No existing audit family covers verification tooling:
+
+- `foundations/`, `operational/` and `physical-realization/` hold audits of the framework's physics
+  and its foundations;
+- `manuscript/` holds corpus audits;
+- `evidence-pruning/` holds the evidence-pruning ledger;
+- `provenance-errata/` holds record provenance.
+
+`verification/infrastructure/` holds the records of verification-infrastructure *rounds* (the V3,
+SI, CV, GR and GH rounds and the legacy-records manifest), and parts of it are closed namespaces. This
+record is an audit, not a round, so it goes under `verification/audits/` and opens the family
 `verification/audits/infrastructure/`.
 
 ## Object under test
@@ -55,8 +63,8 @@ the blob before it uses the file. The relevant code:
    (`correct`, `correct_findings`), the predicted outcome of the production checker (`tool_predicted`:
    exit status, problem tags, reported count) and the reasoning.
 3. **Production checker.** `run_demo.py` copies each fixture into a temporary directory as
-   `<tmp>/<ID>/root/verification/lean-mathlib/OIBridge/*.lean` and `<tmp>/<ID>/build.log`. It then
-   runs `python3 -I tools/lean_axiom_check.py --root <tmp>/<ID>/root --log <tmp>/<ID>/build.log` as a
+   `<tmp>/<ID>/tree/verification/lean-mathlib/OIBridge/*.lean` and `<tmp>/<ID>/build.log`. It then
+   runs `python3 -I tools/lean_axiom_check.py --root <tmp>/<ID>/tree --log <tmp>/<ID>/build.log` as a
    subprocess, with `LC_ALL=C.UTF-8`. No wrapper and no import are used: the CLI already takes a root
    and a log.
 4. **Independent check of the expectations.** `reference_checker.py` is a separate evaluator that
@@ -109,7 +117,8 @@ verified, and the reference reproduced every hand-written expectation. Over thos
   forbidden-axiom rule works for an ASCII declaration. N7 shows that the gap is in the identifier
   pattern for declaration names, not in the axiom-list parsing. N6 shows that the `sorryAx` token
   rule is independent of identifiers. N2e fails only through the EMPTY rule, because no report in its
-  log parses. Every real build log contains parsable reports, so N2 is the operative case.
+  log parses. A log with at least one parsable (ASCII-named) report takes N2's path instead; this
+  record does not measure which path any real build log takes.
 - **Clean cases** C0, C1, C1n and C2 pass under both checkers. C2's PASS is vacuous for the production
   checker: it reports one named result where two were printed, and the non-ASCII print is seen by
   neither its declared nor its reported set.
@@ -133,13 +142,15 @@ A hardening proposal, for separate review, is in [`HARDENING-PROPOSAL.md`](HARDE
 
 ## Reproduce
 
+Commit: the commit at which this record lands on `main`. Any later commit with the same record
+directory and the same blob of `tools/lean_axiom_check.py` (`8dec29c7…`) gives the same result.
 From the repository root, with Python 3 (3.13 was used):
 
 ```sh
+OUT="$(mktemp)"
 python3 -I verification/audits/infrastructure/axiom-checker-integrity-20261106/run_demo.py \
-  --out /tmp/axiom-demo-results.json
-cmp /tmp/axiom-demo-results.json \
-  verification/audits/infrastructure/axiom-checker-integrity-20261106/results.json
+  --out "$OUT"
+cmp "$OUT" verification/audits/infrastructure/axiom-checker-integrity-20261106/results.json
 ```
 
 Expected: exit 0, the verdict line
