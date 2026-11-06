@@ -431,12 +431,13 @@ separated by T-sep₁ (re-derived in K-g (g3)). Its O⇒G cell stays open.
   ll. 107–125, the hand algebra of §§1–10, the decision-rule evaluation (§11) and the scope (§12).
 - Merged via #1151 as the true merge commit `f810f5ee`. **Status clarification, 2026-11-06** (owner ruling #1031
   c.6676596803, item 3):
-  - The three B4′ `PPer` O⇒G matrix changes of §13 (rows l. 517, l. 523, l. 526, with their "Does NOT establish"
-    cells) were approved (#1031 c.6676473885) and landed through #1156, merge `c95f2f9e`. The same change corrected
-    the B4 passages §13 lists: l. 281, l. 364, the Equivalence summary, and §9's premise ledger (l. 584), "Does NOT
-    establish" and "Proposals".
+  - The three B4′ `PPer` O⇒G matrix changes of §13 (rows l. 517, l. 523, l. 526 at `f051916a`, as in §13, with their
+    "Does NOT establish" cells) were approved (#1031 c.6676219154; merge of #1156 approved in c.6676473885) and landed
+    through #1156, merge `c95f2f9e`. The same change corrected the B4 passages §13 lists: l. 281, l. 364, the
+    Equivalence summary, and §9's premise ledger (l. 584), "Does NOT establish" and "Proposals".
   - That merge does not approve or complete the other §13 proposals, which remain pending:
-    - the cross-references from RES to this record (RES carries none; B4′ §9 names those RES passages instead);
+    - the cross-references from RES to this record (RES carries none; B4′ §9 cites those RES passages by section, in
+      the other direction);
     - the #1143 specification updates in c.6665278924: the two §3 `PPer` O⇒G rows, F4's "C2 laws open" and the §4.3
       note;
     - the optional T-V row.
