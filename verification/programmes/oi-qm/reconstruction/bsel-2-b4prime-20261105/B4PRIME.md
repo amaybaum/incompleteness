@@ -2,13 +2,15 @@
 
 **Status:** paper derivations by hand, independently model-reviewed: ACCEPT WITH CHANGES at `3ea33001`, delta
 checks ACCEPT at `7fe4cd86` and `25df10c5` (#1123 c.6654184712, c.6654331521, c.6655101546; owner merge approval
-#1033 c.6656671521); the [Q] matrix rows, ACCEPT at `ef45cb76` (#1144 c.6664044354). The review reports are GitHub
-comments and are provenance only (§A.42 item 8). What can be checked from `main` is this record's [D] derivations,
-by hand, against the definitions and [K] statements it cites, subject to the §9 premise ledger; no [D] result is
-kernel-checked. The `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` rest on [M1], and the C-pers statement of §8 on
-[M2]: hand derivations in those records, independently model-reviewed (#1151 c.6665869201, c.6665968807; #1149
-c.6668322323), none kernel-checked. Outside the established scope: native lifts and physical sourcing (§9).
-Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695).
+#1033 c.6656671521); the [Q] matrix rows, ACCEPT at `ef45cb76` (#1144 c.6664044354); the Unit 2a re-anchoring (the
+[D] re-derivations of §3.1 and W0.3, checked against the cited kernel lines), ACCEPT WITH CHANGES at `4a3621aa`
+(#1161 c.6678645083). The wording changes made after `4a3621aa` in response to that review await a delta check.
+The review reports are GitHub comments and are provenance only (§A.42 item 8). What can be checked from `main` is
+this record's [D] derivations, by hand, against the definitions and [K] statements it cites, subject to the §9
+premise ledger; no [D] result is kernel-checked. The `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` rest on [M1], and the
+C-pers statement of §8 on [M2]: hand derivations in those records, independently model-reviewed (#1151
+c.6665869201, c.6665968807; #1149 c.6668322323), none kernel-checked. Outside the established scope: native lifts
+and physical sourcing (§9). Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695).
 **Scope:** `SCOPE.md` in this directory, a verbatim copy of the reviewed scope r3 (sha256 `df40103e…a3dd54cd`).
 **Authorization:** owner approval to start, #1033 c.6653677971 (amaybaum, Claude Code session chat, 2026-11-05):
 "Approved to start the independently reviewed paper-only unit. Proceed within its reviewed scope. No new scientific
