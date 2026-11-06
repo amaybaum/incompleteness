@@ -3,8 +3,8 @@
 **Status.** The 28-module result in this directory supports no manuscript claim and is not an accepted
 result. An independent review, recorded in `../unit5-evidence/`, re-compares each of the 248 reports of
 its 14 added modules, by module and fully qualified name, with the pinned historical log of job
-121598983127, the archived fresh-build log of run 40457712855, the source at `17b830bc` and this file,
-and finds no mismatch. It classifies the 14 added entries as independently audited historical evidence;
+121598983127, the archived fresh-build log of run 40457712855, the source at `17b830bc` and
+`results-121598983127-28.json`, and finds no mismatch. It classifies the 14 added entries as independently audited historical evidence;
 no fresh reproduction is claimed. That review's acceptance is pending on #941, which remains the
 accountable Issue. Retaining the result here is not scientific acceptance: it promotes nothing and
 strengthens no claim (AGENTS.md §A.42 item 6; §A.46 items 1, 3, 4 and 7).

@@ -5,7 +5,8 @@ the closure ledger or the evidence it reviews. It was carried out under the owne
 comment 6677500012 (amaybaum, 2026-11-06T05:11:33Z), items 11, 12, 13 and 17, and it applies, in its §7,
 the verification standard of #1031 comment 6678672357 (amaybaum, 2026-11-06T06:26:04Z), section 3:
 "Choose CI plus independent re-comparison, not a new full Lean build at this stage." Its §7 governs
-wherever its §§0–2 are worded differently.
+wherever its §§0–2 are worded differently, and the §A.42 item 8 table at the end of this README governs
+wherever its §6 classifies a reference differently.
 
 **Result, as the standard requires it to be described.** For OD-15 (the three declarations
 `OIBridge.PhaseSource.permClass_onesFixing`, `OIBridge.PhaseSource.onesFixing_not_phasesAvailable` and
@@ -113,6 +114,10 @@ record of what the logs contained.
   CI: H, a cached build whose reports are replays of an earlier elaboration of the same sources, and F,
   a CI build from an empty `.lake/build` dispatched by the evidence's author, not by the reviewer.
 - H is a CI job log held by GitHub, not on `main`, and pinned only by the digests above.
+- The comparison parses log text, which AGENTS.md §A.44 otherwise excludes from verdicts about what a
+  CI run showed, because the owner's standard names the pinned historical log as the object compared.
+  H is read whole through the API, not as a served tail, and F's reports are corroborated by the
+  artifact's structured `reproduced.json` (the artifact layer of `u5_check.py`).
 - Current-source CI on `main` (table below) checks only that each reported axiom lies within the
   permitted set, not the exact list; the gate's checker reads names by short name and only ASCII names.
   Those gaps are tracked in #1162. All three OD-15 declarations and all 248 EV-28 reports have ASCII,
@@ -135,8 +140,8 @@ The run and job ids are provenance (AGENTS.md §A.42 item 2).
 
 | reference | classification |
 | --- | --- |
-| job 121598983127 / run 40330683786 (H) | support off `main` for the exact axiom lists, accepted by the owner's standard as historical archived evidence; the content used is landed in `u5_reports.tsv`, and H is pinned by digest |
-| run 40457712855, artifact 12714762314 (F and the artifact layer) | as above, for F; the artifact is pinned by its zip digest and `SHA256SUMS` |
-| runs 42164140276, 42174428450 (step conclusions) | support off `main` for "the current sources pass the gate's subset check"; CI, provenance under §A.42 item 2 |
+| job 121598983127 / run 40330683786 (H) | support on `main`: the per-report content the claims use (module, fully qualified name, line and axiom list of each of the 248 reports, the three OD-15 declarations among them) is in `u5_reports.tsv`. The log itself is provenance, pinned by the digests above and re-checkable against the TSV while the host retains it |
+| run 40457712855, artifact 12714762314 (F and the artifact layer) | support on `main`, as above, for F; the artifact itself is provenance, pinned by its zip digest and `SHA256SUMS` |
+| runs 42164140276, 42174428450 (step conclusions) | provenance; the claim that the current sources pass the gate's subset check regenerates from `main` through the release gate (step `lean-axioms`) at `374b2ef3` |
 | #941 comment 6677500012; #1031 comment 6678672357 | the owner rulings governing the review and its standard |
 | the review's own §6 table | the review's classification of the further references it makes, for EV-CI-1, EV-CI-3 and EV-L |
