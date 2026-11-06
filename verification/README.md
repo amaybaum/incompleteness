@@ -1131,8 +1131,10 @@ two states has four, and it is proved there and not elsewhere (`onesTheory_not_p
 pair fixes the ray and no negative is claimed. So on `Fin 2`, with the exchange as the layer, a
 theory with the sourced closure and the executable layer flow and without phase-free richness
 exists (`flow_endpoint_refuted`), and on every carrier with at least two states for every
-involution (`flow_endpoint_refuted_general`). The witness carries no quarter phase, fails
-`PhasesAvailable`, `DerivedOI` and `SubstratumAvail`, and is not quantum mechanics
+involution (`flow_endpoint_refuted_general`). On every carrier with at least two states the witness
+fails the all-level requirement `PhasesAvailable`, the failure exhibited at level 1 and
+unavailability at every composite level not separately proved, and fails `DerivedOI` and
+`SubstratumAvail`; it is not quantum mechanics
 (`onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`, `onesTheory_not_substratumAvail`,
 `onesTheory_not_qm`): the absence of phases witnesses the failure of the substratum's
 availability, the full gap to it not characterized; the lift audit's Q3′ is sharp in its
