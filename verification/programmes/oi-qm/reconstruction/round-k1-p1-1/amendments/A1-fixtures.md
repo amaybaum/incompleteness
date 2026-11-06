@@ -305,7 +305,9 @@ fixed point, so `u_c[0000]` is its `δ_0`, on which PR-CR6′ runs.
 
 ## 5. Interface negatives NF-1 to NF-7
 
-Each is paired with a control that differs only in the defect and must exit 0 with the expected output.
+Each is paired with a control that differs only in the defect and must exit 0 with the expected output. Each negative
+must exit 2 and leave `<out>` exactly as it was before the run: empty, or, for NF-4, holding only the file placed there
+(A1 §4: nothing is written on a nonzero exit).
 
 | Id | Programs | Defect | Exit | Control |
 |---|---|---|---|---|
@@ -321,7 +323,7 @@ Each is paired with a control that differs only in the defect and must exit 0 wi
 
 Each analogue applies its operations (JSON paths, `A1-fixtures.json` `analogues`) to the named output: to both A's and
 B's (`A+B`), so that A/B agreement holds and the content check is reached, or to one program's only. The named check
-must fail; a check marked "refused" must report refused. Before any analogue, every check named in this table is run on
+must fail; a check marked "refused" must report refused. CC-PART′'s sub-tests (p1) to (p7) are those of A1 §7. Before any analogue, every check named in this table is run on
 the unmutated outputs of the same fixture and must pass: that is each analogue's paired control. The primed checks are
 `controls.py`'s own checks (A1 §11.2), applied to fixture outputs.
 
@@ -329,13 +331,13 @@ the unmutated outputs of the same fixture and must pass: that is each analogue's
 |---|---|---|---|---|
 | MU-1 | AN-1 | SF-3 | delete row 22 (`u_c[0111]`, B-ct) | CC-ROWS′; CT-INC′ refused |
 | MU-2 | AN-2 | SF-3 | duplicate row 2 | CC-ROWS′ |
-| MU-3 | AN-3 | SF-1b | exchange `0111` and `1000` between the cycles of `0000` and `0110`: sizes, keys, sortedness and coverage stay valid | CC-PART′ (closure: `φ(0000) = 0111` leaves the set) |
-| MU-4 | AN-4 | SF-1a | drop `1011` from the 6-cycle; size 5; histogram adjusted | CC-PART′ |
-| MU-4 | AN-4s | SF-3 | drop `0101` from `u_c[0001]`; size 2; histogram adjusted | CC-PART′; CT-INC′ refused |
+| MU-3 | AN-3 | SF-1b | exchange `0111` and `1000` between the cycles of `0000` and `0110`: sizes, keys, sortedness and coverage stay valid | CC-PART′ (p3, closure: `φ(0000) = 0111` leaves the set) |
+| MU-4 | AN-4 | SF-1a | drop `1011` from the 6-cycle; size 5; histogram adjusted | CC-PART′ (p1, p2) |
+| MU-4 | AN-4s | SF-3 | drop `0101` from `u_c[0001]`; size 2; histogram adjusted | CC-PART′ (p1, p2); CT-INC′ refused |
 | MU-5 | AN-5 | SF-3 | row 0 `weak[""]` := `"0.5"` | EXACT′ |
 | MU-6 | AN-6 | SF-3, A only | row 12 `weak["00"]` := `"15/16"` (changed by `1/16 = 1/|S|`) | AB′, EXPECTED′ |
 | MU-7 | AN-7 | SF-3 | exchange rows 2 and 3 | CC-ROWS′ |
-| MU-7 | AN-7m | SF-1b | exchange members 2 and 3 | CC-PART′ (member order) |
+| MU-7 | AN-7m | SF-1b | exchange members 2 and 3 | CC-PART′ (p7, member order) |
 | MU-8 | AN-8 | SF-3 | `region.E` := `["x_1"]` | PR-E′ |
 | MU-9 | AN-9 | SF-3 | row 0's G4 and `token` := `BLIND[π_0; B-pl; H-cur (declared)]` | TOKENS′ |
 | MU-10 | AN-10 | SF-3 | `union_clause_reached["B-pl"]` := `true` | PR-CR6′ |
@@ -346,10 +348,10 @@ the unmutated outputs of the same fixture and must pass: that is each analogue's
 | MU-C3 | MU-C3′ | SF-3 | the frozen MU-C3 patch applied to a temporary copy of A | A exits 3 |
 | — | AN-CYC | SF-2p, B | `cycles["4"]` := 2 in `fixture-cyc2.json` | CC-CYC2′ |
 | — | AN-MASS | SF-3 | row 9 `mass["00"]` := `"1/2"` | CC-MASS′ |
-| — | AN-MO | SF-1a | merge the 2-cycle and the 3-cycle into one entry keyed `0001` | CC-PART′ (single orbit) |
-| — | AN-KL | SF-1b | key of the 4-cycle `0010` := `0100` | CC-PART′ (least key) |
-| — | AN-US | SF-1b | states of `0000` in walk order | CC-PART′ (sorted) |
-| — | AN-DS | SF-1a | `0010` added to the fixed point `0000` | CC-PART′ (each state once) |
+| — | AN-MO | SF-1a | merge the 2-cycle and the 3-cycle into one entry keyed `0001` | CC-PART′ (p4, single orbit) |
+| — | AN-KL | SF-1b | key of the 4-cycle `0010` := `0100` | CC-PART′ (p6, least key) |
+| — | AN-US | SF-1b | states of `0000` in walk order | CC-PART′ (p5, sorted) |
+| — | AN-DS | SF-1a | `0010` added to the fixed point `0000` | CC-PART′ (p1, each state once) |
 
 **No synthetic analogue, with the reason:**
 - **MU-12** (an S0 outcome `fail`): the eleven S0 controls are defined only at the instance (`K` §6); a fixture has none.

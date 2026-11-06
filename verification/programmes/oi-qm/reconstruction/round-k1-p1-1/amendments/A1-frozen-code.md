@@ -4,8 +4,9 @@
 table is completed by a revision of this file before `F`, under the owner's authorization (b) of preregistration §13,
 which has not been given. It authorizes nothing listed in §19.
 
-**Governs:** preregistration §6 (R9 and CLASS, output conventions only), §8.1 (declared inputs), §8.4 item 3, §9
-(CT-INC), §10.1 to §10.4, §11.2, §11.3, §13 (X5's command), §15, and §19 ("Text and scope"; Finding 10's categories). It
+**Governs:** preregistration §4 (PR-CR6's pass condition, Q26), §6 (R9 and CLASS, output conventions only), §8.1
+(declared inputs), §8.4 item 3, §9 (CC-PART's sub-tests and CT-INC), §10.1 to §10.4, §11.1 (S0 failure, Q5), §11.2,
+§11.3, §13 (X5's command), §15, and §19 ("Text and scope"; Finding 10's categories). It
 settles the open questions Q1 to Q31 of the stage-2 independent static review and the synthetic-fixture review's
 requirements (§17). Under preregistration §2 ("Precedence") it governs procedure and outputs only. It changes no gate,
 token, control, hypothesis or decision of `K`, and no member, member order, row set or count. Where this amendment and
@@ -32,8 +33,9 @@ Quoted with author and time, as preregistration §19, Finding 12, requires for a
 > documentation revision. Not authorized: `F` designation, K1-instance enumeration, scientific execution, workflow
 > dispatch, `E`, merge or theorem promotion. Each retains its separate gate.
 
-**Rulings for this amendment.** amaybaum, 6 November 2026 session handoff, recorded in #1031 comment 6678956167
-(2026-11-06T06:44:11Z), section "K1-P1-1 pre-F amendment (#1031, #1135)":
+**Rulings for this amendment.** amaybaum's 6 November 2026 session handoff, as summarized in #1031 comment 6678956167
+(2026-11-06T06:44:11Z), which describes itself as "a summary of the decisions in the handoff"; section "K1-P1-1 pre-F
+amendment (#1031, #1135)":
 
 > - The proposed Q1–Q29 readings are the working basis for amendment drafting. This handoff records the following
 >   specific readings. The full Q1–Q29 table still needs to be recovered from the prior session for an exact amendment.
@@ -60,8 +62,10 @@ scientific execution or theorem promotion."
 given. The revision that completes §14 quotes it with author and time (§15).
 
 **The Q1–Q29 readings.** The handoff names them as the working basis and notes that the full table had to be recovered.
-They are the proposals of §4 of the independent static review (§17, `STATIC-REVIEW.md`). This amendment states each one
-in full in §2, so no ruling here depends on that file's text. Where the owner gave a specific reading (Q4, Q6, Q18, Q26),
+They are the proposals of §4 of the independent static review (§17, `STATIC-REVIEW.md`). That review and the
+synthetic-fixture review (`FIXTURE-REVIEW.md`) are held off-repository by the coordinator and are not on `main` or on
+GitHub. This amendment states each reading in full in §2, so no ruling here depends on either file's text, and the
+owner's approval under (b) adopts this amendment's text itself; the two reviews remain provenance (§A.42 item 8). Where the owner gave a specific reading (Q4, Q6, Q18, Q26),
 it is applied as given. A ruling below marked **drafter's proposal** goes beyond the static review's proposal. It is
 offered under the Q18 ruling or as the means of carrying out an adopted reading, and it needs the owner's approval with
 authorization (b) (§16 lists them).
@@ -118,8 +122,10 @@ case only, and a `true` union flag occurs only with a `null` class token.
 §11.1: "A computed S0 part that fails gives VOID[stage] under `K`'s §5.4: no row or class token is issued." §10.1: "2 for
 a refusal (a stage precondition, or CT-INC)".
 
-**Normative text.** At `members`, A and B write the gate table with the failing control's `outcome` `"fail"` and exit 0;
-`controls.py run` records PR-S0 `fail` and writes no stage file into the record directory (H10). At `rows` and `final`,
+**Normative text.** At `members` (**drafter's proposal**, §16; neither the static review's proposal, which concerns
+`rows` and `final`, nor the reconstructed table's unqualified "S0 failure exits 2"), A and B write the gate table with
+the failing control's `outcome` `"fail"` and exit 0, so that the failure is kept as structured data; `controls.py run`
+records PR-S0 `fail`, exits 1, and writes only the checks file (H10). At `rows` and `final` (working basis),
 an S0 control that A or B computes as failing is a stage-precondition refusal: exit 2, nothing written. All of A's and
 B's refusals exit 2 and write nothing, so their order among themselves does not affect any output. `controls.py`'s
 refusal order is §6's.
@@ -160,9 +166,10 @@ row."
 - refuse (2) unless the top level has exactly the keys `schema` (`"k1p1-adversarial"`), `version` and `rows`, with
   `version` of JSON integer type equal to 1 (`true` is refused), and `rows` a list;
 - refuse (2) unless every entry has exactly the keys `branch`, `member`, `token` and `note`, all strings;
-- refuse (2) on two entries with the same (`branch`, `member`);
-- ignore an entry naming a row that does not pass G5, and read entries by key, not by position. ADV-INDEX (§10) fails on
-  such an entry and on entries out of row order.
+- refuse (2) on two entries with the same (`branch`, `member`) (**drafter's proposal**, §16);
+- ignore an entry naming a row that does not pass G5, and read entries by key, not by position (**drafter's proposal**,
+  §16; it makes A's and B's behaviour on such entries identical). ADV-INDEX (§10) fails on such an entry and on entries
+  out of row order.
 
 ### Q11. Strictness of `class-decisions.json` (working basis)
 
@@ -217,7 +224,7 @@ Carried out in §9.
 
 Carried out in §10.
 
-### Q20. MU-11 when no row passes G5 (working basis)
+### Q20. MU-11 when no row passes G5 (working basis; the mutation token a drafter's proposal)
 
 Carried out in §10.
 
@@ -240,7 +247,7 @@ The controls writer's readings, as recorded in its checkpoint (#1135 comment 667
   implementations; only the `mass` re-sum is.
 - **Q26, reading (g)**, a pending `δ_0` row at `rows` counted as not positive: **replaced by the owner's strict
   ruling**. Normative text for PR-CR6's pass condition (§4): at `rows` and `final`, PR-CR6 fails if any `δ_0` row
-  (member `"0000000000"`) passes G5, whether its token is a positive or `"pending"`, or if any branch's
+  (member `"0000000000"`) passes G5, whatever its later gates or token, or if any branch's
   `union_clause_reached` is `true`. Grounds: CR-6's proof (`PROOFS.md` §6.3, on `main`) states that under `δ_0` "G4, if
   reached, issues VOID[row] or BLIND", so a `δ_0` row that passes G5 contradicts the proof whatever its later token.
   This is H3 (§14).
@@ -288,9 +295,10 @@ remains. Nothing is written on a nonzero exit.
 
 **`controls.py`.** `run`: 0 when every check passes and the stage's files are written; 1 when a check fails; 2 on a
 refusal or usage error. In all three cases it writes the stage's checks file (§10.1's "in every case"), recording the
-checks performed up to and including the refused precondition. `check` and `self-test`: 0 when everything holds, 1
-otherwise, 2 on a usage error or a missing or mis-pinned input to the self-test itself (`A1-fixtures.json`, a patch).
-`render`: §9.
+checks performed up to and including the refused precondition. `check`: 0 when everything holds, 1 otherwise, 2 on a
+usage error. `self-test`: 0 when every case holds; 1 when a case fails, including a patch whose hunks do not apply; 2 on
+a usage error, or when a self-test input (`A1-fixtures.json` or a patch file) is absent or its SHA-256 differs from the
+constant frozen in `controls.py`. `render`: §9.
 
 ## 5. The fixture interface (Q6, option (i))
 
@@ -334,7 +342,9 @@ input naming the K1 instance, its dynamics or its states can reach any computati
 
 ### 5.3 Inputs (all fields required, no others)
 
-- `perm`: `id`, `kind`, `cells` (the state width and names), `image` (each state string to its image).
+- `perm`: `id`, `kind`, `cells` (the state width and names), `image` (each state string to its image). For `perm`,
+  `completeness.bijection` is true exactly when the image of every state is a state and the sixteen images are distinct,
+  i.e. the image is a permutation of `S`; there is no `phi_inv`.
 - `rank` (B only): `id`, `kind`, `rows` (a list of equal-length lists of 0 and 1).
 - `linear`: `id`, `kind`, `q` (2), `kmax`, `cells`, `phi` and `phi_inv` (each cell to the sorted list of input cells
   summed mod 2).
@@ -345,8 +355,8 @@ input naming the K1 instance, its dynamics or its states can reach any computati
 
 ### 5.4 What the route computes, and with which code
 
-The fixture route calls the same functions as the instance route, with the fixture's data in place of the instance's
-constants, for: M1 (all `2^n` strings, `linear` and `system`), M2 (both composites; the result is recorded in
+The fixture route calls the same functions as the instance route, with a map supplied as data in place of the
+instance's map and constants, for: M1 (all `2^n` strings, `linear` and `system`), M2 (both composites; the result is recorded in
 `completeness.bijection`, and a failure is recorded, not refused), M3 to M5, R0 to R10, CLASS, serialization and §7's
 guard. §8.2's method diversity holds on the route: A applies `φ` and `φ^{−1}` from the cell-by-cell formulas and finds
 `E` by propagating symbolic 𝔽₂ forms; B builds the matrices, applies them by matrix-vector products, finds `E` from the
@@ -356,6 +366,20 @@ computes no S0 control and no preserved-result block. At `final`, adversarial en
 rules (without `note`). On the route, M2's failure is recorded and the route continues; at the instance the same holds,
 so that MU-C2 fails CC-BIJ rather than an exit status.
 
+**How A meets "the same functions".** At the instance, A builds `φ` and `φ^{−1}` from the K1 coordinate formulas, as
+cell-by-cell linear forms, and passes them to its orbit walk, its symbolic propagation for `E` and its row functions. On
+the fixture route the same functions receive the cell-by-cell forms read from the input. B likewise passes either its
+instance-built matrices or matrices built from the input to the same matrix and rank functions. The two methods stay
+distinct on both routes.
+
+**What the fixture route does not exercise** (claim/evidence boundary). A passing synthetic self-test establishes the
+behaviour of the shared functions on the fixtures, and nothing about the following, which only the instance route
+reaches: A's K1 coordinate formulas and B's construction of the K1 matrices; the instance constants (`N`, `q`, `a`, `T`,
+`Σ`, `V`); the S0 controls; the preserved-result block; record-directory input and output (the `members.json` pin and
+its refusals, `class-decisions.json`, `adversarial.json` with `note`, and their strict validation); the gate-table-only
+fields (`instance`, `preserved`, `controls`). Before `F` these are covered by the static re-review only; after `F` by the
+S0 controls, the CC and PR checks, and MU-C1, MU-C2, MU-14 and MU-16.
+
 ### 5.5 Outputs
 
 Written to `<out>` with §10.2's serialization, only on exit 0:
@@ -364,7 +388,8 @@ Written to `<out>` with §10.2's serialization, only on exit 0:
   - `perm` and `linear`: `cell_order`, `members` and `histogram` in `members.json`'s form, and `completeness`
     (§10.2's keys; `mass_sums` `null`);
   - `rank`: `rank`;
-  - `system`: also `stage`, `region` (§10.2's keys without `instance`), `rows` (§10.2's row objects),
+  - `system`: also `stage`, `region` (with §10.2's `region` keys; the gate table's `instance`, `preserved` and
+    `controls` are absent), `rows` (§10.2's row objects),
     `class_tokens` and `union_clause_reached`, and `completeness.mass_sums` a boolean.
 - `fixture-cyc2.json`, by B only, for `linear` and `system`: `schema` `"k1p1-fixture-cyc2"`, `version` 1, `fixture`,
   `kmax`, and objects `ranks`, `fix`, `period_states` and `cycles` from each `k = 1, …, kmax` as a decimal string, and
@@ -378,20 +403,24 @@ set likewise. These are substitutions of listed values; nothing is derived.
 ### 5.6 `controls.py self-test --synthetic`
 
 It reads `<rec>/amendments/A1-fixtures.json` and refuses (2) unless the file's SHA-256 equals the constant frozen in
-`controls.py`. Then, in this order:
+`controls.py`; it reads the patches from `<rec>/amendments/A1-patches/` likewise. `<rec>` is the record directory of
+the tree it runs in: on the round branch, the control plane's own files; on the integration branch, their byte-identical
+copies (§14). Then, in this order:
 1. **Fixtures.** For each entry of `fixtures`, for each program it lists: write the canonical input to a fresh temporary
    file, run the program with `--fixture`, `--input` and a fresh empty `--out`, as `sys.executable -I`, and require the
    entry's exit status, `fixture.json`'s bytes equal to the expected bytes (EXPECTED′), A's and B's `fixture.json`
    equal (AB′), and B's `fixture-cyc2.json` equal to its expected bytes.
 2. **Own checks on the outputs** (§11.2): each applicable primed check passes on every unmutated output.
 3. **Analogues** (`analogues`; `A1-fixtures.md` §6): each must make its named checks fail, or report refused.
-4. **Interface negatives** NF-1 to NF-7, each after its paired control.
+4. **Interface negatives** NF-1 to NF-7, each after its paired control. Each must exit 2 and leave `<out>` exactly as
+   it was before the run (empty, or, for NF-4, holding only the file placed there).
 5. **MU-C3′**: the frozen MU-C3 patch applied to a temporary copy of A (§8); `--fixture SF-3` must exit 3. The
    unpatched run of step 1 is its control.
 6. **Render, marker and adversarial-index fixtures** (§9, §10).
 
-It exits 0 exactly when every step holds, and 1 otherwise. It never passes `--stage` to A or B, and it reads no
-record-directory file other than `A1-fixtures.json` and the patches.
+It exits as §4 states: 0 exactly when every step holds, 1 when a step fails, 2 on a usage error or an absent or
+mis-pinned self-test input. It never passes `--stage` to A or B, and it reads no record-directory file other than
+`A1-fixtures.json` and the patches.
 
 This amends §11.2: SF-1, SF-2 and SF-3 are those of `A1-fixtures.md`, with SF-2′ added; the "two-cell toy system" of
 §11.2 is replaced by SF-3's four-cell system, because `W_eq`'s rule (site set of `V`, both slices) and a `Σ` disjoint from
@@ -421,8 +450,9 @@ having run on both A's and B's outputs.
 
 **New fields** (§10.2's checks files):
 - `exit_status`: `{"A": <int or null>, "B": <int or null>}`, the exit status of each implementation run at the stage,
-  `null` when it was not run (C-4). H1 (both 0, outputs differ), H6 (status 1) and refusals (status 2) are told
-  apart from this field and the `AB-*` outcomes.
+  `null` when it was not run (C-4). H1 (both 0, outputs differ), refusals (status 2), the exactness guard (status 3,
+  a defect of the frozen code, H6) and any other failure (status 1, H6) are told apart from this field and the `AB-*`
+  outcomes.
 - `gate_table_sha256` (`checks.json` only): the SHA-256 of A's final `gate-table.json` bytes when every final check
   passes, `null` otherwise (Q18).
 - `members_sha256` (`checks.members.json`): as §10.2, `null` only in a failed or refused `run` (Q28).
@@ -431,8 +461,17 @@ having run on both A's and B's outputs.
 
 ## 7. Requirements on `controls.py`
 
-- **C-1, MU-3.** MU-3 exchanges one state each way between two 10-cycles of `members.json`, so that sizes, histogram,
-  keys, sortedness and coverage stay valid and only CC-PART's closure or single-orbit test can detect it.
+- **C-1, MU-3.** MU-3 exchanges one state each way between two 10-cycles of `members.json`, neither state the least
+  state of its cycle, and re-sorts both state lists, so that sizes, histogram, keys, sortedness and coverage stay valid
+  and only CC-PART's closure or single-orbit test can detect it.
+- **CC-PART's sub-tests** (drafter's proposal, §16, enumerating what §9's "every state in exactly one cycle; lengths sum
+  to `|S|`; each cycle closed under `φ` and a single orbit" requires of `members.json`'s form). On `members.json`, with
+  `controls.py`'s own `φ`: (p1) every state of `S` occurs in exactly one member's `states`; (p2) each `size` equals its
+  list's length, the sizes sum to `|S|`, and `histogram` equals the size counts; (p3) each member's states are closed
+  under `φ`; (p4) each is a single orbit; (p5) each `states` list is sorted; (p6) each `key` is the least of its states;
+  (p7) the cycle members are in strictly increasing order of `key`, after `pi0`. At the instance, (p7) is also checked
+  on the rows by CC-ROWS. CC-PART′ applies (p1) to (p7) to a fixture's `members` with the fixture's map; on the `perm` and
+  `linear` routes, which have no rows, member order is checked by CC-PART′ (p7) alone.
 - **C-2, MU-12.** MU-12 changes CC-EXACT's `computed.weak[""]` to `"1/1"` and its `outcome` to `"fail"`, identically in
   A's and B's outputs, so that the control genuinely fails: CC-EXACT and PR-S0 are recorded `fail`, `run` exits 1, and no
   row file is written.
@@ -461,12 +500,14 @@ having run on both A's and B's outputs.
   file` marker (frozen files end with LF), no fuzz, no offset.
 - **Applier.** A stdlib-only line splice in `controls.py`: it verifies the patch's SHA-256, reads the frozen file as
   lines, and for each hunk in order requires the old lines (context and `-`) to equal the file's lines at the stated old
-  start exactly, then replaces them by the new lines (context and `+`). Any mismatch fails the self-test; it never passes
-  it. The patched copy is written to a temporary directory and run from there with `sys.executable -I`.
+  start exactly, then replaces them by the new lines (context and `+`). The patched copy is written to a temporary directory and run from there with `sys.executable -I`.
 - **Content.** MU-C1 sets A's `T` to 2; MU-C2 makes B's `φ^{−1}` matrix wrong in one entry; MU-C3 replaces A's exact
   division by floating division at its single division helper.
-- **Pass criteria.** MU-C1: PR-E recorded `fail` for A's output. MU-C2: CC-BIJ recorded `fail` for B's output. MU-C3: A's
-  `exit_status` is 3 (instance, after `F`) and A exits 3 on `--fixture SF-3` (MU-C3′, before `F`).
+- **Exit statuses.** A patch file that is absent or whose SHA-256 differs is a refusal of the self-test (2); a hunk
+  that does not apply fails it (1). Neither passes it.
+- **Pass criteria.** Only one program is patched in each case, so the checks file's single outcome per check suffices.
+  MU-C1: the sandbox checks file records PR-E `fail`. MU-C2: it records CC-BIJ `fail`. MU-C3: A's `exit_status` is 3
+  (instance, after `F`), and A exits 3 on `--fixture SF-3` (MU-C3′, before `F`).
 
 ## 9. Rendering (Q18: drafter's proposal)
 
@@ -538,7 +579,9 @@ No escaping, sorting or normalization is applied; the grammar excludes backticks
 
 Before `F` (synthetic profile): `self-test --synthetic` calls `controls.py`'s own projection and validation functions, the
 ones `render` uses, on fixture outputs in place of files. Steps 2, 4 and 6 of §9.2 apply; steps 1, 3 and 5 need files
-and run after `F` (MU-15, §11). Fixtures RF-1, RF-2, RN-1 to RN-9 and RM-0 to RM-5 (`A1-fixtures.md` §7).
+and run after `F` (MU-15, §11). In this profile step 2 reads "§10.2's schema" as §5.5's `system` fixture-output schema,
+requires `stage` `"final"`, and takes the member keys from the fixture output's own `members` in place of
+`members.json`; the token grammar and the union rule are as in §9.2 and §9.3. Fixtures RF-1, RF-2, RN-1 to RN-9 and RM-0 to RM-5 (`A1-fixtures.md` §7).
 
 ## 10. Adversarial note index (Q19) and MU-11 (Q20)
 
@@ -632,10 +675,15 @@ model reviews:
 4. **Earlier `self-test --synthetic` runs.** The controls writer and the synthetic-fixture reviewer each ran the drafted
    `controls.py self-test --synthetic` once (SF-1, positive only; exit 2 on an open question). These are exploratory
    runs of a superseded fixture specification.
-5. **This amendment.** Written by a separate agent context of the same coordinating session, designated under
-   c.6680770304. It read the preregistration, `K`'s cited lines, both reviews, the writers' checkpoints and the
+5. **This amendment.** Written by `writer-k1p1-amend`, a separate agent context of the same coordinating session,
+   acting under the writer designation of c.6680770304. It is not one of §8.1's five designated sessions and writes no
+   code. It read the preregistration, `K`'s cited lines, both reviews, the writers' checkpoints and the
    coordinator's record, and read the drafted code statically to confirm its interfaces. It ran none of A, B and
    `controls.py`, and no fixture.
+6. **A cross-writer channel.** This amendment describes behaviour and defects of each implementation and of
+   `controls.py` (§3's D-1 to D-9 and A-1 to B-2; Q30's POS-X note; Q22 to Q29's readings) and is delivered to every
+   writer for the revision. It carries no code; it is a disclosed channel between writers, limited to the behaviour the
+   rulings fix.
 
 ## 14. Integration branch and the freeze revision
 
@@ -644,9 +692,16 @@ model reviews:
   re-review of each revised blob at its exact head and a synthetic-fixture review through `--fixture` follow, both
   independent of the writers.
 - The reviewed blobs are consolidated on one integration staging branch, cut from a commit of `main`, by single-parent
-  commits each adding one reviewed file byte for byte and naming its source branch, commit and blob. Nothing else is
-  committed there except the three patch files of §8. The writers' drafting logs are not carried.
-- `controls.py self-test --synthetic` exits 0 at the integration head before `F` is proposed.
+  commits each adding one reviewed file byte for byte and naming its source branch, commit and blob. Besides the three
+  code files, the integration branch carries, at the same repository paths as on the round branch and byte-identical to
+  the round branch's blobs, `amendments/A1-fixtures.json` (at this revision blob `b785d728d86a7f5a970cd89c32ce1c45621bae11`,
+  SHA-256 `691aedbf0c9e74fdcc64f4c9c35f5e07c8ffc362e74360d4e541df682c750e85`) and the three patch files of §8, once the
+  freeze revision has added them to the round branch. Nothing else is committed there. The writers' drafting logs are not
+  carried.
+- `controls.py self-test --synthetic` exits 0 at the integration head before `F` is proposed. It runs there against the
+  integration branch's own tree (§5.6), so the gate needs only that branch: the code files, `A1-fixtures.json` and the
+  patches. `controls.py`'s frozen constants for `A1-fixtures.json` and the patches equal the round branch's blobs'
+  SHA-256, so a later revision of `A1-fixtures.json` requires a new `controls.py` constant and a new review.
 - The freeze revision of this file, under authorization (b), fills this table and quotes (b):
 
 | File | Blob | SHA-256 |
@@ -655,6 +710,7 @@ model reviews:
 | `verification/lean/k1p1_enum_b.py` | (to be recorded) | (to be recorded) |
 | `verification/programmes/oi-qm/reconstruction/round-k1-p1-1/controls.py` | (to be recorded) | (to be recorded) |
 | `amendments/A1-patches/MU-C1.patch`, `MU-C2.patch`, `MU-C3.patch` | (to be recorded) | (to be recorded) |
+| `amendments/A1-fixtures.json` (copy on the integration branch) | (to be recorded; equal to the round branch's) | (to be recorded) |
 
 and records the integration branch's head and the `verify.yml` edit of §13 X5 (with §9.5's command).
 
@@ -678,15 +734,26 @@ These parts are drafter's proposals (§1) and take effect only with the owner's 
 4. the rendering design (§9), proposed under the Q18 ruling, including `check --stage final` at X5;
 5. MU-14d, MU-15a to MU-15d, MU-16a to MU-16c and MU-17 (§11);
 6. the sandbox `git` isolation (C-10);
-7. the replacement of §11.2's two-cell toy by SF-3's four-cell system, and the fixture contents of `A1-fixtures.md`.
+7. the replacement of §11.2's two-cell toy by SF-3's four-cell system, and the fixture contents of `A1-fixtures.md`;
+8. Q5's `members`-stage behaviour: exit 0 with the failing control recorded, and `run` exit 1 (§2, Q5);
+9. Q10's refusal of duplicate entries and its ignore-and-read-by-key rule (§2, Q10);
+10. Q20's MU-11 mutation token `BLIND[<member name>; <b>; <acc>]` (§10);
+11. CC-PART's sub-tests (p1) to (p7) (§7).
+
+Two further questions for the owner, which this amendment does not decide:
+- whether the fixture set pinned at a reviewed head of this amendment counts as "predeclared" for the Stage 2
+  `--fixture` and `self-test --synthetic` runs that §14 schedules before (b) is given;
+- whether the following coverage, static-only before `F`, is acceptable: strict input validation (Q10, Q11; MU-16 after
+  `F`), D-3 (the union reached), D-8 (an S0 failure at `rows`), and the instance-only code of §5.4.
 
 ## 17. References to content not on `main` (§A.42 item 8)
 
 | Reference | Claim | Class |
 |---|---|---|
-| Independent static review, `STATIC-REVIEW.md`, in the coordinating session's scratchpad | the source of the Q1–Q31 readings and defects C-1 to C-11, D-1 to D-9 | provenance: every reading adopted is stated in full in §2, §3 and §7 |
-| Independent synthetic-fixture review, `FIXTURE-REVIEW.md`, same scratchpad | the fixture requirements carried out in §5 and `A1-fixtures.md` | provenance: the fixtures and their derivations are stated in full here |
+| Independent static review, `STATIC-REVIEW.md`, held off-repository by the coordinator; not on `main` | the source of the Q1–Q31 readings and defects C-1 to C-11, D-1 to D-9 | provenance: every reading adopted is stated in full in §2, §3 and §7 |
+| Independent synthetic-fixture review, `FIXTURE-REVIEW.md`, held off-repository by the coordinator; not on `main` | the fixture requirements carried out in §5 and `A1-fixtures.md` | provenance: the fixtures and their derivations are stated in full here |
 | The three staging branches and heads (§13) | the drafted code these rulings address | provenance until the freeze revision; the frozen blobs reach `main` through X1 and the round's landing |
+| Independent review of this amendment at `0a17e814` (`A1-REVIEW.md`), held off-repository by the coordinator; not on `main` | the revisions of this amendment's second draft | provenance; each revision is stated here |
 | #1135 comments 6677692354, 6677725670, 6677738699 (writers' checkpoints), 6677963479 (hand-off record), 6679002642 (Q18 proposal), 6679215729 and 6679364571 (reconstructed Q-table and its check), 6677168694 (Finding 12 nit) | the disclosures of §13, the rendering basis of §9, the D sentence of §15 | provenance; the content used is stated here |
 | #1031 comments 6677496553, 6678956167, 6680770304 | authority | quoted in §0 with author and time |
 | `PROOFS.md` §6.3, blob `b50e23e47e107934fb5637158cd9148433d62bc9` | Q26's grounds | support on `main` |
@@ -696,7 +763,14 @@ These parts are drafter's proposals (§1) and take effect only with the owner's 
 | Invariant (new in this amendment) | Checkpoint |
 |---|---|
 | A and B agree on every formerly divergent case (§3) | `AB-members` and `AB-gate-table` at each stage; on the fixture route, AB′ and EXPECTED′ on SF-3 (pending row), SF-3f (positive) and SF-3g (UNDECIDED(G6)); NF-3 and NF-4 for usage refusals; the static re-review of the revised blobs |
-| Exit statuses are only 0, 1, 2 and 3, and nothing is written on a nonzero exit (§4) | static re-review; NF-1 to NF-7; `exit_status` in every checks file |
+| Exit statuses are only 0, 1, 2 and 3, and nothing is written on a nonzero exit (§4) | static re-review; NF-1 to NF-7, each requiring exit 2 and `<out>` unchanged; `exit_status` in every checks file |
+| D-3 (union reached: `null` class token) and D-8 (S0 failure at `rows`: exit 2) | static-only: the static re-review before `F`; no fixture or mutation reaches them (D-3 is excluded at the instance by CR-6; D-8 is stopped at X2 by PR-S0). RN-2 and RN-8 test render's handling of D-3's output form |
+| Q5's `members`-stage behaviour (failing control recorded, `run` exit 1) | static re-review; MU-12's paired runs at `rows` show the recorded failure path of the S0 checks |
+| Q19's note-index form | AI-0 to AI-7 before `F`; ADV-INDEX at `final` |
+| Q28: `members_sha256` `null` only in a failed or refused `run` | static re-review; at X2 `check --stage members` regenerates `checks.members.json` and REPLAY compares it, including the digest |
+| C-10: sandbox `git` isolated from global configuration and hooks | static re-review of the self-test's `git` invocations |
+| CC-PART's sub-tests (p1) to (p7) | AN-3, AN-4, AN-7m, AN-MO, AN-KL, AN-US and AN-DS before `F`; MU-3, MU-4 after |
+| The integration branch can run the pre-`F` gate (§14) | the reviewer of candidate `F` checks that the integration head holds `A1-fixtures.json` and the patches byte-identical to the round branch's blobs, and that `self-test --synthetic` exits 0 there |
 | The fixture route computes nothing on the K1 instance (§5.2, §5.4) | the digest admission table, tested by NF-2, NF-5 and NF-6; the static re-review finds no instance constant or record file read on the route; the drafting log lists every fixture run |
 | Fixture answers are hand-derived (`A1-fixtures.md`) | the written derivations; the synthetic-fixture reviewer re-derives them independently before `F` |
 | Every primed check can fail (C-8) | `self-test --synthetic`: each analogue after its paired control; exit 0 required at the integration head |
