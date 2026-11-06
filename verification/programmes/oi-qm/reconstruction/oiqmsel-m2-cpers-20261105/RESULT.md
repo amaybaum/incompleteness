@@ -1,7 +1,8 @@
 # OI-QM-SEL M-2: separating power of C-pers on the M-1 instance (result)
 
-**Status: WIP / UNVERIFIED. Independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1149
-c.6668322323); fixes applied; delta checks recorded on #1149; merge not authorized.** Paper-only. Writer: `writer-m2`.
+**Status: Merged; independently model-reviewed; not kernel-checked. Native physical realizability and sourced access
+remain unestablished.** Review: ACCEPT WITH CHANGES, no material findings (#1149 c.6668322323); fixes applied; delta
+checks (#1149 c.6668407540). Paper-only. Writer: `writer-m2`.
 **Preregistration:** `PREREG.md` in this directory.
 - Frozen at `Φ` = `be5e6311403db36b08cde2e4b0989eb8d57b5fab`, after the r3 delta review ACCEPT (PR #1149 c.6666080040).
 - Instance bound by `B_I` = `7f9e6b6d00ff3be21ec9ed6b824ecde58f16f00f`, which changes §4 only.
@@ -368,7 +369,7 @@ so K13 is a necessary check only. It does not change the outcome.
 
 ## §6. Scope
 
-**Established here** (paper derivation in exact arithmetic; independent review pending):
+**Established here** (paper derivation in exact arithmetic; independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1149 c.6668322323); delta checks (#1149 c.6668407540)):
 - On M-1's alternating-`W` pair, the C-pers complete-record laws differ, at `|V| = 2`, `|A| ≥ 2`, with the visible
   family in `PPer`.
 - C-pers uses configuration-only preparation, two Lüders reads on `V`, a persistent ancilla, and no reset or imposed
@@ -443,7 +444,7 @@ so K13 is a necessary check only. It does not change the outcome.
 
 - Independent review (PREREG §7.1 step 6): ACCEPT WITH CHANGES, no material findings (#1149 c.6668322323); its fixes
   are applied, and delta checks are recorded on #1149.
-- Merge is not authorized.
+- Merged via #1149 as the true merge commit `258a0e3e`.
 - If merge is authorized, the pull request lands by a true merge commit, with no squash and no rebase, so that `Φ`,
   `B_I` and `ee394ffc` stay reachable from `main` (§A.42 item 3; §8).
 - The selection under SPEC §4.3 is not made here. Its re-check, with H-comp counted, is proposed to the owner under

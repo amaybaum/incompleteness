@@ -1,7 +1,8 @@
 # OI-QM-SEL M-1: verification of the alternating-W candidate (result)
 
-**Status: WIP / UNVERIFIED. Independently model-reviewed: ACCEPT WITH CHANGES, no material findings (#1151
-c.6665869201); delta check ACCEPT (#1151 c.6665968807); merge not authorized.** Paper-only. Writer: `writer-m1`.
+**Status: Merged; independently model-reviewed; not kernel-checked. Native physical realizability and sourced access
+remain unestablished.** Review: ACCEPT WITH CHANGES, no material findings (#1151 c.6665869201); delta check ACCEPT (#1151
+c.6665968807). Paper-only. Writer: `writer-m1`.
 **Preregistration:** `PREREG.md` in this directory, frozen at commit `7f3e8ffa99a3f841ca1e0c30691b236287c14a20`, pushed,
 and the guiding draft pull request #1151 opened, before any computation below. This file is added by the next commit
 and changes no other file. The pair, the controls and the decision rule are applied as frozen; nothing was adjusted, and
@@ -428,7 +429,7 @@ separated by T-sep₁ (re-derived in K-g (g3)). Its O⇒G cell stays open.
 - Independent mathematical review is required by the ruling. Status: independently model-reviewed: ACCEPT WITH CHANGES,
   no material findings (#1151 c.6665869201); delta check ACCEPT (#1151 c.6665968807). The review covered the pair against PREREG §2 and QP
   ll. 107–125, the hand algebra of §§1–10, the decision-rule evaluation (§11) and the scope (§12).
-- Merge is not authorized. The proposed changes (§13) await the owner.
+- Merged via #1151 as the true merge commit `f810f5ee`. The proposed changes (§13) await the owner.
 - If merge is authorized, the pull request lands by a true merge commit, with no squash and no rebase, so that
   `7f3e8ffa` and its child `a856d4c2` stay reachable from `main` (§A.42 item 3).
 - Per the ruling, M-2's evaluation of C-pers on this instance may start only after this instance and outcome are
