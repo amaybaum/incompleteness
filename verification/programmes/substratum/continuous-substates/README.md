@@ -209,7 +209,8 @@ reports checked, by the Mathlib bridge job (`Build`; release-gate
 An earlier version of both modules was built in pull_request run
 `41094894776` for #1009 head `a02e197d`; the landed versions differ from it
 only in doc comments (#1009 commit `798558b7`), so that run is provenance for
-the earlier version, not evidence for the landed files. The author-posted
+the earlier version, not evidence for the landed files. The doc-comment edit
+after `82f0e119` changes no declaration. The author-posted
 review of `a02e197d`
 ([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978))
 returned REVISE, with no mathematical errors reported; its reviewers are
