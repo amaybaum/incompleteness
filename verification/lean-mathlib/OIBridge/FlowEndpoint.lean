@@ -19,8 +19,10 @@ class generates.
 * F4, the endpoint theorem: `SourcedOI ∧ LayerFlowExecutable ⇏ PhaseFreeRichness`
   (`flow_endpoint_refuted`, and `flow_endpoint_refuted_general` on every carrier with at least two
   states).
-* F5, the absence of phases: the countermodel carries no quarter phase, so it fails
-  `PhasesAvailable` and `DerivedOI`, and that absence witnesses its failure of `SubstratumAvail`,
+* F5, the absence of phases: on a carrier with at least two states the countermodel fails the
+  all-level requirement `PhasesAvailable`, the proof exhibiting the failure at level 1 and not
+  separately proving unavailability at every composite level, so it fails `DerivedOI`, and that
+  failure witnesses its failure of `SubstratumAvail`,
   with the full gap to the substratum's availability not characterized; consistent with the lift
   audit's Q3′, whose hypothesis it does not meet; and it is not quantum mechanics (`onesTheory_not_phasesAvailable`, `onesTheory_not_derivedOI`,
   `onesTheory_not_substratumAvail`, `onesTheory_not_qm`).
@@ -172,8 +174,9 @@ theorem phaseGate_mulVec_ones {S : Type} [Fintype S] [DecidableEq S] (a : S) (p 
     (phaseGate a *ᵥ ones S) p = if a = p then Complex.I else 1 := by
   rw [phaseGate, Matrix.mulVec_diagonal, ones_apply, mul_one]
 
-/-- **F5 — THE ONES-FIXING THEORY CARRIES NO QUARTER PHASE** on a carrier with at least two
-states: the phase moves the all-ones vector off its ray. -/
+/-- **F5 — THE ONES-FIXING THEORY DOES NOT SATISFY `PhasesAvailable`** on a carrier with at least
+two states: the phase moves the all-ones vector off its ray. The proof exhibits the failure at
+level 1; unavailability at every composite level is not separately proved. -/
 theorem onesTheory_not_phasesAvailable (h2 : 2 ≤ Fintype.card A) :
     ¬ PhasesAvailable (onesTheory A) := by
   intro hp
