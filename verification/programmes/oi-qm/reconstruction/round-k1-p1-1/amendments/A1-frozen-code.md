@@ -763,7 +763,7 @@ Two further questions for the owner, which this amendment does not decide:
 | Invariant (new in this amendment) | Checkpoint |
 |---|---|
 | A and B agree on every formerly divergent case (§3) | `AB-members` and `AB-gate-table` at each stage; on the fixture route, AB′ and EXPECTED′ on SF-3 (pending row), SF-3f (positive) and SF-3g (UNDECIDED(G6)); NF-3 and NF-4 for usage refusals; the static re-review of the revised blobs |
-| Exit statuses are only 0, 1, 2 and 3, and nothing is written on a nonzero exit (§4) | static re-review; NF-1 to NF-7, each requiring exit 2 and `<out>` unchanged; `exit_status` in every checks file |
+| A and B: exit statuses are only 0, 1, 2 and 3, and nothing is written on their nonzero exits (§4) | static re-review; NF-1 to NF-7, each requiring exit 2 and `<out>` unchanged; `exit_status` in every checks file |
 | D-3 (union reached: `null` class token) and D-8 (S0 failure at `rows`: exit 2) | static-only: the static re-review before `F`; no fixture or mutation reaches them (D-3 is excluded at the instance by CR-6; D-8 is stopped at X2 by PR-S0). RN-2 and RN-8 test render's handling of D-3's output form |
 | Q5's `members`-stage behaviour (failing control recorded, `run` exit 1) | static re-review; MU-12's paired runs at `rows` show the recorded failure path of the S0 checks |
 | Q19's note-index form | AI-0 to AI-7 before `F`; ADV-INDEX at `final` |
