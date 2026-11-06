@@ -123,7 +123,7 @@ The all-level phase-free criterion is not discharged by this single pair. Availa
 
 ## 6. Native readout and an exact density-dictionary obstruction
 
-Use one fixed preparation `(x,y)=(e_1,0)`, independently of the program. Add a fresh ready bit r and the deterministic copy map
+Use one fixed preparation `(x,y)=(e_1,0)`, clock `ell=0` and fresh ready bit `r=0`, independently of the program. The deterministic copy map is
 
 ```text
 (x,y,r) -> (x,y, r XOR 1[x_1>0]).
