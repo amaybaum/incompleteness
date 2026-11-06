@@ -115,7 +115,7 @@ The complete family has a common twenty-four-update duration. Zero angle still u
 
 ## 5. Autonomous control and preparation/prefix conditions
 
-A controller contains a fixed list of twenty-four coefficients and a cyclic clock. At each mixing step, one common rule applies `T_{k_clock}` and advances the clock; the list is held unchanged. Given the previous clock value and the new mode coordinates, the explicit inverse of `T_k` recovers the old configuration. This gives one reversible controlled evolution, rather than choosing a new world dynamics for each experiment.
+For the finite protocol used below, a controller contains twenty-four coefficients, a fresh bit r and a clock `ell` in `Z_64`. One common autonomous rule holds the list fixed and advances the clock by one modulo 64. At clock values 0 through 23 it applies the corresponding T_k and leaves r unchanged; at value 24 it applies the record-copy bijection of §6; at values 25 through 63 it leaves the modes and r unchanged. Given the new clock value, the previous opcode is known, and its bijective inverse recovers the old configuration. Thus the full world update is reversible on `R^4 × {0,1} × [-1,1]^24 × Z_64`. This supplies the same dynamics and duration for both compared programs.
 
 Different setting programs are loaded only into the declared controller fields. Until the first scheduled coupling, the joint law of the modes, environment, controller noise and ready/public records is held fixed. The evolution reads only the current instruction, so shared physical prefixes have identical laws before divergence. The same operation label uses the same program. Realistic preparation, isolation, noise and record mechanisms remain physical obligations; the ideal controller formula does not source them.
 
@@ -129,9 +129,9 @@ Use one fixed preparation `(x,y)=(e_1,0)`, independently of the program. Add a f
 (x,y,r) -> (x,y, r XOR 1[x_1>0]).
 ```
 
-This map is a bijection. Its output bit is a native record obtained directly from a real coordinate; its probability is the held preparation measure of the indicated set. No trace/Born rule is used. Stored bits are read passively without writing them again; further measurements require fresh cells. A complete resource architecture for all Gate A protocols is not established by this one-record example.
+This map is a bijection. Its output bit is a native record obtained directly from a real coordinate; its probability is the held preparation measure of the indicated set. No trace/Born rule is used. The bit is copied at micro-step 25 and can be read passively again throughout the idle part of this first clock cycle; those reads do not rewrite it. This is a declared finite persistence window. A later repeated protocol would require a fresh cell or an explicitly accounted reset; no perpetual storage in this cyclic finite controller is claimed. A complete resource architecture for all Gate A protocols is not established by this one-record example.
 
-Compare two programs, both of twenty-four mixing updates followed by this same fixed record operation:
+Compare two programs, both of twenty-four mixing updates followed by this same fixed record operation at micro-step 25:
 
 | Program | Endpoint on z | Native x at the endpoint | Recorded bit |
 |---|---|---|---|
@@ -181,3 +181,8 @@ Where `1-a_1 a_2 != 0`, this is `U((a_1+a_2)/(1-a_1 a_2))`; at a singular parame
 The outcome is a conditional amplitude-control component together with a concrete readout/dictionary obstruction and named physical sourcing gaps. It is not a native physical OI-to-QM reconstruction. No universal minimality, impossibility or irreducibility claim is made. The next scientific decision should address the physical status of these explicit inputs and the readout quotient, rather than reprove the already available control/characterization theorems.
 
 All checks in this note are paper algebra. No code, numerical experiment, Lean build, simulation, physical test, manuscript edit or governed execution was performed for this unit.
+## 9. Prior work and source-use boundary
+
+Classical amplitude representations of quantum evolution are established prior work. Briggs and Eisfeld, *Coherent quantum states from classical oscillator amplitudes*, Physical Review A 85, 052111 (2012), [doi:10.1103/PhysRevA.85.052111](https://doi.org/10.1103/PhysRevA.85.052111), §I–II and equations (8)–(10), distinguish an exact position-and-momentum-coupled construction from its simpler position-coupled approximation. The author-hosted primary paper was inspected for this source check.
+
+Here x and y are current and retarded coordinates of the stated discrete update. The pulse identities are derived directly above. The citation establishes prior art for classical amplitude correspondences; it supplies no native OI preparation, intervention or record law. The research content claimed here is the explicit candidate/control/source assessment and the scoped failure of its specified density/readout dictionary, with no novelty claim for oscillator–quantum amplitude mappings or elementary shear algebra.
