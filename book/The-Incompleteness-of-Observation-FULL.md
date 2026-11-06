@@ -59,16 +59,6 @@ No part of this work may be reproduced or distributed without the author's permi
 
 \clearpage
 
-# Dedication
-
-*[Author's dedication to be added.]*
-
-***
-
-\clearpage
-
-\clearpage
-
 # Preface
 
 This book argues a heterodox position: quantum mechanics is not fundamental ontology but the exact observer-level representation of finite incomplete observation. At the level of finite observable laws, three descriptions coincide: stochastic laws, finite reversible deterministic realizations, and fixed-basis unitary/Born representations. The equivalence is bidirectional and exact on every finite horizon. History readback supplies the nontrivial content: it forces hidden predictive memory. Indivisibility across the recurrence cycle of a fixed finite reversible representative is a separate fact: any rooted visible map that is not a permutation forces it, Markov laws included. The book develops the consequences of taking that equivalence as a structural fact rather than as an interpretive analogy.
@@ -226,7 +216,8 @@ The framework developed in this book rests on the work of many physicists, mathe
 
 **The framework's working repository.** The framework's content has been developed in technical-paper form over the past several years, with the release at DOI 10.5281/zenodo.19060318 representing the current state. The repository's collaborators and reviewers — too numerous to name individually — have contributed substantially to the framework's refinement.
 
-**Personal acknowledgments.** [Author's personal acknowledgments — colleagues, family, institutional support, funding sources — to be added.]
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
 
 **Errors.** Any remaining errors in the framework's content or its presentation are the author's. The book is the integrated synthesis of work developed in technical papers, and the integration introduces the possibility of inconsistencies between the book's presentation and the underlying technical papers. The technical papers should be consulted as the primary references for framework-internal derivations; the book's role is to make the framework's content accessible.
 
@@ -6542,7 +6533,7 @@ This is not a scientific objection. Scientific content is evaluated on its merit
 
 However, the underlying concern (familiar standards may not be met by an outsider) can be addressed substantively. The framework provides complete proofs in the technical chapters (Chapter 1 for the characterization theorem; Chapter 7 for the gravitational derivations; etc.); two independent derivation routes for key results (Chapter 1 via Barandes correspondence and Stinespring dilation); and explicit falsifiability conditions throughout (Chapter 15 §15.8 BEC test; etc.). The standards the framework meets are *internal scientific standards* (proofs, predictions, falsifiability), not standards based on author identity.
 
-The Acknowledgements section discloses AI assistance transparently. The framework's content is the author's intellectual responsibility; the AI assistance was in drafting, refining argumentation, and literature surveying. The technical content (proofs, derivations, predictions) is the author's work product.
+The author takes responsibility for the framework's scientific content, including its proofs, derivations, predictions, and supporting citations.
 
 **Scope.** "The framework claims to address fundamental physics *and* the origin of life *and* the methodological limits of single-cell bioinformatics. This is too much for a single framework. Each domain deserves its own framework."
 

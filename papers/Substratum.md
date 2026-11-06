@@ -555,6 +555,13 @@ These open problems are framed within the construction rather than against it. E
 
 ***
 
+## Acknowledgments
+
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
+
+***
+
 ## References
 
 [1] R. Bousso, "The holographic principle," *Rev. Mod. Phys.* **74**, 825 (2002).

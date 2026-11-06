@@ -422,6 +422,9 @@ JUNO's projected long-term precision will test the prediction at sub-percent lev
 
 The author thanks the JUNO Collaboration for the rapid public release of their first oscillation results, and F. Capozzi, E. Lisi, F. Marcone, A. Marrone, and A. Palazzo for the prompt post-JUNO global fit that enabled the present comparison. Discussions with the broader emergent-quantum-mechanics community have informed the framework's positioning relative to existing approaches; specific intellectual debts are recorded in the references and in the underlying framework documentation [18].
 
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
+
 ## References
 
 [1] P. F. Harrison, D. H. Perkins, W. G. Scott, "Tri-bimaximal mixing and the neutrino oscillation data," Phys. Lett. B 530, 167 (2002).

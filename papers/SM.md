@@ -1663,6 +1663,13 @@ The source code under `papers/oi_lattice_code/`, together with the run drivers a
 
 ***
 
+## Acknowledgments
+
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
+
+***
+
 ## References
 
 **Companion papers (cited inline by short name):**

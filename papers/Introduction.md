@@ -184,6 +184,11 @@ Several of these proofs are also checked by computer in the Lean 4 proof assista
 
 The black-hole toy-model results are unpublished finite-model research: exhaustive enumerations over small register spaces with a proved recovery floor, whose novelty has not been assessed. Their written proofs and code [BHa; BHb] are in `verification/programmes/black-hole-information/`, and the finite probes behind several statements of [Main] are in `papers/oi_lattice_code/foundations/`, both released under the MIT License. The novelty of the operational characterization of section 4.2 and of the result on the evolution relating two times in section 4.1 has also not been assessed.
 
+## Acknowledgments
+
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
+
 ## References
 
 \begingroup\footnotesize\raggedright\setlength{\parskip}{1pt}\setlength{\leftskip}{1.5em}\setlength{\parindent}{-1.5em}
