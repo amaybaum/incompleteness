@@ -1017,7 +1017,7 @@ rulings are applied at RD-8 and R5a (§6), §8.1, §13 X1, §15 and SC-4.
 | `verify.yml` run 42061118983 (post-merge `main` CI at `a8ab8dae`) | SC-2's historical CI part | provenance (§A.42 item 2): a host record of a start condition; no claim of this round uses its content |
 | #1031 comment 6625842789 | the requirement that a successor readiness test address RR-1's findings | quoted in §19 with author and time |
 | #1031 comments 6665461411 (owner ruling) and 6665594544 (RR-1 mapping) | the assignment of RR-1's findings to this round | the ruling is quoted in §19 with author and time; the mapping is provenance, and the assignments it makes are stated in §19 |
-| #1025 comment 6559037887; RR-1's `stage1/REVIEW.md` at `e02544d5`, blob `dc361a2a65921e60f9313819536b291159f7c6f6`, on the kept branch `research/ready-resource-rr1-20261101` | the text of the RR-1 findings §19 disposes of | provenance: each finding §19 uses is quoted there in full, and the dispositions use only the quoted text |
+| #1025 comment 6559037887; RR-1's `stage1/REVIEW.md` at `e02544d5`, blob `dc361a2a65921e60f9313819536b291159f7c6f6`, on the kept branch `research/ready-resource-rr1-20261101` | the text of the RR-1 findings §19 disposes of | provenance: the dispositions use only text quoted in §19: each finding in full, and the AMB-1 ruling's phrases in Finding 1's entry |
 | #1114 comment 6649791225 §5, P-4 | the corrected mapping of Findings 9 and 12 | provenance: the corrections are stated in §19 |
 | `verification/programmes/oi-qm/reconstruction/k1-rdy-20261105/SOURCES.md` §5, P-4 (blob `973a6d127b7961a16b4e5157972e45614fa77885`) | the writer's mapping of RR-1's findings | on `main`; superseded by the mapping where they differ (§19) |
 | #1147 (O-RDY) | the home of the general and RR-1-specific remainder | provenance (§A.45 rule 6) |
@@ -1041,7 +1041,10 @@ and 11 have no counterpart here; the mapping places them, with the general forms
 **Text and scope.** Each finding is quoted in full from RR-1's `stage1/REVIEW.md` at `e02544d5` (§18). In the quotes,
 "PR" is RR-1's preregistration, not this file. "L*n*" is line *n* of this file, and "`K` line *n*" is as in §2. No entry
 changes a gate, token, control, decision rule, hypothesis, member, member order, row set or count. The entries for
-Findings 10 and 12 each add one logging requirement on procedure, with its checkpoint (§A.41).
+Findings 10 and 12 each add one logging requirement on procedure, with its checkpoint (§A.41). The checkpoints of the
+entries for Findings 10 and 12 are checked, with those of §15, by the reviewer of each candidate head before `F` is
+proposed for designation and before `E` is designated (§13). A revision that moves a cited line updates §19's references
+in the same commit.
 
 ### Finding 1: applies in general form; addressed by the existing text
 
@@ -1110,10 +1113,11 @@ that would establish that readout is declared vacuous. Each part was checked aga
 - G3's `D(m)` is computed from the member's unconditioned law over all of `S` (R6, L302), the analogue of RR-1's `Ω`.
   (c2) uses the mass of `w` under the same law (L304–305; `K` line 61).
 - G4's conditioned laws `m(· | B_w)` (R2–R3) use a readout region `W` fixed by the branch rule and computed (R0), not
-  stipulated values.
+  stipulated values. The reads of `W` are declared hypotheses (`K` line 57) that enter `Λ` (R8, L309–311) and are named
+  by every ABSENT and BLIND token (L654, L647–650); nothing ablates them.
 - W-certification is decided over all of `S` (R4, L270; `K` line 55).
-- No step of R0–R10 is declared vacuous. B-ct has no `D` bound (L306), and the H-ret its ledger line names enters `Λ`
-  (R8, L309–311). The `not-reached` entries follow `K`'s precedence (RD-2, L153; RD-8, L346); they are not skipped
+- No step of R0–R10 is declared vacuous. B-ct has no `D` bound (L306); its ledger line names H-ret, and R8 enters the
+  branch's access labels, H-ret included, in `Λ` (L309–311). The `not-reached` entries follow `K`'s precedence (RD-2, L153; RD-8, L346); they are not skipped
   steps.
 
 Disposition: the finding does not apply to this round, and S3's classification of it as specific to RR-1's record is
@@ -1131,8 +1135,9 @@ evaluated, so there is no choice to log. The order is a deterministic reporting 
 **The member set: no choice.**
 1. *Rule.* The members are `π_0` and the uniform measure on every cycle of `φ`: "No member is selected or excluded, by
    NB or otherwise" (`K` lines 72–76, quoted at L59–63; member space, L222–223). The set is a function of `φ` alone.
-2. *Construction.* M1–M5 (L236–248) enumerate all 1024 states and partition them into cycles. No input names, counts
-   or filters a member. The command lines take only the stage, the directories and the pinned digest (L473–478). A and
+2. *Construction.* M1–M5 (L236–248) enumerate all 1024 states and partition them into cycles. The one per-member
+   input is `adversarial.json`: ADV-INDEX (L568–569; L488) forces it to cover every row that passes G5, and it acts only
+   through G6 (R9, L313–316). No other input names, counts or filters a member. The command lines take only the stage, the directories and the pinned digest (L473–478). A and
    B read only their declared inputs (L377–378). `class-decisions.json` has no per-member field: its `class_rule`
    applies to every P1 row and its `support_restriction` to every `u_c` row (L558–559; R5a, L282–283).
 3. *Completeness, counted twice.* CC-COUNT, CC-BIJ, CC-PART and the independent count CC-CYC2 (L433–436) check that
@@ -1145,8 +1150,9 @@ evaluated, so there is no choice to log. The order is a deterministic reporting 
    (§12 item 3, L809–812; MU-14a to MU-14c).
 6. *No rerun selects.* Code and inputs are frozen at `F`, the outputs are deterministic (L720–722), and there is one
    run of record, which CI replays at `E` (§12 item 5, L815–816).
-7. *Complete, member-scoped reporting.* Every member row of every branch is in the gate table. Each row token names its
-   member, `π_0` or `u_c[<least state>]` (L646, L654), and is scoped to (member, branch, access, instance) (L928).
+7. *Complete, member-scoped reporting.* Every member row of every branch is in the gate table, and every row carries its
+   member's key in `member` (L612). Of the row tokens, ABSENT and BLIND name the member, `π_0` or `u_c[<least state>]`
+   (L646, L654). Tokens are scoped to (member, branch, access, instance) (L928).
 8. *No favourable tick.* RR-1's "tick 0" chose when a member is read. Here the ticks are fixed by rule (`t_0`, and `t_u`
    per branch; Finding 6). Every member's support is φ-invariant (PR-P1c, L199) and the member is uniform on it, so its
    law is the same at every tick.
@@ -1158,6 +1164,8 @@ which are evaluated. MU-7 makes a change of order fail CC-ROWS.
 **Residual.** No member-level choice remains.
 - The class decisions are written by `writer-k1p1-exec` at X1 (L328–333). They apply to the class or to every `u_c`
   row, never to one member, and are independently reviewed and fixed before any enumeration (§13 X1).
+- `adversarial.json` names rows but cannot select them: ADV-INDEX requires exactly the rows that pass G5 (L568–569;
+  L488), it is written after X3 (§13 X4), and it can change a row only at G6, to UNDECIDED(G6) (R9, L313–316).
 - The instance, `V`, `Σ`, `T` and the branch rules were fixed by `K`'s owner decisions before this round. They are not
   member choices, and this round does not revisit them (§1).
 
@@ -1171,7 +1179,8 @@ Disposition: addressed; no text added.
 - **"Partial Λ".** RD-3 (L154–159) keeps the `hypotheses` field of a row that stops at G4 distinct from `Λ`. `Λ` is
   written only at G5, and no token of such a row carries it. The `hypotheses` field is a row field (L635), not a token.
   The tokens are exactly the strings of L653–664.
-- **Naming the item.** Every row token belongs to one row and names its member (L646, L654). The class token's fields
+- **Naming the item.** Every row token belongs to one row, which carries its member's key in `member` (L612); of the
+  row tokens, ABSENT and BLIND also name the member (L646, L654). The class token's fields
   are A2's (L106; L659–664): the set of `k` for UNDECIDED, the set of subtypes for Z1-VOID, and the set of member rows
   for VOID[row]. The member rows that attain ABSENT, BLIND, UNDECIDED or Z1-VOID are named by their own row tokens in
   the same gate table, which CC-ROWS makes complete. An UNDECIDED(G1) or UNDECIDED(G2) row traces through R5a
@@ -1193,16 +1202,18 @@ synthetic-fixture runs are allowed (L902). `result.md`'s execution log quotes au
 (L825–830, L847–849), and a computation outside that authorization is H9 (L886). The existing text does not say that a
 command whose result enters no verdict is listed, which was RR-1's case.
 
-**Added requirement.** Every command run in drafting or in execution is listed in the drafting log or in `result.md`'s
-execution log with its category: read, static check, synthetic-fixture run, or, under authorization (e), run on the
-instance. This includes counts, sorts, digests and comparisons whose results enter no verdict.
+**Added requirement.** From this revision on, every command run by a writer of this round in drafting, and every command
+run in execution, is listed in the drafting log or in `result.md`'s execution log with its category: read, static
+check, synthetic-fixture run, or, under authorization (e), run on the instance. This includes counts, sorts, digests and
+comparisons whose results enter no verdict. Earlier runs are those recorded in the existing checkpoint comments.
 
 **Checkpoint.** Before `F`, the reviewer of each candidate head compares the drafting log with the commits from `D` and
 the checkpoint comments. At `E`, the reviewer compares `result.md`'s execution log with the commits `F..E` and with the
 tools named by authorization (e).
 
 Disposition: the finding applies in its general form, and S3's classification is corrected to that extent. It is
-addressed by the existing text and the added requirement.
+addressed by the existing text and the added requirement. Its general form for later readiness tests remains with O-RDY
+(#1147).
 
 ### Finding 12: applies to this round's own decisions; addressed, with one requirement added
 
@@ -1221,10 +1232,12 @@ relies on it:
   before `F`;
 - authorizations (c), (d) and (e), in `result.md`'s execution log;
 - the designations of `F` and `E`, in the receipt's `owner-designation` records, which name the comment or review where
-  each can be read (§A.39; §A.42 item 7).
+  each can be read (§A.39; §A.42 item 7);
+- (f)'s dispatch authorization and (g), in the pull-request comment that records each.
 
 **Checkpoint.** The reviewer of candidate `F` checks the amendment's quotes against their sources, and the reviewer at
-`E` checks `result.md`'s. `tools/v3_receipt.py` builds the receipt's designation records.
+`E` checks `result.md`'s. The reviewer of the receipt commit `Q` checks each owner-designation record against the
+comment it names, and the quotations of (f) and (g).
 
 Disposition: addressed.
 
@@ -1236,8 +1249,8 @@ Disposition: addressed.
 | 2 unnamed order | yes, as order | L219–224, L261, L322–323, L651–652, L663; A2 | addressed; no text added |
 | 6 `t_u ≤ t_r` | yes, by inheritance | L99–100, L254–256, L616–618 | addressed; no text added |
 | 7 G3 conditioning | no, checked | L270, L302–311, L153, L346 | classification confirmed; general form with O-RDY (#1147) |
-| 8 executor member choice | yes | L59–63, L222–223, L236–248, L377–378, L433–443, L473–478, L558–559, L720–722, L809–816 | addressed; no member choice remains; no text added |
-| 9 token naming, partial `Λ` | yes, as class-token fields | L154–159, L635, L646–664, L279–301, L557–559 | addressed; no text added |
+| 8 executor member choice | yes | L59–63, L222–223, L236–248, L377–378, L433–443, L473–478, L558–559, L568–569, L612, L720–722, L809–816 | addressed; no member choice remains; no text added |
+| 9 token naming, partial `Λ` | yes, as class-token fields | L154–159, L612, L635, L646–664, L279–301, L557–559 | addressed; no text added |
 | 10 log of a declared-read-only record | yes, in general form | L807–808, L825–830, L847–849, L886, L902; this section | classification corrected; logging requirement added |
 | 12 owner decisions quoted | yes, to this round's decisions | §0, §8.4, §17, L847–849, L902; this section | addressed; quoting requirement added |
 
