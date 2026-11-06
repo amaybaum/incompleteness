@@ -155,6 +155,10 @@ This repository contains both code and authored research material:
 
 `LICENSE` is intentionally the repository's machine-detected MIT license file; the manuscript licence applies by scope to the authored research works.
 
+## AI assistance
+
+**Framework-wide disclosure (6 November 2026).** The author has used Claude Opus 5.5 (Anthropic) and ChatGPT Sol 6.1 (OpenAI) as AI assistants for drafting and editing, critique and refinement of arguments, and literature exploration. AI-generated material is not independently established evidence or mathematical proof; scientific claims must be assessed against their derivations, formal checks, and cited sources. The author is responsible for the framework's content, citations, and any remaining errors.
+
 ## Contact
 
 Alex Maybaum — Independent Researcher  
