@@ -1333,6 +1333,9 @@ Three classes of claims remain without independent support and would benefit fro
 
 This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Substratum]. It consolidates content originally developed across three separate documents: a canonical articulation of the framework's two-dimensional hierarchical structure (now §2), a technical analysis of the OI-string substratum-level relationship (now Part I), and a programmatic framework of universality classes of embedded observers (now Part II), with cross-framework synthesis in Part III. Errors and speculative content are the author's responsibility.
 
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
+
 ## References
 
 [Adlam2022] E. Adlam, "Operational Theories as Structural Realism", Studies in History and Philosophy of Science 91, 113-124 (2022). arXiv:2201.09316.
