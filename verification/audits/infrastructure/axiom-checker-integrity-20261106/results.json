@@ -1,0 +1,422 @@
+{
+  "schema": "oi-axiom-checker-demo-results",
+  "version": 1,
+  "tool": {
+    "path": "tools/lean_axiom_check.py",
+    "git_blob": "8dec29c7b2c63fc083536a8f62c9056930c30d65",
+    "sha256": "8db5f0ff257c1dbca663608a377ca62c32408356354a9ee7b684400557f5443a"
+  },
+  "reference_checker_sha256": "84a90f4fff60d7d8ae3e3601da8410723476e8ec6638643163d7e5c2156436e0",
+  "expected_sha256": "b2569ba962822f1c7a787b64f04ba43f1706c59dc68d1760bb0435c95c95b0fa",
+  "controls": {
+    "tool_blob_matches_pin": true,
+    "tool_self_test_passed_every_run": true,
+    "mutations_verified": true,
+    "reference_equals_expected": true,
+    "tool_exit_equals_prediction": true,
+    "tool_tags_equal_prediction": true,
+    "tool_count_equals_prediction": true,
+    "clean_fixtures_pass_both": true,
+    "every_defect_fixture_fails_reference": true
+  },
+  "controls_green": true,
+  "false_pass": [
+    "N1",
+    "N1n",
+    "N2",
+    "N3"
+  ],
+  "false_fail": [],
+  "fixtures": [
+    {
+      "id": "C0",
+      "purpose": "clean: unique ASCII names, every print reported, permitted axioms only",
+      "parent": null,
+      "inputs_sha256": "ee75bf8334151a4dd64ed45eb9eac186dfd57c8d91212b8a1e01f99a6937c58d",
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (2 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 2,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 0,
+        "verdict": "PASS",
+        "findings": [],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "C1",
+      "purpose": "clean: OIBridge.A.foo and OIBridge.B.foo (one short name, two qualified identities), both reported",
+      "parent": null,
+      "inputs_sha256": "c0b37e9ebedd05e66bbc52ef9b0d628cd40d35dcdf8e2c1a963e3cae3b84d852",
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 0,
+        "verdict": "PASS",
+        "findings": [],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "C1n",
+      "purpose": "clean: as C1, but the prints are namespace-relative (`#print axioms foo` inside namespace OIBridge.A / OIBridge.B), the form most prints on main take",
+      "parent": null,
+      "inputs_sha256": "1dcd3091a561a9faf91d21fe8ec6c7a8e4d721ccd2e17813832a3c2bfc8e914a",
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 0,
+        "verdict": "PASS",
+        "findings": [],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "C2",
+      "purpose": "clean: an ASCII print and a non-ASCII print (OIBridge.R.G₀_apply), both reported with permitted axioms",
+      "parent": null,
+      "inputs_sha256": "fc698f9f228cca658493f538c8261138919ee5d789430d2a77bfe188b9e12166",
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 0,
+        "verdict": "PASS",
+        "findings": [],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "N1",
+      "purpose": "short-name masking: C1 with the OIBridge.B.foo report removed",
+      "parent": "C1",
+      "inputs_sha256": "a74e3a097b1e90d2a316bd1ddc77fbc272c4d2cdb810d953b1329f07853ba33b",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/B.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "false PASS"
+    },
+    {
+      "id": "N1n",
+      "purpose": "short-name masking with namespace-relative prints: C1n with the OIBridge.B.foo report removed",
+      "parent": "C1n",
+      "inputs_sha256": "e8b118be63088eb7b1ee8b56acea186ef441415faa6e9b7c5beaea49fd80d0b6",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/B.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "false PASS"
+    },
+    {
+      "id": "N2",
+      "purpose": "non-ASCII name hides a forbidden axiom: C2 with the R report's axioms replaced by [propext, Lean.ofReduceBool]",
+      "parent": "C2",
+      "inputs_sha256": "d6f1517c6e5204271258a2fc2783098534242d0283450922e1cc037ddbda780d",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/R.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "false PASS"
+    },
+    {
+      "id": "N2e",
+      "purpose": "N2 with the ASCII report also removed, so the forbidden non-ASCII report is the only report in the log",
+      "parent": "N2",
+      "inputs_sha256": "9dc30d6662bf54b751e1820faacddf4b5ff207aa1ef8f9af2b46f839dfe4adf9",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 1,
+        "stdout": "  EMPTY  the build produced no axiom report at all; force a rebuild or pass --log from a real compile.\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "EMPTY"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/R.lean:3",
+          "MISSING@OIBridge/A.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "N3",
+      "purpose": "non-ASCII print with no report: C2 with the R report removed",
+      "parent": "C2",
+      "inputs_sha256": "831be6049022ed3b4218b2ea031d9b1097e5757c7515d2034089e7a140dd7d60",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 0,
+        "stdout": "lean_axiom_check: OK (1 named result(s) reported, no sorryAx, every axiom within {propext, Classical.choice, Quot.sound}; self-test passed)\n",
+        "stderr": "",
+        "tags": [],
+        "reported_count": 1,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/R.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "false PASS"
+    },
+    {
+      "id": "N4",
+      "purpose": "control: ASCII report with a forbidden axiom (C0 mutated)",
+      "parent": "C0",
+      "inputs_sha256": "00afc17fbd74e45b675290d4345b0546d6cc4fa71683227f8cb5a654429e5c02",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 1,
+        "stdout": "  AXIOM  foo depends on ['Lean.ofReduceBool']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "AXIOM"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/A.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "N5",
+      "purpose": "control: unique ASCII print with no report (C0 mutated)",
+      "parent": "C0",
+      "inputs_sha256": "16cf608867ea863e1872ff949a8da18bc896fc6e4691c27a42a62854860b54b2",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 1,
+        "stdout": "  SILENT 1 declared `#print axioms` produced no report: ['bar']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "SILENT"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "MISSING@OIBridge/A.lean:4"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "N6",
+      "purpose": "control: non-ASCII report carrying sorryAx (C2 mutated); the sorryAx rule is a token scan independent of identifiers",
+      "parent": "C2",
+      "inputs_sha256": "e99558e7cf4ce92465649651f9aabcb4b3f8e79a868a0559ff5fcd1e7d29884b",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 1,
+        "stdout": "  SORRY  1 line(s) of Lean output mention `sorryAx`:\n         info: OIBridge/R.lean:3:0: 'OIBridge.R.G₀_apply' depends on axioms: [propext, sorryAx]\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "SORRY"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/R.lean:3",
+          "SORRY@OIBridge/R.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    },
+    {
+      "id": "N7",
+      "purpose": "control: ASCII declaration whose report names a non-ASCII forbidden axiom (C0 mutated); localizes the character-class gap to declaration names",
+      "parent": "C0",
+      "inputs_sha256": "39919707239ff66f9dd76f86163620fa7b5d5d6fc830549d5a2f3563835c0796",
+      "mutation_verified": true,
+      "tool": {
+        "exit": 1,
+        "stdout": "  AXIOM  foo depends on ['OIBridge.A.ax₀']\n\nlean_axiom_check: FAILED (1 problem(s))\n",
+        "stderr": "",
+        "tags": [
+          "AXIOM"
+        ],
+        "reported_count": null,
+        "self_test_passed": true
+      },
+      "reference": {
+        "exit": 1,
+        "verdict": "FAIL",
+        "findings": [
+          "AXIOM@OIBridge/A.lean:3"
+        ],
+        "stderr": ""
+      },
+      "checks": {
+        "reference_equals_expected": true,
+        "tool_exit_equals_prediction": true,
+        "tool_tags_equal_prediction": true,
+        "tool_count_equals_prediction": true
+      },
+      "tool_vs_correct": "matches"
+    }
+  ]
+}
