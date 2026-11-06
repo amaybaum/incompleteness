@@ -108,9 +108,7 @@ Deferred to a companion unit (not touched here):
 
 Each chapter line changed here appears verbatim in FULL (`mirror_check`: 0 chapter lines absent).
 
-The Introduction (`papers/Introduction.md` on `draft/oi-introductory-paper-20261025` at `3e600003`, read only) states the
-ceiling with all four hypotheses and ±1 in every run (L254). It states the either/or and the adopted branch (L258), and H-Bell as
-no-signaling plus the gravitational continuum limit (L258, L260). It makes no outcome-independence placement. The L306 entry
-"the Bell ceiling" is proved on paper.
+A side check read the then-draft Introduction (`papers/Introduction.md` on `draft/oi-introductory-paper-20261025` at
+`3e600003`, #918; not on `main`). It is recorded as provenance only: no correction or claim of this record rests on it.
 
 Regenerated: Main and the book (`.tex` and `.pdf`). Main stays at 96 pages and the book goes from 558 to 559, from the added text; no glyph was dropped.

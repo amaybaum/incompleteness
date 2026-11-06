@@ -137,8 +137,8 @@ Left unchanged:
    ln N ≲ 10^{41}. It is a new derivation, not a corpus result, so the manuscript states only |S| − 1 and the ring
    theorem B.3.1. Adding it would need a written proof (Appendix B) and a choice of boundary conditions.
 
-The Introduction (`draft/oi-introductory-paper-20261025` at `72014a79`, read-only) states no recurrence-time number.
-Its :49 and :146 define L as the order of φ, without size.
+A side check read the then-draft Introduction (`papers/Introduction.md` on `draft/oi-introductory-paper-20261025` at
+`72014a79`, #918; not on `main`). It is recorded as provenance only: no correction or claim of this record rests on it.
 
 Regenerated: Explainer and the book (`.tex` and `.pdf`). After each merge the book `.tex` and `.pdf` were rebuilt, not
 hand-merged.
