@@ -5,12 +5,18 @@ checks ACCEPT at `7fe4cd86` and `25df10c5` (#1123 c.6654184712, c.6654331521, c.
 #1033 c.6656671521); the [Q] matrix rows, ACCEPT at `ef45cb76` (#1144 c.6664044354). The review reports are GitHub
 comments and are provenance only (§A.42 item 8). What can be checked from `main` is this record's [D] derivations,
 by hand, against the definitions and [K] statements it cites, subject to the §9 premise ledger; no [D] result is
-kernel-checked. Outside the established scope: the `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2`, native lifts and
-physical sourcing (§9). Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695).
+kernel-checked. The `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` rest on [M1], and the C-pers statement of §8 on
+[M2]: hand derivations in those records, independently model-reviewed (#1151 c.6665869201, c.6665968807; #1149
+c.6668322323), none kernel-checked. Outside the established scope: native lifts and physical sourcing (§9).
+Paper-only, written by the designated BSEL-2 writer (#1033 c.6653013695).
 **Scope:** `SCOPE.md` in this directory, a verbatim copy of the reviewed scope r3 (sha256 `df40103e…a3dd54cd`).
 **Authorization:** owner approval to start, #1033 c.6653677971 (amaybaum, Claude Code session chat, 2026-11-05):
 "Approved to start the independently reviewed paper-only unit. Proceed within its reviewed scope. No new scientific
-computation or theorem promotion without separate authorization."
+computation or theorem promotion without separate authorization." The [M1] and [M2] entries: owner ruling #1031
+c.6676219154 (amaybaum, Claude Code session chat, 2026-11-06, posted 03:38:40Z): "For `|V| = 2`, `|A| ≥ 2`, within
+`PPer`: C0 O⇒G Disproved, strictly coarser; C2-ch O⇒G Disproved, incomparable; C2-sel O⇒G Disproved, incomparable.
+The M-1 alternating-W counterexample supports these changes. M-2 additionally establishes that C-pers separates the
+tested pair without coherent preparation, provided ancilla coherence persists between reads."
 **Base:** `origin/main` `b606ee4116e97e39d90e65a4110dc70f78b7b99d`. The scope's drafting snapshot `D` is `4f016afd`. No
 file under `verification/lean-mathlib/OIBridge/` changed between the two, and every [K] line cited here was re-read at
 the base.
@@ -23,6 +29,8 @@ or probe.
   F is off `main`.
 - [D]: derived in this record.
 - [Q]: the Q2A record `../bsel-2-q2a-ce-20261105/RESULT.md` on `main`, cited by section.
+- [M1]: the M-1 record `../oiqmsel-m1-alt-w-20261105/RESULT.md` on `main`, cited by section.
+- [M2]: the M-2 record `../oiqmsel-m2-cpers-20261105/RESULT.md` on `main`, cited by section.
 - Comments on #1033 are provenance only (owner ruling, c.6652903587). A cell that rests only on one is labelled
   UNRESOLVED (rests on c.<id>).
 
@@ -283,7 +291,10 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
   - The fibre-Gram invariants are `|g| = ½` against `0`. Two-sided relatedness would preserve `|g|`
     (`gramPhaseEquiv_of_twoSided`, TSG:263; [Q §6], Lemma R (a ⇒ b)), so `¬G` [Q §7].
   - Both have `Γ_0 = J/2 ≠ 1`, so they lie outside `PPer`. With G⇒O, C0 is strictly coarser than `G` there.
-- **O⇒G at `|V| = 2`, `|A| ≥ 2`, `PPer`: not addressed** (F l. 430's item, open for `PPer`; scope §8).
+- **O⇒G at `|V| = 2`, `|A| ≥ 2`, `PPer`: disproved, witness the alternating `W`/`W′` pair** [M1 §§2–11].
+  - `U = (1, W, 1, W, …)` and `U′ = (1, W′, 1, W′, …)`, with `⊕ 1` on further ancilla labels at `|A| ≥ 3` [M1 §10].
+  - Both have `Γ = (1, J/2, 1, J/2, …)`, in `PPer` in either orientation [M1 §3], so `Λ_C0` agrees [M1 §4.2].
+  - `|g(W)| = ½ ≠ 0 = |g(W′)|`, so `¬G` [M1 §9]. With G⇒O, C0 is strictly coarser than `G` in `PPer` there.
 
 ### 3.2 C1
 - **G⇒O: disproved [D], every `|V| ≥ 2` and every `|A|`, witness WB, in `PPer`.**
@@ -366,8 +377,11 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
     `|A| ≥ 2` [Q §3.5].
   - The pair is not `G`-related (§3.1) and lies outside `PPer`. With WE, C2-ch and C2-sel are incomparable with `G`
     at `|V| = 2`, `|A| ≥ 2`, in the all-unitary class.
-- **O⇒G at `|V| = 2`, `PPer`: not addressed** (F l. 430's item, open for `PPer`; scope §8). Constant lifts with
-  `Γ ≠ 1` do not lie in `PPer`, so the `W`/`W′` pair does not decide this cell.
+- **O⇒G at `|V| = 2`, `PPer`: disproved, witness the alternating `W`/`W′` pair of §3.1** [M1 §§4.3–4.5, 9–10].
+  - Every relative object is `1` or `X ∈ {W, W′}`, and every factor of W0.4 and W0.5 agrees, `⊥` masses included, for
+    every root, read list and record [M1 §4.3, §4.4].
+  - The pair is not `G`-related (§3.1). With WE, C2-ch and C2-sel are incomparable with `G` in `PPer` at `|V| = 2`,
+    `|A| ≥ 2`.
 - **Not equivalent at `|V| ≥ 3`.**
 
 ## §4. S1′: the subgroup C1′ respects
@@ -505,8 +519,7 @@ All controls pass. One K-A item halted and was settled in the record.
 
 ## §8. Results (§9 of the scope, filled in)
 
-Labels follow scope §5: proved, disproved, conditional, unresolved. ★ marks a cell F fixes on its own support. "Not
-addressed" marks a cell stopped at the scope boundary (scope §8).
+Labels follow scope §5: proved, disproved, conditional, unresolved. ★ marks a cell F fixes on its own support.
 
 | Model | `\|V\|` | `\|A\|` | Class | G⇒O | O⇒G | Support | Does NOT establish |
 |---|---|---|---|---|---|---|---|
@@ -519,31 +532,37 @@ addressed" marks a cell stopped at the scope boundary (scope §8).
 | C0 | ≥3 | ≥2 | all (witness outside `PPer`) | proved★ | disproved★: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | F ll. 245–249 | a native separation |
 | C0 | ≥3 | ≥2 | `PPer` | proved | disproved: COUNTEREXAMPLE[C0, `\|V\|`≥3, `\|A\|`≥2, no reset, same Γ, `PPer`] | WA′ [D] | a native separation |
 | C0 | 2 | ≥2 | all (witness outside `PPer`) | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, outside `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the `W`/`W′` pair [Q §§2–7] | the `PPer` cell; a native separation |
-| C0 | 2 | ≥2 | `PPer` | proved (TSG:217, CLG:273) | not addressed | G⇒O: TSG:217, CLG:273 | either answer for O⇒G |
+| C0 | 2 | ≥2 | `PPer` | proved (TSG:217, CLG:273) | disproved: COUNTEREXAMPLE[C0, `\|V\|`=2, `\|A\|`≥2, no reset, same Γ, `PPer`] | G⇒O: TSG:217, CLG:273; O⇒G: the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
 | C1 | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WB; §2.2 with TSG:839 `mpr` [D] | that P-coh is available |
 | C1′ | ≥2 | any | all; `PPer` | disproved: COUNTEREXAMPLE[C1′, `\|V\|`≥2, `\|A\|` any, no reset, same Γ, `PPer`] | proved | WC; §2.3, TSG:84 [D] | that any H-fac device is available |
 | C2-auto | 2 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`=2, `\|A\|`=1, Rst-auto, same Γ, `PPer`] | proved | WD; `O_C2 ⊆ O_C0` with F ll. 254–261 [D] | that H-comp or Acc₂ is physical |
 | C2-auto | ≥3 | 1 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WD `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-auto, `\|V\|`≥3, `\|A\|`=1, Rst-auto, same Γ, `PPer`] (WA; `Γ^alt` pair at 4) | WD `⊕ 1`; WA [D] | a native separation |
 | C2-ch | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, outside `PPer`] | WE [D]; the `W`/`W′` pair [Q §§2–7] | the `PPer` O⇒G cell; a native separation |
-| C2-ch | 2 | ≥2 | `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | not addressed | WE [D] | either answer for O⇒G |
+| C2-ch | 2 | ≥2 | `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`=2, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] | WE [D]; the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
 | C2-ch | ≥3 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`≥3, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WE `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-ch, `\|V\|`≥3, `\|A\|`≥2, Rst-ch, same Γ, `PPer`] (WA′) | WE `⊕ 1`; WA′ [D] | a native separation |
 | C2-sel | 2 | ≥2 | all (O⇒G witness outside `PPer`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE: root `(ok,⊥)` and all-ok) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, outside `PPer`] | WE [D]; the `W`/`W′` pair [Q §§2–7] | the `PPer` O⇒G cell; a native separation |
-| C2-sel | 2 | ≥2 | `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE: root `(ok,⊥)` and all-ok) | not addressed | WE [D] | either answer for O⇒G |
+| C2-sel | 2 | ≥2 | `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE: root `(ok,⊥)` and all-ok) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`=2, `\|A\|`≥2, Rst-sel, same Γ and α, `PPer`] | WE [D]; the alternating `W`/`W′` pair [M1] | a native separation; physical availability |
 | C2-sel | ≥3 | ≥2 | all; `PPer` | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WE `⊕ 1`) | disproved: COUNTEREXAMPLE[C2-sel, `\|V\|`≥3, `\|A\|`≥2, Rst-sel, same Γ, `PPer`] (WA′) | WE `⊕ 1`; WA′ [D] | a native separation |
 
 **Equivalence.** Both directions are proved at the same scope only for C0 at `|V| = 2`, `|A| = 1`: there, two-sided
 gauge relatedness and complete-record operational equivalence are equivalent (★, on F's support). In every other
 addressed cell the two notions differ, and the table records in which direction:
 - C1 and C1′ refine `G` strictly: O⇒G holds and G⇒O fails.
-- C0 coarsens `G` at `|V| ≥ 3`, and at `|V| = 2`, `|A| ≥ 2` in the all-unitary class: G⇒O holds and O⇒G fails.
+- C0 coarsens `G` at `|V| ≥ 3`, and at `|V| = 2`, `|A| ≥ 2` in the all-unitary class and in `PPer`: G⇒O holds and
+  O⇒G fails.
 - C2 is incomparable with `G` at `|V| ≥ 3`, and strictly inside it at `|V| = 2`, `|A| = 1`. C2-ch and C2-sel are
-  incomparable with `G` at `|V| = 2`, `|A| ≥ 2` in the all-unitary class.
+  incomparable with `G` at `|V| = 2`, `|A| ≥ 2` in the all-unitary class and in `PPer`.
 
 **Further results, outside the owner-direction cells.**
 - **E[C], the exact quotients** (§2):
   - `O_C = R_C` for C0, C1, C1′ and C2-auto (both inclusions proved).
   - For C2-ch and C2-sel, `R_C ⇒ O_C` is proved and `O_C ⇒ R_C` is disproved (WG).
 - **S1′** (§4): `𝒢_C1′ = {L_t scalar, K_t weak}`.
+- **C-pers on the alternating `W`/`W′` pair** [M2 §§4–6]: the reset-free procedure C-pers (roots `e_j`, two Lüders
+  reads on `V`, the ancilla persisting between them) separates the pair with no coherent preparation, provided ancilla
+  coherence persists between the reads (dephasing the ancilla removes the separation, [M2 §5]); it does not resolve
+  `G`-classes, since it also separates the `G`-related pair WD [M2 §3 K11, §6], and it establishes no native or
+  physical availability.
 - **Conditional block** (§5), each CONDITIONAL[H-comp, Acc₂, Rst-x, P-conf] and relative to `𝒢_C2-x`:
   - `𝒢_C2-x` = (i) ∧ (ii) (proved);
   - Own[C2-x] is disproved at every `|V| ≥ 2` in `PPer`;
@@ -579,14 +598,15 @@ a universal statement about the same objects; read physically, it carries its ro
 
 **Premise ledger**
 - **Support on `main`:** every [K] line cited, read at `b606ee41`; the Q2A record [Q], for the O⇒G cells at
-  `|V| = 2`, `|A| ≥ 2` outside `PPer`.
+  `|V| = 2`, `|A| ≥ 2` outside `PPer`; the M-1 record [M1], for those cells in `PPer`; the M-2 record [M2], for the
+  C-pers statement of §8. [M1] and [M2] are read at `92f4f270`; each derives its laws, witnesses and gauge
+  determination itself, with no derived result of this record as a premise ([M1] §9, §14; [M2] §8).
 - **Support off `main` (a gap until F lands):** F (`88c175c3`), used at:
   - ll. 62–67: the H-fac interface and NI, used for C1′;
   - l. 178: C0 G⇒O;
   - ll. 137–144 and 351–362: `Γ^alt`, Q5a, Q5b;
   - ll. 244–249: the `F₃` placement, re-derived here as WA and WA′;
-  - ll. 254–261: `Fib = G` at `|V| = 2`, written out in §3.1;
-  - l. 430: the item, open for `PPer`, which bounds the `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2`.
+  - ll. 254–261: `Fib = G` at `|V| = 2`, written out in §3.1.
 - **F lines not used:** F's Lemma HS (l. 188) and the results that inherit it (Q1⇒, Q1c(⇒), DC's
   "R[C] ⇒ O_C ⊇ Fib") are not used. No class-F←c premise enters this record.
 - **Provenance only:**
@@ -603,12 +623,15 @@ a universal statement about the same objects; read physically, it carries its ro
 - Which candidate, if any, OI physically supplies (SOURCING-GAP).
 - Any statement about restricted classes of lifts or about OI-realizable lifts (W1).
 - Any two-time H-fac device class.
-- The cells marked not addressed: O⇒G at `|V| = 2`, `|A| ≥ 2` in `PPer`, for C0, C2-ch and C2-sel.
 - A global gauge classification.
 
 Nothing here is promoted or propagated. Every [D] result is a hand derivation in this record, independently
-model-reviewed as the status line records; none is kernel-checked or physically established.
+model-reviewed as the status line records; none is kernel-checked or physically established. The same holds for the
+[M1] and [M2] results in their own records.
+
+**Other records stating these cells.** `SCOPE.md` l. 269 (a verbatim copy of the reviewed scope) and [Q] §8 (its
+"`PPer`" item), §9 (its three `PPer` rows) and §11 state the `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` as not addressed
+or not started. Those cells are decided in §3.1, §3.5 and §8 here, on [M1].
 
 **Proposals (not pursued; separate scope and authorization needed).**
 - A reachability-restricted `R_C2` for `|A| ≥ 2` (§2.5).
-- The `PPer` O⇒G cells at `|V| = 2`, `|A| ≥ 2` (F l. 430).
