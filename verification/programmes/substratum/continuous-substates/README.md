@@ -4,6 +4,27 @@
 `f6989a27815c4d715223eebf2859422c1231e3f8`. This note changes no manuscript claim, status
 or premise.
 
+- **Acceptance labels are author-reported.** Where a file here says that a #1009 unit or its
+  parent was accepted, reviewed or CI-green (for example
+  `native-later-operand-and-controller.md:3–6`), it reports a verdict recorded on #1009. Those
+  reviews and runs are not on `main`, and the labels are not independent verification. Review
+  records held elsewhere on `main` (for example the one cited at
+  `later-access-preregistration.md:38–39`) carry their own stated status.
+- **Reproducible finite controls.** The `*.py` probes use exact arithmetic and run from `main`;
+  `expected-result.json` and `later-access-result.json` are recorded outputs. CI on `main` does
+  not run them. Each establishes its own finite statement only.
+- **Paper proofs not independently reviewed on `main`:** every written proof in this directory,
+  among them the all-`L` Fourier proof (`observable-recurrence.md`), the solenoid Markov proof
+  (`solenoid-countercontrol.md`), the infinite-tape XOR construction
+  (`infinite-xor-counterexample.md`), the chronological-triangular proof of LA-EQUAL
+  (`later-access-preregistration.md:173`), the restricted Haar-stationarity obstruction
+  (`yangmills-substate-bridge.md`), and the written source, packet and masking proofs of the
+  `native-*.md` units.
+- **Kernel-checked:** `OIBridge.ObservableFactorRecurrence`, `OIBridge.ObservableMeasureReturn`
+  and `OIBridge.GradientLinkFlatness`, with the scope stated in the two Lean paragraphs below.
+- None of the paper proofs or author-reported results is a premise until it is independently
+  validated (AGENTS.md §A.46 item 7).
+
 ## Question
 
 Main Lemma 1 proves that the visible sector is finite. Finiteness of the whole substratum
@@ -180,10 +201,13 @@ gauge-coupled 3-D wave map and does not rule out other partitions.
 The existing Lean module `OIBridge.RecurrenceHorizon` already proves the
 **carrier-independent** rooted identity-return/overlap obstruction;
 `OIBridge.EquivalenceChain` already proves stochastic-inverse rigidity.
-At independently reviewed head `a02e197d`, both research modules
+At head `a02e197d`, both research modules
 `OIBridge.ObservableFactorRecurrence` and `OIBridge.ObservableMeasureReturn`
 compiled in Lean/Mathlib; the whole automatic CI run `41094894776`
-passed (25 jobs passed, 1 skipped). They establish the carrier-independent
+passed (25 jobs passed, 1 skipped). The author-posted review of `a02e197d`
+([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978))
+returned REVISE, with no mathematical errors reported; its reviewers are
+not named on `main`. The modules establish the carrier-independent
 change-event identity, stochastic inverse obstruction, and a conditional
 **ENNReal-valued** measured ratio identity `measuredGamma = I ↔
 μ(visible-change event) = 0` for positive finite initial-cell masses.
@@ -261,7 +285,7 @@ The [native sourcing analysis](native-link-sourcing-gate.md) compares the
 `OIBridge.GradientLinkFlatness` attempts to certify the square-gradient
 telescope and generic two-slice inverse, with its source imported into
 the Mathlib bridge and categorized **kernel-only** in the maintained
-Lean manuscript census. Its Lean build and release-gate checks passed on automatic exact-head run `41094894776`; the independent review still requires revisions. It separates a rigorous negative
+Lean manuscript census. Its Lean build and release-gate checks passed on automatic exact-head run `41094894776`; the author-posted review ([#1009 comment 6529351978](https://github.com/amaybaum/incompleteness/pull/1009#issuecomment-6529351978)) returned REVISE. It separates a rigorous negative
 result from a usable mathematical consistency control:
 
 - **Native pure-gradient negative:** assigning links by site
