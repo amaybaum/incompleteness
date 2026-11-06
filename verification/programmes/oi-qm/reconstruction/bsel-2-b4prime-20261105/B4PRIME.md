@@ -265,12 +265,13 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
   - `twoSidedRelated_iff` (mpr, TSG:839) then gives `G`.
 - **O⇒G at `|V| ≥ 3`, `|A| = 1`, all: disproved.**
   - TG3 at `|V| = 4` [K TSG:907, :966].
-  - The constant pair `F₃` against `F̄₃` at `|V| ≥ 3` [D]: WA's computation below applies verbatim to the constant
-    placement. F ll. 244–249 is provenance.
+  - The constant pair `F₃` against `F̄₃` at `|V| ≥ 3` [D]: both lifts have `Γ_t = J₃/3 ⊕ 1` at every `t`, so `Λ_C0`
+    agrees (W0.1), and WA's non-relatedness computation at `t = 1` below applies verbatim. F ll. 244–249 is
+    provenance.
   - Both have `Γ_0 ≠ 1`, so they lie outside `PPer`.
 - **O⇒G at `|V| = 4`, `|A| = 1`, `PPer`: disproved [D].**
-  - The `Γ^alt` pair (`|V| = 4`, `|A| = 1`; not the alternating `W`/`W′` pair of [M1]): alternating `H(1)` against
-    alternating `H(i)`, the two matrices of TSG:907.
+  - The `Γ^alt` pair (`|V| = 4`, `|A| = 1`): alternating `H(1)` against alternating `H(i)`, the two matrices of
+    TSG:907.
   - **Equal `Γ`:** every entry of `H(1)` and of `H(i)` has modulus ½, so both lifts have `Γ = (1, J/4, 1, J/4, …)`, and
     `Λ_C0` agrees (W0.1).
   - **Class:** `J/4` is symmetric and doubly stochastic, so `Γ ∈ PPer` in either orientation (alternating placement
@@ -291,8 +292,10 @@ G⇒O witness is a gauge image under one fixed procedure (K-I), so `Γ` is share
     - `TwoSidedRelated` requires every slice (TSG:84). So `¬G`.
   - **Scope-named alternative:** `Γ^alt ⊕ 1` also works at `|V| ≥ 5`. Its invariant `z/16` at `z = 1, i` is `1/16`
     against `i/16`.
-- **O⇒G at `|V| ≥ 3`, `|A| ≥ 2`, all: disproved [D]**, by the constant placement of `F₃` on the anchored lines with
-  `1` on `C`: WA′'s computation below applies verbatim to it. F ll. 245–249 is provenance.
+- **O⇒G at `|V| ≥ 3`, `|A| ≥ 2`, all: disproved [D]**, by the constant placement of `F₃` (against `F̄₃`) on the
+  anchored lines with `1` on `C`. The anchored columns stay in `𝒜`, so both lifts have `Γ_t = J₃/3 ⊕ 1` at every `t`
+  and `Λ_C0` agrees (W0.1); `Γ_0 ≠ 1`, so the pair lies outside `PPer`. WA′'s non-relatedness computation at `t = 1`
+  below applies verbatim. F ll. 245–249 is provenance.
 - **O⇒G at `|V| ≥ 3`, `|A| ≥ 2`, `PPer`: disproved [D], witness WA′.**
   - **Witness WA′.** `U_t = M_t ⊕ 1_C`, where `M_t` is WA's slice acting on `𝒜` in the basis `e_v`.
   - Since `U_te_j ∈ 𝒜`, only `a = a₀` contributes to the fibre-Gram data. So `FG^{(i)}(j,k) = conj(M_{ij})M_{ik}`, and
@@ -629,7 +632,8 @@ a universal statement about the same objects; read physically, it carries its ro
   - #914 c.6563412926 and c.6558834119;
   - F (`88c175c3`): ll. 62–67 (the H-fac interface and NI, the origin of (r3) and W0.3), l. 178 (C0 G⇒O),
     ll. 137–144 and 351–362 (`Γ^alt`, Q5a, Q5b), ll. 244–249 (the `F₃` placement) and ll. 254–261 (`Fib = G` at
-    `|V| = 2`). Each of these results that this record uses is derived in W0.3 or §3.1 from the [K] lines cited there.
+    `|V| = 2`). Each of these results that this record uses is restated in (r3) and W0.3, or derived in §3.1 from
+    the [K] lines cited there.
   - None supports a result.
 - **Not used as support:** Main:646 and TSG:49–50 (context).
 
