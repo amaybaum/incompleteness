@@ -785,7 +785,8 @@ The repository is archived on Zenodo with concept DOI [10.5281/zenodo.19060318](
 
 ## ACKNOWLEDGEMENTS
 
-During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and verifying bibliographic details. The author reviewed and edited all content and takes full responsibility for the publication.
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
 
 ***
 

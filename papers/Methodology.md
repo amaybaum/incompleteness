@@ -578,6 +578,9 @@ That discipline is replicable, which is the paper's reason for stating it separa
 
 This paper articulates, for a philosophy-of-physics readership, the methodological posture developed across the Incompleteness framework's technical papers. Part I develops the framework's foundational commitment; Parts II and III draw on structural results from the framework's substratum and main papers.
 
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
+
 ---
 
 ## REFERENCES
