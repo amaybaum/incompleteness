@@ -30,33 +30,41 @@ The same boundary is stated in Main §3.4: complex matrix kinematics is given in
 
 ## 2. Endpoints and common protocols
 
-The quantum comparison class consists of declared finite-dimensional complex systems with finite-outcome completely positive, trace-nonincreasing instrument branches whose sum preserves trace. A protocol may prepare a state, select settings, compose instruments conditionally on outcomes, retain/read records, and use the declared finite composite systems. Its quantum law uses the trace rule. This is the comparator's definition, not a native OI measurement postulate.
+For every nonempty finite carrier A, fix the primary comparison interface `J_exact(A)` as follows. Its system objects are A and `B_n = A × Fin n` for every integer `n > 0`; level one is identified with A by the canonical one-state-ancilla bijection. Joining an m-state helper to `B_n` uses the fixed reindexing `(A × Fin n) × Fin m ≃ A × Fin (n*m)`. These are the positive composite levels of the existing endomorphic characterization.
 
-A common protocol interface J must declare:
+The interface contains:
 
-- system and record types, preparation and setting labels, and available intervention labels;
-- admissible finite sequences and outcome-dependent continuations;
-- joint-system composition and the meaning of an untouched spectator;
-- which records can be read repeatedly and which interventions preserve them;
-- parameter domains, observation horizons and the exact/approximate precision claim.
+1. Every density preparation `ρ` on each object: every positive semidefinite complex matrix of trace one, with the full complex parameter domain, including all pure and mixed states.
+2. Every finite-outcome endomorphic quantum instrument on each object: every finite family of completely positive complex-linear branch maps whose sum preserves trace. Its branches are trace-nonincreasing on positive inputs. All such families and their full complex parameter domains are included, rather than a selected gate or measurement menu.
+3. Every finite sequential/adaptive protocol built from these primitives. Each protocol is a finite tree, with a next instrument chosen as a function of the retained past. The family contains trees of every finite depth and every finite branching size; there is no fixed maximum horizon.
+4. The classical record operations needed for those trees: append each outcome to an allocated finite record, retain it, read it repeatedly without changing that record, condition later choices on it, and relabel or coarse-grain outcomes. The resource contract must supply compatible finite record/controller resources for every such protocol.
+5. Independent attachment of a helper in any density state on `Fin m` with `m > 0`, operations on the resulting positive composite levels, untouched spectators, and discarding a selected helper with the fixed join/reindexing maps. There is no fixed upper bound on the positive ancilla level. Genuinely dimension-changing maps beyond these specified preparations, joins, discards and reindexings are outside this primary endpoint unless a separate typed implementation/transport obligation is added.
+
+The quantum class `Q_exact(A)` supplies this entire interface with the standard sequential instrument/trace law. The common labels identify preparation and intervention requests; they do not postulate that a native procedure realizes a requested density matrix or instrument. Constructing the native procedure and its fixed label interpretation is part of the correspondence obligation. Neither quantum preparation availability, a finite menu, nor a horizon can be narrowed later while retaining the name `J_exact(A)`. A smaller independently justified target must be enumerated and named as a restricted target.
+
+The quantum trace rule is the comparator's definition, not a native OI measurement postulate. Exactness for `J_exact(A)` has no preassigned finite menu, horizon bound or ancilla cutoff. Restricted finite-menu/horizon approximation remains the separate target of §3.
 
 An extended native OI model must carry its underlying OI data plus an explicit interpretation of J's labels by allowed physical procedures. Defining arbitrary probability tables with the desired quantum values is not a physical realization. Nor is `RealizesSealedOICore` identified here with the whole class of physically realizable native OI models.
 
-For a model X, let p_X(h | π) denote the joint probability of finite outcome history h in protocol π. The native record law must be separately specified; it cannot inherit the quantum trace rule merely by notation. Conditional probabilities are compared only where their conditioning history has positive probability.
+For a model X, let p_X(h | π, p) denote the joint probability of finite outcome history h in protocol π. The native record law must be separately specified; it cannot inherit the quantum trace rule merely by notation. Conditional probabilities are compared only where their conditioning history has positive probability.
 
 The primary proposed model-level target is:
 
 ```text
-For every M in the predeclared extended-native class,
-  there exists one T in the quantum class such that
-  p_M(h | π) = p_T(h | π) for every admissible π and h.
+For each nonempty finite A and a fixed, independently specified extension E:
 
-For every T in the predeclared quantum class,
-  there exists one M in the extended-native class such that
-  p_T(h | π) = p_M(h | π) for every admissible π and h.
+For every M in M(E, J_exact(A)),
+  there exists one T in Q_exact(A) such that
+  p_M(h | π, p) = p_T(h | π, p)
+  for every preparation p, protocol π and history h in J_exact(A).
+
+For every T in Q_exact(A),
+  there exists one M in M(E, J_exact(A)) such that
+  p_T(h | π, p) = p_M(h | π, p)
+  for every preparation p, protocol π and history h in J_exact(A).
 ```
 
-The witnesses and label interpretations must work coherently for the complete declared protocol family. They cannot be chosen anew per outcome, setting or experiment. Preservation of sequential composition, conditioning and the declared composite structure is part of the correspondence.
+The witnesses and label interpretations must work coherently for the complete `J_exact(A)` family. They cannot be chosen anew per outcome, setting or experiment. Preservation of sequential composition, conditioning and the declared composite structure is part of the correspondence.
 
 These are proposed obligations, not proved statements. The first kernel table in §1 discharges the two directions of an internal algebraic characterization only; it does not discharge either whole-model realization statement above.
 
@@ -64,7 +72,22 @@ These are proposed obligations, not proved statements. The first kernel table in
 
 A candidate is specified by data `(Ω, Φ, Λ, μ, ι, R, τ, E)`. Here Ω is the declared world-configuration space, Φ its common autonomous reversible dynamics, and Λ a preparation-seed space. The declared extension principles E constrain these objects and their physical interpretation. The choices of measurable structure, finite or infinite resources, and any coherent carrier are part of E, not consequences of writing this tuple. Bare OI hypotheses are traced to Main §1.2; this schema does not identify the formal predicate `RealizesSealedOICore` with physical admissibility.
 
-For each preparation p, `μ_p` is a probability law on Λ. A program-loading map `ι(p, π, λ)` prepares the system, controller, ready records and other declared physical subsystems for protocol π. It must be built from the candidate's stated admissible preparation procedures. Future setting choices may depend on retained outcomes as the protocol specifies, but the initial uncontrolled seed law `μ_p` cannot be chosen as a function of those future settings or of the desired output history. This states the setting-independence requirement; it does not prohibit the subsequent physical response from depending on the chosen setting.
+For each preparation p, `μ_p` is a probability law on Λ. A program-loading map `ι(p, π, λ)` prepares the system, controller, ready records and other declared physical subsystems for protocol π. It must be built from the candidate's stated admissible preparation procedures. The uncontrolled seed law is fixed for the preparation and cannot be chosen to fit future settings or a desired output history. Independence of this seed law alone is insufficient: the loaded physical state must also satisfy the following conditions.
+
+Let `ν_(p,π) = (ι(p,π,·))_* μ_p`. The model must identify the controlled setting/program variables and a physical restriction map U onto the joint uncontrolled preparation, environment, controller-noise and ready-record variables relevant to the later outcomes. Every such uncontrolled component is included; U cannot be empty or discard an inconvenient hidden correlation. No global product decomposition of Ω is inferred.
+
+For a fixed preparation and shared experimental past, changing a future setting/program may load only the specified controller fields. The restriction of `ν_(p,π)` to U must be unchanged until the declared setting interaction. The loading operation preserves the preparation it claims to hold fixed, the ready-state specification, and already established public records; those records are unchanged on admissible configurations. The controller/program fields that differ must be physically isolated from U and the retained records until their declared interaction.
+
+For a fresh randomized setting S, require joint conditional independence on the actual loaded physical law:
+
+```text
+Law(U, S | p, retained past)
+  = Law(U | p, retained past) × Law(S | p, retained past).
+```
+
+This is a requirement on the loaded state and setting mechanism, not a consequence of using an identical or uniform `μ_p`. A later declared controller–system coupling may change the state and outcome law as a function of the chosen setting.
+
+**Causal-prefix compatibility.** Protocols with the same realized prefix must induce the same joint uncontrolled-state and history law before they diverge, with the preparation, earlier settings, recorded outcomes and spent resources held fixed. Only isolated fields encoding unused future program choices may differ. A given operation label denotes the same physical procedure whenever selected, with dependence restricted to its declared inputs and retained past; unused future choices cannot alter its incoming state or response law through loading. Subsequent choices may depend on the retained past as the adaptive protocol specifies. A proposed E must physically establish these isolation, loading, independence and prefix properties; this definition does not source them.
 
 The record maps R and declared observation/termination rules τ extract a history `H_M(λ, π)` from the same Φ and the loaded physical program. Settings must act through specified controller–system couplings. Recorded outcomes, feed-forward and repeated record reads must be realizable by that dynamics; arbitrary lookup tables supplied only with quantum outcome probabilities do not count as physical source evidence. If a candidate uses a product factorization of Ω or a particular causal/locality structure, it must state that hypothesis rather than infer it from the schema.
 
@@ -84,7 +107,7 @@ Record storage, controller size, preparation cost, observation times and the phy
 
 ### 2.2 Quantum histories and the two directions
 
-For a quantum protocol with initial density operator `ρ_p` and the instrument branches selected along history h, its law is the trace of the sequentially composed unnormalized branch applied to `ρ_p`. Its preparation and instrument availability are the predeclared quantum target, including all relevant finite ancilla levels. General changes of system type, if included beyond endomorphic operations, require an explicit implementation/transport argument; they are not silently supplied by the endomorphic characterization.
+For a quantum protocol with initial density operator `ρ_p` and the instrument branches selected along history h, its law is the trace of the sequentially composed unnormalized branch applied to `ρ_p`. Its preparation and instrument availability are exactly `J_exact(A)`: every density preparation, normalized finite-outcome CP instrument and positive ancilla level, with all finite adaptive protocol trees. General changes of system type, if included beyond endomorphic operations, require an explicit implementation/transport argument; they are not silently supplied by the endomorphic characterization.
 
 The model-level target above is therefore indexed by the preparation as well as the protocol. In both directions, the same witness and label interpretation must cover all p, π and h in the declared target. The native law in §2.1 and the comparator trace law remain independently defined until a reconstruction proves that they agree.
 
@@ -94,7 +117,7 @@ Main §3.4 and its conclusion distinguish exact finite-observable representation
 
 Gate A must keep two claims separate:
 
-- **Primary target:** exact correspondence of the complete declared operational model family. The extended-native class and its resource/parameter domains must be stated before asserting this target.
+- **Primary target:** exact correspondence for the full `J_exact(A)` family at each nonempty finite A. The extended-native class and its resource/parameter domains must be stated before asserting this target.
 - **Separate approximation target:** for declared dimension, finite menu, finite horizon and ε > 0, one realization covers the entire declared experiment family to a stated error. An approximation theorem does not establish the primary target.
 
 No single fixed finite classical carrier is silently used as an exact realization of all continuum qubit preparations/effects at all precisions. Any completion, carrier enlargement or additional coherent resource is entered as an explicit extra condition. Failure of the primary target does not authorize retrospectively replacing it with the approximation target.
