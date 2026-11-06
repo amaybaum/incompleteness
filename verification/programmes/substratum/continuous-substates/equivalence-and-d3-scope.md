@@ -43,8 +43,9 @@ Already present in the repository:
   conditions from bare OI.
 
 The modules `OIBridge.ObservableFactorRecurrence` and
-`OIBridge.ObservableMeasureReturn` were both **kernel-built** at exact
-head `a02e197d` (automatic CI run `41094894776`, release gate PASS).
+`OIBridge.ObservableMeasureReturn` are both **kernel-built**, with their
+`#print axioms` reports checked, by the Mathlib bridge job (`Build`;
+release-gate `lean-axioms`).
 The first proves the finite-visible change-event set identity and the
 stochastic-inverse obstruction. The second proves the **ENNReal** ratio
 identity `measuredGamma = I ↔ μ({π∘T^L ≠ π})=0` for positive finite
