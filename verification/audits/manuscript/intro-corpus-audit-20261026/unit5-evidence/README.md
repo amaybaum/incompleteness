@@ -17,10 +17,12 @@ audited historical evidence**, with no correspondence missing and no mismatch. N
 claimed: no Lean build was run for this review. The scientific claims these declarations support keep
 their existing proof-status qualifications.
 
-**What this record does not do.** The review's acceptance is the owner's step, on #941, which remains
-accountable for EV-28 until then ("#941 remains open until that review is accepted", #1031 comment
-6678672357, section 3). This record changes no outcome in `../CLOSURE-LEDGER.md`; the closure audit
-(Unit 6) records outcomes.
+**Acceptance.** The owner accepted the review on 2026-11-06 (#1031 comment 6681621167, amaybaum,
+2026-11-06T09:26:03Z): "I accept the EV-28 independent evidence audit as sufficient verification under
+our previously approved standard. This establishes that the retained historical axiom reports agree
+with the examined sources and records. It does not constitute a new Lean reproduction, strengthen any
+theorem, or resolve the separate axiom-checker integrity question (#1162)." This record changes no
+outcome in `../CLOSURE-LEDGER.md`; the closure audit (Unit 6) records outcomes.
 
 ## Contents
 

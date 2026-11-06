@@ -1,13 +1,15 @@
 # introduction-repro-ext — the staged 28-module expected result, retained as historical evidence
 
-**Status.** The 28-module result in this directory supports no manuscript claim and is not an accepted
-result. An independent review, recorded in `../unit5-evidence/`, re-compares each of the 248 reports of
-its 14 added modules, by module and fully qualified name, with the pinned historical log of job
-121598983127, the archived fresh-build log of run 40457712855, the source at `17b830bc` and
-`results-121598983127-28.json`, and finds no mismatch. It classifies the 14 added entries as independently audited historical evidence;
-no fresh reproduction is claimed. That review's acceptance is pending on #941, which remains the
-accountable Issue. Retaining the result here is not scientific acceptance: it promotes nothing and
-strengthens no claim (AGENTS.md §A.42 item 6; §A.46 items 1, 3, 4 and 7).
+**Status.** The 28-module result in this directory supports no manuscript claim. An independent review,
+recorded in `../unit5-evidence/`, re-compares each of the 248 reports of its 14 added modules, by module
+and fully qualified name, with the pinned historical log of job 121598983127, the archived fresh-build
+log of run 40457712855, the source at `17b830bc` and `results-121598983127-28.json`, and finds no
+mismatch. It classifies the 14 added entries as independently audited historical evidence, and the owner
+accepted that audit on 2026-11-06 (#1031 comment 6681621167, amaybaum, 2026-11-06T09:26:03Z) "as
+sufficient verification under our previously approved standard". It is not a fresh Lean reproduction,
+and the separate axiom-checker integrity question is #1162. Retaining the result here is not scientific
+acceptance: it promotes nothing and strengthens no claim (AGENTS.md §A.42 item 6; §A.46 items 1, 3, 4
+and 7).
 
 Retained under the owner decision on #941 (comment 6658967061, Option (b), 2026-11-05), which
 responds to the proposal in comment 6658728711 of the same Issue.
@@ -68,5 +70,5 @@ unchanged, and none of its history is merged into `main`.
 
 The owner's standard for this result is CI evidence plus an independent re-comparison, with no new
 full Lean build (#1031 comment 6678672357, section 3). The review in `../unit5-evidence/` is that
-re-comparison; the result is independently audited historical evidence once the review is accepted on
-#941. A fresh reproduction needs a fresh build, which is a separately authorized step.
+re-comparison, accepted by the owner on 2026-11-06 (#1031 comment 6681621167). A fresh reproduction
+needs a fresh build, which is a separately authorized step.
