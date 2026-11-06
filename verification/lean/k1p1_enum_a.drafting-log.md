@@ -48,6 +48,9 @@ writer's worktree and its scratchpad.
 | 19 | read | Read tool, `k1p1_enum_a.py` lines 726–925 (static re-reading of R5a–CLASS) | no change |
 | 20 | read (digests and counts) | `sha256sum`, `git hash-object`, `wc -l` of `k1p1_enum_a.py`; `date -u` | the values under Hand-off |
 | 21 | edit | Write tool: create this log | — |
+| 22 | edit (git) | `git add` of the two files; `git status --porcelain`; `git commit`; `git log --oneline -1`; `git diff --name-only origin/main..HEAD`; `git push origin HEAD:refs/heads/staging/k1-p1-1-impl-a-20261106`; `git rev-parse HEAD` | commit `bb92c29b26042466334189a5a61e415e603b9672`, touching only these two paths; pushed |
+| 23 | edit (git), read | the edit adding rows 22 to 24; `git commit`; `git push` (same refspec); `gh run list --branch staging/k1-p1-1-impl-a-20261106` | this log's second commit; the run list is checked for workflow runs on this branch |
+| 24 | post | ToolSearch `select:mcp__github__add_issue_comment`; one checkpoint comment on #1135 | the comment records the head of row 23 |
 
 Ruff's UP031 (percent-formatting) findings are left as written: they are style only and valid in Python 3.11.
 
