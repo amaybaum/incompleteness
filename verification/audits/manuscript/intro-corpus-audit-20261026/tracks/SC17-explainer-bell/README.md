@@ -65,9 +65,8 @@ Re-grep over `papers/*.md`, `book/*.md`:
 - **New text:** "encoding of the correlations" and "not a record written at preparation" have 3 uses each, in Explainer :709,
   ch03 :186 and FULL :1062.
 
-The Introduction (`papers/Introduction.md` on `draft/oi-introductory-paper-20261025` at `bace5ef8`, read only) states the Bell
-ceiling with all four hypotheses and ±1 in every run (§3.5). It states the either/or, ontic parameter dependence and H-Bell
-(§3.5 and the conditional-interpretations paragraph). It makes no pre-setting-record, selector or center-independence claim.
+A side check read the then-draft Introduction (`papers/Introduction.md` on `draft/oi-introductory-paper-20261025` at
+`bace5ef8`, #918; not on `main`). It is recorded as provenance only: no correction or claim of this record rests on it.
 
 Follow-ups outside this unit, in the same selector class, for #946:
 
