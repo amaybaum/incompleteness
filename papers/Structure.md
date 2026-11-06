@@ -1331,7 +1331,7 @@ Three classes of claims remain without independent support and would benefit fro
 
 ## Acknowledgments
 
-This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Substratum]. It consolidates content originally developed across three separate documents: a canonical articulation of the framework's two-dimensional hierarchical structure (now §2), a technical analysis of the OI-string substratum-level relationship (now Part I), and a programmatic framework of universality classes of embedded observers (now Part II), with cross-framework synthesis in Part III. The proposal investigated in Part I was raised in discussion with [collaborator/AI-assisted analysis, depending on author preference]. Errors and speculative content are the author's responsibility.
+This is the fifth core paper of the OI framework, alongside [Main, SM, GR, Substratum]. It consolidates content originally developed across three separate documents: a canonical articulation of the framework's two-dimensional hierarchical structure (now §2), a technical analysis of the OI-string substratum-level relationship (now Part I), and a programmatic framework of universality classes of embedded observers (now Part II), with cross-framework synthesis in Part III. Errors and speculative content are the author's responsibility.
 
 ## References
 
