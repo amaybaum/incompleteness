@@ -18,9 +18,9 @@ accepted local component at
 
 | Thread / accountable home | Immutable paper and author | Separate independent review |
 | --- | --- | --- |
-| T1: preparation/loading, #866; coordinates #865/#1147 | [preparation-loading.md](https://github.com/amaybaum/incompleteness/blob/acbcbd0fea30485b400d4802646145d8066ddd89/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/preparation-loading.md), `acbcbd0fea30485b400d4802646145d8066ddd89`; /root/writer_preparation | [ACCEPT](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6704950533), /root/review_physical_interface |
-| T2: composition/Bell, #868; feeds #1060/#1169 | [composition-source-map.md](https://github.com/amaybaum/incompleteness/blob/017ae88ee4f2a0e3a554141fdff9001c9d42e528/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/composition-source-map.md), `017ae88ee4f2a0e3a554141fdff9001c9d42e528`; /root/writer_composition | [ACCEPT](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6704976940), /root/review_composition |
-| T3: probability, #1059; feeds #1169 | [probability-source-assessment.md](https://github.com/amaybaum/incompleteness/blob/8e76417156228ad0ab78d23032435d8efe70b94e/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/probability-source-assessment.md), `8e76417156228ad0ab78d23032435d8efe70b94e`; /root/writer_probability | [ACCEPT](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6704984467), /root/review_recombination_ns |
+| T1: preparation/loading, #866; coordinates #865/#1147 | [preparation-loading.md](https://github.com/amaybaum/incompleteness/blob/ba777f85f379df22547caa3faafa9a3180aa66d4/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/preparation-loading.md), `ba777f85f379df22547caa3faafa9a3180aa66d4`; writer_preparation | [ACCEPT](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6705078195), review_physical_interface |
+| T2: composition/Bell, #868; feeds #1060/#1169 | [composition-source-map.md](https://github.com/amaybaum/incompleteness/blob/2de820fbfbee0a0454363257363e8c98be01ed2a/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/composition-source-map.md), `2de820fbfbee0a0454363257363e8c98be01ed2a`; writer_composition | [ACCEPT](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6705075224), review_composition |
+| T3: probability, #1059; feeds #1169 | [probability-source-assessment.md](https://github.com/amaybaum/incompleteness/blob/231504802851284be9eb7fc29611f24bf3414f99/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/probability-source-assessment.md), `231504802851284be9eb7fc29611f24bf3414f99`; writer_probability | [ACCEPT](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6705093839), review_recombination_ns |
 
 These verdicts concern conditional research papers. They neither supply their
 missing physical resources nor establish an OI–QM equivalence on main.
@@ -178,7 +178,7 @@ physical premise.
 ## 4. Review, retention and earlier-study status
 
 Each source author wrote only the designated branch/file. Each source review
-is by another agent at an immutable pushed commit. This synthesis has its own
+is by another agent at an immutable pushed commit. This synthesis requires its own
 separate immutable-head review recorded on #1173; its author does not certify
 it by writing this paragraph. Formatting/scope checks and ordinary PR CI are
 distinct from scientific source validation.
