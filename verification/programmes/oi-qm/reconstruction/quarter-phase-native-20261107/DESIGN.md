@@ -773,8 +773,8 @@ algebra over `F_2` and `Z_q`.
 
 ## 7. Verification scope
 
-The derivations are on paper. Exact author self-checks were run in the session
-scratchpad (`qa/c1`–`c9`). They are not committed and are not evidence. All are
+The derivations are on paper. Exact author self-checks (c1–c9) were run
+locally. They are not committed and are not evidence. All are
 exact over `F_2`/`Z_q` with `Fraction` arithmetic.
 
 | Check | What it covers |
