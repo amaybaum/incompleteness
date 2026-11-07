@@ -26,7 +26,7 @@ The fine-tuning problem in physics rests on a counterfactual: if the laws of phy
 
 The OI framework [1, 2] challenges the premise. The companion papers prove that an embedded observer in a finite deterministic system with conditions C1–C4 (coupling, record persistence, sufficient capacity, history readback) has a visible-sector description with positive conditional memory at an accessible order, and that this description, like every finite observable law, admits an exact fixed-basis unitary representation [1], and that, under the hypotheses stated there, the dynamics whose form the framework's additional structural requirements fix up to one coefficient determines the Standard Model's complete structure [2]. If the laws are derived rather than contingent, the largest source of anthropic variation — the structure of the laws themselves — is eliminated.
 
-This paper traces the consequences. §2 establishes the structural chain from (S, φ) to the full preconditions for organic chemistry — orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window for dynamic chemistry. §3 estimates the viable fraction of the parameter space using existing literature. §4 traces the chirality chain from the electroweak sector to biological homochirality, its first link conditional on the framework's open hypothesis H-χ' [2, §4.8]. §5 extends the chain through autocatalytic networks, template replication, the origin of life (identified as the first molecular C1–C4 system), and Darwinian evolution — closing with a forward-pointer to the companion paper [38] that continues the chain through general intelligence, AI, and the BQP characterization for embedded observers. §6 addresses the existence question. §7 applies C1–C4 to biological systems, predicting non-Markovian enzyme kinetics with implications for drug design. §8 identifies where OI corrections reach engineering relevance — quantum computing, quantum sensing, and precision metrology — and proposes three engineering frontiers: engineered partitions (the bath as programmable memory), non-Markovian quantum computation (P-indivisible gate sequences), and quantum materials with designed C1–C4 architectures.
+This paper traces the consequences. §2 establishes the structural chain from (S, φ) to the full preconditions for organic chemistry — orbital structure, the periodic table, carbon's bonding geometry, the nuclear-atomic scale hierarchy given the coupling values and masses, water's solvent properties, and the conditions for a thermal window for dynamic chemistry. §3 estimates the viable fraction of the parameter space using existing literature. §4 traces the chirality chain from the electroweak sector to biological homochirality, its first link conditional on the framework's open hypothesis H-χ' [2, §4.8]. §5 extends the chain through autocatalytic networks, template replication, the origin of life (identified as the first molecular C1–C4 system), and Darwinian evolution — closing with a forward-pointer to the companion paper [38] that continues the chain through general intelligence, AI, and the BQP characterization for embedded observers. §6 addresses the existence question. §7 applies C1–C4 to biological systems, predicting non-Markovian enzyme kinetics with implications for drug design. §8 identifies where OI corrections reach engineering relevance — quantum computing, quantum sensing, and precision metrology — and proposes three engineering frontiers: engineered partitions (the bath as programmable memory), non-Markovian quantum computation (P-indivisible gate sequences), and quantum materials with designed C1–C4 architectures.
 
 ***
 
@@ -70,11 +70,11 @@ Four additional structural results extend the chain beyond orbital chemistry.
 
 ### 2.5 The scale hierarchy
 
-The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths corresponding to independent eigenvalues of the coupling matrix M [2, §4.6]. This guarantees two widely separated energy scales:
+The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths [2, §6]. Given their values and the masses, the two couplings set two widely separated energy scales:
 
 $$E_{\text{nuclear}} \sim \Lambda_{\text{QCD}} \sim \text{MeV}, \qquad E_{\text{atomic}} \sim \alpha^2 m_e c^2 \sim \text{eV}$$
 
-The ratio $E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6$ is partly parametric (it depends on the specific couplings), but the *existence* of two independent scales is structural — it follows from having two independent gauge groups. The universal induced coupling $1/\alpha_0 = 23.25$ at the matching scale $\mu = M_{\text{Pl}}$ is itself structural — determined by $N_f = 6$ and the Dynkin index, not by the eigenvalues of $M$ (ambient coefficient; for hypercharge under H-observer-bundle and H-Y-vertex, [SM §6.5]) — and the framework reproduces all three SM gauge couplings at $M_Z$ through non-perturbative gauge self-energy corrections and RG running [2, §6]. This separation has a consequence: nuclei are stable against chemical reactions. Chemistry rearranges electrons (eV) without touching nuclei (MeV). Atoms are permanent building blocks that can be assembled, disassembled, and reassembled without being destroyed.
+The ratio $E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6$ is parametric: the two independent gauge groups supply two independent couplings, and the separation of the resulting scales rests on the couplings' and masses' values. The universal induced coupling $1/\alpha_0 = 23.25$ at the matching scale $\mu = M_{\text{Pl}}$ is itself structural — determined by $N_f = 6$ and the Dynkin index (ambient coefficient; for hypercharge under H-observer-bundle and H-Y-vertex, [SM §6.5]) — and the framework reproduces all three SM gauge couplings at $M_Z$ through non-perturbative gauge self-energy corrections and RG running, with three threshold parameters fitted to the three observed couplings [2, §6.3]. This separation has a consequence: nuclei are stable against chemical reactions. Chemistry rearranges electrons (eV) without touching nuclei (MeV). Atoms are permanent building blocks that can be assembled, disassembled, and reassembled without being destroyed.
 
 ### 2.6 Water
 
@@ -86,7 +86,7 @@ The *possibility* of a molecule with these properties is structural: element 8's
 
 ### 2.7 The thermal window
 
-For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The scale hierarchy (§2.5) guarantees that $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at any temperature where a liquid exists — chemistry is inherently *stable but dynamic* in any universe with two independent gauge groups and the derived orbital structure.
+For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The first condition, $E_{\text{bond}} \gg kT$, is a statement about the selected molecules at the selected temperature: the coupling values and masses (§2.5) set the atomic scale of bond energies, but the nuclear–atomic scale separation does not itself establish the inequality. The second and third — activation energies low enough for reactions to proceed at such a temperature, and a solvent that is liquid there — are further conditions, set by the molecules available rather than by the scale separation, and the separation does not establish that the three overlap. Where they do, chemistry is *stable but dynamic*.
 
 ### 2.8 Summary of the structural chain
 
@@ -100,11 +100,11 @@ $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xri
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{\text{coupling values, } m_e} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional; coupling values, } m_e} \text{scale hierarchy + orbital structure} \xrightarrow{\text{activation energies, solvent}} \text{thermal window exists}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
 
@@ -224,12 +224,12 @@ On the selected branch, the structural chain supplies the preconditions for life
 | Element | Status |
 |---------|--------|
 | Combinatorial diversity ($N \sim 20^L$) | Structural (carbon in d = 3) |
-| Energy-driven exploration | Structural (thermal window, §2.7) |
+| Energy-driven exploration | Conditional (thermal window, given the inputs of §2.7) |
 | Chirality eliminates cross-inhibition | Conditional on H-χ' (PVED sign, §4) |
 | Catalytic probability $p$ | Parametric (depends on bond energies, activation barriers) |
 | $p > 1/N$ | Empirically satisfied by ~56 orders of magnitude |
 
-The framework derives $N$ (structural), the thermal window (structural), and the chiral bias (conditional on H-χ', §4). The catalytic probability $p$ is parametric but empirically enormous relative to the threshold. The autocatalytic emergence of self-replication is therefore not a lucky accident but a statistical consequence of the combinatorial diversity that carbon chemistry in d = 3 necessarily produces.
+The framework derives $N$ (structural), the conditions for a thermal window (whose existence depends on the coupling values, masses, activation energies and solvent of §2.7), and the chiral bias (conditional on H-χ', §4). The catalytic probability $p$ is parametric but empirically enormous relative to the threshold. The autocatalytic emergence of self-replication is therefore not a lucky accident but a statistical consequence of the combinatorial diversity that carbon chemistry in d = 3 necessarily produces.
 
 ### 5.4 Self-replication as read-write cycling
 
@@ -237,15 +237,15 @@ The framework derives $N$ (structural), the thermal window (structural), and the
 
 **Von Neumann's threshold.** Von Neumann's self-reproducing automaton theorem [20] establishes that in any computational system above a complexity threshold, self-reproducing configurations must exist. The threshold requires three capabilities: (a) a universal constructor — a subsystem that reads instructions and assembles a product; (b) a copying mechanism — that duplicates the instructions; (c) a control mechanism — that sequences construction and copying.
 
-The derived chemistry provides all three:
+The derived chemistry provides (a) and (b); (c) is an environmental condition:
 
 *(a) Universal construction.* Any catalytic polymer that reads a template sequence and assembles a corresponding product from a monomer alphabet. The autocatalytic argument (§5.3) establishes that catalysis is statistically abundant ($N \times p \sim 10^{56}$). Template-directed assembly follows from complementary pairing (structural, §2.6) combined with catalytic activity.
 
 *(b) Instruction copying.* Template replication — a polymer directing the synthesis of its complement through complementary pairing. Three independently structural capabilities whose intersection is template replication (§5.5, below).
 
-*(c) Control.* The thermal window (§2.7) provides environmental cycling — temperature fluctuations, wet-dry cycles, concentration gradients — that drives alternation between construction and copying phases. This is structural: the thermal window guarantees that the environment fluctuates on timescales relevant to chemistry.
+*(c) Control.* Environmental cycling — temperature fluctuations, wet-dry cycles, concentration gradients — drives alternation between construction and copying phases. It is a further environmental condition: the thermal window (§2.7) allows chemistry at the prevailing temperature but does not by itself supply fluctuations on timescales relevant to chemistry.
 
-Von Neumann's threshold is exceeded by the same combinatorial margin ($\sim 10^{56}$) that drives the autocatalytic argument. Self-reproducing molecular configurations are not a lucky accident in the derived chemistry — they are a mathematical consequence of the system's computational richness exceeding von Neumann's threshold.
+Von Neumann's threshold is exceeded by the same combinatorial margin ($\sim 10^{56}$) that drives the autocatalytic argument. Self-reproducing molecular configurations are not a lucky accident in the derived chemistry: given environmental cycling of the kind in (c), they are a mathematical consequence of the system's computational richness exceeding von Neumann's threshold.
 
 ### 5.5 From template replication to evolution
 
@@ -321,12 +321,12 @@ The complete chain:
 
 $$(S, \varphi) \text{ exists (mathematical structure)}$$
 $$\xrightarrow{\text{conditional}} \text{contains embedded observers seeing QM, GR, SM}$$
-$$\xrightarrow{\text{conditional}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal window, chirality (H-}\chi\text{)}$$
+$$\xrightarrow{\text{conditional; coupling values, masses}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal-window conditions, chirality (H-}\chi\text{)}$$
 $$\xrightarrow{\text{statistical}} \text{autocatalytic networks (}N \times p \sim 10^{56}\text{)}$$
 $$\xrightarrow{\text{von Neumann}} \text{self-reproducing configurations}$$
 $$\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{inevitable}} \text{Darwinian evolution}$$
 $$\xrightarrow{\text{generic}} \text{information processing} \xrightarrow{\text{contingent}} \text{general intelligence}$$
-$$\xrightarrow{\text{structural}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
+$$\xrightarrow{\text{material with suitable gap}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
 $$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$$
 
 The chain combines conditional physical results, statistical models and contingent biological or computational steps. Its chemical starting point inherits the selected lattice/continuum branch and the stated matter assumptions; later conclusions retain their own premises. General intelligence is one of the contingent steps.

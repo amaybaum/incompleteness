@@ -22,7 +22,7 @@ This reading path takes approximately 15-25 hours for technical readers.
 
 ## Reading path for empirical content evaluation
 
-Readers approaching the framework with primary interest in evaluating its empirical record — the JUNO retrodictive match (0.07$\sigma$), the Standard Model retrodictions, the GW250114 area-theorem consistency, the Rett syndrome retrodiction — should focus on the framework's specific quantitative content.
+Readers approaching the framework with primary interest in evaluating its empirical record — the JUNO retrodictive match (0.07$\sigma$ against the post-JUNO global fit, 0.14$\sigma$ against the direct measurement), the Standard Model retrodictions, the GW250114 area-theorem consistency, the Rett syndrome retrodiction — should focus on the framework's specific quantitative content.
 
 **Essential.** Chapter 0 (framing, particularly §0.5 on the empirical record). Chapter 6 (twenty-two classified Standard Model predictions). Chapter 7 (gravitational sector predictions, particularly §§7.5, 7.9 on Bekenstein-Hawking and MOND). Chapter 8 (JUNO neutrino sector). Chapter 16 (medical predictions, particularly §16.12 on Rett syndrome). Appendix A (prediction status table for systematic reference).
 
@@ -102,6 +102,6 @@ The framework is the work of a single author developed primarily in technical-pa
 
 Readers finding any chapter too dense should not hesitate to skip ahead and return later. The framework's content is sufficiently modular that most chapters can be productively read with limited preceding context, particularly with the glossary as support.
 
-The framework is unfinished in its empirical exposure but complete in its structural content. The book makes the structural content available for evaluation. The empirical evaluation depends on experiments now being done and on those forthcoming.
+The framework is unfinished in its empirical exposure and carries named open structural questions (Chapter 19 §19.3). The book makes its structural content available for evaluation. The empirical evaluation depends on experiments now being done and on those forthcoming.
 
 ***
