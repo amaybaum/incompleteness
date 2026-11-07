@@ -67,33 +67,33 @@ The reference table combines Standard Model observables, coupling-sector inputs 
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------|-------|-------|-----------------|---------|
-| 1 | $1/\alpha_0$ universal threshold | 23.25 | S | 0 | Within ~0.5% | Ch 5 §5.4 |
-| 2 | $A \cdot B$ gauge coupling product | $\approx 48$–$62$ (leading-power dependent) | C | 0 | Inconclusive | Ch 5 §5.5 |
-| 3 | $\delta_0$ from $U(1)$ row | 10.02 | E | 0 | Empirical input | Ch 5 §5.5 |
-| 4 | $\alpha_2(M_Z), \alpha_3(M_Z)$ | 29.57, 8.47 | R | 0 | Retrodictions | Ch 5 §5.5 |
-| 5 | Cabibbo $\lambda$ | $1/(\pi\sqrt{2})$ | C | 1 | 0.04% (global fit; retrodiction) | Ch 6 §6.4 |
-| 6 | Wolfenstein $A$ | $\sqrt{2/3}$ | S | 1 | Within 1% | Ch 6 §6.4 |
-| 7 | $|V_{cb}|$ | $A\lambda^2$ | C | 1 | Conditional on 5,6 | Ch 6 §6.4 |
+| 1 | $1/\alpha_0$ universal induced coupling | 23.25 | S | 0 | Structural input; no direct comparison | Ch 6 §6.4 |
+| 2 | $A \cdot B$ gauge coupling product | $\approx 48$–$62$ (leading-power dependent) | C | 0 | Inconclusive | Ch 6 §6.4 |
+| 3 | $\delta_0$ from $U(1)$ row | 10.02 | E | 0 | Empirical input | Ch 6 §6.4 |
+| 4 | $\alpha_2(M_Z), \alpha_3(M_Z)$ | 29.57, 8.47 | R | 0 | Retrodictions | Ch 6 §6.4 |
+| 5 | Cabibbo $\lambda$ | $1/(\pi\sqrt{2})$ | C | 1 | 0.04% (global fit; retrodiction) | Ch 6 §6.5 |
+| 6 | Wolfenstein $A$ | $\sqrt{2/3}$ | S | 1 | 1.2% (0.8$\sigma$) | Ch 6 §6.5 |
+| 7 | $|V_{cb}|$ | $A\lambda^2$ | C | 1 | Conditional on 5,6 | Ch 6 §6.5 |
 | 8 | $m_d/m_s$ | $\lambda^2$ | L | 1 | Structural $\lambda$; GST empirical | Ch 6 §6.5 |
-| 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.4 |
-| 10 | Koide $Q$ | $2/3$ | C | 1 | **<0.001%** | Ch 6 §6.5 |
-| 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | C | 1 | 0.001% | Ch 6 §6.5 |
+| 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.5 |
+| 10 | Koide $Q$ | $2/3$ | C | 1 | **<0.001%** | Ch 6 §6.6 |
+| 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | C | 1 | 0.001% | Ch 6 §6.6 |
 | 12 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b)ᶠ | **0.07$\sigma$ JUNO** | Ch 8 |
-| 13 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | Within 1% | Ch 8 |
+| 13 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | 2.6% (1.0$\sigma$) | Ch 8 |
 | 14 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b)ᶠ | Within 1$\sigma$ | Ch 8 |
-| 15 | $m_e, m_\mu$ via Koide | from $m_\tau$ | M | 3 | Mass-chain inheritance | Ch 6 §6.5 |
+| 15 | $m_e, m_\mu$ via Koide | from $m_\tau$ | M | 3 | Mass-chain inheritance | Ch 6 §6.6 |
 | 16 | $m_b/m_\tau$ | $4.28/Z_S(\lambda g_0^2) = 2.361$ | L | 2(a) | 0.4% (0.5$\sigma$ at L=32) | Ch 6 §6.6 |
 | 17 | $m_u/m_d$ | $\sqrt{2/9}$ | L | 1+2(b) | Within 1$\sigma$ | Ch 6 §6.6 |
 | 18 | $\Sigma m_\nu$ | ~0.059 eV (oscillation inputs) | L | 3 | Upper bounds only | Ch 8 |
 | 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b)ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
-| 20 | $m_t$ (weak-scale $y_t\approx1$) | $v/\sqrt{2}$ | R | 3 | 0.9\%; mechanism open | Ch 6 §6.7 |
-| 21 | $m_b$ via $Q_{\text{down}}$ | derived | L | 2(b) | Within 1$\sigma$ | Ch 6 §6.7 |
-| 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.8 |
+| 20 | $m_t$ (weak-scale $y_t\approx1$) | $v/\sqrt{2}$ | R | 3 | 0.9\%; mechanism open | Ch 6 §6.6 |
+| 21 | $m_b$ via $Q_{\text{down}}$ | Koide($Q_{\text{down}}$), $Q_{\text{down}}$ phenomenological | L | 2(b) | 0.9% (1.2$\sigma$) | Ch 6 §6.6 |
+| 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.7 |
 | 23 | MOND acceleration $a_0$ | $cH/6$ | C | 0/1 | Within quoted systematics | Ch 7 §7.9 |
 
 **Summary statistics.** Counts: 3 S + 7 C + 8 L + 1 M + 2 R + 2 E. Total: 23. This reference index is broader than the paper's Standard-Model table ([SM §7.6], 22 rows): it also carries coupling-sector cross-checks, neutrino entries and the gravitational result $a_0$. The headline count of *two* parameter-free structural and *five* conditional structural predictions among twenty-two Standard Model observables belongs to that paper's observable inventory, which counts the coupling-sector quantities $1/\alpha_0$ and $A\cdot B$ separately. The conditional entries here are the leading-power-dependent coupling product, the Cabibbo $\lambda$ with its inheritors $|V_{cb}|$ and $\sin^2\theta_{13}$ (emergent dressing open), the two Koide entries (dynamical closure of the amplitude open), and the MOND formula (coupling map open, factor imported). Empirical precision applies to the individual measured comparisons. The numerical mass sum is L at Layer 3: its near-minimum value combines the hierarchical normal-ordering expectation with measured solar and atmospheric mass-squared splittings, and is constrained by upper bounds.
 
-**ᶠ** *Layer 2(b) (sin²θ_12, sin²θ_23, PMNS sum rule).* The Layer 1 component is structurally protected against the $A_1$ perturbation by the cosines-dressing of the TBM sum rule (cubic geometry alone). The remaining Layer 2 component is the $A_2$ Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)$, equivalent to the substrate-level relation $b_{23}^\text{sub} = (4/3)(b_{12}^\text{sub}+b_{13}^\text{sub}) + 1/9$. The ratio's 2(a)-tractable period — the label meaning the residual question was sharply specified and admitted definite outcomes from substrate calculations — has ended: the calculation was performed. It does *not* mean the answer is forced by representation theory alone — the May 6, 2026 audit (§B.2.2) established that the natural Higgs-democratic spurion does not produce this ratio (instead giving $b_{12}:b_{13}:b_{23} \approx 17:1:1$ in the heavy-quark hierarchy, off by factor ~24 from the required 4/3), and the relation requires substrate amplitudes with the non-natural scaling $\delta M_{ij}^\text{sub} \propto m_{\max(i,j)}$ plus a channel-specific enhancement factor $K_{23}/K_{12} \approx 2.8$. The substantive content is bijection-specific — Layer 2(b) — and the sharply specified verification path has since been executed: the §7.3 routing computation excludes the second-order route (the two-hop operator is a pure spin-taste monomial, orthogonal to every mass channel), leaving the recorded $O(\lambda^3)$ construction as the one unpursued analytical route. The empirical match at 0.07$\sigma$ (JUNO) and 0.6$\sigma$ (sum rule) confirms the bijection has the required structure; the $7/6$ sum rule remains the direct experimental test.
+**ᶠ** *Layer 2(b) (sin²θ_12, sin²θ_23, PMNS sum rule).* The Layer 1 component is structurally protected against the $A_1$ perturbation by the cosines-dressing of the TBM sum rule (cubic geometry alone). The remaining Layer 2 component is the $A_2$ Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)$, equivalent to the substrate-level relation $b_{23}^\text{sub} = (4/3)(b_{12}^\text{sub}+b_{13}^\text{sub}) + 1/9$. The ratio's 2(a)-tractable period — the label meaning the residual question was sharply specified and admitted definite outcomes from substrate calculations — has ended: the calculation was performed. It does *not* mean the answer is forced by representation theory alone — SM §7.3 established that the natural Higgs-democratic spurion does not produce this ratio (instead giving $b_{12}:b_{13}:b_{23} \approx 17:1:1$ in the heavy-quark hierarchy, off by factor ~24 from the required 4/3), and the relation requires substrate amplitudes with the non-natural scaling $\delta M_{ij}^\text{sub} \propto m_{\max(i,j)}$ plus a channel-specific enhancement factor $K_{23}/K_{12} \approx 2.8$. The substantive content is bijection-specific — Layer 2(b) — and the sharply specified verification path has since been executed: the §7.3 routing computation excludes the second-order route (the two-hop operator is a pure spin-taste monomial, orthogonal to every mass channel), leaving the recorded $O(\lambda^3)$ construction as the one unpursued analytical route. The empirical match at 0.07$\sigma$ (JUNO) and 0.6$\sigma$ (sum rule) confirms the bijection has the required structure; the $7/6$ sum rule remains the direct experimental test.
 
 **Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a parameter-free retrodiction; its exact, freedom-free form makes JUNO's design-lifetime precision ($\pm 0.0014$) a pre-registered forward test. (ii) the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ at **0.04%** against the global fit — a retrodiction. (iii) Koide $Q = 2/3$ to better than **0.001%** — the sharpest framework prediction across all 23 in relative precision, matching observation at four-significant-figure precision.
 
@@ -106,7 +106,7 @@ The horizon and radiation entries inherit H-slope and the horizon/frame/state co
 | G2 | Bekenstein bound | $S_{\text{dS}} \sim 10^{122}$ | C | 0 | Order-of-magnitude estimate | Ch 7 §7.5 |
 | G5 | Hawking radiation | Thermal spectrum; greybody-dependent rate | C | 1 | Not observed astrophysically | Ch 7 §7.5 |
 | G6 | MOND acceleration $a_0 = cH/6$ | $cH/6$ (factor imported) | C | 0/1 | Within quoted systematics | Ch 7 §7.9 |
-| G8 | Running vacuum $\nu_{\text{OI}}$ | Type II interpretation not derived; conditional emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive ($\sim 1$% on $\nu$); Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
+| G8 | Running vacuum $\nu_{\text{OI}}$ | Type II interpretation not derived; conditional emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive; Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
 | G9 | Dark sector budget | $\sim 95\%$ | C | 1 | Partly definitional budget | Ch 7 §7.9 |
 | G11 | Page curve | Nested trace-out, H-scramble (fails from configurations), H-decouple; full product space | Open | 1 | A non-vacuous version needs a specified initial ensemble or a non-aligned bipartition, a valid proof and independent verification; decoupling and proper-shell value open | Ch 7 §7.6 |
 | G12 | $\Sigma m_\nu \sim 0.059$ eV | Measured splittings | L | 3 | Upper bounds only | Ch 8 |
@@ -125,7 +125,7 @@ The neutrino sector provides the framework's sharpest parameter-free retrodictio
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------|-------|-------|-----------------|---------|
 | N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
-| N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | Within 1% | Ch 8 |
+| N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | 2.6% (1.0$\sigma$) | Ch 8 |
 | N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
 | N4 | $\Sigma m_\nu$ | ~0.059 eV (oscillation inputs) | L | 3 | Upper bounds only | Ch 8 |
 | N5 | Normal mass ordering | structural (branch of SM §8.4) | C | 1 | Preferred by DESI+CMB; not confirmed | Ch 8 |
@@ -134,7 +134,7 @@ The neutrino sector provides the framework's sharpest parameter-free retrodictio
 
 **Summary statistics.** Counts: 0 S + 2 C + 5 L. Total: 7. N2 inherits the Cabibbo $\lambda$ and is conditional with it; N5 holds on the branch where the singlet taste hosts the Higgs and no gauge-singlet fermion is present (SM §8.4), the ordering a heuristic consequence of taste-breaking rather than a theorem. The numerical mass sum uses measured oscillation splittings; the remaining L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale, the latter conditional on the Cabibbo identification's emergent dressing) holds and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(b) per the §7.3 routing computation (the second-order derivation route excluded; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
 
-**ᵍ** *Parameterization-level prediction (δ_CP).* The framework identifies $\delta_{CP}$ with the sub-dominant U-odd combination $b_{12} - b_{13}$ in the $A_2$ second-order corrections to the charged-lepton sector (SM §7.3 line 901). This is a structural-form prediction: it specifies how $\delta_{CP}$ enters the framework's parameterization but does not predict its value. The value of $b_{12} - b_{13}$ is bijection-specific (Layer 2(b), property of the particular $\varphi$); the framework "makes no commitment to any specific value of $\delta_{PMNS}$" (SM §6.4 line 546). Future T2K/NOvA measurements constrain the bijection's $b_{12} - b_{13}$ value rather than testing a framework prediction of $\delta_{CP}$ itself. This is qualitatively different from N1/N3/N6, where specific numerical values are fixed with no freedom and the JUNO-era fit matches sin²θ_12 at 0.07σ (retrodictively).
+**ᵍ** *Parameterization-level prediction (δ_CP).* The framework identifies $\delta_{CP}$ with the sub-dominant U-odd combination $b_{12} - b_{13}$ in the $A_2$ second-order corrections to the charged-lepton sector (SM §7.3). This is a structural-form prediction: it specifies how $\delta_{CP}$ enters the framework's parameterization but does not predict its value. The value of $b_{12} - b_{13}$ is bijection-specific (Layer 2(b), property of the particular $\varphi$); the framework "makes no commitment to any specific value of $\delta_{PMNS}$" (SM §5.4). Future T2K/NOvA measurements constrain the bijection's $b_{12} - b_{13}$ value rather than testing a framework prediction of $\delta_{CP}$ itself. This is qualitatively different from N1/N3/N6, where specific numerical values are fixed with no freedom and the JUNO-era fit matches sin²θ_12 at 0.07σ (retrodictively).
 
 ### A.4.4 Biology and medicine predictions
 

@@ -51,7 +51,7 @@ The framework's response must keep the premise accounting explicit. PBR assumes 
 
 **The Frauchiger-Renner theorem.** Frauchiger and Renner (2018) derive a contradiction for a specified multi-agent protocol under three assumptions: quantum probability-one certainty, consistency of the agents' certainty inferences, and single outcomes, denoted (Q), (C) and (S). The theorem identifies a conflict among those assumptions for that protocol, rather than assuming that a wave function is an ontic state.
 
-The framework's ordinary Wigner's-friend account distinguishes definite substratum configurations from observer-relative reduced descriptions. Different agents may have different information about the same configuration. Main §4.5 also provides a joint law whose marginals are the two observers' laws, so the multiplicity of partitions does not show that a common law is absent.
+The framework's ordinary Wigner's-friend account distinguishes definite substratum configurations from observer-relative reduced descriptions. Different agents may have different information about the same configuration. Main §4.1 also provides a joint law whose marginals are the two observers' laws, so the multiplicity of partitions does not show that a common law is absent.
 
 A Frauchiger-Renner application requires the proposed completion's operational probabilities for the whole protocol and an analysis of its probability-one, consistency and single-outcome premises. The observer-relative interpretation alone does not prove that one of these fails and is not an unconditional resolution of the theorem.
 
@@ -300,7 +300,7 @@ The framework attracts meta-objections about its author, its scope, and its ambi
 
 This is not a scientific objection. Scientific content is evaluated on its merits, not on the credentials of those who propose it. The framework's content consists of mathematical proofs, empirical predictions, and structural derivations — all evaluable independent of the author's biography.
 
-However, the underlying concern (familiar standards may not be met by an outsider) can be addressed substantively. The framework provides complete proofs in the technical chapters (Chapter 1 for the characterization theorem; Chapter 7 for the gravitational derivations; etc.); two independent derivation routes for key results (Chapter 1 via Barandes correspondence and Stinespring dilation); and explicit falsifiability conditions throughout (Chapter 15 §15.8 BEC test; etc.). The standards the framework meets are *internal scientific standards* (proofs, predictions, falsifiability), not standards based on author identity.
+However, the underlying concern (familiar standards may not be met by an outsider) can be addressed substantively. The framework provides complete proofs in the technical chapters (Chapter 1 for the characterization theorem; Chapter 7 for the gravitational derivations; etc.); two derivation routes for key results (Chapter 1 via Barandes correspondence and Stinespring dilation); and explicit falsifiability conditions throughout (Chapter 15 §15.8 BEC test; etc.). The standards the framework meets are *internal scientific standards* (proofs, predictions, falsifiability), not standards based on author identity.
 
 The author takes responsibility for the framework's scientific content, including its proofs, derivations, predictions, and supporting citations.
 
