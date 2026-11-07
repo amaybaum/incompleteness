@@ -2,12 +2,18 @@
 
 **Status: WIP / UNVERIFIED research record.** Original paper author `writer-866`, under
 #866 c.6642599988 and the bounded extension c.6643823627. The independent model-review chain
-ends at `f67b9f0c81e0e404d78c042adfa47d71abf3ad45` (#1110 c.6649378167, ACCEPT), carrying the
-earlier reviews and the owner's D-OB7/D-OB8 decisions (#866 c.6649267203).
+includes `f67b9f0c81e0e404d78c042adfa47d71abf3ad45` (#1110 c.6649378167, ACCEPT) and the
+current-source repair at `cd959526d46bb67f97683224033959257d4a0ee4`
+(#1110 c.6708087130, ACCEPT), carrying the earlier reviews and the owner's D-OB7/D-OB8
+decisions (#866 c.6649267203).
 The current-source reconciliation is by `root`, under the owner's 2026-11-07 instruction
 recorded in [#866 c.6707972400](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6707972400).
-Its exact-head review is recorded separately on #1110; earlier verdicts do not automatically
-cover this correction. Review comments are provenance, not sole evidence of a result
+The bounded integration corrections are authorized in
+[#866 c.6708334840](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6708334840).
+They address the full-record audit in #1110 c.6708453741: conditioning classifications,
+scoped sourcing claims, probability terminology, review status and reference accounting.
+Their exact-head review is recorded separately on #1110; earlier verdicts do not automatically
+cover a later correction. Review comments are provenance, not sole evidence of a result
 (§A.46 item 7). No computation was run. No statement here is a premise of an established claim.
 
 ## 0. Conventions
@@ -60,6 +66,12 @@ construction supplies is an additional assumption.
 
 **Off-`main` references** are classified one by one in §7 (§A.42 item 8).
 
+**H-μ in this note.** In the finite-product calculations, H-μ denotes the exact
+unconditioned uniform probability on the declared finite product state space
+(equivalently its normalized counting law). Lemma P-1 and Proposition C state the
+finite-group and readout hypotheses they also require. This notation does not
+select a physical preparation or extend counting probability to an infinite carrier.
+
 ## 1. The obligation, by consumer
 
 The obligation, quoted in #866 c.6600176951 from the ROADMAP P1 section frozen at `9613b21c`:
@@ -106,7 +118,7 @@ downstream paper.
 
 | Capacity | Established (locator, layer) | Conditional (hypotheses) | Open | Physical justification of the hypotheses |
 | --- | --- | --- | --- | --- |
-| **(1) Preparation** | Main:60: a realization "carries its own fixed hidden prior `μ_H` as part of the realization datum" (stated datum). For finite `𝐑` under H-μ, every region is uniform and disjoint regions are independent at equal times (Lemma P-1, PD-here). | For rooted laws with a full-support visible prior, conditioning on the observed initial value replaces preparation (§3.5, PD-here). | O-RDY (#914 row O-RDY). No process on K1 writes a chosen value into a region (MR★:637). | The structured `μ_H` is supplied, not sourced (ROF Q3(ii)). |
+| **(1) Preparation** | Main:60: a realization "carries its own fixed hidden prior `μ_H` as part of the realization datum" (stated datum). For finite `𝐑` under H-μ, every region is uniform and disjoint regions are independent at equal times (Lemma P-1, PD-here). | For rooted laws with a full-support visible prior, conditioning on the observed initial value replaces preparation (§3.5, PD-here). | O-RDY (#914 row O-RDY). No sourced process writing a chosen value into a region is exhibited in MR★'s screened K1 construction (MR★:637; C-3). This is not a universal impossibility claim. | The structured `μ_H` is supplied, not sourced (ROF Q3(ii)). |
 | **(2) Selectable interactions** | The controlled lift `F(x, s) = (T_s x, s)` conserves `s` (MR-pre:115, N7; a frozen record). | On K1, a setting region changes every other region only by an additive offset that does not depend on the carrier's state. This is the identity part of Lemma D (MR★ S-L1, S-C1, :479–509; PD in a frozen record; re-derived here, PD-here). Counting offsets as non-selectable needs premise D-SEL, and O-SET's definition is open. | O-SET, DEFINITION-OPEN (#1009). Non-additive native-type rules are unscreened (MR★:667, σ12). | Additivity is Substratum A5, "partly derived" from amplitude-scale gauge, an "explicit operational principle" (Substratum:100, :272) (b-stated). |
 | **(3) Accessible outcomes** | A finite outcome alphabet: Main Definition and Lemma 1 (Main:44, :48; PD with an external holographic input). The readout is configuration-sector (Main:222). Region readout: KC definition `cutRealization` (`PhysicalC4Discharge.lean:582`). | For finite `𝐑`, under H-μ and K1 with a homomorphic readout, conditional next-step laws are flat on cosets of a history-independent subgroup (Proposition C, PD-here). | O-ACC: whether one retained tick is native or a convention (#914 row O-ACC). | The cut exists (a): Main:38–40, :50. The product form is (b-stated): "idealized" (Main:54). A finite readout does not imply a product (§4.1, Q4, PD-here). |
 | **(4) Readable, persistent records** | MR-1 stage 1 gives a scoped `GAP` (a frozen record). After its correction round, the named element is "the absence of a physically sourced quiet, ready region" (MR★ C-3, :1342–1371; C-14, :1491–1505). MR★ C-2 (:1322–1340) withdraws the claim that localized records are impossible. | On K1, no confined pattern lasts beyond about twice its width (MR★ S-L4, S-C4a, :528–571). PD in a frozen record. MR★:1297–1300 reports that a review verified it "by case analysis"; it is not re-verified here. C-11 corrects S-L4's torus lift. C-10 corrects S-C4a's slice count and the log, not S-L4. Hypotheses: `ℤ^d`, or a torus with `N ≥ 5w + 2`, and `a` injective. This excludes confined patterns only. It does not show that localized records are impossible (C-2), and the trace route is `UNDECIDED` (C-4, :1373–1380). | O-RET (#1032), O-REC (#866). | Finite recurrence bounds every budget (MR★ S-L6). |
@@ -266,15 +278,20 @@ and the readout slice are (b-stated).
     (Z1).
   - So the CR_rec route has not been shown to be non-circular against O-RDY: μ-leg preparations
     need CR_rec, CR_rec needs O-REC, O-REC needs O-RDY, and O-RDY needs the μ leg.
-  - The named-prior option, conditioned patches and cross-time routes are not circular. So no
-    circularity forces O-OBSMU to come before O-RDY, provided one of those routes is used.
+  - A supplied named prior can avoid this particular logical dependence, conditionally on
+    its independent availability. Conditioned patches and cross-time routes are proposed
+    alternatives; their physical sourcing and non-circularity remain to be established.
+    The planning record does not prove them non-circular or fix a universal dependency order.
   - Status: ELABORATING.
 
 **Verdict S.2.** The μ leg is not sourced from the axioms. Main supplies a measure only through
 Q8 and H-OC_orb (b-stated: Main:56, :62, :726 (iv)), which need finite total `S`. Orbit-level
 conditioning cannot produce a time-slice preparation. A preparation law at a time is either a
-realization datum with supplied content (b-stated category), or the canonical measure conditioned
-by CR_slice (b-new).
+realization datum with supplied content (b-stated category), or obtained by conditioning at a
+slice. Conditioning on the observer's present record or in-realization history is CR_rec
+(b-stated, construction step, D-OB7); treating that conditional law as an available laboratory
+preparation also requires the open H-PREP identification. Conditioning on a stipulated event
+beyond those records is CR_slice (b-new). None of these classifications supplies the apparatus.
 
 ### 3.1 Node I.1 — non-consumers U1–U3
 
@@ -692,14 +709,16 @@ event `R`. Group (2) is added; group (3) content is supplied. P-R does not suppl
 **Independent consequence: none identified.** Proposition C's coset structure already holds under
 unconditioned H-μ.
 
-**Refuting outcome.** None realizable on K1. MR-1 stage 1 sources no native record law there
-(scoped `GAP`).
+**Refuting outcome.** None is identified within the sourced K1 construction reviewed here.
+MR-1 stage 1 supplies no native record law (scoped `GAP`); C-3 explicitly distinguishes an
+unsourced ready region from nonexistence, and C-4 leaves the trace route `UNDECIDED`.
 
 **§A.29.** `R` and CR_slice are free, so P-R fails the hard-to-vary test. Not recommended.
 
 ### 4.4 Beyond O-OBSMU: capacities (2) and (4)
 
-On K1, selectable interactions (capacity (2)) need a dynamical ingredient. Whether records
+On K1, conditional on D-SEL's exclusion of additive offsets as selectable interactions,
+capacity (2) needs an ingredient outside that screened response class. Whether records
 (capacity (4)) do is not settled: K1 excludes confined patterns, conditional on S-L4, but it does
 not exclude every localized record (§3.6). SM §3.1 states a state-dependent coupling
 principle. Its explicit construction (SM:112) makes the transfer to site `i` depend on the value
@@ -821,7 +840,8 @@ observer's accessible records at a time slice?
     makes no difference.
 - **Invariance.** `φ_#(unif_A) = unif_{φ(A)}`. So the conditioned law is `φ`-invariant iff
   `φ(A) = A`. A preparation law at a time is generally not stationary, and that is expected.
-- **Infinite `S`.** There is no counting measure there. Under Haar measure on a compact
+- **Infinite `S`.** Counting measure cannot be normalized to a uniform counting probability
+  on the whole infinite carrier. Under Haar measure on a compact
   completion, an event constraining finitely many sites has positive measure in two cases:
   - when `𝐑` is finite;
   - when the event constrains those sites to sets of positive Haar measure (finite-readout
@@ -1075,7 +1095,8 @@ the split.** Scoped to the sources read:
 1. **D-OB1, how O-OBSMU is stated.**
    - (a) Split it by consumer:
      - U1–U3 are non-consumers;
-     - R1 is support-invariant, pending review;
+     - R1 is support-invariant under Theorem SI's reviewed hypotheses (§3.2); choosing this
+       organization of the obligation remains an owner decision;
      - R4 needs nothing beyond Main;
      - L1 and L2 carry Q8;
      - R2, R3, L3, L4 and L5 stay open.
@@ -1096,9 +1117,11 @@ the split.** Scoped to the sources read:
 5. **D-OB5, P-R and P-SDC.** Record them unadopted, decline them, or ask for hard-to-vary
    versions. A screen of P-SDC, whether on paper or by computation, is outside the present
    authorization.
-6. **D-OB6, review** of Theorem SI, CC-1, CC-2, Proposition G, the §3.4 closedness argument,
-   Lemma P-1, Proposition C and Lemma D at the revised head, and of §4.6's Lemmas Q-a1, Q-a2,
-   Q-b1 and Q-b2.
+6. **D-OB6, original review request.** Theorem SI, CC-1, CC-2, Proposition G, the §3.4
+   closedness argument, Lemma P-1, Proposition C and Lemma D were covered by the independent
+   review chain through `cd15123b`; the extension's Lemmas Q-a1, Q-a2, Q-b1 and Q-b2 were
+   covered through `55507562`. Later delta reviews retain their exact scopes. Review of a
+   proof does not decide D-OB1–D-OB5, adopt a proposal or supply a physical mechanism.
 7. **D-OB7: decided.** amaybaum, Claude Code session chat, 2026-11-05 (#866 c.6649267203):
    "**D-OB7:** Accept the narrowed classification. Conditioning on the observer's present visible
    value, and computing an in-realization history posterior given an initial law, are existing
@@ -1143,7 +1166,8 @@ the split.** Scoped to the sources read:
    the "Conditional" column of §2.
 8. **§4.1:** the Q-table labels, and the four groups kept separate:
    - (1) b-stated;
-   - (2) b-new;
+   - (2a) CR_rec: b-stated, construction step (D-OB7), with H-PREP still open;
+   - (2b) CR_slice: b-new;
    - (3) a b-stated category;
    - (4) none identified.
 9. **§4.2:**
@@ -1203,10 +1227,18 @@ Each reference was classified by reading the claim it is attached to.
 | #1112 c.6643840329, the stationarity argument | §4.6.2 Q-b2, "Not proved here" | provenance. It is cited for context only, and no claim here relies on it |
 | #1110 c.6644159894 (model-authored review of `478451b5`) | the status line | provenance |
 | Branch commit `478451b5` | the status line | provenance |
+| #1110 c.6644302632; branch `55507562` | README review history, §5 D-OB6, §6 correction list | provenance for the review/extension history. The mathematical statements and proofs used here are in §§3–4; this comment is not their sole support |
+| #1110 c.6649378167; branch `f67b9f0c` | status and README review history | provenance for the prior wording-delta verdict; no physical result is inferred from acceptance |
+| #1110 c.6708087130; branch `cd959526` | current-source repair status | provenance for the source-reconciliation review. The narrowed arrow account uses RECOVERY and the corrected manuscripts on `main` |
+| #866 c.6649267203 | CR_rec classification and H-PREP status throughout §§3–5 and README | governance: the owner's exact D-OB7/D-OB8 statements, author and date are retained in §5. They classify an existing construction and leave the named physical requirements open; no mechanism is inferred |
+| #866 c.6708334840 | bounded integration-correction authority | governance/provenance. Owner, this Codex conversation, 2026-11-07: "Proceed as suggested", authorizing the final integration audit and bounded repairs before a separate merge decision |
+| #1023 c.6555028014 | §3.6 S-L5 review context; §6 | provenance for the historical report. The consumed scoped transfer statement is in MR★ S-L5 and C-9 on `main`, with its limitations retained here; no independent verification is inferred from this comment |
+| Branch commit `fc68d333` | §3.6's report of the earlier S-L4 review | provenance for the review history quoted in MR★:1297–1300. The consumed conditional finite-support/slab result is stated and proved in MR★ S-L4, with C-11's corrected torus scope; the source commit's ancestry is not a premise |
+| #1110 c.6708453741 | full-record audit and bounded integration corrections | provenance for the audit findings. The corrected statements and reference dispositions are present in this note; the comment is not their mathematical support |
 | #866 c.6600176951 (quoting ROADMAP at `9613b21c`) | §1, the wording of the obligation | provenance. The quoted text is on `main` in `verification/ROADMAP.md` |
 | #866 c.6567167742 (the foils) | D-SEL, P-SDC | provenance. The foil list is carried as a named premise (D-SEL); no claim here is supported by it |
 | #866 c.6526292899 (controlled lift) | — | replaced by MR-pre:115 (N7), which is on `main` |
-| #914 c.6563412926 (rows O-ACC, O-RDY, O-SET, 1′, 3′; C-10) | status labels; S.2.6; §4.2 item 3 | planning record, used for status labels and recorded routes. No mathematical claim here rests on it |
+| #914 c.6563412926 (rows O-ACC, O-RDY, O-SET, 1′, 3′; C-10) | status labels; S.2.6; §4.2 item 3 | planning record, used for status labels and proposed routes. It does not prove conditioned patches or cross-time routes non-circular; those questions remain open. The named-prior conditional avoids the identified dependence by supplying the prior, not by citing the planning matrix |
 | #914 C-10 (MAP §4, off `main`) | §3.7 | provenance. Proposition C is proved here without it |
 | #1007 c.6526897139 | S.2.2, Q8 | governance record. Quoted: "The *principle* is adopted; its infinite-carrier physical adequacy is **not proved**. Finite total-S remains a conditional branch premise where already consumed by recurrence/gauge/reconstruction theorems." (amaybaum, 2026-10-30T15:44:46Z). That Q8 needs finite `S` follows mathematically, independently of the record |
 | #1007 c.6527637527, #1017 | — | provenance only. Replaced by the three-state example in Q4 (PD-here) |
@@ -1217,8 +1249,12 @@ The README lists further #866 comments as reading context: c.6541293037, c.65416
 c.6548283392, c.6627392555, c.6631480154 and c.6641545083. They are provenance only, and no claim
 here uses them.
 
-No claim here rests on content that exists only off `main`. The proofs this note relies on are
-stated in it.
+The new mathematical arguments used here are stated in this note. Imported support is in the
+named Lean modules, Main, MR-pre, MR★, PC★, SOI-audit and ROF at the stated main pins;
+external literature has the direct/secondary-reading limits of §3.8. The narrowed ARROW-1
+account uses RECOVERY and corrected manuscripts at `M`. Planning comments do not prove
+physical availability or non-circularity. The off-main review links record provenance and
+do not replace those proofs or sources. No unresolved physical premise is promoted by retention.
 
 ## Appendix A — Main:746–760 at `D`, verbatim
 

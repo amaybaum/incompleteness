@@ -1,8 +1,9 @@
 # O-OBSMU — observer-interface sourcing, paper assessment
 
 **Status: WIP / UNVERIFIED research record.** Paper-only. The original paper has an
-independent model-review chain through `f67b9f0c` (ACCEPT); the current-source repair requires
-its own exact-head review on #1110. The record supplies no established physical premise and
+independent model-review chain through `f67b9f0c` (ACCEPT), and the source repair at
+`cd959526` has its own ACCEPT. The bounded integration corrections address the subsequent
+full-record audit; exact-head verdicts are recorded on #1110. The record supplies no established physical premise and
 changes no manuscript claim (AGENTS.md §A.46 item 7).
 
 ## Authorization and scope
@@ -23,6 +24,10 @@ changes no manuscript claim (AGENTS.md §A.46 item 7).
 - **Bounded current-source repair:** `root`, under the owner's 2026-11-07 instruction recorded
   in [#866 c.6707972400](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6707972400).
   Current-main source snapshot `M` is `5ea5a40218e4e660b39a9b149050ced4f95d9b48`.
+- **Bounded integration corrections:** `root`, under [#866 c.6708334840](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6708334840),
+  addressing the independent full-record audit in #1110 c.6708453741. The changes reconcile
+  conditioning classifications, restrict no-source statements to their demonstrated scope,
+  and clarify reference and review status without adopting a physical premise.
 - **Accountable Issue:** #866 (row O-OBSMU). Dependency index: #914 (master matrix revision 2,
   comment 6563412926, rows O-OBSMU, O-RDY, O-ACC, O-RET, O-REC, O-SET, O-INS).
 
@@ -39,7 +44,7 @@ what is the smallest missing ingredient?
 | File | Content |
 | --- | --- |
 | `README.md` | this note |
-| `ANALYSIS.md` | (a) the O-OBSMU obligation by consumer; (b) the four-capacity gap map; (c) the sourcing and invariance routes, depth-first; (d) the smallest missing ingredient, as an unadopted proposal; (e) owner decisions |
+| `ANALYSIS.md` | (a) the O-OBSMU obligation by consumer; (b) the four-capacity gap map; (c) the sourcing and invariance routes, depth-first; (d) candidate missing ingredients and their limits; (e) owner decisions |
 
 ## Inputs, read at `D` = `f5c281ae`
 
