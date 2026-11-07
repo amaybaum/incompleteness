@@ -1,0 +1,4 @@
+namespace OIBridge.B
+open OIBridge.A OIBridge.C
+#print axioms foo
+end OIBridge.B

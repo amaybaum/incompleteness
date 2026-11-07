@@ -1,0 +1,6 @@
+namespace OIBridge.A
+
+#print axioms OIBridge.A.foo
+#print axioms _root_.top
+
+end OIBridge.A
