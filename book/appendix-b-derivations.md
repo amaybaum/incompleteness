@@ -152,9 +152,7 @@ Both $\mathfrak{f}_{\text{ss}}$ and $\text{NM}^2$ are $q$-independent encodings 
 
 **Theorem B.3.4 (Additive decomposition over gauge irreps).** *For the $K$-component wave equation with coupling matrix $M = \text{diag}(\mu_1 I_{n_1}, \ldots, \mu_r I_{n_r})$:*
 $$\mathfrak{f}_{\text{WD}}(M) = \sum_{i=1}^r n_i \cdot \mathfrak{f}_{\text{WD}}(\mu_i)$$
-*In particular, for $K = 6$ with $M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)$:*
-$$\mathfrak{f}_{\text{WD}} = 3\mathfrak{f}_{\text{WD}}(\mu_c) + 2\mathfrak{f}_{\text{WD}}(\mu_w) + \mathfrak{f}_{\text{WD}}(1)$$
-*with the same multiplicities $(3, 2, 1)$ that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.*
+*In particular, on the branch of SM Theorem 5, $K = 6$ with $M = \mu I_6$ gives $\mathfrak{f}_{\text{WD}} = 6\,\mathfrak{f}_{\text{WD}}(\mu)$; the multiplicities $(3, 2, 1)$ that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ sit in the condensate $\Sigma$ of SM Theorem 5, which does not enter the linear evolution matrix.*
 
 *Proof.* The multi-component evolution matrix is block-diagonal: the $a$-th component has its own $2L \times 2L$ block $F_{\mu_a}$ with eigenvalues depending only on $\mu_a$. Both $F_{\text{ss}}$ and $N$ inherit the block-diagonal structure, so $\mathfrak{f}_{\text{ss}}$ and $\text{rank}(N)$ decompose additively. $\square$
 
@@ -314,7 +312,7 @@ The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three eigenval
 
 The identification is structural: the cubic rotation group's representation theory determines the internal structure, and the isotypic block multiplicities of the equivariant structure are the dimensions of the Standard Model gauge group factors. $\square$
 
-**The link to gauge invariance.** The commutant of the coupling matrix $M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)$ is the maximal group preserving the eigenvalue structure: $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$, the group from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — covariance of the dynamics under site-dependent choices of basis within each eigenspace, the link coupling transforming with them — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
+**The link to gauge invariance.** The commutant of the equivariant condensate $\Sigma$ (SM Theorem 5; the coupling matrix $M = \mu I_6$ is scalar) is the maximal group preserving its block structure: $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$, the group from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — covariance of the dynamics under site-dependent choices of basis within each eigenspace, the link coupling transforming with them — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
 
 **Combined structural result.** Combining B.6.1 and B.6.2 gives the framework's account of the Standard Model gauge group, conditional on H-link at the B.6.1 step and unconditional at the B.6.2 step:
 
