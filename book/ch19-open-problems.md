@@ -330,7 +330,7 @@ The framework's content against the standard list of open problems in fundamenta
 | Cosmological constant | Worst prediction in physics | Descriptive distinction established; gravitational form conditional (G3) | Ch 7 §7.7 |
 | Dark matter | Unknown, no particle found | Conditional ($a_0 = cH/6$) | Ch 7 §7.9 |
 | Dark energy | Unknown, evolving disputed | Smooth $H^2-H_0^2$ bookkeeping supplied; Type II reading, not a derived law | Ch 7 §7.8 |
-| Measurement problem | No interpretive consensus | Dissolved (Bayesian updating) | Ch 1, Ch 18 §18.2 |
+| Measurement problem | No interpretive consensus | Observer-relative account at the fixed-basis level; operational completion and Frauchiger-Renner premises open | Ch 1, Ch 18 §18.2 |
 | BH information paradox | Hawking vs unitarity | Not resolved — information conserved by premise; Page curve conditional | Ch 7 §7.6 |
 | Strong CP | Why $\bar\theta < 10^{-10}$? | Not resolved (T-invariance gives $\theta\in\{0,\pi\}$ and reciprocal transition counts, not $\bar\theta = 0$; open under H-top and H-det) | Ch 6 §6.3, [SM §5] |
 | Hierarchy problem | Higgs mass protection unknown | Dissolved (lattice is UV) | Ch 6 §6.6 |
