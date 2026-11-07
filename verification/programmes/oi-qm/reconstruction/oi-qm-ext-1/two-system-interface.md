@@ -279,6 +279,164 @@ Accountable routes: #1169 owns this comparison; #866 owns physical interaction/a
 the dependency map. The full \(J_{\rm exact}\) equivalence and all broader source
 questions remain open.
 
+## 7. Explicit Barandes comparison
+
+This section answers three separate questions about the candidate. Source [B1] defines
+the finite stochastic tuple and proves its unistochastic embedding; source [B2] treats
+the additional causal/composite structure used for the Bell bound. A representation of
+the candidate is not an adoption of its physical assumptions.
+
+### 7.1 Which stochastic assumptions hold?
+
+At the full-world level, take \(\mathcal C=\Omega\), integer times
+\(\mathcal T=\mathcal T_0=\mathbb Z\), and
+\[
+ \Gamma_{\omega'\omega}(t\leftarrow s)
+       ={\bf1}_{\omega'=\Phi^{\,t-s}(\omega)},\qquad
+ p(t)=\Gamma(t\leftarrow0)p(0).                                            \tag{12}
+\]
+Let the mathematical random-variable algebra contain all real functions on
+\(\Omega\times\mathbb Z\). The source in §2 supplies \(p(0)\) for each controlled
+program; its uncontrolled law remains the same across settings. Every column of
+\(\Gamma\) is normalized, \(\Gamma(s\leftarrow s)=I\), and the composition rule
+holds because \(\Phi\) is a permutation. These verify the finite tuple conditions
+of [B1, §3.1] directly. The mathematical algebra does not make its functions physically
+readable: the actual access remains the restricted record maps of §2.
+
+The full-world process is Markovian and P-divisible. This is compatible with [B1]'s
+broad class, whose definition includes Markovian special cases. Its term “indivisible
+stochastic process” must not be read as requiring the particular failure of stochastic
+factorization called P-indivisibility in Main.
+
+A precise reduced map can nevertheless be P-indivisible. To see this without inferring
+it just from the presence of memory, fix \(H=1\), initial clock zero and all four
+settings zero. Use the raw pointer configuration
+\(v=(a_1,b_1,a_2,b_2)\in\{0,1\}^4\), average the same independent source (2)
+over \(R,C\), and define \(\Gamma_V(t\leftarrow0)\) for **every** initial \(v\),
+at \(t=0,1,2\). These are normalized \(16\times16\) stochastic matrices with
+\(\Gamma_V(0\leftarrow0)=I\). They use the already defined action of \(\Phi\)
+outside its ready support, not a different gate or hidden law.
+
+For roots \(v_\alpha=(\alpha,\alpha,0,0)\), \(\alpha=0,1\), the outputs are
+\[
+\begin{array}{c|c}
+ t=1 & (\alpha\oplus R,\ \alpha\oplus R\oplus C,\ 0,\ 0)\\
+ t=2 & (\alpha\oplus R,\ \alpha\oplus R\oplus C,\ R,\ R\oplus C).
+\end{array}                                                               \tag{13}
+\]
+The time-one distributions for the two roots are identical: replace the fair bit \(R\)
+by \(R\oplus1\). At time two they have disjoint support because \(a_1\oplus a_2=\alpha\).
+Consequently no stochastic \(D\) can satisfy
+\(\Gamma_V(2\leftarrow0)=D\Gamma_V(1\leftarrow0)\): equal input columns at time
+one could not become unequal at time two. This is an explicit P-indivisibility witness
+for this specified reduced family, for every \(\eta\).
+
+**Scope:** the second root is not a supplied ready preparation in the experiment of §1.
+The witness is a property of the formal root extension, not a claim that an observer
+can prepare both roots, nor a classification of every possible observer projection.
+The original experimental interface and its source remain unchanged. The point is
+that P-indivisibility of an explicitly defined reduced map can coexist with the
+candidate's observable reuse failure; it is not a certificate of operational QM.
+
+### 7.2 Does a representation preserve the records and interventions?
+
+For this particular candidate, a global representation is explicit, without invoking an
+unspecified choice of dilation: on \(\mathbb C^\Omega\), set
+\(U|\omega\rangle=|\Phi(\omega)\rangle\) and
+\(\rho_0=\sum_\omega p(0)_\omega|\omega\rangle\langle\omega|\).
+All register reads are diagonal projectors. The state remains diagonal, and sequential
+conditioning on those reads has exactly the same effect as classical conditioning.
+Thus this **one global permutation unitary**, with the declared controlled program slots,
+preserves the complete laws (6)–(8), their failures and their recorded histories.
+This construction is also the elementary permutation case discussed in [B1, §4.3].
+
+What it preserves includes the nonlocal controlled gate and the signal in (10).
+It is a quantum simulation of the complete specified apparatus with that interaction.
+It is not a realization of the stipulated pair of separated local quantum instruments.
+The availability of the native loader, clocks and detectors is still unproved.
+
+For a reduced transition dictionary alone, higher-history preservation needs an additional
+check: [B1, §3.1, discussion after Eq. (38)] explicitly distinguishes its stochastic tuple
+from the more detailed higher-order laws of a realizer. Here those laws are fixed by
+\(\Phi\) and (2); they may not be replaced by another realizer that merely shares
+selected transition matrices.
+
+### 7.3 Which Bell-bound assumptions are missing?
+
+[B2, §3.3, Eqs. (22)–(24)] defines causal independence through marginal transition
+laws conditioned on subsystem configurations. Its §4.2 proof uses a common bipartite
+representation with setting-local operations
+\((\mathcal{AB})_{xy}=\mathcal A_x\otimes\mathcal B_y\), immediately before
+Eq. (30). The proof's local-operation structure is the relevant bridge to check;
+fair outcome marginals alone do not verify it. This audit does not claim a new
+derivation of that source's locality-to-factorization step.
+
+| Requirement relevant to applying that route here | Candidate-specific assessment |
+|---|---|
+| Finite configurations and normalized time-directed dynamics | Supplied mathematically by (12), including Markovian special cases |
+| Composite configuration space | The registers form a Cartesian product; this alone supplies no causal separation or local instrument dictionary for the two observers |
+| One preparation independent of subsequent settings | Stipulated in (2), not physically sourced |
+| Common representation of actual setting operations and records | The global permutation representation above works, including its nonlocal coupling |
+| Causal locality for the intended separated-wing experiment | Not supplied: the \(x_i y_i\) interaction is explicitly cross-wing, with no spacetime/locality realization |
+| A faithful local-instrument representation throughout reuse | Incompatible with (11) under the stated no-communication comparison, as shown below |
+| Division/decoherence, apparatus records and subsequent resource policy | No physical division event or reset is derived; the retained source and finite record window are those of §§2–4 |
+
+The last substantive incompatibility can be proved at the operational level, so it does
+not depend on how one distributes \(R,C\) between hidden subsystems. Suppose one common,
+setting-independent state \(\rho\) and local instruments faithfully represented the
+two-round experiment, including all local records and failures. For fixed local setting
+sequences \(\mathbf x,\mathbf y\), let \(\mathcal A_{\alpha|\mathbf x}\) and
+\(\mathcal B_{\beta|\mathbf y}\) denote their complete-history branch maps.
+Summing over all Alice histories gives a trace-preserving map. Therefore
+\[
+ \Pr(\beta\mid\mathbf x,\mathbf y)
+ =\sum_\alpha\operatorname{tr}
+       [(\mathcal A_{\alpha|\mathbf x}\otimes\mathcal B_{\beta|\mathbf y})(\rho)]
+ =\operatorname{tr}
+       [\rho(I\otimes\mathcal B_{\beta|\mathbf y}^{\dagger}(I))].             \tag{14}
+\]
+The right side does not depend on \(\mathbf x\). Fixed retained local ancillas and
+resource registers may be included in the local maps and \(\rho\); this does not change
+the argument. A prior herald independent of settings can be included in the preparation,
+with its failure outcomes retained. A history-conditioned comparison is made only where
+that history has positive probability.
+
+But (11) depends on \(x_2=z\) in Bob's whole record, with nonzero unconditional difference
+whenever \(h>0\). Hence **no such faithful local-instrument correspondence exists for
+this candidate's full two-round interface**, even though its first-read probabilities
+at \(\eta_*\) possess the familiar quantum realization (1). The source's Bell proof
+concerns one round; extending the local instrument structure to the records and reuse
+tested here is an explicit additional compatibility obligation, not a theorem attributed
+to [B2].
+
+This does not identify conditional correlations obtained by learning Alice's outcome with
+signalling. Equation (14) sums over every Alice outcome. Equation (11) uses only Bob's own
+records and the previously declared herald. Nor is this an assertion of physical
+superluminal propagation by an implemented device: no such device or spacetime
+realization has been supplied.
+
+### 7.4 Does this route select the source law and safe reuse?
+
+Applying a valid local quantum instrument correspondence would constrain both the
+first-read CHSH value and the complete local-history marginals. It would therefore
+exclude this candidate rather than repair its existing probabilities.
+
+For the supplied one-parameter law (4), the necessary CHSH ceiling alone yields
+\(\eta_*\le\eta\le1-\eta_*\). It does not pick \(\eta_*\), derive a preparation,
+or prove that a whole process belongs to the quantum set. The calibrated endpoint
+already fails (14). The basic stochastic correspondence also represents the same
+global permutation for all \(\eta\), including the PR countercontrol, so representation
+alone cannot supply the missing selection principle.
+
+A successor exploring this route must give a noncircular physical source and a common
+dictionary preserving the actual local preparations, interventions, records and resource
+use, then verify its causal/composite conditions across the admitted protocols.
+The source mechanism must determine the resulting probabilities; imposing the target
+coefficient or admitting only laws that already match QM would leave that question
+unanswered. The Barandes route remains open, with these candidate-specific compatibility
+tests now explicit. No successor, new physical posit or strengthened equivalence claim
+is adopted by this comparison.
+
 ## Sources
 
 - **S1.** [Main, §§3.3–3.4](https://github.com/amaybaum/incompleteness/blob/4b14b9d4e1d984fd22674e5abb1f611c36325ed0/papers/Main.md):
@@ -292,3 +450,12 @@ questions remain open.
 - **S4.** [Finite-wave recombination paper at its reviewed head](https://github.com/amaybaum/incompleteness/blob/9d24914c5006d775315189dadf56769e1e9cc847/verification/programmes/oi-qm/reconstruction/correlation-recombination-20261107/DESIGN.md):
   conditional indirect parity recovery and its preparation/access gaps; branch evidence
   used as motivation only.
+
+- **B1.** J. A. Barandes, [The Stochastic-Quantum Theorem, arXiv:2309.03085v2](https://arxiv.org/html/2309.03085v2),
+  §§3.1 and 4.1–4.3; finite tuple, higher-history scope and permutation example.
+- **B2.** J. A. Barandes, M. Hasan and D. Kagan,
+  [The CHSH Game, Tsirelson's Bound, and Causal Locality, arXiv:2512.18105v1](https://arxiv.org/html/2512.18105v1),
+  §§3.3 and 4.1–4.2; causal independence and the factorized operations used in the proof.
+  Both versioned sources were consulted on 2026-11-07. Their statements are distinguished
+  from the candidate-specific derivations in §7; this is not an independent review of
+  either external paper.
