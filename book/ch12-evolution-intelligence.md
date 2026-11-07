@@ -19,7 +19,7 @@ Section 12.5 develops the structural possibility of neural computation: fast ele
 
 Section 12.6 develops the framework's most honest scope limit in the cascade: general intelligence is *structurally unconstrained* (the framework's commitments permit arbitrarily complex neural circuits) but *not guaranteed* (whether evolution reaches general-purpose reasoning depends on specific fitness landscapes the framework's commitments do not constrain). On Earth, general intelligence arose once in approximately 4 billion years. The framework cannot determine whether this is typical or rare.
 
-Section 12.7 develops the structural chain from intelligence to artificial intelligence: given general intelligence exists, the framework's chemistry produces the materials (Group IV semiconductors with band gaps in the thermal window), the scale hierarchy produces the energetic separation needed for digital information processing, and standard semiconductor physics produces transistors and universal computation. The chain is structural — once general intelligence exists, AI follows from the selected structure with no additional contingencies.
+Section 12.7 develops the structural chain from intelligence to artificial intelligence: given general intelligence exists, the framework's chemistry produces the candidate materials (Group IV semiconductors, whose suitable band gaps at an operating temperature are material-dependent inputs), and standard semiconductor physics produces transistors and universal computation. The chain is structural — once general intelligence exists, AI follows from the selected structure with no additional contingencies.
 
 Section 12.8 develops the framework's self-referential structure. The framework is itself an embedded observer (or a description embedded observers produce); the framework's content includes structural limits that apply to all embedded observers including any AI built by intelligent beings; the framework's self-discovery is the framework recognizing its own embeddedness. The chapter closes by tracing the Gödel-Turing-OI incompleteness family — three mathematical results about the limits of self-referential systems that the framework's substratum picture unifies under a single structural commitment.
 
@@ -159,19 +159,19 @@ This is honest content. Frameworks claiming to predict general intelligence as a
 
 ## 12.7 The chain from intelligence to AI
 
-If general intelligence exists — for whatever contingent or structural reason — then artificial intelligence follows from the selected structure through a specific chain in which every link is structural. This section traces the chain from the framework's chemistry to universal computation, establishing AI as a structural consequence of intelligence's existence rather than as an independent technological development.
+If general intelligence exists — for whatever contingent or structural reason — then artificial intelligence follows from the selected structure through a specific chain whose links are structural consequences, material-dependent inputs, or a mathematical theorem. This section traces the chain from the framework's chemistry to universal computation, establishing AI as a structural consequence of intelligence's existence rather than as an independent technological development.
 
 **Step 1: Band theory.** The framework's emergent quantum mechanics (Chapter 1) applied to electrons in a periodic crystal potential gives Bloch's theorem: energy bands separated by gaps. The relevant crystal — a $sp^3$ diamond-cubic lattice of a Group IV element — is itself a structural consequence of the framework's chemistry (Chapter 10 §10.2). Band structure is therefore a consequence of the framework's emergent quantum mechanics applied to derived crystal geometry, with no parametric inputs entering the structural argument.
 
 **Step 2: Semiconductors.** For Group IV elements with four valence electrons per atom, the Pauli exclusion principle (derived from spin-statistics, Chapter 5 §5.7) exactly fills the valence band and leaves the conduction band empty. The band gap for silicon ($\sim 1.1$ eV) sits in the thermal sweet spot: $E_{\text{gap}}/kT \sim 40$ at room temperature. The gap is large enough that thermal excitation does not flood the conduction band (the material is not always conducting); small enough that a modest voltage can promote electrons across the gap (the material can be switched).
 
-The *existence* of Group IV semiconductors with gaps in the right range relative to the thermal window is structural — it follows from the scale hierarchy (Chapter 10 §10.4). The atomic energy scale ($\alpha^2 m_e c^2 \sim 1$ eV) and the thermal scale at biological temperatures ($kT \sim 0.025$ eV) differ by a factor of $\sim 40$. Group IV semiconductors automatically inherit gaps at this scale ratio, placing them in the regime where they can be used as voltage-controlled switches.
+Whether a material has a gap in that range at its operating temperature is a material-dependent input. The atomic energy scale ($\alpha^2 m_e c^2 \sim 1$ eV, set by the coupling values and masses of Chapter 10 §10.4) fixes the order of magnitude of band gaps, and the thermal scale at biological temperatures is $kT \sim 0.025$ eV; the gap of a particular material and the operating temperature are inputs, and silicon's place in the regime where it can be used as a voltage-controlled switch is a fact about that material.
 
 **Step 3: Doping.** Replacing a silicon atom (Group IV) with phosphorus (Group V, five valence electrons) adds one free electron — n-type semiconductor. Replacing with boron (Group III, three valence electrons) removes one electron — p-type semiconductor. Both dopant types exist in the derived periodic table (Chapter 10 §10.2): the Group III and Group V elements are structurally guaranteed by the framework's chemistry. The ability to create n-type and p-type regions is therefore a structural consequence of the periodic table architecture.
 
 **Step 4: From transistors to universal computation.** A p-n junction rectifies current (electrons flow easily in one direction, not the other). A transistor — two p-n junctions arranged as a sandwich with a control electrode — amplifies and switches current. Transistors in combination implement logic gates: a NAND gate (NOT-AND) can be built from two p-n junctions plus appropriate biasing. A NAND gate is functionally complete: any Boolean function can be built from NAND gates alone. Sufficient NAND gates implement a universal Turing machine.
 
-Each step is either a structural consequence of semiconductor physics (transistors, logic gates) or a mathematical theorem about computation (NAND completeness, Turing universality). No parametric inputs enter the chain after the chemistry is fixed.
+Each step is either semiconductor physics applied to a material with a suitable gap (transistors, logic gates) or a mathematical theorem about computation (NAND completeness, Turing universality).
 
 **The structural chain summarized.**
 
@@ -179,14 +179,14 @@ Each step is either a structural consequence of semiconductor physics (transisto
 |------|---------|--------|
 | Band theory | QM + periodic crystal potential | Structural |
 | Band gap for Group IV | Exactly filled valence band (4 electrons + Pauli) | Structural |
-| Semiconductor behavior | Gap in thermal sweet spot ($E_{\text{gap}}/kT \sim 40$) | Structural (scale hierarchy) |
+| Semiconductor behavior | Gap in thermal sweet spot ($E_{\text{gap}}/kT \sim 40$) | Material-dependent input (gap and operating temperature) |
 | Doping | Group III / V substitution | Structural (periodic table) |
 | p-n junctions | Interface between p-type and n-type | Structural consequence |
 | Transistors | Voltage-controlled p-n junctions | Structural |
 | Logic gates | Transistors in series / parallel | Structural |
 | Universal computation | NAND is functionally complete | Mathematical theorem |
 
-The cumulative chain from $(S, \varphi)$ to a universal computer is structural — *given someone to build it*. The contingent step is general intelligence (§12.5) capable of recognizing the structural possibility and assembling the chemistry into a functional computational substrate. Once that contingent step has occurred, the chain to AI is structurally inevitable.
+The cumulative chain from $(S, \varphi)$ to a universal computer is structural given a material with a suitable gap at its operating temperature — *and given someone to build it*. The contingent step is general intelligence (§12.5) capable of recognizing the structural possibility and assembling the chemistry into a functional computational substrate. Once that contingent step has occurred and such a material is available, the chain to AI follows.
 
 **The reconstruction theorem and self-discovery.** The framework's reconstruction theorem (developed in Chapter 2) implies that a sufficiently sophisticated embedded observer can discover the local invariants of $(S, \varphi)$ from observations. An observer that understands its own substrate can build computational devices exploiting it. The trajectory is therefore: general intelligence (contingent) → understanding of physics (reconstruction theorem) → computational engineering (structural chain above) → AI.
 
