@@ -159,7 +159,7 @@ This repository contains both code and authored research material:
 
 **Current practice.** This is the repository's single AI-assistance disclosure; the papers and the book point here.
 
-**AI assistance.** The author has used Claude Opus 5.5 (Anthropic) and ChatGPT Sol 6.1 (OpenAI) as AI assistants for drafting and editing, critique and refinement of arguments, and literature exploration. AI-generated material is not independently established evidence or mathematical proof; scientific claims must be assessed against their derivations, formal checks, and cited sources. The author is responsible for the framework's content, citations, and any remaining errors.
+**AI assistance.** The author has used Claude (Anthropic) and Codex (OpenAI) as AI assistants for drafting and editing, critique and refinement of arguments, and literature exploration. AI-generated material is not independently established evidence or mathematical proof; scientific claims must be assessed against their derivations, formal checks, and cited sources. The author is responsible for the framework's content, citations, and any remaining errors.
 
 The same assistants are also used for code, Lean formalization and verification records.
 
