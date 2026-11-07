@@ -1,7 +1,8 @@
 # Minimal two-system interface: shared-parity candidate and reuse screen
 
-Author analysis; independent review pending. This paper tests one common finite reversible
-candidate against a deliberately restricted two-system target. It does not assert a native
+Paper-only candidate assessment. Independent exact-head review verdicts are recorded on
+[#1173](https://github.com/amaybaum/incompleteness/pull/1173). This paper tests one common finite
+reversible candidate against a deliberately restricted two-system target. It does not assert a native
 physical realization, adopt an extension, or change the full endpoint in [Gate A](endpoints.md).
 
 ## 1. Question and fixed comparison
@@ -55,8 +56,8 @@ extension of the finite-wave paper, Native A, or B3.
 
 Use bits \(R,C\), isolated setting slots \(x_1,y_1,x_2,y_2\), two outcome slots
 \((a_i,b_i)\), the herald \(H\), and a three-state clock \(k\in\mathbb Z/3\).
-These form one finite product space \(\Omega\). On the source's ready support, \(k=0\)
-and all four outcome bits are zero. Conditional on \(H=1\),
+These form one finite product space \(\Omega\). On both herald branches of the source,
+\(k=0\) and all four outcome bits are zero. Conditional on \(H=1\),
 \[
  \Pr(R=r,C=c\mid H=1)=\tfrac12 w_\eta(c),\qquad
  w_\eta(0)=1-\eta,\quad w_\eta(1)=\eta,\quad 0\le\eta\le1.                   \tag{2}
@@ -72,7 +73,9 @@ At clock value \(k=i-1\), for \(i=1,2\), apply
  b_i\longmapsto b_i\oplus H(R\oplus x_i y_i\oplus C).                       \tag{3}
 \]
 At \(k=2\) apply no bit gate. Then advance \(k\) by one modulo three. All other
-registers are unchanged. This defines a single autonomous permutation \(\Phi\) on
+registers are unchanged. On failure, \(H=0\), the two scheduled ticks advance the clock
+from \(0\) to \(1\) to \(2\); all outcome pointers remain zero and the recorded outcomes
+remain \(\bot\). This defines a single autonomous permutation \(\Phi\) on
 **every** configuration, not just the zero-pointer support: decrement the clock and apply
 the corresponding XOR gate to invert it. No setting-specific change of \(\Phi\) occurs.
 
