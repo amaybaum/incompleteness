@@ -1,6 +1,6 @@
 {
   "base": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
-  "checker_sha256": "a4fe5b5c2acbb056f0e5668331eeedd68a10eecde4639db1d10141b02050d97c",
+  "checker_sha256": "2d0b3f90f2983b0c9e93d4577be88ce7ec857f978bf3f913f908e69277fcbcad",
   "checks": [
     {
       "ok": true,
@@ -2557,6 +2557,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Structurally consequential.* The restricted quantum-statist..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's strongest non-physics case here is structura..."
     },
     {
       "ok": true,

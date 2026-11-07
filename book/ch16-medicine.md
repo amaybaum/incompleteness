@@ -19,7 +19,7 @@ The *second half* (§§16.9-16.12) develops epigenetics as biological hidden sec
 
 Section 16.13 closes the chapter with a unifying therapeutic principle: *memory asymmetry*. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not, therapies can target the *memory structure* rather than the *catalytic function* — predicting wider therapeutic windows because memory dependence is more disease-specific than catalytic activity.
 
-The framework's strongest non-physics case here is structural. Its one empirical touchpoint — the wider therapeutic window in Rett syndrome (Guy et al. 2007) — is a retrodiction, since the result predates the framework, so it carries the weight of a consistency check rather than of the JUNO forward prediction. The framework's forward predictions in medicine (below) remain to be tested.
+The framework's strongest non-physics case here is structural. Its one empirical touchpoint — the wider therapeutic window in Rett syndrome (Guy et al. 2007) — is a retrodiction, since the result predates the framework, so it carries the weight of a consistency check, as the JUNO $\sin^2\theta_{12}$ match does, not of a forward confirmation. The framework's forward predictions in medicine (below) remain to be tested.
 
 ## 16.2 The enzyme as a read-write system
 
