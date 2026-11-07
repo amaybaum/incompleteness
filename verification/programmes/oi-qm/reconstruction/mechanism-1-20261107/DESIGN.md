@@ -75,10 +75,13 @@ feedback result (#1189). Abbreviations:
    - At `q = 2`, R1 represents some symplectic maps as reflections, and the
      multiplier cannot exclude them (node 2).
 4. **Capability (nodes 5–7).**
-   - **Lemmas S and G (bipartite graph, every prime `q`, record feedback
-     included).** No functional mixing a cell's two slots is ever determined.
-     Every available reversible encoded operation is graded, so it is monomial
-     in the sector-adapted product basis.
+   - **Lemma S (bipartite graph, every prime `q`, record feedback included).**
+     No functional mixing a cell's two slots is ever determined.
+   - **Lemma G (bipartite graph, odd `q`, record feedback included).** Every
+     available reversible encoded operation is graded, so it is monomial in the
+     sector-adapted product basis.
+   - **At `q = 2`.** Non-adaptive gradedness is QA node 1. Corollary S holds with
+     feedback, so there is no single-cell `P`. Adaptive gradedness is open.
    - **Lemma N and Lemma M (NNB, odd `q`).** Explicit words give both
      single-cell shears and hence the full single-qudit Clifford group. No fixed
      product basis makes every available operation monomial.
@@ -94,12 +97,18 @@ feedback result (#1189). Abbreviations:
      only translate values.
    - **Theorem T.** At odd `q`, in R-W, a fixed bijective rule whose joint
      encoded action is CP is affine, so in-world setting selection then fails.
-   - **Proposition T′ (exact, every odd `q`).** Under any rule in which a
-     controller slot selects a carrier linear part `S(u_c)` that is not
-     constant, a reachable stabilizer input with an X-type controller goes to a
-     non-quantum encoded state.
-   - Conversely, quantum compatibility holds if every `S(s)` is symplectic and
-     the controller's law is diagonal in its setting slot.
+   - **Proposition T′ (exact, every odd `q`).** Take any rule that leaves the
+     controller slot `u_c` unchanged and in which `u_c` selects a carrier linear
+     part `S(u_c)` that is not constant. Then a reachable stabilizer input with
+     an X-type controller goes to a non-quantum encoded state. A native cell
+     does not keep `u_c` fixed: a static slot or a one-parity schedule is a
+     supplied element (node 8).
+   - Conversely, quantum compatibility holds if every `S(s)` is symplectic and,
+     given `u_c`, the controller's `v_c` is uniform and independent of all
+     other cells.
+   - Confinement is shown necessary only in this sense: if any pure stabilizer
+     controller law other than a `u_c`-eigenstate is admissible, C-CP fails on
+     a reachable input. It is not shown for every non-diagonal law.
 6. **Qubit encodings (node 7).**
    - FB's proof uses only homomorphisms to `Z_2`, so it holds for every finite
      abelian configuration group whose `Hom(V, Z_2)` has rank at least 2. For
@@ -117,9 +126,12 @@ feedback result (#1189). Abbreviations:
      is a non-affine coupling coefficient set by a controller slot, together with
      a physical reason that keeps controllers' laws diagonal in that slot. As a
      bare confinement it is a target-motivated restriction (CC-RECON). A
-     dynamical form, continual monitoring by terminal ready meters (CTRL-MON,
-     §6.2), reduces it to a supplied terminality condition. Nothing smaller was
-     found.
+     dynamical form, CTRL-MON (§6.2), monitors the controller with terminal
+     ready meters. It removes the restriction on controller laws but relocates
+     the premise. Still supplied are: the meter supply; terminality of
+     unregistered meters (also flagged CC-RECON); per-tick meter delivery and
+     arming; a static controller slot or parity clock; and the non-affine,
+     gauge-violating coefficient. Nothing smaller was found.
    - For the qubit quarter phase with C-CP, no premise in this class supplies it
      (M3, open). No V3 round is proposed.
 
@@ -529,8 +541,9 @@ symplectic.
 **Second proof of (⇒).** Apply `T_g ⊗ id` to the stabilizer state uniform on
 the graph `{(λ, Rλ)}`, with `R` anti-symplectic (W7). The output is pure and
 has a nonnegative Wigner function. By (W5) it is a stabilizer state, and by
-(W7) its support is an affine Lagrangian. That support is the graph of `g`, so
-`g` is affine symplectic. This form also gives Proposition T′ (node 8).
+(W7) its support is an affine Lagrangian. That support is the set
+`{(gλ, Rλ)}`, a graph over the reference coordinates, so `g` is affine
+symplectic. This form also gives Proposition T′ (node 8).
 
 **Consequences (§A.34; each direction named).**
 
@@ -630,9 +643,16 @@ why O2 is stated without reference to a basis.
 functional. With an NNB edge added, the breaking control fires (c6). CC-OFF(b)
 is green.
 
-**Verdict for O2 within N (bipartite, any prime `q`, adaptive): fails** under
+**Verdict for O2 within N (bipartite, odd prime `q`, adaptive): fails** under
 the basis-free criterion. The native reads are phase-sensitive, but every
 available reversible encoded operation is monomial in the sector-adapted basis.
+
+**At `q = 2`.** Lemma G is not proved there, since it uses Theorem W and (W6).
+
+- Non-adaptive gradedness is QA node 1 (G1).
+- Corollary S holds with feedback, so there is no determined mixed functional
+  and no single-cell `P`.
+- Whether every adaptive unitary is graded at `q = 2` is open (QA §4.3).
 
 ### Node 6. Lemmas N and M: NNB at odd `q`, the composition battery and its limit
 
@@ -790,6 +810,17 @@ By Lemma A, a setting held in the controller can then only translate values. ∎
   `λ_a ↦ S(u_c)λ_a + t(u_c)`, with each `S(s)` invertible linear;
 - `v_c` changed by any function that keeps the rule bijective.
 
+**The static-slot hypothesis.** The rule must leave `u_c` unchanged, and a
+native cell does not. Under the second-order rule its lab slot runs
+`z, −x, −z, x` over successive ticks (AP1 §4.2 frame). A time-independent
+`k(u_c)` on a native cell would therefore be controlled by complementary
+functionals on alternate ticks. T′ applies to:
+
+- a controller cell exempt from the native rule; or
+- a native controller used at one tick parity only.
+
+Either is a supplied element (§6.2).
+
 Take as input the law uniform on
 `L = {(λ_a, Rλ_a)} × {(s, 0) : s ∈ F_q}`, with `R(u, v) = (u, −v)` per cell.
 This input is reachable in N. The carrier–reference correlation is obtained by
@@ -798,9 +829,9 @@ with known `v_c`, which is X-type.
 
 - **(i)** If `S(s)` depends on `s`, the output's encoded operator is not
   positive semidefinite (PSD).
-- **(ii)** If every `S(s)` is symplectic and the controller's law is diagonal in
-  `u_c` (`v_c` uniform given `u_c`), the output is a valid state for every
-  carrier and reference input.
+- **(ii)** Suppose every `S(s)` is symplectic and, given `u_c`, the
+  controller's `v_c` is uniform and independent of all other cells. Then the
+  output is a valid state for every carrier and reference input.
 
 *Proof.*
 
@@ -815,21 +846,31 @@ with known `v_c`, which is X-type.
      `(λ_r, s) ↦ S(s)R^{−1}λ_r + t(s)` over all of `F_q^{2n_a} × F_q`.
   5. An affine subspace that is a graph over a whole space is the graph of an
      affine map. So `S(s)` is constant.
-- **(ii)** Under a `u_c`-diagonal controller law, `v_c` stays uniform and
+- **(i), extended.** The same argument applies to any pure stabilizer
+  controller law that is not a `u_c`-eigenstate. Then `u_c` ranges over all of
+  `F_q`, and the projection in step 4 is again a full graph.
+- **(ii)** Under this hypothesis the joint input is classical–quantum,
+  `Σ_s p_s |s⟩⟨s| ⊗ X_s` with `X_s ≥ 0`, and `v_c` stays uniform and
   independent. The output is `Σ_s p_s |s⟩⟨s| ⊗ (Ad U_{S(s),t(s)} ⊗ id)(X_s)`,
   which is positive. ∎
 
 **Reading.**
 
-- Within this class, a controlled coupling is quantum-compatible iff:
-  - its branch maps are symplectic; and
-  - its controllers are confined to laws diagonal in the controlling slot.
+- Within this class, the two directions are as follows.
+  - (⇐) Proposition T′(ii): symplectic branch maps with controllers whose
+    `v_c` is uniform and independent given `u_c`.
+  - (⇒), symplectic half: by Proposition AS, with a `Z_s` controller.
+  - (⇒), confinement half: shown only in this sense. If any pure stabilizer
+    controller law other than a `u_c`-eigenstate is admissible, C-CP fails on a
+    reachable input (T′(i), extended). This is not shown for every non-diagonal
+    controller law.
 - An X-type controller on a reachable input produces a non-quantum encoded
   state.
 - This is the exact, all-`q` statement. The `q = 3` floating-point instances in
   §9 (c8, c9) are controls consistent with it and carry no verdict.
-- A controller read at every tick by a fresh ready meter that is then kept
-  terminal is in such a law at every coupling (§6.2, CTRL-MON).
+- Take a controller with a static slot, or used at one tick parity, that is
+  read by a fresh terminal ready meter before each controlled tick. It is in
+  such a law at every coupling (§6.2, CTRL-MON).
 
 **SM §3.1 as a candidate source.** SM's state-dependent coupling graph
 ([SM:104](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L104),
@@ -853,8 +894,8 @@ run.
 
 | Check | Finding |
 | --- | --- |
-| SC-1 Imported quantum behaviour | **No import in the dynamics.** Every native step is a bijection of configurations, and CP is computed as a test, not assumed. Among bijections the native class is exactly the CP class (Proposition AS). Three qualifications. (1) The frame R-W is singled out by Clifford covariance, a property of the comparator; O3 is therefore stated as "the native rule is in a class that is exactly the CP class in one fixed frame" (node 4). (2) The model contains no interference. It is the noncontextual epistricted model (Prop. C(d)), so no interference is derived because none exists. (3) The controller confinement of M1, in its bare form, is a restriction motivated by the CP target and is flagged under CC-RECON (§6.2). The selection also inherits the status of A5 (affine part derived from amplitude-scale gauge, linearity imposed) and of the `−x(t−1)` memory term (node 2) |
-| SC-2 Hidden external control | **Present, and disclosed.** P3 selects every coupling, coefficient and arming. This includes Lemma N's words (`k = 2^{−1}`, `−k`), the mediator schedule for `C12` and `C21`, every NNB edge, and the read axis (tick parity). An outside agent executes the adaptive feedback. P2 and H-PREP supply the ready cells, the known values and the reference correlations; heralds are supplied. Lemma A shows that no fixed affine rule can internalize the setting. M1 does not remove observer dependence while "controller" is defined by registration (§6.2) |
+| SC-1 Imported quantum behaviour | **No import in the dynamics.** Every native step is a bijection of configurations, and CP is computed as a test, not assumed. Among bijections the native class is exactly the CP class (Proposition AS). Three qualifications. (1) The frame R-W is singled out by Clifford covariance, a property of the comparator; O3 is therefore stated as "the native rule is in a class that is exactly the CP class in one fixed frame" (node 4). (2) The model contains no interference. It is the noncontextual epistricted model (Prop. C(d)), so no interference is derived because none exists. (3) The controller confinement of M1 in its bare form, and the terminality of unregistered monitoring meters in CTRL-MON, are restrictions motivated by the CP target. Both are flagged under CC-RECON (§6.2). The selection also inherits the status of A5 (affine part derived from amplitude-scale gauge, linearity imposed) and of the `−x(t−1)` memory term (node 2) |
+| SC-2 Hidden external control | **Present, and disclosed.** P3 selects every coupling, coefficient and arming. This includes Lemma N's words (`k = 2^{−1}`, `−k`), the mediator schedule for `C12` and `C21`, every NNB edge, and the read axis (tick parity). An outside agent executes the adaptive feedback. P2 and H-PREP supply the ready cells, the known values and the reference correlations; heralds are supplied. Lemma A shows that no fixed affine rule can internalize the setting. M1 does not remove observer dependence while "controller" is defined by registration (§6.2). CTRL-MON still needs, supplied: per-tick delivery and arming of fresh meters (P3, E-iso or a conveyor); a static controller slot, or a parity clock or P3-type arming (node 8); the P2 meter supply; and terminality of unregistered meters |
 | SC-3 Representation versus physical implementation | **Representation only.** On the physical carrier every step is a permutation of `F_q^{2n}` (AP1 Lemma 2; the kernel ceiling holds). `U_P` exists only in R-W, and even there monomiality depends on the basis (node 5). What is physical is the record statistics, which equal the stabilizer-circuit statistics and are produced by an exact noncontextual hidden-variable model. The capability reached at odd `q` is therefore exactly what a classical statistical model provides |
 
 ## 5. Ledger
@@ -873,7 +914,7 @@ run.
 | H-PREP | Record-conditioned classes read as preparations | Supplied (open hypothesis) | As in AP1 |
 | NNB | Armable same-sublattice symmetric coupling | Supplied (QA conditional premise) | At odd `q` it gives the Clifford group with C-CP intact |
 | R-W | Gross's phase-space frame, fixed for all settings | Mathematical representation, singled out by Clifford covariance | Comparator dictionary only |
-| M1 / CTRL-MON | §6.2 | Supplied (conditional premise, not adopted); CC-RECON flag on the bare confinement | Missing premise for O1 |
+| M1 / CTRL-MON | §6.2: non-affine coefficient `k(u_c)`; P2 meter supply; terminality of unregistered meters; per-tick meter delivery and arming; static controller slot or parity clock | Supplied (conditional premise, not adopted). CC-RECON flag on the bare confinement and on the unregistered-meter terminality | Missing premise for O1; removes P3 from the setting value only |
 | I1 | Qubit and qudit stabilizer comparators | Imported (comparator) | — |
 | I2 | Gross Theorems 2, 3, 6, 7, 19, Lemmas 4, 8, 9, 29; Spekkens §V.A–B; Zhu (abstract); LWE Theorem 1 (via AP1) | Imported literature | §8.2 |
 
@@ -884,7 +925,7 @@ run.
 | Obligation | `q = 2` | Odd prime `q`, N | Odd prime `q`, N+NNB |
 | --- | --- | --- | --- |
 | O1 Physical source | Supplied (P3, H-PREP, P2); fails natively (Lemma A) | Same | Same; NNB is also P3-armed |
-| O2 Capability | Reads only (AP1); `S` needs NNB (QA) | Fails: every reversible encoded operation is monomial in the sector-adapted basis (Lemmas S, G) | Passes at stabilizer scope (Lemmas N, M; C-COMP). Not separated from classical imitation within the reachable fragment (CC-IMIT′). No quarter phase, no infinite-order unitary (Prop. C) |
+| O2 Capability | Reads only (AP1); `S` needs NNB (QA); no single-cell `P` (Corollary S); adaptive gradedness open | Fails: every reversible encoded operation is monomial in the sector-adapted basis (Lemmas S, G) | Passes at stabilizer scope (Lemmas N, M; C-COMP). Not separated from classical imitation within the reachable fragment (CC-IMIT′). No quarter phase, no infinite-order unitary (Prop. C) |
 | O3 Selection | Fails (QA Lemma R, FB) | **Pass natively**, in the form of node 4 | **Pass natively** |
 | O4 Continuation | Pass under P1, P2, H-PREP (AP1 §4.4) | Pass (Theorem W) | Pass |
 | C-NS | Green with wing-local cells (QA) | Green: wing-local operations; Main [cone theorem](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L366) | Green with wing-local NNB edges |
@@ -898,10 +939,12 @@ run.
 in their controlling slot.**
 
 - **Why it is needed.** Lemma A forces any in-world setting source to be
-  non-affine. Proposition T′ shows that a controlled coupling is
-  quantum-compatible iff two conditions hold:
-  - its branch maps `S(s)` are symplectic;
-  - its controllers' laws are diagonal in the controlling slot.
+  non-affine. Proposition T′ gives three conditions:
+  - (⇐) symplectic branch maps `S(s)` with controller `v_c` uniform and
+    independent of all other cells given `u_c` suffice;
+  - (⇒) symplectic branch maps are necessary;
+  - (⇒) confinement is necessary whenever some pure stabilizer controller law
+    other than a `u_c`-eigenstate is admissible.
 - **Bare form, CTRL-REC: "the controller is a registered record".** This form
   does not meet the bar, for three reasons.
   - *"Registered" has no dynamical meaning.* Registration is observer
@@ -917,28 +960,47 @@ in their controlling slot.**
     violation of SM §2.7's additive-automorphism gauge is a conflict, not a
     prediction.
 - **Dynamical form, CTRL-MON.** The coefficient is a fixed function `k(u_c)` of
-  a controller cell's slot, and the branch maps are symplectic (symmetric
-  adjacency in each branch). The controller is read, through a coupled tick, by
-  a fresh ready meter at every tick before it controls. Those meters are never
-  coupled to anything again.
+  a controller slot, and the branch maps are symplectic (symmetric adjacency in
+  each branch). Before every controlled tick, a fresh ready meter reads the
+  controller through a coupled tick, and the meter is never coupled to anything
+  again.
+  - *Controller dynamics (required).* A native controller cell rotates: its lab
+    slot runs `z, −x, −z, x`. Monitoring at every tick would alternate `Z` and
+    `X` reads (AP1 §4.2), which randomizes the setting at every odd tick. As
+    stated without a further element, CTRL-MON erases the setting it is meant
+    to hold. It needs one of two supplied elements:
+    - a controller cell exempt from the second-order rule (non-native); or
+    - control and monitoring confined to one tick parity, which needs a clock
+      or P3-type per-tick arming.
   - *Derivation (paper).* The read with the meter discarded is the
     `Z`-dephasing channel `Δ_Z` on the controller (Theorem W). After `Δ_Z`,
     every joint input is block-diagonal in `u_c`, so by Proposition T′(ii) the
     composite `T_g ∘ Δ_Z` is the controlled channel with Kraus operators
-    `|s⟩⟨s| ⊗ U_{S(s)}`. It is CP on **all** inputs, controller included.
-    Self-check c10 is a control.
-  - *What it reduces the premise to.* Three items remain, none of them a
-    restriction on controller laws:
-    - the non-affine coefficient dependence, which violates A5 and the gauge of
-      [SM §2.7](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L96);
-    - the P2 supply of ready meters;
-    - a terminality condition on **unregistered** environment meters, which is
-      a supplied strengthening of P1. If such a meter is recombined, the
-      dephasing can be undone (AP1 §4.5 eraser) and Proposition T′(i) applies
-      again.
-  - *What it buys.* It removes P3 from the `Z`/`X` and `I`/`P` setting choice.
-    It does **not** give O1 a pass: by §2.3, O1 would still be "supplied",
-    resting on P1-type terminality, P2, H-PREP and CTRL-MON itself.
+    `|s⟩⟨s| ⊗ U_{S(s)}`. With the monitoring meters discarded, it is CP on
+    **all** controller–carrier inputs. The joint map that includes the meters is
+    the bare non-affine rule. Its CP failure returns if any meter's kick slot
+    is recovered. Self-check c10 is a control.
+  - *What it relocates.* CTRL-MON removes the restriction on controller laws.
+    It relocates the supplied premise rather than removing it. What remains
+    supplied:
+    - (a) the P2 supply of ready meters;
+    - (b) a terminality condition on **unregistered** monitoring meters, a
+      supplied strengthening of P1. If such a meter is recombined, the dephasing
+      can be undone (AP1 §4.5 eraser) and Proposition T′(i) applies again. Its
+      only motivation here is to keep the dephasing irreversible. AP1's
+      archive argument covers registered records only. **CC-RECON applies to
+      this condition as well**;
+    - (c) per-tick delivery of a fresh meter to the controller and disarming of
+      the used edge, by P3/E-iso arming or a supplied meter conveyor. A cell at
+      a fixed site would otherwise be coupled again at the next tick;
+    - (d) a static controller slot or a parity clock (controller dynamics,
+      above);
+    - (e) the non-affine coefficient dependence, which violates A5 and the gauge
+      of [SM §2.7](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L96).
+  - *What it buys.* It removes P3 from the setting **value** only. Per-tick
+    meter delivery and arming, and the clock or static slot, remain supplied. It
+    does **not** give O1 a pass: by §2.3, O1 is still "supplied", resting on
+    (a)–(e), H-PREP and CTRL-MON itself.
   - *Independent consequences.* None established beyond resource accounting:
     each controlled coupling consumes ready meters, and the setting value is
     copied into the environment at every tick. Whether the latter has a testable
@@ -1018,10 +1080,10 @@ Wigner-negative resources. This is not derived here.
 | Lemma A: a fixed affine rule cannot select a linear part from an in-world setting | New for this programme |
 | Theorem W: at odd `q`, every protocol of N (adaptive, NNB, recombination) is a stabilizer instrument in R-W | New for this programme; built from Gross's covariance and Spekkens' equivalence |
 | Proposition AS: in R-W at odd `q`, CP ⇔ affine symplectic, for ontic bijections | New for this programme |
-| Theorem T and Proposition T′: in-world control is quantum-compatible iff branch maps are symplectic and controllers are diagonal in the controlling slot | New |
+| Theorem T and Proposition T′: in-world control under a static controller slot is quantum-compatible if branch maps are symplectic and `v_c` is uniform and independent given `u_c`. It fails if a non-eigenstate pure stabilizer controller law is admissible | New |
 | `q = 2`: R1 is not `Sp(2, F_2)`-covariant, and the multiplier cannot flag its reflections | Elaborating (QA, AP1 C8, Zhu) |
-| Lemmas S and G: bipartite N, with feedback, is monomial in the sector-adapted product basis at every prime `q` | New; extends AP1's type invariant and QA G1 to the adaptive class |
-| Lemmas N and M: NNB gives the single-qudit Clifford group exactly iff 2 is invertible; no product basis is then monomial | New for this programme |
+| Lemma S (every prime `q`) and Lemma G (odd `q`): bipartite N, with feedback, has no mixed determined functional, and at odd `q` is monomial in the sector-adapted product basis. Adaptive gradedness at `q = 2` is open | New; extends AP1's type invariant and QA G1 to the adaptive class |
+| Lemmas N and M: in the one-cell frame, NNB gives the single-qudit Clifford group exactly iff 2 is invertible. (⇐) is Lemma N; the witness for (⇒) is QA Lemma Q, since at `q = 2` a single-cell mixed functional has `Q* = 1`. No product basis is then monomial. QA node 8 does give `S` at `q = 2`, in a two-cell encoding | New for this programme |
 | C-COMP is passed by the mechanism's own classical model (CC-IMIT′) | Confirming (Spekkens, Gross); a limit on what C-COMP can establish |
 | Observation E | Elaborating (FB) |
 | Proposition C | Confirming (Gross, Spekkens) |
@@ -1033,9 +1095,12 @@ Wigner-negative resources. This is not derived here.
   [Main L296](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L296)
   displays `u′ = Σu + v`, and the remark after its Lemma 1
   ([L304](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L304))
-  states that the factorization "holds verbatim over `Z_q`". At odd `q` that displayed rule is
-  anti-symplectic, unlike Substratum A4 and SM. This is a cross-document
-  divergence to log for a separate unit. No edit is implied here.
+  states that the factorization "holds verbatim over `Z_q`". That remark
+  concerns Lemma 1's cross-block factorization, which does not depend on the
+  memory sign, and is not in error. The divergence is only over which rule is
+  native at odd `q`: the displayed `+v` rule is anti-symplectic there, unlike
+  Substratum A4 and SM. It is logged for a separate unit. No edit is implied
+  here.
 - **Alphabet-size hypothesis.** The encoded operation class differs qualitatively
   between `q = 2` and odd `q`. Any correspondence built for
   [SM's hypothesis](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L94)
@@ -1045,7 +1110,8 @@ Wigner-negative resources. This is not derived here.
   §3.1 graph, Native A and P-SDC (Proposition AS).
 - **Registers used as controllers.** They are quantum-compatible only while kept
   diagonal in the controlling slot (Proposition T′). Under CTRL-MON that depends
-  on the terminality of the monitoring meters.
+  on the terminality of the monitoring meters, and on a static controller slot
+  or a one-parity schedule.
 
 ## 8. Sources
 
