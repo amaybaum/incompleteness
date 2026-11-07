@@ -78,7 +78,7 @@ the physical access posits or settle bare adaptive S.
    translations, which are already in N. The reflection by the linear part needs
    NNB. Control C-CP therefore fails for every linear encoding whose parity is
    translatable, with or without NNB. It holds under the one-cell identification
-   R1 for non-adaptive protocols with the stated product-ready instrument
+   R1 on a fixed active carrier for non-adaptive protocols with the stated product-ready instrument
    inputs (PROOF-RECOVERY §§1–3). The construction also does not compose
    (node 10, outside Q-A's scope).
 5. **Outcome type (ii): stop (§4).**
@@ -705,7 +705,7 @@ separate-availability conclusion for every adaptive realization is asserted.
 
 **C-CP, per encoding.**
 
-- **Under R1 (one cell, `N_na`, product-ready instrument inputs).**
+- **Under R1 (fixed active carrier, `N_na`, product-ready instrument inputs).**
   The full paper recovery is [PROOF-RECOVERY §§1–3](PROOF-RECOVERY.md).
   Grading and N2/P2 split the unknown source variables and full record
   constraints into E and O sectors. Conditional affine elimination in each
@@ -799,7 +799,7 @@ the two-qubit stabilizer subtheory.
 | Inaccessible absolute parity, robust to reuse and recombination | Holds as a selection rule (Lemma Q), given P1 and P2, adaptive included | — | Derived from A4 at `q = 2`. The relative parity is not protected |
 | Encoded `S` | Fails for `N_na` (Lemma G2). Open for adaptive processes | NNB | Conditional |
 | LWE transformation contextuality on the inaccessible sector | Not reached | NNB | Conditional, relative to the encoded subtheory only (node 8) |
-| CP encoded single-qubit stabilizer operation set (C-CP) | Holds under R1 for `N_na` with the stated product-ready inputs. Fails for linear encodings with a translatable parity | Fails under NNB (Lemma R) | Requires the conditional premise I |
+| CP encoded single-qubit stabilizer operation set (C-CP) | Holds under R1 on a fixed active carrier for `N_na` with the stated product-ready inputs. Fails for linear encodings with a translatable parity | Fails under NNB (Lemma R) | Requires the conditional premise I |
 | Composites | — | Fails (node 10) | Outside Q-A |
 
 **Conditional OI extension premise NNB.** P3 may arm a symmetric, center-free,

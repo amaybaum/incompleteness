@@ -10,8 +10,9 @@ kernel results or physical mechanisms. No scientific program was run.
 ## 1. Exact scope of the R1 complete-positivity recovery
 
 Fix a finite non-adaptive protocol in N on a bipartite graph, with the same
-single carrier cell as input/output and the fixed R1 frame. Condition on its
-externally supplied settings, constants and heralds. They do not depend on
+single carrier cell as input/output and the fixed R1 frame. The carrier remains
+unregistered and active at the output; every registered terminal cell is
+auxiliary. Condition on its externally supplied settings, constants and heralds. They do not depend on
 the input state. Every other initially unknown variable, including each
 ready cell's unknown slot, has the independent uniform product law used by
 N2/P2; known ancillary slots have their supplied values. The input carrier
@@ -136,9 +137,10 @@ Both cases include zero branches harmlessly. Summing or coarse-graining
 the CP branches, and mixing fixed herald/program cases with their
 input-independent weights, preserves CP.
 
-**Recovered result.** Under R1 and the stated non-adaptive product-ready
-instrument inputs, C-CP holds. This is not a proof for adaptive protocols
-or arbitrary initially correlated background sources.
+**Recovered result.** Under R1 on the fixed active carrier and the stated
+non-adaptive product-ready instrument inputs, C-CP holds. This is not a proof
+for adaptive protocols, arbitrary initially correlated background sources,
+or a different output-carrier convention.
 
 ### A masked-record check on the written normal form
 
