@@ -1,8 +1,9 @@
 # O-OBSMU — observer-interface sourcing, paper assessment
 
-**Status: WIP / UNVERIFIED.** A paper-only research record. Nothing here is independently
-reviewed. It establishes no premise, changes no scientific status, and is not a premise of any
-established claim (AGENTS.md §A.46 item 7).
+**Status: WIP / UNVERIFIED research record.** Paper-only. The original paper has an
+independent model-review chain through `f67b9f0c` (ACCEPT); the current-source repair requires
+its own exact-head review on #1110. The record supplies no established physical premise and
+changes no manuscript claim (AGENTS.md §A.46 item 7).
 
 ## Authorization and scope
 
@@ -17,8 +18,11 @@ established claim (AGENTS.md §A.46 item 7).
   additional assumption; no new posit is adopted, and a candidate ingredient is stated only as a
   proposal awaiting the owner, with its §A.29 controls, an independent consequence and a refuting
   outcome.
-- **Designated writer:** `writer-866`. Branch `research/o-obsmu-20261104`, drafted from `main` at
+- **Original writer:** `writer-866`. Branch `research/o-obsmu-20261104`, drafted from `main` at
   `f5c281ae10a913ec68fa41b3b839ad0b164979cd` (drafting snapshot `D`).
+- **Bounded current-source repair:** `root`, under the owner's 2026-11-07 instruction recorded
+  in [#866 c.6707972400](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6707972400).
+  Current-main source snapshot `M` is `5ea5a40218e4e660b39a9b149050ced4f95d9b48`.
 - **Accountable Issue:** #866 (row O-OBSMU). Dependency index: #914 (master matrix revision 2,
   comment 6563412926, rows O-OBSMU, O-RDY, O-ACC, O-RET, O-REC, O-SET, O-INS).
 
@@ -58,15 +62,21 @@ what is the smallest missing ingredient?
   establish that anything follows from OI's assumptions; where one supplies an ingredient, that
   ingredient is an additional assumption.
 
-## Headline
+The bounded reconciliation additionally reads Main §4.6, Substratum §5.4, ch18:214–222 and
+the substantive [ARROW-1 RECOVERY note at `M`](https://github.com/amaybaum/incompleteness/blob/5ea5a40218e4e660b39a9b149050ced4f95d9b48/verification/audits/manuscript/arrow-1-20261105/RECOVERY.md).
+It does not repeat the original whole-corpus search. Historical quotations keep their `D` pin
+and state the current differences; `ANALYSIS.md` §7 classifies the narrowed support.
 
-This head has not been re-reviewed.
+## Headline
 
 - The final review (#1110 c.6643749363) returned ACCEPT for `cd15123b` only.
 - The extension at `478451b5` was reviewed in #1110 c.6644159894 (ACCEPT WITH CHANGES).
 - The final check of `55507562` (#1110 c.6644302632) returned ACCEPT for that commit only.
-- This head applies that check's five wording corrections and records the owner's decisions
-  D-OB7 and D-OB8 (#866 c.6649267203).
+- The subsequent corrections and D-OB7/D-OB8 decisions (#866 c.6649267203) were covered by
+  the review chain through `f67b9f0c` (#1110 c.6649378167, ACCEPT).
+- The current repair reconciles the named ARROW-1 quotations and closes the precise §7
+  support gap by narrowing the claim to substantive evidence on `main`. Its review is
+  separate; previous verdicts do not automatically cover the repair.
 
 - **Consumers differ** (`ANALYSIS.md` §1).
   - The representation layer (`S ⇔ D ⇔ Q_fb`) is not a residual-choice consumer.
@@ -118,8 +128,10 @@ This head has not been re-reviewed.
     `UNDECIDED` (MR★ C-4).
 - **Proposals.** P-R and P-SDC are unadopted proposals with failable controls. No independent
   consequence is identified for either.
-- **Arrow of time.** This is tracked in #1112 (analysis c.6643691865, verification c.6643840329)
-  and recorded here only.
+- **Arrow of time.** For the claims audited by ARROW-1, RECOVERY and the corrected manuscripts
+  support a conditional, time-symmetric observer-selection result, explicit background and
+  preparation inputs, and an open alignment mechanism. #1112 remains accountable. The older
+  comments are provenance; their entire corpus search is not certified here.
 
 ## Not authorized, and not done
 
