@@ -214,19 +214,20 @@ random-looking observations fit together; it proves nothing about
 quantum mechanics, and none of the results below depends on it.
 
 Here is the simplest version. Two cards lie on a table, one face up and
-one face down. The face-up card is red or black. The face-down card is
-dealt at random: it is red or black with equal probability,
-independently of the face-up card. Each shuffle is a fixed move, not a
-randomization: it swaps the two cards. After one shuffle the player can
-predict the colour now showing no better than by tossing a coin. After a
-second shuffle the original card is back, with certainty. The player's
-record therefore has memory: what is seen next depends on what was seen
-earlier, not only on what is showing now. That memory is kept in the
-face-down card. Once the cards are dealt nothing random happens; the
-uncertainty is the player's, and it comes from what the player cannot
-see. The game's statistics are those of ordinary classical probability,
-so it illustrates how hidden information works; it is not a model of
-quantum mechanics {[}Book §1.11{]}.
+one face down. The face-up card is red or black; seeing it is the
+player's first observation. The face-down card is dealt at random: it is
+red or black with equal probability, independently of the face-up card.
+Each shuffle is a fixed move, not a randomization: it swaps the two
+cards. After one shuffle the player can predict the colour now showing
+no better than by tossing a coin. After a second shuffle the original
+card is back, with certainty. The player's record therefore has memory:
+what is seen next depends on what was seen earlier, not only on what is
+showing now. That memory is kept in the face-down card. Once the cards
+are dealt nothing random happens; the uncertainty is the player's, and
+it comes from what the player cannot see. The game's statistics are
+those of ordinary classical probability, so it illustrates how hidden
+information works; it is not a model of quantum mechanics {[}Book
+§1.11{]}.
 
 Framed this way, a question about interpretation becomes three
 mathematical questions. Which patterns of observations can a partly
@@ -627,17 +628,21 @@ on the standard dilation theorems {[}Sti55; Kra83; Oza84{]}; for
 reconstructions of finite quantum theory from operational axioms, see
 {[}Har01; CDP11; MM11{]}.
 
-A finite reversible world does not supply condition 4 on its own. The
-operations that reversible dynamics of finitely many states supplies,
-under the observer access stated in {[}GR §3.3{]}, cannot produce a
-quarter-turn relative phase (a phase factor \(i\) on one state), which
-full reversible control requires; so condition 4 fails for them on every
-system with two or more states {[}GR §3.3{]}. Whether the physical
-substratum supplies further kinds of intervention that would complete
-its repertoire, in particular a continuously driven transition between
-two states, together in some formulations with a selectable relative
-phase {[}GR §3.3{]}, and why its operations should be complex matrices
-in the first place, are open.
+A finite reversible world does not supply condition 4 on its own.
+Quantum theory can turn one state partly into another, by any fraction,
+and can also shift the phase of one state relative to another, for
+example by a quarter turn (a factor \(i\)). A reversible rule on
+finitely many states can only permute whole states; it cannot blend
+them. Under the observer access stated in {[}GR §3.3{]}, the operations
+such a rule supplies also cannot shift the phase of one state relative
+to another, and so cannot produce the quarter-turn relative phase that
+full reversible control requires; condition 4 therefore fails for them
+on every system with two or more states {[}GR §3.3{]}. Whether the
+physical substratum supplies further kinds of intervention that would
+complete its repertoire, in particular a continuously driven transition
+between two states, together in some formulations with a selectable
+relative phase {[}GR §3.3{]}, and why its operations should be complex
+matrices in the first place, are open.
 
 \hypertarget{finite-experiments-and-the-full-range-of-qubit-experiments}{%
 \subsubsection{4.3 Finite experiments and the full range of qubit
@@ -647,14 +652,16 @@ The correspondence in section 3.1 chooses a hidden world for each finite
 pattern. A qubit admits an indefinitely growing family of preparation
 and measurement choices. These are different demands on a model.
 
-A fixed finite world with \(N\) configurations produces
-prepare-and-measure statistics through distributions over at most \(N\)
-underlying states {[}Main §3.4, Proposition (finite-substratum
-operational obstruction --- classical-dimension form){]}. Reproducing
-qubit statistics requires classical memory beyond every fixed bound as
-the finite experiments grow {[}HKLP24, Thm 4; GH03{]}. Montina reports
-the corresponding result of Hardy that the underlying state set cannot
-be finite {[}Mon08, citing Har04{]}.
+A fixed finite world with \(N\) configurations can prepare at most \(N\)
+distinguishable underlying states, so every experiment of the form
+``prepare, then measure'' that it supports runs through distributions
+over those \(N\) states {[}Main §3.4, Proposition (finite-substratum
+operational obstruction --- classical-dimension form){]}. A qubit, by
+contrast, has no such bound: reproducing the statistics of ever larger
+finite families of its preparations and measurements requires classical
+memory beyond every fixed bound {[}HKLP24, Thm 4; GH03{]}. Montina
+reports the corresponding result of Hardy that the underlying state set
+cannot be finite {[}Mon08, citing Har04{]}.
 
 A finite-model comparison therefore has to specify its experimental
 scope and resources. Enlarging that scope may require a larger hidden
@@ -786,8 +793,12 @@ message, complete hiding also requires at least as many joint values of
 the unread registers as there are messages, a capacity bound related to
 perfect secret sharing {[}Sha79{]}.
 
-Recovering the quantum Page curve, the rise and fall of radiation
-entanglement entropy, requires further structure. The cycle-averaged
+The toy models address only whether a message can be hidden from an
+observer who reads some registers and not others. The quantum version of
+the problem asks for more: the \emph{Page curve}, the characteristic
+rise and then fall of the entanglement between the radiation and what
+remains of the black hole as evaporation proceeds. Reproducing it
+requires ingredients the finite models do not have. The cycle-averaged
 argument in {[}GR, App. A{]} assumes typical quantum entanglement along
 the dynamics (H-scramble), decoupling (H-decouple), and an energy shell
 containing all joint configurations. Under its stated preparation of
@@ -1075,4 +1086,4 @@ arXiv:gr-qc/0604062v4.
 \endgroup
 
 \end{document}
-% source-sha256: e9ed185d87db653e67463edf27982ee39b771146f158fec78ed213f82c4cb3cc
+% source-sha256: ad8086ec54693d678aa5549953b91be1cb39a33e659aac74e2683ac24bfba451
