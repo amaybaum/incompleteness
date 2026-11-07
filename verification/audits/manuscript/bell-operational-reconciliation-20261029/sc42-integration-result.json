@@ -2216,7 +2216,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Bond stability given the scale hierarchy.** Given the coup..."
+      "predicate": "chapter line mirrored in FULL: **Bond stability.** The first condition is $E_{\\text{bond}} ..."
     },
     {
       "ok": true,
@@ -2248,6 +2248,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Why the threshold is exceeded.** Within the thermal window..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Carbon's combinatorial productivity.* Given the selected $d..."
     },
     {
@@ -2256,11 +2260,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The threshold's empirical implications.** The autocatalyti..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The Markovian character of ordinary chemistry follows from t..."
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 12.3 develops information processing as fitness-enha..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 12.7 develops the structural chain from intelligence..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Environmental information exists.* $kT > 0$ produces therma..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The structural conclusion.** Information processing is the..."
     },
     {
       "ok": true,
@@ -2281,6 +2301,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The cumulative chain from $(S, \\varphi)$ to a universal comp..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content here is that AI is *not* an independ..."
     },
     {
       "ok": true,

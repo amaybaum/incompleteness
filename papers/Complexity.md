@@ -86,7 +86,7 @@ The *possibility* of a molecule with these properties is structural: element 8's
 
 ### 2.7 The thermal window
 
-For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. Given the coupling values and masses that set the atomic scale (§2.5), $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at temperatures where a liquid exists, which gives the first condition. The second and third — activation energies low enough for reactions to proceed at such a temperature, and a solvent that is liquid there — are further conditions, set by the molecules available rather than by the scale separation, and the separation does not establish that the three overlap. Where they do, chemistry is *stable but dynamic*.
+For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The first condition, $E_{\text{bond}} \gg kT$, is a statement about the selected molecules at the selected temperature: the coupling values and masses (§2.5) set the atomic scale of bond energies, but the nuclear–atomic scale separation does not itself establish the inequality. The second and third — activation energies low enough for reactions to proceed at such a temperature, and a solvent that is liquid there — are further conditions, set by the molecules available rather than by the scale separation, and the separation does not establish that the three overlap. Where they do, chemistry is *stable but dynamic*.
 
 ### 2.8 Summary of the structural chain
 
@@ -237,7 +237,7 @@ The framework derives $N$ (structural), the conditions for a thermal window (who
 
 **Von Neumann's threshold.** Von Neumann's self-reproducing automaton theorem [20] establishes that in any computational system above a complexity threshold, self-reproducing configurations must exist. The threshold requires three capabilities: (a) a universal constructor — a subsystem that reads instructions and assembles a product; (b) a copying mechanism — that duplicates the instructions; (c) a control mechanism — that sequences construction and copying.
 
-The derived chemistry provides all three:
+The derived chemistry provides (a) and (b); (c) is an environmental condition:
 
 *(a) Universal construction.* Any catalytic polymer that reads a template sequence and assembles a corresponding product from a monomer alphabet. The autocatalytic argument (§5.3) establishes that catalysis is statistically abundant ($N \times p \sim 10^{56}$). Template-directed assembly follows from complementary pairing (structural, §2.6) combined with catalytic activity.
 
@@ -245,7 +245,7 @@ The derived chemistry provides all three:
 
 *(c) Control.* Environmental cycling — temperature fluctuations, wet-dry cycles, concentration gradients — drives alternation between construction and copying phases. It is a further environmental condition: the thermal window (§2.7) allows chemistry at the prevailing temperature but does not by itself supply fluctuations on timescales relevant to chemistry.
 
-Von Neumann's threshold is exceeded by the same combinatorial margin ($\sim 10^{56}$) that drives the autocatalytic argument. Self-reproducing molecular configurations are not a lucky accident in the derived chemistry — they are a mathematical consequence of the system's computational richness exceeding von Neumann's threshold.
+Von Neumann's threshold is exceeded by the same combinatorial margin ($\sim 10^{56}$) that drives the autocatalytic argument. Self-reproducing molecular configurations are not a lucky accident in the derived chemistry: given environmental cycling of the kind in (c), they are a mathematical consequence of the system's computational richness exceeding von Neumann's threshold.
 
 ### 5.5 From template replication to evolution
 
@@ -326,7 +326,7 @@ $$\xrightarrow{\text{statistical}} \text{autocatalytic networks (}N \times p \si
 $$\xrightarrow{\text{von Neumann}} \text{self-reproducing configurations}$$
 $$\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{inevitable}} \text{Darwinian evolution}$$
 $$\xrightarrow{\text{generic}} \text{information processing} \xrightarrow{\text{contingent}} \text{general intelligence}$$
-$$\xrightarrow{\text{structural}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
+$$\xrightarrow{\text{material with suitable gap}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}$$
 $$\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}$$
 
 The chain combines conditional physical results, statistical models and contingent biological or computational steps. Its chemical starting point inherits the selected lattice/continuum branch and the stated matter assumptions; later conclusions retain their own premises. General intelligence is one of the contingent steps.
