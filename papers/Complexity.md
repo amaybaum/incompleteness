@@ -70,7 +70,7 @@ Four additional structural results extend the chain beyond orbital chemistry.
 
 ### 2.5 The scale hierarchy
 
-The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths [2, §6]. Given the values of the couplings and masses, they set two widely separated energy scales:
+The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths [2, §6]. Given their values and the masses, the two couplings set two widely separated energy scales:
 
 $$E_{\text{nuclear}} \sim \Lambda_{\text{QCD}} \sim \text{MeV}, \qquad E_{\text{atomic}} \sim \alpha^2 m_e c^2 \sim \text{eV}$$
 
@@ -100,7 +100,7 @@ $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xri
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{\text{coupling values, } m_e} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
 
