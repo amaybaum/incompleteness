@@ -2514,10 +2514,11 @@ dynamics or other initial-conditions mechanisms.
 
 \textbf{Quantum corrections to gravity.} The emergent quantum
 description does feed back into gravitational dynamics through
-state-level quantities: §7.1 derives dark energy evolution because the
-emergent vacuum energy depends on \(H\) through the hidden sector's
-volume. What the geometry-first proposal excludes, conditional on the
-coupling step, is the zero-point sum as a gravitational source. The
+state-level quantities: §7.1 reads the dark-energy bookkeeping in
+running-vacuum form, the emergent vacuum energy depending on \(H\)
+through the hidden sector's volume; the functional form itself is not
+derived there. What the geometry-first proposal excludes, conditional on
+the coupling step, is the zero-point sum as a gravitational source. The
 zero-point energy is the ground-state eigenvalue of the emergent
 Hamiltonian \(\hat{H}_{\text{eff}}\), which acts on \(\mathcal{H}_V\).
 But gravity is sourced by the classical Hamiltonian \(H_{\text{tot}}\),
@@ -3434,13 +3435,24 @@ perturbations before recombination (peak heights), the sound horizon
 \(r_s\) (peak positions), and the damping scale (high-\(\ell\)
 suppression) --- then matches ΛCDM at linear order, given that input and
 the linear-regime behaviour of the displacement, whose crossover from
-the deep-MOND regime is not derived (below). \emph{Epistemic status:
-Tier 2, inheriting the conditions of §7.2--7.3. The
-displacement\(\,\equiv\,\)CDM step is the analytic result (i)--(iv)
-above. The temporal half of that equivalence --- that a single
+the deep-MOND regime is not derived (above). A direct CLASS comparison
+(2026-04-26) confirms this: with the framework's Type II RVM at
+\(\nu = 10^{-4}\) (the Bertini 2025 1\(\sigma\) high end) encoded via
+CLASS's CLP fluid dark-energy module, the four acoustic peak amplitudes
+(TT) match \(\Lambda\)CDM to \(\lesssim 0.02\%\), full-range
+\(D_\ell^{TT}\) residuals have median \(0.006\%\) and maximum
+\(0.08\%\), and corresponding \(D_\ell^{EE}\) residuals are similar ---
+all 20--300\(\times\) below cosmic variance and 5--50\(\times\) below
+Planck 2018 binned precision at every \(\ell\) from 2 to 2500.
+\emph{Epistemic status: Tier 2, inheriting the conditions of §7.2--7.3.
+The CLASS run verifies the residual RVM dark-\textbf{energy} effect on
+the spectrum (the dark matter is modeled as standard CDM, the
+dark-energy sector as the CLP-fluid RVM); it does not by itself test the
+displacement\(\,\equiv\,\)CDM step, which is the analytic result
+(i)--(iv) above. The temporal half of that equivalence --- that a single
 relaxation kernel reproduces CDM-like growth at recombination while
-keeping the Bullet frozen --- is demonstrated below; a Boltzmann run
-implementing the displacement kernel explicitly, including its
+keeping the Bullet frozen --- is demonstrated below; a direct Boltzmann
+run implementing the displacement kernel explicitly, including its
 \(k\)-dependence, is the remaining numerical check.}
 
 \textbf{Relaxation kernel: Bullet--CMB consistency.} The
@@ -3462,9 +3474,12 @@ is absorbed into the normalization
 \(\rho_E \approx \Omega_{\text{CDM}}\rho_{\text{crit}}\), an input
 (§7.1). A \emph{fixed} \(\tau_{\text{relax}} = 1/H_0\) would instead
 suppress the response by \(H_0/H(z) \sim 1/10\) at \(z = 100\) and
-distort the peaks, so the epoch-local reading is the one consistent with
-the CMB. The Bullet remains frozen for the independent reason that a
-cluster collision is anomalously fast on the cosmic clock:
+distort the peaks --- confirming that the epoch-local reading is the
+correct one (numerically verified: \(\delta_E/\delta_m\) constant to
+\(<0.1\%\) across \(z = 1100\to0\) for \(\tau = 1/H(z)\), versus an
+order-of-magnitude lag for \(\tau = 1/H_0\)). The Bullet remains frozen
+for the independent reason that a cluster collision is anomalously fast
+on the cosmic clock:
 \(t_{\text{cross}}/\tau_{\text{relax}}(z\!=\!0.3) \approx 0.15/12 \approx 0.013 \ll 1\).
 The two regimes are therefore controlled by \emph{different} ratios ---
 \(\tau_{\text{relax}}/t_{\text{growth}} \sim \mathcal{O}(1)\) at all
@@ -3475,8 +3490,9 @@ non-locality is \emph{temporal} (a memory over \(\tau_{\text{relax}}\)),
 not spatial, and imposes no \(k\)-cutoff on the linear growth.
 \emph{Open computation (not an inconsistency):} the \(k\)-dependence of
 the relaxation rate, required for a full mode-by-mode kernel.
-\emph{Epistemic status: Tier 2, inheriting the conditions of §7.2--7.3;
-the \(k\)-dependence of the relaxation rate is an open computation.}
+\emph{Epistemic status: Tier 2, inheriting the conditions of §7.2--7.3
+(temporal reconciliation verified numerically,
+relaxation\_kernel\_check.py 2026-06-29; \(k\)-dependence deferred).}
 
 \hypertarget{summary-of-gr-side-predictions}{%
 \subsubsection{7.4 Summary of GR-side
@@ -5473,4 +5489,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: dbfa18c117a19e60f0be43fa7abdd4878d2aeb6f14a7fb965cb0f70b50468792
+% source-sha256: 1a48d2e149402a5841d44f1c60483f2e57f02c5968900ed3db4c4625c6b43afa

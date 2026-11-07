@@ -24328,13 +24328,13 @@ theorems (Chapter 6 §6.7 and Chapter 8). Specific mass values are
 solution-specific.
 
 \textbf{Required tools.} Full \(K = 6\) lattice Monte Carlo with the
-coupling matrix \(M = \mathrm{diag}(\mu_c I_3, \mu_w I_2, 1)\);
-representation theory of the cubic group \(O\) applied to the
-framework's specific irrep content; 2-loop lattice-to-continuum
-matching. Four C programs implementing the perturbative taste-breaking
-spectrum, propagator-norm measurement, effective-mass extraction, and
-taste-split correlators are available as part of the framework's
-computational infrastructure.
+scalar coupling matrix \(M = \mu I_6\) and the equivariant condensate
+\(\Sigma\) (SM Theorem 5); representation theory of the cubic group
+\(O\) applied to the framework's specific irrep content; 2-loop
+lattice-to-continuum matching. Four C programs implementing the
+perturbative taste-breaking spectrum, propagator-norm measurement,
+effective-mass extraction, and taste-split correlators are available as
+part of the framework's computational infrastructure.
 
 \textbf{Assessment.} The flavor problem is the framework's largest
 single open theoretical task. The framework has substantive content on
@@ -26867,11 +26867,13 @@ magnitudes (reals).
 \emph{For the \(K\)-component wave equation with coupling matrix
 \(M = \text{diag}(\mu_1 I_{n_1}, \ldots, \mu_r I_{n_r})\):}
 \[\mathfrak{f}_{\text{WD}}(M) = \sum_{i=1}^r n_i \cdot \mathfrak{f}_{\text{WD}}(\mu_i)\]
-\emph{In particular, for \(K = 6\) with
-\(M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)\):}
-\[\mathfrak{f}_{\text{WD}} = 3\mathfrak{f}_{\text{WD}}(\mu_c) + 2\mathfrak{f}_{\text{WD}}(\mu_w) + \mathfrak{f}_{\text{WD}}(1)\]
-\emph{with the same multiplicities \((3, 2, 1)\) that determine
-\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\).}
+\emph{In particular, on the branch of SM Theorem 5, \(K = 6\) with
+\(M = \mu I_6\) gives
+\(\mathfrak{f}_{\text{WD}} = 6\,\mathfrak{f}_{\text{WD}}(\mu)\); the
+multiplicities \((3, 2, 1)\) that determine
+\(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) sit in the
+condensate \(\Sigma\) of SM Theorem 5, which does not enter the linear
+evolution matrix.}
 
 \emph{Proof.} The multi-component evolution matrix is block-diagonal:
 the \(a\)-th component has its own \(2L \times 2L\) block \(F_{\mu_a}\)
@@ -27281,9 +27283,9 @@ representation theory determines the internal structure, and the
 isotypic block multiplicities of the equivariant structure are the
 dimensions of the Standard Model gauge group factors. \(\square\)
 
-\textbf{The link to gauge invariance.} The commutant of the coupling
-matrix \(M = \text{diag}(\mu_c I_3, \mu_w I_2, 1)\) is the maximal group
-preserving the eigenvalue structure:
+\textbf{The link to gauge invariance.} The commutant of the equivariant
+condensate \(\Sigma\) (SM Theorem 5; the coupling matrix \(M = \mu I_6\)
+is scalar) is the maximal group preserving its block structure:
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\), the group
 from which Chapter 5 §5.5 obtains
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\).
@@ -31037,4 +31039,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 8246082d2ff4adafe65aad2805dd5d3701fac9084970b872b4c38aacc27ea17f
+% source-sha256: d65554ce9ea0a071b0eb5ed0ac0818373b9489a653dd0731ded0ad5eeee7c9f7
