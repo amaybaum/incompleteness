@@ -793,8 +793,8 @@ where $\langle \cdot \rangle''$ denotes the bicommutant (von Neumann algebra clo
 
 - *Gauge-field invariants.* The Yang-Mills curvature combinations $\mathrm{tr}\, F_{\mu\nu}^a F^{a,\mu\nu}$ for each factor of $SU(3) \times SU(2) \times U(1)$, plus topological terms $\mathrm{tr}\, F \tilde F$.
 - *Fermion bilinears.* $\bar\psi_i \psi_j$, $\bar\psi_i \gamma^\mu \psi_j$, $\bar\psi_i \gamma^\mu \gamma^5 \psi_j$ for the SM fermion content (six quarks, six leptons, three generations), with appropriate gauge-index contractions.
-- *Higgs invariants.* $\phi^\dagger \phi$, $|D_\mu \phi|^2$, $(\phi^\dagger \phi)^2$, and the Yukawa contractions $\bar\psi_L \phi \psi_R$ structurally fixed by the cubic-group representation theory of [SM §7].
-- *Cubic-lattice-forced higher-dimensional operators.* Wilson coefficients of dimension-5 and dimension-6 operators are not free parameters in OI but are determined by the cubic-lattice substratum geometry; the specific structural relations $\lambda = 1/(\pi\sqrt 2)$ (Cabibbo, [SM §7.1]), $A = \sqrt{2/3}$ (Wolfenstein, [SM §7.1]), and the Koide $2/3$ relation are encoded as algebraic identities among Yukawa-sector generators.
+- *Higgs invariants.* $\phi^\dagger \phi$, $|D_\mu \phi|^2$, $(\phi^\dagger \phi)^2$, and the Yukawa contractions $\bar\psi_L \phi \psi_R$, with the structural relations of [SM §7] entering under their stated conditions.
+- *Cubic-lattice-forced higher-dimensional operators.* Wilson coefficients of dimension-5 and dimension-6 operators are constrained by the cubic-lattice substratum geometry; the structural relations $\lambda = 1/(\pi\sqrt 2)$ (Cabibbo, [SM §7.1]) and the Koide $2/3$ relation (both conditional structural, [SM §7.6]) and $A = \sqrt{2/3}$ (Wolfenstein, [SM §7.1]) are encoded as algebraic identities among Yukawa-sector generators, with the CP phases and the family pattern's selection solution-specific.
 
 The gauge-invariance restriction is a commutant condition: $\mathcal{A}_V^{\rm OI}$ is the subalgebra of the full local algebra that commutes with the action of $SU(3) \times SU(2) \times U(1)$ on $\mathcal{H}_V^{\rm OI}$.
 
@@ -802,7 +802,7 @@ The gauge-invariance restriction is a commutant condition: $\mathcal{A}_V^{\rm O
 $$\Phi^{\rm OI}(\rho) = \mathrm{Tr}_H\big[U_\varphi \, (\rho \otimes \rho_H^{\rm OI}) \, U_\varphi^\dagger\big]$$
 where $U_\varphi$ is the unitary lift of the bijection $\varphi$ on $\mathcal{H}_V^{\rm OI} \otimes \mathcal{H}_H^{\rm OI}$ ([Substratum §3.1]), and $\rho_H^{\rm OI}$ is the uniform reference state on the hidden sector (the OI-canonical choice from the maximal-entropy invariant-measure lemma of [Main §1.2]). That reference state is *mixed*, so this triple is a unitary realization rather than a Stinespring dilation, and Propositions 9.7a–9.7b do not apply to it directly: obtaining a Stinespring isometry from it requires first purifying $\rho_H^{\rm OI}$, which enlarges the hidden sector. At the EFT scale, $\Phi^{\rm OI}$ encodes:
 
-- *SM RG flow* from the cubic-lattice scale ($1/\alpha_0 = 23.25$ structurally, [SM §6.1]) down to the electroweak scale ($1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ at $M_Z$, [SM §6.3]).
+- *SM RG flow* from the cubic-lattice scale ($1/\alpha_0 = 23.25$, an ambient one-loop coefficient, native for hypercharge only under H-observer-bundle and H-Y-vertex, [SM §6.5]) down to the electroweak scale ($1/\alpha_1 = 59.00$, $1/\alpha_2 = 29.57$, $1/\alpha_3 = 8.47$ at $M_Z$, [SM §6.3]).
 - *Non-perturbative structural features.* Instanton-sum closure consistent with $T$-invariance and detailed balance.
 - *Anomaly structure.* Hypercharges fixed by anomaly cancellation given the chiral structure and family pattern ([SM §4.9, Theorem 15]), apart from the exceptional branch $Y_Q = 0$.
 - *Higher-dimensional operator coefficients* forced by cubic-lattice geometry, including the Yukawa structural relations producing the CKM and PMNS matrices and the fermion mass ratios ([SM §7]).
@@ -934,8 +934,8 @@ Level 3 confirmations are confirmations of OI's universality class but not of OI
 
 | Feature | Empirical status | Reference |
 |---|---|---|
-| Cabibbo angle $\sin\theta_C = 1/(\pi\sqrt{2}) \approx 0.2251$ | Confirmed at $0.04\sigma$ | [SM §7.2] |
-| Koide ratio $Q = 2/3$ | Confirmed to better than $0.001\%$ | [SM §7.3] |
+| Cabibbo angle $\sin\theta_C = 1/(\pi\sqrt{2}) \approx 0.2251$ | Confirmed at $0.12\sigma$ ($0.04\%$) | [SM §7.2] |
+| Koide ratio $Q = 2/3$ | Confirmed to better than $0.001\%$ | [SM §7.2] |
 | JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Retrodictive match at $0.07\sigma$; exact value gives a pre-registered forward test at JUNO design precision | [Juno] |
 | Higgs structural ratio $A = \sqrt{2/3}$ | Consistent with current data | [SM §7.4] |
 | Higgs quartic $\lambda(M_{\text{Pl}}) = 0$ (composite-scalar prediction) | Confirmed at $0.6\sigma$ | [SM §7.4] |

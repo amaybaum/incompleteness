@@ -105,7 +105,7 @@ The matter content — three chiral fermion generations with anomaly-free hyperc
 
 T-invariance of the bijection $\varphi$ combined with detailed balance gives reciprocal visible transition counts and narrows the QCD angle to $\theta\in\{0,\pi\}$; it does not fix $\bar\theta$, which is open (SM §5).
 
-Uniqueness at Stage 2 follows from the if-and-only-if character of each step. Each derivation is the unique consistent choice given its inputs, the wave-equation step within the nearest-neighbor class and the hypercharge step apart from its exceptional branch; the chain is a composition of unique selections, and the output is unique within those qualifications.
+Uniqueness at Stage 2 follows from the uniqueness-given-inputs character of each step. Each derivation is the unique consistent choice given its inputs, the wave-equation step within the nearest-neighbor class and the hypercharge step apart from its exceptional branch; the chain is a composition of unique selections, and the output is unique within those qualifications.
 
 **Stage 3: From dynamics to emergent constants.** Stage 3 takes Stage 2's output and derives the emergent action-scale relation. The argument is that thermal self-consistency at the partition boundary — established in Chapter 7 from the boundary layer's emergent thermodynamics, conditional on H-slope with the horizon and frame conditions named there — forces the relation
 $$\hbar = c^3 \epsilon^2 / (4G\sigma),$$
