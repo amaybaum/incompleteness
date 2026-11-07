@@ -83,8 +83,10 @@ contains the #1173 papers and the apparatus-1 record of #1183.
      flips `p`, are available only together. I is a conditional premise, not
      adopted. As stated it is target-defined, easy to vary, and contradicts P3's
      arming of the individual couplings that compose that linear part.
-   - The physical theory remains read-write-sourced, so the kernel no-go
-     theorems apply to it unchanged (§6.1).
+   - On the finite cells of a protocol's cone (or under H-FIN), the physical
+     theory's available operations lie in `permTheory`'s. By monotonicity,
+     `permTheory_not_control` and `permTheory_not_qm` then exclude composite
+     unitary control and exact finite QM for it (§4.1, §6.1).
    - No V3 round is proposed. Two items are open: adaptive native `S` and a
      native derivation of I (§4.3).
 
@@ -316,7 +318,10 @@ odd cycle, and a meter–meter edge.
 A native minimal read of a single-sector functional `f` kicks only the conjugate
 slot. That slot lies in the other sector, so the read changes the value of no
 same-sector functional. Three reads that pairwise disturb by backaction would
-need three functionals pairwise in different sectors. There are two sectors.
+need three functionals pairwise in different sectors. There are two sectors. The
+same holds for a native minimal read conjugated by available couplings: under
+graded couplings the conjugated functional and its transported kick are still
+single-sector.
 
 **Verdict.** Within N, (A1)(a) fails for every encoding: at most two of the
 three encoded reads can be native minimal reads that disturb each other. This
@@ -547,7 +552,9 @@ cell.
 **The operation.** Write `C12` for the graded transvection
 `z_2 += z_1, x_1 += x_2`, realized through a mediator (node 1). Write `Na` for
 the NNB coupled tick `x_1 += z_2, x_2 += z_1`. Let `L = Na ∘ C12`, with `C12`
-applied first. Then:
+applied first. Identities are written as pullbacks: `f∘L` is the value of `f`
+after `L`, expressed in the variables before it. State transitions in the
+induction below are pushforwards of laws. Then:
 
 - `L`: `z_1 ↦ z_1`, `x_1 ↦ z_1 + x_1 + z_2 + x_2`, `z_2 ↦ z_1 + z_2`,
   `x_2 ↦ x_2 + z_1`.
@@ -607,8 +614,9 @@ the encoded `H`.
      flips `z_2` or `x_2`, and its linear part mixes them. Those slots are
      readable (node 7). For instance, from encoded `Z_+` with `z_2 = 0` known,
      `T_1` leaves `z_2 = 0` and `T_2` does not.
-  2. `S` itself is distinguishable from `I` on `Z_±`. With `z_2` known, `S` flips
-     it deterministically.
+  2. `S` itself is distinguishable from `I` on `Z_±`. With the parity cell's slots
+     known, `S` flips `z_2` on `Z_+`, and flips `x_2` (`x_2' = x_2 + z_1`) on
+     `Z_−`.
   3. A twirl `(z_2, x_2) += (b, b)` with uniform `b` preserves `p` and
      randomizes `z_2` and `x_2`. Composed with the twirl, the two maps differ
      within one system only on `p`. With a correlated reference parity cell,
@@ -670,10 +678,13 @@ The same holds for `H`, and for every Clifford whose axis permutation is odd.
 These are exactly the parity-flipping elements in LWE's remark that "the
 Hadamard swaps it (as does the phase gate P)".
 
-**Separate availability, in every linear encoding.**
+**Separate availability, in every linear encoding, for `S` realized by a process
+of `N_na`.** Lemma R's hypothesis that `S` is affine already presupposes this
+scope. A record-conditioned arming or translation is not affine in the known
+constants.
 
-- **The linear part.** A process built from P3 couplings and P2 ready cells is
-  affine in the known constants it uses. The same process with every known-1
+- **The linear part.** A process of `N_na` built from P3 couplings and P2 ready
+  cells is affine in the known constants it uses. The same process with every known-1
   cell replaced by a known-0 cell, which P2 supplies, is the linear part `L`.
 - **The translation.** `τ = S ∘ L^{−1}` is a constant translation. It is
   available on its own, as one coupled tick with a known-1 ready cell per
@@ -681,15 +692,23 @@ Hadamard swaps it (as does the phase gate P)".
 
 **C-CP, per encoding.**
 
-- **Under R1 (one cell, `N_na`).** By Lemma G1, each branch of a non-adaptive
-  process maps the carrier pair to `(α z + e, β x + o)`. Here `α, β ∈ F_2` and
-  `(e, o)` are ancilla values independent of the carrier. If both slots are
-  retained (`α = β = 1`), the branch is a mixture of translations, that is, of
-  encoded Paulis. Otherwise it reads at most one carrier slot and prepares a law
-  on the four points. By apparatus-1's Lemma 3 that law lies in the octahedron,
-  hence in the Bloch ball. The branch is then a measure-and-prepare map.
-  Mixtures of Pauli channels and of measure-and-prepare maps onto valid states
-  are CP, so C-CP holds.
+- **Under R1 (one cell, `N_na`).** By Lemma G1, the carrier pair leaves a
+  non-adaptive process as `(α z + e, β x + o)`, with `α, β ∈ F_2` and with
+  ancilla values `(e, o)`. Split each record branch by whether some registered
+  record depends on the carrier.
+  - *No registered record depends on the carrier.* Then `(e, o)` is independent
+    of the carrier. A replaced slot (`α = 0` or `β = 0`) receives a value that
+    is independent of the carrier and, by apparatus-1's Lemma 3, unknown
+    whenever the other slot is retained. So the branch is a mixture of encoded
+    Paulis, composed with replacements by such values. Both kinds of map are CP.
+  - *Some registered record depends on the carrier.* Then the branch has
+    learned a carrier functional. Lemma 3 forces a fresh uniform unknown into the
+    conjugate output slot, and the output law conditional on the record lies in
+    the octahedron, hence in the Bloch ball. The branch is a measure-and-prepare
+    map onto valid states, which is CP.
+
+  So C-CP holds. The native Z read is an example of the second case: it has
+  `α = β = 1`, yet its branch is the Lüders Z branch, not a translation.
 - **For any linear encoding with a translatable parity, within N already.** A
   single translation with `p(τ) = 1` and an odd number of flipped axes is
   available from P2 through H-PREP. In U′ that is `z_2 += 1`, which flips `f_y`
@@ -807,14 +826,38 @@ target and is easy to vary, since any subgroup could be posited.
   unavailable separately. Fixed affine offsets on the NNB coupling do not
   (node 9). An affine native rule would violate A5 (Substratum L100).
 
-**Position relative to the kernel no-go theorems.** Every process in N, with or
-without NNB, is a configuration bijection with fresh ready cells and
-registrations. So the physical theory's operations lie in `permClass`
-(apparatus-1 Lemma 2): it is a subtheory of `permTheory`, and the kernel
-theorems `permTheory_not_control`, `permTheory_not_qm` and
-`monomialSource_not_qm` apply to it unchanged (§6.1). `S` and `H` are encoded
-maps only. The construction claims neither composite unitary control nor exact
-finite QM.
+**Position relative to the kernel no-go theorems.** The kernel's `permTheory A`
+needs a finite configuration set `A`. The statement below is therefore made for
+the finitely many cells in a protocol's dependency cone, which Main's cone
+theorem bounds, or for the whole carrier under H-FIN. Three steps:
+
+1. **Containment.** This is a paper mapping on the same footing as apparatus-1's
+   Lemma 2.
+   - Each branch of each process in N, with or without NNB, is a sum of
+     conjugations by contractively scaled partial permutations of the
+     configuration basis.
+   - A uniform unknown supplied by a ready cell enters as coarse-grained Kraus
+     operators `2^{−k/2} P_σ`. A registration enters as a 0/1 diagonal. NNB is
+     a bijection.
+   - Adaptive (record-fed-forward) processes are covered by the `availExt_bind`
+     field that every finite operational theory carries
+     ([OperationalAssembly L617](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/OperationalAssembly.lean#L617)).
+
+   So the available operations of N, restricted to such a cone, lie in those of
+   `permTheory`. Because `permClass` admits unit scalars, the vacuity that
+   affects the read-write-sourced predicate does not recur here.
+2. **Monotonicity.** Composite unitary control
+   ([`HasCompositeUnitaryControl`, L665](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/OperationalAssembly.lean#L665))
+   says that every isometry's conjugation is available. Control in a theory
+   whose available operations lie in `permTheory`'s would therefore give control
+   in `permTheory`, which `permTheory_not_control` excludes.
+3. **QM.** Exact finite operational QM gives control through
+   [`physical_of_exactAll`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/PhysicalCharacterization.lean#L301).
+   That is how `permTheory_not_qm` is proved, so the same transfer excludes it.
+
+The transfer to a subtheory in steps 2 and 3 is this paper argument, not a
+kernel theorem. `S` and `H` are encoded maps only. The construction claims
+neither composite unitary control nor exact finite QM (§6.1).
 
 ### 4.2 Answers to the three sub-questions
 
@@ -908,7 +951,7 @@ hidden sector.
 | MR★ [S-L6](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/measurement-record-formation/amendments/MR-star.md#L595), [S-L7](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/measurement-record-formation/amendments/MR-star.md#L603); MR-1 [AW-MR5](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/measurement-record-formation/preregistration.md#L406), [Catani et al. row](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/measurement-record-formation/preregistration.md#L752) | Symplectic step; epistemic restriction; recurrence | Frozen preregistration with append-only amendments; stage-1 token provisional |
 | #914 [selection record](https://github.com/amaybaum/incompleteness/issues/914#issuecomment-6707416018) and [named controls](https://github.com/amaybaum/incompleteness/issues/914#issuecomment-6707509318) | Escape-test discipline: escape is not sufficiency | Issue records |
 | Kernel declarations: [`PhasesAvailable`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/RouteB.lean#L132), [`FalsifierUnavailable`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/RouteB.lean#L179), [`rot`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/DiagonalTheory.lean#L368), [`permClass`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L236), [`onesFixing_not_phasesAvailable`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/PhaseSource.lean#L55), [`permClass_onesFixing`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/PhaseSource.lean#L82), [`scalar_center_chiral_iff`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/ChiralCenterRecovery.lean#L214) | Physical-carrier ceiling (unchanged, apparatus-1 Lemma 2); the observer-level chiral analogue | On `main`; kernel-checked statements, read and not rebuilt |
-| [`permTheory_not_control`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L708), [`permTheory_not_qm`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L717) and [`monomialSource_not_qm`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/SubstratumInterface.lean#L192) | The physical theory of N, with or without NNB, has its operations in `permClass` (every process is a configuration bijection with fresh cells and registrations), so these theorems apply to it: it has no composite unitary control and is not exact finite operational QM. The construction here claims neither; `S` and `H` are encoded maps only | On `main`; kernel-checked statements, read and not rebuilt |
+| [`permTheory_not_control`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L708), [`permTheory_not_qm`](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L717) | Restricted to the finite cells of a protocol's cone (or under H-FIN), the available operations of N, with or without NNB, lie in `permTheory`'s (paper containment, as in apparatus-1 Lemma 2). Control, or exact finite QM via `physical_of_exactAll`, would then transfer to `permTheory` by monotonicity (§4.1), which these theorems exclude. The construction here claims neither; `S` and `H` are encoded maps only | On `main`; kernel-checked statements, read and not rebuilt |
 | Main [Definition](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/papers/Main.md#L44), [Lemma 3](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/papers/Main.md#L56), [§3.3 theorem](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/papers/Main.md#L366); Substratum L48, A1, A3–A6; SM L104, L224, L226, L296, L302, L541 | Native class N, measure, C-NS, bipartite and chiral structure | Manuscript text at `main@b1d782f9` |
 
 ### 6.2 Imported literature
