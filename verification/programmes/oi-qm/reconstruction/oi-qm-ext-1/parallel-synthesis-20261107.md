@@ -2,8 +2,11 @@
 
 Paper-only research synthesis, 2026-11-07. Accountable programme: #1169;
 guiding draft: #1173. Sole synthesis author: /root. The three source papers
-have separate authors and independent reviewers. Their branch files are not
-concurrently edited or silently combined into this guiding branch.
+have separate authors and independent reviewers. Their exact reviewed files are
+included in this guiding draft under the [review-closeout scope](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6707973553),
+with the original branches and author-stage snapshots preserved.
+The [publication record](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6708053163)
+identifies each unchanged source blob and its independent review.
 
 The [owner's commission](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6704790395)
 covers these analyses, draft publication, independent review and this synthesis.
@@ -184,12 +187,16 @@ it by writing this paragraph. Formatting/scope checks and ordinary PR CI are
 distinct from scientific source validation.
 
 The accepted local component, B3 and earlier correlation-recovery screens
-retain their scoped status. The earlier abstract two-system paper still
-awaits its separate independent review; its reported reuse failure is not a
-premise of this synthesis. No manuscript or main research claim is promoted.
+retain their scoped status. The abstract two-system paper received its own
+[full independent review](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6708030341)
+and [ACCEPT after the failure-clock clarification](https://github.com/amaybaum/incompleteness/pull/1173#issuecomment-6708057576)
+at `ec78103a4dff0332453f9d291e8a28cb1c3d634f`. Its hypothetical-model reuse failure
+is not a premise of this synthesis or a native-OI impossibility result.
+No manuscript or main research claim is promoted.
 
-The three source papers and accepted component are substantive off-main
-support for this research draft. The primary literature and corpus dependencies
+The three source papers and accepted component are substantive support included
+in this unmerged research draft. Copying their files does not make the source
+commits ancestors of main. The primary literature and corpus dependencies
 are audited in the source papers. Any future landing must satisfy AGENTS
 §A.42 by retaining and validating what the surviving claims use; exact-SHA
 links and review comments alone do not close that requirement. No branch,
