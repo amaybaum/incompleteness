@@ -137,7 +137,7 @@ A second geometric quantity will appear. The angle between any generation axis e
 
 **A = √(2/3) = 0.8165**
 
-agreeing with the PDG value A = 0.826 ± 0.012 at 0.23σ. The combination A² = 2/3 enters the inter-generation projection geometry, and A⁴ = 4/9 appears directly in the deviation Δ₁₃ below.
+agreeing with the PDG value A = 0.826 ± 0.012 at 0.8σ. The combination A² = 2/3 enters the inter-generation projection geometry, and A⁴ = 4/9 appears directly in the deviation Δ₁₃ below.
 
 ### 2.3 The PMNS matrix in the Altarelli-Feruglio basis
 
