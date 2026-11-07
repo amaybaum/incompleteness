@@ -18,6 +18,11 @@ that algebra; they are not evidence and carry no verdict.
 `b1d782f954f02cec578a10e071b73e48f86eb3dd` (cited as `main@b1d782f9`), which
 contains the #1173 papers and the apparatus-1 record of #1183.
 
+**Forward proof recovery (root, 7 November 2026; review pending).**
+The original author/history above is preserved. The bounded written arguments
+are completed in [PROOF-RECOVERY.md](PROOF-RECOVERY.md); this does not supply
+the physical access posits or settle bare adaptive S.
+
 ## 0. Result
 
 1. **Native class, non-adaptive processes: the quarter phase is excluded (§2,
@@ -73,7 +78,9 @@ contains the #1173 papers and the apparatus-1 record of #1183.
    translations, which are already in N. The reflection by the linear part needs
    NNB. Control C-CP therefore fails for every linear encoding whose parity is
    translatable, with or without NNB. It holds under the one-cell identification
-   R1. The construction also does not compose (node 10, outside Q-A's scope).
+   R1 on a fixed active carrier for non-adaptive protocols with the stated product-ready instrument
+   inputs (PROOF-RECOVERY §§1–3). The construction also does not compose
+   (node 10, outside Q-A's scope).
 5. **Outcome type (ii): stop (§4).**
    - Minimal additional physical structure, beyond apparatus-1's supplied P1,
      P2, P3, E-iso and H-PREP, for an encoded quarter phase at single-qubit
@@ -87,8 +94,8 @@ contains the #1173 papers and the apparatus-1 record of #1183.
      theory's available operations lie in `permTheory`'s. By monotonicity,
      `permTheory_not_control` and `permTheory_not_qm` then exclude composite
      unitary control and exact finite QM for it (§4.1, §6.1).
-   - No V3 round is proposed. Two items are open: adaptive native `S` and a
-     native derivation of I (§4.3).
+   - No V3 round is proposed. Bare adaptive native `S`, a native derivation of I
+     and masking without randomization remain open (§4.3).
 
 ## 1. Question and decision rule
 
@@ -380,37 +387,40 @@ This includes encodings that place any cell in the traced-out sector.
 
 ### Node 4. The traced-out sector as the home of the parity
 
-The owner's suggestion was to put the parity bit in the traced-out sector. Three
-closures apply.
+The owner's suggestion was to put the parity bit in the traced-out sector.
+The following constraints have distinct scopes; they do not close every
+adaptive or distributed hidden-sector route.
 
-1. **Same rule.** Hidden cells run the native rule (Substratum L48), so Lemma G2
-   covers every non-adaptive process that involves them, always-on hidden
-   coupling included.
-2. **Reciprocal access.** Suppose the observer can arm an edge `c–h` and supply
-   `c` ready as `(w, 0)`. The coupled tick gives `u_c' = k u_h` (apparatus-1
-   §4.1), so every slot of `h` is registrable at the matching parity. A cell that
-   an available `S` must couple to therefore has no inaccessible slot.
+1. **Same rule.** Hidden cells run the native rule (Substratum L48), so G2
+   covers their non-adaptive processes under its hypotheses, including
+   always-on couplings. It does not decide adaptive S.
+2. **Reciprocal slot access.** If an edge `c–h` can be armed, c can be
+   supplied ready as `(w,0)`, and other contributions are isolated, the tick
+   gives `u_c'=k u_h` (apparatus-1 §4.1). With coefficient 1, each individual
+   slot of h is registrable at the matching parity. This is not a joint read
+   of both slots: Lemma Q protects `u_h+v_h`, whose `Q*` is 1, even on a
+   native extra cell.
 
-   If the observer cannot arm any edge into `h`, then `S` can only be native free
-   evolution. A fixed free evolution is absorbed into the fixed frame (PC-F1),
-   so it is not a selectable operation.
+   If no edge into h is armable, this direct read protocol is unavailable.
+   Fixed free ticks are the encoded identity under C8. Neither fact alone
+   excludes every protocol combining always-on hidden coupling and other
+   controls; G2 remains the stated non-adaptive obstruction.
 
-   If `h` is instead coupled to a maximal-entropy hidden background, a read of
-   `h` through `c` is masked
+   If h is coupled to a maximal-entropy background, the read may be masked
    ([receiver assessment, eq. (3) and §6](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/observer-access-20261106/ASSESSMENT.md#L144)).
-   But the same coupling feeds background unknowns into the carrier while it is
-   coupled. This file does not establish a general masking-without-randomization
-   statement and claims none.
-3. **Shared sector.** A parity cell shared by two wings signals. Take Route U of
-   node 5 with the parity cell shared. Bob's encoded `y_B` contains the shared
-   `p`, and Alice's `S` flips `p`. So Bob's `Y` read on `Y_+` changes from 0 to 1
-   with certainty. This is the two-system leak of
-   [two-system §4](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/two-system-interface.md#L241)
-   in the present setting. A common traced-out sector cannot host `p`.
+   The same coupling feeds unknowns into the carrier. No general
+   masking-without-randomization theorem is established here.
+3. **Displayed shared-cell arrangement.** Take Route U below with its parity
+   cell shared by two wings. Bob's encoded Y contains p; Alice's S flips p,
+   so Bob's Y outcome on Y+ changes with certainty. This is the earlier
+   [two-system leak](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/two-system-interface.md#L241).
+   It excludes that arrangement, not every shared-past or distributed
+   hidden-sector realization.
 
-**Verdict.** The traced-out sector does not supply the parity natively. The
-decisive branch is the structure of the native step (nodes 1–3), not the
-location of the parity.
+**Verdict.** These checks supply no complete native A1–A3 construction.
+They retain G2's non-adaptive negative and the stated access/signalling
+constraints. They do not exclude all inaccessible parity functionals or
+adaptive hidden-sector routes. See also PROOF-RECOVERY §6.
 
 ### Node 5. The smallest departures, compared
 
@@ -598,9 +608,12 @@ length 4 (control).
 cell-1 translations `z_1 += 1` and `x_1 += 1`. Take `T_2` as `T_1` followed by
 the encoded `H`.
 
-- **The encoded `H`.** It needs `f_z ↔ f_x` and `f_y ↦ f_y + 1`. One realization
-  composes a center-free linear part with a `p`-flipping translation (Lemma R
-  below).
+- **The encoded `H`.** Let `Nb` be the other-parity NNB shear and
+  `W=C12 ∘ C21 ∘ C12` the graded cell swap. The word
+  `R=W ∘ Na ∘ Nb ∘ Na` sends `(z1,x1,z2,x2)` to `(x1,z1,x2,z2)`.
+  Follow R by `z2 += 1`. This gives `f_z∘H=f_x`, `f_x∘H=f_z`,
+  `f_y∘H=f_y+1` and `p∘H=p+1`. The mediator construction and free
+  scheduling make every factor available (PROOF-RECOVERY §4).
 - **The encoded subtheory.** Both maps send every encoded state to `Λ_0`, so
   they are operationally equivalent on the encoded preparations and reads.
 - **The ontic level.** The Pauli translations preserve `p`. `H` flips it. So
@@ -679,9 +692,9 @@ These are exactly the parity-flipping elements in LWE's remark that "the
 Hadamard swaps it (as does the phase gate P)".
 
 **Separate availability, in every linear encoding, for `S` realized by a process
-of `N_na`.** Lemma R's hypothesis that `S` is affine already presupposes this
-scope. A record-conditioned arming or translation is not affine in the known
-constants.
+of `N_na`.** This is an explicit hypothesis on the realizing protocol.
+An affine output does not itself exclude a feedback implementation; no
+separate-availability conclusion for every adaptive realization is asserted.
 
 - **The linear part.** A process of `N_na` built from P3 couplings and P2 ready
   cells is affine in the known constants it uses. The same process with every known-1
@@ -692,26 +705,26 @@ constants.
 
 **C-CP, per encoding.**
 
-- **Under R1 (one cell, `N_na`).** By Lemma G1, the carrier pair leaves a
-  non-adaptive process as `(α z + e, β x + o)`, with `α, β ∈ F_2` and with
-  ancilla values `(e, o)`. Split each record branch by whether some registered
-  record is correlated with the carrier, that is, whether its carrier component
-  is not masked by an independent unknown.
-  - *No registered record is correlated with the carrier* (this includes masked
-    reads, such as a ready meter whose unknown is the slot added into the
-    record, its `v` slot at the coupled tick, so that the kick is known). Then
-    `(e, o)` is independent of the carrier. A replaced slot (`α = 0` or `β = 0`) receives a value that
-    is independent of the carrier and, by apparatus-1's Lemma 3, unknown
-    whenever the other slot is retained. So the branch is a mixture of encoded
-    Paulis, composed with replacements by such values. Both kinds of map are CP.
-  - *Some registered record is correlated with the carrier.* Then the branch
-    has learned a carrier functional. Lemma 3 forces a fresh uniform unknown into the
-    conjugate output slot, and the output law conditional on the record lies in
-    the octahedron, hence in the Bloch ball. The branch is a measure-and-prepare
-    map onto valid states, which is CP.
-
-  So C-CP holds. The native Z read is an example of the second case: it has
-  `α = β = 1`, yet its branch is the Lüders Z branch, not a translation.
+- **Under R1 (fixed active carrier, `N_na`, product-ready instrument inputs).**
+  The full paper recovery is [PROOF-RECOVERY §§1–3](PROOF-RECOVERY.md).
+  Grading and N2/P2 split the unknown source variables and full record
+  constraints into E and O sectors. Conditional affine elimination in each
+  sector produces fresh independent residual variables and **effective**
+  carrier coefficients, which can differ from their raw values before
+  conditioning.
+  - If the entire joint record is input-independent, the reduced scalar
+    kernels give Pauli maps, Pauli/dephasing maps or valid constant
+    preparations. Lemma 3 excludes sharp preparations and unrandomized
+    retention alongside a known replacement.
+  - If it is informative, its likelihood fixes one initial slot. The
+    terminal-record isotropy argument excludes retaining that slot's
+    conjugate initial value without noise. Each branch is therefore an
+    explicit measure-and-prepare CP map.
+  This proves C-CP for those non-adaptive product-source instruments.
+  Summing record branches preserves CP. It does not infer independence of
+  raw noise from an input-independent record, and it does not cover
+  arbitrary correlated background preparations. The recovery keeps the
+  whole joint history before coarse-graining.
 - **For any linear encoding with a translatable parity, within N already.** A
   single translation with `p(τ) = 1` and an odd number of flipped axes is
   available from P2 through H-PREP. In U′ that is `z_2 += 1`, which flips `f_y`
@@ -722,9 +735,10 @@ constants.
 
 **Fixed offsets do not weld the factors.** Suppose each same-sublattice coupling
 carried a fixed affine offset, so that `L` and `τ` might cease to be separately
-available. Self-check c8 is a control on this: with the graded couplings and the
-encoded Pauli translations, all 256 offset pairs generate groups that contain
-both `S` and an encoded reflection.
+available. In N every constant slot translation is already supplied. If a
+coupling is `G=t_a ∘ L`, the available `t_{−a}` cancels its fixed offset and
+recovers L (PROOF-RECOVERY §5). Self-check c8 is only a control, not evidence
+for a separate all-offset theorem in a weaker translation class.
 
 **Verdict.** In linear encodings, NNB buys the quarter phase only together with
 both encoded reflections. Excluding them needs premise I (§4.1).
@@ -760,7 +774,7 @@ the two-qubit stabilizer subtheory.
 | N1 | Second-order linear symmetric update; symplecticity | Native | Substratum A4, A5; apparatus-1 N1 |
 | N1-CI | Center independence, `k_ii = 0` (A4) | Native | Used in Lemma G1 and Lemma Q |
 | N1-BIP | Nearest-neighbour cubic, hence bipartite, coupling graph | Native, selected branch | SM L224–L226 adopts it as a premise beyond A3. On odd periodic sides the graph is bipartite only within cones without winding (H-FIN) |
-| N2 | Uniform law on unknown slots | Native measure, applied through H-PREP | Used only for read statistics and dyadicity. Lemmas G1, G2 and Q do not use it. On an infinite hidden sector counting is not normalized ([interface source L266](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/observer-interface-source.md#L266)), so a product law on the finitely many variables in a cone is a hypothesis (H-INF-μ) |
+| N2 | Uniform law on unknown slots | Native measure, applied through H-PREP | Used for read statistics, the product-source R1 C-CP recovery, and dyadicity. Lemmas G1, G2 and Q do not use it. On an infinite hidden sector counting is not normalized ([interface source L266](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/observer-interface-source.md#L266)), so a product law on the finitely many variables in a cone is a hypothesis (H-INF-μ) |
 | N3 | Bijective steps | Native | — |
 | P1 | Terminal registration | Supplied (apparatus-1) | Load-bearing for Lemma Q: the two-slice receiver and the c5 control determine `Q* = 1` functionals without it |
 | P2 | Half-known ready cells. The known functional is a slot; its value is 0, or 1 through H-PREP | Supplied (apparatus-1) | Load-bearing for Lemma Q. A supplied cell with known `u + v` would carry `Q* = 1`. The value-1 instances supply every constant translation |
@@ -785,7 +799,7 @@ the two-qubit stabilizer subtheory.
 | Inaccessible absolute parity, robust to reuse and recombination | Holds as a selection rule (Lemma Q), given P1 and P2, adaptive included | — | Derived from A4 at `q = 2`. The relative parity is not protected |
 | Encoded `S` | Fails for `N_na` (Lemma G2). Open for adaptive processes | NNB | Conditional |
 | LWE transformation contextuality on the inaccessible sector | Not reached | NNB | Conditional, relative to the encoded subtheory only (node 8) |
-| CP encoded single-qubit stabilizer operation set (C-CP) | Holds under R1 for `N_na`. Fails for linear encodings with a translatable parity | Fails under NNB (Lemma R) | Requires the conditional premise I |
+| CP encoded single-qubit stabilizer operation set (C-CP) | Holds under R1 on a fixed active carrier for `N_na` with the stated product-ready inputs. Fails for linear encodings with a translatable parity | Fails under NNB (Lemma R) | Requires the conditional premise I |
 | Composites | — | Fails (node 10) | Outside Q-A |
 
 **Conditional OI extension premise NNB.** P3 may arm a symmetric, center-free,
@@ -876,8 +890,9 @@ neither composite unitary control nor exact finite QM (§6.1).
 - **(A3).**
   - Native: not reached.
   - Under NNB: pass relative to the encoded subtheory. In the full NNB theory the
-    realizations are distinguishable through the parity cell, and the
-    traced-out hidden sector cannot host the parity (node 4).
+    realizations are distinguishable through the parity cell, and no complete
+    traced-out-sector mechanism is supplied (node 4). Protected parity
+    functionals and adaptive hidden-sector routes are not excluded.
 
 ### 4.3 Open items, and no V3 round
 
@@ -894,6 +909,10 @@ neither composite unitary control nor exact finite QM (§6.1).
    - A closure over a bounded protocol class (fixed cells, fixed ancilla budget)
      decides that class only. Such a closure is not decisive for the open item,
      so it is not proposed as a V3 round.
+   For the uniform linear encodings, common preparation lift and available
+   constant translations of the [separate feedback/control result](../quarter-phase-feedback-20261107/RESULT.md),
+   the **combined** S+C-CP target is excluded even for adaptive kernels.
+   This does not decide bare adaptive S or a differently sourced realization.
 2. **A native derivation of I** (§4.1).
 3. **Masking without randomization** for a parity cell coupled to a
    maximal-entropy background (node 4.2).
@@ -926,7 +945,7 @@ hidden sector.
 | U′ realizes the 8-point mechanism under NNB alone, with LWE's contextuality relative to the encoded subtheory | New for this programme; the model is Wallman–Bartlett's as described by LWE |
 | Lemma R (an odd Clifford factors into two encoded reflections) | New for this programme; consistent with LWE's parity remark |
 | A shared parity signals; the relative parity is readable; local parities fail composites | Elaborating (two-system leak); confirming (LWE Discussion) |
-| The traced-out sector cannot host the parity natively | Positive (closes the owner's suggested branch) |
+| Traced-out-sector sourcing | Scoped constraints; no complete mechanism supplied. Inaccessible parity functionals and adaptive hidden-sector routes remain open |
 
 ## 5. Assumption-watch markers
 
