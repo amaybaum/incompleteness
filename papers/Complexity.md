@@ -104,7 +104,7 @@ $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional; coupling values, } m_e} \text{scale hierarchy + orbital structure} \xrightarrow{} \text{thermal window exists}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
 
