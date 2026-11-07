@@ -29,12 +29,14 @@ outcome in `../CLOSURE-LEDGER.md`; the closure audit (Unit 6) records outcomes.
 | file | sha256 | what it is |
 | --- | --- | --- |
 | `REVIEW.md` | `a92d266ba2a93594818939183ebd237c01287b03aea06c3c5afc239fb5aab020` | the review, with Appendix A, its per-report table of all 248 reports |
-| `u5_reextract.py` | `105e7e342e082b5479ad1d94656c81fa83483660d8e0cbd5ad1597bca3ed57f0` | the reviewer's own log parser and source resolver (§7); imports nothing from the evidence-retention archive, the release gate or `u5_check.py` |
-| `u5_check.py` | `d71bce27256a626f3084c323e5171b2886f7bf9c37fca95f58c6512b4b36efbc` | the reviewer's static check of the two expected results and the Lean sources (§§0–2), with an optional artifact layer |
+| `u5_reextract.py` | `cfed56545d1e0f8a2530dc62a26ff8dd175fb72dc08a12e1ab01615515c69afa` | path-maintained version of the reviewer's log parser and source resolver (§7); imports nothing from the evidence-retention archive, the release gate or `u5_check.py` |
+| `u5_check.py` | `012e4322b215104876e7ded45cd799e11ffd4dfce0ea8221a3861877a7af6087` | path-maintained version of the reviewer's static check of the two expected results and the Lean sources (§§0–2), with an optional artifact layer |
 | `u5_reports.tsv` | `2f4610d54620d67ac9bcab3419ddf377f907827b14db4084622a7c8997f898f2` | the per-report table written by `u5_reextract.py`: 248 rows keyed by (module, fully qualified name), with the source line at `17b830bc` and on `main`, and the line and axiom list in H, F and J (below) |
 
-The three files besides `REVIEW.md` are byte-identical to the reviewer's (the digests are those the
-review states). `REVIEW.md` is the review as delivered (sha256
+`u5_reports.tsv` is byte-identical to the reviewer's retained table. The two current scripts have
+path-only maintenance for the 14-module relocation; their current digests are in the table above.
+Their original reviewed versions and the dated output digests are preserved by the historical recipe
+below. `REVIEW.md` is the review as delivered (sha256
 `78227551e04699eb391099de700f21a3599edc0dda95e20aa3683c66295bc114`) with one redaction: two mentions of
 the reviewer's local working path (its lines 30 and 314) are replaced by the file's place in this
 directory. Nothing else differs. Every file here was scanned for tokens, keys, signed-URL parameters,
@@ -65,35 +67,51 @@ each log, is landed here in `u5_reports.tsv`.
 Run from the root of a full-history clone of the repository, with `<rec>` =
 `verification/audits/manuscript/intro-corpus-audit-20261026/unit5-evidence`. Outputs go outside the tree.
 
-**1. From `main` alone (no network).**
+### Tool versions
+
+The historical runs used the scripts retained at `b1468584a80746f120ba079924340d6b2430beb2`,
+before the path maintenance. Extract those exact versions once into `<out>/reviewed-tools`:
 
 ```
-python3 -I <rec>/u5_check.py . 424f28b1e7b1201e9a13bd0e608e1b0e4ad9f93b > <out>/static-424f.json
-python3 -I <rec>/u5_check.py . 374b2ef3d0af1f3233a1d6bc74bee3c32683e3c0 > <out>/static-374b.json
-python3 -I tools/lean_manuscript_census.py
+mkdir -p <out>/reviewed-tools
+git show b1468584a80746f120ba079924340d6b2430beb2:verification/audits/manuscript/intro-corpus-audit-20261026/unit5-evidence/u5_check.py > <out>/reviewed-tools/u5_check.py
+git show b1468584a80746f120ba079924340d6b2430beb2:verification/audits/manuscript/intro-corpus-audit-20261026/unit5-evidence/u5_reextract.py > <out>/reviewed-tools/u5_reextract.py
+sha256sum <out>/reviewed-tools/u5_check.py <out>/reviewed-tools/u5_reextract.py
+```
+
+Expected script digests, in that order: `d71bce27256a626f3084c323e5171b2886f7bf9c37fca95f58c6512b4b36efbc`
+and `105e7e342e082b5479ad1d94656c81fa83483660d8e0cbd5ad1597bca3ed57f0`.
+The dated commands below use these versions, rather than the path-maintained files in the current
+checkout. Keep the historical results and digests unchanged.
+
+**1. Historical static checks (no network).**
+
+```
+python3 -I <out>/reviewed-tools/u5_check.py . 424f28b1e7b1201e9a13bd0e608e1b0e4ad9f93b > <out>/static-424f.json
+python3 -I <out>/reviewed-tools/u5_check.py . 374b2ef3d0af1f3233a1d6bc74bee3c32683e3c0 > <out>/static-374b.json
 ```
 
 Expected: each `u5_check.py` run exits 0 with `"verdict": "PASS"` and `"failures": []`, and its output
 has sha256 `d21449aae2c9d596e89cb589601a8ae12c183bbb397c5334ce3c2ca797a06ae4` (at `424f28b1`, the
 commit the review's §§0–2 ran on) and `6bbbb1d7496fe56b953ff9ef1bc797ae760533e6374fe492a2abf36b23d2ce2e`
-(at `374b2ef3`, the `main` of §7). The census exits 0 with
-`lean_manuscript_census: OK (… 25 current families; complete relative to the maintained registry)`.
+(at `374b2ef3`, the `main` of §7). The historical census counted 25 current families; the current-layout census below checks the
+current maintained registry.
 This layer checks, for the 14 added entries and the three OD-15 declarations, everything that can be
 checked without a Lean build: S against J, line by line and name by name; the modules' presence in the
 gated build; byte identity from `17b830bc` through `2714278a` to `main`; and the absence of
 axiom-introducing constructs in each module's import closure. Its mutation controls are part of the
 output.
 
-**2. The re-comparison against H and F (needs the two logs).**
+**2. Historical re-comparison against H and F (needs the two logs).**
 
 ```
 gh api repos/amaybaum/incompleteness/actions/jobs/121598983127/logs > <H>
 gh api repos/amaybaum/incompleteness/actions/artifacts/12714762314/zip > <zip>
 sha256sum <H> <zip>        # bc2291bc… and d5b8256b… (above)
 # unpack <zip> into a new directory <art> with Python's zipfile; in <art>: sha256sum -c SHA256SUMS
-python3 -I <rec>/u5_reextract.py . 374b2ef3d0af1f3233a1d6bc74bee3c32683e3c0 <H> <art>/build-and-gate.log <out>/reports.tsv > <out>/reextract.json
+python3 -I <out>/reviewed-tools/u5_reextract.py . 374b2ef3d0af1f3233a1d6bc74bee3c32683e3c0 <H> <art>/build-and-gate.log <out>/reports.tsv > <out>/reextract.json
 cmp <out>/reports.tsv <rec>/u5_reports.tsv
-python3 -I <rec>/u5_check.py . 424f28b1e7b1201e9a13bd0e608e1b0e4ad9f93b <art> > <out>/artifact-424f.json
+python3 -I <out>/reviewed-tools/u5_check.py . 424f28b1e7b1201e9a13bd0e608e1b0e4ad9f93b <art> > <out>/artifact-424f.json
 ```
 
 Expected: `u5_reextract.py` exits 0 with `"verdict": "PASS"`, `"mismatches": []` and 0 mismatches in
@@ -109,6 +127,30 @@ All outputs are deterministic; a second run is byte-identical. Every commit name
 Step 2 depends on the host's retention of the job log and the artifact (the artifact expires
 2027-01-25); once they expire, `u5_reports.tsv`, compared with S and J by step 1, is the remaining
 record of what the logs contained.
+
+**3. Current-layout checks with the path-maintained scripts.**
+
+```
+python3 -I <rec>/u5_check.py . "$(git rev-parse HEAD)" > <out>/static-current.json
+python3 -I tools/lean_manuscript_census.py
+```
+
+Expected at the archive-layout head: exit 0, `"verdict": "PASS"`, `"failures": []`, and the same
+14-module blob `61cfd6ea2df4590cc2ff86f90fc8f50ab71201f7` at its new path. The historical pin still
+resolves that blob at its original path. The census checks completeness relative to its current
+registry; its family count may evolve. This output names the supplied HEAD and current sources, so
+the historical output digests in steps 1–2 are not digests for this command.
+
+If H and F are available, the current-layout re-extraction uses:
+
+```
+python3 -I <rec>/u5_reextract.py . "$(git rev-parse HEAD)" <H> <art>/build-and-gate.log <out>/reports-current.tsv > <out>/reextract-current.json
+```
+
+Require the reported verdict and mismatch count before claiming agreement; the command checks the
+same retained reports against the named current sources. Its MAIN identity and current source-line
+fields can change, so inspect those fields and preserve the historical TSV/digests rather than
+replacing them with a new run. This path-maintenance check is separate from a fresh Lean build.
 
 ## Limits (review §7.6)
 

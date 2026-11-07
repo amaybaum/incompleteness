@@ -295,6 +295,9 @@ The division of labor is the appropriate one between the framework and complexit
 
 The author thanks the broader community of foundational thinkers in quantum computing and complexity theory whose work this paper engages — particularly Aaronson [4], whose framing of P vs NP as a physical principle clarified what the OI framework should and should not aspire to claim.
 
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
+
 ## References
 
 [1] A. Maybaum, *The Incompleteness of Observation*, (2026).

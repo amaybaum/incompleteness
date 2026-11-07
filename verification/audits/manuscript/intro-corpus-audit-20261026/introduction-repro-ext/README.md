@@ -24,7 +24,8 @@ responds to the proposal in comment 6658728711 of the same Issue.
 
 It is an `oi-evidence-result` (version 1, kind `bridge`), read from the log of job 121598983127
 ("Mathlib bridge", run 40330683786, `verify.yml`, at `17b830bcd0ecc36e10eff5b9eeca03bdd7198d86`).
-It extends the 14-module expected result on `main`, `papers/introduction_repro/results-121598983127.json`
+It extends the 14-module expected result retained on `main` at
+`verification/audits/manuscript/intro-corpus-audit-20261026/introduction-repro-14/results-121598983127.json`
 (blob `61cfd6ea2df4590cc2ff86f90fc8f50ab71201f7`), to 28 modules and 534 `#print axioms` reports:
 
 - every field other than `expected.modules` is identical in the two files, and the 14 module

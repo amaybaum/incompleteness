@@ -536,7 +536,8 @@ The myoglobin outlier ($H = 0.95$) has an anomalously deep conformational hierar
 
 ## Acknowledgements
 
-During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) to assist in drafting, refining argumentation, and surveying the relevant literature in nuclear physics, prebiotic chemistry, origin-of-life research, quantum biology, and quantum computing. The author reviewed and edited all content and takes full responsibility for the publication.
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
 
 ***
 

@@ -1092,6 +1092,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: AI assistance in preparing this work is disclosed at\\..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: <https://github.com/amaybaum/incompleteness#ai-assistance>...."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Twenty-two Standard Model observables, seven gravitational-s..."
     },
     {
@@ -1257,6 +1265,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *What the framework predicts forward.* Specific predictions ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The author takes responsibility for the framework's scientif..."
     },
     {
       "ok": true,

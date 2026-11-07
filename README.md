@@ -114,7 +114,7 @@ incompleteness/
 
 ### Other materials in `papers/`
 
-- [`papers/Introduction.md`](papers/Introduction.md) — short introduction for newcomers, written for readers without a background in quantum theory: the finite-horizon correspondence among stochastic laws, reversible realizations and fixed-basis quantum records; why any memory in the records must sit in the hidden state; recurrence and forecasts that cannot be chained; what the correspondence does not establish about quantum mechanics; and scoped applications to vacuum energy and black-hole information. Its proofs and their verification are in the formal papers it cites. [`papers/introduction_repro/`](papers/introduction_repro/) holds historical verification evidence: the Lean axiom reports, with the recipe that reproduces them, for the 29 baseline declarations (at `17b830bc`) listed in Appendix A of the Introduction as landed at `f5efa7a0`.
+- [`papers/Introduction.md`](papers/Introduction.md) — short introduction for newcomers, written for readers without a background in quantum theory: the finite-horizon correspondence among stochastic laws, reversible realizations and fixed-basis quantum records; why any memory in the records must sit in the hidden state; recurrence and forecasts that cannot be chained; what the correspondence does not establish about quantum mechanics; and scoped applications to vacuum energy and black-hole information. Its proofs and their verification are in the formal papers it cites.
 - [`papers/oi_lattice_code/`](papers/oi_lattice_code/) — lattice Monte Carlo and related numerical source.
 
 The core papers are tabulated above; the conjectural-extension papers are listed under *3. Conjectural extensions*.
@@ -154,6 +154,14 @@ This repository contains both code and authored research material:
 | Manuscripts — the papers and book | **CC-BY-4.0** |
 
 `LICENSE` is intentionally the repository's machine-detected MIT license file; the manuscript licence applies by scope to the authored research works.
+
+## AI assistance
+
+**Current practice.** This is the repository's single AI-assistance disclosure; the papers and the book point here.
+
+**AI assistance.** The author has used Claude (Anthropic) and Codex (OpenAI) as AI assistants for drafting and editing, critique and refinement of arguments, and literature exploration. AI-generated material is not independently established evidence or mathematical proof; scientific claims must be assessed against their derivations, formal checks, and cited sources. The author is responsible for the framework's content, citations, and any remaining errors.
+
+The same assistants are also used for code, Lean formalization and verification records.
 
 ## Contact
 

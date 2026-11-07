@@ -561,7 +561,8 @@ The same structural picture applied to computational analysis methods is develop
 
 ## Acknowledgements
 
-During the preparation of this work, the author used Claude Opus 4.6 (Anthropic) and Gemini 3.1 Pro (Google) to assist in drafting, refining argumentation, and surveying the biomedical literature. The author reviewed and edited all content and takes full responsibility for the publication.
+AI assistance in preparing this work is disclosed at\
+<https://github.com/amaybaum/incompleteness#ai-assistance>.
 
 ---
 
