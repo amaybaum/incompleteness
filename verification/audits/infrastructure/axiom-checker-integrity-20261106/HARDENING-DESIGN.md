@@ -5,6 +5,17 @@ checker and how it would be validated. It changes no file under `tools/`, no rel
 step and no proof grade. It implements nothing. Implementation, any run against a real build
 log, and replacement of the production checker each need their own owner authorization.
 
+**Revision, 2026-11-07.** This revision addresses independent review
+[#1172 c.6691575360](https://github.com/amaybaum/incompleteness/pull/1172#issuecomment-6691575360)
+and applies the owner's D-AX choice in
+[#1031 c.6691759997](https://github.com/amaybaum/incompleteness/issues/1031#issuecomment-6691759997).
+The normative identity channel is specified in
+[`CANONICAL-IDENTITY-CONTRACT.md`](CANONICAL-IDENTITY-CONTRACT.md). It is required in addition
+to the conservative source/diagnostic checks below; displayed axiom strings never authorize a
+PASS. The original 34 fixtures and their results are preserved unchanged as the historical
+text-parser baseline at `2b08dbe0ee4b82bb60019f9cb97af492dd892bd6`. They do not test the new
+channel. New controls are hand-derived paper specifications, not executed results.
+
 **Authority.** Owner ruling, amaybaum, 2026-11-06 (#1031 comment 6682459524, posted
 2026-11-06T10:13:52Z):
 
@@ -15,7 +26,7 @@ log, and replacement of the production checker each need their own owner authori
 
 **Supporting files** (in `hardening-design/`):
 
-- `fixtures/`: 34 synthetic fixtures, P01–P10 positive and F01–F24 negative, in the layout of
+- `fixtures/`: 34 historical synthetic fixtures, P01–P10 positive and F01–F24 negative, in the layout of
   the demonstration in this directory.
 - `fixtures/expected.json`: for each fixture, the hardened outcome and the current checker's
   predicted outcome, plus the mutant kill matrix M01–M19. All are hand-derived.
@@ -77,10 +88,10 @@ marked *to confirm* are first checked in the dry run (§8).
 | --- | --- | --- | --- |
 | L1 | `#print%$tk axioms $id` elaborates with `withRef tk`, then `realizeGlobalConstWithInfos id`, then `cs.forM printAxiomsOf` | `src/Lean/Elab/Print.lean` | Every report is positioned at the `#print` token. One print can resolve to several constants, which gives several reports at one position. |
 | L2 | The message is `'{constName}' does not depend on any axioms` or `'{constName}' depends on axioms: {… MessageData.ofConstName …}` | same | The quoted name is the resolved constant, printed with `MessageData.ofName`, that is, `Name.toString` with escaping. |
-| L3 | `Name.toString`: an identifier component is printed bare; a non-identifier component is printed as `«…»`; a numeric component is printed as digits. Components containing `»`, inaccessible names and macro-scoped names are not escaped. | `src/Init/Meta/Defs.lean` | §4 gives the grammar. Non-round-trippable names fail closed. |
+| L3 | `Name.toString`: an identifier component is printed bare; a non-identifier component is printed as `«…»`; a numeric component is printed as digits. Components containing `»`, inaccessible names and macro-scoped names are not escaped. | `src/Init/Meta/Defs.lean` | §4 gives a conservative diagnostic grammar, not a semantic classifier of special Names. Kernel identity comes from tagged constructors in the canonical contract. |
 | L4 | Identifier characters: `isIdFirst` is ASCII alpha, `_` or `isLetterLike`. `isIdRest` is ASCII alnum, `_ ' ! ?`, `isLetterLike` or `isSubScriptAlnum`. `isLetterLike` covers Greek U+03B1–03C9 except λ; U+0391–03A9 except Π and Σ; U+03CA–03FB; U+1F00–1FFE; U+2100–214F; U+1D49C–1D59F; U+00C0–00FF except × and ÷; U+0100–017F. `isSubScriptAlnum` covers U+2080–2089, U+2090–209C, U+1D62–1D6A and U+2C7C. | `src/Init/Meta/Defs.lean` | §4 transcribes these ranges exactly. |
 | L5 | The axiom list is `MessageData.ofList`, which is `sbracket (joinSep xs ("," ++ Format.line))`. It is either one line `[a, b]` or broken after each comma. | `src/Lean/Message.lean` | Reports may wrap (§4.3). The model uses a one-space continuation indent, as the existing round controls on `main` do (`round-ktrans-sep-2-omega4/controls.py`). Any whitespace is accepted. |
-| L6 | Axiom names use `MessageData.ofConstName` with `fullNames := false`, so they follow the user's `pp.fullNames` and may be abbreviated relative to open namespaces. | `src/Lean/Message.lean` | Listed axiom names are not guaranteed to be fully qualified (§5, D-AX). |
+| L6 | Axiom names use `MessageData.ofConstName` with `fullNames := false`, so they follow the user's `pp.fullNames` and may be abbreviated relative to open namespaces. | `src/Lean/Message.lean` | Listed axiom strings are diagnostics only; §5 requires exact kernel Names through the canonical channel. |
 | L7 | Lake prints `info: <path>:<line>:<col>: <message>`. Lines are 1-based and columns 0-based. | `…/round-ktoken-maxcone-1/evidence/e-run/cells.json` on `main` (`:223:0:` for a column-0 print) | Gives the report key (§3). *To confirm:* the path form, and whether messages of up-to-date modules are replayed. |
 
 ## 3. Identity
@@ -135,6 +146,13 @@ constant it resolved to (L2), so the checker does not reimplement name resolutio
 - The name check does not establish identity. It guards against a report attached to the wrong
   print (F12).
 
+**Private declarations.** A private declaration is permitted as a print target when the same
+position and suffix checks pass. For example, written `foo` agrees with
+`_private.M.0.OIBridge.A.foo`; the full identity, including the numeric component and private
+prefix, is retained. It is never rewritten to `OIBridge.A.foo`. A different qualified suffix
+still gives MISMATCH. A private *axiom* is a separate matter: its full kernel Name is not one
+of the three permitted axioms and gives AXIOM. See the canonical contract's private controls.
+
 **Ambiguous resolution.** When one print resolves to several constants (L1), Lean emits several
 distinct reports at one key. The result is AMBIGUOUS (F22), even if each report passes on its own:
 the print does not name a single declaration.
@@ -151,10 +169,13 @@ the print does not name a single declaration.
 | `escaped` | `«`, then any characters other than `»` (spaces, dots and quotes included), then `»` |
 | `numeric` | `[0-9]+`. Accepted only in reported names, where Lean prints numeric components such as those of private names (§10). |
 
-Anything else is not a name. That includes a component containing `»`, an inaccessible or
-macro-scoped name, and an empty component. A line that needs a name and holds none of these is
-UNPARSED. Examples: P05 (`G₀_apply`, a subscript in `isSubScriptAlnum`) and P06 (`«a b»`, an
-escaped component with a space).
+Anything outside this grammar is UNPARSED, including an unescaped `»` or an empty component.
+This is only a character grammar: it does not exclude all inaccessible or macro-scoped Names.
+For example, `_inaccessible` satisfies `plain`; no semantic rejection is inferred from its
+spelling. No private, inaccessible or macro-scope component is erased from canonical identity.
+A display accepted by this grammar still needs its independent canonical record (§5).
+Examples: P05 (`G₀_apply`, a subscript in `isSubScriptAlnum`) and P06 (`«a b»`, an escaped
+component with a space).
 
 ### 4.2 Print lines
 
@@ -220,7 +241,7 @@ input it cannot classify is a failure, never skipped.
 | BUILD | `log` | lake exited nonzero (unchanged) |
 | SORRY | `log:N` | the physical line contains `sorryAx` (unchanged rule) |
 | UNPARSED | `M:L` or `log:N` | a print candidate is not a print (§4.2); a report-like line is not a parsed record, or a record does not close (§4.3); a report path cannot be normalized (§3) |
-| AXIOM | the report's `M:L` | a parsed report lists an axiom not in `{propext, Classical.choice, Quot.sound}`, compared verbatim |
+| AXIOM | the report's `M:L` | the canonical record contains an axiom Name other than the exact kernel Names `propext`, `Classical.choice`, `Quot.sound`; displayed strings do not decide this rule |
 | MISSING | `M:L` | a print has no report |
 | DUPLICATE | `M:L` | a print has two or more identical reports |
 | AMBIGUOUS | `M:L` | a print has two or more distinct reports |
@@ -232,25 +253,22 @@ input it cannot classify is a failure, never skipped.
 Several rules can fire on one input. F16 gives UNPARSED and ORPHAN. F18 gives EMPTY and two
 MISSING. F20 gives SORRY and AXIOM.
 
-The CLI keeps `--log`, `--root` and `--require-lake`. It adds `--json FILE`, which writes the
-sorted finding list and the matched `(M, L, C, fully qualified name, axioms)` table in a stated
-schema (§A.44). The exit status is the verdict.
+The proposed CLI keeps `--log`, `--root` and `--require-lake` and adds required canonical input
+`--identity-bundle DIR` plus `--json FILE`. With a supplied log, the canonical bundle and outer
+build-status manifest are still mandatory for a migration PASS; `--log` alone cannot establish
+identity or build success. JSON records the sorted findings and matched `(M, L, C, declaration
+Name, axiom Names)` with tagged Names, bundle identity and schema version (§A.44). A missing,
+malformed, unbound or inconsistent canonical channel fails as specified in the companion
+contract. The exit status is the verdict. No CLI or gate is changed by this paper revision.
 
-**D-AX, a permitted-name collision (open; needs a decision).**
-
-- **The risk.** Because of L6, a listed axiom is displayed with `pp.fullNames` false. A
-  non-permitted user axiom whose abbreviated display equals `propext`, `Classical.choice` or
-  `Quot.sound` would pass the verbatim check. Matching names verbatim is still the correct rule.
-- **The safe side.** A permitted axiom displayed in abbreviated form, for example `choice` under
-  `open Classical`, fails. That is a false FAIL, the safe direction.
-- **Evidence.** Ten modules on `main` contain an `open … Classical` line, and the current checker,
-  which also compares verbatim, is green in CI. That is consistent with no abbreviation occurring for these
-  names, but it does not establish it.
-- **What the dry run checks** (§8 criterion e): every listed axiom name in a real build, verbatim.
-- **Closing the collision.** It needs one of the following, each a decision outside this design:
-  - setting `pp.fullNames = true` in the build's Lean options, a build-configuration change;
-  - a comment-aware source lint forbidding `axiom` declarations whose final component is `propext`,
-    `choice` or `sound`.
+**D-AX: owner-selected canonical kernel identity.** The companion contract specifies a trusted
+reporter at the actual Lean resolution/`collectAxioms` boundary, a lossless tagged representation,
+build and source binding, checker consumption, fail-closed rules and predeclared controls.
+There is no fallback to displayed names, a `pp.fullNames` default, source lint, aliases or Unicode
+normalization. A genuine `Classical.choice` may display as `choice` and still pass the canonical
+AXIOM rule; a nonpermitted Name with that same display fails. This is a design contract, not an
+implemented correction or a demonstrated private-axiom exploit. The direction is decided;
+implementation and migration remain unapproved.
 
 **Rules unchanged from the current checker.**
 
@@ -266,14 +284,18 @@ current pattern can parse has the print's final name component. On such an input
 MISSING, MISMATCH, UNPARSED or POSITION, with one exception. The report at the print's position may
 carry a fully qualified name the current pattern cannot parse, for example a namespace component
 with a non-ASCII letter or with `?`. Then the design passes, and the current FAIL is a false FAIL.
-The design is therefore not a superset of the current checker on every input. On the 34 fixtures,
-the design never passes an input the current checker fails (§7.3).
+The historical text-parser design is therefore not a superset of the current checker on every
+input. On its 34 fixtures it never passes an input the current checker fails (§7.3). That result
+does not supply canonical bundles or validate this revision's added channel.
 
 ## 6. Self-test
 
-The hardened checker's self-test runs the 34 fixtures at every invocation, as the current
-self-test runs its synthetic logs. Each fixture must give exactly its `hardened` verdict and
-finding list from `fixtures/expected.json`.
+The future hardened checker's self-test must retain the 34 historical cases and cover the
+canonical contract's controls. Before implementing it, independently reviewed canonical bundles
+and complete new expectations must be committed for each historical case. No canonical bundle
+may be inferred from its display strings by the production path. The unchanged historical
+`fixtures/expected.json` gives the text-layer expectations only; it is not an executable
+specification of the complete revised checker.
 
 The five existing self-test cases are kept, re-expressed with a source tree and lake position
 prefixes: clean, sorryAx, forbidden axiom, dropped print, nonzero exit. The nonzero-exit case is
@@ -333,13 +355,16 @@ So no rule is redundant on the fixture set. `run_fixtures.py` checks this.
 
 ### 7.2 Mutant kill matrix
 
-Each mutant changes one rule of the design. The implementation's CI must run every mutant through a
-test-only switch, never in the production path. Each mutant must change the verdict of the listed
-fixtures, which `run_fixtures.py` checks against the hand-derived verdicts in `expected.json`.
+Each mutant changes the stated behavior of the historical text layer. M01 explicitly changes
+both attachment and its independent name-consistency guard; it is not a key-only mutant. The
+implementation's CI must eventually execute each precisely defined mutant through a test-only
+switch. `run_fixtures.py` only checks the hand-written verdicts against one another; it executes
+neither hardened mutants nor the canonical channel. Additional channel mutants are specified
+in the companion contract. The old matrix alone is not sufficient for the revised checker.
 
 | Mutant | Change | Killed by (mutant's verdict) |
 | --- | --- | --- |
-| M01 | match by final name component (current key) | F01, F02 (PASS) |
+| M01 | replace position-based attachment with final-component set membership, allowing one report to satisfy multiple prints; also replace the independent component-wise name-consistency guard with final-component equality | F01, F02 (PASS) |
 | M02 | match by fully qualified name, ignoring position | F03 (PASS) |
 | M03 | ASCII-only grammar, fail-closed kept | P05, P06 (FAIL) |
 | M04 | ignore unparsed report-like lines | F14 (PASS) |
@@ -362,6 +387,11 @@ fixtures, which `run_fixtures.py` checks against the hand-derived verdicts in `e
 Mutants killed by positive fixtures, namely M03, M06, M12, M13, M14, M18 and M19, show that the
 positives guard against a design that is too strict. The others show that the negatives guard
 against one that is too weak.
+
+For comparison, a mutant changing only attachment while retaining the qualified-name guard
+leaves F01 failing: `OIBridge.A.foo` disagrees with `OIBridge.B.foo`. F02's written `foo` kills
+that narrower mutant. The explicit two-part M01 definition preserves the old hand-written
+F01/F02 outcomes without claiming that the old runner executed either mutation.
 
 ### 7.3 The current checker as a baseline
 
@@ -410,26 +440,29 @@ outside `tools/`, and the production checker stays unchanged.
 **Procedure.** One CI job, dispatched on an exact commit `X` of `main`:
 
 1. Check out `X` with full history. Record the toolchain and lake versions.
-2. Run `lake build` in `verification/lean-mathlib/`. Capture stdout and stderr to `LOG` and the exit
-   status to `RC`.
+2. Under the separately reviewed reporter/build wrapper, run the cold `lake build` in
+   `verification/lean-mathlib/`. Capture stdout and stderr to `LOG`, its own exit status to
+   `RC_COLD`, and its canonical bundle/outer status manifest to `I1`. The wrapper must check
+   the actual build status even when output is piped. See the companion contract for provenance.
 3. Run the current checker: `python3 -I tools/lean_axiom_check.py --log LOG`, recording its exit
    and output.
-4. Run the candidate: `--root . --log LOG --json C1.json`.
+4. Run the candidate: `--root . --log LOG --identity-bundle I1 --json C1.json`.
 5. Run `source_facts.py` at `X`.
-6. Run `lake build` again with the warm cache to get `LOG2`, then run the candidate on it, giving
-   `C2.json`. Repeat step 4 on the same `LOG`, giving `C1b.json`.
-7. Run the candidate's self-test and the mutant matrix of §7.2.
+6. Run the warm build independently, capturing `LOG2`, **its own** exit status `RC_WARM`,
+   and `I2`. Run the candidate on `LOG2`/`I2`, giving `C2.json`. Repeat step 4 on the identical
+   `LOG`/`I1`, giving `C1b.json`. A warm failure cannot borrow the cold build's successful status.
+7. Run the candidate's self-test and the text-layer plus canonical-channel mutant matrices.
 
 **Acceptance.** Every criterion is read from exit statuses and the JSON files (§A.44):
 
 | | Criterion |
 | --- | --- |
-| a | `RC = 0` and the current checker exits 0. Otherwise the baseline is red and the dry run is void. |
+| a | `RC_COLD = 0`, `RC_WARM = 0`, and the current checker exits 0. A missing or nonzero build status invalidates the dry run even if all reports match. The outer structured migration gate enforces this independently of `--log`, which fixes the old checker's internal status to 0. |
 | b | The candidate's parsed prints equal `source_facts.py`'s `print_lines`. Every print has exactly one report: MISSING, DUPLICATE and AMBIGUOUS are all 0. |
 | c | UNPARSED, ORPHAN, MISMATCH, POSITION, AXIOM and SORRY are all 0, and there is no EMPTY. |
 | d | Every short name the current checker counts as reported is the final component of a matched name. The prints with non-ASCII names, 15 at `9f4e653b` (count recomputed at `X`), are matched and axiom-checked. |
-| e | D-AX: every listed axiom name is one of the three permitted names verbatim. The multiset of axiom lists is recorded. |
-| f | `C1.json` and `C1b.json` are byte-identical. `C2.json` has the same matched `(M, L, fully qualified name)` set as `C1.json`, which tests message replay for up-to-date modules. |
+| e | Both bundles satisfy the canonical contract, with no channel finding. Every collected axiom is one of the three exact kernel Names, compared as tagged components; record every full declaration/axiom identity and its source binding. Displayed strings cannot satisfy this criterion. |
+| f | `C1.json` and `C1b.json` are byte-identical. `C2.json` has the same matched positions and full declaration/axiom Name sets as `C1.json`; each build retains its own status/provenance. This checks warm diagnostic replay and independently bound canonical coverage, not merely equality of short names. |
 | g | The self-test and every mutant kill pass. |
 
 **Disposition of findings.**
@@ -465,17 +498,24 @@ comparison at the replacement commit.
 1. **L1–L7.** The facts were read from the pinned sources, not observed in a build. Criteria b, c
    and f confirm them. If the lake path form, the column units or the replay behaviour differ, the
    design changes before implementation.
-2. **D-AX** (§5) needs an owner decision on how the collision is closed.
-3. **Private declarations.** Lean names private constants `_private.<module>.<n>.<name>`. Whether
-   the report prints that form under L2 is not established. Until it is, a printed private
-   declaration fails as MISMATCH. If the dry run shows such names, a reviewed rule can strip exactly
-   `_private.<M as dotted name>.<digits>.` before the agreement check.
+2. **D-AX** (§5): the owner selected canonical kernel identities. Review the companion's producer,
+   transport, identity and provenance contract before proposing implementation; its controls have
+   not run. A different transport needs a reviewed design revision, not a silent text fallback.
+3. **Private and special Names.** The policy is §3: permit a matching private declaration target,
+   retain every component, and apply the exact canonical axiom allowlist. Pinned Lean source
+   `Lean/PrivateName.lean:18–30` constructs the prefix; `Print.lean:240–250` distinguishes raw
+   theorem Names from pretty-printed axiom Names. The character grammar makes no claim to reject
+   every inaccessible or macro-scoped Name. All canonical identities preserve their components.
 4. **Prints inside comments** (§4.2) fail as MISSING. The census cannot tell whether any of the
    6212 lines is inside a comment, but the dry run will show it.
 5. **Severity.** Only `info:` starts a record. If a build option turns infos into another
    severity, the records become UNPARSED. That is safe, but it would need a design change.
 
-## Reproduce
+## Reproduce the historical text-parser baseline
+
+This recipe describes the original author evidence at `2b08dbe0`, not a run of the revised
+canonical contract. Its inputs, expectations, runner and results are unchanged by this revision.
+No fixture, Lean, production-checker or real-log execution was performed for the revision.
 
 From the repository root:
 
