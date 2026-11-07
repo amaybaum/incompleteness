@@ -698,7 +698,8 @@ constants.
   record is correlated with the carrier, that is, whether its carrier component
   is not masked by an independent unknown.
   - *No registered record is correlated with the carrier* (this includes masked
-    reads, such as a ready meter whose unknown sits in its recorded slot). Then
+    reads, such as a ready meter whose unknown is the slot added into the
+    record, its `v` slot at the coupled tick, so that the kick is known). Then
     `(e, o)` is independent of the carrier. A replaced slot (`α = 0` or `β = 0`) receives a value that
     is independent of the carrier and, by apparatus-1's Lemma 3, unknown
     whenever the other slot is retained. So the branch is a mixture of encoded
