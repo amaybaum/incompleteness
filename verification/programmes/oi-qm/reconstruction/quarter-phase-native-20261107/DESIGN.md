@@ -614,8 +614,8 @@ the encoded `H`.
      flips `z_2` or `x_2`, and its linear part mixes them. Those slots are
      readable (node 7). For instance, from encoded `Z_+` with `z_2 = 0` known,
      `T_1` leaves `z_2 = 0` and `T_2` does not.
-  2. `S` itself is distinguishable from `I` on `Z_±`. With the parity cell's slots
-     known, `S` flips `z_2` on `Z_+`, and flips `x_2` (`x_2' = x_2 + z_1`) on
+  2. `S` itself is distinguishable from `I` on `Z_±`. With `z_2` known, `S`
+     flips it on `Z_+`; with `x_2` known, `S` flips it (`x_2' = x_2 + z_1`) on
      `Z_−`.
   3. A twirl `(z_2, x_2) += (b, b)` with uniform `b` preserves `p` and
      randomizes `z_2` and `x_2`. Composed with the twirl, the two maps differ
@@ -695,14 +695,16 @@ constants.
 - **Under R1 (one cell, `N_na`).** By Lemma G1, the carrier pair leaves a
   non-adaptive process as `(α z + e, β x + o)`, with `α, β ∈ F_2` and with
   ancilla values `(e, o)`. Split each record branch by whether some registered
-  record depends on the carrier.
-  - *No registered record depends on the carrier.* Then `(e, o)` is independent
-    of the carrier. A replaced slot (`α = 0` or `β = 0`) receives a value that
+  record is correlated with the carrier, that is, whether its carrier component
+  is not masked by an independent unknown.
+  - *No registered record is correlated with the carrier* (this includes masked
+    reads, such as a ready meter whose unknown sits in its recorded slot). Then
+    `(e, o)` is independent of the carrier. A replaced slot (`α = 0` or `β = 0`) receives a value that
     is independent of the carrier and, by apparatus-1's Lemma 3, unknown
     whenever the other slot is retained. So the branch is a mixture of encoded
     Paulis, composed with replacements by such values. Both kinds of map are CP.
-  - *Some registered record depends on the carrier.* Then the branch has
-    learned a carrier functional. Lemma 3 forces a fresh uniform unknown into the
+  - *Some registered record is correlated with the carrier.* Then the branch
+    has learned a carrier functional. Lemma 3 forces a fresh uniform unknown into the
     conjugate output slot, and the output law conditional on the record lies in
     the octahedron, hence in the Bloch ball. The branch is a measure-and-prepare
     map onto valid states, which is CP.
@@ -844,8 +846,9 @@ theorem bounds, or for the whole carrier under H-FIN. Three steps:
      ([OperationalAssembly L617](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/OperationalAssembly.lean#L617)).
 
    So the available operations of N, restricted to such a cone, lie in those of
-   `permTheory`. Because `permClass` admits unit scalars, the vacuity that
-   affects the read-write-sourced predicate does not recur here.
+   `permTheory`. Because `permClass` admits unit scalars, this step does not
+   share the vacuity of `ReadWriteSourced`, which requires an available `V` to
+   equal `permMatrix σ` exactly although `id = conjChannel(i·1)`.
 2. **Monotonicity.** Composite unitary control
    ([`HasCompositeUnitaryControl`, L665](https://github.com/amaybaum/incompleteness/blob/b1d782f954f02cec578a10e071b73e48f86eb3dd/verification/lean-mathlib/OIBridge/OperationalAssembly.lean#L665))
    says that every isometry's conjugation is available. Control in a theory
