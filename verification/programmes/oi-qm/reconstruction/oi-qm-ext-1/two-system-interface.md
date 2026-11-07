@@ -83,21 +83,69 @@ There is no claim that the original nearest-neighbor wave rule realizes (3).
 
 For the fixed protocols in this screen, the program slots may be loaded initially. Future
 slots do not enter either first-round gate. Changing \(x_2,y_2\) therefore preserves the
-first-round uncontrolled state and all first-round records. This proves an algebraic
-prefix property of the specified circuit. Physical loading and fresh/adaptive setting
-selection remain source obligations; no arbitrary adaptive-controller construction is
-claimed.
+first-round uncontrolled state and already written outcome/used-setting records.
+Each observer may already know their own future program fields; those isolated fields
+are allowed to differ. This proves the stated algebraic prefix property, not equality of
+every observer's complete knowledge across different programs. Physical loading and
+fresh/adaptive setting selection remain source obligations; no arbitrary adaptive-controller
+construction is claimed.
 
 After round \(i\), wing A observes its \(x_i,a_i,H\), and wing B observes its
-\(y_i,b_i,H\). For \(H=0\) both outcome maps return \(\bot\). Each wing may retain
-its own complete record and compare successive outcomes. Neither can initially read \(R\),
-\(C\), or the other wing's setting slot. This access restriction is supplied, not derived.
+\(y_i,b_i,H\), retaining previous local records. For \(H=0\) both outcome maps return
+\(\bot\). Their own initially loaded program slots are also locally known. Neither wing
+is granted a direct preparation-time read of \(R,C\) or the other wing's setting slots.
+This supplied access restriction does not prohibit inference from subsequent observations;
+it is not a permanent or observer-independent property of those variables.
 
 The second gate leaves first-round slots unchanged. The two-round observation window ends
 at \(k=2\), before clock wrap can cause a later overwrite. The record map is nondestructive
 as a mathematical projection during this window. A physical repeated-read detector,
 longer retention, stopping controller, reset, and resources for arbitrary depth are not
 provided by this definition.
+
+### Observer-relative access and later communication
+
+All observer perspectives refer to the **same** configuration in \(\Omega\), source law
+and evolution \(\Phi\). “Hidden” means unavailable through a specified observer's
+current access, including inference from their records; it is not a label intrinsic to
+a register.
+
+| Observer / stage | Accessible information in this abstract interface |
+|---|---|
+| Alice before the first interaction | Her loaded \(x_1,x_2\), the public herald \(H\), the known ready-pointer values and scheduled clock stage |
+| Bob before the first interaction | His loaded \(y_1,y_2\), the same herald, ready-pointer information and clock stage |
+| Alice after round \(i\) | The preceding local information and every recorded \(a_j\) for \(j\le i\), including retained copies and local postprocessing |
+| Bob after round \(i\) | The preceding local information and every recorded \(b_j\) for \(j\le i\), including retained copies and local postprocessing |
+| A third observer | No separate apparatus or access map is supplied here. Giving that observer other register access requires an explicit extension, not an assertion that the same variables are hidden from everyone. |
+| Observers after exchanging records | The received messages become part of their accessible histories; combining the supplied records permits the inferences below |
+
+Knowledge can change without a direct register read. On the successful source support,
+Alice learns \(R=a_1\) from her first result. Once the records \(a_1,b_1,x_1,y_1\)
+have been brought together, their recipient can also infer
+\(C=a_1\oplus b_1\oplus x_1y_1\), as in (8). At special source parameters or on
+the specified failure branch, prior knowledge may already determine a register. None of
+these cases violates no-signalling simply by revealing previously unavailable information.
+
+The comparison after exchanging records is permitted ordinary communication, outside
+the isolated two-read test. The present \(\Phi\) contains no physical message-transfer
+stage; this paragraph specifies what joint postprocessing would reveal, not a constructed
+native communication channel. Any extension implementing that stage must account for its
+interaction, timing and newly accessible records within the same model.
+
+During the isolated stage, no-signalling requires the law of **Bob's entire accessible
+history**, at fixed local protocol and preparation, to be unchanged when Alice varies her
+settings; symmetrically for Alice. Those variations hold the uncontrolled source law fixed.
+The history includes local apparatus access, stored records, timing and failure information,
+not just the latest output bit. Alice's outcomes are summed over, not communicated or
+conditioned on. Later receipt of Alice's records changes the access situation and is not
+subject to that same isolation condition.
+
+The table inventories this abstract interface only. A physical realization still owes a
+complete apparatus-access audit, including preparation logs, internal memories, reservoirs,
+timing and permitted probes. Unspecified or merely unread fields may not be declared
+permanently private. The failure in (10) already uses Bob's granted \(b_1,b_2\);
+adding other accessible information cannot remove it, and no assumption about a third
+observer's ability to read \(R,C\) is needed.
 
 ## 3. First-read calculation and source dependence
 
@@ -195,9 +243,11 @@ setting encode a freely selected bit \(z=x_2\). Bob's own record gives
  b_1=R\oplus C,\qquad b_2=R\oplus C\oplus z,\qquad
                          b_1\oplus b_2=z.                                \tag{10}
 \]
-The first-round state and records do not depend on \(z\); the uncontrolled source law
-is the same for both messages. Bob learns \(z\) after the second interaction without
-receiving Alice's outcome or reading either hidden variable separately. For every
+The first-round uncontrolled state, already written measurement records and Bob's
+accessible history do not depend on \(z\); the uncontrolled source law is the same for
+both messages. Alice's isolated future-setting field may already be known to Alice.
+Bob learns \(z\) after the second interaction without receiving Alice's outcome,
+preparation log or setting record, or reading either hidden variable separately. For every
 \(\eta\), including \(\eta_*\), the successful-run local-history distribution is
 \[
  \Pr(b_1=u,b_2=v\mid H=1,z)=\tfrac12{\bf1}_{v=u\oplus z}.                 \tag{11}
@@ -216,8 +266,8 @@ two-round discrepancy, not an interpretation of the ontic state.
 This is operational signalling across the stipulated two-wing interface. No physical
 speed, laboratory separation or native implementation is established, so it is not a
 claim that an actual OI device sends faster-than-light messages. The abstract coupling
-was explicitly nonlocal; the failed obligation is masking its influence from the
-embedded observers throughout the admitted protocol.
+was explicitly nonlocal; the failed obligation is independence of each observer's accessible local history
+from the distant setting during the stipulated isolated measurement stage.
 
 ### Why a silent fresh-source replacement is not a repair
 
@@ -236,7 +286,7 @@ necessary; replacing the consumed state silently is not a correspondence.
 | Preparation | Ready support and source (2) | Produce the correlated apparatus state, balanced mask and calibrated law without fitting future settings |
 | Choices | Program independence and prefix isolation for the fixed protocols | Physically load/select settings while preserving preparation and records |
 | Failures | Complete law (6) and its two-round extension | A truthful herald, actual preparation rate and a treatment of all real error modes; none derived here |
-| Accessible records | Local projections, retained first slots through the second gate | A physical read mechanism, read access and retention; no privacy inferred merely from an unread register |
+| Accessible records | Observer-specific local projections and retained slots through the second gate; §2 lists changing access and later joint inferences | A physical read mechanism, full local apparatus-access inventory and retention; no permanent privacy inferred merely from an unread register |
 | Continuation | Complete remaining-state law (8) | It demonstrably fails (9) and operational no-signalling; longer resource supply cannot erase that failure |
 | Composite selection | Four calibrated first-read correlations | Independently constrain the full admitted source/operation class; a chosen quantum coefficient or no-signalling alone is insufficient |
 
