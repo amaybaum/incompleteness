@@ -17,7 +17,7 @@ The appendix's content is organized by mathematical structure rather than by cha
 
 *B.5 Anomaly cancellation and unique hypercharges.* The framework's content on the Standard Model matter content derives the unique hypercharge assignment on the nonzero-$Y_Q$ branch from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. This appendix gives the explicit calculation: the six anomaly conditions, the algebraic constraint structure, and the unique solution producing $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$ with no free parameters.
 
-*B.6 Gauge-theoretic derivations.* Two key gauge-theoretic results from Chapter 5: the conditional H-link link count for $K = 2dm = 6$ internal components per site, and the cubic-rotation-group decomposition of the coupling matrix's eigenvalue multiplicities into $(3, 2, 1)$ — the multiplicities that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.
+*B.6 Gauge-theoretic derivations.* Two key gauge-theoretic results from Chapter 5: the conditional H-link link count for $K = 2dm = 6$ internal components per site, and the cubic-rotation-group decomposition of the six link directions into block multiplicities $(3, 2, 1)$ — the multiplicities that determine $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.
 
 *B.7 The lemma chain for the characterization.* The framework's characterization theorem — accessible non-Markovianity ⟺ C1/C3/C4 realization per accessible horizon, with the quantum representation internal and universal ($S \iff D \iff Q_{\mathrm{fb}}$, [Main §3.4]) — relies on a chain of intermediate lemmas: partition-relativity, emergent stochasticity, P-indivisibility from a non-permutation witness, accessible-timescale conditional memory, and phase-locking, together with the results on which phase-locking rests: Bohr-frequency completeness and the identification of level pairs under the triangle-genericity condition, and, without that condition, the real-to-integer transfer and the two-branch classification conditional on H-BG. This appendix collects these lemmas with their proofs in compact form, providing the reader a self-contained reference for the framework's logical structure.
 
@@ -283,7 +283,7 @@ Proton charge: $q_p = 2 q_u + q_d = 2(2/3) + (-1/3) = 4/3 - 1/3 = 1$. Electron c
 
 *Main-text reference: Chapter 5 §5.3-5.5.*
 
-Two key gauge-theoretic results from Chapter 5 are presented here in full: the conditional link-count proposition giving $K = 2dm$ internal components per site, and the cubic-rotation-group decomposition fixing the eigenvalue multiplicities at $(3, 2, 1)$.
+Two key gauge-theoretic results from Chapter 5 are presented here in full: the conditional link-count proposition giving $K = 2dm$ internal components per site, and the cubic-rotation-group decomposition fixing the block multiplicities at $(3, 2, 1)$.
 
 **The coupling-degree minimization.** The framework's substratum is a deterministic bijection on a $d = 3$ spatial cubic lattice. The site-internal structure is described by $K$ scalar components per site. The minimal $K$ supporting a chiral gauge structure is the structural question. Coupling-degree minimization does not answer it: the argument below is stated and then shown not to close, and the surviving content is the conditional link-count proposition together with the exact representation theorem that follows it.
 
@@ -312,15 +312,15 @@ The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three eigenval
 
 The identification is structural: the cubic rotation group's representation theory determines the internal structure, and the isotypic block multiplicities of the equivariant structure are the dimensions of the Standard Model gauge group factors. $\square$
 
-**The link to gauge invariance.** The commutant of the equivariant condensate $\Sigma$ (SM Theorem 5; the coupling matrix $M = \mu I_6$ is scalar) is the maximal group preserving its block structure: $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$, the group from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — covariance of the dynamics under site-dependent choices of basis within each eigenspace, the link coupling transforming with them — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
+**The link to gauge invariance.** The commutant of the equivariant condensate $\Sigma$ with distinct block values (SM Theorem 5; the coupling matrix $M = \mu I_6$ is scalar, with commutant $\mathrm{U}(6)$) is the maximal group preserving its block structure: $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$, the group from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — covariance of the dynamics under site-dependent choices of basis within each eigenspace, the link coupling transforming with them — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
 
 **Combined structural result.** Combining B.6.1 and B.6.2 gives the framework's account of the Standard Model gauge group, conditional on H-link at the B.6.1 step and unconditional at the B.6.2 step:
 
 (i) The H-link link count with $m = 1$ on the $d = 3$ cubic lattice fixes $K = 6$ internal components per site.
 
-(ii) The cubic rotation group's representation theory decomposes the six-dimensional internal space as $\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$, fixing the eigenvalue multiplicities at $(3, 2, 1)$.
+(ii) The cubic rotation group's representation theory decomposes the six-dimensional internal space as $\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$, fixing the block multiplicities at $(3, 2, 1)$.
 
-(iii) The commutant of the coupling matrix with these multiplicities is $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$, from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.
+(iii) The coupling matrix is scalar, $M = \mu I_6$, with commutant $\mathrm{U}(6)$; the stabilizer of an equivariant condensate $\Sigma$ with distinct block values on these multiplicities is $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$ (SM Theorem 5), from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$.
 
 (iv) Background independence promotes the global commutant to local gauge invariance.
 

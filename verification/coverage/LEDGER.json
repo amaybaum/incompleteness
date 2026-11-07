@@ -84,6 +84,20 @@
       "note": ""
     },
     {
+      "id": "GR:T-unnamed-b09a495a",
+      "paper": "papers/GR.md",
+      "line": 675,
+      "kind": "Theorem",
+      "label": "-level statement",
+      "fingerprint": "b09a495aaaa74234",
+      "area": "gr",
+      "assumptions": "see the statement",
+      "checks": [],
+      "kernel": "GAP",
+      "delta": "not formalized",
+      "note": ""
+    },
+    {
       "id": "GR:T-a.1",
       "paper": "papers/GR.md",
       "line": 729,
