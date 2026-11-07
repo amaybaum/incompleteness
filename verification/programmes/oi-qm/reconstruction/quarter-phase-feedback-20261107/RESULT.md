@@ -64,8 +64,9 @@ paper does not exclude or identify them with H-C.
 `t_w(v)=v+w` is an available encoded-carrier process, for each w in V.
 This is the generous supplied translation resource in Q-A's N
 (DESIGN §1.2, node 9 and ledger P2/H-PREP). It is not derived physical
-availability. It is enough that each such translation have an available
-positive-weight heralded branch with its declared record retained.
+availability. It is enough that each such translation have an available heralded branch
+q_w t_w, with q_w>0 independent of the input/preparation and with its
+declared record retained. No state-dependent success weighting is assumed.
 
 **Target S and failures.** The quantum comparator sends
 Z_b to Z_b, X_b to Y_b, and Y_b to X_(b+1).
