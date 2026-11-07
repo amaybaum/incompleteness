@@ -93,7 +93,7 @@ The parity-violating energy difference for typical amino acids is tiny — appro
 
 ## 10.4 The scale hierarchy and the permanence of atoms
 
-The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths corresponding to independent eigenvalues of the substratum coupling matrix $M$ (Chapter 5 §5.4). The framework's universal induced coupling $1/\alpha_0 = 23.25$ at the Planck scale is itself structural — determined by the number of fermion families $N_f = 6$ and the Dynkin index, not by the eigenvalues of $M$. The framework reproduces all three Standard Model gauge couplings at $M_Z$ through non-perturbative gauge self-energy corrections and renormalization-group running (Chapter 6 §6.4).
+The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths (Chapter 6 §6.4). The framework's universal induced coupling $1/\alpha_0 = 23.25$ at the Planck scale is itself structural — determined by the number of fermion families $N_f = 6$ and the Dynkin index. The framework reproduces all three Standard Model gauge couplings at $M_Z$ through non-perturbative gauge self-energy corrections and renormalization-group running (Chapter 6 §6.4).
 
 The two independent gauge couplings produce two widely separated energy scales at the chemistry-relevant level:
 $$E_{\text{nuclear}} \sim \Lambda_{\text{QCD}} \sim \text{MeV}, \qquad E_{\text{atomic}} \sim \alpha^2 m_e c^2 \sim \text{eV}.$$

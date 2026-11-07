@@ -70,7 +70,7 @@ Four additional structural results extend the chain beyond orbital chemistry.
 
 ### 2.5 The scale hierarchy
 
-The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths corresponding to independent eigenvalues of the coupling matrix M [2, §4.6]. This guarantees two widely separated energy scales:
+The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths [2, §6]. This guarantees two widely separated energy scales:
 
 $$E_{\text{nuclear}} \sim \Lambda_{\text{QCD}} \sim \text{MeV}, \qquad E_{\text{atomic}} \sim \alpha^2 m_e c^2 \sim \text{eV}$$
 
