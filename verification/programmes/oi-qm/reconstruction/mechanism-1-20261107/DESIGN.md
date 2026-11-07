@@ -1,279 +1,331 @@
 # MECH-1: native reciprocity as a selection of quantum-compatible operations, and the control it excludes
 
 **Standing.** Paper-only research unit under #1169. Author: Claude Code session,
-2026-11-07. Scope: [owner authorization](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6714000230)
-and [research question](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6713955150),
-with the owner addendum of 2026-11-07 (composition and changed-measurement
-tests; the three shortcut checks of §4) relayed by the coordinator in this
-session. This file proposes no premise for adoption and promotes no claim. No
-simulation, enumeration campaign, Lean build, V3 execution, manuscript change,
-freeze, dispatch or merge is part of it. Small exact or floating-point checks of
-this file's own algebra were run as author self-checks (§9). They are controls
-on that algebra, not evidence, and no verdict rests on them.
+2026-11-07. Scope:
+
+- [owner authorization](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6714000230);
+- [research question](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6713955150);
+- [owner addendum](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6714136234):
+  composition and changed-measurement tests, and the three shortcut checks of §4.
+
+This file proposes no premise for adoption and promotes no claim. No simulation,
+enumeration campaign, Lean build, V3 execution, manuscript change, freeze,
+dispatch or merge is part of it. Small exact or floating-point checks of this
+file's own algebra were run as author self-checks (§9). They are controls on that
+algebra, not evidence, and no verdict rests on them.
 
 **Source snapshot.** Every repository link is pinned to `main` at
 `313a93efcab581465919a4ff82ecda1e4b81e990` (cited as `main@313a93ef`), which
-contains apparatus-1 (#1183), Q-A (#1184) and the Q-A forward repair and
-feedback result (#1189). Abbreviations: **AP1** =
-[apparatus-1 DESIGN](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md);
-**QA** = [Q-A DESIGN](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md);
-**PR-QA** = [Q-A PROOF-RECOVERY](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/PROOF-RECOVERY.md);
-**FB** = [feedback RESULT](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-feedback-20261107/RESULT.md).
+contains apparatus-1 (#1183), Q-A (#1184), and the Q-A forward repair and
+feedback result (#1189). Abbreviations:
+
+- **AP1**: [apparatus-1 DESIGN](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md);
+- **QA**: [Q-A DESIGN](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md);
+- **PR-QA**: [Q-A PROOF-RECOVERY](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/PROOF-RECOVERY.md);
+- **FB**: [feedback RESULT](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-feedback-20261107/RESULT.md).
+
+**Labels used from earlier records.**
+
+- **SA-1**: AP1's access candidate. Reciprocal coupling (a); arming per tick and
+  per edge, P3 (a′); terminal registration, P1 (b); half-known ready cells, P2 (c).
+- **PC-F1**: the gauge control requiring one encoded identification fixed for all
+  settings (AP1 §1.3).
+- **E-AR**: the obstruction that unboundedly many perfectly distinguishable
+  preparations exclude a fixed `C²` carrier (AP1 C4).
+- **Native A**: the nonlinear `F_2`-triple rule of the record-control record
+  (§1.4).
+- **P-SDC**: #1110's state-dependent-coupling proposal.
+- **H-INF-μ**: a normalized product law on a cone of an infinite hidden sector
+  (QA ledger).
 
 ## 0. Result
 
-1. **Where the monomial obstruction sits (§1).** On the physical carrier every
-   deterministic bijective apparatus lies in `permClass` (AP1 Lemma 2), whatever
-   its dynamics. Non-monomial behaviour can only appear on an encoded carrier.
-   There the native reads are already phase-sensitive (AP1 §4.4). What is missing
-   is a reversible encoded operation that is non-monomial **and** completely
-   positive. On the native `F_2` alphabet the three existing results locate the
-   failure: no encoded `S` under the one-cell frame (AP1 Lemma 5); with a
-   same-sublattice coupling (NNB) `S` appears together with encoded reflections
-   (QA Lemma R); and reflections are forced for uniform linear qubit encodings
-   with available translations, adaptive protocols included (FB).
-2. **Selected lead (§1.4).** The characteristic of the native alphabet. The native
-   step is symplectic with multiplier `+1` because the coupling is symmetric
-   (reciprocity). Over `F_2`, `+1 = −1`, so symplectic and anti-symplectic maps
-   coincide and reciprocity cannot separate rotations from reflections. Over an
-   odd prime alphabet `F_q` they differ. The question is whether, at odd `q`,
-   reciprocity excludes non-quantum operations by itself.
-3. **Selection (§3, nodes 2–4).** At odd prime `q`, under Gross's
-   Clifford-covariant phase-space identification R-W (a fixed mathematical
-   representation, §2.1):
-   - **Theorem W.** Every protocol of the native class N, adaptive protocols,
-     recombination and NNB included, acts on the encoded carrier as a quantum
-     stabilizer instrument. Every branch is CP, and every composition matches
-     exactly.
-   - **Proposition AS.** For an ontic bijection of the phase space, the encoded
-     action is CP **iff** the bijection is affine symplectic.
-   - The native rule (linear, A5; symmetric and center-free, A4) is affine
-     symplectic, so the reflection-type operations are excluded by native
-     structure, not by a rule defined from the target. At `q = 2` the same frame
-     makes the native free tick itself a reflection (§3 node 2).
-4. **Capability (§3, nodes 5–7).**
-   - **Lemma S.** On a bipartite coupling graph, for every prime `q` and every
-     process of N including record feedback, no functional mixing a cell's two
-     slots is ever determined. Hence no encoded phase gate under one-cell frames:
-     the reversible encoded operations stay monomial in the frame.
-   - **Lemma N.** With NNB at odd `q`, an explicit word gives the single-cell
-     phase gate `P` exactly, with the partner cell returned. Its composition
-     battery (S∘S-type powers, the G2 sequence, repeated use with continuation,
-     changed reads) matches the comparator. A measure-and-prepare imitation
-     matches one step and fails the battery (CC-IMIT).
-   - **Proposition C.** At odd `q` no protocol of N, with or without NNB,
-     supplies the quarter phase, an infinite-order encoded unitary, or any
-     Wigner-negative state. The encoded theory is the noncontextual qudit
-     stabilizer theory.
-5. **Physical source (§3, nodes 1 and 8).**
-   - **Lemma A.** Under one fixed affine rule, a setting held anywhere in the
-     state can only translate values. It cannot select which functional is read
-     or the linear part of an operation.
-   - **Theorem T.** At odd `q` under R-W, no fixed bijective rule both lets an
-     in-world setting select a linear part and keeps a CP encoded action on all
-     joint laws, controller included. A controlled coupling (non-affine) maps a
-     reachable stabilizer state with an X-type controller to a non-quantum
-     encoded state. The setting-selection obligation and the selection
-     obligation are therefore in direct tension within this class.
-6. **Qubits (§3 node 7).** FB's proof uses only that the encoded functionals are
-   group homomorphisms to `Z_2`. It therefore holds for every finite abelian
-   configuration group, including a `Z_4` alphabet. Uniform level-set qubit
-   encodings exist exactly when that group has even order, and then the combined
-   `S` + C-CP target fails. At odd order reciprocity supplies C-CP, but there is
-   no qubit and no quarter phase.
-7. **Outcome type (ii): stop (§6).** One obligation passes natively (selection,
-   at odd `q`). Continuation passes under the carried-over posits. Capability
-   needs NNB and stays inside the noncontextual stabilizer fragment.
-   Physical-source setting selection fails. The smallest missing physical
-   premise is **CTRL-REC**: an armable coupling whose coefficient is a fixed
-   function of the registered slot of a terminal record cell. Theorem T shows
-   why the controller must be confined to record laws. For the qubit quarter
-   phase, no premise in this class supplies it (M3, open). No V3 round is
-   proposed.
+1. **Where the monomial obstruction sits (§1).**
+   - On the physical carrier every deterministic bijective apparatus lies in
+     `permClass` (AP1 Lemma 2), whatever its dynamics.
+   - Non-monomial behaviour can only appear on an encoded carrier. There the
+     native reads are already phase-sensitive (AP1 §4.4).
+   - What is missing is a reversible encoded operation that is non-monomial
+     **and** completely positive (CP).
+   - Over `F_2` the existing results give no encoded `S` in the one-cell frame
+     (AP1 Lemma 5). With a same-sublattice coupling (NNB), `S` comes together
+     with encoded reflections (QA Lemma R). FB forces reflections for uniform
+     linear qubit encodings with available translations, adaptive protocols
+     included.
+2. **Selected lead (§1.4): the characteristic of the native alphabet.**
+   - The native rule `x(t+1) = Σ k x_nbr − x(t−1)` has a `−x(t−1)` memory term
+     (Substratum A4, SM form lemma). Together with symmetric coupling, that makes
+     each step symplectic with multiplier `+1`. With `+x(t−1)` the step would be
+     anti-symplectic (node 2).
+   - Over `F_2`, `+1 = −1`, so the multiplier cannot tell rotations from
+     reflections. Over an odd prime alphabet it can.
+   - The question is whether, at odd `q`, this native structure excludes
+     non-quantum operations without a rule defined by the target.
+3. **Selection (nodes 2–4).** Fix Gross's Clifford-covariant phase-space frame
+   R-W, a mathematical representation chosen once (§2.1), at odd prime `q`.
+   - **Theorem W.** Every protocol of the native class N acts on the encoded
+     carrier as a quantum stabilizer instrument. This includes adaptive
+     protocols, recombination and NNB. Every branch is CP and composition
+     corresponds exactly.
+   - **Proposition AS.** The encoded action of an ontic bijection is CP **iff**
+     the bijection is affine symplectic.
+   - O3 is therefore met in this precise form: the native rule is affine
+     symplectic, and there is one fixed frame in which the affine symplectic
+     bijections are exactly the CP ones.
+   - At `q = 2`, R1 represents some symplectic maps as reflections, and the
+     multiplier cannot exclude them (node 2).
+4. **Capability (nodes 5–7).**
+   - **Lemmas S and G (bipartite graph, every prime `q`, record feedback
+     included).** No functional mixing a cell's two slots is ever determined.
+     Every available reversible encoded operation is graded, so it is monomial
+     in the sector-adapted product basis.
+   - **Lemma N and Lemma M (NNB, odd `q`).** Explicit words give both
+     single-cell shears and hence the full single-qudit Clifford group. No fixed
+     product basis makes every available operation monomial.
+   - The composition battery (C-COMP) is passed. **It is passed equally by the
+     mechanism's own classical model.** By Proposition C(d) the native `P` is
+     the epistricted noncontextual model. No test inside the reachable fragment
+     distinguishes it from a classical statistical model. C-COMP rejects only
+     the weaker measure-and-prepare imitation (CC-IMIT).
+   - **Proposition C (odd `q`).** No protocol supplies the quarter phase, an
+     infinite-order encoded unitary, or a Wigner-negative state.
+5. **Physical source (nodes 1 and 8).**
+   - **Lemma A.** Under one fixed affine rule, a setting held in the state can
+     only translate values.
+   - **Theorem T.** At odd `q`, in R-W, a fixed bijective rule whose joint
+     encoded action is CP is affine, so in-world setting selection then fails.
+   - **Proposition T′ (exact, every odd `q`).** Under any rule in which a
+     controller slot selects a carrier linear part `S(u_c)` that is not
+     constant, a reachable stabilizer input with an X-type controller goes to a
+     non-quantum encoded state.
+   - Conversely, quantum compatibility holds if every `S(s)` is symplectic and
+     the controller's law is diagonal in its setting slot.
+6. **Qubit encodings (node 7).**
+   - FB's proof uses only homomorphisms to `Z_2`, so it holds for every finite
+     abelian configuration group whose `Hom(V, Z_2)` has rank at least 2. For
+     `V = Z_m^{2n}` this means exactly when `m` is even, which includes a `Z_4`
+     alphabet. For such groups the combined `S` + C-CP target fails.
+   - At odd order there is no uniform level-set qubit encoding and no quarter
+     phase.
+7. **Outcome type (ii): stop (§6).**
+   - Selection passes natively at odd `q` in the stated form.
+   - Continuation passes under the carried-over posits.
+   - Capability needs NNB, and it stays inside a fragment that a classical model
+     reproduces exactly.
+   - Setting selection fails natively.
+   - The missing physical premise for in-world setting selection is **M1**. It
+     is a non-affine coupling coefficient set by a controller slot, together with
+     a physical reason that keeps controllers' laws diagonal in that slot. As a
+     bare confinement it is a target-motivated restriction (CC-RECON). A
+     dynamical form, continual monitoring by terminal ready meters (CTRL-MON,
+     §6.2), reduces it to a supplied terminality condition. Nothing smaller was
+     found.
+   - For the qubit quarter phase with C-CP, no premise in this class supplies it
+     (M3, open). No V3 round is proposed.
 
 ## 1. Locating the obstruction
 
 ### 1.1 The physical carrier
 
 AP1 [Lemma 2](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md#L153)
-covers every apparatus that acts on a finite configuration set by bijections,
-attaches fresh cells with fixed laws, discards by marginalization and conditions
-on configuration records. Each branch of each such instrument is a sum of
-conjugations by scaled partial permutations, which is
+covers every apparatus that does the following on a finite configuration set:
+
+- acts by bijections;
+- attaches fresh cells with fixed laws;
+- discards by marginalization;
+- conditions on configuration records.
+
+Each branch of each such instrument is a sum of conjugations by scaled partial
+permutations, that is,
 [`permClass`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L236).
-Restricted to a finite cone, the kernel results
+Restricted to a finite cone,
 [`permTheory_not_control`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L708)
 and [`permTheory_not_qm`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean#L717)
-then apply by the monotonicity transfer of QA §4.1. This holds for **every** update
-rule, linear or not, and for every alphabet. The premises that produce it are
-three:
+apply by QA §4.1's monotonicity transfer. This holds for every update rule and
+every alphabet. Three premises produce it:
 
 - (P-a) the operational state is a law on configurations;
 - (P-b) every step is bijection-valued;
 - (P-c) reads are of configuration functions.
 
-The adjacent kernel audits agree.
-[`ReadWriteControl.lean`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/ReadWriteControl.lean#L1)
-names "an extended substratum with a genuinely continuous (non-bijective-valued)
-coupling" as the open question, which is a change to (P-b).
-[`ExecSource.lean`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/ExecSource.lean#L52)
-and [`LiftSource.lean`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/LiftSource.lean#L251)
-show that fractional-time layer flows need a non-monomial admissible operator,
-and that the coherent and stochastic lifts are configuration-level.
-[GR:270](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/GR.md#L270)
-records the site-space wave-operator formulation as unresolved.
+Other kernel and paper results agree:
+
+- [`ReadWriteControl.lean`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/ReadWriteControl.lean#L1)
+  names "an extended substratum with a genuinely continuous (non-bijective-valued)
+  coupling" as open. That would change (P-b).
+- [`ExecSource.lean`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/ExecSource.lean#L52)
+  and [`LiftSource.lean`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/LiftSource.lean#L251)
+  show two things. Fractional-time layer flows need a non-monomial admissible
+  operator. The coherent and stochastic lifts are configuration-level.
+- [GR:270](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/GR.md#L270)
+  records the site-space wave-operator formulation as unresolved.
 
 ### 1.2 The encoded carrier
 
-AP1 keeps (P-a)–(P-c) on the physical carrier and changes the
+AP1 keeps (P-a)–(P-c) on the physical carrier. It changes only the
 **identification**: a fixed, setting-independent map from laws on one cell to
-states of `C²`, namely R1, the tetrahedral frame
+states of `C²`, the tetrahedral frame R1
 ([AP1 §4.2](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md#L498)).
 On that carrier:
 
-- **Phase-sensitive instruments are native.** The native minimal read (a coupled
-  tick with a half-known meter, then terminal registration) is the encoded `Z` or
-  `X` Lüders instrument. Its `X` branch has Kraus operator `|+⟩⟨+|`, which is
-  non-monomial in the `Z` basis.
+- **Phase-sensitive instruments are native.** The native minimal read is the
+  encoded `Z` or `X` Lüders instrument. It consists of a coupled tick with a
+  half-known meter, then terminal registration.
 - **Non-monomial CP reversible operations are missing.**
   - AP1 [Lemma 5](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md#L731)
-    excludes encoded `S` under R1 by any stochastic map.
-  - QA [Lemma G1](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L240)
+    excludes `S` under R1 by any stochastic map.
+  - QA [G1](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L240)
     and [G2](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L342)
-    exclude it for non-adaptive processes on bipartite graphs under any
-    encoding.
+    exclude it for non-adaptive bipartite processes.
   - With NNB, QA [Lemma R](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L667)
-    shows that `S` comes with two separately available encoded reflections.
+    shows `S` comes with two separately available encoded reflections.
   - FB [§§3–5](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-feedback-20261107/RESULT.md#L85)
-    excludes the combined `S` + C-CP target for uniform linear encodings with a
-    common lift and available translations, record feedback included.
+    excludes the combined `S` + C-CP target. Its scope is uniform linear
+    encodings with a common lift and available translations, feedback included.
 
-All three results are stated over `F_2`. Each reflection in them is an encoded
-map of determinant `−1` on the Bloch octahedron: the transpose class, which is
-not CP.
+All of these results are over `F_2`. Each reflection is an encoded map of
+determinant `−1` on the Bloch octahedron (the transpose class), which is not CP.
 
 ### 1.3 What would have to change
 
 | Premise | Change | Covered by |
 | --- | --- | --- |
-| (P-b) bijection-valued steps | Continuous or non-bijective coupling | `ReadWriteControl` open question; B1's E-real/E-control |
-| (P-c) configuration reads | Reads of non-configuration observables | F2-1 A★ Θ-D, N8 (declared projectors fail its screen item 2) |
-| Identification R1 | Larger or different encoded frame | AP1 §5.2 (P-8), QA (U′ and NNB) |
-| Native alphabet `F_2` | Odd characteristic | AP1 §5.6 (expectation only), QA G1 (generation only, no C-CP) |
+| (P-b) bijection-valued steps | Continuous or non-bijective coupling | `ReadWriteControl` open question; B1's E-real and E-control |
+| (P-c) configuration reads | Reads of non-configuration observables | F2-1 A★ Θ-D and N8 (these fail its screen item 2) |
+| Identification R1 | Larger or different encoded frame | AP1 §5.2 (P-8); QA (U′, NNB) |
+| Native alphabet `F_2` | Odd characteristic | AP1 §5.6 (an expectation only); QA G1 (generation only, no C-CP) |
 | Access P1–P3 | Changed registration, supply or arming | AP1 C3, C4, C9; QA Lemma Q |
 
 ### 1.4 Leads, dispositions and selection
 
 | Lead | Prior coverage | Disposition |
 | --- | --- | --- |
-| Observer-level coarse-grained or traced description (Koopman, Fourier or Bogoliubov change of observable basis) | Main §3.2 [Lemma 2](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L306): the traced one-step channel of the native rule is a Clifford-conjugated mixture of Weyl operators, all monomial. LiftSource T3: the stochastic channel has monomial Kraus operators. F2-1 A★ [Θ-K, Θ-F](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/amendments/A-star.md#L73); PC-F1 gauge control | Covered. A basis change is a frame change. Its usable part, a **fixed** encoded frame, is retained in the selected lead as a representation, not as a source |
-| Fractional-time layer-flow access | [`obs_not_layerFlowExecutable`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/ExecSource.lean#L129); LiftSource T4; F2-1 [N4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/amendments/A-star.md#L79) | Covered (kernel negative; executability is an added intervention) |
-| Continuum or large-`q` limit with metaplectic quantization | F2-1 [N8](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/amendments/A-star.md#L83); [interface source §4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/observer-interface-source.md#L192), row L3; B1 | Partly covered. Its finite, exact form is the selected lead: at odd `q` the Weil (finite metaplectic) representation exists exactly, with no continuum or Hilbert-space premise. The continuum version is left to Q-B (§6.5) |
-| Preparation-contextual or nonlinear encodings | Left open by FB §5 | Not selected. No physical lead for a contextual lift is in the corpus; node 7 sharpens what such a lead must break |
-| B1 conditional two-mode mixing | [B1 §6](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/two-mode-drive.md#L124) (density-dictionary obstruction); its E-control is externally loaded | Covered. Lemma A (node 1) shows why its control cannot be internal under a fixed affine rule |
-| **L-χ: alphabet characteristic and native reciprocity** | AP1 §5.6 states the odd-`q` stabilizer case as an expectation. QA G1 settles generation for non-adaptive bipartite processes. No record decides C-CP at odd `q`, and Lemma R, PR-QA and FB are all over `F_2` | **Selected** |
+| Observer-level coarse-grained or traced description (Koopman, Fourier or Bogoliubov change of observable basis) | Main §3.2 [Lemma 2](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L306) (the traced one-step channel is a Clifford-conjugated Weyl mixture with monomial Kraus operators); LiftSource T3; F2-1 A★ [Θ-K, Θ-F](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/amendments/A-star.md#L73); PC-F1 | Covered. Its usable part, a **fixed** encoded frame, is kept as a representation, not as a source |
+| Fractional-time layer-flow access | [`obs_not_layerFlowExecutable`](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/lean-mathlib/OIBridge/ExecSource.lean#L129); LiftSource T4; F2-1 [N4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/amendments/A-star.md#L79) | Covered |
+| Continuum or large-`q` limit with metaplectic quantization | F2-1 [N8](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/recursive-substates/f2-1-coherence-sourcing/amendments/A-star.md#L83); [interface source §4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/observer-interface-source.md#L192), row L3; B1 | Partly covered. Its exact finite form is the selected lead: at odd `q` the finite Weil representation exists exactly. The continuum form is left to Q-B (§6.5) |
+| Preparation-contextual or nonlinear encodings | Left open by FB §5 | Not selected. No physical lead in the corpus. Node 7 sharpens what such a lead must break |
+| B1 conditional two-mode mixing | [B1 §6](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/two-mode-drive.md#L124); its E-control is externally loaded | Covered. Lemma A (node 1) shows why that control cannot be internal under a fixed affine rule |
+| A native record entering control | [Record-control](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/record-control-20261107/DESIGN.md#L11): a record-bearing field enters a neighbouring Native A gate (nonlinear, `F_2` triples) without an added write, and stops at conversion into a usable controlled operation. [Setting-source feasibility](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/continuous-substates/native-setting-source-feasibility.md#L7): record-derived labels cannot steer an independent coordinate without a state-changing operation, and a supplied ideal actuator does not close that gate | Not re-surveyed. Both bear on M1 (§6.2): they show native delivery without a usable actuator, and they mark a supplied actuator as a countercontrol, not a source |
+| **L-χ: alphabet characteristic and native reciprocity** | AP1 §5.6 states the odd-`q` stabilizer case as an expectation. QA G1 settles non-adaptive bipartite generation. No record decides C-CP at odd `q`; Lemma R, PR-QA and FB are all over `F_2` | **Selected** |
 
-**Justification of the selection.**
+**Justification.**
 
 - **Expected decisiveness.** The third obligation asks for an independently
-  motivated structure that excludes reflections. The only native structure
-  that distinguishes a rotation from a reflection in phase space is the
-  multiplier of the symplectic form: `+1` for symplectic maps, `−1` for
-  anti-symplectic ones. The native step has multiplier `+1` because the
-  coupling is symmetric (AP1 §4.1:
-  `[[A,−I],[I,0]]ᵀ Ω [[A,−I],[I,0]] = Ω` iff `A = Aᵀ`). Over `F_2` the
-  distinction is empty. Whether it does the selecting at odd `q` is decidable
-  by exact paper argument.
-- **Independent motivation.** Neither ingredient is chosen for the target. The
-  symmetric coupling is the native rule
-  ([Substratum A4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Substratum.md#L98),
-  [A5](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Substratum.md#L100);
-  [SM form lemma](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L224)),
-  and it is the same reciprocity that supplies the measurement backaction in
-  SA-1. The alphabet size is a native parameter that OI does not fix
+  motivated structure that excludes reflections. The native step has
+  symplectic multiplier `+1`. In AP1 §4.1's block form
+  `M = [[K, sI],[I, 0]]`, one finds
+  `MᵀΩM = [[Kᵀ−K, −sI],[sI, 0]]`, which equals `Ω` iff `K = Kᵀ` and `s = −1`,
+  and equals `−Ω` iff `K = Kᵀ` and `s = +1`. So the multiplier rests on two
+  native features:
+  - the memory term `−x(t−1)`
+    ([Substratum A4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Substratum.md#L98),
+    [SM form lemma](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L224));
+  - the symmetry of the coupling.
+
+  Over `F_2` both multipliers coincide. Whether the multiplier selects at odd
+  `q` is decidable by exact argument.
+- **Independent motivation.** The symmetric coupling with that memory term is
+  the native rule, and the same reciprocity supplies the measurement backaction
+  in SA-1. The alphabet size is a native parameter that OI does not fix
   ([SM §2.7](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L88)).
-  No value of `q` is adopted here: §3 computes both characteristics.
+  No value of `q` is adopted; both characteristics are computed.
 
 ## 2. Question, decision rule and controls
 
 The decision rule, controls and countercontrols below are stated in the same
-commit as the derivation of §3. Their priority over the result is not separately
-recorded.
+commit as the derivation of §3. Their priority over the result is not
+separately recorded. The verdicts are paper proofs, so no verdict depends on
+that order.
 
 ### 2.1 Target, comparator and identification
 
-- **Comparators (imported, I1).** At `q = 2`: the single-qubit stabilizer
-  subtheory, as in QA §1.1. At odd prime `q`: the stabilizer subtheory of
-  `n` qudits of dimension `q`, meaning stabilizer states and their mixtures,
-  Pauli (Weyl) reads with Lüders continuation, and the Clifford group. The
-  comparators are definitions, not native postulates.
+- **Comparators (imported, I1).**
+  - At `q = 2`: the single-qubit stabilizer subtheory (QA §1.1).
+  - At odd prime `q`: the `n`-qudit stabilizer subtheory of dimension `q`. This
+    means stabilizer states and their mixtures, Weyl (Pauli) reads with Lüders
+    continuation, and the Clifford group.
 - **Identification R-W (mathematical representation).** For odd `q`, use
-  Gross's phase-space point operators `A(λ)`, `λ ∈ F_q^{2n}`. Each cell's slots
-  `(u, v)` are identified with Gross's (position, momentum) by one fixed
-  symplectic convention, and the encoded frame is AP1's `J^{−t}` per cell. Since
-  `J` is symplectic, Theorem 7 of Gross makes the choice immaterial for
-  everything below. A law `μ` maps to `ρ_μ = Σ_λ μ(λ) A(λ)`. R-W is fixed for
-  all settings, which is the PC-F1 requirement. At `q = 2`, R-W reduces to AP1's
-  R1 tetrahedral frame (Wootters).
-- **Gross's facts used (read first-hand, arXiv:quant-ph/0602001; odd `d`).**
-  - (W1) The `A(λ)` have unit trace and are orthogonal with
-    `tr A(λ)A(μ) = q^n δ_{λμ}` (Theorem 6.1).
-  - (W2) Marginals over a Pauli level set are Born probabilities. Equivalently,
-    each Pauli eigenprojector is `Π_{f=c} = q^{−n} Σ_{f(λ)=c} A(λ)` (Theorem 6.3).
+  Gross's phase-space point operators `A(λ)`, `λ ∈ F_q^{2n}`.
+  - Each cell's slots `(u, v)` are identified with Gross's (position, momentum)
+    by one fixed symplectic convention, in AP1's encoded frame `J^{−t}` per cell.
+  - The free tick `J: (u, v) ↦ (−v, u)` of the `−x(t−1)` rule is symplectic.
+    By Gross's Theorem 7 the choice of frame within this family is immaterial.
+  - A law `μ` maps to `ρ_μ = Σ_λ μ(λ) A(λ)`. R-W is fixed for all settings,
+    as PC-F1 requires.
+  - At `q = 2`, Gross's construction needs `2^{−1}`. R1 is Wootters' `q = 2`
+    analogue.
+  - R-W is singled out by Clifford covariance, a property of the comparator.
+    O3 is stated with that qualification (node 4).
+- **Facts from Gross (arXiv:quant-ph/0602001, odd `d`; read first-hand).**
+  - (W1) The `A(λ)` have unit trace and `tr A(λ)A(μ) = q^n δ_{λμ}`
+    (Theorem 6.1).
+  - (W2) Pauli level-set marginals are Born probabilities:
+    `Π_{f=c} = q^{−n} Σ_{f(λ)=c} A(λ)`. This is Theorem 6.3 for position, and
+    holds for every Pauli functional by Theorem 7 and the transitivity of
+    `Sp(2n, F_q)` on nonzero vectors.
   - (W3) Multi-cell `A` factor as tensor products (Theorem 6.4).
-  - (W4) **Clifford covariance.** For affine symplectic `g = S· + a`, a unitary
-    `U_g = w(a)μ(S)` exists with `U_g A(λ) U_g† = A(gλ)`. `μ` is the Weil
-    representation, projective, which leaves conjugation channels unaffected
-    (Theorems 3 and 7, Lemma 4).
-  - (W5) **Discrete Hudson.** A pure state has a nonnegative Wigner function
-    iff it is a stabilizer state (Theorem 2).
+  - (W4) Clifford covariance. For affine symplectic `g = S· + a`,
+    `U_g = w(a)μ(S)` satisfies `U_g A(λ) U_g† = A(gλ)`. The Weil representation
+    `μ` is projective, which leaves conjugation channels unaffected (Theorems 3
+    and 7, Lemma 4).
+  - (W5) Discrete Hudson. A pure state has a nonnegative Wigner function iff it
+    is a stabilizer state (Theorem 2).
   - (W6) A unitary that keeps every nonnegative-Wigner state nonnegative is
     Clifford (Theorem 19).
+  - (W7) A stabilizer state `|M, v⟩` has Wigner function uniform on the affine
+    Lagrangian `M + v` (Lemma 9). Such a state exists for every pair `(M, v)`
+    (Lemma 8).
+  - (W8) A unitary that permutes the phase-space point operators is Clifford
+    (Lemma 29).
 
 ### 2.2 The class
 
 N is QA's class
-([§1.2](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L124)),
-read over a prime alphabet `F_q`:
+([§1.2](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L124))
+over a prime alphabet `F_q`. It contains:
 
-- second-order, linear, center-free, symmetric updates, either native or armed
-  per tick and per edge under P3, with E-iso;
-- P2 ready cells, each with one known slot whose value is supplied through
-  H-PREP;
+- second-order, linear, symmetric, center-free updates with the `−x(t−1)`
+  memory term, native or armed per tick and per edge under P3, with E-iso;
+- P2 ready cells;
 - P1 terminal registration;
 - discarding;
 - constant translations;
-- record-conditioned armings and translations (adaptive).
+- record-conditioned armings and translations.
 
-N+NNB adds QA's armable same-sublattice symmetric coupling. The carried-over
-posits keep their AP1 and QA classification as supplied
+N+NNB adds QA's armable same-sublattice symmetric coupling. The carried posits
+keep their AP1/QA classification as supplied
 ([ledger](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md#L411)).
 
 ### 2.3 The four obligations and their pass conditions
 
-- **O1 Physical source.**
-  - Pass iff the preparation, the receipt of a setting request and the operation
-    are executed by one fixed rule.
-  - The setting is held in the state, and the request is not loaded into the
-    dynamics from outside.
-  - Failures and records are part of the same dynamics.
-  - A supplied posit (P3, H-PREP, P2) gives the verdict "supplied", not "pass".
-- **O2 Quantum capability.** Pass iff some available reversible encoded
-  operation is non-monomial in the frame **or** is the quarter phase. In
-  addition, the operation must pass the composition battery C-COMP. A one-step
-  averaged match is not a pass.
+- **O1 Physical source.** Pass iff one fixed rule executes the preparation, the
+  receipt of a setting request held in the state, and the operation, including
+  failures and records. A supplied posit (P3, H-PREP, P2, or a premise of §6.2)
+  gives the verdict "supplied", not "pass".
+- **O2 Quantum capability.**
+  - Pass iff no fixed product basis makes every available reversible encoded
+    operation monomial, **or** the quarter phase is available.
+  - In either case the operation must pass the composition battery C-COMP. A
+    one-step averaged match is not a pass.
+  - Whether a classical statistical model also passes C-COMP is reported
+    separately (CC-IMIT′). It decides whether the pass carries any
+    nonclassicality.
 - **O3 Quantum selection.**
   - Pass iff every available encoded branch, and every coarse-graining of
     branches, has a CP extension (C-CP).
-  - The exclusion of reflection-type maps must follow from a structure stated
-    without reference to the comparator.
+  - The exclusion must follow from a structure stated without reference to the
+    comparator.
   - A rule that defines the operation set as "the quantum ones", or restricts
-    resources only because an unwanted operation must disappear (QA premise I),
-    is flagged by CC-RECON.
+    resources only because an unwanted operation must disappear, is flagged by
+    CC-RECON. QA premise I is such a rule.
 - **O4 Operational continuation.** Pass iff each operation has a derived
-  complete instrument: success branches, the heralded failure branch, the
-  retained records, the retained hidden information, and an outgoing state on
-  which the next operation of the class acts with the comparator's statistics.
+  complete instrument with all of the following:
+  - success branches;
+  - the heralded failure branch;
+  - retained records;
+  - retained hidden information;
+  - an outgoing state on which the next operation acts with the comparator's
+    statistics.
 
 ### 2.4 Controls and countercontrols
 
@@ -282,55 +334,52 @@ posits keep their AP1 and QA classification as supplied
 | C-PH | Encoded quarter phase (`PhasesAvailable` transported) | Reported. Escape iff available |
 | C-ROT | Encoded `rot`, or at odd `q` an encoded unitary of infinite order | Reported. Escape iff available. Every finiteness and measure hypothesis is named |
 | C-CP | Per encoding: every available encoded branch is CP | Required for O3 |
-| C-IS | AP1's per-state isotropy diagnostic | Diagnostic only. At odd `q`: whether reachable encoded states lie in the nonnegative-Wigner set |
-| C-NS | No-signalling of complete local histories, wing-local operations | Required |
-| C-LEAK | Two-system hidden-retention leak ([two-system §4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/two-system-interface.md#L241)), reuse and recombination | No protocol extracts information beyond the comparator |
-| C-Q | QA Lemma Q parity protection, where relevant | Checked for whether it survives at odd `q` |
+| C-IS | AP1's per-state diagnostic | Diagnostic only. At odd `q`: whether the reachable encoded states have nonnegative Wigner functions |
+| C-NS | No-signalling of complete local histories, with wing-local operations | Required |
+| C-LEAK | The two-system leak ([two-system §4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/two-system-interface.md#L241)), reuse and recombination | No protocol extracts information beyond what the comparator allows |
+| C-Q | QA Lemma Q parity protection | Whether it survives at odd `q` |
 | C-COMP | Composition battery (below) | Required for O2 |
-| CC-OFF | Mechanism off | (a) at `q = 2` the reflection must return; (b) with NNB removed, the phase gate must vanish |
-| CC-IMIT | Classical statistical imitation | A hidden-variable model matching one-step statistics must fail C-COMP |
-| CC-RECON | Reconstruction flag | Any operation set defined by the target is labelled a reconstruction, not physical sourcing |
-| C-EX | §A.21 exactness | Each structural identity is checked together with a control that must break it |
+| CC-OFF | Mechanism off | (a) at `q = 2` the reflection returns; (b) without NNB the phase gate vanishes |
+| CC-IMIT | Measure-and-prepare imitation | Must fail C-COMP |
+| CC-IMIT′ | The mechanism's own noncontextual model, or Gross sampling | Reported: whether it passes C-COMP |
+| CC-RECON | Reconstruction flag | An operation set or a resource restriction motivated by the target is labelled, not counted as a source |
+| C-EX | §A.21 exactness | Structural identities are checked together with controls that must break them |
 
 **C-COMP (owner addendum).** The tests are applied to the candidate operation
-`O`: `S` at `q = 2`, or the phase gate `P: (u, v) ↦ (u, v + u)` at odd `q`,
-whose order is `q`.
+`O`. At `q = 2` this is `S`. At odd `q` it is the phase gate
+`P: (u, v) ↦ (u, v + u)`, of order `q`.
 
 - K1: `O∘O` on every encoded eigenstate family.
 - K2: `O^m = I`, with reads.
-- K3: G2's sequence `X_+ → O^{m−1} → X → O → X`, including the heralded-failure
-  branch `R0` of the middle read.
-- K4: repeated use with continuation: `O`, a read, `O` again, a read, for every
-  read choice.
-- K5: changed measurement choices: on one preparation, every available read axis
-  after `O`.
-- K6: the complete instrument, with every branch and the failure branch, never
-  only a postselected success.
+- K3: G2's sequence `X_+ → O^{m−1} → X → O → X`, including the herald-failure
+  branch `R0`.
+- K4: repeated use with continuation, for every read choice.
+- K5: every available read axis after `O`, on one preparation.
+- K6: the complete instrument, with every branch and the failure branch.
 
-**Pass:** equality of the joint record laws with the comparator for **all**
-finite sequences. This must be shown by an exact homomorphism or by induction
-over a family closed under the class, not by checking finitely many sequences.
+**Pass** means the joint record laws equal the comparator's for all finite
+sequences. It must be shown by an exact homomorphism, or by induction over a
+family closed under the class.
 
 ### 2.5 Shortcut checks (owner addendum)
 
-- **SC-1, imported quantum behaviour.** Is a unitary, an interference mechanism
-  or a CP restriction assumed rather than derived?
-- **SC-2, hidden external control.** Does the construction rely on an outside
-  agent selecting a coupling or preparing special inputs?
-- **SC-3, representation versus physical implementation.** Does the
-  non-monomial operation exist in the physical dynamics, or only in the
-  observer's mathematical representation?
+- **SC-1.** Is a unitary, an interference mechanism or a CP restriction imported?
+- **SC-2.** Does an outside agent select couplings or prepare special inputs?
+- **SC-3.** Does the non-monomial operation exist in the physical dynamics or
+  only in the representation?
 
 ### 2.6 Decision rule
 
 - **D0.** A failed C-EX or CC-OFF voids the verdict of the branch it controls.
-  A candidate that passes only after the encoded operation set is restricted
-  by reference to the comparator is labelled under CC-RECON.
-- **D1.** Each obligation is decided in N first, then under the smallest single
-  departure, which is stated as a conditional premise with what it preserves,
-  what it buys and its independent consequences (§A.29).
-- **D2.** O2 passes only together with C-COMP. CC-IMIT must fail C-COMP, or
-  C-COMP is void.
+  A candidate that passes only after the encoded operation set, or a resource,
+  is restricted by reference to the comparator is labelled under CC-RECON.
+- **D1.** Each obligation is decided in N first. If it fails there, it is
+  decided under the smallest single departure found. That departure is stated
+  as a conditional premise, with what it preserves, what it buys and its
+  independent consequences (§A.29).
+- **D2.** O2 counts only with C-COMP passed and CC-IMIT failing C-COMP. If
+  CC-IMIT′ also passes C-COMP, the O2 verdict is stated as "not separated from
+  classical imitation within the reachable fragment".
 - **D3.** Outcome types:
   - (i) O1–O4 pass, with C-CP, C-NS and C-LEAK green;
   - (ii) any obligation needs a new premise or fails;
@@ -340,402 +389,493 @@ over a family closed under the class, not by checking finitely many sequences.
 
 ### Node 1. Settings under one fixed affine rule (O1)
 
-**Lemma A (affine settings).** The hypotheses:
+**Lemma A (affine settings).** Assume:
 
-- the whole system (carrier, meters, ready supplies, controller, heralds and
-  record cells) evolves under one fixed affine bijection `Φ` of `F_q^N` per tick
-  (any `q`);
-- the setting `c` is a value in controller coordinates at time 0;
-- the rest of the initial law is independent of `c` (AP1 C1, Gate A).
+- the whole system evolves under one fixed affine bijection `Φ` of `F_q^N` per
+  tick, for any `q`. The whole system means the carrier, meters, ready
+  supplies, controller, heralds and record cells;
+- the setting `c` sits in controller coordinates at time 0;
+- the rest of the initial law is independent of `c` (AP1 C1).
 
 Then:
 
-- (i) every slot at every time is `ℓ(x) + β·c + const`, where `ℓ` is a linear
-  functional of the non-controller initial variables and `ℓ` and `β` do not
-  depend on `c`;
-- (ii) which functional of the carrier a record registers does not depend on
-  `c`, and neither does the subspace of functionals determined by the records;
-- (iii) changing `c` changes each encoded branch only by translations of slot
-  values and relabellings of record values.
+- (i) every slot is `ℓ(x) + β·c + const`, with `ℓ` and `β` independent of `c`;
+- (ii) neither the functional of the carrier that a record registers nor the
+  subspace determined by the records depends on `c`;
+- (iii) `c` changes each encoded branch only by translations of slot values and
+  by relabelling of record values.
 
-*Proof.* `Φ^t(x, c) = L_t (x, c) + a_t`, with `L_t` and `a_t` fixed. Split
-`L_t` into its blocks on `x` and on `c`. The `c`-block contributes only an
-additive term. A record is a slot, so (i) gives (ii). Conditioning on records
-fixes values and leaves the determined subspace unchanged. ∎
+*Proof.* Write `Φ^t(x, c) = L_t(x, c) + a_t`. The `c`-block of `L_t` contributes
+only an additive term. A record is a slot, which gives (ii). Conditioning fixes
+values and leaves the determined subspace unchanged, which gives (iii). ∎
 
-**Corollary A′.** The observer's later choice of which existing record to
-consult does not repair Lemma A. The physical process is the same for both
-settings, so the joint law of all physical records is setting-independent. In
-the comparator (AP1 §4.4 table) the `(r0, r2)` marginal differs between
-`(s, s') = (0, 1)` and `(1, 1)`: independent versus equal. No coarse-graining of
-a setting-independent process reproduces that difference.
+**Corollary A′.** Choosing afterwards which record to consult does not escape
+Lemma A. The physical joint law of all records does not depend on the setting.
+The comparator's `(r0, r2)` marginal does depend on it: AP1 §4.4 gives
+independence at `(s, s') = (0, 1)` and equality at `(1, 1)`.
 
 **Consequences.**
 
-- The SA-1 controller arms an edge when "`s = 0` and `e = 1`", a product, so it
-  is not affine. P3 loads coefficients from outside the rule.
-- B1's E-control is also externally loaded.
+- SA-1's controller arms an edge when "`s = 0` and `e = 1`". That is a product,
+  so the controller is not affine. P3 loads coefficients from outside the rule,
+  and so does B1's E-control.
+- Any in-world source of setting selection must make the rule non-affine in the
+  joint state.
 
-Under one fixed affine OI rule, a setting request therefore cannot select a `Z`
-versus `X` read, nor `I` versus `P`. Any in-world source of setting selection
-must make the rule non-affine in the joint state.
+**Verdict for O1 within N: fails.** Setting selection is supplied by P3.
 
-**Verdict for O1 within N:** fails. The setting selection is supplied (P3), and
-Lemma A shows it cannot be internal while the rule is affine.
+### Node 2. The characteristic-2 collapse and the memory sign
 
-### Node 2. The characteristic-2 collapse
-
-The free tick of an isolated cell is `J: (u, v) ↦ (−v, u)`, which is symplectic.
-
-- **At `q = 2`, `J` is the swap `(z, x) ↦ (x, z)`.** In R1 (the `q = 2` frame)
-  this swap acts on the Bloch octahedron as `Z ↔ X` with `Y` fixed:
-  determinant `−1`, a reflection. Its encoded linear action has a Choi
-  eigenvalue `−1` (self-check c3). AP1 uses the rotating frame `J^{−t}` (its C8)
-  and so absorbs this. The reflection reappears in QA's Lemma R because over
-  `F_2` every anti-symplectic map is symplectic.
-- **Within R1, the CP subgroup of the affine maps is the even permutations of
-  the four ontic points.** `AGL(2, F_2) ≅ S_4`. The 3-cycles, such as
-  `(z, x) ↦ (x, z + x)`, are Clifford rotations of order 3 (c3). The linear
-  transpositions are reflections. Translations are Pauli rotations.
-- **At odd `q`, multiplier `+1` and `−1` differ.** The anti-symplectic map
-  `(u, v) ↦ (u, −v)` is not symplectic. Its R-W image is the transpose class,
-  with a Choi eigenvalue `−1` (c1).
+- **Memory sign.** With `s = −1` (Substratum A4, SM L224, AP1 §4.1) a symmetric
+  step is symplectic. With `s = +1` it is anti-symplectic at odd `q`.
+  [Main L296](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L296)
+  displays the `F_2` rule with `+ v`, which is the same rule at `q = 2`. This
+  file uses the `−x(t−1)` form throughout. The sign question for Main is not
+  resolved here (§7).
+- **At `q = 2`.**
+  - In AP1's adopted frame `J^{−t}`, the free tick is the identity (AP1 C8).
+    In the non-rotating frame it is the swap `(z, x) ↦ (x, z)`. R1 represents
+    that swap as `Z ↔ X` with `Y` fixed, a reflection with Choi eigenvalue `−1`
+    (self-check c3).
+  - The reflections of QA Lemma R are symplectic maps over `F_2`, such as
+    transvections `x += z` and the swap. R1 represents them as odd permutations
+    of the four points.
+  - Under R1, `AGL(2, F_2) ≅ S_4`. Even permutations act as rotations: the
+    3-cycles such as `(z, x) ↦ (x, z + x)` are Clifford rotations of order 3,
+    and translations are Paulis (c3). Odd permutations act as reflections.
+  - The operative fact is that R1 is not covariant under the `q = 2` symplectic
+    group: no Clifford-covariant Wigner function exists in even prime-power
+    dimension (Zhu). `+1 = −1` explains only why the multiplier cannot flag the
+    reflections.
+- **At odd `q`.** The anti-symplectic map `(u, v) ↦ (u, −v)` has an R-W image in
+  the transpose class, with Choi eigenvalue `−1` (c1).
 
 ### Node 3. Theorem W: native processes are stabilizer instruments at odd `q` (O3, O4)
 
-**Theorem W.** Hypotheses:
+**Theorem W.** Assume:
 
-- `q` an odd prime;
-- R-W as in §2.1;
-- any finite protocol of N or N+NNB, adaptive or not, including recombination of
-  unregistered meters and reuse;
-- ancilla laws whose R-W images are quantum states. P2's ready laws, uniform on
-  `{slot = c}`, qualify, and so do the uniform carrier source and any
-  stabilizer mixture.
+- `q` is an odd prime;
+- R-W is the identification;
+- the protocol is any finite protocol of N or N+NNB, adaptive or not, including
+  recombination of unregistered meters and reuse;
+- every ancilla law has a quantum state as its R-W image. This covers P2 ready
+  laws, the uniform carrier source and stabilizer mixtures.
 
-Conclusion: the linear map that the protocol induces on signed laws, conjugated
-by R-W, equals the action of a quantum stabilizer instrument. Every branch is
-CP, the full instrument is trace-preserving, and composition of protocols
-corresponds to composition of instruments.
+Then the protocol's linear action on signed laws, conjugated by R-W, is a
+quantum stabilizer instrument. Every branch is CP, and composition corresponds
+exactly.
 
-*Proof.* R-W is a linear bijection from functions on `F_q^{2n}` onto operators
-(W1). Each primitive is checked as a linear identity on **all** signed laws, so
-no conditioning or noise-independence inference is used.
+*Proof.* R-W is a linear bijection between functions on `F_q^{2n}` and
+operators (W1). Each primitive is checked as an identity on **all** signed laws,
+so no inference from conditioning is used.
 
-1. **Native, armed or NNB step.** Each is linear and symplectic (symmetric,
-   center-free). By (W4), `Σ μ(λ) A(Mλ) = U_M ρ_μ U_M†`.
-2. **Constant translation.** `A(λ + w) = w(w) A(λ) w(w)†`, a Weyl conjugation
-   (W4 with `S = I`).
-3. **Attaching a cell with law `ν`.** `ρ ↦ ρ ⊗ ρ_ν` by (W3). For a P2 law,
-   `ρ_ν` is a Pauli eigenprojector divided by `q` (W2), which is a state.
-4. **Registering a slot `f` of a meter that is then terminal (P1).** On laws this
-   restricts to `{f = c}` and marginalizes the meter. By (W2) and (W3),
-   `tr_m[(I ⊗ Π^m_{f=c})(A_c(λ_c) ⊗ A_m(λ_m))] = A_c(λ_c)·[f(λ_m) = c]`.
-   This is "measure the meter's Pauli `f`, record `c`, discard the meter", which
-   is CP. Under P1 the registered meter is never coupled again, so retaining it
-   is equivalent to discarding it for every later operation.
-5. **Discarding.** Marginalization equals partial trace (W3, unit traces).
-6. **Feedback.** A record-conditioned arming or translation is a classically
-   controlled Clifford or Weyl conjugation. A herald is an independent
-   classical coin.
+1. **Coupled step.** A native, armed or NNB step is linear and symplectic (node
+   2: symmetric coupling with `s = −1`; center-freeness is not needed here). By
+   (W4) it acts as `Σ μ(λ) A(Mλ) = U_M ρ_μ U_M†`.
+2. **Constant translation.** `A(λ + w) = w(w) A(λ) w(w)†`, by (W4).
+3. **Attaching a cell with law `ν`.** The map is `ρ ↦ ρ ⊗ ρ_ν` (W3). A P2 law is
+   uniform with mass `1/q` on the line `{f = c}`. By (W2) it maps to the Pauli
+   eigenprojector `Π_{f=c}` itself, a pure state of trace 1.
+4. **Registering a slot `f` of a meter that then stays terminal (P1).** By (W2)
+   and (W3),
+   `tr_m[(I ⊗ Π^m_{f=c})(A(λ_c) ⊗ A(λ_m))] = A(λ_c)·[f(λ_m) = c]`.
+   This is "measure the meter's Pauli `f`, then discard the meter". A registered
+   meter is never coupled again and is re-registered only on the same functional
+   (AP1 SA-1(b)). Keeping it is therefore equivalent to discarding it.
+5. **Discarding.** Marginalizing is the partial trace (W3, W1).
+6. **Feedback and heralds.** Record-conditioned armings and translations are
+   classically controlled Cliffords. Heralds are independent classical coins.
 
 Compositions and convex combinations of CP maps are CP. ∎
 
-**What the proof does not need.** It does not use PR-QA's sector case split or
-the independence of raw offsets, so the masked-record example of
-[PR-QA §3](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/PROOF-RECOVERY.md#L75)
-is covered automatically. It does not need non-adaptivity, bipartiteness or
-the absence of NNB.
+**Scope.**
 
-**Load-bearing posits.**
+- The proof does not use PR-QA's case split. The
+  [masked-record example](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/PROOF-RECOVERY.md#L75)
+  is covered automatically.
+- Hidden backgrounds whose R-W image is not a state are not covered.
+- P1 is load-bearing. Without it, registration is a restriction without a kick,
+  with Choi eigenvalue `−1` (c7; AP1 C9).
+- P2 is load-bearing. With a sharp meter the read has Choi eigenvalue `−1` (c7′;
+  AP1 C4, E-AR).
 
-- **P1.** Registering a slot of an active cell without discarding it is a
-  restriction without a kick. Its encoded map has a Choi eigenvalue `−1` (c7).
-  This is AP1's C9 sharpening.
-- **P2.** A meter with both slots known gives a kick-free read with a Choi
-  eigenvalue `−1` (c7′). This is AP1's C4 and the E-AR obstruction.
-- **H-PREP.** It reads record-conditioned classes as preparations.
+### Node 4. Proposition AS: CP characterizes the affine symplectic bijections
 
-**Self-checks.** At `q = 3`, two cells: the coupled tick for `k = 0, 1, 2` has a
-rank-1 Choi matrix (a unitary), and the read branches have rank-1 Choi matrices
-(c2).
-
-### Node 4. Proposition AS: CP exactly characterizes affine symplectic bijections
-
-**Proposition AS.** Let `q` be odd prime, `g` a bijection of `F_q^{2n}`, and
-`T_g` its R-W action, `T_g(A(λ)) = A(gλ)`. Then `T_g` is CP iff `g` is affine
+**Proposition AS.** Let `q` be an odd prime and `g` a bijection of
+`F_q^{2n}`. Define `T_g(A(λ)) = A(gλ)`. Then `T_g` is CP iff `g` is affine
 symplectic.
 
 *Proof.*
 
-- (⇐) This is (W4).
-- (⇒), first step. `T_g` permutes an orthogonal basis of equal norms (W1). It
-  is therefore trace-preserving, unital and Hilbert–Schmidt isometric, so
-  `tr(T_g ρ)² = tr ρ²`. If `T_g` is CP, it sends pure states to pure states.
-- (⇒), second step. Write `T_g = Σ_i K_i · K_i†`. For each pure `ψ`, the vectors
-  `K_i ψ` are pairwise parallel, since a sum of rank-one positive terms has rank
-  one only then.
-  - If some `K_i` has rank at least 2, write `K_j ψ = λ(ψ) K_i ψ` for every `j`.
-    For `ψ, φ` with independent images, comparing at `ψ + φ` forces
-    `λ(ψ) = λ(φ)`, so `K_j = λ K_i`. Then `T_g = Ad(K)` with `K†K = I`.
-  - If every `K_i` has rank at most 1, their ranges coincide, so `T_g` is
-    constant on pure states. That contradicts injectivity.
-- (⇒), third step. So `T_g = Ad(U)`. `T_g` sends each nonnegative law to a
-  nonnegative law, so `U` preserves Wigner nonnegativity of states. By (W6),
-  `U` is Clifford, `U = w(a)μ(S)`. By (W4), `A(gλ) = A(Sλ + a)` for all `λ`.
-  The `A(λ)` are distinct, so `g = S· + a`. ∎
+- **(⇐)** This is (W4).
+- **(⇒) Purity.** `T_g` permutes an orthogonal basis of equal norms (W1). So it
+  is trace-preserving, unital and a Hilbert–Schmidt isometry, and if it is CP it
+  sends pure states to pure states. Write `T_g = Σ_i K_i · K_i†`. For every pure
+  `ψ`, the vectors `K_iψ` are pairwise parallel, because a sum of rank-one terms
+  has rank one only then.
+- **(⇒) One Kraus operator.**
+  - Suppose some `K_i` has rank at least 2.
+  - For each `j`, write `K_jψ = λ(ψ)K_iψ` wherever `K_iψ ≠ 0`. Comparing at
+    `ψ + φ`, for `ψ, φ` with independent images, gives `λ(ψ) = λ(φ)`.
+  - If `K_iψ = 0`, take `y, y′` with independent images. Comparing at `ψ + ty`
+    for all `t` forces `K_jψ = 0`.
+  - Hence `K_j = λK_i`, and `T_g = Ad(K)` with `K†K = I`.
+  - If instead every `K_i` has rank at most 1, the outputs share one range.
+    `T_g` is then constant on pure states, which contradicts injectivity.
+- **(⇒) Clifford.** `Ad(U)` permutes the `A(λ)`, so `U` is Clifford by (W8).
+  Write `U = w(a)μ(S)`. By (W4), `A(gλ) = A(Sλ + a)` for every `λ`, and the
+  `A(λ)` are distinct, so `g = S· + a`. ∎
 
-**Consequences.**
+**Second proof of (⇒).** Apply `T_g ⊗ id` to the stabilizer state uniform on
+the graph `{(λ, Rλ)}`, with `R` anti-symplectic (W7). The output is pure and
+has a nonnegative Wigner function. By (W5) it is a stabilizer state, and by
+(W7) its support is an affine Lagrangian. That support is the graph of `g`, so
+`g` is affine symplectic. This form also gives Proposition T′ (node 8).
 
-- At odd `q` under R-W, among all ontic bijections, **CP ⇔ affine symplectic ⇔
-  (linear rule, A5) ∧ (symmetric coupling)**. Both native properties carry the
-  selection.
-- Anti-symplectic maps (reflections), non-symmetric (non-reciprocal) linear
-  couplings, and non-affine rules all give non-CP encoded actions on joint laws.
-- This answers O3 without CC-RECON. The permitted operations are fixed by the
-  native rule. Their CP property is computed, and its failure for every
-  alternative is also computed.
+**Consequences (§A.34; each direction named).**
 
-**Verdict for O3 at odd `q`:** **pass natively**, for every protocol of N and
-N+NNB, adaptive included, with P1 and P2 load-bearing. At `q = 2`: fails (QA
-Lemma R, FB). CC-OFF(a) is green: switching the characteristic to 2 returns the
-reflection (node 2).
+- **Among all ontic bijections:** CP ⇔ affine symplectic. (⇐) is W4. (⇒) is the
+  proof above.
+- **Within rules of the native second-order form**
+  `u′ = F(u) − v, v′ = u`: affine symplectic ⇔ (`F` affine) ∧ (the linear part
+  of `F` is symmetric).
+  - (⇐): an affine `F = K· + b` with `K = Kᵀ` gives a step that is affine and,
+    by AP1 §4.1, symplectic.
+  - (⇒): if the step is affine, then `F` is affine. If the step is symplectic,
+    then `K = Kᵀ` by the same identity.
 
-### Node 5. Lemma S: no mixed-functional knowledge on bipartite graphs (O2 within N)
+  This second equivalence does not hold among all bijections. Many affine
+  symplectic maps are not of the second-order form.
+- **O3 at odd `q`, in its precise form.** The native rule lies in this class.
+  There is one fixed frame, singled out by the comparator's Clifford covariance,
+  in which this class is exactly the CP bijections. The operation set is not
+  restricted: anti-symplectic, non-reciprocal and non-affine bijections all
+  remain conceivable, and each is computed to be non-CP.
+- **Verdict for O3 at odd `q`: pass natively.** This holds for all of N and
+  N+NNB, adaptive protocols included. P1 and P2 are load-bearing, and the frame
+  carries the qualification above.
+- **At `q = 2`: fails** (QA Lemma R, FB). CC-OFF(a) is green (node 2).
 
-**Lemma S (sector splitting).** Hypotheses:
+### Node 5. Lemmas S and G: bipartite N is monomial in one product basis (O2 within N)
 
-- `q` prime;
-- a bipartite armed coupling graph;
-- any process of N, record feedback included.
+**Sectors.** In the encoded frame `J^{−t}`, the encoded `z` of a colour-`χ` cell
+has type `χ` and its `x` has type `χ + 1`, both mod 2 (QA G1 types). Write `E`
+for type 0 and `O` for type 1.
 
-At every tick, the subspace `D` of functionals of the current state that are
-determined by the supplied known slots and the registered records is the direct
-sum `D_E ⊕ D_O` of its intersections with QA's two G1 sectors. If, for an
-active cell, `a u + b v` with `ab ≠ 0` were determined, then `u` and `v` would
-both be determined.
+**Lemma S (sector splitting).** Assume `q` prime, a bipartite armed coupling
+graph, and any process of N, record feedback included. At every tick, the
+subspace `D` of functionals determined by known slots and registered records
+splits as `D = D_E ⊕ D_O`.
 
-*Proof.* Condition on all record values. Each branch is a fixed sequence of
-graded linear steps and constant translations. Translations change values, not
-the determined subspace (QA Lemma Q (iii) argument). `D` is spanned by:
+*Proof.* Condition on all records. Each branch is then a fixed sequence of
+graded linear steps and constant translations. Translations do not change which
+functionals are determined (QA Lemma Q (iii)). `D` is spanned by two kinds of
+single-sector vector:
 
-- the transported known slots of ready cells (P2: one slot each, so
-  single-sector, and graded steps keep them single-sector);
-- the registered record slots, transported to the current time (single-sector
-  for the same reason).
+- transported known slots (P2 supplies one slot per cell);
+- transported registered record slots.
 
-A span of single-sector vectors splits by sectors. For a cell, `u` and `v` lie
-in different sectors (QA Lemma G1). So `a u + b v ∈ D` forces `a u ∈ D_E` and
-`b v ∈ D_O`. ∎
+A span of single-sector vectors splits. ∎
 
-**Corollary S.** By AP1 Lemma 3, the determined functionals on active cells are
-isotropic, and `ω(u, v) = 1`. So no active cell ever has a determined mixed
-functional. Under any one-cell frame, the reachable encoded states are
-eigenstates of the slot functionals only: 2 of the `q + 1` Pauli axes per cell.
+**Corollary S.** Combine Lemma S with AP1 Lemma 3 (isotropy) and
+`ω(z, x) = 1`. No active cell ever has a determined mixed functional `a z + b x`
+with `ab ≠ 0`. The phase gate `P`, which maps the `x`-eigenstate to the
+`(x − z)`-eigenstate, is therefore unavailable. At `q = 2` this is AP1's type
+invariant, extended to all of N with feedback.
 
-- The phase gate `P` sends the eigenstate of `v` to the eigenstate of `v − u`,
-  so it is unavailable.
-- At `q = 2` this is AP1's type invariant (§4.2), extended from its §3.3
-  apparatus class to all of N with feedback.
-- The reversible encoded operations available in the frame are the graded
-  maps `A ⊕ A^{−T}` composed with translations: permutation unitaries
-  `|x⟩ ↦ |Ax + b⟩` up to Weyl phases, which are monomial.
+**Lemma G (available unitaries are graded).** Assume the hypotheses of Lemma S
+and `q` odd. Let a protocol act on a carrier block `C` as a unitary channel
+`Ad U`. Then `U` is a graded Clifford, `U = w(a)·μ(A ⊕ A^{−T})` on `(E_C, O_C)`.
+
+*Proof.*
+
+1. `U` is Clifford by Theorem W and (W6).
+2. Take an untouched reference copy `R` of `C`, with the same colours.
+3. Prepare the pure stabilizer state on `C ∪ R` whose determined functionals
+   are `e_c − e_r` for `e ∈ E` and `o_c + o_r` for `o ∈ O`. It is reachable in
+   N. Start from carrier cells with a known `O`-sector slot and reference cells
+   with a known `E`-sector slot (P2). For each pair, apply the graded
+   transvection that adds the carrier's `E`-slot to the reference's `E`-slot,
+   through a mediator. For a colour-0 pair this is `z_r += z_c`, `x_c −= x_r`,
+   giving determined `z_r − z_c` and `x_c + x_r`.
+4. Apply `U` on `C`. The output is pure, so every record branch has that same
+   output, and its determined subspace on `C ∪ R` is the Lagrangian
+   `L_out = {(Ue, −ē)} + {(Uo, ō)}`. By Lemma 3, `D_b ∩ (C ∪ R)` is isotropic
+   and contains `L_out`, so it equals `L_out`. By Lemma S it splits by sectors.
+5. Take `e ∈ E_C`. The `O`-part of `(Ue, −ē)` is `((Ue)_O, 0)` and must lie in
+   `L_out`.
+6. An element of `L_out` with zero `R`-part is zero, since the `R`-part of
+   `(Uf, −f̄) + (Ug, ḡ)` determines `f` and `g`. So `(Ue)_O = 0`, and
+   `U(E_C) ⊂ E_C`.
+7. Likewise `U(O_C) ⊂ O_C`. Symplecticity then forces the form `A ⊕ A^{−T}`. ∎
+
+**The basis.** Let the **sector-adapted product basis** have, as each cell's
+position slot, its `E`-sector encoded slot: `z` for colour-0 cells and `x` for
+colour-1 cells. In this basis:
+
+- `μ(A ⊕ A^{−T})` is the permutation unitary `|y⟩ ↦ |Ay⟩`, up to phase. It
+  conjugates `Z^b` to `Z^{A^{−T}b}` and `X^a` to `X^{Aa}`, and Weyl
+  irreducibility fixes it up to phase;
+- Weyl operators are monomial.
+
+So every available reversible encoded operation of bipartite N is monomial in
+this basis.
+
+**A different basis gives a different answer.** In the colour-blind basis,
+where every cell's position slot is `z`, the odd-tick edge step
+`z_1 += k x_2, z_2 += k x_1` is a CP Clifford that is **not** monomial. This is
+why O2 is stated without reference to a basis.
 
 **Self-checks.** Random graded protocols at `q = 3, 5` gave no determined mixed
-carrier functional. With an NNB edge added, the breaking control fires (c6).
-CC-OFF(b) is green.
+functional. With an NNB edge added, the breaking control fires (c6). CC-OFF(b)
+is green.
 
-**Verdict for O2 within N:** phase-sensitive reads, yes; non-monomial reversible
-encoded operations, no. This holds at every prime `q`, adaptive included.
+**Verdict for O2 within N (bipartite, any prime `q`, adaptive): fails** under
+the basis-free criterion. The native reads are phase-sensitive, but every
+available reversible encoded operation is monomial in the sector-adapted basis.
 
-### Node 6. Lemma N: NNB gives the phase gate at odd `q`, with the composition battery
+### Node 6. Lemmas N and M: NNB at odd `q`, the composition battery and its limit
 
 **Lemma N.** Take two same-colour cells in the common encoded frame, with
-coordinates `(z_1, z_2, x_1, x_2)`.
+coordinates `(z_1, z_2, x_1, x_2)` and `S = [[0,1],[1,0]]`.
 
-- Let `N_k` be the NNB tick, a symmetric shear `x ↦ x + kSz` with
-  `S = [[0,1],[1,0]]`. It is one coupled tick of the NNB edge: the coupled
-  step equals `J ∘ (u, v) ↦ (u, v − kSu)`.
-- Let `G = diag(A, A^{−T})` with `A = [[1,0],[1,1]]`. This is QA's graded
-  transvection `C12`, available through the returned-mediator commutator, which
-  holds over any ring.
+- **The two NNB ticks.** `Na_k: x ↦ x + kSz` and `Nb_k: z ↦ z + kSx`. The coupled
+  step equals `J ∘ (u, v ↦ v − kSu)`.
+- **The graded transvections.**
+  - `G = diag(A, A^{−T})` with `A = [[1,0],[1,1]]`. This is QA's `C12`.
+  - `G′ = diag(A′, A′^{−T})` with `A′ = [[1,1],[0,1]]`. This is `C21`.
 
-Then `G^{−1} N_k G N_{−k}` is the shear `x_1 ↦ x_1 + 2k z_1`, with cell 2
-returned exactly. At odd `q` with `k = 2^{−1}`, it is `P` on cell 1 and the
-identity on cell 2.
+  Both are available through the returned-mediator commutator, which is valid
+  over any ring.
 
-*Proof.* `G^{−1} N_k G` is the shear with matrix `k AᵀSA = k [[2,1],[1,0]]`.
-Shears add, and `k[[2,1],[1,0]] − k[[0,1],[1,0]] = [[2k,0],[0,0]]`. ∎
+Then:
 
-At `q = 2` the word is the identity (`2 = 0`). This agrees with QA Lemma Q:
-`Q* (z_1 + x_1) = 1` is never determined. Self-check: c4 at `q = 2, 3, 5, 7`.
+- `G^{−1} Na_k G Na_{−k}` gives `x_1 += 2k z_1`, with cell 2 returned;
+- `G′^{−1} Nb_k G′ Nb_{−k}` gives `z_1 += −2k x_1`, with cell 2 returned.
 
-**The composition battery for `P` (N+NNB, odd `q`).** `P` is an exact ontic
-permutation, not an average over hidden states. By Theorem W the correspondence
-"protocol ↦ stabilizer instrument" is a homomorphism under composition, and the
-reads are exact Lüders instruments as linear maps.
+*Proof.* `G^{−1}Na_kG` is the shear `k AᵀSA = k[[2,1],[1,0]]`, and subtracting
+`kS` leaves `[[2k,0],[0,0]]`. Likewise `A′^{−1} S A′^{−T} − S = [[−2,0],[0,0]]`. ∎
 
-- K1: `P²` on `X_0` gives the eigenstate of `v − 2u` with value 0, as in the
-  comparator.
-- K2: `P^q = I`.
-- K3: `X_0 → P^{q−1} → X → P → X`.
-  - On `R0` (herald failure) the final `X` is deterministic, since `P^q = I`.
-  - On `R1`, after the record `c`, the state is `X_c` and `P X_c` is the
-    eigenstate of `v − u`. The final `X` is uniform and independent of `c`.
-  - Both match the comparator. Lemma G2's obstruction does not apply, because
-    NNB breaks G1.
-- K4, K5, K6: hold by the same homomorphism, for every read axis `f`
-  available after `P`. These are the `q + 1` axes, each realized as a native
-  read conjugated by an available Clifford word. The failure branch is
-  included.
+At odd `q` both single-cell shears are available on cell 1, with any
+coefficient. They generate `SL(2, F_q) = Sp(2, F_q)`. With the constant
+translations this gives the full single-qudit Clifford group modulo phases,
+`F_q² ⋊ SL(2, F_q)` (W4). At `q = 2` both words are the identity, consistent
+with QA Lemma Q. Self-check c4.
 
-**CC-IMIT (classical statistical imitation).** `M_P`: read `X` (native), record
-`c`, then prepare the law uniform on `{v − u = c}`.
+**Lemma M (no monomial product basis).** At odd prime `q`, no orthonormal basis
+`B` of one cell makes every element of the single-qudit Clifford group monomial.
+Hence, under N+NNB, no fixed product basis makes every available reversible
+encoded operation monomial.
 
-- On the `X_c` family, every single-step read (`Z`, `X`, `v − u`) matches
-  `P` exactly (c5).
-- It fails K1: after `M_P ∘ M_P` on `X_0`, the read of `v − 2u` is uniform; the
-  comparator gives 0 with certainty.
-- It fails K5 on `Z_0`: the `Z` read after `M_P` is uniform; the comparator
-  gives 0.
+*Proof.*
 
-C-COMP therefore discriminates. **D2 is satisfied.**
+1. Monomials in `B` permute the `q` lines `ℂb`. This gives a homomorphism
+   `φ: Ḡ → S_q` from the projective Clifford group `Ḡ = T ⋊ SL(2, F_q)`, where
+   `T ≅ F_q²` is the Weyl group.
+2. `K = ker φ` consists of classes whose lifts are diagonal in `B`. Their lifts
+   commute exactly.
+3. `K ∩ T` is therefore isotropic. It is normal, hence `SL(2)`-invariant. Since
+   `SL(2)` is transitive on nonzero vectors, `K ∩ T` is `0` or `F_q²`. The
+   whole of `F_q²` is not isotropic, so `K ∩ T = 0`.
+4. Both `K` and `T` are normal, so `[K, T] ⊂ K ∩ T = 0` and `K` centralizes `T`.
+   An element `w(a)μ(S)` centralizes `T` projectively iff `S = I`. So
+   `K ⊂ T ∩ K = 0`.
+5. Then `T ≅ Z_q²` embeds in `S_q`. That is impossible, since `q²` does not
+   divide `q!`.
+6. For a product basis, an available `U ⊗ I` (partner returned) that is monomial
+   in `B_1 ⊗ …` is monomial in `B_1`. ∎
 
-**Verdict for O2 under NNB at odd `q`:** pass at stabilizer scope. `P`, and with
-it the full single-qudit Clifford group, is available. Every element is CP
-(Theorem W) and passes C-COMP. At `q = 2` under NNB: `S` passes C-COMP by QA
-[node 8](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L560)'s
-induction, but O3 fails.
+**C-COMP for `P` (N+NNB, odd `q`).** `P` is an exact ontic permutation. By
+Theorem W, protocols compose as instruments do, and reads are exact Lüders
+instruments as linear maps.
 
-### Node 7. The ceiling at odd `q`, and the qubit case
+- **K1.** `P²X_0` is the `(x − 2z)`-eigenstate with value 0.
+- **K2.** `P^q = I`.
+- **K3.** On `R0` the final `X` is deterministic. On `R1`, after record `c`, the
+  final `X` is uniform and independent of `c`. G2 does not apply, because NNB
+  breaks G1.
+- **K4–K6.** These hold for every one of the `q + 1` axes and for the failure
+  branch. K5 needs only `P^a` and the native reads.
 
-**Proposition C (odd `q` ceiling).** For every protocol of N or N+NNB at odd
-prime `q`, under R-W:
+All six match the comparator.
 
-- (a) every reachable encoded state has a nonnegative Wigner function, because
-  native laws are nonnegative. By (W5) the reachable pure states are stabilizer
-  states;
-- (b) every available encoded unitary channel is Clifford, by (W6). The Clifford
-  group modulo phases is finite, so no encoded unitary of infinite order is
-  available. This is the transported C-ROT, and it holds;
-- (c) the quarter phase `D_i` (relative phase `i` on one basis state) is not
-  available. The nonzero entries of a Weyl operator differ by `q`-th roots of
-  unity, while `D_i X D_i†` has two nonzero entries differing by a factor `i`,
-  which is not a `q`-th root of unity for odd `q`. So `D_i` is not Clifford. C-PH
-  holds, with no escape (self-check c5);
-- (d) the encoded theory is the noncontextual one. Spekkens (arXiv:1409.5041
-  §V.A–B, read first-hand) shows that the odd-prime quadrature epistricted
-  theory is operationally equivalent to the stabilizer subtheory and is itself a
-  local noncontextual hidden-variable model. The native model is that model.
+**CC-IMIT (measure-and-prepare).** `M_P` reads `X`, records `c`, and prepares
+the law uniform on `{x − z = c}`.
 
-So no protocol at odd `q`, with or without NNB, leaves the noncontextual
-stabilizer fragment.
+- On the `X_c` family it matches every one-step read (c5, exact).
+- It fails K1: `M_P ∘ M_P` on `X_0` makes the read of `x − 2z` uniform.
+- It fails K5: on `Z_0` the `Z` read becomes uniform.
 
-**Observation E (FB at any finite abelian configuration group).** FB's proof
-([§3](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-feedback-20261107/RESULT.md#L85),
-[§4](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-feedback-20261107/RESULT.md#L115))
-uses only four facts:
+**CC-IMIT′ (a classical statistical model).** Gross's Wigner-sampling model of
+the odd-`q` stabilizer subtheory is a noncontextual hidden-variable model. It
+reproduces every K1–K6 sequence, because the reachable fragment lies inside its
+operational scope (Spekkens §V.A). The native mechanism is such a model
+(Proposition C(d)). **CC-IMIT′ passes C-COMP.**
 
-- the three encoded bits are group homomorphisms `f_a: V → Z_2`;
-- preparations are uniform on their level sets;
-- the success kernel is common to all preparations;
-- for `p(w) = 1`, the translation `t_w` maps level sets to level sets.
+**D2 outcome.** C-COMP discriminates measure-and-prepare imitation only.
 
-None of these uses a vector-space structure over `F_2`. So FB's dichotomy holds
-for every finite abelian `V`, including `V = Z_4^{2n}` for a native `Z_4`
-alphabet. A nonzero homomorphism to `Z_2` exists iff `|V|` is even. Hence:
+**Verdict for O2 under N+NNB at odd `q`.**
+
+- At stabilizer scope, O2 passes on the basis-free criterion (Lemmas N and M)
+  with C-COMP passed.
+- The operation is realized by a noncontextual hidden-variable model. No test
+  within the reachable fragment distinguishes it from a classical statistical
+  imitation.
+
+At `q = 2` under NNB, `S` passes C-COMP by QA
+[node 8](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L560),
+but O3 fails.
+
+### Node 7. The ceiling at odd `q`, and qubit encodings
+
+**Proposition C (odd prime `q`, R-W).** For every protocol of N or N+NNB:
+
+- **(a)** Every reachable encoded state has a nonnegative Wigner function, since
+  native laws are nonnegative. By (W5), reachable pure states are stabilizer
+  states.
+- **(b)** Every available encoded unitary channel is Clifford (W6). The Clifford
+  group modulo phases is finite, so there is no encoded unitary of infinite
+  order. The transported C-ROT holds.
+- **(c)** The single-state quarter phase `D_i` is not Clifford. Any two nonzero
+  entries of a Weyl operator differ by a `q`-th root of unity. `D_i X D_i†` has
+  two entries that differ by `i`, which is not a `q`-th root of unity for odd
+  `q`. So C-PH holds.
+- **(d)** The reachable class lies inside the odd-prime quadrature epistricted
+  theory. Spekkens (arXiv:1409.5041 §V.A–B) shows that theory is operationally
+  equivalent to the stabilizer subtheory and is a local noncontextual
+  hidden-variable model.
+
+**Observation E (FB on finite abelian groups).** FB §§3–4 use four facts:
+
+- the encoded bits are homomorphisms `f_a: V → Z_2`, pairwise distinct;
+- preparations are uniform on level sets;
+- the kernel is common to all preparations;
+- translations map level sets to level sets.
+
+None of these needs `F_2`-vector-space structure. Uniform level-set qubit
+encodings exist iff `Hom(V, Z_2)` has rank at least 2, so that three distinct
+nonzero homomorphisms exist. For `V = Z_m^{2n}` this holds exactly when `m` is
+even. For every such `V`, including a native `Z_4` alphabet, FB's dichotomy
+holds whenever all translations are available.
 
 | Configuration group | Uniform level-set qubit encodings | Combined `S` + C-CP |
 | --- | --- | --- |
-| Even order (`q = 2`, `Z_4`, …) | Exist | Fails whenever all translations are available (FB, extended) |
-| Odd order (odd `q`) | None | No qubit. C-CP holds for all of N (Theorem W). No quarter phase (Prop. C) |
+| `Hom(V, Z_2)` of rank ≥ 2 (`q = 2`, `Z_4`, …) | Exist | Fails whenever all translations are available (FB, extended) |
+| Odd order (odd `q`) | None | C-CP holds for all of N (Theorem W). No quarter phase (Prop. C) |
 
-This agrees with the literature. For odd prime powers a Clifford-covariant
-Wigner function exists, while none exists in any even prime-power dimension
-(Zhu, arXiv:1504.03773, abstract read first-hand). And every ontological model
-of the single-qubit stabilizer subtheory is contextual (LWE Theorem 1, as read
-in AP1 §5.2).
+This agrees with two results from the literature. Clifford-covariant Wigner
+functions exist only in odd prime-power dimension and not in even (Zhu,
+abstract). Every ontological model of the single-qubit stabilizer subtheory is
+contextual (LWE Theorem 1, as read in AP1 §5.2).
 
-**What this leaves for qubits.** Reciprocity separates rotations from
-reflections only where the encoded Weyl group has odd order. A qubit-compatible
-selection would have to break FB's H-L (non-uniform or non-level-set
-preparations) or H-T (parity-flipping translations not separately available)
-by a sourced mechanism. A native alphabet change alone does neither.
+**What this leaves for qubits.** At odd order, reciprocity separates rotations
+from reflections. A qubit-compatible selection would have to break FB's H-L or
+H-T by a sourced mechanism. A change of native alphabet alone does neither.
+Proposition C is an odd-`q`, R-W statement and does not bear on even-order
+qubit contextuality.
 
-### Node 8. Theorem T: in-world control versus selection (O1 against O3)
+### Node 8. Theorem T and Proposition T′: in-world control against selection (O1 against O3)
 
-**Theorem T.** Let `q` be an odd prime and use R-W. Suppose a single fixed
-bijective rule acts on a phase space that includes a controller cell, and its
-encoded action on all joint laws is CP. Then every tick of the rule is affine
-symplectic (Proposition AS), and by Lemma A a setting held in the controller can
-only translate values. So it cannot select a linear part of the carrier
-operation. ∎
+**Theorem T.** Let `q` be an odd prime and use R-W. Take a fixed bijective rule
+on a phase space that includes a controller cell, whose encoded action on all
+joint laws is CP. By Proposition AS every tick of the rule is affine symplectic.
+By Lemma A, a setting held in the controller can then only translate values. ∎
 
-**Instance.** Take the reciprocal controlled shear on carrier `a` and
-controller `c`, generated by `h = s·u_a²/2` with `s = u_c`:
-`v_a −= s u_a` and `v_c −= u_a²/2`. Also take its one-way version, without the
-kick on `v_c`. Both are bijections at `q = 3`.
+**Proposition T′ (exact, every odd prime `q`).** The setup:
 
-- **Joint action.** Not CP: minimum Choi eigenvalues `−3` and `−4.24`
-  respectively (c8).
-- **Controller in a `Z` eigenstate `Z_s`, then traced out.** The carrier map is
-  the Clifford `P^{−s}`, which is CP.
-- **A reachable stabilizer input.** Take carrier–reference correlation
-  `u_a = u_r`, `v_a = −v_r` (reachable by a graded transvection), with the
-  controller in an `X`-type law. Its image has an encoded operator with
-  eigenvalue `−1/3` (reciprocal) or `−0.47` (one-way): a non-quantum state
-  (c9). With the controller in `Z_1` the output is a valid state.
+- a carrier block `a` and a reference block `r` of `n_a` cells each;
+- one controller cell `c`;
+- `m = 2n_a + 1` cells in total;
+- a rule that leaves `u_c` and `λ_r` unchanged and sends
+  `λ_a ↦ S(u_c)λ_a + t(u_c)`, with each `S(s)` invertible linear;
+- `v_c` changed by any function that keeps the rule bijective.
 
-So a controlled coupling preserves quantum compatibility only while every
-controller is confined to setting-eigenstate laws, which are the laws of a
-registered record.
+Take as input the law uniform on
+`L = {(λ_a, Rλ_a)} × {(s, 0) : s ∈ F_q}`, with `R(u, v) = (u, −v)` per cell.
+This input is reachable in N. The carrier–reference correlation is obtained by
+graded transvections (node 5, Lemma G proof). The controller is a ready cell
+with known `v_c`, which is X-type.
+
+- **(i)** If `S(s)` depends on `s`, the output's encoded operator is not
+  positive semidefinite (PSD).
+- **(ii)** If every `S(s)` is symplectic and the controller's law is diagonal in
+  `u_c` (`v_c` uniform given `u_c`), the output is a valid state for every
+  carrier and reference input.
+
+*Proof.*
+
+- **(i)** `L` is an affine Lagrangian, so the input is a stabilizer state (W7).
+  1. The output is the uniform law on `g(L)`, with `|g(L)| = q^m`.
+  2. Hence `ρ_out = q^{−m} Σ_{g(L)} A(λ)` has `tr ρ_out = 1` and
+     `tr ρ_out² = q^{−2m}·q^m·q^m = 1` (W1). Its Wigner function is the law,
+     which is nonnegative.
+  3. If `ρ_out ≥ 0`, it is pure. By (W5) it is a stabilizer state, and by (W7)
+     `g(L)` is an affine subspace.
+  4. Project onto `(λ_a′, λ_r, u_c)`. The image is the graph of
+     `(λ_r, s) ↦ S(s)R^{−1}λ_r + t(s)` over all of `F_q^{2n_a} × F_q`.
+  5. An affine subspace that is a graph over a whole space is the graph of an
+     affine map. So `S(s)` is constant.
+- **(ii)** Under a `u_c`-diagonal controller law, `v_c` stays uniform and
+  independent. The output is `Σ_s p_s |s⟩⟨s| ⊗ (Ad U_{S(s),t(s)} ⊗ id)(X_s)`,
+  which is positive. ∎
+
+**Reading.**
+
+- Within this class, a controlled coupling is quantum-compatible iff:
+  - its branch maps are symplectic; and
+  - its controllers are confined to laws diagonal in the controlling slot.
+- An X-type controller on a reachable input produces a non-quantum encoded
+  state.
+- This is the exact, all-`q` statement. The `q = 3` floating-point instances in
+  §9 (c8, c9) are controls consistent with it and carry no verdict.
+- A controller read at every tick by a fresh ready meter that is then kept
+  terminal is in such a law at every coupling (§6.2, CTRL-MON).
 
 **SM §3.1 as a candidate source.** SM's state-dependent coupling graph
 ([SM:104](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L104),
 [explicit construction](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L110))
-is the corpus's in-world controlled coupling. Its ring rule couples `i` to
-`i + 2`, a same-sublattice and therefore NNB-type edge, when `x_{i+1} = 0`.
-Read at odd `q` under R-W:
+couples `i` to `i + 2`, a same-sublattice (NNB-type) edge, when `x_{i+1} = 0`.
+Read at odd `q` in R-W:
 
-- the rule is a non-affine bijection, so by Proposition AS its joint encoded
-  action is not CP;
-- in a branch with the switching cells fixed, the adjacency is not symmetric:
-  on a ring of `L ≥ 5` sites, `i` reads `i + 2` while `i + 2` reads `L(i + 2) = i + 1`
-  and `R(i + 2, x) ∈ {i + 3, i + 4}`, never `i`. By AP1 §4.1 the
-  branch map is then not symplectic, and by Proposition AS it is not CP even
-  with classical controllers;
-- its controllers are ordinary dynamical cells, not records.
+- the rule is a non-affine bijection, so its joint encoded action is not CP
+  (Proposition AS);
+- in a branch with the switching cells fixed, on a ring of `L ≥ 5` sites, `i`
+  reads `i + 2`, while `i + 2` reads `i + 1` and `R(i + 2, x) ∈ {i + 3, i + 4}`,
+  never `i`. The adjacency is not symmetric, so the branch map is not
+  symplectic (AP1 §4.1) and not CP;
+- its controlling cells are ordinary dynamical cells, which Proposition T′(i)
+  does not permit.
 
-As stated, it does not supply CTRL-REC (§6.2). This is a consequence of the
-paper argument; no computation on the ring was run.
+These are consequences of the paper argument. No computation on the ring was
+run.
 
 ## 4. Shortcut checks
 
 | Check | Finding |
 | --- | --- |
-| SC-1 Imported quantum behaviour | No unitary, interference mechanism or CP restriction is a premise. The operations are native bijections of configurations. That their R-W images are Clifford unitaries is derived (W4, Theorem W), and that every alternative bijection is non-CP is derived (Proposition AS). The quantum comparator and Gross's frame are imported as comparator and representation (ledger I1, R-W). The selection rests on A5 linearity and symmetric coupling. A5 is "partly derived" in Substratum: its affine part follows from amplitude-scale gauge, and the restriction to linear is imposed. The selection carries that status |
-| SC-2 Hidden external control | Present, as in AP1 and QA. P3 arms every coupling that selects a setting, and NNB edges. H-PREP reads record classes as preparations, P2 supplies ready cells, and heralds are supplied. Lemma A shows that P3 cannot be replaced by any internal setting under a fixed affine rule. Theorem T shows that an internal non-affine controller is CP-compatible only with record-confined controllers |
-| SC-3 Representation versus physical implementation | **Representation.** On the physical carrier every step is a permutation of `F_q^{2n}` (monomial; AP1 Lemma 2 and the kernel ceiling hold). The non-monomial operator `U_P` exists only in the R-W representation. What is physical is the record statistics under every composition and every change of read, which equal the Born statistics of the stabilizer circuits exactly (Theorem W). The physical model is an exact noncontextual hidden-variable model of that subtheory (Proposition C(d)) |
+| SC-1 Imported quantum behaviour | **No import in the dynamics.** Every native step is a bijection of configurations, and CP is computed as a test, not assumed. Among bijections the native class is exactly the CP class (Proposition AS). Three qualifications. (1) The frame R-W is singled out by Clifford covariance, a property of the comparator; O3 is therefore stated as "the native rule is in a class that is exactly the CP class in one fixed frame" (node 4). (2) The model contains no interference. It is the noncontextual epistricted model (Prop. C(d)), so no interference is derived because none exists. (3) The controller confinement of M1, in its bare form, is a restriction motivated by the CP target and is flagged under CC-RECON (§6.2). The selection also inherits the status of A5 (affine part derived from amplitude-scale gauge, linearity imposed) and of the `−x(t−1)` memory term (node 2) |
+| SC-2 Hidden external control | **Present, and disclosed.** P3 selects every coupling, coefficient and arming. This includes Lemma N's words (`k = 2^{−1}`, `−k`), the mediator schedule for `C12` and `C21`, every NNB edge, and the read axis (tick parity). An outside agent executes the adaptive feedback. P2 and H-PREP supply the ready cells, the known values and the reference correlations; heralds are supplied. Lemma A shows that no fixed affine rule can internalize the setting. M1 does not remove observer dependence while "controller" is defined by registration (§6.2) |
+| SC-3 Representation versus physical implementation | **Representation only.** On the physical carrier every step is a permutation of `F_q^{2n}` (AP1 Lemma 2; the kernel ceiling holds). `U_P` exists only in R-W, and even there monomiality depends on the basis (node 5). What is physical is the record statistics, which equal the stabilizer-circuit statistics and are produced by an exact noncontextual hidden-variable model. The capability reached at odd `q` is therefore exactly what a classical statistical model provides |
 
 ## 5. Ledger
 
 | Item | Content | Classification | Status |
 | --- | --- | --- | --- |
-| N1 | Second-order linear update with symmetric, center-free coupling; symplectic with multiplier `+1` | Native | Substratum A4, A5; AP1 §4.1. Carries O3 at odd `q` (Proposition AS) |
-| N1-A5 | Linearity (affine part from amplitude-scale gauge; linearity imposed) | Native premise, partly derived | Substratum A5. The selection inherits its status |
-| N1-BIP | Bipartite nearest-neighbour graph | Native, selected branch | SM L224–L226. Carries Lemma S |
-| Nq | Alphabet `F_q`; `q` not fixed by OI | Native parameter | Both characteristics computed; no `q` adopted. The native normalization `α = 1/d` needs `3 ∤ q` ([SM §2.7](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L88)) |
+| N1 | Second-order linear update `x(t+1) = Σ k x_nbr − x(t−1)` with symmetric coupling; symplectic with multiplier `+1` | Native | Substratum A4, A5; SM L224; AP1 §4.1. Carries O3 at odd `q`. The `−x(t−1)` sign is load-bearing (node 2) |
+| N1-A5 | Linearity (affine part derived, linearity imposed) | Native premise, partly derived | Substratum A5. The selection inherits this status |
+| N1-CI | Center independence | Native | Used by QA G1 and Lemma S, not by symplecticity |
+| N1-BIP | Bipartite nearest-neighbour graph | Native, selected branch | SM L224–L226. Carries Lemmas S and G |
+| Nq | Alphabet `F_q`; `q` not fixed | Native parameter | Both characteristics computed, none adopted. `α = 1/d` needs `3 ∤ q` (SM §2.7), which excludes `q = 3` for the normalized native coefficient, the main self-check case. The results use P3 coefficients |
 | N2 | Uniform law on unknown slots | Native measure, through H-PREP | As in AP1 and QA; H-INF-μ for an infinite hidden sector |
-| N3 | Bijective steps | Native | — |
 | P1 | Terminal registration | Supplied (AP1) | Load-bearing for Theorem W (c7) |
 | P2 | Half-known ready cells | Supplied (AP1) | Load-bearing for Theorem W (c7′) and Lemma S |
 | P3, E-iso | Per-tick, per-edge arming; isolation | Supplied (AP1) | O1 fails on P3 (Lemma A) |
 | H-PREP | Record-conditioned classes read as preparations | Supplied (open hypothesis) | As in AP1 |
-| NNB | Armable same-sublattice symmetric coupling | Supplied (QA conditional premise) | At odd `q` it buys `P` with no reflection cost |
-| R-W | Gross phase-space frame, fixed for all settings | Mathematical representation | Unique Clifford-covariant choice at odd prime powers (Zhu); comparator dictionary only |
-| CTRL-REC | §6.2 | Supplied (conditional premise, not adopted) | Named missing premise for O1 |
-| I1 | Qubit and qudit stabilizer comparators, Lüders reads, CP | Imported (comparator) | — |
-| I2 | Gross Theorems 2, 3, 6, 7, 19 and Lemma 4; Spekkens §V.A–B; Zhu (abstract); LWE Theorem 1 (via AP1) | Imported literature | §8.2 |
+| NNB | Armable same-sublattice symmetric coupling | Supplied (QA conditional premise) | At odd `q` it gives the Clifford group with C-CP intact |
+| R-W | Gross's phase-space frame, fixed for all settings | Mathematical representation, singled out by Clifford covariance | Comparator dictionary only |
+| M1 / CTRL-MON | §6.2 | Supplied (conditional premise, not adopted); CC-RECON flag on the bare confinement | Missing premise for O1 |
+| I1 | Qubit and qudit stabilizer comparators | Imported (comparator) | — |
+| I2 | Gross Theorems 2, 3, 6, 7, 19, Lemmas 4, 8, 9, 29; Spekkens §V.A–B; Zhu (abstract); LWE Theorem 1 (via AP1) | Imported literature | §8.2 |
 
 ## 6. Outcome
 
@@ -744,199 +884,227 @@ paper argument; no computation on the ring was run.
 | Obligation | `q = 2` | Odd prime `q`, N | Odd prime `q`, N+NNB |
 | --- | --- | --- | --- |
 | O1 Physical source | Supplied (P3, H-PREP, P2); fails natively (Lemma A) | Same | Same; NNB is also P3-armed |
-| O2 Capability | Reads only (AP1); `S` needs NNB (QA) | Reads only; reversible encoded operations monomial (Lemma S) | `P` and the Clifford group, exact under C-COMP; no quarter phase, no infinite-order unitary, noncontextual (Prop. C) |
-| O3 Selection | Fails (QA Lemma R, FB) | **Pass natively** (Theorem W, Prop. AS) | **Pass natively** |
-| O4 Continuation | Pass under P1, P2, H-PREP (AP1 §4.4) | Pass (Theorem W): heralded failure, terminal records, stabilizer outgoing state | Pass |
-| C-NS | Green with wing-local cells (QA) | Green: wing-local operations act on wing cells; Main's [cone theorem](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L366) | Green, with NNB edges wing-local |
-| C-LEAK | Green within a wing; a shared parity signals (QA) | Green: every reuse or recombination protocol is a stabilizer protocol (Theorem W) | Green |
-| C-Q | Lemma Q protects `Q* = 1` | `Q = Σ u_i v_i` is not conserved (`Q' = uᵀKu − Q`); no parity sector is needed in the one-cell frame | Same |
-| Composites | Fail Mermin–Peres (QA node 10) | Reachable two-qudit stabilizer correlations, Bell-local (Prop. C(d)) | Same |
+| O2 Capability | Reads only (AP1); `S` needs NNB (QA) | Fails: every reversible encoded operation is monomial in the sector-adapted basis (Lemmas S, G) | Passes at stabilizer scope (Lemmas N, M; C-COMP). Not separated from classical imitation within the reachable fragment (CC-IMIT′). No quarter phase, no infinite-order unitary (Prop. C) |
+| O3 Selection | Fails (QA Lemma R, FB) | **Pass natively**, in the form of node 4 | **Pass natively** |
+| O4 Continuation | Pass under P1, P2, H-PREP (AP1 §4.4) | Pass (Theorem W) | Pass |
+| C-NS | Green with wing-local cells (QA) | Green: wing-local operations; Main [cone theorem](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L366) | Green with wing-local NNB edges |
+| C-LEAK | Green within a wing; shared parity signals (QA) | Green: every reuse or recombination protocol is a stabilizer protocol (Theorem W) | Green |
+| C-Q | Lemma Q protects `Q* = 1` | `Q = Σ u_i v_i` is not conserved (`Q′ = uᵀKu − Q`); no parity sector is needed in the one-cell frame | Same |
+| Composites | Fail Mermin–Peres (QA node 10) | Stabilizer correlations, Bell-local (Prop. C(d)) | Same |
 
 ### 6.2 Type (ii) stop: the missing premises
 
-**M1 — CTRL-REC (primary).** An armable symmetric coupling whose coefficient is
-a fixed function `k(s)` of the registered slot `s` of a terminal record cell.
-If the coupling is reciprocal, the record's conjugate slot receives the kick
-`∂_s h` and is never coupled or read again.
+**M1 (primary): a controller-dependent coupling with controllers kept diagonal
+in their controlling slot.**
 
-- **Why this premise, and why the smallest.**
-  - Lemma A forces any in-world setting source to be non-affine.
-  - Theorem T forces its controllers to be confined to setting-eigenstate laws,
-    or C-CP fails on reachable inputs (c9).
-  - Under P1, registered records are exactly the cells confined to such laws.
-  - CTRL-REC changes only the coefficient of an existing coupling and adds no
-    other operation.
-- **What it preserves.** In each branch with a fixed record value, the carrier
-  map is affine symplectic, so Theorem W, Lemma S (bipartite), C-NS, C-LEAK and
-  the composition battery are preserved. The setting is a physical record of an
-  earlier read: "receives a setting request" is then a coupling read from a
-  record.
-- **What it buys.** O1 within the stated class: setting selection by one fixed
-  rule, the AP1 apparatus without P3 for the `Z`/`X` choice and, if the
-  controlled edge is NNB, the phase gate.
-- **Independent consequences (§A.29).**
-  1. A record that has controlled a coupling holds, in its conjugate slot, a
-     nonlinear function of the controlled slots. Recovering it gives
-     non-quantum encoded states (c9), so such records must be irreversible
-     archives. This prediction is fixed by the premise and cannot be tuned.
-  2. Every setting change consumes a record.
-  3. The rule violates the additive-automorphism gauge of
-     [SM §2.7](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L96)
-     (any non-constant `k(s)` fails shift invariance).
-- **What would derive it.** A symmetrized form of SM §3.1's state-dependent
-  graph in which the switching variables are registered records. The first
-  decisive check is whether SM's state-dependent-geometry principle can be
-  stated with symmetric adjacency and record-valued switches while keeping its
-  constraints (i)–(iii) (SM:108). As written, its explicit ring fails both
-  conditions (node 8).
+- **Why it is needed.** Lemma A forces any in-world setting source to be
+  non-affine. Proposition T′ shows that a controlled coupling is
+  quantum-compatible iff two conditions hold:
+  - its branch maps `S(s)` are symplectic;
+  - its controllers' laws are diagonal in the controlling slot.
+- **Bare form, CTRL-REC: "the controller is a registered record".** This form
+  does not meet the bar, for three reasons.
+  - *"Registered" has no dynamical meaning.* Registration is observer
+    conditioning. The rule `k(s)` acts the same way on unregistered cells, and
+    there Proposition T′(i) gives non-quantum states.
+  - *The confinement is CP-motivated.* Confining controllers to record laws, and
+    keeping the record's conjugate slot unrecoverable, are adopted only so that
+    non-quantum states do not appear. This is the controller-side analogue of QA
+    premise I and is flagged under **CC-RECON**.
+  - *No independent prediction (§A.29).* Its candidate consequences do not
+    qualify: "controlling records are irreversible archives" restates the
+    confinement, "each setting consumes a record" is definitional, and the
+    violation of SM §2.7's additive-automorphism gauge is a conflict, not a
+    prediction.
+- **Dynamical form, CTRL-MON.** The coefficient is a fixed function `k(u_c)` of
+  a controller cell's slot, and the branch maps are symplectic (symmetric
+  adjacency in each branch). The controller is read, through a coupled tick, by
+  a fresh ready meter at every tick before it controls. Those meters are never
+  coupled to anything again.
+  - *Derivation (paper).* The read with the meter discarded is the
+    `Z`-dephasing channel `Δ_Z` on the controller (Theorem W). After `Δ_Z`,
+    every joint input is block-diagonal in `u_c`, so by Proposition T′(ii) the
+    composite `T_g ∘ Δ_Z` is the controlled channel with Kraus operators
+    `|s⟩⟨s| ⊗ U_{S(s)}`. It is CP on **all** inputs, controller included.
+    Self-check c10 is a control.
+  - *What it reduces the premise to.* Three items remain, none of them a
+    restriction on controller laws:
+    - the non-affine coefficient dependence, which violates A5 and the gauge of
+      [SM §2.7](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L96);
+    - the P2 supply of ready meters;
+    - a terminality condition on **unregistered** environment meters, which is
+      a supplied strengthening of P1. If such a meter is recombined, the
+      dephasing can be undone (AP1 §4.5 eraser) and Proposition T′(i) applies
+      again.
+  - *What it buys.* It removes P3 from the `Z`/`X` and `I`/`P` setting choice.
+    It does **not** give O1 a pass: by §2.3, O1 would still be "supplied",
+    resting on P1-type terminality, P2, H-PREP and CTRL-MON itself.
+  - *Independent consequences.* None established beyond resource accounting:
+    each controlled coupling consumes ready meters, and the setting value is
+    copied into the environment at every tick. Whether the latter has a testable
+    signature is open.
+- **Relation to existing records.**
+  - [Record-control](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/record-control-20261107/DESIGN.md#L67)
+    shows that a record-bearing field natively enters a neighbouring nonlinear
+    gate. It stops because the gate output is masked by other fields and private,
+    so no usable controlled operation follows. CTRL-MON assumes exactly the clean
+    coefficient dependence that record shows the native Native A gate does not
+    supply. Proposition AS is an odd-`q` statement and does not decide the `F_2`
+    Native A gate.
+  - [Setting-source feasibility](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/substratum/continuous-substates/native-setting-source-feasibility.md#L59)
+    shows that record-derived labels cannot steer an independent coordinate
+    without a state-changing operation. It marks a supplied ideal actuator as a
+    countercontrol, not a source.
+  - CTRL-MON is such a supplied actuator. It does not close that gate.
+- **What would derive it.** A symmetrized form of SM §3.1's state-dependent graph
+  with continually monitored switching cells. The first check is whether SM's
+  constraints (i)–(iii)
+  ([SM:108](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L108))
+  allow symmetric adjacency with monitored switches. The explicit ring fails
+  both conditions (node 8).
 - **What would rule it out.** Retaining the additive-automorphism gauge as a
-  physical symmetry of every coupling, or retaining P1 in its present form ("a
-  registered cell is not coupled to any cell afterwards").
+  physical symmetry of every coupling, or retaining terminality only for
+  registered cells.
 - **What would weaken it.** Nothing smaller was found. A one-way controller is
-  equally CP-compatible in each branch (c8) but drops reciprocity, the property
-  that carries O3. P3 is CTRL-REC with an external record.
+  equally CP-compatible after `Δ_Z` (c10), but it drops reciprocity, which
+  carries O3. P3 is M1 with an external controller.
 
-**M2 — NNB (carried from QA).** At odd `q` NNB buys the full single-qudit
-Clifford group with C-CP intact (Lemma N, Theorem W). QA's reflection cost
-(Lemma R) does not arise. Derivation and ruling out are as in
+**M2 (NNB, carried from QA).** At odd `q`, NNB gives the single-qudit Clifford
+group with C-CP intact (Lemmas N, M; Theorem W). QA's reflection cost does not
+arise. Derivation and ruling-out conditions are as in
 [QA §4.1](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L805).
-SM §3.1's ring produces NNB-type edges under state control, subject to the M1
-conditions.
 
-**M3 — qubit quarter phase with C-CP (open; no premise proposed).** Within the
-class of this file, no premise supplies it.
+**M3 (qubit quarter phase with C-CP; open, no premise proposed).**
 
-- At odd order there is no qubit, and the native theory is the noncontextual
-  stabilizer fragment (Prop. C).
-- At even order FB's dichotomy holds (Observation E), so a native alphabet change
-  does not help.
-- A sourced mechanism must break H-L or H-T without restricting resources
-  because of the target, which would be QA premise I and is flagged by
-  CC-RECON.
-- By LWE Theorem 1 it must be contextual. Proposition C(a) shows that, under
-  R-W, nonnegative native laws cannot carry that contextuality.
-
-The first check is whether an even-order carrier with a protected inaccessible
-sector (QA Lemma Q at `q = 2`) admits non-uniform preparations, outside H-L,
-reached by native reads under P1 and P2. QA's U′ preparations are uniform level
-sets, so they do not.
+- At odd order there is no uniform level-set qubit encoding.
+- For `Hom(V, Z_2)` of rank at least 2, FB's dichotomy holds (Observation E).
+- A sourced mechanism must break H-L or H-T without a restriction motivated by
+  the target, which would be QA premise I and is flagged by CC-RECON. By LWE
+  Theorem 1 it must be contextual.
+- First check: whether an even-order carrier with a protected inaccessible
+  sector (QA Lemma Q) admits non-uniform preparations, outside H-L, reachable by
+  native reads under P1 and P2. QA's U′ preparations are uniform level sets.
 
 ### 6.3 No V3 round
 
-The verdicts rest on paper proofs: Lemma A, Theorem W, Proposition AS, Theorem
-T, Lemmas S and N, Proposition C and Observation E. The open items, CTRL-REC
-sourcing and M3, concern which physical principle holds, not a finite search
-over update rules, so no finite enumeration would be decisive.
+The verdicts rest on paper proofs: Lemmas A, S, G, N, M, Theorems W and T,
+Propositions AS, T′ and C, and Observation E. The open items, sourcing M1 and
+M3, concern which physical principle holds, not a finite search.
 
 ### 6.4 Not claimed
 
-- No physical setting source and no adoption of NNB, CTRL-REC or a value of `q`.
-- No escape of C-PH or C-ROT: Proposition C shows neither escapes at odd `q`.
-- No contextuality, Bell violation, Born-rule selection beyond the stabilizer
-  values, or `J_exact(A)`.
-- Theorem W and Proposition AS are paper derivations that use imported theorems
-  of Gross. They are not kernel theorems.
+- A physical setting source.
+- Adoption of NNB, M1 or any `q`.
+- An escape of C-PH or C-ROT.
+- Contextuality, interference, a Bell violation, Born-rule selection beyond the
+  stabilizer values, or `J_exact(A)`.
+
+Theorems W and T and Propositions AS and T′ are paper derivations that use
+Gross's theorems. They are not kernel theorems.
 
 ### 6.5 Bearing on Q-B
 
-The outcome is (ii), so no candidate is handed to Q-B. Proposition AS has a
-continuum counterpart in the Liouville epistricted theory (Bartlett, Rudolph,
-Spekkens, arXiv:1111.5057, abstract via AP1), where symplectic affine maps
-correspond to Gaussian unitaries. If Q-B is activated, its first test would be
-whether Proposition AS holds in the real or large-`q` limit, which would give
-exact continuous symplectic rotations of mode quadratures with C-CP. A qubit
-`rot` would still need non-Gaussian, hence Wigner-negative, resources, which
-Proposition C(a) excludes for native nonnegative laws. This is not derived here.
+The outcome is (ii), so nothing is handed to Q-B. Proposition AS has a continuum
+counterpart in the Liouville epistricted theory (Bartlett, Rudolph and Spekkens,
+arXiv:1111.5057; abstract via AP1). If Q-B is activated, its first test is
+whether AS survives the real or large-`q` limit: exact continuous symplectic
+rotations of quadratures, with C-CP. A qubit `rot` would still need non-Gaussian,
+Wigner-negative resources. This is not derived here.
 
 ## 7. Classification (§A.31) and assumption-watch markers
 
 | Finding | Class |
 | --- | --- |
 | Lemma A: a fixed affine rule cannot select a linear part from an in-world setting | New for this programme |
-| Theorem W: at odd `q`, every protocol of N (adaptive, NNB, recombination) is a stabilizer instrument under R-W | New for this programme. Its components are Gross's covariance and Spekkens' equivalence |
-| Proposition AS: under R-W at odd `q`, CP ⇔ affine symplectic, for ontic bijections | New for this programme |
-| Theorem T: CP-compatible in-world control needs record-confined controllers | New |
-| Characteristic-2 collapse: Lemma R's reflections stem from `+1 = −1`; the native free tick is a reflection in R1's lab frame | Elaborating (QA, AP1 C8) |
-| Lemma S: no mixed-functional knowledge on bipartite graphs, with feedback, at every prime `q` | New. Extends AP1's type invariant and QA G1 to the adaptive class |
-| Lemma N: NNB gives the single-cell phase gate exactly iff 2 is invertible | New for this programme. Consistent with QA Lemma Q |
-| Observation E: FB holds for every finite abelian configuration group | Elaborating (FB) |
-| Proposition C: the odd-`q` ceiling | Confirming (Gross, Spekkens) |
+| Theorem W: at odd `q`, every protocol of N (adaptive, NNB, recombination) is a stabilizer instrument in R-W | New for this programme; built from Gross's covariance and Spekkens' equivalence |
+| Proposition AS: in R-W at odd `q`, CP ⇔ affine symplectic, for ontic bijections | New for this programme |
+| Theorem T and Proposition T′: in-world control is quantum-compatible iff branch maps are symplectic and controllers are diagonal in the controlling slot | New |
+| `q = 2`: R1 is not `Sp(2, F_2)`-covariant, and the multiplier cannot flag its reflections | Elaborating (QA, AP1 C8, Zhu) |
+| Lemmas S and G: bipartite N, with feedback, is monomial in the sector-adapted product basis at every prime `q` | New; extends AP1's type invariant and QA G1 to the adaptive class |
+| Lemmas N and M: NNB gives the single-qudit Clifford group exactly iff 2 is invertible; no product basis is then monomial | New for this programme |
+| C-COMP is passed by the mechanism's own classical model (CC-IMIT′) | Confirming (Spekkens, Gross); a limit on what C-COMP can establish |
+| Observation E | Elaborating (FB) |
+| Proposition C | Confirming (Gross, Spekkens) |
 
 **Assumption-watch markers.**
 
-- **Alphabet-size hypothesis.** At stabilizer level, the encoded operation class
-  differs qualitatively between `q = 2` (non-CP reflections) and odd `q` (all CP).
-  Any correspondence constructed for
-  [SM's alphabet-size hypothesis](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L94)
-  would have to account for this. This is not a refutation: that hypothesis
-  concerns emergent transition probabilities under a correspondence that is not
-  constructed.
-- **Linearity does the selecting at odd `q`.** Any proposal that adds a
-  nonlinear or state-dependent rule, including the SM §3.1 graph, Native A and
-  P-SDC, must re-check C-CP on joint laws (Proposition AS).
-- **Reciprocity does the selecting at odd `q`.** A non-symmetric (one-way)
-  coupling, even if linear, is not CP under R-W.
-- **Records as controllers.** Using a register as a classical control input is
-  CP-compatible only if its conjugate slot is never recovered (Theorem T and its
-  instance).
+- **Memory-term sign.** The multiplier `+1`, and with it the odd-`q` selection,
+  needs the `−x(t−1)` term.
+  [Main L296](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L296)
+  displays `u′ = Σu + v`, and the remark after its Lemma 1
+  ([L304](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/Main.md#L304))
+  states that the factorization "holds verbatim over `Z_q`". At odd `q` that displayed rule is
+  anti-symplectic, unlike Substratum A4 and SM. This is a cross-document
+  divergence to log for a separate unit. No edit is implied here.
+- **Alphabet-size hypothesis.** The encoded operation class differs qualitatively
+  between `q = 2` and odd `q`. Any correspondence built for
+  [SM's hypothesis](https://github.com/amaybaum/incompleteness/blob/313a93efcab581465919a4ff82ecda1e4b81e990/papers/SM.md#L94)
+  must account for this. It is not a refutation.
+- **Linearity and reciprocity select at odd `q`.** Any nonlinear, state-dependent
+  or non-symmetric rule must re-check C-CP on joint laws. This covers the SM
+  §3.1 graph, Native A and P-SDC (Proposition AS).
+- **Registers used as controllers.** They are quantum-compatible only while kept
+  diagonal in the controlling slot (Proposition T′). Under CTRL-MON that depends
+  on the terminality of the monitoring meters.
 
 ## 8. Sources
 
 ### 8.1 Repository sources (all on `main@313a93ef`)
 
-Every repository source below is on `main` at the pinned commit and is cited at
-its stated scope. Issue and pull-request comments are cited as **provenance**
-only (scope, authorization, review history). No claim here uses their content
-as support.
+All repository sources are on `main` at the pinned commit and are cited at their
+stated scope. Issue and PR comments are **provenance** only.
 
 | Source | Use | Classification (§A.42 item 8) |
 | --- | --- | --- |
-| AP1 Lemma 2, §4.1, §4.2, Lemma 3, Lemma 5, C4, C9, §4.4, §5.2, §5.6, ledger | Physical ceiling; native read; isotropy; R1; the `q = 2` baseline | Support on `main`; reviewed and merged (#1183) |
-| QA §1.2, G1, G2, node 5, Lemma Q, node 8, Lemma R, §4.1, node 10 | Class N; NNB; grading; parity; reflections | Support on `main` (#1184, repaired by #1189) |
-| PR-QA §§1–3 | The R1 C-CP recovery that Theorem W generalizes without its case split | Support on `main` (#1189) |
-| FB §§2–5 | Combined-target obstruction; Observation E | Support on `main` (#1189) |
-| Main Definition L44, Lemma 3 L56, L82, Lemma 2 L306, cone theorem L366 | Native model, measure, traced channel, C-NS | Manuscript text at the snapshot |
+| AP1 Lemma 2, §4.1, §4.2, Lemma 3, Lemma 5, C1, C4, C8, C9, §4.4, §4.5, §5.2, §5.6, ledger | Ceiling; native read; isotropy; R1; `q = 2` baseline | Support on `main` (#1183) |
+| QA §1.2, G1, G2, node 5, Lemma Q, node 8, Lemma R, §4.1, node 10 | Class N; NNB; grading; reflections | Support on `main` (#1184, #1189) |
+| PR-QA §§1–3 | R1 C-CP recovery | Support on `main` (#1189) |
+| FB §§2–5 | Combined obstruction; Observation E | Support on `main` (#1189) |
+| Record-control DESIGN §§1–2, 5; setting-source feasibility (Result; setting-preparation section) | M1 relation | Support on `main` at their reviewed scopes |
+| Main L44, L56, L82, L296, L304, L306, L366 | Native model; measure; traced channel; memory-sign marker; C-NS | Manuscript text |
 | Substratum L48, A1 L92, A4 L98, A5 L100, A6 L102 | Native rule and its status | Manuscript text |
-| SM L88–L96 (§2.7), L104–L110 (§3.1), L224, L226, L296 | Alphabet, gauge, state-dependent graph, form lemma | Manuscript text |
-| GR L260, L266, L270 | Monomial sourcing and layer-flow negatives | Manuscript text |
-| Kernel: `permClass`, `permTheory_not_control`, `permTheory_not_qm`, `onesFixing_not_phasesAvailable`, `permClass_onesFixing`, `substratumGen_not_control`, `exists_nonMonomial_of_layerFlowExecutable`, `obs_not_layerFlowExecutable`, `stochasticChannel_kraus_monomial`, `coherentLiftClass_eq_substratumClass`; `ReadWriteControl.lean` header | §1.1 ceiling (read, not rebuilt). `readWriteSourced_*` is not cited (#1188) | Kernel statements on `main` |
-| oi-qm-ext-1 README, B1, observer-interface source, two-system interface §4; F2-1 A★ (Θ-K, Θ-F, N4, N8) | Lead dispositions; C-LEAK | Support on `main` at their reviewed scopes |
-| #1169 comments 6714000230, 6713955150, 6713653816; owner addendum, [#1169 c.6714136234](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6714136234); PR #1184 and #1189 review records | Scope, authorization, review history | Provenance |
+| SM L88–L96, L104–L110, L224, L226, L296 | Alphabet; gauge; state-dependent graph; form lemma | Manuscript text |
+| GR L260, L266, L270 | Monomial-sourcing negatives | Manuscript text |
+| Kernel: `permClass`, `permTheory_not_control`, `permTheory_not_qm`, `onesFixing_not_phasesAvailable`, `permClass_onesFixing`, `substratumGen_not_control`, `exists_nonMonomial_of_layerFlowExecutable`, `obs_not_layerFlowExecutable`, `stochasticChannel_kraus_monomial`, `coherentLiftClass_eq_substratumClass`; `ReadWriteControl.lean` header | §1.1 (read, not rebuilt). `readWriteSourced_*` is not cited (#1188) | Kernel statements on `main` |
+| oi-qm-ext-1 README, B1, observer-interface source, two-system interface §4; F2-1 A★ | Lead dispositions; C-LEAK | Support on `main` |
+| #1169 comments 6714000230, 6713955150, 6713653816; owner addendum, [#1169 c.6714136234](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6714136234); PR #1184 and #1189 review records; the independent review of this file | Scope, authorization, review history | Provenance |
 
 ### 8.2 Imported literature
 
 | Work | Used for | Read in this unit |
 | --- | --- | --- |
-| D. Gross, "Hudson's theorem for finite-dimensional quantum systems", arXiv:quant-ph/0602001 | (W1)–(W6): Theorems 2, 3, 6, 7, 19; Lemma 4 | Full text of §§I–II and the statements of Theorems 2 and 19 |
-| R. W. Spekkens, "Quasi-quantization", arXiv:1409.5041 | Odd-prime equivalence and noncontextuality; `d = 2` inequivalence | Introduction and §V.A–B |
-| H. Zhu, "Permutation symmetry determines the discrete Wigner function", arXiv:1504.03773 | Clifford-covariant Wigner functions exist only in odd prime-power dimensions (besides the noted exceptions); none in even prime-power dimensions | Abstract |
-| P. Lillystone, J. J. Wallman, J. Emerson, arXiv:1802.06121v2 | Theorem 1 (qubit stabilizer contextuality) | Not re-read; used as read first-hand in AP1 §5.2 and QA |
-| M. Howard et al., arXiv:1401.4174 | Context only (contextuality and magic); no result used | Abstract |
-| S. D. Bartlett, T. Rudolph, R. W. Spekkens, arXiv:1111.5057 | Q-B remark (§6.5) | Abstract via AP1; not a premise |
+| D. Gross, arXiv:quant-ph/0602001 | (W1)–(W8): Theorems 2, 3, 6, 7, 19; Lemmas 4, 8, 9, 29 | §§I–II in full; statements of Theorems 2 and 19 and Lemmas 9 and 29 |
+| R. W. Spekkens, arXiv:1409.5041 | Odd-prime equivalence and noncontextuality; `d = 2` inequivalence | Introduction and §V.A–B |
+| H. Zhu, arXiv:1504.03773 | No Clifford-covariant Wigner function in even prime-power dimension | Abstract |
+| P. Lillystone, J. J. Wallman, J. Emerson, arXiv:1802.06121v2 | Theorem 1 | Not re-read; as read in AP1 §5.2 |
+| M. Howard et al., arXiv:1401.4174 | Context only | Abstract |
+| S. D. Bartlett, T. Rudolph, R. W. Spekkens, arXiv:1111.5057 | §6.5 remark | Abstract via AP1 |
 
-Theorem W, Proposition AS and Proposition C use Gross's stated theorems, with
-their odd-dimension hypothesis. Lemma A, Lemma S, Lemma N, Theorem T and
-Observation E are self-contained algebra.
+Lemmas A, S, G, N and M, Proposition T′ (given W5 and W7), Theorem T (given AS)
+and Observation E are self-contained algebra.
 
 ## 9. Verification scope
 
-Every verdict rests on the paper arguments of §3. Author self-checks were run
-locally as controls. They are not committed, are not evidence and carry no
-verdict. Checks marked "exact" used modular integer or `Fraction` arithmetic.
-The others used floating-point eigenvalues at tolerance `1e−8`.
+Every verdict rests on the paper arguments of §3. The author self-checks are
+uncommitted controls and carry no verdict. "Exact" means modular or `Fraction`
+arithmetic; the others are floating-point eigenvalues at tolerance `1e−8`.
 
 | Check | What it controls |
 | --- | --- |
-| c1 | Gross frame at `q = 3, 5`: unit trace, orthogonality, Pauli projectors as line sums. `J` and `P` give rank-1 Choi matrices; the anti-symplectic `(u, −v)` gives Choi eigenvalue `−1` |
-| c2 | `q = 3`, two cells: the coupled tick (`k = 0, 1, 2`) and the read branches are CP |
-| c3 | `q = 2` tetrahedral frame: the free tick (swap) has Choi eigenvalue `−1`; a 3-cycle and a translation are CP |
-| c4 | Lemma N word at `q = 2, 3, 5, 7` (exact); symplecticity |
+| c1 | Gross frame at `q = 3, 5`; `J` and `P` give rank-1 Choi matrices; the anti-symplectic map gives `−1` |
+| c2 | `q = 3`, two cells: the coupled tick and the read branches are CP |
+| c3 | `q = 2` R1: the non-rotating swap gives `−1`; a 3-cycle and a translation are CP |
+| c4 | Lemma N words at `q = 2, 3, 5, 7` (exact) |
 | c5 | `D_i` not Clifford at `q = 3`; CC-IMIT laws (exact) |
-| c6 | Lemma S on random graded protocols at `q = 3, 5` (exact); the NNB breaking control fires |
-| c7, c7′ | P1 removed (restriction without kick) and P2 removed (sharp meter): Choi eigenvalue `−1` |
-| c8 | Controlled shears: joint action not CP; carrier map CP with the controller in a `Z` eigenstate |
-| c9 | A reachable stabilizer input with an `X`-type controller is mapped to a non-PSD encoded operator |
+| c6 | Lemma S on random graded protocols at `q = 3, 5` (exact); the NNB breaking control |
+| c7, c7′ | P1 removed and P2 removed: `−1` |
+| c8, c9 | `q = 3` instances of Theorem T and Proposition T′(i): controlled shears; an X-type controller gives a non-PSD output. Consistent with the exact argument; not its support |
+| c10 | CTRL-MON composite `T_g ∘ Δ_Z` is CP at `q = 3` |
+
+The independent review's own cross-checks (an exhaustive Proposition AS check at
+`q = 3`; the colour-blind odd-tick step; the memory-sign check) are review
+provenance, not evidence here.
 
 No Lean build, simulation campaign, enumeration, manuscript edit, freeze,
-dispatch or merge was performed. Independent review of this file is a separate
-step.
+dispatch or merge was performed. Independent review of this revision is a
+separate step.
