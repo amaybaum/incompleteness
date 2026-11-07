@@ -72,7 +72,7 @@ parent is the reviewed #1173 head `8dd58694` and second parent is `main@e61e5673
    - Level 3, the continuous rotations (`rot`). Inducing `rot` with exact
      statistics excludes every finite carrier: its encoded action would be a
      finite stochastic matrix, whose unit-modulus eigenvalues are roots of
-     unity, while `cos²(jφ)` with `cos φ = 3/5` is not periodic (§5.3). MP-2, a
+     unity, while `cos²(jφ)` with `cos φ = 3/5` is not eventually periodic up to a vanishing term (§5.3). MP-2, a
      ball-containing carrier, is one sufficient further condition. Read as
      including all pure states and projective reads, it is infinite (Hardy) and
      preparation-contextual (Spekkens). MP-2 moves the open question to the
@@ -524,7 +524,7 @@ each fresh unknown the type of the slot it enters. Then at tick `t` the `u` slot
 of a colour-`χ` cell carries only variables of type `t + χ` mod 2, and its `v`
 slot only type `t + χ + 1`. Free ticks and carrier–meter coupled ticks preserve
 this grading. Since `z` and `x` have different types, no slot, and so no record,
-equals `z + x`. The same grading keeps every determined functional type-pure,
+equals `z + x`. The determined subspace is graded by the same types,
 so no `Y_±` state is reached either. The labels `Y_±` are used below only to
 name toy states in the frame and in the comparator.
 
@@ -721,8 +721,8 @@ and sharp laws.
 SA-1 exhibits only `Z` and `X` reads (§4.2). Certified over those, equivalence
 means equal `z`- and `x`-marginals only, and the test reaches `2/√3`. Four
 MP-1-type laws with Bloch vectors `(±a, ±a, ±a)`, `a = 1/√3`, and the product
-sign on `Y` achieve it: they are nonnegative, pairwise `Z`/`X`-equivalent, and
-their `Y` marginals differ. Over the exhibited read set the test is therefore
+sign on `Y` achieve it: they are nonnegative; the mixtures `½(μ_00 + μ_11)` and
+`½(μ_01 + μ_10)` are `Z`/`X`-equivalent, and their `Y` marginals differ. Over the exhibited read set the test is therefore
 inconclusive. What excludes it as a witness is MR-1's tomographic-completeness
 caveat, not Lemma 4′. SA-1's own laws satisfy the per-state bound (Lemma 4),
 which bounds every quadruple, so SA-1 is unaffected. So are the sharp and
