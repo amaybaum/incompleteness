@@ -116,9 +116,9 @@ The deviations $\Delta_{12}$ and $\Delta_{23}$ depend on two independent scalar 
 
 *Condition 1 — natural normalization.* The overall scale of $A_2$ is fixed by taking $b_{23} = 1$. This is a labeling convention rather than a physical input: it sets $A_2$ to enter the perturbation series at unit strength relative to $\lambda^2$, fixing the normalization of the order-$\lambda^2$ expansion before $b_{12} + b_{13}$ is determined.
 
-*Condition 2 — cubic-group structural relation.* The relation between the dominant $U$-odd coefficient and the $U$-even combination is fixed by the cubic-group representation theory:
+*Condition 2 — cubic-group structural relation.* The relation between the dominant $U$-odd coefficient and the $U$-even combination takes the form of a cubic-group identity, its magnitude at Layer 2(b) (§8.5):
 $$b_{23} = \tfrac{4}{3}(b_{12} + b_{13}).$$
-With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike Condition 1, this is a substantive physical input — a relation between two independent Wilson coefficients that the cubic-group structure produces.
+With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike Condition 1, this is a substantive physical input — a relation between two independent Wilson coefficients, which the substrate is not shown to produce (§8.5).
 
 **Equivalence with TBM sum rule preservation.** The framework's structural relation has a clean interpretation at the angle level. Combining the explicit results $\Delta_{12} = -(2/3)(b_{12} + b_{13})\lambda^2$ and $\Delta_{23} = b_{23}\lambda^2$:
 $$2\Delta_{12} + \Delta_{23} = \bigl(b_{23} - \tfrac{4}{3}(b_{12} + b_{13})\bigr)\lambda^2.$$
@@ -143,13 +143,13 @@ The sum rule is therefore *structurally protected* against $A_1$'s perturbation 
 
 (ii) The cubic-geometric off-democratic projection $A^2 = 1 - 1/d = 2/3$ for $d = 3$ is forced by inner-product structure on $T_1$ with $\hat{h} = (1, 1, 1)/\sqrt{3}$ as the democratic axis. This is the same $A^2$ that produces the Wolfenstein parameter $A = \sqrt{2/3}$ in the quark sector (Chapter 6 §6.5) — Layer 1 structural.
 
-(iii) The cubic-group identity $4/3 = 2A^2 = C_2(T_1)^2/d$ is a genuine representation-theoretic content of the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$. The structural statement *"for some specific generation labeling, one of the three pair-ratios equals $4/3$"* is Layer 2(a) forced by the cubic-group structure.
+(iii) The cubic-group identity $4/3 = 2A^2 = C_2(T_1)^2/d$ is a representation-theoretic identity of the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$. Whether the substrate produces it as the magnitude of a pair-ratio is not established: the second-order substrate route is excluded (SM §7.3), so the magnitude is Layer 2(b), with the $7/6$ sum rule as its direct experimental test and the $O(\lambda^3)$ interference route recorded, not pursued.
 
 (iv) The directional assertion that the $U$-odd amplitude exceeds the $U$-even amplitude by the specific factor of $4/3$, with the labeling fixed by the observed mass hierarchy ($m_e \ll m_\mu \ll m_\tau$ pinning generation 1 = electron), is *Layer 2(b) bijection-specific* content. It depends on the specific bijection $\varphi$ within the equivalence class — the same kind of content as the fermion mass hierarchy itself (Chapter 19 §19.3.1) and CKM/PMNS CP phases.
 
 The empirical match at $0.07\sigma$ on $\sin^2\theta_{12}$ provides genuine evidence about the specific bijection $\varphi$. This is the same form of empirical evidence the framework relies on for other Layer 2(b) content (mass hierarchy match through the Koide structure, the existence of three generations with hierarchical masses).
 
-The open derivational task is correctly scoped: it asks whether the specific staggered-Yukawa structure on the cubic lattice (in the emergent post-trace-out description; the substratum proper has no Lagrangian per Ch02 §2.5) produces $A_2$ in the sum-rule-preserving subspace for a given bijection. This is a tractable lattice-perturbation-theory question for the *magnitude* content (Layer 2(a)), but the directionality remains Layer 2(b) by construction — fixed by the empirical mass-ordering bijection, not derivable from substrate alone in any framework consistent with $\mathcal{G}_{\text{sub}}$-invariance.
+The open derivational task is correctly scoped: it asks whether the specific staggered-Yukawa structure on the cubic lattice (in the emergent post-trace-out description; the substratum proper has no Lagrangian per Ch02 §2.5) produces $A_2$ in the sum-rule-preserving subspace for a given bijection. Its second-order lattice-perturbation route to the *magnitude* is excluded (SM §7.3), leaving the $O(\lambda^3)$ interference construction as the recorded remaining route, so the magnitude is Layer 2(b), tested directly by the $7/6$ sum rule; the directionality is Layer 2(b) by construction — fixed by the empirical mass-ordering bijection, not derivable from substrate alone in any framework consistent with $\mathcal{G}_{\text{sub}}$-invariance.
 
 ## 8.6 The three numerical predictions
 

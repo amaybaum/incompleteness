@@ -9704,12 +9704,13 @@ _A6P_CH05_143 = (r"Background independence, as the reconstruction's assumption A
                  r'that stronger fixed-background condition holds only for transformations that agree across '
                  r'every coupled pair of sites — and it is not the state-dependent coupling graph $G(x)$ on '
                  r'which the Bell branch of Chapter 1 rests, under which the graph itself evolves with the '
-                 r'state; those are different principles that share a name. The matrix structure at each '
-                 r'site has eigenvalue multiplicities $(3, 2, 1)$ because spatial isotropy holds locally, and '
-                 r'the coupling on each link, $M(\mathbf{n}, \hat{e}_j)$, is the data the site-dependent '
-                 r'transformations act on; the commutant $\mathrm{U}(3) \times \mathrm{U}(2) \times '
-                 r'\mathrm{U}(1)$ acts at each site, and the resulting gauge transformations are '
-                 r'site-dependent.')
+                 r'state; those are different principles that share a name. Under H-link and H-cust '
+                 r'(§§5.4–5.5), the cubic decomposition of the link directions fixes the block multiplicities '
+                 r'$(3, 2, 1)$ at each site; spatial isotropy fixes those multiplicities, not distinct block '
+                 r'values. The coupling on each link, $M(\mathbf{n}, \hat{e}_j)$, is the data the site-dependent '
+                 r'transformations act on; where the equivariant condensate takes distinct block values, its '
+                 r'stabilizer $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$ (SM Theorem 5) acts at '
+                 r'each site, and the resulting gauge transformations are site-dependent.')
 _A6P_CH05_145 = (r'the matrix wave equation is invariant provided the coupling matrix transforms as '
                  r'$M(\mathbf{n}, \hat{e}_j) \to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n} + '
                  r'\hat{e}_j)^{-1}$')
