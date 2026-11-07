@@ -116,9 +116,9 @@ The deviations $\Delta_{12}$ and $\Delta_{23}$ depend on two independent scalar 
 
 *Condition 1 — natural normalization.* The overall scale of $A_2$ is fixed by taking $b_{23} = 1$. This is a labeling convention rather than a physical input: it sets $A_2$ to enter the perturbation series at unit strength relative to $\lambda^2$, fixing the normalization of the order-$\lambda^2$ expansion before $b_{12} + b_{13}$ is determined.
 
-*Condition 2 — cubic-group structural relation.* The relation between the dominant $U$-odd coefficient and the $U$-even combination is fixed by the cubic-group representation theory:
+*Condition 2 — cubic-group structural relation.* The relation between the dominant $U$-odd coefficient and the $U$-even combination takes the form of a cubic-group identity, its magnitude at Layer 2(b) (§8.5):
 $$b_{23} = \tfrac{4}{3}(b_{12} + b_{13}).$$
-With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike Condition 1, this is a substantive physical input — a relation between two independent Wilson coefficients that the cubic-group structure produces.
+With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike Condition 1, this is a substantive physical input — a relation between two independent Wilson coefficients, which the substrate is not shown to produce (§8.5).
 
 **Equivalence with TBM sum rule preservation.** The framework's structural relation has a clean interpretation at the angle level. Combining the explicit results $\Delta_{12} = -(2/3)(b_{12} + b_{13})\lambda^2$ and $\Delta_{23} = b_{23}\lambda^2$:
 $$2\Delta_{12} + \Delta_{23} = \bigl(b_{23} - \tfrac{4}{3}(b_{12} + b_{13})\bigr)\lambda^2.$$

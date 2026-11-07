@@ -2534,7 +2534,7 @@
       "line": 193,
       "kind": "Theorem",
       "label": "23",
-      "fingerprint": "59a1b56a75aa30d8",
+      "fingerprint": "30dbbe2b5a91c4d1",
       "area": "reconstruction",
       "assumptions": "see the statement; the nearest-neighbor premise of Stage 2(b); gauge relation between realizations not asserted (generator completeness open)",
       "checks": [],

@@ -749,7 +749,7 @@ Uniqueness at Stage 3 follows from the unique solvability of the boundary gap eq
 
 **The composite theorem.** Composing the three stages yields the chapter's central result.
 
-**Reconstruction Theorem.** *Let E1–E7, M1-T and M1-B, and A1–A6 hold, with the hidden-sector mixing hypothesis for the slow-bath form of the C2 necessity direction and, additionally, the nearest-neighbor restriction of Stage 2. Then the **local propagating lattice/gauge residue** is fixed: $d=3$, $K=6$, coupling-matrix multiplicities $(3,2,1)$, the stated Standard-Model gauge/representation and discrete-symmetry outputs — $K=6$, the multiplicities and the gauge group conditionally on H-link with its single-copy clause and H-cust (Chapter 5 §§5.4–5.5) — and $\hbar=c^3\epsilon^2/(4G\sigma)$ with the qualifications carried by the cited derivations. A single measurement-independent deterministic completion also realizing the Bell-violating M1-B composites exists only conditional on H-Bell. Bell-inclusive full-substratum uniqueness is not established.* $\square$
+**Reconstruction Theorem.** *Let E1–E7, M1-T and M1-B, and A1–A6 hold, with the hidden-sector mixing hypothesis for the slow-bath form of the C2 necessity direction and, additionally, the nearest-neighbor restriction of Stage 2. Then the **local propagating lattice/gauge residue** is fixed: $d=3$, $K=6$, block multiplicities $(3,2,1)$, the stated Standard-Model gauge/representation and discrete-symmetry outputs — $K=6$, the multiplicities and the gauge group conditionally on H-link with its single-copy clause and H-cust (Chapter 5 §§5.4–5.5) — and $\hbar=c^3\epsilon^2/(4G\sigma)$ with the qualifications carried by the cited derivations. A single measurement-independent deterministic completion also realizing the Bell-violating M1-B composites exists only conditional on H-Bell. Bell-inclusive full-substratum uniqueness is not established.* $\square$
 
 The theorem's content is striking. From the empirical inputs of observed physics — quantum mechanics, Bell violations, finite boundary entropy, spatial isotropy, propagating gravity, stable matter, spatial flatness — together with six structural assumptions and the nearest-neighbor restriction, the substratum is forced to be a specific kind of object with specific properties. Conditionally on H-link with its single-copy clause — the open hypothesis that the physical carrier is one copy of the six-link representation (Chapter 5 §5.4) — and, for the gauge group, on an octahedrally equivariant condensate (Chapter 5 §5.5), the Standard Model gauge group is not chosen; it is derived, and the three-sector structure is not posited; it is forced, its reading as three physical generations resting further on H-spin'. The Bekenstein-Hawking $1/4$ factor is not a postulate; it is fixed by the horizon calibration under the conditions Chapter 7 names. The cosmological constant problem is not resolved by tuning; the framework's structure makes $\hbar$ and $G$ commensurable through the boundary thermodynamics, and the apparent $10^{122}$ discrepancy is the compression ratio Chapter 7 develops.
 
@@ -795,7 +795,7 @@ Three candidate further generators are compared with the three already listed:
 
 *Level 3 — reconstructed-datum substratum gauge.* $\mathcal{G}_{\text{sub}}$ acts on the reconstructed dilation/local representative $(S, \varphi)$ before any marginalization. Within that scoped reconstruction it includes transformations with no analog at lower levels (deep-sector enlargement, and alphabet change under the alphabet-size hypothesis). Bell-composite preparation rules are outside its scope.
 
-*Level 2 — emergent quantum field theory gauge.* The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ acts on the emergent fields after Stage 2 of the reconstruction has produced them. It follows from the substratum construction (Stage 2) and acts on internal components within the eigenspaces of the coupling matrix.
+*Level 2 — emergent quantum field theory gauge.* The Standard Model gauge group $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ acts on the emergent fields after Stage 2 of the reconstruction has produced them. It follows from the substratum construction (Stage 2) and acts on internal components within the blocks of the equivariant condensate $\Sigma$.
 
 *Level 1 — emergent Hamiltonian gauge.* A residual diagonal-unitary freedom $H \to D H D^\dagger$ (where $D$ is a diagonal unitary on the emergent Hilbert space) remains after all transition-probability data has been extracted. It corresponds to the rephasing of basis states in the emergent quantum description.
 
@@ -2306,9 +2306,9 @@ The deviations $\Delta_{12}$ and $\Delta_{23}$ depend on two independent scalar 
 
 *Condition 1 — natural normalization.* The overall scale of $A_2$ is fixed by taking $b_{23} = 1$. This is a labeling convention rather than a physical input: it sets $A_2$ to enter the perturbation series at unit strength relative to $\lambda^2$, fixing the normalization of the order-$\lambda^2$ expansion before $b_{12} + b_{13}$ is determined.
 
-*Condition 2 — cubic-group structural relation.* The relation between the dominant $U$-odd coefficient and the $U$-even combination is fixed by the cubic-group representation theory:
+*Condition 2 — cubic-group structural relation.* The relation between the dominant $U$-odd coefficient and the $U$-even combination takes the form of a cubic-group identity, its magnitude at Layer 2(b) (§8.5):
 $$b_{23} = \tfrac{4}{3}(b_{12} + b_{13}).$$
-With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike Condition 1, this is a substantive physical input — a relation between two independent Wilson coefficients that the cubic-group structure produces.
+With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike Condition 1, this is a substantive physical input — a relation between two independent Wilson coefficients, which the substrate is not shown to produce (§8.5).
 
 **Equivalence with TBM sum rule preservation.** The framework's structural relation has a clean interpretation at the angle level. Combining the explicit results $\Delta_{12} = -(2/3)(b_{12} + b_{13})\lambda^2$ and $\Delta_{23} = b_{23}\lambda^2$:
 $$2\Delta_{12} + \Delta_{23} = \bigl(b_{23} - \tfrac{4}{3}(b_{12} + b_{13})\bigr)\lambda^2.$$
@@ -6047,7 +6047,7 @@ Two key gauge-theoretic results from Chapter 5 are presented here in full: the c
 
 The content of the proposition is entirely in its hypothesis. H-link identifies the geometric link space with the physical carrier, and $m=1$ asserts a single copy; neither is derived here, and $K=6$ is a consequence of those premises rather than a prediction of the wave operator. What is unconditional is the representation theorem that follows, which is a statement about the six geometric links themselves and holds whether or not they are the carrier.
 
-**The cubic rotation group decomposition.** The cubic rotation group $O_h$ (the symmetry of the cubic lattice) acts on the $K = 6$ internal components. The decomposition of this six-dimensional representation into irreducible representations of $O_h$ determines the multiplicities $(n_1, n_2, n_3, \ldots)$ of the coupling matrix's eigenvalues.
+**The cubic rotation group decomposition.** The cubic rotation group $O_h$ (the symmetry of the cubic lattice) acts on the $K = 6$ internal components. The decomposition of this six-dimensional representation into irreducible representations of $O_h$ determines the block multiplicities $(n_1, n_2, n_3, \ldots)$ of an equivariant condensate $\Sigma$ (SM Theorem 5; the coupling matrix itself is scalar).
 
 **Theorem B.6.2 (Cubic decomposition).** *The six-dimensional representation of $O_h$ on the internal components decomposes uniquely as*
 $$\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$$
@@ -6057,7 +6057,7 @@ $$\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$$
 
 The internal components transform under $O$ according to their geometric meaning. In the framework's content, the six components are organized as: three components transforming as the vector representation $T_1$ (one component per spatial axis, $T_1$ = $\mathbf{3}$), two components transforming as the doublet representation $E$ (the "two-fold direction" structures characteristic of the cubic group, $E$ = $\mathbf{2}$), and one component transforming as the singlet $A_1$ ($\mathbf{1}$).
 
-The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three eigenvalues with multiplicities $(3, 2, 1)$. The framework's content identifies these multiplicities with the dimensions of the Standard Model gauge group factors:
+The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three blocks with multiplicities $(3, 2, 1)$, on which an equivariant condensate takes its block values. The framework's content identifies these multiplicities with the dimensions of the Standard Model gauge group factors:
 - $\mathbf{3} \rightarrow \mathrm{SU}(3)$ color (three colors)
 - $\mathbf{2} \rightarrow \mathrm{SU}(2)$ weak isospin (two doublet states)
 - $\mathbf{1} \rightarrow \mathrm{U}(1)$ hypercharge (one singlet)
@@ -6066,7 +6066,7 @@ The identification is structural: the cubic rotation group's representation theo
 
 **The link to gauge invariance.** The commutant of the equivariant condensate $\Sigma$ with distinct block values (SM Theorem 5; the coupling matrix $M = \mu I_6$ is scalar, with commutant $\mathrm{U}(6)$) is the maximal group preserving its block structure: $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$, the group from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — covariance of the dynamics under site-dependent choices of basis within each eigenspace, the link coupling transforming with them — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
 
-**Combined structural result.** Combining B.6.1 and B.6.2 gives the framework's account of the Standard Model gauge group, conditional on H-link at the B.6.1 step and unconditional at the B.6.2 step:
+**Combined structural result.** Combining B.6.1 and B.6.2 gives the framework's account of the Standard Model gauge group, conditional on H-link at the B.6.1 step, unconditional at the representation-theoretic step (ii) of B.6.2, and conditional on H-cust at the stabilizer step (iii) (SM Theorem 5):
 
 (i) The H-link link count with $m = 1$ on the $d = 3$ cubic lattice fixes $K = 6$ internal components per site.
 

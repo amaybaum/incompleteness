@@ -624,7 +624,7 @@ Laboratory tests of the characterization theorem may be possible in analogue gra
 
 (U3) *Two-level distinction.* The emergent quantum vacuum energy ($\sim M_{\rm Pl}^4$) and the effective cosmological constant ($\sim H^2/G$) refer to logically distinct objects across two levels of description; the $10^{122}$ ratio is a compression ratio, not a failure of cancellation (§6.1).
 
-*(b) Conditional universality.* If, in addition, H-slope, H-frame and the H-Hawking conditions hold at the horizon of $\mathcal{S}$, then with the same numerical content as for OI's substratum:
+*(b) Conditional universality.* If, in addition, H-slope, H-frame and the H-Hawking conditions hold at the horizon of $\mathcal{S}$ and the emergent description has local boost structure there (the boost-channel Lorentz-sector item of [Main §3.5], carried by the KMS step below), then with the same numerical content as for OI's substratum:
 
 (C1$'$) *Emergent action scale.* $\hbar = c^3 \epsilon^2 / (4G\sigma)$, where $\epsilon$ is the partition's discreteness scale and $\sigma$ the entropy per boundary mode (§3.2).
 
@@ -674,7 +674,7 @@ These conditions are weaker than OI's full structural conditions A1–A6: A1 (fi
 
 **Theorem-level statement.** The universality claim can be stated at the level of the framework's hierarchical structure (per [Structure §2]):
 
-*Theorem (universality of the partition-geometry results).* For any substratum $\mathcal{S}$ satisfying S1–S4, (U1)–(U3) follow with the same content as derived in this paper for OI's specific substratum; if in addition H-slope, H-frame and the H-Hawking conditions hold at its horizon, together with the symmetric detailed-balance rate ratio used above — obtained on the OI branch under the stated time-reversal-even coarse-state condition, and an additional condition for general non-bijective dynamics — so do (C1$'$)–(C3$'$) with the same numerical content.
+*Theorem (universality of the partition-geometry results).* For any substratum $\mathcal{S}$ satisfying S1–S4, (U1)–(U3) follow with the same content as derived in this paper for OI's specific substratum; if in addition H-slope, H-frame and the H-Hawking conditions hold at its horizon and the emergent description has local boost structure there, together with the symmetric detailed-balance rate ratio used above — obtained on the OI branch under the stated time-reversal-even coarse-state condition, and an additional condition for general non-bijective dynamics — so do (C1$'$)–(C3$'$) with the same numerical content.
 
 The proof is the §3–§6 derivations themselves, with the observation that each step depends only on S1–S4 and the named conditions, not on OI's specific structural conditions A2–A5. A formal proof at the level of explicit theorem-style presentation has not been written out in this paper; the present section identifies the structural conditions required at each step, and the claim is established at that level.
 

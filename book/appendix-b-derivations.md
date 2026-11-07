@@ -295,7 +295,7 @@ Two key gauge-theoretic results from Chapter 5 are presented here in full: the c
 
 The content of the proposition is entirely in its hypothesis. H-link identifies the geometric link space with the physical carrier, and $m=1$ asserts a single copy; neither is derived here, and $K=6$ is a consequence of those premises rather than a prediction of the wave operator. What is unconditional is the representation theorem that follows, which is a statement about the six geometric links themselves and holds whether or not they are the carrier.
 
-**The cubic rotation group decomposition.** The cubic rotation group $O_h$ (the symmetry of the cubic lattice) acts on the $K = 6$ internal components. The decomposition of this six-dimensional representation into irreducible representations of $O_h$ determines the multiplicities $(n_1, n_2, n_3, \ldots)$ of the coupling matrix's eigenvalues.
+**The cubic rotation group decomposition.** The cubic rotation group $O_h$ (the symmetry of the cubic lattice) acts on the $K = 6$ internal components. The decomposition of this six-dimensional representation into irreducible representations of $O_h$ determines the block multiplicities $(n_1, n_2, n_3, \ldots)$ of an equivariant condensate $\Sigma$ (SM Theorem 5; the coupling matrix itself is scalar).
 
 **Theorem B.6.2 (Cubic decomposition).** *The six-dimensional representation of $O_h$ on the internal components decomposes uniquely as*
 $$\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$$
@@ -305,7 +305,7 @@ $$\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$$
 
 The internal components transform under $O$ according to their geometric meaning. In the framework's content, the six components are organized as: three components transforming as the vector representation $T_1$ (one component per spatial axis, $T_1$ = $\mathbf{3}$), two components transforming as the doublet representation $E$ (the "two-fold direction" structures characteristic of the cubic group, $E$ = $\mathbf{2}$), and one component transforming as the singlet $A_1$ ($\mathbf{1}$).
 
-The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three eigenvalues with multiplicities $(3, 2, 1)$. The framework's content identifies these multiplicities with the dimensions of the Standard Model gauge group factors:
+The decomposition $\mathbf{6} = T_1 \oplus E \oplus A_1$ produces three blocks with multiplicities $(3, 2, 1)$, on which an equivariant condensate takes its block values. The framework's content identifies these multiplicities with the dimensions of the Standard Model gauge group factors:
 - $\mathbf{3} \rightarrow \mathrm{SU}(3)$ color (three colors)
 - $\mathbf{2} \rightarrow \mathrm{SU}(2)$ weak isospin (two doublet states)
 - $\mathbf{1} \rightarrow \mathrm{U}(1)$ hypercharge (one singlet)
@@ -314,7 +314,7 @@ The identification is structural: the cubic rotation group's representation theo
 
 **The link to gauge invariance.** The commutant of the equivariant condensate $\Sigma$ with distinct block values (SM Theorem 5; the coupling matrix $M = \mu I_6$ is scalar, with commutant $\mathrm{U}(6)$) is the maximal group preserving its block structure: $\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)$, the group from which Chapter 5 §5.5 obtains $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. Background independence — covariance of the dynamics under site-dependent choices of basis within each eigenspace, the link coupling transforming with them — promotes this global commutant to local gauge invariance. The result is the emergent $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge theory of the Standard Model.
 
-**Combined structural result.** Combining B.6.1 and B.6.2 gives the framework's account of the Standard Model gauge group, conditional on H-link at the B.6.1 step and unconditional at the B.6.2 step:
+**Combined structural result.** Combining B.6.1 and B.6.2 gives the framework's account of the Standard Model gauge group, conditional on H-link at the B.6.1 step, unconditional at the representation-theoretic step (ii) of B.6.2, and conditional on H-cust at the stabilizer step (iii) (SM Theorem 5):
 
 (i) The H-link link count with $m = 1$ on the $d = 3$ cubic lattice fixes $K = 6$ internal components per site.
 
