@@ -19,7 +19,7 @@ The *second half* (§§16.9-16.12) develops epigenetics as biological hidden sec
 
 Section 16.13 closes the chapter with a unifying therapeutic principle: *memory asymmetry*. When a disease process depends on non-Markovian signaling dynamics that the corresponding normal tissue does not, therapies can target the *memory structure* rather than the *catalytic function* — predicting wider therapeutic windows because memory dependence is more disease-specific than catalytic activity.
 
-The framework's strongest non-physics case here is structural. Its one empirical touchpoint — the wider therapeutic window in Rett syndrome (Guy et al. 2007) — is a retrodiction, since the result predates the framework, so it carries the weight of a consistency check rather than of the JUNO forward prediction. The framework's forward predictions in medicine (below) remain to be tested.
+The framework's strongest non-physics case here is structural. Its one empirical touchpoint — the wider therapeutic window in Rett syndrome (Guy et al. 2007) — is a retrodiction, since the result predates the framework, so it carries the weight of a consistency check, as the JUNO $\sin^2\theta_{12}$ match does, not of a forward confirmation. The framework's forward predictions in medicine (below) remain to be tested.
 
 ## 16.2 The enzyme as a read-write system
 
@@ -337,7 +337,7 @@ The chapter's content sorts into three empirical categories.
 
 *Open clinical development.* The framework predicts new drug classes — memory-targeted drugs (Chk1 regulatory-domain accelerators), $\tau_B$-normalizing drugs (neurodegeneration), anti-persister drugs (antibiotic resistance), regulatory-domain accelerators (immunotherapy) — that are pharmacologically distinct from current standards. These drug classes are not currently in development; they would require dedicated screening programs measuring regulatory dynamics rather than catalytic inhibition.
 
-**The framework's epistemic position in medicine.** The framework's content in this chapter is its strongest non-physics *structural* case. The Rett result (Guy et al. 2007) is a retrodiction, not a forward confirmation like JUNO's $\sin^2\theta_{12}$ at 0.07$\sigma$. The cumulative case across the chapter's content (cancer scheduling, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, epigenetic operator distinction) provides multiple converging lines of evidence for the framework's reach beyond fundamental physics.
+**The framework's epistemic position in medicine.** The framework's content in this chapter is its strongest non-physics *structural* case. The Rett result (Guy et al. 2007) is a retrodiction, as is the JUNO $\sin^2\theta_{12}$ match at 0.07$\sigma$. The cumulative case across the chapter's content (cancer scheduling, neurodegeneration, antibiotic resistance, immunotherapy, cardiac pharmacology, autoimmune disease, epigenetic operator distinction) provides multiple converging lines of evidence for the framework's reach beyond fundamental physics.
 
 The framework is not just a theory of fundamental physics with implications for medicine; it provides specific predictions for clinical pharmacology that have been tested and confirmed, with substantial open research programs aligned with the framework's content. The framework's reach in medicine is concrete and clinically engaged.
 
