@@ -2144,6 +2144,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 10.4 develops the scale hierarchy that makes chemist..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The proposed chain from substratum to chemistry runs through..."
     },
     {
@@ -2181,6 +2185,22 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework derives two independent gauge groups — SU(3) a..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Given their values and the electron mass, the two gauge coup..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The ratio $E_{\\text{nuclear}} / E_{\\text{atomic}} \\sim 10^6$..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Where chemistry meets the framework.** The scale hierarchy..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Chemistry is therefore inherently *stable but dynamic* in an..."
     },
     {
       "ok": true,

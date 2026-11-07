@@ -70,11 +70,11 @@ Four additional structural results extend the chain beyond orbital chemistry.
 
 ### 2.5 The scale hierarchy
 
-The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths [2, §6]. This guarantees two widely separated energy scales:
+The framework derives two independent gauge groups — SU(3) and U(1) — with independent coupling strengths [2, §6]. Given the values of the couplings and masses, they set two widely separated energy scales:
 
 $$E_{\text{nuclear}} \sim \Lambda_{\text{QCD}} \sim \text{MeV}, \qquad E_{\text{atomic}} \sim \alpha^2 m_e c^2 \sim \text{eV}$$
 
-The ratio $E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6$ is partly parametric (it depends on the specific couplings), but the *existence* of two independent scales is structural — it follows from having two independent gauge groups. The universal induced coupling $1/\alpha_0 = 23.25$ at the matching scale $\mu = M_{\text{Pl}}$ is itself structural — determined by $N_f = 6$ and the Dynkin index, not by the eigenvalues of $M$ (ambient coefficient; for hypercharge under H-observer-bundle and H-Y-vertex, [SM §6.5]) — and the framework reproduces all three SM gauge couplings at $M_Z$ through non-perturbative gauge self-energy corrections and RG running [2, §6]. This separation has a consequence: nuclei are stable against chemical reactions. Chemistry rearranges electrons (eV) without touching nuclei (MeV). Atoms are permanent building blocks that can be assembled, disassembled, and reassembled without being destroyed.
+The ratio $E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6$ is parametric: the two independent gauge groups supply two independent couplings, and the separation of the resulting scales rests on the couplings' and masses' values. The universal induced coupling $1/\alpha_0 = 23.25$ at the matching scale $\mu = M_{\text{Pl}}$ is itself structural — determined by $N_f = 6$ and the Dynkin index (ambient coefficient; for hypercharge under H-observer-bundle and H-Y-vertex, [SM §6.5]) — and the framework reproduces all three SM gauge couplings at $M_Z$ through non-perturbative gauge self-energy corrections and RG running, with three threshold parameters fitted to the three observed couplings [2, §6.3]. This separation has a consequence: nuclei are stable against chemical reactions. Chemistry rearranges electrons (eV) without touching nuclei (MeV). Atoms are permanent building blocks that can be assembled, disassembled, and reassembled without being destroyed.
 
 ### 2.6 Water
 
@@ -86,7 +86,7 @@ The *possibility* of a molecule with these properties is structural: element 8's
 
 ### 2.7 The thermal window
 
-For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The scale hierarchy (§2.5) guarantees that $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at any temperature where a liquid exists — chemistry is inherently *stable but dynamic* in any universe with two independent gauge groups and the derived orbital structure.
+For chemistry to support complexity, a thermal window must exist where bond energies (~1–5 eV) $\gg kT$ (bonds are stable), $kT > E_{\text{activation}}$ (reactions proceed), and a liquid solvent exists. The scale hierarchy (§2.5) guarantees that $E_{\text{bond}} / E_{\text{thermal}} \gg 1$ at any temperature where a liquid exists — chemistry is inherently *stable but dynamic* in any universe with two independent gauge groups, couplings and masses that separate the nuclear and atomic scales, and the derived orbital structure.
 
 ### 2.8 Summary of the structural chain
 
