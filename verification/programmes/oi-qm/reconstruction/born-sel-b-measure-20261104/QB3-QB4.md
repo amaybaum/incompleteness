@@ -95,7 +95,7 @@ The review's route B, a wording narrowed to the support already on `main`, is no
 | μ-form, the same unitary, basis and readout | the proof term, `Equivalence.lean:297–299` | support on `main`; a paper reading of a kernel proof, not a theorem statement |
 | μ-form, exponent | Main:556 | support on `main` |
 | μ-number, numbers vary with μ | Main:60 (the two-state swap under uniform versus point-mass hidden priors); the map `φ(v,h) = (h,v)` is Main:78's. Under the uniform prior `Γ_1(a, j) = μ_H{h : h = j} = 1/2`, so `Γ_1 = J/2`; under `δ_0`, `Γ_1 = [[1,0],[1,0]]` [D, from those lines] | support on `main` |
-| μ-number, CE-8 | `QB3-EVIDENCE.md` §4 and `QB3-EVIDENCE-REVIEW.md` §1 (pinned on `main` above); BSB:129–136 at `7b46d36c`, unchanged in r4 except that "(C1 witness)" is omitted | support on `main` [D]; reviewed paper derivation; BSB:137–138 is not retained |
+| μ-number, CE-8 | `QB3-EVIDENCE.md` §4 and `QB3-EVIDENCE-REVIEW.md` §1 (pinned on `main` above); BSB:129–136 at `7b46d36c`, unchanged in r4; only the landed extract omits "(C1 witness)" | support on `main` [D]; reviewed paper derivation; BSB:137–138 is not retained |
 | μ-number, selection open | Main:56; Main:726 | support on `main` |
 | indivisibility, shared hidden prior | Main:137 | support on `main` |
 | indivisibility, root-dependent laws; CE-8 dependence | `QB3-EVIDENCE.md` §5 and `QB3-EVIDENCE-REVIEW.md` §1 (pinned on `main` above); BSB r4:147–162, with the review-status bracket replaced by `[D]` | support on `main` [D]; reviewed paper derivation; the rest of the assessment is not retained |
