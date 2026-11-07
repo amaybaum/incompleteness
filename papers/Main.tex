@@ -749,13 +749,18 @@ accuracy (§3.4). \textbf{(4) Full operational extension:} one common
 \emph{standard quantum instrument/composite theory} for all coherent
 interventions is obtained, on a finite carrier with complex matrix
 kinematics taken as given, exactly under the five completion conditions
-of §3.4; which of them the substratum supplies is open. Bell is a
-separate constraint rather than one of those conditions: for a
-response-complete deterministic completion that records a \(\pm1\)
-outcome in every run, measurement independence plus ontic parameter
-independence would force \(|S_{\rm CHSH}|\le2\), so the Bell-violating
-branch adopted in §3.3 retains measurement independence and relinquishes
-ontic parameter independence with operational no-signaling required.
+of §3.4. Under the substratum's finite bijective read-write dynamics,
+(iv), full reversible control, is not supplied (kernel:
+\texttt{readWriteSourced\_not\_control} in
+\texttt{OIBridge/ReadWriteControl.lean}, on the two-state carrier);
+whether an extended OI mechanism supplies it, and which of the other
+conditions the substratum supplies, are open. Bell is a separate
+constraint rather than one of those conditions: for a response-complete
+deterministic completion that records a \(\pm1\) outcome in every run,
+measurement independence plus ontic parameter independence would force
+\(|S_{\rm CHSH}|\le2\), so the Bell-violating branch adopted in §3.3
+retains measurement independence and relinquishes ontic parameter
+independence with operational no-signaling required.
 
 \hypertarget{partition-relativity}{%
 \subsubsection{1.4 Partition-Relativity}\label{partition-relativity}}
@@ -1427,8 +1432,11 @@ carrier, with complex matrix kinematics taken as given, it holds exactly
 under five completion conditions, none supplied by bare finite OI
 (§3.4); the one-step coherence theorem of §3.2 establishes
 non-entanglement-breaking one-step coherence for the linear lattice
-realization under the \(w<\kappa\) criterion, and which of the five
-conditions the substratum supplies is open.
+realization under the \(w<\kappa\) criterion; under the substratum's
+finite bijective read-write dynamics, (iv), full reversible control, is
+not supplied (§3.4), and whether an extended OI mechanism supplies it,
+and which of the other four conditions the substratum supplies, are
+open.
 
 \textbf{Scope of the correspondence (what it does and does not
 deliver).} Because the compressed-representation clause rests on this
@@ -2365,11 +2373,14 @@ three (characterized conditionally):} coherent preparation, noncommuting
 interventions, and the instrument algebra --- the operational bridge,
 which on a finite carrier, with complex matrix kinematics taken as
 given, holds exactly under the five completion conditions of §3.4, none
-supplied by bare finite OI; which of them the substratum supplies is
-open (§3.2 checklist). Within level one, the frozen-limit error analysis
-stands: the leading departure from the frozen-limit description enters
-at \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\) as an absorbable
-Hermitian drift of \(\hat{H}_{\text{eff}}\), with genuine non-unitarity
+supplied by bare finite OI; under the substratum's finite bijective
+read-write dynamics, (iv), full reversible control, is not supplied
+(§3.4), and whether an extended OI mechanism supplies it, and which of
+the others the substratum supplies, are open (§3.2 checklist). Within
+level one, the frozen-limit error analysis stands: the leading departure
+from the frozen-limit description enters at
+\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\) as an absorbable Hermitian
+drift of \(\hat{H}_{\text{eff}}\), with genuine non-unitarity
 \(\mathcal{D}\) entering through the conditioned-Hamiltonian spread and
 the second-order bath-motion term
 \(\mathcal{O}((\tau_S/\tau_B)^2) \sim 10^{-64}\) (§3.2). The two routes
@@ -3840,7 +3851,12 @@ operational-extension boundary, above): within the complex matrix
 kinematics it takes as given, exact finite operational quantum mechanics
 on a carrier and its composites is equivalent to five named conditions,
 none supplied by bare finite OI, so what remains is orientation, the
-physical question of which conditions the substratum supplies, and a
+physical questions of whether an extended OI mechanism supplies full
+reversible control, which the substratum's finite bijective read-write
+dynamics does not supply (kernel:
+\texttt{readWriteSourced\_not\_control} in
+\texttt{OIBridge/ReadWriteControl.lean}, on the two-state carrier), and
+of which of the other conditions the substratum supplies, and a
 derivation of that kinematics, not the size of the family and not a
 lifting theorem. Bell is not an extra rung of that lift: §3.3 separately
 fixes the deterministic Bell branch as measurement-independent but
@@ -5645,10 +5661,12 @@ comb construction already covers finite menus of classical controls, so
 this residual is specifically the coherent/noncommuting and
 compositional layer. On a finite carrier, within complex matrix
 kinematics taken as given, that layer is characterized exactly by five
-completion conditions, none supplied by bare finite OI (§3.4); which of
-them the substratum supplies, and a derivation of the kinematics, are
-open, and neither is a defect in the exact stochastic--quantum
-equivalence proved here.
+completion conditions, none supplied by bare finite OI (§3.4); under the
+substratum's finite bijective read-write dynamics, (iv), full reversible
+control, is not supplied (§3.4); whether an extended OI mechanism
+supplies it, which of the other conditions the substratum supplies, and
+a derivation of the kinematics are open, and none of these is a defect
+in the exact stochastic--quantum equivalence proved here.
 
 \hypertarget{code-and-data-availability}{%
 \subsection{Code and Data
@@ -5937,4 +5955,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: ee5dcf5f6e8cfb6a5b88cbee1530045affaddde1fdc550e2be72211cbad7bb7c
+% source-sha256: 57c5a26dca2e4e4cde4ab81e0badf57a56bab2c7ab0b88975d66d9ffa2b9031a

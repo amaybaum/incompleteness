@@ -1,6 +1,6 @@
 {
   "base": "ca3a5bb25ec6fdff3d3ccffcacd2d7bac3bb4caf",
-  "checker_sha256": "6573db27dcde8faf8a096102e89a2906505a17d395a920b11f20711ba24bea72",
+  "checker_sha256": "a4fe5b5c2acbb056f0e5668331eeedd68a10eecde4639db1d10141b02050d97c",
   "checks": [
     {
       "ok": true,
@@ -2561,6 +2561,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework predicts that aging-associated gene expression..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's epistemic position in medicine.** The fram..."
     },
     {
       "ok": true,
