@@ -1160,6 +1160,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *B.6 Gauge-theoretic derivations.* Two key gauge-theoretic r..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *B.7 The lemma chain for the characterization.* The framewor..."
     },
     {
@@ -1176,7 +1180,31 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Two key gauge-theoretic results from Chapter 5 are presented..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The cubic rotation group decomposition.** The cubic rotati..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The decomposition $\\mathbf{6} = T_1 \\oplus E \\oplus A_1$ pro..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The link to gauge invariance.** The commutant of the equiv..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Combined structural result.** Combining B.6.1 and B.6.2 gi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: (ii) The cubic rotation group's representation theory decomp..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: (iii) The coupling matrix is scalar, $M = \\mu I_6$, with com..."
     },
     {
       "ok": true,
@@ -1576,6 +1604,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Level 2 — emergent quantum field theory gauge.* The Standar..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The substratum construction provides a structural account of..."
     },
     {
@@ -1612,11 +1644,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The shared structure is not metaphor or analogy. The same lo..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The relationship between quantum mechanics and general relat..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The recasting of the unification problem has two consequence..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's synthesis claim is structural and architectu..."
     },
     {
       "ok": true,
@@ -1896,6 +1936,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Background independence, as the reconstruction's assumption ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Chapter 6 develops the specific quantitative content this ga..."
     },
     {
@@ -2025,6 +2069,22 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The gravitational sector combines unconditional partition-ge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Condition 2 — cubic-group structural relation.* The relatio..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: (iii) The cubic-group identity $4/3 = 2A^2 = C_2(T_1)^2/d$ i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The open derivational task is correctly scoped: it asks whet..."
     },
     {
       "ok": true,
@@ -2729,6 +2789,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Frauchiger-Renner theorem.** A 2018 multi-agent no-go theo..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Gauge group.** A continuous group of local symmetries unde..."
     },
     {
       "ok": true,
