@@ -29,6 +29,11 @@ Sources were read at Lean v4.33.0 commit
 - [`Init/Meta/Defs.lean:101`](https://github.com/leanprover/lean4/blob/d8b18978322de05a8f3dba51ef03cf5461676c17/src/Init/Meta/Defs.lean#L101):
   identifier and escaping rules are display rules. `_inaccessible` satisfies the character
   grammar and is also recognized by `Name.isInaccessibleUserName` at lines 151–154.
+- [`Lean/Util/CollectAxioms.lean`](https://github.com/leanprover/lean4/blob/d8b18978322de05a8f3dba51ef03cf5461676c17/src/Lean/Util/CollectAxioms.lean):
+  collection uses precomputed axiom entries from imported modules and does not cross module
+  boundaries. Trusting a stale intermediate imported artifact can therefore preserve stale
+  axiom information. This motivates the full transitive cache-validity contract below; no
+  failure of an actual build is asserted.
 
 **Decision:** the authoritative input is the actual resolved declaration Name and the actual
 Names returned by `collectAxioms`, before any pretty-printer, alias or display conversion.
@@ -69,8 +74,15 @@ Any implementation that cannot maintain this producer boundary must stop for des
 accepting arbitrary JSON text found in a log is not an allowed substitute.
 
 The wrapper inventories every scoped source module and binds the artifact manifest to exact
-source bytes, imported artifact identities, Lean and reporter binaries, dependency lockfile,
-build options, and schema version. Each scoped module has one manifest entry, including a
+source bytes, the **complete transitive imported-artifact and compilation-input closure**,
+Lean and reporter binaries, dependency lockfile, build options, and schema version. This closure
+includes dependency modules outside the print inventory. For each imported module it validates
+the compiled artifact against its current source/build inputs and recursively validated imports,
+anchored in the current resolved dependencies and trusted toolchain, not just a cache's own old
+manifest. An unchanged direct-import hash does not certify that the imported artifact is current.
+Unknown or unverifiable closure inputs fail; they require rebuilding under the authorized wrapper
+or a reviewed equivalent validity proof. A trusted immutable prebuilt toolchain/dependency bundle
+must bind its whole included closure. Each scoped module has one manifest entry, including a
 module with zero print commands. Deleted or extra modules, stale source digests, incomplete
 commands or unexpected artifacts fail. The output is finalized only after successful module
 compilation; partial output from a failed compilation cannot certify the module.
@@ -91,6 +103,13 @@ source parser can therefore cause safe false failures for unsupported source for
 does not claim to discover every theorem that ought to have a print. Dependency modules are
 outside the scoped print inventory, but imported axioms collected for an in-scope declaration
 are included and checked regardless of which dependency declared them.
+
+**Invocation.** In the existing no-log `--require-lake` mode, the future checker invokes this
+trusted wrapper and receives its bundle and actual status internally. If the wrapper is absent
+or fails to supply a valid bundle, the checker fails. For an external `--log`, the caller must
+also supply `--identity-bundle` containing its validated build-status manifest; the checker must
+not fabricate a zero status or obtain records from a different invocation. Each normal invocation
+checks its own build; the migration comparison separately requires successful cold and warm runs.
 
 ## 3. Lossless Name representation and exact allowlist
 
@@ -195,11 +214,21 @@ independently reviewed, including canonical companions for the historical 34 fix
 | K18 | Warm cache artifact has changed source/import input or comes from an uninstrumented module | Fail binding/missing; exact finalized artifact reuse with successful current status passes. |
 | K19 | Put a valid-looking JSON record only in stdout | Fail IDENTITY_MISSING; the trusted artifact channel remains absent. |
 | K20 | Unsupported schema/tag, duplicate object key/axiom, noncanonical numeric value, empty declaration Name | Fail IDENTITY_FORMAT; canonical corresponding inputs pass. |
+| K21 | A imports B, B imports C; C's current source/build inputs change while cached A and B bytes/manifests retain the old closure | Fail IDENTITY_BINDING even if A's direct-import B hash is unchanged. A fully validated current A→B→C closure is the positive; replaying the whole old closure against current inputs also fails. |
+| K22 | No-log mode receives a valid bundle/status from the trusted wrapper; external-log mode omits its bundle | No-log case passes with the other controls satisfied; external-log case fails IDENTITY_MISSING. Missing wrapper or status also fails; neither mode has a text-only fallback. |
 
-Required future channel mutants: compare display only (killed by K02/K03); split rendered
+Required future channel mutant D01 replaces only the canonical AXIOM allowlist comparison with
+exact equality of displayed strings against `propext`, `Classical.choice`, `Quot.sound`, keeping
+all other checks. K03's forbidden Name displayed as `propext` kills it by changing FAIL to PASS;
+K01's genuine `Classical.choice` displayed as `choice` kills it by changing PASS to FAIL. K02
+does not kill D01: its display `choice` also fails that mutant's exact display allowlist.
+
+Other required future channel mutants: split rendered
 dots (K04); strip private prefixes (K09); conflate numeric/string components (K10); normalize
 Unicode or erase macro scopes (K12); trust text fallback (K13/K19); ignore binding/cache
-identity (K14/K18); borrow cold status for warm (K17). A reject-all mutant is killed by the
+identity (K14/K18/K21); validate only direct-import hashes while trusting stale intermediate
+manifests (K21); borrow cold status for warm (K17); waive missing external-log bundles (K22).
+A reject-all mutant is killed by the
 positive members. These are paper expectations; no actual mutant has been run. M01's separate
 two-part historical text-layer semantics are specified in HARDENING-DESIGN §7.2 (R3).
 

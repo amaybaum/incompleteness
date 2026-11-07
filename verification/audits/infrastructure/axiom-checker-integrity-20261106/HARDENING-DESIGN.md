@@ -253,10 +253,14 @@ input it cannot classify is a failure, never skipped.
 Several rules can fire on one input. F16 gives UNPARSED and ORPHAN. F18 gives EMPTY and two
 MISSING. F20 gives SORRY and AXIOM.
 
-The proposed CLI keeps `--log`, `--root` and `--require-lake` and adds required canonical input
-`--identity-bundle DIR` plus `--json FILE`. With a supplied log, the canonical bundle and outer
-build-status manifest are still mandatory for a migration PASS; `--log` alone cannot establish
-identity or build success. JSON records the sorted findings and matched `(M, L, C, declaration
+The proposed CLI keeps `--log`, `--root` and `--require-lake`, adding `--identity-bundle DIR`
+and `--json FILE`. Without `--log`, the checker invokes the trusted build wrapper and receives
+its log, canonical bundle and actual build-status manifest internally; a missing wrapper or
+bundle fails. Thus the existing release invocation `--require-lake` has a specified producer
+path. With externally supplied `--log`, `--identity-bundle` and its validated status manifest
+are mandatory: the checker does not infer build success from text or silently run another build
+to supply a missing bundle. The outer migration gate additionally requires both cold and warm
+statuses. JSON records the sorted findings and matched `(M, L, C, declaration
 Name, axiom Names)` with tagged Names, bundle identity and schema version (§A.44). A missing,
 malformed, unbound or inconsistent canonical channel fails as specified in the companion
 contract. The exit status is the verdict. No CLI or gate is changed by this paper revision.
