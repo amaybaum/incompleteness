@@ -1,7 +1,7 @@
 # Physical preparation and selectable loading of the accepted local component
 
 Accountable #866; coordinates with #865 and #1147; feeds #1169.
-Guiding draft #1173. Sole author: /root/writer_preparation.
+Guiding draft #1173. Sole author: writer_preparation.
 Paper-only investigation; no simulation, implementation or premise adoption.
 
 ## 1. Selection and stopping contract
