@@ -3,7 +3,7 @@
 **WIP / UNVERIFIED — paper assessment; independent review pending, 2026-11-07.**
 
 Accountable: #1059; feeds #1169. Guiding draft: #1173. Sole writer:
-`/root/writer_probability`, on
+`writer_probability`, on
 `research/oi-qm-probability-assessment-20261107`.
 Drafting base: `235305e24b22633848f1b399efb77fbba5f8b4df`;
 main source snapshot: `71b190f7e8eaf1eb3e1002e3f6c1cd833afacddd`.
