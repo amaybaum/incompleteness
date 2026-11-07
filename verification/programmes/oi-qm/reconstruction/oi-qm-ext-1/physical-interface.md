@@ -38,7 +38,40 @@ candidate remain distinct. The latter's separate review is outside this unit.
 Only this file is in write scope. No scientific execution, simulation, special
 dispatch, implementation, manuscript change, merge or other programme activation.
 
-## 2. Initial checkpoint
+## 2. Selected source and physical motivation
 
-Source-based selection and derivation pending. No interface availability, Bell
-behavior, no-signalling outcome or whole-model equivalence is asserted here.
+Use the explicit state-dependent ring rule already written in papers/SM.md §3.1,
+at main `71b190f7e8eaf1eb3e1002e3f6c1cd833afacddd`, blob
+`de1466b0c004339d60f1490e494e8f5037020948`.
+Its motivation in that source is a coupling graph that responds to the physical
+state. This precedes this unit's measurement question; no Bell probabilities are
+used to choose its adjacency rule or coefficients.
+
+For site i, the left neighbor is i-1. The right input is i+2 if u_(i+1)=0
+and i+1 otherwise. The new field is the sum of those two inputs minus the
+previous field, modulo q. The retained previous slice makes the whole update
+reversible. Select q=2 and a ring of L>=9 sites for this bounded source test.
+Use a signal at site 2, control at site 1 and receiver at site 0.
+The declared observer includes the two-slice coordinates at both 0 and 1,
+so its controller is not silently removed from its accessible record.
+
+This is a different already-stated native example from the fixed cubic linear
+wave used in correlation recovery. No conversion between those rules is claimed.
+It is also distinct from Native A's three-bit nonlinear rule and the abstract
+two-system Bell model. Their source laws and successful components are not imported.
+
+The purpose is to assess whether this actual state-dependent coupling supplies a
+common controlled interface. Main §3.3's screened-local Bell ceiling is a known
+constraint, not a new surprise: a bounded-range local example is not selected as
+a complete isolated Bell model. Physical preparation/loading, complete access,
+same-model B3 behavior and reuse still have to be assessed.
+
+Only the displayed update rule will be used from SM's example. Its broader
+isotropy/continuum or graph-regularity claims are not premises of this unit.
+The new paper must derive its own finite rule, inverse, dependency bounds and
+record laws. Source location on main is not a certificate of physical availability.
+
+## 3. Assessment checkpoint
+
+The source choice and scope are fixed. Detailed interface, controls and stopping
+result are pending. No physical availability or quantum behavior is asserted.
