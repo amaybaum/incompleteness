@@ -59,20 +59,25 @@ parent is the reviewed #1173 head `8dd58694` and second parent is `main@e61e5673
    countercontrol CC4 with the marking identified with the native step under
    E-iso and P3; its access premises are posits.
 5. **Outcome type: stop, with three levels kept distinct (§5).**
-   - Level 1, the per-state bound `P + V ≤ 1`. Removing any SA-1 clause, or
+   - Level 1, the per-state bound `P + V ≤ 1`. Removing (a), (b) or (c), or
      biasing the kick (four variants computed), gives regions containing
      points outside the quantum disk. All of them stay inside noncontextual
      4-point models (Lemma 4′). The non-isotropic preparation MP-1 likewise
-     exceeds the bound with exact `Z`/`X`/`Y` read laws. Exceeding this bound
-     does not establish nonclassicality.
+     exceeds the bound with exact `Z`/`X` read laws (and an exact `Y`-read law
+     if a `Y` read is supplied; SA-1 exhibits none). Exceeding this bound does
+     not establish nonclassicality.
    - Level 2, the quarter phase. The finite 8-point carrier P-8 realizes it as
      an ontic permutation, with transformation contextuality in that
      construction.
-   - Level 3, the continuous rotations (`rot`). These need a further condition
-     beyond any finite construction: MP-2, a ball-containing carrier, which is
-     infinite and preparation-contextual by imported theorems. MP-2 moves the
-     open question to the re-preparation measure and, for composites, to H-Bell
-     or measurement dependence.
+   - Level 3, the continuous rotations (`rot`). Inducing `rot` with exact
+     statistics excludes every finite carrier: its encoded action would be a
+     finite stochastic matrix, whose unit-modulus eigenvalues are roots of
+     unity, while `cos²(jφ)` with `cos φ = 3/5` is not periodic (§5.3). MP-2, a
+     ball-containing carrier, is one sufficient further condition. Read as
+     including all pure states and projective reads, it is infinite (Hardy) and
+     preparation-contextual (Spekkens). MP-2 moves the open question to the
+     re-preparation measure and, for composites, to H-Bell or measurement
+     dependence.
    - Reproducing one operation does not establish the full quantum structure.
      §5 ends with two open step-3 questions: Q-A (a native finite mechanism for
      the quarter phase) and Q-B (an OI principle for the continuous rotations).
@@ -181,10 +186,11 @@ defines:
 - **C-PH (transported phase test):** no available process induces the
   quarter phase `S = diag(1, i)` on the encoded carrier.
 - **C-ROT (transported control test):** no available process induces
-  conjugation by `rot` on the encoded carrier. Since `rot` is a unitary, an
-  encoded dense unitary control would make it approximable. The dense-control
-  test is therefore covered by C-ROT together with the closedness argument of
-  §4.7.
+  conjugation by `rot` on the encoded carrier.
+
+The transported dense-control test is decided through `S`: encoded dense
+unitary control would make `S` a limit of available encoded conjugations, which
+the closedness argument of §4.7 excludes.
 
 Two further quantities on the same two reads are recorded. They are not escape
 conditions.
@@ -193,7 +199,8 @@ conditions.
   predictability `P = |⟨Z⟩|` and visibility `V = |⟨X⟩|` with `P + V ≤ 1`.
   This is the knowledge-balance bound of the toy theory. It is not a
   noncontextuality bound: sharp and non-isotropic laws on a 4-point cell
-  violate it inside noncontextual models (§5.1).
+  violate it inside noncontextual models, with the read-set scope stated after
+  Lemma 4′ (§5.1).
 - **C-NC (certified-quadruple noncontextual bound):** for four preparations
   `Π_ab` whose mixtures `½(Π_00 + Π_11)` and `½(Π_01 + Π_10)` are certified
   operationally equivalent, the average of the signed predictabilities
@@ -508,8 +515,18 @@ The identification R1 with `C²` is the tetrahedral frame. An ontic point
 `((−1)^z, (−1)^x, (−1)^{z+x})`. A law on `F_2²` corresponds to the vector of
 expectations of these three functions. A law uniform on `{z = a}`, `{x = a}`
 or `{z + x = a}` corresponds to the Pauli eigenstates `Z_±`, `X_±`, `Y_±`.
-The `Y` sign is a fixed convention; nothing below depends on it. Encoded `Z`,
-`X` and `Y` reads register `z`, `x` and `z + x`.
+The `Y` sign is a fixed convention; nothing below depends on it. Encoded `Z`
+and `X` reads register `z` and `x`.
+
+A `Y` read, registering `z + x`, is not exhibited for the §3.3 apparatus class.
+A type invariant excludes it. Colour the carrier 0 and each meter 1, and give
+each fresh unknown the type of the slot it enters. Then at tick `t` the `u` slot
+of a colour-`χ` cell carries only variables of type `t + χ` mod 2, and its `v`
+slot only type `t + χ + 1`. Free ticks and carrier–meter coupled ticks preserve
+this grading. Since `z` and `x` have different types, no slot, and so no record,
+equals `z + x`. The same grading keeps every determined functional type-pure,
+so no `Y_±` state is reached either. The labels `Y_±` are used below only to
+name toy states in the frame and in the comparator.
 
 ### 4.3 No sharpening
 
@@ -694,11 +711,22 @@ ontic point `λ = (z, x)`.
 
 Summing over both pairs and all `λ` gives at most `3 Σ_λ M(λ) = 6`. ∎
 
-A certified equivalence is an equality of laws when it is certified over the
-`Z`, `X` and `Y` reads, whose response functions span the functions on
-`F_2²` (MR★ Lemma G(ii)). So no law on a single 4-point cell yields W1 through
-this instance. This covers SA-1, the non-isotropic preparation MP-1 of §5.1
+**Scope of Lemma 4′.** The hypothesis `μ_00 + μ_11 = μ_01 + μ_10` is an
+equality of laws. A certified operational equivalence gives it when the
+certifying reads have response functions spanning the functions on `F_2²`, for
+example `Z`, `X` and a `Y` read (MR★ Lemma G(ii)). Under that certification, no
+law on a single 4-point cell yields W1 through this instance; this covers MP-1
 and sharp laws.
+
+SA-1 exhibits only `Z` and `X` reads (§4.2). Certified over those, equivalence
+means equal `z`- and `x`-marginals only, and the test reaches `2/√3`. Four
+MP-1-type laws with Bloch vectors `(±a, ±a, ±a)`, `a = 1/√3`, and the product
+sign on `Y` achieve it: they are nonnegative, pairwise `Z`/`X`-equivalent, and
+their `Y` marginals differ. Over the exhibited read set the test is therefore
+inconclusive. What excludes it as a witness is MR-1's tomographic-completeness
+caveat, not Lemma 4′. SA-1's own laws satisfy the per-state bound (Lemma 4),
+which bounds every quadruple, so SA-1 is unaffected. So are the sharp and
+biased-kick variants, whose reads recover the joint law.
 
 **Lemma 5 (C-PH holds under R1).** Under the one-cell identification R1, no
 SA-1 process induces the encoded quarter phase, for any ancillas, adaptive
@@ -736,8 +764,9 @@ supplied ancilla states, including MP-1's.
 For permutations alone the argument is shorter. A permutation fixing the
 cosets `{z = 0}` and `{z = 1}` lies in a Klein four-group of involutions, so
 its induced action on the four `X`/`Y` states has order at most 2, while `S`
-acts on them as a 4-cycle. The restriction to R1 is essential, because
-`Y = z + x` there. A carrier with an independent third bit realizes `S` as a
+acts on them as a 4-cycle. For the §3.3 apparatus class the conclusion is also
+immediate from §4.2: `S` sends `X_+` to `Y_+`, and no `Y_±` state is reached.
+The restriction to R1 is essential, because `Y = z + x` there. A carrier with an independent third bit realizes `S` as a
 permutation (§5.2).
 
 **C-ROT holds under R1.** Conjugation by `rot` sends `Z_+` to the pure state
@@ -746,7 +775,8 @@ with `(⟨Z⟩, ⟨X⟩) = (−7/25, −24/25)`, where `P + V = 31/25 > 1` and
 the encoded carrier. Conditional on herald success it is also excluded by
 dyadicity (§4.4): its `Z` read would need `P(z = 0) = (1 − 7/25)/2 = 9/25`.
 
-**Dense control.** The transported dense-control test is also met. The
+**Dense control (decided through `S`, as in §1.3).** The transported
+dense-control test is also met. The
 encoded channels induced by SA-1 processes are stochastic matrices on four
 points, determined linearly (hence continuously) by their action on the toy
 states. The set of stochastic matrices is closed. Encoded `S` is a unitary whose
@@ -767,14 +797,16 @@ CC4's reference behaviour `V + P = 1` on the certified quadruple
 
 ## 5. Outcome: stop, and three levels kept distinct
 
-The stop is organized by three levels that do not substitute for one another:
+Following the owner's direction ([#1169 c.6711920779](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6711920779)),
+the stop is organized by three levels that do not substitute for one another:
 
 1. the per-state bound `P + V ≤ 1`, which a model can exceed without being
    nonclassical (§5.1);
 2. the quarter phase, which a finite 8-point carrier supplies, with
    transformation contextuality in that construction (§5.2);
-3. the continuous rotations, `rot` among them, which need a further condition
-   beyond any finite construction (§5.3).
+3. the continuous rotations, `rot` among them: inducing `rot` with exact
+   statistics excludes every finite carrier, and MP-2 is one sufficient
+   further condition (§5.3).
 
 Reproducing one operation, or passing one level, does not establish the full
 quantum structure. The `J_exact(A)` target requires every preparation,
@@ -794,8 +826,9 @@ were computed:
 
 Each of these four variants gives either the diamond or a per-state region
 containing points outside the disk. None yields the disk. All four remain
-noncontextual 4-point models in the sense of Lemma 4′, so their `P + V > 1`
-points are not nonclassicality witnesses. **Exceeding the per-state bound does
+noncontextual 4-point models in the sense of Lemma 4′ (for the sharp and
+biased variants the reads recover the joint law), so their `P + V > 1` points
+are not nonclassicality witnesses. **Exceeding the per-state bound does
 not establish nonclassicality.** This is the one-system counterpart of #1169's
 "Next design question", where the screened local wave case gives CHSH ≤ 2 and
 global response tables give PR behaviour. A continuous family tuned to land on
@@ -821,16 +854,20 @@ with encoded vector `(1, 1, 1)/√3` (unit length).
 **What it buys on the same test.** All SA-1 operations act on MP-1 laws as
 they act on any law.
 
-- For each of the `Z`, `X` and `Y` reads, `P(r = 0) = (1 + 1/√3)/2`, equal to
-  the comparator.
+- For the `Z` and `X` reads, `P(r = 0) = (1 + 1/√3)/2`, equal to the
+  comparator. If a `Y` read is supplied (SA-1 exhibits none, §4.2), its law is
+  the same and also equals the comparator.
 - Each read leaves a toy pure state, and every continuation then follows §4.4,
   which equals the comparator.
 - The failure branch leaves the MP-1 law untouched.
 - On the `(P, V)` plane, `P + V = 2/√3 > 1` with `P² + V² = 2/3`. So C-IS fails
   on the declared domain.
 
-That failure occurs inside a noncontextual 4-point model (Lemma 4′). MP-1
-buys a per-state relaxation, not a nonclassicality witness.
+That failure occurs inside a noncontextual 4-point model when equivalences are
+certified over a spanning read set (Lemma 4′). Over SA-1's exhibited `Z`/`X`
+reads the certified-quadruple test reaches `2/√3` and is inconclusive (scope
+paragraph after Lemma 4′). MP-1 buys a per-state relaxation, not a
+nonclassicality witness.
 
 C-PH and C-ROT still hold under R1. Lemma 5 is independent of the input
 states. The encoded image of `rot` needs the Bloch vector
@@ -880,8 +917,11 @@ subtheory is preparation-contextual or transformation-contextual. Their
 subtheory is Pauli eigenstates, Pauli reads, the Clifford group including `H`
 and the phase gate, and convex mixtures. In the 8-state model the contextuality
 is in the transformations: their `T_1` (the uniform Pauli twirl) and
-`T_2 = H T_1 H` are operationally equivalent, but the first preserves the
-ontic parity `xyz` and the second reverses it (their eqs. (5)–(7)).
+`T_2(ρ) = H T_1(ρ) H` (`T_1`, then the Hadamard) are operationally
+equivalent, but the first preserves the ontic parity `xyz` and the second
+reverses it (their eqs. (5)–(7)). By Theorem 1, every preparation-noncontextual
+model of the full subtheory is transformation-contextual, not only the 8-state
+model.
 
 So P-8 is the "permanently inaccessible functional" lead of §2. Its escape of
 C-PH costs transformation contextuality relative to the subtheory's
@@ -892,8 +932,13 @@ inaccessible. Status: posit.
 
 **Remark (beyond R1).** Let `Θ` identify a finite SA-type subsystem with ontic
 set `Λ` with the full single-qubit stabilizer subtheory, matching all
-statistics. Suppose the images of its preparations span the signed measures on
-`Λ` and the images of its reads span the functions on `Λ`.
+statistics. Assume each subtheory transformation acts on `Λ` as one stochastic
+map, with ancillas fresh and discarded as in Lemma 5; this is Theorem 1's
+convex-linear setting. Suppose the images of its preparations span the signed
+measures on `Λ` and the images of its reads span the functions on `Λ`. Under
+preparation noncontextuality the stabilizer laws are affine in `ρ`, so this
+spanning hypothesis forces `|Λ| ≤ 4`, R1's size; the remark generalizes Lemma 5
+across identifications of that dimension.
 
 - Operational equivalence in the subtheory then implies equality of ontic
   laws, of stochastic transformation maps and of response functions. The
@@ -913,7 +958,26 @@ for example without `H`.
 contain the whole Bloch ball. Encoded rotations are ontic bijections, and reads
 re-prepare the outcome's law, with a disturbance in the sense of SA-1(a).
 
-**Necessary content (imported, not re-derived here).**
+**What level 3 rests on (derived here).** Suppose a finite carrier with
+ontic set `Λ` induces `rot` with exact statistics. As in Lemma 5, its encoded
+action is one stochastic matrix `Γ` on `Λ`, applied `j` times for `rot^j`.
+Prepare `Z_+` with law `μ` and read `Z` with response function `ξ`. Then
+`P_j = μᵀ Γ^j ξ = cos²(jφ) = ½ + ½ cos(2jφ)`, with `cos φ = 3/5`.
+
+- A finite stochastic matrix is power-bounded, and its unit-modulus eigenvalues
+  are roots of unity (Perron–Frobenius). So `P_j` is a periodic sequence plus a
+  sequence tending to 0.
+- `cos 2φ = −7/25` is rational and not in `{0, ±½, ±1}`, so by Niven's theorem
+  `2φ/π` is irrational, and `j ↦ 2jφ mod 2π` is equidistributed.
+- If `cos(2jφ)` were asymptotically `p`-periodic, then
+  `cos(2(j+p)φ) − cos(2jφ) = −2 sin((2j+p)φ) sin(pφ)` would tend to 0. The
+  first factor does not tend to 0, so `sin(pφ) = 0`, which would make `e^{2iφ}`
+  a root of unity. Contradiction.
+
+So no finite carrier induces `rot` with exact statistics. This holds for `rot`
+itself; it does not depend on supplying the full qubit repertoire.
+
+**Necessary content of MP-2 (imported, not re-derived here).**
 
 - Hardy (*Stud. Hist. Phil. Mod. Phys.* 35, 267 (2004)) shows that an
   ontological model of a qubit's pure states and projective measurements
@@ -924,9 +988,10 @@ re-prepare the outcome's law, with a disturbance in the sense of SA-1(a).
   infinite carrier (lead L1 reappears as a necessary component) and
   preparation contextuality. C-NC can then be violated (`√2`).
 
-Infinitude is needed only once the repertoire goes beyond the stabilizer
-fragment, as `rot` requires. The quarter phase alone is already supplied by
-the finite rung P-8.
+Infinitude is forced by an operation with an infinite exact orbit, such as
+`rot`, not by leaving the stabilizer fragment: MP-1 leaves it on four points.
+The quarter phase alone is supplied by the finite rung P-8. MP-2 is one
+sufficient further condition for level 3, not the only one.
 
 **What it buys on the same test (imported existence).** The Kochen–Specker
 single-qubit model (*J. Math. Mech.* 17, 59 (1967)) is a deterministic
@@ -962,9 +1027,9 @@ the comparator's read and continuation laws. C-PH and C-ROT both fail.
 | Rung | C-IS | C-PH | C-ROT | C-NC | Ruled out within | First decisive check |
 | --- | --- | --- | --- | --- | --- | --- |
 | SA-1 | holds | holds (R1) | holds | holds | — | — |
-| MP-1 | fails | holds (R1) | holds | holds | SA-1 as stated (Lemma 3) | A native process whose prepared law is non-isotropic yet ball-contained: compute its reachable region and its certified-quadruple value |
+| MP-1 | fails | holds (R1) | holds | holds over a spanning read set; inconclusive over SA-1's `Z`/`X` reads (`2/√3`) | SA-1 as stated (Lemma 3) | A native process whose prepared law is non-isotropic yet ball-contained: compute its reachable region and its certified-quadruple value |
 | P-8 | holds | fails | holds | holds (prep/measure); transformation-contextual | every one-cell (R1) identification (Lemma 5) | A native multi-cell encoding with an inaccessible parity, and a mechanism keeping it inaccessible under all permitted reads |
-| MP-2 | holds (ball) | fails | fails | can fail (`√2`) | every finite-cell identification (Hardy) | Whether a native reciprocal read on a continuum cell with a symplectic area form (classical spin `S²` is the minimal candidate) produces the cosine-weighted re-preparation law without a supplied measure |
+| MP-2 | fails (`√2`) | fails | fails | can fail (`√2`) | every finite carrier (§5.3 eigenvalue argument, for `rot`) | Whether a native reciprocal read on a continuum cell with a symplectic area form (classical spin `S²` is the minimal candidate) produces the cosine-weighted re-preparation law without a supplied measure |
 
 A further option is to weaken SA-1(c) to a quantitative sharpness bound. A
 bound read off from the quantum target is a reconstruction, not a source.
