@@ -817,7 +817,9 @@ native cell does not. Under the second-order rule its lab slot runs
 functionals on alternate ticks. T′ applies to:
 
 - a controller cell exempt from the native rule; or
-- a native controller used at one tick parity only.
+- a native controller used at one tick parity only. Such a controller presents
+  `+z` and `−z` on alternate even ticks, so `k(u_c)` selects `S(s)` and `S(−s)`
+  alternately unless the schedule has period 4 or `k` is even; CP is unaffected.
 
 Either is a supplied element (§6.2).
 
@@ -1108,8 +1110,9 @@ Wigner-negative resources. This is not derived here.
 - **Linearity and reciprocity select at odd `q`.** Any nonlinear, state-dependent
   or non-symmetric rule must re-check C-CP on joint laws. This covers the SM
   §3.1 graph, Native A and P-SDC (Proposition AS).
-- **Registers used as controllers.** They are quantum-compatible only while kept
-  diagonal in the controlling slot (Proposition T′). Under CTRL-MON that depends
+- **Registers used as controllers.** They are quantum-compatible if kept
+  diagonal in the controlling slot (T′(ii)); C-CP fails if a non-eigenstate pure
+  stabilizer controller law is admissible (T′(i)). Under CTRL-MON that depends
   on the terminality of the monitoring meters, and on a static controller slot
   or a one-parity schedule.
 
