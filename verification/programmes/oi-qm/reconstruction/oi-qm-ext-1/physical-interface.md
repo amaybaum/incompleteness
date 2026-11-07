@@ -82,7 +82,7 @@ This earns a conditional local component. It does not earn the requested physica
 experimental interface. The first physical gate is a native preparer/controller
 that produces the stated ready region and selects its program with accounted
 resources and records. A physical read/logging mechanism is also unsupplied.
-B3 has no realization on this same model. The bounded-range example retains the
+No same-model B3 realization is supplied. The bounded-range example retains the
 known screened-local Bell ceiling for separated wings.
 
 The new independent consequence of the chosen rule is explicit: after one tick,
