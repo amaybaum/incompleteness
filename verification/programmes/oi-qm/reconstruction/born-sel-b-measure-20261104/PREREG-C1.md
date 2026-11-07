@@ -9,14 +9,14 @@
   expected field of the eleven r6 toys, and found them correct.
 - r8 (`500b3177`) applied that review's changes C1–C10. None changes a verdict rule or an expected value. Its
   recheck (#1082 c.6651778560, model-authored) is ACCEPT WITH CHANGES (minor).
-- r9 applies the recheck's changes that bear on this file (R2, R7). Neither changes a verdict rule or an expected
-  value. r9 has not been reviewed.
+- r9 (`2217142c`) applies the recheck's changes that bear on this file (R2, R7). Neither changes a verdict rule or an expected
+  value. The independent r9 delta check (#1082 c.6651925573, model-authored) is ACCEPT; it is not a fresh full C-1 expected-answer review.
 - Paper only. Nothing has been run or written as code, and no native instance has been enumerated.
 
-**Not a candidate freeze yet.** The freeze sequence is in §7. Step 1 (owner answers) is done. Step 2 was r7, and
-step 3 on r7 and on r8 required changes, so this revision repeats step 2. The r9 commit is next independently
-reviewed (step 3). Only then may the owner designate `F`. **Not authorized to run.** A run needs, after `F`, the
-owner's go, the tool, its review, and a separate dispatch approval (§7).
+**Not a candidate freeze yet.** The freeze sequence is in §7. The independent r9 delta check is ACCEPT (#1082 c.6651925573).
+Before `F`, verify the OQ-14 API-field semantics against a real job record and put CC-ORDER's gating interpretation to the owner;
+designation of `F` confirms that interpretation, while a contrary ruling must first be incorporated and reviewed (§3.1, §4.3, §7).
+**Unfrozen and not authorized to run.** A run still needs the owner's `F` designation and go, the tool, its review and separate dispatch approval (§7).
 
 - **Frozen inputs at `F`.** All four are in `verification/programmes/oi-qm/reconstruction/born-sel-b-measure-20261104/`,
   beside the assessment (§A.36):
@@ -1367,8 +1367,8 @@ step conclusions (via its API), and from `summary.json`. Never from log text.
      frozen choice: `oq13_answer` is set in `C1-INSTANCES.json`, and any instance, control or exit code an answer adds
      or removes is written in. §8.2 is replaced by a record of the answers, quoted with author and time (§A.42 item 7).
      This is done in r7, and no item remains open. The review of r7 (#1082 c.6651181144) required changes C1–C10;
-     r8 applied them. The recheck of r8 (#1082 c.6651778560) required R1–R10; r9 applies them, and step 3 repeats on
-     r9.
+     r8 applied them. The recheck of r8 (#1082 c.6651778560) required R1–R10; r9 applies them. The independent r9
+     delta check (#1082 c.6651925573, model-authored) is ACCEPT; it does not designate `F` or resolve the pre-`F` items.
   3. **Review.** An independent reviewer reviews the exact revised commit carrying the four frozen files. The review
      covers their agreement with each other, with the answers and with BSB:402–416, and the hand derivations of §3. If
      the review requires changes, steps 2 and 3 repeat.

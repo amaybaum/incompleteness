@@ -5,7 +5,7 @@
 - **Review.** The r7 text of this file (`5ea9e4ca`) was independently reviewed in #1082 c.6651169194 (model-authored):
   QB-3 ACCEPT WITH CHANGES (Q1–Q8), and all six QB-4 results proved, B4 with a hypothesis correction and G2, N2.1 and
   U with precision edits. r8 (`500b3177`) applied those changes. The recheck of r8 (#1082 c.6651778560,
-  model-authored: ACCEPT WITH CHANGES, minor) required R1–R10, which this revision (r9) applies. r9 is not reviewed.
+  model-authored: ACCEPT WITH CHANGES, minor) required R1–R10, applied in r9; its independent delta check (#1082 c.6651925573) is ACCEPT. The complete post-acceptance BSB delta and final two-line correction are ACCEPT in #1082 c.6711668163.
 - **Part 1** is the corrected QB-3 wording. It is not applied to the O-OBSMU record (#866, #914), and it changes no
   status.
 - **Part 2** lists the QB-4 results, the review's verdicts, and where the corrections stand in `BORNSEL-B-MEASURE.md`
@@ -34,12 +34,12 @@ prove that the claims consuming an induced stochastic law are invariant under th
 #1059 c.6651648653 (amaybaum, Claude Code session chat, 2026-11-05; posted 2026-11-05T06:45:16Z) records: "The owner
 selected **route A** for QB-3: preserve valid mathematical proofs through a reviewed evidence landing on `main`, rather
 than narrowing conclusions purely because their evidence currently exists off-main." and "No proof promotion before
-review and evidence retention." Accordingly:
-- a minimal reviewed record lands on `main` first. It contains CE-8 (the map; `T^β`, `T^{α,O_A}`, `T^{α,O_B}`; the
-  permutation status of `Γ_0, …, Γ_4`; divisibility under α on `O_A`; indivisibility under β), B4's root-dependent
-  proof with its hypothesis that the hidden law at every root is a probability law, and the review;
-- that landing is a merge and needs separate owner authorization, which no ruling gives;
-- only after it may the wording below be recorded on O-OBSMU, with the bracketed items citing the landed record.
+review and evidence retention." The retained route-A result is:
+- Route A landed through #1121 (merge `214d11e9acded3380223ed05e9cee02de3fe1a36`), retaining the QB-3 classification, swap derivation, CE-8 and B4 in
+  [QB3-EVIDENCE.md](https://github.com/amaybaum/incompleteness/blob/e61e5673d335797048b8be0eec13591a9153c968/verification/programmes/oi-qm/reconstruction/born-sel-b-measure-20261104/QB3-EVIDENCE.md) §§1–5, with the exact-head review in
+  [QB3-EVIDENCE-REVIEW.md](https://github.com/amaybaum/incompleteness/blob/e61e5673d335797048b8be0eec13591a9153c968/verification/programmes/oi-qm/reconstruction/born-sel-b-measure-20261104/QB3-EVIDENCE-REVIEW.md); CE-8 is §4 and B4 is §5.
+- The landing retains CE-8's map and three one-step matrices, and B4's proof and CE-8 application; it does not retain the complete assessment or Lemmas G, G2, N2.1, E or U.
+- In the wording below, `[landed record]` means that record's §4 and `[landed B4]` its §5. The landing does not establish complete propagation to #866, #914 or every O-OBSMU record.
 
 The review's route B, a wording narrowed to the support already on `main`, is not taken.
 
@@ -95,10 +95,10 @@ The review's route B, a wording narrowed to the support already on `main`, is no
 | μ-form, the same unitary, basis and readout | the proof term, `Equivalence.lean:297–299` | support on `main`; a paper reading of a kernel proof, not a theorem statement |
 | μ-form, exponent | Main:556 | support on `main` |
 | μ-number, numbers vary with μ | Main:60 (the two-state swap under uniform versus point-mass hidden priors); the map `φ(v,h) = (h,v)` is Main:78's. Under the uniform prior `Γ_1(a, j) = μ_H{h : h = j} = 1/2`, so `Γ_1 = J/2`; under `δ_0`, `Γ_1 = [[1,0],[1,0]]` [D, from those lines] | support on `main` |
-| μ-number, CE-8 | BSB Lemma B3 (lines 129–138 at `7b46d36c`, unchanged in r4) | support off `main`: a gap until the route-A landing, which needs separate owner authorization |
+| μ-number, CE-8 | `QB3-EVIDENCE.md` §4 and `QB3-EVIDENCE-REVIEW.md` §1 (pinned on `main` above); BSB:129–136 at `7b46d36c`, unchanged in r4 except that "(C1 witness)" is omitted | support on `main` [D]; reviewed paper derivation; BSB:137–138 is not retained |
 | μ-number, selection open | Main:56; Main:726 | support on `main` |
 | indivisibility, shared hidden prior | Main:137 | support on `main` |
-| indivisibility, root-dependent laws; CE-8 dependence | BSB Lemma B4 (r4, lines 147–167) | support off `main`: a gap until the route-A landing, which needs separate owner authorization |
+| indivisibility, root-dependent laws; CE-8 dependence | `QB3-EVIDENCE.md` §5 and `QB3-EVIDENCE-REVIEW.md` §1 (pinned on `main` above); BSB r4:147–162, with the review-status bracket replaced by `[D]` | support on `main` [D]; reviewed paper derivation; the rest of the assessment is not retained |
 | BSB B1 (lines 117–122) | redundant with Main:556 | provenance |
 | BSB N2 / §4 | not used: the selection clause rests on Main:56 and Main:726 (Q3) | provenance |
 | BSB lines 142, 342 at `7b46d36c` (142 and 354 in r4); `PREREG-C1.md` §9 | the scope clause does not cite them (Q7) | provenance |
@@ -132,11 +132,11 @@ N2.1. Afterwards, present which results merit Lean formalization. No Lean implem
 `verification/programmes/oi-qm/reconstruction/born-sel-b-measure-20261104/BORNSEL-B-MEASURE.md`.
 - The review read the file at `7b46d36c38734504c0ec3df27331835de5293d6a` (r3). r4, in this revision, applies the
   review's corrections to B4, N2.1, G2 and U; G and E are unchanged.
-- **It is not on `main`.** The commits are on branch `research/born-sel-b-measure-20261104` (#1082).
+- **The complete assessment is not on `main`.** It remains on branch `research/born-sel-b-measure-20261104` (#1082); #1121 retains only the QB-3 classification, swap derivation, CE-8 and B4 subset and review described above.
 - The `Main:N` lines the lemmas cite are at `main` `1609dc440f5a12d05b750f6d894bb91d09a099a3`; the review found the
   cited lines unchanged at `main` `f5c281ae`.
 
-| Result | Lines at `7b46d36c` | Lines in r4 | Review verdict (c.6651169194) | Applied in r4 (not re-reviewed) |
+| Result | Lines at `7b46d36c` | Lines in r4 | Review verdict (c.6651169194) | Applied in r4 (rechecked in c.6651778560, c.6651925573 and c.6711668163) |
 |---|---|---|---|---|
 | Lemma B4 | 147–159 | 147–167 | proved with correction | the hidden law at **every** root is a probability law (fixed arbitrarily at roots of visible probability zero), which step (iii) uses; positivity is relative to `ν⊗κ`; the range `1 ≤ s ≤ min(k, L−1)` and the conclusion for every `n > s` with `Γ_n = I`; the proof in steps (i)–(iii); the remark that the implication does not depend on the choice at zero-probability roots, while the conclusion's content there does; the CE-8 laws are product laws |
 | Lemma N2.1 | 183–187 | 191–197 | proved | the characterization stated as an equivalence, with each direction proved; `w_O = μ(O)`; `0 log 0 = 0`; `U ≠ ∅`; the Gibbs proof of uniqueness of the maximizer, with Lemma G as an alternative, so the [L] citation is not needed |

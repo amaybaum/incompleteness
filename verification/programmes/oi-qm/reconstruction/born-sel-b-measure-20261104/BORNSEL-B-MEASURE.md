@@ -3,7 +3,7 @@
 ## Header
 
 - **Status.** WIP / UNVERIFIED. Paper-only. Part (b) only.
-- **Revision.** r3 was revised after independent reviews of `f6526fb8` (REVISE) and `f88e8710` (ACCEPT WITH CHANGES), and accepted at `7b46d36c` (#1082 c.6622587957). r4 applies the corrections of the independent QB-4 review of Lemmas B4, N2.1, G, G2, E and U (#1082 c.6651169194, model-authored: all six proved; B4 with a hypothesis correction, G2, N2.1 and U with precision edits). The r4 wording of those four lemmas is not re-reviewed. The recheck of r4 (#1082 c.6651778560, model-authored: ACCEPT WITH CHANGES, minor) required wording and citation changes to N2.1, G2, the N3 finding and the Q-sel summary, which the r9 commit of this branch applies; they are not reviewed.
+- **Revision.** r3 was revised after independent reviews of `f6526fb8` (REVISE) and `f88e8710` (ACCEPT WITH CHANGES), and accepted at `7b46d36c` (#1082 c.6622587957). r4 applies the corrections of the independent QB-4 review of Lemmas B4, N2.1, G, G2, E and U (#1082 c.6651169194, model-authored: all six proved; B4 with a hypothesis correction, G2, N2.1 and U with precision edits). The corrected r4 wording and complete post-acceptance assessment delta at `e50917cab03a1c8db6fd668ecad2a04c880399db` are independently reviewed and ACCEPT (#1082 c.6711668163, model-authored). The recheck of r4 (#1082 c.6651778560, model-authored: ACCEPT WITH CHANGES, minor) required wording and citation changes to N2.1, G2, the N3 finding and the Q-sel summary, which the r9 commit of this branch applies; the independent r9 delta check is ACCEPT (#1082 c.6651925573, model-authored).
 - **Authorization.** Owner, chat 2026-11-04, recorded in #1059 c.6622106065. That authorization covers paper analysis of part (b) starting from the BORN-SRC-1 five-branch fork, plus source reading, derivation on paper, a literature examination, documented assumptions and independent review. It does not cover parts (a), (c) or (d), computation, Lean, adopting a premise, promoting a claim, merging or publishing.
 - **Base.** `origin/main` `1609dc440f5a12d05b750f6d894bb91d09a099a3`. `papers/Main.md` was last changed at `63b4e32e`. The `Main:N` citations are lines at this base. They match the lines that BORN-SRC-1 cites at `02009693` for the passages used here.
 - **Sources read.**
@@ -22,7 +22,7 @@
 - **Support labels.**
   - **[K]** kernel-checked, with the identifier and the file:line at the base.
   - **[P]** a reviewed paper or record result, with its citation.
-  - **[D]** a derivation in this document. These are unreviewed, and in this revision their changes have not been re-reviewed.
+  - **[D]** a paper derivation in this document. Its independent review coverage is recorded above and beside the lemmas; this label does not denote kernel certification or adoption.
   - **[L]** literature cited from memory and not re-read.
   - **[O]** an owner decision.
 
@@ -144,7 +144,7 @@ So the representation's form and its exponent-insensitivity are branch-free.
 
 This sharpens the audit's "the fork decides which numbers": the fork for (P2) and (P3) is a fork over κ alone. The visible prior belongs to preparations (§4, interface (c)). ELABORATING.
 
-**Lemma B4 (Main:137 as an implication, and its μ-dependent hypothesis)** [D; corrected after review #1082 c.6651169194, the r4 wording not re-reviewed]. Main:137 (gap + finite recurrence ⇒ rooted indivisibility) is stated for "a hidden prior shared by every root", roots of visible probability zero included. As an **implication**, its proof goes through for a root-dependent hidden law.
+**Lemma B4 (Main:137 as an implication, and its μ-dependent hypothesis)** [D; corrected after review #1082 c.6651169194; r4 independently reviewed and ACCEPT in c.6711668163]. Main:137 (gap + finite recurrence ⇒ rooted indivisibility) is stated for "a hidden prior shared by every root", roots of visible probability zero included. As an **implication**, its proof goes through for a root-dependent hidden law.
 
 *Hypotheses.* For **every** $a\in\mathcal C_V$, $\kappa_a$ is a probability law on $\mathcal C_H$; at roots of visible probability zero it is fixed arbitrarily, but it is a probability law there too. Put $\Gamma^\kappa_t(a,j)=\kappa_a\{h:\pi_V\varphi^t(a,h)=j\}$, so every row of every $\Gamma^\kappa_t$ sums to 1. Positivity of a visible history is relative to the joint law $\nu\otimes\kappa$ (root from $\nu$, hidden state from $\kappa_a$).
 
@@ -164,7 +164,7 @@ The theorem holds under every branch. Whether its **hypothesis** holds, and so w
 **Verdict.**
 - ELABORATING: the implication is branch-free.
 - The consuming conclusion (indivisibility of the rooted family) is **not** branch-invariant on this class.
-- The independent review #1082 c.6651169194 found the lemma proved, with the hypothesis correction applied above. The r4 wording is not re-reviewed.
+- The independent review #1082 c.6651169194 found the lemma proved, with the hypothesis correction applied above. The r4 wording is independently reviewed and ACCEPT in #1082 c.6711668163 (model-authored).
 
 ### N2. Q-sel: does any current premise select?
 
@@ -188,7 +188,7 @@ The premises were searched across `papers/`, `book/` and the kernel (§A.19):
 
 **Verdict.** No branch is selected by a current premise beyond the stipulation of posit (iv). This confirms BORN-SRC-1 §4(b) at the base. CONFIRMING.
 
-**Lemma N2.1 (the invariant fork is a law on orbits)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
+**Lemma N2.1 (the invariant fork is a law on orbits)** [D; precision edits after review #1082 c.6651169194, re-reviewed and ACCEPT in c.6711668163].
 - A law μ is invariant **iff** $\mu=\mu_w:=\sum_{O\in\mathcal O}w_O\,\mathrm{unif}(O)$ for some $w\in\Delta(\mathcal O)$, and then $w_O=\mu(O)$. The two directions are separate:
   - ⇒: by `invariant_pow`, μ is constant on each orbit, and the orbits partition $S$;
   - ⇐: each $\mathrm{unif}(O)$ is invariant (`unif_invariant`, `CanonicalMeasure.lean:144`), and so is every mixture of them.
@@ -204,7 +204,7 @@ This node is decisive because posit (iv) is the only premise in the corpus that 
 - among laws with support in $A$, the unique entropy maximizer is $\mathrm{unif}(A)$ (`entropy_le_log_card` [K, `FiniteEntropy.lean:98`] on the subtype $A$, with equality only at uniform [L]);
 - for every $B\supseteq A$, $\mathrm{unif}(B)(\cdot\mid A)=\mathrm{unif}(A)$.
 
-**Lemma G2 (no invariant law holds a time-varying record with probability 1)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
+**Lemma G2 (no invariant law holds a time-varying record with probability 1)** [D; precision edits after review #1082 c.6651169194, re-reviewed and ACCEPT in c.6711668163].
 - The next two bullets hold for any $A\subseteq S$, not only record sets; they are stated for $A_r$.
 - If $\mu$ is invariant and $\mu(A_r)=1$, then $\mu(\varphi^tA_r)=1$ for all $t\in\mathbb Z$, since $\mu(\varphi X)=\mu(X)$ for a bijection. On a finite space $\mu(X)=1$ forces $\mathrm{supp}\,\mu\subseteq X$. So $\mathrm{supp}\,\mu\subseteq I(A_r):=\bigcap_{t\in\mathbb Z}\varphi^tA_r$, the largest invariant subset of $A_r$.
 - If also $s^*\in\mathrm{supp}\,\mu$, then $s^*\in I(A_r)$, and since $I(A_r)$ is invariant, $O^*\subseteq I(A_r)\subseteq A_r$, so the record is constant (true) on $O^*$.
@@ -311,7 +311,7 @@ The reading ch18 proposes is coarse-grained: Born statistics as "the stationary 
 
 ### N6. δ, and what "β is selected" would have to contain
 
-**Lemma U (every rational prior is conditioned counting)** [D; precision edits after review #1082 c.6651169194, not re-reviewed].
+**Lemma U (every rational prior is conditioned counting)** [D; precision edits after review #1082 c.6651169194, re-reviewed and ACCEPT in c.6711668163].
 - Let $\mu(s)=n_s/D$ with $n_s\in\mathbb N$ and $\sum_sn_s=D\ge1$. Take $S'=\mathcal C_V\times(\mathcal C_H\times[D])$, so the register $[D]$ sits in the hidden factor, $\varphi'=\varphi\times\mathrm{id}_{[D]}$ (an inert register), and $A=\{(s,c):c<n_s\}$.
 - Then $|A|=D$ and the fibre of $A$ over $s$ has $n_s$ points, so $\mathrm{unif}(A)=\mathrm{unif}(S')(\cdot\mid A)$ projects to $\mu$. Since $\varphi'$ acts trivially on the register, trajectories project, and the visible trajectory law equals $P_\mu$ at every horizon.
 - $A$ is not $\varphi'$-invariant in general, so the conditioned law is not invariant, consistent with G2.
