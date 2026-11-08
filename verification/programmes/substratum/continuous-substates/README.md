@@ -7,8 +7,9 @@ or premise.
 **Standing of this directory.** Its files from #1009 were copied to `main` byte-identical from
 #1009 at `8af2d904` by #1099 (commit `86cd47e5`); `README.md`, `observable-recurrence.md` and
 `equivalence-and-d3-scope.md` have since been corrected on `main`, and `BOUNDARY-CONTROLS.md` and
-`boundary_controls_probe.py` came from #1016. #1009 is an open draft; nothing here is adopted
-from it.
+`boundary_controls_probe.py` came from #1016. #1009 was closed without merging (owner decision,
+#1007 c.6719788955); its branch `research/substate-1` is kept at `77482a8c`, and its open work is
+carried on #1007 (c.6719791533). Nothing here is adopted from it.
 
 - **Acceptance labels are author-reported.** Where a file here says that a #1009 unit or its
   parent was accepted, reviewed or CI-green (for example
