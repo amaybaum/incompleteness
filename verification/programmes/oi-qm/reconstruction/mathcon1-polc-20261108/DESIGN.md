@@ -253,7 +253,7 @@ a *reviewer reading* (from the MATH-CON-0 reviews), or *this design*.
 | **O-7** | Carrier transport `Fin 2 ≃ Fin 2 × Fin 1`, needed only for level-indexed restatements (`availExt`) | inventory reading | T4 (level form) |
 | **O-8** | The CT runs of §4.4 on the object and on CC-0, CC-1 and CC-4 (DV-a to DV-e) | this design | T5; controls |
 | **O-9** | Spectator form of `K*`, through `instAvail_spectator` with `polC_contextStable` and `polC_labelInvariant` | this design | T4 |
-| **O-10** | Lowest non-monomial node: in a derivation whose leaves are monomial, the first node carrying a non-monomial matrix applies a constructor that does not preserve monomiality. The constructors of A-2 and A-8 preserve it (SC:231, SC:275), and an `InstAvail` family whose realization uses only monomial class members has no D2 branch (O-1). Needed for Q2 = no for rules outside the restricted shortcut, here DV-d | this design | CC-4 (DV-d); CT Step 2 |
+| **O-10** | Lowest non-monomial node: in a derivation whose leaves are monomial, a node that carries a non-monomial matrix while all its child nodes carry monomial matrices applies a constructor that does not preserve monomiality. The constructors of A-2 and A-8 preserve it (SC:231, SC:275), and an `InstAvail` family whose realization uses only monomial class members has no D2 branch (O-1). Needed for Q2 = no for rules outside the restricted shortcut, here DV-d | this design | CC-4 (DV-d); CT Step 2 |
 
 ***
 
@@ -340,10 +340,10 @@ Each clause of a rule has exactly one kind, read from its text before any deriva
 
 | Kind | Definition | Marked when applied? |
 |---|---|---|
-| **G-n**, naming generator clause | Makes operators or channels admissible or available, and its text refers to specific matrices. This covers: a constant; a formula; a stated map at stated inputs; a relabelling, transport or scalar multiple of a stated matrix; a condition that mentions stated matrices, *whether or not* it fixes the operator up to a scalar; and a closure step that combines class members with a stated matrix, such as `K ↦ K·M`. A G-n clause has the *admission form* when it only admits matrices and adds no closure step | Yes: every node that applies it and carries a non-monomial matrix |
+| **G-n**, naming generator clause | Makes operators or channels admissible or available, and its text refers to specific matrices. This covers: a constant; a formula; a stated map at stated inputs; a relabelling, transport or scalar multiple of a stated matrix; a condition that mentions stated matrices, *whether or not* it fixes the operator up to a scalar; and a closure step that combines class members with a stated matrix, such as `K ↦ K·M`. A G-n clause has the *admission form* when it only admits matrices and adds no closure step | Yes: every node that applies it and carries a non-monomial matrix or channel, in the sense of I-3 |
 | **G-u**, uniform closure law | A closure constructor whose text quantifies uniformly over all class members and refers to no specific matrix. Examples: `mul`, `smul`, `block`, `relabel`, and the superposition law of CC-0 | No |
 | **I-f**, formally neutral interface clause | Describes the carrier, identification or access, and leaves A-2 formally unchanged: the same carrier type, the same `InstAvail` rules, and no stated matrix | No; it has no node |
-| **I-m**, interface clause that changes A-2 | Changes the carrier, identification, preparations, readout, discard or composition rules formally. Every effect, projector, prepared state or channel its text states is a stated matrix | Yes: every node that uses a stated non-monomial matrix of the clause |
+| **I-m**, interface clause that changes A-2 | Changes the carrier, identification, preparations, readout, discard or composition rules formally. Every effect, projector, prepared state or channel its text states is a stated matrix | Yes: every node that uses a stated non-monomial matrix or channel of the clause, in the sense of I-3 |
 
 The shared constructors of A-2 and A-8 are not clauses of any rule. `proj` names only 0/1
 diagonal projectors, which are monomial, so it never carries a marked node.
@@ -363,8 +363,8 @@ Write `NM(ℛ) := {M ∈ Mat(ℛ) : ¬ IsMonomial M}`.
 #### Procedure
 
 - **Step 1 (Q1, the image question).** Mark every node of `d*`, leaf or internal, that applies a
-  G-n clause and carries a non-monomial matrix, or that uses a stated non-monomial matrix of an
-  I-m clause. Record the clause that supplies each marked node.
+  G-n clause and carries a non-monomial matrix or channel (in the sense of I-3), or that uses a
+  stated non-monomial matrix or channel of an I-m clause. Record the clause that supplies each marked node.
   - Q1 = yes iff at least one node is marked.
   - Q1 is decided by inspecting the finite tree `d*`.
 - **Step 2 (Q2, derivation without naming).**
@@ -381,8 +381,9 @@ Write `NM(ℛ) := {M ∈ Mat(ℛ) : ¬ IsMonomial M}`.
     class lies inside `substratumClass`, and by O-1 it has no D2 branch.
   - A rule that adds a closure step (G-u, or G-n not in admission form) or an I-m clause is
     outside the shortcut. Its Q2 is decided by exhibition or by proof. One proof method is O-10,
-    the lowest non-monomial node: in a derivation from monomial leaves, a non-monomial matrix
-    first appears at a node whose constructor does not preserve monomiality. The constructors
+    the lowest non-monomial node: in a derivation from monomial leaves, a node that carries a
+    non-monomial matrix while all its child nodes carry monomial matrices applies a constructor
+    that does not preserve monomiality. The constructors
     of A-2 and A-8 preserve it (SC:231, SC:275). So if every non-preserving constructor of `ℛ`
     is G-n or I-m, that node is marked.
 - **Step 3 (FC, the fiat check).** Let `𝓕_ℛ` be the least label-invariant architecture containing
@@ -440,7 +441,8 @@ choices, stated here so that the owner can rule on them.
    `X` and `Z` fixes `H` up to a scalar and is its definition.
 2. **The form of the missing rule in (C).** CT entails only this: the missing rule is a clause
    that states no non-monomial matrix in the sense of §4.4 and yields a D2 (D3) operation. That
-   means a G-u law, an I-f clause, or an I-m clause whose stated matrices are monomial. The
+   means a G-u law, or an I-m clause whose stated matrices are monomial. An I-f clause leaves A-2
+   formally unchanged and so cannot yield one. The
    narrower requirement, that it be an access or identification clause, comes from the owner's
    wording in 6721267600: "identify the missing access or identification rule". It is not a
    consequence of CT. The (C) record states both forms and attributes each to its source.
@@ -459,6 +461,11 @@ Controls are reported before any verdict in the Stage 1B result record.
 - A control is *refuted* when its pass condition is shown false. A refuted CC-0, CC-1, CC-3(a) or
   CC-4, or a failed CC-2(b) where it applies, shows a defective test or definition. The outcome
   goes to order 0 of §6: (I), void, with the control named.
+- For the controls whose pass condition is a CT verdict (CC-0, CC-1(b), CC-2(b), CC-4), only a
+  *definite contrary* verdict refutes the control: one of `generated`, `installed`, `mixed` or
+  inconsistent, other than the verdict the control requires. An `undetermined` verdict means the
+  control is *not established*, and it routes as below. This covers the case where `K*` is not
+  shown, so that CT has no `d*`, and the case where an obligation such as O-1 or O-10 is unproved.
 - A control that is *vacuous* or *not established* is not a pass. (P) and (C) require it passed.
   The outcome then goes to (N) if (N)'s own condition holds, and to (I) at order 4 otherwise.
 - *Why vacuity does not void at order 0.* CC-1(a) is vacuous exactly when `K*` is not shown,
@@ -467,12 +474,12 @@ Controls are reported before any verdict in the Stage 1B result record.
 
 | ID | Control | Construction | Pass condition (decidable) | Rejection rule |
 |---|---|---|---|---|
-| **CC-0** | Calibration for `generated`. A fixture, not a candidate; [Q], superposition closure; excluded from every outcome | `ℛ_0`: one G-u clause. If `K, L ∈ 𝓘` on one carrier and `aK + bL` is unitary for some `a, b ∈ ℂ`, then `aK + bL ∈ 𝓘`. Otherwise `𝓑` with the architecture and relabelling. `Mat(ℛ_0) = ∅`. Target `H = (X + Z)/√2` on `Fin 2`, where `X` is `permMatrix (swap 0 1) ∈ permClass` and `Z = diag(1, −1) ∈ 𝓑` | CT returns `generated`, with the exhibited `d'` of §4.4 | Any other verdict shows that CT cannot return `generated` for a rule that names no matrix. Refuted, order 0 |
-| **CC-1** | Coherent Clifford by fiat | `ℛ_1`: one G-n clause of admission form, `siteSwapImage n` admissible for every `n`, with no polarization map. Class `𝓕` = the least label-invariant architecture containing `𝓑 ∪ {siteSwapImage n}`. Theory `𝔉 := genTheory 𝓕 (Fin 2)`. By O-2, `PolC ⊆ 𝓕` | (a) Nonvacuity: the object's target `K*` is shown available in `𝔉`. This follows by O-2 and `genTheory_mono` once it is shown in `polarizedTheoryC`. (b) CT returns `installed` for `ℛ_1`, which lies in the restricted shortcut | (b) any other verdict: refuted, order 0. (a) false while `K*` is shown in `polarizedTheoryC`: O-2 is false; recorded; refuted, order 0. (a) not shown: vacuous, so not a pass (routing above) |
-| **CC-2** | `PolGen` versus `PolC` | `polarizedTheory (Fin 2)` (C5D:247), without `relabel`, against `polarizedTheoryC (Fin 2)` | (a) T1 accounting: `K*` is available in `polarizedTheory (Fin 2)`, or O-6's alternative holds. Either way, the relabelling closure is not a second rule. (b) Applies only when `K*` is available in both theories: CT returns the same verdict for `PolGen` and for `PolC` | (a) refuted, meaning `K*` is proved unavailable in `polarizedTheory (Fin 2)` beyond the named transport: T1 is recorded as two rules (map and relabelling closure). (a) undetermined: T1 is undetermined. (b) fails where it applies: refuted, order 0 |
+| **CC-0** | Calibration for `generated`. A fixture, not a candidate; [Q], superposition closure; excluded from every outcome | `ℛ_0`: one G-u clause. If `K, L ∈ 𝓘` on one carrier and `aK + bL` is unitary for some `a, b ∈ ℂ`, then `aK + bL ∈ 𝓘`. Otherwise `𝓑` with the architecture and relabelling. `Mat(ℛ_0) = ∅`. Target `H = (X + Z)/√2` on `Fin 2`, where `X` is `permMatrix (swap 0 1) ∈ permClass` and `Z = diag(1, −1) ∈ 𝓑` | CT returns `generated`, with the exhibited `d'` of §4.4 | A definite contrary verdict (`installed`, `mixed` or inconsistent) shows that CT cannot return `generated` for a rule that names no matrix: refuted, order 0. `undetermined`: not established (routing above) |
+| **CC-1** | Coherent Clifford by fiat | `ℛ_1`: one G-n clause of admission form, `siteSwapImage n` admissible for every `n`, with no polarization map. Class `𝓕` = the least label-invariant architecture containing `𝓑 ∪ {siteSwapImage n}`. Theory `𝔉 := genTheory 𝓕 (Fin 2)`. By O-2, `PolC ⊆ 𝓕` | (a) Nonvacuity: the object's target `K*` is shown available in `𝔉`. This follows by O-2 and `genTheory_mono` once it is shown in `polarizedTheoryC`. (b) CT returns `installed` for `ℛ_1`, which lies in the restricted shortcut | (b) a definite contrary verdict (`generated`, `mixed` or inconsistent): refuted, order 0. (b) `undetermined`: not established (routing above). (a) false while `K*` is shown in `polarizedTheoryC`: O-2 is false; recorded; refuted, order 0. (a) not shown: vacuous, so not a pass (routing above) |
+| **CC-2** | `PolGen` versus `PolC` | `polarizedTheory (Fin 2)` (C5D:247), without `relabel`, against `polarizedTheoryC (Fin 2)` | (a) T1 accounting: `K*` is available in `polarizedTheory (Fin 2)`, or O-6's alternative holds. Either way, the relabelling closure is not a second rule. (b) Applies only when `K*` is available in both theories: CT returns the same verdict for `PolGen` and for `PolC` | (a) refuted, meaning `K*` is proved unavailable in `polarizedTheory (Fin 2)` beyond the named transport: T1 is recorded as two rules (map and relabelling closure). (a) undetermined: T1 is undetermined. (b), where it applies: two definite verdicts that differ, refuted, order 0; either verdict `undetermined`, not established (routing above) |
 | **CC-3** | Monomial-only baseline, kill battery, with the `substratumClass` hazard | `𝔅 = substratumTheory (Fin 2)`, with no rule | (a) No D2 operation in `𝔅` at any level (O-1) | (a) refuted: D2 is defective, since it admits a monomial-class operation; order 0. (a) not established: not a pass. The restricted shortcut is then unavailable, Q2 is `undetermined` for every rule inside it, and (P) and (C) are unreachable |
 | **CC-3(b)** | Definitional calibration of D3 on the hazard operations. It is recorded, and it cannot fail | — | `drivePhase` passes D3's non-Clifford clause (`D X Dᴴ = (3/5)X + (4/5)Y`) and is rejected only by the monomial clause, which is the clause that does the work. The controlled quarter phase on `Fin 2 × Fin 2` and Toffoli on `Work` are monomial, and they are also outside D3's carrier `Fin 2` | — |
-| **CC-4** | Disguised variants. Each is stated at every level `n` with the ancilla a spectator, as the object's images are | DV-a: the swap image stated as "the normalized finite Fourier transform on the position alphabet", `(a, b) ↦ (−1)^{ab}/√2`. DV-b: by characterization, "the unitary, unique up to scalar, with `W X Wᴴ = Z` and `W Z Wᴴ = X`", where `X` and `Z` are monomial. DV-c: the swap image placed only as `reindex e e (siteSwapImage n)` for a fixed nontrivial carrier bijection `e`, for instance on an ancilla bit. DV-d: a constant inside a closure step, "if `K ∈ 𝓘` on `Fin 2 × Fin n`, then `K·siteSwapImage n ∈ 𝓘`". DV-e: a family characterization, "the swap layer goes to some unitary `W` with `W X Wᴴ = Z`", whose solution set `{diag(e^{ia}, e^{ib})·H}` is not unique up to a scalar | CT returns `installed` for each of DV-a to DV-e, with target `K*`. DV-a, DV-b, DV-c and DV-e lie in the restricted shortcut. DV-d adds a closure step, so its Q2 = no needs O-10 | Any variant classed otherwise: refuted, order 0 |
+| **CC-4** | Disguised variants. Each is stated at every level `n` with the ancilla a spectator, as the object's images are | DV-a: the swap image stated as "the normalized finite Fourier transform on the position alphabet", `(a, b) ↦ (−1)^{ab}/√2`. DV-b: by characterization, "the unitary, unique up to scalar, with `W X Wᴴ = Z` and `W Z Wᴴ = X`", where `X` and `Z` are monomial. DV-c: the swap image placed only as `reindex e e (siteSwapImage n)` for a fixed nontrivial carrier bijection `e`, for instance on an ancilla bit. DV-d: a constant inside a closure step, "if `K ∈ 𝓘` on `Fin 2 × Fin n`, then `K·siteSwapImage n ∈ 𝓘`". DV-e: a family characterization, "the swap layer goes to some unitary `W` with `W X Wᴴ = Z`", whose solution set `{diag(e^{ia}, e^{ib})·H}` is not unique up to a scalar | CT returns `installed` for each of DV-a to DV-e, with target `K*`. DV-a, DV-b, DV-c and DV-e lie in the restricted shortcut. DV-d adds a closure step, so its Q2 = no needs O-10 | Any variant with a definite contrary verdict (`generated`, `mixed` or inconsistent): refuted, order 0. Any variant `undetermined`: not established (routing above) |
 
 CC-1 and CC-4 must return `installed`, and CC-0 must return `generated`. These are requirements
 on the test, preregistered as rules. They are not predictions of the object's result. DV-d and DV-e
@@ -520,8 +527,8 @@ Per the owner's ruling, (C) is not recorded as failure.
 1. Each marked node of `d*` and the clause that supplies it. For the object, these are expected
    to be the `PolC.swap` nodes, supplied by A-7 through A-5.
 2. The form of the missing rule. The form CT entails: a clause that yields a D2 (D3) operation,
-   from native or monomial data, in a derivation with no marked node. That is a G-u law, an I-f
-   clause, or an I-m clause whose stated matrices are monomial. The narrower form from the
+   from native or monomial data, in a derivation with no marked node. That is a G-u law, or an
+   I-m clause whose stated matrices are monomial. The narrower form from the
    owner's wording: an access or identification clause of that kind. Each form is stated and
    attributed to its source (§4.5, item 2).
 3. Which of the preserved routes and shapes (§7) could supply such a rule. None is chosen. For
@@ -647,7 +654,7 @@ bare OI.
 ### 10.1 Stage boundary
 
 This file is Stage 1A, the preregistration. **Stage 1B** is the derivation, the Lean membership
-proofs O-1 to O-9, the CT runs and the result record. It needs a separate recorded owner
+proofs O-1 to O-10, the CT runs and the result record. It needs a separate recorded owner
 authorization. Stage 1B writes `RESULT.md` in this directory, with the control table first and
 the outcome generated from §6.
 
@@ -678,10 +685,10 @@ Amendments to §§1–7 go in `amendments/`, are reviewed, and land before any r
   `drivePhase`.
 - **H-2.** CT could be unable to return `generated`. Mitigation: CC-0.
 - **H-3.** CT could misclass a renamed or characterized `H`. Mitigation: CC-4 (DV-a to DV-c).
+- **H-4.** The relabelling closure could act as a hidden second rule. Mitigation: CC-2.
 - **H-5.** Naming could be relocated so that no leaf carries it: a constant inside a closure
   step, or a characterization that is not unique up to a scalar. Mitigation: clause-instance
   marking (§4.4) and CC-4 (DV-d, DV-e).
-- **H-4.** The relabelling closure could act as a hidden second rule. Mitigation: CC-2.
 
 ***
 
@@ -696,7 +703,8 @@ Amendments to §§1–7 go in `amendments/`, are reviewed, and land before any r
 | #1198 (open pull request, M-INACC; not merged at `45eea51d`; owner-approved for normal merge after #1199 in 6721267600) | Shape 1, a pointer only | Provenance only. Its title and state were read; its content was neither read nor used. Shape 1's take-up re-reads it on `main` if it has landed |
 | KT4-PREM-1 design modules (`kt4_forward_ie1`, `fourCopyCoherent_of_kt4Core`) at `ff9c3a358c57ce938978f15f2915d2145ae7b4a5`, not an ancestor of `45eea51d`; no Lean module on `main` contains them | Not used. The K-chain is not an input (§1.1) | Provenance only. No claim here uses them. The support gap belongs to the frozen KT4-PREM-1 record (inventory §7(c)1) and is not inherited |
 | OI-FINITE-PROTOCOL-1 design commit `70815342` | B23's history | Provenance. The proof bodies cited (BFP) are on `main` |
-| Independent review of r1 at `e593465b` (session scratchpad, `REVIEW-MATHCON1-e593465b.md`) | r2 revisions (§13); reviewer readings in O-1, O-3e and O-6 | Provenance. Its readings are carried as obligations or pointers, not as support |
+| Independent review of r1 at `e593465b`, #1206 comment 6721546806 | r2 revisions (§13); reviewer readings in O-1, O-3e and O-6 | Provenance. Its readings are carried as obligations or pointers, not as support |
+| Re-review of r2 at `e2d44d7c`, part of the #1206 record | r3 revisions (§13) | Provenance |
 
 No claim in this file rests on content off `main`. Every support citation is to `main@45eea51d`.
 
@@ -744,3 +752,9 @@ Specifically:
 | N13: O-1 template | O-1 cites `conj_diag_entry` (DG:90) and `diagonalGlue_forces_monomial` (DG:101) |
 | N14: the added (I) | §6 states that (I) is the remainder that makes the partition total, not a fourth result type |
 | Review §D | §6 states that on this object MATH-CON-1 tests sufficiency for T2–T4 and identifies the missing rule, and cannot settle T5; §4.5 lists the three choices not ruled by the owner |
+| R1 (re-review of r2 at `e2d44d7c`): an `undetermined` CT verdict counted as refuted and could void a proved ¬T2 | Option (a): in CC-0, CC-1(b), CC-2(b) and CC-4 only a definite contrary verdict refutes (order 0); `undetermined` is not established and routes to (N) or (I). One routing bullet added to §5 |
+| R2: I-f listed as a form of the missing rule | I-f dropped from the CT-entailed form in §4.5 item 2 and §6 item 2, with the reason |
+| R3: §10.1 range | "O-1 to O-10" |
+| R4: scratchpad citation | §11 cites the r1 review as #1206 comment 6721546806, and the r2 re-review as part of the #1206 record |
+| R5: marking wording; O-10 wording | "non-monomial matrix or channel, in the sense of I-3" in the kinds table and Step 1; O-10 in §3.2 and Step 2 reads "a node that carries a non-monomial matrix while all its child nodes carry monomial matrices" |
+| R6: hazard order | H-4 now precedes H-5 in §10.3 |
