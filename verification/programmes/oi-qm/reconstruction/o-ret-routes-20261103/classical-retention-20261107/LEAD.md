@@ -1,6 +1,6 @@
 # Classical retention: one external register/read lead, stopped before native derivation
 
-**Author source-selection finding: no qualifying native candidate. Independent selection review pending.**
+**Author source-selection finding: no qualifying native candidate. Independent selection review is recorded on [guiding PR #1186](https://github.com/amaybaum/incompleteness/pull/1186#pullrequestreview-5815049227).**
 The single physical lead examined is an optically trapped colloidal position bit, with later camera
 position readout. It has an external experimental source. The inspected OI sources do not supply
 its native register, carrier write or later read process. Stop at that bridge; no retention
