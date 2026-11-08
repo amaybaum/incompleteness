@@ -107,3 +107,39 @@ the prescribed reason while malformed entry types remain BAD_SCHEMA.
 Commands: edit via Python exact string replacement of own checks_shape;
 static check `/tmp/k1p1-controls-static-audit.py` and `git diff --check`; edit
 this own log, forward commit and ordinary push. No candidate execution.
+
+## Independent static review corrections: MU-3 isolation and exact output trees
+
+Root relayed two required findings from the independent reviewer of f9fe8540.
+No other implementation or patch-package content was supplied or read.
+
+MU-3 previously chose the largest states of the first two 10-cycles, which did
+not explicitly establish that incoming states exceed each destination's least
+key. It now selects an eligible pair of nonleast states only when each incoming
+state exceeds that destination key. The shared partition checker exposes
+structured p1–p7 findings, including the histogram in p2. Before committing an
+exchange, the helper requires p1/p2/p5/p6/p7 all pass, p3 or p4 actually fail,
+and the whole document equals its original after restoring only the two state
+lists. Keys, sizes, histogram, pi0 and member order therefore remain unchanged.
+The unmutated partition must pass first. No eligible isolated exchange raises
+a failure and fails the stage self-test; it is never skipped. This path remains
+instance-only and has not been invoked. No statement about actual K1 cycles
+is inferred from static drafting.
+
+The old read_dir dictionary omitted directories, so a refusal creating an empty
+directory could be invisible. A separate exact output snapshot now records the
+root, all nested directories (including empty ones), regular-file bytes,
+symlink targets without following them, and other entry types. NF negatives
+and MU-C3′ compare complete before/after snapshots. Every positive fixture
+and paired NF control requires the exact flat regular-file inventory and bytes,
+with no extra directory or link. Instance refusal and render inventory checks
+that measure empty/exact output sets use the same snapshots. Normal JSON readers
+keep their file-byte dictionaries; they no longer follow symlinks.
+
+Commands: read own changed function ranges with sed/rg and git status; edit own
+source via `/tmp/k1p1-controls-review-fixes.py` plus exact string replacements;
+static checks `/tmp/k1p1-controls-static-audit.py` and `git diff --check`; read
+push trigger filters again with rg; update this own log; forward commit/push.
+No fixtures or candidates invoked, imported or tested. Final patch constants
+remain unbound in this correction commit, so the missing-binding gate still
+refuses before any self-test invocation. Literal binding is a separate commit.

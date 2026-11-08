@@ -293,63 +293,58 @@ def instance_states():
     return ["".join(p) for p in itertools.product("01", repeat=2 * N)]
 
 
-def partition_findings(universe, step, cycles):
-    """Generic CC-PART: `cycles` is a list of (key, size, states) in report order.
-
-    Passes (returns []) iff the cycles are listed by increasing key, each key is the least
-    state of its cycle, each size is its length, each state list is sorted and distinct,
-    every element of `universe` lies in exactly one cycle, the sizes sum to |universe|, and
-    each cycle is exactly the orbit of its key under `step` (closure and single orbit).
-    """
-    f = []
-    uni = set(universe)
-    seen = set()
-    total = 0
-    prev = None
-    for idx, (key, size, states) in enumerate(cycles):
-        tag = "cycle #" + str(idx) + " (" + str(key) + ")"
+def partition_subtests(universe, step, cycles, histogram=None):
+    """Structured p1-p7 findings; histogram, when supplied, is part of p2."""
+    findings = {"p" + str(i): [] for i in range(1, 8)}
+    uni, seen, total, previous, counted_histogram = set(universe), set(), 0, None, {}
+    for index, (key, size, states) in enumerate(cycles):
+        tag = "cycle #" + str(index) + " (" + str(key) + ")"
         states = list(states)
-        if not states:
-            f.append(tag + ": empty")
-            continue
-        if states != sorted(states):
-            f.append(tag + ": states not sorted")
-        if len(set(states)) != len(states):
-            f.append(tag + ": repeated state")
-        if key != min(states):
-            f.append(tag + ": key is not the least state")
+        state_set = set(states)
         if not is_int(size) or size != len(states):
-            f.append(tag + ": size differs from its state count")
-        if prev is not None and not key > prev:
-            f.append(tag + ": keys not strictly increasing")
-        prev = key
-        total += size if is_int(size) else 0
-        for s in states:
-            if s not in uni:
-                f.append(tag + ": state outside the universe")
-            if s in seen:
-                f.append(tag + ": state in two cycles")
-            seen.add(s)
-        if any(step(s) not in set(states) for s in states):
-            f.append(tag + ": not closed under the map (p3)")
-        orbit = [key]
-        cur = key
-        closed = False
+            findings["p2"].append(tag + ": size differs from state count")
+        if is_int(size):
+            total += size
+            counted_histogram[str(size)] = counted_histogram.get(str(size), 0) + 1
+        if states != sorted(states):
+            findings["p5"].append(tag + ": states not sorted")
+        if not states or key != min(states):
+            findings["p6"].append(tag + ": key is not the least state")
+        if previous is not None and not key > previous:
+            findings["p7"].append(tag + ": keys not strictly increasing")
+        previous = key
+        for state in states:
+            if state not in uni:
+                findings["p1"].append(tag + ": state outside universe")
+            if state in seen:
+                findings["p1"].append(tag + ": repeated state within or between cycles")
+            seen.add(state)
+        if not states:
+            findings["p4"].append(tag + ": empty orbit")
+            continue
+        if any(step(state) not in state_set for state in states):
+            findings["p3"].append(tag + ": not closed under the map")
+        orbit, current, closed = [key], key, False
         for _ in range(len(uni)):
-            cur = step(cur)
-            if cur == key:
+            current = step(current)
+            if current == key:
                 closed = True
                 break
-            orbit.append(cur)
-        if not closed:
-            f.append(tag + ": orbit of the key does not return within |universe| steps")
-        elif sorted(orbit) != sorted(states):
-            f.append(tag + ": not a single orbit closed under the map")
-    if total != len(uni):
-        f.append("sizes sum to " + str(total) + ", not " + str(len(uni)))
+            orbit.append(current)
+        if not closed or sorted(orbit) != sorted(states):
+            findings["p4"].append(tag + ": not exactly one orbit of its key")
     if seen != uni:
-        f.append("coverage: " + str(len(uni - seen)) + " states in no cycle")
-    return f
+        findings["p1"].append("coverage differs from universe")
+    if total != len(uni):
+        findings["p2"].append("sizes do not sum to universe size")
+    if histogram is not None and not same(histogram, counted_histogram):
+        findings["p2"].append("histogram differs from listed size counts")
+    return findings
+
+
+def partition_findings(universe, step, cycles, histogram=None):
+    subtests = partition_subtests(universe, step, cycles, histogram)
+    return [pid + ": " + finding for pid, findings in subtests.items() for finding in findings]
 
 
 def mobius(n):
@@ -570,12 +565,7 @@ def chk_cc_bij(env):
 
 def chk_cc_part(env):
     cycles = members_cycles(env["members"], env["cells"])
-    f = partition_findings(env["universe"], env["step"], cycles)
-    hist = {}
-    for _, size, _ in cycles:
-        hist[str(size)] = hist.get(str(size), 0) + 1
-    if not same(env["members"]["histogram"], hist):
-        f.append("histogram does not count the listed cycle lengths")
+    f = partition_findings(env["universe"], env["step"], cycles, env["members"]["histogram"])
     comp = env["gt"]["completeness"]
     if comp["partition"] is not True:
         f.append("completeness.partition is not true")
@@ -1151,10 +1141,39 @@ def read_dir(d):
     out = {}
     for name in sorted(os.listdir(d)):
         p = os.path.join(d, name)
-        if os.path.isfile(p):
+        if os.path.isfile(p) and not os.path.islink(p):
             with open(p, "rb") as fh:
                 out[name] = fh.read()
     return out
+
+
+def output_snapshot(directory):
+    """Exact output tree: directories, regular-file bytes, links and other entry types.
+
+    Symlinks are recorded without following them, and empty directories are retained.
+    Normal schema readers continue to use read_dir's file dictionary separately.
+    """
+    snapshot = {}
+
+    def visit(path, relative):
+        if os.path.islink(path):
+            snapshot[relative] = ("symlink", os.readlink(path))
+        elif os.path.isdir(path):
+            snapshot[relative] = ("directory",)
+            for name in sorted(os.listdir(path)):
+                visit(os.path.join(path, name), name if relative == "." else relative + "/" + name)
+        elif os.path.isfile(path):
+            with open(path, "rb") as fh:
+                snapshot[relative] = ("file", fh.read())
+        else:
+            snapshot[relative] = ("other", os.stat(path, follow_symlinks=False).st_mode)
+
+    visit(directory, ".")
+    return snapshot
+
+
+def flat_output_snapshot(files):
+    return {".": ("directory",), **{name: ("file", data) for name, data in files.items()}}
 
 
 def combine(outcomes):
@@ -1947,11 +1966,12 @@ def run_fixture(ctx, which, fid, input_bytes, extra=(), nonempty=False, program=
         if nonempty:
             with open(os.path.join(out, "sentinel"), "wb") as fh:
                 fh.write(b"preserve fixture sentinel\n")
-        before = read_dir(out)
+        before = output_snapshot(out)
         argv = [sys.executable, "-I", program or os.path.join(ctx.root, *IMPL[which].split("/")),
                 "--fixture", fid, "--input", inp, "--out", out] + list(extra)
         code = subprocess.run(argv, cwd=ctx.root, stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode
-        return code, read_dir(out), before
+        after = output_snapshot(out)
+        return code, read_dir(out), before, after
 
 
 def fixture_env(entry, doc, cyc2):
@@ -2066,9 +2086,11 @@ def cmd_self_test_synthetic(ctx):
         expected, cyc = fixture_expected(entries, fid), fixture_expected(entries, fid, True)
         result = {}
         for which in entry["programs"]:
-            code, files, _ = run_fixture(ctx, which, fid, dumps(entry["input"]))
-            names = {"fixture.json"} | ({"fixture-cyc2.json"} if which == "B" and cyc is not None else set())
-            if code != entry["exit"] or set(files) != names or files.get("fixture.json") != dumps(expected) or (which == "B" and cyc is not None and files.get("fixture-cyc2.json") != dumps(cyc)):
+            code, files, _, after = run_fixture(ctx, which, fid, dumps(entry["input"]))
+            wanted = {"fixture.json": dumps(expected)}
+            if which == "B" and cyc is not None:
+                wanted["fixture-cyc2.json"] = dumps(cyc)
+            if code != entry["exit"] or files != wanted or after != flat_output_snapshot(wanted):
                 failures.append(fid + "/" + which + ": exit/inventory/expected bytes differ")
             result[which] = files
         if len(result) == 2 and result["A"].get("fixture.json") != result["B"].get("fixture.json"):
@@ -2113,11 +2135,12 @@ def cmd_self_test_synthetic(ctx):
         base_id = negative["input_from"] or "SF-1a"
         base = entries[base_id]
         for which in negative["control"]["programs"]:
-            code, files, _ = run_fixture(ctx, which, base_id, dumps(base["input"]))
-            ok = code == negative["control"]["exit"] and files.get("fixture.json") == dumps(fixture_expected(entries, base_id))
+            code, files, _, after = run_fixture(ctx, which, base_id, dumps(base["input"]))
+            wanted = {"fixture.json": dumps(fixture_expected(entries, base_id))}
             cyc = fixture_expected(entries, base_id, True)
             if which == "B" and cyc is not None:
-                ok = ok and files.get("fixture-cyc2.json") == dumps(cyc)
+                wanted["fixture-cyc2.json"] = dumps(cyc)
+            ok = code == negative["control"]["exit"] and files == wanted and after == flat_output_snapshot(wanted)
             if not ok:
                 failures.append(negative["id"] + ": paired CLI control fails")
         inp = clone(base["input"])
@@ -2125,9 +2148,9 @@ def cmd_self_test_synthetic(ctx):
             path_set(inp, edit["path"], edit["value"])
         payload = dumps(inp) if negative["input_from"] is not None else None
         for which in negative["programs"]:
-            code, files, before = run_fixture(ctx, which, negative["fixture_arg"], payload,
+            code, files, before, after = run_fixture(ctx, which, negative["fixture_arg"], payload,
                 negative["extra_args"], negative["out"] == "nonempty")
-            if code != negative["exit"] or files != before:
+            if code != negative["exit"] or after != before:
                 failures.append(negative["id"] + "/" + which + ": refusal/unchanged output differs")
     # Step 5: pinned MU-C3, applied by exact splice to a disposable A copy.
     with tempfile.TemporaryDirectory() as tmp:
@@ -2137,8 +2160,8 @@ def cmd_self_test_synthetic(ctx):
                 patched = splice_patch(fh.read(), patches["MU-C3"], IMPL["A"])
             with open(path, "wb") as fh:
                 fh.write(patched)
-            code, files, before = run_fixture(ctx, "A", "SF-3", dumps(entries["SF-3"]["input"]), program=path)
-            if code != 3 or files != before:
+            code, files, before, after = run_fixture(ctx, "A", "SF-3", dumps(entries["SF-3"]["input"]), program=path)
+            if code != 3 or after != before:
                 failures.append("MU-C3': expected exactness exit 3 with no files")
         except (ValueError, UnicodeError):
             failures.append("MU-C3': patch does not apply exactly")
@@ -2230,6 +2253,45 @@ def g5_keys(ctx):
     return [(r["branch"], r["member"]) for r in rows if r["gates"]["G5"] == "pass"]
 
 
+def isolated_ten_cycle_exchange(document, universe, step):
+    """MU-3 only: exchange nonleast states with a proof obligation on each p1-p7.
+
+    This helper is instance-only and is never called by the synthetic route. No
+    eligible exchange is a self-test failure, rather than a skipped mutation.
+    """
+    original = clone(document)
+    original_cycles = members_cycles(original)
+    if any(partition_subtests(universe, step, original_cycles, original["histogram"]).values()):
+        raise ValueError("MU-3 unmutated partition does not pass")
+    tens = [i for i, member in enumerate(original["members"]) if member["size"] == 10 and "states" in member]
+    for offset, ai in enumerate(tens):
+        a = original["members"][ai]
+        for bi in tens[offset + 1:]:
+            b = original["members"][bi]
+            for x in a["states"]:
+                for y in b["states"]:
+                    # Outgoing states are nonleast. Incoming states must remain above
+                    # the destination's existing key, which is retained byte for byte.
+                    if x == a["key"] or y == b["key"] or x <= b["key"] or y <= a["key"]:
+                        continue
+                    changed = clone(original)
+                    changed["members"][ai]["states"] = sorted([s for s in a["states"] if s != x] + [y])
+                    changed["members"][bi]["states"] = sorted([s for s in b["states"] if s != y] + [x])
+                    subtests = partition_subtests(universe, step, members_cycles(changed), changed["histogram"])
+                    preserved = all(not subtests[pid] for pid in ("p1", "p2", "p5", "p6", "p7"))
+                    isolated_failure = bool(subtests["p3"] or subtests["p4"])
+                    # Beyond the subtests, only these two state lists may differ:
+                    # keys, sizes, pi0, member order, histogram and other fields stay exact.
+                    restored = clone(changed)
+                    for index in (ai, bi):
+                        restored["members"][index]["states"] = original["members"][index]["states"]
+                    if preserved and isolated_failure and same(restored, original):
+                        document.clear()
+                        document.update(changed)
+                        return True
+    raise ValueError("MU-3 has no eligible isolated exchange preserving p1/p2/p5/p6/p7")
+
+
 def apply_mutation(ctx, stage, mu, patches):
     """Instance-only mutation paths; never reached by --synthetic."""
     gtf = GATE_TABLE[stage]
@@ -2248,13 +2310,8 @@ def apply_mutation(ctx, stage, mu, patches):
         if mu in ("MU-3", "MU-4"):
             def edit_members(d):
                 if mu == "MU-3":
-                    tens = [m for m in d["members"][1:] if m["size"] == 10]
-                    if len(tens) < 2:
-                        raise ValueError("MU-3 requires two 10-cycles")
-                    a, b = tens[:2]
-                    x, y = a["states"][-1], b["states"][-1]
-                    a["states"] = sorted([s for s in a["states"] if s != x] + [y])
-                    b["states"] = sorted([s for s in b["states"] if s != y] + [x])
+                    if not isolated_ten_cycle_exchange(d, instance_states(), phi):
+                        raise ValueError("MU-3 isolation not established")
                 else:
                     cycle = next(m for m in d["members"][1:] if m["size"] > 1)
                     old = str(cycle["size"])
@@ -2329,7 +2386,7 @@ def apply_mutation(ctx, stage, mu, patches):
             if mu in ("MU-14a", "MU-14b"):
                 for which in ("A", "B"):
                     with tempfile.TemporaryDirectory() as out:
-                        if run_impl(sb, which, "rows", out, sha) != 2 or read_dir(out):
+                        if run_impl(sb, which, "rows", out, sha) != 2 or output_snapshot(out) != flat_output_snapshot({}):
                             return False
             return subprocess_controls_run(sb, "rows") == 2 and pre_outcome(sb, "rows", cid) == "refused"
         if mu in ("MU-11", "MU-16c"):
@@ -2350,7 +2407,7 @@ def apply_mutation(ctx, stage, mu, patches):
                 with tempfile.TemporaryDirectory() as out:
                     code = run_impl(sb, which, "final", out, committed_members_sha(sb))
                     if mu == "MU-16c":
-                        if code != 2 or read_dir(out):
+                        if code != 2 or output_snapshot(out) != flat_output_snapshot({}):
                             return False
                     else:
                         if code != 0:
@@ -2399,7 +2456,7 @@ def apply_mutation(ctx, stage, mu, patches):
                 code = cmd_render(sb, out)
                 status = loads(read_dir(out)["render-status.json"])
                 reason = {"MU-15a": "INPUT_MISMATCH", "MU-15b": "CONTROL_NOT_GREEN", "MU-15c": "MISSING_INPUT"}[mu]
-                return code == 2 and status["outcome"] == "refused" and status["reason"] == reason and set(read_dir(out)) == {"render-status.json"}
+                return code == 2 and status["outcome"] == "refused" and status["reason"] == reason and output_snapshot(out) == flat_output_snapshot({"render-status.json": dumps(status)})
         if mu in ("MU-C1", "MU-C2", "MU-C3"):
             which = "B" if mu == "MU-C2" else "A"
             source_path = os.path.join(sb.root, *IMPL[which].split("/"))
