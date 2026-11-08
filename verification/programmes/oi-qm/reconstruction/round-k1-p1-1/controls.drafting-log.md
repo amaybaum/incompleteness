@@ -143,3 +143,30 @@ push trigger filters again with rg; update this own log; forward commit/push.
 No fixtures or candidates invoked, imported or tested. Final patch constants
 remain unbound in this correction commit, so the missing-binding gate still
 refuses before any self-test invocation. Literal binding is a separate commit.
+
+## Data-only final patch binding
+
+After the independently accepted actual MU/X5 package at
+f85a553dc5b9e3a7c65bb749dbd576745a88a6e8, root supplied only three SHA256
+values, without A/B source or patch-package content. Root's handoff cites
+#1135 c6722100274 as permission for the data-only binding. These exact values
+are now PATCH_SHA256 literals:
+
+- MU-C1: 5d96ab821dc56cb874b75c8c6482c0cd376b0a3ebc40892614ab2fa0fb4dba4d
+- MU-C2: bcbb8ad013aff79bae2fe1d4582791fb9bd434b04543c043600c142778e1c822
+- MU-C3: 3f278c93a678c033bc39a8a596eb9da9cf6b14f95f1308acb35298abba09e411
+
+FIXTURE_SHA256 remains unchanged. Missing/mis-pinned fixture or patch files
+still refuse before candidate invocation; no missing-patch gate is bypassed.
+The original None bindings are preserved in preceding forward commits.
+The review-correction edit helper has SHA256
+50c7e1db495eee5a6d02de8d09d19159ecca228f1f6548a1474a223542d37947.
+
+Commands: edit own literal dictionary via exact Python replacement and update
+this own staging log; static `ast.parse`/literal-only comparison of these data
+values and unchanged fixture pin, `/tmp/k1p1-controls-static-audit.py`,
+`git diff --check`, push-trigger grep, exact code diff; forward commit/push.
+No other-unit source, outputs, checkpoints or patch-package bytes read. No
+candidate, controls, fixture, help or scientific invocation. Root will copy
+reviewed integration bytes and arrange its bounded gate after delta SAFE/ACCEPT;
+this unit branch remains static only.

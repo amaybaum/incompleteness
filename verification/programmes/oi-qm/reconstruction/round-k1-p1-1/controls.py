@@ -53,7 +53,11 @@ CHECK_ID_EXACT = "EXACT"
 CHECK_ID_TOKENS = "TOKENS"
 FIXTURE_SHA256 = "691aedbf0c9e74fdcc64f4c9c35f5e07c8ffc362e74360d4e541df682c750e85"
 # Filled only from root's final independently reviewed patch bytes, never guessed.
-PATCH_SHA256 = {"MU-C1": None, "MU-C2": None, "MU-C3": None}
+PATCH_SHA256 = {
+    "MU-C1": "5d96ab821dc56cb874b75c8c6482c0cd376b0a3ebc40892614ab2fa0fb4dba4d",
+    "MU-C2": "bcbb8ad013aff79bae2fe1d4582791fb9bd434b04543c043600c142778e1c822",
+    "MU-C3": "3f278c93a678c033bc39a8a596eb9da9cf6b14f95f1308acb35298abba09e411",
+}
 
 
 # ---------------------------------------------------------------------------
