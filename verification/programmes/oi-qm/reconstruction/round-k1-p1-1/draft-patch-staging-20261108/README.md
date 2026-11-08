@@ -1,81 +1,80 @@
-# K1-P1-1 provisional mutation-patch staging
+# K1-P1-1 mutation patches and exact X5 proposal before freeze
 
-**PROVISIONAL AGAINST UNREVISED DRAFTS. Not final freeze pins.**
+**Reviewed source candidates; not frozen.** This staging package pins concrete
+MU-C1/C2/C3 patches against independently reviewed A/B source that passed its
+prescribed author fixtures. It supersedes the old unrevised-draft patch bytes
+in this branch's preserved history. The new patch bytes still need independent
+review and the combined synthetic gate. No instance kill has run, no freeze
+table is filled and no F is designated.
 
-This package supplies concrete draft MU-C1, MU-C2 and MU-C3 patch bytes for
-inspection under the owner's [draft-staging authorization](https://github.com/amaybaum/incompleteness/issues/1031#issuecomment-6719802814).
-The guiding PR is #1135 and the accountable Issue is #1031. Codex root is the
-package writer; an independent non-author reviewer reviews the pushed head.
-The original independent A/B/controls writers and branches are preserved.
-
-The package branch is staging/k1-p1-1-draft-patches-20261108, from main at
-9c201475ba6fd8f341591d14dd8e88db2e2aaa90. It is separate from the pre-F round
-branch and from the eventual integration staging branch of A1 section 14.
-The round's control plane remains d92e0882e7609e91e3458193391e89610fffa777.
-No round-branch amendment, candidate implementation, controls constant or
-workflow is changed here. No main merge, rebase or freeze is proposed.
+Authority: [owner continuation scope](https://github.com/amaybaum/incompleteness/issues/1031#issuecomment-6721619842),
+following the original [draft-staging authorization](https://github.com/amaybaum/incompleteness/issues/1031#issuecomment-6719802814).
+Guiding PR #1135; accountable Issue #1031; patch-package writer Codex root.
+Independent source/safe-path reviews: [c.6721877817](https://github.com/amaybaum/incompleteness/pull/1135#issuecomment-6721877817).
+The fixture expectations were independently re-derived by hand at unchanged
+round d92e0882e7609e91e3458193391e89610fffa777. This branch is separate from the
+round and eventual code integration staging branch. No control plane changes.
 
 ## Actual source bytes
 
-The source drafts are still unrevised and lack A1's adopted fixture interface:
+| Unit | Delivery commit | Source blob | Source SHA-256 |
+|---|---|---|---|
+| A | d5cec548669088bea9be35e65b7242bdecd2c643 | 2252965843430155fedfbc8855a5d23d13c2c920 | 0e8721e5fe1c8fc8540d36ce2eed84d812a5630867ec4af56d920169466b3fdd |
+| B | f9a051c5ee11f97d73195dab39607d9691828b44 | 63eadd818e59f86c48969552ef144f56b4154b95 | c5bfb8d198ed464c093ebf38ddc6f0d0e160f3e5e91395b1f98014c33928c7e5 |
 
-| Target | Source commit | Source SHA-256 |
-|---|---|---|
-| A | caea695c875179fb9b310739c4aa2a9196332fe4 | 9d4eb0a778333a6606ab507bacd026e56e054ec03cfe38288cf2d22c5c080825 |
-| B | e32fe4eea312b1a468ea19ed1f1559d768c5dbda | 1adc93d872cc7a788555c6226fa8644dc7f132a2fab56aa54a391065f09f2440 |
+These blobs equal the independently accepted ce6f0f2c and 79ff3a7a sources;
+later delivery commits change logs only. Under Python 3.11.17, A passed eight
+admitted fixtures and all seven negatives, B fourteen fixtures and its six
+negatives. NF-1 used its prescribed B-positive then A-refusal pair across the
+independent contexts. These are author checks, not the combined gate.
 
-manifest.json pins each source commit/blob/hash, patch hash and patched-byte
-hash. Those are provisional draft inputs, not entries in the round's final
-freeze table. No candidate source or patched program is copied into this tree.
-The source commits remain on their existing separate staging branches.
+manifest.json pins source commits/blobs/hashes, patches and patched-byte hashes.
+No candidate source or patched program is copied into this tree.
 
-## Intended edits, read statically
+## Intended mutations
 
-- MU-C1 changes A's instance T from 1 to 2. Its eventual required killer is PR-E.
-- MU-C2 adds one bit flip in B's already-built inverse matrix, row 0 column 0,
-  inside build_instance. The row-bit representation makes this one matrix-entry
-  change; its eventual required killer is CC-BIJ.
-- MU-C3 replaces A's single ratio helper's Fraction return by floating division.
-  Its eventual required result is A's exactness exit 3, including MU-C3-prime
-  through SF-3 before F once the adopted fixture route exists.
+- MU-C1 changes only A's instance T from 1 to 2. PR-E's instance kill is unrun.
+- MU-C2 flips exactly inverse-matrix row 0 column 0 inside B's instance builder.
+  CC-BIJ's instance kill is unrun; the fixture bad-inverse control is separate.
+- MU-C3 changes only A's single ratio helper from Fraction to floating division.
+  Its required before-F test is exit 3 on the fixed SF-3 input through the bound
+  and independently reviewed controls harness; it has not run in this package.
 
-No kill outcome above has been tested or certified. These patches must be
-regenerated and independently reviewed against the final revised source bytes.
-Copying the current hashes into controls.py or the freeze table would be wrong.
+Only the newly reviewed patch hashes may be bound in controls. Old prototype
+hashes must not be reused. These are proposed inputs, not freeze authorization.
 
-## Static verification recipe
+## Exact X5 workflow proposal
 
-With this staging checkout and the two source commits available in its Git
-object store, from the repository root:
+X5-verify.patch is data only, against verify.yml at round d92 (also byte-equal
+at main merge 38fec475). It adds the named K1-P1-1 job, Python 3.11 and:
+
+    python3 -I controls.py check --stage final
+
+It wires that job into aggregate needs, result environment, diagnostics and
+mandatory success check. No workflow file is changed or dispatched. Independent
+review is still required before proposing this as the future X5 edit.
+
+## Static reproduction
+
+From this checkout's root, with both delivery commits and round d92 in Git:
 
     python3 -I -B verification/programmes/oi-qm/reconstruction/round-k1-p1-1/draft-patch-staging-20261108/check_static.py > /tmp/k1p1-draft-static.json
     cmp /tmp/k1p1-draft-static.json verification/programmes/oi-qm/reconstruction/round-k1-p1-1/draft-patch-staging-20261108/static-validation.json
 
-If necessary, fetch the source commit IDs above from this same repository
-before using the recipe. The checker reads Git blobs only. It verifies hashes,
-exact one-file/single-hunk splicing at the stated line numbers without offset
-or fuzz, the intended byte edit alone, and Python syntax via ast.parse. Eight
-malformed-patch controls per patch must be rejected: wrong target, old offset,
-new offset, count mismatch, truncation, extra file header, shifted context and
-missing final LF. They test patch mechanics, not physical or mathematical
-mutation killers. The checker is a staging audit, not the future controls.py
-patch applier or a substitute for independent code review.
+The checker reads pinned blobs and patch bytes, splices ordered hunks at exact
+positions without offset/fuzz, verifies hashes and intended edits, and parses
+original/patched Python without executing it. Eight malformed controls per MU-C
+patch must reject. The X5 proposal is checked against its five declared edits;
+its YAML/job semantics additionally need independent review. This staging audit
+is neither controls.py nor a freeze gate; it evaluates no candidate/map.
 
-No A, B or controls module is imported or executed; no map is evaluated, fixture
-answer derived, fixture run performed, or K1 instance/state generated. A1's
-fixture JSON, its constants and the full synthetic gate are not staged here.
-There is no workflow edit, dispatch, V3 execution or special launch.
+## Remaining gates
 
-## Gates that remain
-
-Revised independent A/B/controls deliveries, independent static and fixture
-answer reviews, qualifying approved-interface tests, actual final code and
-patch pins, the byte-identical integration fixture copy/head, exact X5 edit,
-and applicable CI remain outstanding. The full patch-dependent self-test is
-not qualified by this package. Approval (b), F, K1-instance computation, E,
-receipt, merge and scientific-status promotion retain their separate gates.
-
-Only this dedicated branch receives the draft patches. The pre-F round branch
-receives no patch or final pin under this authorization. Ordinary CI on the
-unchanged round head does not validate these staging bytes. Before publication,
-the writer checks push triggers; these paths do not start a push workflow.
+Independent review of these patch bytes/X5 proposal, controls corrections,
+review and exact binding, reviewed integration copies of the three code blobs,
+fixture JSON and patches, and the bounded full synthetic gate remain necessary.
+Section-14 equality to round-branch patch bytes cannot hold while the owner
+keeps that round at d92, where the patches are absent. Staging success does not
+fill that gap: a separately approved freeze revision must record actual pins.
+No approval (b), F/E, instance run, dispatch, receipt, merge or scientific-status
+promotion follows. No implementation, round or workflow branch is changed here.

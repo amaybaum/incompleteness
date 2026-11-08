@@ -1,6 +1,6 @@
 --- a/verification/lean/k1p1_enum_a.py
 +++ b/verification/lean/k1p1_enum_a.py
-@@ -107,3 +107,3 @@
+@@ -99,3 +99,3 @@
  def ratio(num, den):
      """The exact quotient num/den.  The single division point (section 7)."""
 -    return Fraction(num, den)

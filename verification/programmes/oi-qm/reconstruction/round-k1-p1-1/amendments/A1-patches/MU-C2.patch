@@ -1,10 +1,8 @@
 --- a/verification/lean/k1p1_enum_b.py
 +++ b/verification/lean/k1p1_enum_b.py
-@@ -452,6 +452,7 @@
-     S = list(range(2 ** nc))                                   # M1, lexicographic order
+@@ -509,3 +509,4 @@
      m = f2_matrix(phi_coefficients(N), nc, Q)
-     minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)
+     # Instance-only inverse construction: the eventual MU-C2 patch changes one entry here.
+-    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)
++    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)
 +    minv[0] ^= cell_mask(nc, 0)
-     phi = [mat_vec(m, s, nc) for s in S]                       # M2
-     phiinv = [mat_vec(minv, s, nc) for s in S]
-     inst = {"nc": nc, "S": S, "M": m, "Minv": minv, "phi": phi, "phiinv": phiinv}

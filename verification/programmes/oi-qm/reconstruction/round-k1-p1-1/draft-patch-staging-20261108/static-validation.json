@@ -1,6 +1,6 @@
 {
   "schema": "k1p1-draft-patch-static-validation",
-  "version": 1,
+  "version": 2,
   "status": "STATIC_PASS",
   "final_freeze_pins": false,
   "candidate_code_executed": false,
@@ -54,5 +54,10 @@
         "missing_final_lf"
       ]
     }
-  ]
+  ],
+  "workflow_proposal": {
+    "exact_application": true,
+    "intended_edits_only": true,
+    "workflow_changed": false
+  }
 }

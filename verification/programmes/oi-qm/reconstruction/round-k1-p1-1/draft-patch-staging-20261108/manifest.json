@@ -1,50 +1,83 @@
 {
   "schema": "k1p1-draft-patch-package",
-  "version": 1,
-  "status": "PROVISIONAL_AGAINST_UNREVISED_DRAFTS",
-  "authority": "https://github.com/amaybaum/incompleteness/issues/1031#issuecomment-6719802814",
+  "version": 2,
+  "status": "REVIEWED_PRE_F_CANDIDATES_NOT_FROZEN",
+  "authority": "https://github.com/amaybaum/incompleteness/issues/1031#issuecomment-6721619842",
   "round_control_plane": "d92e0882e7609e91e3458193391e89610fffa777",
   "final_freeze_pins": false,
   "candidate_code_executed": false,
   "entries": [
     {
       "id": "MU-C1",
-      "source_commit": "caea695c875179fb9b310739c4aa2a9196332fe4",
+      "source_commit": "d5cec548669088bea9be35e65b7242bdecd2c643",
       "target": "verification/lean/k1p1_enum_a.py",
-      "source_blob": "7cf3579a532de051cc35c1202666f443a04df804",
-      "source_sha256": "9d4eb0a778333a6606ab507bacd026e56e054ec03cfe38288cf2d22c5c080825",
+      "source_blob": "2252965843430155fedfbc8855a5d23d13c2c920",
+      "source_sha256": "0e8721e5fe1c8fc8540d36ce2eed84d812a5630867ec4af56d920169466b3fdd",
       "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C1.patch",
-      "patch_sha256": "9d9de8932045efe18243ec3d2498a16e355407a96066250be045562b565f0bc5",
-      "patched_sha256": "33c91c9bc287f874ca757f0f953d838f61b2676a14f8565d2f708ed0ce51df42",
+      "patch_sha256": "5d96ab821dc56cb874b75c8c6482c0cd376b0a3ebc40892614ab2fa0fb4dba4d",
+      "patched_sha256": "383ee5121d8df0beb79c3a858deb22d754e976ccb892b4b6ecaf7570d6981eb3",
       "old_text": "T = 1\n",
       "new_text": "T = 2\n",
-      "purpose": "Replace the instance time-window constant only; PR-E kill is untested."
+      "purpose": "PR-E instance kill remains unexecuted before F."
     },
     {
       "id": "MU-C2",
-      "source_commit": "e32fe4eea312b1a468ea19ed1f1559d768c5dbda",
+      "source_commit": "f9a051c5ee11f97d73195dab39607d9691828b44",
       "target": "verification/lean/k1p1_enum_b.py",
-      "source_blob": "cc5d1d8f2caeaabd1b83d919f3af79d896de129d",
-      "source_sha256": "1adc93d872cc7a788555c6226fa8644dc7f132a2fab56aa54a391065f09f2440",
+      "source_blob": "63eadd818e59f86c48969552ef144f56b4154b95",
+      "source_sha256": "c5bfb8d198ed464c093ebf38ddc6f0d0e160f3e5e91395b1f98014c33928c7e5",
       "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C2.patch",
-      "patch_sha256": "71eff6f5ca72d6f6a0ce72e24b6cc204846bfe8a216dfe91d47ce2c0a5970fb1",
-      "patched_sha256": "353fca60ce531d10844f95aafb1a89907355b67a043ffccdd05f834f933d539b",
+      "patch_sha256": "bcbb8ad013aff79bae2fe1d4582791fb9bd434b04543c043600c142778e1c822",
+      "patched_sha256": "f46be45344469c0bc6965598439db7a8bcae141b83c0b76494df42ef7af44851",
       "old_text": "    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)\n",
       "new_text": "    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)\n    minv[0] ^= cell_mask(nc, 0)\n",
-      "purpose": "Flip one bit in inverse-matrix row 0, column 0 inside build_instance; CC-BIJ kill is untested."
+      "purpose": "Flip exactly inverse-matrix row 0 column 0 in the instance builder; CC-BIJ instance kill remains unexecuted."
     },
     {
       "id": "MU-C3",
-      "source_commit": "caea695c875179fb9b310739c4aa2a9196332fe4",
+      "source_commit": "d5cec548669088bea9be35e65b7242bdecd2c643",
       "target": "verification/lean/k1p1_enum_a.py",
-      "source_blob": "7cf3579a532de051cc35c1202666f443a04df804",
-      "source_sha256": "9d4eb0a778333a6606ab507bacd026e56e054ec03cfe38288cf2d22c5c080825",
+      "source_blob": "2252965843430155fedfbc8855a5d23d13c2c920",
+      "source_sha256": "0e8721e5fe1c8fc8540d36ce2eed84d812a5630867ec4af56d920169466b3fdd",
       "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C3.patch",
-      "patch_sha256": "0e44a6f96ba5a904afd284c7a8461ec17f24e8824ced65ef0efe4f831cb98c82",
-      "patched_sha256": "fd68e14b6d220aa2ff2849dfb8fe07f2288804bfb5d5fa62eb5cafd5a95971d1",
+      "patch_sha256": "3f278c93a678c033bc39a8a596eb9da9cf6b14f95f1308acb35298abba09e411",
+      "patched_sha256": "05e2e79ac370895ecb9bc69929964d2004408682c6a543bce4fa1951f9069ece",
       "old_text": "    return Fraction(num, den)\n",
       "new_text": "    return num / den\n",
-      "purpose": "Replace the single ratio helper return by floating division; exactness exits and MU-C3-prime are untested."
+      "purpose": "Replace only the single ratio helper return; MU-C3-prime awaits independently reviewed binding and synthetic verification."
     }
-  ]
+  ],
+  "workflow_proposal": {
+    "source_commit": "d92e0882e7609e91e3458193391e89610fffa777",
+    "target": ".github/workflows/verify.yml",
+    "source_blob": "775a36e3df81036e458fd56453520987060aa444",
+    "source_sha256": "39b6310d839f4f43f4d3ec84355332950d7dde22d8f0d652ce44f789a7a9671c",
+    "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/draft-patch-staging-20261108/X5-verify.patch",
+    "patch_sha256": "1e30bd267df5f94a3a854aed62d69b589b5290fbc672bc767f74ddad0e90b753",
+    "patched_sha256": "1d5c2834c284e21229c46b02b1b85762b92874c3cb0cfc0490983435f3d1274b",
+    "edits": [
+      {
+        "old_text": "  probes:\n",
+        "new_text": "  probes_k1p1:\n    name: Numerical probes / K1-P1-1 exact P1 enumeration\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Replay frozen K1-P1-1 final evidence\n        working-directory: verification/programmes/oi-qm/reconstruction/round-k1-p1-1\n        run: python3 -I controls.py check --stage final\n\n  probes:\n"
+      },
+      {
+        "old_text": "    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations]\n",
+        "new_text": "    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations, probes_k1p1]\n"
+      },
+      {
+        "old_text": "          FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}\n",
+        "new_text": "          FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}\n          K1P1_RESULT: ${{ needs.probes_k1p1.result }}\n"
+      },
+      {
+        "old_text": "          echo \"foundations=${FOUNDATIONS_RESULT}\"\n",
+        "new_text": "          echo \"foundations=${FOUNDATIONS_RESULT}\"\n          echo \"k1p1=${K1P1_RESULT}\"\n"
+      },
+      {
+        "old_text": "          test \"${FOUNDATIONS_RESULT}\" = success\n",
+        "new_text": "          test \"${FOUNDATIONS_RESULT}\" = success\n          test \"${K1P1_RESULT}\" = success\n"
+      }
+    ],
+    "applied_to_workflow": false,
+    "purpose": "Exact X5 proposal only; no workflow file changed or dispatched."
+  }
 }
