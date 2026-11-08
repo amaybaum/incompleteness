@@ -1,6 +1,6 @@
 # Forward paper recovery for Q-A
 
-**WIP / independent review pending.** Author: root, 7 November 2026.
+**WIP / independently model-reviewed: ACCEPT at `1f992246` (#1189 c.6713700281) and delta ACCEPT at `8ca8ce30`, the reviewed content (#1189 c.6713781034).** Author: root, 7 November 2026.
 Accountable home #1169; [bounded forward scope](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6713553987).
 This repairs the written proof/scope findings in
 [the additional review of merged #1184](https://github.com/amaybaum/incompleteness/pull/1184#issuecomment-6713513478).

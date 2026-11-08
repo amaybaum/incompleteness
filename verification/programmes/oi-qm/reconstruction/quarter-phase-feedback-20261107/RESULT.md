@@ -1,6 +1,6 @@
 # Record feedback, the quarter phase and the complete operation set
 
-**WIP / author paper result; independent review pending.** Accountable home:
+**WIP / author paper result; independently model-reviewed: ACCEPT at `1f992246` (#1189 c.6713700281) and delta ACCEPT at `8ca8ce30`, the reviewed content (#1189 c.6713781034).** Accountable home:
 #1169. This is a bounded follow-up to the merged Q-A study, not a physical
 apparatus proposal. Author: root, Codex session, 7 November 2026.
 [Owner scope and writer separation](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6713553987).
