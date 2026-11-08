@@ -12,7 +12,7 @@ Its post-result amendment, and the key from §1's notation (b, H, K, (A)) to the
 in §8.2. Revised again after the second delta review of `a63b7fda` (ACCEPT WITH CHANGES; G1, H1–H3),
 the third delta review of `645bae17` (ACCEPT; three nits) and the fresh review of `22ad8d69` (ACCEPT
 WITH CHANGES; §8.6). The review texts of `8de75f7c`, `c155200d`, `a63b7fda` and `645bae17` are posted
-on #1083 comment 6718263472.
+on #1083 comment 6718263472, and that of `22ad8d69` on #1083 comment 6718607630.
 
 **Base.** `origin/main` at `1609dc440f5a12d05b750f6d894bb91d09a099a3`. `File:N` means `papers/File.md`
 line N at that commit. The parent assessment is `A5-LINEAR-AFFINE.md` at `f07f55d0` (D3, D16, R10,
@@ -511,6 +511,8 @@ Verdict ACCEPT, with three nits, applied:
 - The N3 [D] lead-in restricts (c) to the lift s = 1.
 
 ### 8.6 Fresh independent review of `22ad8d69`
+
+The review text is posted on #1083 comment 6718607630.
 
 Verdict ACCEPT WITH CHANGES (0 blocking, 6 should-fix, 7 nits). Applied:
 - **SF1:** the Q4-5 and Q4-6 hypotheses carry those of Q4-2 (H-b, lift, uniform offset).

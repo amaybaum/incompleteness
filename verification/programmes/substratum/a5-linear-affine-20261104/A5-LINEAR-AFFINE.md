@@ -217,8 +217,8 @@ whether site-dependent or nonlinear.
   constants and Im Δ = {Σ v_i = 0}, using the 4th root of unity 2 ∈ 𝔽₅: the symbol values are
   0, 3, 1, 3. Since Σ 𝟙 = 4 ≢ 0, β ∉ Im(I − L). This **reproduces C2**.
 - **(e) Positive control.** For an odd prime q ∣ N, Ker Δ = span{𝟙, (i)_i}. Then 𝟙 ⊥ both, since
-  N ≡ 0 and N(N−1)/2 ≡ 0, so 𝟙 ∈ Im Δ and a fixed point exists. This **reproduces C3**. The fixed
-  point has a non-uniform profile, and by (c) no uniform shift removes b ≠ 0 here (κ = 2).
+  N ≡ 0 and N(N−1)/2 ≡ 0, so 𝟙 ∈ Im Δ and a fixed point exists. This derivation **is the support
+  for C3**. The fixed point has a non-uniform profile, and by (c) no uniform shift removes b ≠ 0 here (κ = 2).
 - **(f) A gapped example, for a cheap check.** Take x_i(t+1) = 2(x_{i−1} + x_{i+1}) + 1 − x_i(t−1)
   over 𝔽₅, so κ = 4. The uniform state v = 2 on both slices is fixed:
   2·(2 + 2) + 1 − 2 = 7 ≡ 2. The rule is uniform-shift-conjugate to linear.
@@ -537,7 +537,7 @@ degree ≤ 1 in n. The quadratic advective scaling is still excluded, on the sam
 | # | Claim | Verdict | Hypotheses | Support | Does NOT establish |
 |---|---|---|---|---|---|
 | R1 | Φ^t = τ_{p(t)} L^t | holds | affine bijection, finite abelian G | [D] | that τ_{−p(t)} is gauge |
-| R2 | Time-independent linearizability ⇔ fixed point ⇔ β ∈ Im(I − L) | holds; reproduces C2 and C3 | as R1 | [D] | anything for infinite lattices or non-affine rules |
+| R2 | Time-independent linearizability ⇔ fixed point ⇔ β ∈ Im(I − L) | holds; reproduces C2. C3 is its case B0.3(e); §7's finite check of R2 (not authorized) would check B0.3(e) and C3 independently | as R1 | [D] | anything for infinite lattices or non-affine rules |
 | R3 | Obstruction = resonance with zero modes of A − 2I; uniform-shift class b mod gcd(κ − 2, q) | holds | second-order, translation-commuting | [D] | that S1-type rules are physical |
 | R4 | A5 is invariant under the declared shift gauge iff κ ≡ 2 | holds | SM:96 shift gauge as conjugation | [D] | which reading of the gauge is correct |
 | R5 | Selection principles N1–N11 | none selects b = 0 with an independent justification. N8 (odd q only) and N9/E1 relocate the assumption. | as stated per node; N9 scoped to extensions E1–E3 | [D] | that no principle exists. The search is finite. |
