@@ -119,11 +119,13 @@ CTRL-MON, MP-1, P-8.
      it.
    - The first decisive check of a symmetrized `G(x)`: whether Lemma Q(iii)'s
      protection survives nonlinear transport under P1 and P2.
-   - For Bell composites, Proposition B derives a necessary condition implied
-     by H-Bell (i)–(ii) together with a violation (M-FIX): the available
-     preparations' laws on the response-relevant variable do not span. Some
-     nonzero response-relevant function then has a mean that no available
-     preparation changes. A variable with a fully preparation-independent law
+   - For Bell composites, given determinism and measurement independence,
+     Proposition B derives a necessary condition implied by H-Bell (i)–(ii)
+     together with a violation (M-FIX): the available preparations' laws on
+     the response-relevant variable do not span. Some nonconstant
+     response-relevant function `g` then has the same mean under every
+     available preparation (equivalently, some nonzero `g` has mean 0 under
+     all of them). A variable with a fully preparation-independent law
      is sufficient but not necessary; an exact counter-model is in node 4.
    - No V3 round is proposed.
 
@@ -559,8 +561,9 @@ whatever the bijection `Φ`.
 - *Reading (**M-FIX**).* Given determinism and measurement independence,
   H-Bell (i)–(ii) together with a violation imply that the available laws
   `{p_P}` do not span. Equivalently, some nonzero response-relevant function
-  `g` has `Σ_ω p_P(ω) g(ω)` the same for every available preparation (zero
-  for a `g` with zero sum). This is a necessary condition derived from H-Bell,
+  `g` has `Σ_ω p_P(ω) g(ω) = 0` for every available preparation; equivalently
+  again, some nonconstant `g` has the same mean under every available
+  preparation. This is a necessary condition derived from H-Bell,
   not an added requirement.
 - *A sufficient form, not a necessary one.* A response-relevant variable
   whose whole law no available preparation can change (the bit `h` of the
@@ -774,7 +777,7 @@ memory sign enters. M1D uses `u′ = F(u) − v`.
 | R1 | Tetrahedral frame per cell | — | Mathematical representation | Comparator dictionary only |
 | H-Bell | Preparation-indexed edges with no-signalling and curvature stability | Supplied | Open hypothesis | Unchanged. Proposition B derives M-FIX as a necessary consequence of its clauses (i)–(ii) with a violation |
 | M-INACC | Dynamically used, permanently inaccessible functional per encoded system | Supplied | Missing premise (§6.2); not adopted | CC-RECON if adopted only to reach the target |
-| M-FIX | The available laws on the response-relevant variable do not span: some nonzero response-relevant function has a mean no available preparation changes | Derived necessary condition | Elaboration of H-Bell (i)–(ii); not adopted | A variable with a fully fixed law is sufficient, not necessary (node 4 counter-model) |
+| M-FIX | The available laws on the response-relevant variable do not span: some nonconstant response-relevant function has the same mean under every available preparation (equivalently, some nonzero function has mean 0 under all) | Derived necessary condition | Elaboration of H-Bell (i)–(ii); not adopted | A variable with a fully fixed law is sufficient, not necessary (node 4 counter-model) |
 | I1 | Qubit stabilizer comparator | — | Imported (comparator) | — |
 | I2 | Proposition AS (M1D), using Gross's theorems as read in M1D | — | Repository support on `main` | Used in Theorem U2 (⇒, Kraus step) and node 8 |
 
@@ -793,7 +796,7 @@ memory sign enters. M1D uses `u′ = F(u) − v`.
 
 | Control | Result |
 | --- | --- |
-| C-PH, C-ROT | Hold for every dynamics under R1^⊗n (Theorem U2; AP1 Lemma 5 and §5.3) |
+| C-PH, C-ROT | Hold for every dynamics under R1^⊗n and H-LIFT (Theorem U2; AP1 Lemma 5 and §5.3) |
 | C-CP | Fails on P★'s branches and on its record-free channel at `t = 3` (reflection type). No jointly CP coupling exists under R1, for any rule |
 | C-IS | Fails natively on P★'s record-0 branch, which is valid but outside the octahedron. This is a per-state relaxation |
 | C-NS | `G_SM` has range 2: for wings outside each other's `2t` envelope, the screened ceiling applies (PI §6; Main:366). For preparation-indexed edges, Proposition B gives M-FIX |
@@ -872,8 +875,9 @@ the first item that bears on it.
 - *Statement.* Given determinism and measurement independence, H-Bell
   (i)–(ii) together with a Bell violation imply that the available
   preparations' laws on the response-relevant variable do not span. Some
-  nonzero response-relevant function then has a mean that no available
-  preparation changes (Proposition B).
+  nonconstant response-relevant function `g` then has the same mean under
+  every available preparation; equivalently, some nonzero `g` has mean 0
+  under all of them (Proposition B).
 - *Strength.* A response-relevant variable with a fully preparation-independent
   law is sufficient but not necessary. The counter-model of node 4 fixes only
   the conditional law of `h` given `k = 1`, and reaches CHSH = `2 + 2s`.
@@ -896,8 +900,8 @@ Proposition B, and the exactly stated instance P★.
 
 ### 6.4 Bearing on Q-B (not activated)
 
-- Under any finite orthogonal frame, encoded unitaries induced by any dynamics
-  are frame symmetries (Theorem U2(ii), whose proof uses only the frame).
+- Under any finite orthogonal frame and H-LIFT, encoded unitaries induced by
+  any dynamics are frame symmetries (Theorem U2(ii), whose proof uses only the frame).
 - They therefore form a finite group, with no encoded rotation of infinite
   order.
 - So on a finite carrier there is no exact encoded `rot` and no encoded
