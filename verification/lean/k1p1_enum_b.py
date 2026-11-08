@@ -11,7 +11,14 @@ Header (preregistration section 8.1)
   authorization #1031 comment 6677496553 (Stage 2, pre-F code drafting).
 - Access to another implementation: none. The writer read neither implementation A nor
   controls.py, nor any branch holding them, before this file was delivered.
-- Shared dependency: none. Python 3.11 standard library only: fractions, json, hashlib, sys, os.
+- Continuation: independent Codex agent k1p1_impl_b_revision, 2026-11-08, coordinated by
+  the root Codex session under owner scope #1031 c6721619842 and #1135 c6721746629.
+  Original author provenance above is historical, not this continuation's identity.
+- Current procedure: preregistration and all A1 companion files at
+  d92e0882e7609e91e3458193391e89610fffa777. Shared inputs: those behavioural rules,
+  AGENTS.md, adopted K rules, coordinator briefs and independent fixture-acceptance
+  clarification (SF-2pb records false bijection). No other writer's code/output read.
+- Python 3.11 standard library only: fractions, json, hashlib, sys, os.
 
 Method (section 8.2). A state is a 10-bit integer whose bits, most significant first, are the
 cells x_0, ..., x_4, y_0, ..., y_4 (A2's order), so integer order is A2's lexicographic order.
@@ -28,8 +35,8 @@ Command line (section 10.1), from the repository root:
       --out <out> [--members-sha256 <hex>]
 
 Exit status: 0 the files are written; 2 a refusal (a stage precondition, or CT-INC);
-3 the exactness guard; 4 a case the preregistration does not settle (stop condition H7);
-any other nonzero status is a failure. Nothing is written on a nonzero exit.
+3 the exactness guard; 1 any other failure. The frozen synthetic interface is
+  --fixture <id> --input <file> --out <out>. Nothing is written on a nonzero exit.
 """
 
 import hashlib
@@ -128,15 +135,11 @@ CONTROL_RATIONAL_KEYS = {
 EXIT_OK = 0
 EXIT_REFUSE = 2
 EXIT_EXACT = 3
-EXIT_UNSETTLED = 4
 
 
 class Refusal(Exception):
     """A stage precondition or CT-INC does not hold: exit 2, nothing written."""
 
-
-class Unsettled(Exception):
-    """A case the preregistration does not settle (H7): exit 4, nothing written."""
 
 
 # ----------------------------------------------------------------------------------------------
@@ -404,10 +407,9 @@ def energy(n, nc, v, q):
     return (xx + yy - xay) % q
 
 
-def dependency_region(m, nc, n, window):
+def dependency_region(m, nc, v, sigma, window):
     """R0: cells outside Sigma with a nonzero coefficient in V(t_0 + t), 0 <= t <= T."""
-    v = cell_index(n, V_CELL[0], V_CELL[1])
-    sigma = {cell_index(n, sl, site) for sl, site in SIGMA_CELLS}
+    sigma = set(sigma)
     cells = set()
     mt = mat_identity(nc)
     for _ in range(window + 1):
@@ -447,23 +449,32 @@ def branch_tables(inst, cells, tu):
             "jset": jset, "certified": certified, "values": all_values(len(cells))}
 
 
-def build_instance():
-    nc = 2 * N
-    S = list(range(2 ** nc))                                   # M1, lexicographic order
-    m = f2_matrix(phi_coefficients(N), nc, Q)
-    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)
-    phi = [mat_vec(m, s, nc) for s in S]                       # M2
-    phiinv = [mat_vec(minv, s, nc) for s in S]
-    inst = {"nc": nc, "S": S, "M": m, "Minv": minv, "phi": phi, "phiinv": phiinv}
-    inst["distinct"] = len({state_string(nc, s) for s in S}) == len(S)
-    inst["bijection"] = (all(phiinv[phi[s]] == s for s in S)
-                         and all(phi[phiinv[s]] == s for s in S)
-                         and set(phi) == set(S))
-    E = dependency_region(m, nc, N, T_WINDOW)                  # R0
-    v_site = V_CELL[1]
-    w_eq = sorted([cell_index(N, "x", v_site), cell_index(N, "y", v_site)])
-    sigma_cells = sorted(cell_index(N, sl, site) for sl, site in SIGMA_CELLS)
-    v_index = cell_index(N, V_CELL[0], V_CELL[1])
+def mapped_space(cells, phi, phiinv=None, m=None, minv=None, q=2):
+    """M1/M2, parameterized solely by the supplied map and ordered cells."""
+    nc = len(cells)
+    states = list(range(2 ** nc))
+    bijection = set(phi) == set(states)
+    if phiinv is not None:
+        bijection = (bijection and all(phiinv[phi[s]] == s for s in states)
+                     and all(phi[phiinv[s]] == s for s in states))
+    return {"nc": nc, "S": states, "cells": list(cells), "q": q,
+            "M": m, "Minv": minv, "phi": phi, "phiinv": phiinv,
+            "distinct": len(set(states)) == len(states), "bijection": bijection}
+
+
+def linear_space(cells, m, minv, q):
+    nc = len(cells)
+    states = range(2 ** nc)
+    return mapped_space(cells, [mat_vec(m, s, nc) for s in states],
+                        [mat_vec(minv, s, nc) for s in states], m, minv, q)
+
+
+def configure_system(inst, sigma_cells, v_index, window):
+    """R0 and branch data from supplied matrices, cells, Sigma, V and T."""
+    nc, S, cells = inst["nc"], inst["S"], inst["cells"]
+    E = dependency_region(inst["M"], nc, v_index, sigma_cells, window)
+    site = cells[v_index].split("_", 1)[1]
+    w_eq = [i for i, cell in enumerate(cells) if cell in ("x_" + site, "y_" + site)]
     inst["E"] = E
     inst["W_eq"] = w_eq
     inst["e_val"] = [value_string(nc, s, E) for s in S]
@@ -473,20 +484,35 @@ def build_instance():
     for s in S:
         parts = []
         t = s
-        for _ in range(T_WINDOW + 1):
+        for _ in range(window + 1):
             parts.append(value_string(nc, t, [v_index]))
-            t = phi[t]
+            t = inst["phi"][t]
         readout.append("".join(parts))
     inst["readout"] = readout
-    inst["readout_values"] = all_values(T_WINDOW + 1)
-    inst["energy"] = [energy(N, nc, s, Q) for s in S]
+    inst["readout_values"] = all_values(window + 1)
     inst["branch"] = {}
     for b in BRANCHES:
-        cells = [] if b == "B-pl" else w_eq
+        w_cells = [] if b == "B-pl" else w_eq
         tu = -1 if b == "B-ct" else 0
-        bt = branch_tables(inst, cells, tu)
-        bt["access"] = access_labels(N, cells, tu)
+        bt = branch_tables(inst, w_cells, tu)
+        bt["access"] = [H_CUR]
+        if any(cells[i].startswith("x_") for i in w_cells):
+            bt["access"].append(H_2S)
+        if tu < 0:
+            bt["access"].append(H_RET)
         inst["branch"][b] = bt
+    return inst
+
+
+def build_instance():
+    nc = 2 * N
+    m = f2_matrix(phi_coefficients(N), nc, Q)
+    # Instance-only inverse construction: the eventual MU-C2 patch changes one entry here.
+    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)
+    inst = linear_space(CELL_ORDER_N5, m, minv, Q)
+    sigma = sorted(cell_index(N, sl, site) for sl, site in SIGMA_CELLS)
+    configure_system(inst, sigma, cell_index(N, *V_CELL), T_WINDOW)
+    inst["energy"] = [energy(N, nc, s, Q) for s in inst["S"]]
     return inst
 
 
@@ -512,7 +538,7 @@ def compute_members(inst):
     for mem in members[1:]:
         out_members.append({"key": mem["key"], "size": len(mem["support"]),
                             "states": [state_string(nc, s) for s in mem["support"]]})
-    members_obj = {"schema": "k1p1-members", "version": 1, "cell_order": list(CELL_ORDER_N5),
+    members_obj = {"schema": "k1p1-members", "version": 1, "cell_order": list(inst["cells"]),
                    "members": out_members, "histogram": histogram}
     completeness = {"states": len(S), "length_sum": length_sum, "cycles": len(cycles),
                     "distinct": inst["distinct"], "bijection": inst["bijection"],
@@ -520,29 +546,37 @@ def compute_members(inst):
     return members, members_obj, completeness
 
 
-def compute_cyc2(inst):
+def rank_chain(inst, kmax):
     """CC-CYC2 from F_2 ranks: |Fix(phi^k)| = 2^(10 - rank(M^k - I)); no state is enumerated."""
     nc = inst["nc"]
     m = inst["M"]
     ident = mat_identity(nc)
-    fix = {}
+    fix, ranks = {}, {}
     mk = ident
-    for k in range(1, K_MAX_CYC2 + 1):
+    for k in range(1, kmax + 1):
         mk = mat_mul(m, mk, nc)
         r = rank_f2([mk[i] ^ ident[i] for i in range(nc)], nc)
-        fix[k] = Q ** (nc - r)
+        ranks[k] = r
+        fix[k] = inst["q"] ** (nc - r)
     period, cycles = {}, {}
-    for d in range(1, K_MAX_CYC2 + 1):
+    for d in range(1, kmax + 1):
         p = sum(mobius(d // e) * fix[e] for e in range(1, d + 1) if d % e == 0)
         if p % d != 0:
             raise RuntimeError("states of exact period %d not divisible by %d" % (d, d))
         period[d] = p
         cycles[d] = p // d
-    return {"schema": "k1p1-cyc2", "version": 1,
+    return {"ranks": {str(k): ranks[k] for k in ranks},
             "fix": {str(k): fix[k] for k in fix},
             "period_states": {str(d): period[d] for d in period},
             "cycles": {str(d): cycles[d] for d in cycles},
-            "m10_identity": mat_pow(m, M10_POWER, nc) == ident}
+            "identity_at_kmax": mk == ident}
+
+
+def compute_cyc2(inst):
+    chain = rank_chain(inst, K_MAX_CYC2)
+    return {"schema": "k1p1-cyc2", "version": 1,
+            "fix": chain["fix"], "period_states": chain["period_states"],
+            "cycles": chain["cycles"], "m10_identity": chain["identity_at_kmax"]}
 
 
 def compute_preserved(inst):
@@ -571,10 +605,10 @@ def compute_region(inst):
     for b in ("B-eq", "B-ct"):
         bt = inst["branch"][b]
         cells = sorted(set(bt["cells"]) & set(E)) if bt["tu"] == 0 else []
-        overlap[b] = [cell_name(N, i) for i in cells]
+        overlap[b] = [inst["cells"][i] for i in cells]
         tautological[b] = len(cells) > 0
-    return {"E": [cell_name(N, i) for i in E], "W_eq": [cell_name(N, i) for i in inst["W_eq"]],
-            "q_pow_minus_E": fmt(Fraction(1, Q ** len(E))), "overlap": overlap,
+    return {"E": [inst["cells"][i] for i in E], "W_eq": [inst["cells"][i] for i in inst["W_eq"]],
+            "q_pow_minus_E": fmt(Fraction(1, inst["q"] ** len(E))), "overlap": overlap,
             "overlap_tautological": tautological}
 
 
@@ -836,7 +870,7 @@ def evaluate_row(inst, b, member, cd):
     equal_time = bt["tu"] == 0
     breaks = False
     if b == "B-pl":
-        c1 = Q ** len(E) * n_m <= len(S)
+        c1 = inst["q"] ** len(E) * n_m <= len(S)
         bound_ok = c1
         ledger = d_text + "(c1) |E|=%d: %s" % (len(E), "holds" if c1 else "breaks")
         breaks = len(meas["sharp"]) > 0 and not c1
@@ -847,7 +881,7 @@ def evaluate_row(inst, b, member, cd):
         for w in meas["sharp"]:
             p = meas["mass"][w]
             a_num, b_den = p.numerator, p.denominator
-            holds = Q ** (a_num * k) * n_m ** b_den <= len(S) ** b_den
+            holds = inst["q"] ** (a_num * k) * n_m ** b_den <= len(S) ** b_den
             bound_ok[w] = holds
             parts.append("w=%s p=%s k=%d: %s" % (w, fmt(p), k, "holds" if holds else "breaks"))
             breaks = breaks or not holds
@@ -984,6 +1018,32 @@ def class_token(rows_b, names, b, access):
     raise RuntimeError("a non-positive member row of %s has no class-token type" % b)
 
 
+def compute_rows(inst, members, completeness, cd, stage, record=None, entries=None):
+    """R1-R10 and CLASS; both callers supply their own admitted inputs."""
+    if not completeness["partition"]:
+        raise Refusal("CT-INC: CC-PART does not hold")
+    evaluations = [evaluate_row(inst, b, mem, cd) for b in BRANCHES for mem in members]
+    adversarial = None
+    if stage == "final":
+        g5_keys = [(ev["row"]["branch"], ev["row"]["member"])
+                   for ev in evaluations if ev["g5"]]
+        adversarial = (load_adversarial(record, g5_keys) if record is not None
+                       else adversarial_index(entries, g5_keys))
+    rows = [finalize_row(ev, stage, adversarial) for ev in evaluations]
+    expected_keys = [mem["key"] for mem in members]
+    for b in BRANCHES:
+        if [r["member"] for r in rows if r["branch"] == b] != expected_keys:
+            raise Refusal("CT-INC: CC-ROWS does not hold in %s" % b)
+    if len(rows) != len(BRANCHES) * len(members):
+        raise Refusal("CT-INC: CC-ROWS row count")
+    names = {mem["key"]: mem["name"] for mem in members}
+    classes, union = {}, {}
+    for b in BRANCHES:
+        classes[b], union[b] = class_token([r for r in rows if r["branch"] == b],
+                                          names, b, inst["branch"][b]["access"])
+    return rows, classes, union, all(ev["sums_ok"] for ev in evaluations)
+
+
 # ----------------------------------------------------------------------------------------------
 # Inputs
 
@@ -1047,13 +1107,19 @@ def load_adversarial(rec, g5_keys):
         adv = json.loads(raw.decode("utf-8"))
     except ValueError:
         raise Refusal("adversarial.json is not valid UTF-8 JSON")
-    if (not isinstance(adv, dict) or adv.get("schema") != "k1p1-adversarial"
+    if (not isinstance(adv, dict) or set(adv) != {"schema", "version", "rows"}
+            or adv.get("schema") != "k1p1-adversarial"
             or not _is_int(adv.get("version")) or adv.get("version") != 1
             or not isinstance(adv.get("rows"), list)):
         raise Refusal("adversarial.json: schema, version or rows")
+    return adversarial_index(adv["rows"], g5_keys, with_note=True)
+
+
+def adversarial_index(entries, g5_keys, with_note=False):
     index = {}
-    for entry in adv["rows"]:
-        if (not isinstance(entry, dict) or set(entry) != {"branch", "member", "token", "note"}
+    fields = {"branch", "member", "token"} | ({"note"} if with_note else set())
+    for entry in entries:
+        if (not isinstance(entry, dict) or set(entry) != fields
                 or not all(isinstance(entry[f], str) for f in entry)):
             raise Refusal("adversarial.json: malformed entry")
         key = (entry["branch"], entry["member"])
@@ -1063,7 +1129,7 @@ def load_adversarial(rec, g5_keys):
     for key in g5_keys:
         if key not in index:
             raise Refusal("adversarial.json does not list a row that passes G5")
-    return index
+    return {key: index[key] for key in g5_keys}
 
 
 # ----------------------------------------------------------------------------------------------
@@ -1085,7 +1151,7 @@ def gate_table_rationals(gate):
         out.append(row["d_ratio"])
         for key in ("weak", "mass", "pi0_ref"):
             out.extend(row[key].values())
-    for c in gate["controls"]:
+    for c in gate.get("controls", []):
         for part in ("computed", "expected"):
             obj = c[part]
             if obj is None:
@@ -1113,16 +1179,22 @@ STAGE_TABLE = {"members": "gate-table.members.json", "rows": "gate-table.rows.js
 
 
 def parse_args(argv):
-    allowed = {"--stage", "--record", "--out", "--members-sha256"}
+    allowed = {"--stage", "--record", "--out", "--members-sha256", "--fixture", "--input"}
     args = {}
     i = 0
     while i < len(argv):
         flag = argv[i]
-        if flag not in allowed or flag in args or i + 1 >= len(argv):
+        if flag not in allowed or flag in args or i + 1 >= len(argv) or argv[i + 1].startswith("--"):
             raise Refusal("usage: --stage {members|rows|final} --record <rec> --out <out> "
                           "[--members-sha256 <hex>]")
         args[flag] = argv[i + 1]
         i += 2
+    if "--fixture" in args:
+        if set(args) != {"--fixture", "--input", "--out"}:
+            raise Refusal("--fixture requires --input and --out exclusively")
+        return args
+    if "--input" in args:
+        raise Refusal("--input requires --fixture")
     for flag in ("--stage", "--record", "--out"):
         if flag not in args:
             raise Refusal("missing %s" % flag)
@@ -1153,13 +1225,121 @@ def write_outputs(out, files):
         raise
 
 
+# A1 section 5.2 admission table, raw canonical input bytes, before JSON parsing.
+FIXTURE_INPUT_SHA256 = {
+    "SF-1a": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+    "SF-1b": "c15b30da87758d7d7d762f6cf3b282c0490f9243e7f88d7b97db800811689dc9",
+    "SF-1c": "d44e2700ddb8e50e1061c8846d6a8ee82092583af59ac44df0bbac361448643c",
+    "SF-2a": "521a0ca03cb42f4d81a93f6cd9bbcc1124fb2f8de6491738e7d4e4f7a8f07bc6",
+    "SF-2b": "fa77757342a23c1eef2d6d187ec68b4d90d0d395c19b94541cae04c61f74ccbe",
+    "SF-2c": "199029401c2707d8af887341846226e3c952dc28323bcc1731a1be9d0e9ac594",
+    "SF-2d": "d93b96d2b626410c2662c5844ab692a64b864a93f31be3743e1c7942cedf402b",
+    "SF-2e": "c6822bf4650178b6ccab88a20a1ecf088b7522c0c27ac1184abb0fe69e8bcef6",
+    "SF-2f": "6420ebd896642128865e250bb82da5780c9694a196a6a5a9df791bcc5ec46f65",
+    "SF-2p": "f7d444061e8c2bfa427f66e5df7ff43ae80bf7b22548391ee340b67b66b845a7",
+    "SF-2pb": "b8048192ccffc506f9e18981045048633ce9af1ceba1ac5f29c76fc1add20630",
+    "SF-3": "9f6fd0a2bb09127350b1b4a8edc323c3989f95fc1097064ecfe96d31740af36a",
+    "SF-3f": "80319c62df77dc8a95a16d4e640fc0c44cf4a2c9aafa6f30006ba39b2271a8af",
+    "SF-3g": "03dae8724f09cbbe68e983a6dd1717f370ddf4bf2ea194c4a7716f1ca02c8064",
+}
+
+
+def load_fixture(fixture_id, path):
+    if fixture_id not in FIXTURE_INPUT_SHA256:
+        raise Refusal("unknown fixture id")
+    try:
+        with open(path, "rb") as fh:
+            raw = fh.read()
+    except OSError:
+        raise Refusal("fixture input is absent or unreadable")
+    if hashlib.sha256(raw).hexdigest() != FIXTURE_INPUT_SHA256[fixture_id]:
+        raise Refusal("fixture input does not match its admitted digest")
+    try:
+        data = json.loads(raw.decode("utf-8"))
+    except (ValueError, UnicodeError):
+        raise Refusal("fixture input is not UTF-8 JSON")
+    if not isinstance(data, dict) or data.get("id") != fixture_id:
+        raise Refusal("fixture input id mismatch")
+    base = {"id", "kind"}
+    kind = data.get("kind")
+    if kind == "rank":
+        fields = base | {"rows"}
+    elif kind == "perm":
+        fields = base | {"cells", "image"}
+    elif kind in ("linear", "system"):
+        fields = base | {"q", "kmax", "cells", "phi", "phi_inv"}
+        if kind == "system":
+            fields |= {"T", "stage", "sigma", "readout", "class_decisions", "adversarial"}
+    else:
+        raise Refusal("fixture kind")
+    if set(data) != fields:
+        raise Refusal("fixture fields")
+    # The digest admits the complete, reviewed schema/value tuple. No generic input
+    # or instance data can reach the functions below through this route.
+    return data
+
+
+def matrix_from_forms(cells, forms, q):
+    nc = len(cells)
+    return f2_matrix([{cells.index(c): 1 for c in forms[out]} for out in cells], nc, q)
+
+
+def run_fixture(args):
+    data = load_fixture(args["--fixture"], args["--input"])
+    kind = data["kind"]
+    obj = {"schema": "k1p1-fixture-output", "version": 1,
+           "fixture": data["id"], "kind": kind}
+    chain = None
+    if kind == "rank":
+        rows = data["rows"]
+        width = len(rows[0])
+        masks = [sum(bit << (width - 1 - i) for i, bit in enumerate(row)) for row in rows]
+        obj["rank"] = rank_f2(masks, width)
+    else:
+        cells = data["cells"]
+        if kind == "perm":
+            width = len(cells)
+            phi = [int(data["image"][state_string(width, s)], 2) for s in range(2 ** width)]
+            inst = mapped_space(cells, phi)
+        else:
+            m = matrix_from_forms(cells, data["phi"], data["q"])
+            minv = matrix_from_forms(cells, data["phi_inv"], data["q"])
+            inst = linear_space(cells, m, minv, data["q"])
+            chain = rank_chain(inst, data["kmax"])
+            chain.update({"schema": "k1p1-fixture-cyc2", "version": 1,
+                          "fixture": data["id"], "kmax": data["kmax"]})
+        members, member_obj, completeness = compute_members(inst)
+        obj.update({"cell_order": member_obj["cell_order"], "members": member_obj["members"],
+                    "histogram": member_obj["histogram"], "completeness": completeness})
+        if kind == "system":
+            sigma = sorted(cells.index(c) for c in data["sigma"])
+            configure_system(inst, sigma, cells.index(data["readout"]), data["T"])
+            rows, classes, union, sums = compute_rows(inst, members, completeness,
+                data["class_decisions"], data["stage"], entries=data["adversarial"])
+            completeness["mass_sums"] = sums
+            obj.update({"stage": data["stage"], "region": compute_region(inst), "rows": rows,
+                        "class_tokens": classes, "union_clause_reached": union})
+    outputs = [obj] + ([chain] if chain is not None else [])
+    if any(contains_float(output) for output in outputs):
+        return EXIT_EXACT
+    if kind == "system" and not exactness_ok(outputs, obj):
+        return EXIT_EXACT
+    files = [("fixture.json", serialize(obj))]
+    if chain is not None:
+        files.append(("fixture-cyc2.json", serialize(chain)))
+    write_outputs(args["--out"], files)
+    return EXIT_OK
+
+
 def run(argv):
     args = parse_args(argv)
-    stage = args["--stage"]
-    rec = args["--record"]
     out = args["--out"]
     if not os.path.isdir(out) or os.listdir(out):
         raise Refusal("--out must be an existing empty directory")
+    if "--fixture" in args:
+        return run_fixture(args)
+    stage = args["--stage"]
+    rec = args["--record"]
     cd = load_class_decisions(rec)
 
     pinned_bytes = None
@@ -1198,34 +1378,13 @@ def run(argv):
 
     if stage != "members":
         if any(c["outcome"] != "pass" for c in gate["controls"]):
-            raise Unsettled("an S0 control does not pass: VOID[stage]; the representation of "
-                            "a stage with no row token is not fixed by the preregistration")
-        if not completeness["partition"]:
-            raise Refusal("CT-INC: CC-PART does not hold")
-        evaluations = []
-        for b in BRANCHES:
-            for mem in members:
-                evaluations.append(evaluate_row(inst, b, mem, cd))
-        adversarial = None
-        if stage == "final":
-            g5_keys = [(ev["row"]["branch"], ev["row"]["member"]) for ev in evaluations
-                       if ev["g5"]]
-            adversarial = load_adversarial(rec, g5_keys)
-        rows = [finalize_row(ev, stage, adversarial) for ev in evaluations]
-        expected_keys = [mem["key"] for mem in members]
-        for b in BRANCHES:
-            if [r["member"] for r in rows if r["branch"] == b] != expected_keys:
-                raise Refusal("CT-INC: CC-ROWS does not hold in %s" % b)
-        if len(rows) != len(BRANCHES) * len(members):
-            raise Refusal("CT-INC: CC-ROWS row count")
-        names = {mem["key"]: mem["name"] for mem in members}
-        for b in BRANCHES:
-            token, reached = class_token([r for r in rows if r["branch"] == b], names, b,
-                                         inst["branch"][b]["access"])
-            gate["class_tokens"][b] = token
-            gate["union_clause_reached"][b] = reached
+            raise Refusal("an S0 control does not pass: VOID[stage]")
+        rows, classes, union, sums = compute_rows(inst, members, completeness, cd, stage,
+                                                       record=rec)
         gate["rows"] = rows
-        completeness["mass_sums"] = all(ev["sums_ok"] for ev in evaluations)
+        gate["class_tokens"] = classes
+        gate["union_clause_reached"] = union
+        completeness["mass_sums"] = sums
 
     if not exactness_ok([members_obj, cyc2_obj, gate], gate):
         return EXIT_EXACT
@@ -1241,9 +1400,9 @@ def main(argv):
     except Refusal as exc:
         sys.stderr.write("k1p1_enum_b: refused: %s\n" % exc)
         return EXIT_REFUSE
-    except Unsettled as exc:
-        sys.stderr.write("k1p1_enum_b: stopped (H7): %s\n" % exc)
-        return EXIT_UNSETTLED
+    except Exception as exc:
+        sys.stderr.write("k1p1_enum_b: failure: %s\n" % exc)
+        return 1
 
 
 if __name__ == "__main__":

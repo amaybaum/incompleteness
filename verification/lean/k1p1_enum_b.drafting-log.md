@@ -171,3 +171,115 @@ for name, mat, want in cases:
 print("FAILURES:", fails)
 sys.exit(1 if fails else 0)
 ```
+
+
+## Independent continuation, 2026-11-08 — STATIC ONLY
+
+WIP / UNVERIFIED. Continued by independent Codex agent `k1p1_impl_b_revision`, coordinated
+by the root Codex session. This is not the original Claude author session; that historical
+provenance and its exploratory run above remain unchanged. The existing staging branch and
+single-parent history continue from `e32fe4eea312b1a468ea19ed1f1559d768c5dbda`.
+Owner scope: #1031 c6721619842; activation checkpoint: #1135 c6721746629 (provenance).
+No freeze, F/E designation, instance computation, dispatch, merge or scientific claim promotion.
+
+Current common inputs are the preregistration and the whole A1 amendment with both fixture
+companions at `d92e0882e7609e91e3458193391e89610fffa777`, adopted K rules at
+`d9b3de012e393262adb20f91ad49627bad48de43`, root `AGENTS.md`, and the two root briefs
+`/tmp/k1p1-revision-common-brief.txt` and `/tmp/k1p1-b-role-brief.txt`.
+The root disclosed independent hand acceptance of the fixture expectations, including the
+specific SF-2pb negative: it exits 0 recording `bijection=false`; the harness must require
+CC-BIJ-prime failure. No other implementation, output, checkpoint or code package was read.
+The amendment is the disclosed common behavioural channel, containing no implementation code.
+
+This checkpoint adds all fourteen B admission hashes; fixture CLI/strict usage/refusal paths;
+generic bitmask/matrix M1/M2, matrix-power region, orbit/member, rank/Mobius chain and complete
+row/CLASS computations shared with the instance route; exact Q10 top-level adversarial fields,
+coverage/duplicate/ignore-by-key behavior; and Q5's S0 refusal at rows/final. Existing pending
+G6/G7, G6 mismatch, union/null, hypotheses, token order and serializer are retained. Instance-only
+inverse construction remains obvious for the future single-entry MU-C2 patch; no patch was made.
+No fixture expected answer is encoded in an algorithm. The admission table is input digests only.
+
+**Validation boundary.** Only source parsing/compilation, hashing and inspection occurred.
+No candidate code was imported, executed or invoked (including help), no fixture ran, and no
+K1 state, dynamics or instance calculation ran. No independent static acceptance is claimed.
+Root must separately authorize the exact admitted subprocess fixture commands after its safe-path
+review. Instance record schemas/S0/preserved/union-only paths remain statically covered only.
+No remaining normative ambiguity identified; synthetic byte equality is untested at this point.
+
+The following table records continuation commands, including reads/digests with no verdict use.
+Repeated reads are grouped only where the command is the same with listed literal ranges.
+Categories use A1's five names; the old log's git/file-write labels above are historical.
+
+| Category | Commands | Result |
+|---|---|---|
+| read | `cat /tmp/k1p1-revision-common-brief.txt /tmp/k1p1-b-role-brief.txt /workspace/incompleteness/AGENTS.md` | Handoff and guide; tool display truncated, followed by targeted guide reads |
+| read | `wc -l AGENTS.md verification/lean/k1p1_enum_b.py k1p1_enum_b.drafting-log.md /tmp/k1p1-common-d92/* /tmp/k1p1-common-d92/amendments/*` | Counts only; wrong short log path absent, then correct path used |
+| read | `cat /tmp/k1p1-common-d92/amendments/A1-frozen-code.md`; `sed -n` ranges `290,540p`, `320,475p`, `260,291p`, `540,608p` on that file | Whole amendment plus targeted rereads after truncation |
+| read | `sed -n` ranges `1,400p`, `400,700p`, `700,1000p` of worktree AGENTS; `1000,1210p`, `360,400p` of root guide | Operative guide read; root guide governs |
+| read | `sed -n` ranges `1,420p`, `420,740p`, `740,1250p` of B | Own original source only |
+| read | `cat /tmp/k1p1-common-d92/amendments/A1-fixtures.json`; `sed -n '165,265p'` of that file | Common definitions and expectations only |
+| read | `sed -n` ranges `1,240p`, `235,398p` of A1-fixtures.md | Hand derivations and negative fixture specification |
+| read | `sed -n` ranges `1,240p`, `241,530p`, `531,800p`, `800,1040p`, `1041,1271p` of common preregistration | Whole pinned procedure |
+| read | `cat verification/lean/k1p1_enum_b.drafting-log.md`; `rg --files .github/workflows`; `git status --short`; `git branch --show-current` | Own prior provenance, path scope, branch confirmed |
+| read | `skills.read` cloud-environment-runtime and its networking reference; environment-status tool; `cat /etc/codex/network-policy.json`; `git remote -v`; `df -h /workspace /tmp`; `git status --porcelain` | Managed environment running, network enforced, ample disk, expected remote/only B modified; no credential read |
+| read | `git show d9b3de01:<K-prefix>/preregistration.md` and each of A2/A3/A5/A8/A9 | Adopted rule text only, no execution-output files |
+| edit | Write `/tmp/k1p1-b-edit.py`; `python3 -I /tmp/k1p1-b-edit.py`; write `/tmp/k1p1-b-add.py`; `python3 -I /tmp/k1p1-b-add.py` | Source splices only; neither imports/executes candidate |
+| edit | Write `/tmp/k1p1-b-static.py` | Static checker below |
+| static check | `python3 -I /tmp/k1p1-b-static.py` | PASS Python-3.11 AST/compile, allowlisted imports, no true division/inexact literal, all 14 hashes; fixture call graph excludes instance constants/builders/S0/preserved |
+| static check | `git diff --check`; `git diff --stat`; `git diff -- verification/lean/k1p1_enum_b.py` | Whitespace clear; own diff inspected |
+| read | Python stdin text scan printing each workflow `on:` block | verify/hidden-sector push main only; bg2/bridge unrelated paths; four others dispatch only; neither changed B path matches push triggers |
+| edit | Write and run `/tmp/k1p1-b-log.py` | This append only |
+
+Static checker SHA-256: `03306eed6ff1d089aab4d1911045856c5f38fbf521c517337d019eec028aa5c1`.
+Its source (parses/compiles candidate AST; never imports/executes it):
+
+```python
+import ast, hashlib, json
+from pathlib import Path
+p=Path('/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py')
+s=p.read_text(); t=ast.parse(s, feature_version=(3,11)); compile(t,str(p),'exec')
+imports=[]; bad=[]
+for n in ast.walk(t):
+    if isinstance(n, ast.Import): imports += [x.name for x in n.names]
+    if isinstance(n, ast.ImportFrom): imports += [n.module]
+    if isinstance(n,(ast.BinOp,ast.AugAssign)) and isinstance(n.op,ast.Div): bad += [('division',n.lineno)]
+    if isinstance(n,ast.Constant) and isinstance(n.value,(float,complex)): bad += [('inexact literal',n.lineno)]
+    if isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id in {'exec','eval','__import__','compile','float'}: bad += [('call',n.lineno)]
+assert set(imports) <= {'fractions','itertools','json','hashlib','sys','os'}
+assert not bad,bad
+funcs={n.name:n for n in t.body if isinstance(n,ast.FunctionDef)}
+# Traverse calls from fixture computation, excluding the optional instance-record
+# arm of compute_rows, which is statically guarded by record is not None.
+seen=set(); todo=['run_fixture']
+while todo:
+    name=todo.pop()
+    if name in seen: continue
+    seen.add(name)
+    for n in ast.walk(funcs[name]):
+        if isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id in funcs and n.func.id != 'load_adversarial': todo.append(n.func.id)
+forbidden={'N','Q','A_PARAM','D_PARAM','T_WINDOW','INSTANCE','V_CELL','SIGMA_CELLS','CELL_ORDER_N5','K_MAX_CYC2','M10_POWER','CONTROL_EXPECTED','CONTROL_GATES','S0_PAPER_IDS','CLASS_DERIVATIONS','EPSILON_CC_EXACT','N_CC_IMP2'}
+assert not seen & {'build_instance','compute_controls','compute_preserved','compute_cyc2','phi_coefficients','phi_inverse_coefficients'}
+for name in seen:
+    assert not ({n.id for n in ast.walk(funcs[name]) if isinstance(n,ast.Name) and isinstance(n.ctx,ast.Load)} & forbidden),(name,'instance constant')
+assign=next(n for n in t.body if isinstance(n,ast.Assign) and any(isinstance(x,ast.Name) and x.id=='FIXTURE_INPUT_SHA256' for x in n.targets))
+table=ast.literal_eval(assign.value)
+fixtures=json.loads(Path('/tmp/k1p1-common-d92/amendments/A1-fixtures.json').read_bytes())
+for f in fixtures['fixtures']:
+    if 'B' in f['programs']:
+        raw=(json.dumps(f['input'],sort_keys=True,separators=(',',':'),ensure_ascii=False)+'\n').encode()
+        assert hashlib.sha256(raw).hexdigest()==table[f['id']],f['id']
+assert len(table)==14
+print('PASS: parse/compile Python 3.11; imports; exact arithmetic AST; all 14 admission pins; fixture call-graph constants')
+print('Fixture generic callees:', ', '.join(sorted(seen)))
+print('Read arms: load_fixture reads --input; compute_rows record=None selects entries, never load_adversarial')
+print('Code SHA256',hashlib.sha256(p.read_bytes()).hexdigest())
+```
+
+| Category | Additional checkpoint commands | Result |
+|---|---|---|
+| read | `sed -n '475,545p' A1-frozen-code.md`; `sed -n '130,168p' A1-fixtures.json`; `sed -n '385,402p' /workspace/incompleteness/AGENTS.md` | Targeted completion of truncated displays |
+| static check | Python stdin `git show d92:<path>` versus disposable-copy byte comparison and SHA-256 for preregistration and three A1 files | All four byte-identical; JSON digest `691aedbf0c9e74fdcc64f4c9c35f5e07c8ffc362e74360d4e541df682c750e85` |
+| static check | Python stdin scan of both changed files for private-key headers, credential/token patterns, signed URLs, IPv4 and email addresses; `git diff --check`; `python3 -I /tmp/k1p1-b-static.py` | Publication and final static checks; results in checkpoint message |
+| read | `sha256sum` of B/log/static/edit scripts; `git hash-object` of B/log; `git diff --name-only`; `git status --short` | Exact pins and permitted path set reported to root |
+| edit | `git -c core.hooksPath=/dev/null add verification/lean/k1p1_enum_b.py verification/lean/k1p1_enum_b.drafting-log.md`; `git -c core.hooksPath=/dev/null commit -m 'WIP: apply A1 to independent B with digest-admitted fixtures (static only)'`; `git -c core.hooksPath=/dev/null push origin staging/k1-p1-1-impl-b-20261106` | Forward static-only milestone; resulting immutable SHA/push status reported to root |
+| read | `git rev-parse HEAD HEAD^ HEAD:verification/lean/k1p1_enum_b.py HEAD:verification/lean/k1p1_enum_b.drafting-log.md`; `git status --short`; `git log -1 --format=fuller` | Parent/pins/clean-tree confirmation |
