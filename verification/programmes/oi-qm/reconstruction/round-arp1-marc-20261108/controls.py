@@ -1468,8 +1468,8 @@ def replay(path, here=None):
 # --self-test. It launches no checker: every measurement record below is synthetic, built here, and no variant is
 # computed. Temporary repositories live in a tempfile directory; the only write-mode opens are here.
 # =====================================================================================================================
-_ST_ENV = {'GIT_AUTHOR_NAME': 'self-test', 'GIT_AUTHOR_EMAIL': 'self-test@example.invalid',
-           'GIT_COMMITTER_NAME': 'self-test', 'GIT_COMMITTER_EMAIL': 'self-test@example.invalid',
+_ST_ENV = {'GIT_AUTHOR_NAME': 'self-test', 'GIT_AUTHOR_EMAIL': 'self-test@invalid',
+           'GIT_COMMITTER_NAME': 'self-test', 'GIT_COMMITTER_EMAIL': 'self-test@invalid',
            'GIT_AUTHOR_DATE': '2026-01-01T00:00:00Z', 'GIT_COMMITTER_DATE': '2026-01-01T00:00:00Z',
            'GIT_CONFIG_GLOBAL': os.devnull}
 _ST_WITNESS = {'pattern': 'uvv', 'schedule': [None, [1, 'u'], None, None, None], 't': 3, 'window': [0, 2],
