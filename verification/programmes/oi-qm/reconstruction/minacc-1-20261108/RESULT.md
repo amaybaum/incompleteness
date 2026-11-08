@@ -56,7 +56,10 @@ M2D, QA, PR-QA, FB, M1D, AP1.
      cancel, because `OR(α, 1) = 1` whatever `α` is. The read then carries no
      backaction.
    - **Variant `E_A′`.** It uses only known-0 supplies (no H-PREP value 1) and
-     exposes the same functional in a branch of probability 1/16 under N2.
+     exposes the same functional in a branch of probability 1/16 under N2
+     (B-D). On the stated instance it also biases that functional in every
+     other branch, so with known-0 supplies it gives (B-B) with probability 1
+     (§3.3).
    - **Controls.** CC-OFF is green: with every gate held at 0 or at 1, the
      same protocols determine and bias nothing of `Q* = 1` type (C-LIN proof,
      and self-checks c1–c3).
@@ -92,9 +95,11 @@ M2D, QA, PR-QA, FB, M1D, AP1.
    - The negative concerns `G_σ` and these classes only.
    - The first premise that would block both exhibited `Π_A` protocols, under
      A2.4, is P-GK (§4): every gate acting on a present edge has a value fixed
-     by `K` when it acts. In `Π_A` this premise excludes every unknown `u`
-     slot from the protocol's cone, so it amounts to switching the mechanism
-     off. It is reported, not adopted, and CC-RECON applies.
+     by `K` when it acts. The reviewer ruled P-GK admissible under A2.4's
+     intended reading. In `Π_A` it is degenerate: every unknown `v` slot
+     becomes an unknown `u` slot, hence an unknown gate, after one tick, and
+     the hidden sector enters every cone, so P-GK empties `Π_A` of nontrivial
+     protocols. It is reported, not adopted, and CC-RECON applies.
 
 ## 1. Node 1: transfer audit of Lemma Q(iii)'s proof
 
@@ -177,6 +182,10 @@ Self-check c3 confirms the identities on a stated instance.
 - With every gate held at 0, `r_1 = r_2 = u_1 = 1`.
 - In both limits `u_0 + v_0` is uniform given the full joint record
   (self-check c3, and the C-LIN proof of §6.3).
+- This control is weak. Under `N_1` the only armed coupling disappears, and
+  under `N_0` cell 0 has no coupling to the readers at all. It shows only that
+  the gate is the sole channel of `E_B`. `Π_B`'s verdict rests on `E_A`
+  (§3.2), whose CC-OFF exercises the reader's backaction itself (§3.4).
 
 ### 2.2 The remaining `Π_B` routes
 
@@ -276,6 +285,14 @@ This variant removes H-PREP's value-1 supply from the exposure.
 confirms the branch probability 1/16, the point mass on that branch, and
 uniformity in both linear limits.
 
+**Bias in the other branches.** On c2's instance, under `G_σ`, all 256 record
+branches give `u_0(2) + v_0(2)` a non-uniform conditional law. The 64 branches
+with `s_1 = s_2 = 0` are determined. The other 192 are biased, with
+conditional probabilities of the value 1 in `{1/3, 4/9, 5/9, 2/3}` (the
+reviewer's check, repeated by the writer on the same instance). With known-0
+supplies only, `E_A′` therefore gives (B-B) with probability 1 on that
+instance. This is an additional exposure; the (B-D) verdict is unchanged.
+
 ### 3.4 Resources, CC-OFF and attribution for `Π_A`
 
 | Item | `E_A` | `E_A′` |
@@ -317,8 +334,8 @@ its only motivation here is to block the exposure.
 
 | Order | Candidate | Step secured | Blocks | Assessment |
 | --- | --- | --- | --- | --- |
-| 1 | **P-GK** (class): at every tick, every gate of a present edge (in `Π_B`, of an edge with multiplier 1) has its `u` value fixed by `K` when it acts | (s1), hence (s2), (s3) and (s5) | `E_B`, `E_A`, `E_A′` (in each, a gate acting at tick 1 is unknown: cell 0 in `E_B`, cell −1 in `E_A` and `E_A′`). Under P-GK every branch is a fixed sequence of linear symmetric center-free steps of a branch-dependent graph, and QA's proof applies verbatim, giving PROT-D and PROT-B for the class so restricted | In `Π_A` every site is the gate of an edge, so P-GK excludes every unknown `u` slot from the protocol's cone, hidden sector included. It is the mechanism switched off. **Content proviso:** P-GK mentions knowledge of gate slots, which have `Q* = 0`. It meets A2.4 if "`Q*`-class functionals" means the protected `Q* = 1` class, and fails it under the reading "any functional classified by `Q*`". The reviewer is asked to rule on the reading |
-| 2 | **P-NR** (supplies): no site within distance 2 of an active cell whose slot is unknown is refilled during a protocol | No step secured | `E_A` and `E_A′` as written (each needs fresh known neighbours for the second read); `E_B` (refills of −1 and 1) | Whether P-NR blocks every exposure in `Π_A` is not decided. In `Π_A`, P1 is implemented by the refill swap, so P-NR forbids registration near unknown active cells |
+| 1 | **P-GK** (class): at every tick, every gate of a present edge (in `Π_B`, of an edge with multiplier 1) has its `u` value fixed by `K` when it acts | (s1), hence (s2), (s3) and (s5) | `E_B`, `E_A`, `E_A′` (in each, a gate acting at tick 1 is unknown: cell 0 in `E_B`, cell −1 in `E_A` and `E_A′`). Under P-GK every branch is a fixed sequence of linear symmetric center-free steps of a branch-dependent graph, and QA's proof applies verbatim, giving PROT-D and PROT-B for the class so restricted | In `Π_A` every site is the gate of an edge, so P-GK excludes every unknown `u` slot from the protocol's cone, hidden sector included. It is degenerate in `Π_A`: an unknown `v` slot becomes an unknown `u` slot, hence an unknown gate, after one tick, and the hidden sector enters every cone, so P-GK empties `Π_A` of nontrivial protocols. **Content:** P-GK mentions knowledge of gate slots, which have `Q* = 0`. The reviewer ruled it admissible under A2.4's intended reading, which excludes restatements of the protected `Q* = 1` conclusion and of PROT-*, not restrictions on the protocol class |
+| 2 | **P-NR** (supplies): no site within distance 2 of an active cell whose slot is unknown is refilled during a protocol | No step secured | `E_A` and `E_A′` as written (each needs fresh known neighbours for the second read); `E_B` (refills of −1 and 1) | Whether P-NR blocks every exposure in `Π_A` is not decided. In `Π_A`, P1 is implemented by the refill swap, so P-NR forbids registration near unknown active cells, which is close to forbidding all registration in `Π_A`: nearly degenerate |
 | 3 | **P-1** (supplies): no ready cell with known value 1 | No step secured | `E_A` and `E_B` as written | Does not block `E_A′` (§3.3), so it does not block the exposure in `Π_A` |
 | — | A statement about `G_σ` itself | — | — | **No candidate found.** `G_σ` is fixed (D§2.1, A1.8), and no property of `G_σ` other than its gate dependence was identified as load-bearing |
 
@@ -368,10 +385,10 @@ its only motivation here is to block the exposure.
 `Q = Σ u_i v_i` is conserved by `G_σ`. Yet `E_A` produces a sharp active
 cell. The two are consistent: `Q` is a single global quadratic invariant
 (archived and refill cells included), while Lemma Q(iii)'s protection rests on
-the linear transport of `Q*` in (s3). M2D's suggestion that a symmetric
-switched graph would keep the protection because it keeps `Q` (M2D Lemma
-Qσ(a) and §6.2) is answered for `G_σ`: conservation of `Q` without (s3) does
-not protect.
+the linear transport of `Q*` in (s3). M2D left open whether a symmetric
+switched graph, which keeps `Q` (Lemma Qσ(a)), keeps the protection
+([M2D:858](https://github.com/amaybaum/incompleteness/blob/f88c184220453badfc9279ab9a86b6785e4db5ff/verification/programmes/oi-qm/reconstruction/mechanism-2-20261108/DESIGN.md#L858)).
+For `G_σ` it does not.
 
 ### 6.3 C-LIN: the linear limits under this unit's conventions
 
@@ -424,7 +441,8 @@ its transported known slot need not commute, so `span(I_t ∪ R_t)` contains
 `Q* = 1` functionals supported on archived cells.
 
 A2.1 rested on the claim that "`span(I_t) + R` has `Q* ≡ 0` on terminal and
-active cells together". That claim is false. PROT-R as amended therefore
+active cells together". The claim originated in the reviewer's confirmation of
+A1 (finding G1). It is false, and the results review confirms this. PROT-R as amended therefore
 fails for QA's N itself, and the exposure it detects here is trivial: the
 ready cell's own unknown slot. Consequences under A2.1's own clause:
 
@@ -432,8 +450,25 @@ ready cell's own unknown slot. Consequences under A2.1's own clause:
 - no (B-R) verdict is issued;
 - (A) is unreachable under the amended rule for every rule.
 
-The defect is reported for the coordinator. It does not bear on the (B-D)
-outcomes, which rest on PROT-D and PROT-B, both green in C-LIN.
+The defect does not bear on the (B-D) outcomes, which rest on PROT-D and
+PROT-B, both green in C-LIN, and it voids no verdict of this record.
+
+**Corrected form, for successor units only.** Amendment A3, a post-result
+amendment that affects no decision of this unit, records the corrected
+property:
+
+> PROT-R′(Π): for `t ≤ t′` and a `Q* = 1` functional `f` on the cells active
+> at `t`, such that `f(t)` is a function of the configuration of the cells
+> active at `t′` alone, `f(t)` is neither determined nor biased given `K` at
+> `t′`.
+
+In the linear limits PROT-R′ holds. Transport, free ticks and swaps carry
+`f(t)` to a linear functional `f′` on cells active at `t′` with
+`Q*(f′) = 1`. Lemma Q(iii) at `t′` (as verified above) then excludes
+determination, and (s5) gives uniformity. The countercase above is excluded,
+because it depends on the archived cell 0. PROT-R′ is not adopted and decides
+nothing here. Under `G_σ` in `Π_A`, `E_A` violates it already at
+`t = t′ = 2`, where PROT-R′ reduces to PROT-D.
 
 ### 6.4 CC-NC
 
@@ -526,7 +561,7 @@ representation enters the verdict.
 | --- | --- |
 | Backaction cancellation by the reader as gate (OR saturation): under `G_σ` a cell's `u` slot is read without disturbing its `v` slot, using only `Π_A` resources. Lemma Q(iii)'s protection and AP1 Lemma 3's isotropy fail for `G_σ` under P1 and P2 | NEW |
 | `Q` conservation (Lemma Qσ(a)) does not imply protection; the protection rests on linear `Q*` transport (s3) | NEW (resolves M2D's open item for `G_σ`) |
-| PROT-R fails in QA's linear class: archived cells can be sharp, so retrodictive `Q* = 1` protection does not hold even with Lemma Q | NEW (a defect in amendment A2.1) |
+| PROT-R fails in QA's linear class: archived cells can be sharp, so retrodictive `Q* = 1` protection does not hold even with Lemma Q. The false premise came from the reviewer's G1; the corrected form PROT-R′ (A3), for successor units only and not adopted, restricts retrodiction to information held by cells still active, and holds in the linear limits | NEW (a defect in amendment A2.1) |
 | C-LIN: Lemma Q(iii) and PROT-B extend to refills, vacancies, multipliers and direct registration in the linear limits | CONFIRMING |
 | `G_σ`'s closed form `f_i = OR(u_{i−1}, u_{i−2}) ⊕ OR(u_{i+1}, u_{i+2})` | ELABORATING |
 
@@ -555,7 +590,7 @@ are not committed.
 | Check | Instance | Unknown bits | Arithmetic | Purpose |
 | --- | --- | --- | --- | --- |
 | c1 | `E_A` on `L = 8`: `R = {−3, …, 2}`, hidden sources at sites 3 and 4; mode `G_σ`, `N_1`, `N_0` | 16 (`x`, `y`, `α_1`, 4 unknown `v`, 4 hidden, 5 refill) | Pointwise identities; conditional law of `u_0(2) + v_0(2)` given all 6 records | Identities `r_1 = 1 + x`, `r_2 = y`, `u_0(2) = x + 1`, `v_0(2) = y + 1` hold in all 65 536 assignments. `G_σ`: determined in all 64 branches. `N_1`, `N_0`: uniform (1/2) in all 64 branches |
-| c2 | `E_A′` on `L = 8`: `R = {−4, …, 2}`, hidden source at site 3 | 16 | Branch probability; conditional law | `G_σ`: `P(s_1 = s_2 = 0) = 1/16`; point mass on that branch with `(u_0, v_0) = (r_2, 0)`. `N_1`, `N_0`: uniform in all 256 branches |
+| c2 | `E_A′` on `L = 8`: `R = {−4, …, 2}`, hidden source at site 3 | 16 | Branch probability; conditional law | `G_σ`: `P(s_1 = s_2 = 0) = 1/16`; point mass on that branch with `(u_0, v_0) = (r_2, 0)`. `N_1`, `N_0`: uniform in all 256 branches. Re-run after the results review: under `G_σ` all 256 branches are non-uniform (64 determined, 192 biased) |
 | c3 | `E_B` on `L = 8`: `R = {−1, 0, 1}`, five hidden sources, multipliers as §2.1 | 16 | Pointwise identities; conditional law | Identities hold. `G_σ`: determined in all 8 branches. `N_1`, `N_0`: uniform |
 | c4 | The step on a ring `L = 6`, all 12 slots unknown | 12 | Count of `Q` changes; OR form; inverse | `Q` changes: `G_σ` 0, `N_1` 0, `N_0` 0, `G_SM` 1664, `G_σ` plus center term 2048, each of 4096. OR form and explicit inverse hold |
 | c5 | Ring `L = 5`, every cell ready with known `u = 0` | 5 | Pointwise identity | `u_0(1) = v_0(0)` under `N_1`, `N_0` and `G_σ` (PROT-R countercase) |
