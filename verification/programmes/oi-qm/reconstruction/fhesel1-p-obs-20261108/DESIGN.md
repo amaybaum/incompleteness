@@ -1,8 +1,9 @@
 # FHE-SEL-1 P-OBS: preregistration (Stage 1A)
 
 **Standing.** WIP / UNVERIFIED. Stage 1A preregistration of the P-OBS construction under #1169,
-revision r4. r2, r3 and r4 apply the independent review of `7878a7fd` and its re-reviews at
-`40f42bd9` and `85857151` (all REVISE; review texts relayed by the coordinator, not on `main`).
+revision r5. r2, r3 and r4 apply the independent review of `7878a7fd` and its re-reviews at
+`40f42bd9` and `85857151` (all REVISE; review texts relayed by the coordinator, not on `main`). r5
+records the Stage 1A outcome after the re-review of `f5891700`: LIMIT for PROT-*_LB (§0.1).
 Writer: Claude Code session (P-OBS writer), 2026-11-08. Each review of this file is by a reviewer
 who reviews no other construction of the portfolio. Paper only: no
 result is derived, nothing is computed, simulated, built in Lean or run under V3, nothing is
@@ -76,6 +77,111 @@ Off main and provisional:
    rule, reach, the assessment ladder and the disclosure of origin.
 10. **Report commitment** (§12), the invariant → checkpoint table (§13), the §A.42 item 8 trace
     (§14), concerns (§15) and what is not claimed (§16).
+
+***
+
+## 0.1 Stage 1A outcome: LIMIT for PROT-*_LB
+
+**Recorded outcome.** Under the owner's rule (#1205 c.6721012728, "If no definition passes both
+controls, the correct outcome is to report the limitation and stop"), P-OBS's Stage 1A outcome is
+**LIMIT for PROT-D_LB, PROT-B_LB and PROT-R′_LB** (§9.3, row 2). No definition of the absolute
+protection property found in four review cycles passes both decisive countercontrols in the
+interacting-sink model. P-OBS stops here. The rest of this file is the preregistration as reviewed,
+kept unchanged as the record of what was tested.
+
+**The counterexample** (finding R4-1 of the re-review of `f5891700`; hand algebra over `F_2` under
+`N_1`, reproduced from that review):
+
+- Register the initial blank at site `r` at tick 3. The record is `u_e = x_r(3)`.
+- The exported `v_e = x_r(2)` is a function of `W` that is undetermined under both runs. So
+  `Disc_e = span{u_e} = I` and `N = 0`.
+- The blank's known value `b = x_r(0) = 0`, transported to tick 3 after LB-Z, is
+  `b = u_{r−1} + u_{r+1} + v_{r−2} + v_{r+2} + v_e`. It lies on the ring and has `Q*(b) = 0`.
+- `ω(u_e, b) = 1`. So `f = u_e + b` is determined and `Q*(p_N(f)) = Q*(f) = 1`. **PROT-D_LB is
+  violated.**
+- The observer knows only the record and the blank's standard value. Nothing was learned about the
+  world.
+
+**Generality.** According to the review, the same pairing occurs at every registration age
+`3, 5, 7, …`, because records and supplied `u` slots lie on opposite space-time sublattices at
+those separations. It
+also occurs in the `R1 = 1` branch of the acceptance instance ACC (§10.1). There the review gives the
+violating functional `R2 + b + v_s`, whose discounted part has `Q* = 1` for every complement.
+C-DISC's cases 1 and 3 conflict on this configuration:
+
+- case 1 tests only the sharp record;
+- case 3, as worded, rejects any determined `c` pairing with an isotropic record, including a
+  supplied standard value the observer already had.
+
+**Cause.**
+
+- PROT-*_LB inherits the isotropy of AP1 Lemma 3 (AP1:533–560).
+- That lemma rests on terminal registration (SA-1(b), AP1:292–296). Its proof fails without
+  terminality (AP1:560), and AP1 C9 (AP1:682) shows the failure.
+- LB-Z removes terminality by design: the registered cell stays on the ring at `s(r)`.
+- An absolute protection property justified by terminal registration therefore cannot both accept
+  every ordinary record and reject the post-export partner read in a construction whose defining
+  feature is non-terminal registration.
+
+**Both repairs were considered, and both fail** (reasons from the review):
+
+1. **Add the supplied known values to the discount.** Then PL-4's post-export read of `v_e` stops
+   being a violation in the same configuration. With `Disc = span{u_e, b}`, the discounted part of
+   `u_e + v_e` is `u_{r±1} + v_{r±2}`, with `Q* = 0`. Whether a post-export read violates the
+   protected class then depends on bookkeeping.
+2. **Discount everything the reference observer knows** (J-DISC 1 read literally). PROT-*_LB then
+   becomes an increment test: a determined `Q* = 1` functional of `π` whose expression in the
+   initial variables is undetermined in `ref(π)`. The absolute question is gone, and PL-1 can no
+   longer be rejected by the property itself. That changes the decisive property, which is a new
+   preregistration, not a repair.
+
+**What converged: LK-R and USE-S** (a finding about the definitions, not a P-OBS positive). The
+re-review of `f5891700` found the leak test converged: the posterior reference cell (§8.2), USE-S
+(§8.4), ACC's LK-R arm and PL-2. Its hand checks under `N_1`:
+
+- **ACC's LK-R arm passes.**
+  - Under S-A the export `(R1, 0)` is fully determined, so the reference cell is the same point
+    mass.
+  - Both runs are then the same functions of the same variables, and `Det_π(h) = Det_ref(h)` for
+    every `h`, in both branches (ticks 5 and 6).
+  - The review notes that this arm passes by identity for every fully determined export. It
+    discriminates between reference choices, not between constructions.
+- **PL-2 is rejected.**
+  - `w = x_{−2}(0) + v_{−1}(0)` is determined under `π`.
+  - Under `ref(π)` the reference cell's `v` is uniform given `R1`, so no function of `W` is
+    determined.
+  - LK-R(i) is violated at tick 1.
+- **Stated limitations of LK-R(ii)** (review §5): it catches every linear increment in the linear
+  rules but is weak under `G_σ`. No fixed instance produces a sink-only history, so (ii) has no
+  countercontrol of its own.
+
+No property of `Π_LB` was evaluated. LK-R's convergence establishes nothing about P-OBS-LB.
+
+**Not attempted: the alternative.** The review names one route (its R4-1, option (b)):
+
+- PROT-*_LB made reference-relative, justified by J-DISC 1's reference clause;
+- PL-1 moved to C-OFF-2;
+- LK-R kept as it stands;
+- ACC rerun with a non-sharp ordinary record (the age-3 instance) and with the `R1 = 1` branch;
+- C-DISC case 3 corrected so that `c` must be undetermined under the reference on the matched
+  history;
+- ACC's wording widened to all records' contents.
+
+It changes the decisive property. It requires a new preregistration and a separate owner decision,
+and it is not attempted here (§9.7).
+
+**Unchanged.**
+
+- (a) remains effectively unreachable (§9.4): with S0's record on P2, every positive would be at best
+  (b), or the outcome C-0.
+- Stage 1B is not authorized.
+- Nothing is adopted.
+
+**Recorded note on PL-5** (finding N-r4-1, not repaired). PL-5 is overdetermined at tick 1. The plant
+makes the tick-1 exported cell `(R1, p)`, and `p` is read directly while the reference does not know
+it. So `Disc_{e1} = span{u_s}`, and `u_s + v_s` is a determined, undiscounted `Q* = 1` functional at
+tick 1 (a PL-4-type read). PL-5's required tick-3 verdict therefore holds whatever the tick-3
+discount is, and does not isolate the pre-registration mechanism it was written for.
 
 ***
 
@@ -879,7 +985,7 @@ The rule-level label is the **first** row whose condition holds, in this order.
 | Order | Outcome | Condition |
 | --- | --- | --- |
 | 1 | **C-0** | An E0 exit to null (§9.1) |
-| 2 | **LIMIT** | A decisive test of `P` fails CC-ACCEPT or CC-REJECT. The limitation is reported and evaluation stops for that rule. No definition is repaired within this preregistration (§9.7) |
+| 2 | **LIMIT** | A decisive test of `P` fails CC-ACCEPT or CC-REJECT. The limitation is reported and evaluation stops for that rule. No definition is repaired within this preregistration (§9.7). **Recorded at Stage 1A for PROT-D_LB, PROT-B_LB and PROT-R′_LB under `N_1`, by the R4-1 counterexample (§0.1)** |
 | 3 | **VOID** | Another required control is red, or the second E0 is defective (§9.1) |
 | 4 | **VAC** | NV fails (proved) |
 | 5 | **NEG** | An exhibited strategy in `Π_LB` violates a member of `P` |
