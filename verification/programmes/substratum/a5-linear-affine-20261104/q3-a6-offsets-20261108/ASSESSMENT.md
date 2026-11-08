@@ -12,7 +12,8 @@ later amendment governs. None of the three was edited.
 **Review record.** The preregistration was accepted for assessment ("ACCEPT FOR ASSESSMENT") in the
 review posted on #1202 as comment 6720120379. That comment was posted from the owner's account
 (amaybaum) at 2026-11-08T10:02:09Z, before any assessment text existed. It states that the review is
-by an independent model reviewer, not a human.
+by an independent model reviewer, not a human. The coordinating session verified that the comment
+was posted at 10:02:09Z and that its text matches the review file byte for byte.
 
 **Readings of the review's non-blocking nits.** These are the coordinating session's readings, and
 neither can change a verdict.
@@ -39,7 +40,10 @@ principle".
 
 The search covered `papers/*.md` and `book/*.md` at the pin, using `git grep -i` for each term below.
 The terms are: offset, tadpole, spurion, external source, constant term, plus a constant, link-valued,
-background field, gauge principle, Yang, Wilson, locally U(6), affine map, affine link.
+background field, gauge principle, Yang, Wilson, locally U(6), affine map, affine link. The
+results review of `118fd9c2` found that this search missed the corpus's relabelling notion of gauge.
+The terms relabel, conjugat, fixed-background, frame, background and "gauge freedom" were therefore
+added (n1), and their hits appear in the second table below.
 
 Every A6 site named in A1 §3 D1 and A2 G4 was then read, together with the hits. The pattern
 "locally U(6)" returned nothing because the source spells it in LaTeX (`\mathrm{U}(6)`). SM:493 was
@@ -57,16 +61,32 @@ found by reading it directly.
 | SM:493 | "The substratum dynamics is locally U(6) invariant". This states a local group, in the context of the condensate route of Theorem 5 (H-cust, SM:342). |
 | SM:382 | The argument for a scalar M is withdrawn: "Any physical use of that decomposition now cites H-link, and any stabilizer use also cites H-cust." |
 | SM:523 | The link variable "lives in V_K^{(n)} ⊗ V_K^{(n+ê_j)*}". The space is inferred from the transformation law, in a step of the T2 construction. |
-| SM:681 | The coupling matrix is "state-dependent … determined by the matter field". This concerns the state-dependent-graph principle, which SM:104 separates from A6. |
+| SM:681 | The gauge field is "the state-dependent coupling matrix M(n, ê_j) of §3.1, determined by the matter field". §3.1 contains both the state-dependent-graph principle (SM:104) and A6 (SM:114). Reading this passage as concerning the state-dependent-graph principle is this assessment's reading (n3). It is not used as a motivation for any law. |
 | SM:240; Substratum:274 | The constant is placed in the site update: "an additive map plus a constant"; "F(x)=F(0)+\sum_i c_i x_i". This locates b at sites. It gives no transformation law. |
-| SM:96; Substratum:270 | Amplitude-scale gauge: rescalings and uniform shifts of the field value. This concerns the alphabet's relabellings, not a law for a site offset under internal-index transformations. Substratum:163's "removes only the common overall phase" acts on the field and offset together. |
+| SM:96; Substratum:270 | Amplitude-scale gauge: rescalings and uniform shifts of the field value, read as relabellings. See the relabelling-gauge rows below. The earlier entry here dismissed these as "the alphabet's relabellings, not … internal-index transformations". That dismissal is withdrawn: BackgroundIndependence.lean:26–30 states that "the internal index enters only through the alphabet", with `V := K → ZMod q`. For the K-component alphabet, the alphabet's additive automorphisms are A6's class (R1). |
 | BackgroundIndependence.lean:30, :127–129; A6Instantiation.lean:70, :408, :455 | The formal class: "over the finite alphabet there is no unitary group and none is introduced"; "the coupling is transported and nothing needs preserving"; "`AddAut (Fin 6 → ℂ)` is not `U(6)`"; and "strictly larger" than the unitary group, so `A6Cov` "contains the manuscripts' law as a specialization". |
 | SM:1082, :1312, :1410 ("spurion"); SM:756–1221 ("tadpole") | Yukawa spurions and loop tadpoles. These are unrelated to A6 or to offsets. |
 | SM:954 ("affine map") | An affine map on mass eigenvalues. This is unrelated to link couplings. |
 
+**Relabelling-gauge sources (R1, n1).**
+
+| Location | What it says | What it bears on |
+|---|---|---|
+| Substratum:270 | "These affine relabellings are exactly the site-wise relabellings that preserve not only the coupling graph but the field-amplitude dispersion ω(k) …, so amplitude-scale gauge is one instance of the framework's master principle that *observationally indistinguishable transformations are gauge*" | Gauge read as relabelling. Under conjugation by the global unit rescaling λ, a rule constant is re-expressed as b ↦ λb. That is the E2/E3 law, on the global scalar subgroup only |
+| Substratum:163 | "the field-value-scale freedom — the additive-automorphism relabellings of the alphabet"; it "removes only the common overall phase", acting on the field and the offset together | The same freedom, in the K = 6 setting |
+| BackgroundIndependence.lean:26–30 | the internal index enters "only through the alphabet"; `V := K → ZMod q`; the class is `g : ι → AddAut V` | Identifies the alphabet's additive automorphisms with A6's class |
+| Substratum:98 | A4 holds "up to gauge", "with gauge acting by site-wise bijections of each site's (previous, current) pair" | A site-dependent gauge in the corpus, acting on the rule by conjugation |
+| Methodology:463 | "Gauge freedom is descriptive redundancy: two representations, no observable difference" | Observational indistinguishability is the criterion for gauge status |
+| Substratum:272; Theorem 24's generators (Substratum:251–262) | "generator (i) relabels hidden states only" | The corpus's conjugation gauge does not cover visible data |
+| Substratum:102; book/ch02-substratum.md:86; A6Instantiation.lean:359–365 | A6 is "not the stronger fixed-background condition"; as the definition, that condition "would refute the manuscripts' own rule for exactly the site-dependent transformations the gauge reading needs" | The corpus's reason for transporting data rather than holding them fixed. The reason is directed at the gauge reading (T2/O5) |
+
 **Search result.**
 - No location at the pin states a transformation law for a site offset under A6, a reason to place an
   offset on links, or a reason to hold a non-singlet constant fixed.
+- The relabelling sources support the E2/E3 law on the global scalar subgroup of A6's class. Extending
+  that law to the site-dependent class needs A6's transformations to be gauge in the relabelling sense
+  (Methodology:463; Substratum:270). The routes to that are either observationally excluded at Main's
+  absolute interface, or directed at T2/O5 (§4).
 - The corpus's stated motivations for A6 itself are T2-directed: SM:114, Main:726 item (xii) and
   book/ch05:137.
 
@@ -74,11 +94,16 @@ found by reading it directly.
 - **[L1]** C. N. Yang and R. L. Mills, *Phys. Rev.* 96, 191 (1954). Cited for two claims:
   - (a) requiring invariance of the interactions under position-dependent rotations of the isotopic
     frame needs a compensating field with an inhomogeneous transformation law;
-  - (b) its premise, that the orientation of the isotopic frame has no physical significance.
+  - (b) its premise, that the orientation of the isotopic frame has no physical significance. This
+    premise concerns frames for dynamical fields. It is neutral between holding a non-dynamical
+    constant fixed and re-expressing it under a frame change. It is therefore credited as motivation
+    to neither offset law (R2).
 - **[L2]** K. G. Wilson, *Phys. Rev. D* 10, 2445 (1974). Cited for two claims:
   - (a) the link variable transforms as U(n, μ) → g(n) U(n, μ) g(n + μ)⁻¹;
   - (b) the lattice action is built only from gauge-invariant terms (plaquettes, and link-matter-link
-    products), so no term linear in a non-singlet site field appears.
+    products), so no term linear in a non-singlet site field appears. Judged on its own (A1 C2), (b)
+    states, in the literature's setting, that non-singlet constants are absent. That is T1's content,
+    so (b) is **target-adjacent** (R2).
 - **[L3]** H. Georgi, *Weak Interactions and Modern Particle Theory* (1984). Cited for the spurion
   method: a symmetry-breaking parameter is treated *as if* it transformed under the symmetry, which
   makes the Lagrangian formally invariant and constrains how the parameter can appear. The method is
@@ -206,22 +231,35 @@ is in A1 above, and is not used here.
     reason A1 §3 D1 applies to Substratum:102's "imposes no further condition", and it is applied
     here identically to E1, E2 and E3;
   - it gives no reason; it only does not mention offsets.
-- [L2](b) and [L1](b): in an exactly gauge-invariant dynamics a fixed non-singlet constant does not
-  appear, and the frame's orientation has no physical significance.
-- **Class: independent, [L] only.** This draws on the same gauge-principle literature as the
-  baseline's J3 (§7), so it does not distinguish E1 from the baseline.
+- [L1](b) is neutral between the two offset laws and is credited to neither (R2).
+- [L2](b) is target-adjacent: on its own it states that non-singlet constants are absent, which is
+  T1's content.
+- The relabelling sources (§1) move a rule constant under the global scalar elements, b ↦ λb. They
+  do not support holding b fixed.
+- **Class: target-adjacent.** No independent component was located (R2). This is the first ground
+  on which E1 fails J3. The literature involved is the same gauge-principle literature as the
+  baseline's J3 (§7).
 
 **E1, B2 (the AddAut class constraining an untransported b).**
 - Corpus: the class's stated role is formal (containment for an identity), and the sources say it is
   not the manuscripts' group.
 - [L1] and [L2] concern invariance under the **physical** gauge group. They give no reason to require
   invariance under the formal class AddAut V.
-- Taking the physical group instead, the classes located at the pin are:
-  - site-wise U(6) (SM:493), which rests on H-cust (SM:342) and on a scalar-M argument that SM:382
-    withdraws. It is stated as the input of the condensate route that produces G_0 (Theorem 5);
-  - G_0 or SU(3)×SU(2)×U(1) (Substratum:163; SM:114), which is T2 itself.
-- Each located physical class is therefore specified only as part of the T2 construction.
-- **Class: none found** for the formal class; **target-adjacent** for every located physical class.
+- Taking the physical group instead, two classes were located at the pin.
+  - **Site-wise U(6)** (SM:493, "The substratum dynamics is locally U(6) invariant"). After the C3
+    search, no stated motivation of its own was found:
+    - its scalar-M basis (SM:376, "Remark below") is withdrawn at SM:382;
+    - its stabilizer use rests on H-cust (SM:342);
+    - its local character is the A6 promotion itself (Substratum:163, "promotes … to local gauge
+      invariance").
+
+    **Class: none found** (R3). Adopting local U(6) as A6's physical class would itself be an
+    O5-type promotion, which the boundary in c.6719886996 excludes from this unit.
+  - **G_0, or SU(3)×SU(2)×U(1)** (Substratum:163; SM:114). This is T2 itself. **Class:
+    target-adjacent.**
+- **Class: none found** for the formal class; none found for site-wise U(6); target-adjacent for
+  G_0. This is the second ground on which E1 fails J3. Even if a physical class were granted, the
+  motivation for holding b fixed would be [L2](b), which is target-adjacent (R2).
 - Pressure test (§A.31). This branch is the one favourable to T1 and T2.
   - Could the gauge principle be applied to a class with an independently stated physical gauge
     status? None was located: the internal index's physical group is, in the corpus, an output of
@@ -252,30 +290,46 @@ is in A1 above, and is not used here.
 - [L3] spurion: a calculational device that assigns a law *as if*; it makes no physical claim that b
   transforms.
 - [L1](a) and [L2](a) motivate transporting the connection, not a non-dynamical site constant.
-- [L1](b), read as a physical claim, would exclude a physically significant fixed direction rather
-  than transport one.
-- **Class: none found** as a physical motivation. A representation device is recorded.
+- [L1](b) is neutral and is credited to neither law (R2).
+- **Relabelling route (R1).** This is the strongest corpus route, and it supplies one independent
+  component and one target-adjacent component.
+  - **Independent component.** Amplitude-scale gauge treats the global unit rescaling λ as a
+    relabelling. Its motivation is operational (Substratum:270), and it is the principle on which this
+    whole outcome is already conditional. Under conjugation it transforms a rule constant as the
+    field, b ↦ λb. That is E3's law, but **only on the global scalar subgroup** of A6's class.
+  - **Extending it to the site-dependent class.** That requires A6's transformations to be gauge in
+    the relabelling sense: observationally indistinguishable (Methodology:463; Substratum:270). Three
+    things stand against that:
+    - at Main's absolute interface (Q1), visible site-wise relabellings are distinguishable (core
+      file §3.3.8 item 6; Proposition 2.6(b), [D] there);
+    - the conjugation gauge of 𝒢_sub is hidden-only (Substratum:272);
+    - the #1049 safeguard requires the gauge status of site-dependent transformations to be
+      established separately.
+  - **Target-adjacent component.** What remains is the identification of A6's transformations as
+    gauge (SM:118; Substratum:163; Main:726 item (xii)), together with Substratum:102's reason for
+    transport over a fixed background (A6Instantiation.lean:359–365). Both are directed at T2 and O5.
+- [L3], the spurion method, is a representation device and is recorded as such.
+- **Class: mixed, with an insufficient independent component.** The independent part motivates the
+  law on the global scalar subgroup only, not on the class (`DESIGN.md` J3).
 - Pressure test (§A.31). Rejecting E3 protects T1 and T2, since E3 admits offsets and gives G_v under
-  H-b. So this branch is also pressure-tested.
-  - The strongest case for E3 is the **passive reading** (recorded below as H-passive): A6's
-    transformations are changes of the local internal frame, so every internal-index-valued datum
-    transforms. On this reading E3's law is a consistency requirement, not a physical assumption.
-  - The sources' wording is active: "symmetry of the dynamics" (Substratum:102) and "local gauge
-    invariance" (SM:118).
-  - The kernel's wording is passive-compatible: "the coupling is transported and nothing needs
-    preserving" (:127–129). It is stated only for the coupling.
-  - No source at the pin states H-passive. Its only physical support would be [L1](b)'s premise, and
-    [L1] uses that premise to require invariance of the interactions, not covariance of fixed data.
-  - H-passive is therefore classified **none found** (physical), and is a representation reading
-    (§8).
+  H-b, so this branch is pressure-tested too.
+  - The strongest case for E3 is the **passive reading**, H-passive: A6's transformations are changes
+    of description, so every internal-index-valued datum transforms with them.
+  - Its corpus route is the relabelling route above, so H-passive has the same classification:
+    **mixed, with an insufficient independent component**.
+  - The sources' own wording for A6 is active: "symmetry of the dynamics" (Substratum:102) and "local
+    gauge invariance" (SM:118).
 
 **Hypotheses offered for J_c (F10).**
 - **H-b.** It is motivated by E4 (Substratum:82) applied to the whole rule under H-link (posited).
   It is independent given H-link, but it is global and does not supply any candidate's site-dependent
   law. So it places no candidate in J_c.
-- **H-passive.** None found (above), so it cannot place E3 in J_c.
+- **H-passive.** Mixed, with an insufficient independent component (above). F10 admits only
+  independent hypotheses, or mixed ones whose independent component suffices on its own, so it
+  cannot place E3 in J_c.
 - **H-active** ("A6's transformations, under a stated physical group, are exact invariances with
-  untransported constants"). Every located physical group is target-adjacent (above), so it cannot
+  untransported constants"). The located physical groups are none found (U(6)) or target-adjacent
+  (G_0), and its motivation for holding b fixed is [L2](b), which is target-adjacent. So it cannot
   place E1 in J_c.
 
 **Countercontrol imports.** These are classified in §7.
@@ -290,7 +344,7 @@ b ≠ 0, and consistent on the linear class.
 
 | | D1 (other A6 sources) | D2 (Q1) | D3 (Q2, scoped) | D4 (P1–P6) | J4 |
 |---|---|---|---|---|---|
-| E1 | **tension.** It holds one datum fixed, the pattern Substratum:102 declines for the coupling ("not the stronger fixed-background condition"). It uses the formal class as a physical constraint, whereas A6Instantiation.lean:70 says the class is not the manuscripts' group. No kernel statement is contradicted | consistent (rule-level, absolute interface) | consistent (no identification) | preserved: P1 by C-LIN; P2 on the linear class; P3 C2 (S1 keeps its properties; only its A6 status under E1 changes); P5 (vii) still true; P6 unchanged | held |
+| E1 | **tension.** It holds one datum fixed, the pattern Substratum:102 declines for the coupling ("not the stronger fixed-background condition"). It uses the formal class as a physical constraint, whereas A6Instantiation.lean:70 says the class is not the manuscripts' group. For the constant scalar elements λ of A6's class, amplitude-scale relabelling transforms a rule constant by conjugation (b ↦ λb; Substratum:270, :163), while E1 holds b fixed under the same elements and so requires λb = b (R4). These are two principles, not a contradiction. No kernel statement is contradicted | consistent (rule-level, absolute interface) | consistent (no identification) | preserved: P1 by C-LIN; P2 on the linear class; P3 C2 (S1 keeps its properties; only its A6 status under E1 changes); P5 (vii) still true; P6 unchanged | held |
 | E1′ | **tension.** The local class depends on the rule's data, which no A6 source has | consistent | consistent | preserved | held |
 | E2 | **tension.** Link data are affine maps, not elements of V⊗V* (SM:523, SM:116). Plaquette and trace statements (SM:118) are not examined (O5 boundary). Zero-sum splits are redundant data with no gauge status claimed, so D3 is not triggered | consistent | consistent | preserved | held |
 | E3 | **tension.** It transports a site datum that SM:116 and Substratum:102 do not list | consistent | consistent: the covariance relation is not an identification (A1 §3 D3) | preserved | held |
@@ -305,10 +359,10 @@ equally (A2 G1). Variants differing only in the domain of the quantifier are dec
 
 | | J1 | J2 (C-LIN) | J3 | J4 | J5 | J6 |
 |---|---|---|---|---|---|---|
-| **E1** | held | held | **not held**: the B2 class import is none found (formal class) or target-adjacent (located physical classes). B1 is independent, [L] only | held (tensions) | held: E1′ is excluded by the ∀ decision; [L2](b) distinguishes E1 from E3; the class variants are settled by the ∀ decision | **not held**: no consequence beyond A1 and A2. Shared with the baseline |
+| **E1** | held | held | **not held**, on two grounds: B1 is target-adjacent ([L2](b)); B2 is none found (formal class; site-wise U(6)) or target-adjacent (G_0) | held (tensions) | held: E1′ is excluded by the ∀ decision; the class variants are settled by the same decision; [L2](b) distinguishes E1 from E3, but [L2](b) is a target-adjacent item (R2) | **not held**: no consequence beyond A1 and A2. Shared with the baseline |
 | **E1′** | held | held | **not held**: none found | held (tension) | **not held**: the ∀ decision selects E1 over it | not held |
 | **E2** | held | held (its data space is larger at b = 0) | **not held**: none found | held (tension) | **not held**: no C1 motivation distinguishes splits, and splits change A2 (§2). Scope finding: an Aff(V) reading is equally supported by "link couplings may be affine maps" (not counted) | **not evaluable within the authorized scope**: candidate consequences are translation parts of link holonomies, beyond the O5 boundary |
-| **E3** | held | held | **not held**: none found (physical) | held (tension) | **not held**: with no C1-cited motivation, the trivial law (E1) and other representations are equally supported, and they change A1 | **not held**: covariance is an identity; nothing beyond A2. Shared with the baseline |
+| **E3** | held | held | **not held**: mixed, with an insufficient independent component. Amplitude-scale relabelling reaches only the global scalar subgroup | held (tension) | **not held**: with no C1-cited motivation, the trivial law (E1) and other representations are equally supported, and they change A1 | **not held**: covariance is an identity; nothing beyond A2. Shared with the baseline |
 
 **Variants found beyond A1 §2 (I14).**
 - E1's class variants on the lift: site-wise U(6) (SM:493), and G_0. These fall under "transformation
@@ -355,6 +409,10 @@ labels".
   classes. That is a penalty for dependence on T2, which the table permits. It does not rest on b = 0.
 - The same role test was applied to E2 and E3, and found inside the role.
 - J5 entries compare variants as worded.
+- The results review (R2) found that [L1](b) had been credited to E1's offset law and refused to
+  E3's. That asymmetry favoured the law that produces T1, and it was not decisive. It is corrected
+  here: [L1](b) is credited to neither law. The correction removes a T1-leaning credit and adds no
+  T1 penalty.
 - **Pass.**
 
 **Countercontrols** (A1 §5.4; A2 G3; I8):
@@ -396,8 +454,8 @@ the record at `9c201475`. Conditional on amplitude-scale gauge (Substratum:272).
 - With [L]-only J3 passes excluded, |J₁₋₅| = 0.
 - No candidate passes J3, so no [L]-only pass enters the count.
 - The one [L]-only J3 pass is the baseline's (C-POS).
-- E1's B1 entry draws on the same literature as the baseline, [L1](b) and [L2](b), and so does not
-  distinguish E1 from the baseline. E1 fails J3 on its B2 import in any case.
+- E1's B1 entry is classified target-adjacent ([L2](b)). It is not an [L]-only pass. E1 fails J3 on
+  both B1 and B2.
 
 **Per candidate.**
 
@@ -410,19 +468,21 @@ the record at `9c201475`. Conditional on amplitude-scale gauge (Substratum:272).
 
 **What (N) states, and what it does not.**
 - It states that the A6 sources at the pin, written for additive link-coupled rules, fix no
-  transformation law for a site offset, and that no independent physical motivation was located for
-  any of the three laws. Specifically:
-  - E1: untransformed, constrained by the formal class or by a physical class supplied only through
-    T2;
-  - E2: carried on affine links;
-  - E3: transported as the field.
+  transformation law for a site offset. For none of the three laws was an independent physical
+  motivation located that suffices on its own for A6's class. Specifically:
+  - E1, the offset untransformed: its motivation is target-adjacent ([L2](b)), and its constraint
+    comes from the formal class or from a physical class that is none found (U(6)) or T2 (G_0);
+  - E2, the offset carried on affine links: none found;
+  - E3, the offset transported as the field: amplitude-scale relabelling supports this law on the
+    global scalar subgroup only.
 - It does not state that any candidate is false, that no extension of A6 to offsets exists, or
   anything about A5.
 - Restated by the reading of A6 for data the sources do not name:
   - E1 corresponds to an active-invariance reading, under which the offset is a fixed parameter and
     the content depends on a physical gauge group that the corpus supplies only through T2;
-  - E3 corresponds to a passive frame-change reading, under which it restricts nothing. That reading
-    is not stated at the pin.
+  - E3 corresponds to a passive, relabelling reading, under which it restricts nothing. The corpus
+    supports that reading for the global scalar subgroup. For the site-dependent class it supports it
+    only through identifications directed at T2 and O5.
 
 **Status.** A5's status is unchanged. A6 remains `A6Cov` on `main`. The core file's Q3 marker
 ("carries A5 in relocated form") is consistent with E1's J3 entry: E1 restricts b only through the
@@ -430,24 +490,33 @@ choice of class. O5 is not examined.
 
 ***
 
-## 9. Where the result is most sensitive
+## 9. Sensitivities, with the results review's rulings
 
-1. **E3's J3 turns on H-passive.** If a reviewer accepts the frame-convention premise of [L1](b) as an
-   independent physical motivation for transporting non-dynamical internal-index data:
-   - H-passive becomes independent ([L] only);
-   - E3 enters J_c, or J₁₋₅, with its J5 then held, because the law is fixed by b ∈ V;
-   - the outcome becomes (S), with E3, on an [L]-only basis, and the count with [L]-only passes
-     excluded remains 0.
+The writer named three sensitivities at `118fd9c2`. The results review ruled on each, and its rulings
+are recorded here.
 
-   This writer reads [L1] as using that premise to require invariance, not covariance of fixed data.
-   That reading is from memory.
-2. **E1's J3 turns on the role of the class.** It depends on reading AddAut V's stated role as formal
-   (BackgroundIndependence.lean:30; A6Instantiation.lean:70). It also depends on SM:493's local U(6)
-   being classified target-adjacent, through H-cust and the SM:382 withdrawal. A reviewer who treats
-   SM:493's local U(6) as an independently stated physical group would move E1's J3 to held ([L] only).
-   With J5 held, E1 would then enter J₁₋₅, on [L] alone.
-3. **[L] items.** All of [L1]–[L4] are from memory and not re-read (§A.46 item 7). No J3 pass in the
-   outcome rests on them, but entries 1 and 2 would.
+1. **E3 and H-passive.** At `118fd9c2` the writer noted that crediting [L1](b)'s frame-convention
+   premise to H-passive would move E3 into J_c or J₁₋₅, giving an (S) outcome resting on [L] alone.
+   **Ruling: the scenario does not arise.**
+   - Under C1, [L1](b) is not a passage that motivates transporting a non-dynamical rule constant.
+     Reading it that way is the assessor's own extension.
+   - [L1](b) is credited to neither law (R2). Crediting it to both would also credit E1, and E1
+     still fails J3 on B2.
+   - H-passive's corpus route, relabelling gauge, is mixed with an insufficient independent
+     component (R1), so F10 bars it from J_c.
+2. **E1 and the class role.** **Ruling: robust.**
+   - The formal role of AddAut V is stated in the sources, and E1's use of it to constrain an
+     untransported datum lies outside that role.
+   - SM:493's local U(6) has no stated motivation of its own (none found), and adopting it would be
+     an O5-type promotion (R3).
+   - Even if a physical class were granted, the motivation for holding b fixed would be [L2](b),
+     which is target-adjacent (R2).
+   - So E1 fails J3 on two independent grounds.
+3. **[L] items.** **Ruling: no set membership rests on [L].**
+   - [L1]–[L4] are from memory and were not re-read (§A.46 item 7), by the writer or the reviewer.
+   - They enter C-POS's J3 (the baseline's [L]-only pass) and the classification of E1's B1
+     ([L2](b), target-adjacent).
+   - The outcome (N) and the empty sets do not rest on them.
 
 ***
 
@@ -455,6 +524,7 @@ choice of class. O5 is not examined.
 
 | Reference | Used for | Classification |
 |---|---|---|
-| #1202 c.6720120379 | review record; ACCEPT FOR ASSESSMENT; K1 and K2 | provenance, by quotation of its verdict |
+| #1202 c.6720120379 | review record; ACCEPT FOR ASSESSMENT; K1 and K2 | provenance, by quotation of its verdict. Posting time (10:02:09Z) and byte-identity with the review file verified by the coordinating session (n4) |
+| The results review of `118fd9c2` (R1–R4, n1–n4, and the rulings on the sensitivities) | corrections applied in §1, §4–§9 | provenance. Each change is stated in this file |
 | #1049 c.6719806528, c.6719886996, c.6624263637; #1169 c.6719386464; #1049 Issue body | as in `DESIGN.md` and A1 §0 and §7 | support, by quotation (in those files) |
-| [L1]–[L4] | §1, §4 | literature from memory, not re-read. No outcome entry rests on them |
+| [L1]–[L4] | §1, §4 | literature from memory, not re-read. The outcome (N) and the set memberships do not rest on them. C-POS's J3 pass and the classification of E1's B1 do (n2) |
