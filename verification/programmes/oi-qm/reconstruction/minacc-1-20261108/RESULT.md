@@ -561,7 +561,7 @@ representation enters the verdict.
 | --- | --- |
 | Backaction cancellation by the reader as gate (OR saturation): under `G_σ` a cell's `u` slot is read without disturbing its `v` slot, using only `Π_A` resources. Lemma Q(iii)'s protection and AP1 Lemma 3's isotropy fail for `G_σ` under P1 and P2 | NEW |
 | `Q` conservation (Lemma Qσ(a)) does not imply protection; the protection rests on linear `Q*` transport (s3) | NEW (resolves M2D's open item for `G_σ`) |
-| PROT-R fails in QA's linear class: archived cells can be sharp, so retrodictive `Q* = 1` protection does not hold even with Lemma Q. The false premise came from the reviewer's G1; the corrected form PROT-R′ (A3), for successor units only and not adopted, restricts retrodiction to information held by cells still active, and holds in the linear limits | NEW (a defect in amendment A2.1) |
+| PROT-R fails in QA's linear class: archived cells can be sharp, so retrodictive `Q* = 1` protection does not hold even with Lemma Q. The false premise came from the reviewer's G1; PROT-R′ (A3), for successor units only and not adopted, restricts retrodiction to information held by cells still active, and holds in the linear limits | NEW (a defect in amendment A2.1) |
 | C-LIN: Lemma Q(iii) and PROT-B extend to refills, vacancies, multipliers and direct registration in the linear limits | CONFIRMING |
 | `G_σ`'s closed form `f_i = OR(u_{i−1}, u_{i−2}) ⊕ OR(u_{i+1}, u_{i+2})` | ELABORATING |
 
