@@ -9,8 +9,9 @@ P-MIX or P-OBS writers or their branches.
 
 - r2 answers the independent review of `796539ea` (REVISE: five blocking and nine non-blocking findings).
 - r3 answers the re-review of `6a075fc9` (ACCEPT WITH CHANGES: nine non-blocking findings, R2-1 to R2-9).
+- r4 answers the confirmation of `d9e8ecb9` (ACCEPT WITH CHANGES: three local items, C1 to C3).
 
-Each finding's disposition is in §16. P-CONTROL's outcome, the null of §5, is the same in r2 and r3.
+Each finding's disposition is in §16. P-CONTROL's outcome, the null of §5, is the same in r2, r3 and r4.
 
 **Preregistered outcome for P-CONTROL: the null (§5).** The census admits no candidate. The one candidate that r1
 admitted, TS (temporal subdivision), is reclassified as **mixed**. It is kept below in full specification (§6–§11) as
@@ -232,9 +233,12 @@ demerit.
 - **The Nayak–Sen step of §7.3.** It uses the interpretation and the composition named in TS. Its CPTP hypothesis
   comes from the definition of a TS-extension (§6.2), so "TS and TS-U coincide" is a statement about those
   extensions.
-- **Where the classification of TS's content rests.** It rests on that statement together with §7.3's last bullet,
-  which records the non-CP case and finds it in the same class. TS's rejection does not depend on this: S3 alone
-  rejects it (§4, §7.2).
+- **Where the classification of TS's content rests.** It rests on that statement together with §7.3's two
+  non-CPTP bullets:
+  - the case of (i) without (iii) falls in the same class;
+  - for rules (a)–(f) alone, the content classification is not established.
+
+  TS's rejection does not depend on either: S3 alone rejects it (§4, §7.2).
 
 - **independent.** The stated motivation and its support do not presuppose `T`, and are not designed to exclude a
   particular construction.
@@ -259,7 +263,7 @@ demerit.
 |---|---|---|---|
 | (a) A3's locality motivation (Sub:96) | independent | pass | Relativistic causality, action by contact; no reference to `T` |
 | (b) Main:590's layer-flow executability (K-1) | target-adjacent or target-defined | pass | Its statement is the inclusion of layer flows, with no other effect: target-defined by the functional test |
-| (c) TS⁺ (§10 TT), with §7.1's motivation stated for it | target-adjacent or target-defined | pass | From roots to flows, in one line: if `T_t ∘ T_{1−t} = T_1 = Ad_U`, then each `T_t` has the channel inverse `T_{1−t} ∘ Ad_{U†}`. So the fact cited in §7.3 applies to each `T_t` under the same hypothesis (endomorphic CPTP maps), and each `T_t` is a unitary conjugation. Its non-vacuous content is non-monomial unitary conjugations: target-defined by the functional test as interpreted. Without the CPTP hypothesis, the non-unitary possibilities (§7.3) do not preserve diagonal states and fall in the same class. Under the wording-only reading of r1, TS⁺ would escape the functional test on `D_A`. That reading is withdrawn |
+| (c) TS⁺ (§10 TT), with §7.1's motivation stated for it | target-adjacent or target-defined | pass | From roots to flows, in one line: if `T_t ∘ T_{1−t} = T_1 = Ad_U`, then each `T_t` has the channel inverse `T_{1−t} ∘ Ad_{U†}`. So the fact cited in §7.3 applies to each `T_t` under the same hypothesis (endomorphic CPTP maps), and each `T_t` is a unitary conjugation. Its non-vacuous content is non-monomial unitary conjugations: target-defined by the functional test as interpreted. For extensions satisfying (i) without (iii), the non-unitary possibilities (§7.3) do not preserve diagonal states and fall in the same class. For extensions satisfying rules (a)–(f) alone, the content classification is not established (§7.3), and TS's rejection rests on S3. Under the wording-only reading of r1, TS⁺ would escape the functional test on `D_A`. That reading is withdrawn |
 
 ***
 
@@ -462,10 +466,16 @@ This rests on standard facts, cited here and not derived. Any later use must re-
   - **Conclusion for CPTP TS-extensions.** For TS-extensions as defined in §6.2, whose operations are CPTP, every
     root that TS supplies on `D_Φ` or `D_A` is `Ad_V` with `V²` proportional to `U`. For those extensions, TS and
     TS-U coincide.
-  - **Without complete positivity.** For extensions satisfying only rules (a)–(f), or (i) without (iii), the cited
-    fact does not apply. An invertible positive root with positive inverse may then be composed with the transpose,
-    and such a root is not excluded. It does not preserve diagonal states either, so it falls in the functional
-    test's class (§3.2), and the classification is unchanged.
+  - **Positivity without complete positivity: (i) without (iii).** The cited fact does not apply. A positive root
+    with a positive inverse is a Jordan automorphism (Kadison 1965), so it is a unitary conjugation or a
+    transpose-composed one. A transpose-composed root is therefore not excluded.
+    - **Why it still falls in the class.** Such a root of a transposition needs `V V̄ ∝ X`, and no monomial `V`
+      satisfies this. So the root does not preserve diagonal states, and it falls in the functional test's class
+      (§3.2).
+    - **Status.** This is the confirmation reviewer's reasoning, not a result, and any use must re-establish it.
+  - **Rules (a)–(f) alone.** Here a root is only a linear map. A non-positive linear map that preserves diagonal
+    states can square to the conjugation by the exchange. The content classification of TS is therefore **not
+    established** for such extensions. TS's rejection rests on S3 (§4, §7.2), which does not depend on it.
 - **The repertoire.** On `D_A` at the ancilla levels, TS's content is the availability of a unitary square root of
   every classical reversible operation, for example of NOT and of the exchange. The square root of NOT is the
   standard example of a quantum operation with no classical counterpart (Deutsch–Ekert–Lupacchini 2000). TS
@@ -508,8 +518,11 @@ three states.
   enter the classification of §7.
 - **F4, comparison** (recorded only, after the rest). Which of (i)–(v) the minimal TS-extensions satisfy.
 - **A-intf.** TS's consequence on a cell is **representation-carried** if:
-  - F1 holds (the base lacks a root of some `T` in the domain); and
-  - the classical stochastic interface on the same carrier (CI-3) also contains no root of that `T`.
+  - F1 holds with a witness `T` that is a permutation conjugation (the base lacks a root of `T`); and
+  - the classical stochastic interface on the same carrier (CI-3) contains no stochastic root of that permutation.
+
+  The witness is restricted to permutation conjugations because "a root of `T`" among stochastic matrices is not
+  defined when `T` carries phases.
 
   The condition is decidable from the base and the stochastic matrices on `S`.
 
@@ -531,16 +544,26 @@ decided.
 | 5 | **Inconclusive** | Any of RT, F0, F1, F3, F2 or A-intf is undecided. The missing lemma is named |
 | 6 | **Positive** | All of the following: F0 and F1 hold; RT fails; F3 fails; F2's forced content contains a non-configuration-level operation; the consequence is not representation-carried; every control in §10 is green |
 
-**Attainability of Positive for TS under the frozen rules.** The Positive class is **not attainable** for TS. The
-reasoning below uses standard facts and is the re-review's reasoning, not a Stage 1B result. Any use of it must
-re-establish it.
+**Attainability of Positive for TS under the frozen rules.** The Positive class is recorded as not attainable for
+TS, by the reasoning below. That reasoning uses standard facts and is the re-review's and the confirmation's
+reasoning, not a Stage 1B result. Any use of it must re-establish it.
 
 1. A stochastic matrix whose square is a permutation matrix has a nonnegative inverse. A stochastic matrix with a
    nonnegative inverse is a permutation matrix (Minc 1988).
 2. Both bases contain every permutation at every level (`permTheory`; the monomials of `substratumClass`).
-3. So whenever F1 holds on a cell, the classical stochastic interface also lacks a root of the operation that the
-   base lacks. A-intf is then decided true.
-4. Every cell that is not Negative-RT, Negative-0 or (c)-type is therefore Weak.
+3. Let `T` be a permutation conjugation, and suppose the base lacks a root of `T` (an F1 witness).
+   - By steps 1 and 2, the stochastic matrices on `S` contain no root of that permutation either, since such a root
+     would be a permutation and so would lie in the base. A-intf (as restricted in §9.1) is then decided true.
+   - Every cell where F1 holds has such a permutation witness:
+     - on scope A, a single transposition on any carrier with at least two states, which has no root among the
+       monomials;
+     - on scope Φ, `D_Φ` consists of permutations.
+   - The restriction to permutation witnesses is needed. On `D_A`, a monomial conjugation with phases can lack a
+     monomial root while the permutation it induces has one. For example, with `|S| = 4`, `P = (12)(34)` and
+     `D = diag(1, 1, 1, −1)`, both permutation roots of `P` are 4-cycles, and both force `d_1 d_2 = d_3 d_4`, which
+     `D` violates.
+4. Every cell that is not Negative-RT, Negative-0 or (c)-type is therefore Weak or, where a condition of smaller
+   precedence number is undecided, Inconclusive.
 5. The highest attainable cell class is Weak, and the highest attainable aggregate is Partial. This agrees with the
    L1 cap of §11.4 and with the null.
 
@@ -802,6 +825,14 @@ The P-CONTROL outcome reported is the null of §5.1, with §4, §5.2 and §7 as 
 | R2-9 (d) | Accepted. The CI-1 example is restated inline, and the pointer to off-main content is dropped | §10 CI-1 |
 | R2-9 (e) | Accepted. §0 quotes §5.1's frozen wording | §0 |
 
+### Dispositions of the confirmation of `d9e8ecb9`
+
+| Item | Disposition | Where |
+|---|---|---|
+| C1 | Accepted. "Does not preserve diagonal states" is restricted to (i) without (iii) and labelled as reasoning (Kadison 1965 for the Jordan-automorphism form). For rules (a)–(f) alone, the content classification is stated as not established, and the rejection rests on S3 | §3.2 (interpretation paragraph and C-CAL (c)), §7.3 |
+| C2 | Accepted. The A-intf witness must be a permutation conjugation. Step 3 is stated for that case, with the permutation witnesses for each scope. The phase counterexample is recorded (`|S| = 4`, `P = (12)(34)`, `D = diag(1, 1, 1, −1)`) | §9.1 A-intf, §9.2 step 3 |
+| C3 | Accepted. Step 4 reads "Weak or, where a condition of smaller precedence number is undecided, Inconclusive". The heading reads "recorded as not attainable … by the reasoning below" | §9.2 |
+
 ***
 
 ## References
@@ -824,6 +855,7 @@ The P-CONTROL outcome reported is the null of §5.1, with §4, §5.2 and §7 as 
   063001.
 - Masanes, Ll., Oppenheim, J. (2017). A general derivation and quantification of the third law of thermodynamics.
   *Nat. Commun.* 8, 14538.
+- Kadison, R. V. (1965). Transformations of states in operator theory and dynamics. *Topology* 3, Suppl. 2, 177.
 - Minc, H. (1988). *Nonnegative Matrices*. Wiley.
 - Nayak, A., Sen, P. (2007). Invertible quantum operations and perfect encryption of quantum states. *Quantum Inf.
   Comput.* 7, 103.
