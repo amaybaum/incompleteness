@@ -1,7 +1,7 @@
 # FHE-SEL-1 P-MIX: a finite-precision reversible two-mode exchange, preregistered (Stage 1A)
 
-**Standing.** Stage 1A preregistration only, under #1169. Revision r3: it applies the independent re-review of `3f12b442`
-(REVISE), after r2 applied the review of `eb3802ee` and the owner's P-MIX decision. WIP / UNVERIFIED. Writer: Claude Code
+**Standing.** Stage 1A preregistration only, under #1169. Revision r4: it applies the independent re-review of `1975c649`
+(REVISE). Earlier revisions applied the reviews of `eb3802ee` (r2, with the owner's P-MIX decision) and `3f12b442` (r3). WIP / UNVERIFIED. Writer: Claude Code
 session, 2026-11-08.
 
 This file fixes one construction, its motivation, its criteria and its controls before any result is evaluated. It
@@ -97,13 +97,13 @@ c.6719723538. Its standing line "pending" is stale. It was written against `f88c
 | Rule | SM's second-order form with a center-free symmetric two-site coupling, applied by rounding half away from zero. It has exact exchange, parity and time-reversal symmetries by construction (§1.3) |
 | Families | F-NAT: one coefficient applied for a duration (oscillator physics). F-B1: B1's compensated word and schedule (target-defined; comparison only) |
 | Horizons | H1: one 24-step program (finite-accuracy tracking). H2: up to `N_q = q/2^{10}` iterations of one primitive `S_k` (long horizon) |
-| Discriminating test | S-LH at H2: drift of **both** normal-mode invariants of the pair (SM:296's `Q_I` and `Q_X`). Countercontrols are GC (keeps `R` and `XP`), GC-NR (no `R`) and MO-3 (first-order lifting) |
+| Discriminating test | S-LH at H2: drift of **both** normal-mode invariants of the pair (SM:296's `Q_I` and `Q_X`). Generic countercontrols are GC (floor/ceiling rounding), V-P and V-X (one tie rule changed each) and MO-3 (first-order lifting). If GC or MO-3 passes, the H2 outcome is `LH-GENERIC`. A failure counts only against a matched control that differs in the varied property alone (§5.1). Reversal by `R` is not discriminated as frozen: no admissible non-reversed countercontrol was found (§6.3) |
 | Pre-named outcomes | `NO-OPERATIONAL-QUESTION` (§0.1); `BLOCKED-QB` (§3.2) |
 | Overall verdicts | `NEW-POSITIVE`, `NEW-NEGATIVE`, `COVERED-BY-EXISTING-RESULTS`, `GENERIC`, `NEGATIVE-H1`, `INCONCLUSIVE`, `VOID`. If the owner rules Q-LH outside P-MIX, the alternative is `COVERED-BY-EXISTING-RESULTS (H1)` (§5.2) |
-| Expected Stage 1B outcome | S-LH may not be decidable on paper for the design or the countercontrols, so the likely H2 outcome is `LH-INCONCLUSIVE` (§0.1). This is a scope statement, not a criterion |
+| Expected Stage 1B outcome | The honest expected H2 outcomes are `LH-GENERIC`, `LH-INCONCLUSIVE` with the open discretized-rotation problem named, or `LH-NEGATIVE`. No generic countercontrol has an identified failure route, so `LH-DISCRIMINATING` is not expected (§0.1). This is a scope statement, not a criterion |
 | Stage 0 rows | Row 7 (relating evolution / lift). The mixing part of §5's "(iv) / reversible control (9, 13)" entry, in comparison only |
 | Motivation class | Mixed. The rule, its symmetries and F-NAT are the independent component; F-B1 is target-defined. A positive is recorded (b) |
-| Ceiling | A fixed-horizon success alone is capped at L1. L2 is reachable in principle (RT-3′, §8.3). L3 is unreachable as frozen |
+| Ceiling | A fixed-horizon success alone is capped at L1. L2 is reachable in principle (RT-3′, §8.3), but is unlikely to be decided in Stage 1B. L3 is unreachable as frozen |
 
 ### 0.1 What P-MIX can establish beyond Main:566/598 and the conditional B1 mixer
 
@@ -141,14 +141,16 @@ success never counts as evidence of a hard-to-vary principle.
 > - Does the design keep **both** normal-mode invariants of the pair to vanishing relative error over `N_q ∝ A′_q`
 >   steps, uniformly in `k ∈ K_q`? The invariants are SM:296's `Q_I` and `Q_X`, equivalently the energies of the
 >   symmetric and antisymmetric sectors.
-> - Does GC-NR fail to keep them? GC-NR is a bijective discretization of the same continuum primitive without the
->   reversal `R`.
-> - Which of the design's exact symmetries does the property depend on? Exchange and parity are probed by V-P, V-X
->   and GC; reversal by GC-NR.
+> - Do generic reversible discretizations of the same continuum primitive, which round differently, fail to keep
+>   them? These are GC, V-P and V-X; MO-3 is a first-order lifting scheme judged on its own invariant.
+> - Does the property depend on the design's exchange and parity symmetries? These are probed by V-X and V-P, each
+>   against the design as matched control. Reversal by `R` is shared by every admissible scheme found, so Q-LH does
+>   not discriminate reversal as frozen (§6.3).
 
 **What a positive would show, and no more.**
 - It would show that a fixed finite rule keeps the *depth* of the two-mode exchange over horizons growing with
-  resolution: the amplitudes of both normal modes, and hence the largest share transferable in a beat, do not drift.
+  resolution: the energies of both normal modes do not drift, and hence neither does the largest share attainable for
+  the kept sector energies. Whether that share is reached, and when, is timing.
 - It would not show that the *timing* of the exchange (the beat phase) is kept. That is recorded separately (S-LH-TR)
   and enters no verdict.
 - It stays at the configuration level. The operational level remains `NO-OPERATIONAL-QUESTION`.
@@ -165,10 +167,19 @@ success never counts as evidence of a hard-to-vary principle.
   discretized rotations `x_{n+1} + x_{n−1} = ρ(λ x_n)` (Q-RED, §4). Their general case is open [unverified beyond
   bibliographic records; K-1 row].
 - The supremum over `k ∈ K_q` includes coefficients within `2^{−r}` of `0` and `±1`.
-- Showing on paper that a countercontrol fails requires an explicit drifting orbit.
+- Showing on paper that a countercontrol fails requires an explicit drifting orbit, and no route to one is identified
+  for GC, V-P, V-X or MO-3 (§6.3).
+- RT-3′, which L2 requires, is as likely as S-LH to be undecidable on paper. L2 is reachable in principle and unlikely
+  to be decided in Stage 1B.
 
-So the likely Stage 1B outcome is `LH-INCONCLUSIVE`, and the overall verdict `INCONCLUSIVE`, with the open problem
-named. The owner can weigh Stage 1B with that in view.
+The honest expected outcomes are therefore three:
+- `LH-GENERIC`: a generic scheme passes too;
+- `LH-INCONCLUSIVE`, with the open problem named, giving an overall `INCONCLUSIVE`;
+- `LH-NEGATIVE`, giving `NEW-NEGATIVE`.
+
+`LH-DISCRIMINATING` would need a generic scheme to be shown to fail where the design passes, and no route to such a
+failure is known. Nothing in this design is tuned toward a positive. The owner can weigh Stage 1B with that in
+view.
 
 **Owner's call, and the preregistered alternative.** Whether Q-LH counts as a P-MIX question is for the owner to judge.
 If it does not, the portfolio entry for P-MIX is:
@@ -240,12 +251,14 @@ Write:
 | V-P (half-up rounding) | `X`; reversed by `R` | `P` |
 | V-X (slot 1 half away from zero, slot 2 half toward zero) | `P`; reversed by `R` | `X` |
 | GC (slot 1 floor, slot 2 ceiling) | reversed by `R`; the product `XP: (x, y) ↦ (−Xx, −Xy)` (off `q/2`) | `X` and `P` separately |
-| GC-NR (§6.3) | `P` (off `q/2`) | `X`; not reversed by `R` (`R S R ≠ S⁻¹`) |
+| GC-NR (recorded pair, §6.3) | `P` (off `q/2`) | `X`; not reversed by `R` (`R S R ≠ S⁻¹`) |
+| GC-R (recorded pair, §6.3) | `P` (off `q/2`); reversed by `R` | `X` |
 | MO-3 (first-order lifting, §6.3) | `P`; reversed by the involution `RA`, where `R: (x_1, x_2) ↦ (x_1, −x_2)` and `A: x_1 += ρ(k x̃_2)` | `X` not claimed |
 | V-S (self-term) | `X`; `P`; reversed by `R` | — (adds a self-term) |
 
 GC-NR is the only listed rule for which reversal by `R` is not claimed. Whether some other involution reverses it is
-not claimed either way. These symmetries are properties of the constructions, not results, and their presence is not
+not claimed either way. GC-NR and GC-R are a recorded pair only; they enter no category, attribution or label
+(§6.3). These symmetries are properties of the constructions, not results, and their presence is not
 evidence (§8.2).
 
 ### 1.4 Observer access, preparations, records, encoded description
@@ -367,8 +380,15 @@ coupling is `A = kX`. Then:
 - `Q_I = |u|² + |v|² − k u·Xv`, the total energy;
 - `Q_X = u·Xu + v·Xv − k u·v`.
 
-Their sum and difference are proportional to the energies of the symmetric sector (`x_1 = x_2`) and the antisymmetric
-sector (`x_1 = −x_2`).
+**Sector-energy identity (stated for quotation; Stage 1B quotes it rather than re-deriving it).** With sector
+coordinates `u_± = (x_1 ± x_2)/√2` and `v_± = (y_1 ± y_2)/√2`:
+
+```text
+Q_I + Q_X = 2 (u_+² + v_+² − k u_+ v_+),        Q_I − Q_X = 2 (u_−² + v_−² + k u_− v_−).
+```
+
+These are twice the invariants of the symmetric sector (`x_1 = x_2`, coupling `+k`) and the antisymmetric sector
+(`x_1 = −x_2`, coupling `−k`), each for the map `(u, v) ↦ (λu − v, u)` with `λ = ±k`.
 
 **S-LH (for a rule `Ψ_k` with continuum coupling `A_k` and its two forms `Q_I`, `Q_X`).** Stage 1B gives an explicit
 `B_LH(q) → 0` such that:
@@ -389,7 +409,8 @@ of the continuum beat `T_k^n z̃`, for all `n ≤ N_q`. This records the timing 
 S-LH is evaluated for:
 - the design;
 - MO-1 (§6.2);
-- GC, GC-NR and MO-3 (§6.3);
+- GC and MO-3 (§6.3);
+- the recorded pair GC-NR and GC-R (§6.3), which enters no category;
 - each variant of §8.2.
 
 ### 2.5 Standing scope facts (recorded; not controls; outside the VOID rule)
@@ -477,7 +498,8 @@ finite-state version must therefore replace multiplication by a real number with
 (F-NAT).
 
 **The question.** Does such a pair, given finite precision but keeping its exact symmetries, keep the energy of each
-normal mode over long times? And which of the symmetries does that depend on?
+normal mode over long times? And does that depend on its exchange and reflection symmetries? Time reversal is shared
+by every admissible scheme found, so the frozen design does not ask whether it matters (§6.3).
 
 ### 3.4 Classification (Q3's standard)
 
@@ -522,7 +544,7 @@ If authorized, Stage 1B works on paper, in this order:
    - A crossing on a window counts as a failure. It is never a reason to change the window.
    - A margin of `2^7` needs a uniform bound on partial products.
    - Then G-GEN (§8.2).
-3. **H2.** S-LH for the design, MO-1, GC, GC-NR, MO-3 and each variant. S-LH-TR where decidable. Then G-GEN-H2 (§8.2).
+3. **H2.** S-LH for the design, MO-1, GC, MO-3, each variant, and the recorded pair GC-NR and GC-R. S-LH-TR where decidable. Then G-GEN-H2 (§8.2).
 4. **Q-RED.** Are the symmetric and antisymmetric sectors invariant under `S_k`? Does `S_k` reduce on each to
    `(x, y) ↦ (ρ(±k x) − y, x)`? If so, list which published results on such maps (K-1 row) apply at the same coefficient
    and rounding convention, and record the sector part of S-LH as an instance of them or of an open problem. Do the
@@ -566,12 +588,27 @@ SM:294–298 records as unestablished or contrary:
 | --- | --- |
 | `LH-NEGATIVE` | S-LH fails for the design |
 | `LH-COVERED` | The design passes, and its pass is an instance of a published theorem (§4 item 4) |
-| `LH-GENERIC` | The design passes, and either GC-NR passes S-LH or G-GEN-H2 finds that the design's bound follows from a lemma whose hypotheses GC-NR also satisfies |
-| `LH-DISCRIMINATING` | The design passes, and GC-NR fails S-LH |
+| `LH-GENERIC` | The design passes, and GC or MO-3 passes S-LH (MO-3 against its own `Q_k`), directly or because G-GEN-H2 finds that the design's bound follows from a lemma whose hypotheses GC or MO-3 also satisfies |
+| `LH-DISCRIMINATING` | The design passes, neither GC nor MO-3 is shown to pass, and at least one admissible countercontrol (GC, V-P or V-X) is shown to fail S-LH under the matched-control rule |
 | `LH-INCONCLUSIVE` | Every other case, with the gap named |
 
-The results for GC, MO-3, V-P, V-X and V-S do not change the H2 category. They determine which symmetries are hard to
-vary (§8.2), and they are reported beside the category.
+**Admissible countercontrol.** A countercontrol is admissible iff it meets all of the following:
+- it has the design's continuum primitive `T_k` and forms `Q_I`, `Q_X`;
+- it is in second-order form;
+- it differs from the design only in the rounding rule applied to the products `k·x̃_i`.
+
+GC, V-P and V-X are admissible. GC-NR and GC-R are not, because each adds a bounded kick that is not a rounding of
+`k·x̃_i`.
+
+**Matched-control rule (frozen).** A countercontrol's failure counts toward `LH-DISCRIMINATING` only if a matched
+control that differs from it only in the varied property passes. For GC, V-P and V-X the matched control is the design:
+- V-P differs from the design only in the parity of the tie rule;
+- V-X differs only in the exchange of the tie rule;
+- GC differs only in the rounding convention, using floor and ceiling in place of symmetric odd rounding.
+
+The design must pass for any of these failures to count. The same rule governs every hard-to-vary attribution in §8.2.
+
+The results for V-S and the recorded pair are reported beside the category, and V-S enters §8.2.
 
 ### 5.2 Overall configuration-level verdict (F-NAT)
 
@@ -647,8 +684,10 @@ decidable content.
     - Green iff S-TUNE_F fails for MO-1.
     - Route to red: S-TUNE_F holds for a setting-independent map against a non-constant family.
   - At H2, `Ψ_k = S_0` for every `k`, judged against the design's `Q_I` and `Q_X` at coupling `k`.
+    - **This is a calibration check of S-LH, not evidence about the mechanism.** `S_0 = J` changes the sign of the
+      `k u·v` terms, so it does not keep the forms at `k ≠ 0`. At `k = 0` it keeps both forms exactly and cannot fail.
     - Green iff S-LH fails for MO-1.
-    - Route to red: S-LH holds, meaning `S_0` keeps both forms at coupling `k ≠ 0`.
+    - Route to red: S-LH holds, which would mean the criterion does not register a coupling-dependent invariant.
 - **MO-2 (no fractional coefficients, no rounding).**
   - F-NAT's setting map, with `K_q` replaced by `{−1, 0, 1}` (nearest element, ties toward 0). This is K-3's linear
     modular rule, with comparator `E_NAT(s)`.
@@ -669,21 +708,32 @@ Each countercontrol below is stated with its symmetry set (§1.3), its invariant
   - Route to failure: **none identified**. Its floor/ceiling bias acts like a nearly constant force. For `|k| ≤ 1` that
     force is not resonant with the primitive, which suggests bounded displacement rather than drift.
   - GC therefore tests `X` and `P` separately, through the variation rule. It does not test `R`.
-- **GC-NR (no reversal by `R`; constructed for this test).**
-  - Rule, with `κ(x, y_2) = sgn(x̃_2 − ỹ_2) ∈ {−1, 0, 1}`:
+- **V-P and V-X** (§8.2) are admissible countercontrols with the design as matched control. Route to failure:
+  **none identified**.
+- **Recorded pair GC-NR and GC-R (not admissible; enters no category, attribution or label).**
+  - GC-NR, with `κ(x, y_2) = sgn(x̃_2 − ỹ_2)`:
 
     ```text
     x′_1 = ρ(k x̃_2) − y_1 + κ(x, y_2),     x′_2 = ρ(k x̃_1) − y_2,     y′ = x.
     ```
-  - It is bijective by a triangular argument: `y_2 = ρ(k x̃_1) − x′_2`, then `y_1 = ρ(k x̃_2) + κ(x, y_2) − x′_1`.
-    C-BIJ checks this.
-  - Its continuum primitive is `T_k`, since the kick is bounded by 1. It shares `Q_I` and `Q_X`. It keeps `P` and breaks
-    `X`. It is not reversed by `R`, which C-SYM checks.
-  - **Route to failure (hypothesis H-NR, not shown):** `κ` has the sign of mode 2's step `x̃_2 − ỹ_2`, so it is
-    correlated with the phase of the oscillation. A bounded kick correlated with that phase can change a normal-mode
-    invariant by a same-signed amount in each period. Over `N_q ∝ A′_q` steps, that would give a relative drift of
-    order one.
-  - That GC-NR can fail is a hypothesis. If Stage 1B cannot decide it, the H2 outcome is `LH-INCONCLUSIVE`.
+
+    It is bijective by a triangular inverse. It keeps `P`, breaks `X`, and is not reversed by `R`.
+  - GC-R: `x′_1 = ρ(k x̃_2) + sgn(x̃_2) − y_1`, `x′_2 = ρ(k x̃_1) − y_2`. It is bijective (SM:106), reversed by `R`,
+    keeps `P` and breaks `X`. It is GC-NR's symmetry set with reversal restored.
+  - **What is known.** The re-review of `1975c649` reasons, by hand-checkable recurrences at `k = 0` from
+    `z = ((0, a), (0, 0))`, that both fail S-LH. Their added kicks are resonant at mode 1's own frequency, so mode 1
+    grows linearly. This is reviewer reasoning; Stage 1B re-checks it.
+  - **Reading.** The failures come from an added bounded forcing correlated with the oscillation, not from the presence
+    or absence of reversal. The pair is recorded as: "an added velocity- or position-correlated forcing drifts". It
+    bears on forcing, not on reversal.
+- **Reversal is not discriminated as frozen.**
+  - One candidate was considered: `x′ = f_k(x) − σ(y)`, with `σ` the bounded bijection that flips the lowest bit. It
+    is not reversed by `R`.
+  - It was not adopted. Its per-step deviation, `σ(y) − y = ±1`, reads the memory slot, which the design's rounding
+    never does. So a failure could not be attributed to reversal without a further matched control, and no matched
+    control differing only in reversal was found.
+  - No admissible non-reversed countercontrol is available. Q-LH therefore does not test whether reversal matters, and
+    no reversal credit is available in §8.2.
 - **MO-3 (first-order lifting, no memory, no symmetric coupling).**
   - Rule: `A: x_1 += ρ(k x̃_2)`, then `B: x_2 −= ρ(k x̃_1)`.
   - Continuum primitive: `L_k = [[1, 0], [−k, 1]] [[1, k], [0, 1]]`.
@@ -693,11 +743,15 @@ Each countercontrol below is stated with its symmetry set (§1.3), its invariant
   - Route to failure: **none identified**. MO-3 enters G-GEN at H1, and the variation report at H2.
 
 **Owner requirement 2, stated honestly.**
-- The mechanism-off controls MO-1 and MO-2 can each fail the success criterion, by a named route.
-- GC-NR is the countercontrol that can fail S-LH by a named route, H-NR. It is a hypothesis, not shown.
-- GC and MO-3 can fail S-LH only in the logical sense: no route is identified.
-- If Stage 1B finds that GC-NR cannot fail, `LH-DISCRIMINATING` is unreachable, and Q-LH is not discriminating as
-  frozen. Stage 1B records that in those words.
+- The mechanism-off controls MO-1 and MO-2 can each fail the success criterion, by a named route. MO-1's route at H2 is
+  a calibration check.
+- The generic countercontrols GC, V-P, V-X and MO-3 can fail S-LH in the logical sense only: no route to failure is
+  identified. They are kept because, if any of them passes, the design's pass is generic (`LH-GENERIC`). That is the
+  case the owner excluded from counting as evidence.
+- The only schemes with a known failure route, GC-NR and GC-R, fail through added forcing. They are therefore not
+  admissible.
+- `LH-DISCRIMINATING` is therefore not expected. If Stage 1B finds no admissible countercontrol that fails, Q-LH is not
+  discriminating as frozen, and Stage 1B records that in those words.
 
 ### 6.4 Classical model and Theorem NC
 
@@ -725,13 +779,13 @@ Each countercontrol below is stated with its symmetry set (§1.3), its invariant
 | --- | --- |
 | CC-TT (per-setting nearest-lattice-point permutation, completed by `exists_perm_extending`, loaded from a table; GA:92) | SR1, SR2, SR4 |
 | CC-TT′ (rounding of each whole 24-word map) | SR2, SR4 |
-| GC-NR | SR2 (the kick) |
+| GC-NR, GC-R | SR2 (the kick) |
 | MO-3 | SR2 (first-order, no memory) |
 | F-NAT, F-B1, GC | none. F-B1's schedule is target-defined, recorded in §3.4 |
 
 **The control.** Green iff Stage 1B, applying SR as written, reaches this table.
 - Route to red: SR admits CC-TT or CC-TT′, or excludes F-NAT.
-- The countercontrols GC-NR and MO-3 need not satisfy SR. SR classifies constructions; it does not gate countercontrols.
+- The countercontrols MO-3 and the recorded pair GC-NR and GC-R need not satisfy SR. SR classifies constructions; it does not gate countercontrols.
 
 ### 6.6 Target-import check
 
@@ -785,14 +839,16 @@ hypotheses are:
 The H1 success is tagged `generic` iff the lemma suffices or MO-3 meets the same criteria against its own comparator.
 A `generic` H1 success never counts toward hard-to-vary.
 
-**G-GEN-H2.** For each of GC-NR, GC, MO-3, V-P, V-X and V-S, Stage 1B states whether the design's S-LH bound follows
+**G-GEN-H2.** For each of GC, MO-3, V-P, V-X and V-S, Stage 1B states whether the design's S-LH bound follows
 from a lemma whose hypotheses that rule also satisfies. If it does, that rule counts as passing S-LH, both for §5.1 and
 for the variation rule below.
 
 **Variation rule.** Variations are judged at H2 only. A rounding approximation never counts toward hard-to-vary.
 - Each variant is judged against its own primitive and its own two forms `Q_I` and `Q_X`.
 - An assumption is **hard to vary** iff the design passes S-LH and at least one listed variant of that assumption
-  fails it. A failure means a proof that no vanishing bound exists; G-GEN-H2 may not count the variant as passing.
+  fails it. A failure means a proof that no vanishing bound exists, and G-GEN-H2 may not count the variant as passing.
+  The attribution also requires the matched-control rule of §5.1: the matched control, which differs from the variant
+  only in that assumption, must pass. For V-P, V-X and GC the matched control is the design.
 - An assumption is **easy to vary** iff every listed variant passes, directly or by G-GEN-H2.
 - An undetermined case counts as neither.
 - Excluded as a change of target: variants that remove resolution growth, and variants whose own continuum primitive
@@ -803,7 +859,8 @@ for the variation rule below.
 | V-P | Odd rounding (reflection) | Half-up `⌊t + 1/2⌋` in both slots | keeps `X`, reversed by `R`; breaks `P` | counted |
 | V-X | Same rounding in both slots (relabelling) | Slot 1 rounds half away from zero, slot 2 half toward zero | keeps `P`, reversed by `R`; breaks `X` | counted |
 | GC | Both separately | Slot 1 floor, slot 2 ceiling | reversed by `R`; keeps `XP`; breaks `X` and `P` | counted |
-| GC-NR | Reversal by `R` | §6.3 | keeps `P`; breaks `X`; not reversed by `R` | counted for reversal. It also breaks `X`; a failure of GC-NR attributes hard-to-vary status to reversal only if V-X passes |
+| — | Reversal by `R` | No admissible variant (§6.3) | — | not testable as frozen; no reversal credit |
+| GC-NR, GC-R | (recorded pair) | §6.3 | GC-NR: keeps `P`, breaks `X`, not reversed by `R`. GC-R: the same with reversal restored | recorded only; not counted. Both add a bounded forcing, and the re-review of `1975c649` reasons that both fail at `k = 0` |
 | V-S | No self-term (center-free) | `f(x)_i = ρ(k x̃_{3−i} + x̃_i/2)`. Own coupling `A = kX + I/2`, which is symmetric and translation-invariant, so SM:296's `Q_I` and `Q_X` apply with this `A` | keeps `X`, `P`, reversed by `R` | counted |
 | MO-3 | Second-order form | §6.3; single invariant `Q_k` | keeps `P`; reversed by `RA` | reported; used in G-GEN; not counted |
 | V-A | Symmetric coefficients | Coefficients `(k, 3k/2)`; non-symmetric `A`, so SM:296's forms do not apply | — | change of target; excluded |
@@ -850,7 +907,7 @@ Each rung requires everything the rung below it requires.
 - **L1:** L0, the construction satisfies SR, and the positive family is F-NAT.
   - A `generic` H1 success without `LH-DISCRIMINATING` stops here, labelled "poor explanation".
   - So do `COVERED-BY-EXISTING-RESULTS` and `GENERIC`.
-- **L2:** L1 and all of the following:
+- **L2:** L1 and all of the following. L2 is reachable in principle but is unlikely to be decided in Stage 1B (§0.1):
   - `NEW-POSITIVE`;
   - at least one counted assumption is hard to vary, with an independent §3.4 component;
   - RT-3′ passes;
@@ -876,12 +933,19 @@ The following outcomes take no rung: `NEW-NEGATIVE`, `NEGATIVE-H1`, `INCONCLUSIV
   - GC-NR was constructed with a named failure route, because GC and MO-3 share reversal by an involution with the
     design.
   - RT-3′ replaced a reach test that could not pass.
+- **r4 (after the re-review of `1975c649`):**
+  - GC-NR was found by the reviewer to fail at `k = 0` through a resonant period-4 kick. The matched reversed control
+    GC-R fails the same way, so the failure comes from the added forcing, not from the loss of reversal. GC-NR was
+    removed from the discrimination and from the reversal attribution, and kept with GC-R as a recorded pair.
+  - GC and MO-3 were restored to `LH-GENERIC`.
+  - The matched-control rule and the admissibility condition were added.
+  - The finding that reversal is not discriminated as frozen was recorded.
 
 **How the discriminating test was chosen.**
 - S-LH and its countercontrols were chosen so that a generic scheme can fail them. They were not chosen from the
   target's statistics.
-- GC-NR was designed to have a failure route. If it fails, that shows only that this particular non-reversed scheme
-  drifts. It does not show that reversal is necessary in general.
+- GC-NR was designed to have a failure route. That design choice made its failure certain, and its failure is due to
+  forcing. It therefore counts toward nothing. No countercontrol in the frozen design has been tuned to fail.
 
 **The rounding switch.** The rounding convention was changed in r2 from half-up rounding to rounding half away from
 zero. The r1 convention is kept as V-P. If V-P passes S-LH, the switch made no difference to the outcome, and the
@@ -903,7 +967,9 @@ Disclosing this does not relax the independence requirement. It is why:
 | Q-B not activated | `BLOCKED-QB` is pre-named. Grep §1–§8 for "limit", "Bloch", "sphere", "S²", "cosine-weighted": hits only in §3.1's rejected rows, the guards and disclaimers |
 | No exact continuous-rotation claim | Each "exact" in §2 and §5 is a disclaimer, a finite-carrier fact, an exact symmetry of a finite rule, or the name of an exact comparator |
 | S-LH sees the exchange | §2.4 bounds both `Q_I` and `Q_X` |
-| Mechanism-off and countercontrols can fail, with named routes | §6.2 (MO-1 at H1 and H2; MO-2); §6.3 (GC-NR via H-NR; GC and MO-3 marked "none identified") |
+| Mechanism-off controls can fail, with named routes; countercontrols' routes stated honestly | §6.2 (MO-1 at H1; MO-1 at H2 as a calibration check; MO-2). §6.3 (GC, V-P, V-X and MO-3 marked "none identified"; GC-NR and GC-R recorded as failing through forcing and not admissible) |
+| Generic passes force `LH-GENERIC`; failures count only against matched controls | §5.1 `LH-GENERIC` row; matched-control rule; §8.2 |
+| No reversal credit as frozen | §6.3; §8.2 reversal row |
 | H1 success never counts as hard-to-vary evidence | §8.2: variations judged at H2 only |
 | Symmetry sets are correct and checked | §1.3 table; C-SYM |
 | L2 reachable in principle | RT-3′ can pass and fail (§8.3) |
@@ -923,7 +989,7 @@ Disclosing this does not relax the independence requirement. It is why:
 | #1169 c.6719708521, c.6719720616, c.6719723538 (Stage 0) | Row numbering and wording | Provenance. Row content is cited from Main, AP1 and M2D on main |
 | PR #1202, A5-Q3 A1 §3 C2 | The classes in §3.4 | Provenance. The classes are restated here |
 | #1198 (M-INACC, provisional) | K-7's reason; why S-NOINACC exists | Provenance. Its content is unused |
-| Independent reviews of `eb3802ee` and `3f12b442` (PR #1204 record) | Changes in r2 and r3 | Provenance |
+| Independent reviews of `eb3802ee`, `3f12b442` (#1204 c.6720796018, c.6720991687) and `1975c649` (PR #1204 record) | Changes in r2–r4; the recorded-pair reasoning in §6.3, which is attributed to the reviewer and re-checked in Stage 1B | Provenance. No criterion, category or attribution rests on the reviewer's reasoning |
 | #1193 | Conditionality of RB-4 | Provenance (Issue) |
 | #1188 | Reason not to cite `readWriteSourced_*` | Provenance (Issue) |
 | #1147, #866, CTL | Supply obligations in §1.6 | Provenance |
