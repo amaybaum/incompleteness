@@ -901,7 +901,7 @@ Proposition B, and the exactly stated instance P★.
 ### 6.4 Bearing on Q-B (not activated)
 
 - Under any finite orthogonal frame and H-LIFT, encoded unitaries induced by
-  any dynamics are frame symmetries (Theorem U2(ii), whose proof uses only the frame).
+  any dynamics are frame symmetries (Theorem U2(ii), whose proof uses only the frame and Lemma F).
 - They therefore form a finite group, with no encoded rotation of infinite
   order.
 - So on a finite carrier there is no exact encoded `rot` and no encoded
