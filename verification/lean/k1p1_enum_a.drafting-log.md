@@ -154,3 +154,22 @@ Push trigger inspection: verify and hidden-sector push events name main;
 bridge-compatibility and bg2 path filters exclude these two paths. All remaining
 workflows are dispatch-only. This ordinary original staging branch push starts
 no push-triggered workflow. No PR metadata/comment write by this continuation.
+
+### Static milestone completion and continued static reread
+
+C29 committed `ce6f0f2c3192fedf5b459d48a58579e6787486ee`. Its first push
+attempt failed because the default sandbox could not connect to the configured
+proxy; it did not update the remote. The same refspec succeeded with the tool's
+network permission, forwarding remote caea695c to ce6f0f2c. No source changed.
+
+| # | Category | Commands | Result |
+|---|---|---|---|
+| C30 | edit | `git push origin HEAD:refs/heads/staging/k1-p1-1-impl-a-20261106` with network permission | successful ordinary forward push of ce6f0f2c |
+| C31 | read | `sed -n '1,200p'` and `sed -n '330,530p'` own A | generic map/frame and strict schemas reread |
+| C32 | read | `sed -n '530,660p'`, `sed -n '770,1028p'`, `sed -n '1029,1285p'` own A | token/guard/admission/driver reread |
+| C33 | static check; read | inline `symtable` global-name analysis; AST function call-name closure from fixture_payload and forbidden instance constant/function check; `git show`/`git rev-parse` six adopted K rules and SHA-256 comparisons with §2 | no unresolved globals; fixture closure excludes instance code/constants; all six pinned blobs/hashes match |
+| C34 | edit; static check; read | append this log section; `git diff --check`; source/log sensitive-pattern scan; code/log digests and blobs; re-read all workflow trigger blocks; `git add` only own log; `git commit`; identical ordinary staging `git push` with network permission; `git rev-parse HEAD`; `git status --short` | log-only forward checkpoint, source unchanged |
+
+No defect or actual normative ambiguity was found in the continuation's static
+reread. Runtime behavior remains unverified. No fixture or instance invocation
+has occurred. The source SHA-256 and blob remain exactly those of ce6f0f2c.
