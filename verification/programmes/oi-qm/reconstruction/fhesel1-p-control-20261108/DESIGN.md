@@ -1,17 +1,21 @@
-# FHE-SEL-1 P-CONTROL: physical-selection preregistration (Stage 1A, r2)
+# FHE-SEL-1 P-CONTROL: physical-selection preregistration (Stage 1A, r3)
 
 **Standing.** WIP / UNVERIFIED. This is a Stage 1A preregistration under #1169, in the physical-selection workstream
 (c.6720678942). It contains no derivation, computation, simulation, Lean build or V3 execution. It adopts no premise
 and promotes no claim. Writer: Claude Code subagent (P-CONTROL writer). This writer did not read or coordinate with the
 P-MIX or P-OBS writers or their branches.
 
-**Revision r2.** This revision answers the independent review of `796539ea`, whose verdict was REVISE with five
-blocking and nine non-blocking findings. Each finding's disposition is in §16. The review is pending re-review.
+**Revisions.**
+
+- r2 answers the independent review of `796539ea` (REVISE: five blocking and nine non-blocking findings).
+- r3 answers the re-review of `6a075fc9` (ACCEPT WITH CHANGES: nine non-blocking findings, R2-1 to R2-9).
+
+Each finding's disposition is in §16. P-CONTROL's outcome, the null of §5, is the same in r2 and r3.
 
 **Preregistered outcome for P-CONTROL: the null (§5).** The census admits no candidate. The one candidate that r1
 admitted, TS (temporal subdivision), is reclassified as **mixed**. It is kept below in full specification (§6–§11) as
 the record of why the null holds and of what a test of TS would require. TS is not proposed under P-CONTROL. This file
-places it in no other workstream; that placement is for the coordinator and the owner.
+places it in no other workstream; that placement is the owner's decision.
 
 **Authority.**
 
@@ -63,9 +67,9 @@ Two sources are off main:
 
 ## 0. Summary
 
-- **Outcome.** The P-CONTROL null (§5): no principle of access or intervention in the corpus or the cited
-  literature is generative relative to the stated-intervention theory, independently motivated, and free of the
-  safeguards' objections.
+- **Outcome.** The P-CONTROL null, quoted from §5.1: "No principle of access or intervention in the corpus or the
+  cited literature is generative relative to the stated-intervention theory, expressible on a finite carrier,
+  undecided on main and independently motivated. The residual of Stage 0 row 9 stays open with no candidate."
 - **Census.** The census (§4) lists 17 candidates:
   - nine are rejected for target-adjacent, target-defined or mixed motivation;
   - seven are rejected as restrictions, as configuration-level, or as not principles of access;
@@ -156,8 +160,9 @@ vocabulary (§3.2).
     nothing about TS directly. It bears only on configuration-level models in the imitation class (§10, CI-2), where
     H-LIFT would place hidden clock cells inside the encoded carrier.
 - **C-4. Theorem U2, read within its exact hypotheses** (M2D:55; node 3 at M2D:349, statement at :404).
-  - **Statement.** Under the product frame R1^⊗n and H-LIFT, the encoded unitary channels that a fixed bijection
-    induces lie in `A_4 ≀ S_n`.
+  - **Statement.** Under Lemma F's operation set (attach cells in fixed laws, apply the rule, feedback, discard,
+    condition on configuration records), the product frame R1^⊗n and H-LIFT (M2D:49–53), the encoded unitary
+    channels that a fixed bijection induces lie in `A_4 ≀ S_n`.
   - **Owner refinement** (c.6720678942, item 2): "Theorem U2 restricts the available encoded unitaries under its
     finite-frame and operation-set assumptions. It does not exclude every finite-order non-Clifford operation in a
     different extension."
@@ -217,6 +222,20 @@ judged on its own. What it yields together with the closure, or with any other a
 consequences, never into the classification. No clause counts deriving or failing to derive `T` as a merit or a
 demerit.
 
+**Interpretation and consequence are kept apart.**
+
+- **Interpretation.** Fixing the range of the statement's own terms in the interface where it is evaluated belongs
+  to classification. For example, "operation" ranges over the interface's maps at a level, and "∘" is their
+  composition.
+- **Consequence.** Anything that uses rules (a)–(f), the base theory, the closure or a completion condition does not
+  enter the classification.
+- **The Nayak–Sen step of §7.3.** It uses the interpretation and the composition named in TS. Its CPTP hypothesis
+  comes from the definition of a TS-extension (§6.2), so "TS and TS-U coincide" is a statement about those
+  extensions.
+- **Where the classification of TS's content rests.** It rests on that statement together with §7.3's last bullet,
+  which records the non-CP case and finds it in the same class. TS's rejection does not depend on this: S3 alone
+  rejects it (§4, §7.2).
+
 - **independent.** The stated motivation and its support do not presuppose `T`, and are not designed to exclude a
   particular construction.
 - **target-adjacent.** Taken on its own, the assumption or its motivation:
@@ -240,7 +259,7 @@ demerit.
 |---|---|---|---|
 | (a) A3's locality motivation (Sub:96) | independent | pass | Relativistic causality, action by contact; no reference to `T` |
 | (b) Main:590's layer-flow executability (K-1) | target-adjacent or target-defined | pass | Its statement is the inclusion of layer flows, with no other effect: target-defined by the functional test |
-| (c) TS⁺ (§10 TT), with §7.1's motivation stated for it | target-adjacent or target-defined | pass | In the interface, a continuous one-parameter group of channels through a monomial unitary conjugation consists of unitary conjugations (§7.3). Its non-vacuous content is non-monomial unitary conjugations: target-defined by the functional test as interpreted. Under the wording-only reading of r1 it would pass on `D_A`. That reading is withdrawn |
+| (c) TS⁺ (§10 TT), with §7.1's motivation stated for it | target-adjacent or target-defined | pass | From roots to flows, in one line: if `T_t ∘ T_{1−t} = T_1 = Ad_U`, then each `T_t` has the channel inverse `T_{1−t} ∘ Ad_{U†}`. So the fact cited in §7.3 applies to each `T_t` under the same hypothesis (endomorphic CPTP maps), and each `T_t` is a unitary conjugation. Its non-vacuous content is non-monomial unitary conjugations: target-defined by the functional test as interpreted. Without the CPTP hypothesis, the non-unitary possibilities (§7.3) do not preserve diagonal states and fall in the same class. Under the wording-only reading of r1, TS⁺ would escape the functional test on `D_A`. That reading is withdrawn |
 
 ***
 
@@ -292,8 +311,9 @@ unavailable in every configuration-level theory. RPF:200 and README:1506 subdivi
 
 **Which clause did the work.** S2 removes the independent but configuration-level candidates relative to (b).
 Through C-1 it coincides with the target's necessary condition C-2. S3 removes every candidate that escapes the
-configuration level. This pattern is recorded as a finding of the census: every candidate that would add a
-non-configuration-level operation has a motivation in which the target, or its kinematics, is a component.
+configuration level. This pattern is recorded as a finding of the census, scoped to its 17 rows: every census row
+that would add a non-configuration-level operation has a motivation in which the target, or its kinematics, is a
+component. It is not a claim about principles of access in general.
 
 ***
 
@@ -323,8 +343,8 @@ considered.
    but not its state space. A classical system whose midpoint state lies outside `S` is still the same system with a
    larger state space, which is CI-1's model.
 
-None of the three supplies a reason for A-car that is independent of L-7. As the coordinator directed, option (b) is
-not stretched: option (a) is taken.
+None of the three supplies a reason for A-car that is independent of L-7. Option (a) is therefore taken: route 1
+and route 3 support the negation of A-car, and route 2 answers it negatively.
 
 ***
 
@@ -354,8 +374,15 @@ not stretched: option (a) is taken.
   - `D_Φ`: the substratum's update and its two layers, as available single-outcome operations (`obs_dynamics_avail`,
     `obs_shear_avail`, `obs_swap_avail`, SubstratumInterfaceAudit:790, :800, :806).
   - `D_A`: every single-outcome operation of the base that is conjugation by a monomial unitary.
-- **A TS-extension** of a base theory contains the base, satisfies rules (a)–(f) of `FiniteOperationalTheory`
-  (Main:564), and satisfies TS on the scope.
+- **A TS-extension** of a base theory:
+  - contains the base;
+  - satisfies rules (a)–(f) of `FiniteOperationalTheory` (Main:564);
+  - satisfies completion conditions (i) and (iii) at every level, so that its operations are completely positive and
+    trace preserving. Rules (a)–(f) alone impose no positivity. (iii) makes the spectator extension of each family
+    available, and (i) makes that extension positive;
+  - satisfies TS on the scope.
+
+  The CPTP requirement is what lets the cited fact of §7.3 apply.
 - **The clause A-car.** "Available at the same level" places `H` on the same operational carrier as `T`.
 - **The variants used as controls.**
   - **TS-U:** TS with `H` required to be a unitary conjugation.
@@ -426,10 +453,19 @@ remains a system of the same kind."
 
 This rests on standard facts, cited here and not derived. Any later use must re-establish them.
 
-- **Unitary roots.** A channel that has a channel inverse is a unitary conjugation (Nayak–Sen 2007). If `H ∘ H` is
-  the unitary conjugation `Ad_U`, then `H` has the channel inverse `H ∘ Ad_{U†}`. So every root that TS supplies on
-  `D_Φ` or `D_A` is `Ad_V` with `V²` proportional to `U`. In the interface where TS is evaluated, TS and TS-U
-  coincide.
+- **Unitary roots.**
+  - **The fact.** An endomorphic CPTP map (from a matrix algebra to itself) that has a CPTP inverse is a unitary
+    conjugation (Nayak–Sen 2007). Between different spaces the form also appends a fixed ancilla state; TS's roots
+    are endomorphic at each level.
+  - **Its use.** If `H ∘ H` is the unitary conjugation `Ad_U`, then `H` has the channel inverse `H ∘ Ad_{U†}`. In
+    finite dimension a one-sided inverse is two-sided.
+  - **Conclusion for CPTP TS-extensions.** For TS-extensions as defined in §6.2, whose operations are CPTP, every
+    root that TS supplies on `D_Φ` or `D_A` is `Ad_V` with `V²` proportional to `U`. For those extensions, TS and
+    TS-U coincide.
+  - **Without complete positivity.** For extensions satisfying only rules (a)–(f), or (i) without (iii), the cited
+    fact does not apply. An invertible positive root with positive inverse may then be composed with the transpose,
+    and such a root is not excluded. It does not preserve diagonal states either, so it falls in the functional
+    test's class (§3.2), and the classification is unchanged.
 - **The repertoire.** On `D_A` at the ancilla levels, TS's content is the availability of a unitary square root of
   every classical reversible operation, for example of NOT and of the exchange. The square root of NOT is the
   standard example of a quantum operation with no classical counterpart (Deutsch–Ekert–Lupacchini 2000). TS
@@ -471,15 +507,20 @@ three states.
   (§7.3), RT is the direction TS ⇒ (iv). RT is a property of the principle, not of its motivation, and it does not
   enter the classification of §7.
 - **F4, comparison** (recorded only, after the rest). Which of (i)–(v) the minimal TS-extensions satisfy.
-- **A-intf.** TS is satisfiable in the classical stochastic interface on the same carrier (CI-3). TS's consequence is
-  "representation-carried" if it holds in the complex interface and fails in the classical one only because the
-  classical interface lacks the roots.
+- **A-intf.** TS's consequence on a cell is **representation-carried** if:
+  - F1 holds (the base lacks a root of some `T` in the domain); and
+  - the classical stochastic interface on the same carrier (CI-3) also contains no root of that `T`.
+
+  The condition is decidable from the base and the stochastic matrices on `S`.
 
 ### 9.2 Cell outcome: a partition by precedence
 
-Each cell takes the first class whose condition is decided true, in this order. A cell where no condition is decided
-true but some question is undecided is Inconclusive. A cell where every question is decided and no earlier condition
-holds is Positive. The classes are therefore disjoint and exhaustive.
+A cell takes the class at precedence `k`, for `k` from 1 to 4, only when its condition is decided true and every
+condition at a smaller precedence number is decided false. If a condition at a smaller precedence number is
+undecided, the cell is Inconclusive, and the undecided condition is named. A cell is Positive only when every
+condition at precedence 1–4 is decided false and the Positive conditions hold. Any remaining case is Inconclusive.
+The classes are therefore disjoint and exhaustive, and no class depends on the order in which questions happen to be
+decided.
 
 | Precedence | Cell class | Condition |
 |---|---|---|
@@ -490,18 +531,34 @@ holds is Positive. The classes are therefore disjoint and exhaustive.
 | 5 | **Inconclusive** | Any of RT, F0, F1, F3, F2 or A-intf is undecided. The missing lemma is named |
 | 6 | **Positive** | All of the following: F0 and F1 hold; RT fails; F3 fails; F2's forced content contains a non-configuration-level operation; the consequence is not representation-carried; every control in §10 is green |
 
+**Attainability of Positive for TS under the frozen rules.** The Positive class is **not attainable** for TS. The
+reasoning below uses standard facts and is the re-review's reasoning, not a Stage 1B result. Any use of it must
+re-establish it.
+
+1. A stochastic matrix whose square is a permutation matrix has a nonnegative inverse. A stochastic matrix with a
+   nonnegative inverse is a permutation matrix (Minc 1988).
+2. Both bases contain every permutation at every level (`permTheory`; the monomials of `substratumClass`).
+3. So whenever F1 holds on a cell, the classical stochastic interface also lacks a root of the operation that the
+   base lacks. A-intf is then decided true.
+4. Every cell that is not Negative-RT, Negative-0 or (c)-type is therefore Weak.
+5. The highest attainable cell class is Weak, and the highest attainable aggregate is Partial. This agrees with the
+   L1 cap of §11.4 and with the null.
+
+The rules are not repaired to make Positive attainable.
+
 ### 9.3 Aggregate outcome over the four cells
 
 | Precedence | Aggregate | Condition |
 |---|---|---|
 | 1 | Negative-RT | any cell is Negative-RT |
-| 2 | (c)-type | otherwise, any cell is (c)-type |
+| 2 | (c)-type | otherwise, any cell is (c)-type, and no Inconclusive cell has RT undecided |
 | 3 | Positive | otherwise, all four cells are Positive |
-| 4 | Partial | otherwise, at least one cell is Positive or Weak |
-| 5 | Inconclusive | otherwise, at least one cell is Inconclusive |
+| 4 | Partial | otherwise, at least one cell is Positive or Weak, no cell is (c)-type, and no Inconclusive cell has RT or F3 undecided |
+| 5 | Inconclusive | otherwise, at least one cell is Inconclusive. The undecided conditions are named |
 | 6 | Negative-0 | otherwise (every cell is Negative-0) |
 
-"Positive on one scope only" is therefore Partial and never Positive.
+The aggregate applies the cell rule: it takes a class only when no cell leaves a condition of smaller precedence
+number undecided. "Positive on one scope only" is Partial and never Positive.
 
 **Mapping.**
 
@@ -521,10 +578,18 @@ holds is Positive. The classes are therefore disjoint and exhaustive.
   - A failure of OFF voids every verdict.
 - **The classical-imitation class 𝒞, fixed now.** Each membership condition below has a reason that does not depend
   on an outcome.
-  - **(a) Cardinality.** The ontic set `Ω = S × H`, with `H` finite. Reason: OI realizations are finite (A1), and the
-    imitation is meant as an OI-type realization. Continuum ψ-ontic models, whose ontic state is the quantum state,
-    are excluded. Their ontic space is the target's kinematics, so they would make the control vacuous by importing
-    `T`.
+  - **(a) Cardinality.** The ontic set is `Ω = S × H`, with `H` finite.
+    - **Reason.** OI realizations are finite (A1), and the imitation is meant as an OI-type realization. A1 is the
+      operative reason.
+    - **Scope of the exclusion.** It excludes every continuum model, not only ψ-ontic ones.
+    - **Consequence, not a second reason.** Continuum ψ-ontic models, whose ontic state is the quantum state, are
+      among those excluded. Their ontic space is the target's kinematics.
+    - **Favourable-branch disclosure (§A.31).** Together with the Main:560-type obstruction cited in CI-2, condition
+      (a) makes F3 fail by citation on any cell whose TS-extensions contain a qubit's full prepare-and-measure
+      fragment. That is plausibly every cell with base (b), whose arbitrary phases become visible once a root creates
+      coherence. The finiteness choice therefore decides the imitation control in TS's favour on those cells, by
+      citation and not by a model search. The reason (A1) does not depend on the outcome, but the effect favours TS.
+      It has no operative effect, because the criteria are inactive and such cells fall in Weak (§9.2).
   - **(b) Readout.** A readout may update or refill hidden data. Reason: M-INACC (C-5) shows registration and refill
     to be physical in OI realizations, and Main §3.4's constructions use them.
   - **(c) Preparation independence.** The hidden law at preparation is fixed per preparation and is independent of
@@ -534,16 +599,21 @@ holds is Positive. The classes are therefore disjoint and exhaustive.
     to that region. Reason: K-7, kept in the TS record.
   - **(e) Identification.** The visible projection `π: Ω → S` is the identity on `S`. The model reproduces the
     statistics of rule (e) readouts on `S` and on the ancilla levels.
-- **"Reproduces exactly."** For every finite adaptive sequence of the following, the outcome distribution equals
-  that of the TS-extension:
+- **"Reproduces exactly."** For every admissible initial state of the system, and every finite adaptive sequence of
+  the following, the outcome distribution equals that of the TS-extension:
+  - **initial states of `S`:** every diagonal state on `S`, that is, every probability distribution over
+    configurations. Configurations are what OI prepares natively. The model's hidden law at the initial state is
+    fixed per initial state under (c);
   - preparations from rule (d) and the base;
   - available operations, TS roots included;
   - rule (e) readouts.
 
   The fragment is the whole operational theory restricted to these preparations and readouts.
 - **CI-1.** The hidden-intermediate (clock) model in 𝒞: each half-step is a permutation of `Ω` through intermediate
-  hidden configurations, with refill at readout allowed under (b). A finite example on `Fin 2` was recorded in the
-  review (reviewer's reasoning). Whether it reproduces a TS-extension exactly is F3.
+  hidden configurations, with refill at readout allowed under (b).
+  - **Example on `Fin 2`** (elementary, not a result). Take `Ω = S × {0,1}` and the 4-cycle on `Ω` whose square is
+    `X ⊗ 1`, where `X` exchanges the two states of `S`. The hidden bit is re-randomized at each readout of `S`.
+  - Whether a model of this kind reproduces a TS-extension exactly is F3.
 - **CI-2, Theorem NC.** Applied only to models in 𝒞 that meet NC's full hypothesis list (C-3). Under H-LIFT, the clock
   cells become part of the encoded carrier. NC does not bound 𝒞 on TS directly (C-3). Main:560 bounds 𝒞: a model in
   𝒞 cannot reproduce a qubit's full prepare-and-measure theory, so a TS-extension that contains such a fragment has
@@ -651,7 +721,7 @@ The P-CONTROL outcome reported is the null of §5.1, with §4, §5.2 and §7 as 
 
 | Invariant | Checkpoint |
 |---|---|
-| r2 adds one commit changing only this file | CK-1: `git show --stat` |
+| Each revision adds one commit changing only this file | CK-1: `git show --stat` |
 | Pins and identifiers resolve | CK-2: `git cat-file -e 9c201475`; each cited Lean identifier found by `grep` at the pin |
 | `readWriteSourced_*` is never support | CK-3: `grep readWriteSourced` hits only C-8, K-13 and this row, each stating that it is not used as support |
 | No odd `q` | CK-4: `q` is 2, or 4 in R-4 |
@@ -673,6 +743,7 @@ The P-CONTROL outcome reported is the null of §5.1, with §4, §5.2 and §7 as 
 | #1198, MI at `4ac0a7e6` / `f649b347` | One membership condition of 𝒞 ((b), refill allowed) | A constraint that widens 𝒞. No claim of this file rests on MI's result |
 | PR #1202, `25384b13`, Q3-C2 | §3.2 | Provenance. The standard is restated in full |
 | Review of `796539ea` (coordinator scratchpad, PR #1203) | The r2 changes (§16) | Provenance. Each change is justified in this file |
+| Re-review of `6a075fc9` (coordinator scratchpad, PR #1203) | The r3 changes (§16); the attainability reasoning of §9.2, labelled as the re-review's | Provenance. The reasoning is restated in full in §9.2, with its standard facts cited |
 | #1188 | C-8 | Provenance (Issue) |
 | #866 | Accountable area | Provenance (Issue) |
 | Literature | §4, §5.2, §7.3 | External sources. Facts used are cited, not derived |
@@ -692,7 +763,9 @@ The P-CONTROL outcome reported is the null of §5.1, with §4, §5.2 and §7 as 
 
 ***
 
-## 16. Dispositions of the review of `796539ea`
+## 16. Dispositions of the reviews
+
+### Dispositions of the review of `796539ea`
 
 | Finding | Disposition | Where |
 |---|---|---|
@@ -710,6 +783,24 @@ The P-CONTROL outcome reported is the null of §5.1, with §4, §5.2 and §7 as 
 | N7 | Accepted. The native `driveQ` path is cited | C-7 |
 | N8 | Accepted. Ledger row L-9 is added and K-8's disposition corrected | §4, §6.4 |
 | N9 | Accepted. CK-3 names its expected hits (C-8, K-13 and the CK-3 row). MI is reclassified as a constraint on 𝒞 | §13, §14 |
+
+### Dispositions of the re-review of `6a075fc9`
+
+| Finding | Disposition | Where |
+|---|---|---|
+| R2-1 | Accepted. The cited fact is stated for endomorphic CPTP maps. TS-extensions are required to satisfy (i) and (iii), which makes them CPTP. "TS and TS-U coincide" is restricted to those extensions. Without complete positivity a transpose-composed root is not excluded, but it still fails the functional test | §6.2, §7.3 |
+| R2-2 | Accepted. The one-line extension from roots to flows is added. "Would pass" is replaced by "would escape the functional test" | §3.2 C-CAL (c) |
+| R2-3 | Accepted. A paragraph now separates interpretation (the range of the statement's own terms) from consequences (anything that uses (a)–(f), the base, the closure or a completion condition) | §3.2 |
+| R2-4 | Accepted. A1 is stated as the operative reason for 𝒞 (a), excluding every continuum model. The ψ-ontic sentence is recorded as a consequence. The favourable branch (F3 fails by citation via Main:560) is disclosed under §A.31 | §10 𝒞 (a) |
+| R2-5 | Accepted. The initial states are every diagonal state on `S` | §10, "Reproduces exactly" |
+| R2-6 | Accepted. A class is assigned only when every condition of smaller precedence number is decided false; otherwise the cell is Inconclusive with the condition named. The aggregate applies the same rule | §9.2, §9.3 |
+| R2-7 | Accepted, first option. Positive is recorded as not attainable for TS under the frozen rules, with the reasoning labelled as the re-review's and its standard facts cited. "Only because" is removed, and A-intf is now a decidable condition. Not repaired | §9.1 A-intf, §9.2 |
+| R2-8 | Accepted. Lemma F's operation set is added to U2's statement | C-4 |
+| R2-9 (a) | Accepted. The census finding is scoped to its 17 rows | §4 |
+| R2-9 (b) | Accepted. Placement is stated as the owner's decision | Standing |
+| R2-9 (c) | Accepted. The choice of option (a) rests on routes 1–3 | §5.2 |
+| R2-9 (d) | Accepted. The CI-1 example is restated inline, and the pointer to off-main content is dropped | §10 CI-1 |
+| R2-9 (e) | Accepted. §0 quotes §5.1's frozen wording | §0 |
 
 ***
 
@@ -733,6 +824,7 @@ The P-CONTROL outcome reported is the null of §5.1, with §4, §5.2 and §7 as 
   063001.
 - Masanes, Ll., Oppenheim, J. (2017). A general derivation and quantification of the third law of thermodynamics.
   *Nat. Commun.* 8, 14538.
+- Minc, H. (1988). *Nonnegative Matrices*. Wiley.
 - Nayak, A., Sen, P. (2007). Invertible quantum operations and perfect encryption of quantum states. *Quantum Inf.
   Comput.* 7, 103.
 - Pearl, J. (2009). *Causality*, 2nd ed. Cambridge University Press.
