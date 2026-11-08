@@ -1,0 +1,50 @@
+{
+  "schema": "k1p1-draft-patch-package",
+  "version": 1,
+  "status": "PROVISIONAL_AGAINST_UNREVISED_DRAFTS",
+  "authority": "https://github.com/amaybaum/incompleteness/issues/1031#issuecomment-6719802814",
+  "round_control_plane": "d92e0882e7609e91e3458193391e89610fffa777",
+  "final_freeze_pins": false,
+  "candidate_code_executed": false,
+  "entries": [
+    {
+      "id": "MU-C1",
+      "source_commit": "caea695c875179fb9b310739c4aa2a9196332fe4",
+      "target": "verification/lean/k1p1_enum_a.py",
+      "source_blob": "7cf3579a532de051cc35c1202666f443a04df804",
+      "source_sha256": "9d4eb0a778333a6606ab507bacd026e56e054ec03cfe38288cf2d22c5c080825",
+      "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C1.patch",
+      "patch_sha256": "9d9de8932045efe18243ec3d2498a16e355407a96066250be045562b565f0bc5",
+      "patched_sha256": "33c91c9bc287f874ca757f0f953d838f61b2676a14f8565d2f708ed0ce51df42",
+      "old_text": "T = 1\n",
+      "new_text": "T = 2\n",
+      "purpose": "Replace the instance time-window constant only; PR-E kill is untested."
+    },
+    {
+      "id": "MU-C2",
+      "source_commit": "e32fe4eea312b1a468ea19ed1f1559d768c5dbda",
+      "target": "verification/lean/k1p1_enum_b.py",
+      "source_blob": "cc5d1d8f2caeaabd1b83d919f3af79d896de129d",
+      "source_sha256": "1adc93d872cc7a788555c6226fa8644dc7f132a2fab56aa54a391065f09f2440",
+      "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C2.patch",
+      "patch_sha256": "71eff6f5ca72d6f6a0ce72e24b6cc204846bfe8a216dfe91d47ce2c0a5970fb1",
+      "patched_sha256": "353fca60ce531d10844f95aafb1a89907355b67a043ffccdd05f834f933d539b",
+      "old_text": "    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)\n",
+      "new_text": "    minv = f2_matrix(phi_inverse_coefficients(N), nc, Q)\n    minv[0] ^= cell_mask(nc, 0)\n",
+      "purpose": "Flip one bit in inverse-matrix row 0, column 0 inside build_instance; CC-BIJ kill is untested."
+    },
+    {
+      "id": "MU-C3",
+      "source_commit": "caea695c875179fb9b310739c4aa2a9196332fe4",
+      "target": "verification/lean/k1p1_enum_a.py",
+      "source_blob": "7cf3579a532de051cc35c1202666f443a04df804",
+      "source_sha256": "9d4eb0a778333a6606ab507bacd026e56e054ec03cfe38288cf2d22c5c080825",
+      "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C3.patch",
+      "patch_sha256": "2615f51d4673b2ae32ffeef219d488abd5689a16326d735a007f12d095733501",
+      "patched_sha256": "fd68e14b6d220aa2ff2849dfb8fe07f2288804bfb5d5fa62eb5cafd5a95971d1",
+      "old_text": "    return Fraction(num, den)\n",
+      "new_text": "    return num / den\n",
+      "purpose": "Replace the single ratio helper return by floating division; exactness exits and MU-C3-prime are untested."
+    }
+  ]
+}

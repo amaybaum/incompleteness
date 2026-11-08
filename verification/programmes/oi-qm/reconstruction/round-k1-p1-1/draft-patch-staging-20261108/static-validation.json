@@ -1,0 +1,58 @@
+{
+  "schema": "k1p1-draft-patch-static-validation",
+  "version": 1,
+  "status": "STATIC_PASS",
+  "final_freeze_pins": false,
+  "candidate_code_executed": false,
+  "mutation_kills_tested": false,
+  "entries": [
+    {
+      "id": "MU-C1",
+      "exact_application": true,
+      "intended_edit_only": true,
+      "syntax": true,
+      "malformed_patch_controls_rejected": [
+        "wrong_target",
+        "old_offset",
+        "new_offset",
+        "count_mismatch",
+        "truncated",
+        "extra_header",
+        "changed_context",
+        "missing_final_lf"
+      ]
+    },
+    {
+      "id": "MU-C2",
+      "exact_application": true,
+      "intended_edit_only": true,
+      "syntax": true,
+      "malformed_patch_controls_rejected": [
+        "wrong_target",
+        "old_offset",
+        "new_offset",
+        "count_mismatch",
+        "truncated",
+        "extra_header",
+        "changed_context",
+        "missing_final_lf"
+      ]
+    },
+    {
+      "id": "MU-C3",
+      "exact_application": true,
+      "intended_edit_only": true,
+      "syntax": true,
+      "malformed_patch_controls_rejected": [
+        "wrong_target",
+        "old_offset",
+        "new_offset",
+        "count_mismatch",
+        "truncated",
+        "extra_header",
+        "changed_context",
+        "missing_final_lf"
+      ]
+    }
+  ]
+}

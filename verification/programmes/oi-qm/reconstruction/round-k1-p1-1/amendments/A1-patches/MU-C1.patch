@@ -1,0 +1,11 @@
+--- a/verification/lean/k1p1_enum_a.py
++++ b/verification/lean/k1p1_enum_a.py
+@@ -83,7 +83,7 @@
+ N = 5
+ Q = 2
+ A_COUP = 1
+-T = 1
++T = 2
+ SIGMA_CELLS = ("x_0", "y_0")
+ V_CELL = "y_1"
+ BRANCHES = ("B-pl", "B-eq", "B-ct")
