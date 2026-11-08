@@ -70,8 +70,8 @@ A result of this document fails if it contradicts any of the following.
 | # | Control | Support |
 |---|---|---|
 | C1 | Base-point-independent first differences imply an affine rule (the affine lemma). | [P] Substratum:274, SM:240 |
-| C2 | S1 is reversible, commutes with translations, is center-free and affine, has no fixed point, and no time-independent relabelling makes it linear. | [P] SM:240; #1050's exact-head review (all 5^8 states) |
-| C3 | Positive control: when q ∣ N, fixed points exist. | [P] #1050 review record |
+| C2 | S1 is reversible, commutes with translations, is center-free and affine, has no fixed point, and no time-independent relabelling makes it linear. | [P] SM:240. #1050's exact-head review (all 5^8 states) is provenance. |
+| C3 | Positive control: for a uniform offset on a ring of N sites with A − 2I = Δ (κ = 2, as for S1), a fixed point exists for every odd prime q ∣ N. | [D] B0.3(e) |
 | C4 | The finite-horizon quantum representation and the characterization theorem do not use A5. | [P] Main:728 status ledger; H-D `A5S-1b` (no OI→QM kernel module consumes A5) |
 | C5 | `driveQ` is a continuous path of `*`-automorphisms for every `Rule`, with no additivity assumed. | [K] `OIBridge/SecondOrderDrive.lean`, `driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`; `Rule` at `SecondOrderLayer.lean:198` |
 | C6 | Additive rules fix 0 and leave their ensemble undetermined. Additive rules admit no advective closure on additive coarse variables. | [K] `StochasticInterface.phi_fixes_zero`, `stochastic_interface_gap`; `HydroSourceAudit.coarseCloses_nsmul` |
@@ -123,7 +123,7 @@ offsets, which are flagged where they matter.
 |---|---|---|---|---|
 | D1 | SM:224 Lemma; Substratum:159 Stage 2(b) | the form α Σ_{j∼i} x_j | The same proof without the additivity step gives α Σ x_j + b. Form plus one constant. | [P] proof text; [D] |
 | D2 | SM:230–232, dispersion and lift | the linear part only | The linear part is unchanged. The offset sources only the uniform sector C: on G/C both rules induce the same map. In the lift, or with gcd(N, q) = 1, this is the k = 0 mode (Proposition 2.5). | [D] |
-| D3 | Substratum:163 Stage 2(d); SM:344, §4.6 | amplitude-scale gauge (common phase); the stabilizer is computed for the linear part | **Candidate hidden use of b = 0** (see the paragraph after this table). For a uniform, cubic-invariant b ≠ 0 on the lift, the stabilizer of the affine rule is U(3)×U(2), and the singlet U(1) is lost. Open (Q4). | [P] text; [D] reviewer finding, checked by reading |
+| D3 | Substratum:163 Stage 2(d); SM:344, §4.6 | amplitude-scale gauge (common phase); the stabilizer is computed for the linear part | **Candidate hidden use of b = 0** (see the paragraph after this table). For a uniform, cubic-invariant b ≠ 0 on the lift, the stabilizer of the affine rule among constant linear unitaries (the (A-lin) reading of `A5-Q4-STAGE2D.md`) is U(3)×U(2), and the singlet U(1) is lost. Open (Q4). | [P] text; [D] reviewer finding, checked by reading |
 | D4 | SM:811, §6 map | exponential of **link differences** φ(n+ê) − φ(n) | A uniform offset cancels from differences, so the map is offset-blind. | [P] text; [D] |
 | D5 | SM:811, energy-shell measure; Main:726 (v) | quadratic invariant Q of the linear rule | Q is not conserved. Q′ = Q − b(S_t + S_{t−1}) is conserved, where S = Σ_i x_i (Proposition B3.3). The shell measures differ. | [D] |
 | D6 | Main:726 (v), cycle splitting | linear rule | #cycles(Φ) ≥ #cycles(L)/\|W\| (Proposition B3.2). Exponential counts transfer. The shell-specific statement is not transferred. | [D] |
@@ -599,8 +599,9 @@ degree ≤ 1 in n. The quadratic advective scaling is still excluded, on the sam
   Under 𝒜_abs it does, exactly on the resonant locus of R3.
   - *Owner decision [O]:* "Preserve Main's currently specified absolute interface as the formal
     baseline. The shift-invariant interface is a legitimate conditional alternative, not yet a
-    derived description of all OI observers." Quoted from #1049 comment 6624263637, by amaybaum, posted
-    2026-11-04T06:28:45Z, which records the owner's chat decisions of 2026-11-04.
+    derived description of all OI observers." Quoted from #1049 comment 6624263637, posted from the
+    owner's account (amaybaum) on 2026-11-04T06:28:45Z, which records the owner's chat decisions of
+    2026-11-04.
 - **Q2 (decided by the owner).** Is the amplitude-scale gauge a relabelling (conjugation of the
   description) or a dynamical symmetry? The relabelling reading leaves b ≠ 0 rules admissible. The
   symmetry reading (N8) gives b = 0 for odd q, but not at any even q.
@@ -612,7 +613,8 @@ degree ≤ 1 in n. The quadratic advective scaling is still excluded, on the sam
   `linkF` is cited.
 - **Q4 (open).** At Stage 2(d) (Substratum:163; SM:344), is the stabilizer taken of the linear part
   or of the affine rule? For a uniform, cubic-invariant b ≠ 0 on the lift, the affine rule's
-  stabilizer is U(3)×U(2), and the singlet U(1) is lost (D3, R10). This needs a referee reading.
+  stabilizer among constant linear unitaries ((A-lin) in `A5-Q4-STAGE2D.md`) is U(3)×U(2), and the
+  singlet U(1) is lost (D3, R10). This needs a referee reading.
 - **Q5.** Provenance: #1049 attributes the witness to S1 (#1043). The manuscript text with the
   inline witness entered SM:240 through H2 (#1050, merge `981a5460`). S1 set the A5-scope wording
   and cited the counterexample in its record. This matters only for citation.

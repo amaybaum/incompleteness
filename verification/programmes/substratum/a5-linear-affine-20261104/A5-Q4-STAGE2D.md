@@ -9,7 +9,10 @@ Nothing here is adopted, promoted or propagated.
 B1–B3, S1–S6 and the nits. Points of partial disagreement are in §8. Revised again after the delta
 review of `c155200d` (ACCEPT WITH CHANGES; D1, F1–F6, nits). §1 is restored verbatim from `8de75f7c`.
 Its post-result amendment, and the key from §1's notation (b, H, K, (A)) to the notation below, are
-in §8.2.
+in §8.2. Revised again after the second delta review of `a63b7fda` (ACCEPT WITH CHANGES; G1, H1–H3),
+the third delta review of `645bae17` (ACCEPT; three nits) and the fresh review of `22ad8d69` (ACCEPT
+WITH CHANGES; §8.6). The review texts of `8de75f7c`, `c155200d`, `a63b7fda` and `645bae17` are posted
+on #1083 comment 6718263472.
 
 **Base.** `origin/main` at `1609dc440f5a12d05b750f6d894bb91d09a099a3`. `File:N` means `papers/File.md`
 line N at that commit. The parent assessment is `A5-LINEAR-AFFINE.md` at `f07f55d0` (D3, D16, R10,
@@ -42,7 +45,7 @@ from memory · [O] owner decision.
 
 **Resonance.** On the lift, with the normalized rule φ(t+1) = (1/d)M Σ_nn φ − φ(t−1) (SM:314), the
 uniform mode of block a obeys g(t+1) = 2μ_a g(t) − g(t−1) + v_a. So κ_a = 2μ_a. Block a is
-**resonant** iff μ_a = 1. By SM:320–321 (Theorem 4) that is exactly when the block is massless at
+**resonant** iff μ_a = 1. By SM:318–322 (Theorem 4) that is exactly when the block is massless at
 k = 0.
 
 **Charge coefficients.** SM:577 writes Q = αB + βL + γS. Here those coefficients are a_B, a_L, a_S,
@@ -280,7 +283,7 @@ symmetry, so G_v is already the reduced group.
 **N6. Residues (each under (A-lin), or under (A-aff) at resonance) [D].**
 - *(a) Cross modes.* At SM:493's symmetric point the offset explicitly breaks 11 = 36 − 25 generators:
   the 10 real cross generators of Hom(V_1, V_3⊕V_2) ⊕ h.c. and the A₁ phase. Σ does not break them
-  spontaneously. Only the account of 10 of the 22 cross modes changes, not the group.
+  spontaneously. Besides the A₁ phase (N1), only the account of 10 of the 22 cross modes changes.
   - At the normalized scalar branch (μ = 1) the rule is resonant, so this residue stands there under
     both offset readings.
 - *(b) Proposition 4b survives.* With v ∝ (1,…,1) the six components are identical independent
@@ -335,26 +338,33 @@ additive links and does not decide this.
 | Q4-2 | The offset stabilizer's linear parts are G_v = U(3)×U(2)×{1} under (A-lin), or under (A-aff) at μ_{A₁} = 1, where the affine stabilizer is G_v ⋉ T_0. Under (A-aff) off resonance the linear parts are G_0 (the conjugate τ_pG_0τ_{−p}, plus translations in any resonant block) | holds | H-b; lift; uniform offset | [D] N1 | which reading or resonance case is physical |
 | Q4-3 | G_v ≅ G_0/U(1)_diag; G_v/(G_v∩𝒦) ≅ G_0/𝒦 ≅ S(U(3)×U(2)); Proposition 15a's representations pull back through F\|_{G_v} | holds | as Q4-2 | [D] N2 | a constructed charged action under either reading |
 | Q4-4 | Hypercharge lifts in G_v form a coset of G_v∩𝒦, e.g. (I_3, zI_2, 1) or (z⁻²I_3, z⁻³I_2, 1). Their Hom-type charge family equals that of (L). Theorem 15's hypercharges are unchanged | holds | as Q4-2 | [D] N2(c), N3; [P] SM:589–597 | a Hom-type home for the full family. [D] hand count, under both readings: e_R has no home for any lift; no single lift houses both u_R and d_R; u_R is absent at s = 1. Also not established: family selection |
-| Q4-5 | The unitary part of the symmetry algebra, Lie(G_v), has dimension 13, equal to Lie(G_0)/u(1)_diag | holds | (A-lin), or (A-aff) at resonance | [D] N5 | — |
-| Q4-6 | Residues: N6a (10 cross modes), N4a (V_K action), N6c (wording; SM:577 and :587 counts) | holds | as Q4-5 | [D] | an observable consequence |
+| Q4-5 | The unitary part of the symmetry algebra, Lie(G_v), has dimension 13, equal to Lie(G_0)/u(1)_diag | holds | as Q4-2; (A-lin), or (A-aff) at μ_{A₁} = 1 | [D] N5 | — |
+| Q4-6 | Residues: N6a (10 cross modes), N4a (V_K action), N6c (wording; SM:577 and :587 counts) | holds | as Q4-2; (A-lin), or (A-aff) at μ_{A₁} = 1 | [D] | an observable consequence |
 | Q4-7 | H-b is load-bearing: a T₁ offset loses SU(3) | holds | (A-lin); or (A-aff) with μ_{T₁} = 1 | [D] N4b | that the corpus excludes such offsets |
 | Q4-8 | O5 (A6 promotion) | not examined | — | — | anything about O5 |
 
-**Outcome under §1's rule as frozen at `8de75f7c`.** Read with the §8.2 key, so that (A) is the
-stabilizer of the affine rule and H = G_v.
+**Controls and countercontrols of §1.** On a hand check by the review of `22ad8d69` (§8.6):
+(C-a) is met, since at v = 0, G_v = G_0 (N1); under (A-aff) this concerns the linear parts, since at
+v = 0 the affine group also contains T_0. (C-b) is met: N0 and N1 use Theorem 7's decomposition
+unchanged. (C-c) is met (N3, last bullet; Q4-4). The countercontrols are N4a, a carrier (V_K) on
+which the readings differ, and N4b, an offset in T₁, which loses SU(3).
+
+**Outcome under §1's rule as frozen at `8de75f7c`, with the O1–O4 scope of amendment A5 (§8.2).**
+Read with the §8.2 key, so that (A) is the stabilizer of the affine rule and H = G_v.
 - **(i) is not reached.**
   - O5 is not examined (Q4-8).
   - The carrier clause fails. Under (A) with linear stabilizer elements, which are the elements of
     Stage 2(d)'s U(K), and under affine elements at resonance, the action on V_K differs (N4a). The
     corpus uses V_K for the Higgs.
-- **(ii) is not reached.** No output among O1–O4 fails or changes (Q4-3, Q4-4).
+- **(ii) is not reached for O1–O4.** No output among O1–O4 fails or changes (Q4-3, Q4-4). O5 is not
+  examined.
 - **(iii) is reached for O1–O4.** They agree only given a choice the corpus does not state, and that
   choice is one of the rule's listed examples:
   - a carrier choice (the Hom-type carriers), or
-  - reading the "singlet-block" identification modulo a subgroup (U(1)_diag or K).
+  - reading the "singlet-block" identification modulo a subgroup (U(1)_diag or 𝒦).
 
 - **What the (iii) verdict rests on.** It rests on the (A-lin) branch, whose elements are Stage
-  2(d)'s U(K).
+  2(d)'s U(K), and it holds given H-b, on the lift, for a uniform offset v ≠ 0.
 - **Caveat, the (A-aff) off-resonance branch.** That branch reaches full agreement on O1–O4, carrier
   clause included, by admitting affine internal maps, that is, uniform shifts.
   - Stage 2(d) does not state this. SM:96 and Substratum:270 do declare shifts gauge.
@@ -371,9 +381,11 @@ stabilizer of the affine rule and H = G_v.
 
 ## §5 Consequences (proposals only)
 
-- **Parent D16 and R10.** Restate R10 as follows: "U(1)_S is lost under (A-lin), or at A₁ resonance.
-  G_v reproduces O1–O4 at group level (Q4-3, Q4-4). Carrier-level agreement is conditional (iii).
-  O5 is open." Restate D16 to match. A5's status is unchanged, per the owner [O].
+- **Parent D16 and R10.** Restate R10 as follows: "Given H-b, on the lift, for a uniform offset
+  v ≠ 0: the linear parts of the offset stabilizer lose U(1)_S under (A-lin), and under (A-aff) at
+  μ_{A₁} = 1. G_v reproduces O1–O4 at group level (Q4-3, Q4-4). Carrier-level agreement is
+  conditional (iii). O5 is open." Restate D16 to match. A5's status is unchanged, per the owner [O]:
+  "Retain linearity as a posit" (#1049 comment 6624263637).
 - **Parent D3(iii).** Name the route. On the Σ-route the linear part's stabilizer is U(6), and the
   offset's is U(5)×1. Add the resonance condition.
 - **#914 / the SM thread.**
@@ -430,6 +442,9 @@ The review texts are posted on #1083 comment 6718263472.
 §1 above is the rule as frozen at `8de75f7c`. It is restored verbatim. Revision `c155200d` had edited
 it in place without disclosure, and that edit is withdrawn here (delta review D1, §A.29). The
 amendments below are a reading written after the results were known. They do not replace §1.
+§1 and §§3–4 entered the history together, in `8de75f7c`, the commit that added the whole file. The
+precedence in §1's heading ("fixed before §3") is the author's statement, not a property of the
+history.
 
 **Notation key.** §1's terms correspond to this note's later notation as follows:
 - b is v, and "the b = 0 results" are the v = 0 results;
@@ -494,3 +509,19 @@ Verdict ACCEPT, with three nits, applied:
   translations in resonant blocks.
 - T_0's uniform static solutions are the sum over the resonant blocks, not their union.
 - The N3 [D] lead-in restricts (c) to the lift s = 1.
+
+### 8.6 Fresh independent review of `22ad8d69`
+
+Verdict ACCEPT WITH CHANGES (0 blocking, 6 should-fix, 7 nits). Applied:
+- **SF1:** the Q4-5 and Q4-6 hypotheses carry those of Q4-2 (H-b, lift, uniform offset).
+- **SF2:** §4 states (ii) for O1–O4 only, discloses amendment A5 in the outcome heading, and carries
+  H-b, the lift and the uniform offset into the (iii) verdict.
+- **SF3:** §4 reports (C-a)–(C-c) and the countercontrols N4a and N4b as the review checked them.
+- **SF4:** the §5 R10 text carries H-b, the lift and the uniform offset, and states the (A-aff) case
+  as μ_{A₁} = 1. The parent's D3 row and §6 Q4 scope U(3)×U(2) to constant linear unitaries.
+- **SF5:** the parent's C3 rests on B0.3(e) and is narrowed to its scope; C2 rests on SM:240, with
+  #1050's exhaustive review as provenance.
+- **SF6:** §8.2 states that §1 and §§3–4 entered together at `8de75f7c`.
+- **Nits 1–5:** SM:318–322 for Theorem 4; the §5 owner citation; 𝒦 in §4; the N6(a) account of the
+  A₁ phase; the Revision paragraph. Nit 7: the parent's Q1/Q2 source names the owner's account.
+  Nit 6 is not applied: §8.4 is a response record, and N1 carries the sum.
