@@ -18,7 +18,7 @@ that algebra; they are not evidence and carry no verdict.
 `b1d782f954f02cec578a10e071b73e48f86eb3dd` (cited as `main@b1d782f9`), which
 contains the #1173 papers and the apparatus-1 record of #1183.
 
-**Forward proof recovery (root, 7 November 2026; review pending).**
+**Forward proof recovery (root, 7 November 2026; independently model-reviewed: ACCEPT at `1f992246` (#1189 c.6713700281) and delta ACCEPT at `8ca8ce30`, the reviewed content (#1189 c.6713781034)).**
 The original author/history above is preserved. The bounded written arguments
 are completed in [PROOF-RECOVERY.md](PROOF-RECOVERY.md); this does not supply
 the physical access posits or settle bare adaptive S.
