@@ -23,24 +23,24 @@ Exactness (section 7): int and fractions.Fraction only.  Every exact quotient
 goes through ratio(); a non-Fraction quotient reaching serialization or the
 bound computation exits with status 3.
 
-Exit status (section 10.1): 0 files written; 2 refusal (a stage precondition,
-or CT-INC); 3 exactness guard; 4 a case the preregistration leaves
-undetermined (OPEN QUESTIONS below; a failure status); any other nonzero
-status is a failure.  Nothing is written on a nonzero exit.
+Continuation, 2026-11-08: independent Codex agent k1p1_impl_a_revision,
+writer-k1p1-impl-a under the root coordinator; not the original Claude session.
+Common inputs: AGENTS.md, the original draft above, preregistration and all A1
+files at d92e0882e7609e91e3458193391e89610fffa777, K at the pin above,
+and the coordinator's common/role briefs. A1 is a disclosed behavior-only
+cross-writer channel. No B/controls code, output or checkpoint was read.
+Shared dependencies: those common specifications and Python 3.11 stdlib;
+no shared implementation, formatter or library. WIP / UNVERIFIED, pre-F.
 
-OPEN QUESTIONS (not resolved here; each such case exits 4 naming its id)
-- OQ-A1: the G7 entry of a row that passes G5 while its G6 is "pending"
-  (stage rows): "pending" or "not-reached".
-- OQ-A2: the G7 entry of a row whose G6 issues UNDECIDED(G6) (stage final).
-- OQ-A3: union_clause_reached for a branch whose class token is "pending".
-- OQ-A4: the class_tokens entry of a branch that reaches the union clause
-  ("no class token").
-- OQ-A5: what is written at stages rows and final when a computed S0 control
-  outcome is "fail" (VOID[stage]: "no row or class token is issued").
+Exit statuses (A1 section 4): 0 files written; 2 refusal; 3 exactness guard;
+1 other failure. Nothing is written on a nonzero exit.
 
-Usage, from the repository root (section 10.1):
+Usage (the instance route requires separate scientific authorization):
   python3 -I verification/lean/k1p1_enum_a.py --stage {members|rows|final}
       --record <rec> --out <out> [--members-sha256 <hex>]
+  python3 -I verification/lean/k1p1_enum_a.py --fixture <id>
+      --input <file> --out <out>
+
 """
 
 import hashlib
@@ -63,16 +63,8 @@ class InexactValue(Exception):
     """Exit 3: the exactness guard of section 7."""
 
 
-class Undetermined(Exception):
-    """Exit 4: a case the preregistration leaves undetermined."""
-
-
 class Failure(Exception):
     """Exit 1: an internal check of stage M fails."""
-
-
-def undetermined(qid, text):
-    raise Undetermined(qid + ": " + text)
 
 
 # ---------------------------------------------------------------------------
@@ -141,32 +133,58 @@ def is_previous_slice(name):
     return name.startswith("x_")
 
 
-def all_states(n, q):
-    """All states as tuples of cells, in A2's lexicographic order."""
-    return [tuple(s) for s in itertools.product(range(q), repeat=2 * n)]
+def state_space(width, q):
+    """All tuples of cells, in the declared lexicographic order (M1)."""
+    return [tuple(s) for s in itertools.product(range(q), repeat=width)]
 
 
-def phi(s, n, q):
-    """phi(x, y) = (y, Ay - x), (Ay)_i = y_{i-1} + y_{i+1}."""
-    x, y = s[:n], s[n:]
-    new_y = tuple((y[(i - 1) % n] + y[(i + 1) % n] - x[i]) % q for i in range(n))
-    return tuple(y) + new_y
+class CellMap:
+    """A cell-by-cell map: each output cell is an explicit linear form.
+
+    A form is the tuple of its coefficients in the declared cell order.
+    Applying it uses cell sums; symbolic propagation substitutes forms into
+    forms, preserving A's method on both admitted routes.
+    """
+
+    def __init__(self, cells, q, forward, backward):
+        self.cells = list(cells)
+        self.q = q
+        self.forward = tuple(forward)
+        self.backward = tuple(backward)
+
+    def apply(self, state, inverse=False):
+        rules = self.backward if inverse else self.forward
+        return tuple(sum(c * state[j] for j, c in enumerate(form)) % self.q
+                     for form in rules)
+
+    def evolve(self, state, ticks):
+        for _ in range(abs(ticks)):
+            state = self.apply(state, inverse=ticks < 0)
+        return state
+
+    def propagate(self, forms):
+        width = len(self.cells)
+        return tuple(tuple(sum(coef * forms[j][k] for j, coef in enumerate(rule)) % self.q
+                           for k in range(width)) for rule in self.forward)
 
 
-def phi_inv(s, n, q):
-    """phi^-1(x, y) = (Ax - y, x)."""
-    x, y = s[:n], s[n:]
-    new_x = tuple((x[(i - 1) % n] + x[(i + 1) % n] - y[i]) % q for i in range(n))
-    return new_x + tuple(x)
+def instance_map(n, q):
+    """Build K's coordinate formulas as cell forms, only on the instance path.
 
-
-def evolve(s, k, n, q):
-    """phi^k(s) for an integer k."""
-    for _ in range(max(0, k)):
-        s = phi(s, n, q)
-    for _ in range(max(0, -k)):
-        s = phi_inv(s, n, q)
-    return s
+    phi(x,y)=(y,Ay-x); phi^-1(x,y)=(Ax-y,x), with periodic neighbours.
+    Multiple occurrences are added mod q, also when neighbour sites coincide.
+    """
+    width = 2 * n
+    identity = [tuple(int(i == j) for j in range(width)) for i in range(width)]
+    forward, backward = list(identity[n:]), []
+    for i in range(n):
+        forward.append(tuple((int(j == n + (i - 1) % n)
+                              + int(j == n + (i + 1) % n) - int(j == i)) % q
+                             for j in range(width)))
+        backward.append(tuple((int(j == (i - 1) % n) + int(j == (i + 1) % n)
+                               - int(j == n + i)) % q for j in range(width)))
+    backward.extend(identity[:n])
+    return CellMap(cell_names(n), q, forward, backward)
 
 
 def restrict(s, idx):
@@ -186,43 +204,25 @@ def values_of(idx, q):
 # R0: E by symbolic linear forms propagated through phi (method A)
 # ---------------------------------------------------------------------------
 
-def form_add(f, g, q):
-    return tuple((a + b) % q for a, b in zip(f, g))
-
-
-def form_neg(f, q):
-    return tuple((-a) % q for a in f)
-
-
-def phi_forms(forms, n, q):
-    """phi applied to a state whose cells are linear forms in s(t_0)."""
-    x, y = forms[:n], forms[n:]
-    new_y = tuple(form_add(form_add(y[(i - 1) % n], y[(i + 1) % n], q), form_neg(x[i], q), q)
-                  for i in range(n))
-    return tuple(y) + new_y
-
-
-def region_e(n, q, t_window, v_cell, sigma_cells):
-    """Cells outside Sigma with a nonzero coefficient in V(t_0 + t), as a
-    linear form in s(t_0), for some 0 <= t <= T (K lines 36-38)."""
-    names = cell_names(n)
-    width = 2 * n
-    forms = tuple(tuple(1 if j == i else 0 for j in range(width)) for i in range(width))
-    v = cell_index(v_cell, n)
+def region_e(mapping, t_window, v_cell, sigma_cells):
+    """R0: substitute symbolic forms through the supplied cell rules."""
+    names = mapping.cells
+    width = len(names)
+    forms = tuple(tuple(int(j == i) for j in range(width)) for i in range(width))
+    v = names.index(v_cell)
     hit = set()
-    for _ in range(t_window + 1):
-        for j, c in enumerate(forms[v]):
-            if c % q != 0:
+    for tick in range(t_window + 1):
+        for j, coefficient in enumerate(forms[v]):
+            if coefficient % mapping.q:
                 hit.add(j)
-        forms = phi_forms(forms, n, q)
-    sig = {cell_index(c, n) for c in sigma_cells}
-    return [names[j] for j in sorted(hit) if j not in sig]
+        if tick < t_window:
+            forms = mapping.propagate(forms)
+    return [names[j] for j in sorted(hit) if names[j] not in sigma_cells]
 
 
-def region_w_eq(n, v_cell):
-    """W_eq: the site set of V, both slices (K line 43)."""
+def region_w_eq(names, v_cell):
+    """W_eq: V's site set, both slices, in the supplied cell order."""
     site = v_cell.split("_")[1]
-    names = cell_names(n)
     return [c for c in names if c.split("_")[1] == site]
 
 
@@ -239,16 +239,17 @@ def energy(s, n, q):
 # Stage M
 # ---------------------------------------------------------------------------
 
-def stage_m():
-    names = cell_names(N)
-    S = all_states(N, Q)  # M1
+def stage_m(mapping, image=None):
+    names, q = mapping.cells, mapping.q
+    S = state_space(len(names), q)  # M1
     size_s = len(S)
-    distinct = (len(set(S)) == size_s) and (size_s == Q ** (2 * N))
-    fwd = {s: phi(s, N, Q) for s in S}  # M2
-    bwd = {s: phi_inv(s, N, Q) for s in S}
-    bijection = (all(bwd[fwd[s]] == s for s in S)
-                 and all(fwd[bwd[s]] == s for s in S)
-                 and set(fwd.values()) == set(S))
+    distinct = (len(set(S)) == size_s) and (size_s == q ** len(names))
+    fwd = ({s: mapping.apply(s) for s in S} if image is None else image)  # M2
+    bwd = {s: mapping.apply(s, inverse=True) for s in S} if image is None else None
+    bijection = set(fwd.values()) == set(S)
+    if bwd is not None:
+        bijection = (bijection and all(bwd.get(fwd[s]) == s for s in S)
+                     and all(fwd.get(bwd[s]) == s for s in S))
     visited = set()  # M3
     cycles = []
     for s in S:
@@ -295,18 +296,6 @@ def stage_m():
         "members": members,
         "histogram": histogram,
     }
-    order, cur = 0, list(S)
-    while True:
-        cur = [fwd[t] for t in cur]
-        order += 1
-        if cur == S:
-            break
-        if order > size_s:
-            raise Failure("phi order exceeds |S|")
-    energy_conserved = all(energy(fwd[s], N, Q) == energy(s, N, Q) for s in S)
-    shells = {str(v): 0 for v in range(Q)}
-    for s in S:
-        shells[str(energy(s, N, Q))] += 1
     return {
         "S": S, "fwd": fwd, "bwd": bwd, "cycles": cycles,
         "members_obj": members_obj,
@@ -315,9 +304,25 @@ def stage_m():
             "distinct": distinct, "bijection": bijection, "partition": partition,
             "mass_sums": None,
         },
-        "preserved": {"energy_conserved": energy_conserved, "shell_sizes": shells,
-                      "phi_order": order},
     }
+
+
+def instance_preserved(m):
+    """Instance-only preserved measurements; fixtures never call this."""
+    S, fwd = m["S"], m["fwd"]
+    order, cur = 0, list(S)
+    while True:
+        cur = [fwd[t] for t in cur]
+        order += 1
+        if cur == S:
+            break
+        if order > len(S):
+            raise Failure("phi order exceeds |S|")
+    shells = {str(v): 0 for v in range(Q)}
+    for state in S:
+        shells[str(energy(state, N, Q))] += 1
+    return {"energy_conserved": all(energy(fwd[s], N, Q) == energy(s, N, Q) for s in S),
+            "shell_sizes": shells, "phi_order": order}
 
 
 # ---------------------------------------------------------------------------
@@ -327,25 +332,25 @@ def stage_m():
 class Frame:
     """Per-(W, t_u) data over all of S at instance (n, q)."""
 
-    def __init__(self, S, n, q, w_cells, shift, e_cells):
-        self.n, self.q = n, q
-        self.w_idx = [cell_index(c, n) for c in w_cells]
-        self.e_idx = [cell_index(c, n) for c in e_cells]
-        self.sig_idx = [cell_index(c, n) for c in SIGMA_CELLS]
-        self.v = cell_index(V_CELL, n)
+    def __init__(self, S, mapping, w_cells, shift, e_cells, sigma, readout, window):
+        self.q = mapping.q
+        self.w_idx = [mapping.cells.index(c) for c in w_cells]
+        self.e_idx = [mapping.cells.index(c) for c in e_cells]
+        self.sig_idx = [mapping.cells.index(c) for c in sigma]
+        self.v = mapping.cells.index(readout)
         self.shift = shift
-        self.wval = {s: restrict(evolve(s, shift, n, q), self.w_idx) for s in S}
+        self.wval = {s: restrict(mapping.evolve(s, shift), self.w_idx) for s in S}
         self.evalue = {s: restrict(s, self.e_idx) for s in S}
         self.zero = {s: all(s[i] == 0 for i in self.e_idx) for s in S}
         self.sigma = {s: restrict(s, self.sig_idx) for s in S}
         self.readout = {}
         for s in S:
             r, t = [], s
-            for _ in range(T + 1):
+            for _ in range(window + 1):
                 r.append(str(t[self.v]))
-                t = phi(t, n, q)
+                t = mapping.apply(t)
             self.readout[s] = "".join(r)
-        self.all_w = values_of(self.w_idx, q)
+        self.all_w = values_of(self.w_idx, mapping.q)
         self.block = {w: [] for w in self.all_w}
         for s in S:
             self.block[self.wval[s]].append(s)
@@ -451,34 +456,61 @@ def hsel_content(frame, support):
 S0_PAPER_KEYS = ("CC-LEDGER", "CC-IMP", "CC-IMP′", "CC-IMP″", "CC-PASS", "CC-T2")
 
 
+def unique_object(pairs):
+    obj = {}
+    for key, value in pairs:
+        if key in obj:
+            raise Refusal("duplicate JSON object key")
+        obj[key] = value
+    return obj
+
+
+def parse_json(data):
+    try:
+        return json.loads(data.decode("utf-8"), object_pairs_hook=unique_object)
+    except (ValueError, UnicodeError) as exc:
+        raise Refusal("input is not UTF-8 JSON: %s" % exc)
+
+
+def read_bytes(path):
+    try:
+        with open(path, "rb") as fh:
+            return fh.read()
+    except OSError as exc:
+        raise Refusal("input unreadable: %s" % exc)
+
+
 def read_json(path):
-    with open(path, "rb") as fh:
-        return json.loads(fh.read().decode("utf-8"))
+    return parse_json(read_bytes(path))
+
+
+def exact_keys(obj, keys):
+    return isinstance(obj, dict) and set(obj) == set(keys)
+
+
+def valid_decisions(cd):
+    if not isinstance(cd, dict) or cd.get("g1") not in ("pass", "undecided"):
+        return False
+    for key in ("class_rule", "support_restriction"):
+        part = cd.get(key)
+        if not exact_keys(part, ("a", "t1")):
+            return False
+        if any(v not in ("pass", "flag", "undecided") for v in part.values()):
+            return False
+    return True
 
 
 def load_class_decisions(rec):
-    path = os.path.join(rec, "class-decisions.json")
-    if not os.path.isfile(path):
-        raise Refusal("class-decisions.json absent")
-    try:
-        cd = read_json(path)
-    except ValueError as exc:
-        raise Refusal("class-decisions.json unreadable: %s" % exc)
-    tri = ("pass", "flag", "undecided")
-    ok = (isinstance(cd, dict)
-          and cd.get("schema") == "k1p1-class-decisions"
-          and cd.get("version") == 1
-          and cd.get("derivations") == ["derivations/P1-class-paper.md",
-                                        "derivations/S0-paper.md"]
-          and cd.get("g1") in ("pass", "undecided"))
-    for k in ("class_rule", "support_restriction"):
-        v = cd.get(k) if isinstance(cd, dict) else None
-        ok = ok and isinstance(v, dict) and v.get("a") in tri and v.get("t1") in tri
-    sp = cd.get("s0_paper") if isinstance(cd, dict) else None
-    ok = ok and isinstance(sp, dict) and all(sp.get(k) in ("pass", "fail", "undecided")
-                                             for k in S0_PAPER_KEYS)
+    cd = read_json(os.path.join(rec, "class-decisions.json"))
+    keys = ("schema", "version", "derivations", "g1", "class_rule",
+            "support_restriction", "s0_paper")
+    ok = (exact_keys(cd, keys) and cd["schema"] == "k1p1-class-decisions"
+          and type(cd["version"]) is int and cd["version"] == 1
+          and cd["derivations"] == ["derivations/P1-class-paper.md", "derivations/S0-paper.md"]
+          and valid_decisions(cd) and exact_keys(cd["s0_paper"], S0_PAPER_KEYS)
+          and all(v in ("pass", "fail", "undecided") for v in cd["s0_paper"].values()))
     if not ok:
-        raise Refusal("class-decisions.json does not match the schema of section 10.2")
+        raise Refusal("class-decisions.json does not match A1 Q11")
     return cd
 
 
@@ -490,35 +522,38 @@ def check_members_file(rec, pinned, computed_bytes):
         raise Refusal("--members-sha256 is not 64 lowercase hexadecimal characters")
     if not os.path.isfile(path):
         raise Refusal("members.json absent")
-    with open(path, "rb") as fh:
-        data = fh.read()
+    data = read_bytes(path)
     if hashlib.sha256(data).hexdigest() != pinned:
         raise Refusal("members.json differs from its pinned digest")
     if data != computed_bytes:
         raise Refusal("members.json differs from the members.json computed here")
 
 
+def adversarial_entries(entries, with_note):
+    if not isinstance(entries, list):
+        raise Refusal("adversarial rows must be a list")
+    keys = ("branch", "member", "token", "note") if with_note else ("branch", "member", "token")
+    table = {}
+    for entry in entries:
+        if not exact_keys(entry, keys) or any(not isinstance(v, str) for v in entry.values()):
+            raise Refusal("adversarial entry malformed")
+        key = (entry["branch"], entry["member"])
+        if key in table:
+            raise Refusal("adversarial record lists a row twice")
+        table[key] = entry["token"]
+    return table
+
+
 def load_adversarial(rec):
     path = os.path.join(rec, "adversarial.json")
-    if not os.path.isfile(path):
+    if not os.path.exists(path):
         return None
-    try:
-        adv = read_json(path)
-    except ValueError as exc:
-        raise Refusal("adversarial.json unreadable: %s" % exc)
-    if not (isinstance(adv, dict) and adv.get("schema") == "k1p1-adversarial"
-            and adv.get("version") == 1 and isinstance(adv.get("rows"), list)):
-        raise Refusal("adversarial.json does not match the schema of section 10.2")
-    table = {}
-    for e in adv["rows"]:
-        if not (isinstance(e, dict) and isinstance(e.get("branch"), str)
-                and isinstance(e.get("member"), str) and isinstance(e.get("token"), str)):
-            raise Refusal("adversarial.json entry malformed")
-        k = (e["branch"], e["member"])
-        if k in table:
-            raise Refusal("adversarial.json lists a row twice")
-        table[k] = e["token"]
-    return table
+    adv = read_json(path)
+    if not (exact_keys(adv, ("schema", "version", "rows"))
+            and adv["schema"] == "k1p1-adversarial"
+            and type(adv["version"]) is int and adv["version"] == 1):
+        raise Refusal("adversarial.json does not match A1 Q10")
+    return adversarial_entries(adv["rows"], with_note=True)
 
 
 # ---------------------------------------------------------------------------
@@ -554,21 +589,23 @@ def positive_token(lam):
 # Context at the instance
 # ---------------------------------------------------------------------------
 
-def build_context(m):
+def build_context(m, mapping, window, readout, sigma):
     S = m["S"]
-    e_cells = region_e(N, Q, T, V_CELL, SIGMA_CELLS)
-    w_eq = region_w_eq(N, V_CELL)
+    e_cells = region_e(mapping, window, readout, sigma)
+    w_eq = region_w_eq(mapping.cells, readout)
     w_by_branch = {"B-pl": [], "B-eq": w_eq, "B-ct": w_eq}
-    frames = {b: Frame(S, N, Q, w_by_branch[b], TU_SHIFT[b], e_cells) for b in BRANCHES}
+    frames = {b: Frame(S, mapping, w_by_branch[b], TU_SHIFT[b], e_cells,
+                       sigma, readout, window) for b in BRANCHES}
     overlap = {"B-eq": [c for c in w_eq if c in e_cells], "B-ct": []}
     region = {
-        "E": e_cells,
-        "W_eq": w_eq,
-        "q_pow_minus_E": ratio(1, Q ** len(e_cells)),
+        "E": e_cells, "W_eq": w_eq,
+        "q_pow_minus_E": ratio(1, mapping.q ** len(e_cells)),
         "overlap": overlap,
         "overlap_tautological": {b: bool(overlap[b]) for b in ("B-eq", "B-ct")},
     }
-    return {"S": S, "E": e_cells, "W": w_by_branch, "frames": frames, "region": region}
+    return {"S": S, "E": e_cells, "W": w_by_branch, "frames": frames, "region": region,
+            "map": mapping, "window": window, "readout": readout, "sigma": sigma,
+            "q": mapping.q}
 
 
 # ---------------------------------------------------------------------------
@@ -609,7 +646,8 @@ def linear_set(S, equations, n, q):
 
 
 def ctl_cross_fixture(S, ctx, w_cells):
-    frame = Frame(S, N, Q, w_cells, -1, ctx["E"])
+    frame = Frame(S, ctx["map"], w_cells, -1, ctx["E"],
+                  ctx["sigma"], ctx["readout"], ctx["window"])
     r = readiness(frame, [(s, 1) for s in S])
     w0 = "0" * len(w_cells)
     mass_w0 = r["mass"].get(w0, ratio(0, 1))
@@ -630,7 +668,8 @@ def compute_controls(ctx, cd):
     computed = {}
 
     # CC-ABS: pi_0, W = {x_3, y_3}, equal time.
-    f_abs = Frame(S, N, Q, ["x_3", "y_3"], 0, e_cells)
+    f_abs = Frame(S, ctx["map"], ["x_3", "y_3"], 0, e_cells,
+                  ctx["sigma"], ctx["readout"], ctx["window"])
     r = readiness(f_abs, [(s, 1) for s in S])
     computed["CC-ABS"] = {"sharp_w": list(r["sharp"]),
                           "weak": {w: rat(v) for w, v in r["weak"].items()}}
@@ -668,16 +707,17 @@ def compute_controls(ctx, cd):
 
     # CC-IMP'': N = 6; W = sites {0, 1}, both slices; O = "W = 0 over [t_u - 1, t_u]".
     n6 = 6
-    S6 = all_states(n6, Q)
+    S6 = state_space(2 * n6, Q)
+    map6 = instance_map(n6, Q)
     w6 = [cell_index(c, n6) for c in ("x_0", "x_1", "y_0", "y_1")]
     x2 = cell_index("x_2", n6)
     event = [s for s in S6
-             if all(s[i] == 0 for i in w6) and all(phi_inv(s, n6, Q)[i] == 0 for i in w6)]
+             if all(s[i] == 0 for i in w6) and all(map6.apply(s, inverse=True)[i] == 0 for i in w6)]
     computed["CC-IMP″"] = {"fixes_x2_zero": bool(event) and all(s[x2] == 0 for s in event)}
 
     # CC-PASS and CC-T2: O_1 = "W_eq identical at t_u - 1 and t_u", t_u = t_0.
     weq_idx = [cell_index(c, N) for c in ctx["W"]["B-eq"]]
-    image = {s for s in S if restrict(phi_inv(s, N, Q), weq_idx) == restrict(s, weq_idx)}
+    image = {s for s in S if restrict(ctx["map"].apply(s, inverse=True), weq_idx) == restrict(s, weq_idx)}
     stated_pass = linear_set(S, [("x_1", "y_1"), ("x_0", "x_2")], N, Q)
     stated_t2 = linear_set(S, [("x_1", "y_1")], N, Q)
     pass_ok = image == stated_pass
@@ -754,6 +794,7 @@ def early_token(cd, is_pi0, t2):
 
 def evaluate_row(ctx, m, cd, branch, key, support, stage, adversarial):
     S = ctx["S"]
+    q = ctx["q"]
     frame = ctx["frames"][branch]
     w_cells = ctx["W"][branch]
     e_cells = ctx["E"]
@@ -776,7 +817,7 @@ def evaluate_row(ctx, m, cd, branch, key, support, stage, adversarial):
     labels = access_labels(branch, w_cells)
     k = len([c for c in e_cells if c not in w_cells])
     if branch == "B-pl":
-        bound_ok = Q ** len(e_cells) * size <= len(S)
+        bound_ok = q ** len(e_cells) * size <= len(S)
         verdict = "holds" if bound_ok else "breaks"
         ledger = "D=log(%s); (c1) |E|=%d: %s" % (rat(d_ratio), len(e_cells), verdict)
         breaks = (not bound_ok) and bool(r["sharp"])
@@ -785,7 +826,7 @@ def evaluate_row(ctx, m, cd, branch, key, support, stage, adversarial):
         items = []
         for w in r["sharp"]:
             a, b = parts(r["mass"][w])
-            bound_ok[w] = Q ** (a * k) * size ** b <= len(S) ** b
+            bound_ok[w] = q ** (a * k) * size ** b <= len(S) ** b
             items.append("w=%s p=%s k=%d: %s" % (w, rat(r["mass"][w]), k,
                                                  "holds" if bound_ok[w] else "breaks"))
         if items:
@@ -833,9 +874,8 @@ def evaluate_row(ctx, m, cd, branch, key, support, stage, adversarial):
                 token = "pending"
             elif stage == "rows":  # R9
                 gates["G6"] = "pending"
+                gates["G7"] = "pending"
                 token = "pending"
-                undetermined("OQ-A1", "G7 entry of a row whose G6 is pending (%s, %s)"
-                             % (branch, key))
             else:
                 if (branch, key) not in adversarial:
                     raise Refusal("adversarial.json does not list row (%s, %s), which passes G5"
@@ -848,8 +888,6 @@ def evaluate_row(ctx, m, cd, branch, key, support, stage, adversarial):
                     gates["G6"] = "UNDECIDED(G6)"
                     token = "UNDECIDED(G6)"
                     usefulness = None
-                    undetermined("OQ-A2", "G7 entry of a row whose G6 issues UNDECIDED(G6) "
-                                 "(%s, %s)" % (branch, key))
     row = {
         "candidate": "P1",
         "member": key,
@@ -892,10 +930,12 @@ def class_tokens(ctx, rows_by_branch, member_keys):
         toks = [rw["token"] for rw in rows]
         if any(t == "pending" for t in toks):
             ct[b] = "pending"
-            undetermined("OQ-A3", "union_clause_reached for a pending branch (%s)" % b)
+            uc[b] = False
+            continue
         if all(is_positive(t) for t in toks):
             uc[b] = True
-            undetermined("OQ-A4", "class_tokens entry of a branch at the union clause (%s)" % b)
+            ct[b] = None
+            continue
         uc[b] = False
         labels = access_labels(b, ctx["W"][b])
         voided = [rw["member"] for rw in rows if rw["token"] == "VOID[row]"]
@@ -951,14 +991,14 @@ RATIONAL_CONTROL_FIELDS = {
 
 
 def rational_fields(table):
-    out = [table["region"]["q_pow_minus_E"]]
-    for c in table["controls"]:
+    out = ([table["region"]["q_pow_minus_E"]] if "region" in table else [])
+    for c in table.get("controls", []):
         for side in ("computed", "expected"):
             obj = c[side]
             for f in RATIONAL_CONTROL_FIELDS.get(c["id"], ()):
                 v = obj.get(f) if isinstance(obj, dict) else None
                 out.extend(v.values() if isinstance(v, dict) else [v])
-    for rw in table["rows"]:
+    for rw in table.get("rows", []):
         for f in ("weak", "mass", "pi0_ref"):
             out.extend(rw[f].values())
         out.append(rw["d_ratio"])
@@ -986,95 +1026,230 @@ STAGE_TABLE = {"members": "gate-table.members.json", "rows": "gate-table.rows.js
                "final": "gate-table.json"}
 
 
+# A1 section 5.2: ids and SHA-256 of admitted raw canonical input bytes.
+# These are admission pins, never expected computational answers.
+FIXTURE_INPUTS = {
+    "SF-1a": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+    "SF-1b": "c15b30da87758d7d7d762f6cf3b282c0490f9243e7f88d7b97db800811689dc9",
+    "SF-1c": "d44e2700ddb8e50e1061c8846d6a8ee82092583af59ac44df0bbac361448643c",
+    "SF-2p": "f7d444061e8c2bfa427f66e5df7ff43ae80bf7b22548391ee340b67b66b845a7",
+    "SF-2pb": "b8048192ccffc506f9e18981045048633ce9af1ceba1ac5f29c76fc1add20630",
+    "SF-3": "9f6fd0a2bb09127350b1b4a8edc323c3989f95fc1097064ecfe96d31740af36a",
+    "SF-3f": "80319c62df77dc8a95a16d4e640fc0c44cf4a2c9aafa6f30006ba39b2271a8af",
+    "SF-3g": "03dae8724f09cbbe68e983a6dd1717f370ddf4bf2ea194c4a7716f1ca02c8064",
+}
+
+
 def parse_args(argv):
     opts = {}
-    allowed = ("--stage", "--record", "--out", "--members-sha256")
+    allowed = ("--stage", "--record", "--out", "--members-sha256", "--fixture", "--input")
     i = 0
     while i < len(argv):
-        k = argv[i]
-        if k not in allowed or i + 1 >= len(argv) or k in opts:
-            raise Failure("usage: --stage {members|rows|final} --record <rec> --out <out> "
-                          "[--members-sha256 <hex>]")
-        opts[k] = argv[i + 1]
+        key = argv[i]
+        if (key not in allowed or key in opts or i + 1 >= len(argv)
+                or argv[i + 1].startswith("--")):
+            raise Refusal("unknown/repeated flag or missing value")
+        opts[key] = argv[i + 1]
         i += 2
-    for k in ("--stage", "--record", "--out"):
-        if k not in opts:
-            raise Failure("missing %s" % k)
-    if opts["--stage"] not in STAGE_TABLE:
-        raise Failure("unknown stage %r" % opts["--stage"])
-    return opts["--stage"], opts["--record"], opts["--out"], opts.get("--members-sha256")
+    if "--fixture" in opts:
+        if set(opts) != {"--fixture", "--input", "--out"}:
+            raise Refusal("fixture mode requires --fixture --input --out exclusively")
+    else:
+        if not {"--stage", "--record", "--out"} <= set(opts):
+            raise Refusal("instance mode requires --stage --record --out")
+        if set(opts) - {"--stage", "--record", "--out", "--members-sha256"}:
+            raise Refusal("fixture and instance flags are mutually exclusive")
+        if opts["--stage"] not in STAGE_TABLE:
+            raise Refusal("unknown stage")
+        if opts["--stage"] in ("rows", "final") and "--members-sha256" not in opts:
+            raise Refusal("--members-sha256 is required at this stage")
+        if "--members-sha256" in opts:
+            pin = opts["--members-sha256"]
+            if len(pin) != 64 or any(c not in "0123456789abcdef" for c in pin):
+                raise Refusal("--members-sha256 is not a lowercase SHA-256")
+    return opts
 
 
-def run(argv):
-    stage, rec, out, pinned = parse_args(argv)
-    if not os.path.isdir(out) or os.listdir(out):
+def fresh_out(out):
+    try:
+        ok = os.path.isdir(out) and not os.listdir(out)
+    except OSError as exc:
+        raise Refusal("--out unreadable: %s" % exc)
+    if not ok:
         raise Refusal("--out is not an existing empty directory")
+
+
+def write_payload(out, payload):
+    """All checks precede this transaction; undo owned files on an I/O failure."""
+    staged, installed = [], []
+    try:
+        for name in sorted(payload):
+            temp = os.path.join(out, ".k1p1-" + name)
+            with open(temp, "xb") as fh:
+                staged.append(temp)
+                fh.write(payload[name])
+        for name, temp in zip(sorted(payload), staged):
+            target = os.path.join(out, name)
+            os.replace(temp, target)
+            installed.append(target)
+    except Exception:
+        for path in staged + installed:
+            if os.path.exists(path):
+                os.unlink(path)
+        raise
+
+
+def fill_rows(table, ctx, m, cd, stage, adversarial):
+    """The same complete R1-R10 and CLASS pipeline for both routes."""
+    if not m["completeness"]["partition"]:
+        raise Refusal("CT-INC: CC-PART does not hold")
+    supports = member_supports(m)
+    member_keys = [key for key, _ in supports]
+    if member_keys != [mm["key"] for mm in m["members_obj"]["members"]]:
+        raise Refusal("CT-INC: member list differs from M5")
+    needed = []
+    if stage == "final":
+        needed = [(b, key) for b in BRANCHES for key, support in supports
+                  if g5_passing(ctx, m, cd, b, key, support)]
+        if needed and adversarial is None:
+            raise Refusal("adversarial record absent while rows pass G5")
+        if any(key not in (adversarial or {}) for key in needed):
+            raise Refusal("adversarial record does not cover every G5 row")
+    by_branch, all_sums = {}, True
+    for branch in BRANCHES:
+        by_branch[branch] = []
+        for key, support in supports:
+            row, sums = evaluate_row(ctx, m, cd, branch, key, support,
+                                     stage, adversarial or {})
+            by_branch[branch].append(row)
+            all_sums = all_sums and sums
+    table["rows"] = [row for b in BRANCHES for row in by_branch[b]]
+    table["completeness"]["mass_sums"] = all_sums
+    table["class_tokens"], table["union_clause_reached"] = class_tokens(ctx, by_branch, member_keys)
+
+
+def fixture_map(data):
+    cells, q = data["cells"], data["q"]
+    forms = []
+    for key in ("phi", "phi_inv"):
+        rules = data[key]
+        if not exact_keys(rules, cells):
+            raise Refusal("cell-form keys differ from cells")
+        ordered = []
+        for cell in cells:
+            terms = rules[cell]
+            if (not isinstance(terms, list) or any(c not in cells for c in terms)
+                    or terms != sorted(set(terms), key=cells.index)):
+                raise Refusal("invalid cell form")
+            ordered.append(tuple(int(c in terms) for c in cells))
+        forms.append(ordered)
+    return CellMap(cells, q, forms[0], forms[1])
+
+
+def fixture_payload(fixture_id, input_path):
+    # Admission is deliberately before parsing, constructing a map or walking states.
+    if fixture_id not in FIXTURE_INPUTS:
+        raise Refusal("fixture id is not admitted for A")
+    raw = read_bytes(input_path)
+    if hashlib.sha256(raw).hexdigest() != FIXTURE_INPUTS[fixture_id]:
+        raise Refusal("fixture input differs from its frozen digest")
+    data = parse_json(raw)
+    if not isinstance(data, dict) or data.get("id") != fixture_id:
+        raise Refusal("fixture id mismatch")
+    kind = data.get("kind")
+    keys = {"id", "kind", "cells", "image"} if kind == "perm" else {
+        "id", "kind", "q", "kmax", "cells", "phi", "phi_inv"}
+    if kind == "system":
+        keys |= {"T", "stage", "sigma", "readout", "class_decisions", "adversarial"}
+    if kind not in ("perm", "linear", "system") or not exact_keys(data, keys):
+        raise Refusal("fixture schema mismatch")
+    cells = data["cells"]
+    if (not isinstance(cells, list) or not cells or any(not isinstance(c, str) for c in cells)
+            or len(set(cells)) != len(cells)):
+        raise Refusal("invalid fixture cells")
+    image = None
+    if kind == "perm":
+        # No inverse is required for an explicit permutation (A1 section 5.3).
+        width = len(cells)
+        identity = [tuple(int(i == j) for j in range(width)) for i in range(width)]
+        mapping = CellMap(cells, 2, identity, identity)
+        states = state_space(width, mapping.q)
+        state_names = {sstr(s) for s in states}
+        if (not exact_keys(data["image"], state_names)
+                or any(t not in state_names for t in data["image"].values())):
+            raise Refusal("permutation image is outside the state space")
+        image = {s: tuple(int(c) for c in data["image"][sstr(s)]) for s in states}
+    else:
+        if (type(data["q"]) is not int or data["q"] != 2
+                or type(data["kmax"]) is not int or data["kmax"] <= 0):
+            raise Refusal("invalid fixture field/range")
+        mapping = fixture_map(data)
+    m = stage_m(mapping, image)
+    obj = {"schema": "k1p1-fixture-output", "version": 1, "fixture": fixture_id, "kind": kind,
+           "cell_order": cells, "members": m["members_obj"]["members"],
+           "histogram": m["members_obj"]["histogram"],
+           "completeness": dict(m["completeness"])}
+    if kind == "system":
+        if (type(data["T"]) is not int or data["T"] < 0
+                or data["stage"] not in ("rows", "final")
+                or len(cells) % 2 or cells != cell_names(len(cells) // 2)
+                or not isinstance(data["sigma"], list)
+                or any(c not in cells for c in data["sigma"])
+                or data["readout"] not in cells
+                or not exact_keys(data["class_decisions"],
+                                  ("g1", "class_rule", "support_restriction"))
+                or not valid_decisions(data["class_decisions"])):
+            raise Refusal("invalid toy system")
+        adversarial = adversarial_entries(data["adversarial"], with_note=False)
+        if data["stage"] == "rows" and adversarial:
+            raise Refusal("rows fixture must have no adversarial entries")
+        ctx = build_context(m, mapping, data["T"], data["readout"], data["sigma"])
+        obj.update({"stage": data["stage"],
+                    "region": dict(ctx["region"], q_pow_minus_E=rat(ctx["region"]["q_pow_minus_E"]))})
+        fill_rows(obj, ctx, m, data["class_decisions"], data["stage"], adversarial)
+    guard(m["members_obj"], obj)
+    return {"fixture.json": dump(obj)}
+
+
+def instance_payload(opts):
+    """Only the explicit --stage route can read instance inputs/build K's map."""
+    stage, rec = opts["--stage"], opts["--record"]
+    pinned = opts.get("--members-sha256")
     cd = load_class_decisions(rec)
-    m = stage_m()
+    mapping = instance_map(N, Q)
+    m = stage_m(mapping)
     members_bytes = dump(m["members_obj"])
     if stage in ("rows", "final"):
         check_members_file(rec, pinned, members_bytes)
-    ctx = build_context(m)
+    ctx = build_context(m, mapping, T, V_CELL, SIGMA_CELLS)
     controls = compute_controls(ctx, cd)
     table = {
-        "schema": "k1p1-gate-table",
-        "version": 1,
-        "stage": stage,
+        "schema": "k1p1-gate-table", "version": 1, "stage": stage,
         "instance": {"N": N, "a": A_COUP, "d": D_DIM, "q": Q},
         "region": dict(ctx["region"], q_pow_minus_E=rat(ctx["region"]["q_pow_minus_E"])),
-        "preserved": m["preserved"],
-        "completeness": dict(m["completeness"]),
-        "controls": controls,
-        "rows": [],
-        "class_tokens": {},
-        "union_clause_reached": {},
+        "preserved": instance_preserved(m), "completeness": dict(m["completeness"]),
+        "controls": controls, "rows": [], "class_tokens": {}, "union_clause_reached": {},
     }
     if walk_floats(controls) or not is_rational_string(table["region"]["q_pow_minus_E"]):
-        raise InexactValue("a float in the region or the S0 controls")
+        raise InexactValue("a float in the region or S0 controls")
     if stage != "members":
         if any(c["outcome"] != "pass" for c in controls):
-            undetermined("OQ-A5", "output at stage %s when an S0 control fails" % stage)
-        if not m["completeness"]["partition"]:
-            raise Refusal("CT-INC: CC-PART does not hold")
-        supports = member_supports(m)
-        member_keys = [k for k, _ in supports]
-        if member_keys != [mm["key"] for mm in m["members_obj"]["members"]]:
-            raise Refusal("CT-INC: member list differs from M5")
-        adversarial = {}
-        if stage == "final":
-            adv = load_adversarial(rec)
-            needed = [(b, k) for b in BRANCHES for k, sup in supports
-                      if g5_passing(ctx, m, cd, b, k, sup)]
-            if needed and adv is None:
-                raise Refusal("adversarial.json absent while rows pass G5")
-            adversarial = adv or {}
-            missing = [x for x in needed if x not in adversarial]
-            if missing:
-                raise Refusal("adversarial.json does not list %d row(s) that pass G5"
-                              % len(missing))
-        rows_by_branch = {}
-        all_sums = True
-        for b in BRANCHES:
-            rows_by_branch[b] = []
-            for k, sup in supports:
-                row, sums = evaluate_row(ctx, m, cd, b, k, sup, stage, adversarial)
-                rows_by_branch[b].append(row)
-                all_sums = all_sums and sums
-        if stage == "final":
-            for b in BRANCHES:
-                for row in rows_by_branch[b]:
-                    if not is_positive(row["token"]):
-                        row["usefulness"] = None
-        table["rows"] = [row for b in BRANCHES for row in rows_by_branch[b]]
-        table["completeness"]["mass_sums"] = all_sums
-        ct, uc = class_tokens(ctx, rows_by_branch, member_keys)
-        table["class_tokens"] = ct
-        table["union_clause_reached"] = uc
+            raise Refusal("S0 control failed at stage %s" % stage)
+        adv = load_adversarial(rec) if stage == "final" else None
+        fill_rows(table, ctx, m, cd, stage, adv)
     guard(m["members_obj"], table)
-    payload = {"members.json": members_bytes, STAGE_TABLE[stage]: dump(table)}
-    for fname in sorted(payload):
-        with open(os.path.join(out, fname), "wb") as fh:
-            fh.write(payload[fname])
+    return {"members.json": members_bytes, STAGE_TABLE[stage]: dump(table)}
+
+
+def run(argv):
+    opts = parse_args(argv)
+    out = opts["--out"]
+    fresh_out(out)
+    if "--fixture" in opts:
+        payload = fixture_payload(opts["--fixture"], opts["--input"])
+    else:
+        payload = instance_payload(opts)
+    write_payload(out, payload)
     return 0
 
 
@@ -1087,10 +1262,7 @@ def main(argv):
     except InexactValue as exc:
         sys.stderr.write("exactness guard: %s\n" % exc)
         return 3
-    except Undetermined as exc:
-        sys.stderr.write("undetermined by the preregistration: %s\n" % exc)
-        return 4
-    except Failure as exc:
+    except Exception as exc:
         sys.stderr.write("failure: %s\n" % exc)
         return 1
 

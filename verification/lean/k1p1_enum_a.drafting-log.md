@@ -65,3 +65,92 @@ implementation A:
 
 SF-2 tests B's rank method, and SF-3's system is not yet stated. No fixture is therefore predeclared in a form
 runnable against A, and this writer invented none.
+
+## Independent A continuation, 2026-11-08 — static checkpoint
+
+The historical author/session and command log above are preserved. Current writer:
+`writer-k1p1-impl-a`, independent Codex continuation agent `k1p1_impl_a_revision`
+under the root coordinator, not the original Claude session. Original staging
+head: `caea695c875179fb9b310739c4aa2a9196332fe4`. Root activation:
+#1135 c6721746629; owner scope: #1031 c6721619842. The common and A-role briefs
+were read in full. Current common procedure and fixture blobs are the four
+specified files at `d92e0882e7609e91e3458193391e89610fffa777`.
+
+Shared inputs are the preregistration, all A1 documents, the six adopted K rule
+files at `d9b3de012e393262adb20f91ad49627bad48de43`, current root `AGENTS.md`,
+the two coordinator briefs and this writer's own original code/log. A1 is the
+disclosed common behavior channel containing no implementation code. Root
+also disclosed independent acceptance of the d92 hand-derived expected values,
+and the specific SF-2pb negative: exit 0 with bijection false. No other writer's
+code, output, draft package or checkpoint was accessed. No scientific library
+or shared formatter/library is used.
+
+The continuation is STATIC ONLY. No candidate was imported or invoked, including
+help, fixtures, instance commands or controls. No K1 dynamics, states, S0 values,
+member counts or row outcomes were computed. No fixture map was evaluated by
+an auxiliary script. Expected fixture JSON was read as specification only;
+it is never loaded by candidate code. No freeze, dispatch, merge or promotion.
+
+Changes: parameterized cell forms, tuple orbit walk, symbolic propagation,
+readiness/rows/tokens/CLASS and guard are shared by both routes. K's cell-form
+builder, preserved-result measurements and S0 are instance-only. Fixture admission
+checks exact id and raw SHA-256 before JSON parsing; rank-only ids are refused.
+Q1–Q5 pending/G6/union/S0 behavior and Q10–Q12 schemas/refusals are implemented.
+Output payloads are checked before writes, with rollback of owned paths on I/O
+failure. Single exact-division helper is retained for the later MU-C3 patch.
+
+Remaining evidence: independent static re-review, root safe-path permission,
+permitted CLI synthetic fixture comparisons and independent synthetic review.
+This checkpoint makes no runtime-correctness or scientific claim. Current local
+Python is 3.12.14; Python 3.11 grammar was checked statically. Python 3.11 and
+ruff/flake8/mypy/pyflakes are not installed in this execution environment.
+
+### Continuation commands (ordered tool invocations)
+
+Each semicolon here denotes separate source/read/check commands as shown, not
+execution of the candidate. Inline Python below is source editing or AST/document
+inspection only. Scratch scripts are separate from candidate code.
+
+| # | Category | Commands / exact input scope | Result |
+|---|---|---|---|
+| C1 | read | `cat /tmp/k1p1-revision-common-brief.txt /tmp/k1p1-a-role-brief.txt` | full briefs |
+| C2 | read | `cat /workspace/incompleteness/AGENTS.md`; `ls /tmp/k1p1-common-d92`; `git status --short`; `cat verification/lean/k1p1_enum_a.py` | initial reads; large output truncated, followed by chunk reads below |
+| C3 | read | `wc -l /workspace/incompleteness/AGENTS.md /tmp/k1p1-common-d92/*`; `rg -n` definitions/comments/OPEN/Undetermined/CONTROL_EXPECTED in A; `cat` own drafting log | source outline; wc flags directory (no computational effect) |
+| C4 | read | `sed -n '1,460p'` AGENTS; `wc -l` A1 files and `cat` A1-frozen-code | oversized output; chunked re-reads follow |
+| C5 | read | `sed -n '461,920p'` AGENTS; `sed -n '1,220p'` A1 | chunks (oversized output re-read where truncated) |
+| C6 | read | `sed -n '221,440p'` A1 | full chunk |
+| C7 | read | `sed -n '441,660p'` A1 | full chunk |
+| C8 | read | `sed -n '1,280p'` common preregistration | full chunk |
+| C9 | read | `sed -n '281,560p'` common preregistration | full chunk |
+| C10 | read | `sed -n '561,840p'` common preregistration | full chunk |
+| C11 | read | `sed -n '841,1100p'` common preregistration | full chunk |
+| C12 | read | `sed -n '1101,1300p'` common preregistration; `sed -n '921,1140p'` AGENTS | preregistration completed |
+| C13 | read | `sed -n '1141,1368p'` AGENTS; `sed -n '1,200p'` A1-fixtures.md | full chunks |
+| C14 | read | `wc -lc` A1-fixtures.*; `sed -n '201,420p'` A1-fixtures.md; `sed -n '1,325p'` own A | fixture MD completed |
+| C15 | read | `sed -n '1,125p'` A1-fixtures.json | full chunk |
+| C16 | read | `sed -n '126,195p'` A1-fixtures.json | full chunk |
+| C17 | read | `sed -n '196,349p'` A1-fixtures.json; `sed -n '326,575p'` own A | fixture JSON completed |
+| C18 | read | `sed -n '350,460p'` and `sed -n '790,920p'` AGENTS; `git show d9b3de01:K/preregistration.md` through `sed -n '1,220p'` | rule read |
+| C19 | read | `git show d9b3de01:K/preregistration.md` through `sed -n '221,397p'`; `git show` each of K amendments A2, A3, A5, A8, A9 | six adopted rules read in full, no prior execution output |
+| C20 | read | `sed -n '576,725p'` own A; `sed -n '660,870p'` common A1; `sed -n '735,790p'` AGENTS | own controls/source and remaining rule chunks |
+| C21 | edit | heredoc creates `/tmp/k1p1-a-edit.py`; `python3 /tmp/k1p1-a-edit.py` | source-only rewrite of own A: map/row refactor and adopted semantics |
+| C22 | edit | heredoc creates `/tmp/k1p1-a-edit-inputs.py`; `python3 /tmp/k1p1-a-edit-inputs.py` | Q10/Q11 validation source edits |
+| C23 | edit; static check | heredoc creates `/tmp/k1p1-a-driver.txt`; inline `pathlib` replacement of A's driver; inline `ast.parse(feature_version=(3,11))`, `compile` of AST without eval/exec, import and numeric AST scans | parse/compile pass; six permitted imports; no float literals or true division |
+| C24 | read; static check | `git diff --check`; `git diff --stat`; `sed -n '195,330p'` A; `rg -n` map/instance/OPEN references in A; `rg -n -A18 '^on:' .github/workflows/*.yml`; `command -v ruff python3.11`; `git status --short` | clean whitespace; own code only; push triggers exclude branch/paths; tools unavailable |
+| C25 | static check; read | inline AST allowlist/no-float/no-division/no-dynamic-exec scan; literal admission-table comparison with A1; `git show` byte comparisons of all four common files against d92 copies; SHA-256 source/doc digests; Python version | all static checks pass; candidate never imported or evaluated |
+| C26 | read | `python3 -m pip show ruff pyflakes flake8 mypy` | packages unavailable (exit 1); no installation |
+| C27 | edit | `cat >>` own drafting log, this continuation section and command table | provenance/checkpoint record |
+| C28 | static check; read | inline source/log sensitive-pattern scan (private keys, token families, signed URLs, IP and email patterns); code `sha256sum` equivalent and `git hash-object`; hashes of edit helpers/driver source; `git diff --check` | zero sensitive matches; whitespace clean |
+| C29 | edit; read | append these rows; `git add` only own A/log; `git commit` forward; `git push origin HEAD:refs/heads/staging/k1-p1-1-impl-a-20261106`; `git rev-parse HEAD`; `git status --short` | static milestone (exact push/head reported to root) |
+
+Static checkpoint source SHA-256:
+`0e8721e5fe1c8fc8540d36ce2eed84d812a5630867ec4af56d920169466b3fdd`;
+blob `2252965843430155fedfbc8855a5d23d13c2c920`.
+Edit helper SHA-256 values: map refactor `85f489753b0a0107485e4d29f55339f09efac8d13f969c7296e36702762b43a7`;
+input schemas `5a255f5e23ef96f1668f189f59a4ae58dd4d54f052b216797638f27fb591dc20`;
+driver source text `95c535144dc4aea451fb230cae18e2b5530af2d6c23becef2a3a1ccc3b6fae48`.
+
+Push trigger inspection: verify and hidden-sector push events name main;
+bridge-compatibility and bg2 path filters exclude these two paths. All remaining
+workflows are dispatch-only. This ordinary original staging branch push starts
+no push-triggered workflow. No PR metadata/comment write by this continuation.
