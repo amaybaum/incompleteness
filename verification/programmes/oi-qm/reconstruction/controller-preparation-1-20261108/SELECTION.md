@@ -5,7 +5,7 @@ interaction was inspected; no qualifying native preparation interaction was sour
 Independent selection review is separate from this author finding. No derivation
 beyond source selection is started.
 
-Accountable Issue: #866. Writer: Codex /root. Separate reviewer: /root/review_wave_sign.
+Accountable Issue: #866. Writer: Codex /root. Separate reviewer: review_wave_sign.
 [Owner scope](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6718471099)
 and [activation](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6718915044)
 are authorization provenance, not physical evidence. Source snapshot: main
