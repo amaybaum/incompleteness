@@ -710,9 +710,44 @@ jobs:
           done
           exit $rc
 
+  probes_arp1marc:
+    name: Numerical probes / ARP-1-MARC exact span check
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: ARP-1-MARC exact span check
+        timeout-minutes: 15
+        run: |
+          mkdir -p "$RUNNER_TEMP/arp1-marc"
+          python3 -I -B verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/marc_check.py --fixture-output > "$RUNNER_TEMP/arp1-marc/measurements.json"
+
+      - name: ARP-1-MARC keep the measurements
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: arp1-marc-measurements
+          path: ${{ runner.temp }}/arp1-marc/measurements.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: ARP-1-MARC replay against the committed measurements
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/controls.py replay "$RUNNER_TEMP/arp1-marc/measurements.json"
+
+      - name: ARP-1-MARC checker self-test
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/marc_check.py --self-test
+
+      - name: ARP-1-MARC control mutation tests
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/controls.py --self-test
+
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations, probes_arp1marc]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -741,6 +776,7 @@ jobs:
           A42C_RESULT: ${{ needs.probes_a42_census01.result }}
           A42X_RESULT: ${{ needs.probes_a42_exclusion.result }}
           FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
+          ARP1MARC_RESULT: ${{ needs.probes_arp1marc.result }}
         run: |
           echo "core_a=${CORE_A_RESULT}"
           echo "core_b=${CORE_B_RESULT}"
@@ -765,6 +801,7 @@ jobs:
           echo "a42_census01=${A42C_RESULT}"
           echo "a42_exclusion=${A42X_RESULT} (event ${GITHUB_EVENT_NAME})"
           echo "foundations=${FOUNDATIONS_RESULT}"
+          echo "arp1marc=${ARP1MARC_RESULT}"
           test "${CORE_A_RESULT}" = success
           test "${CORE_B_RESULT}" = success
           test "${A36_RESULT}" = success
@@ -792,3 +829,4 @@ jobs:
             test "${A42X_RESULT}" = skipped
           fi
           test "${FOUNDATIONS_RESULT}" = success
+          test "${ARP1MARC_RESULT}" = success
