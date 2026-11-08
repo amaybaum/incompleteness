@@ -94,3 +94,16 @@ candidate/fixture execution harnesses):
 - controls-synthetic-fragment.txt: 30629ba5d4dcd893ace7116e23fc3bb38f1052161b8722d7c4311e73b4632f8a
 - controls-mutations-fragment.txt: 92111991255eb9f3a423c1526df19026269523b908f3484ffe0b57fedc837409
 - k1p1-controls-static-audit.py: 8204acb06f82798644bcaddb720be90b873ba944b7e455427fdbc12cae128e54
+
+## Forward static correction: render reason ordering
+
+Static reading found that an unknown string check id was classified BAD_SCHEMA
+before the exact final-roster comparison. A1 §9.2 step 5 assigns a nonexact
+roster to CONTROL_NOT_GREEN. The checks schema now accepts a string id with
+an enumerated outcome; the exact final-roster/order/green comparison remains
+at step 5. Missing, extra, duplicate or reordered final checks therefore reach
+the prescribed reason while malformed entry types remain BAD_SCHEMA.
+
+Commands: edit via Python exact string replacement of own checks_shape;
+static check `/tmp/k1p1-controls-static-audit.py` and `git diff --check`; edit
+this own log, forward commit and ordinary push. No candidate execution.

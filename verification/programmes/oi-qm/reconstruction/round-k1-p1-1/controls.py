@@ -1660,7 +1660,7 @@ def checks_shape(doc, stage):
         return False
     if not isinstance(doc["checks"], list):
         return False
-    if not all(keys_are(c, ("id", "outcome")) and c["id"] in ROSTERS[stage]
+    if not all(keys_are(c, ("id", "outcome")) and isinstance(c["id"], str)
                and c["outcome"] in ("pass", "fail", "refused") for c in doc["checks"]):
         return False
     digest = doc["members_sha256"] if stage == "members" else doc.get("gate_table_sha256")
