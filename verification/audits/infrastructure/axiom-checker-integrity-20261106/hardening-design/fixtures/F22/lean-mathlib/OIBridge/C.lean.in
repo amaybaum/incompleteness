@@ -1,0 +1,5 @@
+namespace OIBridge.C
+
+#print axioms OIBridge.C.foo
+
+end OIBridge.C

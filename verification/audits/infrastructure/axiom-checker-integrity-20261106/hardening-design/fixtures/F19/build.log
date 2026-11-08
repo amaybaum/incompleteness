@@ -1,0 +1,3 @@
+info: OIBridge/A.lean:3:0: 'OIBridge.A.foo' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/A.lean:4:0: 'OIBridge.A.bar' does not depend on any axioms
+warning: OIBridge/A.lean:5:0: declaration uses sorryAx

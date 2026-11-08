@@ -1,0 +1,2 @@
+info: OIBridge/A.lean:3:2: 'OIBridge.A.foo' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/A.lean:5:0: 'OIBridge.A.bar' does not depend on any axioms

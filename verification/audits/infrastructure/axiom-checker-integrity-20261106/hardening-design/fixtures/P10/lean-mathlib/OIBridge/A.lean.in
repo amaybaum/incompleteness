@@ -1,0 +1,6 @@
+namespace OIBridge.A
+
+#print axioms OIBridge.A.foo
+#print axioms OIBridge.A.bar -- trailing note
+
+end OIBridge.A

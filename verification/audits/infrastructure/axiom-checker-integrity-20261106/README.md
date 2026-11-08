@@ -123,7 +123,11 @@ verified, and the reference reproduced every hand-written expectation. Over thos
   checker: it reports one named result where two were printed, and the non-ASCII print is seen by
   neither its declared nor its reported set.
 
-A hardening proposal, for separate review, is in [`HARDENING-PROPOSAL.md`](HARDENING-PROPOSAL.md).
+The hardening design, for independent review, is in [`HARDENING-DESIGN.md`](HARDENING-DESIGN.md)
+and [`CANONICAL-IDENTITY-CONTRACT.md`](CANONICAL-IDENTITY-CONTRACT.md). The latter specifies the
+owner-selected kernel-identity channel and new hand-derived controls; it has not been implemented
+or executed. The unchanged fixtures and results in [`hardening-design/`](hardening-design/)
+are the historical text-parser baseline at `2b08dbe0`, not validation of the new channel.
 
 ## Limits
 
