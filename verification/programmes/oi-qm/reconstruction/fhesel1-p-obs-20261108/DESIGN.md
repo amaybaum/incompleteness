@@ -1,11 +1,12 @@
 # FHE-SEL-1 P-OBS: preregistration (Stage 1A)
 
-**Standing.** WIP / UNVERIFIED. Stage 1A preregistration of the P-OBS construction under #1169.
-Writer: Claude Code session (P-OBS writer), 2026-11-08. Independent review pending; no reviewer of
-this file reviews another construction of the portfolio. Paper only: no result is derived, nothing
-is computed, simulated, built in Lean or run under V3, nothing is adopted, and no manuscript is
-edited. Stage 1B is not authorized. Every verdict this file provides for is generated in Stage 1B,
-if authorized, from the rule fixed here.
+**Standing.** WIP / UNVERIFIED. Stage 1A preregistration of the P-OBS construction under #1169,
+revision r2. r2 applies the independent review of `7878a7fd` (verdict REVISE; review text relayed by
+the coordinator, not on `main`). Writer: Claude Code session (P-OBS writer), 2026-11-08. Each review
+of this file is by a reviewer who reviews no other construction of the portfolio. Paper only: no
+result is derived, nothing is computed, simulated, built in Lean or run under V3, nothing is
+adopted, and no manuscript is edited. Stage 1B is not authorized. Every verdict this file provides
+for is generated in Stage 1B, if authorized, from the rule fixed here.
 
 **Base and pins.** Branch `research/fhesel1-p-obs-20261108` from main
 `9c201475ba6fd8f341591d14dd8e88db2e2aaa90`. `File:N` means line `N` of that file at this commit.
@@ -25,12 +26,15 @@ Off main and provisional:
   `f649b3475c9d69f98cf9a6ecab9c1dd076096834` on `research/oi-qm-minacc-20261108`. Read with
   `git show`, not modified.
 - `Q3-A1` = `verification/programmes/substratum/a5-linear-affine-20261104/q3-a6-offsets-20261108/amendments/A1-prereg-review.md`
-  at #1202 head `25384b13526dfa23909bbd63a119508091f467c7`. Used only for its classification
-  standard (§7), which is restated here in full.
+  at #1202 head `25384b13526dfa23909bbd63a119508091f467c7`. Only its classification standard is
+  used: §3 Block C, C2 at Q3-A1:185, with C3 (search record) at Q3-A1:206. The standard is restated
+  in full in §6.2.
 - `S0` = the Stage 0 map, #1169 c.6719708521, with its review c.6719720616 and confirmation
   (ACCEPT; c.6719723538). Its standing line reading "pending" is stale. Its file:line citations are
   to main `f88c1842`; between `f88c1842` and `9c201475` main adds only
   `controller-preparation-1-20261108/SELECTION.md`, so every cited line is unchanged at the pin.
+
+**Symbols.** `T` is the time horizon. `𝒯` is the target (§6.2).
 
 ***
 
@@ -38,25 +42,33 @@ Off main and provisional:
 
 1. **Question** (§1). What physical mechanism permits registration, retention and reuse of records
    without unintended leakage of information?
-2. **Candidates** (§3). Fourteen candidates are recorded with the reason each is selected or
-   rejected. One construction is selected, P-OBS-LB (a Landauer–Bennett record cycle). A null
-   outcome (no candidate) is preregistered as admissible.
-3. **Construction** (§4). P-OBS-LB on a finite ring at `q = 2`. Registration only by copy onto a
-   standard blank. Reset and reuse only by export of the spent register into an interacting hidden
-   sink. Blanks come from a reservoir whose law is fixed in advance. Rule `N_1` is primary; `N_0`
-   and `G_σ` are preserved-result controls.
+2. **Candidates** (§3). Fourteen candidates are recorded, C-0 to C-13, with the reason each is
+   selected or rejected. One construction is selected, P-OBS-LB (a Landauer–Bennett record cycle).
+   A null outcome is preregistered as admissible.
+3. **Construction** (§4). P-OBS-LB on a finite ring at `q = 2`.
+   - Registration only by copy onto a standard blank.
+   - Reset and reuse only by export of the spent register into an interacting hidden sink.
+   - Blanks come from a reservoir whose law is fixed in advance.
+   - Rule `N_1` is primary; `N_0` and `G_σ` are controls.
 4. **Source ledger** (§5). Each resource is classed native / supplied / representation / imported.
-   Named open inputs: BLANK-SRC, SWAP-EXEC, RECORD-STORE, EXHAUST, TIMING.
-5. **Motivation and classification** (§6). The overall motivation is classed **mixed**.
-6. **Properties and decision rule** (§8–§9). These cover non-vacuity, the leakage increment
-   `LK-R`, `PROT-D/B/R′` on the never-exported domain, and sink use `USE-S`. They also fix the
-   outcomes and their mapping to the owner's (a)/(b)/(c), the ladder L0–L3 and the three statuses.
-7. **Controls** (§10). Mechanism-off, classical imitation, target import, a target-tuned
-   countercontrol and robustness/replication.
-8. **Explanatory quality, §A.29** (§11). Preserved results, the variation analysis and its decision
+   The named open inputs are BLANK-SRC, SWAP-EXEC, RECORD-STORE, EXHAUST and TIMING.
+5. **Motivation and classification** (§6). Overall: **mixed**. Components pending the entry review
+   E0 are marked.
+6. **Properties** (§8). Each is defined without further choice:
+   - non-vacuity NV (conjunctive);
+   - the target-free leakage increment LK-R against a fully specified reference `ref(π)`;
+   - `PROT-D/B/R′_LB` on M-INACC's own active domain (every cell on the ring), with a stated
+     discount for the exported records' own content;
+   - sink use USE-S, conditioned on knowledge.
+7. **Decision rule** (§9). A fixed entry review E0 with stated exits, and a total, ordered outcome
+   table. It also fixes one rule for (a)/(b), the ladder L0–L3 and the three statuses.
+8. **Controls** (§10). Mechanism-off, classical imitation (attributed to the exhibited model), target
+   import, a positive calibration, four target-tuned countercontrols (one disguised), preserved
+   results and robustness.
+9. **Explanatory quality, §A.29** (§11). Preserved results, the variation analysis and its decision
    rule, reach, the assessment ladder and the disclosure of origin.
-9. **Report commitment** (§12), the invariant → checkpoint table (§13), the §A.42 item 8 trace
-   (§14), concerns (§15) and what is not claimed (§16).
+10. **Report commitment** (§12), the invariant → checkpoint table (§13), the §A.42 item 8 trace
+    (§14), concerns (§15) and what is not claimed (§16).
 
 ***
 
@@ -79,14 +91,15 @@ Off main and provisional:
   A positive result obtained only after selecting among multiple candidates. A result that
   reproduces quantum statistics but admits an equivalent classical imitation", and requires "a
   separate robustness or replication check" before any positive is promoted.
-- **#1169 c.6720342295** (amaybaum, 2026-11-08T10:26:34Z), planning clarification. P-OBS scope:
-  "What physical mechanism permits registration, retention and reuse without unintended leakage of
-  information?" Safeguard: "Must keep M-INACC's leakage findings: registration and refill can expose
-  hidden information (#1198). Physical mechanisms are sourced under #1032 (Codex)." Anchors:
-  "Apparatus-1 P1/P2; M-INACC; in Stage 0, the measurement-interface rows." Three statuses:
-  proposed / mathematically sufficient / derived from native OI. Order: "First, independent
-  physical motivation. Second, evaluation of consequences. Third, comparison with the quantum
-  completion conditions. The order is never reversed."
+- **#1169 c.6720342295** (amaybaum, 2026-11-08T10:26:34Z), planning clarification.
+  - P-OBS scope: "What physical mechanism permits registration, retention and reuse without
+    unintended leakage of information?"
+  - Safeguard: "Must keep M-INACC's leakage findings: registration and refill can expose hidden
+    information (#1198). Physical mechanisms are sourced under #1032 (Codex)."
+  - Anchors: "Apparatus-1 P1/P2; M-INACC; in Stage 0, the measurement-interface rows."
+  - Three statuses: proposed / mathematically sufficient / derived from native OI.
+  - Order: "First, independent physical motivation. Second, evaluation of consequences. Third,
+    comparison with the quantum completion conditions. The order is never reversed."
 - **#1169 c.6719386464** (amaybaum, 2026-11-08T08:41:15Z). The owner's words: "Every candidate
   physical restriction must have an independent physical motivation established before evaluating
   whether it selects quantum behaviour. A restriction that eliminates an unwanted classical model is
@@ -95,6 +108,21 @@ Off main and provisional:
   target."
 - **#1169 c.6719192859** (owner guidance on M-INACC tiers). The owner's words: the most important
   part is "the classical-imitation control".
+- **#1169 c.6720678942** (amaybaum, 2026-11-08T11:03:23Z), two workstreams.
+  - P-OBS belongs to the **physical-selection** workstream. Its question is "why should OI or nature
+    select a given extension?" Its success criterion is "independent motivation, physical sourcing,
+    explanatory necessity and critical tests". Its standards are c.6720450946 and §A.29.
+  - Owner refinement 2, in the owner's words as recorded:
+    - "Theorem NC supplies a noncontextual model under its identification and spanning-read
+      conditions."
+    - "Theorem U2 restricts the available encoded unitaries under its finite-frame and
+      operation-set assumptions. It does not exclude every finite-order non-Clifford operation in a
+      different extension."
+
+    §2 (K-NC, K-FIN), §10 (C-NC) and PR-1 apply this refinement.
+  - "None may influence another construction's frozen rule without a documented amendment."
+  - "No derivation, computation, V3 execution, new physical premise, manuscript promotion or merge
+    is authorized by this decision."
 
 ### 1.2 Stage 0 rows targeted
 
@@ -104,12 +132,13 @@ Off main and provisional:
   intervention model." P-OBS-LB proposes a physically motivated access model for the registration,
   reset and supply that P1 and P2 currently supply.
 - **Row 16, inaccessible but dynamically used memory (evaluation).** Tag R. "Lemma Q in class N,
-  given P1 and P2 (QA:458–479) … Fails for `G_σ` (MI; provisional; §4)." P-OBS-LB is evaluated on
-  whether its cycle keeps what row 16 records for class N once P1's decoupled archive is replaced by
-  export into an interacting sink.
+  given P1 and P2 (QA:458–479) … Fails for `G_σ` (MI; provisional; §4)."
+  - P-OBS-LB is evaluated on whether its cycle keeps what row 16 records for class N once P1's
+    decoupled archive for registered cells is replaced by export into an interacting sink.
+  - The construction does not remove the decoupled-store idealization. It relocates it to the
+    displaced former sink occupants, which go to the decoupled exhaust `Ex` (EXHAUST, §5).
 - **Reach rows** (§11.3). Row 2 (preloaded content and its storage form) and row 15 (hidden dynamics
-  between couplings), through the sink-use test `USE-S`. Row 4 (reversibility) is used and not
-  targeted.
+  between couplings), through USE-S. Row 4 (reversibility) is used and not targeted.
 
 ***
 
@@ -117,11 +146,11 @@ Off main and provisional:
 
 | ID | Constraint | Source | How P-OBS-LB meets it |
 | --- | --- | --- | --- |
-| K-NC | MECH-2 Theorem NC: under an injective identification with H-LIFT and spanning-read certification, the configuration model is noncontextual for any dynamics. A construction must change the identification or the access, not only the dynamics | M2D:65–71, M2D:483–498 | P-OBS-LB changes the access: the registration, reset and supply model. It leaves the rule and the identification unchanged. It claims no nonclassicality. At `q = 2` over native `Z`/`X` reads alone NC does not apply; the configuration model remains a classical imitation in every case (C-NC, §10) |
-| K-MI | M-INACC: under `G_σ`, registration and refill expose the `Q* = 1` functional in `Π_A` and `Π_B` (E_A, E_A′, E_B; outcome (B, B), tiers Negative). P-GK is degenerate. PROT-R fails even in the linear limits; PROT-R′ holds in them | MI §0, §3, §4, §6.3; MI-A3 §1, §4 (provisional, off main) | Preserved as control PR-3. No P-OBS-LB clause is chosen to block E_A, E_A′ or E_B; the target-tuned countercontrol TT (§10) checks this |
-| K-FIN | Finite carriers: the encoded unitaries of a fixed bijection form a finite group (Theorem U2); AP1 excludes `rot` | M2D:55–64, M2D:404; AP1 §5.3 | P-OBS-LB is finite and claims no encoded operation. Any encoded operation outside `A_4 ≀ S_n` under R1 attributed to it voids the record (PR-1) |
-| K-SUP | Supplied access, records, preparation or control does not count as physically generated | c.6720450946 | Every resource is in the §5 ledger. "Derived from native OI" requires every load-bearing entry to be native (§9.4) |
-| K-IV | Condition (iv) fails natively (`permTheory_not_control`, `substratumGen_not_control`); the residual is in the access/intervention model | S0 row 9 | P-OBS-LB makes no claim about (iv). The comparison stage only records whether its access model bears on (iv) (§9.5) |
+| K-NC | MECH-2 Theorem NC, within its exact hypotheses: under an injective identification with H-LIFT and spanning-read certification, the configuration model is a noncontextual model of the encoded theory, for any dynamics. Hence a construction must change the identification or the access, not only the dynamics | M2D:65–71, M2D:483–498; c.6720678942 refinement 2 | P-OBS-LB changes the access (registration, reset, supply). It leaves the rule and the identification unchanged and claims no nonclassicality. At `q = 2` over native `Z`/`X` reads alone NC does not apply. Classical imitability of P-OBS's configuration-level record laws rests on the exhibited model itself, not on NC (C-NC, §10) |
+| K-MI | M-INACC: under `G_σ`, registration and refill expose the `Q* = 1` functional in `Π_A` and `Π_B` (E_A, E_A′, E_B; outcome (B, B), tiers Negative). P-GK is degenerate. PROT-R fails even in the linear limits; PROT-R′ holds in them | MI §0, §3, §4, §6.3; MI-A3 §1, §4 (provisional, off main; model-reviewed) | Preserved as PR-3, with its off-main status (§11.1). No clause of P-OBS-LB is chosen to block E_A, E_A′ or E_B. TT-1 to TT-4 check this (§10) |
+| K-FIN | Finite carriers. Theorem U2 within its exact hypotheses: (i) under R1⊗n the CP ontic permutations are `A_4 ≀ S_n`; (ii) under Lemma F's operation set ("attach cells in fixed laws, apply the rule, feedback, discard, condition on configuration records") and H-LIFT, any branch acting on the encoded carrier as `p · Ad U` with input-independent `p > 0` has `Ad U = T_π`, `π ∈ A_4 ≀ S_n`. AP1 excludes `rot` on finite carriers | M2D:48–64, :404–413; AP1 §5.3; c.6720678942 refinement 2 | P-OBS-LB is finite and claims no encoded operation. PR-1 (§11.1) applies U2 only within its hypotheses. Stage 1B first states whether `Π_LB`'s operations are in Lemma F's set and satisfy H-LIFT. U2 says nothing about non-unitary encoded maps or about operations outside that set |
+| K-SUP | Supplied access, records, preparation or control does not count as physically generated | c.6720450946 | Every resource is in the §5 ledger. "Derived from native OI" requires all five named inputs to be native, each sourced by an established claim on `main` (§9.5) |
+| K-IV | Condition (iv) fails natively (`permTheory_not_control`, `substratumGen_not_control`); the residual is in the access/intervention model | S0 row 9 | P-OBS-LB makes no claim about (iv). The comparison stage only records whether its access model bears on (iv) (§9.6) |
 | K-LEAN | No `readWriteSourced_*` citation (#1188) | brief | None cited |
 | K-Q | `q = 2`; odd `q` conditional on #1193 | brief | `q = 2` only. No odd-`q` statement |
 | K-1032 | Physical mechanisms are sourced under #1032 (Codex) | c.6720342295 | Not duplicated. Needed mechanisms not sourced there are named open inputs (§5.2) |
@@ -136,20 +165,20 @@ requires. "Class" is the motivation class of §6.2.
 
 | # | Candidate | Source | Class | Decision and reason |
 | --- | --- | --- | --- | --- |
-| C-1 | Landauer–Bennett record cycle: registration by reversible copy onto a blank; reset only by exporting the register's content into non-information-bearing degrees of freedom of an environment; blank supply as a consumed resource | Landauer 1961; Bennett 1973, 1982, 2003 (§6.3) | Mixed (§6.2) | **Selected** as P-OBS-LB. It is the only candidate whose motivation is stated without the target and that fixes a form for all three stages, including reset, which is the step where M-INACC's exposure entered (MI §8, "archive-swap refills act as gate settings") |
-| C-2 | Barrier-protected metastable memory (Kramers hopping; trapped bead with camera read) | LEAD §2; Bérut et al. 2012; Kramers 1940 | Independent, external | **Rejected as P-OBS's mechanism; carried as a dependency.** It is a retention mechanism and is silent on leakage. Its native sourcing is #1032's open item (LEAD §4: "first missing ingredient … source-level realization of the controlled bead register"). Duplicating it is outside this unit (K-1032) |
+| C-1 | Landauer–Bennett record cycle: registration by reversible copy onto a blank; reset only by exporting the register's content into other degrees of freedom of an environment; blank supply as a consumed resource | Landauer 1961; Bennett 1973, 1982, 2003 (§6.3) | Mixed (§6.2), components pending E0 | **Selected** as P-OBS-LB. It is the only candidate whose motivation is stated without the target and that fixes a form for all three stages, including reset, which is the step where M-INACC's exposure entered (MI §8, "archive-swap refills act as gate settings") |
+| C-2 | Barrier-protected metastable memory (Kramers hopping; trapped bead with camera read) | LEAD §2; Bérut et al. 2012; Kramers 1940 | Independent, external | **Rejected as P-OBS's mechanism; carried as a dependency.** It is a retention mechanism and is silent on leakage. Its native sourcing is #1032's open item (LEAD:95, "First missing ingredient"). Duplicating it is outside this unit (K-1032) |
 | C-3 | Redundant environmental records (quantum Darwinism, objectivity, spectrum broadcast structures) | Zurek 2009; Ollivier, Poulin, Zurek 2004; Horodecki, Korbicz, Horodecki 2015 | Target-defined | **Rejected.** Stated for quantum systems (pointer states, decoherence). Its classical residue, many copies of one record, multiplies access paths and does not address leakage |
 | C-4 | Classical repetition / majority redundancy for retention | Standard coding | Independent | **Rejected.** Retention against noise only. Added copies are added read paths; there is no leakage content |
 | C-5 | Self-correcting local memory (Toom's rule; reliable cellular automata) | Toom 1980; Gács 2001 | Independent | **Rejected.** Noise-robust retention with dissipative local rules. In a bijective substratum it needs a supplied cold sink, which is the same unsourced resource as C-1's blanks, and it does not address leakage. Recorded for #1032 |
-| C-6 | Symplectic reciprocity extended to every coupling, gates included ("full-map reciprocity") | Hamiltonian action–reaction; AP1:313–327 | Independent in motivation, but no definition for nonlinear maps over `F_2` | **Rejected.** Over `F_2` it has no stated meaning for non-affine rules. Adopting it now would act chiefly to exclude `G_σ`, i.e. a particular construction: tuned under refinement 1. Its class-N content is already QA's Lemma Q |
-| C-7 | Epistemic restriction (knowledge balance; classical complementarity) | Spekkens 2007, 2014; Bartlett, Rudolph, Spekkens 2012 | Target-adjacent | **Rejected as motivation.** Introduced to reproduce quantum phenomena (Spekkens 2007 abstract). Used only as a comparator (§10, C-NC) |
+| C-6 | Symplectic reciprocity extended to every coupling, gates included ("full-map reciprocity") | Hamiltonian action–reaction; AP1:313–327 | Independent in motivation, but no definition for nonlinear maps over `F_2` | **Rejected.** Over `F_2` it has no stated meaning for non-affine rules. Adopting it now would act chiefly to exclude `G_σ`, a particular construction: tuned under refinement 1. Its class-N content is already QA's Lemma Q |
+| C-7 | Epistemic restriction (knowledge balance; classical complementarity) | Spekkens 2007, 2014; Bartlett, Rudolph, Spekkens 2012 | Target-adjacent | **Rejected as motivation.** Introduced to reproduce quantum phenomena (Spekkens 2007 abstract). Used only as a comparator (§9.6) |
 | C-8 | Conservation-limited measurement (Wigner–Araki–Yanase) | Wigner 1952; Araki, Yanase 1960 | Target-defined | **Rejected.** Stated for quantum observables. Its classical analogue, conservation of `Q`, is tested in MI and does not protect under `G_σ` (MI §6.2) |
 | C-9 | Causal-cone locality of records | Main:364 | Independent | **Rejected as mechanism.** Non-discriminating: `G_σ` satisfies it (MI §6.1, C-NS green) |
 | C-10 | Information acquisition bounded by negentropy consumed (Szilard–Brillouin–Sagawa–Ueda accounting) | Szilard 1929; Brillouin 1951; Sagawa, Ueda 2009 | Independent | **Not a separate candidate.** A global budget, not a mechanism. Kept inside C-1 as the resource ledger. Whether it constrains per-cell determination is a Stage 1B question; it is not assumed to |
 | C-11 | Wake / passing-field reads | MR★ C-2, C-4 | — | **Rejected as out of scope.** It is #1032's route I, recorded `UNDECIDED` in MR★ C-4. Not duplicated |
-| C-12 | Non-equilibrium environment as blank supply (observers in a non-equilibrium phase) | Main §4.6 (conditional on EM); MR★ C-3 | Mixed | **Not selected; recorded as candidate source for BLANK-SRC.** MR★ C-3: "No principle in the corpus supplies [a quiet region]". Sourcing is #1032/#1147 territory |
+| C-12 | Non-equilibrium environment as blank supply (observers in a non-equilibrium phase) | Main §4.6 (conditional on EM); MR★ C-3 | Mixed | **Not selected; recorded as candidate source for BLANK-SRC.** MR★:1353: "No principle in the corpus supplies one." Sourcing is #1032/#1147 territory |
 | C-13 | State-dependent geometry as protector | SM:104; M2D §0 item 1 | Independent proposal | **Rejected as P-OBS's mechanism.** Tested within scope by MI and fails there (provisional). Kept as a control rule (`G_σ`) |
-| C-0 | Null: no candidate | — | — | **Admissible outcome.** If the §6 entry review reclassifies C-1 as target-defined, P-OBS records a null and stops (§9.1, step E0) |
+| C-0 | Null: no candidate | — | — | **Admissible outcome.** E0's exits give C-0 (§9.1) |
 
 **Selection is by motivation and scope, not by outcome.** No consequence of any candidate has been
 evaluated. The disclosure of origin (§11.5) records how C-1 came to be considered and the
@@ -181,65 +210,70 @@ independence risk that follows from it.
   H-PREP; product sources H-PS). These are the cells about which information is registered.
 - **Register sites `Rg`.** Fixed by the protocol at `t = 0`, outside `C`. Each holds a standard
   blank (§4.3, LB-B) at `t = 0`.
-- **Sink entry sites `Snk`.** For each register site `r`, one fixed hidden site `s(r)` outside `C`
-  and `Rg` at ring distance `d_S = 3` from `r`, on the side away from `C` (parameter; §11.2,
-  A-dist).
+- **Sink entry sites.** For each register site `r`, one fixed site `s(r)` outside `C` and `Rg`, at
+  ring distance `d_S = 3` from `r` and on the side of `r` away from `C`. Both are parameters
+  (§11.2, A-dist and A-side). They are fixed per protocol before `t = 0`.
 - **Background.** Every other ring site holds a source cell (the hidden sector).
 - **Reservoir `Res`.** Decoupled cells outside the ring, each a standard blank, injected only by
-  LB-Z. This is MI §6.3's reserve-cell representation, now holding blanks only.
+  LB-Z. This is MI §6.3's reserve-cell representation, holding blanks only.
 - **Exhaust `Ex`.** Decoupled cells outside the ring, never injected and never read (§4.3, LB-Z).
 
 ### 4.3 The access mechanism (the construction proper)
 
 - **LB-W, registration by copy onto a blank.** The observer acquires a record value only by
-  registering the `u` slot of a cell at a register site. Carrier cells and background cells are
+  registering the `u` slot of the cell at a register site. Carrier cells and background cells are
   never registered directly. Information reaches a register only through the fixed rule's coupling.
 - **LB-B, standard blank.** At its injection tick a blank has `u = 0` known and `v` unknown,
-  uniform and independent of everything else. No other supplied cell exists: no value 1, no `v`-known
-  or `(u + v)`-known supply, and no fully known cell.
+  uniform and independent of everything else. No other supplied cell exists: no value 1, no
+  `v`-known or `(u + v)`-known supply, and no fully known cell.
 - **LB-F, reservoir fixity.** The blank law of LB-B is fixed before any protocol and does not depend
-  on the protocol, the records or the carrier. The protocol chooses only when a reset occurs; it
-  never chooses blank values.
-- **LB-Z, reset by export (atomic with registration).** Immediately after a register site's `u` slot
-  is registered, between the same two ticks, the cycle `(Res blank → r; spent register → s(r);
-  former occupant of s(r) → Ex)` is executed. The spent register then evolves on the ring at
-  `s(r)` under the fixed rule, coupled to its neighbours. Nothing is erased: the cycle is a
-  permutation of cells.
-- **LB-S, sink inaccessibility.** No register-site rule lets the observer register a cell at a sink
-  site or in `Ex`. The sink's content can reach a register only through the fixed rule's dynamics.
-- **Adaptivity.** The choice of which register to register, and when, may depend on earlier records.
-  Register sites, sink sites, `d_S` and the blank law are fixed per protocol before `t = 0`.
-- **Protocol class `Π_LB`.** All finite protocols built from the above on a given rule. Sequential
+  on the protocol, the records or the carrier. The protocol chooses only when a registration (and
+  with it a reset) occurs. It never chooses blank values.
+- **LB-Z, reset by export (atomic with registration).** Immediately after the `u` slot at register
+  site `r` is registered, between the same two ticks, a cyclic permutation of three cells is
+  executed:
+  1. a blank from `Res` goes to `r`;
+  2. the spent register goes to `s(r)`;
+  3. the former occupant of `s(r)` goes to `Ex`.
+
+  The spent register then evolves on the ring at `s(r)` under the fixed rule, coupled to its
+  neighbours. Nothing is erased: the cycle is a permutation of cells.
+- **LB-S, sink inaccessibility.** No cell at a site outside `Rg`, and no cell in `Ex`, can be
+  registered. Content at sink sites can reach a register only through the fixed rule's dynamics.
+- **Strategy.** A protocol is a strategy `π`: the fixed data (`C`, `Rg`, `s(·)`, `d_S`, side) together
+  with a map from record histories to the set of register sites registered between ticks `t` and
+  `t + 1`. The map may depend on earlier records (adaptivity).
+- **Protocol class `Π_LB`.** All such strategies on a given rule, with horizon `≤ T`. Sequential
   composition: the outgoing ring configuration, `Res`, `Ex` and the records are the input of the
   next protocol.
 
 ### 4.4 Records, retention and reuse
 
-- **Records.** The joint record is the list of registered values with their sites and ticks.
-  Knowledge `K_t` comprises the record, the protocol (sites, schedule, `d_S`) and the blank law
-  (MI-D §1.2's definition, adapted).
+- **Records and knowledge.** The joint record is the list of registered values with their sites and
+  ticks. Knowledge `K_t` is the record up to `t`, the strategy `π`, and the blank law.
 - **Retention.** A registered value is held in the observer's record store. Its physical retention
-  is RECORD-STORE (§5.2), supplied here. The physical register is exported by LB-Z; P-OBS-LB
-  provides no persistence mechanism for it. Persistence is #1032's (C-2).
+  is RECORD-STORE (§5.2), supplied. The physical register is exported by LB-Z, and P-OBS-LB
+  provides no persistence mechanism for it. Persistence belongs to #1032 (C-2).
 - **Reuse.**
   - *Register sites* are reused after each LB-Z reset.
   - *Carrier continuation:* the carrier keeps evolving and can be registered again through
     registers.
-  - *Recombination:* an unregistered register keeps interacting under the rule, so any
-    un-copying (AP1 §4.5) happens only by the dynamics.
-  - *Record-conditioned preparation* is excluded by LB-F.
+  - *Recombination:* an unregistered register keeps interacting under the rule, so any un-copying
+    (AP1 §4.5) happens only through the dynamics.
+  - *Record-conditioned preparation:* excluded by LB-F.
 
 ### 4.5 What differs from AP1 and MI
 
 | Element | AP1 / MI | P-OBS-LB |
 | --- | --- | --- |
 | Registered cell after registration | Archived: leaves the ring, couples to nothing (P1; MI-D §3.3) | Exported into the ring at `s(r)`, where it keeps coupling (LB-Z) |
+| Decoupled stores | The archive holds registered cells | `Ex` holds the displaced former occupants of sink sites, which are never registered. The decoupled-store idealization is relocated, not removed (EXHAUST) |
 | Supplied cells | Either slot known, value 0 or 1 (H-PREP), chosen by feedback (MI-D §3.1, §3.2) | `u = 0` known at injection only; fixed law (LB-B, LB-F) |
 | What may be registered | Any active cell (MI-D §3.3) | Register sites only (LB-W) |
 | Isolation, multipliers | `Π_B`: P3, E-iso | None |
 
-Whether MI's protocols E_A, E_A′ and E_B lie in `Π_LB` is a Stage 1B check (§10, PR-3). It is not
-assumed in either direction.
+Whether MI's protocols E_A, E_A′ and E_B, or AP1's C9 protocol, lie in `Π_LB` is a Stage 1B check
+(PR-3, PR-4). It is not assumed in either direction.
 
 ***
 
@@ -253,34 +287,35 @@ assumed in either direction.
 | Rule `N_1` (and `N_0`) | Native | A4/A5 posits; A4's no-self-term clause has open warrant (S0 row 9, §3 A4) |
 | Rule `G_σ` | Representation (corpus candidate) | Control only; from SM's state-dependent-geometry hypothesis via MI |
 | Bijectivity of every step and of LB-Z's permutation | Native (A2) for the rule; LB-Z's execution is supplied (SWAP-EXEC) | A2's corpus motivation is mixed (S0 row 4); LB-Z uses only its information-conservation prong |
-| Observer/hidden partition | Native as OI's definition (Main:44) | The placement of `C`, `Rg`, `Snk` is representation |
-| Placement of `C`, `Rg`, `Snk`, `d_S` | Representation | Fixed per protocol before `t = 0` |
+| Observer/hidden partition | Native as OI's definition (Main:44) | The placement of `C`, `Rg` and the sink sites is representation |
+| Placement of `C`, `Rg`, `s(·)`, `d_S`, side | Representation | Fixed per protocol before `t = 0` |
 | Uniform unknown slots (sources, blanks' `v`) | Native measure through the open hypothesis H-PREP | AP1:416, 418 |
 | Standard blanks and the reservoir | Supplied | Named open input BLANK-SRC |
 | Execution of LB-Z | Supplied | Named open input SWAP-EXEC (a controller act; #866 territory) |
-| Registration act and record store | Supplied | Named open input RECORD-STORE; the later-read bridge is LEAD §4's "separate missing bridge" |
+| Registration act and record store | Supplied | Named open input RECORD-STORE. LEAD:101: "The later read has its own missing bridge" |
 | Exhaust `Ex` (decoupled, never read) | Supplied idealization | Named open input EXHAUST |
 | Schedule and clock | Supplied | Named open input TIMING; S0 row 5: no clock source passes CTL's gate |
+| Reference devices of §8 (`ref(π)`'s archive `Arc` and fresh source cells) | Representation (comparison device only) | Not part of P-OBS-LB; used only to define LK-R |
 | R1 encoding | Representation (comparator only) | Used only in C-NC and PR-1 |
 | Literature of §6.3 | Imported (motivation only) | Not a premise of any derivation |
-| Qubit stabilizer theory, toy theory | Imported (comparator only) | C-NC |
+| Qubit stabilizer theory, toy theory | Imported (comparator only) | §9.6 |
 
 ### 5.2 Named open inputs
 
-- **BLANK-SRC.** A physical source of standard blanks under one fixed law. MR★ C-3 records that no
+- **BLANK-SRC.** A physical source of standard blanks under one fixed law. MR★:1353 records that no
   principle in the corpus supplies a quiet ready region. #1147 and #1032 hold the readiness and
   register obligations. Not sourced here.
 - **SWAP-EXEC.** A physical process that executes LB-Z's permutation under the fixed rule. Not
   sourced. Controller sourcing is #866 (CP-PREP-1 at main `9c201475`, source gate not passed).
-- **RECORD-STORE.** A physical retention of registered values and the read into a public record. It
-  depends on #1032 (LEAD §4; TN §6.2: "not a universal no-go").
-- **EXHAUST.** A decoupled, never-read store for displaced sink occupants. Supplied as in MI §6.3's
+- **RECORD-STORE.** A physical registration act, a physical retention of registered values, and the
+  read into a public record. It depends on #1032 (LEAD §4; TN §6.2: "not a universal no-go").
+- **EXHAUST.** A decoupled, never-read store for displaced sink occupants. Supplied, as in MI §6.3's
   reserve-cell representation.
 - **TIMING.** A source of the schedule. Not sourced.
 
-**Consequence fixed now.** Because BLANK-SRC, SWAP-EXEC, RECORD-STORE, EXHAUST and TIMING are
-supplied, the status "derived from native OI" cannot be reached in Stage 1B unless a recorded
-source for each lands first (§9.4). This is stated before any result.
+**Consequence fixed now.** All five are supplied. "Derived from native OI" therefore cannot be
+reached unless each of the five is first sourced by an established claim on `main` (§9.5). This is
+stated before any result.
 
 ***
 
@@ -288,92 +323,117 @@ source for each lands first (§9.4). This is stated before any result.
 
 ### 6.1 Motivation (stated without the target)
 
-1. **Registration as copying onto a blank.** A logically reversible operation can be carried out by
-   a physical mechanism without a necessary entropy cost (Bennett 1973; Bennett 2003, abstract). A
-   measurement can be modelled as such an operation: the measured value is copied into a memory
-   that starts in a known standard state (Bennett 1982). The memory, not the measured system, then
-   holds the record. LB-W states this for the ring. Information about the carrier reaches the
-   observer only through a cell that began in a known standard state and was coupled to the carrier
-   by the same dynamics that moves everything else.
-2. **Reset requires export.** "Any logically irreversible manipulation of information, such as the
-   erasure of a bit … must be accompanied by a corresponding entropy increase in non-information
-   bearing degrees of freedom of the information processing apparatus or its environment" (Bennett
-   2003, abstract, stating Landauer 1961). In a dynamics that conserves information (A2; Liouville's
-   theorem in the classical case), a memory cannot be returned to its standard state by destroying
-   its content. The content must be moved into other degrees of freedom. LB-Z states this for the
-   ring: reuse of a register site is a permutation that moves the spent register into the
-   environment and brings in a fresh standard memory.
-3. **The environment keeps evolving.** The degrees of freedom that receive exported content are
-   part of the world and obey the same dynamics. Main's observer is a proper subsystem coupled to
-   its complement through the same `φ` (Main:44). Visible and hidden lattice degrees of freedom obey
-   the same local rule (Sub:48). LB-Z therefore places the exported register on the ring, where it
-   keeps coupling, rather than in a store that couples to nothing.
-4. **The standard state fixes the information-bearing value only.** Landauer's distinction separates
-   information-bearing degrees of freedom, which a reset sets to a standard value, from the others,
-   which stay thermal. In the second-order cell the present value `u` is the one the observer
-   registers. LB-B sets `u` to the standard value 0 and leaves the previous-slice value `v` at the
-   maximal-entropy law (Main:56, through H-PREP).
+Each item states what is supported by a source read in this unit and what is the writer's reading.
+Items or parts marked **[pending E0]** rest on sources not read here. They do not count as support
+until E0 verifies them in the text (§9.1).
+
+1. **Registration as copying onto a blank.**
+   - *Read here:* "any logically reversible transformation of information can in principle be
+     accomplished by an appropriate physical mechanism operating in a thermodynamically reversible
+     fashion" (Bennett 2003, abstract).
+   - **[pending E0]** A measurement can be modelled as such an operation: the measured value is
+     copied into a memory that starts in a known standard state, and the memory then holds the
+     record (Bennett 1982; also Bennett 1973).
+   - LB-W states this for the ring. Information about the carrier reaches the observer only through
+     a cell that began in a known standard state and was coupled to the carrier by the same dynamics
+     that moves everything else.
+2. **Reset requires export.**
+   - *Read here:* "any logically irreversible manipulation of information, such as the erasure of a
+     bit … must be accompanied by a corresponding entropy increase in non-information bearing
+     degrees of freedom of the information processing apparatus or its environment" (Bennett 2003,
+     abstract, stating Landauer's principle).
+   - *Without literature:* in a dynamics that conserves information (A2), a memory cannot be
+     returned to its standard state by destroying its content; the content must be moved into other
+     degrees of freedom.
+   - LB-Z states this for the ring. Reuse of a register site is a permutation that moves the spent
+     register into the environment and brings in a fresh standard memory.
+3. **The environment keeps evolving.** The degrees of freedom that receive exported content obey
+   the same dynamics as everything else. Main's observer is a proper subsystem coupled to its
+   complement through the same `φ` (Main:44). Visible and hidden lattice degrees of freedom obey the
+   same local rule (Sub:48). LB-Z therefore places the exported register on the ring, where it keeps
+   coupling, rather than in a store that couples to nothing.
+4. **The standard state of a blank.**
+   - *Read here:* the abstract quoted in item 2 distinguishes information-bearing from
+     non-information-bearing degrees of freedom only to say where erasure deposits entropy.
+   - **[pending E0]** *Writer's reading, not a statement of any source read here:* a reset fixes the
+     information-bearing value of the memory and leaves its other degrees of freedom of the same
+     memory at the thermal law (Landauer 1961, not read here). Applied to a second-order cell, the
+     registered present value `u` is taken as the information-bearing value. The previous-slice
+     value `v` is left at the maximal-entropy law (Main:56, through H-PREP). The mapping to the
+     `(u, v)` cell is the writer's.
+   - *A second reading, for E0 to weigh* (raised by the review): position reset, velocity thermal,
+     as for a reset bead. With `u` known, the discrete velocity `u + v` is uniform exactly when `v`
+     is uniform, so this reading gives the same supply law. It is not textually verified either.
+   - *A reading that would give a different law:* a quiescent memory, `u = v = 0`, is an equally
+     natural reset of a second-order cell when AP1/P2 are not in view (review's judgement). It is
+     variant "both slots known" of A-B (§11.2).
 5. **A reservoir is fixed in advance.** A reservoir is a system whose state law is set before, and
    independently of, the process that draws on it. LB-F states this. It matches GA's admission
    contract, which excludes fitted seed laws and record-conditioned loading (GA:75–106).
 6. **The environment is not read.** Exported content is outside the observer's registers (LB-S).
-   This is the content of "environment" in item 2, and Main's partition of `S` into observer and
+   This is what "environment" means in item 2, and Main's partition of `S` into observer and
    complement (Main:44).
 
-### 6.2 Classification (Q3-A1 §3 C2 standard, restated)
+### 6.2 Classification (Q3-A1 §3 Block C, C2–C3, restated)
 
-**The standard.** `T` here means quantum behaviour, the Born rule, complete positivity, unitaries,
-the completion conditions, and the protection of the `Q* = 1` class (the protected class of QA and
-MI, chosen there for the quantum target). Each assumption is judged on its own, without the rest of
-the construction. What it yields together with the construction is a consequence (§8), never a
-motivation.
+**The standard.** `𝒯` means quantum behaviour, the Born rule, complete positivity, unitaries, the
+completion conditions, and the protection of the `Q* = 1` class (the protected class of QA and MI,
+chosen there for the quantum target). Each assumption is judged on its own, without the rest of the
+construction. What it yields together with the construction is a consequence (§8), never a
+motivation. No clause counts deriving `𝒯` (or its negation) as a merit or as a demerit.
 
-- **Independent.** The stated motivation and its support do not presuppose `T` and are not designed
+- **Independent.** The stated motivation and its support do not presuppose `𝒯` and are not designed
   to exclude a particular construction.
-- **Target-adjacent.** Taken on its own, the assumption or its motivation presupposes `T`, is
-  equivalent to part of `T` on the class at issue, or is supported only by a consequence of `T`.
-- **Target-defined.** The stated reason is to obtain `T` or to exclude a particular construction;
-  or, by the functional test, the assumption's statement is a restriction on the protected
+- **Target-adjacent.** Taken on its own, the assumption or its motivation presupposes `𝒯`, is
+  equivalent to part of `𝒯` on the class at issue, or is supported only by a consequence of `𝒯`.
+- **Target-defined.** The stated reason is to obtain `𝒯` or to exclude a particular construction.
+  Or, by the functional test, the assumption's statement is a restriction on the protected
   functional itself, with no stated effect outside it.
 - **Mixed.** An independent component together with a target-adjacent one, each identified.
-- **None found.** No motivation located after a recorded search.
+- **None found.** No motivation located after a search. Every "none found" carries its search
+  record (C3): the corpus locations and literature searched, so that it is backed by a corpus-wide
+  search (§A.19).
+
+**Extensional check (added for TT-4, §10).** A premise whose extension in `Π_LB` (the set of
+strategies it admits) equals that of a premise with a recorded blocking or target-defined reason is
+classed with that premise. The exception is an independent reason recorded before the blocking
+premise was known.
 
 | Clause | Class | Reason |
 | --- | --- | --- |
-| LB-W | Independent | Bennett's reversible measurement model; no reference to `T` |
-| LB-Z | Independent | Landauer's principle with information conservation. A2's corpus motivation is mixed (Main:62, 66); LB-Z uses only the Liouville prong |
-| LB-Z, interacting sink (item 3) | Independent | Main:44, Sub:48: one dynamics for observer and complement |
-| LB-B | **Mixed** | Independent: Landauer's information-bearing / thermal split. Target-adjacent: the result, one known slot per supplied cell, coincides in form with AP1's P2, whose motivation is "closure plus the E-AR obstruction … a programme-internal reason" (AP1:347–349), and with the knowledge-balance principle (C-7). The choice of `u` as the information-bearing slot is a representation choice |
+| LB-W | Independent **[pending E0]** for its measurement-as-copy component | Bennett 2003 abstract read; Bennett 1982 not read here. If E0 strikes Bennett 1982, LB-W's class is re-decided on the remainder |
+| LB-Z | Independent | A2 with information conservation; no literature needed. The C-CAL calibration item (§10) |
+| LB-Z, interacting sink (item 3) | Independent | Main:44, Sub:48 |
+| LB-B | **Mixed**, independent component **[pending E0]** | Independent component: item 4's information-bearing/thermal reading (not read here). Target-adjacent component: the resulting one known slot per supplied cell coincides with AP1's P2, whose motivation is "closure plus the E-AR obstruction … a programme-internal reason" (AP1:347–349), and with the knowledge-balance principle (C-7). The choice of `u` as the information-bearing slot is the writer's mapping |
 | LB-F | Independent | Reservoir definition; GA:75–106 |
 | LB-S | Independent | Main:44 partition. It is a lack of access, not a supplied access |
-| Leakage criterion `LK-R` (§8) | Independent | Defined relative to the single-use reference, without `T` |
-| `PROT-D/B/R′_LB` (§8) | Target-adjacent | Inherited from MI to preserve K-MI; used only to record outcomes |
+| Record discount `Disc_t` in `PROT-*_LB` (§8.3) | **Mixed** | Independent component: the question's own distinction between intended (registered) and unintended information. Target-adjacent component: the discount was shaped with knowledge of MI-A3 §1's archived-cell countercase and of the definitional sharp export (§8.3, E-SHARP), and its effect is on the protected class |
+| Leakage increment LK-R (§8.2) | Independent | Defined relative to `ref(π)` and functions of world variables, without `𝒯` |
+| `PROT-D/B/R′_LB` (§8.3) | Target-adjacent | Modified from MI; recorded to preserve K-MI |
 
-**Overall: mixed.** The target-adjacent component is LB-B's form. Whether that component is
-load-bearing is decided by the variation analysis (§11.2, A-B and A-Bslot). If it is load-bearing
-and its destroying variants are equally supported by item 4, the positive is recorded as (b)
-(§9.3).
+**Overall: mixed.** The target-adjacent components are LB-B's form and the record discount. One
+rule (§9.4) governs how they bear on (a)/(b) and on the ladder.
 
 ### 6.3 Literature
 
-Each item below was checked in this unit, or is marked as not checked. The entry review (E0, §9.1)
-must verify the textual support of every item marked "not read here" before that item counts as
-motivation. #1186 records that earlier Landauer/Bennett attributions in the corpus "were not
-textual literature reads … they do not source this lead" (LEAD:29); the same standard applies here.
+Each item below was either checked in this unit or is marked as not checked. #1186 records that
+earlier Landauer/Bennett attributions in the corpus "were not textual literature reads … they do not
+source this lead" (LEAD:29). The same standard applies here: an unread item supports nothing until
+E0 verifies it.
 
 | Reference | Checked here | Used for |
 | --- | --- | --- |
-| C. H. Bennett, *Notes on Landauer's principle, reversible computation, and Maxwell's demon*, Stud. Hist. Phil. Mod. Phys. 34, 501 (2003), arXiv:physics/0210005 | Abstract read | §6.1 items 1, 2, 4 |
-| R. Landauer, *Irreversibility and heat generation in the computing process*, IBM J. Res. Dev. 5, 183 (1961) | Not read here | Item 2, item 4 (information-bearing distinction) |
-| C. H. Bennett, *Logical reversibility of computation*, IBM J. Res. Dev. 17, 525 (1973) | Not read here | Item 1 |
-| C. H. Bennett, *The thermodynamics of computation — a review*, Int. J. Theor. Phys. 21, 905 (1982) | Not read here | Item 1 (measurement as copying into a standard memory) |
+| C. H. Bennett, *Notes on Landauer's principle, reversible computation, and Maxwell's demon*, Stud. Hist. Phil. Mod. Phys. 34, 501 (2003), arXiv:physics/0210005 | Abstract read | Item 1, first quotation; item 2, quotation. It does **not** support item 4's mapping |
+| R. Landauer, *Irreversibility and heat generation in the computing process*, IBM J. Res. Dev. 5, 183 (1961) | Not read here | Item 4 [pending E0] |
+| C. H. Bennett, *Logical reversibility of computation*, IBM J. Res. Dev. 17, 525 (1973) | Not read here | Item 1 [pending E0] |
+| C. H. Bennett, *The thermodynamics of computation — a review*, Int. J. Theor. Phys. 21, 905 (1982) | Not read here | Item 1 [pending E0] (measurement as copying into a standard memory) |
 | T. Sagawa, M. Ueda, *Minimal energy cost for thermodynamic information processing: measurement and information erasure*, PRL 102, 250602 (2009), arXiv:0809.4098 | Abstract read | C-10 |
 | A. Bérut et al., Nature 483, 187 (2012) | Through LEAD §1–§2 only | C-2 |
-| H. A. Kramers, Physica 7, 284 (1940) | Not read here | C-2 |
+| H. A. Kramers, Physica 7, 284 (1940) | Not read here | C-2 (rejected; nothing depends on it) |
 | P. Gács, *Reliable cellular automata with self-organization*, J. Stat. Phys. 103, 45 (2001), arXiv:math/0003117 | Abstract read | C-5 |
-| A. L. Toom, *Stable and attractive trajectories in multicomponent systems* (1980) | Not read here | C-5 |
+| A. L. Toom, *Stable and attractive trajectories in multicomponent systems* (1980) | Not read here | C-5 (rejected; nothing depends on it) |
 | W. H. Zurek, *Quantum Darwinism*, Nature Phys. 5, 181 (2009), arXiv:0903.5082; H. Ollivier, D. Poulin, W. H. Zurek, PRL 93, 220401 (2004), arXiv:quant-ph/0307229; R. Horodecki, J. K. Korbicz, P. Horodecki, PRA 91, 032122 (2015), arXiv:1312.6588 | Abstracts read | C-3 (rejection) |
-| R. W. Spekkens, PRA 75, 032110 (2007), arXiv:quant-ph/0401052; arXiv:1409.5041; S. D. Bartlett, T. Rudolph, R. W. Spekkens, PRA 86, 012103 (2012), arXiv:1111.5057 | Abstracts read (titles for 1111.5057) | C-7 (rejection); comparator |
+| R. W. Spekkens, PRA 75, 032110 (2007), arXiv:quant-ph/0401052; arXiv:1409.5041; S. D. Bartlett, T. Rudolph, R. W. Spekkens, PRA 86, 012103 (2012), arXiv:1111.5057 | Abstracts read (title only for 1111.5057) | C-7 (rejection); comparator |
 | E. P. Wigner (1952); H. Araki, M. M. Yanase, Phys. Rev. 120, 622 (1960) | Not read here | C-8 (rejection) |
 | L. Szilard (1929); L. Brillouin (1951) | Not read here | C-10 |
 
@@ -396,125 +456,284 @@ textual literature reads … they do not source this lead" (LEAD:29); the same s
 
 ## 8. Properties evaluated (definitions fixed now)
 
-Determination and bias are judged as in MI-D §1.2: branch by branch, on the entire joint record of
-a single run, before any averaging.
+### 8.1 Common terms
 
-- **Domain `D_t`.** The ring sites at tick `t` other than sink sites currently occupied by an
-  exported registered register. A registered cell carries the observer's record by design; MI-A3 §1
-  records that such a cell can be sharp ("its registered slot and its transported known slot need
-  not commute"). The domain therefore separates the record from everything else. The full-ring
-  variant is reported as a diagnostic (DG-FULL) and decides nothing.
-- **NV, non-vacuity.** `Π_LB` on the given rule contains at least one protocol whose joint record
-  is not independent of the carrier region `C`, and at least one protocol with a reset (LB-Z) after
-  which the reused site is registered again. If NV fails, the class is vacuous for the question and
-  no positive can be recorded (cf. P-GK's degeneracy, MI §4).
-- **LK-R, leakage increment (primary, target-free).** For `π ∈ Π_LB`, let `ref(π)` be the same
-  protocol with LB-Z's sink replaced by ideal terminality: the spent register goes to a decoupled,
-  never-read store, as in AP1 SA-1(b) and MI-D §3.3. LK-R holds iff, for every `π`, every tick and
-  every record branch of positive probability:
-  - every function of the configuration on `D_t` that is determined given `K_t` under `π` is
-    determined under `ref(π)`; and
-  - every such function that is biased under `π` is biased under `ref(π)`.
+- **Branches.** A record branch is a record history of positive probability under the stated run.
+  Determination and bias are judged branch by branch, on the entire joint record of a single run,
+  before any averaging (MI-D §1.2).
+- **World variables `W`.** The initial (`t = 0`) slot values of every cell of `C` and of the
+  background, including every cell that LB-Z later displaces to `Ex`. Blanks' unknown slots, and the
+  fresh source cells of `ref(π)`, are apparatus variables and not in `W`.
+- **Determined, biased (functions of `W`).** A function `g` of `W` is determined in a branch if it
+  is constant on the support of the conditional law of `W` given `K_t`. It is biased in a branch if
+  its conditional law given `K_t` differs from its prior law.
+- **Determined, biased (linear functionals on the ring).** As in MI-D §1.2: `f = Σ_i (a_i u_i + b_i
+  v_i)` on cells on the ring at `t`. `f` is determined in a branch if it is constant on the support
+  of the conditional law of the configuration given `K_t`. It is biased if that conditional law is
+  not uniform on `F_2`. `Q*(f) = Σ_i a_i b_i`.
 
-  A violation is unintended leakage: information reaching the observer through export and the
-  sink's return, beyond what single-use registration gives.
-- **PROT-D_LB, PROT-B_LB (inherited, target-adjacent; recorded).** MI-D §4.1's PROT-D and PROT-B
-  with "active cells" replaced by `D_t`: no linear functional on `D_t` with `Q* = 1` is determined
-  (respectively, biased).
-- **PROT-R′_LB (inherited; recorded).** MI-A3 §4's PROT-R′ with the cells active at `t′` replaced
-  by `D_{t′}`.
-- **USE-S, sink use (reach; §11.3).** Some function of the exported content changes the law of a
-  later registered value. Equivalently: the sink is not dynamically inert on the register sites
-  within `T`.
+### 8.2 LK-R, the leakage increment (primary, target-free)
 
-For non-linear rules, "linear functional" in PROT-D_LB/PROT-B_LB keeps MI's meaning: a linear
-functional of current slots. LK-R quantifies over all functions.
+**The reference `ref(π)`.** It uses the same strategy `π`: the same fixed data and the same map from
+record histories to registrations. It differs from `π` only in the cell placed at `s(r)` at each
+LB-Z event:
+
+| Step at an LB-Z event at `r` | `π` | `ref(π)` |
+| --- | --- | --- |
+| Blank from `Res` | to `r` | to `r` |
+| Former occupant of `s(r)` | to `Ex` | to `Ex` |
+| Placed at `s(r)` | the spent register | a fresh source cell (both slots uniform, independent of everything) |
+| Spent register | on the ring at `s(r)` | to `Arc`, a decoupled, never-read store (ideal terminality, as AP1 SA-1(b) and MI-D §3.3) |
+
+**The comparison (branch-free).**
+
+- `Det_π(t)` is the set of functions of `W` determined in at least one branch at tick `t` under `π`.
+  `Bias_π(t)` is the set biased in at least one such branch. `Det_ref(t)` and `Bias_ref(t)` are the
+  same under `ref(π)`.
+- **LK-R holds** iff, for every strategy `π ∈ Π_LB` and every `t ≤ T`, both of the following hold:
+  - `Det_π(t) ⊆ Det_ref(t)`;
+  - `Bias_π(t) ⊆ Bias_ref(t)`.
+- A violation is unintended leakage: information about the world reaching the observer through
+  export and the sink's return, beyond what the same strategy gives with ideal terminality.
+- Both runs quantify over the same variables `W`. The two runs' branches are not matched, so a
+  record history of probability 0 under one run needs no counterpart.
+- **Diagnostic LK-R-M.** Report the branch-matched comparison for record histories of positive
+  probability under both runs. Report each history of positive probability under `π` only as a
+  *sink-only history*. LK-R-M decides nothing.
+
+### 8.3 PROT-D_LB, PROT-B_LB, PROT-R′_LB (modified from MI; target-adjacent; recorded)
+
+**Domain.** The domain is M-INACC's own active domain: every cell on the ring at `t`, exported
+registers included (MI-D §1.2, "a cell that is on the ring and not archived … Hidden cells are
+active").
+
+**Definitional fact used to fix the discount (E-SHARP).** It follows from the definitions alone and
+is not a derived result:
+
+- A blank injected at `t_0` has `u(t_0) = 0` known.
+- Under every second-order rule `v(t_0 + 1) = u(t_0)`, so `v(t_0 + 1) = 0` is known.
+- If its `u` slot is registered at `t_0 + 1`, the cell is fully determined, and LB-Z places it on
+  the ring.
+
+On the undiscounted full ring, MI's PROT-D therefore fails for every rule through this protocol.
+This is the A3-type case: the record's own content is sharp (MI-A3 §1, where the cell was
+archived).
+
+**Discount `Disc_t` (linear rules `N_1`, `N_0` only).**
+
+- At each export event `e`, at tick `t_e`, of the cell placed at `s(r)`, let
+  `Disc_e = span{u_e, v_e} ∩ Det(t_e)`. This is the exported cell's own content that is determined
+  at export: its registered slot, and its other slot if that is determined.
+- Each later step, including later LB-Z permutations, is linear, and transports `Disc_e` to a
+  subspace `Disc_e(t)` of functionals on the ring at `t`.
+- `Disc_t = Σ_e Disc_e(t)` over the exports before `t`.
+- For `G_σ` the discounted properties are declared **inapplicable**, because transport is
+  nonlinear. Under `G_σ`, PROT-*_LB are reported on the undiscounted full ring and on `D_t` (the
+  A-dom variants, §11.2) as diagnostics for PR-3 only.
+
+**Properties.**
+
+- **PROT-D_LB.** For every strategy, tick and branch: every determined linear functional `f` on the
+  ring with `Q*(f) = 1` lies in `Disc_t`.
+- **PROT-B_LB.** For the same quantifiers: every linear functional `f` on the ring with `Q*(f) = 1`
+  and `f ∉ Disc_t` is unbiased.
+- **PROT-R′_LB.** MI-A3 §4's PROT-R′ with "the cells active at `t′`" read in MI's own sense (every
+  cell on the ring). Exception: the transported functional `f′` lies in `Disc_{t′}`.
+
+**Decisive rule.** A violation of any of the three, exhibited outside `Disc_t`, gives NEG (§9.3). A
+determination confined to `Disc_t` is recorded as A3-type and is not a violation.
+
+### 8.4 USE-S, sink use (reach)
+
+USE-S holds iff there exist all of the following:
+
+- a strategy `π ∈ Π_LB`;
+- an export event `e` at tick `t_e`;
+- a later registration at tick `t > t_e`;
+- a function `g` of the exported cell's two slots at `t_e`;
+
+such that:
+
+- (i) `g` is not determined given `K_{t_e}`, the knowledge just after the registration at `t_e`;
+  and
+- (ii) in some branch, the value registered at `t` is not conditionally independent of `g` given
+  the knowledge just before that registration.
+
+In `ref(π)` the exported cell is in `Arc` and cannot act on any register. A dependence in (ii) is
+therefore mediated by the sink. Neither a determined `g` nor unconditional dependence satisfies
+USE-S.
+
+### 8.5 NV, non-vacuity (conjunctive)
+
+NV holds iff some `π ∈ Π_LB` contains all of the following:
+
+- an LB-Z reset at a register site `r`;
+- followed by a later registration at the same `r`;
+- whose value, in some branch, is not conditionally independent of the initial configuration of `C`
+  given the knowledge just before that registration.
+
+**Diagnostic NV-D** (decides nothing). Two separate facts are reported:
+
+- some protocol has a record that is not independent of `C`;
+- some protocol re-registers a site after a reset.
 
 ***
 
 ## 9. Decision rule
 
-### 9.1 Order of evaluation (fixed; never reversed)
+### 9.1 E0, the entry review (fixed)
+
+**Who and when.** E0 is a recorded step by a reviewer who wrote neither this file nor any Stage 1B
+record. It is completed and recorded before any Stage 1B derivation commit. The status "proposed"
+is recorded only after E0 (§9.5). This file's Stage 1A review is not E0.
+
+**What E0 does.**
+
+1. It verifies in the text every **[pending E0]** item of §6.1 and §6.3, or strikes it.
+2. It classifies every clause of §6.2 under the standard there, with C3 search records for any
+   "none found".
+3. It runs C-CAL and TT-1 to TT-4 (§10).
+4. It answers in writing whether item 4, without AP1/P2 in view, selects LB-B's law (`u = 0` known,
+   `v` uniform) uniquely among the variants of A-B × A-Bslot × A-Bval (§11.2). It names every
+   variant that item 4, or the second reading in item 4, admits equally.
+5. It states whether LB-B is extensionally equal, within `Π_LB`, to any blocking premise of MI §4,
+   to TT-1 to TT-4, or to P2 restricted to `u`-known value 0.
+
+**Exits.**
+
+| E0 finding | Consequence |
+| --- | --- |
+| C-CAL fails, or any of TT-1 to TT-4 is classed independent or mixed | The classification is defective. E0 is void and is repeated by a different reviewer, with the failing item recorded |
+| Any of LB-W, LB-Z, LB-F, LB-S classed target-defined, or "none found" with its C3 record | **C-0** (null). Evaluation stops |
+| LB-B classed target-defined | **C-0** |
+| LB-B's independent component "none found" (item 4 struck and no other source) | LB-B is reclassed target-adjacent. Every positive is (b) (§9.4) |
+| The record discount classed target-defined | PROT-*_LB become diagnostics. The outcome is decided by NV, LK-R and USE-S, and every positive is (b) |
+| Otherwise | Proceed to E1 |
+
+### 9.2 Order of evaluation (fixed; never reversed)
 
 Each step runs per rule (`N_1`, `N_0`, `G_σ`). The verdict for `N_1` is the construction's verdict.
 The others are controls.
 
-- **E0, entry review of motivation.** An independent reviewer classifies each clause of §6.2. The
-  reviewer verifies the "not read here" items of §6.3 textually or strikes them. If any of LB-W,
-  LB-Z, LB-F or LB-S is reclassified target-defined, or if C-1 is target-defined as a whole, the
-  outcome is **C-0 (null)** and evaluation stops. A reclassification of LB-B to target-adjacent
-  alone does not stop; it is carried into §9.3.
-- **E1, controls before any verdict.** C-IMPORT, C-OFF-1 to C-OFF-4 setup, PR-1 to PR-11 and C-NC
-  (§10). A red required control voids every verdict that relies on it.
-- **E2, NV.** If it fails, the outcome is **VAC** (vacuous) and the walk stops for that rule.
-- **E3, LK-R.** Proof or exhibited violation.
-- **E4, PROT-D_LB, PROT-B_LB, PROT-R′_LB.** Proof or exhibited violation. DG-FULL is reported.
-- **E5, USE-S.** Proof or exhibited inertness.
-- **E6, variation analysis** (§11.2), for every load-bearing assumption.
-- **E7, labels.** Outcome (§9.2), owner distinction (§9.3), ladder rung (§11.4), statuses (§9.4).
-- **E8, comparison with the completion conditions.** Only after E7, and only as a record (§9.5).
+- **E0.** §9.1.
+- **E1, controls before any verdict.** C-IMPORT, C-OFF-1 to C-OFF-4, C-NC, PR-1 to PR-11 (§10,
+  §11.1). A red required control voids every verdict that relies on it.
+- **E2, NV.**
+- **E3, LK-R.** A proof, or an exhibited violation.
+- **E4, PROT-D_LB, PROT-B_LB, PROT-R′_LB.** A proof, or an exhibited violation. Diagnostics are
+  reported.
+- **E5, USE-S.** A proof, or a proof of its negation.
+- **E6, variation analysis** (§11.2), for every assumption.
+- **E7, labels.** Outcome (§9.3), owner distinction (§9.4), ladder rung (§11.4) and statuses (§9.5).
+- **E8, comparison with the completion conditions.** Only after E7, and only as a record (§9.6).
 
-**Standard of proof.** As in MI-D §4.4: paper derivation. A violation is exhibited by an explicit
-protocol on a stated instance; a holding property needs a proof over all of `Π_LB` for that rule.
-Any instance check by enumeration or program requires that Stage 1B's authorization permits it. This
-file authorizes none.
+**Standard of proof.** As in MI-D §4.4: paper derivation.
 
-### 9.2 Outcomes (per rule)
+- A violation is exhibited by an explicit strategy on a stated instance.
+- A holding property needs a proof over all of `Π_LB` for that rule.
+- Any instance check by enumeration or program requires that Stage 1B's authorization permits it.
+  This file authorizes none.
 
-| Outcome | Condition |
-| --- | --- |
-| **POS** | NV holds; required controls green; LK-R, PROT-D_LB, PROT-B_LB and PROT-R′_LB proved; USE-S holds |
-| **PART-INERT** | As POS, but USE-S fails: protection by an inert sink |
-| **PART-EXTRA** | The properties hold only with a premise not in this file. The premise is reported, not adopted, and classed under §6.2 (CC-RECON if its only role is to block an exposure) |
-| **PART-SPLIT** | The properties hold on the chosen values but fail on a variant of a load-bearing assumption that its own motivation supports equally (§11.2, class S-sel) |
-| **NEG** | NV holds, required controls green, and an exhibited protocol in `Π_LB` violates LK-R or PROT-D_LB/PROT-B_LB |
-| **VAC** | NV fails |
-| **INC** | Neither proof nor violation is reached within Stage 1B's scope |
-| **VOID** | A required control is red |
-| **C-0** | Null at E0 |
+### 9.3 Outcomes (per rule; total and ordered)
 
-Several outcomes may be reported side by side for one rule: for example, LK-R violated (NEG) while
-PROT-D_LB holds. The rule-level label is the first applicable row in the order NEG, VAC, VOID, INC,
-PART-EXTRA, PART-SPLIT, PART-INERT, POS. That order is fixed here.
+The rule-level label is the **first** row whose condition holds, in this order.
 
-### 9.3 Owner distinctions (a), (b), (c)
+| Order | Outcome | Condition |
+| --- | --- | --- |
+| 1 | **C-0** | An E0 exit to null (§9.1) |
+| 2 | **VOID** | A required control is red |
+| 3 | **VAC** | NV fails (proved) |
+| 4 | **NEG** | An exhibited strategy in `Π_LB` violates LK-R, PROT-D_LB, PROT-B_LB or PROT-R′_LB (outside `Disc_t`) |
+| 5 | **INC** | No violation is exhibited, and at least one of NV, LK-R, PROT-D_LB, PROT-B_LB, PROT-R′_LB and USE-S is undecided within Stage 1B's scope |
+| 6 | **PART-SPLIT** | All five properties are proved and USE-S is decided, but E6 classes some assumption S-sel (§11.2) |
+| 7 | **PART-INERT** | All five properties are proved, USE-S fails, and no assumption is S-sel |
+| 8 | **POS** | All five properties are proved, USE-S holds, and no assumption is S-sel |
+| 9 | **INC** | No row above applies. The reason is stated |
 
-- **(a) Independently predicted positive.** POS for `N_1` with the configuration fixed in §4, no
-  PART-SPLIT entry, E0 passed with LB-B's target-adjacent component found not load-bearing (§11.2),
-  and robustness R-1 to R-4 complete (§10).
-- **(b) Positive only after selection.** Any positive that needs:
-  - a variant other than §4's fixed values (within the construction); or
-  - LB-B's target-adjacent component as load-bearing; or
-  - a premise reported under PART-EXTRA; or
+**Annotations** (reported with the label; they never replace it):
+
+- **+EXTRA(P).** When the label is NEG or INC and a premise `P`, reported and not adopted, would make
+  the failing or undecided properties provable. `P` is classed under §6.2, with CC-RECON if its only
+  role is to block an exposure.
+- **+POOR.** When E6 classes every assumption E (§11.2).
+- **+A3.** When determinations confined to `Disc_t` occur.
+
+Every row and annotation is reachable.
+
+### 9.4 Owner distinctions (a), (b), (c)
+
+**"Load-bearing".** An assumption is load-bearing iff its §11.2 class is H, S-mot or S-sel, i.e. not
+E.
+
+**Known now.** A-B and A-Bslot are load-bearing before Stage 1B, for definitional reasons:
+
+- a supplied cell with a known `Q* = 1` functional has that functional determined on the ring and
+  outside `Disc_t`;
+- this covers the variants "both slots known" and "`u + v` known";
+- hence PROT-D_LB fails on them (C-OFF-3; MI §6.1 C-P2, "under any rule").
+
+Their variation test is therefore decided by E0's reading of item 4, not by a Stage 1B derivation.
+
+**The single LB-B rule** (it governs §6.2, this section and §11.4). An H or S-mot class of A-B,
+A-Bslot or A-Bval counts toward (a) and toward L2 only if both of the following hold:
+
+- E0 upholds item 4 as **independent**, with its source verified in the text;
+- E0 finds that item 4 selects LB-B's law uniquely, or that every variant it admits equally gives
+  the same §9.3 label.
+
+Otherwise, every positive is (b), and L2 needs its two credits from A-Z, A-F and A-S.
+
+**The same rule for the record discount.** If E0 classes the discount mixed or target-adjacent, and
+A-dom (§11.2) is S-sel, every positive is (b).
+
+- **(a) Independently predicted positive.** All of the following:
+  - POS for `N_1` with the configuration fixed in §4;
+  - no S-sel;
+  - the LB-B rule and the discount rule satisfied;
+  - E0 passed;
+  - R-1 to R-4 complete (§10).
+- **(b) Positive only after selection.** Any POS, PART-INERT or PART-SPLIT that is not (a). That
+  includes a positive that needs:
+  - a variant other than §4's fixed values;
+  - LB-B or the discount counted under the rule above;
+  - a premise reported under +EXTRA;
   - the portfolio coordinator's choice of P-OBS among the three constructions because the others
-    failed (across the portfolio).
+    failed.
 
-  The selection among C-0 to C-13 in §3 was made before any evaluation and is disclosed (§11.5). It
-  is recorded under (b) if the E0 reviewer finds that the selection used knowledge of consequences.
-- **(c) Classical imitation.** P-OBS-LB is a configuration-level classical model. Every outcome is
-  classically imitable by the model itself (C-NC). Wherever a comparison at E8 finds statistics that
-  match a quantum subtheory (for example, toy-theory or stabilizer statistics in class N), the
-  result is recorded under (c). A P-OBS positive is evidence about an access mechanism. It is never
-  evidence for quantum selection.
+  The selection among C-0 to C-13 in §3 was made before any evaluation and is disclosed (§11.5). If
+  E0 finds that the selection used knowledge of consequences, it is also recorded under (b).
+- **(c) Classical imitation.**
+  - P-OBS-LB is itself a classical stochastic model on configurations. Its configuration-level
+    record laws are therefore classically imitated by the exhibited model. This does not rest on
+    Theorem NC.
+  - Wherever E8 finds statistics that match a quantum subtheory, the result is recorded under (c).
+  - For an *encoded* statistic, E8 also records whether the imitation is noncontextual. That holds
+    only under NC's injective identification, H-LIFT and spanning-read hypotheses. Otherwise the
+    imitation is only an ontological model, which always exists and on its own gives no
+    information.
+  - A P-OBS positive is evidence about an access mechanism, never evidence for quantum selection.
 
-### 9.4 Three statuses (recorded separately)
+### 9.5 Three statuses (recorded separately)
 
-- **Proposed.** After the Stage 1A review: "proposed" iff the review accepts §6.2 with overall class
-  independent or mixed. Otherwise "not proposed" (C-0).
-- **Mathematically sufficient.** After Stage 1B: "sufficient for {properties} under {hypotheses}"
-  iff POS or PART-INERT is proved for `N_1`, listing every hypothesis of §7 used. Otherwise "not
+- **Proposed.** Recorded only after E0. "Proposed" iff E0 gives no exit to C-0. The status line names
+  every target-adjacent component that E0 records, at least LB-B's form and the record discount
+  where they are classed mixed or target-adjacent. Otherwise "not proposed" (C-0).
+- **Mathematically sufficient.** After Stage 1B: "sufficient for {properties} under {hypotheses}" iff
+  POS or PART-INERT is proved for `N_1`, listing every hypothesis of §7 used. Otherwise "not
   established", with the outcome label.
-- **Derived from native OI.** "Not derived" unless each of BLANK-SRC, SWAP-EXEC, RECORD-STORE,
-  EXHAUST and TIMING that the proof uses has a recorded native source on main when Stage 1B
-  reports. Fixed now (§5.2).
+- **Derived from native OI.** "Not derived" unless all of BLANK-SRC, SWAP-EXEC, RECORD-STORE,
+  EXHAUST and TIMING are sourced, without exception for any input a proof is said not to use. Each
+  source must be an established claim on `main` under §A.46 item 1. P-OBS's reviewer checks each
+  under §A.46 item 7 before the status changes. Presence on `main`, or a citation, is not enough.
 
-### 9.5 Comparison stage (record only)
+### 9.6 Comparison stage (record only)
 
 After E7, Stage 1B records, without changing any label:
 
 - whether the access model of `Π_LB` bears on condition (iv);
-- whether class-N outcomes coincide with toy-theory statistics, which goes under (c);
-- for every encoded statement, R1's group `A_4 ≀ S_n` (PR-1).
+- whether class-N outcomes coincide with toy-theory statistics, which goes under (c) with the NC
+  scope note of §9.4;
+- for every encoded statement, its scope with respect to U2 (PR-1).
 
 No criterion above refers to the target except to record an outcome (C-IMPORT).
 
@@ -524,18 +743,23 @@ No criterion above refers to the target except to record an outcome (C-IMPORT).
 
 | ID | Kind | Fixed pass criterion |
 | --- | --- | --- |
-| C-OFF-1 | Mechanism off: LB-Z | Replace export by in-place reuse: the spent register stays at `r` and is treated as the next blank (no swap). Report LK-R and PROT-*_LB. If the outcome equals the mechanism-on outcome, the mechanism is idle and no positive is attributed to LB-Z |
-| C-OFF-2 | Mechanism off: interacting sink | Replace the sink by ideal terminality. By definition this is `ref(π)`; LK-R holds trivially. Must reproduce MI's C-LIN result for the linear limits (refills as reserve cells; MI §6.3). Failure to reproduce is red |
-| C-OFF-3 | Mechanism off: LB-B | Fully known blanks. Must break PROT-D_LB on the supplied cell itself (MI §6.1 C-P2, "under any rule"). Not breaking is red |
-| C-OFF-4 | Mechanism off: LB-F | Blank values chosen per step from records (MI's refills). Reported. Its outcome under `G_σ` must agree with MI's exhibited exposures where those protocols are admissible; a contradiction is red |
-| C-NC | Classical imitation (Theorem NC; exhibited model) | State the configuration model as an exact classical imitation of every `Π_LB` record law. State where NC's hypotheses fail at `q = 2` (no native `Y` read; M2D:65–71). No nonclassicality may be claimed. Any quantum-statistics match is labelled (c) |
-| C-IMPORT | Target import | (i) No §4–§8 definition contains a quantum quantity. (ii) PROT-*_LB are recorded, not motivating. (iii) No clause is added to `Π_LB` after Stage 1B begins. (iv) Any blocking premise is reported, not adopted, with CC-RECON. (v) Every verdict is generated from §9 |
-| TT | Target-tuned countercontrol, must be rejected | Three premises, classified at E0 and E6 by §6.2's standard. Each must be classed target-defined, and none may enter a positive: **TT-1** P-GK′, "a blank is injected only where every gate that will act on it is known" (MI §4 P-GK); **TT-2** "the known slot of each blank is the slot that keeps the observer's knowledge on `D_t` isotropic"; **TT-3** "no exported register is placed within distance 2 of an unknown cell of `C`" (MI §4 P-NR analogue). If the standard fails to reject one, the classification procedure is defective and E0 is void |
-| PR-1 … PR-11 | Preserved results (§11.1) | Each listed result is reproduced or not contradicted, as stated there |
-| DG-FULL | Diagnostic | PROT-D on the full ring reported; decides nothing |
-| R-1 | Robustness | Independent re-derivation of every holding property by a reviewer who did not author Stage 1B, from this file and the Stage 1B record alone |
+| C-OFF-1 | Mechanism off: LB-Z | Replace export by in-place reuse: the spent register stays at `r` and is treated as the next blank, with no swap. Report LK-R and PROT-*_LB. If the outcome equals the mechanism-on outcome, the mechanism is idle and no positive is attributed to LB-Z |
+| C-OFF-2 | Mechanism off: interacting sink | Under `ref(π)` in `N_1` and `N_0`, Stage 1B proves PROT-D_LB and PROT-B_LB in its own record. It may cite QA Lemma Q(iii) and AP1 Lemma 3 (on main) and must extend them to `ref`'s injections; MI §6.3's extension is off main and is a cross-check only. Failure is red |
+| C-OFF-3 | Mechanism off: LB-B | Fully known blanks. By definition PROT-D_LB fails on the supplied cell itself (§9.4). Not failing is red: a definitional sanity check |
+| C-OFF-4 | Mechanism off: LB-F | Blank values chosen per step from records (MI's refills). Reported. Its relation to MI is handled as in PR-3 |
+| C-NC | Classical imitation | State the exhibited configuration model as an exact classical imitation of every `Π_LB` record law. State where NC's hypotheses hold or fail (at `q = 2` with native `Z`/`X` reads, NC does not apply; M2D:65–71). Claim no nonclassicality. Label (c) as in §9.4 |
+| C-IMPORT | Target import | (i) No §4–§8 definition contains a quantum quantity, other than `Q*` in the target-adjacent PROT-*_LB. (ii) PROT-*_LB are recorded, not motivating. (iii) No clause is added to `Π_LB` after Stage 1B begins. (iv) Any blocking premise is reported, not adopted, with CC-RECON. (v) Every verdict is generated from §9 |
+| C-CAL | Positive calibration of the classifier | LB-Z's export, motivated by A2 alone (item 2, "without literature"), must be classed independent. Otherwise the classification is defective (§9.1) |
+| TT-1 | Target-tuned, must be rejected | "A blank is injected only where every gate that will act on it is fixed by `K` when it acts." Design reason: **to block E_A, E_A′ and E_B** (MI §4, P-GK) |
+| TT-2 | Target-tuned, must be rejected | "Each blank's known slot is the slot that keeps the observer's knowledge isotropic." Design reason: **to keep the knowledge isotropic** |
+| TT-3 | Target-tuned, must be rejected | "No exported register is placed within distance 2 of a cell of `C` with an unknown slot." Design reason: **to block E_A, E_A′ and E_B** (MI §4, P-NR analogue) |
+| TT-4 | Disguised, must be rejected | "After `t = 0`, no blank is injected at a site within distance 2 of a ring cell with an unknown slot. A memory reset in thermal contact with a hot neighbour does not reach its standard state, so a standard reset requires thermal isolation." The stated reason sounds independent. Within `Π_LB` its extension equals that of MI's P-NR (MI §4, row 2: no refill within distance 2 of an active cell with an unknown slot), whose role is to block exposures. It was written after P-NR was known |
+| TT pass criterion | Decisive | TT-1 to TT-4 are each classed target-defined, or target-adjacent with the reason identified. TT-4 must be caught by the extensional check of §6.2. Any TT classed independent or mixed: E0 is void (§9.1) |
+| PR-1 … PR-11 | Preserved results (§11.1) | As stated there |
+| DG-FULL | Diagnostic | PROT-D on the undiscounted full ring, and on `D_t` (§11.2), reported. Decides nothing; the decisive form is PROT-D_LB |
+| R-1 | Robustness | Independent re-derivation of every holding property, from this file and the Stage 1B record alone, by a reviewer who did not author Stage 1B |
 | R-2 | Robustness | Both linear limits `N_1` and `N_0`; every `L` admitted by H-NW for the stated `T` (proof, not instance) |
-| R-3 | Robustness | The variation analysis E6 complete, with every assumption classified |
+| R-3 | Robustness | Variation analysis E6 complete, with every assumption classified |
 | R-4 | Replication | Before promotion, a separately authorized check of each holding property on stated instances (an authorization question for the owner; none is granted here) |
 
 A positive is not promoted, and does not count toward any physical selection principle, before
@@ -549,39 +773,39 @@ R-1 to R-4 are complete (c.6720450946).
 
 | ID | Result | Source | Control |
 | --- | --- | --- | --- |
-| PR-1 | Theorem U2: under R1⊗n the CP ontic permutations are `A_4 ≀ S_n`; no `rot`, `S`, `T` or entangling unitary | M2D:55–64, :404 | No encoded operation outside `A_4 ≀ S_n` is attributed to `Π_LB` |
-| PR-2 | Theorem NC | M2D:483 | C-NC |
-| PR-3 | M-INACC: exposures E_A, E_A′, E_B under `G_σ` in `Π_A`/`Π_B`; P-GK degenerate; PROT-R fails in the linear limits; PROT-R′ holds there (provisional, off main) | MI §0, §3, §4, §6.3; MI-A3 | Under `G_σ`, Stage 1B states for each of E_A, E_A′, E_B whether it lies in `Π_LB`. If one is excluded, the excluding clause is named and passed to E6. No result may contradict MI within MI's classes |
-| PR-4 | AP1 Lemma 3 and controls C4, C9: terminality and half-known supply suffice for isotropy; removing either sharpens | AP1:533–560, :677, :682 | C-OFF-2, C-OFF-3 |
-| PR-5 | QA Lemma Q (class N, under P1 and P2) | QA:458–479 | C-OFF-2 in the linear limits |
+| PR-1 | Theorem U2 within its hypotheses (K-FIN) | M2D:48–64, :404–413 | Stage 1B first states whether `Π_LB`'s operations lie in Lemma F's operation set and satisfy H-LIFT, including for exported cells correlated with the carrier. If they do, an encoded branch acting as `p · Ad U` (input-independent `p > 0`) with `Ad U` outside `A_4 ≀ S_n` is red. If they do not, U2 is recorded as not applicable and any encoded operation found is reported with that scope. Non-unitary encoded maps never trigger PR-1 |
+| PR-2 | Theorem NC within its hypotheses | M2D:483 | C-NC |
+| PR-3 | M-INACC: exposures E_A, E_A′, E_B under `G_σ` in `Π_A`/`Π_B`; P-GK degenerate; PROT-R fails in the linear limits; PROT-R′ holds there | MI §0, §3, §4, §6.3; MI-A3 (provisional, off main, model-reviewed) | Under `G_σ`, Stage 1B states for each of E_A, E_A′, E_B whether it lies in `Π_LB`. If one is excluded, the excluding clause is named and passed to E6. An MI exposure is used as a control only after Stage 1B re-derives it in its own record. A contradiction between P-OBS and MI is recorded as a finding against one of the two records and adjudicated under §A.46 item 7. It does not turn a control red automatically, and verdicts that depend on the contested item are marked contested until it is adjudicated |
+| PR-4 | AP1 Lemma 3 and controls C4, C9: terminality and half-known supply suffice for isotropy; without terminality a re-coupled registered meter lets a second read sharpen the partner (C9) | AP1:533–560, :677, :682 | C-OFF-2, C-OFF-3. Stage 1B states whether C9's protocol, or its dynamical analogue through a register site, lies in `Π_LB`. If excluded, it names the excluding clause (LB-W or LB-S) and passes it to E6 |
+| PR-5 | QA Lemma Q (class N, under P1 and P2) | QA:458–479 | C-OFF-2 |
 | PR-6 | Main (C1)–(C4) as diagnostics: (C2-structural) holds by reversibility in every bijective realization; (C3) capacity bound; (C4) readback | Main:74–80, :604, :614 | Any statement about the cycle's visible law must be consistent with them. USE-S is checked against (C4)'s operational form |
-| PR-7 | TN and LEAD scoped retention obstructions (PAD, NP, AE, SS-2); "not a universal no-go" | TN §4, §6.2; LEAD §3 | P-OBS-LB claims no physical retention; RECORD-STORE remains supplied |
+| PR-7 | TN and LEAD scoped retention obstructions (PAD, NP, AE, SS-2); "not a universal no-go" | TN §4, §6.2; LEAD §3 | P-OBS-LB claims no physical retention; RECORD-STORE stays supplied |
 | PR-8 | S-L6: finite `S` gives `φ^N = id`; irreversibility only relative to a budget below recurrence | MR★:595 | BUD |
 | PR-9 | (iv) fails in the access model and the stated-intervention theory | S0 row 9 | No (iv) claim |
-| PR-10 | No sourced quiet ready region (MR★ C-3) | MR★:1342 | BLANK-SRC stays supplied |
+| PR-10 | No sourced quiet ready region | MR★:1342, :1353 | BLANK-SRC stays supplied |
 | PR-11 | Complete passive observation holds exactly when the algebra is commutative | Main:592 | No complete passive-observation claim |
 
 ### 11.2 Variation analysis (decision rule only; nothing predicted)
 
-**Claimed consequence.** The verdict of §9.2 for `N_1` (POS, or whichever label applies), together
-with the LK-R verdict.
+**Claimed consequence.** The §9.3 label for `N_1`, together with the LK-R verdict.
 
 **Rule.** For each assumption `a` with the variant set `V_a` fixed below, Stage 1B evaluates the
 claimed consequence on every variant and classifies `a`:
 
-- **H (hard to vary):** every variant destroys the consequence, i.e. changes the §9.2 label or the
-  LK-R verdict.
+- **H (hard to vary):** every variant destroys the consequence (changes the §9.3 label or the LK-R
+  verdict).
 - **E (easy to vary):** every variant preserves it.
 - **S (split):** some variants preserve it and some destroy it. Then:
-  - **S-mot:** every destroying variant is excluded by `a`'s own §6.1 motivation;
+  - **S-mot:** every destroying variant is excluded by `a`'s own §6.1 motivation, as upheld at E0;
   - **S-sel:** some destroying variant is supported by that motivation as well as the chosen value.
-    The construction's choice then selects the consequence: PART-SPLIT, and (b).
+    The construction's choice then selects the consequence: PART-SPLIT and (b).
 
 **Overall reading.**
 
-- If every assumption is E, the outcome is recorded as **poor explanation**, whatever the match to
-  the question.
+- If every assumption is E, the annotation +POOR ("poor explanation") is recorded, whatever the
+  match to the question.
 - If no assumption is H or S-mot, the rung is at most L1 (§11.4).
+- For A-B, A-Bslot and A-Bval, the classes H and S-mot count only under the LB-B rule of §9.4.
 
 | Assumption | Variant set `V_a` (fixed) |
 | --- | --- |
@@ -593,54 +817,69 @@ claimed consequence on every variant and classifies `a`:
 | A-atom | {registration and export atomic (chosen); export delayed by one tick} |
 | A-S (LB-S) | {sink never registrable (chosen); sink registrable once per cell} |
 | A-W (LB-W) | {register sites only (chosen); any ring cell registrable} |
+| A-dom (protected domain and discount) | {full ring with `Disc_t` (chosen); full ring without discount (MI's exact domain); `D_t`}. `D_t` is defined exactly: every ring site except a sink site `s(r)` from the tick of an export into it until the tick at which a later LB-Z displaces that occupant to `Ex`. For `G_σ` only the last two apply |
 | A-dist | {`d_S` = 1; 3 (chosen); `≥ L/2`} |
+| A-side | {away from `C` (chosen); toward `C`} |
 | A-rule | {`N_1` (primary); `N_0`}. `G_σ` is reported separately and is not a variant of the construction |
+
+Before any derivation it is recorded that the variant "full ring without discount" of A-dom changes
+the label by E-SHARP (§8.3). A-dom is therefore not E, and its H or S-mot class counts only under
+the discount rule of §9.4.
 
 ### 11.3 Reach
 
-- **RCH-1, sink use (Main (C4); S0 rows 2 and 15; MI clause (a)).** The exported content must remain
-  dynamically used (USE-S). A construction that avoids leakage only because exported content never
-  influences later records has made its protection trivial. USE-S can fail, and failure gives
-  PART-INERT.
-- **RCH-2, recombination (AP1 §4.5; the #1169 combination gate, c.6713156200).** An unregistered
-  copy can be undone by the reciprocal coupling, and a registered one, once exported, cannot be
-  recalled by any register-site operation. Stage 1B states whether `Π_LB` reproduces AP1 §4.5's
-  recombination result in `N_1` before export, and whether export makes the record irreversible
-  within BUD. A contradiction with AP1 §4.5 is red.
+- **RCH-1, sink use (Main (C4); S0 rows 2 and 15; MI clause (a)).** The exported content must stay
+  dynamically used, in the conditioned sense of USE-S (§8.4). Protection that holds only because
+  undetermined exported content never affects later records is protection by inertness. USE-S can
+  fail, and failure gives PART-INERT.
+- **RCH-2, recombination (AP1 §4.5; #1169 c.6713156200).** Stage 1B states two things:
+  - whether `Π_LB` in `N_1` reproduces AP1 §4.5's recombination result for an unregistered register
+    (un-copying through the reciprocal coupling);
+  - whether export makes a registered copy irreversible within BUD by every register-site operation.
+
+  A contradiction with AP1 §4.5 is red.
 - **No novel independently checkable consequence is identified.** RCH-1 and RCH-2 are
   internal-consistency tests on the consistency axis (§A.23). They can fail, so the cap "useful
-  construction" does not apply. L3 (§11.4) has no candidate, so the highest reachable rung is L2.
+  construction" does not apply. L3 has no candidate, and the highest reachable rung is L2.
 
 ### 11.4 Assessment ladder (recorded with (a)/(b)/(c))
 
 - **L0.** The construction reproduces the target property: registration, retention and reuse
   without leakage (LK-R and PROT-*_LB hold).
-- **L1.** It does so only through assumptions that are E or S-sel, or arbitrary (A-dist chosen
-  without motivation and S-sel).
-- **L2.** An independently motivated mechanism fixes several features, with at least two of A-B,
-  A-Z, A-F and A-S classed H or S-mot. It also excludes the non-target alternatives: C-OFF-1 and
-  C-OFF-4 destroy the property.
+- **L1.** It does so only through assumptions that are E or S-sel, or arbitrary (A-dist or A-side
+  chosen without motivation and S-sel).
+- **L2.** An independently motivated mechanism fixes several features, and it excludes the
+  non-target alternatives.
+  - At least two of A-Z, A-F, A-S, and (under the LB-B rule) A-B, are classed H or S-mot.
+  - C-OFF-1 and C-OFF-4 destroy the property.
 - **L3.** L2 plus a novel, independently checkable consequence. None is identified (§11.3).
 
 Every outcome, negative ones included, is recorded at a rung or as "below L0".
 
 ### 11.5 Origin disclosure
 
-- **Where the conjecture came from.** The writer read AP1's P1 and P2, MI's archive-swap refills and
-  #1032/#1186 (Bérut; the Landauer/Bennett remark at LEAD:29) before forming C-1. The observation
-  that MI's archive-swap refill has the form of a Landauer reset in a reversible dynamics came from
-  reading MI §8, a target-oriented record. The search therefore ran from posits introduced for a
-  target-adjacent programme (AP1's Lemma 3, toward the quarter-phase test) back to thermodynamics.
-- **What that implies.** LB-Z and LB-B reproduce the structure of P1 (with one change, the
-  interacting sink) and of P2 (with value 0 only). The resemblance is a product of the search
-  direction, not a discovery. LB-B is the clause most exposed to retrofitting, and it is classed
-  mixed for that reason.
-- **Knowledge of consequences at drafting.** While fixing LB-B, the writer had read MI's protocols.
-  E_A uses a supplied known value 1 (MI §3.2), which LB-B's value 0 excludes. E_A′ uses
-  `v`-known and `u`-known cells at `t = 0` (MI §3.3). The slot `u` was fixed by item 4 of §6.1, the
-  registered value being the information-bearing one. Whether `Π_LB` contains E_A′ or any other
-  exposing protocol is not known to the writer and is a Stage 1B check (PR-3). TT-2 and A-Bslot
-  test whether the slot choice is doing protective work.
+- **Where the conjecture came from.**
+  - The writer read AP1's P1 and P2, MI's archive-swap refills and #1032/#1186 (Bérut; the
+    Landauer/Bennett remark at LEAD:29) before forming C-1.
+  - The observation that MI's archive-swap refill has the form of a Landauer reset in a reversible
+    dynamics came from reading MI §8, a target-oriented record.
+  - The search therefore ran from posits introduced for a target-adjacent programme (AP1's Lemma 3,
+    toward the quarter-phase test) back to thermodynamics.
+- **What that implies.**
+  - LB-Z and LB-B reproduce the structure of P1 (with one change, the interacting sink) and of P2
+    (with value 0 only). The resemblance is a product of the search direction, not a discovery.
+  - LB-B is the clause most exposed to retrofitting. A quiescent blank (`u = v = 0`) is an equally
+    natural reset when AP1/P2 are not in view. The §9.4 rule makes LB-B count toward (a) or L2 only
+    if E0 upholds an independent, verified, selecting reading of item 4.
+- **Knowledge of consequences at drafting.**
+  - While fixing LB-B, the writer had read MI's protocols. E_A uses a supplied known value 1
+    (MI §3.2), which LB-B's value 0 excludes. E_A′ uses `v`-known and `u`-known cells at `t = 0`
+    (MI §3.3). Whether `Π_LB` contains E_A′ or any other exposing protocol is not known to the
+    writer and is a Stage 1B check (PR-3).
+  - In r1, the protected domain `D_t` was fixed with knowledge of MI-A3 §1's archived-cell
+    countercase. In r2 the record discount `Disc_t` was fixed with knowledge of E-SHARP, which the
+    independent review of `7878a7fd` pointed out (finding B1). Both are classed mixed, and both
+    are varied under A-dom.
 - **The independence requirement is unchanged.** This disclosure does not relax it (c.6719386464).
 
 ***
@@ -649,15 +888,17 @@ Every outcome, negative ones included, is recorded at a rung or as "below L0".
 
 Stage 1B, if authorized, reports for each rule:
 
-- the outcome of §9.2, whatever it is;
-- (a)/(b)/(c), the ladder rung and the variation classification of every assumption;
-- the three statuses of §9.4;
+- the §9.3 label and annotations, whatever they are;
+- (a)/(b)/(c), the ladder rung and the variation class of every assumption;
+- the three statuses of §9.5 and every E0 finding;
 - every control with its status;
+- every diagnostic (LK-R-M, NV-D, DG-FULL);
 - every premise found to block an exposure, reported and not adopted.
 
 This covers positive, negative, vacuous, inconclusive, void and null outcomes. A negative for
 `Π_LB` is a negative for this access model on these rules only (§16). No outcome is withheld or
-re-run with changed clauses. A changed clause is a new preregistration.
+re-run with changed clauses. A changed clause is a new preregistration or a documented amendment
+(c.6720678942).
 
 ***
 
@@ -665,17 +906,19 @@ re-run with changed clauses. A changed clause is a new preregistration.
 
 | Invariant asserted | Checkpoint that measures it |
 | --- | --- |
-| This commit adds exactly one file, this `DESIGN.md`, in `fhesel1-p-obs-20261108/` | `git show --stat` of the commit lists one added path |
-| No result is derived here | Reviewer reading of §4–§11; `grep -n -i 'we find\|it follows that\|holds for every'` matches only this row |
-| The decision rule precedes any Stage 1B text | Stage 1B's first commit is a descendant of this commit, and this file is byte-identical there (`git diff` empty for this path) |
+| r2 changes only this `DESIGN.md`, in one commit whose single parent is `7878a7fd` | `git show --stat` of the r2 commit lists only this path; `git rev-parse <r2>^` is `7878a7fd…` |
+| No result is derived here | Reviewer reading of §4–§11; `grep -n -i 'we find\|it follows that\|holds for every\|is protected\|leaks\|POS holds'` matches only this row |
+| The only consequences stated before Stage 1B are definitional: E-SHARP (§8.3), C-OFF-3 and "Known now" (§9.4), and the A-dom note (§11.2) | Reviewer reading. Each of those passages says "definitional" or "by definition" and cites only the second-order step `v′ = u` or a supplied known value |
+| The decision rule precedes any Stage 1B text | Stage 1B's first commit is a descendant of the r2 commit, and this file is byte-identical there (`git diff` empty for this path) |
+| E0 precedes every Stage 1B derivation commit | E0's record carries a commit or comment time earlier than the first Stage 1B derivation commit |
 | No `readWriteSourced_` identifier is cited | `grep -n readWriteSourced` on this file matches only K-LEAN (§2) and this row, which name the prohibition |
 | No odd-`q` statement | `grep -n -i odd` matches only K-Q (§2), §16 and this row |
-| §6.1 contains no quantum quantity | Grep of §6.1 for "quantum", "Born", "unitar", "complete positiv", "completion", "Q*" returns nothing |
-| Repository citations are to main `9c201475`, or to the stated off-main commits `f649b347` (MI) and `25384b13` (Q3) | Reviewer check of every `File:N`, and of each full SHA, against `git cat-file -e` |
+| §6.1 contains no quantum quantity | Grep of §6.1 for "quantum", "Born", "unitar", "complete positiv", "completion", "Q\*" returns nothing |
+| Repository citations are to main `9c201475`, or to the stated off-main commits `f649b347` (MI) and `25384b13` (Q3) | Reviewer check of every `File:N`, and `git cat-file -e` on each full SHA |
 | No file of the other two constructions is cited | `grep -n -i 'p-control\|p-mix'` matches only this row |
 | M-INACC is cited as provisional and off main | §14 classifies MI as "support off main: gap"; PR-3 says "provisional, off main" |
 | Every candidate considered has a decision and reason | §3 has one row per candidate C-0 to C-13 with a non-empty decision cell |
-| The variation sets are fixed before evaluation | §11.2 table is byte-identical at Stage 1B's first commit (first row of this table) |
+| The variation sets are fixed before evaluation | The §11.2 table is byte-identical at Stage 1B's first commit (fourth row of this table) |
 
 ***
 
@@ -683,45 +926,47 @@ re-run with changed clauses. A changed clause is a new preregistration.
 
 | Reference | Used for | Class |
 | --- | --- | --- |
-| #1169 c.6720450946, c.6720342295, c.6719386464, c.6719192859 | Authorization, scope, standard, tiers | Provenance |
-| #1169 c.6713156200 (joint synthesis) | RCH-2's combination-gate wording | Provenance |
-| S0 (#1169 c.6719708521; review c.6719720616) | Rows 9 and 16; the rows are restated here with their on-main citations | Provenance. The restated row content rests on files on main (AP1, QA, Main, Sub), cited directly |
-| #1198 head `f649b347` (MI, MI-D, MI-A3) | K-MI, PR-3, definitions of §8, TT-1, TT-3 | **Support off main: a gap.** MI is provisional (model-reviewed, unmerged). No established claim rests on it. Every use is as a preserved result to be checked or as a definition restated here |
-| #1202 head `25384b13` (Q3-A1 §3 C2) | Classification standard | Provenance. The standard is restated in full in §6.2, so the classification does not depend on the off-main text |
+| #1169 c.6720450946, c.6720342295, c.6719386464, c.6719192859, c.6720678942 | Authorization, scope, standard, tiers, workstreams, NC/U2 reading | Provenance |
+| #1169 c.6713156200 (joint synthesis) | RCH-2 | Provenance |
+| S0 (#1169 c.6719708521; review c.6719720616) | Rows 9 and 16; restated here with their on-main citations | Provenance. The restated row content rests on files on main (AP1, QA, Main, Sub), cited directly |
+| #1198 head `f649b347` (MI, MI-D, MI-A3) | K-MI, PR-3, the definitions of §8, TT-1, TT-3, TT-4 | **Support off main: a gap.** MI is provisional (model-reviewed, unmerged). No established claim rests on it. Each use is either a preserved result, which Stage 1B re-derives before using it as a control (PR-3), or a definition restated here |
+| #1202 head `25384b13` (Q3-A1 §3 Block C) | Classification standard | Provenance. The standard is restated in full in §6.2 |
+| Independent review of `7878a7fd` (relayed by the coordinator; not on main) | The r2 changes; the second reading in item 4; E-SHARP | Provenance. E-SHARP is restated here from the definitions |
 | #1032 body and c.6712887557, c.6713169247, c.6567189236 | K-1032; C-2; non-duplication | Provenance. The content used (LEAD) is on main |
 | LEAD, TN | C-2, PR-7, RECORD-STORE | Support on main |
 | #1188 | K-LEAN | Provenance |
 | #1193 | K-Q | Provenance |
 | #866, #1147 | SWAP-EXEC, BLANK-SRC ownership | Provenance (Issues) |
-| arXiv abstracts and journal references of §6.3 | Motivation and rejections | External literature; "read here" is marked per item; E0 verifies the rest |
+| arXiv abstracts and journal references of §6.3 | Motivation and rejections | External literature. "Read here" is marked per item; E0 verifies the rest |
 
 ***
 
 ## 15. Concerns for the coordinator and the reviewer
 
 1. **Independence (main concern).** The search ran backward from target-adjacent posits (§11.5).
-   LB-B coincides in form with P2 and with knowledge balance. E0 must decide whether item 4 of §6.1
-   is a motivation or a retrofit.
-2. **Possible vacuity.** With value-0 blanks only and every non-register site unknown, the class may
-   register nothing informative about `C`. That would give VAC, recorded as a finding and not
-   repaired by adding supplies.
-3. **Domain choice.** `D_t` excludes exported registered cells. The reason is MI-A3 §1's
-   record/active distinction. A reviewer may judge that the exclusion hides leakage. DG-FULL is
-   reported for that reason.
-4. **Supplied load.** Five named open inputs remain supplied. "Derived from native OI" is
-   unreachable without them (§9.4), and the most a positive can give is "mathematically sufficient
-   under named supplied inputs".
+   LB-B coincides in form with P2 and with knowledge balance, and its independent component rests
+   on an unread source. E0 decides it under the single LB-B rule (§9.4).
+2. **The record discount.** `Disc_t` is fixed knowing E-SHARP. It is mixed, varied under A-dom, and
+   bound by the same rule as LB-B.
+3. **Possible vacuity.** With value-0 blanks only and every non-register site unknown, the class may
+   register nothing informative about `C` after a reset. NV is conjunctive, so that case gives VAC.
+   It is recorded as a finding and not repaired by adding supplies.
+4. **Supplied load.** Five named open inputs stay supplied. "Derived from native OI" requires all
+   five to be sourced by established claims on `main` (§9.5). The most a positive can give is
+   "mathematically sufficient under named supplied inputs".
 5. **Overlap with #1032 and #866.** BLANK-SRC, RECORD-STORE and SWAP-EXEC fall in Codex's and #866's
-   areas. P-OBS does not source them. If #1032 lands a source for any of them, P-OBS cites it and
-   does not re-evaluate it.
-6. **Classical by construction.** Every P-OBS outcome is classically imitable (§9.3 (c)). Its value
-   is to the access-model question of S0 row 9, not to quantum selection.
+   areas. P-OBS does not source them. If a source for any of them lands, P-OBS's reviewer checks it
+   under §A.46 items 1 and 7 before any status changes.
+6. **Classical by construction.** Every configuration-level P-OBS outcome is classically imitated by
+   the exhibited model (§9.4 (c)). Its value is to the access-model question of S0 row 9, not to
+   quantum selection.
 
 ***
 
 ## 16. Not claimed
 
-- Any result about `Π_LB`. Every property of §8 is open until Stage 1B.
+- Any result about `Π_LB`, beyond the definitional facts marked as such. Every property of §8 is
+  open until Stage 1B.
 - A physical source for blanks, swaps, record storage, exhaust or timing.
 - Physical retention of any record (#1032).
 - Any statement for rules other than `N_1`, `N_0` and `G_σ`; for access models other than `Π_LB`;
