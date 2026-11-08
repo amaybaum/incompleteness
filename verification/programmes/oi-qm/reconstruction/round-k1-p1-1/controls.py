@@ -28,10 +28,10 @@ Command lines (§10.1), run from the repository root:
   python3 -I <rec>/controls.py run --stage {members|rows|final}
   python3 -I <rec>/controls.py check [--stage {members|rows|final}]
   python3 -I <rec>/controls.py self-test {--synthetic | --stage {members|rows|final}}
-  python3 -I <rec>/controls.py render
+  python3 -I <rec>/controls.py render --out <fresh-empty-directory>
 
 Exit statuses: 0 every check and comparison holds; 1 a check, comparison or mutation
-failed; 2 a refusal (a stage precondition, or an OPEN point).
+failed; 2 a refusal (usage, a stage precondition or absent/mis-pinned self-test inputs).
 """
 
 import ast
@@ -468,7 +468,7 @@ def members_cycles(mdoc, cells=None):
         raise ValueError("members.json cell_order")
     ms = mdoc["members"]
     if not same(ms[0], {"key": "pi0", "size": count}):
-        raise ValueError("members.json: first member is not pi0 of size " + str(S_SIZE))
+        raise ValueError("members.json: first member is not pi0 of size " + str(count))
     cycles = []
     for m in ms[1:]:
         if set(m) != {"key", "size", "states"}:
@@ -529,8 +529,9 @@ def chk_exact(env):
         except ValueError as exc:
             f.append(where + ": " + str(exc))
 
-    rat(gt["region"]["q_pow_minus_E"], "region.q_pow_minus_E")
-    for i, r in enumerate(gt["rows"]):
+    if "region" in gt:
+        rat(gt["region"]["q_pow_minus_E"], "region.q_pow_minus_E")
+    for i, r in enumerate(gt.get("rows", [])):
         rat(r["d_ratio"], "rows[" + str(i) + "].d_ratio")
         for fld in ("weak", "mass", "pi0_ref"):
             for w, v in r[fld].items():
@@ -556,7 +557,7 @@ def chk_cc_count(env):
         f.append("completeness.states != " + str(S_SIZE))
     if comp["distinct"] is not True:
         f.append("completeness.distinct is not true")
-    cycles = members_cycles(env["members"], env.get("cells"))
+    cycles = members_cycles(env["members"], env["cells"])
     allst = [s for c in cycles for s in c[2]]
     if len(allst) != S_SIZE or len(set(allst)) != S_SIZE:
         f.append("members.json does not list " + str(S_SIZE) + " distinct states")
@@ -568,9 +569,8 @@ def chk_cc_bij(env):
 
 
 def chk_cc_part(env):
-    cycles = members_cycles(env["members"], env.get("cells"))
-    f = partition_findings(env["universe"] if "universe" in env else instance_states(),
-                           env.get("step", phi), cycles)
+    cycles = members_cycles(env["members"], env["cells"])
+    f = partition_findings(env["universe"], env["step"], cycles)
     hist = {}
     for _, size, _ in cycles:
         hist[str(size)] = hist.get(str(size), 0) + 1
@@ -579,7 +579,7 @@ def chk_cc_part(env):
     comp = env["gt"]["completeness"]
     if comp["partition"] is not True:
         f.append("completeness.partition is not true")
-    if not same(comp["length_sum"], env.get("state_count", S_SIZE)):
+    if not same(comp["length_sum"], env["state_count"]):
         f.append("completeness.length_sum != " + str(S_SIZE))
     if not same(comp["cycles"], len(cycles)):
         f.append("completeness.cycles != number of listed cycles")
@@ -587,40 +587,44 @@ def chk_cc_part(env):
 
 
 def chk_cc_cyc2(env):
-    f = []
+    """One rank/fixed/period/cycle checker parameterized by the output profile."""
     c = env["cyc2"]
-    if set(c) != {"schema", "version", "fix", "period_states", "cycles", "m10_identity"}:
-        return ["cyc2.json keys"]
-    if c["schema"] != "k1p1-cyc2" or not same(c["version"], 1):
-        f.append("cyc2.json schema/version")
-    ks = [str(k) for k in range(1, 11)]
-    for fld in ("fix", "period_states", "cycles"):
-        if set(c[fld]) != set(ks) or not all(is_int(v) for v in c[fld].values()):
-            return f + ["cyc2." + fld + " is not an integer object over k = 1..10"]
+    fixture = env.get("fixture", False)
+    kmax, count, n = env["kmax"], env["state_count"], len(env["cells"])
+    fields = {"schema", "version", "fix", "period_states", "cycles"}
+    fields |= {"fixture", "kmax", "ranks", "identity_at_kmax"} if fixture else {"m10_identity"}
+    if not keys_are(c, fields) or c["schema"] != ("k1p1-fixture-cyc2" if fixture else "k1p1-cyc2") or not same(c["version"], 1):
+        return ["cycle-count schema/version"]
+    if fixture and (not same(c["kmax"], kmax) or c["fixture"] != env["gt"]["fixture"]):
+        return ["rank-chain id/kmax"]
+    ks = [str(k) for k in range(1, kmax + 1)]
+    integer_fields = ("ranks", "fix", "period_states", "cycles") if fixture else ("fix", "period_states", "cycles")
+    if any(not keys_are(c[fld], ks) or not all(is_int(v) for v in c[fld].values()) for fld in integer_fields):
+        return ["cycle-count key/types"]
+    f = []
     for k in ks:
-        v = c["fix"][k]
-        if v < 1 or v > S_SIZE or (v & (v - 1)) != 0:
-            f.append("cyc2.fix[" + k + "] is not a power of 2 in [1, |S|]")
-    for d in range(1, 11):
+        fix = c["fix"][k]
+        if fix < 1 or fix > count or (fix & (fix - 1)) != 0:
+            f.append("fixed count not a power of two in [1, |S|] at " + k)
+        if fixture:
+            rank = c["ranks"][k]
+            if not 0 <= rank <= n or fix != 2 ** (n - rank):
+                f.append("rank-to-fixed count differs at " + k)
+    for d in range(1, kmax + 1):
         ps = sum(mobius(d // e) * c["fix"][str(e)] for e in range(1, d + 1) if d % e == 0)
-        if ps != c["period_states"][str(d)]:
-            f.append("period_states[" + str(d) + "] differs from the Moebius sum of fix")
-        if ps % d != 0 or c["cycles"][str(d)] * d != ps:
-            f.append("cycles[" + str(d) + "] * " + str(d) + " != period_states[" + str(d) + "]")
-    if c["m10_identity"] is not True or c["fix"]["10"] != S_SIZE:
-        f.append("M^10 is not recorded as the identity")
-    hist = env["members"]["histogram"]
-    if not set(hist) <= set(ks):
-        f.append("histogram has a cycle length outside 1..10")
-    for k in ks:
-        if c["cycles"][k] != hist.get(k, 0):
-            f.append("cycles of length " + k + ": cyc2 " + str(c["cycles"][k]) + ", histogram " + str(hist.get(k, 0)))
+        if ps < 0 or ps != c["period_states"][str(d)] or ps % d or c["cycles"][str(d)] * d != ps:
+            f.append("Moebius/period/cycle chain differs at " + str(d))
+        if c["cycles"][str(d)] != env["members"]["histogram"].get(str(d), 0):
+            f.append("cycles differ from histogram at " + str(d))
+    identity = c["identity_at_kmax"] if fixture else c["m10_identity"]
+    if not set(env["members"]["histogram"]) <= set(ks) or identity is not True or c["fix"][str(kmax)] != count:
+        f.append("identity or histogram range differs")
     return f
 
 
 def chk_cc_rows(env):
     f = []
-    keys = member_keys(env["members"], env.get("cells"))
+    keys = member_keys(env["members"], env["cells"])
     rows = env["gt"]["rows"]
     expect = [(b, k) for b in BRANCHES for k in keys]
     got = [(r.get("branch"), r.get("member")) for r in rows]
@@ -703,16 +707,17 @@ def chk_pr_s0(env):
 def chk_pr_e(env):
     reg = env["gt"]["region"]
     f = []
-    if not same(reg["E"], PR_E_E):
-        f.append("region.E != " + canon(PR_E_E))
-    if not same(reg["W_eq"], PR_E_WEQ):
-        f.append("region.W_eq != " + canon(PR_E_WEQ))
+    expected = env["expected_region"]
+    if not same(reg["E"], expected["E"]):
+        f.append("region.E differs from preserved value")
+    if not same(reg["W_eq"], expected["W_eq"]):
+        f.append("region.W_eq differs from preserved value")
     return f
 
 
 def chk_pr_cyc(env):
     f = []
-    cycles = members_cycles(env["members"], env.get("cells"))
+    cycles = members_cycles(env["members"], env["cells"])
     if not same(env["members"]["histogram"], PR_CYC_HIST):
         f.append("histogram != " + canon(PR_CYC_HIST))
     fixed = sorted(c[0] for c in cycles if c[1] == 1)
@@ -782,12 +787,12 @@ def chk_pr_ind(env):
 
 def chk_pr_p1c(env):
     f = []
-    cycles = members_cycles(env["members"], env.get("cells"))
+    cycles = members_cycles(env["members"], env["cells"])
     allst = instance_states()
     if set(phi(s) for s in allst) != set(allst):
         f.append("phi(supp pi0) != supp pi0")
     for key, _, states in cycles:
-        if set(env.get("step", phi)(s) for s in states) != set(states):
+        if set(env["step"](s) for s in states) != set(states):
             f.append("phi(supp u_c[" + key + "]) != supp")
     return f
 
@@ -812,7 +817,7 @@ def chk_pr_cr6(env):
     f = []
     gt = env["gt"]
     for b in BRANCHES:
-        rows = [r for r in gt["rows"] if r["branch"] == b and r["member"] == env.get("zero", DELTA0)]
+        rows = [r for r in gt["rows"] if r["branch"] == b and r["member"] == env["zero"]]
         if len(rows) != 1:
             f.append(b + ": no unique delta_0 row")
         elif rows[0]["gates"]["G5"] == "pass":
@@ -1053,18 +1058,18 @@ def expected_class(rows_b, b):
 def chk_tokens(env):
     f = []
     gt = env["gt"]
-    cycles = members_cycles(env["members"], env.get("cells"))
-    sizes = {"pi0": env.get("state_count", S_SIZE)}
+    cycles = members_cycles(env["members"], env["cells"])
+    sizes = {"pi0": env["state_count"]}
     t2 = {"pi0": False}
     for key, size, states in cycles:
         sizes[key] = size
-        t2[key] = set(env.get("step", phi)(s) for s in states) != set(states)
+        t2[key] = set(env["step"](s) for s in states) != set(states)
     adv = {}
     if env["stage"] == "final" and env.get("adv") is not None:
         adv = {(e["branch"], e["member"]): e["token"] for e in env["adv"]["rows"]}
     info = {"E": list(gt["region"]["E"]), "W_eq": list(gt["region"]["W_eq"]), "cd": env["cd"],
             "stage": env["stage"], "sizes": sizes, "t2": t2, "adv": adv,
-            "state_count": env.get("state_count", S_SIZE), "q": env.get("q", Q)}
+            "state_count": env["state_count"], "q": env["q"]}
     by_b = {b: [] for b in BRANCHES}
     for r in gt["rows"]:
         f += expected_row(r, info)
@@ -1222,7 +1227,10 @@ def execute_stage(ctx, stage, members_sha, mutate=None, impl_paths=None):
 
     envs = {}
     for which in ("A", "B"):
-        env = {"stage": stage, "cd": cd, "adv": adv, "rows_gt": rows_gt, "notes": notes}
+        env = {"stage": stage, "cd": cd, "adv": adv, "rows_gt": rows_gt, "notes": notes,
+               "cells": CELLS, "state_count": S_SIZE, "q": Q, "zero": DELTA0,
+               "universe": instance_states(), "step": phi, "kmax": 10,
+               "expected_region": {"E": PR_E_E, "W_eq": PR_E_WEQ}}
         try:
             env["members"] = loads(outputs[which]["members.json"])
             env["gt"] = loads(outputs[which][gtf])
@@ -1370,7 +1378,7 @@ def precondition_holds(ctx, stage, cid):
     raise ValueError("unknown precondition " + cid)
 
 
-def cmd_run(ctx, stage):
+def cmd_run(ctx, stage, mutate=None, impl_paths=None):
     checks, outputs, codes, findings = [], {}, {"A": None, "B": None}, {}
     status = 1
     try:
@@ -1384,7 +1392,7 @@ def cmd_run(ctx, stage):
                 status = 2
                 return status
         sha = None if stage == "members" else committed_members_sha(ctx)
-        done, outputs, codes, findings = execute_stage(ctx, stage, sha)
+        done, outputs, codes, findings = execute_stage(ctx, stage, sha, mutate, impl_paths)
         checks += done
         print_checks(stage, checks, findings)
         files = stage_outputs(stage, checks, outputs, codes)
@@ -1417,7 +1425,7 @@ def last_committed_stage(ctx):
     return last
 
 
-def check_stage(ctx, stage, mutate=None, quiet=True):
+def check_stage(ctx, stage, mutate=None, quiet=True, impl_paths=None):
     """`check --stage s`: regenerate every stage up to s and compare with the committed files.
 
     Returns {"status": 0|1, "stages": {t: {"checks", "findings", "replay"}}, "render": ...}.
@@ -1428,14 +1436,14 @@ def check_stage(ctx, stage, mutate=None, quiet=True):
         if t != "members":
             members_sha = committed_members_sha(ctx)
         hook = mutate.get(t) if mutate else None
-        checks, outputs, codes, findings = execute_stage(ctx, t, members_sha, hook)
+        checks, outputs, codes, findings = execute_stage(ctx, t, members_sha, hook, impl_paths)
         checks = [{"id": cid, "outcome": "pass"} for cid in precondition_ids(t)] + checks
         files = stage_outputs(t, checks, outputs, codes)
         replay = {}
         for name in STAGE_FILES[t]:
             committed = ctx.read_rec(name) if ctx.has_rec(name) else None
             replay["REPLAY-" + name] = committed is not None and files.get(name) == committed
-        report["stages"][t] = {"checks": checks, "findings": findings, "replay": replay}
+        report["stages"][t] = {"checks": checks, "findings": findings, "replay": replay, "exit_status": codes}
         if not quiet:
             print_checks(t, checks, findings)
             for k in sorted(replay):
@@ -1455,54 +1463,695 @@ def cmd_check(ctx, stage):
         stage = last_committed_stage(ctx)
         if stage is None:
             raise Refusal("no stage's files are committed")
-    return check_stage(ctx, stage, quiet=False)["status"]
+    try:
+        return check_stage(ctx, stage, quiet=False)["status"]
+    except (OSError, ValueError, KeyError, IndexError, TypeError, Refusal) as exc:
+        sys.stderr.write("check failure: " + type(exc).__name__ + "\n")
+        return 1
 
 
-def cmd_render(ctx):
-    open_question("OQ-C4", "render: the output destination and the token-table format of result.md")
+# ---------------------------------------------------------------------------
+# Schema and deterministic projection (A1 section 9). No map is evaluated here.
+# ---------------------------------------------------------------------------
+
+LABELS = ("H-2s (declared)", "H-cur (declared)", H_INV, "H-law", "H-ret", "H-sel")
+BEGIN_MARKER = "<!-- k1p1-token-tables:v1:begin -->"
+END_MARKER = "<!-- k1p1-token-tables:v1:end -->"
+
+
+def keys_are(obj, keys):
+    return isinstance(obj, dict) and set(obj) == set(keys)
+
+
+def hex_digest(v):
+    return isinstance(v, str) and len(v) == 64 and all(c in "0123456789abcdef" for c in v)
+
+
+def label_list(text):
+    labels = text.split(", ")
+    return bool(text) and labels == sorted(set(labels)) and all(x in LABELS for x in labels)
+
+
+def row_token_valid(token, branch, key):
+    if not isinstance(token, str):
+        return False
+    if token in ("pending", "VOID[row]", "Z1-VOID[IMPORTED]", "Z1-VOID[DYN]"):
+        return True
+    if token in ["UNDECIDED(G" + str(k) + ")" for k in range(1, 8)]:
+        return True
+    for typ in ("ABSENT", "BLIND"):
+        if token == typ + "[" + member_name(key) + "; " + branch + "; " + ", ".join(ACCESS[branch]) + "]":
+            return True
+    if token.startswith("CONDITIONAL[") and token.endswith("]"):
+        return label_list(token[len("CONDITIONAL["):-1])
+    if token.startswith("AVAILABLE[H-sel](") and token.endswith(")"):
+        return label_list(token[len("AVAILABLE[H-sel]("):-1])
+    return False
+
+
+def class_token_valid(token, branch, keys, union):
+    if token is None:
+        return union is True
+    if union is not False or not isinstance(token, str):
+        return False
+    if token in ("pending", "Z1-VOID[IMPORTED]", "Z1-VOID[DYN]", "Z1-VOID[IMPORTED, DYN]"):
+        return True
+    for typ in ("ABSENT", "BLIND"):
+        if token == typ + "[" + CLASS_SET + "; " + branch + "; " + ", ".join(ACCESS[branch]) + "]":
+            return True
+    if token.startswith("UNDECIDED(") and token.endswith(")"):
+        parts = token[len("UNDECIDED("):-1].split(", ")
+        return bool(parts) and parts == sorted(set(parts)) and all(x in ["G" + str(k) for k in range(1, 8)] for x in parts)
+    if token.startswith("VOID[row](") and token.endswith(")"):
+        names = token[len("VOID[row]("):-1].split(", ")
+        expected = [member_name(k) for k in keys if member_name(k) in names]
+        return bool(names) and names == expected
+    return False
+
+
+def members_shape(mdoc, cells):
+    cycles = members_cycles(mdoc, cells)
+    if not isinstance(mdoc["histogram"], dict) or not all(_digits(k) and str(int(k)) == k and int(k) > 0
+            and is_int(v) and v > 0 for k, v in mdoc["histogram"].items()):
+        return False
+    keys = [c[0] for c in cycles]
+    if keys != sorted(set(keys)):
+        return False
+    return all(size > 0 and states and size == len(states) and states == sorted(set(states)) and key == states[0]
+               for key, size, states in cycles)
+
+
+def typed_like(value, template):
+    if isinstance(template, dict):
+        return keys_are(value, template) and all(typed_like(value[k], v) for k, v in template.items())
+    if isinstance(template, list):
+        return isinstance(value, list) and all(typed_like(x, template[0]) for x in value) if template else value == []
+    if template is None:
+        return value is None
+    if isinstance(template, str) and "/" in template and all(c in "0123456789-/" for c in template):
+        parse_rational(value)
+    return type(value) is type(template)
+
+
+def region_shape(region, cells):
+    if not keys_are(region, ("E", "W_eq", "q_pow_minus_E", "overlap", "overlap_tautological")):
+        return False
+    for k in ("E", "W_eq"):
+        seq = region[k]
+        if not isinstance(seq, list) or seq != [c for c in cells if c in seq]:
+            return False
+    parse_rational(region["q_pow_minus_E"])
+    if not keys_are(region["overlap"], ("B-eq", "B-ct")) or not keys_are(region["overlap_tautological"], ("B-eq", "B-ct")):
+        return False
+    for b in ("B-eq", "B-ct"):
+        seq = region["overlap"][b]
+        if not isinstance(seq, list) or seq != [c for c in cells if c in seq] or not is_bool(region["overlap_tautological"][b]):
+            return False
+    return True
+
+
+def completeness_shape(doc, stage):
+    if not keys_are(doc, ("states", "length_sum", "cycles", "distinct", "bijection", "partition", "mass_sums")):
+        return False
+    if not all(is_int(doc[k]) and doc[k] >= 0 for k in ("states", "length_sum", "cycles")):
+        return False
+    if not all(is_bool(doc[k]) for k in ("distinct", "bijection", "partition")):
+        return False
+    return doc["mass_sums"] is None if stage == "members" else is_bool(doc["mass_sums"])
+
+
+def row_shape(row, cells, region):
+    if not keys_are(row, ROW_KEYS):
+        return False
+    b, key = row["branch"], row["member"]
+    if b not in BRANCHES or not isinstance(key, str) or (key != "pi0" and not is_bits(key, len(cells))):
+        return False
+    if row["candidate"] != "P1" or row["w_rule"] != W_RULE[b] or row["w_inputs"] != W_INPUTS[b]:
+        return False
+    if not is_int(row["support_size"]) or row["support_size"] <= 0:
+        return False
+    parse_rational(row["d_ratio"])
+    width = 0 if b == "B-pl" else len(region["W_eq"])
+    for name in ("weak", "mass", "pi0_ref"):
+        if not isinstance(row[name], dict):
+            return False
+        for w, value in row[name].items():
+            if not is_bits(w, width) or not 0 <= parse_rational(value) <= 1:
+                return False
+    sharp = row["sharp_w"]
+    if not isinstance(sharp, list) or sharp != sorted(set(sharp)) or not all(is_bits(w, width) for w in sharp):
+        return False
+    if not keys_are(row["nb"], sharp) or not all(is_bool(v) for v in row["nb"].values()):
+        return False
+    if not is_bool(row["w_certified"]) or not (is_bool(row["nb_g1"]) if b == "B-pl" else row["nb_g1"] is None):
+        return False
+    if b == "B-pl" and not is_bool(row["bound_ok"]):
+        return False
+    if b == "B-eq" and not (keys_are(row["bound_ok"], sharp) and all(is_bool(v) for v in row["bound_ok"].values())):
+        return False
+    if b == "B-ct" and row["bound_ok"] is not None:
+        return False
+    if not isinstance(row["ledger"], str) or not keys_are(row["g2"], ("a", "t1", "t2", "hsel_content")):
+        return False
+    if not all(is_bool(row["g2"][k]) for k in ("a", "t1", "t2")):
+        return False
+    content = row["g2"]["hsel_content"]
+    if not isinstance(content, list):
+        return False
+    for e in content:
+        if not keys_are(e, ("w", "values")) or not is_bits(e["w"], width) or not isinstance(e["values"], list):
+            return False
+        if e["values"] != sorted(set(e["values"])) or not all(is_bits(v, len(region["E"])) for v in e["values"]):
+            return False
+    hyps = row["hypotheses"]
+    if not isinstance(hyps, list) or not hyps or hyps != sorted(set(hyps)) or not all(h in LABELS for h in hyps):
+        return False
+    if not keys_are(row["gates"], GATES) or not all(v in ("pass", NR, "pending") or row_token_valid(v, b, key)
+                                                for v in row["gates"].values()):
+        return False
+    if not row_token_valid(row["token"], b, key):
+        return False
+    useful = row["usefulness"]
+    if useful is not None:
+        if not keys_are(useful, sharp):
+            return False
+        for entry in useful.values():
+            if not keys_are(entry, ("disjoint", "law_only")):
+                return False
+            for seq in entry.values():
+                if not isinstance(seq, list) or seq != sorted(seq):
+                    return False
+                if not all(isinstance(pair, list) and len(pair) == 2 and all(is_bits(x, 2) for x in pair)
+                           and pair[0] < pair[1] for pair in seq):
+                    return False
+    return True
+
+
+def checks_shape(doc, stage):
+    fields = {"schema", "version", "stage", "checks", "exit_status"}
+    if stage == "members":
+        fields.add("members_sha256")
+    if stage == "final":
+        fields.add("gate_table_sha256")
+    if not keys_are(doc, fields) or doc["schema"] != "k1p1-checks" or not same(doc["version"], 1) or doc["stage"] != stage:
+        return False
+    if not keys_are(doc["exit_status"], ("A", "B")) or not all(v is None or (is_int(v) and v in (0, 1, 2, 3))
+                                                            for v in doc["exit_status"].values()):
+        return False
+    if not isinstance(doc["checks"], list):
+        return False
+    if not all(keys_are(c, ("id", "outcome")) and c["id"] in ROSTERS[stage]
+               and c["outcome"] in ("pass", "fail", "refused") for c in doc["checks"]):
+        return False
+    digest = doc["members_sha256"] if stage == "members" else doc.get("gate_table_sha256")
+    return digest is None or hex_digest(digest)
+
+
+def projection_schema(gt, mdoc, synthetic=False):
+    if float_paths(gt) or float_paths(mdoc):
+        return False
+    cells = gt["cell_order"] if synthetic else list(CELLS)
+    if not isinstance(cells, list) or not cells or len(set(cells)) != len(cells) or not all(isinstance(c, str) for c in cells):
+        return False
+    if not members_shape(mdoc, cells):
+        return False
+    common = {"schema", "version", "stage", "region", "completeness", "rows", "class_tokens", "union_clause_reached"}
+    fields = common | ({"fixture", "kind", "cell_order", "members", "histogram"} if synthetic else {"instance", "preserved", "controls"})
+    if not keys_are(gt, fields) or gt["schema"] != ("k1p1-fixture-output" if synthetic else "k1p1-gate-table"):
+        return False
+    if not same(gt["version"], 1) or gt["stage"] != "final":
+        return False
+    if synthetic:
+        if gt["kind"] != "system" or not isinstance(gt["fixture"], str):
+            return False
+    else:
+        if not same(gt["instance"], {"N": 5, "a": 1, "d": 1, "q": 2}):
+            return False
+        preserved = gt["preserved"]
+        if not keys_are(preserved, ("energy_conserved", "shell_sizes", "phi_order")) or not is_bool(preserved["energy_conserved"]):
+            return False
+        if not is_int(preserved["phi_order"]) or preserved["phi_order"] < 1 or not keys_are(preserved["shell_sizes"], ("0", "1")):
+            return False
+        if not all(is_int(v) and v >= 0 for v in preserved["shell_sizes"].values()):
+            return False
+        ctl = gt["controls"]
+        if not isinstance(ctl, list) or [c.get("id") for c in ctl] != list(S0_ORDER):
+            return False
+        for c in ctl:
+            cid = c["id"]
+            if not keys_are(c, ("id", "gate", "computed", "expected", "paper", "outcome")) or c["gate"] != S0_GATE[cid]:
+                return False
+            if not typed_like(c["computed"], S0_EXPECTED[cid]) or not same(c["expected"], S0_EXPECTED[cid]):
+                return False
+            if c["paper"] not in (None, "pass", "fail", "undecided") or c["outcome"] not in ("pass", "fail"):
+                return False
+    if not region_shape(gt["region"], cells) or not completeness_shape(gt["completeness"], "final"):
+        return False
+    keys = member_keys(mdoc, cells)
+    rows = gt["rows"]
+    if not isinstance(rows, list) or [(r["branch"], r["member"]) for r in rows] != [(b, k) for b in BRANCHES for k in keys]:
+        return False
+    if not all(row_shape(r, cells, gt["region"]) for r in rows):
+        return False
+    if not keys_are(gt["class_tokens"], BRANCHES) or not keys_are(gt["union_clause_reached"], BRANCHES):
+        return False
+    return all(is_bool(gt["union_clause_reached"][b]) and
+               class_token_valid(gt["class_tokens"][b], b, keys, gt["union_clause_reached"][b]) for b in BRANCHES)
+
+
+def fixture_members(doc):
+    return {"schema": "k1p1-members", "version": 1, "cell_order": doc["cell_order"],
+            "members": doc["members"], "histogram": doc["histogram"]}
+
+
+def project_tokens(gt, mdoc, synthetic=False, cm=None, cf=None, raw=None):
+    try:
+        if not projection_schema(gt, mdoc, synthetic):
+            return "BAD_SCHEMA", None
+        if not synthetic:
+            if not checks_shape(cm, "members") or not checks_shape(cf, "final"):
+                return "BAD_SCHEMA", None
+            if any(dumps(doc) != data for doc, data in zip((gt, mdoc, cm, cf), raw)):
+                return "BAD_SCHEMA", None
+            if cm["members_sha256"] != hashlib.sha256(raw[1]).hexdigest() or cf["gate_table_sha256"] != hashlib.sha256(raw[0]).hexdigest():
+                return "INPUT_MISMATCH", None
+        if any(gt["union_clause_reached"].values()):
+            return "UNION_REACHED", None
+        if not synthetic:
+            green = [{"id": cid, "outcome": "pass"} for cid in FINAL_ROSTER]
+            if any(c["outcome"] != "pass" for c in gt["controls"]) or cf["checks"] != green:
+                return "CONTROL_NOT_GREEN", None
+        if any(r["token"] == "pending" for r in gt["rows"]) or any(t == "pending" for t in gt["class_tokens"].values()):
+            return "INCOMPLETE_TOKENS", None
+        lines = [BEGIN_MARKER, "", "| Branch | Member | Token |", "| --- | --- | --- |"]
+        for r in gt["rows"]:
+            lines.append("| " + r["branch"] + " | `" + member_name(r["member"]) + "` | `" + r["token"] + "` |")
+        lines += ["", "| Branch | Class token |", "| --- | --- |"]
+        lines += ["| " + b + " | `" + gt["class_tokens"][b] + "` |" for b in BRANCHES]
+        lines += ["", END_MARKER]
+        return "OK", ("\n".join(lines) + "\n").encode("utf-8")
+    except (KeyError, TypeError, ValueError, IndexError, AttributeError):
+        return "BAD_SCHEMA", None
+
+
+def render_from_record(ctx):
+    try:
+        raw = [ctx.read_rec(n) for n in ("gate-table.json", "members.json", "checks.members.json", "checks.json")]
+        docs = [loads(b) for b in raw]
+    except (FileNotFoundError, ValueError, UnicodeError):
+        return "MISSING_INPUT", None
+    return project_tokens(*docs[:2], cm=docs[2], cf=docs[3], raw=raw)
+
+
+def marker_matches(document, fragment):
+    if fragment is None:
+        return False
+    begin, end = BEGIN_MARKER.encode("utf-8") + b"\n", END_MARKER.encode("utf-8") + b"\n"
+    lines = document.splitlines(keepends=True)
+    # Count marker spellings as well, so extra unterminated or CRLF markers cannot hide.
+    if document.count(BEGIN_MARKER.encode()) != 1 or document.count(END_MARKER.encode()) != 1:
+        return False
+    starts = [i for i, line in enumerate(lines) if line == begin]
+    ends = [i for i, line in enumerate(lines) if line == end]
+    return len(starts) == len(ends) == 1 and starts[0] < ends[0] and b"".join(lines[starts[0]:ends[0] + 1]) == fragment
+
+
+def cmd_render(ctx, out):
+    if not os.path.isdir(out) or os.listdir(out):
+        raise Refusal("render --out must name a fresh empty directory")
+    digest = None
+    try:
+        if ctx.has_rec("gate-table.json"):
+            digest = hashlib.sha256(ctx.read_rec("gate-table.json")).hexdigest()
+        reason, fragment = render_from_record(ctx)
+        outcome = "pass" if reason == "OK" else "refused"
+        status = {"schema": "k1p1-render-status", "version": 1, "stage": "final", "outcome": outcome,
+                  "reason": reason, "gate_table_sha256": digest,
+                  "fragment_sha256": hashlib.sha256(fragment).hexdigest() if fragment is not None else None}
+        files = {"render-status.json": dumps(status)}
+        if fragment is not None:
+            files["token-tables.md"] = fragment
+        for name, data in files.items():
+            with open(os.path.join(out, name + ".tmp"), "wb") as fh:
+                fh.write(data)
+        for name in files:
+            os.replace(os.path.join(out, name + ".tmp"), os.path.join(out, name))
+        return 0 if outcome == "pass" else 2
+    except OSError:
+        status = {"schema": "k1p1-render-status", "version": 1, "stage": "final", "outcome": "fail",
+                  "reason": "IO_ERROR", "gate_table_sha256": digest, "fragment_sha256": None}
+        try:
+            if os.path.exists(os.path.join(out, "token-tables.md")):
+                os.remove(os.path.join(out, "token-tables.md"))
+            with open(os.path.join(out, "render-status.json.tmp"), "wb") as fh:
+                fh.write(dumps(status))
+            os.replace(os.path.join(out, "render-status.json.tmp"), os.path.join(out, "render-status.json"))
+        except OSError:
+            pass
+        return 1
+    finally:
+        for name in ("render-status.json.tmp", "token-tables.md.tmp"):
+            try:
+                os.remove(os.path.join(out, name))
+            except FileNotFoundError:
+                pass
 
 
 # ---------------------------------------------------------------------------
 # Self-test (§11.2, §11.3)
 # ---------------------------------------------------------------------------
 
-# SF-1 (§11.2): the permutation of {0, ..., 11} with cycles (0)(1 2)(3 4 5)(6 7 8 9 10 11);
-# hand-derived answers: cycle lengths 1, 2, 3, 6; least elements 0, 1, 3, 6; coverage 12.
-SF1_CYCLES = ((0,), (1, 2), (3, 4, 5), (6, 7, 8, 9, 10, 11))
-SF1_LENGTHS = [1, 2, 3, 6]
-SF1_LEAST = [0, 1, 3, 6]
-SF1_COVERAGE = 12
+def clone(value):
+    return loads(dumps(value))
 
 
-def sf1():
-    """SF-1 through controls.py's CC-PART checker (partition_findings). Returns findings."""
-    perm = {}
-    for c in SF1_CYCLES:
-        for i, e in enumerate(c):
-            perm[e] = c[(i + 1) % len(c)]
-    universe = list(range(SF1_COVERAGE))
-    claimed = [(min(c), len(c), sorted(c)) for c in sorted(SF1_CYCLES, key=min)]
-    f = []
-    if [c[1] for c in claimed] != SF1_LENGTHS:
-        f.append("SF-1 lengths")
-    if [c[0] for c in claimed] != SF1_LEAST:
-        f.append("SF-1 least elements")
-    if sum(c[1] for c in claimed) != SF1_COVERAGE:
-        f.append("SF-1 coverage")
-    f += ["SF-1 " + x for x in partition_findings(universe, lambda s: perm[s], claimed)]
+def path_set(doc, path, value):
+    node = doc
+    for key in path[:-1]:
+        node = node[key]
+    node[path[-1]] = clone(value)
+
+
+def apply_ops(doc, ops):
+    for op in ops:
+        path = op["path"]
+        node = doc
+        for key in path[:-1]:
+            node = node[key]
+        last = path[-1]
+        if op["op"] == "set":
+            node[last] = clone(op["value"])
+        elif op["op"] == "delete":
+            del node[last]
+        elif op["op"] == "duplicate":
+            node.insert(last, clone(node[last]))
+        elif op["op"] == "swap":
+            seq = node[last]
+            i, j = op["i"], op["j"]
+            seq[i], seq[j] = seq[j], seq[i]
+        else:
+            raise ValueError("unknown fixture operation")
+    return doc
+
+
+def pinned_self_inputs(ctx):
+    try:
+        data = ctx.read_rec("amendments/A1-fixtures.json")
+        if hashlib.sha256(data).hexdigest() != FIXTURE_SHA256:
+            raise Refusal("A1-fixtures.json SHA256 differs")
+        patches = {}
+        for mu in ("MU-C1", "MU-C2", "MU-C3"):
+            pin = PATCH_SHA256[mu]
+            if not hex_digest(pin):
+                raise Refusal(mu + " final patch binding absent")
+            patch = ctx.read_rec("amendments/A1-patches/" + mu + ".patch")
+            if hashlib.sha256(patch).hexdigest() != pin:
+                raise Refusal(mu + " patch SHA256 differs")
+            patches[mu] = patch
+        return loads(data), patches
+    except (OSError, ValueError, UnicodeError) as exc:
+        raise Refusal("self-test input absent or malformed: " + type(exc).__name__)
+
+
+def splice_patch(source, patch, expected_path):
+    """Strict unified-diff splice: no fuzz, offset, external patch program or execution."""
+    old = source.decode("utf-8").splitlines(keepends=True)
+    diff = patch.decode("utf-8").splitlines(keepends=True)
+    if not source.endswith(b"\n") or not patch.endswith(b"\n"):
+        raise ValueError("patch and source must end with LF")
+    if len(diff) < 3 or diff[0] != "--- a/" + expected_path + "\n" or diff[1] != "+++ b/" + expected_path + "\n":
+        raise ValueError("patch must name one frozen source file")
+    output, cursor, delta, i = [], 0, 0, 2
+    while i < len(diff):
+        header = diff[i]
+        if not header.startswith("@@ -") or " @@" not in header:
+            raise ValueError("invalid hunk header")
+        coordinates = header[4:].split(" @@", 1)[0].split(" +")
+        if len(coordinates) != 2:
+            raise ValueError("invalid hunk coordinates")
+        ranges = []
+        for item in coordinates:
+            pair = item.split(",")
+            if len(pair) != 2 or not all(_digits(v) for v in pair):
+                raise ValueError("hunk ranges require start,count")
+            ranges.append(tuple(int(v) for v in pair))
+        (start, old_count), (new_start, new_count) = ranges
+        at = start - 1 if old_count else start
+        expected_new = at + delta + (1 if new_count else 0)
+        if at < cursor or at > len(old) or new_start != expected_new:
+            raise ValueError("hunk order/start offset differs")
+        i += 1
+        before, after = [], []
+        while i < len(diff) and not diff[i].startswith("@@ "):
+            line = diff[i]
+            if line[:1] not in (" ", "+", "-"):
+                raise ValueError("unsupported patch line")
+            if line[0] in " -":
+                before.append(line[1:])
+            if line[0] in " +":
+                after.append(line[1:])
+            i += 1
+        if len(before) != old_count or len(after) != new_count or old[at:at + old_count] != before:
+            raise ValueError("hunk old lines/counts differ at exact start")
+        output += old[cursor:at] + after
+        cursor = at + old_count
+        delta += new_count - old_count
+    output += old[cursor:]
+    return "".join(output).encode("utf-8")
+
+
+def fixture_expected(entries, fid, cyc2=False):
+    entry = entries[fid]
+    name = "expected_cyc2" if cyc2 else "expected"
+    if name in entry:
+        return clone(entry[name])
+    origin = entry.get(name + "_from")
+    if origin is None:
+        return None
+    doc = fixture_expected(entries, origin, cyc2)
+    doc["fixture"] = fid
+    if not cyc2:
+        for change in entry.get("expected_set", []):
+            path_set(doc, change["path"], change["value"])
+    return doc
+
+
+def run_fixture(ctx, which, fid, input_bytes, extra=(), nonempty=False, program=None):
+    """Only fixture CLI; malformed combinations are confined to the frozen NF cases."""
+    with tempfile.TemporaryDirectory() as tmp:
+        inp, out = os.path.join(tmp, "input.json"), os.path.join(tmp, "out")
+        os.mkdir(out)
+        if input_bytes is not None:
+            with open(inp, "wb") as fh:
+                fh.write(input_bytes)
+        if nonempty:
+            with open(os.path.join(out, "sentinel"), "wb") as fh:
+                fh.write(b"preserve fixture sentinel\n")
+        before = read_dir(out)
+        argv = [sys.executable, "-I", program or os.path.join(ctx.root, *IMPL[which].split("/")),
+                "--fixture", fid, "--input", inp, "--out", out] + list(extra)
+        code = subprocess.run(argv, cwd=ctx.root, stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode
+        return code, read_dir(out), before
+
+
+def fixture_env(entry, doc, cyc2):
+    data = entry["input"]
+    cells = data["cells"]
+    universe = ["".join(bits) for bits in itertools.product("01", repeat=len(cells))]
+    if data["kind"] == "perm":
+        step = lambda state: data["image"][state]
+    else:
+        def step(state):
+            values = dict(zip(cells, (int(v) for v in state)))
+            return "".join(str(sum(values[c] for c in data["phi"][out]) % data["q"]) for out in cells)
+    return {"stage": doc.get("stage", "members"), "members": fixture_members(doc), "gt": doc,
+            "cyc2": cyc2, "cells": cells, "universe": universe, "step": step,
+            "state_count": len(universe), "zero": "0" * len(cells), "q": data.get("q", 2),
+            "cd": data.get("class_decisions"),
+            "adv": {"rows": data.get("adversarial", [])}, "fixture": True}
+
+
+def fixture_checks(entry, outputs, expected, expected_cyc2):
+    result = {}
+    if "A" in outputs and "B" in outputs:
+        result["AB'"] = "pass" if outputs["A"].get("fixture.json") == outputs["B"].get("fixture.json") else "fail"
+    result["EXPECTED'"] = "pass" if all(out.get("fixture.json") == dumps(expected) and
+        (which != "B" or expected_cyc2 is None or out.get("fixture-cyc2.json") == dumps(expected_cyc2))
+        for which, out in outputs.items()) else "fail"
+    for which, out in outputs.items():
+        doc = loads(out["fixture.json"])
+        if entry["input"]["kind"] == "rank":
+            vals = {"EXACT'": "fail" if float_paths(doc) else "pass"}
+        else:
+            cyc = loads(out["fixture-cyc2.json"]) if "fixture-cyc2.json" in out else None
+            env = fixture_env(entry, doc, cyc)
+            if entry["input"]["kind"] == "system":
+                env["expected_region"] = expected["region"]
+            vals = {}
+            funcs = [("EXACT'", chk_exact), ("CC-PART'", chk_cc_part), ("CC-BIJ'", chk_cc_bij)]
+            if which == "B" and entry["input"]["kind"] in ("linear", "system"):
+                env["kmax"] = entry["input"]["kmax"]
+                funcs.append(("CC-CYC2'", chk_cc_cyc2))
+            if entry["input"]["kind"] == "system":
+                funcs += [("CC-ROWS'", chk_cc_rows), ("CC-MASS'", chk_cc_mass), ("PR-CR6'", chk_pr_cr6), ("TOKENS'", chk_tokens), ("PR-E'", chk_pr_e)]
+            for cid, fn in funcs:
+                try:
+                    vals[cid] = "fail" if fn(env) else "pass"
+                except (ValueError, KeyError, TypeError, IndexError, AttributeError):
+                    vals[cid] = "fail"
+            if entry["input"]["kind"] == "system":
+                vals["CT-INC'"] = chk_ct_inc(env, vals["CC-PART'"] == "pass", vals["CC-ROWS'"] == "pass")[0]
+        for cid, value in vals.items():
+            result[cid] = combine((result.get(cid, "pass"), value))
+            # Keep per-program results so SF-2pb cannot pass from a combined failure alone.
+            result[which + ":" + cid] = value
+    return result
+
+
+def synthetic_projection_tests(spec, entries):
+    fragments, f = {}, []
+    for entry in spec["render_fixtures"]:
+        doc = apply_ops(fixture_expected(entries, entry["source"]), entry["ops"])
+        reason, fragment = project_tokens(doc, fixture_members(doc), synthetic=True)
+        ok = reason == entry["reason"] and (fragment is not None) == (entry["outcome"] == "pass")
+        if "fragment" in entry:
+            lines = entry["fragment"]
+        elif "fragment_from" in entry:
+            lines = fragments[entry["fragment_from"]].decode("utf-8").splitlines()
+            for replacement in entry["fragment_replace"]:
+                lines[replacement["line"]] = replacement["text"]
+        else:
+            lines = None
+        if lines is not None:
+            wanted = ("\n".join(lines) + "\n").encode("utf-8")
+            ok = ok and fragment == wanted
+            fragments[entry["id"]] = wanted
+        if not ok:
+            f.append(entry["id"] + ": projection differs (" + reason + ")")
+    for entry in spec["marker_fixtures"]:
+        fragment = fragments[entry["fragment"]]
+        text = fragment.decode("utf-8")
+        op = entry["op"]
+        if op == "remove_begin":
+            text = text.replace(BEGIN_MARKER + "\n", "")
+        elif op == "duplicate_end":
+            text += END_MARKER + "\n"
+        elif op == "swap_markers":
+            text = text.replace(BEGIN_MARKER, "MARKER_TEMP").replace(END_MARKER, BEGIN_MARKER).replace("MARKER_TEMP", END_MARKER)
+        elif op == "crlf":
+            text = text.replace("\n", "\r\n")
+        elif op == "replace":
+            text = text.replace(entry["old"], entry["new"])
+        elif op != "none":
+            raise ValueError("unknown marker fixture")
+        document = ("# result\n\n" + text + "\nProse.\n").encode("utf-8")
+        if marker_matches(document, fragment) is not entry["match"]:
+            f.append(entry["id"] + ": marker comparison differs")
+    adv_entries = {e["id"]: e for e in spec["adv_index_fixtures"]}
+    for entry in spec["adv_index_fixtures"]:
+        doc = fixture_expected(entries, entry["source"])
+        adv = entry.get("adversarial", adv_entries.get(entry.get("adversarial_from"), {}).get("adversarial"))
+        valid = not adv_index_findings(doc["rows"], adv, entry["notes"])
+        if valid is not entry["pass"]:
+            f.append(entry["id"] + ": adversarial index result differs")
     return f
 
 
-def cmd_self_test_synthetic():
-    f = sf1()
-    print("SF-1 " + ("pass" if not f else "fail"))
-    for x in f:
-        print("    " + x)
-    if f:
+def cmd_self_test_synthetic(ctx):
+    spec, patches = pinned_self_inputs(ctx)
+    entries = {e["id"]: e for e in spec["fixtures"]}
+    outputs, failures = {}, []
+    # Step 1: canonical input, subprocess-only independent implementations, exact bytes.
+    for fid, entry in entries.items():
+        expected, cyc = fixture_expected(entries, fid), fixture_expected(entries, fid, True)
+        result = {}
+        for which in entry["programs"]:
+            code, files, _ = run_fixture(ctx, which, fid, dumps(entry["input"]))
+            names = {"fixture.json"} | ({"fixture-cyc2.json"} if which == "B" and cyc is not None else set())
+            if code != entry["exit"] or set(files) != names or files.get("fixture.json") != dumps(expected) or (which == "B" and cyc is not None and files.get("fixture-cyc2.json") != dumps(cyc)):
+                failures.append(fid + "/" + which + ": exit/inventory/expected bytes differ")
+            result[which] = files
+        if len(result) == 2 and result["A"].get("fixture.json") != result["B"].get("fixture.json"):
+            failures.append(fid + ": AB' differs")
+        outputs[fid] = result
+    if failures:
+        for f in failures:
+            print(f)
         return 1
-    open_question("OQ-C1", "SF-2 has no counterpart in controls.py (it computes no rank); SF-3's toy system "
-                           "and SF-M's analogues are to be fixed in the code-freeze amendment; how SF-1 to "
-                           "SF-3 reach A and B, whose command line is instance-only, is not stated")
+    # Step 2: A1's specific SF-2pb negative overrides its general all-pass sentence:
+    # both programs must exit 0 with bijection=false, and both own CC-BIJ' checks fail.
+    # The preceding SF-2p is the paired passing good-inverse control.
+    for fid, entry in entries.items():
+        checks = fixture_checks(entry, outputs[fid], fixture_expected(entries, fid), fixture_expected(entries, fid, True))
+        for cid, value in checks.items():
+            want = "fail" if fid == "SF-2pb" and cid in ("CC-BIJ'", "A:CC-BIJ'", "B:CC-BIJ'") else "pass"
+            if value != want:
+                failures.append(fid + "/" + cid + ": " + value + ", expected " + want)
+    # Step 3: paired controls must hold immediately before each analogue.
+    for entry in spec["analogues"]:
+        fid = entry["fixture"]
+        source = entries[fid]
+        expected, cyc = fixture_expected(entries, fid), fixture_expected(entries, fid, True)
+        named = entry["must_fail"] + entry["must_refuse"]
+        baseline = fixture_checks(source, outputs[fid], expected, cyc)
+        if any(baseline.get(cid) != "pass" for cid in named):
+            failures.append(entry["id"] + ": paired control fails")
+            continue
+        changed = clone_outputs(outputs[fid])
+        targets = ("A", "B") if entry["target"] == "A+B" else (entry["target"],)
+        for which in targets:
+            name = entry["file"]
+            changed[which][name] = dumps(apply_ops(loads(changed[which][name]), entry["ops"]))
+        got = fixture_checks(source, changed, expected, cyc)
+        if any(got.get(cid) != "fail" for cid in entry["must_fail"]) or any(got.get(cid) != "refused" for cid in entry["must_refuse"]):
+            failures.append(entry["id"] + ": mutation not detected by named own check")
+    # Step 4: each NF after its specified passing control; unchanged output on refusal.
+    # NF-3 explicitly requires the invalid --fixture/--stage mixture. This is the only
+    # exception to A1 5.6's general "never passes --stage" sentence: admission must
+    # refuse the mixture before entering any instance code (independently reviewed).
+    for negative in spec["interface_negatives"]:
+        base_id = negative["input_from"] or "SF-1a"
+        base = entries[base_id]
+        for which in negative["control"]["programs"]:
+            code, files, _ = run_fixture(ctx, which, base_id, dumps(base["input"]))
+            ok = code == negative["control"]["exit"] and files.get("fixture.json") == dumps(fixture_expected(entries, base_id))
+            cyc = fixture_expected(entries, base_id, True)
+            if which == "B" and cyc is not None:
+                ok = ok and files.get("fixture-cyc2.json") == dumps(cyc)
+            if not ok:
+                failures.append(negative["id"] + ": paired CLI control fails")
+        inp = clone(base["input"])
+        for edit in negative["input_set"]:
+            path_set(inp, edit["path"], edit["value"])
+        payload = dumps(inp) if negative["input_from"] is not None else None
+        for which in negative["programs"]:
+            code, files, before = run_fixture(ctx, which, negative["fixture_arg"], payload,
+                negative["extra_args"], negative["out"] == "nonempty")
+            if code != negative["exit"] or files != before:
+                failures.append(negative["id"] + "/" + which + ": refusal/unchanged output differs")
+    # Step 5: pinned MU-C3, applied by exact splice to a disposable A copy.
+    with tempfile.TemporaryDirectory() as tmp:
+        path = os.path.join(tmp, "mutated-a.py")
+        try:
+            with open(os.path.join(ctx.root, *IMPL["A"].split("/")), "rb") as fh:
+                patched = splice_patch(fh.read(), patches["MU-C3"], IMPL["A"])
+            with open(path, "wb") as fh:
+                fh.write(patched)
+            code, files, before = run_fixture(ctx, "A", "SF-3", dumps(entries["SF-3"]["input"]), program=path)
+            if code != 3 or files != before:
+                failures.append("MU-C3': expected exactness exit 3 with no files")
+        except (ValueError, UnicodeError):
+            failures.append("MU-C3': patch does not apply exactly")
+    # Step 6 uses only the same in-memory projection/index functions as production.
+    failures += synthetic_projection_tests(spec, entries)
+    for f in failures:
+        print(f)
+    print("synthetic self-test " + ("fail" if failures else "pass"))
+    return 1 if failures else 0
+
+
+def clone_outputs(outputs):
+    return {which: dict(files) for which, files in outputs.items()}
 
 
 def sandbox_copy(ctx, dest, skip=()):
@@ -1553,17 +2202,36 @@ def flip_digit(data):
 
 
 def mutations_for(stage):
-    """§11.3 timing: the mutations each `self-test --stage` covers."""
     return {
         "members": ("MU-3", "MU-4", "MU-8", "MU-13", "MU-C1", "MU-C2"),
         "rows": ("MU-1", "MU-2", "MU-5", "MU-6", "MU-7", "MU-9", "MU-10", "MU-12", "MU-13",
-                 "MU-14a", "MU-14b", "MU-14c", "MU-C3"),
-        "final": ("MU-11", "MU-13"),
+                 "MU-14a", "MU-14b", "MU-14c", "MU-14d", "MU-16a", "MU-16b", "MU-17", "MU-C3"),
+        "final": ("MU-11", "MU-13", "MU-15a", "MU-15b", "MU-15c", "MU-15d", "MU-16c"),
     }[stage]
 
 
-def apply_mutation(ctx, stage, mu):
-    """Apply one mutation in a fresh sandbox. Returns True when it is detected as §11.3 requires."""
+def edit_both(outputs, filename, fn):
+    for which in ("A", "B"):
+        json_edit(outputs, which, filename, fn)
+
+
+def subprocess_controls_run(ctx, stage):
+    return subprocess.run([sys.executable, "-I", ctx.rec_path("controls.py"), "run", "--stage", stage],
+                          cwd=ctx.root, stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode
+
+
+def pre_outcome(ctx, stage, cid):
+    doc = loads(ctx.read_rec(CHECKS_FILE[stage]))
+    return next((c["outcome"] for c in doc["checks"] if c["id"] == cid), None)
+
+
+def g5_keys(ctx):
+    rows = loads(ctx.read_rec("gate-table.rows.json"))["rows"]
+    return [(r["branch"], r["member"]) for r in rows if r["gates"]["G5"] == "pass"]
+
+
+def apply_mutation(ctx, stage, mu, patches):
+    """Instance-only mutation paths; never reached by --synthetic."""
     gtf = GATE_TABLE[stage]
     with tempfile.TemporaryDirectory() as tmp:
         sb = sandbox_copy(ctx, os.path.join(tmp, "repo"))
@@ -1572,119 +2240,198 @@ def apply_mutation(ctx, stage, mu):
             return check_stage(sb, stage, mutate={stage: edit})
 
         if mu == "MU-1":
-            def edit(o):
-                json_edit(o, "A", gtf, lambda d: d["rows"].pop([r["branch"] for r in d["rows"]].index("B-eq") + 1))
-            rep = chk(edit)
+            rep = chk(lambda o: edit_both(o, gtf, lambda d: d["rows"].pop(1)))
             return outcome(rep, stage, "CC-ROWS") == "fail" and outcome(rep, stage, "CT-INC") == "refused"
         if mu == "MU-2":
-            rep = chk(lambda o: json_edit(o, "A", gtf, lambda d: d["rows"].insert(1, d["rows"][1])))
+            rep = chk(lambda o: edit_both(o, gtf, lambda d: d["rows"].insert(1, clone(d["rows"][1]))))
             return outcome(rep, stage, "CC-ROWS") == "fail"
         if mu in ("MU-3", "MU-4"):
             def edit_members(d):
-                tens = [m for m in d["members"][1:] if m["size"] == max(x["size"] for x in d["members"][1:])]
-                s = tens[0]["states"].pop()
-                tens[0]["size"] -= 1
                 if mu == "MU-3":
-                    tens[1]["states"] = sorted(tens[1]["states"] + [s])
-                    tens[1]["size"] += 1
-            rep = chk(lambda o: json_edit(o, "A", "members.json", edit_members))
-            ok = outcome(rep, stage, "CC-PART") == "fail"
-            if mu == "MU-4":
-                ok = ok and outcome(rep, stage, "CT-INC") == "refused"
-            return ok
+                    tens = [m for m in d["members"][1:] if m["size"] == 10]
+                    if len(tens) < 2:
+                        raise ValueError("MU-3 requires two 10-cycles")
+                    a, b = tens[:2]
+                    x, y = a["states"][-1], b["states"][-1]
+                    a["states"] = sorted([s for s in a["states"] if s != x] + [y])
+                    b["states"] = sorted([s for s in b["states"] if s != y] + [x])
+                else:
+                    cycle = next(m for m in d["members"][1:] if m["size"] > 1)
+                    old = str(cycle["size"])
+                    cycle["states"].pop()
+                    cycle["size"] -= 1
+                    d["histogram"][old] -= 1
+                    if not d["histogram"][old]:
+                        del d["histogram"][old]
+                    new = str(cycle["size"])
+                    d["histogram"][new] = d["histogram"].get(new, 0) + 1
+            rep = chk(lambda o: edit_both(o, "members.json", edit_members))
+            return outcome(rep, stage, "CC-PART") == "fail" and (mu != "MU-4" or outcome(rep, stage, "CT-INC") == "refused")
         if mu == "MU-5":
-            def edit5(d):
+            def edit(d):
                 r = d["rows"][0]
                 r["weak"][sorted(r["weak"])[0]] = "0.5"
-            return outcome(chk(lambda o: json_edit(o, "A", gtf, edit5)), stage, CHECK_ID_EXACT) == "fail"
+            return outcome(chk(lambda o: edit_both(o, gtf, edit)), stage, "EXACT") == "fail"
         if mu == "MU-6":
-            def edit6(d):
+            def edit(d):
                 r = d["rows"][0]
                 w = sorted(r["weak"])[0]
                 v = parse_rational(r["weak"][w])
-                v = v + Fraction(1, 1024) if v + Fraction(1, 1024) <= 1 else v - Fraction(1, 1024)
-                r["weak"][w] = fmt_rational(v)
-            rep = chk(lambda o: json_edit(o, "A", gtf, edit6))
-            return outcome(rep, stage, "AB-gate-table") == "fail" and \
-                rep["stages"][stage]["replay"]["REPLAY-" + gtf] is False
+                delta = Fraction(1, 1024)
+                r["weak"][w] = fmt_rational(v + delta if v + delta <= 1 else v - delta)
+            rep = chk(lambda o: json_edit(o, "A", gtf, edit))
+            return outcome(rep, stage, "AB-gate-table") == "fail" and rep["stages"][stage]["replay"]["REPLAY-" + gtf] is False
         if mu == "MU-7":
-            def edit7(d):
+            def edit(d):
                 d["rows"][1], d["rows"][2] = d["rows"][2], d["rows"][1]
-            return outcome(chk(lambda o: json_edit(o, "A", gtf, edit7)), stage, "CC-ROWS") == "fail"
+            return outcome(chk(lambda o: edit_both(o, gtf, edit)), stage, "CC-ROWS") == "fail"
         if mu == "MU-8":
-            rep = chk(lambda o: json_edit(o, "A", gtf, lambda d: d["region"]["E"].remove("y_2")))
-            return outcome(rep, stage, "PR-E") == "fail"
+            return outcome(chk(lambda o: edit_both(o, gtf, lambda d: d["region"]["E"].remove("y_2"))), stage, "PR-E") == "fail"
         if mu == "MU-9":
-            def edit9(d):
-                for r in d["rows"]:
-                    if r["token"].startswith("ABSENT[") or r["token"].startswith("BLIND["):
-                        r["token"] = r["gates"]["G4"] = "VOID[row]"
-                        return
-                raise ValueError("no ABSENT or BLIND row to mutate")
-            return outcome(chk(lambda o: json_edit(o, "A", gtf, edit9)), stage, CHECK_ID_TOKENS) == "fail"
+            def edit(d):
+                r = next(r for r in d["rows"] if r["token"].startswith("ABSENT["))
+                r["token"] = r["gates"]["G4"] = "BLIND[" + member_name(r["member"]) + "; " + r["branch"] + "; " + ", ".join(ACCESS[r["branch"]]) + "]"
+            return outcome(chk(lambda o: edit_both(o, gtf, edit)), stage, "TOKENS") == "fail"
         if mu == "MU-10":
-            def edit10(d):
-                d["union_clause_reached"]["B-pl"] = True
-            return outcome(chk(lambda o: json_edit(o, "A", gtf, edit10)), stage, "PR-CR6") == "fail"
+            return outcome(chk(lambda o: edit_both(o, gtf, lambda d: d["union_clause_reached"].__setitem__("B-pl", True))), stage, "PR-CR6") == "fail"
         if mu == "MU-12":
-            def edit12(d):
-                d["controls"][0]["outcome"] = "fail"
-            rep = chk(lambda o: json_edit(o, "A", gtf, edit12))
-            # VOID[stage]: PR-S0 fails, so `run` writes no gate table (no row token written).
-            return outcome(rep, stage, "PR-S0") == "fail" and not all_pass(rep["stages"][stage]["checks"])
+            def edit(d):
+                c = next(c for c in d["controls"] if c["id"] == "CC-EXACT")
+                c["computed"]["weak"][""] = "1/1"
+                c["outcome"] = "fail"
+            # Remove existing sandbox rows so absence measures what this run writes.
+            os.remove(sb.rec_path(gtf))
+            code = cmd_run(sb, stage, mutate=lambda o: edit_both(o, gtf, edit))
+            return code == 1 and pre_outcome(sb, stage, "CC-EXACT") == "fail" and pre_outcome(sb, stage, "PR-S0") == "fail" and not sb.has_rec(gtf)
         if mu == "MU-13":
-            target = {"members": "members.json", "rows": "gate-table.rows.json", "final": "gate-table.json"}[stage]
-            p = sb.rec_path(target)
-            with open(p, "rb") as fh:
-                data = fh.read()
-            with open(p, "wb") as fh:
-                fh.write(flip_digit(data))
+            target = "members.json" if stage == "members" else gtf
+            with open(sb.rec_path(target), "wb") as fh:
+                fh.write(flip_digit(ctx.read_rec(target)))
             rep = check_stage(sb, stage)
-            return rep["status"] != 0 and rep["stages"][stage]["replay"]["REPLAY-" + target] is False
-        if mu in ("MU-14a", "MU-14b", "MU-14c"):
+            return rep["status"] == 1 and rep["stages"][stage]["replay"]["REPLAY-" + target] is False
+        if mu in ("MU-14a", "MU-14b", "MU-14c", "MU-14d"):
+            cid = "PRE-INPUTS" if mu == "MU-14d" else "PRE-PREV"
+            if subprocess_controls_run(sb, "rows") != 0 or pre_outcome(sb, "rows", cid) != "pass":
+                return False
             sha = committed_members_sha(sb)
             if mu == "MU-14c":
                 sb = sandbox_copy(ctx, os.path.join(tmp, "repo-c"), skip=(REC_REL + "/members.json",))
+            elif mu == "MU-14a":
+                os.remove(sb.rec_path("members.json"))
+            elif mu == "MU-14b":
+                with open(sb.rec_path("members.json"), "wb") as fh:
+                    fh.write(flip_digit(ctx.read_rec("members.json")))
             else:
-                p = sb.rec_path("members.json")
-                if mu == "MU-14a":
-                    os.remove(p)
-                else:
-                    with open(p, "rb") as fh:
-                        data = fh.read()
-                    with open(p, "wb") as fh:
-                        fh.write(flip_digit(data))
-            ok = True
-            if mu != "MU-14c":
+                cd = loads(sb.read_rec("class-decisions.json"))
+                cd["g1"] = "undecided" if cd["g1"] == "pass" else "pass"
+                with open(sb.rec_path("class-decisions.json"), "wb") as fh:
+                    fh.write(dumps(cd))
+            if mu in ("MU-14a", "MU-14b"):
                 for which in ("A", "B"):
-                    with tempfile.TemporaryDirectory() as t2:
-                        ok = ok and run_impl(sb, which, "rows", t2, sha) == 2
-            code = subprocess.run([sys.executable, "-I", sb.rec_path("controls.py"), "run", "--stage", "rows"],
-                                  cwd=sb.root, stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode
-            return ok and code == 2
-        if mu == "MU-11":
-            if not sb.has_rec("adversarial.json"):
-                open_question("OQ-C6", "MU-11 when no row passes G5 (no adversarial.json to mutate)")
-            open_question("OQ-C6", "MU-11's mutated token and how the self-test confirms 'that row recorded "
-                                   "UNDECIDED(G6)' (from A's and B's final outputs)")
+                    with tempfile.TemporaryDirectory() as out:
+                        if run_impl(sb, which, "rows", out, sha) != 2 or read_dir(out):
+                            return False
+            return subprocess_controls_run(sb, "rows") == 2 and pre_outcome(sb, "rows", cid) == "refused"
+        if mu in ("MU-11", "MU-16c"):
+            keys = g5_keys(sb)
+            if not keys:
+                print(mu + " not applicable: committed gate-table.rows.json has no G5 row")
+                return True
+            branch, key = keys[0]
+            adv = loads(sb.read_rec("adversarial.json"))
+            entry = next(e for e in adv["rows"] if (e["branch"], e["member"]) == (branch, key))
+            if mu == "MU-11":
+                entry["token"] = "BLIND[" + member_name(key) + "; " + branch + "; " + ", ".join(ACCESS[branch]) + "]"
+            else:
+                del entry["note"]
+            with open(sb.rec_path("adversarial.json"), "wb") as fh:
+                fh.write(dumps(adv))
+            for which in ("A", "B"):
+                with tempfile.TemporaryDirectory() as out:
+                    code = run_impl(sb, which, "final", out, committed_members_sha(sb))
+                    if mu == "MU-16c":
+                        if code != 2 or read_dir(out):
+                            return False
+                    else:
+                        if code != 0:
+                            return False
+                        result = loads(read_dir(out)["gate-table.json"])
+                        row = next(r for r in result["rows"] if (r["branch"], r["member"]) == (branch, key))
+                        if row["gates"]["G6"] != "UNDECIDED(G6)" or row["token"] != "UNDECIDED(G6)":
+                            return False
+            return True
+        if mu in ("MU-16a", "MU-16b"):
+            cd = loads(sb.read_rec("class-decisions.json"))
+            cd["extra" if mu == "MU-16a" else "version"] = True
+            with open(sb.rec_path("class-decisions.json"), "wb") as fh:
+                fh.write(dumps(cd))
+            checks, outputs, codes, _ = execute_stage(sb, stage, committed_members_sha(sb))
+            doc = checks_doc(stage, checks, outputs, codes)
+            return doc["exit_status"] == {"A": 2, "B": 2} and not any(outputs.values())
+        if mu == "MU-17":
+            def edit(d):
+                row = next(r for r in d["rows"] if r["member"] == DELTA0)
+                row["gates"]["G4"] = row["gates"]["G5"] = "pass"
+                row["gates"]["G6"] = row["gates"]["G7"] = row["token"] = "pending"
+            return outcome(chk(lambda o: edit_both(o, gtf, edit)), stage, "PR-CR6") == "fail"
+        if mu in ("MU-15a", "MU-15b", "MU-15c", "MU-15d"):
+            if mu == "MU-15d":
+                reason, fragment = render_from_record(sb)
+                if reason != "OK" or not marker_matches(sb.read_rec("result.md"), fragment):
+                    return False
+                changed = fragment.replace(b"B-pl", b"B-pk", 1)
+                with open(sb.rec_path("result.md"), "wb") as fh:
+                    fh.write(ctx.read_rec("result.md").replace(fragment, changed, 1))
+                rep = check_stage(sb, "final")
+                return rep["status"] == 1 and rep["render"] is False
+            if mu == "MU-15c":
+                os.remove(sb.rec_path("gate-table.json"))
+            else:
+                name = "checks.members.json" if mu == "MU-15a" else "checks.json"
+                doc = loads(sb.read_rec(name))
+                if mu == "MU-15a":
+                    doc["members_sha256"] = "0" * 64
+                else:
+                    doc["checks"][0]["outcome"] = "fail"
+                with open(sb.rec_path(name), "wb") as fh:
+                    fh.write(dumps(doc))
+            with tempfile.TemporaryDirectory() as out:
+                code = cmd_render(sb, out)
+                status = loads(read_dir(out)["render-status.json"])
+                reason = {"MU-15a": "INPUT_MISMATCH", "MU-15b": "CONTROL_NOT_GREEN", "MU-15c": "MISSING_INPUT"}[mu]
+                return code == 2 and status["outcome"] == "refused" and status["reason"] == reason and set(read_dir(out)) == {"render-status.json"}
         if mu in ("MU-C1", "MU-C2", "MU-C3"):
-            open_question("OQ-C3", "location and format of the frozen patches for MU-C1 to MU-C3 and the "
-                                   "tool that applies them")
+            which = "B" if mu == "MU-C2" else "A"
+            source_path = os.path.join(sb.root, *IMPL[which].split("/"))
+            with open(source_path, "rb") as fh:
+                data = splice_patch(fh.read(), patches[mu], IMPL[which])
+            with open(source_path, "wb") as fh:
+                fh.write(data)
+            checks, outputs, codes, _ = execute_stage(sb, stage, None if stage == "members" else committed_members_sha(sb))
+            doc = checks_doc(stage, checks, outputs, codes)
+            if mu == "MU-C3":
+                return doc["exit_status"]["A"] == 3
+            cid = "PR-E" if mu == "MU-C1" else "CC-BIJ"
+            return any(c["id"] == cid and c["outcome"] == "fail" for c in doc["checks"])
     raise ValueError("unknown mutation " + mu)
 
 
 def cmd_self_test_stage(ctx, stage):
-    base = check_stage(ctx, stage)
-    if base["status"] != 0:
-        print("baseline check --stage " + stage + " does not exit 0")
-        return 1
-    failed = []
+    _, patches = pinned_self_inputs(ctx)
     for mu in mutations_for(stage):
-        ok = apply_mutation(ctx, stage, mu)
+        # A fresh unmutated paired control for every mutation, never a single shared baseline.
+        if check_stage(ctx, stage)["status"] != 0:
+            print(mu + ": paired unmutated control fails")
+            return 1
+        try:
+            ok = apply_mutation(ctx, stage, mu, patches)
+        except (OSError, ValueError, KeyError, TypeError, Refusal) as exc:
+            print(mu + ": " + type(exc).__name__)
+            ok = False
         print(mu + " " + ("detected" if ok else "NOT detected"))
         if not ok:
-            failed.append(mu)
-    return 1 if failed else 0
+            return 1
+    return 0
 
 
 # ---------------------------------------------------------------------------
@@ -1694,7 +2441,7 @@ def cmd_self_test_stage(ctx, stage):
 USAGE = ("usage: controls.py run --stage {members|rows|final}\n"
          "       controls.py check [--stage {members|rows|final}]\n"
          "       controls.py self-test {--synthetic | --stage {members|rows|final}}\n"
-         "       controls.py render\n")
+         "       controls.py render --out <fresh-empty-directory>\n")
 
 
 def parse_stage(args):
@@ -1708,21 +2455,24 @@ def main(argv):
         if not argv:
             raise Refusal(USAGE)
         cmd, rest = argv[0], argv[1:]
-        if cmd == "self-test" and rest == ["--synthetic"]:
-            return cmd_self_test_synthetic()
         ctx = ctx_from_file()
+        if cmd == "self-test" and rest == ["--synthetic"]:
+            try:
+                return cmd_self_test_synthetic(ctx)
+            except Refusal:
+                raise
+            except (OSError, ValueError, KeyError, IndexError, TypeError, UnicodeError) as exc:
+                sys.stderr.write("synthetic failure: " + type(exc).__name__ + "\n")
+                return 1
         if cmd == "run":
             return cmd_run(ctx, parse_stage(rest))
         if cmd == "check":
             return cmd_check(ctx, parse_stage(rest) if rest else None)
         if cmd == "self-test":
             return cmd_self_test_stage(ctx, parse_stage(rest))
-        if cmd == "render" and not rest:
-            return cmd_render(ctx)
+        if cmd == "render" and len(rest) == 2 and rest[0] == "--out":
+            return cmd_render(ctx, rest[1])
         raise Refusal(USAGE)
-    except OpenQuestion as exc:
-        sys.stderr.write("refused: " + str(exc) + "\n")
-        return 2
     except Refusal as exc:
         sys.stderr.write("refused: " + str(exc) + "\n")
         return 2
