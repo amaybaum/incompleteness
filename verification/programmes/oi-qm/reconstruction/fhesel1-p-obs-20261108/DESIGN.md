@@ -1,8 +1,8 @@
 # FHE-SEL-1 P-OBS: preregistration (Stage 1A)
 
 **Standing.** WIP / UNVERIFIED. Stage 1A preregistration of the P-OBS construction under #1169,
-revision r2. r2 applies the independent review of `7878a7fd` (verdict REVISE; review text relayed by
-the coordinator, not on `main`). Writer: Claude Code session (P-OBS writer), 2026-11-08. Each review
+revision r3. r2 applied the independent review of `7878a7fd`, and r3 applies its re-review at
+`40f42bd9` (both verdicts REVISE; review texts relayed by the coordinator, not on `main`). Writer: Claude Code session (P-OBS writer), 2026-11-08. Each review
 of this file is by a reviewer who reviews no other construction of the portfolio. Paper only: no
 result is derived, nothing is computed, simulated, built in Lean or run under V3, nothing is
 adopted, and no manuscript is edited. Stage 1B is not authorized. Every verdict this file provides
@@ -56,15 +56,21 @@ Off main and provisional:
    E0 are marked.
 6. **Properties** (§8). Each is defined without further choice:
    - non-vacuity NV (conjunctive);
-   - the target-free leakage increment LK-R against a fully specified reference `ref(π)`;
-   - `PROT-D/B/R′_LB` on M-INACC's own active domain (every cell on the ring), with a stated
-     discount for the exported records' own content;
-   - sink use USE-S, conditioned on knowledge.
+   - the reference `ref(π)`, fully specified;
+   - the target-free leakage test LK-R is the conjunction of a matched-history comparison and a
+     sink-only-history test;
+   - `PROT-D/B/R′_LB` on M-INACC's own active domain (every cell on the ring), with a discount
+     that removes, as a summand, only exported content already determined at export, checked by
+     the definitional control C-DISC;
+   - sink use USE-S, defined comparatively against `ref(π)`.
 7. **Decision rule** (§9). A fixed entry review E0 with stated exits, and a total, ordered outcome
-   table. It also fixes one rule for (a)/(b), the ladder L0–L3 and the three statuses.
+   table, including LIMIT when a decisive test fails its countercontrols. It also fixes one rule for
+   (a)/(b), the ladder L0–L3, the three statuses and a rule against adjustment (§9.7).
+   Justifications for the leak test and the discount are recorded before any result (§8.6).
 8. **Controls** (§10). Mechanism-off, classical imitation (attributed to the exhibited model), target
-   import, a positive calibration, four target-tuned countercontrols (one disguised), preserved
-   results and robustness.
+   import, the owner's two decisive countercontrols CC-ACCEPT and CC-REJECT with the discount
+   control C-DISC, an external positive calibration, four target-tuned
+   countercontrols (one disguised), preserved results and robustness.
 9. **Explanatory quality, §A.29** (§11). Preserved results, the variation analysis and its decision
    rule, reach, the assessment ladder and the disclosure of origin.
 10. **Report commitment** (§12), the invariant → checkpoint table (§13), the §A.42 item 8 trace
@@ -123,6 +129,20 @@ Off main and provisional:
   - "None may influence another construction's frozen rule without a documented amendment."
   - "No derivation, computation, V3 execution, new physical premise, manuscript promotion or merge
     is authorized by this decision."
+
+- **Owner decision on P-OBS** (chat, 2026-11-08, relayed by the coordinator; binding for r3, not
+  yet posted on #1169 at this commit):
+  1. "Two decisive countercontrols": "an ordinary exported record that is correctly accepted" and
+     "a deliberately planted information leak that is correctly rejected", evaluated "against
+     adaptive strategies and complete accessible histories". "If no definition passes both, the
+     correct outcome is to report the limitation and stop."
+  2. The discount rule and the leak test must each be justified as meaningful definitions,
+     independently of whether the candidate passes them. The owner's words: "A technically
+     non-vacuous test is necessary, but not sufficient, if its definition is still tailored to the
+     candidate."
+  3. No adjustment made solely to obtain a positive result.
+
+  §8.6 (justifications), §10 (CC-ACCEPT, CC-REJECT), §9.3 (LIMIT) and §9.7 (no adjustment) apply it.
 
 ### 1.2 Stage 0 rows targeted
 
@@ -394,25 +414,40 @@ motivation. No clause counts deriving `𝒯` (or its negation) as a merit or as 
   record (C3): the corpus locations and literature searched, so that it is backed by a corpus-wide
   search (§A.19).
 
-**Extensional check (added for TT-4, §10).** A premise whose extension in `Π_LB` (the set of
-strategies it admits) equals that of a premise with a recorded blocking or target-defined reason is
-classed with that premise. The exception is an independent reason recorded before the blocking
-premise was known.
+**Extensional check (added for TT-4, §10).**
+
+- **Rule.** Two premises are extensionally equal if they admit the same strategies of `Π_LB`. A
+  premise extensionally equal to another recorded premise takes the more target-ward of the two
+  classes, in the order independent, mixed, target-adjacent, target-defined. A premise equal to one
+  with a recorded blocking reason (MI §4's P-GK, P-NR, P-1) is at least target-adjacent.
+- **Exemption.** The rule does not apply if the premise has an independent reason **recorded
+  before** the other premise.
+- **"Recorded before".** This is judged on the reason **as applied to the premise**, not on the date
+  of the source the reason cites. The date is that of the earliest commit or recorded comment that
+  states the application, here the mapping onto the premise's own terms. It must precede the
+  earliest commit or comment that states the other premise.
+- **Consequence for LB-B.** LB-B's application of item 4 (the mapping onto the `(u, v)` cell) was
+  first recorded at `7878a7fd`, after AP1 recorded P2 and after MI. The exemption therefore does not
+  apply to LB-B against P2 restricted to `u`-known value 0. E0 classifies P2's recorded reason
+  (§9.1, item 3), and the exits of §9.1 then fix LB-B's consequence.
 
 | Clause | Class | Reason |
 | --- | --- | --- |
 | LB-W | Independent **[pending E0]** for its measurement-as-copy component | Bennett 2003 abstract read; Bennett 1982 not read here. If E0 strikes Bennett 1982, LB-W's class is re-decided on the remainder |
-| LB-Z | Independent | A2 with information conservation; no literature needed. The C-CAL calibration item (§10) |
+| LB-Z | Independent | A2 with information conservation; no literature needed. Subject to E0's ordinary classification and exits |
 | LB-Z, interacting sink (item 3) | Independent | Main:44, Sub:48 |
 | LB-B | **Mixed**, independent component **[pending E0]** | Independent component: item 4's information-bearing/thermal reading (not read here). Target-adjacent component: the resulting one known slot per supplied cell coincides with AP1's P2, whose motivation is "closure plus the E-AR obstruction … a programme-internal reason" (AP1:347–349), and with the knowledge-balance principle (C-7). The choice of `u` as the information-bearing slot is the writer's mapping |
 | LB-F | Independent | Reservoir definition; GA:75–106 |
 | LB-S | Independent | Main:44 partition. It is a lack of access, not a supplied access |
-| Record discount `Disc_t` in `PROT-*_LB` (§8.3) | **Mixed** | Independent component: the question's own distinction between intended (registered) and unintended information. Target-adjacent component: the discount was shaped with knowledge of MI-A3 §1's archived-cell countercase and of the definitional sharp export (§8.3, E-SHARP), and its effect is on the protected class |
+| Record discount `Disc_t` in `PROT-*_LB` (§8.3) | **Mixed** | Independent component: the question's own distinction between intended (registered) and unintended information; the discount removes only exported content determined at export. Target-adjacent component: the discount was shaped with knowledge of MI-A3 §1's archived-cell countercase, of E-SHARP and of the r2 re-review's counterexample (§8.3), and its effect is on the protected class |
 | Leakage increment LK-R (§8.2) | Independent | Defined relative to `ref(π)` and functions of world variables, without `𝒯` |
 | `PROT-D/B/R′_LB` (§8.3) | Target-adjacent | Modified from MI; recorded to preserve K-MI |
 
-**Overall: mixed.** The target-adjacent components are LB-B's form and the record discount. One
-rule (§9.4) governs how they bear on (a)/(b) and on the ladder.
+**Overall: mixed.** The target-adjacent components are LB-B's form and the record discount. The
+single rule for target-informed components (§9.4) governs both: an H or S-mot class of LB-B's or the
+discount's variation counts toward (a) only if E0 classes that component **independent** (for LB-B,
+also textually verified and uniquely selecting). Otherwise every positive is (b). A component classed
+mixed does not support (a).
 
 ### 6.3 Literature
 
@@ -458,6 +493,13 @@ E0 verifies it.
 
 ### 8.1 Common terms
 
+- **Ticks.** The configuration at tick `t` is the configuration after the `t`-th application of the
+  rule. A registration made between ticks `t` and `t + 1` reads the configuration at `t`, and its
+  value enters `K_t`. The LB-Z permutation it triggers is executed in the same interval, after the
+  registration. Determination and bias "at `t`" are evaluated on the configuration at `t` after
+  every LB-Z permutation of that interval, given `K_t`. The next application of the rule produces
+  the configuration at `t + 1`. This is MI-A3's convention (a registration at tick `t` enters the
+  knowledge at `t`). Decoupled cells (`Res`, `Ex`, `Arc`) take free ticks `(u, v) ↦ (v, u)`.
 - **Branches.** A record branch is a record history of positive probability under the stated run.
   Determination and bias are judged branch by branch, on the entire joint record of a single run,
   before any averaging (MI-D §1.2).
@@ -465,12 +507,15 @@ E0 verifies it.
   background, including every cell that LB-Z later displaces to `Ex`. Blanks' unknown slots, and the
   fresh source cells of `ref(π)`, are apparatus variables and not in `W`.
 - **Determined, biased (functions of `W`).** A function `g` of `W` is determined in a branch if it
-  is constant on the support of the conditional law of `W` given `K_t`. It is biased in a branch if
-  its conditional law given `K_t` differs from its prior law.
-- **Determined, biased (linear functionals on the ring).** As in MI-D §1.2: `f = Σ_i (a_i u_i + b_i
-  v_i)` on cells on the ring at `t`. `f` is determined in a branch if it is constant on the support
-  of the conditional law of the configuration given `K_t`. It is biased if that conditional law is
-  not uniform on `F_2`. `Q*(f) = Σ_i a_i b_i`.
+  is constant on the support of the conditional law of `W` given that branch's knowledge. It is
+  biased in a branch if its conditional law given that knowledge differs from its prior law.
+- **Linear functionals, `ω`, `Q*`.** As in MI-D §1.2: `f = Σ_i (a_i u_i + b_i v_i)` over a finite
+  set of cells, `Q*(f) = Σ_i a_i b_i`, `ω(f, f′) = Σ_i (a_i b′_i + b_i a′_i)`. Here the cells range
+  over the ring, `Ex` and `Res` together (the space `V_t`). `f` is determined in a branch if it is
+  constant on the support of the conditional law of the configuration given that branch's
+  knowledge, and biased if that conditional law is not uniform on `F_2`. In the linear rules every
+  step, every free tick and every LB-Z permutation is linear and symplectic for `ω` and preserves
+  `Q*`. A functional at `t_e` is therefore transported to a unique functional at any `t > t_e`.
 
 ### 8.2 LK-R, the leakage increment (primary, target-free)
 
@@ -483,23 +528,41 @@ LB-Z event:
 | Blank from `Res` | to `r` | to `r` |
 | Former occupant of `s(r)` | to `Ex` | to `Ex` |
 | Placed at `s(r)` | the spent register | a fresh source cell (both slots uniform, independent of everything) |
-| Spent register | on the ring at `s(r)` | to `Arc`, a decoupled, never-read store (ideal terminality, as AP1 SA-1(b) and MI-D §3.3) |
+| Spent register | on the ring at `s(r)` | to `Arc`, a decoupled, never-read store |
 
-**The comparison (branch-free).**
+`ref(π)` is therefore AP1/MI's P1 configuration (registered cells go to a decoupled store that
+nothing reads), plus fresh-source-cell injections at the sink sites. P1 itself has no sink site and
+makes no injection. The injections are added so that the two runs differ only in what is placed at
+`s(r)`: both runs displace the same former occupant to `Ex`, and both inject a cell there. C-OFF-2
+requires Stage 1B to extend the linear-limit lemmas to these injections.
 
-- `Det_π(t)` is the set of functions of `W` determined in at least one branch at tick `t` under `π`.
-  `Bias_π(t)` is the set biased in at least one such branch. `Det_ref(t)` and `Bias_ref(t)` are the
-  same under `ref(π)`.
-- **LK-R holds** iff, for every strategy `π ∈ Π_LB` and every `t ≤ T`, both of the following hold:
-  - `Det_π(t) ⊆ Det_ref(t)`;
-  - `Bias_π(t) ⊆ Bias_ref(t)`.
-- A violation is unintended leakage: information about the world reaching the observer through
-  export and the sink's return, beyond what the same strategy gives with ideal terminality.
-- Both runs quantify over the same variables `W`. The two runs' branches are not matched, so a
-  record history of probability 0 under one run needs no counterpart.
-- **Diagnostic LK-R-M.** Report the branch-matched comparison for record histories of positive
-  probability under both runs. Report each history of positive probability under `π` only as a
-  *sink-only history*. LK-R-M decides nothing.
+**The comparison.** For a run `X ∈ {π, ref(π)}` and a record history `h` at tick `t` of positive
+probability under `X`, let `Det_X(h)` be the set of functions of `W` determined given `h` under `X`,
+and `Bias_X(h)` the set biased given `h` under `X`. LK-R holds iff both of the following hold for
+every strategy `π ∈ Π_LB` and every `t ≤ T`.
+
+- **(i) Matched histories.** For every history `h` of positive probability under both runs:
+  - `Det_π(h) ⊆ Det_ref(h)`;
+  - `Bias_π(h) ⊆ Bias_ref(h)`.
+
+  The strategy is the same, so the two runs take the same actions on `h`.
+- **(ii) Sink-only histories.** For every history `h` of positive probability under `π` and
+  probability 0 under `ref(π)`:
+  - let `h_0` be the longest prefix of `h` of positive probability under `ref(π)`;
+  - let `H_ref(h)` be the set of `ref(π)` histories at tick `t` that extend `h_0` and have positive
+    probability.
+
+  Then:
+  - every function of `W` determined given `h` under `π` is determined given some `h′ ∈ H_ref(h)`
+    under `ref(π)`;
+  - every function of `W` biased given `h` under `π` is biased given some `h′ ∈ H_ref(h)`.
+
+A violation of (i) or (ii) is unintended leakage: information about the world reaching the observer
+through export and the sink's return, beyond what the same strategy gives with ideal terminality.
+Both runs quantify over the same variables `W`.
+
+**Diagnostic LK-R-U** (decides nothing): the union-over-branches containment of r2, that is
+`∪_h Det_π(h) ⊆ ∪_h Det_ref(h)` and the same for bias, at each `t`.
 
 ### 8.3 PROT-D_LB, PROT-B_LB, PROT-R′_LB (modified from MI; target-adjacent; recorded)
 
@@ -510,58 +573,86 @@ active").
 **Definitional fact used to fix the discount (E-SHARP).** It follows from the definitions alone and
 is not a derived result:
 
-- A blank injected at `t_0` has `u(t_0) = 0` known.
+- A blank at `r` in the configuration at `t_0` has `u(t_0) = 0` known.
 - Under every second-order rule `v(t_0 + 1) = u(t_0)`, so `v(t_0 + 1) = 0` is known.
-- If its `u` slot is registered at `t_0 + 1`, the cell is fully determined, and LB-Z places it on
-  the ring.
+- Its `u` slot is registered between ticks `t_0 + 1` and `t_0 + 2`, so the value enters
+  `K_{t_0 + 1}` (§8.1). The cell is then fully determined at `t_0 + 1`. After LB-Z in the same
+  interval it is on the ring at `s(r)`.
 
-On the undiscounted full ring, MI's PROT-D therefore fails for every rule through this protocol.
-This is the A3-type case: the record's own content is sharp (MI-A3 §1, where the cell was
-archived).
+On the undiscounted ring, MI's PROT-D therefore fails for every rule through this strategy. This is
+the A3-type case: the record's own content is sharp (MI-A3 §1, where the cell was archived). Because
+E-SHARP strategies are admissible, A3-type determinations occur in every linear-rule evaluation.
+This is a standing fact, not an annotation.
 
-**Discount `Disc_t` (linear rules `N_1`, `N_0` only).**
+**The discount (linear rules `N_1`, `N_0` only).** Fixed in formulas. It removes, as a summand, only
+content of exported cells that was already determined at export.
 
-- At each export event `e`, at tick `t_e`, of the cell placed at `s(r)`, let
-  `Disc_e = span{u_e, v_e} ∩ Det(t_e)`. This is the exported cell's own content that is determined
-  at export: its registered slot, and its other slot if that is determined.
-- Each later step, including later LB-Z permutations, is linear, and transports `Disc_e` to a
-  subspace `Disc_e(t)` of functionals on the ring at `t`.
-- `Disc_t = Σ_e Disc_e(t)` over the exports before `t`.
-- For `G_σ` the discounted properties are declared **inapplicable**, because transport is
-  nonlinear. Under `G_σ`, PROT-*_LB are reported on the undiscounted full ring and on `D_t` (the
-  A-dom variants, §11.2) as diagnostics for PR-3 only.
+1. **Export content.** At each export event `e`, at tick `t_e`, in a given branch, let
+   `Disc_e = span{u_e, v_e} ∩ Det(t_e)` in that branch. This is the exported cell's own content
+   that is determined at export, in the configuration at `t_e` after LB-Z. It is either `0`,
+   `span{u_e}` (registered slot only), or `span{u_e, v_e}` (sharp, as in E-SHARP).
+2. **Transport.** `Disc_e(t)` is its transport to tick `t`, as functionals on `V_t` (the ring, `Ex`
+   and `Res`). Later LB-Z events may move part of it into `Ex`.
+3. **Sum.** `Disc_t = Σ_e Disc_e(t)` over the exports before `t`, in that branch. Distinct exports
+   lie on distinct cells at export, and transport preserves `ω`, so `ω(Disc_e(t), Disc_{e′}(t)) = 0`
+   for `e ≠ e′`.
+4. **Split.** Let `I_t = Disc_t ∩ Disc_t^⊥` (the isotropic radical; for example a registered `u_e`
+   whose partner was unknown at export). Let `N_t` be any complement of `I_t` in `Disc_t`. `ω` is
+   nondegenerate on `N_t`, so `V_t = N_t ⊕ N_t^⊥`. Let `p_N` be the projection onto `N_t^⊥` along
+   `N_t`.
+5. **Action on ring functionals.** For a linear functional `f` on the ring at `t`, its
+   record-discounted part is `p_N(f) = f − d`, with `d` the unique element of `N_t` such that
+   `f − d ∈ N_t^⊥`. Since `N_t ⊆ Det`, `f` and `p_N(f)` are determined (respectively biased)
+   together.
+6. **The isotropic part is not discounted.** `I_t ⊆ N_t^⊥` for every `N_t`, so content in `I_t`
+   stays in `p_N(f)`. A determined functional that pairs with a registered `u_e ∈ I_t` (`ω = 1`, the
+   AP1 C9 sharpening) therefore stays a violation.
+7. **No dependence on a choice.** The properties below quantify over **every** complement `N_t`,
+   so no choice of complement can hide a violation.
 
 **Properties.**
 
-- **PROT-D_LB.** For every strategy, tick and branch: every determined linear functional `f` on the
-  ring with `Q*(f) = 1` lies in `Disc_t`.
-- **PROT-B_LB.** For the same quantifiers: every linear functional `f` on the ring with `Q*(f) = 1`
-  and `f ∉ Disc_t` is unbiased.
-- **PROT-R′_LB.** MI-A3 §4's PROT-R′ with "the cells active at `t′`" read in MI's own sense (every
-  cell on the ring). Exception: the transported functional `f′` lies in `Disc_{t′}`.
+- **PROT-D_LB.** For every strategy, tick, branch and complement `N_t`: no determined linear
+  functional `f` on the ring has `Q*(p_N(f)) = 1`.
+- **PROT-B_LB.** For the same quantifiers: no biased linear functional `f` on the ring has
+  `Q*(p_N(f)) = 1`.
+- **PROT-R′_LB.** MI-A3 §4's PROT-R′, read on the ring. For `t ≤ t′` and a linear functional `f` on
+  the ring at `t` whose value equals that of a linear functional `f′` on the ring at `t′`: if
+  `Q*(p_{N_{t′}}(f′)) = 1` for some complement `N_{t′}`, then `f(t)` is neither determined nor
+  biased given `K_{t′}`.
 
-**Decisive rule.** A violation of any of the three, exhibited outside `Disc_t`, gives NEG (§9.3). A
-determination confined to `Disc_t` is recorded as A3-type and is not a violation.
+**Decisive rule.** An exhibited violation of any of the three gives NEG (§9.3).
 
-### 8.4 USE-S, sink use (reach)
+**C-DISC** (§10) checks this discount on paper at E1, before any verdict, as part of CC-ACCEPT and
+CC-REJECT. If the discount fails any case, the outcome is LIMIT (§9.3): the limitation is reported,
+evaluation stops, and the discount is not tuned to pass (§9.7).
+
+**`G_σ`.** The discount is inapplicable, because transport is nonlinear. Under `G_σ`, PROT-*_LB are
+reported as diagnostics on the undiscounted ring and on `D_t` (the A-dom variants, §11.2), for PR-3
+only. `G_σ`'s label is computed from the decisive set `{LK-R}` (§9.3).
+
+### 8.4 USE-S, sink use (reach; comparative)
 
 USE-S holds iff there exist all of the following:
 
 - a strategy `π ∈ Π_LB`;
 - an export event `e` at tick `t_e`;
 - a later registration at tick `t > t_e`;
-- a function `g` of the exported cell's two slots at `t_e`;
+- a function `g` of the initial variables (world and apparatus) that equals a function of the
+  exported cell's two slots at `t_e` under `π`;
 
 such that:
 
-- (i) `g` is not determined given `K_{t_e}`, the knowledge just after the registration at `t_e`;
-  and
-- (ii) in some branch, the value registered at `t` is not conditionally independent of `g` given
-  the knowledge just before that registration.
+- (i) `g` is not determined given `K_{t_e}` in that branch; and
+- (ii) there is a record history `h`, up to just before the registration at `t`, of positive
+  probability under both `π` and `ref(π)`, and a value of `g` of positive probability given `h`
+  under both runs, for which the conditional law of the value registered at `t`, given `h` and `g`,
+  differs between `π` and `ref(π)`.
 
-In `ref(π)` the exported cell is in `Arc` and cannot act on any register. A dependence in (ii) is
-therefore mediated by the sink. Neither a determined `g` nor unconditional dependence satisfies
-USE-S.
+`g` is the same function of the initial variables in both runs. Under `ref(π)` the cell carrying
+that content is in `Arc`, so a difference in (ii) is a difference made by what LB-Z places at
+`s(r)`. A dependence on `g` through common causes (world variables that feed both the exported cell
+and the later record) appears in both runs alike, and does not satisfy (ii).
 
 ### 8.5 NV, non-vacuity (conjunctive)
 
@@ -577,6 +668,63 @@ NV holds iff some `π ∈ Π_LB` contains all of the following:
 - some protocol has a record that is not independent of `C`;
 - some protocol re-registers a site after a reset.
 
+### 8.6 Justification of the two definitions (recorded before any result)
+
+These justifications are recorded in this commit, before any property of `Π_LB` is evaluated. None
+of them refers to whether P-OBS-LB passes or fails, and none uses a clause specific to LB (the blank
+law, `d_S`, the side, the rule).
+
+**J-LK, the leak test LK-R.**
+
+1. *What "leakage through a mechanism" means.* Information is acquired through a mechanism if the
+   observer would not have it had that mechanism's distinctive element been absent, with everything
+   else held fixed. This is the counterfactual-difference reading of "acquired through a channel":
+   cut one path, keep the rest, compare what is known.
+2. *Why `ref(π)` is the right counterfactual.* The distinctive element of an export-type reset is
+   that the spent record re-enters the dynamics. `ref(π)` replaces exactly that element by the
+   ideal it is meant to replace (P1's decoupled store, the corpus's existing standard for retention
+   without leakage, AP1:292–296, :533–560). The re-entering cell is replaced by an independent
+   maximal-entropy cell, which carries no information. Everything else is kept equal: the strategy,
+   the blank supply and the displacement of the former occupant.
+3. *Why world variables.* "Unintended information" is information about the world the observer did
+   not register. Measuring knowledge as functions of the initial world variables `W` gives one fixed
+   set of questions for both runs. It does not presuppose any protected class or any structure of
+   the cells.
+4. *Why both matched and sink-only histories.* Matched histories compare like with like, which an
+   adaptive strategy needs (the same record history gives the same actions). Sink-only histories
+   exist only because of the mechanism. They are compared against what the reference could know
+   after the last point the two runs share.
+5. *Scope, stated in advance.* The test is general. It applies unchanged to any reset variant
+   (C-OFF-1, A-Z's variants) and to any rule, `G_σ` included. It detects only the increment over
+   ideal terminality. Leakage already present under ideal terminality is the job of PROT-*_LB and
+   of AP1/QA's existing results.
+
+**J-DISC, the record discount.**
+
+1. *A record's own content is intended information.* A registration exists to make the observer know
+   the registered value. At the moment of export the exported cell is the physical record. Knowledge
+   of its content determined at that moment is what the observer acquired by registering, and is not
+   leakage of anything else.
+2. *Consistency with the corpus's existing treatment.* MI-A3's PROT-R′ leaves information held only
+   by an archived cell outside protection from the moment of archiving (MI-A3 §4). The discount
+   treats the exported cell's content at the moment of export in the same way. The exported cell
+   differs from an archived one only after export, and everything acquired after export stays
+   protected.
+3. *Minimality.*
+   - The discount removes only content determined at export, and removes it as a summand, not by
+     membership, so that combining a record with other legitimate knowledge is not a violation
+     (C-DISC case 1).
+   - It removes only the nondegenerate part. A registered slot whose partner was unknown at export is
+     kept, so that AP1's existing criterion of leakage, sharpening by pairing with a retained record
+     (C9, AP1:682), stays a violation (C-DISC case 3).
+4. *Generality.* It is stated for any export mechanism and any linear rule. It applies unchanged to
+   C-OFF-1 and to `ref(π)`, where it is empty.
+
+**Origin, disclosed.** The r3 form of the discount was written after the re-review of `40f42bd9`
+gave a counterexample to r2's form (§11.5). Reasons J-DISC 1–4 are what makes the form meaningful.
+The counterexample showed only that r2's form failed reason 3. Whether the r3 form makes P-OBS-LB
+pass is unknown to the writer.
+
 ***
 
 ## 9. Decision rule
@@ -591,23 +739,32 @@ is recorded only after E0 (§9.5). This file's Stage 1A review is not E0.
 
 1. It verifies in the text every **[pending E0]** item of §6.1 and §6.3, or strikes it.
 2. It classifies every clause of §6.2 under the standard there, with C3 search records for any
-   "none found".
-3. It runs C-CAL and TT-1 to TT-4 (§10).
-4. It answers in writing whether item 4, without AP1/P2 in view, selects LB-B's law (`u = 0` known,
+   "none found". This includes LB-Z, through its ordinary classification and exits.
+3. It classifies P2's recorded reason, "closure plus the E-AR obstruction … a programme-internal
+   reason" (AP1:347–349), under the same standard.
+4. It runs C-CAL and TT-1 to TT-4 (§10).
+5. It answers in writing whether item 4, without AP1/P2 in view, selects LB-B's law (`u = 0` known,
    `v` uniform) uniquely among the variants of A-B × A-Bslot × A-Bval (§11.2). It names every
    variant that item 4, or the second reading in item 4, admits equally.
-5. It states whether LB-B is extensionally equal, within `Π_LB`, to any blocking premise of MI §4,
-   to TT-1 to TT-4, or to P2 restricted to `u`-known value 0.
+6. It runs the extensional check of §6.2 on LB-B against MI §4's blocking premises, TT-1 to TT-4,
+   and "P2 restricted to `u`-known value 0".
+   - Within `Π_LB`, LB-B equals the last of these, because LB-B is exactly the supply P2 permits
+     there.
+   - LB-B's independent reason as applied to LB-B (item 4's mapping onto the `(u, v)` cell) was
+     first recorded at `7878a7fd`, after AP1 recorded P2.
+   - The exemption of §6.2 therefore does not apply. LB-B takes the more target-ward of its own
+     class and the class of P2's recorded reason.
+7. It classifies the record discount (§6.2).
 
 **Exits.**
 
 | E0 finding | Consequence |
 | --- | --- |
-| C-CAL fails, or any of TT-1 to TT-4 is classed independent or mixed | The classification is defective. E0 is void and is repeated by a different reviewer, with the failing item recorded |
+| C-CAL fails, or any of TT-1 to TT-4 is classed independent or mixed | The classification is defective. E0 is void and is repeated once by a different reviewer, with the failing item recorded. If the second E0 is also defective, the outcome is **VOID** until a documented amendment repairs the standard |
 | Any of LB-W, LB-Z, LB-F, LB-S classed target-defined, or "none found" with its C3 record | **C-0** (null). Evaluation stops |
-| LB-B classed target-defined | **C-0** |
-| LB-B's independent component "none found" (item 4 struck and no other source) | LB-B is reclassed target-adjacent. Every positive is (b) (§9.4) |
-| The record discount classed target-defined | PROT-*_LB become diagnostics. The outcome is decided by NV, LK-R and USE-S, and every positive is (b) |
+| LB-B classed target-defined, on its own or through the extensional check (P2's recorded reason classed target-defined, no exemption) | **C-0** |
+| LB-B classed target-adjacent, on its own or through the extensional check, or its independent component "none found" (item 4 struck and no other source) | LB-B is carried as target-adjacent. Every positive is (b) (§9.4) |
+| The record discount classed target-defined | PROT-*_LB become diagnostics. The decisive set is `{LK-R}` (§9.3), and every positive is (b) |
 | Otherwise | Proceed to E1 |
 
 ### 9.2 Order of evaluation (fixed; never reversed)
@@ -616,12 +773,14 @@ Each step runs per rule (`N_1`, `N_0`, `G_σ`). The verdict for `N_1` is the con
 The others are controls.
 
 - **E0.** §9.1.
-- **E1, controls before any verdict.** C-IMPORT, C-OFF-1 to C-OFF-4, C-NC, PR-1 to PR-11 (§10,
-  §11.1). A red required control voids every verdict that relies on it.
+- **E1, controls before any verdict.** First CC-ACCEPT and CC-REJECT for every decisive test, with
+  C-DISC (§10). These are evaluated before any property of `Π_LB` itself. Then C-IMPORT, C-OFF-1 to
+  C-OFF-4, C-NC and PR-1 to PR-11 (§10, §11.1). A red required control voids every verdict that
+  relies on it.
 - **E2, NV.**
-- **E3, LK-R.** A proof, or an exhibited violation.
-- **E4, PROT-D_LB, PROT-B_LB, PROT-R′_LB.** A proof, or an exhibited violation. Diagnostics are
-  reported.
+- **E3, LK-R.** A proof, or an exhibited violation of (i) or (ii).
+- **E4, PROT-D_LB, PROT-B_LB, PROT-R′_LB** (linear rules, unless E0 made them diagnostics). A proof,
+  or an exhibited violation. Diagnostics are reported.
 - **E5, USE-S.** A proof, or a proof of its negation.
 - **E6, variation analysis** (§11.2), for every assumption.
 - **E7, labels.** Outcome (§9.3), owner distinction (§9.4), ladder rung (§11.4) and statuses (§9.5).
@@ -636,29 +795,36 @@ The others are controls.
 
 ### 9.3 Outcomes (per rule; total and ordered)
 
+**The decisive set `P`.** For `N_1` and `N_0`: `{LK-R, PROT-D_LB, PROT-B_LB, PROT-R′_LB}`. For
+`G_σ`, and for every rule after the E0 exit "discount target-defined": `{LK-R}`, with PROT-*
+reported as diagnostics.
+
 The rule-level label is the **first** row whose condition holds, in this order.
 
 | Order | Outcome | Condition |
 | --- | --- | --- |
 | 1 | **C-0** | An E0 exit to null (§9.1) |
-| 2 | **VOID** | A required control is red |
-| 3 | **VAC** | NV fails (proved) |
-| 4 | **NEG** | An exhibited strategy in `Π_LB` violates LK-R, PROT-D_LB, PROT-B_LB or PROT-R′_LB (outside `Disc_t`) |
-| 5 | **INC** | No violation is exhibited, and at least one of NV, LK-R, PROT-D_LB, PROT-B_LB, PROT-R′_LB and USE-S is undecided within Stage 1B's scope |
-| 6 | **PART-SPLIT** | All five properties are proved and USE-S is decided, but E6 classes some assumption S-sel (§11.2) |
-| 7 | **PART-INERT** | All five properties are proved, USE-S fails, and no assumption is S-sel |
-| 8 | **POS** | All five properties are proved, USE-S holds, and no assumption is S-sel |
-| 9 | **INC** | No row above applies. The reason is stated |
+| 2 | **LIMIT** | A decisive test of `P` fails CC-ACCEPT or CC-REJECT. The limitation is reported and evaluation stops for that rule. No definition is repaired within this preregistration (§9.7) |
+| 3 | **VOID** | Another required control is red, or the second E0 is defective (§9.1) |
+| 4 | **VAC** | NV fails (proved) |
+| 5 | **NEG** | An exhibited strategy in `Π_LB` violates a member of `P` |
+| 6 | **INC** | No violation is exhibited, and NV, a member of `P` or USE-S is undecided within Stage 1B's scope |
+| 7 | **PART-SPLIT** | Every member of `P` is proved and USE-S is decided, but E6 classes some assumption S-sel (§11.2) |
+| 8 | **PART-INERT** | Every member of `P` is proved, USE-S fails, and no assumption is S-sel |
+| 9 | **POS** | Every member of `P` is proved, USE-S holds, and no assumption is S-sel |
+| 10 | **INC** | No row above applies. The reason is stated |
 
 **Annotations** (reported with the label; they never replace it):
 
-- **+EXTRA(P).** When the label is NEG or INC and a premise `P`, reported and not adopted, would make
-  the failing or undecided properties provable. `P` is classed under §6.2, with CC-RECON if its only
-  role is to block an exposure.
+- **+EXTRA.** When the label is NEG or INC and a premise, reported and not adopted, would make the
+  failing or undecided members provable. The premise is classed under §6.2, with CC-RECON if its
+  only role is to block an exposure.
+- **+LEAK.** When the label is VAC or LIMIT and a violation of a member of `P` was nevertheless
+  exhibited. The violation is reported in full.
 - **+POOR.** When E6 classes every assumption E (§11.2).
-- **+A3.** When determinations confined to `Disc_t` occur.
 
-Every row and annotation is reachable.
+No row is decided by the definitions alone, provided CC-ACCEPT, CC-REJECT and C-DISC are green.
+C-DISC's first case is the case that would otherwise decide NEG in advance (§10).
 
 ### 9.4 Owner distinctions (a), (b), (c)
 
@@ -667,35 +833,39 @@ E.
 
 **Known now.** A-B and A-Bslot are load-bearing before Stage 1B, for definitional reasons:
 
-- a supplied cell with a known `Q* = 1` functional has that functional determined on the ring and
-  outside `Disc_t`;
+- a supplied cell with a known `Q* = 1` functional has that functional determined on the ring at
+  injection;
+- that cell comes from `Res` and carries no exported content, so the discount does not touch it;
 - this covers the variants "both slots known" and "`u + v` known";
 - hence PROT-D_LB fails on them (C-OFF-3; MI §6.1 C-P2, "under any rule").
 
 Their variation test is therefore decided by E0's reading of item 4, not by a Stage 1B derivation.
 
-**The single LB-B rule** (it governs §6.2, this section and §11.4). An H or S-mot class of A-B,
-A-Bslot or A-Bval counts toward (a) and toward L2 only if both of the following hold:
+**The single rule for target-informed components.** It governs LB-B and the record discount, and is
+stated identically in §6.2, this section, §11.4 and §15.
 
-- E0 upholds item 4 as **independent**, with its source verified in the text;
-- E0 finds that item 4 selects LB-B's law uniquely, or that every variant it admits equally gives
-  the same §9.3 label.
-
-Otherwise, every positive is (b), and L2 needs its two credits from A-Z, A-F and A-S.
-
-**The same rule for the record discount.** If E0 classes the discount mixed or target-adjacent, and
-A-dom (§11.2) is S-sel, every positive is (b).
+- **LB-B.** An H or S-mot class of A-B, A-Bslot or A-Bval counts toward (a) and toward L2 only if
+  both of the following hold:
+  - E0 classes LB-B **independent**, after the extensional check, with item 4's source verified in
+    the text;
+  - E0 finds that item 4 selects LB-B's law uniquely, or that every variant it admits equally gives
+    the same §9.3 label.
+- **The record discount.** An H or S-mot class of A-dom counts toward (a) only if E0 classes the
+  discount **independent** (for example, as the definition of "unintended" fixed by the question
+  itself) and C-DISC is green.
+- **Otherwise.** If either condition fails, every positive is (b), and L2 needs its two credits from
+  A-Z, A-F and A-S. A component classed mixed does not support (a).
 
 - **(a) Independently predicted positive.** All of the following:
   - POS for `N_1` with the configuration fixed in §4;
   - no S-sel;
-  - the LB-B rule and the discount rule satisfied;
+  - the single rule above satisfied for both LB-B and the discount;
   - E0 passed;
   - R-1 to R-4 complete (§10).
 - **(b) Positive only after selection.** Any POS, PART-INERT or PART-SPLIT that is not (a). That
   includes a positive that needs:
   - a variant other than §4's fixed values;
-  - LB-B or the discount counted under the rule above;
+  - LB-B or the discount without the single rule satisfied;
   - a premise reported under +EXTRA;
   - the portfolio coordinator's choice of P-OBS among the three constructions because the others
     failed.
@@ -737,7 +907,17 @@ After E7, Stage 1B records, without changing any label:
 
 No criterion above refers to the target except to record an outcome (C-IMPORT).
 
+### 9.7 No adjustment to obtain a positive (owner decision, item 3)
+
+- No definition, control, variant set or clause of this file changes after r3, except by a
+  documented amendment that is independently reviewed before any property of `Π_LB` is evaluated.
+- An amendment states its reason. A reason that refers to an outcome, or whose only stated effect is
+  to change an outcome, is rejected (CC-RECON).
+- After LIMIT, or after any property of `Π_LB` has been evaluated, a change is a new preregistration.
+  It cites this one, and it is classed under §6.2 with this file's results known.
+
 ***
+
 
 ## 10. Controls and countercontrols
 
@@ -749,14 +929,18 @@ No criterion above refers to the target except to record an outcome (C-IMPORT).
 | C-OFF-4 | Mechanism off: LB-F | Blank values chosen per step from records (MI's refills). Reported. Its relation to MI is handled as in PR-3 |
 | C-NC | Classical imitation | State the exhibited configuration model as an exact classical imitation of every `Π_LB` record law. State where NC's hypotheses hold or fail (at `q = 2` with native `Z`/`X` reads, NC does not apply; M2D:65–71). Claim no nonclassicality. Label (c) as in §9.4 |
 | C-IMPORT | Target import | (i) No §4–§8 definition contains a quantum quantity, other than `Q*` in the target-adjacent PROT-*_LB. (ii) PROT-*_LB are recorded, not motivating. (iii) No clause is added to `Π_LB` after Stage 1B begins. (iv) Any blocking premise is reported, not adopted, with CC-RECON. (v) Every verdict is generated from §9 |
-| C-CAL | Positive calibration of the classifier | LB-Z's export, motivated by A2 alone (item 2, "without literature"), must be classed independent. Otherwise the classification is defective (§9.1) |
+| C-DISC | Definitional control of the discount, checked on paper at E1 | Under `N_1` and `N_0`, three cases, each decidable from §8.3's definitions. **Case 1 (must not be a violation):** the E-SHARP strategy with `d = u_s + v_s` of the exported cell (`Q*(d) = 1`, `Disc_e = span{u_s, v_s}`), and `b` the known `u = 0` slot of the fresh blank placed at `r` (`Q*(b) = 0`, `ω(d, b) = 0`, `b ∉ Disc_t`). The functional `f = d + b` is determined and has `Q*(f) = 1`. Its discounted part `p_N(f)` must have `Q* = 0`. **Case 2 (must be a violation):** a planted determined `c` on the ring with `Q*(c) = 1` and `ω(c, Disc_t) = 0`. **Case 3 (must be a violation):** a planted determined `c` with `ω(c, u_e) = 1` against a registered `u_e ∈ I_t` whose partner was unknown at export (the AP1 C9 sharpening). Failing any case gives LIMIT (§9.3). The discount is not tuned to pass (§9.7) |
+| CC-ACCEPT | Decisive countercontrol (owner decision, item 1): an ordinary exported record is correctly accepted | Evaluated against adaptive strategies and complete accessible histories: every branch, judged on the whole `K_t` (all records, the strategy, the blank law and every supplied known value), with no averaging and no discarding. **For PROT-*_LB** (linear rules): the E-SHARP export, embedded in an adaptive strategy whose later registrations depend on that record, with blanks continuing to be supplied. No branch may show a violation whose discounted part comes only from that record's content combined with supplied known slots (C-DISC case 1, extended to every later tick and every branch). **For LK-R:** the same adaptive strategy with `s(r)` chosen so that, by Main's coupling-graph cone (Main:364), no exported content can reach any register site before `T`. LK-R must hold for it. Failing either is LIMIT (§9.3) |
+| CC-REJECT | Decisive countercontrol (owner decision, item 1): a deliberately planted leak is correctly rejected | Planted operations used only in this control, outside `Π_LB`, each embedded in an adaptive strategy and judged on complete accessible histories as above. **PL-1 (direct):** a planted record of a `Q* = 1` functional of a cell of `C` that never passed through a register. PROT-D_LB must reject it. **PL-2 (sink return):** a planted coupling that, at a later tick, adds the exported cell's undetermined slot into a fresh blank, which is then registered. LK-R must reject it, by (i) or (ii); under `ref(π)` the same planted coupling reads the fresh cell at `s(r)`. **PL-4 (post-export pairing):** a planted record, after export, of the exported cell's slot that was undetermined at export. PROT-D_LB must reject it (C-DISC case 3). For each, Stage 1B states one instance at E1, before any property of `Π_LB` is evaluated, and does not revise it afterwards. Failing any is LIMIT (§9.3) |
+| C-CAL | Positive calibration of the classifier, on an item external to P-OBS-LB | Q3-A1 §5.1's C-CAL item, verbatim: "A4's translation clause applied to the affine rule including its offset, 'F commutes with lattice translations'", with its source Substratum:98's anchor, "the homogeneity of physical law — no experiment has found a preferred location in the laws". Under §6.2's standard it must be classed independent. Otherwise the classification is defective (§9.1: one repetition, then VOID) |
 | TT-1 | Target-tuned, must be rejected | "A blank is injected only where every gate that will act on it is fixed by `K` when it acts." Design reason: **to block E_A, E_A′ and E_B** (MI §4, P-GK) |
 | TT-2 | Target-tuned, must be rejected | "Each blank's known slot is the slot that keeps the observer's knowledge isotropic." Design reason: **to keep the knowledge isotropic** |
 | TT-3 | Target-tuned, must be rejected | "No exported register is placed within distance 2 of a cell of `C` with an unknown slot." Design reason: **to block E_A, E_A′ and E_B** (MI §4, P-NR analogue) |
 | TT-4 | Disguised, must be rejected | "After `t = 0`, no blank is injected at a site within distance 2 of a ring cell with an unknown slot. A memory reset in thermal contact with a hot neighbour does not reach its standard state, so a standard reset requires thermal isolation." The stated reason sounds independent. Within `Π_LB` its extension equals that of MI's P-NR (MI §4, row 2: no refill within distance 2 of an active cell with an unknown slot), whose role is to block exposures. It was written after P-NR was known |
-| TT pass criterion | Decisive | TT-1 to TT-4 are each classed target-defined, or target-adjacent with the reason identified. TT-4 must be caught by the extensional check of §6.2. Any TT classed independent or mixed: E0 is void (§9.1) |
+| TT pass criterion | Decisive | TT-1 to TT-4 are each classed target-defined, or target-adjacent with the reason identified. TT-4 must be caught by the extensional check of §6.2. Any TT classed independent or mixed: E0 is void and is repeated once; a second defective E0 gives VOID (§9.1) |
 | PR-1 … PR-11 | Preserved results (§11.1) | As stated there |
-| DG-FULL | Diagnostic | PROT-D on the undiscounted full ring, and on `D_t` (§11.2), reported. Decides nothing; the decisive form is PROT-D_LB |
+| DG-FULL | Diagnostic | PROT-D on the undiscounted ring, and on `D_t` (§11.2), reported. Decides nothing; the decisive form is PROT-D_LB |
+| Diagnostics | Reported | LK-R-U (§8.2), NV-D (§8.5), and for `G_σ` the PROT-* diagnostics (§8.3) |
 | R-1 | Robustness | Independent re-derivation of every holding property, from this file and the Stage 1B record alone, by a reviewer who did not author Stage 1B |
 | R-2 | Robustness | Both linear limits `N_1` and `N_0`; every `L` admitted by H-NW for the stated `T` (proof, not instance) |
 | R-3 | Robustness | Variation analysis E6 complete, with every assumption classified |
@@ -805,7 +989,8 @@ claimed consequence on every variant and classifies `a`:
 - If every assumption is E, the annotation +POOR ("poor explanation") is recorded, whatever the
   match to the question.
 - If no assumption is H or S-mot, the rung is at most L1 (§11.4).
-- For A-B, A-Bslot and A-Bval, the classes H and S-mot count only under the LB-B rule of §9.4.
+- For A-B, A-Bslot and A-Bval, and for A-dom, the classes H and S-mot count only under the single
+  rule for target-informed components (§9.4).
 
 | Assumption | Variant set `V_a` (fixed) |
 | --- | --- |
@@ -817,14 +1002,15 @@ claimed consequence on every variant and classifies `a`:
 | A-atom | {registration and export atomic (chosen); export delayed by one tick} |
 | A-S (LB-S) | {sink never registrable (chosen); sink registrable once per cell} |
 | A-W (LB-W) | {register sites only (chosen); any ring cell registrable} |
-| A-dom (protected domain and discount) | {full ring with `Disc_t` (chosen); full ring without discount (MI's exact domain); `D_t`}. `D_t` is defined exactly: every ring site except a sink site `s(r)` from the tick of an export into it until the tick at which a later LB-Z displaces that occupant to `Ex`. For `G_σ` only the last two apply |
+| A-dom (protected domain and discount) | {full ring with the §8.3 discount (chosen); full ring without discount (MI's exact domain); `D_t`}. `D_t` is defined exactly: every ring site except a sink site `s(r)` from the tick of an export into it until the tick at which a later LB-Z displaces that occupant to `Ex`. For `G_σ` only the last two apply |
 | A-dist | {`d_S` = 1; 3 (chosen); `≥ L/2`} |
 | A-side | {away from `C` (chosen); toward `C`} |
 | A-rule | {`N_1` (primary); `N_0`}. `G_σ` is reported separately and is not a variant of the construction |
 
-Before any derivation it is recorded that the variant "full ring without discount" of A-dom changes
-the label by E-SHARP (§8.3). A-dom is therefore not E, and its H or S-mot class counts only under
-the discount rule of §9.4.
+Before any derivation it is recorded, by definition, that the variant "full ring without discount"
+of A-dom changes the label by E-SHARP (§8.3), provided the chosen value is not itself NEG. This
+statement is definitional. Its H or S-mot class counts only under the single rule of §9.4, so with
+the discount classed mixed it does not support (a).
 
 ### 11.3 Reach
 
@@ -869,8 +1055,8 @@ Every outcome, negative ones included, is recorded at a rung or as "below L0".
   - LB-Z and LB-B reproduce the structure of P1 (with one change, the interacting sink) and of P2
     (with value 0 only). The resemblance is a product of the search direction, not a discovery.
   - LB-B is the clause most exposed to retrofitting. A quiescent blank (`u = v = 0`) is an equally
-    natural reset when AP1/P2 are not in view. The §9.4 rule makes LB-B count toward (a) or L2 only
-    if E0 upholds an independent, verified, selecting reading of item 4.
+    natural reset when AP1/P2 are not in view. The single rule of §9.4 makes LB-B count toward (a)
+    or L2 only if E0 classes it independent, with a verified, selecting reading of item 4.
 - **Knowledge of consequences at drafting.**
   - While fixing LB-B, the writer had read MI's protocols. E_A uses a supplied known value 1
     (MI §3.2), which LB-B's value 0 excludes. E_A′ uses `v`-known and `u`-known cells at `t = 0`
@@ -878,8 +1064,11 @@ Every outcome, negative ones included, is recorded at a rung or as "below L0".
     writer and is a Stage 1B check (PR-3).
   - In r1, the protected domain `D_t` was fixed with knowledge of MI-A3 §1's archived-cell
     countercase. In r2 the record discount `Disc_t` was fixed with knowledge of E-SHARP, which the
-    independent review of `7878a7fd` pointed out (finding B1). Both are classed mixed, and both
-    are varied under A-dom.
+    independent review of `7878a7fd` pointed out (finding B1). In r3 the discount was restated as
+    a summand projection after the re-review of `40f42bd9` showed that r2's membership test makes
+    PROT-D_LB fail by definition (its finding R2-1). r3's form was chosen to meet the three C-DISC
+    cases stated by that re-review, not to pass any derivation. Both domain choices are classed
+    mixed, and both are varied under A-dom.
 - **The independence requirement is unchanged.** This disclosure does not relax it (c.6719386464).
 
 ***
@@ -892,7 +1081,8 @@ Stage 1B, if authorized, reports for each rule:
 - (a)/(b)/(c), the ladder rung and the variation class of every assumption;
 - the three statuses of §9.5 and every E0 finding;
 - every control with its status;
-- every diagnostic (LK-R-M, NV-D, DG-FULL);
+- CC-ACCEPT and CC-REJECT, with their instances, and LIMIT if it occurs;
+- every diagnostic (LK-R-U, NV-D, DG-FULL);
 - every premise found to block an exposure, reported and not adopted.
 
 This covers positive, negative, vacuous, inconclusive, void and null outcomes. A negative for
@@ -906,10 +1096,12 @@ re-run with changed clauses. A changed clause is a new preregistration or a docu
 
 | Invariant asserted | Checkpoint that measures it |
 | --- | --- |
-| r2 changes only this `DESIGN.md`, in one commit whose single parent is `7878a7fd` | `git show --stat` of the r2 commit lists only this path; `git rev-parse <r2>^` is `7878a7fd…` |
+| r3 changes only this `DESIGN.md`, in one commit whose single parent is `40f42bd9` | `git show --stat` of the r3 commit lists only this path; `git rev-parse <r3>^` is `40f42bd9…` |
 | No result is derived here | Reviewer reading of §4–§11; `grep -n -i 'we find\|it follows that\|holds for every\|is protected\|leaks\|POS holds'` matches only this row |
-| The only consequences stated before Stage 1B are definitional: E-SHARP (§8.3), C-OFF-3 and "Known now" (§9.4), and the A-dom note (§11.2) | Reviewer reading. Each of those passages says "definitional" or "by definition" and cites only the second-order step `v′ = u` or a supplied known value |
-| The decision rule precedes any Stage 1B text | Stage 1B's first commit is a descendant of the r2 commit, and this file is byte-identical there (`git diff` empty for this path) |
+| The only consequences stated before Stage 1B are definitional: E-SHARP and the A3 standing fact (§8.3), the C-DISC cases (§10), C-OFF-3 and "Known now" (§9.4), and the A-dom note (§11.2) | Reviewer reading. Each of those passages says "definitional", "by definition" or "decidable from the definitions", and uses only the second-order step `v′ = u`, a supplied known value, or the definitions of `ω`, `Q*` and the discount |
+| The decision rule precedes any Stage 1B text | Stage 1B's first commit is a descendant of the r3 commit, and this file is byte-identical there (`git diff` empty for this path) |
+| J-LK and J-DISC (§8.6) are recorded before any result | They are in the r3 commit, which precedes every Stage 1B commit (fourth row of this table) |
+| CC-ACCEPT and CC-REJECT, with their stated instances, precede every evaluation of a property of `Π_LB` | Stage 1B's E1 record carries a commit time earlier than its first E2–E5 text |
 | E0 precedes every Stage 1B derivation commit | E0's record carries a commit or comment time earlier than the first Stage 1B derivation commit |
 | No `readWriteSourced_` identifier is cited | `grep -n readWriteSourced` on this file matches only K-LEAN (§2) and this row, which name the prohibition |
 | No odd-`q` statement | `grep -n -i odd` matches only K-Q (§2), §16 and this row |
@@ -931,7 +1123,8 @@ re-run with changed clauses. A changed clause is a new preregistration or a docu
 | S0 (#1169 c.6719708521; review c.6719720616) | Rows 9 and 16; restated here with their on-main citations | Provenance. The restated row content rests on files on main (AP1, QA, Main, Sub), cited directly |
 | #1198 head `f649b347` (MI, MI-D, MI-A3) | K-MI, PR-3, the definitions of §8, TT-1, TT-3, TT-4 | **Support off main: a gap.** MI is provisional (model-reviewed, unmerged). No established claim rests on it. Each use is either a preserved result, which Stage 1B re-derives before using it as a control (PR-3), or a definition restated here |
 | #1202 head `25384b13` (Q3-A1 §3 Block C) | Classification standard | Provenance. The standard is restated in full in §6.2 |
-| Independent review of `7878a7fd` (relayed by the coordinator; not on main) | The r2 changes; the second reading in item 4; E-SHARP | Provenance. E-SHARP is restated here from the definitions |
+| Independent review of `7878a7fd` and re-review of `40f42bd9` (relayed by the coordinator; not on main) | The r2 and r3 changes; the second reading in item 4; E-SHARP; the C-DISC cases | Provenance. E-SHARP and the C-DISC cases are restated here from the definitions |
+| Q3-A1 §5.1 C-CAL item (at `25384b13`) | C-CAL | Provenance. The item is quoted verbatim in §10, with its on-main source Substratum:98 |
 | #1032 body and c.6712887557, c.6713169247, c.6567189236 | K-1032; C-2; non-duplication | Provenance. The content used (LEAD) is on main |
 | LEAD, TN | C-2, PR-7, RECORD-STORE | Support on main |
 | #1188 | K-LEAN | Provenance |
@@ -945,9 +1138,13 @@ re-run with changed clauses. A changed clause is a new preregistration or a docu
 
 1. **Independence (main concern).** The search ran backward from target-adjacent posits (§11.5).
    LB-B coincides in form with P2 and with knowledge balance, and its independent component rests
-   on an unread source. E0 decides it under the single LB-B rule (§9.4).
-2. **The record discount.** `Disc_t` is fixed knowing E-SHARP. It is mixed, varied under A-dom, and
-   bound by the same rule as LB-B.
+   on an unread source. E0 decides it under the single rule for target-informed components (§9.4).
+   Through the extensional check, LB-B's consequence follows E0's class of P2's recorded reason.
+2. **The record discount.** The discount is fixed knowing E-SHARP and the re-review's
+   counterexample. It is classed mixed and varied under A-dom. Under the single rule for
+   target-informed components (§9.4), its variation counts toward (a) only if E0 classes it
+   **independent**; otherwise every positive is (b). A component classed mixed does not support
+   (a). C-DISC checks that it neither decides NEG by definition nor hides the C9 sharpening.
 3. **Possible vacuity.** With value-0 blanks only and every non-register site unknown, the class may
    register nothing informative about `C` after a reset. NV is conjunctive, so that case gives VAC.
    It is recorded as a finding and not repaired by adding supplies.
@@ -957,7 +1154,9 @@ re-run with changed clauses. A changed clause is a new preregistration or a docu
 5. **Overlap with #1032 and #866.** BLANK-SRC, RECORD-STORE and SWAP-EXEC fall in Codex's and #866's
    areas. P-OBS does not source them. If a source for any of them lands, P-OBS's reviewer checks it
    under §A.46 items 1 and 7 before any status changes.
-6. **Classical by construction.** Every configuration-level P-OBS outcome is classically imitated by
+6. **Countercontrols may stop the unit.** If the leak test or the discount fails CC-ACCEPT or
+   CC-REJECT, the outcome is LIMIT: the limitation is reported and evaluation stops (§9.3, §9.7).
+7. **Classical by construction.** Every configuration-level P-OBS outcome is classically imitated by
    the exhibited model (§9.4 (c)). Its value is to the access-model question of S0 row 9, not to
    quantum selection.
 
