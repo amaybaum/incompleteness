@@ -61,6 +61,9 @@ S1_SET = ('marc_check.py', 'controls.py', 'evidence/design-run.json', 'evidence/
 E_SET = (MEAS, 'evidence/s1-run/results.json', 'evidence/order.json', 'result.md')
 W_OPTIONAL = (MEAS, 'evidence/s1-run/results.json', 'evidence/void-run.json')
 SHARD_JOB = 'Numerical probes / ARP-1-MARC exact span check'
+# Jobs that run only on workflow_dispatch: on a pull_request run the host lists each as `skipped`, under its
+# unexpanded matrix name. Only the design run (a pull_request run) may show them so.
+DISPATCH_ONLY_JOBS = ('Numerical probes / A42 exclusion (${{ matrix.part }})',)
 STEPS = {'checkout': 'Run actions/checkout@v4', 'setup': 'Run actions/setup-python@v5',
          'check': 'ARP-1-MARC exact span check', 'upload': 'ARP-1-MARC keep the measurements',
          'replay': 'ARP-1-MARC replay against the committed measurements',
@@ -1089,7 +1092,7 @@ def order_schema_errors(o):
 
 def design_run_errors(raw, pinned):
     """P: design-run.json at its pinned sha256, of its schema, a pull_request run, conclusion success, every job
-    success."""
+    success except a dispatch-only job, which may be skipped; the ARP-1-MARC shard present once and success."""
     try:
         r = json.loads(raw)
     except (TypeError, ValueError):
@@ -1102,8 +1105,12 @@ def design_run_errors(raw, pinned):
         return errs
     if r['event'] != 'pull_request':
         errs.append('design-run.json: not a pull_request run')
-    if r['conclusion'] != 'success' or not r['jobs'] or any(j['conclusion'] != 'success' for j in r['jobs']):
+    if r['conclusion'] != 'success' or not r['jobs'] or any(
+            j['conclusion'] != 'success' and not (j['name'] in DISPATCH_ONLY_JOBS and j['conclusion'] == 'skipped')
+            for j in r['jobs']):
         errs.append('design-run.json: the run or a job is not success')
+    if [j['conclusion'] for j in r['jobs'] if j['name'] == SHARD_JOB] != ['success']:
+        errs.append('design-run.json: the ARP-1-MARC shard is not present once with success')
     return errs
 
 
@@ -1851,6 +1858,23 @@ def _st_round(tmp, here, prereg, check):
     bad_raw = canonical(bad_design).encode()
     check('I-N5: a design run with a red job fails P; the green one passes',
           bool(design_run_errors(bad_raw, sha256(bad_raw))) and not design_run_errors(design, sha256(design)))
+    # I-N5b: on a pull_request run the dispatch-only job is skipped; that alone passes, any other skip fails
+    def _dv(edit):
+        d = json.loads(design)
+        edit(d)
+        raw = canonical(d).encode()
+        return design_run_errors(raw, sha256(raw))
+    xj = {'name': DISPATCH_ONLY_JOBS[0], 'conclusion': 'skipped'}
+    check('I-N5b: the dispatch-only job skipped passes P',
+          _dv(lambda d: d['jobs'].append(dict(xj))) == [])
+    check('I-N5b: the dispatch-only job failed fails P',
+          bool(_dv(lambda d: d['jobs'].append(dict(xj, conclusion='failure')))))
+    check('I-N5b: another job skipped fails P',
+          bool(_dv(lambda d: d['jobs'].append({'name': 'Numerical probes / core B', 'conclusion': 'skipped'}))))
+    check('I-N5b: the shard skipped fails P', bool(_dv(lambda d: [j.update(conclusion='skipped')
+                                                                    for j in d['jobs'] if j['name'] == SHARD_JOB])))
+    check('I-N5b: the shard absent fails P',
+          bool(_dv(lambda d: d.update(jobs=[j for j in d['jobs'] if j['name'] != SHARD_JOB] + [dict(xj)]))))
     # I-N2: a VOID label from decide is VERDICT VOID, exit 1 (a red control with consistent flags, so check E holds)
     red = _st_meas(0, 0)
     red['4']['I']['exposing_V'] = 1

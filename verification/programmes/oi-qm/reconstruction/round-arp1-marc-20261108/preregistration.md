@@ -642,8 +642,9 @@ the blocks), `--self-test`. Codes:
 - **V** (note): `result.md` equals `note`'s regeneration byte for byte; S4.
 - **P** (pins and evidence): no `PENDING` under `--freeze`; the branches line is present once at column 0 and
   byte-identical in every commit of `D..F`; `evidence/design-run.json` and `evidence/f-run/results.json`
-  at their pinned sha256 and of their own schema, the design run's record showing conclusion `success` and every job
-  `success`; `evidence/s1-run/results.json` and `evidence/order.json` meet their schemas and rules. At a halt before S1
+  at their pinned sha256 and of their own schema, the design run's record showing conclusion `success`, the ARP-1-MARC shard
+  present once with `success`, and every other job `success` except the dispatch-only job
+  `Numerical probes / A42 exclusion (${{ matrix.part }})`, which may be `skipped` (it runs on `workflow_dispatch` only); `evidence/s1-run/results.json` and `evidence/order.json` meet their schemas and rules. At a halt before S1
   exists, P's S1 evidence (`design-run.json`, `f-run/results.json`, `s1-run/results.json`) is exempt, and only
   `evidence/order.json`, if present, is checked.
 
@@ -929,7 +930,8 @@ sweep resolves it. It is not by itself a halt.
 
    A fill in another form fails P.
 4. **Design run.** The dev branch `draft/arp1-marc-dev`, with its own draft PR, carries the predicted S1 tree less
-   `evidence/`, with the design splice. Its ordinary `pull_request` CI is green on every job; `derive-run` turns it into
+   `evidence/`, with the design splice. Its ordinary `pull_request` CI is green on every job except the dispatch-only A42 exclusion job, which is
+   `skipped` on every `pull_request` run; `derive-run` turns it into
    `evidence/design-run.json`, whose sha256 is pinned here: PENDING. The design PR number: PENDING. It is design
    evidence, not an attestation. `derive-run` is exercised on its artifact (the design splice uploads it).
 5. **Self-tests pass** locally and in the design run, at the pinned blobs. Variant D has not been enumerated.
