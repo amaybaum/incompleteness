@@ -40,69 +40,91 @@ CTRL-MON, MP-1, P-8.
    `f_i(u) = u_{i−1} ⊕ (u_{i+1} ∨ u_{i+2})`, `F(u, v) = (f(u) ⊕ v, u)`
    (PI eq. (1)). It is a fixed bijection (A2), has range 2 (A3) and is
    center-free and translation invariant (A4). It is not affine (A5 fails),
-   and its edges are not reciprocal. Its status is an independently motivated
-   proposal: SM's state-dependent-geometry principle is a stated hypothesis,
-   and the ring is SM's example of it. It is not a physically sourced mechanism.
-   Switching the state dependence off (`R(i) ≡ i + 1`) gives the linear,
-   symmetric, center-free ring of class N.
-2. **Dynamics-independent ceilings at `q = 2` (§3, nodes 2–4).** They hold for
-   every fixed bijection, so for `G_SM` and for every other `G(x)`.
-   - **Lemma F.** Under any fixed linear identification by an orthogonal frame,
-     every encoded branch of every protocol is a nonnegative matrix on frame
-     coordinates.
+   and for `L ≥ 5` its edges are not reciprocal. Its status is an
+   independently motivated proposal: SM's state-dependent-geometry principle
+   is a stated hypothesis, and the ring is SM's example of it. It is not a
+   physically sourced mechanism. Switching the state dependence off
+   (`R(i) ≡ i + 1`) gives the linear, symmetric, center-free ring of class N.
+2. **Ceilings for every fixed bijection at `q = 2` (§3, nodes 2–4).** They hold
+   under Lemma F's operation set (attach cells in fixed laws, apply the rule,
+   feedback, discard, condition on configuration records) and H-LIFT (every
+   cell correlated with the carrier at an operation's input is part of the
+   encoded carrier). Within that scope they cover `G_SM` and every other `G(x)`.
+   - **Lemma F.** Under a fixed linear identification by an orthogonal frame,
+     every encoded branch is a nonnegative matrix on frame coordinates.
    - **Theorem U2.** Under the product frame R1^⊗n, the ontic permutations whose
      encoded action is completely positive (CP) are exactly `A_4 ≀ S_n`: local
      tetrahedral rotations, which are Clifford, and permutations of cells.
-     Every encoded unitary channel, deterministic or heralded, that any fixed
+     Every encoded unitary channel, deterministic or heralded, that a fixed
      bijection induces lies in this group. So there is no encoded `S`, `T`,
-     CNOT, CZ, `rot`, or any entangling unitary, for any dynamics. The proof
-     uses a Hamming-graph rigidity argument written out in full (Lemma H).
+     CNOT, CZ, `rot`, or any entangling unitary. The proof uses a Hamming-graph
+     rigidity argument written out in full (Lemma H). These CP verdicts are
+     relative to R1, whose covariance group is `A_4 ≀ S_n` and not the Clifford
+     group. Joint-CP failure therefore also covers class N and does not single
+     out `G_SM`.
    - **Theorem NC.** Under an injective identification, with operational
      equivalences certified by spanning reads, the configuration-level model
      is a preparation-, transformation- and measurement-noncontextual model of
      the whole encoded operational theory, whatever the dynamics. With product
-     encoded effects it gives CHSH ≤ 2.
+     encoded effects it gives CHSH ≤ 2. At `q = 2`, spanning certification
+     needs a `Y` read, which is not exhibited natively. Over the native `Z`/`X`
+     reads alone, Theorem NC does not apply.
 3. **What `G_SM` adds at `q = 2` (§3, nodes 5–6).**
-   - It breaks QA's Lemma Q. The identity `Q(F(u, v)) = Q(u, v) + Σ_i u_i f_i(u)`
-     holds for every second-order rule over `F_2`. For `G_SM` the sum is not
-     identically 0, so `Q = Σ u_i v_i` is not conserved. A symmetric,
-     center-free switched graph does conserve `Q` (Lemma Qσ).
+   - Lemma Q's argument does not apply to `G_SM`. The identity
+     `Q(F(u, v)) = Q(u, v) + Σ_i u_i f_i(u)` holds for every second-order rule
+     over `F_2`. For `G_SM` the sum is not identically 0, so Lemma Q's
+     conclusion (i), conservation of `Q = Σ u_i v_i`, fails, and transport is
+     nonlinear. A symmetric, center-free switched graph conserves `Q`
+     (Lemma Qσ). Whether the protection of Lemma Q(iii) fails under P1 and P2
+     is open.
    - Nonlinear conditioning reaches laws that are not uniform on affine sets.
      The instance P★ (§3, node 6) heralds, with probability 5/8, the encoded
      state `r = (3/5, 1/5, 3/5)`. It is valid and lies outside the stabilizer
-     octahedron (`|r|₁ = 7/5`).
+     octahedron (`|r|₁ = 7/5`). Its `(⟨Z⟩, ⟨X⟩)` lies inside the stabilizer
+     diamond, so only a `Y` read distinguishes it.
    - The complementary branch of the same instrument is not a quantum state
      (`|r|² = 11/9`), and the heralding branch is not positive on other inputs.
      The complete instrument therefore fails C-CP.
+   - P★'s background without any record, at `t = 3`, already gives a carrier
+     channel that is not CP. Its Choi eigenvalues are
+     `{3/4, 3/4, (1 ± √2)/4}`. Its Bloch linear part has determinant `−1/16`:
+     a positive, orientation-reversing map of Lemma R's reflection type. The
+     C-CP failure does not need record conditioning.
    - Mechanism off, the same protocol gives valid stabilizer outputs.
 4. **The six acceptance criteria at `q = 2` (§6.1).**
    - Native mechanism: defined. Its status is a proposal.
-   - Non-stabilizer capability: no reversible escape, for every dynamics. A
-     non-stabilizer state appears only in a C-CP-failing instrument.
-   - Quantum selection: fails. No coupling rule is jointly CP under R1, and
-     `G_SM` also loses Lemma Q.
-   - In-world control: the selection is ontically in-world, but it fails C-CP
-     when switch cells are in non-eigenstate laws.
+   - Non-stabilizer capability: no reversible escape for any fixed bijection
+     (Theorem U2, under H-LIFT). A non-stabilizer state appears only in a
+     C-CP-failing instrument.
+   - Quantum selection: fails. P★'s channels are not CP, one of them
+     reflection-type without any record. Joint-CP failure under R1 holds for
+     every coupling rule and does not single out `G_SM`.
+   - In-world control: the selection is ontically in-world. It fails C-CP in
+     P★, whose switch cells are in `X_+` laws.
    - Operational completeness: not met.
-   - Classical countercontrol: an exact noncontextual imitation exists
-     (Theorem NC).
+   - Classical countercontrol: under R1^⊗n with H-LIFT and spanning-read
+     certification, an exact noncontextual imitation exists (Theorem NC). At
+     the native read level (`Z` and `X` only) A6 is undecided.
 5. **Outcome type (ii): stop (§6.2).**
-   - Under injective encodings no dynamics escapes Theorem NC. A
-     nonclassical observer-level theory therefore needs a change in the
-     identification and access, not in the dynamics alone.
+   - Under injective encodings with H-LIFT and spanning-read certification, no
+     dynamics escapes Theorem NC. Within that scope a nonclassical
+     observer-level theory needs a change in the identification and access,
+     not in the dynamics alone. Whether `G_SM` supplies the native `Y` read
+     that this certification needs at `q = 2` is open.
    - The missing premise is **M-INACC**: per encoded system, an ontic
      functional that the fixed rule uses, that no permitted preparation, read,
      reuse or recombination can access, and whose inaccessibility has a reason
      not chosen to reach the quantum target.
-   - `G_SM` does not supply M-INACC. It removes the native protection of
-     Lemma Q.
+   - `G_SM` does not supply M-INACC, and Lemma Q's argument does not apply to
+     it.
    - The first decisive check of a symmetrized `G(x)`: whether Lemma Q(iii)'s
-     protection survives nonlinear transport.
-   - For Bell composites, Proposition B adds a second, separate requirement
-     to H-Bell (ii) (M-FIX). No-signalling over a spanning family of
-     preparations removes ontic parameter dependence pointwise. A violation
-     therefore needs a response-relevant variable whose law no available
-     preparation can change.
+     protection survives nonlinear transport under P1 and P2.
+   - For Bell composites, Proposition B derives a necessary condition implied
+     by H-Bell (i)–(ii) together with a violation (M-FIX): the available
+     preparations' laws on the response-relevant variable do not span. Some
+     nonzero response-relevant function then has a mean that no available
+     preparation changes. A variable with a fully preparation-independent law
+     is sufficient but not necessary; an exact counter-model is in node 4.
    - No V3 round is proposed.
 
 ## 1. The construction
@@ -160,13 +182,13 @@ Hermitian operators, with total mass going to trace.
 | Property | `G_SM` | Reason |
 | --- | --- | --- |
 | A2 bijection | Kept | (1) has an explicit inverse (c3) |
-| A3 bounded degree | Kept | `f_i` reads `i − 1, i + 1, i + 2`; dependency radius `2t` after `t` ticks (PI §6) |
+| A3 bounded degree | Kept | `f_i` reads `i − 1, i + 1, i + 2`; dependency radius `2t` after `t` ticks (PI §6). SM:112's "range 1" refers to the graph dependence (`R(i, x)` reads `x_{i+1}`); the reach of `f_i` is 2 |
 | A4, center-free sense | Kept | `f_i` does not read `u_i` |
 | A4, translation sense | Kept | The rule is the same at every site |
 | A5 linearity | Broken | The term `u_{i+1}u_{i+2}`. The second difference of `F` along `u_1, u_2` is nonzero (c3). Each fixed graph is linear, but the map is not |
-| Reciprocal (symmetric) coupling | Broken | `i` can read `i + 2`, while `i + 2` reads `i + 1` and `i + 3` or `i + 4` (M1D [node 8](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/verification/programmes/oi-qm/reconstruction/mechanism-1-20261107/DESIGN.md#L877)) |
+| Reciprocal (symmetric) coupling | Broken for `L ≥ 5` | `i` can read `i + 2`, while `i + 2` reads `i + 1` and `i + 3` or `i + 4`. At `L = 4`, `i + 4 = i` (M1D [node 8](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/verification/programmes/oi-qm/reconstruction/mechanism-1-20261107/DESIGN.md#L877)) |
 | Nearest-neighbour premise ([SM:226](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/papers/SM.md#L226)) | Broken | Range 2 |
-| Lemma Q's conserved form | Broken | Lemma Qσ, node 5 |
+| Lemma Q's argument | Does not apply | Its conclusion (i), conservation of `Q`, fails (Lemma Qσ, node 5) |
 
 **Mechanism off.** Set `R(i) ≡ i + 1`. Then `f_i = u_{i−1} ⊕ u_{i+1}`: the
 symmetric, center-free linear ring of class N (bipartite iff `L` is even). It
@@ -428,11 +450,11 @@ conjugation by SWAPs. All of these are Clifford unitaries.
    - unit norm makes the entries 1.
 4. So `Ad U = T_π`, and (i) gives `π ∈ A_4 ≀ S_n`. ∎
 
-**Consequences (every fixed bijection, R1^⊗n).**
+**Consequences (every fixed bijection, R1^⊗n, under Lemma F's operation set and H-LIFT).**
 
 - **No encoded entangling unitary.** No encoded CNOT, CZ or other entangling
-  unitary exists, heralded or not, for any dynamics: linear, `G_SM`, any
-  `G(x)`, or Native A.
+  unitary exists, heralded or not, for any fixed bijection: linear, `G_SM`,
+  any `G(x)`, or Native A.
 - **No other unitary escape.** There is no encoded `S`; for `n = 1` this is
   AP1 [Lemma 5](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md#L731).
   There is no encoded `T`, and no infinite-order unitary, which agrees with AP1
@@ -443,8 +465,11 @@ conjugation by SWAPs. All of these are Clifford unitaries.
   `q = 2` analogue of M1D [Theorem T](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/verification/programmes/oi-qm/reconstruction/mechanism-1-20261107/DESIGN.md#L799),
   and it is stronger: no in-world selection of any coupling is jointly CP.
   `G_SM`'s step, the native linear step and AP1's coupled read tick all fail
-  joint CP. C-CP can only be tested on reduced branches, with ancillas in
-  supplied laws. There AP1's read passes, and P★ (node 6) fails.
+  joint CP. This failure is relative to R1, whose covariance group is
+  `A_4 ≀ S_n` and not the Clifford group, so it does not single out `G_SM`.
+  C-CP can only be tested in a discriminating way on reduced branches, with
+  ancillas in supplied laws. There AP1's read passes, and P★ (node 6) fails,
+  with and without its record.
 
 *Controls.* c2 (`n = 2`, exact Gaussian-rational triple traces) finds 288
 automorphisms of `T`, equal as a set to `A_4 ≀ S_2`, and 1152 = `|S_4 ≀ S_2|`
@@ -489,8 +514,8 @@ whatever the bijection `Φ`.
 
 **Scope.**
 
-- Theorem NC holds for every `G(x)` under an injective encoding. Together with
-  the spanning certification, it decides A6 there.
+- Theorem NC holds for every `G(x)` under an injective encoding with H-LIFT.
+  Where the equivalences are certified by spanning reads, it decides A6.
 - With fewer reads, statistical equivalence is coarser than operator
   equality. A classical model then can appear contextual:
   - a law on two bits read only one bit at a time generates the square state
@@ -500,9 +525,18 @@ whatever the bijection `Φ`.
 
   Such apparent contextuality is not a nonclassicality witness unless the
   missing reads are absent for a physical reason. That is M-INACC (§6.2).
-- At `q = 2`, the encoded `Y` read is not exhibited for the native reads
-  (AP1 §4.2). Certification of equivalences therefore needs NNB, or another
-  read source, for the `Y` direction.
+- At `q = 2`, an encoded `Y` read is not exhibited. AP1 §4.2 excludes one by a
+  type grading proved for its linear apparatus class. That exclusion does not
+  carry over to `G_SM`, whose nonlinearity breaks the grading: P★'s record-1
+  branch (node 6) reaches a carrier law with `z + x` determined (support
+  `{01, 10}`), which the grading forbids. Whether `G_SM` supplies a native `Y`
+  read is open. Until a `Y` read is available (from `G_SM`, NNB or another
+  source), the spanning certification fails at the native read level, and
+  Theorem NC leaves A6 undecided there.
+- **Context.** Theorem NC is a direct instance of the "nonnegative frame
+  representation ⇒ noncontextual model" direction of Spekkens' equivalence of
+  negativity and contextuality (PRL 101, 020401 (2008)). That work was not read
+  in this unit, and the proof above is self-contained.
 
 **Proposition B (spanning no-signalling; H-Bell bearing).**
 
@@ -522,14 +556,38 @@ whatever the bijection `Φ`.
   no-signalling for every preparation that leaves `h` uniform, and it gives
   CHSH = 4. It violates the spanning hypothesis only because no preparation
   changes the law of `h`.
-- *Reading.* Under H-Bell's option (a), operational no-signalling must rest
-  on a response-relevant variable whose law no available preparation can
-  change (**M-FIX**). In OI the natural candidate is the hidden sector's
-  counting measure (N2, H-PREP). Whether preparation-indexed edges couple only
-  to such variables is part of H-Bell (ii) and is not decided here.
-- *Status.* This elaborates H-Bell's stated requirement. It is not a no-go.
+- *Reading (**M-FIX**).* Given determinism and measurement independence,
+  H-Bell (i)–(ii) together with a violation imply that the available laws
+  `{p_P}` do not span. Equivalently, some nonzero response-relevant function
+  `g` has `Σ_ω p_P(ω) g(ω)` the same for every available preparation (zero
+  for a `g` with zero sum). This is a necessary condition derived from H-Bell,
+  not an added requirement.
+- *A sufficient form, not a necessary one.* A response-relevant variable
+  whose whole law no available preparation can change (the bit `h` of the
+  example) gives non-spanning. It is not forced, as the following exact model
+  shows:
+  - `ω = (h, k)`, `a = h ⊕ k·xy` and `b = h`;
+  - the preparations set `P(k = 1) = s` and `P(h = 0 | k = 0) = c` freely, and
+    keep `h` uniform given `k = 1`.
 
-### Node 5. Lemma Qσ: `G_SM` breaks QA's parity protection
+  This model has four properties:
+  - every such preparation is no-signalling: `a` is uniform given `k = 1` and
+    equals `h` given `k = 0`, and `b = h`;
+  - CHSH = `2 + 2s`, which reaches 4 at `s = 1`;
+  - no nonconstant function of `ω` has a law independent of `(s, c)`;
+  - the laws do not span. The function `1_{(1,1)} − 1_{(0,1)}` (over
+    `(h, k)`) has mean 0 under every preparation: what is fixed is the
+    conditional law of `h` given `k = 1`.
+- *Native candidate.* In OI the natural candidate for such a fixed conditional
+  law is the hidden sector's counting measure (N2, H-PREP). Whether
+  preparation-indexed edges couple only to response-relevant functions of that
+  kind is part of H-Bell (ii) and is not decided here.
+- *Status.* This elaborates H-Bell's stated requirement. It is not a no-go.
+- *Context.* Proposition B is a linear-algebra form of the Wood–Spekkens point
+  that causal explanations of Bell violations need fine-tuning to reproduce
+  no-signalling (NJP 17, 033002 (2015)). That work was not read in this unit.
+
+### Node 5. Lemma Qσ: QA's Lemma Q argument does not apply to `G_SM`
 
 **Lemma Qσ.** For every second-order rule `F(u, v) = (f(u) ⊕ v, u)` over
 `F_2`, `Q(F(u, v)) = Q(u, v) ⊕ Σ_i u_i f_i(u)`, where `Q(u, v) = Σ_i u_i v_i`.
@@ -554,10 +612,17 @@ also finds `Q` conserved by a symmetric switched graph (edge `{i, i + 2}`
 present iff `u_{i+1} = 0`, read by both ends; center-free). That graph is a
 control variant here, not a proposal.
 
-**C-Q verdict.** QA's Lemma Q fails under `G_SM`: its hypothesis (i), a
-conserved `Q`, already fails. Lemma Q(iii) also uses linear transport of
-determined functionals, which nonlinear dynamics lacks. Whether a symmetric
-`G(x)` keeps (iii) is open (§6.2).
+**C-Q verdict.** QA's Lemma Q assumes symmetric couplings with `k_ii = 0` and
+a linear step. `G_SM` meets neither, and Lemma Q's argument does not apply:
+
+- its conclusion (i), conservation of `Q`, fails (Lemma Qσ(b));
+- its proof of (iii) transports determined functionals linearly, and `G_SM`'s
+  transport is nonlinear.
+
+P★'s record-1 branch (node 6) determines the carrier's `Q* = 1` functional
+`z + x`. Its record is a ring site that keeps evolving, so P1 is not
+implemented there. Whether the protection of Lemma Q(iii) fails under P1 and
+P2 is open, for `G_SM` and for a symmetric `G(x)` (§6.2).
 
 ### Node 6. What `G_SM` does on one R1 carrier: the instance P★
 
@@ -587,6 +652,19 @@ Further results:
 - **Unconditioned channels.** The carrier channels with uniform hidden
   backgrounds and no record (c4: backgrounds B1–B3, `t = 1, 2`) send every
   Pauli eigenstate into the octahedron. Their Choi spectra are nonnegative.
+- **P★'s own background, with no record (c7, exact).** At `t = 3`, P★'s
+  background without any conditioning gives a carrier channel that is not CP:
+  - it sends `Z_± ↦ (±1/2, 0, 0)`, `X_± ↦ (0, ∓1/4, ∓1/4)` and
+    `Y_± ↦ (0, ∓1/4, ±1/4)`, all inside the octahedron;
+  - its Choi eigenvalues are `{3/4, 3/4, (1 + √2)/4, (1 − √2)/4}`, and the last
+    is negative;
+  - its Bloch linear part, in `(⟨Z⟩, ⟨X⟩, ⟨Y⟩)` coordinates, is
+    `[[1/2, 0, 0], [0, −1/4, −1/4], [0, −1/4, 1/4]]`, with determinant `−1/16`.
+
+  It is a positive, orientation-reversing map: the reflection signature of QA
+  [Lemma R](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md#L667).
+  So the C-CP failure of `G_SM` does not need record conditioning. The switch
+  cells' `X_+` laws are still supplied.
 
 **What P★ shows.**
 
@@ -596,9 +674,11 @@ Further results:
   non-affine conditioned set, so the carrier law is not uniform on an
   affine subspace. One branch is a valid non-stabilizer state, while the
   complementary branch is not a quantum state.
-- **Mechanism.** This is the `q = 2` instance of M1D Proposition T′(i): a
-  controller that is not in an eigenstate of its controlling slot produces
-  non-quantum encoded states.
+- **Mechanism.** This is a `q = 2` analogue of M1D Proposition T′(i), in which
+  a controller that is not in an eigenstate of its controlling slot produces
+  non-quantum encoded states. It is not an instance: T′ is stated at odd `q`,
+  in R-W, for a static controller slot, and M1D excludes native dynamical
+  controllers from it. P★ is one witness; no `q = 2` dichotomy is derived.
 - **Native relaxation of C-IS.** P★ is a native, rational relaxation of C-IS.
   AP1's rung MP-1 posited such a non-isotropic law; here a specified native
   process supplies one. AP1 classifies MP-1-type laws as
@@ -627,7 +707,7 @@ Theorem NC makes either outcome classical under R1.
   - H-L, with non-uniform level-set preparations. P★-type conditioning
     produces such laws, but together with non-quantum branches;
   - H-C, with lifts that depend on the preparation. Nonlinear conditioning
-    makes hidden lifts depend on preparation history. This is the native
+    can make hidden lifts depend on preparation history (asserted, not shown here; linear record-conditioning can also correlate hidden cells with the carrier in a preparation-dependent way). This is the native
     opening, discussed below;
   - H-T. Withholding translations only to remove reflections is CC-RECON
     (QA premise I).
@@ -647,8 +727,9 @@ Theorem NC makes either outcome classical under R1.
   preparation-dependent hidden lift (the H-C break) is such a functional only
   if it stays inaccessible under every permitted read, reuse and
   recombination. Otherwise H-LIFT enlarges the carrier and Theorem NC applies
-  again. `G_SM` provides the use but not the inaccessibility, and it destroys
-  Lemma Q's protection (node 5).
+  again. `G_SM` provides the use but not the inaccessibility, and Lemma Q's
+  argument does not apply to it (node 5; whether the protection fails under
+  P1 and P2 is open).
 
 ### Node 8. Odd `q` (conditional remarks)
 
@@ -674,9 +755,9 @@ memory sign enters. M1D uses `u′ = F(u) − v`.
 
 | Check | Finding |
 | --- | --- |
-| SC-1 Imported quantum behaviour | **None imported into the dynamics.** `G_SM` is a configuration bijection taken verbatim from SM. CP is computed as a test (Theorem U2, P★), not assumed. R1 is the representation fixed by AP1, with native reads as encoded Pauli reads. No unitary, interference or CP restriction enters as a premise. The comparator enters only as the test |
-| SC-2 Hidden external control | **Coupling selection is in-world. Preparation is supplied.** The edge choice is made by switch cells under the fixed rule, with no P3 arming. P★'s carrier input, ready cells, hidden-cell pattern, choice of record cell and time, and the conditioning are supplied (P2, H-PREP). P1 is not implemented. A physical preparer for the ready region is unsupplied, as in PI §4.1 |
-| SC-3 Representation versus physical implementation | **The capability is in the representation.** On the physical carrier every step is a permutation (node 1). The non-stabilizer state of P★ is a law on four points whose R1 image lies outside the octahedron. Under spanning certification the noncontextual configuration model reproduces all of its statistics (Theorem NC) |
+| SC-1 Imported quantum behaviour | **None imported into the dynamics.** `G_SM` is a configuration bijection taken verbatim from SM. CP is computed as a test (Theorem U2, P★), not assumed. R1 is the representation fixed by AP1, with native reads as encoded Pauli reads. No unitary, interference or CP restriction enters as a premise. The comparator enters only as the test. The CP verdicts are relative to R1, whose covariance group is `A_4 ≀ S_n` and not the Clifford group. Joint-CP failure under R1 therefore also covers class N and AP1's read tick. The discriminating C-CP evidence against `G_SM` is P★, including its record-free channel (node 6) |
+| SC-2 Hidden external control | **Coupling selection is in-world. Preparation is supplied.** The edge choice is made by switch cells under the fixed rule, with no P3 arming. P★'s carrier input, ready cells, hidden-cell pattern, choice of record cell and time, and the conditioning are supplied (P2, H-PREP). P1 is not implemented. A physical preparer for the ready region is unsupplied, as in PI §4.1. The C-CP failure itself does not need the supplied conditioning: P★'s record-free channel at `t = 3` is already not CP (node 6). The switch cells' `X_+` laws remain supplied |
+| SC-3 Representation versus physical implementation | **The capability is in the representation.** On the physical carrier every step is a permutation (node 1). The non-stabilizer state of P★ is a law on four points whose R1 image lies outside the octahedron. Its `(⟨Z⟩, ⟨X⟩) = (3/5, 1/5)` lies inside the stabilizer diamond, so only a `Y` read, not exhibited natively, distinguishes it from an octahedron state. Under H-LIFT and spanning certification the noncontextual configuration model reproduces all of its statistics (Theorem NC) |
 
 ## 5. Ledger
 
@@ -685,15 +766,15 @@ memory sign enters. M1D uses `u′ = F(u) − v`.
 | G1 | Second-order bijective form, memory term | Native | Native (A2; SM:106, SM:224) | At `q = 2` independent of the memory sign |
 | G2 | State dependence of the graph | Supplied | Independently motivated proposal (SM:104) | Not physically sourced |
 | G3 | Ring `R(i, x)` of SM:112 | Supplied | Example of G2 | Not selected by OI |
-| G4 | Non-affinity (A5 fails), non-reciprocity | Consequence of G3 | — | Breaks Lemma Q (node 5) |
+| G4 | Non-affinity (A5 fails), non-reciprocity (`L ≥ 5`) | Consequence of G3 | — | Lemma Q's argument does not apply (node 5) |
 | Nq | `q = 2` | Native parameter value | Chosen per owner item 2 | Odd `q`: node 8, conditional |
 | N2 | Uniform law on unknown slots | Native measure through H-PREP | As in AP1 | — |
 | P1, P2, H-PREP | Terminal registration; ready cells; record-conditioned preparations | Supplied | Carried from AP1 | P★ uses P2 and H-PREP; P1 not implemented |
 | H-LIFT | Correlated cells belong to the encoded carrier | Supplied | Modelling condition (FB H-C) | Hypothesis of Lemma F and Theorem NC |
 | R1 | Tetrahedral frame per cell | — | Mathematical representation | Comparator dictionary only |
-| H-Bell | Preparation-indexed edges with no-signalling and curvature stability | Supplied | Open hypothesis | Unchanged. Proposition B names M-FIX within its clause (ii) |
+| H-Bell | Preparation-indexed edges with no-signalling and curvature stability | Supplied | Open hypothesis | Unchanged. Proposition B derives M-FIX as a necessary consequence of its clauses (i)–(ii) with a violation |
 | M-INACC | Dynamically used, permanently inaccessible functional per encoded system | Supplied | Missing premise (§6.2); not adopted | CC-RECON if adopted only to reach the target |
-| M-FIX | Response-relevant variable with a law no preparation can change | Supplied | Elaboration of H-Bell (ii); not adopted | — |
+| M-FIX | The available laws on the response-relevant variable do not span: some nonzero response-relevant function has a mean no available preparation changes | Derived necessary condition | Elaboration of H-Bell (i)–(ii); not adopted | A variable with a fully fixed law is sufficient, not necessary (node 4 counter-model) |
 | I1 | Qubit stabilizer comparator | — | Imported (comparator) | — |
 | I2 | Proposition AS (M1D), using Gross's theorems as read in M1D | — | Repository support on `main` | Used in Theorem U2 (⇒, Kraus step) and node 8 |
 
@@ -704,39 +785,46 @@ memory sign enters. M1D uses `u′ = F(u) − v`.
 | Criterion | Verdict | Basis |
 | --- | --- | --- |
 | A1 Native mechanism | **Defined.** One fixed rule, `G_SM`. Its status is an independently motivated proposal, not a physically sourced mechanism | §1 |
-| A2 Non-stabilizer capability | **Not met.** Reversible operations fail for every dynamics under R1^⊗n (Theorem U2). A valid non-stabilizer state appears in P★'s record-0 branch. Its instrument fails C-CP, so D1 does not count it. No C-COMP candidate exists | Nodes 3, 6 |
-| A3 Quantum selection | **Fails.** No coupling rule is jointly CP under R1 (Theorem U2). P★'s branches are not CP. Reflections are not excluded by any structure of `G_SM`. Lemma Q's protection is lost (node 5) | Nodes 3, 5, 6 |
-| A4 In-world control | **Ontically in-world; fails C-CP.** Switch cells select the coupling under the fixed rule. When they are in non-eigenstate laws, the outputs are non-quantum (P★). By Theorem U2, joint CP admits no selection at all. Restoring CP on reduced branches needs M1D's CTRL-MON-type supplied monitoring, which relocates the premise, as at odd `q` | Nodes 3, 6; [M1D M1](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/verification/programmes/oi-qm/reconstruction/mechanism-1-20261107/DESIGN.md#L940) |
+| A2 Non-stabilizer capability | **Not met.** Reversible operations fail for every fixed bijection under R1^⊗n and H-LIFT (Theorem U2). A valid non-stabilizer state appears in P★'s record-0 branch. Its instrument fails C-CP, so D1 does not count it. No C-COMP candidate exists | Nodes 3, 6 |
+| A3 Quantum selection | **Fails.** P★'s branches are not CP. P★'s record-free channel at `t = 3` is not CP either: Choi eigenvalue `(1 − √2)/4`, Bloch determinant `−1/16`, the reflection signature of QA Lemma R. No structure of `G_SM` excludes such reflections. Lemma Q's argument does not apply (node 5). That no coupling rule is jointly CP under R1 (Theorem U2) holds for class N too and does not discriminate | Nodes 3, 5, 6 |
+| A4 In-world control | **Ontically in-world; fails C-CP in P★.** Switch cells select the coupling under the fixed rule. In P★, whose switch cells are in `X_+` laws, the outputs are non-quantum, with and without the record. By Theorem U2, joint CP under R1 admits no selection at all. M1D's remedy at odd `q` is CTRL-MON-type supplied monitoring; its `q = 2` form is not derived here | Nodes 3, 6; [M1D M1](https://github.com/amaybaum/incompleteness/blob/120b3ca40d94fdab8db1ad271db299ff44360f2c/verification/programmes/oi-qm/reconstruction/mechanism-1-20261107/DESIGN.md#L940) |
 | A5 Operational completeness | **Not met.** P★'s complete instrument has a non-quantum branch. Its outgoing world is not in a ready slice (as PI §5.2 finds for the same rule). K1–K6 have no CP candidate to act on | Node 6 |
-| A6 Classical countercontrol | **Classical imitation is exact.** Under R1^⊗n with spanning certification, the configuration model is universally noncontextual for every protocol and every `G(x)` (Theorem NC). Product encoded effects give CHSH ≤ 2 (Corollary NC-B) | Node 4 |
+| A6 Classical countercontrol | **Classical imitation is exact under R1^⊗n, H-LIFT and spanning-read certification.** There the configuration model is universally noncontextual for every protocol and every `G(x)` (Theorem NC), and product encoded effects give CHSH ≤ 2 (Corollary NC-B). At `q = 2` the certification needs a `Y` read that is not exhibited natively. At the native read level (`Z` and `X` only) statistical equivalence is coarser, Theorem NC does not apply, and A6 is undecided: there is neither a witness nor a proved exact imitation | Node 4 |
 
 | Control | Result |
 | --- | --- |
 | C-PH, C-ROT | Hold for every dynamics under R1^⊗n (Theorem U2; AP1 Lemma 5 and §5.3) |
-| C-CP | Fails on P★. No jointly CP coupling exists |
+| C-CP | Fails on P★'s branches and on its record-free channel at `t = 3` (reflection type). No jointly CP coupling exists under R1, for any rule |
 | C-IS | Fails natively on P★'s record-0 branch, which is valid but outside the octahedron. This is a per-state relaxation |
 | C-NS | `G_SM` has range 2: for wings outside each other's `2t` envelope, the screened ceiling applies (PI §6; Main:366). For preparation-indexed edges, Proposition B gives M-FIX |
 | C-LEAK | P★'s record-1 branch has statistics no quantum state has (a deterministic `Y` with biased `Z` and `X`). The excess over the comparator is reached through a record, not through a hidden channel |
-| C-Q | Fails (Lemma Qσ(b)); restored by mechanism off and by a symmetric switched graph |
+| C-Q | Lemma Q's argument does not apply (Lemma Qσ(b); nonlinear transport). Conservation of `Q` returns with mechanism off and with a symmetric switched graph. Whether the protection fails under P1 and P2 is open |
 | CC-OFF | Green: mechanism off gives class N's conserved `Q` (c3) and stabilizer outputs on P★ (c5) |
-| CC-IMIT′ | Passes everything (Theorem NC) |
+| CC-IMIT′ | Passes everything under H-LIFT and spanning-read certification (Theorem NC). Undecided at the native `Z`/`X` read level |
 | CC-RECON | No premise was adopted. M-INACC is flagged in advance if it is ever adopted only to reach the target |
-| C-EX | c1–c6. Controls that must break did break: odd permutations, the transvection, `Q` under `G_SM`, and P★ with the mechanism on |
+| C-EX | c1–c7. Controls that must break did break: odd permutations, the transvection, `Q` under `G_SM`, and P★ with the mechanism on |
 
 ### 6.2 Type (ii) stop: the missing premise
 
 **What the result says about state-dependent dynamics.**
 
-- Under an injective identification, which includes the programme's R1
-  encoding and Gross's frame at odd `q`, the dynamics never decides
-  nonclassicality: Theorem NC holds for every fixed bijection.
+- Under an injective identification (the programme's R1 encoding, or Gross's
+  frame at odd `q`), with H-LIFT and spanning-read certification, the dynamics
+  does not decide nonclassicality: Theorem NC holds for every fixed bijection.
+  At `q = 2` that certification needs a `Y` read that is not exhibited
+  natively. At the native `Z`/`X` read level A6 is undecided.
 - What state dependence adds at `q = 2` is non-affine conditioning. This
-  relaxes per-state bounds, and in P★ it produces non-quantum branches.
-- It adds no reversible capability (Theorem U2) and no capability that a
-  classical model lacks.
+  relaxes per-state bounds. In P★ it produces non-quantum branches, and the
+  record-free channel is already a non-CP reflection-type map.
+- It adds no reversible capability (Theorem U2, under H-LIFT). Under H-LIFT
+  and spanning-read certification it adds no capability that a classical
+  model lacks.
 
-The answer to the owner's main objective at this scope: `G_SM`'s new encoded
-behaviour is another representation of classical behaviour.
+The answer to the owner's main objective, at this scope (R1^⊗n, H-LIFT,
+spanning-read certification): `G_SM`'s new encoded behaviour is another
+representation of classical behaviour. With only the native `Z`/`X` reads the
+question is not decided. Whether `G_SM` supplies a native `Y` read (node 4) is
+the first item that bears on it.
 
 **M-INACC (conditional extension premise, not adopted).**
 
@@ -761,8 +849,11 @@ behaviour is another representation of classical behaviour.
 - *Relation to `G(x)`.*
   - Native class N has a native instance: Lemma Q protects every functional
     with `Q* = 1`.
-  - `G_SM` breaks the conservation on which that protection rests (Lemma
-    Qσ(b)).
+  - Lemma Q's argument does not apply to `G_SM`: its conclusion (i),
+    conservation of `Q`, fails (Lemma Qσ(b)), and transport is nonlinear.
+    P★'s record-1 branch determines the carrier's `Q* = 1` functional `z + x`,
+    but through a non-terminal record (not under P1). Whether the protection
+    fails under P1 and P2 is open.
   - A symmetric, center-free switched graph keeps the conservation (Lemma
     Qσ(a)).
 - *What would derive it.* A symmetric `G(x)` under which Lemma Q(iii)'s
@@ -776,13 +867,20 @@ behaviour is another representation of classical behaviour.
     through reuse or recombination.
 - *What would weaken it.* Nothing smaller was found.
 
-**M-FIX (composites; elaboration of H-Bell (ii), not adopted).**
+**M-FIX (composites; necessary condition derived from H-Bell, not adopted).**
 
-- *Statement.* No-signalling under ontic parameter dependence needs a
-  response-relevant variable whose law no available preparation changes
-  (Proposition B).
-- *Native candidate.* The hidden sector's counting measure.
-- *Open.* Whether preparation-indexed edges couple only to such variables.
+- *Statement.* Given determinism and measurement independence, H-Bell
+  (i)–(ii) together with a Bell violation imply that the available
+  preparations' laws on the response-relevant variable do not span. Some
+  nonzero response-relevant function then has a mean that no available
+  preparation changes (Proposition B).
+- *Strength.* A response-relevant variable with a fully preparation-independent
+  law is sufficient but not necessary. The counter-model of node 4 fixes only
+  the conditional law of `h` given `k = 1`, and reaches CHSH = `2 + 2s`.
+- *Native candidate.* A conditional law fixed by the hidden sector's counting
+  measure.
+- *Open.* Whether preparation-indexed edges couple only to response-relevant
+  functions of that kind.
 
 ### 6.3 No V3 round
 
@@ -802,8 +900,11 @@ Proposition B, and the exactly stated instance P★.
   are frame symmetries (Theorem U2(ii), whose proof uses only the frame).
 - They therefore form a finite group, with no encoded rotation of infinite
   order.
-- A rotation mechanism needs an infinite carrier, as AP1 §5.3 found for `rot`.
-- State dependence on a finite carrier offers Q-B nothing.
+- So on a finite carrier there is no exact encoded `rot` and no encoded
+  unitary of infinite order, for any fixed bijection under H-LIFT (with AP1
+  §5.3).
+- `G(x)` on an infinite carrier or an infinite hidden sector is not assessed
+  here; finite observer capacity does not imply a finite world.
 
 ### 6.5 Not claimed
 
@@ -819,26 +920,30 @@ not kernel theorems.
 
 | Finding | Class |
 | --- | --- |
-| Theorem U2 with Lemma H: CP permutations of R1^⊗n are `A_4 ≀ S_n`. Every encoded unitary of any fixed bijection is among them. No coupling rule is jointly CP at `q = 2` | New for this programme. It generalizes AP1 Lemma 5 to `n` cells, to all unitaries and to all dynamics |
-| Theorem NC: under an injective identification, with spanning certification, the configuration model is universally noncontextual for every dynamics | New for this programme. AP1 Lemma 4′ is its one-cell, preparation-only instance |
-| Proposition B: spanning no-signalling removes ontic parameter dependence pointwise | Elaborating (Main §3.3, H-Bell (ii)). Locates H-Bell's no-signalling in a fixed-law variable |
-| Lemma Qσ: `G_SM` breaks Lemma Q's conservation; symmetric center-free switched graphs keep it | New |
-| P★: a native heralded non-stabilizer encoded state, inside a C-CP-failing instrument | New instance; confirming AP1's MP-1 classification |
+| Theorem U2 with Lemma H: CP permutations of R1^⊗n are `A_4 ≀ S_n`. Every encoded unitary of any fixed bijection is among them. No coupling rule is jointly CP at `q = 2` | New for this programme (under H-LIFT). It generalizes AP1 Lemma 5 to `n` cells, to all unitaries and to all fixed bijections. Lemma H is the classical rigidity `Aut H(n, q) = S_q ≀ S_n` of Hamming graphs, proved here for `q = 4` and credited as context |
+| Theorem NC: under an injective identification, H-LIFT and spanning-read certification, the configuration model is universally noncontextual for every dynamics | New application for this programme; an instance of the nonnegativity ⇒ noncontextuality direction of Spekkens (2008), credited as context. AP1 Lemma 4′ is its one-cell, preparation-only instance |
+| Proposition B: spanning no-signalling removes ontic parameter dependence pointwise | Elaborating (Main §3.3, H-Bell (i)–(ii)); a linear-algebra form of the Wood–Spekkens fine-tuning point, credited as context. Derives non-spanning (M-FIX) as necessary for a violation |
+| Lemma Qσ: Lemma Q's conservation fails for `G_SM`, so Lemma Q's argument does not apply; symmetric center-free switched graphs keep the conservation | New |
+| P★: a native heralded non-stabilizer encoded state, inside a C-CP-failing instrument; its record-free channel is a non-CP reflection-type map | New instance; confirming AP1's MP-1 classification |
 | FB applies to every `G(x)` | Confirming (FB's proof never uses the dynamics) |
 
 **Assumption-watch markers.**
 
 - **Injective identifications decide classicality, not dynamics.** Any future
   mechanism proposal under R1-type encodings, whether nonlinear, state-dependent
-  or Native A, falls under Theorem NC. A nonclassical claim must show where
-  injectivity or H-LIFT fails, and why.
+  or Native A, falls under Theorem NC wherever H-LIFT holds and the equivalences
+  are certified by spanning reads. A nonclassical claim must show where
+  injectivity, H-LIFT or the spanning certification fails, and why.
 - **Access lists.** A contextuality witness certified over an incomplete read
   set, such as `Z`/`X` without `Y` at `q = 2`, can be an artefact of the
   omitted reads (node 4 scope).
 - **Switch cells as controllers.** In `G(x)` the switch cell is a controller.
-  M1D's T′ dichotomy applies to it at `q = 2` as well (P★).
-- **Non-reciprocal state dependence removes native protections.** Lemma Q
-  holds for symmetric center-free rules only, and the SM ring is not symmetric.
+  P★ is a `q = 2` analogue of M1D's T′(i). T′ itself is odd-`q`, R-W and
+  static-controller, and no `q = 2` dichotomy is derived here.
+- **Non-reciprocal state dependence escapes native protection arguments.**
+  Lemma Q is proved for symmetric center-free linear rules only, and the SM
+  ring is neither symmetric nor linear. Whether its protection actually fails
+  under P1 and P2 is open.
 
 ## 8. Sources
 
@@ -877,10 +982,17 @@ from this session, and nothing was read first-hand in this unit.
 - **Used through repository records.** Gross's theorems enter only through
   M1D's Proposition AS, at the scope M1D read them. Lillystone–Wallman–Emerson
   enters only through AP1 and QA.
-- **Context, not premises.** Wood–Spekkens (causal explanations of Bell
-  violations require fine-tuning) bears on Proposition B, and Spekkens'
-  negativity–contextuality equivalence bears on Theorem NC. Neither was read
-  in this unit; both proofs here are self-contained.
+- **Context, not premises.** None of the following was read in this unit;
+  the proofs here are self-contained.
+  - Theorem NC is an instance of the "nonnegative frame representation ⇒
+    noncontextual model" direction of Spekkens, *Negativity and contextuality
+    are equivalent notions of nonclassicality*, PRL 101, 020401 (2008),
+    arXiv:0710.5549.
+  - Proposition B is a linear-algebra form of the point of Wood and Spekkens,
+    NJP 17, 033002 (2015), arXiv:1208.4119: causal explanations of Bell
+    violations need fine-tuning to reproduce no-signalling.
+  - Lemma H is the `q = 4` case of the classical rigidity
+    `Aut H(n, q) = S_q ≀ S_n` of Hamming graphs.
 
 ## 9. Verification scope
 
@@ -896,6 +1008,7 @@ instance P★. The author self-checks are uncommitted controls. "Exact" means
 | c4 | P★ at `L = 9, 12, 13` (exact): laws, records and Bloch vectors as tabulated. Hand-chosen backgrounds B1–B4 at `t = 1, 2, 3` were evaluated as stated instances; no sweep was run |
 | c5 | CC-OFF on P★: the mechanism-off rule gives `Z_±`; the known-switch case gives `Z_+` |
 | c6 | Lemma Qσ identity, `L = 5, 6, 7` (exhaustive); conservation under the symmetric switched graph |
+| c7 | P★'s background without a record at `t = 3`, `L = 12` (exact): Choi eigenvalues `{3/4, 3/4, (1 ± √2)/4}`, Bloch linear part with determinant `−1/16`, all Pauli eigenstates mapped into the octahedron |
 
 No Lean build, simulation campaign, enumeration campaign, manuscript edit,
 freeze, dispatch or merge was performed. Independent review of this file is a
