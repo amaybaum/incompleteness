@@ -1,8 +1,9 @@
 # FHE-SEL-1 P-MIX: a finite-precision reversible two-mode exchange, preregistered (Stage 1A)
 
-**Standing.** Stage 1A preregistration only, under #1169. Revision r4: it applies the independent re-review of `1975c649`
-(REVISE). Earlier revisions applied the reviews of `eb3802ee` (r2, with the owner's P-MIX decision) and `3f12b442` (r3). WIP / UNVERIFIED. Writer: Claude Code
-session, 2026-11-08.
+**Standing.** Stage 1A preregistration only, under #1169. Revision r5: it applies the independent re-review of `ab458810`
+(ACCEPT WITH CHANGES; non-blocking items A1–A5) and the owner's decision on Q-LH (#1204 c.6721141564). Earlier revisions
+applied the reviews of `eb3802ee` (r2, with the owner's P-MIX decision), `3f12b442` (r3) and `1975c649` (r4). WIP /
+UNVERIFIED. Writer: Claude Code session, 2026-11-08.
 
 This file fixes one construction, its motivation, its criteria and its controls before any result is evaluated. It
 derives no result, runs no computation, proposes no premise for adoption and changes no manuscript. Stage 1B (the
@@ -50,6 +51,8 @@ derivations) is not authorized.
     symmetrical."
   - "The portfolio should report all three outcomes even if P-MIX is ultimately rejected as redundant."
   - "No new scientific execution is authorized."
+- Owner decision on P-MIX Q-LH, [#1204 c.6721141564](https://github.com/amaybaum/incompleteness/pull/1204#issuecomment-6721141564)
+  (recorded by amaybaum, 2026-11-08T11:52:43Z). Quoted in §10; applied in §0.1 and §5.2.
 
 **Order of evaluation (fixed).**
 1. §3: independent physical motivation.
@@ -101,6 +104,7 @@ c.6719723538. Its standing line "pending" is stale. It was written against `f88c
 | Pre-named outcomes | `NO-OPERATIONAL-QUESTION` (§0.1); `BLOCKED-QB` (§3.2) |
 | Overall verdicts | `NEW-POSITIVE`, `NEW-NEGATIVE`, `COVERED-BY-EXISTING-RESULTS`, `GENERIC`, `NEGATIVE-H1`, `INCONCLUSIVE`, `VOID`. If the owner rules Q-LH outside P-MIX, the alternative is `COVERED-BY-EXISTING-RESULTS (H1)` (§5.2) |
 | Expected Stage 1B outcome | The honest expected H2 outcomes are `LH-GENERIC`, `LH-INCONCLUSIVE` with the open discretized-rotation problem named, or `LH-NEGATIVE`. No generic countercontrol has an identified failure route, so `LH-DISCRIMINATING` is not expected (§0.1). This is a scope statement, not a criterion |
+| Owner decision on Q-LH (#1204 c.6721141564) | The frozen design does not meet its countercontrol requirement: no admissible countercontrol has a defined route to failure. P-MIX is therefore recorded as redundant, inconclusive or negative, never as a positive, unless Stage 1B shows that an admissible countercontrol fails (§0.1, §5.2) |
 | Stage 0 rows | Row 7 (relating evolution / lift). The mixing part of §5's "(iv) / reversible control (9, 13)" entry, in comparison only |
 | Motivation class | Mixed. The rule, its symmetries and F-NAT are the independent component; F-B1 is target-defined. A positive is recorded (b) |
 | Ceiling | A fixed-horizon success alone is capped at L1. L2 is reachable in principle (RT-3′, §8.3), but is unlikely to be decided in Stage 1B. L3 is unreachable as frozen |
@@ -178,8 +182,40 @@ The honest expected outcomes are therefore three:
 - `LH-NEGATIVE`, giving `NEW-NEGATIVE`.
 
 `LH-DISCRIMINATING` would need a generic scheme to be shown to fail where the design passes, and no route to such a
-failure is known. Nothing in this design is tuned toward a positive. The owner can weigh Stage 1B with that in
-view.
+failure is known. Two checkable facts about the frozen rules:
+- no countercontrol was chosen for a known failure. The only schemes with a known failure route, GC-NR and GC-R, enter
+  no category, attribution or label;
+- the frozen rules give no positive category without an admissible failure. `LH-DISCRIMINATING` (§5.1), and hence
+  `NEW-POSITIVE` (§5.2), require an admissible countercontrol to be shown to fail.
+
+The owner can weigh Stage 1B with that in view.
+
+**Against the owner's decision on Q-LH (#1204 c.6721141564; quoted in §10).**
+- *Two normal-mode invariants, not total energy alone.* S-LH bounds both `Q_I` and `Q_X`, the two sector energies
+  (§2.4). This requirement is met.
+- *Countercontrols that "genuinely violate the relevant symmetry or exchange property, with a defined route to
+  failure".* **The frozen design does not meet this requirement.**
+  - The admissible countercontrols GC, V-P and V-X violate parity or exchange, but no route to their failure is
+    identified (§6.3).
+  - V-P and V-X act only on tie configurations (§8.2).
+  - The only schemes with a defined route to failure, GC-NR and GC-R, fail through an added forcing, not through the
+    violated symmetry (§6.3).
+  - No countercontrol is invented here to supply a route.
+- *Reach test with unequal modes.* The transfer-share ring test, which reflection symmetry made unreachable, is
+  withdrawn (§8.3). RT-3′ tests the ring's invariants and requires no unequal modes.
+- *Beyond Main's approximation theorem.* Stated above: horizon-uniform behaviour of one fixed rule, at the
+  configuration level only.
+
+**Preregistered under that decision.** Q-LH's outcome cannot be recorded as a positive mixing result unless Stage 1B
+shows that an admissible countercontrol fails S-LH while the design passes. Such a proof would itself supply the defined
+route. Otherwise P-MIX is recorded as follows:
+- **redundant**, if the verdict is `COVERED-BY-EXISTING-RESULTS`, `GENERIC` or the H1-only alternative;
+- **inconclusive**, if the verdict is `INCONCLUSIVE`. An `LH-INCONCLUSIVE` that rests on the open discretized-rotation
+  problem is recorded as an open mathematical frontier, never as a successful physical construction;
+- **negative**, if the verdict is `NEW-NEGATIVE` or `NEGATIVE-H1`. Null and negative findings are preserved as
+  results.
+
+§5.2 gives this mapping.
 
 **Owner's call, and the preregistered alternative.** Whether Q-LH counts as a P-MIX question is for the owner to judge.
 If it does not, the portfolio entry for P-MIX is:
@@ -375,7 +411,7 @@ are:
 Q_B(u, v) = u·Bu + v·Bv − u·BAv,     B ∈ {I, X},
 ```
 
-with `(u, v)` the two configuration slots. For the design, and for every rule sharing its continuum primitive, the
+with `(u, v)` the two configuration slots, so `(u, v) = (x, y)`. For the design, and for every rule sharing its continuum primitive, the
 coupling is `A = kX`. Then:
 - `Q_I = |u|² + |v|² − k u·Xv`, the total energy;
 - `Q_X = u·Xu + v·Xv − k u·v`.
@@ -588,7 +624,7 @@ SM:294–298 records as unestablished or contrary:
 | --- | --- |
 | `LH-NEGATIVE` | S-LH fails for the design |
 | `LH-COVERED` | The design passes, and its pass is an instance of a published theorem (§4 item 4) |
-| `LH-GENERIC` | The design passes, and GC or MO-3 passes S-LH (MO-3 against its own `Q_k`), directly or because G-GEN-H2 finds that the design's bound follows from a lemma whose hypotheses GC or MO-3 also satisfies |
+| `LH-GENERIC` | The design passes, and GC or MO-3 passes S-LH (MO-3 against its own `Q_k`), directly or because G-GEN-H2 finds that the design's bound follows from a lemma whose hypotheses GC or MO-3 also satisfies. If the category rests on MO-3 alone, it is reported as **`LH-GENERIC (one-mode analogue only)`**. MO-3 has one invariant and no exchange between sectors, so its pass shows genericity for the one-mode analogue and not for the two-invariant property. The category and its consequences are unchanged |
 | `LH-DISCRIMINATING` | The design passes, neither GC nor MO-3 is shown to pass, and at least one admissible countercontrol (GC, V-P or V-X) is shown to fail S-LH under the matched-control rule |
 | `LH-INCONCLUSIVE` | Every other case, with the gap named |
 
@@ -596,6 +632,9 @@ SM:294–298 records as unestablished or contrary:
 - it has the design's continuum primitive `T_k` and forms `Q_I`, `Q_X`;
 - it is in second-order form;
 - it differs from the design only in the rounding rule applied to the products `k·x̃_i`.
+
+A **rounding rule** is a map `R: Q → Z` that depends only on its argument and satisfies `|R(t) − t| < 1` for every `t`.
+This admits floor, ceiling and every tie convention, and excludes `ρ + sgn` and any other added kick.
 
 GC, V-P and V-X are admissible. GC-NR and GC-R are not, because each adds a bounded kick that is not a rounding of
 `k·x̃_i`.
@@ -626,6 +665,18 @@ The rows are applied in order, and the first match decides.
 
 **Alternative, if the owner rules that Q-LH is outside P-MIX.** The verdict is `COVERED-BY-EXISTING-RESULTS (H1)` if
 the H1 positive for F-NAT is tagged `generic`. Otherwise it is the H1 outcome itself.
+
+**Portfolio record under #1204 c.6721141564 (frozen).**
+
+| Verdict | Recorded as |
+| --- | --- |
+| `NEW-POSITIVE` | A positive mixing result at the configuration level only. It is reachable only through an admissible countercontrol shown to fail (§5.1), whose proof supplies the defined route |
+| `COVERED-BY-EXISTING-RESULTS`, `GENERIC`, `COVERED-BY-EXISTING-RESULTS (H1)` | Redundant |
+| `INCONCLUSIVE` | Inconclusive. An open discretized-rotation problem is named as a mathematical frontier, never as a physical construction |
+| `NEW-NEGATIVE`, `NEGATIVE-H1` | Negative; preserved as a result |
+| `VOID` | Void |
+
+No verdict other than `NEW-POSITIVE` is recorded as a positive result.
 
 **Reported in every case.**
 - `NO-OPERATIONAL-QUESTION` and `BLOCKED-QB`.
@@ -856,8 +907,8 @@ for the variation rule below.
 
 | Id | Assumption | Exact variant | Symmetry set (§1.3) | Status |
 | --- | --- | --- | --- | --- |
-| V-P | Odd rounding (reflection) | Half-up `⌊t + 1/2⌋` in both slots | keeps `X`, reversed by `R`; breaks `P` | counted |
-| V-X | Same rounding in both slots (relabelling) | Slot 1 rounds half away from zero, slot 2 half toward zero | keeps `P`, reversed by `R`; breaks `X` | counted |
+| V-P | Odd rounding (reflection) | Half-up `⌊t + 1/2⌋` in both slots | keeps `X`, reversed by `R`; breaks `P` | counted; probes tie-breaking only (below) |
+| V-X | Same rounding in both slots (relabelling) | Slot 1 rounds half away from zero, slot 2 half toward zero | keeps `P`, reversed by `R`; breaks `X` | counted; probes tie-breaking only (below) |
 | GC | Both separately | Slot 1 floor, slot 2 ceiling | reversed by `R`; keeps `XP`; breaks `X` and `P` | counted |
 | — | Reversal by `R` | No admissible variant (§6.3) | — | not testable as frozen; no reversal credit |
 | GC-NR, GC-R | (recorded pair) | §6.3 | GC-NR: keeps `P`, breaks `X`, not reversed by `R`. GC-R: the same with reversal restored | recorded only; not counted. Both add a bounded forcing, and the re-review of `1975c649` reasons that both fail at `k = 0` |
@@ -865,6 +916,14 @@ for the variation rule below.
 | MO-3 | Second-order form | §6.3; single invariant `Q_k` | keeps `P`; reversed by `RA` | reported; used in G-GEN; not counted |
 | V-A | Symmetric coefficients | Coefficients `(k, 3k/2)`; non-symmetric `A`, so SM:296's forms do not apply | — | change of target; excluded |
 | V-R | Resolution growth | `r` fixed at 3 | — | change of target; excluded |
+
+**V-P and V-X act only on ties.**
+- Each differs from the design only on tie configurations, where `k·x̃_i` is a half-integer.
+- For `k = j/2^r` with `j = 2^a·(odd)`, these occur on residues of density `2^{−(r−a)}` (1/2 at `k = ±1/2`; often
+  much smaller elsewhere).
+- An "easy to vary" result for parity or exchange obtained through V-P or V-X therefore means "the tie-breaking
+  convention does not matter". It does not mean that the symmetry is irrelevant under larger violations. The label
+  states this.
 
 **Explanatory label.** The label is **"poor explanation"** in each of these cases:
 - the verdict is `COVERED-BY-EXISTING-RESULTS` or `GENERIC`;
@@ -970,6 +1029,8 @@ Disclosing this does not relax the independence requirement. It is why:
 | Mechanism-off controls can fail, with named routes; countercontrols' routes stated honestly | §6.2 (MO-1 at H1; MO-1 at H2 as a calibration check; MO-2). §6.3 (GC, V-P, V-X and MO-3 marked "none identified"; GC-NR and GC-R recorded as failing through forcing and not admissible) |
 | Generic passes force `LH-GENERIC`; failures count only against matched controls | §5.1 `LH-GENERIC` row; matched-control rule; §8.2 |
 | No reversal credit as frozen | §6.3; §8.2 reversal row |
+| Owner decision c.6721141564 applied; no positive record without an admissible failure | §0.1 assessment against each requirement; §5.2 portfolio-record table; §10 quotation |
+| "Rounding rule" defined; MO-3-only genericity scoped; V-P and V-X stated as tie-only probes | §5.1; §5.1 `LH-GENERIC` row; §8.2 |
 | H1 success never counts as hard-to-vary evidence | §8.2: variations judged at H2 only |
 | Symmetry sets are correct and checked | §1.3 table; C-SYM |
 | L2 reachable in principle | RT-3′ can pass and fail (§8.3) |
@@ -986,10 +1047,11 @@ Disclosing this does not relax the independence requirement. It is why:
 | Reference | Used for | Class |
 | --- | --- | --- |
 | #1169 c.6720450946, c.6720342295, c.6719386464, c.6720678942; #1204 c.6720827308 | Authority, refinements, owner requirements (quoted with author and time) | Provenance (authorization) |
+| #1204 c.6721141564 (amaybaum, 2026-11-08T11:52:43Z) | Owner decision on Q-LH; applied in §0.1 and §5.2 (quoted below) | Provenance (authorization) |
 | #1169 c.6719708521, c.6719720616, c.6719723538 (Stage 0) | Row numbering and wording | Provenance. Row content is cited from Main, AP1 and M2D on main |
 | PR #1202, A5-Q3 A1 §3 C2 | The classes in §3.4 | Provenance. The classes are restated here |
 | #1198 (M-INACC, provisional) | K-7's reason; why S-NOINACC exists | Provenance. Its content is unused |
-| Independent reviews of `eb3802ee`, `3f12b442` (#1204 c.6720796018, c.6720991687) and `1975c649` (PR #1204 record) | Changes in r2–r4; the recorded-pair reasoning in §6.3, which is attributed to the reviewer and re-checked in Stage 1B | Provenance. No criterion, category or attribution rests on the reviewer's reasoning |
+| Independent reviews of `eb3802ee`, `3f12b442` (#1204 c.6720796018, c.6720991687), `1975c649` and `ab458810` (PR #1204 record) | Changes in r2–r4; the recorded-pair reasoning in §6.3, which is attributed to the reviewer and re-checked in Stage 1B | Provenance. No criterion, category or attribution rests on the reviewer's reasoning |
 | #1193 | Conditionality of RB-4 | Provenance (Issue) |
 | #1188 | Reason not to cite `readWriteSourced_*` | Provenance (Issue) |
 | #1147, #866, CTL | Supply obligations in §1.6 | Provenance |
@@ -998,3 +1060,23 @@ Disclosing this does not relax the independence requirement. It is why:
 | Literature in §3.1, §3.3 and §4 | Candidates, motivation, Q-RED | External. Reading status is stated per item; [unverified] items decide nothing. No literature item is a premise of a criterion |
 
 No commit or blob id is offered as support except `main@9c201475`, which is on main.
+
+**Owner decision on Q-LH, quoted** ([#1204 c.6721141564](https://github.com/amaybaum/incompleteness/pull/1204#issuecomment-6721141564),
+recorded by amaybaum, 2026-11-08T11:52:43Z; the owner's words):
+
+> Q-LH does not yet qualify as a substantive P-MIX research question. It can remain a candidate in the third preregistration revision, but only if the writer demonstrates that it measures something genuinely related to mixing.
+>
+> The central distinction is between conserving total energy and conserving the pattern of energy exchange between modes.
+
+The requirements:
+- Test the two normal-mode invariants, or the actual transfer between modes, not total energy alone.
+- Use countercontrols that genuinely violate the relevant symmetry or exchange property, with a defined route to failure.
+- Remove the reflection-symmetry restriction from any reach test that requires unequal modes, or classify that target
+  explicitly as unreachable.
+- State what the result would establish beyond Main's existing approximation theorem.
+
+> If no independently meaningful, falsifiable mixing question survives, record P-MIX as redundant or inconclusive, not as a positive result. An open mathematical question about discretized rotations is a legitimate research frontier, but it must not be relabelled as a successful physical construction.
+
+> No Stage 1B derivation or Q-B activation is authorized.
+
+> My recommendation is to preserve the null and negative findings rather than force every construction to reach its highest explanatory rung.
