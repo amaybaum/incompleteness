@@ -1,6 +1,6 @@
 --- a/.github/workflows/verify.yml
 +++ b/.github/workflows/verify.yml
-@@ -713,1 +713,13 @@
+@@ -713,1 +713,17 @@
 -  probes:
 +  probes_k1p1:
 +    name: Numerical probes / K1-P1-1 exact P1 enumeration
@@ -12,21 +12,25 @@
 +          python-version: '3.11'
 +      - name: Replay frozen K1-P1-1 final evidence
 +        working-directory: verification/programmes/oi-qm/reconstruction/round-k1-p1-1
-+        run: python3 -I controls.py check --stage final
++        run: |
++          python3 -I controls.py check --stage final
++          python3 -I controls.py self-test --stage members
++          python3 -I controls.py self-test --stage rows
++          python3 -I controls.py self-test --stage final
 +
 +  probes:
-@@ -715,1 +727,1 @@
+@@ -715,1 +731,1 @@
 -    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations]
 +    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations, probes_k1p1]
-@@ -743,1 +755,2 @@
+@@ -743,1 +759,2 @@
 -          FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
 +          FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
 +          K1P1_RESULT: ${{ needs.probes_k1p1.result }}
-@@ -767,1 +780,2 @@
+@@ -767,1 +784,2 @@
 -          echo "foundations=${FOUNDATIONS_RESULT}"
 +          echo "foundations=${FOUNDATIONS_RESULT}"
 +          echo "k1p1=${K1P1_RESULT}"
-@@ -794,1 +808,2 @@
+@@ -794,1 +812,2 @@
 -          test "${FOUNDATIONS_RESULT}" = success
 +          test "${FOUNDATIONS_RESULT}" = success
 +          test "${K1P1_RESULT}" = success

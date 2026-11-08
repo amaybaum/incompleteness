@@ -49,8 +49,12 @@ X5-verify.patch is data only, against verify.yml at round d92 (also byte-equal
 at main merge 38fec475). It adds the named K1-P1-1 job, Python 3.11 and:
 
     python3 -I controls.py check --stage final
+    python3 -I controls.py self-test --stage members
+    python3 -I controls.py self-test --stage rows
+    python3 -I controls.py self-test --stage final
 
-It wires that job into aggregate needs, result environment, diagnostics and
+The three stage self-tests retain preregistration section 11.3's CI-at-E
+obligation; the corrected replay command does not replace them. It wires that job into aggregate needs, result environment, diagnostics and
 mandatory success check. No workflow file is changed or dispatched. Independent
 review is still required before proposing this as the future X5 edit.
 

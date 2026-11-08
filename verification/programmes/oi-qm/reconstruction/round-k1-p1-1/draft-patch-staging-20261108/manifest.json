@@ -53,12 +53,12 @@
     "source_blob": "775a36e3df81036e458fd56453520987060aa444",
     "source_sha256": "39b6310d839f4f43f4d3ec84355332950d7dde22d8f0d652ce44f789a7a9671c",
     "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/draft-patch-staging-20261108/X5-verify.patch",
-    "patch_sha256": "1e30bd267df5f94a3a854aed62d69b589b5290fbc672bc767f74ddad0e90b753",
-    "patched_sha256": "1d5c2834c284e21229c46b02b1b85762b92874c3cb0cfc0490983435f3d1274b",
+    "patch_sha256": "0595f02c0d9203090c19102e40bf589af45905f90c3fc437a4ba34406dcc7787",
+    "patched_sha256": "ab12e0d5979aaf20407c281a7fede4f172de302c21849d8e64c913477438106e",
     "edits": [
       {
         "old_text": "  probes:\n",
-        "new_text": "  probes_k1p1:\n    name: Numerical probes / K1-P1-1 exact P1 enumeration\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Replay frozen K1-P1-1 final evidence\n        working-directory: verification/programmes/oi-qm/reconstruction/round-k1-p1-1\n        run: python3 -I controls.py check --stage final\n\n  probes:\n"
+        "new_text": "  probes_k1p1:\n    name: Numerical probes / K1-P1-1 exact P1 enumeration\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n      - name: Replay frozen K1-P1-1 final evidence\n        working-directory: verification/programmes/oi-qm/reconstruction/round-k1-p1-1\n        run: |\n          python3 -I controls.py check --stage final\n          python3 -I controls.py self-test --stage members\n          python3 -I controls.py self-test --stage rows\n          python3 -I controls.py self-test --stage final\n\n  probes:\n"
       },
       {
         "old_text": "    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations]\n",
