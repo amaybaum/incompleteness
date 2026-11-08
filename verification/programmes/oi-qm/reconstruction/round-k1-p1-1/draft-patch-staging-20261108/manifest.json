@@ -40,7 +40,7 @@
       "source_blob": "7cf3579a532de051cc35c1202666f443a04df804",
       "source_sha256": "9d4eb0a778333a6606ab507bacd026e56e054ec03cfe38288cf2d22c5c080825",
       "patch": "verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C3.patch",
-      "patch_sha256": "2615f51d4673b2ae32ffeef219d488abd5689a16326d735a007f12d095733501",
+      "patch_sha256": "0e44a6f96ba5a904afd284c7a8461ec17f24e8824ced65ef0efe4f831cb98c82",
       "patched_sha256": "fd68e14b6d220aa2ff2849dfb8fe07f2288804bfb5d5fa62eb5cafd5a95971d1",
       "old_text": "    return Fraction(num, den)\n",
       "new_text": "    return num / den\n",
