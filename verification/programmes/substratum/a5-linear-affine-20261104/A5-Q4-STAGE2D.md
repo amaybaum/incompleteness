@@ -347,7 +347,8 @@ additive links and does not decide this.
 (C-a) is met, since at v = 0, G_v = G_0 (N1); under (A-aff) this concerns the linear parts, since at
 v = 0 the affine group also contains T_0. (C-b) is met: N0 and N1 use Theorem 7's decomposition
 unchanged. (C-c) is met (N3, last bullet; Q4-4). The countercontrols are N4a, a carrier (V_K) on
-which the readings differ, and N4b, an offset in T₁, which loses SU(3).
+which the readings differ, and N4b, an offset in T₁, which loses SU(3) (under (A-lin); under
+(A-aff) only if μ_{T₁} = 1).
 
 **Outcome under §1's rule as frozen at `8de75f7c`, with the O1–O4 scope of amendment A5 (§8.2).**
 Read with the §8.2 key, so that (A) is the stabilizer of the affine rule and H = G_v.
@@ -522,7 +523,8 @@ Verdict ACCEPT WITH CHANGES (0 blocking, 6 should-fix, 7 nits). Applied:
 - **SF4:** the §5 R10 text carries H-b, the lift and the uniform offset, and states the (A-aff) case
   as μ_{A₁} = 1. The parent's D3 row and §6 Q4 scope U(3)×U(2) to constant linear unitaries.
 - **SF5:** the parent's C3 rests on B0.3(e) and is narrowed to its scope; C2 rests on SM:240, with
-  #1050's exhaustive review as provenance.
+  #1050's exhaustive review as provenance. The commit-ancestry part is a landing condition recorded on
+  #1083: the PR lands by a merge that keeps `8de75f7c` and its successors reachable.
 - **SF6:** §8.2 states that §1 and §§3–4 entered together at `8de75f7c`.
 - **Nits 1–5:** SM:318–322 for Theorem 4; the §5 owner citation; 𝒦 in §4; the N6(a) account of the
   A₁ phase; the Revision paragraph. Nit 7: the parent's Q1/Q2 source names the owner's account.

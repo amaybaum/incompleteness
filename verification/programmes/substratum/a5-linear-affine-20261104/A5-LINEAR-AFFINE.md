@@ -71,7 +71,7 @@ A result of this document fails if it contradicts any of the following.
 |---|---|---|
 | C1 | Base-point-independent first differences imply an affine rule (the affine lemma). | [P] Substratum:274, SM:240 |
 | C2 | S1 is reversible, commutes with translations, is center-free and affine, has no fixed point, and no time-independent relabelling makes it linear. | [P] SM:240. #1050's exact-head review (all 5^8 states) is provenance. |
-| C3 | Positive control: for a uniform offset on a ring of N sites with A − 2I = Δ (κ = 2, as for S1), a fixed point exists for every odd prime q ∣ N. | [D] B0.3(e) |
+| C3 | Positive control: for a uniform offset on a ring of N sites with A − 2I = Δ (κ = 2, as for S1), a fixed point exists for every odd prime q ∣ N. | [D] B0.3(e); an internal check, not an independent control |
 | C4 | The finite-horizon quantum representation and the characterization theorem do not use A5. | [P] Main:728 status ledger; H-D `A5S-1b` (no OI→QM kernel module consumes A5) |
 | C5 | `driveQ` is a continuous path of `*`-automorphisms for every `Rule`, with no additivity assumed. | [K] `OIBridge/SecondOrderDrive.lean`, `driveQ_isContinuousPath`, `driveQ_one_eq_heisQ`; `Rule` at `SecondOrderLayer.lean:198` |
 | C6 | Additive rules fix 0 and leave their ensemble undetermined. Additive rules admit no advective closure on additive coarse variables. | [K] `StochasticInterface.phi_fixes_zero`, `stochastic_interface_gap`; `HydroSourceAudit.coarseCloses_nsmul` |
