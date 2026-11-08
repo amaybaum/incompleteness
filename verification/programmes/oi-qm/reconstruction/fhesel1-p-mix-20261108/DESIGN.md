@@ -108,7 +108,7 @@ c.6719723538. Its standing line "pending" is stale. It was written against `f88c
 | Expected Stage 1B outcome | The honest expected H2 outcomes are `LH-GENERIC`, `LH-INCONCLUSIVE` with the open discretized-rotation problem named, or `LH-NEGATIVE`. No generic countercontrol has an identified failure route, so `LH-DISCRIMINATING` is not expected (§0.1). This is a scope statement, not a criterion |
 | Owner decision on Q-LH (#1204 c.6721141564) | **Q-LH fails requirement 2.** No admissible countercontrol has a defined route to failure. GC-NR and GC-R fail only through added forcing, which makes them inadmissible. P-MIX is recorded as redundant at H1 and inconclusive at H2, never as a positive (§0.1) |
 | Stage 0 rows | Row 7 (relating evolution / lift). The mixing part of §5's "(iv) / reversible control (9, 13)" entry, in comparison only |
-| Motivation class | Mixed. The rule, its symmetries and F-NAT are the independent component; F-B1 is target-defined. A positive is recorded (b) |
+| Motivation class | Mixed. The rule, its symmetries and F-NAT are the independent component; F-B1 is target-defined. (b) would apply to a positive; none is reachable as frozen |
 | Ceiling | L1. L2 and L3 are unreachable as frozen (§8.4) |
 
 ### 0.1 What P-MIX can establish beyond Main:566/598 and the conditional B1 mixer
@@ -691,7 +691,7 @@ The rows are applied in order, and the first match decides.
 | `NEGATIVE-H1` | `H1-NEGATIVE_NAT` |
 | `INCONCLUSIVE` | Every other combination, with each undecided item named. This includes `LH-INCONCLUSIVE`, and an untagged H1 positive together with `LH-COVERED` or `LH-GENERIC` |
 
-**Alternative, if the owner rules that Q-LH is outside P-MIX.** The verdict is `COVERED-BY-EXISTING-RESULTS (H1)` if
+**Alternative (adopted under #1204 c.6721141564).** The verdict is `COVERED-BY-EXISTING-RESULTS (H1)` if
 the H1 positive for F-NAT is tagged `generic`. Otherwise it is the H1 outcome itself.
 
 **Portfolio record under #1204 c.6721141564 (frozen).**
@@ -735,7 +735,8 @@ rejected as redundant (c.6720827308).
 ### 5.4 Owner portfolio distinctions
 
 - **(a)** Not available. The motivation is mixed and candidates were selected.
-- **(b)** Applies to any positive. It cites §3.1 and §8.2. An F-B1 positive is additionally marked target-defined.
+- **(b)** Would apply to a positive, citing §3.1 and §8.2, with an F-B1 positive additionally marked target-defined.
+  None is reachable as frozen (§5.2).
 - **(c)** No outcome statistics are claimed beyond deterministic record laws, which have a classical model
   (S-CLASSICAL). No outcome counts as evidence of nonclassical behaviour. (c) is attached if a later reading compares
   the record laws with a quantum law.
