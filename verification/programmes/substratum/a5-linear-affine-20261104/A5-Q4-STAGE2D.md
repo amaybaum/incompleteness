@@ -174,11 +174,12 @@ the linear part at the symmetric point has stabilizer U(6).
   For g ∈ G_0 we have (g − I)β = (z_g − 1)β, where z_g is the phase of g on V_1. So:
   - **Off resonance in A₁ (μ_{A₁} ≠ 1).** β ∈ Im(I − L), with fixed point p = (x*𝟙, x*𝟙),
     x* = v/(2 − 2μ_{A₁}) ∈ V_1. Every g ∈ G_0 gives the symmetry g_p(z) = g(z − p) + p. The
-    stabilizer is τ_p G_0 τ_{−p} ≅ G_0, and in the relabelled coordinate y = z − p the rule is linear.
+    stabilizer contains τ_p G_0 τ_{−p} ≅ G_0, and in the relabelled coordinate y = z − p the rule is linear.
   - **At resonance (μ_{A₁} = 1).** β ∉ Im(I − L). Over the lift, A commutes with translations, so the
     k = 0 sector of Im(2I − A) on V_1 is (2 − 2μ_{A₁})V_1 = 0. Then (z_g − 1)β lies in that image iff
     z_g = 1. The **linear parts** form exactly G_v. The affine stabilizer is G_v ⋉ T_0. Here T_0 is
-    the group of translations by the **uniform** static solutions, {(c𝟙, c𝟙) : c ∈ V_a, μ_a = 1}.
+    the group of translations by the **uniform** static solutions, the sum over the resonant blocks
+    ⊕_{a : μ_a = 1} {(c𝟙, c𝟙) : c ∈ V_a}.
     For uniform c in block a, (A − 2I)c𝟙 = (2μ_a − 2)c𝟙, which vanishes iff μ_a = 1. T_0 includes
     the uniform V_1 translations. Non-uniform elements of Ker(L − I), such as staggered solutions
     at μ_a = −1, are not constant internal maps and are excluded.
@@ -233,8 +234,8 @@ symmetry, so G_v is already the reduced group.
   - At s = 1 this is (1, −2, −3), the weights of Q, d_R and L. Under (A-lin) it is realized by
     (z⁻²I_3, z⁻³I_2, 1).
   - **[D], hand count (not from SM:597, which gives only the determinant dressings).** On the raw
-    Hom-type carrier the count proves three things, and these hold for every lift of the family,
-    hence under either reading:
+    Hom-type carrier the count proves three things. (a) and (b) hold for every lift of the family,
+    and (c) for the lift s = 1. Each holds under either reading:
     - **(a) e_R has no home for any lift.** The (1,1) slots are End(V_1) and the trace parts of
       End(V_3) and End(V_2). They all carry charge 0, and e_R needs −6.
     - **(b) No single lift houses both u_R and d_R.** The only (3,1) slots are Hom(V_1,V_3), as a 3
@@ -413,6 +414,8 @@ approval.
 
 ## §8 Response to review
 
+The review texts are posted on #1083 comment 6718263472.
+
 ### 8.1 Review of `8de75f7c`
 
 - **B1, B3, S1–S6 and the nits:** accepted and applied. The table header now reads "Does not". The
@@ -483,3 +486,11 @@ off-resonance branch is a contestable caveat (§4). Under the amended reading th
 - **H3:** §4 and §8.2 now state that the (iii) verdict rests on the (A-lin) branch, and record the
   (A-aff) off-resonance branch as a contestable caveat under §1 as frozen.
 - **Nit:** the §8.2 Effect paragraph assigns each amendment its own effect.
+
+### 8.5 Third delta review of `645bae17`
+
+Verdict ACCEPT, with three nits, applied:
+- (A-aff) off resonance: the stabilizer contains τ_p G_0 τ_{−p}; it also contains the uniform
+  translations in resonant blocks.
+- T_0's uniform static solutions are the sum over the resonant blocks, not their union.
+- The N3 [D] lead-in restricts (c) to the lift s = 1.

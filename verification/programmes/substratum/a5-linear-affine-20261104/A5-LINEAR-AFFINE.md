@@ -6,7 +6,7 @@ examination, documented assumptions and independent review. It does not cover co
 adopting a premise, promoting a claim, a merge or publication. No code, enumeration or Lean was
 written or run. Every algebraic step below was done by hand.
 
-**Revision.** Revised after independent reviews of `4e096997` (ACCEPT WITH CHANGES) and `fc5cf7e9` (ACCEPT WITH CHANGES; its one should-fix and three nits applied in this revision).
+**Revision.** Revised after independent reviews of `4e096997` (ACCEPT WITH CHANGES) and `fc5cf7e9` (ACCEPT WITH CHANGES; its one should-fix and three nits applied). The review texts are posted on #1083 comment 6718252075.
 
 **Base.** `origin/main` at `1609dc440f5a12d05b750f6d894bb91d09a099a3`. Line numbers `File:N` refer to
 `papers/File.md` at that commit.
@@ -476,7 +476,7 @@ static uniform shift.
 | z ↦ z − p(t), time-dependent uniform translation | always a conjugacy of trajectories (B0.1) | Not established. Theorem 24's generators (Substratum:251–262) and the adjoined amplitude-scale group (Substratum:270–272) are time-independent. |
 | uniform static shift | removes b iff b ∈ (κ − 2)ℤ/q (B0.3(c)) | Declared gauge (SM:96, Substratum:270). Never available for S1 (κ = 2). |
 | site-dependent static translation | removes b iff β ∈ Im(I − L) (B0.2) | Not declared gauge. A site-dependent relational reading would trivialize all configuration readouts. Never available for S1. |
-| identity, with 𝒜_C or 𝒜_W readouts | Theorem 2.1, no transformation needed | Depends on whether 𝒜_C is the observer's readout class, which is not established (owner question Q1). |
+| identity, with 𝒜_C or 𝒜_W readouts | Theorem 2.1, no transformation needed | Depends on whether 𝒜_C is the observer's readout class, which is not established. Owner decision Q1 (§6): Main's absolute interface is "the formal baseline", and the shift-invariant interface "a legitimate conditional alternative". |
 
 **3.3.8 Pressure test of the favourable reading.** Theorem 2.1 favours the framework: it would make
 A5 observationally inert. It is tested here.
@@ -593,13 +593,19 @@ degree ≤ 1 in n. The quadratic advective scaling is still excluded, on the sam
 
 ## §6 Open items and owner questions
 
-- **Q1 (decisive).** Which readout class is OI's observer interface on the lattice substratum:
-  𝒜_abs (Main §1.4 as written) or a relational class such as 𝒜_C, as Substratum:270 suggests?
-  Under 𝒜_C, A5 adds no observable content for uniform-offset rules (R6). Under 𝒜_abs it does,
-  exactly on the resonant locus of R3.
-- **Q2.** Is the amplitude-scale gauge a relabelling (conjugation of the description) or a
-  dynamical symmetry? The relabelling reading leaves b ≠ 0 rules admissible. The symmetry reading
-  (N8) gives b = 0 for odd q, but not at any even q.
+- **Q1 (decisive; decided by the owner).** Which readout class is OI's observer interface on the
+  lattice substratum: 𝒜_abs (Main §1.4 as written) or a relational class such as 𝒜_C, as
+  Substratum:270 suggests? Under 𝒜_C, A5 adds no observable content for uniform-offset rules (R6).
+  Under 𝒜_abs it does, exactly on the resonant locus of R3.
+  - *Owner decision [O]:* "Preserve Main's currently specified absolute interface as the formal
+    baseline. The shift-invariant interface is a legitimate conditional alternative, not yet a
+    derived description of all OI observers." Quoted from #1049 comment 6624263637, by amaybaum, posted
+    2026-11-04T06:28:45Z, which records the owner's chat decisions of 2026-11-04.
+- **Q2 (decided by the owner).** Is the amplitude-scale gauge a relabelling (conjugation of the
+  description) or a dynamical symmetry? The relabelling reading leaves b ≠ 0 rules admissible. The
+  symmetry reading (N8) gives b = 0 for odd q, but not at any even q.
+  - *Owner decision [O]:* "Treat amplitude shifts as mathematical relabellings unless their
+    physical gauge status is justified." Same source as Q1.
 - **Q3.** Is the local internal group of A6 AddAut(V) or the affine group, and is an offset
   untransported, carried in the links, or transported (E1–E3)? This is the N9 assumption-watch
   marker. It carries A5 in relocated form, and it should be recorded alongside D14 whenever A6 or
