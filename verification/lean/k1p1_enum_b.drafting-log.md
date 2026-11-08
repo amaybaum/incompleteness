@@ -283,3 +283,1095 @@ print('Code SHA256',hashlib.sha256(p.read_bytes()).hexdigest())
 | read | `sha256sum` of B/log/static/edit scripts; `git hash-object` of B/log; `git diff --name-only`; `git status --short` | Exact pins and permitted path set reported to root |
 | edit | `git -c core.hooksPath=/dev/null add verification/lean/k1p1_enum_b.py verification/lean/k1p1_enum_b.drafting-log.md`; `git -c core.hooksPath=/dev/null commit -m 'WIP: apply A1 to independent B with digest-admitted fixtures (static only)'`; `git -c core.hooksPath=/dev/null push origin staging/k1-p1-1-impl-b-20261106` | Forward static-only milestone; resulting immutable SHA/push status reported to root |
 | read | `git rev-parse HEAD HEAD^ HEAD:verification/lean/k1p1_enum_b.py HEAD:verification/lean/k1p1_enum_b.drafting-log.md`; `git status --short`; `git log -1 --format=fuller` | Parent/pins/clean-tree confirmation |
+
+
+## Authorized bounded author fixture verification — 2026-11-08
+
+Authority: root's explicit go-ahead under #1135 c6721877817, after the independent
+non-author full static ACCEPT and safe-path review of source commit
+`79ff3a7ae5bed4e7ebc044c52bae551362780189`, blob
+`63eadd818e59f86c48969552ef144f56b4154b95`; independent hand review of the d92
+expectations preceded that review. This records author verification only, not the final
+cross-unit integration qualification. No new interpretation or expected answer was adopted.
+
+Actual interpreter: `/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11`,
+`Python 3.11.17`. Source SHA-256 before and after:
+`c5bfb8d198ed464c093ebf38ddc6f0d0e160f3e5e91395b1f98014c33928c7e5`.
+B source is unchanged. The whole batch completed by the result-file mtime
+`2026-11-08T13:09:00.471384+00:00`; harness-file mtime was
+`2026-11-08T13:08:54.058332+00:00`. No per-subprocess timestamp was captured, so
+these are batch bounds only. Tool execution first returned at about 1.002 seconds and
+the immediate completion poll returned status 0.
+
+**Results.** All 14 exact d92 admitted B fixtures pass, including NF-1's prescribed B
+positive SF-2a. All required output files match the exact canonical expected bytes and
+file sets; no extra file occurs. SF-2pb exits 0 and matches the explicit
+`bijection=false` expectation and the unchanged SF-2p rank chain. This author harness
+does not run controls or claim to have checked CC-BIJ-prime itself.
+NF-2 through NF-7 each follows a fresh passing paired SF-1a run, exits 2 and leaves
+its fresh output directory byte-identical (NF-4 preserves its sole sentinel file).
+The predeclared mixed `--stage members` string occurs only in NF-3's refusal argv.
+No candidate was imported, no instance entry point was invoked, no patched mutant or
+other implementation/control was read or run, and no K1/scientific computation occurred.
+No code or expectation repair was needed.
+
+SF-2a input SHA-256:
+`521a0ca03cb42f4d81a93f6cd9bbcc1124fb2f8de6491738e7d4e4f7a8f07bc6`;
+exit 0; exact file set `fixture.json`; canonical expected byte equality true;
+output SHA-256 `4e6e0448435623c218b2c6041751981d880073482a2d8d70756ea2ff706019e4`;
+stdout and stderr both empty. Root coordinates the cross-writer NF-1 pair; this
+writer neither executes nor reads A's leg.
+
+External harness SHA-256: `d6b9567c938d775b1e57eee8cb7fe380261c03039ea34ba6e55ac119db803f7a`.
+Structured result SHA-256: `8af33f4fb0a6b22c7a4388cf845625f94ea31b345ed994df1144cb119f6d0d22` (canonical bytes, before pretty-printing below).
+All exact candidate argv vectors, input digests, exit statuses, file sets and byte
+comparisons are retained in the structured report below. Fresh temporary directories
+were removed by `TemporaryDirectory` only after all comparisons; this removes disposable
+author-test files, not repository evidence.
+
+### Continuation command table
+
+| Category | Command | Result |
+|---|---|---|
+| read | `git rev-parse HEAD HEAD:verification/lean/k1p1_enum_b.py`; `sha256sum verification/lean/k1p1_enum_b.py`; interpreter `--version`; `git status --short` | Exact accepted source and actual Python 3.11.17; clean starting tree |
+| edit | Write `/tmp/k1p1-b-fixtures-20261108.py` through shell heredoc | External bounded harness below |
+| static check | `sha256sum /tmp/k1p1-b-fixtures-20261108.py` | Harness digest above; source statically inspected before invocation |
+| synthetic-fixture run | `/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11 -I /tmp/k1p1-b-fixtures-20261108.py` | Exit 0; 14 positives plus 6 paired positives, 6 interface negatives; no failures |
+| read | Python stdin extracting SF-2a structured report plus harness/report mtime and source/interpreter metadata | Root received passing B SF-2a evidence promptly; batch timing only |
+| read | Python stdin printing each structured case and every workflow `on:` block; `git diff -- .github/workflows`; `git status --short`; hashes of B/harness/report | All cases pass; workflows unchanged and no push trigger matches own branch/log path |
+| edit | Write/run `/tmp/k1p1-b-fixture-log-append.py` | This log append; full harness/results retained |
+| static check | Publication sensitive-pattern scan of both own files; `git diff --check`; `git diff --name-only`; `git diff --exit-code -- verification/lean/k1p1_enum_b.py` | Safe log-only path set, whitespace and unchanged-source checks; exact outcomes in root checkpoint |
+| read | `sha256sum` B/log/harness/report; `git hash-object` B/log | Exact pins reported to root |
+| edit | `git -c core.hooksPath=/dev/null add verification/lean/k1p1_enum_b.drafting-log.md`; forward log-only `git -c core.hooksPath=/dev/null commit -m 'Record authorized B fixture verification on Python 3.11.17'`; same-branch `git -c core.hooksPath=/dev/null push origin staging/k1-p1-1-impl-b-20261106` | Published checkpoint; if sandbox proxy fails, identical push retried with reviewed escalation, as for prior source checkpoint |
+| read | `git rev-parse HEAD HEAD^ HEAD:verification/lean/k1p1_enum_b.py HEAD:verification/lean/k1p1_enum_b.drafting-log.md`; `git status --short`; `git diff HEAD^ --name-only` | Clean-tree, code blob unchanged, log-only confirmation |
+
+The prior source checkpoint's initial sandbox push failed to reach the inherited proxy;
+the identical authorized push succeeded outside the sandbox following automatic review.
+No branch rewrite or dispatch occurred. This records that transport detail forward.
+
+### Exact external harness
+
+```python
+"""Bounded author fixture verification, only B CLI and exact d92 input bytes."""
+import copy
+import hashlib
+import json
+import pathlib
+import subprocess
+import tempfile
+
+PYTHON = '/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11'
+WORKTREE = pathlib.Path('/workspace/k1p1-impl-b')
+PROGRAM = WORKTREE / 'verification/lean/k1p1_enum_b.py'
+COMMON = pathlib.Path('/tmp/k1p1-common-d92/amendments/A1-fixtures.json')
+RESULT = pathlib.Path('/tmp/k1p1-b-fixtures-20261108.results.json')
+SOURCE_SHA = 'c5bfb8d198ed464c093ebf38ddc6f0d0e160f3e5e91395b1f98014c33928c7e5'
+FIXTURES_SHA = '691aedbf0c9e74fdcc64f4c9c35f5e07c8ffc362e74360d4e541df682c750e85'
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def canonical(obj):
+    return (json.dumps(obj, sort_keys=True, separators=(',', ':'), ensure_ascii=False) + '\n').encode('utf-8')
+
+
+def set_path(obj, path, value):
+    target = obj
+    for part in path[:-1]:
+        target = target[part]
+    target[path[-1]] = copy.deepcopy(value)
+
+
+def snapshot(directory):
+    return {p.name: p.read_bytes() for p in directory.iterdir()}
+
+
+raw = COMMON.read_bytes()
+assert sha(raw) == FIXTURES_SHA
+assert sha(PROGRAM.read_bytes()) == SOURCE_SHA
+spec = json.loads(raw)
+fixtures = {f['id']: f for f in spec['fixtures']}
+expected_cache = {}
+cyc_cache = {}
+
+
+def expectation(fixture_id, cyc=False):
+    cache = cyc_cache if cyc else expected_cache
+    if fixture_id in cache:
+        return copy.deepcopy(cache[fixture_id])
+    f = fixtures[fixture_id]
+    field = 'expected_cyc2' if cyc else 'expected'
+    if field + '_from' in f:
+        result = expectation(f[field + '_from'], cyc)
+        result['fixture'] = fixture_id
+    else:
+        result = copy.deepcopy(f[field])
+    if not cyc:
+        for change in f.get('expected_set', []):
+            set_path(result, change['path'], change['value'])
+    cache[fixture_id] = result
+    return copy.deepcopy(result)
+
+
+report = {
+    'authority': '#1135 c6721877817',
+    'kind': 'author-bounded-fixture-verification',
+    'python': PYTHON,
+    'python_version': subprocess.check_output([PYTHON, '--version'], text=True).strip(),
+    'source_commit': '79ff3a7ae5bed4e7ebc044c52bae551362780189',
+    'source_blob': '63eadd818e59f86c48969552ef144f56b4154b95',
+    'source_sha256_before': sha(PROGRAM.read_bytes()),
+    'fixtures_sha256': sha(raw),
+    'cases': [],
+}
+
+
+def positive(fixture_id, root, label):
+    f = fixtures[fixture_id]
+    assert 'B' in f['programs']
+    case_dir = root / label
+    case_dir.mkdir()
+    input_path = case_dir / 'input.json'
+    input_path.write_bytes(canonical(f['input']))
+    out = case_dir / 'out'
+    out.mkdir()
+    argv = [PYTHON, '-I', str(PROGRAM), '--fixture', fixture_id,
+            '--input', str(input_path), '--out', str(out)]
+    process = subprocess.run(argv, cwd=WORKTREE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    wanted = {'fixture.json': canonical(expectation(fixture_id))}
+    cyc = expectation(fixture_id, True)
+    if cyc is not None:
+        wanted['fixture-cyc2.json'] = canonical(cyc)
+    actual = snapshot(out)
+    equal = {name: actual.get(name) == data for name, data in wanted.items()}
+    ok = process.returncode == f['exit'] and set(actual) == set(wanted) and all(equal.values())
+    report['cases'].append({
+        'case': label, 'fixture': fixture_id, 'role': 'positive', 'argv': argv,
+        'input_sha256': sha(input_path.read_bytes()), 'exit_status': process.returncode,
+        'expected_exit': f['exit'], 'output_files': sorted(actual),
+        'expected_files': sorted(wanted), 'byte_equal': equal,
+        'output_sha256': {name: sha(data) for name, data in actual.items()},
+        'stdout_sha256': sha(process.stdout), 'stderr_sha256': sha(process.stderr), 'pass': ok,
+    })
+    return ok
+
+
+with tempfile.TemporaryDirectory(prefix='k1p1-b-author-fixtures-') as temp:
+    root = pathlib.Path(temp)
+    for fixture_id in fixtures:
+        if 'B' in fixtures[fixture_id]['programs']:
+            positive(fixture_id, root, fixture_id)
+    for negative in spec['interface_negatives']:
+        if 'B' not in negative['programs']:
+            continue
+        negative_id = negative['id']
+        assert negative_id in {'NF-2', 'NF-3', 'NF-4', 'NF-5', 'NF-6', 'NF-7'}
+        source_id = negative['input_from'] or 'SF-1a'
+        control_ok = positive(source_id, root, negative_id + '-paired-control')
+        case_dir = root / negative_id
+        case_dir.mkdir()
+        input_path = case_dir / 'input.json'
+        if negative['input_from'] is not None:
+            data = copy.deepcopy(fixtures[negative['input_from']]['input'])
+            for change in negative['input_set']:
+                set_path(data, change['path'], change['value'])
+            input_path.write_bytes(canonical(data))
+        out = case_dir / 'out'
+        out.mkdir()
+        if negative['out'] == 'nonempty':
+            (out / 'sentinel.txt').write_bytes(b'NF-4 sentinel\n')
+        before = snapshot(out)
+        argv = [PYTHON, '-I', str(PROGRAM), '--fixture', negative['fixture_arg'],
+                '--input', str(input_path), '--out', str(out)] + negative['extra_args']
+        process = subprocess.run(argv, cwd=WORKTREE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        after = snapshot(out)
+        unchanged = before == after
+        ok = control_ok and process.returncode == negative['exit'] and unchanged
+        report['cases'].append({
+            'case': negative_id, 'role': 'interface-negative', 'argv': argv,
+            'input_sha256': sha(input_path.read_bytes()) if input_path.exists() else None,
+            'exit_status': process.returncode, 'expected_exit': negative['exit'],
+            'output_files': sorted(after), 'output_unchanged': unchanged,
+            'paired_control_pass': control_ok, 'stdout_sha256': sha(process.stdout),
+            'stderr_sha256': sha(process.stderr), 'pass': ok,
+        })
+report['source_sha256_after'] = sha(PROGRAM.read_bytes())
+report['source_unchanged'] = report['source_sha256_before'] == report['source_sha256_after'] == SOURCE_SHA
+report['pass'] = report['source_unchanged'] and all(case['pass'] for case in report['cases'])
+RESULT.write_bytes(canonical(report))
+print(json.dumps({'pass': report['pass'], 'positive_cases': sum(c['role']=='positive' for c in report['cases']),
+                  'negative_cases': sum(c['role']=='interface-negative' for c in report['cases']),
+                  'failed': [c['case'] for c in report['cases'] if not c['pass']],
+                  'source_unchanged': report['source_unchanged'], 'result_sha256': sha(RESULT.read_bytes())}, sort_keys=True))
+raise SystemExit(0 if report['pass'] else 1)
+```
+
+### Structured author results
+
+```json
+{
+  "authority": "#1135 c6721877817",
+  "cases": [
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-1a/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-1a/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-1a",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1a",
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "83772256c7154b0c4029792e2a712998aa9835ee23db0abbcd2a87a92cb2f3d4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1b",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-1b/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-1b/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-1b",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1b",
+      "input_sha256": "c15b30da87758d7d7d762f6cf3b282c0490f9243e7f88d7b97db800811689dc9",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "defa655eb09bbbd7b0e0587bb1a0a5e8495666dc1a9de7586fddf1a440ebcbdb"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1c",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-1c/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-1c/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-1c",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1c",
+      "input_sha256": "d44e2700ddb8e50e1061c8846d6a8ee82092583af59ac44df0bbac361448643c",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "0c03234c086e97ab117fae3ccddd463094db75faac5189c953d2a3edc64d1880"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2a/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2a/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-2a",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-2a",
+      "input_sha256": "521a0ca03cb42f4d81a93f6cd9bbcc1124fb2f8de6491738e7d4e4f7a8f07bc6",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "4e6e0448435623c218b2c6041751981d880073482a2d8d70756ea2ff706019e4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2b",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2b/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2b/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-2b",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-2b",
+      "input_sha256": "fa77757342a23c1eef2d6d187ec68b4d90d0d395c19b94541cae04c61f74ccbe",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "8906e4231bfabc0fe1b92ae8d8e6d98ed0984a16cd241ef1d95bced6b5aee28b"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2c",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2c/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2c/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-2c",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-2c",
+      "input_sha256": "199029401c2707d8af887341846226e3c952dc28323bcc1731a1be9d0e9ac594",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "06d314d23cb1fe75454ba56c5cba659f12bde080095ef95183124defe17cd4c9"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2d",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2d/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2d/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-2d",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-2d",
+      "input_sha256": "d93b96d2b626410c2662c5844ab692a64b864a93f31be3743e1c7942cedf402b",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "a4813ec91a3fc7b3929079ac5dffaab80c8b78fcff56141a4faa4bd8b6671aa1"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2e",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2e/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2e/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-2e",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-2e",
+      "input_sha256": "c6822bf4650178b6ccab88a20a1ecf088b7522c0c27ac1184abb0fe69e8bcef6",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "0edf4cc50cdd42b6d5e0b7bb048cc42a0254dd9ed520df7a81fee477a507cfcf"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2f",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2f/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2f/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "SF-2f",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-2f",
+      "input_sha256": "6420ebd896642128865e250bb82da5780c9694a196a6a5a9df791bcc5ec46f65",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "d7f0da887bf35e2e47f0cbeddcb0414e334cfd06efb0db6ba3c4aaa906dfe69b"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2p",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2p/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2p/out"
+      ],
+      "byte_equal": {
+        "fixture-cyc2.json": true,
+        "fixture.json": true
+      },
+      "case": "SF-2p",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "fixture": "SF-2p",
+      "input_sha256": "f7d444061e8c2bfa427f66e5df7ff43ae80bf7b22548391ee340b67b66b845a7",
+      "output_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture-cyc2.json": "598c50ae04a2892d35f34ea24e73efeecc8d9e499ba3bdc6648b33a264a5f757",
+        "fixture.json": "20f14369d2563be85b19083847b8099adbceed994787d08c27ff490a017e0a72"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-2pb",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2pb/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-2pb/out"
+      ],
+      "byte_equal": {
+        "fixture-cyc2.json": true,
+        "fixture.json": true
+      },
+      "case": "SF-2pb",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "fixture": "SF-2pb",
+      "input_sha256": "b8048192ccffc506f9e18981045048633ce9af1ceba1ac5f29c76fc1add20630",
+      "output_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture-cyc2.json": "a201df97d576ff9bd0178ebcb07c38a3117e588c3997a88ba54bad8c84f50c38",
+        "fixture.json": "855a8c2461aac86211ff48fc7b371d79e569f022a350f161e65e2d5dbcac1b4c"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-3",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-3/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-3/out"
+      ],
+      "byte_equal": {
+        "fixture-cyc2.json": true,
+        "fixture.json": true
+      },
+      "case": "SF-3",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "fixture": "SF-3",
+      "input_sha256": "9f6fd0a2bb09127350b1b4a8edc323c3989f95fc1097064ecfe96d31740af36a",
+      "output_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture-cyc2.json": "dcc375bab175cd834cf56f73c95971bfbdec956251b53b97ba6b668cb3d505a6",
+        "fixture.json": "03dbc6e9e749d40502a99a64300cf03f14b743e1a9c7047c6ee953e8ac8496e7"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-3f",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-3f/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-3f/out"
+      ],
+      "byte_equal": {
+        "fixture-cyc2.json": true,
+        "fixture.json": true
+      },
+      "case": "SF-3f",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "fixture": "SF-3f",
+      "input_sha256": "80319c62df77dc8a95a16d4e640fc0c44cf4a2c9aafa6f30006ba39b2271a8af",
+      "output_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture-cyc2.json": "eb01524e24e9596939fb3906487df876bbb65ef850ec5ebc04da7f5585556abd",
+        "fixture.json": "45fef3a178d7d59a0e1b835f7db84c86f09164efe9411138bb6612be4d7bcede"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-3g",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-3g/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/SF-3g/out"
+      ],
+      "byte_equal": {
+        "fixture-cyc2.json": true,
+        "fixture.json": true
+      },
+      "case": "SF-3g",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "fixture": "SF-3g",
+      "input_sha256": "03dae8724f09cbbe68e983a6dd1717f370ddf4bf2ea194c4a7716f1ca02c8064",
+      "output_files": [
+        "fixture-cyc2.json",
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture-cyc2.json": "283c6b399dd898e7899fc859e2a192490997ec9ef0d105ff27267f178e4bb90e",
+        "fixture.json": "ef2c67ff777fd36042d1ceb117d4fd4717033869f39069806547225020b10b18"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-2-paired-control/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-2-paired-control/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "NF-2-paired-control",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1a",
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "83772256c7154b0c4029792e2a712998aa9835ee23db0abbcd2a87a92cb2f3d4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-2/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-2/out"
+      ],
+      "case": "NF-2",
+      "exit_status": 2,
+      "expected_exit": 2,
+      "input_sha256": "731fe83e337e733c5905006a51c2c9a4f18f3118a8f30b9a2e76955354dd5d71",
+      "output_files": [],
+      "output_unchanged": true,
+      "paired_control_pass": true,
+      "pass": true,
+      "role": "interface-negative",
+      "stderr_sha256": "bf05bf233075559334db9e1665030a4486abd6f0255121a24039a980d26395fd",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-3-paired-control/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-3-paired-control/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "NF-3-paired-control",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1a",
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "83772256c7154b0c4029792e2a712998aa9835ee23db0abbcd2a87a92cb2f3d4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-3/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-3/out",
+        "--stage",
+        "members"
+      ],
+      "case": "NF-3",
+      "exit_status": 2,
+      "expected_exit": 2,
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [],
+      "output_unchanged": true,
+      "paired_control_pass": true,
+      "pass": true,
+      "role": "interface-negative",
+      "stderr_sha256": "694f14388d29a016111c3a6cb2ff130cf1e0e7180483fff9c14bc39ca31f9fd4",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-4-paired-control/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-4-paired-control/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "NF-4-paired-control",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1a",
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "83772256c7154b0c4029792e2a712998aa9835ee23db0abbcd2a87a92cb2f3d4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-4/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-4/out"
+      ],
+      "case": "NF-4",
+      "exit_status": 2,
+      "expected_exit": 2,
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "sentinel.txt"
+      ],
+      "output_unchanged": true,
+      "paired_control_pass": true,
+      "pass": true,
+      "role": "interface-negative",
+      "stderr_sha256": "d839f3d0b5032c6068a95e42f4d81331bbdc90a4fb38230dfcdddd8dc6afa868",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-5-paired-control/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-5-paired-control/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "NF-5-paired-control",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1a",
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "83772256c7154b0c4029792e2a712998aa9835ee23db0abbcd2a87a92cb2f3d4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1b",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-5/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-5/out"
+      ],
+      "case": "NF-5",
+      "exit_status": 2,
+      "expected_exit": 2,
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [],
+      "output_unchanged": true,
+      "paired_control_pass": true,
+      "pass": true,
+      "role": "interface-negative",
+      "stderr_sha256": "bf05bf233075559334db9e1665030a4486abd6f0255121a24039a980d26395fd",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-6-paired-control/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-6-paired-control/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "NF-6-paired-control",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1a",
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "83772256c7154b0c4029792e2a712998aa9835ee23db0abbcd2a87a92cb2f3d4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-9",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-6/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-6/out"
+      ],
+      "case": "NF-6",
+      "exit_status": 2,
+      "expected_exit": 2,
+      "input_sha256": "b7799cd412fe6f8e018f8b64ff4224909b74cea82319f2cafae6fce8e2183feb",
+      "output_files": [],
+      "output_unchanged": true,
+      "paired_control_pass": true,
+      "pass": true,
+      "role": "interface-negative",
+      "stderr_sha256": "03efb65678531c1ddb43c045541dd036d9fb7b0c24fdb6ff78d45d6c4a478983",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-7-paired-control/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-7-paired-control/out"
+      ],
+      "byte_equal": {
+        "fixture.json": true
+      },
+      "case": "NF-7-paired-control",
+      "exit_status": 0,
+      "expected_exit": 0,
+      "expected_files": [
+        "fixture.json"
+      ],
+      "fixture": "SF-1a",
+      "input_sha256": "0e0d87f8b6ca82646134383abc08158fc5546a133b25d60ee513890ed7350bf1",
+      "output_files": [
+        "fixture.json"
+      ],
+      "output_sha256": {
+        "fixture.json": "83772256c7154b0c4029792e2a712998aa9835ee23db0abbcd2a87a92cb2f3d4"
+      },
+      "pass": true,
+      "role": "positive",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+        "-I",
+        "/workspace/k1p1-impl-b/verification/lean/k1p1_enum_b.py",
+        "--fixture",
+        "SF-1a",
+        "--input",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-7/input.json",
+        "--out",
+        "/tmp/k1p1-b-author-fixtures-7rnl5uer/NF-7/out"
+      ],
+      "case": "NF-7",
+      "exit_status": 2,
+      "expected_exit": 2,
+      "input_sha256": null,
+      "output_files": [],
+      "output_unchanged": true,
+      "paired_control_pass": true,
+      "pass": true,
+      "role": "interface-negative",
+      "stderr_sha256": "3378b70bad02e1594db4d17bc91ac85e7cf2935dd56cbaa265cbdfea9200f2d9",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "fixtures_sha256": "691aedbf0c9e74fdcc64f4c9c35f5e07c8ffc362e74360d4e541df682c750e85",
+  "kind": "author-bounded-fixture-verification",
+  "pass": true,
+  "python": "/workspace/.tools/python/cpython-3.11.17-linux-x86_64-gnu/bin/python3.11",
+  "python_version": "Python 3.11.17",
+  "source_blob": "63eadd818e59f86c48969552ef144f56b4154b95",
+  "source_commit": "79ff3a7ae5bed4e7ebc044c52bae551362780189",
+  "source_sha256_after": "c5bfb8d198ed464c093ebf38ddc6f0d0e160f3e5e91395b1f98014c33928c7e5",
+  "source_sha256_before": "c5bfb8d198ed464c093ebf38ddc6f0d0e160f3e5e91395b1f98014c33928c7e5",
+  "source_unchanged": true
+}
+```
