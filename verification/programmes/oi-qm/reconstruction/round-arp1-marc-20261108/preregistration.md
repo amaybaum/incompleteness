@@ -1,16 +1,6 @@
 # ARP-1, M-ARC: does protection survive an in-world archive? Native round ARP-1-MARC — PREREGISTRATION (draft r7)
 
-**Status: WIP / UNVERIFIED preregistration, drafting, not a candidate `F`.** Model-written. r3 was independently
-reviewed (REVISE) and r4 (ACCEPT WITH CHANGES); r5 applied the r4 review; r5 was checked (ACCEPT WITH
-CHANGES), and r6 applied that check's R5-B1 to R5-B3 and N1–N3, with R6-B1 in r6a. r7 applies the static review of the
-implementation (REVIEW-MARC-IMPL: I-B1, I-B2 and the §5 text edits); a diff check of the edited lines remains. This file is the control plane of a native round under `AGENTS.md` §A.39, to be drafted on its own guiding
-pull request from `D`. Scientific execution is under the owner's programme authorization (#1169 comment 6723277401).
-The owner designates `F` and `E` and approves each dispatch, under the designation boundaries of #1169 comment
-6723329527 (*Authority*). An instruction to proceed is neither a designation nor a dispatch approval. Nothing is
-executed before `F`. Every `PENDING` field is filled before `F` is requested, and control P refuses a `PENDING` field
-under `--freeze`. A `PENDING` field is the bare word `PENDING` outside an inline code span; fenced code blocks
-count as outside, and the word inside backticks is rule prose, not a field. The last pre-`F` commit replaces this
-status paragraph with the candidate form.
+**Status: candidate control plane for `F` designation; WIP / UNVERIFIED preregistration.** Model-written. Reviews: r3 REVISE; r4 and r5 ACCEPT WITH CHANGES; r6 with R6-B1 (r6a); the implementation reviews REVIEW-MARC-IMPL (ACCEPT WITH CHANGES) and REVIEW-MARC-IMPL-r7 (ACCEPT), whose text edits r7 and r7a carry. Three edits follow those reviews, made after the first design runs: one provenance cell reworded and the self-test's git identity changed, for the added-text scan; and control P admitting the dispatch-only A42 exclusion job as `skipped` on the design run. They are reviewed with this candidate before designation. The commit that carries this paragraph fills the `PENDING` fields and changes nothing else. This file is the control plane of a native round under `AGENTS.md` §A.39, drafted on its own guiding pull request from `D`. Scientific execution is under the owner's programme authorization (#1169 comment 6723277401). The owner designates `F` and `E` and approves each dispatch, under the designation boundaries of #1169 comment 6723329527 (*Authority*). An instruction to proceed is neither a designation nor a dispatch approval; `F` is not designated by this commit. Nothing is executed before `F`. Control P refuses a `PENDING` field under `--freeze`. A `PENDING` field is the bare word `PENDING` outside an inline code span; fenced code blocks count as outside, and the word inside backticks is rule prose, not a field.
 
 ```v3-round
 round ARP-1-MARC
@@ -138,7 +128,7 @@ any of them is unauthorized under `S7`. No Lean module is involved.
 
 ## The objects
 
-- **`D`** = PENDING: the head of `main` from which the round PR begins, as a full 40-hex id.
+- **`D`** = `2cd49dc082ee7b2a026fd6d1fb4a6168f92fac51`: the head of `main` from which the round PR begins, as a full 40-hex id.
 - **`F`**: the commit carrying this file that the owner designates. `delta(D, F)` is this file and any amendments.
 - **S1**: a single-parent child of `F`. It adds `marc_check.py` and `controls.py` at their pinned blobs,
   `evidence/design-run.json`, `evidence/f-run/results.json` and the frozen workflow splice. **S1 is where the decisive
@@ -167,7 +157,7 @@ branch is not deleted, and its commits are not force-pushed away, before `order.
 **Drift, measured.** The audit's snapshot is `5ce4f98ec3a76aee6fdd17ed1bad7b278f1d9732`. No path under the four
 source record directories (*Inputs*), `tools/`, `.github/` or `verification/infrastructure/` changed from it to
 `2cd49dc082ee7b2a026fd6d1fb4a6168f92fac51`, the head of `main` as last read. When `D` is filled in, this sentence is
-extended from `2cd49dc0` to `D` (PENDING). Control DS measures it in two parts: from `5ce4f98e` to `D`, no change under
+extended from `2cd49dc0` to `D`; `D` is `2cd49dc0` itself, so the extension is empty. Control DS measures it in two parts: from `5ce4f98e` to `D`, no change under
 those directories; from `D` to the commit under check, no change under them except `.github/workflows/verify.yml`
 (which W checks is `D`'s plus the frozen splice) and except the record directory; and the seven input blobs
 unchanged at the commit.
@@ -582,7 +572,7 @@ L-ACC is the archive's access property. It is kept in both variants, named in th
 
 ## The checker and `controls.py`
 
-**`marc_check.py`** (record directory; blob PENDING, sha256 PENDING).
+**`marc_check.py`** (record directory; blob `38d6f67559b6641590b3baf126b2247e97a4e28c`, sha256 `8cf7cc7aebaf31d456a0c633d0f25ff00792f049f366f338c2d024e81be6ea23`).
 - Imports only `fractions`, `itertools`, `json`, `sys`. No `open`, `exec`, `eval`, `__import__`, `importlib` or
   `subprocess`. Reads no file and nothing from the repository.
 - `python3 -I -B marc_check.py` writes `measurements.json` to stdout as canonical JSON (`sort_keys`, separators
@@ -613,7 +603,7 @@ registration times, pattern and schedule counts); `complete`; and for each size 
 
 No timestamp, duration, host or interpreter field.
 
-**`controls.py`** (record directory; blob PENDING, sha256 PENDING). Imports only `ast`, `hashlib`, `io`, `json`,
+**`controls.py`** (record directory; blob `5e6318896ffe274bf5cca7dbcb2cb537b1bad4a1`, sha256 `31977c6bacd6246ea91be0aa4256258996c774b3348f98396583394f580a9efe`). Imports only `ast`, `hashlib`, `io`, `json`,
 `os`, `re`, `subprocess`, `sys`, `tempfile`, `zipfile`. Reads commits with read-only git commands; imports nothing from the
 repository; runs precondition 6's command for T as a subprocess. Its only write-mode `open` is in the self-test,
 inside a `tempfile` directory. Generated files go to stdout, and the executor commits them. Modes: `check <commit> --freeze F [--stage S1|E|W]`, `decide <file> [--exit-status N]`,
@@ -655,9 +645,9 @@ committed measurements byte for byte; otherwise it exits 1.
 ## The workflow edit (frozen text; control W)
 
 One job, `probes_arp1marc`, inserted directly after the job that is last before the `probes` aggregate at `D`
-(anchor: PENDING), and four aggregate edits: `probes_arp1marc` appended to `needs`, `ARP1MARC_RESULT:
+(anchor: directly after `probes_foundations`, before `probes:` at `D`'s `verify.yml`, blob `775a36e3df81036e458fd56453520987060aa444`), and four aggregate edits: `probes_arp1marc` appended to `needs`, `ARP1MARC_RESULT:
 ${{ needs.probes_arp1marc.result }}` in `env`, `echo "arp1marc=${ARP1MARC_RESULT}"` and
-`test "${ARP1MARC_RESULT}" = success`, each after the last round's line at `D` (anchors: PENDING).
+`test "${ARP1MARC_RESULT}" = success`, each after the last round's line at `D` (anchors: the `probes_foundations` entry in `needs`, the `FOUNDATIONS_RESULT` line in `env`, its `echo` line and its `test` line).
 
 ```yaml
   probes_arp1marc:
@@ -797,7 +787,7 @@ designation of `E` is quoted in the receipt; no V3 predicate reads attestations 
 
 **Design pairs (frozen at `F`).** The (`marc_check.py` blob, `controls.py` blob) pairs that ran under the design job
 in dev CI before `F`, each with its `--fixture-output` and `--self-test` paths statically reviewed not to enumerate
-variant D; the final pair, pinned under *The checker and `controls.py`*, is one of them. The list: PENDING.
+variant D; the final pair, pinned under *The checker and `controls.py`*, is one of them. The list: (`38d6f67559b6641590b3baf126b2247e97a4e28c`, `6a0dac31efbbb8b9b3b8133e0384e496b399dc51`), (`38d6f67559b6641590b3baf126b2247e97a4e28c`, `e0b6f7efbe35a91ffdd158609ad3d4adc73a713c`), (`38d6f67559b6641590b3baf126b2247e97a4e28c`, `5e6318896ffe274bf5cca7dbcb2cb537b1bad4a1`).
 
 **Stated limit:** local work before the first push is not measurable. Nor is a deliberate computation on another
 commit that contains the checker, or from a copy of `marc_check.py` outside the record directory: the captures cover
@@ -932,7 +922,7 @@ sweep resolves it. It is not by itself a halt.
 4. **Design run.** The dev branch `draft/arp1-marc-dev`, with its own draft PR, carries the predicted S1 tree less
    `evidence/`, with the design splice. Its ordinary `pull_request` CI is green on every job except the dispatch-only A42 exclusion job, which is
    `skipped` on every `pull_request` run; `derive-run` turns it into
-   `evidence/design-run.json`, whose sha256 is pinned here: PENDING. The design PR number: PENDING. It is design
+   `evidence/design-run.json`, whose sha256 is pinned here: `d66bce233ddf899c8f43fb9c6064e636896133f84239a9e4909884c9caa8bc2b`. The design PR number: #1209. It is design
    evidence, not an attestation. `derive-run` is exercised on its artifact (the design splice uploads it).
 5. **Self-tests pass** locally and in the design run, at the pinned blobs. Variant D has not been enumerated.
 6. **Chain and blocks.** From the repository root, this command exits 0:
