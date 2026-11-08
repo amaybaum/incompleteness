@@ -57,7 +57,7 @@ Both outcomes of this unit are (B-D) exposures of current active functionals.
 They rest on PROT-D and PROT-B, whose C-LIN controls are green. No verdict is
 voided.
 
-## 4. Corrected form, offered to successor units only
+## 4. PROT-R′, offered to successor units only
 
 > **PROT-R′(Π).** For `t ≤ t′` and a `Q* = 1` linear functional `f` on the
 > cells active at `t`, such that the value `f(t)` is a function of the

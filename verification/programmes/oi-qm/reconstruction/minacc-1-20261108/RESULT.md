@@ -387,7 +387,7 @@ cell. The two are consistent: `Q` is a single global quadratic invariant
 (archived and refill cells included), while Lemma Q(iii)'s protection rests on
 the linear transport of `Q*` in (s3). M2D left open whether a symmetric
 switched graph, which keeps `Q` (Lemma Qσ(a)), keeps the protection
-([M2D:858](https://github.com/amaybaum/incompleteness/blob/f88c184220453badfc9279ab9a86b6785e4db5ff/verification/programmes/oi-qm/reconstruction/mechanism-2-20261108/DESIGN.md#L858)).
+([M2D:860–864](https://github.com/amaybaum/incompleteness/blob/f88c184220453badfc9279ab9a86b6785e4db5ff/verification/programmes/oi-qm/reconstruction/mechanism-2-20261108/DESIGN.md#L860)).
 For `G_σ` it does not.
 
 ### 6.3 C-LIN: the linear limits under this unit's conventions
@@ -453,7 +453,7 @@ ready cell's own unknown slot. Consequences under A2.1's own clause:
 The defect does not bear on the (B-D) outcomes, which rest on PROT-D and
 PROT-B, both green in C-LIN, and it voids no verdict of this record.
 
-**Corrected form, for successor units only.** Amendment A3, a post-result
+**PROT-R′, for successor units only.** Amendment A3, a post-result
 amendment that affects no decision of this unit, records the corrected
 property:
 
