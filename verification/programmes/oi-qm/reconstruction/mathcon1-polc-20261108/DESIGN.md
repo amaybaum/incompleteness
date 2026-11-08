@@ -755,6 +755,6 @@ Specifically:
 | R1 (re-review of r2 at `e2d44d7c`): an `undetermined` CT verdict counted as refuted and could void a proved ¬T2 | Option (a): in CC-0, CC-1(b), CC-2(b) and CC-4 only a definite contrary verdict refutes (order 0); `undetermined` is not established and routes to (N) or (I). One routing bullet added to §5 |
 | R2: I-f listed as a form of the missing rule | I-f dropped from the CT-entailed form in §4.5 item 2 and §6 item 2, with the reason |
 | R3: §10.1 range | "O-1 to O-10" |
-| R4: scratchpad citation | §11 cites the r1 review as #1206 comment 6721546806, and the r2 re-review as part of the #1206 record |
+| R4: review citation | §11 cites the r1 review as #1206 comment 6721546806, and the r2 re-review as part of the #1206 record |
 | R5: marking wording; O-10 wording | "non-monomial matrix or channel, in the sense of I-3" in the kinds table and Step 1; O-10 in §3.2 and Step 2 reads "a node that carries a non-monomial matrix while all its child nodes carry monomial matrices" |
 | R6: hazard order | H-4 now precedes H-5 in §10.3 |
