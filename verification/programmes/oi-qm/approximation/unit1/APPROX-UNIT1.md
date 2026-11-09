@@ -1,15 +1,17 @@
 # OI-QM-APPROX-1, unit 1: operational equivalence at finite precision, assessed against Main §3.4
 
-**WIP / UNVERIFIED. Revision r4, writer revision after independent r3 REVISE; pending a fresh independent re-review of the full text.** This version revises the immutable r3 source (`APPROX-UNIT1.r3.md`, SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`) against the fresh independent r3 review (`REVIEW-APPROX-UNIT1.r3.md`, verdict **REVISE**, R1–R6). See `DISPOSITIONS-APPROX-UNIT1.r4.md` for each finding's writer disposition. Claude Code wrote r1 and r2; Codex wrote r3. The [immutable r2 draft](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/1216-approx/APPROX-UNIT1.md) has SHA-256 `5ea3f0e4b2fcb20117b9d7d58b8156aae27a526299c3c0ada02e349ff2e4ffd5`. Nothing here is adopted, promoted, or proposed for the manuscripts. An independent review ACCEPT, if reached, authorizes no computation, new physical premise, manuscript change or merge (#1216 body, "Unit 1").
+**WIP. Revision r4a: editorial cleanup of independently reviewed r4 (ACCEPT WITH NITS); focused diff check and ordinary CI pending. Integration requires separate owner approval.** Only N1–N3 from `REVIEW-APPROX-UNIT1.r4.md` and revision metadata are changed; see `DISPOSITIONS-APPROX-UNIT1.r4a.md`. The r4 source revises the immutable r3 source (`APPROX-UNIT1.r3.md`, SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`) against the fresh independent r3 review (`REVIEW-APPROX-UNIT1.r3.md`, verdict **REVISE**, R1–R6). See `DISPOSITIONS-APPROX-UNIT1.r4.md` for those writer dispositions. Claude Code wrote r1 and r2; Codex wrote r3. The [immutable r2 draft](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/1216-approx/APPROX-UNIT1.md) has SHA-256 `5ea3f0e4b2fcb20117b9d7d58b8156aae27a526299c3c0ada02e349ff2e4ffd5`. Nothing here is adopted, promoted, or proposed for the manuscripts. Independent acceptance authorizes no computation, new physical premise, manuscript change or merge (#1216 body, "Unit 1").
 
 - **Accountable home:** #1216 (OI-QM-APPROX-1). Parent programme #1169.
 - **Authorization.** Owner (amaybaum), 2026-11-09, #1216 c.6741763726 (posted 2026-11-09T13:53:51Z),
   option "Create + start unit 1 (Recommended)", scope verbatim: "Unit 1 (paper-only): does Main's
   existing approximation result meet Level A? What prevents Level B? Is continuous coherent mixing
   still necessary? It ends with a fresh independent review. No new computation beyond labelled exact
-  generic checks, no physical premises, no manuscript change, no merge." The coordinator's brief adds:
-  no computation on an OI mechanism, and no git or GitHub write. This unit made no git, repository or
-  GitHub write. r4 likewise makes no git, repository or GitHub write.
+  generic checks, no physical premises, no manuscript change, no merge." The original coordinator's
+  no-git/GitHub-write boundary describes the paper-only r4 source. Owner (amaybaum), current Codex
+  instruction, 2026-11-09: r4a is limited to the three editorial corrections, a focused diff-only
+  check and green CI, followed by integration approval. Ordinary draft-PR publication and CI do not
+  authorize scientific execution, a new physical premise, freeze, designation, dispatch or merge.
 - **Inherited requirements.** Owner (amaybaum), #1216 c.6742051100 (posted 2026-11-09T14:07:19Z),
   three distinctions from #868, "each … reported separately, and none implies another without proof":
   validity ("every permitted product test gives a valid result"), closure ("every permitted
@@ -118,6 +120,7 @@
 - [K] kernel-checked Lean on `main` (identifier and module given).
 - [P] paper proof in a manuscript on `main`.
 - [X] exact computation recorded on `main` (probe named in the manuscript).
+- [N] numerical floating-point instance check recorded on `main`; not an exact certificate.
 - [G] this unit's labelled exact generic checks (`probes/approx_generic_checks.py`, groups G1–G5, and
   `probes/r2_frames.py`, `r2_routeC.py`, `r2_finiteb.py`, groups F, C, N5; §11); a result supported
   only by [G] is *computation-supported*.
@@ -228,7 +231,7 @@ Level A (#1216): "Any specified finite quantum experiment's observable law is re
 | Access | Agent writes the action ledger (bijections I_a), reads visible x | Controlled form: visible step counter, agent-written intervention labels and read outcome registers; hidden branch register, predecessor stack and K pre-loaded seeds. Autonomous form (:582): **separately charged read-only program in the enlarged hidden sector**, not a writable visible intervention label | As A2, with net labels: ⌈log₂\|N\|⌉ = O(m d⁴ log(2K/ε)) bits per step of visible intervention record |
 | Where quantum content enters | The product prior *is* the quantum conditionals | Instrument data (Kraus operators) in the step maps; the state in the hidden register; Born trace q_o = Tr I_o(ρ̃) computed by the step map (:580, :582) | As A2, over the whole net |
 | Carrier | C-dyn (classical response coordinates in hidden memory) | C-dyn: finite bijection on configurations; system in E_r | As A2 |
-| Evidence | [P]; [X] `intervention_probes.py` (n_V = \|A\| = K = 2, exact), `lg_comb_probes.py`; real-kernel Extension: [P], rational instance [X] `review4_probes.py` P-G. Passive (action-free) law: [K] `S_imp_D`, OB/Equivalence.lean:422 | [P]; [X] `opglue_probes.py` at (d, K, \|F\|) = (2, {2,3}, 4), exact over ℚ(√2), checks 11–13. No Lean module formalizes gluing, rounding or clipping (#945 c.6567879503 §1; this unit's grep of OB/ for "gluing", "rounding", "opglue" found none relevant) | [P]; [X] checks 8–9 (qubit instance). Telescoping Lemma: [P], standard |
+| Evidence | [P]; [X] `intervention_probes.py` (n_V = \|A\| = K = 2, exact), `lg_comb_probes.py`; real-kernel Extension: [P], rational instance [X] `review4_probes.py` P-G. Passive (action-free) law: [K] `S_imp_D`, OB/Equivalence.lean:422 | [P]; [X] `opglue_probes.py` at (d, K, \|F\|) = (2, {2,3}, 4), exact over ℚ(√2), checks 11–13. No Lean module formalizes gluing, rounding or clipping (#945 c.6567879503 §1; this unit's grep of OB/ for "gluing", "rounding", "opglue" found none relevant) | [P]; [N] `opglue_probes.py` checks 8–9 (floating-point qubit instances, tolerance 1e−12). Telescoping Lemma: [P], standard |
 | Resources | Main:520 gives \|C_H\| = n^N (n+1)^K (K+1), N = Σ_{k=1}^{K} n^k, for the passive (action-free) comb. For the action-labelled comb N counts the (x_{≤k}, a_{≤k}) contexts and the action ledger adds its own factor [A]; exponential in K either way | Exact ring: log₂\|C_H\| ≤ (K+1) log₂\|V_reach(F,K)\| + K log₂ G (:576). Fixed point: O(K d² b + K log₂ G), whose accuracy form depends on the open finite-b bound | Exact ring: capacity grows with the net (:598). Reading [A]: \|V_reach\| ≤ Σ_{k≤K}(\|N\|m)^k, so log₂\|C_H\| = O(K² m d⁴ log(K/ε)), polynomial; the transition law's description scales with |N| = exp(O(m d⁴ log(1/δ))) (:598); this does not bound the bit complexity of arbitrary real instrument entries or priors |
 
 ### 2.2 Verdict on Level A
@@ -244,7 +247,7 @@ Level A (#1216): "Any specified finite quantum experiment's observable law is re
   agrees: the exact-arithmetic theorems (Main:566, :598) and the density Corollary (Main:600) survive;
   the finite-b constants are unproved. The former negativity-ledger step (pre-shift Main:556) is
   refuted per parent by a dyadic two-outcome instance at d = 4, b = 24, error 6.9063 against the old
-  bound 4.0000 [OFF: #945 c.6567879503 §2, record at `6d494e30`]. The counterexample refutes a proof
+  bound 4.0000 [OFF: #945 c.6567879503 §2, assessment-review checks R-1/R-2]. The counterexample refutes a proof
   step, not the final TV bound; reachability of a negativity-dominated register from an exact initial
   register is not shown [OFF]. These **two-outcome numbers are from the #945 assessment comment**;
   the earlier proof review at `6d494e30` records different witnesses (one d=4 case gives 8.0022
@@ -475,8 +478,9 @@ conclusion of `exists_nonMonomial_of_layerFlowExecutable`): some K on S × Fin 1
     `realized_of_instAvail` and `preservesDiag_sum` every branch of `genTheory CM` at every level
     preserves diagonals, and so does every system map built by rule (f); NX-1 fails.
   - `InstAvail.op` requires Kᴴ K = 1 (OB/ImplementationLocality.lean:271–272), and CM's isometries are
-    exactly the monomial ones [A; G: r2 C3], so K enters `genTheory CM` only through products and
-    ancilla blocks, never as an isometric step. The reviewer's C4 (rv_routeC) checks the same model.
+    exactly the monomial ones [A; G: r2 C3]. K is an admissible nonmonomial FI-1 witness, not an
+    isometric primitive; no availability of its conjugation is claimed or needed. Every available
+    branch of `genTheory CM` preserves diagonals. The reviewer's C4 (rv_routeC) checks the same model.
 - *Layer-flow executability ⇒ level-one availability version of NX-1* [A from K-lemmas]. If T executes the layer flow of an involution σ
   with σ x ≠ x (`LayerFlowExecutable`, OB/LiftAudit.lean:112), then at level one and t = ½ the
   gate-flow conjugation is available, it is unitary (`gateFlow_unitary`, OB/LiftAudit.lean:69, which
@@ -669,7 +673,7 @@ here or a score.
 | D4b | Stopping-time repair, TV ≤ K(\|O\|−1)/G + 14K²C_{d,R}2^{−b} | conditional (**Motivated**, unreviewed, unauthorized) | [OFF] #945 c.6567879503 §3(b) | E_r | Kη ≤ 1/64; exact initial register; Rounding-Lemma constant | #945 only |
 | D4c | One-step failure of **exact internal PSD closure** in finite b | counterexample at b=12 only; **asymptotic approximate closure open** | [G] r2 N5; [RV] rv_finiteb; no realized-law counterexample | E_r | specified digitization/rounding, K=1, exact initial register | #945 (scope only) |
 | D5 | Rounding Lemma, instrument level (Main:578) | stated proved on `main` (Main:578: "the instrument-level inequality is proved"); the complex-entry constant is contested off `main` (#945 owner question 6, undecided) | [P]; [OFF] for the qualifier (support off `main`, §1.1) | E_r | fixed-point dyadic model | #945 only |
-| D6 | Uniform continuum, exact budget (Main:598) | proved; \|N\|-independent capacity open | [P], [X] checks 8–9 | E_r | fixed (d, m, K, ε); δ-net rounding as dictionary | #945 (capacity), #1169 |
+| D6 | Uniform continuum, exact budget (Main:598) | proved; \|N\|-independent capacity open | [P]; [N] `opglue_probes.py` checks 8–9 (floating-point instances, tolerance 1e−12) | E_r | fixed (d, m, K, ε); δ-net rounding as dictionary | #945 (capacity), #1169 |
 | D7 | Finite-test density at fixed (d, m) (Main:600) | proved; union over (d, m) open | [P] | E_r | exact ring | #1169 |
 | D8 | Classical-dimension obstruction to exact equivalence (Main:560) | proved (factorization half); unboundedness imported [55] | [P], [X] `nogo_probes.py` | any finite ontic carrier | ordinary prepare–ontic–measure interface | #1169 |
 | D9 | No uniform finite realization of the instrument algebra (Main:488); finite-order periodicity (Main:640) | proved | [P] | C-dyn | fixed finite S | #1169 |
@@ -824,8 +828,9 @@ and the uniformity required to extend a matrix or fixed-size result across resou
 Passes/status: r1's independent review introduced F7 and F8; r2's writer checks refined F9;
 r3's fresh independent full-text review returned REVISE (R1–R6) and narrowed several interpretations.
 The r4 writer corrections above are **not** an independent verification or a new kernel result.
-§A.31's fixed-point criterion is not declared satisfied; the next gate is independent full-text
-re-review of these r4 claims and their supporting evidence.
+The independent full-text review of r4 returned **ACCEPT WITH NITS**; r4a addresses N1–N3.
+§A.31's fixed-point criterion is not declared satisfied. The r4a gate is a focused diff-only
+check and green ordinary CI, with separate owner approval required for integration.
 
 ***
 
@@ -891,12 +896,16 @@ re-review of these r4 claims and their supporting evidence.
 - **r4 writer pass:** changes are prose, classification and quantified comparison only. All six
   review requirements R1–R6 have explicit dispositions in
   `DISPOSITIONS-APPROX-UNIT1.r4.md`. No computations or Lean were performed in r4; the numeric checks,
-  formal claims and source pins are inherited. The next action is a **fresh independent full-text
-  re-review of r4** before any result is treated as accepted.
-- **Not done:** r4 performs no computation on any OI mechanism, no numerical or simulation
-  work and no Lean. The inherited r2 N5 digitized step and earlier reviewer re-runs are identified
-  above, not rerun here. No git, GitHub write, freeze, dispatch, scientific designation,
-  manuscript change or merge. No claim of r4 independent acceptance.
+  formal claims and source pins are inherited. The requested fresh independent full-text review
+  returned **ACCEPT WITH NITS**, with no blocking scientific findings; see
+  `REVIEW-APPROX-UNIT1.r4.md` for its evidence and comparison limits.
+- **r4a writer pass:** only N1's citation, N2's numerical/exact evidence labels, N3's
+  admissibility/availability wording and revision metadata change. No scientific computation,
+  simulation or Lean was run; inherited probe outputs and scientific source pins are unchanged.
+  Focused diff-only review and green ordinary CI precede the separate integration decision.
+- **Not done:** the inherited r2 N5 digitized step and earlier reviewer re-runs are identified
+  above, not rerun in r4 or r4a. No scientific execution, new physical premise, freeze, dispatch,
+  scientific designation, manuscript change or merge is authorized by this cleanup.
 
 ## 12. Hashes
 
@@ -910,4 +919,4 @@ re-review of these r4 claims and their supporting evidence.
 - `probes/r2_finiteb.out`: sha256 `6350b5c11822166bff80b9eacde330a14513390cbda0dc117cc45f26ed4df7b1`
 - r3 source: SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`.
 - r3 independent review (separate local file): SHA-256 to be reported with the handoff.
-- r4's own SHA-256 is reported in the writer handoff and disposition ledger, not self-recorded.
+- The reviewed r4 and r4a SHA-256 digests are reported in `DISPOSITIONS-APPROX-UNIT1.r4a.md`, not self-recorded.
