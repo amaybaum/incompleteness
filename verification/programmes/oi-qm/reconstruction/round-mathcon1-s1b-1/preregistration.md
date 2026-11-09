@@ -56,7 +56,7 @@ None of these changes under any outcome:
 - **Owner decision, #1169 comment 6721662886** (amaybaum, 2026-11-08T12:46:00Z). The passages this round is bound by
   are frozen text 3 (*The result note*), quoted verbatim.
 - **Owner decision on VOID handling at `E`** (owner, 2026-11-08, coordinating-session decision, to be quoted in the
-  round PR's first comment; that comment's id, author and time: PENDING). The option chosen was "Halt-only (Recommended)", shown to the owner as: "Any result at E
+  round PR's first comment; that comment's id, author and time: #1215 comment 6740777773 (amaybaum, 2026-11-09T13:05:43Z)). The option chosen was "Halt-only (Recommended)", shown to the owner as: "Any result at E
   other than a clean pass halts the round and preserves the evidence. No checker rerun path is pre-registered. Runs
   voided by the host (a cancelled run, a lost runner) can be retaken only by a separate decision you record after the
   evidence is preserved." *Stop rule* implements it.
