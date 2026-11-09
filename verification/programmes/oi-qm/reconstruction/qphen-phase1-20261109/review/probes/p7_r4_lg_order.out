@@ -1,0 +1,10 @@
+G1 Clifford: True | G2 Clifford: True
+G1 unitary: True | G2 unitary: True
+(a) G1 = (I x H).CNOT_{m->c}; carrier |+>, mediator (sin b,0,cos b)
+    (C12, C23, C13) = (cos(b), sin(b), 0) ; K3 = sqrt(2)*sin(b + pi/4) ; equals cos b + sin b: True ; K3(pi/4) = sqrt(2) ; K3 at (4/5, 3/5) = 7/5
+(b) G2 = (I x H).SWAP.CNOT_{m->c}; carrier (sin b,0,cos b), mediator |0>
+    (C12, C23, C13) = (cos(b), sin(b), 0) ; K3 = sqrt(2)*sin(b + pi/4) ; equals cos b + sin b: True ; K3(pi/4) = sqrt(2) ; K3 at (4/5, 3/5) = 7/5
+(c1) H on the carrier: (H x I).CNOT_{m->c}; carrier |+>, mediator (sin b,0,cos b)
+    (C12, C23, C13) = (0, 0, cos(b)) ; K3 = -cos(b) ; equals cos b + sin b: False ; K3(pi/4) = -sqrt(2)/2 ; K3 at (4/5, 3/5) = -4/5
+(c2) H on the carrier: (H x I).SWAP.CNOT_{m->c}; carrier (sin b,0,cos b), mediator |0>
+    (C12, C23, C13) = (0, 0, 0) ; K3 = 0 ; equals cos b + sin b: False ; K3(pi/4) = 0 ; K3 at (4/5, 3/5) = 0

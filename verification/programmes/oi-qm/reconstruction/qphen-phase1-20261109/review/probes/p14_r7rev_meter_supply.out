@@ -1,0 +1,102 @@
+== 1. Sp(4, F_q) by transvection closure
+PASS 1a q=2 generators are symplectic (definition, basis pairs)
+PASS 1b q=2 closure order = q^4(q^2-1)(q^4-1) = 720  -- 720
+PASS 1c q=2 every element satisfies the definition
+PASS 1a q=3 generators are symplectic (definition, basis pairs)
+PASS 1b q=3 closure order = q^4(q^2-1)(q^4-1) = 51840  -- 51840
+PASS 1c q=3 every element satisfies the definition
+PASS 1d q=2 closure equals the brute-force filter of all 65,536 matrices  -- 720
+PASS 1e bracket of linear functionals is preserved by every M (q = 2, 3)
+PASS 1f {x, c} != 0 and {x, f} = 0 for f in the meter pair (q = 2, 3)
+PASS 1g location-preserving linear parts: 48 at q=2 (= 720/15), 648 at q=3 (= 51,840/80)  -- (48, 648)
+== 2. Q4-P20 by explicit affine maps (every translation b)
+   q=2 all affine-symplectic  l=(0, 1) k=0: 11520 maps, readable 4608, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 all affine-symplectic l=(0, 1) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 4608
+   q=2 all affine-symplectic  l=(0, 1) k=1: 11520 maps, readable 4608, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 all affine-symplectic l=(0, 1) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 4608
+   q=2 all affine-symplectic  l=(1, 0) k=0: 11520 maps, readable 4608, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 all affine-symplectic l=(1, 0) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 4608
+   q=2 all affine-symplectic  l=(1, 0) k=1: 11520 maps, readable 4608, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 all affine-symplectic l=(1, 0) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 4608
+   q=2 all affine-symplectic  l=(1, 1) k=0: 11520 maps, readable 4608, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 all affine-symplectic l=(1, 1) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 4608
+   q=2 all affine-symplectic  l=(1, 1) k=1: 11520 maps, readable 4608, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 all affine-symplectic l=(1, 1) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 4608
+   q=2 location-preserving    l=(0, 1) k=0: 384 maps, readable 192, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 location-preserving l=(0, 1) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 192
+   q=2 location-preserving    l=(0, 1) k=1: 384 maps, readable 192, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 location-preserving l=(0, 1) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 192
+   q=2 location-preserving    l=(1, 0) k=0: 384 maps, readable 192, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 location-preserving l=(1, 0) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 192
+   q=2 location-preserving    l=(1, 0) k=1: 384 maps, readable 192, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 location-preserving l=(1, 0) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 192
+   q=2 location-preserving    l=(1, 1) k=0: 384 maps, readable 192, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 location-preserving l=(1, 1) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 192
+   q=2 location-preserving    l=(1, 1) k=1: 384 maps, readable 192, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=2 location-preserving l=(1, 1) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 192
+   q=3 location-preserving    l=(0, 1) k=0: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(0, 1) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(0, 1) k=1: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(0, 1) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(0, 1) k=2: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(0, 1) k=2: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 0) k=0: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 0) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 0) k=1: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 0) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 0) k=2: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 0) k=2: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 1) k=0: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 1) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 1) k=1: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 1) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 1) k=2: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 1) k=2: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 2) k=0: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 2) k=0: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 2) k=1: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 2) k=1: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+   q=3 location-preserving    l=(1, 2) k=2: 17496 maps, readable 11664, K_null=id 0, x'-x constant on silent support 0
+PASS 2 q=3 location-preserving l=(1, 2) k=2: readable recorders exist; none has K_null = id; none is a known displacement  -- 11664
+PASS 2c counts: 4,608 of 11,520 (q=2 all), 192 of 384 (q=2 LP), 11,664 of 17,496 (q=3 LP), per SA-1(c) law
+PASS 2d q=3 LP, carrier x on two of three values: no readable recorder has K_null = id
+== 3. b-independence reduction, then every affine-symplectic map of F_3^4 (51,840 x 81)
+PASS 3a reduction agrees with explicit maps (q=2 all; q=3 first 200 LP parts; four laws each)
+PASS 3b q=3, all 51,840 linear parts x 81 translations, 12 SA-1(c) laws: no readable map with K_null = id  -- readable linear parts per law: [15552]
+== 4. random sample, q = 5 and 7 (not exhaustive)
+PASS 4 q=5: 1,500 random symplectic M x 4 random SA-1(c) lines: readable cases found, none admits K_null = id  -- 1116
+PASS 4 q=7: 1,500 random symplectic M x 4 random SA-1(c) lines: readable cases found, none admits K_null = id  -- 850
+== 5. countercontrols
+PASS 5a q=2 sharp (0, 0): readable 288, K_null = id 144 (expect (288, 144)); all known displacements
+PASS 5a q=2 sharp (0, 1): readable 288, K_null = id 144 (expect (288, 144)); all known displacements
+PASS 5a q=2 sharp (1, 0): readable 288, K_null = id 144 (expect (288, 144)); all known displacements
+PASS 5a q=2 sharp (1, 1): readable 288, K_null = id 144 (expect (288, 144)); all known displacements
+PASS 5a q=3 sharp (0, 0): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (0, 1): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (0, 2): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (1, 0): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (1, 1): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (1, 2): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (2, 0): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (2, 1): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5a q=3 sharp (2, 2): readable 15552, K_null = id 5184 (expect (15552, 5184)); all known displacements
+PASS 5b q=2: readable under sharp (0,0) = meter write depends on c (288 maps)  -- 288
+PASS 5c both slots unknown: no location-preserving linear part records readably (q = 2, 3)
+PASS 5d copy coupling: not symplectic; under SA-1(c) (m known) readable with K_null = id
+   correlated meter m' = s x + t c: (q, s, t) -> (readable linear parts admitting K_null = id, of which LP)
+   {(2, 1, 0): (108, 0), (2, 1, 1): (108, 0), (3, 1, 0): (4032, 0), (3, 1, 1): (4032, 0), (3, 1, 2): (4032, 0), (3, 2, 0): (4032, 0), (3, 2, 1): (4032, 0), (3, 2, 2): (4032, 0)}
+PASS 5e countercontrol: with the meter correlated with the carrier (not independent), readable symplectic recorders with K_null = id on (c, x) exist at q = 2 and 3
+PASS 5f in the tested correlations none of them is location-preserving
+== 6. Q4-D8 membership, by hand-form matrix
+PASS 6a M e_c = e_c + e_m, M e_x = e_x, M e_m = e_m, M e_m' = e_x + e_m'
+PASS 6b over F_2: omega(Mc,Mx) = omega(Mm,Mm') = 1, the other four pairings 0
+PASS 6c sharp (0,0): location-preserving, readable (output m = c), K_null = id
+PASS 6d SA-1(c) (m known 0): readable and K_null != id
+== 7. the sharp-meter sentence of R4.9, A4.4 and T2 ('a known displacement and K_null = id')
+   reciprocal coupling, sharp meter (0, 0): readable True, K_null = id True, silent displacement [0]
+   reciprocal coupling, sharp meter (0, 1): readable True, K_null = id False, silent displacement [1]
+   reciprocal coupling, sharp meter (1, 0): readable True, K_null = id True, silent displacement [0]
+   reciprocal coupling, sharp meter (1, 1): readable True, K_null = id False, silent displacement [1]
+PASS 7a sharp meter (0, 1): the reciprocal coupling records readably, its silent kick is the known displacement x -> x + 1, so K_null != id
+PASS 7b SA-1(c) with m' known and m unknown: the reciprocal coupling does not record readably
+== 64 of 64 checks pass
