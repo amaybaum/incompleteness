@@ -627,7 +627,10 @@ Countercontrols, each of which must fail as stated:
 - **XC1** the word with `siteShearImage 4` replaced by the identity differs from `balancedCircuit`;
 - **XC2** `H` and `H·S·H` are rejected by the non-Clifford clause;
 - **XC3** `drivePhase` is rejected by the monomial clause;
-- **XC4** the branch with the correction removed differs from `(5/8)·Ad(hdh)`.
+- **XC4** per outcome, for each of outcomes 1–3: the conjugated attempt's branch with the correction removed,
+  evaluated on all four matrix units, differs from `(1/8)·id` (X3b's target). It is computed on one attempt (depth 1),
+  never on the depth-0 stopped channel, which is the identity either way. Outcome 0 is not used, since
+  `correction 0 = 1` (BFP:170). XC4 counts as not failing if any one of the three branches equals `(1/8)·id`.
 
 **Exit statuses (structured evidence).** The checker prints one line per check and countercontrol, and then one
 summary line, `checks: 8, failures: <m>; countercontrols: 4, not-failing: <c>`. The eight checks are X1, X2a–c, X3a–b,
@@ -656,6 +659,10 @@ recorded with its expected result, and the self-test replays it:
   **unconjugated** attempt: outcome 0 equals `(5/8)·Ad(drivePhase)` and outcomes 1–3 equal `(1/8)·id`, as
   `attempt_balanced_branch` (BFP:194) states; the stopped channel at depths 0–8 equals
   `(1 − (3/8)^k)·Ad(drivePhase) + (3/8)^k·id`, as `balanced_stopped_formula` (BFP:245) states;
+- **the XC4 path** (correction removed, per outcome 1–3, all four matrix units) on the same **unconjugated** attempt:
+  each of outcomes 1–3 equals `(1/8)·Ad(Z)`, `Z = diag(1, −1)`, which differs from `(1/8)·id` on the off-diagonal
+  units, so the path reports XC4 as failing as stated. This follows from `attempt_balanced_branch` (BFP:194) and
+  `correction j = Z ⊗ 1` for `j ≠ 0` (BFP:170);
 - **the X1 path** (8×8 products on `Work`) on `ancillaHH · ancillaHH = 1`, an identity that is not O-3a's;
 - **the X2 and CAL paths** (unitarity, monomiality, non-Clifford test) on synthetic matrices: the rational rotation
   `[[3/5, −4/5], [4/5, 3/5]]`, `H₂/2`-scaled Cliffords, and monomial phases;
@@ -1282,8 +1289,9 @@ command-scan site: dump
   the voided run or the sha256 of its `void-run` record; a `void-run` record with a key missing or extra;
 - an approval entry with any stage outside the frozen list, `replacement E candidate` included, fails P;
 - a second `E` dispatch after an exact-layer result other than exit 0 at `E` halts the round;
-- the four pre-`F` fixtures replay with their recorded results (the unconjugated attempt against BFP:194, the stopped
-  formula against BFP:245, `ancillaHH · ancillaHH = 1`, and the synthetic X2 matrices).
+- the five pre-`F` fixtures replay with their recorded results (the unconjugated attempt against BFP:194, the stopped
+  formula against BFP:245, `ancillaHH · ancillaHH = 1`, the synthetic X2 matrices, and XC4's path on the unconjugated
+  attempt, `(1/8)·Ad(Z) ≠ (1/8)·id`).
 
 *Gate and verdict:*
 - every VOID rule;
@@ -1342,7 +1350,7 @@ Each must pass S4 and V unmodified, so no outcome reads VOID because of its own 
 | the checker uses the standard library only, opens no file and imports nothing from the repository; `controls.py` imports nothing from the repository, writes only at its two frozen sites, and sends the note, run results and order evidence to stdout | B's static checks at S1 and `E`; the static-form self-test cases |
 | the exact layer's completeness is read from its exit status and summary, not from a log | X's rules; their self-test cases |
 | countercontrols fail as stated, and kernel controls hold | X (XC1–XC4; a countercontrol that does not fail exits 4, which is a failed control, not a scientific reading); the KC token |
-| every checker code path is exercised before `F` without computing O-3a–e's objects | the four recorded fixtures (BFP:194, BFP:245, `ancillaHH · ancillaHH = 1`, synthetic X2 matrices), replayed by the self-test |
+| every checker code path is exercised before `F` without computing O-3a–e's objects | the five recorded fixtures (BFP:194, BFP:245, `ancillaHH · ancillaHH = 1`, synthetic X2 matrices, XC4's path on the unconjugated attempt), replayed by the self-test |
 | the note interpolates no free text | the frozen reason strings; the self-test screens each with S4 and V |
 | no token over a failed or missing control; a tooling failure gives VOID, never a token | `verdict`'s gate; its self-test VOID cases |
 | every outcome's note passes its own screen | the generated-note self-test cases (B1) |
@@ -1475,9 +1483,10 @@ command-scan site: dump
 4. **LIVE holds** locally on `D`'s files with the frozen splices.
 5. **`mock-s1`** on candidate `F`, with its actual exact-head run, prints `controls: OK`. Its output and the derived
    file's sha256 are recorded on the pull request with the designation request.
-6. **Checker fixtures recorded.** The four pre-`F` fixtures of the exact layer have run, with results matching BFP:194,
-   BFP:245, `ancillaHH · ancillaHH = 1` and the synthetic X2 expectations. They are recorded with the `controls.py`
-   and checker pins. No O-3a–e object has been computed.
+6. **Checker fixtures recorded.** The five pre-`F` fixtures of the exact layer have run, with results matching BFP:194,
+   BFP:245, `ancillaHH · ancillaHH = 1`, the synthetic X2 expectations and XC4's `(1/8)·Ad(Z) ≠ (1/8)·id` on the
+   unconjugated attempt. They are recorded with the `controls.py` and checker pins. No O-3a–e object has been
+   computed.
 7. **Branch restrictions are established.** Each of these must be established before `F` is requested:
    - **every commit of `rev-list <candidate F> ^D` is single-parent and touches only the control plane**, and the
      round declaration and governed-paths digest equal their frozen expectation. `check_t1` and `control_plane` are
