@@ -232,7 +232,7 @@ theorem baseline_no_coherentNonMonomial {S O : Type} [Fintype S] [DecidableEq S]
 theorem baseline_level_no_coherentNonMonomial (n : ℕ) {O : Type} [Fintype O] [DecidableEq O]
     (F : O → Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ →ₗ[ℂ] Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ)
     (U : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ) :
-    (substratumTheory (Fin 2)).availExt n F → ¬ CoherentNonMonomialBranch F U
+    (substratumTheory (Fin 2)).availExt n O F → ¬ CoherentNonMonomialBranch F U
 
 -- §C O-2: the least label-invariant architecture over the monomial class and a family G; the fiat class 𝓕 of CC-1
 inductive MonoExt (G : ∀ (T : Type) [Fintype T] [DecidableEq T], Set (Matrix T T ℂ)) :
