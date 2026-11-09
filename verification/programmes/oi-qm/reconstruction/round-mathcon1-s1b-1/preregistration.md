@@ -691,6 +691,7 @@ The file and line of each, measured at `D`, under `verification/lean-mathlib/OIB
 XS also compares the module's `ancSign`, `ancillaHH`,
 `toffoliToken`, `hdh` and `conjugatedAttempt` with the frozen surface. A frozen correspondence table ties each
 checker function to the Lean definition it reconstructs.
+The table lives in `controls.py` or in the checker, frozen with that file's blob (pinned at `F`, precondition 3).
 
 ## The decision rules (frozen; implemented by `controls.py verdict`)
 
