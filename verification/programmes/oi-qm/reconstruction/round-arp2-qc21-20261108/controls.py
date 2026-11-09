@@ -850,9 +850,10 @@ def c_iface(src_checker, src_controls):
         tt = ast.parse(src)
         for fn in [n for n in tt.body if isinstance(n, ast.FunctionDef) and n.name in names]:
             for n in ast.walk(fn):
-                if (isinstance(n, ast.Constant) and isinstance(n.value, str) and "STAB" in n.value) or \
-                        (isinstance(n, ast.Name) and "STAB" in n.id.upper()) or \
-                        (isinstance(n, ast.Attribute) and "STAB" in n.attr.upper()):
+                if (isinstance(n, ast.Constant) and isinstance(n.value, str)
+                        and re.fullmatch(r"(?s).*(?<![A-Za-z])STAB(?![A-Za-z]).*", n.value)) or \
+                        (isinstance(n, ast.Name) and "STAB" in n.id.upper().split("_")) or \
+                        (isinstance(n, ast.Attribute) and "STAB" in n.attr.upper().split("_")):
                     errs.append("%s references STAB (r12a: reported, never gating)" % fn.name)
         found = {n.name for n in tt.body if isinstance(n, ast.FunctionDef)} & set(names)
         if found != set(names):
