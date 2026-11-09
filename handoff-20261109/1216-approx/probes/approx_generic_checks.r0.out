@@ -1,0 +1,16 @@
+FAIL G1a trace norm of |+><+| - diag(a,1-a) equals 2*sqrt((a-1/2)^2+1/4)
+PASS G1b minimum over a is 1, attained at a = 1/2
+PASS G1c -det(|+i><+i| - R) = (a-1/2)^2 + r^2 + 1/4 >= 1/4, so trace norm >= 1
+PASS G1d countercontrol: the non-diagonal candidate |+><+| itself is at distance 0
+PASS G2a every random bijection on |S|<=7 gives an L-periodic law, L = lcm(1..|S|)
+PASS G2b qubit law cos^2(K pi/(2L)) at L=2: p_L = 0, p_2L = 1
+PASS G2b qubit law cos^2(K pi/(2L)) at L=6: p_L = 0, p_2L = 1
+PASS G2b qubit law cos^2(K pi/(2L)) at L=60: p_L = 0, p_2L = 1
+PASS G2b qubit law cos^2(K pi/(2L)) at L=420: p_L = 0, p_2L = 1
+PASS G2c countercontrol: a non-bijective stochastic map gives a law with no period <= 2 (L=lcm(1,2))
+PASS G3a there are 24 signed-permutation rotations (octahedral group)
+PASS G3b exactly 12 rotations (A4) give nonnegative frame matrices, each a permutation matrix
+PASS G3c each of the other 12 octahedral (Clifford) rotations has a frame entry -1/2
+PASS G3d the Hadamard rotation and the S rotation are among the negative ones
+PASS G3e control: identity rotation gives the identity frame matrix
+RESULT FAILED: G1a trace norm of |+><+| - diag(a,1-a) equals 2*sqrt((a-1/2)^2+1/4)

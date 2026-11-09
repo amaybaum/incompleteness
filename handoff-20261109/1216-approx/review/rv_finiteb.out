@@ -1,0 +1,8 @@
+     b values with a non-PSD reachable register: [4, 12, 14, 15, 16, 17, 18, 19]
+     b = 4: rho1 = [['7/8', '3/8'], ['3/8', '1/8']], det = -1/32
+PASS F1 for some b in 4..24, one digitized step from |0><0| reaches a register with det < 0 (non-PSD)
+     inside the window: b = 12, det = -325/2097152
+PASS F1 such a register also occurs at a b inside the Rounding Lemma's window (b >= 11 at K = 1)
+PASS F2 control: the unrounded product is rank one and PSD (det = 0) at every b
+PASS F3 validity: clipped pre-grid Z-read probabilities are nonnegative and normalize
+RESULT ALL PASS

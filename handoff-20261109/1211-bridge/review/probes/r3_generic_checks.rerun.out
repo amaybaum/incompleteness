@@ -1,0 +1,15 @@
+PASS K1 nonlinear bipartite-read rule: every u_i(t) depends only on type t+chi_i (t=1..5)
+PASS K1 non-vacuous: some u_i(t) depends on >= 3 initial variables
+PASS K1 non-vacuous: OR is not affine over F_2 (OR(1,1) != OR(1,0)+OR(0,1)+OR(0,0))
+PASS K1 control: linear (XOR) rule also satisfies the split
+PASS K1 countercontrol c1: a self-term breaks the split
+PASS K1 countercontrol c2: a same-colour read breaks the split
+PASS K2 K non-monomial
+PASS K2 K D K^dag diagonal for symbolic diagonal D
+PASS K2 rotation: off-diagonal entry of U D U^T equals c*s*(a-b)
+PASS K3 weighted monomial family: column sum 2^(1-p/2)
+PASS K3 normalized only at p = 2
+PASS K3 permutation matrices: |U|^p identical for p in {1/2, 1, 2, 3}
+PASS K4 G orthogonal, non-monomial, fixes all-ones
+PASS K4 diag(1,i) unitary, monomial, moves the all-ones ray
+ALL PASS

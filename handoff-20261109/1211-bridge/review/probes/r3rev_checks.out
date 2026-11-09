@@ -1,0 +1,27 @@
+PASS R1(a) p=3: J0^2 = -I (-1 square mod p: False)
+PASS R1(a) p=5: J0^2 = -I (-1 square mod p: True)
+PASS R1(a) p=7: J0^2 = -I (-1 square mod p: False)
+PASS R1(a) p=11: J0^2 = -I (-1 square mod p: False)
+PASS R1(a) p=13: J0^2 = -I (-1 square mod p: True)
+PASS R1(b) symplectic J commuting with f_a exists where -1 is a non-square (e.g. p=3, a=0)
+PASS R1(b) existence of a symplectic commuting J is not equivalent to '-1 is a square mod p'
+PASS R1(b) observed criterion: symplectic commuting J exists iff 4 - a^2 is a nonzero square mod p
+PASS R1 countercontrol: no symplectic commuting J at the null modes a = +-2
+     R1 mismatches (p, a, #symplectic J): [(3, 0, 2), (5, 1, 0), (5, 2, 0), (5, 3, 0), (5, 4, 0), (7, 0, 2), (7, 3, 2), (7, 4, 2)] ... total 21
+PASS R2(i) nonlinear, opposite-colour reads only: split holds
+PASS R2(i) non-vacuous: some u_i(t) depends on >= 3 variables
+PASS R2(i) non-vacuous: g_A0 = (x&y)|z is not affine over F_2
+PASS R2(ii) LINEAR rule with a same-colour read: split fails
+PASS R2(iii) nonlinear rule with the same same-colour read: split fails
+PASS R2(iv) control: linear, opposite-colour reads only: split holds
+PASS R3 affine F: F(y + c e) - F(y) independent of y
+PASS R3 countercontrol: AND: F(y + c e) - F(y) depends on y
+PASS R4(a) all 16 joint probabilities are rational
+PASS R4(a) normalized per setting pair
+PASS R4(a) no-signalling
+PASS R4(a) CHSH = 344/125 > 2, exact rational
+PASS R4(b) Tsirelson-point P(a=b) = (2+sqrt2)/4 is irrational
+PASS R4(b) control: every k/N with 0<=k<=N<=50 is rational and none equals (2+sqrt2)/4
+PASS R5(a) drive: unitary, non-monomial, moves the all-ones ray
+PASS R5(b) ones-fixing gate flow at t=1/2: unitary, non-monomial, fixes the all-ones ray
+ALL PASS

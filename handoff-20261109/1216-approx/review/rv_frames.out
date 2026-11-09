@@ -1,0 +1,28 @@
+PASS R1a SIC: sum of coordinate functionals = I and tr(E_l D_k) = delta
+PASS R1a R1: sum of coordinate functionals = I and tr(E_l D_k) = delta
+PASS R1a R1 frame is orthogonal: tr(A_k A_l) = 2 delta_kl
+PASS R1a SIC reconstruction frame is NOT orthogonal: tr(D_0 D_1) = -1
+PASS R1a R1 coordinate functionals F_l are not PSD (eigenvalue (1-sqrt3)/4)
+PASS R1b 24 single-qubit Clifford unitaries mod phase
+PASS R1b single-qubit rotations: frame matrices identical in SIC and R1 frames
+PASS R1b 12 rotations give permutation matrices, the other 12 have minimum entry -1/2
+     CNOT min entry, SIC frame: 1/4 - sqrt(3)/3 ~ -0.3273502692
+     CNOT min entry, R1 frame : -1/4 ~ -0.2500000000
+PASS R1c CNOT, SIC frame: minimum entry is exactly 1/4 - sqrt3/3
+PASS R1c CNOT, R1 frame: minimum entry is negative
+PASS R1c CNOT frame matrices DIFFER between the two frames (entangling map: frame-dependent)
+PASS R1 control SIC: identity -> 16x16 identity
+PASS R1 control R1: identity -> 16x16 identity
+PASS R1 control SIC: (A4 3-cycle) (x) I -> permutation matrix
+PASS R1 control R1: (A4 3-cycle) (x) I -> permutation matrix
+PASS R1d SIC: coordinate (1 + v.r/sqrt3)/4 >= (1-|r|)/4 >= 0 on the Bloch ball (|v| = sqrt3, Cauchy-Schwarz)
+PASS R1d control: r = -v_0/sqrt3 is a pure state (det rho = 0, tr = 1)
+     R1 coordinate mu_0 = 1/4 - sqrt(3)/4 ; SIC coordinate p_0 = 0
+PASS R1d that pure state has R1 coordinate (1 - sqrt3)/4 < 0 and SIC coordinate 0
+     Phi+ SIC product-frame coordinates: min = 0 ; sum = 1
+PASS R1d Phi+: all SIC product-frame coordinates >= 0
+     Phi+ R1 product-frame coordinates: min = -1/8 ; sum = 1
+PASS R1d Phi+: some R1 product-frame coordinate < 0
+PASS R1 control SIC: point mass reconstructs a non-PSD operator
+PASS R1 control R1: point mass reconstructs a non-PSD operator
+RESULT ALL PASS

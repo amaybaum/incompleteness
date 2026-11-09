@@ -1,0 +1,10 @@
+G1 P1-function PASS
+G1 control linear PASS
+G1 countercontrol square fails PASS
+G2 P1-function base-point dependent PASS
+G2 control linear not dependent PASS
+G3 P1-function kappa=2 PASS
+G3 control linear kappa=2 PASS
+G4 site-wise shift not a symmetry of linear rule PASS
+G5 non-additive at all primes 5..199 PASS
+ALL PASS

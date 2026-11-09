@@ -1,0 +1,21 @@
+PASS G1(a) K non-monomial
+PASS G1(a) K D K^dag diagonal for symbolic diagonal D
+PASS G1(a) K^dag D K is NOT diagonal (state-mixing)
+PASS G1(b) off-diagonal of U D U^T = c*s*(a - b): got c*s*(a - b)
+PASS G2(a) G orthogonal
+PASS G2(a) G non-monomial
+PASS G2(a) G fixes all-ones
+PASS G2(b) P unitary
+PASS G2(b) P monomial
+PASS G2(b) P moves the all-ones ray (P*1 not parallel to 1)
+PASS G2 control: identity monomial and fixes ray
+PASS G3 pi is a permutation matrix (monomial on configurations)
+PASS G3 pi maps encoded states Z+->X+->Y+->Z+ (and minus states)
+PASS G3 Bloch map is a proper rotation (det 1, orthogonal)
+PASS G3 qubit unitary realizes exactly that Bloch rotation
+PASS G3 encoded unitary is non-monomial in the encoded Z basis
+PASS G3 control: identity permutation induces identity encoded map
+PASS G4 permutation unitaries: |U|^p tables identical for p = 1, 2, 3
+PASS G4 weighted monomial Kraus family: column sum = 2*2^(-p/2): got 2**(1 - p/2)
+PASS G4 normalized only at p = 2
+ALL PASS

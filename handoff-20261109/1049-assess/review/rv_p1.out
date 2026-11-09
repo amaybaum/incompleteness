@@ -1,0 +1,53 @@
+PASS O_h closure has 48 elements
+PASS D4 closure has 8 elements
+== A. writer's functions, recoded ==
+PASS d=3 q=5: covariance kappa=2
+PASS d=3 q=5: O_h invariance
+PASS d=3 q=5: non-affine
+PASS d=3 q=5: control linear alpha=1/3 covariant and affine
+PASS d=3 q=5: countercontrol alpha/3 sum + 1 not covariant
+== B. weak kappa-general form, alpha = 1 ==
+PASS d=3 q=5: alpha=1 variant covariant with kappa=6
+PASS d=3 q=5: alpha=1 variant not covariant with kappa=2
+PASS d=3 q=5: alpha=1 variant O_h-invariant and non-affine
+PASS d=3 q=7: covariance kappa=2
+PASS d=3 q=7: O_h invariance
+PASS d=3 q=7: non-affine
+PASS d=3 q=7: control linear alpha=1/3 covariant and affine
+PASS d=3 q=7: countercontrol alpha/3 sum + 1 not covariant
+== B. weak kappa-general form, alpha = 1 ==
+PASS d=3 q=7: alpha=1 variant covariant with kappa=6
+PASS d=3 q=7: alpha=1 variant not covariant with kappa=2
+PASS d=3 q=7: alpha=1 variant O_h-invariant and non-affine
+PASS d=3 q=2: s + [all equal] shift-invariant (kappa=2=0)
+PASS d=3 q=2: O_h invariant
+PASS d=3 q=2: non-affine
+PASS d=2 q=7: covariance
+PASS d=2 q=7: D4 invariance
+PASS d=2 q=7: non-affine
+== C. global checks on a periodic 4x4x4 lattice, q = 5 ==
+PASS global: inverse, translation commutation, uniform symmetry, centre-free (40 seeded states)
+== D. site-dependent shifts as exact symmetries ==
+PASS site-dependent shift symmetry fails for the linear wave rule itself
+== E. d = 1 solution spaces (f of the two neighbour values) ==
+   q= 3 reflection=False: #solutions=3  all linear=True
+PASS d=1 q=3 reflect=False: solution count q, all linear
+   q= 3 reflection=True : #solutions=1  all linear=True
+PASS d=1 q=3 reflect=True: solution count 1, all linear
+   q= 5 reflection=False: #solutions=5  all linear=True
+PASS d=1 q=5 reflect=False: solution count q, all linear
+   q= 5 reflection=True : #solutions=1  all linear=True
+PASS d=1 q=5 reflect=True: solution count 1, all linear
+   q= 7 reflection=False: #solutions=7  all linear=True
+PASS d=1 q=7 reflect=False: solution count q, all linear
+   q= 7 reflection=True : #solutions=1  all linear=True
+PASS d=1 q=7 reflect=True: solution count 1, all linear
+   q= 9 reflection=False: #solutions=27  all linear=False
+PASS d=1 q=9 reflect=False: composite q admits non-linear solutions
+   q= 9 reflection=True : #solutions=1  all linear=True
+PASS d=1 q=9 reflect=True: unique solution f = a + b at composite odd q
+   q=15 reflection=False: #solutions=225  all linear=False
+PASS d=1 q=15 reflect=False: composite q admits non-linear solutions
+   q=15 reflection=True : #solutions=1  all linear=True
+PASS d=1 q=15 reflect=True: unique solution f = a + b at composite odd q
+ALL PASS

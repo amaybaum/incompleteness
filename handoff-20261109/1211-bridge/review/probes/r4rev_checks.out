@@ -1,0 +1,25 @@
+PASS R1(a) criterion holds on all 158 pairs (p, a), odd p <= 31
+PASS R1(b) centralizer of f_a is F_p[f_a], p^2 elements, every pair
+PASS R1(b) scalar roots of -1 have det -1 (excluded by det 1)
+PASS R1(b) every non-scalar root of -1 commuting with f_a has det 1
+PASS R1 countercontrol: without det 1, p=5 a=1 has a root (2I or 3I) though the criterion fails
+PASS R2(a) n=3: drive sends 1 to e^(-i th)(e_a+e_b) + rest
+PASS R2(a) n=3: drive is unitary for all theta
+PASS R2(a) n=4: drive sends 1 to e^(-i th)(e_a+e_b) + rest
+PASS R2(a) n=4: drive is unitary for all theta
+PASS R2(b) drive = e^(-i th) * gateflow(2th/pi) * diag(1,1,e^(i th)) (all theta)
+PASS R2(b) control: gate flow fixes the all-ones vector exactly (all theta)
+PASS R2(c) drive(pi/2) * swap(a b) = -i * diag(1, 1, i)
+PASS R2(c) its conjugation channel equals the quarter phase's on the third state
+PASS R2(c) with permutation transport: quarter phase on every state of the level
+PASS R2(d) at theta=pi/2 the drive is monomial and moves the all-ones ray
+PASS R2(e) real rotation is orthogonal at pi/4
+PASS R2(e) real rotation at pi/4: non-monomial, moves the all-ones ray, mixes a diagonal state
+PASS R2(e) Lie algebra with permutation transport: X drive dim 8 (su(3)=8), real rotation dim 3 (so(3)=3)
+PASS R2(e) the quarter phase on c sends E_ac + E_ca to a non-real matrix (real conjugations keep it real)
+PASS R3 control: linear opposite-colour rule on C6 keeps the split
+PASS R3 linear rule with one same-colour read on C6 breaks the split
+PASS R4 CHSH(alpha) = 6 cos(alpha) - 4 cos(alpha)^3 (exact, all alpha)
+PASS R4 at cos(alpha) = 4/5: CHSH = 344/125 > 2
+PASS R4 the Tsirelson value 2*sqrt(2) is irrational and exceeds 344/125
+ALL PASS

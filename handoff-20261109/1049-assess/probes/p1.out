@@ -1,0 +1,10 @@
+d=3 counterexample f=s/3+C*P^(q-2): q=5 n=6 covariance(a)=True isotropy(b)=True affine=False base-point witness (step d, base w)=((0, 0, 0, 0, 0, 1), (0, 0, 0, 1, 0, 0))
+d=3 control linear f=s/3: q=5 n=6 covariance(a)=True isotropy(b)=True affine=True
+d=3 countercontrol affine-offset f=s/3+1: q=5 n=6 covariance(a)=False isotropy(b)=True affine=True cov-fail=(2, 0, (0, 0, 0, 0, 0, 0))
+d=3 counterexample f=s/3+C*P^(q-2): q=7 n=6 covariance(a)=True isotropy(b)=True affine=False base-point witness (step d, base w)=((0, 0, 0, 0, 0, 1), (0, 0, 0, 1, 0, 0))
+d=3 control linear f=s/3: q=7 n=6 covariance(a)=True isotropy(b)=True affine=True
+d=3 countercontrol affine-offset f=s/3+1: q=7 n=6 covariance(a)=False isotropy(b)=True affine=True cov-fail=(2, 0, (0, 0, 0, 0, 0, 0))
+d=3 counterexample q=2 f=s+[all nbrs equal]: q=2 n=6 covariance(a)=True isotropy(b)=True affine=False base-point witness (step d, base w)=((0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 1, 0))
+d=2 counterexample f=s/2+y3*chi(y1^2-y2^2): q=7 n=4 covariance(a)=True isotropy(b)=True affine=False base-point witness (step d, base w)=((0, 0, 0, 1), (0, 0, 1, 0))
+d=1 control q=3: functions satisfying (a)+(b): 1; equals f=s: True
+ALL PASS

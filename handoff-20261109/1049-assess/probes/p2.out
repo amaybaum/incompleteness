@@ -1,0 +1,7 @@
+(A) q=2: affine grading mod constants on C6 holds in 20 random runs: True; self-term breaks it: True; odd cycle C5 breaks it: True
+(A) q=3: affine grading mod constants on C6 holds in 20 random runs: True; self-term breaks it: True; odd cycle C5 breaks it: True
+(A) q=5: affine grading mod constants on C6 holds in 20 random runs: True; self-term breaks it: True; odd cycle C5 breaks it: True
+(B) n=3, all symmetric zero-diagonal K over F2: Q conserved for b=0: True; Q(step z)-Q(z) = b.u exactly: True; some b!=0 breaks conservation: True
+(B) n=4, all symmetric zero-diagonal K over F2: Q conserved for b=0: True; Q(step z)-Q(z) = b.u exactly: True; some b!=0 breaks conservation: True
+(C) run difference of affine processes with common offsets is linear and offset-free: True
+ALL PASS

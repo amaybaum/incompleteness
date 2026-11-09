@@ -1,0 +1,29 @@
+PASS R1a (<=) core: Lagrange identity |v|^2|b|^2 - (v.b)^2 = sum (v_i b_j - v_j b_i)^2, so v.b >= -|v||b|
+PASS R1b (=>) witness: b* = -v/|v| has |b*|^2 = 1 and t + v.b* = t - |v|
+PASS R1c effect reduction: e = c + u.x at x = -u/|u| equals c - |u| (so nonnegativity on the ball forces c >= |u|)
+PASS R2a kernel cnot (signed permutation) = table of quantum CNOT conjugation on all 16 Pauli products
+PASS R2b cnot(prodState xplus z3) = phiW (kernel cnot_prodState_xplus_z3)
+PASS R2c actT reflY phiW = idW (kernel actT_reflY_phiW)
+PASS R2d cnot idW = chainW (kernel cnot_idW)
+PASS R2e chain_value: pairVal(sharpVec(-e1), sharpVec(-e3), chainW) = -1/2; with hats (1,a),(1,b) it is -2
+PASS R2f kernel orientation: toOp chainW (sharpVec -e3) = (0, 1, 0, 0), outside Lor (lor_toOp_of_maxCone's conclusion fails)
+PASS R2g kernel control: with nflip (det +1) in place of reflY the same pair of effects gives 0
+PASS R3a table w3 (<XX> = <XY> = 1, rest 0) is nonnegative on all 36 Pauli product tests :: [0, 1, 2]
+PASS R3b herald of w3 by the A-test +x is (1, 1, 1, 0)
+PASS R3c that herald is outside the cone over the octahedron (|v|_1 = 2 > t = 1) and outside Lor (|v|^2 = 2 > 1)
+PASS R3d that herald is inside the dual cone of the Pauli tests (the cube: max |v_i| <= t)
+PASS R3e w3 is outside maxCone(eball 3): pairVal((1,e1),(1,b)) = 1 - sqrt 2 < 0 for b = -(1,1,0)/sqrt2
+PASS R3f converse direction: every octahedron vertex lies in the cube cone (octahedron closure => Pauli validity)
+PASS R4a (I-XX)+(I-ZZ) is PSD with one-dimensional kernel spanned by Phi+ :: {2: 2, 0: 1, 4: 1}
+PASS R4b <Phi+|YY|Phi+> = -1, so every PSD unit-trace rho with <XX> = <ZZ> = 1 has <YY> = -1 (any completion)
+PASS R4c zero completion T: herald by A-hat (1,a) is (1, a1, 0, a3), in Lor whenever |a| <= 1 (Lemma H (<=) gives T in maxCone)
+PASS R4d completion with <XZ> = 1/2 keeps all 36 Pauli products >= 0 but leaves maxCone(eball 3) (value -1/4 at a=(1,0,1)/sqrt2, b=-a)
+PASS R5a PR box: S = 4 > 2 sqrt 2, so it fails Tsirelson soundness and cannot witness M20 =/=> J9
+PASS R5b law c = (1,1,1,1/2), zero marginals: p(ab|xy) = (1 + ab c_xy)/4 >= 0, NS, max over the 8 CHSH forms = 5/2 < 2 sqrt 2 :: 5/2
+PASS R5c control of the identity ||A psi - B psi||^2 = 2 - 2<AB> on a generic real family
+PASS R6a monomial Kraus maps, Lueders projections and partial trace keep diagonal matrices diagonal
+PASS R6b control: a non-monomial operator creates an off-diagonal entry
+PASS R6c witness 'non-monomial operation =/=> local tomography': H (x) H is real and non-monomial, and (I + YY)/4, (I - YY)/4 agree on every real product effect
+PASS R6d real symmetric rho has <Y> = 0 (no y-component from real operations); S H |0><0| H S^dag has <Y> = 1
+
+checks: 27, failures: 0

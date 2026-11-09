@@ -1,0 +1,4 @@
+(a) permutation |U|^p tables identical for p in [1/2, 1, 2, 3, 7] n<=4: True
+(b) column lemma at p=1,4 on 28 grid profiles (n=3, step 1/6): True
+(c) Cayley unitary: |U|^2 column sums = 1; |U|^4 column sums = [81/169, 21105/48841, 1341/3757] : True
+ALL P1 CHECKS PASS

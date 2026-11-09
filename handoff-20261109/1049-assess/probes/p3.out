@@ -1,0 +1,5 @@
+  non-affine local tables among NN runs: 77 of 150
+n=6 q=2 T=5: non-affine NN rules keep the sector split: True; centre-reading breaks it: True; i+2-reading breaks it: True
+  non-affine local tables among NN runs: 80 of 80
+n=4 q=3 T=4: non-affine NN rules keep the sector split: True; centre-reading breaks it: True; i+2-reading breaks it: True
+ALL PASS

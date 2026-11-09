@@ -1,0 +1,6 @@
+T1 PASS
+T2 PASS
+T3 PASS
+T4 PASS
+T1 counts (p1 passers 4x2, with non-monomial block, p2 passers, p2 overlapping, p1 overlapping under nonneg probes): (336, 256, 144, 96, 320)
+ALL PASS

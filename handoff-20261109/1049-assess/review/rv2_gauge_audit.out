@@ -1,0 +1,28 @@
+PASS R1 D_q = -1 at every prime 5..997 (linear control D = 0)
+PASS R2a primed combinations shift-invariant (coefficients sum to 0)
+PASS R2b G unit-homogeneous of degree 1 on the plane, every prime 5..101
+PASS R2c P1 covariance exhaustive q=5
+PASS R2c P1 covariance exhaustive q=7
+PASS R2c control linear covariant q=5
+PASS R2c countercontrol square fails q=5
+PASS R2c countercontrol offset fails q=5
+PASS R3 P1 uniform symmetry group == AddAut, q=5 (20 maps)
+PASS R3 P1 uniform symmetry group == AddAut, q=7 (42 maps)
+PASS R3 control linear group == AddAut, q=5
+PASS R3 countercontrol square group is smaller, q=5 (1 maps)
+PASS R4 separable + shift-covariant => affine, q=2, 2 slots (8 solutions)
+PASS R4 separable + shift-covariant => affine, q=3, 2 slots (27 solutions)
+PASS R4 separable + shift-covariant => affine, q=4, 2 slots (64 solutions)
+PASS R4 separable + shift-covariant => affine, q=3, 3 slots (243 solutions)
+PASS R4 P1 not separable (nonzero cross difference, q=5)
+PASS R5 A6-glob (unit homogeneity) P1 q=5
+PASS R5 A6-glob (unit homogeneity) P1 q=7
+PASS R5 A6-inv fails (p1) q=5
+PASS R5 A6-inv fails (lin) q=5
+PASS R5 link-interface insertion covariant (3x3x3 torus, q=5,7, 20 seeded cases each)
+PASS R6 P1 response unit-homogeneous about every uniform background q=5
+PASS R6 P1 response independent of absolute level q=5
+PASS R6 control linear homogeneous q=5
+PASS R6 countercontrol square not homogeneous q=5
+PASS R6 P1 response not additive (q=5)
+ALL PASS

@@ -1,0 +1,28 @@
+PASS A1 (I+XX+ZZ)/4 has minimum eigenvalue -1/4 :: {3/4: 1, 1/4: 2, -1/4: 1}
+PASS A2 (I+XX+YY+ZZ)/4 equals SWAP/2, minimum eigenvalue -1/2 :: {1/2: 3, -1/2: 1}
+PASS A3 (I+XX-YY+ZZ)/4 equals |Phi+><Phi+|
+PASS B1 48 signed-permutation tables: PSD iff s_x s_y s_z = -sgn(pi) :: 48 tables
+PASS B2 the PSD ones are rank 1 (pure)
+PASS B3 the non-PSD ones have minimum eigenvalue exactly -1/2
+PASS C1 zero-marginal tables: product value = (1 + a^T C b)/4 on symbolic a, b :: 192 tables
+PASS C2 signed (partial) permutation blocks: |C^T a| <= |a| exactly (hence 1 + a^T C b >= 1 - |a||b| >= 0 on the ball)
+PASS C3 control: (I+XX+XZ)/4 is negative on a full-ball product, value (1-sqrt2)/4 :: 1/4 - sqrt(2)/4
+PASS D1 CNOT: XI->XX, IZ->ZZ, YI->YX, IY->ZY, ZI->ZI, IX->IX, YY->-XZ
+PASS D2 control: YY -> +XZ is false
+PASS E1 partial transpose on wing A = sign flip of every T_{y,b} (generic symbolic table)
+PASS E2 partial transpose of the Phi+ table is SWAP/2
+PASS F1 comparator: CNOT(H x I)|00> = Phi+
+PASS F2 comparator: CNOT(HS x I)|00> = Phi+ (S|0> = |0>)
+PASS F3 control: the two sequences differ on |10> (F2 is not an identity of maps)
+PASS G1 (X(x)Z)(Z(x)X)(Y(x)Y) = +I
+PASS G2 (X(x)X)(Z(x)Z)(Y(x)Y) = -I
+PASS G3 the three operators in each line commute pairwise
+PASS H1 every sign pattern of {XX,ZZ} or {XZ,ZX} has a PSD completion (YY = -st, resp. +st)
+PASS H2 control: the opposite YY sign gives minimum eigenvalue -1/2
+PASS I1 (I+XX+ZZ)/4 is the uniform mixture of 16 products of cube vertices (Pauli-product LHV)
+PASS I2 SWAP/2 = (I+XX+YY+ZZ)/4 is the uniform mixture of 8 products of equal cube vertices
+PASS I3 a product of cube vertices gives 0 or 1 on every product of Pauli sharp effects
+PASS I4 control: the equal-vertex mixture has T_yy = +1, not the Phi+ value -1
+PASS J1 Bloch (1,0,1): in the cube, outside the octahedron and outside the ball
+
+26 checks, 0 failures

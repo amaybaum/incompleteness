@@ -1,0 +1,21 @@
+PASS C1 |O| = 24
+PASS C1(a) real commutant dimension = 3 (multiplicity-free, real type)
+PASS C1(b) multiplicities (1,2,3): got [1, 2, 3]
+PASS C1(c) stabilizer dim so(6) = 4: got 4
+PASS C1(c) stabilizer dim u(6) = 14: got 14
+PASS C2(a) J^2 = -1
+PASS C2(a) [J,f] = 0
+PASS C2(a) det J = 1
+PASS C2 F symplectic
+PASS C2(b) dim commutant in sp(12) = 36: got 36
+PASS C2(b) every commutant element commutes with J (x) I6
+PASS C2(d) K positive definite
+PASS C2(d) C stationary under F
+PASS C2(d) stabilizer of C inside the u(6) commutant = 14: got 14
+PASS C2(d) same, configuration-space o(6) acting diagonally = 4: got 4
+PASS C2(c) no real J with J^2=-1 commuting with f_2: 0 real solutions
+PASS C2(c) countercontrol: real J found for f_1: 2 real solutions
+PASS C3 {D', eps} = 0 identically in mu
+PASS C3 same-sublattice coupling on scalar lattice = -2 mu: got -2*mu
+PASS C3 control: {D0 + h, eps} != 0
+ALL PASS

@@ -1,0 +1,61 @@
+PASS V1 link sum, n=1 slots, q=2: |solutions| = 4, affine = 4
+PASS V1 link sum, n=1 slots, q=3: |solutions| = 9, affine = 9
+PASS V1 link sum, n=1 slots, q=4: |solutions| = 16, affine = 16
+PASS V1 link sum, n=1 slots, q=5: |solutions| = 25, affine = 25
+PASS V1 link sum, n=1 slots, q=6: |solutions| = 36, affine = 36
+PASS V1 link sum, n=1 slots, q=7: |solutions| = 49, affine = 49
+PASS V1 link sum, n=1 slots, q=8: |solutions| = 64, affine = 64
+PASS V1 link sum, n=1 slots, q=9: |solutions| = 81, affine = 81
+PASS V1 link sum, n=2 slots, q=2: |solutions| = 16, affine = 16
+PASS V1 link sum, n=2 slots, q=3: |solutions| = 81, affine = 81
+PASS V1 link sum, n=2 slots, q=4: |solutions| = 256, affine = 256
+PASS V1 link sum, n=2 slots, q=5: |solutions| = 625, affine = 625
+PASS V1 link sum, n=2 slots, q=6: |solutions| = 1296, affine = 1296
+PASS V1 link sum, n=2 slots, q=7: |solutions| = 2401, affine = 2401
+PASS V1 link sum, n=2 slots, q=8: |solutions| = 4096, affine = 4096
+PASS V1 link sum, n=2 slots, q=9: |solutions| = 6561, affine = 6561
+PASS V1 link sum, n=2 slots, q=11: |solutions| = 14641, affine = 14641
+PASS V1 link sum, n=2 slots, q=13: |solutions| = 28561, affine = 28561
+PASS V1 link sum, n=3 slots, q=2: |solutions| = 64, affine = 64
+PASS V1 link sum, n=3 slots, q=3: |solutions| = 729, affine = 729
+PASS V1 link sum, n=3 slots, q=4: |solutions| = 4096, affine = 4096
+PASS V1 link sum, n=3 slots, q=5: |solutions| = 15625, affine = 15625
+PASS V1 link sum, n=4 slots, q=2: |solutions| = 256, affine = 256
+PASS V1 link sum, n=4 slots, q=3: |solutions| = 6561, affine = 6561
+PASS V1 link sum, n=4 slots, q=5: |solutions| = 390625, affine = 390625
+PASS V1 link sum, n=4 slots, q=7: |solutions| = 5764801, affine = 5764801
+PASS V1 link sum, n=4 slots, q=11: |solutions| = 214358881, affine = 214358881
+PASS V1 link sum, n=6 slots, q=2: |solutions| = 4096, affine = 4096
+PASS V1 link sum, n=6 slots, q=3: |solutions| = 531441, affine = 531441
+PASS V1 link sum, n=6 slots, q=5: |solutions| = 244140625, affine = 244140625
+PASS V1 link sum, n=6 slots, q=7: |solutions| = 13841287201, affine = 13841287201
+PASS V1 affine generators solve (S), n=2, q=5
+PASS V1 affine generators solve (S), n=2, q=4
+PASS V1 affine generators solve (S), n=4, q=7
+PASS V2 K=2, shifts by all c in V, n=2, q=2: 4096 solutions = affine 4096
+NOTE V2 K=2, diagonal shifts only, n=2, q=2: 4096 solutions (affine 4096)
+PASS V2 K=2, shifts by all c in V, n=2, q=3: 531441 solutions = affine 531441
+PASS V2 K=2, diagonal shifts only, n=2, q=3: 43046721 solutions > affine 531441 (non-affine admitted)
+PASS V2 K=2, shifts by all c in V, n=3, q=2: 262144 solutions = affine 262144
+NOTE V2 K=2, diagonal shifts only, n=3, q=2: 262144 solutions (affine 262144)
+PASS V2 K=2, shifts by all c in V, n=3, q=3: 387420489 solutions = affine 387420489
+PASS V2 K=2, diagonal shifts only, n=3, q=3: 282429536481 solutions > affine 387420489 (non-affine admitted)
+PASS V3 general F on 2 slots, q=3: 81 uniformly covariant > affine 27 (separability load-bearing)
+PASS V3 general F on 2 slots, q=5: 15625 uniformly covariant > affine 125 (separability load-bearing)
+PASS V4 mutation (x = 0 rows only) detected, n=2, q=5: 9765625 != 625
+PASS V4 mutation (x = 0 rows only) detected, n=2, q=4: 65536 != 256
+PASS V5 P1 d=3 q=5 not a link sum (mixed difference witness ((0, 0, 0, 0, 0, 0), 0, 1, 1, 1))
+PASS V5 P1 d=3 q=7 not a link sum (mixed difference witness ((0, 0, 0, 0, 0, 0), 0, 1, 1, 1))
+PASS V5 P1 d=3 q=2 not a link sum (mixed difference witness ((0, 0, 0, 0, 0, 0), 0, 1, 1, 1))
+PASS V5 P1 d=2 q=7 not a link sum (mixed difference witness ((0, 0, 0, 0), 0, 1, 1, 1))
+PASS V5 control: linear d=2 q=7 is a link sum (no witness)
+PASS V5 control: sum x_j^2 (q=5, 3 slots) is a link sum
+PASS V5 P1 d=2 q=7: f(lam x + c1) = lam f(x) + 2c for all x, units lam, c
+PASS V5 P1 d=3 q=5: f(lam x + c1) = lam f(x) + 2c for all x, units lam, c
+PASS V5 P1 d=2 q=7: every single-slot response is invariant under uniform shifts
+PASS V5 P1 d=2 q=7: response depends on the background (witness ((0, 0, 0, 1), 0, 1))
+PASS V6 q=2, d=3: every isotropic centre-free affine a*sum+b satisfies the kappa=2 uniform form
+PASS V6 q=3: a*sum + b with b != 0 fails lambda = -1 (input not implied by affinity)
+PASS V6 q=5: a*sum + b with b != 0 fails lambda = -1 (input not implied by affinity)
+PASS V6 q=7: a*sum + b with b != 0 fails lambda = -1 (input not implied by affinity)
+ALL PASS

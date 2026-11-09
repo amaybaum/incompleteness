@@ -1,0 +1,8 @@
+Q1 PASS
+Q2 PASS
+Q3 PASS
+Q4 PASS
+Q5 PASS
+Q2 counts p -> (unit columns, passers, overlapping passers, passers with non-monomial block): {1: (112, 1616, 0, 608), 2: (72, 1008, 192, 448), 3: (200, 816, 0, 768)}
+Q2 countercontrol (overlapping passers at p = 1, nonnegative probes only): 4384
+ALL PASS

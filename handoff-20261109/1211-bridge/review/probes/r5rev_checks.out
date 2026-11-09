@@ -1,0 +1,38 @@
+PASS V1 spectral projectors resolve X: P+ - P- = X, P+ + P- + P0 = I
+PASS V1 spectral exp == sympy Matrix.exp for exp(-i th X_01), n = 3
+PASS V1 three-state form: exp(-i th X_ab) = e^{-i th} G_(ab)(2th/pi) diag(1,1,e^{i th})
+PASS V1 diag(1,1,e^{i th}) commutes with G_(ab) (order immaterial)
+PASS V1 countercontrol: relative phase dropped, the form fails
+PASS V1 sign function nontrivial on the two-orbit involution (signFun(2) = -1)
+PASS V1 kernel-shaped identity, tau = (0 1)(2 3), n = 5: diag(phase) G (sgn G sgn) = exp(-i pi t X_01)
+PASS V1 countercontrol: sign function dropped on the two-orbit involution, identity fails
+PASS V1 group law unit_g(t) unit_g(s) = unit_g(t+s) for an involution
+PASS V1 single transposition: diag(phase) G(t) G(t) = diag(phase) G(2t) = exp(-i pi t X_ab)
+PASS V2 n=3: exp(-i pi/2 X_ab) swap(a b) = -i diag(1,1,i,...,i)
+PASS V2 n=4: exp(-i pi/2 X_ab) swap(a b) = -i diag(1,1,i,...,i)
+PASS V2 n=5: exp(-i pi/2 X_ab) swap(a b) = -i diag(1,1,i,...,i)
+PASS V2 n=3: channel = quarter phase on state k, for every k, by exchange transport
+PASS V2 control n=2: exp(-i pi/2 X) swap = -i I, channel trivial
+PASS V3 encoding: exp(-i pi/2 X_01) is the monomial (swap, i^3 on the pair)
+PASS V3 n=3 (group order 192): quarter phase on one state reachable = True (expected True); positive control, phase on complement of a pair, reachable
+PASS V3 n=4 (group order 3072): quarter phase on one state reachable = False (expected False); positive control, phase on complement of a pair, reachable
+PASS V3 n=5 (group order 61440): quarter phase on one state reachable = True (expected True); positive control, phase on complement of a pair, reachable
+PASS V3 n=6 exponent lattice: single-state quarter phase reachable = False (expected False)
+PASS V3 n=7 exponent lattice: single-state quarter phase reachable = True (expected True)
+PASS V3 n=5 explicit word: (D_01 swap_01)(D_23 swap_23) = diag(-i,-i,-i,-i,1) = -i diag(1,1,1,1,i)
+PASS V3 n=5: its channel is the quarter phase on the fifth state (all 25 matrix units)
+PASS V4 n=3: rotation generators + transport close on dim 3 (so(3) = 3); i X + transport on dim 8 (su(3) = 8)
+PASS V4 n=4: rotation generators + transport close on dim 6 (so(4) = 6); i X + transport on dim 15 (su(4) = 15)
+PASS V4 a real word's channel keeps E_ac + E_ca real; the quarter phase on c makes it non-real
+PASS V4 rational real rotation (cos = 3/5) moves the all-ones ray and is non-monomial
+PASS V5 all sixteen probabilities rational and nonnegative, each setting normalized
+PASS V5 no-signalling marginals
+PASS V5 CHSH at cos al = 4/5 is 344/125 = 344/125 > 2
+PASS V5 E(x,y) = cos(x - y) for Phi+
+PASS V5 CHSH(al) = 3cos al - cos 3al = 6cos al - 4cos^3 al
+PASS V5 Tsirelson-point P(a=b) = (2+sqrt2)/4 is irrational
+PASS V6 centralizer of f_a has p^2 elements (f_a cyclic), 158 pairs (p, a), odd p <= 31
+PASS V6 every non-scalar J with J^2 = -1 commuting with f_a has det 1
+PASS V6 scalar roots of -1 (when they exist) have det -1 (excluded)
+PASS V6 a non-scalar root exists iff 4 - a^2 is a nonzero square mod p
+ALL PASS

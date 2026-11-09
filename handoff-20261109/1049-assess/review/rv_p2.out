@@ -1,0 +1,7 @@
+n=3: identity Q(step) = Q + b.u checked on 4096 cases: PASS
+n=3: uniform b=1 breaks Q-conservation: PASS
+n=3: centre-term countercontrol breaks conservation: PASS
+n=4: identity Q(step) = Q + b.u checked on 262144 cases: PASS
+n=4: uniform b=1 breaks Q-conservation: PASS
+n=4: centre-term countercontrol breaks conservation: PASS
+ALL PASS

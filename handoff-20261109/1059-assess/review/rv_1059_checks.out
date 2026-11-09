@@ -1,0 +1,7 @@
+C1 column lemma: 35 grid profiles (n=4, step 1/4) + 4 Pythagorean columns, p in [1/2, 1, 3, 4]: True
+C2 power family at u = 2^{-1/2}, support 2: 2*u^p = 1 solves to p = [2] : True
+C3 renormalised readout is a law for every p and the laws differ: True {'1': ['1/5', '2/5', '2/5'], '2': ['1/9', '4/9', '4/9'], '3': ['1/17', '8/17', '8/17'], '1/2': ['-1/7 + 2*sqrt(2)/7', '4/7 - sqrt(2)/7', '4/7 - sqrt(2)/7']}
+C4 supplied 2-normalised coherent preparation is not p-normalised for p != 2: True
+C5 g = u^2 on all 2^{-k/2} (k<=40) and normalises every flat 2^k support; g(cos pi/8)-cos^2 = 0.36915764 : True
+C6 two-qubit stabilizer scope: 60 states, 105 stabilizer ONBs; frame-function affine dim 15 = trace-form 15; a nonnegative frame function with non-PSD X (min value 0.00857864): True
+ALL RV CHECKS PASS

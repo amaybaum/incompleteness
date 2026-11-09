@@ -1,0 +1,27 @@
+PASS A1 cube vertices in dual of Pauli effects, 3 tight each
+PASS A1c control: (1, 101/100, 0, 0) outside the dual
+PASS A2 octahedron inside cube (vertices)
+PASS A2c cube vertex outside octahedron and outside Lor
+PASS A3 w3: all 36 Pauli product values >= 0
+PASS A3 w3: every Pauli herald on either wing is in the cube cone
+PASS A3 w3: +x herald = (1,1,1,0), outside octahedron and Lor
+PASS A3c w3 fails a full-ball product test (value 1 - sqrt2)
+PASS A4 control: Phi+ heralds = (1, a1, -a2, a3)
+PASS B1 p >= 0 and zero marginals both wings (NS)
+PASS B2 all 8 CHSH forms <= 5/2, max = 5/2 < 2 sqrt2
+PASS B3 minors -(q-1)^2 and -(q-1/2)^2: no q makes both >= 0
+PASS B3c TLM: 4pi/3 > pi; Tsirelson point equals pi
+PASS B4 PR box S = 4 > 2 sqrt2
+PASS C1 node-10 table: herald (1,a1,0,a3); 1 - a1^2 - a3^2 = (1-|a|^2) + a2^2
+PASS C1 eigenvalue -1/4
+PASS C2 <XX>=<ZZ>=1 forces the rank-1 projector Phi+ with <YY> = -1
+PASS C3 swap table = 2 I4 (heralds 2(1,a) in Lor), eigenvalue -1
+PASS D1 kernel gate flow unit(X,1/2): unitary, non-monomial, fixes (1,1), not diagonal
+PASS D1 unit(X,1/2) |0> has Bloch vector (0, -1, 0): a y-axis state with no phase gate
+PASS D1 general t: <Y> = -sin(pi t), <X> = 0
+PASS D1c real H|0>: <Y> = 0; S(1,1) = (1,i) not parallel to (1,1)
+PASS D2 drives + exchange (no phase gate) prepare x+ (x) z+ exactly
+PASS D2c control: each drive is unitary and non-monomial on its pair
+PASS E1 float coefficients: same numbers (0.5, 2.5) but strict sympy comparisons fail
+PASS E1c exact coefficients: the same comparisons hold
+26 checks, 0 failures

@@ -1,0 +1,35 @@
+PASS S1 q=2: 2 affine permutations (tested) = q*phi(q)
+PASS S1 q=2: every permutation affine is True (expected True)
+PASS S1 q=3: 6 affine permutations (tested) = q*phi(q)
+PASS S1 q=3: every permutation affine is True (expected True)
+PASS S1 q=4: 8 affine permutations (tested) = q*phi(q)
+PASS S1 q=4: every permutation affine is False (expected False)
+PASS S1 q=5: 20 affine permutations (tested) = q*phi(q)
+PASS S1 q=5: every permutation affine is False (expected False)
+PASS S1 q=6: 12 affine permutations (tested) = q*phi(q)
+PASS S1 q=6: every permutation affine is False (expected False)
+PASS S1 q=7: 42 affine permutations (tested) = q*phi(q)
+PASS S1 q=7: every permutation affine is False (expected False)
+PASS S1 q=8: 32 affine permutations (tested) = q*phi(q)
+PASS S1 q=8: every permutation affine is False (expected False)
+PASS S1 control q=4: the transposition (0 1) is not affine
+PASS S1 control q=4: 3x+1 is affine
+PASS S2 q=2: s(u t(a) + v t(b)) affine iff s affine, every s and units u, v (0 non-affine s)
+PASS S2 q=3: s(u t(a) + v t(b)) affine iff s affine, every s and units u, v (0 non-affine s)
+PASS S2 q=4: s(u t(a) + v t(b)) affine iff s affine, every s and units u, v (16 non-affine s)
+PASS S2 q=5: s(u t(a) + v t(b)) affine iff s affine, every s and units u, v (100 non-affine s)
+PASS S2 q=6: s(u t(a) + v t(b)) affine iff s affine, every s and units u, v (708 non-affine s)
+PASS S2 q=7: s(u t(a) + v t(b)) affine iff s affine, every s and units u, v (4998 non-affine s)
+PASS S3 q=2: the conjugated 3-site wave update is affine iff s is affine (every s)
+PASS S3 q=3: the conjugated 3-site wave update is affine iff s is affine (every s)
+PASS S3 q=4: the conjugated 3-site wave update is affine iff s is affine (every s)
+PASS S3 q=5: the conjugated 3-site wave update is affine iff s is affine (every s)
+PASS S3 control q=5: unconjugated wave update is affine
+PASS S4 q=2..9: x -> l x + c preserves '+' iff c = 0
+PASS S4 q=2..9: every x -> l x + c preserves x - y + z
+PASS S5 q=2, n=6: every affine a.x + b satisfies the kappa-general uniform form
+PASS S5 q=2, n=6: a.x + b satisfies the kappa = 2 form iff sum(a) is even
+PASS S5 q=2: the affine rule x_1 fails the kappa = 2 form
+PASS Mutation q=8: a one-slot slice misses 96 non-affine s (second slot load-bearing)
+PASS Mutation q=4: dropping the unit condition admits 8 non-bijective maps
+ALL PASS

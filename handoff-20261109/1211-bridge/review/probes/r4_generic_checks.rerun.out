@@ -1,0 +1,24 @@
+PASS J(a) p=3: J0^2 = -I (-1 a square mod p: False)
+PASS J(a) p=5: J0^2 = -I (-1 a square mod p: True)
+PASS J(a) p=7: J0^2 = -I (-1 a square mod p: False)
+PASS J(a) p=11: J0^2 = -I (-1 a square mod p: False)
+PASS J(a) p=13: J0^2 = -I (-1 a square mod p: True)
+PASS J(b) symplectic commuting J exists iff 4 - a^2 is a nonzero square mod p (all pairs)
+PASS J(b) the r3 guard ('-1 a square') disagrees with existence on some pairs
+PASS J countercontrol: no symplectic commuting J at the null modes a = +-2
+     J(b) pairs (p, a): 39; pairs contradicting the r3 guard: 21; first: [(3, 0, 2), (5, 1, 0), (5, 2, 0), (5, 3, 0), (5, 4, 0), (7, 0, 2)]
+PASS D(a) drive on 3 states at t=pi/4: unitary
+PASS D(a) drive on 3 states at t=pi/4: non-monomial
+PASS D(a) drive on 3 states at t=pi/4: moves the all-ones ray
+PASS D(b) control: drive on 2 states at t=pi/4 is non-monomial and keeps the all-ones ray
+PASS D(c) gate flow at t=1: equals the involution
+PASS D(c) gate flow at t=1/2: unitary, non-monomial, keeps the all-ones ray
+PASS D(c) gate flow keeps the all-ones ray at t in {1/7, 1/3, 2/5, 3/4, 5/6}
+PASS L(i) control: linear rule, opposite-colour reads only: split holds
+PASS L(ii) linear rule with one same-colour read: split fails
+PASS B(a) all 16 joint probabilities rational
+PASS B(a) normalized per setting pair
+PASS B(a) no-signalling
+PASS B(a) CHSH = 344/125 > 2 (exact)
+PASS B(b) (2 + sqrt 2)/4 is irrational
+ALL PASS

@@ -1,0 +1,8 @@
+D0 PASS
+D1 PASS
+D2 PASS
+H1 PASS
+H2 PASS
+H3 PASS
+D1 cases: 63128 | Gram = 1: 17424 | countercontrol (a) non-monomial with Gram != 1: 22080 | countercontrol (b) distinct positions, Gram != 1: 23624
+ALL PASS

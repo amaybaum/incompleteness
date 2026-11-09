@@ -1,0 +1,17 @@
+PASS drive closed form solves U' = -i X_ab U, U(0)=1 (n=3, pair 0,1)
+PASS drive closed form solves U' = -i X_ab U, U(0)=1 (n=4, pair 2,3)
+PASS drive closed form solves U' = -i X_ab U, U(0)=1 (n=4, pair 0,2)
+PASS n2 gate flow group law on 3 states: G(t) G(t) = G(2t)
+PASS n2 signFun control: active on 4 states with tau = (01)(23), a = 0
+PASS n2 signFun is identically 1 for tau = (01) on three states
+PASS n2 kernel lhs (tau = (01), 3 states) = exp(-i pi t X_01)
+PASS n2 W10 right side at th = pi t equals the kernel lhs
+PASS n2 control: conjugate phase fails (exact nonzero witness at t = 1/3)
+PASS n6 exchange * drive(pi/2) on (|10>,|11>) = S^dagger (x) I exactly
+PASS n6 as channels on a generic Hermitian rho: E rho E^H = (S^dagger x I) rho (S^dagger x I)^H
+PASS n6 control: S (x) I is a different channel (exact nonzero witness)
+PASS n6 control: the drive at pi/2 alone is not S^dagger (x) I as a channel (exact nonzero witness)
+PASS n6 first drive at pi/4 takes |10> to y+ (x) z+ (projectors)
+PASS n6 S^dagger takes y+ to x+ exactly
+PASS n6 full preparation E * drive(pi/4) |10> = x+ (x) z+ (projectors)
+16 checks, 0 failures

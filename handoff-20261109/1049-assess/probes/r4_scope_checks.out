@@ -1,0 +1,32 @@
+PASS C1 q=2: all 4 maps Z/2 -> Z/2 are affine
+PASS C1 q=2, n=4: sum x_j^2 = sum x_j identically
+PASS C1 q=2, n=6: sum x_j^2 = sum x_j identically
+PASS C1 q=3, n=4: sum x_j^2 is not affine
+PASS C1 q=3, n=4: sum x_j^2 has a state-dependent uniform-shift effect (excluded by gauge)
+PASS C1 control q=3, n=4: sum x_j has a state-independent uniform-shift effect
+PASS C1 q=5, n=4: sum x_j^2 is not affine
+PASS C1 q=5, n=4: sum x_j^2 has a state-dependent uniform-shift effect (excluded by gauge)
+PASS C1 control q=5, n=4: sum x_j has a state-independent uniform-shift effect
+PASS C2 q=2, n=6: all 128 affine rules satisfy the kappa-general uniform form with kappa = sum(a)
+PASS C2 q=2, n=6: an affine rule satisfies the kappa=2 form iff sum(a) is even (isotropic: 6a, even)
+PASS C2 q=2, d=3: sum x + [all six equal] satisfies the kappa=2 uniform form
+PASS C2 q=2, d=3: sum x + [all six equal] is not affine
+PASS C2 countercontrol q=3, d=2: 2*sum x + 1 fails the uniform form (lambda = -1)
+PASS C2 control q=3, d=2: 2*sum x satisfies the uniform form, kappa = 2
+PASS C3 q=3, K=2: m(x) = ((x1-x2)^2, 0) is not affine
+PASS C3 q=3, K=2: m has a state-independent (zero) effect under every diagonal shift c(1,1)
+PASS C3 q=3, K=2: under the shift (1,0) the effect of m depends on the state
+PASS C3 control q=3, K=2: an affine map passes the affinity, diagonal and (1,0) tests
+PASS C4 q=2: 2 affine permutations = q*phi(q) = 2
+PASS C4 q=2: affine permutations are all 2 permutations
+PASS C4 q=3: 6 affine permutations = q*phi(q) = 6
+PASS C4 q=3: affine permutations are all 6 permutations
+PASS C4 q=4: 8 affine permutations = q*phi(q) = 8
+PASS C4 q=4: affine permutations are not all 24 permutations
+PASS C4 q=5: 20 affine permutations = q*phi(q) = 20
+PASS C4 q=5: affine permutations are not all 120 permutations
+PASS C4 q=6: 12 affine permutations = q*phi(q) = 12
+PASS C4 q=6: affine permutations are not all 720 permutations
+PASS C4 q=7: 42 affine permutations = q*phi(q) = 42
+PASS C4 q=7: affine permutations are not all 5040 permutations
+ALL PASS

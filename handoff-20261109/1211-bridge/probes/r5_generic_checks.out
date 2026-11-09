@@ -1,0 +1,41 @@
+PASS exp n=2: U(0) = I
+PASS exp n=2: dU/dth = -i X U (symbolic)
+PASS exp n=3: U(0) = I
+PASS exp n=3: dU/dth = -i X U (symbolic)
+PASS exp n=4: U(0) = I
+PASS exp n=4: dU/dth = -i X U (symbolic)
+PASS I(a) n=3: exp(-i th X_ab) = e^(-i th) G(2th/pi) diag(1,1,e^(i th),..) (all th)
+PASS I(b) n=3: diag(phase(t)) G(t) G(t) = exp(-i pi t X_ab) (all t)
+PASS I(c) n=3: G(t) G(s) = G(t+s)
+PASS I countercontrol n=3: without the relative phase diag(1,1,e^(i th)) the identity fails
+PASS I(a) n=4: exp(-i th X_ab) = e^(-i th) G(2th/pi) diag(1,1,e^(i th),..) (all th)
+PASS I(b) n=4: diag(phase(t)) G(t) G(t) = exp(-i pi t X_ab) (all t)
+PASS I(c) n=4: G(t) G(s) = G(t+s)
+PASS I countercontrol n=4: without the relative phase diag(1,1,e^(i th)) the identity fails
+PASS zero() rejects a nonzero matrix (sanity)
+PASS Y(a) n=3: drive sends 1 to e^(-i th)(e_a+e_b) + rest (all th)
+PASS Y(a) n=3: entry a / entry c = e^(-i th), so on the ray iff e^(-i th) = 1
+PASS Y(a) n=4: drive sends 1 to e^(-i th)(e_a+e_b) + rest (all th)
+PASS Y(a) n=4: entry a / entry c = e^(-i th), so on the ray iff e^(-i th) = 1
+PASS Y(b) pair block entries are cos th (diagonal) and -i sin th (off-diagonal)
+PASS Y(b) monomial at th in {0, pi/2, pi, 3pi/2}
+PASS Y(b) non-monomial at th in {pi/4, pi/3, 2pi/3, 1/2}
+PASS Y(a) n=3: moves the ray at th in {pi/4, pi/2, pi, 3pi/2, 1/2}; keeps it at th = 2pi
+PASS Y(c) control n=2: drive keeps 1 on its ray (all th)
+PASS Y(d) control: gate flow fixes 1 (n=3, all t)
+PASS Q(a) exp(-i pi/2 X_ab) swap(a b) = -i diag(1,1,i)
+PASS Q(b) its conjugation channel equals the quarter phase's on c (all matrix units)
+PASS Q(c) with permutation transport: quarter-phase channel on every state of the level
+PASS Q countercontrol: the exchange alone does not act as the quarter phase on c
+PASS Q countercontrol: on two states drive(pi/2) swap is the scalar -i (no relative phase)
+PASS Q(d) at th = pi/2 the drive is monomial and moves the all-ones ray
+PASS R exp: R(0) = I and dR/dth = A R (symbolic)
+PASS R(a) real orthogonal for all th
+PASS R(a) at pi/4: non-monomial, moves the all-ones ray, does not preserve a diagonal state
+PASS R(b) rotation generators with permutation transport close on dim 3 (so(3) = 3)
+PASS R(b) drive generators i X with permutation transport close on dim 8 (su(3) = 8)
+PASS R(c) quarter phase on c sends E_ac + E_ca to a non-real matrix
+PASS R(c) control: real rotation and a permutation send it to real matrices
+PASS H CHSH = 6 cos(al) - 4 cos(al)^3 for every al (closed form)
+PASS H at cos(al) = 4/5: CHSH = 344/125 > 2
+ALL PASS

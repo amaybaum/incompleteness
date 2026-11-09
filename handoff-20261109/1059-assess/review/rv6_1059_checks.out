@@ -1,0 +1,10 @@
+V1 PASS
+V2 PASS
+V3 PASS
+V4 PASS
+V5 PASS
+V6 PASS
+V7 PASS
+V4 p=4 (units, passers, overlapping passers, failing disjoint pairs, overlapping unit pairs): (272, 192, 0, 0, 73792)
+V4 p=2 countercontrol (same tuple): (112, 6944, 3680, 0, 9280)
+ALL PASS

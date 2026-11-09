@@ -1,0 +1,9 @@
+     theta pi/4, rounding nearest: b in 4..24 with det(rho1) < 0: [4, 12, 14, 15, 16, 17, 18, 19]
+     theta pi/4, rounding floor: b in 4..24 with det(rho1) < 0: [4, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 23, 24]
+     theta 3-4-5, rounding nearest: b in 4..24 with det(rho1) < 0: [9, 10, 12, 14, 15, 16, 17, 18, 21, 23]
+     theta 3-4-5, rounding floor: b in 4..24 with det(rho1) < 0: [6, 9, 10, 11, 12, 13, 16, 17, 19, 20, 22]
+PASS N5a theta = pi/4, round-to-nearest: a non-PSD register (det < 0) occurs at some b >= 11 (inside the window)
+     b = 12: rho1 = [['437/512', '181/512'], ['181/512', '599/4096']], det = -325/2097152
+PASS N5b control: the unrounded product is rank one and PSD (det 0, trace 1)
+PASS N5c clipped and normalized Z-read probabilities are >= 0 and sum to 1 on that register
+RESULT ALL PASS
