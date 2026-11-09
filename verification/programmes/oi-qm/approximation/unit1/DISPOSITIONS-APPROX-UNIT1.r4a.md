@@ -1,6 +1,6 @@
 # APPROX-UNIT1 r4a — dispositions of independent r4 nits
 
-**Status: WIP; focused diff-only review and ordinary CI pending.** Accountable issue [#1216](https://github.com/amaybaum/incompleteness/issues/1216). Integration requires a separate owner decision.
+**Status: WIP; focused diff-only review and green ordinary CI required.** Accountable issue [#1216](https://github.com/amaybaum/incompleteness/issues/1216). Integration requires a separate owner decision.
 
 Owner (amaybaum), current Codex instruction, 2026-11-09: apply the three editorial corrections, preserve the accepted scientific scope, require a focused diff-only check and green CI, and return the corrected artifact for integration approval. No scientific execution, freeze or merge is authorized. No new physical premise, designation or special workflow dispatch is included.
 
@@ -9,7 +9,7 @@ Owner (amaybaum), current Codex instruction, 2026-11-09: apply the three editori
 - Accepted r4 assessment SHA-256: `cb5c4c6a37d3a5ab321b4ad0aba464104aeed4b1d9c57c298704b376b2269b44`.
 - Original r4 writer ledger SHA-256: `ef669e30e72c71e17db058081c05934abab098d4561aa60c4599a43fd982897a`; retained unchanged as a historical writer record.
 - Independent full-text r4 review: `REVIEW-APPROX-UNIT1.r4.md`, SHA-256 `e2749ff93827e368d375e0329fa9f70804fb6b4099ae5114c13f894dd707cb5a`, **ACCEPT WITH NITS**, no blocking scientific findings. The report is retained unchanged.
-- r4a assessment: `APPROX-UNIT1.md`, SHA-256 `a5fe9a10f0cfccc912b87cc1b86dfcf390df13a05f4bffae0fd33735fe5fb0fc`.
+- r4a assessment: `APPROX-UNIT1.md`, SHA-256 `e2d95d1a67e2d317062ca80b43de5ee59b52ae9ed96d7b60f3dc6c7fec318458`.
 - Repository integration base: `cac5d26441dd33e9348151487e4df7b547195481`; scientific source citations remain pinned to `fd539e150759a6ea51ab279aeeac80fc06050ade`.
 
 ## Finding-to-diff map
