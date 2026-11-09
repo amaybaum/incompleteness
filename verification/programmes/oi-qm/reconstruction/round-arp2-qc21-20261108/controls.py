@@ -65,7 +65,14 @@ INPUTS = {
     "tools/v3_verifier.py": None,
 }
 S1_FILES = ("qc21_check.py", "controls.py", "evidence/design-run.json", "evidence/f-run/results.json",
-            "evidence/confirmation-run.json", "evidence/confirmation-measurements.json", "evidence/gate-tests.json")
+            "evidence/confirmation-run.json", "evidence/confirmation-measurements.json", "evidence/gate-tests.json",
+            "evidence/cone_k1_certificate.json", "evidence/cone_window_K2_certificate.json")
+# r12a: the cone certificates, copied into the record directory at S1 and pinned by sha256.
+STAB_CERTS = {"evidence/cone_k1_certificate.json":
+              "e67199472530e6753eed86e991636a4fadb930b2b9c56e0456ec6b884cfeb644",
+              "evidence/cone_window_K2_certificate.json":
+              "f24a68d902a423018d15c4d92440970e5f17b202cc8b8ea3407ad11269e6ebaf"}
+R12_STAB = False   # STAB-FALSE gates the self-test once r12a is frozen; before that, absent copies are skipped
 E_FILES = ("evidence/measurements.json", "evidence/s1-run/results.json", "evidence/order.json",
            "evidence/order-s1.json", "result.md")
 
@@ -839,6 +846,17 @@ def c_iface(src_checker, src_controls):
                 errs.append("%s reads a sham-specific or attribution field: %s" % (name, n.value))
             if isinstance(n, ast.Name) and n.id in ("k_attr", "attr_value", "NAME_SHK", "NAME_SH0"):
                 errs.append("%s references %s" % (name, n.id))
+    for src, names in ((src_checker, ("k_decide_c", "k_decide_levels")), (src_controls, ("decide_c", "decide_levels"))):
+        tt = ast.parse(src)
+        for fn in [n for n in tt.body if isinstance(n, ast.FunctionDef) and n.name in names]:
+            for n in ast.walk(fn):
+                if (isinstance(n, ast.Constant) and isinstance(n.value, str) and "STAB" in n.value) or \
+                        (isinstance(n, ast.Name) and "STAB" in n.id.upper()) or \
+                        (isinstance(n, ast.Attribute) and "STAB" in n.attr.upper()):
+                    errs.append("%s references STAB (r12a: reported, never gating)" % fn.name)
+        found = {n.name for n in tt.body if isinstance(n, ast.FunctionDef)} & set(names)
+        if found != set(names):
+            errs.append("C-IFACE: missing %s" % sorted(set(names) - found))
     return errs
 
 
@@ -1001,6 +1019,180 @@ def decide(m):
     out = {"P": p_tok, "B": b_tok, "C": c_tok, "level": lev, "ATTR": attr, "flags_agree": agree}
     if not agree:
         out["VOID"] = ["X: the checker's flags disagree with decide"]
+    return out
+
+
+# ------------------------------------------------------------------------------------------------------------
+# STAB-FALSE (r12a): each cone certificate's orbit rebuilt from its own fields, exactly; expected STAB = false
+# ------------------------------------------------------------------------------------------------------------
+CFGS = [(a, b, c, d) for a in (0, 1) for b in (0, 1) for c in (0, 1) for d in (0, 1)]   # (u0, v0, u1, v1)
+
+
+def stab_fns(w):
+    """(f_x, f_y, f_z) = (v0, u0 + v0 + u1 + v1, u0)."""
+    return (w[1], (w[0] + w[1] + w[2] + w[3]) % 2, w[0])
+
+
+def stab_qa():
+    out = {"0": [Q(1, 16)] * 16}
+    for a in range(3):
+        for b in (0, 1):
+            out["xyz"[a] + str(b)] = [Q(1, 8) if stab_fns(w)[a] == b else Q(0) for w in CFGS]
+    return out
+
+
+def stab_r(mu):
+    return tuple(sum(p * (1 - 2 * stab_fns(w)[a]) for p, w in zip(mu, CFGS)) for a in range(3))
+
+
+def stab_rank(rows):
+    rows = [list(r) for r in rows]
+    rank, col = 0, 0
+    ncol = len(rows[0]) if rows else 0
+    while rank < len(rows) and col < ncol:
+        piv = next((i for i in range(rank, len(rows)) if rows[i][col] != 0), None)
+        if piv is None:
+            col += 1
+            continue
+        rows[rank], rows[piv] = rows[piv], rows[rank]
+        for i in range(rank + 1, len(rows)):
+            if rows[i][col] != 0:
+                f = rows[i][col] / rows[rank][col]
+                rows[i] = [x - f * y for x, y in zip(rows[i], rows[rank])]
+        rank += 1
+        col += 1
+    return rank
+
+
+def stab_matrix(cert):
+    """B from the certificate's fields: the explicit window form {K, q, B}, or the K = 1 form {q, P, G} with
+    B delta_x = 8 q P(v(x)) l_x, l_x the product law with R = G(v)/P(v), v(x) = chi(x)."""
+    if "B" in cert:
+        return [[q(x) for x in row] for row in cert["B"]], int(cert["K"])
+    qq = q(cert["q"])
+    pp = {tuple(int(t) for t in k.split(",")): q(v) for k, v in cert["P"].items()}
+    gg = {tuple(int(t) for t in k.split(",")): tuple(q(x) for x in v) for k, v in cert["G"].items()}
+    chi = lambda w: tuple(1 - 2 * x for x in stab_fns(w))
+    b = [[Q(0)] * 16 for _ in range(16)]
+    for j, w in enumerate(CFGS):
+        v = chi(w)
+        if pp[v] == 0:
+            continue
+        r = tuple(g / pp[v] for g in gg[v])
+        for i, x in enumerate(CFGS):
+            cx = chi(x)
+            pr = Q(1, 2)
+            for a in range(3):
+                pr *= (1 + r[a] * cx[a]) / 2
+            b[i][j] += 8 * qq * pp[v] * pr
+    return b, 1
+
+
+def stab_unit_pair_fires(beta):
+    """W-CL on beta (no ticks: the supplied branch is k = 0): the unit-modulus multiset is not a sub-multiset of a
+    3x3 signed-permutation spectrum. Exact: rational roots removed, then the quadratic remainder tested."""
+    a = beta
+    tr = a[0][0] + a[1][1] + a[2][2]
+    m2 = sum(a[i][i] * a[j][j] - a[i][j] * a[j][i] for i, j in ((0, 1), (0, 2), (1, 2)))
+    det = (a[0][0] * (a[1][1] * a[2][2] - a[1][2] * a[2][1]) - a[0][1] * (a[1][0] * a[2][2] - a[1][2] * a[2][0])
+           + a[0][2] * (a[1][0] * a[2][1] - a[1][1] * a[2][0]))
+    poly = [Q(1), -tr, m2, -det]
+    roots = []
+    while len(poly) > 1:
+        den = 1
+        for c in poly:
+            den = den * c.denominator // _igcd(den, c.denominator)
+        ip = [int(c * den) for c in poly]
+        cands = [Q(0)] if ip[-1] == 0 else sorted({Q(s * p, qq) for p in _idiv(ip[-1]) for qq in _idiv(ip[0])
+                                                    for s in (1, -1)})
+        root = None
+        for r in cands:
+            val = Q(0)
+            for c in poly:
+                val = val * r + c
+            if val == 0:
+                root = r
+                break
+        if root is None:
+            break
+        roots.append(root)
+        new = [poly[0]]
+        for c in poly[1:-1]:
+            new.append(c + new[-1] * root)
+        poly = new
+    if len(poly) != 3:
+        return False
+    b, c = poly[1] / poly[0], poly[2] / poly[0]
+    if c != 1 or not (-2 < b < 2) or b == 0:
+        return False
+    if b == 1:
+        return -1 in roots
+    if b == -1:
+        return 1 in roots
+    return True
+
+
+def _igcd(a, b):
+    while b:
+        a, b = b, a % b
+    return abs(a)
+
+
+def _idiv(n):
+    n = abs(n)
+    out, i = set(), 1
+    while i * i <= n:
+        if n % i == 0:
+            out |= {i, n // i}
+        i += 1
+    return sorted(out)
+
+
+def stab_false_control(cert):
+    """STAB-FALSE: the certificate's B as the branch (herald = the mass kept) on the seven QA laws, to its window
+    K. Green when B >= 0 with column sums <= 1, HC(K), CONS(K), VAL(K) hold, W-CL fires, and STAB(K) is false."""
+    b, k = stab_matrix(cert)
+    sub = all(x >= 0 for row in b for x in row) and all(sum(b[i][j] for i in range(16)) <= 1 for j in range(16))
+    fam = stab_qa()
+    orbit, heralds = [fam], []
+    for _ in range(k):
+        nxt = {}
+        for key, mu in orbit[-1].items():
+            out = [sum(b[i][c] * mu[c] for c in range(16)) for i in range(16)]
+            h = sum(out)
+            heralds.append(h)
+            if h == 0:
+                return {"green": False, "reason": "herald 0"}
+            nxt[key] = [x / h for x in out]
+        orbit.append(nxt)
+    hc = len(set(heralds)) == 1 and heralds[0] > 0
+    alpha = stab_r(orbit[1]["0"])
+    cols = [tuple(stab_r(orbit[1][ax + "0"])[i] - alpha[i] for i in range(3)) for ax in "xyz"]
+    beta = [[cols[j][i] for j in range(3)] for i in range(3)]
+    phi = lambda r: tuple(alpha[i] + sum(beta[i][c] * r[c] for c in range(3)) for i in range(3))
+    cons = all(stab_r(orbit[j + 1][key]) == phi(stab_r(orbit[j][key])) for j in range(k) for key in fam)
+    val = all(sum(x * x for x in stab_r(mu)) <= 1 for lev in orbit for mu in lev.values())
+    wcl = stab_unit_pair_fires(beta)
+    r_prev = stab_rank([mu for lev in orbit[:k] for mu in lev.values()])
+    r_full = stab_rank([mu for lev in orbit for mu in lev.values()])
+    stab = r_prev == r_full
+    return {"green": sub and hc and cons and val and wcl and not stab, "K": k, "STAB": stab,
+            "span_rank": [r_prev, r_full], "HC": hc, "CONS": cons, "VAL": val, "WCL": wcl}
+
+
+def stab_false_check(root=RDIR):
+    """Reads each pinned certificate copy, checks its sha256, and runs STAB-FALSE on it."""
+    out = {}
+    for rel, pin in sorted(STAB_CERTS.items()):
+        path = root + rel
+        if not os.path.isfile(path):
+            out[rel] = {"green": False, "reason": "absent"}
+            continue
+        raw = read_bytes(path)
+        if sha256_bytes(raw) != pin:
+            out[rel] = {"green": False, "reason": "sha256"}
+            continue
+        out[rel] = stab_false_control(json.loads(raw))
     return out
 
 
@@ -1680,6 +1872,11 @@ def selftest_static():
     ck("C-IFACE mutation (carrier slot into the screen input)",
        c_iface(chk.replace('if r["kept"] and r["port"] == 0) / tot', 'if r["kept"] and r["carrier"][0] == 0) / tot')
                .replace('r["kept"] and r["port"] == 0), tot)', 'r["kept"] and r["carrier"][0] == 0), tot)', 1), own) != [])
+    ck("C-IFACE mutation (decide-c reads STAB)", c_iface(chk.replace(
+        'def k_decide_c(rec):\n', 'def k_decide_c(rec):\n    _ = rec.get("STAB")\n', 1), own) != [])
+    ck("C-IFACE mutation (decide-levels reads STAB)", c_iface(chk, own.replace(
+        'def decide_levels(p_tok, b_ctx, b_eq, acc_owner, c_tok, imported):\n',
+        'def decide_levels(p_tok, b_ctx, b_eq, acc_owner, c_tok, imported):\n    _ = "STAB"\n', 1)) != [])
     ck("C-IFACE mutation (decide-p reads the sham)", c_iface(chk, own.replace(
         'def decide_p(rec):\n', 'def decide_p(rec):\n    _ = rec.get("shk")\n', 1)) != [])
 
@@ -1909,6 +2106,20 @@ def selftest_runs():
     ck("activity: force_push is a violation", run_class_activity_violations([{"activity_type": "force_push"}]) != [])
 
 
+def selftest_stab():
+    res = stab_false_check()
+    present = [rel for rel, r in res.items() if r.get("reason") != "absent"]
+    if R12_STAB or present:
+        for rel, r in sorted(res.items()):
+            ck("STAB-FALSE on " + rel, r["green"])
+    bad = {"q": "1/2", "P": {k: "0" for k in ("1,1,1", "1,1,-1", "1,-1,1", "1,-1,-1", "-1,1,1", "-1,1,-1",
+                                             "-1,-1,1", "-1,-1,-1")}, "G": {}}
+    ident = {"K": 1, "q": "1", "B": [["1" if i == j else "0" for j in range(16)] for i in range(16)]}
+    r = stab_false_control(ident)
+    ck("STAB-FALSE is not green on the identity branch (STAB true)", r["STAB"] is True and not r["green"])
+    ck("STAB-FALSE rejects a zero branch", not stab_false_control(bad)["green"])
+
+
 def self_test():
     del LOG[:]
     selftest_git()
@@ -1917,6 +2128,7 @@ def self_test():
     selftest_decide()
     selftest_files()
     selftest_runs()
+    selftest_stab()
     bad = [n for n, okv in LOG if not okv]
     for n, okv in LOG:
         sys.stdout.write("%s %s\n" % ("PASS" if okv else "FAIL", n))
