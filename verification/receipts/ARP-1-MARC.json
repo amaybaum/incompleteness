@@ -1,0 +1,67 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "ARP-1-MARC",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "2cd49dc082ee7b2a026fd6d1fb4a6168f92fac51",
+ "f": "360de3b64ea3ab8f886b1a0e9798554726300115",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/preregistration.md",
+   "blob": "af7c4f228393ecaa9d334d50410e3c87d6faf80e"
+  }
+ ],
+ "governed_paths_digest": "4ddc9a8af70564d7b73a65b3f431a0b4fbdf1c1518327f6e4d8ea6dff2702563",
+ "e": "c95e5c34e5a246046ab8ed420f26891fd18de565",
+ "tree_e": "d2033a2b487a7ff9e96599448a1a0ab1c8575eda",
+ "execution_delta_digest": "73a4f0b8a1fdc4a6eaae270e83d6b8e2e9403d6f28296076d68fc5ecf6a650a8",
+ "candidates": [
+  {
+   "commit": "d0012c80f367f5b3caa24e239dac679d47eacf26",
+   "tree": "d518851da3119dae28004db6ced154c7c58b9831",
+   "measured": "Stage S1, committed 2026-11-08T20:15:29Z, a single-parent child of F: marc_check.py (blob 38d6f675) and controls.py (blob 5e631889) at their frozen blobs, the frozen verify.yml splice (blob 3a9dc8a9), evidence/design-run.json and evidence/f-run/results.json (sha256 1ab3b0b2303cdd57133a7ed3dfc96493bdd4438b458cab0332e0e108968579b0, derived from F's exact-head run 42516831042). controls.py check S1 --freeze F --stage S1 exited 0 before the push and again before the dispatch, nine controls of nine. Its pull-request run 42519272858 skipped the check, upload and replay steps. The execution dispatch: owner-approved (#1208 comment 6732216570, 2026-11-09T04:25:28Z), workflow_dispatch run 42561753674, attempt 1, head_sha d0012c80, created 2026-11-09T04:25:35Z, conclusion success, 41 of 41 jobs success, the shard's seven named steps success; artifact arp1-marc-measurements, measurements.json sha256 77e2254d54bd9f35291478287e566bd6081bc0498c3184e628d4e7ab7d4d4725; controls.py decide on it: ARP1-MARC-SURVIVAL. Independent results review CONFIRMED WITH QUALIFICATIONS (#1208 comment 6732612066). Not designated."
+  },
+  {
+   "commit": "c95e5c34e5a246046ab8ed420f26891fd18de565",
+   "tree": "d2033a2b487a7ff9e96599448a1a0ab1c8575eda",
+   "measured": "Stage E, committed 2026-11-09T04:59:15Z, a single-parent child of S1 adding exactly evidence/measurements.json (the S1 artifact's bytes, sha256 77e2254d54bd9f35291478287e566bd6081bc0498c3184e628d4e7ab7d4d4725), evidence/s1-run/results.json, evidence/order.json and result.md. Owner-approved dispatch (#1208 comment 6732644648, 2026-11-09T05:01:12Z): workflow_dispatch run 42564902307, attempt 1, head_sha c95e5c34, created 2026-11-09T05:01:18Z, conclusion success, 41 of 41 jobs success, the shard's seven named steps success, the replay of variant D at E byte-equal to the committed measurements. controls.py verdict E --freeze F --run-api RUN --jobs-api JOBS, over fresh captures: VERDICT  ARP1-MARC-SURVIVAL, exit 0 (#1208 comment 6732916631). Designated E."
+  }
+ ],
+ "landing": {
+  "base": "2cd49dc082ee7b2a026fd6d1fb4a6168f92fac51",
+  "object": "ac6b742c10ed51fd77748fe50206e439ef5a3bc0",
+  "reconciliations": [
+   "ac6b742c10ed51fd77748fe50206e439ef5a3bc0"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "92a81f10eac4a2e35679e065f73e224c38b6ac41ed204ae9eddea4125328bde5"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "360de3b64ea3ab8f886b1a0e9798554726300115",
+   "record": "https://github.com/amaybaum/incompleteness/pull/1208#issuecomment-6726546566 (the owner's designation of F, made in the coordinating session's chat on 2026-11-08 in the words \"I designate 360de3b64ea3ab8f886b1a0e9798554726300115 as F for ARP-1-MARC, accept the consolidated audit package (PACKAGE r3, 33075f9f) as the reconciled findings without adopting any correction, and confirm that S1 is the execution dispatch and E's run replays it.\", and recorded in this comment by the coordinating session; the comment is a record of that decision, not a separate act of designation; posted as amaybaum, author association OWNER, at 2026-11-08T20:14:24Z and not edited, after check run 42516831042 concluded and before S1 was committed at 2026-11-08T20:15:29Z)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "360de3b64ea3ab8f886b1a0e9798554726300115",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/42516831042/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha 360de3b64ea3ab8f886b1a0e9798554726300115, owner-approved in #1208 comment 6726251301; completed with conclusion success, run updated at 2026-11-08T20:09:03Z; 40 of 40 jobs success, each at that head_sha, the ARP-1-MARC shard absent; retained as evidence/f-run/results.json)"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "c95e5c34e5a246046ab8ed420f26891fd18de565",
+   "record": "https://github.com/amaybaum/incompleteness/pull/1208#issuecomment-6733096241 (the owner's designation of E, made in the coordinating session's chat on 2026-11-09 in the words \"I designate c95e5c34e5a246046ab8ed420f26891fd18de565 as E for ARP-1-MARC, with result ARP1-MARC-SURVIVAL as confirmed by the verdict and the independent results review, including its qualifications.\", and recorded in this comment by the coordinating session; the comment is a record of that decision, not a separate act of designation; posted as amaybaum, author association OWNER, at 2026-11-09T05:35:55Z and not edited, after check run 42564902307 concluded)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "c95e5c34e5a246046ab8ed420f26891fd18de565",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/42564902307/attempts/1 (verify.yml, workflow_dispatch, attempt 1, head_sha c95e5c34e5a246046ab8ed420f26891fd18de565, owner-approved in #1208 comment 6732644648; completed with conclusion success, run updated at 2026-11-09T05:21:03Z; 41 of 41 jobs success, each at that head_sha; runs and jobs answers RUN and JOBS kept uncommitted, sha256 6256b453806172f884cc84b140b58f4ff183a70cd7fc1d2d2f6282871e8b7aa7 and 9ae0f65c53a3a02824efca32d7a94572cd3841ab4ab54a96206f8c0d8dab2fab; controls.py verdict E --freeze F --run-api RUN --jobs-api JOBS printed VERDICT  ARP1-MARC-SURVIVAL and exited 0, with APPROVALS sha256 01b0103eaf060179423a11333836463522e6426c247169b7e743ed27eb566bb0 and RUNS sha256 b17ca303ad14b044ee3b68a08230c4cf1e18952b67c0a95451af7afa072cf380, recorded in #1208 comment 6732916631)"
+  }
+ ]
+}
