@@ -2346,7 +2346,7 @@ def wcl(beta, k, p=P_SWAP):
             "spectrum_encoded": unit_spectrum(enc), "det_fix": det3(beta), "det_enc": (-1) ** k * det3(beta)}
 
 
-def orbit_stats(q_laws, step_fn, rho_fn, k_ticks, kmax=12, cal_laws=None):
+def orbit_stats(q_laws, step_fn, rho_fn, k_ticks, kmax=12, cal_laws=None, horizons=(6, 12)):
     """Orbits O_K = {pi^j Lambda : Lambda in Q, 0 <= j <= K}, with HC, CONS, VAL, W-CL, W-OCT for K in (6, 12).
     q_laws: [(label, law)]; step_fn(law, j) -> (law, herald) or (None, 0); rho_fn(law) -> record vector.
     cal_laws: the laws in the roles of Lambda_0 and Lambda_{a,0} (default: from Q's labels)."""
@@ -2383,8 +2383,14 @@ def orbit_stats(q_laws, step_fn, rho_fn, k_ticks, kmax=12, cal_laws=None):
         alpha = rcal(first["0"])
         cols = [tuple(rcal(first[a])[i] - alpha[i] for i in range(3)) for a in ("x", "y", "z")]
         beta = [[cols[j][i] for j in range(3)] for i in range(3)]
-    res = {"HC": {}, "CONS": {}, "VAL": {}, "WOCT": {}, "counts": {}}
-    for kk in (6, 12):
+    res = {"HC": {}, "CONS": {}, "VAL": {}, "WOCT": {}, "counts": {}, "STAB": {}, "span_rank": {}}
+    for kk in horizons:
+        # STAB(K) = [rank span O_{K-1} = rank span O_K] (r12 hook; reported, read by no decide-*)
+        prev = [l for name in orbits for l in orbits[name][:kk]]
+        full = [l for name in orbits for l in orbits[name][:kk + 1]]
+        rp, rf = s_rank(prev), s_rank(full)
+        res["span_rank"][str(kk)] = {"O_K-1": rp, "O_K": rf}
+        res["STAB"][str(kk)] = rp == rf
         hs = [h for name in heralds for h in heralds[name][:kk]]
         complete = all(len(heralds[name]) >= kk and len(orbits[name]) > kk for name in heralds)
         res["HC"][str(kk)] = complete and len(set(hs)) == 1 and hs[0] > 0
@@ -2754,6 +2760,7 @@ def s_build_c():
             instances.append({"id": g + ":" + round_name(rnd), "g": g, "round": round_name(rnd), "HC": st["HC"],
                               "CONS": st["CONS"], "VAL": st["VAL"], "WOCT": st["WOCT"], "WCL": st["WCL"]["fires"],
                               "WCL_detail": {k: v for k, v in st["WCL"].items() if k != "fires"},
+                              "STAB": st["STAB"], "span_rank": st["span_rank"],
                               "alpha": st["alpha"], "beta": st["beta"], "ABL": abl_ok, "EMB": emb["holds"],
                               "counts": st["counts"], "_rnd": rnd})
     flagged = []
@@ -2977,6 +2984,148 @@ def cxb_direct(law, g, rnd):
     if tot == 0:
         return None
     return [Fraction(a, tot) for a in acc]
+
+
+# ------------------------------------------------------------------------------------------------------------
+# r12 hook: the STAB(K) controls (reported field; controls with expected STAB = false). Not registered under r11b.
+# ------------------------------------------------------------------------------------------------------------
+R12_STAB = False
+CONE_K1_CERT = {
+ "q": "261/640",
+ "beta": [
+  [
+   "78/745",
+   "543/745",
+   "-343/745"
+  ],
+  [
+   "-2543/8940",
+   "4217/8940",
+   "-6917/8940"
+  ],
+  [
+   "386/447",
+   "-98/447",
+   "167/447"
+  ]
+ ],
+ "P": {
+  "1,1,1": "332513574071628154043/2564305665554648649920",
+  "1,1,-1": "6746993714355827/75657727888300480",
+  "1,-1,1": "263061919766487640507/1384006816260680680640",
+  "1,-1,-1": "12143635599005940189/133330182709131453760",
+  "-1,1,1": "581982672369132351/111292517723690006080",
+  "-1,1,-1": "9956384236743049/36083946605989568",
+  "-1,-1,1": "366973734672976769749/2096657717541023848640",
+  "-1,-1,-1": "35861760470774497217/818389642567746292160"
+ },
+ "G": {
+  "1,1,1": [
+   "445/3576",
+   "-177/1490",
+   "445/3576"
+  ],
+  "1,1,-1": [
+   "1501/17880",
+   "1501/17880",
+   "131/3576"
+  ],
+  "1,-1,1": [
+   "-661/3576",
+   "-104/745",
+   "661/3576"
+  ],
+  "1,-1,-1": [
+   "103/3576",
+   "24/745",
+   "307/3576"
+  ],
+  "-1,1,1": [
+   "0",
+   "0",
+   "0"
+  ],
+  "-1,1,-1": [
+   "93/596",
+   "121/447",
+   "-121/447"
+  ],
+  "-1,-1,1": [
+   "-253/1490",
+   "-2297/17880",
+   "-73/596"
+  ],
+  "-1,-1,-1": [
+   "-23/596",
+   "0",
+   "-23/596"
+  ]
+ }
+}
+CONE_K2_CERT = None   # cone_window_K2_certificate.json (652 KB): its embedding is an r12 decision
+
+
+def cone_cert_matrix(cert):
+    """The 16x16 branch matrix of a cone certificate: the explicit-B window form {"K", "q", "B"}, or the K = 1 form
+    {"q", "P", "G"} (B delta_x = 8 q P(v(x)) l_x, l_x the product law with R = G(v) / P(v), v(x) = chi(x))."""
+    if "B" in cert:
+        return [[parse_q(x) for x in row] for row in cert["B"]], cert.get("K", 1)
+    qq = parse_q(cert["q"])
+    pp = {tuple(int(t) for t in k.split(",")): parse_q(v) for k, v in cert["P"].items()}
+    gg = {tuple(int(t) for t in k.split(",")): tuple(parse_q(x) for x in v) for k, v in cert["G"].items()}
+
+    def chi(w):
+        return (1 - 2 * f_x(w), 1 - 2 * f_y(w), 1 - 2 * f_z(w))
+
+    b = [[Fraction(0)] * 16 for _ in range(16)]
+    for j, w in enumerate(CARRIER_CFGS):
+        v = chi(w)
+        if pp[v] == 0:
+            continue
+        wt = 8 * qq * pp[v]
+        r = tuple(q_div(g, pp[v]) for g in gg[v])
+        for i, x in enumerate(CARRIER_CFGS):
+            cx = chi(x)
+            pr = Fraction(1, 2)
+            for a in range(3):
+                pr *= q_div(1 + r[a] * cx[a], 2)
+            b[i][j] += wt * pr
+    return b, 1
+
+
+def stab_cert_control(cert):
+    """A STAB control: the certificate's B as the gadget's branch (herald = mass kept), on the seven QA laws, at
+    its window K. Green when HC(K), CONS(K), VAL(K) hold, W-CL fires, and STAB(K) is false; B >= 0 with column
+    sums <= 1."""
+    b, k = cone_cert_matrix(cert)
+    sub = all(x >= 0 for row in b for x in row) and all(sum(b[i][j] for i in range(16)) <= 1 for j in range(16))
+
+    def step(law, j):
+        out = [sum(b[i][c] * law[c] for c in range(16)) for i in range(16)]
+        h = sum(out)
+        if h == 0:
+            return None, Fraction(0)
+        return [q_div(x, h) for x in out], h
+
+    tabs = detector_tables()
+    st = orbit_stats(qa_family(), step, lambda l: rho_of(l, tabs), 0, kmax=k, horizons=(k,))
+    kk = str(k)
+    return {"green": sub and st["HC"][kk] and st["CONS"][kk] and st["VAL"][kk] and st["WCL"]["fires"]
+            and st["STAB"][kk] is False, "K": k, "STAB": st["STAB"][kk], "span_rank": st["span_rank"][kk],
+            "HC": st["HC"][kk], "CONS": st["CONS"][kk], "VAL": st["VAL"][kk], "WCL": st["WCL"]["fires"]}
+
+
+def stab_idle_control():
+    """The idle (zero-tick) round leaves the carrier law unchanged: STAB(K) is true at every horizon."""
+    st = c_fixture_run("STAB-IDLE", [[[1, 0, 0], [0, 1, 0], [0, 0, 1]]])
+    return {"green": st["STAB"]["6"] is True and st["STAB"]["12"] is True}
+
+
+def stab_controls():
+    out = {"STAB-K1": stab_cert_control(CONE_K1_CERT), "STAB-IDLE": stab_idle_control()}
+    if CONE_K2_CERT is not None:
+        out["STAB-K2"] = stab_cert_control(CONE_K2_CERT)
+    return out
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -3340,6 +3489,8 @@ def fixture_section(budget_vals=None):
     controls["ATTR-FIX"] = attr_fix()
     controls["UPR-BC"] = upr_bc_fix()
     controls.update(c_fixture_controls())
+    if R12_STAB:
+        controls.update(stab_controls())
     controls["C-BUDGET-fixtures"] = {"green": not over, "out_of_scope": over}
     adm_b, adm_a = p_classes()
     controls["ADM-SIZES"] = {"green": len(adm_a) == 12 and len(adm_b) == 6}
@@ -3624,6 +3775,9 @@ def t_misc():
     t_check("|Adm_A| = 12 and |Adm_B| = 6", len(adm_a) == 12 and len(adm_b) == 6)
     t_check("Adm_B names", [n for n, _ in adm_b] == ["off", "(0,w')", "(1,w')", "(w,0)", "(w,1)", "(w,w')"])
     t_check("rational roots", rational_roots([1, -2, 1])[0] == [1, 1])
+    sc = stab_controls()
+    t_check("r12 hook: STAB-K1 certificate (STAB false; HC, CONS, VAL, W-CL)", sc["STAB-K1"]["green"])
+    t_check("r12 hook: idle round STAB true", sc["STAB-IDLE"]["green"])
     t_check("W-CL R60 fires, signed permutation does not", wcl_spectrum_fires(R60)
             and not wcl_spectrum_fires(_fm(P_SWAP)))
 
