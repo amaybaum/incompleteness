@@ -1,8 +1,10 @@
 # Independent full-text review of APPROX-UNIT1 r4
 
+**Publication copy.** Two session-specific location references are described generically. The unaltered original review is retained at `4e526de57b0a4fedf7821d63722a1733c0f49298`, SHA-256 `e2749ff93827e368d375e0329fa9f70804fb6b4099ae5114c13f894dd707cb5a`. Verdict, findings and scientific content are unchanged.
+
 **Verdict: ACCEPT WITH NITS, for this paper-only assessment. No blocking scientific finding remains.**
 
-Reviewer: fresh independent non-author Codex task `/root/review_approx_r4`, 2026-11-09. I authored none of r1–r4 or the disposition ledger. I read all 913 lines of r4 and all 26 lines of its ledger, then examined the supporting statements, proof bodies, recorded scripts and outputs described below. The writer's disposition claims were review targets, not evidence of acceptance.
+Reviewer: fresh independent non-author Codex task `review_approx_r4`, 2026-11-09. I authored none of r1–r4 or the disposition ledger. I read all 913 lines of r4 and all 26 lines of its ledger, then examined the supporting statements, proof bodies, recorded scripts and outputs described below. The writer's disposition claims were review targets, not evidence of acceptance.
 
 This verdict accepts the assessment at its stated precision, carrier, access and evidence levels. It does not accept an OI derivation of quantum mechanics, settle the open fixed-b bound, certify a new kernel theorem, authorize computation, adopt a physical premise, or authorize a manuscript/repository/GitHub change, freeze, designation, dispatch or merge.
 
@@ -200,7 +202,7 @@ The reality condition is properly formulated as preservation of real states by p
 
 ## Evidence actually inspected and verification limits
 
-I read the full repository `AGENTS.md` (1368 lines). All scientific repository reads used the designated pin; no scientific program, probe, simulation, enumeration, Lean import, kernel build or workflow was executed. The work consisted of source reading, hand algebra, static textual searches and byte hashing. Scratch copies and this report were written only under `/tmp/approx-unit1-r4-review/`. There were no input, repository, ref, branch, GitHub or Page writes by this reviewer.
+I read the full repository `AGENTS.md` (1368 lines). All scientific repository reads used the designated pin; no scientific program, probe, simulation, enumeration, Lean import, kernel build or workflow was executed. The work consisted of source reading, hand algebra, static textual searches and byte hashing. Working copies and this report were written only in a session temporary directory. There were no input, repository, ref, branch, GitHub or Page writes by this reviewer.
 
 The material source inspection included:
 

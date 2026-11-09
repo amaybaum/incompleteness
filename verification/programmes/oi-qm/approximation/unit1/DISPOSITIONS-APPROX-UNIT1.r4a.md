@@ -8,8 +8,8 @@ Owner (amaybaum), current Codex instruction, 2026-11-09: apply the three editori
 
 - Accepted r4 assessment SHA-256: `cb5c4c6a37d3a5ab321b4ad0aba464104aeed4b1d9c57c298704b376b2269b44`.
 - Original r4 writer ledger SHA-256: `ef669e30e72c71e17db058081c05934abab098d4561aa60c4599a43fd982897a`; retained unchanged as a historical writer record.
-- Independent full-text r4 review: `REVIEW-APPROX-UNIT1.r4.md`, SHA-256 `e2749ff93827e368d375e0329fa9f70804fb6b4099ae5114c13f894dd707cb5a`, **ACCEPT WITH NITS**, no blocking scientific findings. The report is retained unchanged.
-- r4a assessment: `APPROX-UNIT1.md`, SHA-256 `e2d95d1a67e2d317062ca80b43de5ee59b52ae9ed96d7b60f3dc6c7fec318458`.
+- Independent full-text r4 review: `REVIEW-APPROX-UNIT1.r4.md`, SHA-256 `e2749ff93827e368d375e0329fa9f70804fb6b4099ae5114c13f894dd707cb5a`, **ACCEPT WITH NITS**, no blocking scientific findings. The unaltered report is retained at baseline `4e526de57b0a4fedf7821d63722a1733c0f49298`; its publication copy describes two session locations generically and has SHA-256 `4ec1af4ded45c7b4f28febc3dc7c12d9ebf2861868fad06a949dbe6a407338ff`.
+- r4a assessment: `APPROX-UNIT1.md`, SHA-256 `3b2d0db54ac0cab078d668ba906f1a1d84577d5df9052ec0a76071664e08b280`.
 - Repository integration base: `cac5d26441dd33e9348151487e4df7b547195481`; scientific source citations remain pinned to `fd539e150759a6ea51ab279aeeac80fc06050ade`.
 
 ## Finding-to-diff map
@@ -19,6 +19,7 @@ Owner (amaybaum), current Codex instruction, 2026-11-09: apply the three editori
 | N1: #945 numerical-source ambiguity | Attribute 6.9063 versus 4.0000, d=4, b=24, explicitly to assessment comment c.6567879503 §2 and its assessment-review checks R-1/R-2; remove the conflicting bracket attribution to `6d494e30`. | §2.2 precision-regime paragraph | The counterexample refutes the per-parent proof step; it does not refute the final TV bound or prove reachability. The earlier proof review's different figures remain separate. |
 | N2: floating-point instances labelled exact | Add [N] for numerical floating-point instances and use it for `opglue_probes.py` checks 8–9 in A3 and D6, with their 1e−12 tolerance. Retain [P] for the paper proof and [X] for exact checks elsewhere. | §1 evidence key; §2.1 A3 evidence cell; §7 D6 | Main's theorem remains paper-proved within the same exact-ring regime. No new exact or kernel certification is claimed. |
 | N3: admissibility versus availability | Remove the claim that the displayed K enters `genTheory CM` through products/blocks. State that K witnesses admissible nonmonomial FI-1 membership, is not an isometric primitive, and requires no branch-availability claim. | §4.2 CM countermodel's final bullet | FI-1 still fails to imply system-NX-1 in the same countermodel; every available branch preserves diagonals. No available native operation is added. |
+| Publication metadata identified by CI | Describe two off-main draft locations and two reviewer runtime locations generically, preserve the originals in the baseline commit, and record the publication-copy digest. The unchanged CI source-text check identified these four references. | §1 [D]; §1.1 draft-reference row; full-text review metadata | Hypothesis status, support classifications, scientific content, verdict and findings are unchanged. No checker or workflow changes. |
 | Necessary revision metadata | Identify r4a, record r4's independent verdict and the focused review/CI gate, and distinguish the original r4 no-write history from the current draft-publication instruction. | Header; §9 review status; §11 verification scope; §12 digest pointer | No scientific conclusion, source pin, probe output, physical premise or authorization for another workstream changes. |
 
 ## Focused-check brief

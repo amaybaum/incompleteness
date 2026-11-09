@@ -1,6 +1,6 @@
 # OI-QM-APPROX-1, unit 1: operational equivalence at finite precision, assessed against Main §3.4
 
-**WIP. Revision r4a: editorial cleanup of independently reviewed r4 (ACCEPT WITH NITS); focused diff check and green ordinary CI required. Integration requires separate owner approval.** Only N1–N3 from `REVIEW-APPROX-UNIT1.r4.md` and revision metadata are changed; see `DISPOSITIONS-APPROX-UNIT1.r4a.md`. The r4 source revises the immutable r3 source (`APPROX-UNIT1.r3.md`, SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`) against the fresh independent r3 review (`REVIEW-APPROX-UNIT1.r3.md`, verdict **REVISE**, R1–R6). See `DISPOSITIONS-APPROX-UNIT1.r4.md` for those writer dispositions. Claude Code wrote r1 and r2; Codex wrote r3. The [immutable r2 draft](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/1216-approx/APPROX-UNIT1.md) has SHA-256 `5ea3f0e4b2fcb20117b9d7d58b8156aae27a526299c3c0ada02e349ff2e4ffd5`. Nothing here is adopted, promoted, or proposed for the manuscripts. Independent acceptance authorizes no computation, new physical premise, manuscript change or merge (#1216 body, "Unit 1").
+**WIP. Revision r4a: editorial cleanup of independently reviewed r4 (ACCEPT WITH NITS); focused diff check and green ordinary CI required. Integration requires separate owner approval.** Only N1–N3 from `REVIEW-APPROX-UNIT1.r4.md` and revision/publication metadata are changed; see `DISPOSITIONS-APPROX-UNIT1.r4a.md`. The r4 source revises the immutable r3 source (`APPROX-UNIT1.r3.md`, SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`) against the fresh independent r3 review (`REVIEW-APPROX-UNIT1.r3.md`, verdict **REVISE**, R1–R6). See `DISPOSITIONS-APPROX-UNIT1.r4.md` for those writer dispositions. Claude Code wrote r1 and r2; Codex wrote r3. The [immutable r2 draft](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/1216-approx/APPROX-UNIT1.md) has SHA-256 `5ea3f0e4b2fcb20117b9d7d58b8156aae27a526299c3c0ada02e349ff2e4ffd5`. Nothing here is adopted, promoted, or proposed for the manuscripts. Independent acceptance authorizes no computation, new physical premise, manuscript change or merge (#1216 body, "Unit 1").
 
 - **Accountable home:** #1216 (OI-QM-APPROX-1). Parent programme #1169.
 - **Authorization.** Owner (amaybaum), 2026-11-09, #1216 c.6741763726 (posted 2026-11-09T13:53:51Z),
@@ -131,7 +131,7 @@
 - [L] external literature, recalled, not re-read here; bibliographic details to be checked by the
   reviewer.
 - [W] model-written research record on `main`, not established under §A.46 item 1.
-- [D] unreviewed or in-revision draft in the session scratchpad, used as a hypothesis only
+- [D] unreviewed or in-revision off-main working draft, used as a hypothesis only
   (§A.46 item 7): BRIDGE = `bridge/BRIDGE-UNIT1.md` (r5, sha256 `78f1098e…`, reviewed ACCEPT WITH
   NITS per the coordinator); SHM = `qphen/SHARED-MECHANISM.md` (#1210 r7); A868 =
   `reassess/868/ASSESS-868.md` (r3a, `d97c4b6b…`, reviewed ACCEPT WITH NITS per the coordinator);
@@ -211,7 +211,7 @@ classification is recorded.
 | #945 c.6657435508 | F945-R "not authorized"; readiness "blocked: owner questions" (§2.2, D4b, D5) | Provenance (planning status) |
 | #945 c.6567879503 §1 "No Lean module formalizes gluing, rounding or clipping" | §2.1 A2 evidence row | Support on `main`: this unit's grep of OB/ at `fd539e15` |
 | `7c6ceaaa:papers/Main.md` (line 556 states two other exact failures of the per-parent estimate, d = 3 and d = 4) | None: removed by `4cef4200` the same day ("the instance numbers and the undefined estimate are gone") | On `main`'s history, superseded; not used |
-| BRIDGE, SHM, A868, A1059 (scratchpad drafts, [D]) | Rows marked [D] | Support off `main`; used as hypotheses only (§A.46 item 7). Where this unit re-derived a [D] item from `main` or by [G], the row cites that and the [D] use becomes provenance (QP node 10's non-quantumness, §5.1, C7) |
+| BRIDGE, SHM, A868, A1059 (off-main drafts, [D]) | Rows marked [D] | Support off `main`; used as hypotheses only (§A.46 item 7). Where this unit re-derived a [D] item from `main` or by [G], the row cites that and the [D] use becomes provenance (QP node 10's non-quantumness, §5.1, C7) |
 | #868 (J1–J13), #1210 (M-labels), #1211, #1059 | Labels for requirements and planning homes (§4.2, §7 "Shared with") | Provenance |
 | Literature [L] | §2, §6, D19 | External sources outside item 8's list; recalled, not re-read |
 
@@ -900,7 +900,7 @@ check and green ordinary CI, with separate owner approval required for integrati
   returned **ACCEPT WITH NITS**, with no blocking scientific findings; see
   `REVIEW-APPROX-UNIT1.r4.md` for its evidence and comparison limits.
 - **r4a writer pass:** only N1's citation, N2's numerical/exact evidence labels, N3's
-  admissibility/availability wording and revision metadata change. No scientific computation,
+  admissibility/availability wording and revision/publication metadata change. No scientific computation,
   simulation or Lean was run; inherited probe outputs and scientific source pins are unchanged.
   Focused diff-only review and green ordinary CI precede the separate integration decision.
 - **Not done:** the inherited r2 N5 digitized step and earlier reviewer re-runs are identified
