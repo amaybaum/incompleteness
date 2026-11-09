@@ -1,8 +1,9 @@
 # A1. Code freeze: rulings, fixture interface and synthetic fixtures (draft)
 
-**Status.** Draft amendment to the K1-P1-1 control plane, before `F`. WIP / UNVERIFIED. It freezes no code: §14's freeze
-table is completed by a revision of this file before `F`, under the owner's authorization (b) of preregistration §13,
-which has not been given. It authorizes nothing listed in §19.
+**Status.** Pre-F amendment to the K1-P1-1 control plane. Authorization (b), quoted in §0, permits the
+reviewed source pins and three patch files recorded in §14, formal equality checks and independent review. The selected
+integration head is `1b3619ada0197c73b99cdedd7c70e916190a7b7e`; its source bytes are unchanged. This revision
+designates or freezes no `F` and authorizes no CI, dispatch, K1-instance execution or merge (§19).
 
 **Governs:** preregistration §4 (PR-CR6's pass condition, Q26), §6 (R9 and CLASS, output conventions only), §8.1
 (declared inputs), §8.4 item 3, §9 (CC-PART's sub-tests and CT-INC), §10.1 to §10.4, §11.1 (S0 failure, Q5), §11.2,
@@ -58,8 +59,40 @@ amendment (#1031, #1135)":
 over as writer for everything now". The same record states: "It grants no merge, F or E designation, dispatch,
 scientific execution or theorem promotion."
 
-**Authorization (b)**, approval of this amendment and of any revision of the preregistration before `F`, has not been
-given. The revision that completes §14 quotes it with author and time (§15).
+**Authorization (b), this source-pin amendment only.** amaybaum, Codex session chat, 2026-11-09;
+recorded in [#1135 comment 6737362460](https://github.com/amaybaum/incompleteness/pull/1135#issuecomment-6737362460)
+at **2026-11-09T10:07:03Z**. That is the host recording time; the chat supplies no exact time. The owner's approval is
+quoted verbatim below. Codex root is the sole writer of this control-plane revision. The three writers' staging refs,
+patch-package ref and both integration refs remain unchanged. The authorized round revision preserves its original
+`d92e0882e7609e91e3458193391e89610fffa777` commit and the fixture bytes sourced from it.
+
+> Approved: authorization (b) only for #1135, at commit `1b3619ad`.
+>
+> This approval permits:
+>
+> * Applying the independently reviewed amendment under A1 §14.
+>
+> * Incorporating the three required patches and completing the pin table.
+>
+> * Running formal equality checks against the provenance-corrected sources.
+>
+> * Recording the results and obtaining independent review of the amended evidence.
+>
+> Not authorized:
+>
+> * Designation or freezing of F.
+>
+> * F/E dispatch or CI execution.
+>
+> * K1 instance execution.
+>
+> * Merging #1135.
+>
+> The round remains pre-F. All source bytes must remain unchanged, and any equality failure or unexpected discrepancy must be reported rather than silently corrected.
+>
+> Claude's branches, ownership boundaries, and all other workstream gates remain unchanged.
+>
+> Next checkpoint: Present the completed pin table, formal equality results, and review verdict before requesting any further authorization.
 
 **The Q1–Q29 readings.** The handoff names them as the working basis and notes that the full table had to be recovered.
 They are the proposals of §4 of the independent static review (§17, `STATIC-REVIEW.md`). That review and the
@@ -702,17 +735,82 @@ model reviews:
   integration branch's own tree (§5.6), so the gate needs only that branch: the code files, `A1-fixtures.json` and the
   patches. `controls.py`'s frozen constants for `A1-fixtures.json` and the patches equal the round branch's blobs'
   SHA-256, so a later revision of `A1-fixtures.json` requires a new `controls.py` constant and a new review.
-- The freeze revision of this file, under authorization (b), fills this table and quotes (b):
+- Authorization (b), quoted in §0, permits this source-pin table and the three patch copies. These are
+  control-plane data pins; they do not designate or freeze `F`.
 
-| File | Blob | SHA-256 |
+| File (repository-root path) | Blob | SHA-256 |
 |---|---|---|
-| `verification/lean/k1p1_enum_a.py` | (to be recorded) | (to be recorded) |
-| `verification/lean/k1p1_enum_b.py` | (to be recorded) | (to be recorded) |
-| `verification/programmes/oi-qm/reconstruction/round-k1-p1-1/controls.py` | (to be recorded) | (to be recorded) |
-| `amendments/A1-patches/MU-C1.patch`, `MU-C2.patch`, `MU-C3.patch` | (to be recorded) | (to be recorded) |
-| `amendments/A1-fixtures.json` (copy on the integration branch) | (to be recorded; equal to the round branch's) | (to be recorded) |
+| `verification/lean/k1p1_enum_a.py` | `2252965843430155fedfbc8855a5d23d13c2c920` | `0e8721e5fe1c8fc8540d36ce2eed84d812a5630867ec4af56d920169466b3fdd` |
+| `verification/lean/k1p1_enum_b.py` | `63eadd818e59f86c48969552ef144f56b4154b95` | `c5bfb8d198ed464c093ebf38ddc6f0d0e160f3e5e91395b1f98014c33928c7e5` |
+| `verification/programmes/oi-qm/reconstruction/round-k1-p1-1/controls.py` | `15bef20205cf54bc8514208023702e39b769f539` | `34e3022ebf2a00706451b4bf7b7493d3305d8d3409d5f2f2b7525de2e5d3ad8a` |
+| `verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-fixtures.json` | `b785d728d86a7f5a970cd89c32ce1c45621bae11` | `691aedbf0c9e74fdcc64f4c9c35f5e07c8ffc362e74360d4e541df682c750e85` |
+| `verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C1.patch` | `56d97735695615c27a94e3e8ea05653d526f7c87` | `5d96ab821dc56cb874b75c8c6482c0cd376b0a3ebc40892614ab2fa0fb4dba4d` |
+| `verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C2.patch` | `63486b3642ccff2d87ed5456c4462ef3122d5466` | `bcbb8ad013aff79bae2fe1d4582791fb9bd434b04543c043600c142778e1c822` |
+| `verification/programmes/oi-qm/reconstruction/round-k1-p1-1/amendments/A1-patches/MU-C3.patch` | `723d0e8280461511628547ccf11bd537c30f7466` | `3f278c93a678c033bc39a8a596eb9da9cf6b14f95f1308acb35298abba09e411` |
 
-and records the integration branch's head and the `verify.yml` edit of §13 X5 (with §9.5's command).
+**Selected integration.** Branch `staging/k1-p1-1-integration-provenance-20261108`, exact head
+`1b3619ada0197c73b99cdedd7c70e916190a7b7e`, from main commit
+`38fec475002fddb90745d56e30a9feb54eaf9724`. Its seven single-parent copy commits each name source branch,
+commit, blob, path and SHA-256. Its whole tree is `7428b1f6214a388496483aba3a3bbeab6a4b386d`, identical to
+preserved old integration `63d805354bff059b431200292aeb0038fbcbdd7b`. The three patch bytes are also identical to
+reviewed package `f85a553dc5b9e3a7c65bb749dbd576745a88a6e8`; the writers' source deliveries and their refs are kept.
+
+**Selected-head synthetic provenance.** The separate non-author reviewer `k1p1_remaining_readiness` recorded one
+`python3.11 -I verification/programmes/oi-qm/reconstruction/round-k1-p1-1/controls.py self-test --synthetic`
+at this exact selected integration head, Python 3.11.17, exit 0, with clean tree and all seven hashes unchanged
+([#1135 comment 6732321845](https://github.com/amaybaum/incompleteness/pull/1135#issuecomment-6732321845)).
+That run used continuing pre-F fixture authorization (a), not (b). It is distinct from old63's earlier synthetic run.
+These host records are provenance, not F/E CI attestations or K1-instance evidence. No rerun is part of this amendment.
+
+**X5 workflow edit, data only until separately authorized X5.** The reviewed proposal is retained below exactly as
+`X5-verify.patch` from package `f85a553dc5b9e3a7c65bb749dbd576745a88a6e8`, blob
+`3524dc3ac46e1bde6a6b84c899bd81b651e30eb2`, SHA-256
+`0595f02c0d9203090c19102e40bf589af45905f90c3fc437a4ba34406dcc7787`. Its source is the round's unchanged
+`.github/workflows/verify.yml` at `d92e0882e7609e91e3458193391e89610fffa777`, blob
+`775a36e3df81036e458fd56453520987060aa444`, SHA-256
+`39b6310d839f4f43f4d3ec84355332950d7dde22d8f0d652ce44f789a7a9671c`. The proposed patched workflow's SHA-256 is
+`ab12e0d5979aaf20407c281a7fede4f172de302c21849d8e64c913477438106e`. This is not an edit to the real workflow
+now, nor permission to apply it to a different source. All four commands below and their aggregate wiring remain
+future X5 work under separate execution authority. No command in this block is executed under (b).
+
+```diff
+--- a/.github/workflows/verify.yml
++++ b/.github/workflows/verify.yml
+@@ -713,1 +713,17 @@
+-  probes:
++  probes_k1p1:
++    name: Numerical probes / K1-P1-1 exact P1 enumeration
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++      - uses: actions/setup-python@v5
++        with:
++          python-version: '3.11'
++      - name: Replay frozen K1-P1-1 final evidence
++        working-directory: verification/programmes/oi-qm/reconstruction/round-k1-p1-1
++        run: |
++          python3 -I controls.py check --stage final
++          python3 -I controls.py self-test --stage members
++          python3 -I controls.py self-test --stage rows
++          python3 -I controls.py self-test --stage final
++
++  probes:
+@@ -715,1 +731,1 @@
+-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations]
++    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_preserveinduct1, probes_bg2, probes_ktokenmaxcone1, probes_a42_witness, probes_ktranssep2, probes_a42_census01, probes_a42_exclusion, probes_foundations, probes_k1p1]
+@@ -743,1 +759,2 @@
+-          FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
++          FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
++          K1P1_RESULT: ${{ needs.probes_k1p1.result }}
+@@ -767,1 +784,2 @@
+-          echo "foundations=${FOUNDATIONS_RESULT}"
++          echo "foundations=${FOUNDATIONS_RESULT}"
++          echo "k1p1=${K1P1_RESULT}"
+@@ -794,1 +812,2 @@
+-          test "${FOUNDATIONS_RESULT}" = success
++          test "${FOUNDATIONS_RESULT}" = success
++          test "${K1P1_RESULT}" = success
+```
 
 ## 15. RR-1 Finding 12
 
@@ -790,9 +888,18 @@ Two further questions for the owner, which this amendment does not decide:
 
 ## 19. Not authorized
 
-This amendment, and its drafting, authorize none of the following, each of which keeps its own gate: the final code
-freeze (§14's table) and authorization (b); designation of `F`; any computation on the K1 instance, its dynamics or its
-states, including any run of A or B with `--stage`; any workflow dispatch; execution under authorization (e); designation
-of `E`; reconciliation, receipt or merge; and any theorem or claim promotion. Before `F`, the only runs permitted remain
-static checks and the predeclared synthetic fixtures of this amendment, run through `--fixture` and
-`controls.py self-test --synthetic`.
+Authorization (b) permits only the reviewed source-pin/control-plane revision of §14, incorporating the three
+patch files, formal equality checks, recording their results and independent review of the amended evidence. It grants
+no designation or freezing of `F`; no F/E dispatch or CI execution; no K1-instance execution; and no merge of #1135.
+All source bytes remain unchanged. Any equality failure or unexpected discrepancy is reported rather than silently
+corrected. The round remains pre-F; Claude's branches, ownership and all other workstream gates remain unchanged.
+
+Preregistration §13's separate gates remain: (c) candidate-F exact-head dispatch with the branch held; (d) designation
+of `F` only after its required checks; (e) execution with named tools, inputs, scope and writers, including independent
+X1 class-decision review before enumeration; (f) candidate-E dispatch and designation after execution; and (g)
+reconciliation, receipt and merge. This amendment grants none of (c) to (g), any theorem or claim promotion, or a change
+to the fixed instance, physical premises, selection rule, hypotheses or controls. It grants no new invocation of a
+candidate program: prior authorization (a) governs any permitted pre-F static/synthetic verification separately.
+
+The next checkpoint presents the completed pin table, formal equality results and independent review verdict before
+any further authorization is requested.
