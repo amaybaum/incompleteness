@@ -60,12 +60,17 @@ scientific or generic-check script, enumeration or Lean build during this comple
   line after the insertion is SM:811's clause, at :4683–4685 at `fd539e15` and :4684–4686 at
   `cac5d264`; both coordinates are given where it is cited (F7).
 - **Pinned 2026-11-09 draft inputs (off `main`, unverified; §A.46 item 7: hypotheses, not premises).**
-  `BRIDGE` = `scratchpad/bridge/BRIDGE-UNIT1.md` (#1211 unit 1), r3, sha256 `a5d7aad1…78c1`,
-  with its r2 review `scratchpad/bridge/review/REVIEW-UNIT1-r2.md` (`3cdf7dc2…4eb3`, REVISE);
+  `BRIDGE` = [BRIDGE-UNIT1 r3](https://github.com/amaybaum/incompleteness/blob/820519cf011c09b37690213a758106ed3aa15cc2/handoff-20261109/1211-bridge/r3/BRIDGE-UNIT1.md)
+  (#1211 unit 1), sha256 `a5d7aad1…78c1`, with its [r2 review](https://github.com/amaybaum/incompleteness/blob/820519cf011c09b37690213a758106ed3aa15cc2/handoff-20261109/1211-bridge/review/REVIEW-UNIT1-r2.md)
+  (`3cdf7dc2…4eb3`, REVISE);
   r1 of this unit read BRIDGE r2 (`bridge/r2/BRIDGE-UNIT1.md`, `3905569b…103a`). `QX3`, `QX4`,
-  `SHARED` = `scratchpad/qphen/{QX3-ANTIBUNCHING,QX4-INCOMPATIBILITY-LG,SHARED-MECHANISM}.md`
+  `SHARED` = historical files `{QX3-ANTIBUNCHING,QX4-INCOMPATIBILITY-LG,SHARED-MECHANISM}.md`
   (#1210 Phase 1, r5: `e231a795…dd71`, `7f4cd21d…a5a5`, `a7206701…cc4d`). The passages cited
   (QX3 A3.1, QX4 A4.1, SHARED §9 SA-1(a)) were re-located in r5.
+  The completion recovered the exact BRIDGE r3 and r2-review texts above. It did not recover
+  those three QPHEN r5 texts from the checked archive or #1219's single published r7c commit;
+  their old identifiers/digests and H status are retained, not independently revalidated or
+  replaced by the later r7c. Claims consuming them retain that source-availability limitation.
 - **Labels.** [K] kernel-checked on `main`; [P] reviewed record or paper text on `main`, cited;
   [A] exact algebra in this assessment by hand; [D] provisional derivation, unverified in its stated scope;
   [X] an archived exact generic check run in the original unit or by its reviewer, a result supported only by it being

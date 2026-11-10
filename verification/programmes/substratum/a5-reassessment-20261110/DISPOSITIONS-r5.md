@@ -21,7 +21,7 @@ investigation, scientific computation, manuscript change or merge is authorized.
 | Interrupted r5 | `ASSESS-1049.r5-PARTIAL.md`, SHA-256 `08c487c0368eefe234ba00de2c5456c597f9897160af355c9154f66ae7fd1ea1`; Git blob `ceb40fa6f79c9a8ce9ac0d798014b4509237082e`; incomplete and unreviewed |
 | Historical r4 dispositions | `DISPOSITIONS-r4.md`, SHA-256 `9d26ba43ccfa8026a7b3cc26394a635ef4cbf2961ab19d7981c51845c94f37a0`; preserved unchanged |
 | Current completion/source baseline | Main `cac5d26441dd33e9348151487e4df7b547195481` (D); the assessment retains its source coordinates at `fd539e150759a6ea51ab279aeeac80fc06050ade` with the documented SM TeX shift |
-| Complete r5 | [ASSESS-1049.md](ASSESS-1049.md), SHA-256 `565fffe67bb63ebe57e6114ff3a6b5700e1ccbadc203341bd35af6b390a07d08`; an author checkpoint requiring fresh review |
+| Complete r5 | [ASSESS-1049.md](ASSESS-1049.md), SHA-256 `4408c1ddb25b27e7f13f525274b775c4153c753457d9a5d6de4e5197591a3cc5`; an author checkpoint requiring fresh review |
 
 The first four file hashes were independently checked against the recovered bytes. The partial's
 changes were compared to r4, not assumed complete. It had begun the summary/table propagation and
@@ -120,3 +120,23 @@ references or close an evidence gap by naming a branch/hash. Claim-specific rete
 remain required under §§A.42/A.46 for any future enduring integration. The present deliverable is a
 safe paper checkpoint, not a merge or manuscript-promotion packet. The physical-source gate remains
 NOT PASSED, A5 remains a posit, and the matrix update waits for the new r5's independent acceptance.
+
+## 6. Publication-source repair after the first checkpoint
+
+The first complete pushed r5 at `221a04081ecb9f34b5059f52fe42d4ace2b4471c` had assessment
+SHA-256 `565fffe67bb63ebe57e6114ff3a6b5700e1ccbadc203341bd35af6b390a07d08`. Its ordinary
+PR CI run `42818061109` failed the SC-42 added-text hygiene scan on three legacy local-path
+identifiers in the pinned-draft header. The numerical-probes aggregate also failed as a dependency
+of that failed shard. No checker, allowlist, workflow, scientific proof or manuscript was changed.
+
+The source header now links the exact archived BRIDGE r3 and r2 review instead of old local-path
+identifiers. Their fetched Git blobs are `fded9fe0aa84dfb99f2dd28857da290667e1934b` and
+`214ad63c1adc832d618f9f7a2f61561ddc440be6`. For the three QPHEN r5 inputs, only historical
+filenames/digests are retained: the checked coordinating archive has no QPHEN source directory,
+and #1219 publishes only its one r7c commit. The header explicitly states that the exact r5
+texts were not recovered or revalidated here; the later r7c is not substituted for them. This
+clarifies the existing H/off-main support limitation without changing a scientific conclusion.
+
+Fresh full-text review remains anchored to the first checkpoint, with a separate focused check
+required for this source-header repair, this ledger addition and the synchronized assessment
+digest. No independent acceptance or green CI is inferred in advance from the repair.
