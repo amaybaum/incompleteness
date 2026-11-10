@@ -1,6 +1,21 @@
-# ARP-2, Q-C2-1: which-path recording and complementarity in a two-path experiment built from the OI substratum and named observational-incompleteness principles, a fragment-relative classical-model test, and the non-Clifford operation through detector records. Native round ARP-2-QC21 — PREREGISTRATION (draft r14b)
+# ARP-2, Q-C2-1: which-path recording and complementarity in a two-path experiment built from the OI substratum and named observational-incompleteness principles, a fragment-relative classical-model test, and the non-Clifford operation through detector records. Native round ARP-2-QC21 — PREREGISTRATION (draft r14d)
 
 **Status: WIP / UNVERIFIED preregistration, drafting, not a candidate `F`.** Model-written.
+- **r14d.** Paper-only response to R14C-B1 to B3 and r14c-N1 to N9, from the archived r14c review
+  (`6677f389a603e249a9e0e8c7e0e80ef5edeebf67`). Designation identity is checked; R2's alternative names both
+  guard changes; R10 distinguishes exceptions from conditional landing language and names the dependent sites.
+  All R1–R10 choices remain `PENDING`. `DISPOSITIONS-r14d.md` traces the changes; `IMPL-DELTA-r14d.md` is an
+  implementation plan, not an updated or tested implementation. Independent preparation review is required.
+  No design run, fixture-mode local run, scientific computation, workflow splice, F/E or merge is authorized.
+  Historical rN-directory references below describe archived session copies, not directories on this tracking
+  branch. Published r14b remains at commit `8f969ab6f6cbd2d04fff86cdff2b85d92433a12f`; archived r14c is at
+  `820519cf011c09b37690213a758106ed3aa15cc2:handoff-20261109/qc21/preregistration.draft.md`.
+- **r14c.** In place: R14B-B1 to B3 and r14b-N1 to N9 only (`review/REVIEW-QC21-r14b.md`, `95dcec39…`). `order`
+  reads `F`'s designation comment; R1's lowering rule and R2's alternative are restated; A3b runs `always()`; the
+  inputs pin `tools/v3_verifier.py`; shared-method changes of ARP-3-QC22 r14a are ported (the ports among edit rows 109–125), and
+  the §A.42 item 8 dispositions of host-time records are open ruling R10. Found via that round's r14a review
+  (its Rc1): the no-unapproved-F1 rule holds for an attempt whose A3 never started (edit row 126). The
+  dispositions are in `DISPOSITIONS-r14c.md`. r14b is kept in `r14b/`.
 - **r14b.** In place: R14A-B1, r14a-N1 to N13 and the implementation items I1–I5 only
   (`review/REVIEW-QC21-r14a.md`, `f30841ba…`). `verdict` reads comments through the frozen template
   `issues/comments/{DEC}` and requires every approval entry to hold, the `E` dispatch's included (edit rows
@@ -656,10 +671,11 @@ rows:
 | --- | --- | --- |
 | AP1 | `R/apparatus-1-20261107/DESIGN.md` (`51c24aeb…`) | SA-1 (AP1:282-309; "not derived", AP1:347); the coupled tick (AP1:464-530); the eraser words (AP1:628-668); C3 and C9 (AP1:670-682); Lemma 4′ (AP1:698-730); Lemma 5 (AP1:731-745) |
 | M-ARC | at `fd539e15`: `verification/receipts/ARP-1-MARC.json` (blob `f4f2b06b40f1dcb91d4c0f2f020688be422b7bc8`); `R/round-arp1-marc-20261108/preregistration.md` (`af7c4f228393ecaa9d334d50410e3c87d6faf80e`), `result.md` (`6fb623273c4db9aec5fd9ca0cfc80bd923076ece`), `evidence/measurements.json` (`f4a783aafcb44953231e6e4566a1e93bb71ba21f`), `marc_check.py` (`38d6f67559b6641590b3baf126b2247e97a4e28c`), `controls.py` (`5e6318896ffe274bf5cca7dbcb2cb537b1bad4a1`) | precondition 1; the relation section |
-| QC22 | Q-C2-2's `preregistration.draft.md` r13, sha256 `15d90b24…` (scratch, not on `main`); its r14, sha256 `9e3ef0c9…` (scratch, not on `main`) | the source of Appendix C (D10); r14 is the source of the wording of edit rows 92–99, 101 and 105 (provenance) |
+| QC22 | Q-C2-2's `preregistration.draft.md` r13, sha256 `15d90b24…` (scratch, not on `main`); its r14, sha256 `9e3ef0c9…`, and r14a, sha256 `d751a127…` (scratch, not on `main`) | the source of Appendix C (D10); r14 is the source of the wording of edit rows 92–99, 101, 105, 113 and 118, and r14a of rows 109–112, 114–117, 119 and 123, C.7's re-derivation and precondition 2's R10 (provenance: the wording used is stated here in full) |
 | RCH | REACHABLE r3 (PENDING: path and blob on `main`) | Theorem C, for CC-NAT's paper expectation only |
 | DSN | `DESIGN-DS.md`, the revision landed under D9(a) and pinned under precondition 3 (drafted as r13; PENDING: path and blob on `main`) | the model; the typing; the findings; Lemma CL; Lemma P (sketch) |
 | OIC | OICORE-1 r6 (scratch, not on `main`; §A.42 item 8: provenance for the typing, not support) | the candidate-principle statuses |
+| V3V | `tools/v3_verifier.py` at `D`: blob `681c673734427cb9f316feee09b7c5ffba348004`, sha256 `fc6545f581cd3282d43a65edbefea69722a2b3f006679a6ec9b1627845cede4a` (re-review r14b-N2) | control T (C.5 rule (h)); the governed-paths digest; precondition 1's `--verify-round` output |
 
 None is a premise of a verdict (§A.46 item 7).
 
@@ -1256,10 +1272,10 @@ carried by reference, is withdrawn: the cone review refutes it in the abstract c
 | **REP-PLANT** | P, all | an inadmissible "port" map that XORs the screen bit with the held marker's kick slot, an identification that inserts conditioning, run through REP-INV against the drafted L-PORT | REP-INV reports a change (`V(on)` changes); `decide-levels` reclassifies the planted identification as imported and withholds Levels 1–2 for the fixture | a representation check that cannot detect an identification that supplies a resource |
 | **ACC-ONLY-FIX** | P | `access_only` on ABL-SA1b and on ABL-SA1c | ABL-SA1b: true; ABL-SA1c: false | an access-only field that is a label, not a computation |
 | **B-POS** | B | rebit `±(3/5, 4/5)`, `±(3/5, −4/5)` with `Z`, `X` | infeasible, certificate verified | a test that cannot fire |
-| **B-STAB**, **B-CLASS** | B | `Z±`, `X±` with `Z`, `X`; a classical register with spanning reads | feasible, model verified | a test that fires on stabilizer or classical spanning tables |
+| **B-STAB**, **B-CLASS** | B | `Z±`, `X±` with `Z`, `X`; a two-bit classical register with spanning reads | feasible, model verified | a test that fires on stabilizer or classical spanning tables |
 | **B-S4F** (step 4 feasible with `T > 0`; r13 item 15) | B | `Ω = F_2²`, the four point laws; effects: the unit, `ξ_1 = 3/8 + [ω_0 = 0]/4`, `ξ_2 = 3/8 + [ω_1 = 0]/4` and their complements. `d = 3`, `r_S = 4`, `r_E = 3`; `cone{a_p}` is a square cone with `m = 4` facets, so `T = (m − d)·d = 3` | feasible, decided by step 4's feasible branch (steps 2 and 3 inapplicable), model verified. A model exists on paper: three ontic states at `(−1/2, −1/2)`, `(5/2, −1/2)` and `(−1/2, 5/2)` in the affine plane of the point laws' coordinates `(ω_0, ω_1)`, with barycentric laws and affine responses in `[0, 1]` (writer's probe `probes-r13/s4f.py`, `d1e56566…`) | step 4's feasible branch untested at `T > 0` |
 | **B-RAY** (D19 (0)(c); C.8 item 15) | B | B-RAY-S: B-STAB's `Z±`, `X±` with the mixture `½Z+ + ½Z−` added, read by `Z` and `X`. B-RAY-P: B-POS's four rebit preparations with the mixture of its first two added. B-RAY-F: B-S4F's four point laws with the mixture of its first two added, read by B-S4F's effects | in each, 5 distinct rows and 4 extreme rays; the mixture removed with a verified certificate; the verdict and deciding step equal to B-STAB's (feasible, step 2), to B-POS's (infeasible, step 4) and to B-S4F's (feasible, step 4, `T = 3`), the last two with facets enumerated over the retained rows; B-RAY-F's model reproduces `N` on all five preparations, the removed one included; under M-RAY, C-CERT fails | a removal taken on trust, or a reduction that changes a decision |
-| **B-REG** | B | a classical register, reads bit 1 and bit 2 only | infeasible; TOMO red; completion "add parity" restores a model; with `Acc` = {bit 1, bit 2, parity} and the LP reading only bits 1 and 2, `lp_reads_equal_acc` is false and B is VOID; `decide-levels` awards no Level 2 under a design-chosen `Acc` | a Level 2 award from tomographic incompleteness, including from a subset of `Acc` |
+| **B-REG** | B | a two-bit classical register, reads bit 1 and bit 2 only | infeasible; TOMO red; completion "add parity" restores a model; with `Acc` = {bit 1, bit 2, parity} and the LP reading only bits 1 and 2, `lp_reads_equal_acc` is false and B is VOID; `decide-levels` awards no Level 2 under a design-chosen `Acc` | a Level 2 award from tomographic incompleteness, including from a subset of `Acc` |
 | **B-WAVE** | B | CW-P's intensity-normalized table at B-POS's settings | infeasible (B's LP does not exclude classical fields); two-detector `α ≥ 1` | B read as excluding classical fields |
 | **C-STAB**, **C-R60**, **C-35**, **C-S3**, **C-PLANT**, **C-CONSX**, **C-DET** | C | Appendix D.6 | Appendix D.6 | Appendix D.6 |
 | **C-R60-ODD** | C | encoded R60 composed with one free tick. The fixed-slot spectrum `{−1, 1, 1}` is a signed-permutation spectrum; `P β` has `{1, e^{±iπ/3}}` | W-CL fires, through `P^k β` only | a frame blind spot for odd `k` |
@@ -1271,6 +1287,11 @@ carried by reference, is withdrawn: the cone review refutes it in the abstract c
 | **STAB-TRUE** | C | the **supplied identity map** on the seven QA law vectors (`O_1 = O_0`), computed outside `DECISIVE_BUILDERS` (r12-N1); it is not ABL's zero-tick ablation, which is a decisive family | `STAB = true` | a STAB field that cannot be true |
 | **REP-FRAME** | C | C-R60-ODD's supplied map under all 48 signed-permutation recalibrations, with the transposition transported (`S P S⁻¹`) | W-CL fires in all 48 | a REP-INV that reclassifies a genuine witness through an untransported frame |
 | **UPR-BC** | C | `decide-levels` on synthetic B-C records: contextual, with completion restoring a model; contextual, with completion not restoring it; contextual, with that completion `out_of_scope` | the first prints "imported for B-C" (benchmark); the second and third do not, and the third prints the completion's status (draft default, pending owner ruling R9) | an identification-supplied contextuality printed unlabelled |
+
+For these fixed B fixtures and the QM-P restricted fragment, the effect-side C-SYM enumeration bound
+is below `10^5` with the two-bit B-CLASS/B-REG registers declared above (r14c-N5): B-CLASS's bound is 286;
+the conservative QM-P product-embedding bound is 50,388. C.1 already bounds this enumeration by
+`C(effects cap, d cap − 1)`. This is a paper bound, not a report of an executed fixture or cap stress test.
 
 **Decisive builders and the guard** (re-review R10-B2). Every decisive family is built only through the single gated
 entry `s_decisive` in `qc21_check.py`. The families are:
@@ -1498,7 +1519,7 @@ such a dispatch was authorized is detected.
 | push to any branch, or create a branch from S1 | rule (d) within the window; the ref key | the in-tree key is independent; the detection as for dispatch |
 | force-move or delete refs | the activity API in every capture | host-recorded, so independent within the window |
 | after the final capture: push a receipt-deleting commit to the round branch, or delete and re-create the round branch | none: unobservable to this round | **not independent**. It rests on the owner's commitment; the decisive output is already public from `E` (attestation hygiene) |
-| post or edit approval comments; record designations | the edited-comment rule; the owner's ratification of the run list and the entries in `approvals.json` at the designation of `E`, and of the `E` dispatch's own entry as R8 provides (draft default, pending owner ruling R8) | **not independent** of the credential. It rests on the owner's direct act at the designation |
+| post or edit approval comments; record designations | the edited-comment rule; the owner's ratification of the run list and the entries in `approvals.json` at the designation of `E`, and of the `E` dispatch's own entry as R8 provides (draft default, pending owner ruling R8) | **not independent** of the credential. It rests on the owner's direct act at the designation and, under R8's default, at the ratification |
 
 **Owner commitments, recorded at the freeze** (precondition 2):
 - no workflow run, run log or artifact of this repository is deleted until `Q` (restating and extending c.6726548830
@@ -1563,10 +1584,10 @@ Appendix D.9's rows, plus:
 | record-dependent conditioning in C's origin is reported | C-A (`reg = none`) |
 | the owner's terminology is used | S4 ("native OI") |
 | B6 compares the decisive output without its dispatch field, and binds the committed measurements | `replay` (C.8 item 3); B6 at `E` |
-| a non-dispatch run's fixture mode is read from a step conclusion | A3b; the no-unapproved-F1 rule (C.8 item 7) |
+| a non-dispatch run's fixture mode is read from a step conclusion | A3b; A3's conclusion when A3 never started; the no-unapproved-F1 rule (C.3; C.8 item 7); for an A3 that started and left no output, the executor precondition for pushes to recorded branches (C.3), whose breach is a violation (fail-closed) |
 | STAB-FALSE reads pinned certificates in its own process | A9; the certificate pins (C.8 item 12) |
 | every passage the file relies on is stated in it | Appendix D; the r5, r6 and r7 drafts cited as provenance only |
-| scope choices and the level of a VOID are the owner's | D19 to D23 recorded (c.6740078002), quoted in *Owner decisions D19 to D23*; the open rulings R1–R9, each a `PENDING` item of precondition 2 that control P refuses at `F` |
+| scope choices and the level of a VOID are the owner's | D19 to D23 recorded (c.6740078002), quoted in *Owner decisions D19 to D23*; the open rulings R1–R10, each a `PENDING` item of precondition 2 that control P refuses at `F` |
 | SG-1: no narrowing to manufacture success | B-P decided whole: `decide-b`'s step 1 on B-P's 32 preparations and nine settings; removals only with verified certificates (C-CERT, B-RAY, M-RAY); C-IFACE's `decide-b` rule and its mutation; reported-only fragments read by no token; C.6 after `F` |
 | SG-2: resource limits fixed before execution; an over-limit B-P gives VOID | `S_max`, caps, budgets, timeout and stress pin entered before `F` (control P); `check --freeze` recomputes them from the pinned `stress.json`, and requires the `S_max` of this file, of the checker and of `stress.json` to be equal and at least `10^5` (R1's floor: draft default, pending owner ruling R1; C.8 item 2); M-BUDGET; the self-test cases for an `out_of_scope` and an `undecided` B-P; the B-VOID limitation text; C.6 |
 | SG-3: a failure in C does not erase P's result; compromised provenance voids every affected result | the `decide-levels` self-test cases (C-VOID or B-VOID with P-COMPLEMENTARITY gives Level 1); the provenance list of D21 and C.6; `verdict` VOID on each provenance failure and incomplete-output halt (self-test); S1-BIND |
@@ -1576,7 +1597,7 @@ Appendix D.9's rows, plus:
 | the committed measurements are S1's output | the S1 binding in `verdict` (C.8 item 3); S1-BIND |
 | `pred_change` for the read-set ablation separates changed from added quantities | the self-test case of `ablate-p` on a synthetic ABL-SA1b record, which must give `common` false and `added` non-empty (D23 (c); *The controls*, self-tests) |
 | outputs do not depend on string-hash order, which `-I` leaves randomized | control B's no-`set` rule on `qc21_check.py`, with its M-GUARD variant; A7 at 6′ and the replay at `E` across processes |
-| the design run and 6′ run the trees they name, not a synthetic merge | their pull requests' base is a branch held at `D`; `check --freeze` checks the run records' `pull_requests` base and head `sha` (C.7) |
+| the design run and 6′ run the trees they name, not a synthetic merge | their pull requests' base is a branch held at `D`; `check --freeze` checks the run records' `pull_requests` base and head `sha`, and re-derives both records from the host by their run ids (C.7; ARP-3-QC22 r14a, R14-N4) |
 
 ## Preconditions of `F`
 
@@ -1607,34 +1628,74 @@ Appendix D.9's rows, plus:
      than the claim (§A.42 items 2 and 8; re-review r14a-N8);
    - the owner commitments of *Scope of authorization and detection*, recorded with author and time (PENDING);
    - D19 to D23: recorded with author and time (c.6740078002; *Owner decisions D19 to D23*);
-   - the owner's rulings R1 to R9 below (re-review R14-B2: scope choices and the level of a VOID are the owner's).
+   - the owner's rulings R1 to R10 below (re-review R14-B2: scope choices and the level of a VOID are the owner's).
      Each is recorded with author and time and quoted in this file, and the text is brought to the ruling before
-     `F`. Until then the text carries the draft default stated here, labelled "pending owner ruling":
+     `F`. Until then the text carries the draft default stated here, labelled "pending owner ruling" (R10, which
+     has none, excepted):
      - **R1. `S_max`**, the owner's maximum budget for ST-BP, recorded before the design run (PENDING; C.8 item 2).
        Draft default: its form is the largest number of `(d − 1)`-subsets that one facet enumeration may visit, in
        the solver and again in the verifier; C.1's timeout test (1200 s) and `timeout-minutes: 60` are the time
-       maximum. Its floor and its lowering rule, together (r14-N9, r14a-N4): `S_max` is at least `10^5`, since below
-       that ST-BP cannot raise B-P's binomial cap above the copied `10^5`. After a red design run the owner fixes a
-       smaller `S_max` by a recorded decision before another design run: at least `10^5` if the red run's `S_max` was
-       above `10^5`; if it was `10^5`, a smaller positive integer, and the same decision removes the floor from
-       `check --freeze`'s `S_max` check (C.8 item 2) before that design run, B-P's binomial cap then staying
-       `10^5`. So a value is admissible after a red design run at the floor. No value is proposed. Alternative: no
-       floor at any stage; any positive `S_max`, lowered by a recorded decision after a red design run, with
-       `check --freeze` requiring only a positive decimal integer, equal in this file, the checker and `stress.json`.
+       maximum. Its floor and its lowering rule, together (r14-N9, r14a-N4, r14b-B2): `S_max` is at least `10^5`,
+       since below that ST-BP cannot raise B-P's binomial cap above the copied `10^5`. After a red design run, the
+       owner may fix a positive `S_max` no larger than the red run's, by a recorded decision before another design
+       run. It is at least `10^5` unless the red run's `S_max` was at most `10^5`, in which case the same decision
+       removes the floor from `check --freeze`'s `S_max` check (C.8 item 2) before that design run, B-P's binomial
+       cap then staying `10^5`. So a value is admissible after any red design run, the red run's own value
+       included. No value is proposed. Alternative: no floor at any stage; any positive `S_max`; after a red design
+       run, the owner may fix a positive `S_max` no larger than the red run's, by a recorded decision before another
+       design run; `check --freeze` requires only a positive decimal integer, equal in this file, the checker and
+       `stress.json`.
      - **R2. A red fixture-mode control at S1 or `E`** (PENDING). Draft default: A3 exits 3 (C.1's fixture exit
        rule), which is a round-level halt with every result void, as a reproducibility failure (D21's provenance
        list; *Stop rule*; C.6, rows 107 and 108; `verdict`'s job-A condition, row 104; C.8 item 14). Alternative:
        it voids only the tokens of the tests in its `for` column (D21 (b)'s test-level reading), and the other
-       tokens stand; A3's exit 3 on a red fixture-mode control is then read as neither a checker outcome (C.6's S1
-       and `E` lines) nor a failed `verdict` condition (job A's steps), by a reading of C.1's fixture exit rule in
-       C.8 item 14.
+       tokens stand (re-review r14b-B3). An exit 3 at A3 skips A4–A10 and fails job A, the aggregate and the run,
+       and `E`'s run is `E`'s exact-head attestation (§A.39), so the alternative consists of these changes, each
+       frozen before `F`:
+       - **The checker.** C.1's fixture exit rule reads, for the checker run with `--event fixture` in a
+         `workflow_dispatch` run on the round branch (its `GITHUB_EVENT_NAME` and `GITHUB_REF` keys): it exits 0
+         when its fixture-mode output is otherwise complete, each red fixture-mode control recorded in that
+         output. In every other run (the design run, 6′, the gate tests, every `pull_request` and `push` run) it
+         exits 3 as C.1 states.
+       - **The workflow.** No line changes beyond A3b's `if: ${{ always() }}`, which the draft default carries
+         too, so the frozen splice and control W's expectations are the draft default's. A3 at S1 and `E` is then
+         `success`, so job A, the aggregate's `test "${ARP2QC21_RESULT}" = success` line and the run stay
+         green, and `E`'s run can attest.
+       - **`verdict`.** It reads the fixture-mode output of the runs at S1 and `E` from each run's
+         `arp2-qc21-fixtures` artifact. `GET actions/runs/{DEC}/artifacts` (every page) must list exactly one
+         artifact of that name, whose `workflow_run.id` and `workflow_run.head_sha` are the run's; the frozen
+         template `actions/artifacts/{DEC}/zip`, read in memory, must give an archive whose members are exactly
+         `["fixtures.json"]`, schema v1 in fixture mode. A control whose recorded result differs from its frozen
+         expectation is red and voids the tokens of its `for` column (C.8 item 14). A missing, expired or
+         unreadable artifact fails this condition, and the round halts VOID. Rule (g)'s zip template, and C.8
+         item 7's single artifact that a condition reads, extend to these two artifacts, read by `verdict` and,
+         for S1's, by `derive-run`; `note` reads the resulting committed red-control record.
+       - **The readings.** C.6's S1 line stands (A3 exits 0 there on a red fixture-mode control). C.6's `E` line,
+         D21's provenance list and C.8 item 14 drop "a red fixture-mode control at S1 or `E`" as a halt.
+         `verdict`'s job-A condition stands as written. The note prints the tokens voided by a red control of
+         the run at S1, read as above before `E` is committed; `verdict` compares the note's token line with its
+         own except for the tokens voided by a red control of the run at `E`, which it prints with the control's
+         code.
+       - **Control B and M-GUARD.** The `controls.py` ZipFile rule admits only `namelist()`,
+         `read("measurements.json")` and `read("fixtures.json")`; each archive still has exactly its required
+         single member. ZIP-1 to ZIP-3 and M-GUARD must reject a third member-read name and every other
+         widening. In `qc21_check.py`, the only additional permitted `DISPATCH_EVENT` reference is in a
+         named `s_fixture_exit(argv, environ)` function implementing the round-branch-dispatch exit rule;
+         `s_mode` and M-GUARD's self-test references remain allowed. A reference elsewhere must fail B and
+         M-GUARD. This adds no `os` reference: `s_entry` passes its existing `environ` argument. These two
+         node-form rules and their mutations are frozen before `F`; the splice and W remain the default's.
+
+       For the S1 fixture artifact, `derive-run` records the red controls and the artifact identity in
+       `evidence/s1-run/results.json`; `note` reads that committed record, without a network read. `verdict`
+       re-reads the artifact and compares the red-control record. Under this alternative a missing, expired or unreadable fixtures artifact is round-level VOID
+       whatever R6 decides about the separate measurements artifact (r14c-N6).
      - **R3. The volume of reported-only fragments in the timeout test** (PENDING). Draft default: C.8 item 2's left
        side, whose term `1203 · W_max` covers B-P's two completions, construction A of B, and up to 600 B-C
        fragments and 600 B-C completions under the general budget; in `--stress`, SF-2 is decided under no cap and
        no budget and enters the general budget's maxima (C.8 item 2; r14-N14); if the test fails, no `F` is
        requested. Alternative: an aggregate work budget `W_RO` for all reported-only fragments together replaces
-       `1203 · W_max` in the left side; they are decided in job B's build order, each still under the general caps
-       and budget, and once `W_RO` is spent the rest are recorded `out_of_scope` and reported (a scope change, as
+       `1203 · W_max` in the left side; they are decided in job B's build order, each under its caps and budget
+       (R5), and once `W_RO` is spent the rest are recorded `out_of_scope` and reported (a scope change, as
        D19 (iii)(b) was). SF-2 is treated as in the draft default. `W_RO` is fixed before `F`: by the owner, or, with
        R4's alternative, by R4's rule.
      - **R4. Priority between B-P's caps and the reported-only volume** (PENDING; r14-N5). Draft default: the
@@ -1671,7 +1732,10 @@ Appendix D.9's rows, plus:
        prints `VERDICT VOID` unless the comment passes C.3's authorship checks and quotes the sha256 of the entry
        `verdict` builds. Alternative: the owner's designation of `E` quotes the entry's sha256 beside
        `order.json`'s, and `verdict` applies the same check to the designation; no separate ratification comment is
-       posted.
+       posted. Under either option, where a host VOID at `E` is retaken, each entry `verdict` builds for a
+       dispatch at `E` is ratified the same way (C.8 item 9). Both options rest on a comment under the owner's
+       identity, which the credential table counts as not independent of the session's credential; they differ
+       in procedure (the draft default adds one owner act), not in assurance (re-review r14b-N5).
      - **R9. UPR-BC when the completion it reads is `out_of_scope` or `undecided`** (PENDING; re-review r14a-N13).
        UPR-BC labels a B-CONTEXTUAL B-C result only when the completion "every slot of every cell, registered
        jointly" restores a model. Draft default: when that completion is `out_of_scope` or `undecided`, no label is
@@ -1679,6 +1743,33 @@ Appendix D.9's rows, plus:
        status (decision rule B, step 2). Alternative: L-UPRIME is reclassified as imported for B-C there too, and
        the result is printed as a benchmark result with the completion's status beside the label. Under either, no
        Level changes, since B-C does not count toward Level 2 (D17(a)).
+     - **R10. §A.42 item 8 dispositions of host-time records** (PENDING; ARP-3-QC22 r14a, R14-Rb2; re-review
+       r14b-N9). Three records support claims, no round tree can hold them, and a later dispatch at `E` does not
+       re-establish them: the final capture's record (C.2, *The window between `E`'s capture and `Q`'s push*);
+       the approval entries `verdict` builds for the dispatches at `E` (C.8 item 9); and, under R8's draft
+       default, the ratification comment. This round has no Environment, so ARP-3-QC22's `E`-stage Environment
+       reads have no counterpart here. The options are a recorded owner exception for each, naming the claim it
+       leaves unsupported (§A.42 item 8; such a claim is not established, §A.46 item 1), or narrowing: the
+       landed record states the checks only as conditions of landing: the round may land only if they pass.
+       It does not state that they passed, and makes no scientific or governance assertion resting on the
+       unretained content; the records are provenance for that conditional procedure.
+
+       **Required revisions before `F`, under either option (R14C-B3).** Revise and independently review C.2's
+       *Its record* and *Violations*; C.3's *Authorship* and `verdict`'s ratification and entry conditions;
+       C.8 item 9; the credential-table row for posting/editing comments and designations; the owner commitments;
+       and invariant rows *each decisive dispatch is owner-approved* in both invariant tables. An exception
+       must quote the owner's author/time decision and identify each unsupported claim at each applicable
+       site. Narrowing must replace assertions that the conditions were met with the conditional language
+       above at every applicable site. A record id alone is not a revision. Until this ruling and those
+       revisions are complete, the present passages remain pending and are not claims of achieved compliance.
+
+       **What each option leaves of the token.** Scientific content, namely the tokens replay-matched at `E`,
+       is re-established only by the separately authorized dispatch at `E` (§A.42 item 7). This paper does not
+       establish that a dispatch occurred. The host-time governance claims are: every dispatch at `E` was
+       approved and ratified, and no unapproved checker-bearing run occurred between `E`'s capture and landing.
+       Under exceptions those claims remain unestablished (§A.46 item 1); under narrowing they are not claimed.
+       Neither option makes the session credential independent, excuses an operational check or authorizes a run.
+       R10 has no draft default: neither option is applied. Record id: PENDING.
 
    D12 is waived (c.6735159962), so no Environment setup step remains.
 3. **REACHABLE r3 and DESIGN-DS r13** on `main` as separate paper records before `D` (D9(a)), pinned by blob.
@@ -1785,9 +1876,11 @@ re-review R10-B1).
 
 **The D12 edit log** (re-review R10-B5, E1–E13; the owner's waiver c.6735159962), with row 45 (R11a-B1), the r13
 rows 46–71 (C.8), the r14 rows 72–85 (D19 (0)(c), D21 (b)), the r14a rows 86–98 (re-review r14-N3, N11, N12;
-rows 92–98 found via ARP-3-QC22 r14) and the r14b rows 99–108 (re-review R14A-B1, r14a-N1 and N2). Each row
-replaces copied text that starts as shown; for rows 99–108 that text is as the earlier rows leave it. `ref key`
-rows add the ref key; `downgrade` rows replace "prevented" by "detected" claims.
+rows 92–98 found via ARP-3-QC22 r14), the r14b rows 99–108 (re-review R14A-B1, r14a-N1 and N2) and the r14c
+rows 109–126 (re-review R14B-B1, r14b-N1, N2, N6 and N9; rows 109–112, 114–117, 119 and 123 found via ARP-3-QC22
+r14a, and row 126 via its r14a review's Rc1), with r14d rows 127–129. Each row replaces copied text that starts as shown; for rows 99–129
+that text is as the earlier rows leave it. `ref key` rows add the ref key; `downgrade` rows replace "prevented"
+by "detected" claims.
 
 | # | tag | section | copied text (start) | becomes (start) |
 | --- | --- | --- | --- | --- |
@@ -1899,6 +1992,27 @@ rows add the ref key; `downgrade` rows replace "prevented" by "detected" claims.
 | 106 | r14b r14a-N2; R6 | C.3 |     JSON without `parameters.dispatch_sha` (D21 (b); C.8 item 3). A missing or unreadable artifact fails it; |     JSON without `parameters.dispatch_sha` (D21 (b); C.8 item 3). A missing or unreadable artifact fails it (an     expired or deleted one: draft default, pending owner ruling R6 …); |
 | 107 | r14b r14a-N2; R2 | C.6 | - at S1, any checker outcome other than exit 0 with complete output; | - at S1, any checker outcome other than exit 0 with complete output (A3's exit 3 on a red fixture-mode   control included: draft default, pending owner ruling R2 …); |
 | 108 | r14b r14a-N2; R2 | C.6 | - at `E`, a red fixture-mode control, a checker outcome, … | - at `E`, a red fixture-mode control (draft default, pending owner ruling R2, precondition 2), a checker outcome, … |
+| 109 | r14c r14b-N1, via ARP-3-QC22 r14a (R14-N10) | C.2 | `python3 -I -S -B <record dir>/controls.py fixture-mode-check "$RUNNER_TEMP/arp2-qc21/fixtures.json"`. | … fixture-mode-check "$RUNNER_TEMP/arp2-qc21/fixtures.json"`, with   `if: ${{ always() }}` …   - It runs whether or not A3 succeeded. … |
+| 110 | r14c r14b-N1 | C.2 | **Common.** No step continues on error, masks a status or installs a package. Every interpreter the splice starts | **Common.** No step continues on error, masks a status or installs a package. A3b's `if: ${{ always() }}` runs it after a failed A3 and masks nothing … |
+| 111 | r14c r14b-N9, via ARP-3-QC22 r14a (R14-Rb2); R10 | C.2 | - **Its record.** The final capture's record (structured JSON with its sha256) is posted on the round PR. It is   provenance (§A.42 item 2). | - **Its record.** … is posted on the round PR. The claim   that no unapproved checker-bearing run occurred between `E`'s capture and landing uses it, … the owner's (precondition 2, R10, pending; … |
+| 112 | r14c r14b-N9, via ARP-3-QC22 r14a (R14-N2) | C.3 | - **Binding the approval to the run (re-anchored on the owner's quoted commit; E5).** All of these must hold: … - the measurements' `parameters.dispatch_sha` equals the same commit; | - **Binding the approval to the run (re-anchored on the owner's quoted commit; E5).** For the run that attests at     each stage, all of these must hold … - at S1, the committed measurements' `parameters.dispatch_sha` equals S1 (at `E`, B3's `success` binds the       input); … - **The entry of a host-VOID run** that a retake replaces holds … |
+| 113 | r14c R14B-B1, via ARP-3-QC22 r14 (R13-B4) | C.3 | - **`order.json`.** `F`'s designation precedes the first execution run. | - **`order.json`.** `F`'s designation precedes the first execution run. The owner's designation comment is read   through `GET issues/comments/{DEC}`, its id given as an argument; … |
+| 114 | r14c r14b-N9, via ARP-3-QC22 r14a (R14-Rb2) | C.3 | The writer's record is that no draft of the scripts or the splice has been pushed anywhere (PLAN), so the       residual is empty unless that record is wrong. | The residual is empty if no such draft was pushed before `D`, which is the writer's statement and is not … |
+| 115 | r14c r14b-N9, via ARP-3-QC22 r14a (R14-Rb2) | C.3 | That is about 770 calls for set (1) today (r10 review §3, H11–H15), … | An estimate, which no condition uses, is about 770 calls for set (1) (r10 review §3, H11–H15), … |
+| 116 | r14c r14b-N9, via ARP-3-QC22 r14a (R14-N2) | C.3 |   - every approval entry holds, the `E` dispatch's included (ARP-3-QC22 r14, R13-B4; re-review R14A-B1): each … |   - every approval entry holds as stated for its run, the run that attests at its stage or a host-VOID run a retake     replaced, the entries `verdict` builds for the dispatches at `E` included … |
+| 117 | r14c r14b-N1, via ARP-3-QC22 r14a (R14-N10) | C.4 |     - the marker A10;     - the marker A3b. |     - the marker A10;     - the marker A3b, or its `if:` … |
+| 118 | r14c R14B-B1, via ARP-3-QC22 r14 (R13-B4) and r14a (R14-N2) | C.4 | (none; added after S1-BIND) | - **APPROVAL-ENTRIES** (ARP-3-QC22 r14, R13-B4, and r14a, R14-N2; re-review R14B-B1). `order`, `verdict` and   `e-entry` on synthetic records built in memory. … |
+| 119 | r14c r14b-N9, via ARP-3-QC22 r14a (R14-Rb2) | C.5 | - **Why.** On git 2.43.0, `git rev-parse --end-of-options HEAD` without `--verify` exits 0 … | - **Why.** The rule ties each admitted form to one object name. … |
+| 120 | r14c R14B-B1 | C.5 | read by `verdict` and `e-entry`               (C.3; C.8 item 9); | read by `order`, `verdict` and `e-entry`               (C.3; C.8 item 9; re-review R14B-B1); |
+| 121 | r14c r14b-N6 | C.5 | `derive-run`, `order` and `verdict` call (C.8 item 8). | `derive-run`, `order`, `verdict` and `e-entry` call (C.8 item 8;           re-review r14b-N6). |
+| 122 | r14c r14b-N2 | C.5 | - Its code imports only `tools/v3_verifier.py`, whose blob the inputs pin. | - Its code imports only `tools/v3_verifier.py`, whose blob the inputs pin (*Inputs*, row V3V). Before it … |
+| 123 | r14c r14b-N9, via ARP-3-QC22 r14a (its §5) | C.5 | exercised by M-GUARD (BYP-1 to BYP-18).** | exercised by M-GUARD (BYP-1 to BYP-21, BYP-23 to BYP-26, ZIP-1         to ZIP-3 and the unnumbered variants; ARP-3-QC22 r14a).** |
+| 124 | r14c r14b-N1 | C.5 |       - the markers A10 and A3b; |       - the markers A10 and A3b, with A3b's `if:` (re-review r14b-N1); |
+| 125 | r14c r14b-N1 | C.5 |       - the marker A10;       - the marker A3b;     - DS: inputs and drift; |       - the marker A10;       - the marker A3b, or its `if:` (re-review r14b-N1);     - DS: inputs and drift; |
+| 126 | r14c, via the ARP-3-QC22 r14a review (Rc1) | C.3 |   - A3b's conclusion is `success`, so A3's output had `mode: "fixture"` with the synthetic placeholders. |   - A3 is absent or `skipped`, so it never started … or A3b's conclusion is `success` … - **Residual (named; ARP-3-QC22 r14a review, Rc1).** An A3 that started and left no fixture-mode … |
+| 127 | r14d R14C-B1 | C.3 | `order.json` records its id, author and times | owner/OWNER and full-F designation required; id, author, association, times and quoted words recorded |
+| 128 | r14d r14c-N1 to N3 | C.3 | no-unapproved-F1 rule and its nested Residual | unfinished attempts fail capture for retry; completed-attempt rule; Residual outside conjunction; checker-bearing executor precondition and explicit local-run authorization boundary |
+| 129 | r14d R14C-B1, r14c-N4 | C.4 | APPROVAL-ENTRIES designation and host-VOID cases | wrong/missing F, wrong owner/association, first-run selection across events, and false host-VOID cases must fail |
 
 **Typographic edits, also logged (r11-N2).**
 - In C.2, the Job B bullet's first sentence is re-wrapped (whitespace only).
@@ -2166,7 +2280,10 @@ behaves as before:
     keys say.
   - This is the output used by 6′ and by C-STATELESS.
 - A3b. **"ARP-2-QC21 fixture output is fixture mode"** (a marker; §A.44; r13 item 8):
-  `python3 -I -S -B <record dir>/controls.py fixture-mode-check "$RUNNER_TEMP/arp2-qc21/fixtures.json"`.
+  `python3 -I -S -B <record dir>/controls.py fixture-mode-check "$RUNNER_TEMP/arp2-qc21/fixtures.json"`, with
+  `if: ${{ always() }}` (ARP-3-QC22 r14a, R14-N10; re-review r14b-N1).
+  - It runs whether or not A3 succeeded. A red A3 whose output is complete fixture-mode output, a fixture mismatch
+    for example, still gives A3b `success`; a missing or non-fixture output gives `failure`.
   - It exits 0 iff the file parses as schema `arp2-qc21-measurements` v1 with `mode: "fixture"`, `complete: false`
     and every decisive field the synthetic placeholder, and 3 otherwise.
   - Its conclusion is the structured record of A3's mode that the no-unapproved-F1 rule reads (*Runs, evidence,
@@ -2224,9 +2341,10 @@ Its steps:
   `if: ${{ (github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && github.ref == 'refs/heads/research/arp2-qc21-20261108' && hashFiles('verification/receipts/ARP-2-QC21.json') == '') }}`.
   It replays exactly when B4 ran in decisive mode.
 
-**Common.** No step continues on error, masks a status or installs a package. Every interpreter the splice starts
-(A3, A3b, A5, A7, A8, A9, B4, B6) is `python3 -I -S -B`, so no `.pth` or other startup file runs in any step. Both
-scripts are stdlib-only. `pull_request` and `push` runs never reach
+**Common.** No step continues on error, masks a status or installs a package. A3b's `if: ${{ always() }}` runs it
+after a failed A3 and masks nothing: A3's conclusion, and job A's, stay `failure` (re-review r14b-N1). Every
+interpreter the splice starts (A3, A3b, A5, A7, A8, A9, B4, B6) is `python3 -I -S -B`, so no `.pth` or other startup
+file runs in any step. Both scripts are stdlib-only. `pull_request` and `push` runs never reach
 job B: its job-level `if:` is false for them, so the job is `skipped` by the job-level `if:` (verified at the design run,
 precondition 6).
 
@@ -2316,8 +2434,10 @@ scoped to the pinned checker accordingly.
   unapproved one is **detected** by the final capture (VOID).
 - **Final capture.** `verdict`'s capture, and a final capture `controls.py order --final` taken immediately before the
   round PR lands, both enumerate to their capture time.
-- **Its record.** The final capture's record (structured JSON with its sha256) is posted on the round PR. It is
-  provenance (§A.42 item 2). The validity claim rests on `E`'s `order.json` and the receipt.
+- **Its record.** The final capture's record (structured JSON with its sha256) is posted on the round PR. The claim
+  that no unapproved checker-bearing run occurred between `E`'s capture and landing uses it, and no round tree can
+  hold it; its disposition under §A.42 item 8 is the owner's (precondition 2, R10, pending; ARP-3-QC22 r14a,
+  R14-Rb2). The claims up to `E`'s capture rest on `E`'s `order.json` and the receipt.
 - **Violations.** An unapproved checker-bearing run in either capture is a violation. The round does not land, and the
   owner is told that it is VOID.
 
@@ -2362,12 +2482,17 @@ route is ungated. Any such change after landing is outside the round and must ac
     ratification: at the designation of `E` for the entries committed at `E`, and for the `E` dispatch's own entry as
     precondition 2's R8 provides (draft default, pending owner ruling R8; C.8 item 9). An entry not ratified makes
     `verdict` print VOID.
-  - **Binding the approval to the run (re-anchored on the owner's quoted commit; E5).** All of these must hold:
+  - **Binding the approval to the run (re-anchored on the owner's quoted commit; E5).** For the run that attests at
+    each stage, all of these must hold (ARP-3-QC22 r14a, R14-N2):
     - the run's `head_sha` equals the full commit id in the owner's quoted words;
     - job B's B3 is `success`, so `github.sha` equals the `arp2qc21_sha` input and the ref is the round branch;
-    - the measurements' `parameters.dispatch_sha` equals the same commit;
+    - at S1, the committed measurements' `parameters.dispatch_sha` equals S1 (at `E`, B3's `success` binds the
+      input);
     - job B ran, so the `arp2qc21_decisive` input was true;
     - the run's `run_attempt` is `1`.
+  - **The entry of a host-VOID run** that a retake replaces holds when its prior authorization, the edited-comment
+    rule and its authorship hold, and its run is a host VOID as the *Stop rule* (C.6) defines it; its B3 need not
+    be `success` (ARP-3-QC22 r14a, R14-N2).
   - **Order.** The owner's approval comment precedes the run's `created_at`, and no comment is reused (*The prior
     authorization*).
   - **Re-runs (c.6726548830, item 3).** A re-run attempt never attests. "The run at a stage" is attempt 1 alone.
@@ -2381,7 +2506,12 @@ route is ungated. Any such change after landing is outside the round and must ac
     - its frozen expectation;
     - the conclusions of job B and of B3 and B4;
     - in every gate-test entry, B4 must be absent or `skipped`. A gate-test run in which B4 ran is a violation.
-- **`order.json`.** `F`'s designation precedes the first execution run.
+- **`order.json`.** `F`'s designation precedes the first execution run. The owner's designation comment is read
+  through `GET issues/comments/{DEC}`, its id given as an argument; its `created_at`, and its `updated_at` under the
+  edited-comment rule, precede the first execution run's `created_at` (C.8 item 9). Its author must be
+  `amaybaum` with association `OWNER`, and its quoted body must contain `F`'s full 40-hex commit id as the
+  designation of `F`. `order.json` records its id, author, association, times and quoted words (§A.42 item 7;
+  ARP-3-QC22 r14, R13-B4; re-reviews R14B-B1 and R14C-B1).
 - **Repository-wide run enumeration (r7 B1, r8 B2, r9 B3; r10 B3, N1, N3, N4).** `order.json` enumerates two sets:
   - **(1)** every `workflow_dispatch` run of every workflow in the repository, over `[T_repo, capture]`;
   - **(2)** every run of every workflow under every other event, over `[T0, capture]`.
@@ -2394,8 +2524,8 @@ route is ungated. Any such change after landing is outside the round and must ac
     - **The check.** Every capture checks it for the recorded branches: every commit on them that carries the pinned
       blob or the frozen names descends from `D` (`git merge-base --is-ancestor --end-of-options D <commit>`).
     - **Residual.** A draft pushed before `D` on some other branch, under a non-dispatch event, falls outside set
-      (2). The writer's record is that no draft of the scripts or the splice has been pushed anywhere (PLAN), so the
-      residual is empty unless that record is wrong.
+      (2). The residual is empty if no such draft was pushed before `D`, which is the writer's statement and is not
+      checked by this round (ARP-3-QC22 r14a, R14-Rb2).
   - **The queries.** Each is `GET actions/runs?<event filter>&created=<a>..<b>&per_page=100`, paginated to the end. Set
     (1) uses `event=workflow_dispatch`. Set (2) lists without an event filter, and drops `workflow_dispatch` runs,
     which set (1) holds.
@@ -2445,8 +2575,9 @@ route is ungated. Any such change after landing is outside the round and must ac
     - one trees call per distinct `head_sha` absent locally;
     - the activity calls for the recorded branches.
 
-    That is about 770 calls for set (1) today (r10 review §3, H11–H15), plus set (2)'s runs since `T0`, at about 100
-    runs a day on this repository (a read-only count, 2026-11-08). There are three captures (`check --stage S1`,
+    An estimate, which no condition uses, is about 770 calls for set (1) (r10 review §3, H11–H15), plus set (2)'s
+    runs since `T0`, at about 100 runs a day on this repository (a read-only count, 2026-11-08; ARP-3-QC22 r14a,
+    R14-Rb2). There are three captures (`check --stage S1`,
     `verdict` and `order --final`), each recording its own call count.
     - A rate-limit response (403 or 429 with an exhausted limit) or a 5xx makes the capture **failed**, to be retried
       after the reset. It is never a pass and never a VOID.
@@ -2463,11 +2594,26 @@ route is ungated. Any such change after landing is outside the round and must ac
   recorded-branch commit, `order.json` records:
   `{run_id, run_attempt, head_sha, event, jobB_conclusion, B4_conclusion, A3_conclusion, A3b_conclusion, fixtures_artifact_digest}`.
   These are read from the jobs API. `fixtures_artifact_digest` is the artifacts API's `digest` field, recorded as
-  provenance and read by no condition; no artifact content is downloaded (C.8 item 7). The rule holds exactly when,
-  for every such attempt:
+  provenance and read by no condition; no artifact content is downloaded (C.8 item 7). A capture listing any
+  checker-bearing attempt with status other than `completed` fails capture and is retried after completion;
+  a queued or in-progress attempt's missing conclusions are not evaluated as completed outcomes (r14c-N1).
+  The rule holds exactly when, for every such completed attempt:
   - job B is absent or `skipped`;
   - B4 is absent or `skipped`;
-  - A3b's conclusion is `success`, so A3's output had `mode: "fixture"` with the synthetic placeholders.
+  - A3 is absent or `skipped`, so it never started (ARP-3-QC22 r14a review, Rc1), or A3b's conclusion is
+    `success`, so A3's output had `mode: "fixture"` with the synthetic placeholders. When A3 is skipped, every
+    later step of job A with a default `if:` is skipped too, and A3b, which runs `always()`, starts only
+    `controls.py`, so no checker process runs in job A.
+
+  **Residual (named; ARP-3-QC22 r14a review, Rc1).** An A3 that started and left no fixture-mode output (a
+  timeout, a crash, a cancellation or a lost runner during A3) makes A3b fail, and the completed attempt is a
+  violation (fail-closed). **Executor precondition (frozen; §A.41):** no checker-bearing commit is pushed to a
+  recorded branch unless A3's command, run locally on that commit's tree with Python 3.11, completes within
+  `timeout-minutes` with fixture-mode output and `controls.py fixture-mode-check` exits 0 on that output.
+  The executor cancels no run on a recorded branch while its job A runs. This does not exclude a runner fault
+  during A3, or an A3 that completes locally and times out on the runner. These local A3 runs require separate
+  design-run authorization; the first such push is the design branch's, and no frozen-splice tree is pushed
+  before that authorization.
 
   `verdict` re-checks the rule on a fresh capture. A violation is a failed check, and the round halts VOID.
 - **Retention (r7 N1).** Every upload carries `retention-days: 90`. `controls.py check --stage S1`, run before the S1
@@ -2483,9 +2629,10 @@ route is ungated. Any such change after landing is outside the round and must ac
     committed at `E` (C.8 item 9), quoted with author and time (fail-closed: without it, VOID); the `E` dispatch's
     own entry is ratified as precondition 2's R8 provides (draft default, pending owner ruling R8: a recorded owner
     comment, read through `issues/comments/{DEC}`, quoting the entry's canonical-JSON sha256; without it, VOID);
-  - every approval entry holds, the `E` dispatch's included (ARP-3-QC22 r14, R13-B4; re-review R14A-B1): each
-    is checked as *Approval entries* states, and the `E` dispatch's entry is built by `verdict` from the `E`
-    approval comment's id (C.8 item 9);
+  - every approval entry holds as stated for its run, the run that attests at its stage or a host-VOID run a retake
+    replaced, the entries `verdict` builds for the dispatches at `E` included (ARP-3-QC22 r14, R13-B4; r14a,
+    R14-N2; re-review R14A-B1): each is checked as *Approval entries* states, and each entry of a dispatch at `E`
+    is built by `verdict` from that dispatch's approval comment id (C.8 item 9);
   - in attempt 1 of the runs at S1 and `E`, every job's conclusion is `success`, every step of job B is `success`
     (B6 included at `E`), and every step of job A is `success` (A7 and A10 included; A3 included, so that a red
     fixture-mode control fails this condition: draft default, pending owner ruling R2, precondition 2). The run's
@@ -2575,7 +2722,7 @@ route is ungated. Any such change after landing is outside the round and must ac
     - B3, or its ref key;
     - A3's literal `--event fixture`;
     - the marker A10;
-    - the marker A3b.
+    - the marker A3b, or its `if:` (ARP-3-QC22 r14a, R14-N10; re-review r14b-N1).
   - **`qc21_check.py` name rules (control B).** Each of these must fail B:
     - a second occurrence of `"workflow_dispatch"`;
     - an alias `b = <builder>` in a self-test function;
@@ -2634,6 +2781,21 @@ route is ungated. Any such change after landing is outside the round and must ac
   a fresh read whose `id`, `digest` or member list differs from the record in `evidence/s1-run/results.json`
   (C.8 item 3).
   No file is written.
+- **APPROVAL-ENTRIES** (ARP-3-QC22 r14, R13-B4, and r14a, R14-N2; re-review R14B-B1). `order`, `verdict` and
+  `e-entry` on synthetic records built in memory. Each of these must fail: an approval entry whose comment follows
+  its run's `created_at`, whose `updated_at` follows it, whose author is not `amaybaum` or whose association is not
+  `OWNER`, whose quoted words name another commit or stage, or whose comment is reused; an `F` designation comment
+  whose `created_at` or `updated_at` follows the first execution run's `created_at`, whose body does not
+  designate `F` by its full 40-hex id, whose author is not `amaybaum`, or whose association is not `OWNER`.
+  A push run at a strict descendant of `F`, created before the S1 dispatch, must be selected as the first
+  execution run across events; an entry claimed as host VOID whose run fails C.6's host-VOID definition must
+  fail. The same cases on an entry
+  built for a dispatch at `E` must each make `verdict` print `VERDICT VOID`. An entry of a host-VOID run whose B3
+  is not `success` must hold, and the same entry offered as the run that attests at its stage must fail. Two
+  `E`-stage approval comment ids must give two built entries. `e-entry` and `verdict` must give byte-identical
+  entries on the same records. Under R8's draft default, a missing ratification comment, or one that quotes another
+  sha256 or fails the authorship checks, must make `verdict` print `VERDICT VOID` (pending owner ruling R8; under
+  its alternative, the same cases on the designation of `E`). No file is written.
 
 
 ### C.5 Scripts (copied; D12 edits applied)
@@ -2787,8 +2949,9 @@ route is ungated. Any such change after landing is outside the round and must ac
             `--upload-pack`, `--output`, `--ext-diff`, `--textconv` or `--filters` (r10 B1(c); r11 N1, BYP-19).
           - The literal `--end-of-options` precedes the first `a_ok(...)` element, and every element after it is an
             `a_ok(...)` call. A `rev-parse` that takes an `a_ok` argument also carries `--verify`.
-            - **Why.** On git 2.43.0, `git rev-parse --end-of-options HEAD` without `--verify` exits 0 but echoes the
-              literal `--end-of-options` (a writer's control, `controls/ctl_r11_allowlist.py` and a local run).
+            - **Why.** The rule ties each admitted form to one object name. Whether a given git echoes the literal
+              `--end-of-options` in some form is not assumed: the self-test below checks each form's output on the
+              runner's git (ARP-3-QC22 r14a, R14-Rb2).
             - **The self-test.** It runs one call of each admitted subcommand form on the runner's git, and checks
               each one's **output**, not only its exit status. So a git that rejects or echoes `--end-of-options`
               fails the self-test.
@@ -2809,8 +2972,8 @@ route is ungated. Any such change after landing is outside the round and must ac
             - `actions/runs/{DEC}/artifacts`;
             - `actions/artifacts/{DEC}/zip` (D21 (b)), read by `verdict` and, for S1's measurements artifact, by
               `derive-run` run on S1's run before `E` is committed (C.8 item 3);
-            - `issues/comments/{DEC}` (ARP-3-QC22 r14, R13-B4; re-review R14A-B1), read by `verdict` and `e-entry`
-              (C.3; C.8 item 9);
+            - `issues/comments/{DEC}` (ARP-3-QC22 r14, R13-B4; re-review R14A-B1), read by `order`, `verdict` and
+              `e-entry` (C.3; C.8 item 9; re-review R14B-B1);
             - `git/trees/{HEX40}?recursive=1`;
             - `git/trees/{HEX40}`;
             - `activity?ref=refs/heads/...`;
@@ -2823,13 +2986,16 @@ route is ungated. Any such change after landing is outside the round and must ac
           `["python3", "-I", "-S", "-c", <the frozen string>, a_ok(D), a_ok(F)]`. It inherits the repository root as
           its directory, as rule (e) requires, and that is needed for `tools/`.
           - `-S` disables `site`, so no startup file runs.
-          - Its code imports only `tools/v3_verifier.py`, whose blob the inputs pin.
+          - Its code imports only `tools/v3_verifier.py`, whose blob the inputs pin (*Inputs*, row V3V). Before it
+            starts that process, `check` compares the working-tree file's blob id with that pin, at `F`, S1 and
+            `E`; a mismatch fails DS, and the process is not started (re-review r14b-N2).
         - The string `"workflow_dispatch"` occurs only inside the module-level string constants named `SPLICE_*`,
           which hold the frozen splice byte-exactly for control W, and inside functions named `run_class_*`, which
-          `derive-run`, `order` and `verdict` call (C.8 item 8).
+          `derive-run`, `order`, `verdict` and `e-entry` call (C.8 item 8; re-review r14b-N6).
         - `replay` compares files only: it reads two files in `"rb"` mode, parses each with `json.loads`, removes
           `parameters.dispatch_sha` from both, and compares their canonical serializations (C.8 item 3).
-      - **What these rules give, as checked by B and exercised by M-GUARD (BYP-1 to BYP-18).** This is all that B
+      - **What these rules give, as checked by B and exercised by M-GUARD (BYP-1 to BYP-21, BYP-23 to BYP-26, ZIP-1
+        to ZIP-3 and the unnumbered variants; ARP-3-QC22 r14a).** This is all that B
         claims (r10 review, overall design). For the two frozen blobs that B checks, and for every route these rules
         admit:
         - `controls.py` starts no process other than read-only `git`, GET-only `gh api` and control T's frozen
@@ -2853,7 +3019,7 @@ route is ungated. Any such change after landing is outside the round and must ac
       - A3's literal `--event fixture`;
       - job B's job-level `if:`, its `env:` and B3 (with the ref key);
       - B4's compound `--event` expression and B6's `if:`, each with the ref key;
-      - the markers A10 and A3b;
+      - the markers A10 and A3b, with A3b's `if:` (re-review r14b-N1);
       - the aggregate's lines.
 
       Its self-test shows that each of these removals fails W:
@@ -2862,7 +3028,7 @@ route is ungated. Any such change after landing is outside the round and must ac
       - B3, or its ref key;
       - A3's literal;
       - the marker A10;
-      - the marker A3b;
+      - the marker A3b, or its `if:` (re-review r14b-N1);
     - DS: inputs and drift;
     - X: schema and flags;
     - V: note regeneration and S4;
@@ -2947,6 +3113,12 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
 
   Its sha256 is pinned (PENDING).
 - The self-tests, every mutation of C.4 included, pass.
+- **A3 at the design run** (ARP-3-QC22 r14a review, Rc1). The design branch is a recorded branch, and the design
+  run decides the fixtures under no budget, so a design run whose A3 starts and leaves no fixture-mode output (a
+  timeout or a crash) violates the no-unapproved-F1 rule. It is found at S1's capture, after `F`, and voids the
+  round. C.3's executor precondition (A3's command completed locally on the tree) therefore applies before the
+  design branch is pushed. A design run that is red for another reason, A5's timeout included, is not a
+  violation, and C.8 item 2's lowering rule applies to it.
 - No decisive family has been built.
 - The stress step's `stress.json` is retrieved by the executor from the run's artifact; its pin is bound by A7's
   `success` in the confirmation run (C.8 item 7). Every stress fixture that is decided is
@@ -2969,7 +3141,15 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
   - `verify.yml` byte-equal to the frozen splice;
   - A3's `mode: "fixture"`, through A3b's `success`;
   - the stress pin;
-  - its pull request's base `sha` is `D` and its head `sha` is the run's `head_sha`.
+  - its pull request's base `sha` is `D` and its head `sha` is the run's `head_sha`;
+  - **re-derived from the host** (ARP-3-QC22 r14a, R14-N4): `derive-run` on the run id in the pinned record gives
+    the same job and step conclusions, `head_sha` and `pull_requests` entry as `confirmation-run.json`. The design
+    run is re-derived the same way against `design-run.json`, so neither record rests on the supplied copy alone.
+- **`confirmation-measurements.json`** is the `fixtures.json` file inside 6′'s `arp2-qc21-fixtures` archive,
+  copied by the executor; no condition binds the copy to that archive (ARP-3-QC22 r14a, R14-N4). C-STATELESS
+  compares it with S1's committed `fixtures` section, and any fixture-mode output of the S1 tree yields that same
+  section. A copy equal to that section can make C-STATELESS pass vacuously. A wrong copy would be visible
+  only by comparing it with 6′'s archive, which no condition does; this check supplies no such binding (r14c-N7).
 - C-STATELESS compares it with S1 at `E`.
 - **Synthetic merges** (ARP-3-QC22 r14, R13-N9). The design run and 6′ are `pull_request` runs, which execute the
   host's merge of the pull request's head into its base, not `head_sha` itself. Each of their pull requests therefore
@@ -3002,9 +3182,9 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
 ### C.8 Readings of the copied and adapted text (frozen; r13, r14)
 
 Each reading fixes the meaning of a copied or adapted passage that the implementation found ambiguous or
-unimplementable (PLAN §20, items 1–19). Edits to the copied text itself are rows 46–108 of the edit log
-(rows 72–85 at r14, 86–98 at r14a, 99–108 at r14b). C.1 stays verbatim; where a reading below concerns C.1, it
-governs C.1's words.
+unimplementable (PLAN §20, items 1–19). Edits to the copied text itself are rows 46–129 of the edit log
+(rows 72–85 at r14, 86–98 at r14a, 99–108 at r14b, 109–126 at r14c, 127–129 at r14d). C.1 stays verbatim; where a reading below
+concerns C.1, it governs C.1's words.
 
 1. **The caps (C.1; item 1; D19 (0)(c), (i)(a)).** C.1's caps count as D19 (0)(c) states: "preparation generators"
    are the extreme rays of `cone{a_p}`, found by item 15, and `n` in `C(n, d − 1)` is their number; "effects before
@@ -3101,9 +3281,11 @@ governs C.1's words.
        under-charged by that per-subset excess. Job B's time for P, REP-INV, C and the diagnostics has no term
        (*Runtime*). A timeout from either is an incomplete-output halt (D21).
      - **Before the design run.** The design run's A5 must complete within job A's `timeout-minutes: 60`. A design
-       run whose A5 times out is red. The owner may then fix a smaller `S_max` by a recorded decision before another
-       design run, at least `10^5` unless the red run's `S_max` was `10^5` (R1's floor and lowering rule: draft
-       default, pending owner ruling R1, precondition 2). `S_max` never depends on decisive data.
+       run whose A5 times out is red. After a red design run, the owner may fix a positive `S_max` no larger than
+       the red run's, by a recorded decision before another design run; it is at least `10^5` unless the red
+       run's `S_max` was at most `10^5`, in which case the same decision removes the floor (R1's floor and
+       lowering rule: draft default, pending owner ruling R1, precondition 2; re-review r14b-B2). `S_max` never
+       depends on decisive data.
        `qc21_check.py --stress` refuses, with exit 4 and no output, while `S_MAX` is unset, so no ST-BP instance is
        decided before the owner's `S_max` is entered. No tree carrying the frozen splice is pushed before the design
        run is authorized, since a push runs `verify.yml` (§A.43 item 4). The scripts' self-tests of item 2's rule read
@@ -3169,8 +3351,11 @@ governs C.1's words.
    and no artifact content. The one artifact a condition reads is S1's measurements artifact, by `verdict`'s S1
    binding (item 3; D21 (b)), through the frozen template `actions/artifacts/{DEC}/zip`, in memory. `derive-run`,
    run on S1's run before `E` is committed, reads the same archive only to record the binding's inputs (item 3).
-   A non-dispatch checker-bearing attempt at a recorded-branch commit whose A3 fails, so that A3b is
-   `skipped`, is therefore a violation.
+   A non-dispatch checker-bearing attempt at a recorded-branch commit whose A3 started and whose A3b is not
+   `success`, because A3's output is missing or not fixture mode, is therefore a violation (C.3's named
+   residual). A red A3 whose output is complete fixture-mode output, a fixture mismatch for example, is not: A3b
+   runs `always()` (C.2; ARP-3-QC22 r14a, R14-N10; re-review r14b-N1). Nor is an attempt whose A3 never started,
+   absent or `skipped` (C.3; ARP-3-QC22 r14a review, Rc1).
    - **Artifact digests.** The artifacts API returns the `digest` of the uploaded archive, not the sha256 of the file
      inside it. Where the copied text names an `artifact_sha256` (C.1's link of the stress pin to the artifact, C.3's
      *The run at a stage*, C.7's design-run record), it is that `digest`, recorded as provenance; no condition compares
@@ -3179,18 +3364,20 @@ governs C.1's words.
      committed measurements by B6 at `E` (edit row 57).
 8. **`"workflow_dispatch"` in `controls.py` (C.5; item 9).** It occurs only inside the module-level string constants
    named `SPLICE_*`, which hold the frozen splice byte-exactly for control W, and inside functions named
-   `run_class_*`, which `derive-run`, `order` and `verdict` call.
+   `run_class_*`, which `derive-run`, `order`, `verdict` and `e-entry` call (re-review r14b-N6).
 9. **`order` and `verdict` (C.3, C.5; item 18).** Both are implemented and frozen at `F`. Their inputs that exist only
    after `F` are supplied at each capture:
    - the stage commits S1 and `E`, as `a_ok` HEX40 arguments;
    - the approval entries, in `evidence/approvals.json`, schema `arp2-qc21-approvals` v1, one entry per decisive
      dispatch made before `E` is committed (S1, and any retake), with the fields of C.3, written by the executor
-     from the owner's comments and ratified at `E`. The `E` dispatch's own entry cannot be in `E`'s tree: `verdict`
-     builds it from the `E` approval comment's id, given as an argument, verifies it as C.3 states, and prints it in
-     its record (ARP-3-QC22 r14, R13-B4). Every comment `verdict` reads is read through the frozen template
-     `issues/comments/{DEC}` (rule (g); re-review R14A-B1);
-   - the ids of the owner's comments that `verdict` reads besides the approval comments, as `a_ok` DEC arguments:
-     the designation of `E` and, under R8's draft default, the ratification of the `E` dispatch's entry;
+     from the owner's comments and ratified at `E`. The entries of the dispatches at `E`, the `E` dispatch and any
+     retake of it after a host VOID, cannot be in `E`'s tree: `verdict` builds one for each `E`-stage approval
+     comment id given as an argument, verifies it as C.3 states, and prints it in its record (ARP-3-QC22 r14,
+     R13-B4; r14a, R14-N2). Every comment `order` and `verdict` read is read through the frozen template
+     `issues/comments/{DEC}` (rule (g); re-review R14A-B1, R14B-B1);
+   - the ids of the owner's comments that `order` and `verdict` read besides the approval comments, as `a_ok` DEC
+     arguments: `F`'s designation (C.3's `order.json` rule; re-review R14B-B1), the designation of `E` and, under
+     R8's draft default, the ratification of each entry built for a dispatch at `E`;
    - `T_repo`, read at each capture from `GET` on the repository.
 
    **The `E` dispatch's entry and its ratification** (re-review R14A-B1, r14a-N3). `order.json`, which the
@@ -3202,6 +3389,16 @@ governs C.1's words.
    precondition 2), the executor posts that output, the owner ratifies it by a recorded comment quoting the sha256,
    and `verdict` prints `VERDICT VOID` unless that comment passes C.3's authorship checks and quotes the sha256 of
    the entry `verdict` builds.
+
+   **Several dispatches at `E`** (ARP-3-QC22 r14a, R14-N2). Wherever this file says "the `E` dispatch's own entry"
+   or "the `E` dispatch's entry", it means each entry `verdict` builds for a dispatch at `E`: the `E` dispatch's,
+   and that of any retake at `E` after a host VOID. `e-entry` is run once for each such approval comment id, and
+   R8's ratification covers each. Their disposition under §A.42 item 8 is the owner's (precondition 2, R10,
+   pending).
+
+   **The first execution run** (C.3's `order.json` rule; re-review R14B-B1) is the earliest-created run, of any
+   event, whose `head_sha` is a strict descendant of `F` (other than `F`) on the round branch. `order` finds
+   it in its enumeration; ancestry is checked with the admitted `merge-base --is-ancestor`.
 
    `T0` is a frozen constant of `controls.py`, entered when the round PR is opened and before `F`. Before `F` both modes
    run only in the self-test, on synthetic records. Their first real run is the capture of `check --stage S1`, where a
@@ -3614,7 +3811,7 @@ The body's *ADA* adds three rows.
 | no number of the OI outcome is frozen | reference values read only by controls and the note |
 | ARP-2 is frozen only after ARP-1 completed and was independently reviewed, and ARP-1's record is unchanged | precondition 1; `S7` (ARP-1's directory outside this round's governed paths); `--receipts` G13 |
 | the reachable-law characterization precedes the executable test and is on `main` | precondition 3; DS pins its blob |
-| rules, rounds, supplies, fragments and decision rules are fixed before any decisive computation | `F` designated before the first execution run (`order.json`); the pinned blobs (B); the self-tests and the design run build no decisive family (the design run runs the checker only with `--event fixture`, `--stress` and `--self-test`) |
+| rules, rounds, supplies, fragments and decision rules are fixed before any decisive computation | `F` designated before the first execution run: `order` reads `F`'s designation comment through `issues/comments/{DEC}` and checks its `created_at` and `updated_at` against that run's `created_at` (`order.json`; C.3; C.8 item 9), with the APPROVAL-ENTRIES self-test (re-review R14B-B1); the pinned blobs (B); the self-tests and the design run build no decisive family (the design run runs the checker only with `--event fixture`, `--stress` and `--self-test`) |
 | conditioning is forward and registration terminal | NE-2 through the round schema; C-EMB (d) |
 | no outcome is read as bearing on irrational or approximate gates | *What no outcome shows*; ADA question 5; S4 |
 | a non-Clifford result is not embedded in the definitions | C-EMB (a)–(d); NE-1 to NE-5; C-PLANT's laws fail NE-1 |
@@ -3627,7 +3824,7 @@ The body's *ADA* adds three rows.
 | no label over a red or missing control | the `decide-*` VOID clauses; `verdict`; the self-test VOID cases |
 | verdicts read structured data only | exit statuses; the jobs API; the A3b marker; `replay`'s exit status; S1's measurements artifact through the artifacts API (D21 (b)) |
 | the note says no more than the measurements; the ADA is separate and qualified | V; S4; the frozen texts; no `decide-*` reads an ADA field |
-| each decisive dispatch is owner-approved; `F` and `E` are owner-designated | approval entries; designation quotes; ratification at `E` (the `E` dispatch's own entry: draft default, pending owner ruling R8) |
+| each decisive dispatch is owner-approved; `F` and `E` are owner-designated | approval entries, read through `issues/comments/{DEC}` and checked by `order` and `verdict`; designation quotes; ratification at `E` (the `E` dispatch's own entry: draft default, pending owner ruling R8); the APPROVAL-ENTRIES self-test (re-review R14B-B1) |
 | execution changes only `verify.yml` and the record | `S7` through `--verify-round Q`; G, R, W |
 | inputs as cited | DS |
 | the receipt holds; legacy records are untouched | `--verify-round Q` prints `VERDICT  HOLDS`; `legacy_records_check.py` |
