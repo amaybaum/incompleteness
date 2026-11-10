@@ -1,7 +1,7 @@
 # OI–QM paper research — ChatGPT WIP archive (2026-11-10)
 
-> **WORK IN PROGRESS — UNREVIEWED — NOT FOR MERGE / SCIENTIFIC PROMOTION.**
-> This branch preserves writer-only, off-repository ChatGPT Page drafts as separate Markdown files. No listed draft receives independent ACCEPT or physical-source certification by being archived. This is not an F/E designation, native execution, premiss adoption, CI attestation or approved research integration.
+> **WORK IN PROGRESS — INDEPENDENT PAPER REVIEW ACCEPT WITH NITS AT PINNED HEAD — NOT FOR MERGE / SCIENTIFIC PROMOTION.**
+> This branch preserves writer-only, off-repository ChatGPT Page drafts as separate Markdown files. Archiving alone confers no review status. A subsequent separate Codex review reported ACCEPT WITH NITS on the bounded mathematics at head `6879c7c0`; physical-source certification remains NOT PASSED. This is not an F/E designation, native execution, premiss adoption, CI attestation or approved research integration.
 
 ## Purpose and current conclusions
 
@@ -13,7 +13,9 @@ All paper statements are **bounded mathematical arguments with declared source, 
 
 **Reviewer orientation:** [REVIEW-GUIDE.md](REVIEW-GUIDE.md) — research question, provenance, evidence classifications, review sequence, scientific acceptance checks and unchanged execution/merge gates.
 
-## Preserved writer drafts (all independent review pending)
+**Subsequent review:** [Codex report, 2026-11-10](https://chatgpt.com/space/page_2f791d4a97fc8191ade6141a5ed9bdfe) returned **ACCEPT WITH NITS** for the original 11 writer papers at immutable commit `6879c7c023259d00d2b9a7ba152c694328d56458`; it was not a submitted GitHub review. Its P3 citation correction is retained **forward** in [REVIEW-GUIDE.md](REVIEW-GUIDE.md); the historical archived 04 text is unchanged. The correction and its GitHub documentation commit are not automatically covered by the original review. PR remains draft and unmerged. All physical-source and scientific execution gates remain unchanged.
+
+## Preserved writer drafts (original text retained; subsequent bounded paper review recorded separately)
 
 | File | Original source Page | Subject |
 | --- | --- | --- |
