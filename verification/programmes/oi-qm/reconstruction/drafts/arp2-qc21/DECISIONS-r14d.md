@@ -77,7 +77,8 @@ The owner must quote the actual value and each selected option; a partial decisi
 
 The r14c review's nine nits are also disposed in `DISPOSITIONS-r14d.md`. Their paper edits include unfinished
 capture handling, the checker-bearing executor precondition and local-run authorization boundary, explicit
-two-bit fixtures, and the unbound confirmation copy's vacuous-pass limitation. No new fixture was executed.
+two-bit fixtures, and the unbound confirmation copy's vacuous-pass limitation in every description of
+C-STATELESS's assurance. No new fixture was executed.
 
 ## Decision dependencies and the next gate
 
@@ -131,3 +132,12 @@ under A.42/A.46. A link or this source table is not evidence retention or integr
 | Archived handoff | `820519cf011c09b37690213a758106ed3aa15cc2:handoff-20261109/HANDOFF.md`, blob `6f5824b965237a08557ad090dcc3ed79737acac9`. r14d interrupted; #1218 carried r14b; next sequence was r14d, review, R1–R10 sheet. |
 
 Status: **owner decisions pending; execution not authorized; physical source NOT PASSED; draft/unmerged**.
+
+## Review checkpoint history
+
+The first r14d checkpoint at `5e160d3e80dc7dcdfea3db537cbf99fde63ff02d` received
+[independent REVISE (minor)](https://github.com/amaybaum/incompleteness/pull/1218#pullrequestreview-5848481401).
+The decision choices and recommendations were found consistent; the required correction propagates the
+confirmation-copy limitation to two other assurance passages, with a nonblocking explicit status-field
+clarification. Those text corrections and their full dispositions are included in the new checkpoint;
+focused independent confirmation is required. No decision or execution authority is inferred from either review.

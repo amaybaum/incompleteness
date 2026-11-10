@@ -253,15 +253,26 @@ item references are r14c's.
 | R14C-B1 | D20/D29/D30 require owner/OWNER identity, exact full-F designation and recorded quoted words; APPROVAL-ENTRIES has wrong/missing-F and wrong-author/association cases. No real comment is designated here. |
 | R14C-B2 | D36 names both conditional Control-B changes and M-GUARD/ZIP variants. They apply only if the owner selects R2's alternative; no alternative is selected or implemented here. |
 | R14C-B3 | R10 has explicit exception/narrowing consequences and dependent revision sites. After an owner ruling, revise all sites and obtain review before F; no host-time claim is re-established by this plan. |
-| r14c-N1 | Capture records attempt status; any listed checker-bearing attempt not completed makes capture fail for retry. Evaluate completed-attempt conclusions only. |
+| r14c-N1 | Capture records `attempt_status` from GET actions/runs/{run_id}/attempts/{n}; job/step conclusions come from its jobs API. Any listed checker-bearing attempt not completed makes capture fail for retry. Evaluate completed-attempt conclusions only. |
 | r14c-N2/N3 | D39's executor precondition applies only to checker-bearing commits, Python 3.11, within timeout-minutes, and fixture-mode-check exit 0; no executor cancellation while job A runs. The named residual sits outside the conjunction. Local A3 fixture runs require separate design-run authorization before the first checker-bearing recorded-branch push. |
 | r14c-N4 | D30 covers cross-event first-run selection and false host-VOID entries; strict descendant means F itself is excluded. |
 | r14c-N5 | B-CLASS/B-REG are explicitly two-bit as in the pinned implementation; the reviewed paper enumeration bounds are below 10^5. No fixture is executed. |
 | r14c-N6 | D36 uses derive-run's committed S1 red-control record for note and a fresh artifact comparison for verdict; missing fixtures evidence remains VOID independently of R6. |
-| r14c-N7 | confirmation-measurements.json remains unbound; no new reader or binding is implemented. The draft states the vacuous-pass limitation. |
+| r14c-N7 | confirmation-measurements.json remains unbound; no new reader or binding is implemented. The draft states the vacuous-pass limitation in C.7, C.4 C-STATELESS and C.8 item 12; an inference about the actual confirmation output requires an authentic reference copy, whose authenticity the procedure does not establish. Copied-text row 130 traces the propagated narrowing. |
 | r14c-N8 | D31 delegates the whole rule to D39 rather than calling it unchanged. |
 | r14c-N9 | Historical r14c port attribution is limited to the ports actually identified by its edit log. |
 
 The published scripts remain at the prior #1218 blobs; they have not been brought to this plan. Preparation
 review of these paper requirements is distinct from script verification and from authorization of fixture,
 stress, confirmation, gate-test or decisive execution. All ten owner rulings remain pending.
+
+## Focused correction after the first r14d review
+
+The independent paper review at `5e160d3e80dc7dcdfea3db537cbf99fde63ff02d` returned REVISE (minor),
+R14D-B1 and nonblocking R14D-N1. Its report is relayed at
+https://github.com/amaybaum/incompleteness/pull/1218#pullrequestreview-5848481401
+(SHA-256 `15fe8cb1e20f6b3526a17dc424a34264d5e17e382445de338076cb83c2f4ca16`).
+R14D-B1 narrows the two remaining C-STATELESS assurance passages and traces them through N7 and edit row 130.
+R14D-N1 exposes the already-required status in the tuple and names its existing attempt API source.
+No reader, binding, equality test, script or execution rule is added. This corrected paper checkpoint
+requires a focused independent recheck; the first review is not transferred as acceptance.

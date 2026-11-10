@@ -5,7 +5,10 @@
   (`6677f389a603e249a9e0e8c7e0e80ef5edeebf67`). Designation identity is checked; R2's alternative names both
   guard changes; R10 distinguishes exceptions from conditional landing language and names the dependent sites.
   All R1–R10 choices remain `PENDING`. `DISPOSITIONS-r14d.md` traces the changes; `IMPL-DELTA-r14d.md` is an
-  implementation plan, not an updated or tested implementation. Independent preparation review is required.
+  implementation plan, not an updated or tested implementation. The first r14d preparation review at
+  `5e160d3e80dc7dcdfea3db537cbf99fde63ff02d` returned REVISE (minor); R14D-B1's confirmation-copy limitation
+  is propagated to C-STATELESS's descriptions, with R14D-N1's explicit attempt-status field. A focused
+  independent check of this correction is required; no new ACCEPT is asserted here.
   No design run, fixture-mode local run, scientific computation, workflow splice, F/E or merge is authorized.
   Historical rN-directory references below describe archived session copies, not directories on this tracking
   branch. Published r14b remains at commit `8f969ab6f6cbd2d04fff86cdff2b85d92433a12f`; archived r14c is at
@@ -1878,7 +1881,7 @@ re-review R10-B1).
 rows 46–71 (C.8), the r14 rows 72–85 (D19 (0)(c), D21 (b)), the r14a rows 86–98 (re-review r14-N3, N11, N12;
 rows 92–98 found via ARP-3-QC22 r14), the r14b rows 99–108 (re-review R14A-B1, r14a-N1 and N2) and the r14c
 rows 109–126 (re-review R14B-B1, r14b-N1, N2, N6 and N9; rows 109–112, 114–117, 119 and 123 found via ARP-3-QC22
-r14a, and row 126 via its r14a review's Rc1), with r14d rows 127–129. Each row replaces copied text that starts as shown; for rows 99–129
+r14a, and row 126 via its r14a review's Rc1), with r14d rows 127–130. Each row replaces copied text that starts as shown; for rows 99–130
 that text is as the earlier rows leave it. `ref key` rows add the ref key; `downgrade` rows replace "prevented"
 by "detected" claims.
 
@@ -2011,8 +2014,9 @@ by "detected" claims.
 | 125 | r14c r14b-N1 | C.5 |       - the marker A10;       - the marker A3b;     - DS: inputs and drift; |       - the marker A10;       - the marker A3b, or its `if:` (re-review r14b-N1);     - DS: inputs and drift; |
 | 126 | r14c, via the ARP-3-QC22 r14a review (Rc1) | C.3 |   - A3b's conclusion is `success`, so A3's output had `mode: "fixture"` with the synthetic placeholders. |   - A3 is absent or `skipped`, so it never started … or A3b's conclusion is `success` … - **Residual (named; ARP-3-QC22 r14a review, Rc1).** An A3 that started and left no fixture-mode … |
 | 127 | r14d R14C-B1 | C.3 | `order.json` records its id, author and times | owner/OWNER and full-F designation required; id, author, association, times and quoted words recorded |
-| 128 | r14d r14c-N1 to N3 | C.3 | no-unapproved-F1 rule and its nested Residual | unfinished attempts fail capture for retry; completed-attempt rule; Residual outside conjunction; checker-bearing executor precondition and explicit local-run authorization boundary |
+| 128 | r14d r14c-N1 to N3 | C.3 | no-unapproved-F1 rule and its nested Residual | explicit attempt_status field from the attempt API; unfinished attempts fail capture for retry; completed-attempt rule; Residual outside conjunction; checker-bearing executor precondition and explicit local-run authorization boundary |
 | 129 | r14d R14C-B1, r14c-N4 | C.4 | APPROVAL-ENTRIES designation and host-VOID cases | wrong/missing F, wrong owner/association, first-run selection across events, and false host-VOID cases must fail |
+| 130 | r14d R14D-B1 | C.4; C.8 item 12 | equality shows no fixture perturbation; C-STATELESS detects shared state | comparison is with the supplied copy; inference about the actual confirmation output requires authenticity, which the procedure does not establish; C.7 limitation applies |
 
 **Typographic edits, also logged (r11-N2).**
 - In C.2, the Job B bullet's first sentence is re-wrapped (whitespace only).
@@ -2592,8 +2596,9 @@ route is ungated. Any such change after landing is outside the round and must ac
     with `after = D` in `GET activity?ref=refs/heads/main` (`pr_merge` or `push`; r9 N4). Its value: PENDING.
 - **The no-unapproved-F1 rule (re-review r6 B1; §A.44).** For every non-dispatch checker-bearing attempt at a
   recorded-branch commit, `order.json` records:
-  `{run_id, run_attempt, head_sha, event, jobB_conclusion, B4_conclusion, A3_conclusion, A3b_conclusion, fixtures_artifact_digest}`.
-  These are read from the jobs API. `fixtures_artifact_digest` is the artifacts API's `digest` field, recorded as
+  `{run_id, run_attempt, head_sha, event, attempt_status, jobB_conclusion, B4_conclusion, A3_conclusion, A3b_conclusion, fixtures_artifact_digest}`.
+  Run/attempt identity, event and `attempt_status` come from `GET actions/runs/{run_id}/attempts/{n}`;
+  job/step conclusions come from its jobs API. `fixtures_artifact_digest` is the artifacts API's `digest` field, recorded as
   provenance and read by no condition; no artifact content is downloaded (C.8 item 7). A capture listing any
   checker-bearing attempt with status other than `completed` fails capture and is retried after completion;
   a queued or in-progress attempt's missing conclusions are not evaluated as completed outcomes (r14c-N1).
@@ -2656,7 +2661,7 @@ route is ungated. Any such change after landing is outside the round and must ac
 | **ZPT** (step 3) | `Z±` with point reads: `r_S = d = 2 < r_E = 4` | feasible, decided by step 3 (a model `K` exists: `ξ = α[z = 0] + β[z = 1]`); model verified | step 3 untested |
 | **C-CERT** | every verdict certificate-verified by the independent verifier, which re-derives `N`, checks `A Bᵀ = N` and the ranks, and re-enumerates the facets (over the retained rows; C.8 item 15); for every step (2, 3, 4) that decided | in fixture mode, `unverified = 0` (a failed fixture certificate makes fixture mode exit 3; C.1). In decisive mode, a fragment whose certificate fails is recorded `undecided` and given no verdict; `unverified` counts it, and that voids nothing by itself: an undecided B-P gives B-VOID through `decide-b`, and an undecided reported-only fragment is reported (D21 (b)). C-CERT is red, voiding B's token, only if a fragment whose certificate fails is given a verdict | a solver result taken on trust, a wrong factorization, or an incomplete facet list |
 | **C-INDEP** (re-review B2; r4 N2; c.6724832474) | An AST check on `qc21_check.py` (rules below). The driver serializes the solver's output (`A`, `B`, the facet list, the certificate) to canonical JSON, whose sha256 is `cert_sha256`. The verifier receives that byte string, the charged laws and the read tables, and calls `json.loads` on it itself. So the certificate and the solver's facet list reach it only as plain data, never as solver objects. **Rules:** inside every `v_*` function, calls may target only (i) other `v_*` functions, (ii) `Fraction`, `json.loads` and `itertools.combinations`, (iii) the builtins `len`, `range`, `sum`, `min`, `max`, `abs`, `sorted`, `enumerate`, `zip`, `all`, `any`, `int`, `tuple`, `list`, `dict`, `isinstance`, and (iv) attribute calls on local variables (for example `.append`). `globals`, `locals`, `vars`, `getattr`, `setattr`, `eval`, `exec`, `compile` and `__import__` are forbidden. Every other module-level name referenced must be a `v_*` function or a whitelisted name. **Coverage (r5 N4):** the rules apply to the entire `FunctionDef`: its body, default argument values, decorators, and every nested function and lambda in it. **Runtime types:** the verifier's non-JSON inputs, the charged laws and the read tables, are checked on entry to be built only from plain `dict`, `list`, `tuple`, `Fraction` and `int`, recursively; anything else is `unverified` | holds | a verifier that reuses solver code or solver-internal state, by direct call or by alias |
-| **C-STATELESS** (re-review r5 N1(d)) | at `E`, the `fixtures` section of S1's committed `measurements.json`, in canonical JSON (verdicts, deciding steps, derived fields, tokens, pivots, bits, work), is byte-equal to that of `evidence/confirmation-measurements.json`. S1 decides F1 too, while 6′ does not, so equality shows that the F1 computation did not perturb any fixture decision | byte-equal; evaluated by `controls.py check --stage E`; a mismatch is a failed check at `E`, so the round halts with VOID (r6 N1) | cross-fragment solver state, or nondeterminism |
+| **C-STATELESS** (re-review r5 N1(d)) | at `E`, the `fixtures` section of S1's committed `measurements.json`, in canonical JSON (verdicts, deciding steps, derived fields, tokens, pivots, bits, work), is byte-equal to that of `evidence/confirmation-measurements.json`. S1 decides F1 too, while 6′ does not. This check compares S1 with the supplied committed copy. Any inference about 6′'s actual fixture decisions requires that copy to be authentic; no condition binds it to 6′'s archive (C.7). A matching supplied copy can pass vacuously, so equality alone does not establish that F1 left fixture decisions unchanged | byte-equal; evaluated by `controls.py check --stage E`; a mismatch is a failed check at `E`, so the round halts with VOID (r6 N1) | cross-fragment solver state, or nondeterminism |
 | **C-BUDGET** | in the decisive run, every fragment decided within `P_max`, `B_max` and `W_max` (frozen at `F`); a fragment over budget is recorded `out_of_scope` | holds: every fragment over its budget is recorded `out_of_scope` and given no verdict. An `out_of_scope` B-P gives B-VOID through `decide-b`; an `out_of_scope` reported-only fragment is reported (D21 (b)); the checker exits 0. C-BUDGET is red, voiding B's token, only if an over-budget fragment is given a verdict | an over-budget fragment given a token, or a crash. M-BUDGET exercises the path. A wall-clock timeout is not prevented by the budget, only made unlikely by the timeout test, and is a checker outcome (*Stop rule*) |
 | **C-NCF** | every nondegenerate fragment (`d = r_S = r_E`) is decided feasible by step 2 and its certificate verifies; on the fixtures, step 4 is also run where steps 2 or 3 decide, and must agree, with its own certificate verified (r4 N4) | holds | a rank, fast-path or LP error |
 | **C-SYM** | on the fixtures, the effect-facet LP gives the same verdict. **The effect-facet LP** (ARP-3-QC22 r14, R13-N10) is step 4 with the roles of `a_p` and `b_e` exchanged: `{h_k}` are the facets of `cone{b_e}` (the effect set of *The accessible GPT*, unit included), and it decides `Σ_k h_k κ′_kᵀ = I_d` with `κ′_k · a_p ≥ 0` by the same Farkas route, step 5's rules and step 6's budgets. A noncontextual model regroups on the effect side as step 4's does on the preparation side, so the two verdicts agree on every fragment whose effect set holds the complements and the unit. The verifier checks its certificates with the roles exchanged: for infeasibility, `W` and `y ≥ 0` with `W h_k = Σ_p y_{kp} a_p` and `tr W < 0`; for feasibility, the model `μ_p(k) = (κ′_k · a_p)(h_k · b_u)`, `ξ_e(k) = (h_k · b_e)/(h_k · b_u)`, by definition. Each C-SYM decision counts as a fragment decision for the budgets: its counters enter the freeze rule's maxima, and its work is part of `W_fix`. The caps apply to the fixture as listed, not to its exchanged form | `mismatches = 0`; every C-SYM certificate verified | a formulation error |
@@ -3182,8 +3187,8 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
 ### C.8 Readings of the copied and adapted text (frozen; r13, r14)
 
 Each reading fixes the meaning of a copied or adapted passage that the implementation found ambiguous or
-unimplementable (PLAN §20, items 1–19). Edits to the copied text itself are rows 46–129 of the edit log
-(rows 72–85 at r14, 86–98 at r14a, 99–108 at r14b, 109–126 at r14c, 127–129 at r14d). C.1 stays verbatim; where a reading below
+unimplementable (PLAN §20, items 1–19). Edits to the copied text itself are rows 46–130 of the edit log
+(rows 72–85 at r14, 86–98 at r14a, 99–108 at r14b, 109–126 at r14c, 127–130 at r14d). C.1 stays verbatim; where a reading below
 concerns C.1, it governs C.1's words.
 
 1. **The caps (C.1; item 1; D19 (0)(c), (i)(a)).** C.1's caps count as D19 (0)(c) states: "preparation generators"
@@ -3416,8 +3421,9 @@ concerns C.1, it governs C.1's words.
     - **Where STAB-FALSE's result is recorded.** STAB-FALSE runs in A9, in job A, in its own interpreter, which
       builds no decisive family. Its result is A9's step conclusion, which `verdict` requires to be `success` at S1
       and `E` (C.3). It is not in `measurements.json`, so C-STATELESS does not compare it. This placement is intended:
-      C-STATELESS detects state shared within B4's process between decisive computation and fixture decisions, and
-      STAB-FALSE never runs in that process; its inputs are pinned files, so its conclusion at the design run, at 6′,
+      C-STATELESS compares fixture decisions within its intended B4-process scope; interpreting it as evidence
+      about shared state requires an authentic 6′ reference copy, which the procedure does not establish (C.7).
+      STAB-FALSE never runs in B4's process; its inputs are pinned files, so its conclusion at the design run, at 6′,
       at S1 and at `E` re-checks the same computation. The note's control table prints STAB-FALSE as "A9: {conclusion}",
       from the derived run results.
 13. **Which B fragments decide `decide-b` (item 13; D19 (ii)(b), (iii)(c)).** `decide-b`'s steps 1–3 read B-P alone,

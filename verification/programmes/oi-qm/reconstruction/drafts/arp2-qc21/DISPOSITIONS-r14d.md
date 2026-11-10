@@ -36,7 +36,7 @@ scripts and all earlier reviews remain unchanged. Three new r14d documents accom
 | **N4** | APPROVAL-ENTRIES includes cross-event first-run selection, false host-VOID rejection, and B1's designation cases. “After F” explicitly means a strict descendant other than F. No synthetic case was executed. |
 | **N5** | B-CLASS and B-REG explicitly use two-bit registers as the pinned implementation already does. The paper records the reviewed C-SYM bounds below 100,000 and notes C.1's existing effect/rank cap bound. No new cap, fixture count program or solver run is introduced. |
 | **N6** | Under R2's alternative, derive-run records S1's red controls and fixture-artifact identity; note uses the committed record, verdict re-reads/compares. Missing/expired/unreadable fixtures evidence remains whole-round VOID regardless of R6. |
-| **N7** | The confirmation copy remains unbound. The text explicitly admits a vacuous C-STATELESS pass from a matching supplied copy and says only comparison with the source archive, which no condition performs, would expose it. No new binding is claimed. |
+| **N7** | The confirmation copy remains unbound. The text explicitly admits a vacuous C-STATELESS pass from a matching supplied copy. C.4 and C.8 item 12 carry the same qualification: an inference about the actual confirmation output requires an authentic copy, which the procedure does not establish. Only comparison with the source archive, which no condition performs, would expose a wrong copy. No new binding is claimed. |
 | **N8** | D31 no longer calls rule (d) unchanged; it delegates the full rule to D39 and states what successful A3b covers. |
 | **N9** | The historical r14c status entry limits attribution to the actual r14a ports among rows 109–125. |
 
@@ -44,7 +44,7 @@ scripts and all earlier reviews remain unchanged. Three new r14d documents accom
 
 - The title/status identifies r14d and its pending independent review; the source archive and prior
   published commit identify the historical revisions without claiming rN directories exist here.
-- Copied-text rows 127–129 and the edit-log/C.8 introductions identify the added repairs.
+- Copied-text rows 127–130 and the edit-log/C.8 introductions identify the added repairs.
 - Publication hygiene replaces exactly two historical session-local QC22 path citations with the
   same repository-relative description used in the earlier published copy. Scientific text, revision
   identifiers and input digests remain. The raw r14c bytes remain at the archive checkpoint.
@@ -70,3 +70,20 @@ Any publication digest and exact commit identity are recorded after reading back
 All **R1–R10 remain pending**. Owner decisions, implementation, design-run/local-A3 authorization,
 fixed caps/budgets, pre-F source retention/review, F/E designations, execution and merge remain separate
 gates. Q-C2-2 stays inactive; #1210 and #1216 are untouched. #866 physical source **NOT PASSED**.
+
+## Independent first-checkpoint findings and focused corrections
+
+First r14d checkpoint `5e160d3e80dc7dcdfea3db537cbf99fde63ff02d` received independent
+**REVISE (minor)** at
+https://github.com/amaybaum/incompleteness/pull/1218#pullrequestreview-5848481401,
+report SHA-256 `15fe8cb1e20f6b3526a17dc424a34264d5e17e382445de338076cb83c2f4ca16`.
+That review confirms R14C-B1/B2/B3's paper repairs and the consistency of R1–R10 options; it does not
+accept the entire first checkpoint or certify scripts.
+
+| Finding | Corrective text | Scope preserved |
+| --- | --- | --- |
+| R14D-B1, blocking | C.4 C-STATELESS and C.8 item 12 state the same unbound-copy limitation as C.7; they condition any inference about the actual confirmation output on authenticity, which the procedure does not establish. N7's ledger/plan rows and copied-text row 130 trace the propagation. | No new binding, reader, test, fixture, computation or outcome rule. The equality check can still pass vacuously; its evidence claim is narrowed. |
+| R14D-N1, nonblocking | The capture tuple explicitly contains attempt_status, read from the existing run-attempt API; the jobs API supplies job/step conclusions. IMPL Part G names the same record shape. | The completed-attempt/retry behavior is unchanged; no endpoint is added and no queued run is accepted as a completed pass or violation. |
+
+These are author corrections pending a focused independent check at the new immutable checkpoint.
+The reviewed first head and its verdict remain in history. Owner choices and every execution gate remain pending.
