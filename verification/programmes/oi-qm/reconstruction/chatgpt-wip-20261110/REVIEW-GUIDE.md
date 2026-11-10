@@ -107,6 +107,20 @@ Neither paper review closes the #866 native physical-source gate, grants experim
 
 **Completed separate review gates:** Codex independently [ACCEPTED the focused CARD-GAUGE-1 correction diff `c9f0d16c→cc819d5d`](https://chatgpt.com/space/page_b4f63a8bd3a88191a1e9318ec0e3577f), resolving all three P3 nits; the corrected CARD blob remains unchanged at `1736a596`. Codex separately [ACCEPTED INT-FACTOR-1 at `1736a596`](https://chatgpt.com/space/page_b4f63a8bd3a88191a1e9318ec0e3577f). These two verdicts do not certify future documentation changes, physical sourcing, OI→QM selection or any resource-cost equivalence. A separate owner decision remains necessary before integration.
 
+## NATIVE-PRED-1: actual SM two-site predictive-factor minimum (NEW; unreviewed)
+
+[15-native-predictive-factor-bound.md](15-native-predictive-factor-bound.md) is **new paper-only work, independent review pending**, and must not inherit the Codex INT-FACTOR-1 or CARD-GAUGE-1 acceptance at earlier immutable heads.
+
+**New scoped calculation to review:** For the unchanged reversible ring `F(X,Y)=(f(X)⊕Y,X)`, original two-site two-slice readout and canonical-root U_c (c∈{0,1}), let first and second post-root current read pairs be (A0,A1) and (C0,C1). Show the transformed four bits `(A0,A1⊕c,C0,C1⊕A0)` are mutually independent with Bernoulli parameters `(1/2,3/4,1/2,3/4)`. All **16** two-update output histories consequently have positive probability on the *same initial visible root*, with entropy `2+2h₂(1/4)≈3.622556` bits under U_c.
+
+**Autonomous-factor consequence:** Any deterministic passive state factor `q:S_L→Q` with `q∘F=F_Q∘q` and `o=o_Q∘q` must distinguish all 16 histories, hence `|q(b_c)|≥16` for either c, and ≥32 over the two distinguishable root sets. A fixed-length binary factor label needs at least four bits of predictive capacity over a single visible root; **this is not physical apparatus memory or energy cost**.
+
+**Existing theorem versus new bound:** The existence of the canonical *future-trace quotient* is already contained in [Substratum Proposition 24.4](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/papers/Substratum.md). Its mathematical state is not an executable readout, and its physical controller/intervention intertwinement is **not supplied**. Under the conditioned ready source η_c, only two candidate second-output histories occur; the 16-way result is **specific to canonical U_c**.
+
+**Source and falsifiers:** The raw two-site projection is already non-autonomous (separate Codex native source check). Evaluate any later native q proposal against both the one-step ambiguity and the 16-way two-step calculation. Do not assume the full predictive quotient is small or physically sourced. CP-PREP-1's original native physical ready/request producer, measurement/clock/record apparatus and renewal are still **NOT PASSED**, and no coherent quantum control, Bell pair, Born selection or #1216 Level-B approximation is inferred.
+
+**Independent review:** Verify equations and full joint independence by hand; check L=9 modular variables and four output positivity, factor-label bound, η_c contrast, and citation of preexisting predictive quotient. Record ACCEPT / ACCEPT WITH NITS / REVISE on a pinned head only. No simulation, Lean or physical execution was requested or run.
+
 ## Decision gate after independent review
 
 Permitted paper-review outcomes are **ACCEPT**, **ACCEPT WITH NITS**, or **REVISE** with exact file/section/assumption references. A scope-bound **UNSOURCED** physical outcome is a valid research result.
