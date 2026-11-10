@@ -86,6 +86,23 @@ The first [Codex ACCEPT WITH NITS at `6879c7c0`](https://chatgpt.com/space/page_
 
 Neither paper review closes the #866 native physical-source gate, grants experimental execution, validates a quantum-operational construction or authorizes a merge. #1169 and #1216 remain equally prioritized; the #1220 physical/algorithmic resource ledger remains separate.
 
+## New INT-FACTOR-1 WIP: interacting hidden sector (review pending)
+
+[14-interacting-hidden-factor.md](14-interacting-hidden-factor.md) is a **new paper-only proof packet, with NO independent scientific review yet**. It is intentionally distinct from the accepted CARD-GAUGE-1 **decoupled** extension and is not a new physical theory or an already derived SM-ring operation.
+
+**Proposed mathematical statements to inspect:**
+
+- **INT-FACT:** For a shared preparation/protocol/complete-record dictionary, a surjective factor map `q:S'→S` that pushes forward all prepared laws and intertwines the deterministic updates, every *admitted* reversible control and every accessible record is **sufficient** to make all fixed/adaptive finite complete-history laws equal. It is not claimed necessary.
+- **INT-BIT:** With base swap `T(v,r)=(r,v)`, the three-bit reversible update `T'(v,h,k)=(h⊕k,k,k⊕v)` and `q(v,h,k)=(v,h⊕k)`, prepared fair independent h,k and common visible-flip controls, the entire admitted visible histories agree exactly. In original coordinates, the hidden k both affects visible v' and is changed by visible v.
+- **INT-ORD:** `T'^4=id` but `T'^2≠id`; the base T and any independent *one-bit* spectator permutation have order dividing two, so the extension cannot be conjugate to that restricted trivial product. This does not exclude other representations or guarantee physical sourcing.
+- **INT-ACCESS:** Adding the same labelled hidden-k toggle to both protocol dictionaries, implemented as identity on base and k-flip on extended model, produces a later visible read of p versus p⊕1 after two ticks. This is a **different admitted protocol family**, not a contradiction of INT-FACT.
+
+**Source-control classification:** The classical reversible toy map is mathematically explicit and couples coordinates, but **has not been sourced as a physical transition, preparation, detector, clock or quantum operation in the native SM ring**. [#866](https://github.com/amaybaum/incompleteness/issues/866) remains NOT PASSED; #1169/#1216 physics and source mechanism obligations remain OPEN. The new packet is **not** an independent review or acceptance of itself. Reviewer should compare [Substratum §4 Theorem 24](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/papers/Substratum.md) and [CP-PREP-1](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/verification/programmes/oi-qm/reconstruction/controller-preparation-1-20261108/SELECTION.md) before proposing further physical interpretations.
+
+**#1216 crosswalk:** If the base complete-history law were already within ε of a target family uniformly for admitted protocols/horizons, the exact factor equivalent extension would inherit **the same ε**, since its law is identical. This algebraic preservation does not generate quantum coverage or certify a scalable OI-derived approximation mechanism. #1220 resource costs need a separate comparison; one additional microscopic bit is not a free resource by default.
+
+**Review authorization note:** The independent **focused diff** of CARD-GAUGE-1 corrections `c9f0d16c→cc819d5d` remains a *separate pending* request, [posted in PR #1222](https://github.com/amaybaum/incompleteness/pull/1222#issuecomment-6761882830). Do not misclassify that author-side PASS as a non-author acceptance. Any new independent review of INT-FACTOR-1 must pin its own exact head and file and should not silently promote the unrelated prior packet.
+
 ## Decision gate after independent review
 
 Permitted paper-review outcomes are **ACCEPT**, **ACCEPT WITH NITS**, or **REVISE** with exact file/section/assumption references. A scope-bound **UNSOURCED** physical outcome is a valid research result.
