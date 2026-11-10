@@ -61,6 +61,17 @@ Historical source snapshot for the original paper comparisons: `cac5d26441dd33e9
 
 **Unchanged hard gates:** PR #1222 stays **draft/unmerged**. The #866 physical-source gate remains **NOT PASSED / UNSOURCED**. No physics premise, native computation, Lean execution, F/E, dispatch, publication or merge is authorized by this review or erratum.
 
+## New post-review studies: PREP-HIST-4 and CARD-GAUGE-1 (unreviewed)
+
+The bounded Codex review at `6879c7c0` applies only to the original eleven research drafts. Subsequent paper-only extensions have **no separate independent scientific verdict**:
+
+- [12-prep-history4-and-finite-decision.md](12-prep-history4-and-finite-decision.md): four-tick exact-observer indistinguishability counterexample, three-tick pairing and standard finite-state stopping criterion; finite-carrier scope explicitly retained.
+- [13-cardinality-observational-equivalence.md](13-cardinality-observational-equivalence.md): (i) undecidability of finiteness for effectively described decidable state spaces by a Halting reduction; (ii) exact fixed-interface law equivalence after adjoining finite, countably infinite or uncountably infinite **normalized and exactly decoupled** hidden factors; (iii) countercontrols to an unrestricted cardinality-gauge claim. It preserves the existing finite-only standing of [Substratum Theorem 24(iii)](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/papers/Substratum.md) and the [observer-relative finiteness audit](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/verification/audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md).
+
+**Fresh review obligations for file 13:** verify the decidable-set Halting reduction and uniformly computable normalized full-support source; product measure/shift invariance; exact complete-history equality for every admitted adaptive protocol; why ordinary invertible gauge automorphisms cannot bijectively map finite to infinite carriers; when physically accessible interactions invalidate equivalence; and noninheritance of physical-sourcing or quantum-operational claims. Treat "gauge" as an observer-relative equivalence quotient unless a rigorous extended transformation structure is explicitly defined.
+
+Neither extension changes an accepted mathematical result, closes the #866 physical source gate, authorizes a new native experiment, or allows a merge.
+
 ## Decision gate after independent review
 
 Permitted paper-review outcomes are **ACCEPT**, **ACCEPT WITH NITS**, or **REVISE** with exact file/section/assumption references. A scope-bound **UNSOURCED** physical outcome is a valid research result.
