@@ -2,9 +2,11 @@
 
 **Writer:** ChatGPT (separate from Codex's #866 native-source writer)  
 **Date:** 2026-11-10  
-**Status:** **PAPER-ONLY WIP — AUTHOR HAND ARGUMENT / INDEPENDENT REVIEW NOT YET PERFORMED**  
+**Status:** **PAPER-ONLY WIP — INDEPENDENT CODEX ACCEPT WITH NITS AT IMMUTABLE `ea8827ff6b4c3e405310216c75bcc32157d069bb`; TWO NONBLOCKING P3 CLARIFICATIONS APPLIED AFTER REVIEW; FOCUSED DIFF CHECK PENDING**  
 **Accountable issue:** [#1143](https://github.com/amaybaum/incompleteness/issues/1143) (one bounded unit authorized by [owner comment 6764389038](https://github.com/amaybaum/incompleteness/issues/1143#issuecomment-6764389038)).  
 **Snapshot:** main `cac5d26441dd33e9348151487e4df7b547195481`. No existing reviewed or frozen file is changed by this unit.
+
+**Review provenance:** Separate non-author Codex review [COMMENTED on PR #1224](https://github.com/amaybaum/incompleteness/pull/1224) with **ACCEPT WITH NITS** for the mathematics at immutable `ea8827ff6b4c3e405310216c75bcc32157d069bb` (verified blob `c2b2ddd2efe7984d19bfe08b3a55005fb340b84d`). Reviewer identified P3-N1 (protocol/history type) and P3-N2 (calibrated raw-register continuation), with no scientific blocker. The present revisions address those nits; **they are not themselves independently reviewed**, and the accepted original remains available by exact commit. No physical-source gate or off-`main` evidence obligation is passed by this verdict.
 
 **Central decision.** A rule that selects OI realizations **only by instantaneous embeddedness and passive complete-history probability laws** cannot, in a model class allowing operational menu restrictions, force the existence of additional physically executable noncommuting measurements. Quantum capability is a property of a **whole sourced preparation/intervention/record theory**, not of a passive visible stochastic process. This is a conditional *access-sensitivity obstruction*, not a no-go for OI-derived quantum mechanics or an assertion that a classical fragment is nonquantum behavior.
 
@@ -15,7 +17,7 @@
 Separate four objects before testing a proposed selection principle:
 
 1. **Microscopic realization:** finite reversible world \((S,F)\), initial/preparation laws \(\mu_p\), embedded readout \(o\), apparatus/controller state and all latent registers.
-2. **Passive observer law:** complete probability laws \(\mathsf L_{\rm pass}(M)\) for an agreed preparation and passive tick/read record dictionary, including retained outcomes. These probabilities are not the entire operational theory.
+2. **Passive observer law:** complete probability laws \(\mathsf L_{\rm pass}(M)\) for an agreed *protocol set* of passive tick/read schedules and a **separate** set of complete output histories for each protocol, including retained outcomes. Both models use the same calibrated output alphabet, status/failure/stop conventions and record meanings. These probabilities are not the entire operational theory.
 3. **Operational theory:** physically admitted preparation labels, executable interventions, allowed sequential/adaptive programs, full accessible records (including failure and stopping), and composite protocols. A menu is an actual availability claim, not merely a formula for an operator.
 4. **Quantum target:** a predeclared family of finite-dimensional preparations, instruments, compositions and complete histories. **Soundness** asks whether each admitted OI behavior is target-compatible, while **coverage/completeness** asks whether each required target protocol is implementable in the same OI theory. **Physical sourcing** asks whether the named microscopic devices and probability laws follow from independently justified native physical premises. They are distinct verdicts.
 
@@ -27,14 +29,14 @@ Separate four objects before testing a proposed selection principle:
 
 ## 2. SEL-MENU — a necessary access sensitivity of any complete selection principle
 
-**Definition (passive-law predicate).** Given a fixed set of passive preparation labels \(P_0\) and passive tick/read words \(\mathcal L_0\), a selection criterion \(\mathcal S\) *factors through passive laws* when its truth value on any candidate M is a function only of:
+**Definition (passive-law predicate).** Fix passive preparation labels \(P_0\) and a set \(\mathcal L_0\) of passive tick/read *protocols* \(w\). For each such protocol let \(\mathrm{Hist}(w)\) be its separate set of complete accessible outcome histories, including a declared failure/stopping convention when applicable. The preparation labels, protocol meanings and calibrated record alphabet are shared between compared models. A selection criterion \(\mathcal S\) *factors through passive laws* when its truth value on any candidate M is a function only of:
 
-- the full collection \(\{\Pr_M(h\mid p):p\in P_0,\,h\in\mathcal L_0\}\);
+- the full collection \(\{\Pr_M(h\mid p,w):p\in P_0,\,w\in\mathcal L_0,\,h\in\mathrm{Hist}(w)\}\);
 - properties of the instantaneous embedding/observer cut and the underlying unmodified deterministic dynamics that are **unchanged by deleting operational controls**.
 
 In particular \(\mathcal S\) does **not** inspect whether a prospective additional controller or measurement can be executed. This is an explicitly *restricted* class of selection rules. A principle that constrains **all physically available interventions**, apparatus/source admissibility or composite histories is *not* assumed to factor this way.
 
-**Operational restriction.** Fix a model M with passive tick/read protocols \(\mathcal L_0\) and some larger program grammar \(\mathcal L\). Let \(M|_{\mathcal K}\) mean that the same state space, initial passive preparations, unmodified passive dynamics and readout are kept, but only programs generated by a smaller allowed operational menu \(\mathcal K\) are admitted. Full accessible histories are compared for programs actually common to the two menus. New commands missing in \(M|_{\mathcal K}\) have no output law there; they cannot be treated as an arbitrary outcome or silently replaced by a physically unavailable action.
+**Operational restriction.** Fix a model M with passive tick/read *protocols* \(\mathcal L_0\) and some larger program grammar \(\mathcal L\). Let \(M|_{\mathcal K}\) mean that the same state space, initial passive preparations, unmodified passive dynamics and **calibrated raw readout** are kept, but only programs generated by a smaller allowed operational menu \(\mathcal K\) are admitted. Full accessible outcome histories are compared for protocols actually common to the two menus, under the same labels and record interpretations. New commands missing in \(M|_{\mathcal K}\) have no output law there; they cannot be treated as an arbitrary outcome or silently replaced by a physically unavailable action.
 
 **Proposition SEL-MENU (conditional obstruction).** Suppose the candidate class \(\mathfrak C\) contains both M and \(M|_{\mathcal K}\), where they have identical passive source/readout laws and embedding. For any \(\mathcal S\) factoring through the above passive data,
 
@@ -56,7 +58,7 @@ Take the finite reversible world \((v,h,b)\in\{0,1\}^3\), passive update
 \sigma(v,h,b)=(h,v,b),
 \]
 
-and visible output \((v,b)\). Let the same passive root prepare \(v=b=0\) with hidden \(h\) independent fair. Passive records contain an actual swap-and-readback: after one step the first visible bit reveals h, and after a second step it returns to v. Both models retain valid classical outcomes and repeatable b-readings.
+and the **raw calibrated** visible readout \(o(v,h,b)=(v,b)\), with no context-dependent recoding of that readout. Let the same passive root prepare \(v=b=0\) with hidden \(h\) independent fair. Passive records contain an actual swap-and-readback: after one step the first visible bit reveals h, and after a second step it returns to v. Both models retain valid classical outcomes and repeatable b-readings.
 
 The extended menu additionally admits the reversible visible-bit command
 
@@ -64,7 +66,7 @@ The extended menu additionally admits the reversible visible-bit command
 \tau(v,h,b)=(v,h,b\oplus1).
 \]
 
-The restricted menu admits passive \(\sigma\) and reads but **no operation changing b** during a run. Both models have exactly the same complete passive histories. Yet the program "prepare \(b=0\), apply \(\tau\), read b" yields 1 in the extended model and is **not executable or reproducible by any composition of permitted \(\sigma\) and reads** in the restricted model, where b is invariant. This is a concrete countercontrol to deriving even a *classical selectable gate* from passive-law equality alone. It is not a quantum no-go by itself; it merely illustrates the operational-menu premise of SEL-MENU.
+The restricted menu admits passive \(\sigma\) and nondemolition **raw** reads but **no operation changing b** during a run. Both models have exactly the same complete passive histories. Yet the program "prepare \(b=0\), apply \(\tau\), read the raw calibrated b register" yields **raw b=1** in the extended model; any composition of permitted \(\sigma\) and raw reads in the restricted model leaves **raw b=0**. A constant-output report or protocol-dependent relabeling of that value is a *different output*, not an implementation of the target operation under the common record dictionary. If postprocessing is admitted as a separate operation, its records and its effects on subsequent permitted continuations must be explicitly included, and the target requires equality of the **complete raw-accessible histories**, not just one arbitrarily recoded terminal scalar. This is a concrete countercontrol to deriving even a *classical selectable gate* from passive-law equality alone. It is not a quantum no-go by itself; it merely illustrates the operational-menu premise of SEL-MENU.
 
 The wider finite OI core and this swap example have existing source treatments. This section uses a direct proof of the narrow menu distinction rather than claiming a new physical machine.
 
@@ -131,7 +133,7 @@ The **minimum independent obligations**, not a new sufficient axiom package:
 A non-author reviewer should verify, at an exact immutable draft head:
 
 1. **SEL-MENU quantifiers:** the criterion's passive-law invariance, both models in the class, identical source/readout/dynamics and the *additional assumption* that J cannot be realized by any program in the restricted operational grammar. Verify the proposition does not claim every OI theory is closed under such restrictions.
-2. **Concrete C0 restriction:** the swap/flip maps are reversible, the b-coordinate is unchanged by every restricted protocol but flipped by the extra command, the passive history laws are exactly identical, and a nontrivial readback/classical fragment remains.
+2. **Concrete C0 restriction:** the swap/flip maps are reversible, the **raw calibrated** b-coordinate is unchanged by every restricted protocol but flipped by the extra command, the passive history laws are exactly identical, any cosmetic relabelled terminal scalar is excluded as a substitute for the same raw register, and a nontrivial readback/classical fragment remains.
 3. **Countermodel provenance:** the full C0 and C1/E algebra was accepted **off main** and is not re-proved or upgraded to main-established theorem; the C1 typed live/record/sealed-garbage no-recovery contract remains a **posited** assumption. Check the mixture/pure-state and conditional CHSH statements on their stated interfaces.
 4. **Classification:** soundness, target coverage and physical sourcing remain distinct. B0/B∞/E cannot be credited with quantum-generation on the cited evidence, but this does not refute a future source-backed context-dependent OI theory.
 5. **Classical preservation:** ordinary compatible/repeatable records are retained as a legitimate quantum subtheory, not excluded as "nonquantum excess."
