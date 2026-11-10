@@ -121,6 +121,22 @@ Neither paper review closes the #866 native physical-source gate, grants experim
 
 **Independent review completed:** Codex checked full joint independence (including L=9 modular indices), all 16 positive-probability histories, entropy, ≥16 per-root and ≥32 across-roots labels, the η_c contrast and existing Substratum Proposition 24.4 attribution. [Verdict: ACCEPT WITH NITS at `95cead38`](https://chatgpt.com/space/page_fa9ae3c07c208191bdf87950b734488b); **no mathematical correction**. The present README/guide documentation change is later than the reviewed head and is an author-side clarification, not a new independently reviewed checkpoint. No numerical, Lean, physical or scientific execution took place.
 
+## NATIVE-FACTOR-SRC-1: actual native factor candidates and source stop (NEW, review pending)
+
+[16-native-factor-source-screen.md](16-native-factor-source-screen.md) is **new mathematical/source research, independent review PENDING**, and is distinct from the accepted [NATIVE-PRED-1 at `95cead38`](https://chatgpt.com/space/page_fa9ae3c07c208191bdf87950b734488b).
+
+**Candidate A: finite-horizon native causal cone.** For native `F(X,Y)=(f(X)⊕Y,X)` on a binary ring L≥9 and original two-site/two-slice observer, the first T observations depend only on initial X in `[-T,1+2T]` and Y in `[-(T−1),1+2(T−1)]` (mod L). For T=2 this is a **13-bit** coordinate snapshot (eight X and five Y sites), nine bits unconstrained under a fixed canonical root U_c. It determines the complete two-update *passive* record word but is **not** itself an autonomous factor: a root-preserving X_(−3) toggle leaves q₂ unchanged yet changes the q₂-projected next state at A_(−2). No physical extra-site observation port is sourced.
+
+**Candidate B: passive future-trace quotient.** The already-established finite-permutation quotient [Substratum Proposition 24.4](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/papers/Substratum.md) is an exact deterministic passive autonomous factor. It has at least the previously accepted 16 labels per root under U_c, but actual quotient cardinality, properness, locality, physical accessibility and intertwinement with controllers remain OPEN. Its state cannot be calculated from the constant initial two-site root observation.
+
+**Candidate C: accessible-history Bayesian belief filter.** Standard filtering of the complete hidden ring using the supplied mathematical prior U_c and successive passive outcomes gives an exact *classical stochastic predictive state* `ρ_t`. This is not a deterministic microscopic q-factor or a physically sourced memory/computational device; do not infer quantum-state kinematics.
+
+**New scoped obstruction:** Any nonempty proper subset I of ring sites retaining both X and Y only on I fails autonomous one-step intertwining on the full ring: some i∈I has i−1∉I, and flipping the unseen initial X_(i−1) changes next A_i. If I contains observed sites 0 and 1, the two witnesses can also share a canonical visible root. This rules out **all proper raw coordinate-site patches**, *not* arbitrary nonlinear/aggregated factors.
+
+**Actual physical-source screen:** CP-PREP-1 #866 did not supply a ready/request producer, physical clock/readout/record apparatus, or an admitted native control operator. The 13-bit cone is not an available detector; the future-trace quotient is not an actual readout; the Bayesian filter is not a supplied device. **Source disposition: STOPPED — NOT PASSED / UNSOURCED**, without asserting a mathematical no-go for all possible native factors.
+
+**Independent review required:** (1) verify cone dependency induction and T=2 count for all L≥9; (2) reproduce root-compatible q₂ nonautonomy witness; (3) check cyclic predecessor boundary proof for all proper I and exact scope; (4) preserve prior attribution for q∞; (5) check Bayesian filtering normalization and nondisturbing-passive limitation; (6) confirm first missing physical source and no false upgrade to OI–QM soundness/completeness. Reviewer to pin **exact Git head** and issue ACCEPT / ACCEPT WITH NITS / REVISE. No native numerical, Lean, F/E or dispatch is authorized by this packet.
+
 ## Decision gate after independent review
 
 Permitted paper-review outcomes are **ACCEPT**, **ACCEPT WITH NITS**, or **REVISE** with exact file/section/assumption references. A scope-bound **UNSOURCED** physical outcome is a valid research result.
