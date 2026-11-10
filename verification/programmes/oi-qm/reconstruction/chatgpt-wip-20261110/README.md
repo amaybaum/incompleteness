@@ -30,6 +30,9 @@ All paper statements are **bounded mathematical arguments with declared source, 
 | [09-prep-corr1.md](09-prep-corr1.md) | [Page](https://chatgpt.com/space/page_e8d639b1de408191a09a4d7c10f1d9e2) | Native transfer of hidden information under root-conditioned input |
 | [10-prep-obs1.md](10-prep-obs1.md) | [Page](https://chatgpt.com/space/page_3e80b3bdd86c8191a93de7579116c058) | Conditional seven-site herald versus insufficient two-site read |
 | [11-prep-read2.md](11-prep-read2.md) | [Page](https://chatgpt.com/space/page_54d23e4f3a2c81919be89eb8be3231d0) | Two-tick original-observer access obstruction; third-tick influence witness |
+| [12-prep-history4-and-finite-decision.md](12-prep-history4-and-finite-decision.md) | **New WIP file on this branch (no independent review)** | c=1 four-tick indistinguishable ready/nonready pair; three-tick posterior pairing; general finite-state observability dichotomy |
+
+**Review boundary for file 12:** The independent [Codex ACCEPT WITH NITS review](https://chatgpt.com/space/page_2f791d4a97fc8191ade6141a5ed9bdfe) covered the eleven archived files at head `6879c7c0` and does **not** cover the new four-tick and finite-state analysis in file 12. The new result is **writer-only, independent review pending**, with no native physical-source pass, executable detector or scientific computation. Its addition leaves the eleven prior research drafts unchanged.
 
 ## Standing accepted inputs (not duplicated or re-reviewed)
 
