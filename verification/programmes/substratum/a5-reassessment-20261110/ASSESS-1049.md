@@ -250,7 +250,12 @@ assumption with its source; the three readings that bear on L1 are these.
     (rv_p1 part E: 27 and 225 solutions at q = 9, 15). Positive control: at q = 3, exhaustive over all
     3⁹ functions, the only solution with reflection is f = s [X: P1]. The result depends on there being
     exactly two read variables: a centre read or a range-2 read in d = 1 reopens non-affine solutions.
-    At q = 2, (R-uni) is vacuous in d = 1 (the complement rule 1 + a + b and the constants pass).
+    At q = 2, (R-uni) also forces affinity for these two read variables, but does not force
+    uniqueness or b = 0 [A]. Here λ = 1 and 2c = 0, so f(a + 1, b + 1) = f(a, b).
+    Writing f(0, 0) = f(1, 1) = u and f(0, 1) = f(1, 0) = v gives
+    f(a, b) = u + (u + v)(a + b). Every such rule is affine and reflection-invariant;
+    the constants and complement rule 1 + a + b pass. The condition is not vacuous:
+    f(a, b) = ab fails the simultaneous-shift equation at (a, b) = (0, 0).
   - **d = 2, 3: (R-uni) does not imply affinity among centre-free nearest-neighbour rules [A; X: P1].**
     Among link-sum rules with link maps not assumed additive (GA7-α) it does, at every d (§2.4);
     none of the constructions below is a link sum [X: r3 K1].
@@ -1151,7 +1156,8 @@ unproved φ → L_obs bridge, which is why it is second.
 and `verification/` at `fd539e15`, and to the pinned 2026-11-09 draft inputs.
 - **F-1 (§2.1, P1): uniform amplitude covariance does not imply affinity in d = 2, 3 among
   centre-free nearest-neighbour rules; in d = 1 (centre-free, nearest-neighbour, odd q, with
-  reflection) it forces linearity. NEW, candidate.**
+  reflection) it forces linearity; at q = 2 it forces affinity for the same two read variables,
+  without uniqueness or a forced zero offset. NEW, candidate.**
   - No record separates the uniform form from the site-wise form. A5 scoped non-affine rules out.
     H-D U6 quotes the lemma only.
   - The constructions are not link sums, and in the link-sum class the implication holds (F-9).
@@ -1261,7 +1267,8 @@ then a seventh on the §2.4 recovery, which is favourable in a different way.
 - **Completion boundary (r5, 2026-11-10).** The script runs and their reported outputs below are
   historical evidence from the original unit/reviews, available in the immutable source package;
   none was rerun for this completion. The new checks are static source/byte/diff inspection and
-  bounded hand reasoning for the existing r4 findings. In particular, no new `r5 S5` probe exists
+  bounded hand reasoning for the existing r4 findings and the focused d = 1, q = 2 correction
+  identified by the fresh full-text reviewer. In particular, no new `r5 S5` probe exists
   or is cited. The q=2 comparison uses the archived r4 C2 / rv4 W5 evidence and the stated parity
   condition; F7 and M5 have the elementary proofs given above. Publication changes only research
   documentation. These facts are distinct from the fresh full-text review still required at the

@@ -21,7 +21,7 @@ investigation, scientific computation, manuscript change or merge is authorized.
 | Interrupted r5 | `ASSESS-1049.r5-PARTIAL.md`, SHA-256 `08c487c0368eefe234ba00de2c5456c597f9897160af355c9154f66ae7fd1ea1`; Git blob `ceb40fa6f79c9a8ce9ac0d798014b4509237082e`; incomplete and unreviewed |
 | Historical r4 dispositions | `DISPOSITIONS-r4.md`, SHA-256 `9d26ba43ccfa8026a7b3cc26394a635ef4cbf2961ab19d7981c51845c94f37a0`; preserved unchanged |
 | Current completion/source baseline | Main `cac5d26441dd33e9348151487e4df7b547195481` (D); the assessment retains its source coordinates at `fd539e150759a6ea51ab279aeeac80fc06050ade` with the documented SM TeX shift |
-| Complete r5 | [ASSESS-1049.md](ASSESS-1049.md), SHA-256 `4408c1ddb25b27e7f13f525274b775c4153c753457d9a5d6de4e5197591a3cc5`; an author checkpoint requiring fresh review |
+| Complete r5 | [ASSESS-1049.md](ASSESS-1049.md), SHA-256 `687d00b12ef84e9e46dd55e07d52f1138fc4712af7d630803ffbd6aa604a334d`; an author checkpoint requiring fresh review |
 
 The first four file hashes were independently checked against the recovered bytes. The partial's
 changes were compared to r4, not assumed complete. It had begun the summary/table propagation and
@@ -140,3 +140,20 @@ clarifies the existing H/off-main support limitation without changing a scientif
 Fresh full-text review remains anchored to the first checkpoint, with a separate focused check
 required for this source-header repair, this ledger addition and the synchronized assessment
 digest. No independent acceptance or green CI is inferred in advance from the repair.
+
+## 7. Fresh full-text finding: the binary one-dimensional case
+
+The independent non-author task `review_1049_r5_completion` identified a preserved error outside
+the r4 checklist: §2.1 called (R-uni) vacuous for d = 1, q = 2. The reviewer correctly noted
+that simultaneous-shift invariance still constrains the two-variable rule. Its four values must
+obey f(0,0) = f(1,1) = u and f(0,1) = f(1,0) = v, hence
+f(a,b) = u + (u + v)(a + b). This is affine and reflection-invariant. Constants and the complement
+rule pass, while ab fails; uniqueness and b = 0 are not forced. This is a bounded hand argument,
+not a new enumeration or scientific execution.
+
+The author replaced the false sentence with that argument, propagated its scope into the F-1
+classification in §7, and updated the completion-verification boundary in §8. The original
+higher-dimensional P1 constructions and their stated class, the GA7 recovery, all manuscript
+proposals and owner questions remain unchanged. Earlier drafts and their reviews are preserved.
+The fresh reviewer must independently check this correction at its published descendant; an
+author repair does not close the review gate or convert the earlier checkpoint into acceptance.
