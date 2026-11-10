@@ -1,16 +1,16 @@
 # CARD-GAUGE-1 — Effective cardinality undecidability and observer-relative hidden-sector equivalence
 
-**Paper-only research WIP · 10 November 2026 · INDEPENDENT REVIEW PENDING**
+**Paper-only research WIP · 10 November 2026 · Codex paper review ACCEPT WITH NITS at immutable `c9f0d16c8084075cd387beff3994a2731dfb86b0`; P3 clarifications applied in this later draft, focused diff check still separate**
 
 **Home and standing:** [#1169](https://github.com/amaybaum/incompleteness/issues/1169) conditional OI–QM equivalence; coordinates with the existing [observer-relative finiteness dependency audit](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/verification/audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md) and its #1007/#1015 source boundaries; [#1216](https://github.com/amaybaum/incompleteness/issues/1216) equal priority for arbitrary finite-precision *complete-history* equivalence. Physical preparation, native controls and source-selection gates remain unchanged. This is a proposed mathematical clarification, not a new physical premise.
 
-**Scope of this file:** source-pinned read-only audit plus mathematical proofs with explicit model representations; no experimental/numerical/Lean execution, new physical claim, manuscript amendment, F/E designation, dispatch or merge. The previous Codex [ACCEPT WITH NITS](https://chatgpt.com/space/page_2f791d4a97fc8191ade6141a5ed9bdfe) at archive head 6879c7c0 covers only the original eleven documents. [PREP-HIST-4](12-prep-history4-and-finite-decision.md) and this new file are **not independently reviewed**. PR #1222 remains **draft/unmerged**.
+**Scope of this file:** source-pinned read-only audit plus mathematical proofs with explicit model representations; no experimental/numerical/Lean execution, new physical claim, manuscript amendment, F/E designation, dispatch or merge. The initial Codex [ACCEPT WITH NITS](https://chatgpt.com/space/page_2f791d4a97fc8191ade6141a5ed9bdfe) at archive head `6879c7c0` covers the original eleven documents. [PREP-HIST-4](12-prep-history4-and-finite-decision.md) received its own independent [ACCEPT at `4fe17de6`](https://chatgpt.com/space/page_47a9041813248191952a4c746fb6d1d4). This CARD-GAUGE-1 paper received a separate [Codex ACCEPT WITH NITS at `c9f0d16c`](https://chatgpt.com/space/page_af453671fa5c8191b7c9a5fced83c24a). The present subsequent textual clarifications require focused diff verification and are **not** automatically covered by that immutable-head review. PR #1222 remains **draft/unmerged**.
 
 ## Answer in one paragraph
 
 Finite resolution at an observer cut is not a theorem of finite total substrate cardinality. From a computable description of an arbitrary *decidable* carrier, distinguishing finite from infinite carrier is undecidable in general; this is established by a reduction from the Halting Problem **under a specified effective-description representation**, not by inferring properties of the actual physical universe. Independently, for any fixed, fully specified observer/protocol family there exist finite, countably infinite and uncountably infinite deterministic reversible completions with **identical accessible complete-history laws**, by adjoining a normalized, dynamically decoupled hidden factor. The suitable relation is *observer-relative operational or stable hidden-ancilla equivalence*. It does not supply a cardinality-changing bijective gauge transformation, prove all possible hidden factors are gauge, or remove any QM physical sourcing requirement.
 
-**Three propositions to review:** CARD-COMP (computational undecidability), CARD-OBS (exact observable-law preservation under decoupled enlargement), and CARD-SCOPE (failure of unrestricted cardinality gauge when additional interactions are admitted).
+**Three reviewed-at-`c9f0d16c` propositions, with P3 clarifications below:** CARD-COMP (computational undecidability), CARD-OBS (exact observable-law preservation under decoupled enlargement), and CARD-SCOPE (failure of unrestricted cardinality gauge when additional interactions are admitted). Codex found no blocking mathematical error; no physical-source acceptance follows.
 
 ## 1. Source audit: what OI already earns and what is not yet extended
 
@@ -27,11 +27,13 @@ The present mathematical extension is intentionally narrower than a universal "h
 
 ## 2. Exact observer-relative operational equivalence
 
-Fix an observation/interface specification O consisting of:
+Fix a **common observation/interface dictionary** O, not a common microscopic carrier, consisting of:
 
-- a measurable configuration space (S,Σ), a deterministic measurable reversible evolution φ:S→S (with measurable inverse when required), and a normalized preparation family {μ_p};
-- a family of physically admitted interventions/protocols a, including adaptive choices determined by previously available records; their implementation is included in the described full world rather than presumed;
-- a finite or finitely resolved visible readout alphabet V per step, with measurable observation map π:S→V; optional failure/herald/read-clock symbols are **part of V or the declared full record**, not removed by conditioning.
+- a shared set of *preparation labels* p with the same operational meaning in each compared model; their microscopic preparation laws may differ between realizations;
+- a shared set and grammar of *admitted intervention/protocol labels* a, including adaptive choices determined by already accessible records, with the same protocol meanings; the actual microscopic implementations may differ;
+- a shared interpretation and alphabet/σ-algebra of *complete accessible record outputs* (possibly finitely resolved per step), including any physically available preparer/controller logs, herald, failure/abort, clock and stopping symbols, and any resource readouts if resource-sensitive equivalence is intended.
+
+**Model-dependent realization data** for each M include its measurable configuration space (S_M,Σ_M), deterministic measurable reversible update φ_M (with measurable inverse where needed), normalized preparation measures μ_{M,p}, observation map π_M into the shared record dictionary, and any physically implemented intervention maps I_{M,a}. The carrier, dynamics, measures and apparatus can differ between compared models. Their *labels and resulting accessible-record meanings* must agree. An admitted protocol must be well-defined under each realization; unavailable ports cannot be silently treated as common observations.
 
 A protocol produces a probability law P^a_p on **all complete accessible finite histories** (including every actually accessible controller/preparer/outcome/failure log and any allowed terminating/stopping symbol). When histories have varying lengths, compare on a common tagged disjoint-union alphabet.
 
@@ -41,7 +43,7 @@ A protocol produces a probability law P^a_p on **all complete accessible finite 
 
 A probability measure on an infinite record space is compared by equality of measures, not pointwise density. If an admitted family contains protocols that actually access a proposed added factor, the identity condition cannot be assumed. Likewise, equal one-time marginals or a single finite horizon is not a substitute for equality under the declared full protocol family.
 
-This relation is an **equivalence relation** for a fixed common protocol/record dictionary and model class; it may be coarser than isomorphism of total deterministic systems. Additional resource-sensitive equivalence (memory, time, cost, failure or communication budgets) would require those observables/budgets in the dictionary. Equality of output laws alone does not establish equal efficiency of the realizations.
+This relation is an **equivalence relation** for a fixed common preparation/protocol/record dictionary and model class, even when the models' carriers, dynamics and microscopic implementations differ; it may be coarser than isomorphism of total deterministic systems. Additional resource-sensitive equivalence (memory, time, cost, failure or communication budgets) would require those observables/budgets in the dictionary. Equality of output laws alone does not establish equal efficiency of the realizations.
 
 ## 3. CARD-OBS: exact arbitrary-cardinality invisible-factor extension
 
@@ -100,7 +102,14 @@ This proves a **uniform decision impossibility for descriptions in this class**,
 
 **Proposition CARD-SCOPE (simple countercontrol).** The statement "any enlargement of a hidden sector is gauge for every future observer" is false without a restriction on admissible interactions.
 
-Start with a visible bit v and hidden bit h initially fair. For a two-bit world, consider a reversible SWAP of v and h; reading v after SWAP reveals h. Compare with an alternative realization having an additional hidden bit k, initially fair, and a permitted later reversible SWAP of v and k. If k is independent of h, protocols that are allowed to prepare, set, correlate or query k can have different complete histories from the old model. A more elementary deterministic control: if one new permitted setting "read k" has a readable output in the enlarged model but no corresponding port in the original model, the protocol dictionaries are not the same, so the claim of unrestricted equivalence is not even well typed.
+**Explicit common-protocol countercontrol.** Let both models admit precisely the same operational commands and records: *prepare visible bit v=0 with the specified fair independent hidden source; tick; read v; tick; read v*. The record meanings and timing agree; the observer never reads a hidden coordinate directly.
+
+- Base model M: complete state (v,h)∈{0,1}², with prepared v=0 and h an independent fair bit, under the reversible SWAP dynamics F(v,h)=(h,v). The two observed post-tick bits are (h,0): the first is fair and the second is **always zero**.
+- Enlarged model N: complete state (v,h,k)∈{0,1}³, with v=0 and h,k independent fair bits, under the reversible three-cycle G(v,h,k)=(h,k,v). The two observed post-tick bits are (h,k): the first is fair and the second is **independently fair**.
+
+The first read alone has the same Bernoulli(1/2) law, but the second read differs. On the common complete-history alphabet, the event "second post-tick visible bit is 1" has probabilities 0 in M and 1/2 in N. Indeed the full two-read total-variation distance is **exactly 1/2**: M assigns equal mass to (0,0) and (1,0), whereas N is uniform on all four pairs. Both dynamics are bijections and both use the *same protocol dictionary*. The distinguishing feature is that N couples the additional k into the visible dynamics; it is therefore **not** the decoupled product extension of CARD-OBS.
+
+If instead one introduces an additional setting "read k" only in N, without a corresponding well-defined command in M, the two operational dictionaries are different and the claimed fixed-interface equivalence is not even well typed. The explicit shared-menu two-tick example above is the needed genuine countercontrol, not merely a comparison of two fair hidden bits.
 
 **Classification:** a new sector which is exactly decoupled for *all* admitted observation protocols is operationally inert at that interface. A sector which later couples or whose initialization can affect accessible histories must be included in the operational model and tested. "Hidden at one moment" is not the same as "inaccessible under every permitted finite protocol."
 
@@ -124,7 +133,7 @@ The observable predictive quotient can have fixed finite size even when the comp
 
 ## 7. Exact independent review and future proof obligations
 
-**Independent review: NOT PERFORMED in this writer session.** The manuscript text is meant to be criticized, not adopted as an OI result or scientific publication proof.
+**Review provenance and current version:** Codex, acting as a separate non-author reviewer, reported [ACCEPT WITH NITS](https://chatgpt.com/space/page_af453671fa5c8191b7c9a5fced83c24a) for the bounded mathematical/source claims at immutable `c9f0d16c8084075cd387beff3994a2731dfb86b0` (no blocking mathematical errors). This updated file resolves its three requested nonblocking clarifications, including the existing PREP-HIST-4 review status, but no focused independent diff review of the resulting new commit is claimed. The original reviewed text remains available at that immutable Git SHA. No scientific acceptance beyond the review's scoped mathematical verdict, physical implementation, or manuscript publication follows.
 
 A separate reviewer should check:
 
