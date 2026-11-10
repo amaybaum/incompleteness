@@ -1,7 +1,7 @@
 # NATIVE-INT-SRC-2 — Native boundary write and delayed-slice retention
 
 **Author result: STOPPED / UNSOURCED. Physical-source gate: NOT PASSED.**
-Paper-only source assessment; independent non-author review pending.
+Paper-only author source assessment; independent non-author review is a separate gate.
 
 Accountable issue: [#866](https://github.com/amaybaum/incompleteness/issues/866).
 Coordination: [#1169](https://github.com/amaybaum/incompleteness/issues/1169).
@@ -131,7 +131,7 @@ There is no erased exterior or independently resampled bath. At the physical lev
 | Automatic return to the old ready slice | **Disproved for that conditional trajectory as a general reset claim**: for c=1 the receiver's previous coordinate is 1 at tick 2; for z=1 the controller's previous coordinate is 1. This is the existing readiness-set countercontrol, not a general obstruction to other continuation contracts. |
 | Renewal, retry/reset or fresh ordered bank | **Unsourced**. Mathematical invertibility grants no selectable inverse or free blank supply. |
 
-For any deterministic passive history/world map Psi and readiness event E under U_c, retain both terms:
+Let E be exactly the conjunction of the eight hidden precursor constraints in §4; the visible root is already fixed by U_c. For any deterministic passive history/world map Psi, retain both terms:
 
 ```text
 Psi_*U_c = (1/256) Psi_*(U_c | E)
@@ -154,7 +154,8 @@ The claim-by-claim off-main reference classification is:
 | #866 owner-decision comment 6763916830 | Paper-only scope, one candidate, new guiding draft and separate review permitted | **Provenance of authorization**; its operative scope is stated in this report, not scientific evidence. |
 | #1169 issue | Coordination destination | **Provenance**; no equivalence theorem is inferred. |
 | #1169 coordination comment 6763928950 | Same bounded writer/reviewer handoff | **Provenance**; no native process is inferred from the handoff. |
-| The named NATIVE-PRED-1 / NATIVE-FACTOR-SRC-1 reviews in that owner scope | Why a physical source screen follows the earlier mathematical investigations | **Provenance**; neither predictive theorem, proof nor acceptance is a premise of this stop. No off-main mathematical result is inherited. |
+| NATIVE-PRED-1 review named in the owner scope | The preceding predictive-capacity investigation motivates a physical source question | **Provenance**; its theorem, proof and acceptance are not premises of this stop. No off-main capacity result is inherited. |
+| NATIVE-FACTOR-SRC-1 review named in the owner scope | The preceding factor/source investigation motivates a physical source question | **Provenance**; its factor constructions, obstructions and acceptance are not premises of this stop. No off-main factor result is inherited. |
 
 The six source rows in §2 are **support on main** for their individually stated claims at D. The external primary article supports only the historical comparator description, not any native embedding. A future integration must recheck support reachability and every added review/status reference under AGENTS §A.42; this draft itself establishes nothing on main. A separate reviewer accepting this negative assessment would not pass the physical gate.
 
