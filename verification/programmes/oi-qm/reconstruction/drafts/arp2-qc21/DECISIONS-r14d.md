@@ -1,3 +1,7 @@
+> Historical r14d checkpoint record at f634f8e3. The later explicit owner approval is recorded in
+> OWNER-DECISIONS.md and applied by preregistration r15. Its earlier pending/default language describes
+> that historical checkpoint; current implementation progress is in IMPLEMENTATION-STATUS.md.
+
 # Q-C2-1: next owner decisions, R1–R10
 
 WIP / UNVERIFIED paper decision packet. Writer: Codex, 2026-11-10. Accountable issue: #1169.

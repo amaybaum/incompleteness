@@ -13,12 +13,14 @@ Exact arithmetic only (Fraction)."""
 import ast
 import fractions
 import hashlib
+import io
 import json
 import os.path
 import re
 import subprocess
 import sys
 import tempfile
+import zipfile
 
 ROUND = "ARP-2-QC21"
 RDIR = "verification/programmes/oi-qm/reconstruction/round-arp2-qc21-20261108/"
@@ -77,9 +79,9 @@ E_FILES = ("evidence/measurements.json", "evidence/s1-run/results.json", "eviden
            "evidence/order-s1.json", "result.md")
 
 CHECKER_IMPORTS = {"fractions", "itertools", "json", "os", "sys"}
-CONTROLS_IMPORTS = {"ast", "fractions", "hashlib", "json", "os.path", "re", "subprocess", "sys", "tempfile"}
+CONTROLS_IMPORTS = {"ast", "fractions", "hashlib", "io", "zipfile", "json", "os.path", "re", "subprocess", "sys", "tempfile"}
 MOD_ATTRS = {"subprocess": {"run", "PIPE"}, "os.path": {"join", "isfile"}, "json": {"loads", "dumps"},
-             "hashlib": {"sha256"}, "re": {"fullmatch"}, "sys": {"argv", "exit", "stdout", "stderr"},
+             "hashlib": {"sha256"}, "io": {"BytesIO"}, "zipfile": {"ZipFile"}, "re": {"fullmatch"}, "sys": {"argv", "exit", "stdout", "stderr"},
              "fractions": {"Fraction"}, "tempfile": {"TemporaryDirectory"}, "ast": None}
 BANNED = {"getattr", "setattr", "delattr", "globals", "locals", "vars", "breakpoint", "help", "exec", "eval",
           "compile", "__import__"}
@@ -89,6 +91,7 @@ GIT_BAD = ("-c", "--config-env", "--exec-path", "-C", "--git-dir", "--work-tree"
 GH_EXTRA = {"--paginate", "-H", "Accept: application/vnd.github+json"}
 GH_TEMPLATES = ("actions/runs?", "actions/runs/{DEC}", "actions/runs/{DEC}/attempts/{DEC}",
                 "actions/runs/{DEC}/attempts/{DEC}/jobs?per_page=100", "actions/runs/{DEC}/artifacts",
+                "actions/artifacts/{DEC}/zip", "issues/comments/{DEC}",
                 "git/trees/{HEX40}?recursive=1", "git/trees/{HEX40}", "activity?ref=refs/heads/", "")
 HELPERS = ("a_ok", "w_path", "root_check")
 _C = r"(?!\.\.?(?:/|$))[A-Za-z0-9_.][A-Za-z0-9_.-]*"
@@ -222,7 +225,15 @@ def gh_get(path_kind, *vals):
                             "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
     elif path_kind == "artifacts":
         r = subprocess.run(["gh", "api", "--method", "GET",
-                            f"repos/amaybaum/incompleteness/actions/runs/{a_ok(vals[0])}/artifacts",
+                            f"repos/amaybaum/incompleteness/actions/runs/{a_ok(vals[0])}/artifacts?per_page=100&page={a_ok(vals[1])}",
+                            "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
+    elif path_kind == "artifact-zip":
+        r = subprocess.run(["gh", "api", "--method", "GET",
+                            f"repos/amaybaum/incompleteness/actions/artifacts/{a_ok(vals[0])}/zip",
+                            "-H", "Accept: application/vnd.github+json"], capture_output=True)
+    elif path_kind == "comment":
+        r = subprocess.run(["gh", "api", "--method", "GET",
+                            f"repos/amaybaum/incompleteness/issues/comments/{a_ok(vals[0])}",
                             "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
     elif path_kind == "runs-dispatch":
         r = subprocess.run(["gh", "api", "--method", "GET",
@@ -254,7 +265,12 @@ def gh_get(path_kind, *vals):
         raise Refused("gh template")
     if r.returncode != 0:
         return False, r.stderr
-    return True, json.loads(r.stdout)
+    if path_kind == "artifact-zip":
+        return True, r.stdout
+    try:
+        return True, json.loads(r.stdout)
+    except (ValueError, TypeError):
+        return False, "unparseable host response"
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -448,9 +464,59 @@ def _gh_template_ok(js):
         return False
     rest = txt[len("repos/amaybaum/incompleteness/"):]
     pats = (r"actions/runs\?[a-z0-9_=&.{}V]*", r"actions/runs/\{V\}", r"actions/runs/\{V\}/attempts/\{V\}",
-            r"actions/runs/\{V\}/attempts/\{V\}/jobs\?per_page=100(&page=\{V\})?", r"actions/runs/\{V\}/artifacts",
+            r"actions/runs/\{V\}/attempts/\{V\}/jobs\?per_page=100(&page=\{V\})?", r"actions/runs/\{V\}/artifacts(\?per_page=100&page=\{V\})?",
+            r"actions/artifacts/\{V\}/zip", r"issues/comments/\{V\}",
             r"git/trees/\{V\}\?recursive=1", r"git/trees/\{V\}", r"activity\?ref=refs/heads/\{V\}(&per_page=100&page=\{V\})?")
     return any(re.fullmatch(p, rest) for p in pats)
+
+
+def zip_read_rules(tree):
+    """Scoped in-memory reader: no mode change, extra member read, alias or resource escape."""
+    errors = []
+    constructors = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Attribute) and dotted(node) == "zipfile.ZipFile":
+            calls = [x for x in ast.walk(tree) if isinstance(x, ast.Call) and x.func is node]
+            if len(calls) != 1:
+                errors.append("ZIP: constructor escaped call position")
+                continue
+            call = calls[0]
+            if len(call.args) != 1 or call.keywords:
+                errors.append("ZIP: constructor arguments")
+                continue
+            buffer = call.args[0]
+            if not (isinstance(buffer, ast.Call) and dotted(buffer.func) == "io.BytesIO"
+                    and len(buffer.args) == 1 and not buffer.keywords):
+                errors.append("ZIP: not an in-memory buffer")
+            constructors.append(call)
+    for fn in [x for x in tree.body if isinstance(x, ast.FunctionDef)]:
+        for call in constructors:
+            if not any(x is call for x in ast.walk(fn)):
+                continue
+            bindings = [x for x in ast.walk(fn) if isinstance(x, ast.withitem) and x.context_expr is call
+                        and isinstance(x.optional_vars, ast.Name)]
+            if len(bindings) != 1:
+                errors.append("ZIP: resource must be locally scoped")
+                continue
+            target = bindings[0].optional_vars
+            name = target.id
+            allowed = {id(target)}
+            for use in ast.walk(fn):
+                if not isinstance(use, ast.Call) or not isinstance(use.func, ast.Attribute):
+                    continue
+                base = use.func.value
+                if not isinstance(base, ast.Name) or base.id != name:
+                    continue
+                good = use.func.attr == "namelist" and not use.args and not use.keywords
+                good = good or (use.func.attr == "read" and len(use.args) == 1 and not use.keywords
+                                and isinstance(use.args[0], ast.Constant) and use.args[0].value == "measurements.json")
+                if good:
+                    allowed.add(id(base))
+                else:
+                    errors.append("ZIP: method/member")
+            if any(isinstance(x, ast.Name) and x.id == name and id(x) not in allowed for x in ast.walk(fn)):
+                errors.append("ZIP: resource alias/rebinding/escape")
+    return sorted(set(errors))
 
 
 def static_controls(src):
@@ -549,6 +615,7 @@ def static_controls(src):
             defaults = n.args.defaults + [d for d in n.args.kw_defaults if d is not None]
             if any(dotted(d) == "subprocess.run" or (isinstance(d, ast.Name) and d.id == "open") for d in defaults):
                 errs.append("c': default value")
+    errs += zip_read_rules(tree)
     errs += _dispatch_string_sites(tree)
     return sorted(set(errs))
 
@@ -663,18 +730,25 @@ def static_checker(src, builders=("s_build_p", "s_build_repinv", "s_build_b", "s
             errs.append("banned " + n.id)
         if isinstance(n, ast.Attribute) and n.attr in ("system", "popen", "modules"):
             errs.append("attribute " + n.attr)
-        if isinstance(n, (ast.Set, ast.SetComp)) or (isinstance(n, ast.Call) and
-                isinstance(n.func, ast.Name) and n.func.id in ("set", "frozenset")):
+        if isinstance(n, (ast.Set, ast.SetComp)) or (isinstance(n, ast.Name) and n.id in ("set", "frozenset")):
             errs.append("unordered set")
     os_sites = [n for n in ast.walk(tree) if isinstance(n, ast.Name) and n.id == "os" and isinstance(n.ctx, ast.Load)]
-    env_ok = 0
-    for n in ast.walk(tree):
-        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id in ("s_mode", "s_entry") and len(n.args) == 2:
-            v = n.args[1]
-            if isinstance(v, ast.Attribute) and v.attr == "environ" and isinstance(v.value, ast.Name) and v.value.id == "os":
-                env_ok += 1
-    if len(os_sites) != 2 or env_ok != 2:
-        errs.append("environment sites")
+    main_blocks = [n for n in tree.body if _is_main_guard(n)]
+    main_nodes = {id(x) for block in main_blocks for x in ast.walk(block)}
+    valid_os, kinds = set(), []
+    for call in ast.walk(tree):
+        if not isinstance(call, ast.Call) or not isinstance(call.func, ast.Name) or len(call.args) != 2 or call.keywords:
+            continue
+        arg, env = call.args
+        if not (isinstance(arg, ast.Attribute) and arg.attr == "argv" and isinstance(arg.value, ast.Name) and arg.value.id == "sys"
+                and isinstance(env, ast.Attribute) and env.attr == "environ" and isinstance(env.value, ast.Name) and env.value.id == "os"):
+            continue
+        if call.func.id == "s_mode" and owner.get(id(call)) == "s_refusal":
+            valid_os.add(id(env.value)); kinds.append("refusal")
+        elif call.func.id == "s_entry" and id(call) in main_nodes and owner.get(id(call)) is None:
+            valid_os.add(id(env.value)); kinds.append("main")
+    if len(main_blocks) != 1 or {id(x) for x in os_sites} != valid_os or sorted(kinds) != ["main", "refusal"]:
+        errs.append("environment owner/caller/main sites")
     db = [n for n in tree.body if isinstance(n, ast.Assign) and len(n.targets) == 1
           and isinstance(n.targets[0], ast.Name) and n.targets[0].id == "DECISIVE_BUILDERS"]
     registry_sites = set()
@@ -698,7 +772,7 @@ def static_checker(src, builders=("s_build_p", "s_build_repinv", "s_build_b", "s
         else:
             refusal_sites.add(id(first.value.func))
     refusal = defs.get("s_refusal")
-    if refusal is None or refusal.args.args or refusal.args.vararg or refusal.args.kwarg or refusal.args.kwonlyargs:
+    if refusal is None or refusal.args.posonlyargs or refusal.args.args or refusal.args.vararg or refusal.args.kwarg or refusal.args.kwonlyargs or refusal.args.defaults or refusal.args.kw_defaults:
         errs.append("refusal signature")
     for n in ast.walk(tree):
         if isinstance(n, ast.Name) and n.id in builders and id(n) not in registry_sites:
@@ -772,6 +846,20 @@ def c_indep(src):
                 module_names.add((a.asname or a.name).split(".")[0])
     errs = []
     vfuncs = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name.startswith("v_")]
+    vnames = {n.name for n in vfuncs}
+    if len(vnames) != len(vfuncs):
+        errs.append("duplicate verifier definition")
+    for binding in tree.body:
+        if isinstance(binding, (ast.FunctionDef, ast.ClassDef)):
+            if isinstance(binding, ast.ClassDef) and binding.name.startswith("v_"):
+                errs.append("verifier class/alias binding " + binding.name)
+            continue
+        for node in ast.walk(binding):
+            if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)) and node.id.startswith("v_"):
+                errs.append("verifier alias/rebinding " + node.id)
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Global, ast.Nonlocal)) and any(x.startswith("v_") for x in node.names):
+            errs.append("verifier global/nonlocal rebinding")
     if not vfuncs:
         errs.append("no verifier")
     for fn in vfuncs:
@@ -788,7 +876,7 @@ def c_indep(src):
             if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load):
                 if n.id in V_FORBIDDEN:
                     errs.append("%s: forbidden %s" % (fn.name, n.id))
-                elif n.id in local or n.id.startswith("v_") or n.id in V_BUILTINS:
+                elif n.id in local or n.id in vnames or n.id in V_BUILTINS:
                     pass
                 elif n.id in ("Fraction", "json", "itertools"):
                     pass
@@ -799,7 +887,7 @@ def c_indep(src):
             if isinstance(n, ast.Call):
                 f = n.func
                 if isinstance(f, ast.Name):
-                    if not (f.id.startswith("v_") or f.id in V_BUILTINS or f.id == "Fraction" or f.id in local):
+                    if not (f.id in vnames or f.id in V_BUILTINS or f.id == "Fraction" or f.id in local):
                         errs.append("%s: call %s" % (fn.name, f.id))
                 elif isinstance(f, ast.Attribute):
                     d = dotted(f)
@@ -1674,79 +1762,311 @@ def run_class_activity_violations(entries):
     return [e for e in entries if e.get("activity_type") in ("force_push", "branch_deletion")]
 
 
-def derive_run(run_id):
-    """derive-run: the run, every attempt and its jobs (every page), and its artifacts' sha256 from the artifacts
-    API (the digest field), as structured JSON. A failed read makes the capture failed (exit 1), never a pass."""
-    ok, run = gh_get("run", str(run_id))
-    if not ok:
-        return None
-    rec = {"run_id": run["id"], "head_sha": run["head_sha"], "event": run["event"], "created_at": run["created_at"],
-           "run_attempt": run["run_attempt"], "head_branch": run.get("head_branch"), "attempts": []}
-    for n in range(1, run["run_attempt"] + 1):
-        ok, att = gh_get("attempt", str(run_id), str(n))
-        if not ok:
+def run_class_pages(kind, field, values):
+    """Complete one paginated listing, with stable counts and unique identities."""
+    out, seen, expected, page = [], {}, None, 1
+    while True:
+        ok, data = gh_get(kind, *values, str(page))
+        if not ok or not isinstance(data, dict):
             return None
-        jobs, page = [], 1
-        while True:
-            ok, js = gh_get("jobs", str(run_id), str(n), str(page))
-            if not ok:
+        count, items = data.get("total_count"), data.get(field)
+        if isinstance(count, bool) or not isinstance(count, int) or count < 0 or not isinstance(items, list):
+            return None
+        if expected is None:
+            expected = count
+        if count != expected:
+            return None
+        for item in items:
+            ident = item.get("id") if isinstance(item, dict) else None
+            if isinstance(ident, bool) or not isinstance(ident, int) or ident <= 0 or ident in seen:
                 return None
-            jobs += [{"name": j["name"], "conclusion": j.get("conclusion"),
-                      "steps": [{"name": s["name"], "conclusion": s.get("conclusion"),
-                                 "started_at": s.get("started_at"), "completed_at": s.get("completed_at")}
-                                for s in j.get("steps") or []]} for j in js.get("jobs", [])]
-            if len(jobs) >= js.get("total_count", 0) or not js.get("jobs"):
-                break
-            page += 1
-        rec["attempts"].append({"run_attempt": n, "conclusion": att.get("conclusion"), "jobs": jobs,
-                                "event": run["event"], "head_sha": run["head_sha"], "run_id": run["id"]})
-    ok, arts = gh_get("artifacts", str(run_id))
+            seen[ident] = True
+            out.append(item)
+        if len(out) > expected:
+            return None
+        if len(out) == expected:
+            return out
+        if not items:
+            return None
+        page += 1
+
+
+def run_class_time_value(stamp):
+    """UTC seconds from year 1; integer calendar conversion only, no external clock."""
+    if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z", stamp):
+        raise Refused("UTC timestamp")
+    year, month, day = int(stamp[:4]), int(stamp[5:7]), int(stamp[8:10])
+    hour, minute, second = int(stamp[11:13]), int(stamp[14:16]), int(stamp[17:19])
+    leap = year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+    months = [31, 29 if leap else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    if not (1 <= year <= 9999 and 1 <= month <= 12 and 1 <= day <= months[month-1]
+            and 0 <= hour < 24 and 0 <= minute < 60 and 0 <= second < 60):
+        raise Refused("UTC calendar")
+    y = year - 1
+    days = 365*y + y//4 - y//100 + y//400 + sum(months[:month-1]) + day - 1
+    return ((days*24 + hour)*60 + minute)*60 + second
+
+
+def run_class_time_text(value):
+    days, seconds = divmod(value, 86400)
+    lo, hi = 1, 10000
+    while hi-lo > 1:
+        mid = (lo+hi)//2
+        y = mid-1
+        if 365*y + y//4 - y//100 + y//400 <= days:
+            lo = mid
+        else:
+            hi = mid
+    y = lo-1
+    days -= 365*y + y//4 - y//100 + y//400
+    leap = lo % 4 == 0 and (lo % 100 != 0 or lo % 400 == 0)
+    months = [31, 29 if leap else 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    month = 1
+    while days >= months[month-1]:
+        days -= months[month-1]
+        month += 1
+    return "%04d-%02d-%02dT%02d:%02d:%02dZ" % (lo, month, days+1, seconds//3600,
+                                                  seconds//60 % 60, seconds % 60)
+
+
+def run_class_run_listing(kind, start, stop):
+    """Partition saturated time windows; never interpret a capped listing as complete."""
+    left, right = run_class_time_value(start), run_class_time_value(stop)
+    if left > right:
+        return None
+    todo, runs, slices = [(left, right)], {}, []
+    while todo:
+        a, b = todo.pop(0)
+        sa, sb = run_class_time_text(a), run_class_time_text(b)
+        ok, first = gh_get(kind, sa, sb, "1")
+        if not ok or not isinstance(first, dict):
+            return None
+        count = first.get("total_count")
+        if isinstance(count, bool) or not isinstance(count, int) or count < 0:
+            return None
+        if count >= 1000:
+            if a == b:
+                return None
+            mid = (a+b)//2
+            todo[0:0] = [(a, mid), (mid+1, b)]
+            continue
+        listed = run_class_pages(kind, "workflow_runs", (sa, sb))
+        if listed is None or len(listed) != count:
+            return None
+        slices.append({"window": [sa, sb], "total_count": count, "listed": len(listed)})
+        for run in listed:
+            if run.get("id") in runs or not sa <= run.get("created_at", "") <= sb:
+                return None
+            if not re.fullmatch(r"[0-9a-f]{40}", run.get("head_sha", "")):
+                return None
+            runs[run["id"]] = run
+    return {"runs": list(runs.values()), "slices": slices}
+
+
+def run_class_remote_tree(sha):
+    """Read every tree blob; a truncated recursive response requires a complete subtree walk."""
+    ok, tree = gh_get("tree-recursive", a_ok(sha))
+    if not ok or not isinstance(tree, dict) or not isinstance(tree.get("tree"), list):
+        return None
+    if tree.get("truncated") is False:
+        return {x["path"]: x["sha"] for x in tree["tree"] if x.get("type") == "blob"}
+    if tree.get("truncated") is not True:
+        return None
+    out, queue = {}, [("", sha)]
+    while queue:
+        prefix, current = queue.pop(0)
+        ok, part = gh_get("tree", a_ok(current))
+        if not ok or not isinstance(part, dict) or part.get("truncated") is not False or not isinstance(part.get("tree"), list):
+            return None
+        for entry in part["tree"]:
+            name, blob, kind = entry.get("path"), entry.get("sha"), entry.get("type")
+            if not isinstance(name, str) or not re.fullmatch(r"[0-9a-f]{40}", blob or ""):
+                return None
+            if kind == "tree":
+                queue.append((prefix+name+"/", blob))
+            elif kind == "blob":
+                out[prefix+name] = blob
+            elif kind != "commit":
+                return None
+    return out
+
+
+def run_class_artifact_binding(run_id, head_sha, expected=None):
+    """S1 binding: full listing, exact identity/digest/member list, in-memory read only."""
+    artifacts = run_class_pages("artifacts", "artifacts", (a_ok(str(run_id)),))
+    if artifacts is None:
+        return None
+    matching = [x for x in artifacts if x.get("name") == "arp2-qc21-measurements"]
+    if len(matching) != 1:
+        return {"valid": False, "reason": "artifact name is absent or ambiguous"}
+    artifact = matching[0]
+    identity = artifact.get("workflow_run")
+    if not isinstance(identity, dict) or identity.get("id") != run_id or identity.get("head_sha") != head_sha:
+        return {"valid": False, "reason": "artifact run identity"}
+    if artifact.get("expired") is not False or not isinstance(artifact.get("expires_at"), str):
+        return {"valid": False, "reason": "expired or incomplete artifact"}
+    digest = artifact.get("digest")
+    if not isinstance(digest, str) or not re.fullmatch(r"sha256:[0-9a-f]{64}", digest):
+        return {"valid": False, "reason": "artifact digest missing"}
+    ok, blob = gh_get("artifact-zip", a_ok(str(artifact["id"])))
     if not ok:
         return None
-    rec["artifacts"] = [{"name": a["name"], "artifact_sha256": (a.get("digest") or "").replace("sha256:", ""),
-                         "expired": a.get("expired")} for a in arts.get("artifacts", [])]
-    return rec
+    if not isinstance(blob, bytes) or sha256_bytes(blob) != digest[7:]:
+        return {"valid": False, "reason": "archive digest mismatch"}
+    try:
+        with zipfile.ZipFile(io.BytesIO(blob)) as archive:
+            members = archive.namelist()
+            if members != ["measurements.json"]:
+                return {"valid": False, "reason": "archive members"}
+            measurements = archive.read("measurements.json")
+        json.loads(measurements)
+    except Exception:
+        return {"valid": False, "reason": "unreadable archive"}
+    record = {"id": artifact["id"], "name": artifact["name"], "digest": digest,
+              "workflow_run": {"id": run_id, "head_sha": head_sha}, "expires_at": artifact["expires_at"],
+              "members": members}
+    if expected is not None and record != expected:
+        return {"valid": False, "reason": "binding record changed"}
+    return {"valid": True, "record": record, "measurements": measurements}
+
+
+def run_class_comment(comment_id):
+    ok, comment = gh_get("comment", a_ok(str(comment_id)))
+    if not ok or not isinstance(comment, dict) or comment.get("id") != int(comment_id):
+        return None
+    return comment
+
+
+def run_class_approval_entry(comment_id, run, stage):
+    """Read the actual owner comment; do not trust executor-supplied quoted words or identity."""
+    comment = run_class_comment(comment_id)
+    if comment is None:
+        return None
+    return {"run_id": run["id"], "run_attempt": 1, "head_sha": run["head_sha"], "stage": stage,
+            "approval_comment_id": int(comment_id), "approval_created_at": comment.get("created_at"),
+            "approval_updated_at": comment.get("updated_at"),
+            "approval_author": (comment.get("user") or {}).get("login"),
+            "author_association": comment.get("author_association"), "quoted_words": comment.get("body")}
+
+
+def run_class_designation_errors(comment, sha, first_time=None, digests=()):
+    errors = []
+    if not isinstance(comment, dict):
+        return ["missing designation"]
+    if ((comment.get("user") or {}).get("login"), comment.get("author_association")) != OWNER:
+        errors.append("designation author")
+    body = comment.get("body")
+    if not isinstance(body, str) or sha not in body:
+        errors.append("designation commit")
+    if first_time is not None:
+        for field in ("created_at", "updated_at"):
+            value = comment.get(field)
+            if not isinstance(value, str) or value >= first_time:
+                errors.append("designation does not precede first execution")
+    if any(not isinstance(body, str) or digest not in body for digest in digests):
+        errors.append("designation digest")
+    return errors
+
+
+def run_class_fixture_mode(record):
+    """The A3b structural marker; computes no fixture or decision."""
+    if not isinstance(record, dict) or record.get("schema") != "arp2-qc21-measurements" or record.get("version") != 1:
+        return False
+    if record.get("mode") != "fixture" or record.get("complete") is not False:
+        return False
+    # Match the declared schema's full decisive shape, not only its mode label.
+    for field in ("P", "P_controls", "C", "REP_INV"):
+        if record.get(field) != "placeholder":
+            return False
+    b, budget, flags = record.get("B"), record.get("budget"), record.get("flags")
+    if not isinstance(b, dict) or not isinstance(budget, dict) or not isinstance(flags, dict):
+        return False
+    if b.get("bp_equals_qmp") != "placeholder" or b.get("B1") != "placeholder":
+        return False
+    fragments = b.get("fragments")
+    if not isinstance(fragments, list) or [x.get("name") for x in fragments if isinstance(x, dict)] != ["B-P", "A-of-B"]:
+        return False
+    if any(not isinstance(x, dict) or x.get("lp") != "placeholder" for x in fragments):
+        return False
+    if budget.get("respected") != "placeholder" or any(flags.get(x) != "placeholder" for x in ("P", "B", "C", "levels")):
+        return False
+    allowed = {"schema", "version", "mode", "complete", "parameters", "P", "P_controls", "REP_INV", "B", "C",
+               "fixtures", "controls", "budget", "flags"}
+    if set(record) != allowed:
+        return False
+    return True
+
+
+def derive_run(run_id, bind_s1=False):
+    """Every attempt, every jobs/artifacts page; optional S1 binding before E is committed."""
+    ok, run = gh_get("run", a_ok(str(run_id)))
+    if not ok or not isinstance(run, dict) or run.get("id") != int(run_id):
+        return None
+    count = run.get("run_attempt")
+    if isinstance(count, bool) or not isinstance(count, int) or count < 1:
+        return None
+    record = {"run_id": run["id"], "head_sha": run.get("head_sha"), "event": run.get("event"),
+              "created_at": run.get("created_at"), "status": run.get("status"), "conclusion": run.get("conclusion"),
+              "run_attempt": count, "head_branch": run.get("head_branch"),
+              "pull_requests": run.get("pull_requests"), "attempts": []}
+    for number in range(1, count+1):
+        ok, attempt = gh_get("attempt", str(run_id), str(number))
+        jobs = run_class_pages("jobs", "jobs", (str(run_id), str(number)))
+        if not ok or not isinstance(attempt, dict) or jobs is None:
+            return None
+        if attempt.get("run_attempt") != number or attempt.get("head_sha") != record["head_sha"]:
+            return None
+        record["attempts"].append({"run_id": run["id"], "run_attempt": number,
+                                   "status": attempt.get("status"), "attempt_status": attempt.get("status"),
+                                   "conclusion": attempt.get("conclusion"), "created_at": attempt.get("created_at"),
+                                   "head_sha": attempt["head_sha"], "event": run.get("event"), "jobs": jobs})
+    artifacts = run_class_pages("artifacts", "artifacts", (str(run_id),))
+    if artifacts is None:
+        return None
+    record["artifacts"] = artifacts
+    if bind_s1:
+        binding = run_class_artifact_binding(run["id"], run["head_sha"])
+        if binding is None:
+            return None
+        record["s1_binding"] = binding.get("record") if binding.get("valid") else binding
+    ok, fresh = gh_get("run", str(run_id))
+    if not ok or not isinstance(fresh, dict) or fresh.get("run_attempt") != count or fresh.get("head_sha") != record["head_sha"]:
+        return None
+    return record
 
 
 def order_capture(t_repo, t0, now, branches):
-    """order: the repository-wide enumeration (set (1) dispatches over [T_repo, now]; set (2) every other event over
-    [T0, now]), every page, total_count checked per slice; the activity of each recorded branch. Returns the
-    structured capture or None (failed capture, to be retried)."""
-    cap = {"queries": [], "runs": {}, "activity": {}}
-    for kind, a in (("runs-dispatch", t_repo), ("runs-all", t0)):
-        pages, page = [], 1
-        while True:
-            ok, pg = gh_get(kind, a, now, str(page))
-            if not ok:
-                return None
-            pages.append(pg)
-            if not pg.get("workflow_runs") or sum(len(p["workflow_runs"]) for p in pages) >= pg.get("total_count", 0):
-                break
-            page += 1
-        if not run_class_slice_ok(pages):
+    """Complete event/attempt inventory; no forbidden/missing result is interpreted as empty."""
+    capture = {"queries": [], "runs": {}, "activity": {}, "capture_time": now}
+    for kind, start in (("runs-dispatch", t_repo), ("runs-all", t0)):
+        listing = run_class_run_listing(kind, start, now)
+        if listing is None:
             return None
-        cap["queries"].append({"kind": kind, "window": [a, now], "total_count": pages[0]["total_count"],
-                               "listed": sum(len(p["workflow_runs"]) for p in pages)})
-        for p in pages:
-            for r in p["workflow_runs"]:
-                if kind == "runs-all" and r["event"] == run_class_dispatch():
-                    continue
-                cap["runs"][str(r["id"])] = {"head_sha": r["head_sha"], "event": r["event"],
-                                             "run_attempt": r["run_attempt"]}
-    for b in branches:
-        ents, page = [], 1
-        while True:
-            ok, pg = gh_get("activity", b, str(page))
-            if not ok:
+        capture["queries"].append({"kind": kind, "window": [start, now], "slices": listing["slices"]})
+        for run in listing["runs"]:
+            if kind == "runs-all" and run.get("event") == run_class_dispatch():
+                continue
+            full = derive_run(str(run["id"]))
+            if full is None:
                 return None
-            if not pg:
+            capture["runs"][str(run["id"])] = full
+    for branch in branches:
+        page, entries, seen = 1, [], {}
+        while True:
+            ok, items = gh_get("activity", a_ok(branch), str(page))
+            if not ok or not isinstance(items, list):
+                return None
+            for entry in items:
+                ident = entry.get("id") if isinstance(entry, dict) else None
+                if ident is None or ident in seen:
+                    return None
+                seen[ident] = True
+                entries.append(entry)
+            if not items:
                 break
-            ents += pg
             page += 1
-        cap["activity"][b] = [{"activity_type": e.get("activity_type"), "after": e.get("after"),
-                               "timestamp": e.get("timestamp")} for e in ents]
-    return cap
-
+        capture["activity"][branch] = entries
+    return capture
 
 def verdict_mode(meas, token_line, ratified_sha, order_sha, s1_run, e_run, capture_violations):
     """verdict: VERDICT <token> only when every condition holds; else VERDICT VOID (exit 1)."""
@@ -1860,10 +2180,20 @@ def selftest_static():
         "getattr(...)": chk.replace("def t_misc():\n", "def t_misc():\n    getattr(sys, 'x')\n", 1),
         "dunder walk": chk.replace("def t_misc():\n", "def t_misc():\n    ().__class__\n", 1),
         "third os site": chk.replace("def t_misc():\n", "def t_misc():\n    s_mode([], os.environ)\n", 1),
-        "builder without refusal": chk.replace('    s_refusal("s_build_c")\n', "", 1),
+        "builder without refusal": chk[:chk.index("def s_build_c(")] + chk[chk.index("def s_build_c("):].replace("    s_refusal()\n", "", 1),
+        "positional-only refusal": chk.replace("def s_refusal():", "def s_refusal(unused=0, /):", 1),
+        "aliased set": chk.replace("def t_misc():\n", "def t_misc():\n    collection_type = set\n    collection_type()\n", 1),
+        "relocated main environment": chk.replace("status, text = s_entry(sys.argv, os.environ)",
+            "status, text = s_entry(sys.argv, {})", 1).replace("def t_misc():\n", "def t_misc():\n    s_mode([], os.environ)\n", 1),
     }
     for name, src in muts.items():
         ck("name rules fail: " + name, src != chk and static_checker(src) != [])
+    alias = chk.replace("def v_unique(values):", "v_shared = ordered_unique\n\ndef v_unique(values):\n    return v_shared(values)", 1)
+    ck("M-INDEP prefixed module alias", alias != chk and c_indep(alias) != [])
+    for name, mutant in (("mode", own.replace("zipfile.ZipFile(io.BytesIO(blob))", "zipfile.ZipFile(io.BytesIO(blob), 'w')", 1)),
+                         ("path", own.replace("zipfile.ZipFile(io.BytesIO(blob))", "zipfile.ZipFile('path')", 1)),
+                         ("member", own.replace('archive.read("measurements.json")', 'archive.read("other.json")', 1))):
+        ck("ZIP mutation " + name, mutant != own and static_controls(mutant) != [])
     ck("M-INDEP direct call", c_indep(chk.replace("def v_rank(rows):\n", "def v_rank(rows):\n    s_rank(rows)\n", 1)) != [])
     ck("M-INDEP default argument", c_indep(chk.replace("def v_rank(rows):", "def v_rank(rows, x=s_decide):", 1)) != [])
     ck("M-INDEP nested lambda", c_indep(chk.replace("def v_rank(rows):\n",

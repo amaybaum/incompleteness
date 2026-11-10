@@ -6,7 +6,7 @@ The [explicit owner decision](https://github.com/amaybaum/incompleteness/issues/
 approves R1–R7 defaults (initial S_max = 100000), R8 alternative, R9 default and R10 narrowing, starting
 from accepted paper checkpoint `f634f8e3f2115ef28d11616e0d195221d3ce9cb3`. This record grants no authority.
 
-## First implementation milestone
+## Implemented components
 
 - The checker uses the accepted zero-argument refusal, named-function builder registry and one counter;
   its entry is s_entry. Fixture-mode guard tests account for counter deltas and one direct refusal.
@@ -18,6 +18,16 @@ from accepted paper checkpoint `f634f8e3f2115ef28d11616e0d195221d3ce9cb3`. This 
 - Control B enforces the revised registry, signature, first-statement/reference-site, entry and no-set rules.
   The verifier builtin allowlist no longer admits set. CC-NAT's accepted conditional proof review gates C;
   this does not remove the theorem's hypotheses or supply physical source evidence.
+- The approved R1–R10 choices are propagated into preregistration r15, including designation-based R8
+  and R10's conditional landing language at every listed dependent site. OWNER-DECISIONS.md quotes the
+  explicit authorization. Prior r14d plans/choices are marked historical rather than current defaults.
+- Host-reader primitives cover complete pages with stable counts/unique identities, saturated-window
+  splitting, all attempts, recursive-tree fallback, and actual comment/entry reads. Archive binding uses
+  the exact run/head/name/digest and single in-memory member, with a fresh-record comparison. Their CLI
+  integration and full order/verdict enforcement are still unfinished; no inventory is claimed captured.
+- The fixture-mode marker checks the declared placeholder shape. ZIP rules reject mode changes, wrong
+  member reads, file-path construction, aliases and escaping resources. Only inert template text exists;
+  no workflow file or splice tree is created.
 
 ## Validation at this milestone
 
@@ -26,11 +36,34 @@ read source text only. Importing controls for these scans evaluates only standar
 and the inert workflow-text formatter; no checker module, scientific builder, solver, fixture or native
 state enumeration is imported or run. The checker --self-test and local A3 remain unexecuted.
 
+`scripts/implementation_selftest.py` passes nine isolated non-scientific test groups: actual static scans;
+guard/constructor/verifier-alias rejection mutations; mode/refusal behavior with computation stubs;
+standard hash vectors and generic collections; marker forgery; pagination failures including Forbidden;
+calendar/window saturation; and synthetic archive binding/resource mutations. Host responses are mocked,
+scientific/CLI/process entry points are blocked, and only inspected safe checker definitions are compiled.
+These are implementation checks, not fixture outcomes, scientific evidence or independent acceptance.
+
+## Independent first-component review and author corrections
+
+The separate [component review](https://github.com/amaybaum/incompleteness/pull/1218#pullrequestreview-5849442749)
+returned REVISE at `76ca53f9458e4bad9b80555c5a68af15ebe63083`; report SHA-256
+`f57abf9f3f778fb438f310994a342aed23a8a7257dde3d75a06becafd968982c`. Its limited scope is preserved.
+
+| Finding | Author correction pending focused independent confirmation |
+| --- | --- |
+| GI-B1 | The refusal-removal mutation targets the actual zero-argument call within s_build_c and retains the requirement that the source changes and B rejects it. |
+| GI-B2 | Signature checking covers positional-only, ordinary, keyword-only, variable and default parameters. |
+| GI-B3 | The two environment sites require the exact caller/arguments: s_mode(sys.argv, os.environ) in s_refusal, and s_entry(sys.argv, os.environ) in the unique main guard; relocation is rejected. |
+| GI-B4 | The checker prohibits constructor references to set/frozenset, including aliases, as well as displays/comprehensions. |
+| GI-B5 | C-INDEP accepts actual scanned v_* definitions, rejects duplicate definitions/module aliases/rebinding, and preserves the direct shared-helper rejection. |
+| Local nit | The obsolete pending/CC-NAT-gates-nothing comment is corrected to the actual conditional/STAB review scopes. |
+
+All five negative cases are exercised in the isolated static tests. No full-script ACCEPT is claimed.
+
 ## Remaining implementation before independent review
 
-The approved choices still need full propagation into the preregistration and historical-plan annotations.
-The implementation must still complete the A3b/fixture marker, input pins, evidence ZIP binding, complete
-event/attempt inventory, designation/approval/e-entry/verdict modes, caps/extreme-ray and stress-accounting
+The implementation must still complete A3b/template/CLI wiring, input pins, integrated evidence binding,
+event/attempt inventory classification, designation/approval/e-entry/verdict modes, caps/extreme-ray and stress-accounting
 changes, role-specific budgets/VOID/UPR-BC/ablation reporting, and the corresponding permitted isolated
 non-scientific self-tests. Existing IMPL-DELTA-r14d remains the historical detailed obligation list;
 the present checkpoint does not claim those items complete or scripts certified. Independent review

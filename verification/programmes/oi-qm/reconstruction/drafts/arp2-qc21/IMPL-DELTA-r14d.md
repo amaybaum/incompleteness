@@ -1,3 +1,7 @@
+> Historical r14d checkpoint record at f634f8e3. The later explicit owner approval is recorded in
+> OWNER-DECISIONS.md and applied by preregistration r15. Its earlier pending/default language describes
+> that historical checkpoint; current implementation progress is in IMPLEMENTATION-STATUS.md.
+
 # Q-C2-1 (ARP-2-QC21): what the scripts must change to match r14d
 
 WIP / UNVERIFIED. Model-written. For the implementer; nothing here was run.

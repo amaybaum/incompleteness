@@ -3184,7 +3184,7 @@ def s_refusal():
         raise QC21Refusal("decisive mode required")
 
 
-# Sketch reviews (Sketches under independent review): PENDING counts as failed, so CC-NAT gates nothing.
+# Reviewed paper scopes: Lemma P is conditional; the cone bound requires STAB. CC-NAT gates C.
 LEMMA_P_REVIEW = "proved_conditional"
 CONE_REVIEW = "proved_under_STAB"
 
