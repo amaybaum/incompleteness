@@ -21,7 +21,7 @@ investigation, scientific computation, manuscript change or merge is authorized.
 | Interrupted r5 | `ASSESS-1049.r5-PARTIAL.md`, SHA-256 `08c487c0368eefe234ba00de2c5456c597f9897160af355c9154f66ae7fd1ea1`; Git blob `ceb40fa6f79c9a8ce9ac0d798014b4509237082e`; incomplete and unreviewed |
 | Historical r4 dispositions | `DISPOSITIONS-r4.md`, SHA-256 `9d26ba43ccfa8026a7b3cc26394a635ef4cbf2961ab19d7981c51845c94f37a0`; preserved unchanged |
 | Current completion/source baseline | Main `cac5d26441dd33e9348151487e4df7b547195481` (D); the assessment retains its source coordinates at `fd539e150759a6ea51ab279aeeac80fc06050ade` with the documented SM TeX shift |
-| Complete r5 | [ASSESS-1049.md](ASSESS-1049.md), SHA-256 `687d00b12ef84e9e46dd55e07d52f1138fc4712af7d630803ffbd6aa604a334d`; an author checkpoint requiring fresh review |
+| Complete r5 | [ASSESS-1049.md](ASSESS-1049.md), SHA-256 `23cfb0ff6f0d11721e20445d01fc374568b089c7e0e821d0f8f25aef538bd7bb`; an author checkpoint requiring fresh review |
 
 The first four file hashes were independently checked against the recovered bytes. The partial's
 changes were compared to r4, not assumed complete. It had begun the summary/table propagation and
@@ -129,8 +129,9 @@ PR CI run `42818061109` failed the SC-42 added-text hygiene scan on three legacy
 identifiers in the pinned-draft header. The numerical-probes aggregate also failed as a dependency
 of that failed shard. No checker, allowlist, workflow, scientific proof or manuscript was changed.
 
-The source header now links the exact archived BRIDGE r3 and r2 review instead of old local-path
-identifiers. Their fetched Git blobs are `fded9fe0aa84dfb99f2dd28857da290667e1934b` and
+The first repair linked an archived BRIDGE copy labelled r3 and the r2 review instead of old
+local-path identifiers. Its claim to have recovered the exact original BRIDGE r3 was subsequently
+found unsupported and is corrected below (§8). The fetched Git blobs are `fded9fe0aa84dfb99f2dd28857da290667e1934b` and
 `214ad63c1adc832d618f9f7a2f61561ddc440be6`. For the three QPHEN r5 inputs, only historical
 filenames/digests are retained: the checked coordinating archive has no QPHEN source directory,
 and #1219 publishes only its one r7c commit. The header explicitly states that the exact r5
@@ -157,3 +158,21 @@ higher-dimensional P1 constructions and their stated class, the GA7 recovery, al
 proposals and owner questions remain unchanged. Earlier drafts and their reviews are preserved.
 The fresh reviewer must independently check this correction at its published descendant; an
 author repair does not close the review gate or convert the earlier checkpoint into acceptance.
+
+## 8. Focused-review finding R5-B2: archived BRIDGE identity
+
+While checking the source-link repair at `63438cb76de8293c541dfad58361142a723ac729`, the
+independent reviewer verified that the fetched BRIDGE copy's bytes have Git blob
+`fded9fe0aa84dfb99f2dd28857da290667e1934b` but SHA-256
+`ee1c83c04366ea62c73b3d256e44e8e7415e3561b9a0a5a7576a278892038219`. That is not the original
+assessment's `a5d7aad1…78c1` pin. A shared revision label does not establish byte identity.
+The linked r2 review does match its original SHA-256,
+`3cdf7dc294e27701737e0c605b8a63bd958983d0debad127e3d3a525b1164eb3`.
+
+The header now distinguishes the original, unrecovered BRIDGE r3 pin from the available archived
+copy and supplies the latter's full digest. It removes the unsupported exact-recovery claim and
+does not substitute that differing copy for the original input. The pre-existing H/provisional
+status and claim-specific off-main support limits remain; the new focused review does not newly
+validate an unavailable historical premise. This provenance correction changes no scientific
+proof, manuscript proposal or owner question. It and the synchronized digest require a fresh
+focused verdict at the next published descendant, separately from the original full-text review.
