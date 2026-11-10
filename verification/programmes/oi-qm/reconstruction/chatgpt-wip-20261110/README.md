@@ -9,7 +9,9 @@ Issues: [#1169](https://github.com/amaybaum/incompleteness/issues/1169) OI–QM 
 
 All paper statements are **bounded mathematical arguments with declared source, access and measurement assumptions**, not an established OI mechanism generating QM. The selected binary SM ring provides a reversible local update and observer-relative hidden-information readback, but full precursor manufacture, native detector, apparatus resources, Bell capability, Born probabilities, reusable complete histories and scalable complexity remain OPEN / UNSOURCED. The existing #866 CP-PREP-1 physical source gate remains NOT PASSED.
 
-**Base commit:** `cac5d26441dd33e9348151487e4df7b547195481` (`main` at archival branch creation). The existing accepted source records and historical merges were not edited. **No PR was opened.**
+**Base commit:** `cac5d26441dd33e9348151487e4df7b547195481` (`main` at archival branch creation). The existing accepted source records and historical merges were not edited. This archive is proposed for preservation and independent review **in a draft PR only**; it is not approved for merge.
+
+**Reviewer orientation:** [REVIEW-GUIDE.md](REVIEW-GUIDE.md) — research question, provenance, evidence classifications, review sequence, scientific acceptance checks and unchanged execution/merge gates.
 
 ## Preserved writer drafts (all independent review pending)
 
