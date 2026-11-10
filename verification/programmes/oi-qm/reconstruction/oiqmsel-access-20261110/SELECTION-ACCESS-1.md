@@ -4,7 +4,7 @@
 **Date:** 2026-11-10  
 **Status:** **PAPER-ONLY WIP — AUTHOR HAND ARGUMENT / INDEPENDENT REVIEW NOT YET PERFORMED**  
 **Accountable issue:** [#1143](https://github.com/amaybaum/incompleteness/issues/1143) (one bounded unit authorized by [owner comment 6764389038](https://github.com/amaybaum/incompleteness/issues/1143#issuecomment-6764389038)).  
-**Snapshot:** main \`cac5d26441dd33e9348151487e4df7b547195481\`. No existing reviewed or frozen file is changed by this unit.
+**Snapshot:** main `cac5d26441dd33e9348151487e4df7b547195481`. No existing reviewed or frozen file is changed by this unit.
 
 **Central decision.** A rule that selects OI realizations **only by instantaneous embeddedness and passive complete-history probability laws** cannot, in a model class allowing operational menu restrictions, force the existence of additional physically executable noncommuting measurements. Quantum capability is a property of a **whole sourced preparation/intervention/record theory**, not of a passive visible stochastic process. This is a conditional *access-sensitivity obstruction*, not a no-go for OI-derived quantum mechanics or an assertion that a classical fragment is nonquantum behavior.
 
@@ -21,7 +21,7 @@ Separate four objects before testing a proposed selection principle:
 
 **Standing main sources.** [Main §3.4](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/papers/Main.md) proves the finite-horizon \(S\Leftrightarrow D\Leftrightarrow Q_{\mathrm{fb}}\) fixed-basis record-law representation, which is universal and does not select coherent instruments. [M-1 alternating-W](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/verification/programmes/oi-qm/reconstruction/oiqmsel-m1-alt-w-20261105/RESULT.md) and [B4′](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/verification/programmes/oi-qm/reconstruction/bsel-2-b4prime-20261105/B4PRIME.md) supply *specific* finite-lift complete-record/gauge distinctions. Equality of records under specified procedures is neither arbitrary physical access nor two-sided gauge relatedness. Their theorem classes, physical-source limitations and record domains must remain intact.
 
-**Off-main research control (not promoted to main-proved status).** The independently model-reviewed [#1143 C0/C1 assessment](https://chatgpt.com/space/page_91b4e980d730819182254df477ae8218) gives two explicit deterministic countermodels and a "pure composite / mixed marginal" candidate E, with an independently accepted r1a correction to its apparatus-access contract. The reviewed [selection addendum](https://chatgpt.com/space/page_844e90bfb4708191a4d3917c5278bf63) maps source gaps but proves no new selection rule. These Pages are **off \`main\`** and may inform the *paper-only* critique, not establish a durable result until the claim-relevant proofs and evidence meet [AGENTS.md §A.42](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/AGENTS.md). Below the elementary access-restriction argument is proved independently; the nontrivial C1 construction is cited with its off-main standing, not silently re-proved.
+**Off-main research control (not promoted to main-proved status).** The independently model-reviewed [#1143 C0/C1 assessment](https://chatgpt.com/space/page_91b4e980d730819182254df477ae8218) gives two explicit deterministic countermodels and a "pure composite / mixed marginal" candidate E, with an independently accepted r1a correction to its apparatus-access contract. The reviewed [selection addendum](https://chatgpt.com/space/page_844e90bfb4708191a4d3917c5278bf63) maps source gaps but proves no new selection rule. These Pages are **off `main`** and may inform the *paper-only* critique, not establish a durable result until the claim-relevant proofs and evidence meet [AGENTS.md §A.42](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/AGENTS.md). Below the elementary access-restriction argument is proved independently; the nontrivial C1 construction is cited with its off-main standing, not silently re-proved.
 
 **Frozen design boundary.** [#1210 Phase 1 r7c](https://github.com/amaybaum/incompleteness/issues/1210#issuecomment-6743200254) is a frozen, conditional experimental design: quantum comparator targets, locality design assumptions and unresolved physical mechanisms must not be converted to OI theorems. No #1210 file, gate, metric, frozen rule or authorization is changed.
 
@@ -70,7 +70,7 @@ The wider finite OI core and this swap example have existing source treatments. 
 
 ## 3. Classical countermodels constrain the selection ladder
 
-The following is an **evidence-and-scope matrix**, not an inference that all of its source claims are established on \`main\`:
+The following is an **evidence-and-scope matrix**, not an inference that all of its source claims are established on `main`:
 
 | Candidate restrictions | Existing countermodel / control | Supported conclusion at its stated scope | Missing source / reason not to promote |
 | --- | --- | --- | --- |
@@ -124,7 +124,7 @@ The **minimum independent obligations**, not a new sufficient axiom package:
 
 **Priority recommendation:** After independent review, add SEL-MENU as a *negative selection dependency* under #1143 and link #1169. Continue to prioritize #866's separately authorized source-first writer. Do **not** start another passive-statistics or hidden-size programme from this unit.
 
-**No scientific/numerical/Lean computation, experiment, new physical premise, branch rewriting, frozen-design edit, F/E, workflow dispatch, manuscript change or integration to \`main\` occurred.** This work requires a separate non-author paper review at a pinned SHA and a separate owner decision for any eventual integration.
+**No scientific/numerical/Lean computation, experiment, new physical premise, branch rewriting, frozen-design edit, F/E, workflow dispatch, manuscript change or integration to `main` occurred.** This work requires a separate non-author paper review at a pinned SHA and a separate owner decision for any eventual integration.
 
 ## Independent review checklist
 
