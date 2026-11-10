@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """qc21_check.py -- the checker of native round ARP-2-QC21 (Q-C2-1).
 
-Preregistration r11b, sections *Test P*, *Test B*, *Obligation C*, *The controls*, *Decisive builders and the
+Preregistration r15 (owner-approved R1–R10), sections *Test P*, *Test B*, *Obligation C*, *The controls*, *Decisive builders and the
 guard*, *Control modes* and Appendix C (ARP-3-QC22 r13's exact method, guard machinery and execution design,
 copied under D10(a) with D12's removals).
 
@@ -9,7 +9,6 @@ Entry points (C.5):
     --event <name> [--dispatch-sha <40 hex>]   the default computation; four keys select decisive mode
     --stress                                   canonical-JSON stress.json, schema arp2-qc21-stress v2
     --self-test                                every self-test and mutation; exit 0 iff all pass
-    --fixture-output                           the fixture-mode record (design run; same as --event fixture)
 
 Exit statuses: 0 complete and green (decisive) or fixture expectations met (fixture mode); 3 a control red, a
 fragment out_of_scope, or a fixture expectation unmet; 4 refusal (no --event, malformed --dispatch-sha).
@@ -48,9 +47,8 @@ CAP_EFFECTS = 200
 # C.1 stress fixtures: the generator is frozen here; the seeds are PENDING until the design run (C.7 6).
 STRESS_SEEDS = (20261108, 1, 2)
 
-DECISIVE_BUILDERS = ("s_build_p", "s_build_repinv", "s_build_b", "s_build_c")
-
-BUILDER_CALLS = {"s_build_p": 0, "s_build_repinv": 0, "s_build_b": 0, "s_build_c": 0}
+S_MAX = 100000  # Initial owner budget, #1169 c.6778994857; other measured budgets remain unset.
+REFUSAL_CALLS = 0
 
 HEX = "0123456789abcdef"
 
@@ -120,7 +118,7 @@ _SHA_K = (
 _SHA_H0 = (0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19)
 
 
-def sha256_hex(data):
+def h_sha256(data):
     m = 0xffffffff
 
     def rotr(x, n):
@@ -150,6 +148,16 @@ def sha256_hex(data):
             hh, g, f, e, d, c, b, a = g, f, e, (d + t1) & m, c, b, a, (t1 + t2) & m
         h = [(x + y) & m for x, y in zip(h, (a, b, c, d, e, f, g, hh))]
     return "".join("%08x" % x for x in h)
+
+
+def ordered_unique(values=()):
+    """Order-preserving membership/iteration, without unordered set construction."""
+    return {key: None for key in values}
+
+
+def ordered_key(values=()):
+    """Hashable unordered-coordinate key, represented by a canonical sorted tuple."""
+    return tuple(sorted(dict.fromkeys(values)))
 
 
 def bits_of(x):
@@ -643,7 +651,7 @@ def s_decide(frag, budget_vals=(None, None, None), force_step4=False, mutate=Non
     if mutate is not None:
         cert = mutate(cert)
     cb = s_cert_bytes(cert) if cert is not None else b"null"
-    rec.update({"lp": verdict, "decided_by": step, "cert": cb, "cert_sha256": sha256_hex(cb)})
+    rec.update({"lp": verdict, "decided_by": step, "cert": cb, "cert_sha256": h_sha256(cb)})
     rec.update(budget.record())
     rec["T"] = cert.get("T") if isinstance(cert, dict) else None
     rec["verified"] = v_verify(cb, frag["laws"], frag["reads"]) == "verified"
@@ -670,6 +678,11 @@ def s_decide_effect_facet(frag):
 # C.1 The independent verifier (v_*). C-INDEP: inside every v_* function, calls target only v_* functions,
 # Fraction, json.loads, itertools.combinations and the whitelisted builtins; it shares no code with the solver.
 # ------------------------------------------------------------------------------------------------------------
+def v_unique(values):
+    """Independent verifier membership map; no solver helper or unordered set."""
+    return {key: None for key in values}
+
+
 def v_plain(x):
     """Runtime types: plain dict, list, tuple, Fraction and int only, recursively."""
     if isinstance(x, Fraction) or isinstance(x, int):
@@ -898,7 +911,7 @@ def v_verify(cert_bytes, laws, reads):
         w = v_mat(cert["W"])
         y = v_mat(cert["y"])
         kept = cert["effects_kept"]
-        if len(set(kept)) != len(kept) or any([k < 0 or k >= len(b) for k in kept]):
+        if len(v_unique(kept)) != len(kept) or any([k < 0 or k >= len(b) for k in kept]):
             return "effects-kept"
         g = sorted([[int(x) for x in gg] for gg in cert["facets"]])
         if len(y) != len(g):
@@ -938,11 +951,11 @@ def frag_from_laws(name, laws, read_slots, settings, acc=None):
             key = tuple(cfg[i] for i in read_slots)
             pm[key] = pm.get(key, Fraction(0)) + Fraction(pr)
         proj.append(pm)
-    omega = sorted({k for pm in proj for k in pm})
+    omega = sorted(ordered_unique([k for pm in proj for k in pm]))
     lvec = [[pm.get(w, Fraction(0)) for w in omega] for pm in proj]
     reads, labels = [], []
     for sname, fn in settings:
-        outs = sorted({fn(w) for w in omega})
+        outs = sorted(ordered_unique([fn(w) for w in omega]))
         for o in outs:
             reads.append([1 if fn(w) == o else 0 for w in omega])
             labels.append([sname, list(o) if isinstance(o, tuple) else o])
@@ -1293,7 +1306,7 @@ def k_decide_levels(rec):
     and UPR-BC. rec: {"P", "B_P": {"contextual", "lp_reads_equal_acc", "acc_owner_typed", "acc_typing"},
     "C", "imported": [ids], "upr_bc": [{"contextual", "restored_by_full"}]}."""
     imported = list(rec.get("imported", []))
-    withheld = sorted({n for i in imported for n in IDENT_LEVELS.get(i, ())})
+    withheld = sorted(ordered_unique([n for i in imported for n in IDENT_LEVELS.get(i, ())]))
     bp = rec.get("B_P", {})
     l1 = rec.get("P") == "P-COMPLEMENTARITY" and 1 not in withheld
     l2 = (l1 and bp.get("contextual") is True and bp.get("lp_reads_equal_acc") is True
@@ -1316,7 +1329,7 @@ def k_decide_levels(rec):
         lines.append(LEVEL3_SENTENCE)
     lines.append(OWNER_LEVEL_SENTENCE)
     return {"level": "none" if level == 0 else level, "withheld_levels": withheld,
-            "benchmark": sorted(set(bench)), "upr_bc_imported_for_bc": len(upr) > 0,
+            "benchmark": sorted(ordered_unique(bench)), "upr_bc_imported_for_bc": len(upr) > 0,
             "upr_bc_label": UPR_BC_LABEL if upr else None, "lines": lines}
 
 
@@ -1413,7 +1426,7 @@ def cw_p_model():
             for p, i0, i1, rcd in branches(src, 0, arm, "none"):
                 law[rcd] = law.get(rcd, Fraction(0)) + p
             rz[src] = law
-        keys = set(rz["Z+"]) | set(rz["Z-"])
+        keys = ordered_unique(rz["Z+"]) | ordered_unique(rz["Z-"])
         d_val = q_div(sum(abs(rz["Z+"].get(k, 0) - rz["Z-"].get(k, 0)) for k in keys), 2)
         ker = tuple((s_of(src, 0, arm), 1 - s_of(src, 0, arm)) for src in ("X+", "X-"))
         eraser = {}
@@ -1579,7 +1592,7 @@ def native_step(state, edges):
     swaps its slots (empty sum). state: {cell: (u, v)}; edges: set of frozenset pairs."""
     out = {}
     for i, (u, v) in state.items():
-        nb = [j for j in state if j != i and frozenset((i, j)) in edges]
+        nb = [j for j in state if j != i and ordered_key((i, j)) in edges]
         out[i] = ((sum(state[j][0] for j in nb) + v) % 2, u)
     return out
 
@@ -1618,7 +1631,7 @@ def p_sim(src, phi, arm, opts=None):
     syms = _symbols(cspec, "c:") + ["p:w", "s:w"]
     for k, sup in enumerate(cells):
         syms += _symbols(sup, "a%d:" % k)
-    syms = sorted(set(syms))
+    syms = sorted(ordered_unique(syms))
     rows = []
     weight = Fraction(1, 2 ** len(syms))
     shift = 1 if path_alt == "beta" else 0
@@ -1627,21 +1640,21 @@ def p_sim(src, phi, arm, opts=None):
         c0 = (_slot_val(cspec[0], env, "c:"), _slot_val(cspec[1], env, "c:"))
         st = {"c": (c0[1], c0[0]) if shift else c0}
         if shift:
-            st = native_step(st, set())                       # beta: the prepended free tick
+            st = native_step(st, ordered_unique())                       # beta: the prepended free tick
         st["p"] = (phi, env["p:w"])                           # the phase cell at its coupling tick
-        st = native_step(st, {frozenset(("c", "p"))})          # c-p armed
-        st = native_step(st, set())                            # free
+        st = native_step(st, ordered_unique([ordered_key(("c", "p"))]))          # c-p armed
+        st = native_step(st, ordered_unique())                            # free
         for k, sup in enumerate(cells):                         # arm cells at their coupling tick
             st["a%d" % k] = (_slot_val(sup[0], env, "a%d:" % k), _slot_val(sup[1], env, "a%d:" % k))
         z0, xb = st["c"]                                        # before the arm tick: (z, x) = (u, v)
         kept = True
         anames = ["a%d" % k for k in range(len(cells))]
         if mode in ("armed", "absorb"):
-            st = native_step(st, {frozenset(("c", a)) for a in anames})
+            st = native_step(st, ordered_unique([ordered_key(("c", a)) for a in anames]))
             if mode == "absorb" and z0 == 1:
                 kept = False
         elif mode == "copy":
-            new = native_step(st, set())
+            new = native_step(st, ordered_unique())
             for a in anames:
                 new[a] = ((st["c"][0] + st[a][1]) % 2, st[a][0])
             st = new
@@ -1651,17 +1664,17 @@ def p_sim(src, phi, arm, opts=None):
             au, av = st[a0]
             st = dict(st)
             st["c"], st[a0] = (cu, au), (cv, av)
-            st = native_step(st, set())
+            st = native_step(st, ordered_unique())
         elif mode == "off":
-            st = native_step(st, set())
+            st = native_step(st, ordered_unique())
         else:
             raise ValueError(mode)
         xa, z1 = st["c"]                                        # after the arm tick: (z, x) = (v, u)
         st["s"] = (env["s:w"], 0)                               # the screen (w_s, 0) at its coupling tick
-        st = native_step(st, {frozenset(("c", "s"))})          # c-s armed; u_s registered
+        st = native_step(st, ordered_unique([ordered_key(("c", "s"))]))          # c-s armed; u_s registered
         us = st["s"][0]
         if port_alt == "beta":
-            us = native_step({"s": st["s"]}, set())["s"][1]     # one free tick later, from the slot holding it
+            us = native_step({"s": st["s"]}, ordered_unique())["s"][1]     # one free tick later, from the slot holding it
         port = us
         if port_alt == "alpha":
             port = (us + 1) % 2
@@ -1683,7 +1696,7 @@ def _law(rows, key):
 
 
 def _tv(a, b):
-    return q_div(sum(abs(a.get(k, 0) - b.get(k, 0)) for k in set(a) | set(b)), 2)
+    return q_div(sum(abs(a.get(k, 0) - b.get(k, 0)) for k in ordered_unique(a) | ordered_unique(b)), 2)
 
 
 def p_arm_record(arm, opts=None, coherent="X+"):
@@ -1741,7 +1754,7 @@ def p_arm_record(arm, opts=None, coherent="X+"):
 def p_olc(runs, k=0):
     """OLC for a read-set ablation: both slots of held arm cell k registered jointly with the screen."""
     out = {}
-    keys = sorted({r["arms"][k] for f in (0, 1) for r in runs[("X+", f)] if r["kept"]})
+    keys = sorted(ordered_unique([r["arms"][k] for f in (0, 1) for r in runs[("X+", f)] if r["kept"]]))
     joint = False
     for key in keys:
         ps, pz = [], None
@@ -1810,7 +1823,7 @@ def p_mechmap(cls, arms_def):
     for name, arm in arms_def:
         coupling = {"armed": "reciprocal", "copy": "copy-only", "off": "unarmed"}.get(arm["mode"], arm["mode"])
         mech = (tuple(sup_name(c) for c in arm["cells"]), coupling)
-        m.setdefault(_cell(cls["arms"][name]), set()).add(mech)
+        m.setdefault(_cell(cls["arms"][name]), {})[mech] = None
     return m
 
 
@@ -1828,11 +1841,11 @@ def p_ablation_fields(ref_cls, ref_def, ref_worlds, abl_cls, abl_def, abl_worlds
     pred = canonical(ref_obs) != canonical(abl_obs)
     mr, ma = p_mechmap(ref_cls, ref_def), p_mechmap(abl_cls, abl_def)
     changed = []
-    for c in sorted(set(mr) | set(ma), key=lambda x: canonical(list(x))):
-        if mr.get(c, set()) != ma.get(c, set()):
-            changed.append({"cell": list(c), "B": sorted(map(list, mr.get(c, set()))),
-                            "ablation": sorted(map(list, ma.get(c, set())))})
-    names_r, names_a = set(ref_cls["adm"]), set(abl_cls["adm"])
+    for c in sorted(ordered_unique(mr) | ordered_unique(ma), key=lambda x: canonical(list(x))):
+        if mr.get(c, ordered_unique()) != ma.get(c, ordered_unique()):
+            changed.append({"cell": list(c), "B": sorted(map(list, mr.get(c, ordered_unique()))),
+                            "ablation": sorted(map(list, ma.get(c, ordered_unique())))})
+    names_r, names_a = ordered_unique(ref_cls["adm"]), ordered_unique(abl_cls["adm"])
     access = names_r == names_a and all(canonical(ref_worlds[n]) == canonical(abl_worlds[n]) for n in names_r)
     return {"pred_change": pred, "mech_change": changed, "access_only": access}
 
@@ -1845,7 +1858,7 @@ ABL_KIND = {"ABL-SA1c": ("state restriction", "none"), "ABL-SA1b": ("access rest
 def s_build_p():
     """Decisive family: P's arm classes Adm_A and Adm_B, the ablations, OLC, the A/B report, and the
     decisive-mode P controls (AB-P-FIX, MECH-FIX, ACC-ONLY-FIX, PL-*)."""
-    s_refusal("s_build_p")
+    s_refusal()
     adm_b, adm_a = p_classes()
     cls_b, runs_b, worlds_b = p_class_record(adm_b)
     cls_a, runs_a, worlds_a = p_class_record(adm_a)
@@ -1995,7 +2008,7 @@ def bp_fragment(laws, settings, read_slots, name, acc):
 
 def s_build_b(p_out=None, c_out=None, budget_vals=(None, None, None)):
     """Decisive family: B-P, construction A of B, their completions, and B-C for flagged C instances."""
-    s_refusal("s_build_b")
+    s_refusal()
     sl = BP_SLOTS
     laws, labels = bp_laws()
     read5 = tuple(sorted([sl["s_u"], sl["a_u"], sl["a_v"], sl["p_u"], sl["p_v"]]))
@@ -2192,9 +2205,9 @@ def detector_tables():
             for mw in (0, 1):
                 st = dict(st0)
                 if free_first:
-                    st = native_step(st, set())
+                    st = native_step(st, ordered_unique())
                 st["m"] = (mw, 0)
-                st = native_step(st, {frozenset(("c0", "m"))})
+                st = native_step(st, ordered_unique([ordered_key(("c0", "m"))]))
                 hits += 1 if st["m"][0] == 0 else 0
             tabs[name].append(q_div(hits, 2))
         perm = phi_perm("XOR", 2)
@@ -2263,7 +2276,7 @@ def _divisors(n):
         if n % i == 0:
             out += [i, n // i]
         i += 1
-    return sorted(set(out))
+    return sorted(ordered_unique(out))
 
 
 def rational_roots(coeffs):
@@ -2280,7 +2293,7 @@ def rational_roots(coeffs):
         else:
             cand = [Fraction(s * p, q) for p in _divisors(ip[-1]) for q in _divisors(ip[0]) for s in (1, -1)]
         found = None
-        for r in sorted(set(cand)):
+        for r in sorted(ordered_unique(cand)):
             val = Fraction(0)
             for c in poly:
                 val = val * r + c
@@ -2393,7 +2406,7 @@ def orbit_stats(q_laws, step_fn, rho_fn, k_ticks, kmax=12, cal_laws=None, horizo
         res["STAB"][str(kk)] = rp == rf
         hs = [h for name in heralds for h in heralds[name][:kk]]
         complete = all(len(heralds[name]) >= kk and len(orbits[name]) > kk for name in heralds)
-        res["HC"][str(kk)] = complete and len(set(hs)) == 1 and hs[0] > 0
+        res["HC"][str(kk)] = complete and len(ordered_unique(hs)) == 1 and hs[0] > 0
         laws_k = [l for name in orbits for l in orbits[name][:kk + 1]]
         rs = [rcal(l) for l in laws_k]
         res["VAL"][str(kk)] = all(sum(x * x for x in r) <= 1 for r in rs)
@@ -2486,12 +2499,12 @@ def planted_laws():
         fx_, fy_, fz_ = t
         return [w for w in CARRIER_CFGS if f_x(w) == fx_ and f_y(w) == fy_ and f_z(w) == fz_]
 
-    used, supp = set(), {}
+    used, supp = ordered_unique(), {}
     for key in ("+x", "-x", "+y", "-y", "+z", "-z"):
         pair = []
         for t in trip[key]:
             w = [w for w in pts(t) if w not in used][0]
-            used.add(w)
+            used[w] = None
             pair.append(w)
         supp[key] = pair
     laws = {}
@@ -2682,7 +2695,7 @@ def rc2_classes():
                         if not match:
                             break
                         perm[a] = match[0]
-                    if len(perm) != 3 or len(set(perm.values())) != 3:
+                    if len(perm) != 3 or len(ordered_unique(perm.values())) != 3:
                         continue
                     for t in cols:
                         count += 1
@@ -2727,7 +2740,7 @@ def bc_fragment_decide(inst, budget_vals):
 def s_build_c():
     """Decisive family: C's test-rule orbits, the affine and idle ablations (ABL), C-A, the decisive-mode C
     controls (CC-NAT, CC-DYAD, C-XB, C-AFFB, C-FRAME, C-SCOPE, C-EMB) and r5's diagnostics (D1(a))."""
-    s_refusal("s_build_c")
+    s_refusal()
     tabs = detector_tables()
     q = qa_family()
     perms = {(g, k): phi_perm(g, k) for g in RULES for k in range(0, 7)}
@@ -2792,7 +2805,7 @@ def c_emb_static(q):
     supplies_ok = all(ne1_carrier(l) for _, l in q) and all(
         ne1_cell(m) for _, m in MED_SUPPLIES)
     schema_ok = all(reg is None or (reg[0] in ("u2", "v2") and reg[1] in (0, 1)) for _, _, reg in ROUNDS)
-    enum_sha = sha256_hex(canonical([round_name(r) for r in ROUNDS]).encode())
+    enum_sha = h_sha256(canonical([round_name(r) for r in ROUNDS]).encode())
     laws, mix, _ = planted_laws()
     planted_fail = not any(ne1_carrier(l) for l in laws.values())
     return {"holds": supplies_ok and schema_ok, "green": supplies_ok and schema_ok and planted_fail,
@@ -2816,11 +2829,11 @@ def s0_laws():
 
 
 def l_scope(g, perms, rounds=ROUNDS, base=None):
-    seen, out = set(), []
+    seen, out = ordered_unique(), []
     for l in (base or s0_laws()):
         t = tuple(l)
         if t not in seen:
-            seen.add(t)
+            seen[t] = None
             out.append(l)
     level = list(out)
     for _ in range(2):
@@ -2829,7 +2842,7 @@ def l_scope(g, perms, rounds=ROUNDS, base=None):
             for rnd in rounds:
                 o, h = apply_round(l, g, rnd, perms)
                 if o is not None and tuple(o) not in seen:
-                    seen.add(tuple(o))
+                    seen[tuple(o)] = None
                     out.append(o)
                     nxt.append(o)
         level = nxt
@@ -2859,7 +2872,7 @@ def induced_map(g, rnd, laws, perms, basis_only=True):
         if h <= 0:
             return None
         hs.append(h)
-    if len({hs[i] for i in idx}) != 1:
+    if len(ordered_unique([hs[i] for i in idx])) != 1:
         return None
     q = dict(qa_family())
     a0, _ = apply_round(q["L0"], g, rnd, perms)
@@ -3040,7 +3053,7 @@ def p_token_inputs(cls):
 def diff_keys(a, b, prefix=""):
     out = []
     if isinstance(a, dict) and isinstance(b, dict):
-        for k in sorted(set(a) | set(b), key=str):
+        for k in sorted(ordered_unique(a) | ordered_unique(b), key=str):
             if k not in a or k not in b:
                 out.append(prefix + str(k))
             else:
@@ -3052,7 +3065,7 @@ def diff_keys(a, b, prefix=""):
 def s_build_repinv(p_out=None, b_out=None, c_out=None):
     """Decisive family: REP-INV on decisive data (P: L-PATH, L-PORT; C: L-CAL, L-UPRIME with the encoded
     transposition transported to S P S^-1), REP-PLANT, UPR-BC, and the reclassification rule's inputs."""
-    s_refusal("s_build_repinv")
+    s_refusal()
     adm_b, _ = p_classes()
     base_cls = p_class_record(adm_b)[0]
     base = p_token_inputs(base_cls)
@@ -3160,23 +3173,25 @@ def s_mode(argv, environ):
     return "decisive" if all(keys) else "fixture"
 
 
-def s_refusal(name):
-    """The refusal check, the first statement of s_decisive and of every registered builder: it counts the call
-    (M-GUARD's instrumented counter) and raises unless the real argv and environment select decisive mode."""
-    if name in BUILDER_CALLS:
-        BUILDER_CALLS[name] += 1
+DECISIVE_BUILDERS = (s_build_p, s_build_repinv, s_build_b, s_build_c)
+
+
+def s_refusal():
+    """One instrumented refusal counter; every decisive entry checks the real process keys."""
+    global REFUSAL_CALLS
+    REFUSAL_CALLS += 1
     if s_mode(sys.argv, os.environ) != "decisive":
-        raise QC21Refusal(name)
+        raise QC21Refusal("decisive mode required")
 
 
 # Sketch reviews (Sketches under independent review): PENDING counts as failed, so CC-NAT gates nothing.
-LEMMA_P_REVIEW = "pending"
-CONE_REVIEW = "pending"
+LEMMA_P_REVIEW = "proved_conditional"
+CONE_REVIEW = "proved_under_STAB"
 
 
 def s_decisive():
     """The single gated entry through which every decisive family is built."""
-    s_refusal("s_decisive")
+    s_refusal()
     budgets = (P_MAX, B_MAX, W_MAX)
     p_out = s_build_p()
     c_out = s_build_c()
@@ -3206,7 +3221,7 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
         b_red.append("C-BUDGET")
     b_tok = k_decide_b({"controls_red": b_red, "fragments": frs})
     c_red = [k for k, v in c_out["controls"].items() if not v["green"]
-             and not (k == "CC-NAT" and LEMMA_P_REVIEW != "accepted")]
+]
     c_red += [k for k in ("C-STAB", "C-R60", "C-R60-ODD", "C-35", "C-S3", "C-PLANT", "C-CONSX", "C-DET", "C-STEP",
                           "REP-FRAME") if not fx["controls"][k]["green"]]
     c_tok = k_decide_c({"controls_red": c_red, "complete": True, "flags_agree": True,
@@ -3234,7 +3249,7 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
          "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX,
                     "respected": {f["name"]: f["lp"] != "out_of_scope" for f in frs}},
          "flags": {"P": p_tok["token"], "B": b_tok["token"], "C": c_tok["token"], "levels": levels,
-                   "builder_calls": dict(BUILDER_CALLS), "controls_red": {"P": p_red, "B": b_red, "C": c_red}}}
+                   "refusal_calls": REFUSAL_CALLS, "controls_red": {"P": p_red, "B": b_red, "C": c_red}}}
     return m
 
 
@@ -3395,7 +3410,7 @@ def fixture_measurements(dispatch_sha=None):
             "fixtures": sec["fixtures"], "controls": sec["controls"],
             "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX, "respected": PLACEHOLDER},
             "flags": {"P": PLACEHOLDER, "B": PLACEHOLDER, "C": PLACEHOLDER, "levels": PLACEHOLDER,
-                      "builder_calls": dict(BUILDER_CALLS), "fixture_mismatches": fixture_mismatches(sec)}}
+                      "refusal_calls": REFUSAL_CALLS, "fixture_mismatches": fixture_mismatches(sec)}}
 
 
 def stress_output():
@@ -3450,26 +3465,27 @@ def t_mguard_checker():
              (["q", "--event", DISPATCH_EVENT], dict(disp, GITHUB_RUN_ATTEMPT="2")),
              (["q", "--event", DISPATCH_EVENT], dict(disp, GITHUB_REF="refs/heads/main"))]
     for argv, env in cases:
-        before = dict(BUILDER_CALLS)
-        code, text = run_entry(argv, env)
+        before = REFUSAL_CALLS
+        code, text = s_entry(argv, env)
         m = json.loads(text) if code in (0, 3) else {}
         t_check("M-GUARD fixture %s %s" % (argv[1:], sorted(env.items())),
                 code in (0, 3) and m.get("mode") == "fixture" and m.get("P") == PLACEHOLDER
-                and BUILDER_CALLS == before and all(v == 0 for v in BUILDER_CALLS.values()))
+                and REFUSAL_CALLS == before)
         if "--dispatch-sha" in argv:
             t_check("M-GUARD B4 argv records dispatch_sha", m.get("parameters", {}).get("dispatch_sha") == hexsha)
-    code, _ = run_entry(["q"], disp)
+    code, _ = s_entry(["q"], disp)
     t_check("M-GUARD missing --event exits 4", code == 4)
     for bad in ("0123", "0123456789ABCDEF0123456789abcdef01234567", "-" + hexsha[1:], hexsha + "0"):
-        code, _ = run_entry(["q", "--event", "fixture", "--dispatch-sha", bad], {})
+        code, _ = s_entry(["q", "--event", "fixture", "--dispatch-sha", bad], {})
         t_check("M-GUARD malformed --dispatch-sha exits 4 (%s)" % bad[:6], code == 4)
     t_check("M-GUARD s_mode decisive iff all four keys", s_mode(["q", "--event", DISPATCH_EVENT], disp) == "decisive")
     for k in disp:
         t_check("M-GUARD s_mode single-key failure " + k,
                 s_mode(["q", "--event", DISPATCH_EVENT], dict(disp, **{k: "x"})) == "fixture")
     t_check("M-GUARD s_mode first key", s_mode(["q", "--event", "fixture"], disp) == "fixture")
-    for _ in range(len(cases) + 1):
-        t_builder_refuses()
+    before = REFUSAL_CALLS
+    t_builder_refuses()
+    t_check("one direct refusal accounted for", REFUSAL_CALLS == before + 1)
 
 
 def t_decide_paths():
@@ -3634,12 +3650,14 @@ def t_mutations():
 
 
 def t_misc():
-    t_check("sha256 test vector", sha256_hex(b"abc") ==
+    t_check("sha256 test vector", h_sha256(b"abc") ==
             "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
-    t_check("sha256 empty", sha256_hex(b"") ==
+    t_check("sha256 empty", h_sha256(b"") ==
             "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
-    t_check("native step on supplied states", native_step({"a": (1, 0), "b": (1, 1)}, {frozenset(("a", "b"))})
-            == {"a": (1, 1), "b": (0, 1)} and native_step({"a": (1, 0)}, set()) == {"a": (0, 1)})
+    t_check("sha256 448-bit vector", h_sha256(b"abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq") ==
+            "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1")
+    t_check("native step on supplied states", native_step({"a": (1, 0), "b": (1, 1)}, ordered_unique([ordered_key(("a", "b"))]))
+            == {"a": (1, 1), "b": (0, 1)} and native_step({"a": (1, 0)}, ordered_unique()) == {"a": (0, 1)})
     laws = [{(0, 1, 1): Fraction(1, 2), (1, 1, 0): Fraction(1, 2)}, {(0, 0, 0): Fraction(1)}]
     fr = frag_from_laws("eval", laws, (0, 2), [("b0", _bit(0)), ("b2", _bit(1))])
     tab = frag_outcome_table(fr)
@@ -3652,7 +3670,7 @@ def t_misc():
     t_check("rational roots", rational_roots([1, -2, 1])[0] == [1, 1])
     t_check("r12a STAB-TRUE: the supplied identity map gives STAB true at K = 1, 2, 6, 12",
             stab_true_control()["green"])
-    t_check("r12a STAB-TRUE builds nothing decisive", all(v == 0 for v in BUILDER_CALLS.values()))
+    t_check("r12a STAB-TRUE builds nothing decisive", REFUSAL_CALLS == 0)
     t_check("W-CL R60 fires, signed permutation does not", wcl_spectrum_fires(R60)
             and not wcl_spectrum_fires(_fm(P_SWAP)))
 
@@ -3672,7 +3690,7 @@ def self_test():
     fm = fixture_measurements()
     t_check("M-MODE fixture output is decision-invalid", fm["mode"] == "fixture" and fm["complete"] is False
             and fm["B"]["fragments"][0]["lp"] == PLACEHOLDER)
-    t_check("no builder called in any self-test", all(v == 0 for v in BUILDER_CALLS.values()))
+    t_check("only the direct refusal counted in self-tests", REFUSAL_CALLS == 1)
     bad = [n for n, okv in SELFTEST_LOG if not okv]
     lines = ["%s %s" % ("PASS" if okv else "FAIL", n) for n, okv in SELFTEST_LOG]
     return (0 if not bad else 1), "\n".join(lines) + "\n%d checks, %d failed\n" % (len(SELFTEST_LOG), len(bad))
@@ -3681,7 +3699,7 @@ def self_test():
 # ------------------------------------------------------------------------------------------------------------
 # The entry
 # ------------------------------------------------------------------------------------------------------------
-def run_entry(argv, environ):
+def s_entry(argv, environ):
     """The default entry: (exit status, output text)."""
     if "--self-test" in argv:
         return self_test()
@@ -3693,9 +3711,6 @@ def run_entry(argv, environ):
         dsha = argv[i + 1] if i + 1 < len(argv) else ""
         if len(dsha) != 40 or any(ch not in HEX for ch in dsha):
             return 4, "refused: --dispatch-sha is not 40 lowercase hex\n"
-    if "--fixture-output" in argv:
-        m = fixture_measurements(dsha)
-        return (3 if m["flags"]["fixture_mismatches"] else 0), canonical(m)
     mode = s_mode(argv, environ)
     if mode == "refuse":
         return 4, "refused: --event is required\n"
@@ -3710,6 +3725,6 @@ def run_entry(argv, environ):
 
 
 if __name__ == "__main__":
-    status, text = run_entry(sys.argv, os.environ)
+    status, text = s_entry(sys.argv, os.environ)
     sys.stdout.write(text)
     sys.exit(status)

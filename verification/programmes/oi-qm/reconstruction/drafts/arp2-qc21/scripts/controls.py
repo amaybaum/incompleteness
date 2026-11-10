@@ -623,11 +623,7 @@ GUARD_SELFTEST_FUNCS = ("t_mguard_checker", "t_builder_refuses")
 
 
 def static_checker(src, builders=("s_build_p", "s_build_repinv", "s_build_b", "s_build_c")):
-    """Control B on qc21_check.py: imports; "workflow_dispatch" once, as DISPATCH_EVENT; DISPATCH_EVENT only in
-    s_mode and M-GUARD's self-test functions; os at exactly two sites, each `os.environ` passed whole to s_mode;
-    each registered builder referenced only in its own def, DECISIVE_BUILDERS and s_decisive, with the refusal
-    as its first statement; s_decisive only at the default entry and in t_builder_refuses, whose body is the
-    stated try form; no forbidden names; no dunder beyond the main guard."""
+    """Control B: exact mode/guard/registry/reference sites and deterministic collections."""
     try:
         tree = ast.parse(src)
     except SyntaxError:
@@ -636,19 +632,21 @@ def static_checker(src, builders=("s_build_p", "s_build_repinv", "s_build_b", "s
     imps = set()
     for n in ast.walk(tree):
         if isinstance(n, ast.Import):
-            for a in n.names:
-                imps.add(a.name)
-                if a.asname:
+            for alias in n.names:
+                imps.add(alias.name)
+                if alias.asname:
                     errs.append("import alias")
         if isinstance(n, ast.ImportFrom):
             imps.add(n.module)
-            if n.module != "fractions" or [a.name for a in n.names] != ["Fraction"] or n.names[0].asname:
+            if n.module != "fractions" or [x.name for x in n.names] != ["Fraction"] or n.names[0].asname:
                 errs.append("from-import")
     if imps != CHECKER_IMPORTS:
-        errs.append("imports %s" % sorted(imps))
+        errs.append("imports")
     owner = {}
+    defs = {}
     for fn in tree.body:
         if isinstance(fn, ast.FunctionDef):
+            defs[fn.name] = fn
             for n in ast.walk(fn):
                 owner[id(n)] = fn.name
     consts = [n for n in ast.walk(tree) if isinstance(n, ast.Constant) and isinstance(n.value, str)
@@ -656,71 +654,73 @@ def static_checker(src, builders=("s_build_p", "s_build_repinv", "s_build_b", "s
     de = [n for n in tree.body if isinstance(n, ast.Assign) and len(n.targets) == 1
           and isinstance(n.targets[0], ast.Name) and n.targets[0].id == "DISPATCH_EVENT"]
     if len(consts) != 1 or len(de) != 1 or de[0].value is not consts[0]:
-        errs.append("workflow_dispatch not exactly once as DISPATCH_EVENT")
+        errs.append("dispatch constant")
     for n in ast.walk(tree):
         if isinstance(n, ast.Name) and n.id == "DISPATCH_EVENT" and isinstance(n.ctx, ast.Load):
             if owner.get(id(n)) not in ("s_mode",) + GUARD_SELFTEST_FUNCS:
-                errs.append("DISPATCH_EVENT outside s_mode and M-GUARD")
+                errs.append("dispatch site")
         if isinstance(n, ast.Name) and n.id in BANNED:
             errs.append("banned " + n.id)
         if isinstance(n, ast.Attribute) and n.attr in ("system", "popen", "modules"):
             errs.append("attribute " + n.attr)
+        if isinstance(n, (ast.Set, ast.SetComp)) or (isinstance(n, ast.Call) and
+                isinstance(n.func, ast.Name) and n.func.id in ("set", "frozenset")):
+            errs.append("unordered set")
     os_sites = [n for n in ast.walk(tree) if isinstance(n, ast.Name) and n.id == "os" and isinstance(n.ctx, ast.Load)]
     env_ok = 0
     for n in ast.walk(tree):
-        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id in ("s_mode", "run_entry") \
-                and len(n.args) == 2:
-            a = n.args[1]
-            if isinstance(a, ast.Attribute) and a.attr == "environ" and isinstance(a.value, ast.Name) and a.value.id == "os":
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id in ("s_mode", "s_entry") and len(n.args) == 2:
+            v = n.args[1]
+            if isinstance(v, ast.Attribute) and v.attr == "environ" and isinstance(v.value, ast.Name) and v.value.id == "os":
                 env_ok += 1
     if len(os_sites) != 2 or env_ok != 2:
-        errs.append("os not at exactly two sites as os.environ passed whole to s_mode")
+        errs.append("environment sites")
     db = [n for n in tree.body if isinstance(n, ast.Assign) and len(n.targets) == 1
           and isinstance(n.targets[0], ast.Name) and n.targets[0].id == "DECISIVE_BUILDERS"]
+    registry_sites = set()
     if len(db) != 1 or not isinstance(db[0].value, ast.Tuple) or \
-            [e.value for e in db[0].value.elts if isinstance(e, ast.Constant)] != list(builders):
-        errs.append("DECISIVE_BUILDERS not the frozen list")
-    defs = {fn.name: fn for fn in tree.body if isinstance(fn, ast.FunctionDef)}
-    for b in builders + ("s_decisive",):
-        fn = defs.get(b)
-        if fn is None:
-            errs.append("missing " + b)
-            continue
-        first = fn.body[0]
-        if isinstance(first, ast.Expr) and isinstance(first.value, ast.Constant) and isinstance(first.value.value, str):
-            first = fn.body[1] if len(fn.body) > 1 else None
-        if not (isinstance(first, ast.Expr) and isinstance(first.value, ast.Call)
-                and isinstance(first.value.func, ast.Name) and first.value.func.id == "s_refusal"
-                and len(first.value.args) == 1 and isinstance(first.value.args[0], ast.Constant)
-                and first.value.args[0].value == b):
-            errs.append("refusal is not the first statement of " + b)
+            [x.id for x in db[0].value.elts if isinstance(x, ast.Name)] != list(builders) or \
+            len(db[0].value.elts) != len(builders):
+        errs.append("builder registry")
+    else:
+        registry_sites = {id(x) for x in db[0].value.elts}
+    refusal_sites = set()
+    for name in builders + ("s_decisive",):
+        fn = defs.get(name)
+        body = fn.body if fn else []
+        if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant) and isinstance(body[0].value.value, str):
+            body = body[1:]
+        first = body[0] if body else None
+        if not (isinstance(first, ast.Expr) and isinstance(first.value, ast.Call) and
+                isinstance(first.value.func, ast.Name) and first.value.func.id == "s_refusal" and
+                not first.value.args and not first.value.keywords):
+            errs.append("first refusal " + name)
+        else:
+            refusal_sites.add(id(first.value.func))
+    refusal = defs.get("s_refusal")
+    if refusal is None or refusal.args.args or refusal.args.vararg or refusal.args.kwarg or refusal.args.kwonlyargs:
+        errs.append("refusal signature")
     for n in ast.walk(tree):
-        if isinstance(n, ast.Name) and n.id in builders:
+        if isinstance(n, ast.Name) and n.id in builders and id(n) not in registry_sites:
             if owner.get(id(n)) != "s_decisive" or not isinstance(n.ctx, ast.Load):
-                errs.append("builder %s referenced outside s_decisive" % n.id)
-        if isinstance(n, ast.Name) and n.id == "s_decisive":
-            if owner.get(id(n)) not in ("run_entry", "t_builder_refuses") or not isinstance(n.ctx, ast.Load):
-                errs.append("s_decisive referenced outside the entry and t_builder_refuses")
-    sd_sites = [owner.get(id(n)) for n in ast.walk(tree) if isinstance(n, ast.Name) and n.id == "s_decisive"]
-    if sorted(sd_sites) != ["run_entry", "t_builder_refuses"]:
-        errs.append("s_decisive sites %s" % sorted(map(str, sd_sites)))
+                errs.append("builder reference")
+        if isinstance(n, ast.Name) and n.id == "s_refusal" and id(n) not in refusal_sites:
+            errs.append("refusal reference")
+    sites = [owner.get(id(n)) for n in ast.walk(tree) if isinstance(n, ast.Name) and n.id == "s_decisive"]
+    if sorted(map(str, sites)) != ["s_entry", "t_builder_refuses"]:
+        errs.append("entry sites")
     tb = defs.get("t_builder_refuses")
     if tb is None or len(tb.body) != 1 or not isinstance(tb.body[0], ast.Try):
-        errs.append("t_builder_refuses not a single try statement")
+        errs.append("direct-refusal test form")
     else:
         tr = tb.body[0]
-        call_ok = (len(tr.body) == 1 and isinstance(tr.body[0], ast.Expr) and isinstance(tr.body[0].value, ast.Call)
-                   and isinstance(tr.body[0].value.func, ast.Name) and tr.body[0].value.func.id == "s_decisive"
-                   and not tr.body[0].value.args and not tr.body[0].value.keywords)
-        h_ok = (len(tr.handlers) == 1 and isinstance(tr.handlers[0].type, ast.Name)
-                and tr.handlers[0].type.id == "QC21Refusal" and tr.handlers[0].name is None)
-        if not (call_ok and h_ok and tr.orelse and not tr.finalbody):
-            errs.append("t_builder_refuses form")
-    for fn in defs.values():
-        if fn.name.startswith("t_") and fn.name != "t_builder_refuses":
-            for n in ast.walk(fn):
-                if isinstance(n, ast.Name) and n.id == "s_decisive":
-                    errs.append("second self-test function references the gated entry")
+        call_ok = len(tr.body) == 1 and isinstance(tr.body[0], ast.Expr) and isinstance(tr.body[0].value, ast.Call)
+        call_ok = call_ok and isinstance(tr.body[0].value.func, ast.Name) and tr.body[0].value.func.id == "s_decisive"
+        call_ok = call_ok and not tr.body[0].value.args and not tr.body[0].value.keywords
+        handler_ok = len(tr.handlers) == 1 and isinstance(tr.handlers[0].type, ast.Name)
+        handler_ok = handler_ok and tr.handlers[0].type.id == "QC21Refusal" and tr.handlers[0].name is None
+        if not (call_ok and handler_ok and tr.orelse and not tr.finalbody):
+            errs.append("direct-refusal test form")
     return sorted(set(errs))
 
 
@@ -750,7 +750,7 @@ def c_exact(src):
 
 
 V_BUILTINS = {"len", "range", "sum", "min", "max", "abs", "sorted", "enumerate", "zip", "all", "any", "int", "tuple",
-              "list", "dict", "set", "isinstance"}
+              "list", "dict", "isinstance"}
 V_FORBIDDEN = {"globals", "locals", "vars", "getattr", "setattr", "eval", "exec", "compile", "__import__"}
 
 
