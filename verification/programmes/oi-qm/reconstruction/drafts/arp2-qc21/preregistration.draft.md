@@ -1922,6 +1922,9 @@ by "detected" claims.
 | 132 | r15 owner R10, c.6778994857 | C.2; C.3; C.8; tables | host-time claims/disposition pending | checks remain mandatory landing conditions, with no enduring assertion that unretained host-time checks passed |
 | 133 | r15 implementation read-only ZIP enforcement | C.5 control B | only namelist/read on an in-memory ZipFile | resource is locally with-bound; no alias/rebinding/escape; only namelist() and literal measurements.json read |
 | 134 | r15 owner R1–R10, c.6778994857 | precondition 2; C.8 item 2 | owner choices and S_max pending | selected rules applied; initial S_max 100000; measured budgets, pins and other pre-F gates remain pending |
+| 135 | r15 bounded implementation | C.5, malformed-data handling | callable whitelist only | unchanged callable whitelist; explicit non-call string type and exception-handler names |
+| 136 | r15 bounded implementation | C.5, identity representation | pin locations and E note identity implicit | preregistration pin block and externally designated E identity avoid self-referential hashes; entry digest bytes explicit |
+| 137 | r15 bounded implementation | C.5, provenance/CLI | implementation draft and capture-input format implicit | provenance-only SOURCE_BASE is bound before execution; validated UTC capture bound is an explicit CLI/config input |
 
 **Typographic edits, also logged (r11-N2).**
 - In C.2, the Job B bullet's first sentence is re-wrapped (whitespace only).
@@ -2714,6 +2717,31 @@ route is ungated. Any such change after landing is outside the round and must ac
 
 ### C.5 Scripts (copied; D12 edits applied)
 
+**Implementation representation (r15; editorial/engineering, no new scientific rule).** The exact script blob
+and SHA-256 pins and the evidence-file SHA-256 pins are stored once in this preregistration's block below.
+`controls.py` reads them; its `PINS` constant gives the required keys only. A script does not embed its own blob
+identity. These fields remain unresolved until the separately authorized design/confirmation process supplies
+them; null is never accepted by a freeze check.
+
+```qc21-implementation-pins
+{"schema":"arp2-qc21-pins","version":1,"blobs":{"qc21_check.py":null,"controls.py":null},"script_sha256":{"qc21_check.py":null,"controls.py":null},"sha256":{"stress.json":null,"design-run.json":null,"gate-tests.json":null,"confirmation-run.json":null}}
+```
+
+The checker additionally carries provenance-only `SOURCE_BASE`, unset in the implementation draft. Before a
+separately authorized local A3 or design tree, it is bound to that round's approved `D`, and freeze checks require
+the match. This preserves the distinction between a public implementation draft and the later pinned execution
+blob; it adds no decisive-mode key or physical assumption. The result note identifies `E` as its containing
+evidence commit; the owner's designation supplies the full hash externally, avoiding a self-referential file hash.
+`e-entry` hashes exactly its entry's UTF-8 `json.dumps` serialization with the specified key/separator/ASCII
+options, without the output wrapper or trailing newline. File pins continue to hash their preserved bytes.
+
+The CLI supplies a validated UTC capture time through the capture JSON (`order`, `verdict`, and S1's
+`--capture-config`) or `e-entry --capture-time UTC`. It is recorded as the inventory's upper bound; it is not a
+scientific measurement. Executor clock provenance and a capture immediately before landing remain required.
+The verifier's closed callable allowlist is unchanged. `str` is also admitted as a non-call type name, and the
+builtin exception names ValueError, TypeError, KeyError, IndexError and ArithmeticError only as non-call names
+for malformed-data handling. None admits a solver/shared-helper call or alias.
+
 
 - **`qc21_check.py`** (blob PENDING; sha256 PENDING).
   - It imports `fractions`, `itertools`, `json`, `os` and `sys`, and reads no file. `os` is referenced at exactly two
@@ -3097,8 +3125,8 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
 ### C.8 Readings of the copied and adapted text (frozen; r13, r14)
 
 Each reading fixes the meaning of a copied or adapted passage that the implementation found ambiguous or
-unimplementable (PLAN §20, items 1–19). Edits to the copied text itself are rows 46–134 of the edit log
-(rows 72–85 at r14, 86–98 at r14a, 99–108 at r14b, 109–126 at r14c, 127–130 at r14d, 131–134 at r15). C.1 stays verbatim; where a reading below
+unimplementable (PLAN §20, items 1–19). Edits to the copied text itself are rows 46–137 of the edit log
+(rows 72–85 at r14, 86–98 at r14a, 99–108 at r14b, 109–126 at r14c, 127–130 at r14d, 131–137 at r15). C.1 stays verbatim; where a reading below
 concerns C.1, it governs C.1's words.
 
 1. **The caps (C.1; item 1; D19 (0)(c), (i)(a)).** C.1's caps count as D19 (0)(c) states: "preparation generators"

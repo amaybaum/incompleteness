@@ -11,7 +11,7 @@ Entry points (C.5):
     --self-test                                every self-test and mutation; exit 0 iff all pass
 
 Exit statuses: 0 complete decisive output (including scientific VOID) or fixture expectations met; 3 a
-fragment out_of_scope, or a fixture expectation unmet; 4 refusal (no --event, malformed --dispatch-sha).
+fixture expectation unmet (including fixture control/cap failures); 4 refusal (no --event, malformed --dispatch-sha).
 
 Arithmetic is exact: integers, Fraction and F_2 only (C-EXACT). The one Fraction helper that uses "/" is q_div.
 Stdlib only. Reads no file. `os` is referenced at exactly two sites, each `os.environ` passed whole to s_mode.
@@ -55,6 +55,7 @@ BP_CAP_D = None
 BP_CAP_FACET_SUBSETS = None
 BP_CAP_EFFECTS = 200
 S_MAX = 100000  # Initial owner budget, #1169 c.6778994857; other measured budgets remain unset.
+SOURCE_BASE = None  # Draft provenance. Bind to the authorized round D before the first local A3/design tree.
 REFUSAL_CALLS = 0
 
 HEX = "0123456789abcdef"
@@ -607,7 +608,8 @@ def s_decide(frag, budget_vals=(None, None, None), force_step4=False, mutate=Non
     unit = [Fraction(1)]*len(laws[0])
     all_reads = [unit]+reads
     rec = {"name": frag["name"], "preps": len(laws), "reads": len(reads),
-           "lp_settings": list(frag.get("lp_settings", []))}
+           "lp_settings": list(frag.get("lp_settings", [])),
+           "budget_values": [budget.p_max, budget.b_max, budget.w_max] if budget is not None else list(budget_vals)}
     if budget is None:
         budget = Budget(*budget_vals)
     caps = (CAP_GENERATORS, CAP_D, CAP_FACET_SUBSETS, CAP_EFFECTS) if cap_vals is None else cap_vals
@@ -638,7 +640,11 @@ def s_decide(frag, budget_vals=(None, None, None), force_step4=False, mutate=Non
         prep_kept, removals = s_reduce_extreme(a, budget)
         rec["reduction_verified"] = v_reduction(a, prep_kept, json.loads(canonical(removals)))
         if rec["reduction_verified"] is not True:
-            return out_of_scope(["unverified-reduction"])
+            failure = out_of_scope(["unverified-reduction"])
+            failure["lp"] = "undecided"
+            failure["caps"] = []
+            failure["verification_reason"] = "unverified-reduction"
+            return failure
         n, c = len(prep_kept), s_comb(len(prep_kept), d-1)
         rec.update({"n_extreme": n, "generators": n, "c": c})
         if caps[0] is not None and n > caps[0]:
@@ -707,7 +713,8 @@ def s_decide_effect_facet(frag, budget):
     raw = s_cert_bytes(cert)
     verified = v_verify_effect(raw, frag["laws"], frag["reads"]) == "verified"
     return {"lp": verdict if verified else "undecided", "verified": verified,
-            "cert": raw, "cert_sha256": h_sha256(raw), **budget.record()}
+            "cert": raw, "cert_sha256": h_sha256(raw), "decided_by": 4 if verified else None,
+            "T": data["info"]["T"], **budget.record()}
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -735,33 +742,39 @@ def s_reduce_extreme(a, budget):
 
 def v_reduction(a, retained, removals):
     """Independent ordered witness validation; never calls the solver or a shared helper."""
-    if not isinstance(retained, list) or not isinstance(removals, list):
-        return False
-    remaining = list(range(len(a)))
-    previous = -1
-    for item in removals:
-        if not isinstance(item, dict):
+    try:
+        if not isinstance(retained, list) or not isinstance(removals, list):
             return False
-        p, sources, values = item.get("row"), item.get("sources"), item.get("weights")
-        if not isinstance(p, int) or p is True or p is False or p not in remaining:
+        if any([not isinstance(index, int) or index is True or index is False for index in retained]):
             return False
-        if p <= previous:
-            return False
-        previous = p
-        if not isinstance(sources, list) or not isinstance(values, list) or len(sources) != len(values):
-            return False
-        if not sources or len(v_unique(sources)) != len(sources):
-            return False
-        if any([not isinstance(q, int) or q is True or q is False or q == p or q not in remaining for q in sources]):
-            return False
-        weights = [v_q(x) for x in values]
-        if any([x < 0 for x in weights]):
-            return False
-        for j in range(len(a[p])):
-            if sum([weight*a[q][j] for q, weight in zip(sources, weights)]) != a[p][j]:
+        remaining = list(range(len(a)))
+        previous = -1
+        for item in removals:
+            if not isinstance(item, dict):
                 return False
-        remaining.remove(p)
-    return retained == remaining
+            p, sources, values = item.get("row"), item.get("sources"), item.get("weights")
+            if not isinstance(p, int) or p is True or p is False or p not in remaining:
+                return False
+            if p <= previous:
+                return False
+            previous = p
+            if not isinstance(sources, list) or not isinstance(values, list) or len(sources) != len(values):
+                return False
+            if not sources or len(v_unique(sources)) != len(sources):
+                return False
+            if any([not isinstance(q, int) or q is True or q is False or q == p or q not in remaining for q in sources]):
+                return False
+            weights = [v_q(x) for x in values]
+            if any([x < 0 for x in weights]):
+                return False
+            for j in range(len(a[p])):
+                if sum([weight*a[q][j] for q, weight in zip(sources, weights)]) != a[p][j]:
+                    return False
+            remaining.remove(p)
+        return retained == remaining
+
+    except (ValueError, TypeError, KeyError, IndexError, ArithmeticError):
+        return False
 
 
 def v_verify_effect(raw, laws, reads):
@@ -822,6 +835,8 @@ def v_plain(x):
 def v_q(s):
     if isinstance(s, int) or isinstance(s, Fraction):
         return Fraction(s)
+    if not isinstance(s, str):
+        return Fraction(1, 0)  # A handled malformed-rational error.
     parts = s.split("/")
     if len(parts) == 1:
         return Fraction(int(parts[0]))
@@ -2223,9 +2238,8 @@ def s_build_b(p_out=None, c_out=None, budget_vals=(None, None, None)):
     ra = s_decide(a_of_b, budget_vals)
     ra.update({"role": "A-of-B", "lp_reads_equal_acc": True, "TOMO": ra["tomo"]})
     frs.append(ra)
-    qm = s_decide(qm_p_fragment(), budget_vals)
     restricted = bp_restricted_equals_qmp(laws, labels)
-    out = {"fragments": frs, "bp_equals_qmp": restricted, "QM-P_fragment": qm["lp"], "B1": {"alpha": 0}}
+    out = {"fragments": frs, "bp_equals_qmp": restricted, "B1": {"alpha": 0}}
     out["B-C"] = []
     for inst in (c_out or {}).get("flagged", []):
         out["B-C"].append(bc_fragment_decide(inst, budget_vals))
@@ -2615,6 +2629,8 @@ def orbit_stats(q_laws, step_fn, rho_fn, k_ticks, kmax=12, cal_laws=None, horizo
     res["beta"] = beta
     res["WCL"] = wcl(beta, k_ticks) if beta is not None else {"fires": False}
     res["calibration_consistency"] = cons_check
+    res["horizon_requested"] = kmax
+    res["complete_enumeration"] = True
     res["orbits"] = orbits
     res["rop"] = rop
     return res
@@ -2801,6 +2817,8 @@ def c_fixture_controls():
         ok = ok and all(rho_of(ql, tabs)[1 + i] == q_div(1 + r_direct(ql)[i], 2) for i in range(3))
     out["C-DET"] = {"green": ok}
     out["C-STEP"] = c_step_control()
+    fixture_perms = {(g, k): phi_perm(g, k) for g in ("0", "XOR") for k in range(7)}
+    out["C-AFFB-fixture"] = c_affb_fixture(fixture_perms)
     miss = 0
     for s in signed_perms():
         sinv = [list(col) for col in zip(*s)]
@@ -2919,7 +2937,8 @@ def bc_fragment_decide(inst, budget_vals):
         cf = frag_from_laws("B-C+all-joint:" + inst["id"], dl, (0, 1, 2, 3), st)
         cr = s_decide(cf, budget_vals)
         rec["restored_by_full"] = cr["lp"] == "feasible" and cr["verified"]
-        rec["completion_record"] = {k: cr[k] for k in ("lp", "decided_by", "d", "r_S", "r_E", "verified")}
+        rec["completion_record"] = strip_bytes(cr)
+        rec["restored_by_full"] = (cr["lp"] == "feasible") if cr["verified"] and cr["lp"] in ("feasible", "infeasible") else None
     return rec
 
 
@@ -2978,24 +2997,37 @@ def s_build_c():
     ccnat = {"green": not any((stats(g, r)["WCL"]["fires"] and stats(g, r)["CONS"]["12"]) or stats(g, r)["WOCT"]["12"]
                               for g in AFFINE_RULES for r in ROUNDS)}
     controls = {"CC-NAT": ccnat, "C-EMB": emb}
-    controls.update(c_r5_controls(perms, tabs))
+    diagnostic_controls = c_r5_controls(perms, tabs)
+    controls.update({name: control for name, control in diagnostic_controls.items() if name == "C-AFFB"})
+    for g in RULES:
+        for rnd in ROUNDS:
+            stats(g, rnd)
+    controls.update(c_orbit_controls(cache, perms, tabs))
+    controls["diagnostic-controls-depth-1"] = {"green": all(record["green"] for record in diagnostic_controls.values()),
+                                               "reported_only": True, "records": diagnostic_controls}
+    diagnostics = r5_diagnostics(perms, tabs)
     controls["C-SCOPE"] = {"green": len(q) == 7 and len(MED_SUPPLIES) == 5 and len(ROUNDS) == 150
-                           and len(instances) == 4 * 150, "complete": True}
+                           and len(instances) == 4*150 and len(cache) == 8*150
+                           and all(record["horizon_requested"] == 12 and record["complete_enumeration"] for record in cache.values())
+                           and len(s0_laws()) == 23 and all(record["depth"] == 1 for record in diagnostics.values()),
+                           "complete": True, "diagnostic_depth": 1}
     for i in instances:
         i.pop("_rnd", None)
     return {"instances": instances, "flagged": flagged, "controls": controls,
-            "diagnostics_r5": r5_diagnostics(perms, tabs), "cache": cache}
+            "diagnostics_r5": diagnostics, "cache": cache}
 
 
 def c_emb_static(q):
     """C-EMB (d) and (b): NE-1 on every supply (Q and M), NE-2/NE-4/NE-5 by the round schema."""
+    planted_negative = all(not ne1_carrier(law) for law in diagnostic_planted_laws())
     supplies_ok = all(ne1_carrier(l) for _, l in q) and all(
         ne1_cell(m) for _, m in MED_SUPPLIES)
     schema_ok = all(reg is None or (reg[0] in ("u2", "v2") and reg[1] in (0, 1)) for _, _, reg in ROUNDS)
     enum_sha = h_sha256(canonical([round_name(r) for r in ROUNDS]).encode())
     laws, mix, _ = planted_laws()
     planted_fail = not any(ne1_carrier(l) for l in laws.values())
-    return {"holds": supplies_ok and schema_ok, "green": supplies_ok and schema_ok and planted_fail,
+    return {"holds": supplies_ok and schema_ok and planted_negative and planted_fail,
+            "green": supplies_ok and schema_ok and planted_negative and planted_fail,
             "enumeration_sha256": enum_sha, "planted_fail_NE1": planted_fail}
 
 
@@ -3050,52 +3082,160 @@ def affine_basis(laws):
 
 
 def induced_map(g, rnd, laws, perms, basis_only=True):
-    """r5's induced map: herald-constant on the scope (checked on the affine basis plus positivity everywhere),
-    alpha = R(pi Lambda_0), beta e_a = R(pi Lambda_{a,0}) - alpha, identity on the basis (or on all laws)."""
-    idx = affine_basis(laws) if basis_only else list(range(len(laws)))
-    hs = []
-    for l in laws:
-        o, h = apply_round(l, g, rnd, perms)
-        if h <= 0:
-            return None
-        hs.append(h)
-    if len(ordered_unique([hs[i] for i in idx])) != 1:
-        return None
+    record = diagnostic_fit(laws, lambda law: apply_round(law, g, rnd, perms), basis_only)
+    return record["fit"] if record["herald_constant"] else None
+
+
+def diagnostic_fit(laws, step, basis_only=False):
+    """Frozen diagnostic affine fit, with herald constancy reported separately from the identity."""
+    selected = affine_basis(laws) if basis_only else list(range(len(laws)))
+    outputs = [step(law) for law in laws]
+    if any(result[0] is None or result[1] <= 0 for result in outputs):
+        return {"herald_constant": False, "fit": None}
+    herald_constant = len(ordered_unique(outputs[i][1] for i in selected)) == 1
     q = dict(qa_family())
-    a0, _ = apply_round(q["L0"], g, rnd, perms)
-    alpha = r_direct(a0)
-    cols = []
-    for a in ("x", "y", "z"):
-        o, _ = apply_round(q["L%s0" % a], g, rnd, perms)
-        cols.append(tuple(r_direct(o)[i] - alpha[i] for i in range(3)))
-    beta = [[cols[j][i] for j in range(3)] for i in range(3)]
-    for i in idx:
-        o, _ = apply_round(laws[i], g, rnd, perms)
-        r = r_direct(laws[i])
-        if r_direct(o) != tuple(alpha[x] + sum(beta[x][c] * r[c] for c in range(3)) for x in range(3)):
-            return None
-    return alpha, beta
+    zero, hz = step(q["L0"])
+    alpha = r_direct(zero)
+    columns = []
+    for axis in ("x", "y", "z"):
+        image, herald = step(q["L"+axis+"0"])
+        if image is None:
+            return {"herald_constant": herald_constant, "fit": None}
+        columns.append(tuple(r_direct(image)[i]-alpha[i] for i in range(3)))
+    beta = [[columns[j][i] for j in range(3)] for i in range(3)]
+    fit = all(r_direct(outputs[index][0]) == tuple(alpha[i]+sum(beta[i][j]*r_direct(laws[index])[j] for j in range(3))
+                                                  for i in range(3)) for index in selected)
+    return {"herald_constant": herald_constant, "fit": (alpha, beta) if fit else None}
+
+
+def diagnostic_branch(law):
+    """Reported finite support/coset/isotropy predicates, under the frozen four-slot symplectic pairing."""
+    support = [i for i, value in enumerate(law) if value > 0]
+    if not support:
+        return {"nonaffine": True, "nonisotropic": False, "sharp": False}
+    translated = [i ^ support[0] for i in support]
+    uniform = all(law[i] == Fraction(1, len(support)) for i in support)
+    affine = uniform and all((a ^ b) in translated for a in translated for b in translated)
+    determined = []
+    for mask in range(16):
+        values = [sum(((mask >> j) & 1)*((i >> j) & 1) for j in range(4)) % 2 for i in support]
+        if len(ordered_unique(values)) == 1:
+            determined.append(tuple((mask >> (3-j)) & 1 for j in range(4)))
+    nonisotropic = affine and any((a[0]*b[1]+a[1]*b[0]+a[2]*b[3]+a[3]*b[2]) % 2 != 0
+                                  for a in determined for b in determined)
+    coordinates = r_direct(law)
+    return {"nonaffine": not affine, "nonisotropic": nonisotropic,
+            "sharp": abs(coordinates[0]) == 1 and abs(coordinates[2]) == 1}
+
+
+def diagnostic_planted_laws():
+    biased = [((Fraction(4, 5) if w[0] == 0 else Fraction(1, 5))
+               *(Fraction(4, 5) if w[1] == 0 else Fraction(1, 5))*Fraction(1, 4)) for w in CARRIER_CFGS]
+    invalid = law_from_pred(lambda w: w[1] == 0 and f_y(w) == 0)
+    return [biased, invalid]
+
+
+def c_affb_fixture(perms):
+    planted, mixed, operation = planted_laws()
+    point_laws = [[Fraction(1 if i == j else 0) for i in range(16)] for j in range(16)]
+    laws = list(s0_laws())+list(planted.values())+[mixed]+diagnostic_planted_laws()+point_laws
+    good = len(laws) == 48 and len(affine_basis(laws)) == 16
+    for g in ("0", "XOR"):
+        for rnd in [round_ for round_ in ROUNDS if round_[1] == 1]:
+            step = lambda law, g=g, rnd=rnd: apply_round(law, g, rnd, perms)
+            left, right = diagnostic_fit(laws, step, True), diagnostic_fit(laws, step, False)
+            good = good and left["herald_constant"] == right["herald_constant"]
+            if left["herald_constant"]:
+                good = good and left["fit"] == right["fit"]
+    good = good and diagnostic_fit(laws, lambda law: operation(law, 0), True) == diagnostic_fit(laws, lambda law: operation(law, 0), False)
+    return {"green": good, "laws": len(laws), "basis_size": len(affine_basis(laws))}
 
 
 def r5_diagnostics(perms, tabs):
-    out = {}
+    output = {}
     for g in RULES:
         laws = l_scope(g, perms)
-        rs = [r_direct(l) for l in laws]
-        ind = []
+        coordinates = [r_direct(law) for law in laws]
+        outside = sum(1 for r in coordinates if sum(value*value for value in r) > 1)
+        nonstab = sum(1 for r in coordinates if sum(value*value for value in r) <= 1 and sum(abs(value) for value in r) > 1)
+        parity_zero = list(s0_laws())
+        branches = {"nonaffine_branches": 0, "nonisotropic_branches": 0, "sharp_branches": 0}
+        for law in s0_laws():
+            for rnd in ROUNDS:
+                image, herald = apply_round(law, g, rnd, perms)
+                if image is not None:
+                    if rnd[1] % 2 == 0 and image not in parity_zero:
+                        parity_zero.append(image)
+                    if rnd[2] is not None:
+                        flags = diagnostic_branch(image)
+                        for field, key in (("nonaffine_branches", "nonaffine"), ("nonisotropic_branches", "nonisotropic"), ("sharp_branches", "sharp")):
+                            branches[field] += 1 if flags[key] else 0
+        induced, parity_records, all_rounds, nonconstant = [], [], [], []
         for rnd in ROUNDS:
-            im = induced_map(g, rnd, laws, perms)
-            if im is not None:
-                alpha, beta = im
-                ind.append({"round": round_name(rnd), "alpha": alpha, "beta": beta, "det_fix": det3(beta),
-                            "det_enc": (-1) ** rnd[1] * det3(beta)})
-        out[g] = {"affine": g in AFFINE_RULES, "L_scope_size": len(laws),
-                  "outside_ball": sum(1 for r in rs if sum(x * x for x in r) > 1),
-                  "nonstab_valid": sum(1 for r in rs if sum(x * x for x in r) <= 1 and sum(abs(x) for x in r) > 1),
-                  "offaxis_unit": sum(1 for r in rs if sum(x * x for x in r) == 1
-                                      and sorted(abs(x) for x in r) != [0, 0, 1]),
-                  "induced": ind, "label": "diagnostic (D1(a)), depth 1; no token reads it", "depth": 1}
-    return out
+            record = diagnostic_fit(laws, lambda law, rnd=rnd: apply_round(law, g, rnd, perms))
+            fitted = record["fit"]
+            details = {"round": round_name(rnd), "herald_constant": record["herald_constant"], "fit": fitted is not None}
+            if fitted is not None:
+                alpha, beta = fitted
+                orthogonal = matmul([list(row) for row in zip(*beta)], beta) == _fm([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+                octahedral = all(sorted(abs(value) for value in row) == [0, 0, 1] for row in beta) and orthogonal
+                unitary = alpha == (0, 0, 0) and orthogonal and (-1)**rnd[1]*det3(beta) == 1
+                details.update({"alpha": alpha, "beta": beta, "orthogonal": orthogonal, "alpha_zero": alpha == (0, 0, 0),
+                                "det_fix": det3(beta), "det_enc": (-1)**rnd[1]*det3(beta), "octahedral": octahedral, "unitary": unitary})
+                if record["herald_constant"]:
+                    induced.append(dict(details))
+                elif unitary and not octahedral:
+                    nonconstant.append(round_name(rnd))
+            all_rounds.append(details)
+            parity_fit = induced_map(g, rnd, parity_zero, perms)
+            if parity_fit is not None and not (record["herald_constant"] and fitted is not None):
+                parity_records.append({"round": round_name(rnd), "alpha": parity_fit[0], "beta": parity_fit[1]})
+        candidate = any(record["unitary"] and not record["octahedral"] for record in induced)
+        category = "INVALID" if outside else "CANDIDATE" if candidate and c_emb_static(qa_family())["holds"] else "NONSTAB" if nonstab else "STAB"
+        output[g] = {"affine": g in AFFINE_RULES, "L_scope_size": len(laws), "outside_ball": outside,
+                     "nonstab_valid": nonstab, "offaxis_unit": sum(1 for r in coordinates if sum(value*value for value in r) == 1
+                                                                      and sorted(abs(value) for value in r) != [0, 0, 1]),
+                     "category": category, "induced": induced, "rounds": all_rounds, "induced_parity0": parity_records,
+                     "herald_failure_non_octahedral_fit": nonconstant, **branches,
+                     "label": "diagnostic (D1(a)), depth 1; no token reads it", "depth": 1}
+    return output
+
+
+def c_orbit_controls(cache, perms, tabs):
+    """D.6 orbit versions of the named controls, in addition to labelled depth-one diagnostics."""
+    mismatches, dyadic, frame, cases = 0, True, True, 0
+    for g in RULES:
+        for rnd in ROUNDS:
+            stats = cache[(g, rnd)]
+            for sequence in stats["orbits"].values():
+                for law in sequence[:12]:
+                    actual, herald = apply_round(law, g, rnd, perms)
+                    direct = cxb_direct(law, g, rnd)
+                    cases += 1
+                    if (actual is None) != (direct is None) or (actual is not None and actual != direct):
+                        mismatches += 1
+                if rnd[2] is None:
+                    for law in sequence[:13]:
+                        coordinates = r_direct(law)
+                        for value in coordinates:
+                            denominator = Fraction(value).denominator
+                            if denominator & (denominator-1):
+                                dyadic = False
+                        if sum(value*value for value in coordinates) == 1 and sorted(abs(value) for value in coordinates) != [0, 0, 1]:
+                            dyadic = False
+            beta, alpha = stats["beta"], stats["alpha"]
+            if rnd[2] is None and stats["HC"]["12"] and stats["CONS"]["12"] and beta is not None and alpha == (0, 0, 0):
+                transpose = [list(row) for row in zip(*beta)]
+                if matmul(transpose, beta) == _fm([[1, 0, 0], [0, 1, 0], [0, 0, 1]]):
+                    dyadic = dyadic and all(sorted(abs(value) for value in row) == [0, 0, 1] for row in beta)
+            if g == "0" and rnd[1] == 1 and stats["HC"]["12"] and beta is not None:
+                frame = frame and stats["CONS"]["12"]
+                frame = frame and alpha == (0, 0, 0) and beta == _fm(P_SWAP) and det3(beta) == -1
+                frame = frame and matmul(P_SWAP, beta) == _fm([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    return {"C-XB": {"green": mismatches == 0, "mismatches": mismatches, "cases": cases, "scope": "O_12"},
+            "CC-DYAD": {"green": dyadic, "scope": "non-register O_12"},
+            "C-FRAME": {"green": frame, "scope": "zero-rule k=1 orbits"}}
+
 
 
 def c_r5_controls(perms, tabs):
@@ -3279,7 +3419,8 @@ def s_build_repinv(p_out=None, b_out=None, c_out=None):
         if val != "invariant" and ident not in out["reclassified"]:
             out["reclassified"].append(ident)
     out["UPR-BC"] = [{"id": r["name"], "contextual": r["lp"] == "infeasible",
-                      "restored_by_full": r.get("restored_by_full") is True,
+                      "restored_by_full": r.get("restored_by_full"),
+                      "completion_status": (r.get("completion_record") or {}).get("lp", "not attempted"),
                       "imported_for_BC": r["lp"] == "infeasible" and r.get("restored_by_full") is True}
                      for r in (b_out or {}).get("B-C", [])]
     return out
@@ -3290,6 +3431,7 @@ def c_repinv(c_out):
     P' = S P S^-1). L-UPRIME: the 48 RC2 classes, detectors transported (f_a o A), recalibrated from the
     same source labels. Witnesses per test-rule instance: W-CL (either frame), W-OCT(12), VAL(12), CONS(12)."""
     cache = c_out["cache"]
+    bc_horizons = {(item["g"], item["round"]): item["orbit_horizon"] for item in c_out["flagged"]}
     base = {}
     for (g, rnd), st in cache.items():
         if g in TEST_RULES:
@@ -3330,6 +3472,19 @@ def c_repinv(c_out):
                               lambda law: rho_of(law, tabs), rnd[1])
             if (st2["WCL"]["fires"], st2["WOCT"]["12"], st2["VAL"]["12"], st2["CONS"]["12"]) != flags:
                 changed.append(g + ":" + round_name(rnd))
+            # R7: compare the B-C read table under the alternative's own axis/outcome relabelling.
+            # A changed table is reported/reclassified; it is never re-decided by the LP here.
+            horizon = bc_horizons.get((g, round_name(rnd)))
+            if horizon is not None:
+                laws = [law for sequence in st["orbits"].values() for law in sequence[:horizon+1]]
+                columns, transported = [], []
+                for axis in ("x", "y", "z"):
+                    original = tuple(sum(prob*value for prob, value in zip(law, detector_tables_cached()[axis])) for law in laws)
+                    alternative = tuple(sum(prob*value for prob, value in zip(law, tabs[axis])) for law in laws)
+                    columns.append(min(original, tuple(1-value for value in original)))
+                    transported.append(min(alternative, tuple(1-value for value in alternative)))
+                if sorted(columns) != sorted(transported):
+                    changed.append("B-C table:"+g+":"+round_name(rnd))
         res["L-UPRIME/%d" % n] = "invariant" if not changed else changed
     return res
 
@@ -3391,6 +3546,31 @@ def strip_bytes(rec):
     return {k: v for k, v in rec.items() if k not in ("cert",)}
 
 
+def k_fragment_controls(records):
+    """Decisive C-CERT/C-BUDGET: withheld results are reported; only a leaked verdict makes the control red."""
+    failures, leaked, over = [], [], []
+    for record in records:
+        named = str(record.get("name"))
+        decided = record.get("lp") in ("feasible", "infeasible")
+        if record.get("verified") is not True:
+            failures.append(named)
+            if decided:
+                leaked.append(named)
+        limits = record.get("budget_values", [])
+        counters = [record.get(key) for key in ("pivots", "max_bits", "work")]
+        excess = any(limit is not None and (not isinstance(value, int) or value > limit)
+                     for value, limit in zip(counters, limits))
+        caps = record.get("cap_values", [])
+        sizes = [record.get(key) for key in ("n_extreme", "d", "c", "effects_before_reduction")]
+        excess = excess or any(limit is not None and (not isinstance(value, int) or value > limit)
+                               for value, limit in zip(sizes, caps))
+        if decided and excess:
+            over.append(named)
+    return {"C-CERT": {"green": not leaked, "unverified": len(failures), "unverified_fragments": failures,
+                        "given_verdict_without_certificate": leaked},
+            "C-BUDGET": {"green": not over, "given_verdict_over_limit": over}}
+
+
 def assemble_decisive(p_out, b_out, c_out, r_out):
     fx = fixture_section()
     p_red = [k for k, v in p_out["controls"].items() if not v["green"]]
@@ -3403,12 +3583,18 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
     b_red = [k for k in ("B-POS", "B-STAB", "B-CLASS", "B-REG", "B-WAVE", "B-S4F", "B-RAY", "QM-P", "C-CERT", "C-NCF", "C-SYM", "ZPT",
                          "F10") if not fx["controls"][k]["green"]]
     frs = [strip_bytes(f) for f in b_out["fragments"]] + [strip_bytes(f) for f in b_out["B-C"]]
-    over = [f["name"] for f in frs if f["lp"] == "out_of_scope"]
+    monitored = list(frs)+[f["completion_record"] for f in frs if isinstance(f.get("completion_record"), dict)]
+    decisive_controls = k_fragment_controls(monitored)
+    b_red += [name for name, control in decisive_controls.items() if not control["green"]]
     b_tok = k_decide_b({"controls_red": b_red, "fragments": frs})
-    c_red = [k for k, v in c_out["controls"].items() if not v["green"]
+    c_red = [k for k, v in c_out["controls"].items() if not v["green"] and not v.get("reported_only")
 ]
     c_red += [k for k in ("C-STAB", "C-R60", "C-R60-ODD", "C-35", "C-S3", "C-PLANT", "C-CONSX", "C-DET", "C-STEP",
-                          "REP-FRAME") if not fx["controls"][k]["green"]]
+                          "REP-FRAME", "C-AFFB-fixture") if not fx["controls"][k]["green"]]
+    if not r_out["REP-PLANT"]["green"]:
+        b_red.append("REP-PLANT")
+        c_red.append("REP-PLANT")
+        b_tok = k_decide_b({"controls_red": b_red, "fragments": frs})
     c_tok = k_decide_c({"controls_red": c_red, "complete": True, "flags_agree": True,
                         "instances": c_out["instances"]})
     bp = b_out["fragments"][0]
@@ -3426,12 +3612,12 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
          "P": {k: v for k, v in p_out.items() if k not in ("controls",)},
          "P_controls": p_out["controls"],
          "REP_INV": r_out,
-         "B": {"fragments": frs, "bp_equals_qmp": b_out["bp_equals_qmp"], "B1": b_out["B1"]},
+         "B": {"fragments": frs, "bp_equals_qmp": b_out["bp_equals_qmp"], "B1": b_out["B1"], "decisive_controls": decisive_controls},
          "C": {"instances": c_inst, "controls": c_out["controls"], "diagnostics_r5": c_out["diagnostics_r5"],
                "flagged": [i["id"] for i in c_out["flagged"]], "lemma_p_review": LEMMA_P_REVIEW,
                "cone_review": CONE_REVIEW},
          "fixtures": fx["fixtures"], "controls": fx["controls"],
-         "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX, "BP": {"P_max": BP_P_MAX, "B_max": BP_B_MAX, "W_max": BP_W_MAX,
+         "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX, "S_max": S_MAX, "BP": {"P_max": BP_P_MAX, "B_max": BP_B_MAX, "W_max": BP_W_MAX,
                     "caps": [BP_CAP_GENERATORS, BP_CAP_D, BP_CAP_FACET_SUBSETS, BP_CAP_EFFECTS]},
                     "respected": {f["name"]: f["lp"] != "out_of_scope" for f in frs}},
          "flags": {"P": p_tok["token"], "B": b_tok["token"], "C": c_tok["token"], "levels": levels,
@@ -3481,8 +3667,12 @@ def attr_fix():
 def upr_bc_fix():
     r1 = k_decide_levels({"P": "P-COMPLEMENTARITY", "upr_bc": [{"contextual": True, "restored_by_full": True}]})
     r2 = k_decide_levels({"P": "P-COMPLEMENTARITY", "upr_bc": [{"contextual": True, "restored_by_full": False}]})
+    r3 = k_decide_levels({"P": "P-COMPLEMENTARITY", "upr_bc": [{"contextual": True, "restored_by_full": None,
+                                                                 "completion_status": "out_of_scope"}]})
     return {"green": r1["upr_bc_imported_for_bc"] and r1["upr_bc_label"] == UPR_BC_LABEL
-            and not r2["upr_bc_imported_for_bc"] and r1["level"] == r2["level"] == 1}
+            and not r2["upr_bc_imported_for_bc"] and not r3["upr_bc_imported_for_bc"]
+            and r1["level"] == r2["level"] == r3["level"] == 1,
+            "unresolved_completion_status": "out_of_scope"}
 
 
 _FX_CACHE = []
@@ -3516,7 +3706,12 @@ def fixture_section(budget_vals=None):
             rec["step4_check"] = {"lp": r4["lp"], "verified": r4["verified"]}
             if r4["lp"] != r["lp"] or not r4["verified"]:
                 ncf_bad += 1
-        sym = s_decide_effect_facet(fr, Budget(*bv))
+        sym_budget = Budget(*bv)
+        try:
+            sym = s_decide_effect_facet(fr, sym_budget)
+        except OutOfScope as error:
+            sym = {"lp": "out_of_scope", "verified": False, "cert": None,
+                   "cert_sha256": None, "decided_by": None, "reason": str(error), **sym_budget.record()}
         rec["effect_facet"] = strip_bytes(sym)
         if sym["lp"] != r["lp"] or sym["verified"] is not True:
             sym_bad += 1
@@ -3741,7 +3936,7 @@ def t_decide_paths():
             del r["arms"]["off"]
         t_check("decide-p VOID " + mut, k_decide_p(r)["token"] == "P-VOID")
     fr = lambda lp, role="B-P", eq=True, ver=True: {"name": "f", "role": role, "lp": lp, "verified": ver,
-                                                    "lp_reads_equal_acc": eq}
+                                                    "lp_reads_equal_acc": eq, "preps": 32, "lp_settings": list(ACC_BP), "acc": list(ACC_BP)}
     t_check("decide-b CONTEXTUAL", k_decide_b({"controls_red": [], "fragments": [fr("infeasible")]})["token"] ==
             "B-CONTEXTUAL")
     t_check("decide-b IMITABLE", k_decide_b({"controls_red": [], "fragments": [fr("feasible")]})["token"] ==
@@ -3751,10 +3946,15 @@ def t_decide_paths():
                       ("out_of_scope", {"controls_red": [], "fragments": [fr("out_of_scope")]}),
                       ("unverified", {"controls_red": [], "fragments": [fr("feasible", ver=False)]}),
                       ("lp_reads", {"controls_red": [], "fragments": [fr("infeasible", eq=False)]}),
-                      ("A-of-B out_of_scope", {"controls_red": [], "fragments": [fr("feasible"),
-                                                                                 fr("out_of_scope", "A-of-B")]}),
                       ("missing", {"fragments": []})):
         t_check("decide-b VOID " + name, k_decide_b(rec)["token"] == "B-VOID")
+    for role in ("A-of-B", "B-C", "completion"):
+        for outcome in ("undecided", "out_of_scope"):
+            record = {"controls_red": [], "fragments": [fr("feasible"), fr(outcome, role, ver=False)]}
+            t_check("decide-b report-only "+role+" "+outcome, k_decide_b(record)["token"] == "B-CLASSICALLY-IMITABLE")
+    small = fr("infeasible")
+    small["preps"] = 16
+    t_check("SG-1 refuses sixteen preparations", k_decide_b({"controls_red": [], "fragments": [small]})["token"] == "B-VOID")
     yes = {"6": True, "12": True}
     no = {"6": False, "12": False}
     six = {"6": True, "12": False}
@@ -3858,6 +4058,31 @@ def t_mutations():
 
     r = s_decide(fx_b_pos(), mutate=bump_a)
     t_check("M-FACTOR fails A B^T = N", r["verified"] is False)
+    ray = fx_b_ray(fx_b_pos(), "B-RAY-P")
+
+    def ray_weight(c):
+        c = json.loads(canonical(c))
+        c["prep_removals"][0]["weights"][0] = parse_q(c["prep_removals"][0]["weights"][0])+1
+        return c
+
+    def ray_extreme(c):
+        c = json.loads(canonical(c))
+        c["prep_removals"] = [{"row": 0, "sources": [1], "weights": [1]}]+c["prep_removals"]
+        c["prep_kept"] = [i for i in c["prep_kept"] if i != 0]
+        return c
+
+    for label, mutation in (("multiplier", ray_weight), ("fabricated extreme removal", ray_extreme)):
+        record = s_decide(ray, mutate=mutation)
+        t_check("M-RAY "+label, record["verified"] is False and record["lp"] == "undecided")
+
+    def drop_removed_model_row(c):
+        c = dict(c)
+        c["mu"] = list(c["mu"][:-1])
+        return c
+
+    ray_model = s_decide(fx_b_ray(fx_b_s4f(), "B-RAY-F"), mutate=drop_removed_model_row)
+    t_check("B-RAY-F model must include the removed preparation", ray_model["verified"] is False and ray_model["lp"] == "undecided")
+
     for name, fr in (("B-REG", fx_b_reg()), ("ZPT", fx_zpt())):
         for which, bv in (("P_max", (1, None, None)), ("B_max", (None, 1, None)), ("W_max", (None, None, 1))):
             r = s_decide(fr, bv)
@@ -3927,6 +4152,8 @@ def s_entry(argv, environ):
     if "--self-test" in argv:
         return self_test()
     if "--stress" in argv:
+        if not isinstance(S_MAX, int) or S_MAX < 1:
+            return 4, ""
         return 0, canonical(stress_output())
     dsha = None
     if "--dispatch-sha" in argv:

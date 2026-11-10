@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""controls.py -- the controls of native round ARP-2-QC21 (Q-C2-1). Preregistration r11b, Appendix C.5.
+"""controls.py -- the controls of native round ARP-2-QC21 (Q-C2-1). Preregistration r15, Appendix C.5; approved implementation under #1169 c.6778994857.
 
 Modes: check <commit> --freeze F [--stage S1|E|W], decide [m.json], note [m.json], replay <fresh.json>,
 stress-check <stress.json>, derive-run <run_id> <attempt>, order [--final], verdict, --self-test.
@@ -35,24 +35,29 @@ CONTROLS = RDIR + "controls.py"
 PREREG = RDIR + "preregistration.md"
 MEAS = RDIR + "evidence/measurements.json"
 OWNER = ("amaybaum", "OWNER")
+T0 = None  # Must be fixed from D main activity before F.
+RECORDED_BRANCHES = (ROUND_BRANCH, DEV_BRANCH)  # Add design/confirmation/gate branches before F.
+HOST_CALLS = 0
+S_MAX_FLOOR = 100000
 JOB_A = "Numerical probes / ARP-2-QC21 fixtures and stress"
 JOB_B = "Numerical probes / ARP-2-QC21 exact decision (gated)"
 STEP_B4 = "ARP-2-QC21 exact decision"
 STEP_B3 = "ARP-2-QC21 approved commit and receipt"
 STEP_B6 = "ARP-2-QC21 replay against the committed measurements"
 STEP_A3 = "ARP-2-QC21 fixture decision"
+STEP_A3B = "ARP-2-QC21 fixture output is fixture mode"
 STEP_A7 = "ARP-2-QC21 stress output equals the pinned sha256"
 STEP_A10 = "ARP-2-QC21 receipt absent"
 GOVERNED_DIGEST = "1d195f938f5467d1549f7755bcafce2109abbfbcb57a7ff2243fa09a67e9982e"
 ROUND_LINES = ["round ARP-2-QC21", "kind non-sealing", "record-directory " + RDIR]
 GOVERNED_LINES = ["record AM " + RDIR, "record AM " + RECEIPT, "execution M " + WORKFLOW]
 
-# Pins (PENDING until the design run, C.7): blobs of the scripts, the stress output, the records.
+# Pin-table shape only. Values are read from the frozen preregistration, never embedded into this script.
 PINS = {"qc21_check.py": None, "controls.py": None, "stress.json": None, "design-run.json": None,
         "gate-tests.json": None, "confirmation-run.json": None}
 # Inputs at D (DS): path -> blob at D.
 INPUTS = {
-    "verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md": "51c24aeb",
+    "verification/programmes/oi-qm/reconstruction/apparatus-1-20261107/DESIGN.md": "51c24aeb7b42a915b8942462435fd9fe129861de",
     "verification/receipts/ARP-1-MARC.json": "f4f2b06b40f1dcb91d4c0f2f020688be422b7bc8",
     "verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/preregistration.md":
         "af7c4f228393ecaa9d334d50410e3c87d6faf80e",
@@ -64,10 +69,16 @@ INPUTS = {
         "38d6f67559b6641590b3baf126b2247e97a4e28c",
     "verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/controls.py":
         "5e6318896ffe274bf5cca7dbcb2cb537b1bad4a1",
-    "tools/v3_verifier.py": None,
+    "tools/v3_verifier.py": "681c673734427cb9f316feee09b7c5ffba348004",
+    "papers/Substratum.md": "e5c6f217fe689b7d25afb105feb4dad272f929cc",
+    "verification/programmes/oi-qm/reconstruction/quarter-phase-native-20261107/DESIGN.md": "fb21999b0d45750a465dda742589f0af11575326",
+    "verification/programmes/oi-qm/reconstruction/quarter-phase-feedback-20261107/RESULT.md": "a00b3b7f28992fd2c0010836d50e7c89ab158088",
+    "verification/programmes/oi-qm/reconstruction/mechanism-2-20261108/DESIGN.md": "9352d9da7da6a55a52e6ada235034219638b34d2",
+    "verification/programmes/oi-qm/reconstruction/minacc-1-20261108/RESULT.md": "5adf76ebc8afa95cc51f45fb84c909b13876516c",
 }
+REQUIRED_SOURCE_INPUTS = {"RCH": {"path": None, "blob": None}, "DSN": {"path": None, "blob": None}}
 S1_FILES = ("qc21_check.py", "controls.py", "evidence/design-run.json", "evidence/f-run/results.json",
-            "evidence/confirmation-run.json", "evidence/confirmation-measurements.json", "evidence/gate-tests.json",
+            "evidence/confirmation-run.json", "evidence/confirmation-measurements.json", "evidence/gate-tests.json", "evidence/stress.json",
             "evidence/cone_k1_certificate.json", "evidence/cone_window_K2_certificate.json")
 # r12a: the cone certificates, copied into the record directory at S1 and pinned by sha256.
 STAB_CERTS = {"evidence/cone_k1_certificate.json":
@@ -76,7 +87,7 @@ STAB_CERTS = {"evidence/cone_k1_certificate.json":
               "f24a68d902a423018d15c4d92440970e5f17b202cc8b8ea3407ad11269e6ebaf"}
 R12_STAB = True    # copied STAB certificates are required from the design stage onward
 E_FILES = ("evidence/measurements.json", "evidence/s1-run/results.json", "evidence/order.json",
-           "evidence/order-s1.json", "result.md")
+           "evidence/order-s1.json", "evidence/approvals.json", "result.md")
 
 CHECKER_IMPORTS = {"fractions", "itertools", "json", "os", "sys"}
 CONTROLS_IMPORTS = {"ast", "fractions", "hashlib", "io", "zipfile", "json", "os.path", "re", "subprocess", "sys", "tempfile"}
@@ -101,6 +112,10 @@ T_CODE = ("import sys,json;sys.path.insert(0,'tools');import v3_verifier as v;r=
           "a=v.control_plane(r,sys.argv[1],sys.argv[2]);"
           "print(json.dumps({'rdir':(a[0] or b'').decode(),'round':a[1],'kind':a[2],"
           "'digest':v.governed_digest(a[3]) if isinstance(a[3],list) else None,'codes':a[5]},sort_keys=True))")
+
+
+class CaptureFailed(Exception):
+    """Host capture is incomplete; retry without substituting an empty result."""
 
 
 class Refused(Exception):
@@ -210,6 +225,8 @@ def git_delta(a, b):
 
 def gh_get(path_kind, *vals):
     """GET-only `gh api` over the frozen templates; returns (ok, parsed JSON or error text)."""
+    global HOST_CALLS
+    HOST_CALLS += 1
     if path_kind == "run":
         r = subprocess.run(["gh", "api", "--method", "GET",
                             f"repos/amaybaum/incompleteness/actions/runs/{a_ok(vals[0])}",
@@ -237,7 +254,7 @@ def gh_get(path_kind, *vals):
                             "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
     elif path_kind == "runs-dispatch":
         r = subprocess.run(["gh", "api", "--method", "GET",
-                            f"repos/amaybaum/incompleteness/actions/runs?event=workflow_dispatch&created="
+                            f"repos/amaybaum/incompleteness/actions/runs?event={a_ok(run_class_dispatch())}&created="
                             f"{a_ok(vals[0])}..{a_ok(vals[1])}&per_page=100&page={a_ok(vals[2])}",
                             "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
     elif path_kind == "runs-all":
@@ -279,16 +296,16 @@ def gh_get(path_kind, *vals):
 # ------------------------------------------------------------------------------------------------------------
 REF_KEY = "github.ref == 'refs/heads/research/arp2-qc21-20261108'"
 RECEIPT_KEY = "hashFiles('verification/receipts/ARP-2-QC21.json') == ''"
-B4_EXPR = ("${{ (github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && " + REF_KEY + " && "
+SPLICE_B4_EXPR = ("${{ (github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && " + REF_KEY + " && "
            + RECEIPT_KEY + ") && 'workflow_dispatch' || 'closed-or-other' }}")
-B6_IF = ("${{ (github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && " + REF_KEY + " && "
+SPLICE_B6_IF = ("${{ (github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && " + REF_KEY + " && "
          + RECEIPT_KEY + ") }}")
-JOB_B_IF = "${{ github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && inputs.arp2qc21_decisive == true }}"
+SPLICE_JOB_B_IF = "${{ github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && inputs.arp2qc21_decisive == true }}"
 B3_RUN = ('test "$GITHUB_SHA" = "$ARP2QC21_SHA" && test "$GITHUB_REF" = refs/heads/research/arp2-qc21-20261108 '
           '&& test ! -e verification/receipts/ARP-2-QC21.json')
 PY = "python3 -I -S -B "
-ON_ANCHOR = "  workflow_dispatch:\n\njobs:\n"
-ON_SPLICE = ("  workflow_dispatch:\n"
+SPLICE_ON_ANCHOR = "  workflow_dispatch:\n\njobs:\n"
+SPLICE_ON_SPLICE = ("  workflow_dispatch:\n"
              "    inputs:\n"
              "      arp2qc21_decisive:\n"
              "        description: 'ARP-2-QC21: the decisive dispatch (owner-approved only)'\n"
@@ -306,13 +323,13 @@ def upload(name, fname):
     return ("      - name: ARP-2-QC21 keep " + name + "\n"
             "        uses: actions/upload-artifact@v4\n"
             "        with:\n"
-            "          name: arp2-qc21-" + name.split()[-1] + "\n"
+            "          name: arp2-qc21-" + {"fixtures.json": "fixtures", "stress.json": "stress", "measurements.json": "measurements"}[fname] + "\n"
             "          path: ${{ runner.temp }}/arp2-qc21/" + fname + "\n"
             "          if-no-files-found: error\n"
             "          retention-days: 90\n\n")
 
 
-FROZEN_JOBS = (
+SPLICE_FROZEN_JOBS = (
     "  probes_arp2qc21:\n"
     "    name: " + JOB_A + "\n"
     "    runs-on: ubuntu-latest\n"
@@ -326,8 +343,10 @@ FROZEN_JOBS = (
     "          python-version: '3.11'\n\n"
     "      - name: " + STEP_A3 + "\n"
     "        run: |\n"
-    "          mkdir -p \"$RUNNER_TEMP/arp2-qc21\"\n"
-    "          " + PY + CHECKER + " --event fixture > \"$RUNNER_TEMP/arp2-qc21/fixtures.json\"\n\n"
+    "          mkdir -p \"$RUNNER_TEMP/arp2-qc21\" && " + PY + CHECKER + " --event fixture > \"$RUNNER_TEMP/arp2-qc21/fixtures.json\"\n\n"
+    "      - name: " + STEP_A3B + "\n"
+    "        if: ${{ always() }}\n"
+    "        run: " + PY + CONTROLS + " fixture-mode-check \"$RUNNER_TEMP/arp2-qc21/fixtures.json\"\n\n"
     + upload("the fixture output", "fixtures.json") +
     "      - name: ARP-2-QC21 stress\n"
     "        run: " + PY + CHECKER + " --stress > \"$RUNNER_TEMP/arp2-qc21/stress.json\"\n\n"
@@ -343,7 +362,7 @@ FROZEN_JOBS = (
     "        run: 'true'\n\n"
     "  probes_arp2qc21_decisive:\n"
     "    name: " + JOB_B + "\n"
-    "    if: " + JOB_B_IF + "\n"
+    "    if: " + SPLICE_JOB_B_IF + "\n"
     "    runs-on: ubuntu-latest\n"
     "    timeout-minutes: 60\n"
     "    env:\n"
@@ -359,14 +378,13 @@ FROZEN_JOBS = (
     "        run: " + B3_RUN + "\n\n"
     "      - name: " + STEP_B4 + "\n"
     "        run: |\n"
-    "          mkdir -p \"$RUNNER_TEMP/arp2-qc21\"\n"
-    "          " + PY + CHECKER + " --event \"" + B4_EXPR + "\" --dispatch-sha \"$ARP2QC21_SHA\" > "
+    "          mkdir -p \"$RUNNER_TEMP/arp2-qc21\" && " + PY + CHECKER + " --event \"" + SPLICE_B4_EXPR + "\" --dispatch-sha \"$ARP2QC21_SHA\" > "
     "\"$RUNNER_TEMP/arp2-qc21/measurements.json\"\n\n"
     + upload("the measurements", "measurements.json") +
     "      - name: " + STEP_B6 + "\n"
-    "        if: " + B6_IF + "\n"
+    "        if: " + SPLICE_B6_IF + "\n"
     "        run: " + PY + CONTROLS + " replay \"$RUNNER_TEMP/arp2-qc21/measurements.json\"\n\n")
-AGG_EDITS = (
+SPLICE_AGG_EDITS = (
     (", probes_arp1marc]\n", ", probes_arp1marc, probes_arp2qc21, probes_arp2qc21_decisive]\n"),
     ("          ARP1MARC_RESULT: ${{ needs.probes_arp1marc.result }}\n",
      "          ARP1MARC_RESULT: ${{ needs.probes_arp1marc.result }}\n"
@@ -385,7 +403,7 @@ AGG_EDITS = (
 def splice(d_text):
     """D's verify.yml with the frozen splice; None if an anchor is not found exactly once."""
     t = d_text
-    for old, new in ((ON_ANCHOR, ON_SPLICE), (JOB_ANCHOR, FROZEN_JOBS + JOB_ANCHOR)) + AGG_EDITS:
+    for old, new in ((SPLICE_ON_ANCHOR, SPLICE_ON_SPLICE), (JOB_ANCHOR, SPLICE_FROZEN_JOBS + JOB_ANCHOR)) + SPLICE_AGG_EDITS:
         if t.count(old) != 1:
             return None
         t = t.replace(old, new)
@@ -616,23 +634,25 @@ def static_controls(src):
             if any(dotted(d) == "subprocess.run" or (isinstance(d, ast.Name) and d.id == "open") for d in defaults):
                 errs.append("c': default value")
     errs += zip_read_rules(tree)
-    errs += _dispatch_string_sites(tree)
+    errs += run_class_string_sites(tree)
     return sorted(set(errs))
 
 
-def _dispatch_string_sites(tree):
+def run_class_string_sites(tree):
     """controls.py: the string constant "workflow_dispatch" occurs only in the run-classification functions
     (those named run_class_*, which derive-run, order and verdict use)."""
-    errs = []
-    owners = {}
-    for fn in tree.body:
-        if isinstance(fn, ast.FunctionDef):
-            for n in ast.walk(fn):
-                owners[id(n)] = fn.name
-    for n in ast.walk(tree):
-        if isinstance(n, ast.Constant) and isinstance(n.value, str) and n.value == run_class_dispatch():
-            if not str(owners.get(id(n))).startswith("run_class_"):
-                errs.append("workflow_dispatch outside the run-classification functions")
+    errs, owners, splice_nodes = [], {}, set()
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef):
+            for item in ast.walk(node):
+                owners[id(item)] = node.name
+        elif isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
+            if node.targets[0].id.startswith("SPLICE_"):
+                splice_nodes |= {id(item) for item in ast.walk(node.value)}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str) and run_class_dispatch() in node.value:
+            if id(node) not in splice_nodes and not str(owners.get(id(node))).startswith("run_class_"):
+                errs.append("dispatch string outside admitted site")
     return errs
 
 
@@ -825,6 +845,7 @@ def c_exact(src):
 
 V_BUILTINS = {"len", "range", "sum", "min", "max", "abs", "sorted", "enumerate", "zip", "all", "any", "int", "tuple",
               "list", "dict", "isinstance"}
+V_TYPE_NAMES = {"str"}
 V_EXCEPTION_NAMES = {"ValueError", "TypeError", "KeyError", "IndexError", "ArithmeticError"}
 V_FORBIDDEN = {"globals", "locals", "vars", "getattr", "setattr", "eval", "exec", "compile", "__import__"}
 
@@ -908,7 +929,7 @@ def c_indep(src):
             if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load):
                 if n.id in V_FORBIDDEN:
                     errs.append("%s: forbidden %s" % (fn.name, n.id))
-                elif n.id in local or n.id in vnames or n.id in V_BUILTINS or n.id in V_EXCEPTION_NAMES:
+                elif n.id in local or n.id in vnames or n.id in V_BUILTINS or n.id in V_EXCEPTION_NAMES or n.id in V_TYPE_NAMES:
                     pass
                 elif n.id in ("Fraction", "json", "itertools"):
                     pass
@@ -978,6 +999,23 @@ def c_iface(src_checker, src_controls):
         found = {n.name for n in tt.body if isinstance(n, ast.FunctionDef)} & set(names)
         if found != set(names):
             errs.append("C-IFACE: missing %s" % sorted(set(names) - found))
+    for src, names in ((src_checker, ("k_decide_p", "k_decide_b", "k_decide_c", "k_decide_levels")),
+                       (src_controls, ("decide_p", "decide_b", "decide_c", "decide_levels"))):
+        for fn in [x for x in ast.parse(src).body if isinstance(x, ast.FunctionDef) and x.name in names]:
+            for node in ast.walk(fn):
+                if isinstance(node, ast.Constant) and node.value == "bp_equals_qmp":
+                    errs.append(fn.name+" reads benchmark-only bp_equals_qmp")
+                if isinstance(node, ast.Name) and node.id in ("bp_restricted_equals_qmp", "qm_restricted_run"):
+                    errs.append(fn.name+" calls benchmark-only computation")
+            if fn.name in ("k_decide_b", "decide_b"):
+                roles = [x.comparators[0].value for x in ast.walk(fn) if isinstance(x, ast.Compare)
+                         and isinstance(x.left, ast.Call) and x.left.args and isinstance(x.left.args[0], ast.Constant)
+                         and x.left.args[0].value == "role" and len(x.comparators) == 1 and isinstance(x.comparators[0], ast.Constant)]
+                if roles != ["B-P"]:
+                    errs.append(fn.name+" must select only the B-P role")
+    for fn in [x for x in ast.parse(src_controls).body if isinstance(x, ast.FunctionDef) and x.name.startswith("ada_")]:
+        if any(isinstance(node, ast.Constant) and node.value == "bp_equals_qmp" for node in ast.walk(fn)):
+            errs.append(fn.name+" reads benchmark-only bp_equals_qmp")
     return errs
 
 
@@ -1108,40 +1146,73 @@ def schema_errors(m):
     return errs
 
 
+def fragment_controls(records):
+    """Decisive C-CERT/C-BUDGET: withheld results are reported; only a leaked verdict makes the control red."""
+    failures, leaked, over = [], [], []
+    for record in records:
+        named = str(record.get("name"))
+        decided = record.get("lp") in ("feasible", "infeasible")
+        if record.get("verified") is not True:
+            failures.append(named)
+            if decided:
+                leaked.append(named)
+        limits = record.get("budget_values", [])
+        counters = [record.get(key) for key in ("pivots", "max_bits", "work")]
+        excess = any(limit is not None and (not isinstance(value, int) or value > limit)
+                     for value, limit in zip(counters, limits))
+        caps = record.get("cap_values", [])
+        sizes = [record.get(key) for key in ("n_extreme", "d", "c", "effects_before_reduction")]
+        excess = excess or any(limit is not None and (not isinstance(value, int) or value > limit)
+                               for value, limit in zip(sizes, caps))
+        if decided and excess:
+            over.append(named)
+    return {"C-CERT": {"green": not leaked, "unverified": len(failures), "unverified_fragments": failures,
+                        "given_verdict_without_certificate": leaked},
+            "C-BUDGET": {"green": not over, "given_verdict_over_limit": over}}
+
+
 def decide(m):
     """decide: VOID unless the measurements are decisive, complete and in schema, with no placeholder; else
     every token recomputed from the raw fields, and the checker's flags must agree (X)."""
-    errs = schema_errors(m)
-    if errs:
-        return {"VOID": errs}
-    reasons = []
-    if m["mode"] != "decisive":
-        reasons.append("mode")
-    if m["complete"] is not True:
-        reasons.append("complete")
-    frs = m["B"].get("fragments", []) if isinstance(m["B"], dict) else []
-    if any(f.get("lp") == "placeholder" for f in frs) or m["P"] == "placeholder" or m["C"] == "placeholder":
-        reasons.append("placeholder")
-    if reasons:
-        return {"VOID": reasons}
-    f = m["flags"]
-    p_rec = {"adm": m["P"]["decide_p_inputs"]["adm"], "arms": m["P"]["arms"], "off": "off",
-             "on": m["P"]["decide_p_inputs"]["on"], "controls_red": f["controls_red"]["P"]}
-    p_tok, _ = decide_p(p_rec)
-    b_tok, _ = decide_b({"controls_red": f["controls_red"]["B"], "fragments": frs})
-    c_tok, _ = decide_c({"controls_red": f["controls_red"]["C"], "complete": True, "flags_agree": True,
-                         "instances": m["C"]["instances"]})
-    bp = [x for x in frs if x.get("role") == "B-P"]
-    b_ctx = b_tok == "B-CONTEXTUAL"
-    b_eq = bool(bp) and bp[0].get("lp_reads_equal_acc") is True
-    lev = decide_levels(p_tok, b_ctx, b_eq, True, c_tok, m["REP_INV"]["reclassified"])
-    attr = attr_value(m["P"]["arms"]["off"], m["P"]["arms"]["(w,0)"], m["P"]["arms"]["(w,w')"])
-    agree = (p_tok == f["P"] and b_tok == f["B"] and c_tok == f["C"] and str(lev) == str(f["levels"]["level"])
-             and attr == m["P"]["ATTR"]["value"])
-    out = {"P": p_tok, "B": b_tok, "C": c_tok, "level": lev, "ATTR": attr, "flags_agree": agree}
-    if not agree:
-        out["VOID"] = ["X: the checker's flags disagree with decide"]
-    return out
+    try:
+        errs = schema_errors(m)
+        if errs:
+            return {"VOID": errs}
+        reasons = []
+        if m["mode"] != "decisive":
+            reasons.append("mode")
+        if m["complete"] is not True:
+            reasons.append("complete")
+        frs = m["B"].get("fragments", []) if isinstance(m["B"], dict) else []
+        if any(f.get("lp") == "placeholder" for f in frs) or m["P"] == "placeholder" or m["C"] == "placeholder":
+            reasons.append("placeholder")
+        if reasons:
+            return {"VOID": reasons}
+        f = m["flags"]
+        p_rec = {"adm": m["P"]["decide_p_inputs"]["adm"], "arms": m["P"]["arms"], "off": "off",
+                 "on": m["P"]["decide_p_inputs"]["on"], "controls_red": f["controls_red"]["P"]}
+        p_tok, _ = decide_p(p_rec)
+        monitored = list(frs)+[x["completion_record"] for x in frs if isinstance(x.get("completion_record"), dict)]
+        measured_controls = fragment_controls(monitored)
+        b_red = list(f["controls_red"]["B"])
+        b_red += [name for name, control in measured_controls.items() if not control["green"] and name not in b_red]
+        b_tok, _ = decide_b({"controls_red": b_red, "fragments": frs})
+        c_tok, _ = decide_c({"controls_red": f["controls_red"]["C"], "complete": True, "flags_agree": True,
+                             "instances": m["C"]["instances"]})
+        bp = [x for x in frs if x.get("role") == "B-P"]
+        b_ctx = b_tok == "B-CONTEXTUAL"
+        b_eq = bool(bp) and bp[0].get("lp_reads_equal_acc") is True
+        lev = decide_levels(p_tok, b_ctx, b_eq, True, c_tok, m["REP_INV"]["reclassified"])
+        attr = attr_value(m["P"]["arms"]["off"], m["P"]["arms"]["(w,0)"], m["P"]["arms"]["(w,w')"])
+        agree = (p_tok == f["P"] and b_tok == f["B"] and c_tok == f["C"] and str(lev) == str(f["levels"]["level"])
+                 and attr == m["P"]["ATTR"]["value"])
+        out = {"P": p_tok, "B": b_tok, "C": c_tok, "level": lev, "ATTR": attr, "flags_agree": agree}
+        if not agree:
+            out["VOID"] = ["X: the checker's flags disagree with decide"]
+        return out
+
+    except (ValueError, TypeError, KeyError, IndexError, AttributeError):
+        return {"VOID": ["malformed decisive record"]}
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -1453,14 +1524,83 @@ C_TEXTS = {
     "C-VOID": "A required C control failed: {codes}. No reading is made."}
 
 
+def ada_statuses(measurements, decision):
+    """Frozen ADA statuses from structured records; no quantum-comparison field is an input."""
+    p, c = measurements["P"], measurements["C"]
+    ablations, ab = p.get("ablate_p", {}), p.get("ab_p", {})
+    rows = []
+    for name, record in sorted(ablations.items()):
+        status = "used, not varied"
+        if name == "ABL-SA1c" and ab.get("universality_case") == "A fails and B succeeds" and record.get("pred_change") is True:
+            status = "carrying the universality reading in this model"
+        if name == "ABL-SA1b" and record.get("OLC", {}).get("joint") is True:
+            status = "carries observer-level complementarity in this model"
+        kind = record.get("kind", "dynamics" if name == "ABL-P3" else "reported")
+        if name == "ABL-P3":
+            status = "could not be ablated in this round (NR-16)"
+        rows.append({"assumption": name, "status": status, "kind": kind,
+                     "pred_change": record.get("pred_change"), "mech_change": record.get("mech_change"),
+                     "access_only": record.get("access_only"), "dynamics_credit": record.get("dynamics_credit"),
+                     "credit": "not credited with new dynamics" if kind in ("state restriction", "access restriction") else "as recorded"})
+    controls = c.get("controls", {})
+    affine_status = "used, not varied"
+    if decision["C"] in ("C-EXPOSURE", "C-NONSTABILIZER") and controls.get("CC-NAT", {}).get("green") is True and controls.get("C-EMB", {}).get("green") is True:
+        affine_status = "essential in this model"
+    elif decision["C"] == "C-SURVIVAL":
+        affine_status = "not sufficient to remove in this model"
+    rows += [{"assumption": "L-AFF", "status": affine_status, "kind": "dynamics"},
+             {"assumption": "L-HOLD", "status": "the record that suppresses is unread" if decision["P"] == "P-COMPLEMENTARITY" else "used, not varied"},
+             {"assumption": "L-PORT", "status": "fixes B1"},
+             {"assumption": "L-HET", "status": "used, not varied"},
+             {"assumption": "L-CAL", "status": "used, not varied; REP-INV is reported separately"},
+             {"assumption": "E-COMPL", "status": "reported", "CPL": {name: arm.get("CPL") for name, arm in p.get("arms", {}).items()}}]
+    diagnostics = c.get("diagnostics_r5", {})
+    herald_binding = [name for name, record in diagnostics.items() if record.get("herald_failure_non_octahedral_fit")]
+    ball_binding = [name for name, record in diagnostics.items() if name in ("AND", "NAND", "OR", "NOR") and record.get("category") == "INVALID"]
+    rows += [{"assumption": "L-HCONST (diagnostics)", "status": "binding" if herald_binding else "used, not varied", "rules": herald_binding},
+             {"assumption": "E-BALL (diagnostics)", "status": "binding" if ball_binding else "used, not varied", "rules": ball_binding,
+              "nonstab_valid": {name: diagnostics[name].get("nonstab_valid") for name in ball_binding}},
+             {"assumption": "L-ISOT (diagnostics)", "status": "reported", "branches": {
+                 name: {field: record.get(field) for field in ("nonisotropic_branches", "sharp_branches")} for name, record in diagnostics.items()}}]
+    return rows
+
+
+def ada_questions(measurements, decision):
+    """The five frozen questions, per test/token, with the finite-model scope explicit."""
+    result = {}
+    for test in ("P", "B", "C"):
+        token = decision[test]
+        removal = "Only this model; outside this round's model, not established."
+        counterexample = "None in the declared scope."
+        if test == "P":
+            removal = "The two A/B readings and ABL-SA1c's pred_change/mech_change/access_only fields are reported."
+        elif test == "B":
+            removal = "The first restoring completion with a verified model is reported; an undecided completion establishes no restoration."
+        elif token == "C-EXPOSURE":
+            removal = "In this model, for the listed instances on bounded orbits."
+            counterexample = "A finite candidate satisfies VAL on O_K, HC, CONS and EMB only; the comparator's further requirements are untested (NR-6)."
+        elif token == "C-NONSTABILIZER":
+            removal = "Partly: valid non-stabilizer orbit laws; no non-Clifford fixed operation found in scope."
+        elif token == "C-SURVIVAL":
+            removal = "Not in this model."
+        result[test] = {"token": token, "essential_assumptions": "From the ADA status rows above.",
+                        "types": "From the frozen ledger; L-AFF, L-Q2 and L-N2 retain both native/imported readings.",
+                        "removing_imported_assumption": removal, "counterexample": counterexample,
+                        "scope": "Only this model. Irrational and approximate gates are outside every outcome; outside this round's model, not established."}
+    return result
+
+
 def make_note(m, d, f, s1, e):
     dec = decide(m)
     lines = ["# ARP-2-QC21 (Q-C2-1): result", "", FREEZE_DISCLOSURE, "",
-             "- `D` = `%s`; `F` = `%s`; S1 = `%s`; `E` = `%s`." % (d, f, s1, e), ""]
+             "- `D` = `%s`; `F` = `%s`; S1 = `%s`; `E` is this evidence commit, identified by the owner designation." % (d, f, s1), ""]
     if "VOID" in dec:
         lines += ["**Token:** `VOID`", "", "A required control failed, or the output was incomplete: "
                   + ", ".join(dec["VOID"]) + ". No reading is made. The measurements are preserved as produced.", ""]
         return "\n".join(lines) + "\n"
+    lines += ["**Token line:** `"+token_line(m)+"`", "",
+              "Any final-capture and E-stage approval/ratification checks remain required operational landing conditions. "
+              "This enduring note makes no assertion that unretained host-time checks passed.", ""]
     p_rec = {"adm": m["P"]["decide_p_inputs"]["adm"], "arms": m["P"]["arms"], "off": "off", "on": "(w,0)",
              "controls_red": m["flags"]["controls_red"]["P"]}
     p_tok, p_list = decide_p(p_rec)
@@ -1474,8 +1614,33 @@ def make_note(m, d, f, s1, e):
     if m["P"]["ab_p"]["existence_case"] == "both succeed":
         lines += ["", OWNER_CASE]
     lines += ["", "## B", "", "**Token:** `%s`" % dec["B"], ""]
+    if dec["B"] == "B-VOID":
+        code_records = {"controls_red": m["flags"]["controls_red"]["B"], "fragments": m["B"]["fragments"]}
+        codes = decide_b(code_records)[1]
+        lines.append("A required B control failed, or B-P has no verified verdict within this round's frozen caps and budget: "
+                     +", ".join(codes)+". No reading is made.")
+        for fragment in m["B"]["fragments"]:
+            if fragment.get("role") == "B-P" and fragment.get("lp") == "out_of_scope":
+                lines.append("B-P exceeded "+", ".join(fragment.get("caps", ["the cap or budget"]))+
+                             ". This is a limitation of this round's frozen resources, not a result about B-P.")
+            if fragment.get("role") == "B-P" and fragment.get("lp") == "undecided":
+                lines.append("B-P's certificate did not verify. This is a limitation of this round's method, not a result about B-P.")
     if dec["B"] == "B-CONTEXTUAL":
         lines.append(B_SCOPE.replace("{Acc}", "Acc(B-P)").replace("{typing}", "owner-typed candidate strengthened"))
+    fragments = m["B"]["fragments"]
+    completions = [record for record in fragments if record.get("role") == "completion"]
+    for record in completions:
+        lines.append("- Completion "+record["name"]+": "+str(record["lp"])+"; certificate verified "+str(record.get("verified"))+".")
+    restored = [record["name"] for record in completions if record.get("lp") == "feasible" and record.get("verified") is True]
+    if dec["B"] == "B-CONTEXTUAL":
+        lines.append("First restoring completion: "+restored[0]+"." if restored else
+                     "No completion in the frozen list restored a model within this round's frozen caps and budget: "+
+                     ", ".join(record["name"]+" "+str(record["lp"]) for record in completions)+".")
+    for record in fragments:
+        if record.get("role") == "B-C":
+            completion = record.get("completion_record", {})
+            lines.append("- "+record["name"]+": "+str(record["lp"])+"; full-read completion "+str(completion.get("lp", "not attempted"))+
+                         ("; imported for B-C." if record.get("restored_by_full") is True and record.get("lp") == "infeasible" else "; no UPR-BC label."))
     lines += ["", "## C", "", "**Token:** `%s`" % dec["C"], ""]
     lines.append(C_TEXTS[dec["C"]].replace("{inst}", ", ".join(m["C"].get("flagged", [])) or "none")
                  .replace("{codes}", ", ".join(m["flags"]["controls_red"]["C"])).replace("{ca}", "is reported")
@@ -1491,6 +1656,11 @@ def make_note(m, d, f, s1, e):
     lines.append("- reclassified as imported: %s" % (", ".join(m["REP_INV"]["reclassified"]) or "none"))
     lines += ["", "## What no outcome shows", ""] + ["- " + x for x in NO_OUTCOME]
     lines += ["", "## ADA", "", OWNER_STANDARD, "", COMMON_CLAUSE, ""]
+    for row in ada_statuses(m, dec):
+        lines.append("- "+canonical(row).strip())
+    for test, questions in ada_questions(m, dec).items():
+        lines.append("- "+test+": "+canonical(questions).strip())
+    lines.append("Shared scaffolding untested here: P3, E-iso, N2, H-PREP, terminal screen, L-PATH and L-PORT.")
     return "\n".join(lines) + "\n"
 
 
@@ -1499,17 +1669,21 @@ def make_note(m, d, f, s1, e):
 # ------------------------------------------------------------------------------------------------------------
 def freeze_budget_rule(stress, t5, t810):
     """C.8.1–2 mechanical resource selection; pure arithmetic on recorded design data only."""
+    good, reason = stress_validate(stress)
+    if not good:
+        raise Refused("budget rule: "+reason)
     fragments = stress["fragments"]
     eligible = [x for x in fragments if x["class"] != "ST-BP"]
     if not eligible or any(x["certificate_verified"] is not True for x in eligible):
         raise Refused("budget rule: unverified general record")
     general = [3*max(x[key] for x in eligible) for key in ("pivots", "max_bits", "work")]
     work_total = stress["W_fix"]+stress["W_stress"]
-    if work_total <= 0 or not isinstance(t5, int) or t5 <= 0 or not isinstance(t810, int) or t810 < 0:
+    if work_total <= 0 or not isinstance(t5, int) or t5 < 0 or not isinstance(t810, int) or t810 < 0:
         raise Refused("budget rule: invalid durations or work")
     sigma = fractions.Fraction(t5, work_total)
     candidates = [x for x in fragments if x["class"] == "ST-BP" and x["over_maximum"] is False
-                  and x["certificate_verified"] is True and x["verdict"] in ("feasible", "infeasible")]
+                  and x["certificate_verified"] is True and x["verdict"] in ("feasible", "infeasible")
+                  and type(x["c"]) is int and 0 <= x["c"] <= stress["S_max"]]
     candidates = sorted(candidates, key=lambda x: (-x["c"], (20261108, 1, 2).index(x["seed"])))
     reference, caps, bp_budget = None, [16, 16, 100000, 200], list(general)
     for record in candidates:
@@ -1525,14 +1699,11 @@ def freeze_budget_rule(stress, t5, t810):
             "timeout_minutes": 60, "reported_only_volume": 1203}
 
 
-def stress_check(path, pin):
-    """A7 validates all six instances, ST-BP's explicit over-maximum exception, totals and optional pin."""
-    raw = read_bytes(path)
+def stress_validate(data):
     try:
-        data = json.loads(raw)
         if data["schema"] != "arp2-qc21-stress" or data["version"] != 2:
             return False, "schema"
-        if data["seeds"] != [20261108, 1, 2] or not isinstance(data["S_max"], int) or data["S_max"] < 1:
+        if data["seeds"] != [20261108, 1, 2] or type(data["S_max"]) is not int or data["S_max"] < 1:
             return False, "seeds/S_max"
         records, names = data["fragments"], []
         if not isinstance(records, list) or not records:
@@ -1547,6 +1718,13 @@ def stress_check(path, pin):
             for key in ("pivots", "max_bits", "work"):
                 if type(record[key]) is not int or record[key] < 0:
                     return False, "counter "+key
+            if "decided_by" not in record:
+                return False, "missing deciding step"
+            if record["class"] == "ST-BP":
+                if type(record["c"]) is not int or record["c"] < 0 or type(record["over_maximum"]) is not bool:
+                    return False, "ST-BP count/flag type"
+                if record["over_maximum"] != (record["c"] > data["S_max"]):
+                    return False, "ST-BP maximum relation"
             if record["class"] == "ST-BP" and record["over_maximum"] is True:
                 if record["c"] <= data["S_max"] or record["verdict"] != "out_of_scope" or record["certificate"] is not None:
                     return False, "invalid over_maximum"
@@ -1566,6 +1744,18 @@ def stress_check(path, pin):
             return False, "SF-2 instances"
     except (ValueError, TypeError, KeyError, IndexError):
         return False, "malformed stress record"
+    return True, "schema verified"
+
+
+def stress_check(path, pin):
+    raw = read_bytes(path)
+    try:
+        data = json.loads(raw)
+    except (ValueError, TypeError):
+        return False, "unparseable"
+    good, reason = stress_validate(data)
+    if not good:
+        return False, reason
     digest = sha256_bytes(raw)
     return (True if pin is None else digest == pin), digest
 
@@ -1575,7 +1765,11 @@ def replay_compare(fresh_bytes, committed_bytes):
     parameters.dispatch_sha is set aside on both sides before the byte comparison of canonical JSON."""
     try:
         a, b = json.loads(fresh_bytes), json.loads(committed_bytes)
-    except ValueError:
+    except (ValueError, TypeError):
+        return False
+    if not isinstance(a, dict) or not isinstance(b, dict):
+        return False
+    if not isinstance(a.get("parameters"), dict) or not isinstance(b.get("parameters"), dict):
         return False
     a.get("parameters", {}).pop("dispatch_sha", None)
     b.get("parameters", {}).pop("dispatch_sha", None)
@@ -1613,6 +1807,8 @@ def pending_unbackticked(text):
 def code_t(d, f):
     """T: the v3 control plane at F (via control T's frozen command) and the frozen blocks."""
     errs = []
+    if not v3_working_copy_ok():
+        return ["DS: working v3_verifier differs from its exact pinned D object; T not started"]
     r = subprocess.run(["python3", "-I", "-S", "-c", "import sys,json;sys.path.insert(0,'tools');import v3_verifier as v;r=v.Repo('.');a=v.control_plane(r,sys.argv[1],sys.argv[2]);print(json.dumps({'rdir':(a[0] or b'').decode(),'round':a[1],'kind':a[2],'digest':v.governed_digest(a[3]) if isinstance(a[3],list) else None,'codes':a[5]},sort_keys=True))", a_ok(d), a_ok(f)], capture_output=True, text=True)
     if r.returncode != 0:
         return ["T: control T's command failed"]
@@ -1646,25 +1842,32 @@ def code_g(base, head, allowed):
     return ["G: %s %s" % (st, p) for st, p in delta if p not in allowed]
 
 
-def code_b(commit):
-    errs = []
-    for name, path, fn in (("qc21_check.py", CHECKER, static_checker), ("controls.py", CONTROLS, static_controls)):
-        blob = git_blob(commit, path)
-        if PINS[name] is not None and blob != PINS[name]:
-            errs.append("B: blob %s" % name)
-        src = git_show(commit, path)
-        if src is None:
-            errs.append("B: missing " + name)
+def code_b(commit, pins=None):
+    errors = []
+    if pins is None:
+        pins = frozen_pins(git_show(commit, PREREG))
+    if pins is None:
+        return ["B: missing/invalid frozen pin table"]
+    for name, path, scan in (("qc21_check.py", CHECKER, static_checker), ("controls.py", CONTROLS, static_controls)):
+        pin = pins.get(name)
+        source = git_show(commit, path)
+        if not isinstance(pin, str) or not re.fullmatch(r"[0-9a-f]{40}", pin) or git_blob(commit, path) != pin:
+            errors.append("B: exact script blob "+name)
+        digest = pins.get(name+".sha256")
+        if source is None:
+            errors.append("B: missing "+name)
             continue
-        errs += ["B: %s: %s" % (name, e) for e in fn(src.decode("utf-8"))]
+        if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest) or sha256_bytes(source) != digest:
+            errors.append("B: script sha256 "+name)
+        text = source.decode()
+        errors += ["B: "+name+": "+error for error in scan(text)]
         if name == "qc21_check.py":
-            text = src.decode("utf-8")
-            errs += ["B: C-EXACT: " + e for e in c_exact(text)]
-            errs += ["B: C-INDEP: " + e for e in c_indep(text)]
-    ck, ct = git_show(commit, CHECKER), git_show(commit, CONTROLS)
-    if ck is not None and ct is not None:
-        errs += ["B: C-IFACE: " + e for e in c_iface(ck.decode("utf-8"), ct.decode("utf-8"))]
-    return errs
+            errors += ["B: C-EXACT: "+error for error in c_exact(text)]
+            errors += ["B: C-INDEP: "+error for error in c_indep(text)]
+    checker, controller = git_show(commit, CHECKER), git_show(commit, CONTROLS)
+    if checker is not None and controller is not None:
+        errors += ["B: C-IFACE: "+error for error in c_iface(checker.decode(), controller.decode())]
+    return errors
 
 
 def code_w(commit):
@@ -1676,59 +1879,90 @@ def code_w(commit):
 
 
 def code_ds():
-    errs = []
+    errors = []
     for path, blob in INPUTS.items():
-        got = git_blob(D_SHA, path)
-        if got is None or (blob is not None and not got.startswith(blob)):
-            errs.append("DS: %s" % path)
-    return errs
+        if not isinstance(blob, str) or not re.fullmatch(r"[0-9a-f]{40}", blob) or git_blob(D_SHA, path) != blob:
+            errors.append("DS: exact D input pin "+path)
+    for name, record in REQUIRED_SOURCE_INPUTS.items():
+        path, blob = record.get("path"), record.get("blob")
+        if not isinstance(path, str) or not isinstance(blob, str) or not re.fullmatch(r"[0-9a-f]{40}", blob):
+            errors.append("DS: "+name+" main source path/blob not supplied")
+        elif git_blob(D_SHA, path) != blob:
+            errors.append("DS: "+name+" not at D's exact pin")
+    return errors
 
 
-def check_mode(commit, f, stage):
-    errs = []
+def check_mode(commit, frozen, stage):
+    """Validate the frozen chain and records; capture failure propagates rather than becoming scientific VOID."""
+    errors = code_ds()
+    if errors or not v3_working_copy_ok():
+        return errors+["DS: control T not started before exact verifier-byte check"]
+    errors += code_t(D_SHA, frozen)
+    pins = frozen_pins(git_show(frozen, PREREG))
     if stage is None:
-        errs += code_t(D_SHA, f) + code_g(D_SHA, f, {PREREG}) + code_ds()
-        pre = git_show(f, PREREG)
-        if pre is not None:
-            hits = pending_unbackticked(pre.decode("utf-8"))
-            if hits:
-                errs.append("P: unbackticked PENDING at lines %s" % hits[:20])
-        if PINS["stress.json"] is None:
-            errs.append("P: no stress pin")
-        return errs
-    errs += code_t(D_SHA, f)
+        errors += code_g(D_SHA, frozen, {PREREG})
+        raw = git_show(frozen, PREREG)
+        if raw is None:
+            errors.append("P: no frozen preregistration")
+        elif pending_unbackticked(raw.decode()):
+            errors.append("P: unbackticked PENDING fields remain")
+        additional, records = freeze_checks(frozen, commit)
+        return errors+additional
+    if stage not in ("S1", "E", "W"):
+        return errors+["T: unknown stage"]
+    if pins is None:
+        return errors+["P: frozen pins absent"]
     if stage == "S1":
-        if git_parents(commit) != [f]:
-            errs.append("T: S1 is not a single-parent child of F")
-        errs += code_g(f, commit, {RDIR + x for x in S1_FILES} | {WORKFLOW})
-        errs += code_b(commit) + code_w(commit)
-    elif stage == "E":
-        par = git_parents(commit)
-        if par is None or len(par) != 1:
-            errs.append("T: E is not a single-parent commit")
-        else:
-            errs += code_g(par[0], commit, {RDIR + x for x in E_FILES})
-            errs += code_b(commit) + code_w(commit)
-        mb = git_show(commit, MEAS)
-        if mb is None:
-            errs.append("R: no measurements at E")
-        else:
-            m = json.loads(mb)
-            dec = decide(m)
-            if "VOID" in dec:
-                errs.append("X: %s" % dec["VOID"])
-            conf = git_show(commit, RDIR + "evidence/confirmation-measurements.json")
-            if conf is None or canonical(json.loads(conf).get("fixtures")) != canonical(m.get("fixtures")):
-                errs.append("C-STATELESS: the fixtures section differs from the confirmation run's")
-            note = git_show(commit, RDIR + "result.md")
-            if note is not None:
-                if s4_hits(note.decode("utf-8")):
-                    errs.append("V: S4 %s" % s4_hits(note.decode("utf-8")))
-            else:
-                errs.append("R: no result.md")
-    elif stage == "W":
-        errs += code_g(f, commit, {RDIR + x for x in S1_FILES + E_FILES} | {WORKFLOW, RDIR + "evidence/void-run.json"})
-    return errs
+        if git_parents(commit) != [frozen]:
+            errors.append("T: S1 must be a single-parent child of F")
+        errors += code_g(frozen, commit, {RDIR+name for name in S1_FILES}|{WORKFLOW})
+        errors += code_b(commit, pins)+code_w(commit)
+        for name in S1_FILES:
+            if git_show(commit, RDIR+name) is None:
+                errors.append("R: S1 file missing "+name)
+        additional, records = freeze_checks(frozen, commit)
+        return errors+additional
+    if stage == "W":
+        errors += code_g(frozen, commit, {RDIR+name for name in S1_FILES+E_FILES}|{WORKFLOW, RDIR+"evidence/void-run.json"})
+        if git_show(commit, WORKFLOW) != git_show(frozen, WORKFLOW):
+            errors.append("W: halt commit did not restore F workflow")
+        return errors
+    parents = git_parents(commit)
+    if parents is None or len(parents) != 1:
+        return errors+["T: E must be single-parent"]
+    s1 = parents[0]
+    if git_parents(s1) != [frozen]:
+        errors.append("T: E parent is not the S1 child of F")
+    errors += code_g(s1, commit, {RDIR+name for name in E_FILES})
+    errors += code_b(commit, pins)+code_w(commit)
+    for name in E_FILES:
+        if git_show(commit, RDIR+name) is None:
+            errors.append("R: E file missing "+name)
+    measurement = git_show(commit, MEAS)
+    if measurement is None:
+        return errors+["R: missing measurements"]
+    try:
+        data = json.loads(measurement)
+        decision = decide(data)
+        if "VOID" in decision:
+            errors.append("X: "+str(decision["VOID"]))
+        confirmation = git_show(commit, RDIR+"evidence/confirmation-measurements.json")
+        if confirmation is None or canonical(json.loads(confirmation).get("fixtures")) != canonical(data.get("fixtures")):
+            errors.append("C-STATELESS: supplied confirmation fixtures differ (no archive-authenticity claim)")
+        note = git_show(commit, RDIR+"result.md")
+        expected = make_note(data, D_SHA, frozen, s1, commit).encode()
+        if note != expected:
+            errors.append("V: regenerated note differs")
+        if note is not None and s4_hits(note.decode()):
+            errors.append("V: forbidden S4 assertion")
+        for name in ("evidence/order.json", "evidence/order-s1.json"):
+            capture = json.loads(git_show(commit, RDIR+name))
+            if capture.get("schema") != "arp2-qc21-order" or capture.get("version") != 1 or capture.get("violations"):
+                errors.append("R: invalid/violating "+name)
+        run_class_approvals(json.loads(git_show(commit, RDIR+"evidence/approvals.json")))
+    except (ValueError, TypeError, KeyError, IndexError, AttributeError, Refused):
+        errors.append("R/X/V: malformed evidence record")
+    return errors
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -1767,64 +2001,61 @@ def run_class_host_void(jobs):
     return jb is None or run_class_absent_or_skipped(run_class_step(jb, STEP_B4))
 
 
-def run_class_binding_errors(entry, run, jobs, meas_dispatch_sha):
-    """The approval entry bound to its run (re-anchored on the owner's quoted commit; E5) and the edited-comment
-    rule (R10-B5). Fail-closed: a missing field is an error."""
-    errs = []
+def run_class_binding_errors(entry, run, jobs, meas_dispatch_sha=None):
+    """C.3, including the S1/E distinction and the expressly weaker host-VOID case."""
+    errors = []
     try:
-        quoted = entry["quoted_words"]
-        sha = run["head_sha"]
-        if sha not in quoted or entry["stage"] not in quoted:
-            errs.append("quoted words do not name the commit and the stage")
-        if entry["approval_created_at"] >= run["created_at"]:
-            errs.append("approval does not precede the run")
-        if not (entry["approval_updated_at"] == entry["approval_created_at"]
-                or entry["approval_updated_at"] < run["created_at"]):
-            errs.append("approval comment edited after its run")
-        if (entry["approval_author"], entry.get("author_association")) != OWNER:
-            errs.append("approval author")
-        if run.get("run_attempt") != 1 or entry["run_attempt"] != 1:
-            errs.append("attempt")
-        if run.get("event") != run_class_dispatch():
-            errs.append("event")
-        jb = run_class_job(jobs, JOB_B)
-        b3 = run_class_step(jb, STEP_B3)
-        if jb is None or b3 is None or b3.get("conclusion") != "success":
-            errs.append("B3 not success")
-        if meas_dispatch_sha != sha:
-            errs.append("measurements' dispatch_sha")
-    except (KeyError, TypeError):
-        errs.append("entry incomplete")
-    return errs
+        stage, sha = entry["stage"], run["head_sha"]
+        body = entry["quoted_words"]
+        if stage not in ("S1", "E") or not run_class_word(body, sha) or not run_class_word(body, stage):
+            errors.append("quoted commit/stage")
+        if entry["head_sha"] != sha or entry["run_id"] != run["run_id"]:
+            errors.append("entry/run identity")
+        if (entry["approval_author"], entry["author_association"]) != OWNER:
+            errors.append("approval author")
+        created, edited, started = entry["approval_created_at"], entry["approval_updated_at"], run["created_at"]
+        for stamp in (created, edited, started):
+            run_class_time_value(stamp)
+        if created >= started or (edited != created and edited >= started):
+            errors.append("prior approval/edited-comment rule")
+        if entry["run_attempt"] != 1 or run["run_attempt"] != 1 or run["event"] != run_class_dispatch():
+            errors.append("event/attempt")
+        if run.get("path") != WORKFLOW:
+            errors.append("attesting workflow")
+        if run_class_host_void(jobs):
+            return errors
+        job = run_class_job(jobs, JOB_B)
+        b3 = run_class_step(job, STEP_B3)
+        if job is None or b3 is None or b3.get("conclusion") != "success":
+            errors.append("B3 not success")
+        if stage == "S1" and meas_dispatch_sha != sha:
+            errors.append("S1 measurements dispatch_sha")
+    except (KeyError, TypeError, ValueError, Refused):
+        errors.append("entry incomplete")
+    return errors
 
 
-def run_class_rule(att, approved, gate_tests, recorded_commits, nondispatch_records, order_s1):
-    """The rule (C.3): every checker-bearing attempt is (a) an approved entry's attempt 1, (b) a gate-test entry,
-    (c) an attempt >= 2 of (a) or (b) whose job B is absent or skipped, or (d) a non-dispatch attempt at a
-    recorded-branch commit satisfying the no-unapproved-F1 rule. Returns None (compliant) or a violation."""
+def run_class_rule(att, approved, gate_tests, recorded_commits, nondispatch_records=None, order_s1=None):
+    """C.3 classification reads actual completed job/step conclusions, never artifact mode claims."""
     key = (att["run_id"], att["run_attempt"])
-    is_disp = att["event"] == run_class_dispatch()
-    approved_ids = {(e["run_id"], e["run_attempt"]) for e in approved}
-    gate_ids = {e["run_id"] for e in gate_tests}
-    if key in approved_ids and att["run_attempt"] == 1:
+    approvals = {(entry["run_id"], entry["run_attempt"]) for entry in approved}
+    gates = {entry["run_id"] for entry in gate_tests}
+    if att.get("attempt_status") != "completed":
+        return "capture-not-completed"
+    if key in approvals and key[1] == 1:
         return None
-    if att["run_id"] in gate_ids and att["run_attempt"] == 1:
-        if not run_class_absent_or_skipped(run_class_step(run_class_job(att["jobs"], JOB_B), STEP_B4)):
-            return "gate-test run in which B4 ran"
-        return None
-    if att["run_attempt"] >= 2 and ((att["run_id"], 1) in approved_ids or att["run_id"] in gate_ids):
-        if run_class_absent_or_skipped(run_class_job(att["jobs"], JOB_B)):
-            return None
-        return "re-run attempt with job B not skipped"
-    if not is_disp and att["head_sha"] in recorded_commits:
-        rec = nondispatch_records.get(key) or order_s1.get(key)
-        if rec is None:
-            return "no record (artifact missing and not in order-s1.json)"
-        jb = run_class_job(att["jobs"], JOB_B)
+    if key[0] in gates and key[1] == 1:
+        b4 = run_class_step(run_class_job(att["jobs"], JOB_B), STEP_B4)
+        return None if run_class_absent_or_skipped(b4) else "gate-test B4 ran"
+    if key[1] >= 2 and ((key[0], 1) in approvals or key[0] in gates):
+        return None if run_class_absent_or_skipped(run_class_job(att["jobs"], JOB_B)) else "rerun job B not skipped"
+    if att["event"] != run_class_dispatch() and att["head_sha"] in recorded_commits:
+        ja, jb = run_class_job(att["jobs"], JOB_A), run_class_job(att["jobs"], JOB_B)
         if not run_class_absent_or_skipped(jb) or not run_class_absent_or_skipped(run_class_step(jb, STEP_B4)):
-            return "job B or B4 ran in a non-dispatch run"
-        if rec.get("fixtures_mode") != "fixture":
-            return "fixtures_mode is not fixture"
+            return "non-dispatch job B/B4 ran"
+        a3, marker = run_class_step(ja, STEP_A3), run_class_step(ja, STEP_A3B)
+        if not run_class_absent_or_skipped(a3) and (marker is None or marker.get("conclusion") != "success"):
+            return "started A3 without fixture-mode marker"
         return None
     return "unapproved checker-bearing attempt"
 
@@ -1992,7 +2223,7 @@ def run_class_artifact_binding(run_id, head_sha, expected=None):
         return {"valid": False, "reason": "artifact digest missing"}
     ok, blob = gh_get("artifact-zip", a_ok(str(artifact["id"])))
     if not ok:
-        return None
+        return {"valid": False, "reason": "archive unavailable"} if run_class_api_missing(blob) else None
     if not isinstance(blob, bytes) or sha256_bytes(blob) != digest[7:]:
         return {"valid": False, "reason": "archive digest mismatch"}
     try:
@@ -2014,7 +2245,9 @@ def run_class_artifact_binding(run_id, head_sha, expected=None):
 
 def run_class_comment(comment_id):
     ok, comment = gh_get("comment", a_ok(str(comment_id)))
-    if not ok or not isinstance(comment, dict) or comment.get("id") != int(comment_id):
+    if not ok:
+        return {"id": int(comment_id), "missing": True} if run_class_api_missing(comment) else None
+    if not isinstance(comment, dict) or comment.get("id") != int(comment_id):
         return None
     return comment
 
@@ -2031,21 +2264,25 @@ def run_class_approval_entry(comment_id, run, stage):
             "author_association": comment.get("author_association"), "quoted_words": comment.get("body")}
 
 
-def run_class_designation_errors(comment, sha, first_time=None, digests=()):
+def run_class_designation_errors(comment, sha, first_time=None, digests=(), stage="F"):
     errors = []
     if not isinstance(comment, dict):
         return ["missing designation"]
     if ((comment.get("user") or {}).get("login"), comment.get("author_association")) != OWNER:
         errors.append("designation author")
     body = comment.get("body")
-    if not isinstance(body, str) or sha not in body:
-        errors.append("designation commit")
+    if not re.fullmatch(r"[0-9a-f]{40}", sha) or not run_class_word(body, sha) or not run_class_word(body, stage):
+        errors.append("designation commit/stage")
     if first_time is not None:
-        for field in ("created_at", "updated_at"):
-            value = comment.get(field)
-            if not isinstance(value, str) or value >= first_time:
-                errors.append("designation does not precede first execution")
-    if any(not isinstance(body, str) or digest not in body for digest in digests):
+        try:
+            for field in ("created_at", "updated_at"):
+                stamp = comment[field]
+                run_class_time_value(stamp)
+                if stamp >= first_time:
+                    errors.append("designation does not precede first execution")
+        except (TypeError, KeyError, Refused):
+            errors.append("designation timestamp")
+    if any(not run_class_word(body, digest) for digest in digests):
         errors.append("designation digest")
     return errors
 
@@ -2089,7 +2326,8 @@ def derive_run(run_id, bind_s1=False):
         return None
     record = {"run_id": run["id"], "head_sha": run.get("head_sha"), "event": run.get("event"),
               "created_at": run.get("created_at"), "status": run.get("status"), "conclusion": run.get("conclusion"),
-              "run_attempt": count, "head_branch": run.get("head_branch"),
+              "run_attempt": count, "head_branch": run.get("head_branch"), "path": run.get("path"),
+              "workflow_id": run.get("workflow_id"),
               "pull_requests": run.get("pull_requests"), "attempts": []}
     for number in range(1, count+1):
         ok, attempt = gh_get("attempt", str(run_id), str(number))
@@ -2100,8 +2338,10 @@ def derive_run(run_id, bind_s1=False):
             return None
         record["attempts"].append({"run_id": run["id"], "run_attempt": number,
                                    "status": attempt.get("status"), "attempt_status": attempt.get("status"),
+                                   "run_started_at": attempt.get("run_started_at"),
                                    "conclusion": attempt.get("conclusion"), "created_at": attempt.get("created_at"),
-                                   "head_sha": attempt["head_sha"], "event": run.get("event"), "jobs": jobs})
+                                   "head_sha": attempt["head_sha"], "event": run.get("event"), "jobs": jobs,
+                                   "path": run.get("path"), "workflow_id": run.get("workflow_id")})
     artifacts = run_class_pages("artifacts", "artifacts", (str(run_id),))
     if artifacts is None:
         return None
@@ -2119,6 +2359,7 @@ def derive_run(run_id, bind_s1=False):
 
 def order_capture(t_repo, t0, now, branches):
     """Complete event/attempt inventory; no forbidden/missing result is interpreted as empty."""
+    start_calls = HOST_CALLS
     capture = {"queries": [], "runs": {}, "activity": {}, "capture_time": now}
     for kind, start in (("runs-dispatch", t_repo), ("runs-all", t0)):
         listing = run_class_run_listing(kind, start, now)
@@ -2148,33 +2389,638 @@ def order_capture(t_repo, t0, now, branches):
                 break
             page += 1
         capture["activity"][branch] = entries
+    capture["call_count"] = HOST_CALLS-start_calls
     return capture
 
-def verdict_mode(meas, token_line, ratified_sha, order_sha, s1_run, e_run, capture_violations):
-    """verdict: VERDICT <token> only when every condition holds; else VERDICT VOID (exit 1)."""
-    errs = []
-    if ratified_sha != order_sha:
-        errs.append("designation of E does not ratify order.json's sha256")
-    for lab, run in (("S1", s1_run), ("E", e_run)):
-        att = run["attempts"][0] if run and run.get("attempts") else None
-        if att is None or att["conclusion"] != "success":
-            errs.append(lab + ": attempt 1 not success")
+def run_class_word(body, word):
+    """Full token, not a prefix or a substring of a different commit/stage/digest."""
+    if not isinstance(body, str) or not isinstance(word, str) or not word:
+        return False
+    # SHA/stage/digest arguments have already been restricted to letters, digits and hyphens.
+    return re.fullmatch(r"(?s).*(?<![A-Za-z0-9_])"+word+r"(?![A-Za-z0-9_]).*", body) is not None
+
+
+def run_class_branch_commits(branches, frozen):
+    """Read all recorded branch commits; no fetch, mutation or silent missing branch."""
+    commits = {}
+    for branch in branches:
+        result = subprocess.run(["git", "rev-list", "--end-of-options", a_ok("refs/heads/"+branch)],
+                                capture_output=True, text=True)
+        if result.returncode != 0:
+            return None
+        for sha in result.stdout.splitlines():
+            if not re.fullmatch(r"[0-9a-f]{40}", sha):
+                return None
+            commits[sha] = True
+    if not git_has(frozen) or not git_has(D_SHA):
+        return None
+    return commits
+
+
+def run_class_run_success(run, stage):
+    """Exact attempt-one attestation; a later rerun cannot repair an earlier outcome."""
+    errors = []
+    if not isinstance(run, dict) or not run.get("attempts"):
+        return [stage+": missing run"]
+    attempt = run["attempts"][0]
+    if run.get("path") != WORKFLOW or attempt.get("run_attempt") != 1 or attempt.get("conclusion") != "success":
+        errors.append(stage+": workflow/attempt/conclusion")
+    for name in (JOB_A, JOB_B):
+        if run_class_job(attempt["jobs"], name) is None:
+            errors.append(stage+": missing "+name)
+    for job in attempt["jobs"]:
+        if job.get("conclusion") != "success":
+            errors.append(stage+": job "+str(job.get("name")))
+        if job.get("name") in (JOB_A, JOB_B):
+            for step in job.get("steps", []):
+                if step.get("conclusion") != "success":
+                    errors.append(stage+": step "+str(step.get("name")))
+    return errors
+
+
+def run_class_approvals(data):
+    if not isinstance(data, dict) or data.get("schema") != "arp2-qc21-approvals" or data.get("version") != 1:
+        raise Refused("approvals schema")
+    entries = data.get("entries")
+    if not isinstance(entries, list):
+        raise Refused("approvals entries")
+    ids, runs = set(), set()
+    for entry in entries:
+        key = (entry["run_id"], entry["run_attempt"])
+        if entry["approval_comment_id"] in ids or key in runs or entry["run_attempt"] != 1:
+            raise Refused("reused approval or run identity")
+        if entry["stage"] not in ("S1", "E") or not re.fullmatch(r"[0-9a-f]{40}", entry["head_sha"]):
+            raise Refused("approval stage/head")
+        ids.add(entry["approval_comment_id"]); runs.add(key)
+    return entries
+
+
+def run_class_refresh_entry(entry, record, dispatch_sha=None):
+    first = record["attempts"][0]
+    actual = run_class_approval_entry(entry["approval_comment_id"], {"id": record["run_id"], "head_sha": record["head_sha"]}, entry["stage"])
+    if actual is None:
+        raise CaptureFailed("approval comment capture failed")
+    errors = []
+    if actual != entry:
+        errors.append("approval entry differs from actual comment")
+    errors += run_class_binding_errors(actual, first, first["jobs"], dispatch_sha)
+    return actual, errors
+
+
+def run_class_e_entry(e_sha, comment_id, capture_time):
+    """The shared e-entry/verdict builder, one unique attempt-one dispatch per approval comment."""
+    ok, repo = gh_get("repo")
+    if not ok or not isinstance(repo, dict):
+        raise CaptureFailed("repository capture failed")
+    comment = run_class_comment(comment_id)
+    if comment is None:
+        raise CaptureFailed("approval comment capture failed")
+    listing = run_class_run_listing("runs-dispatch", comment["created_at"], capture_time)
+    if listing is None:
+        raise CaptureFailed("E dispatch inventory failed")
+    matching = []
+    for run in listing["runs"]:
+        if run.get("head_sha") == e_sha and run.get("path") == WORKFLOW and run.get("created_at") > comment["created_at"]:
+            matching.append(run)
+    # Prior E approvals passed to verdict disambiguate retakes by ordered comment/run intervals.
+    matching = sorted(matching, key=lambda item: (item["created_at"], item["id"]))
+    if not matching:
+        raise Refused("no E dispatch after approval")
+    record = derive_run(str(matching[0]["id"]))
+    if record is None or not record.get("attempts") or record["attempts"][0].get("attempt_status") != "completed":
+        raise CaptureFailed("E run capture incomplete")
+    entry = run_class_approval_entry(comment_id, matching[0], "E")
+    errors = run_class_binding_errors(entry, record["attempts"][0], record["attempts"][0]["jobs"])
+    return {"entry": entry, "entry_sha256": sha256_bytes(json.dumps(entry, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()), "errors": errors, "run": record}
+
+
+def run_class_gate_errors(data, confirmation_head=None):
+    """Re-read every gate-test attempt; executor-supplied expectations cannot weaken frozen cases."""
+    if not isinstance(data, dict) or data.get("schema") != "arp2-qc21-gate-tests" or data.get("version") != 1:
+        return ["gate-test schema"]
+    entries = data.get("entries")
+    if not isinstance(entries, list):
+        return ["gate-test entries"]
+    required = ["GT-B3", "GT-REF", "GT-RERUN", "GT-PLAIN", "GT-PR", "GT-ACT", "GT-LIST"]
+    if sorted(item.get("name", "") for item in entries) != sorted(required):
+        return ["gate-test frozen names"]
+    errors = []
+    for entry in entries:
+        name = entry["name"]
+        if name == "GT-ACT":
+            ok, activity = gh_get("activity", a_ok(entry["branch"]), "1")
+            if not ok or not isinstance(activity, list):
+                raise CaptureFailed("GT-ACT host capture failed")
+            if not any(item.get("id") == entry["activity_id"] and item.get("activity_type") == "force_push" for item in activity):
+                errors.append("GT-ACT force movement absent")
             continue
-        for j in att["jobs"]:
-            if j["conclusion"] != "success":
-                errs.append(lab + ": job " + j["name"])
-            for s in j["steps"]:
-                if j["name"] in (JOB_A, JOB_B) and s["conclusion"] != "success":
-                    errs.append(lab + ": step " + s["name"])
+        if name == "GT-PR":
+            run_ids = entry.get("run_ids")
+            if not isinstance(run_ids, list) or len(run_ids) != 2 or len(set(run_ids)) != 2:
+                errors.append("GT-PR needs one pull_request and one push")
+                continue
+            records = [derive_run(str(ident)) for ident in run_ids]
+            if any(record is None for record in records):
+                raise CaptureFailed("GT-PR capture failed")
+            if sorted(record["event"] for record in records) != ["pull_request", "push"]:
+                errors.append("GT-PR event pair")
+            for record in records:
+                first = record["attempts"][0]
+                if first.get("attempt_status") != "completed":
+                    raise CaptureFailed("GT-PR attempt incomplete")
+                if not run_class_absent_or_skipped(run_class_job(first["jobs"], JOB_B)):
+                    errors.append("GT-PR job B not skipped")
+            continue
+        record = derive_run(str(entry["run_id"]))
+        if record is None:
+            raise CaptureFailed("gate run capture failed")
+        if name == "GT-LIST":
+            tree = run_class_remote_tree(entry["deleted_tree_sha"])
+            if tree is None:
+                raise CaptureFailed("GT-LIST deleted workflow tree unreadable")
+            if record.get("workflow_id") != entry["workflow_id"] or entry["workflow_path"] in tree:
+                errors.append("GT-LIST deleted-workflow witness")
+            listing = run_class_run_listing("runs-all", record["created_at"], record["created_at"])
+            if listing is None:
+                raise CaptureFailed("GT-LIST runs-list capture failed")
+            if not any(item["id"] == record["run_id"] for item in listing["runs"]):
+                errors.append("GT-LIST run absent from repository listing")
+            continue
+        index = 2 if name == "GT-RERUN" else 1
+        if name == "GT-RERUN" and entry["run_id"] != next(item["run_id"] for item in entries if item["name"] == "GT-B3"):
+            errors.append("GT-RERUN does not re-run GT-B3")
+        attempts = [attempt for attempt in record["attempts"] if attempt["run_attempt"] == index]
+        if len(attempts) != 1 or attempts[0].get("attempt_status") != "completed":
+            raise CaptureFailed("gate attempt incomplete")
+        attempt = attempts[0]
+        if confirmation_head is not None:
+            actual_tree = run_class_remote_tree(record["head_sha"])
+            expected_tree = run_class_remote_tree(confirmation_head)
+            if actual_tree is None or expected_tree is None:
+                raise CaptureFailed("gate/confirmation tree capture failed")
+            if actual_tree != expected_tree:
+                errors.append(name+": tree differs from confirmation")
+        ja, jb = run_class_job(attempt["jobs"], JOB_A), run_class_job(attempt["jobs"], JOB_B)
+        b3, b4, b6 = run_class_step(jb, STEP_B3), run_class_step(jb, STEP_B4), run_class_step(jb, STEP_B6)
+        if not run_class_absent_or_skipped(b4) or not run_class_absent_or_skipped(b6):
+            errors.append(name+": B4/B6 ran")
+        if name in ("GT-B3", "GT-REF"):
+            if jb is None or jb.get("conclusion") != "failure" or b3 is None or b3.get("conclusion") != "failure":
+                errors.append(name+": B3 did not fail")
+        elif not run_class_absent_or_skipped(jb):
+            errors.append(name+": job B not skipped")
+        if ja is None or ja.get("conclusion") != "success":
+            errors.append(name+": job A not green")
+        if record.get("head_branch") == ROUND_BRANCH:
+            errors.append(name+": gate is on the round branch")
+        if "approval_comment_id" not in entry:
+            errors.append(name+": prior gate authorization absent")
+        else:
+            comment = run_class_comment(entry["approval_comment_id"])
+            if comment is None:
+                raise CaptureFailed("gate approval capture failed")
+            if ((comment.get("user") or {}).get("login"), comment.get("author_association")) != OWNER:
+                errors.append(name+": gate owner")
+            before = attempt.get("run_started_at") if name == "GT-RERUN" else record["created_at"]
+            if not isinstance(before, str) or comment.get("created_at", "Z") >= before or comment.get("updated_at", "Z") >= before:
+                errors.append(name+": gate prior authorization")
+            if not run_class_word(comment.get("body"), record["head_sha"]) or not run_class_word(comment.get("body"), name):
+                errors.append(name+": gate authorization scope")
+    return errors
+
+
+def run_class_gate_attempts(data):
+    records = []
+    for item in data["entries"]:
+        if "run_id" in item:
+            records.append(item)
+        for ident in item.get("run_ids", []):
+            records.append({"run_id": ident, "name": item["name"]})
+    return records
+
+
+def run_class_api_missing(error):
+    """Classify only an explicit missing-resource status; all other failures remain failed captures."""
+    if isinstance(error, dict):
+        return error.get("status") in (404, 410)
+    return isinstance(error, str) and re.fullmatch(r"(?s).*[ (]HTTP (404|410)[)].*", error) is not None
+
+
+def s_max_errors(preregistration, checker_value, stress_value):
+    matches = []
+    for line in preregistration.splitlines():
+        text = line.strip()
+        if text.startswith("- **`S_max`** = "):
+            matches.append(text[len("- **`S_max`** = "):])
+    if len(matches) != 1 or not re.fullmatch(r"[0-9]+", matches[0]):
+        return ["P: S_max missing, duplicate or nondecimal"]
+    value = int(matches[0])
+    if type(checker_value) is not int or type(stress_value) is not int or value != checker_value or value != stress_value:
+        return ["P: S_max three-way equality"]
+    return [] if value >= S_MAX_FLOOR and value > 0 else ["P: S_max floor"]
+
+
+def run_class_first_execution(runs, frozen):
+    first = None
+    for run in runs:
+        sha = run["head_sha"]
+        if run.get("head_branch") == ROUND_BRANCH and sha != frozen:
+            if not git_has(sha):
+                raise CaptureFailed("execution ancestry unavailable")
+            if git_is_ancestor(frozen, sha):
+                first = min(first, run["created_at"]) if first else run["created_at"]
+    return first
+
+
+
+def run_class_order(config, final=False):
+    """Capture then classify every required event and attempt, with actual comments and complete trees."""
+    if T0 is None:
+        raise Refused("T0 is not frozen from D's main activity entry")
+    first_call = HOST_CALLS
+    frozen, capture_time = a_ok(config["F"]), a_ok(config["capture_time"])
+    pins = frozen_pins(git_show(frozen, PREREG))
+    if pins is None or not re.fullmatch(r"[0-9a-f]{40}", pins.get("qc21_check.py", "")):
+        raise Refused("pinned checker absent")
+    ok, repository = gh_get("repo")
+    if not ok or not isinstance(repository, dict):
+        raise CaptureFailed("repository capture failed")
+    capture = order_capture(repository["created_at"], T0, capture_time, RECORDED_BRANCHES)
+    if capture is None:
+        raise CaptureFailed("repository event/attempt/activity capture failed")
+    commits = run_class_branch_commits(RECORDED_BRANCHES, frozen)
+    if commits is None:
+        raise CaptureFailed("recorded branch ancestry unreadable")
+    approvals = run_class_approvals(config["approvals"])
+    gate_errors = run_class_gate_errors(config["gate_tests"])
+    gate_entries = run_class_gate_attempts(config["gate_tests"])
+    violations, trees, records = list(gate_errors), {}, []
+    first_execution = None
+    for sha in commits:
+        tree = git_tree_blobs(sha)
+        workflow = git_show(sha, WORKFLOW)
+        if tree is None or workflow is None:
+            raise CaptureFailed("recorded commit tree unreadable")
+        text = workflow.decode()
+        bearing = pins["qc21_check.py"] in tree.values() or any(name in text for name in (JOB_A, JOB_B, STEP_B4))
+        if bearing and not git_is_ancestor(D_SHA, sha):
+            violations.append("checker-bearing recorded commit predates D: "+sha)
+    for record in capture["runs"].values():
+        sha = record["head_sha"]
+        if sha not in trees:
+            if git_has(sha):
+                tree = git_tree_blobs(sha)
+                if tree is None:
+                    raise CaptureFailed("local tree capture failed")
+                trees[sha] = {"source": "local", "blobs": tree}
+            else:
+                tree = run_class_remote_tree(sha)
+                if tree is None:
+                    raise CaptureFailed("API tree capture failed")
+                trees[sha] = {"source": "api", "blobs": tree}
+        for attempt in record["attempts"]:
+            if not run_class_checker_bearing(attempt["jobs"], trees[sha]["blobs"], pins["qc21_check.py"]):
+                continue
+            if attempt.get("attempt_status") != "completed":
+                raise CaptureFailed("checker-bearing attempt still pending")
+            reason = run_class_rule(attempt, approvals, gate_entries, commits)
+            if reason is not None:
+                violations.append({"run_id": attempt["run_id"], "run_attempt": attempt["run_attempt"], "reason": reason})
+            if attempt["event"] != run_class_dispatch():
+                ja, jb = run_class_job(attempt["jobs"], JOB_A), run_class_job(attempt["jobs"], JOB_B)
+                records.append({"run_id": attempt["run_id"], "run_attempt": attempt["run_attempt"], "head_sha": sha,
+                                "event": attempt["event"], "attempt_status": attempt["attempt_status"],
+                                "jobB_conclusion": jb.get("conclusion") if jb else None,
+                                "B4_conclusion": (run_class_step(jb, STEP_B4) or {}).get("conclusion"),
+                                "A3_conclusion": (run_class_step(ja, STEP_A3) or {}).get("conclusion"),
+                                "A3b_conclusion": (run_class_step(ja, STEP_A3B) or {}).get("conclusion"),
+                                "fixtures_artifact_digest": [a.get("digest") for a in record["artifacts"] if a.get("name") == "arp2-qc21-fixtures"]})
+    refreshed = []
+    for entry in approvals:
+        run = capture["runs"].get(str(entry["run_id"]))
+        if run is None:
+            violations.append("approved run absent from complete capture")
+            continue
+        actual, errors = run_class_refresh_entry(entry, run, config.get("S1"))
+        refreshed.append(actual)
+        violations += ["approval "+str(entry["approval_comment_id"])+": "+error for error in errors]
+    for entries in capture["activity"].values():
+        violations += run_class_activity_violations(entries)
+    first_execution = run_class_first_execution(list(capture["runs"].values()), frozen)
+    designation = run_class_comment(config["F_designation_comment_id"])
+    if designation is None:
+        raise CaptureFailed("F designation capture failed")
+    if first_execution is None:
+        raise Refused("first post-F execution run not found")
+    violations += run_class_designation_errors(designation, frozen, first_execution)
+    capture.update({"schema": "arp2-qc21-order", "version": 1, "F": frozen, "T0": T0,
+                    "final_capture": final, "trees": trees, "nondispatch": records, "approvals": refreshed,
+                    "F_designation": designation, "first_execution_created_at": first_execution,
+                    "violations": violations, "call_count": HOST_CALLS-first_call, "operational_condition_only": True})
+    return capture
+
+
+def frozen_pins(raw):
+    """Pins live in F's preregistration, avoiding a self-referential controls.py blob constant."""
+    if raw is None:
+        return None
+    try:
+        text = raw.decode() if isinstance(raw, bytes) else raw
+        blocks = fenced(text, "qc21-implementation-pins")
+        if len(blocks) != 1:
+            return None
+        data = json.loads("\n".join(blocks[0]))
+        if data.get("schema") != "arp2-qc21-pins" or data.get("version") != 1:
+            return None
+        pins = dict(data["blobs"])
+        pins.update(data["sha256"])
+        for name in ("qc21_check.py", "controls.py"):
+            pins[name+".sha256"] = data["script_sha256"][name]
+        if set(pins) != set(PINS) | {"qc21_check.py.sha256", "controls.py.sha256"}:
+            return None
+        return pins
+    except (ValueError, TypeError, KeyError, AttributeError):
+        return None
+
+
+def v3_working_copy_ok():
+    """Compare actual working bytes to the pinned D object before the only Python subprocess starts."""
+    path = "tools/v3_verifier.py"
+    pin = INPUTS.get(path)
+    if not isinstance(pin, str) or not re.fullmatch(r"[0-9a-f]{40}", pin) or git_blob(D_SHA, path) != pin:
+        return False
+    source = git_show(D_SHA, path)
+    try:
+        return source is not None and read_bytes(path) == source
+    except OSError:
+        return False
+
+
+def checker_literals(source):
+    values = {}
+    for node in ast.parse(source).body:
+        if isinstance(node, ast.Assign) and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name):
+            name = node.targets[0].id
+            if name in ("P_MAX", "B_MAX", "W_MAX", "BP_P_MAX", "BP_B_MAX", "BP_W_MAX", "BP_CAP_GENERATORS",
+                        "BP_CAP_D", "BP_CAP_FACET_SUBSETS", "BP_CAP_EFFECTS", "S_MAX", "CAP_GENERATORS", "CAP_D",
+                        "CAP_FACET_SUBSETS", "CAP_EFFECTS", "SOURCE_BASE"):
+                values[name] = ast.literal_eval(node.value)
+    return values
+
+
+def run_class_design_record_errors(record, pins, confirmation=False):
+    errors = []
+    if record.get("event") != "pull_request" or record.get("path") != WORKFLOW:
+        errors.append("design/confirmation event or workflow")
+    if not record.get("attempts") or record["attempts"][0].get("conclusion") != "success":
+        return errors+["design/confirmation attempt one not green"]
+    pull_requests = record.get("pull_requests")
+    if not isinstance(pull_requests, list) or len(pull_requests) != 1:
+        errors.append("synthetic merge missing unique PR identity")
+    else:
+        pr = pull_requests[0]
+        if pr.get("base", {}).get("sha") != D_SHA or pr.get("head", {}).get("sha") != record.get("head_sha"):
+            errors.append("synthetic merge base/head binding")
+        if not git_is_ancestor(D_SHA, record["head_sha"]):
+            errors.append("design/confirmation head does not descend from D")
+    attempt = record["attempts"][0]
+    job_b = run_class_job(attempt["jobs"], JOB_B)
+    if job_b is None or job_b.get("conclusion") != "skipped":
+        errors.append("design/confirmation job B not skipped")
+    for job in attempt["jobs"]:
+        if job.get("name") == JOB_B:
+            continue
+        if job.get("conclusion") != "success":
+            errors.append("design/confirmation non-B job not success: "+str(job.get("name")))
+        for step in job.get("steps", []):
+            if step.get("conclusion") != "success":
+                errors.append("design/confirmation step not success: "+str(step.get("name")))
+    ja = run_class_job(attempt["jobs"], JOB_A)
+    for name in (STEP_A3, STEP_A3B, STEP_A7):
+        if (run_class_step(ja, name) or {}).get("conclusion") != "success":
+            errors.append("design/confirmation required marker "+name)
+    errors += code_w(record["head_sha"])
+    if confirmation:
+        errors += code_b(record["head_sha"], pins)
+    return errors
+
+
+def freeze_checks(frozen, record_commit):
+    errors = []
+    raw = git_show(frozen, PREREG)
+    pins = frozen_pins(raw)
+    if pins is None:
+        return ["P: frozen pin table missing/invalid"], None
+    for key, value in pins.items():
+        width = 40 if key in ("qc21_check.py", "controls.py") else 64
+        if not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{"+str(width)+r"}", value):
+            errors.append("P: unresolved pin "+key)
+    records = {}
+    for name in ("stress.json", "design-run.json", "gate-tests.json", "confirmation-run.json"):
+        data = git_show(record_commit, RDIR+"evidence/"+name)
+        if data is None and record_commit == frozen:
+            try:
+                data = read_bytes(RDIR+"evidence/"+name)
+            except OSError:
+                data = None
+        if data is None:
+            errors.append("R: missing "+name)
+            continue
+        if sha256_bytes(data) != pins.get(name):
+            errors.append("P: evidence pin "+name)
+        try:
+            records[name] = json.loads(data)
+        except (ValueError, TypeError):
+            errors.append("R: unparseable "+name)
+    for name in ("design-run.json", "confirmation-run.json"):
+        record = records.get(name)
+        if not isinstance(record, dict):
+            continue
+        actual = derive_run(str(record["run_id"]))
+        if actual is None:
+            raise CaptureFailed("design/confirmation host re-derivation failed")
+        if canonical(record) != canonical(actual):
+            errors.append("R: "+name+" disagrees with host re-derivation")
+        errors += run_class_design_record_errors(actual, pins, name == "confirmation-run.json")
+    confirmation = records.get("confirmation-run.json")
+    stress = records.get("stress.json")
+    design = records.get("design-run.json")
+    if confirmation and stress and design:
+        source = git_show(confirmation["head_sha"], CHECKER)
+        if source is None:
+            errors.append("P: confirmation checker unreadable")
+        else:
+            literals = checker_literals(source.decode())
+            if literals.get("SOURCE_BASE") != D_SHA:
+                errors.append("P: execution source is not bound to the authorized round D")
+            errors += s_max_errors(raw.decode(), literals.get("S_MAX"), stress.get("S_max"))
+            ja = run_class_job(design["attempts"][0]["jobs"], JOB_A)
+            stress_step = run_class_step(ja, "ARP-2-QC21 stress")
+            a8 = run_class_step(ja, "ARP-2-QC21 checker self-test")
+            a9 = run_class_step(ja, "ARP-2-QC21 control mutation tests")
+            if any(step is None for step in (stress_step, a8, a9)):
+                errors.append("P: design timing steps missing")
+            else:
+                durations = [run_class_time_value(step["completed_at"])-run_class_time_value(step["started_at"])
+                             for step in (stress_step, a8, a9)]
+                selected = freeze_budget_rule(stress, durations[0], durations[1]+durations[2])
+                actual_general = [literals.get(key) for key in ("P_MAX", "B_MAX", "W_MAX")]
+                actual_bp = [literals.get(key) for key in ("BP_P_MAX", "BP_B_MAX", "BP_W_MAX")]
+                actual_caps = [literals.get(key) for key in ("BP_CAP_GENERATORS", "BP_CAP_D", "BP_CAP_FACET_SUBSETS", "BP_CAP_EFFECTS")]
+                if [actual_general, actual_bp, actual_caps] != [selected["general"], selected["BP"], selected["BP_caps"]]:
+                    errors.append("P: constants differ from mechanical budget/cap recomputation")
+                if not selected["timeout_pass"]:
+                    errors.append("P: exact timeout test fails")
+                records["recomputed_resource_rule"] = selected
+    if "gate-tests.json" in records:
+        errors += run_class_gate_errors(records["gate-tests.json"], confirmation.get("head_sha") if confirmation else None)
+    for name, digest in STAB_CERTS.items():
+        data = git_show(record_commit, RDIR+name)
+        if data is None or sha256_bytes(data) != digest:
+            errors.append("P: mandatory STAB certificate "+name)
+    return errors, records
+
+
+def run_class_retakes(entries, records, retakes, attesters):
+    """A host-VOID replacement requires its posted immutable record and a later fresh owner decision."""
+    errors = []
+    pairs = {(x["replaced_run_id"], x["replacement_run_id"]): x for x in retakes}
+    for stage in ("S1", "E"):
+        ordered = sorted([entry for entry in entries if entry["stage"] == stage],
+                         key=lambda entry: (records[str(entry["run_id"])]["created_at"], entry["run_id"]))
+        if not ordered or ordered[-1]["run_id"] != attesters[stage]:
+            errors.append(stage+": last authorized dispatch is not the attester")
+            continue
+        for old, new in zip(ordered, ordered[1:]):
+            old_run, new_run = records[str(old["run_id"])], records[str(new["run_id"])]
+            if not run_class_host_void(old_run["attempts"][0]["jobs"]):
+                errors.append("checker outcome cannot be retaken")
+                continue
+            retake = pairs.get((old["run_id"], new["run_id"]))
+            if retake is None or old["run_id"] == new["run_id"]:
+                errors.append("fresh retake decision absent")
+                continue
+            posted = run_class_comment(retake["void_record_comment_id"])
+            decision = run_class_comment(retake["decision_comment_id"])
+            if posted is None or decision is None:
+                raise CaptureFailed("retake provenance capture failed")
+            try:
+                blocks = fenced(posted["body"], "json")
+                if len(blocks) != 1:
+                    raise ValueError("one posted void record")
+                raw = canonical(json.loads("\n".join(blocks[0]))).encode()
+                if json.loads(raw) != old_run or sha256_bytes(raw) != retake["void_record_sha256"]:
+                    errors.append("posted void record not bound to actual host record")
+                if not run_class_word(posted["body"], retake["void_record_sha256"]):
+                    errors.append("posted void digest absent")
+                if not (posted["updated_at"] < decision["created_at"] < new_run["created_at"]
+                        and decision["updated_at"] < new_run["created_at"]):
+                    errors.append("retake decision/record order")
+                if ((decision.get("user") or {}).get("login"), decision.get("author_association")) != OWNER:
+                    errors.append("retake decision owner")
+                if not run_class_word(decision["body"].lower(), "retake") or not run_class_word(decision["body"], new["head_sha"]):
+                    errors.append("retake decision does not identify fresh dispatch")
+            except (ValueError, TypeError, KeyError):
+                errors.append("malformed retake provenance")
+    return errors
+
+
+def token_line(measurements):
+    result = decide(measurements)
+    if "VOID" in result:
+        return None
+    return "%s %s %s level %s" % (result["P"], result["B"], result["C"], result["level"])
+
+
+def run_class_verdict(config):
+    """Complete final host-time gate. Captures fail separately; round-level failures alone yield VOID."""
+    try:
+        frozen, s1, evidence = a_ok(config["F"]), a_ok(config["S1"]), a_ok(config["E"])
+        errors = check_mode(evidence, frozen, "E")
+        measurement_bytes = git_show(evidence, MEAS)
+        if measurement_bytes is None:
+            return {"verdict": "VERDICT VOID", "errors": errors+["missing measurements"]}
+        measurements = json.loads(measurement_bytes)
+        committed_order_bytes = git_show(evidence, RDIR+"evidence/order.json")
+        approval_bytes = git_show(evidence, RDIR+"evidence/approvals.json")
+        gate_bytes = git_show(evidence, RDIR+"evidence/gate-tests.json")
+        s1_bytes = git_show(evidence, RDIR+"evidence/s1-run/results.json")
+        if any(value is None for value in (committed_order_bytes, approval_bytes, gate_bytes, s1_bytes)):
+            return {"verdict": "VERDICT VOID", "errors": errors+["missing required committed evidence"]}
+        approvals = run_class_approvals(json.loads(approval_bytes))
+        if any(entry["stage"] != "S1" for entry in approvals):
+            errors.append("pre-E committed entries contain another stage")
+        ids = config["E_approval_comment_ids"]
+        if not isinstance(ids, list) or not ids or len(set(ids)) != len(ids):
+            errors.append("missing/reused E approval comment ids")
+            ids = []
+        e_results = [run_class_e_entry(evidence, ident, config["capture_time"]) for ident in ids]
+        e_entries = [result["entry"] for result in e_results]
+        for result in e_results:
+            errors += result["errors"]
+        all_entries = run_class_approvals({"schema": "arp2-qc21-approvals", "version": 1, "entries": approvals+e_entries})
+        order_config = dict(config, approvals={"schema": "arp2-qc21-approvals", "version": 1, "entries": all_entries},
+                            gate_tests=json.loads(gate_bytes))
+        capture = run_class_order(order_config)
+        errors += capture["violations"]
+        s1_run = capture["runs"].get(str(config["S1_run_id"]))
+        e_run = capture["runs"].get(str(config["E_run_id"]))
+        if s1_run is None or e_run is None:
+            errors.append("attesting runs missing from complete inventory")
+        else:
+            if s1_run["head_sha"] != s1 or e_run["head_sha"] != evidence:
+                errors.append("attesting exact heads")
+            if s1_run["event"] != run_class_dispatch() or e_run["event"] != run_class_dispatch():
+                errors.append("attesting events")
+            errors += run_class_run_success(s1_run, "S1")+run_class_run_success(e_run, "E")
+            stored = json.loads(s1_bytes)
+            if stored.get("run_id") != s1_run["run_id"] or stored.get("head_sha") != s1:
+                errors.append("committed S1 run identity")
+            expected = stored.get("s1_binding")
+            if not isinstance(expected, dict) or "id" not in expected:
+                errors.append("committed S1 binding absent")
+            else:
+                binding = run_class_artifact_binding(s1_run["run_id"], s1, expected)
+                if binding is None:
+                    raise CaptureFailed("S1 artifact capture failed; retry without shortening inventory")
+                if binding.get("valid") is not True or not replay_compare(binding.get("measurements", b"null"), measurement_bytes):
+                    errors.append("S1 archive/committed measurements binding")
+            errors += run_class_retakes(all_entries, capture["runs"], config.get("retakes", []),
+                                       {"S1": s1_run["run_id"], "E": e_run["run_id"]})
+        designation = run_class_comment(config["E_designation_comment_id"])
+        if designation is None:
+            raise CaptureFailed("E designation capture failed")
+        order_digest = sha256_bytes(committed_order_bytes)
+        errors += run_class_designation_errors(designation, evidence, digests=[order_digest]+[x["entry_sha256"] for x in e_results], stage="E")
+        committed = json.loads(committed_order_bytes)
+        if committed.get("violations") or committed.get("F") != frozen:
+            errors.append("committed order provenance")
+        line = token_line(measurements)
+        note = git_show(evidence, RDIR+"result.md")
+        expected_note = make_note(measurements, D_SHA, frozen, s1, evidence).encode()
+        if line is None or note != expected_note:
+            errors.append("note regeneration/token/schema agreement")
+        return {"verdict": "VERDICT "+line if not errors else "VERDICT VOID", "errors": errors,
+                "capture": capture, "E_entries": [{"entry": x["entry"], "entry_sha256": x["entry_sha256"]} for x in e_results],
+                "E_designation": designation, "order_sha256": order_digest,
+                "scope": "Required operational landing condition; no enduring assertion about unretained host checks."}
+
+    except (Refused, OSError, ValueError, TypeError, KeyError, IndexError, AttributeError) as error:
+        return {"verdict": "VERDICT VOID", "errors": ["invalid round evidence: "+str(error)]}
+
+
+def verdict_mode(meas, expected_token_line, ratified_sha, order_sha, s1_run, e_run, capture_violations):
+    """Pure final predicate retained for synthetic tests; real CLI uses run_class_verdict's host checks."""
+    errors = []
+    if ratified_sha != order_sha:
+        errors.append("designation digest")
+    errors += run_class_run_success(s1_run, "S1")+run_class_run_success(e_run, "E")
     if capture_violations:
-        errs.append("capture violations: %s" % capture_violations)
-    dec = decide(meas)
-    if "VOID" in dec:
-        errs.append("decide VOID")
-    tok = "%s %s %s level %s" % (dec.get("P"), dec.get("B"), dec.get("C"), dec.get("level"))
-    if token_line != tok:
-        errs.append("the note's token line differs")
-    return ("VERDICT " + tok) if not errs else "VERDICT VOID", errs
+        errors.append("capture violations")
+    line = token_line(meas)
+    if line is None or line != expected_token_line:
+        errors.append("token/schema/flags agreement")
+    return ("VERDICT "+line) if not errors else "VERDICT VOID", errors
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -2246,13 +3092,21 @@ def selftest_static():
     ck("C-EXACT on qc21_check.py", c_exact(chk) == [])
     ck("C-INDEP on qc21_check.py", c_indep(chk) == [])
     ck("C-IFACE static", c_iface(chk, own) == [])
+    bad_role = chk.replace('f.get("role") == "B-P"', 'f.get("role") == "A-of-B"', 1)
+    ck("C-IFACE rejects report-only B selector", bad_role != chk and bool(c_iface(bad_role, own)))
+    bad_comparison = chk.replace('def k_decide_levels(rec):', 'def k_decide_levels(rec):\n    x = rec.get("bp_equals_qmp")', 1)
+    ck("C-IFACE rejects comparator in levels", bool(c_iface(bad_comparison, own)))
+    bad_ada = own+'\ndef ada_bad(m):\n    return m["B"]["bp_equals_qmp"]\n'
+    ck("C-IFACE rejects comparator in ADA", bool(c_iface(chk, bad_ada)))
     helpers = "\ndef a_ok(x):\n    return x\n\ndef w_path(t, n):\n    return n\n\ndef root_check():\n    return 0\n"
     for name, snip in BYP.items():
         ck("control B fails " + name, static_controls(snip + helpers) != [])
+    ck("control B rejects an unvalidated gh f-string", static_controls(
+        "import subprocess\nsubprocess.run(['gh','api','--method','GET',f'repos/amaybaum/incompleteness/issues/comments/{x}'])"+helpers) != [])
     ck("control B passes a clean snippet", static_controls(
         "import subprocess\nsubprocess.run(['git', 'rev-parse', '--verify', '--end-of-options', a_ok(x)])" + helpers) == [])
     muts = {
-        "a second workflow_dispatch": chk.replace("ROUND_REF = ", "X_EV = \"workflow_" + "dispatch\"\nROUND_REF = ", 1),
+        "a second dispatch constant": chk.replace("ROUND_REF = ", "X_EV = \"workflow_" + "dispatch\"\nROUND_REF = ", 1),
         "alias in a self-test": chk.replace("def t_misc():\n", "def t_misc():\n    b = s_build_p\n", 1),
         "second self-test referencing the gated entry": chk.replace("def t_misc():\n",
                                                                     "def t_misc():\n    x = s_decisive\n", 1),
@@ -2332,17 +3186,19 @@ def selftest_w():
         return
     ck("W: the spliced file passes", check_w(sp, d))
     removals = {
-        "event key (B4)": ("(github.event_name == 'workflow_dispatch' && github.run_attempt == '1' && " + REF_KEY,
+        "event key (B4)": ("(github.event_name == '" + run_class_dispatch() + "' && github.run_attempt == '1' && " + REF_KEY,
                            "(github.run_attempt == '1' && " + REF_KEY),
         "attempt key (B6)": ("github.run_attempt == '1' && " + REF_KEY + " && " + RECEIPT_KEY + ") }}",
                              REF_KEY + " && " + RECEIPT_KEY + ") }}"),
         "ref key (B4/B6)": (" && " + REF_KEY, ""),
         "receipt key (B4/B6)": (" && " + RECEIPT_KEY + ")", ")"),
-        "job B if": ("    if: " + JOB_B_IF + "\n", ""),
+        "job B if": ("    if: " + SPLICE_JOB_B_IF + "\n", ""),
         "job B if: decisive input": (" && inputs.arp2qc21_decisive == true", ""),
         "B3": ("        run: " + B3_RUN + "\n", "        run: 'true'\n"),
         "B3 ref key": (' && test "$GITHUB_REF" = refs/heads/research/arp2-qc21-20261108', ""),
         "A3 literal": (" --event fixture >", " --event \"$X\" >"),
+        "A3b marker": ("      - name: "+STEP_A3B+"\n", "      - name: wrong marker\n"),
+        "A3b always": ("        if: ${{ always() }}\n", ""),
         "A10 marker": ("      - name: " + STEP_A10 + "\n", "      - name: ARP-2-QC21 other\n"),
     }
     for name, (old, new) in removals.items():
@@ -2365,7 +3221,9 @@ def synthetic_meas(**over):
                "ablate_p": {}},
          "P_controls": {}, "REP_INV": {"reclassified": [], "P": {}},
          "B": {"fragments": [{"name": "B-P", "role": "B-P", "lp": "infeasible", "verified": True,
-                              "lp_reads_equal_acc": True}]},
+                              "lp_reads_equal_acc": True, "preps": 32,
+                              "lp_settings": ["M"+a+b for a in ("0", "1", "2") for b in ("0", "1", "2")],
+                              "acc": ["M"+a+b for a in ("0", "1", "2") for b in ("0", "1", "2")]}]},
          "C": {"instances": [], "flagged": []}, "fixtures": {}, "controls": {}, "budget": {},
          "flags": {"P": "P-COMPLEMENTARITY", "B": "B-CONTEXTUAL", "C": "C-SURVIVAL", "levels": {"level": 2},
                    "controls_red": {"P": [], "B": [], "C": []}}}
@@ -2411,8 +3269,37 @@ def selftest_decide():
     ck("decide-b VOID (out_of_scope)", decide_b({"controls_red": [], "fragments": [
         {"name": "x", "role": "A-of-B", "lp": "out_of_scope", "verified": False}]})[0] == "B-VOID")
     ck("decide-b IMITABLE", decide_b({"controls_red": [], "fragments": [
-        {"name": "x", "role": "B-P", "lp": "feasible", "verified": True, "lp_reads_equal_acc": True}]})[0]
+        dict(synthetic_meas()["B"]["fragments"][0], lp="feasible")]})[0]
        == "B-CLASSICALLY-IMITABLE")
+    for role in ("A-of-B", "completion", "B-C"):
+        for outcome in ("out_of_scope", "undecided"):
+            mm = synthetic_meas()
+            mm["B"]["fragments"].append({"name": "reported", "role": role, "lp": outcome, "verified": False})
+            ck("report-only "+role+" "+outcome, decide(mm).get("B") == "B-CONTEXTUAL")
+    mm = synthetic_meas()
+    mm["B"]["fragments"][0]["preps"] = 16
+    mm["flags"].update({"B": "B-VOID", "levels": {"level": 1}})
+    ck("SG-1 rejects sixteen preps, preserves Level 1", decide(mm).get("B") == "B-VOID" and decide(mm).get("level") == 1)
+    for outcome in ("undecided", "out_of_scope"):
+        mm = synthetic_meas()
+        mm["B"]["fragments"][0].update({"lp": outcome, "verified": False})
+        mm["flags"].update({"B": "B-VOID", "levels": {"level": 1}})
+        ck("B-P "+outcome+" leaves Level 1", decide(mm).get("level") == 1 and "VOID" not in decide(mm))
+    mm = synthetic_meas()
+    mm["B"]["fragments"][0]["lp"] = "feasible"
+    mm["flags"].update({"B": "B-CLASSICALLY-IMITABLE", "C": "C-VOID", "levels": {"level": 1}})
+    mm["flags"]["controls_red"]["C"] = ["C-DET"]
+    ck("C-VOID preserves Level 1", decide(mm).get("C") == "C-VOID" and decide(mm).get("level") == 1)
+    for defect in ("certificate", "budget"):
+        mm = synthetic_meas()
+        reported = {"name": "reported", "role": "A-of-B", "lp": "feasible", "verified": True}
+        if defect == "certificate":
+            reported["verified"] = False
+        else:
+            reported.update({"budget_values": [1, 1, 1], "pivots": 2, "max_bits": 1, "work": 1})
+        mm["B"]["fragments"].append(reported)
+        mm["flags"].update({"B": "B-VOID", "levels": {"level": 1}})
+        ck("leaked report-only verdict "+defect, decide(mm).get("B") == "B-VOID")
     t = {"6": True, "12": True}
     fl = {"6": False, "12": False}
     inst = {"HC": t, "CONS": t, "VAL": t, "WOCT": fl, "WCL": True, "ABL": True, "EMB": True}
@@ -2440,85 +3327,83 @@ def selftest_decide():
                                                                                D_SHA, "f" * 40, "1" * 40, "e" * 40))
 
 
+def synthetic_stress():
+    """Fabricated record metadata only: no seeded laws or solver invocation."""
+    records = []
+    for seed in (20261108, 1, 2):
+        for kind, role in (("SF-1", "ST-BP"), ("SF-2", "stress")):
+            records.append({"name": kind+"/"+str(seed), "class": role, "seed": seed,
+                            "verdict": "feasible", "decided_by": 2, "pivots": 1, "max_bits": 2, "work": 3,
+                            "certificate_verified": True, "certificate": {}, "over_maximum": False,
+                            "n_distinct": 4, "n_extreme": 4, "d": 2, "c": 4, "reduction_verified": True})
+    records.append({"name": "synthetic-fixture", "class": "fixture", "seed": None,
+                    "verdict": "feasible", "decided_by": 2, "pivots": 2, "max_bits": 3, "work": 4,
+                    "certificate_verified": True, "certificate": {}, "over_maximum": False})
+    return {"schema": "arp2-qc21-stress", "version": 2, "seeds": [20261108, 1, 2],
+            "S_max": 100000, "fragments": records, "W_fix": 4, "W_stress": 18}
+
+
 def selftest_files():
-    with tempfile.TemporaryDirectory() as td:
-        good = {"schema": "arp2-qc21-stress", "version": 2, "W_fix": 1, "W_stress": 2,
-                "fragments": [{"name": "SF-1", "verdict": "feasible", "decided_by": 2, "pivots": 0, "max_bits": 0,
-                               "work": 0, "certificate_verified": True}]}
-        with open(w_path(td, "stress.json"), "w") as fh:
-            fh.write(canonical(good))
-        ok, h = stress_check(w_path(td, "stress.json"), None)
-        ck("stress-check records without a pin", ok)
-        ok2, _ = stress_check(w_path(td, "stress.json"), h)
-        ok3, _ = stress_check(w_path(td, "stress.json"), "0" * 64)
-        ck("stress-check compares against the pin", ok2 and not ok3)
-        bad = dict(good)
-        bad["fragments"] = [dict(good["fragments"][0], certificate_verified=False)]
-        with open(w_path(td, "stress-bad.json"), "w") as fh:
-            fh.write(canonical(bad))
-        ck("stress-check rejects an unverified fragment", not stress_check(w_path(td, "stress-bad.json"), None)[0])
+    good = synthetic_stress()
+    ck("stress schema synthetic", stress_validate(good)[0])
+    for flag, count in ((False, 100001), (True, 4)):
+        bad = json.loads(canonical(good))
+        bad["fragments"][0].update({"over_maximum": flag, "c": count})
+        ck("ST-BP bilateral maximum "+str(flag), not stress_validate(bad)[0])
+    missing_step = json.loads(canonical(good))
+    del missing_step["fragments"][-1]["decided_by"]
+    ck("stress requires C-SYM deciding step", not stress_validate(missing_step)[0])
+    selected = freeze_budget_rule(good, 1, 0)
+    ck("budget exact general maxima", selected["general"] == [6, 9, 12])
+    ck("budget stable seed-order tie", selected["reference"] == "SF-1/20261108")
+    ck("budget report-only volume", selected["reported_only_volume"] == 1203)
+    ck("budget fallback timeout fails without added budget", freeze_budget_rule(good, 100, 0)["timeout_pass"] is False)
     a = canonical(synthetic_meas()).encode()
-    b = canonical(synthetic_meas(parameters={"dispatch_sha": "1" * 40})).encode()
-    c = canonical(synthetic_meas(complete=False)).encode()
-    ck("replay: equal up to dispatch_sha", replay_compare(a, b))
-    ck("replay: a change is a mismatch", not replay_compare(a, c))
+    b = canonical(synthetic_meas(parameters={"dispatch_sha": "1"*40})).encode()
+    ck("replay compares with only dispatch_sha omitted", replay_compare(a, b))
+    ck("replay changed complete flag", not replay_compare(a, canonical(synthetic_meas(complete=False)).encode()))
+    ck("replay malformed bytes", not replay_compare(a, b"{"))
 
 
 def selftest_runs():
-    jobs_ok = [{"name": JOB_A, "conclusion": "success", "steps": []},
-               {"name": JOB_B, "conclusion": "success", "steps": [{"name": STEP_B3, "conclusion": "success"},
-                                                                 {"name": STEP_B4, "conclusion": "success"}]}]
-    jobs_skip = [{"name": JOB_A, "conclusion": "success", "steps": []},
-                 {"name": JOB_B, "conclusion": "skipped", "steps": []}]
-    ck("checker-bearing by name", run_class_checker_bearing(jobs_skip, {}, None))
-    ck("checker-bearing by blob", run_class_checker_bearing([], {"x/qc21_check.py": "b" * 40}, "b" * 40))
-    ck("not checker-bearing", not run_class_checker_bearing([{"name": "other", "steps": []}], {"a": "c"}, "b" * 40))
-    ck("host VOID: job B absent", run_class_host_void(jobs_skip[:1]))
-    ck("host VOID: B4 skipped", run_class_host_void([{"name": JOB_B, "steps": [{"name": STEP_B4,
-                                                                                "conclusion": "skipped"}]}]))
-    ck("not host VOID", not run_class_host_void(jobs_ok))
-    run = {"head_sha": "a" * 40, "created_at": "2026-11-10T10:00:00Z", "run_attempt": 1, "event": run_class_dispatch()}
-    entry = {"quoted_words": "approve S1 at " + "a" * 40, "stage": "S1", "approval_created_at": "2026-11-10T09:00:00Z",
-             "approval_updated_at": "2026-11-10T09:00:00Z", "approval_author": "amaybaum",
-             "author_association": "OWNER", "run_attempt": 1}
-    ck("binding holds", run_class_binding_errors(entry, run, jobs_ok, "a" * 40) == [])
-    ck("binding: edited after the run", run_class_binding_errors(
-        dict(entry, approval_updated_at="2026-11-10T11:00:00Z"), run, jobs_ok, "a" * 40) != [])
-    ck("binding: comment after the run", run_class_binding_errors(
-        dict(entry, approval_created_at="2026-11-10T11:00:00Z", approval_updated_at="2026-11-10T11:00:00Z"),
-        run, jobs_ok, "a" * 40) != [])
-    ck("binding: other commit quoted", run_class_binding_errors(dict(entry, quoted_words="S1 " + "b" * 40), run,
-                                                                jobs_ok, "a" * 40) != [])
-    ck("binding: missing field fails closed", run_class_binding_errors({}, run, jobs_ok, "a" * 40) != [])
-    att = lambda rid, n, ev, sha, jobs: {"run_id": rid, "run_attempt": n, "event": ev, "head_sha": sha, "jobs": jobs}
-    appr = [{"run_id": 1, "run_attempt": 1}]
-    gates = [{"run_id": 2}]
-    rec_commits = {"c" * 40}
-    nd = {(3, 1): {"fixtures_mode": "fixture"}}
-    disp = run_class_dispatch()
-    ck("rule (a)", run_class_rule(att(1, 1, disp, "a" * 40, jobs_ok), appr, gates, rec_commits, nd, {}) is None)
-    ck("rule (b)", run_class_rule(att(2, 1, disp, "a" * 40, jobs_skip), appr, gates, rec_commits, nd, {}) is None)
-    ck("rule (b): B4 ran in a gate test", run_class_rule(att(2, 1, disp, "a" * 40, jobs_ok), appr, gates,
-                                                         rec_commits, nd, {}) is not None)
-    ck("rule (c)", run_class_rule(att(1, 2, disp, "a" * 40, jobs_skip), appr, gates, rec_commits, nd, {}) is None)
-    ck("rule (c): re-run with job B", run_class_rule(att(1, 2, disp, "a" * 40, jobs_ok), appr, gates, rec_commits,
-                                                     nd, {}) is not None)
-    ck("rule (d)", run_class_rule(att(3, 1, "pull_request", "c" * 40, jobs_skip), appr, gates, rec_commits, nd,
-                                  {}) is None)
-    ck("rule (d): artifact missing, not in order-s1", run_class_rule(att(4, 1, "push", "c" * 40, jobs_skip), appr,
-                                                                     gates, rec_commits, nd, {}) is not None)
-    ck("rule (d): covered by order-s1", run_class_rule(att(4, 1, "push", "c" * 40, jobs_skip), appr, gates,
-                                                       rec_commits, nd, {(4, 1): {"fixtures_mode": "fixture"}}) is None)
-    ck("unapproved dispatch is a violation", run_class_rule(att(5, 1, disp, "a" * 40, jobs_ok), appr, gates,
-                                                            rec_commits, nd, {}) is not None)
-    ck("commit outside the recorded branches", run_class_rule(att(6, 1, "push", "d" * 40, jobs_skip), appr,
-                                                              gates, rec_commits, nd, {}) is not None)
-    ck("slice ok", run_class_slice_ok([{"total_count": 2, "workflow_runs": [1]}, {"total_count": 2,
-                                                                                 "workflow_runs": [2]}]))
-    ck("slice: total_count mismatch fails", not run_class_slice_ok([{"total_count": 2, "workflow_runs": [1]},
-                                                                    {"total_count": 3, "workflow_runs": [2]}]))
-    ck("slice: listed count short fails", not run_class_slice_ok([{"total_count": 3, "workflow_runs": [1]}]))
-    ck("activity: force_push is a violation", run_class_activity_violations([{"activity_type": "force_push"}]) != [])
+    yes = {"name": JOB_B, "conclusion": "success", "steps": [{"name": STEP_B3, "conclusion": "success"},
+                                                               {"name": STEP_B4, "conclusion": "success"}]}
+    skip = {"name": JOB_B, "conclusion": "skipped", "steps": []}
+    marker = {"name": JOB_A, "conclusion": "failure", "steps": [{"name": STEP_A3, "conclusion": "failure"},
+                                                                   {"name": STEP_A3B, "conclusion": "success"}]}
+    att = {"run_id": 1, "run_attempt": 1, "head_sha": "a"*40, "path": WORKFLOW,
+           "created_at": "2026-11-10T01:00:00Z", "event": run_class_dispatch(), "attempt_status": "completed", "jobs": [yes]}
+    entry = {"run_id": 1, "run_attempt": 1, "head_sha": "a"*40, "stage": "S1", "approval_comment_id": 10,
+             "approval_created_at": "2026-11-10T00:00:00Z", "approval_updated_at": "2026-11-10T00:00:00Z",
+             "approval_author": OWNER[0], "author_association": OWNER[1], "quoted_words": "Authorize S1 "+"a"*40}
+    ck("approval exact S1", run_class_binding_errors(entry, att, att["jobs"], "a"*40) == [])
+    ck("E binding does not compare to S1 dispatch input", run_class_binding_errors(dict(entry, stage="E", quoted_words="Authorize E "+"a"*40), att, att["jobs"], "b"*40) == [])
+    for key, value in (("approval_created_at", "2026-11-10T02:00:00Z"),
+                       ("approval_updated_at", "2026-11-10T02:00:00Z"), ("approval_author", "other"),
+                       ("author_association", "MEMBER"), ("quoted_words", "Authorize S1 "+"b"*40)):
+        ck("approval rejects "+key, bool(run_class_binding_errors(dict(entry, **{key: value}), att, att["jobs"], "a"*40)))
+    ck("host VOID permits failed B3", run_class_binding_errors(entry, att, [{"name": JOB_B, "conclusion": "failure",
+            "steps": [{"name": STEP_B3, "conclusion": "failure"}, {"name": STEP_B4, "conclusion": "skipped"}]}], "a"*40) == [])
+    ck("missing B4 conclusion is checker outcome", not run_class_host_void([dict(yes, conclusion="timed_out", steps=[{"name": STEP_B4, "conclusion": None}])]))
+    approved = [entry]
+    ck("approved first attempt", run_class_rule(att, approved, [], {}) is None)
+    ck("rerun B skipped", run_class_rule(dict(att, run_attempt=2, jobs=[skip]), approved, [], {}) is None)
+    ck("rerun B started", run_class_rule(dict(att, run_attempt=2), approved, [], {}) is not None)
+    passive = dict(att, event="pull_request", jobs=[marker, skip])
+    ck("red A3 fixture mode is permitted", run_class_rule(passive, [], [], {"a"*40: True}) is None)
+    missing = dict(marker, steps=[{"name": STEP_A3, "conclusion": "failure"}])
+    ck("started A3 missing marker violates", run_class_rule(dict(passive, jobs=[missing, skip]), [], [], {"a"*40: True}) is not None)
+    ck("A3 never started", run_class_rule(dict(passive, jobs=[skip]), [], [], {"a"*40: True}) is None)
+    ck("pending record is not a completed verdict", run_class_rule(dict(passive, attempt_status="queued"), [], [], {"a"*40: True}) == "capture-not-completed")
+    ck("unapproved dispatch", run_class_rule(att, [], [], {}) is not None)
+    designation = {"id": 9, "user": {"login": OWNER[0]}, "author_association": OWNER[1],
+                   "created_at": "2026-11-10T00:00:00Z", "updated_at": "2026-11-10T00:00:00Z", "body": "Designate F "+"f"*40}
+    ck("F designation precedes execution", run_class_designation_errors(designation, "f"*40, att["created_at"]) == [])
+    ck("F wrong commit", bool(run_class_designation_errors(designation, "e"*40, att["created_at"])))
+    ck("F wrong stage", bool(run_class_designation_errors(dict(designation, body="Designate E "+"f"*40), "f"*40, att["created_at"])))
+    ck("F post-run edit", bool(run_class_designation_errors(dict(designation, updated_at="2026-11-10T02:00:00Z"), "f"*40, att["created_at"])))
+    ck("E designation missing digest", bool(run_class_designation_errors(dict(designation, body="Designate E "+"e"*40), "e"*40, digests=["1"*64], stage="E")))
+    ck("activity force move", bool(run_class_activity_violations([{"activity_type": "force_push"}])))
 
 
 def selftest_stab():
@@ -2551,59 +3436,85 @@ def self_test():
     return 0 if not bad else 1
 
 
-def main(argv):
+def control_main(argv):
+    """Read-only CLI. All outputs go to stdout; the executor retains them using explicit redirects."""
     try:
         root_check()
-    except Refused:
-        sys.stderr.write("refused: run at the top of the repository's work tree\n")
-        return 2
-    if len(argv) < 2:
-        sys.stderr.write("usage: controls.py <mode> ...\n")
-        return 2
-    mode = argv[1]
-    if mode == "--self-test":
-        return self_test()
-    if mode == "stress-check":
-        ok, info = stress_check(argv[2], PINS["stress.json"])
-        sys.stdout.write(("recorded (no pin yet): " if PINS["stress.json"] is None else "sha256: ") + info + "\n")
-        return 0 if ok else 1
-    if mode == "replay":
-        if not os.path.isfile(MEAS):
-            sys.stdout.write("no committed measurements (stage S1): nothing to compare\n")
+        if len(argv) < 2:
+            raise Refused("mode required")
+        mode = argv[1]
+        if mode == "--self-test":
+            return self_test()
+        if mode == "fixture-mode-check":
+            record = json.loads(read_bytes(argv[2]))
+            good = run_class_fixture_mode(record)
+            sys.stdout.write(canonical({"fixture_mode": good}))
+            return 0 if good else 1
+        if mode == "stress-check":
+            pins = frozen_pins(read_bytes(PREREG))
+            pin = pins.get("stress.json") if pins else None
+            good, info = stress_check(argv[2], pin)
+            sys.stdout.write(canonical({"stress_check": good, "sha256_or_reason": info, "pin_present": pin is not None}))
+            return 0 if good else 1
+        if mode == "replay":
+            if not os.path.isfile(MEAS):
+                sys.stdout.write('{"replay":"not-applicable"}\n')
+                return 0
+            return 0 if replay_compare(read_bytes(argv[2]), read_bytes(MEAS)) else 3
+        if mode == "decide":
+            result = decide(json.loads(read_bytes(argv[2] if len(argv)>2 else MEAS)))
+            sys.stdout.write(canonical(result))
+            return 1 if "VOID" in result else 0
+        if mode == "note":
+            data = json.loads(read_bytes(argv[2]))
+            sys.stdout.write(make_note(data, D_SHA, a_ok(argv[3]), a_ok(argv[4]), a_ok(argv[5])))
             return 0
-        return 0 if replay_compare(read_bytes(argv[2]), read_bytes(MEAS)) else 1
-    if mode == "decide":
-        m = json.loads(read_bytes(argv[2] if len(argv) > 2 else MEAS))
-        out = decide(m)
-        sys.stdout.write(canonical(out))
-        return 1 if "VOID" in out else 0
-    if mode == "note":
-        m = json.loads(read_bytes(argv[2]))
-        sys.stdout.write(make_note(m, D_SHA, a_ok(argv[3]), a_ok(argv[4]), a_ok(argv[5])))
-        return 0
-    if mode == "check":
-        commit = a_ok(argv[2])
-        f = a_ok(argv[argv.index("--freeze") + 1]) if "--freeze" in argv else None
-        stage = argv[argv.index("--stage") + 1] if "--stage" in argv else None
-        if f is None or stage not in (None, "S1", "E", "W"):
-            return 2
-        errs = check_mode(commit, f, stage)
-        for e in errs:
-            sys.stdout.write(e + "\n")
-        sys.stdout.write("CHECK %s\n" % ("PASS" if not errs else "FAIL"))
-        return 0 if not errs else 1
-    if mode == "derive-run":
-        rec = derive_run(a_ok(argv[2]))
-        if rec is None:
-            sys.stdout.write("capture failed\n")
-            return 1
-        sys.stdout.write(canonical(rec))
-        return 0
-    if mode in ("order", "verdict"):
-        sys.stdout.write("%s: the capture inputs (T_repo, T0, the approval entries, the gate-test entries, the "
-                         "recorded branches' commits) are PENDING until the round PR is opened\n" % mode)
-        return 1
-    return 2
+        if mode == "derive-run":
+            record = derive_run(a_ok(argv[2]), "--s1-binding" in argv)
+            if record is None:
+                raise Refused("derive-run capture failed")
+            sys.stdout.write(canonical(record))
+            return 0
+        if mode == "e-entry":
+            if "--capture-time" not in argv:
+                raise Refused("explicit UTC --capture-time required")
+            stamp = a_ok(argv[argv.index("--capture-time")+1])
+            result = run_class_e_entry(a_ok(argv[2]), a_ok(argv[3]), stamp)
+            sys.stdout.write(canonical({"entry": result["entry"], "entry_sha256": result["entry_sha256"], "errors": result["errors"]}))
+            return 1 if result["errors"] else 0
+        if mode in ("order", "verdict"):
+            config = json.loads(read_bytes(argv[2]))
+            if mode == "order":
+                result = run_class_order(config, "--final" in argv)
+                sys.stdout.write(canonical(result))
+                return 1 if result["violations"] else 0
+            result = run_class_verdict(config)
+            sys.stdout.write(canonical(result)+result["verdict"]+"\n")
+            return 1 if result["verdict"] == "VERDICT VOID" else 0
+        if mode == "check":
+            commit = a_ok(argv[2])
+            frozen = a_ok(argv[argv.index("--freeze")+1])
+            stage = argv[argv.index("--stage")+1] if "--stage" in argv else None
+            errors = check_mode(commit, frozen, stage)
+            output = {"check": "FAIL" if errors else "PASS", "errors": errors}
+            if stage == "S1":
+                if "--capture-config" not in argv:
+                    raise Refused("S1 requires --capture-config for its repository-wide order-s1 capture")
+                config = json.loads(read_bytes(argv[argv.index("--capture-config")+1]))
+                capture = run_class_order(config)
+                output["order_s1"] = capture
+                output["errors"] += capture["violations"]
+                output["check"] = "FAIL" if output["errors"] else "PASS"
+            sys.stdout.write(canonical(output))
+            return 1 if output["errors"] else 0
+        raise Refused("unknown mode")
+    except (CaptureFailed, Refused, OSError, ValueError, TypeError, KeyError, IndexError, AttributeError) as error:
+        sys.stdout.write(canonical({"capture": "FAILED", "reason": str(error), "retry_after_completion_or_access_recovery": True}))
+        return 3 if len(argv)>1 and argv[1] == "replay" else 2
+
+
+def main(argv):
+    return control_main(argv)
 
 
 if __name__ == "__main__":

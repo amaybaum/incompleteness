@@ -50,7 +50,8 @@ native update, orbit, solver, certificate, fixture or scientific CLI. The earlie
 the import initialized only strings was too broad and is corrected here. The checker --self-test and
 local A3 remain unexecuted.
 
-`scripts/implementation_selftest.py` passes nine isolated non-scientific test groups: actual static scans;
+`scripts/implementation_selftest.py` initially passed nine isolated non-scientific test groups, now extended
+to fourteen: actual static scans;
 guard/constructor/verifier-alias rejection mutations; mode/refusal behavior with computation stubs;
 standard hash vectors and generic collections; marker forgery; pagination failures including Forbidden;
 calendar/window saturation; and synthetic archive binding/resource mutations. Host responses are mocked,
@@ -69,19 +70,31 @@ returned REVISE at `76ca53f9458e4bad9b80555c5a68af15ebe63083`; report SHA-256
 | GI-B2 | Signature checking covers positional-only, ordinary, keyword-only, variable and default parameters. |
 | GI-B3 | The two environment sites require the exact caller/arguments: s_mode(sys.argv, os.environ) in s_refusal, and s_entry(sys.argv, os.environ) in the unique main guard; relocation is rejected. |
 | GI-B4 | The checker prohibits constructor references to set/frozenset, including aliases, as well as displays/comprehensions. |
-| GI-B5 | The second component review at 3b4765cc found a definition-time assignment-expression bypass. The correction scans defaults, annotations, decorators and class-definition expressions for module rebinding, while keeping ordinary local bodies separate. Default/annotation/class-base negative cases are in the isolated tests. Focused confirmation remains pending. |
+| GI-B5 | The second component review at 3b4765cc found a definition-time assignment-expression bypass. The correction scans defaults, annotations, decorators and class-definition expressions for module rebinding. The separate reviewer accepted that scoped correction at cf37600d; subsequent full-head implementation review is still required. |
 | Local nit | The obsolete pending/CC-NAT-gates-nothing comment is corrected to the actual conditional/STAB review scopes. |
 
 All five negative cases are exercised in the isolated static tests. No full-script ACCEPT is claimed.
 
-## Remaining implementation before independent review
+## Protocol integration and current gate
 
-The implementation must still complete A3b/template/CLI wiring, input pins, integrated evidence binding,
-event/attempt inventory classification, designation/approval/e-entry/verdict modes, freeze-rule integration,
-orbit controls, UPR-BC completion status and all corresponding permitted isolated
-non-scientific self-tests. Existing IMPL-DELTA-r14d remains the historical detailed obligation list;
-the present checkpoint does not claim those items complete or scripts certified. Independent review
-must inspect a later complete immutable implementation checkpoint; paper acceptance is not inherited.
+The declared modes now have source implementations: A3b/template wiring; strict input/pin and protected-T
+checks; complete-event/attempt classification; actual approval, designation, retake and archive binding;
+order/e-entry/verdict and freeze resource recomputation. Orbit controls, depth-one diagnostic reports,
+ADA functions, completion/UPR-BC statuses and the frozen limitation texts are connected. The preregistration
+documents pin serialization, non-circular E identity and provenance-only SOURCE_BASE. The original baseline
+workflow is retained as verify.yml.input for source-only guard tests; it contains no new splice.
+
+IMPLEMENTATION-DISPOSITIONS maps A1–A15, B1–B9, D1–D39 and the seven scoped reviewer findings to the source.
+The current milestone is a complete source candidate for full non-author implementation review, with safe
+negative coverage still being expanded. Fourteen isolated groups cover current source/static guards,
+metadata predicates, synthetic tokens/notes/resources and the inert template. Neither those checks nor
+the author ledger certify scientific paths. The full fixture-bearing self-tests remain separately gated.
+
+Required source RCH/DSN paths, final D/T0, the execution-source binding, future recorded branch names,
+measured budgets and artifact pins remain unresolved and fail closed. The runs API access probe succeeds;
+the connector rejects the activity endpoint, leaving T0 provenance unavailable. The design/confirmation
+literal all-non-B-success rule is preserved strictly; its compatibility with D's intentional PR A42 skip
+is a focused review question. No design-run readiness is inferred from this source milestone.
 
 No scientific computation, local A3 fixture solving, design/stress/confirmation/gate/decisive run,
 workflow dispatch/rerun, actual workflow splice, round branch, F/E/freeze, physical premise or merge is

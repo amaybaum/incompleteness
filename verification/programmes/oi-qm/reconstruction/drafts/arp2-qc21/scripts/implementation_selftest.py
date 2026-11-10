@@ -9,7 +9,6 @@ All host/evidence readers below receive synthetic responses; no network or git p
 import ast
 from fractions import Fraction
 import hashlib
-import importlib.util
 import io
 import json
 from pathlib import Path
@@ -51,7 +50,7 @@ def control_module():
         nodes.append(node)
     exec(compile(ast.Module(body=nodes, type_ignores=[]), '<isolated-control-definitions>', 'exec'), module.__dict__)
     assert 'CFGS' not in module.__dict__
-    for name in ('main', 'self_test', 'selftest_stab', 'stab_false_check', 'stab_false_control', 'stab_rank',
+    for name in ('main', 'control_main', 'self_test', 'selftest_stab', 'stab_false_check', 'stab_false_control', 'stab_rank',
                  'stab_matrix', 'stab_unit_pair_fires', 'code_t', 'check_mode'):
         setattr(module, name, forbidden)
     module.subprocess = types.SimpleNamespace(run=forbidden, PIPE=None)
@@ -103,6 +102,60 @@ class NonScientificTests(unittest.TestCase):
             self.assertEqual(getattr(self.control, name)(CHECKER_TEXT), [], name)
         self.assertEqual(self.control.static_controls(CONTROLS_TEXT), [])
         self.assertEqual(self.control.c_iface(CHECKER_TEXT, CONTROLS_TEXT), [])
+
+    def test_synthetic_tokens_and_notes(self):
+        self.control.LOG.clear()
+        self.control.selftest_decide()
+        self.assertGreater(len(self.control.LOG), 30)
+        self.assertEqual([name for name, good in self.control.LOG if not good], [])
+
+    def test_synthetic_records_and_resource_rule(self):
+        self.control.LOG.clear()
+        self.control.selftest_files()
+        self.assertEqual([name for name, good in self.control.LOG if not good], [])
+
+    def test_synthetic_host_predicates(self):
+        self.control.LOG.clear()
+        self.control.selftest_runs()
+        self.assertEqual([name for name, good in self.control.LOG if not good], [])
+
+    def test_source_binding_pins_and_first_execution(self):
+        m = self.control
+        line = '- **`S_max`** = 100000'
+        self.assertEqual(m.s_max_errors(line, 100000, 100000), [])
+        for text, code, stress in [('', 100000, 100000), (line+'\n'+line, 100000, 100000),
+                                   ('- **`S_max`** = 99999', 99999, 99999),
+                                   (line, 100001, 100000), (line, 100000, 100001)]:
+            self.assertTrue(m.s_max_errors(text, code, stress))
+        self.assertTrue(m.pending_unbackticked('- **`S_max`** = PENDING'))
+        self.assertFalse(m.pending_unbackticked('Only `PENDING` is quoted.'))
+        records = [{'head_sha': 'a'*40, 'head_branch': m.ROUND_BRANCH,
+                    'event': 'pull_request', 'created_at': '2026-11-10T02:00:00Z'},
+                   {'head_sha': 'b'*40, 'head_branch': m.ROUND_BRANCH,
+                    'event': 'push', 'created_at': '2026-11-10T01:00:00Z'}]
+        with patch.object(m, 'git_has', return_value=True), patch.object(m, 'git_is_ancestor', return_value=True):
+            self.assertEqual(m.run_class_first_execution(records, 'f'*40), '2026-11-10T01:00:00Z')
+        with patch.object(m, 'git_has', return_value=False):
+            with self.assertRaises(m.CaptureFailed):
+                m.run_class_first_execution(records, 'f'*40)
+        with patch.object(m, 'git_blob', return_value='0'*40), patch.object(m, 'read_bytes', side_effect=forbidden):
+            self.assertFalse(m.v3_working_copy_ok())
+
+    def test_inert_workflow_and_required_removals(self):
+        m = self.control
+        base = (ROOT.parent / 'verify.yml.input').read_bytes()
+        identity = hashlib.sha1(b'blob '+str(len(base)).encode()+b'\0'+base).hexdigest()
+        self.assertEqual(identity, '3a9dc8a97fd6f9d6d5f17cf390b5aabf37d65233')
+        def read(commit, path):
+            self.assertEqual((commit, path), (m.D_SHA, m.WORKFLOW))
+            return base
+        m.LOG.clear()
+        with patch.object(m, 'git_show', side_effect=read):
+            m.selftest_w()
+        self.assertEqual([name for name, good in m.LOG if not good], [])
+        self.assertIn('name: arp2-qc21-fixtures\n', m.SPLICE_FROZEN_JOBS)
+        self.assertIn('name: arp2-qc21-stress\n', m.SPLICE_FROZEN_JOBS)
+        self.assertIn('name: arp2-qc21-measurements\n', m.SPLICE_FROZEN_JOBS)
 
     def test_actual_static_mutation_suite_without_files(self):
         m = self.control
