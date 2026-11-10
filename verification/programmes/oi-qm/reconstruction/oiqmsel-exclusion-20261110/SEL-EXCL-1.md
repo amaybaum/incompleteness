@@ -150,3 +150,41 @@ A different non-author reviewer should check the exact pushed file and commit, w
 8. Apply AGENTS §§A.29/A.42/A.43/A.45 and return ACCEPT / ACCEPT WITH NITS / REVISE with any scoped corrections. Any eventual integration requires separate owner decision and enduring claim support on main.
 
 **Governance:** One new safe research file only; existing #1143 issue and other #1224/#1226 draft heads untouched. No changed physical law of the selected SM ring, source screen, external numerical/Lean/scientific runs, F/E, workflow dispatch, manuscript edit, merge or scientific claim promotion. **Physical-source gate #866 remains NOT PASSED.**
+
+
+## 7. Same-source reuse stress test: a stronger admissible-menu distinction (author addendum; REVIEW PENDING)
+
+**Status and relation to §§2–3.** This **author-side additional check** leaves the original model R, its fresh-independent-cell protocol grammar, and its conditional counterexample unchanged. It explicitly **enlarges** the protocol grammar to test whether a *single hidden source bit* may be reused over two ticks with Bob retaining calibrated raw records. It must **not** be represented as a counterexample within the original fresh-source grammar or as an OI-native physical operation.
+
+### Exact two-use protocol
+
+Start with the original state \((x,y,r,A,B)\) where \(A=B=0\) and \(r\) is fair independent of all setting choices. At the first use, Bob chooses \(y_1=0\), Alice's \(x_1\) is arbitrary, the same T acts once, and Bob reads and retains
+\[
+b_1=0\oplus r\oplus(x_1\land 0)=r.
+\]
+Before the next use, allow the two controllers to change their setting registers while retaining **the same hidden bit r** and the same physical output register B. Bob chooses \(y_2=1\); Alice independently chooses \(x_2\in\{0,1\}\), with the choice made only after the first record (e.g. an external fair private bit). Apply exactly the same T to the **current** microscopic state. Bob's second raw read becomes
+\[
+b_2=b_1\oplus r\oplus(x_2\land 1)=r\oplus r\oplus x_2=x_2.
+\]
+Thus for either \(r\), any first setting \(x_1\), and any Bob local first history \(b_1\), 
+\[
+\Pr(b_2=1\mid y_1=0,y_2=1,b_1,x_2)=x_2.
+\]
+Bob can infer Alice's second setting exactly from his own second raw register. The full local Bob history is **not independent of Alice's remote second-setting policy**. This is a two-tick **operational signalling witness under the enlarged same-carrier menu**, despite single-use no-signalling in §2. The global gate is microscopically nonlocal already; this is no claim of a realizable faster-than-light physical signal. It identifies the hidden premise supplied by §3's fresh-cell restriction.
+
+**Fresh output registers do not by themselves repair this.** If the second output register is blank but the old r is retained, the first read still gives \(b_1=r\) while the second gives \(b_2'=r\oplus x_2\), so the local record pair reveals \(b_1\oplus b_2'=x_2\). Both cases violate complete-history no-signalling under same-seed reuse.
+
+**Independent freshness repairs this particular witness, conditionally.** Under §3's explicit source assumption \(r_1,r_2\) independent and fair with separate blank outputs, \(b_1=r_1\) and \(b_2'=r_2\oplus x_2\). Then the *joint* local record \((b_1,b_2')\) is independent of \(x_2\) for fixed Bob settings; §3 proves the more general finite local-adaptive version. That conclusion is **mathematical and menu-relative**. It does not physically produce an unbounded stream of independent source bits, nor show reuse/reset resources are negligible or available on a fixed native apparatus.
+
+### Implication and discriminating question
+
+A candidate OI selection principle requiring no-signalling of **all physically admitted multi-tick local histories** would reject *this specific same-seed reused T implementation*, once its setting switches and repeated reads are physically available. Merely requiring single-time marginal no-signalling would miss the leakage. However, **it would not exclude the entire supraquantum PR class**, because a stipulated product supply of fresh hidden bits restores no-signalling for the finite grammar. Consequently:
+
+- Separate **source renewal availability/cost** from initial setting independence and one-shot no-signalling. Do not infer an autonomous renewable source from a mathematical product law.
+- Test whether the complete native observer/controller/record grammar actually admits the same-carrier protocol, a fresh-source protocol, both or neither. This is an #866/INT-AVAIL physical-sourcing question, not assumed resolved.
+- If future exclusion rules prohibit free unlimited freshness, independently derive the finite-resource or renewal bound. A ban chosen solely to prohibit PR would be circular; even a scarcity bound must be checked against valid quantum-composite use.
+- Keep ordinary classical contexts: the first \(y_1=0\) observation is a legitimate shared-bit record, not a behavior that must be excluded just because the broader global model has a supraquantum menu.
+
+**New focused independent review checks:** rederive both two-use identities and the fresh-output/old-seed variant; verify \(x_2\) is an independent remotely chosen setting; distinguish unconditional one-shot marginals from complete-history conditional laws; confirm §3's different grammar and its fresh-\(r_i\) independence; check no OI-native setting writer, clock, reset or source was inferred. This section is **UNREVIEWED** and changes no original reviewed status (the entire SEL-EXCL-1 draft is awaiting its first independent full review).
+
+**No new authority:** This addendum stays within the owner-authorized bounded paper-only selection countercontrol; no numerical/scientific/Lean execution, changed SM rule, physical-source experiment, new premise, F/E, dispatch, manuscript change, merge or main integration. The physical-source gate remains **NOT PASSED**.
