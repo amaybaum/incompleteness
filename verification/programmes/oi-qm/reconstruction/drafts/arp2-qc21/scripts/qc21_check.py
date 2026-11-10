@@ -10,7 +10,7 @@ Entry points (C.5):
     --stress                                   canonical-JSON stress.json, schema arp2-qc21-stress v2
     --self-test                                every self-test and mutation; exit 0 iff all pass
 
-Exit statuses: 0 complete and green (decisive) or fixture expectations met (fixture mode); 3 a control red, a
+Exit statuses: 0 complete decisive output (including scientific VOID) or fixture expectations met; 3 a
 fragment out_of_scope, or a fixture expectation unmet; 4 refusal (no --event, malformed --dispatch-sha).
 
 Arithmetic is exact: integers, Fraction and F_2 only (C-EXACT). The one Fraction helper that uses "/" is q_div.
@@ -47,6 +47,13 @@ CAP_EFFECTS = 200
 # C.1 stress fixtures: the generator is frozen here; the seeds are PENDING until the design run (C.7 6).
 STRESS_SEEDS = (20261108, 1, 2)
 
+BP_P_MAX = None
+BP_B_MAX = None
+BP_W_MAX = None
+BP_CAP_GENERATORS = None
+BP_CAP_D = None
+BP_CAP_FACET_SUBSETS = None
+BP_CAP_EFFECTS = 200
 S_MAX = 100000  # Initial owner budget, #1169 c.6778994857; other measured budgets remain unset.
 REFUSAL_CALLS = 0
 
@@ -307,10 +314,14 @@ def s_generators(a):
     return out
 
 
-def s_facets(gens, d):
+def s_facets(gens, d, visit_limit=None):
     """Facets of cone{gens}: brute force over (d-1)-subsets; primitive integer normals, sorted."""
     out = []
+    visits = 0
     for sub in itertools.combinations(range(len(gens)), d - 1):
+        visits += 1
+        if visit_limit is not None and visits > visit_limit:
+            raise OutOfScope("facet-subsets")
         n = s_nullvec([gens[i] for i in sub], d)
         if n is None:
             continue
@@ -589,53 +600,68 @@ def s_cert_bytes(cert):
     return canonical(cert).encode("utf-8")
 
 
-def s_decide(frag, budget_vals=(None, None, None), force_step4=False, mutate=None):
-    """Decide one fragment by the first step that returns a certificate the independent verifier accepts.
-    frag: {"name", "laws": [[q]*|Omega_c|], "reads": [[q]*|Omega_c|] (unit not included)}.
-    Returns the fragment record (C.5a fields) with "cert" bytes and "verified"."""
+def s_decide(frag, budget_vals=(None, None, None), force_step4=False, mutate=None, cap_vals=None, budget=None):
+    """C.1 decision with certified reduction and the caller's role-specific caps/budget."""
     laws = [[Fraction(x) for x in mu] for mu in frag["laws"]]
     reads = [[Fraction(x) for x in xi] for xi in frag["reads"]]
-    om = len(laws[0])
-    unit = [Fraction(1)] * om
-    all_reads = [unit] + reads
-    rec = {"name": frag["name"], "preps": len(laws), "reads": len(reads)}
-    budget = Budget(*budget_vals)
+    unit = [Fraction(1)]*len(laws[0])
+    all_reads = [unit]+reads
+    rec = {"name": frag["name"], "preps": len(laws), "reads": len(reads),
+           "lp_settings": list(frag.get("lp_settings", []))}
+    if budget is None:
+        budget = Budget(*budget_vals)
+    caps = (CAP_GENERATORS, CAP_D, CAP_FACET_SUBSETS, CAP_EFFECTS) if cap_vals is None else cap_vals
     n_tab = s_table(laws, reads)
     a, b, d = s_factor(n_tab)
-    r_s = s_rank(laws)
-    r_e = s_rank(all_reads)
-    gens = s_generators(a)
-    kept = s_reduce_effects(b)
-    rec.update({"d": d, "r_S": r_s, "r_E": r_e, "effects_reduced": len(kept), "tomo": d == r_s == r_e,
-                "generators": len(gens)})
-    over = []
-    if len(gens) > CAP_GENERATORS:
-        over.append("generators")
-    if d > CAP_D:
-        over.append("d")
-    if s_comb(len(gens), d - 1) > CAP_FACET_SUBSETS:
-        over.append("facet-subsets")
-    if len(all_reads) > CAP_EFFECTS:
-        over.append("effects")
-    if over:
-        rec.update({"lp": "out_of_scope", "decided_by": None, "caps": over, "cert": None, "cert_sha256": None,
-                    "verified": False})
+    r_s, r_e = s_rank(laws), s_rank(all_reads)
+    effects = sum(1 for e in range(len(b)) if any(n_tab[p][e] > 0 for p in range(len(a))))
+    effect_kept = s_reduce_effects(b)
+    rec.update({"d": d, "r_S": r_s, "r_E": r_e, "effects_reduced": len(effect_kept),
+                "effects_before_reduction": effects, "tomo": d == r_s == r_e,
+                "n_distinct": len(s_generators(a)), "n_extreme": None, "generators": None,
+                "cap_values": list(caps)})
+
+    def out_of_scope(reasons):
+        rec.update({"lp": "out_of_scope", "decided_by": None, "caps": reasons, "cert": None,
+                    "cert_sha256": None, "verified": False})
         rec.update(budget.record())
         return rec
-    cert = {"A": a, "B": b, "d": d, "effects_kept": kept}
-    verdict, step = None, None
+
+    over = []
+    if caps[1] is not None and d > caps[1]:
+        over.append("d")
+    if caps[3] is not None and effects > caps[3]:
+        over.append("effects")
+    if over:
+        return out_of_scope(over)
     try:
+        prep_kept, removals = s_reduce_extreme(a, budget)
+        rec["reduction_verified"] = v_reduction(a, prep_kept, json.loads(canonical(removals)))
+        if rec["reduction_verified"] is not True:
+            return out_of_scope(["unverified-reduction"])
+        n, c = len(prep_kept), s_comb(len(prep_kept), d-1)
+        rec.update({"n_extreme": n, "generators": n, "c": c})
+        if caps[0] is not None and n > caps[0]:
+            over.append("generators")
+        if caps[2] is not None and c > caps[2]:
+            over.append("facet-subsets")
+        if over:
+            return out_of_scope(over)
+        cert = {"A": a, "B": b, "d": d, "effects_kept": effect_kept,
+                "prep_kept": prep_kept, "prep_removals": removals, "facet_limit": caps[2]}
+        verdict, step = None, None
         if not force_step4 and d == r_s == r_e:
             verdict, step = "feasible", 2
-            cert.update({"step": 2, "verdict": "feasible", "mu": laws, "xi": all_reads})
+            cert.update({"step": 2, "verdict": verdict, "mu": laws, "xi": all_reads})
         if verdict is None and not force_step4 and r_s == d:
-            kmat = s_step3(laws, kept, a, b, d, 0, budget)
+            kmat = s_step3(laws, effect_kept, a, b, d, 0, budget)
             if kmat is not None:
-                xi = [[s_dot(kmat[w], be) for w in range(om)] for be in b]
                 verdict, step = "feasible", 3
-                cert.update({"step": 3, "verdict": "feasible", "K": kmat, "mu": laws, "xi": xi})
+                xi = [[s_dot(kmat[w], be) for w in range(len(laws[0]))] for be in b]
+                cert.update({"step": 3, "verdict": verdict, "K": kmat, "mu": laws, "xi": xi})
         if verdict is None:
-            verdict, data = s_step4(a, b, d, kept, 0, budget)
+            facets = s_facets([a[p] for p in prep_kept], d, caps[2])
+            verdict, data = s_step4(a, b, d, effect_kept, 0, budget, facets=facets)
             step = 4
             cert.update({"step": 4, "verdict": verdict, "facets": data["facets"], "T": data["info"]["T"],
                          "m": data["info"]["m"]})
@@ -643,41 +669,140 @@ def s_decide(frag, budget_vals=(None, None, None), force_step4=False, mutate=Non
                 cert.update({"W": data["W"], "y": data["y"]})
             else:
                 cert.update({"kappa": data["kappa"], "mu": data["mu"], "xi": data["xi"]})
-    except OutOfScope as exc:
-        rec.update({"lp": "out_of_scope", "decided_by": None, "caps": ["budget:" + str(exc)], "cert": None,
-                    "cert_sha256": None, "verified": False})
-        rec.update(budget.record())
-        return rec
+    except OutOfScope as error:
+        return out_of_scope(["budget:"+str(error)])
     if mutate is not None:
         cert = mutate(cert)
     cb = s_cert_bytes(cert) if cert is not None else b"null"
-    rec.update({"lp": verdict, "decided_by": step, "cert": cb, "cert_sha256": h_sha256(cb)})
+    rec.update({"lp": verdict, "decided_by": step, "cert": cb, "cert_sha256": h_sha256(cb),
+                "T": cert.get("T") if isinstance(cert, dict) else None})
     rec.update(budget.record())
-    rec["T"] = cert.get("T") if isinstance(cert, dict) else None
-    rec["verified"] = v_verify(cb, frag["laws"], frag["reads"]) == "verified"
+    # The verifier's visit limit is certificate data; the driver binds it to the actual role cap.
+    rec["verified"] = (isinstance(cert, dict) and cert.get("facet_limit") == caps[2]
+                       and v_verify(cb, frag["laws"], frag["reads"]) == "verified")
     if not rec["verified"]:
-        rec["lp_reported"] = verdict
-        rec["lp"] = "undecided"
+        rec["lp_reported"], rec["lp"] = verdict, "undecided"
     return rec
 
 
-def s_decide_effect_facet(frag):
-    """C-SYM: the effect-facet LP, i.e. step 4 on the transposed pairing (facets of cone{b_e})."""
+def s_decide_effect_facet(frag, budget):
+    """C-SYM with the original fragment's budget and an independently verified exchanged certificate."""
     laws = [[Fraction(x) for x in mu] for mu in frag["laws"]]
     reads = [[Fraction(x) for x in xi] for xi in frag["reads"]]
     n_tab = s_table(laws, reads)
     a, b, d = s_factor(n_tab)
-    kept = s_reduce_effects(b)
-    eff = [b[e] for e in kept]
-    preps = s_generators(a)
-    verdict, _ = s_step4(eff, preps, d, list(range(len(preps))), 0, Budget())
-    return verdict
+    h = s_facets(s_generators(b), d)
+    verdict, data = s_step4(b, a, d, list(range(len(a))), 0, budget, facets=h)
+    cert = {"A": a, "B": b, "d": d, "facets": h, "verdict": verdict,
+            "facet_limit": None}
+    if verdict == "infeasible":
+        cert.update({"W": data["W"], "y": data["y"]})
+    else:
+        kappa = data["kappa"]
+        scales = [s_dot(normal, b[0]) for normal in h]
+        kept = [i for i, value in enumerate(scales) if value != 0]
+        mu = [[s_dot(kappa[i], row)*scales[i] for i in kept] for row in a]
+        xi = [[q_div(s_dot(h[i], effect), scales[i]) for i in kept] for effect in b]
+        cert.update({"mu": mu, "xi": xi, "kappa": kappa})
+    raw = s_cert_bytes(cert)
+    verified = v_verify_effect(raw, frag["laws"], frag["reads"]) == "verified"
+    return {"lp": verdict if verified else "undecided", "verified": verified,
+            "cert": raw, "cert_sha256": h_sha256(raw), **budget.record()}
 
 
 # ------------------------------------------------------------------------------------------------------------
 # C.1 The independent verifier (v_*). C-INDEP: inside every v_* function, calls target only v_* functions,
 # Fraction, json.loads, itertools.combinations and the whitelisted builtins; it shares no code with the solver.
 # ------------------------------------------------------------------------------------------------------------
+def s_reduce_extreme(a, budget):
+    """Frozen row-order conic reduction with explicit nonnegative removal witnesses."""
+    kept, removals = list(range(len(a))), []
+    for p in range(len(a)):
+        if p not in kept:
+            continue
+        others = [q for q in kept if q != p]
+        if not others:
+            continue
+        equations = [[a[q][j] for q in others] for j in range(len(a[p]))]
+        status, weights = s_phase1(equations, a[p], budget)
+        if status == "feasible":
+            sources = [q for q, weight in zip(others, weights) if weight != 0]
+            values = [weight for weight in weights if weight != 0]
+            removals.append({"row": p, "sources": sources, "weights": values})
+            kept.remove(p)
+    return kept, removals
+
+
+def v_reduction(a, retained, removals):
+    """Independent ordered witness validation; never calls the solver or a shared helper."""
+    if not isinstance(retained, list) or not isinstance(removals, list):
+        return False
+    remaining = list(range(len(a)))
+    previous = -1
+    for item in removals:
+        if not isinstance(item, dict):
+            return False
+        p, sources, values = item.get("row"), item.get("sources"), item.get("weights")
+        if not isinstance(p, int) or p is True or p is False or p not in remaining:
+            return False
+        if p <= previous:
+            return False
+        previous = p
+        if not isinstance(sources, list) or not isinstance(values, list) or len(sources) != len(values):
+            return False
+        if not sources or len(v_unique(sources)) != len(sources):
+            return False
+        if any([not isinstance(q, int) or q is True or q is False or q == p or q not in remaining for q in sources]):
+            return False
+        weights = [v_q(x) for x in values]
+        if any([x < 0 for x in weights]):
+            return False
+        for j in range(len(a[p])):
+            if sum([weight*a[q][j] for q, weight in zip(sources, weights)]) != a[p][j]:
+                return False
+        remaining.remove(p)
+    return retained == remaining
+
+
+def v_verify_effect(raw, laws, reads):
+    """Independent C-SYM: reconstruct the pairing, exchanged facets and explicit model/witness."""
+    try:
+        if not v_plain(laws) or not v_plain(reads):
+            return "input-types"
+        cert = json.loads(raw)
+        n_tab = v_table(laws, reads)
+        a, b, d = v_mat(cert["A"]), v_mat(cert["B"]), cert["d"]
+        if len(a) != len(n_tab) or len(b) != len(n_tab[0]):
+            return "factor-shape"
+        if any([len(row) != d for row in a+b]) or not (v_rank(a) == v_rank(b) == v_rank(n_tab) == d):
+            return "factor-rank"
+        for p in range(len(a)):
+            for e in range(len(b)):
+                if v_dot(a[p], b[e]) != n_tab[p][e]:
+                    return "factor-product"
+        own = v_facets(b, d, cert["facet_limit"])
+        theirs = sorted([[int(x) for x in row] for row in cert["facets"]])
+        if own != theirs:
+            return "effect-facet-list"
+        if cert["verdict"] == "feasible":
+            return v_check_model(v_mat(cert["mu"]), v_mat(cert["xi"]), n_tab, a, b)
+        if cert["verdict"] != "infeasible":
+            return "verdict"
+        w, y = v_mat(cert["W"]), v_mat(cert["y"])
+        if len(w) != d or any([len(row) != d for row in w]) or sum([w[i][i] for i in range(d)]) >= 0:
+            return "W-shape-or-trace"
+        if len(y) != len(own):
+            return "y-shape"
+        for j in range(len(own)):
+            if len(y[j]) != len(a) or any([x < 0 for x in y[j]]):
+                return "y-sign"
+            if [v_dot(w[r], own[j]) for r in range(d)] != [sum([y[j][p]*a[p][r] for p in range(len(a))]) for r in range(d)]:
+                return "W-effect-identity"
+        return "verified"
+    except (ValueError, TypeError, KeyError, IndexError, ArithmeticError):
+        return "malformed-effect-certificate"
+
+
 def v_unique(values):
     """Independent verifier membership map; no solver helper or unordered set."""
     return {key: None for key in values}
@@ -695,7 +820,7 @@ def v_plain(x):
 
 
 def v_q(s):
-    if isinstance(s, int):
+    if isinstance(s, int) or isinstance(s, Fraction):
         return Fraction(s)
     parts = s.split("/")
     if len(parts) == 1:
@@ -823,7 +948,7 @@ def v_primitive(v):
     return [x // g for x in iv]
 
 
-def v_facets(a, d):
+def v_facets(a, d, visit_limit=None):
     """Own facet list of cone{a_p}: every (d-1)-subset of distinct generators, supporting, with d-1 independent
     tight generators; primitive integer normals, sorted."""
     gens = []
@@ -833,7 +958,13 @@ def v_facets(a, d):
         if key not in gens:
             gens.append(key)
     out = []
+    if visit_limit is not None and (not isinstance(visit_limit, int) or visit_limit < 1):
+        return None
+    visits = 0
     for sub in itertools.combinations(range(len(gens)), d - 1):
+        visits += 1
+        if visit_limit is not None and visits > visit_limit:
+            return None
         n = v_nullvec([gens[i] for i in sub], d)
         if n is None:
             continue
@@ -857,6 +988,9 @@ def v_check_model(mu, xi, n_tab, a, b):
     """A feasible certificate, checked by definition."""
     if len(mu) != len(n_tab) or len(xi) != len(n_tab[0]):
         return "model-shape"
+    width = len(mu[0]) if mu else 0
+    if width == 0 or any([len(row) != width for row in mu+xi]):
+        return "model-width"
     for row in mu:
         if any([x < 0 for x in row]):
             return "model-negative"
@@ -879,58 +1013,71 @@ def v_check_model(mu, xi, n_tab, a, b):
 def v_verify(cert_bytes, laws, reads):
     """C-CERT: the independent verifier. Inputs: the solver's certificate as bytes, the charged laws and the read
     response tables as produced by the fragment builder. Returns "verified" or a reason."""
-    if not v_plain(laws) or not v_plain(reads):
-        return "input-types"
-    cert = json.loads(cert_bytes)
-    if not isinstance(cert, dict):
-        return "no-certificate"
-    if "A" not in cert or "B" not in cert or "d" not in cert or "step" not in cert or "verdict" not in cert:
-        return "certificate-fields"
-    n_tab = v_table(laws, reads)
-    a = v_mat(cert["A"])
-    b = v_mat(cert["B"])
-    d = cert["d"]
-    if len(a) != len(n_tab) or len(b) != len(n_tab[0]):
-        return "factor-shape"
-    for p in range(len(a)):
-        for e in range(len(b)):
-            if v_dot(a[p], b[e]) != n_tab[p][e]:
-                return "factor-product"
-    if not (v_rank(a) == d and v_rank(b) == d and v_rank(n_tab) == d):
-        return "factor-rank"
-    step = cert["step"]
-    verdict = cert["verdict"]
-    if step == 4:
-        own = v_facets(a, d)
-        theirs = sorted([[int(x) for x in g] for g in cert["facets"]])
-        if own != theirs:
-            return "facet-list"
-    if verdict == "infeasible":
-        if step != 4 or "W" not in cert or "y" not in cert:
-            return "infeasible-fields"
-        w = v_mat(cert["W"])
-        y = v_mat(cert["y"])
-        kept = cert["effects_kept"]
-        if len(v_unique(kept)) != len(kept) or any([k < 0 or k >= len(b) for k in kept]):
-            return "effects-kept"
-        g = sorted([[int(x) for x in gg] for gg in cert["facets"]])
-        if len(y) != len(g):
-            return "y-shape"
-        if sum([w[i][i] for i in range(d)]) >= 0:
-            return "trace-nonnegative"
-        for j in range(len(g)):
-            if len(y[j]) != len(kept) or any([x < 0 for x in y[j]]):
-                return "y-sign"
-            lhs = [v_dot(w[r], g[j]) for r in range(d)]
-            rhs = [sum([y[j][k] * b[kept[k]][r] for k in range(len(kept))]) for r in range(d)]
-            if lhs != rhs:
-                return "W-identity"
-        return "verified"
-    if verdict == "feasible":
-        if "mu" not in cert or "xi" not in cert:
-            return "feasible-fields"
-        return v_check_model(v_mat(cert["mu"]), v_mat(cert["xi"]), n_tab, a, b)
-    return "verdict"
+    try:
+        if not v_plain(laws) or not v_plain(reads):
+            return "input-types"
+        cert = json.loads(cert_bytes)
+        if not isinstance(cert, dict):
+            return "no-certificate"
+        if "A" not in cert or "B" not in cert or "d" not in cert or "step" not in cert or "verdict" not in cert:
+            return "certificate-fields"
+        n_tab = v_table(laws, reads)
+        a = v_mat(cert["A"])
+        b = v_mat(cert["B"])
+        d = cert["d"]
+        if not isinstance(d, int) or d is True or d is False or d < 1:
+            return "factor-dimension"
+        if any([len(row) != d for row in a+b]):
+            return "factor-width"
+        if len(a) != len(n_tab) or len(b) != len(n_tab[0]):
+            return "factor-shape"
+        for p in range(len(a)):
+            for e in range(len(b)):
+                if v_dot(a[p], b[e]) != n_tab[p][e]:
+                    return "factor-product"
+        if not (v_rank(a) == d and v_rank(b) == d and v_rank(n_tab) == d):
+            return "factor-rank"
+        if not v_reduction(a, cert["prep_kept"], cert["prep_removals"]):
+            return "prep-reduction"
+        step = cert["step"]
+        if step not in (2, 3, 4):
+            return "step"
+        verdict = cert["verdict"]
+        if step == 4:
+            own = v_facets([a[p] for p in cert["prep_kept"]], d, cert["facet_limit"])
+            theirs = sorted([[int(x) for x in g] for g in cert["facets"]])
+            if own != theirs:
+                return "facet-list"
+        if verdict == "infeasible":
+            if step != 4 or "W" not in cert or "y" not in cert:
+                return "infeasible-fields"
+            w = v_mat(cert["W"])
+            y = v_mat(cert["y"])
+            kept = cert["effects_kept"]
+            if len(v_unique(kept)) != len(kept) or any([k < 0 or k >= len(b) for k in kept]):
+                return "effects-kept"
+            g = sorted([[int(x) for x in gg] for gg in cert["facets"]])
+            if len(y) != len(g):
+                return "y-shape"
+            if len(w) != d or any([len(row) != d for row in w]):
+                return "W-shape"
+            if sum([w[i][i] for i in range(d)]) >= 0:
+                return "trace-nonnegative"
+            for j in range(len(g)):
+                if len(y[j]) != len(kept) or any([x < 0 for x in y[j]]):
+                    return "y-sign"
+                lhs = [v_dot(w[r], g[j]) for r in range(d)]
+                rhs = [sum([y[j][k] * b[kept[k]][r] for k in range(len(kept))]) for r in range(d)]
+                if lhs != rhs:
+                    return "W-identity"
+            return "verified"
+        if verdict == "feasible":
+            if "mu" not in cert or "xi" not in cert:
+                return "feasible-fields"
+            return v_check_model(v_mat(cert["mu"]), v_mat(cert["xi"]), n_tab, a, b)
+        return "verdict"
+    except (ValueError, TypeError, KeyError, IndexError, ArithmeticError):
+        return "malformed-certificate"
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -1081,6 +1228,54 @@ def fx_f10():
 # ------------------------------------------------------------------------------------------------------------
 # Stress fixtures (C.1; adaptation table: B-P's size and B-C's maximal size). Frozen generator, 32-bit xorshift.
 # ------------------------------------------------------------------------------------------------------------
+def seeded_coset(g, nbits, dimensions):
+    """One xorshift stream; exact GF(2) independence and a uniform coset law."""
+    dim = dimensions[next(g) % len(dimensions)]
+    mask, basis, span = (1 << nbits)-1, [], [0]
+    while len(basis) < dim:
+        vector = next(g) & mask
+        if vector not in span:
+            basis.append(vector)
+            span += [x ^ vector for x in list(span)]
+    shift = next(g) & mask
+    return {tuple((value >> (nbits-1-i)) & 1 for i in range(nbits)): Fraction(1, 1 << dim)
+            for value in [x ^ shift for x in span]}
+
+
+def fx_b_s4f():
+    """Frozen B-S4F definition; execution belongs to the separately authorized design fixtures."""
+    omega = list(itertools.product((0, 1), repeat=2))
+    laws = [[Fraction(1 if i == j else 0) for j in range(4)] for i in range(4)]
+    reads = []
+    for i in (0, 1):
+        response = [Fraction(3, 8)+Fraction(1 if w[i] == 0 else 0, 4) for w in omega]
+        reads += [response, [1-x for x in response]]
+    return {"name": "B-S4F", "laws": laws, "reads": reads, "omega": omega,
+            "effect_labels": [["E0", 0], ["E0", 1], ["E1", 0], ["E1", 1]],
+            "lp_settings": ["E0", "E1"], "acc": ["E0", "E1"]}
+
+
+def fx_b_ray(base, name):
+    """Append the frozen half-mixture of the first two preparations, preserving read order."""
+    result = dict(base)
+    result["name"] = name
+    result["laws"] = list(base["laws"])+[[q_div(a+b, 2) for a, b in zip(base["laws"][0], base["laws"][1])]]
+    return result
+
+
+def qm_restricted_run(src, phi, arm):
+    """D22(a)'s exact four CNOT-marker arms, separate from QM-P's five-arm P comparator."""
+    h = Fraction(1, 2)
+    state = {"X+": [[h, h], [h, h]], "X-": [[h, -h], [-h, h]],
+             "Z+": [[1, 0], [0, 0]], "Z-": [[0, 0], [0, 1]]}[src]
+    if phi:
+        state = _mm(_mm(QZ, state), QZ)
+    markers = {"off": [[1, 0], [0, 0]], "on": [[1, 0], [0, 0]],
+               "SH-0": [[h, h], [h, h]], "SH-K": [[h, 0], [0, h]]}
+    initial = _kron(state, markers[arm])
+    return initial if arm == "off" else _mm(_mm(QCNOT, initial), _tr(QCNOT))
+
+
 def xorshift32(seed):
     x = seed & 0xffffffff
     if x == 0:
@@ -1105,32 +1300,23 @@ def _seeded_law(g, nbits):
     return {c: Fraction(v, tot) for c, v in w.items()}
 
 
-def stress_fixture(kind, seeds):
-    """SF-1: a synthetic classical fragment of B-P's size and shape: 32 preparations, each a product of a seeded
-    law of the screen bit, a seeded joint law of a two-slot cell `a` and a seeded joint law of a two-slot cell
-    `p` (8 seeded base laws, each prepared four times); the nine settings of Acc(B-P) (the screen bit with at
-    most one slot of each held cell) on the five read bits.
-    SF-2: of B-C's maximal size: 91 preparations (13 seeded base laws on four bits, each prepared seven times);
-    the three binary settings S_Z, S_X, S_Y. Weights are seeded small integers on a seeded support."""
-    gens = [xorshift32(s) for s in seeds]
+def stress_fixture(kind, seed):
+    """C.8.2: a separate coset instance per seed; SF-1 has 32 distinct laws."""
+    g, laws = xorshift32(seed), []
+    nbits, dimensions, count = (5, (2, 3, 4), 32) if kind == "SF-1" else (4, (1, 2, 3), 91)
+    while len(laws) < count:
+        law = seeded_coset(g, nbits, dimensions)
+        if kind != "SF-1" or law not in laws:
+            laws.append(law)
     if kind == "SF-1":
         settings = []
         for ai, an in ((None, "0"), (1, "1"), (2, "2")):
             for pi, pn in ((None, "0"), (3, "1"), (4, "2")):
-                idx = [0] + [i for i in (ai, pi) if i is not None]
-                settings.append(("M" + an + pn, _bits(*idx)))
-        base = []
-        for k in range(8):
-            g = gens[k % len(gens)]
-            ls, la, lp = _seeded_law(g, 1), _seeded_law(g, 2), _seeded_law(g, 2)
-            base.append({cs + ca + cp: ws * wa * wp for cs, ws in ls.items() for ca, wa in la.items()
-                         for cp, wp in lp.items()})
-        laws = [base[k] for k in range(8) for _ in range(4)]
-        return frag_from_laws(kind, laws, tuple(range(5)), settings)
-    settings = [("S_Z", _bit(0)), ("S_X", _bit(1)), ("S_Y", _parity(0, 1, 2, 3))]
-    base = [_seeded_law(gens[k % len(gens)], 4) for k in range(13)]
-    laws = [base[k] for k in range(13) for _ in range(7)]
-    return frag_from_laws(kind, laws, tuple(range(4)), settings)
+                indices = [0] + [i for i in (ai, pi) if i is not None]
+                settings.append(("M"+an+pn, _bits(*indices)))
+    else:
+        settings = [("S_Z", _bit(0)), ("S_X", _bit(1)), ("S_Y", _parity(0, 1, 2, 3))]
+    return frag_from_laws(kind+"/"+str(seed), laws, tuple(range(nbits)), settings)
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -1237,28 +1423,26 @@ def k_decompose_p(arms, off, on, sh0, shk):
 
 
 def k_decide_b(rec):
-    """Decision rule B (first match). rec: {"controls_red", "fragments": [{"name", "role", "lp", "verified",
-    "lp_reads_equal_acc"}]}; roles "B-P", "B-C" decide the token; "A-of-B" and completions are reported and
-    can only void it (undecided or out_of_scope)."""
+    """Only the unique SG-1 B-P record decides B; other fragment roles are report-only."""
     try:
-        red = rec["controls_red"]
-        frs = rec["fragments"]
-    except (KeyError, TypeError):
+        if rec["controls_red"]:
+            return {"token": "B-VOID", "codes": list(rec["controls_red"])}
+        candidates = [f for f in rec["fragments"] if f.get("role") == "B-P"]
+        if len(candidates) != 1:
+            return {"token": "B-VOID", "codes": ["one-B-P-required"]}
+        bp = candidates[0]
+        expected = ["M"+a+b for a in ("0", "1", "2") for b in ("0", "1", "2")]
+        if bp.get("preps") != 32 or sorted(bp.get("lp_settings", [])) != expected:
+            return {"token": "B-VOID", "codes": ["SG-1:32-preparations-nine-settings"]}
+        if bp.get("lp_reads_equal_acc") is not True or sorted(bp.get("acc", [])) != expected:
+            return {"token": "B-VOID", "codes": ["lp_reads_equal_acc:B-P"]}
+        if bp.get("lp") not in ("feasible", "infeasible") or bp.get("verified") is not True:
+            return {"token": "B-VOID", "codes": ["B-P:"+str(bp.get("lp")), "limitation:SG-2"]}
+        if bp["lp"] == "infeasible":
+            return {"token": "B-CONTEXTUAL", "codes": [], "contextual": [bp["name"]]}
+        return {"token": "B-CLASSICALLY-IMITABLE", "codes": []}
+    except (KeyError, TypeError, ValueError):
         return {"token": "B-VOID", "codes": ["missing-field"]}
-    if red:
-        return {"token": "B-VOID", "codes": list(red)}
-    codes = []
-    for f in frs:
-        if f.get("lp") in ("undecided", "out_of_scope", None) or f.get("verified") is not True:
-            codes.append("fragment:" + str(f.get("name")))
-        if f.get("role") in ("B-P", "B-C") and f.get("lp_reads_equal_acc") is not True:
-            codes.append("lp_reads_equal_acc:" + str(f.get("name")))
-    if codes:
-        return {"token": "B-VOID", "codes": codes}
-    ctx = [f["name"] for f in frs if f.get("role") in ("B-P", "B-C") and f["lp"] == "infeasible"]
-    if ctx:
-        return {"token": "B-CONTEXTUAL", "codes": [], "contextual": ctx}
-    return {"token": "B-CLASSICALLY-IMITABLE", "codes": []}
 
 
 def k_decide_c(rec):
@@ -1568,7 +1752,7 @@ def qm_p_fragment():
     for src in ("X+", "X-", "Z+", "Z-"):
         for f in (0, 1):
             for arm in ("off", "on", "SH-0", "SH-K"):
-                rho = qm_run(src, f, arm)
+                rho = qm_restricted_run(src, f, arm)
                 m00 = {x: _p_plus(_ptrace_e(rho)) if x == 0 else 1 - _p_plus(_ptrace_e(rho)) for x in (0, 1)}
                 m10 = _joint_s_e(rho, QM_SLOT_BASIS[0])
                 m20 = _joint_s_e(rho, QM_SLOT_BASIS[1])
@@ -1836,9 +2020,12 @@ def p_ablation_fields(ref_cls, ref_def, ref_worlds, abl_cls, abl_def, abl_worlds
     ref_obs = {n: p_observer(ref_cls["arms"][n]) for n in ref_cls["adm"]}
     abl_obs = {n: p_observer(abl_cls["arms"][n]) for n in abl_cls["adm"]}
     if olc is not None:
-        for n in abl_obs:
-            abl_obs[n] = dict(abl_obs[n], OLC=olc)
-    pred = canonical(ref_obs) != canonical(abl_obs)
+        added = ["OLC.joint"]
+        for subset in sorted(olc["subsets"]):
+            added += ["OLC."+subset+".V", "OLC."+subset+".Pz"]
+        pred = {"common": canonical(ref_obs) != canonical(abl_obs), "added": sorted(added)}
+    else:
+        pred = canonical(ref_obs) != canonical(abl_obs)
     mr, ma = p_mechmap(ref_cls, ref_def), p_mechmap(abl_cls, abl_def)
     changed = []
     for c in sorted(ordered_unique(mr) | ordered_unique(ma), key=lambda x: canonical(list(x))):
@@ -2016,7 +2203,8 @@ def s_build_b(p_out=None, c_out=None, budget_vals=(None, None, None)):
     sts = bp_settings()
     frs = []
     bp = bp_fragment(laws, sts, read5, "B-P", ACC_BP)
-    rec = s_decide(bp, budget_vals)
+    rec = s_decide(bp, (BP_P_MAX, BP_B_MAX, BP_W_MAX),
+                   cap_vals=(BP_CAP_GENERATORS, BP_CAP_D, BP_CAP_FACET_SUBSETS, BP_CAP_EFFECTS))
     rec.update({"role": "B-P", "lp_reads_equal_acc": sorted(bp["lp_settings"]) == sorted(bp["acc"]),
                 "acc": bp["acc"], "acc_typing": ACC_BP_TYPING, "TOMO": rec["tomo"]})
     frs.append(rec)
@@ -2035,7 +2223,7 @@ def s_build_b(p_out=None, c_out=None, budget_vals=(None, None, None)):
     ra = s_decide(a_of_b, budget_vals)
     ra.update({"role": "A-of-B", "lp_reads_equal_acc": True, "TOMO": ra["tomo"]})
     frs.append(ra)
-    qm = s_decide(qm_p_fragment())
+    qm = s_decide(qm_p_fragment(), budget_vals)
     restricted = bp_restricted_equals_qmp(laws, labels)
     out = {"fragments": frs, "bp_equals_qmp": restricted, "QM-P_fragment": qm["lp"], "B1": {"alpha": 0}}
     out["B-C"] = []
@@ -2045,31 +2233,29 @@ def s_build_b(p_out=None, c_out=None, budget_vals=(None, None, None)):
 
 
 def bp_restricted_equals_qmp(laws, labels):
-    """B-P against QM-P on the p-free settings M00, M10, M20 (R8-B1, fix 2): column by column for off, on and
-    SH-K; for SH-0 up to a relabelling of a deterministic held-slot outcome. Held slot 0 is read against E in
-    basis QM_SLOT_BASIS[0], slot 1 against QM_SLOT_BASIS[1]."""
+    """Exact comparison on M00/M10/M20, under D22's map, with no outcome relabelling; report only."""
     sl = BP_SLOTS
     qmap = {"off": "off", NAME_ON: "on", NAME_SH0: "SH-0", NAME_SHK: "SH-K"}
-    res = {}
-    for name in qmap:
-        ok_exact, ok_relab = True, True
-        for law, (src, f, arm) in zip(laws, labels):
-            if arm != name:
+    result = {}
+    for arm, qm_arm in qmap.items():
+        exact, checked = True, 0
+        for law, (src, phi, label) in zip(laws, labels):
+            if label != arm:
                 continue
-            rho = qm_run(src, f, qmap[name])
+            rho = qm_restricted_run(src, phi, qm_arm)
+            screen = sum(prob for cfg, prob in law.items() if cfg[sl["s_u"]] == 0)
+            exact = exact and screen == _p_plus(_ptrace_e(rho))
             for slot, key in ((0, "a_u"), (1, "a_v")):
-                b = {}
-                for cfg, pr in law.items():
-                    k = (cfg[sl["s_u"]], cfg[sl[key]])
-                    b[k] = b.get(k, Fraction(0)) + pr
-                q = _joint_s_e(rho, QM_SLOT_BASIS[slot])
-                if any(b.get(k, 0) != q[k] for k in q):
-                    ok_exact = False
-                    if any(b.get((x, y), 0) != q[(x, 1 - y)] for x, y in q):
-                        ok_relab = False
-        res[name] = {"exact": ok_exact, "up_to_relabelling": ok_exact or ok_relab}
-    res["holds"] = all(res[n]["exact"] for n in ("off", NAME_ON, NAME_SHK)) and res[NAME_SH0]["up_to_relabelling"]
-    return res
+                actual = {}
+                for cfg, prob in law.items():
+                    outcome = (cfg[sl["s_u"]], cfg[sl[key]])
+                    actual[outcome] = actual.get(outcome, Fraction(0))+prob
+                target = _joint_s_e(rho, QM_SLOT_BASIS[slot])
+                exact = exact and all(actual.get(key, 0) == value for key, value in target.items())
+            checked += 1
+        result[arm] = {"exact": exact and checked == 8, "preparations_checked": checked}
+    result["holds"] = all(result[arm]["exact"] for arm in qmap)
+    return result
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -2715,7 +2901,7 @@ def bc_fragment(name, laws):
 
 
 def bc_fragment_decide(inst, budget_vals):
-    """B-C for one flagged instance: preparations its O_12 orbit laws (distinct), measurements S_Z, S_X, S_Y;
+    """B-C for one flagged instance: preparations its largest flagged O_K orbit laws (distinct), measurements S_Z, S_X, S_Y;
     the completion "every slot of every cell, registered jointly" (the four carrier slots); UPR-BC's inputs."""
     laws = []
     for l in inst["orbit_laws"]:
@@ -2723,7 +2909,7 @@ def bc_fragment_decide(inst, budget_vals):
             laws.append(l)
     fr = bc_fragment("B-C:" + inst["id"], laws)
     rec = s_decide(fr, budget_vals)
-    rec.update({"role": "B-C", "lp_reads_equal_acc": sorted(fr["lp_settings"]) == sorted(fr["acc"]),
+    rec.update({"orbit_horizon": inst["orbit_horizon"], "role": "B-C", "lp_reads_equal_acc": sorted(fr["lp_settings"]) == sorted(fr["acc"]),
                 "acc_typing": "imported (L-UPRIME)", "TOMO": rec["tomo"]})
     rec["restored_by_full"] = None
     if rec["lp"] == "infeasible":
@@ -2786,7 +2972,8 @@ def s_build_c():
             ca = stats(g, (rnd[0], rnd[1], None))
             i["C-A"] = {"CONS": ca["CONS"], "WCL": ca["WCL"]["fires"], "WOCT": ca["WOCT"], "HC": ca["HC"]}
             st = stats(g, rnd)
-            i["orbit_laws"] = [l for name in st["orbits"] for l in st["orbits"][name][:13]]
+            i["orbit_horizon"] = 12 if c12 or cn else 6
+            i["orbit_laws"] = [l for name in st["orbits"] for l in st["orbits"][name][:i["orbit_horizon"]+1]]
             flagged.append(i)
     ccnat = {"green": not any((stats(g, r)["WCL"]["fires"] and stats(g, r)["CONS"]["12"]) or stats(g, r)["WOCT"]["12"]
                               for g in AFFINE_RULES for r in ROUNDS)}
@@ -2836,7 +3023,7 @@ def l_scope(g, perms, rounds=ROUNDS, base=None):
             seen[t] = None
             out.append(l)
     level = list(out)
-    for _ in range(2):
+    for _ in range(1):
         nxt = []
         for l in level:
             for rnd in rounds:
@@ -2907,7 +3094,7 @@ def r5_diagnostics(perms, tabs):
                   "nonstab_valid": sum(1 for r in rs if sum(x * x for x in r) <= 1 and sum(abs(x) for x in r) > 1),
                   "offaxis_unit": sum(1 for r in rs if sum(x * x for x in r) == 1
                                       and sorted(abs(x) for x in r) != [0, 0, 1]),
-                  "induced": ind, "label": "diagnostic (D1(a)); no token reads it"}
+                  "induced": ind, "label": "diagnostic (D1(a)), depth 1; no token reads it", "depth": 1}
     return out
 
 
@@ -3003,7 +3190,7 @@ def cxb_direct(law, g, rnd):
 # r12a: STAB-TRUE (fixture mode; supplied identity map, built outside DECISIVE_BUILDERS). STAB-FALSE rebuilds its
 # orbits from the pinned certificate copies and runs in controls.py, since this checker reads no file.
 # ------------------------------------------------------------------------------------------------------------
-R12_STAB = False   # registers STAB-TRUE among the fixture controls once r12a is frozen
+R12_STAB = True    # STAB certificates are mandatory from the authorized design stage onward
 
 
 def stab_true_control(horizons=(1, 2, 6, 12)):
@@ -3213,12 +3400,10 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
     p_rec = {"adm": p_out["decide_p_inputs"]["adm"], "arms": p_out["arms"], "off": "off", "on": NAME_ON,
              "controls_red": p_red}
     p_tok = k_decide_p(p_rec)
-    b_red = [k for k in ("B-POS", "B-STAB", "B-CLASS", "B-REG", "B-WAVE", "QM-P", "C-CERT", "C-NCF", "C-SYM", "ZPT",
+    b_red = [k for k in ("B-POS", "B-STAB", "B-CLASS", "B-REG", "B-WAVE", "B-S4F", "B-RAY", "QM-P", "C-CERT", "C-NCF", "C-SYM", "ZPT",
                          "F10") if not fx["controls"][k]["green"]]
     frs = [strip_bytes(f) for f in b_out["fragments"]] + [strip_bytes(f) for f in b_out["B-C"]]
     over = [f["name"] for f in frs if f["lp"] == "out_of_scope"]
-    if over:
-        b_red.append("C-BUDGET")
     b_tok = k_decide_b({"controls_red": b_red, "fragments": frs})
     c_red = [k for k, v in c_out["controls"].items() if not v["green"]
 ]
@@ -3228,7 +3413,7 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
                         "instances": c_out["instances"]})
     bp = b_out["fragments"][0]
     levels = k_decide_levels({"P": p_tok["token"], "C": c_tok["token"], "imported": r_out["reclassified"],
-                              "B_P": {"contextual": bp["lp"] == "infeasible", "lp_reads_equal_acc":
+                              "B_P": {"contextual": b_tok["token"] == "B-CONTEXTUAL", "lp_reads_equal_acc":
                                       bp["lp_reads_equal_acc"], "acc_owner_typed": True,
                                       "acc_typing": ACC_BP_TYPING},
                               "upr_bc": [{"contextual": u["contextual"], "restored_by_full": u["restored_by_full"]}
@@ -3246,7 +3431,8 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
                "flagged": [i["id"] for i in c_out["flagged"]], "lemma_p_review": LEMMA_P_REVIEW,
                "cone_review": CONE_REVIEW},
          "fixtures": fx["fixtures"], "controls": fx["controls"],
-         "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX,
+         "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX, "BP": {"P_max": BP_P_MAX, "B_max": BP_B_MAX, "W_max": BP_W_MAX,
+                    "caps": [BP_CAP_GENERATORS, BP_CAP_D, BP_CAP_FACET_SUBSETS, BP_CAP_EFFECTS]},
                     "respected": {f["name"]: f["lp"] != "out_of_scope" for f in frs}},
          "flags": {"P": p_tok["token"], "B": b_tok["token"], "C": c_tok["token"], "levels": levels,
                    "refusal_calls": REFUSAL_CALLS, "controls_red": {"P": p_red, "B": b_red, "C": c_red}}}
@@ -3259,12 +3445,14 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
 FIXTURE_EXPECT = {
     "B-POS": ("infeasible", 4), "B-STAB": ("feasible", 2), "B-CLASS": ("feasible", 2), "B-REG": ("infeasible", 4),
     "B-REG+parity": ("feasible", 2), "B-WAVE": ("infeasible", 4), "ZPT": ("feasible", 3), "F10": ("feasible", 4),
-    "QM-P": ("infeasible", 4)}
+    "QM-P": ("infeasible", 4), "B-S4F": ("feasible", 4),
+    "B-RAY-S": ("feasible", 2), "B-RAY-P": ("infeasible", 4), "B-RAY-F": ("feasible", 4)}
 
 
 def fixture_fragments():
     return [fx_b_pos(), fx_b_stab(), fx_b_class(), fx_b_reg(), fx_b_reg(True), fx_b_wave(), fx_zpt(), fx_f10(),
-            qm_p_fragment()]
+            qm_p_fragment(), fx_b_s4f(), fx_b_ray(fx_b_stab(), "B-RAY-S"),
+            fx_b_ray(fx_b_pos(), "B-RAY-P"), fx_b_ray(fx_b_s4f(), "B-RAY-F")]
 
 
 def attr_fix():
@@ -3328,15 +3516,15 @@ def fixture_section(budget_vals=None):
             rec["step4_check"] = {"lp": r4["lp"], "verified": r4["verified"]}
             if r4["lp"] != r["lp"] or not r4["verified"]:
                 ncf_bad += 1
-        sym = s_decide_effect_facet(fr)
-        rec["effect_facet_lp"] = sym
-        if sym != r["lp"]:
+        sym = s_decide_effect_facet(fr, Budget(*bv))
+        rec["effect_facet"] = strip_bytes(sym)
+        if sym["lp"] != r["lp"] or sym["verified"] is not True:
             sym_bad += 1
         fixtures[fr["name"]] = rec
     reg_acc = fx_b_reg(acc_parity=True)
     lp_eq = sorted(reg_acc["lp_settings"]) == sorted(reg_acc["acc"])
     tok_reg = k_decide_b({"controls_red": [], "fragments": [dict(strip_bytes(recs["B-REG"]), role="B-P",
-                                                                 lp_reads_equal_acc=lp_eq)]})["token"]
+                                                                 lp_reads_equal_acc=lp_eq, preps=32, lp_settings=list(ACC_BP), acc=list(ACC_BP))]})["token"]
     lev_reg = k_decide_levels({"P": "P-COMPLEMENTARITY", "B_P": {"contextual": True, "lp_reads_equal_acc": True,
                                                                   "acc_owner_typed": False,
                                                                   "acc_typing": "design-chosen"}})
@@ -3352,6 +3540,9 @@ def fixture_section(budget_vals=None):
     controls["B-WAVE"] = {"green": ok("B-WAVE") and alpha >= 1, "alpha": alpha}
     controls["ZPT"] = {"green": ok("ZPT")}
     controls["F10"] = {"green": ok("F10") and fixtures["F10"]["T"] == 0}
+    controls["B-S4F"] = {"green": ok("B-S4F") and fixtures["B-S4F"]["T"] == 3}
+    controls["B-RAY"] = {"green": all(ok(n) and recs[n]["n_distinct"] == 5 and recs[n]["n_extreme"] == 4
+                                          for n in ("B-RAY-S", "B-RAY-P", "B-RAY-F"))}
     controls["C-CERT"] = {"green": unverified == 0, "unverified": unverified}
     controls["C-NCF"] = {"green": ncf_bad == 0, "bad": ncf_bad}
     controls["C-SYM"] = {"green": sym_bad == 0, "mismatches": sym_bad}
@@ -3413,25 +3604,57 @@ def fixture_measurements(dispatch_sha=None):
                       "refusal_calls": REFUSAL_CALLS, "fixture_mismatches": fixture_mismatches(sec)}}
 
 
+def stress_record(result, role, seed=None):
+    item = strip_bytes(result)
+    item.update({"class": role, "seed": seed, "verdict": result["lp"],
+                 "certificate_verified": result["verified"],
+                 "certificate": json.loads(result["cert"]) if result["cert"] is not None else None})
+    return item
+
+
+def fixture_completion(fragment):
+    """The full configuration read, reporting the copied full-read completion (CC-F0)."""
+    result = dict(fragment)
+    size = len(fragment["laws"][0])
+    result["name"] = fragment["name"]+"+all-joint"
+    result["reads"] = list(fragment["reads"])+[[Fraction(1 if i == j else 0) for i in range(size)] for j in range(size)]
+    result["lp_settings"] = list(fragment["lp_settings"])+["all-joint"]
+    result["acc"] = list(result["lp_settings"])
+    return result
+
+
 def stress_output():
-    """--stress: every stress fixture and every frozen fixture with its completions; schema arp2-qc21-stress v2.
-    No budget (only the job timeout)."""
-    frags = []
-    w_fix, w_stress = 0, 0
+    """Six independent coset instances, ST-BP, and all frozen fixture decisions/completions; no native family."""
+    if not isinstance(S_MAX, int) or S_MAX < 1:
+        raise QC21Refusal("S_MAX is unset")
+    fragments, w_fix, w_stress = [], 0, 0
     for kind in ("SF-1", "SF-2"):
-        r = s_decide(stress_fixture(kind, STRESS_SEEDS))
-        frags.append({"name": kind, "class": "stress", "verdict": r["lp"], "decided_by": r["decided_by"],
-                      "pivots": r["pivots"], "max_bits": r["max_bits"], "work": r["work"],
-                      "certificate_verified": r["verified"]})
-        w_stress += r["work"]
-    for fr in fixture_fragments():
-        r = s_decide(fr)
-        frags.append({"name": fr["name"], "class": "fixture", "verdict": r["lp"], "decided_by": r["decided_by"],
-                      "pivots": r["pivots"], "max_bits": r["max_bits"], "work": r["work"],
-                      "certificate_verified": r["verified"]})
-        w_fix += r["work"]
-    return {"schema": STRESS_SCHEMA, "version": STRESS_VERSION, "seeds": list(STRESS_SEEDS), "fragments": frags,
-            "W_fix": w_fix, "W_stress": w_stress}
+        for seed in STRESS_SEEDS:
+            fragment = stress_fixture(kind, seed)
+            caps = (None, None, S_MAX, None) if kind == "SF-1" else (None, None, None, None)
+            result = s_decide(fragment, cap_vals=caps)
+            item = stress_record(result, "ST-BP" if kind == "SF-1" else "stress", seed)
+            item["over_maximum"] = (kind == "SF-1" and result.get("c", 0) > S_MAX)
+            fragments.append(item)
+            w_stress += result["work"]
+    for fragment in fixture_fragments():
+        result = s_decide(fragment, cap_vals=(None, None, None, None))
+        fragments.append(stress_record(result, "fixture"))
+        w_fix += result["work"]
+        if result["decided_by"] in (2, 3):
+            forced = s_decide(fragment, force_step4=True, cap_vals=(None, None, None, None))
+            forced["name"] += ":step4-check"
+            fragments.append(stress_record(forced, "fixture"))
+            w_fix += forced["work"]
+        exchanged = s_decide_effect_facet(fragment, Budget())
+        exchanged["name"] = fragment["name"]+":C-SYM"
+        fragments.append(stress_record(exchanged, "fixture"))
+        w_fix += exchanged["work"]
+        completion = s_decide(fixture_completion(fragment), cap_vals=(None, None, None, None))
+        fragments.append(stress_record(completion, "fixture"))
+        w_fix += completion["work"]
+    return {"schema": STRESS_SCHEMA, "version": STRESS_VERSION, "seeds": list(STRESS_SEEDS),
+            "S_max": S_MAX, "fragments": fragments, "W_fix": w_fix, "W_stress": w_stress}
 
 
 # ------------------------------------------------------------------------------------------------------------
@@ -3607,7 +3830,7 @@ def t_mutations():
                     return c
         return c
 
-    for name, fr, step in (("B-CLASS", fx_b_class(), 2), ("ZPT", fx_zpt(), 3), ("F10", fx_f10(), 4)):
+    for name, fr, step in (("B-CLASS", fx_b_class(), 2), ("ZPT", fx_zpt(), 3), ("F10", fx_f10(), 4), ("B-S4F", fx_b_s4f(), 4)):
         r0 = s_decide(fr)
         r = s_decide(fr, mutate=bump_model)
         t_check("M-MODEL fails C-CERT on a step-%d certificate (%s)" % (step, name),
@@ -3719,9 +3942,7 @@ def s_entry(argv, environ):
         return (3 if m["flags"]["fixture_mismatches"] else 0), canonical(m)
     m = s_decisive()
     m["parameters"]["dispatch_sha"] = dsha
-    red = any(m["flags"]["controls_red"][t] for t in ("P", "B", "C"))
-    over = any(not v for v in m["budget"]["respected"].values())
-    return (3 if red or over else 0), canonical(m)
+    return 0, canonical(m)  # D21: complete scientific outcomes, including VOID, are evidence.
 
 
 if __name__ == "__main__":

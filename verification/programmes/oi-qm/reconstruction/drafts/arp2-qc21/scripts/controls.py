@@ -74,7 +74,7 @@ STAB_CERTS = {"evidence/cone_k1_certificate.json":
               "e67199472530e6753eed86e991636a4fadb930b2b9c56e0456ec6b884cfeb644",
               "evidence/cone_window_K2_certificate.json":
               "f24a68d902a423018d15c4d92440970e5f17b202cc8b8ea3407ad11269e6ebaf"}
-R12_STAB = False   # STAB-FALSE gates the self-test once r12a is frozen; before that, absent copies are skipped
+R12_STAB = True    # copied STAB certificates are required from the design stage onward
 E_FILES = ("evidence/measurements.json", "evidence/s1-run/results.json", "evidence/order.json",
            "evidence/order-s1.json", "result.md")
 
@@ -825,7 +825,49 @@ def c_exact(src):
 
 V_BUILTINS = {"len", "range", "sum", "min", "max", "abs", "sorted", "enumerate", "zip", "all", "any", "int", "tuple",
               "list", "dict", "isinstance"}
+V_EXCEPTION_NAMES = {"ValueError", "TypeError", "KeyError", "IndexError", "ArithmeticError"}
 V_FORBIDDEN = {"globals", "locals", "vars", "getattr", "setattr", "eval", "exec", "compile", "__import__"}
+
+
+def indep_binding_errors(tree, vfuncs):
+    """Check module bindings, including expressions evaluated when definitions are created."""
+    errors, queue = [], list(tree.body)
+    accepted = {id(fn) for fn in vfuncs}
+    while queue:
+        node = queue.pop(0)
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            if node.name.startswith("v_") and id(node) not in accepted:
+                errors.append("alternate verifier definition " + node.name)
+            expressions = list(node.decorator_list) + list(node.args.defaults)
+            expressions += [x for x in node.args.kw_defaults if x is not None]
+            arguments = node.args.posonlyargs + node.args.args + node.args.kwonlyargs
+            arguments += [x for x in (node.args.vararg, node.args.kwarg) if x is not None]
+            expressions += [x.annotation for x in arguments if x.annotation is not None]
+            if node.returns is not None:
+                expressions.append(node.returns)
+            queue.extend(expressions)
+            # Function bodies create local bindings, not module bindings; C-INDEP scans verifier bodies.
+            continue
+        if isinstance(node, ast.ClassDef):
+            if node.name.startswith("v_"):
+                errors.append("verifier class binding " + node.name)
+            queue.extend(node.bases + [x.value for x in node.keywords] + node.decorator_list)
+            continue
+        if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)) and node.id.startswith("v_"):
+            errors.append("verifier module alias/rebinding " + node.id)
+        if isinstance(node, ast.alias) and (node.asname or node.name).startswith("v_"):
+            errors.append("verifier import alias/rebinding")
+        if isinstance(node, ast.ExceptHandler) and node.name and node.name.startswith("v_"):
+            errors.append("verifier exception binding")
+        if isinstance(node, (ast.MatchAs, ast.MatchStar)) and node.name and node.name.startswith("v_"):
+            errors.append("verifier pattern binding")
+        if isinstance(node, ast.MatchMapping) and node.rest and node.rest.startswith("v_"):
+            errors.append("verifier mapping binding")
+        queue.extend(ast.iter_child_nodes(node))
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Global, ast.Nonlocal)) and any(name.startswith("v_") for name in node.names):
+            errors.append("verifier global/nonlocal rebinding")
+    return sorted(set(errors))
 
 
 def c_indep(src):
@@ -849,17 +891,7 @@ def c_indep(src):
     vnames = {n.name for n in vfuncs}
     if len(vnames) != len(vfuncs):
         errs.append("duplicate verifier definition")
-    for binding in tree.body:
-        if isinstance(binding, (ast.FunctionDef, ast.ClassDef)):
-            if isinstance(binding, ast.ClassDef) and binding.name.startswith("v_"):
-                errs.append("verifier class/alias binding " + binding.name)
-            continue
-        for node in ast.walk(binding):
-            if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)) and node.id.startswith("v_"):
-                errs.append("verifier alias/rebinding " + node.id)
-    for node in ast.walk(tree):
-        if isinstance(node, (ast.Global, ast.Nonlocal)) and any(x.startswith("v_") for x in node.names):
-            errs.append("verifier global/nonlocal rebinding")
+    errs += indep_binding_errors(tree, vfuncs)
     if not vfuncs:
         errs.append("no verifier")
     for fn in vfuncs:
@@ -876,7 +908,7 @@ def c_indep(src):
             if isinstance(n, ast.Name) and isinstance(n.ctx, ast.Load):
                 if n.id in V_FORBIDDEN:
                     errs.append("%s: forbidden %s" % (fn.name, n.id))
-                elif n.id in local or n.id in vnames or n.id in V_BUILTINS:
+                elif n.id in local or n.id in vnames or n.id in V_BUILTINS or n.id in V_EXCEPTION_NAMES:
                     pass
                 elif n.id in ("Fraction", "json", "itertools"):
                     pass
@@ -1004,23 +1036,24 @@ def attr_value(off, on, shk):
 
 
 def decide_b(rec):
+    """Independent controller rule: SG-1 and only B-P, never report-only verdicts."""
     try:
-        red, frs = rec["controls_red"], rec["fragments"]
-    except (KeyError, TypeError):
+        if rec["controls_red"]:
+            return "B-VOID", list(rec["controls_red"])
+        bp_records = [entry for entry in rec["fragments"] if entry.get("role") == "B-P"]
+        if len(bp_records) != 1:
+            return "B-VOID", ["one-B-P-required"]
+        bp = bp_records[0]
+        settings = ["M00", "M01", "M02", "M10", "M11", "M12", "M20", "M21", "M22"]
+        if bp.get("preps") != 32 or sorted(bp.get("lp_settings", [])) != settings:
+            return "B-VOID", ["SG-1:32-preparations-nine-settings"]
+        if bp.get("lp_reads_equal_acc") is not True or sorted(bp.get("acc", [])) != settings:
+            return "B-VOID", ["lp_reads_equal_acc:B-P"]
+        if bp.get("verified") is not True or bp.get("lp") not in ("feasible", "infeasible"):
+            return "B-VOID", ["B-P:"+str(bp.get("lp")), "limitation:SG-2"]
+        return ("B-CONTEXTUAL" if bp["lp"] == "infeasible" else "B-CLASSICALLY-IMITABLE"), []
+    except (KeyError, TypeError, ValueError):
         return "B-VOID", ["missing-field"]
-    if red:
-        return "B-VOID", list(red)
-    codes = []
-    for f in frs:
-        if f.get("lp") not in ("feasible", "infeasible") or f.get("verified") is not True:
-            codes.append(str(f.get("name")))
-        if f.get("role") in ("B-P", "B-C") and f.get("lp_reads_equal_acc") is not True:
-            codes.append("lp_reads_equal_acc:" + str(f.get("name")))
-    if codes:
-        return "B-VOID", codes
-    if any(f.get("role") in ("B-P", "B-C") and f["lp"] == "infeasible" for f in frs):
-        return "B-CONTEXTUAL", []
-    return "B-CLASSICALLY-IMITABLE", []
 
 
 def decide_c(rec):
@@ -1099,7 +1132,7 @@ def decide(m):
     c_tok, _ = decide_c({"controls_red": f["controls_red"]["C"], "complete": True, "flags_agree": True,
                          "instances": m["C"]["instances"]})
     bp = [x for x in frs if x.get("role") == "B-P"]
-    b_ctx = bool(bp) and bp[0]["lp"] == "infeasible"
+    b_ctx = b_tok == "B-CONTEXTUAL"
     b_eq = bool(bp) and bp[0].get("lp_reads_equal_acc") is True
     lev = decide_levels(p_tok, b_ctx, b_eq, True, c_tok, m["REP_INV"]["reclassified"])
     attr = attr_value(m["P"]["arms"]["off"], m["P"]["arms"]["(w,0)"], m["P"]["arms"]["(w,w')"])
@@ -1464,28 +1497,77 @@ def make_note(m, d, f, s1, e):
 # ------------------------------------------------------------------------------------------------------------
 # stress-check, replay
 # ------------------------------------------------------------------------------------------------------------
+def freeze_budget_rule(stress, t5, t810):
+    """C.8.1–2 mechanical resource selection; pure arithmetic on recorded design data only."""
+    fragments = stress["fragments"]
+    eligible = [x for x in fragments if x["class"] != "ST-BP"]
+    if not eligible or any(x["certificate_verified"] is not True for x in eligible):
+        raise Refused("budget rule: unverified general record")
+    general = [3*max(x[key] for x in eligible) for key in ("pivots", "max_bits", "work")]
+    work_total = stress["W_fix"]+stress["W_stress"]
+    if work_total <= 0 or not isinstance(t5, int) or t5 <= 0 or not isinstance(t810, int) or t810 < 0:
+        raise Refused("budget rule: invalid durations or work")
+    sigma = fractions.Fraction(t5, work_total)
+    candidates = [x for x in fragments if x["class"] == "ST-BP" and x["over_maximum"] is False
+                  and x["certificate_verified"] is True and x["verdict"] in ("feasible", "infeasible")]
+    candidates = sorted(candidates, key=lambda x: (-x["c"], (20261108, 1, 2).index(x["seed"])))
+    reference, caps, bp_budget = None, [16, 16, 100000, 200], list(general)
+    for record in candidates:
+        proposed = [max(value, 3*record[key]) for value, key in zip(general, ("pivots", "max_bits", "work"))]
+        bound = sigma*(proposed[2]+1203*general[2]+2*stress["W_fix"]+stress["W_stress"])+t810
+        if bound <= 1200:
+            reference, bp_budget = record["name"], proposed
+            caps = [max(16, record["n_extreme"]), max(16, record["d"]), max(100000, record["c"]), 200]
+            break
+    bound = sigma*(bp_budget[2]+1203*general[2]+2*stress["W_fix"]+stress["W_stress"])+t810
+    return {"general": general, "BP": bp_budget, "BP_caps": caps, "reference": reference,
+            "sigma": str(sigma), "timeout_lhs": str(bound), "timeout_pass": bound <= 1200,
+            "timeout_minutes": 60, "reported_only_volume": 1203}
+
+
 def stress_check(path, pin):
-    """A7: schema v2, every fragment certificate-verified, and (when a pin exists) sha256 equals the pin."""
+    """A7 validates all six instances, ST-BP's explicit over-maximum exception, totals and optional pin."""
     raw = read_bytes(path)
     try:
-        s = json.loads(raw)
-    except ValueError:
-        return False, "unparseable"
-    if s.get("schema") != "arp2-qc21-stress" or s.get("version") != 2:
-        return False, "schema"
-    frs = s.get("fragments")
-    if not isinstance(frs, list) or not frs:
-        return False, "fragments"
-    for fr in frs:
-        for k in ("verdict", "decided_by", "pivots", "max_bits", "work", "certificate_verified"):
-            if k not in fr:
-                return False, "field " + k
-        if fr["certificate_verified"] is not True:
-            return False, "unverified " + str(fr.get("name"))
-    if not isinstance(s.get("W_fix"), int) or not isinstance(s.get("W_stress"), int):
-        return False, "totals"
-    h = sha256_bytes(raw)
-    return (True if pin is None else h == pin), h
+        data = json.loads(raw)
+        if data["schema"] != "arp2-qc21-stress" or data["version"] != 2:
+            return False, "schema"
+        if data["seeds"] != [20261108, 1, 2] or not isinstance(data["S_max"], int) or data["S_max"] < 1:
+            return False, "seeds/S_max"
+        records, names = data["fragments"], []
+        if not isinstance(records, list) or not records:
+            return False, "fragments"
+        wf, ws = 0, 0
+        for record in records:
+            if record["name"] in names:
+                return False, "duplicate fragment"
+            names.append(record["name"])
+            if record["class"] not in ("ST-BP", "stress", "fixture"):
+                return False, "fragment class"
+            for key in ("pivots", "max_bits", "work"):
+                if type(record[key]) is not int or record[key] < 0:
+                    return False, "counter "+key
+            if record["class"] == "ST-BP" and record["over_maximum"] is True:
+                if record["c"] <= data["S_max"] or record["verdict"] != "out_of_scope" or record["certificate"] is not None:
+                    return False, "invalid over_maximum"
+                if record["reduction_verified"] is not True:
+                    return False, "unverified reduction"
+            elif record["certificate_verified"] is not True or record["verdict"] not in ("feasible", "infeasible"):
+                return False, "unverified "+record["name"]
+            if record["class"] == "fixture":
+                wf += record["work"]
+            else:
+                ws += record["work"]
+        if [data["W_fix"], data["W_stress"]] != [wf, ws]:
+            return False, "work totals"
+        if sorted(x["seed"] for x in records if x["class"] == "ST-BP") != [1, 2, 20261108]:
+            return False, "ST-BP instances"
+        if sorted(x["seed"] for x in records if x["class"] == "stress") != [1, 2, 20261108]:
+            return False, "SF-2 instances"
+    except (ValueError, TypeError, KeyError, IndexError):
+        return False, "malformed stress record"
+    digest = sha256_bytes(raw)
+    return (True if pin is None else digest == pin), digest
 
 
 def replay_compare(fresh_bytes, committed_bytes):
@@ -2190,6 +2272,8 @@ def selftest_static():
         ck("name rules fail: " + name, src != chk and static_checker(src) != [])
     alias = chk.replace("def v_unique(values):", "v_shared = ordered_unique\n\ndef v_unique(values):\n    return v_shared(values)", 1)
     ck("M-INDEP prefixed module alias", alias != chk and c_indep(alias) != [])
+    default_alias = chk + "\ndef s_bind(_=(v_unique := ordered_unique)):\n    pass\n"
+    ck("M-INDEP definition-time alias", default_alias != chk and c_indep(default_alias) != [])
     for name, mutant in (("mode", own.replace("zipfile.ZipFile(io.BytesIO(blob))", "zipfile.ZipFile(io.BytesIO(blob), 'w')", 1)),
                          ("path", own.replace("zipfile.ZipFile(io.BytesIO(blob))", "zipfile.ZipFile('path')", 1)),
                          ("member", own.replace('archive.read("measurements.json")', 'archive.read("other.json")', 1))):

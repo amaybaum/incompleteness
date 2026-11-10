@@ -3133,8 +3133,8 @@ concerns C.1, it governs C.1's words.
    - **SF-2**, B-C's maximal shape. `Ω = F_2⁴`, U′'s configurations. There are 91 preparations, each uniform on a
      seeded coset of seeded dimension in `{1, 2, 3}`, and the effects are the indicators of `f_z`, `f_x` and `f_y`
      with values 0 and 1, and the unit effect. In `--stress` each SF-2 instance is decided under no cap and no
-     budget, as C.1's stress fixtures are, and enters the general budget's maxima (item 1; R3's draft default,
-     pending owner ruling, precondition 2).
+     budget, as C.1's stress fixtures are, and enters the general budget's maxima (item 1; owner-approved
+     R3 default, precondition 2).
    - No stress fixture has a frozen verdict. `stress.json` records each verdict, its deciding step and its
      certificate.
    - No diagnostics benchmark is run (D20 (b)).

@@ -28,13 +28,27 @@ from accepted paper checkpoint `f634f8e3f2115ef28d11616e0d195221d3ce9cb3`. This 
 - The fixture-mode marker checks the declared placeholder shape. ZIP rules reject mode changes, wrong
   member reads, file-path construction, aliases and escaping resources. Only inert template text exists;
   no workflow file or splice tree is created.
+- The solver now emits ordered nonnegative preparation-removal witnesses, checks them independently,
+  enumerates retained-ray facets with a visit bound, and reconstructs models on every original preparation.
+  C-SYM has a separate exchanged-certificate verifier and uses the fragment's budget bounds. Its decisions
+  contribute counters to stress accounting. These are unexecuted implementation changes pending review.
+- B-P alone decides B under the 32-preparation/nine-setting safeguard; report-only failures do not void it.
+  B-P has distinct measured-cap/budget placeholders. Complete decisive output, including scientific VOID,
+  exits zero. The restricted QM comparison uses the four D22 CNOT-marker arms and no outcome relabelling.
+- The stress generator defines three separate seeded coset instances per shape, ST-BP's over-maximum
+  exception, fixture/completion/C-SYM records, and the exact 1203-term mechanical timeout/budget rule.
+  B-S4F/B-RAY definitions, largest-flagged B-C horizon, depth-one diagnostics and the structured read-set
+  ablation comparison are implemented in source. None has been scientifically executed in this session.
 
 ## Validation at this milestone
 
 Syntax parsing and the actual static checker-B, controls-B, C-EXACT and C-INDEP scans pass. These scans
-read source text only. Importing controls for these scans evaluates only standard-library definitions
-and the inert workflow-text formatter; no checker module, scientific builder, solver, fixture or native
-state enumeration is imported or run. The checker --self-test and local A3 remain unexecuted.
+read source text only. The test loader now compiles inspected control definitions and metadata, omitting
+the unused CFGS configuration-table comprehension. Earlier component checks imported controls and thereby
+initialized that unused 16-tuple reference table as well as inert workflow strings; they did not execute a
+native update, orbit, solver, certificate, fixture or scientific CLI. The earlier blanket statement that
+the import initialized only strings was too broad and is corrected here. The checker --self-test and
+local A3 remain unexecuted.
 
 `scripts/implementation_selftest.py` passes nine isolated non-scientific test groups: actual static scans;
 guard/constructor/verifier-alias rejection mutations; mode/refusal behavior with computation stubs;
@@ -55,7 +69,7 @@ returned REVISE at `76ca53f9458e4bad9b80555c5a68af15ebe63083`; report SHA-256
 | GI-B2 | Signature checking covers positional-only, ordinary, keyword-only, variable and default parameters. |
 | GI-B3 | The two environment sites require the exact caller/arguments: s_mode(sys.argv, os.environ) in s_refusal, and s_entry(sys.argv, os.environ) in the unique main guard; relocation is rejected. |
 | GI-B4 | The checker prohibits constructor references to set/frozenset, including aliases, as well as displays/comprehensions. |
-| GI-B5 | C-INDEP accepts actual scanned v_* definitions, rejects duplicate definitions/module aliases/rebinding, and preserves the direct shared-helper rejection. |
+| GI-B5 | The second component review at 3b4765cc found a definition-time assignment-expression bypass. The correction scans defaults, annotations, decorators and class-definition expressions for module rebinding, while keeping ordinary local bodies separate. Default/annotation/class-base negative cases are in the isolated tests. Focused confirmation remains pending. |
 | Local nit | The obsolete pending/CC-NAT-gates-nothing comment is corrected to the actual conditional/STAB review scopes. |
 
 All five negative cases are exercised in the isolated static tests. No full-script ACCEPT is claimed.
@@ -63,8 +77,8 @@ All five negative cases are exercised in the isolated static tests. No full-scri
 ## Remaining implementation before independent review
 
 The implementation must still complete A3b/template/CLI wiring, input pins, integrated evidence binding,
-event/attempt inventory classification, designation/approval/e-entry/verdict modes, caps/extreme-ray and stress-accounting
-changes, role-specific budgets/VOID/UPR-BC/ablation reporting, and the corresponding permitted isolated
+event/attempt inventory classification, designation/approval/e-entry/verdict modes, freeze-rule integration,
+orbit controls, UPR-BC completion status and all corresponding permitted isolated
 non-scientific self-tests. Existing IMPL-DELTA-r14d remains the historical detailed obligation list;
 the present checkpoint does not claim those items complete or scripts certified. Independent review
 must inspect a later complete immutable implementation checkpoint; paper acceptance is not inherited.

@@ -2,8 +2,8 @@
 """Research-only non-scientific tests. Never import the checker or run any frozen fixture.
 
 Only inspected pure guard/hash/collection definitions and literals are extracted from the checker.
-The controls module's top-level calls only format inert workflow text. Scientific control routines,
-full self-tests and the CLI are replaced by forbidden stubs before any test invokes a control.
+Controls are loaded from inspected definitions and metadata, excluding configuration comprehensions.
+Scientific control routines, full self-tests and the CLI are forbidden before any test invokes a control.
 All host/evidence readers below receive synthetic responses; no network or git process is launched.
 """
 import ast
@@ -28,9 +28,29 @@ def forbidden(*args, **kwargs):
 
 
 def control_module():
-    spec = importlib.util.spec_from_file_location('qc21_nonscientific_controls', ROOT / 'controls.py')
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    module = types.ModuleType('qc21_nonscientific_controls')
+    nodes = []
+    for node in ast.parse(CONTROLS_TEXT).body:
+        if isinstance(node, ast.If):
+            continue
+        if isinstance(node, ast.Assign) and any(isinstance(x, (ast.ListComp, ast.SetComp, ast.DictComp,
+                                                               ast.GeneratorExp)) for x in ast.walk(node)):
+            # In particular, do not initialize the unused U-prime CFGS table.
+            continue
+        if isinstance(node, ast.FunctionDef):
+            if node.name.startswith('stab_') or node.name in ('_igcd', '_idiv', 'selftest_stab', 'self_test', 'main'):
+                continue
+            expressions = node.decorator_list + node.args.defaults
+            expressions += [x for x in node.args.kw_defaults if x is not None]
+            self_contained = all(not any(isinstance(x, (ast.Call, ast.NamedExpr)) for x in ast.walk(e))
+                                 for e in expressions)
+            assert self_contained, 'uninspected definition-time execution'
+        elif isinstance(node, ast.Assign):
+            calls = [x for x in ast.walk(node) if isinstance(x, ast.Call)]
+            assert all(isinstance(x.func, ast.Name) and x.func.id == 'upload' for x in calls), 'uninspected initializer'
+        nodes.append(node)
+    exec(compile(ast.Module(body=nodes, type_ignores=[]), '<isolated-control-definitions>', 'exec'), module.__dict__)
+    assert 'CFGS' not in module.__dict__
     for name in ('main', 'self_test', 'selftest_stab', 'stab_false_check', 'stab_false_control', 'stab_rank',
                  'stab_matrix', 'stab_unit_pair_fires', 'code_t', 'check_mode'):
         setattr(module, name, forbidden)
@@ -113,6 +133,10 @@ class NonScientificTests(unittest.TestCase):
         alias = CHECKER_TEXT.replace('def v_unique(values):',
                                     'v_shared = ordered_unique\n\ndef v_unique(values):\n    return v_shared(values)', 1)
         self.assertTrue(self.control.c_indep(alias))
+        for suffix in ('\ndef s_bind(_=(v_unique := ordered_unique)):\n    pass\n',
+                       '\ndef s_bind(arg: (v_unique := ordered_unique)):\n    pass\n',
+                       '\nclass Other((v_unique := ordered_unique)):\n    pass\n'):
+            self.assertTrue(self.control.c_indep(CHECKER_TEXT + suffix))
         # Every registered builder must independently retain the first refusal.
         for builder in ('s_build_p', 's_build_b', 's_build_c', 's_build_repinv'):
             index = CHECKER_TEXT.index('def '+builder+'(')
