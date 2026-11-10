@@ -61,16 +61,30 @@ Historical source snapshot for the original paper comparisons: `cac5d26441dd33e9
 
 **Unchanged hard gates:** PR #1222 stays **draft/unmerged**. The #866 physical-source gate remains **NOT PASSED / UNSOURCED**. No physics premise, native computation, Lean execution, F/E, dispatch, publication or merge is authorized by this review or erratum.
 
-## New post-review studies: PREP-HIST-4 and CARD-GAUGE-1 (unreviewed)
+## Separate independent reviews: PREP-HIST-4 and CARD-GAUGE-1 (2026-11-10)
 
-The bounded Codex review at `6879c7c0` applies only to the original eleven research drafts. Subsequent paper-only extensions have **no separate independent scientific verdict**:
+The first [Codex ACCEPT WITH NITS at `6879c7c0`](https://chatgpt.com/space/page_2f791d4a97fc8191ade6141a5ed9bdfe) covered only the original eleven research drafts. Two subsequent papers have received **distinct pinned independent paper reviews**:
 
-- [12-prep-history4-and-finite-decision.md](12-prep-history4-and-finite-decision.md): four-tick exact-observer indistinguishability counterexample, three-tick pairing and standard finite-state stopping criterion; finite-carrier scope explicitly retained.
-- [13-cardinality-observational-equivalence.md](13-cardinality-observational-equivalence.md): (i) undecidability of finiteness for effectively described decidable state spaces by a Halting reduction; (ii) exact fixed-interface law equivalence after adjoining finite, countably infinite or uncountably infinite **normalized and exactly decoupled** hidden factors; (iii) countercontrols to an unrestricted cardinality-gauge claim. It preserves the existing finite-only standing of [Substratum Theorem 24(iii)](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/papers/Substratum.md) and the [observer-relative finiteness audit](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/verification/audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md).
+- [12-prep-history4-and-finite-decision.md](12-prep-history4-and-finite-decision.md): [Codex ACCEPT at `4fe17de6df1e96c14e76e4018ca69bbba229a72b`](https://chatgpt.com/space/page_47a9041813248191952a4c746fb6d1d4), without required corrections; covers the c=1 three-tick ready/nonready pairing, four-tick counterexample and finite-state stopping criterion. **Five ticks necessary for a universal classifier, not proved sufficient.** The historical file remains unchanged.
+- [13-cardinality-observational-equivalence.md](13-cardinality-observational-equivalence.md): [Codex ACCEPT WITH NITS at `c9f0d16c8084075cd387beff3994a2731dfb86b0`](https://chatgpt.com/space/page_af453671fa5c8191b7c9a5fced83c24a), no blocking mathematics error; covers the effective-description Halting reduction, uniformly computable normalized hidden source, complete-history product-factor equivalence, and scope-limited gauge terminology. Three nonblocking clarifications were subsequently applied to the paper: (i) **common operational dictionary** for preparations/protocols/records, with model-specific microscopic carriers, dynamics and implementations; (ii) a **common-menu two-tick distinguisher** comparing swap `(v,h)→(h,v)` and three-cycle `(v,h,k)→(h,k,v)`, with visible second-reading TV = 1/2 when v=0 and h,k are independent fair bits; (iii) proper PREP-HIST-4 review metadata. This later textual revision still needs **focused diff verification**; the previous verdict remains pinned to `c9f0d16c`.
 
-**Fresh review obligations for file 13:** verify the decidable-set Halting reduction and uniformly computable normalized full-support source; product measure/shift invariance; exact complete-history equality for every admitted adaptive protocol; why ordinary invertible gauge automorphisms cannot bijectively map finite to infinite carriers; when physically accessible interactions invalidate equivalence; and noninheritance of physical-sourcing or quantum-operational claims. Treat "gauge" as an observer-relative equivalence quotient unless a rigorous extended transformation structure is explicitly defined.
+**Forward review status:** Archive documents created before the corresponding reviews may contain historically accurate "review pending" headers. Read the newer pinned reviewer reports and this guide for current standing. Do not silently rewrite the first eleven reviewed drafts or the separately accepted file 12.
 
-Neither extension changes an accepted mathematical result, closes the #866 physical source gate, authorizes a new native experiment, or allows a merge.
+### #1169 dependency-matrix amendment (reviewed bounded evidence, physical sourcing open)
+
+| Field | Precise entry |
+| --- | --- |
+| Dependency / node | **CARD-OBS — observer-relative nonidentifiability of total carrier cardinality under normalized, exactly decoupled extensions** |
+| Mathematical status | **ACCEPT WITH NITS**, pinned to CARD-GAUGE-1 at `c9f0d16c`; corrections in subsequent paper WIP |
+| Premises | Shared preparation-label/protocol-label/complete-accessible-record dictionary; every admitted protocol acts only on the base factor; any added factor has a **normalized independent** source and **exactly decoupled reversible** dynamics |
+| Consequence | Finite, countably infinite and uncountably infinite complete carriers can generate **identical complete accessible-history measures** for every admitted finite/adaptive protocol; total carrier cardinality is not identified by that fixed interface |
+| Independent control | **CARD-COMP** effective-description undecidability is a distinct result, **not a premise** of CARD-OBS |
+| Limits / open | Interacting deep-sector equivalence; resource-sensitive comparison; physical availability of observer/controller/readout; Born, Bell, compositional quantum histories and uniform scalable approximation all **OPEN / UNSOURCED** |
+| Relationship to existing OI | Existing finite [Substratum Theorem 24(iii)](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/papers/Substratum.md) is not silently extended to an infinite quantum-channel theorem; finite A1 and PREP-HIST recurrence/stopping proofs keep their original finite premises |
+
+**Terminology guard:** Use *observer-relative operational equivalence* or *stable equivalence under decoupled hidden-factor enlargement*, rather than claiming finite-to-infinite carrier changes are automorphisms in the existing gauge group. The explicit two-tick coupled-sector countercontrol shows why the qualifier matters.
+
+Neither paper review closes the #866 native physical-source gate, grants experimental execution, validates a quantum-operational construction or authorizes a merge. #1169 and #1216 remain equally prioritized; the #1220 physical/algorithmic resource ledger remains separate.
 
 ## Decision gate after independent review
 
