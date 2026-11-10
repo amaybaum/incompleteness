@@ -31,8 +31,11 @@ All paper statements are **bounded mathematical arguments with declared source, 
 | [10-prep-obs1.md](10-prep-obs1.md) | [Page](https://chatgpt.com/space/page_3e80b3bdd86c8191a93de7579116c058) | Conditional seven-site herald versus insufficient two-site read |
 | [11-prep-read2.md](11-prep-read2.md) | [Page](https://chatgpt.com/space/page_54d23e4f3a2c81919be89eb8be3231d0) | Two-tick original-observer access obstruction; third-tick influence witness |
 | [12-prep-history4-and-finite-decision.md](12-prep-history4-and-finite-decision.md) | **New WIP file on this branch (no independent review)** | c=1 four-tick indistinguishable ready/nonready pair; three-tick posterior pairing; general finite-state observability dichotomy |
+| [13-cardinality-observational-equivalence.md](13-cardinality-observational-equivalence.md) | **New WIP file on this branch (no independent review)** | Effective carrier-cardinality undecidability; exact countable/uncountable spectator equivalence; gauge limits and physical source separation |
 
 **Review boundary for file 12:** The independent [Codex ACCEPT WITH NITS review](https://chatgpt.com/space/page_2f791d4a97fc8191ade6141a5ed9bdfe) covered the eleven archived files at head `6879c7c0` and does **not** cover the new four-tick and finite-state analysis in file 12. The new result is **writer-only, independent review pending**, with no native physical-source pass, executable detector or scientific computation. Its addition leaves the eleven prior research drafts unchanged.
+
+**Review boundary for file 13:** CARD-GAUGE-1 is a **new writer-only** mathematical/source paper and has not been independently reviewed. It distinguishes a Halting reduction for effective carrier descriptions from observer-relative equivalence under decoupled normalized hidden factors and from the proposed gauge terminology. It coordinates with the [observer-relative finiteness audit](https://github.com/amaybaum/incompleteness/blob/cac5d26441dd33e9348151487e4df7b547195481/verification/audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md) and preserves finite A1 theorem hypotheses. **Do not** extend Codex's review at 6879c7c0 to either file 12 or 13.
 
 ## Standing accepted inputs (not duplicated or re-reviewed)
 
