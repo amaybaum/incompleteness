@@ -60,7 +60,7 @@ def control_module():
 def checker_namespace():
     tree = ast.parse(CHECKER_TEXT)
     names = {'s_mode', 's_refusal', 's_entry', 'h_sha256', 'ordered_unique', 'ordered_key', 'v_unique',
-             'canonical', 'jsonable', 'fstr'}
+             'canonical', 'jsonable', 'fstr', 'k_fragment_controls'}
     constants = {'_SHA_K', '_SHA_H0', 'HEX', 'DISPATCH_EVENT', 'ROUND_REF'}
     ns = {'json': json, 'Fraction': Fraction, 'os': types.SimpleNamespace(environ={}),
           'sys': types.SimpleNamespace(argv=['isolated-selftest']), 'REFUSAL_CALLS': 0,
@@ -262,6 +262,271 @@ class NonScientificTests(unittest.TestCase):
         with patch.object(m, 'gh_get', side_effect=response):
             result = m.run_class_run_listing('runs-all', '2026-11-10T00:00:00Z', '2026-11-10T00:00:01Z')
             self.assertEqual(len(result['runs']), 2)
+
+    def test_owner_b1_exact_conclusions(self):
+        # Pure synthetic host job/step records; no checker, native fixture or GitHub call.
+        import re
+        m = self.control
+        workflow = (ROOT.parent / 'verify.yml.input').read_text()
+        template = 'Numerical probes / A42 exclusion (' + '
+        m = self.control
+        def archive(member='measurements.json'):
+            buffer = io.BytesIO()
+            with zipfile.ZipFile(buffer, 'w') as output:
+                output.writestr(member, json.dumps({'synthetic_test': True}))
+            return buffer.getvalue()
+        raw = archive()
+        art = {'id': 3, 'name': 'arp2-qc21-measurements', 'workflow_run': {'id': 1, 'head_sha': 'a'*40},
+               'expired': False, 'expires_at': '2099-01-01T00:00:00Z', 'digest': 'sha256:'+hashlib.sha256(raw).hexdigest()}
+        def serve(kind, *args):
+            if kind == 'artifacts':
+                return True, {'total_count': 1, 'artifacts': [art]}
+            if kind == 'artifact-zip':
+                return True, raw
+            raise AssertionError(kind)
+        with patch.object(m, 'gh_get', side_effect=serve):
+            good = m.run_class_artifact_binding(1, 'a'*40)
+            self.assertTrue(good['valid'])
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40, {'wrong_record': True})['valid'])
+            art['expired'] = True
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+            art['expired'] = False;raw = archive('other.json');art['digest'] = 'sha256:'+hashlib.sha256(raw).hexdigest()
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+        bad = [CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile(io.BytesIO(blob), "w")', 1),
+               CONTROLS_TEXT.replace('archive.read("measurements.json")', 'archive.read("other.json")', 1),
+               CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile("path")', 1),
+               CONTROLS_TEXT.replace('members = archive.namelist()', 'alias = archive\n            members = alias.namelist()', 1)]
+        for source in bad:
+            self.assertNotEqual(source, CONTROLS_TEXT)
+            self.assertTrue(m.static_controls(source))
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
+ + '{{ matrix.part }})'
+        parts = ('paths', 'r5', 'n18:0', 'n18:1', 'n18:2', 'dfs:0', 'dfs:1', 'dfs:2',
+                 'dfs:3', 'dfs:4', 'dfs:5', 'sathr', 'cubes:0', 'cubes:1', 'cubes:2')
+        keep = 'ARP-1-MARC keep the measurements'
+        reports = 'KTRANS-SEP-2 axiom reports within the three axioms'
+        marker = 'KTRANS-SEP-2 marker complete reports with an axiom outside the three'
+
+        def build(event):
+            names = re.findall(r'(?m)^    name: ([^\\n]+)
+        m = self.control
+        def archive(member='measurements.json'):
+            buffer = io.BytesIO()
+            with zipfile.ZipFile(buffer, 'w') as output:
+                output.writestr(member, json.dumps({'synthetic_test': True}))
+            return buffer.getvalue()
+        raw = archive()
+        art = {'id': 3, 'name': 'arp2-qc21-measurements', 'workflow_run': {'id': 1, 'head_sha': 'a'*40},
+               'expired': False, 'expires_at': '2099-01-01T00:00:00Z', 'digest': 'sha256:'+hashlib.sha256(raw).hexdigest()}
+        def serve(kind, *args):
+            if kind == 'artifacts':
+                return True, {'total_count': 1, 'artifacts': [art]}
+            if kind == 'artifact-zip':
+                return True, raw
+            raise AssertionError(kind)
+        with patch.object(m, 'gh_get', side_effect=serve):
+            good = m.run_class_artifact_binding(1, 'a'*40)
+            self.assertTrue(good['valid'])
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40, {'wrong_record': True})['valid'])
+            art['expired'] = True
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+            art['expired'] = False;raw = archive('other.json');art['digest'] = 'sha256:'+hashlib.sha256(raw).hexdigest()
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+        bad = [CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile(io.BytesIO(blob), "w")', 1),
+               CONTROLS_TEXT.replace('archive.read("measurements.json")', 'archive.read("other.json")', 1),
+               CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile("path")', 1),
+               CONTROLS_TEXT.replace('members = archive.namelist()', 'alias = archive\n            members = alias.namelist()', 1)]
+        for source in bad:
+            self.assertNotEqual(source, CONTROLS_TEXT)
+            self.assertTrue(m.static_controls(source))
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
+, workflow)
+            names = [n for n in names if n != template]
+            names += ([template] if event == 'pull_request' else
+                      [template.replace('
+        m = self.control
+        def archive(member='measurements.json'):
+            buffer = io.BytesIO()
+            with zipfile.ZipFile(buffer, 'w') as output:
+                output.writestr(member, json.dumps({'synthetic_test': True}))
+            return buffer.getvalue()
+        raw = archive()
+        art = {'id': 3, 'name': 'arp2-qc21-measurements', 'workflow_run': {'id': 1, 'head_sha': 'a'*40},
+               'expired': False, 'expires_at': '2099-01-01T00:00:00Z', 'digest': 'sha256:'+hashlib.sha256(raw).hexdigest()}
+        def serve(kind, *args):
+            if kind == 'artifacts':
+                return True, {'total_count': 1, 'artifacts': [art]}
+            if kind == 'artifact-zip':
+                return True, raw
+            raise AssertionError(kind)
+        with patch.object(m, 'gh_get', side_effect=serve):
+            good = m.run_class_artifact_binding(1, 'a'*40)
+            self.assertTrue(good['valid'])
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40, {'wrong_record': True})['valid'])
+            art['expired'] = True
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+            art['expired'] = False;raw = archive('other.json');art['digest'] = 'sha256:'+hashlib.sha256(raw).hexdigest()
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+        bad = [CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile(io.BytesIO(blob), "w")', 1),
+               CONTROLS_TEXT.replace('archive.read("measurements.json")', 'archive.read("other.json")', 1),
+               CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile("path")', 1),
+               CONTROLS_TEXT.replace('members = archive.namelist()', 'alias = archive\n            members = alias.namelist()', 1)]
+        for source in bad:
+            self.assertNotEqual(source, CONTROLS_TEXT)
+            self.assertTrue(m.static_controls(source))
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
+ + '{{ matrix.part }}', p) for p in parts])
+            names.extend([m.JOB_A, m.JOB_B])
+            jobs = []
+            for n in names:
+                skip = event == 'pull_request' and n in (template, m.JOB_B)
+                steps = [{'name': 'synthetic unrelated step', 'conclusion': 'success'}]
+                if n == 'Numerical probes / KTRANS-SEP-2 Omega4 counterexample':
+                    steps = [{'name': reports, 'conclusion': 'success'},
+                             {'name': marker, 'conclusion': 'skipped'}]
+                if n == 'Numerical probes / ARP-1-MARC exact span check':
+                    steps.append({'name': keep, 'conclusion': 'skipped' if event == 'pull_request' else 'success'})
+                if n == m.JOB_A:
+                    steps = [{'name': x, 'conclusion': 'success'} for x in (m.STEP_A3, m.STEP_A3B, m.STEP_A7)]
+                jobs.append({'name': n, 'conclusion': 'skipped' if skip else 'success',
+                             'steps': None if skip else steps})
+            return jobs
+
+        def change(jobs, name, field, value):
+            clone = json.loads(json.dumps(jobs))
+            for j in clone:
+                if j['name'] == name:
+                    j[field] = value
+                    break
+            return clone
+
+        for event in ('pull_request', 'workflow_dispatch'):
+            jobs = build(event)
+            self.assertEqual(m.run_class_expected_conclusions(jobs, event, workflow), [], event)
+            other = next(j for j in jobs if j['name'] == 'Numerical probes / core A')
+            bad = json.loads(json.dumps(jobs))
+            next(j for j in bad if j['name'] == other['name'])['conclusion'] = 'skipped'
+            self.assertTrue(m.run_class_expected_conclusions(bad, event, workflow))
+            bad = json.loads(json.dumps(jobs))
+            next(j for j in bad if j['name'] == 'Numerical probes / KTRANS-SEP-2 Omega4 counterexample')['steps'][1]['conclusion'] = 'success'
+            self.assertTrue(m.run_class_expected_conclusions(bad, event, workflow))
+            bad = json.loads(json.dumps(jobs))
+            next(j for j in bad if j['name'] == 'Numerical probes / KTRANS-SEP-2 Omega4 counterexample')['steps'][0]['conclusion'] = 'skipped'
+            self.assertTrue(m.run_class_expected_conclusions(bad, event, workflow))
+            self.assertTrue(m.run_class_expected_conclusions(jobs[:-1], event, workflow))
+            self.assertTrue(m.run_class_expected_conclusions(jobs, event, workflow.replace('probes_a42_exclusion:', 'probes_wrong:')))
+            self.assertTrue(m.run_class_expected_conclusions(jobs, event, workflow.replace('n18:2', 'n18:9')))
+            ark = next(j for j in jobs if j['name'] == 'Numerical probes / ARP-1-MARC exact span check')
+            bad = json.loads(json.dumps(jobs))
+            next(j for j in bad if j['name'] == ark['name'])['steps'][-1]['conclusion'] = (
+                'success' if event == 'pull_request' else 'skipped')
+            self.assertTrue(m.run_class_expected_conclusions(bad, event, workflow))
+            a42name = template if event == 'pull_request' else template.replace('
+        m = self.control
+        def archive(member='measurements.json'):
+            buffer = io.BytesIO()
+            with zipfile.ZipFile(buffer, 'w') as output:
+                output.writestr(member, json.dumps({'synthetic_test': True}))
+            return buffer.getvalue()
+        raw = archive()
+        art = {'id': 3, 'name': 'arp2-qc21-measurements', 'workflow_run': {'id': 1, 'head_sha': 'a'*40},
+               'expired': False, 'expires_at': '2099-01-01T00:00:00Z', 'digest': 'sha256:'+hashlib.sha256(raw).hexdigest()}
+        def serve(kind, *args):
+            if kind == 'artifacts':
+                return True, {'total_count': 1, 'artifacts': [art]}
+            if kind == 'artifact-zip':
+                return True, raw
+            raise AssertionError(kind)
+        with patch.object(m, 'gh_get', side_effect=serve):
+            good = m.run_class_artifact_binding(1, 'a'*40)
+            self.assertTrue(good['valid'])
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40, {'wrong_record': True})['valid'])
+            art['expired'] = True
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+            art['expired'] = False;raw = archive('other.json');art['digest'] = 'sha256:'+hashlib.sha256(raw).hexdigest()
+            self.assertFalse(m.run_class_artifact_binding(1, 'a'*40)['valid'])
+        bad = [CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile(io.BytesIO(blob), "w")', 1),
+               CONTROLS_TEXT.replace('archive.read("measurements.json")', 'archive.read("other.json")', 1),
+               CONTROLS_TEXT.replace('zipfile.ZipFile(io.BytesIO(blob))', 'zipfile.ZipFile("path")', 1),
+               CONTROLS_TEXT.replace('members = archive.namelist()', 'alias = archive\n            members = alias.namelist()', 1)]
+        for source in bad:
+            self.assertNotEqual(source, CONTROLS_TEXT)
+            self.assertTrue(m.static_controls(source))
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
+ + '{{ matrix.part }}', 'paths')
+            wrong = 'success' if event == 'pull_request' else 'skipped'
+            self.assertTrue(m.run_class_expected_conclusions(change(jobs, a42name, 'conclusion', wrong), event, workflow))
+            self.assertTrue(m.run_class_expected_conclusions(change(jobs, a42name, 'conclusion', 'failure'), event, workflow))
+
+    def test_decisive_limit_schemas_independently(self):
+        m = self.control
+        k = checker_namespace()['k_fragment_controls']
+        good = {'name': 'B-P', 'lp': 'feasible', 'verified': True,
+                'budget_values': [3, 3, 3], 'cap_values': [4, 4, 4, 4],
+                'pivots': 1, 'max_bits': 2, 'work': 3, 'n_extreme': 1, 'd': 2,
+                'c': 3, 'effects_before_reduction': 4}
+        for fn in (k, m.fragment_controls):
+            self.assertTrue(fn([good])['C-BUDGET']['green'])
+            for field, value in (('budget_values', []), ('budget_values', [1, 2]),
+                                 ('cap_values', None), ('cap_values', [1, 2, 3]),
+                                 ('budget_values', [True, 3, 3]),
+                                 ('cap_values', [4, 'bad', 4, 4]),
+                                 ('pivots', None), ('d', True)):
+                bad = dict(good, **{field: value})
+                self.assertFalse(fn([bad])['C-BUDGET']['green'], field)
+            bad = dict(good)
+            del bad['budget_values']
+            self.assertFalse(fn([bad])['C-BUDGET']['green'])
+            bad = dict(good, lp='out_of_scope', budget_values=[])
+            self.assertTrue(fn([bad])['C-BUDGET']['green'])
+
+    def test_activity_host_cursor_pages_and_failures(self):
+        m = self.control
+        one = {'id': 1, 'activity_type': 'push'}
+        two = {'id': 2, 'activity_type': 'force_push'}
+        def serve(pages):
+            return types.SimpleNamespace(returncode=0, stdout=json.dumps(pages), stderr='')
+        with patch.object(m.subprocess, 'run', return_value=serve([[one], [two]])) as process:
+            ok, items = m.gh_get('activity', 'safe-branch')
+            self.assertTrue(ok)
+            self.assertEqual(items, [one, two])
+            args = process.call_args.args[0]
+            self.assertIn('--paginate', args)
+            self.assertIn('--slurp', args)
+            self.assertNotIn('page=', ' '.join(args))
+        for pages in ([], [one], [[one], [one]], [[{'id': None, 'activity_type': 'push'}]]):
+            with patch.object(m.subprocess, 'run', return_value=serve(pages)):
+                self.assertFalse(m.gh_get('activity', 'safe-branch')[0])
+        with patch.object(m.subprocess, 'run',
+                          return_value=types.SimpleNamespace(returncode=1, stdout='', stderr='Forbidden')):
+            self.assertFalse(m.gh_get('activity', 'safe-branch')[0])
+
+    def test_deciding_step_strict_types(self):
+        m = self.control
+        good = m.synthetic_stress()
+        self.assertTrue(m.stress_validate(good)[0])
+        for value in (None, 0, 1, 5, True, '4'):
+            bad = json.loads(json.dumps(good))
+            bad['fragments'][0]['decided_by'] = value
+            self.assertFalse(m.stress_validate(bad)[0], value)
+        bad = json.loads(json.dumps(good))
+        bad['fragments'][0]['name'] = 'synthetic:C-SYM'
+        bad['fragments'][0]['decided_by'] = 2
+        self.assertFalse(m.stress_validate(bad)[0])
+        bad['fragments'][0]['decided_by'] = 4
+        self.assertTrue(m.stress_validate(bad)[0])
 
     def test_zip_binding_and_member_guard(self):
         m = self.control
