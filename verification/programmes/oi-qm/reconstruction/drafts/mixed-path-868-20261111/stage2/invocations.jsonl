@@ -7,3 +7,5 @@
 {"argv": ["stage2_mixedpath.py", "--selftest"], "event": "start", "line": 7, "program_sha256": "f35ae6b58033d0f8568ae6f20f9a0107ebd3cf27854fef639186dfeb9b2794fe", "utc": "2026-11-11T13:00:14Z"}
 {"event": "staging_deleted_unread", "planted": true, "start_line": 7, "utc": "2026-11-11T13:02:54Z"}
 {"event": "exit", "exit": 0, "published": true, "start_line": 7, "utc": "2026-11-11T13:05:20Z"}
+{"argv": ["stage2_mixedpath.py"], "event": "start", "line": 10, "program_sha256": "f35ae6b58033d0f8568ae6f20f9a0107ebd3cf27854fef639186dfeb9b2794fe", "utc": "2026-11-11T13:06:59Z"}
+{"event": "exit", "exit": 0, "published": true, "start_line": 10, "utc": "2026-11-11T13:31:50Z"}

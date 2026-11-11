@@ -125,3 +125,12 @@ Pi_hor instance without its Pi_cb4 source; nothing published); line 7, exit 0, p
 `f35ae6b58033d0f8568ae6f20f9a0107ebd3cf27854fef639186dfeb9b2794fe`, the program of the registered run.
 The solver was also exercised during development on generic tables (planted PR and Z4 tables, random
 mixtures of deterministic strategies); no lattice rule was involved.
+
+## Registered run
+
+`invocations.jsonl` line 10: one execution without `--selftest`, program
+`f35ae6b58033d0f8568ae6f20f9a0107ebd3cf27854fef639186dfeb9b2794fe` (commit `68c2d2d9`), exit status 0,
+`published: true`, output `runs/10/`. `runs/10/SHA256SUMS` (written after publication, by `sha256sum`) lists
+every published file. One published file is not committed because of its size (1.35 MB):
+`tables/R-round__q2__T6__cb3__S__D2__v__F_all.json`; its digest is in `SHA256SUMS` and its per-content
+measurements and table digests are in `results.json`.
