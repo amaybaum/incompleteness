@@ -1991,6 +1991,88 @@ def run_class_step(job, name):
     return m[0] if m else None
 
 
+def run_class_expected_conclusions(jobs, event, workflow):
+    """Strict owner-approved B1 structured-host check against D's frozen workflow."""
+    if event not in ("pull_request", "workflow_dispatch") or not isinstance(jobs, list):
+        return ["B1 invalid event/jobs"]
+    if isinstance(workflow, bytes):
+        try:
+            workflow = workflow.decode("utf-8")
+        except UnicodeDecodeError:
+            return ["B1 unreadable workflow"]
+    if not isinstance(workflow, str):
+        return ["B1 missing workflow"]
+    a42 = "Numerical probes / A42 exclusion (${{ matrix.part }})"
+    keep = "ARP-1-MARC keep the measurements"
+    reports = "KTRANS-SEP-2 axiom reports within the three axioms"
+    marker = "KTRANS-SEP-2 marker complete reports with an axiom outside the three"
+    required = (
+        "  probes_a42_exclusion:\n    name: " + a42 +
+        "\n    if: ${{ github.event_name == 'workflow_dispatch' }}",
+        "      - name: " + keep +
+        "\n        if: ${{ always() && github.event_name == 'workflow_dispatch' }}",
+        "      - name: " + reports + "\n        id: ktrans_sep2_axioms",
+        "      - name: " + marker +
+        "\n        if: ${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == 'complete-nonstandard' }}")
+    if any(workflow.count(block) != 1 for block in required):
+        return ["B1 changed frozen workflow condition"]
+    section = re.search(r"(?s)\n  probes_a42_exclusion:\n(.*?)\n  probes_foundations:", workflow)
+    matrix = re.search(r"part: (\[[^\]]+\])", section.group(1)) if section else None
+    parts = ("paths", "r5", "n18:0", "n18:1", "n18:2", "dfs:0", "dfs:1", "dfs:2",
+             "dfs:3", "dfs:4", "dfs:5", "sathr", "cubes:0", "cubes:1", "cubes:2")
+    try:
+        if matrix is None or tuple(ast.literal_eval(matrix.group(1))) != parts:
+            return ["B1 changed matrix"]
+    except (ValueError, SyntaxError, TypeError):
+        return ["B1 invalid matrix"]
+    baseline = re.findall(r"(?m)^    name: ([^\n]+)$", workflow)
+    if len(baseline) != len(set(baseline)) or a42 not in baseline:
+        return ["B1 invalid job identity list"]
+    expected = [x for x in baseline if x != a42] + [JOB_A, JOB_B]
+    expected += ([a42] if event == "pull_request" else
+                 [a42.replace("${{ matrix.part }}", part) for part in parts])
+    names = [j.get("name") if isinstance(j, dict) else None for j in jobs]
+    errors = []
+    if sorted(str(x) for x in names) != sorted(expected):
+        errors.append("B1 missing/duplicate/extra job or A42 matrix shard")
+    found = {keep: [], reports: [], marker: []}
+    for job in jobs:
+        if not isinstance(job, dict):
+            errors.append("B1 malformed job")
+            continue
+        name = job.get("name")
+        skipped = event == "pull_request" and name in (a42, JOB_B)
+        if job.get("conclusion") != ("skipped" if skipped else "success"):
+            errors.append("B1 wrong job conclusion " + str(name))
+        steps = job.get("steps")
+        if skipped:
+            if steps not in (None, []):
+                errors.append("B1 skipped job has steps " + str(name))
+            continue
+        if not isinstance(steps, list):
+            errors.append("B1 missing job steps " + str(name))
+            continue
+        for i, step in enumerate(steps):
+            if not isinstance(step, dict):
+                errors.append("B1 malformed step " + str(name))
+                continue
+            sn = step.get("name")
+            if sn in found:
+                found[sn].append((name, i, step.get("conclusion")))
+            expected_step = ("skipped" if sn == marker or
+                             (sn == keep and event == "pull_request") else "success")
+            if step.get("conclusion") != expected_step:
+                errors.append("B1 wrong step conclusion " + str(sn))
+    for name in found:
+        if len(found[name]) != 1:
+            errors.append("B1 missing/duplicate required step " + name)
+    if len(found[reports]) == 1 and len(found[marker]) == 1:
+        rep, mark = found[reports][0], found[marker][0]
+        if rep[0] != mark[0] or rep[1] >= mark[1] or rep[2] != "success" or mark[2] != "skipped":
+            errors.append("B1 KTRANS reports/marker relation")
+    return errors
+
+
 def run_class_absent_or_skipped(x):
     return x is None or x.get("conclusion") == "skipped"
 
@@ -2418,25 +2500,16 @@ def run_class_branch_commits(branches, frozen):
 
 
 def run_class_run_success(run, stage):
-    """Exact attempt-one attestation; a later rerun cannot repair an earlier outcome."""
+    """Exact dispatch attestation; PR-only skips are never allowed at S1/E."""
     errors = []
     if not isinstance(run, dict) or not run.get("attempts"):
         return [stage+": missing run"]
     attempt = run["attempts"][0]
-    if run.get("path") != WORKFLOW or attempt.get("run_attempt") != 1 or attempt.get("conclusion") != "success":
-        errors.append(stage+": workflow/attempt/conclusion")
-    for name in (JOB_A, JOB_B):
-        if run_class_job(attempt["jobs"], name) is None:
-            errors.append(stage+": missing "+name)
-    for job in attempt["jobs"]:
-        if job.get("conclusion") != "success":
-            errors.append(stage+": job "+str(job.get("name")))
-        if job.get("name") in (JOB_A, JOB_B):
-            for step in job.get("steps", []):
-                if step.get("conclusion") != "success":
-                    errors.append(stage+": step "+str(step.get("name")))
+    if (run.get("path") != WORKFLOW or run.get("event") != run_class_dispatch()
+            or attempt.get("run_attempt") != 1 or attempt.get("conclusion") != "success"):
+        errors.append(stage+": workflow/event/attempt/conclusion")
+    errors += run_class_expected_conclusions(attempt.get("jobs"), "workflow_dispatch", git_show(D_SHA, WORKFLOW))
     return errors
-
 
 def run_class_approvals(data):
     if not isinstance(data, dict) or data.get("schema") != "arp2-qc21-approvals" or data.get("version") != 1:
@@ -2784,17 +2857,7 @@ def run_class_design_record_errors(record, pins, confirmation=False):
         if not git_is_ancestor(D_SHA, record["head_sha"]):
             errors.append("design/confirmation head does not descend from D")
     attempt = record["attempts"][0]
-    job_b = run_class_job(attempt["jobs"], JOB_B)
-    if job_b is None or job_b.get("conclusion") != "skipped":
-        errors.append("design/confirmation job B not skipped")
-    for job in attempt["jobs"]:
-        if job.get("name") == JOB_B:
-            continue
-        if job.get("conclusion") != "success":
-            errors.append("design/confirmation non-B job not success: "+str(job.get("name")))
-        for step in job.get("steps", []):
-            if step.get("conclusion") != "success":
-                errors.append("design/confirmation step not success: "+str(step.get("name")))
+    errors += run_class_expected_conclusions(attempt.get('jobs'), 'pull_request', git_show(D_SHA, WORKFLOW))
     ja = run_class_job(attempt["jobs"], JOB_A)
     for name in (STEP_A3, STEP_A3B, STEP_A7):
         if (run_class_step(ja, name) or {}).get("conclusion") != "success":
