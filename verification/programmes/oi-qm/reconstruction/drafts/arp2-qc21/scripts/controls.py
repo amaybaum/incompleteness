@@ -2382,7 +2382,10 @@ def run_class_designation_errors(comment, sha, first_time=None, digests=(), stag
     if ((comment.get("user") or {}).get("login"), comment.get("author_association")) != OWNER:
         errors.append("designation author")
     body = comment.get("body")
-    if not re.fullmatch(r"[0-9a-f]{40}", sha) or not run_class_word(body, sha) or not run_class_word(body, stage):
+    # An isolated stage letter is insufficient; the owner must state the designated stage and commit together.
+    phrase = "Designate " + stage + " " + sha
+    if (stage not in ("F", "E") or not isinstance(body, str) or
+            not re.fullmatch(r"[0-9a-f]{40}", sha) or body.count(phrase) != 1):
         errors.append("designation commit/stage")
     if first_time is not None:
         try:
