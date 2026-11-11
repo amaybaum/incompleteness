@@ -282,7 +282,7 @@ class NonScientificTests(unittest.TestCase):
             for name in names:
                 skip = event == 'pull_request' and name in (a42, m.JOB_B)
                 steps = [{'name': 'other step', 'conclusion': 'success'}]
-                if name == 'Numerical probes / KTRANS-SEP-2 Omega4 counterexample':
+                if name == 'Mathlib bridge':
                     steps = [{'name': report, 'conclusion': 'success'},
                              {'name': marker, 'conclusion': 'skipped'}]
                 if name == 'Numerical probes / ARP-1-MARC exact span check':
@@ -302,8 +302,8 @@ class NonScientificTests(unittest.TestCase):
                 next(x for x in bad if x['name'] == item)['conclusion'] = new
                 self.assertTrue(m.run_class_expected_conclusions(bad, event, source))
             for name, position, outcome in (
-                ('Numerical probes / KTRANS-SEP-2 Omega4 counterexample', 1, 'success'),
-                ('Numerical probes / KTRANS-SEP-2 Omega4 counterexample', 0, 'skipped'),
+                ('Mathlib bridge', 1, 'success'),
+                ('Mathlib bridge', 0, 'skipped'),
                 ('Numerical probes / ARP-1-MARC exact span check', -1,
                  'success' if event == 'pull_request' else 'skipped')):
                 bad = json.loads(json.dumps(good))
