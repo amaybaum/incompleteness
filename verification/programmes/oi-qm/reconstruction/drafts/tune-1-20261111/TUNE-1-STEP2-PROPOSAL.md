@@ -5,10 +5,11 @@ under Issue #1236 (owner decision: paper-only). This file plans one question and
 work, its definitions, decision rule, controls and stopping rule. It runs no Step 2 work, performs
 no computation, adopts no premise, advocates and evaluates no candidate mechanism, changes no
 manuscript or Lean file and authorizes nothing. Execution needs the owner's recorded approval of
-this text (or of an amended text) after the reviews named in section 10. This is revision r4,
-drafted after the delta review of r3 (verdict REVISE, light, at `b47700a6`); r3 followed the delta
-review of r2 (verdict REVISE, at `81f50bd0`), and r2 the first internal review (verdict REVISE, at
-`9312b805`). The dispositions of these reviews are kept outside this file.
+this text (or of an amended text) after the reviews named in section 10. This is revision r5,
+drafted after the delta review of r4 (verdict REVISE, light, at `57783cbc`); r4 followed the delta
+review of r3 (verdict REVISE, light, at `b47700a6`), r3 that of r2 (verdict REVISE, at `81f50bd0`),
+and r2 the first internal review (verdict REVISE, at `9312b805`). The dispositions of these
+reviews are kept outside this file.
 
 **Base.** Branch `research/tune-1-20261111`, drafted on head `d3d12426` (TUNE-1-STEP1.md r5a, the
 reviewed Step 1 head, unchanged here). The branch descends from the Step 1 pin
@@ -44,9 +45,9 @@ decides how a programmed quantum simulator is classed. Controls give the test te
 hand-chosen access or a stored quantum answer must be classed "supplied"; a classical random walk
 must fail, for a reason that does not also rule out every hidden-variable model.
 
-For the linear rule, a lemma on `main` may settle it quickly, probably negatively; the nonlinear
-rule is the open case, studied only under a named hypothesis. The owner chooses the rule and the
-random state.
+For the linear rule, a lemma on `main` may settle it, probably negatively, if a gap in that
+argument closes; the nonlinear rule is the open case, studied only under a named hypothesis. The
+owner chooses the rule and the random state.
 
 Outcomes: pass; fail, for a stated class only; inconclusive; or void, if a control fails. Even a
 pass would show only that this follows from the chosen rule and stated assumptions (for the
@@ -96,9 +97,9 @@ chooses which enter (section 9, choice 1).
   replaces item (vii) for that subclass, is carried into every conclusion that uses it, and is not
   adopted (Issue #1236; adopting it as a premise would be a Layer-0 revision, section 6). SM's
   chaos diagnostics are numerical evidence and are not premises of any Step 2 derivation (§A.46
-  item 7; Code Review Rules, "Exactness and controls"). No record
-  read for this proposal states anything about R-nl's record laws through a region or about its
-  computational capacity (section 10 lists the reading).
+  item 7; Code Review Rules, "Exactness and controls"). No record read for this proposal states
+  anything about R-nl's record laws through a region or about its computational capacity
+  (section 10 lists the reading).
 
 **Excluded from 𝓡**, because Step 1 shows each is unsourced (Step 1 B.12, row
 `two-mode-drive.md`; section C, B1 row): real-valued sites (E-real), an isolated pair (E-pair),
@@ -183,10 +184,12 @@ specification of the family and, for D6(b), the proofs of the Q-conditions submi
   level-set law, on `𝓛_fin` only: the conditional, given `O = r_O`, of the uniform law on the level
   set `{E = e}` in `X_{Λ_L}` of the conserved quantity `E(u, v)` of SM:296, with the level value
   `e ∈ ℤ/qℤ` fixed once in the specification, the same for every `L`, and defined when the event
-  `{E = e, O = r_O}` is non-empty (on `ℤ^3`, choice 6 states what replaces it); a translation- and
-  `O_h`-invariant product law with a non-uniform site marginal. Which of them a pass must hold
-  under is choice 6. Requiring the uniform law is not part of the owner's question, and by the
-  expectation recorded in M3 that requirement alone decides R-lin. The stated
+  `{E = e, O = r_O}` is non-empty (on `ℤ^3`, choice 6 states what replaces it, or that its row is
+  not defined); a translation- and `O_h`-invariant product law with a non-uniform site marginal.
+  A family for which that event is empty at some `n` has no admissible level-set law. Which of
+  them a pass must hold under is choice 6. Requiring the uniform law is not part of the owner's
+  question, and by the expectation recorded in M3, with the gap recorded there closed, that
+  requirement alone decides R-lin. The stated
   architecture fixes no ensemble (stochastic observer-interface audit,
   `verification/audits/operational/stochastic-observer-interface-audit.md`:369–381; Step 1 B.12
   (ix)), so H-μ is a named hypothesis and every conclusion carries it. Main's posit ledger item
@@ -235,8 +238,9 @@ specification of the family and, for D6(b), the proofs of the Q-conditions submi
 
 The criterion is aimed at the two ways the answer has been supplied on `main`: a per-target choice
 of access, measure or decoder (D1, D3, D4, D5), and the quantum rule placed in the hidden state,
-by declaration or by compilation (D6), as in Main's realization theorems, where "Quantum mechanics enters as the instrument data
-and as the state held in the hidden register" (Main:582) [P].
+by declaration or by compilation (D6), as in Main's realization theorems, where "Quantum
+mechanics enters as the instrument data and as the state held in the hidden register" (Main:582)
+[P].
 
 ### 1.4 The operational target: what "approximately coherent two-state operations" means
 
@@ -394,7 +398,8 @@ the clause cannot be posed for that construction.
 
 The result note carries two tables in a stated schema (§A.44): a **condition table** with one row
 per condition used (identifier, exact statement, status `proved` / `refuted` / `open`, layer
-[K]/[P]/[P-imp]/[R]/[W], source file:line), and a **control table** (section 3; identifier,
+[K]/[P]/[P-imp]/[R]/[W], source file:line; `not applicable` occurs only in clause entries of the
+control table), and a **control table** (section 3; identifier,
 expected classification, obtained classification, status `green` / `red`). The token is computed
 from the two tables in this order, and from nothing else:
 
@@ -459,7 +464,7 @@ wrong, and the step returns to the owner with the definitions, not with a verdic
 | C-SUP-1 | Main's uniform continuum realization: one finite reversible realization per `(d, m, K, ε)`, built from a net of quantum instruments | Supplied access with the quantum rule inside; shows D6 has teeth | Q0–Q6 at the stated `(ε, K)` [P]; D6 fails ("Quantum mechanics enters as the instrument data and as the state held in the hidden register", Main:582); D1 fails (the realization is built from the target net). `OPERATIONAL-ONLY` | Main:566, :582, :596, :598 [P] |
 | C-SUP-2 | Per-target access: for each `θ`, a world, region or law chosen so that the record law of that one target is reproduced | Shows D1 and Q4 have teeth: per-target worlds cannot be composed in one world | D1 fails; Q4: not applicable (no single interface across targets). Supplied | Gate A, `endpoints.md`:67 [R]; `whole-model-bridge.md`:283–287 ("It cannot simply identify states that an available sensor distinguishes") [R] |
 | C-POS-1 | The Kochen–Specker sphere model with its supplied contract | Known positive: exercises the two halves of the criterion separately | Not a lattice interface, so Q1–Q6 (Q0 does not apply): `ε = 0` for every finite adaptive rank-one projective protocol (the record states this; general instruments not covered, so Q2 is checked on that protocol class); D3 fails (cosine-hemisphere law supplied), D5 fails (preparation cone, private workspace and seeds by declaration), D6 fails (rotation primitives), D7 fails (continuum carrier). `OPERATIONAL-ONLY` | `history-architecture-v5/REPORT.md`:305–312 [R]; Kochen–Specker 1967 (imported there) |
-| C-POS-2 | Its finite discretization `finite-a2-v5` | Positive control for the approximate form and for Q0 | Q0–Q6 at a fixed finite menu and horizon `h = K`, at every `ε ≥ b + δ`: `b` is the record bound of :36–37 at that `h` and at the parameters `M, W, B` of :23, and `δ` is the largest gap between a requested angle and the nearest menu angle, the diamond distance between the two rotations being at most `δ` [W]. Q3 therefore holds only to the menu's resolution. D fails as for C-POS-1. `OPERATIONAL-ONLY` (with the menu restriction recorded) | `finite-a2-v5/REPORT.md`:14, :23, :36–37 [R] |
+| C-POS-2 | Its finite discretization `finite-a2-v5` | Positive control for the approximate form and for Q0 | Q0–Q6 at a fixed finite menu and horizon `h = K`, at every `ε ≥ b + δ`: `b` is the record bound of :36–37 at that `h` and at the parameters `M, W, B` of :23, and `δ` is the larger of the largest gap between a requested angle and the nearest menu angle (the diamond distance between the two rotations being at most that gap) and the largest trace distance from a pure state to the nearest pure state `R_w n` prepared by a menu prefix of horizon at most `K` (a menu preparation or reset direction `n` followed by a word `w` of menu rotations) [W]. The record fixes a finite menu of rotations, rank-one projective measurements and preparations (:11–12) and states nothing about the density of prepared states; `δ` carries it. The classification is stated for menus containing two rank-one measurements with `Tr(P_a P_b) ∈ [1/4, 3/4]` (Q5), which the record does not require. Q3 and Q6 therefore hold only to the menu's resolution. D fails as for C-POS-1. `OPERATIONAL-ONLY` (with the menu restriction recorded) | `finite-a2-v5/REPORT.md`:11–14, :23, :36–37, :105–115 [R] |
 | C-ISO-1 | A classical wave on the cubic lattice with real amplitudes (the real lift of R-lin), read completely in a region; its large-scale propagation is isotropic | The external assessment's countercontrol: isotropy and interference without a qubit. Out of class: it fails D7 trivially and has no `μ` specified. Its value is that operations which vary continuously and compose (Q4) are still rejected by Q1 [W]. The external countercontrol's in-class wave is R-lin itself, which L5 tests | Q1 fails: complete reads of real amplitudes distinguish arbitrarily many preparations (the mechanism of the bridge's Lemma 1) [W]; D7 fails (E-real). Interference statistics alone are not a failure of the control (`observation-context-protocol.md`:37–38, "interference alone is insufficient") [R]. Not `PASS-DERIVED` | SM:258–268, Corollary 1a (`ohInvariant_iff`, OB/CubicIsotropy.lean:116) [K]; `whole-model-bridge.md`:132–197 [R] |
 | C-ISO-2 | **A classical diffusion: one lazy random walker.** *World:* `Λ ∈ 𝓛` and one walker, whose position `X_t ∈ Λ` is the whole state. *Dynamics:* each tick moves the walker by the `O_h`-symmetric lazy kernel `K(x, x) = 1/2`, `K(x, x ± e_j) = 1/12` (`j = 1, 2, 3`), with fresh randomness each tick; the walker's law obeys the lattice heat equation and spreads isotropically at large scales. *Interface:* `O` a box, `C ⊆ O`. A label is a permutation `g_c` of `C`. At the start of a round the walker is moved to `g_c(X)` if it is in `C`, and nothing happens otherwise; then `τ` ticks of `K` run. The record at each tick is the walker's position if it is in `O`, and a blank symbol otherwise. At time zero the walker is outside `O`, with any law `μ` on `Λ ∖ O` (the argument does not use `μ`) | Isotropic classical propagation in which the labels do act on the walker. The negative must not come from a property that every classical hidden-variable model has (proves-too-much check below) | Q1, Q2, Q3, Q5 and Q6 cannot hold together at `ε < ε_D`, an explicit constant stated at M1 with the conditional-error factor of section 1.2 (these are the conditions the argument uses: Q2's model `𝔔`, of which Q3 and Q6 are statements, and Q5's reads); D7 fails (a stochastic rule outside 𝓡). Not `PASS-DERIVED`. Argument [W]. (i) The whole state is the walker's position, so a label can act only when the walker is in `C ⊆ O`, where the preceding tick has read it. Conditional on a prefix's complete records, either the walker is at a recorded `x ∈ O`, and the effective state is fixed by `x` alone (Markov property), or it is outside `O`, and every label acts exactly as `c(0)` does. (ii) A state of the second kind, as a state of the model `𝔔` of Q2, satisfies `Ad(U_θ)ρ ≈ ρ` for every `θ` under Q3, read out through Q5's reads, so it lies within `O(ε)` of the `n̂` axis. (iii) By laziness, from `x ∈ O` the round's first-tick record shows the walker at `g_c(x)` with probability at least 1/2, while any other starting point puts mass at most 1/12 there. Round record laws from distinct starting points therefore differ in total variation by at least 5/12, whereas Q3 makes the round's record law independent of the input within `ε`. So below `ε_D` all effective states are of one kind: either all lie near the axis (Q6 fails), or there is a single state (Q1 fails). The argument uses two properties: the whole state is read whenever a label acts, and the walk is lazy. It does not use that the walk is classical. Strict contraction of `K^τ` is not used, because it is not uniform in `L` and a contraction can act isometrically on a quotient [W] | SM:258–268 (isotropy of `O_h`-equivariant kernels) [P]; the argument is [W] |
 | C-FIN | The eight-point model with the first-moment decoder | A supplied finite access quotient with a known error floor; checks Q3's detection of a finite group | Q2 with Q3 fails below `ε = 1/15`: the model has 24 Clifford actions, and 1/15 is a record-level error floor for one non-Clifford rotation, reached through the comparator (Q2), not a direct diamond bound on Q3; D fails (supplied contract). Not `PASS-DERIVED` | `operational-quotient-v3/REPORT.md`:20–23, :218–227 [R] |
@@ -481,8 +486,9 @@ that row). Each negative control's argument names the properties of its construc
 the scope at which its classification is stated:
 
 - C-POS-1, on its protocol class at `ε = 0`;
-- C-POS-2, for each fixed finite menu containing a non-Clifford rotation and each resolution
-  parameter `M` of `finite-a2-v5/REPORT.md`:23, at its stated `ε ≥ b + δ`;
+- C-POS-2, for each fixed finite menu containing a non-Clifford rotation and two rank-one
+  measurements with `Tr(P_a P_b) ∈ [1/4, 3/4]`, and each resolution parameter `M` of
+  `finite-a2-v5/REPORT.md`:23, at its stated `ε ≥ b + δ`;
 - the class of reversible deterministic rules acting on `O` and on an environment that is never
   read, under a uniform law, taken as families with growing resources.
 
@@ -513,15 +519,22 @@ What the check is expected to find, as [W]:
   `b + δ`, and the third case is taken at growing resources. Neither argument applies, by the
   definitions above.
 - *C-REBIT.* Its argument uses that every state and every operation is real in one fixed basis,
-  so that the states fill a disk. That property does not hold in any of the three cases: C-POS-1's
-  hidden state is a point of the whole sphere, C-POS-2's a label of its grid on the sphere
-  (`finite-a2-v5/REPORT.md`:53–56, :86–87), and it is not true of every member of the third class
-  (for example, of one that hosts C-PROG's compiled controller under `F_U`).
+  so that the states fill a disk, and its conclusion is that Q6 fails below `1/2`, the trace
+  distance from either pole of that disk to the disk. The property concerns the states and
+  operations of the record theory, not a hidden variable. It fails in C-POS-1, which prepares
+  every pure state on its protocol class (`history-architecture-v5/REPORT.md`:13–14, :38–67). In
+  C-POS-2 it fails at every menu whose prepared states do not lie in one great disk. At a menu
+  whose prepared states do lie in one, the pure prefix states lie on its great circle and
+  `δ ≥ 1/√2`, the trace distance from either pole to that circle, so Q6 is classified only at
+  `ε ≥ b + δ > 1/2` and C-REBIT's conclusion contradicts no stated classification. It is not true
+  of every member of the third class (for example, of one that hosts C-PROG's compiled controller
+  under `F_U`).
 - *C-MEAS.* Its Q2 failure uses that a read leaves the point signal unchanged and draws a fresh,
   independent seed (`measurement-source.md`:87). That property does not hold in any of the three
   cases: in C-POS-1 and C-POS-2 a projective outcome is followed by a fresh preparation along the
-  outcome's direction (`finite-a2-v5/REPORT.md`:53–56), and not every member of the third class
-  has it.
+  outcome's direction (the continuous model, `finite-a2-v5/REPORT.md`:53–56; C-POS-2's finite
+  controller discretizes it, drawing a fresh index from `ν_(s a)`, :113–115), and not every
+  member of the third class has it.
 - *C-NULL.* Its argument uses labels that act on nothing, and that property does not hold in any
   of the three cases.
 
@@ -628,9 +641,12 @@ internal review's sketch [W], not evaluated in drafting:
 prefix record can have `p_acc` exponentially small in the record length. By the `2 d_K / p_acc`
 factor of section 1.2, Q2 at error `ε` then gives no control at conditional error `ε` for that
 preparation, so the conclusion of step 4 for `ε` below a small explicit constant does not follow
-from steps 3 and 4 as stated. Running steps 3 and 4 on joint prefix–continuation laws, without
-conditioning on one complete record, is a route the delta review of r2 named; it is not worked
-out here.
+from steps 3 and 4 as stated. Independently of `p_acc`, the subclass of the conclusion below has
+no heralds, so the herald of step 3 is a device of the proof and not a protocol of that subclass,
+and the Q-conditions stated for heralded preparations at conditional error are not required for
+it [W]. Running steps 3 and 4 on joint prefix–continuation laws, without conditioning on one
+complete record, is a route the delta review of r2 named, and it is needed in either case; it is
+not worked out here.
 
 MECH-1 records the same direction: "Any in-world source of setting selection must make the rule
 non-affine in the joint state" (`mechanism-1-20261107/DESIGN.md`:434–435) [R].
@@ -795,15 +811,16 @@ fixed at M0 and are not reopened afterwards. Choices 1 and 6 very probably decid
 outcome by themselves, as follows. These are unreviewed expectations, not results.
 
 1. **Which rule.** No recommendation: this choice decides what Step 2 can find.
-   - (a) **R-lin only.** This is cheap, and it is probably negative. By the expectation recorded
-     in M3, MECH-1 Lemma A with a law uniform on a coset gives record laws uniform on cosets of a
-     label-independent subgroup. Then two equal-length preparations are distinguishable with
-     probability exactly 0 or 1, while Q5 and Q6 need intermediate values. MECH-1 already
-     concludes that in-world setting selection "must make the rule non-affine in the joint state"
-     (:434–435) [R]. If L5 confirms this, (a) yields `FAIL-CLASS(R-lin, coset-uniform law,
-     initial-condition mode, no heralds)` in essentially one node, with exchange mode, adaptivity
-     and heralds as its child nodes (M3). That closes the subclass and leaves TUNE-1/Q2 open for
-     every other rule. Inside R-lin, only a law not uniform on a coset escapes the sketch (choice 6).
+   - (a) **R-lin only.** This is probably cheap, and it is probably negative. By the expectation
+     recorded in M3, MECH-1 Lemma A with a law uniform on a coset gives record laws uniform on
+     cosets of a label-independent subgroup. Then two equal-length preparations are
+     distinguishable with probability exactly 0 or 1, while Q5 and Q6 need intermediate values.
+     MECH-1 already concludes that in-world setting selection "must make the rule non-affine in
+     the joint state" (:434–435) [R]. If L5 confirms this, with the gap recorded in M3 closed, (a)
+     yields `FAIL-CLASS(R-lin, coset-uniform law, initial-condition mode, no heralds)` in
+     essentially one node, with exchange mode, adaptivity and heralds as its child nodes (M3).
+     That closes the subclass and leaves TUNE-1/Q2 open for every other rule. Inside R-lin, only
+     a law not uniform on a coset escapes the sketch (choice 6).
      No new premise is involved: R-lin is the rule of ledger items (vii) and (xiii).
    - (b) **R-lin first (L5), then R-nl as a separate verdict.**
    - (c) **R-nl only.** Here the question is actually open. R-nl is non-affine, so Lemma A and the
@@ -838,19 +855,19 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
    *Recommendation: (c)*, with a pass requiring (a). (b) is the strictest embedding; (a) is the
    form Main §3.4 and Gate A use.
 6. **Ensemble.** For R-lin, this choice probably decides the outcome. By the expectation recorded
-   in M3, a law uniform on a coset gives `FAIL-CLASS` for R-lin, and the uniform law is such a
-   law, so requiring it is the premise that decides R-lin. Requiring it is not part of the
-   owner's question. The list of section 1.3 (D3): the uniform law; the uniform law on one level
-   set of `E(u, v)` (SM:296); a translation- and `O_h`-invariant product law with a non-uniform
-   site marginal.
+   in M3, with the gap recorded there closed, a law uniform on a coset gives `FAIL-CLASS` for
+   R-lin, and the uniform law is such a law, so requiring it is the premise that decides R-lin.
+   Requiring it is not part of the owner's question. The list of section 1.3 (D3): the uniform
+   law; the level-set law of D3 (SM:296); a translation- and `O_h`-invariant product law with a
+   non-uniform site marginal.
    - (i) *Which law a pass must hold under.* (a) The uniform law, as the mandatory reference,
      and `μ′`. (b) One law of the list, declared at M0, and `μ′ ≠` that law. (c) Every law of the
      list, each reported with its own token; under D3's robustness clause, a pass under one law
      then counts as derived only if it also holds under a second law of the list.
      *Recommendation: (c).* No law is then picked after the results are known, and the
      uniform-law row is reported whatever the others give. Main's ledger item (iv) bears on (a)
-     only through the [W] reading recorded in D3. Under (a) with choice 1(a), the expected outcome
-     is `FAIL-CLASS`.
+     only through the [W] reading recorded in D3. Under (a) with choice 1(a), the expected outcome,
+     with the gap recorded in M3 closed, is `FAIL-CLASS`.
    - (ii) *The second law `μ′`, if (a) or (b).* (a) The level-set law on `𝓛_fin`, and on `ℤ^3`
      the law (iii) puts in its place (the non-uniform product law, unless that is already the
      other law). The level-set law is defined on `𝓛_fin` only: the uniform
@@ -863,10 +880,11 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
      [W]. (b) The non-uniform product law; (c) the uniform law, under (i)(b) only.
      *Recommendation: (a)*, for the reasons given. Whenever the uniform law is one of the two laws
      a pass must hold under, R-lin is decided as above whatever the other law is.
-   - (iii) *On `ℤ^3`.* Wherever an option of (i) or (ii) names the level-set law, the non-uniform
-     product law takes its place there, or the uniform product law if the non-uniform product law
-     is already the other of the two laws. Under (i)(c), the level-set row on `ℤ^3` is entered as
-     "not defined", not as a token. No option therefore makes a pass on `𝓛_∞` undefinable.
+   - (iii) *On `ℤ^3`.* Under (i)(a) or (b), wherever an option of (i) or (ii) names the level-set
+     law, the non-uniform product law takes its place there, or the uniform product law if the
+     non-uniform product law is already the other of the two laws. Under (i)(c), the level-set row
+     on `ℤ^3` is entered as "not defined", not as a token. No option therefore makes a pass on
+     `𝓛_∞` undefinable.
 7. **Rebit or qubit.** (a) A pass requires the whole Bloch ball (Q6); (b) a disk suffices.
    *Recommendation: (a)*, with a disk reported as `PARTIAL-REBIT`. The owner asked for one
    quantum bit, and a disk is real quantum theory.
@@ -907,8 +925,14 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   r3: `git` (status, rev-parse, branch, show, diff, add, commit, push), `sed`, `cut`, `grep`,
   `sort`, `head`, `wc`, `df`, `sha256sum`. No interpreter was run in r3. Commands used in drafting
   r4: `git` (status, log, branch, ls-tree, show, diff, add, commit, push), `grep`, `sed`, `cut`,
-  `fold`, `cat`, `awk`, `head`, `wc`, `ls`, `sha256sum`. No interpreter was run in r4. No probe, checker or
-  Lean build. No GitHub comment.
+  `fold`, `cat`, `awk`, `head`, `wc`, `ls`, `sha256sum`. No interpreter was run in r4. Commands
+  used in drafting r5: `git` (rev-parse, status, log, ls-tree, cat-file, show, diff, add, commit,
+  push), `grep`, `sed`, `awk`, `cut`, `cat`, `head`, `tail`, `tee`, `mv`, `wc`, `sha256sum`.
+  `python3 --version` was invoked once, printing the interpreter's version only; it ran no script
+  and computed nothing about any OI rule. No probe, checker or Lean build. No GitHub comment.
+- **Read for r5:** the delta review of `57783cbc` (in full); at the pin,
+  `finite-a2-v5/REPORT.md` (whole) and `history-architecture-v5/REPORT.md`:9–20, :34–68 and
+  :295–320.
 - **Read for r4:** the delta review of `b47700a6` (in full) and the delta review of `81f50bd0`
   (its nits); at the pin, `finite-a2-v5/REPORT.md`:1–8, :9–60 and :86–88,
   `oi-qm-ext-1/measurement-source.md`:29, :57–63, :87, :118, :141, and `papers/SM.md`:296.
@@ -940,5 +964,7 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   verdict REVISE, three blocking findings and twelve nits). r2 (`81f50bd0`) received a fresh
   delta review (same model family, verdict REVISE, two blocking findings and seven nits). r3
   (`b47700a6`) received a fresh delta review (same model family, verdict REVISE, light, three
-  blocking findings and nine nits). This revision r4 is not reviewed. It needs a further internal
-  review and the ChatGPT review before it goes to the owner for approval.
+  blocking findings and nine nits). r4 (`57783cbc`) received a fresh delta review (same model
+  family, verdict REVISE, light, one blocking finding and seven nits). This revision r5 is not
+  reviewed. It needs a further internal review and the ChatGPT review before it goes to the owner
+  for approval.
