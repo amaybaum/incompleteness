@@ -47,7 +47,7 @@ decisions. Q-C2-2 stays inactive. #1210's frozen designs and #1216 Backlog are u
 
 Preserve the local fixture output, complete design run/attempt/job/step records and times, pull-request base/head
 binding, artifact IDs/names/digests/expiry, original archives and extracted files. Keep artifact retention 90 days
-and no repository run/log/artifact deletion until Q, under the existing owner commitment. File SHA-256 pins hash
+and no repository run/log/artifact deletion until Q, **only after the still-pending owner retention commitment is recorded**. File SHA-256 pins hash
 preserved bytes; API artifact digests hash archives. Confirmation's A7, not a file/archive digest comparison,
 later binds the stress pin. The separate R8/R10 landing checks remain mandatory without an enduring claim about
 unretained host content.
@@ -66,11 +66,11 @@ Host-VOID retakes and checker outcomes retain C.6's distinction; a checker outco
   complete inventory. The connector rejected the branch-activity endpoint (HTTP 400 endpoint allowlist), and a
   read-only local gh fallback returned Forbidden even with network permission. No T0 or empty-activity finding is
   inferred. Any complete inventory assembled later must retain its exact capture scope and attempts evidence.
-- The frozen base workflow intentionally skips A42 exclusion on pull_request, while C.7's literal design/
-  confirmation predicate says every non-B conclusion is success. The implementation currently preserves that
-  strict predicate. Resolve this concrete compatibility question through review/owner governance before a design
-  run; do not silently permit arbitrary skips or weaken R2's fixture rule.
-- The timeout proxy omits P/REP-INV/C/diagnostic runtime and can undercharge larger-rank facet visits. The frozen
+- Independent B1 REVISE at `2f3a8b83` identified three valid conditional items. The owner approved the exact B1
+  C.7/host-checker rule on #1169 c.6784808669: A42 and ARP-1 keeper succeed on dispatch and skip on PR; the KTRANS
+  marker is always skipped after the axiom-report step succeeds; every other required job and step succeeds. The
+  author-side repair is unreviewed. No blanket skip permission or change to R2's fixture failure semantics.
+- The timeout proxy omits P/REP-INV/C/diagnostic runtime **and C-SYM facet enumeration work** and can undercharge larger-rank facet visits. The frozen
   job timeout and incomplete-output stop remain real limits; no performance claim has been measured here.
 - The source and selection physical mechanism remains NOT PASSED under #866. This conditional experiment cannot
   promote a simulator benchmark, mathematical factor or scoped witness into a physical OI-to-QM derivation.
