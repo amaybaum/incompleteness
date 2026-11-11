@@ -5,8 +5,9 @@ under Issue #1236 (owner decision: paper-only). This file plans one question and
 work, its definitions, decision rule, controls and stopping rule. It runs no Step 2 work, performs
 no computation, adopts no premise, advocates and evaluates no candidate mechanism, changes no
 manuscript or Lean file and authorizes nothing. Execution needs the owner's recorded approval of
-this text (or of an amended text) after the reviews named in section 10. This is revision r7,
-drafted after the delta review of r6 (verdict REVISE, at `b9e9683e`), with the owner's approval
+this text (or of an amended text) after the reviews named in section 10. This is revision r8,
+drafted after the delta review of r7 (verdict REVISE, light, at `2ad0aca0`); r7 was drafted after
+the delta review of r6 (verdict REVISE, at `b9e9683e`); each was drafted with the owner's approval
 to revise as reviewed; r6 was drafted after the external review of r5a (verdict REVISE, at
 `9440f8af`); r5a applied the four nits of the delta review of r5 (verdict
 ACCEPT WITH NITS, at `c3a0ebf7`) to r5; r5 was drafted after the delta review of r4 (verdict REVISE, light, at `57783cbc`); r4 followed the delta
@@ -127,7 +128,8 @@ constructed here" (SM:94) and is not part of this question.
 
 ### 1.2 The embedded apparatus
 
-An **interface** is `I = (Λ, O, C, τ, r_O, μ)`:
+An **interface** is `I = (Λ, O, C, τ, r_O, μ)`, and, in initial-condition mode, the layout `(P_j)`
+of its program blocks (below):
 
 - `Λ ∈ 𝓛`, the world;
 - `O ⊂ Λ`, a finite **observer region**, and `C ⊆ O`, its **control cells**;
@@ -168,12 +170,16 @@ error `ε`, which holds when `2 d_K / p_acc ≤ ε`, and the `p_acc` of each her
 is reported. `Π_K(I)` is the set of such protocols. The **record
 law** `P^I_π` is the law of `(h_1, …, h_K)` under `μ`, the ready configuration and the dynamics.
 
-**Initial-condition mode** (owner option, section 9, choice 5): the labels `c_1, …, c_K` of a
-non-adaptive protocol of horizon `K` are written at time zero into disjoint **program blocks**
-`P_1, …, P_K ⊂ Λ ∖ O`, each a copy of `C`, laid out by a fixed rule that is part of the generating
-rule (D1) and depends on neither the labels nor the protocol, and nothing is written afterwards.
+**Initial-condition mode** (owner option, section 9, choice 5): the labels of a non-adaptive
+protocol are written at time zero into disjoint **program blocks** `P_1, P_2, … ⊂ Λ ∖ O`, each the
+image of `C` under a translation fixed by the layout, through which a label `c ∈ (V × V)^C` is
+placed in `P_j`; the layout is fixed by a rule that is part of the generating rule (D1) and depends
+on neither the labels nor the protocol, and nothing is written afterwards. At `I_n` the generating
+rule lays out `K_n` blocks, with `K_n ≥ K` whenever `n = n(ε, K)`, and `P = P_1 ∪ ⋯ ∪ P_{K_n}` is
+the same for every protocol; a protocol assigns a label to every block, and one of horizon
+`K ≤ K_n` is compared on its first `K` rounds.
 The blocks lie outside `O` and so are not read (D4); a label reaches `O` only through `Φ_F`. In
-this mode `μ` is the law of the configuration of `Λ ∖ (O ∪ P)`, `P = P_1 ∪ ⋯ ∪ P_K`, and the record
+this mode `μ` is the law of the configuration of `Λ ∖ (O ∪ P)`, and the record
 law is the law of `(h_1, …, h_K)` for the given label sequence. Every observer choice is then an
 initial condition, as in Main's program register (Main:582); there is no label register, and the
 only dynamics after time zero is `Φ_F`, under which the blocks evolve like every other cell: their
@@ -181,11 +187,13 @@ content is part of the declared initial condition, not a write. This mode does n
 is the strictly rule-only target; its protocols are non-adaptive and may declare heralds as above.
 Blocks inside `O` are excluded because the definitions alone would then fail every rule [W]: `O` is
 read at every tick and `Φ_F` copies each cell's current value into its previous-value component,
-so the first round's record would contain every later label, while the comparator's round-1 record
-law depends on `c_1` alone; two protocols that differ only in `c_K` would give round-1 records at
+so the first round's record would contain the current component of every later label, while the
+comparator's round-1 record law depends on `c_1` alone; two protocols whose labels `c_K` differ in
+the current component of one cell, and in nothing else, would give round-1 records at
 total variation 1 and equal round-1 comparator laws, so Q2 would fail at every `ε < 1/2` for every
 `K ≥ 2`, whatever the rule. With the blocks outside `O`, range one lets a layout place `P_j` at
-distance greater than `(j − 1)τ` from `O`, so that no record before round `j` depends on `c_j`;
+graph distance greater than `(j − 1)τ` from `O` (the least distance between a cell of `P_j` and a
+cell of `O` in the cubic lattice of `Λ`), so that no record before round `j` depends on `c_j`;
 whether the later records carry the action that Q2–Q6 require is a property of `Φ_F` and `μ` [W].
 
 **Family.** A family is `{I_n}_{n ∈ ℕ}` produced by one generating rule `n ↦ I_n` (for example the
@@ -311,7 +319,7 @@ bound on the comparator side converts to this distance by Main's telescoping Lem
   `p(θ)`: the round acts on the qubit as the unitary channel, and its record carries at most `ε`
   information about the qubit.
 - **Q4 (composition; model-free).** For all `θ₁, θ₂` and every pair of protocols of horizon `K`
-  that share a prefix (which may be adaptive) and the same post-gate continuation, and differ only
+  that share a prefix (which may be adaptive, in exchange mode) and the same post-gate continuation, and differ only
   in that two consecutive gate rounds after the prefix have labels `c(θ₁), c(θ₂)` in one and
   `c((θ₁ + θ₂) mod 2π), c(0)` in the other, the unconditioned joint law of the records of all
   rounds other than the two gate rounds differs between the two protocols by at most `ε`. The
@@ -604,7 +612,7 @@ execution, with the checkpoint that measures it.
 | No computation is run in Step 2 | The result note's disclosure lists every command run; the reviewer checks it contains no interpreter, probe, checker or Lean build |
 | Definitions and decision rule fixed before work | The owner-approved text of this file is identified by its sha256 in the result note; every definition used is quoted from it; any change is an amendment approved by the owner before work resumes |
 | Controls green before the verdict | The control table; step 1 of section 2.2 |
-| No negative control proves too much | A proves-too-much row for each negative control in the control table: the properties its argument uses; for each of C-POS-1, C-POS-2 and the reversible-rule class with an unread uniform environment, at the scope stated in section 3, whether each property holds there (for the class, whether it holds for every member); and whether the argument's conclusion contradicts that case's stated classification at that scope. The proves-too-much entry is red if and only if, in some case, every property holds and the conclusion contradicts the stated classification; a red entry turns the control red |
+| No negative control proves too much | A proves-too-much row for each negative control and for the L5 argument (M3; against the third case) in the control table: the properties its argument uses; for each of C-POS-1, C-POS-2 and the reversible-rule class with an unread uniform environment, at the scope stated in section 3, whether each property holds there (for the class, whether it holds for every member); and whether the argument's conclusion contradicts that case's stated classification at that scope. The proves-too-much entry is red if and only if, in some case, every property holds and the conclusion contradicts the stated classification; a red entry turns the control red, and a red entry for the L5 argument is a red row of the control table |
 | Compiled simulators classified as fixed in advance | Choice 11 is recorded at M0; C-PROG's obtained clause entries and token are compared with those its row states for the option chosen |
 | Verdict computed from the tables | Section 2.2; the reviewer recomputes the token from the two tables |
 | No premise adopted | A hypothesis ledger in the result note lists H-μ, H-∞, H-nl and H-write if used, and every [R] statement used, each with its status, and each appears in every conclusion that uses it |
@@ -729,7 +737,12 @@ non-affine in the joint state" (`mechanism-1-20261107/DESIGN.md`:434–435) [R].
 If L5 confirms the sketch, with the gap above closed and after Lemma A has been re-derived under
 choice 9(a), the node yields `FAIL-CLASS(R-lin, coset-uniform law, initial-condition mode, no
 heralds)` for every `q` on both carriers. That subclass would be closed by the structure of R-lin's
-record laws, not by the definitions: in initial-condition mode they exclude no rule (section 1.2).
+record laws (step 1 uses R-lin's affinity), not by the obstruction of section 1.2, which the
+program blocks remove. Whether any rule meets the initial-condition definitions is open; no
+rule-independent obstruction is known, and none is excluded [W]. At L5 the argument is therefore
+checked as a negative control is: the properties it uses are listed and checked against the third
+case of the proves-too-much check (section 3), and if every one holds there, the argument proves
+too much and the step returns to the owner (section 7).
 Exchange mode (under H-write), adaptivity and heralds are child nodes,
 and the subclass is widened to each only when its own node is proved (steps 1 and 3). The R-lin
 child nodes left open also include those under a law that is not uniform on a coset (choice 6): a
@@ -939,18 +952,21 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
    carries H-write. `obs_exchangesAvailable` does not discharge H-write: the observer theory it is
    stated for does not depend on `F` (`obsTheory_rule_independent`, section 1.2) [K].
    *Not offered: the program inside `O`.* In (b) the settings could instead be stored inside `O`,
-   with the comparator given the whole label sequence in advance (each round's instrument a
-   function of every label of the protocol) and the label cells excluded from the records or
-   conditioned on. That form is not offered, for three reasons [W]. Under a rule of 𝓡 every cell
-   is read by its neighbours' `F_i`, so within one tick the label cells' content enters cells of
-   `O` that are not label cells; excluding the label cells does not remove it, and excluding more
-   is a declared restriction of reads that D4 and D5 forbid. A comparator whose round-1 instrument
-   depends on later labels is chosen per protocol, which `endpoints.md`:67 [R] excludes, and Q2
-   then does not test one sequential qubit model. And since initial-condition protocols are
-   non-adaptive already, it would add no adaptivity. Adopting it would change what "rule-only"
-   means, from "every choice is an initial condition of unread cells" to "the apparatus region
-   holds its program and the comparator is told it"; it would need its own definitions and
-   controls.
+   in one of two variants. In the first, each round's instrument depends on its own label alone,
+   and the label cells are excluded from the records or conditioned on. In the second, the
+   comparator is given the whole label sequence in advance, each round's instrument a function of
+   every label of the protocol. Neither is offered, for two reasons [W]. In the first variant,
+   label content that `Φ_F` carries within one tick into cells of `O` that are not label cells
+   separates protocols as in section 1.2 unless reads are restricted, which D4 and D5 forbid. In
+   the second, the model is chosen per experiment and does not preserve sequential composition,
+   which `endpoints.md`:67 [R] excludes. And since initial-condition protocols are non-adaptive
+   already, neither would add adaptivity. What the program blocks outside `O` cost instead: each
+   later label `c_j` starts at graph distance greater than `(j − 1)τ` from `O` and reaches it only
+   through unread cells, distributed by `μ` outside the program blocks, so initial-condition mode
+   also tests whether `Φ_F` carries a label through the unread world [W]. Adopting either variant
+   is the owner's choice; it would change what "rule-only" means, from "every choice is an initial
+   condition of unread cells" to "the apparatus region holds its program" (in the second variant,
+   "and the comparator is told it"), and it would need its own definitions and controls.
 6. **Ensemble.** For R-lin, this choice probably decides the outcome. By the expectation recorded
    in M3, with the gap recorded there closed, a law uniform on a coset gives `FAIL-CLASS` for
    R-lin, and the uniform law is such a law, so requiring it is the premise that decides R-lin.
@@ -1033,7 +1049,10 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   `python3 --version` was invoked once in r6, printing the interpreter's version only; it ran no
   script and computed nothing about any OI rule. Commands used in drafting r7: `git` (rev-parse,
   status, branch, log, diff, add, commit, push), `grep`, `cut`, `sed`, `ls`, `df`, `wc`,
-  `sha256sum`. No interpreter was run in r7. No probe, checker or Lean build. No GitHub comment.
+  `sha256sum`. No interpreter was run in r7. Commands used in drafting r8: `git` (rev-parse,
+  status, branch, diff, add, commit, push), `grep`, `ls`, `sed`, `wc`, `sha256sum`. No interpreter
+  was run in r8. No probe, checker or Lean build. No GitHub comment.
+- **Read for r8:** the delta review of `2ad0aca0` (in full). No further record was read.
 - **Read for r7:** the delta review of `b9e9683e` (in full). No further record was read.
 - **Read for r6:** the external review of `9440f8af` (in full); at the pin,
   OB/SubstratumInterfaceAudit.lean:1–37 and :765–830 and OB/RouteB.lean:125–129
@@ -1079,5 +1098,8 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   ChatGPT review (verdict REVISE, two blocking findings, B1 on the composition test and B2 on
   write access, and three precision requests), and r6 (`b9e9683e`) applied all five. r6 received a
   fresh delta review (same model family, verdict REVISE, one blocking finding, B-r6-1 on
-  initial-condition mode, and six nits), and this revision r7 applies the finding and the nits. It
-  needs a delta review of r7 before it goes to the owner for approval.
+  initial-condition mode, and six nits), and r7 (`2ad0aca0`) applied the finding and the nits. r7
+  received a fresh delta review (same model family, verdict REVISE, light, one blocking finding,
+  B-r7-1 on M3's statement about initial-condition mode, and five nits), and this revision r8
+  applies the finding and the nits. It needs a delta review of r8 before it goes to the owner for
+  approval.
