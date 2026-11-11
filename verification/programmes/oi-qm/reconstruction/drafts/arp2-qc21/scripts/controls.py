@@ -99,7 +99,7 @@ BANNED = {"getattr", "setattr", "delattr", "globals", "locals", "vars", "breakpo
 GIT_SUBCOMMANDS = {"rev-parse", "cat-file", "ls-tree", "rev-list", "merge-base", "diff-tree", "show"}
 GIT_BAD = ("-c", "--config-env", "--exec-path", "-C", "--git-dir", "--work-tree", "--upload-pack", "--output",
            "--ext-diff", "--textconv", "--filters")
-GH_EXTRA = {"--paginate", "-H", "Accept: application/vnd.github+json"}
+GH_EXTRA = {"--paginate", "--slurp", "-H", "Accept: application/vnd.github+json"}
 GH_TEMPLATES = ("actions/runs?", "actions/runs/{DEC}", "actions/runs/{DEC}/attempts/{DEC}",
                 "actions/runs/{DEC}/attempts/{DEC}/jobs?per_page=100", "actions/runs/{DEC}/artifacts",
                 "actions/artifacts/{DEC}/zip", "issues/comments/{DEC}",
@@ -271,10 +271,11 @@ def gh_get(path_kind, *vals):
                             f"repos/amaybaum/incompleteness/git/trees/{a_ok(vals[0])}",
                             "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
     elif path_kind == "activity":
+        # gh follows the host's cursor-based Link rel=next, never page=N.
         r = subprocess.run(["gh", "api", "--method", "GET",
-                            f"repos/amaybaum/incompleteness/activity?ref=refs/heads/{a_ok(vals[0])}"
-                            f"&per_page=100&page={a_ok(vals[1])}",
-                            "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
+                            f"repos/amaybaum/incompleteness/activity?ref=refs/heads/{a_ok(vals[0])}&per_page=100",
+                            "--paginate", "--slurp", "-H", "Accept: application/vnd.github+json"],
+                           capture_output=True, text=True)
     elif path_kind == "repo":
         r = subprocess.run(["gh", "api", "--method", "GET", "repos/amaybaum/incompleteness",
                             "-H", "Accept: application/vnd.github+json"], capture_output=True, text=True)
@@ -285,7 +286,22 @@ def gh_get(path_kind, *vals):
     if path_kind == "artifact-zip":
         return True, r.stdout
     try:
-        return True, json.loads(r.stdout)
+        response = json.loads(r.stdout)
+        if path_kind == "activity":
+            # --slurp returns an outer array of pages, each an original structured host JSON array.
+            if type(response) is not list or not response or any(type(page) is not list for page in response):
+                return False, "malformed activity pages"
+            ids, flattened = {}, []
+            for page in response:
+                for entry in page:
+                    ident = entry.get("id") if type(entry) is dict else None
+                    if (type(ident) not in (int, str) or not str(ident).isdigit() or
+                            ident in ids or not isinstance(entry.get("activity_type"), str)):
+                        return False, "duplicated/malformed host activity"
+                    ids[ident] = True
+                    flattened.append(entry)
+            return True, flattened
+        return True, response
     except (ValueError, TypeError):
         return False, "unparseable host response"
 
@@ -484,7 +500,7 @@ def _gh_template_ok(js):
     pats = (r"actions/runs\?[a-z0-9_=&.{}V]*", r"actions/runs/\{V\}", r"actions/runs/\{V\}/attempts/\{V\}",
             r"actions/runs/\{V\}/attempts/\{V\}/jobs\?per_page=100(&page=\{V\})?", r"actions/runs/\{V\}/artifacts(\?per_page=100&page=\{V\})?",
             r"actions/artifacts/\{V\}/zip", r"issues/comments/\{V\}",
-            r"git/trees/\{V\}\?recursive=1", r"git/trees/\{V\}", r"activity\?ref=refs/heads/\{V\}(&per_page=100&page=\{V\})?")
+            r"git/trees/\{V\}\?recursive=1", r"git/trees/\{V\}", r"activity\?ref=refs/heads/\{V\}&per_page=100")
     return any(re.fullmatch(p, rest) for p in pats)
 
 
@@ -2469,20 +2485,9 @@ def order_capture(t_repo, t0, now, branches):
                 return None
             capture["runs"][str(run["id"])] = full
     for branch in branches:
-        page, entries, seen = 1, [], {}
-        while True:
-            ok, items = gh_get("activity", a_ok(branch), str(page))
-            if not ok or not isinstance(items, list):
-                return None
-            for entry in items:
-                ident = entry.get("id") if isinstance(entry, dict) else None
-                if ident is None or ident in seen:
-                    return None
-                seen[ident] = True
-                entries.append(entry)
-            if not items:
-                break
-            page += 1
+        ok, entries = gh_get("activity", a_ok(branch))
+        if not ok or not isinstance(entries, list):
+            return None
         capture["activity"][branch] = entries
     capture["call_count"] = HOST_CALLS-start_calls
     return capture
@@ -2594,7 +2599,7 @@ def run_class_gate_errors(data, confirmation_head=None):
     for entry in entries:
         name = entry["name"]
         if name == "GT-ACT":
-            ok, activity = gh_get("activity", a_ok(entry["branch"]), "1")
+            ok, activity = gh_get("activity", a_ok(entry["branch"]))
             if not ok or not isinstance(activity, list):
                 raise CaptureFailed("GT-ACT host capture failed")
             if not any(item.get("id") == entry["activity_id"] and item.get("activity_type") == "force_push" for item in activity):
