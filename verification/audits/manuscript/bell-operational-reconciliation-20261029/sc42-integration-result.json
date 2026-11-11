@@ -288,6 +288,18 @@
     },
     {
       "ok": true,
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: These properties contain no quantum postulates. "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph mention count: papers/Main.md: These properties contain no quantum postulates. "
+    },
+    {
+      "ok": true,
+      "predicate": "intended scope paragraph rationale: papers/Main.md: These properties contain no quantum postulates. "
+    },
+    {
+      "ok": true,
       "predicate": "intended scope paragraph exists exactly once: papers/Main.md: **Theorem statement.** The claims divide into th"
     },
     {
@@ -1008,7 +1020,7 @@
     },
     {
       "ok": true,
-      "predicate": "kinematics mention counts match the site table (60)"
+      "predicate": "kinematics mention counts match the site table (61)"
     },
     {
       "ok": true,
@@ -1632,7 +1644,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: This has a striking corollary: the project of \"explaining qu..."
+      "predicate": "chapter line mirrored in FULL: The proposal has a striking consequence: the project of \"exp..."
     },
     {
       "ok": true,
@@ -3425,7 +3437,7 @@
     "book/preface.md": 1,
     "book/readers-guide.md": 0,
     "papers/GR.md": 3,
-    "papers/Main.md": 17,
+    "papers/Main.md": 18,
     "papers/Methodology.md": 3,
     "papers/SM.md": 0,
     "papers/Structure.md": 1,
@@ -3448,7 +3460,7 @@
     "book/preface.md": 1,
     "book/readers-guide.md": 0,
     "papers/GR.md": 3,
-    "papers/Main.md": 17,
+    "papers/Main.md": 18,
     "papers/Methodology.md": 3,
     "papers/SM.md": 0,
     "papers/Structure.md": 1,
@@ -3456,6 +3468,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "c0333dd3b6e1f562bfca1db3424a5a59bdbc32f8c7e60263def4f1ac26a4abd2",
+  "site_table_sha256": "75994c8f3967720f4e86709c35f3b5794c5c9f49ecd8494970c948b06a916a89",
   "verdict": "PASS"
 }

@@ -57,11 +57,13 @@ source pins and mirror predicates. It adds explicit current paragraph anchors,
 required-no-signaling and non-automatic FR guards, and checks all changed book
 sources against FULL. The baseline-zero kinematics guard remains at pinned main.
 
-`sc42-intended-sites.json` is a static intended table with **60** mentions and an
+`sc42-intended-sites.json` is a static intended table with **61** mentions and an
 explicit role for every paragraph. Methodology has **3**: the original SC-42
 three-status overview, the earlier integration's scoped §15 conclusion and the
-new substantive Bell/completion comparison. The other per-file counts retain the
-original table. Counts are never inferred as the expected values at test time.
+new substantive Bell/completion comparison. Main has **18**: the original
+table's 17 and the status sentence of §1.2, which restates the
+operational-completion characterization with its assumed matrix setting. The
+other per-file counts retain the original table. Counts are never inferred as the expected values at test time.
 
 The paper register/capitals/history scan follows AGENTS §§A.32–A.33 and applies
 to `papers/`; security-pattern checks still cover added text. Scientific acronyms
