@@ -1,19 +1,35 @@
 # TUNE-1, Step 1: the assumptions behind the state-mixing obstructions
 
-**WIP / UNVERIFIED writer draft, revision r4b (r4 with the remaining records read) after three independent reviews (REVISE on `204043ce`; REVISE, narrow, on `e9fbe998`; REVISE, narrow, on `d573eec4`); r4 and r4b are not reviewed; paper-only; pin = origin/main SHA `cac5d26441dd33e9348151487e4df7b547195481`.**
+**WIP / UNVERIFIED writer draft, revision r5, after four non-author reviews (REVISE on `204043ce`; REVISE, narrow, on `e9fbe998`; REVISE, narrow, on `d573eec4`; REVISE, narrow, on `62f81f70`); r5 is not reviewed; paper-only; pin = origin/main SHA `cac5d26441dd33e9348151487e4df7b547195481`.** The fourth review states of itself that it is by a model of the same family as the writer and "is not the independent review the owner's deliverable names" (Issue #1236 names the independent reviewer).
 
 Research unit under Issue #1236 (owner decision: paper-only). This file adopts no premise,
 changes no manuscript or Lean file, promotes no claim and authorizes nothing. It has not been
 independently reviewed. Step 2 (evaluation of candidate mechanisms) is not authorized and is not
 attempted here.
 
-**Pin and drift.** Every source was read in a worktree at the pin. `origin/main` advanced to
-`553e790ba52be296b2327030798dd636bd924807` during the session (three commits, PR #1233). Between
-the two commits the only changed files are `papers/Main.{md,tex,pdf}`, `papers/SM.{md,tex,pdf}`
-and one fingerprint in `verification/coverage/LEDGER.json`; in `papers/Main.md` the changed lines
-are 364, 416, 654 and 726, with no line inserted or removed. Of these only Main:726 is cited
-below, and the part cited (ledger item (ii)) is identical in both commits. No Lean file and no
-research record cited here differs between them.
+**Pin and drift.** Every source was read in a worktree at the pin, and every line number below is
+a line number at the pin. `origin/main` has since advanced to
+`082c3eaa4009cfb06ccd64d9724548110772b56b`. The line citations are left at the pin and the offset
+is stated once, here; renumbering each citation by hand was judged the more error-prone of the two
+ways, since the sources were read, and can be re-read, at the pin.
+
+- *Main.* Two lines were removed from `papers/Main.md` between the two commits (pin lines 4–5), so
+  **every Main line cited below is two lower at `082c3eaa`**: Main:62 is :60, Main:560 is :558,
+  Main:726 is :724. Of the 24 Main lines cited (46, 48, 62, 268, 274, 328, 330, 336, 488, 554, 560,
+  562, 564, 566, 582, 584, 586, 590, 598, 600, 602, 702, 720, 726), 22 are byte-identical at the
+  shifted position. The other two changed in wording, and what is quoted from them is present in
+  both commits: pin :602 (the two phrases quoted in section C and in F.3) and pin :726 (the ledger
+  has thirteen items at the pin and fourteen at `082c3eaa`; items (ii), (vii) and (xiii) as quoted
+  are unchanged).
+- *One uncited change bears on F.2.* Pin Main:68 reads "The claim is that quantum mechanics
+  *emerges* under the conditions below"; at `082c3eaa` (:66) it reads "The memory-bearing
+  description — with its admitted quantum representation — emerges under the conditions below."
+- *Other files.* `papers/SM.md`, `papers/Structure.md` and `papers/Substratum.md` changed only in
+  lines not cited here (SM:104, :1100; Structure:45, :887, :1292; Substratum:542).
+  `papers/GR.md`, `papers/Introduction.md`, the Lean tree under `verification/lean-mathlib/` and
+  every research record cited here are identical in the two commits; under `verification/` the
+  only differences are three `sc42-*.json` files and one line (907) of
+  `verification/coverage/LEDGER.json`.
 
 **Support-layer labels.**
 
@@ -88,6 +104,35 @@ one sentence on the Kₙ census and one cell of the matrix; the D1 and D5 rows; 
 four rows of the table of open questions and one control; one sentence in each of items 4 and 6
 of section 0; one entry in F.4; Appendix G. The plain-language summary is unchanged.
 
+**Reading and disclosure for r5.** A third writer session, after the fourth review. Read in full
+at the pin: `verification/audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md`
+(464 lines) and the script beside it, `scope_controls.py` (84 lines; read, not run);
+`programmes/oi-qm/track-i/arc-d-operational-sourcing/result.md` (405 lines); eight notes of
+`programmes/substratum/continuous-substates/` (`solenoid-countercontrol`,
+`infinite-xor-counterexample`, `cubic-wave-revival`, `observation-context-protocol`,
+`shared-gauge-pointer-candidate`, `observable-recurrence`, `BOUNDARY-CONTROLS`,
+`yangmills-substate-bridge`). Re-read: `PROGRAMME.md` §§1, 2, 3.11, 3.12 and Arc D. Read at the
+Lean source, as headers and statements and no proofs: `PassiveQuotient`, `ObservabilityQuotient`,
+`ControlledQuotient`, `CoherentExtension`, `ObservableFactorRecurrence`,
+`ObservableMeasureReturn`; headers only of `ControlLie`, `AccessibleAlgebra`, `TwoByTwoNoGo`,
+`PassiveObservation`, `CentralObservation`, `InternalObserver`, `HiddenCoherence` and
+`ThreadingObservability`; the statement `padData_rooted` in `OperationalSourcing`; two
+definitions in `DomainGlue`. Read in the parts cited: `papers/Introduction.md`:30–36,
+`papers/Structure.md`:211–219, Main:46 and :720,
+`observer-interface-obsmu-20261104/ANALYSIS.md`:150–158 and :1243, `two-mode-drive.md`:60–116
+(again), `kinf-seams-audit.md`:20–30 (again), the S6 rows of the coherent-continuum source audit,
+one entry of `verification/lean-manuscript-census.json`, and the heads of three notes in
+`audits/manuscript/` (G.4). Planning records were read through `gh api` (read-only) and are cited
+as provenance, not as support: the body of Issue #1007 and its comment 6526897139; the body of
+Issue #1236 and comment 6712409082 on Issue #1169 were read again. Commands: `git` (rev-parse,
+status, log, show, diff, add, commit, push), `grep`, `sed`, `awk`, `cut`, `tr`, `fold`, `wc`,
+`ls`, `find`, `cat`, `head`, `tail`, `cp`, `sha1sum`, `sha256sum`, `df`, `mkdir`, `gh api`. Text
+comparisons only: the cited Main lines between the pin and `082c3eaa` (`sed`, `grep`,
+`sha1sum`); the quotations added in this revision against the files they are taken from
+(`grep -F` after joining lines); a count of module file names occurring in this document. No
+interpreter, probe, checker or Lean build was run, and nothing was posted. The changes are listed
+in F.4.
+
 **Limit of the negative statements.** A statement below of the form "nothing on `main` decides X"
 is limited to the records Appendix G marks as read in full. Appendix G.3 names what was not read.
 
@@ -96,44 +141,72 @@ is limited to the records Appendix G marks as read in full. Appendix G.3 names w
 ## Plain-language summary
 
 **The question.** In OI the world only reshuffles its configurations. Quantum mechanics needs
-operations that blend two states by any amount ("adjustable mixing"). What assumptions
-rule that out?
+operations that blend two states by any amount ("adjustable mixing"). What rules that out?
 
 **1. Finitely many observer states.** Alone this rules out nothing: such an observer can sit in an
-infinite world. If the whole world is finite (assumed in OI, not derived), exact adjustable mixing
-is impossible; approximation by ever larger finite systems is not.
+infinite world. If the world is finite (a posit, not derived, which the Introduction says OI does
+not require), exact adjustable mixing is impossible; approximation by growing finite systems is not.
 
-**2. Only reshuffles allowed.** If the quantum state is written directly over the world's
-configurations, reshuffling never produces mixing, exactly or approximately. The valid
-machine-checked obstructions establish this for OI's stated operations. If the state instead
-summarises what an observer can
-prepare and measure, a reshuffle can act as a quantum operation.
+**2. Only reshuffles allowed.** If the quantum state is written over the world's configurations,
+reshuffling never produces mixing, exactly or approximately; machine-checked theorems establish
+this for OI's stated operations (approximately: two-state system). If the state instead summarises
+what an observer can prepare and measure (agreement in experiments, not mere description), a
+reshuffle can act as a quantum operation, as one-qubit models show (unverified).
 
-**3. Limited access.** It causes no obstruction; where quantum behaviour appears, limited access
-produces it. Unverified research records on `main`:
+**3. Limited access.** It causes no obstruction. Wherever unverified research records on `main`
+show quantum statistics from a reshuffling world, hand-chosen limits on preparation and readout
+are essential:
 
-- A known model with a continuous hidden sphere and coarse preparation and readout reproduces one
-  quantum bit exactly, every rotation included, its ingredients put in by hand.
-- If lattice sites held real numbers and a coupling could be set externally to any value, OI's
-  own update would blend two modes by any angle. Neither addition has a source, and with
-  unrestricted readout the result is not quantum.
-- On finite systems it gives a fixed finite set of operations.
+- A known continuous-sphere model reproduces one quantum bit's states, rotations and yes/no
+  measurements exactly, every ingredient supplied.
+- With an isolated pair of real-valued sites and a coupling set externally to any value, the
+  lattice model's update (a posit) blends two modes by any angle. None of the three additions is
+  sourced; with unrestricted access the result is not quantum.
+- Finite systems: a fixed finite set of operations.
 
-**Exact versus approximate.** Exact needs an infinite underlying world. Growing finite systems
-approximating it have been built twice, key ingredients supplied.
+**Exact versus approximate.** Exact needs an infinite world (paper-level). Growing finite systems
+approximating quantum behaviour over bounded experiments have been built twice, key ingredients
+supplied.
 
-**Cautions.** Adjustable mixing is necessary, not sufficient. One cited theorem
-(`readWriteSourced_not_qm`, Issue #1188) has a premise nothing can satisfy; it is not counted.
+**Cautions.** Adjustable mixing is necessary, not sufficient. `readWriteSourced_not_qm`
+(Issue #1188) has an unsatisfiable premise; not counted.
 
 **Open on `main`.** What fixes an observer's preparations and readouts; where real-valued sites
 and adjustable couplings could come from; whether a finite world keeps anything permanently unreachable.
 
-**Recommendation.** Hold Step 2. First decide what counts as "quantum behaviour arising" (F.2);
-then whether to activate one question, its pass/fail rules fixed first.
+**Recommendation.** Hold Step 2. Decide what counts as "quantum behaviour arising", exactly or
+approximately (F.2); then whether to activate one question, pass/fail rules fixed first.
+
+### The five conditions, compact
+
+All statements [K], read and not built; definitions, line numbers and the two directions of each
+equivalence are in sections A.1, A.3 and A.4. The conditions are stated inside complex-matrix
+kinematics taken as given, and their equivalence with exact finite operational quantum mechanics
+(`exactAll_iff_physical_general`) holds for a nonempty finite carrier. "OI" names two kernel
+objects: the sealed eight-configuration core ("core" below), and the theory generated by the
+stated operations of a substratum, whose class of operations is taken as data ("stated operations"
+below).
+
+| Condition | Plain meaning | Status relative to OI | Witness |
+|---|---|---|---|
+| (i) validity | every available operation gives valid probabilities at every ancilla level | core: not entailed. Stated operations: derived | `main_result`, first independence witness; `validity_of_implementationLocality` |
+| (ii) trivial-ancilla consistency | what is available on the system is available with a one-state ancilla adjoined | core: not entailed. Stated operations: derived | `main_result`, fifth independence witness; `systemToLevelOne_of_embeddedObservation` |
+| (iii) inert spectators | an operation stays available, unchanged, beside a bystander | core: not entailed. Stated operations: derived | `main_result`, second independence witness; `observationalIndependence_of_implementationLocality` |
+| (iv) full reversible control | every unitary at every ancilla level is exactly available; the only condition that asks for a continuum, and the one that contains adjustable mixing | core: not entailed. Stated operations: **proved not supplied** | `control_independent`, `oi_alone_not_qm`; `substratumGen_not_control`, `obs_not_control` |
+| (v) iterated composition | attach a fresh uniformly mixed ancilla, act, discard: the result is available | core: not entailed. Stated operations: derived | `main_result`, fourth independence witness; `closure_of_embeddedObservation` |
+
+The independence witnesses are the five existence statements of `main_result`'s third clause, in
+the order validity, inert spectators, control, iterated composition, trivial ancilla
+(OB/GeneralCarrier.lean:192–211); each is a theory on the two-state carrier that realizes the core,
+has four conditions and lacks the fifth. "Derived" is derived for every theory with the named
+architectural property; that the observer theory of a substratum has the property is
+`obs_reversibleImplementationLocality` and `obs_embeddedObservation` (A.3).
 
 ## 0. Summary
 
-1. **Kernel obstructions: three invariants, all class 2, all tied to one interface** (B.1, B.5).
+1. **Kernel obstructions in the operational interface: three invariants, all class 2** (B.1,
+   B.5). A fourth, real entries of every transported matrix, is the invariant of the one statement
+   in the quasilocal interface (`phaseQ_ne_heisQ`, B.11).
    - *Diagonal preservation.* An operator with at most one nonzero entry in each row and column
      conjugates diagonal matrices to diagonal matrices (monomial and configuration-level
      classes). `rot` violates it.
@@ -167,9 +240,13 @@ then whether to activate one question, its pass/fail rules fixed first.
      re-preparation and the private workspace are supplied: "None is sourced here by the native
      lattice or derived from OI's conditions." Exposing the workspace, the seeds or a
      state-dependent completion time breaks the correspondence.
-   - *The lattice model's own second-order update gives every mixing angle on one pair, under two
-     unsourced additions* (`two-mode-drive.md`, B1): real-valued sites (E-real) and an exactly
-     loadable real coefficient (E-control). With point preparations and a sign read the
+   - *The lattice model's second-order update gives every mixing angle on one pair, under three
+     unsourced additions* (`two-mode-drive.md`, B1): an isolated pair (E-pair, "no physical
+     isolation mechanism is derived here"), real-valued sites (E-real) and an exactly loadable
+     real coefficient (E-control). The second-order form of the update is itself "a posit of the
+     selected lattice model, not derived and not an axiom of OI" (Main:726 item (xiii)), and "No
+     restriction of the full cubic lattice to such a pair is inferred" (B1). With point
+     preparations and a sign read the
      statistics have "no realization by density states and preparation-independent effects on any
      one fixed finite-dimensional quantum carrier" (`whole-model-bridge.md`). Here the
      obstruction is too much access, and the record names the missing statement: an
@@ -185,8 +262,13 @@ then whether to activate one question, its pass/fail rules fixed first.
      "covers present active functionals only"; the one test on a state-dependent rule is
      negative, for that rule.
 4. **"Finite observational access implies finite underlying dynamics" is not derived anywhere
-   read.** Total finiteness is a posit (Main:62, Main:726 item (ii); `papers/Substratum.md`:92;
-   `papers/GR.md`:142). Both exact positive exhibits of item 3 use an infinite underlying space
+   read.** Total finiteness is a posit of the manuscripts' finite construction (Main:62, Main:726
+   item (ii); `papers/Substratum.md`:92; `papers/GR.md`:142), and `papers/Introduction.md`:32
+   states that the hypothesis "does not require the whole world to be finite". A research record
+   on `main` reports the owner's direction that the general framework leaves the size of the
+   underlying system unspecified, with every claim on an infinite carrier open until separately
+   proved; no infinite carrier is adopted by it either (B.0). Both exact positive exhibits of item
+   3 use an infinite underlying space
    with finitely many observer outcomes. The kernel's quasilocal interface admits an infinite
    lattice observed through finite regions; there the one-site quarter phase is induced by no
    reversible finite-range dynamics (`phaseQ_ne_heisQ`, B.11), a class-2 statement.
@@ -198,7 +280,9 @@ then whether to activate one question, its pass/fail rules fixed first.
      gate at an irrational angle gives a countable dense theory that is not exact; a countable
      family with a dense boundary orbit is not boundary transitive, and eleven named consequences
      of boundary transitivity need only the dense orbit.
-   - For observer-level statistics: exact reproduction needs an infinite underlying space;
+   - For observer-level statistics: exact reproduction needs an infinite underlying space, at
+     paper level (Main:560, one half imported; Main:488 [P]; apparatus-1 §5.3 [R]; no kernel
+     theorem states it for observer-level statistics);
      approximation by growing finite systems is constructed in Main with the quantum rule as
      input (Main:566, :598) and, for one qubit at a fixed menu and horizon, from the sphere
      model's geometry (`finite-a2-v5`) [R]. One fixed finite controller of a stated class fails
@@ -475,6 +559,113 @@ So the step from finite observational access to a finite underlying system is ma
 No statement read derives it. The exact invariance that supports the posit covers finite
 decoupled enlargements only (Main:726 item (ii)).
 
+**The standing of total finiteness on `main`** (added in r5). Four kinds of record bear on it, and
+they are kept apart.
+
+1. *Manuscripts* [P]. In Main total finiteness is a posit of the finite construction and is
+   called load-bearing: "the map acts on a finite $S$ under the total-finiteness posit (§1.2
+   Remark, §4.5 ledger); finiteness, not the dynamics, is the load-bearing commitment" (Main:46);
+   it is "consumed here by the recurrence step of §2.3 and by §4.6" (Main:726 item (ii)); and
+   Main:720 states "The framework's structural claim" as a hidden sector that is "a finite set
+   with a deterministic bijection". The Introduction states the hypothesis without it: "The
+   finiteness in the hypothesis belongs to the observer … The hypothesis does not require the
+   whole world to be finite" (`papers/Introduction.md`:32); "Finiteness of the whole is an
+   assumption of these models, not a consequence of the observer being embedded in the world"
+   (:34); "A finite reversible world is the model under investigation, not a demonstrated final
+   description of nature" (:36). The one manuscript result read that admits an infinite sector is
+   GR's leading-order corollary for a slowly coupled deep sector (`papers/GR.md`:136–142, B.12).
+2. *A research record* [R]:
+   `verification/audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md`,
+   read in full. Its own status: "research-only, independent review required. Not a manuscript
+   correction, scientific theorem grade, proof of arbitrary-carrier QM, or owner authorization to
+   merge"; "the REVISE was posted through the owner's linked account, so distinct-reviewer
+   independence is not established"; its controls are "not a certification";
+   "Every manuscript correction proposed here remains gated by #1015". It reports the owner's
+   direction in its own words, under the heading "Owner direction — foundation versus
+   implementation", without quoting a comment:
+   - "**General OI principle (choice of framework):** for a specified bounded embedded
+     observer/interface O there is a finite set of *distinguishable accessible configurations*
+     V_O … Do **not** infer that total microscopic S is finite. Infinite, countable, continuous
+     and finite carriers are all admissible for investigation when their states, dynamics and
+     observation interfaces are actually specified."
+   - "**Hypothesis boundary:** finite observable resolution does not follow from embeddedness
+     *alone*. A finite resource/boundary/information assumption is needed for the specific
+     observable interface; if an observer can accumulate records forever the set of possible
+     *histories* need not be finite."
+   - "**Old finite branch stays valid:** finite total-S assumptions (A1_finite) may continue as
+     explicit premises in finite reversible-permutation theorems and candidate local lattice
+     reconstructions … No general carrier-independent physics follows merely by relabelling A1."
+   - "Do not replace the term by a new *axiom of infinite S*: microscopic cardinality is
+     intentionally **not specified** in the general framework."
+   - Its verdict: "observer-relative finiteness is the owner-selected general foundation; the
+     finite total-carrier property is no longer a universal requirement. The original finite-S
+     theorem family remains a conditional, mathematically useful **special case**. All claims
+     requiring actual infinite-carrier dynamics, a consistent long-time observer, physical
+     readback or quantum/YM/GR sourcing remain OPEN until separately proved."
+   Its proof-dependency matrix sorts Main's results by which finiteness they use (table below).
+   It has no row for Main:560, Main:488 or the five completion conditions, and states no result
+   about operations on an infinite carrier. Its replacement texts are marked "NOT applied". At the
+   pin some of the old wordings it lists do not occur in the manuscripts (the fragments it pins
+   at Main:46, GR:142, Structure:53 and Computation:118) and others do (Main:62;
+   Main:720, "a finite set with a deterministic bijection"; `book/glossary.md`, "**Axiom 2
+   (Finiteness).**"); which change answered which row was not traced here.
+3. *The owner's decision, as quoted on `main`.* One record on `main` quotes it with author and
+   time: "The *principle* is adopted; its infinite-carrier physical adequacy is **not proved**.
+   Finite total-S remains a conditional branch premise where already consumed by
+   recurrence/gauge/reconstruction theorems." (amaybaum, 2026-10-30T15:44:46Z; Issue #1007
+   comment 6526897139, as quoted in
+   `…/observer-interface-obsmu-20261104/ANALYSIS.md`:1243, a "WIP / UNVERIFIED research record"
+   that classes the comment as a "governance record"). The comment was read at the source for this
+   revision and matches. The fuller statement is the body of Issue #1007 (provenance; a planning
+   record, not on `main`, and under §A.45 not a carrier of scientific status): "finiteness
+   belongs to the observational interface of an embedded observer, **not** to the total
+   microscopic substratum. The general formulation must **not require `|S|<∞`**. A finite `S`
+   remains a valid *restricted model and proof premise*"; "This is an **owner's choice of
+   foundational framework**, not a new theorem proving infinite-carrier physical adequacy";
+   "Research evidence is not permission to assert P-indivisibility, gauge uniqueness, Yang–Mills,
+   full QM or GR for arbitrary infinite carriers". The same Issue lists, under §A.29, the results
+   the revision must preserve and requires an independent payoff, with the sentence "Removing the
+   Main:554 obstruction is the problem this revision is built to fix. It does not count as a
+   prediction" (the Proposition is at Main:560 at the pin).
+4. *Kernel* [K, headers and statements read]. Two modules state results for a finite visible
+   alphabet over an arbitrary carrier: `ObservableFactorRecurrence` ("finite visible factor,
+   arbitrary hidden carrier"; `changeEvent_eq_iUnion`, with "No finite hidden-carrier assumption
+   (or measure)"; `pIndivisible_of_visible_identity_return_nonperm`, for a family of
+   row-stochastic matrices on a finite `V`, where "The measurable realization that gives rise to
+   Gamma is NOT constructed") and `ObservableMeasureReturn` (`measuredGamma_eq_one_iff`, an
+   `ENNReal`-valued identity; "No assumption of finite hidden cardinality or of microscopic
+   periodicity is used"). The first module's header: "nothing here derives the five finite-QM
+   operational completion conditions or chooses a continuous gauge action."
+
+What the audit's matrix says each result uses (its rows at :281–291, abridged to the quoted
+phrases; "retained" is its column "Finite-S proof retained"):
+
+| Result | General, observer-relative form | Finite total `S` |
+|---|---|---|
+| Lemma 1, finite visible resolution | "Yes for a **specified finite-resolution interface** under its resource premises; no total-S inference" | retained |
+| Finite-horizon `S ⇔ D ⇔ Q_fb` | "Existing **existence of finite representatives** of finite visible laws; not a characterization of the actual infinite substrate" | retained "under published horizon, state and measurement conditions" |
+| Stochastic-inverse rigidity | "Works for a finite *visible* matrix, independent of hidden cardinality" | retained |
+| Measured exact observable return | "Conditional, after defining finite positive-mass measurable cells" (the `ENNReal` form in the kernel, "an ℝ-valued rooted law still missing") | retained |
+| A global synchronized visible return | "**Not automatic**" (its control 3: a countable union of finite cycles with no common return time for a binary readout) | "Finite total permutation yields exact common finite order" |
+| P-indivisibility | "Conditional if a nonpermutation rooted step and exact visible return are shown, or another independently justified route is supplied" | "Finite-cycle route remains"; in the text it proposes for GR:142 (row M2, not applied), "The finite-order recurrence proof in [Main §2.3] additionally assumes finite total $S$; Lemma 1 itself requires only finite visible resolution" |
+| Lemma 2's product carrier `C_V × C_H` with a shared hidden prior (used by §2.3, §3.2, §3.4) | "**Not implied** by a finite-valued `π:S→V`" (control 5); "a named assumption (H-product)" | the finite-product theorems "are unchanged theorems on `C_V×C_H`" |
+| Lemma 3, the unique uniform invariant measure on an orbit | "**Not general:** an infinite orbit can carry no normalized invariant probability" (control 6, the shift on `ℤ`) | "finite cycles"; kernel `orbit_invariant_unique` "is proved under `[Fintype S]`" |
+| Theorem 23, gauge uniqueness | "No unrestricted generalization" | "Keep explicit A1_finite and other physical hypotheses" |
+
+What follows for this document, and what does not.
+
+- Nothing on `main` says that an infinite underlying system is barred, and nothing adopts one. The
+  manuscripts posit a finite one for their construction; the audit reports that the general
+  framework leaves the size unspecified.
+- Every claim on an infinite carrier is open "until separately proved", with its "states,
+  dynamics and observation interfaces … actually specified". A conditional result that names
+  real-valued sites as an unsourced hypothesis has that form.
+- The audit is unverified ([R]; §A.46 item 7), and its report of the owner's direction is not a
+  quotation. The one quotation on `main` (item 3) says the principle is adopted and its adequacy
+  on an infinite carrier is not proved.
+- The record bears on class 1 only. It contains no statement about which operations an observer
+  has, so no cell of B.11 changes.
+
 ### B.1 `substratumGen_not_control` and the configuration-level family [K]
 
 > `theorem substratumGen_not_control :`
@@ -543,7 +734,10 @@ and for classical stochastic channels in monomial Kraus form.
     `FiniteOperationalTheory` cannot express "finite observer, infinite substratum"; the convex-body
     interface of the reconstruction rounds has a completion over directed finite stages (section C),
     and the quasilocal interface has a lattice with any site set, a finite alphabet and finite
-    regions (B.11, row `phaseQ_ne_heisQ`; B.12).
+    regions (B.11, row `phaseQ_ne_heisQ`; B.12). Outside any operational interface, two kernel
+    modules state identities for a finite visible alphabet over an arbitrary carrier
+    (`ObservableFactorRecurrence`, `ObservableMeasureReturn`; B.0 item 4); they concern visible
+    return and P-indivisibility and say nothing about operations.
 - *Class 2.* The operative cause, in the precise form of items 2–3.
 - *Class 3.* Present in a restricted form: `InstAvail.discard` marginalizes over a hidden
   ancilla that is uniformly mixed, finite and independent of the input. It yields no mixing.
@@ -840,6 +1034,8 @@ verification (§A.46 item 7); none of the [R] rows is an established claim.
 | Record | Statement and hypotheses | Layer; status on `main` | Bearing on class 3 |
 |---|---|---|---|
 | `InstAvail.discard` (OB/ImplementationLocality.lean:284–288); `nonnegClass` (F2CoherenceControls:120–180) | Marginalizing a uniformly mixed finite ancilla after any admissible instrument stays in the class; the theory generated by the one class `nonnegClass` (entrywise nonnegative matrices times a contractive scalar) is nonnegativity-bounded on every carrier, so lacks `rot` and the phases. A subclass needs a monotonicity step that is not a kernel theorem | K | Coarse-graining a classical hidden dynamics yields neither `rot` nor the phases on the configuration basis. The invariant is nonnegativity, not diagonal preservation: nonnegative coherences can appear. An isometric member of the class is a scaled permutation [W: orthogonal columns with nonnegative entries have disjoint supports], so stochastic operators enter as Kraus operators of realized branches |
+| `ObservabilityQuotient`, `PassiveQuotient`, `ControlledQuotient` (OB/; "phase three", rounds fifteen to seventeen; added in r5) | For a permutation `φ` of a finite set `S` and a labelling `vis : S → I` (`[Fintype S]`, `[Fintype I]`). *Passive quotient.* `def itiRelInf (φ : Equiv.Perm S) (vis : S → I) (s t : S) : Prop := ∀ k : ℕ, vis ((φ ^ k) s) = vis ((φ ^ k) t)` (ObservabilityQuotient:83–84). On `MinimalCarrier φ vis`, the quotient by it, "The dynamics descends to a permutation" (`quotPerm`, PassiveQuotient:168), and `theorem trajProb_quotient (φ : Equiv.Perm S) (vis : S → I) (T : ℕ) (c : ℕ → I) (μ : S → ℝ) : trajProb (quotPerm φ vis) (quotVis φ vis) T c (quotMeasure φ vis μ) = trajProb φ vis T c μ` (:383–386). *Inert hidden enlargement.* `theorem hiddenExt_same_law [Fintype A] (φ : Equiv.Perm S) (vis : S → I) (σ : S → Equiv.Perm A) (ν : S × A → ℝ) (μ : S → ℝ) (hmarg : ∀ s, ∑ a, ν (s, a) = μ s) (T : ℕ) (c : ℕ → I) : trajProb (hiddenExt φ σ) (fun p => vis p.1) T c ν = trajProb φ vis T c μ` (:563–566), where `hiddenExt φ σ` is `(s, a) ↦ (φ s, σ s a)`; with `hiddenExt_not_separating` (:534). *A coherent matrix pinned on classical preparations.* `def CompatibilityDomainGlue (U : Matrix S S ℂ) (φ : Equiv.Perm S) (D : Set (S → ℝ)) : Prop := ∀ w ∈ D, U * Matrix.diagonal (fun s => ((w s : ℝ) : ℂ)) * Uᴴ = permMatrix φ * Matrix.diagonal (fun s => ((w s : ℝ) : ℂ)) * (permMatrix φ)ᴴ` (OB/DomainGlue.lean:82–85), with `D` the classical branch domain: the closure of the uniform weight under evolution and visible branch selection (:134–139). On the quotient, under that hypothesis: `∃ d : MinimalCarrier φ vis → ℂ, (∀ x, d x * conj' (d x) = 1) ∧ U = Matrix.diagonal d * permMatrix (quotPerm φ vis)` (`passiveQuotient_glue_forces_monomial`, PassiveQuotient:456–462). On the raw carrier: `theorem glue_column_support … (s x : S) (hx : ∀ t, itiRelInf φ vis t s → φ t ≠ x) : U x s = 0` (ObservabilityQuotient:422–424), "the surviving freedom is block-unitary freedom inside observational-equivalence fibres, transported by φ". *Controlled quotient.* For a menu `acts : A → Equiv.Perm S`: `def ctrlRel (acts : A → Equiv.Perm S) (vis : S → I) (s t : S) : Prop := ∀ w : List A, vis (actWord acts w s) = vis (actWord acts w t)` (ControlledQuotient:79–80); "Every menu action descends to a permutation of the controlled carrier" (`ctrlPerm`, :147); the quotient is action-separating (`controlled_actionSeparating`, :190) and refines the passive one (`controlledToPassive_surjective`, :232; `intervention_separates_passive_fibre`, :243) | K; headers and the statements cited read, no proof read; the census files them under "coherent completions" with the note "The observability, passive and controlled quotients underwrite no manuscript statement" (`verification/lean-manuscript-census.json`:223). Not decided there: "Whether the coherent noncommuting instrument algebra is consistent with the passive representation (interventions may separate states the passive quotient glues)" | The kernel's access quotients of a finite permutation system. The quotient by what a passive observer can tell apart, or an observer with a finite menu of permutation actions, is a permutation system again, with the same visible law; an inert hidden enlargement by a finite fibre changes no visible probability. A matrix `U` that agrees with the permutation on the classical preparations is a phased permutation on the quotient. Inside fibres the observer does not resolve, that agreement leaves `U` undetermined; this is a freedom of the description, and by Arc D round 1 (row below) "represented" is not a ground for sourcing. Scope: finite carriers, a menu of permutations, configuration-indexed matrices |
+| `CoherentExtension` (OB/; round seventeen, part two; added in r5) | On `Matrix S S ℂ`, `S` finite. `def ClassicallyRealizes (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) (g : Equiv.Perm S) : Prop := ∀ s : S, Φ (Matrix.single s s 1) = Matrix.single (g s) (g s) 1` (:272–274). `theorem cptpExtension_iff_correlationMatrix (g : Equiv.Perm S) (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : (IsCompletelyPositive Φ ∧ ClassicallyRealizes Φ g) ↔ ∃ C : Matrix S S ℂ, C.PosSemidef ∧ (∀ s, C s s = 1) ∧ Φ = correlationExtension g C` (:533–537), where `correlationExtension g C` sends `X` to the matrix with entries `C (g.symm a) (g.symm b) * X (g.symm a) (g.symm b)` (:278–281); the header writes it "Ad(P_g) ∘ Schur_C". Directions (§A.34): left to right by `cptp_classical_forces_correlation` (:449); right to left by `correlationExtension_completelyPositive` (:403) and `correlationExtension_classical` (:322). `theorem correlationExtension_diagonal (g : Equiv.Perm S) (C : Matrix S S ℂ) (hdiag : ∀ s, C s s = 1) (w : S → ℂ) : correlationExtension g C (Matrix.diagonal w) = Matrix.diagonal (fun a => w (g.symm a))` (:723–726). `reversibleExtension_iff_rankOne` (:595–600): for positive semidefinite `C` with unit diagonal, a completely positive trace-preserving left inverse exists iff `C s t = d s * conj' (d t)` with `d` unimodular; the member is then conjugation by a diagonal times `permMatrix g` (`rankOne_extension_monomial`, :661). `classicalComb_blind_to_correlation` (:821–825): two sequences of members with the same permutations agree on every diagonal preparation | K; header and the statements cited read, no proof read; complete positivity is "in its finite-dimensional Choi form"; the census files the module under "coherent completions" (carried by GR §3.3) | Every completely positive map that agrees with a permutation on each configuration point state carries diagonal matrices to diagonal matrices, so it is never `rot` [K for the displayed form; the last clause is W, by `rot_not_preservesDiag`]. The hypothesis is agreement on *every* point state: the configuration-basis identification with every point preparation admitted. Records of diagonal preparations do not select the member of the family ("only coherent data — a reversibility or purity principle, not comb statistics — separates them") |
 | `RecursiveFiniteFactor` (:52, :83) | Finite-horizon and exact-period depth bounds, assuming stagewise factorization | K, conditional by statement | An aggregation step only; ANALYSIS.md:57–60 says the module "must not be described as a kernel proof of the topological lemma" |
 | `NativePadicReduction` (:56, :66) | Every additive alphabet reduction commutes with the neighbour-sum two-slice step (coefficient 1) | K; the module scopes it "for passive congruence readout only" | Deeper digits never reach a fixed low-digit readout under the linear rule |
 | SUBSTATE-2 `ANALYSIS.md`:14–54, models A, B1, B2, C | Topological finite-stage lemma (paper proof); A: no backflow; B1: one bit of classical memory at a chosen depth; B2: iid, no common return; C: profinite gauge links, no instrument | R; paper proofs and exact finite controls; "Quantum … claims **OPEN**" | General statement (paper lemma): continuous finite readouts of a tower see a finite stage at each horizon. The four models examined give classical memory or Markov laws; a continuous homomorphism from a profinite group to `U(1)` or `SU(2)` has finite image (:169–175) |
@@ -848,6 +1044,8 @@ verification (§A.46 item 7); none of the [R] rows is an established claim.
 | F2-1 A★ §A★2, G★ (`amendments/A-star.md`:27–60, :138–188); run-2 result | Under the baseline rule (the preregistration's designated baseline, "The rule's form is the hypothesis"; A★2 "decides neither `R` nor `P`"), for a classical `(K, T, μ)` and a coupling that records set membership, the induced register operator is the compressed Koopman operator: positive, unital, nonnegative in the computed basis. Thirteen access rules screened on structure; none admissible. G★ names the gap: computed readout, leaving both invariants, a structure beyond the baseline with OI justification, no answer built in | R, frozen; token `INCONCLUSIVE (gap)`; "This is not a no-go"; review author-reported; G★ item 2 refuted in part (`README.md`:241–266) | Restricted access to substates, modelled as an induced operator, is nonnegative. The missing object is a coupling-level access principle |
 | `operational-control-countercontrol.md` | On any carrier, controls restricted to time shifts of one bijection commute and cannot surject onto `PU(2)`; "a group-structure obstruction, not a finite-dimension obstruction" | R; paper argument; passive autonomous case only; it "does **not** assert an impossibility once the dynamics gains preparation- or setting-conditioned interventions" | An infinite hidden carrier with autonomous dynamics supplies no full control: the available group is abelian. An abelian one-parameter family is not excluded by it |
 | `continuous-substates/README.md`, solenoid, infinite XOR, `equivalence-and-d3-scope.md`:19–30 | Real-type and `p`-adic per-site continua under the lattice wave map; exactly Markov solenoid law; "Moving to an infinite carrier removes the applicability of that theorem, **not** the underlying scientific challenge" | R; paper proofs "not independently reviewed on `main`" | Cardinality of the hidden space decides neither recurrence nor operations |
+| Eight further notes of `continuous-substates/` (read in full in r5): `cubic-wave-revival`, `observable-recurrence`, `solenoid-countercontrol`, `infinite-xor-counterexample`, `BOUNDARY-CONTROLS`, `shared-gauge-pointer-candidate`, `yangmills-substate-bridge`, `observation-context-protocol` | Infinite or continuous carriers with a finite readout; each model is chosen, none derived from the lattice rule. *Cubic wave on circles*: "an added compact torus extension of the unnormalized cubic wave update, with an added distributed finite readout"; on a 3×3×3 lattice the update `F(u,p) = (Au−p,u)` on `(R/Z)^54` has infinite order, while one binary readout has rooted matrices `Γ₁=J₂`, `Γ₂=swap`, `Γ₄=I`; "It supplies no Yang–Mills action or quantum-control menu." *Observable recurrence*: for an invertible measure-preserving `T` and a finite-valued `π`, an exact common visible return is "**sufficient** for the recurrence step in Main §2.3 even if `X` is infinite. It is not automatic for infinite measure-preserving carriers"; `p`-adic digits beyond a readout's depth are "invisible to that readout under this class of congruence-compatible dynamics". *Solenoid*: an exactly Markov visible bit over a reversible compact carrier; "**FAIL** for the claim that merely allowing division by 3 on an infinite compact reversible hidden carrier supplies visible recurrence, hidden memory, or quantum operational capability … This is not a no-go for different measurable partitions, interactions, settings, or coherent controlled operations." *Infinite XOR tape*: one visible bit, a P-divisible two-time family and a non-Markov three-time law; "It does not imply stochastic P-indivisibility or full operational QM." *Boundary controls*: one visible bit over `(Z/2)^Z`; a finite cyclic register of length `q` has the infinite stream's visible law at every horizon up to `q` and differs from it at `q + 1`. *Gauge-pointer toy*: two reversible settings that do not commute as permutations; "noncommuting classical reversible operations still do not supply noncommuting *quantum* gates, complex phase interference, complete positivity". *Yang–Mills bridge*: a continuous internal carrier "creates mathematical room for continuous gauge variables and controlled readouts, but by itself does not source either". *Observation-context protocol*: a preregistered test whether "**one and the same** continuous-state OI microdynamics" can be classical under a passive readout and show interference and noncommuting interventions "under **specified, physically executable preparations and observation settings**"; its control C1, a classical coherent wave, passes the interference statistics, so "**interference alone is insufficient** to infer full operational QM or a unique ontic mechanism"; its rule: "If C2 needs freely chosen response distributions, quantum amplitudes or a Kraus-instrument menu to match the tables, label it an external-input reconstruction, NOT a native prediction"; a setting that "is only a decoder applied afterward to inaccessible fields" returns "**BLOCKED: no available intervention**". It "contains **no native OI microdynamics**" | R; each "research-only", a "research candidate" or a "preregistered research protocol"; paper proofs with exact finite regressions (not replayed here); the paper proofs are not Lean-checked, apart from the two lemmas of B.0 item 4; "Independent review pending" where a note states its review | Finite access over an infinite carrier is exhibited seven ways, and in each the visible process is a classical stochastic process: Markov, memory-bearing, or with an exact return. None supplies an operation. The protocol note states the owner's third possibility as a test with its controls fixed in advance, and classes the interference of a classical wave as insufficient |
+| `audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md`, with `scope_controls.py` (read, not run) (added in r5) | Its statements on total finiteness are in B.0. Its negative controls, as written arguments: (1) "one finite instantaneous observer bit on an uncountable microscopic product can carry unbounded cumulative public history. A finite cyclic surrogate agrees through any pinned horizon `n ≤ q` and first differs at `n = q+1`; do not upgrade finite-horizon equivalence to all-time"; (2) the solenoid; (3) a countable union of finite cycles with a full-support invariant probability, for which "the measured rooted visible matrix `Γ_L` is **never** the identity at any positive L"; (5) "A finite-valued readout therefore does not give a product carrier, whatever the dynamics"; (6) the shift on `ℤ` carries no normalized invariant probability; (4) an ambient gauge-action countercontrol, "not a native OI result", beside which it records that the sourcing controls of the continuous-substates work "do not establish a native mechanism for selectable quantum measurement interactions. These results do not establish a general impossibility for continuous internal states, nor do they derive such measurement controls from continuity or cardinality alone". For Main:46's former attribution of energy conservation to finiteness: "finite total cardinality is neither necessary nor, by itself, sufficient to specify a nontrivial conserved-energy function" | R; "research-only, independent review required"; reviewer independence "not established"; its replacement texts "NOT applied" by it | Class 1 only. It sorts Main's results by whether they use a finite observer or a finite world (B.0), reports the owner's direction that neither is inferred from the other, and holds no statement about operations. Its control (1) is why an approximate claim needs a stated horizon: a finite surrogate and an infinite carrier agree up to a horizon and differ after it |
 | `later-access-result.md`; 21 `native-*.md` units | Setting-conditioned access on the native rule: token `LA-EQUAL`, flag `EMPTY`, under five hypotheses; unit results such as "An independently programmable measurement interface is not established" | R; conditional; acceptance labels author-reported; opening and result lines read only | No programmable interface found for the candidates tried; none is a no-go |
 | `observer-interface-source.md` §4 | "#1007: hidden continuum with finite observer access": "Infinite cardinality alone changes no specified operational availability map" | R; source assessment; "not an established premise on main" | States the owner's class 3 and finds no operation-changing process in the screened sources |
 | `oi-qm-ext-1/pair-operation-source.md` §§4–7 | §4, for a measurable bijection `g` of a probability space ("The total hidden carrier may be infinite") and finite input and output register partitions: the conditional record kernel `T` is nonnegative with unit column sums, and the compression `K` of the Koopman unitary onto normalized indicator functions is an entrywise nonnegative contraction (its equations (1)–(3)). "It is **not** a deduction that every observer-level operational interface must use that baseline"; neither formula alone makes `K`, "its polar factor, or its logarithm a physical gate or a Kraus operator". §5: the kernel ceilings apply "**if** the boundary proposal is completed using that same finite configuration-level availability"; "It does not silently apply a finite-total-carrier theorem to an arbitrary continuum". §6: "Escape is not sufficiency" | R; "a conditional paper calculation"; a source stop; "The paper remains draft research" | On the compression baseline a nonlocal bijection, a conserved-quantity partition, a larger hidden carrier or an observer inside the carrier gives no signed or complex entry. The baseline is "Assumed only in the excluded completions"; restricting the admitted preparations "is itself a physical source obligation" |
@@ -872,9 +1070,10 @@ verification (§A.46 item 7); none of the [R] rows is an established claim.
 | `…/finite-a2-v5/REPORT.md`; `a2_efficiency_v6` (through `CURRENT-HANDOFF.md`) | A finite discretization of the sphere model: `N = 6M²` grid labels, `W`-bit weights, `B` fair bits per reserved block, a rotation word of length at most `h`. For a fixed finite rational menu and at most `h` adaptive operations, the complete record and decoded outgoing state are within `min(1, (52h+300)/M + (8h+48)/2^W + (h+6)(N−1)/2^B)` of the quantum protocol in trace distance; for every `ε` parameters exist (`h = 3`, `ε = 1/10`: `N = 1,122,854,400` labels, 156 fair bits). "It uses one common geometric response function, not the unknown preparation label or a table of quantum protocol answers." Executed instance: `M = 16`, 1,536 labels, horizon three, error below 0.074764 | R; written proofs, exact checks at small sizes; internal reviews retained; "It is not a native OI implementation, selection of the sphere prior, physical clock or access derivation, composite-system model, or full A1/A2 reconstruction" | Approximation by a family of finite systems growing with `1/ε` and with the horizon, for one qubit, with the sphere model's geometry, reset and access supplied |
 | `…/a2_depth_v7/REPORT.md`, `a2_memory_v8/REPORT.md` | On the protocol "prepare X+, then read a, X, a, X, …", whose quantum agreement probability is 4/5: for the executed controller extended by one fresh block per slot, and for every controller in the memoryless reset class at every fixed `B`, the complete-record total variation from quantum theory tends to 1 with depth (certified above 1/2 for `h ≥ 67,382,091`). *Theorem* (`a2_memory_v8`): the same for every controller whose whole persistent state is finite, with `B` fair fresh bits per slot and a time-independent update; "the obstruction is arithmetic: dyadic fresh randomness against a run law with ratio 4/5". Escapes recorded: a reset with linearly growing private memory "granted the target cuts"; a five-valued fair source. Open there: bounded private memory with unbounded public state, time-dependent updates, growing blocks | R; exact computation with independent audit code and a paper proof; internal reviews retained; "Nothing here concerns A1 (exact QM reconstruction), native availability, physical premises, access rules or OI" | One fixed finite system of this class does not approximate at every depth. A result on one protocol and one class of controllers |
 | `…/stopping-source-v2/REPORT.md` | A countably infinite fair reservoir with almost-sure stopping samples a stated irrational probability exactly: "finite fair randomness at a fixed deadline and fair randomness with almost-sure unbounded access have different exact expressive power". "Under the fixed G3 identification and the pointwise mixed-hidden-state model, enlarging the reservoir does not change the kind of induced operation … A negative off-diagonal entry cannot be obtained by changing the scalar sampling weights"; "this is not a kernel theorem for an infinite native substratum" | R; a written argument; reviewed internally | An infinite hidden resource changes exact probabilities and, on the configuration-basis reading, no operation |
-| `verification/audits/foundations/coherent-continuum-source-audit.md` (outcome and scope sections); `lift-source-audit.md` (outcome) | A census of nine routes (S1–S9) to an uncountable family of non-proportional non-monomial admissible operators, the resource an executable layer flow needs. Verdict: "**outcome 2, no current source; the empirical extension remains**". S3: "uncountable parameter domain does not give uncountable operational image". S5: the canonical gate path "has the algebraic continuum and is not an available family". S7, the observer-level wave lift: "a real/complex wave operator on site/amplitude space, with the map to the operational carrier explicitly unproved"; "underdetermined until a carrier map and admissibility statement are supplied"; "no map is invented". S8, the continuously tunable coupling: "**not part of the current axioms**; a future physical extension, not a current source". "The condition is necessary only" | K for the module `CoherentContinuumSource` (seventeen named results, as the note reports); the census is a reading of the corpus | The corpus's own list of where a continuum could come from. Every route that lands in the operational interface fails; the one that does not land (S7) is unresolved, and B1 is a worked instance of it for one pair |
+| `verification/audits/foundations/coherent-continuum-source-audit.md` (outcome and scope sections); `lift-source-audit.md` (outcome) | A census of nine routes (S1–S9) to an uncountable family of non-proportional non-monomial admissible operators, the resource an executable layer flow needs. Verdict: "**outcome 2, no current source; the empirical extension remains**". S3: "uncountable parameter domain does not give uncountable operational image". S5: the canonical gate path "has the algebraic continuum and is not an available family". S7, the observer-level wave lift: "a real/complex wave operator on site/amplitude space, with the map to the operational carrier explicitly unproved"; "underdetermined until a carrier map and admissibility statement are supplied"; "no map is invented". S8, the continuously tunable coupling: "**not part of the current axioms**; a future physical extension, not a current source". "The condition is necessary only" | K for the module `CoherentContinuumSource` (seventeen named results, as the note reports); the census is a reading of the corpus | The corpus's own list of where a continuum could come from. Every route that lands in the operational interface fails. Two do not land. S6, "emergent continuous-time / effective Hamiltonian descriptions", is "potentially continuous as a representation" and "not an intervention; no availability map stated". S7 is unresolved, and B1 is a worked instance of it for one pair |
 | `verification/audits/foundations/real-pair-flow-audit.md` (outcome and scope sections) | `PairFlow`: a one-parameter family on one pair with identity at zero, the group law, continuity, orthogonality and nontriviality. Every such flow is the rotation family and supplies the mixing datum at every angle. Verdict: "**outcome 2, reduction succeeds, sourcing fails**": "no stated structure of the corpus establishes those hypotheses on the operational carrier" | K for the module `RealPairFlow` (twenty named results, as the note reports) | Continuous tunability on the operational carrier reduces to five hypotheses on one pair; none is sourced. B1's family acts on the real phase space of a pair, not on the operational carrier |
 | `verification/programmes/oi-qm/PROGRAMME.md` §§1, 3.1–3.3, 5 (Arcs D, F), 10 | "The active endpoint is F2. For the presently stated architecture the equivalence endpoint F1 is retired". §3.2: "this is a sourcing no-go for the presently stated architecture. It is not a representation theorem, and it does not show that an extended architecture cannot source the resource." Arc D: "The crucial question for F2 is which physical principle, added to OI and separately motivated, sources it together with valid measurements and compatible state transformations, and what that principle predicts beyond the resource it is introduced to supply." The lift seam: "do not infer “OI sources composite operational QM” merely from “OI sources one-carrier coherent control”" | The programme's strategic map: "not a theorem, an audit, a preregistration"; "Where this map and a theorem/audit disagree, the theorem/audit controls" | The programme's own statement of the open question on tunability. It asks for a principle "added to OI"; the owner's question for TUNE-1 is about existing principles |
+| `PROGRAMME.md` §2, §3.11, §3.12; `track-i/arc-d-operational-sourcing/result.md`; `padData_rooted` (OB/OperationalSourcing.lean:476–478) (used in r5; the map was read in r4b and the result note in r5) | §2, "Three notions that must not be conflated": "A. Quantum representation", "a mathematical representation statement. By itself it does **not** imply that the underlying physics supplies arbitrary coherent phases, Hamiltonians, unitary controls, instruments, or composite-system operations"; "B. Quantum operational repertoire", "The physically available preparations, reversible controls, measurements, instruments, composites, and transformations are exactly those of quantum mechanics, at the stated finite or quasilocal level"; "C. Full physical equivalence to QM". Arc D round 1, outcome RD1: `theorem padData_rooted {W : Matrix Anc Anc ℂ} (hW : W ∈ Matrix.unitaryGroup Anc ℂ) (w : Anc → ℝ) (hw : ∑ x, w x = 1) (t : ℕ) (a j : V) : (padData Q Anc W w).rooted t a j = Q.rooted t a j`: padding a representing datum by any finite ancilla, any unitary on it and any weight of total one represents the same rooted family. From it: "at every nonempty finite carrier every unitary occurs — up to the relabelling implementation classes are already invariant under — as the unitary of a representation of an OI-realizable family", and "**"represented" is a disqualified ground for any sourcing claim, at any rank.**" The round "closes the round, not Arc D"; "A next round asking about a resource must therefore argue at the access, not at the representation"; the deferred resources, coherent off-diagonal control among them, are "still undecided" | K for the module ("Fifty-three named results", as the result note reports; one statement read at the source, no proof read); the map is "not a theorem, an audit, a preregistration" | Fixes what quantum behaviour at the level of the observer can mean. That an observer's records admit a Hilbert-space description with mixing unitaries holds for every representable family and settles nothing; the test is what the observer can prepare, do and record. The positive exhibits of this table are stated in that form: complete record laws under a stated access contract. Scope of the theorem: representing data of rooted stochastic families on finite carriers |
 | Reconstruction rounds OG-1, EFF-1, ORD-1, KTRANS-DENSE-1 (`result.md` of each; Lean statements in section C) | A second kernel interface: a convex body of operational states, a family `G` of affine automorphisms, and a completion body over directed finite stages. Tunability enters as two separate hypotheses, a drive (`ElementaryDrivability`) and boundary transitivity (`BoundaryTransitive`), both labelled K∞-R in the landed records (section C). OG-1 "What stays open": "a source … for the drive and its boundary transitivity on the completion body (K∞-R)". ORD-1: "Nothing here supplies an operation datum, finite rank, a completion chart or stage preservation from an OI construction". KTRANS-DENSE-1: "This round does not show that OI, StageCompletion or the observer architecture yields a dense boundary orbit or boundary transitivity" | K; native rounds, receipts and exact-head runs as each result note reports (not checked here); census: no manuscript text found by search | The exact and the approximate form of the tunability premise are separated in the kernel a second time, and the kernel has a limit object over finite stages |
 
 **What the records say about class 3.** None of the [R] items below is an established claim.
@@ -885,7 +1084,11 @@ the embedded observer reaches it only in part. The records bear on each part sep
 operation is read as a matrix over configuration labels and the hidden part is independent of the
 input, restricted access only loses information (kernel: discard, `nonnegClass`; Main:328). No
 obstruction read has restricted access as its operative cause. In the one obstruction where access
-is operative, the bridge's Proposition, the cause is unrestricted access.
+is operative, the bridge's Proposition, the cause is unrestricted access. The kernel has matching
+statements for a finite permutation system: its passive and controlled access quotients are
+permutation systems with the same visible law, an inert finite hidden fibre changes no visible
+probability, and a completely positive map that agrees with a permutation on every point state
+carries diagonal matrices to diagonal matrices (the two rows added in r5).
 
 (ii) *The cause of every exact or approximate positive.* In each positive exhibit the hidden
 dynamics is a bijection of configurations and the quantum behaviour is a property of the
@@ -908,7 +1111,8 @@ preparable set".
 (iii) *Continuous mixing in the substratum.* One record constructs it from the lattice model's
 update: B1, on one pair, under E-pair, E-real and E-control. Its object is a rotation of real mode
 coordinates, written `exp(iθX)` on `z = x + iy`; it is a continuous family of bijections of an
-infinite configuration space. Neither E-real nor E-control has a source: SM:222 states "The finite
+infinite configuration space. None of the three additions has a source. For E-pair, "no physical
+isolation mechanism is derived here" (B1). For E-real and E-control: SM:222 states "The finite
 bijection is fundamental; a real/complex wave operator is an observer-level lift whose derivation
 must be stated separately" [P], ledger item (ii) posits a
 finite total state space, and the coefficient is loaded from outside "with exact values". With the
@@ -978,7 +1182,10 @@ leaves the infinite case unassessed with the sentence "finite observer capacity 
 finite world"; the two exact positives of (ii) and (iii) have finitely many observer outcomes over
 an infinite underlying space. The kernel's quasilocal interface takes any site set with a finite
 alphabet per site and finite observation regions, and `pair-operation-source.md` §4 takes any
-probability space with finite register partitions.
+probability space with finite register partitions. For the framework itself the same is stated at
+manuscript level (`papers/Introduction.md`:32) and in the finiteness audit (B.0). The
+continuous-substates notes read in r5 are worked cases of a finite readout over an infinite
+carrier; in each the visible process is classical.
 
 (ix) *What the stated architecture fixes about access.* Neither an observation map out of the
 configuration space nor an ensemble on it (stochastic observer-interface audit, table above): the
@@ -1065,7 +1272,12 @@ records both label K∞-R (`verification/audits/foundations/kinf-seams-audit.md`
 group of affine automorphisms preserving `Ω`, a member of it that is an involution moving some
 state, and an automorphism of `Ω` off the flow's axis) and boundary transitivity (K∞-Trans). "A
 drive's flow does not give boundary transitivity" (`not_boundaryTransitive_flow`,
-OB/OrbitGeneration.lean:620, for the range of the one-parameter family `rot3` on `ball3`); "K∞-Drive and K∞-Trans are
+OB/OrbitGeneration.lean:620, for the range of the one-parameter family `rot3` on `ball3`). The
+heading is about the flow alone; the audit's next sentences give the other half: "The words
+generated by the same flow together with `J` are boundary transitive on `ball3`
+(`boundaryTransitive_ball3Drive`, `OrbitNormalization.lean:667` …). That is a property of one
+drive of a body that is already the ball. No theorem derives `BoundaryTransitive Ω G` for any `G`
+from `ElementaryDrivability Ω` on a general body". "K∞-Drive and K∞-Trans are
 therefore separate obligations", and that audit's table marks each as not sourced. The drive holds
 on the unit ball of `ℝ³` and fails on the segment (`ball3_drivable`, `not_drivable_Icc`,
 OB/KInfFoundations.lean:490, :529; KINF-2 `result.md`: "Nothing here derives drivability … from
@@ -1164,8 +1376,8 @@ The records' own contract keeps the two targets apart (Gate A §3, B.12).
 
 | Obstruction | (1) exact | (2) every ε, one fixed finite system | (3) growing family | (4) one fixed rule | (5) infinite underlying space |
 |---|---|---|---|---|---|
-| Sourced observer theory; every nonnegativity-bounded theory (B.5) | excluded [K] (`permTheory_not_control`; `falsifierUnavailable_of_nonnegBounded` for `rot`) | excluded [K], two-state carrier, as no dense unitary control (FrozenSourcing:173, :187, :240) | the invariant holds at every ancilla level and on every carrier [K] (`permTheory_nonnegBounded`); non-approximability is [K] only as no dense unitary control on the two-state carrier, where the approximant is a unitary conjugation at the same level; an approximant built with a larger ancilla and a discard is the [W] step of the scope sentence above (the second reviewer's check of it: a nonnegativity-preserving map has `(0,1)` entry ≥ 0 on the matrix unit where the target has `−1/2`) | excluded [K]: `sourcing_rule_independent` | not expressible in `FiniteOperationalTheory` (`Fintype`). In the kernel's quasilocal interface, on a lattice with any site set and a finite alphabet, the one-site quarter-phase automorphism is induced by no reversible finite-range dynamics (`phaseQ_ne_heisQ`) [K]: exactness, one dynamics at a time, and no statement for `rot`. [R]: no full control from autonomous dynamics on any carrier (the time-shift group is abelian); no quarter phase from non-adaptive native processes with any hidden sector (B.12) |
-| Monomial class with complex phases (B.1) | excluded [K] | excluded [W]: diagonal preservation is closed; the target differs from every diagonal-preserving map by `12/25` in one entry, and from every monomial unitary by `3/5` in operator norm. No kernel theorem | excluded [W]: the invariant does not depend on ancilla size | excluded [W] | [W] for weighted partial injections (B.1); not on `main` |
+| Sourced observer theory; every nonnegativity-bounded theory (B.5) | excluded [K] (`permTheory_not_control`; `falsifierUnavailable_of_nonnegBounded` for `rot`) | excluded [K], two-state carrier, as no dense unitary control (FrozenSourcing:173, :187, :240) | the invariant holds at every ancilla level and on every carrier [K] (`permTheory_nonnegBounded`); non-approximability is [K] only as no dense unitary control on the two-state carrier, where the approximant is a unitary conjugation at the same level; an approximant built with a larger ancilla and a discard is the [W] step of the scope sentence above (the second reviewer's check of it: a nonnegativity-preserving map has `(0,1)` entry ≥ 0 on the matrix unit where the target has `−1/2`) | the invariant holds for the observer theory of every substratum and the theory does not depend on the rule [K] (`obsTheory_nonnegBounded`, `sourcing_rule_independent`); non-approximability is [K] on the two-state carrier only, as in column (3), because `DenseUnitaryControl` is defined for `FiniteOperationalTheory (Fin 2)` | not expressible in `FiniteOperationalTheory` (`Fintype`). In the kernel's quasilocal interface, on a lattice with any site set and a finite alphabet, the one-site quarter-phase automorphism is induced by no reversible finite-range dynamics (`phaseQ_ne_heisQ`) [K]: exactness, one dynamics at a time, and no statement for `rot`. [R]: no full control from autonomous dynamics on any carrier (the time-shift group is abelian); no quarter phase from non-adaptive native processes with any hidden sector (B.12) |
+| Monomial class with complex phases (B.1) | excluded [K] | excluded [W]: diagonal preservation is closed; the target differs from every diagonal-preserving map by `12/25` in one entry, and from every monomial unitary by at least `3/5` in operator norm. No kernel theorem | excluded [W]: the invariant does not depend on ancilla size | excluded [W] | [W] for weighted partial injections (B.1); not on `main` |
 | B.2 as stated | no obstruction: vacuous hypothesis | no obstruction | no obstruction | no obstruction | no obstruction |
 | B.3 / B.4 countermodels; `flow_endpoint_refuted` | non-entailment only | not addressed | not addressed | not addressed | not addressed |
 | B.6 counting | excluded [K] | **not excluded**: with one postulated gate a dense countable class exists [K] | not excluded | not excluded: `fixedGateTheory 1` is dense for every ε [K], with a postulated gate and unbounded ancilla levels | not addressed |
@@ -1174,7 +1386,7 @@ The records' own contract keeps the two targets apart (Gate A §3, B.12).
 | Encoded carrier, finite configuration set, fixed orthogonal (hence one-to-one) linear frame, H-LIFT (MECH-2, apparatus-1) [R] | excluded for every fixed bijection: encoded unitaries are frame symmetries, a finite group (MECH-2 §6.4) | excluded for the quarter phase under the one-cell frame: stochastic matrices are closed (apparatus-1:778–784); a finite group of encoded unitaries is not dense, for any fixed number of cells [W] | excluded under the product frame for every number of cells and ancillas (Theorem U2(ii)) | every rule | "not assessed" (MECH-2:910–911) |
 | Linear class N with the posited access (P1, P2, P3, E-iso; with or without NNB), odd prime `q`, Gross's frame (MECH-1 Theorem W, Proposition C) [R] | excluded: every available encoded unitary is Clifford, a finite group, at each fixed `q` | excluded at a fixed `q`: the group is finite, and reachable states keep nonnegative Wigner functions (Proposition C(a), (b)) | cells and ancillas: excluded at fixed `q` (Proposition C covers every protocol). A family in growing `q`: not addressed; named and "left to Q-B (§6.5)" (:217) | the step is the lattice model's linear rule; which edge is armed at each tick is loaded from outside (P3); the access is posited | not derived. Named as Q-B's first test, "whether AS survives the real or large-`q` limit: exact continuous symplectic rotations of quadratures, with C-CP"; "A qubit `rot` would still need non-Gaussian, Wigner-negative resources" (:1073–1076) |
 | Convex-body interface of the reconstruction rounds (OG-1, EFF-1, ORD-1, KTRANS-DENSE-1) [K] | boundary transitivity excluded for a countable family on the 3-ball; a drive excluded when every orbit is finite; infinite order excluded for a stage-preserving reversible datum | not addressed as such. A dense boundary orbit is not excluded for a countable family (`ratRefl`, a mathematical control) and suffices for eleven named consumers | not addressed: the completion body is the limit object; no theorem relates an approximating sequence of stages to the drive | not addressed: no hypothesis is derived from any rule | the body lies in `ℓ^∞` over the stage effects; the statements hold there under finite rank |
-| Real two-mode carrier, amplitude coordinates `z = x + iy`, loaded coefficient (B1; bridge) [R] | constructed under E-pair, E-real, E-control: `exp(iθX)` for every real `θ` on one pair. With point preparations and a sign read, no fixed finite-dimensional quantum carrier represents the statistics | not addressed | not addressed: "Finite-alphabet versions or approximation limits do not automatically supply J_exact(A)" (B1 §8); "A finite-menu/precision approximation remains a separately named target" (bridge §7). The primitive is reversible over `Z_q`; what the word gives there is not derived in the record | the update is the lattice model's second-order form on an isolated pair; the angle is a loaded coefficient, so by the record's own ledger the tunability is supplied by E-control, not derived | this row is the infinite case: the underlying space is `R^4` per pair, an added input that ledger item (ii) excludes |
+| Real two-mode carrier, amplitude coordinates `z = x + iy`, loaded coefficient (B1; bridge) [R] | constructed under E-pair, E-real, E-control: `exp(iθX)` for every real `θ` on one pair. With point preparations and a sign read, no fixed finite-dimensional quantum carrier represents the statistics | not addressed | not addressed: "Finite-alphabet versions or approximation limits do not automatically supply J_exact(A)" (B1 §8); "A finite-menu/precision approximation remains a separately named target" (bridge §7). The primitive is reversible over `Z_q`; what the word gives there is not derived in the record | the update is the lattice model's second-order form on an isolated pair; the angle is a loaded coefficient, so by the record's own ledger the tunability is supplied by E-control, not derived | this row is the infinite case: the underlying space is `R^4` per pair, an added input (E-real, "not inferred from finite `Z_q` configurations"). It lies outside the finite construction the manuscripts posit (ledger item (ii)). `main` neither bars nor adopts such a carrier: the general framework, as the finiteness audit reports the owner's direction, leaves the size unspecified, and a claim on this carrier is open until its states, dynamics and observation interface are specified and the claim proved (B.0) |
 | Sphere model and its discretizations (`history-architecture-v5`, `finite-a2-v5`, `a2_depth_v7`, `a2_memory_v8`) [R] | exact for one qubit on the continuum sphere: every state, every rotation, every finite adaptive rank-one projective protocol, under the supplied contract | excluded in depth for a stated class on one protocol (finite whole state, dyadic fresh bits, time-independent update): the record law's distance tends to 1 | constructed for a fixed menu and horizon: `N = 6M²` labels and `(h+1)B` fair bits, with an explicit bound | no fixed OI rule: rotations, reset and reads are supplied primitives of an abstract model | exact case as column (1); the continuum, its measure and the access contract are supplied |
 | Eight-point model with the first-moment decoder (`operational-quotient-v3`, `product-section-v4`) [R] | excluded beyond the 24 Clifford actions, for the stated decoder and preparation domains | excluded: error at least 1/15 (2/15 for product preparations) on stated pairs, for this representation | not addressed: "Changing which hidden preparations represent a quantum state, their conditional apparatus correlations, the decoder or the available interface changes premises of the calculation" | every stochastic kernel independent of the preparation label | outside the hypothesis |
 
@@ -1182,6 +1394,19 @@ The records' own contract keeps the two targets apart (Gate A §3, B.12).
 unbounded state space can approximate to every ε with the quantum data in the initial condition,
 which is the reading Main:582 gives of its own construction. The linear rule of ledger item (vii)
 is not of that kind.
+
+[W] remark on the B1 row, columns (2) and (3), raised by the fourth review and checked here against
+the record's formulas; not in the record, not reviewed. B1's own example `a = 1/2` gives
+`U = (3/5)I − (4i/5)X` from a twelve-step word whose coefficients are 0, 1/2 and 4/5 (`Q_a` uses
+`T_a` and `T_0`; `P_b` uses `T_{−b}` with `b = −4/5`). This `U` is `exp(iφX)` with `cos φ = 3/5`.
+A rational cosine other than 0, ±1/2 and ±1 belongs to no rational multiple of π (Niven's
+theorem), so the powers of `U` are dense in the family `exp(iθX)`. On the real carrier, then,
+every angle is approximated with three fixed rational coefficients and a word length that grows
+with the precision. The exactly loadable continuum of coefficients (E-control) is what exactness
+and the common duration of twenty-four updates need; real-valued sites (E-real) and isolation
+(E-pair) are needed in both cases, since over a finite ring in which these coefficients exist the
+same word is a permutation of a finite set and has finite order. This is the fixed-gate pattern of the kernel's dense theory. The cells of the row
+stand: the record does not address approximation.
 
 Three readings follow from the table and are kept apart in sections D and F.
 
@@ -1195,16 +1420,19 @@ Three readings follow from the table and are kept apart in sections D and F.
   an infinite underlying space (Main:560 [P, P-imp]; apparatus-1 §5.3 [R]; the kernel statements
   above in their own interface). On an infinite space it is exhibited for one qubit by a supplied
   model (the sphere model) and constructed in its dynamical half from the lattice update under
-  E-real and E-control (B1), where the unrestricted read fails. An exact claim about OI on this
-  reading revises ledger item (ii).
+  E-pair, E-real and E-control (B1), where the unrestricted read fails. An exact claim on this
+  reading lies outside the finite construction the manuscripts posit (ledger item (ii)); the
+  standing of that posit, and of a claim on an infinite carrier, is in B.0.
 - *Observer-statistics reading, approximate.* Approximation to every `ε` by finite systems that
   grow with `1/ε` and with the protocol's depth. Constructed twice at paper or record level: in
   Main with "the instrument data and … the state held in the hidden register" as input (Main:566,
   :582), and for one qubit from the sphere model's geometry (`finite-a2-v5`). Neither starts from
   OI's rule; whether a family in growing alphabet size built from the lattice update approximates
   anything is undecided on `main` (MECH-1 §1.4 leaves "The continuum form" to Q-B; the
-  correspondence between alphabets "is not constructed here", SM §2.7). This reading leaves ledger
-  item (ii) untouched.
+  correspondence between alphabets "is not constructed here", SM §2.7; the alphabet-size
+  hypothesis "does not address whether $q \to \infty$ limit produces continuum dynamics or what
+  role real-valued degrees of freedom play", `papers/Structure.md`:219). This reading stays inside
+  the finite construction of ledger item (ii).
 
 The kernel's approximate target needs less than the exact one in both interfaces: a single
 non-monomial gate at an irrational angle with the phases and exchanges, or a dense boundary
@@ -1229,16 +1457,25 @@ They establish nothing here. "Open" means logical room, not evidence.
 | D1 infinite underlying space, finite access | Main:560, Main:488 (finite `N`); the `Fintype` typing of `FiniteOperationalTheory` | not expressible in `FiniteOperationalTheory`; in the convex-body interface the completion body is a limit object over finite stages, with no theorem sourcing a drive on it; in the quasilocal interface (any site set, finite alphabet, finite regions) the one-site phase automorphism is induced by no reversible finite-range dynamics (`phaseQ_ne_heisQ`), finite-support instruments are those of one finite region, and infinite-support availability is independent of the frozen structure (`q3_countermodel`, as its audit reports) | configuration-basis reading: the record kernel and the Koopman compression of any measurable bijection onto finite register partitions are entrywise nonnegative, as a baseline that is "**not** a deduction that every observer-level operational interface must use" it (`pair-operation-source.md` §4); autonomous dynamics gives no full control on any carrier (the time-shift group is abelian); non-adaptive native processes give no quarter phase with any hidden sector; an infinite fair reservoir changes exact probabilities and no operation (`stopping-source-v2`, "not a kernel theorem for an infinite native substratum"); finite-stage reduction for continuous readouts of towers [R]. Observer-statistics reading: exact `rot` needs an infinite carrier (apparatus-1 §5.3); the sphere model reproduces one qubit exactly on a continuum with a supplied access contract (`history-architecture-v5`) [R] | E1 and saturation: an arbitrary measurable hidden carrier induces on a finite carrier only what a finite register induces, under H-IND | Configuration-basis reading: closed conditionally, at layer [K]/[P] for finite hidden parts, [K] for the phase on a lattice with any site set and a finite alphabet (one dynamics, exactness), [R] for the three special infinite cases named and for the compression baseline, [W] and [D] for the general infinite case. Observer-statistics reading: open, and exhibited by a supplied model; open on OI's side only together with D2, D5 or D11. Revising it changes ledger item (ii) |
 | D2 encodings that are non-linear, non-injective or chosen per measurement context | the fixed orthogonal (hence one-to-one) linear frame of MECH-2 Lemma F and Theorem U2 | not expressible | fixed orthogonal frames with H-LIFT are closed for every dynamics as to encoded unitaries (Lemma F, Theorem U2(ii)), with no condition on the reads. Worked non-injective instances: the eight-point first-moment decoder (finite; the 24 Clifford actions; error floor) and the sphere decoder on a restricted cone (continuum; every rotation) [R]. Coordinates read as amplitudes (B1): every angle, and the density dictionary fails with a sign read [R]. No finite carrier gives exact `rot` (apparatus-1 §5.3) [R] | E2: one shared linear encoding makes all native measurements jointly measurable; the continuum (Husimi) frame hosts every unitary as a point map and no sharp read | Open for non-linear and per-context encodings. As a class it contains "QM by fiat" (amplitudes as coordinates, the Born measure posited); the records' controls against that are the sign-record test and the supplied-measure test (B1 §6, B2 §4) |
 | D3 memory outside the identified carrier | H-IND, H-LIFT, the uniform ancilla | not expressible (`prepAvail_uniform` only) | "Without H-LIFT … the encoded description must be enlarged until H-LIFT holds" (MECH-2:346–347); preparation-dependent lifts are outside the feedback result's H-C; Q-A's CP recovery "does not apply to an additional correlated or preparation-dependent hidden background by declaration" (PROOF-RECOVERY:24–25) | named route C-dyn, "not decided" | Open and unexamined for protocols whose hidden part depends on the input law; then no linear map on carrier states is defined |
-| D4 limits and completions | finite derivations of `InstAvail` | nonnegativity passes to limits (`preservesNonneg_of_approx`) | towers: finite stage per horizon (ANALYSIS.md) [R]; quasilocal path "*additional structure*, chosen rather than derived" (Main:274) | E3 | Largely closed. Remaining: non-continuous readouts, infinite horizon |
+| D4 limits and completions | finite derivations of `InstAvail` | nonnegativity passes to limits (`preservesNonneg_of_approx`); the two completions in the kernel, the quasilocal norm completion and the stage completion of the convex-body interface, source no operation (B.12; section C) | towers: finite stage per horizon (ANALYSIS.md) [R]; quasilocal path "*additional structure*, chosen rather than derived" (Main:274) | E3 | Largely closed. Remaining: non-continuous readouts, infinite horizon |
 | D5 sourcing that is not configuration-level | the choice of class | "say nothing about sourcings that do not" (OB/ManuscriptAxioms.lean, header); "no formulation that lands derives either target", a non-monomial admissible operator or the gate flow of a layer (lift-source audit, scope amendment): the reversible coherent lifts are monomial (`coherentLiftClass_eq_substratumClass`), the named channels preserve diagonal states, and "The existence of a configuration-level realization of a named channel is not read as the exclusion of every non-monomial realization" | the observer-level wave lift is route S7 of the coherent-continuum source audit: "underdetermined until a carrier map and admissibility statement are supplied"; Main:590, "unresolved rather than excluded". B1 supplies a carrier map for one isolated pair (`z = x + iy`, `J = T_0`) under E-real and E-control and no admissibility statement; its read test fails the density dictionary. L3 lift: no map from amplitudes to the carrier is stated (F2-1 §3, G★) [R] | no admissibility criterion exists; the class is data | Open, and requires giving up "states are laws on a finite configuration set" or supplying an admissibility rule |
-| D6 approximate target | — | excluded with exactness for the sourced theory | — | — | Not an opening |
+| D6 approximate target, on the configuration-basis interface | — | excluded with exactness for the sourced theory | — | — | Not an opening on that interface. The approximate target on the observer-statistics reading is D12 |
 | D7 restricted access on a finite carrier, as coarser operational equivalence (M-INACC) | H-LIFT and the one-to-one identification (Lemma F, Theorem U2); spanning reads (Theorem NC) | discard and `nonnegClass` cover the configuration-basis form: neither `rot` nor the phases | named missing premise. Nearest instance: Q-A Lemma Q(iii), "Under P1 and P2", which apparatus-1 §3.1 classes as "new physical posits about control, access and resources"; linear rule, `q = 2`; it "covers present active functionals only" (M-INACC-1 §9; past values are exposed by a one-tick protocol, §6.3). Negative for `G_σ` (M-INACC-1), in a unit that could not have returned a positive. With Lemma Q the quarter phase still needs NNB, yields non-CP reflections and fails two-system correlations. A supplied finite access quotient exists and gives the Clifford actions only (`operational-quotient-v3`) [R] | every partition and every fixed conditional prior is covered by T0 | **Open.** The finite-carrier form of the owner's class 3; the continuum form is D11. It concerns nonclassicality, not tunability: on a fixed finite carrier a positive answer opens the class of the 8-point quarter-phase mechanism, and exact `rot` stays excluded there. No source in OI's stated principles; the one instance rests on posited access |
 | D8 adaptive native processes | non-adaptivity in Lemma G2 | not addressed | "Adaptive native processes are not covered" (Q-A §0, §4.3); the combined target with CP is excluded for uniform linear encodings (feedback result); record feedback is covered at odd prime `q` (MECH-1 Lemmas S, G; Proposition C) and in the one-cell frame at `q = 2` (apparatus-1 Lemma 5); adaptive gradedness at `q = 2` is open (MECH-1 node 5) [R] | — | Open in a bounded sense, at `q = 2` only |
-| D9 time coarse-graining, stopping times | — | products of admissible operators | — | covered by T0 | Not an opening |
+| D9 time coarse-graining, stopping times | — | products of admissible operators | `stopping-source-v2`: almost-sure stopping over a countably infinite fair reservoir changes exact probabilities and, "Under the fixed G3 identification and the pointwise mixed-hidden-state model", no kind of operation; "this is not a kernel theorem for an infinite native substratum" [R] | covered by T0 | Not an opening |
 | D10 Q-B: a principle producing continuous rotations | the finite alphabet in MECH-1 Proposition C; the finite carrier in apparatus-1 §5.3 and MECH-2 §6.4 | not expressible in `FiniteOperationalTheory`; in the convex-body interface the corresponding hypotheses (drive, K∞-R) are unsourced | posed and open (apparatus-1 §5.7), with two named first checks. (1) "exact continuous symplectic rotations of quadratures, with C-CP" (MECH-1 §6.5). Its dynamical half is worked for one pair in B1, conditionally on E-pair, E-real and E-control; its law-level half, complete positivity in one fixed frame under the access posits on a real or large alphabet, is "not derived here". (2) "Whether a native reciprocal read on a continuum cell with a symplectic area form … produces the cosine-weighted re-preparation law without a supplied measure" (apparatus-1 §5.4). The ball-containing carrier with that law exists as a supplied model (`history-architecture-v5`); what is underived is the law "without a supplied measure", a native read and reset, and the composite extension. The exact finite form at odd prime `q` was tested: a finite Clifford group, a stop (MECH-1). Controls named in Q-A §4.4 [R] | per-site continua are the setting of SUBSTATE-BRIDGE-1 r2: "an infinite hidden carrier adds no single-procedure map" under H-IND; route R1, a non-linear encoding on a connected continuum, "fails hard-to-vary as stated" | **Open; neither first check is run as stated.** Q-B asks for an "additional OI principle", so an answer is a new premise unless the principle is derived. Its record expects a qubit `rot` to need more than quadrature rotations. The exact form revises ledger item (ii) |
 | D11 an access quotient on a carrier with continuous mixing | the finite configuration set (Lemma F); the unrestricted preparations and sign access of the bridge's Proposition | not expressible | "The next missing physical statement is an **observer/access quotient lemma**" (`whole-model-bridge.md` §7). Negative control: point preparations with a sign read, no fixed finite-dimensional quantum carrier. Positive control: the sphere model's cone, sign read, re-preparation and privacy, all supplied. "Such a physical restriction must be sourced independently; this paper neither assumes it nor selects a replacement candidate" [R] | — | **Open; posed on `main`; not started.** The continuum form of the owner's class 3. Every exact form sits on a real-valued carrier (E-real, unsourced; ledger item (ii)). A finite or approximate form is not posed in any record read |
-| D12 approximation by finite systems of growing size, from ingredients other than the quantum rule | "one fixed finite system" in column (2) of section C | dense unitary control from one postulated gate [K]; dense boundary orbit as a hypothesis [K] | for one qubit, a fixed menu and horizon: constructed from the sphere model's geometry (`finite-a2-v5`), with reset, access and clock supplied; a fixed finite controller of a stated class fails in depth on one protocol, and the least growth that suffices is open (`a2_memory_v8`). From OI's rule: a family in growing alphabet size is named and not built (MECH-1 §1.4, §6.5; SM §2.7) [R] | — | Open on OI's side. It leaves ledger item (ii) untouched. The records' contract forbids replacing a failed exact target by it after the fact (Gate A §3) |
+| D12 approximation by finite systems of growing size, from ingredients other than the quantum rule | "one fixed finite system" in column (2) of section C | dense unitary control from one postulated gate [K]; dense boundary orbit as a hypothesis [K] | for one qubit, a fixed menu and horizon: constructed from the sphere model's geometry (`finite-a2-v5`), with reset, access and clock supplied; a fixed finite controller of a stated class fails in depth on one protocol, and the least growth that suffices is open (`a2_memory_v8`). From OI's rule: a family in growing alphabet size is named and not built (MECH-1 §1.4, §6.5; SM §2.7) [R]; the alphabet-size hypothesis "does not address whether $q \to \infty$ limit produces continuum dynamics or what role real-valued degrees of freedom play" (`papers/Structure.md`:219) [P] | — | Open on OI's side. It leaves ledger item (ii) untouched. The records' contract forbids replacing a failed exact target by it after the fact (Gate A §3) |
 
+How to read "ledger item (ii)" in rows D1, D10, D11 and D12 (added in r5; no cell of those rows is
+changed). Ledger item (ii) is the manuscripts' posit of a finite total state space for their
+finite construction. "Revising it changes ledger item (ii)" (D1) and "The exact form revises
+ledger item (ii)" (D10) mean that such a result lies outside that construction, so the
+manuscripts' recurrence step and §4.6, which consume the posit, would not cover it. They do not
+mean that an infinite underlying system is barred. On `main` it is neither barred nor adopted
+(B.0): the Introduction states the hypothesis without total finiteness, a research record reports
+the owner's direction that the general framework leaves the size unspecified, and every claim on
+an infinite carrier is open until separately proved.
 
 ***
 
@@ -1279,12 +1516,17 @@ is done above, within the reading limits of Appendix G.
 **Recommendation.** Hold Step 2. No mechanism survey. Two owner decisions, in order: (1) which
 reading of "quantum behaviour arising" is the target, and whether the exact or the approximate
 form is meant (F.2); (2) whether to activate one question that `main` already poses, as a
-paper-only unit whose decision rule and controls are fixed before any work. Under the owner's
-standing instruction not to adopt an infinite substratum, the question nearest the owner's third
-possibility, the access quotient, can be taken up only as a conditional derivation that carries
-real-valued sites and an externally loaded coefficient as named unsourced hypotheses into every
-conclusion; if that form is not wanted, TUNE-1 stops at Step 1 and the tables above are its
-result.
+paper-only unit whose decision rule and controls are fixed before any work. The owner's
+instruction for TUNE-1 is that no new physical premise be adopted and that finite observational
+access not be taken to mean finite underlying dynamics (Issue #1236); neither a finite nor an
+infinite underlying system is to be assumed. Under it, the question nearest the owner's third
+possibility, the access quotient, has two forms. The exact form can be taken up only as a
+conditional derivation that carries an isolated pair, real-valued sites and an externally loaded
+coefficient as named unsourced hypotheses into every conclusion. The approximate form, on a
+finite substratum of growing size (F.2, B-approx; D12), does not need real-valued sites. It is the
+least developed on `main`: no record read poses it, and whether it needs isolation or an
+externally set coefficient is not decided there. If neither form is wanted, TUNE-1 stops at Step 1
+and the tables above are its result.
 
 The grounds follow, in the order: why no survey; the open questions as `main` states them; the
 candidates compared; why hold; the controls.
@@ -1298,7 +1540,8 @@ candidates compared; why hold; the controls.
   for the linear rule. In the kernel's second interface, an operation that preserves each finite
   stage has finite order on the completed body (ORD-1).
 - *Vector- or complex-valued states.* B1 and the bridge: real mode pairs read as complex
-  amplitudes give every mixing angle under two unsourced additions, and fail the read test.
+  amplitudes give every mixing angle under three unsourced additions (an isolated pair,
+  real-valued sites, a loadable coefficient), and fail the read test.
 - *The two-slice complex structure.* B1's `J = T_0` is the complex structure of one isolated pair
   at zero coupling, built from the two time slices; the single coupled step does not commute with
   it, and the 24-step word is built to return to it. Issue #1217 (not on `main`; provenance) poses
@@ -1348,7 +1591,7 @@ Rows marked [W] are the writer's reading of the tables.
 | What a unit could decide [W] | for the stated carrier and drive: whether a stated family of restrictions, each written without reference to quantum probabilities, passes the fixed-dimension state and effect test and survives the access countercontrols; or that none of the stated family does | whether the linear class on a real or large alphabet keeps complete positivity in one frame under P1 and P2 | whether a stated rule keeps a quantity it uses out of the observer's reach under P1 and P2 |
 | What it could not decide [W] | where real-valued sites or a loadable coefficient come from; the composite and lift-seam obligations of the programme map; all restrictions outside the stated family | the source of a real carrier or adjustable coupling; a qubit `rot` ("would still need non-Gaussian, Wigner-negative resources"); nonclassicality | tunability: on a fixed finite carrier exact `rot` stays excluded (apparatus-1 §5.3) |
 | Kind of work | paper derivation | paper derivation; the owner's Q-B record says a computational part would run as a V3 round and that the target decision "does not authorize execution, adopt additional physical premises, or bypass V3" (Issue #1169, comment 6712409082, amaybaum, 2026-11-07T20:08:39Z; provenance, not on `main`) | paper derivation for a stated rule; the first check "can be decided for a fixed small ring and bounded protocol depth" (MECH-2 §6.3), which would be a computation |
-| Exact form and ledger item (ii) | on a real-valued carrier. As a conditional derivation with E-real and E-control carried into the conclusion it adopts nothing; as a statement about OI it is a Layer-0 revision under §A.29, which the owner has said not to adopt | as the previous column | finite carrier; ledger item (ii) untouched |
+| Exact form and ledger item (ii) | on a real-valued carrier, outside the finite construction the manuscripts posit (ledger item (ii)). As a conditional derivation with E-pair, E-real and E-control carried into the conclusion it adopts nothing. As a statement about OI it would need those three derived or adopted as premises; Issue #1236 excludes adoption within TUNE-1 ("No … adoption of new physical premises"), and `main` holds such a claim open "until separately proved" (B.0). No record on `main` bars an infinite underlying system, and none adopts one. Issue #1007 (provenance) treats observer-relative finiteness as a revision under §A.29, with a list of results to preserve and an independent payoff required | as the previous column | finite carrier; ledger item (ii) untouched |
 | Approximate form (finite substratum) | not posed in any record read. B1 notes the primitive is reversible over `Z_q` and derives nothing there | a family in growing alphabet size, named and not built; needs the correspondence between alphabets that SM §2.7 says "is not constructed here" | not what the premise addresses |
 | New-premise risk | the restriction is the answer if it is chosen and not derived: "It cannot simply identify states that an available sensor distinguishes" | the question asks for an "additional OI principle" | the premise is "not adopted", "easy to vary" and flagged CC-RECON if adopted only to reach the target |
 
@@ -1361,19 +1604,31 @@ access quotient for a ball-containing carrier. Route S7 is the same object state
 carrier map and admissibility statement. Whether these are one unit or several is for the owner;
 this document does not design the unit.
 
+A limit on all three [W, from B.12 (ix)]. The stated architecture has neither an observation map
+out of the configuration space nor an ensemble on it (stochastic observer-interface audit). A
+restriction on preparations and reads derived in any of these units therefore rests on premises
+that the architecture does not state, and the unit would have to name them.
+
 **Why hold, and on what.**
 
 1. *The target reading is undecided* (F.2). On the configuration-basis reading the answer to the
    owner's question is already on `main`: excluded, exactly and approximately, for a class-2
    reason. On the observer-statistics reading the exact and approximate forms lead to different
    units.
-2. *Every exact form of the tunability questions sits on a real-valued carrier.* That is the
-   infinite underlying space the owner has said not to adopt as a premise. A conditional paper
-   derivation is compatible with that instruction only if E-real and E-control appear in every
-   conclusion as unsourced hypotheses; the owner decides whether such a result is wanted.
-3. *The approximate form on a finite substratum is the form compatible with ledger item (ii), and
-   it is the least developed.* No record read builds a growing family from the lattice update, and
-   its first obligation, a correspondence between alphabets, is unbuilt.
+2. *Every exact form of the tunability questions sits on a real-valued carrier.* Real-valued sites
+   are an added input with no source (E-real), and adopting them as a premise is what Issue #1236
+   excludes. The underlying system being infinite is not itself the difficulty: `main` leaves its
+   size open and holds every claim on an infinite carrier open until proved (B.0). A conditional
+   paper derivation is compatible with the instruction only if E-pair, E-real and E-control appear
+   in every conclusion as unsourced hypotheses; the owner decides whether such a result is wanted.
+3. *The approximate form on a finite substratum stays inside the manuscripts' finite construction
+   (ledger item (ii)) and does not need real-valued sites; it is the least developed.* Whether
+   it needs isolation or an externally set coefficient is not decided in any record read. No
+   record read builds a growing family from the lattice update, and its first obligation, a
+   correspondence between alphabets, is unbuilt. Being inside the finite construction is a
+   statement of scope and not a ground for preferring this form: the owner's record for Q-B makes
+   exact rotations "the ultimate target" and approximation "an intermediate research milestone"
+   (F.2).
 4. *The answer is at risk of being supplied.* In every positive exhibit the access contract, the
    measure or the coefficient is put in by hand. A unit without a decision rule and a
    supplied-measure control fixed in advance would add one more such exhibit.
@@ -1414,9 +1669,15 @@ fixed (§A.29).
    (a finite group), so that a limit is not built in; the correspondence between alphabets is
    stated before it is used (SM §2.7); the condition `3 ∤ q` and the `−x(t−1)` memory term
    (Main:726 item (xiii)) are carried.
-10. *Exact form only.* The §A.29 list: the results the revision preserves (the recurrence step
-    needs finite `S`, GR:142; the finite-horizon equivalence; Lemma 3's counting measure) and at
-    least one independent prediction. None is identified here.
+10. *Exact form only, and only if a result is to be stated about OI and not conditionally.* The
+    §A.29 list: the results preserved and at least one independent prediction. For a carrier
+    whose size is not fixed, the finiteness audit sorts Main's results by which finiteness they
+    use (B.0): the recurrence step of §2.3 and the P-indivisibility route through it, the product
+    form of Lemma 2 and Lemma 3's unique uniform measure use a finite total `S`; Lemma 1, the
+    finite-horizon equivalence as existence of finite representatives, and stochastic-inverse
+    rigidity do not. Issue #1007 (provenance) carries the owner's list of results to preserve and
+    requires an independent payoff, with the caution that removing the Main:560 obstruction (its
+    "Main:554") "does not count as a prediction". No independent prediction is identified here.
 11. *Which first check is meant*, where a record names two (MECH-1 §6.5; apparatus-1 §5.4).
 12. *Vocabulary boundary* (pair-flow equivalence audit, frozen there for "the realization-level
     source search that follows this round"). A candidate source whose statement uses rotation,
@@ -1425,43 +1686,87 @@ fixed (§A.29).
 
 ### F.2 The prior decision for the owner, in plain terms
 
+Three questions. Each can be answered by naming one option.
+
 **Question 1. What has to look quantum?**
 
 - (A) *The world's configurations themselves.* The quantum state is a table of numbers over the
   world's configurations, and mixing must appear in that table. On `main` this is ruled out for a
-  world that only reshuffles configurations, exactly and approximately, at any size. If (A) is
-  the target, TUNE-1's answer is "no, because of the reshuffling restriction read through this
-  identification", and no further step is needed.
-- (B) *What an embedded observer can prepare and measure.* The quantum state is a summary of the
-  observer's information about hidden configurations. Under (B) reshuffles can act as quantum
+  world that only reshuffles configurations, exactly and approximately, at any size (section C
+  gives the layer of each part). If (A) is the target, TUNE-1's answer is "no, because of the
+  reshuffling restriction read through this identification", and no further step is needed.
+- (B) *What an embedded observer can prepare and measure.* Every experiment the observer can
+  actually run (its preparations, its operations and its readouts, repeated and combined) gives
+  the statistics a quantum system would give. The quantum state is then a summary of what the
+  observer can know about the hidden configuration. Under (B) reshuffles can act as quantum
   operations, and the question becomes which preparations and readouts the observer has, and why.
 
-**Question 2, if (B). Exact or approximate?**
+Two points fix what this choice is.
 
-- (B-exact) Every rotation, exactly. This needs an infinite underlying world. The owner has said
-  not to adopt that as a premise; a result of this kind can only be stated as "if sites held real
-  numbers and couplings were adjustable from outside, then …".
-- (B-approx) As close as desired, with finite systems that grow as the precision grows. This
-  keeps the world finite. Nothing on `main` builds it from OI's own update.
+1. *The owner's third possibility presupposes (B).* "Could continuous mixing exist in the
+   deterministic substratum but remain only partially accessible to embedded observers?" is a
+   question about what an observer reaches. Under (A) there is no observer-level description for
+   partial access to act on, and limited access changes nothing (B.12 (i)). The wording of Issue
+   #1236 therefore already points to (B). What is asked of the owner is to confirm (B), or to say
+   that (A) was meant.
+2. *(B) means agreement in what the observer can do, not the existence of a quantum
+   description.* The programme map keeps three claims apart (`PROGRAMME.md` §2): a quantum
+   *representation* ("a mathematical representation statement"), a quantum *operational
+   repertoire* ("The physically available preparations, reversible controls, measurements,
+   instruments, composites, and transformations are exactly those of quantum mechanics"), and
+   full physical equivalence. Arc D round 1 proves that the first counts for nothing as evidence
+   of the second: every representable family of observer statistics has representations that
+   carry any chosen unitary on an added ancilla, mixing ones included (`padData_rooted` and its
+   consequences, B.12; finite carriers), so
+   "**"represented" is a disqualified ground for any sourcing claim, at any rank.**"
+   (`PROGRAMME.md` §3.12), and a claim about a resource "must therefore argue at the access, not
+   at the representation" (round result, §11). Under (B) a candidate is therefore judged by the
+   complete record of what the observer prepares, does and reads, under stated access; a
+   Hilbert-space description of its records is not evidence. At `082c3eaa` Main's own sentence
+   reads "The memory-bearing description — with its admitted quantum representation — emerges
+   under the conditions below" (the header gives the pin's wording).
 
-For Q-B the owner has recorded a target that orders the two (Issue #1169, comment 6712409082,
+**Question 2, if (B). Exact, approximate, or both in order?**
+
+- (B-exact) Every rotation, exactly. On the records read this needs an infinite underlying world
+  (paper level). `main` neither bars nor adopts one: a finite world is a posit of the manuscripts'
+  finite models, the hypothesis as the Introduction states it does not require it, and every
+  claim on an infinite carrier is open until proved (B.0). Issue #1236 excludes adopting a new
+  physical premise. So within TUNE-1 a result of this kind can only be conditional: "if an
+  isolated pair of sites held real numbers and its coupling were adjustable from outside, then
+  …", with those three hypotheses named as unsourced in the conclusion.
+- (B-approx) As close as desired, by finite systems that grow with the precision and with the
+  length of the experiment. This stays inside the manuscripts' finite models and does not need
+  real-valued sites. Nothing on `main` builds it from the lattice model's update.
+- (Both, in Q-B's order.) Exact as the final target, approximation as an intermediate milestone
+  that does not by itself establish the exact claim.
+
+The third option is the one the owner has recorded for Q-B (Issue #1169, comment 6712409082,
 amaybaum, 2026-11-07T20:08:39Z; provenance, not on `main`): "exact quantum rotations as the
 ultimate target for Q-B, while allowing observer-resolution approximations as an intermediate
 research milestone"; "Full OI–QM equivalence | Not established by approximation alone"; "Error
 control: Quantify how approximation errors behave under repeated operations, adaptive measurements
 and recombination. Small single-step errors are not enough"; "OI's finite observer capacity does
 not necessarily imply that the underlying world is finite." The decision asked here is whether
-TUNE-1 takes the same ordering, and how it combines with not adopting an infinite substratum: on
-the records read, the two are compatible only if an exact result is stated conditionally on
-real-valued sites, with that hypothesis named in the conclusion.
+TUNE-1 takes the same ordering.
 
-**Question 3, if (B). What counts as enough?** One quantum bit, or composites as well; and whether
-rotations of two wave amplitudes, which a classical model also has, count toward the target before
-a readout rule is derived. The records expect a single-system result to leave composites open and
-expect a qubit rotation to need more than amplitude rotations.
+**Question 3, if (B). How much has to be quantum before it counts?**
 
-The corpus does not settle these, and the answers change which obstructions bear and which
-question, if any, is worth activating.
+- One quantum bit, or systems of several as well. The records expect a single-system result to
+  leave composites open (the programme map's lift seam; its third claim, full physical
+  equivalence).
+- Whether rotations of two wave amplitudes count before a readout rule is derived. A classical
+  wave has them too: "interference alone is insufficient" (`observation-context-protocol.md`,
+  control C1), and the records expect a qubit rotation to need more than amplitude rotations
+  (MECH-1 §6.5).
+
+**What the corpus settles and what it leaves.** It settles one part of Question 1: a
+representation does not count (point 2). It does not settle which reading is TUNE-1's target,
+whether the exact or the approximate form is meant, or the scope of Question 3. The answers decide
+which obstructions bear and which question, if any, is worth activating.
+
+**Form of an answer.** Question 1: A or B. Question 2: exact (conditional), approximate, or both
+in Q-B's order. Question 3: one qubit or composites; amplitude rotations count or do not.
 
 ### F.3 Findings: prose on `main` versus the Lean statement
 
@@ -1553,6 +1858,21 @@ or D, or a clause of the recommendation.
   hypotheses); adds one equivalence to A.4, one kernel statement to the approximate side of
   section C and four statements to the table of open questions. No class-1, class-2 or class-3
   conclusion and no clause of the recommendation changes.
+- The r5 reading (the finiteness audit, Arc D round 1 and the programme map's §2, the quotient
+  and coherent-extension modules, eight continuous-substates notes): **ELABORATING** as to the
+  corpus, whose content it restates, and a correction of this document. Three clauses of the
+  recommendation change. (1) The approximate branch, which F.1's operative sentence had dropped,
+  is restored. (2) The statement that the owner "has said not to adopt" an infinite substratum is
+  withdrawn: no record read supports it. The owner's instruction for TUNE-1 is that no new
+  physical premise be adopted and that finite access not be taken to mean finite dynamics; the
+  records on `main` leave the size of the underlying system open and every claim on an infinite
+  carrier unproved (B.0). (3) F.2 now states that the owner's third possibility presupposes
+  reading (B), and that (B) means operational agreement and not representation. Table cells
+  changed, each at the fourth review's request: section C, B1 row column (5), row 1 column (4)
+  (tag), monomial row column (2) ("at least"); D4 column (a), D6, D9 column (b), D12 column (b);
+  F.1's comparison table, row "Exact form and ledger item (ii)"; B.12, the coherent-continuum row
+  (S6). Rows added to B.12: five. No cell of B.11 changes, and no class-1, class-2 or class-3
+  sorting changes.
 
 Assumption-watch markers for other units:
 
@@ -1563,7 +1883,13 @@ Assumption-watch markers for other units:
   its access contract; before it is cited, each of the contract's clauses (admitted preparations,
   reads, privacy, timing, measure) is classed as derived or supplied.
 - A list of records read is not an inventory. Three review rounds of this unit each found a
-  relevant record on `main` outside the list; Appendix G is built by search first.
+  relevant record on `main` outside the list; Appendix G is built by search first. A fourth round
+  found one more, in a directory group that r4 had classed by its path; a group classed by path
+  or title is not inventoried.
+- A statement of what the owner has decided is quoted from a record with its author and time, or
+  it is not made. Revisions r4 and r4b carried one such statement without a source.
+- A keyword search of Markdown records does not inventory the Lean tree. A module is found by its
+  name and header, and its statements have to be read before it is called consistent.
 
 No correctness band moves (§A.23): this unit relabels and sorts existing results.
 
@@ -1609,6 +1935,14 @@ part and the 2 it had not read, the preregistrations of KTRANS-DENSE-1 and ORD-1
 "not relevant" in r4, reclassified in r4b's check of those groups (G.5) and read in full. 25
 kernel modules, 5 read in full and 20 at the cited statements; 2 off-`main` drafts read in full.
 What was not read is in G.3.
+
+Counts after r5: 92 relevant records on `main` outside the Lean tree, all read in full. The ten
+added are records the fourth review found unread or read only through another record: the
+finiteness audit (classed "not relevant" in r4 and r4b as part of `audits/manuscript/`), the
+Arc D round 1 result note (classed "not relevant", "title only") and eight notes of
+`continuous-substates/` (classed "context" on their opening lines). Sixteen kernel modules were
+added, by name and header and not by the keyword search: eight read at the statements cited and
+eight at their headers only (G.2). The Lean tree as a whole was not inventoried (G.3).
 
 ### G.2 Relevant records
 
@@ -1664,14 +1998,22 @@ read the part the other did not.
 | `…/round-kinf-2-foundations/result.md` | `KINF-2-FOUNDATIONS-PROVED`; "Nothing here derives drivability, supporting effects, singleton faces or copy naturality from any OI construction" | full (r4b); classed "not relevant" in r4 |
 | `…/round-oi-finite-protocol-1/result.md` | `OI-FINITE-PROTOCOL-1-PROVED`; "No available approximation sequence is a premise" | full (r4b); classed "not relevant" in r4 |
 | `…/round-oi-channel-1-audit/result.md` | `OI-CHANNEL-1-READ`; "This audit does not establish unconditional quantum reconstruction or full-model independence" | full (r4b); classed "not relevant" in r4 |
+| `audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md`; `scope_controls.py` beside it | "research-only, independent review required"; "observer-relative finiteness is the owner-selected general foundation … All claims requiring actual infinite-carrier dynamics … remain OPEN until separately proved"; replacement texts "NOT applied"; reviewer independence "not established" | full (r5); the script read, not run; classed "not relevant" in r4 and r4b as part of `audits/manuscript/` |
+| `programmes/oi-qm/track-i/arc-d-operational-sourcing/result.md` | "Headline outcome: **RD1** — quarantine proved and the boundary reconciled"; "RD1 **closes the round. It does not close Arc D**" | full (r5); its preregistration and Amendment 1 not read; classed "not relevant" in r4 and r4b |
+| `programmes/substratum/continuous-substates/{cubic-wave-revival,observable-recurrence,solenoid-countercontrol,infinite-xor-counterexample,BOUNDARY-CONTROLS,shared-gauge-pointer-candidate,yangmills-substate-bridge,observation-context-protocol}.md` (8) | each "research-only", a "Research candidate" or a "preregistered research protocol"; verdict lines as B.12 quotes them | full (r5); classed "context" in r4 and r4b on their opening and result lines |
+| `…/observer-interface-obsmu-20261104/ANALYSIS.md`:150–158, :1243 | "WIP / UNVERIFIED research record"; used only for its quotation, with author and time, of the owner's comment on Issue #1007 | the lines cited (r5); the record stays classed "context" (G.4) |
+| Manuscript lines added in r5: `papers/Introduction.md`:30–36; `papers/Structure.md`:211–219; Main:46, :720 | — | the lines cited |
 | Kernel modules, full (r2): `FrozenSourcing`, `FlowEndpoint`, `F2CoherenceControls`, `RecursiveFiniteFactor`, `NativePadicReduction` | — | full |
+| Kernel modules, r5, at the header and the statements cited: `PassiveQuotient`, `ObservabilityQuotient`, `ControlledQuotient`, `CoherentExtension`, `ObservableFactorRecurrence`, `ObservableMeasureReturn`; `OperationalSourcing` (:476–478 only); `DomainGlue` (:82–85, :134–145 only). At the header only: `ControlLie`, `AccessibleAlgebra`, `TwoByTwoNoGo` (first 40 to 50 lines); `PassiveObservation`, `InternalObserver`, `CentralObservation`, `HiddenCoherence`, `ThreadingObservability` (first 26 lines) | — | part; no proof read |
 | Kernel modules, at the cited statements: `DenseOrbit` (header, §A, statement list), `CompositionOrder` (header, definitions, four theorems), `OrbitGeneration` (:70–90, :620–621), `OrbitNormalization` (:121–132), `EffectSpace` (:850–866), `StageCompletion` (header, `DirectedStages`), `CompletionAction` (`OpDatum`, `CompletionChart`); from r2: `StructuralClosure`, `SubstratumInterfaceAudit`, `PhaseSource`, `PC1Controls`, `InstrumentRealization`; from r4b: `QuasilocalCharacterization` (:788–793), `QuasilocalAlgebra` (:954–959), `PairFlowEquivalence` (:48–50, :199–201), `RealPairFlow` (:41–47), `StochasticInterface` (:32–33, :118–120, :182–186), `KInfFoundations` (:264–276), `BridgeFiniteProtocol` (header, :167–168, :236–262), `RegionLimit` (:296–299). Located by name only, statement line not read beyond its first line: `PolarizationClosure` (:389, :448, :606, :620), `InstrumentCompletion` (:195), `InstrumentAvailability` (:335), `SecondOrderDrive` (:829), `KInfFoundations` (:490, :529) | — | part |
 | Off `main` [D]: INTERVENE-1 r2 (`ea12fde1`); SUBSTATE-BRIDGE-1 r2 (`86a413c8`) | drafts; "r2 has not been re-reviewed" | full (r2; the second completed in r4) |
-| Provenance, not on `main`: Issue #1236 (body), Issue #1217 (head of body), Issue #1169 comment 6712409082 | planning records and one owner decision | read as stated |
+| Provenance, not on `main`: Issue #1236 (body), Issue #1217 (head of body), Issue #1169 comment 6712409082; in r5, Issue #1007 (body) and its comment 6526897139 | planning records and two owner decisions | read as stated |
 
 ### G.3 What was not read
 
-No record listed in G.2 remains read in part. Not read, and not counted as records in G.2:
+No record that G.2 lists as relevant remains read in part; the rows marked "the lines cited" and
+the kernel rows marked "part" are what they say. The Arc D preregistration and its Amendment 1
+were not read. Not read, and not counted as records in G.2:
 
 - *Files beside a package report.* In `states-dynamics-audit-20261024/`, the `PLAN.md` and
   `review/` files of `a2_efficiency_v6`, `a1_reset_v6`, `native-code-bridge-v6`,
@@ -1682,7 +2024,38 @@ No record listed in G.2 remains read in part. Not read, and not counted as recor
 - *Control planes of the rounds reclassified in r4b.* The preregistrations of KINF-2,
   OI-FINITE-PROTOCOL-1 and OI-CHANNEL-1, and the preregistrations of OG-1 and EFF-1; their result
   notes were read in full.
-- *Lean proofs.* Every kernel statement added in r4b was read as a statement; no proof was read.
+- *The Lean tree was not inventoried as records.* `verification/lean-mathlib/OIBridge/` has 240
+  modules. They were reached by citation, from Main §3.4 and from the audit notes, and by the
+  search terms of the r4 disclosure; the keyword scoring of G.1 was applied to Markdown files
+  only, and no module-by-module classification was made. By a match of module file names against
+  the text before this appendix, 69 of the 240 are named there; five more were opened at their
+  headers in r5; the other 166 are neither cited nor listed in this document. Modules whose names
+  bear on access, observation, quotients, hidden sectors or coherent extensions, and what was done
+  with each:
+  - read in r5 at the header and the statements cited (B.0, B.12): `PassiveQuotient`,
+    `ObservabilityQuotient`, `ControlledQuotient`, `CoherentExtension`,
+    `ObservableFactorRecurrence`, `ObservableMeasureReturn`;
+  - header only, not used as support in any section: `ControlLie` ("H-functor says how the
+    available reversible controls lift; it does not guarantee the classical menu contains enough
+    controls"); `AccessibleAlgebra` (when the algebra generated by the readouts and their
+    Heisenberg conjugates is the full matrix algebra); `TwoByTwoNoGo` (no visible-local coherent
+    lift from feasible preparation and feasible global intervention, "at one explicit rational
+    witness carrier"); `PassiveObservation`, `CentralObservation`, `InternalObserver` (inside
+    matrix kinematics: every branch of a passive instrument on a full matrix algebra "is a scalar
+    multiple of the identity", and on a block-diagonal algebra a passive instrument reads "the
+    block weights through a stochastic matrix, and nothing inside any block"); `HiddenCoherence`
+    (exact quantum operations on the system do not force them on the composites);
+    `ThreadingObservability` (track B, act 14). Their statements were not read, so whether any of
+    them bears on a cell of B.11, C or D is not established here;
+  - not opened: `CoherentLiftGauge`, `ContinuousExtension`, `FullFutureMemory`, `HiddenMemory`,
+    `IsometryExtension`, `ProductStrictLift`, `RecurrenceHorizon`, `RootedRecurrenceBridge`,
+    `StrictNaturalLift`, `TrajectoryMemory`, `WeylLift`.
+
+  `verification/README.md`, which lists the kernel's module families, was read at one line
+  (finding 1). The census `verification/lean-manuscript-census.json` was read at the entries
+  cited.
+- *Lean proofs.* Every kernel statement added in r4b or r5 was read as a statement; no proof was
+  read.
   The statements G.2 marks "located by name only" are cited as their audit notes report them.
 - *Code, JSON, logs and checkers* in every record's directory, as in r4.
 - *The 435 Markdown files below the keyword threshold*, and the groups of G.4 beyond what G.4 and
@@ -1696,16 +2069,17 @@ No record listed in G.2 remains read in part. Not read, and not counted as recor
 | `…/observer-access-20261106`, `record-control-20261107`, `physical-controller-20261107`, `controller-preparation-1-20261108`, `correlation-recombination-20261107` (6) | context: one receiving interaction, one record-to-control candidate, controller sourcing, hidden-parity recombination, on the finite reference rule; "a local transfer equation, not the proposed quantum preparation and measurement interface"; "stop; no controller passes the physical source gate"; "source gate NOT PASSED" | head and stated outcome of each |
 | `…/mathcon1-polc-20261108/DESIGN.md` | context: "Preregistration only"; "no derivation". The polarization closure it concerns is countable up to scalar in the kernel (`polC_countable_upToScalar`, cited in the coherent-continuum audit) | head |
 | `…/physical-coupling-pc1/` (9; 5) | context: strict result `INCONCLUSIVE (void)`; not usable as a premise | README, run-2 result, disposition, heads (r2) |
-| `programmes/substratum/continuous-substates/` 21 `native-*` units and 11 other notes, `la-equal-gap/` | context: setting-conditioned access on the native finite rule; conditional; none a no-go | opening and result lines (r2) |
+| `programmes/substratum/continuous-substates/`: 21 `native-*` units, `later-access-preregistration.md`, `la-equal-gap/` | context: setting-conditioned access on the native finite rule; conditional; none a no-go | opening and result lines (r2) |
+| The same directory, eight other notes (`cubic-wave-revival`, `observable-recurrence`, `solenoid-countercontrol`, `infinite-xor-counterexample`, `BOUNDARY-CONTROLS`, `shared-gauge-pointer-candidate`, `yangmills-substate-bridge`, `observation-context-protocol`) | **misdescribed in r4 and r4b**, which placed them in the row above as "setting-conditioned access on the native finite rule". They are controls on infinite or continuous carriers with a finite readout, one of them an extension of the cubic wave update to circle-valued sites, and one a preregistered protocol for the owner's third possibility. Reclassified **relevant** in r5 | read in full (r5); G.2, B.12 |
 | `programmes/substratum/wave-sign-20261108/ASSESSMENT.md` | context: the memory sign of the second-order rule; author checkpoint | :1–60 (r2) |
 | `…/native-y-continuation-20261024/` (85; 18) | context: a native Y readout and reset on a finite twelve-code carrier; its relation to tunability is stated in `states-dynamics-audit` REPORT ("does not remove the existing A1 cardinality obstruction") | not opened; read through that REPORT |
 | `…/composition-access-20261024/`, `physical-state-operation-compatibility/`, `bridge-compatibility-audit/` | context: composition contract; pair-cone preservation; no tunability statement | head of each |
 | Reconstruction rounds other than OG-1, EFF-1, ORD-1, KTRANS-DENSE-1, KINF-2, OI-CHANNEL-1, OI-FINITE-PROTOCOL-1 (25 rounds): TRB-1, CMP-1, OPACT-1, KINF-1, DIM-1, K1-*, K2-GUARD-1, KTRANS-SEP-1/2, KTOKEN/PAIR-MAXCONE, PARITY-NOT-1, ODD-CHAR-1, RELC-SELECT-1, IIP-1, COMP-1, NB-1, BG-1/2/3, PRESERVE-INDUCT-1, ARP1-MARC, KT4-PREM-1 | not relevant to the three classes: they prove consequences of the hypotheses (ball, cone, dimension selector, composite interface) or audit premises; none sources a drive. KTRANS-SEP concerns a body on which the kernel properties hold without transitivity. TRB-1, CMP-1 and OPACT-1 define objects section C uses (context) | outcome line of each result note; G.5 |
 | `…/observer-interface-obsmu-20261104` (`README.md`, `ANALYSIS.md`), `measurement-record-formation` | context (r4b; "not relevant" in r4): the first is a paper assessment whose target is "the smallest missing ingredient needed to derive `(Obs, μ)`", "WIP / UNVERIFIED research record", reconciled in `observer-interface-source.md` §2 (read); the second is a frozen preregistration whose status note concerns F2-1's G★ | `README.md` head of each; G.5 |
 | `…/k1-rdy-*`, `bsel-2-*`, `born-sel-b-measure-20261104`, `oiqmsel-*`, `o-ret-routes-20261103`, `oi-pseudoentropy-20261025`, `bekir-golomb-orientation-design` | not relevant: Born measure selection, record retention, ready-state supply, gauge relatedness, pseudoentropy; narrower search: one unrelated hit ("real-valued conserved energy") | not opened beyond titles |
-| `programmes/oi-qm/track-b/` (99; 35), `track-i/` (17; 5), `interface/`, `h-bell/`, `amendments/` | not relevant: the Barandes correspondence route (indivisibility, Gram and orbit laws, lifts), representation boundary, Bell obligation. Act 8, "the continuous-extension round" (outcome `CE1`), concerns continuity in time of a stochastic family, not a tunable operation. Summarised in `PROGRAMME.md` §10, read | not opened beyond titles and the act-8 outcome line |
+| `programmes/oi-qm/track-b/` (99; 35), `track-i/` (17; 5) other than the Arc D round 1 result note, `interface/`, `h-bell/`, `amendments/` | not relevant: the Barandes correspondence route (indivisibility, Gram and orbit laws, lifts), representation boundary, Bell obligation. Act 8, "the continuous-extension round" (outcome `CE1`), concerns continuity in time of a stochastic family, not a tunable operation. Summarised in `PROGRAMME.md` §10, read. The Arc D round 1 result note in `track-i/` was classed here in r4 and r4b; it fixes what counts as sourcing against representation and is **relevant** (G.2, read in full in r5) | not opened beyond titles and the act-8 outcome line |
 | `programmes/hydrodynamics/` (14; 14), `black-hole-information/` (17; 9), `physical-realization/` (10; 5) | not relevant: "continuum" there is the fluid or spacetime continuum; C4 storage and readback | titles; narrower search hits read |
-| `audits/manuscript/` (104; 55), `audits/infrastructure/`, `audits/provenance-errata/`, `audits/evidence-pruning/`, `audits/physical-realization/` other than the continuous-time audit | not relevant: manuscript hunk dispositions, tooling, provenance; hits are "Clifford" in the Dirac-algebra sense and quotations of manuscript lines | titles; narrower search hits read |
+| `audits/manuscript/` (104; 55) other than `observer-relative-finiteness-20261030/`, `audits/infrastructure/`, `audits/provenance-errata/`, `audits/evidence-pruning/`, `audits/physical-realization/` other than the continuous-time audit | not relevant: manuscript hunk dispositions, tooling, provenance; hits are "Clifford" in the Dirac-algebra sense and quotations of manuscript lines. **This row was wrong for one member in r4 and r4b**: `observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md` states the owner's direction on finite access and finite worlds and is relevant (G.2; B.0). The row classed 29 entries by path. In r5 three top-level notes of `audits/manuscript/` were opened at their heads and stay context: `oi-n-freeze.md` and `oi-n-exploratory.md` (passive observation inside matrix kinematics; "citable only for what its modules prove") and `representation-sector-audit.md`. A search of the group for total finiteness and infinite carriers finds three other directories (`post982-minimum-diff-20261030`, `intro-corpus-audit-20261026`, `bell-operational-reconciliation-20261029`); only the matching lines of two of them were read (three lines, which point to Issue #1015 and to the Introduction's lines on finiteness). The other entries remain classed by path and title, and that classification is not an inventory | titles; narrower search hits read; three heads (r5) |
 | `audits/foundations/` and `audits/operational/` notes not listed in G.2 (13) | not relevant to tunability beyond the kernel statements already cited: scope propagation, scalar closure, instrument realization and migration, typed completion, phase-source and its propagation | titles; G.5 for six of them |
 | `programmes/substratum/` other notes: `a5-linear-affine-20261104`, `a6-*`, `lemma-24-1*`, `manuscript-axiom-audit`, `substratum` planning | not relevant: linear against affine dynamics, background independence, semigroup transfer | titles; G.5 for the manuscript-axiom audit |
 | `verification/infrastructure/` (51), `README.md`, `ROADMAP.md`, `MIGRATION-*.md`, `lean/ROADMAP.md`, `lean/VERIFYING.md` | not relevant: verification tooling, the frozen queue, indices | `README.md`:298 only (finding 1) |
@@ -1738,7 +2112,7 @@ files in those groups still rests on title and narrow search, as G.1 states.
 | `programmes/oi-qm/interface/round-l3b-orthogonal-rule-controls/result.md` | `L3B-READ`; a rule matrix and a hidden-law factor | unchanged |
 | `programmes/oi-qm/track-b/act-08-continuous-extension/result.md` | `CE1`: "An admissible off-direct continuous extension of act 6's frozen witness EXISTS" | unchanged: continuity in time of a stochastic family |
 | `programmes/oi-qm/track-b/act-11-coherent-lift-gauge/result.md` | "Ordinary coherent lifting does not restore uniqueness of the relative evolution" | unchanged |
-| `programmes/oi-qm/track-i/arc-d-operational-sourcing/result.md` | title only; summarised in `PROGRAMME.md` §3.12, read | unchanged |
+| `programmes/oi-qm/track-i/arc-d-operational-sourcing/result.md` | title only; summarised in `PROGRAMME.md` §3.12, read | "unchanged" in r4b; **relevant** in r5 and read in full (G.2, B.12, F.2). The r4b check read the map's summary of it and did not use it |
 | `…/round-kinf-1-foundations/result.md` | halted; "none of the two frozen labels" | unchanged |
 | `…/round-opact-1-completion-action/result.md` | `OPACT-1-COMPLETION-ACTION-PROVED`; "It does not source any operation" | unchanged (context) |
 | `…/round-cmp-1-completion/result.md` | `CMP-1-COMPLETION-INTERFACE-PROVED`; premises "proved for no OI construction" | unchanged (context) |
