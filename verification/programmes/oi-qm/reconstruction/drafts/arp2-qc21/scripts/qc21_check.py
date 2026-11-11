@@ -833,6 +833,8 @@ def v_plain(x):
 
 
 def v_q(s):
+    if type(s) is bool:
+        return Fraction(1, 0)  # Boolean is not a rational encoded as a number.
     if isinstance(s, int) or isinstance(s, Fraction):
         return Fraction(s)
     if not isinstance(s, str):
@@ -3594,7 +3596,7 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
     frs = [strip_bytes(f) for f in b_out["fragments"]] + [strip_bytes(f) for f in b_out["B-C"]]
     monitored = list(frs)+[f["completion_record"] for f in frs if isinstance(f.get("completion_record"), dict)]
     decisive_controls = k_fragment_controls(monitored)
-    b_red += [name for name, control in decisive_controls.items() if not control["green"]]
+    b_red += [name+"-decisive" for name, control in decisive_controls.items() if not control["green"]]
     b_tok = k_decide_b({"controls_red": b_red, "fragments": frs})
     c_red = [k for k, v in c_out["controls"].items() if not v["green"] and not v.get("reported_only")
 ]
@@ -3628,7 +3630,8 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
          "fixtures": fx["fixtures"], "controls": fx["controls"],
          "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX, "S_max": S_MAX, "BP": {"P_max": BP_P_MAX, "B_max": BP_B_MAX, "W_max": BP_W_MAX,
                     "caps": [BP_CAP_GENERATORS, BP_CAP_D, BP_CAP_FACET_SUBSETS, BP_CAP_EFFECTS]},
-                    "respected": {f["name"]: f["lp"] != "out_of_scope" for f in frs}},
+                    "respected": {f["name"]: bool(f.get("lp") not in ("out_of_scope", "undecided") and
+                         decisive_controls["C-BUDGET"]["green"]) for f in frs}},
          "flags": {"P": p_tok["token"], "B": b_tok["token"], "C": c_tok["token"], "levels": levels,
                    "refusal_calls": REFUSAL_CALLS, "controls_red": {"P": p_red, "B": b_red, "C": c_red}}}
     return m
