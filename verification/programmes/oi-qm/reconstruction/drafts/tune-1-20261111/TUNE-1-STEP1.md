@@ -84,7 +84,7 @@ read and the reason.
 ## Plain-language summary
 
 **The question.** In OI the world only reshuffles its configurations. Quantum mechanics needs
-operations that blend two states by any chosen amount ("adjustable mixing"). What assumptions
+operations that blend two states by any amount ("adjustable mixing"). What assumptions
 rule that out?
 
 **1. Finitely many observer states.** Alone this rules out nothing: such an observer can sit in an
@@ -92,22 +92,23 @@ infinite world. If the whole world is finite (assumed in OI, not derived), exact
 is impossible; approximation by ever larger finite systems is not.
 
 **2. Only reshuffles allowed.** If the quantum state is written directly over the world's
-configurations, reshuffling never produces mixing, exactly or approximately. Every valid
-machine-checked obstruction says this. If the state instead summarises what an observer can
+configurations, reshuffling never produces mixing, exactly or approximately. The valid
+machine-checked obstructions establish this for OI's stated operations. If the state instead
+summarises what an observer can
 prepare and measure, a reshuffle can act as a quantum operation.
 
 **3. Limited access.** It causes no obstruction; where quantum behaviour appears, limited access
 produces it. Unverified research records on `main`:
 
 - A known model with a continuous hidden sphere and coarse preparation and readout reproduces one
-  quantum bit exactly, every rotation included, with its ingredients put in by hand.
+  quantum bit exactly, every rotation included, its ingredients put in by hand.
 - If lattice sites held real numbers and a coupling could be set externally to any value, OI's
   own update would blend two modes by any angle. Neither addition has a source, and with
   unrestricted readout the result is not quantum.
 - On finite systems it gives a fixed finite set of operations.
 
 **Exact versus approximate.** Exact needs an infinite underlying world. Growing finite systems
-approximating it have been built twice, with key ingredients supplied.
+approximating it have been built twice, key ingredients supplied.
 
 **Cautions.** Adjustable mixing is necessary, not sufficient. One cited theorem
 (`readWriteSourced_not_qm`, Issue #1188) has a premise nothing can satisfy; it is not counted.
