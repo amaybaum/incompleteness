@@ -1,6 +1,6 @@
 # Q-C2-1 implementation under the approved R1–R10 rulings
 
-WIP / UNVERIFIED implementation checkpoint. Writer: Codex. Guiding draft #1218; accountable issue #1169.
+WIP / UNREVIEWED CORRECTION HEAD. Current writer for new work: ChatGPT; Codex authored earlier checkpoints. Guiding draft #1218; accountable issue #1169. Claude independently REVISE-reviewed previous head `2f3a8b83`; no descendant has independent ACCEPT.
 
 The [explicit owner decision](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6778994857)
 approves R1–R7 defaults (initial S_max = 100000), R8 alternative, R9 default and R10 narrowing, starting
@@ -85,18 +85,28 @@ documents pin serialization, non-circular E identity and provenance-only SOURCE_
 workflow is retained as verify.yml.input for source-only guard tests; it contains no new splice.
 
 IMPLEMENTATION-DISPOSITIONS maps A1–A15, B1–B9, D1–D39 and the seven scoped reviewer findings to the source.
-The current milestone is a complete source candidate for full non-author implementation review, with safe
-negative coverage still being expanded. Fourteen isolated groups cover current source/static guards,
+The previous milestone at `2f3a8b83` received independent REVISE (Claude, #1218 c.6784569758). Its 14 isolated groups passed under that reviewer; the new writer's additional non-scientific B1/B3/B4/B5 groups are source changes **not yet independently run or accepted**. Earlier checks covered current source/static guards,
 metadata predicates, synthetic tokens/notes/resources and the inert template. Neither those checks nor
 the author ledger certify scientific paths. The full fixture-bearing self-tests remain separately gated.
 
 Required source RCH/DSN paths, final D/T0, the execution-source binding, future recorded branch names,
 measured budgets and artifact pins remain unresolved and fail closed. The runs API access probe succeeds;
 the connector rejects the activity endpoint, leaving T0 provenance unavailable. The design/confirmation
-literal all-non-B-success rule is preserved strictly; its compatibility with D's intentional PR A42 skip
-is a focused review question. No design-run readiness is inferred from this source milestone.
+literal all-non-B-success rule was independently REVISE. The owner has now approved exact B1 conditional outcomes in #1169 c.6784808669; new code and preregistration apply that rule, but require focused independent acceptance. No design-run readiness is inferred from this source milestone.
 
 No scientific computation, local A3 fixture solving, design/stress/confirmation/gate/decisive run,
 workflow dispatch/rerun, actual workflow splice, round branch, F/E/freeze, physical premise or merge is
 authorized or performed. The future design-run request must state all pending evidence and measurements.
 #866 source NOT PASSED; Q-C2-2 inactive; #1210 and #1216 untouched; #1228 branch work complete.
+
+## ChatGPT correction pass after Claude's REVISE (2026-11-11)
+
+- **B1 / owner-approved:** event-specific A42 job and ARP-1 keeper outcomes; KTRANS reports `success` plus marker **only `skipped`**; all other required conclusions `success`. Added strict frozen guard/matrix/source-name checks and synthetic good/bad controls. This is the exact owner decision #1169 c.6784808669, not the earlier proposed success-or-skip marker variant.
+- **B2 / author patch:** M-SOLVER and M-BUDGET use SG-1-valid 32-preparation/nine-setting/ACC inputs and report-only controls; forbidden scientific self-tests were **not** executed.
+- **B3 / author patch:** missing/truncated/mistyped decisive cap and budget fields fail C-BUDGET; controller check is now separately coded rather than byte-identical. Host-mocked isolated tests were added, not run here.
+- **B4 / author patch:** activity uses `gh api --paginate --slurp` to follow host cursor Link rel=next, validates the returned structured page arrays/IDs and fails closed. GitHub activity endpoint access and T0 remain **UNRESOLVED**; no host activity inventory exists.
+- **B5 / author patch:** requires a valid deciding step 2/3/4, null on undecided, and 4 for C-SYM; synthetic negatives added.
+- **CI / review:** ordinary research PR CI may run; neither automatic CI nor a local static author check is a non-author implementation ACCEPT. Request fresh non-author review on the final exact head, with any new findings handled separately.
+- **Open:** N1 D pin source ambiguity, N2–N9/N11 documentary/minor fixes not all resolved; N10 stale stress-seed text corrected. Earlier `git worktree prune` was a reviewer procedural deviation, not approved and not repeated.
+
+The source remains a paper/implementation candidate, not an executed model. No A3, solver, fixture, stress, dispatch or physical source step was undertaken by ChatGPT. No design-run authority follows. #866 NOT PASSED.
