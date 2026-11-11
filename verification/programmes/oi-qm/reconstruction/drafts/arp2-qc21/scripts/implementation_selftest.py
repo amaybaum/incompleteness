@@ -60,7 +60,7 @@ def control_module():
 def checker_namespace():
     tree = ast.parse(CHECKER_TEXT)
     names = {'s_mode', 's_refusal', 's_entry', 'h_sha256', 'ordered_unique', 'ordered_key', 'v_unique',
-             'canonical', 'jsonable', 'fstr'}
+             'canonical', 'jsonable', 'fstr', 'k_fragment_controls'}
     constants = {'_SHA_K', '_SHA_H0', 'HEX', 'DISPATCH_EVENT', 'ROUND_REF'}
     ns = {'json': json, 'Fraction': Fraction, 'os': types.SimpleNamespace(environ={}),
           'sys': types.SimpleNamespace(argv=['isolated-selftest']), 'REFUSAL_CALLS': 0,
@@ -262,6 +262,108 @@ class NonScientificTests(unittest.TestCase):
         with patch.object(m, 'gh_get', side_effect=response):
             result = m.run_class_run_listing('runs-all', '2026-11-10T00:00:00Z', '2026-11-10T00:00:01Z')
             self.assertEqual(len(result['runs']), 2)
+
+    def test_b1_structured_conclusions_positive_and_mutations(self):
+        import re
+        m = self.control
+        source = (ROOT.parent / 'verify.yml.input').read_text()
+        a42 = "Numerical probes / A42 exclusion (${{ matrix.part }})"
+        keep = "ARP-1-MARC keep the measurements"
+        report = "KTRANS-SEP-2 axiom reports within the three axioms"
+        marker = "KTRANS-SEP-2 marker complete reports with an axiom outside the three"
+        parts = ('paths', 'r5', 'n18:0', 'n18:1', 'n18:2', 'dfs:0', 'dfs:1', 'dfs:2',
+                 'dfs:3', 'dfs:4', 'dfs:5', 'sathr', 'cubes:0', 'cubes:1', 'cubes:2')
+        def make(event):
+            names = [x for x in re.findall(r'(?m)^    name: ([^\n]+)$', source) if x != a42]
+            names += ([a42] if event == 'pull_request' else
+                      [a42.replace("${{ matrix.part }}", x) for x in parts])
+            names += [m.JOB_A, m.JOB_B]
+            result = []
+            for name in names:
+                skip = event == 'pull_request' and name in (a42, m.JOB_B)
+                steps = [{'name': 'other step', 'conclusion': 'success'}]
+                if name == 'Numerical probes / KTRANS-SEP-2 Omega4 counterexample':
+                    steps = [{'name': report, 'conclusion': 'success'},
+                             {'name': marker, 'conclusion': 'skipped'}]
+                if name == 'Numerical probes / ARP-1-MARC exact span check':
+                    steps.append({'name': keep, 'conclusion': 'skipped' if event == 'pull_request' else 'success'})
+                if name == m.JOB_A:
+                    steps = [{'name': x, 'conclusion': 'success'} for x in (m.STEP_A3, m.STEP_A3B, m.STEP_A7)]
+                result.append({'name': name, 'conclusion': 'skipped' if skip else 'success',
+                               'steps': None if skip else steps})
+            return result
+        for event in ('pull_request', 'workflow_dispatch'):
+            good = make(event)
+            self.assertEqual(m.run_class_expected_conclusions(good, event, source), [])
+            for item, new in ((a42 if event == 'pull_request' else a42.replace('${{ matrix.part }}', 'paths'),
+                               'success' if event == 'pull_request' else 'skipped'),
+                              ('Numerical probes / core A', 'skipped')):
+                bad = json.loads(json.dumps(good))
+                next(x for x in bad if x['name'] == item)['conclusion'] = new
+                self.assertTrue(m.run_class_expected_conclusions(bad, event, source))
+            for name, position, outcome in (
+                ('Numerical probes / KTRANS-SEP-2 Omega4 counterexample', 1, 'success'),
+                ('Numerical probes / KTRANS-SEP-2 Omega4 counterexample', 0, 'skipped'),
+                ('Numerical probes / ARP-1-MARC exact span check', -1,
+                 'success' if event == 'pull_request' else 'skipped')):
+                bad = json.loads(json.dumps(good))
+                next(x for x in bad if x['name'] == name)['steps'][position]['conclusion'] = outcome
+                self.assertTrue(m.run_class_expected_conclusions(bad, event, source))
+            self.assertTrue(m.run_class_expected_conclusions(good[:-1], event, source))
+            self.assertTrue(m.run_class_expected_conclusions(good, event, source.replace('probes_a42_exclusion:', 'wrong_job:')))
+            self.assertTrue(m.run_class_expected_conclusions(good, event, source.replace('n18:2', 'n18:9')))
+
+    def test_b3_limits_must_be_present_in_both_independent_checks(self):
+        m = self.control
+        checker = checker_namespace()['k_fragment_controls']
+        good = {'name': 'B-P', 'lp': 'feasible', 'verified': True,
+                'budget_values': [3, 3, 3], 'cap_values': [4, 4, 4, 4],
+                'pivots': 1, 'max_bits': 2, 'work': 3, 'n_extreme': 1,
+                'd': 2, 'c': 3, 'effects_before_reduction': 4}
+        for fn in (checker, m.fragment_controls):
+            self.assertTrue(fn([good])['C-BUDGET']['green'])
+            for field, value in (('budget_values', []), ('budget_values', [1, 2]),
+                                 ('cap_values', None), ('cap_values', [1, 2, 3]),
+                                 ('budget_values', [True, 3, 3]), ('d', True)):
+                bad = dict(good, **{field: value})
+                self.assertFalse(fn([bad])['C-BUDGET']['green'], field)
+            bad = dict(good)
+            del bad['budget_values']
+            self.assertFalse(fn([bad])['C-BUDGET']['green'])
+            self.assertTrue(fn([dict(good, lp='out_of_scope', budget_values=[])])['C-BUDGET']['green'])
+
+    def test_b4_cursor_link_pagination_and_error_boundary(self):
+        m = self.control
+        a, b = {'id': 1, 'activity_type': 'push'}, {'id': 2, 'activity_type': 'force_push'}
+        success = types.SimpleNamespace(returncode=0, stdout=json.dumps([[a], [b]]), stderr='')
+        with patch.object(m.subprocess, 'run', return_value=success) as process:
+            self.assertEqual(m.gh_get('activity', 'safe-branch'), (True, [a, b]))
+            argv = process.call_args.args[0]
+            self.assertIn('--paginate', argv)
+            self.assertIn('--slurp', argv)
+            self.assertNotIn('page=', ' '.join(argv))
+        for pages in ([], [a], [[a], [a]], [[{'id': None, 'activity_type': 'push'}]]):
+            with patch.object(m.subprocess, 'run',
+                              return_value=types.SimpleNamespace(returncode=0, stdout=json.dumps(pages), stderr='')):
+                self.assertFalse(m.gh_get('activity', 'safe-branch')[0])
+        with patch.object(m.subprocess, 'run',
+                          return_value=types.SimpleNamespace(returncode=1, stdout='', stderr='Forbidden')):
+            self.assertFalse(m.gh_get('activity', 'safe-branch')[0])
+
+    def test_b5_deciding_step_is_valid_not_just_present(self):
+        m = self.control
+        good = m.synthetic_stress()
+        self.assertTrue(m.stress_validate(good)[0])
+        for value in (None, 0, 1, 5, True, '4'):
+            bad = json.loads(json.dumps(good))
+            bad['fragments'][0]['decided_by'] = value
+            self.assertFalse(m.stress_validate(bad)[0])
+        bad = json.loads(json.dumps(good))
+        bad['fragments'][0]['name'] = 'synthetic:C-SYM'
+        bad['fragments'][0]['decided_by'] = 2
+        self.assertFalse(m.stress_validate(bad)[0])
+        bad['fragments'][0]['decided_by'] = 4
+        self.assertTrue(m.stress_validate(bad)[0])
 
     def test_zip_binding_and_member_guard(self):
         m = self.control
