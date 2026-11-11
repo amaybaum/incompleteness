@@ -1217,7 +1217,8 @@ def decide(m):
         monitored = list(frs)+[x["completion_record"] for x in frs if isinstance(x.get("completion_record"), dict)]
         measured_controls = fragment_controls(monitored)
         b_red = list(f["controls_red"]["B"])
-        b_red += [name for name, control in measured_controls.items() if not control["green"] and name not in b_red]
+        b_red += [name+"-decisive" for name, control in measured_controls.items()
+                  if not control["green"] and name+"-decisive" not in b_red]
         b_tok, _ = decide_b({"controls_red": b_red, "fragments": frs})
         c_tok, _ = decide_c({"controls_red": f["controls_red"]["C"], "complete": True, "flags_agree": True,
                              "instances": m["C"]["instances"]})

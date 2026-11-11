@@ -4110,12 +4110,16 @@ def t_mutations():
                 ok = ok and r["work"] <= 1 + free["work"]
             limited = dict(strip_bytes(r), role="B-P", preps=32, lp_settings=list(ACC_BP),
                            acc=list(ACC_BP), lp_reads_equal_acc=True)
-            valid = dict(limited, name="B-P-valid", lp="feasible", verified=True)
+            # The valid B-P is the same fragment decided without a budget, so it is within its own limits.
+            valid = dict(strip_bytes(free), role="B-P", name="B-P-valid", preps=32, lp_settings=list(ACC_BP),
+                         acc=list(ACC_BP), lp_reads_equal_acc=True, lp="feasible", verified=True)
+            reported = dict(limited, role="A-of-B")
             void = k_decide_b({"controls_red": [], "fragments": [limited]})["token"]
-            still_valid = k_decide_b({"controls_red": [], "fragments":
-                                      [valid, dict(limited, role="A-of-B")]})["token"]
+            still_valid = k_decide_b({"controls_red": [], "fragments": [valid, reported]})["token"]
+            monitored = k_fragment_controls([valid, reported])
             t_check("M-BUDGET %s on %s" % (which, name),
-                    ok and void == "B-VOID" and still_valid == "B-CLASSICALLY-IMITABLE")
+                    ok and void == "B-VOID" and still_valid == "B-CLASSICALLY-IMITABLE"
+                    and monitored["C-BUDGET"]["green"] and monitored["C-CERT"]["green"])
 
 
 def t_misc():

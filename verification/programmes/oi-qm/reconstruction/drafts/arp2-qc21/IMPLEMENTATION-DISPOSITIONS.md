@@ -96,5 +96,6 @@ The isolated harness, extended to 18 groups, was first run at `98582070` and fai
 causes are in IMPLEMENTATION-STATUS. In short: a B4 test assertion matched `per_page`; `v_q`'s bool rejection and the
 B1 workflow parsing used constructs that C-INDEP and control B reject, now re-expressed without changing either scan;
 the controller's synthetic decisive record lacked the limit fields that B3 now requires, so `decide` voided it. The
-harness passes 18 of 18 after these changes. B2's reported-only half (`k_fragment_controls` green), B4's real
-endpoint read and T0, N1 and N9 remain open. No reviewer verdict is implied.
+harness passes 18 of 18 after these changes. A second pass answers the delta review #1218 c.6785757458 (D4, D5,
+C.7 wording and cases, N3, N4, N7, N8, N11, B2 residue); see IMPLEMENTATION-STATUS for details and the current open
+list (N1, N9, B4's endpoint read and T0, unexecuted gated definitions). No reviewer verdict is implied.

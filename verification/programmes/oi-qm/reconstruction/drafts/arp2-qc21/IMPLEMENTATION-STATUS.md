@@ -1,6 +1,6 @@
 # Q-C2-1 implementation under the approved R1–R10 rulings
 
-WIP / UNREVIEWED CORRECTION HEAD. Current writer for new work: Claude, from `98582070` (owner confirmation 2026-11-11); ChatGPT reviews. ChatGPT and Codex authored earlier checkpoints. Guiding draft #1218; accountable issue #1169. Claude independently REVISE-reviewed previous head `2f3a8b83`; no descendant has independent ACCEPT.
+WIP / UNREVIEWED CORRECTION HEAD. Current writer for new work: Claude, from `98582070` (owner confirmation 2026-11-11, stated in #1218 c.6785751650); ChatGPT reviews. ChatGPT and Codex authored earlier checkpoints. Guiding draft #1218; accountable issue #1169. Claude independently REVISE-reviewed previous head `2f3a8b83`; no descendant has independent ACCEPT.
 
 The [explicit owner decision](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6778994857)
 approves R1–R7 defaults (initial S_max = 100000), R8 alternative, R9 default and R10 narrowing, starting
@@ -107,7 +107,7 @@ authorized or performed. The future design-run request must state all pending ev
 - **B4 / author patch:** activity uses `gh api --paginate --slurp` to follow host cursor Link rel=next, validates the returned structured page arrays/IDs and fails closed. GitHub activity endpoint access and T0 remain **UNRESOLVED**; no host activity inventory exists.
 - **B5 / author patch:** requires a valid deciding step 2/3/4, null on undecided, and 4 for C-SYM; synthetic negatives added.
 - **CI / review:** ordinary research PR CI may run; neither automatic CI nor a local static author check is a non-author implementation ACCEPT. Request fresh non-author review on the final exact head, with any new findings handled separately.
-- **Open:** N1 D pin source ambiguity, N2–N9/N11 documentary/minor fixes not all resolved; N10 stale stress-seed text corrected. Earlier `git worktree prune` was a reviewer procedural deviation, not approved and not repeated.
+- **Open:** see the open list at the end of this record.
 
 The source remains a paper/implementation candidate, not an executed model. No A3, solver, fixture, stress, dispatch or physical source step was undertaken by ChatGPT. No design-run authority follows. #866 NOT PASSED.
 
@@ -140,12 +140,34 @@ After these changes the harness passes 18 of 18 (`python3 -I -B`, Python 3.13, s
 passes for the three scripts. Not run: the checker or controls `--self-test`, `--stress`, local A3, any fixture, LP,
 solver, certificate, design, gate or decisive run, or Lean.
 
-**Still open after this pass.**
-- B2: in `t_mutations`, M-BUDGET's reported-only case checks that the token is unchanged but does not assert
-  `k_fragment_controls` green. Its "valid" B-P is derived from the over-budget record, so it is itself over its own
-  budget; adding that assertion as written would fail. The case needs a within-budget B-P before the assertion is
-  added. The gated checker self-test that runs it remains unexecuted.
-- B4: no real read of the activity endpoint; T0 and the host inventory remain unresolved.
-- N1: `D_SHA` still names the historical candidate `fd539e15`; the execution D is an owner decision.
-- N9: the r14a–r14d revision notes remain in the draft preregistration and must be removed or re-traced before F.
-- B1, B3, B5 and N2–N8, N10, N11 have author-side corrections at this head, each awaiting independent review.
+Open items are listed at the end of this record.
+
+## Claude correction pass 2 (2026-11-11; author-side, not independently reviewed)
+
+Responds to the non-author delta review [#1218 c.6785757458](https://github.com/amaybaum/incompleteness/pull/1218#issuecomment-6785757458)
+(D1–D3 were fixed by the previous pass).
+
+- **D4.** C.3's S1/E conclusion condition now cites C.7's B1 table for `workflow_dispatch`, matching
+  `run_class_run_success`. C.7's header names C.3 instead of C.8, which is unchanged.
+- **D5.** C.5(g)'s frozen extra-argument set includes `--slurp`, and the text states the activity read's cursor (Link
+  `rel="next"`) pagination and its page-array and unique-id validation, matching `GH_EXTRA` and `gh_get`.
+- **C.7 wording.** The comparison sentence now states what the code compares (the four keyed blocks, the matrix and
+  the job names; steps by exact name). The harness adds the listed mutation cases: A42 `failure` on either event, a
+  renamed keyed step (keep, axiom-report, marker), a changed keyed guard or `id` (all four blocks), and a missing
+  matrix shard on dispatch.
+- **N3.** The controller's `decide` appends `C-CERT-decisive`/`C-BUDGET-decisive`, the checker's names.
+- **N4.** `respected` keeps its rule; preregistration's `budget` schema now defines it: true exactly when the fragment
+  was given a verdict and its typed limits held, so a withheld fragment reads false.
+- **N7/N8.** OWNER-DECISIONS quotes the B1 decision verbatim with author and time; the writer statement is in its own
+  section, sourced to #1218 c.6785751650. An unsourced process remark was removed from this record.
+- **N11.** C.3 (`order.json`, `verdict`) and APPROVAL-ENTRIES freeze the `Designate F <sha>` / `Designate E <sha>`
+  phrase, matching `run_class_designation_errors`. This is precondition text, not a designation.
+- **B2 residue.** M-BUDGET's reported-only case now uses the same fragment decided without a budget as the valid B-P
+  (so it is within its own limits) and asserts that `k_fragment_controls` keeps C-BUDGET and C-CERT green. This is a
+  definition in the gated checker self-test; it was **not executed**.
+
+The isolated harness passes all 18 groups after this pass; `py_compile` passes. Nothing scientific was run.
+
+**Open list at this head.** N1 (`D_SHA` is the historical `fd539e15`; the execution D is an owner decision). N9 (the
+r14a–r14d revision notes must be removed or re-traced before F). B4's real activity-endpoint read, T0 and the host
+inventory. The B2 M-BUDGET/M-SOLVER definitions are unexecuted. All corrections await independent review.

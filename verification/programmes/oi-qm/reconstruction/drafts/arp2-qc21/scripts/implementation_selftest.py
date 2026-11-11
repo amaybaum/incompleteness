@@ -313,6 +313,33 @@ class NonScientificTests(unittest.TestCase):
             self.assertTrue(m.run_class_expected_conclusions(good[:-1], event, source))
             self.assertTrue(m.run_class_expected_conclusions(good, event, source.replace('probes_a42_exclusion:', 'wrong_job:')))
             self.assertTrue(m.run_class_expected_conclusions(good, event, source.replace('n18:2', 'n18:9')))
+            # A failed A42 job fails on either event.
+            bad = json.loads(json.dumps(good))
+            next(x for x in bad if x['name'].startswith('Numerical probes / A42 exclusion'))['conclusion'] = 'failure'
+            self.assertTrue(m.run_class_expected_conclusions(bad, event, source))
+            # A renamed keyed step is a missing required step.
+            for job, step in (('Numerical probes / ARP-1-MARC exact span check', keep),
+                              ('Mathlib bridge', report), ('Mathlib bridge', marker)):
+                bad = json.loads(json.dumps(good))
+                target = next(x for x in bad if x['name'] == job)['steps']
+                next(x for x in target if x['name'] == step)['name'] = step + ' (renamed)'
+                self.assertTrue(m.run_class_expected_conclusions(bad, event, source), step)
+            # A changed keyed guard or id in D's workflow fails.
+            for old, new in (("if: ${{ github.event_name == 'workflow_dispatch' }}\n    runs-on",
+                              "if: ${{ always() }}\n    runs-on"),
+                             ("if: ${{ always() && github.event_name == 'workflow_dispatch' }}",
+                              "if: ${{ always() }}"),
+                             ("id: ktrans_sep2_axioms", "id: ktrans_sep2_reports"),
+                             ("outputs.reports == 'complete-nonstandard'", "outputs.reports != 'complete'")):
+                changed = source.replace(old, new, 1)
+                self.assertNotEqual(changed, source, old)
+                self.assertTrue(m.run_class_expected_conclusions(good, event, changed), old)
+        # A missing matrix shard on dispatch fails.
+        good = make('workflow_dispatch')
+        for part in ('paths', 'n18:1', 'cubes:2'):
+            bad = [x for x in good if x['name'] != a42.replace('${{ matrix.part }}', part)]
+            self.assertEqual(len(bad), len(good) - 1)
+            self.assertTrue(m.run_class_expected_conclusions(bad, 'workflow_dispatch', source), part)
 
     def test_b3_limits_must_be_present_in_both_independent_checks(self):
         m = self.control

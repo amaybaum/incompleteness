@@ -40,4 +40,26 @@ merge or new premise follows. Physical source NOT PASSED; Q-C2-2 inactive; #1210
 
 ## 2026-11-11 subsequent B1 owner decision (distinct from R1–R10)
 
-The owner explicitly answered **“Approve, marker = skipped (Recommended)”** in [#1169 c.6784808669](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6784808669). A42 exclusion and ARP-1 measurement-retention: success on dispatch, skipped otherwise; the KTRANS marker must be skipped while the preceding axiom-report step succeeds; all remaining required jobs/steps succeed. B1 C.7/checker repairs and independent review only; no computation, dispatch, F/E, merge or extra premise is authorized. ChatGPT continues as writer for new work per the later #1218 handoff; Codex's earlier authored work and reviews remain historical. The recorded owner decision does not supply the unresolved D/T0, physical source, retention commitments or budgets.
+Owner: amaybaum. Recorded 2026-11-11T02:02:14Z (UTC) at
+[#1169 comment 6784808669](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6784808669).
+
+The question put to the owner, verbatim: "The B1 amendment to Q-C2-1's checker and preregistration (#1218) needs
+your decision. Which version do you approve?"
+
+**Owner answer: "Approve, marker = skipped (Recommended)"**. The text of the chosen option, verbatim:
+
+> A42 job and ARP-1 keep step: success on dispatch, skipped otherwise. KTRANS marker: must be skipped and the
+> axiom-report step must succeed; a marker success fails. All else success. Mutation-tested both ways. I record your
+> decision verbatim on #1169/#1218.
+
+The recorded scope, verbatim: "This approves only the B1 amendment to C.7 6/6′ and the checker's expected-conclusion
+rule." "Every other job and step must succeed. Every unlisted skip fails. The rule's `if:` texts must match D's
+`verify.yml` byte for byte." "It authorizes nothing else: no design, gate or decisive run, no dispatch, no F/E
+designation, no merge." It does not supply the unresolved D/T0, physical source, retention commitments or budgets.
+
+## Writer role (not an owner decision recorded on GitHub)
+
+From `98582070` the writer for Q-C2-1 implementation corrections is Claude, confirmed by the owner on 2026-11-11 in
+the coordinating session and stated in the writer checkpoint
+[#1218 comment 6785751650](https://github.com/amaybaum/incompleteness/pull/1218#issuecomment-6785751650); ChatGPT
+reviews. Codex's and ChatGPT's earlier authored work and reviews remain historical.

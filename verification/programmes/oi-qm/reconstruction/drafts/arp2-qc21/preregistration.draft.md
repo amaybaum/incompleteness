@@ -2424,9 +2424,9 @@ route is ungated. Any such change after landing is outside the round and must ac
 - **`order.json`.** `F`'s designation precedes the first execution run. The owner's designation comment is read
   through `GET issues/comments/{DEC}`, its id given as an argument; its `created_at`, and its `updated_at` under the
   edited-comment rule, precede the first execution run's `created_at` (C.8 item 9). Its author must be
-  `amaybaum` with association `OWNER`, and its quoted body must contain `F`'s full 40-hex commit id as the
-  designation of `F`. `order.json` records its id, author, association, times and quoted words (§A.42 item 7;
-  ARP-3-QC22 r14, R13-B4; re-reviews R14B-B1 and R14C-B1).
+  `amaybaum` with association `OWNER`, and its quoted body must contain the phrase `Designate F <sha>`, with
+  `<sha>` `F`'s full 40-hex commit id, exactly once. `order.json` records its id, author, association, times and
+  quoted words (§A.42 item 7; ARP-3-QC22 r14, R13-B4; re-reviews R14B-B1 and R14C-B1).
 - **Repository-wide run enumeration (r7 B1, r8 B2, r9 B3; r10 B3, N1, N3, N4).** `order.json` enumerates two sets:
   - **(1)** every `workflow_dispatch` run of every workflow in the repository, over `[T_repo, capture]`;
   - **(2)** every run of every workflow under every other event, over `[T0, capture]`.
@@ -2541,7 +2541,8 @@ route is ungated. Any such change after landing is outside the round and must ac
   ones included, and the Level awarded, `none` if none; D21 (b)) only when all of the following hold. Otherwise it
   prints `VERDICT VOID`, which is reserved for round-level failures, and exits 1.
   - every check at `E` passes;
-  - the owner's designation of `E` ratifies, by `order.json`'s sha256, the run list and every approval entry
+  - the owner's designation of `E`, whose body contains the phrase `Designate E <sha>` with `<sha>` `E`'s full
+    40-hex commit id exactly once, ratifies, by `order.json`'s sha256, the run list and every approval entry
     committed at `E` (C.8 item 9), quoted with author and time (fail-closed: without it, VOID); the `E` dispatch's
     own entry and each retake entry require their canonical-JSON sha256s in that same designation of `E`,
     read through `issues/comments/{DEC}` (approved R8 alternative); absent/wrong digests give VOID. Under R10
@@ -2550,10 +2551,12 @@ route is ungated. Any such change after landing is outside the round and must ac
     replaced, the entries `verdict` builds for the dispatches at `E` included (ARP-3-QC22 r14, R13-B4; r14a,
     R14-N2; re-review R14A-B1): each is checked as *Approval entries* states, and each entry of a dispatch at `E`
     is built by `verdict` from that dispatch's approval comment id (C.8 item 9);
-  - in attempt 1 of the runs at S1 and `E`, every job's conclusion is `success`, every step of job B is `success`
-    (B6 included at `E`), and every step of job A is `success` (A7 and A10 included; A3 included, so that a red
-    fixture-mode control fails this condition: owner-approved R2 default, precondition 2). The run's
-    own conclusion is `success` (r10 N5).
+  - in attempt 1 of the runs at S1 and `E`, the job and step conclusions satisfy C.7's owner-approved B1
+    conclusion table for `workflow_dispatch`: the 15 A42 exclusion shards and `ARP-1-MARC keep the measurements`
+    are `success`; `KTRANS-SEP-2 axiom reports within the three axioms` is `success` and the KTRANS marker is
+    `skipped`; every other job and step is `success`, every step of job B (B6 included at `E`) and every step of
+    job A (A7 and A10 included; A3 included, so that a red fixture-mode control fails this condition:
+    owner-approved R2 default, precondition 2) among them. The run's own conclusion is `success` (r10 N5).
   - B6 at `E` is `success` and its replay result is a match, which binds the committed measurements to the approved
     decisive computation (C.8 items 3, 7);
   - the S1 binding holds: S1's measurements artifact, read in memory, equals the committed measurements as canonical
@@ -2703,7 +2706,7 @@ route is ungated. Any such change after landing is outside the round and must ac
   its run's `created_at`, whose `updated_at` follows it, whose author is not `amaybaum` or whose association is not
   `OWNER`, whose quoted words name another commit or stage, or whose comment is reused; an `F` designation comment
   whose `created_at` or `updated_at` follows the first execution run's `created_at`, whose body does not
-  designate `F` by its full 40-hex id, whose author is not `amaybaum`, or whose association is not `OWNER`.
+  contain `Designate F <sha>` with `F`'s full 40-hex id exactly once, whose author is not `amaybaum`, or whose association is not `OWNER`.
   A push run at a strict descendant of `F`, created before the S1 dispatch, must be selected as the first
   execution run across events; an entry claimed as host VOID whose run fails C.6's host-VOID definition must
   fail. The same cases on an entry
@@ -2799,7 +2802,9 @@ for malformed-data handling. None admits a solver/shared-helper call or alias.
     - `blocks`; `cc_off`; `is_pstar`; `c_eval`; `lists_sha256`.
   - `fixtures`: verdicts, deciding steps, the derived fields and `decide` tokens for POS-1, POS-2, NEG-1, NEG-2, GBIT,
     DUAL, H3, G, X, Q, SW, SW−, F10, ZPT and X+RU′.
-  - `budget`: `P_max`, `B_max`, `W_max`, and per fragment whether each was respected.
+  - `budget`: `P_max`, `B_max`, `W_max`, and per fragment `respected`: true exactly when the fragment was given a
+    verdict and its typed budget and cap limits all held (C-BUDGET's per-fragment check), so a fragment withheld
+    for any reason, a failed certificate included, reads false.
   - `is_rule`, `is_size`, `c_cert`, `c_indep`, `c_ncf`, `c_sym`, `c_iso_name`, `flags`.
   - There is no timestamp, host or duration field.
 - **Schema `arp2-qc21-stress` v2** (`--stress`). Per fragment (stress fixtures, frozen fixtures and their
@@ -2921,8 +2926,12 @@ for malformed-data handling. None admits a solver/shared-helper call or alias.
             - `git/trees/{HEX40}`;
             - `activity?ref=refs/heads/...`;
             - the repository itself.
-          - Every further element comes from the frozen set `--paginate`, `-H`,
-            `"Accept: application/vnd.github+json"`.
+          - Every further element comes from the frozen set `--paginate`, `--slurp`, `-H`,
+            `"Accept: application/vnd.github+json"`. `--paginate --slurp` appears only on
+            `activity?ref=refs/heads/...&per_page=100`: `gh` follows the host's cursor pagination (the `Link`
+            header's `rel="next"`), never a numbered `page=` parameter, and returns one array of page arrays. The read
+            fails closed unless that output is a non-empty array whose every element is an array, and every entry is
+            an object with a decimal `id`, unique across all pages, and a string `activity_type`.
           - So there is no `--input`, `graphql`, `--hostname`, `-f`, `-F`, `--field` or `--raw-field`, and no other
             `-X` or `--method`, in any spelling.
         - **(h) Control T's exception.** The one process start that is not `git` or `gh` is
@@ -3045,9 +3054,12 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
 
 ### C.7 Design run, confirmation run and gate tests (adapted from QC22 preconditions 6, 6′ and 6″; not verbatim)
 
-**Owner-approved B1 conclusion rule (2026-11-11, #1169 c.6784808669; C.7 6/6′ and C.8).**
-Use the complete structured host job/step records (§A.44), with no log-derived statuses, and compare the frozen
-`verify.yml` job names, step names, matrix, and literal `if:` guards byte-for-byte against D.
+**Owner-approved B1 conclusion rule (2026-11-11, #1169 c.6784808669; C.7 6/6′, and C.3 at S1 and `E`).**
+Use the complete structured host job/step records (§A.44), with no log-derived statuses. D's `verify.yml` must
+contain, byte for byte and exactly once, the A42 job's and the ARP-1 keep step's `if:` guards, the axiom-report
+step's `id` and the KTRANS marker's `if:` guard below; its A42 matrix must be the 15 listed parts; and the host's
+job names must equal D's job names plus jobs A and B, with the A42 job present as its placeholder on `pull_request`
+and as its 15 shards on `workflow_dispatch`. Steps are matched by their exact names.
 In a design/confirmation `pull_request` run:
 - The exact job `Numerical probes / A42 exclusion (${{ matrix.part }})` is the **one skipped matrix placeholder**;
   on `workflow_dispatch` its 15 explicitly listed shards must all succeed. Guard:
@@ -3063,8 +3075,9 @@ In a design/confirmation `pull_request` run:
   all other required jobs and steps must succeed. Missing/extra/duplicate jobs, any other skipped job or step,
   incomplete pages/attempts, guard drift or a different A42 matrix fail closed.
 The exact permitted statuses must be mutation-tested in both directions: a wrongly successful PR-only step/job,
-a skipped dispatch-required item, a successful KTRANS marker, an additional skip, missing matrix shard,
-renamed step or changed condition must each fail. This B1 amendment changes only the acceptance interpretation,
+a failed A42 job, a skipped dispatch-required item, a successful KTRANS marker or skipped axiom-report step, an
+additional skip, a missing matrix shard, a changed matrix, a renamed keyed step, a changed keyed guard or `id`,
+or a missing or renamed job must each fail. This B1 amendment changes only the acceptance interpretation,
 not the source or scope of any scientific operation. It does not approve a design run.
 
 **6. The design run.**
