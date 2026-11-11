@@ -85,3 +85,7 @@ At exact `2f3a8b83` Claude posted [REVISE and NOT READY](https://github.com/amay
 | B5 | Enforce deciding step 2/3/4, C-SYM=4, otherwise null | Independent synthetic negative review required |
 
 The new isolated implementation harness adds author-side mocked tests but was not executed here. N1–N11 require explicit dispositions before claiming full implementation acceptance. All earlier reviewer and source records remain preserved. No scientific, fixture, A3, design, stress, F/E or dispatch authority is inferred.
+
+### Minor-review finding disposition, author-side
+
+N1: keep historical D as a candidate, reject any assumption that latest main or T0 is approved. N2: reject bool input in v_q. N3: distinguish decisive control flags from fixture `C-CERT`/`C-BUDGET`. N4: budget.respected derives from per-fragment C-BUDGET. N5: mark uncharged C-SYM enumeration in timeout limitation. N6: the retention commitment remains pending. N7: record owner ruling at 20:53:48 UTC. N8: ChatGPT now writes correction head, old Codex work retains provenance. N9: historical r14 notes remain in draft but must be removed or re-established before F, not promoted as scientific main evidence. N10: fixed stress seeds no longer called pending. N11: require full stage-and-SHA designation phrase. Each is an author correction/proposed disposition, not a reviewer verdict. Activity-history access and run authorization remain blocked.
