@@ -1,6 +1,6 @@
 # TUNE-1, Step 1: the assumptions behind the state-mixing obstructions
 
-**WIP / UNVERIFIED writer draft, revision r2 after an independent review (verdict REVISE, on `204043ce`); r2 itself is not reviewed; paper-only; pin = origin/main SHA `cac5d26441dd33e9348151487e4df7b547195481`.**
+**WIP / UNVERIFIED writer draft, revision r3 after two independent reviews (REVISE on `204043ce`; REVISE, narrow, on `e9fbe998`); r3 itself is not reviewed; paper-only; pin = origin/main SHA `cac5d26441dd33e9348151487e4df7b547195481`.**
 
 Research unit under Issue #1236 (owner decision: paper-only). This file adopts no premise,
 changes no manuscript or Lean file, promotes no claim and authorizes nothing. It has not been
@@ -48,13 +48,24 @@ and repairs, FIXED-SCALE-1 report, NATIVE-PADIC-1 report);
 Q-A `DESIGN.md`; MECH-2 `DESIGN.md`; M-INACC-1 `DESIGN.md`, `RESULT.md`, A1, A3; the feedback
 `RESULT.md`; `papers/GR.md`:130–142; `oi-qm-ext-1/observer-interface-source.md` §§4–7.
 
+**Reading and disclosure for r3.** Read in full at the pin, for this revision: apparatus-1
+`DESIGN.md` (1141 lines), MECH-1 `DESIGN.md` (1179 lines), MECH-2 `DESIGN.md` (1019 lines, a
+second time). Re-read for the quotations used below: Q-A `DESIGN.md` :160–180, :455–520,
+:915–945; M-INACC-1 `RESULT.md` §§0, 6, 8, 9; Main:726 items (ii), (vii), (xiii). One Issue
+comment was read through `gh api` (read-only) and is cited once, as provenance: the owner's Q-B
+target decision, #1169 comment 6712409082, which Q-A `DESIGN.md`:6 links. Commands added: `gh api`
+(that one read) and `wc -w`. No interpreter, probe or Lean build was run and nothing was posted.
+A search of `verification/`, `papers/` and `book/` for "Q-B" finds it in apparatus-1, Q-A, MECH-1
+and MECH-2 only. Where a statement rests on the second reviewer's reading and was not re-opened
+here, the place says so (section C, first row; section D, row D10).
+
 **Read in part.** `OB/StructuralClosure.lean` (:1–60, :100–245, :300–375),
 `OB/SubstratumInterfaceAudit.lean` (:215–360, :480–870), `OB/PhaseSource.lean` (:1–80 and the
 declaration list), `OB/PC1Controls.lean` (header, :120–140), `OB/InstrumentRealization.lean`
-(definitions of `ones`, `OnesFixing`, `onesClass` and four statements); apparatus-1 `DESIGN.md`
-(:1–470, :520–549, :690–1141); MECH-1 `DESIGN.md` (:1–200, :925–1010); PC-1 (`README.md`, run-2
+(definitions of `ones`, `OnesFixing`, `onesClass` and four statements); PC-1 (`README.md`, run-2
 result, the disposition, the heads of the preregistration and PC★); M-INACC-1 A2 (:1–60 and its
-headings); Q-A `PROOF-RECOVERY.md` (:1–40, :150–212); the 21 `native-*.md` units and five other
+headings); Q-A `PROOF-RECOVERY.md` (:1–40, :150–212); the wave-sign `ASSESSMENT.md` (:1–60);
+`papers/SM.md` §2.7 (:86–96); the 21 `native-*.md` units and five other
 notes of `continuous-substates/` (opening and result lines only); FIXED-SCALE-1 and NATIVE-PADIC-1
 preregistrations (in part). Off `main`: INTERVENE-1 r2 in full; SUBSTATE-BRIDGE-1 r2 lines 1–256
 of 356 (§4.3 onward, its §5 scoring and §6–7 not read).
@@ -74,30 +85,35 @@ statement below of the form "nothing on `main` decides X" is limited to what is 
 
 **Which assumptions exclude continuously tunable mixing?**
 
-- *Finite state representation.* Finiteness of the observer's states (Lemma 1) excludes nothing
-  alone. Two paper results need the whole substratum to be finite, which is a posit, and they
-  exclude exact tunability only.
-- *Restricted dynamics.* This is the operative cause in every kernel theorem. If a quantum state
-  is read as a matrix over configuration labels, then relabelling configurations and averaging
-  over independently prepared hidden parts never creates coherence, exactly or approximately,
-  whatever the number of states.
-- *Restricted observational access.* No exclusion is caused by it. The records find
-  the opposite dependence: the strongest negative results assume full observer access, so
-  restricted access is the route they leave open.
+- *Finite state representation.* The observer's finitely many states (Lemma 1) exclude nothing
+  alone. Two paper-level results need the whole substratum finite (a posit) and exclude exact
+  tunability only.
+- *Restricted dynamics.* The operative cause in every kernel obstruction. Read as a matrix over
+  configuration labels, a quantum state gains no coherence, exactly or approximately, from
+  relabelling or averaging over hidden parts in a classical law independent of the input
+  (kernel or Main if the hidden part is finite, the approximate form on the two-state carrier;
+  unreviewed otherwise).
+- *Restricted observational access.* It causes no exclusion. Where posited, for the lattice's
+  linear rule, it gave no tunable operation and nothing a classical model lacks (research
+  records, unverified). Under one fixed one-to-one linear encoding containing every cell
+  correlated with the system, a finite substratum gives finitely many encoded reversible
+  operations, whatever the dynamics and reads.
 
 **Exact versus approximate.** On the configuration-label reading both are excluded. For encoded
-quantum states, exact tunability needs an infinite underlying state space; approximation to any
-accuracy by growing finite systems is already constructed in Main, with the quantum rule supplied
-as input.
+quantum states, exact tunability needs an infinite state space, whatever the access;
+approximation by growing finite systems is constructed in Main, with the quantum rule as input.
 
-**Known on `main` about restricted access.** A hidden sector of any size, with point-map dynamics
-and hidden parts prepared independently of the input, adds no mixing. One natively derived
-inaccessible quantity exists, in a two-valued linear setting. The one test of whether a
-state-dependent rule keeps it was negative.
+**Open on `main`: two questions.**
 
-**Open.** Whether OI's own structure forces some quantity to stay inaccessible for a reason not
-chosen to obtain quantum mechanics; memory correlated with the input; whether the substratum is
-infinite. OI's existing principles supply none of these.
+- *Tunability (Q-B).* What could produce continuous rotations? Its first test (the
+  large-alphabet or continuum limit of the linear rule) is not run; its record expects no qubit
+  rotation.
+- *Nonclassicality (M-INACC).* Does OI keep a quantity the dynamics uses inaccessible, for a
+  target-independent reason? Its nearest instance (Lemma Q) needs two posited access
+  restrictions and protects present values only; the one further test, on one rule, was
+  negative.
+
+Also open: input-correlated memory; an infinite substratum (OI posits finite, derives neither).
 
 ## 0. Summary
 
@@ -107,7 +123,7 @@ infinite. OI's existing principles supply none of these.
      classes). `rot` violates it.
    - *Nonnegativity preservation.* Scaled partial permutations, and more generally entrywise
      nonnegative operators, preserve entrywise nonnegative matrices (the read/write-sourced
-     theory, every bijection-level class, every nonnegative class). `rot` and the quarter phase
+     theory, every bijection-level class, the class `nonnegClass`). `rot` and the quarter phase
      violate it.
    - *Ones-fixing.* Admissible isometries of a ones-fixing class fix the all-ones vector up to a
      scalar. `rot` and the quarter phase violate it.
@@ -121,13 +137,32 @@ infinite. OI's existing principles supply none of these.
    families (Main:488). Kernel level: a class of operators countable up to scalar executes no
    layer flow at level one, and on the two-state carrier generates no exact quantum theory.
 3. **Restricted access (class 3) is modelled on `main` and is the operative cause of no
-   obstruction** (B.12). In the kernel it appears as discard of a uniformly mixed,
-   input-independent finite ancilla and as nonnegative (coarse-grained) operators; neither
-   yields mixing. In the research records the obstructions for every dynamics (MECH-2 Lemma F,
-   Theorem NC) take full access as a hypothesis. The premise restricted access would need is
-   named (M-INACC). One native instance of derived inaccessibility exists at `q = 2`, linear,
-   stabilizer scope (Q-A Lemma Q); the one test beyond it (M-INACC-1) is negative. These records
-   are [R]: paper derivations, model-reviewed or author-reported at most.
+   obstruction** (B.12). The research records below are [R]: paper derivations, model-reviewed
+   or author-reported at most.
+   - *Kernel.* Restricted access appears as discard of a uniformly mixed, input-independent
+     finite ancilla and as the class `nonnegClass` of entrywise nonnegative operators. Neither
+     yields `rot` or the phases.
+   - *Results for every dynamics* [R]. MECH-2 Lemma F and Theorem U2(ii) assume a fixed bijection
+     of a finite configuration set, cells attached in fixed laws, H-LIFT (every cell correlated
+     with the encoded carrier belongs to it) and a fixed injective linear frame. They place no
+     condition on the reads. Their conclusion: every encoded unitary is a frame symmetry, so the
+     encoded unitaries form a finite group. Only Theorem NC, on noncontextuality, adds spanning
+     preparations and reads; at `q = 2` the native reads do not span and its verdict is undecided
+     there.
+   - *Results under posited access restrictions* [R]. For the lattice model's linear rule with
+     the access posits P1 and P2 and the arming posit P3: at `q = 2` in the one-cell frame, no
+     encoded quarter phase, no encoded `rot` and no encoded dense control (apparatus-1 Lemma 5,
+     §4.7); at odd prime `q` in Gross's frame, every protocol of the linear class is a stabilizer
+     instrument, every encoded unitary is Clifford, and a noncontextual model reproduces the
+     reachable class (MECH-1 Theorem W, Proposition C). Each is a result for the construction
+     tested.
+   - *The named missing premise* [R]. M-INACC (MECH-2 §6.2) concerns nonclassicality. Its
+     nearest instance is Q-A Lemma Q(iii), which holds "Under P1 and P2"; apparatus-1 §3.1
+     classes both as "new physical posits about control, access and resources", and by
+     M-INACC-1 §9 the lemma "covers present active functionals only". The one test on a
+     state-dependent rule (M-INACC-1, the ring `G_σ`) is negative, for that rule.
+   - *The posed question on tunability* [R]. Q-B (apparatus-1 §5.7), with a first test named in
+     MECH-1 §6.5 and not run (section D, row D10).
 4. **"Finite observational access implies finite underlying dynamics" is not derived anywhere
    read.** Total finiteness is a posit (Main:62, Main:726 item (ii); `papers/Substratum.md`:92;
    `papers/GR.md`:142).
@@ -137,8 +172,9 @@ infinite. OI's existing principles supply none of these.
    `permTheory_dense_ceiling`); by a short argument [W] for the monomial class with phases. The
    counting obstructions exclude exactness only. A continuously tunable flow alone is not
    sufficient for quantum mechanics (`flow_endpoint_refuted`).
-6. **Openings and recommendation** (sections D, F). A broad Step 2 is not supported. One
-   narrowly scoped question is stated for the owner's decision.
+6. **Openings and recommendation** (sections D, F). A mechanism survey is not supported. Two
+   questions are posed on `main` and unanswered: Q-B, on tunability, and M-INACC, on
+   nonclassicality. The recommendation is to hold Step 2 on one owner decision (F.1).
 7. **One citation on `main` rests on a vacuous hypothesis** (Main:590,
    `readWriteSourced_not_qm`; recorded in Issue #1188; section F, finding 1).
 
@@ -470,8 +506,8 @@ and for classical stochastic channels in monomial Kraus form.
 **Finiteness: (c)**, with a hidden ancilla of arbitrary finite size. The inference "finite access
 implies finite underlying dynamics" is not used.
 
-[W] On an infinite index set the two forms of the class separate: a product or block of
-permutation matrices can be a non-surjective partial injection (a shift), which is not a
+[W] On an infinite index set the two forms of the class separate: a block of a
+permutation matrix can be a non-surjective partial injection (a shift), which is not a
 permutation times a diagonal. The cardinality-free statement is for weighted partial injections,
 not for "a permutation of any index set". On an infinite carrier injective and bijective dynamics
 differ; Main:62 uses "on a finite set, injectivity implies surjectivity". Not a theorem on `main`.
@@ -671,8 +707,12 @@ by a search for its label.
 over the `N` states, effects arbitrary response functions. (4) Exact reproduction of the whole
 continuum of qubit preparations and effects. No restriction on dynamics enters.
 
-**Sorting.** Class 1, purely. Class 2: not used ("independent of C1–C4"). Class 3: not used;
-the interface gives the experimenter every distribution and every response function.
+**Sorting.** Class 1, purely. Class 2: not used ("independent of C1–C4"). Class 3: not a
+hypothesis, and no restriction of access removes the obstruction: "every behavior matrix the
+realization generates has nonnegative factorization through $N$ states", so the behaviours of
+any sub-collection of preparations and effects factor as well [W, one line from the quoted
+sentence]. This is the paper-level statement that restricted access on a finite substratum does
+not give exact reproduction of one qubit's full theory.
 **Finiteness: (a).** It is the number of ontic configurations of the whole realization that is
 finite. Lemma 1 does not supply this; the total-finiteness posit does. The inference "finite
 access implies finite underlying" is therefore consumed here as a posit.
@@ -724,15 +764,18 @@ encodings. It is unreviewed on `main` and is used below only to name routes.
 | B.4 `oiPlus_independence` | K | as B.3 | as B.3 | not used | (a), immaterial | no |
 | B.5 `obs_not_layerFlowExecutable`; `obs_not_control`, `obs_not_qm`, `obs_not_phaseFree` | K | type-level (A1 instance) | **operative**: diagonal preservation for the first, nonnegativity (through the phases) for the other three | carrier is the whole configuration space; ancilla discard only | (a) at type level | assumed as A1, not needed by the invariants [W] |
 | B.6 counting (`countable_not_layerFlowExecutable`) | K | no | **operative**, by cardinality of the operator class | not used | (c) | no |
-| B.7 Main:560 Proposition | P, P-imp | **operative** | not used | not used | (a) | **yes, as the posit** |
+| B.7 Main:560 Proposition | P, P-imp | **operative** | not used | not a hypothesis; holds under every restriction of access [W] | (a) | **yes, as the posit** |
 | B.8 Main:488 Proposition | P | **operative** | fixed prior and bijection | not used | (a) | **yes, as the posit** |
 | B.9 Main:328 Lemma | P | setting only | **operative**, with product prior | present, yields no mixing | (a) in the setting | assumed, not needed by the argument [W] |
 | `nonnegBounded_not_denseUnitaryControl`, `permTheory_dense_ceiling` (FrozenSourcing:173, :187) | K | type-level | **operative** (nonnegativity); dense unitary control excluded | not used | (c) | no |
-| `nonnegClass_nonnegBounded` with `falsifierUnavailable_of_nonnegBounded` (F2CoherenceControls:173, :98) | K | type-level | **operative**; covers every stochastic (coarse-grained, Koopman-compressed) operator | present as the form of the operators | (c) | no |
+| `nonnegClass_nonnegBounded` with `falsifierUnavailable_of_nonnegBounded` (F2CoherenceControls:173, :98) | K | type-level | **operative**, for the one class `nonnegClass` (entrywise nonnegative matrices times a contractive scalar); stochastic (coarse-grained, Koopman-compressed) operators enter as Kraus operators of realized branches | present as the form of the operators | (c) | no |
 | `flow_endpoint_refuted` (countermodel) | K | type-level | a tunable flow without phases is not QM | not used | (c) | no |
 | `operational-control-countercontrol.md` | R | no | **operative**: time shifts of one bijection are abelian | hidden carrier of any cardinality | none assumed | no |
 | Q-A Lemma G2 | R | no | **operative**: center-free, bipartite, non-adaptive | traced-out sector included, any size | none assumed | no |
-| MECH-2 Lemma F, Theorem NC | R | finite configuration set (posit) | none on the rule: every bijection | **full access is a hypothesis** (H-LIFT, spanning reads) | (a) | as the posit |
+| apparatus-1 Lemma 5, C-ROT, dense control (§4.7) | R | the four-point cell of the one-cell frame R1 | **operative**, as bijections acting on laws: the encoded channel of any bijective process with fixed-law ancillas is a stochastic matrix on the four points | access posits P1, P2 in force. Lemma 5's proof uses neither (fixed-law ancillas only; "The proof uses no property of the ancilla laws"). C-ROT is derived from the isotropy they give (Lemma 4), and the `rot` image of `Z_+` is in any case not a law on the four points (§5.1) | (a) for the cell | no |
+| MECH-1 Theorem W, Proposition C | R | **operative for "no infinite-order unitary"**: at a fixed odd prime `q` the Clifford group modulo phases is finite | **operative**, as bijections acting on laws: reachable laws have nonnegative Wigner functions, so every encoded unitary is Clifford; this part holds for every fixed bijection (MECH-2 node 8). The linear symmetric form with the `−x(t−1)` memory term is what makes every encoded branch completely positive (Theorem W, Proposition AS) | access posits P1, P2 in force and load-bearing for complete positivity; arming P3 supplied | (a) for the alphabet | as the posit |
+| MECH-2 Lemma F, Theorem U2(ii), §6.4 | R | **operative**: finite configuration set and finite frame (posit) | **operative**, as bijections acting on laws; no restriction on which bijection | no condition on the reads; H-LIFT, fixed-law attachments and a fixed injective linear frame are the hypotheses | (a) | as the posit |
+| MECH-2 Theorem NC | R | finite configuration set (posit) | as the row above | adds spanning preparations and reads; at `q = 2` the native `Z`/`X` reads do not span and the verdict is undecided there | (a) | as the posit |
 
 ### B.12 Records on `main` that model restricted access, recursive structure or an infinite hidden carrier
 
@@ -741,34 +784,81 @@ verification (§A.46 item 7); none of the [R] rows is an established claim.
 
 | Record | Statement and hypotheses | Layer; status on `main` | Bearing on class 3 |
 |---|---|---|---|
-| `InstAvail.discard` (OB/ImplementationLocality.lean:284–288); `nonnegClass` (F2CoherenceControls:120–180) | Marginalizing a uniformly mixed finite ancilla after any admissible instrument stays in the class; every class of nonnegative matrices times contractive scalars is nonnegativity-bounded on every carrier, so lacks `rot` and the phases | K | Coarse-graining a classical hidden dynamics yields no mixing on the configuration basis |
-| `RecursiveFiniteFactor` (:52, :83) | Finite-horizon and exact-period depth bounds, assuming stagewise factorization | K, conditional by statement | Continuous finite readouts of a tower see a finite stage at each horizon |
-| `NativePadicReduction` (:56, :66) | Every additive alphabet reduction commutes with the neighbour-sum two-slice step (coefficient 1) | K | Deeper digits never reach a fixed low-digit readout under the linear rule |
-| SUBSTATE-2 `ANALYSIS.md`:14–54, models A, B1, B2, C | Topological finite-stage lemma (paper proof); A: no backflow; B1: one bit of classical memory at a chosen depth; B2: iid, no common return; C: profinite gauge links, no instrument | R; paper proofs and exact finite controls; "Quantum … claims **OPEN**" | Infinite recursive carriers give classical memory or Markov laws; a continuous homomorphism from a profinite group to `U(1)` or `SU(2)` has finite image (:169–175) |
+| `InstAvail.discard` (OB/ImplementationLocality.lean:284–288); `nonnegClass` (F2CoherenceControls:120–180) | Marginalizing a uniformly mixed finite ancilla after any admissible instrument stays in the class; the theory generated by the one class `nonnegClass` (entrywise nonnegative matrices times a contractive scalar) is nonnegativity-bounded on every carrier, so lacks `rot` and the phases. A subclass needs a monotonicity step that is not a kernel theorem | K | Coarse-graining a classical hidden dynamics yields neither `rot` nor the phases on the configuration basis. The invariant is nonnegativity, not diagonal preservation: nonnegative coherences can appear. An isometric member of the class is a scaled permutation [W: orthogonal columns with nonnegative entries have disjoint supports], so stochastic operators enter as Kraus operators of realized branches |
+| `RecursiveFiniteFactor` (:52, :83) | Finite-horizon and exact-period depth bounds, assuming stagewise factorization | K, conditional by statement | An aggregation step only; ANALYSIS.md:57–60 says the module "must not be described as a kernel proof of the topological lemma" |
+| `NativePadicReduction` (:56, :66) | Every additive alphabet reduction commutes with the neighbour-sum two-slice step (coefficient 1) | K; the module scopes it "for passive congruence readout only" | Deeper digits never reach a fixed low-digit readout under the linear rule |
+| SUBSTATE-2 `ANALYSIS.md`:14–54, models A, B1, B2, C | Topological finite-stage lemma (paper proof); A: no backflow; B1: one bit of classical memory at a chosen depth; B2: iid, no common return; C: profinite gauge links, no instrument | R; paper proofs and exact finite controls; "Quantum … claims **OPEN**" | General statement (paper lemma): continuous finite readouts of a tower see a finite stage at each horizon. The four models examined give classical memory or Markov laws; a continuous homomorphism from a profinite group to `U(1)` or `SU(2)` has finite image (:169–175) |
 | FIXED-SCALE-1 `REPORT.md` | One fixed reversible rule reads unbounded depth: P-divisible two-time law, one bit of three-time memory, no common return | R; author-reported acceptance; "classical" | Finite visible alphabet with unbounded underlying depth is consistent and classical |
 | NATIVE-PADIC-1 `REPORT.md` | No deep-to-low passive backflow for the integer-coefficient cubic stencil; a non-native kick breaks it | R (K for coefficient 1); narrow; "not an impossibility result for recursive … sub-states in general" | Passive congruence access to a tower adds nothing; an escape needs level-mixing or a non-congruence readout |
-| F2-1 A★ §A★2, G★ (`amendments/A-star.md`:27–60, :138–188); run-2 result | For a classical `(K, T, μ)` and a coupling that records set membership, the induced register operator is the compressed Koopman operator: positive, unital, nonnegative in the computed basis. Thirteen access rules screened on structure; none admissible. G★ names the gap: computed readout, leaving both invariants, a structure beyond the baseline with OI justification, no answer built in | R, frozen; token `INCONCLUSIVE (gap)`; "This is not a no-go"; review author-reported; G★ item 2 refuted in part (`README.md`:241–266) | Restricted access to substates, modelled as an induced operator, is nonnegative. The missing object is a coupling-level access principle |
-| `operational-control-countercontrol.md` | On any carrier, controls restricted to time shifts of one bijection commute and cannot surject onto `PU(2)`; "a group-structure obstruction, not a finite-dimension obstruction" | R; paper argument; passive autonomous case only | An infinite hidden carrier with autonomous dynamics supplies no control |
+| F2-1 A★ §A★2, G★ (`amendments/A-star.md`:27–60, :138–188); run-2 result | Under the baseline rule (the preregistration's designated baseline, "The rule's form is the hypothesis"; A★2 "decides neither `R` nor `P`"), for a classical `(K, T, μ)` and a coupling that records set membership, the induced register operator is the compressed Koopman operator: positive, unital, nonnegative in the computed basis. Thirteen access rules screened on structure; none admissible. G★ names the gap: computed readout, leaving both invariants, a structure beyond the baseline with OI justification, no answer built in | R, frozen; token `INCONCLUSIVE (gap)`; "This is not a no-go"; review author-reported; G★ item 2 refuted in part (`README.md`:241–266) | Restricted access to substates, modelled as an induced operator, is nonnegative. The missing object is a coupling-level access principle |
+| `operational-control-countercontrol.md` | On any carrier, controls restricted to time shifts of one bijection commute and cannot surject onto `PU(2)`; "a group-structure obstruction, not a finite-dimension obstruction" | R; paper argument; passive autonomous case only; it "does **not** assert an impossibility once the dynamics gains preparation- or setting-conditioned interventions" | An infinite hidden carrier with autonomous dynamics supplies no full control: the available group is abelian. An abelian one-parameter family is not excluded by it |
 | `continuous-substates/README.md`, solenoid, infinite XOR, `equivalence-and-d3-scope.md`:19–30 | Real-type and `p`-adic per-site continua under the lattice wave map; exactly Markov solenoid law; "Moving to an infinite carrier removes the applicability of that theorem, **not** the underlying scientific challenge" | R; paper proofs "not independently reviewed on `main`" | Cardinality of the hidden space decides neither recurrence nor operations |
 | `later-access-result.md`; 21 `native-*.md` units | Setting-conditioned access on the native rule: token `LA-EQUAL`, flag `EMPTY`, under five hypotheses; unit results such as "An independently programmable measurement interface is not established" | R; conditional; acceptance labels author-reported; opening and result lines read only | No programmable interface found for the candidates tried; none is a no-go |
 | `observer-interface-source.md` §4 | "#1007: hidden continuum with finite observer access": "Infinite cardinality alone changes no specified operational availability map" | R; source assessment; "not an established premise on main" | States the owner's class 3 and finds no operation-changing process in the screened sources |
-| apparatus-1 Lemma 2 (:153), Lemma 5 (:731), §5.3 (:955–1023) | Every deterministic bijective apparatus lies in `permClass` on its physical carrier; under the one-cell frame no process induces the quarter phase; a finite carrier inducing `rot` exactly is impossible (eigenvalues of a finite stochastic matrix); a continuum carrier (Kochen–Specker, imported, not read there) induces every rotation for one system, with the re-preparation measure "the load-bearing choice" | R; merged after review rounds (status as reported in Q-A §6.1) | Escape must be on an encoded carrier; the finite rung P-8 needs "a permanently inaccessible functional" |
-| Q-A Lemma G2 (:342), node 4 (:388–423), Lemma Q (:460) | G2: no encoded quarter phase from non-adaptive native processes, "with a hidden sector of any size, finite or not"; adaptive case open. Lemma Q: at `q = 2`, symmetric center-free linear step, under access posits P1 and P2, every determinable functional has `Q* = 0` | R; paper proofs; model-reviewed ACCEPT (author-recorded) | A native restriction of access exists at stabilizer scope. With it the quarter phase needs a further premise (NNB), brings non-CP reflections (Lemma R) and fails two-system correlations (node 10) |
+| apparatus-1 Lemma 2 (:153), §3.1 (:277–309), Lemma 5 (:731), C-ROT and dense control (:772–784), §5.3 (:955–1023), §5.7 (:1072–1085) | Lemma 2: every deterministic bijective apparatus lies in `permClass` on its physical carrier. Candidate SA-1: `q = 2`, the linear second-order step, with (a′) per-tick arming P3, (b) terminal registration P1, (c) half-known ready cells P2 and isolation E-iso; "Clauses (a′), (b) and (c) are new physical posits about control, access and resources". Under SA-1 and the one-cell frame R1: `Z`/`X` reads with the sequential Lüders law at stabilizer scope; no process induces the encoded quarter phase, "for any ancillas, adaptive record-conditioned corrections or input states" (Lemma 5); encoded `rot` is unavailable (C-ROT); "encoded dense unitary control fails". "The restriction to R1 is essential". §5.3: no finite carrier induces `rot` with exact statistics (the encoded action is one stochastic matrix applied `j` times; its unit-modulus eigenvalues are roots of unity); a continuum carrier (Kochen–Specker, imported, "Not read") induces every rotation for one system, with the re-preparation measure "the load-bearing choice". §5.7 poses Q-A and Q-B as open | R; merged after review rounds (status as reported in Q-A §6.1) | Restricted access as posited here gives phase-sensitive reads and no tunable operation in the frame tested. The negative is for `q = 2`, the linear step, R1 and posits P1–P3. Escape of the phase test needs another carrier: the finite rung P-8 needs "a permanently inaccessible functional" (a posit there) |
+| Q-A Lemma G2 (:342), node 4 (:388–423), Lemma Q (:460) | G2: no encoded quarter phase from non-adaptive native processes, "with a hidden sector of any size, finite or not"; adaptive case open. Lemma Q, at `q = 2` for a symmetric center-free linear step: (i) the step conserves `Q = Σ u_i v_i`; (iii) "Under P1 and P2, every functional on active cells that the observer can determine has `Q* = 0`". P1 and P2 "keep apparatus-1's classification as supplied", and "native" there means "within N, using no posit beyond these" (:173–175). The P1-removed case "is an existing construction" that determines the protected functional (:512–516). §4.4: Lemma R's reflections and the Mermin–Peres parity constraint "should be among Q-B's controls" | R; paper proofs; model-reviewed ACCEPT (author-recorded) | Under the posited access restrictions P1 and P2, the conserved form of the linear rule at `q = 2` protects the present value of every `Q* = 1` functional of the active cells. Past values are not protected (M-INACC-1 §6.3). The conservation is derived from the rule; the inaccessibility is derived from posited access, not from OI's principles alone. With it the quarter phase needs a further premise (NNB), brings non-CP reflections (Lemma R) and fails two-system correlations (node 10) |
 | feedback `RESULT.md` §§2–5 | Uniform linear encodings, common lift, available translations: no adaptive protocol gives `S` with a CP operation set; "an infinite hidden sector is allowed" | R; model-reviewed | Preparation-dependent lifts are outside its hypothesis H-C |
-| MECH-1 §0, §6 (read in part) | Odd `q`: native affine symplectic steps are exactly the CP ones in Gross's frame; capability stays inside a fragment a classical model reproduces; in-world setting selection fails; missing premise M1 | R; reviewed scope as cited by MECH-2 | Not about access; shows selection can be native while capability is classical |
-| MECH-2 Lemma F (:307), Theorem U2 (:404), Theorem NC (:483), §6.2 (:810–871) | For every fixed bijection of a finite configuration set, with H-LIFT and a fixed injective linear frame, every encoded branch is nonnegative; with spanning reads the configuration model is noncontextual for the whole encoded theory. M-INACC named as the missing premise; "finite observer capacity does not imply a finite world" (:911), infinite case not assessed | R; paper proofs; "Independent review of this file is a separate step" | **Full access is the hypothesis.** "a contextual observer-level theory needs operational equivalences coarser than ontic equalities, and they must hold for a physical reason" |
-| M-INACC-1 `RESULT.md` §0, §4 | For the symmetric state-dependent ring `G_σ` at `q = 2`, protocols using only the fixed rule, ready cells and terminal registration determine a protected functional in every record branch. Outcome (B, B); tiers Negative. Blocking premise P-GK reported, degenerate, not adopted | R; "WIP / UNVERIFIED"; model-reviewed | Lemma Q's protection does not survive this nonlinear rule. Negative for `G_σ` and these classes only |
+| MECH-1 Theorem W (:467–512), Proposition AS (:516), Proposition C (:751–766), §1.4 (:211–243), §6.5 (:1069–1076) | Class N: the linear symmetric center-free second-order rule with the `−x(t−1)` memory term, armed per tick and per edge (P3, E-iso), P2 ready cells, P1 terminal registration, discarding, translations, record feedback; N+NNB adds a same-sublattice coupling (a conditional premise). At odd prime `q`, in Gross's frame: every finite protocol of N or N+NNB, adaptive or not, whose ancilla laws have quantum images is a stabilizer instrument with every branch CP (Theorem W); "P1 is load-bearing" and "P2 is load-bearing" (without either, a branch has Choi eigenvalue `−1`; the record cites its self-checks c7, c7′ and apparatus-1 C9, C4). Among ontic bijections, CP ⇔ affine symplectic (Proposition AS). Proposition C, "For every protocol of N or N+NNB": reachable states have nonnegative Wigner functions; "Every available encoded unitary channel is Clifford", the group is finite, "so there is no encoded unitary of infinite order"; no quarter phase; the reachable class is "a local noncontextual hidden-variable model" (by Spekkens' equivalence, imported, read there in part). Setting selection is supplied by P3 and fails natively (Lemma A); missing premise M1. §1.4: the lead "Continuum or large-`q` limit with metaplectic quantization" is "Partly covered. Its exact finite form is the selected lead … The continuum form is left to Q-B (§6.5)" | R; paper proofs using Gross's theorems (read first-hand there in the parts it lists); reviewed scope as cited by MECH-2; the odd-`q` statements that use the memory sign need the `−x(t−1)` rule, which Main:726 item (xiii) posits (wave-sign `ASSESSMENT.md`, author checkpoint, review pending) | With the access posits the linear rule gives a quantum-compatible fragment; without them it gives non-quantum maps. They do not give tunability: at each fixed odd prime `q` the reversible encoded set is finite, and a classical model reproduces the fragment. Scope: linear rule, odd prime `q`, Gross's frame, posits P1–P3 |
+| MECH-2 Lemma F (:325; hypotheses :309–323), Theorem U2 (:404), Theorem NC (:485), node 8 (:737–755), §6.2 (:810–871), §6.4 (:901–911) | *Lemma F.* Hypotheses: a fixed bijection of a finite configuration set, "any rule"; operations: attach cells "in fixed nonnegative laws", apply the rule, feedback, discard, condition on configuration records; H-LIFT; a linear identification by an orthogonal frame. No hypothesis on which reads exist. Conclusion: every encoded branch is a nonnegative matrix on frame coordinates. *Theorem U2(ii)*, product frame at `q = 2`: every encoded unitary branch of any fixed bijection is a frame permutation in `A_4 ≀ S_n`; its proof uses that "valid states span and the identification is injective", not spanning reads. So "no encoded `S`", no `T`, no entangling unitary, "no infinite-order unitary". Node 8, odd `q`: "every encoded unitary induced by any fixed bijection is Clifford". §6.4: under any finite orthogonal frame and H-LIFT the encoded unitaries of any dynamics "form a finite group"; an infinite carrier or hidden sector "is not assessed here; finite observer capacity does not imply a finite world". *Theorem NC* adds an injective identification with equivalences certified by spanning preparations and reads: then the configuration model is noncontextual for the whole encoded theory. "At `q = 2`, spanning certification needs a `Y` read, which is not exhibited natively. Over the native `Z`/`X` reads alone, Theorem NC does not apply"; "Such apparent contextuality is not a nonclassicality witness unless the missing reads are absent for a physical reason". M-INACC is named as the missing premise for nonclassicality; "Native class N has a native instance: Lemma Q", where "native" has Q-A's sense (within the class N, whose access posits P1 and P2 are supplied) | R; paper proofs; "Independent review of this file is a separate step" | Fewer reads do not reopen tunability: Lemma F and Theorem U2(ii) are universal over protocols, so they hold for every sub-collection [W]. What they assume about access is H-LIFT, with the fixed injective frame. Spanning reads are a hypothesis of the noncontextuality verdict only, and that hypothesis already fails natively at `q = 2`. "a contextual observer-level theory needs operational equivalences coarser than ontic equalities, and they must hold for a physical reason" |
+| M-INACC-1 `RESULT.md` §0, §4, §6, §9 | For the symmetric state-dependent ring `G_σ` at `q = 2`, protocols using only the fixed rule, ready cells and terminal registration determine a protected functional in every record branch (the protocols `E_A`, `E_B`). Outcome (B, B); tiers Negative. Blocking premise P-GK reported, degenerate, not adopted. One control is red in the record's own table: "C-LIN is red for PROT-R", because the retrodictive property fails in the linear limits themselves ("archived cells can be sharp, so retrodictive `Q* = 1` protection does not hold even with Lemma Q"); "outcome (A), which requires PROT-R, is unreachable under the amended rule for any rule, QA's N included". "Neither class's outcome relies on PROT-R". The corrected property PROT-R′ holds in the linear limits and "is not adopted". "Lemma Q(iii) covers present active functionals only" | R; "WIP / UNVERIFIED"; model-reviewed | Lemma Q's protection does not survive this nonlinear rule. Negative for `G_σ` and these classes only. The negative is constructive and, on the record's terms, does not rest on the red control; the unit as amended could not have returned a positive |
 | PC-1 `README.md` | Strict result `INCONCLUSIVE (void)`; finding carried under an owner exception: none of 25 candidates admissible; "not a no-go" | R; void; not independently validated on `main` | Not usable as a premise |
 | `papers/GR.md`:136–142 | To `O(τ_S/τ_B)`, visible transition data do not depend on the cardinality of a slowly coupled deep sector, "finite, countably infinite, or uncountably infinite"; "The recurrence proof … requires $S$ finite, which Lemma 1 does not supply" | P; conditional on the frozen-deep-sector hypothesis | A mixing mechanism cannot sit in a slowly coupled deep sector; an infinite deep sector is admitted by GR's own corollary |
 
-**What this establishes about class 3.** (i) Restricted access is modelled, in the kernel and in
-the records, wherever the state is a law on configurations and the hidden part is independent of
-the input; there it only loses information. (ii) It can matter only by changing what counts as an
-operational state: equivalences coarser than ontic equalities. (iii) That premise is named
-(M-INACC), has one native instance at stabilizer scope (Lemma Q), and is not supplied by the
-state-dependent rule tested. (iv) Nothing read assumes that finite access implies finite
-underlying dynamics; G2, the countercontrol and GR's corollary are stated for hidden sectors of
-any size.
+**What the records say about class 3.** None of the [R] items below is an established claim.
+
+(i) *Modelled, and not a cause.* Restricted access is modelled, in the kernel and in the records,
+wherever the state is a law on configurations and the hidden part is independent of the input;
+there it only loses information. No obstruction read has restricted access as its operative
+cause.
+
+(ii) *Which results assume what about access.* Lemma F and Theorem U2(ii) of MECH-2, the results
+that bear on tunability, assume fixed-law attachments, H-LIFT and a fixed injective linear frame,
+and nothing about the reads. Under those hypotheses fewer reads do not reopen tunability, for any
+fixed bijection. Theorem NC, the result on noncontextuality, adds spanning preparations and
+reads, and that hypothesis already fails for the native reads at `q = 2`. Main:560 holds under
+every restriction of access (B.7).
+
+(iii) *Negatives obtained under restricted access.* Each is a result for the construction named
+and for nothing wider.
+
+- apparatus-1 [R]: `q = 2`; the linear second-order step; posits P1, P2, P3 and E-iso; the
+  one-cell frame R1. No encoded quarter phase (Lemma 5, adaptive corrections and any ancillas
+  included), no encoded `rot`, no encoded dense control. Lemma 5 does not depend on the access
+  posits; the reads and their continuation do.
+- Q-A Lemma G2 [R]: `q = 2`; bipartite linear class; native `X` read; non-adaptive processes; a
+  hidden sector of any size. No encoded quarter phase. The adaptive case is open.
+- MECH-1 Theorem W and Proposition C [R]: odd prime `q`; the linear symmetric rule with the
+  `−x(t−1)` memory term; posits P1, P2, P3 and E-iso, with or without NNB; Gross's frame;
+  adaptive protocols included. Every protocol is a stabilizer instrument; every available encoded
+  unitary is Clifford, so none has infinite order; no quarter phase; no Wigner-negative state;
+  the reachable class is a noncontextual hidden-variable model. Here P1 and P2 are what makes the
+  encoded branches completely positive.
+- M-INACC-1 [R]: `q = 2`; the state-dependent ring `G_σ`; P1, P2. The protection of Lemma Q is
+  lost.
+
+In the constructions on the linear rule the posited restrictions give stabilizer-type behaviour
+that a classical model reproduces, with finitely many reversible encoded operations and no
+tunable one. The cause of "finitely many" is not the access: under a fixed injective frame and
+H-LIFT the encoded unitaries of every fixed bijection are frame symmetries (MECH-2 Theorem
+U2(ii), node 8), and a finite alphabet makes that group finite. The second reviewer names the
+affine rule as the class-2 cause; the source supports the wider form, bijections acting on laws,
+since MECH-2 node 8 extends Proposition C(b) "from N to all dynamics". The affine form is what
+makes the branches completely positive. So restricted access has been tried on the linear rule in the form in
+which it was posited, and it did not supply tunability. Other rules, other frames, non-injective
+identifications and infinite alphabets are outside these results.
+
+(iv) *Where access could matter.* For nonclassicality, by changing what counts as an operational
+state: equivalences coarser than ontic equalities, held for a physical reason. That premise is
+named (M-INACC). Its nearest instance, Lemma Q(iii), is conditional on two posited access
+restrictions ("Under P1 and P2"; apparatus-1 §3.1: "new physical posits") and protects present
+values only ("covers present active functionals only", M-INACC-1 §9); it is not supplied by the
+state-dependent rule tested. For tunability, M-INACC on a finite carrier would open the class of
+the 8-point quarter-phase mechanism (MECH-2 §6.2, "What it buys"), where exact `rot` stays
+excluded (apparatus-1 §5.3). The question on `main` about tunability is Q-B (section D, row D10).
+
+(v) *Finiteness.* Nothing read assumes that finite access implies finite underlying dynamics; G2,
+the countercontrol and GR's corollary are stated for hidden sectors of any size, and MECH-2 §6.4
+leaves the infinite case unassessed.
 
 ***
 
@@ -835,14 +925,15 @@ coverage ledger records both theorems as paper level with "no Lean statement"
 
 | Obstruction | (1) exact | (2) every ε, one fixed finite system | (3) growing family | (4) one fixed rule | (5) infinite underlying space |
 |---|---|---|---|---|---|
-| Sourced observer theory; every nonnegativity-bounded theory (B.5) | excluded [K] (`permTheory_not_control`; `falsifierUnavailable_of_nonnegBounded` for `rot`) | excluded [K], two-state carrier, as no dense unitary control (FrozenSourcing:173, :187, :240) | excluded [K]: `NonnegBounded` quantifies over every ancilla level | excluded [K]: `sourcing_rule_independent` | not expressible in the kernel (`Fintype`). [R]: no control from autonomous dynamics on any carrier; no quarter phase from non-adaptive native processes with any hidden sector (B.12) |
+| Sourced observer theory; every nonnegativity-bounded theory (B.5) | excluded [K] (`permTheory_not_control`; `falsifierUnavailable_of_nonnegBounded` for `rot`) | excluded [K], two-state carrier, as no dense unitary control (FrozenSourcing:173, :187, :240) | the invariant holds at every ancilla level and on every carrier [K] (`permTheory_nonnegBounded`); non-approximability is [K] only as no dense unitary control on the two-state carrier, where the approximant is a unitary conjugation at the same level; an approximant built with a larger ancilla and a discard is the [W] step of the scope sentence above (the second reviewer's check of it: a nonnegativity-preserving map has `(0,1)` entry ≥ 0 on the matrix unit where the target has `−1/2`) | excluded [K]: `sourcing_rule_independent` | not expressible in the kernel (`Fintype`). [R]: no full control from autonomous dynamics on any carrier (the time-shift group is abelian); no quarter phase from non-adaptive native processes with any hidden sector (B.12) |
 | Monomial class with complex phases (B.1) | excluded [K] | excluded [W]: diagonal preservation is closed; the target differs from every diagonal-preserving map by `12/25` in one entry, and from every monomial unitary by `3/5` in operator norm. No kernel theorem | excluded [W]: the invariant does not depend on ancilla size | excluded [W] | [W] for weighted partial injections (B.1); not on `main` |
 | B.2 as stated | vacuous | vacuous | vacuous | vacuous | vacuous |
 | B.3 / B.4 countermodels; `flow_endpoint_refuted` | non-entailment only | not addressed | not addressed | not addressed | not addressed |
 | B.6 counting | excluded [K] | **not excluded**: with one postulated gate a dense countable class exists [K] | not excluded | not excluded: `fixedGateTheory 1` is dense for every ε [K], with a postulated gate and unbounded ancilla levels | not addressed |
 | B.7 Main:560 | excluded for fixed `N` [P, P-imp] | excluded [W]: for fixed `N` and a fixed finite experiment the realizable behaviours form a compact set (the reviewer checked this argument) | **not excluded**; established with the stated limits [P] (Main:566, :598) | one map per `(𝓕, K, G)` (Main:582) [P]; one fixed finite rule for every ε is excluded by (2); one rule on an unbounded state space is not addressed on `main` | outside the hypothesis. [R] apparatus-1 §5.3: exact `rot` is impossible on a finite carrier and is induced by an imported continuum model for one system, with the measure a free choice |
 | B.8 Main:488 | excluded for fixed finite `(S, prior, φ)` [P] | excluded for the whole instrument continuum [W] | not addressed | not addressed | outside the hypothesis |
-| Encoded carrier, fixed injective linear frame, H-LIFT, spanning reads (MECH-2, apparatus-1) [R] | excluded for every fixed bijection: encoded unitaries are frame symmetries, a finite group | excluded for the quarter phase under the one-cell frame: stochastic matrices are closed (apparatus-1:778–784) | no entangling encoded unitary on `n` cells (Theorem U2) | every rule | "not assessed" (MECH-2:910–911) |
+| Encoded carrier, finite configuration set, fixed injective linear frame, H-LIFT (MECH-2, apparatus-1) [R] | excluded for every fixed bijection: encoded unitaries are frame symmetries, a finite group (MECH-2 §6.4) | excluded for the quarter phase under the one-cell frame: stochastic matrices are closed (apparatus-1:778–784); a finite group of encoded unitaries is not dense, for any fixed number of cells [W] | excluded under the product frame for every number of cells and ancillas (Theorem U2(ii)) | every rule | "not assessed" (MECH-2:910–911) |
+| Linear class N with the posited access (P1, P2, P3, E-iso; with or without NNB), odd prime `q`, Gross's frame (MECH-1 Theorem W, Proposition C) [R] | excluded: every available encoded unitary is Clifford, a finite group, at each fixed `q` | excluded at a fixed `q`: the group is finite, and reachable states keep nonnegative Wigner functions (Proposition C(a), (b)) | cells and ancillas: excluded at fixed `q` (Proposition C covers every protocol). A family in growing `q`: not addressed; named and "left to Q-B (§6.5)" (:217) | the step is the lattice model's linear rule; which edge is armed at each tick is loaded from outside (P3); the access is posited | not derived. Named as Q-B's first test, "whether AS survives the real or large-`q` limit: exact continuous symplectic rotations of quadratures, with C-CP"; "A qubit `rot` would still need non-Gaussian, Wigner-negative resources" (:1073–1076) |
 
 [W] remark on column (4), not a claim to adopt: any computation-universal reversible rule on an
 unbounded state space can approximate to every ε with the quantum data in the initial condition,
@@ -856,7 +947,10 @@ Two readings follow from the table and should be kept apart.
 - If it means an encoded quantum carrier, as in the gluing theorem where the quantum state is
   "held in the hidden register", then approximation by growing finite families is established
   at paper level, exactness on a fixed finite system is excluded, and nothing read decides
-  exactness or uniform approximation on an infinite underlying state space.
+  exactness or uniform approximation on an infinite underlying state space. For this reading
+  `main` poses Q-B (D10): its approximate form is a family in growing alphabet size built from
+  the lattice model's own linear rule, as distinct from Main:566 where the quantum rule is the
+  input; its exact form is the continuum alphabet.
 
 The kernel's approximate target needs less than the exact one: a single non-monomial gate at an
 irrational angle with the phases and exchanges, not a continuum of operations. For the sourced
@@ -877,15 +971,16 @@ They establish nothing here. "Open" means logical room, not evidence.
 
 | Opening | Outside which hypotheses | (a) kernel | (b) records on `main` | (c) off `main` [D] | Status |
 |---|---|---|---|---|---|
-| D1 infinite underlying space, finite access | Main:560, Main:488 (finite `N`); the kernel's `Fintype` | not expressible | autonomous dynamics: no control on any carrier; non-adaptive native processes: no quarter phase with any hidden sector; finite-stage reduction for continuous readouts of towers [R]. Exact `rot` needs an infinite carrier (apparatus-1 §5.3) [R] | E1 and saturation: an arbitrary measurable hidden carrier induces on a finite carrier only what a finite register induces | Closed conditionally on the configuration-law reading with input-independent hidden parts. Open only together with D2 or D3. Revising it changes ledger item (ii) |
-| D2 encodings that are non-linear, chosen per measurement context, or with restricted reads | the fixed injective linear frame and spanning reads of MECH-2 | not expressible | fixed linear frames with H-LIFT are closed for every dynamics (Lemma F, Theorem NC) [R] | E2: one shared linear encoding makes all native measurements jointly measurable; the continuum (Husimi) frame hosts every unitary as a point map and no sharp read | Open for non-linear and per-context encodings. As a class it contains "QM by fiat" (amplitudes as coordinates, the Born measure posited) |
-| D3 memory outside the identified carrier | H-IND, H-LIFT, the uniform ancilla | not expressible (`prepAvail_uniform` only) | "Without H-LIFT … the encoded description must be enlarged until H-LIFT holds" (MECH-2:346–347); preparation-dependent lifts are outside the feedback result's H-C | named route C-dyn, "not decided" | Open for protocols whose hidden part depends on the input law; then no linear map on carrier states is defined (first-draft D3 objection stands) |
+| D1 infinite underlying space, finite access | Main:560, Main:488 (finite `N`); the kernel's `Fintype` | not expressible | autonomous dynamics: no full control on any carrier (the time-shift group is abelian); non-adaptive native processes: no quarter phase with any hidden sector; finite-stage reduction for continuous readouts of towers [R]. Exact `rot` needs an infinite carrier (apparatus-1 §5.3) [R] | E1 and saturation: an arbitrary measurable hidden carrier induces on a finite carrier only what a finite register induces | Closed conditionally on the configuration-law reading with input-independent hidden parts. Open only together with D2, D3 or D10. Revising it changes ledger item (ii) |
+| D2 encodings that are non-linear, non-injective or chosen per measurement context | the fixed injective linear frame of MECH-2 Lemma F and Theorem U2 | not expressible | fixed injective linear frames with H-LIFT are closed for every dynamics as to encoded unitaries (Lemma F, Theorem U2(ii)), with no condition on the reads; noncontextuality needs spanning reads in addition (Theorem NC). Non-injective encodings host the finite quarter-phase mechanisms (U′, P-8; MECH-2 node 7). No finite carrier gives exact `rot` (apparatus-1 §5.3) [R] | E2: one shared linear encoding makes all native measurements jointly measurable; the continuum (Husimi) frame hosts every unitary as a point map and no sharp read | Open for non-linear and per-context encodings. As a class it contains "QM by fiat" (amplitudes as coordinates, the Born measure posited) |
+| D3 memory outside the identified carrier | H-IND, H-LIFT, the uniform ancilla | not expressible (`prepAvail_uniform` only) | "Without H-LIFT … the encoded description must be enlarged until H-LIFT holds" (MECH-2:346–347); preparation-dependent lifts are outside the feedback result's H-C; Q-A's CP recovery "does not apply to an additional correlated or preparation-dependent hidden background by declaration" (PROOF-RECOVERY:24–25) | named route C-dyn, "not decided" | Open and unexamined for protocols whose hidden part depends on the input law; then no linear map on carrier states is defined |
 | D4 limits and completions | finite derivations of `InstAvail` | nonnegativity passes to limits (`preservesNonneg_of_approx`) | towers: finite stage per horizon (ANALYSIS.md) [R]; quasilocal path "*additional structure*, chosen rather than derived" (Main:274) | E3 | Largely closed. Remaining: non-continuous readouts, infinite horizon |
 | D5 sourcing that is not configuration-level | the choice of class | "say nothing about sourcings that do not" (OB/ManuscriptAxioms.lean, header); every lift formulation tested is configuration-level (`coherentLiftClass_eq_substratumClass`) | L3 lift: no map from amplitudes to the carrier is stated (F2-1 §3, G★) [R] | no admissibility criterion exists; the class is data | Open, and requires giving up "states are laws" or supplying an admissibility rule |
 | D6 approximate target | — | excluded with exactness for the sourced theory | — | — | Not an opening |
-| D7 restricted access as coarser operational equivalence (M-INACC) | full access: spanning reads and H-LIFT in Theorem NC | discard and `nonnegClass` cover the configuration-law form: no mixing | named missing premise; native instance Lemma Q at `q = 2`, linear; negative for `G_σ` (M-INACC-1); with Lemma Q the quarter phase still needs NNB, yields non-CP reflections and fails two-system correlations [R] | every partition and every fixed conditional prior is covered by T0 | **Open.** The corpus's own form of the owner's class 3. No source in OI's stated principles |
-| D8 adaptive native processes | non-adaptivity in Lemma G2 | not addressed | "Adaptive native processes are not covered" (Q-A §0, §4.3); the combined target with CP is excluded for uniform linear encodings (feedback result) [R] | — | Open in a bounded sense |
+| D7 restricted access as coarser operational equivalence (M-INACC) | H-LIFT and the injective identification (Lemma F, Theorem U2); spanning reads (Theorem NC) | discard and `nonnegClass` cover the configuration-law form: neither `rot` nor the phases | named missing premise. Nearest instance: Q-A Lemma Q(iii), "Under P1 and P2", which apparatus-1 §3.1 classes as "new physical posits about control, access and resources"; linear rule, `q = 2`; it "covers present active functionals only" (M-INACC-1 §9; past values are exposed by a one-tick protocol, §6.3). Negative for `G_σ` (M-INACC-1), in a unit that could not have returned a positive. With Lemma Q the quarter phase still needs NNB, yields non-CP reflections and fails two-system correlations [R] | every partition and every fixed conditional prior is covered by T0 | **Open.** The corpus's own form of the owner's class 3. It concerns nonclassicality, not tunability: on a finite carrier a positive answer opens the class of the 8-point quarter-phase mechanism, and exact `rot` stays excluded there. No source in OI's stated principles; the one instance rests on posited access |
+| D8 adaptive native processes | non-adaptivity in Lemma G2 | not addressed | "Adaptive native processes are not covered" (Q-A §0, §4.3); the combined target with CP is excluded for uniform linear encodings (feedback result); record feedback is covered at odd prime `q` (MECH-1 Lemmas S, G; Proposition C) and in the one-cell frame at `q = 2` (apparatus-1 Lemma 5); adaptive gradedness at `q = 2` is open (MECH-1 node 5) [R] | — | Open in a bounded sense, at `q = 2` only |
 | D9 time coarse-graining, stopping times | — | products of admissible operators | — | covered by T0 | Not an opening |
+| D10 continuum or large-alphabet limit of the lattice model's linear rule under the posited access (Q-B) | the finite alphabet in MECH-1 Proposition C; the finite carrier in apparatus-1 §5.3 and MECH-2 §6.4 | not expressible | Q-B posed and open (apparatus-1 §5.7). Two first checks are named and neither is run: for the ball-containing carrier, "Whether a native reciprocal read on a continuum cell with a symplectic area form … produces the cosine-weighted re-preparation law without a supplied measure" (apparatus-1 §5.4); for the linear rule, "whether AS survives the real or large-`q` limit", "not derived here" (MECH-1 §6.5). The exact finite form at odd prime `q` was the lead MECH-1 selected and tested: a finite Clifford group, a stop. Controls named in Q-A §4.4. Infinite case "not assessed" (MECH-2 §6.4) [R] | per-site continua are the setting of SUBSTATE-BRIDGE-1 r2 (the second reviewer's reading of its later part: no new edge and no new single-procedure map under H-IND) | **Open, not started.** The question on `main` about continuous rotations. Its record expects a qubit `rot` to need more. Access and arming are posits. The approximate form stays on a finite substratum; the exact form revises ledger item (ii) |
 
 The first draft's D2 ("encodings in which the quantum carrier is not the configuration basis")
 was too broad and is replaced by the D2 row; its D7 ("not modelled by any obstruction theorem")
@@ -927,58 +1022,119 @@ These are not among the conditions. Deriving them is a separate obligation.
 The reconciliation with the records of B.12 and with the two off-`main` drafts is Step 1 work and
 is done above, within the reading limits stated at the top.
 
+**Recommendation: hold Step 2.** No mechanism survey. The one question on tunability that `main`
+poses is Q-B. Hold on one owner decision: whether to activate Q-B's first test, paper-only, with
+the controls below fixed in advance. M-INACC is not recommended now.
+
+The grounds follow, in the order: why no survey; the two questions on `main`; why hold; the
+controls.
+
 **A survey of mechanisms is not supported.** By B.11 and section C the operative obstruction on
 the configuration-basis interface is not finiteness and not restricted access, and it covers
 approximation. By B.12 the restricted-access route has been worked on `main` through several
 units, each ending in a stop or a gap with a named missing premise (G★; NNB and I; M1; M-INACC;
-P-GK). The one native instance of derived inaccessibility is linear, two-valued and at stabilizer
-scope, and the only test of its extension was negative.
+P-GK). Where access restrictions were posited for the linear rule, the result is a
+stabilizer-type fragment that a classical model reproduces, with finitely many reversible
+encoded operations (apparatus-1 at `q = 2`; MECH-1 at odd prime `q`). Lemma Q's protection holds
+"Under P1 and P2", two posits, and "covers present active functionals only"; the one test of its
+extension to a state-dependent rule was negative, for that rule.
 
-**Whether to continue: not as proposed in the first draft, and not on the present evidence
-without an owner decision on scope.** The tables support at most one question, already posed on
-`main` and not answered there:
+**Two questions are posed on `main` and unanswered.** They concern two different missing things.
+M-INACC concerns nonclassicality. Q-B concerns tunability, the subject of this unit. Neither is
+derived or reviewed, and in both the access restrictions are posits.
 
-> Does OI's own structure force, on some carrier, operational equivalences strictly coarser than
-> ontic equalities, for a reason stated without reference to the quantum target, stable under
-> reuse, recombination and composition, and without yielding non-quantum operations?
+| | Q-B | M-INACC |
+|---|---|---|
+| As `main` states it (M-INACC's list set inline) | "What additional OI principle could produce the continuous rotations (§5.3)? This means a ball-containing carrier whose reads re-prepare with the cosine-weighted law, without a supplied measure, and whose composite extension respects Main §3.3." (apparatus-1 §5.7) | "For each encoded system there is an ontic functional with three properties: the fixed rule uses it, so later statistics depend on it; no permitted preparation, read, reuse or recombination determines it or changes its conditional law; its inaccessibility follows from a structure stated without reference to the quantum target." (MECH-2 §6.2; "conditional extension premise, not adopted") |
+| The missing thing | an encoded reversible operation of infinite order, exact or as a limit | operational equivalences coarser than ontic equalities, held for a physical reason |
+| What blocks it in the records | a finite alphabet or carrier under a fixed injective frame: the encoded unitaries are a finite group (MECH-1 Proposition C(b); MECH-2 §6.4; apparatus-1 §5.3) | Theorem NC within its scope: injective identification, H-LIFT, spanning certification |
+| First test, as named | "whether AS survives the real or large-`q` limit: exact continuous symplectic rotations of quadratures, with C-CP" (MECH-1 §6.5). For the ball-containing carrier: whether a native reciprocal read on a continuum cell gives the cosine-weighted law "without a supplied measure" (apparatus-1 §5.4) | "A symmetric `G(x)` under which Lemma Q(iii)'s conclusion survives nonlinear transport" (MECH-2 §6.2) |
+| What the first test found | Not run: "This is not derived here"; Q-B is "not activated" (MECH-2 §6.4). What was run is the exact finite form at a fixed odd prime `q` (MECH-1): a finite Clifford group, no encoded unitary of infinite order, a stop | Run once, for the ring `G_σ` (M-INACC-1): negative for that rule and those protocol classes. Outcome (A) was unreachable in that unit as amended |
+| What an answer would decide [W, read against the tables] | Yes: in the linear class the finite alphabet is the only reason no infinite-order operation exists, and approximation in growing alphabet size comes from the lattice model's own rule. No: a further obstruction is present in that class. Neither decides nonclassicality | Yes, for some rule: an observer-level theory outside Theorem NC's scope exists for a stated physical reason. No, for a rule: that rule only. Neither decides tunability |
+| Ceiling stated by its own record | "A qubit `rot` would still need non-Gaussian, Wigner-negative resources" (MECH-1 §6.5); the continuum counterpart cited there is "the Liouville epistricted theory", read as an abstract only | "It opens the class in which AP1's rung P-8 and QA's U′ live" (finite, quarter phase); "Independent consequence (§A.29). None established"; flagged CC-RECON if adopted only to reach the target |
+| Approximate case (finite substratum) | A family in growing alphabet size. Each member is finite, so exactness is excluded member by member. Comparing members needs a correspondence between alphabets; of such a correspondence SM §2.7 says it "is not constructed here" [W for the bearing]. Ledger item (ii) is untouched | On a finite carrier a positive answer gives finite-order operations only; exact `rot` stays excluded (apparatus-1 §5.3). Approximate tunability is not what the premise addresses |
+| Exact case (infinite substratum) | A continuum alphabet. This revises ledger item (ii), a Layer-0 revision under §A.29 | "not assessed" (MECH-2 §6.4). Lemma Q(iii) "places no condition on the size of the hidden sector"; an infinite carrier revises ledger item (ii) |
 
-It names which hypothesis is to fail: full access (Theorem NC). The alternatives are separate
-questions and are not recommended together: states that are not laws (D5), input-dependent hidden
-memory (D3), non-linear encodings (D2), the finiteness posit (D1).
+So the two cases differ for both questions. For Q-B the approximate case is a finite-substratum
+question and the exact case is not. For M-INACC the finite case cannot yield tunability at all.
 
-The two cases stay separate.
+**Separate openings, kept apart from both questions.**
 
-- *Finite substratum.* Only approximation is at stake (Main:560). The target is then the dense
-  form, and Main:566 already supplies approximation with the quantum rule as input, so the
-  content of a result would lie entirely in selection.
-- *Infinite substratum.* Exactness is at stake. This revises ledger item (ii), a Layer-0 revision
-  under §A.29. Before any work it would have to state the results it preserves, which become its
-  controls (the recurrence step needs finite `S`, GR:142; the finite-horizon equivalence;
-  Lemma 3's counting measure, which has no canonical analogue), and at least one independent
-  prediction. None is identified here.
+- *Input-correlated memory* (D3). Unexamined: Q-A's CP recovery and the feedback result both
+  exclude preparation-dependent hidden backgrounds by declaration, and MECH-2 handles them by
+  enlarging the encoded carrier until H-LIFT holds. No record read poses it as a question.
+- *The infinite substratum* (D1). On the configuration-law reading with input-independent hidden
+  parts, cardinality alone changes no operation. It enters only as the exact case of Q-B, and
+  then as a Layer-0 revision. Before any work it would have to state the results it preserves,
+  which become its controls (the recurrence step needs finite `S`, GR:142; the finite-horizon
+  equivalence; Lemma 3's counting measure, for which the records use a normalized product law on
+  a cone as a named hypothesis, H-INF-μ), and at least one independent prediction. None is
+  identified here.
+- States that are not laws (D5) and non-linear, non-injective or per-context encodings (D2) stay
+  as listed in section D.
 
-Controls that would have to be fixed in advance, from the records' own failures:
+**Why hold, and on what.** Step 2 was scoped as an evaluation of candidate mechanisms for tunable
+mixing. The tables show one such question posed, Q-B; the other openings (D2, D3, D5) name no
+mechanism. Three facts from the records bear on whether to start it, and each is for the owner
+to weigh.
 
-1. *Selection control.* The same rule must not also yield non-CP or reflection-type encoded
-   maps (Q-A Lemma R; MECH-2 P★), nor more than quantum correlations.
-2. *Classical countercontrol.* A contextuality claim counts only with equivalences certified
-   over a spanning read set, or with the missing reads shown absent for a physical reason
-   (Theorem NC scope).
-3. *Exposure controls.* The protocol class is fixed first; removing the access posits must
-   expose the protected quantity; the linear limit must reproduce Lemma Q (as in M-INACC-1).
-4. *Complete records.* Verdicts per record branch, with reuse, recombination and composition.
+1. By its own record the first test's best outcome is continuous symplectic rotations of
+   quadratures, with a counterpart in the Liouville epistricted theory, and not a qubit `rot`.
+2. The access restrictions (P1, P2) and the arming of every coupling (P3) are posits, so a
+   positive result would be conditional on them. MECH-1 finds that setting selection "fails
+   natively" under one fixed affine rule (Lemma A).
+3. The exact form is a Layer-0 revision for which no list of preserved results and no
+   independent prediction exists.
 
-A Step 2 on this question would re-enter M-INACC-1's territory with a different rule. Nothing
-read indicates which rule to choose, so the recommendation is to hold Step 2 until a candidate
-structure is named for a reason independent of the target. Naming one is the owner's decision
-and is not made here.
+Q-B also has a scope of its own. The record of the owner's decision on its target (Issue #1169,
+comment 6712409082, amaybaum, 2026-11-07T20:08:39Z; provenance, not on `main`; linked from Q-A
+`DESIGN.md`:6) reads: "This decision sets Q-B's scientific target. It does not authorize
+execution", with the disposition "A Q-B unit gets its own scope from the owner". A Step 2 under
+TUNE-1 would duplicate that unit. The decision to hold on is therefore whether to activate Q-B
+with its first test. If the owner does not, TUNE-1 stops at Step 1 and the tables above are its
+result.
+
+M-INACC is not recommended as the next question: it is not a tunability question, no second
+candidate rule is named in the records read, and the unit that tested the first one could not
+have returned a positive, so its protection property would have to be repaired first (PROT-R′
+"is not adopted").
+
+**Controls to fix in advance, if Q-B's first test is activated.** Each comes from a recorded
+failure or a recorded requirement.
+
+1. *Classical-imitation control* (MECH-1 CC-IMIT′, rule D2). Report whether the mechanism's own
+   noncontextual model reproduces every sequence. If it does, the verdict is stated as "not
+   separated from classical imitation".
+2. *External-control check* (MECH-1 SC-2, Lemma A). State which coefficients are loaded from
+   outside. If the rotation angle is an armed coefficient, the tunability is supplied by P3 and
+   is not derived [W for this application of the check].
+3. *Selection controls* (Q-A §4.4; MECH-1 C-CP, C-COMP). Every encoded branch completely
+   positive; Lemma R's reflections absent; the Mermin–Peres parity constraint for composites;
+   the composition battery K1–K6, with errors followed under repetition, adaptive measurement
+   and recombination.
+4. *Limit and exposure controls.* At each fixed `q` the construction must reproduce Proposition C
+   (a finite group), so that the limit is not built in. Removing P1 or P2 must break complete
+   positivity, as in MECH-1's scope note.
+5. *Preserved results, approximate form.* The correspondence between alphabets is stated before
+   it is used (SM §2.7); the condition `3 ∤ q` for the normalized coefficient (SM §2.7) and the
+   `−x(t−1)` memory term (Main:726 item (xiii)) are carried.
+6. *Exact form only.* The §A.29 list above, before any work.
+
+Should M-INACC be taken up instead, its controls are those its records name: no non-CP or
+reflection-type encoded maps (Q-A Lemma R; MECH-2 P★); equivalences certified over a spanning
+read set, or the missing reads shown absent for a physical reason (Theorem NC scope); the
+protocol class fixed first, with the access posits removed as exposure controls and the linear
+limit reproducing Lemma Q; verdicts per record branch.
 
 ### F.2 A prior question for the owner
 
 Which interface counts as "quantum behaviour arising": coherence on the configuration basis
 (excluded, approximation included, for a class-2 reason) or an encoded carrier (where exactness
-needs an infinite substratum and the open item is inaccessibility with a derived reason). The
-corpus does not settle this, and the answer changes which obstructions bear.
+needs an infinite substratum, and the open items are Q-B for tunability and M-INACC for
+nonclassicality). The corpus does not settle this, and the answer changes which obstructions
+bear. On the encoded reading a second point is for the owner: whether continuous rotations of
+quadratures obtained without Wigner-negative resources count toward the target, since the record
+of Q-B's first test expects a qubit `rot` to need more.
 
 ### F.3 Findings: prose on `main` versus the Lean statement
 
@@ -1050,9 +1206,13 @@ Productivity test for r2, fixed before the revision's reading: a finding counts 
 cell of B.11, C or D, or a clause of the recommendation. The first draft fixed its test after
 the fact.
 
-- B.12 and the D7 row (restricted access is modelled; the obstructions for every dynamics take
-  full access as a hypothesis; the missing premise is named on `main`): **ELABORATING**. The
-  content is in MECH-2 §6.2; the sorting against the owner's classes is the addition.
+- B.12 and the D7 and D10 rows (restricted access is modelled; of the results for every dynamics
+  only Theorem NC needs spanning reads; negatives exist under posited access, each for its
+  construction; two questions are posed on `main`): **ELABORATING**. The content is in
+  apparatus-1, MECH-1 and MECH-2; the sorting against the owner's classes is the addition.
+- The r3 changes (Lemma Q's conditions, the hypotheses of each MECH-2 result, Q-B) are
+  **CONFIRMING**: findings of the second review, checked here against the three records read in
+  full.
 - Three invariants in place of one; the cardinality step in `submonomial_monomial`; the [K]
   status of the approximation cell: **CONFIRMING** (the reviewer's findings B2–B4, verified here
   against the proofs).
