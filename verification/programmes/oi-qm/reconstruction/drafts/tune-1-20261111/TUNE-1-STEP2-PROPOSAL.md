@@ -5,8 +5,9 @@ under Issue #1236 (owner decision: paper-only). This file plans one question and
 work, its definitions, decision rule, controls and stopping rule. It runs no Step 2 work, performs
 no computation, adopts no premise, advocates and evaluates no candidate mechanism, changes no
 manuscript or Lean file and authorizes nothing. Execution needs the owner's recorded approval of
-this text (or of an amended text) after the reviews named in section 10. This is revision r8,
-drafted after the delta review of r7 (verdict REVISE, light, at `2ad0aca0`); r7 was drafted after
+this text (or of an amended text) after the reviews named in section 10. This is revision r8a,
+which applies the four nits of the delta review of r8 (verdict ACCEPT WITH NITS, at `535688ca`) to
+r8; r8 was drafted after the delta review of r7 (verdict REVISE, light, at `2ad0aca0`); r7 was drafted after
 the delta review of r6 (verdict REVISE, at `b9e9683e`); each was drafted with the owner's approval
 to revise as reviewed; r6 was drafted after the external review of r5a (verdict REVISE, at
 `9440f8af`); r5a applied the four nits of the delta review of r5 (verdict
@@ -612,7 +613,7 @@ execution, with the checkpoint that measures it.
 | No computation is run in Step 2 | The result note's disclosure lists every command run; the reviewer checks it contains no interpreter, probe, checker or Lean build |
 | Definitions and decision rule fixed before work | The owner-approved text of this file is identified by its sha256 in the result note; every definition used is quoted from it; any change is an amendment approved by the owner before work resumes |
 | Controls green before the verdict | The control table; step 1 of section 2.2 |
-| No negative control proves too much | A proves-too-much row for each negative control and for the L5 argument (M3; against the third case) in the control table: the properties its argument uses; for each of C-POS-1, C-POS-2 and the reversible-rule class with an unread uniform environment, at the scope stated in section 3, whether each property holds there (for the class, whether it holds for every member); and whether the argument's conclusion contradicts that case's stated classification at that scope. The proves-too-much entry is red if and only if, in some case, every property holds and the conclusion contradicts the stated classification; a red entry turns the control red, and a red entry for the L5 argument is a red row of the control table |
+| No negative control proves too much | A proves-too-much row for each negative control and for the L5 argument (M3; against the third case) in the control table: the properties its argument uses; for each of C-POS-1, C-POS-2 and the reversible-rule class with an unread uniform environment, at the scope stated in section 3, whether each property holds there (for the class, whether it holds for every member); and whether the argument's conclusion contradicts that case's stated classification at that scope. The proves-too-much entry is red if and only if, in some case, every property holds and the conclusion contradicts the stated classification; a red entry turns the control red, and a red entry for the L5 argument is a red row of the control table and counts as a red control in section 2.1 (`VOID(control)`), section 2.2 step 1 and section 7 |
 | Compiled simulators classified as fixed in advance | Choice 11 is recorded at M0; C-PROG's obtained clause entries and token are compared with those its row states for the option chosen |
 | Verdict computed from the tables | Section 2.2; the reviewer recomputes the token from the two tables |
 | No premise adopted | A hypothesis ledger in the result note lists H-μ, H-∞, H-nl and H-write if used, and every [R] statement used, each with its status, and each appears in every conclusion that uses it |
@@ -740,8 +741,11 @@ heralds)` for every `q` on both carriers. That subclass would be closed by the s
 record laws (step 1 uses R-lin's affinity), not by the obstruction of section 1.2, which the
 program blocks remove. Whether any rule meets the initial-condition definitions is open; no
 rule-independent obstruction is known, and none is excluded [W]. At L5 the argument is therefore
-checked as a negative control is: the properties it uses are listed and checked against the third
-case of the proves-too-much check (section 3), and if every one holds there, the argument proves
+checked as a negative control is: the properties it uses are listed, each property that fails in
+the third case with the step of the argument that uses it; the reviewer checks, as at M1 (section
+3), that the argument uses no property it does not list and that the contradiction is not reached
+without the properties that fail in the third case; and the listed properties are checked against
+the third case of the proves-too-much check (section 3), and if every one holds there, the argument proves
 too much and the step returns to the owner (section 7).
 Exchange mode (under H-write), adaptivity and heralds are child nodes,
 and the subclass is widened to each only when its own node is proved (steps 1 and 3). The R-lin
@@ -957,11 +961,13 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
    comparator is given the whole label sequence in advance, each round's instrument a function of
    every label of the protocol. Neither is offered, for two reasons [W]. In the first variant,
    label content that `Φ_F` carries within one tick into cells of `O` that are not label cells
-   separates protocols as in section 1.2 unless reads are restricted, which D4 and D5 forbid. In
-   the second, the model is chosen per experiment and does not preserve sequential composition,
+   separates protocols as in section 1.2 wherever it arrives unmasked by unread cells, unless
+   reads are restricted, which D4 and D5 forbid. In the second, the model is chosen per experiment
+   and does not preserve sequential composition,
    which `endpoints.md`:67 [R] excludes. And since initial-condition protocols are non-adaptive
-   already, neither would add adaptivity. What the program blocks outside `O` cost instead: each
-   later label `c_j` starts at graph distance greater than `(j − 1)τ` from `O` and reaches it only
+   already, neither would add adaptivity. What the program blocks outside `O` cost instead: in a
+   layout that meets the distance condition of section 1.2, each later label `c_j` starts at graph
+   distance greater than `(j − 1)τ` from `O` and reaches it only
    through unread cells, distributed by `μ` outside the program blocks, so initial-condition mode
    also tests whether `Φ_F` carries a label through the unread world [W]. Adopting either variant
    is the owner's choice; it would change what "rule-only" means, from "every choice is an initial
@@ -1051,7 +1057,10 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   status, branch, log, diff, add, commit, push), `grep`, `cut`, `sed`, `ls`, `df`, `wc`,
   `sha256sum`. No interpreter was run in r7. Commands used in drafting r8: `git` (rev-parse,
   status, branch, diff, add, commit, push), `grep`, `ls`, `sed`, `wc`, `sha256sum`. No interpreter
-  was run in r8. No probe, checker or Lean build. No GitHub comment.
+  was run in r8. Commands used in drafting r8a: `git` (rev-parse, status, branch, add, commit,
+  push), `grep`, `cut`, `sed`, `cat`, `sha256sum`. No interpreter was run in r8a. No probe,
+  checker or Lean build. No GitHub comment.
+- **Read for r8a:** the delta review of `535688ca` (in full). No further record was read.
 - **Read for r8:** the delta review of `2ad0aca0` (in full). No further record was read.
 - **Read for r7:** the delta review of `b9e9683e` (in full). No further record was read.
 - **Read for r6:** the external review of `9440f8af` (in full); at the pin,
@@ -1100,6 +1109,7 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   fresh delta review (same model family, verdict REVISE, one blocking finding, B-r6-1 on
   initial-condition mode, and six nits), and r7 (`2ad0aca0`) applied the finding and the nits. r7
   received a fresh delta review (same model family, verdict REVISE, light, one blocking finding,
-  B-r7-1 on M3's statement about initial-condition mode, and five nits), and this revision r8
-  applies the finding and the nits. It needs a delta review of r8 before it goes to the owner for
-  approval.
+  B-r7-1 on M3's statement about initial-condition mode, and five nits), and r8 (`535688ca`)
+  applied the finding and the nits. r8 received a fresh delta review (same model family, verdict
+  ACCEPT WITH NITS, no blocking findings and four nits), and this revision r8a applies the four
+  nits. It needs the external ChatGPT review before it goes to the owner for approval.
