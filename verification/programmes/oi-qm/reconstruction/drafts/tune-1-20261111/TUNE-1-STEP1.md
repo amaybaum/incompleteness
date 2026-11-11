@@ -1,6 +1,6 @@
 # TUNE-1, Step 1: the assumptions behind the state-mixing obstructions
 
-**WIP / UNVERIFIED writer draft, revision r5, after four non-author reviews (REVISE on `204043ce`; REVISE, narrow, on `e9fbe998`; REVISE, narrow, on `d573eec4`; REVISE, narrow, on `62f81f70`); r5 is not reviewed; paper-only; pin = origin/main SHA `cac5d26441dd33e9348151487e4df7b547195481`.** The fourth review states of itself that it is by a model of the same family as the writer and "is not the independent review the owner's deliverable names" (Issue #1236 names the independent reviewer).
+**WIP / UNVERIFIED writer draft, revision r5a, after four non-author reviews (REVISE on `204043ce`; REVISE, narrow, on `e9fbe998`; REVISE, narrow, on `d573eec4`; REVISE, narrow, on `62f81f70`) and a non-author delta check of r5 (REVISE, narrow, on `4063eaaa`); r5a is not reviewed; paper-only; pin = origin/main SHA `cac5d26441dd33e9348151487e4df7b547195481`.** The fourth review states of itself that it is by a model of the same family as the writer and "is not the independent review the owner's deliverable names" (Issue #1236 names the independent reviewer).
 
 Research unit under Issue #1236 (owner decision: paper-only). This file adopts no premise,
 changes no manuscript or Lean file, promotes no claim and authorizes nothing. It has not been
@@ -15,9 +15,9 @@ ways, since the sources were read, and can be re-read, at the pin.
 
 - *Main.* Two lines were removed from `papers/Main.md` between the two commits (pin lines 4–5), so
   **every Main line cited below is two lower at `082c3eaa`**: Main:62 is :60, Main:560 is :558,
-  Main:726 is :724. Of the 24 Main lines cited (46, 48, 62, 268, 274, 328, 330, 336, 488, 554, 560,
-  562, 564, 566, 582, 584, 586, 590, 598, 600, 602, 702, 720, 726), 22 are byte-identical at the
-  shifted position. The other two changed in wording, and what is quoted from them is present in
+  Main:726 is :724. Of the 25 Main lines cited (46, 48, 62, 268, 274, 328, 330, 336, 488, 554, 560,
+  562, 564, 566, 582, 584, 586, 590, 598, 600, 602, 702, 718, 720, 726), 23 are byte-identical at
+  the shifted position. The other two changed in wording, and what is quoted from them is present in
   both commits: pin :602 (the two phrases quoted in section C and in F.3) and pin :726 (the ledger
   has thirteen items at the pin and fourteen at `082c3eaa`; items (ii), (vii) and (xiii) as quoted
   are unchanged).
@@ -133,6 +133,13 @@ comparisons only: the cited Main lines between the pin and `082c3eaa` (`sed`, `g
 interpreter, probe, checker or Lean build was run, and nothing was posted. The changes are listed
 in F.4.
 
+**Disclosure for r5a.** A text-only correction after the delta check of r5. Read for it, at the
+pin: Main:62, :718 and :726, each compared with the line two lower at `082c3eaa`; the audit's
+matrix rows (:276–292); `whole-model-bridge.md`:283–287. Commands: `git` (rev-parse, branch,
+status, merge-base, diff, show, cat-file, ls-files, add, commit, push), `grep`, `sed`, `awk`,
+`cut`, `wc`, `head`, `tail`, `ls`, `df`, `sha1sum`, `sha256sum`. No interpreter, probe, checker or
+Lean build was run, and nothing was posted. The changes are listed in F.4.
+
 **Limit of the negative statements.** A statement below of the form "nothing on `main` decides X"
 is limited to the records Appendix G marks as read in full. Appendix G.3 names what was not read.
 
@@ -149,9 +156,10 @@ not require), exact adjustable mixing is impossible; approximation by growing fi
 
 **2. Only reshuffles allowed.** If the quantum state is written over the world's configurations,
 reshuffling never produces mixing, exactly or approximately; machine-checked theorems establish
-this for OI's stated operations (approximately: two-state system). If the state instead summarises
-what an observer can prepare and measure (agreement in experiments, not mere description), a
-reshuffle can act as a quantum operation, as one-qubit models show (unverified).
+this for OI's stated operations (the approximate part is machine-checked for a two-state system
+only). If the state instead summarises what an observer can prepare and measure (agreement in
+experiments, not mere description), a reshuffle can act as a quantum operation, as one-qubit
+models show (unverified).
 
 **3. Limited access.** It causes no obstruction. Wherever unverified research records on `main`
 show quantum statistics from a reshuffling world, hand-chosen limits on preparation and readout
@@ -164,9 +172,10 @@ are essential:
   sourced; with unrestricted access the result is not quantum.
 - Finite systems: a fixed finite set of operations.
 
-**Exact versus approximate.** Exact needs an infinite world (paper-level). Growing finite systems
-approximating quantum behaviour over bounded experiments have been built twice, key ingredients
-supplied.
+**Exact versus approximate.** Exact needs an infinite world (argued in the papers, not
+machine-checked; one half rests on an imported result). Growing finite systems approximating
+quantum behaviour over bounded experiments have been built twice, each with key ingredients put in
+by hand (in one, the quantum rule itself).
 
 **Cautions.** Adjustable mixing is necessary, not sufficient. `readWriteSourced_not_qm`
 (Issue #1188) has an unsatisfiable premise; not counted.
@@ -192,7 +201,7 @@ below).
 | (i) validity | every available operation gives valid probabilities at every ancilla level | core: not entailed. Stated operations: derived | `main_result`, first independence witness; `validity_of_implementationLocality` |
 | (ii) trivial-ancilla consistency | what is available on the system is available with a one-state ancilla adjoined | core: not entailed. Stated operations: derived | `main_result`, fifth independence witness; `systemToLevelOne_of_embeddedObservation` |
 | (iii) inert spectators | an operation stays available, unchanged, beside a bystander | core: not entailed. Stated operations: derived | `main_result`, second independence witness; `observationalIndependence_of_implementationLocality` |
-| (iv) full reversible control | every unitary at every ancilla level is exactly available; the only condition that asks for a continuum, and the one that contains adjustable mixing | core: not entailed. Stated operations: **proved not supplied** | `control_independent`, `oi_alone_not_qm`; `substratumGen_not_control`, `obs_not_control` |
+| (iv) full reversible control | every unitary at every ancilla level is exactly available; the only condition that asks for a continuum, and the one that contains adjustable mixing | core: not entailed. Stated operations: **proved not supplied** | `control_independent`, `oi_alone_not_qm` (a theory realizing the core that is not quantum; its witness lacks control); `substratumGen_not_control`, `obs_not_control` |
 | (v) iterated composition | attach a fresh uniformly mixed ancilla, act, discard: the result is available | core: not entailed. Stated operations: derived | `main_result`, fourth independence witness; `closure_of_embeddedObservation` |
 
 The independence witnesses are the five existence statements of `main_result`'s third clause, in
@@ -559,6 +568,24 @@ So the step from finite observational access to a finite underlying system is ma
 No statement read derives it. The exact invariance that supports the posit covers finite
 decoupled enlargements only (Main:726 item (ii)).
 
+**Main's own statement of the posit and its scope** [P] (added in r5a; each line is two lower at
+`082c3eaa`, with the quoted text unchanged). The §1.2 status remark: "only finite visible
+resolution is a theorem (Lemma 1) … total finiteness of that representative is a physical posit,
+carried in the posit ledger (§4.5)" (Main:62). Ledger item (ii) gives the extension to all of $S$
+as A1 of the companion substratum construction, "there scoped as the gauge choice of the minimal
+finite representative, the cardinality of a deep sector being unobservable at the fixed
+visible/hidden interface when that sector is a finite factor prepared independently in a
+normalized state and evolved by its own permutation, with product dynamics, which leaves every
+reduced visible channel, and hence every transition probability, unchanged" (Main:726). Where the
+posit is used: "The P-indivisibility proof uses total finiteness (the total-finiteness posit, §1.2
+Remark, §4.5 ledger) via the recurrence argument ($\varphi^N = \text{id}$)" (Main:718). Main's
+unobservability statement is thus for a deep factor that is finite, independently prepared and
+evolved separately from the rest (decoupled). Such a factor leaves the visible law unchanged, so it
+cannot supply adjustable mixing either [W]. A hidden sector that interacts with the visible one is
+outside that statement (for a slowly coupled deep sector the same item transfers, under a stated
+hypothesis, "only conclusions insensitive to that correction", the correction being
+$\mathcal{O}(t/\tau_B)$), and so is an infinite one.
+
 **The standing of total finiteness on `main`** (added in r5). Four kinds of record bear on it, and
 they are kept apart.
 
@@ -609,11 +636,11 @@ they are kept apart.
    at Main:46, GR:142, Structure:53 and Computation:118) and others do (Main:62;
    Main:720, "a finite set with a deterministic bijection"; `book/glossary.md`, "**Axiom 2
    (Finiteness).**"); which change answered which row was not traced here.
-3. *The owner's decision, as quoted on `main`.* One record on `main` quotes it with author and
-   time: "The *principle* is adopted; its infinite-carrier physical adequacy is **not proved**.
-   Finite total-S remains a conditional branch premise where already consumed by
-   recurrence/gauge/reconstruction theorems." (amaybaum, 2026-10-30T15:44:46Z; Issue #1007
-   comment 6526897139, as quoted in
+3. *A comment posted from the owner's account that restates the owner's decision, as quoted on
+   `main`.* One record on `main` quotes it with author and time: "The *principle* is adopted; its
+   infinite-carrier physical adequacy is **not proved**. Finite total-S remains a conditional
+   branch premise where already consumed by recurrence/gauge/reconstruction theorems."
+   (amaybaum, 2026-10-30T15:44:46Z; Issue #1007 comment 6526897139, as quoted in
    `…/observer-interface-obsmu-20261104/ANALYSIS.md`:1243, a "WIP / UNVERIFIED research record"
    that classes the comment as a "governance record"). The comment was read at the source for this
    revision and matches. The fuller statement is the body of Issue #1007 (provenance; a planning
@@ -638,7 +665,9 @@ they are kept apart.
    operational completion conditions or chooses a continuous gauge action."
 
 What the audit's matrix says each result uses (its rows at :281–291, abridged to the quoted
-phrases; "retained" is its column "Finite-S proof retained"):
+phrases; "retained" is its column "Finite-S proof retained"). Nine of its eleven rows are given;
+the two omitted are "Deep hidden cardinality being observational "gauge"" and "Finite boundary
+entropy / hbar gap".
 
 | Result | General, observer-relative form | Finite total `S` |
 |---|---|---|
@@ -1045,7 +1074,7 @@ verification (§A.46 item 7); none of the [R] rows is an established claim.
 | `operational-control-countercontrol.md` | On any carrier, controls restricted to time shifts of one bijection commute and cannot surject onto `PU(2)`; "a group-structure obstruction, not a finite-dimension obstruction" | R; paper argument; passive autonomous case only; it "does **not** assert an impossibility once the dynamics gains preparation- or setting-conditioned interventions" | An infinite hidden carrier with autonomous dynamics supplies no full control: the available group is abelian. An abelian one-parameter family is not excluded by it |
 | `continuous-substates/README.md`, solenoid, infinite XOR, `equivalence-and-d3-scope.md`:19–30 | Real-type and `p`-adic per-site continua under the lattice wave map; exactly Markov solenoid law; "Moving to an infinite carrier removes the applicability of that theorem, **not** the underlying scientific challenge" | R; paper proofs "not independently reviewed on `main`" | Cardinality of the hidden space decides neither recurrence nor operations |
 | Eight further notes of `continuous-substates/` (read in full in r5): `cubic-wave-revival`, `observable-recurrence`, `solenoid-countercontrol`, `infinite-xor-counterexample`, `BOUNDARY-CONTROLS`, `shared-gauge-pointer-candidate`, `yangmills-substate-bridge`, `observation-context-protocol` | Infinite or continuous carriers with a finite readout; each model is chosen, none derived from the lattice rule. *Cubic wave on circles*: "an added compact torus extension of the unnormalized cubic wave update, with an added distributed finite readout"; on a 3×3×3 lattice the update `F(u,p) = (Au−p,u)` on `(R/Z)^54` has infinite order, while one binary readout has rooted matrices `Γ₁=J₂`, `Γ₂=swap`, `Γ₄=I`; "It supplies no Yang–Mills action or quantum-control menu." *Observable recurrence*: for an invertible measure-preserving `T` and a finite-valued `π`, an exact common visible return is "**sufficient** for the recurrence step in Main §2.3 even if `X` is infinite. It is not automatic for infinite measure-preserving carriers"; `p`-adic digits beyond a readout's depth are "invisible to that readout under this class of congruence-compatible dynamics". *Solenoid*: an exactly Markov visible bit over a reversible compact carrier; "**FAIL** for the claim that merely allowing division by 3 on an infinite compact reversible hidden carrier supplies visible recurrence, hidden memory, or quantum operational capability … This is not a no-go for different measurable partitions, interactions, settings, or coherent controlled operations." *Infinite XOR tape*: one visible bit, a P-divisible two-time family and a non-Markov three-time law; "It does not imply stochastic P-indivisibility or full operational QM." *Boundary controls*: one visible bit over `(Z/2)^Z`; a finite cyclic register of length `q` has the infinite stream's visible law at every horizon up to `q` and differs from it at `q + 1`. *Gauge-pointer toy*: two reversible settings that do not commute as permutations; "noncommuting classical reversible operations still do not supply noncommuting *quantum* gates, complex phase interference, complete positivity". *Yang–Mills bridge*: a continuous internal carrier "creates mathematical room for continuous gauge variables and controlled readouts, but by itself does not source either". *Observation-context protocol*: a preregistered test whether "**one and the same** continuous-state OI microdynamics" can be classical under a passive readout and show interference and noncommuting interventions "under **specified, physically executable preparations and observation settings**"; its control C1, a classical coherent wave, passes the interference statistics, so "**interference alone is insufficient** to infer full operational QM or a unique ontic mechanism"; its rule: "If C2 needs freely chosen response distributions, quantum amplitudes or a Kraus-instrument menu to match the tables, label it an external-input reconstruction, NOT a native prediction"; a setting that "is only a decoder applied afterward to inaccessible fields" returns "**BLOCKED: no available intervention**". It "contains **no native OI microdynamics**" | R; each "research-only", a "research candidate" or a "preregistered research protocol"; paper proofs with exact finite regressions (not replayed here); the paper proofs are not Lean-checked, apart from the two lemmas of B.0 item 4; "Independent review pending" where a note states its review | Finite access over an infinite carrier is exhibited seven ways, and in each the visible process is a classical stochastic process: Markov, memory-bearing, or with an exact return. None supplies an operation. The protocol note states the owner's third possibility as a test with its controls fixed in advance, and classes the interference of a classical wave as insufficient |
-| `audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md`, with `scope_controls.py` (read, not run) (added in r5) | Its statements on total finiteness are in B.0. Its negative controls, as written arguments: (1) "one finite instantaneous observer bit on an uncountable microscopic product can carry unbounded cumulative public history. A finite cyclic surrogate agrees through any pinned horizon `n ≤ q` and first differs at `n = q+1`; do not upgrade finite-horizon equivalence to all-time"; (2) the solenoid; (3) a countable union of finite cycles with a full-support invariant probability, for which "the measured rooted visible matrix `Γ_L` is **never** the identity at any positive L"; (5) "A finite-valued readout therefore does not give a product carrier, whatever the dynamics"; (6) the shift on `ℤ` carries no normalized invariant probability; (4) an ambient gauge-action countercontrol, "not a native OI result", beside which it records that the sourcing controls of the continuous-substates work "do not establish a native mechanism for selectable quantum measurement interactions. These results do not establish a general impossibility for continuous internal states, nor do they derive such measurement controls from continuity or cardinality alone". For Main:46's former attribution of energy conservation to finiteness: "finite total cardinality is neither necessary nor, by itself, sufficient to specify a nontrivial conserved-energy function" | R; "research-only, independent review required"; reviewer independence "not established"; its replacement texts "NOT applied" by it | Class 1 only. It sorts Main's results by whether they use a finite observer or a finite world (B.0), reports the owner's direction that neither is inferred from the other, and holds no statement about operations. Its control (1) is why an approximate claim needs a stated horizon: a finite surrogate and an infinite carrier agree up to a horizon and differ after it |
+| `audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md`, with `scope_controls.py` (read, not run) (added in r5) | Its statements on total finiteness are in B.0. Its negative controls, as written arguments: (1) "one finite instantaneous observer bit on an uncountable microscopic product can carry unbounded cumulative public history. A finite cyclic surrogate agrees through any pinned horizon `n ≤ q` and first differs at `n = q+1`; do not upgrade finite-horizon equivalence to all-time"; (2) the solenoid; (3) a countable union of finite cycles with a full-support invariant probability, for which "the measured rooted visible matrix `Γ_L` is **never** the identity at any positive L"; (5) "A finite-valued readout therefore does not give a product carrier, whatever the dynamics"; (6) the shift on `ℤ` carries no normalized invariant probability; (4) an ambient gauge-action countercontrol, "not a native OI result", beside which it records that the sourcing controls of the continuous-substates work "do not establish a native mechanism for selectable quantum measurement interactions. These results do not establish a general impossibility for continuous internal states, nor do they derive such measurement controls from continuity or cardinality alone". For Main:46's former attribution of energy conservation to finiteness: "finite total cardinality is neither necessary nor, by itself, sufficient to specify a nontrivial conserved-energy function" | R; "research-only, independent review required"; reviewer independence "not established"; its replacement texts "NOT applied" by it | Class 1 only. It sorts Main's results by whether they use a finite observer or a finite world (B.0), reports the owner's direction that a finite world is not inferred from a finite observer, and holds no statement about operations. Its control (1) is why an approximate claim needs a stated horizon: a finite surrogate and an infinite carrier agree up to a horizon and differ after it |
 | `later-access-result.md`; 21 `native-*.md` units | Setting-conditioned access on the native rule: token `LA-EQUAL`, flag `EMPTY`, under five hypotheses; unit results such as "An independently programmable measurement interface is not established" | R; conditional; acceptance labels author-reported; opening and result lines read only | No programmable interface found for the candidates tried; none is a no-go |
 | `observer-interface-source.md` §4 | "#1007: hidden continuum with finite observer access": "Infinite cardinality alone changes no specified operational availability map" | R; source assessment; "not an established premise on main" | States the owner's class 3 and finds no operation-changing process in the screened sources |
 | `oi-qm-ext-1/pair-operation-source.md` §§4–7 | §4, for a measurable bijection `g` of a probability space ("The total hidden carrier may be infinite") and finite input and output register partitions: the conditional record kernel `T` is nonnegative with unit column sums, and the compression `K` of the Koopman unitary onto normalized indicator functions is an entrywise nonnegative contraction (its equations (1)–(3)). "It is **not** a deduction that every observer-level operational interface must use that baseline"; neither formula alone makes `K`, "its polar factor, or its logarithm a physical gate or a Kraus operator". §5: the kernel ceilings apply "**if** the boundary proposal is completed using that same finite configuration-level availability"; "It does not silently apply a finite-total-carrier theorem to an arbitrary continuum". §6: "Escape is not sufficiency" | R; "a conditional paper calculation"; a source stop; "The paper remains draft research" | On the compression baseline a nonlocal bijection, a conserved-quantity partition, a larger hidden carrier or an observer inside the carrier gives no signed or complex entry. The baseline is "Assumed only in the excluded completions"; restricting the admitted preparations "is itself a physical source obligation" |
@@ -1517,16 +1546,22 @@ is done above, within the reading limits of Appendix G.
 reading of "quantum behaviour arising" is the target, and whether the exact or the approximate
 form is meant (F.2); (2) whether to activate one question that `main` already poses, as a
 paper-only unit whose decision rule and controls are fixed before any work. The owner's
-instruction for TUNE-1 is that no new physical premise be adopted and that finite observational
-access not be taken to mean finite underlying dynamics (Issue #1236); neither a finite nor an
-infinite underlying system is to be assumed. Under it, the question nearest the owner's third
-possibility, the access quotient, has two forms. The exact form can be taken up only as a
-conditional derivation that carries an isolated pair, real-valued sites and an externally loaded
-coefficient as named unsourced hypotheses into every conclusion. The approximate form, on a
-finite substratum of growing size (F.2, B-approx; D12), does not need real-valued sites. It is the
-least developed on `main`: no record read poses it, and whether it needs isolation or an
-externally set coefficient is not decided there. If neither form is wanted, TUNE-1 stops at Step 1
-and the tables above are its result.
+instruction for TUNE-1 (Issue #1236) is "No computation, manuscript changes, merges, or adoption
+of new physical premises" and "I do not want us to assume that finite observational access
+necessarily means finite underlying dynamics." This document applies it as follows [W]:
+finiteness of the underlying system is not inferred from finite access, and enters only where a
+result uses the manuscripts' posit (ledger item (ii)), named as a premise; an infinite or
+real-valued underlying system is not adopted as a premise, since that would be a new one. Under
+it, the question nearest the owner's third possibility, the access quotient, has two forms. The
+exact form can be taken up only as a conditional derivation that carries an isolated pair,
+real-valued sites and an externally loaded coefficient as named unsourced hypotheses into every
+conclusion. The approximate form, on a finite substratum of growing size (F.2, B-approx; D12),
+does not need real-valued sites. It is the least developed on `main`: records name it
+(`whole-model-bridge.md` §7, "A finite-menu/precision approximation remains a separately named
+target"; MECH-1 §1.4) and none poses it as a question with a carrier, an error and a horizon, or
+builds it; whether it needs isolation or an externally set coefficient is not decided there. If
+neither form is wanted and no other question of the table below is activated, TUNE-1 stops at
+Step 1 and the tables above are its result.
 
 The grounds follow, in the order: why no survey; the open questions as `main` states them; the
 candidates compared; why hold; the controls.
@@ -1591,7 +1626,7 @@ Rows marked [W] are the writer's reading of the tables.
 | What a unit could decide [W] | for the stated carrier and drive: whether a stated family of restrictions, each written without reference to quantum probabilities, passes the fixed-dimension state and effect test and survives the access countercontrols; or that none of the stated family does | whether the linear class on a real or large alphabet keeps complete positivity in one frame under P1 and P2 | whether a stated rule keeps a quantity it uses out of the observer's reach under P1 and P2 |
 | What it could not decide [W] | where real-valued sites or a loadable coefficient come from; the composite and lift-seam obligations of the programme map; all restrictions outside the stated family | the source of a real carrier or adjustable coupling; a qubit `rot` ("would still need non-Gaussian, Wigner-negative resources"); nonclassicality | tunability: on a fixed finite carrier exact `rot` stays excluded (apparatus-1 §5.3) |
 | Kind of work | paper derivation | paper derivation; the owner's Q-B record says a computational part would run as a V3 round and that the target decision "does not authorize execution, adopt additional physical premises, or bypass V3" (Issue #1169, comment 6712409082, amaybaum, 2026-11-07T20:08:39Z; provenance, not on `main`) | paper derivation for a stated rule; the first check "can be decided for a fixed small ring and bounded protocol depth" (MECH-2 §6.3), which would be a computation |
-| Exact form and ledger item (ii) | on a real-valued carrier, outside the finite construction the manuscripts posit (ledger item (ii)). As a conditional derivation with E-pair, E-real and E-control carried into the conclusion it adopts nothing. As a statement about OI it would need those three derived or adopted as premises; Issue #1236 excludes adoption within TUNE-1 ("No … adoption of new physical premises"), and `main` holds such a claim open "until separately proved" (B.0). No record on `main` bars an infinite underlying system, and none adopts one. Issue #1007 (provenance) treats observer-relative finiteness as a revision under §A.29, with a list of results to preserve and an independent payoff required | as the previous column | finite carrier; ledger item (ii) untouched |
+| Exact form and ledger item (ii) | on a real-valued carrier, outside the finite construction the manuscripts posit (ledger item (ii); Main:720 states a finite set as the framework's structural claim). As a conditional derivation with E-pair, E-real and E-control carried into the conclusion it adopts nothing. As a statement about OI it would need those three derived or adopted as premises; Issue #1236 excludes adoption within TUNE-1 ("No … adoption of new physical premises"), and an unverified research record on `main` holds such a claim open "until separately proved" (B.0). No record on `main` bars an infinite underlying system, and none adopts one. Issue #1007 (provenance) treats observer-relative finiteness as a revision under §A.29, with a list of results to preserve and an independent payoff required | as the previous column | finite carrier; ledger item (ii) untouched |
 | Approximate form (finite substratum) | not posed in any record read. B1 notes the primitive is reversible over `Z_q` and derives nothing there | a family in growing alphabet size, named and not built; needs the correspondence between alphabets that SM §2.7 says "is not constructed here" | not what the premise addresses |
 | New-premise risk | the restriction is the answer if it is chosen and not derived: "It cannot simply identify states that an available sensor distinguishes" | the question asks for an "additional OI principle" | the premise is "not adopted", "easy to vary" and flagged CC-RECON if adopted only to reach the target |
 
@@ -1612,13 +1647,17 @@ that the architecture does not state, and the unit would have to name them.
 **Why hold, and on what.**
 
 1. *The target reading is undecided* (F.2). On the configuration-basis reading the answer to the
-   owner's question is already on `main`: excluded, exactly and approximately, for a class-2
-   reason. On the observer-statistics reading the exact and approximate forms lead to different
-   units.
+   owner's question is that mixing is excluded, for a class-2 reason: on `main` exactly for every
+   finite carrier and approximately for the two-state carrier, and beyond that by this document's
+   argument [W] (F.2 (A); section C). On the observer-statistics reading the exact and approximate
+   forms lead to different units.
 2. *Every exact form of the tunability questions sits on a real-valued carrier.* Real-valued sites
    are an added input with no source (E-real), and adopting them as a premise is what Issue #1236
-   excludes. The underlying system being infinite is not itself the difficulty: `main` leaves its
-   size open and holds every claim on an infinite carrier open until proved (B.0). A conditional
+   excludes. The underlying system being infinite is not itself the difficulty: on `main` the
+   manuscripts posit a finite system and Main states it as the framework's structural claim
+   (Main:720 at the pin), the Introduction states the hypothesis without it, and an unverified
+   research record reports the owner's direction that the general framework leaves the size
+   unspecified, with claims on an infinite carrier open until proved (B.0). A conditional
    paper derivation is compatible with the instruction only if E-pair, E-real and E-control appear
    in every conclusion as unsourced hypotheses; the owner decides whether such a result is wanted.
 3. *The approximate form on a finite substratum stays inside the manuscripts' finite construction
@@ -1672,12 +1711,14 @@ fixed (§A.29).
 10. *Exact form only, and only if a result is to be stated about OI and not conditionally.* The
     §A.29 list: the results preserved and at least one independent prediction. For a carrier
     whose size is not fixed, the finiteness audit sorts Main's results by which finiteness they
-    use (B.0): the recurrence step of §2.3 and the P-indivisibility route through it, the product
-    form of Lemma 2 and Lemma 3's unique uniform measure use a finite total `S`; Lemma 1, the
-    finite-horizon equivalence as existence of finite representatives, and stochastic-inverse
-    rigidity do not. Issue #1007 (provenance) carries the owner's list of results to preserve and
-    requires an independent payoff, with the caution that removing the Main:560 obstruction (its
-    "Main:554") "does not count as a prediction". No independent prediction is identified here.
+    use (B.0): the recurrence step of §2.3 and the P-indivisibility route through it, and Lemma
+    3's unique uniform measure, use a finite total `S`; the product form of Lemma 2 is a separate
+    named assumption (H-product) that a finite-valued readout does not give on any carrier, finite
+    or not; Lemma 1, the finite-horizon equivalence as existence of finite representatives, and
+    stochastic-inverse rigidity do not. Issue #1007 (provenance) carries the owner's list of
+    results to preserve and requires an independent payoff, with the caution that removing the
+    Main:560 obstruction (its "Main:554") "does not count as a prediction". No independent
+    prediction is identified here.
 11. *Which first check is meant*, where a record names two (MECH-1 §6.5; apparatus-1 §5.4).
 12. *Vocabulary boundary* (pair-flow equivalence audit, frozen there for "the realization-level
     source search that follows this round"). A candidate source whose statement uses rotation,
@@ -1692,9 +1733,14 @@ Three questions. Each can be answered by naming one option.
 
 - (A) *The world's configurations themselves.* The quantum state is a table of numbers over the
   world's configurations, and mixing must appear in that table. On `main` this is ruled out for a
-  world that only reshuffles configurations, exactly and approximately, at any size (section C
-  gives the layer of each part). If (A) is the target, TUNE-1's answer is "no, because of the
-  reshuffling restriction read through this identification", and no further step is needed.
+  world that only reshuffles configurations: exactly, by machine-checked theorems, for every
+  finite number of configurations; approximately, by a machine-checked theorem for a two-state
+  system, and beyond that by a short argument of this document that is not on `main` and not
+  reviewed. For an infinite set of configurations the kernel's interface cannot state the
+  question; the same invariants apply by this document's argument only (section C, rows 1 and 2).
+  If (A) is the target, TUNE-1's answer on the present records is "no, because of the reshuffling
+  restriction read through this identification"; what would remain is a check of those two
+  unreviewed steps, not a search for a mechanism.
 - (B) *What an embedded observer can prepare and measure.* Every experiment the observer can
   actually run (its preparations, its operations and its readouts, repeated and combined) gives
   the statistics a quantum system would give. The quantum state is then a summary of what the
@@ -1703,10 +1749,11 @@ Three questions. Each can be answered by naming one option.
 
 Two points fix what this choice is.
 
-1. *The owner's third possibility presupposes (B).* "Could continuous mixing exist in the
-   deterministic substratum but remain only partially accessible to embedded observers?" is a
-   question about what an observer reaches. Under (A) there is no observer-level description for
-   partial access to act on, and limited access changes nothing (B.12 (i)). The wording of Issue
+1. *The owner's third possibility is a question under (B)* [W, a reading of the owner's
+   sentence]. "Could continuous mixing exist in the deterministic substratum but remain only
+   partially accessible to embedded observers?" is a question about what an observer reaches.
+   Under (A) partial access enters only as discarding part of the configuration, and that
+   produces no mixing (B.12 (i)). The wording of Issue
    #1236 therefore already points to (B). What is asked of the owner is to confirm (B), or to say
    that (A) was meant.
 2. *(B) means agreement in what the observer can do, not the existence of a quantum
@@ -1732,9 +1779,9 @@ Two points fix what this choice is.
   (paper level). `main` neither bars nor adopts one: a finite world is a posit of the manuscripts'
   finite models, the hypothesis as the Introduction states it does not require it, and every
   claim on an infinite carrier is open until proved (B.0). Issue #1236 excludes adopting a new
-  physical premise. So within TUNE-1 a result of this kind can only be conditional: "if an
-  isolated pair of sites held real numbers and its coupling were adjustable from outside, then
-  …", with those three hypotheses named as unsourced in the conclusion.
+  physical premise. So within TUNE-1 a result of this kind can only be conditional, for example:
+  "if an isolated pair of sites held real numbers and its coupling were adjustable from outside,
+  then …", with those three hypotheses named as unsourced in the conclusion.
 - (B-approx) As close as desired, by finite systems that grow with the precision and with the
   length of the experiment. This stays inside the manuscripts' finite models and does not need
   real-valued sites. Nothing on `main` builds it from the lattice model's update.
@@ -1765,8 +1812,9 @@ representation does not count (point 2). It does not settle which reading is TUN
 whether the exact or the approximate form is meant, or the scope of Question 3. The answers decide
 which obstructions bear and which question, if any, is worth activating.
 
-**Form of an answer.** Question 1: A or B. Question 2: exact (conditional), approximate, or both
-in Q-B's order. Question 3: one qubit or composites; amplitude rotations count or do not.
+**Form of an answer.** Question 1: A or B. Question 2: exact (conditional), approximate, both in
+Q-B's order, or neither (TUNE-1 then stops at Step 1 unless another question of F.1's table is
+activated). Question 3: one qubit or composites; amplitude rotations count or do not.
 
 ### F.3 Findings: prose on `main` versus the Lean statement
 
@@ -1866,13 +1914,24 @@ or D, or a clause of the recommendation.
   withdrawn: no record read supports it. The owner's instruction for TUNE-1 is that no new
   physical premise be adopted and that finite access not be taken to mean finite dynamics; the
   records on `main` leave the size of the underlying system open and every claim on an infinite
-  carrier unproved (B.0). (3) F.2 now states that the owner's third possibility presupposes
-  reading (B), and that (B) means operational agreement and not representation. Table cells
+  carrier unproved (B.0). (3) F.2 now states that the owner's third possibility is a question
+  under reading (B), and that (B) means operational agreement and not representation. Table cells
   changed, each at the fourth review's request: section C, B1 row column (5), row 1 column (4)
   (tag), monomial row column (2) ("at least"); D4 column (a), D6, D9 column (b), D12 column (b);
   F.1's comparison table, row "Exact form and ledger item (ii)"; B.12, the coherent-continuum row
   (S6). Rows added to B.12: five. No cell of B.11 changes, and no class-1, class-2 or class-3
   sorting changes.
+- The r5a correction, after the delta check of r5: a correction of this document, with no new
+  reading beyond the lines the header names. (1) F.1 quotes the two sentences of Issue #1236 and
+  states, labelled [W], how this document applies them; the clause "neither a finite nor an
+  infinite underlying system is to be assumed" is removed, since no record contains it. (2) F.2
+  option (A) gives the layer of each part, and "Why hold" item 1 follows it. (3) B.0 quotes Main's
+  own statement of the total-finiteness posit and of its scope (Main:62, :718, :726). (4) The
+  check's eleven nits: the summary (three phrases), the compact table's row (iv), B.0 (item 3; the
+  two omitted audit rows), the audit row of B.12, F.1 (the stop clause; the approximate form;
+  control 10; "Why hold" item 2 and the comparison table's row "Exact form and ledger item (ii)"),
+  F.2 (point 1; Question 2; the form of an answer). No cell of B.11, C or D changes, and no
+  class-1, class-2 or class-3 sorting changes.
 
 Assumption-watch markers for other units:
 
@@ -1887,7 +1946,8 @@ Assumption-watch markers for other units:
   found one more, in a directory group that r4 had classed by its path; a group classed by path
   or title is not inventoried.
 - A statement of what the owner has decided is quoted from a record with its author and time, or
-  it is not made. Revisions r4 and r4b carried one such statement without a source.
+  it is not made. Revisions r4 and r4b carried one such statement without a source, and r5 one
+  clause.
 - A keyword search of Markdown records does not inventory the Lean tree. A module is found by its
   name and header, and its statements have to be read before it is called consistent.
 
