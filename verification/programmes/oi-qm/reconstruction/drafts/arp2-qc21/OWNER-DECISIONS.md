@@ -1,6 +1,6 @@
 # Q-C2-1 owner rulings and bounded implementation authority
 
-Owner: amaybaum. Recorded 2026-11-10 at [#1169 comment 6778994857](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6778994857).
+Owner: amaybaum. Recorded 2026-11-10T20:53:48Z (UTC) at [#1169 comment 6778994857](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6778994857).
 Decision baseline: accepted r14d paper checkpoint `f634f8e3f2115ef28d11616e0d195221d3ce9cb3`.
 
 The owner answered this question in the coordinating Codex chat:
@@ -37,3 +37,7 @@ checkpoint; the paper acceptance is not script certification. Permitted static/n
 and ordinary PR CI are distinct from future scientific/local-A3/design/stress/gate/decisive execution.
 The current research branch is not a native round or workflow-splice tree. No F/E, freeze, dispatch,
 merge or new premise follows. Physical source NOT PASSED; Q-C2-2 inactive; #1210/#1216 untouched.
+
+## 2026-11-11 subsequent B1 owner decision (distinct from R1–R10)
+
+The owner explicitly answered **“Approve, marker = skipped (Recommended)”** in [#1169 c.6784808669](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6784808669). A42 exclusion and ARP-1 measurement-retention: success on dispatch, skipped otherwise; the KTRANS marker must be skipped while the preceding axiom-report step succeeds; all remaining required jobs/steps succeed. B1 C.7/checker repairs and independent review only; no computation, dispatch, F/E, merge or extra premise is authorized. ChatGPT continues as writer for new work per the later #1218 handoff; Codex's earlier authored work and reviews remain historical. The recorded owner decision does not supply the unresolved D/T0, physical source, retention commitments or budgets.
