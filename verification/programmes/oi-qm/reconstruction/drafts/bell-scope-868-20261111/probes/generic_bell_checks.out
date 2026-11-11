@@ -1,0 +1,13 @@
+PASS G1 sixteen deterministic tables: all 8 CHSH functionals in {-2,2}
+PASS G2a Tsirelson box CHSH = 2*sqrt(2)
+PASS G2b Tsirelson box is a family of probability laws
+PASS G3a exactly 8 deterministic tables reach S=+2
+PASS G3b witness correlators (1/2,1/2,1/2,-1/2), CHSH = 2
+PASS G3c witness TV to Tsirelson box = (sqrt2-1)/4 in every context
+PASS G3d (2*sqrt2-2)/8 == (sqrt2-1)/4
+PASS G3e witness = isotropic mixture at v = 1/sqrt2
+PASS G4 |E_P-E_Q| <= 2 TV on a rational grid of 2x2 laws
+PASS G5 TV contracts under local post-processing bot->+1 (400 exact rational cases)
+PASS G6a product event: generator coordinates independent of response coordinates
+PASS G6b countercontrol: coupling event breaks independence
+ALL PASS
