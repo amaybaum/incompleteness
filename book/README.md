@@ -97,7 +97,7 @@ The full compiled manuscript:
 
 - [`appendix-b-derivations.md`](appendix-b-derivations.md) — **Mathematical Derivations.** Full Stinespring construction; bilinear lattice formalism (Jordan-Chevalley); gap equation deriving $\hbar = c^3 \epsilon^2/(4G\sigma)$; anomaly cancellation calculation; cubic-group decomposition $\mathbf{6} = \mathbf{3} \oplus \mathbf{2} \oplus \mathbf{1}$; lemma chain for the characterization theorem.
 
-- [`appendix-c-objections.md`](appendix-c-objections.md) — **Common Objections and Framework Responses.** Bell's theorem and the adopted branch (ontic parameter dependence, with measurement independence and operational no-signaling); no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman); the stochastic-quantum bridge via Barandes correspondence + Stinespring dilation; necessity direction of the characterization theorem; finiteness axiom defense; relationship to MWI, Bohmian, QBism; circularity concerns in the gap equation; substratum-emergent operator distinction; meta-objections.
+- [`appendix-c-objections.md`](appendix-c-objections.md) — **Common Objections and Framework Responses.** Bell's theorem and the adopted branch (ontic parameter dependence, with measurement independence and operational no-signaling); no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman); the stochastic-quantum bridge via Barandes correspondence + Stinespring dilation; necessity direction of the characterization theorem; finiteness posit defense; relationship to MWI, Bohmian, QBism; circularity concerns in the gap equation; substratum-emergent operator distinction; meta-objections.
 
 - [`glossary.md`](glossary.md) — defined terms used across the framework.
 
