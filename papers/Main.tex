@@ -2503,7 +2503,17 @@ output a function of the components in it. This result uses the full
 spatial OI constitution --- site factorization plus the graph read from
 the actual dynamics --- but does not require the stronger simple-cubic
 nearest-neighbor restriction used elsewhere to obtain a particular
-dispersion relation.
+dispersion relation. For a class of states \(K\subseteq S\), write
+\(G_\varphi^K\) for the graph of the dependences that occur at states of
+\(K\): \(i\sim j\) whenever some \(s\in K\) and some \(s'\) differing
+from \(s\) only in the \(j\)th component have
+\((\varphi(s))_i\neq(\varphi(s'))_i\) (symmetrized as above); then
+\(G_\varphi=G_\varphi^S\), and \(G_\varphi^{\rm ref}\) denotes this
+graph for the reference vacuum/uniform state class. For a linear update
+(ledger item (vii), §4.5) the difference
+\((\varphi(s'))_i-(\varphi(s))_i\) depends only on \(s'-s\), so
+\(G_\varphi^K=G_\varphi\) for every non-empty \(K\); a graph that
+differs between state classes requires an update outside (vii).
 
 The causal-cone statement is pointwise in the pre-setting microstate. It
 must be distinguished from \textbf{operational setting screening}. In a
@@ -2599,15 +2609,23 @@ the same factor, so it does not make them equal off the body diagonals;
 which of the two, if either, is the physical \(c\) depends on which
 propagation sets the emergent light cone and is not derived here. Wings
 separated by less than the graph cone over the experiment's duration
-fall outside the Corollary. This is not a no-go for the
-state-dependent-graph framework: {[}SM §3.1{]} permits \(G(x)\) to
-depend on the state, and its mod-\(q\) area-law proof is explicitly for
-uniform initial conditions. A measurement-independent Bell completion
-may therefore use preparation-indexed nonlocal edges while leaving the
-reference uniform/vacuum graph local. What remains to be proved for this
-branch is the part of H-Bell that this analysis bears on: that the
-prepared graph family supplies the required response dependence while
-preserving operational no-signaling.
+fall outside the Corollary. If \(c\) is the wave speed, these include
+wings that are spacelike with respect to \(c\): a setting site and a
+remote readout site at Euclidean distance \(d\) lattice spacings along
+\(\hat n\), \(\Delta t\) updates apart, with
+\(\Delta t/\sqrt3 < d \le \Delta t/\lVert\hat n\rVert_1\); the Corollary
+covers wings outside the graph cone, which contains the wave cone in
+every direction. This is not a no-go for the state-dependent-graph
+framework: {[}SM §3.1{]} permits \(G(x)\) to depend on the state, and
+its mod-\(q\) area-law proof is explicitly for uniform initial
+conditions. A measurement-independent Bell completion may therefore use
+preparation-indexed nonlocal edges while leaving the reference
+uniform/vacuum graph local; such edges are dependences present at some
+states and absent at others, so the update of this branch lies outside
+ledger item (vii) (§4.5). What remains to be proved for this branch is
+the part of H-Bell that this analysis bears on: that the prepared graph
+family supplies the required response dependence while preserving
+operational no-signaling.
 
 \textbf{(b) Ontic measurement dependence --- recorded, not adopted.} If
 instead the pre-setting ensemble is allowed to depend on the settings,
@@ -4678,14 +4696,13 @@ is engineered to reproduce rooted two-time transition data, which
 under-determines multi-time joint statistics {[}22{]}; the substratum,
 by contrast, fixes a unique multi-time law. Agreement of the
 substratum's conditioned multi-time statistics with the quantum
-formalism's intervention-rooted predictions is supported by the same
-chaotic-mixing suppression argument used to motivate decorrelation of
-controllable setting generators from preparation-relevant hidden data
-(§3.3); that decorrelation is not the Bell-violation mechanism, because
-the adopted Bell branch instead relinquishes ontic parameter
-independence. Residual pre-division memory, if present, would appear as
-deviations from quantum multi-time predictions --- a falsifiable texture
-of the same standing as the residual dissipation \(\mathcal{D}\).
+formalism's intervention-rooted predictions depends on the open
+dynamical question of hidden-sector mixing recorded as ledger item (v)
+(§4.5); hidden-sector mixing is not the Bell-violation mechanism: the
+adopted Bell branch relinquishes ontic parameter independence (§3.3).
+Residual pre-division memory, if present, would appear as deviations
+from quantum multi-time predictions --- a falsifiable texture of the
+same standing as the residual dissipation \(\mathcal{D}\).
 
 \emph{(iv) Classical P-indivisibility and quantum mechanics.} The
 representation clause is not a claim that all P-indivisible processes
@@ -5257,18 +5274,17 @@ exponentially many cycles {[}SM §4.2{]}, so that numerical motivation
 comes from the rounded candidate of {[}SM §4.2{]}, which behaves
 chaotically at the sizes measured, while whether the realized hidden
 sector satisfies the mixing hypothesis remains open --- this is the same
-open dynamical question as the chaotic-mixing suppression invoked to
-motivate laboratory setting/preparation decorrelation (§3.3) and the
-typicality selection in (iv), one conditional wearing three hats; (vi)
-spatial isotropy, entering as empirical input E4 of the reconstruction;
-(vii) linearity of the substratum update (A5), stronger than the affine
-restriction that amplitude-scale gauge invariance yields in the form
-that every first difference of the update is independent of its base
-point, since such differences telescope to a constant plus an additive
-map; and, for the spatial results --- the causal cone and Bell ceiling
-of §3.3, the observer selection of §4.6 and the companion reconstruction
---- the spatial constitution, which the characterization theorem of §3.4
-does not use: (viii) site factorization --- the configuration space is
+open dynamical question as the typicality selection in (iv), one
+conditional wearing two hats; (vi) spatial isotropy, entering as
+empirical input E4 of the reconstruction; (vii) linearity of the
+substratum update (A5), stronger than the affine restriction that
+amplitude-scale gauge invariance yields in the form that every first
+difference of the update is independent of its base point, since such
+differences telescope to a constant plus an additive map; and, for the
+spatial results --- the causal cone and Bell ceiling of §3.3, the
+observer selection of §4.6 and the companion reconstruction --- the
+spatial constitution, which the characterization theorem of §3.4 does
+not use: (viii) site factorization --- the configuration space is
 identified with a product of local configuration spaces over a set of
 sites; given that identification the dynamics determines its coupling
 graph, the dynamics alone has not been shown to select the
@@ -5278,12 +5294,13 @@ of §3.3 and §4.6 are read relative to it; (ix) bounded coupling degree
 --- at a single finite lattice the bound holds automatically, so the
 item has content only in family form, where it gives the cone of §3.3
 bounded growth and is used by §4.6; (x) the nearest-neighbour range ---
-the coupling graph is the simple-cubic graph --- on which the form of
-the wave rule, its dispersion and the six-link carrier of the companion
-construction rest, and which the cone of §3.3 does not require; (xi)
-center independence (A4), in two clauses: the update commutes with
-lattice translations up to gauge, and the update at a site contains no
-explicit copy of that site's present value; (xii) background
+on the reference vacuum/uniform state class the coupling graph
+\(G_\varphi^{\rm ref}\) of §3.3 is the simple-cubic graph --- on which
+the form of the wave rule, its dispersion and the six-link carrier of
+the companion construction rest, and which the cone of §3.3 does not
+require; (xi) center independence (A4), in two clauses: the update
+commutes with lattice translations up to gauge, and the update at a site
+contains no explicit copy of that site's present value; (xii) background
 independence (A6), covariance of the dynamics under site-dependent
 internal-index transformations with the link coupling transformed
 alongside, which in the form formalized imposes no restriction on the
@@ -5298,25 +5315,30 @@ value in a finite abelian group, and one step is
 reading the current values at finitely many sites and each site read by
 finitely many \(F_i\) (kernel: \texttt{ruleDynamics} in
 \texttt{OIBridge/SecondOrderDrive.lean}), the update displayed in §3.2
-being its instance with \(q = 2\) and \(F\) the nearest-neighbour sum.
-Thirteen items, of unequal weight, and not thirteen independent physical
-assumptions: (viii) is foundational and (ix)--(xi) and (xiii) are stated
-relative to it; (x) implies the bound of (ix); the second clause of (xi)
-depends on the identification of (viii) as well as on the rule; and
-(xii) restricts no rule. Part I of the companion methodology paper gives
-the complementary view: an eight-rung analysis of the primitive that
-recovers the proper part, the existence of a dynamics (conditionally),
-bijectivity and per-moment finiteness as lemmas of the two-axiom base
-and isolates recurrence (Axiom 2) as the one irreducible non-lemma; the
-finiteness of the total state space and items (iv)--(xiii) lie outside
-the layer it treats. The two accounts describe one structure --- the
-rung analysis counts what is \emph{recovered}, this ledger counts what
-is \emph{assumed} --- and agree on the substance, including that the
-determinism recovery closes its hidden-sector margin with an empirical
-input and that finiteness is delivered only per-moment. The two-axiom
-statement remains correct about what is \emph{primitive}; this ledger
-states what is \emph{assumed}, and the framework's claims are
-conditional on the full list.
+being its instance with \(q = 2\) and \(F\) the nearest-neighbour sum;
+and, for the Bell analysis of §3.3, (xiv) measurement independence,
+\(p(\Omega\mid a,b)=p(\Omega)\) --- the response-relevant pre-setting
+variable \(\Omega\) is uncorrelated with the setting generators' outputs
+--- a posit about the initial condition, not derived. Fourteen items, of
+unequal weight, and not fourteen independent physical assumptions:
+(viii) is foundational and (ix)--(xi) and (xiii) are stated relative to
+it; (x) implies the bound of (ix) for \(G_\varphi^{\rm ref}\), and with
+(vii) for \(G_\varphi\); the second clause of (xi) depends on the
+identification of (viii) as well as on the rule; (xii) restricts no
+rule; and (xiv) enters only the Bell analysis of §3.3. Part I of the
+companion methodology paper gives the complementary view: an eight-rung
+analysis of the primitive that recovers the proper part, the existence
+of a dynamics (conditionally), bijectivity and per-moment finiteness as
+lemmas of the two-axiom base and isolates recurrence (Axiom 2) as the
+one irreducible non-lemma; the finiteness of the total state space and
+items (iv)--(xiv) lie outside the layer it treats. The two accounts
+describe one structure --- the rung analysis counts what is
+\emph{recovered}, this ledger counts what is \emph{assumed} --- and
+agree on the substance, including that the determinism recovery closes
+its hidden-sector margin with an empirical input and that finiteness is
+delivered only per-moment. The two-axiom statement remains correct about
+what is \emph{primitive}; this ledger states what is \emph{assumed}, and
+the framework's claims are conditional on the full list.
 
 \textbf{Status ledger (theorems and conditions).} The table transcribes
 the standing status of each load-bearing claim of this paper's
@@ -5952,4 +5974,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: 6144cd4a6324599d5178f844201551670ef470d4ed130c0b6ce23622a3be6366
+% source-sha256: 6ddc422580e77b99a545e2c243eb2db57da8a1d23357dcb36e3d58497a2d60c4
