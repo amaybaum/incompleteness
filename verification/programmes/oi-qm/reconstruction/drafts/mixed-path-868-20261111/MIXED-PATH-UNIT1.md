@@ -49,8 +49,8 @@ literature, recalled, not read first-hand in this unit.
 4. **Masking (§4).** Under the uniform hidden prior, no-signalling at a wing is equivalent to the remote setting
    acting on that wing's complete history as a relabelling of hidden states (PAD). [A; X P1] Two general results
    then restrict the route:
-   - **Lemma S (slice shift).** For every rule of the second-order form `x(t+1) = F(x(t)) − x(t−1)`, linear or
-     not, if the retarded slice at the neighbours of a generator site is uniform and hidden, a current-slice
+   - **Lemma S (slice shift).** For every centre-free rule of the second-order form `x(t+1) = F(x(t)) − x(t−1)`,
+     linear or not, if the retarded slice at the neighbours of a generator site is uniform and hidden, a current-slice
      setting has no effect on any record *law* until two ticks after the graph cone arrives, and the two-wing
      table over windows `k ≤ ‖n‖₁+1` is Bell-local. [A]
    - **Theorem L (affine pad locality).** For an affine rule over `Z_q` — the exact linear reference rule — with a
@@ -317,7 +317,8 @@ Fix the response-complete pre-setting variable `λ` with law `μ`, and the compl
 separately is no-signalling; joint PAD is locality; the PR table has the first and not the second. A Bell
 violation with no-signalling lives exactly in the gap.
 
-**Lemma S (slice shift) [A].** *Let the rule have the form `u' = F(u) − v` of ledger (xiii), `F` arbitrary. Let
+**Lemma S (slice shift) [A].** *Let the rule have the form `u' = F(u) − v` of ledger (xiii), with `F`
+centre-free (`F_j` does not read `u(j)`; ledger (xi), second clause) and otherwise arbitrary. Let
 `P` be a set of sites such that, at `t_s`, `v|_P` is uniform and independent of all other coordinates. Let the
 settings be current-slice values `a = u(g_A)`, `b = u(g_B)` with every neighbour of `g_A` and of `g_B` in `P`.
 Then (i) for each wing the law of the records at a site `r` at ticks `t ≤ d(g,r)+1` does not depend on the remote
@@ -326,7 +327,8 @@ Bell-local.*
 
 *Proof.* For fixed `u`, the map `v|_P ↦ u_1|_P = F(u)|_P − v|_P` is a bijection, so `u_1|_P` is uniform and
 independent of `u` and of `v` off `P`. Describe the run by `(u_0, u_1|_P, v|_{off P})`. Off `P`,
-`u_1(j) = F_j(u_0) − v(j)` does not read `u_0(g)`, because every site that reads `g` is in `P`. From tick 2 on,
+`u_1(j) = F_j(u_0) − v(j)` does not read `u_0(g)`: `F_g` does not read `u_0(g)` (centre-freeness), and every
+other site whose `F_j` reads `u_0(g)` is a neighbour of `g`, hence in `P`. From tick 2 on,
 `u_{t+1} = F(u_t) − u_{t−1}`, and `u_0(g)` enters only through `u_2(g) = F_g(u_1) − u_0(g)`. Its influence then
 advances one edge per tick and reaches `r` no earlier than tick `2 + d(g,r)`. So with
 `λ' = (u_0 off the generators, u_1|_P, v|_{off P})`, whose law is the same for every `(a,b)`, each wing's records

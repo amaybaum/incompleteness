@@ -1,7 +1,7 @@
 # MIXED-PATH-1 Stage 2 — preregistration of one exact computation on the native rule
 
-**WIP / UNVERIFIED writer draft r1. Not yet independently checked. Nothing in it has been run.** No code for it
-exists. No number about any OI rule was seen while it was written: Stage 1 (`MIXED-PATH-UNIT1.md`) used paper
+**WIP / UNVERIFIED writer draft r2. The independent check of this text is pending. Nothing in it has been run.**
+No code for it exists. No number about any OI rule was seen while it was written: Stage 1 (`MIXED-PATH-UNIT1.md`) used paper
 arguments and generic mathematics only.
 
 - **Accountable home:** #868. **Authorization:** #868 comment 6794392080, author `amaybaum`,
@@ -89,7 +89,8 @@ setting would be hidden under it.
 
 **Law of the records** (Main:137, Main:131): the visible content at `t_s` is fixed (a visible root), the hidden
 coordinates are drawn from the uniform measure, the same for every setting, and the rule is applied. Under Π_cb4
-and Π_hor the setting's class has no hidden coordinate and every record law is a point mass.
+and Π_hor the setting's class has no hidden coordinate and every record law is a point mass; in that class the
+two partitions define the same computation, which is executed once and reported under both labels.
 
 ### 2.4 Wings, generators, records
 
@@ -107,8 +108,8 @@ A single-site receiver read passively at successive ticks is the corpus's declar
 passive projections of the evolving state"); a one-site intervention region is the smallest instance of Main's
 theorem hypothesis (ii).
 
-- **Setting slice** `s ∈ {u, v}`: the setting is the value of that slice at the generator site at `t_s`. Both are
-  run. The other slice at that site lies in the other parity class and is set to `0` (it cannot matter: control C2).
+- **Setting slice** `s ∈ {u, v}`: the setting is the value of that slice at the generator site at `t_s`, the
+  same slice at both wings. Both are run. The other slice at that site lies in the other parity class and is set to `0` (it cannot matter: control C2).
 - **Setting menu:** all `q` values at each wing. **Sub-menus for (c):** every pair `{a,a'} × {b,b'}` of distinct
   values: `C(q,2)²` (one for `q = 2`, nine for `q = 3`).
 - **Record window `k`:** ticks `t_s+1 … t_s+k`. **Complete history of a wing:** its own setting together with
@@ -137,9 +138,11 @@ Coordinates of the other class are set to `0`.
 `k² < 3D²`, and `L ≥ D + k + 1` (so that the path the other way round the long axis, of length `L − D`, is outside
 the graph cone during the window). On the patch, `(n, k)` is a window instance iff `‖n‖₁ ≤ k` and `k² < 3 n·n`.
 
-Odd `D` is not covered: with wings on sites of opposite parity, same-slice settings lie in different parity
+Odd `D` is not covered. With wings on sites of opposite parity, same-slice settings lie in different parity
 classes, each class then carries one setting, and a table with one input is Bell-local whenever it is
-no-signalling.
+no-signalling. Mixed-slice menus (slice `u` at one wing, slice `v` at the other) are not run: at even `D` they
+are this one-input case, and at odd `D` both settings lie in one parity class, the table is not of the one-input
+kind, and it is not covered (§10).
 
 | Lattice | `(D, k)` window instances | Wing types |
 |---|---|---|
@@ -167,7 +170,9 @@ Patch instances use wing type S along `n`, partitions Π_cb3 and Π_reg, both se
 - *Affine, linear algebra:* R-lin (`q = 2, 3, 5`) and R-norm (`q = 5`) on every patch row.
 
 Every instance in the matrix is reported, whatever its token. No instance is added, dropped or reordered after the
-independent check.
+independent check. Two windows of one instance with the same in-class record ticks have the same complete
+histories (slice `u`: (2,2) and (2,3), (4,4) and (4,5); slice `v`: (4,5) and (4,6)); each such pair is marked
+`same_histories_as` in the result and counted once in every tally of tokens.
 
 ***
 
@@ -189,38 +194,42 @@ configurations of the setting's class and `h_A(η; c,a,b)`, `h_B(η; c,a,b)` the
   separate routine verifies the certificate in exact arithmetic; only a verified certificate counts.
 - `chsh_max[c][sub]`: exact maximum of `|CHSH|` over all pairs of binary maps of the histories (enumerate one
   wing's maps; the other wing's optimum is the sum of absolute values of the resulting linear coefficients), as a
-  `Fraction`. Computed when each wing's history alphabet has at most 9 letters; otherwise recorded as `null`.
+  `Fraction`. Computed when each wing has at most 9 record letters per own setting (the own setting is not counted as a
+letter); otherwise recorded as `null`.
 
-**Affine instances by linear algebra (patch).** Over the field `F_q`, the record functionals are rows of
+**Affine instances by linear algebra (patch; and `𝕋(6)` for control C4).** The same code takes the neighbour
+operator as an input: the patch operator for the patch rows, and for C4 the `𝕋(6)` operator of §2.1 (weights
+1, 1, 2, 2) with R-lin, `q = 3`, partitions Π_cb3 and Π_cb4, both slices, on the instances of the brute-force
+affine row of §2.6. Over the field `F_q`, the record functionals are rows of
 `S_t(αA)` (Stage 1 §2.2). `dep` is "the remote setting's column in the wing's history is non-zero"; `sig` is "that
 column is not in the span of the hidden columns" (exact Gaussian elimination over `F_q`); for locality the solver
 returns the vectors `δ_a`, `δ'_b` of Theorem L and verifies `M_B δ_a = W_B(c_a − c_0)`, `M_A δ'_b = V'_A(c_b − c_0)`
-exactly. Tokens from this path carry the suffix `-BY-THEOREM-L`: their locality rests on Stage 1's paper proof
+exactly. With no hidden column (Π_cb4) the span is `{0}`. Tokens from this path carry the suffix `-BY-THEOREM-L`: their locality rests on Stage 1's paper proof
 plus an exact certificate of its hypotheses, not on enumeration.
 
 **Arithmetic.** Integers and `fractions.Fraction` only on every path that feeds a control or a verdict. Fixed-width
-integer arrays may be used for state enumeration and counting; counts are bounded by `|H| ≤ 4.4·10⁷ < 2⁶³`. No
+integer arrays may be used for state enumeration and counting; counts are bounded by `|H|·q·C(q,2) ≤ 2²⁵ < 2⁶³` (§7). No
 floating-point number enters a comparison.
 
 ***
 
 ## 4. Controls and countercontrols
 
-Every control must be green before any verdict is written. Each has a stated non-vacuity condition; a vacuous
-control is red.
+Every control must be green before any verdict or instance measurement is written (§8). Each has a stated
+non-vacuity condition; a vacuous control is red.
 
 | # | Control | Green iff | Non-vacuity |
 |---|---|---|---|
-| **C1** | cone lemma: for every instance, records at ticks `t < d(g, r)` | zero pointwise differences under a change of the remote setting, over the whole enumeration | at least one such (tick, comparison) exists per instance with `D ≥ 2` |
+| **C1** | cone lemma on the full class field: for every instance, each generator `g ∈ {g_A, g_B}`, and every pair (site `j`, tick `t`) with `1 ≤ t ≤ k_max`, `(j, t_s+t)` in the setting's parity class and `d(g, j) > t` (`d` the graph distance on the lattice, `k_max` the instance's largest window). The wing records at ticks `t < D` are among these pairs wherever they exist | `u_t(j)` is unchanged by every change of the setting at `g` with the other setting fixed: zero pointwise differences over the whole enumeration (brute force); zero entry of the setting's full-field response vector at `(j,t)` (linear-algebra path) | per instance and generator, the number of such pairs `(j,t)` and the number of comparisons are reported and both are positive. Such a pair exists at `t = 1` in every instance: the in-class sites at tick 1 are at odd distance from `g` for slice `u` and at even distance for slice `v`, and every lattice of §2.1 has sites at distance 3 and at distance 2 from each generator |
 | **C1′** | detector sensitivity (countercontrol): R-lin `q = 3`, `𝕋(6)`, Π_cb3, type S, slice `u`, tick `D = 2` | `u_2(r_B)` differs under a change of `a` for **every** hidden configuration and every `c` (the path count is 1, a unit) | count equals `|H|·q·C(q,2)·q` exactly |
 | **C2** | parity decoupling (Lemma P; exactness and symmetry control of §A.21): on `𝕋(6)`, every rule and `q`, using a stepper for the full two-slice field (both classes together) | from each base state in the set `B` (the `q²` slice-constant states and 256 states from the fixed integer generator `s ← (1103515245·s + 12345) mod 2³¹`, `s₀ = 868`), changing any single coordinate of one class to any other value changes no value of the other class at any site through tick 6. **C2b:** the class-restricted stepper used for the enumeration equals the full-field stepper restricted to that class on every state of `B` and on every state reached in C3 | at least `260·24·(q−1)` comparisons per class, count reported. This control is not exhaustive over states; it tests an identity that Stage 1 proves |
-| **C3** | bijection and measure: on `𝕋(6)`, each rule | step followed by the stated inverse step is the identity on every state of one class (`q = 2`: all `2²⁴`); the image of the enumeration is a permutation of it | exhaustive |
-| **C4** | two code paths on the affine rule: R-lin `q = 3`, `𝕋(6)` | brute-force `dep`, `sig`, `loc` agree with the linear-algebra path on every instance, window and `c` | at least one instance with `dep > 0` and at least one with `sig = 0` occur in the comparison, else the control is vacuous and red |
-| **C5** | slice shift (Lemma S): slice `u`, partitions Π_cb3 and Π_reg, every rule, windows `k ≤ D+1` | `sig_A = sig_B = 0` and every `loc = LOCAL` | applies to at least the instances (2,2), (2,3), (4,4), (4,5) |
+| **C3** | bijection and measure: on `𝕋(6)`, each rule and `q` run there. The state set `X` is the content of one parity class at one tick, `Z_q^{24}` in a fixed coordinate order (12 `u` and 12 `v` coordinates). `q = 2`: all of `X` (`2²⁴` states). `q = 3`: a sample `X₃ ⊂ X` of `2²⁰` states, each coordinate `(s div 2¹⁶) mod 3` from successive outputs of the generator of C2 with `s₀ = 870` | step followed by the stated inverse step is the identity on every state tested. `q = 2`: the number of distinct images of `X` under one step equals `2²⁴` (the step is a bijection of `X`, so it preserves the uniform measure). `q = 3`: the number of distinct images of `X₃` equals the number of distinct states in `X₃` | `q = 2`: exhaustive over `X`, `2²⁴` round trips counted. `q = 3`: not exhaustive (`|X| = 3²⁴`); at least `2¹⁹` distinct sampled states, count reported; the bijection for `q = 3` rests on the round-trip identity being an algebraic identity of the rule form, which the sample tests |
+| **C4** | two code paths on the affine rule: R-lin `q = 3`, `𝕋(6)`, Π_cb3 and Π_cb4, both slices; the linear-algebra path of §3 is run on the `𝕋(6)` operator | brute-force `dep`, `sig`, `loc` agree with the linear-algebra path on every instance, window and `c` | at least one instance with `dep > 0` and at least one with `sig = 0` occur in the comparison, else the control is vacuous and red |
+| **C5** | slice shift (Lemma S; every rule of §2.2 is centre-free): slice `u`, partitions Π_cb3 and Π_reg, every rule, windows `k ≤ D+1` | `sig_A = sig_B = 0` and every `loc = LOCAL` | applies to at least the instances (2,2), (2,3), (4,4), (4,5) |
 | **C6** | native signalling is detected: R-lin `q = 3`, `𝕋(6)`, Π_cb4, slice `u`, type S, window (2,2) | `sig_B > 0` (no hidden coordinate in the class; C1′ gives the dependence) | — |
 | **C7** | planted PR table (`h_A = r`, `h_B = r ⊕ ab`, `r` a fair bit) through the same pipeline | `sig = 0`, `loc = NONLOCAL` with verified certificate, `chsh_max = 4` exactly | — |
 | **C8** | planted local tables: 200 seeded exact mixtures of deterministic strategies, including the uniform mixture of the eight `S = +2` strategies | every `loc = LOCAL` with verified certificate and `chsh_max ≤ 2`; the boundary case gives exactly `2` and is classified LOCAL | at least one table with `chsh_max = 2` exactly |
-| **C9** | planted non-coset `Z₄` table of Stage 1 (probe X1) | `sig = 0`, `loc = NONLOCAL`, `chsh_max = 3` exactly | — |
+| **C9** | planted non-coset `Z₄` table of Stage 1 (probe X1), on the menu `{0,1} × {0,1}` of that probe, as a single 2×2 table | `sig = 0`, `loc = NONLOCAL` with verified certificate, `chsh_max = 3` exactly | — |
 | **C10** | symmetry (§A.21): the reflection `x ↦ g_A + g_B − x`, which exchanges the wings, and translation by 2 along `x`, on `𝕋(6)` and `𝕋(8)` | the count tables are equal after relabelling, exactly | applied to every instance on those lattices |
 | **C11** | certificate verifier (countercontrol): one weight of a valid LOCAL certificate and one coefficient of a valid NONLOCAL certificate are perturbed | the verifier rejects both | — |
 | **C12** | window arithmetic: the instance lists are regenerated from the integer inequalities of §2.6 | equal to the frozen lists in this file; body-diagonal vectors `(D,D,D)`, `D ≤ 6`, have empty windows | — |
@@ -242,19 +251,46 @@ control.
 | the hidden prior is the same for every setting (measurement independence by construction) | one enumeration object of hidden configurations per instance; its digest is recorded once and re-checked before each `(a,b)` |
 | hidden coordinates are exactly those of the stated partition | the coordinate lists are emitted in the result file and compared with a second, independent generator of the partition |
 | the instance list is the frozen one | C12; the result file lists every frozen instance exactly once, with a token |
-| cross-wing dependence is evaluated only inside the window | each record entry carries its tick; the window test `D ≤ t`, `t² < 3D²` is asserted for the last tick of each window; C1 covers `t < D` |
+| cross-wing dependence is evaluated only inside the window | the window test `D ≤ k`, `k² < 3D²` is asserted for the `k` of each window; each record entry carries its tick `t`, and `1 ≤ t ≤ k` is asserted for every entry; C1 covers every in-class `(j,t)` with `d(g,j) > t` |
 | the direct path is the only one inside the cone | `L − D > k` asserted per instance |
-| no verdict over a red control | `verdicts` is written only if `controls_all_green` is true; otherwise it is `null` and the exit status is 2 |
+| no verdict and no instance measurement over a red control or a failed invariant | instance measurements, count tables and certificates are held in a staging area that nothing prints or reports, and are published only after every control is green and every invariant checkpoint has passed. With exit status 2 or 4 the program asserts before exiting that `results.json` has `instances`, `verdicts` and `tables_digest` equal to `null` and that `tables/`, `certificates/` and the staging area are absent; `--selftest` plants one red control and one failed invariant on the dummy rule and asserts the same |
+| every certificate returned by the solver is valid | the separate exact verifier is applied to every returned certificate; a returned certificate that fails verification is an invariant failure (exit status 4), never a token |
+| the tokens of §6 are mutually exclusive | asserted per content: `dep_A[c] = dep_B[c] = 0` implies `sig_A[c] = sig_B[c] = 0`; a failure is exit status 4 |
 | deterministic replay (§A.26) | the result file's `tables_digest` (SHA-256 over the canonical serialization of all count tables) is reproduced by a second full execution before the result is reported; a mismatch is exit status 4 |
 | single process, bounded resources | wall-clock, peak memory and process count recorded in `timing`; caps enforced in the program (§7) |
 | the code that ran is the code that was checked | SHA-256 of the program recorded on #868 before the registered run and written into the result file |
-| no OI-rule number seen before the registered run | during development the program is executed only with `--selftest`, which runs C7, C8, C9, C11, C14 and nothing that steps a rule; the first execution without that flag is the registered run |
+| no OI-rule number seen before the registered run | during development the program is executed only with `--selftest` (§5.1), which steps no rule of §2.2; the first execution without that flag is the registered run. Every execution appends one line (UTC time, arguments, program SHA-256, exit status) to `invocations.jsonl`; the registered run copies that log into `results.json`, and its entries without `--selftest` are exactly the registered run, its replay and any rerun under §5.2. The log is a record kept by the executor; it does not prevent an unlogged execution |
+
+### 5.1 Self-test on a rule outside the corpus
+
+`--selftest` runs C7, C8, C9, C11, C14 and, to exercise the stepper, the enumeration and the control machinery
+before any number of a rule of §2.2 exists, the whole pipeline on one **dummy rule**: `q = 2`, `𝕋(6)`,
+`F(u)(j) = T[Σ(u)(j)]` with the fixed table `T = (1,0,0,1,0,1,1)` for `Σ = 0,…,6`, partitions Π_cb3 and Π_cb4,
+wing type S, both slices, windows (2,2) and (2,3), F_const. `T` differs from the R-round table `(0,0,1,1,1,0,0)`
+and from the R-lin table `(0,1,0,1,0,1,0)`; the dummy rule is not in the corpus and no result about it is
+reported. It has the form of ledger (xiii) with centre-free `F`, so the cone lemma, Lemma P and the inverse step
+hold for it, and the self-test requires C1, C2, C2b, C3 (`q = 2`, exhaustive), C10, the invariant checkpoints of
+this section and the replay digest to pass on it. Its output is the list of control and invariant outcomes only.
+
+### 5.2 Procedure after a red control or a failed invariant in the registered run
+
+Exit status 2 or 4 publishes control and invariant records only. The only permitted response is a correction of
+the program: this file is unchanged, the diff and the new program SHA-256 are recorded on #868 before the next
+execution, `--selftest` is passed again, the full run matrix is rerun, and every run (with its exit status and
+its control and invariant records) is reported. If the defect is in this file or in a Stage 1 lemma, no rerun
+takes place without an amendment to this file and a new independent check. A control is not changed, dropped or
+re-scoped in response to a red result (§4).
 
 ***
 
 ## 6. Decision rule
 
-**Per (instance, window `k`)**, over the members `c` of the visible-content family run for that instance:
+**Per (instance, window `k`)**, over the members `c` of the visible-content family run for that instance. Where
+both families are run (`𝕋(6)`), each family is a separate entry with its own token. The rules are applied in
+order and the first that applies gives the token. For each `(c, sub)` the locality step has exactly one of three
+outcomes: a verified LOCAL certificate, a verified NONLOCAL certificate, or no certificate (the linear program
+reached a bound of §7); a returned certificate that fails verification is an invariant failure (§5) and falls
+under rule 1.
 
 1. **`VOID`** if any control is red, an invariant checkpoint fails, or the instance did not complete.
 2. **`NO-DEPENDENCE`** if `dep_A[c] = dep_B[c] = 0` for every `c`.
@@ -267,22 +303,29 @@ control.
 5. **`DEPENDENCE-MASKED-LOCAL`** if some `dep > 0`, every `sig = 0`, and every `loc[c][sub] = LOCAL` with a verified
    certificate. The token asserts locality of every 2×2 sub-menu table over complete histories, not of the full
    `q × q` menu.
-6. **`LOCALITY-UNDECIDED`** if some `dep > 0`, every `sig = 0`, no NONLOCAL certificate was found, and at least one
-   linear program did not finish within its bound.
+6. **`LOCALITY-UNDECIDED`** otherwise: some `dep > 0`, every `sig = 0`, no `(c, sub)` has a verified NONLOCAL
+   certificate, and at least one `(c, sub)` has no certificate.
+
+Rules 2–6 partition the completed cases: every `dep = 0` (rule 2); else some `sig > 0` (rule 3); else, with some
+`dep > 0` and every `sig = 0`, the three locality outcomes give some verified NONLOCAL (rule 4), all verified
+LOCAL (rule 5), or neither (rule 6).
 
 For Π_cb4 and Π_hor, `|H| = 1`; rules 2 and 3 are the only ones that can apply, and the token `SIGNALLING` then
 means deterministic visible-to-visible dependence.
 
 **Headline for the unit**, generated from the instance tokens of the primary run matrix (R-round):
 
-- `VOID` if any control is red;
-- `INCOMPLETE` if any primary instance is `VOID` or `LOCALITY-UNDECIDED`;
+- `VOID` if any control is red or any invariant checkpoint fails (exit status 2 or 4; `verdicts` is then `null`
+  and the headline is read from the exit status);
+- `INCOMPLETE` if a resource bound of §7 was reached or any primary instance is `VOID` or `LOCALITY-UNDECIDED`;
 - else `BELL-VIOLATION-NO-SIGNALLING-FOUND` if any primary instance under Π_cb3 or Π_reg has that token;
 - else `SIGNALLING-FOUND` if any primary instance under Π_cb3 or Π_reg is `SIGNALLING`;
 - else `DEPENDENCE-MASKED-LOCAL-ONLY` if any is `DEPENDENCE-MASKED-LOCAL`;
 - else `NO-DEPENDENCE`.
 
-The headline is accompanied by the full token table; Π_cb4 and Π_hor tokens are reported beside it and do not
+The headline is accompanied by the full token table and by the number of primary instances carrying each token
+(`verdicts.counts`), so that a `BELL-VIOLATION-NO-SIGNALLING-FOUND` headline also shows the number of `SIGNALLING`
+instances; Π_cb4 and Π_hor tokens are reported beside it and do not
 enter it, because they have no hidden prior. No token is defined by a numerical threshold other than the exact
 comparisons above, and none refers to an expected value.
 
@@ -296,18 +339,21 @@ comparisons above, and none refers to an expected value.
 | visible contents per instance | F_const: `q`; F_all on `𝕋(6)`, `q = 2`: at most `2¹⁰` under Π_cb3, at most `2²²` class states under Π_cb4 and Π_hor |
 | total trajectories, all instances | at most `4·10⁹` state evaluations of at most 6 ticks each |
 | history alphabet per wing | at most 8 record letters for `q = 2` (three record ticks) and 9 for `q = 3` (two record ticks), times `q` for the own setting |
-| linear program | at most `81 × 81` deterministic strategies and 324 equality rows; at most 10 minutes each |
-| patch linear algebra | `Λ = 24` (13,824 sites), at most 6 record rows per wing |
+| linear program | at most `81 × 81` deterministic strategies and 324 equality rows; at most 10 minutes each and at most 30 minutes in total per execution. A program that reaches either bound yields no certificate for its `(c, sub)` (rule 6 of §6); the run continues and exits with status 3 |
+| patch linear algebra | `Λ = 24` (13,824 sites), at most 6 record rows per wing, and one full-field response vector per setting and tick for C1 |
 | process | one process, one thread; no network; no GPU |
-| memory | at most 6 GB resident; enumeration in blocks of at most `2²⁰` configurations |
-| wall clock | at most 3 hours for the registered run, and the same for the replay |
+| memory | at most 2 GB resident; enumeration in blocks of at most `2²⁰` configurations |
+| wall clock | at most 90 minutes for the registered run, and the same for the replay |
 
 **Order.** Self-test controls; then controls on `𝕋(6)`; then instances by increasing `L`, results written
-atomically after each lattice.
+atomically after each lattice to the staging area of §5; nothing is published from it, and no instance
+measurement is printed, before every control is green and every invariant checkpoint has passed.
 
-**On reaching a bound.** The program stops, marks every unfinished instance `VOID` with reason `timeout` or
-`memory`, writes the result file with `verdicts` for completed instances only if all controls are green, sets the
-headline to `INCOMPLETE`, and exits with status 3. Nothing is rerun with smaller sizes, a different order or a
+**On reaching a bound** (other than a linear-program bound). The program stops, marks every unfinished instance
+`VOID` with reason `timeout` or `memory`, writes the result file with `verdicts` for completed instances only if
+all controls are green, sets the headline to `INCOMPLETE`, and exits with status 3. A control evaluated over
+instances (C1, C5, C10) is green on a stopped run only if it is green and non-vacuous on the completed instances;
+otherwise it is red and exit status 2 applies. Nothing is rerun with smaller sizes, a different order or a
 subset without an amendment to this file and a new independent check. If the run would exceed these bounds on the
 executor's machine, the executor stops and reports the partial state (§A.40) and does not dispatch it elsewhere:
 a workflow dispatch is outside the authorization.
@@ -316,9 +362,13 @@ a workflow dispatch is outside the authorization.
 
 ## 8. Structured outputs and exit statuses (§A.44)
 
-**Exit status.** `0` complete, all controls green, verdicts written. `2` a control is red: `verdicts` is `null`.
-`3` a resource bound was reached: headline `INCOMPLETE`. `4` an invariant checkpoint or the replay digest failed.
-`1` any other error. A consumer reads the exit status and `results.json`; printed output is diagnostic only.
+**Exit status.** `0` complete, all controls green, verdicts written. `2` a control is red. `3` a resource bound
+of §7 was reached, a linear-program bound included: headline `INCOMPLETE`. `4` an invariant checkpoint, a
+certificate verification or the replay digest failed. `1` any other error. When several conditions hold the
+status is the first that applies in the order `1`, `4`, `2`, `3`, `0`. With status `2` or `4`, `results.json`
+carries the hashes, `controls`, `controls_all_green`, `invariants`, `invocations` and `timing` only: `instances`,
+`verdicts` and `tables_digest` are `null`, and no count table, certificate or instance measurement is written or
+printed (§5). With status `1` no result file is published. A consumer reads the exit status and `results.json`; printed output is diagnostic only.
 
 **`results.json`** (one object; all integers are JSON integers, all probabilities strings `"p/q"`):
 
@@ -342,7 +392,7 @@ a workflow dispatch is outside the authorization.
       "family": "F_const",
       "windows": [
         {
-          "k": 5, "record_ticks": [1,3,5], "in_window": true,
+          "k": 5, "record_ticks": [1,3,5], "in_window": true, "same_histories_as": null,
           "per_content": [
             {"c": "0", "dep_A": 0, "dep_B": 0, "first_dep_tick": {"A": null, "B": null},
              "sig_A": 0, "sig_B": 0,
@@ -356,7 +406,8 @@ a workflow dispatch is outside the authorization.
       ]
     }
   ],
-  "verdicts": {"headline": "…", "tokens": {"<instance id>/k<k>": "…"}},
+  "verdicts": {"headline": "…", "counts": {"<token>": 0}, "tokens": {"<instance id>/k<k>": "…"}},
+  "invocations": [{"utc": "…", "argv": ["…"], "program_sha256": "<sha256>", "exit": 0}],
   "tables_digest": "<sha256>",
   "replay": {"performed": true, "tables_digest_equal": true},
   "timing": {"wall_seconds": 0, "peak_rss_mb": 0, "processes": 1}
@@ -390,8 +441,11 @@ A result contradicting 1–4 is reported as such. It does not void the run unles
 - **`NO-DEPENDENCE` or `DEPENDENCE-MASKED-LOCAL-ONLY`.** Scoped evidence that, for these rules, alphabets,
   lattices, partitions, wing geometries, slices and windows, the window carries no Bell-relevant dependence under
   the uniform hidden prior. It is **not** a no-go: it says nothing about larger separations, other alphabets, the
-  full cubic lattice, multi-site records, structured or conditioned priors, state-dependent graphs, or other
-  rules. It does not extend Theorem N or Main's Corollary.
+  full cubic lattice, multi-site records, visible contents other than those run (for `L ≥ 8` only the `q`
+  constant contents of F_const are run, out of `q^{2L−2}` under Π_cb3), mixed-slice menus (in particular those at
+  odd `D`, where both settings lie in one parity class), structured or conditioned priors, state-dependent
+  graphs, or other rules. Every thin-torus token is a statement about `𝕋(L)` with its doubled transverse links,
+  not about `Z³`, and the token table says so. It does not extend Theorem N or Main's Corollary.
 - **`SIGNALLING-FOUND`.** Scoped evidence that at these sizes the uniform hidden prior does not mask the
   dependence. With `c` taken as the wave speed this would be controllable influence outside the emergent light
   cone at lattice scale on a thin torus. It does not show that the framework signals: `c` is not identified
@@ -432,7 +486,7 @@ Any change made in response is an amendment to this file, made before the progra
 | Reference | Attached to | Classification |
 |---|---|---|
 | `papers/Main.md`, `papers/SM.md` @ cac5d264; `wave_eqn.c` (`c56e64ce…`); `lyapunov_v3.py` (`a25372b2…`); `correlation-recombination-20261107/DESIGN.md` (`b3907140…`); `oi-qm-ext-1/prepared-pair-source.md` (`9123157c…`) | object definitions, record law, receiver type | support on `main` |
-| `MIXED-PATH-UNIT1.md` r1 (this directory, unreviewed) | Lemma P, Lemma S, Theorem L; window arithmetic; probe X1 table for C9 | **support off `main`: gap.** Controls C2, C4, C5 are valid as controls only if those arguments are; the checker is asked to verify them (§11 item 4) |
+| `MIXED-PATH-UNIT1.md` (this directory, WIP) | Lemma P, Lemma S, Theorem L; window arithmetic; probe X1 table for C9 | **support off `main`: gap.** Controls C2, C4, C5 are valid as controls only if those arguments are; the checker is asked to verify them (§11 item 4) |
 | `probes/generic_mixedpath_checks.py` (sha256 `3bb689f6…2fd4`) | C9's table and expected value | off `main`; gap if this record lands |
 | Bell-scope unit 1 r2 (blob `5814e479…` at `e1534b08…`) | the question's origin (O2) | off `main`; provenance |
 | #868 c.6794392080 | authority | planning record; provenance |
