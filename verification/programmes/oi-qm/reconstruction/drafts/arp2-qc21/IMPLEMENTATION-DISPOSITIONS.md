@@ -71,3 +71,17 @@ intentional PR-only A42 skip; it is preserved strictly in code, not silently wai
 
 #1218 remains draft. No scientific computation, dispatch/rerun, actual splice, F/E/freeze, new physical premise or
 merge is authorized or performed. #866 NOT PASSED; Q-C2-2 inactive; #1210/#1216 untouched.
+
+## Independent full-implementation REVISE, author corrections (not independently accepted)
+
+At exact `2f3a8b83` Claude posted [REVISE and NOT READY](https://github.com/amaybaum/incompleteness/pull/1218#issuecomment-6784569758), B1–B5 plus N1–N11. Following [owner B1 approval](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6784808669), ChatGPT has made the following **unreviewed source corrections**:
+
+| Finding | New source intent | Review/authority boundary |
+|---|---|---|
+| B1 | Exact A42/ARP-1 event outcomes and success-report/skipped-KTRANS marker; all other conclusions success; source/guard and matrix check | Owner approved the C.7/checker amendment; independently verify all positive/negative mutations and host-record semantics |
+| B2 | SG-1-valid test records and no artificial C-BUDGET red, plus reported-only case | Frozen scientific checker self-test remains unexecuted |
+| B3 | Reject absent/truncated/typed-invalid limits on all decided records; distinct controller/checker implementations | Independent exact-head inspection, tests and fail-closed review required |
+| B4 | GitHub CLI handles Link-header cursor pages with `--paginate --slurp`; strict structured JSON/ID checks | Endpoint is still unavailable; host inventory and T0 NOT PASSED |
+| B5 | Enforce deciding step 2/3/4, C-SYM=4, otherwise null | Independent synthetic negative review required |
+
+The new isolated implementation harness adds author-side mocked tests but was not executed here. N1–N11 require explicit dispositions before claiming full implementation acceptance. All earlier reviewer and source records remain preserved. No scientific, fixture, A3, design, stress, F/E or dispatch authority is inferred.
