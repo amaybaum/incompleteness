@@ -1147,29 +1147,35 @@ def schema_errors(m):
 
 
 def fragment_controls(records):
-    """Decisive C-CERT/C-BUDGET: withheld results are reported; only a leaked verdict makes the control red."""
-    failures, leaked, over = [], [], []
+    """Independent controller-side certification, not the checker's zip/predicate."""
+    unverified, leaked, over = [], [], []
+    budgets = ("pivots", "max_bits", "work")
+    caps = ("n_extreme", "d", "c", "effects_before_reduction")
     for record in records:
         named = str(record.get("name"))
-        decided = record.get("lp") in ("feasible", "infeasible")
+        has_verdict = record.get("lp") in ("feasible", "infeasible")
         if record.get("verified") is not True:
-            failures.append(named)
-            if decided:
+            unverified.append(named)
+            if has_verdict:
                 leaked.append(named)
-        limits = record.get("budget_values", [])
-        counters = [record.get(key) for key in ("pivots", "max_bits", "work")]
-        excess = any(limit is not None and (not isinstance(value, int) or value > limit)
-                     for value, limit in zip(counters, limits))
-        caps = record.get("cap_values", [])
-        sizes = [record.get(key) for key in ("n_extreme", "d", "c", "effects_before_reduction")]
-        excess = excess or any(limit is not None and (not isinstance(value, int) or value > limit)
-                               for value, limit in zip(sizes, caps))
-        if decided and excess:
+        if not has_verdict:
+            continue
+        bad = False
+        for field, keys in (("budget_values", budgets), ("cap_values", caps)):
+            values = record.get(field)
+            if type(values) is not list or len(values) != len(keys):
+                bad = True
+                continue
+            for index, key in enumerate(keys):
+                value, upper = record.get(key), values[index]
+                if (type(value) is not int or value < 0 or
+                        (upper is not None and (type(upper) is not int or upper < 0 or value > upper))):
+                    bad = True
+        if bad:
             over.append(named)
-    return {"C-CERT": {"green": not leaked, "unverified": len(failures), "unverified_fragments": failures,
-                        "given_verdict_without_certificate": leaked},
+    return {"C-CERT": {"green": not leaked, "unverified": len(unverified),
+                       "unverified_fragments": unverified, "given_verdict_without_certificate": leaked},
             "C-BUDGET": {"green": not over, "given_verdict_over_limit": over}}
-
 
 def decide(m):
     """decide: VOID unless the measurements are decisive, complete and in schema, with no placeholder; else
@@ -1718,8 +1724,15 @@ def stress_validate(data):
             for key in ("pivots", "max_bits", "work"):
                 if type(record[key]) is not int or record[key] < 0:
                     return False, "counter "+key
-            if "decided_by" not in record:
-                return False, "missing deciding step"
+            step = record.get("decided_by")
+            decided = record.get("verdict") in ("feasible", "infeasible")
+            if decided:
+                if type(step) is not int or step not in (2, 3, 4):
+                    return False, "invalid deciding step"
+                if "C-SYM" in record["name"] and step != 4:
+                    return False, "C-SYM deciding step"
+            elif step is not None:
+                return False, "nondecided fragment has deciding step"
             if record["class"] == "ST-BP":
                 if type(record["c"]) is not int or record["c"] < 0 or type(record["over_maximum"]) is not bool:
                     return False, "ST-BP count/flag type"
