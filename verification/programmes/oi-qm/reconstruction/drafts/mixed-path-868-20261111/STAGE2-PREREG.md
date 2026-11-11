@@ -1,6 +1,6 @@
 # MIXED-PATH-1 Stage 2 — preregistration of one exact computation on the native rule
 
-**WIP / UNVERIFIED writer draft r2. The independent check of this text is pending. Nothing in it has been run.**
+**WIP / UNVERIFIED writer draft. The independent check of this text is not complete. Nothing in it has been run.**
 No code for it exists. No number about any OI rule was seen while it was written: Stage 1 (`MIXED-PATH-UNIT1.md`) used paper
 arguments and generic mathematics only.
 
@@ -69,6 +69,18 @@ State at a site: `(u, v) = (x(t), x(t−1))`, values in `Z_q` represented by `0.
 | **R-lin** | `Σ(u) mod q` | `3` on `𝕋(6)`; `2, 3, 5` on the patch | both | `wave_eqn.c`:6–10; SM:298 |
 | **R-norm** | `α·Σ(u) mod q`, `α = 3⁻¹ mod q` | `5` (`α = 2`) on the patch | patch | SM:296 |
 
+**Frozen tables of `F`.** `F` enters the step only modulo `q`, and `Σ` takes the values `0, …, 6(q−1)` on every
+lattice of §2.1. The values `F mod q` for `Σ = 0, 1, …, 6(q−1)`, in that order, are:
+
+| Rule | `q` | `F mod q` |
+|---|---|---|
+| R-round | 2 | `(0,0,1,1,1,0,0)` |
+| R-round | 3 | `(0,0,1,1,1,2,2,2,0,0,0,1,1)` |
+| R-lin | 2 | `(0,1,0,1,0,1,0)` |
+| R-lin | 3 | `(0,1,2,0,1,2,0,1,2,0,1,2,0)` |
+| R-lin | 5 | `(0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4)` |
+| R-norm | 5 | `(0,2,4,1,3,0,2,4,1,3,0,2,4,1,3,0,2,4,1,3,0,2,4,1,3)` |
+
 Not included, with reason: R-lin at `q = 2` on `𝕋(L)` (the doubled transverse terms vanish modulo 2, leaving a
 one-dimensional rule with no window); R-norm at `q = 2` (identical to R-lin); the state-dependent ring of SM:112
 (`d = 1`, no emergent speed derived); prepared long edges (open point O1, a different unit); `q ≥ 4` for R-round
@@ -129,6 +141,9 @@ member of:
 - **F_const** (every instance): all such coordinates equal to `c`, for each `c ∈ Z_q`;
 - **F_all** (where the count permits, §7): every assignment. This is run for `𝕋(6)`, `q = 2`, all partitions, and
   for Π_reg wherever the visible non-generator class coordinates number at most 4.
+
+Where an instance has no such coordinate (Π_reg with wing type S), the `q` members of F_const coincide and are
+reported as one entry.
 
 Coordinates of the other class are set to `0`.
 
@@ -197,7 +212,8 @@ configurations of the setting's class and `h_A(η; c,a,b)`, `h_B(η; c,a,b)` the
   `Fraction`. Computed when each wing has at most 9 record letters per own setting (the own setting is not counted as a
 letter); otherwise recorded as `null`.
 
-**Affine instances by linear algebra (patch; and `𝕋(6)` for control C4).** The same code takes the neighbour
+**Affine instances by linear algebra (patch; and `𝕋(6)` for control C4).** This path builds its neighbour operator
+from the site list and imports nothing from the stepper (§5). The same code takes the neighbour
 operator as an input: the patch operator for the patch rows, and for C4 the `𝕋(6)` operator of §2.1 (weights
 1, 1, 2, 2) with R-lin, `q = 3`, partitions Π_cb3 and Π_cb4, both slices, on the instances of the brute-force
 affine row of §2.6. Over the field `F_q`, the record functionals are rows of
@@ -215,20 +231,20 @@ floating-point number enters a comparison.
 
 ## 4. Controls and countercontrols
 
-Every control must be green before any verdict or instance measurement is written (§8). Each has a stated
+Every control must be green before any verdict or instance measurement is published (§8). Each has a stated
 non-vacuity condition; a vacuous control is red.
 
 | # | Control | Green iff | Non-vacuity |
 |---|---|---|---|
 | **C1** | cone lemma on the full class field: for every instance, each generator `g ∈ {g_A, g_B}`, and every pair (site `j`, tick `t`) with `1 ≤ t ≤ k_max`, `(j, t_s+t)` in the setting's parity class and `d(g, j) > t` (`d` the graph distance on the lattice, `k_max` the instance's largest window). The wing records at ticks `t < D` are among these pairs wherever they exist | `u_t(j)` is unchanged by every change of the setting at `g` with the other setting fixed: zero pointwise differences over the whole enumeration (brute force); zero entry of the setting's full-field response vector at `(j,t)` (linear-algebra path) | per instance and generator, the number of such pairs `(j,t)` and the number of comparisons are reported and both are positive. Such a pair exists at `t = 1` in every instance: the in-class sites at tick 1 are at odd distance from `g` for slice `u` and at even distance for slice `v`, and every lattice of §2.1 has sites at distance 3 and at distance 2 from each generator |
 | **C1′** | detector sensitivity (countercontrol): R-lin `q = 3`, `𝕋(6)`, Π_cb3, type S, slice `u`, tick `D = 2` | `u_2(r_B)` differs under a change of `a` for **every** hidden configuration and every `c` (the path count is 1, a unit) | count equals `|H|·q·C(q,2)·q` exactly |
-| **C2** | parity decoupling (Lemma P; exactness and symmetry control of §A.21): on `𝕋(6)`, every rule and `q`, using a stepper for the full two-slice field (both classes together) | from each base state in the set `B` (the `q²` slice-constant states and 256 states from the fixed integer generator `s ← (1103515245·s + 12345) mod 2³¹`, `s₀ = 868`), changing any single coordinate of one class to any other value changes no value of the other class at any site through tick 6. **C2b:** the class-restricted stepper used for the enumeration equals the full-field stepper restricted to that class on every state of `B` and on every state reached in C3 | at least `260·24·(q−1)` comparisons per class, count reported. This control is not exhaustive over states; it tests an identity that Stage 1 proves |
+| **C2** | parity decoupling (Lemma P; exactness and symmetry control of §A.21): on `𝕋(6)`, each rule and `q` run there, using a stepper for the full two-slice field (both classes together) | from each base state in the set `B` (the `q²` slice-constant states and 256 states from the fixed integer generator `s ← (1103515245·s + 12345) mod 2³¹`, `s₀ = 868`), changing any single coordinate of one class to any other value changes no value of the other class at any site through tick 6. **C2b:** the class-restricted stepper used for the enumeration equals the full-field stepper restricted to that class on every state of `B` and on every state reached in C3 | at least `260·24·(q−1)` comparisons per class, count reported. This control is not exhaustive over states; it tests an identity that Stage 1 proves |
 | **C3** | bijection and measure: on `𝕋(6)`, each rule and `q` run there. The state set `X` is the content of one parity class at one tick, `Z_q^{24}` in a fixed coordinate order (12 `u` and 12 `v` coordinates). `q = 2`: all of `X` (`2²⁴` states). `q = 3`: a sample `X₃ ⊂ X` of `2²⁰` states, each coordinate `(s div 2¹⁶) mod 3` from successive outputs of the generator of C2 with `s₀ = 870` | step followed by the stated inverse step is the identity on every state tested. `q = 2`: the number of distinct images of `X` under one step equals `2²⁴` (the step is a bijection of `X`, so it preserves the uniform measure). `q = 3`: the number of distinct images of `X₃` equals the number of distinct states in `X₃` | `q = 2`: exhaustive over `X`, `2²⁴` round trips counted. `q = 3`: not exhaustive (`|X| = 3²⁴`); at least `2¹⁹` distinct sampled states, count reported; the bijection for `q = 3` rests on the round-trip identity being an algebraic identity of the rule form, which the sample tests |
-| **C4** | two code paths on the affine rule: R-lin `q = 3`, `𝕋(6)`, Π_cb3 and Π_cb4, both slices; the linear-algebra path of §3 is run on the `𝕋(6)` operator | brute-force `dep`, `sig`, `loc` agree with the linear-algebra path on every instance, window and `c` | at least one instance with `dep > 0` and at least one with `sig = 0` occur in the comparison, else the control is vacuous and red |
+| **C4** | two code paths on the affine rule: R-lin `q = 3`, `𝕋(6)`, Π_cb3 and Π_cb4, both slices; the linear-algebra path of §3 is run on the `𝕋(6)` operator | brute-force `dep`, `sig`, `loc` agree with the linear-algebra path on every instance, window and `c`: `dep > 0` iff the setting's column is non-zero; `sig > 0` iff that column is not in the span of the hidden columns; where `sig = 0` on both paths, every brute-force `loc` is LOCAL with a verified certificate and the vectors of Theorem L verify | at least one instance with `dep > 0` and at least one with `sig = 0` occur in the comparison, else the control is vacuous and red |
 | **C5** | slice shift (Lemma S; every rule of §2.2 is centre-free): slice `u`, partitions Π_cb3 and Π_reg, every rule, windows `k ≤ D+1` | `sig_A = sig_B = 0` and every `loc = LOCAL` | applies to at least the instances (2,2), (2,3), (4,4), (4,5) |
 | **C6** | native signalling is detected: R-lin `q = 3`, `𝕋(6)`, Π_cb4, slice `u`, type S, window (2,2) | `sig_B > 0` (no hidden coordinate in the class; C1′ gives the dependence) | — |
 | **C7** | planted PR table (`h_A = r`, `h_B = r ⊕ ab`, `r` a fair bit) through the same pipeline | `sig = 0`, `loc = NONLOCAL` with verified certificate, `chsh_max = 4` exactly | — |
-| **C8** | planted local tables: 200 seeded exact mixtures of deterministic strategies, including the uniform mixture of the eight `S = +2` strategies | every `loc = LOCAL` with verified certificate and `chsh_max ≤ 2`; the boundary case gives exactly `2` and is classified LOCAL | at least one table with `chsh_max = 2` exactly |
+| **C8** | planted local tables: 200 seeded (generator of C2, `s₀ = 869`) exact mixtures of deterministic strategies, including the uniform mixture of the eight `S = +2` strategies | every `loc = LOCAL` with verified certificate and `chsh_max ≤ 2`; the boundary case gives exactly `2` and is classified LOCAL | at least one table with `chsh_max = 2` exactly |
 | **C9** | planted non-coset `Z₄` table of Stage 1 (probe X1), on the menu `{0,1} × {0,1}` of that probe, as a single 2×2 table | `sig = 0`, `loc = NONLOCAL` with verified certificate, `chsh_max = 3` exactly | — |
 | **C10** | symmetry (§A.21): the reflection `x ↦ g_A + g_B − x`, which exchanges the wings, and translation by 2 along `x`, on `𝕋(6)` and `𝕋(8)` | the count tables are equal after relabelling, exactly | applied to every instance on those lattices |
 | **C11** | certificate verifier (countercontrol): one weight of a valid LOCAL certificate and one coefficient of a valid NONLOCAL certificate are perturbed | the verifier rejects both | — |
@@ -236,7 +252,7 @@ non-vacuity condition; a vacuous control is red.
 | **C13** | no-wrap on the patch: affine results recomputed at `Λ = 28` | identical to `Λ = 24` | — |
 | **C14** | planted signalling table (`h_B = a`) | `sig_B > 0` | — |
 
-C5 and C4 are proof-backed. If either is red the run is VOID and the discrepancy is itself a finding to
+C5 and C4 are proof-backed. A `(c, sub)` without a certificate in a C4 or C5 instance makes that control red. If either is red the run is VOID and the discrepancy is itself a finding to
 investigate: either the code or the Stage 1 lemma is wrong. A red control is never repaired by changing the
 control.
 
@@ -250,16 +266,18 @@ control.
 | every run produces a record (no post-selection) | for every `(c,a,b)`: `Σ N[c][a][b] = |H|`, asserted |
 | the hidden prior is the same for every setting (measurement independence by construction) | one enumeration object of hidden configurations per instance; its digest is recorded once and re-checked before each `(a,b)` |
 | hidden coordinates are exactly those of the stated partition | the coordinate lists are emitted in the result file and compared with a second, independent generator of the partition |
-| the instance list is the frozen one | C12; the result file lists every frozen instance exactly once, with a token |
+| the instance list is the frozen one | C12; the result file lists every (frozen instance, visible-content family, partition label) exactly once, with a token |
 | cross-wing dependence is evaluated only inside the window | the window test `D ≤ k`, `k² < 3D²` is asserted for the `k` of each window; each record entry carries its tick `t`, and `1 ≤ t ≤ k` is asserted for every entry; C1 covers every in-class `(j,t)` with `d(g,j) > t` |
 | the direct path is the only one inside the cone | `L − D > k` asserted per instance |
-| no verdict and no instance measurement over a red control or a failed invariant | instance measurements, count tables and certificates are held in a staging area that nothing prints or reports, and are published only after every control is green and every invariant checkpoint has passed. With exit status 2 or 4 the program asserts before exiting that `results.json` has `instances`, `verdicts` and `tables_digest` equal to `null` and that `tables/`, `certificates/` and the staging area are absent; `--selftest` plants one red control and one failed invariant on the dummy rule and asserts the same |
+| no verdict and no instance measurement over a red control or a failed invariant | instance measurements, count tables and certificates are held in a staging area that nothing prints or reports, and are published only after every control is green and every invariant checkpoint has passed. With exit status 2 or 4 the program asserts before exiting that `results.json` has `instances`, `verdicts` and `tables_digest` equal to `null` and that `tables/`, `certificates/` and the staging area are absent; with exit status 1 it asserts that no `results.json`, `tables/`, `certificates/` or staging area exists; `--selftest` plants one red control, one failed invariant and one uncaught error on the dummy rule and asserts the same in each case |
+| the staging area does not outlive an execution, and no staged measurement is read outside the program | the program removes the staging area on every exit path (statuses 0 to 4, uncaught errors and handled signals included), after publication where publication takes place, and asserts its absence as its last action. Every execution appends a start line to `invocations.jsonl` at launch and an exit line at exit; a start line without an exit line records a termination without an exit record. At launch, before any other action, every execution tests for a staging area left by an earlier execution, deletes it without opening any file in it, and appends a `staging_deleted_unread` line to `invocations.jsonl`. The executor opens no file of a staging area; a staging area the executor deletes by hand is logged with the same line. `--selftest` plants a leftover staging area and asserts the deletion and the log line |
+| the rule stepped is the rule of §2.2 | evaluated at the start of every execution, `--selftest` included; these checks evaluate neighbour sums and tables and step no rule. (i) On 16 integer arrays per lattice, entries `(s div 2¹⁶) mod 5` from the generator of C2 with `s₀ = 871`, for each `𝕋(L)` of §2.1 and for `(Z/Λ)³`, `Λ = 24, 28`: the `Σ` of the full-field stepper equals the literal sum of the six `np.roll` shifts (`±1` on each of the three axes), and the `Σ` of the class-restricted stepper equals that sum restricted to the sites of the class. (ii) The program's `F` tables, evaluated on `Σ = 0, …, 6(q−1)` and reduced modulo `q`, equal the frozen lists of §2.2 for every (rule, `q`) of the run matrix; the dummy table equals `T` of §5.1; on the linear-algebra path `α·Σ mod q` equals the same lists. (iii) Each stepper (full-field, class-restricted) is one function that takes the `F` table as a parameter; R-round, R-lin and the dummy rule are stepped only through it. Static check: no other function writes a stepped state, and the rule labels reach the stepper only through the one table dictionary compared in (ii); the SHA-256 of each stepper function's source and of each `F` table passed are recorded in `invariants` and are equal between `--selftest` and the registered run. (iv) The linear-algebra path builds its operator matrix from the site list; static check: its module does not import the stepper. On `𝕋(6)` and on `(Z/Λ)³`, `Λ = 24, 28`, every column of that matrix equals the literal six-shift `np.roll` sum applied to the corresponding basis vector. A failure of any part is exit status 4 |
 | every certificate returned by the solver is valid | the separate exact verifier is applied to every returned certificate; a returned certificate that fails verification is an invariant failure (exit status 4), never a token |
 | the tokens of §6 are mutually exclusive | asserted per content: `dep_A[c] = dep_B[c] = 0` implies `sig_A[c] = sig_B[c] = 0`; a failure is exit status 4 |
-| deterministic replay (§A.26) | the result file's `tables_digest` (SHA-256 over the canonical serialization of all count tables) is reproduced by a second full execution before the result is reported; a mismatch is exit status 4 |
+| deterministic replay (§A.26) | the result file's `tables_digest` (SHA-256 over the canonical serialization of all count tables) is reproduced by a second full execution before the result is reported; a mismatch is exit status 4. Tokens and certificates are those of the first of the two executions; the replay is compared on `tables_digest` only |
 | single process, bounded resources | wall-clock, peak memory and process count recorded in `timing`; caps enforced in the program (§7) |
 | the code that ran is the code that was checked | SHA-256 of the program recorded on #868 before the registered run and written into the result file |
-| no OI-rule number seen before the registered run | during development the program is executed only with `--selftest` (§5.1), which steps no rule of §2.2; the first execution without that flag is the registered run. Every execution appends one line (UTC time, arguments, program SHA-256, exit status) to `invocations.jsonl`; the registered run copies that log into `results.json`, and its entries without `--selftest` are exactly the registered run, its replay and any rerun under §5.2. The log is a record kept by the executor; it does not prevent an unlogged execution |
+| no OI-rule number seen before the registered run | during development the program is executed only with `--selftest` (§5.1), which steps no rule of §2.2; the first execution without that flag is the registered run. Every execution appends a start line (UTC time, arguments, program SHA-256) and an exit line (UTC time, exit status) to `invocations.jsonl`; the registered run copies that log into `results.json`, and its entries without `--selftest` are exactly the registered run, its replay and any rerun under §5.2. The log is a record kept by the executor; it does not prevent an unlogged execution |
 
 ### 5.1 Self-test on a rule outside the corpus
 
@@ -269,15 +287,21 @@ before any number of a rule of §2.2 exists, the whole pipeline on one **dummy r
 wing type S, both slices, windows (2,2) and (2,3), F_const. `T` differs from the R-round table `(0,0,1,1,1,0,0)`
 and from the R-lin table `(0,1,0,1,0,1,0)`; the dummy rule is not in the corpus and no result about it is
 reported. It has the form of ledger (xiii) with centre-free `F`, so the cone lemma, Lemma P and the inverse step
-hold for it, and the self-test requires C1, C2, C2b, C3 (`q = 2`, exhaustive), C10, the invariant checkpoints of
+hold for it, and so does Lemma S. The self-test requires C1, C2, C2b, C3 (`q = 2`, exhaustive), C5, C10, the invariant checkpoints of
 this section and the replay digest to pass on it. Its output is the list of control and invariant outcomes only.
 
-### 5.2 Procedure after a red control or a failed invariant in the registered run
+### 5.2 Procedure after an execution of the registered run that does not exit with status 0
 
-Exit status 2 or 4 publishes control and invariant records only. The only permitted response is a correction of
-the program: this file is unchanged, the diff and the new program SHA-256 are recorded on #868 before the next
-execution, `--selftest` is passed again, the full run matrix is rerun, and every run (with its exit status and
-its control and invariant records) is reported. If the defect is in this file or in a Stage 1 lemma, no rerun
+This covers exit status 1, 2, 3 and 4 and a termination without an exit record (a kill by the memory cap or the
+operating system, or any start line of `invocations.jsonl` without an exit line).
+
+Exit status 2 or 4 publishes control and invariant records only. Exit status 1 and a termination without an exit
+record publish nothing. Exit status 3 publishes what §7 states, and those records stay reported. In every case the
+staging area is absent or is deleted unread (§5); the executor reads no staged measurement. The only permitted
+response is a correction of the program: this file is unchanged, the diff and the new program SHA-256 are recorded
+on #868 before the next execution, `--selftest` is passed again, the full run matrix is rerun, and every run (with
+its exit status, or the absence of one, and its control and invariant records) is reported. No size, bound, order,
+instance, control or threshold changes in a rerun. If the defect is in this file or in a Stage 1 lemma, no rerun
 takes place without an amendment to this file and a new independent check. A control is not changed, dropped or
 re-scoped in response to a red result (§4).
 
@@ -296,7 +320,8 @@ under rule 1.
 2. **`NO-DEPENDENCE`** if `dep_A[c] = dep_B[c] = 0` for every `c`.
 3. **`SIGNALLING`** if `sig_A[c] > 0` or `sig_B[c] > 0` for at least one `c`. The result records the number of such
    `c`, and separately the number of `c` that are no-signalling and NONLOCAL (flag
-   `nonlocal_among_nonsignalling`); a non-zero flag is reported prominently and is not a Bell verdict.
+   `nonlocal_among_nonsignalling`) and the number of `(c, sub)` with `c` no-signalling and no certificate
+   (`undecided_among_nonsignalling`); a non-zero flag is reported prominently and is not a Bell verdict.
 4. **`BELL-VIOLATION-NO-SIGNALLING`** if `sig_A[c] = sig_B[c] = 0` for every `c`, and `loc[c][sub] = NONLOCAL` with
    a verified certificate for at least one `(c, sub)`. The result records `chsh_max`; if every `chsh_max ≤ 2` the
    token carries the suffix `-NON-CHSH`.
@@ -368,7 +393,7 @@ certificate verification or the replay digest failed. `1` any other error. When 
 status is the first that applies in the order `1`, `4`, `2`, `3`, `0`. With status `2` or `4`, `results.json`
 carries the hashes, `controls`, `controls_all_green`, `invariants`, `invocations` and `timing` only: `instances`,
 `verdicts` and `tables_digest` are `null`, and no count table, certificate or instance measurement is written or
-printed (§5). With status `1` no result file is published. A consumer reads the exit status and `results.json`; printed output is diagnostic only.
+printed (§5). With status `2` or `4` each `controls[].detail` is restricted to that control's own counts. With status `1`, and after a termination without an exit record, no result file is published; the staging area is removed on every exit path, and one found at the next launch is deleted unread (§5). A consumer reads the exit status and `results.json`; printed output is diagnostic only.
 
 **`results.json`** (one object; all integers are JSON integers, all probabilities strings `"p/q"`):
 
@@ -385,7 +410,7 @@ printed (§5). With status `1` no result file is published. A consumer reads the
   "invariants": [{"name": "every-run", "ok": true, "measured": {"…": 0}}],
   "instances": [
     {
-      "id": "R-round/q2/T12/cb3/S/D4/v",
+      "id": "R-round/q2/T12/cb3/S/D4/v/F_const",
       "rule": "R-round", "q": 2, "lattice": "T12", "partition": "cb3", "wing": "S", "D": 4, "slice": "v",
       "sites": {"gA": [0,0,0], "rA": [0,0,0], "gB": [4,0,0], "rB": [4,0,0]},
       "hidden_coordinates": ["u@(1,0,0)", "…"], "hidden_count": 16777216,
@@ -400,7 +425,7 @@ printed (§5). With status `1` no result file is published. A consumer reads the
                            "chsh_max": "2/1"}],
              "table_digest": "<sha256>"}
           ],
-          "nonlocal_among_nonsignalling": 0,
+          "nonlocal_among_nonsignalling": 0, "undecided_among_nonsignalling": 0,
           "token": "…"
         }
       ]

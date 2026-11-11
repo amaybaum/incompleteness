@@ -1,6 +1,6 @@
 # MIXED-PATH-1 — Bell scope: mixed hidden/visible paths inside the emergent-light-cone window
 
-**WIP / UNVERIFIED, paper-only writer draft r1; not reviewed; authorizes nothing.**
+**WIP / UNVERIFIED, paper-only writer draft. Model review of parts of it is not verification (§A.46 item 7). Authorizes nothing.**
 
 - **Accountable home:** #868. Coordination #1169. Parent draft: Bell-scope unit 1 r2 (open point O2).
 - **Authorization (quoted with author and time).** #868 comment 6794392080, author `amaybaum`,
