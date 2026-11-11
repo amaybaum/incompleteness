@@ -656,7 +656,7 @@ their checkpoints*.
 
 ## The objects
 
-- **`D`** = `fd539e150759a6ea51ab279aeeac80fc06050ade`, the head of `main` after ARP-1's landing. It was re-confirmed
+- **`D` (historical draft/source baseline, pending final execution-source decision)** = `fd539e150759a6ea51ab279aeeac80fc06050ade`, the head of `main` after ARP-1's landing. This does **not** certify it as the future execution base; the owner must separately reconcile/fix D with main activity/T0 and all exact input pins before any design run. Do not replace it automatically with a later `main` head. It was re-confirmed
   on 2026-11-09 through `gh api repos/amaybaum/incompleteness/commits/main`, as "Merge pull request #1208: ARP-1-MARC
   native round (SURVIVAL; receipt holds)". It is re-confirmed again when the round PR is opened.
 - **`F`**: the owner-designated commit carrying this file.
