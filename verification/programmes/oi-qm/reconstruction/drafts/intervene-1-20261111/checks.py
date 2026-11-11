@@ -50,5 +50,32 @@ Hrot = sp.Matrix([[0,0,1],[0,-1,0],[1,0,0]])   # Hadamard on Bloch vectors: x<->
 ok['X5 control: identity frame matrix is a permutation'] = M(sp.eye(3)) == sp.eye(4)
 ok['X5 Hadamard frame matrix min entry = -1/2'] = min(M(Hrot)) == sp.Rational(-1, 2)
 ok['X5 nonnegative stochastic composite stays nonnegative (P*diag*marg)'] = all(e >= 0 for e in (sp.Matrix([[0,1],[1,0]])*sp.Matrix([[sp.Rational(1,3),1],[sp.Rational(2,3),0]])))
+# X6: attach-uniform, conjugate, discard = (1/m) * sum of conjugations by the ancilla blocks (S=2, m=2; index (s,f) -> 2s+f).
+ks = sp.symbols('k0:16'); r00, r01, r10, r11 = sp.symbols('r00 r01 r10 r11')
+K4 = sp.Matrix(4, 4, ks); rho = sp.Matrix([[r00, r01], [r10, r11]])
+att = lambda Z: sp.kronecker_product(Z, sp.eye(2)/2)
+ptr = lambda Mx: sp.Matrix(2, 2, lambda s, t: sum(Mx[2*s+f, 2*t+f] for f in range(2)))
+blk = lambda Kx, f, e: sp.Matrix(2, 2, lambda s, t: Kx[2*s+f, 2*t+e])
+lhs = ptr(conj(K4, att(rho)))
+rhs = sum((conj(blk(K4, f, e), rho) for f in range(2) for e in range(2)), sp.zeros(2))/2
+ok['X6a discard(conj K) = (1/m) sum_{f,e} conj(block_{f,e}) (symbolic K, S=2, m=2)'] = sp.expand(lhs - rhs) == sp.zeros(2)
+Hd = sp.Matrix([[1, 1], [1, -1]])/sp.sqrt(2); KH = sp.kronecker_product(sp.eye(2), Hd)
+d4 = sp.diag(*sp.symbols('v0:4')); YH = sp.simplify(conj(KH, d4))
+ok['X6b 1(x)H on S x Fin 2: conj fails diagonal preservation'] = any(YH[i, j] != 0 for i in range(4) for j in range(4) if i != j)
+ok['X6b its ancilla blocks are all scalar (monomial) and its discard is the identity'] = all(blk(KH, f, e)[0, 1] == 0 and blk(KH, f, e)[1, 0] == 0 for f in range(2) for e in range(2)) and sp.simplify(ptr(conj(KH, att(rho))) - rho) == sp.zeros(2)
+# X7: H-IND. phi(s,r) = (s xor r, r) on {0,1}^2. A fixed kernel kappa(r|s) gives a nonnegative column-stochastic matrix;
+# two joint laws with the same carrier marginal and different kernels give different outputs (countercontrol).
+half = sp.Rational(1, 2)
+def out(joint):   # joint[(s,r)] -> law of s' = s xor r
+    o = [0, 0]
+    for (s_, r_), pr in joint.items(): o[s_ ^ r_] += pr
+    return o
+def Tk(kappa):    # T[s'][s] = sum_r kappa[s][r] * [s xor r = s']
+    return sp.Matrix(2, 2, lambda s2, s_: sum(kappa[s_][r_] for r_ in range(2) if s_ ^ r_ == s2))
+kA = [[1, 0], [0, 1]]; kB = [[half, half], [half, half]]
+ok['X7 control: fixed kernel gives nonnegative column-stochastic T'] = all(all(e >= 0 for e in Tk(k)) and all(sum(Tk(k)[:, j]) == 1 for j in range(2)) for k in (kA, kB))
+jA = {(s_, r_): half*kA[s_][r_] for s_ in range(2) for r_ in range(2)}
+jB = {(s_, r_): half*kB[s_][r_] for s_ in range(2) for r_ in range(2)}
+ok['X7 countercontrol: same carrier marginal, different kernels, different outputs'] = out(jA) == [1, 0] and out(jB) == [half, half]
 for k, v in ok.items(): print(('PASS ' if v else 'FAIL ') + k)
 print('ALL', 'PASS' if all(ok.values()) else 'FAIL')

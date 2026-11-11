@@ -9,4 +9,9 @@ PASS X4b CM K is not an isometry
 PASS X5 control: identity frame matrix is a permutation
 PASS X5 Hadamard frame matrix min entry = -1/2
 PASS X5 nonnegative stochastic composite stays nonnegative (P*diag*marg)
+PASS X6a discard(conj K) = (1/m) sum_{f,e} conj(block_{f,e}) (symbolic K, S=2, m=2)
+PASS X6b 1(x)H on S x Fin 2: conj fails diagonal preservation
+PASS X6b its ancilla blocks are all scalar (monomial) and its discard is the identity
+PASS X7 control: fixed kernel gives nonnegative column-stochastic T
+PASS X7 countercontrol: same carrier marginal, different kernels, different outputs
 ALL PASS
