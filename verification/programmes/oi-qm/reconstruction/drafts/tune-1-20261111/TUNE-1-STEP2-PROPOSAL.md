@@ -5,8 +5,9 @@ under Issue #1236 (owner decision: paper-only). This file plans one question and
 work, its definitions, decision rule, controls and stopping rule. It runs no Step 2 work, performs
 no computation, adopts no premise, advocates and evaluates no candidate mechanism, changes no
 manuscript or Lean file and authorizes nothing. Execution needs the owner's recorded approval of
-this text (or of an amended text) after the reviews named in section 10. This is revision r5,
-drafted after the delta review of r4 (verdict REVISE, light, at `57783cbc`); r4 followed the delta
+this text (or of an amended text) after the reviews named in section 10. This is revision r5a,
+the four nits of the delta review of r5 (verdict ACCEPT WITH NITS, at `c3a0ebf7`) applied to r5;
+r5 was drafted after the delta review of r4 (verdict REVISE, light, at `57783cbc`); r4 followed the delta
 review of r3 (verdict REVISE, light, at `b47700a6`), r3 that of r2 (verdict REVISE, at `81f50bd0`),
 and r2 the first internal review (verdict REVISE, at `9312b805`). The dispositions of these
 reviews are kept outside this file.
@@ -186,7 +187,7 @@ specification of the family and, for D6(b), the proofs of the Q-conditions submi
   `e ∈ ℤ/qℤ` fixed once in the specification, the same for every `L`, and defined when the event
   `{E = e, O = r_O}` is non-empty (on `ℤ^3`, choice 6 states what replaces it, or that its row is
   not defined); a translation- and `O_h`-invariant product law with a non-uniform site marginal.
-  A family for which that event is empty at some `n` has no admissible level-set law. Which of
+  A family for which the event `{E = e, O = r_O}` is empty at some `n` has no admissible level-set law. Which of
   them a pass must hold under is choice 6. Requiring the uniform law is not part of the owner's
   question, and by the expectation recorded in M3, with the gap recorded there closed, that
   requirement alone decides R-lin. The stated
@@ -346,7 +347,8 @@ full access inside the region. It is recorded as an unreviewed rationale, not a 
 
 This is where the owner's third class, "Restricted observational access" (Step 1 B), does the
 work in this question: through the boundary of `O` and the unread law `μ`, not through a declared
-restriction (D5 forbids those). For R-lin, the expectation recorded in M3 is that it does no work.
+restriction (D5 forbids those). For R-lin, the expectation recorded in M3, with the gap recorded there closed, is that it does no
+work.
 
 ***
 
@@ -520,12 +522,13 @@ What the check is expected to find, as [W]:
   definitions above.
 - *C-REBIT.* Its argument uses that every state and every operation is real in one fixed basis,
   so that the states fill a disk, and its conclusion is that Q6 fails below `1/2`, the trace
-  distance from either pole of that disk to the disk. The property concerns the states and
+  distance to the disk from either pole of the Bloch ball on the axis normal to it. The property concerns the states and
   operations of the record theory, not a hidden variable. It fails in C-POS-1, which prepares
   every pure state on its protocol class (`history-architecture-v5/REPORT.md`:13–14, :38–67). In
   C-POS-2 it fails at every menu whose prepared states do not lie in one great disk. At a menu
   whose prepared states do lie in one, the pure prefix states lie on its great circle and
-  `δ ≥ 1/√2`, the trace distance from either pole to that circle, so Q6 is classified only at
+  `δ ≥ 1/√2`, the trace distance to that circle from either pole of the Bloch ball on the axis
+  normal to the disk, so Q6 is classified only at
   `ε ≥ b + δ > 1/2` and C-REBIT's conclusion contradicts no stated classification. It is not true
   of every member of the third class (for example, of one that hosts C-PROG's compiled controller
   under `F_U`).
@@ -643,8 +646,8 @@ factor of section 1.2, Q2 at error `ε` then gives no control at conditional err
 preparation, so the conclusion of step 4 for `ε` below a small explicit constant does not follow
 from steps 3 and 4 as stated. Independently of `p_acc`, the subclass of the conclusion below has
 no heralds, so the herald of step 3 is a device of the proof and not a protocol of that subclass,
-and the Q-conditions stated for heralded preparations at conditional error are not required for
-it [W]. Running steps 3 and 4 on joint prefix–continuation laws, without conditioning on one
+and the Q-conditions stated for heralded preparations at conditional error cannot be invoked by
+its proof [W]. Running steps 3 and 4 on joint prefix–continuation laws, without conditioning on one
 complete record, is a route the delta review of r2 named, and it is needed in either case; it is
 not worked out here.
 
@@ -965,6 +968,7 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   delta review (same model family, verdict REVISE, two blocking findings and seven nits). r3
   (`b47700a6`) received a fresh delta review (same model family, verdict REVISE, light, three
   blocking findings and nine nits). r4 (`57783cbc`) received a fresh delta review (same model
-  family, verdict REVISE, light, one blocking finding and seven nits). This revision r5 is not
-  reviewed. It needs a further internal review and the ChatGPT review before it goes to the owner
-  for approval.
+  family, verdict REVISE, light, one blocking finding and seven nits). r5 (`c3a0ebf7`)
+  received a fresh delta review (same model family, verdict ACCEPT WITH NITS, no blocking
+  findings and four nits), and this revision r5a applies the four nits. It needs the ChatGPT
+  review before it goes to the owner for approval.
