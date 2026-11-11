@@ -87,3 +87,67 @@ then the current head of `main` by the same decision. `controls.py`'s `D_SHA` ca
 T0 activity evidence, RCH/DSN pins, the source-tree binding (`SOURCE_BASE`, still unset), the retention commitment and
 measured budgets remain prerequisite decisions; no design run is authorized. The author-side B1–B5 fixes and N1–N11
 dispositions require independent review and exact-head CI before the packet may be proposed for approval.
+
+## B2 gated checker self-test: request prepared, not run
+
+Prepared under the writer task "Request B2 gated run" selected in #1169 c.6789676675, which is "a request to prepare,
+not an authorization to execute". **NOT AUTHORIZED.** Nothing below has been executed.
+
+**Purpose.** The B2 repairs (M-SOLVER's SG-1-valid invalid-certificate case; M-BUDGET's out-of-scope B-P, in-budget
+valid B-P and reported-only case with `k_fragment_controls` green) exist only as definitions in `t_mutations`. The
+isolated harness cannot reach them. They run only inside the checker's own `--self-test` (preregistration A8).
+
+**Command (one attempt).** At the exact reviewed head named in the authorization, from an empty scratch directory
+outside the repository, with `<wt>` the worktree root:
+
+```
+timeout --signal=KILL 3600 python3 -I -S -B <wt>/verification/programmes/oi-qm/reconstruction/drafts/arp2-qc21/scripts/qc21_check.py --self-test > selftest.out
+echo $? > selftest.exit
+```
+
+Python 3.11 matches the workflow; the interpreter version is recorded either way. Stdlib only; the checker reads
+and writes no file, makes no network or process call, and needs no environment variable.
+
+**What it computes.** `self_test()` runs `t_misc`, `t_decide_paths`, `t_mutations`, `t_mguard_checker`, then the
+whole fixture section, and checks the fixture-mode output. Concretely:
+- the exact solver and its independent verifier (factorization, reductions, steps 2–4 of C.1 with exact simplex,
+  facet enumeration, certificates) on the 13 frozen fixture fragments, each also re-decided at step 4 and by C-SYM,
+  with no budget (`P_max`, `B_max`, `W_max` are unset) and the frozen caps; and the M-FACET, M-W, M-MODEL, M-SOLVER,
+  M-FACTOR, M-RAY and M-BUDGET mutations on some of these fixtures;
+- the CW-P classical-field and QM-P quantum paper models, ATTR-FIX and UPR-BC on synthetic records;
+- C's fixture controls (C-STAB, C-R60, C-R60-ODD, C-35, C-S3, C-PLANT, C-CONSX, C-DET, C-STEP, REP-FRAME) and
+  STAB-TRUE. These evaluate C's rule maps on 6-cell ring configurations, the native-rule detector and orbit
+  statistics on supplied matrices and planted laws, up to horizon 12;
+- `native_step`, the substratum's class-N update, on two supplied two-cell states;
+- M-GUARD through `s_entry` in fixture mode, and the one counted refusal of `s_decisive`.
+
+**OI-mechanism content, stated plainly.** It **does** execute OI-substratum rule code: `native_step`, C's rule maps
+and the native-rule detector. It runs them only on supplied states, matrices and laws, which are fixture-mode inputs
+under *Control modes*. It also runs the full exact LP/certificate pipeline on the fixtures. It builds **no** decisive
+family: no construction-B simulation (`p_sim`), no P arm classes, no B fragment from OI data, no REP-INV and no C
+orbit of an OI rule. All of these are reachable only through the four registered builders, which refuse at their
+first statement; M-GUARD checks that refusal. Its fixture section is the same computation as the gated local A3
+fixture command (`--event fixture`). Authorizing this self-test therefore authorizes that fixture computation's
+content, though not A3 as a recorded preflight.
+
+**Runtime and resources.** Not measured: no part of `--self-test` or A3 has been run. With no budgets, runtime is
+bounded only by the caps (`CAP_FACET_SUBSETS = 100000`) and the 3600 s kill limit above. That limit is the same
+local bound proposed for A3 and is not preregistered. It is one single-threaded process; memory is unmeasured.
+
+**What decides (§A.44).** The exit status in `selftest.exit` decides:
+- `0`: every check passed, the B2 cases included;
+- `1`: at least one check failed;
+- `137` (killed at the limit) or any other status: timeout or crash, which is not a pass.
+
+`selftest.out` (one `PASS`/`FAIL <name>` line per check and a count) is a diagnostic and is retained with its
+SHA-256 and the exit status. The pass/fail rule is fixed here; no expected counts are stated.
+
+**Stopping.** On any status other than `0`, stop and report; there is no rerun without a new authorization. A pass
+is implementation evidence for the self-test's checks at that head only. It is not a fixture record, a design,
+stress or A3 record, a pin, or scientific evidence.
+
+**Not authorized by this request.**
+- `controls.py --self-test` (A9), `--stress`, `--event` in any form (local A3), and the isolated harness changes it
+  might prompt;
+- any design, confirmation, gate, S1 or decisive run, dispatch, workflow splice, round PR, F/E or merge;
+- recording the output as round evidence or pinning anything from it.
