@@ -60,12 +60,14 @@ Host-VOID retakes and checker outcomes retain C.6's distinction; a checker outco
 
 ## Known limits and currently open readiness evidence
 
-- The execution tree and D/T0 are not chosen or frozen by this implementation task; SOURCE_BASE and measured
-  budgets/pins remain unset. RCH/DSN paths/blobs are still required, rather than waived or inferred from drafts.
+- `D` is selected (`cac5d264`, #1169 c.6789676675) and is re-confirmed when the round PR is opened. The execution
+  tree, T0, the host inventory, SOURCE_BASE and measured budgets/pins remain unset. RCH/DSN paths/blobs are still required, rather than waived or inferred from drafts.
 - The connector's repository-runs endpoint is accessible (a probe found 633 dispatch records). This probe is not a
-  complete inventory. The connector rejected the branch-activity endpoint (HTTP 400 endpoint allowlist), and a
-  read-only local gh fallback returned Forbidden even with network permission. No T0 or empty-activity finding is
-  inferred. Any complete inventory assembled later must retain its exact capture scope and attempts evidence.
+  complete inventory. One environment's connector rejected the branch-activity endpoint (HTTP 400 endpoint
+  allowlist) and its gh fallback returned Forbidden. A read from the writer's environment on 2026-11-11 succeeded
+  for the branch `research/arp2-qc21-prep-20261109` only: 30 events (1 `branch_creation`, 29 `push`), a continuous
+  before/after chain to `64c0df59`, no `force_push` and no `branch_deletion`. That is branch-scoped evidence; it
+  is not the repository-wide history and fixes no T0. No T0 or empty-activity finding is inferred. Any complete inventory assembled later must retain its exact capture scope and attempts evidence.
 - Independent B1 REVISE at `2f3a8b83` identified three valid conditional items. The owner approved the exact B1
   C.7/host-checker rule on #1169 c.6784808669: A42 and ARP-1 keeper succeed on dispatch and skip on PR; the KTRANS
   marker is always skipped after the axiom-report step succeeds; every other required job and step succeeds. The
@@ -132,7 +134,10 @@ content, though not A3 as a recorded preflight.
 
 **Runtime and resources.** Not measured: no part of `--self-test` or A3 has been run. With no budgets, runtime is
 bounded only by the caps (`CAP_FACET_SUBSETS = 100000`) and the 3600 s kill limit above. That limit is the same
-local bound proposed for A3 and is not preregistered. It is one single-threaded process; memory is unmeasured.
+local bound proposed for A3 and is not preregistered. It is one single-threaded process; memory is unmeasured, and the 3600 s limit bounds wall time only. The run
+is executed under an address-space limit of the execution environment (`ulimit -v`, stated with the result);
+exceeding it ends the process with a nonzero status, which is not a pass. The limit is an operational
+safeguard and is not part of the frozen command.
 
 **What decides (§A.44).** The exit status in `selftest.exit` decides:
 - `0`: every check passed, the B2 cases included;
