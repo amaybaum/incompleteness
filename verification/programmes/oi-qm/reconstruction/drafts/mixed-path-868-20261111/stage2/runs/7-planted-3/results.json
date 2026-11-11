@@ -1,0 +1,406 @@
+{
+ "controls": [
+  {
+   "counts": {
+    "tables": 1
+   },
+   "detail": "planted PR table",
+   "green": true,
+   "id": "C7",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "chsh_exactly_2": 200,
+    "distinct_tables": 200,
+    "five_or_more_weights": 200,
+    "tables": 200
+   },
+   "detail": "planted local tables",
+   "green": true,
+   "id": "C8",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "tables": 1
+   },
+   "detail": "planted non-coset Z4 table",
+   "green": true,
+   "id": "C9",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "local_rejected": 1,
+    "nonlocal_rejected": 1
+   },
+   "detail": "perturbed certificates",
+   "green": true,
+   "id": "C11",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "sig_B": 2
+   },
+   "detail": "planted signalling table",
+   "green": true,
+   "id": "C14",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "diagonals_checked": 6,
+    "patch_rows": 6,
+    "torus_rows": 13
+   },
+   "detail": "window arithmetic",
+   "green": true,
+   "id": "C12",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "comparisons": 12480,
+    "per_rule": {
+     "dummy/q2": {
+      "base_states": 260,
+      "comparisons_per_class": [
+       6240,
+       6240
+      ],
+      "violations": 0
+     }
+    },
+    "violations": 0
+   },
+   "detail": "parity decoupling",
+   "green": true,
+   "id": "C2",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "comparisons": 33557552,
+    "per_rule": {
+     "dummy/q2": {
+      "comparisons": 33557552,
+      "violations": 0
+     }
+    },
+    "violations": 0
+   },
+   "detail": "class-restricted stepper equals full-field stepper",
+   "green": true,
+   "id": "C2b",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "per_rule": {
+     "dummy/q2": {
+      "step_type_0": {
+       "distinct_images": 16777216,
+       "distinct_states": 16777216,
+       "exhaustive": true,
+       "round_trip_violations": 0,
+       "round_trips": 16777216
+      },
+      "step_type_1": {
+       "distinct_images": 16777216,
+       "distinct_states": 16777216,
+       "exhaustive": true,
+       "round_trip_violations": 0,
+       "round_trips": 16777216
+      }
+     }
+    },
+    "round_trips": 33554432,
+    "violations": 0
+   },
+   "detail": "bijection and measure",
+   "green": true,
+   "id": "C3",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "comparisons": 1179936,
+    "instances": 4,
+    "per_instance": {
+     "dummy/q2/T6/cb3/S/D2/u/F_const": {
+      "comparisons": 425984,
+      "pairs_A": 13,
+      "pairs_B": 13,
+      "violations": 0
+     },
+     "dummy/q2/T6/cb3/S/D2/v/F_const": {
+      "comparisons": 753664,
+      "pairs_A": 23,
+      "pairs_B": 23,
+      "violations": 0
+     },
+     "dummy/q2/T6/cb4/S/D2/u/F_const": {
+      "comparisons": 104,
+      "pairs_A": 13,
+      "pairs_B": 13,
+      "violations": 0
+     },
+     "dummy/q2/T6/cb4/S/D2/v/F_const": {
+      "comparisons": 184,
+      "pairs_A": 23,
+      "pairs_B": 23,
+      "violations": 0
+     }
+    },
+    "violations": 0
+   },
+   "detail": "cone lemma on the full class field",
+   "green": true,
+   "id": "C1",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "missing_certificates": 0,
+    "violations": 0,
+    "windows": 2
+   },
+   "detail": "slice shift",
+   "green": true,
+   "id": "C5",
+   "nonvacuous": true
+  },
+  {
+   "counts": {
+    "comparisons": 96,
+    "instances": 4,
+    "violations": 0
+   },
+   "detail": "symmetry",
+   "green": true,
+   "id": "C10",
+   "nonvacuous": true
+  }
+ ],
+ "controls_all_green": false,
+ "corpus_pin": "cac5d26441dd33e9348151487e4df7b547195481",
+ "exit_status": 4,
+ "instances": null,
+ "invariants": [
+  {
+   "measured": {
+    "hits": [],
+    "modules": 5
+   },
+   "name": "exact-arithmetic-static",
+   "ok": true
+  },
+  {
+   "measured": {
+    "imports": [
+     "itertools",
+     "numpy",
+     "scipy"
+    ]
+   },
+   "name": "linalg-does-not-import-stepper",
+   "ok": true
+  },
+  {
+   "measured": {
+    "lookup_functions": [
+     "class_step",
+     "full_step"
+    ],
+    "lookups_outside_stepper": 0,
+    "table_dictionary_users": [
+     "build_tables",
+     "inv_rules",
+     "table_for"
+    ]
+   },
+   "name": "stepper-static",
+   "ok": true
+  },
+  {
+   "measured": {
+    "outputs_compared": 1000
+   },
+   "name": "generator",
+   "ok": true
+  },
+  {
+   "measured": {
+    "arrays": 64
+   },
+   "name": "rule-(i)-neighbour-sums",
+   "ok": true
+  },
+  {
+   "measured": {
+    "linear_algebra_tables": 4,
+    "table_sha256": {
+     "R-lin/q2": "9e8a8f1a5caf97f6c19033112249b4bc3b8ed2d62a7703c44e0249f99c6b4bfd",
+     "R-lin/q3": "97f4a114797203b05e98ce1f1893ef98bd51912b6f4d8f808befc4afdf3ba7be",
+     "R-lin/q5": "bc6a314c75811be75f4dddcf91c0495d8b1d0bb0c78cd84ab1f32ed024621757",
+     "R-norm/q5": "ee6d00e4de6a36aa69fbc560fed84b3380477a18c6611e8a9ea621a1de89dc11",
+     "R-round/q2": "0004612e0cb875a7e9f9307ced87b17782b21a1f7a6c06ccf75a6a22658b6e05",
+     "R-round/q3": "5c57bc706839fa46934f6a419b7f8536ce131c4f63693ba9dd5276870e376b46",
+     "dummy/q2": "78b02bced6ea13b1e2ef0157c7b92641e508a2b1a481a3bcc43661b75d5f08d0"
+    },
+    "tables": 7
+   },
+   "name": "rule-(ii)-tables",
+   "ok": true
+  },
+  {
+   "measured": {
+    "source_sha256": {
+     "class_sigma": "4b44294c85b18022189d22a8c7fe9b150a4bf3b39d64a81bcb96042b2ee3071e",
+     "class_step": "b9793b223f8f3be02b4b595f37080830db68976d84bfd99b4495fdf7a2de22f2",
+     "full_sigma": "005f34d9b621ed101e76f995e10d35bf1027b63cb03c9d51400c2072ae0f10ce",
+     "full_step": "2f50f991443321a538e4f0f01461ac2cc6f009279889a3f33b5d161ecdc1b882"
+    }
+   },
+   "name": "rule-(iii)-stepper-source",
+   "ok": true
+  },
+  {
+   "measured": {
+    "columns": 35800
+   },
+   "name": "rule-(iv)-operator-columns",
+   "ok": true
+  },
+  {
+   "measured": {
+    "pairs": 16,
+    "tables": [
+     "dummy/q2"
+    ]
+   },
+   "name": "rule-(v)-stepper-literal",
+   "ok": true
+  },
+  {
+   "measured": {
+    "sha256": "1ee9fd8f7322921bee73e3069ee8cfa9d86e5b380981ea6018f799a2cc43fb74"
+   },
+   "name": "prereg-sha256",
+   "ok": true
+  },
+  {
+   "measured": {
+    "checks": 96
+   },
+   "name": "every-run",
+   "ok": true
+  },
+  {
+   "measured": {
+    "digest_checks": 64
+   },
+   "name": "same-hidden-prior",
+   "ok": true
+  },
+  {
+   "measured": {
+    "instances": 4
+   },
+   "name": "partition-second-generator",
+   "ok": true
+  },
+  {
+   "measured": {
+    "record_tick_asserts": 20,
+    "window_asserts": 16
+   },
+   "name": "window",
+   "ok": true
+  },
+  {
+   "measured": {
+    "verified": 205
+   },
+   "name": "certificate-verification",
+   "ok": true
+  },
+  {
+   "measured": {
+    "checks": 12
+   },
+   "name": "token-exclusivity",
+   "ok": true
+  },
+  {
+   "measured": {
+    "instances": 4,
+    "reported": 4
+   },
+   "name": "instance-list",
+   "ok": true
+  },
+  {
+   "measured": {
+    "tables": 12
+   },
+   "name": "deterministic-replay",
+   "ok": false
+  }
+ ],
+ "invocations": [
+  {
+   "argv": [
+    "stage2_mixedpath.py",
+    "--selftest"
+   ],
+   "exit": 0,
+   "line": 1,
+   "program_sha256": "e06d59ddfc7a19d66eae800b78239bb978fbe54423becbf54a19823a34dc5357",
+   "published": true,
+   "utc": "2026-11-11T12:49:54Z"
+  },
+  {
+   "argv": [
+    "stage2_mixedpath.py",
+    "--selftest"
+   ],
+   "exit": 1,
+   "line": 4,
+   "program_sha256": "4dd51c2724af4b44473d6bb315c6278d072146d8bcd303040fdf3a896be8fda1",
+   "published": false,
+   "utc": "2026-11-11T12:55:43Z"
+  },
+  {
+   "argv": [
+    "stage2_mixedpath.py",
+    "--selftest"
+   ],
+   "exit": 4,
+   "line": 7,
+   "program_sha256": "f35ae6b58033d0f8568ae6f20f9a0107ebd3cf27854fef639186dfeb9b2794fe",
+   "published": true,
+   "utc": "2026-11-11T13:00:14Z"
+  }
+ ],
+ "prereg_sha256": "1ee9fd8f7322921bee73e3069ee8cfa9d86e5b380981ea6018f799a2cc43fb74",
+ "program_sha256": "f35ae6b58033d0f8568ae6f20f9a0107ebd3cf27854fef639186dfeb9b2794fe",
+ "replay": {
+  "performed": false,
+  "tables_digest_equal": null
+ },
+ "schema": "mixed-path-1/stage2/v1",
+ "selftest": true,
+ "tables_digest": null,
+ "timing": {
+  "lp_milliseconds": 98,
+  "lp_solved": 205,
+  "peak_rss_mb": 334,
+  "processes": 1,
+  "threads": 1,
+  "wall_seconds": 39
+ },
+ "verdicts": null
+}
