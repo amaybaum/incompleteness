@@ -3630,8 +3630,8 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
          "fixtures": fx["fixtures"], "controls": fx["controls"],
          "budget": {"P_max": P_MAX, "B_max": B_MAX, "W_max": W_MAX, "S_max": S_MAX, "BP": {"P_max": BP_P_MAX, "B_max": BP_B_MAX, "W_max": BP_W_MAX,
                     "caps": [BP_CAP_GENERATORS, BP_CAP_D, BP_CAP_FACET_SUBSETS, BP_CAP_EFFECTS]},
-                    "respected": {f["name"]: bool(f.get("lp") not in ("out_of_scope", "undecided") and
-                         decisive_controls["C-BUDGET"]["green"]) for f in frs}},
+                    "respected": {f["name"]: (f.get("lp") in ("feasible", "infeasible") and
+                         k_fragment_controls([f])["C-BUDGET"]["green"]) for f in frs}},
          "flags": {"P": p_tok["token"], "B": b_tok["token"], "C": c_tok["token"], "levels": levels,
                    "refusal_calls": REFUSAL_CALLS, "controls_red": {"P": p_red, "B": b_red, "C": c_red}}}
     return m
