@@ -5,9 +5,10 @@ under Issue #1236 (owner decision: paper-only). This file plans one question and
 work, its definitions, decision rule, controls and stopping rule. It runs no Step 2 work, performs
 no computation, adopts no premise, advocates and evaluates no candidate mechanism, changes no
 manuscript or Lean file and authorizes nothing. Execution needs the owner's recorded approval of
-this text (or of an amended text) after the reviews named in section 10. This is revision r5a,
-the four nits of the delta review of r5 (verdict ACCEPT WITH NITS, at `c3a0ebf7`) applied to r5;
-r5 was drafted after the delta review of r4 (verdict REVISE, light, at `57783cbc`); r4 followed the delta
+this text (or of an amended text) after the reviews named in section 10. This is revision r6,
+drafted after the external review of r5a (verdict REVISE, at `9440f8af`), with the owner's
+approval to revise as reviewed; r5a applied the four nits of the delta review of r5 (verdict
+ACCEPT WITH NITS, at `c3a0ebf7`) to r5; r5 was drafted after the delta review of r4 (verdict REVISE, light, at `57783cbc`); r4 followed the delta
 review of r3 (verdict REVISE, light, at `b47700a6`), r3 that of r2 (verdict REVISE, at `81f50bd0`),
 and r2 the first internal review (verdict REVISE, at `9312b805`). The dispositions of these
 reviews are kept outside this file.
@@ -34,8 +35,8 @@ its configurations, someone chose by hand what the observer may prepare and read
 hand-choice be removed?
 
 Take one lattice rule and fix once a region as the observer's apparatus. The observer reads
-everything in the region at every step, nothing outside it, and chooses only the settings it
-writes into its own cells. Does what it can do and see behave like one quantum bit, to any wanted
+everything in the region at every step, nothing outside it, and chooses only the settings of its
+own cells, fixed at the start or (an assumption) rewritten each round. Does what it can do and see behave like one quantum bit, to any wanted
 precision, over experiments of any length? That means finely adjustable reversible operations
 that compose correctly, two incompatible measurements, every qubit state, and outcome statistics
 produced by the dynamics from a declared random state of the unobserved world (an assumption,
@@ -50,8 +51,8 @@ For the linear rule, a lemma on `main` may settle it, probably negatively, if a 
 argument closes; the nonlinear rule is the open case, studied only under a named hypothesis. The
 owner chooses the rule and the random state.
 
-Outcomes: pass; fail, for a stated class only; inconclusive; or void, if a control fails. Even a
-pass would show only that this follows from the chosen rule and stated assumptions (for the
+Outcomes: pass; fail, for a stated class only; inconclusive; or void, if a control fails. A pass
+would show only that this follows from the chosen rule and stated assumptions (for the
 nonlinear rule: OI's posits, the linear rule replaced by named hypothesis H-nl); it would not be
 evidence that OI is correct, nor establish the Born rule. Paper work only; nothing adopted.
 
@@ -137,15 +138,29 @@ An **interface** is `I = (Λ, O, C, τ, r_O, μ)`:
 **Labels.** A label is a configuration `c ∈ (V × V)^C`. The menu is every configuration of `C`;
 no label is selected or excluded.
 
-**Rounds and protocols.** At the start of round `j` the observer exchanges the content of `C` with
-the label `c_j`, held in its own register. Exchanges of configurations are access the stated
-architecture already supplies (`obs_exchangesAvailable`, Step 1 A.3) [K]. Then `Φ_F` runs `τ`
-ticks on the whole world, unchanged. The record of the round is the **complete history of `O`**:
-its configuration at each of the `τ` ticks, `h_j ∈ ((V × V)^O)^τ`. A **protocol of horizon `K`**
+**Rounds and protocols (exchange mode).** At the start of round `j` the label register `R_lab`,
+which holds one configuration of `C`, is reset to the label `c_j`, and its content is exchanged
+with the content of `C`. Then `Φ_F` runs `τ` ticks on the whole world, unchanged. The register,
+its reset and the exchange are part of the apparatus. They are a classical write access to `C`
+that `Φ_F` does not supply, assumed as the named hypothesis **H-write** (classical write access)
+and carried into every conclusion obtained in exchange mode. `obs_exchangesAvailable`
+(OB/SubstratumInterfaceAudit.lean:816) [K] states that exchanges of configurations are available
+in the observer theory `obsTheory 𝒮`. That theory is `permTheory` on the configuration space
+(`obsTheory_eq_permTheory`, :775), the theory of an observer "with read and write access to its
+visible configurations" (:9), and it is the same for every rule on the same sites and alphabet
+(`obsTheory_rule_independent`, :780) [K]. The availability therefore comes from the chosen access
+architecture and not from `F`. It does not show that a locally acting controller, its register or
+per-round writes follow from R-lin or R-nl, and it is not used as warrant for them. The record of the round is the **complete history of `O`**:
+its configuration at each of the `τ` ticks, `h_j ∈ ((V × V)^O)^τ`, together with `c_j`. The
+content the exchange moves into `R_lab` is the configuration of `C` at the last tick of round
+`j − 1`, part of `h_{j−1}` (for `j = 1`, the restriction of `r_O`), so the reset erases nothing that
+is not recorded; `c_j` is a function of the earlier records and adds nothing to the record law.
+A **protocol of horizon `K`**
 is a policy that chooses `c_1, …, c_K`, each `c_j` a function of `h_1, …, h_{j−1}` (adaptive), and
 may declare a **herald**, an event on the records on which the run is accepted, with its raw
-acceptance probability `p_acc` reported and no renormalization of rejected runs
-(`observation-context-protocol.md`:45 [R]). The distance `d_K` of section 1.4 compares joint
+acceptance probability `p_acc > 0` reported and no renormalization of rejected runs
+(`observation-context-protocol.md`:45 [R]). A herald of probability zero defines no conditional
+state and is not admitted. The distance `d_K` of section 1.4 compares joint
 laws, so it controls a law conditional on a herald only to within `2 d_K / p_acc` [W]. Every
 condition stated on heralded preparations (Q1, Q5, Q6) is therefore required at *conditional*
 error `ε`, which holds when `2 d_K / p_acc ≤ ε`, and the `p_acc` of each heralded preparation used
@@ -155,7 +170,9 @@ law** `P^I_π` is the law of `(h_1, …, h_K)` under `μ`, the ready configurati
 **Initial-condition mode** (owner option, section 9, choice 5): all labels of a non-adaptive
 protocol are written at time zero into disjoint control blocks of `O`, laid out by a fixed rule,
 and no exchange occurs afterwards. Every observer choice is then an initial condition, as in Main's
-program register (Main:582).
+program register (Main:582), there is no label register, and the only dynamics after time zero is
+`Φ_F`. This mode does not use H-write and is the strictly rule-only target; its protocols are
+non-adaptive.
 
 **Family.** A family is `{I_n}_{n ∈ ℕ}` produced by one generating rule `n ↦ I_n` (for example the
 `n`-fold scaling of a fixed pattern of `O` and `C`), stated in full as part of the family's
@@ -175,12 +192,15 @@ specification of the family and, for D6(b), the proofs of the Q-conditions submi
   each `n` one `I_n` serves every label, every protocol of `Π_K` and every target. Only `n` may
   depend on the requested `(ε, K)`, through the stated function `n(ε, K)`.
 - **D2 (embedding).** The only dynamics is `Φ_F` with `F` from 𝓡 on the whole world. The observer
-  acts only by the label exchanges of section 1.2 (or by initial conditions, in
-  initial-condition mode). No coefficient is loaded, no step is switched off or replaced, no
+  acts only by the label exchanges of section 1.2, through the register and write access of H-write
+  (or by initial conditions, in initial-condition mode). No coefficient is loaded, no step is switched off or replaced, no
   region is isolated, and the round duration `τ` is the same for every label and every
   configuration.
-- **D3 (ensemble).** `μ` is one law for the whole family, stated in its specification, the same
-  for every `n`, and taken from the list the owner fixes at M0 (section 9, choice 6). The list
+- **D3 (ensemble).** `μ` is given by one generating prescription for the whole family, stated in
+  its specification and the same for every `n`, which assigns to each `I_n` a law `μ_n` on the
+  configurations of `Λ_n ∖ O_n` (the sample spaces change with `n`); the prescription is taken
+  from the list the owner fixes at M0 (section 9, choice 6), and "law" below means such a
+  prescription. The list
   as drafted: the uniform law on `(V × V)^{Λ∖O}` (on `ℤ^3`, the uniform product law); the
   level-set law, on `𝓛_fin` only: the conditional, given `O = r_O`, of the uniform law on the level
   set `{E = e}` in `X_{Λ_L}` of the conserved quantity `E(u, v)` of SM:296, with the level value
@@ -269,9 +289,16 @@ bound on the comparator side converts to this distance by Main's telescoping Lem
   with `Σ_h ‖𝓘_{c(θ),h} − p_h(θ) · Ad(e^{−iθ n̂·σ/2})‖_⋄ ≤ ε` for some probability vector
   `p(θ)`: the round acts on the qubit as the unitary channel, and its record carries at most `ε`
   information about the qubit.
-- **Q4 (composition; model-free).** For all `θ₁, θ₂`, replacing two consecutive rounds
-  `c(θ₁), c(θ₂)` by `c(θ₁ + θ₂), c(0)` in any protocol of horizon `K` changes the law of all later
-  records, and of the records of those two rounds after marginalization, by at most `ε`.
+- **Q4 (composition; model-free).** For all `θ₁, θ₂`, take two protocols of horizon `K` that
+  share a prefix (which may be adaptive) and the same post-gate continuation, and differ only in
+  that two consecutive gate rounds after the prefix have labels `c(θ₁), c(θ₂)` in one and
+  `c(θ₁ + θ₂), c(0)` in the other. The continuation's labels are fixed in advance or depend on
+  the prefix records only; no label of the continuation is a function of the records of the two
+  gate rounds. Then the unconditioned joint law of the records of all rounds other than the two
+  gate rounds differs between the two protocols by at most `ε`. Q2 is still taken over complete
+  adaptive histories; only this replacement test restricts the continuation, because an adaptive
+  continuation that reads the gate records can separate the two protocols through those records
+  alone, even under exactly composing unitary channels.
 - **Q5 (incompatible sharp reads).** Two labels, with two-class coarse-grainings of their records,
   are represented in `𝔔` within `ε` of rank-one projective measurements `{P_a, 1 − P_a}` and
   `{P_b, 1 − P_b}` with `Tr(P_a P_b) ∈ [1/4, 3/4]`. The coarse-grainings test a property of `𝔔`;
@@ -282,7 +309,7 @@ bound on the comparator side converts to this distance by Main's telescoping Lem
 
 **One direction each, to be proved in method step M2** (§A.34). Q2 implies the upper half of Q1
 for `ε` below an explicit constant (approximate form of Lemma 2 of `whole-model-bridge.md`:167–178
-[R]). Q2 and Q3 imply Q4 with error a fixed multiple of `ε`. Neither converse is claimed. Q1 and
+[R]). Q2 and Q3 imply Q4 with error `4ε` (L3, [W]). Neither converse is claimed. Q1 and
 Q4 are kept as separate conditions because they can be checked without any model. Q5 is close to
 implied by Q1, Q2, Q3 and Q6 (not proved); it is kept because it names the two reads, and the
 overlap does no harm.
@@ -300,8 +327,8 @@ separately (token `PARTIAL-REBIT`, section 2).
 
 ### 1.5 The question, stated once
 
-> **TUNE-1/Q2.** For the rule class 𝓡 and carrier class 𝓛 fixed by the owner, does there exist a
-> derived family of interfaces `{I_n}` (D1–D7) and an explicit function `N(ε, K)` such that, for
+> **TUNE-1/Q2.** For the rule class 𝓡, carrier class 𝓛 and mode fixed by the owner (exchange
+> mode under H-write), does there exist a derived family of interfaces `{I_n}` (D1–D7) and an explicit function `N(ε, K)` such that, for
 > every `ε > 0` and every horizon `K`, the interface `I_{n(ε,K)}` satisfies Q0–Q6 at error `ε` and
 > horizon `K`?
 
@@ -358,12 +385,16 @@ work.
 
 Let `𝕀_D` be the set of derived families for the owner's 𝓡 and 𝓛. The tokens:
 
-- **`PASS-DERIVED[R, 𝓛, λ | H]`**: a family in `𝕀_D` and an explicit `N(ε, K)` are exhibited,
+- **`PASS-DERIVED[R, 𝓛, λ, m | H]`**: a family in `𝕀_D` and an explicit `N(ε, K)` are exhibited,
   and Q0–Q6 are proved for every `ε > 0` and every `K`, under the hypotheses `H`, with the
   robustness clause of D3 met. The token names the rule `R`, the carrier class `𝓛` (`𝓛_fin`, or
-  `𝓛_∞`), the law `λ` and every hypothesis used: H-μ always, H-∞ with `𝓛_∞`, H-nl with R-nl. For
-  example `PASS-DERIVED[R-lin, 𝓛_fin, uniform | H-μ]` and
-  `PASS-DERIVED[R-lin, 𝓛_∞, uniform | H-μ, H-∞]` are distinct tokens.
+  `𝓛_∞`), the law `λ`, the mode `m` (`init`, initial-condition mode, over its non-adaptive
+  protocols; `exch`, exchange mode, over adaptive protocols) and every hypothesis used: H-μ
+  always, H-∞ with `𝓛_∞`, H-nl with R-nl, H-write with `exch`. For example
+  `PASS-DERIVED[R-lin, 𝓛_fin, uniform, init | H-μ]` and
+  `PASS-DERIVED[R-lin, 𝓛_∞, uniform, exch | H-μ, H-∞, H-write]` are distinct tokens. Only an
+  `init` token is a result about the rule alone; an `exch` token assumes the observer's writes and
+  does not obtain them from `Φ_F`.
 - **`FAIL-CLASS(𝓢)`**: for a stated subclass `𝓢 ⊆ 𝕀_D` it is proved that there are `ε₀ > 0` and
   `K₀` such that no member of any family in `𝓢`, at any resource, satisfies Q1–Q6 at `(ε₀, K₀)`.
   `𝓢` is named by its rule, carrier, ensemble, mode and any further restriction; the token never
@@ -371,7 +402,7 @@ Let `𝕀_D` be the set of derived families for the owner's 𝓡 and 𝓛. The t
 - **`PARTIAL-x`** (reported only if the owner says so; section 9, choice 8): a family in `𝕀_D`
   for which a stated proper subset holds. `x` is one of: `REBIT` (Q0–Q5 without Q6); `NOCOMP`
   (Q3 without Q4 at the uniform bound); `FIXEDK` (Q0–Q6 for one stated `K` only);
-  `NONADAPTIVE` (Q0–Q6 for non-adaptive protocols only).
+  `NONADAPTIVE` (in exchange mode, Q0–Q6 for non-adaptive protocols only).
 - **`OPERATIONAL-ONLY`**: Q0–Q6 hold at a stated scope (a stated set of `(ε, K)`, protocol class
   or menu; Q0 is not applied to a construction that is not a lattice interface), some D-clause
   fails, and the family is not classified `PASS-COMPILED`. For a control, the Q-conditions are
@@ -409,7 +440,7 @@ from the two tables in this order, and from nothing else:
    `VOID(that row)`. A refuted condition enters the verdict as the `proved` row that states its
    negation for the named subclass.
 2. Else, if Q0–Q6 and D1–D7 are `proved` for one family over every `(ε, K)`:
-   `PASS-DERIVED[R, 𝓛, λ | H]` for that family. Every `FAIL-CLASS(𝓢)` proved for another
+   `PASS-DERIVED[R, 𝓛, λ, m | H]` for that family. Every `FAIL-CLASS(𝓢)` proved for another
    subclass is reported with it, row for row.
 3. Else, if a `FAIL-CLASS` theorem is `proved` for `𝓢 = 𝕀_D`: `FAIL-CLASS(𝕀_D)`. If it is proved
    for a proper subclass only: `FAIL-CLASS(𝓢)` together with `INCONCLUSIVE(gap)` for
@@ -425,12 +456,14 @@ change the token.
 ### 2.3 What each outcome would and would not establish
 
 **`PASS-DERIVED` would establish**, at the layer of its weakest link (most likely [W], a paper
-derivation awaiting review): for the stated rule, carrier class and ensemble, an observer region
-chosen once and read completely has a record theory within `ε`, over complete records of horizon
-`K`, of one qubit with a dense coherent one-parameter family, two incompatible sharp reads and
-every pure state, with explicit resources `N(ε, K)`. It would be the first construction on `main`
-of quantum operational behaviour in which neither the access nor the quantum rule is supplied
-(Step 1 B.12 (ii)).
+derivation awaiting review): for the stated rule, carrier class, ensemble and mode, an observer
+region chosen once and read completely has a record theory within `ε`, over complete records of
+horizon `K`, of one qubit with a dense coherent one-parameter family, two incompatible sharp reads
+and every pure state, with explicit resources `N(ε, K)`. In mode `init` it would be the first
+construction on `main` of quantum operational behaviour in which neither the access nor the
+quantum rule is supplied (Step 1 B.12 (ii)), over non-adaptive protocols. In mode `exch` it would
+establish the same over adaptive protocols given the observer's classical write access H-write; it
+would not show that `Φ_F` supplies those writes.
 
 **It would not establish:** the selection of the Born rule (H-μ remains a hypothesis: why the
 world's unprepared part has law `μ` is the measure question, and agreement for one qubit with
@@ -468,7 +501,7 @@ wrong, and the step returns to the owner with the definitions, not with a verdic
 | C-POS-1 | The Kochen–Specker sphere model with its supplied contract | Known positive: exercises the two halves of the criterion separately | Not a lattice interface, so Q1–Q6 (Q0 does not apply): `ε = 0` for every finite adaptive rank-one projective protocol (the record states this; general instruments not covered, so Q2 is checked on that protocol class); D3 fails (cosine-hemisphere law supplied), D5 fails (preparation cone, private workspace and seeds by declaration), D6 fails (rotation primitives), D7 fails (continuum carrier). `OPERATIONAL-ONLY` | `history-architecture-v5/REPORT.md`:305–312 [R]; Kochen–Specker 1967 (imported there) |
 | C-POS-2 | Its finite discretization `finite-a2-v5` | Positive control for the approximate form and for Q0 | Q0–Q6 at a fixed finite menu and horizon `h = K`, at every `ε ≥ b + δ`: `b` is the record bound of :36–37 at that `h` and at the parameters `M, W, B` of :23, and `δ` is the larger of the largest gap between a requested angle and the nearest menu angle (the diamond distance between the two rotations being at most that gap) and the largest trace distance from a pure state to the nearest pure state `R_w n` prepared by a menu prefix of horizon at most `K` (a menu preparation or reset direction `n` followed by a word `w` of menu rotations) [W]. The record fixes a finite menu of rotations, rank-one projective measurements and preparations (:11–12) and states nothing about the density of prepared states; `δ` carries it. The classification is stated for menus containing two rank-one measurements with `Tr(P_a P_b) ∈ [1/4, 3/4]` (Q5), which the record does not require. Q3 and Q6 therefore hold only to the menu's resolution. D fails as for C-POS-1. `OPERATIONAL-ONLY` (with the menu restriction recorded) | `finite-a2-v5/REPORT.md`:11–14, :23, :36–37, :105–115 [R] |
 | C-ISO-1 | A classical wave on the cubic lattice with real amplitudes (the real lift of R-lin), read completely in a region; its large-scale propagation is isotropic | The external assessment's countercontrol: isotropy and interference without a qubit. Out of class: it fails D7 trivially and has no `μ` specified. Its value is that operations which vary continuously and compose (Q4) are still rejected by Q1 [W]. The external countercontrol's in-class wave is R-lin itself, which L5 tests | Q1 fails: complete reads of real amplitudes distinguish arbitrarily many preparations (the mechanism of the bridge's Lemma 1) [W]; D7 fails (E-real). Interference statistics alone are not a failure of the control (`observation-context-protocol.md`:37–38, "interference alone is insufficient") [R]. Not `PASS-DERIVED` | SM:258–268, Corollary 1a (`ohInvariant_iff`, OB/CubicIsotropy.lean:116) [K]; `whole-model-bridge.md`:132–197 [R] |
-| C-ISO-2 | **A classical diffusion: one lazy random walker.** *World:* `Λ ∈ 𝓛` and one walker, whose position `X_t ∈ Λ` is the whole state. *Dynamics:* each tick moves the walker by the `O_h`-symmetric lazy kernel `K(x, x) = 1/2`, `K(x, x ± e_j) = 1/12` (`j = 1, 2, 3`), with fresh randomness each tick; the walker's law obeys the lattice heat equation and spreads isotropically at large scales. *Interface:* `O` a box, `C ⊆ O`. A label is a permutation `g_c` of `C`. At the start of a round the walker is moved to `g_c(X)` if it is in `C`, and nothing happens otherwise; then `τ` ticks of `K` run. The record at each tick is the walker's position if it is in `O`, and a blank symbol otherwise. At time zero the walker is outside `O`, with any law `μ` on `Λ ∖ O` (the argument does not use `μ`) | Isotropic classical propagation in which the labels do act on the walker. The negative must not come from a property that every classical hidden-variable model has (proves-too-much check below) | Q1, Q2, Q3, Q5 and Q6 cannot hold together at `ε < ε_D`, an explicit constant stated at M1 with the conditional-error factor of section 1.2 (these are the conditions the argument uses: Q2's model `𝔔`, of which Q3 and Q6 are statements, and Q5's reads); D7 fails (a stochastic rule outside 𝓡). Not `PASS-DERIVED`. Argument [W]. (i) The whole state is the walker's position, so a label can act only when the walker is in `C ⊆ O`, where the preceding tick has read it. Conditional on a prefix's complete records, either the walker is at a recorded `x ∈ O`, and the effective state is fixed by `x` alone (Markov property), or it is outside `O`, and every label acts exactly as `c(0)` does. (ii) A state of the second kind, as a state of the model `𝔔` of Q2, satisfies `Ad(U_θ)ρ ≈ ρ` for every `θ` under Q3, read out through Q5's reads, so it lies within `O(ε)` of the `n̂` axis. (iii) By laziness, from `x ∈ O` the round's first-tick record shows the walker at `g_c(x)` with probability at least 1/2, while any other starting point puts mass at most 1/12 there. Round record laws from distinct starting points therefore differ in total variation by at least 5/12, whereas Q3 makes the round's record law independent of the input within `ε`. So below `ε_D` all effective states are of one kind: either all lie near the axis (Q6 fails), or there is a single state (Q1 fails). The argument uses two properties: the whole state is read whenever a label acts, and the walk is lazy. It does not use that the walk is classical. Strict contraction of `K^τ` is not used, because it is not uniform in `L` and a contraction can act isometrically on a quotient [W] | SM:258–268 (isotropy of `O_h`-equivariant kernels) [P]; the argument is [W] |
+| C-ISO-2 | **A classical diffusion: one lazy random walker.** *World:* `Λ ∈ 𝓛` and one walker, whose position `X_t ∈ Λ` is the whole state. *Dynamics:* each tick moves the walker by the `O_h`-symmetric lazy kernel `K(x, ·) = ½ δ_x + Σ_{j = 1, 2, 3} Σ_{s = ±1} (1/12) δ_{x + s e_j}`, the contributions of directed neighbours that coincide on a small torus being added (so `K(x, x + e_j) = 1/6` when `L = 2`, and `K(x, x) = 1` when `L = 1`), with fresh randomness each tick; the walker's law obeys the lattice heat equation and spreads isotropically at large scales. *Interface:* `O` a box, `C ⊆ O`. A label is a permutation `g_c` of `C`. At the start of a round the walker is moved to `g_c(X)` if it is in `C`, and nothing happens otherwise; then `τ` ticks of `K` run. The record at each tick is the walker's position if it is in `O`, and a blank symbol otherwise. At time zero the walker is outside `O`, with any law `μ` on `Λ ∖ O` (the argument does not use `μ`) | Isotropic classical propagation in which the labels do act on the walker. The negative must not come from a property that every classical hidden-variable model has (proves-too-much check below) | Q1, Q2, Q3, Q5 and Q6 cannot hold together at `ε < ε_D`, an explicit constant stated at M1 with the conditional-error factor of section 1.2 (these are the conditions the argument uses: Q2's model `𝔔`, of which Q3 and Q6 are statements, and Q5's reads); D7 fails (a stochastic rule outside 𝓡). Not `PASS-DERIVED`. Argument [W]. (i) The whole state is the walker's position, so a label can act only when the walker is in `C ⊆ O`, where the preceding tick has read it. Conditional on a prefix's complete records, either the walker is at a recorded `x ∈ O`, and the effective state is fixed by `x` alone (Markov property), or it is outside `O`, and every label acts exactly as `c(0)` does. (ii) A state of the second kind, as a state of the model `𝔔` of Q2, satisfies `Ad(U_θ)ρ ≈ ρ` for every `θ` under Q3, read out through Q5's reads, so it lies within `O(ε)` of the `n̂` axis. (iii) By laziness, from `x ∈ O` the round's first-tick record shows the walker at `g_c(x)` with probability at least 1/2, while any other starting point puts mass at most 1/6 there (at most 1/12 when `L ≥ 3` or on `ℤ^3`). Round record laws from distinct starting points therefore differ in total variation by at least 1/3, whereas Q3 makes the round's record law independent of the input within `ε`. So below `ε_D` all effective states are of one kind: either all lie near the axis (Q6 fails), or there is a single state (Q1 fails). The argument uses two properties: the whole state is read whenever a label acts, and the walk is lazy. It does not use that the walk is classical. Strict contraction of `K^τ` is not used, because it is not uniform in `L` and a contraction can act isometrically on a quotient [W] | SM:258–268 (isotropy of `O_h`-equivariant kernels) [P]; the argument is [W] |
 | C-FIN | The eight-point model with the first-moment decoder | A supplied finite access quotient with a known error floor; checks Q3's detection of a finite group | Q2 with Q3 fails below `ε = 1/15`: the model has 24 Clifford actions, and 1/15 is a record-level error floor for one non-Clifford rotation, reached through the comparator (Q2), not a direct diamond bound on Q3; D fails (supplied contract). Not `PASS-DERIVED` | `operational-quotient-v3/REPORT.md`:20–23, :218–227 [R] |
 | C-REBIT | Real quantum theory of one system (state space a disk); the kernel's `realClass`, which has `rot` and lacks the phases, is its configuration-level analogue | Exercises the separation of Q3 from Q6 | Not a lattice interface: Q1–Q5 hold and Q6 fails, the pattern that `PARTIAL-REBIT` reports for a family in `𝕀_D`. Never `PASS-DERIVED` | `realTheory_rot`, `realTheory_not_phases` (OB/F2CoherenceControls.lean:306, :317) [K]; the disk is [W] |
 | C-TAB | The finite-menu table representation: any `N` listed preparations represented on `ℂ^N` | Shows Q2's fixed dimension has teeth | Q2 holds only with `d = N`; with three pairwise distinguishable preparations, Q1 and Q2 at `d = 2` fail | `whole-model-bridge.md`:204–211 [R] |
@@ -552,7 +585,7 @@ execution, with the checkpoint that measures it.
 | No negative control proves too much | A proves-too-much row for each negative control in the control table: the properties its argument uses; for each of C-POS-1, C-POS-2 and the reversible-rule class with an unread uniform environment, at the scope stated in section 3, whether each property holds there (for the class, whether it holds for every member); and whether the argument's conclusion contradicts that case's stated classification at that scope. The proves-too-much entry is red if and only if, in some case, every property holds and the conclusion contradicts the stated classification; a red entry turns the control red |
 | Compiled simulators classified as fixed in advance | Choice 11 is recorded at M0; C-PROG's obtained clause entries and token are compared with those its row states for the option chosen |
 | Verdict computed from the tables | Section 2.2; the reviewer recomputes the token from the two tables |
-| No premise adopted | A hypothesis ledger in the result note lists H-μ, H-∞ and H-nl if used, and every [R] statement used, each with its status, and each appears in every conclusion that uses it |
+| No premise adopted | A hypothesis ledger in the result note lists H-μ, H-∞, H-nl and H-write if used, and every [R] statement used, each with its status, and each appears in every conclusion that uses it |
 | Rule class respected | A D7 row for every family considered |
 | No quantum input (D6) | A D6 row for every family considered, with two entries. (a) The search of its specification for the D6 word list. (b) For each of `r_O`, `O`, `C`, `τ`, `μ` and the generating rule, how it is defined, and whether that definition, or any submitted proof of Q2 or Q3, identifies configurations of cells with numerals, tables or a sampler of a D6 quantity. Under 11(a) or (b), a hit on either entry makes the family supplied, classified by section 2.1; under 11(c), entry (b) is recorded and does not enter the classification |
 | Layer tags kept distinct | Every link of every proof carries one tag; no [W] extension is tagged [K] (in particular no extension of `nonnegBounded_not_denseUnitaryControl` beyond its statement) |
@@ -589,7 +622,21 @@ OB/CubicIsotropy.lean:116, OB/OperationalSourcing.lean:476, OB/F2CoherenceContro
 - L2 (Q2 ⇒ upper half of Q1, for `ε` below an explicit constant): from Lemma 2 of
   `whole-model-bridge.md`:167–178 [R], re-derived here in approximate form (three qubit states
   cannot be pairwise distinguished with small error).
-- L3 (Q2 ∧ Q3 ⇒ Q4 with error `c·ε`, explicit `c`): from Main:596 [P].
+- L3 (Q2 ∧ Q3 ⇒ Q4 with error `4ε`, `‖·‖_⋄` the diamond norm induced by the trace norm and TV
+  half the `ℓ¹` distance) [W, unreviewed]. Error budget: (1) Q2 bounds the distance of each
+  protocol's record law from its comparator law by `ε`, and marginalizing the two gate rounds'
+  records does not increase it: `ε + ε`. (2) In `𝔔`, by Q3 and `Σ_h p_h(θ) = 1`, each summed gate
+  channel `Σ_h 𝓘_{c(θ),h}` is within `ε` of `Ad(U_θ)`; for one axis `Ad(U_{θ₂}) ∘ Ad(U_{θ₁}) =
+  Ad(U_{θ₁+θ₂})` and `U_0 = 1`, so each pair of gate rounds is within `2ε` of `Ad(U_{θ₁+θ₂})` and the
+  two pairs are within `4ε` of each other. Given the prefix records, the continuation is the same
+  fixed measurement of the state after the gate rounds, because none of its labels reads the gate
+  records, so the comparator's two laws differ by at most `½ · 4ε = 2ε` (Main:596 [P] for the
+  conversion). Total `4ε`. Without the restriction on the continuation in Q4 the implication is
+  false: with each gate round exactly `Ad(U_θ)` and a record that tags its label (Q3 holds with
+  error 0), a continuation that measures `Z` after one tag and `X` after the other separates the
+  two protocols on input `|0⟩`, `θ₁ ≠ 0` and `θ₁ + θ₂ = 0` by total variation `1/2` (the external
+  review's counterexample). In exchange mode every round's record contains its label `c_j`, so
+  such tags are always present.
 - L4 (escape audit, necessary conditions on any `PASS-DERIVED`): (a) the map from preparation
   prefixes to qubit states in `𝔔` is not injective on laws over configurations, and is not a
   fixed orthogonal linear frame with H-LIFT; otherwise MECH-2 Lemma F and Theorem U2(ii)
@@ -656,7 +703,7 @@ non-affine in the joint state" (`mechanism-1-20261107/DESIGN.md`:434–435) [R].
 
 If L5 confirms the sketch, with the gap above closed and after Lemma A has been re-derived under
 choice 9(a), the node yields `FAIL-CLASS(R-lin, coset-uniform law, initial-condition mode, no
-heralds)` for every `q` on both carriers. Exchange mode, adaptivity and heralds are child nodes,
+heralds)` for every `q` on both carriers. Exchange mode (under H-write), adaptivity and heralds are child nodes,
 and the subclass is widened to each only when its own node is proved (steps 1 and 3). The R-lin
 child nodes left open also include those under a law that is not uniform on a coset (choice 6): a
 level set of the quadratic `E` (SM:296) (on `𝓛_fin`), or a non-uniform product law. Whether the
@@ -746,7 +793,7 @@ leaves every kernel obstruction on the configuration-basis interface intact, bec
 on the operational quotient.
 
 **Where it could be varied, and how that is closed.** The rule is one fixed `F`; the ensemble is
-one law from the list fixed at M0, with a robustness check; the label menu is every configuration of `C`; the read
+one law (a generating prescription, D3) from the list fixed at M0, with a robustness check; the label menu is every configuration of `C`; the read
 is the complete history of `O`. What remains existential is the shape of `O` and `C`, `τ`, the
 generating rule `n ↦ I_n` and the comparator `𝔔`. These are fixed once for all targets and all
 protocols (D1), and the comparator is a single `ℂ²` model, so they cannot be adjusted per outcome.
@@ -844,7 +891,7 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
    correspondence between alphabets SM §2.7 leaves unbuilt.
 3. **World.** (a) Finite tori only; (b) finite tori, and the infinite lattice under the named
    hypothesis H-∞ as a separately labelled conditional result, with its own token
-   (`PASS-DERIVED[…, 𝓛_∞, … | H-μ, H-∞]`, or a `FAIL-CLASS` naming `𝓛_∞`).
+   (`PASS-DERIVED[…, 𝓛_∞, …, … | H-μ, H-∞, …]`, or a `FAIL-CLASS` naming `𝓛_∞`).
    *Recommendation: (b).* It honours "finite observational access" not implying "finite
    underlying dynamics" without adopting an infinite world.
 4. **Error measure and horizon.** (a) Total variation on complete records over all protocols of
@@ -853,10 +900,15 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
    condition, a fixed-`K` result reported as `PARTIAL-FIXEDK`. The owner's Q-B record asks that
    errors under repetition, adaptive measurement and recombination be controlled (Step 1 F.2).
 5. **How the observer chooses.** (a) Exchange mode with adaptive protocols (label choice may
-   depend on earlier records), heralded preparations allowed with raw rates; (b) initial-condition
-   mode only (every choice an initial condition; no adaptivity); (c) both, reported separately.
-   *Recommendation: (c)*, with a pass requiring (a). (b) is the strictest embedding; (a) is the
-   form Main §3.4 and Gate A use.
+   depend on earlier records), heralded preparations allowed with raw rates, conditional on the
+   named hypothesis H-write: the label register, its reset and the per-round writes are a
+   classical write access counted in the apparatus and the record (section 1.2), not obtained from
+   `Φ_F`; (b) initial-condition mode only (every choice an initial condition; no adaptivity), the
+   strictly rule-only target; (c) both, reported separately, each with its own token.
+   *Recommendation: (c).* (b) is the strictly rule-only target, and only its token is a result
+   about the rule alone; (a) is the form Main §3.4 and Gate A use, adds adaptivity, and its token
+   carries H-write. `obs_exchangesAvailable` does not discharge H-write: the observer theory it is
+   stated for does not depend on `F` (`obsTheory_rule_independent`, section 1.2) [K].
 6. **Ensemble.** For R-lin, this choice probably decides the outcome. By the expectation recorded
    in M3, with the gap recorded there closed, a law uniform on a coset gives `FAIL-CLASS` for
    R-lin, and the uniform law is such a law, so requiring it is the premise that decides R-lin.
@@ -932,7 +984,14 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   used in drafting r5: `git` (rev-parse, status, log, ls-tree, cat-file, show, diff, add, commit,
   push), `grep`, `sed`, `awk`, `cut`, `cat`, `head`, `tail`, `tee`, `mv`, `wc`, `sha256sum`.
   `python3 --version` was invoked once, printing the interpreter's version only; it ran no script
-  and computed nothing about any OI rule. No probe, checker or Lean build. No GitHub comment.
+  and computed nothing about any OI rule. Commands used in drafting r6: `git` (status,
+  rev-parse, log, show, add, commit, push), `grep`, `sed`, `cut`, `wc`, `df`, `sha256sum`.
+  `python3 --version` was invoked once in r6, printing the interpreter's version only; it ran no
+  script and computed nothing about any OI rule. No probe, checker or Lean build. No GitHub
+  comment.
+- **Read for r6:** the external review of `9440f8af` (in full); at the pin,
+  OB/SubstratumInterfaceAudit.lean:1–37 and :765–830 and OB/RouteB.lean:125–129
+  (`ExchangesAvailable`).
 - **Read for r5:** the delta review of `57783cbc` (in full); at the pin,
   `finite-a2-v5/REPORT.md` (whole) and `history-architecture-v5/REPORT.md`:9–20, :34–68 and
   :295–320.
@@ -970,5 +1029,7 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   blocking findings and nine nits). r4 (`57783cbc`) received a fresh delta review (same model
   family, verdict REVISE, light, one blocking finding and seven nits). r5 (`c3a0ebf7`)
   received a fresh delta review (same model family, verdict ACCEPT WITH NITS, no blocking
-  findings and four nits), and this revision r5a applies the four nits. It needs the ChatGPT
-  review before it goes to the owner for approval.
+  findings and four nits), and r5a (`9440f8af`) applied the four nits. r5a received the external
+  ChatGPT review (verdict REVISE, two blocking findings, B1 on the composition test and B2 on
+  write access, and three precision requests), and this revision r6 applies all five. It needs a
+  delta review of r6 before it goes to the owner for approval.
