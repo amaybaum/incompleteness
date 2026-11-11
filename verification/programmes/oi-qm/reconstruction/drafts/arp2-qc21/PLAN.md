@@ -35,7 +35,7 @@ was evaluated, and no B fragment built from OI data. The probe evaluates P's con
 
 | item | choice |
 | --- | --- |
-| round | `ARP-2-QC21`, non-sealing; digest `1d195f93…`; `D` = `fd539e15` (to re-confirm) |
+| round | `ARP-2-QC21`, non-sealing; digest `1d195f93…`; `D` = `cac5d264` (#1169 c.6789676675; re-confirmed equal to `main` when the round PR opens) |
 | P | Complementarity in construction B's two-path apparatus. Tokens: `P-COMPLEMENTARITY`, `P-RECORD-WITHOUT-SUPPRESSION`, `P-NO-RECORD`, `P-NO-FRINGES`, `P-VOID`. The shams (SH-0, SH-K) are a reported decomposition and gate nothing. Two A/B readings (existence, universality). Ablations report `pred_change`, a computed `mech_change`, and `dynamics_credit` |
 | B | Noncontextuality over the fragment's own equivalences, with the LP reading the whole owner-typed `Acc` (B-P: nine SA-1(b) joint settings). TOMO on the read slots' charged configurations. Construction A's B result is measured, not predicted. Tokens: `B-CONTEXTUAL`, `B-CLASSICALLY-IMITABLE`, `B-VOID` |
 | C | As r7: the U′ gadget, `K ∈ {6, 12}`, W-CL on both frames, ABL as dynamics, C-A `reg = none`, L-UPRIME used. Tokens unchanged |
@@ -198,7 +198,7 @@ As r7.
 | fill: r5's authority passages | inlined verbatim | prereg *Authority* |
 | fill: c.6733796760 | its recorded verbatim text inlined | prereg *Authority* |
 | fill: ARP-1 | the blobs at `fd539e15` (receipt, preregistration, result, measurements, both scripts); `--verify-round e064e766…` with the verifier from `fd539e15`, run read-only: `VERDICT  HOLDS`, exit 0 | prereg *Inputs*, precondition 1 |
-| fill: `D` | `fd539e15` re-confirmed as `main`'s head via `gh api` on 2026-11-09; re-confirmed again when the PR opens | prereg *The objects* |
+| fill: `D` | `cac5d264`, `main`'s head on 2026-11-11, by owner decision #1169 c.6789676675; re-confirmed equal to `main` when the PR opens | prereg *The objects* |
 | D10(a): copy ARP-3-QC22 r13 | Appendix C copies *The exact method*, *The workflow edit* and *Runs, evidence, approvals* from r13 (`15d90b24…`) verbatim, with five identifier renames and a frozen adaptation table for QC22-specific terms. Not yet reviewed (precondition 5) | prereg Appendix C |
 
 **Still `PENDING`.**

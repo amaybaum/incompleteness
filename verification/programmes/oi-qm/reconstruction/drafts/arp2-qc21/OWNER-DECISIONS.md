@@ -57,6 +57,32 @@ rule." "Every other job and step must succeed. Every unlisted skip fails. The ru
 `verify.yml` byte for byte." "It authorizes nothing else: no design, gate or decisive run, no dispatch, no F/E
 designation, no merge." It does not supply the unresolved D/T0, physical source, retention commitments or budgets.
 
+## 2026-11-11 execution base D (nit N1)
+
+Owner: amaybaum. Recorded 2026-11-11T07:19:40Z (UTC) at
+[#1169 comment 6789676675](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6789676675).
+
+The question put to the owner, verbatim: "Q-C2-1 needs an execution base D before F. Which commit should it be?"
+
+**Owner answer: "Current main (Recommended)"**. The text of the chosen option, verbatim:
+
+> Pin D to main as it stands when the round PR is opened (cac5d264 today, unless main moves). Code's D_SHA and
+> preregistration updated to match.
+
+The same answer selected these writer tasks, verbatim: "Remove revision notes (N9)", "Try activity-history read" and
+"Request B2 gated run", with option texts:
+
+> Delete the r14a–r14d revision notes from the preregistration so it states only current rules; ChatGPT reviews.
+
+> One read-only attempt at the GitHub activity endpoint for the #1218 branch to see whether T0 evidence is
+> retrievable; nothing inferred if it fails.
+
+> Prepare (not run) a scoped request for you to authorize executing the gated checker self-test that contains the B2
+> tests.
+
+The recorded scope, verbatim: "This decides D only. It authorizes no round PR, F/E designation, dispatch, scientific
+run or merge. The B2 item is a request to prepare, not an authorization to execute."
+
 ## Writer role (not an owner decision recorded on GitHub)
 
 From `98582070` the writer for Q-C2-1 implementation corrections is Claude, confirmed by the owner on 2026-11-11 in

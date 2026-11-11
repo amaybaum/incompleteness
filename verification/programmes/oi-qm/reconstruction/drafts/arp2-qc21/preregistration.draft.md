@@ -656,9 +656,12 @@ their checkpoints*.
 
 ## The objects
 
-- **`D` (historical draft/source baseline, pending final execution-source decision)** = `fd539e150759a6ea51ab279aeeac80fc06050ade`, the head of `main` after ARP-1's landing. This does **not** certify it as the future execution base; the owner must separately reconcile/fix D with main activity/T0 and all exact input pins before any design run. Do not replace it automatically with a later `main` head. It was re-confirmed
-  on 2026-11-09 through `gh api repos/amaybaum/incompleteness/commits/main`, as "Merge pull request #1208: ARP-1-MARC
-  native round (SURVIVAL; receipt holds)". It is re-confirmed again when the round PR is opened.
+- **`D`** = `cac5d26441dd33e9348151487e4df7b547195481`, the head of `main` on 2026-11-11 ("Merge pull request #1212:
+  correct SM ring degree bounds"), by the owner's decision #1169 c.6789676675 (amaybaum, 2026-11-11T07:19:40Z): "Pin D
+  to main as it stands when the round PR is opened (cac5d264 today, unless main moves)." When the round PR is opened,
+  `D` is re-confirmed equal to `main`'s head; if `main` has moved, `D` is the then-current head of `main` by the same
+  decision, and every pin read at `D` is re-checked there. At `cac5d264`, `.github/workflows/verify.yml` has blob
+  `3a9dc8a97fd6f9d6d5f17cf390b5aabf37d65233` and every blob pinned under *Inputs* equals its pin.
 - **`F`**: the owner-designated commit carrying this file.
 - **S1**: single-parent child of `F` adding the scripts at their pinned blobs, the two STAB-FALSE certificates at their
   pinned sha256s (C.8 item 12), `evidence/design-run.json`,
@@ -684,7 +687,7 @@ rows:
 | short | path | used for |
 | --- | --- | --- |
 | AP1 | `R/apparatus-1-20261107/DESIGN.md` (`51c24aeb…`) | SA-1 (AP1:282-309; "not derived", AP1:347); the coupled tick (AP1:464-530); the eraser words (AP1:628-668); C3 and C9 (AP1:670-682); Lemma 4′ (AP1:698-730); Lemma 5 (AP1:731-745) |
-| M-ARC | at `fd539e15`: `verification/receipts/ARP-1-MARC.json` (blob `f4f2b06b40f1dcb91d4c0f2f020688be422b7bc8`); `R/round-arp1-marc-20261108/preregistration.md` (`af7c4f228393ecaa9d334d50410e3c87d6faf80e`), `result.md` (`6fb623273c4db9aec5fd9ca0cfc80bd923076ece`), `evidence/measurements.json` (`f4a783aafcb44953231e6e4566a1e93bb71ba21f`), `marc_check.py` (`38d6f67559b6641590b3baf126b2247e97a4e28c`), `controls.py` (`5e6318896ffe274bf5cca7dbcb2cb537b1bad4a1`) | precondition 1; the relation section |
+| M-ARC | at `fd539e15` (ARP-1's landing; the same blobs at `D`): `verification/receipts/ARP-1-MARC.json` (blob `f4f2b06b40f1dcb91d4c0f2f020688be422b7bc8`); `R/round-arp1-marc-20261108/preregistration.md` (`af7c4f228393ecaa9d334d50410e3c87d6faf80e`), `result.md` (`6fb623273c4db9aec5fd9ca0cfc80bd923076ece`), `evidence/measurements.json` (`f4a783aafcb44953231e6e4566a1e93bb71ba21f`), `marc_check.py` (`38d6f67559b6641590b3baf126b2247e97a4e28c`), `controls.py` (`5e6318896ffe274bf5cca7dbcb2cb537b1bad4a1`) | precondition 1; the relation section |
 | QC22 | Q-C2-2's `preregistration.draft.md` r13, sha256 `15d90b24…` (scratch, not on `main`); its r14, sha256 `9e3ef0c9…`, and r14a, sha256 `d751a127…` (scratch, not on `main`) | the source of Appendix C (D10); r14 is the source of the wording of edit rows 92–99, 101, 105, 113 and 118, and r14a of rows 109–112, 114–117, 119 and 123, C.7's re-derivation and precondition 2's R10 (provenance: the wording used is stated here in full) |
 | RCH | REACHABLE r3 (PENDING: path and blob on `main`) | Theorem C, for CC-NAT's paper expectation only |
 | DSN | `DESIGN-DS.md`, the revision landed under D9(a) and pinned under precondition 3 (drafted as r13; PENDING: path and blob on `main`) | the model; the typing; the findings; Lemma CL; Lemma P (sketch) |
@@ -1630,7 +1633,7 @@ Appendix D.9's rows, plus:
        (`is-shallow-repository: false`), 2026-11-09.
      - Output: four `ATTESTATION … recorded, unverified` lines (the owner designations of `F` and `E`, and the check
        runs 42516831042 and 42564902307), then `VERDICT  HOLDS`, exit 0.
-     - Blobs at `fd539e15` are listed under *Inputs*.
+     - Blobs at `fd539e15`, unchanged at `D`, are listed under *Inputs*.
    - Effect: none on this round's question, controls or decision rule; the ledger row L-REG cites the SURVIVAL
      token.
 2. **Owner decisions** recorded: #1169 c.6735014875 (*Owner decisions at the freeze*). Still to be met before `F`:

@@ -79,6 +79,11 @@ No permission question is presented while these prerequisites are unresolved. Th
 identified, reviewed design source and a complete bounded evidence packet, with execution approval as the final
 step.
 
-### Unresolved execution-base provenance
+### Execution base
 
-The current draft's controls D_SHA (`fd539e15`) and preregistration's historical ARP-1 baseline are **not a fresh owner-approved execution D**. Although main advanced to `cac5d264` in the previous review, neither commit is silently substituted for a fully sourced and verified final D. Final D, its T0 activity witness, RCH/DSN pins, source-tree binding, retained author approval and measured budgets remain prerequisite decisions; no design run is authorized. The author-only B1–B5 fixes and N1–N11 dispositions require independent review and exact-head CI before the packet may be proposed for approval.
+`D` = `cac5d26441dd33e9348151487e4df7b547195481` by owner decision #1169 c.6789676675 (amaybaum,
+2026-11-11T07:19:40Z), re-confirmed equal to `main`'s head when the round PR is opened; if `main` has moved, `D` is
+then the current head of `main` by the same decision. `controls.py`'s `D_SHA` carries it. The decision fixes D only.
+T0 activity evidence, RCH/DSN pins, the source-tree binding (`SOURCE_BASE`, still unset), the retention commitment and
+measured budgets remain prerequisite decisions; no design run is authorized. The author-side B1–B5 fixes and N1–N11
+dispositions require independent review and exact-head CI before the packet may be proposed for approval.

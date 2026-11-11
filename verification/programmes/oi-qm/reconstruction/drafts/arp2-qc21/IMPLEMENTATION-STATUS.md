@@ -168,6 +168,17 @@ Responds to the non-author delta review [#1218 c.6785757458](https://github.com/
 
 The isolated harness passes all 18 groups after this pass; `py_compile` passes. Nothing scientific was run.
 
-**Open list at this head.** N1 (`D_SHA` is the historical `fd539e15`; the execution D is an owner decision). N9 (the
+**Open list at this head.** N9 (the
 r14a–r14d revision notes must be removed or re-traced before F). B4's real activity-endpoint read, T0 and the host
 inventory. The B2 M-BUDGET/M-SOLVER definitions are unexecuted. All corrections await independent review.
+
+## N1: execution base D (2026-11-11)
+
+By owner decision #1169 c.6789676675 (OWNER-DECISIONS), `D` = `cac5d26441dd33e9348151487e4df7b547195481`, re-confirmed
+equal to `main`'s head when the round PR is opened (a moved `main` makes its then-current head `D` by the same
+decision). `controls.py`'s `D_SHA`, the preregistration's *The objects*, DESIGN-RUN-REQUEST and PLAN state it. Checked
+read-only: `verify.yml.input`, and `.github/workflows/verify.yml` at both `fd539e15` and `cac5d264`, are blob
+`3a9dc8a97fd6f9d6d5f17cf390b5aabf37d65233`; every `INPUTS` pin in `controls.py` equals its blob at `cac5d264`; and
+`fd539e15..cac5d264` changes only `papers/SM.{md,tex,pdf}`. Remaining `fd539e15` citations name ARP-1's landing
+(precondition 1, M-ARC) or DESIGN-DS's drafting snapshot. `SOURCE_BASE` stays unset until a separately authorized
+local A3 or design tree.
