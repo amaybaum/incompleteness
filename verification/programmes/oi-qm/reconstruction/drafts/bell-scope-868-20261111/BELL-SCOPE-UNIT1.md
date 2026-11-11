@@ -1,6 +1,8 @@
 # #868 Bell-scope unit 1: native Bell factorization, its proved class, and the line between OI and an interface
 
-**WIP / UNVERIFIED, paper-only writer draft r1, pending independent review; authorizes nothing.**
+**WIP / UNVERIFIED, paper-only writer draft r2, after ChatGPT review 5857227567 (PR #1231, verdict REVISE, on
+head `7abf59d7`), pending re-review; authorizes nothing.** Dispositions of the review's findings:
+`DISPOSITIONS-r2.md` in this directory.
 
 - **Accountable home:** #868. Coordination #1169. Cross-references #1060 (H-Bell, frozen record untouched),
   #1210 (QX-6, frozen r7c untouched), #914 row 16, #866, #1216.
@@ -10,8 +12,8 @@
   escape / C indeterminate). No OI-mechanism computation, no new premise, no runs." ChatGPT is the independent
   reviewer.
 - **Done in this unit:** source reading, hand proofs, and one probe file of exact checks on generic mathematical
-  objects (§3.6). No OI rule, carrier, coupling, preparation, ring or simulator is encoded or run. No Lean run, git
-  write, push or GitHub write. No frozen record or manuscript was edited.
+  objects (§3.6). No OI rule, carrier, coupling, preparation, ring or simulator is encoded or run. No Lean run and
+  no GitHub write by the writer. No frozen record or manuscript was edited.
 - **Corpus pin:** `main` = `cac5d26441dd33e9348151487e4df7b547195481` (2026-11-09 16:04 +0200), which equals
   `origin/main` when read. Every `main` citation below is `git show cac5d264:<path>`. Line numbers `Main:N` are
   lines of `papers/Main.md` at that commit (blob `5b73da57…`).
@@ -33,12 +35,14 @@ violates factorization. Neither an unconditional obstruction nor a native Bell e
 𝒞_sep of §3.1 — one fixed deterministic map, site factorization, setting generators inside the system, every
 record region of each wing outside the actual coupling-graph cone of the other wing's generator for the whole record
 window, generator isolation, every-run outputs with failures mapped by a fixed local rule, and measurement
-independence (posited as in Main, or obtained under the conditioning-factorization condition of Lemma G) — there is
+independence (posited as in Main; the conditioning-factorization condition of Lemma G is sufficient for it) — there is
 a single pre-setting, response-complete λ with one setting-independent μ(λ) that factorizes **for the whole finite
 setting menu at once**, including complete local histories, heralds, controller records and continuations inside
 the window (Theorem N, [A] on Main's cone lemma [P]). Hence CHSH ≤ 2 and, against the four Tsirelson contexts,
 mean (so also worst-setting) joint-output TV error ε ≥ (√2−1)/4 ≈ 0.1036, also when the error is measured on full
-histories (§4). **This is an interface-scoped result, not a no-go for OI.** It is labelled restricted: it covers
+histories (§4). The constant is optimal over Bell-local tables, and is attained inside 𝒞_sep as an abstract class by
+a six-site toy map (§4.1); no member whose map is the native substratum rule is exhibited. **This is an
+interface-scoped result, not a no-go for OI.** It is labelled restricted: it covers
 only wings separated beyond the actual coupling-graph cone.
 
 **Where the line between the two lies, and the open posits it depends on (§3.4).**
@@ -50,20 +54,24 @@ only wings separated beyond the actual coupling-graph cone.
   leaves H-Bell (i) open. The text does not settle which reading holds (finding F1).
 - **O2 — the physical light cone.** Main states that which of the graph cone (Euclidean reach `1/‖n̂‖₁` per update,
   from 1 to 1/√3) and the long-wavelength wave speed (1/√3) is the physical *c* "is not derived" (Main:416). If
-  *c* is the wave speed, wings that are spacelike in physical terms can still lie inside the graph cone, by a factor
-  up to √3 off the body diagonals, even on the nearest-neighbour graph. Such protocols are outside 𝒞_sep; whether
+  *c* is the wave speed, some wings that are spacelike in physical terms still lie inside the graph cone, even on
+  the nearest-neighbour graph: those with `Δt/√3 < d ≤ Δt/‖n̂‖₁`, a window that is empty along the body diagonals
+  and widest (a factor √3) along the axes. Wings farther apart are outside both cones. Protocols in the window are
+  outside 𝒞_sep; whether
   the native rule yields Bell-relevant dependence there is unexamined.
 - **O3 — measurement independence.** It is hypothesis (iv) of Main's theorem, "retained as a posit about the
   initial condition, not derived" (Main:406–407). It is **not** ledger item (iv) (the maximal-entropy measure
-  selection) and is not separately itemized in the ledger (finding F2). Lemma G reduces it, under the uniform
-  counting measure, to a condition on the conditioning events (CF) and generator isolation; CF is unsourced for an
-  observer's actual record conditioning.
+  selection) and is not separately itemized in the ledger (finding F2). Lemma G gives a sufficient condition for
+  it under the uniform counting measure: factorization of the conditioning event (CF). CF is not necessary for MI
+  (§3.3) and is unsourced for an observer's actual record conditioning.
 
-**Decisive missing lemma (C).** *Native Bell-availability lemma (NBA):* every Bell protocol admissible under Main's
-posits and the substratum dynamics whose wings are separated in the physical sense satisfies (Sep) in the actual
-`G_φ` for its generator and record regions, and its response-complete pre-setting variable satisfies (MI). NBA
-would give (A) for OI; its failure through a sourced native coupling with complete-history no-signalling would give
-(B). NBA requires O1 and O2 to be resolved and O3 to be sourced or posited explicitly (§3.4).
+**Decisive missing lemma (C).** *Native Bell-availability lemma (NBA), stated in full in §3.4:* every every-run
+Bell protocol with a finite jointly admissible menu, admissible under Main's posits and the substratum dynamics,
+whose wings are separated in the physical sense, has generator and record regions satisfying (Gen), (Rec) and (Sep)
+in the actual `G_φ`, and satisfies (MI) for its response-complete pre-setting variable λ: λ = Ω if (GI) holds,
+and otherwise λ = λ* = (Ω, ρ_A, ρ_B), with the generator residues included. NBA would give (A) for OI by Theorem N
+or N′; its failure through a sourced native coupling with complete-history no-signalling would give (B). NBA
+requires O1 and O2 to be resolved and O3 to be sourced or posited explicitly (§3.4).
 
 **Escape (B): not established.** No native operation, coupling or preparation violating factorization is supplied
 by the sources. Main's PR realization is the abstract finite response construction with globally coupled
@@ -74,7 +82,8 @@ If an escape exists while (MI) and every-run outputs are kept, the Bell hypothes
 independence** (§2): outcome independence is automatic under determinism, and the pre-setting λ always exists.
 
 **Favourable-reading check (§A.31).** Theorem N and Lemma G favour an obstruction. Their pressure test is in §3.5:
-neither reaches OI itself, because Sep, GI and CF are hypotheses about a protocol, not consequences of the posits.
+neither reaches OI itself, because Sep, GI and CF are hypotheses about a protocol and its conditioning, not
+consequences of the posits.
 
 ***
 
@@ -85,17 +94,19 @@ Status: *proved* (layer), *conditional* (named hypotheses, each justified / posi
 | # | Statement | Protocol class | Hypotheses (status) | Layer | Source | On `main`? |
 |---|---|---|---|---|---|---|
 | C1 | Cone lemma: `(φ^k(s))_i` depends only on `B_{G_φ}(i,k)` | any finite site-factorized deterministic map | finite `V`, `S=∏S_i` (ledger (ii), (viii): posited) | P | Main:364 | yes |
-| C2 | Bell ceiling for a screened local completion, CHSH ≤ 2 | exogenous one-step own-wing interventions, readouts outside the other wing's cone, every-run ±1, common ensemble | (i) determinism (justified: Lemma 3, ledger (iii) part-empirical); (ii)–(iii) protocol design (posited per protocol); (iv) MI (posited) | P (+ exhaustive check 11) | Main:366–393 | yes |
-| C3 | **Theorem N:** closed native form of C2 with generators inside the system; one λ = Ω for the whole finite menu and complete local histories | 𝒞_sep (§3.1) | D, (ii), (viii) (posited); Sep, GI, ⊥-rule (protocol design, posited per protocol); MI (posited, or Lemma G) | A on C1 | §3.2 here | no (this file) |
-| C4 | **Lemma G:** under the uniform counting measure conditioned on an event that factorizes across generator / non-generator coordinates at the setting slice, MI holds for Ω | 𝒞_sep with measure semantics M | M (ledger (iv) with Lemma 3's uniform-prior scope: posited); CF (open, unsourced); GI | A (+X G6) | §3.3 here | no |
+| C2 | Bell ceiling for a screened local completion, CHSH ≤ 2 | exogenous one-step own-wing interventions, readouts outside the other wing's cone, every-run ±1, common ensemble | theorem hypotheses (i) determinism (justified: Lemma 3, ledger (iii) part-empirical); (ii)–(iii) protocol design (posited per protocol); (iv) MI (posited; this is the theorem's hypothesis (iv), not ledger item (iv)) | P (+ exhaustive check 11) | Main:366–393 | yes |
+| C3 | **Theorem N:** closed native form of C2 with generators inside the system; one λ = Ω for the whole finite menu and complete local histories | 𝒞_sep (§3.1) | D, (ii), (viii) (posited); Sep, GI, ⊥-rule (protocol design, posited per protocol); MI for Ω (posited; Lemma G gives a sufficient condition) | A on C1 | §3.2 here | no (this file) |
+| C3′ | **Theorem N′:** the same conclusion without GI, with λ* = (Ω, ρ_A, ρ_B) | 𝒞_sep with (GI), (MI) replaced by (MI*) | D, (ii), (viii) (posited); Sep, ⊥-rule (posited per protocol); MI* for λ* (posited) | A on C1 | §3.2 here | no |
+| C4 | **Lemma G:** under the uniform counting measure conditioned on an event that factorizes across generator / non-generator coordinates at the setting slice, MI holds for Ω. One direction only: CF is sufficient, not necessary (G6c) | 𝒞_sep with measure semantics M | M (ledger (iv) with Lemma 3's uniform-prior scope: posited); CF (open, unsourced) | A (+X G6) | §3.3 here | no |
 | C5 | CHSH-variant pointwise identity over the 16 deterministic tables | generic | none | X (G1); standard (L) | probe | no |
-| C6 | ε ≥ (√2−1)/4 for mean and worst-setting TV to the Tsirelson box, any MI Bell-local family; tight | generic Bell-local families | Bell locality + MI | A (+X G2–G4) | §4 | no |
+| C6 | ε ≥ (√2−1)/4 for mean and worst-setting TV to the Tsirelson box, any MI Bell-local family; optimal over Bell-local tables | generic Bell-local families | Bell locality + MI | A (+X G2–G4) | §4 | no |
+| C6′ | The constant of C6 is attained by a member of 𝒞_sep as an abstract class (six-site toy map under M and CF); not shown for a member whose map is the native substratum rule | 𝒞_sep, abstract | none beyond the class | A (+X G7) | §4.1 | no |
 | C7 | Full-history contraction: TV on full histories ≥ TV on extracted outputs | any local extractor applied to both laws | same extractor on both; target pushes forward to the Tsirelson box | A (+X G5) | §4.2 | no |
 | C8 | MI-relaxed ceiling `S ≤ min{4, 2+4√(2 ln2 I_ont)}`, hence ε ≥ (2√2−2−4√(2ln2·I_ont))/8 when positive | response-complete Ω with setting dependence | response-completeness (Main:427) | P (bound, not re-proved here); A (corollary) | Main:418–425; §4.3 | bound yes |
 | C9 | Complete-history no-signalling over a preparation family with full affine span forces pointwise locality, so CHSH ≤ 2 | fixed deterministic realization, fixed policy menu | (S) full span (unsourced); every-run binary first outputs | W | prepared-pair-source §§4–5 | yes |
 | C10 | Bare finite OI representability realizes PR behaviour | unrestricted global coupling | none | P (construction) | Main:362, :429 | yes |
 | C11 | Native Bell escape (B) | any native preparation/operation | needs O1 or O2 positively, complete-history NS for a sourced preparation family | **not established** | — | — |
-| C12 | NBA: every admissible physically-separated protocol is in 𝒞_sep | OI itself | O1, O2, O3 | **open** | §3.4 | — |
+| C12 | NBA: every admissible physically-separated every-run protocol satisfies (Gen), (Rec), (Sep) and MI for its response-complete λ (Ω under GI, λ* otherwise) | OI itself | O1, O2, O3 | **open** | §3.4 | — |
 | C13 | Reference nearest-neighbour graph alone cannot give option (a) for graph-separated wings | nearest-neighbour cubic, graph-separated | C2's hypotheses | P | Main:416 (Corollary) | yes |
 
 ***
@@ -111,7 +122,7 @@ substratum configuration at tick `t` and `t_s` for the setting slice.
 | **Response-completeness** | Ω must fix each wing's complete record for every setting value. `x_{t_s}` is complete; a coarse Ω is complete only if responses depend on discarded coordinates only through the settings (GI, §3.1). | Main: Ω "fixes each wing's response to every setting" (hypothesis of C2); Main:427 requires it for the information bound. |
 | **Outcome independence** | At fixed `x_{t_s}` and settings, every record is a point mass. | Automatic under determinism. Not an escape route. |
 | **Parameter independence (PI)** | Wing A's record window `{R_A^t}` lies outside the `G_φ`-cone of the B-generator region `G_B` (Sep). Exogenous form: Main's (ii)+(iii). | Proved from Sep via C1. Sep is a protocol property. Its failure by a `G_φ` path is Main's adopted branch (a): preparation-indexed long edges (H-Bell (i), open) or within-cone dependence (O2). |
-| **Measurement / setting independence (MI)** | `p(Ω \| a,b) = p(Ω)`. The settings are functions of `x_{t_s}|_{G_A}, x_{t_s}|_{G_B}`; for the full microstate MI fails whenever two setting pairs occur (Main:406–410). | Posited (Main:406–407). Lemma G: implied by CF + GI under the uniform measure. Main records the MI-dependent alternative with `I_ont ≥ 0.0309` bits and does not adopt it. |
+| **Measurement / setting independence (MI)** | `p(Ω \| a,b) = p(Ω)`. The settings are functions of `x_{t_s}|_{G_A}, x_{t_s}|_{G_B}`; for the full microstate MI fails whenever two setting pairs occur (Main:406–410). | Posited (Main:406–407). Lemma G: for Ω, implied by CF under the uniform measure (sufficient, not necessary). Main records the MI-dependent alternative with `I_ont ≥ 0.0309` bits and does not adopt it. |
 | **Every-run outputs** | Each run records an output; a failure `⊥` is a record, mapped by a fixed local rule (`⊥ ↦ +1`). Heralds before `t_s` are part of Ω; heralds after `t_s` are local records. | Main's C2 assumes every-run ±1. Coincidence-only (postselected) statistics are outside every result here. |
 | **Operational no-signalling** | Each wing's complete accessible history law is independent of the remote policy (prepared-pair-source §4, balance equations (B)). | A separate, weaker property: PR satisfies it with CHSH 4 (composition-source-map §5.2, W). Not Bell locality. |
 | **Determinism** | Main Lemma 3; ledger (iii). | Neither proves nor refutes factorization: C10 (PR realizable) and C2 (ceiling) both hold for deterministic maps. |
@@ -139,7 +150,8 @@ exogenous map: the setting is carried by part of the state. 𝒞_sep restates th
 - **(Sep)** For every `t ∈ [t_s, T_A]`: `d_{G_φ}(G_B, R_A^t) > t − t_s`. Symmetrically for B.
 - **(GI) generator isolation.** Each `x_t|_{R_A^t}` depends on `x_{t_s}|_{G_A}` only through `a`: if `x, x'` agree
   outside `G_A` and `g_A(x|_{G_A}) = g_A(x'|_{G_A})`, they give the same A-record. Symmetrically for B.
-- **(MI)** `p(Ω | a,b) = p(Ω)` for every jointly admissible `(a,b)` — posited, as in Main, or via Lemma G.
+- **(MI)** `p(Ω | a,b) = p(Ω)` for every jointly admissible `(a,b)` — posited, as in Main; Lemma G gives a
+  sufficient condition.
 
 (D), (F) are posits of the framework. (Gen), (Rec), (Sep), (GI) and the ⊥-rule are properties of a protocol: they
 define the class and are not derived from OI.
@@ -170,10 +182,18 @@ enters as generator content, Sep is measured from `G_B` rather than from an inte
 are the whole local history window rather than one readout. A parallel derivation for time-dependent local maps,
 A6.1 in #1210's frozen QX-6 r7c (D, off `main`), is provenance only; Theorem N does not use it.
 
-*Remark (generator residue).* Without (GI), enlarge Ω to `(x|_W, ρ_A, ρ_B)`, where `x|_{G_A} ↔ (a, ρ_A)` is any
-chart. Steps 1–4 go through, and (MI) then also requires the residues to be independent of the setting values.
-This is the setting-generator accounting the contract asks for: MI concerns the response-relevant variable, which
-includes whatever part of the generator reaches a record.
+*Theorem N′ (without generator isolation).* Fix injective charts `x|_{G_A} ↦ (a, ρ_A)`, `x|_{G_B} ↦ (b, ρ_B)` and
+put `λ* = (Ω, ρ_A, ρ_B)`. *Under (D), (F), (Gen), (Rec), (Sep) there are functions with `h_A = Ĥ*_A(λ*, a)`,
+`h_B = Ĥ*_B(λ*, b)` for every run. If also* **(MI\*)** `p(λ* | a,b) = p(λ*)` *for every jointly admissible `(a,b)`,
+the conclusion of Theorem N holds with λ = λ\* and μ = p(λ\*).*
+
+*Proof.* Step 1 does not use (GI) and gives `h_A` as a function of `(x_{t_s}|_W, x_{t_s}|_{G_A}) = (Ω, ρ_A, a)`,
+which is a function of `(λ*, a)`; symmetrically for B. Steps 3–4 apply with λ* in place of Ω. ∎
+
+(MI\*) requires the residues, jointly with Ω, to be independent of the setting values; it implies (MI) for Ω.
+Under (GI) the residues reach no record and (MI) for Ω suffices. This is the setting-generator accounting the
+contract asks for: MI concerns the response-complete variable, which includes whatever part of the generator
+reaches a record. Below, *the response-complete variable λ of a protocol* means Ω when (GI) holds and λ* otherwise.
 
 ### 3.3 Lemma G (setting-generator accounting under the uniform measure) [A; X G6]
 
@@ -185,27 +205,43 @@ to `t_s` through the bijection `φ` without changing the counting measure).
 `E = E_G × E_W`.
 
 *Lemma G.* *Under (M) and (CF), `x_{t_s}|_G` and `x_{t_s}|_W` are independent. Hence `(a, b)` is independent of
-`Ω = x_{t_s}|_W`, and (MI) holds. With (GI) failing, (MI) for the enlarged Ω of §3.2 holds when, in addition, the
-conditioned law on each `S_{G_A}` makes `a` independent of `ρ_A`.*
+`Ω = x_{t_s}|_W`, and (MI) holds. (MI\*) of Theorem N′ holds when, in addition, `E_G = E_{G_A} × E_{G_B}` and the
+conditioned law on each generator region makes its setting independent of its residue.*
 
-*Proof.* The uniform law on a product set is the product of the uniform laws on its factors. ∎ (X: G6a; the
-countercontrol G6b shows a coupling event breaks independence.)
+*Proof.* The uniform law on a product set is the product of the uniform laws on its factors. For (MI\*): the three
+blocks `x|_{G_A}`, `x|_{G_B}`, Ω are then independent, and `a ⊥ ρ_A`, `b ⊥ ρ_B` within the first two. ∎ (X: G6a;
+the countercontrol G6b shows a coupling event breaks independence.)
 
-*What Lemma G does and does not give.* It replaces a posit about an ensemble by a checkable condition on what is
-conditioned on. It does not source CF. Under (M) a single time slice carries no correlation at all; every
+*Direction (§A.34).* Lemma G is one implication: (M) + (CF) ⇒ (MI). The converse fails. Take generator coordinates
+`(a, b, r)` with setting bits `a, b` and a residue bit `r`, one response bit `w`, and condition the uniform measure
+on `r = w`. The event is not a product across generator and response coordinates, so (CF) fails, while `(a, b)` is
+independent of `w`, so (MI) holds for Ω = `w` (X: G6c; the example is the reviewer's). If `r` reaches no record,
+(GI) holds as well. No equivalence between (MI) and (CF) is claimed anywhere in this unit.
+
+*What Lemma G does and does not give.* It supplies a checkable condition on what is conditioned on that is
+sufficient for the posit about the ensemble. It does not source CF, and a failure of CF does not by itself refute
+MI. Under (M) a single time slice carries no correlation at all; every
 generator–response correlation enters through conditioning on events whose transported dependence sets meet both
 `G` and `W`. An observer's actual conditioning — the visible history, the preparation and heralding record, earlier
 runs' records — is a long history whose transported dependence sets generically meet both. Whether it factorizes
-across generators and sources in a physical Bell test is open. Main's MI-dependent bound (C8) quantifies the cost of
+across generators and sources in a physical Bell test, or satisfies MI without factorizing, is open. Main's MI-dependent bound (C8) quantifies the cost of
 its failure.
 
 ### 3.4 The missing lemma for OI itself
 
-*NBA (native Bell-availability).* For every Bell protocol admissible under Main's posits (i)–(xiii) and the
-substratum dynamics whose wings are separated in the physical sense: (Sep) holds in the actual `G_φ` for its
-generator and record regions, and its response-complete pre-setting variable satisfies (MI).
+*NBA (native Bell-availability).* *Domain:* Bell protocols admissible under Main's ledger posits (i)–(xiii) and the
+substratum dynamics (so (D), (F) hold), with a finite setting menu every pair of which is jointly admissible,
+every-run outputs (each run records an output on each wing, failures mapped by a fixed local rule; no
+postselection), and wings separated in the physical sense. *Assertion:* every such protocol has
 
-NBA ⇒ (A) for OI on physically separated protocols, by Theorem N and §4. Each of its parts is open:
+1. generator regions and complete record windows satisfying (Gen) and (Rec);
+2. (Sep) in the actual `G_φ` for those regions, for the whole record window;
+3. measurement independence for its response-complete pre-setting variable λ of §3.2: either (GI) and (MI) for
+   λ = Ω, or (MI\*) for λ = λ* = (Ω, ρ_A, ρ_B).
+
+NBA ⇒ (A) for OI on that domain: by Theorem N in the first case of item 3 and Theorem N′ in the second, then §4.
+(GI) is not inherited silently: where it fails, item 3 demands independence of the generator residues as well.
+The implication is one-directional; a failure of NBA does not by itself give (B). Each part of NBA is open:
 
 - **O1 (long edges vs ledger (x)).** A preparation-indexed long edge between the wings is, under Main's
   "for some state" definition (Main:364), an edge of `G_φ`; so is a path wing–mode–wing through a shared
@@ -217,12 +253,16 @@ NBA ⇒ (A) for OI on physically separated protocols, by Theorem N and §4. Each
   (Sep). Under (x) read as the reference-class constraint, H-Bell (i) is open (Substratum:133).
 - **O2 (physical c).** The nearest-neighbour graph cone reaches `1/‖n̂‖₁` per update, from 1 along the axes to
   1/√3 along the body diagonals; the wave speed is 1/√3 in every direction; which is *c* "is not derived"
-  (Main:416). With *c* the wave speed, the ratio cone/light is `√3/‖n̂‖₁ ∈ [1, √3]`, so physically spacelike
-  wings lie inside the graph cone except along the body diagonals. Main's Corollary already excludes "wings
+  (Main:416). With *c* the wave speed, the ratio cone/light is `√3/‖n̂‖₁ ∈ [1, √3]`. A generator and a record at
+  Euclidean separation `d` along `n̂`, `Δt` updates apart, are spacelike for the wave speed and inside the graph
+  cone when `Δt/√3 < d ≤ Δt/‖n̂‖₁`. So some, not all, physically spacelike configurations lie inside the graph
+  cone: the window is empty along the body diagonals, widest along the axes, and configurations with
+  `d > Δt/‖n̂‖₁` are outside both cones and meet (Sep) on the nearest-neighbour graph. Main's Corollary already excludes "wings
   separated by less than the graph cone" (Main:416). Whether the native rule produces setting dependence in that
   region, and whether it violates CHSH with complete-history no-signalling, needs computation on the native rule,
   which this unit is not authorized to do.
-- **O3 (MI).** Posited in Main; reduced by Lemma G to (M) + (CF) + (GI); CF unsourced.
+- **O3 (MI).** Posited in Main as its theorem's hypothesis (iv). Lemma G: implied by (M) + (CF) for Ω, with the
+  residue condition added for λ*; CF is unsourced and not necessary.
 
 *The missing lemma for (B).* A sourced native operation, coupling or preparation — not chosen to fit a Bell table —
 with a `G_φ` path inside the run (O1) or within-cone dependence (O2), giving CHSH > 2 under (MI) and every-run
@@ -243,9 +283,9 @@ Theorem N and Lemma G favour the obstruction. Checks against over-reading:
 2. *Does the cone lemma use only posits?* It uses (F) and the definition of `G_φ`. The cone is the cone of the
    *actual* map, including every state-dependent edge. A protocol cannot be shown to meet (Sep) without knowing
    `G_φ` near the experiment, which is O1.
-3. *Does Lemma G derive MI?* No. It shows MI is equivalent, under (M) and (GI), to a factorization of the
-   conditioning; that condition is not derived. Under (M) the reliability of records itself needs conditioning on
-   past events, which is exactly what threatens CF.
+3. *Does Lemma G derive MI?* No. It shows MI is implied, under (M), by a factorization of the conditioning (CF);
+   that condition is not derived, and it is sufficient only (§3.3, G6c). Under (M) the reliability of records
+   itself needs conditioning on past events, which is what threatens CF.
 4. *Could the TV bound be evaded inside 𝒞_sep?* Only by changing a hypothesis: postselection (coincidence-only
    counts), dropping a record from the full mass, or setting-dependent heralds after `t_s` that remove runs. The
    ⊥-rule and full-mass accounting exclude these.
@@ -257,14 +297,18 @@ Theorem N and Lemma G favour the obstruction. Checks against over-reading:
 
 ### 3.6 Generic probe
 
-`bell868/probes/generic_bell_checks.py` (sha256 `a6cf97c8b68a3fe929cab03dab3f1b5dbac2d60d3bcdb22a77e9e08c8f8b71ed`),
-run with `python3 -I`, exit 0, all twelve checks PASS. It encodes no OI object. G1: the eight CHSH functionals over
+`probes/generic_bell_checks.py` (sha256 `83cecb183cf2a625cf5913b6e287350d514297e0cd94fc66ee8f264e7100b6d0`),
+run with `python3 -I -B`, exit 0, all seventeen checks PASS (output in `probes/generic_bell_checks.out`). It encodes no OI object. G1: the eight CHSH functionals over
 the 16 deterministic tables take values ±2. G2: the Tsirelson box is a family of probability laws with CHSH 2√2
 (the ceiling is not vacuous). G3: an explicit local witness — the uniform mixture of the 8 deterministic tables with
 S = +2 — has correlators (½, ½, ½, −½), equals the isotropic mixture at v = 1/√2, and has TV (√2−1)/4 to the
 Tsirelson box in every context, exactly. G4: `|E_P − E_Q| ≤ 2 TV` on a rational grid. G5: TV contraction under the
 local map `⊥ ↦ +1` on 400 exact rational cases. G6: independence under a product conditioning event, and its failure
-under a coupling event (countercontrol). These checks support the proofs; they do not replace them.
+under a coupling event (countercontrol); G6c: the non-product event `r = w` under which the settings stay
+independent of the response coordinate. G7: the six-site abstract toy map of §4.1 is a bijection, has no cross-wing
+dependence edge, has settings independent of its non-generator sites under its conditioned uniform law, and its
+record law equals the G3 witness. These checks support the proofs; they do not replace them, and none executes an
+OI rule.
 
 ***
 
@@ -282,8 +326,19 @@ worst-setting ε (and for the mean).
 *Proof.* `|E^L_{xy} − E^Q_{xy}| = |Σ_{ab} ab (P_L − P_Q)| ≤ Σ_{ab}|P_L − P_Q| = 2ε_{xy}`. So
 `2√2 − S_L ≤ |S_Q − S_L| ≤ Σ_{xy} 2ε_{xy}`. With `S_L ≤ 2`, `Σ ε_{xy} ≥ √2 − 1`. ∎
 
-*Tightness.* The local witness G3 attains `ε_{xy} = (√2−1)/4` in every context (exact). The bound is optimal for
-both the mean and the worst setting.
+*Optimality over Bell-local tables.* The local witness G3 attains `ε_{xy} = (√2−1)/4` in every context (exact). So
+the constant is optimal, for both the mean and the worst setting, over all MI Bell-local tables.
+
+*Attainment inside 𝒞_sep as an abstract class [A; X G7].* §3.1 constrains the protocol and not the rule, so an
+abstract member suffices. Sites `g_A, g_B` (one bit each: `G_A`, `G_B`, with `a = g_A`, `b = g_B`), `w_A, w_B` (two
+bits each) and `r_A, r_B` (one bit each). One update: `r_A ← r_A ⊕ w_A[g_A]`, `r_B ← r_B ⊕ w_B[g_B]`, all else
+unchanged; this is a bijection. `G_φ` has edges into `r_A` from `g_A, w_A` only and into `r_B` from `g_B, w_B` only,
+so with `R_A = {r_A}`, `R_B = {r_B}` and a one-update window (Sep) holds; (GI) holds because each generator is its
+setting. Condition the uniform measure on `(w_A, w_B)` being one of the eight S = +2 tables and `r_A = r_B = 0`:
+a product event across generator and non-generator sites, so (CF) and hence (MI) hold. The record law is the G3
+witness. Hence the constant is attained in 𝒞_sep as defined. This says nothing about members of 𝒞_sep whose `φ` is
+the native substratum rule: whether any of them comes this close is not examined, and for that subclass
+`(√2−1)/4` is a lower bound whose attainment is open.
 
 *General target.* For a quantum target with CHSH value `S_Q > 2`: `ε ≥ (S_Q − 2)/8`.
 
@@ -313,7 +368,9 @@ If (MI) fails with `I_ont = I(Ω; Z)` bits, Z uniform on the four pairs and Ω r
 - It does not cover coincidence-only statistics, setting-dependent postselection, or wings inside each other's
   `G_φ`-cone.
 - It applies to OI itself only through NBA (§3.4).
-- Exact `2√2` is in any case unreachable by rational laws; the bound is about approach, not attainment.
+- Under (M) every probability is a ratio of counts, hence rational, and the Tsirelson box (entries
+  `(1 ± 1/√2)/4`) is then not attained exactly by any law, local or not. This aside assumes (M); with general real
+  preparation weights it does not apply. The bound of §4.1 does not use it.
 
 ***
 
@@ -322,12 +379,13 @@ If (MI) fails with `I_ont = I(Ω; Z)` bits, Z uniform on the four pairs and Ω r
 **#1216 Level A (one fixed experiment within ε).** Main's abstract states that, for fixed dimension, instrument
 menu, horizon and accuracy ε, one finite OI construction reproduces the quantum experimental envelope (Main:22).
 By §4 any construction within ε < (√2−1)/4 of the Tsirelson box on a two-wing CHSH experiment is **outside
-𝒞_sep**: it has a `G_φ` path from a generator to a remote record inside the window, or fails (GI), (MI), or every-run
-accounting. This is consistent with Main (C10), but it means such a Level-A realization is not a native spatial
+𝒞_sep** and outside Theorem N′'s class: it has a `G_φ` path from a generator to a remote record inside the window,
+or fails measurement independence for its response-complete variable ((MI) for Ω under (GI), (MI\*) for λ*
+otherwise), or fails every-run accounting. This is consistent with Main (C10), but it means such a Level-A realization is not a native spatial
 realization of separated wings unless O1 or O2 is resolved positively.
 
 **#1216 Level B (one reusable mechanism, uniform over a class with composition).**
-1. If the mechanism's separated two-wing composites lie in 𝒞_sep, Level B fails for any class containing the
+1. If the mechanism's separated two-wing composites lie in 𝒞_sep (or in Theorem N′'s class), Level B fails for any class containing the
    separated CHSH Tsirelson experiment: the uniform error is at least (√2−1)/4, mean and worst-setting, full
    histories included (§4). [A, conditional on 𝒞_sep membership]
 2. A Level-B mechanism that keeps (MI), every-run outputs and complete-history no-signalling, and admits a preparation
@@ -352,7 +410,7 @@ escape with complete-history no-signalling — which is not established. This is
 | **P-a.** Ledger (x) read globally ("no long edge in `G_φ`") | puts graph-separated protocols in 𝒞_sep's geometry; with NBA's other parts, obstruction for those | preserves SM's local derivations; its independent consequence is CHSH ≤ 2 for graph-separated wings under MI, a raw-direct confrontation with loophole-free Bell tests whose force depends on O2 | not adopted; contradicts Main §3.3(a)'s adopted branch; owner reading of (x) needed (F1) |
 | **P-b.** Preparation-indexed long edges (H-Bell) | ontic PI across wings | existing open hypothesis (Substratum:133), not new; still needs no-signalling for a sourced preparation family and a consequence beyond the Bell table (curvature stability is a required compatibility, not a prediction) | not adopted; remains open; not evaluated |
 | **P-c.** Restricted preparation class masking cross-wing response (R6.9-type) | complete-history NS with PI failure | defined by the balance equations it is fitted (C9; QX-6 A6.4, D); creditable only with an independent reason and an own consequence (e.g. signalling of non-equilibrium preparations, as in de Broglie–Bohm — L) | rejected as fitted; open only with an independent reason |
-| **P-d.** CF as a principle (MI from conditioning factorization) | derives MI under (M) | would need a reason why an observer's conditioning factorizes across generators and sources; none supplied | not adopted; Lemma G is a reduction, not a principle |
+| **P-d.** CF as a principle (MI from conditioning factorization) | implies MI under (M) | would need a reason why an observer's conditioning factorizes across generators and sources; none supplied | not adopted; Lemma G is a sufficient condition, not a principle |
 | **P-e.** Measurement dependence (Main option (b)) | MI failure with `I_ont ≥ 0.0309` bits | recorded by Main, not adopted; Hall–Branciard benchmark ≈ 0.080 bits (causal) (Main:418–425) | not adopted |
 | **P-f.** Within-cone super-wave dependence (O2) as a Bell route | PI failure on the nearest-neighbour rule where cone exceeds the wave speed | would need *c* = wave speed (not derived), a native response violating CHSH with complete-history NS, and preserved dispersion/isotropy controls; its shape is falsifiable — violation only within the graph cone, which is direction-dependent | candidate raised here; not adopted, not evaluated (needs OI-mechanism computation, not authorized) |
 
@@ -376,15 +434,17 @@ the gaps marked here must close first.
 | h-bell/round-hb-1-obligation-shape/preregistration.md @ cac5d264 (`b27851ea…`) | #1060 frozen record located, untouched | provenance |
 | #1210 QX-6 r7c, `QX6-BELL-CHSH.md` (blob `2b525318…`), `SHARED-MECHANISM.md` (`86490d5d…`), commit `4c7f3f86…` on `research/qphen-phase1-frozen-20261109` | A6.1, A6.4 compared with Theorem N and P-c | off `main`. **Provenance**: Theorem N is proved here from C1 alone and does not use A6.1; P-c's rejection rests on C9 (W), A6.4 only cited as parallel |
 | session file `reassess/868/ASSESS-868.md` r3a (sha256 `d97c4b6b…788e1b`) | context for J14 | off `main`; provenance |
-| session file `q868h/Q868H-UNIT1.md` r2 (`1e128f28…179e6`), under review | its (V) claim (native Pauli product tables are deterministic-local) | off `main`, **unverified**; provenance only, not a premise (§A.46 item 7) |
+| session file `q868h/Q868H-UNIT1.md` r2a (sha256 `b56ccd9b4c8307e86b187b4dd05fb0de6252b781652690862e91b41f849031e8`), independently accepted at r2a | its (V) claim (native Pauli product tables are deterministic-local) | off `main`; a model acceptance of an off-`main` file is not verification from `main` (§A.46 items 1, 7). **Provenance only**: no statement in this unit uses it as a premise |
 | session file `LIT-SURVEY.md` (not published) | L entries | off `main`; provenance; no primary read first-hand |
-| `probes/generic_bell_checks.py` (this directory) (`a6cf97c8…71ed`) | X tags (G1–G6) | off `main`: **gap** if this record lands; the probe must land with it |
+| `probes/generic_bell_checks.py` (this directory) (`83cecb18…b6d0`) | X tags (G1–G7) | off `main`: **gap** if this record lands; the probe must land with it |
 | #868 c.6791565399, c.6791606126; #1169 c.6791556736; #914 row 16; #866; #1216 body | authority, scope, Level definitions | planning records; provenance |
+| PR #1231 review 5857227567 (ChatGPT, 2026-11-11T10:22:16Z, on `7abf59d7`) | r2 changes; the G6c example | host record; provenance. The example is restated and checked here (§3.3, G6c) |
 
 *Cross-check with LIT-SURVEY (present when this file was finished).* Agreements: the ε bound, its tightness witness
 and constant; PI and MI as the only levers under determinism; postselection excluded on full-mass accounting.
-Differences: (1) the survey's "Main posit (iv)" is Main theorem hypothesis (iv); ledger item (iv) is the
-maximal-entropy measure (F2). (2) Its synthesis item 1 ("V-L") assumes a local rule and physical separation equal to
+Differences: (1) the survey's label "Main posit (iv)" names Main's theorem hypothesis (iv); ledger item (iv) is the
+maximal-entropy measure (F2). This unit does not use that label: measurement independence is cited as hypothesis
+(iv) of Main's theorem, as in O3. (2) Its synthesis item 1 ("V-L") assumes a local rule and physical separation equal to
 graph separation; O1 and O2 show the posits fix neither, so its V-L is interface-scoped (§3.5 item 6). (3) This
 unit adds the mean-TV form of the bound and full-history contraction.
 
@@ -408,4 +468,5 @@ unit adds the mean-TV form of the bound and full-history contraction.
 - Main's MI-dependent bound (C8) and check 11 were cited, not re-proved or re-run. No Lean run.
 - F1 and F2 are not corrected; that needs an authorized manuscript unit.
 - No reading of ledger (x) or of MI's status is chosen; both are owner questions.
-- No independent review yet. Nothing here is adopted, promoted, or proposed for the manuscripts.
+- r1 was reviewed (PR #1231 review 5857227567, REVISE); r2 has not been re-reviewed. Nothing here is adopted,
+  promoted, or proposed for the manuscripts.

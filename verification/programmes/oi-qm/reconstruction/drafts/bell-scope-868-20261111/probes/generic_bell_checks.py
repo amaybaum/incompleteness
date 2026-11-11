@@ -3,9 +3,11 @@
 
 Pure mathematics only: CHSH algebra over the 16 deterministic tables, the
 Tsirelson box, an exact local witness at TV distance (sqrt2-1)/4, total-variation
-contraction under a local post-processing, and independence under a conditioned
-uniform product measure (with a coupling countercontrol). No OI rule, carrier,
-coupling, preparation or simulator is encoded. Exit status 0 iff every check holds.
+contraction under a local post-processing, independence under a conditioned
+uniform product measure (with a coupling countercontrol and a non-product event
+that keeps setting independence), and a six-site abstract toy map realizing the
+local witness inside the screened class. No OI rule, carrier, coupling,
+preparation or simulator is encoded. Exit status 0 iff every check holds.
 """
 import itertools, sys
 from fractions import Fraction as Fr
@@ -111,6 +113,60 @@ check("G6a product event: generator coordinates independent of response coordina
       indep(lambda g, w: (g[0] | g[1]) == 1 and w[1] == 0))
 check("G6b countercontrol: coupling event breaks independence",
       not indep(lambda g, w: (g[0] ^ w[0]) == 0))
+
+# G6c: a non-product conditioning event under which setting independence still holds (CF is sufficient,
+# not necessary). Generator coordinates (a, b, r): setting bits a, b and a residue bit r. Response bit w.
+# Condition the uniform measure on r == w.
+pts = [(a, b, r, w) for a, b, r, w in itertools.product((0, 1), repeat=4) if r == w]
+n = len(pts)
+def law(key):
+    d = {}
+    for p_ in pts: d[key(p_)] = d.get(key(p_), 0) + Fr(1, n)
+    return d
+pG = law(lambda p_: p_[:3]); pW = law(lambda p_: p_[3]); pGW = law(lambda p_: (p_[:3], p_[3]))
+not_product = any(pGW.get((g, w), 0) != pG[g] * pW[w] for g in pG for w in pW)
+pS = law(lambda p_: p_[:2]); pSW = law(lambda p_: (p_[:2], p_[3]))
+mi = all(pSW.get((s_, w), 0) == pS[s_] * pW[w] for s_ in pS for w in pW)
+check("G6c event r == w: not a product across generator/response coordinates, settings still independent of w",
+      not_product and mi)
+
+# G7: an abstract six-site deterministic map in the screened class that realizes the G3 witness.
+# Sites: gA, gB (setting bits), wA, wB (two bits each: the wing's answers to settings 0 and 1), rA, rB (record
+# bits, 0/1 standing for +1/-1). One step: rA ^= wA[gA], rB ^= wB[gB]; every other site is unchanged.
+# The map is a bijection. Conditioning event: (wA, wB) is one of the 8 tables with S = +2, and rA = rB = 0.
+bit = lambda s_: 0 if s_ == 1 else 1
+W8 = [((bit(d[0]), bit(d[1])), (bit(d[2]), bit(d[3]))) for d in S2]
+states = [(gA, gB, wA, wB, rA, rB) for gA in (0, 1) for gB in (0, 1)
+          for wA in itertools.product((0, 1), repeat=2) for wB in itertools.product((0, 1), repeat=2)
+          for rA in (0, 1) for rB in (0, 1)]
+def phi(s_):
+    gA, gB, wA, wB, rA, rB = s_
+    return (gA, gB, wA, wB, rA ^ wA[gA], rB ^ wB[gB])
+check("G7a toy map is a bijection of its 256 states", len({phi(s_) for s_ in states}) == len(states) == 256)
+# dependence of each output site on each input site, by exhaustive single-site variation
+def depends(out_idx, in_idx):
+    by_rest = {}
+    for s_ in states:
+        rest = s_[:in_idx] + s_[in_idx + 1:]
+        by_rest.setdefault(rest, set()).add(phi(s_)[out_idx])
+    return any(len(v_) > 1 for v_ in by_rest.values())
+dep = {(o, i) for o in range(6) for i in range(6) if depends(o, i)}
+expected = {(i, i) for i in range(6)} | {(4, 0), (4, 2), (5, 1), (5, 3)}
+check("G7b dependence graph: rA reads only (gA, wA, rA), rB only (gB, wB, rB); no cross-wing edge", dep == expected)
+E7 = [s_ for s_ in states if (s_[2], s_[3]) in W8 and s_[4] == 0 and s_[5] == 0]
+m = len(E7)
+# the event is a product across generator sites (gA, gB) and the remaining sites, so settings are independent
+pset = {}; pom = {}; pjoint = {}
+for s_ in E7:
+    k = (s_[0], s_[1]); o = s_[2:]
+    pset[k] = pset.get(k, 0) + Fr(1, m); pom[o] = pom.get(o, 0) + Fr(1, m); pjoint[(k, o)] = Fr(1, m) + pjoint.get((k, o), 0)
+check("G7c settings independent of the non-generator sites under the conditioned uniform law; all four pairs occur",
+      len(pset) == 4 and all(pjoint.get((k, o), 0) == pset[k] * pom[o] for k in pset for o in pom))
+def PT(a, b, x, y):
+    sel = [s_ for s_ in E7 if s_[0] == x and s_[1] == y]
+    return Fr(sum(1 for s_ in sel if phi(s_)[4] == bit(a) and phi(s_)[5] == bit(b)), len(sel))
+check("G7d toy record law equals the G3 witness in every context",
+      all(PT(a, b, x, y) == PL(a, b, x, y) for a in (1, -1) for b in (1, -1) for x, y in ctx))
 
 print("ALL PASS" if not fails else "FAILURES: " + ", ".join(fails))
 sys.exit(1 if fails else 0)

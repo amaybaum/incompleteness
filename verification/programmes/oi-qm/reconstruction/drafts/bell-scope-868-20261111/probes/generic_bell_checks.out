@@ -10,4 +10,9 @@ PASS G4 |E_P-E_Q| <= 2 TV on a rational grid of 2x2 laws
 PASS G5 TV contracts under local post-processing bot->+1 (400 exact rational cases)
 PASS G6a product event: generator coordinates independent of response coordinates
 PASS G6b countercontrol: coupling event breaks independence
+PASS G6c event r == w: not a product across generator/response coordinates, settings still independent of w
+PASS G7a toy map is a bijection of its 256 states
+PASS G7b dependence graph: rA reads only (gA, wA, rA), rB only (gB, wB, rB); no cross-wing edge
+PASS G7c settings independent of the non-generator sites under the conditioned uniform law; all four pairs occur
+PASS G7d toy record law equals the G3 witness in every context
 ALL PASS
