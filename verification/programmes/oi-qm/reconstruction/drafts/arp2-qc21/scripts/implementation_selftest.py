@@ -372,7 +372,9 @@ class NonScientificTests(unittest.TestCase):
             query = parse_qs(urlsplit(next(x for x in argv if '?' in x)).query, strict_parsing=True)
             self.assertEqual(query.get('per_page'), ['100'])
             self.assertNotIn('page', query)  # no numbered pagination; gh follows the Link cursor
-        for pages in ([], [a], [[a], [a]], [[{'id': None, 'activity_type': 'push'}]]):
+        for pages in ([], [a], [[a], [a]], [[{'id': None, 'activity_type': 'push'}]],
+                      [[a], [{'id': '1', 'activity_type': 'push'}]], [[a, {'id': '01', 'activity_type': 'push'}]],
+                      [[{'id': '\u0663', 'activity_type': 'push'}]], [[{'id': True, 'activity_type': 'push'}]]):
             with patch.object(m.subprocess, 'run',
                               return_value=types.SimpleNamespace(returncode=0, stdout=json.dumps(pages), stderr='')):
                 self.assertFalse(m.gh_get('activity', 'safe-branch')[0])

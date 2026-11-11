@@ -295,10 +295,12 @@ def gh_get(path_kind, *vals):
             for page in response:
                 for entry in page:
                     ident = entry.get("id") if type(entry) is dict else None
-                    if (type(ident) not in (int, str) or not str(ident).isdigit() or
-                            ident in ids or not isinstance(entry.get("activity_type"), str)):
+                    text = str(ident) if type(ident) in (int, str) else ""
+                    # Ids compare by integer value, so 1 and "1" (or "01") are duplicates.
+                    key = int(text) if text.isascii() and text.isdigit() else None
+                    if key is None or key in ids or not isinstance(entry.get("activity_type"), str):
                         return False, "duplicated/malformed host activity"
-                    ids[ident] = True
+                    ids[key] = True
                     flattened.append(entry)
             return True, flattened
         return True, response
