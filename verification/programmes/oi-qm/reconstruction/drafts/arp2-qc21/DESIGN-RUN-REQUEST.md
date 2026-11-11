@@ -78,3 +78,7 @@ Host-VOID retakes and checker outcomes retain C.6's distinction; a checker outco
 No permission question is presented while these prerequisites are unresolved. The owner should approve a fully
 identified, reviewed design source and a complete bounded evidence packet, with execution approval as the final
 step.
+
+### Unresolved execution-base provenance
+
+The current draft's controls D_SHA (`fd539e15`) and preregistration's historical ARP-1 baseline are **not a fresh owner-approved execution D**. Although main advanced to `cac5d264` in the previous review, neither commit is silently substituted for a fully sourced and verified final D. Final D, its T0 activity witness, RCH/DSN pins, source-tree binding, retained author approval and measured budgets remain prerequisite decisions; no design run is authorized. The author-only B1–B5 fixes and N1–N11 dispositions require independent review and exact-head CI before the packet may be proposed for approval.
