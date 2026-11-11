@@ -294,8 +294,8 @@ genuine two-state rotation is not monomial (`SubstratumInterface.monomialSource_
 `rot_not_monomial`) — finite bijective dynamics alone does not supply the decisive operator. Its third entry audits the
 decisive escape route, read-write coupling, and returns the no-go for the current axioms: a
 read-write family (a selectable local coupling, bijective at every parameter value) induces only
-permutation operators, so a read-write-sourced theory is a monomial source and is not QM
-(`ReadWriteControl.readWriteSourced_not_qm`); a strict interpolation toward the swap is not a
+permutation operators, which are monomial
+(`ReadWriteControl.readWriteOperator_monomial`); a strict interpolation toward the swap is not a
 bijection (`offDiagonal_interp_not_monomial`), so the tunable coupling produces no off-diagonal
 generator, and the memory-swap countercontrol shows bidirectional read-write is not off-diagonal
 controllability (`readWriteControl_independent`). Under the current axioms a continuously tunable

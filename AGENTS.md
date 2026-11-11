@@ -51,8 +51,18 @@ confers no protection, and "the framework needs this to be true" is never an arg
   established audits that whole corpus, not Main alone.
 
 - `papers/Main.md` must be independent of downstream companion papers. Main
-  must not reference or cite downstream results, including through indirect
-  labels or unnamed references. Every claim, proof, hypothesis and scope
+  may mention downstream results but must not depend on them, including
+  through indirect labels or unnamed references. Permitted mentions include
+  forward pointers to later work, descriptions explicitly labelled as
+  conditional or proposed, and references identifying further applications;
+  each mentioned result is identifiable as downstream and carries its own
+  status where it has one. Main must not use a downstream result to prove
+  its claims, present a downstream conclusion as established by Main, or
+  require a downstream theorem for its argument to be valid. Test: removing
+  every downstream reference must leave Main's proofs, assumptions and
+  conclusions intact; if removal changes what Main establishes, the passage
+  contains a dependency, not merely a pointer.
+  Every claim, proof, hypothesis and scope
   qualification in Main must retain sufficient support within Main, through
   its own argument or an appropriately cited, independently verifiable theorem
   or evidence record, with all necessary assumptions explicit. Genuine
