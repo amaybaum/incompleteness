@@ -3916,12 +3916,14 @@ bijective read-write dynamics, not the continuously tunable state-mixing
 operation; with that one operation added as an empirical controllability
 resource it is equivalent to the same operational quantum mechanics on
 every nonempty finite carrier, while finite reversible read-write
-dynamics, even with genuine hidden-memory and readback behavior, does
+dynamics, even with a nontrivial reversible read-write coupling, does
 not itself generate quantum state mixing (kernel:
 \texttt{substratum\_plus\_control\_qm}, with the converse
-\texttt{qm\_generated\_by\_substratum\_extension}, in
+\texttt{qm\_generated\_by\_substratum\_extension}, and
+\texttt{readWriteOperator\_supplied} and, on the two-state carrier,
+\texttt{substratumGen\_not\_control}, in
 \texttt{OIBridge/StructuralClosure.lean},
-\texttt{readWriteSourced\_not\_qm} in
+\texttt{readWriteControl\_independent} in
 \texttt{OIBridge/ReadWriteControl.lean}). Its typed form removes the
 endomorphic qualifier: under the carrier-general typed operational
 interface --- identity, composition, coarse-graining, relabelling,
@@ -5968,4 +5970,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: ca76995be20fe9c3777344b6d009b0eb93d9828f5c9d848388725bab66b882ac
+% source-sha256: bf425ea68a20749de1a496a1f18c654452c86e8c9ff6b9f541fb488b8066e333
