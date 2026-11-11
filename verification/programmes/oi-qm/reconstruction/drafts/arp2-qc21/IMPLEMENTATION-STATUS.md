@@ -1,6 +1,6 @@
 # Q-C2-1 implementation under the approved R1–R10 rulings
 
-WIP / UNREVIEWED CORRECTION HEAD. Current writer for new work: ChatGPT; Codex authored earlier checkpoints. Guiding draft #1218; accountable issue #1169. Claude independently REVISE-reviewed previous head `2f3a8b83`; no descendant has independent ACCEPT.
+WIP / UNREVIEWED CORRECTION HEAD. Current writer for new work: Claude, from `98582070` (owner confirmation 2026-11-11); ChatGPT reviews. ChatGPT and Codex authored earlier checkpoints. Guiding draft #1218; accountable issue #1169. Claude independently REVISE-reviewed previous head `2f3a8b83`; no descendant has independent ACCEPT.
 
 The [explicit owner decision](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6778994857)
 approves R1–R7 defaults (initial S_max = 100000), R8 alternative, R9 default and R10 narrowing, starting
@@ -114,3 +114,38 @@ The source remains a paper/implementation candidate, not an executed model. No A
 ### Minor-finding disposition (author-side; still independently unreviewed)
 
 N1: preregistration now explicitly distinguishes historical draft D (`fd539e15`) from a future owner-approved execution D; the literal script D_SHA still names that historical candidate, and **no design source may run until D/T0/source bindings are independently reconciled**. N2: `v_q` rejects bool. N3: decisive C-CERT/C-BUDGET red labels now use `-decisive` to avoid fixture-label collision. N4: each `budget.respected` is derived from that fragment's typed C-BUDGET validation, not merely LP status. N5: report the uncharged C-SYM facet enumeration in the runtime-proxy limitation. N6: owner retention commitment remains PENDING. N7: OWNER-DECISIONS now quotes the actual UTC owner timestamp. N8: current writer/status and author/review split are clarified. N9: historical r14x revision notes are retained in the *research draft only*, explicitly scheduled for removal or re-tracing before F under a separate gate; the draft is not the frozen F source. N10: fixed stress seeds are no longer called pending. N11: F/E designation parser now requires a complete `Designate <stage> <sha>` phrase, not a stray stage letter. All require exact-head non-author re-review; these statements are dispositions, not acceptance.
+
+## Claude correction pass from `98582070` (2026-11-11; author-side, not independently reviewed)
+
+At `98582070` the isolated harness `scripts/implementation_selftest.py` passed 14 of 18 groups. The four failures and
+their corrections:
+
+- **B4 test.** The assertion `'page=' not in argv` also matched `per_page=100`. The test now parses the activity URL's
+  query and requires `per_page=100` and no `page` parameter; the source was already cursor/Link-paginated.
+- **C-INDEP on `v_q` (N2).** `type(s) is bool` uses the names `type` and `bool`, which C-INDEP does not admit in a
+  verifier. The rejection is now `s is True or s is False`, which is equivalent for booleans and uses only constants.
+  The scan is unchanged.
+- **Control B on controls.py.** The B1 rule's workflow parsing used `re.search` and `re.findall`; control B admits only
+  `re.fullmatch`. The section, matrix and top-level job-name extraction now use `str.find`, slicing, `split` and
+  `startswith`. The frozen `if:` blocks, matrix tuple and job-identity checks are unchanged. Control B is unchanged.
+- **Synthetic tokens and notes.** Root cause: the B3 correction makes C-BUDGET red on any decided record without
+  typed `budget_values`/`cap_values` and counters, as C.4 requires. The controller's synthetic decisive record
+  `synthetic_meas` predates this and carried no limit fields, so `decide` recomputed C-BUDGET red, gave B-VOID and
+  disagreed with the record's flags (X, VOID). That produced the token, the six report-only cases and the Level-1
+  note failures; several other checks passed only vacuously. The synthetic B-P record now carries typed limits within
+  bounds. The two "leaked report-only verdict" cases carry complete typed limits, so each fails for its named defect
+  (unverified certificate; `pivots` over its budget) and not for missing fields. No control was loosened.
+
+After these changes the harness passes 18 of 18 (`python3 -I -B`, Python 3.13, scratch directory); `py_compile`
+passes for the three scripts. Not run: the checker or controls `--self-test`, `--stress`, local A3, any fixture, LP,
+solver, certificate, design, gate or decisive run, or Lean.
+
+**Still open after this pass.**
+- B2: in `t_mutations`, M-BUDGET's reported-only case checks that the token is unchanged but does not assert
+  `k_fragment_controls` green. Its "valid" B-P is derived from the over-budget record, so it is itself over its own
+  budget; adding that assertion as written would fail. The case needs a within-budget B-P before the assertion is
+  added. The gated checker self-test that runs it remains unexecuted.
+- B4: no real read of the activity endpoint; T0 and the host inventory remain unresolved.
+- N1: `D_SHA` still names the historical candidate `fd539e15`; the execution D is an owner decision.
+- N9: the r14a–r14d revision notes remain in the draft preregistration and must be removed or re-traced before F.
+- B1, B3, B5 and N2–N8, N10, N11 have author-side corrections at this head, each awaiting independent review.

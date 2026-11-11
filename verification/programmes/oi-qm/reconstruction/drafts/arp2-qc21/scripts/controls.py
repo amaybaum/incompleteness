@@ -2045,16 +2045,21 @@ def run_class_expected_conclusions(jobs, event, workflow):
         "\n        if: ${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == 'complete-nonstandard' }}")
     if any(workflow.count(block) != 1 for block in required):
         return ["B1 changed frozen workflow condition"]
-    section = re.search(r"(?s)\n  probes_a42_exclusion:\n(.*?)\n  probes_foundations:", workflow)
-    matrix = re.search(r"part: (\[[^\]]+\])", section.group(1)) if section else None
+    head, tail = "\n  probes_a42_exclusion:\n", "\n  probes_foundations:"
+    start = workflow.find(head)
+    stop = workflow.find(tail, start + len(head)) if start >= 0 else -1
+    section = workflow[start + len(head):stop] if stop >= 0 else None
+    opening = section.find("part: [") if section is not None else -1
+    closing = section.find("]", opening + 7) if opening >= 0 else -1
+    matrix = section[opening + 6:closing + 1] if closing > opening + 7 else None
     parts = ("paths", "r5", "n18:0", "n18:1", "n18:2", "dfs:0", "dfs:1", "dfs:2",
              "dfs:3", "dfs:4", "dfs:5", "sathr", "cubes:0", "cubes:1", "cubes:2")
     try:
-        if matrix is None or tuple(ast.literal_eval(matrix.group(1))) != parts:
+        if matrix is None or tuple(ast.literal_eval(matrix)) != parts:
             return ["B1 changed matrix"]
     except (ValueError, SyntaxError, TypeError):
         return ["B1 invalid matrix"]
-    baseline = re.findall(r"(?m)^    name: ([^\n]+)$", workflow)
+    baseline = [line[10:] for line in workflow.split("\n") if line.startswith("    name: ") and len(line) > 10]
     if len(baseline) != len(set(baseline)) or a42 not in baseline:
         return ["B1 invalid job identity list"]
     expected = [x for x in baseline if x != a42] + [JOB_A, JOB_B]
@@ -3307,7 +3312,10 @@ def synthetic_meas(**over):
          "B": {"fragments": [{"name": "B-P", "role": "B-P", "lp": "infeasible", "verified": True,
                               "lp_reads_equal_acc": True, "preps": 32,
                               "lp_settings": ["M"+a+b for a in ("0", "1", "2") for b in ("0", "1", "2")],
-                              "acc": ["M"+a+b for a in ("0", "1", "2") for b in ("0", "1", "2")]}]},
+                              "acc": ["M"+a+b for a in ("0", "1", "2") for b in ("0", "1", "2")],
+                              "budget_values": [3, 3, 3], "pivots": 1, "max_bits": 2, "work": 3,
+                              "cap_values": [4, 4, 4, 4], "n_extreme": 1, "d": 2, "c": 3,
+                              "effects_before_reduction": 4}]},
          "C": {"instances": [], "flagged": []}, "fixtures": {}, "controls": {}, "budget": {},
          "flags": {"P": "P-COMPLEMENTARITY", "B": "B-CONTEXTUAL", "C": "C-SURVIVAL", "levels": {"level": 2},
                    "controls_red": {"P": [], "B": [], "C": []}}}
@@ -3376,11 +3384,13 @@ def selftest_decide():
     ck("C-VOID preserves Level 1", decide(mm).get("C") == "C-VOID" and decide(mm).get("level") == 1)
     for defect in ("certificate", "budget"):
         mm = synthetic_meas()
-        reported = {"name": "reported", "role": "A-of-B", "lp": "feasible", "verified": True}
+        reported = {"name": "reported", "role": "A-of-B", "lp": "feasible", "verified": True,
+                    "budget_values": [1, 1, 1], "pivots": 1, "max_bits": 1, "work": 1,
+                    "cap_values": [4, 4, 4, 4], "n_extreme": 1, "d": 2, "c": 3, "effects_before_reduction": 4}
         if defect == "certificate":
             reported["verified"] = False
         else:
-            reported.update({"budget_values": [1, 1, 1], "pivots": 2, "max_bits": 1, "work": 1})
+            reported["pivots"] = 2
         mm["B"]["fragments"].append(reported)
         mm["flags"].update({"B": "B-VOID", "levels": {"level": 1}})
         ck("leaked report-only verdict "+defect, decide(mm).get("B") == "B-VOID")

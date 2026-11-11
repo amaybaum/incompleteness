@@ -15,6 +15,7 @@ from pathlib import Path
 import types
 import unittest
 from unittest.mock import patch
+from urllib.parse import parse_qs, urlsplit
 import zipfile
 
 ROOT = Path(__file__).resolve().parent
@@ -341,7 +342,9 @@ class NonScientificTests(unittest.TestCase):
             argv = process.call_args.args[0]
             self.assertIn('--paginate', argv)
             self.assertIn('--slurp', argv)
-            self.assertNotIn('page=', ' '.join(argv))
+            query = parse_qs(urlsplit(next(x for x in argv if '?' in x)).query, strict_parsing=True)
+            self.assertEqual(query.get('per_page'), ['100'])
+            self.assertNotIn('page', query)  # no numbered pagination; gh follows the Link cursor
         for pages in ([], [a], [[a], [a]], [[{'id': None, 'activity_type': 'push'}]]):
             with patch.object(m.subprocess, 'run',
                               return_value=types.SimpleNamespace(returncode=0, stdout=json.dumps(pages), stderr='')):

@@ -833,7 +833,7 @@ def v_plain(x):
 
 
 def v_q(s):
-    if type(s) is bool:
+    if s is True or s is False:
         return Fraction(1, 0)  # Boolean is not a rational encoded as a number.
     if isinstance(s, int) or isinstance(s, Fraction):
         return Fraction(s)

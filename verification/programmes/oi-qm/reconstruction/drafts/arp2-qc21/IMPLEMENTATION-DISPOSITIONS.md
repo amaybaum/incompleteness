@@ -89,3 +89,12 @@ The new isolated implementation harness adds author-side mocked tests but was no
 ### Minor-review finding disposition, author-side
 
 N1: keep historical D as a candidate, reject any assumption that latest main or T0 is approved. N2: reject bool input in v_q. N3: distinguish decisive control flags from fixture `C-CERT`/`C-BUDGET`. N4: budget.respected derives from per-fragment C-BUDGET. N5: mark uncharged C-SYM enumeration in timeout limitation. N6: the retention commitment remains pending. N7: record owner ruling at 20:53:48 UTC. N8: ChatGPT now writes correction head, old Codex work retains provenance. N9: historical r14 notes remain in draft but must be removed or re-established before F, not promoted as scientific main evidence. N10: fixed stress seeds no longer called pending. N11: require full stage-and-SHA designation phrase. Each is an author correction/proposed disposition, not a reviewer verdict. Activity-history access and run authorization remain blocked.
+
+### Claude correction pass from `98582070` (author-side, not independently reviewed)
+
+The isolated harness, extended to 18 groups, was first run at `98582070` and failed four. The corrections and root
+causes are in IMPLEMENTATION-STATUS. In short: a B4 test assertion matched `per_page`; `v_q`'s bool rejection and the
+B1 workflow parsing used constructs that C-INDEP and control B reject, now re-expressed without changing either scan;
+the controller's synthetic decisive record lacked the limit fields that B3 now requires, so `decide` voided it. The
+harness passes 18 of 18 after these changes. B2's reported-only half (`k_fragment_controls` green), B4's real
+endpoint read and T0, N1 and N9 remain open. No reviewer verdict is implied.
