@@ -348,15 +348,15 @@
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: **An independent necessity statement.** Both rou"
+      "predicate": "intended scope paragraph exists exactly once: papers/Main.md: **Operational-reconstruction route: target condi"
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph mention count: papers/Main.md: **An independent necessity statement.** Both rou"
+      "predicate": "intended scope paragraph mention count: papers/Main.md: **Operational-reconstruction route: target condi"
     },
     {
       "ok": true,
-      "predicate": "intended scope paragraph rationale: papers/Main.md: **An independent necessity statement.** Both rou"
+      "predicate": "intended scope paragraph rationale: papers/Main.md: **Operational-reconstruction route: target condi"
     },
     {
       "ok": true,
@@ -1628,6 +1628,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The C1 limit therefore illuminates a structural point: class..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This has a striking corollary: the project of \"explaining qu..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: No laboratory observer occupies the thermal limit completely..."
     },
     {
@@ -2344,6 +2352,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The two frameworks agree on an unusual number of conclusions..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Convergence with the framework's mechanism.** The framewor..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Where the framework extends DSW.** The framework's content..."
     },
     {
@@ -2353,6 +2369,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The BEC analogue-gravity setup of Chapter 15 is precisely a ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The observer-essentiality thesis converges with the framewor..."
     },
     {
       "ok": true,
@@ -2616,6 +2636,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: This reading has substantive consequences for foundational q..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: One refinement sharpens the exposure from principally negati..."
     },
     {
@@ -2868,11 +2892,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's reading is that all three problems are *arti..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The second component: the black hole information paradox.*..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: On the framework's reading, the non-renormalizability of per..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The shared structural feature.** Three problems that conve..."
     },
     {
       "ok": true,
@@ -3420,6 +3452,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "eb0b586699684ce23ad9cb8e2c0929c7387d3f5463fcb31d30fc1b6b84a5eee4",
+  "site_table_sha256": "c0333dd3b6e1f562bfca1db3424a5a59bdbc32f8c7e60263def4f1ac26a4abd2",
   "verdict": "PASS"
 }
