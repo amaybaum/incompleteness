@@ -168,8 +168,7 @@ Responds to the non-author delta review [#1218 c.6785757458](https://github.com/
 
 The isolated harness passes all 18 groups after this pass; `py_compile` passes. Nothing scientific was run.
 
-**Open list at this head.** N9 (the
-r14a–r14d revision notes must be removed or re-traced before F). B4's real activity-endpoint read, T0 and the host
+**Open list at this head.** B4's real activity-endpoint read, T0 and the host
 inventory. The B2 M-BUDGET/M-SOLVER definitions are unexecuted. All corrections await independent review.
 
 ## N1: execution base D (2026-11-11)
@@ -182,3 +181,12 @@ read-only: `verify.yml.input`, and `.github/workflows/verify.yml` at both `fd539
 `fd539e15..cac5d264` changes only `papers/SM.{md,tex,pdf}`. Remaining `fd539e15` citations name ARP-1's landing
 (precondition 1, M-ARC) or DESIGN-DS's drafting snapshot. `SOURCE_BASE` stays unset until a separately authorized
 local A3 or design tree.
+
+## N9: revision notes removed (2026-11-11)
+
+Per the writer task selected in #1169 c.6789676675, the preregistration's revision notes (r14d back to the r6–r8 review
+history, 73 lines) are deleted, so it states only current rules. The r15 authority paragraph and the *Inputs*,
+*Governance*, *ARP-1* and `PENDING` bullets that followed the notes are kept. No remaining preregistration text
+refers to the notes, and the off-`main` commits they cited (`820519cf`, `6677f389`, `8f969ab6`, `5e160d3e`) no longer
+appear in it. Owner decisions the notes mentioned keep their own sections (*Owner decisions at the freeze*, *Owner
+decisions D19 to D23*, precondition 2).
