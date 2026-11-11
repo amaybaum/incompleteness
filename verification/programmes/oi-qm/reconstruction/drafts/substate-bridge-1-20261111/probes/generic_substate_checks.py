@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SUBSTATE-BRIDGE-1 unit 1 -- exact generic checks S1-S6 (11 lines).
+"""SUBSTATE-BRIDGE-1 unit 1 -- exact generic checks S1-S7 (13 lines).
 
 Run:  python3 -I -B generic_substate_checks.py
 Exact arithmetic only (fractions, integers). Fixed seed. No OI rule, carrier,
@@ -287,6 +287,36 @@ for _ in range(50):
         found_counter = True
 record("S6 invariant (uniform) hidden prior: trace-out doubly stochastic (50 bijections)", ok6)
 record("S6 non-invariant hidden prior: double stochasticity can fail (countercontrol)", found_counter)
+
+
+# ---------------------------------------------------------------------------
+# S7. A relabelling that preserves the *unconditional* law of the hidden bit
+#     does not give no-signalling when the remote setting is correlated with it.
+#     One hidden bit r, remote setting b, near history h = r xor b.
+#     Joint law of (b, r): P(b=0) = 1/3, P(r=0|b=0) = 1, P(r=0|b=1) = 1/4.
+#     Then r is uniform (the flip r -> 1-r preserves its law, and h(flip r, b')
+#     = h(r, b) for b' != b), the history laws computed under the unconditional
+#     law of r agree for b = 0, 1, and yet P(h=0|b) differs.
+#     Control: same marginals, b independent of r -> no signalling.
+# ---------------------------------------------------------------------------
+def s7(joint_br):
+    pb = {b: sum(joint_br[(b, r)] for r in (0, 1)) for b in (0, 1)}
+    pr = {r: sum(joint_br[(b, r)] for b in (0, 1)) for r in (0, 1)}
+    flip_preserves_marginal = pr[0] == pr[1]
+    # history law under the unconditional law of r, for each fixed b
+    uncond = {b: sum(pr[r] for r in (0, 1) if r ^ b == 0) for b in (0, 1)}
+    # operational law: P(h = 0 | b)
+    cond = {b: sum(joint_br[(b, r)] for r in (0, 1) if r ^ b == 0) / pb[b] for b in (0, 1)}
+    return flip_preserves_marginal, uncond[0] == uncond[1], cond[0] == cond[1], cond
+
+
+J_corr = {(0, 0): Fr(1, 3), (0, 1): Fr(0), (1, 0): Fr(1, 6), (1, 1): Fr(1, 2)}
+J_ind = {(b, r): (Fr(1, 3) if b == 0 else Fr(2, 3)) * Fr(1, 2) for b in (0, 1) for r in (0, 1)}
+f1, u1, c1, cond1 = s7(J_corr)
+f2, u2, c2, _ = s7(J_ind)
+record(f"S7 marginal-preserving relabelling, setting correlated with the pad: signalling "
+       f"(P(h=0|b) = {cond1[0]}, {cond1[1]})", f1 and u1 and not c1)
+record("S7 same marginals, setting independent of the pad: no signalling (control)", f2 and u2 and c2)
 
 
 # ---------------------------------------------------------------------------
