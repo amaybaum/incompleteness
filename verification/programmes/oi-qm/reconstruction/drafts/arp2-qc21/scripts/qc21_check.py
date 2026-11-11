@@ -3643,7 +3643,7 @@ def assemble_decisive(p_out, b_out, c_out, r_out):
 FIXTURE_EXPECT = {
     "B-POS": ("infeasible", 4), "B-STAB": ("feasible", 2), "B-CLASS": ("feasible", 2), "B-REG": ("infeasible", 4),
     "B-REG+parity": ("feasible", 2), "B-WAVE": ("infeasible", 4), "ZPT": ("feasible", 3), "F10": ("feasible", 4),
-    "QM-P": ("infeasible", 4), "B-S4F": ("feasible", 4),
+    "B-S4F": ("feasible", 4),
     "B-RAY-S": ("feasible", 2), "B-RAY-P": ("infeasible", 4), "B-RAY-F": ("feasible", 4)}
 
 
@@ -3705,8 +3705,11 @@ def fixture_section(budget_vals=None):
         rec = {"lp": r["lp"], "decided_by": r["decided_by"], "d": r["d"], "r_S": r["r_S"], "r_E": r["r_E"],
                "tomo": r["tomo"], "T": r.get("T"), "pivots": r["pivots"], "max_bits": r["max_bits"],
                "work": r["work"], "cert_sha256": r["cert_sha256"], "verified": r["verified"],
-               "expected": list(exp) if exp else None,
-               "as_expected": exp is not None and (r["lp"], r["decided_by"]) == exp}
+               "expected": list(exp) if exp else None}
+        # A fixture with no preregistered verdict (QM-P: "decided with a verified certificate" only, checked
+        # by its own control) carries no verdict expectation and so no "fixture expectation" check.
+        if exp is not None:
+            rec["as_expected"] = (r["lp"], r["decided_by"]) == exp
         if r["lp"] == "out_of_scope":
             over.append(fr["name"])
         if not r["verified"]:
