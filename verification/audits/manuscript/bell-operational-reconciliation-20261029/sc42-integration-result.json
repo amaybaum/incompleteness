@@ -1348,6 +1348,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Sections C.4-C.6 engage the foundational concerns: the role ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The framework's response.** Bell applies directly to the r..."
     },
     {
@@ -1408,11 +1412,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## C.6 Finiteness: is posit A1 too strong?..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A third foundational objection concerns the framework's comm..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's response.** Posit A1 plays different roles..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *In Chapter 1's foundational content.* Posit A1 is a mathema..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *In Chapter 7's gravitational content.* The cosmological hor..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: A referee who rejects Axiom 2 for the universe as a whole (i..."
+      "predicate": "chapter line mirrored in FULL: A referee who rejects posit A1 for the universe as a whole d..."
     },
     {
       "ok": true,
@@ -1688,6 +1708,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's central object is a triple. $S$ is a finite ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The observer-level statistics of this read-write cycle have ..."
     },
     {
@@ -1709,6 +1733,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Within A4's periodic-lattice class and the continuum conditi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A1) Finiteness.* The configuration space $S$ is finite. Le..."
     },
     {
       "ok": true,
@@ -3100,6 +3128,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Initial conditions as gauge.* The deep hidden sector's card..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Framework status.** Resolved — not by a calculation, but b..."
     },
     {
@@ -3156,7 +3188,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Axiom 2 (Finiteness).** The framework's foundational assum..."
+      "predicate": "chapter line mirrored in FULL: **A1 (Finiteness).** The posit that the substratum has finit..."
     },
     {
       "ok": true,
@@ -3261,6 +3293,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Recommended.** Chapter 10 (chemistry derivation, providing..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Appendix C (Common Objections and Framework Responses).** ..."
     },
     {
       "ok": true,

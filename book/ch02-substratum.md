@@ -13,7 +13,7 @@ The quantum input to this reconstruction should be read in the scoped sense esta
 
 ## 2.2 The substratum as a finite lossless memory
 
-The framework's central object is a triple. $S$ is a finite set whose elements are the distinguishable total states. $\varphi: S \to S$ is a bijection — a deterministic, reversible transition rule that maps each state to its unique successor. $V \subsetneq S$ is the visible sector, the observer's window into $S$; the complement $H = S \setminus V$ is the hidden sector. These three together — $(S, \varphi, V)$ — fix everything: the dynamics, the observer's access, the marginalized description.
+The framework's central object is a triple. $S$ is a finite set (posit A1, §2.4) whose elements are the distinguishable total states. $\varphi: S \to S$ is a bijection — a deterministic, reversible transition rule that maps each state to its unique successor. $V \subsetneq S$ is the visible sector, the observer's window into $S$; the complement $H = S \setminus V$ is the hidden sector. These three together — $(S, \varphi, V)$ — fix everything: the dynamics, the observer's access, the marginalized description.
 
 The most useful physical interpretation is in terms of memory. $S$ is the set of all distinguishable states the system can occupy — a finite storage capacity. $\varphi$ is a bijection, so information is never created or destroyed; the substratum is a *lossless* memory in the precise information-theoretic sense. The partition $V$ defines the observer's access to this memory, both read and write. The observer reads the visible sector by measuring $x$, and writes to the hidden sector — every visible-sector interaction imprints correlations onto $H$ through the coupling $H_{\text{int}}$.
 
@@ -73,7 +73,7 @@ The convergence has an external echo. A literature independent of this framework
 
 **Structural assumptions.** The reconstruction restricts attention to candidate substrates satisfying six properties:
 
-*(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is a posit, read as the choice of the minimal finite representative and supported by E3 (the holographic bound read as a dimension cutoff).
+*(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is a posit, read as the choice of the minimal finite representative and supported by E3 (the holographic bound read as a dimension cutoff). Its scope, and which results use it, are stated in [Main §1.2], Remark (status of the early commitments).
 
 *(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. Its status is two-part (Chapter 1, Lemma 3): the bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics — and injectivity is anchored by a dilemma argument with one structural prong (finiteness and recurrence) and one empirical prong (the observed statistics).
 
