@@ -44,7 +44,7 @@ CAP_D = 16
 CAP_FACET_SUBSETS = 100000
 CAP_EFFECTS = 200
 
-# C.1 stress fixtures: the generator is frozen here; the seeds are PENDING until the design run (C.7 6).
+# C.1 stress-fixture seeds are fixed; stress measurements/caps/budgets remain unrun until a separately authorized design.
 STRESS_SEEDS = (20261108, 1, 2)
 
 BP_P_MAX = None
@@ -3547,8 +3547,10 @@ def strip_bytes(rec):
 
 
 def k_fragment_controls(records):
-    """Decisive C-CERT/C-BUDGET: withheld results are reported; only a leaked verdict makes the control red."""
+    """C-CERT and C-BUDGET: a decided result requires every typed resource slot."""
     failures, leaked, over = [], [], []
+    budget_keys = ("pivots", "max_bits", "work")
+    cap_keys = ("n_extreme", "d", "c", "effects_before_reduction")
     for record in records:
         named = str(record.get("name"))
         decided = record.get("lp") in ("feasible", "infeasible")
@@ -3556,20 +3558,27 @@ def k_fragment_controls(records):
             failures.append(named)
             if decided:
                 leaked.append(named)
-        limits = record.get("budget_values", [])
-        counters = [record.get(key) for key in ("pivots", "max_bits", "work")]
-        excess = any(limit is not None and (not isinstance(value, int) or value > limit)
-                     for value, limit in zip(counters, limits))
-        caps = record.get("cap_values", [])
-        sizes = [record.get(key) for key in ("n_extreme", "d", "c", "effects_before_reduction")]
-        excess = excess or any(limit is not None and (not isinstance(value, int) or value > limit)
-                               for value, limit in zip(sizes, caps))
-        if decided and excess:
+        if not decided:
+            continue
+        budgets, caps = record.get("budget_values"), record.get("cap_values")
+        typed = (type(budgets) is list and len(budgets) == 3 and
+                 type(caps) is list and len(caps) == 4 and
+                 all(x is None or (type(x) is int and x >= 0) for x in budgets + caps))
+        counters = [record.get(k) for k in budget_keys + cap_keys]
+        typed = typed and all(type(x) is int and x >= 0 for x in counters)
+        if not typed:
             over.append(named)
-    return {"C-CERT": {"green": not leaked, "unverified": len(failures), "unverified_fragments": failures,
-                        "given_verdict_without_certificate": leaked},
+            continue
+        if any(limit is not None and value > limit
+               for value, limit in zip(counters[:3], budgets)):
+            over.append(named)
+            continue
+        if any(limit is not None and value > limit
+               for value, limit in zip(counters[3:], caps)):
+            over.append(named)
+    return {"C-CERT": {"green": not leaked, "unverified": len(failures),
+                       "unverified_fragments": failures, "given_verdict_without_certificate": leaked},
             "C-BUDGET": {"green": not over, "given_verdict_over_limit": over}}
-
 
 def assemble_decisive(p_out, b_out, c_out, r_out):
     fx = fixture_section()
@@ -4046,8 +4055,12 @@ def t_mutations():
 
     r = s_decide(fx_b_class(), mutate=swap_cert)
     t_check("M-SOLVER other verdict's certificate", r["verified"] is False)
-    tok = k_decide_b({"controls_red": [], "fragments": [dict(strip_bytes(r), role="B-P", lp_reads_equal_acc=True)]})
-    t_check("M-SOLVER gives VOID", tok["token"] == "B-VOID")
+    case = dict(strip_bytes(r), role="B-P", preps=32, lp_settings=list(ACC_BP), acc=list(ACC_BP),
+                lp_reads_equal_acc=True, lp="feasible", verified=False)
+    token_bad = k_decide_b({"controls_red": [], "fragments": [case]})["token"]
+    token_good = k_decide_b({"controls_red": [], "fragments": [dict(case, verified=True)]})["token"]
+    t_check("M-SOLVER invalid certificate, not SG-1, gives VOID",
+            r["verified"] is False and token_bad == "B-VOID" and token_good == "B-CLASSICALLY-IMITABLE")
 
     def bump_a(c):
         c = dict(c)
@@ -4092,9 +4105,14 @@ def t_mutations():
                 ok = ok and r["pivots"] <= 2
             if which == "W_max":
                 ok = ok and r["work"] <= 1 + free["work"]
-            tok = k_decide_b({"controls_red": ["C-BUDGET"], "fragments": [dict(strip_bytes(r), role="B-P",
-                                                                                  lp_reads_equal_acc=True)]})
-            t_check("M-BUDGET %s on %s" % (which, name), ok and tok["token"] == "B-VOID")
+            limited = dict(strip_bytes(r), role="B-P", preps=32, lp_settings=list(ACC_BP),
+                           acc=list(ACC_BP), lp_reads_equal_acc=True)
+            valid = dict(limited, name="B-P-valid", lp="feasible", verified=True)
+            void = k_decide_b({"controls_red": [], "fragments": [limited]})["token"]
+            still_valid = k_decide_b({"controls_red": [], "fragments":
+                                      [valid, dict(limited, role="A-of-B")]})["token"]
+            t_check("M-BUDGET %s on %s" % (which, name),
+                    ok and void == "B-VOID" and still_valid == "B-CLASSICALLY-IMITABLE")
 
 
 def t_misc():
