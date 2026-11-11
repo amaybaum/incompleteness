@@ -3045,9 +3045,31 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
 
 ### C.7 Design run, confirmation run and gate tests (adapted from QC22 preconditions 6, 6′ and 6″; not verbatim)
 
+**Owner-approved B1 conclusion rule (2026-11-11, #1169 c.6784808669; C.7 6/6′ and C.8).**
+Use the complete structured host job/step records (§A.44), with no log-derived statuses, and compare the frozen
+`verify.yml` job names, step names, matrix, and literal `if:` guards byte-for-byte against D.
+In a design/confirmation `pull_request` run:
+- The exact job `Numerical probes / A42 exclusion (${{ matrix.part }})` is the **one skipped matrix placeholder**;
+  on `workflow_dispatch` its 15 explicitly listed shards must all succeed. Guard:
+  `if: ${{ github.event_name == 'workflow_dispatch' }}`.
+- The exact step `ARP-1-MARC keep the measurements` is `skipped`; on dispatch it must succeed. Guard:
+  `if: ${{ always() && github.event_name == 'workflow_dispatch' }}`.
+- `KTRANS-SEP-2 axiom reports within the three axioms` must succeed, and the exact later step
+  `KTRANS-SEP-2 marker complete reports with an axiom outside the three` must be **skipped** on **every event**.
+  Its original guard is
+  `if: ${{ !cancelled() && steps.ktrans_sep2_axioms.outputs.reports == 'complete-nonstandard' }}`.
+  Marker `success` is a failure: it denotes an axiom outside the permitted three, not a positive test.
+- Job B remains `skipped` for design/confirmation PR runs and is required to succeed on legitimate decisive dispatches;
+  all other required jobs and steps must succeed. Missing/extra/duplicate jobs, any other skipped job or step,
+  incomplete pages/attempts, guard drift or a different A42 matrix fail closed.
+The exact permitted statuses must be mutation-tested in both directions: a wrongly successful PR-only step/job,
+a skipped dispatch-required item, a successful KTRANS marker, an additional skip, missing matrix shard,
+renamed step or changed condition must each fail. This B1 amendment changes only the acceptance interpretation,
+not the source or scope of any scientific operation. It does not approve a design run.
+
 **6. The design run.**
 - A disposable branch carries the predicted S1 tree, with fixture-mode output (the checker run with `--event fixture`; C.8 item 10). Its `pull_request`
-  run is green, with job B `skipped`. Its pull request's base is a branch held at `D` (*Synthetic merges*, below).
+  run satisfies the exact B1 job/step conclusion table above, with job B `skipped`. Its pull request's base is a branch held at `D` (*Synthetic merges*, below).
 - `design-run.json` records:
   - every job and step conclusion;
   - each step's `started_at` and `completed_at` from the jobs API;
@@ -3076,10 +3098,10 @@ preserved as produced, the run or void-run record, `order.json` and the VOID not
 
 **6′. The confirmation run.**
 - It is a second disposable-branch `pull_request` run of the exact predicted S1 tree, under the final caps,
-  budgets and pin. It is green on every step, with job B `skipped`.
+  budgets and pin. It satisfies the exact B1 job/step conclusion table above, with job B `skipped`.
 - `confirmation-run.json` is checked by `check --freeze` as QC22 6′ states. That covers:
   - its pin;
-  - every conclusion `success` except job B, which is `skipped`;
+  - every conclusion matches the owner-approved B1 table above, including the two PR-only expected skips, the required skipped KTRANS marker, and job B `skipped`;
   - the pinned blobs in its tree;
   - `verify.yml` byte-equal to the frozen splice;
   - A3's `mode: "fixture"`, through A3b's `success`;
