@@ -52,7 +52,7 @@ confers no protection, and "the framework needs this to be true" is never an arg
 
 - `papers/Main.md` must be independent of downstream companion papers. Main
   may mention downstream results but must not depend on them, including
-  through indirect labels or unnamed references. Permitted mentions are
+  through indirect labels or unnamed references. Permitted mentions include
   forward pointers to later work, descriptions explicitly labelled as
   conditional or proposed, and references identifying further applications;
   each mentioned result is identifiable as downstream and carries its own
