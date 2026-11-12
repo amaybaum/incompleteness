@@ -176,7 +176,7 @@ The framework's empirical predictions live at specific intersections:
 
 - *Level G4 × Level C predictions* — Born rule, channel-level unitarity, non-Markovian marginal, commutant restriction pattern. Universal across observer-admitting systems; trivially "predicted" because they are structural features of partial-trace observation. Not falsifiable within the framework.
 - *Level G2 × Level D predictions* — SM gauge group, the $1 \oplus 3$ candidate-sector count (three physical generations under H-spin'), anomaly-free hypercharges (on the nonzero-$Y_Q$ branch). Forced uniquely in OI through cubic-group commutant, conditionally on H-link and H-cust [SM §4.5–§4.6]; shared with any SM-reproducing universality class.
-- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$, Bekenstein-Hawking $A/4$ (conditional on H-slope and the further conditions of [GR §8.5(b)]), dark-sector phenomenology. Distinguishes OI from other universality-class members; forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class.
+- *Level G3 × Level D predictions* — Cabibbo angle $1/(\pi\sqrt{2})$, Koide ratio $2/3$, Bekenstein-Hawking $A/4$, dark-sector phenomenology. Distinguishes OI from other universality-class members; forced by OI's specific $\mathcal{G}_{\rm sub}$-equivalence class.
 
 The framework's most distinguishing predictions live at Level G3 × Level D — they are class-specific to OI. Level G2 × Level D predictions are shared with any SM-reproducing class. Level G4 × Level C predictions are essentially structural.
 
