@@ -620,7 +620,7 @@ Laboratory tests of the characterization theorem may be possible in analogue gra
 
 (U3) *Two-level distinction.* The emergent quantum vacuum energy ($\sim M_{\rm Pl}^4$) and the effective cosmological constant ($\sim H^2/G$) refer to logically distinct objects across two levels of description; the $10^{122}$ ratio is a compression ratio, not a failure of cancellation (§6.1).
 
-*(b) Conditional universality.* If, in addition, H-count holds for the hidden sector of $\mathcal{S}$, H-slope, H-frame and the H-Hawking conditions hold at its horizon and the emergent description has local boost structure there (the boost-channel Lorentz-sector item of [Main §3.5], carried by the KMS step below), then with the same numerical content as for OI's substratum:
+*(b) Conditional universality.* If, in addition, H-count holds for the hidden sector of $\mathcal{S}$, H-slope, H-frame and the H-Hawking conditions hold at its horizon, the emergent description has local boost structure there (the boost-channel Lorentz-sector item of [Main §3.5], carried by the KMS step below) and the symmetric detailed-balance rate ratio holds (obtained on the OI branch from microreversibility under the time-reversal-even coarse-state condition of §2.3; an additional condition for general non-bijective dynamics), then with the same numerical content as for OI's substratum:
 
 (C1$'$) *Emergent action scale.* $\hbar = c^3 \epsilon^2 / (4G\sigma)$, where $\epsilon$ is the partition's discreteness scale and $\sigma$ the entropy per boundary mode (§3.2).
 
