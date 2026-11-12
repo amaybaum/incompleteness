@@ -459,7 +459,7 @@ Two possible directions for emergence remain open:
 
 - *Approximate AdS in deep IR.* In some limits, de Sitter spacetime admits approximate AdS structure (e.g., near the horizon, in certain coordinate patches). Whether OI's framework produces an effective AdS region with corresponding effective AdS/CFT structure is similarly open.
 
-The assessment: OI naturally produces horizon holography (the $A/4$ entropy law, conditional on H-slope and the further conditions of [GR §8.5(b)], and the holographic bound) but does not naturally produce full AdS/CFT-style correspondence as an emergent feature. A is a structural consequence of the partial-trace observational structure under those conditions; the latter requires specific compactification-dependent content that OI's substratum does not directly provide.
+The assessment: OI naturally produces horizon holography (the $A/4$ entropy law, conditional on H-slope and the further conditions of [GR §8.5(b)], and the holographic bound) but does not naturally produce full AdS/CFT-style correspondence as an emergent feature. A is a structural consequence of the partial-trace observational structure, with its $A/4$ normalization under those conditions; the latter requires specific compactification-dependent content that OI's substratum does not directly provide.
 
 #### 7.7.2 Graviton modes from long-distance dynamics
 
