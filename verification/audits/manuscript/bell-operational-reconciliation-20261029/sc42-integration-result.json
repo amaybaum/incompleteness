@@ -2848,7 +2848,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: Once template replication is established, each later row fol..."
+      "predicate": "chapter line mirrored in FULL: | Selection | Differential reproductive success of variants ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Once template replication is established, copying errors giv..."
     },
     {
       "ok": true,
@@ -2856,7 +2860,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The framework's content here is that Darwinian evolution is ..."
+      "predicate": "chapter line mirrored in FULL: **Heritable variation is automatic.** Template copying with ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content here is conditional: in any chemistr..."
     },
     {
       "ok": true,
@@ -2864,7 +2872,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The framework's structural prediction is therefore: given a ..."
+      "predicate": "chapter line mirrored in FULL: The framework's structural content is therefore conditional:..."
     },
     {
       "ok": true,
@@ -2944,7 +2952,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *The timescale of the transition.* The framework predicts th..."
+      "predicate": "chapter line mirrored in FULL: *The timescale of the transition.* The framework does not pr..."
     },
     {
       "ok": true,
@@ -2981,6 +2989,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Environmental information exists.* $kT > 0$ produces therma..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Better models outcompete worse models.* Where resources are..."
     },
     {
       "ok": true,
