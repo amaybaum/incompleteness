@@ -1272,7 +1272,59 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: The correction is $\\mathcal{O}(t/\\tau_B) \\sim 10^{-32}$ for ..."
+      "predicate": "chapter line mirrored in FULL: A deep-sector configuration that stays fixed still enters th..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **H-BD** (deep-sector influence bound; posited). *There is a..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma B.4.2 (Factorization of transition probabilities).**..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: $$\\sum_j \\big|T_{ij}(t) - T^{(B)}_{ij}(t)\\big| \\leq \\frac{2t..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* Fix $x_i$ and $b$, and follow the reference path $(..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Nothing in the framework fixes $\\tau_{BD}$. For a linear upd..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma B.4.3 (Causal cone).** *Let the bijective update act..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: $$T_{ij}(t) = \\frac{1}{|\\mathcal{C}_{B_n}|}\\sum_{b \\in \\math..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* A component's value after $n$ updates depends only ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Under H-BD the correction in Lemma B.4.2 is at most $2t/\\tau..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Step 2: Deep-sector gauge equivalence.** A corollary of Le..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -2344,6 +2396,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Verification of C2 (memory persistence).** The hidden-sect..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
     },
     {
@@ -2356,7 +2412,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Step 2: Boundary-only dependence.** If the classical Hamil..."
+      "predicate": "chapter line mirrored in FULL: **Step 2: Boundary-only dependence.** The visible transition..."
     },
     {
       "ok": true,
@@ -3100,7 +3156,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's commitment to a finite substratum has struct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -3108,19 +3172,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: A clarification is essential. The cardinality $|\\mathcal{C}_..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
-    },
-    {
-      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Exact finite recurrence.** A bijection $\\varphi$ acting on..."
-    },
-    {
-      "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
