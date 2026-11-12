@@ -96,3 +96,283 @@ The re-derivation extends Lemma A to every `q`, to the exchange mode, to `ℤ^3`
 law through Lemma 0.
 
 ***
+
+## 2. The L5 node tree (M3)
+
+The nodes are decided depth-first by the proposal's decision rule (section 2.2), over green controls.
+
+### Node L5.1: the form of the record laws
+
+The question (proposal M3) asks for the form of the record law of a label sequence, for R-lin
+under the uniform law, in initial-condition mode, without heralds. By Lemma A-T (a), (c), it is
+uniform on a coset of a subgroup `S_m` that does not depend on the labels, for every `q` and on both
+carriers. The same holds for every coset-uniform law and for non-adaptive exchange mode
+(Lemma A-T (b)). **Verdict: proved [W].**
+
+### Node L5.2: the M3 gap, closed by the joint-law route
+
+**The gap** (proposal M3). The sketch conditioned on one complete prefix record: a herald whose
+`p_acc` can be exponentially small, and which the no-herald subclass cannot use.
+
+**The route.** The argument below conditions on nothing. It compares *marginal* continuation laws
+of unheralded preparations of equal length (Lemma A-T (d)). It pads unequal preparations with the
+gate `c(0)`, using the credited form of Q3′ (final amendment B1.2–B1.3) to control the padding. The
+proposal named this route, and the amended definitions make it run without any `1/p_acc` factor.
+
+**Theorem FC-1** [W]. Let `𝓢₁` be the families with:
+- rule R-lin, for any fixed `q ≥ 2`;
+- a law of the unread world that is uniform on a coset (H-μ), in particular the uniform law;
+- initial-condition mode;
+- no heralded preparation among the witnesses of their Q-conditions;
+- carrier `𝓛_fin`, or `𝓛_∞` under H-∞ with the uniform product law.
+
+No member of a family in `𝓢₁`, at any resource, satisfies Q3′, Q5′ and Q6′ together at
+`(ε₀, K₀) = (1/50, 3)`, nor at any `ε < 1/48` and `K ≥ 3`.
+
+**Proof.** Suppose Q3′, Q5′ and Q6′ hold at `(ε, K)` with `ε < 1/48` and `K ≥ 3`, for a declared
+target with reads `a, b`, `a·b ∈ [−½, ½]`.
+
+1. **Witnesses.** By Q6′(i) there are unheralded preparations `P₁` and `P₂`, of lengths
+   `ℓ₁, ℓ₂ ≤ K − 2`, with assignments credited on `𝒯_L`. Their mean states lie within trace
+   distance `ε` of the pure states `ψ₁` and `ψ₂` with Bloch vectors `a` and `b`.
+2. **The read test.** Let `T_a` be the single round `c_a`, and `π_i` the world's probability of
+   class `a1` in `T_a` after `P_i`. Since `T_a ∈ 𝒯_L` fits, credit gives
+   `|π_i − (1 + a·r̄_i)/2| ≤ ε`, and `|a·r̄_i − a·ψ_i| ≤ 2ε`. So `|π_i − (1 + a·ψ_i)/2| ≤ 2ε`.
+3. **Padding.** Let `P′_i` be `P_i` followed by `k_i = K − 2 − ℓ_i` rounds of `c(0)`. Both `P′_i`
+   have length `K − 2`, are non-adaptive and are unheralded. Let `π′_i` be the class-`a1`
+   probability of `T_a` after `P′_i`. This is the class probability of the test
+   `(c(0)^{k_i}, T_a)` after `P_i`.
+   - `F(ε; 𝒯_K)` (Q3′) gives `P_i` one credited assignment, with mean `r′_i`, for both tests `T_a`
+     and `(c(0)^{k_i}, T_a)`. Both fit, since `k_i + 1 ≤ K − ℓ_i`.
+   - The target's `c(0)` is `p(0)·Ad 𝟙`, with records independent of the state. So both tests have
+     the target class probability `(1 + a·r′_i)/2`.
+   - Hence `|π′_i − π_i| ≤ 2ε`, and `|π′_i − (1 + a·ψ_i)/2| ≤ 4ε`.
+4. **Lower bound.** Let `W′_i` be the world's law of `T_a`'s records after `P′_i`. Then
+   `TV(W′_1, W′_2) ≥ |π′_1 − π′_2| ≥ (1 − a·b)/2 − 8ε ≥ ¼ − 8ε > 0`.
+5. **Upper bound.**
+   - `F(ε; 𝒯_K)` gives `P′_i`, of length `K − 2 ≤ K − 1`, a credited mean `r″_i` with
+     `TV(W′_i, 𝔔*(σ̄″_i · T_a)) ≤ ε`, and so `|π′_i − (1 + a·r″_i)/2| ≤ ε`. Then
+     `a·r″_i = a·ψ_i ± 10ε`.
+   - The target's Lüders read has record law `p(class) · q_a(h | class)`, so two states' laws on
+     `T_a` are at total variation `|a·(r″_1 − r″_2)|/2 ≤ (1 − a·b)/2 + 10ε ≤ ¾ + 10ε`.
+   - Hence `TV(W′_1, W′_2) ≤ ¾ + 12ε < 1`.
+6. **Contradiction.**
+   - `P′_1` and `P′_2` have equal length and are followed by the same label `c_a`.
+   - The labels of all later blocks are chosen equal.
+   - `r_O` and the layout are the same, since the generating rule fixes them independently of the
+     protocol (D1, section 1.2).
+   - By Lemma A-T (d), `TV(W′_1, W′_2) ∈ {0, 1}`, which contradicts steps 4 and 5. ∎
+
+**What the proof uses.**
+- Lemma A-T (d): the coset dichotomy, which needs R-lin's linearity and a coset-uniform law.
+- Q3′, only through `F(ε; 𝒯_K)` on the tests `T_a` and `(c(0)^k, T_a)`.
+- Q5′, only through the Lüders read `a` with `a·b ∈ [−½, ½]`.
+- Q6′(i), for the two states `a` and `b`, through unheralded witnesses.
+
+It does not use Q1, Q2, Q4, Q6′(ii), `c₀` or the resources. So `ε₀` holds uniformly over the
+subclass.
+
+**Verdict L5.2:** proved [W]. The M3 gap is closed for the no-herald subclass; no herald is used
+anywhere in the proof.
+
+### Node L5.3 (child): exchange mode, non-adaptive witnesses
+
+In exchange mode under H-write, Lemma A-T (b) gives the coset form for non-adaptive protocols. Each
+round's record contains its label `c_j`, which is the same for `P′_1` and `P′_2` in the
+continuation. The proof of FC-1 then runs unchanged, provided the Q6′ witnesses and their paddings
+are non-adaptive and unheralded.
+
+**Theorem FC-2** [W]. Take `𝓢₂` defined as `𝓢₁`, but in exchange mode and with the Q6′ witnesses
+non-adaptive as well as unheralded. No member satisfies Q3′, Q5′ and Q6′ together at any
+`ε < 1/48`, `K ≥ 3`. **Verdict: proved [W].**
+
+### Node L5.4 (child): heralded witnesses (open)
+
+Let a herald `E` act on the prefix records.
+- Lemma A-T (c) gives that, conditional on one complete prefix record `r`, the continuation law
+  is uniform on `t_r + S₀`, where `S₀ = {t : (0, t) ∈ S_m}` is one fixed subgroup.
+- A heralded preparation's continuation law is therefore the mixture `Σ_{r∈E} w_r U(t_r + S₀)`:
+  a mixture of extreme laws that are pairwise equal or disjoint.
+- Two heralded preparations can then be at intermediate total variation, so step 6 of FC-1 does not
+  apply.
+
+The restricted record theory is a classical simplex theory whose extreme points the labels
+translate. Classical models of one qubit exist (control C-POS-1). Rotations about one axis form an
+abelian group, so translations need not exclude an approximate one-axis rotation family. No
+argument for or against Q3′, Q5′ and Q6′ together was found.
+
+**Verdict: open.**
+
+**Gap L5.4:** "For R-lin under a coset-uniform law, can a family whose Q6′ witnesses are heralded
+meet Q3′, Q5′ and Q6′ together at every `ε`?"
+
+### Node L5.5 (child): adaptive witnesses in exchange mode (open)
+
+An adaptive prefix's joint law is a mixture over record-dependent label sequences, so Lemma A-T (d)
+does not apply to its marginal.
+
+**Verdict: open.** **Gap L5.5:** as L5.4, for adaptive witnesses in exchange mode.
+
+### Node L5.6 (child): laws that are not coset-uniform (open)
+
+The level-set law of `E` (SM:296; `𝓛_fin`, exchange mode) and the non-uniform product law are not
+uniform on a coset, so Lemma A-T (c) does not apply.
+
+**Verdict: open.** **Gap L5.6:** as FC-1, under each of these laws. The level-set row is "not
+defined" in initial-condition mode and on `ℤ^3` (choice 6(iii)).
+
+***
+
+## 3. Lemma F and Theorem U2(ii), re-derived (choice 9(a))
+
+FC-1 and FC-2 do not use Lemma F, so choice 9(a) does not require it for them. It is re-derived
+here, as deferred from session 1, for the escape audit L4(a) (proposal M2), which is a necessary
+condition on any `PASS-DERIVED`.
+
+**Lemma F** (source: MECH-2 :307–345 [R]; re-derived [W]).
+
+*Hypotheses* (as in the source):
+- a fixed bijection `Φ` of a finite configuration set;
+- the observer's operations are attaching cells in fixed laws, applying `Φ`, feedback on records,
+  marginalization, and conditioning on configuration records;
+- H-LIFT;
+- an identification `μ ↦ Σ_λ μ(λ) A(λ)` with an orthogonal frame of unit-trace operators.
+
+*Claims.*
+- (a) Frame coordinates of reachable encoded states are nonnegative.
+- (b) Every branch is a nonnegative matrix on frame coordinates, unique on signed laws.
+- (c) Read effects have symbols in `[0, 1]`.
+
+*Proof.*
+1. The frame coordinates of an encoded state are the probabilities `μ(λ)`, which gives (a).
+2. Each operation acts on laws by a nonnegative matrix:
+   - applying `Φ`: a permutation matrix;
+   - attaching a cell: tensoring with a fixed law;
+   - marginalization: summing coordinates;
+   - conditioning on a record value: a `0/1` diagonal.
+3. A feedback branch is a product of such matrices chosen by the record values, so it is
+   nonnegative.
+4. Under H-LIFT, the carrier marginal at each operation's input determines the carrier marginal at
+   its output, so the carrier-level branch is one fixed matrix `B`.
+5. The identification is injective on signed laws, so `B` is unique, which completes (b).
+6. A read effect evaluated at a point law `δ_λ` is a probability, which gives (c). ∎
+
+**U2(ii), the part L4(a) uses** (source: MECH-2 :436–450 [R]; re-derived [W]).
+- *Statement.* If a branch acts on the encoded carrier as `p · Ad U`, with `p > 0` independent of
+  the input, and the frame is complete (it spans the operator space), then `Ad U` permutes the frame
+  points.
+- *Proof.*
+  1. `M = B/p` represents `Ad U` on all signed laws: valid states span, and the identification is
+     injective.
+  2. The frame is orthogonal with equal Hilbert–Schmidt norms `κ`, so `‖Σ w_λ A(λ)‖²_HS = κ‖w‖²`.
+     `Ad U` preserves the Hilbert–Schmidt norm, so `M` is a real orthogonal matrix.
+  3. Its columns are orthonormal with nonnegative entries, so their supports are pairwise disjoint.
+     `N` columns with nonempty, pairwise disjoint supports in `N` coordinates each have support one
+     coordinate, with entry 1. So `M` is a permutation matrix. ∎
+- *Consequence.* The encoded unitaries that branches can realize form a finite set: at most the
+  number of permutations of the frame. With `M` of them, a family `Ad U_θ` about one axis is
+  approximated within diamond distance `ε` only for `ε ≥ sin(π/(M+1))`, by the pigeonhole of C-CARD
+  (a). So under a fixed injective complete orthogonal frame identification with H-LIFT, Q3′'s
+  target family is unreachable below that error. L4(a) stands as a necessary condition on any pass
+  [W].
+- U2(i), the `A_4 ≀ S_n` classification, is not needed for this and was not re-derived.
+
+***
+
+## 4. Proves-too-much row for the L5 argument (proposal section 3, invariant table)
+
+The property that FC-1 and FC-2 use and that could fail elsewhere is (L-1): the record law of any
+unheralded, non-adaptive preparation, followed by a fixed continuation, is uniform on a coset of a
+subgroup that does not depend on the labels.
+
+| Case | Does (L-1) hold? | Applies? |
+|---|---|---|
+| C-POS-1, on its protocol class at `ε = 0` | no: cosine-hemisphere response laws are not coset-uniform | no |
+| C-POS-2, separating menus | no: hemisphere-law sampling from fair bits through fixed tables is not coset-uniform | no |
+| Reversible deterministic rules, unread uniform environment, every member | no: it fails for nonlinear members (for example the one that hosts C-PROG's controller under `F_U`) | no |
+
+The contradiction in FC-1 step 6 is reached only through (L-1). Without it, intermediate total
+variation between `W′_1` and `W′_2` is consistent. So the argument does not prove too much, and the
+row is **green**. The other steps (credit, padding, Lüders reads) hold in every case and conclude
+nothing on their own.
+
+***
+
+## 5. Tokens and the verdict (proposal section 2.2)
+
+**Step 1.** Every control row is green: the seventeen M1 controls (Session 2) and the L5
+proves-too-much row (§4). No row relied on as established has status other than `proved`.
+
+**Step 2.** No `PASS-DERIVED` family is proved.
+
+**Step 3.** `FAIL-CLASS` is proved for proper subclasses, so each is reported with
+`INCONCLUSIVE(gap)` for the rest. Every token carries H-μ.
+
+| Law (choice 6(i)(c)) | Carrier, mode | Token |
+|---|---|---|
+| uniform (coset-uniform) | `𝓛_fin`, `init` | `FAIL-CLASS(R-lin, 𝓛_fin, coset-uniform law, init, unheralded witnesses)` at `(1/50, 3)`, for every `q ≥ 2` | H-μ |
+| uniform product | `𝓛_∞`, `init` | `FAIL-CLASS(R-lin, 𝓛_∞, uniform product law, init, unheralded witnesses)` at `(1/50, 3)` | H-μ, H-∞ |
+| uniform (coset-uniform) | `𝓛_fin`, `exch` | `FAIL-CLASS(R-lin, 𝓛_fin, coset-uniform law, exch, non-adaptive unheralded witnesses)` at `(1/50, 3)` | H-μ, H-write |
+| uniform product | `𝓛_∞`, `exch` | as above on `𝓛_∞` | H-μ, H-∞, H-write |
+| uniform, rest of `𝕀_D` | both carriers and modes | `INCONCLUSIVE(L5.4: heralded witnesses; L5.5: adaptive witnesses, exch)` | — |
+| level-set law | `𝓛_fin`, `exch` | `INCONCLUSIVE(L5.6)` | H-μ, H-write |
+| level-set law | `init`; `𝓛_∞` | not defined (choice 6(iii)) | — |
+| non-uniform product law | both carriers and modes | `INCONCLUSIVE(L5.6)` | H-μ (and H-∞, H-write as applicable) |
+
+**R-nl** (choice 1(b), a separate verdict under H-nl) has not started. It is the next node.
+
+**What the tokens establish** (proposal section 2.3). Each `FAIL-CLASS` establishes only that its
+stated subclass does not reach the target at `(1/50, 3)`. It is not a no-go for:
+- heralded or adaptive witnesses;
+- other laws or other rules;
+- R-nl;
+- OI generally.
+
+Lemma A-T and FC-1 rest on paper derivations [W] awaiting review; nothing here is kernel-checked.
+
+***
+
+## 6. Pressure test (§A.31)
+
+- **Is FC-1's contradiction an artifact of the amended Q3′?** Padding uses `F(ε; 𝒯_K)` only for
+  tests built from `c(0)` and a read. Every passing positive control meets these: C-POS-1 at `0`,
+  C-POS-2 at `b + Kg`, and C-SUP-1 at `ε`. The step needs nothing beyond what those controls
+  supply.
+- **Could equal-length padding be avoided by a family?** Q6′ requires witnesses for `a` and for
+  `b`. Padding is a construction inside the proof, not a demand on the family, and `c(0)` exists by
+  Q3′.
+- **Lemma A-T (d) needs every block after round `ℓ + 1` to carry equal labels.** In initial-condition
+  mode the two protocols are free to choose them equal, and they are compared on round `ℓ + 1`
+  only. The layout and `r_O` are fixed by the generating rule (D1).
+- **Is the coset claim right for composite `q`?** Lemma 0 is stated for any finite abelian group
+  and does not use field structure.
+- **Is the conclusion stronger than proved?** It is stated for unheralded (FC-1) and for
+  non-adaptive unheralded (FC-2) witnesses only. The heralded case is open, with a stated reason it
+  may differ (L5.4).
+
+***
+
+## 7. Remaining work, and owner questions
+
+**Remaining work:**
+- independent review of §§1–6, then ChatGPT review;
+- the R-nl branch under H-nl (choice 1(b));
+- gaps L5.4–L5.6, if the owner wants them pursued.
+
+**Owner questions:**
+1. After review, should the R-nl branch start (choice 1(b))?
+2. Should gaps L5.4 (heralded witnesses) and L5.5 (adaptive witnesses) be pursued on paper, or
+   recorded as `INCONCLUSIVE` and left?
+
+***
+
+## 8. Disclosure
+
+- **Commands:** `git` (rev-parse, status, fetch, show, diff, add, commit, push), `curl` (GitHub API
+  reads of PR #1237 comments), `cat`, `grep`, `sed`, `cut`, `wc`, `sha256sum`. No interpreter was
+  run, and all arithmetic was done by hand.
+- **Read:**
+  - owner comments 6822861666 and 6823860494;
+  - `mechanism-1-20261107/DESIGN.md`:88–102 and :398–440;
+  - `mechanism-2-20261108/DESIGN.md`:300–348 and :398–450, on `origin/main`;
+  - the governing texts.
