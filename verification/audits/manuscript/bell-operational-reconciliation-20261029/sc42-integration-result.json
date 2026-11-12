@@ -2772,6 +2772,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 11.2 develops the autocatalytic argument: in any che..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 11.5 develops the transition from template replicati..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 11.6 develops C1–C4 at the molecular scale: the fram..."
     },
     {
@@ -2796,6 +2804,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The cumulative consequence is that autocatalytic networks be..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The threshold's empirical implications.** The autocatalyti..."
     },
     {
@@ -2816,7 +2828,35 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: In a template replicator, the transition from Markovian to n..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Catalytic copying.* Template-directed catalysis is a subset..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The structural status of evolution.** Each of the three ca..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Once template replication is established, each later row fol..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The RNA precedent.** RNA is simultaneously a linear polyme..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content here is that Darwinian evolution is ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Caveats.** The structural argument establishes that Darwin..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's structural prediction is therefore: given a ..."
     },
     {
       "ok": true,
@@ -2837,6 +2877,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **After life: non-Markovian chemistry.** Once C1–C4 are sati..."
     },
     {
       "ok": true,
@@ -3088,6 +3132,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 15.2 develops the framework's reframing for engineer..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 15.7 develops the restricted quantum-statistical reg..."
     },
     {
@@ -3097,6 +3145,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The ratio $\\tau_S/\\tau_B$ does not order the size of the cor..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *C2 (memory persistence).* Transmon gate operations occur on..."
     },
     {
       "ok": true,

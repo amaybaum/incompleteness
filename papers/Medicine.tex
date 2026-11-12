@@ -548,13 +548,18 @@ Standard accounts treat forgetting as a failure of memory. C1--C4 do not
 require forgetting: they bound persistence from below, and a hidden
 sector with infinite \(\tau_B\) can satisfy them while the visible
 record keeps changing, as in the example of §2.4. A weaker statement
-holds for any finite register. If \(U_1, \ldots, U_n\) are independent
-inputs and \(H\) is a hidden register with state space
-\(\mathcal{C}_H\), then \(\sum_i I(U_i; H) \leq \log_2|\mathcal{C}_H|\),
-so a finite register cannot retain an unbounded stream of independent
-inputs: on average it forgets or fails to encode them. Finite,
-layer-matched \(\tau_B\) is a hypothesis about how biological memory
-meets that constraint, not a requirement of C1--C4.
+holds for any finite register. If \(U_1, \ldots, U_n\) are mutually
+independent inputs and \(H\) is the state, after those inputs, of a
+hidden register with state space \(\mathcal{C}_H\), then
+\(\sum_i I(U_i; H) \leq \log_2|\mathcal{C}_H|\): by the chain rule
+\(I(U_1, \ldots, U_n; H) = \sum_i I(U_i; H \mid U_{<i})\); independence
+gives \(I(U_i; H \mid U_{<i}) = I(U_i; H, U_{<i}) \geq I(U_i; H)\); and
+\(I(U_1, \ldots, U_n; H) \leq \log_2|\mathcal{C}_H|\), the largest
+entropy a variable on \(\mathcal{C}_H\) can have. A finite register
+therefore cannot retain an unbounded stream of independent inputs: on
+average it forgets or fails to encode them. Finite, layer-matched
+\(\tau_B\) is a hypothesis about how biological memory meets that
+constraint, not a requirement of C1--C4.
 
 The brain operates in the parameter regime where each layer's \(\tau_B\)
 is matched to that layer's functional role. Pattern separation requires
@@ -1609,8 +1614,9 @@ administration.
 follow a stretched-exponential distribution
 \(P(t) \sim \exp(-(t/\tau)^\beta)\) with \(\beta < 1\). \emph{Test:}
 Single-molecule fluorescence assay. Standard models predict
-\(\beta = 1\) (exponential); OI predicts \(\beta < 1\) with value
-calculable from \(\tau_S / \tau_B\).
+\(\beta = 1\) (exponential); OI predicts \(\beta < 1\); its value
+depends on how strongly the scaffold's record modulates turnover and is
+not derived here.
 
 \hypertarget{neurodegeneration-1}{%
 \subsubsection{11.2 Neurodegeneration}\label{neurodegeneration-1}}
@@ -2031,4 +2037,4 @@ replication control,'' \emph{PNAS} \textbf{105}, 20752 (2008).
 Biology,'' companion paper (2026).
 
 \end{document}
-% source-sha256: 8d8087deda2eb0a7a4b393c35be8f4418bad2d6ff3252f7b943922d9ea571f23
+% source-sha256: c5e7b73d57fb646c0fdce834059a7eccf5ef523e032aa5d7122ce2e9b26afd04

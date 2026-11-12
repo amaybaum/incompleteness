@@ -95,7 +95,7 @@ The framework predicts that this approach generalizes: any memory layer with a m
 
 ### 2.5 Forgetting and finite capacity
 
-Standard accounts treat forgetting as a failure of memory. C1–C4 do not require forgetting: they bound persistence from below, and a hidden sector with infinite $\tau_B$ can satisfy them while the visible record keeps changing, as in the example of §2.4. A weaker statement holds for any finite register. If $U_1, \ldots, U_n$ are independent inputs and $H$ is a hidden register with state space $\mathcal{C}_H$, then $\sum_i I(U_i; H) \leq \log_2|\mathcal{C}_H|$, so a finite register cannot retain an unbounded stream of independent inputs: on average it forgets or fails to encode them. Finite, layer-matched $\tau_B$ is a hypothesis about how biological memory meets that constraint, not a requirement of C1–C4.
+Standard accounts treat forgetting as a failure of memory. C1–C4 do not require forgetting: they bound persistence from below, and a hidden sector with infinite $\tau_B$ can satisfy them while the visible record keeps changing, as in the example of §2.4. A weaker statement holds for any finite register. If $U_1, \ldots, U_n$ are mutually independent inputs and $H$ is the state, after those inputs, of a hidden register with state space $\mathcal{C}_H$, then $\sum_i I(U_i; H) \leq \log_2|\mathcal{C}_H|$: by the chain rule $I(U_1, \ldots, U_n; H) = \sum_i I(U_i; H \mid U_{<i})$; independence gives $I(U_i; H \mid U_{<i}) = I(U_i; H, U_{<i}) \geq I(U_i; H)$; and $I(U_1, \ldots, U_n; H) \leq \log_2|\mathcal{C}_H|$, the largest entropy a variable on $\mathcal{C}_H$ can have. A finite register therefore cannot retain an unbounded stream of independent inputs: on average it forgets or fails to encode them. Finite, layer-matched $\tau_B$ is a hypothesis about how biological memory meets that constraint, not a requirement of C1–C4.
 
 The brain operates in the parameter regime where each layer's $\tau_B$ is matched to that layer's functional role. Pattern separation requires fast forgetting at the molecular layer; generalization requires consolidation transfer from fast to slow layers; fear extinction and mood regulation require active erasure at intermediate layers.
 
@@ -434,7 +434,7 @@ The following predictions follow from the non-Markovian (memory) architecture. T
 
 **Prediction 4:** HDAC inhibitors between radiation fractions specifically abolish the adaptive response by erasing chromatin memory. *Test:* Three-arm experiment comparing inter-fraction vs. pre-treatment HDAC inhibitor. Standard models predict similar radiosensitization; OI predicts greater cell kill from inter-fraction administration.
 
-**Prediction 5:** Single-molecule Chk1 turnover waiting times follow a stretched-exponential distribution $P(t) \sim \exp(-(t/\tau)^\beta)$ with $\beta < 1$. *Test:* Single-molecule fluorescence assay. Standard models predict $\beta = 1$ (exponential); OI predicts $\beta < 1$ with value calculable from $\tau_S / \tau_B$.
+**Prediction 5:** Single-molecule Chk1 turnover waiting times follow a stretched-exponential distribution $P(t) \sim \exp(-(t/\tau)^\beta)$ with $\beta < 1$. *Test:* Single-molecule fluorescence assay. Standard models predict $\beta = 1$ (exponential); OI predicts $\beta < 1$; its value depends on how strongly the scaffold's record modulates turnover and is not derived here.
 
 ### 11.2 Neurodegeneration
 

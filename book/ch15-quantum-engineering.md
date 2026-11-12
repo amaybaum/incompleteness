@@ -11,7 +11,7 @@ This chapter develops the framework's content in *engineered quantum systems* �
 
 Eight pieces occupy the chapter.
 
-Section 15.2 develops the framework's reframing for engineered quantum systems: the environment as programmable quantum memory rather than as adversarial noise. The framework's C1–C4 architecture applies to engineered systems with $\tau_S/\tau_B$ ratios at orders of magnitude where structural corrections are not negligible — making the framework's content empirically relevant for current hardware platforms.
+Section 15.2 develops the framework's reframing for engineered quantum systems: the environment as programmable quantum memory rather than as adversarial noise. The framework's C1–C4 architecture applies to engineered systems whose retention windows, set by $\tau_S/\tau_B$, fall within device run lengths — making the framework's content empirically relevant for current hardware platforms.
 
 Section 15.3 develops superconducting qubit dynamics as the canonical engineered C1–C4 system. Transmons coupled to two-level systems (TLS) in the substrate produce a hidden sector with $\tau_S/\tau_B \sim 10^{-3}$ — twenty-nine orders of magnitude larger than the cosmological case. The mechanism proposal's prediction is that this hidden sector produces memory-bearing noise correlations across thousands of gate operations. Section 15.4 develops correlation-aware error correction: standard Markovian surface codes see the framework's predicted correlations as anomalously high uncorrectable error rates; correlation-aware decoders designed for the actual noise structure could reduce the effective error rate; the size of the gain is not derived (§15.4, §15.9).
 
@@ -58,7 +58,7 @@ Superconducting qubits — transmons, fluxonium, and similar architectures — a
 
 *C1 (coupling).* The TLS couple to the transmon through their electric dipoles, with coupling strengths varying from kHz to MHz depending on the TLS proximity to the qubit's electric field maxima. The coupling is continuous and bidirectional — qubit excitations can transfer to TLS and vice versa.
 
-*C2 (memory persistence).* Transmon gate operations occur on $\tau_S \sim 10$-100 ns timescales. The TLS bath has correlation times $\tau_B \sim 1$-100 $\mu$s. The ratio: $\tau_S/\tau_B \sim 10^{-3}$ for typical operating conditions. This is twenty-nine orders of magnitude larger than the cosmological case, placing transmon-TLS dynamics squarely in the framework's slow-bath regime where structural corrections are non-negligible.
+*C2 (memory persistence).* Transmon gate operations occur on $\tau_S \sim 10$-100 ns timescales. The TLS bath has correlation times $\tau_B \sim 1$-100 $\mu$s. The ratio: $\tau_S/\tau_B \sim 10^{-3}$ for typical operating conditions. This is twenty-nine orders of magnitude larger than the cosmological case, placing transmon-TLS dynamics squarely in the framework's slow-bath regime, with a retention window of $\sim 10^3$ gates.
 
 *C3 (capacity).* Several hundred to several thousand coupled TLS produce a hidden sector with capacity vastly exceeding the qubit's two-state Hilbert space. C3 is satisfied with overwhelming margin.
 
