@@ -2372,6 +2372,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Verification of C2 (memory persistence).** The hidden-sect..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
     },
     {
