@@ -152,3 +152,65 @@ reference to r3 says unreviewed, and every acceptance is attributed to Rc's actu
 - **Outside the delta (not reviewed under this gate; noted only).** r3:10 "Nothing committed, pushed
   or posted" and r3:14 "Commands used (r1 and r2)" are unchanged from r2. The file is now committed
   at `469ecee9`, by the coordinator rather than the unit author.
+
+***
+
+## Recheck of a55f0588
+
+**Objects.** `git diff 469ecee9 a55f0588` touches only this directory. It adds
+`DELTA-REVIEW-OA-3-r3.md`, which is byte-identical to this file as it stood before this section, and
+changes `OA-3-REPORT-r3.md` in 10 hunks. `a55:n` = line `n` of `OA-3-REPORT-r3.md` at `a55f0588`.
+PR #1265 was read through the REST API: open, draft, head `research/oa1-w1-1-20261112`, base `main`,
+not merged.
+
+### Verdict: **ACCEPT WITH CHANGES** (one phrase)
+
+**Required edits (R1–R4)**
+
+- **R1 ✓.** a55:315–316 has the coin factor exactly as required ("subnormalized weight
+  `ν(F^{−t_h} ω)`, times any external C-PM coin weight, `> 0`").
+  - The renormalized form was reworded to "divided by `P(π's herald)`". With the coin factor that
+    gives `ν·c / P(π's herald)`, which is the correct conditional probability.
+  - Positivity is unchanged.
+- **R2 ✓.** a55:405–406 is exactly as required. Change-map row m1 adds N4.1.
+- **R3 ✓.** a55:722–723 is exactly as required. Change-map row m2 adds §7.
+- **R4 ✓.** a55:274–277 is exactly as required. The §1 definition (r3:107 at `469ecee9`) is unchanged and now
+  agrees with the quotation.
+
+**Optional edits (O1, O2, O3, O5)**
+
+- **O1 ✓.** a55:550–551 uses the (PT-b) wording. The "any initial law" branch is unchanged.
+- **O2 ✓.** a55:652–653.
+- **O3 ✓.** The new row at a55:797 is accurate.
+- **O5: one defect, from combining R1 with O5's "drop" option.** a55:317–318 reads "Under μ-G this
+  is `|S|^{−1} = q^{−2L}`". "This" now refers to the weight including the C-PM coin factor, which is
+  `c·|S|^{−1}`, not `|S|^{−1}`, when a coin is present.
+  - **Required edit (D1):** replace "Under μ-G this is `|S|^{−1} = q^{−2L}`, which is OA-1 D3 with
+    equality" with "Under μ-G, `ν(F^{−t_h} ω) = |S|^{−1} = q^{−2L}`, which is OA-1 D3 with
+    equality".
+  - Nothing else in the step changes.
+
+**Other changed text**
+
+- **Standing (a55:5–8): accurate.** "m1–m3 optional, all applied" is now true. "R1–R4 required,
+  O1–O5 optional" and "required edits and optional O1–O3 and O5 are applied here; those edits are
+  unreviewed" both match this review and the diff.
+- **Scope line (a55:12): accurate.** It is checked against #1265 above. It replaces the stale
+  "Nothing committed, pushed or posted".
+- **Status phrases: accurate; none says an edit is accepted that this review did not accept.**
+  - §4 lead-in (a55:544).
+  - Amendment 2 Independence (a55:598). The condition "once Theorem S has passed review" is
+    unchanged, and R1/D1 in step 1 keep it unmet.
+  - §5 tally (a55:639).
+  - §7 (a55:716–717).
+- **Change map r3, delta-review edits (a55:799–812): accurate.**
+  - "R2 … N4.1 second bullet": the edited text is the second sub-bullet of N4.1's herald-typing
+    bullet (a55:400–406). The locator is loose but findable; tightening it is optional.
+  - "O2 … §5 AW-OA3-2" is correct: AW-OA3-2 lies under §5 (a55:604–661).
+
+None of these changes alters an assumption, quantifier, effect class or conclusion.
+
+**No other difference.** All 10 hunks are accounted for above.
+
+**Layout (O4 class, optional).** a55:544, :639 and :716 exceed the file's line width. The O2 edit
+leaves a short line at a55:653 ("OA2:800–801). Under the").

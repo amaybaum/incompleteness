@@ -314,7 +314,7 @@ and `E` is a simplex. G1 and G3 fail.
      setting.
    - The value belonging to `ω` has subnormalized weight `ν(F^{−t_h} ω)`, times any external C-PM coin
      weight, `> 0` (after renormalizing on `π`'s herald, divided by `P(π's herald)`), for `ν` the initial
-     law (`S` finite). Only positivity is used. Under μ-G this is `|S|^{−1} = q^{−2L}`, which is OA-1 D3
+     law (`S` finite). Only positivity is used. Under μ-G, `ν(F^{−t_h} ω) = |S|^{−1} = q^{−2L}`, which is OA-1 D3
      with equality (OA1:152–156).
    - So every `δ_ω`, `ω ∈ U`, is a reachable preparation, and `W = ℝ^U`.
 2. **Complete effects.** By Lemma OBS(ii), the post-handoff `u`-history over
@@ -801,7 +801,7 @@ and the reviewer's checks.
 | Delta-review item | Applied |
 |---|---|
 | R1 C-PM coin weight in E1 | N3 proof step 1 |
-| R2 second m1 site | N4.1 second bullet |
+| R2 second m1 site | N4.1 herald-typing bullet, second sub-bullet |
 | R3 §7 (PT) wording | §7 Theorem S needs |
 | R4 gbit quotation and single-run caveat | Lemma OBS "Bearing on shape (a)" |
 | O1 §4 item 2 (PT-b) wording | §4 item 2 |
@@ -810,3 +810,4 @@ and the reviewer's checks.
 | O5 redundant "for the unheralded π" | N3 proof step 1 |
 | O4 rewrapping | not applied (layout only) |
 | Scope line (outside the gate) | Standing note "Scope" |
+| Recheck D1 (μ-G weight after R1 + O5) | N3 proof step 1 |
