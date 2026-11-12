@@ -2416,6 +2416,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Falsification commitments.** These tests concern the state..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **The geometry-first account.** The classical and emergent d..."
     },
     {
@@ -2465,6 +2469,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Chapter 7 (Gravitational Sector).* Predictions stratify acr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's Tier 1 results, and the conditional results ..."
     },
     {
       "ok": true,
