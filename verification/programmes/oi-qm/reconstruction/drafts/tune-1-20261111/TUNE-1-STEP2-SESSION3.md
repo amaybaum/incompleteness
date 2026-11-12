@@ -343,6 +343,14 @@ law, or the uniform product law on `ℤ^3`.
 | non-uniform product law | `𝓛_fin`, `exch` | `INCONCLUSIVE(L5.6)` | H-μ, H-write |
 | non-uniform product law | `𝓛_∞`, `exch` | `INCONCLUSIVE(L5.6)` | H-μ, H-∞, H-write |
 
+**Restriction F-S3-1** (`TUNE-1-STEP2-SESSION4.md` §1.6). Final B3 poses Q6′ only for
+`K ≥ L + 1`, so the four `FAIL-CLASS` tokens above, with `K₀ = 3`, hold for families with `L = 2`
+only. Each holds, with its qualifiers as stated, under the further restriction `L ≤ L₀` at
+`(1/50, L₀ + 1)`, for every `L₀ ≥ 2`. FC-1, FC-2 and "What the tokens establish" below are read
+with `K ≥ L + 1` and that restriction, as stated in Session 4 §1.6. Owner decisions: PR #1237
+comments 6825956102 (decision 2; `amaybaum`, 2026-11-12T14:12:24Z) and 6828820114 (decision 2;
+`amaybaum`, 2026-11-12T16:05:24Z).
+
 **R-nl** (choice 1(b), a separate verdict under H-nl) has not started. It is the next node.
 
 **What the tokens establish** (proposal section 2.3). Each `FAIL-CLASS` establishes only that its

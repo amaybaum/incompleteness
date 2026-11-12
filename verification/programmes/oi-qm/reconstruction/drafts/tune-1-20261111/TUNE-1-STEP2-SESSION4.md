@@ -322,7 +322,8 @@ not shown to be met by any family that also meets the other conditions.
 > recorded in the Session 4 record. The Session 3 file is not edited.
 
 **Corrected statement of Session 3's tokens** [W]. This record is the mutable record that carries
-the correction; `TUNE-1-STEP2-SESSION3.md` is not edited, and its §5 tokens, FC-1 and FC-2 are read
+the correction; `TUNE-1-STEP2-SESSION3.md` carries only a pointer to this section in its §5
+(PR #1237 comment 6828820114, `amaybaum`, 2026-11-12T16:05:24Z), and its §5 tokens, FC-1 and FC-2 are read
 as corrected here. Each token keeps its existing qualifiers and adds the restriction `L ≤ L₀`. Each
 holds at `(1/50, L₀ + 1)` for every `L₀ ≥ 2`; at `L₀ = 2` this is `(1/50, 3)`.
 
