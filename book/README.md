@@ -24,7 +24,7 @@ The book is organized into four parts following the framework's intellectual cas
 
 **Part II — Physics** (Chapters 5–9) develops the Standard Model derivation, the gravitational sector, the JUNO neutrino retrodiction as a focused case study, and the framework's relationship to string theory and other universality classes.
 
-**Part III — Emergence** (Chapters 10–12) traces the cascade from substratum to chemistry to biology to intelligence: the structural chain from $d = 3$ through orbital structure to organic chemistry, the origin of life as a structural prediction, and the existence question.
+**Part III — Emergence** (Chapters 10–12) traces the cascade from substratum to chemistry to biology to intelligence: the structural chain from $d = 3$ through orbital structure to organic chemistry, the conditions for heredity and evolution in a template replicator, and the existence question.
 
 **Part IV — Applications** (Chapters 13–19) develops the framework's empirical reach into working scientific fields: quantum biology, the BQP theorem as the framework's computational ceiling, engineered quantum systems, medicine and epigenetics, bioinformatics, the framework's forward predictions beyond QM and GR, and a systematic inventory against the major open problems of fundamental physics.
 
@@ -71,7 +71,7 @@ The full compiled manuscript:
 
 - [`ch10-chemistry.md`](ch10-chemistry.md) — **From Substratum to Chemistry.** The structural cascade through orbital structure $SO(3)$, the periodic table, carbon's tetrahedral bonding, the nuclear-atomic scale hierarchy, water's solvent properties, and the thermal window for dynamic chemistry. Closes with the viable parameter-space estimate (~16% of an 18-dimensional space supports complex chemistry).
 
-- [`ch11-origin-of-life.md`](ch11-origin-of-life.md) — **The Origin of Life.** The framework's structural prediction of the RNA world. RNA is identified as the unique molecular system simultaneously satisfying C1 (catalytic activity, ribozymes), C2 (template stability across replication cycles), C3 (sequence space of $\sim 4^N$ exceeding Kauffman and von Neumann thresholds by $\sim 10^{56}$ at biologically relevant $N$), and C4 (template-directed readback: the stored sequence controls subsequent catalysis and replication). Includes prebiotic chemistry pathways (Miller-Urey, hydrothermal vents, surface metabolism).
+- [`ch11-origin-of-life.md`](ch11-origin-of-life.md) — **The Origin of Life.** Heredity as C1–C4 memory in a replicator, and the RNA world as an empirically supported hypothesis. RNA serves as both template and catalyst in a single molecular species; in a replicator the four conditions take the forms C1 (catalytic activity, ribozymes), C2 (template stability across replication cycles), C3 (sequence space of $\sim 4^N$), and C4 (template-directed readback: the stored sequence controls subsequent catalysis and replication). Includes prebiotic chemistry pathways (Miller-Urey, hydrothermal vents, surface metabolism).
 
 - [`ch12-evolution-intelligence.md`](ch12-evolution-intelligence.md) — **Evolution, Intelligence, and Self-Reference.** The cascade through evolution to intelligence. Identifies evolution as a memory-bearing (non-Markovian) process at three scales — protein conformational landscape, epigenome, constructed ecological niche. Covers major evolutionary transitions (Maynard Smith-Szathmáry). Information processing follows from neural computation in C1–C4 architectures; semiconductor physics and universal computation follow downstream.
 
