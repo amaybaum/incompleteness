@@ -30,7 +30,7 @@ writes that restatement:
 It also fixes three readings: how errors after a herald are measured, how many rounds must follow a
 preparation, and how the compiled-simulator controls are scored. It names in advance the twelve
 controls the change must preserve, and adds the two that exposed the defect as new controls. A hand
-check shows that the real-quantum-theory model of Session 1 is now excluded. The controls are
+check shows that the real-quantum-theory model of Session 1 is excluded. The controls are
 rerun only after this amendment is reviewed, and the linear-rule analysis waits until that rerun
 has itself been reviewed.
 
