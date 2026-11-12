@@ -1248,6 +1248,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *B.3 Jordan-Chevalley structure of the ring evolution.* The ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *B.6 Gauge-theoretic derivations.* Two key gauge-theoretic r..."
     },
     {
@@ -1264,7 +1268,31 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## B.3 Jordan-Chevalley structure of the ring evolution..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This appendix derives the period and the Jordan-Chevalley de..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *In particular, on the branch of SM Theorem 5, $K = 6$ with ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Spectral data and visible laws.** Let $q$ be prime with $\\..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Since $N^2 = 0$, $F^t = F_{\\text{ss}}^t (I + tN)$. For $t \\i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Marginalization over the hidden sector does not remove $N$. ..."
     },
     {
       "ok": true,
@@ -1292,7 +1320,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Nothing in the framework fixes $\\tau_{BD}$. For a linear upd..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -1304,11 +1340,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: *Proof.* A component's value after $n$ updates depends only ..."
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
+      "predicate": "chapter line mirrored in FULL: *Proof.* A component's value after $n$ updates depends only ..."
     },
     {
       "ok": true,
@@ -1316,15 +1352,7 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
-    },
-    {
-      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Step 2: Deep-sector gauge equivalence.** A corollary of Le..."
-    },
-    {
-      "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -1405,6 +1433,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The reverse direction (necessity) is per-condition (Appendix..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: - B.3 establishes the period and the Jordan-Chevalley decomp..."
     },
     {
       "ok": true,
@@ -1649,6 +1681,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Part IV — Applications.** Chapters 13–19 develop the frame..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The book makes one foundational commitment — that observatio..."
     },
     {
       "ok": true,
@@ -3448,6 +3484,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Jordan-Chevalley decomposition.** The algebraic decomposit..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **JUNO (Jiangmen Underground Neutrino Observatory).** A reac..."
     },
     {
@@ -3504,7 +3544,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Appendix B (Mathematical Derivations).** Complete derivati..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Appendix C (Common Objections and Framework Responses).** ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: - **Appendix B §B.3** (Jordan-Chevalley structure of the rin..."
     },
     {
       "ok": true,
