@@ -2,7 +2,9 @@
 
 **WIP / UNVERIFIED research record.** Paper derivation only; no interpreter or numerical
 computation was run. No manuscript or Lean file is changed, no premise is adopted, and nothing is
-frozen, dispatched or merged. The results go to independent review and then ChatGPT review.
+frozen, dispatched or merged. An independent internal review (same model family) returned ACCEPT
+WITH CHANGES at `69a92592`; its required and minor items, and the owner decisions below, are
+applied here. The record goes to a focused internal re-check and then to ChatGPT review.
 
 **Authorization.** The owner authorized this work on PR #1237, comment 6824440978 (`amaybaum`,
 author association `OWNER`, 2026-11-12T13:06:41Z): "R-nl branch: 'Start after review
@@ -21,6 +23,10 @@ Q-conditions are Q1, Q2, Q3′, Q4, Q5′ and Q6′; `F(ε; 𝒯′)`, credited 
 the separation length `L` and constant `c₀` are as in the final amendment (B1). Labels are [K],
 [P], [R] and [W]. Every derivation here is [W] unless tagged otherwise.
 
+**Notation.** `L` always denotes the family's separation length (final B1.3 (ii), `L ≥ 2`). The
+side of a torus is written `L_tor`, and the torus is `Λ_{L_tor} = (ℤ/L_tor ℤ)^3` (the proposal's
+`Λ_L`, §1.2).
+
 **R-nl and H-nl, as frozen** (proposal §1.1, choice 1(b) recorded at M0 in Session 1):
 - **R-nl** is the rounded bijection of SM:294,
   `x(t+1) = ⌊(Σ_nn x(t) + 1)/3⌋ − x(t−1) mod q`, evaluated on the representatives `0, …, q − 1`.
@@ -36,9 +42,15 @@ the separation length `L` and constant `c₀` are as in the final amendment (B1)
 C-POS-2 rerun with G1 closed), and the L5 proves-too-much row is green (Session 3 §4). Any new
 negative argument of this session gets its own proves-too-much row (§4).
 
-**Effort bound.** Choice 10(a) fixed three writer sessions with reviews. This is the fourth. It
-runs under the owner's decision above, which authorized the R-nl branch after Session 3; the
-relation of that decision to choice 10(a) is listed for the owner in §7.
+**Effort bound.** Choice 10(a) fixed three writer sessions with reviews; this is the fourth. The
+owner extended choice 10(a) to it on PR #1237, comment 6825956102 (`amaybaum`, author association
+`OWNER`, 2026-11-12T14:12:24Z):
+
+> 1. Effort bound: "Extend 10(a) to cover it (Recommended)". This extends choice 10(a) to a fourth
+> writer session, for R-nl only. H1–H4 are then applied and the session goes to ChatGPT review.
+
+The tokens of §5 are therefore reported within the effort bound as extended. The same comment
+records owner decisions 2–4, quoted where they are applied (§1.6, §5.2 and §5.1 respectively).
 
 ***
 
@@ -72,8 +84,8 @@ better-than-coherence: a relabelling of an existing statement is recorded and no
 ### 1.1 Two lemmas used below
 
 **Lemma NA (R-nl is not affine)** [W].
-- *Statement.* For every `q ≥ 2`, on `Λ_L` with `L ≥ 3` and on `ℤ^3`, the map `g` is not additive,
-  and `Φ` is not affine.
+- *Statement.* For every `q ≥ 2`, on `Λ_{L_tor}` with `L_tor ≥ 3` and on `ℤ^3`, the map `g` is
+  not additive, and `Φ` is not affine.
 - *Proof.* Let `n₁ ≠ n₂` be two neighbours of a site `o`, and let `x = δ_{n₁}`, `x′ = δ_{n₂}` (value
   1 at one site, 0 elsewhere). Then `s_o(x) = s_o(x′) = 1` and `s_o(x + x′) = 2`. Since `h(1) = 0`
   and `h(2) = 1`, `g(x + x′)_o − g(x)_o − g(x′)_o = 1 ≠ 0 mod q`. Also `g(0) = h(0) = 0`, so
@@ -142,7 +154,7 @@ Every entry of T3 is at least `27/243 = 1/9`. In T2, every entry for `k = 3` wit
 `k = 4` with `a ≤ 2`, lies in `[1/8, 7/8]`.
 
 **W-nl-1 (record laws not coset-uniform)** [W]. Take initial-condition mode, `O = C = {o}`, `τ = 1`,
-and blocks at graph distance at least 3 from `o`, on `Λ_L` with `L ≥ 5` or on `ℤ^3`, under the
+and blocks at graph distance at least 3 from `o`, on `Λ_{L_tor}` with `L_tor ≥ 5` or on `ℤ^3`, under the
 uniform law.
 - For `q = 2`: `x_o(1) = h(S_6) − y_o(0)`, and `h(S_6)` is odd with probability `50/64 = 25/32`
   (T2). So `x_o(1)` takes one value with probability `25/32` and the other with `7/32`.
@@ -154,7 +166,7 @@ uniform law.
   so (c) fails at `q = 3` as well.
 
 **W-nl-2 (`q = 3`, initial-condition mode: the dichotomy fails)** [W].
-- *Interface.* `Λ_L` with `L ≥ 5`, or `ℤ^3`; `O = C = {o}`; `τ = 1`; the uniform law (uniform
+- *Interface.* `Λ_{L_tor}` with `L_tor ≥ 5`, or `ℤ^3`; `O = C = {o}`; `τ = 1`; the uniform law (uniform
   product law on `ℤ^3`); any fixed `r_O = (y_o(0), x_o(0))`. The layout puts `P_1 = {n₁}`, with
   `n₁ = o + e_1`, and `P_2 = {o + 2e_1 + 2e_2}` (graph distance 4 > `τ`), and the later blocks at
   graph distance at least 3 from `o`.
@@ -165,7 +177,7 @@ uniform law.
   1. The round-2 record is `O`'s configuration at tick 2, `(x_o(1), x_o(2))`.
   2. `x_o(2)` depends on `x_o(0)` and on `x_j(1)` for `j ∈ nn(o)`. These depend on `x(0)` at
      `nn(j)` and on `y_j(0)`. Every site involved lies within graph distance 2 of `o`, which
-     excludes every block but `P_1`. `L ≥ 5` makes these sites distinct.
+     excludes every block but `P_1`. `L_tor ≥ 5` makes these sites distinct.
   3. `x_o(1) = h(c + S) − y_o(0)`, where `c` is `P_1`'s current component and `S` is the sum over
      the five other neighbours of `o`, all unread and uniform, so `S ~ S_5`. By rows `a = 0, 1` of
      T3 the two laws of `x_o(1)` are `(27, 90, 126)/243` and `(51, 51, 141)/243`, up to the common
@@ -185,9 +197,11 @@ uniform law.
 **W-nl-3 (`q = 2`, initial-condition mode)** [W].
 - *A single label cell is hidden at one step.* By T2 (`k = 5`), `h(a + S_5)` is odd with
   probability `25/32` for both `a = 0` and `a = 1`. The map `S_5 ↦ 5 − S_5` sends `{2, 3, 4}` to
-  `{1, 2, 3}`. A witness at `q = 2` needs two label cells next to one read site.
-- *Interface.* `Λ_L` with `L ≥ 5`, or `ℤ^3`; `o′ = o − e_1 + e_2`; `O = C = {o, o′}`; `τ = 1`; the
-  uniform law. `P_1 = C + e_1 = {o + e_1, o + e_2}`. Both cells are neighbours of `o`, and
+  `{1, 2, 3}`. This round-2 witness uses two label cells next to one read site. Whether one label
+  cell suffices at `q = 2` is not decided: its value re-enters as `y_{n₁}(1)` and can reach `o` at
+  tick 3.
+- *Interface.* `Λ_{L_tor}` with `L_tor ≥ 5`, or `ℤ^3`; `o′ = o − e_1 + e_2`; `O = C = {o, o′}`;
+  `τ = 1`; the uniform law. `P_1 = C + e_1 = {o + e_1, o + e_2}`. Both cells are neighbours of `o`, and
   `o + e_2 = o′ + e_1` is also a neighbour of `o′`. The later blocks are at graph distance at least
   3 from `O`.
 - *Two label sequences.* They differ only in `P_1`'s current components: `(0, 0)` against
@@ -233,11 +247,15 @@ sites, with equal labels in both sequences. In initial-condition mode, the trans
 then lie at distance at least 5. The records of the added cells depend on time-0 variables
 disjoint from those of the witness. Under a product law their part of the record has the same law
 in both sequences and is independent of the witness part, so the total variation is unchanged.
-W-nl-2 and W-nl-4 therefore hold for every `|C| ≥ 1` at `q = 3`, and W-nl-3 for every `|C| ≥ 2` at
-`q = 2`, on tori large enough to hold them.
+Therefore, on tori large enough to hold them and on `ℤ^3`:
+- W-nl-2 holds for every `|C| ≥ 1` at `q = 3`, in initial-condition mode;
+- W-nl-4 holds for every `|C| ≥ 1` at `q = 3`, in exchange mode;
+- W-nl-3 holds for every `|C| ≥ 2` at `q = 2`, in initial-condition mode only.
 
-**For `q ≥ 4`** no witness was computed. The proof of Lemma A-T fails at every `q ≥ 2` (Lemma NA).
-Its conclusion is refuted at `q ∈ {2, 3}`, and is not decided for `q ≥ 4`.
+**Scope of the witnesses.** No witness was computed at `q = 2` in exchange mode, or at any
+`q ≥ 4`. The proof of Lemma A-T fails at every `q ≥ 2` (Lemma NA). Its conclusion (d) is refuted
+at `q = 3` in both modes and at `q = 2` in initial-condition mode, and is not decided at `q = 2` in
+exchange mode or at `q ≥ 4`.
 
 ### 1.4 Lemma I: steps 1–5 of FC-1, without the rule
 
@@ -274,8 +292,8 @@ not shown to be met by any family that also meets the other conditions.
 |---|---|---|---|
 | Lemma 0 | none (finite abelian groups) | holds, but has no input | §1.2 |
 | Lemma A-T (a), (b) | `Φ_F` is a group endomorphism (proof step 1) | fails at step 1 | Lemma NA |
-| Lemma A-T (c) | (a), (b) and Lemma 0 | conclusion false at `q ∈ {2, 3}` | W-nl-1, W-nl-2 |
-| Lemma A-T (d) | (c) | conclusion false at `q ∈ {2, 3}`, both modes | W-nl-2, -3, -4 |
+| Lemma A-T (c) | (a), (b) and Lemma 0 | conclusion false at `q ∈ {2, 3}`, initial-condition mode | W-nl-1, W-nl-2 |
+| Lemma A-T (d) | (c) | conclusion false at `q = 3`, both modes, and at `q = 2`, initial-condition mode; not decided at `q = 2`, exchange mode | W-nl-2, -3, -4 |
 | FC-1 steps 1–5 | none | hold | Lemma I |
 | FC-1 step 6, FC-2 | Lemma A-T (d) | not available | W-nl-2 to W-nl-4 |
 | L5.4–L5.6 (children) | defined by where (d) held | no counterpart (§2, NL.4) | — |
@@ -292,11 +310,41 @@ not shown to be met by any family that also meets the other conditions.
   other conditions are reported with that entry"). FC-1 then gives no failure at `K = 3`. Its proof
   does give a failure at every `K ≥ L + 1`.
 - A `FAIL-CLASS(𝓢)` needs one `K₀` for all of `𝓢` (proposal §2.1). The four `FAIL-CLASS` tokens of
-  Session 3 §5 therefore hold as stated for families with `L = 2`. For every `L₀ ≥ 2` they hold
-  with the further restriction `L ≤ L₀`, at `(1/50, L₀ + 1)`. `ε₀` is unaffected.
+  Session 3 §5 therefore hold as stated for families with `L = 2` only.
 - This does not change Session 3's verdict that no R-lin family of those subclasses meets the
-  target: each fails at `K = L + 1`, which a pass requires. It is listed for the owner (§7), and
-  Session 3's file is not edited. The same restriction is built into NL-C below.
+  target: each fails at `K = L + 1`, which a pass requires. The same restriction is built into
+  NL-C below.
+
+**Owner decision 2** (comment 6825956102, quoted in the header):
+
+> 2. F-S3-1: "Add L ≤ L₀ at K₀=L₀+1 (Recommended)". Session 3's four FAIL-CLASS tokens are
+> restated with the restriction L ≤ L₀ at (1/50, L₀+1), for every L₀ ≥ 2. The correction is
+> recorded in the Session 4 record. The Session 3 file is not edited.
+
+**Corrected statement of Session 3's tokens** [W]. This record is the mutable record that carries
+the correction; `TUNE-1-STEP2-SESSION3.md` is not edited, and its §5 tokens, FC-1 and FC-2 are read
+as corrected here. Each token keeps its existing qualifiers and adds the restriction `L ≤ L₀`. Each
+holds at `(1/50, L₀ + 1)` for every `L₀ ≥ 2`; at `L₀ = 2` this is `(1/50, 3)`.
+
+| Law | Carrier, mode | Corrected token | Hypotheses carried |
+|---|---|---|---|
+| uniform | `𝓛_fin`, `init` | `FAIL-CLASS(R-lin, 𝓛_fin, uniform law, init, Q6′ witnessed unheralded, L ≤ L₀)` at `(1/50, L₀ + 1)`, for every `L₀ ≥ 2` and every `q ≥ 2` | H-μ |
+| uniform product | `𝓛_∞`, `init` | `FAIL-CLASS(R-lin, 𝓛_∞, uniform product law, init, Q6′ witnessed unheralded, L ≤ L₀)` at `(1/50, L₀ + 1)`, for every `L₀ ≥ 2` | H-μ, H-∞ |
+| uniform | `𝓛_fin`, `exch` | `FAIL-CLASS(R-lin, 𝓛_fin, uniform law, exch, Q6′ witnessed non-adaptive and unheralded, L ≤ L₀)` at `(1/50, L₀ + 1)`, for every `L₀ ≥ 2` | H-μ, H-write |
+| uniform product | `𝓛_∞`, `exch` | `FAIL-CLASS(R-lin, 𝓛_∞, uniform product law, exch, Q6′ witnessed non-adaptive and unheralded, L ≤ L₀)` at `(1/50, L₀ + 1)`, for every `L₀ ≥ 2` | H-μ, H-∞, H-write |
+
+The theorem texts read as follows:
+- **FC-1:** no interface of any such family, at any resource, satisfies Q3′, Q5′ and Q6′ together
+  at any `ε < 1/48` and `K ≥ L + 1`, when Q6′ is witnessed by unheralded preparations. In its
+  proof, "`K ≥ 3`" reads "`K ≥ L + 1`"; step 1's witnesses then have length `≤ K − L ≤ K − 2`, and
+  steps 2–6 are unchanged.
+- **FC-2:** the same in exchange mode under H-write, with Q6′ witnessed by non-adaptive,
+  unheralded preparations, at any `ε < 1/48` and `K ≥ L + 1`.
+- **What the tokens establish** (Session 3 §5): each establishes only that its stated subclass,
+  restricted to `L ≤ L₀`, does not reach the target at `(1/50, L₀ + 1)`.
+
+`ε₀ = 1/50` is unaffected, and so are the `INCONCLUSIVE` rows of Session 3 §5. The NL-C rows of
+§5.2 bear on those rows.
 
 ***
 
@@ -306,28 +354,47 @@ The nodes are decided depth-first by the proposal's decision rule (§2.2), over 
 
 ### Node NL.1: transfer
 
-§1. **Verdict: proved [W].** Lemma A-T fails for R-nl at its first proof step, and its conclusions
-(c) and (d) are false at `q ∈ {2, 3}` in both modes. FC-1 and FC-2 do not transfer. Their
-rule-free part is Lemma I. Lemma F and exact U2(ii) transfer on `𝓛_fin`.
+§1. **Verdict: proved [W].** Lemma A-T fails for R-nl at its first proof step. Its conclusion (c)
+is false at `q ∈ {2, 3}` in initial-condition mode. Its conclusion (d) is false at `q = 3` in both
+modes and at `q = 2` in initial-condition mode. At `q = 2` in exchange mode, and at `q ≥ 4`, the
+conclusions are not decided. FC-1 and FC-2 do not transfer. Their rule-free part is Lemma I.
+Lemma F and exact U2(ii) transfer on `𝓛_fin`.
 
 ### Node NL.2: an obstruction for R-nl families?
 
-**NL.2.1: the exact dichotomy, over all interfaces.** It is refuted at `q ∈ {2, 3}` in both modes,
-for every `|C| ≥ 1` at `q = 3` and every `|C| ≥ 2` at `q = 2` (W-nl-2 to W-nl-4). **Verdict:
-refuted [W].** The route of FC-1 is closed for R-nl at these `q`, not merely unproved.
+**NL.2.1: the exact dichotomy, over all interfaces.** It is refuted at `q = 3` in both modes, for
+every `|C| ≥ 1` (W-nl-2, W-nl-4), and at `q = 2` in initial-condition mode, for every `|C| ≥ 2`
+(W-nl-3). **Verdict: refuted [W]** in these cases. The route of FC-1 is closed for R-nl there, not
+merely unproved. At `q = 2` in exchange mode, and at `q ≥ 4`, the exact dichotomy is not decided.
 
 **NL.2.2: a dichotomy restricted to witness pairs, or an approximate one.** FC-1 step 6 needs the
 dichotomy only for the padded witness pairs that a family meeting Q3′, Q5′ and Q6′ supplies.
 W-nl-2 to W-nl-4 use arbitrary label pairs. They do not show that such a family's witness pairs
 can be at intermediate distance.
-- *Reduction* [W]. Suppose that for some `δ < ¼`, every pair `P′_1, P′_2` of Lemma I has
-  `TV(W′_1, W′_2) ∉ (δ, 1 − δ)`. Then Lemma I's interval `[¼ − 8ε, ¾ + 12ε]` lies inside
-  `(δ, 1 − δ)` for `ε < (¼ − δ)/12`, which is a contradiction. That would give a `FAIL-CLASS` at
-  every `ε₀ < (¼ − δ)/12`.
+- *Reduction* [W]. Fix `q`, the law `λ`, the mode `m` and the carrier `𝓛`. Suppose that for some
+  `δ ∈ [0, ¼)` the following holds: for every family of (R-nl, `𝓛`, `λ`, `m`), with its separation
+  length `L`, every member, every `ε < (¼ − δ)/12` and every `K ≥ L + 1`, every interface that
+  meets Q3′, Q5′ and Q6′ at `(ε, K)` for a declared target with reads `a, b`, `a·b ∈ [−½, ½]`,
+  and every pair `P_1, P_2` of admissible Q6′(i) witnesses for `ψ_1 = a` and `ψ_2 = b` (heralded or
+  not, adaptive or not), the padded pair `P′_1, P′_2` of Lemma I has `TV(W′_1, W′_2) ∉ (δ, 1 − δ)`.
+  For such `ε`, `¼ − 8ε > δ` and `¾ + 12ε < 1 − δ`, so Lemma I places the total variation inside
+  `(δ, 1 − δ)`, which is a contradiction. For every `L₀ ≥ 2`, a family with `L ≤ L₀` has
+  `K₀ = L₀ + 1 ≥ L + 1`, so this would give
+  `FAIL-CLASS(R-nl, 𝓛, λ, m, L ≤ L₀)` at `(ε₀, L₀ + 1)` for every `ε₀ < (¼ − δ)/12`.
 - *Constraint on any proof.* The unrestricted form, over all equal-length pairs followed by a
-  common round, is false at `q = 3` for `δ < 13/81`. W-nl-2 has
-  `min(TV, 1 − TV) ≥ min(39, 68)/243 = 13/81`, and holds at every `|C| ≥ 1`. A proof with
-  `δ < 13/81` must therefore use the Q-conditions on the pair, not R-nl's structure alone.
+  common round rather than witness pairs only, is false in the following cases, since each witness
+  has `min(TV, 1 − TV)` at least the stated constant:
+
+  | `q` | Mode | Witness | `TV` interval | Form false for |
+  |---|---|---|---|---|
+  | 3 | initial-condition | W-nl-2, every `|C| ≥ 1` | `[39/243, 175/243]` | `δ < 13/81` |
+  | 3 | exchange (H-write) | W-nl-4, every `|C| ≥ 1` | `[13/81, 661/729]` | `δ < 68/729` |
+  | 2 | initial-condition | W-nl-3, every `|C| ≥ 2` | `[3/16, 1011/1024]` | `δ < 13/1024` |
+  | 2 | exchange | none computed | — | not decided |
+  | `≥ 4` | either | none computed | — | not decided |
+
+  A proof with `δ` below the stated constant must therefore use the Q-conditions on the pair, not
+  R-nl's structure alone.
 - A proof must also use a property of R-nl that some reversible rule with an unread uniform
   environment lacks. In particular, it must lack it under the rule `F_U` that C-PROG stipulates in
   second-order form, whose row takes Q0–Q6 from Main:582's controller at the stated `(ε, K)`. A
@@ -358,8 +425,9 @@ can be at intermediate distance.
   Q6′(i) fails at every `ε < ε_C(c) := sin(π/(q^{2c} + 1))/8` and every `K ≥ L + 1`, whatever its
   witnesses (heralded or not, adaptive or not). Hence no member of a family with
   `sup_n |C_n| ≤ c` and `L ≤ L₀` satisfies Q6′ at `(ε₀, L₀ + 1)` for any `ε₀ < ε_C(c)`.
-- *Proof.* This is C-CARD (a)'s argument (final B6.1 item 10; Session 2 §2.5), re-derived without
-  fixing `L`.
+- *Proof.* This is C-CARD (a)'s argument (final B6.1 item 10; Session 2 §2.5), re-derived for a
+  control region of bounded size, on any torus side `L_tor`, on `ℤ^3` and at any separation
+  length `L`.
   1. The menu `(V × V)^C` has `M = q^{2|C|} ≤ q^{2c}` labels. In both modes every label, gate
      labels included, is an element of it. In initial-condition mode a label is the content of a
      block, which is a translate of `C`.
@@ -383,11 +451,13 @@ can be at intermediate distance.
   - the declared target's gate family over every `θ` and its Lüders reads with `a·b ∈ [−½, ½]`
     (final B1.1);
   - Q6′(i) with its credit on `𝒯_L`;
-  - the finite menu.
+  - the finite menu;
+  - that an identified test's labels do not depend on the preparation's records (final B1.1).
 - *What it does not use:* the rule, the law, the carrier, adaptivity, heralds, Q1, Q2, Q3′, Q4,
   Q6′(ii) or the resource count.
 - *Relation to C-CARD (a).* C-CARD (a) is stated for one fixed finite world, and is the special case
-  `|C| ≤ L³`. NL-C needs only a bounded `C`. It holds at every `L` and on `𝓛_∞`, so an infinite
+  `|C| ≤ L_tor³`. NL-C needs only a bounded `C`. It holds at every torus side `L_tor`, at every
+  separation length `L` (with `K ≥ L + 1`) and on `𝓛_∞`, so an infinite
   carrier does not remove the obstruction for a bounded control region. No control row changes.
 
 **Corollary NL-C′ (explicit growth of the control region)** [W].
@@ -444,7 +514,7 @@ Session 3 §3 re-derived Lemma F and exact U2(ii) under these hypotheses:
 - an injective orthogonal frame identification.
 
 None of these concerns the form of `F`. R-nl is a bijection (proposal §1.1 [W]: `(x, z) ↦ (g(x) − z, x)`
-inverts it), and on `Λ_L` the configuration set is finite. Hence:
+inverts it), and on `Λ_{L_tor}` the configuration set is finite. Hence:
 - Lemma F and exact U2(ii) hold for R-nl on `𝓛_fin`;
 - L4(a) holds in its exact form for R-nl on `𝓛_fin`.
 
@@ -458,7 +528,13 @@ form of L4(a) stays open, as in Session 3. No token depends on it.
 **NL-C.** The properties it uses:
 - (C1) the gate labels are drawn from a menu of at most `M` labels, with `M` bounded on the
   subclass;
-- (C2) Q6′(i) credit on gate-then-read tests of the declared target.
+- (C2) Q6′(i) credit on gate-then-read tests of the declared target;
+- (C3) the declared target has a gate label for every `θ`, and Lüders reads `a, b` with
+  `a·b ∈ [−½, ½]` (final B1.1);
+- (C4) an identified test's labels do not depend on the preparation's records (final B1.1).
+
+(C3) and (C4) are part of the frozen definitions and hold in every case below; the cases differ in
+(C1) and (C2).
 
 | Case | Do (C1) and (C2) hold? | Does the conclusion contradict the stated classification? | Applies? |
 |---|---|---|---|
@@ -468,7 +544,7 @@ form of L4(a) stays open, as in Session 3. No token depends on it.
 
 The row is **green**. Lemma I is not a negative argument and concludes nothing against any case.
 W-nl-1 to W-nl-4 are instances. The L5 row of Session 3 §4 is unchanged and green. Its third-case
-entry, "(L-1) fails for nonlinear members", now has an explicit member: R-nl at `q ∈ {2, 3}`
+entry, "(L-1) fails for nonlinear members", has an explicit member: R-nl at `q ∈ {2, 3}`
 (W-nl-1).
 
 ***
@@ -480,8 +556,8 @@ entry, "(L-1) fails for nonlinear members", now has an explicit member: R-nl at 
 - the L5 row (Session 3 §4);
 - the NL-C row (§4).
 
-No row relied on as established has status other than `proved`. H-nl is carried by every token
-below.
+No row relied on as established has status other than `proved`. H-nl is carried by every R-nl
+token below. The session is within choice 10(a) as extended by owner decision 1 (header).
 
 **Step 2.** No `PASS-DERIVED` family is proved.
 
@@ -492,7 +568,10 @@ The `FAIL-CLASS` rows have the form
 `FAIL-CLASS(R-nl, 𝓛, λ, m, sup_n |C_n| ≤ c, L ≤ L₀)`, at `(ε₀, L₀ + 1)` for every
 `ε₀ < sin(π/(q^{2c} + 1))/8`, every `c ≥ 1`, every `L₀ ≥ 2` and every `q ≥ 2`. Q6′ may be witnessed
 in any admissible way. The restriction is on the family (its control region and separation length),
-not on the witnesses. The rows are written `FC-nl(𝓛, λ, m)` below.
+not on the witnesses. The rows are written `FC-nl(𝓛, λ, m)` below. Each family with bounded
+`|C_n|` lies in one of these subclasses (take `c = sup_n |C_n|` and `L₀ = L`), so the part of each
+family class that `INCONCLUSIVE(NL-A; NL-P)` leaves undecided is the families with
+`sup_n |C_n| = ∞`.
 
 | Law (choice 6(i)(c)) | Carrier, mode | Tokens | Hypotheses carried |
 |---|---|---|---|
@@ -510,36 +589,99 @@ not on the witnesses. The rows are written `FC-nl(𝓛, λ, m)` below.
 NL-C uses neither the law nor the rule. The hypotheses are carried because each token names R-nl
 and its law, as proposal §2.1 requires.
 
-**The gaps.**
+### 5.1 The gaps
+
 - **NL-A (obstruction).** "For R-nl at fixed `q`, under the law `λ`, in mode `m`, on `𝓛`: is there
-  `δ < ¼` such that, for every interface meeting Q3′, Q5′ and Q6′ at `ε`, the padded witness pairs
-  of Lemma I have `TV(W′_1, W′_2) ∉ (δ, 1 − δ)`?" A yes gives `FAIL-CLASS` at every
-  `ε₀ < (¼ − δ)/12` (NL.2.2). At `q = 3` the form over all pairs is false for `δ < 13/81`. At
-  `q ≥ 4` the exact form is not decided.
+  `δ ∈ [0, ¼)` such that, for every family with separation length `L`, every member, every
+  `ε < (¼ − δ)/12` and every `K ≥ L + 1`, every interface meeting Q3′, Q5′ and Q6′ at `(ε, K)`,
+  and every pair of admissible Q6′(i) witnesses for `a` and `b` (heralded or not, adaptive or not),
+  the padded pair of Lemma I has `TV(W′_1, W′_2) ∉ (δ, 1 − δ)`?" A yes gives, for every `L₀ ≥ 2`,
+  `FAIL-CLASS(R-nl, 𝓛, λ, m, L ≤ L₀)` at `(ε₀, L₀ + 1)` for every `ε₀ < (¼ − δ)/12` (NL.2.2).
+  The form over all equal-length pairs followed by a common round is false for `δ < 13/81` at
+  `q = 3` in initial-condition mode (W-nl-2), for `δ < 68/729` at `q = 3` in exchange mode
+  (W-nl-4) and for `δ < 13/1024` at `q = 2` in initial-condition mode (W-nl-3). At `q = 2` in
+  exchange mode, and at `q ≥ 4`, it is not decided.
 - **NL-P (construction).** "Exhibit an R-nl family in `𝕀_D` with Q0–Q6 (amended) and D1–D7
   proved, with explicit `N(ε, K)` and `G(ε, K)`." Its necessary conditions are listed in NL.3.
+
+**Owner decision 4** (comment 6825956102, quoted in the header):
+
+> 4. NL-A / NL-P: "[No preference]". No further work on these gaps is authorized, so they stay
+> `INCONCLUSIVE`.
+
+Both gaps therefore stay open, and the R-nl family classes stay `INCONCLUSIVE(NL-A; NL-P)` for
+families with `sup_n |C_n| = ∞`.
 
 **What the tokens establish** (proposal §2.3). Each `FAIL-CLASS` row establishes only that R-nl
 families with a bounded control region and bounded separation length do not reach the target at the
 stated `(ε₀, K₀)`. The argument is rule-independent, so the rows say nothing specific to R-nl. They
 are not a no-go for:
-- R-nl families with growing `|C_n|`;
-- R-lin;
+- R-nl families with unbounded `|C_n|`;
+- R-lin (its own NL-C rows are the separate tokens of §5.2);
 - other rules;
 - OI generally.
 
 Every R-nl statement carries H-nl. H-nl is not adopted, and a statement about R-nl is a statement
 about a rule `main` does not posit (proposal §6, choice 1(c)). Every result here is a paper
-derivation [W] awaiting review; nothing is kernel-checked.
+derivation [W] awaiting ChatGPT review; nothing is kernel-checked.
+
+### 5.2 NL-C rows for R-lin
+
+**Owner decision 3** (comment 6825956102, quoted in the header):
+
+> 3. NL-C rows for R-lin: "Enter them (Recommended)". They are added to the R-lin table at this
+> record update, under the frozen §2.2 step 3 reporting rule.
+
+NL-C uses no property of the rule or the law, so it applies to R-lin as it stands. The rows below
+are **rule-independent**: they say nothing specific to R-lin, and they do not use Lemma A-T. They
+extend the R-lin table of Session 3 §5, as corrected in §1.6; they do not replace any row of it.
+H-nl is not carried, since the rule is R-lin.
+
+Every row has the form
+`FAIL-CLASS(R-lin, 𝓛, λ, m, sup_n |C_n| ≤ c, L ≤ L₀)`, at `(ε₀, L₀ + 1)` for every
+`ε₀ < sin(π/(q^{2c} + 1))/8`, every `c ≥ 1`, every `L₀ ≥ 2` and every `q ≥ 2`, written
+`FC-lin-C(𝓛, λ, m)` below.
+- *Hypotheses of NL-C:* a declared target with a gate label for every `θ` and Lüders reads `a, b`
+  with `a·b ∈ [−½, ½]`; Q6′(i) with its credit on `𝒯_L`; the finite menu `(V × V)^C` with
+  `|C| ≤ c`; identified tests whose labels do not depend on the preparation's records; `K ≥ L + 1`.
+- *Witness types:* any admissible Q6′(i) witness: heralded or unheralded, and in exchange mode
+  adaptive or non-adaptive. The restriction is on the family (control region and separation
+  length), not on the witnesses.
+
+| Law (choice 6(i)(c)) | Carrier, mode | Token | Session 3 row it bears on | Hypotheses carried |
+|---|---|---|---|---|
+| uniform | `𝓛_fin`, `init` | `FC-lin-C(𝓛_fin, uniform law, init)` | `INCONCLUSIVE(L5.4)` | H-μ |
+| uniform product | `𝓛_∞`, `init` | `FC-lin-C(𝓛_∞, uniform product law, init)` | `INCONCLUSIVE(L5.4)` | H-μ, H-∞ |
+| uniform | `𝓛_fin`, `exch` | `FC-lin-C(𝓛_fin, uniform law, exch)` | `INCONCLUSIVE(L5.4; L5.5)` | H-μ, H-write |
+| uniform product | `𝓛_∞`, `exch` | `FC-lin-C(𝓛_∞, uniform product law, exch)` | `INCONCLUSIVE(L5.4; L5.5)` | H-μ, H-∞, H-write |
+| level-set law | `𝓛_fin`, `exch` | `FC-lin-C(𝓛_fin, level-set law, exch)` | `INCONCLUSIVE(L5.6)` | H-μ, H-write |
+| level-set law | `init`; `𝓛_∞` | not defined (choice 6(iii)) | — | — |
+| non-uniform product | `𝓛_fin`, `init` | `FC-lin-C(𝓛_fin, non-uniform product law, init)` | `INCONCLUSIVE(L5.6)` | H-μ |
+| non-uniform product | `𝓛_∞`, `init` | `FC-lin-C(𝓛_∞, non-uniform product law, init)` | `INCONCLUSIVE(L5.6)` | H-μ, H-∞ |
+| non-uniform product | `𝓛_fin`, `exch` | `FC-lin-C(𝓛_fin, non-uniform product law, exch)` | `INCONCLUSIVE(L5.6)` | H-μ, H-write |
+| non-uniform product | `𝓛_∞`, `exch` | `FC-lin-C(𝓛_∞, non-uniform product law, exch)` | `INCONCLUSIVE(L5.6)` | H-μ, H-∞, H-write |
+
+The hypotheses are carried because each token names R-lin's law, as in Session 3 §5; NL-C itself
+does not use them.
+
+**Effect on the `INCONCLUSIVE` rows.** Each family with bounded `|C_n|` lies in one of these
+subclasses (take `c = sup_n |C_n|` and `L₀ = L`). The rows therefore settle the bounded-control-region
+part of each family class named in the fourth column, for every kind of witness, including the
+heralded witnesses of L5.4, the adaptive witnesses of L5.5 and the non-coset laws of L5.6. They do
+not close L5.4, L5.5 or L5.6: those gaps remain open for families with `sup_n |C_n| = ∞`, and
+the family classes stay `INCONCLUSIVE(L5.4)`, `INCONCLUSIVE(L5.4; L5.5)` and `INCONCLUSIVE(L5.6)`,
+narrowed to those families. No work on L5.4 or L5.5 was done (owner decision of c.6824440978).
 
 ***
 
 ## 6. Pressure test (§A.31)
 
 - **Favourable branch 1: "R-nl escapes the R-lin obstruction."**
-  - Only the exact dichotomy over all interfaces is refuted (NL.2.1).
-  - The dichotomy restricted to witness pairs, and approximate forms with `δ ≥ 13/81`, are open
-    (NL-A).
+  - Only the exact dichotomy over all interfaces is refuted (NL.2.1), and only at `q = 3` in both
+    modes and at `q = 2` in initial-condition mode.
+  - The dichotomy restricted to witness pairs is open. So are the approximate forms with `δ` at or
+    above the case constants of NL.2.2 (`13/81`, `68/729`, `13/1024`), and every form at `q = 2`
+    in exchange mode and at `q ≥ 4` (NL-A).
   - The witnesses are single rounds on regions of one or two cells. They say nothing about Q2–Q6,
     and they are not evidence that any R-nl family meets the target.
   - SM's chaos diagnostics are not used. They are numerical evidence, not premises (proposal §1.1).
@@ -558,12 +700,14 @@ derivation [W] awaiting review; nothing is kernel-checked.
   - The NL-C row (§4) is green.
 - **F-S3-1, checked.** Final B3 states that for `K < L + 1` "Q6′ is entered as 'not posed', and the
   other conditions are reported with that entry". It does not count "not posed" as failed, and FC-1
-  needs Q6′(i) witnesses. The finding stands unless the owner reads B3 otherwise.
+  needs Q6′(i) witnesses. The finding stands, and the owner adopted the restatement of §1.6
+  (decision 2).
 - **Exactness.** Every probability in T2, T3 and W-nl-1 to W-nl-4 is an exact rational count,
   checked against its total (16, 32, 64, 8, 243). The only approximate values are in the
   illustration of NL-C′, marked `≈`, and no claim rests on them.
-- **Small tori.** Lemma NA uses `L ≥ 3` and the witnesses use `L ≥ 5`, so that neighbours are
-  distinct. Families at growing `L` are not affected. No statement here is made for `L ≤ 2`.
+- **Small tori.** Lemma NA uses `L_tor ≥ 3` and the witnesses use `L_tor ≥ 5`, so that neighbours
+  are distinct. Families at growing `L_tor` are not affected. No statement here is made for
+  `L_tor ≤ 2`.
 
 **Output classification** (§A.31).
 - F-S3-1: NEW. It is a hidden assumption in Session 3's `K₀`. Assumption-watch marker: any
@@ -576,43 +720,38 @@ derivation [W] awaiting review; nothing is kernel-checked.
 - Lemma M: CONFIRMING. It locates where linearity enters.
 - Lemma S, and the hiding of a single label cell at `q = 2`: BORDERLINE, recorded only.
 
-**Productivity verdict (§0): gem.** NL-C and NL-C′ constrain every R-nl family (§0 (a)). F-S3-1
-exposes a hidden assumption (§0 (b)). Both are strictly stronger than the restatement fixed in §0.
+**Productivity verdict (§0): gem.** The verdict rests mainly on F-S3-1 (NEW), which exposes a
+hidden assumption in Session 3's `K₀` (§0 (b)). NL-C and NL-C′ meet §0 (a) only as a
+rule-independent elaboration: they constrain every R-nl family, but they re-read C-CARD (a), whose
+constant already depends only on `|C|`. Both are strictly stronger than the restatement fixed in
+§0.
 
 ***
 
 ## 7. Remaining work, and owner questions
 
 **Remaining work:**
-- independent review of §§1–6, then ChatGPT review;
-- gaps NL-A and NL-P, if the owner wants them pursued.
+- a focused internal re-check of the changes applied after the independent review, then ChatGPT
+  review.
 
-**Owner questions:**
-1. **Effort bound.** This is the fourth writer session. Choice 10(a) fixed three. The owner's
-   decision of c.6824440978 authorized it. Should that decision be recorded as extending choice
-   10(a) for R-nl? And after review, should NL-A and NL-P be pursued, on paper or by the separately
-   authorized exact computation named in proposal §4 (last paragraph), or left as
-   `INCONCLUSIVE`?
-2. **F-S3-1.** Session 3's four `FAIL-CLASS` tokens state `K₀ = 3`, which holds for `L = 2` only.
-   Options:
-   - (a) restate each with the further restriction `L ≤ L₀`, at `(1/50, L₀ + 1)`, for every
-     `L₀ ≥ 2`, matching NL-C's form here (Recommended);
-   - (b) restrict each to `L = 2`, at `(1/50, 3)`;
-   - (c) read "not posed" as failed, which would be a definition change.
-3. **NL-C for R-lin.** NL-C is rule-independent. It gives `FAIL-CLASS` rows for R-lin's subclasses
-   with bounded `|C_n|` and `L`, under every law and for every kind of witness. These rows bear on
-   R-lin family classes that Session 3 left `INCONCLUSIVE(L5.4)`, `(L5.5)` and `(L5.6)`, and they
-   need no work on L5.4 or L5.5. Proposal §2.2 step 3 reports every `FAIL-CLASS` proved for a
-   proper subclass. Options:
-   - (a) enter them in the R-lin table at the next record update (Recommended);
-   - (b) leave the R-lin table as it is.
+No further work on NL-A or NL-P is authorized (decision 4).
+
+**Owner questions: all answered** (comment 6825956102, `amaybaum`, 2026-11-12T14:12:24Z).
+
+| Question | Decision | Applied in |
+|---|---|---|
+| 1. Effort bound: is choice 10(a) extended to this fourth writer session? | "Extend 10(a) to cover it (Recommended)": extended to a fourth writer session, for R-nl only | header; §5 step 1 |
+| 2. F-S3-1: how are Session 3's four `FAIL-CLASS` tokens restated? | "Add L ≤ L₀ at K₀=L₀+1 (Recommended)": the restriction `L ≤ L₀` at `(1/50, L₀ + 1)`, for every `L₀ ≥ 2`, recorded here; Session 3 not edited | §1.6 |
+| 3. NL-C rows for R-lin: enter them? | "Enter them (Recommended)" | §5.2 |
+| 4. NL-A and NL-P: pursue them? | "[No preference]": no further work is authorized, so they stay `INCONCLUSIVE` | §5.1 |
 
 ***
 
 ## 8. Disclosure
 
 - **Commands:** `git` (worktree list, branch, status, fetch, log, show, diff, add, commit, push),
-  `gh api` (reads of the PR #1237 reviews and of comment 6824440978), `cat`, `sed`, `grep`, `cut`,
+  `gh api` (reads of the PR #1237 reviews and of comments 6824440978 and 6825956102), `cat`,
+  `sed`, `grep`, `cut`,
   `wc`, `ls`, `df`, `sha256sum`. No interpreter was run, and all arithmetic was done by hand.
 - **Read:**
   - the proposal (in full);
@@ -622,5 +761,6 @@ exposes a hidden assumption (§0 (b)). Both are strictly stronger than the resta
   - the C-POS-2 rerun §§0–2;
   - Session 3 (in full);
   - ChatGPT reviews 5874583745 and 5875006206;
-  - owner comment 6824440978;
+  - owner comments 6824440978 and 6825956102;
+  - the independent internal review of this session at `69a92592`;
   - `papers/SM.md`:294 and :296 at the Step 1 pin `cac5d264`.
