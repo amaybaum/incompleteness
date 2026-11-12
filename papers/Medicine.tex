@@ -238,17 +238,17 @@ the analysis to epigenetic regulation, identifying the chromatin state
 as the biological hidden sector with a hierarchical memory architecture
 spanning minutes (histone acetylation) to generations (DNA methylation),
 and further upward through synaptic, circuit, systems, and cortical
-layers in the nervous system. The framework's central derivations ---
-the necessarily reconstructive nature of memory access, the structural
-requirement of finite \(\tau_B\) at every layer for functional dynamics,
-and the layer-specific reconsolidation window --- provide unified
-accounts of phenomena previously treated as contingent features of
-biological memory. Twenty-nine main testable predictions (with three
-additional layer-specific PTSD/LIFU sub-predictions in
-neurodegeneration) are presented, each distinguishing the non-Markovian
-framework from standard Markovian pharmacology. Several predictions are
-already supported by existing data; the remainder are experimentally
-accessible with current techniques.
+layers in the nervous system. The layered architecture also organizes
+reconstructive memory access, layer-matched finite \(\tau_B\) and
+layer-specific reconsolidation windows; these are biological hypotheses
+resting on their own evidence, not consequences of C1--C4, which neither
+require nor forbid read-induced disturbance or finite forgetting.
+Twenty-nine main testable predictions (with three additional
+layer-specific PTSD/LIFU sub-predictions in neurodegeneration) are
+presented, each distinguishing the non-Markovian framework from standard
+Markovian pharmacology. Several predictions are already supported by
+existing data; the remainder are experimentally accessible with current
+techniques.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -348,8 +348,8 @@ non-Markovian, with P-indivisibility, on a common window with a
 full-support visible prior, the stronger diagnostic --- so that
 transition probabilities at time \(t\) depend on the system's history,
 stored in the hidden sector's state and returned through the coupling.
-The strength of the history-dependence is controlled by
-\(\tau_S / \tau_B\) --- the ratio of fast to slow timescales.
+The ratio \(\tau_S / \tau_B\) of fast to slow timescales sets how long
+the record is retained, not how large the history-dependence is (§2.2).
 
 The biological relevance is immediate. Enzymes, kinases, ion channels,
 and receptors are composed of a fast catalytic domain coupled to slow
@@ -414,13 +414,17 @@ to days --- far longer than the kinase cascade that wrote them.
 \hypertarget{the-key-parameter}{%
 \subsubsection{2.2 The key parameter}\label{the-key-parameter}}
 
-The strength of the non-Markovian correction is set by
-\(\tau_S / \tau_B\). When this ratio is very small (e.g., \(10^{-12}\)
-for enzyme active site electronics vs.~scaffold motions), the correction
-per event is tiny but accumulates. When the ratio approaches 1 (e.g.,
-for allosteric sites where regulatory dynamics is comparable to the
-catalytic cycle), non-Markovian effects dominate and Markovian models
-give qualitatively wrong predictions.
+The ratio \(\tau_S / \tau_B\) sets how long a written record survives,
+not how large its effect is. Under uniform erosion of the hidden record
+it fixes the loss per event, of order \(\tau_S / \tau_B\), and a
+retention window of order \(\tau_B / \tau_S\) events {[}1, §2.3{]}. The
+size of the history-dependence is set by how strongly the coupling
+writes the record and reads it back, bounded by capacity. When the ratio
+is very small (e.g., \(10^{-12}\) for enzyme active site electronics
+vs.~scaffold motions), the record persists across very many events. When
+the ratio approaches 1 (e.g., for allosteric sites where regulatory
+dynamics is comparable to the catalytic cycle), the record decays within
+a few events, and history-dependence is confined to short lags.
 
 The memory hierarchy spans many decades of timescale. At the molecular
 level:
@@ -500,20 +504,24 @@ disease-specific than the target (catalytic activity).
 \subsubsection{2.4 Reconstructive consequences of memory
 access}\label{reconstructive-consequences-of-memory-access}}
 
-A direct consequence of the framework's core mechanism: \emph{every act
-of accessing a memory necessarily alters the substrate that stores it.}
-Observation of a coupled hidden sector cannot be passive --- the
-visible-sector readout requires interaction with the hidden sector, and
-this interaction back-acts on the hidden state. The re-stored trace is
-therefore a function of both the original hidden state and the present
-visible-sector context at the moment of access.
+C1--C4 do not by themselves make memory access disturb the stored
+record. Readback requires that the hidden state influence the visible
+transition (C1); it does not require the visible sector to act back on
+the hidden state. In the bijection \((v,h)\mapsto(v\oplus h,\,h)\) on
+two bits, C1--C4 hold, every step reads the hidden bit, and the hidden
+bit never changes {[}1, §3.4{]}. In the biological realizations
+considered here the coupling is bidirectional (§1). Under that premise,
+wherever the hidden update at an access step depends on the visible
+state, the re-stored trace is a function of both the original hidden
+state and the visible-sector context at the moment of access.
 
-This is the framework's derivation of the \emph{reconstructive nature of
-recall} --- a phenomenon long established in cognitive science but
-typically treated as a contingent feature of biological memory. The
-framework makes it structural: any C1--C4 memory system must exhibit
-constructive re-storage on access. Pure address-store memory (where
-access leaves the substrate unchanged) is incompatible with C1--C4.
+This conditional connects the architecture to the \emph{reconstructive
+nature of recall}, a phenomenon long established in cognitive science,
+without deriving it: pure address-store memory, where access leaves the
+substrate unchanged, is compatible with C1--C4, as the example above
+shows. That biological recall is reconstructive is an empirical finding,
+and the bidirectional coupling it presupposes is a premise about the
+biological realization.
 
 \textbf{Clinical consequence: the reconsolidation paradigm.} When a
 memory is recalled, the recalled trace becomes labile and must be
@@ -532,16 +540,21 @@ rewrite the memory at that layer without affecting memories already
 consolidated to slower layers. The selectivity is not coincidental ---
 it follows from the layered architecture of §2.2.
 
-\hypertarget{forgetting-as-functional-necessity}{%
-\subsubsection{2.5 Forgetting as functional
-necessity}\label{forgetting-as-functional-necessity}}
+\hypertarget{forgetting-and-finite-capacity}{%
+\subsubsection{2.5 Forgetting and finite
+capacity}\label{forgetting-and-finite-capacity}}
 
-Standard accounts treat forgetting as a failure of memory. The framework
-reframes it: \emph{finite \(\tau_B\) at every layer is structurally
-required.} A system with infinite \(\tau_B\) at every layer would be
-unable to discriminate present from past --- it would have no temporal
-structure, no ``now,'' no capacity to register change. Such a system is
-not a memory device; it is a frozen state.
+Standard accounts treat forgetting as a failure of memory. C1--C4 do not
+require forgetting: they bound persistence from below, and a hidden
+sector with infinite \(\tau_B\) can satisfy them while the visible
+record keeps changing, as in the example of §2.4. A weaker statement
+holds for any finite register. If \(U_1, \ldots, U_n\) are independent
+inputs and \(H\) is a hidden register with state space
+\(\mathcal{C}_H\), then \(\sum_i I(U_i; H) \leq \log_2|\mathcal{C}_H|\),
+so a finite register cannot retain an unbounded stream of independent
+inputs: on average it forgets or fails to encode them. Finite,
+layer-matched \(\tau_B\) is a hypothesis about how biological memory
+meets that constraint, not a requirement of C1--C4.
 
 The brain operates in the parameter regime where each layer's \(\tau_B\)
 is matched to that layer's functional role. Pattern separation requires
@@ -756,8 +769,9 @@ dynamics (intrusive re-experiencing, hyperarousal).
 
 The clinical efficacy of the reconsolidation paradigm --- recalling a
 traumatic memory under propranolol blockade reduces its later emotional
-valence --- is directly framework-predicted (§2.4). The mechanism is
-structural: recall opens the memory to obligatory re-storage, and
+valence --- is consistent with the conditional of §2.4, given
+bidirectional coupling at recall; the evidence for it is clinical. The
+proposed mechanism: recall opens the memory to re-storage, and
 pharmacologically blocking the noradrenergic re-encoding selectively
 erases the emotional content while preserving the declarative trace.
 
@@ -2017,4 +2031,4 @@ replication control,'' \emph{PNAS} \textbf{105}, 20752 (2008).
 Biology,'' companion paper (2026).
 
 \end{document}
-% source-sha256: 68e15890f5b4b626dc37cc135553ba3879c4bebd9054f4f781db0572b807283e
+% source-sha256: 8d8087deda2eb0a7a4b393c35be8f4418bad2d6ff3252f7b943922d9ea571f23

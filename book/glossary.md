@@ -126,7 +126,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Rett syndrome.** A neurodevelopmental disorder caused by loss-of-function mutations in MECP2, a methyl-CpG binding reader protein. Guy et al. (2007) demonstrated that restoration of MECP2 expression in adult MECP2-knockout mice reverses the neurological phenotype. The framework's wider-therapeutic-window claim for reader-writer disorders is consistent with it as a retrodiction, the result predating the framework; it is the framework's strongest consistency anchor outside fundamental physics. Discussed in Chapter 16 §16.12.
 
-**RNA world.** The hypothesis that early life used RNA for both information storage and catalysis before DNA and proteins evolved their specialized roles. The framework's structural reading: RNA-like architecture is the simplest single-molecule C1–C4 system (simultaneously template and catalyst), making the RNA world a structural prediction rather than a historical accident. Developed in Chapter 11 §11.7.
+**RNA world.** The hypothesis that early life used RNA for both information storage and catalysis before DNA and proteins evolved their specialized roles. RNA's dual role as template and catalyst in a single molecular species is the hypothesis's chemical support; it is an empirical hypothesis, not a consequence of C1–C4. Developed in Chapter 11 §11.7.
 
 **Staggered (fermion structure).** The placement of independent fermion modes at alternating cubic lattice sites, producing the chiral structure of the framework's emergent QFT and the multiple-taste structure that gives rise to the $1 \oplus 3$ candidate-sector decomposition (three physical generations only under *H-spin'*). Developed in Chapter 5 §5.6 and Chapter 6 §6.2.
 
