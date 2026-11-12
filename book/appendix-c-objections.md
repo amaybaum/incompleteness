@@ -245,7 +245,7 @@ A specific technical objection concerns the framework's gap equation in Chapter 
 
 *Step 2.* Step 1's result concerns the transition probabilities, which determine frequencies, not the action scale: converting a frequency to an energy requires $\hbar$ itself (Appendix B.7), so no value of $\hbar$ follows from the transition data alone.
 
-*Step 3.* Dimensional analysis gives $\hbar = \beta \cdot c^3 \epsilon^2 / G$ with unknown dimensionless coefficient $\beta$. The framework's structural setup determines the functional form; $\beta$ remains to be fixed.
+*Step 3.* Dimensional analysis on $c$, $G$ and $\epsilon$ gives $\hbar = \beta \cdot c^3 \epsilon^2 / G$ with unknown dimensionless coefficient $\beta$. This is a consistency check: the functional form is fixed by the matching of Step 4, which also fixes $\beta$.
 
 *Step 4.* The KMS periodicity $\beta_E = 2\pi c / \kappa$ follows from Euclidean regularity of the metric at the horizon — a *geometric* condition, not a quantum one. The emergent QFT interprets this periodicity as a temperature $T_Q = \hbar \kappa / (2\pi c k_B)$ with $\hbar$ initially unknown. Matching $T_Q$ to the classical temperature $T_{\text{cl}} = c^2 \epsilon^2 \kappa / (8\pi G k_B \sigma)$, with $\sigma$ the entropy of one boundary mode, fixes $\beta = 1/(4\sigma)$.
 
