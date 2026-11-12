@@ -214,3 +214,5 @@ None of these changes alters an assumption, quantifier, effect class or conclusi
 
 **Layout (O4 class, optional).** a55:544, :639 and :716 exceed the file's line width. The O2 edit
 leaves a short line at a55:653 ("OA2:800–801). Under the").
+
+Confirmation of b13cbe01: ACCEPT. D1 is applied verbatim at a55:317 (now `ν(F^{−t_h} ω) = |S|^{−1} = q^{−2L}`). The R2 locator now reads "N4.1 herald-typing bullet, second sub-bullet". One change-map row was added (Recheck D1 → N3 proof step 1). There are no other changes to OA-3-REPORT-r3.md, and DELTA-REVIEW-OA-3-r3.md at b13cbe01 is byte-identical to the scratchpad copy as it stood before this line.
