@@ -1268,6 +1268,18 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework derives the relation $\\hbar = c^3\\epsilon^2/(4..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The correction is $\\mathcal{O}(t/\\tau_B) \\sim 10^{-32}$ for ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Step 3: Dimensional determination.** The thermal matching ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The two temperatures are computed independently — $T_{\\text{..."
     },
     {
@@ -1472,6 +1484,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Step 3.* Dimensional analysis on $c$, $G$ and $\\epsilon$ gi..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *What the framework retrodicts.* Twenty-two classified Stand..."
     },
     {
@@ -1557,6 +1573,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: One retrodiction deserves separate note for its precision, w..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: In September 2025 the LIGO collaboration's analysis of GW250..."
     },
     {
       "ok": true,
@@ -1784,6 +1804,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Stage 3: From dynamics to emergent constants.** Stage 3 ta..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Reconstruction Theorem.** *Let E1–E7, M1-T and M1-B, and A..."
     },
     {
@@ -1825,6 +1849,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The visible-sector projection: quantum mechanics.** Chapte..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Applied to the cosmological horizon as a causal partition, t..."
     },
     {
       "ok": true,
@@ -1917,6 +1945,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Level G2 × Level D predictions — the Standard Model gauge gr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's most distinguishing empirical content lives ..."
     },
     {
       "ok": true,
@@ -2308,7 +2340,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The methodological discipline of Chapter 4 organizes the gra..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Three of the four conditions hold at the cosmological horizo..."
     },
     {
       "ok": true,
@@ -2316,11 +2356,27 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Step 2: Boundary-only dependence.** The emergent quantum f..."
+      "predicate": "chapter line mirrored in FULL: **Step 2: Boundary-only dependence.** If the classical Hamil..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The two temperatures — $T_{\\text{cl}}$ from the classical su..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The surface gravity $\\kappa$ cancels — a non-trivial cross-c..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The derivation has the structure of a gap equation: $\\epsilo..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The scope of this test is important to state precisely: GW25..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Falsification status.** The Bekenstein-Hawking $1/4$ is a ..."
     },
     {
       "ok": true,
@@ -2329,6 +2385,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The dispute between Hawking's calculation (thermal radiation..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The external observer's reduced description of the region $V..."
     },
     {
       "ok": true,
@@ -2364,7 +2424,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The MOND acceleration scale.** The framework's account of ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Step 1: Entropy displacement by baryonic matter (conditiona..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The gravitational sector combines unconditional partition-ge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The tier system per Section 7.1: Tier 1 results follow from ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Falsification commitments.** These tests concern the state..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The geometry-first account.** The classical and emergent d..."
     },
     {
       "ok": true,
@@ -2396,6 +2476,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 9.2 develops the framework's hierarchical structural..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 9.3 develops the Tier 1 results, and the conditional..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 9.7 develops the Danielson-Satishchandran-Wald (DSW)..."
     },
     {
@@ -2404,11 +2492,31 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Chapter 7 (Gravitational Sector).* Predictions stratify acr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's Tier 1 results, and the conditional results ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The Bekenstein-Hawking entropy.* $S = A/(4 l_p^2)$ is recov..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The action-scale relation from partition geometry.* $\\hbar ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Finiteness.* The substratum $S$ has finite cardinality. Thi..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Deterministic bijection.* The substratum dynamics $\\varphi:..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: These six commitments define the framework's universality cl..."
     },
     {
       "ok": true,
@@ -2425,6 +2533,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The three tiers contain nineteen entries of unequal evidenti..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Cross-attribution of predictions does not follow.** A cons..."
     },
     {
       "ok": true,
