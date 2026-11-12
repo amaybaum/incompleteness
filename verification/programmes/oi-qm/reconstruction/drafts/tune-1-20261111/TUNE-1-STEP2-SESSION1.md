@@ -63,8 +63,12 @@ derivation below uses any of them: the controls are classified from their own co
 
 **M0 approval statement.** The proposal requires the owner's approval record to state: "A
 `PASS-DERIVED` would be a consistency-axis result (§A.23); it would move no correctness
-assessment." The writer has not read the approval comment and cannot confirm that it does; the
-reviewer is asked to check it.
+assessment." The independent review of this session read comment 6816189419. It reports that the
+owner's account posted the comment through the Claude GitHub app on 2026-11-12 at 06:11:10Z. The
+comment quotes the owner's chat answers, it matches the choices in the table above, and it states
+the paper-only scope. It does not contain this statement. The writer has not read the comment, and
+records the absence as the review reports it. The statement is an open owner item, and it must be
+supplied before any session that could render a pass (section 6, question 5).
 
 ***
 
@@ -81,16 +85,24 @@ classification depends on it. No definition is changed.
 - **Rd-2 (common continuation, Q1).** The continuation's labels are fixed or depend only on the
   continuation's own records. Under the other reading, in exchange mode every round record
   contains its label (section 1.2), so a continuation that copies the prefix labels separates any
-  number of preparations with distinct labels, and Q1's upper half fails for every interface.
-  No classification below depends on this reading except by failing Q1 further.
+  number of preparations with distinct labels, and Q1's upper half fails for every interface in
+  that mode. C-ISO-2 depends on this reading. Its round records carry no label, and under the
+  other reading the labels after a visit can depend on the prefix records, so Step C's statement
+  that "the rest depends only on `R_J`" does not hold (section 2.5).
+- **Rd-4 is also used by C-ISO-2.** Its argument applies the conditional-error requirement to
+  Q1's heralded preparations, which section 1.2 imposes on Q1, Q5 and Q6 (section 2.5).
 - **Rd-3 (Q5's "within ε").** The two-class coarse-graining of the read is compared through its
   effects: `|Tr(E_{a1} σ) − Tr(P_a σ)| ≤ ε` for every state `σ`. No post-measurement update is
   required; the text names the measurement by its effects `{P_a, 1 − P_a}`, and sharpness is a
-  property of effects. C-NULL depends on this reading.
+  property of effects. C-NULL depends on this reading. In the C-NULL instance the only state
+  tested is `𝟙/2`, so the effects `P_a, P_b` are themselves components of `𝔔` that no record
+  fixes. Rd-3 is therefore an instance of RC-1, not a separate issue.
 - **Rd-4 (conditional error).** The conditional error of a heralded preparation is the total
   variation between the world's and `𝔔`'s laws of the complete record conditional on the herald,
   for every protocol of `Π_K` that extends the prefix. `2 d_K / p_acc ≤ ε` is a sufficient
-  condition for it (section 1.2, "which holds when"). C-NULL depends on this reading.
+  condition for it (section 1.2, "which holds when"). C-NULL depends on this reading. C-ISO-2
+  uses only the requirement that admissible heralded preparations meet conditional error `ε`,
+  which holds under this reading and under the sufficient-condition reading alike.
 - **Rd-5 (preparation prefixes, Q6).** Every prefix of a protocol of `Π_K`, of any length from 0
   to `K`, is a preparation prefix; C-POS-2's row uses "a menu prefix of horizon at most `K`".
   C-NULL depends on this reading; C-REBIT does not.
@@ -113,12 +125,12 @@ clause by clause).
 | C-POS-1 | Q1–Q6 at `ε = 0` on its protocol class; D3, D5, D6, D7 fail; `OPERATIONAL-ONLY` | as expected | green | `history-architecture-v5/REPORT.md`:9–68, :305–312 [R] |
 | C-POS-2 | Q2, Q3, Q5, Q6 at `ε ≥ b + δ`; Q4 from L3; Q1 on its range; D as C-POS-1; `OPERATIONAL-ONLY` | as expected; Q4 at `4(b + δ)` [W, L3]; Q1 for `b + δ_1 ≤ ε < 0.05 − b`, for menus with an antipodal preparation pair read along its axis [W] | green | `finite-a2-v5/REPORT.md`:9–60, :100–120 [R] |
 | C-ISO-1 | Q1 fails; D7 fails; not `PASS-DERIVED` | Q1 fails (either half, by the affine dichotomy); D7 fails | green | section 2.4 [W] |
-| C-ISO-2 | Q1, Q2, Q3, Q5, Q6 cannot hold together at `ε < ε_D`; D7 fails; not `PASS-DERIVED` | Q1, Q2, Q3, Q5 cannot hold together at `ε < ε_D = 7 × 10^{-4}`, for every `K`, interface and `μ`; D7 fails | green | section 2.5 [W] |
+| C-ISO-2 | Q1, Q2, Q3, Q5, Q6 cannot hold together at `ε < ε_D`; D7 fails; not `PASS-DERIVED` | Q1, Q2, Q3, Q5 cannot hold together at `ε < ε_D = 7 × 10^{-4}`, for every `K`, interface and `μ`; D7 fails | green | section 2.5 [W]; depends on Rd-2 and on section 1.2's conditional-error requirement for Q1 |
 | C-FIN | Q2 with Q3 fails below `1/15`; D fails; not `PASS-DERIVED` | as expected, at the record's scope (fixed decoder) | green | `operational-quotient-v3/REPORT.md`:9–30, :212–228 [R] |
 | C-REBIT | Q1–Q5 hold and Q6 fails; never `PASS-DERIVED` | Q1–Q6 hold, at every `ε` and `K`, for a qubit model with `d_K = 0` | **red** | section 2.3.1 [W] |
 | C-TAB | Q2 only with `d = N`; Q1 and Q2 at `d = 2` fail for three pairwise distinguishable preparations | as expected | green | `whole-model-bridge.md`:167–178, :204–211 [R] |
 | C-B1 | Q1 fails; D2, D7 fail | as expected | green | `whole-model-bridge.md`:132–197 [R]; `two-mode-drive.md`:22–32 [R] |
-| C-REP | No Q-condition reads a representation; padding cannot move `d_K`; not `PASS-DERIVED` | padding cannot move `d_K` and not `PASS-DERIVED`, as expected; but Q6 (and Q3) read the representation `𝔔` and can be met through it | **red** | `padData_rooted` (OB/OperationalSourcing.lean:476) [K]; sections 2.3.1–2.3.2 [W] |
+| C-REP | No Q-condition reads a representation; padding cannot move `d_K`; not `PASS-DERIVED` | padding cannot move `d_K` and not `PASS-DERIVED`, as expected; the clause fails: Q3, Q5 and Q6 can each be met through components of `𝔔` that no record fixes | **red** | `padData_rooted` (OB/OperationalSourcing.lean:476) [K]; sections 2.3.1–2.3.2 [W] |
 | C-CARD | (a) `ε₀(L) > 0` below which Q3 and Q6 cannot both hold; (b) well-defined on `ℤ^3` except the level-set law; (c) verdicts indexed by `K` | (a) Q3 fails below `π / (2 q^{2|C|})`; (b) as expected; (c) as expected | green | section 2.6 [W]; Main:560 [P, P-imp]; Step 1 B.12 [R] |
 | C-MEAS | one-read match under uniform `μ`, fails under `μ′`; D3, D4, D7 fail; Q2 fails on the two-read law | as expected | green | `measurement-source.md`:29–33, :57–63, :65–73, :85–127 [R] |
 | C-NULL | Q2, Q3, Q5, Q6 cannot hold together below an explicit constant; not `PASS-DERIVED` | in exchange mode, Q2, Q3, Q5, Q6 hold together at every `ε` and `K` (readings Rd-3, Rd-4, Rd-5) | **red** | section 2.3.2 [W] |
@@ -133,17 +145,24 @@ and the re-derivations of choice 9(a) were not started (section 4 below).
 
 The reds have two separate causes.
 
-- **RC-1 (C-REBIT, C-NULL, C-REP).** Q6 is a statement about the states of the comparator `𝔔`,
-  and Q2 constrains `𝔔` only through record laws. Components of `𝔔`'s states that no record of
-  `Π_K` tests can be chosen freely, and Q6 can then be met through that choice. In C-REBIT the free
+- **RC-1 (C-REBIT, C-NULL, C-REP).** Q3, Q5 and Q6 are statements about the comparator `𝔔`,
+  and Q2 constrains `𝔔` only through record laws. Components of `𝔔` that no record of `Π_K`
+  tests can be chosen freely: parts of its states, and the action of its instruments and effects
+  on states that are never reached. Each of the three conditions can then be met through that
+  choice. Q6 in C-REBIT and C-NULL, Q5 in C-NULL (Rd-3) and Q3 in C-NULL (gates acting on `𝟙/2`)
+  are met this way. In C-REBIT the free
   component is the imaginary part of a qubit state representing a real one (no edge effect, no
   reading needed beyond "real quantum theory" including preparations of its states). In C-NULL it
   is the state after the last round of a full-horizon prefix, heralded on a record whose
   probability does not depend on the state.
 - **RC-2 (C-PROG, C-PROG-P).** Their D3 entry "met" does not survive D3's robustness clause under
   choice 6(i)(c): the compiled controller's fair bits are drawn directly from the environment, so
-  under the non-uniform product law the bits are biased and the record law the rows take from the
-  controller's source record is not stated. The tokens are unaffected.
+  under the non-uniform product law the bits are biased, and the record law that the rows take
+  from the controller's source record is not stated. The tokens are unaffected. The proposal
+  treats a mismatch between a row's expectation and a general rule differently in C-SUP-1. Its
+  expected Q0 against section 2.1's "Q0 is not applied" is green with observation O-1, because the
+  obtained entry states what holds (an explicit finite size) and no clause of that row comes out
+  false. C-PROG's D3 entry "met" is false under D3 as written, so that row is red.
 
 ### 2.3 Derivations of the red rows
 
@@ -172,9 +191,11 @@ exactly. Q5 holds with the real Lüders reads along `x` and `z` (`Tr(P_x P_z) = 
 orthogonal real pure states are perfectly distinguished; no three are pairwise distinguished at
 error `ε < 0.05` (Rd-1), because three Bloch vectors with pairwise `|r_i − r_j| ≥ 2 − 4ε` satisfy
 `|r_i + r_j| ≤ 4√ε`, hence `|r_2 − r_3| ≤ 8√ε < 2 − 4ε` [W]. Q6: take the one-label prefixes
-"prepare `s`" for `s` in a countable dense subset of the open disk, with the signs of the
-`y`-components alternated along an enumeration; the states `m_s` are dense in the sphere, so Q6
-holds at every `ε`.
+"prepare `s`" for every `s` in the open disk. Choose the sign of the `y`-component of `m_s` to be
+`+` if `s_x` is rational and `−` otherwise. The two sets `{s : s_x ∈ ℚ}` and `{s : s_x ∉ ℚ}` are
+each dense in the open disk. The map `s ↦ (s_x, ±(1 − |s|²)^{1/2}, s_z)` is a homeomorphism of the
+open disk onto the open upper or lower hemisphere, so the states `m_s` are dense in each open
+hemisphere, and hence in the sphere. Q6 holds at every `ε`.
 
 *Obtained.* Q1–Q6 hold at every `(ε, K)`; the token is unchanged (not a lattice interface; never
 `PASS-DERIVED`). The expected entry "Q6 fails" is not obtained: red.
@@ -244,29 +265,39 @@ expectation does not include Q1.)
 *Obtained.* In exchange mode, Q2, Q3, Q5, Q6 can hold together at every `ε`: red. The token
 (not `PASS-DERIVED`) is unchanged (D7 fails; Q1 fails).
 
-*Dependence on readings.* Under any one of the following the row is green [W]:
-(i) Q6 restricted to prefixes followed by at least one round: a read pins `a·r = b·r = 0`, so the
-admissible states lie on one line and are not dense; (ii) conditional error read as
-`2 d_K / p_acc ≤ ε`: the mismatch on the `R`-histories gives `d_K` of order `K · N · 2^{−mτ}`,
-while `p_acc = 2^{−mτ}`, so `2 d_K / p_acc` is of order `N ≫ 1/ε`, and a herald with
-`p_acc ≥ 2 d_K / ε` averages over many outputs of `c*`; (iii) Q5 read as within `ε` of the Lüders
-instrument: two consecutive reads along `a` agree with probability near 1 in `𝔔` and with
-probability `1/2` in the world, so Q2 and Q5 cannot hold together.
+*Dependence on readings* [W, sketch]. Under each of the following readings this instance does
+not refute the row. None of the three is proved green over every model `𝔔` and every C-NULL
+interface; each is a sketch.
+(i) Q6 restricted to prefixes followed by at least one round. A read pins `a·r = b·r = 0`, so the
+admissible states of the instance's `𝔔` lie on one line and are not dense. A general proof needs a
+Step-B-type bound (section 2.5) over every `𝔔`.
+(ii) Conditional error read as `2 d_K / p_acc ≤ ε`. For the instance's `𝔔`, the mismatch on the
+`R`-histories gives `d_K` of order `K · N · 2^{−mτ}`, while `p_acc = 2^{−mτ}`. So `2 d_K / p_acc` is
+of order `N ≫ 1/ε`, and a herald with `p_acc ≥ 2 d_K / ε` averages over many outputs of `c*`. This
+is argued for that `𝔔` only.
+(iii) Q5 read as within `ε` of the Lüders instrument. Two consecutive reads along `a` agree with
+probability near 1 in `𝔔`. In the instance's world they agree with probability `1/2`, a value that
+depends on the equal halves `a1, a0`. The general case needs a Step-B-type bound on the class
+probabilities.
 
 *Initial-condition mode.* The instance does not carry over: without the exchange, consecutive
 round records share the boundary configuration of `O` (the previous-value component of the first
-tick), and a qubit model cannot carry that memory together with Q5's reads. The row was not
-examined further in this mode; the red is for exchange mode.
+tick), and a qubit model cannot carry that memory together with Q5's reads (argued, not proved).
+The row was not examined further in this mode. The red is for exchange mode, and a re-run must
+cover both modes (section 6, question 8).
 
 #### 2.3.3 C-REP, C-PROG and C-PROG-P
 
 *C-REP.* `padData_rooted` [K] states that padding a datum with an ancilla unitary leaves its rooted
 family unchanged, so padding cannot move `d_K`; a construction whose only evidence is a
 representation proves no Q-condition, so it is not `PASS-DERIVED`. The row's first clause, "No
-Q-condition reads a representation", is not obtained: Q3 and Q6 are statements about `𝔔`, a
-Hilbert-space model of the records chosen subject only to Q2, and sections 2.3.1–2.3.2 exhibit
-record laws for which Q6 holds or fails according to the choice of `𝔔`. C-NULL's row already
-records that Q3 "is constrained by data only through the states reached". Red, cause RC-1.
+Q-condition reads a representation", is not obtained. Taken literally it is false by design,
+since Q2–Q6 are all statements about `𝔔`, a Hilbert-space model of the records chosen subject only
+to Q2. Its intended sense also fails: that no condition is met through components of `𝔔` that the
+records do not fix. Sections 2.3.1–2.3.2 exhibit record laws for which Q6 holds or fails according
+to the choice of `𝔔`. In C-NULL's instance, Q5's effects and Q3's gates act only on the untested
+state `𝟙/2`. C-NULL's row itself records that Q3 "is constrained by data only through the states
+reached". Red, cause RC-1. The red derives from C-REBIT's and C-NULL's.
 
 *C-PROG and C-PROG-P.* Under choice 11(a), every other entry of both rows is obtained as stated:
 the specification states `r_O` as a configuration only (D6(a) met); `r_O` is defined as the
@@ -280,11 +311,15 @@ row is not `proved`; D2 and D7 fail since `F_U ∉ 𝓡`; the token is `OPERATIO
 "met" is not obtained. Choice 6(i)(c) requires every law of the list, and D3's robustness clause
 counts a result only if it is also stated under a second law of the list. The rows take Q0–Q6 from
 the controller's source record, which assumes exactly fair bits, and draw those bits directly from
-the environment. Under the non-uniform product law (the law that choice 6(iii) puts in place of
-the level-set law in initial-condition mode and on `ℤ^3`) the bits are biased and the record law is
-not stated; the controller's hemisphere-law sampling is then biased by a fixed amount, so the
-result holds under `μ` and not under `μ′` at small `ε`, and D3 records the measure as supplied.
-Red on the D3 clause, cause RC-2; the token and the test of D6(b) are unaffected.
+the environment. The non-uniform product law is on the list in its own right under choice
+6(i)(c). Choice 6(iii) substitutes nothing under 6(i)(c): it enters the level-set row as "not
+defined" in initial-condition mode and on `ℤ^3`. Under the non-uniform product law the bits are
+biased, and no record states the controller's record law for biased bits. So the result is not
+stated under a second law, and the robustness requirement is not met. This record does not claim
+that the result fails under that law; that would need its own proof. A compiled controller that
+first debiases its bits would remove this, for example by von Neumann extraction, which is exact
+for an i.i.d. product law. The rows as written contain no such step. Red on the D3 clause, cause
+RC-2. The token and the test of D6(b) are unaffected.
 
 ### 2.4 C-ISO-1 (green)
 
@@ -304,7 +339,13 @@ Gaussian `μ`), and the `v = 0` branch would need its own analysis; the row supp
 
 The row's own sketch is not used as written: its step (iii) applies Q3 conditionally on one
 complete prefix record, which needs the factor `1/p_acc`, and its Q6 branch is subject to RC-1. The
-following argument [W] does not use Q6 and has no `p_acc` factor. Notation: `L ≥ 2` (the walker
+following argument [W] does not use Q6. It has no `p_acc` factor only because it applies the
+requirement of section 1.2 that heralded preparations used in Q1 meet conditional error `ε`
+against `𝔔` (Rd-4, or the sufficient condition `2 d_K / p_acc ≤ ε`). If Q1's heralded preparations
+were not bound by that requirement, Step A would hold for them only at error `2 d_K / p_acc`. The
+argument also depends on Rd-2 (Step C). C-ISO-2's round record is the position-or-blank sequence
+of its ticks and carries no label, so `p(0)` and the record laws of every label live on one record
+set. Notation: `L ≥ 2` (the walker
 starts in `Λ ∖ O`, which is non-empty); an *A-record* is a prefix record whose last tick shows the
 walker in `O`, a *B-record* one whose last tick is blank; `p(0)` is Q3's vector at `θ = 0`;
 `b₀` is the all-blank round record and `γ = 1 − p(0)(b₀)`.
@@ -336,18 +377,22 @@ class `a1` has `𝔔`-probability within `ε` of `Tr(P_a ρ₀)` (Rd-3). With `�
 signs `s, t` has length at most `√3`). Hence `γ ≥ (1 − √3/2)/2 − 4.5ε ≥ 0.0624` for `ε ≤ 10^{-3}`.
 
 *Step C (no two preparations are distinguished).* Let `P_1, P_2` be admissible preparations and
-`κ` a common continuation of `m` rounds (Rd-2). Let `R_J` be the records of its first
-`min(J, m)` rounds and `N` the event that they are all blank. Given `R_J ∉ N`, the law of the rest
-depends only on `R_J` (W1: the last read position is the whole state, and the labels depend only on
-continuation records), so `TV(Q_1, Q_2) ≤ TV(R^1_J, R^2_J) + max_i P_i(N)`. A hybrid over rounds
-with (\*\*\*), applied to the admissible preparations "`P_i` followed by the first `j − 1`
-continuation rounds", gives `TV(R^i_J, Π_J) ≤ 12.5 J ε` for the process `Π_J` that draws each round
-from `p(0)`, so `TV(R^1_J, R^2_J) ≤ 25 J ε`. The survival `u_j = P_i(first j rounds blank)` obeys
+`κ` a common continuation of `m` rounds (Rd-2). A hybrid over rounds uses (\*\*\*), applied to the
+admissible preparations "`P_i` followed by the first `j − 1` continuation rounds" (of length at
+most `K − 1`, since `j ≤ m`). It gives `TV(R^i_s, Π_s) ≤ 12.5 s ε` for the records `R^i_s` of the
+first `s` continuation rounds and the process `Π_s` that draws each round from `p(0)`. Two cases:
+- `m ≤ J`: the continuation's records are `R^i_m`, so `TV(Q_1, Q_2) ≤ 25 m ε ≤ 25 J ε` directly.
+- `m > J`: let `R_J` be the records of the first `J` rounds and `N` the event that they are all
+  blank. Given `R_J ∉ N`, the law of the rest depends only on `R_J`. By W1 the last read position
+  is the whole state, and by Rd-2 the labels depend only on continuation records. So
+  `TV(Q_1, Q_2) ≤ TV(R^1_J, R^2_J) + max_i P_i(N) ≤ 25 J ε + max_i P_i(N)`.
+
+In the second case the survival `u_j = P_i(first j rounds blank)` obeys
 `u_j ≤ (1 − γ) u_{j−1} + 12.5ε`, so `P_i(N) ≤ (1 − γ)^J + 12.5ε/γ`. With `J = 40` and
 `γ ≥ 0.0624`, `(1 − γ)^{40} ≤ 0.077` and `TV(Q_1, Q_2) ≤ 0.077 + 1000ε + 201ε`. Q1 needs
 `TV ≥ 1 − 2ε` (Rd-1), which fails for `ε < 7 × 10^{-4}`.
 
-*Obtained.* For every `K`, interface, `O`, `C`, `τ` and `μ`, Q1, Q2, Q3 (at `θ = 0` only) and Q5
+*Obtained* (given Rd-2 and the conditional-error requirement on Q1's heralded preparations). For every `K`, interface, `O`, `C`, `τ` and `μ`, Q1, Q2, Q3 (at `θ = 0` only) and Q5
 cannot hold together at `ε < ε_D = 7 × 10^{-4}`; a fortiori with Q6 added. D7 fails. Not
 `PASS-DERIVED`. The properties used are W1, W2 and W3 (W3 is part of the construction's
 definition of `μ`; the row lists W1 and W2).
@@ -435,7 +480,7 @@ example a member whose labels are indices of settings, as in C-NULL's instance w
 - **O-2.** C-FIN's floor `1/15` holds at the record's scope (its decoder fixes the comparator).
 - **O-3.** C-SUP-2 cites `whole-model-bridge.md`:283–287 for a sentence found at :293 at the pin.
 - **O-4.** Rd-2: if a continuation's labels may depend on prefix records, Q1's upper half fails for
-  every interface in exchange mode, because round records contain their labels.
+  every interface in exchange mode, because round records contain their labels. In C-ISO-2, whose records carry no label, that reading breaks Step C; C-ISO-2 depends on Rd-2.
 - **O-5.** C-ISO-1 specifies no `μ`; its classification is obtained for the deterministic reading.
 
 ***
@@ -457,8 +502,8 @@ joint-law route), the child nodes, the re-derivations of MECH-1 Lemma A and MECH
   disk being preparable, stated in section 2.3.1 with the restricted reading under which the row is
   green.
 - *C-NULL.* The red rests on three readings (Rd-3, Rd-4, Rd-5), each the literal one, and on an
-  instance whose independence claim is an exact unitriangularity argument. Under any one of the
-  three alternative readings the row is green (section 2.3.2). The instance uses exchange mode
+  instance whose independence claim is an exact unitriangularity argument. Under each of the
+  three alternative readings the instance does not refute the row; that the row is then green is a sketch (section 2.3.2). The instance uses exchange mode
   only.
 - *C-PROG, C-PROG-P.* The red rests on Rd-6 and on choice 6(i)(c); the token is unchanged, and the
   defect is in the D3 entry of the rows, not in D6(b), which the rows exercise.
@@ -470,15 +515,43 @@ joint-law route), the child nodes, the re-derivations of MECH-1 Lemma A and MECH
 Nothing in Step 2 proceeds before the owner decides on the definitions (section 7 of the
 proposal). The decisions the reds raise, stated as questions:
 
-1. **Q6 and the comparator (RC-1).** Is Q6 to be a property of the record laws, so that it cannot
-   be met by choosing components of `𝔔`'s states that no record tests (C-REBIT), and does the same
-   apply to Q3 (C-NULL's row, C-REP)? How are states after a full-horizon prefix, which no record of
-   `Π_K` tests, to be counted (Rd-5)?
-2. **Q5's comparison (Rd-3)** and **conditional error (Rd-4).** Which reading the text intends.
-3. **D3 in the compiled-controller rows (RC-2).** Whether C-PROG and C-PROG-P are to meet D3's
-   robustness clause, and how their fair bits are then obtained.
-4. Readings Rd-1, Rd-2, Rd-7 and Rd-8, and observations O-1 to O-5, are offered for the same
-   decision.
+1. **The comparator (RC-1).** Are Q3, Q5 and Q6 to be properties of the record laws, so that none
+   can be met through components of `𝔔` that no record tests? Those components are the imaginary
+   parts of the states in C-REBIT, and in C-NULL the effects and gates acting on the untested state
+   `𝟙/2`. Options:
+   - (a) restate Q3, Q5 and Q6 operationally, on record laws;
+   - (b) require them to hold for every `𝔔` that meets Q2;
+   - (c) keep them as stated, accepting C-REBIT's and C-NULL's classifications.
+2. **Full-horizon prefixes (Rd-5).** Are states after a prefix of length `K`, which no record of
+   `Π_K` tests, preparation prefixes for Q6? Options: (a) yes, as C-POS-2's row reads; (b) only
+   prefixes followed by at least one round, or by two.
+3. **Q5's comparison (Rd-3).** Effects only, or within `ε` of the Lüders instrument? Under question 1
+   this is part of RC-1.
+4. **Conditional error (Rd-4).** The conditional TV against `𝔔`, or the sufficient condition
+   `2 d_K / p_acc ≤ ε`? C-NULL depends on the choice. So does C-ISO-2's freedom from a `1/p_acc`
+   factor, through the requirement that Q1's heralded preparations meet conditional error `ε`.
+5. **M0 statement.** The approval comment lacks the statement M0 requires ("A `PASS-DERIVED` would
+   be a consistency-axis result (§A.23); it would move no correctness assessment."), as the
+   independent review reports (section 1). It is to be supplied before any session that could
+   render a pass.
+6. **D3 in the compiled-controller rows (RC-2).** Does D3's robustness clause apply to controls
+   whose Q-conditions are taken from records? If it does, options:
+   - (a) enter D3 as not met in C-PROG and C-PROG-P;
+   - (b) add to the compiled controller a debiasing step, such as von Neumann extraction, exact
+     for an i.i.d. product law, so that the result is stated under the non-uniform product law.
+7. **Row amendments.**
+   - The C-ISO-2 row: is it amended to the session-1 argument (section 2.5), which drops Q6 and
+     the conditional-error factor and states `ε_D = 7 × 10^{-4}`?
+   - C-REBIT's proves-too-much text ("its conclusion is that Q6 fails below `1/2`") needs
+     amendment, whatever is decided under question 1.
+8. **C-NULL in initial-condition mode.** It was examined in exchange mode only. A re-run must cover
+   both modes.
+9. **Results an amendment must preserve (§A.29).** Any amended definition is to name in advance
+   the results it preserves. These are the twelve green rows of section 2.2, in particular C-POS-1,
+   C-POS-2 and C-ISO-2 with its constant. C-REBIT and C-NULL, with their intended
+   classifications, are its new controls.
+10. Readings Rd-1, Rd-2, Rd-7 and Rd-8, and observations O-1 to O-5, are offered for the same
+    decision.
 
 After an amended text is approved, M1 is re-run on it from the start; the derivations of sections
 2.3–2.6 can be reused where the amendment leaves a row's definitions unchanged. The R-lin node
@@ -491,7 +564,7 @@ then R-nl under H-nl, remain for the sessions after that, within the effort boun
 |---|---|---|---|---|
 | W-R | Real quantum theory with preparations of every disk state has a qubit model with `d_K = 0` whose prepared states are dense in the pure states | proved | W | section 2.3.1 |
 | W-N | The C-NULL instance in exchange mode meets Q2, Q3, Q5, Q6 at every `(ε, K)` under Rd-3, Rd-4, Rd-5 | proved | W | section 2.3.2 |
-| W-I2 | C-ISO-2: Q1, Q2, Q3, Q5 cannot hold together at `ε < 7 × 10^{-4}` | proved | W | section 2.5 |
+| W-I2 | C-ISO-2: Q1, Q2, Q3, Q5 cannot hold together at `ε < 7 × 10^{-4}`, given Rd-2 and the conditional-error requirement on Q1 | proved | W | section 2.5 |
 | W-I1 | C-ISO-1: Q1 fails (deterministic reading) | proved | W | section 2.4 |
 | W-C | C-CARD (a): Q3 fails at `ε < π/(2 q^{2|C|})` | proved | W | section 2.6 |
 | L5 | Structure of R-lin record laws (proposal M3) | open | — | not started |
@@ -519,3 +592,27 @@ No row of this table is relied on by a verdict other than `VOID`.
   lines located by search for "finiteness audit". `.github/workflows/*.yml` were read for push
   triggers before pushing.
 - **Not read:** MECH-1 and MECH-2 (the R-lin node was not started).
+
+## 9. Review disposition
+
+The independent review of `a387c0a8` (ACCEPT WITH CHANGES; held outside the repository) confirmed
+`VOID` and the red classifications. Its findings F1–F9 were each checked by the writer and applied
+in this revision:
+
+- F1: C-REBIT's density step is replaced by the rational/irrational sign rule.
+- F2: RC-1 is extended to Q3 and Q5.
+- F3: C-ISO-2's dependence on the conditional-error requirement is recorded, Step C is split into
+  its two cases, and the absence of labels from its records is stated.
+- F4: C-ISO-2 is listed as depending on Rd-2.
+- F5: the greens under C-NULL's alternative readings are tagged as sketches.
+- F6: C-PROG's "fails under `μ′`" is withdrawn in favour of "not stated", the reading of 6(iii) is
+  corrected, and the extractor option is added.
+- F7: the C-SUP-1/C-PROG asymmetry is explained.
+- F8: the missing M0 statement is recorded. The writer did not read the comment and relies on the
+  review for its content.
+- F9: the owner questions are completed.
+
+No finding was rejected, and no status changed.
+
+**Commands used in this revision:** `git` (rev-parse, status, add, commit, push), `cat`, `grep`,
+`sed`, `cut`, `wc`, `sha256sum`. No interpreter was run. The review file was read in full.
