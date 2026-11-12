@@ -1249,7 +1249,8 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   in drafting r10: `git` (status, log, rev-parse, show, ls-files, diff, add, commit, push),
   `grep`, `sed`, `cut`, `fold`, `sort`, `uniq`, `cat`, `head`, `ls`, `wc`, `sha256sum`. No
   interpreter was run in r10. Commands used in drafting r10a: `git` (status, rev-parse, branch,
-  diff, add, commit, push), `grep`, `cut`, `wc`, `sha256sum`. No interpreter was run in r10a.
+  diff, add, commit, push), `grep`, `cut`, `head`, `tail`, `wc`, `sha256sum`. No interpreter was
+  run in r10a.
   No probe, checker or Lean build. No GitHub comment.
 - **Read for r10a:** the delta review of `4b6b4460` (in full). No further record was read.
 - **Read for r10:** the delta review of `80a012b2` (in full); at the pin, `papers/Main.md`:582.
