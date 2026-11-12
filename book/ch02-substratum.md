@@ -107,7 +107,7 @@ T-invariance of the bijection $\varphi$ combined with detailed balance gives rec
 
 Uniqueness at Stage 2 follows from the uniqueness-given-inputs character of each step. Each derivation is the unique consistent choice given its inputs, the wave-equation step within the nearest-neighbor class and the hypercharge step apart from its exceptional branch; the chain is a composition of unique selections, and the output is unique within those qualifications.
 
-**Stage 3: From dynamics to emergent constants.** Stage 3 takes Stage 2's output and derives the emergent action-scale relation. The argument is that thermal self-consistency at the partition boundary — established in Chapter 7 from the boundary layer's emergent thermodynamics, conditional on H-slope with H-count and the horizon and frame conditions named there — forces the relation
+**Stage 3: From dynamics to emergent constants.** Stage 3 takes Stage 2's output and derives the emergent action-scale relation. The argument is that thermal self-consistency at the partition boundary — established in Chapter 7 from the boundary layer's emergent thermodynamics, conditional on H-slope and the further conditions of [GR §8.5(b)] — forces the relation
 $$\hbar = c^3 \epsilon^2 / (4G\sigma),$$
 with the discreteness scale $\epsilon = 2\sqrt{\sigma}\,\ell_P$ (twice the Planck length at $\sigma = 1$, one nat per boundary mode) as the unique simultaneous solution, which fixes only the ratio $\epsilon/\sqrt{\sigma} = 2\,\ell_P$. With this calibration the boundary-mode count reproduces the Bekenstein-Hawking entropy $S = A/(4 \ell_P^2)$, the $1/4$ coefficient being the ratio $2\pi/8\pi$ of the KMS period to the first-law prefactor that the calibration matches.
 
