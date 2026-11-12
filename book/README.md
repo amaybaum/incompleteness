@@ -24,7 +24,7 @@ The book is organized into four parts following the framework's intellectual cas
 
 **Part II — Physics** (Chapters 5–9) develops the Standard Model derivation, the gravitational sector, the JUNO neutrino retrodiction as a focused case study, and the framework's relationship to string theory and other universality classes.
 
-**Part III — Emergence** (Chapters 10–12) traces the cascade from substratum to chemistry to biology to intelligence: the structural chain from $d = 3$ through orbital structure to organic chemistry, the origin of life as a structural prediction, and the existence question.
+**Part III — Emergence** (Chapters 10–12) traces the cascade from substratum to chemistry to biology to intelligence: the structural chain from $d = 3$ through orbital structure to organic chemistry, the conditions for heredity and evolution in a template replicator, and the existence question.
 
 **Part IV — Applications** (Chapters 13–19) develops the framework's empirical reach into working scientific fields: quantum biology, the BQP theorem as the framework's computational ceiling, engineered quantum systems, medicine and epigenetics, bioinformatics, the framework's forward predictions beyond QM and GR, and a systematic inventory against the major open problems of fundamental physics.
 

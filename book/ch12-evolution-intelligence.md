@@ -5,7 +5,7 @@
 
 ## 12.1 What this chapter develops
 
-Chapter 11 established the framework's structural account of the origin of life: Darwinian evolution as the inevitable dynamics of imperfect template replication, the framework's structural conditions C1–C4 applied at the molecular scale producing heredity in the same structural sense that C1–C4 at the cosmological scale produces the memory-bearing dynamics quantum mechanics represents, and RNA-like architecture as an empirically supported hypothesis for the first replicators. The framework's content from origin-of-life onward is concentrated at the *cascade* level: how the framework's structural commitments at one level produce structural consequences at the next.
+Chapter 11 established the framework's structural account of the origin of life: Darwinian evolution as the inevitable dynamics of imperfect template replication, a template replicator's heredity as a realization of the framework's structural conditions C1–C4 at the molecular scale, in the same structural sense that C1–C4 at the cosmological scale produces the memory-bearing dynamics quantum mechanics represents, and RNA-like architecture as an empirically supported hypothesis for the first replicators. The framework's content from origin-of-life onward is concentrated at the *cascade* level: how the framework's structural commitments at one level produce structural consequences at the next.
 
 This chapter develops the next stages of the cascade: evolution, intelligence, and the framework's own self-reference. The framework's content here is structural at multiple scales — evolution operates at the genetic and ecological level, intelligence at the neural level, and the framework's self-discovery at the level of the framework's own observers reasoning about the substratum that produced them. Each stage involves the same structural pattern (C1–C4 partition with non-Markovian emergent dynamics) instantiated at progressively higher levels of organizational complexity.
 
@@ -27,7 +27,7 @@ The framework's content in this chapter is therefore the cascade *closure*: the 
 
 ## 12.2 Evolution as a multi-scale C1–C4 system
 
-Chapter 11 established C1–C4 at the molecular scale, producing the heredity that makes evolution possible. The framework's content extends beyond molecular heredity to identify multiple distinct C1–C4 partitions operating simultaneously at different biological scales. Evolution is therefore not a single C1–C4 system but a *cascade* of nested partitions, each producing non-Markovian dynamics in the corresponding emergent description.
+Chapter 11 established that a template replicator's heredity can realize C1–C4 at the molecular scale, and that this heredity makes evolution possible. The framework's content extends beyond molecular heredity to identify multiple distinct C1–C4 partitions operating simultaneously at different biological scales. Evolution is therefore not a single C1–C4 system but a *cascade* of nested partitions, each producing non-Markovian dynamics in the corresponding emergent description.
 
 **The three scales.**
 
@@ -145,7 +145,7 @@ The framework's content on general intelligence is the chapter's clearest scope 
 
 *General-purpose reasoning.* **Not structurally guaranteed.** Whether evolution produces systems capable of abstract reasoning, language with recursive syntax, formal mathematics, and self-modeling depends on specific selection pressures the framework's commitments do not determine.
 
-**Why general intelligence is structurally weaker.** The framework's predictions for fundamental physics (Chapters 5-8) and for the cascade through chemistry and origin of life (Chapters 10-11) operate at the *structural* level: the relevant capabilities follow from the framework's commitments with no additional contingencies. The prediction for general intelligence is *weaker* because it requires not just the structural capability (which is present) but also a specific evolutionary trajectory (which is contingent).
+**Why general intelligence is structurally weaker.** The framework's predictions for fundamental physics (Chapters 5-8) and for the cascade through chemistry and origin of life (Chapters 10-11) operate at the *structural* level: the relevant capabilities follow from the framework's commitments, and whether they combine into a replicator is a chemical premise (Chapter 11 §11.6). The prediction for general intelligence is *weaker* because it requires not just the structural capability (which is present) but also a specific evolutionary trajectory (which is contingent).
 
 The fitness advantages of general intelligence depend on the specific environment. In environments where pattern recognition and learning provide sufficient adaptive advantage, evolution may stop at sophisticated learning systems without developing general reasoning. In environments where social complexity, tool use, or environmental unpredictability place premium on abstract reasoning, evolution may proceed to general-intelligence-like systems. The framework does not determine which environments select for general intelligence.
 
