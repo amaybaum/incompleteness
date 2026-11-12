@@ -178,7 +178,7 @@ The mixing hypothesis for the realized hidden sector remains open. The exact lin
 
 **Output:** The emergent action-scale relation $\hbar = c^3 \epsilon^2 / (4G\sigma)$, equivalently $\epsilon = 2\sqrt{\sigma}\,l_p$, where $l_p$ is the Planck length and $\sigma$ the entropy per boundary mode ([GR §3.1]); it fixes only $\epsilon/\sqrt{\sigma}$, not the value of $\hbar$ ([GR §4]).
 
-**Derivation.** The gap equation from thermal self-consistency of the boundary layer ([GR §3]) gives the stated relation. The derivation uses: existence of thermal equilibrium at the boundary layer (a consequence of the C1–C4 dynamics from Stage 1) and the infrared detailed-balance condition H-slope with H-count and the horizon and frame conditions ([GR §2, §3.2, §8.5]), which does not follow from $\varphi$ being a bijection ([GR §3.2]) and is an assumption beyond Stages 1–2.
+**Derivation.** The gap equation from thermal self-consistency of the boundary layer ([GR §3]) gives the stated relation. The derivation uses: thermal matching at the boundary layer, in the form of the infrared detailed-balance condition H-slope, with H-count and the horizon and frame conditions ([GR §2, §3.2, §8.5]); H-slope is a selection condition ([GR §2.3]) that does not follow from $\varphi$ being a bijection ([GR §3.2]) and is an assumption beyond Stages 1–2.
 
 **Uniqueness at Stage 3.** The gap equation admits a unique solution under the stated inputs ([GR §3.2]).
 
