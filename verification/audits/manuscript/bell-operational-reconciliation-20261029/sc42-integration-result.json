@@ -1276,6 +1276,34 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | $L$ | $\\mathfrak{f}_{\\text{ss}}(L)$ | $\\mathfrak{f}_{\\text..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: |-----|---|---|..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | 4 | 14 | 16 |..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | 6 | 30 | 32 |..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | 8 | 70 | 72 |..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | 10 | 106 | 108 |..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | 12 | 130 | 132 |..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *In particular, on the branch of SM Theorem 5, $K = 6$ with ..."
     },
     {
@@ -1284,11 +1312,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: Since $N^2 = 0$, $F^t = F_{\\text{ss}}^t (I + tN)$. For $t \\i..."
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
+      "predicate": "chapter line mirrored in FULL: Since $N^2 = 0$, $F^t = F_{\\text{ss}}^t (I + tN)$. For $t \\i..."
     },
     {
       "ok": true,
@@ -2173,6 +2201,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Chapter 9 develops the universality-class structure and the ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Parts II–IV develop the framework's empirical content at the..."
     },
     {
       "ok": true,
@@ -3145,6 +3177,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: This reading has substantive consequences for foundational q..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The silence is structural, not stipulative.** The previous..."
     },
     {
       "ok": true,
