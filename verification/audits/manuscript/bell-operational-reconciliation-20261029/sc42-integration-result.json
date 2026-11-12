@@ -1268,6 +1268,70 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework derives the relation $\\hbar = c^3\\epsilon^2/(4..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: A deep-sector configuration that stays fixed still enters th..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **H-BD** (deep-sector influence bound; posited). *There is a..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma B.4.2 (Factorization of transition probabilities).**..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: $$\\sum_j \\big|T_{ij}(t) - T^{(B)}_{ij}(t)\\big| \\leq \\frac{2t..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* Fix $x_i$ and $b$, and follow the reference path $(..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Nothing in the framework fixes $\\tau_{BD}$. For a linear upd..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma B.4.3 (Causal cone).** *Let the bijective update act..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: $$T_{ij}(t) = \\frac{1}{|\\mathcal{C}_{B_n}|}\\sum_{b \\in \\math..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Proof.* A component's value after $n$ updates depends only ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Under H-BD the correction in Lemma B.4.2 is at most $2t/\\tau..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Step 2: Deep-sector gauge equivalence.** A corollary of Le..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Step 3: Dimensional determination.** The thermal matching ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The two temperatures are computed independently — $T_{\\text{..."
     },
     {
@@ -1472,6 +1536,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Step 3.* Dimensional analysis on $c$, $G$ and $\\epsilon$ gi..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *What the framework retrodicts.* Twenty-two classified Stand..."
     },
     {
@@ -1557,6 +1625,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: One retrodiction deserves separate note for its precision, w..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: In September 2025 the LIGO collaboration's analysis of GW250..."
     },
     {
       "ok": true,
@@ -1788,6 +1860,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Stage 3: From dynamics to emergent constants.** Stage 3 ta..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Reconstruction Theorem.** *Let E1–E7, M1-T and M1-B, and A..."
     },
     {
@@ -1829,6 +1905,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The visible-sector projection: quantum mechanics.** Chapte..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Applied to the cosmological horizon as a causal partition, t..."
     },
     {
       "ok": true,
@@ -1921,6 +2001,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Level G2 × Level D predictions — the Standard Model gauge gr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's most distinguishing empirical content lives ..."
     },
     {
       "ok": true,
@@ -2312,7 +2396,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The methodological discipline of Chapter 4 organizes the gra..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Verification of C2 (memory persistence).** The hidden-sect..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Status of C4 (history readback).** The horizon constructio..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Three of the four conditions hold at the cosmological horizo..."
     },
     {
       "ok": true,
@@ -2320,11 +2416,27 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Step 2: Boundary-only dependence.** The emergent quantum f..."
+      "predicate": "chapter line mirrored in FULL: **Step 2: Boundary-only dependence.** The visible transition..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The two temperatures — $T_{\\text{cl}}$ from the classical su..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The surface gravity $\\kappa$ cancels — a non-trivial cross-c..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The derivation has the structure of a gap equation: $\\epsilo..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The scope of this test is important to state precisely: GW25..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Falsification status.** The Bekenstein-Hawking $1/4$ is a ..."
     },
     {
       "ok": true,
@@ -2333,6 +2445,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The dispute between Hawking's calculation (thermal radiation..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The external observer's reduced description of the region $V..."
     },
     {
       "ok": true,
@@ -2368,7 +2484,27 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The MOND acceleration scale.** The framework's account of ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Step 1: Entropy displacement by baryonic matter (conditiona..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The gravitational sector combines unconditional partition-ge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The tier system per Section 7.1: Tier 1 results follow from ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Falsification commitments.** These tests concern the state..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The geometry-first account.** The classical and emergent d..."
     },
     {
       "ok": true,
@@ -2400,6 +2536,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 9.2 develops the framework's hierarchical structural..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 9.3 develops the Tier 1 results, and the conditional..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 9.7 develops the Danielson-Satishchandran-Wald (DSW)..."
     },
     {
@@ -2408,11 +2552,31 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Chapter 7 (Gravitational Sector).* Predictions stratify acr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's Tier 1 results, and the conditional results ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The Bekenstein-Hawking entropy.* $S = A/(4 l_p^2)$ is recov..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The action-scale relation from partition geometry.* $\\hbar ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Finiteness.* The substratum $S$ has finite cardinality. Thi..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Deterministic bijection.* The substratum dynamics $\\varphi:..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: These six commitments define the framework's universality cl..."
     },
     {
       "ok": true,
@@ -2429,6 +2593,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The three tiers contain nineteen entries of unequal evidenti..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Cross-attribution of predictions does not follow.** A cons..."
     },
     {
       "ok": true,
@@ -2992,7 +3160,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's commitment to a finite substratum has struct..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
@@ -3000,19 +3176,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: A clarification is essential. The cardinality $|\\mathcal{C}_..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's commitment to finite information is therefor..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
-    },
-    {
-      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Exact finite recurrence.** A bijection $\\varphi$ acting on..."
-    },
-    {
-      "ok": true,
-      "predicate": "chapter line mirrored in FULL: ..."
     },
     {
       "ok": true,
