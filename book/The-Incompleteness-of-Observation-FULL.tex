@@ -589,10 +589,10 @@ read sequentially.
 
 \textbf{Appendix B (Mathematical Derivations).} Complete derivations for
 the framework's key technical results: the Stinespring construction, the
-Jordan-Chevalley projection, the gap equation relating \(\hbar\) to the
-discreteness scale, the anomaly cancellation calculation, the
-gauge-theoretic derivations, and the lemma chain for the
-characterization theorem. Use when the main-text derivations are too
+Jordan-Chevalley decomposition of the ring evolution, the gap equation
+relating \(\hbar\) to the discreteness scale, the anomaly cancellation
+calculation, the gauge-theoretic derivations, and the lemma chain for
+the characterization theorem. Use when the main-text derivations are too
 compressed for the reader's purposes. The appendix is designed for
 readers requiring full technical content; readers without that
 requirement can rely on the main-chapter derivations.
@@ -602,7 +602,7 @@ Systematic engagement with the most predictable objections to the
 framework's commitments: Bell's theorem, no-go theorems (PBR,
 Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman), the stochastic-quantum
 bridge, the necessity direction of the characterization theorem, the
-finiteness axiom, computational implementability, the relationship to
+finiteness posit, computational implementability, the relationship to
 standard interpretations (MWI, Bohmian, QBism), the substratum-emergent
 operator distinction concern, circularity in the gap equation, the
 framework's epistemic status, and meta-objections about scope and
@@ -652,9 +652,10 @@ within the complete reading path.
   commentary; readers without interest in consciousness questions can
   skim.
 \item
-  \textbf{Appendix B §B.3} (Jordan-Chevalley projection) is the most
-  technical of the appendix sections; readers without background in
-  algebraic geometry can rely on the main-text §5.4-5.5 treatment.
+  \textbf{Appendix B §B.3} (Jordan-Chevalley structure of the ring
+  evolution) is the most technical of the appendix sections; readers
+  without background in algebraic geometry can rely on the main-text
+  §5.4-5.5 treatment.
 \end{itemize}
 
 These sections add depth to the framework's content but are not
@@ -902,11 +903,11 @@ argued-and-anchored rather than derived from nothing --- with the
 hypercharges then forced by anomaly cancellation on the nonzero-\(Y_Q\)
 branch. The Bekenstein-Hawking factor \(1/4\) is recovered as a
 consistency relation between the classical and emergent horizon
-temperatures, conditional on the horizon conditions of Chapter 7; it has
-no direct test. The JUNO neutrino mixing angle is matched by a
-parameter-free retrodiction at \(0.07\sigma\) --- the derivation
-postdates the November 2025 measurement --- whose exact form makes
-JUNO's design-lifetime precision a pre-registered forward test.
+temperatures, conditional on H-count and the horizon conditions of
+Chapter 7; it has no direct test. The JUNO neutrino mixing angle is
+matched by a parameter-free retrodiction at \(0.07\sigma\) --- the
+derivation postdates the November 2025 measurement --- whose exact form
+makes JUNO's design-lifetime precision a pre-registered forward test.
 Twenty-two Standard Model observables are organized by a single
 foundational commitment plus cubic-lattice geometry --- two as
 parameter-free structural retrodictions and five as conditional
@@ -1229,8 +1230,8 @@ and does not measure entropy, so it does not test the \(1/4\)
 coefficient, which remains without a direct empirical test. The
 framework recovers the \(1/4\), which the standard account fixes from
 the Hawking temperature and the first law, as the ratio \(2\pi/8\pi\) of
-its horizon calibration, under the horizon conditions named in Chapter
-7.
+its horizon calibration, under H-count and the horizon conditions named
+in Chapter 7.
 
 A second component of the framework's gravitational predictions concerns
 the dark sector. The framework predicts that the entropy of the
@@ -1338,11 +1339,11 @@ fitted) including the Cabibbo angle, the Koide relation, the six fermion
 masses from one empirical input, and all three PMNS angles. Chapter 7
 develops the gravitational sector: the Bekenstein-Hawking \(1/4\) factor
 and the calibration \(\hbar = c^3\epsilon^2/(4G\sigma)\) as consistency
-relations of horizon thermodynamics under named horizon conditions, the
-dissolution of the cosmological constant problem at the descriptive
-level. Chapter 8 develops the JUNO neutrino prediction in detail.
-Chapter 9 discusses universality, the relationship to other unification
-programs, and the framework's empirical scope.
+relations of horizon thermodynamics under H-count and named horizon
+conditions, the dissolution of the cosmological constant problem at the
+descriptive level. Chapter 8 develops the JUNO neutrino prediction in
+detail. Chapter 9 discusses universality, the relationship to other
+unification programs, and the framework's empirical scope.
 
 \textbf{Part III --- Emergence.} Chapters 10--12 trace the structural
 cascade from the substratum to chemistry, biology, evolution, and
@@ -1459,15 +1460,16 @@ Parts III and IV.
 The book makes one foundational commitment --- that observation occurs
 --- and develops the consequences. The consequences are extensive. They
 include the structure of quantum mechanics, the dynamics of general
-relativity, the gauge group and matter content of the Standard Model,
-the composition of the cosmological dark sector, the structural
-conditions for chemistry and life, and the framework's reach into
-specific contemporary problems in biology and medicine. Whether the
-framework is correct is an empirical question that will be settled by
-the predictions developed throughout the book against measurements now
-being made and forthcoming. The book's role is to make the structure of
-the framework, the chain of its derivations, and the specific content of
-its predictions available for evaluation.
+relativity (conditional on the open covariant rung G3, Chapter 19
+§19.2.1), the gauge group and matter content of the Standard Model, the
+composition of the cosmological dark sector, the structural conditions
+for chemistry and life, and the framework's reach into specific
+contemporary problems in biology and medicine. Whether the framework is
+correct is an empirical question that will be settled by the predictions
+developed throughout the book against measurements now being made and
+forthcoming. The book's role is to make the structure of the framework,
+the chain of its derivations, and the specific content of its
+predictions available for evaluation.
 
 \hypertarget{chapter-1}{%
 \section{Chapter 1}\label{chapter-1}}
@@ -1816,9 +1818,7 @@ that this is the entire freedom: the emergent description is determined
 by the partition alone.
 
 \textbf{Lemma.} \emph{Under the canonical measure of Lemma 3, the
-emergent description is uniquely determined by the partition. Any
-parameters of the emergent theory depend only on the geometric and
-thermodynamic properties of the partition boundary.}
+emergent description is uniquely determined by the partition.}
 
 \emph{Proof.} By Lemma 3 the Hamiltonian flow \(\phi_t\) is unique. By
 Lemma 2 the partition is fixed. An embedded observer with incomplete
@@ -1861,14 +1861,14 @@ Different observers correspond to different partitions of the same
 \((S, \varphi)\); different partitions produce different emergent
 descriptions. Quantum mechanics' parameters are not free constants. The
 Planck constant \(\hbar\) does not appear in the lemmas or conditions;
-it must emerge from the marginalization, with value set by the
-partition's geometric and thermodynamic features. Chapter 7 shows that,
-under the horizon conditions named there, the cosmological partition
-relates \(\hbar\) to the discreteness scale through a thermal
-self-consistency condition at the horizon surface, with \(1/4\)
-Bekenstein-Hawking entropy following --- with GW250114 confirming the
-classical area theorem at \(99.999\%\) (Abac et al.~2025); the entropy
-coefficient itself has no direct test.
+it must emerge from the marginalization together with the horizon
+calibration of Chapter 7. Chapter 7 shows that, under H-count and the
+horizon conditions named there, the cosmological partition relates
+\(\hbar\) to the discreteness scale through a thermal self-consistency
+condition at the horizon surface, with \(1/4\) Bekenstein-Hawking
+entropy following --- with GW250114 confirming the classical area
+theorem at \(99.999\%\) (Abac et al.~2025); the entropy coefficient
+itself has no direct test.
 
 Partition-relativity establishes that the emergent description is
 well-defined. The next question is what kind of description it is ---
@@ -2523,27 +2523,30 @@ representation itself is universal; coupling supplies the nontrivial
 sector.
 
 The C1 limit therefore illuminates a structural point: classical
-mechanics is what \emph{uncoupled} systems do. The apparent quantumness
-of the world is a signature not of intrinsic randomness in the
-underlying reality but of our \emph{non-isolation}. The substratum is
-deterministic; what makes physics look probabilistic is that the
-observer is coupled to something they cannot directly see. An observer
-who could isolate themselves completely from everything outside their
-measurement apparatus would see classical mechanics. No such observer
-exists in our universe, and the framework's content is that no such
-observer can exist --- gravitational coupling is universal.
+mechanics is what \emph{uncoupled} systems do. The framework's proposal
+is that the apparent quantumness of the world is a signature not of
+intrinsic randomness in the underlying reality but of our
+\emph{non-isolation}. Quantumness here means the phenomenology, not the
+bare representation, which the uncoupled limit keeps; what is proved is
+that memory in the observer's record cannot arise without the coupling.
+The substratum is deterministic; what makes physics look probabilistic
+is that the observer is coupled to something they cannot directly see.
+An observer who could isolate themselves completely from everything
+outside their measurement apparatus would see classical mechanics. No
+such observer exists in our universe, and the framework's content is
+that no such observer can exist --- gravitational coupling is universal.
 
-This has a striking corollary: the project of ``explaining quantum
-mechanics'' by finding the right deterministic substructure is
-well-defined within the framework, but the dynamics that observer's
-would see in that substructure is not quantum mechanics. It is classical
-mechanics. Quantum mechanics is the dynamics that \emph{embedded}
-observers see when they are coupled to the substructure; the
-substructure itself, viewed from a hypothetical uncoupled vantage point,
-would be classical. The framework's reframing is that the persistent
-intuition ``there must be a deterministic story underneath'' is correct,
-and the deterministic story is classical, but it is structurally
-inaccessible to any actual observer.
+The proposal has a striking consequence: the project of ``explaining
+quantum mechanics'' by finding the right deterministic substructure is
+well-defined within the framework, but the dynamics an uncoupled
+observer would see in that substructure is memoryless classical
+mechanics. Quantum mechanics, on this proposal, is the dynamics that
+\emph{embedded} observers see when they are coupled to the substructure;
+the substructure itself, viewed from a hypothetical uncoupled vantage
+point, would be classical. The framework's reframing is that the
+persistent intuition ``there must be a deterministic story underneath''
+is correct, and the deterministic story is classical, but it is
+structurally inaccessible to any actual observer.
 
 \textbf{The C2 limit: the thermalized observer.}
 
@@ -3024,14 +3027,14 @@ empirical input or a named modeling premise.
 \subsection{2.2 The substratum as a finite lossless
 memory}\label{the-substratum-as-a-finite-lossless-memory}}
 
-The framework's central object is a triple. \(S\) is a finite set whose
-elements are the distinguishable total states. \(\varphi: S \to S\) is a
-bijection --- a deterministic, reversible transition rule that maps each
-state to its unique successor. \(V \subsetneq S\) is the visible sector,
-the observer's window into \(S\); the complement \(H = S \setminus V\)
-is the hidden sector. These three together --- \((S, \varphi, V)\) ---
-fix everything: the dynamics, the observer's access, the marginalized
-description.
+The framework's central object is a triple. \(S\) is a finite set (posit
+A1, §2.4) whose elements are the distinguishable total states.
+\(\varphi: S \to S\) is a bijection --- a deterministic, reversible
+transition rule that maps each state to its unique successor.
+\(V \subsetneq S\) is the visible sector, the observer's window into
+\(S\); the complement \(H = S \setminus V\) is the hidden sector. These
+three together --- \((S, \varphi, V)\) --- fix everything: the dynamics,
+the observer's access, the marginalized description.
 
 The most useful physical interpretation is in terms of memory. \(S\) is
 the set of all distinguishable states the system can occupy --- a finite
@@ -3165,7 +3168,8 @@ Two further comparisons deserve separation from unresolved hidden-state
 facts. An independently prepared finite factor evolving exactly
 independently of the observed system changes the deep-sector cardinality
 while preserving the original fixed-interface coherent channel
-{[}Substratum Theorem 24(iii){]}. A slowly coupled deep sector preserves
+{[}Substratum Theorem 24(iii){]}. A deep sector coupled to the boundary
+layer under the posited influence bound H-BD of {[}GR §3.2{]} preserves
 only the leading-order accessible-time law, with the stated correction.
 Infinite extensions require specified normalized states or measures and
 dynamics. Alphabet change preserves observables only under the
@@ -3281,14 +3285,17 @@ to candidate substrates satisfying six properties:
 of Chapter 1 delivers finiteness of the observer's distinguishable
 states; the extension to all of \(S\) is a posit, read as the choice of
 the minimal finite representative and supported by E3 (the holographic
-bound read as a dimension cutoff).
+bound read as a dimension cutoff). Its scope, and which results use it,
+are stated in {[}Main §1.2{]}, Remark (status of the early commitments).
 
 \emph{(A2) Determinism.} The dynamics \(\varphi: S \to S\) is a
 bijection --- deterministic and reversible. Its status is two-part
 (Chapter 1, Lemma 3): the bijective substratum is a representation
 choice --- the minimal recurrent bijective representative of the hidden
-dynamics --- and injectivity is anchored by a dilemma argument with one
-structural prong (finiteness and recurrence) and one empirical prong
+dynamics, which for a finite system is the dynamics restricted to its
+eventual image, the states lying on its cycles --- and injectivity is
+anchored by a dilemma argument with one structural prong (finiteness,
+for registered states in the eventual image) and one empirical prong
 (the observed statistics).
 
 \emph{(A3) Bounded coupling degree.} Each site of the substratum is
@@ -3451,8 +3458,8 @@ qualifications.
 Stage 2's output and derives the emergent action-scale relation. The
 argument is that thermal self-consistency at the partition boundary ---
 established in Chapter 7 from the boundary layer's emergent
-thermodynamics, conditional on H-slope with the horizon and frame
-conditions named there --- forces the relation
+thermodynamics, conditional on H-slope with H-count and the horizon and
+frame conditions named there --- forces the relation
 \[\hbar = c^3 \epsilon^2 / (4G\sigma),\] with the discreteness scale
 \(\epsilon = 2\sqrt{\sigma}\,\ell_P\) (twice the Planck length at
 \(\sigma = 1\), one nat per boundary mode) as the unique simultaneous
@@ -3602,9 +3609,9 @@ therefore every rooted population law {[}Substratum Theorem 24(iii){]}.
 This is stronger than a population-only assertion. Infinite factors
 require a separately specified normalized state or measure and
 well-defined dynamics; finite uniform counting does not supply that
-extension. Slowly coupled enlargements instead change the law by the
-correction stated in Chapter 7 and preserve only its leading-order
-accessible-time description.
+extension. Enlargements coupled under the influence bound H-BD instead
+change the law by the correction stated in Chapter 7 and preserve only
+its leading-order accessible-time description.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 gauge-sector qualification.} Two coupling graphs \(G_\varphi\) and
@@ -3816,7 +3823,8 @@ argument applied to local causal horizons yields Einstein's equations as
 the Clausius relation \(dE = T \, dS\) at the boundary.
 
 Applied to the cosmological horizon as a causal partition, the
-boundary-thermodynamic projection produces general relativity with
+boundary-thermodynamic projection produces, conditionally on the open
+covariant rung G3 (Chapter 19 §19.2.1), general relativity with
 quantitative predictions. The emergent action scale
 \(\hbar = c^3 \epsilon^2 / (4G\sigma)\), with
 \(\epsilon = 2\sqrt{\sigma}\,\ell_P\), follows from thermal
@@ -3824,8 +3832,8 @@ self-consistency at the boundary layer under the infrared
 detailed-balance condition H-slope. The boundary-mode count reproduces
 the Bekenstein-Hawking entropy \(S = A/(4 \ell_P^2)\), the \(1/4\)
 coefficient being the ratio \(2\pi/8\pi\) that the calibration matches
-and conditional on the horizon conditions of Chapter 7; GW250114
-(September 2025) confirms the classical area theorem, which the
+and conditional on H-count and the horizon conditions of Chapter 7;
+GW250114 (September 2025) confirms the classical area theorem, which the
 framework preserves --- the \(1/4\) coefficient itself has no direct
 empirical test. The cosmological constant problem receives a conditional
 treatment: the quantum vacuum energy and the effective \(\Lambda\) are
@@ -3927,11 +3935,11 @@ visible-sector projection works on the bulk dynamics and produces the
 reduced finite law --- universally admitting the quantum representation
 --- with the Standard Model as its specific content. The
 boundary-thermodynamic projection works on the classical thermal data at
-the partition boundary and produces general relativity with its
-gravitational and cosmological predictions. The horizon-clock projection
-works on the horizon-growth parameter along observer worldlines together
-with the observer-selection rule; the alignment of the arrows with that
-parameter is open.
+the partition boundary and produces, conditionally on the open covariant
+rung G3, general relativity with its gravitational and cosmological
+predictions. The horizon-clock projection works on the horizon-growth
+parameter along observer worldlines together with the observer-selection
+rule; the alignment of the arrows with that parameter is open.
 
 The shared structure is not metaphor or analogy. The same local lattice
 sector that gives the Standard Model gauge group from the stabilizer of
@@ -4774,11 +4782,11 @@ result --- retrodictive: it agrees with OI's specific cubic-group
 calculation, and disagreement would have refuted OI's representative
 without refuting the broader observer-admission program. The
 Bekenstein-Hawking \(1/4\) factor sits at Level G2/G3 × Level D --- a
-conditional derivation (horizon conditions, Chapter 7) with no direct
-empirical test (GW250114 constrains the classical area theorem, not the
-coefficient) --- since both OI's substratum and any successful
-SM-reproducing framework that yields the area law would predict the same
-factor.
+conditional derivation (H-count and horizon conditions, Chapter 7) with
+no direct empirical test (GW250114 constrains the classical area
+theorem, not the coefficient) --- since both OI's substratum and any
+successful SM-reproducing framework that yields the area law would
+predict the same factor.
 
 \textbf{Falsification is stratified accordingly.} Falsifying a Level G4
 × Level C prediction is impossible without contradicting the structural
@@ -5061,9 +5069,8 @@ refusing to consider unperformed measurements --- the response to Bell
 runs through the structure of the premises, not through denying that
 measurements have results. Nor does it treat hidden setting correlations
 as an explanation of Bell statistics. Measurement independence is an
-explicit premise of the adopted Bell branch; chaotic mixing may motivate
-laboratory decorrelation between pair-preparation and setting-generating
-degrees of freedom, but the violation itself is assigned to ontic
+explicit premise of the adopted Bell branch, a posit about the initial
+condition, not derived; the violation itself is assigned to ontic
 parameter dependence. The setting-dependent horn is quantified and
 declined (Main §3.3).
 
@@ -5417,8 +5424,9 @@ out that factor leaves the original visible channel unchanged
 time because the added dynamics remains exactly decoupled. It says
 nothing comparable about a sector that can later couple to the observed
 system, or about observations that directly access the added factor.
-Slow coupling gives only the separate approximation stated in {[}GR
-§3.2{]}, not exact observational equivalence.
+Coupling under the influence bound H-BD gives only the separate
+approximation stated in {[}GR §3.2{]}, not exact observational
+equivalence.
 
 This distinguishes redundancy between descriptions from unresolved facts
 within a model. Hidden degrees of freedom may store information that
@@ -5458,7 +5466,7 @@ representation as an exact theorem and stating the coherent local
 operational lift separately --- rather than adding observer degrees of
 freedom to an existing quantum-gravitational formalism. The contemporary
 programs work within quantum gravity and identify the observer's role;
-the framework works underneath quantum mechanics and identifies how
+the framework works underneath quantum mechanics and proposes how
 quantum mechanics arises from observer-embeddedness. Both projects are
 pursuing structural realism about observation; they are doing so from
 different directions.
@@ -6080,12 +6088,11 @@ This per-theorem verification is a genuine discipline, not a rhetorical
 disadvantage. In particular, determinism by itself does not settle
 Bell's measurement-independence premise. The framework \textbf{adopts}
 the measurement-independent branch rather than using setting dependence
-as its explanation; any microscopic mixing/decorrelation argument can
-motivate that adopted laboratory premise but is not the Bell-violation
-mechanism. The required Bell violation is instead carried by ontic
-parameter dependence, with operational no-signaling checked separately.
-The same discipline applies to the coherent-instrument assumptions in
-the other no-go theorems.
+as its explanation; measurement independence is retained as a posit
+about the initial condition, not derived. The required Bell violation is
+instead carried by ontic parameter dependence, with operational
+no-signaling checked separately. The same discipline applies to the
+coherent-instrument assumptions in the other no-go theorems.
 
 \textbf{Methodological benefit.} The benefit of the architecture-level
 engagement is that the framework's structural reading of each no-go
@@ -6915,13 +6922,14 @@ gauge symmetries it has.
 equation}\label{the-minimal-substratum-and-the-wave-equation}}
 
 The framework's content rests on a minimal mathematical structure: a
-finite set \(S\), a deterministic bijection \(\varphi: S \to S\), and a
-partition of \(S\) into visible and hidden sectors. The lemmas of
-Chapter 1 extracted three structural features from this minimal object
---- visible finiteness, causal partition, determinism --- and the
-conditions C1--C4 identified when an embedded observer can exist. This
-section develops two further structural features of the minimal object
-that the Standard Model derivation requires.
+finite set \(S\) (posit A1, Chapter 2 §2.4), a deterministic bijection
+\(\varphi: S \to S\), and a partition of \(S\) into visible and hidden
+sectors. The lemmas of Chapter 1 extracted three structural features
+from this minimal object --- visible finiteness, causal partition,
+determinism --- and the conditions C1--C4 identified when an embedded
+observer can exist. This section develops two further structural
+features of the minimal object that the Standard Model derivation
+requires.
 
 \textbf{The factorization problem.} Let \(S\) be a finite set with
 \(|S| = q^N\) for some \(q \geq 2\) and integer \(N\). There are many
@@ -9491,7 +9499,7 @@ horizon temperature (computed from the Jacobson thermodynamic argument
 with no quantum input) and the Euclidean KMS period of the emergent
 quantum field theory, conditional on the infrared detailed-balance slope
 of the horizon reservoir matching the Killing period (H-slope) together
-with the horizon and frame conditions. Section 7.4 fixes the
+with H-count and the horizon and frame conditions. Section 7.4 fixes the
 discreteness scale \(\epsilon = 2\sqrt{\sigma}\,l_p\)
 (\(\epsilon = 2\,l_p\) at \(\sigma = 1\), one nat per mode) as the
 unique simultaneous solution of the action-scale relation and the
@@ -9535,8 +9543,8 @@ displacement, declining rotation curves at
 
 The methodological discipline of Chapter 4 organizes the gravitational
 predictions into three tiers. \textbf{Tier 1} consists of what follows
-from partition geometry alone --- the energy-shell temperature of the
-horizon reservoir, the finite counting of boundary modes, and the
+from partition geometry alone --- the classical horizon temperature of
+the boundary count, the finite counting of boundary modes, and the
 two-level distinction between the emergent vacuum energy and the
 effective cosmological constant. These hold for any finite deterministic
 system satisfying the four conditions at its cosmological horizon. They
@@ -9549,24 +9557,24 @@ derived: the action-scale relation \(\hbar = c^3\epsilon^2/(4G\sigma)\),
 the discreteness scale \(\epsilon = 2\sqrt{\sigma}\,l_p\) and the
 Bekenstein-Hawking \(1/4\) coefficient require that the infrared
 detailed-balance slope of the horizon reservoir match the Killing period
---- the condition H-slope of {[}GR §3.2{]} --- together with the horizon
-and frame conditions of Section 7.3; the descriptive distinction behind
-the cosmological-constant dissolution is established while its dynamical
-form is conditional on the covariant coupling theorem the companion
-paper leaves open ({[}GR §6.2{]}); and the Type II running-vacuum form
-is not derived, its local expansion being shared by every smooth model
-(Section 7.8). \textbf{Tier 2} consists of dark-sector phenomenology ---
-the 95\% invisible matter fraction, the MOND acceleration scale
-\(a_0 = cH/6\), the rotation-curve crossover. These follow from the
-thermodynamic Clausius relation applied to the boundary reservoir, so
-they inherit the conditions on the de Sitter temperature, and the
-dimensional factor \(1/6\) is imported from Verlinde's emergent-gravity
-analysis (Section 7.9); they sit at Level D × Levels G1--G2 of the
-hierarchical structure. \textbf{Tier 3} consists of solution-specific
-quantities --- the transition steepness between MOND and Keplerian
-regimes, the greybody factor for Hawking radiation, the specific
-microscopic realization of the substratum --- which depend on the
-particular bijection \(\varphi\) within
+--- the condition H-slope of {[}GR §3.2{]} --- together with H-count and
+the horizon and frame conditions of Section 7.3; the descriptive
+distinction behind the cosmological-constant dissolution is established
+while its dynamical form is conditional on the covariant coupling
+theorem the companion paper leaves open ({[}GR §6.2{]}); and the Type II
+running-vacuum form is not derived, its local expansion being shared by
+every smooth model (Section 7.8). \textbf{Tier 2} consists of
+dark-sector phenomenology --- the 95\% invisible matter fraction, the
+MOND acceleration scale \(a_0 = cH/6\), the rotation-curve crossover.
+These follow from the thermodynamic Clausius relation applied to the
+boundary reservoir, so they inherit the conditions on the de Sitter
+temperature, and the dimensional factor \(1/6\) is imported from
+Verlinde's emergent-gravity analysis (Section 7.9); they sit at Level D
+× Levels G1--G2 of the hierarchical structure. \textbf{Tier 3} consists
+of solution-specific quantities --- the transition steepness between
+MOND and Keplerian regimes, the greybody factor for Hawking radiation,
+the specific microscopic realization of the substratum --- which depend
+on the particular bijection \(\varphi\) within
 \([(S, \varphi)] / \mathcal{G}_{\text{sub}}\) and are addressed by the
 cubic-lattice realization developed in Chapters 5--6.
 
@@ -9637,13 +9645,11 @@ relaxation timescale is the Hubble time,
 \(\tau_B \sim 1/H \sim 10^{17}\) s. The visible-sector dynamics
 timescale for any laboratory process is much faster: typical electroweak
 processes occur on timescales \(\tau_S \sim 10^{-15}\) s. The ratio
-\(\tau_S / \tau_B \sim 10^{-32}\) is extraordinarily small, making the
-corrections to the framework's leading-order results at scale
-\(\tau_S / \tau_B\) correspondingly small. C2's slow-bath realization is
-satisfied with enormous margin --- the cosmological horizon is among the
-slowest baths the framework's conditions admit. Corrections of order
-\(10^{-32}\) to the framework's leading results are well below current
-observational precision in all relevant sectors.
+\(\tau_S / \tau_B \sim 10^{-32}\) is extraordinarily small, so a
+correction that scales as \(\tau_S / \tau_B\) is correspondingly small.
+C2's slow-bath realization is satisfied with enormous margin --- the
+cosmological horizon is among the slowest baths the framework's
+conditions admit.
 
 \textbf{Verification of C3 (sufficient capacity).} The horizon's
 information-storage capacity scales with the horizon area: the number of
@@ -9675,12 +9681,12 @@ cosmological cut, not presently discharged.
 Three of the four conditions hold at the cosmological horizon by
 structural argument rather than by phenomenological assumption, and the
 fourth is named rather than assumed. The framework's results in the
-gravitational sector rest on the horizon and frame conditions stated
-with them in §7.3 --- H-slope above all --- and consume no readback
-claim. The eigenstate thermalization hypothesis, which motivates the
-mixing hypothesis behind the slow-bath form of the C2 necessity
-direction, is the standard assumption for the horizon complement (a
-generic chaotic many-body system).
+gravitational sector rest on H-count and the horizon and frame
+conditions stated with them in §7.3 --- H-slope above all --- and
+consume no readback claim. The eigenstate thermalization hypothesis,
+which motivates the mixing hypothesis behind the slow-bath form of the
+C2 necessity direction, is the standard assumption for the horizon
+complement (a generic chaotic many-body system).
 
 \hypertarget{the-emergent-action-scale-hbar}{%
 \subsection{\texorpdfstring{7.3 The emergent action scale
@@ -9763,18 +9769,23 @@ field equations remain open (Chapter 19 §19.2). The behaviour of the
 framework's small lattice corrections under the closure machinery
 remains an open consistency check.
 
-\textbf{Step 2: Boundary-only dependence.} The emergent quantum field
-theory on the horizon depends only on the boundary modes --- the degrees
-of freedom at the horizon itself --- and not on the bulk content of the
-visible or hidden sectors at scales far from the boundary. This is the
-framework's partition-relativity result: under the canonical measure of
-Lemma 3 of Chapter 1, the emergent description is uniquely determined by
-the partition geometry at leading order in \(\tau_S / \tau_B\), with
-bulk corrections at order \(\tau_S / \tau_B\) for the cosmological
-partition. The boundary-only dependence is a structural consequence of
-the small parameter \(\tau_S / \tau_B \sim 10^{-32}\): the emergent QFT
-is effectively a theory of the boundary modes, with bulk corrections
-suppressed by the slow-bath timescale ratio.
+\textbf{Step 2: Boundary-only dependence.} The visible transition data
+from which the emergent quantum field theory on the horizon is
+reconstructed depend only on the hidden degrees of freedom within the
+visible sector's causal cone over the elapsed time, a layer whose depth
+grows with \(t\), and not on the deep content of the hidden sector
+beyond it (Appendix B.4). They depend at leading order only on the
+boundary modes --- the degrees of freedom at the horizon itself ---
+under a posited bound on the deep sector's influence on the boundary
+layer, H-BD, with influence time \(\tau_{BD}\): the corrections are then
+of order \(t/\tau_{BD}\), which is \(10^{-32}\) for laboratory processes
+when \(\tau_{BD} \gtrsim 1/H\), a value that is not derived, and for the
+framework's linear update the bound with an influence time longer than
+two update steps holds only if the deep sector does not act on the
+boundary at all ({[}GR §3.2{]}). The transition data fix the emergent
+dynamics in units of inverse time but not the action scale that converts
+it to energy, so this step does not bear on \(\hbar\): with Step 3 it is
+a consistency check, and the calibration of Step 4 fixes \(\hbar\).
 
 \textbf{Step 3: Dimensional analysis of \(\hbar\).} The emergent action
 scale \(\hbar\) depends only on local geometric quantities at the
@@ -9808,11 +9819,13 @@ descriptions of the same modes cannot assign different temperatures
 without logical contradiction. The matching \(T_{\text{cl}} = T_Q\)
 identifies the classical horizon temperature with the emergent KMS
 temperature on the same boundary modes; it holds under the infrared
-detailed-balance condition H-slope, which partition geometry does not
-supply, with corrections at order \(\tau_S / \tau_B \sim 10^{-32}\):
+detailed-balance condition H-slope and the hidden-sector condition
+H-count --- the energy-dependent entropy of the whole hidden-sector
+reservoir is its boundary count, the deep hidden sector contributing
+none --- neither of which partition geometry supplies:
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}.\]
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
-the boundary-only argument of Step 2, which excluded \(\kappa\) from
+the dimensional argument of Step 3, which excluded \(\kappa\) from
 \(\hbar\) on observer-universality grounds. The thermal matching here
 recovers that exclusion from independent physics: \(\kappa\) enters both
 sides of the consistency equation, and only the combinations of \(c\),
@@ -9822,43 +9835,44 @@ sides of the consistency equation, and only the combinations of \(c\),
 The derivation has the structure of a gap equation: \(\epsilon\) is the
 free geometric input, \(\hbar\) is the output. The match between the two
 temperature computations is non-trivial. The classical temperature could
-have depended on volumetric hidden-sector data --- excluded by the
-boundary-only argument of Step 2 --- but in fact depends only on the
-boundary geometry. The KMS temperature could have depended on the state
-of the emergent QFT --- but in fact is kinematic in its parameter,
-conditional on H-balance in its class, depending only on the surface
-gravity. What the calibration needs is narrower than H-balance: only the
-infrared slope of the detailed-balance ratio across the accessible
-horizon transitions, the condition H-slope ({[}GR §3.2{]}), which
-identifies the classical inverse-energy temperature with the emergent
-Killing period; the gap equation, and with it the \(1/4\) coefficient of
-Section 7.5, is conditional on it. One prerequisite of the KMS step is
-carried explicitly: Euclidean regularity at a bifurcate Killing horizon
-presupposes local boost structure in the emergent description at the
-horizon, so the gap equation is partially downstream of the boost
-sector's protection mechanism: the symmetric-point matching under
-H-blind ({[}SM §4.4{]}) and, conditional on it, the \(M_X\)-controlled
-running tracked in the Lorentz-sector accounting ({[}GR §8.5{]}). At the
-normalized \(d=3\) observer level the free massless branch supplies the
-common infrared cone at the symmetric matching point under H-blind
-({[}SM §4.4{]}); exact all-momentum boost invariance is not claimed ---
-the unit-Courant cone of the one-dimensional discrete wave equation does
-not carry to the three-dimensional observer branch, and away from the
-body diagonals the cone holds only in the infrared ({[}GR §8.5{]}).
-Conditional on that matching, the custodial symmetry forbids a
-condensate-independent sector-differential counterterm, and an
-interacting cross-charged calculation, reported in the companion paper
-and not independently verified, gave the running a
-quadratic-with-logarithm form decoupling as \((M_X/M_{\text{Pl}})^2\),
-with the non-logarithmic constant that loop's own, the substratum's
-component-local nonlinearity contributing only to the universal cone.
-The one item shared with the Lorentz-sector accounting is that reported
-running calculation; on its reported form the cross-charged mass \(M_X\)
-would sit in an illustrative window of roughly two to four decades, kept
-open from below by the baryon safety of the cross-charged sector, which
-is of the proton-safe leptoquark class rather than the grand-unified
-kind. That neither pathology obtains makes the gap equation a genuine
-determination of \(\hbar\) in terms of the discreteness scale.
+have depended on volumetric hidden-sector data, but it is fixed by the
+boundary count of Step 1, with which the reservoir's energy-shell
+temperature coincides under H-count. The KMS temperature could have
+depended on the state of the emergent QFT --- but in fact is kinematic
+in its parameter, conditional on H-balance in its class, depending only
+on the surface gravity. What the calibration needs is narrower than
+H-balance: only the infrared slope of the detailed-balance ratio across
+the accessible horizon transitions, the condition H-slope ({[}GR
+§3.2{]}), which identifies the classical inverse-energy temperature with
+the emergent Killing period; the gap equation, and with it the \(1/4\)
+coefficient of Section 7.5, is conditional on it. One prerequisite of
+the KMS step is carried explicitly: Euclidean regularity at a bifurcate
+Killing horizon presupposes local boost structure in the emergent
+description at the horizon, so the gap equation is partially downstream
+of the boost sector's protection mechanism: the symmetric-point matching
+under H-blind ({[}SM §4.4{]}) and, conditional on it, the
+\(M_X\)-controlled running tracked in the Lorentz-sector accounting
+({[}GR §8.5{]}). At the normalized \(d=3\) observer level the free
+massless branch supplies the common infrared cone at the symmetric
+matching point under H-blind ({[}SM §4.4{]}); exact all-momentum boost
+invariance is not claimed --- the unit-Courant cone of the
+one-dimensional discrete wave equation does not carry to the
+three-dimensional observer branch, and away from the body diagonals the
+cone holds only in the infrared ({[}GR §8.5{]}). Conditional on that
+matching, the custodial symmetry forbids a condensate-independent
+sector-differential counterterm, and an interacting cross-charged
+calculation, reported in the companion paper and not independently
+verified, gave the running a quadratic-with-logarithm form decoupling as
+\((M_X/M_{\text{Pl}})^2\), with the non-logarithmic constant that loop's
+own, the substratum's component-local nonlinearity contributing only to
+the universal cone. The one item shared with the Lorentz-sector
+accounting is that reported running calculation; on its reported form
+the cross-charged mass \(M_X\) would sit in an illustrative window of
+roughly two to four decades, kept open from below by the baryon safety
+of the cross-charged sector, which is of the proton-safe leptoquark
+class rather than the grand-unified kind. That neither pathology obtains
+makes the gap equation a genuine determination of \(\hbar\) in terms of
+the discreteness scale.
 
 \textbf{The counting of one mode per cell, \(\eta = \sigma/\epsilon^2\),
 is definitional --- and the internal components do not multiply it.} The
@@ -10086,37 +10100,38 @@ framework preserves --- and not the \(1/4\) entropy coefficient. The
 coefficient, fixed by the calibration of Section 7.4 as the ratio
 \(2\pi/8\pi\) between Euclidean KMS periodicity and the Jacobson
 Einstein-equation prefactor, is the ratio of the two normalizations that
-the calibration matches, conditional on H-slope and the horizon and
-frame conditions, with no direct empirical test at present; any
-framework retaining classical general relativity passes the GW250114
-test identically. Untested is not untestable: the coefficient is
-equivalent to the Hawking-temperature normalization, so a measured
-horizon radiation spectrum would fix it. The one contingent channel is
-the final evaporation burst of a primordial black hole --- active
-all-sky burst searches (Fermi-LAT 2018; HAWC 2020; LHAASO 2025, PRL 135
-181005) have so far set rate-density limits only, with next-generation
-sensitivity projected for CTAO; a detected burst light curve would
-measure \(T(M)\) and hence the coefficient directly. Analogue-gravity
-experiments probe the kinematic side of the \(2\pi/8\pi\) ratio, not the
-gravitational side. The ongoing LIGO observing runs will accumulate
-additional events testing the area theorem across a range of progenitor
-masses and spins.
+the calibration matches, conditional on H-slope, H-count, the horizon
+and frame conditions, local boost structure at the horizon and the
+symmetric detailed-balance rate ratio ({[}GR §8.5{]}), with no direct
+empirical test at present; any framework retaining classical general
+relativity passes the GW250114 test identically. Untested is not
+untestable: the coefficient is equivalent to the Hawking-temperature
+normalization, so a measured horizon radiation spectrum would fix it.
+The one contingent channel is the final evaporation burst of a
+primordial black hole --- active all-sky burst searches (Fermi-LAT 2018;
+HAWC 2020; LHAASO 2025, PRL 135 181005) have so far set rate-density
+limits only, with next-generation sensitivity projected for CTAO; a
+detected burst light curve would measure \(T(M)\) and hence the
+coefficient directly. Analogue-gravity experiments probe the kinematic
+side of the \(2\pi/8\pi\) ratio, not the gravitational side. The ongoing
+LIGO observing runs will accumulate additional events testing the area
+theorem across a range of progenitor masses and spins.
 
 \textbf{Falsification status.} The Bekenstein-Hawking \(1/4\) is a
 consistency relation of the horizon calibration, not a counted Class B
 prediction (Chapter 4 §4.5) --- conditional at the universality-class
-level, holding under H-slope together with the horizon and frame
-conditions on the gap-equation chain (Section 7.1). Falsification of the
-coefficient at sufficient confidence to exclude experimental systematics
-would refute that chain (the connection between the classical horizon
-temperature in Section 7.3 Step 1 and the Euclidean KMS temperature in
-Step 4) under those conditions, and with it the framework's structural
-commitment to thermal self-consistency at the partition boundary. The
-coefficient currently has no direct empirical test --- GW250114
-constrains the classical area theorem, not the entropy normalization ---
-the \(a_0 = cH/6\) rotation-curve family (Section 7.9) is a conditional
-measured comparison, with agreement within the quoted systematic
-uncertainty and the factor \(1/6\) imported.
+level, holding under H-slope together with H-count and the horizon and
+frame conditions on the gap-equation chain (Section 7.1). Falsification
+of the coefficient at sufficient confidence to exclude experimental
+systematics would refute that chain (the connection between the
+classical horizon temperature in Section 7.3 Step 1 and the Euclidean
+KMS temperature in Step 4) under those conditions, and with it the
+framework's structural commitment to thermal self-consistency at the
+partition boundary. The coefficient currently has no direct empirical
+test --- GW250114 constrains the classical area theorem, not the entropy
+normalization --- the \(a_0 = cH/6\) rotation-curve family (Section 7.9)
+is a conditional measured comparison, with agreement within the quoted
+systematic uncertainty and the factor \(1/6\) imported.
 
 \hypertarget{the-page-curve-and-the-information-paradox}{%
 \subsection{7.6 The Page curve and the information
@@ -10211,7 +10226,8 @@ reduced description on \(V\): a \emph{direct} trace, marginalizing over
 (cosmological partition) and then over \(\mathcal{C}_B\) (black hole
 partition). The consistency of the nested formalism --- the requirement
 that the two procedures produce the same CPTP channel, the same emergent
-Hamiltonian, and the same value of \(\hbar\) --- is established in the
+Hamiltonian, and, under the conditions of the calibration at each
+horizon, the same value of \(\hbar\) --- is established in the
 framework's appendix to the gravitational sector. The nested trace-out
 is well-defined; the external observer's emergent quantum mechanics is
 self-consistent when multiple causal boundaries coexist.
@@ -10963,16 +10979,16 @@ dark-matter phenomenology --- flat rotation curves, the baryonic
 Tully-Fisher relation, the radial acceleration relation --- derives from
 entropy displacement at the cosmological boundary. The argument has four
 steps, all of which inherit the conditions on the de Sitter temperature
-(H-slope, H-frame, H-Hawking; see {[}GR §7.3{]}) and the assumption that
-a static configuration delivers its full rest energy \(Q=M_Bc^2\) as
-heat to the boundary --- a coupling statement belonging to the open G3
-map rather than a consequence of C1.
+(H-count, H-slope, H-frame, H-Hawking; see {[}GR §7.3{]}) and the
+assumption that a static configuration delivers its full rest energy
+\(Q=M_Bc^2\) as heat to the boundary --- a coupling statement belonging
+to the open G3 map rather than a consequence of C1.
 
 \emph{Step 1: Entropy displacement by baryonic matter (conditional).}
 The chain rests on the de Sitter temperature \(T_{\text{dS}}\), which
-inherits the conditions on the gap equation (H-slope with the horizon
-and frame conditions, Section 7.3), and on the assumption that the
-entire rest energy \(Q = M_B c^2\) of a static configuration is
+inherits the conditions on the gap equation (H-slope with H-count and
+the horizon and frame conditions, Section 7.3), and on the assumption
+that the entire rest energy \(Q = M_B c^2\) of a static configuration is
 delivered as heat to the boundary --- a statement about how the emergent
 sector couples to the boundary, which the open covariant coupling
 theorem ({[}GR §6.2{]}) would have to supply. With these, the Bekenstein
@@ -11098,12 +11114,12 @@ close}\label{summary-of-gravitational-predictions-and-chapter-close}}
 
 The gravitational sector combines unconditional partition-geometry
 results with conditional horizon calibration and physical coupling
-claims. The action-scale and entropy-coefficient relations require the
-horizon, frame and state conditions; the physical dark-sector
-interpretation requires the matter-to-boundary coupling map; and the
-Page curve requires H-scramble and H-decouple, of which H-scramble fails
-for every bijection acting on an initial configuration with the
-bipartition aligned to the configuration coordinates. The table
+claims. The action-scale and entropy-coefficient relations require
+H-count and the horizon, frame and state conditions; the physical
+dark-sector interpretation requires the matter-to-boundary coupling map;
+and the Page curve requires H-scramble and H-decouple, of which
+H-scramble fails for every bijection acting on an initial configuration
+with the bipartition aligned to the configuration coordinates. The table
 separates those dependencies from empirical comparisons, normalization
 identities and formulas awaiting tests.
 
@@ -11178,25 +11194,25 @@ The tier system per Section 7.1: Tier 1 results follow from partition
 geometry alone and hold for any embedded-observer system satisfying
 C1--C4 at its cosmological horizon; the results built on them ---
 \(\hbar\), \(\epsilon = 2\sqrt{\sigma}\,l_p\), the \(1/4\) coefficient
---- are conditional on H-slope with the horizon and frame conditions,
-and the running-vacuum form is not derived. Tier 2 results follow from
-the thermodynamic Clausius relation applied to the boundary reservoir
-and the geometric factor from spherical redistribution in de Sitter
-space, inheriting those conditions. Tier 3 results --- the transition
-steepness in MOND interpolation, the greybody factor for Hawking
-radiation --- depend on the specific bijection and are addressed by the
-cubic-lattice realization developed in Chapters 5-6.
+--- are conditional on H-slope with H-count and the horizon and frame
+conditions, and the running-vacuum form is not derived. Tier 2 results
+follow from the thermodynamic Clausius relation applied to the boundary
+reservoir and the geometric factor from spherical redistribution in de
+Sitter space, inheriting those conditions. Tier 3 results --- the
+transition steepness in MOND interpolation, the greybody factor for
+Hawking radiation --- depend on the specific bijection and are addressed
+by the cubic-lattice realization developed in Chapters 5-6.
 
 \textbf{Falsification commitments.} These tests concern the stated
 physical interpretation and its conditions. Any measured deviation from
 \(S = A/(4\, l_p^2)\) at sufficient confidence to exclude experimental
-systematics would refute the gap-equation chain if its named horizon,
-frame and state conditions hold --- the consistency between classical
-horizon temperature and Euclidean KMS temperature that produced the
-\(1/4\) coefficient. High-confidence detection of phantom crossing in
-the dark-energy equation of state --- DESI DR2 currently shows
-\(3\)--\(4\sigma\) mild tension that DESI Year 5 will resolve --- would
-contradict the framework's Type II reading and its expectation
+systematics would refute the gap-equation chain if H-count and its named
+horizon, frame and state conditions hold --- the consistency between
+classical horizon temperature and Euclidean KMS temperature that
+produced the \(1/4\) coefficient. High-confidence detection of phantom
+crossing in the dark-energy equation of state --- DESI DR2 currently
+shows \(3\)--\(4\sigma\) mild tension that DESI Year 5 will resolve ---
+would contradict the framework's Type II reading and its expectation
 \(w(z) \approx -1\) --- the strongest available disconfirmation in the
 dark-energy sector; the framework supplies the smooth \(H^2 - H_0^2\)
 bookkeeping but does not derive a distinctive Type II law (§7.8). A
@@ -11216,14 +11232,14 @@ measurements.
 \textbf{The geometry-first account.} The classical and emergent
 descriptions distinguish vacuum-energy bookkeeping without deriving its
 dynamical gravitational decoupling, which remains a coupling obligation.
-The \(\hbar\), \(\epsilon\) and \(1/4\) relations follow under the named
-horizon conditions. The physical dark-sector interpretation inherits
-those conditions and the open heat-transfer map; its total fraction is
-partly the input-dependent quantity \(1-\Omega_B\). The MOND formula
-uses an imported dimensional factor and agrees within the quoted
-systematics. Its Tully-Fisher and crossover consequences remain
-conditional. These results have distinct source obligations and
-empirical standing.
+The \(\hbar\), \(\epsilon\) and \(1/4\) relations follow under H-count
+and the named horizon conditions. The physical dark-sector
+interpretation inherits those conditions and the open heat-transfer map;
+its total fraction is partly the input-dependent quantity
+\(1-\Omega_B\). The MOND formula uses an imported dimensional factor and
+agrees within the quoted systematics. Its Tully-Fisher and crossover
+consequences remain conditional. These results have distinct source
+obligations and empirical standing.
 
 The comparison between descriptions concerns their explanatory chains
 and physical assumptions. A descriptive distinction between vacuum
@@ -12331,9 +12347,9 @@ cubic substratum), seven gravitational-sector entries, seven
 neutrino-sector entries --- is what Chapter 9 contextualizes against the
 broader theoretical landscape. The framework's empirical record at the
 close of Part II is concentrated at Tiers 1--2 of the gravitational
-sector, with the Tier 1 calibrations conditional on the horizon
-conditions of Chapter 7, and at Layer 1 of the Standard Model and
-neutrino sectors, with substantial empirical exposure across
+sector, with the Tier 1 calibrations conditional on H-count and the
+horizon conditions of Chapter 7, and at Layer 1 of the Standard Model
+and neutrino sectors, with substantial empirical exposure across
 pre-registered falsification conditions and continued empirical
 agreement at current precision.
 
@@ -12395,14 +12411,14 @@ Seven pieces occupy the chapter.
 Section 9.2 develops the framework's hierarchical structural realism:
 the framework operates at multiple levels of abstraction simultaneously,
 with different chapter contents living at different levels. Some results
-are \emph{universality-class} results (the energy-shell temperature of
-the horizon reservoir and the finite counting of boundary modes
+are \emph{universality-class} results (the classical horizon temperature
+of the boundary count and the finite counting of boundary modes
 unconditionally; the Bekenstein-Hawking \(1/4\) coefficient and the
 action-scale relation \(\hbar = c^3\epsilon^2/(4G\sigma)\) from
-partition geometry, consistency relations conditional on the horizon
-conditions named in Chapter 7; the descriptive distinction behind the
-cosmological constant dissolution) --- they hold for any finite
-deterministic substratum satisfying the framework's structural
+partition geometry, consistency relations conditional on H-count and the
+horizon conditions named in Chapter 7; the descriptive distinction
+behind the cosmological constant dissolution) --- they hold for any
+finite deterministic substratum satisfying the framework's structural
 conditions at its cosmological horizon, regardless of the specific
 bijection. Other predictions are \emph{substratum-specific} (the Cabibbo
 angle from cubic Brillouin geometry, the JUNO \(\sin^2\theta_{12}\)
@@ -12416,12 +12432,12 @@ phenomenology with its universal representation (Chapter 1) are largely
 universality-class --- the phenomenology follows from partition geometry
 and the structural conditions C1--C4, the representation universal
 outright, the gravitational calibrations from the same geometry under
-named horizon conditions, not from the specific cubic-lattice
-substratum. The empirical record at Tier 1 tests the framework's
-commitments at the level of \emph{structural classes of substrates},
-with the cubic-lattice realization being one example within the class.
-Section 9.4 develops the corresponding Tier 2 and Tier 3 content and
-clarifies which empirical predictions test which level.
+H-count and named horizon conditions, not from the specific
+cubic-lattice substratum. The empirical record at Tier 1 tests the
+framework's commitments at the level of \emph{structural classes of
+substrates}, with the cubic-lattice realization being one example within
+the class. Section 9.4 develops the corresponding Tier 2 and Tier 3
+content and clarifies which empirical predictions test which level.
 
 Section 9.5 develops the framework's relationship to string theory at
 the substratum level. The two programs operate at different levels and
@@ -12540,19 +12556,19 @@ angle prediction \(\lambda = 1/(\pi\sqrt{2})\) tests the framework's
 commitment to the cubic Brillouin geometry at Level G3.
 
 \emph{Chapter 7 (Gravitational Sector).} Predictions stratify across
-multiple levels. The energy-shell horizon temperature, the finite
-boundary-mode count and the two-level distinction behind the
-cosmological constant dissolution are Tier 1 results at Level O2 × Level
-G4; the Bekenstein-Hawking \(1/4\) coefficient and the action-scale
-relation \(\hbar = c^3\epsilon^2/(4G\sigma)\), consistency relations,
-sit at the same level conditional on the horizon conditions of Chapter 7
-§7.3, the dynamical form of the dissolution is conditional on the
-coupling theorem of {[}GR §6.2{]}, and the Type II running-vacuum form
-is not derived (Chapter 7 §7.8). The MOND acceleration scale
-\(a_0 = cH/6\) and the baryonic Tully-Fisher relation are Tier 2 results
-at Level G2, inheriting the conditions on the de Sitter temperature with
-the dimensional factor imported from Verlinde. The MOND interpolation
-steepness is Tier 3 at Level G3.
+multiple levels. The classical horizon temperature of the boundary
+count, the finite boundary-mode count and the two-level distinction
+behind the cosmological constant dissolution are Tier 1 results at Level
+O2 × Level G4; the Bekenstein-Hawking \(1/4\) coefficient and the
+action-scale relation \(\hbar = c^3\epsilon^2/(4G\sigma)\), consistency
+relations, sit at the same level conditional on H-count and the horizon
+conditions of Chapter 7 §7.3, the dynamical form of the dissolution is
+conditional on the coupling theorem of {[}GR §6.2{]}, and the Type II
+running-vacuum form is not derived (Chapter 7 §7.8). The MOND
+acceleration scale \(a_0 = cH/6\) and the baryonic Tully-Fisher relation
+are Tier 2 results at Level G2, inheriting the conditions on the de
+Sitter temperature with the dimensional factor imported from Verlinde.
+The MOND interpolation steepness is Tier 3 at Level G3.
 
 \emph{Chapter 8 (JUNO and Neutrino Sector).} The PMNS angle predictions
 test Level G3 content --- the specific cubic-lattice bijection's
@@ -12697,16 +12713,17 @@ members of the same class.
 The framework's Tier 1 results, and the conditional results built on
 them, are properties of the universality class as a whole, not of the
 specific cubic-lattice realization; the conditions they carry are
-statements about the horizon and its dynamics rather than about the
-substratum, so they do not reintroduce bijection-specific content. Three
-examples illustrate.
+statements about the horizon, the hidden sector's density of states and
+the emergent dynamics rather than about the specific realization, so
+they do not reintroduce bijection-specific content. Three examples
+illustrate.
 
 \emph{The Bekenstein-Hawking entropy.} \(S = A/(4 l_p^2)\) is recovered
 in Chapter 7 §7.5 from boundary-mode counting combined with thermal
 self-consistency at the cosmological horizon, conditional on H-slope
-together with the horizon and frame conditions of §7.3. The counting
-\(S = \sigma A/\epsilon^2\), for an entropy \(\sigma\) per boundary
-mode, is unconditional; the coefficient enters through
+together with H-count and the horizon and frame conditions of §7.3. The
+counting \(S = \sigma A/\epsilon^2\), for an entropy \(\sigma\) per
+boundary mode, is unconditional; the coefficient enters through
 \(\epsilon^2 = 4\sigma\,l_p^2\), from which \(\sigma\) cancels, which
 the gap equation chain --- classical horizon temperature equals emergent
 KMS temperature --- fixes under those conditions, and the chain is a
@@ -12736,11 +12753,11 @@ that {[}GR §6.2{]} leaves open.
 \emph{The action-scale relation from partition geometry.}
 \(\hbar = c^3 \epsilon^2/(4G\sigma)\) follows in Chapter 7 §7.3 from
 thermal self-consistency at the cosmological horizon, conditional on
-H-slope with the horizon and frame conditions stated there, with the
-discreteness scale \(\epsilon\) and the entropy \(\sigma\) per boundary
-mode the only substratum-specific inputs. The functional form is
-universal across the framework's universality class; the specific value
-of \(\epsilon\) would vary across alternative substrata, with
+H-slope with H-count and the horizon and frame conditions stated there,
+with the discreteness scale \(\epsilon\) and the entropy \(\sigma\) per
+boundary mode the only substratum-specific inputs. The functional form
+is universal across the framework's universality class; the specific
+value of \(\epsilon\) would vary across alternative substrata, with
 self-consistency requiring \(\epsilon = 2\sqrt{\sigma}\,l_p\) for any
 member of the class.
 
@@ -12829,15 +12846,15 @@ cycle generates.
 These six commitments define the framework's universality class. Any
 finite deterministic bijection on a partitioned configuration space
 satisfying C1--C4 at its cosmological horizon belongs to the class. The
-framework's universality-class results --- the energy-shell horizon
-temperature, the finite boundary-mode count and the two-level
-distinction unconditionally; the Bekenstein-Hawking \(1/4\) and the
-action-scale relation for \(\hbar\) as consistency relations under the
-horizon conditions of Chapter 7; the dark sector budget as concordance
---- follow from these six commitments without requiring the specific
-cubic-lattice realization. The MOND acceleration scale \(a_0 = cH/6\) is
-Tier 2 (Chapter 7 §7.9), and the running-vacuum form is not derived
-(Chapter 7 §7.8).
+framework's universality-class results --- the classical horizon
+temperature of the boundary count, the finite boundary-mode count and
+the two-level distinction unconditionally; the Bekenstein-Hawking
+\(1/4\) and the action-scale relation for \(\hbar\) as consistency
+relations under H-count and the horizon conditions of Chapter 7; the
+dark sector budget as concordance --- follow from these six commitments
+without requiring the specific cubic-lattice realization. The MOND
+acceleration scale \(a_0 = cH/6\) is Tier 2 (Chapter 7 §7.9), and the
+running-vacuum form is not derived (Chapter 7 §7.8).
 
 \textbf{The framework's empirical exposure at Tier 1.} The cumulative
 empirical record at Tier 1 summarizes as follows.
@@ -13216,14 +13233,14 @@ of the level distinction: the framework's empirical confirmations do not
 automatically transfer to string theory, and string theory's empirical
 confirmations do not automatically transfer to the framework. The
 Bekenstein-Hawking \(1/4\) coefficient --- obtained at the
-universality-class level under the horizon conditions of Chapter 7, with
-no direct empirical test (GW250114 constrains the classical area
-theorem) --- is a universality-class result for the framework and is
-reproduced in specific string theory calculations (Strominger-Vafa for
-extremal black holes). The two derivations are \emph{independent}, with
-neither producing the other; both are evidence for the
-universality-class commitment that both programs share, not for either
-program's substratum-specific content.
+universality-class level under H-count and the horizon conditions of
+Chapter 7, with no direct empirical test (GW250114 constrains the
+classical area theorem) --- is a universality-class result for the
+framework and is reproduced in specific string theory calculations
+(Strominger-Vafa for extremal black holes). The two derivations are
+\emph{independent}, with neither producing the other; both are evidence
+for the universality-class commitment that both programs share, not for
+either program's substratum-specific content.
 
 Similarly, the framework's twenty-two classified Standard Model
 retrodictions (two parameter-free structural and five conditional
@@ -13373,12 +13390,14 @@ second-order, and never quantized --- the Clausius derivation of Chapter
 ({[}GR §8.7{]}), with curvature-squared corrections Planck-suppressed
 rather than dominant, so neither theory can be the other's effective
 limit. Conformal gravity modifies the quantization rules to
-non-Hermitian form; here Hermitian quantum mechanics is a derived
-theorem with no freedom to modify. And all-dynamical mass with a
-composite Higgs stands against substrate-eigenvalue masses with the
-elementary taste-singlet Higgs of Chapter 6. The two programs occupy
-disjoint universality classes whose observable signatures happen to
-intersect on the present anomalies.
+non-Hermitian form; here the quantum description enters as the standard
+unitary, Born-form representation that every finite-horizon law of an
+embedded observer provably admits, and the framework proposes no
+modification of it. And all-dynamical mass with a composite Higgs stands
+against substrate-eigenvalue masses with the elementary taste-singlet
+Higgs of Chapter 6. The two programs occupy disjoint universality
+classes whose observable signatures happen to intersect on the present
+anomalies.
 
 The cosmological constant comparison is instructive because the two
 programs make the same opening move and then diverge into opposite kinds
@@ -13535,10 +13554,10 @@ robust prediction of standard QFT in curved spacetime, independent of
 any specific framework for quantum gravity.
 
 \textbf{Convergence with the framework's mechanism.} The framework's
-content from Chapter 1 --- embedded observers see their reduced
-description as quantum-mechanical because the cosmological horizon
-imposes a partition with C1--C4 structure --- has three specific
-features that match DSW's analysis.
+content from Chapter 1 --- an embedded observer's reduced description is
+memory-bearing, with its admitted quantum representation, where the
+cosmological horizon imposes a partition with C1--C4 structure --- has
+three specific features that match DSW's analysis.
 
 \emph{Decoherence depends on horizon geometry.} At the cosmological
 partition the framework's hidden-sector parameters are set by the
@@ -13677,12 +13696,12 @@ thesis, formulated within string theory and AdS/CFT but with broader
 implications.
 
 The observer-essentiality thesis converges with the framework's content.
-The framework derives that quantum mechanics is the emergent description
-of an embedded observer --- there is no observer-independent quantum
-mechanics. Different observers correspond to different partitions of the
-substratum, with different reduced descriptions, and the universal wave
-function of the universe is not the right level of description for any
-embedded observer.
+The framework proposes that quantum mechanics is the emergent
+description of an embedded observer --- on that reading there is no
+observer-independent quantum mechanics. Different observers correspond
+to different partitions of the substratum, with different reduced
+descriptions, and the universal wave function of the universe is not the
+right level of description for any embedded observer.
 
 The frameworks differ in the source of the observer-relativity.
 Maldacena's framework places it at the level of quantum gravity's
@@ -16330,24 +16349,24 @@ framework, and the divergence is worth stating precisely. Deutsch's
 \emph{Beginning of Infinity} defends the many-worlds interpretation of
 quantum mechanics as a corollary of taking the wave function as
 fundamental ontology. From the framework's perspective, that commitment
-rests on a category error. Within the framework, quantum mechanics is
-not fundamental: it is emergent, the post-trace-out description of how
-observation operates for embedded observers, and the wave function is
-the mathematical object that emerges. The Everettian ``branches'' are
-then not a parallel-ontologies claim about fundamental reality; they are
-features of the compressed emergent description, analogous to the way
-the partition function is a mathematical structure of statistical
-mechanics rather than a claim about parallel ensembles. Asking ``do the
-branches really exist?'' presupposes the wave function's formalism as
-direct ontology --- a presupposition OI specifically denies, since the
-substratum is the deeper description and the wave function is what
-observation produces from it. The Everettian measure problem dissolves
-on the framework's reading because the branches are not ontological
-objects requiring measure assignment ({[}Main{]} §3.1); the question MWI
-is trying to answer is dissolved by relocating the wave function's
-apparent ontology one level down. The same substratum and observable
-descriptions also organize the distinct premise checks for Bell,
-Kochen-Specker, Pusey-Barrett-Rudolph and Frauchiger-Renner
+rests on a category error. On the framework's proposal, quantum
+mechanics is not fundamental: it is emergent, the post-trace-out
+description of how observation operates for embedded observers, and the
+wave function is the mathematical object that emerges. The Everettian
+``branches'' are then not a parallel-ontologies claim about fundamental
+reality; they are features of the compressed emergent description,
+analogous to the way the partition function is a mathematical structure
+of statistical mechanics rather than a claim about parallel ensembles.
+Asking ``do the branches really exist?'' presupposes the wave function's
+formalism as direct ontology --- a presupposition OI specifically
+denies, since the substratum is the deeper description and the wave
+function is what observation produces from it. The Everettian measure
+problem dissolves on the framework's reading because the branches are
+not ontological objects requiring measure assignment ({[}Main{]} §4.1);
+the question MWI is trying to answer is dissolved by relocating the wave
+function's apparent ontology one level down. The same substratum and
+observable descriptions also organize the distinct premise checks for
+Bell, Kochen-Specker, Pusey-Barrett-Rudolph and Frauchiger-Renner
 (\protect\hyperlink{methodology}{Methodology} Part III; Appendix C).
 Those checks retain their separate operational, preparation and
 agent-consistency assumptions; relocating a description alone does not
@@ -18017,9 +18036,9 @@ This reading has substantive consequences for foundational questions.
 The framework's content is compatible with classical substrate
 metaphysics --- the universe is a deterministic finite system at the
 substratum level --- while preserving the empirical content of quantum
-mechanics and quantum computing. The framework is not ``quantum
-mechanics is wrong'' but ``quantum mechanics is the correct description
-of what embedded observers see in classical substrata.''
+mechanics and quantum computing. The framework's proposal is not
+``quantum mechanics is wrong'' but ``quantum mechanics is the correct
+description of what embedded observers see in classical substrata.''
 
 \textbf{Implications for quantum-computing development.} The framework's
 reading has practical consequences for quantum-computing engineering. If
@@ -22548,8 +22567,8 @@ The framework's reading is that all three problems are \emph{artifacts
 of the quantum-first ordering}, each dissolving, conditional on the
 covariant rung G3, when the geometry-first ordering is adopted:
 spacetime geometry is part of the classical substratum, and quantum
-mechanics is the emergent description of an embedded observer's reduced
-view of that substratum.
+mechanics is, on the framework's proposal, the emergent description of
+an embedded observer's reduced view of that substratum.
 
 \textbf{The first dissolution: the cosmological constant.} Chapter 7
 §7.7 developed the cosmological constant dissolution in detail. The
@@ -22642,18 +22661,18 @@ description does for the cosmological constant problem.
 \textbf{The shared structural feature.} Three problems that conventional
 treatments find independently obstructive receive the same
 framework-level reading. The shared feature is the geometry-first
-ordering: spacetime is part of the substratum, quantum mechanics is
-emergent, and the substratum-emergent operator distinction (developed in
-Chapter 1) is doing the work in each case. On the framework's reading,
-conditional on the coupling step, the cosmological constant ratio is a
-substratum quantity (the de Sitter entropy, up to a convention-dependent
-factor) being misidentified as an emergent quantity (the vacuum energy).
-The information paradox treats an emergent process (Hawking radiation)
-as if it should preserve substratum information (the substratum
-preserves it, by bijectivity; whether the radiation carries it is the
-separate question of Chapter 7 §7.6). The non-renormalizability treats a
-substratum-level discreteness (the lattice) as an emergent-level
-regulator (a continuum-limit artifact).
+ordering the framework proposes: spacetime is part of the substratum,
+quantum mechanics is emergent, and the substratum-emergent operator
+distinction (developed in Chapter 1) is doing the work in each case. On
+the framework's reading, conditional on the coupling step, the
+cosmological constant ratio is a substratum quantity (the de Sitter
+entropy, up to a convention-dependent factor) being misidentified as an
+emergent quantity (the vacuum energy). The information paradox treats an
+emergent process (Hawking radiation) as if it should preserve substratum
+information (the substratum preserves it, by bijectivity; whether the
+radiation carries it is the separate question of Chapter 7 §7.6). The
+non-renormalizability treats a substratum-level discreteness (the
+lattice) as an emergent-level regulator (a continuum-limit artifact).
 
 The cumulative case is not three independent dissolutions but one
 framework-level reading applied three times. Its claim is that, if the
@@ -22739,17 +22758,19 @@ under the finiteness posit A1 (Chapter 2 §2.4) it is finite.
 
 A clarification is essential. The cardinality \(|\mathcal{C}_D|\) of the
 deep hidden sector is \emph{gauge} in the framework: different values of
-\(|\mathcal{C}_D|\) produce the same visible transition data at leading
-order on accessible timescales. The ``total information'' of the
-universe is therefore not fixed by those data. But the \emph{finiteness}
-of \(|\mathcal{C}_D|\) --- for the recurrence route specifically, that
-there exists some finite value, even if its specific magnitude is not
-observable --- is load-bearing. Infinite hidden sectors would break the
-recurrence argument that drives recurrence-scale P-indivisibility; that
-route would close. Accessible non-Markovianity would survive through
-readback, and the imported representation is gated by (T) rather than by
-recurrence, so an infinite substratum removes this route rather than the
-framework's quantum representation.
+\(|\mathcal{C}_D|\) produce the same visible transition data exactly for
+a deep sector beyond the reach of the dynamics over the times
+considered, and at leading order on accessible timescales under the
+posited influence bound H-BD of {[}GR §3.2{]}. The ``total information''
+of the universe is therefore not fixed by those data. But the
+\emph{finiteness} of \(|\mathcal{C}_D|\) --- for the recurrence route
+specifically, that there exists some finite value, even if its specific
+magnitude is not observable --- is load-bearing. Infinite hidden sectors
+would break the recurrence argument that drives recurrence-scale
+P-indivisibility; that route would close. Accessible non-Markovianity
+would survive through readback, and the imported representation is gated
+by (T) rather than by recurrence, so an infinite substratum removes this
+route rather than the framework's quantum representation.
 
 The framework's commitment to finite information is therefore neither a
 quantitative claim about the specific cardinality nor a metaphysical
@@ -24096,12 +24117,13 @@ conventional framework explains these ratios from first principles. The
 dark sector's \(\sim 95\%\) total is treated as empirical input.
 
 \textbf{Framework status.} Conditional (total budget partly
-definitional; the coefficient of \(S_{\text{dS}}\) inherits the horizon
-conditions of Chapter 7). The trace-out renders approximately \(95\%\)
-of the critical density invisible to the emergent quantum field theory.
-The horizon's entropy \(S_{\text{dS}} = A_{\text{horizon}}/(4 l_p^2)\)
-combined with the classical horizon temperature gives, by the Clausius
-relation and the shell theorem, the total effective density
+definitional; the coefficient of \(S_{\text{dS}}\) inherits H-count and
+the horizon conditions of Chapter 7). The trace-out renders
+approximately \(95\%\) of the critical density invisible to the emergent
+quantum field theory. The horizon's entropy
+\(S_{\text{dS}} = A_{\text{horizon}}/(4 l_p^2)\) combined with the
+classical horizon temperature gives, by the Clausius relation and the
+shell theorem, the total effective density
 \(\rho_s = 3 c^2 H^2 / (8\pi G) = \rho_{\text{crit}}\). The uniform
 component is dark energy; the structured component (entropy displacement
 around baryonic matter) is dark matter. The \(95\%\) dark sector is
@@ -24566,12 +24588,12 @@ speculative and would require a detailed analysis of the lattice's
 causal structure at early times.
 
 \emph{Initial conditions as gauge.} The deep hidden sector's cardinality
-is gauge in the framework. If the initial state of the visible sector is
-also gauge-equivalent across a wide class of initial conditions (because
-the trace-out erases the distinction), then the ``initial conditions
-problem'' may dissolve rather than require solution. This is an
-intriguing possibility but has not been investigated within the
-framework's existing structure.
+is gauge in the framework in the cases Chapter 2 §2.3 states. If the
+initial state of the visible sector is also gauge-equivalent across a
+wide class of initial conditions (because the trace-out erases the
+distinction), then the ``initial conditions problem'' may dissolve
+rather than require solution. This is an intriguing possibility but has
+not been investigated within the framework's existing structure.
 
 \textbf{Assessment.} Inflation is not derived, not refuted, and not
 distinctively addressed by the framework. This is a genuine open problem
@@ -25802,7 +25824,7 @@ scale \(\hbar = c^3\epsilon^2/(4G\sigma)\), algebraically one relation
 \(\epsilon/\sqrt{\sigma} = 2\,l_p\), not an independent determination
 (Ch 7 §7.3--§7.4). The Bekenstein-Hawking coefficient \(1/4\) is the
 ratio \(2\pi/8\pi\) of the KMS period to the first-law prefactor that
-the horizon calibration matches, conditional on H-slope and the
+the horizon calibration matches, conditional on H-slope, H-count and the
 horizon/frame conditions; it agrees with the normalization fixed by the
 Hawking temperature and the first law, and has no direct empirical test:
 GW250114 constrains the classical area theorem, not the coefficient (Ch
@@ -26348,15 +26370,13 @@ structure, Born-form representation of the transition probabilities,
 emergent coherence theorem, and CP-indivisibility theorem. The
 construction uses only textbook operator algebra from the 1950s.
 
-\emph{B.3 The trace-out as a Jordan-Chevalley projection.} The
-framework's content on the Standard Model gauge structure relies on a
-structural property of the trace-out operation: it extracts the
-semisimple part of the evolution matrix's Jordan-Chevalley decomposition
-and discards the nilpotent monodromy. This appendix gives the full
-algebraic derivation: period formula, Jordan-Chevalley decomposition,
-\(q\)-independence of the Weil-Deligne conductor, additive decomposition
-over gauge irreps, and the precise sense in which the trace-out is a
-projection.
+\emph{B.3 Jordan-Chevalley structure of the ring evolution.} The
+evolution matrix of the wave equation on a ring over \(\mathbb{F}_q\)
+decomposes into commuting semisimple and unipotent parts. This appendix
+gives the full algebraic derivation: period formula, Jordan-Chevalley
+decomposition, \(q\)-independence of the Weil-Deligne conductor,
+additive decomposition over gauge irreps, and which of the
+decomposition's data the visible laws retain.
 
 \emph{B.4 The gap equation for \(\hbar\).} The framework relates
 Planck's constant \(\hbar\) to the discreteness scale through a thermal
@@ -26780,19 +26800,18 @@ coherent operational lift still to be established ({[}Main §3.4{]}) ---
 with leading-order Schrödinger evolution and structurally non-Markovian
 corrections at \(\mathcal{O}(\tau_S/\tau_B)\).
 
-\hypertarget{b.3-the-trace-out-as-a-jordan-chevalley-projection}{%
-\subsection{B.3 The trace-out as a Jordan-Chevalley
-projection}\label{b.3-the-trace-out-as-a-jordan-chevalley-projection}}
+\hypertarget{b.3-jordan-chevalley-structure-of-the-ring-evolution}{%
+\subsection{B.3 Jordan-Chevalley structure of the ring
+evolution}\label{b.3-jordan-chevalley-structure-of-the-ring-evolution}}
 
 \emph{Main-text reference: Chapter 5 §5.4-5.6.}
 
-The framework's content on the Standard Model gauge structure relies on
-a precise algebraic property of the trace-out operation: it extracts the
-semisimple part of the evolution matrix's Jordan-Chevalley decomposition
-and erases the nilpotent monodromy. This appendix gives the full
-derivation for the scalar wave equation on a ring of \(L\) sites over
-\(\mathbb{F}_q\); the multi-component extension incorporating the gauge
-group follows by additive decomposition.
+This appendix derives the period and the Jordan-Chevalley decomposition
+of the evolution matrix and states which of the decomposition's data the
+visible laws retain. The derivation is given for the scalar wave
+equation on a ring of \(L\) sites over \(\mathbb{F}_q\); the
+multi-component extension incorporating the gauge group follows by
+additive decomposition.
 
 \textbf{Setup.} The discrete wave equation
 \(x(n, t+1) = x(n-1, t) + x(n+1, t) - x(n, t-1) \pmod q\) has phase
@@ -26928,29 +26947,40 @@ additively. \(\square\)
 Verified for all \((\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2\) at
 \(q \in \{3, 5, 7\}\) with \(L = 4\).
 
-\textbf{The projection.} The framework's trace-out operation
-(marginalization over the hidden sector) produces the reduced observable
-description --- universally admitting the quantum representation ---
-which depends on the coupling eigenvalues \(\mu_k\) via the NM formula
-\(\text{NM}^2 = 3\langle\mu^4\rangle\) --- a consequence of the
-stochastic-quantum correspondence applied to the wave equation's Fourier
-decomposition. These \(\mu_k\) are properties of \(F_{\text{ss}}\), the
-semisimple part of the dynamics. The nilpotent monodromy \(N\)
-contributes nothing to the emergent description: it affects only the
-off-diagonal Jordan block entries, which are erased by the
-coarse-graining over the hidden sector.
+\textbf{Spectral data and visible laws.} Let \(q\) be prime with
+\(\gcd(L, q) = 1\). \(F_{\text{ss}}\) and \(F_u\) commute and \(F_u\) is
+unipotent, so \(F\) and \(F_{\text{ss}}\) have the same characteristic
+polynomial and the same eigenvalues with multiplicity. Every function of
+the eigenvalue multiset, \(\mathfrak{f}_{\text{ss}}\) among them, is
+therefore independent of \(N\). \(\text{rank}(N)\) is not spectral data;
+\(\mathfrak{f}_{\text{WD}}\) carries it as a separate term.
 
-The trace-out therefore performs the Jordan-Chevalley projection
-\[(F_{\text{ss}}, N) \mapsto F_{\text{ss}} \mapsto \{\mu_k\} \mapsto \text{NM}^2\]
-extracting the semisimple part, encoding it via magnitudes rather than
-orders, and organizing it by the representation theory of the partition.
-The nilpotent monodromy --- genuine mathematical structure present in
-the full dynamics --- is invisible to the embedded observer. This is the
-precise sense in which the framework's content holds that the observable
-physics is the \emph{semisimple shadow} of the underlying mathematics:
-the observer sees only the diagonalizable spectral data, projected by
-the trace-out and organized by the gauge group's representation
-structure.
+Since \(N^2 = 0\), \(F^t = F_{\text{ss}}^t (I + tN)\). For
+\(t \in q\mathbb{Z}\) this is \(F_{\text{ss}}^t\), and for \(q \nmid t\)
+it differs from \(F_{\text{ss}}^t\), since \(tN \neq 0\). Every visible
+law sampled only at times in \(q\mathbb{Z}\), for any partition and any
+hidden prior, rooted or multi-time, is therefore the same for \(F\) and
+\(F_{\text{ss}}\). This is a coarse-graining in time at stride \(q\),
+not a marginalization over the hidden sector.
+
+Marginalization over the hidden sector does not remove \(N\). Take one
+site as the visible sector, with visible variable
+\((x(n, t-1), x(n, t))\), and a full-support hidden prior \(\nu_H\)
+shared by every root, and let
+\(\Gamma_t(a, j) = \nu_H\{h : \pi_V F^t(a, h) = j\}\) be the rooted
+visible law. For \(L \geq 3\) the rule maps a constant configuration
+\((a, b)\) at every site to the constant configuration \((b, 2b - a)\),
+so \(F^{mL}(0, 1) = (mL, mL + 1)\) on that mode, while \(F_{\text{ss}}\)
+is the identity on it. The constant hidden configuration compatible with
+the root \((0, 1)\) has positive prior probability (\(q^{-2(L-1)}\)
+under the uniform prior), so \(\Gamma_{mL}((0,1), (mL, mL+1)) > 0\) for
+\(F\). For \(F_{\text{ss}}\), \(F_{\text{ss}}^{L} = I\) makes
+\(\Gamma_{mL}\) the identity kernel. Whenever \(q \nmid m\),
+\((mL, mL + 1) \neq (0, 1)\), since \(\gcd(L, q) = 1\), and the two
+rooted laws differ; in particular they differ at \(m = 1\). On the
+block-diagonal evolution of Theorem B.3.4 a component with \(\mu_a = 1\)
+follows the scalar rule, so the same witness applies to it, and one such
+component separates the two laws.
 
 \hypertarget{b.4-the-gap-equation-for-hbar}{%
 \subsection{\texorpdfstring{B.4 The gap equation for
@@ -26961,11 +26991,15 @@ structure.
 The framework derives the relation \(\hbar = c^3\epsilon^2/(4G\sigma)\)
 between Planck's constant and the discreteness scale by matching the
 classical horizon temperature to the KMS temperature of the emergent
-quantum field theory, conditional on H-slope with the horizon and frame
-conditions of Chapter 7 §7.3; with \(\epsilon\) not independently known,
-it fixes only \(\epsilon/\sqrt{\sigma} = 2\,l_p\) (Chapter 7 §7.4), not
-the value of \(\hbar\). The derivation has four steps; each step is
-presented with its full content.
+quantum field theory, conditional on H-slope with H-count and the
+horizon and frame conditions of Chapter 7 §7.3; with \(\epsilon\) not
+independently known, it fixes only \(\epsilon/\sqrt{\sigma} = 2\,l_p\)
+(Chapter 7 §7.4), not the value of \(\hbar\). The derivation has four
+steps; each step is presented with its full content. Step 4 fixes the
+relation and does not use Steps 1--3: Steps 1--2 assume a spatially
+local classical Hamiltonian and, for the one-layer boundary, the posited
+influence bound H-BD, and Step 3 is a dimensional check on the result of
+Step 4.
 
 \textbf{Step 1: Spatial locality.} The classical Hamiltonian of the
 substratum is spatially local. The interaction decomposes as
@@ -26977,65 +27011,115 @@ hidden-sector mode must propagate through the boundary layer \(B\)
 before influencing the visible sector. The coupling chain is
 \(V \leftrightarrow B \leftrightarrow D\), not \(V \leftrightarrow D\).
 
-\textbf{Lemma B.4.1 (Frozen deep sector).} \emph{Let \(\Delta_D\) be the
-spectral gap of \(H_D + H_{BD}\) restricted to the deep sector
-conditioned on a fixed boundary configuration. For times
-\(t \ll 1/\Delta_D \leq \tau_B\):}
-\[\|\varphi_t^D - \text{id}\| = \mathcal{O}(\Delta_D t) = \mathcal{O}(t/\tau_B)\]
+A deep-sector configuration that stays fixed still enters the boundary
+update, so a bound on the motion of \(D\) does not bound its effect on
+\(V\): for \(\varphi(v, b, d) = (v \oplus b, b \oplus d, d)\) on bits,
+\(d\) never changes, yet every entry of \(T(2\Delta t)\) is
+\(\tfrac12\), while clamping \(d\) at \(0\) or \(1\) gives the identity
+or the bit flip. The factorization below rests instead on a bound on
+\(D\)'s influence on \(B\), with \(\Delta t\) the update step:
 
-\emph{Proof.} The spectral gap gives the inverse relaxation time of the
-slowest mode, so \(\Delta_D \leq 1/\tau_B\) (with equality when the
-slowest mode dominates the relaxation). The deep-sector evolution over
-time \(t\) displaces any initial configuration by
-\(\mathcal{O}(\Delta_D t)\) in phase space. \(\square\)
+\textbf{H-BD} (deep-sector influence bound; posited). \emph{There is a
+map \(\varphi^{VB}\) of \(\mathcal{C}_V \times \mathcal{C}_B\) to itself
+such that, for every \((v, b)\), the \(V \times B\) component of
+\(\varphi(v, b, d)\) differs from \(\varphi^{VB}(v, b)\) for at most a
+fraction \(\Delta t/\tau_{BD}\) of \(d \in \mathcal{C}_D\).}
 
 \textbf{Lemma B.4.2 (Factorization of transition probabilities).}
-\emph{The transition probability factorizes as}
-\[T_{ij}(t) = T^{(B)}_{ij}(t) + \mathcal{O}(t/\tau_B)\] \emph{where
-\(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\) dynamics.}
+\emph{For a bijective update under H-BD, at \(t = n\,\Delta t\),}
+\[\sum_j \big|T_{ij}(t) - T^{(B)}_{ij}(t)\big| \leq \frac{2t}{\tau_{BD}}, \qquad T^{(B)}_{ij}(t) = \frac{1}{|\mathcal{C}_B|}\sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V((\varphi^{VB})^n(x_i, b))],\]
+\emph{where \(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\)
+dynamics.}
 
-\emph{Proof.} The transition probability is
-\[T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]\]
-By spatial locality, \(\pi_V(\varphi_t(x_i, b, d))\) depends on \(d\)
-only through the back-reaction \(B \leftarrow D\), which by Lemma B.4.1
-shifts \(b\) by \(\mathcal{O}(t/\tau_B)\). Expanding:
-\[\pi_V(\varphi_t(x_i, b, d)) = \pi_V(\varphi_t^{VB}(x_i, b)) + \mathcal{O}(t/\tau_B)\]
-where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
-\(D\) frozen. The \(d\)-sum then contributes \(|\mathcal{C}_D|\)
-identical terms at leading order:
-\[T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|}\sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square\]
+\emph{Proof.} Fix \(x_i\) and \(b\), and follow the reference path
+\((v_s, b_s) = (\varphi^{VB})^s(x_i, b)\). Let
+\(S_s \subseteq \mathcal{C}_D\) be the set of initial \(d\) whose
+trajectory under \(\varphi\) has \(V \times B\) component
+\((v_{s'}, b_{s'})\) at every step \(s' \leq s\). Elements of \(S_s\)
+share their \(V \times B\) components through step \(s\), so injectivity
+of \(\varphi\) makes their \(D\) components at step \(s\) distinct, and
+by H-BD at most a fraction \(\Delta t/\tau_{BD}\) of \(\mathcal{C}_D\)
+leaves \(S_s\) at step \(s+1\). Hence
+\(|\mathcal{C}_D \setminus S_n| \leq (t/\tau_{BD})\,|\mathcal{C}_D|\),
+and on \(S_n\),
+\(\pi_V(\varphi^n(x_i, b, d)) = \pi_V((\varphi^{VB})^n(x_i, b))\). The
+average over \(d\) therefore lies within \(\ell_1\) distance
+\(2t/\tau_{BD}\) of \(\delta_{x_j}[\pi_V((\varphi^{VB})^n(x_i, b))]\),
+and the average over \(b\) keeps the bound. \(\square\)
 
-The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
-processes. Since \(T_{ij}(t)\) determines the emergent quantum
-description, and \(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\)
-dynamics --- which are characterized by the boundary geometry (\(A\),
-\(\epsilon\), \(\kappa\)) and the constants \(c\), \(G\) appearing in
-the classical Hamiltonian --- the emergent action scale \(\hbar\)
-inherits \emph{boundary-only dependence}.
+Nothing in the framework fixes \(\tau_{BD}\). For a linear update on a
+finite abelian group with \(\mathcal{C}_D\) a direct summand, H-BD with
+\(\tau_{BD} > 2\Delta t\) holds if the deep sector does not enter the
+\(V \times B\) update and fails otherwise, and the linear lattice update
+of {[}Main §3.2{]} does not meet that condition at any cut where a
+boundary site has a deep neighbour ({[}GR §3.2{]}).
 
-\textbf{Step 2: Deep-sector gauge equivalence.} A corollary of the
-factorization lemma is that, to within \(\mathcal{O}(\tau_S/\tau_B)\),
-no quantity determined by the visible transition data depends on the
-cardinality \(|\mathcal{C}_D|\) of the deep hidden sector: systems with
-the same \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the
-same visible transition data, whether \(|\mathcal{C}_D|\) is finite,
-countably infinite, or uncountably infinite. Quantities that differ
-between Hamiltonians compatible with those data, such as individual
-eigenvalues and raw amplitudes, lie outside the corollary, and so does
-recurrence-scale content, which the recurrence argument establishes on a
-finite representative. Within the leading-order visible transition data
-on accessible timescales, a finite and an infinite deep sector are
-indistinguishable.
+\textbf{Lemma B.4.3 (Causal cone).} \emph{Let the bijective update act
+on a finite product of site configuration spaces, with the uniform
+hidden-sector prior, let \(B_n\) be the hidden sites within \(n\) update
+steps of the visible sector (the visible sector's causal cone over the
+elapsed time) and \(D_n\) the rest. At \(t = n\,\Delta t\),
+\(\pi_V(\varphi^n(x_i, b, d))\) does not depend on
+\(d \in \mathcal{C}_{D_n}\), and, for every
+\(d^* \in \mathcal{C}_{D_n}\), exactly}
+\[T_{ij}(t) = \frac{1}{|\mathcal{C}_{B_n}|}\sum_{b \in \mathcal{C}_{B_n}} \delta_{x_j}[\pi_V(\varphi^n(x_i, b, d^*))].\]
 
-\textbf{Step 3: Dimensional determination.} Step 2 excludes volumetric
-(deep-sector) quantities, leaving boundary quantities. The boundary
-carries both \emph{local} geometric data (\(\epsilon\), \(\kappa\), and
-the constants \(c\), \(G\) of the classical Hamiltonian) and a
-\emph{global} quantity: the total area \(A\), which forms the
-dimensionless ratio \(A/\epsilon^2 = S_{\text{dS}}/\sigma\). If
-\(\hbar\) depended on \(S_{\text{dS}}\), it would be observer-dependent
---- different observers have different horizon areas --- contradicting
-the universality of the emergent action scale. The surface gravity
+\emph{Proof.} A component's value after \(n\) updates depends only on
+initial components within \(n\) steps of it ({[}Main §3.3{]}). Under the
+uniform prior the sum over \(\mathcal{C}_{D_n}\) contributes
+\(|\mathcal{C}_{D_n}|\) identical terms. \(\square\)
+
+Under H-BD the correction in Lemma B.4.2 is at most \(2t/\tau_{BD}\),
+which is of order \(10^{-32}\) for laboratory processes when
+\(\tau_{BD} \gtrsim 1/H\), a value that is not derived. Since
+\(T_{ij}(t)\) determines the emergent quantum description up to its
+action scale, and the transition data on \([0, n\,\Delta t]\) depend
+only on the update of \(V\) and of the hidden sites within \(n\) update
+steps of \(V\) and on the prior there (Lemma B.4.3), the emergent
+dynamics in units of inverse time, as far as those data fix it, depends
+only on that local update and its causal cone (\emph{boundary-only
+dependence}); under H-BD those data agree with the one-layer law
+\(T^{(B)}_{ij}(t)\) to within \(2t/\tau_{BD}\). That the local update is
+itself fixed by the boundary geometry (\(A\), \(\epsilon\), \(\kappa\))
+and the constants \(c\), \(G\) of the classical Hamiltonian is a further
+condition: two local bijective updates on the same geometry can give
+different transition probabilities. The action scale is not fixed by
+these data: every value of it gives the same \(T_{ij}(t)\), so the lemma
+does not bear on \(\hbar\), which Step 4 fixes.
+
+\textbf{Step 2: Deep-sector gauge equivalence.} A corollary of Lemmas
+B.4.2 and B.4.3 is that no quantity determined by the visible transition
+data on \([0, n\,\Delta t]\) depends on the cardinality of the hidden
+sector beyond the causal cone \(B_n\), and that, under H-BD, the
+transition probabilities do not depend on the cardinality
+\(|\mathcal{C}_D|\) of the deep hidden sector to within
+\(\mathcal{O}(t/\tau_{BD})\): systems with the same update on the
+visible sector and \(B_{n-1}\) produce the same visible transition data
+on \([0, n\,\Delta t]\), and under H-BD systems with the same
+\(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the same data to
+within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep sector; the
+first statement holds also for an infinite deep sector, given a
+normalized product prior on it, a locally finite coupling graph and
+well-defined dynamics in which each component's update depends on
+finitely many components. Quantities that differ between Hamiltonians
+compatible with those data, such as individual eigenvalues and raw
+amplitudes, lie outside the corollary, and so does recurrence-scale
+content, which the recurrence argument establishes on a finite
+representative. Within the visible transition data on
+\([0, n\,\Delta t]\), a finite deep sector beyond \(B_n\) and an
+infinite one with that prior and dynamics are indistinguishable.
+
+\textbf{Step 3: Dimensional determination.} The thermal matching of Step
+4 expresses \(\hbar\) through boundary quantities, the classical
+temperature under H-count (Chapter 7 §7.3); the dimensional argument
+checks the form of that result. The boundary carries both \emph{local}
+geometric data (\(\epsilon\), \(\kappa\), and the constants \(c\), \(G\)
+of the classical Hamiltonian) and a \emph{global} quantity: the total
+area \(A\), which forms the dimensionless ratio
+\(A/\epsilon^2 = S_{\text{dS}}/\sigma\). If \(\hbar\) depended on
+\(S_{\text{dS}}\), it would be observer-dependent --- different
+observers have different horizon areas --- contradicting the
+universality of the emergent action scale. The surface gravity
 \(\kappa\) is excluded because it varies between observers and epochs
 while \(\hbar\) is observed to be universal across observers and
 constant in time.
@@ -27071,16 +27155,17 @@ from the classical substratum alone (no QM), \(T_Q\) from the emergent
 QFT alone (no classical substratum details) --- but they refer to the
 \emph{same physical degrees of freedom}: the boundary modes
 \(V \times B\) across which \(H_{\text{int}}\) couples the visible and
-hidden sectors. Step 1's boundary-only dependence shows that the visible
-transition data from which the emergent QFT is reconstructed are fixed
-(at leading order in \(\tau_S/\tau_B\)) by these same \(V \times B\)
-dynamics. Temperature is a state property; two complete descriptions of
+hidden sectors. Under H-BD, Step 1's boundary-only dependence shows that
+the visible transition data from which the emergent QFT is reconstructed
+are fixed, up to \(\mathcal{O}(t/\tau_{BD})\), by these same
+\(V \times B\) dynamics; the matching does not use it, the
+identification of the two descriptions' transitions being part of
+H-slope. Temperature is a state property; two complete descriptions of
 the same modes cannot assign different temperatures without logical
 contradiction. The matching \(T_{\text{cl}} = T_Q\) identifies the
 classical inverse-energy temperature with the emergent KMS period on the
-same boundary modes \(V \times B\); it holds under H-slope (Chapter 7
-§7.3), which partition geometry does not supply, with corrections at
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
+same boundary modes \(V \times B\); it holds under H-slope and H-count
+(Chapter 7 §7.3), which partition geometry does not supply:
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}\]
 
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
@@ -28061,9 +28146,10 @@ derivations of this appendix:
   B.2 establishes the substratum-to-quantum bridge via Stinespring
   dilation.
 \item
-  B.3 establishes the algebraic structure of the trace-out as
-  Jordan-Chevalley projection, organizing the framework's content on
-  gauge structure.
+  B.3 establishes the period and the Jordan-Chevalley decomposition of
+  the ring evolution: spectral invariants are independent of the
+  nilpotent part \(N\), and hidden-sector marginalization does not
+  remove \(N\) from the visible laws.
 \item
   B.4 establishes the gap equation relating \(\hbar\) to the
   discreteness scale through horizon thermodynamics, producing the
@@ -28140,7 +28226,7 @@ framework's content satisfies or violates.
 Sections C.4-C.6 engage the foundational concerns: the role of the
 stochastic-quantum bridge (Barandes route), the necessity direction of
 the characterization theorem (whether QM requires embedded observation),
-and finiteness (whether the framework's Axiom 2 is too strong).
+and finiteness (whether the framework's posit A1 is too strong).
 
 Section C.7 engages computational implementability concerns ---
 specifically Wolpert's theorem on physical computability and how the
@@ -28232,12 +28318,12 @@ measurement independence, because setting generators are physical
 degrees of freedom. The manuscript therefore treats measurement
 independence as an explicit premise of the adopted Bell branch rather
 than as a theorem of the substratum. It does \textbf{not} use
-setting--hidden correlations to explain the observed violation. A
-mixing/decorrelation argument may motivate why laboratory setting
-generators approximate that premise, but the Bell mechanism itself is
-ontic parameter dependence. If the premise were dropped instead, that
-would be the measurement-dependent/superdeterministic horn quantified by
-the \(I_{\rm ont}\) bound --- a horn the framework records and declines.
+setting--hidden correlations to explain the observed violation. That
+premise is a posit about the initial condition, not derived; the Bell
+mechanism itself is ontic parameter dependence. If the premise were
+dropped instead, that would be the
+measurement-dependent/superdeterministic horn quantified by the
+\(I_{\rm ont}\) bound --- a horn the framework records and declines.
 
 \emph{No operational faster-than-light signal --- but ontically
 parameter-dependent.} The reference graph still supplies exact causal
@@ -28557,12 +28643,12 @@ makes the characterization theorem a biconditional; the
 substratum-specific content is what the framework's empirical record
 tests directly.
 
-\hypertarget{c.6-finiteness-is-axiom-2-too-strong}{%
-\subsection{C.6 Finiteness: is Axiom 2 too
-strong?}\label{c.6-finiteness-is-axiom-2-too-strong}}
+\hypertarget{c.6-finiteness-is-posit-a1-too-strong}{%
+\subsection{C.6 Finiteness: is posit A1 too
+strong?}\label{c.6-finiteness-is-posit-a1-too-strong}}
 
 A third foundational objection concerns the framework's commitment to
-finiteness --- Axiom 2 of the framework states that the substratum is a
+finiteness --- posit A1 (Chapter 2 §2.4) takes the substratum to be a
 finite set \(S\). Critics object that this is incompatible with standard
 physics' commitment to infinite-dimensional Hilbert spaces in quantum
 field theory and to the universe being potentially infinite in spatial
@@ -28573,16 +28659,17 @@ freedom. Quantum field theory requires infinite-dimensional Hilbert
 spaces. Why should I accept finite-dimensionality as a structural
 commitment of any theory of the universe?''
 
-\textbf{The framework's response.} Axiom 2 plays different roles in
+\textbf{The framework's response.} Posit A1 plays different roles in
 different parts of the framework's content, with different evidential
 supports for each role.
 
-\emph{In Chapter 1's foundational content.} Axiom 2 is a mathematical
-assumption --- the characterization theorem is a statement about finite
-systems. The theorem's mathematical content is precisely defined and
-proved for finite substrata; whether the theorem's empirical
-applicability requires actual finiteness of the universe is a separate
-question.
+\emph{In Chapter 1's foundational content.} Posit A1 is a mathematical
+assumption of the results that use it, the recurrence route to
+P-indivisibility among them; the characterization theorem uses only the
+finiteness of the observer's states (Lemma 1 of Chapter 1), its finite
+realizations being constructed rather than assumed; whether the
+theorem's empirical applicability requires actual finiteness of the
+universe is a separate question.
 
 \emph{In Chapter 7's gravitational content.} The cosmological horizon's
 finite area bounds what is observationally accessible: the Bekenstein
@@ -28604,9 +28691,7 @@ with \(\sigma\) the entropy of one boundary mode, is a consequence of
 self-consistency at the cosmological horizon (Chapter 7 §7.4), not an
 input.
 
-A referee who rejects Axiom 2 for the universe as a whole (in this
-section's usage, the finiteness of the total configuration space, A1 of
-Chapter 2 §2.4, not the second axiom of Chapter 1, recurrence) does not
+A referee who rejects posit A1 for the universe as a whole does not
 thereby reject the Bekenstein bound, which is independently established
 in semiclassical gravity and string theory across multiple programs
 (Hawking 1976, Bekenstein 1981, `t Hooft 1993, Susskind 1995, Bousso
@@ -29074,19 +29159,20 @@ therefore circular --- you are using \(\hbar\) to derive \(\hbar\).''
 has four steps that show the derivation is \emph{not} circular.
 
 \emph{Step 1.} Under the canonical measure of Lemma 3 of Chapter 1, the
-framework's partition-relativity result proves that \(\hbar\) is
-determined by the partition geometry. This is a structural claim about
-the framework's setup, not a quantum assumption.
+framework's partition-relativity result proves that the emergent
+description is determined by the partition. This is a structural claim
+about the framework's setup, not a quantum assumption.
 
-\emph{Step 2.} Boundary-only dependence proves that \(\hbar\) depends
-only on \(c\), \(G\), and the discreteness scale \(\epsilon\). This
-follows from the framework's substratum being a finite-area boundary
-system, again a structural claim.
+\emph{Step 2.} Step 1's result concerns the transition probabilities,
+which determine frequencies, not the action scale: converting a
+frequency to an energy requires \(\hbar\) itself (Appendix B.7), so no
+value of \(\hbar\) follows from the transition data alone.
 
-\emph{Step 3.} Dimensional analysis gives
-\(\hbar = \beta \cdot c^3 \epsilon^2 / G\) with unknown dimensionless
-coefficient \(\beta\). The framework's structural setup determines the
-functional form; \(\beta\) remains to be fixed.
+\emph{Step 3.} Dimensional analysis on \(c\), \(G\) and \(\epsilon\)
+gives \(\hbar = \beta \cdot c^3 \epsilon^2 / G\) with unknown
+dimensionless coefficient \(\beta\). This is a consistency check: the
+functional form is fixed by the matching of Step 4, which also fixes
+\(\beta\).
 
 \emph{Step 4.} The KMS periodicity \(\beta_E = 2\pi c / \kappa\) follows
 from Euclidean regularity of the metric at the horizon --- a
@@ -29503,15 +29589,14 @@ anomaly conditions of
 nonzero-\(Y_Q\) branch, with no free parameters. Developed in Chapter 6
 §6.7 and Appendix B §B.5.
 
-\textbf{Axiom 2 (Finiteness).} The framework's foundational assumption
-that the substratum has finitely many degrees of freedom: A1 of Chapter
-2 §2.4, under the label Appendix C §C.6 uses, not the second axiom of
-Chapter 1 (recurrence). Motivated physically by the Bekenstein bound at
-the cosmological horizon (an entropy-based bound, under the physical
-assumptions of input E3, of at most \(e^{S_{\text{dS}}}\) effectively
-distinguishable states of the visible sector and boundary layer,
-\(S_{\text{dS}} \sim 10^{122}\)). Discussed in Chapter 2 §2.5, with
-defense in Appendix C §C.6.
+\textbf{A1 (Finiteness).} The posit that the substratum has finitely
+many degrees of freedom (Chapter 2 §2.4), read there as the choice of
+the minimal finite representative. Motivated physically by the
+Bekenstein bound at the cosmological horizon (an entropy-based bound,
+under the physical assumptions of input E3, of at most
+\(e^{S_{\text{dS}}}\) effectively distinguishable states of the visible
+sector and boundary layer, \(S_{\text{dS}} \sim 10^{122}\)). Discussed
+in Chapter 2 §2.4, with defense in Appendix C §C.6.
 
 \textbf{Background independence (A6).} The sixth of the framework's
 structural assumptions A1--A6: the substratum dynamics is covariant
@@ -29961,12 +30046,13 @@ past--future dependence that history readback (C4) supplies on
 accessible windows, which does not by itself produce backflow ({[}Main
 §2.3{]}). Discussed in Chapter 1 §1.5.
 
-\textbf{Jordan-Chevalley projection.} The algebraic decomposition of an
-operator into commuting semisimple and nilpotent parts:
-\(F = F_{ss} \cdot F_u\) with \(F_u = I + N\) and \(N^2 = 0\). The
-framework's content: the trace-out operation extracts \(F_{ss}\) and
-discards \(N\), organizing the emergent description by the
-representation theory of the partition. Developed in Appendix B §B.3.
+\textbf{Jordan-Chevalley decomposition.} The algebraic decomposition of
+an operator into commuting semisimple and nilpotent parts:
+\(F = F_{ss} \cdot F_u\) with \(F_u = I + N\) and \(N^2 = 0\). For the
+ring wave equation, \(F\) and \(F_{ss}\) have the same eigenvalues, so
+spectral invariants are independent of \(N\); hidden-sector
+marginalization does not remove \(N\) from the visible laws. Developed
+in Appendix B §B.3.
 
 \textbf{JUNO (Jiangmen Underground Neutrino Observatory).} A reactor
 neutrino experiment that in November 2025 reported the first
@@ -31095,4 +31181,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 5138855cc297af7a7b53747e39c0031136e29573161c1e7a11cabc1795a43f48
+% source-sha256: e44e8ebf839093b55d0f281f9a4d8138c4b59255fb60dfd920df2487d6e6fd8c

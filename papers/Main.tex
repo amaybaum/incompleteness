@@ -181,25 +181,6 @@ OBSERVATION}\label{the-incompleteness-of-observation}}
 \subsubsection{Finite-Observer Representations and Quantum
 Reconstruction}\label{finite-observer-representations-and-quantum-reconstruction}}
 
-\textbf{Observer geometry and physical carrier.} SM §4.1 distinguishes
-two claims. First, finite equivariant projection is classical and exact:
-cubic symmetry is inherited by the projected Markov part and every
-memory kernel, forbidding quadratic anisotropy in the scalar symbol ---
-so whatever nondegenerate quadratic structure survives is isotropic ---
-while allowing cubic anisotropy at quartic order. The particular
-normalized nearest-neighbor operator \(A/(2d)\) additionally requires an
-\textbf{observer-level} center-free kernel; microscopic center
-independence alone does not imply that after correlated hidden variables
-are marginalized. Second, the six signed simple-cubic links and their
-exact \(3\oplus2\oplus1\) representation are unconditional geometry, but
-identifying that link space with the complete physical carrier is
-\textbf{H-link}; the single-copy clause gives \(K=6\), and the custodial
-condensate-stabilizer reading is \textbf{H-cust}. Accordingly, any
-downstream statement here that consumes \(K=6\), \(N_f=6\), the physical
-SM gauge carrier, or a fixed three-sector count inherits those named
-bridge conditions unless it is explicitly referring only to the six
-geometric links.
-
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
 \textbf{Status:} DRAFT PRE-PRINT\\
@@ -374,9 +355,9 @@ of the words ``occurs'' and ``registered,'' the relational structure,
 the existence of a dynamics, determinism and per-moment finiteness of
 the visible configuration space (Lemma 1) follow as lemmas; the
 bijective (reversible) representative is a reconstruction choice
-motivated by observed near-unitarity, and total finiteness of the
-substratum is a physical posit (status Remark, §1.2; ledger §4.5) ---
-the package is not a set of independent assumptions, and it is not all
+motivated by observed near-unitarity, and total finiteness of that
+representative is a posit (status Remark, §1.2; ledger §4.5) --- the
+package is not a set of independent assumptions, and it is not all
 theorems. One thing does not follow: that the differentiation
 \emph{recurs} --- that there is more than one moment for the dynamics to
 act across. This is \textbf{Axiom 2}: differentiation recurs, the
@@ -485,9 +466,15 @@ the unique absolutely continuous invariant measure.
 \emph{Remark (the measure as a realization datum).} Lemma 3 fixes the
 canonical measure --- invariant, maximal-entropy --- and the framework's
 baseline transition matrices (§2.3) and the physical realization use it.
-It does not preclude structured preparations: a realization in the sense
-of §3.4 carries its own fixed hidden prior \(\mu_H\) as part of the
-realization datum, and the emergent law is a function of
+On the selected bijective carrier \(\mathcal{C}_V \times \mathcal{C}_H\)
+(Lemma 2) it is the uniform probability, with the uniform conditional
+law on \(\mathcal{C}_H\) in each visible fibre; the counting probability
+on the eventual image of a non-bijective description (status Remark
+below) belongs to a different representative choice and in general has
+neither equal-size visible fibres nor a product form. It does not
+preclude structured preparations: a realization in the sense of §3.4
+carries its own fixed hidden prior \(\mu_H\) as part of the realization
+datum, and the emergent law is a function of
 \((\varphi, \text{partition}, \mu_H)\) --- the same bijection and
 partition under different priors generally yield different visible laws
 (trivially: the two-state swap under uniform versus point-mass hidden
@@ -496,19 +483,53 @@ declared measure; the counting measure is the default, not a constraint
 on representations.
 
 \emph{Remark (status of the early commitments).} Of the structure above,
-only finite visible resolution is a theorem (Lemma 1). The bijective
+only finite visible resolution is a theorem (Lemma 1). The Definition
+and the two axioms do not fix the cardinality of \(S\). The bijective
 substratum is a representation choice --- the minimal recurrent
-bijective representative of the hidden dynamics; total finiteness of
-that representative is a physical posit, carried in the posit ledger
-(§4.5); observed near-unitarity is the empirical input motivating the
-choice. The physical reading of the characterization theorem --- the
+bijective representative of the hidden dynamics, defined here for a
+finite system only: for a map \(f\) on a finite set \(X\) it is the
+restriction of \(f\) to its eventual image
+\(E = \bigcap_{n \ge 0} f^n(X)\), the set of states lying on cycles of
+\(f\), on which \(f\) is a bijection of finite order,
+\(f^L = \text{id}\) on \(E\) for some \(L \ge 1\); no construction is
+given for an infinite \(S\). Total finiteness of that representative is
+a premise of the results that use it, carried as item (ii) of the posit
+ledger (§4.5), the total-finiteness posit; observed near-unitarity is
+the empirical input motivating the choice. The exact return
+\(\varphi^L = \text{id}\) is a property of the finite representative;
+Axiom 2 asserts that differentiation recurs, not that every microstate
+returns. The physical reading of the characterization theorem --- the
 identification of nature with a finite reversible substratum --- is
 accordingly conditional on that representation choice, an empirically
 motivated reconstruction rather than a pure derivation; the law-level
-equivalence of §3.4 itself holds for every finite-horizon law.
-Determinism (injectivity) holds by a two-pronged argument. For states
-differing in registered content, injectivity is the requirement that the
-dynamics preserve the observer's records --- merging them would erase a
+equivalence of §3.4 itself holds for every finite-horizon law. A finite
+factor adjoined to the hidden sector, prepared independently in a
+normalized state and evolved by its own permutation, with product
+dynamics, leaves every visible transition probability unchanged, because
+the visible coordinate of the product map does not depend on the added
+coordinate and the added prior has total mass one; the cardinality of
+such a deep sector is unobservable at the fixed visible/hidden
+interface. A deep sector that the dynamics couples to the remaining
+degrees of freedom, and an infinite hidden sector, are outside that
+statement, and this Remark makes no claim about the observability of
+their cardinality. Of the two finiteness statements, the following
+results use only that of Lemma 1: the stochastic-inverse lemma and the
+readback lemma (accessible conditional memory) of §2.3, and the
+equivalence of §3.4 with its process and intervention dilations, in
+which a finite hidden space is constructed, not assumed. The finite
+representative is used by the recurrence step of §2.3 and the results
+resting on it (recurrence-scale P-indivisibility, the CP-indivisibility
+theorem of §3.2, the all-time periodicity of a fixed realization in
+§3.4), by the eventual-image and surjectivity steps of the determinism
+argument below, by the counting measure of Lemma 3 and the uniform
+hidden prior that defines the baseline transition matrices, by the
+finite hidden space of the §3.2 setup, by the corner-occupancy claim of
+§3.1, by the coupling-graph causal cone of §3.3, and by §4.6; the
+obstructions stated in §3.4 for a fixed finite realization bear on
+nature through it. Determinism (injectivity) holds, in the scope stated
+for each prong, by a two-pronged argument. For states differing in
+registered content, injectivity is the requirement that the dynamics
+preserve the observer's records --- merging them would erase a
 distinction that has occurred. For states differing only in the hidden
 sector, a merge is either statistically observable or removable: a merge
 whose successor configurations differ visibly breaks the double
@@ -518,20 +539,39 @@ since each set \(\{x_j\} \times \mathcal{C}_H\) has exactly
 \(|\mathcal{C}_H|\) preimages, §3.2, and unitary emergent statistics are
 unistochastic), so it is excluded wherever the observed statistics are
 of that doubly stochastic class under the uniform prior; a merge that
-leaves no statistical trace is removable, since any map on a finite set
-restricts to a bijection on its \emph{eventual image}, where any
-recurrent registered history lives --- the non-injective description is
-then equivalent, for all registered history, to a bijective one. Either
-horn delivers a bijective substratum for the dynamics governing
-registered history; the two prongs use different inputs --- the first
-empirical (the observed statistics, in the uniform-prior doubly
-stochastic scope), the second structural (finiteness and recurrence). On
-a finite set, injectivity implies surjectivity, so \(\varphi\) is a
-bijection. As for the measure: on the orbit of the actual microstate,
-the uniform measure is the unique \(\varphi\)-invariant measure; the
-selection among orbits is fixed by maximal entropy compatible with the
-observer's records --- and the atypical short orbits of the idealized
-linear dynamics (fixed points, low-period cycles) are precisely
+leaves no statistical trace is removable for registered histories whose
+states lie in the \emph{eventual image} \(E\): any map on a finite set
+restricts to a bijection on \(E\), at most one of two merged states lies
+in \(E\), and on registered histories in \(E\) the non-injective
+description coincides with its restriction to \(E\). That representative
+is a restriction, not a factor, and the measure Lemma 3 assigns it is
+the counting measure on \(E\), which conditioned on the visible value is
+uniform on the fibre of \(E\) rather than on \(\mathcal{C}_H\) and need
+not reproduce the uniform-prior statistics of the original description:
+on \(\{0,1\} \times \{a,b,c\}\) with \(f(0,a) = f(0,c) = (0,a)\),
+\(f(0,b) = (1,a)\), \(f(1,a) = (0,b)\) and \((1,b)\), \((1,c)\) fixed,
+\(f\) has the visible process of the bijection that differs from it only
+in sending \((0,c)\) to itself, whose uniform-prior one-step matrix is
+\(\left(\begin{smallmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{smallmatrix}\right)\),
+while \(E\) omits \((0,c)\) and the counting measure on \(E\) gives
+\(\left(\begin{smallmatrix} 1/2 & 1/2 \\ 1/3 & 2/3 \end{smallmatrix}\right)\),
+which is not doubly stochastic. The uniform probability on the product
+carrier, used by Lemma 3, the baseline transition matrices and the §3.2
+setup, and the counting probability on \(E\) belong to different
+representative choices, and agreement of visible statistics under one
+does not transfer to the other without a separately verified
+measure-preserving correspondence. Either horn delivers a bijective
+substratum for the dynamics governing registered history in its scope,
+the second for registered states in \(E\); the two prongs use different
+inputs --- the first empirical (the observed statistics, in the
+uniform-prior doubly stochastic scope), the second structural
+(finiteness, for registered states in the eventual image). On a finite
+set, injectivity implies surjectivity, so \(\varphi\) is a bijection. As
+for the measure: on the orbit of the actual microstate, the uniform
+measure is the unique \(\varphi\)-invariant measure; the selection among
+orbits is fixed by maximal entropy compatible with the observer's
+records --- and the atypical short orbits of the idealized linear
+dynamics (fixed points, low-period cycles) are precisely
 observer-lacking substrata --- an orbit of period \(p\) makes at most
 \(p\) states dynamically accessible, so for small \(p\) no partition of
 it can satisfy the high-capacity condition C3 --- admitting no C1--C4
@@ -563,8 +603,16 @@ reader unwilling to grant that recovery may simply take reversibility as
 the standard postulate it is elsewhere, with no cost to the emergence
 results.
 
-These properties contain no quantum postulates. The claim is that
-quantum mechanics \emph{emerges} under the conditions below.
+These properties contain no quantum postulates. The framework proposes
+that quantum mechanics emerges for an embedded observer under the
+conditions below. What is established is the finite-horizon
+representation equivalence of §3.4, which holds for every finite
+stochastic law whether or not the conditions hold; the selection by (C4)
+of the laws with memory, every faithful deterministic completion of
+which carries hidden predictive memory; and, within complex matrix
+kinematics taken as given, the characterization of exact finite
+operational quantum mechanics by the five completion conditions of §3.4,
+none supplied by bare finite OI.
 
 \hypertarget{conditions-on-the-hidden-sector}{%
 \subsubsection{1.3 Conditions on the Hidden
@@ -768,10 +816,8 @@ independence with operational no-signaling required.
 
 \textbf{Lemma (partition-relativity under the canonical invariant
 measure).} \emph{Under the canonical measure of Lemma 3, the emergent
-description is uniquely determined by the partition; any parameters of
-the emergent theory depend only on the geometric and thermodynamic
-properties of the partition boundary. For the abstract representation
-theorems the prior is a third datum: canonically
+description is uniquely determined by the partition. For the abstract
+representation theorems the prior is a third datum: canonically
 \(T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})\), in general
 \(T = T(\varphi, \mathcal{P}, \mu_H)\) (§1.2, Remark on the measure as a
 realization datum).}
@@ -1483,17 +1529,11 @@ specific local lattice realization with Bell-required ontic parameter
 dependence is the independent H-Bell bridge. Its unification with the
 staggered-to-Dirac spin structure of the lattice substratum --- whose
 spinor decomposition is keyed to the lattice's bipartite partition ---
-is the open step. One premise of that step is secured at the linear
-level: the bipartite grading itself survives observation exactly --- the
-effective kernel obeys
-\(\Gamma_V K_{\text{eff}}(E)\,\Gamma_V = -K_{\text{eff}}(-E)\) for any
-site partition (certified exactly in
-\texttt{chirality\_grading\_probes.py}), so the marginalization cannot
-generate a grading-breaking (staggered-mass) term and the structure the
-spinor decomposition is keyed to reaches the observer intact. (iii)
-\emph{Restricted process class.} The representation
-\(T_{ij}=|\Theta_{ij}|^2\) imposes substantive structure on the
-admissible processes; in particular Doukas (2026) shows the
+is the open step. One premise of that step, the survival of the
+bipartite grading under the trace-out at the linear level, is derived in
+{[}SM §4.8.1{]}. (iii) \emph{Restricted process class.} The
+representation \(T_{ij}=|\Theta_{ij}|^2\) imposes substantive structure
+on the admissible processes; in particular Doukas (2026) shows the
 differentiable form forces the first-order rate matrix to vanish,
 excluding ordinary continuous-time Markov chains from the
 \emph{differentiable} form --- a restriction on the continuous-time
@@ -1514,19 +1554,20 @@ only by the residual dissipation \(\mathcal{D}\). What appears as a
 restriction on the correspondence's process class is, under the present
 architecture, the mechanism's signature: the framework occupies the
 corner Doukas identifies not by selection but by structural necessity,
-conditional on its finiteness commitment (A1, argued at the axiom
-layer). This is explanatory unification rather than corroboration ---
+conditional on the total-finiteness posit (§1.2 Remark, §4.5 ledger).
+This is explanatory unification rather than corroboration ---
 near-unitarity is an empirical input elsewhere in the framework --- but
 it converts scope condition (iii) from a qualification into a
 prediction: fundamental dynamics of continuous-time Markov type would
 require an actually infinite hidden sector, and the finite-\(\epsilon\)
 displacement \(\mathcal{D}\), whose bath-motion term is
-\(\mathcal{O}((\tau_S/\tau_B)^2) \sim 10^{-64}\) (§3.2), is the
-corner-occupancy claim's falsifiable residue. (iv) \emph{Reception.} The
-result is recent and located at the physics/philosophy boundary. Its
-mathematical core has since been independently reworked and generalized:
-the lift structure and its divisibility mechanics by Doukas {[}22{]},
-the countable-dimension extension by Calvo {[}13{]}, the
+\(\mathcal{O}((\tau_S/\tau_B)^2)\) (§3.2; \(\sim 10^{-64}\) for the
+horizon ratio of (C2)'s realization clause), is the corner-occupancy
+claim's falsifiable residue. (iv) \emph{Reception.} The result is recent
+and located at the physics/philosophy boundary. Its mathematical core
+has since been independently reworked and generalized: the lift
+structure and its divisibility mechanics by Doukas {[}22{]}, the
+countable-dimension extension by Calvo {[}13{]}, the
 divisible/indivisible classification by Pimenta {[}14{]}, and the
 Tsirelson-bound result in a mainstream physics venue {[}24, forthcoming
 in Phys. Rev.~A{]} (a result for the causal-local indivisible
@@ -1882,7 +1923,13 @@ into Hilbert spaces \(\mathcal{H}_V = \mathbb{C}^n\) and
 \(\mathcal{H}_H = \mathbb{C}^m\) via \(|i\rangle \leftrightarrow x_i\)
 and \(|k\rangle \leftrightarrow h_k\). This introduces no quantum
 postulates: it is the canonical identification of probability
-distributions on a finite set with diagonal density matrices.
+distributions on a finite set with diagonal density matrices. The
+uniform hidden prior of this section is the uniform probability on the
+product carrier \(\mathcal{C}_V \times \mathcal{C}_H\) of a bijection;
+the counting probability on the eventual image of a non-bijective
+description (§1.2) is a different measure, to which statements made
+under this prior do not transfer without a separately verified
+measure-preserving correspondence.
 
 \textbf{Lemma (permutation unitarity).} \emph{Any bijection
 \(\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H\)
@@ -2313,19 +2360,19 @@ that \emph{both} the slow-bath condition \(\tau_S\ll\tau_B\) \emph{and}
 a weak-coupling condition (small conditioned-Hamiltonian spread,
 \(\|V_{\text{int}}\|\,\tau_S \ll 1\)) hold; of the two contributions,
 the bath-motion term is fixed by the timescale hierarchy at
-\(\mathcal{O}((\tau_S/\tau_B)^2) \sim 10^{-64}\), while the
-conditioned-Hamiltonian spread is not --- its magnitude for the
-cosmological partition awaits the substratum interaction structure.
-Where these hold, the phase-locking lemma (§3.1), under its genericity
-hypotheses (G1)--(G4), determines \(\hat{H}_{\text{eff}}\) from
-continuous-time transition data up to the lemma's full gauge --- an
-overall energy shift, the residual diagonal-unitary rephasing freedom
-that is physically trivial (basis convention), and the antiunitary
-conjugation \(\hat{H} \to -\hat{H}^*\), which is not shift- or
-rephasing-related and is a genuine twofold ambiguity, not a convention;
-the residual dissipation \(\mathcal{D}\), if measurable at sufficient
-precision, is a prediction of the framework rather than an approximation
-artifact.
+\(\mathcal{O}((\tau_S/\tau_B)^2)\) (\(\sim 10^{-64}\) for the horizon
+ratio of (C2)'s realization clause), while the conditioned-Hamiltonian
+spread is not --- its magnitude for the cosmological partition awaits
+the substratum interaction structure. Where these hold, the
+phase-locking lemma (§3.1), under its genericity hypotheses (G1)--(G4),
+determines \(\hat{H}_{\text{eff}}\) from continuous-time transition data
+up to the lemma's full gauge --- an overall energy shift, the residual
+diagonal-unitary rephasing freedom that is physically trivial (basis
+convention), and the antiunitary conjugation \(\hat{H} \to -\hat{H}^*\),
+which is not shift- or rephasing-related and is a genuine twofold
+ambiguity, not a convention; the residual dissipation \(\mathcal{D}\),
+if measurable at sufficient precision, is a prediction of the framework
+rather than an approximation artifact.
 
 \textbf{Comparison of routes.}
 
@@ -2376,19 +2423,19 @@ supplied by bare finite OI; under the substratum's stated interventions,
 extended OI mechanism supplies it, and which of the others the
 substratum supplies, are open (§3.2 checklist). Within level one, the
 frozen-limit error analysis stands: the leading departure from the
-frozen-limit description enters at
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\) as an absorbable Hermitian
-drift of \(\hat{H}_{\text{eff}}\), with genuine non-unitarity
-\(\mathcal{D}\) entering through the conditioned-Hamiltonian spread and
-the second-order bath-motion term
-\(\mathcal{O}((\tau_S/\tau_B)^2) \sim 10^{-64}\) (§3.2). The two routes
-agree on the configuration-transition probabilities \(T_{ij}(t)\);
-equivalence of the complete operational observable structure is part of
-level three. The internal permutation-unitary route carries (Q2) for
-realized processes (the fixed-\(\hat{H}\) lemma, §3.4), with the
-Barandes route supplying the compressed form, (Q1), under (T); the
-Stinespring route supplies the level-one representation of (iii)
-independently.
+frozen-limit description enters at \(\mathcal{O}(\tau_S/\tau_B)\) as an
+absorbable Hermitian drift of \(\hat{H}_{\text{eff}}\), with genuine
+non-unitarity \(\mathcal{D}\) entering through the
+conditioned-Hamiltonian spread and the second-order bath-motion term
+\(\mathcal{O}((\tau_S/\tau_B)^2)\) (§3.2); for the horizon ratio of
+(C2)'s realization clause the two orders are \(\sim 10^{-32}\) and
+\(\sim 10^{-64}\). The two routes agree on the configuration-transition
+probabilities \(T_{ij}(t)\); equivalence of the complete operational
+observable structure is part of level three. The internal
+permutation-unitary route carries (Q2) for realized processes (the
+fixed-\(\hat{H}\) lemma, §3.4), with the Barandes route supplying the
+compressed form, (Q1), under (T); the Stinespring route supplies the
+level-one representation of (iii) independently.
 
 \textbf{Dependency scope of the correspondence.} The equivalence theorem
 of §3.4 fixes the framework's exposure to the correspondence precisely,
@@ -2416,29 +2463,29 @@ neither membership in the source's class nor the representation's
 existence (§3.4, Remark) --- and its role is confined to nontriviality
 at the recurrence scale and to the Bell-class constructions of §3.3.
 
-\textbf{An independent necessity statement.} Both routes above are
-constructive: they exhibit quantum mechanics as a description of the
-marginalized process. \textbf{Operational-reconstruction route: target
-conditions and the outstanding bridge.} The reconstruction theorems
-{[}Hardy, arXiv:quant-ph/0101012 (2001); Masanes and Müller, New J.
-Phys. \textbf{13}, 063001 (2011); Chiribella, D'Ariano and Perinotti,
-Phys. Rev.~A \textbf{84}, 012311 (2011){]} derive quantum theory from
-operational axiom sets. The finite physical layer supplies two useful
-ingredients: every fixed finite representative has finite predictive
-dimension, and the substratum dynamics admits reversible dilations.
-Neither statement by itself discharges the corresponding hypothesis for
-an \textbf{exact operational completion}. The classical-dimension
-obstruction below forces any literal continuum-QM endpoint beyond one
-fixed finite carrier into a compatible closure/limit, and stagewise
-finiteness does not prove that this completion retains finite predictive
-rank. The purification, continuous-transitivity, and
-tomographic-locality axioms of the cited reconstructions are hypotheses
-of their continuum endpoint, which the classical-dimension obstruction
-places beyond any fixed finite carrier; they are not what the finite
-characterization uses. On a fixed finite carrier and its composites the
-intervention side is settled as a characterization rather than a
-derivation (§3.4; kernel: \texttt{exactAll\_iff\_physical\_general},
-with necessity \texttt{physical\_of\_exactAll} and sufficiency
+\textbf{Operational-reconstruction route: target conditions and the
+outstanding bridge.} Both routes above are constructive: they exhibit
+quantum mechanics as a description of the marginalized process. The
+reconstruction theorems {[}Hardy, arXiv:quant-ph/0101012 (2001); Masanes
+and Müller, New J. Phys. \textbf{13}, 063001 (2011); Chiribella,
+D'Ariano and Perinotti, Phys. Rev.~A \textbf{84}, 012311 (2011){]}
+derive quantum theory from operational axiom sets. The finite physical
+layer supplies two useful ingredients: every fixed finite representative
+has finite predictive dimension, and the substratum dynamics admits
+reversible dilations. Neither statement by itself discharges the
+corresponding hypothesis for an \textbf{exact operational completion}.
+The classical-dimension obstruction below forces any literal
+continuum-QM endpoint beyond one fixed finite carrier into a compatible
+closure/limit, and stagewise finiteness does not prove that this
+completion retains finite predictive rank. The purification,
+continuous-transitivity, and tomographic-locality axioms of the cited
+reconstructions are hypotheses of their continuum endpoint, which the
+classical-dimension obstruction places beyond any fixed finite carrier;
+they are not what the finite characterization uses. On a fixed finite
+carrier and its composites the intervention side is settled as a
+characterization rather than a derivation (§3.4; kernel:
+\texttt{exactAll\_iff\_physical\_general}, with necessity
+\texttt{physical\_of\_exactAll} and sufficiency
 \texttt{exactAll\_of\_physical\_general}; \texttt{main\_result}; no
 premise beyond its stated setting): for every nonempty finite visible
 system, with complex matrix kinematics taken as given --- operations act
@@ -2503,7 +2550,17 @@ output a function of the components in it. This result uses the full
 spatial OI constitution --- site factorization plus the graph read from
 the actual dynamics --- but does not require the stronger simple-cubic
 nearest-neighbor restriction used elsewhere to obtain a particular
-dispersion relation.
+dispersion relation. For a class of states \(K\subseteq S\), write
+\(G_\varphi^K\) for the graph of the dependences that occur at states of
+\(K\): \(i\sim j\) whenever some \(s\in K\) and some \(s'\) differing
+from \(s\) only in the \(j\)th component have
+\((\varphi(s))_i\neq(\varphi(s'))_i\) (symmetrized as above); then
+\(G_\varphi=G_\varphi^S\), and \(G_\varphi^{\rm ref}\) denotes this
+graph for the reference vacuum/uniform state class. For a linear update
+(ledger item (vii), §4.5) the difference
+\((\varphi(s'))_i-(\varphi(s))_i\) depends only on \(s'-s\), so
+\(G_\varphi^K=G_\varphi\) for every non-empty \(K\); a graph that
+differs between state classes requires an update outside (vii).
 
 The causal-cone statement is pointwise in the pre-setting microstate. It
 must be distinguished from \textbf{operational setting screening}. In a
@@ -2592,22 +2649,32 @@ deterministic completion and \(|S_{\rm CHSH}|\le2\).} Hence the
 for such wings. The graph cone advances one edge per update, a Euclidean
 reach of \(1/\lVert\hat n\rVert_1\) lattice spacings per update in
 direction \(\hat n\) (from \(1\) along the axes to \(1/\sqrt3\) along
-the body diagonals), while the isotropic lift of {[}SM §4.1{]} has
-long-wavelength wave speed \(1/\sqrt3\) lattice spacings per update in
-every direction. A clock and length calibration rescales both speeds by
-the same factor, so it does not make them equal off the body diagonals;
-which of the two, if either, is the physical \(c\) depends on which
-propagation sets the emergent light cone and is not derived here. Wings
-separated by less than the graph cone over the experiment's duration
-fall outside the Corollary. This is not a no-go for the
-state-dependent-graph framework: {[}SM §3.1{]} permits \(G(x)\) to
-depend on the state, and its mod-\(q\) area-law proof is explicitly for
-uniform initial conditions. A measurement-independent Bell completion
-may therefore use preparation-indexed nonlocal edges while leaving the
-reference uniform/vacuum graph local. What remains to be proved for this
-branch is the part of H-Bell that this analysis bears on: that the
-prepared graph family supplies the required response dependence while
-preserving operational no-signaling.
+the body diagonals), while the long-wavelength wave speed derived in
+{[}SM §4.1{]} for its isotropic lift is \(1/\sqrt3\) lattice spacings
+per update in every direction. A clock and length calibration rescales
+both speeds by the same factor, so it does not make them equal off the
+body diagonals; which of the two, if either, is the physical \(c\)
+depends on which propagation sets the emergent light cone and is not
+derived here. Wings separated by less than the graph cone over the
+experiment's duration fall outside the Corollary, including any that are
+spacelike with respect to an emergent light cone lying strictly inside
+the graph cone in some direction. If \(c\) is the wave speed, these
+include wings that are spacelike with respect to \(c\): a setting site
+and a remote readout site at Euclidean distance \(d\) lattice spacings
+along \(\hat n\), \(\Delta t\) updates apart, with
+\(\Delta t/\sqrt3 < d \le \Delta t/\lVert\hat n\rVert_1\); the Corollary
+covers wings outside the graph cone, which contains the wave cone in
+every direction. This is not a no-go for the state-dependent-graph
+framework: {[}SM §3.1{]} permits \(G(x)\) to depend on the state, and
+its mod-\(q\) area-law proof is explicitly for uniform initial
+conditions. A measurement-independent Bell completion may therefore use
+preparation-indexed nonlocal edges while leaving the reference
+uniform/vacuum graph local; such edges are dependences present at some
+states and absent at others, so the update of this branch lies outside
+ledger item (vii) (§4.5). What remains to be proved for this branch is
+the part of H-Bell that this analysis bears on: that the prepared graph
+family supplies the required response dependence while preserving
+operational no-signaling.
 
 \textbf{(b) Ontic measurement dependence --- recorded, not adopted.} If
 instead the pre-setting ensemble is allowed to depend on the settings,
@@ -3912,12 +3979,14 @@ bijective read-write dynamics, not the continuously tunable state-mixing
 operation; with that one operation added as an empirical controllability
 resource it is equivalent to the same operational quantum mechanics on
 every nonempty finite carrier, while finite reversible read-write
-dynamics, even with genuine hidden-memory and readback behavior, does
+dynamics, even with a nontrivial reversible read-write coupling, does
 not itself generate quantum state mixing (kernel:
 \texttt{substratum\_plus\_control\_qm}, with the converse
-\texttt{qm\_generated\_by\_substratum\_extension}, in
+\texttt{qm\_generated\_by\_substratum\_extension}, and
+\texttt{readWriteOperator\_supplied} and, on the two-state carrier,
+\texttt{substratumGen\_not\_control}, in
 \texttt{OIBridge/StructuralClosure.lean},
-\texttt{readWriteSourced\_not\_qm} in
+\texttt{readWriteControl\_independent} in
 \texttt{OIBridge/ReadWriteControl.lean}). Its typed form removes the
 endomorphic qualifier: under the carrier-general typed operational
 interface --- identity, composition, coarse-graining, relabelling,
@@ -4158,9 +4227,7 @@ carrier; a fixed finite instrument family is realized exactly by the
 intervention dilation above, with a product prior carrying the quantum
 conditionals (Extension, response-table form), and the accuracy
 \(\varepsilon\) enters with a rational uniform seed and with uniformity
-over the instrument continuum. What remains is selection. This is the
-maximal equivalence available to a fixed finite substratum under the
-stated operational interface.
+over the instrument continuum. What remains is selection.
 
 \textbf{Theorem (unavoidable hidden predictive memory).} \emph{Let
 \(\mathcal{S}\) be a visible process and let \(\mathcal{R}\) be any
@@ -4626,11 +4693,14 @@ embedded observation supplies; and selection of a unique relating
 evolution from the coherent lifts of one visible family is \emph{open}.
 This paper neither closes the third nor claims it cannot be closed.
 
-\textbf{Remark (scope of the equivalence).} The characterization theorem
-establishes the Hilbert space, unitary dynamics, and Born-rule
-transition probabilities. Items (i)--(iii) comment on further structures
-of operational quantum mechanics, item (iv) on classical
-P-indivisibility, and item (v) on the external dependencies.
+\textbf{Remark (scope of the equivalence).} The characterization
+theorem, with the finite-horizon equivalence, supplies Hilbert-space
+representations with unitary dynamics and Born-form transition
+probabilities: internally the fixed-basis permutation-unitary
+representation of the finite-horizon visible law, and under (T) the
+compressed form of (i) for its transition data. Items (i)--(iii) comment
+on further structures of operational quantum mechanics, item (iv) on
+classical P-indivisibility, and item (v) on the external dependencies.
 
 \emph{(i) Tensor product structure (visible--hidden).} The Stinespring
 route (§3.2) constructs
@@ -4678,19 +4748,17 @@ is engineered to reproduce rooted two-time transition data, which
 under-determines multi-time joint statistics {[}22{]}; the substratum,
 by contrast, fixes a unique multi-time law. Agreement of the
 substratum's conditioned multi-time statistics with the quantum
-formalism's intervention-rooted predictions is supported by the same
-chaotic-mixing suppression argument used to motivate decorrelation of
-controllable setting generators from preparation-relevant hidden data
-(§3.3); that decorrelation is not the Bell-violation mechanism, because
-the adopted Bell branch instead relinquishes ontic parameter
-independence. Residual pre-division memory, if present, would appear as
-deviations from quantum multi-time predictions --- a falsifiable texture
-of the same standing as the residual dissipation \(\mathcal{D}\).
+formalism's intervention-rooted predictions depends on the open
+dynamical question of hidden-sector mixing recorded as ledger item (v)
+(§4.5); hidden-sector mixing is not the Bell-violation mechanism: the
+adopted Bell branch relinquishes ontic parameter independence (§3.3).
+Residual pre-division memory, if present, would appear as deviations
+from quantum multi-time predictions --- a falsifiable texture of the
+same standing as the residual dissipation \(\mathcal{D}\).
 
 \emph{(iv) Classical P-indivisibility and quantum mechanics.} The
 representation clause is not a claim that all P-indivisible processes
-are ``secretly quantum'' in some metaphysical sense; it is a theorem
-that the mathematical structures are identical. Classical systems
+are ``secretly quantum'' in some metaphysical sense. Classical systems
 exhibiting P-indivisibility --- renewal processes, semi-Markov processes
 on finite state spaces --- admit a unitary description, constrained,
 under the phase-locking hypotheses (G1)--(G4), up to shift, rephasing
@@ -4887,22 +4955,25 @@ quantum representation, once established by the theorem, is available
 for all visible-sector dynamics --- the operational theory's unique
 selection remaining open (§3.4).
 
-In the double-slit experiment, the particle traverses a single slit in
-the deterministic substratum. The interference pattern arises because
-opening or closing the second slit changes the boundary conditions of
-the transition matrix, altering the distribution of detection events. A
-which-path detector at one slit couples the trajectory to additional
-visible-sector degrees of freedom, changing the transition matrix and
-eliminating the interference terms. The Everettian measure problem
-dissolves: the system evolves as a single reality; ``branches'' are
-features of the compressed description. The Born rule, often treated as
-an independent postulate, is here part of the exact fixed-basis
-representation dictionary (\(S \iff D \iff Q_{\mathrm{fb}}\), §3.4),
-rather than an additional stochastic axiom. What remains open is the
-common coherent operational extension of that dictionary to all
-interventions and composites. The equilibrium-of-the-cycle reading is
-the cosmological realization's mechanism proposal rather than a theorem
-of this paper.
+In the double-slit experiment, a finite set of apparatus settings ---
+both slits open, one slit closed, a which-path record coupled --- with
+the detection statistics over finitely many outcomes under each setting
+defines a finite-horizon action-labelled family, the settings being its
+action alphabet. By the intervention dilation (§3.4), every such family
+has a finite reversible realization with one fixed prior, in which the
+substratum occupies a single configuration at every step and the visible
+transition law is indexed by the setting; coupling a which-path record
+is an intervention that changes it. The detection statistics are an
+input of that construction, and a derivation of the two-slit
+interference pattern from the substratum dynamics is open. Within the
+framework's ontology the Everettian measure problem does not arise: the
+system evolves as a single reality; ``branches'' are features of the
+compressed description. The Born rule, often treated as an independent
+postulate, is here part of the exact fixed-basis representation
+dictionary (\(S \iff D \iff Q_{\mathrm{fb}}\), §3.4), rather than an
+additional stochastic axiom. What remains open is the common coherent
+operational extension of that dictionary to all interventions and
+composites.
 
 \textbf{Observer covariance and nested observers.} Different observer
 partitions \(V \subsetneq S\) yield their respective visible stochastic
@@ -4923,17 +4994,21 @@ trace-out procedure:
 \tightlist
 \item
   \textbf{Friend's description.} Trace over
-  \(S \setminus V_F = V_W \cup H\). Under C1--C4 applied to
-  \((V_F, S \setminus V_F)\), Friend's reduced description is
-  quantum-mechanical. Friend observes definite outcomes in her visible
-  sector, including any system she measures.
+  \(S \setminus V_F = V_W \cup H\). The framework's proposal is that,
+  under C1--C4 applied to \((V_F, S \setminus V_F)\), Friend's reduced
+  description is quantum-mechanical; what is established is that it is a
+  finite-horizon law admitting the fixed-basis quantum representation of
+  §3.4 whether or not the conditions hold, with memory where (C4) holds.
+  Friend observes definite outcomes in her visible sector, including any
+  system she measures.
 \item
   \textbf{Wigner's description.} Trace over
   \(S \setminus V_W = V_F \cup H\). Friend is part of Wigner's hidden
-  sector. Under C1--C4 applied to \((V_W, S \setminus V_W)\), Wigner's
-  reduced description is also quantum-mechanical. Wigner does not see a
-  definite Friend-outcome within his own description --- Friend's state
-  is traced out.
+  sector. The proposal and the established statement of Friend's case
+  apply equally to Wigner's reduced description, for
+  \((V_W, S \setminus V_W)\). Wigner does not see a definite
+  Friend-outcome within his own description --- Friend's state is traced
+  out.
 \item
   \textbf{Joint description.} The marginal transition matrix
   \(T_{WF}(\alpha, \beta \to \alpha', \beta') = |\{h \in H : \pi_{V_W \cup V_F}(\varphi(\alpha, \beta, h)) = (\alpha', \beta')\}|/|H|\)
@@ -4948,7 +5023,7 @@ descriptions, not conflicting claims about the substratum state. At the
 substratum level, Friend, Wigner, and the system all have definite
 configurations; neither Friend nor Wigner has epistemic access to the
 complete state, and this epistemic limitation produces their respective
-quantum descriptions through the same mechanism in §2--§3. This gives an
+reduced descriptions through the same mechanism in §2--§3. This gives an
 observer-relative interpretation of the common substratum and its
 marginal laws. It does not by itself resolve the full Frauchiger--Renner
 protocol: the proposed completion's operational probabilities,
@@ -5142,47 +5217,48 @@ time.
 
 \textbf{Falsifiability.} The framework's structural claim is that
 \emph{the hidden sector is a classical substratum} --- a finite set with
-a deterministic bijection. Bäcker, Beyer, and Strunz {[}28{]} classify
-the memory of a two-step open-system process as classical when the
-second step can be written as a quantum instrument realizing the first
-step, followed by channels conditioned on the instrument's classical
-outcome. The classification is a property of the process maps on all
-density matrices; applying it to the substratum therefore requires the
-coherent-preparation and instrument bridge of §3.4, which is open. The
-substratum alone does not fix the classification. Restricted to inputs
-diagonal in a fixed basis, every two-step process admits a
-classical-memory decomposition. On coherent inputs the permutation
-unitary of §3.4 carries visible coherence into the hidden register, and
-the classification depends on the realization rather than on the visible
-law: the law \(X_1 = 0\), \(X_2 = X_0\) has a ledger realization (§3.4)
-with classical memory and a swap realization, \(\varphi(x,h) = (h,x)\)
-with an initialized hidden slot (§1.2), whose two-step maps are
-\(\rho \mapsto |0\rangle\langle 0|\) and \(\rho \mapsto \rho\). Every
-Kraus operator of the first map has one-dimensional range, so every
-processing conditioned on its outcome is entanglement-breaking, and the
-identity map is not; this swap realization admits no classical-memory
-decomposition. By the gluing and uniform-continuum theorems of §3.4, a
-finite reversible realization reproduces the statistics of any finite
-quantum-memory experiment to any stated accuracy. A memory-witness
-experiment {[}28, 29, 30{]} is interpretable as a test of the ontology
-only given two inputs not supplied here: the coherent-preparation and
-instrument bridge, and an outcome-independent rule identifying the
-fundamental open-system processes --- those arising from embedded
-observation --- as distinct from engineered quantum environments. It is
-a falsifier only given a third: a constraint, derived from the completed
-model, on what eligible processes must show --- every eligible
-realization classical-memory in the sense of {[}28{]}, or another
-explicit witness bound. The swap realization shows that the bridge alone
-does not supply such a constraint, and none is established here; no
-memory-witness outcome therefore falsifies the ontology at present. Were
-such a constraint established, the test would be sharpest in the
-\emph{C2-marginal regime} (\(\tau_S \sim \tau_B\) rather than
-\(\tau_S \ll \tau_B\)), where non-Markovianity is \(\mathcal{O}(1)\)
-rather than suppressed; candidate systems are strongly-driven
-superconducting qubits with two-level-system baths, biological electron
-transport with vibrational coupling, and spin-boson dynamics at strong
-coupling, with the classical-vs-quantum memory distinction surveyed in
-{[}30{]}.
+a deterministic bijection, finiteness being the total-finiteness posit
+(§1.2 Remark, §4.5 ledger item (ii)). Bäcker, Beyer, and Strunz {[}28{]}
+classify the memory of a two-step open-system process as classical when
+the second step can be written as a quantum instrument realizing the
+first step, followed by channels conditioned on the instrument's
+classical outcome. The classification is a property of the process maps
+on all density matrices; applying it to the substratum therefore
+requires the coherent-preparation and instrument bridge of §3.4, which
+is open. The substratum alone does not fix the classification.
+Restricted to inputs diagonal in a fixed basis, every two-step process
+admits a classical-memory decomposition. On coherent inputs the
+permutation unitary of §3.4 carries visible coherence into the hidden
+register, and the classification depends on the realization rather than
+on the visible law: the law \(X_1 = 0\), \(X_2 = X_0\) has a ledger
+realization (§3.4) with classical memory and a swap realization,
+\(\varphi(x,h) = (h,x)\) with an initialized hidden slot (§1.2), whose
+two-step maps are \(\rho \mapsto |0\rangle\langle 0|\) and
+\(\rho \mapsto \rho\). Every Kraus operator of the first map has
+one-dimensional range, so every processing conditioned on its outcome is
+entanglement-breaking, and the identity map is not; this swap
+realization admits no classical-memory decomposition. By the gluing and
+uniform-continuum theorems of §3.4, a finite reversible realization
+reproduces the statistics of any finite quantum-memory experiment to any
+stated accuracy. A memory-witness experiment {[}28, 29, 30{]} is
+interpretable as a test of the ontology only given two inputs not
+supplied here: the coherent-preparation and instrument bridge, and an
+outcome-independent rule identifying the fundamental open-system
+processes --- those arising from embedded observation --- as distinct
+from engineered quantum environments. It is a falsifier only given a
+third: a constraint, derived from the completed model, on what eligible
+processes must show --- every eligible realization classical-memory in
+the sense of {[}28{]}, or another explicit witness bound. The swap
+realization shows that the bridge alone does not supply such a
+constraint, and none is established here; no memory-witness outcome
+therefore falsifies the ontology at present. Were such a constraint
+established, the test would be sharpest in the \emph{C2-marginal regime}
+(\(\tau_S \sim \tau_B\) rather than \(\tau_S \ll \tau_B\)), where
+non-Markovianity is \(\mathcal{O}(1)\) rather than suppressed; candidate
+systems are strongly-driven superconducting qubits with two-level-system
+baths, biological electron transport with vibrational coupling, and
+spin-boson dynamics at strong coupling, with the classical-vs-quantum
+memory distinction surveyed in {[}30{]}.
 
 \emph{Theorem-level falsifiability.} The characterization theorem is
 mathematical --- the fixed-basis representation and the hidden-memory
@@ -5210,40 +5286,39 @@ and the empirical motivation recorded for an item does not make that
 item logically necessary. The framework's substantive posits, beyond
 Axiom 1 (tokened differentiation, indubitable), are: (i) Axiom 2 ---
 recurrence --- owned as a posit with a non-derivability countermodel;
-(ii) finiteness of the \emph{total} state space \(S\) --- Lemma 1
-delivers finiteness of the observer's distinguishable states, and the
-extension to all of \(S\) is A1 of the companion substratum construction
---- there scoped as the gauge choice of the minimal finite
-representative, the cardinality of a deep sector being unobservable at
-the fixed visible/hidden interface when that sector is a finite factor
-prepared independently in a normalized state and evolved by its own
-permutation, with product dynamics, which leaves every reduced visible
-channel, and hence every transition probability, unchanged (deep-sector
-enlargement, developed there) --- consumed here by the recurrence step
-of §2.3 and by §4.6, whose conclusions hold on the finite representative
-and, where expressible through the transition probabilities, on every
+(ii) total finiteness of the bijective representative of the status
+Remark of §1.2 --- Lemma 1 delivers finiteness of the observer's
+distinguishable states, and the extension to the whole representative is
+A1 of the companion substratum construction --- there scoped as the
+gauge choice of the minimal finite representative, the cardinality of a
+deep sector being unobservable at the fixed visible/hidden interface
+when that sector is a finite factor prepared independently in a
+normalized state and evolved by its own permutation, with product
+dynamics, which leaves every reduced visible channel, and hence every
+transition probability, unchanged (deep-sector enlargement, developed
+there) --- consumed here by the recurrence step of §2.3 and by §4.6,
+whose conclusions hold on the finite representative; their transfer,
+where expressible through the transition probabilities, to every
 representative reached from it by relabelling the hidden states, by such
 a finite decoupled enlargement or, under the alphabet-size hypothesis
 that systems with the same coupling structure and dynamics class
 differing only in alphabet size have the same emergent transition
 probabilities, by a change of alphabet that keeps the coupling structure
-and dynamics class; across extensions whose deep sector couples to the
-boundary layer with slow dynamics, under the hypothesis that the
-transition law then equals that of the visible and boundary sectors
-alone up to \(\mathcal{O}(t/\tau_B)\) for \(t \ll \tau_B\), only
-conclusions insensitive to that correction transfer (the transfer stated
-and proved as a corollary in the companion substratum construction),
-while the recurrence-scale conclusion of §2.3 is a statement about
-finite representatives; (iii) the record-preservation and eventual-image
-arguments that ground determinism (Lemma 3) close the hidden-sector
-margin using one \emph{empirical} input --- the observed statistics, in
-the uniform-prior doubly stochastic scope --- and one structural
-principle, so bijectivity is part-empirical rather than a pure lemma (a
-reader who declines the recovery may instead adopt reversibility as the
-standard information-conservation postulate of unitary quantum mechanics
-and classical Hamiltonian flow {[}42, 43{]}, at no cost to the
-downstream results --- see the remark following Lemma 3); (iv) the
-measure selection is a maximal-entropy principle (``the maximal-entropy
+and dynamics class is stated and proved in the companion substratum
+construction, while the recurrence-scale conclusion of §2.3 is a
+statement about finite representatives, the remaining uses of the posit
+being listed in the status Remark of §1.2; (iii) the record-preservation
+and eventual-image arguments that ground determinism (Lemma 3) close the
+hidden-sector margin using one \emph{empirical} input --- the observed
+statistics, in the uniform-prior doubly stochastic scope --- and one
+structural principle, the restriction of a finite map to its eventual
+image, which covers registered histories whose states lie in that image,
+so bijectivity is part-empirical rather than a pure lemma (a reader who
+declines the recovery may instead adopt reversibility as the standard
+information-conservation postulate of unitary quantum mechanics and
+classical Hamiltonian flow {[}42, 43{]}, at no cost to the downstream
+results --- see the remark following Lemma 3); (iv) the measure
+selection is a maximal-entropy principle (``the maximal-entropy
 invariant measure compatible with the observer's records'') --- a
 standard but substantive epistemic postulate, not derived; (v) the
 hidden-sector mixing hypothesis (ETH-motivated) conditioning the
@@ -5257,18 +5332,17 @@ exponentially many cycles {[}SM §4.2{]}, so that numerical motivation
 comes from the rounded candidate of {[}SM §4.2{]}, which behaves
 chaotically at the sizes measured, while whether the realized hidden
 sector satisfies the mixing hypothesis remains open --- this is the same
-open dynamical question as the chaotic-mixing suppression invoked to
-motivate laboratory setting/preparation decorrelation (§3.3) and the
-typicality selection in (iv), one conditional wearing three hats; (vi)
-spatial isotropy, entering as empirical input E4 of the reconstruction;
-(vii) linearity of the substratum update (A5), stronger than the affine
-restriction that amplitude-scale gauge invariance yields in the form
-that every first difference of the update is independent of its base
-point, since such differences telescope to a constant plus an additive
-map; and, for the spatial results --- the causal cone and Bell ceiling
-of §3.3, the observer selection of §4.6 and the companion reconstruction
---- the spatial constitution, which the characterization theorem of §3.4
-does not use: (viii) site factorization --- the configuration space is
+open dynamical question as the typicality selection in (iv), one
+conditional wearing two hats; (vi) spatial isotropy, entering as
+empirical input E4 of the reconstruction; (vii) linearity of the
+substratum update (A5), stronger than the affine restriction that
+amplitude-scale gauge invariance yields in the form that every first
+difference of the update is independent of its base point, since such
+differences telescope to a constant plus an additive map; and, for the
+spatial results --- the causal cone and Bell ceiling of §3.3, the
+observer selection of §4.6 and the companion reconstruction --- the
+spatial constitution, which the characterization theorem of §3.4 does
+not use: (viii) site factorization --- the configuration space is
 identified with a product of local configuration spaces over a set of
 sites; given that identification the dynamics determines its coupling
 graph, the dynamics alone has not been shown to select the
@@ -5278,12 +5352,13 @@ of §3.3 and §4.6 are read relative to it; (ix) bounded coupling degree
 --- at a single finite lattice the bound holds automatically, so the
 item has content only in family form, where it gives the cone of §3.3
 bounded growth and is used by §4.6; (x) the nearest-neighbour range ---
-the coupling graph is the simple-cubic graph --- on which the form of
-the wave rule, its dispersion and the six-link carrier of the companion
-construction rest, and which the cone of §3.3 does not require; (xi)
-center independence (A4), in two clauses: the update commutes with
-lattice translations up to gauge, and the update at a site contains no
-explicit copy of that site's present value; (xii) background
+on the reference vacuum/uniform state class the coupling graph
+\(G_\varphi^{\rm ref}\) of §3.3 is the simple-cubic graph --- on which
+the form of the wave rule, its dispersion and the six-link carrier of
+the companion construction rest, and which the cone of §3.3 does not
+require; (xi) center independence (A4), in two clauses: the update
+commutes with lattice translations up to gauge, and the update at a site
+contains no explicit copy of that site's present value; (xii) background
 independence (A6), covariance of the dynamics under site-dependent
 internal-index transformations with the link coupling transformed
 alongside, which in the form formalized imposes no restriction on the
@@ -5298,25 +5373,30 @@ value in a finite abelian group, and one step is
 reading the current values at finitely many sites and each site read by
 finitely many \(F_i\) (kernel: \texttt{ruleDynamics} in
 \texttt{OIBridge/SecondOrderDrive.lean}), the update displayed in §3.2
-being its instance with \(q = 2\) and \(F\) the nearest-neighbour sum.
-Thirteen items, of unequal weight, and not thirteen independent physical
-assumptions: (viii) is foundational and (ix)--(xi) and (xiii) are stated
-relative to it; (x) implies the bound of (ix); the second clause of (xi)
-depends on the identification of (viii) as well as on the rule; and
-(xii) restricts no rule. Part I of the companion methodology paper gives
-the complementary view: an eight-rung analysis of the primitive that
-recovers the proper part, the existence of a dynamics (conditionally),
-bijectivity and per-moment finiteness as lemmas of the two-axiom base
-and isolates recurrence (Axiom 2) as the one irreducible non-lemma; the
-finiteness of the total state space and items (iv)--(xiii) lie outside
-the layer it treats. The two accounts describe one structure --- the
-rung analysis counts what is \emph{recovered}, this ledger counts what
-is \emph{assumed} --- and agree on the substance, including that the
-determinism recovery closes its hidden-sector margin with an empirical
-input and that finiteness is delivered only per-moment. The two-axiom
-statement remains correct about what is \emph{primitive}; this ledger
-states what is \emph{assumed}, and the framework's claims are
-conditional on the full list.
+being its instance with \(q = 2\) and \(F\) the nearest-neighbour sum;
+and, for the Bell analysis of §3.3, (xiv) measurement independence,
+\(p(\Omega\mid a,b)=p(\Omega)\) --- the response-relevant pre-setting
+variable \(\Omega\) is uncorrelated with the setting generators' outputs
+--- a posit about the initial condition, not derived. Fourteen items, of
+unequal weight, and not fourteen independent physical assumptions:
+(viii) is foundational and (ix)--(xi) and (xiii) are stated relative to
+it; (x) implies the bound of (ix) for \(G_\varphi^{\rm ref}\), and with
+(vii) for \(G_\varphi\); the second clause of (xi) depends on the
+identification of (viii) as well as on the rule; (xii) restricts no
+rule; and (xiv) enters only the Bell analysis of §3.3. Part I of the
+companion methodology paper gives the complementary view: an eight-rung
+analysis of the primitive that recovers the proper part, the existence
+of a dynamics (conditionally), bijectivity and per-moment finiteness as
+lemmas of the two-axiom base and isolates recurrence (Axiom 2) as the
+one irreducible non-lemma; the total finiteness of item (ii) and items
+(iv)--(xiv) lie outside the layer it treats. The two accounts describe
+one structure --- the rung analysis counts what is \emph{recovered},
+this ledger counts what is \emph{assumed} --- and agree on the
+substance, including that the determinism recovery closes its
+hidden-sector margin with an empirical input and that finiteness is
+delivered only per-moment. The two-axiom statement remains correct about
+what is \emph{primitive}; this ledger states what is \emph{assumed}, and
+the framework's claims are conditional on the full list.
 
 \textbf{Status ledger (theorems and conditions).} The table transcribes
 the standing status of each load-bearing claim of this paper's
@@ -5952,4 +6032,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: 6144cd4a6324599d5178f844201551670ef470d4ed130c0b6ce23622a3be6366
+% source-sha256: eb8650e5abcdf1bab17987d11f07b87bf2ccb9f077ddd50b0f57bd409b7819eb

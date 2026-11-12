@@ -20,7 +20,7 @@ The chapter takes as input the framework's prior content. The quantum-mechanical
 
 ## 5.2 The minimal substratum and the wave equation
 
-The framework's content rests on a minimal mathematical structure: a finite set $S$, a deterministic bijection $\varphi: S \to S$, and a partition of $S$ into visible and hidden sectors. The lemmas of Chapter 1 extracted three structural features from this minimal object — visible finiteness, causal partition, determinism — and the conditions C1–C4 identified when an embedded observer can exist. This section develops two further structural features of the minimal object that the Standard Model derivation requires.
+The framework's content rests on a minimal mathematical structure: a finite set $S$ (posit A1, Chapter 2 §2.4), a deterministic bijection $\varphi: S \to S$, and a partition of $S$ into visible and hidden sectors. The lemmas of Chapter 1 extracted three structural features from this minimal object — visible finiteness, causal partition, determinism — and the conditions C1–C4 identified when an embedded observer can exist. This section develops two further structural features of the minimal object that the Standard Model derivation requires.
 
 **The factorization problem.** Let $S$ be a finite set with $|S| = q^N$ for some $q \geq 2$ and integer $N$. There are many ways to write $S$ as a Cartesian product $S = S_1 \times S_2 \times \cdots \times S_N$ with $|S_k| = q$ for each $k$. Different factorizations correspond to different choices of which elementary degrees of freedom to identify as "local" — different bases in which to decompose the configuration space. The factorization is not given by the set $S$ itself; it must be determined by some additional structure.
 
