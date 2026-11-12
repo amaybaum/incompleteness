@@ -5422,8 +5422,9 @@ out that factor leaves the original visible channel unchanged
 time because the added dynamics remains exactly decoupled. It says
 nothing comparable about a sector that can later couple to the observed
 system, or about observations that directly access the added factor.
-Slow coupling gives only the separate approximation stated in {[}GR
-§3.2{]}, not exact observational equivalence.
+Coupling under the influence bound H-BD gives only the separate
+approximation stated in {[}GR §3.2{]}, not exact observational
+equivalence.
 
 This distinguishes redundancy between descriptions from unresolved facts
 within a model. Hidden degrees of freedom may store information that
@@ -27039,17 +27040,20 @@ average over \(d\) therefore lies within \(\ell_1\) distance
 \(2t/\tau_{BD}\) of \(\delta_{x_j}[\pi_V((\varphi^{VB})^n(x_i, b))]\),
 and the average over \(b\) keeps the bound. \(\square\)
 
-Nothing in the framework fixes \(\tau_{BD}\). For a linear update, H-BD
-with \(\tau_{BD} > 2\Delta t\) holds if the deep sector does not enter
-the \(V \times B\) update and fails otherwise, and the framework's
-displayed update does not meet that condition ({[}GR §3.2{]}).
+Nothing in the framework fixes \(\tau_{BD}\). For a linear update on a
+finite abelian group with \(\mathcal{C}_D\) a direct summand, H-BD with
+\(\tau_{BD} > 2\Delta t\) holds if the deep sector does not enter the
+\(V \times B\) update and fails otherwise, and the linear lattice update
+of {[}Main §3.2{]} does not meet that condition at any cut where a
+boundary site has a deep neighbour ({[}GR §3.2{]}).
 
 \textbf{Lemma B.4.3 (Causal cone).} \emph{Let the bijective update act
-on a finite product of site configuration spaces, let \(B_n\) be the
-hidden sites within \(n\) update steps of the visible sector (the
-visible sector's causal cone over the elapsed time) and \(D_n\) the
-rest. At \(t = n\,\Delta t\), \(\pi_V(\varphi^n(x_i, b, d))\) does not
-depend on \(d \in \mathcal{C}_{D_n}\), and, for every
+on a finite product of site configuration spaces, with the uniform
+hidden-sector prior, let \(B_n\) be the hidden sites within \(n\) update
+steps of the visible sector (the visible sector's causal cone over the
+elapsed time) and \(D_n\) the rest. At \(t = n\,\Delta t\),
+\(\pi_V(\varphi^n(x_i, b, d))\) does not depend on
+\(d \in \mathcal{C}_{D_n}\), and, for every
 \(d^* \in \mathcal{C}_{D_n}\), exactly}
 \[T_{ij}(t) = \frac{1}{|\mathcal{C}_{B_n}|}\sum_{b \in \mathcal{C}_{B_n}} \delta_{x_j}[\pi_V(\varphi^n(x_i, b, d^*))].\]
 
@@ -27062,13 +27066,15 @@ Under H-BD the correction in Lemma B.4.2 is at most \(2t/\tau_{BD}\),
 which is of order \(10^{-32}\) for laboratory processes when
 \(\tau_{BD} \gtrsim 1/H\), a value that is not derived. Since
 \(T_{ij}(t)\) determines the emergent quantum description up to its
-action scale, and \(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\)
-dynamics --- which are characterized by the boundary geometry (\(A\),
-\(\epsilon\), \(\kappa\)) and the constants \(c\), \(G\) appearing in
-the classical Hamiltonian --- the emergent dynamics, in units of inverse
-time, inherits \emph{boundary-only dependence}. The action scale does
-not: every value of it gives the same \(T_{ij}(t)\), so the lemma does
-not bear on \(\hbar\), which Step 4 fixes.
+action scale, and the cone law of Lemma B.4.3, and under H-BD
+\(T^{(B)}_{ij}(t)\), depend only on the dynamics of \(V\) and of hidden
+sites within \(n\) update steps of \(V\) --- which are characterized by
+the boundary geometry (\(A\), \(\epsilon\), \(\kappa\)) and the
+constants \(c\), \(G\) appearing in the classical Hamiltonian --- the
+emergent dynamics, in units of inverse time, inherits
+\emph{boundary-only dependence}. The action scale does not: every value
+of it gives the same \(T_{ij}(t)\), so the lemma does not bear on
+\(\hbar\), which Step 4 fixes.
 
 \textbf{Step 2: Deep-sector gauge equivalence.} A corollary of Lemmas
 B.4.2 and B.4.3 is that no quantity determined by the visible transition
@@ -27081,13 +27087,14 @@ data on \([0, n\,\Delta t]\), and under H-BD systems with the same
 \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the same data to
 within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep sector; the
 first statement holds also for an infinite deep sector, given a
-normalized prior on it and well-defined dynamics in which each
-component's update depends on finitely many components. Quantities that
-differ between Hamiltonians compatible with those data, such as
-individual eigenvalues and raw amplitudes, lie outside the corollary,
-and so does recurrence-scale content, which the recurrence argument
-establishes on a finite representative. Within the visible transition
-data on \([0, n\,\Delta t]\), a finite deep sector beyond \(B_n\) and an
+normalized product prior on it, a locally finite coupling graph and
+well-defined dynamics in which each component's update depends on
+finitely many components. Quantities that differ between Hamiltonians
+compatible with those data, such as individual eigenvalues and raw
+amplitudes, lie outside the corollary, and so does recurrence-scale
+content, which the recurrence argument establishes on a finite
+representative. Within the visible transition data on
+\([0, n\,\Delta t]\), a finite deep sector beyond \(B_n\) and an
 infinite one with that prior and dynamics are indistinguishable.
 
 \textbf{Step 3: Dimensional determination.} The thermal matching of Step
@@ -31161,4 +31168,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 9fd1a081315fb4036cd7608200e3d9a4f2ca4853cf8a7af9b44d188cdbd5104e
+% source-sha256: d6e1a720b95cd14b41d875ef9e21021d30287e8e57093ba639932ead0040db5b
