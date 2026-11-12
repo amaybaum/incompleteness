@@ -5,8 +5,9 @@ under Issue #1236 (owner decision: paper-only). This file plans one question and
 work, its definitions, decision rule, controls and stopping rule. It runs no Step 2 work, performs
 no computation, adopts no premise, advocates and evaluates no candidate mechanism, changes no
 manuscript or Lean file and authorizes nothing. Execution needs the owner's recorded approval of
-this text (or of an amended text) after the reviews named in section 10. This is revision r8a,
-which applies the four nits of the delta review of r8 (verdict ACCEPT WITH NITS, at `535688ca`) to
+this text (or of an amended text) after the reviews named in section 10. This is revision r9,
+drafted after the external re-review of r8a (verdict REVISE, one blocking finding, at `7a9e7b79`);
+r8a applied the four nits of the delta review of r8 (verdict ACCEPT WITH NITS, at `535688ca`) to
 r8; r8 was drafted after the delta review of r7 (verdict REVISE, light, at `2ad0aca0`); r7 was drafted after
 the delta review of r6 (verdict REVISE, at `b9e9683e`); each was drafted with the owner's approval
 to revise as reviewed; r6 was drafted after the external review of r5a (verdict REVISE, at
@@ -41,14 +42,15 @@ Take one lattice rule and fix once a region as the observer's apparatus. The obs
 everything in the region at every step, nothing outside it, and chooses only settings, stored at
 the start in unread cells or (an assumption) rewritten each round. Does what it can do and see behave like one quantum bit, to any wanted
 precision, over experiments of any length? That means finely adjustable reversible operations
-that compose correctly, two incompatible measurements, every qubit state, and outcome statistics
+that compose, two incompatible measurements, every qubit state, and outcome statistics
 produced by the dynamics from a declared random state of the unobserved world (an assumption,
 not derived).
 
-It counts only if one apparatus serves every setting and nothing quantum is put in; the owner
+It counts only if one apparatus serves every setting and nothing quantum is put in, as apparatus
+or settings; the owner
 decides how a programmed quantum simulator is classed. Controls give the test teeth: models with
 hand-chosen access or a stored quantum answer must be classed "supplied"; a classical random walk
-must fail, for a reason that does not also rule out every hidden-variable model.
+must fail, for a reason that does not rule out every hidden-variable model.
 
 For the linear rule, a lemma on `main` may settle it, probably negatively, if a gap in that
 argument closes; the nonlinear rule is the open case, studied only under a named hypothesis. The
@@ -140,7 +142,12 @@ of its program blocks (below):
   time zero, independent of everything the observer does (hypothesis **H-μ**, section 1.3, D3).
 
 **Labels.** A label is a configuration `c ∈ (V × V)^C`. The menu is every configuration of `C`;
-no label is selected or excluded.
+no label is selected or excluded. The **label encoder** of a family is the whole of the rules by
+which the submitted proofs of the Q-conditions assign labels to targets: the gate map
+`θ ↦ c(θ)` of Q3, the labels of Q5's two reads, and the preparation prefixes of Q1 and Q6 with
+their heralds. In initial-condition mode the labels it assigns are the initial content of the
+program blocks `P_j` (below), and it covers the content of every block. It names labels of the
+menu and removes none from it; D6(b) tests it (section 1.3).
 
 **Rounds and protocols (exchange mode).** At the start of round `j` the label register `R_lab`,
 which holds one configuration of `C`, is reset to the label `c_j`, and its content is exchanged
@@ -184,7 +191,8 @@ this mode `μ` is the law of the configuration of `Λ ∖ (O ∪ P)`, and the re
 law is the law of `(h_1, …, h_K)` for the given label sequence. Every observer choice is then an
 initial condition, as in Main's program register (Main:582); there is no label register, and the
 only dynamics after time zero is `Φ_F`, under which the blocks evolve like every other cell: their
-content is part of the declared initial condition, not a write. This mode does not use H-write and
+content is part of the declared initial condition, not a write. It is chosen through the labels,
+and D6(b) tests it as it tests the ready configuration (section 1.3). This mode does not use H-write and
 is the strictly rule-only target; its protocols are non-adaptive and may declare heralds as above.
 Blocks inside `O` are excluded because the definitions alone would then fail every rule [W]: `O` is
 read at every tick and `Φ_F` copies each cell's current value into its previous-value component,
@@ -200,15 +208,22 @@ whether the later records carry the action that Q2–Q6 require is a property of
 **Family.** A family is `{I_n}_{n ∈ ℕ}` produced by one generating rule `n ↦ I_n` (for example the
 `n`-fold scaling of a fixed pattern of `O` and `C`), stated in full as part of the family's
 specification and a function of `n` alone (D1).
-The resource of `I_n` is `N(I_n) = |Λ_n|` on `𝓛_fin`, and on `𝓛_∞` the number of sites of
+The resource of `I_n` is `N(I_n) = |Λ_n|` on `𝓛_fin`, which counts the program blocks, and on
+`𝓛_∞` the number of sites of
 `O_n ∪ P` plus those of its light cone over the protocol's duration (`P` empty in exchange mode),
-finite by the range bound.
+finite by the range bound. `N` counts sites. Generating the labels is work done outside the
+lattice and is not in `N`: a full resource claim states beside `N` the **label-generation cost**
+`G(ε, K)`, which is the number of label cells written (`K|C|` in exchange mode, `K_n|C|` in
+initial-condition mode) together with the cost, in a stated measure, of computing the label
+encoder's labels from the targets; where a label is shown only to exist, that is stated in place
+of the second figure.
 
 ### 1.3 Derived versus supplied: the criterion
 
 A family is **derived** iff it satisfies D1–D7. It is **supplied** iff it fails at least one.
 Each clause is stated so that a reader can check it from the construction as submitted: the
-specification of the family and, for D6(b), the proofs of the Q-conditions submitted with it.
+specification of the family and, for D6(b), the proofs of the Q-conditions submitted with it,
+which state the label encoder (section 1.2).
 
 - **D1 (one interface for all targets).** The generating rule `n ↦ I_n` is part of the family's
   specification and is a function of `n` alone: its statement takes no target operation,
@@ -268,27 +283,61 @@ specification of the family and, for D6(b), the proofs of the Q-conditions submi
     orthogonal-matrix dynamics, or operational-control predicate (the boundary frozen in the
     pair-flow equivalence audit, quoted in Step 1 F.1, control 12). These words occur only in the
     comparator (section 1.4).
-  - *(b) Compilation.* None of `r_O`, the shapes of `O` and `C`, `τ`, `μ` or the generating rule
+  - *(b) Compilation.* None of `r_O`, the shapes of `O` and `C`, `τ`, `μ`, the generating rule or
+    the label encoder (section 1.2)
     is defined as the encoding into configurations of a program, table or data stream that
     computes a **D6 quantity** (an amplitude, a rotation angle's cosine or sine, a Born weight, or
     a matrix entry of a density operator, unitary or instrument), or that samples from a law
     defined by one (a Born law, a cosine law, the sphere model's hemisphere law). The test is
-    applied to how each item is defined and to every submitted proof of Q2 and Q3: if any one of
-    them identifies the configurations of some set of cells with numerals or tables of a D6
+    applied to how each item is defined, including how a configuration given explicitly was
+    obtained, and to every submitted proof of a Q-condition: if any one of
+    them identifies the configurations of some set of cells, label cells and program blocks
+    included, with numerals or tables of a D6
     quantity, and the dynamics with an algorithm acting on them, the family fails (b), whatever its
-    bit pattern contains. A submitted proof stays part of the record, so withdrawing it does not
+    bit pattern contains. It also fails (b) through a proof step that cites a statement that the
+    dynamics executes, interprets or simulates another system (a machine, a controller, a
+    circuit, another dynamics), if by that statement an item encodes the
+    system's program or table, and the system's own specification has a hit under the word list of
+    (a) or computes or samples as above. A submitted proof stays part of the record, so withdrawing it does not
     change the family's classification. The test is not failed because the rule could compute,
     nor by a proof that obtains the record law from the structure of the dynamics without such an
     identification.
     It is aimed at Main's single controlled dynamics, whose "read-only program register — the
-    protocol table" holds the quantum data (Main:582) [P], moved into the apparatus region, and
-    is exercised by control C-PROG.
+    protocol table" holds the quantum data (Main:582) [P], moved into the apparatus region, the
+    labels or the program blocks, and is exercised by controls C-PROG and C-PROG-P.
+    - *Source ledger.* The D6 row of a family (section 3) carries a source ledger. For each of
+      `r_O`, `O`, `C`, `τ`, `μ`, the generating rule and each component of the label encoder (the
+      gate map `c(θ)`, each of Q5's two labels, each preparation prefix with its herald, and in
+      initial-condition mode the initial content of the program blocks) it records how the item
+      is defined and every system that a cited statement says it encodes, with the word-list
+      search of that system's specification. An item whose entry cannot be read from the
+      submitted text leaves the D6 row not `proved` (section 2.2, step 2).
+    - *Settings and programs.* For each component of the label encoder the ledger also records
+      what the label holds, read from its definition and from the proofs that use it, as one of
+      three classes. `parameter`: a numeral or index of the target's parameter (the angle `θ`;
+      the direction or index of a read or of a preparation), in a notation that is the same for
+      every target, and nothing else. `selected`: a configuration chosen by its action as the proofs derive that
+      action from `Φ_F`, `r_O` and `μ`, explicitly or by an existence argument. `content`:
+      anything that a definition or a cited statement gives as instructions, a table, a data
+      stream, a sampler or the encoding of another system; this class takes precedence over the
+      other two. A `parameter` or `selected` label is a device setting and is not a hit by its
+      class; the proof test above applies to it as to any cells. A
+      `content` label is a hit exactly when what it holds is a program, table or data stream that
+      computes or samples as above, or encodes a system whose specification does so or has a hit
+      under the word list of (a). That is the test applied to `r_O`, so a program that fails (b)
+      in `r_O` fails it when it is placed in the labels or in the program blocks instead: moving
+      it does not change the outcome of (b), and so, where (b) is applied (choice 11(a) or (b)),
+      cannot make a supplied family derived (section 2.1). Two things are not hits: that a
+      label depends on the target, as every encoder's labels do; and that the correspondence
+      between targets and labels is stated with the comparator's quantities, as Q3 states it.
+      The encoder belongs to the proofs of the Q-conditions and is not part of the specification
+      searched under (a).
 - **D7 (rule class).** `F ∈ 𝓡` as fixed by the owner; `Λ ∈ 𝓛`; none of E-real, E-pair,
   E-control or an added carrier.
 
 The criterion is aimed at the two ways the answer has been supplied on `main`: a per-target choice
-of access, measure or decoder (D1, D3, D4, D5), and the quantum rule placed in the hidden state,
-by declaration or by compilation (D6), as in Main's realization theorems, where "Quantum
+of access, measure or decoder (D1, D3, D4, D5), and the quantum rule placed in the hidden state
+or in the settings, by declaration or by compilation (D6), as in Main's realization theorems, where "Quantum
 mechanics enters as the instrument data and as the state held in the hidden register" (Main:582)
 [P].
 
@@ -309,6 +358,8 @@ bound on the comparator side converts to this distance by Main's telescoping Lem
 **Operational conditions** at error `ε` and horizon `K`, for one interface `I`:
 
 - **Q0 (resources).** `N(I) ≤ N(ε, K)` for an explicit function `N`, finite at every `(ε, K)`.
+  The count includes the program blocks; the label-generation cost `G(ε, K)` is reported beside
+  it and is not a condition (section 1.2).
 - **Q1 (two-state capacity; model-free).** Some two preparations (protocol prefixes, heralded or
   not) are distinguished with error at most `ε` from the records of some common continuation
   alone, and no three are pairwise
@@ -444,7 +495,8 @@ Let `𝕀_D` be the set of derived families for the owner's 𝓡 and 𝓛. The t
   `(ε, K)`, D7 holds, and D6(b) is the only D-clause that fails. It is reported apart and never
   counts towards a pass. A family that fails D7, or any D-clause besides D6(b), is
   `OPERATIONAL-ONLY`; so is a family that fails only D6(b) and meets Q0–Q6 at a restricted scope
-  only.
+  only. D6(b) is failed alike by a program held in `r_O`, in the labels or in the program blocks
+  (section 1.3), so neither this token nor `OPERATIONAL-ONLY` is avoided by moving it.
 - **`INCONCLUSIVE(gap)`**: none of the above is reached within the effort bound (section 7). The
   gap names the lemma that was not proved, with its exact statement.
 - **`VOID(control)`**: some control of section 3 is not green when the verdict would be rendered,
@@ -490,7 +542,8 @@ change the token.
 derivation awaiting review): for the stated rule, carrier class, ensemble and mode, an observer
 region chosen once and read completely has a record theory within `ε`, over complete records of
 horizon `K`, of one qubit with a dense coherent one-parameter family, two incompatible sharp reads
-and every pure state, with explicit resources `N(ε, K)`. In mode `init` it would be the first
+and every pure state, with explicit resources `N(ε, K)` and the label-generation cost `G(ε, K)`
+reported beside them (section 1.2). In mode `init` it would be the first
 construction on `main` of quantum operational behaviour in which neither the access nor the
 quantum rule is supplied (Step 1 B.12 (ii)), over non-adaptive protocols. In mode `exch` it would
 establish the same over adaptive protocols given the observer's classical write access H-write; it
@@ -541,7 +594,8 @@ wrong, and the step returns to the owner with the definitions, not with a verdic
 | C-CARD | (a) A fixed finite world (`L` fixed). (b) The infinite lattice under H-∞. (c) A finite cyclic surrogate of an infinite carrier | Checks that the criterion assumes neither a finite nor an infinite world | (a) For fixed `L` there is `ε₀(L) > 0` below which Q3 and Q6 fail together: a fixed finite realization cannot reproduce a qubit's full theory (Main:560 [P, P-imp]), and for a fixed finite experiment family its behaviours form a compact set (Step 1 C, B.7 row, column (2)) [W]. The criterion must not certify a fixed `L`; Q0 lets `L` grow. (b) Every definition of sections 1.2–1.4 is well-defined on `ℤ^3` (product law; finite `O`; finite records; finite light cone by range one) [W], except the level-set law of D3, which is defined on `𝓛_fin` only and which no option of choice 6 requires on `ℤ^3`, and no clause uses finiteness of `Λ` except the resource count. (c) Verdicts are indexed by `K`: a finite surrogate agrees with an infinite carrier up to a horizon and differs after it (finiteness audit, control (1), Step 1 B.12) [R] | Main:560 [P, P-imp]; Step 1 B.0, C |
 | C-MEAS | B2: B1's carrier with the posited quadratic sensor `t(z)`, seeds with an atomless law `μ`, and the one-read law `p_1(θ) = F(cos²θ)`, with `F(t) = μ((0, t))`. The law matches the quantum value for every `θ` exactly when `μ` is uniform in the detector coordinate. It is run here under that uniform law and under one of the record's predeclared symmetric seed laws as `μ′` | Supplied-measure control on a concrete construction: shows that the robustness clause of D3 has teeth | The one-read match holds under the tuned law and fails under `μ′`, so D3's robustness clause classifies the measure as supplied. Independently, D4 fails (a posited response function), D7 fails (B1's carrier), and Q2 fails on the two-read law (no fixed `ℂ²` instrument matches it). Not `PASS-DERIVED` | `measurement-source.md`:29, :57–63, :87, :118, :141 [R]; Step 1 F.1, control 2 |
 | C-NULL | The interface of section 1.2 with the labels decoupled: the exchange writes into cells that no `F_i` reads (in initial-condition mode, the program blocks lie in such cells), so `μ` alone drives the records | The cheapest check that Q3 is not met vacuously. Out of class: under a rule of 𝓡 every cell is read by its neighbours' `F_i` | Every label acts as `c(0)` does, so under Q3, read out through Q5's reads, every state of the model `𝔔` of Q2 that the data constrain lies within `O(ε)` of the `n̂` axis, and Q2, Q3, Q5 and Q6 cannot hold together below an explicit constant [W]; these are the conditions the argument uses. Q3 alone is a diamond-norm statement about `𝔔`, constrained by data only through the states reached, so the expected failure is of Q2, Q3, Q5 and Q6 together, not of Q3 alone. Not `PASS-DERIVED` | this proposal, section 1.4 [W] |
-| C-PROG | finite-a2-v5's controller (REPORT:11–19), or Main's single controlled dynamics with its read-only program register (Main:582), compiled into `r_O` under a hypothetical rule `F_U` in second-order form that can simulate any finite controller. `F_U` is stipulated for this control only, as a rule distinct from every member of 𝓡 (in particular from R-lin and R-nl); whether R-nl has this capacity is not assumed either way. The family's specification gives `r_O` as the explicit configuration the compilation outputs and does not name the controller; the compilation is recorded as how `r_O` is defined (D6(b)). The fair bits are drawn from the uniform environment `Λ ∖ O`, and the private workspace is kept outside `O` | A simulator moved into the apparatus meets D3, D5 and D6(a). Shows that D6(b) has teeth, and fixes the classification of compiled simulators before any result | Clause by clause, for the option of choice 11 fixed at M0. *Q-conditions:* not derived; `F_U` is assumed to reproduce the compiled controller's record law, its workspace starting `μ`-random included, so Q0–Q6 are taken from the controller's source record at the scope it states (as C-POS-2 for finite-a2-v5; at the stated `(ε, K)` for Main:582). *D3, D5, D6(a):* met (the vocabulary search of the specification, which states `r_O` as a configuration only, has no hit). *D6(b):* fails under 11(a) and 11(b), because `r_O` is defined as the compilation of a controller whose specification uses sphere rotations and a hemisphere-law sampler (finite-a2-v5) or the instrument data of quantum mechanics (Main:582); not applied under 11(c), where D6 is (a) alone. *D2, D7:* fail under every option, since `F_U ∉ 𝓡`. *D1, D4:* entered as obtained; they do not affect the token. *Token:* `OPERATIONAL-ONLY` under every option; under 11(b) it is not `PASS-COMPILED`, because D7 fails. It is not a pass under any option. Under 11(c) the control exercises D7 alone, and D6(b) has no teeth there | `finite-a2-v5/REPORT.md`:11–19 [R]; Main:582 [P] |
+| C-PROG | finite-a2-v5's controller (REPORT:11–19), or Main's single controlled dynamics with its read-only program register (Main:582), compiled into `r_O` under a hypothetical rule `F_U` in second-order form that can simulate any finite controller. `F_U` is stipulated for this control only, as a rule distinct from every member of 𝓡 (in particular from R-lin and R-nl); whether R-nl has this capacity is not assumed either way. The family's specification gives `r_O` as the explicit configuration the compilation outputs and does not name the controller; the compilation is recorded as how `r_O` is defined (D6(b)). The labels are indices of the controller's menu settings (for Main:582, of the entries of its protocol table). The fair bits are drawn from the uniform environment `Λ ∖ O`, and the private workspace is kept outside `O` | A simulator moved into the apparatus meets D3, D5 and D6(a). Shows that D6(b) has teeth, and fixes the classification of compiled simulators before any result | Clause by clause, for the option of choice 11 fixed at M0. *Q-conditions:* not derived; `F_U` is assumed to reproduce the compiled controller's record law, its workspace starting `μ`-random included, so Q0–Q6 are taken from the controller's source record at the scope it states (as C-POS-2 for finite-a2-v5; at the stated `(ε, K)` for Main:582). *D3, D5, D6(a):* met (the vocabulary search of the specification, which states `r_O` as a configuration only, has no hit). *D6(b):* fails under 11(a) and 11(b), because `r_O` is defined as the compilation of a controller whose specification uses sphere rotations and a hemisphere-law sampler (finite-a2-v5) or the instrument data of quantum mechanics (Main:582); the label encoder's ledger class is `parameter`, and it is not a hit; not applied under 11(c), where D6 is (a) alone. *D2, D7:* fail under every option, since `F_U ∉ 𝓡`. *D1, D4:* entered as obtained; they do not affect the token. *Token:* `OPERATIONAL-ONLY` under every option; under 11(b) it is not `PASS-COMPILED`, because D7 fails. It is not a pass under any option. Under 11(c) the control exercises D7 alone, and D6(b) has no teeth there | `finite-a2-v5/REPORT.md`:11–19 [R]; Main:582 [P] |
+| C-PROG-P | C-PROG's controller under the same stipulated rule `F_U`, with the compiled program moved out of the ready configuration into the labels. `r_O` is a configuration that encodes no controller: the one from which `F_U` executes a program delivered through the label cells, the same whatever program is delivered. Each label is the configuration the compilation outputs for the controller together with one of its menu settings. In initial-condition mode the labels are the initial content of the program blocks `P_j`; in exchange mode they are exchanged into `C`. The family's specification gives `r_O` as an explicit configuration and does not name the controller; the label encoder gives each label as an explicit configuration, and the compilation is recorded in the source ledger as how the encoder is defined (D6(b)). Fair bits and workspace as in C-PROG | C-PROG's supplied program, placed where a test of `r_O`, `O`, `C`, `τ`, `μ` and the generating rule alone does not look. Shows that D6(b) has teeth for the label encoder and the program blocks, and that moving a program out of `r_O` does not change the outcome of D6(b); with C-PROG, checks the encoder test in both directions | Clause by clause, for the option of choice 11 fixed at M0, and in each mode. *Q-conditions:* as C-PROG, not derived, at the scope the controller's source record states and over the labels the compilation outputs; other labels are not classified. *D3, D5, D6(a):* met (the vocabulary search of the specification, which states `r_O` as a configuration only, has no hit). *D6(b):* the ledger entries of `r_O`, `O`, `C`, `τ`, `μ` and the generating rule have no hit; the label encoder's ledger class is `content`, and it is a hit, because each label is defined as the compilation of the controller of C-PROG's D6(b) entry; so D6(b) fails under 11(a) and 11(b), and is not applied under 11(c). *D2, D7:* fail under every option, since `F_U ∉ 𝓡`. *D1, D4:* entered as obtained; they do not affect the token. *Token:* `OPERATIONAL-ONLY` under every option; under 11(b) it is not `PASS-COMPILED`, because D7 fails. It is not a pass under any option. Under 11(c) the control exercises D7 alone | `finite-a2-v5/REPORT.md`:11–19 [R]; Main:582 [P]; section 1.3, D6(b) |
 | C-EXACT | The definitions applied to the exact cases: C-POS-1 at `ε = 0` on its protocol class, and C-ISO-2, which must fail at every `ε` below its stated constant | §A.21: the operation modelled must preserve what it provably must; a definition that misclassifies an exact case is wrong | Both exact cases classified as stated above, with no slack | as above |
 
 **Proves-too-much check** (every negative control). The negative controls are the rows whose
@@ -605,6 +659,17 @@ What the check is expected to find, as [W]:
 - *C-NULL.* Its argument uses labels that act on nothing, and that property does not hold in any
   of the three cases.
 
+**Two-way check of the encoder test** (D6(b), section 1.3; at M1). The label encoder's ledger
+class must be obtained as `parameter` and not a hit on C-PROG, and as `content` and a hit on
+C-PROG-P; either entry obtained otherwise turns that control red. The property "the family's
+label encoder is a hit" is also checked against the third case above, by the same definition: it
+must not hold for every member of the class, and if it does the C-PROG-P row is red. Expected, as
+[W]: it fails for any member whose labels are all `parameter` or `selected`, and the definitions
+of those two classes exclude no rule. That is read from the
+test's wording and does not assume that such a member meets Q0–Q6, which is the question.
+C-POS-1 and C-POS-2 are not lattice interfaces and have no label encoder; their D6 entries are
+those of their rows.
+
 **Invariant → checkpoint table** (§A.41). Every property this proposal asserts of its own
 execution, with the checkpoint that measures it.
 
@@ -614,11 +679,12 @@ execution, with the checkpoint that measures it.
 | Definitions and decision rule fixed before work | The owner-approved text of this file is identified by its sha256 in the result note; every definition used is quoted from it; any change is an amendment approved by the owner before work resumes |
 | Controls green before the verdict | The control table; step 1 of section 2.2 |
 | No negative control proves too much | A proves-too-much row for each negative control and for the L5 argument (M3; against the third case) in the control table: the properties its argument uses; for each of C-POS-1, C-POS-2 and the reversible-rule class with an unread uniform environment, at the scope stated in section 3, whether each property holds there (for the class, whether it holds for every member); and whether the argument's conclusion contradicts that case's stated classification at that scope. The proves-too-much entry is red if and only if, in some case, every property holds and the conclusion contradicts the stated classification; a red entry turns the control red, and a red entry for the L5 argument is a red row of the control table and counts as a red control in section 2.1 (`VOID(control)`), section 2.2 step 1 and section 7 |
-| Compiled simulators classified as fixed in advance | Choice 11 is recorded at M0; C-PROG's obtained clause entries and token are compared with those its row states for the option chosen |
+| Compiled simulators classified as fixed in advance, wherever the program is held | Choice 11 is recorded at M0; the obtained clause entries and tokens of C-PROG and of C-PROG-P are compared with those their rows state for the option chosen; the two-way check of the encoder test (section 3) |
 | Verdict computed from the tables | Section 2.2; the reviewer recomputes the token from the two tables |
 | No premise adopted | A hypothesis ledger in the result note lists H-μ, H-∞, H-nl and H-write if used, and every [R] statement used, each with its status, and each appears in every conclusion that uses it |
 | Rule class respected | A D7 row for every family considered |
-| No quantum input (D6) | A D6 row for every family considered, with two entries. (a) The search of its specification for the D6 word list. (b) For each of `r_O`, `O`, `C`, `τ`, `μ` and the generating rule, how it is defined, and whether that definition, or any submitted proof of Q2 or Q3, identifies configurations of cells with numerals, tables or a sampler of a D6 quantity. Under 11(a) or (b), a hit on either entry makes the family supplied, classified by section 2.1; under 11(c), entry (b) is recorded and does not enter the classification |
+| No quantum input (D6) | A D6 row for every family considered, with two entries. (a) The search of its specification for the D6 word list. (b) The source ledger of section 1.3: for each of `r_O`, `O`, `C`, `τ`, `μ`, the generating rule and each component of the label encoder (the gate map `c(θ)`, each of Q5's two labels, each preparation prefix with its herald, and in initial-condition mode the initial content of the program blocks), how it is defined, including how a configuration given explicitly was obtained; every system a cited statement says it encodes, with the word-list search of that system's specification; for each component of the encoder, its class (`parameter`, `selected` or `content`); and whether any definition, or any submitted proof of a Q-condition, identifies configurations of cells, label cells and program blocks included, with numerals, tables or a sampler of a D6 quantity. Under 11(a) or (b), a hit on either entry makes the family supplied, classified by section 2.1, and an item whose ledger entry cannot be read from the submitted text leaves the row not `proved`; under 11(c), entry (b) is recorded and does not enter the classification |
+| Resource claims complete | The Q0 row of the condition table states `N(ε, K)`, with the program blocks counted, and beside it `G(ε, K)` or the statement that a label is shown only to exist (section 1.2) |
 | Layer tags kept distinct | Every link of every proof carries one tag; no [W] extension is tagged [K] (in particular no extension of `nonnegBounded_not_denseUnitaryControl` beyond its statement) |
 | Negatives scoped | Every `FAIL-CLASS` row names `𝓢` |
 | No manuscript or Lean change | `git diff --stat` of the unit touches only this directory |
@@ -640,7 +706,8 @@ proposal. The owner's approval record states: "A `PASS-DERIVED` would be a consi
 result (§A.23); it would move no correctness assessment."
 
 **M1. Controls.** Derive each row of section 3 on paper from the cited records, and enter the
-obtained classification. Then apply the proves-too-much check to every negative control. Rests
+obtained classification. Then apply the proves-too-much check to every negative control, and the
+two-way check of the encoder test (section 3). Rests
 on: Main:560, :566, :582, :596, :598 [P]; the records cited in the control table [R];
 OB/CubicIsotropy.lean:116, OB/OperationalSourcing.lean:476, OB/F2CoherenceControls.lean:306,
 :317 [K]. If any control is red, stop and return to the owner (section 7).
@@ -669,7 +736,10 @@ OB/CubicIsotropy.lean:116, OB/OperationalSourcing.lean:476, OB/F2CoherenceContro
   error 0), a continuation that measures `Z` after one tag and `X` after the other separates the
   two protocols on input `|0⟩`, `θ₁ ≠ 0` and `θ₁ + θ₂ = 0` by total variation `1/2` (the external
   review's counterexample). In exchange mode every round's record contains its label `c_j`, so
-  such tags are always present.
+  such tags are always present. Error budget of a pass: L3 gives Q4 at `4ε` from Q2 and Q3 at
+  `ε`, not Q4 at `ε`. A pass at `(ε, K)` that obtains Q4 through L3 therefore proves Q2 and Q3
+  at error `ε/4` at the interface it uses for `(ε, K)`, and `n(ε, K)` and `N(ε, K)` are stated
+  for that interface; the other conditions are proved there at `ε`.
 - L4 (escape audit, necessary conditions on any `PASS-DERIVED`): (a) the map from preparation
   prefixes to qubit states in `𝔔` is not injective on laws over configurations, and is not a
   fixed orthogonal linear frame with H-LIFT; otherwise MECH-2 Lemma F and Theorem U2(ii)
@@ -765,7 +835,8 @@ sketch extends to them is not settled. This is why choices 1 and 6 bear directly
   (`apparatus-1-20261107/DESIGN.md`:955–1023) [R], which is about exactness and bears here only
   on the growth of `N` with `K`.
 - *Route P (construction) for a subclass `𝓢`.* Exhibit a family in `𝓢`, prove D1–D7 from its
-  specification, and prove Q0–Q6 with explicit `N(ε, K)`. Every link is tagged; the C-SUP and
+  specification and, for D6(b), its source ledger with the label encoder stated, and prove Q0–Q6
+  with explicit `N(ε, K)`. Every link is tagged; the C-SUP and
   C-MEAS checks are applied to the exhibited family before Q is attempted.
 
 No mechanism is named here as a candidate. The proposal fixes what a construction must satisfy,
@@ -842,6 +913,8 @@ one law (a generating prescription, D3) from the list fixed at M0, with a robust
 is the complete history of `O`. What remains existential is the shape of `O` and `C`, `τ`, the
 generating rule `n ↦ I_n` and the comparator `𝔔`. These are fixed once for all targets and all
 protocols (D1), and the comparator is a single `ℂ²` model, so they cannot be adjusted per outcome.
+The label encoder is existential as well (Q1, Q3, Q5, Q6). It assigns labels of the fixed menu to
+targets and changes the record law of no label, and D6(b) tests what its labels hold.
 Q4, Q5 and Q6 are not tuned by any of them: they are checks the family either passes or fails.
 
 **Independent prediction or postdiction a pass would have to deliver.** None can be stated with
@@ -1018,18 +1091,23 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
 10. **Effort bound.** (a) Three writer sessions with reviews; (b) another bound.
     *Recommendation: (a).*
 11. **Compiled simulators.** The question is how a family is classified when it meets Q0–Q6 for
-    every `(ε, K)` and fails only D6(b), because its ready configuration or generating rule
-    implements a qubit simulator or a Born- or cosine-law sampler. This choice fixes control
-    C-PROG's D6(b) entry; its token is `OPERATIONAL-ONLY` under every option, because it fails D7
-    (section 3).
-    (a) Supplied (`OPERATIONAL-ONLY`). The quantum rule is in the hidden state, as in Main's
+    every `(ε, K)` and fails only D6(b), because its ready configuration, its generating rule or
+    its label encoder (the labels, and in initial-condition mode the content of the program
+    blocks)
+    implements a qubit simulator or a Born- or cosine-law sampler. This choice fixes the D6(b)
+    entries of controls C-PROG and C-PROG-P; the token of each is `OPERATIONAL-ONLY` under every
+    option, because each fails D7 (section 3). The choice is how such a family is classed, not
+    where its program is held: under (a) and (b) the outcome of D6(b) is the same for a program
+    in `r_O`, in the labels or in the program blocks, and under (c) test (b) is applied to none of
+    them (section 1.3).
+    (a) Supplied (`OPERATIONAL-ONLY`). The quantum rule is in the hidden state or in the settings, as in Main's
     program register (Main:582), whether it is placed there by declaration or compiled into
-    `r_O`. (b) A separate token `PASS-COMPILED` for a family that meets D7 and fails only D6(b),
+    `r_O`, the labels or the program blocks. (b) A separate token `PASS-COMPILED` for a family that meets D7 and fails only D6(b),
     reported apart and never a pass of TUNE-1/Q2. It records that the rule can host such a
-    simulator in a region chosen once, which is a statement about the rule's computational
+    simulator, held in a region chosen once or delivered through the labels, which is a statement about the rule's computational
     capacity. (c) Derived: D6 consists of test (a) alone, and test (b) is not applied.
     *Recommendation: (a)*: a compiled
-    simulator is the hand-choice of Step 1 made through the ready configuration. Under (a), any
+    simulator is the hand-choice of Step 1 made through the ready configuration or the labels. Under (a), any
     such family found is still recorded with its classification (section 2.2), so the
     information (b) would carry is kept.
 
@@ -1058,8 +1136,13 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   `sha256sum`. No interpreter was run in r7. Commands used in drafting r8: `git` (rev-parse,
   status, branch, diff, add, commit, push), `grep`, `ls`, `sed`, `wc`, `sha256sum`. No interpreter
   was run in r8. Commands used in drafting r8a: `git` (rev-parse, status, branch, add, commit,
-  push), `grep`, `cut`, `sed`, `cat`, `sha256sum`. No interpreter was run in r8a. No probe,
+  push), `grep`, `cut`, `sed`, `cat`, `sha256sum`. No interpreter was run in r8a. Commands used
+  in drafting r9: `git` (status, rev-parse, branch, log, ls-files, diff, add, commit, push),
+  `grep`, `cut`, `sed`, `ls`, `wc`, `sha256sum`. No interpreter was run in r9. No probe,
   checker or Lean build. No GitHub comment.
+- **Read for r9:** the required change and the two nonblocking notes of the external re-review
+  of `7a9e7b79` (PR #1237, review 5867105524), as relayed to the writer verbatim; the rest of
+  that review was not read. At the pin, `finite-a2-v5/REPORT.md`:9–24.
 - **Read for r8a:** the delta review of `535688ca` (in full). No further record was read.
 - **Read for r8:** the delta review of `2ad0aca0` (in full). No further record was read.
 - **Read for r7:** the delta review of `b9e9683e` (in full). No further record was read.
@@ -1111,5 +1194,8 @@ outcome by themselves, as follows. These are unreviewed expectations, not result
   received a fresh delta review (same model family, verdict REVISE, light, one blocking finding,
   B-r7-1 on M3's statement about initial-condition mode, and five nits), and r8 (`535688ca`)
   applied the finding and the nits. r8 received a fresh delta review (same model family, verdict
-  ACCEPT WITH NITS, no blocking findings and four nits), and this revision r8a applies the four
-  nits. It needs the external ChatGPT review before it goes to the owner for approval.
+  ACCEPT WITH NITS, no blocking findings and four nits), and r8a (`7a9e7b79`) applied the four
+  nits. r8a received the external ChatGPT re-review (verdict REVISE, one blocking finding, on the
+  label encoder and the program blocks under D6, and two nonblocking notes), and this revision r9
+  applies the finding and both notes. Its changes have had no review; it needs one before it goes
+  to the owner for approval.
