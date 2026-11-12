@@ -709,7 +709,7 @@ The convergence has an external echo. A literature independent of this framework
 
 *(A1) Finiteness.* The configuration space $S$ is finite. Lemma 1 of Chapter 1 delivers finiteness of the observer's distinguishable states; the extension to all of $S$ is a posit, read as the choice of the minimal finite representative and supported by E3 (the holographic bound read as a dimension cutoff). Its scope, and which results use it, are stated in [Main §1.2], Remark (status of the early commitments).
 
-*(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. Its status is two-part (Chapter 1, Lemma 3): the bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics — and injectivity is anchored by a dilemma argument with one structural prong (finiteness and recurrence) and one empirical prong (the observed statistics).
+*(A2) Determinism.* The dynamics $\varphi: S \to S$ is a bijection — deterministic and reversible. Its status is two-part (Chapter 1, Lemma 3): the bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics, which for a finite system is the dynamics restricted to its eventual image, the states lying on its cycles — and injectivity is anchored by a dilemma argument with one structural prong (finiteness, for registered states in the eventual image) and one empirical prong (the observed statistics).
 
 *(A3) Bounded coupling degree.* Each site of the substratum is coupled to a bounded number of neighbors through $\varphi$. This is required for the emergence of a coupling graph with well-defined dimensional structure and underlies locality in the emergent description.
 
