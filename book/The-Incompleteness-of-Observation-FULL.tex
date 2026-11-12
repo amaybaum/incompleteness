@@ -9768,18 +9768,17 @@ field equations remain open (Chapter 19 §19.2). The behaviour of the
 framework's small lattice corrections under the closure machinery
 remains an open consistency check.
 
-\textbf{Step 2: Boundary-only dependence.} The emergent quantum field
-theory on the horizon depends only on the boundary modes --- the degrees
-of freedom at the horizon itself --- and not on the bulk content of the
-visible or hidden sectors at scales far from the boundary. This is the
-framework's partition-relativity result: under the canonical measure of
-Lemma 3 of Chapter 1, the emergent description is uniquely determined by
-the partition geometry at leading order in \(\tau_S / \tau_B\), with
-bulk corrections at order \(\tau_S / \tau_B\) for the cosmological
-partition. The boundary-only dependence is a structural consequence of
-the small parameter \(\tau_S / \tau_B \sim 10^{-32}\): the emergent QFT
-is effectively a theory of the boundary modes, with bulk corrections
-suppressed by the slow-bath timescale ratio.
+\textbf{Step 2: Boundary-only dependence.} If the classical Hamiltonian
+of the substratum is spatially local, the visible transition data from
+which the emergent quantum field theory on the horizon is reconstructed
+depend only on the boundary modes --- the degrees of freedom at the
+horizon itself --- and not on the deep content of the hidden sector,
+with corrections at order \(\tau_S / \tau_B \sim 10^{-32}\) for the
+cosmological partition ({[}GR §3.2{]}). The transition data fix the
+emergent dynamics in units of inverse time but not the action scale that
+converts it to energy, so this step does not bear on \(\hbar\): with
+Step 3 it is a consistency check, and the calibration of Step 4 fixes
+\(\hbar\).
 
 \textbf{Step 3: Dimensional analysis of \(\hbar\).} The emergent action
 scale \(\hbar\) depends only on local geometric quantities at the
@@ -9813,11 +9812,14 @@ descriptions of the same modes cannot assign different temperatures
 without logical contradiction. The matching \(T_{\text{cl}} = T_Q\)
 identifies the classical horizon temperature with the emergent KMS
 temperature on the same boundary modes; it holds under the infrared
-detailed-balance condition H-slope, which partition geometry does not
-supply, with corrections at order \(\tau_S / \tau_B \sim 10^{-32}\):
+detailed-balance condition H-slope and the horizon condition H-count ---
+the energy-dependent entropy of the whole hidden-sector reservoir is its
+boundary count, the deep hidden sector contributing none --- neither of
+which partition geometry supplies, with corrections at order
+\(\tau_S / \tau_B \sim 10^{-32}\):
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}.\]
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
-the boundary-only argument of Step 2, which excluded \(\kappa\) from
+the dimensional argument of Step 3, which excluded \(\kappa\) from
 \(\hbar\) on observer-universality grounds. The thermal matching here
 recovers that exclusion from independent physics: \(\kappa\) enters both
 sides of the consistency equation, and only the combinations of \(c\),
@@ -9827,43 +9829,44 @@ sides of the consistency equation, and only the combinations of \(c\),
 The derivation has the structure of a gap equation: \(\epsilon\) is the
 free geometric input, \(\hbar\) is the output. The match between the two
 temperature computations is non-trivial. The classical temperature could
-have depended on volumetric hidden-sector data --- excluded by the
-boundary-only argument of Step 2 --- but in fact depends only on the
-boundary geometry. The KMS temperature could have depended on the state
-of the emergent QFT --- but in fact is kinematic in its parameter,
-conditional on H-balance in its class, depending only on the surface
-gravity. What the calibration needs is narrower than H-balance: only the
-infrared slope of the detailed-balance ratio across the accessible
-horizon transitions, the condition H-slope ({[}GR §3.2{]}), which
-identifies the classical inverse-energy temperature with the emergent
-Killing period; the gap equation, and with it the \(1/4\) coefficient of
-Section 7.5, is conditional on it. One prerequisite of the KMS step is
-carried explicitly: Euclidean regularity at a bifurcate Killing horizon
-presupposes local boost structure in the emergent description at the
-horizon, so the gap equation is partially downstream of the boost
-sector's protection mechanism: the symmetric-point matching under
-H-blind ({[}SM §4.4{]}) and, conditional on it, the \(M_X\)-controlled
-running tracked in the Lorentz-sector accounting ({[}GR §8.5{]}). At the
-normalized \(d=3\) observer level the free massless branch supplies the
-common infrared cone at the symmetric matching point under H-blind
-({[}SM §4.4{]}); exact all-momentum boost invariance is not claimed ---
-the unit-Courant cone of the one-dimensional discrete wave equation does
-not carry to the three-dimensional observer branch, and away from the
-body diagonals the cone holds only in the infrared ({[}GR §8.5{]}).
-Conditional on that matching, the custodial symmetry forbids a
-condensate-independent sector-differential counterterm, and an
-interacting cross-charged calculation, reported in the companion paper
-and not independently verified, gave the running a
-quadratic-with-logarithm form decoupling as \((M_X/M_{\text{Pl}})^2\),
-with the non-logarithmic constant that loop's own, the substratum's
-component-local nonlinearity contributing only to the universal cone.
-The one item shared with the Lorentz-sector accounting is that reported
-running calculation; on its reported form the cross-charged mass \(M_X\)
-would sit in an illustrative window of roughly two to four decades, kept
-open from below by the baryon safety of the cross-charged sector, which
-is of the proton-safe leptoquark class rather than the grand-unified
-kind. That neither pathology obtains makes the gap equation a genuine
-determination of \(\hbar\) in terms of the discreteness scale.
+have depended on volumetric hidden-sector data, but it is fixed by the
+boundary count of Step 1, with which the reservoir's energy-shell
+temperature coincides under H-count. The KMS temperature could have
+depended on the state of the emergent QFT --- but in fact is kinematic
+in its parameter, conditional on H-balance in its class, depending only
+on the surface gravity. What the calibration needs is narrower than
+H-balance: only the infrared slope of the detailed-balance ratio across
+the accessible horizon transitions, the condition H-slope ({[}GR
+§3.2{]}), which identifies the classical inverse-energy temperature with
+the emergent Killing period; the gap equation, and with it the \(1/4\)
+coefficient of Section 7.5, is conditional on it. One prerequisite of
+the KMS step is carried explicitly: Euclidean regularity at a bifurcate
+Killing horizon presupposes local boost structure in the emergent
+description at the horizon, so the gap equation is partially downstream
+of the boost sector's protection mechanism: the symmetric-point matching
+under H-blind ({[}SM §4.4{]}) and, conditional on it, the
+\(M_X\)-controlled running tracked in the Lorentz-sector accounting
+({[}GR §8.5{]}). At the normalized \(d=3\) observer level the free
+massless branch supplies the common infrared cone at the symmetric
+matching point under H-blind ({[}SM §4.4{]}); exact all-momentum boost
+invariance is not claimed --- the unit-Courant cone of the
+one-dimensional discrete wave equation does not carry to the
+three-dimensional observer branch, and away from the body diagonals the
+cone holds only in the infrared ({[}GR §8.5{]}). Conditional on that
+matching, the custodial symmetry forbids a condensate-independent
+sector-differential counterterm, and an interacting cross-charged
+calculation, reported in the companion paper and not independently
+verified, gave the running a quadratic-with-logarithm form decoupling as
+\((M_X/M_{\text{Pl}})^2\), with the non-logarithmic constant that loop's
+own, the substratum's component-local nonlinearity contributing only to
+the universal cone. The one item shared with the Lorentz-sector
+accounting is that reported running calculation; on its reported form
+the cross-charged mass \(M_X\) would sit in an illustrative window of
+roughly two to four decades, kept open from below by the baryon safety
+of the cross-charged sector, which is of the proton-safe leptoquark
+class rather than the grand-unified kind. That neither pathology obtains
+makes the gap equation a genuine determination of \(\hbar\) in terms of
+the discreteness scale.
 
 \textbf{The counting of one mode per cell, \(\eta = \sigma/\epsilon^2\),
 is definitional --- and the internal components do not multiply it.} The
@@ -10968,10 +10971,10 @@ dark-matter phenomenology --- flat rotation curves, the baryonic
 Tully-Fisher relation, the radial acceleration relation --- derives from
 entropy displacement at the cosmological boundary. The argument has four
 steps, all of which inherit the conditions on the de Sitter temperature
-(H-slope, H-frame, H-Hawking; see {[}GR §7.3{]}) and the assumption that
-a static configuration delivers its full rest energy \(Q=M_Bc^2\) as
-heat to the boundary --- a coupling statement belonging to the open G3
-map rather than a consequence of C1.
+(H-count, H-slope, H-frame, H-Hawking; see {[}GR §7.3{]}) and the
+assumption that a static configuration delivers its full rest energy
+\(Q=M_Bc^2\) as heat to the boundary --- a coupling statement belonging
+to the open G3 map rather than a consequence of C1.
 
 \emph{Step 1: Entropy displacement by baryonic matter (conditional).}
 The chain rests on the de Sitter temperature \(T_{\text{dS}}\), which
@@ -26972,7 +26975,9 @@ quantum field theory, conditional on H-slope with the horizon and frame
 conditions of Chapter 7 §7.3; with \(\epsilon\) not independently known,
 it fixes only \(\epsilon/\sqrt{\sigma} = 2\,l_p\) (Chapter 7 §7.4), not
 the value of \(\hbar\). The derivation has four steps; each step is
-presented with its full content.
+presented with its full content. Step 4 fixes the relation and does not
+use Steps 1--3: Steps 1--2 assume a spatially local classical
+Hamiltonian, and Step 3 is a dimensional check on the result of Step 4.
 
 \textbf{Step 1: Spatial locality.} The classical Hamiltonian of the
 substratum is spatially local. The interaction decomposes as
@@ -27014,11 +27019,13 @@ identical terms at leading order:
 
 The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
 processes. Since \(T_{ij}(t)\) determines the emergent quantum
-description, and \(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\)
-dynamics --- which are characterized by the boundary geometry (\(A\),
-\(\epsilon\), \(\kappa\)) and the constants \(c\), \(G\) appearing in
-the classical Hamiltonian --- the emergent action scale \(\hbar\)
-inherits \emph{boundary-only dependence}.
+description up to its action scale, and \(T^{(B)}_{ij}(t)\) depends only
+on the \(V\)-\(B\) dynamics --- which are characterized by the boundary
+geometry (\(A\), \(\epsilon\), \(\kappa\)) and the constants \(c\),
+\(G\) appearing in the classical Hamiltonian --- the emergent dynamics,
+in units of inverse time, inherits \emph{boundary-only dependence}. The
+action scale does not: every value of it gives the same \(T_{ij}(t)\),
+so the lemma does not bear on \(\hbar\), which Step 4 fixes.
 
 \textbf{Step 2: Deep-sector gauge equivalence.} A corollary of the
 factorization lemma is that, to within \(\mathcal{O}(\tau_S/\tau_B)\),
@@ -27034,15 +27041,17 @@ finite representative. Within the leading-order visible transition data
 on accessible timescales, a finite and an infinite deep sector are
 indistinguishable.
 
-\textbf{Step 3: Dimensional determination.} Step 2 excludes volumetric
-(deep-sector) quantities, leaving boundary quantities. The boundary
-carries both \emph{local} geometric data (\(\epsilon\), \(\kappa\), and
-the constants \(c\), \(G\) of the classical Hamiltonian) and a
-\emph{global} quantity: the total area \(A\), which forms the
-dimensionless ratio \(A/\epsilon^2 = S_{\text{dS}}/\sigma\). If
-\(\hbar\) depended on \(S_{\text{dS}}\), it would be observer-dependent
---- different observers have different horizon areas --- contradicting
-the universality of the emergent action scale. The surface gravity
+\textbf{Step 3: Dimensional determination.} The thermal matching of Step
+4 expresses \(\hbar\) through boundary quantities, the classical
+temperature under H-count (Chapter 7 §7.3); the dimensional argument
+checks the form of that result. The boundary carries both \emph{local}
+geometric data (\(\epsilon\), \(\kappa\), and the constants \(c\), \(G\)
+of the classical Hamiltonian) and a \emph{global} quantity: the total
+area \(A\), which forms the dimensionless ratio
+\(A/\epsilon^2 = S_{\text{dS}}/\sigma\). If \(\hbar\) depended on
+\(S_{\text{dS}}\), it would be observer-dependent --- different
+observers have different horizon areas --- contradicting the
+universality of the emergent action scale. The surface gravity
 \(\kappa\) is excluded because it varies between observers and epochs
 while \(\hbar\) is observed to be universal across observers and
 constant in time.
@@ -27078,15 +27087,18 @@ from the classical substratum alone (no QM), \(T_Q\) from the emergent
 QFT alone (no classical substratum details) --- but they refer to the
 \emph{same physical degrees of freedom}: the boundary modes
 \(V \times B\) across which \(H_{\text{int}}\) couples the visible and
-hidden sectors. Step 1's boundary-only dependence shows that the visible
-transition data from which the emergent QFT is reconstructed are fixed
-(at leading order in \(\tau_S/\tau_B\)) by these same \(V \times B\)
-dynamics. Temperature is a state property; two complete descriptions of
-the same modes cannot assign different temperatures without logical
-contradiction. The matching \(T_{\text{cl}} = T_Q\) identifies the
-classical inverse-energy temperature with the emergent KMS period on the
-same boundary modes \(V \times B\); it holds under H-slope (Chapter 7
-§7.3), which partition geometry does not supply, with corrections at
+hidden sectors. Under spatial locality, Step 1's boundary-only
+dependence shows that the visible transition data from which the
+emergent QFT is reconstructed are fixed (at leading order in
+\(\tau_S/\tau_B\)) by these same \(V \times B\) dynamics; the matching
+does not use it, the identification of the two descriptions' transitions
+being part of H-slope. Temperature is a state property; two complete
+descriptions of the same modes cannot assign different temperatures
+without logical contradiction. The matching \(T_{\text{cl}} = T_Q\)
+identifies the classical inverse-energy temperature with the emergent
+KMS period on the same boundary modes \(V \times B\); it holds under
+H-slope and H-count (Chapter 7 §7.3), which partition geometry does not
+supply, with corrections at
 \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}\]
 
@@ -29084,10 +29096,11 @@ framework's partition-relativity result proves that \(\hbar\) is
 determined by the partition geometry. This is a structural claim about
 the framework's setup, not a quantum assumption.
 
-\emph{Step 2.} Boundary-only dependence proves that \(\hbar\) depends
-only on \(c\), \(G\), and the discreteness scale \(\epsilon\). This
-follows from the framework's substratum being a finite-area boundary
-system, again a structural claim.
+\emph{Step 2.} Boundary-only dependence, for a spatially local classical
+Hamiltonian, shows that the transition data depend only on the boundary
+modes. It does not fix \(\hbar\): with Step 3 it is a consistency check
+on Step 4, whose matching expresses \(\hbar\) through \(c\), \(G\),
+\(\epsilon\) and \(\sigma\), again a structural claim.
 
 \emph{Step 3.} Dimensional analysis gives
 \(\hbar = \beta \cdot c^3 \epsilon^2 / G\) with unknown dimensionless
@@ -31100,4 +31113,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 6591142cbd41a7c103c7a0ee9c6abd3eddc689764a5bb7f1b832f23ecfe5c755
+% source-sha256: eb6857bb6eb8aeb87876dfe56bdd77225c24bf51a2c42e04b05ead8800297ef6

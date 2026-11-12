@@ -1268,6 +1268,18 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework derives the relation $\\hbar = c^3\\epsilon^2/(4..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The correction is $\\mathcal{O}(t/\\tau_B) \\sim 10^{-32}$ for ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Step 3: Dimensional determination.** The thermal matching ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The two temperatures are computed independently — $T_{\\text{..."
     },
     {
@@ -1457,6 +1469,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *The distinction has empirical signatures the standard disti..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Step 2.* Boundary-only dependence, for a spatially local cl..."
     },
     {
       "ok": true,
@@ -2288,7 +2304,19 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Step 2: Boundary-only dependence.** If the classical Hamil..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The two temperatures — $T_{\\text{cl}}$ from the classical su..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The surface gravity $\\kappa$ cancels — a non-trivial cross-c..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The derivation has the structure of a gap equation: $\\epsilo..."
     },
     {
       "ok": true,
@@ -2329,6 +2357,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's expectation $\\nu \\approx 0$ stands as a fals..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The MOND acceleration scale.** The framework's account of ..."
     },
     {
       "ok": true,

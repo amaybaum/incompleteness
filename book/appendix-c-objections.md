@@ -243,7 +243,7 @@ A specific technical objection concerns the framework's gap equation in Chapter 
 
 *Step 1.* Under the canonical measure of Lemma 3 of Chapter 1, the framework's partition-relativity result proves that $\hbar$ is determined by the partition geometry. This is a structural claim about the framework's setup, not a quantum assumption.
 
-*Step 2.* Boundary-only dependence proves that $\hbar$ depends only on $c$, $G$, and the discreteness scale $\epsilon$. This follows from the framework's substratum being a finite-area boundary system, again a structural claim.
+*Step 2.* Boundary-only dependence, for a spatially local classical Hamiltonian, shows that the transition data depend only on the boundary modes. It does not fix $\hbar$: with Step 3 it is a consistency check on Step 4, whose matching expresses $\hbar$ through $c$, $G$, $\epsilon$ and $\sigma$, again a structural claim.
 
 *Step 3.* Dimensional analysis gives $\hbar = \beta \cdot c^3 \epsilon^2 / G$ with unknown dimensionless coefficient $\beta$. The framework's structural setup determines the functional form; $\beta$ remains to be fixed.
 

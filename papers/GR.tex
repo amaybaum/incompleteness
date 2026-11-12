@@ -440,23 +440,24 @@ embedded-observer system meeting the named conditions gets this
 
 The paper is organized as follows. §2 identifies the cosmological
 horizon as a causal partition and verifies the structural conditions. §3
-derives the emergent action scale \(\hbar\) in four steps: the classical
-horizon temperature, boundary-only dependence, dimensional
-determination, and thermal self-consistency. §4 fixes the discreteness
-scale \(\epsilon = 2\sqrt{\sigma}\,l_p\). §5 derives the
-Bekenstein-Hawking entropy and discusses the GW250114 confirmation. §6
-gives the conditional dissolution of the cosmological constant problem.
-§7 presents the quantitative predictions for dark energy, the dark
-sector, and dark matter, with a summary table in §7.4. §8 discusses
-scope, the status of the discreteness scale, vacuum energy and the Higgs
-potential, and the framework's falsifiability conditions. §9 concludes.
-The cubic-lattice realization of the substratum --- which fixes the
-Standard Model gauge structure via the wave equation --- is developed in
-a companion paper {[}SM{]} and is independent of the GR results
-presented here. The reconstruction theorem and the synthesis claim that
-quantum mechanics and general relativity descend as projections of the
-same \((S, \varphi)\), with a third projection bearing on the arrow of
-time, are developed in {[}Substratum{]}.
+derives the emergent action scale \(\hbar\) from the classical horizon
+temperature by thermal self-consistency, the calibration
+\(\hbar=\tau_K/\beta_E\) of §2.3; boundary-only dependence of the
+transition data and dimensional determination are a consistency check on
+it. §4 fixes the discreteness scale \(\epsilon = 2\sqrt{\sigma}\,l_p\).
+§5 derives the Bekenstein-Hawking entropy and discusses the GW250114
+confirmation. §6 gives the conditional dissolution of the cosmological
+constant problem. §7 presents the quantitative predictions for dark
+energy, the dark sector, and dark matter, with a summary table in §7.4.
+§8 discusses scope, the status of the discreteness scale, vacuum energy
+and the Higgs potential, and the framework's falsifiability conditions.
+§9 concludes. The cubic-lattice realization of the substratum --- which
+fixes the Standard Model gauge structure via the wave equation --- is
+developed in a companion paper {[}SM{]} and is independent of the GR
+results presented here. The reconstruction theorem and the synthesis
+claim that quantum mechanics and general relativity descend as
+projections of the same \((S, \varphi)\), with a third projection
+bearing on the arrow of time, are developed in {[}Substratum{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -555,8 +556,12 @@ gives \(P(i)=\Omega_H(E-e_i)/\sum_j\Omega_H(E-e_j)\), so with
 \(s_H=\ln\Omega_H\) and \(\beta=s_H'(E)\),
 \(P(i)\propto\exp[-\beta e_i+\tfrac12 s_H''(E)e_i^2+O(e_i^3)]\). Gibbs
 is the leading finite-bath marginal of uniform counting, classically.
-Feeding in this paper's own relations \(s_H=\sigma A/\epsilon^2\) and
-\(dE=c^2\kappa\,dA/(8\pi G)\) gives
+Under the horizon condition \textbf{H-count} --- the energy-dependent
+entropy of the whole hidden sector at the shell scale is the boundary
+count, \(s_H=\sigma A/\epsilon^2\) up to an energy-independent constant,
+the deep hidden sector contributing none; it is not derived here from
+S1--S4, whose hidden capacity \(\sim S_{\rm dS}\) fixes no
+entropy--energy slope --- feeding in \(dE=c^2\kappa\,dA/(8\pi G)\) gives
 \(\partial s_H/\partial E=8\pi G\sigma/(c^2\kappa\epsilon^2)\) and hence
 \(k_BT_{\rm micro}=(\partial s_H/\partial E)^{-1}=c^2\kappa\epsilon^2/(8\pi G\sigma)=k_BT_{\rm cl}\)
 --- with no quantum mechanics, no KMS condition, no vacuum choice and no
@@ -619,8 +624,9 @@ time-reversal invariance gives a bijection between \(i\to j\) and
 \(j\to i\) trajectories, so \(N_{ij}=N_{ji}\) and hence
 \(N_iP_{ij}=N_jP_{ji}\) exactly. With \(N_i=\Omega_H(E-e_i)\) this
 yields
-\(\ln(P_{ij}/P_{ji})=-\beta_E(e_j-e_i)+\tfrac12 s_H''(E)(e_j^2-e_i^2)+\cdots\)
---- the thermal rate ratio from finite deterministic reversible
+\(\ln(P_{ij}/P_{ji})=-\beta_E(e_j-e_i)+\tfrac12 s_H''(E)(e_j^2-e_i^2)+\cdots\),
+with \(\beta_E=s_H'(E)\) taking the boundary-count value above under
+H-count --- the thermal rate ratio from finite deterministic reversible
 counting, with no quantum mechanics. Equating the two descriptions of
 the same observable rate ratio gives
 \(\beta_E\Delta E=\tau_K\Delta\omega\) up to the two controlled
@@ -651,7 +657,8 @@ shell rate ratio \(R_E\) and the observer frequency response
 \(R_\omega\) for the same operational transition with
 \(\Delta E=E(\omega)\), \(E(0)=0\), and
 \(-\partial_{\Delta E}\ln R_E|_0=\beta_E\), the single requirement is
-\(-\partial_\omega\ln R_\omega|_0=\tau_K\) (\textbf{H-slope}), whence
+\(-\partial_\omega\ln R_\omega|_0=\tau_K\) (\textbf{H-slope}), whence,
+with \(\beta_E\) at its H-count value,
 \(E'(0)=\tau_K/\beta_E=c^3\epsilon^2/(4G\sigma)=\hbar\). Expanding
 \(\ln R_E=-\beta_EE+BE^2+\cdots\),
 \(\ln R_\omega=-\tau_K\omega+C\omega^2+\cdots\) and
@@ -695,10 +702,10 @@ fixed the physical energy generator can only be
 units of action; determining \(a_*\) is what this section does, so it
 must not be set to \(\hbar\) in advance. Classical horizon counting
 supplies an inverse energy,
-\(\beta_E=\partial s_H/\partial E=8\pi G\sigma/(c^2\kappa\epsilon^2)\).
-The emergent horizon state, conditional on H-spectrum, supplies an
-inverse time, \(\tau_K=2\pi c/\kappa\). For a finite system a KMS state
-for evolution generated by \(\Omega\) is Gibbs with exponent
+\(\beta_E=\partial s_H/\partial E=8\pi G\sigma/(c^2\kappa\epsilon^2)\)
+under H-count. The emergent horizon state, conditional on H-spectrum,
+supplies an inverse time, \(\tau_K=2\pi c/\kappa\). For a finite system
+a KMS state for evolution generated by \(\Omega\) is Gibbs with exponent
 \(-\tau_K\Omega\), so
 \(e^{-\tau_K\Omega_{\rm eff}}=e^{-\beta_Ea_*\Omega_{\rm eff}}\) up to
 normalization, giving \(\tau_K=\beta_Ea_*\) and \[
@@ -732,24 +739,24 @@ constant on cycles.
 \textbf{Consequences for the named conditions.} H-shell is therefore not
 load-bearing here: the calibration needs only the scalar
 \(\beta_E=\partial s_H/\partial E\), which follows from the horizon
-density of states and the first law, not a visible/hidden product Gibbs
-marginal. That matters independently, since the shell conditional
-\(\mu_H(h\mid i)\propto\mathbf 1[E_H(h)=E-e_i]\) depends on \(i\),
-whereas {[}Main{]}'s channel uses a fixed hidden prior \(\mu_H(h)\);
-substituting one for the other would replace a product preparation by a
-correlated ensemble and a different projection theorem. H-shell is
-retained as an auxiliary result on classical probe equilibration and
-finite-bath corrections. H-energy in its naive form --- configuration
-energies as eigenvalues of \(\hat H_{\rm eff}\) --- is false by the
-no-go above; its meaningful form is modular, that the static
-thermodynamic generator (the Hamiltonian of mean force at non-negligible
-coupling) agrees with the observer's dynamical generator in the infrared
-up to one universal action scale and an additive constant. That relation
-follows automatically once H-spectrum supplies the KMS property, so
-H-energy is redundant rather than open. \textbf{H-slope is the one
-load-bearing state condition: H-spectrum \(\Rightarrow\) H-balance
-\(\Rightarrow\) H-slope, and only the last is needed for the
-calibration.}
+density of states and the first law under H-count, not a visible/hidden
+product Gibbs marginal. That matters independently, since the shell
+conditional \(\mu_H(h\mid i)\propto\mathbf 1[E_H(h)=E-e_i]\) depends on
+\(i\), whereas {[}Main{]}'s channel uses a fixed hidden prior
+\(\mu_H(h)\); substituting one for the other would replace a product
+preparation by a correlated ensemble and a different projection theorem.
+H-shell is retained as an auxiliary result on classical probe
+equilibration and finite-bath corrections. H-energy in its naive form
+--- configuration energies as eigenvalues of \(\hat H_{\rm eff}\) --- is
+false by the no-go above; its meaningful form is modular, that the
+static thermodynamic generator (the Hamiltonian of mean force at
+non-negligible coupling) agrees with the observer's dynamical generator
+in the infrared up to one universal action scale and an additive
+constant. That relation follows automatically once H-spectrum supplies
+the KMS property, so H-energy is redundant rather than open.
+\textbf{H-slope is the one load-bearing state condition: H-spectrum
+\(\Rightarrow\) H-balance \(\Rightarrow\) H-slope, and only the last is
+needed for the calibration.}
 
 \textbf{Status of \(\hbar\) and the \(1/4\).} Both are conditional, not
 unconditional consequences of S1--S4: they require H-frame (the
@@ -852,7 +859,7 @@ scale}\label{the-emergent-action-scale}}
 \textbf{Step 1: Uniqueness.} By partition-relativity (Prerequisites),
 \(\hbar\) is derived, not free.
 
-\textbf{Step 2: \(\hbar\) is structural, not volumetric.}
+\textbf{Step 2: The transition data are structural, not volumetric.}
 
 \textbf{Lemma (Boundary-only dependence).} \emph{Decompose the hidden
 sector as \(\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D\), where
@@ -907,20 +914,26 @@ identical terms at leading order:
 
 The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
 processes. Since \(T_{ij}(t)\) determines the emergent quantum
-description (Prerequisites; Barandes correspondence {[}35, 36{]}), and
-\(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\) dynamics --- which
-are characterized by the boundary geometry (\(A\), \(\epsilon\),
-\(\kappa\)) and the constants \(c\), \(G\) appearing in the classical
-Hamiltonian --- the emergent action scale \(\hbar\) inherits
-boundary-only dependence. The departure of the reduced visible dynamics
-from its frozen-bath form also enters at first order,
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\), as a Hermitian drift of
-the emergent effective Hamiltonian \(\hat{H}_{\text{eff}}\) ({[}Main
-§3.2{]}), and through the constraint coupling of (C1), which acts on
-total energy--momentum, that drift is common-mode: the slow change of
-the traced-out horizon state rescales \(\hat{H}_{\text{eff}}\) uniformly
-and cancels in all dimensionless ratios, which is why the \(10^{-32}\)
-figure is absorbable rather than observable, with the
+description up to its action scale (Prerequisites; Barandes
+correspondence {[}35, 36{]}), and \(T^{(B)}_{ij}(t)\) depends only on
+the \(V\)-\(B\) dynamics --- which are characterized by the boundary
+geometry (\(A\), \(\epsilon\), \(\kappa\)) and the constants \(c\),
+\(G\) appearing in the classical Hamiltonian --- the emergent generator
+\(\Omega_{\rm eff}\), as far as the transition data fix it, inherits
+boundary-only dependence. The action scale does not: every \(a_*\) in
+\(H_{\rm phys}=a_*\Omega_{\rm eff}\) (§2.3) gives the same
+\(T_{ij}(t)\), so the lemma does not bear on \(\hbar\), which the
+calibration \(a_*=\tau_K/\beta_E\) of §2.3 and Step 4 fixes. Steps 2 and
+3 are consistency checks, Step 2 under the lemma's spatial-locality
+hypothesis, and no result of §8.5(b) uses them. The departure of the
+reduced visible dynamics from its frozen-bath form also enters at first
+order, \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\), as a Hermitian
+drift of the emergent effective Hamiltonian \(\hat{H}_{\text{eff}}\)
+({[}Main §3.2{]}), and through the constraint coupling of (C1), which
+acts on total energy--momentum, that drift is common-mode: the slow
+change of the traced-out horizon state rescales \(\hat{H}_{\text{eff}}\)
+uniformly and cancels in all dimensionless ratios, which is why the
+\(10^{-32}\) figure is absorbable rather than observable, with the
 composition-differential remainder suppressed by the tidal factor
 \((L_{\text{lab}}/R_H)^2 \sim 10^{-52}\), \(R_H\) the horizon radius,
 and independently capped by equivalence-principle tests.
@@ -977,23 +990,25 @@ weaker accessible-window property, conditional memory. Within the
 leading-order visible transition data on accessible timescales, a finite
 and an infinite deep sector are indistinguishable.
 
-\textbf{Step 3: Dimensional determination.} Step 2 excludes volumetric
-(deep-sector) quantities, leaving boundary quantities. The boundary
-carries both \emph{local} geometric data (\(\epsilon\), \(\kappa\), and
-the constants \(c\), \(G\) of the classical Hamiltonian) and a
-\emph{global} quantity: the total area \(A\), which forms the
-dimensionless ratio \(A/\epsilon^2 = S_{\text{dS}}/\sigma\). If
-\(\hbar\) depended on \(S_{\text{dS}}\), it would be observer-dependent
---- different observers have different horizon areas (§2.1) ---
-contradicting the universality of the emergent action scale. (All
-sub-\(c\) observers share the same local physics and hence the same
-\(\hbar\); §2.1.) This excludes \(A\), leaving the local boundary
-quantities \(c\), \(G\), \(\epsilon\), and \(\kappa\). The surface
-gravity \(\kappa\) is excluded because it varies between observers and
-epochs while \(\hbar\) is observed to be universal across observers and
-constant in time: a laboratory experiment measures the same \(\hbar\)
-regardless of the observer's local cosmological-horizon parameters, and
-for the cosmological horizon \(\kappa = cH\) is itself time-dependent
+\textbf{Step 3: Dimensional determination.} The calibration of §2.3 and
+Step 4 expresses \(\hbar\) through boundary quantities, \(\beta_E\)
+under H-count; the dimensional argument below checks the form of that
+result. The boundary carries both \emph{local} geometric data
+(\(\epsilon\), \(\kappa\), and the constants \(c\), \(G\) of the
+classical Hamiltonian) and a \emph{global} quantity: the total area
+\(A\), which forms the dimensionless ratio
+\(A/\epsilon^2 = S_{\text{dS}}/\sigma\). If \(\hbar\) depended on
+\(S_{\text{dS}}\), it would be observer-dependent --- different
+observers have different horizon areas (§2.1) --- contradicting the
+universality of the emergent action scale. (All sub-\(c\) observers
+share the same local physics and hence the same \(\hbar\); §2.1.) This
+excludes \(A\), leaving the local boundary quantities \(c\), \(G\),
+\(\epsilon\), and \(\kappa\). The surface gravity \(\kappa\) is excluded
+because it varies between observers and epochs while \(\hbar\) is
+observed to be universal across observers and constant in time: a
+laboratory experiment measures the same \(\hbar\) regardless of the
+observer's local cosmological-horizon parameters, and for the
+cosmological horizon \(\kappa = cH\) is itself time-dependent
 (\(\dot{H} \neq 0\)). The unique combination of \(c\), \(G\),
 \(\epsilon\) with dimensions of action:
 
@@ -1022,17 +1037,19 @@ temperatures are computed independently --- \(T_{\text{cl}}\) from the
 classical substratum alone (no QM), \(T_Q\) from the emergent QFT alone
 (no classical substratum details) --- but they refer to the \textbf{same
 physical degrees of freedom}: the boundary modes \(V \times B\) across
-which \(H_{\text{int}}\) couples the visible and hidden sectors. Step
-2's boundary-only dependence shows that the visible transition data from
-which the emergent QFT is reconstructed are fixed (at leading order in
-\(\tau_S/\tau_B\)) by these same \(V \times B\) dynamics. Temperature is
-a state property; two complete descriptions of the same modes cannot
-assign different temperatures without logical contradiction. The
-matching \(T_{\text{cl}} = T_Q\) identifies the classical inverse-energy
-temperature with the emergent KMS period on the same boundary modes
-\(V \times B\); it holds under H-slope (§2.3), which partition geometry
-does not supply, with corrections at
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
+which \(H_{\text{int}}\) couples the visible and hidden sectors. Under
+its spatial-locality hypothesis, Step 2's boundary-only dependence shows
+that the visible transition data from which the emergent QFT is
+reconstructed are fixed (at leading order in \(\tau_S/\tau_B\)) by these
+same \(V \times B\) dynamics; the matching does not use it, the
+identification of the two descriptions' transitions being part of
+H-slope (§2.3). Temperature is a state property; two complete
+descriptions of the same modes cannot assign different temperatures
+without logical contradiction. The matching \(T_{\text{cl}} = T_Q\)
+identifies the classical inverse-energy temperature with the emergent
+KMS period on the same boundary modes \(V \times B\); it holds under
+H-slope and H-count (§2.3), which partition geometry does not supply,
+with corrections at \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
 
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G\sigma} = \frac{\hbar \kappa}{2\pi c}\]
 
@@ -1050,14 +1067,15 @@ which is \(\hbar = c^3 \epsilon^2/(4G)\) at \(\sigma = 1\) (§3.1).
 The derivation is a gap equation: \(\epsilon\) is the free geometric
 input, \(\hbar\) is the output. The match is non-trivial:
 \(T_{\text{cl}}\) could have depended on volumetric hidden-sector data
-(excluded by Step 2), or \(T_Q\) could have depended on the state (it
-does not --- the KMS temperature is kinematic in its parameter,
-conditional on H-balance in its class). That neither pathology obtains
-makes the gap equation a genuine determination. The non-circularity is
-structural: Part I establishes that a QFT emerges with \emph{some}
-action scale \(\hbar\); §3 determines \emph{which} \(\hbar\), using the
-independent classical temperature that Part I neither requires nor
-produces.
+(excluded by the boundary count of §3.1, with which the energy-shell
+temperature coincides under H-count), or \(T_Q\) could have depended on
+the state (it does not --- the KMS temperature is kinematic in its
+parameter, conditional on H-balance in its class). That neither
+pathology obtains makes the gap equation a genuine determination. The
+non-circularity is structural: Part I establishes that a QFT emerges
+with \emph{some} action scale \(\hbar\); §3 determines \emph{which}
+\(\hbar\), using the independent classical temperature that Part I
+neither requires nor produces.
 
 \textbf{The counting of one mode per cell is definitional.} Given that
 \(\epsilon\) is the minimal distinguishable scale (Lemma 1), ``one
@@ -1151,8 +1169,7 @@ consistency check.
 \subsubsection{3.3 Gauge-fixing and the dimensional
 obstruction}\label{gauge-fixing-and-the-dimensional-obstruction}}
 
-Steps 1--2 establish that \(\hbar\) depends only on boundary quantities;
-Step 4 will fix it in terms of \(\epsilon\) via thermal matching. A
+Step 4 fixes \(\hbar\) in terms of \(\epsilon\) via thermal matching. A
 prior question must be addressed: does the transition-probability data
 \(\{T_{ij}(t)\}\) determine the emergent Hamiltonian uniquely, or does
 residual gauge freedom leave \(\hbar\) underdetermined? The following
@@ -3101,10 +3118,11 @@ by baryonic matter.
 
 \textbf{Inherited conditions.} The chain below rests on the de Sitter
 temperature of §3.2, which is conditional: \(T_{\rm dS}\) requires
-H-slope (the infrared detailed-balance slope), H-frame (the preferred
-foliation is the comoving one) and the H-Hawking conditions of §8.5, and
-the action-scale calibration is stated on an exact de Sitter horizon.
-Everything in §7.3 therefore carries those conditions. A second
+H-count (the hidden sector's energy-dependent entropy is its boundary
+count), H-slope (the infrared detailed-balance slope), H-frame (the
+preferred foliation is the comoving one) and the H-Hawking conditions of
+§8.5, and the action-scale calibration is stated on an exact de Sitter
+horizon. Everything in §7.3 therefore carries those conditions. A second
 assumption is local to this section: writing \(Q=M_Bc^2\) takes the
 entire rest energy of a static configuration to be delivered as heat to
 the boundary. That is a statement about how the emergent sector couples
@@ -4035,7 +4053,9 @@ alone:
 
 (U1) \emph{Energy-shell horizon temperature.} The classical
 inverse-energy temperature \(\beta_E = \partial s_H/\partial E\) of the
-horizon, from the horizon density of states (§3.1).
+horizon, from the horizon density of states (§3.1); its boundary-count
+value \(8\pi G\sigma/(c^2\kappa\epsilon^2)\), which (b) uses, holds
+under H-count (§2.3).
 
 (U2) \emph{Finite horizon counting.} The boundary entropy is
 \(S = \sigma A/\epsilon^2\), from the finite mode count
@@ -4047,11 +4067,11 @@ horizon, from the horizon density of states (§3.1).
 of description; the \(10^{122}\) ratio is a compression ratio, not a
 failure of cancellation (§6.1).
 
-\emph{(b) Conditional universality.} If, in addition, H-slope, H-frame
-and the H-Hawking conditions hold at the horizon of \(\mathcal{S}\) and
-the emergent description has local boost structure there (the
-boost-channel Lorentz-sector item of {[}Main §3.5{]}, carried by the KMS
-step below), then with the same numerical content as for OI's
+\emph{(b) Conditional universality.} If, in addition, H-count, H-slope,
+H-frame and the H-Hawking conditions hold at the horizon of
+\(\mathcal{S}\) and the emergent description has local boost structure
+there (the boost-channel Lorentz-sector item of {[}Main §3.5{]}, carried
+by the KMS step below), then with the same numerical content as for OI's
 substratum:
 
 (C1\('\)) \emph{Emergent action scale.}
@@ -4091,36 +4111,38 @@ imported in §7.3.
   detailed-balance slope H-slope, which identifies the classical
   inverse-energy temperature with the emergent KMS period (§3.2); the
   classical horizon temperature from the Jacobson thermodynamic argument
-  (depends only on classical horizon geometry); the Euclidean KMS period
-  of the emergent QFT on the horizon (depends only on the partial-trace
-  structure of the channel and the horizon's discreteness scale);
-  thermal self-consistency requiring agreement between the two (depends
-  on the consistency of emergent QFT with classical thermodynamics at
-  the horizon). None of these depends on OI's specific cubic-lattice
-  structure; the calibration depends on the cosmological-horizon
-  partition, the partial-trace/Stinespring machinery {[}Main §3{]},
-  H-slope, and the stated horizon, frame and KMS conditions. C1--C4 are
-  realization diagnostics tracked at the concrete cut ({[}Main §1.3{]},
-  §2.2): C1--C3 are verified there, while C4 remains not presently
-  discharged and is not a hypothesis of the calibration. One further
-  dependency is carried by the KMS step of Step 4 and should be stated:
-  the Euclidean-regularity argument presupposes the emergent theory has
-  local boost structure at the horizon (a bifurcate Killing horizon with
-  a well-defined imaginary-time circle). That prerequisite is the
-  local-boost-invariance of the emergent description --- the same object
-  whose protection is the framework's Lorentz-sector item in the boost
-  channel ({[}Main §3.5{]}): the symmetric-point matching under H-blind
-  ({[}SM §4.4{]}) and, conditional on it, the custodial running, which
-  rests on a reported one-loop calculation that is not independently
-  verified ({[}SM §3.1{]}). The \(\hbar\) derivation is therefore not
-  parallel to the Lorentz-violation accounting but partially downstream
-  of its boost sector: a failure of emergent local boost invariance at
-  the horizon would propagate to the gap equation, whereas the
-  rotational sector does not enter here (spatial anisotropy does not
-  touch the imaginary-time periodicity). The UV-dispersion robustness
-  handled above (\(\mathcal{O}((\epsilon\kappa/c^2)^2)\) corrections) is
-  a separate and weaker condition; the boost-structure prerequisite is
-  the load-bearing one and is inherited, not established, in this paper.
+  (depends only on classical horizon geometry), which is the hidden
+  sector's energy-shell temperature under H-count (§2.3); the Euclidean
+  KMS period of the emergent QFT on the horizon (depends only on the
+  partial-trace structure of the channel and the horizon's discreteness
+  scale); thermal self-consistency requiring agreement between the two
+  (depends on the consistency of emergent QFT with classical
+  thermodynamics at the horizon). None of these depends on OI's specific
+  cubic-lattice structure; the calibration depends on the
+  cosmological-horizon partition, the partial-trace/Stinespring
+  machinery {[}Main §3{]}, H-slope, and the stated horizon, frame and
+  KMS conditions. C1--C4 are realization diagnostics tracked at the
+  concrete cut ({[}Main §1.3{]}, §2.2): C1--C3 are verified there, while
+  C4 remains not presently discharged and is not a hypothesis of the
+  calibration. One further dependency is carried by the KMS step of Step
+  4 and should be stated: the Euclidean-regularity argument presupposes
+  the emergent theory has local boost structure at the horizon (a
+  bifurcate Killing horizon with a well-defined imaginary-time circle).
+  That prerequisite is the local-boost-invariance of the emergent
+  description --- the same object whose protection is the framework's
+  Lorentz-sector item in the boost channel ({[}Main §3.5{]}): the
+  symmetric-point matching under H-blind ({[}SM §4.4{]}) and,
+  conditional on it, the custodial running, which rests on a reported
+  one-loop calculation that is not independently verified ({[}SM
+  §3.1{]}). The \(\hbar\) derivation is therefore not parallel to the
+  Lorentz-violation accounting but partially downstream of its boost
+  sector: a failure of emergent local boost invariance at the horizon
+  would propagate to the gap equation, whereas the rotational sector
+  does not enter here (spatial anisotropy does not touch the
+  imaginary-time periodicity). The UV-dispersion robustness handled
+  above (\(\mathcal{O}((\epsilon\kappa/c^2)^2)\) corrections) is a
+  separate and weaker condition; the boost-structure prerequisite is the
+  load-bearing one and is inherited, not established, in this paper.
 \end{itemize}
 
 \emph{Free-level status, and the narrowed form of the conditional.}
@@ -4302,20 +4324,24 @@ at the level of the framework's hierarchical structure (per {[}Structure
 \emph{Theorem (universality of the partition-geometry results).} For any
 substratum \(\mathcal{S}\) satisfying S1--S4, (U1)--(U3) follow with the
 same content as derived in this paper for OI's specific substratum; if
-in addition H-slope, H-frame and the H-Hawking conditions hold at its
-horizon and the emergent description has local boost structure there,
-together with the symmetric detailed-balance rate ratio used above ---
-obtained on the OI branch under the stated time-reversal-even
+in addition H-count, H-slope, H-frame and the H-Hawking conditions hold
+at its horizon and the emergent description has local boost structure
+there, together with the symmetric detailed-balance rate ratio used
+above --- obtained on the OI branch under the stated time-reversal-even
 coarse-state condition, and an additional condition for general
 non-bijective dynamics --- so do (C1\('\))--(C3\('\)) with the same
 numerical content.
 
 The proof is the §3--§6 derivations themselves, with the observation
-that each step depends only on S1--S4 and the named conditions, not on
-OI's specific structural conditions A2--A5. A formal proof at the level
-of explicit theorem-style presentation has not been written out in this
-paper; the present section identifies the structural conditions required
-at each step, and the claim is established at that level.
+that each step a part uses depends only on S1--S4 and the named
+conditions, not on OI's specific structural conditions A2--A5. Part (b)
+uses the calibration \(a_*=\tau_K/\beta_E\) (§2.3) with the thermal
+matching of §3.2, Step 4, and §4--§5; Steps 2--3 of §3.2, whose lemma
+assumes a spatially local classical Hamiltonian, are a consistency check
+that part (b) does not use. A formal proof at the level of explicit
+theorem-style presentation has not been written out in this paper; the
+present section identifies the structural conditions required at each
+step, and the claim is established at that level.
 
 \textbf{Empirical implication.} The universality-class results have
 limited direct empirical content. GW250114 confirms Hawking's area
@@ -4656,13 +4682,16 @@ and the diagonal gauge both disappear; a general CPTP reduced dynamics,
 by contrast, has no uniquely defined Hamiltonian part, and the
 reconstruction-level clause claims none. \(\square\)
 
-\textbf{Corollary A.4} (\(\hbar\) universality). \emph{Both procedures
-yield the same emergent action scale
+\textbf{Corollary A.4} (\(\hbar\) universality). \emph{Under the
+conditions of §8.5(b) at each horizon, with the same entropy \(\sigma\)
+per boundary mode, both procedures yield the same emergent action scale
 \(\hbar = c^3 \epsilon^2 / (4G\sigma)\).}
 
-\emph{Proof.} \(\hbar\) depends only on local boundary quantities \(c\),
-\(G\), \(\epsilon\) (§3.2, Steps 2--3), not on which horizon defines the
-partition or how many trace-outs are performed. \(\square\)
+\emph{Proof.} At each horizon the calibration gives
+\(\hbar=\tau_K/\beta_E=c^3\epsilon^2/(4G\sigma)\) (§2.3; §3.2, Step 4),
+which contains no area and from which \(\kappa\) cancels, so \(\hbar\)
+does not depend on which horizon defines the partition or on how many
+trace-outs are performed. \(\square\)
 
 \hypertarget{a.5-additive-dissipators}{%
 \subsubsection{A.5 Additive
@@ -5506,4 +5535,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: e956ce85cbcc9250ad32bd9c6cd9dd20f4ba507c18867bb98ff5e85fabf99474
+% source-sha256: e245283af56148ac08b5a173669ecccb08aacd05e2d5993d3b36e73a9997e461
