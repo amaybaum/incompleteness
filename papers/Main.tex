@@ -466,9 +466,15 @@ the unique absolutely continuous invariant measure.
 \emph{Remark (the measure as a realization datum).} Lemma 3 fixes the
 canonical measure --- invariant, maximal-entropy --- and the framework's
 baseline transition matrices (§2.3) and the physical realization use it.
-It does not preclude structured preparations: a realization in the sense
-of §3.4 carries its own fixed hidden prior \(\mu_H\) as part of the
-realization datum, and the emergent law is a function of
+On the selected bijective carrier \(\mathcal{C}_V \times \mathcal{C}_H\)
+(Lemma 2) it is the uniform probability, with the uniform conditional
+law on \(\mathcal{C}_H\) in each visible fibre; the counting probability
+on the eventual image of a non-bijective description (status Remark
+below) belongs to a different representative choice and in general has
+neither equal-size visible fibres nor a product form. It does not
+preclude structured preparations: a realization in the sense of §3.4
+carries its own fixed hidden prior \(\mu_H\) as part of the realization
+datum, and the emergent law is a function of
 \((\varphi, \text{partition}, \mu_H)\) --- the same bijection and
 partition under different priors generally yield different visible laws
 (trivially: the two-state swap under uniform versus point-mass hidden
@@ -549,7 +555,12 @@ in sending \((0,c)\) to itself, whose uniform-prior one-step matrix is
 \(\left(\begin{smallmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{smallmatrix}\right)\),
 while \(E\) omits \((0,c)\) and the counting measure on \(E\) gives
 \(\left(\begin{smallmatrix} 1/2 & 1/2 \\ 1/3 & 2/3 \end{smallmatrix}\right)\),
-which is not doubly stochastic. Either horn delivers a bijective
+which is not doubly stochastic. The uniform probability on the product
+carrier, used by Lemma 3, the baseline transition matrices and the §3.2
+setup, and the counting probability on \(E\) belong to different
+representative choices, and agreement of visible statistics under one
+does not transfer to the other without a separately verified
+measure-preserving correspondence. Either horn delivers a bijective
 substratum for the dynamics governing registered history in its scope,
 the second for registered states in \(E\); the two prongs use different
 inputs --- the first empirical (the observed statistics, in the
@@ -1912,7 +1923,13 @@ into Hilbert spaces \(\mathcal{H}_V = \mathbb{C}^n\) and
 \(\mathcal{H}_H = \mathbb{C}^m\) via \(|i\rangle \leftrightarrow x_i\)
 and \(|k\rangle \leftrightarrow h_k\). This introduces no quantum
 postulates: it is the canonical identification of probability
-distributions on a finite set with diagonal density matrices.
+distributions on a finite set with diagonal density matrices. The
+uniform hidden prior of this section is the uniform probability on the
+product carrier \(\mathcal{C}_V \times \mathcal{C}_H\) of a bijection;
+the counting probability on the eventual image of a non-bijective
+description (§1.2) is a different measure, to which statements made
+under this prior do not transfer without a separately verified
+measure-preserving correspondence.
 
 \textbf{Lemma (permutation unitarity).} \emph{Any bijection
 \(\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H\)
@@ -6015,4 +6032,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: cfe38a19bdf4736dfc855f34fb0a4bb3c43b38a0c07c902a90e7059e8fb994ee
+% source-sha256: eb8650e5abcdf1bab17987d11f07b87bf2ccb9f077ddd50b0f57bd409b7819eb
