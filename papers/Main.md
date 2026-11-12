@@ -81,7 +81,7 @@ These properties contain no quantum postulates. The framework proposes that quan
 
 ### 1.4 Partition-Relativity
 
-**Lemma (partition-relativity under the canonical invariant measure).** *Under the canonical measure of Lemma 3, the emergent description is uniquely determined by the partition; any parameters of the emergent theory depend only on the geometric and thermodynamic properties of the partition boundary. For the abstract representation theorems the prior is a third datum: canonically $T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})$, in general $T = T(\varphi, \mathcal{P}, \mu_H)$ (§1.2, Remark on the measure as a realization datum).*
+**Lemma (partition-relativity under the canonical invariant measure).** *Under the canonical measure of Lemma 3, the emergent description is uniquely determined by the partition. For the abstract representation theorems the prior is a third datum: canonically $T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})$, in general $T = T(\varphi, \mathcal{P}, \mu_H)$ (§1.2, Remark on the measure as a realization datum).*
 
 *Proof.* By Lemma 3, the Hamiltonian flow $\phi_t$ is unique. By Lemma 2, the partition is fixed. By Lemma 3, the observer uses the Liouville measure $\mu$ — the maximal-entropy invariant measure on the full phase space. (An embedded observer with incomplete knowledge of the total energy averages over energies with a smooth prior, recovering Liouville on a phase-space band — the continuum form of Lemma 3's maximal-entropy selection; singular invariant measures concentrated on atypical short orbits correspond to observer-lacking substrata and are outside scope by the same lemma.) Letting $\pi_V$ denote projection onto the visible sector, the marginalized transition probabilities
 
