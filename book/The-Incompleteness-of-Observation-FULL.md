@@ -164,7 +164,7 @@ The three appendices serve different purposes and can be consulted independently
 
 **Appendix A (Prediction Status Table).** A systematic reference resource organizing the framework's predictions by classification (Structural / Computational / Linked / Refined / Pending / Mechanism / Empirical), confidence level, current empirical match, and open issues. Use as a lookup table when evaluating specific claims or planning empirical work against the framework. The appendix does not need to be read sequentially.
 
-**Appendix B (Mathematical Derivations).** Complete derivations for the framework's key technical results: the Stinespring construction, the Jordan-Chevalley projection, the gap equation relating $\hbar$ to the discreteness scale, the anomaly cancellation calculation, the gauge-theoretic derivations, and the lemma chain for the characterization theorem. Use when the main-text derivations are too compressed for the reader's purposes. The appendix is designed for readers requiring full technical content; readers without that requirement can rely on the main-chapter derivations.
+**Appendix B (Mathematical Derivations).** Complete derivations for the framework's key technical results: the Stinespring construction, the Jordan-Chevalley decomposition of the ring evolution, the gap equation relating $\hbar$ to the discreteness scale, the anomaly cancellation calculation, the gauge-theoretic derivations, and the lemma chain for the characterization theorem. Use when the main-text derivations are too compressed for the reader's purposes. The appendix is designed for readers requiring full technical content; readers without that requirement can rely on the main-chapter derivations.
 
 **Appendix C (Common Objections and Framework Responses).** Systematic engagement with the most predictable objections to the framework's commitments: Bell's theorem, no-go theorems (PBR, Frauchiger-Renner, Colbeck-Renner, Bong-Wiseman), the stochastic-quantum bridge, the necessity direction of the characterization theorem, the finiteness posit, computational implementability, the relationship to standard interpretations (MWI, Bohmian, QBism), the substratum-emergent operator distinction concern, circularity in the gap equation, the framework's epistemic status, and meta-objections about scope and credentials. Use as a reference resource for skeptical readers or for engaging the framework against specific objections.
 
@@ -182,7 +182,7 @@ Several sections are structurally optional on a first reading, even within the c
 - **Chapter 9 §§9.5-9.6** (relationship to string theory and the string landscape multiplicity problem) is positioning against the broader physics landscape; readers without interest in string theory can skim.
 - **Chapter 12 §12.8** (the self-referential loop) is philosophical commentary; readers without interest in self-reference can skim.
 - **Chapter 18 §18.10** (consciousness) is philosophical commentary; readers without interest in consciousness questions can skim.
-- **Appendix B §B.3** (Jordan-Chevalley projection) is the most technical of the appendix sections; readers without background in algebraic geometry can rely on the main-text §5.4-5.5 treatment.
+- **Appendix B §B.3** (Jordan-Chevalley structure of the ring evolution) is the most technical of the appendix sections; readers without background in algebraic geometry can rely on the main-text §5.4-5.5 treatment.
 
 These sections add depth to the framework's content but are not load-bearing for the main argument.
 
@@ -5763,7 +5763,7 @@ The appendix's content is organized by mathematical structure rather than by cha
 
 *B.2 The Stinespring construction.* The framework's emergent quantum description is constructed from a deterministic substratum bijection through the Stinespring dilation theorem applied to a partial trace over the hidden sector. This appendix gives the full construction: Hilbert-space embedding, permutation unitarity lemma, CPTP channel structure, Born-form representation of the transition probabilities, emergent coherence theorem, and CP-indivisibility theorem. The construction uses only textbook operator algebra from the 1950s.
 
-*B.3 The trace-out as a Jordan-Chevalley projection.* The framework's content on the Standard Model gauge structure relies on a structural property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and discards the nilpotent monodromy. This appendix gives the full algebraic derivation: period formula, Jordan-Chevalley decomposition, $q$-independence of the Weil-Deligne conductor, additive decomposition over gauge irreps, and the precise sense in which the trace-out is a projection.
+*B.3 Jordan-Chevalley structure of the ring evolution.* The evolution matrix of the wave equation on a ring over $\mathbb{F}_q$ decomposes into commuting semisimple and unipotent parts. This appendix gives the full algebraic derivation: period formula, Jordan-Chevalley decomposition, $q$-independence of the Weil-Deligne conductor, additive decomposition over gauge irreps, and which of the decomposition's data the visible laws retain.
 
 *B.4 The gap equation for $\hbar$.* The framework relates Planck's constant $\hbar$ to the discreteness scale through a thermal self-consistency argument between the classical horizon temperature (substratum-level) and the KMS temperature (emergent QFT-level). This appendix gives the full four-step derivation: spatial locality and boundary dependence, deep-sector gauge equivalence, dimensional determination, and thermal self-consistency producing $\hbar = c^3 \epsilon^2 / (4G\sigma)$.
 
@@ -5853,11 +5853,11 @@ with $\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otime
 
 The construction is complete: the substratum's deterministic bijection produces the memory-bearing visible-sector description — its unitary quantum representation supplied through the Stinespring dilation, the coherent operational lift still to be established ([Main §3.4]) — with leading-order Schrödinger evolution and structurally non-Markovian corrections at $\mathcal{O}(\tau_S/\tau_B)$.
 
-## B.3 The trace-out as a Jordan-Chevalley projection
+## B.3 Jordan-Chevalley structure of the ring evolution
 
 *Main-text reference: Chapter 5 §5.4-5.6.*
 
-The framework's content on the Standard Model gauge structure relies on a precise algebraic property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and erases the nilpotent monodromy. This appendix gives the full derivation for the scalar wave equation on a ring of $L$ sites over $\mathbb{F}_q$; the multi-component extension incorporating the gauge group follows by additive decomposition.
+This appendix derives the period and the Jordan-Chevalley decomposition of the evolution matrix and states which of the decomposition's data the visible laws retain. The derivation is given for the scalar wave equation on a ring of $L$ sites over $\mathbb{F}_q$; the multi-component extension incorporating the gauge group follows by additive decomposition.
 
 **Setup.** The discrete wave equation $x(n, t+1) = x(n-1, t) + x(n+1, t) - x(n, t-1) \pmod q$ has phase space $(\mathbb{Z}/q\mathbb{Z})^{2L}$ and evolution matrix
 $$F = \begin{pmatrix} 0 & I \\ -I & A \end{pmatrix}$$
@@ -5910,11 +5910,11 @@ $$\mathfrak{f}_{\text{WD}}(M) = \sum_{i=1}^r n_i \cdot \mathfrak{f}_{\text{WD}}(
 
 Verified for all $(\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2$ at $q \in \{3, 5, 7\}$ with $L = 4$.
 
-**The projection.** The framework's trace-out operation (marginalization over the hidden sector) produces the reduced observable description — universally admitting the quantum representation — which depends on the coupling eigenvalues $\mu_k$ via the NM formula $\text{NM}^2 = 3\langle\mu^4\rangle$ — a consequence of the stochastic-quantum correspondence applied to the wave equation's Fourier decomposition. These $\mu_k$ are properties of $F_{\text{ss}}$, the semisimple part of the dynamics. The nilpotent monodromy $N$ contributes nothing to the emergent description: it affects only the off-diagonal Jordan block entries, which are erased by the coarse-graining over the hidden sector.
+**Spectral data and visible laws.** Let $q$ be prime with $\gcd(L, q) = 1$. $F_{\text{ss}}$ and $F_u$ commute and $F_u$ is unipotent, so $F$ and $F_{\text{ss}}$ have the same characteristic polynomial and the same eigenvalues with multiplicity. Every function of the eigenvalue multiset, $\mathfrak{f}_{\text{ss}}$ among them, is therefore independent of $N$. $\text{rank}(N)$ is not spectral data; $\mathfrak{f}_{\text{WD}}$ carries it as a separate term.
 
-The trace-out therefore performs the Jordan-Chevalley projection
-$$(F_{\text{ss}}, N) \mapsto F_{\text{ss}} \mapsto \{\mu_k\} \mapsto \text{NM}^2$$
-extracting the semisimple part, encoding it via magnitudes rather than orders, and organizing it by the representation theory of the partition. The nilpotent monodromy — genuine mathematical structure present in the full dynamics — is invisible to the embedded observer. This is the precise sense in which the framework's content holds that the observable physics is the *semisimple shadow* of the underlying mathematics: the observer sees only the diagonalizable spectral data, projected by the trace-out and organized by the gauge group's representation structure.
+Since $N^2 = 0$, $F^t = F_{\text{ss}}^t (I + tN)$. For $t \in q\mathbb{Z}$ this is $F_{\text{ss}}^t$, and for $q \nmid t$ it differs from $F_{\text{ss}}^t$, since $tN \neq 0$. Every visible law sampled only at times in $q\mathbb{Z}$, for any partition and any hidden prior, rooted or multi-time, is therefore the same for $F$ and $F_{\text{ss}}$. This is a coarse-graining in time at stride $q$, not a marginalization over the hidden sector.
+
+Marginalization over the hidden sector does not remove $N$. Take one site as the visible sector, with visible variable $(x(n, t-1), x(n, t))$, and a full-support hidden prior $\nu_H$ shared by every root, and let $\Gamma_t(a, j) = \nu_H\{h : \pi_V F^t(a, h) = j\}$ be the rooted visible law. For $L \geq 3$ the rule maps a constant configuration $(a, b)$ at every site to the constant configuration $(b, 2b - a)$, so $F^{mL}(0, 1) = (mL, mL + 1)$ on that mode, while $F_{\text{ss}}$ is the identity on it. The constant hidden configuration compatible with the root $(0, 1)$ has positive prior probability ($q^{-2(L-1)}$ under the uniform prior), so $\Gamma_{mL}((0,1), (mL, mL+1)) > 0$ for $F$. For $F_{\text{ss}}$, $F_{\text{ss}}^{L} = I$ makes $\Gamma_{mL}$ the identity kernel. Whenever $q \nmid m$, $(mL, mL + 1) \neq (0, 1)$, since $\gcd(L, q) = 1$, and the two rooted laws differ; in particular they differ at $m = 1$. On the block-diagonal evolution of Theorem B.3.4 a component with $\mu_a = 1$ follows the scalar rule, so the same witness applies to it, and one such component separates the two laws.
 
 ## B.4 The gap equation for $\hbar$
 
@@ -6218,7 +6218,7 @@ The biconditional is the framework's main characterization result. $\square$
 **The framework's full mathematical content.** Combining the derivations of this appendix:
 
 - B.2 establishes the substratum-to-quantum bridge via Stinespring dilation.
-- B.3 establishes the algebraic structure of the trace-out as Jordan-Chevalley projection, organizing the framework's content on gauge structure.
+- B.3 establishes the period and the Jordan-Chevalley decomposition of the ring evolution: spectral invariants are independent of the nilpotent part $N$, and hidden-sector marginalization does not remove $N$ from the visible laws.
 - B.4 establishes the gap equation relating $\hbar$ to the discreteness scale through horizon thermodynamics, producing the framework's content on gravitational physics.
 - B.5 establishes the unique anomaly-free hypercharge assignment on the nonzero-$Y_Q$ branch, fixing the framework's content on Standard Model matter.
 - B.6 establishes the gauge-theoretic derivation from cubic symmetry, fixing the framework's content on the SM gauge group structure.
@@ -6674,7 +6674,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **Information backflow.** A revival of distinguishability: the trace distance between the evolved states of two preparations increases over some interval (the Breuer–Laine–Piilo signature). In a P-divisible process distinguishability never increases, so backflow certifies P-indivisibility; a P-indivisible process need not show it. It is distinct from accessible finite-horizon memory, the conditional past–future dependence that history readback (C4) supplies on accessible windows, which does not by itself produce backflow ([Main §2.3]). Discussed in Chapter 1 §1.5.
 
-**Jordan-Chevalley projection.** The algebraic decomposition of an operator into commuting semisimple and nilpotent parts: $F = F_{ss} \cdot F_u$ with $F_u = I + N$ and $N^2 = 0$. The framework's content: the trace-out operation extracts $F_{ss}$ and discards $N$, organizing the emergent description by the representation theory of the partition. Developed in Appendix B §B.3.
+**Jordan-Chevalley decomposition.** The algebraic decomposition of an operator into commuting semisimple and nilpotent parts: $F = F_{ss} \cdot F_u$ with $F_u = I + N$ and $N^2 = 0$. For the ring wave equation, $F$ and $F_{ss}$ have the same eigenvalues, so spectral invariants are independent of $N$; hidden-sector marginalization does not remove $N$ from the visible laws. Developed in Appendix B §B.3.
 
 **JUNO (Jiangmen Underground Neutrino Observatory).** A reactor neutrino experiment that in November 2025 reported the first world-leading direct measurement of the solar neutrino mixing angle: $\sin^2\theta_{12} = 0.3092 \pm 0.0087$. The framework's parameter-free value $1/3 - 1/(4\pi^2) = 0.3080$ matches the direct measurement at $0.14\sigma$ and the post-JUNO global fit ($0.3085 \pm 0.0073$) at $0.07\sigma$ — a retrodiction; JUNO's design-lifetime precision provides the pre-registered forward test. Discussed in Chapter 8.
 
