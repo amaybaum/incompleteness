@@ -286,7 +286,7 @@ unheralded, non-adaptive preparation, followed by a fixed continuation, is unifo
 subgroup that does not depend on the labels.
 
 | Case | Does (L-1) hold? | Applies? |
-|---|---|---|
+|---|---|---|---|
 | C-POS-1, on its protocol class at `ε = 0` | no: cosine-hemisphere response laws are not coset-uniform | no |
 | C-POS-2, separating menus | no: hemisphere-law sampling from fair bits through fixed tables is not coset-uniform | no |
 | Reversible deterministic rules, unread uniform environment, every member | no: it fails for nonlinear members (for example the one that hosts C-PROG's controller under `F_U`) | no |
@@ -308,8 +308,8 @@ proves-too-much row (§4). No row relied on as established has status other than
 **Step 3.** `FAIL-CLASS` is proved for proper subclasses, so each is reported with
 `INCONCLUSIVE(gap)` for the rest. Every token carries H-μ.
 
-| Law (choice 6(i)(c)) | Carrier, mode | Token |
-|---|---|---|
+| Law (choice 6(i)(c)) | Carrier, mode | Token | Hypotheses carried |
+|---|---|---|---|
 | uniform (coset-uniform) | `𝓛_fin`, `init` | `FAIL-CLASS(R-lin, 𝓛_fin, coset-uniform law, init, unheralded witnesses)` at `(1/50, 3)`, for every `q ≥ 2` | H-μ |
 | uniform product | `𝓛_∞`, `init` | `FAIL-CLASS(R-lin, 𝓛_∞, uniform product law, init, unheralded witnesses)` at `(1/50, 3)` | H-μ, H-∞ |
 | uniform (coset-uniform) | `𝓛_fin`, `exch` | `FAIL-CLASS(R-lin, 𝓛_fin, coset-uniform law, exch, non-adaptive unheralded witnesses)` at `(1/50, 3)` | H-μ, H-write |
