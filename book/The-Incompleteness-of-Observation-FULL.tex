@@ -9823,8 +9823,7 @@ temperature on the same boundary modes; it holds under the infrared
 detailed-balance condition H-slope and the hidden-sector condition
 H-count --- the energy-dependent entropy of the whole hidden-sector
 reservoir is its boundary count, the deep hidden sector contributing
-none --- neither of which partition geometry supplies, with corrections
-at order \(\tau_S / \tau_B \sim 10^{-32}\):
+none --- neither of which partition geometry supplies:
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}.\]
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
 the dimensional argument of Step 3, which excluded \(\kappa\) from
@@ -27066,24 +27065,29 @@ Under H-BD the correction in Lemma B.4.2 is at most \(2t/\tau_{BD}\),
 which is of order \(10^{-32}\) for laboratory processes when
 \(\tau_{BD} \gtrsim 1/H\), a value that is not derived. Since
 \(T_{ij}(t)\) determines the emergent quantum description up to its
-action scale, and the cone law of Lemma B.4.3, and under H-BD
-\(T^{(B)}_{ij}(t)\), depend only on the dynamics of \(V\) and of hidden
-sites within \(n\) update steps of \(V\) --- which are characterized by
-the boundary geometry (\(A\), \(\epsilon\), \(\kappa\)) and the
-constants \(c\), \(G\) appearing in the classical Hamiltonian --- the
-emergent dynamics, in units of inverse time, inherits
-\emph{boundary-only dependence}. The action scale does not: every value
-of it gives the same \(T_{ij}(t)\), so the lemma does not bear on
-\(\hbar\), which Step 4 fixes.
+action scale, and the transition data on \([0, n\,\Delta t]\) depend
+only on the update of \(V\) and of the hidden sites within \(n\) update
+steps of \(V\) and on the prior there (Lemma B.4.3), the emergent
+dynamics in units of inverse time, as far as those data fix it, depends
+only on that local update and its causal cone (\emph{boundary-only
+dependence}); under H-BD those data agree with the one-layer law
+\(T^{(B)}_{ij}(t)\) to within \(2t/\tau_{BD}\). That the local update is
+itself fixed by the boundary geometry (\(A\), \(\epsilon\), \(\kappa\))
+and the constants \(c\), \(G\) of the classical Hamiltonian is a further
+condition: two local bijective updates on the same geometry can give
+different transition probabilities. The action scale is not fixed by
+these data: every value of it gives the same \(T_{ij}(t)\), so the lemma
+does not bear on \(\hbar\), which Step 4 fixes.
 
 \textbf{Step 2: Deep-sector gauge equivalence.} A corollary of Lemmas
 B.4.2 and B.4.3 is that no quantity determined by the visible transition
 data on \([0, n\,\Delta t]\) depends on the cardinality of the hidden
-sector beyond the causal cone \(B_n\), and that, under H-BD, none
-depends on the cardinality \(|\mathcal{C}_D|\) of the deep hidden sector
-to within \(\mathcal{O}(t/\tau_{BD})\): systems with the same update on
-the visible sector and \(B_{n-1}\) produce the same visible transition
-data on \([0, n\,\Delta t]\), and under H-BD systems with the same
+sector beyond the causal cone \(B_n\), and that, under H-BD, the
+transition probabilities do not depend on the cardinality
+\(|\mathcal{C}_D|\) of the deep hidden sector to within
+\(\mathcal{O}(t/\tau_{BD})\): systems with the same update on the
+visible sector and \(B_{n-1}\) produce the same visible transition data
+on \([0, n\,\Delta t]\), and under H-BD systems with the same
 \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the same data to
 within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep sector; the
 first statement holds also for an infinite deep sector, given a
@@ -27153,8 +27157,7 @@ the same modes cannot assign different temperatures without logical
 contradiction. The matching \(T_{\text{cl}} = T_Q\) identifies the
 classical inverse-energy temperature with the emergent KMS period on the
 same boundary modes \(V \times B\); it holds under H-slope and H-count
-(Chapter 7 §7.3), which partition geometry does not supply, with
-corrections at \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
+(Chapter 7 §7.3), which partition geometry does not supply:
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}\]
 
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
@@ -31168,4 +31171,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 2ea066c21d0a12173dc2b4d0a2725bdd24af06bc0dc16bf01c67b1d312dcf01d
+% source-sha256: 98d4b5822e9a60e08a59f70e18b799cb75757c54c8e30b0aee37e62c4d4bf007

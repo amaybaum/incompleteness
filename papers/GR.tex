@@ -957,48 +957,54 @@ Under H-BD the correction is at most \(2t/\tau_{BD}\), which is of order
 \(10^{-32}\) for laboratory processes when \(\tau_{BD} \gtrsim 1/H\), a
 value S1--S4 do not fix. Since \(T_{ij}(t)\) determines the emergent
 quantum description up to its action scale (Prerequisites; Barandes
-correspondence {[}35, 36{]}), and \(T^{(B_n)}_{ij}(t)\), and under H-BD
-\(T^{(B)}_{ij}(t)\), depend only on the dynamics of \(V\) and of hidden
-sites within \(n\) update steps of \(V\) --- which are characterized by
-the boundary geometry (\(A\), \(\epsilon\), \(\kappa\)) and the
-constants \(c\), \(G\) appearing in the classical Hamiltonian --- the
-emergent generator \(\Omega_{\rm eff}\), as far as the transition data
-fix it, inherits boundary-only dependence. The action scale does not:
-every \(a_*\) in \(H_{\rm phys}=a_*\Omega_{\rm eff}\) (§2.3) gives the
-same \(T_{ij}(t)\), so the lemma does not bear on \(\hbar\), which the
+correspondence {[}35, 36{]}), and the transition data on
+\([0, n\,\Delta t]\) depend only on the update of \(V\) and of the
+hidden sites within \(n\) update steps of \(V\) and on the prior there,
+the emergent generator \(\Omega_{\rm eff}\), as far as those data fix
+it, depends only on that local update and its causal cone; under H-BD
+those data agree with the one-layer law \(T^{(B)}_{ij}(t)\) to within
+\(2t/\tau_{BD}\). That the local update is itself fixed by the boundary
+geometry (\(A\), \(\epsilon\), \(\kappa\)) and the constants \(c\),
+\(G\) of the classical Hamiltonian is a further condition: two local
+bijective updates on the same geometry can give different transition
+probabilities. The action scale is not fixed by these data: every
+\(a_*\) in \(H_{\rm phys}=a_*\Omega_{\rm eff}\) (§2.3) gives the same
+\(T_{ij}(t)\), so the lemma does not bear on \(\hbar\), which the
 calibration \(a_*=\tau_K/\beta_E\) of §2.3 and Step 4 fixes. Steps 2 and
 3 are consistency checks, Step 2 under the lemma's hypotheses, and no
-result of §8.5(b) uses them. The departure of the reduced visible
-dynamics from its frozen-bath form also enters at first order,
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\), as a Hermitian drift of
-the emergent effective Hamiltonian \(\hat{H}_{\text{eff}}\) ({[}Main
-§3.2{]}), and through the constraint coupling of (C1), which acts on
-total energy--momentum, that drift is common-mode: the slow change of
-the traced-out horizon state rescales \(\hat{H}_{\text{eff}}\) uniformly
-and cancels in all dimensionless ratios, which is why the \(10^{-32}\)
-figure is absorbable rather than observable, with the
-composition-differential remainder suppressed by the tidal factor
-\((L_{\text{lab}}/R_H)^2 \sim 10^{-52}\), \(R_H\) the horizon radius,
-and independently capped by equivalence-principle tests.
+result of §8.5(b) uses them. If the traced-out hidden state moves at a
+rate of order \(1/\tau_B\), the slow-bath regime of {[}Main §3.2{]}, the
+departure of the reduced visible dynamics from its frozen-bath form
+enters at first order as a Hermitian drift of the emergent effective
+Hamiltonian \(\hat{H}_{\text{eff}}\) of order
+\((\tau_S/\tau_B)\,\|V_{\text{int}}\|\) ({[}Main §3.2{]}), with
+\(\tau_S/\tau_B \sim 10^{-32}\) when \(\tau_B \sim 1/H\); this mechanism
+is separate from the deep-sector influence that H-BD bounds. Whether
+that drift is common-mode --- a uniform rescaling of
+\(\hat{H}_{\text{eff}}\) through the constraint coupling of (C1),
+cancelling in dimensionless ratios up to a composition-differential
+remainder of order \((L_{\text{lab}}/R_H)^2\), \(R_H\) the horizon
+radius --- is open.
 
 \textbf{Corollary (deep-sector cardinality is gauge).} \emph{No quantity
 determined by the visible transition data on \([0, n\,\Delta t]\)
 depends on the cardinality \(|\mathcal{C}_{D_n}|\) of the hidden sector
-beyond the causal cone \(B_n\), and, under H-BD, none depends on the
+beyond the causal cone \(B_n\): neither those transition probabilities,
+nor the set of emergent Hamiltonians compatible with them, nor any
+quantity that takes the same value on every member of that set. Under
+H-BD the transition probabilities \(T_{ij}(t)\) do not depend on the
 cardinality \(|\mathcal{C}_D|\) of the deep hidden sector to within
-\(\mathcal{O}(t/\tau_{BD})\): neither the transition probabilities
-\(T_{ij}(t)\), nor the set of emergent Hamiltonians compatible with
-them, nor any quantity that takes the same value on every member of that
-set, such as the Bohr-frequency set \(\{E_a - E_b\}\) under the
-hypotheses of Bohr-frequency completeness (§3.3). Systems with the same
-update on the sites of \(V \cup B_{n-1}\) produce the same visible
-transition data on \([0, n\,\Delta t]\), and under H-BD systems with the
-same \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the same
-data to within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep
-sector; the first statement holds also for an infinite deep sector,
-given a normalized product prior on it, a locally finite coupling graph
-and well-defined dynamics ({[}Substratum §4{]}) in which each
-component's update depends on finitely many components.}
+\(\mathcal{O}(t/\tau_{BD})\); the same accuracy for quantities fitted to
+them, such as emergent Hamiltonians or their spectra, requires a
+stability bound not derived here. Systems with the same update on the
+sites of \(V \cup B_{n-1}\) produce the same visible transition data on
+\([0, n\,\Delta t]\), and under H-BD systems with the same
+\(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the same data to
+within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep sector; the
+first statement holds also for an infinite deep sector, given a
+normalized product prior on it, a locally finite coupling graph and
+well-defined dynamics ({[}Substratum §4{]}) in which each component's
+update depends on finitely many components.}
 
 \emph{Proof.} \(T^{(B_n)}_{ij}(t)\) and \(T^{(B)}_{ij}(t)\) are defined
 by sums over \(\mathcal{C}_{B_n}\) and \(\mathcal{C}_B\) alone, and by
@@ -1011,11 +1017,10 @@ sector with a normalized product prior, each visible component after
 \(n\) updates is a function of finitely many initial components in
 \(B_{G_\varphi}(V, n)\), so the integrand is again independent of the
 components beyond \(B_n\). The set of emergent Hamiltonians compatible
-with \(\{T_{ij}(t)\}\) is fixed by those data alone, so it inherits this
-independence, and so does every quantity that takes the same value on
-all its members. Bohr-frequency completeness (§3.3) makes the
-Bohr-frequency set such a quantity, and under H-BG the compatible set is
-a single two-branch gauge class (§3.3). \(\square\)
+with \(\{T_{ij}(m\,\Delta t) : m \leq n\}\) is fixed by those data
+alone, so it inherits their exact independence of \(\mathcal{C}_{D_n}\),
+and so does every quantity that takes the same value on all its members.
+\(\square\)
 
 A quantity that differs between members of the compatible set is not
 fixed by the visible data, and the corollary does not extend to it. An
@@ -1108,8 +1113,7 @@ assign different temperatures without logical contradiction. The
 matching \(T_{\text{cl}} = T_Q\) identifies the classical inverse-energy
 temperature with the emergent KMS period on the same boundary modes
 \(V \times B\); it holds under H-slope and H-count (§2.3), which
-partition geometry does not supply, with corrections at
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
+partition geometry does not supply:
 
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G\sigma} = \frac{\hbar \kappa}{2\pi c}\]
 
@@ -5547,4 +5551,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 7b79992185f99a1923adf8eb6e9c7fe76580cb0c303b79ffb842b314474b3203
+% source-sha256: ea69ee9a755e9f69fd83c92b7a7a3e1c651995c465729ffba7f403f21acbd91e
