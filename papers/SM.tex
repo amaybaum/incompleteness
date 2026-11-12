@@ -1267,25 +1267,35 @@ no claim to derive this identification, but records that the preferred
 frame, if physical, is not an additional tunable structure but the
 cosmological rest frame already present in the data.
 
-\textbf{Lemma} (Lattice Bisognano-Wichmann). \emph{For the wave
-equation, whose low-energy effective theory is Lorentz-invariant, the
+\textbf{Lemma} (Lattice Bisognano-Wichmann, conditional). \emph{Let the
+wave equation over \(\mathbb{R}\), whose low-energy effective theory is
+Lorentz-invariant, be in its ground state, and assume that its
 entanglement Hamiltonian for a half-space bipartition has the
-Bisognano-Wichmann form. The reduced state for a Rindler observer is
-thermal at \(T_U = \hbar\kappa/(2\pi c k_B)\), with corrections at
-\(O(\varepsilon^2\kappa^2/c^2)\).}
+Bisognano-Wichmann form at low energies (an open hypothesis for the
+lattice system). Then the reduced state for a Rindler observer is
+thermal at \(T_U = \hbar\kappa/(2\pi c k_B)\) at leading order, and
+under the H-Hawking conditions of {[}GR §8.5{]} the corrections are
+\(O(\varepsilon^2\kappa^2/c^2)\). No statement is made for the mod-q
+dynamics.}
 
-\emph{Proof.} The mod-q wave equation is a coupled harmonic oscillator
-system --- the class for which the lattice BW theorem is proved
-analytically {[}6{]}. Its low-energy dispersion is relativistic (the
-preceding lemma). Thermality of the Unruh effect is robust against UV
-modifications of the dispersion relation, with corrections scaling as
-\(O(\varepsilon^2\kappa^2/c^2)\). \(\square\)
+\emph{Proof.} Over \(\mathbb{R}\) the wave equation is a coupled
+harmonic oscillator system, and its low-energy dispersion is
+relativistic (the preceding lemma). Given the Bisognano-Wichmann form,
+the half-space reduced state is the Gibbs state of the boost generator,
+which is thermal at \(T_U\) for the Rindler observer. Under the
+H-Hawking conditions of {[}GR §8.5{]}, the Schützhold--Unruh
+dispersive-robustness result bounds the shift of the horizon temperature
+caused by the lattice dispersion at \(O(\varepsilon^2\kappa^2/c^2)\). No
+cited source derives the Bisognano-Wichmann form for this lattice:
+{[}6{]} treats it for free nonrelativistic fermions, a class that does
+not include this system. \(\square\)
 
 \textbf{Discrete Einstein equation} (target form; the curvature step is
 open, see step (iv) of the proof). \emph{For the state-dependent wave
 equation on a bounded-degree graph G(x) satisfying constraints
 (i)--(iii), the Jacobson thermodynamic argument would produce, were its
-curvature step supplied:}
+curvature step supplied and the hypotheses of the lattice
+Bisognano-Wichmann lemma granted:}
 
 \[\kappa_{OR}(i, j;\, G(x)) = \alpha \cdot \mathcal{T}_{ij}(x,\, G(x))\]
 
@@ -1301,12 +1311,15 @@ statement, with its own ground-state/regularity hypotheses. The graph
 boundary is evaluated in the state-dependent \(G(x)\), so
 preparation-indexed edges contribute to \(|\partial V|\) rather than
 invalidating the graph-level form by definition. (ii) \emph{Unruh
-temperature.} The lattice Bisognano-Wichmann lemma gives
-\(T=\hbar\kappa/(2\pi c k_B)\) at local causal horizons. (iii)
-\emph{Clausius relation.} Graph deformation is measured by the
-MESOSCOPIC Ollivier curvature \(\kappa^{(\delta_N)}_{OR}(x,y)\) at
-separation \(d(x,y)\le\delta_N\) with measures of radius \(\delta_N\),
-giving \(\delta A/A=-\kappa^{(\delta_N)}_{OR}\,\delta\lambda\) and hence
+temperature.} Under its Bisognano-Wichmann hypothesis and H-Hawking, the
+lattice Bisognano-Wichmann lemma gives \(T=\hbar\kappa/(2\pi c k_B)\) at
+local causal horizons for the real-valued wave equation in its ground
+state; no corresponding statement is supplied for the mod-\(q\)
+dynamics. (iii) \emph{Clausius relation.} Graph deformation is measured
+by the MESOSCOPIC Ollivier curvature \(\kappa^{(\delta_N)}_{OR}(x,y)\)
+at separation \(d(x,y)\le\delta_N\) with measures of radius
+\(\delta_N\), giving
+\(\delta A/A=-\kappa^{(\delta_N)}_{OR}\,\delta\lambda\) and hence
 \(\kappa^{(\delta_N)}_{OR}=\alpha\cdot\mathcal{T}_{xy}\). The scale is
 not cosmetic: the convergence result of (iv) is stated for the
 mesoscopic generalization, and one-link Ollivier curvature on sparse
@@ -1424,16 +1437,17 @@ Gaussian systems over \(\mathbb{R}\) {[}3{]}; over
 boundary bound \(I(V;V^c)\le|\partial V|\log_2 q\) of the area-law lemma
 above, not the proportional form, and the identification of
 \(|\partial V|\) with geometric area belongs to the same open
-construction. Input (ii) requires the Bisognano-Wichmann theorem; on the
-lattice the BW form is proved analytically for coupled harmonic
-oscillator systems {[}6{]} and shown robust against UV modifications of
-the dispersion relation with corrections at
-\(O(\varepsilon^2\kappa^2/c^2)\), and thermality at a local horizon
-holds under the H-Hawking conditions of {[}GR §8.5{]}, of which (i) and
-(ii) are open. Conditional on the geometric construction, on the
-proportional entropy law with \(\eta = \sigma/\varepsilon^2\), on
-H-Hawking and on the source coupling of {[}GR §6.2{]}, open at G3,
-Jacobson's argument gives
+construction. Input (ii) requires the Bisognano-Wichmann theorem; for
+the real-valued wave equation in its ground state the BW form is the
+open hypothesis of the lattice Bisognano-Wichmann lemma above, and given
+it, thermality at a local horizon holds at leading order, with
+dispersive corrections at \(O(\varepsilon^2\kappa^2/c^2)\), under the
+H-Hawking conditions of {[}GR §8.5{]}, of which (i) and (ii) are open;
+over \(\mathbb{Z}/q\mathbb{Z}\) no corresponding statement is supplied.
+Conditional on the geometric construction, on the proportional entropy
+law with \(\eta = \sigma/\varepsilon^2\), on the Bisognano-Wichmann
+hypothesis of that lemma, on H-Hawking and on the source coupling of
+{[}GR §6.2{]}, open at G3, Jacobson's argument gives
 
 \[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]\]
 
@@ -8903,36 +8917,20 @@ roots of unity. For \(\gcd(L, q) = 1\), the L-th roots in
 \(\bar{\mathbb{F}}_q\) are isomorphic to those in \(\mathbb{C}\), so
 their orders match. \(\square\)
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3571}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}@{}}
+\begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\(L\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(\mathfrak{f}_{\mathrm{ss}}(L)\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(\mathfrak{f}_{\mathrm{WD}}\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(\mathrm{NM}^2 = 3L/4\)
-\end{minipage} \\
+\(L\) & \(\mathfrak{f}_{\mathrm{ss}}(L)\) &
+\(\mathfrak{f}_{\mathrm{WD}}\) \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-4 & 14 & 16 & 3.00 \\
-6 & 30 & 32 & 4.50 \\
-8 & 70 & 72 & 6.00 \\
-10 & 106 & 108 & 7.50 \\
-12 & 130 & 132 & 9.00 \\
+4 & 14 & 16 \\
+6 & 30 & 32 \\
+8 & 70 & 72 \\
+10 & 106 & 108 \\
+12 & 130 & 132 \\
 \end{longtable}
-
-Both \(\mathfrak{f}_{\mathrm{ss}}\) and \(\mathrm{NM}^2\) are
-q-independent encodings of the same semisimple eigenvalue data --- one
-via multiplicative orders (integers), one via fourth moments of
-magnitudes (reals).
 
 \hypertarget{theorem-a.4-additive-decomposition-over-gauge-irreps}{%
 \subsubsection{Theorem A.4 (Additive decomposition over gauge
@@ -9226,4 +9224,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: e6fd0da54854b8b59c58c2f7edf653f101a60de0002b3431b2ab819ed5d7dbaf
+% source-sha256: 40a8e0fd28a5f9b54bdb66b50d47b58d0b63423d25c573f8743fd4549506db0e
