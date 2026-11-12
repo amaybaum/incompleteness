@@ -119,20 +119,26 @@ of unheralded preparations of equal length (Lemma A-T (d)). It pads unequal prep
 gate `c(0)`, using the credited form of Q3′ (final amendment B1.2–B1.3) to control the padding. The
 proposal named this route, and the amended definitions make it run without any `1/p_acc` factor.
 
-**Theorem FC-1** [W]. Let `𝓢₁` be the families with:
-- rule R-lin, for any fixed `q ≥ 2`;
-- a law of the unread world that is uniform on a coset (H-μ), in particular the uniform law;
-- initial-condition mode;
-- no heralded preparation among the witnesses of their Q-conditions;
-- carrier `𝓛_fin`, or `𝓛_∞` under H-∞ with the uniform product law.
+**Theorem FC-1** [W]. Fix the rule R-lin (any fixed `q ≥ 2`), a law of the unread world that is
+uniform on a coset (H-μ), initial-condition mode, and the carrier: `𝓛_fin`, or `𝓛_∞` under H-∞
+with the uniform product law. Inside `𝕀_D`, "uniform on a coset" means the uniform law (the uniform
+product law on `ℤ^3`).
 
-No member of a family in `𝓢₁`, at any resource, satisfies Q3′, Q5′ and Q6′ together at
-`(ε₀, K₀) = (1/50, 3)`, nor at any `ε < 1/48` and `K ≥ 3`.
+No interface of any such family, at any resource, satisfies Q3′, Q5′ and Q6′ together at
+`(ε₀, K₀) = (1/50, 3)`, nor at any `ε < 1/48` and `K ≥ 3`, **when Q6′ is witnessed by unheralded
+preparations**.
+
+The qualifier restricts how Q6′ is witnessed. It does not restrict which families belong to the
+class: a family has no witnesses until a proof supplies them. Only Q6′'s witnesses need be
+unheralded. No family of R-lin under the uniform law is ruled out outright. For the family class
+(R-lin, uniform law, initial-condition mode) itself, the verdict is `INCONCLUSIVE(L5.4)` (§5). `𝓢₁`
+below denotes the case FC-1 covers: these families, with Q6′ witnessed without heralds.
 
 **Proof.** Suppose Q3′, Q5′ and Q6′ hold at `(ε, K)` with `ε < 1/48` and `K ≥ 3`, for a declared
 target with reads `a, b`, `a·b ∈ [−½, ½]`.
 
-1. **Witnesses.** By Q6′(i) there are unheralded preparations `P₁` and `P₂`, of lengths
+1. **Witnesses.** By Q6′(i), witnessed without heralds, there are unheralded preparations `P₁`
+   and `P₂`, of lengths
    `ℓ₁, ℓ₂ ≤ K − 2`, with assignments credited on `𝒯_L`. Their mean states lie within trace
    distance `ε` of the pure states `ψ₁` and `ψ₂` with Bloch vectors `a` and `b`.
 2. **The read test.** Let `T_a` be the single round `c_a`, and `π_i` the world's probability of
@@ -182,9 +188,10 @@ round's record contains its label `c_j`, which is the same for `P′_1` and `P�
 continuation. The proof of FC-1 then runs unchanged, provided the Q6′ witnesses and their paddings
 are non-adaptive and unheralded.
 
-**Theorem FC-2** [W]. Take `𝓢₂` defined as `𝓢₁`, but in exchange mode and with the Q6′ witnesses
-non-adaptive as well as unheralded. No member satisfies Q3′, Q5′ and Q6′ together at any
-`ε < 1/48`, `K ≥ 3`. **Verdict: proved [W].**
+**Theorem FC-2** [W]. Take the families of FC-1, but in exchange mode under H-write, with Q6′ witnessed by
+non-adaptive, unheralded preparations. No interface then satisfies Q3′, Q5′ and Q6′ together at any
+`ε < 1/48`, `K ≥ 3`. The qualifier restricts the witnesses, not the class, as in FC-1. **Verdict:
+proved [W].**
 
 ### Node L5.4 (child): heralded witnesses (open)
 
@@ -269,12 +276,18 @@ condition on any `PASS-DERIVED`.
   3. Its columns are orthonormal with nonnegative entries, so their supports are pairwise disjoint.
      `N` columns with nonempty, pairwise disjoint supports in `N` coordinates each have support one
      coordinate, with entry 1. So `M` is a permutation matrix. ∎
-- *Consequence.* The encoded unitaries that branches can realize form a finite set: at most the
-  number of permutations of the frame. With `M` of them, a family `Ad U_θ` about one axis is
-  approximated within diamond distance `ε` only for `ε ≥ sin(π/(M+1))`, by the pigeonhole of C-CARD
-  (a). So under a fixed injective complete orthogonal frame identification with H-LIFT, Q3′'s
-  target family is unreachable below that error. L4(a) stands as a necessary condition on any pass
-  [W].
+- *Consequence, for exact branches.* Under a fixed injective complete orthogonal frame
+  identification with H-LIFT, every branch that acts exactly as `p · Ad U` realizes a permutation
+  of the frame points. The exactly realizable encoded unitaries therefore form a finite set, at
+  most the number of permutations of the frame. L4(a) stands in this exact form [W].
+- *Open: the approximate, operational form.* Two steps are not proved here.
+  - An approximate rigidity statement with constants: a nonnegative matrix close to an orthogonal
+    one is close to a permutation.
+  - A link from the record-level Q3′ (credited, final amendment B1) to "the branch acts on the
+    encoded carrier approximately as `p · Ad U`".
+
+  The approximate form of L4(a) is therefore open. FC-1 and FC-2 do not use Lemma F, so no token
+  depends on it.
 - U2(i), the `A_4 ≀ S_n` classification, is not needed for this and was not re-derived.
 
 ***
@@ -308,22 +321,33 @@ proves-too-much row (§4). No row relied on as established has status other than
 **Step 3.** `FAIL-CLASS` is proved for proper subclasses, so each is reported with
 `INCONCLUSIVE(gap)` for the rest. Every token carries H-μ.
 
+The `FAIL-CLASS` rows hold only when Q6′ is witnessed as stated. The qualifier restricts how Q6′ is
+witnessed, not which families belong to the class. For each family class, the verdict is the
+`INCONCLUSIVE` row (H1 of the session-3 review). Inside `𝕀_D`, "coset-uniform" means the uniform
+law, or the uniform product law on `ℤ^3`.
+
 | Law (choice 6(i)(c)) | Carrier, mode | Token | Hypotheses carried |
 |---|---|---|---|
-| uniform (coset-uniform) | `𝓛_fin`, `init` | `FAIL-CLASS(R-lin, 𝓛_fin, coset-uniform law, init, unheralded witnesses)` at `(1/50, 3)`, for every `q ≥ 2` | H-μ |
-| uniform product | `𝓛_∞`, `init` | `FAIL-CLASS(R-lin, 𝓛_∞, uniform product law, init, unheralded witnesses)` at `(1/50, 3)` | H-μ, H-∞ |
-| uniform (coset-uniform) | `𝓛_fin`, `exch` | `FAIL-CLASS(R-lin, 𝓛_fin, coset-uniform law, exch, non-adaptive unheralded witnesses)` at `(1/50, 3)` | H-μ, H-write |
+| uniform | `𝓛_fin`, `init` | `FAIL-CLASS(R-lin, 𝓛_fin, uniform law, init, Q6′ witnessed unheralded)` at `(1/50, 3)`, for every `q ≥ 2` | H-μ |
+| uniform product | `𝓛_∞`, `init` | `FAIL-CLASS(R-lin, 𝓛_∞, uniform product law, init, Q6′ witnessed unheralded)` at `(1/50, 3)` | H-μ, H-∞ |
+| uniform | `𝓛_fin`, `exch` | `FAIL-CLASS(R-lin, 𝓛_fin, uniform law, exch, Q6′ witnessed non-adaptive and unheralded)` at `(1/50, 3)` | H-μ, H-write |
 | uniform product | `𝓛_∞`, `exch` | as above on `𝓛_∞` | H-μ, H-∞, H-write |
-| uniform, rest of `𝕀_D` | both carriers and modes | `INCONCLUSIVE(L5.4: heralded witnesses; L5.5: adaptive witnesses, exch)` | — |
+| uniform: family class (R-lin, uniform, init) | `𝓛_fin` | `INCONCLUSIVE(L5.4: Q6′ witnessed with heralds)` | H-μ |
+| uniform product: family class (R-lin, uniform product, init) | `𝓛_∞` | `INCONCLUSIVE(L5.4)` | H-μ, H-∞ |
+| uniform: family class (R-lin, uniform, exch) | `𝓛_fin` | `INCONCLUSIVE(L5.4; L5.5: adaptive witnesses)` | H-μ, H-write |
+| uniform product: family class (R-lin, uniform product, exch) | `𝓛_∞` | `INCONCLUSIVE(L5.4; L5.5)` | H-μ, H-∞, H-write |
 | level-set law | `𝓛_fin`, `exch` | `INCONCLUSIVE(L5.6)` | H-μ, H-write |
 | level-set law | `init`; `𝓛_∞` | not defined (choice 6(iii)) | — |
-| non-uniform product law | both carriers and modes | `INCONCLUSIVE(L5.6)` | H-μ (and H-∞, H-write as applicable) |
+| non-uniform product law | `𝓛_fin`, `init` | `INCONCLUSIVE(L5.6)` | H-μ |
+| non-uniform product law | `𝓛_∞`, `init` | `INCONCLUSIVE(L5.6)` | H-μ, H-∞ |
+| non-uniform product law | `𝓛_fin`, `exch` | `INCONCLUSIVE(L5.6)` | H-μ, H-write |
+| non-uniform product law | `𝓛_∞`, `exch` | `INCONCLUSIVE(L5.6)` | H-μ, H-∞, H-write |
 
 **R-nl** (choice 1(b), a separate verdict under H-nl) has not started. It is the next node.
 
 **What the tokens establish** (proposal section 2.3). Each `FAIL-CLASS` establishes only that its
 stated subclass does not reach the target at `(1/50, 3)`. It is not a no-go for:
-- heralded or adaptive witnesses;
+- heralded or adaptive witnesses (for the family classes the verdict is `INCONCLUSIVE`);
 - other laws or other rules;
 - R-nl;
 - OI generally.
@@ -376,3 +400,16 @@ Lemma A-T and FC-1 rest on paper derivations [W] awaiting review; nothing here i
   - `mechanism-1-20261107/DESIGN.md`:88–102 and :398–440;
   - `mechanism-2-20261108/DESIGN.md`:300–348 and :398–450, on `origin/main`;
   - the governing texts.
+
+## 9. Review disposition (session-3 review, ACCEPT WITH CHANGES)
+
+Each item was checked by hand.
+
+- **H1.** Applied in FC-1, FC-2 and §5. "Unheralded witnesses" restricts how Q6′ is witnessed, not
+  which families belong to the class, and only Q6′'s witnesses are restricted. Each family class is
+  `INCONCLUSIVE(L5.4)`, with `L5.5` added in exchange mode.
+- **H2.** Applied in §3. U2(ii) is re-derived for exact branches only, and L4(a) stands in exact
+  form. The approximate rigidity statement and the link to the record-level Q3′ are open. No token
+  changes.
+- **Minor.** Applied in §5: every `INCONCLUSIVE` row carries H-μ, with H-∞ or H-write where they
+  apply, and "coset-uniform" is read inside `𝕀_D` as the uniform law.
