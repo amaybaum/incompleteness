@@ -1832,6 +1832,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *(A2) Determinism.* The dynamics $\\varphi: S \\to S$ is a bij..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *(A5) Linearity.* The wave equation governing $\\varphi$ is l..."
     },
     {

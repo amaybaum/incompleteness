@@ -284,10 +284,11 @@ finite total system (Lemma 1); a proper finite visible subsystem with a hidden c
 of more than one state (Lemma 2); the explicit product partition visible × hidden
 (Lemma 2); the dynamics deterministic and injective, hence a bijection with a predecessor
 map (Lemma 3); the counting measure invariant under the passive step and the control
-(Lemma 3); recurrence — every state returns (Axiom 2, here with period two); registered
-differentiation — the visible readout distinguishes states (Axiom 1); coupling through the
-dynamics across the partition (the definition's third feature, which is C1); and the four
-diagnostics C1–C4. -/
+(Lemma 3); every state returns, here with period two (exact return of the finite
+representative, which witnesses Axiom 2; Axiom 2 asserts only that differentiation
+recurs); registered differentiation — the visible readout distinguishes states (Axiom 1);
+coupling through the dynamics across the partition (the definition's third feature, which
+is C1); and the four diagnostics C1–C4. -/
 def SealedCoreIsFiniteOI : Prop :=
   Fintype.card Core = 8
     ∧ Fintype.card (Bool × Bool) = 4
