@@ -94,6 +94,42 @@ OI_CLAIMS = [
      "OI necessity: contrapositive form of the same unproved claim"),
 ]
 
+# ------------------------------------------------------------------ exemptions
+# One entry per (file, exact phrase, rule), each with its reason. A match is
+# exempt only when it lies inside an occurrence of the phrase in that file and
+# the rule is the one named; the same phrase in any other file, and any other
+# match of the rule in the same file or paragraph, is still checked. Paths are
+# relative to --root, with '/' separators.
+EXEMPTIONS = [
+    ("verification/programmes/oi-qm/reconstruction/drafts/tune-1-20261111/"
+     "TUNE-1-STEP2-AMENDMENT-1.md",
+     "unamended Q3 (state-independent gate records of the model `\U0001D514`)",
+     "GR: T_Q asserted state-independent (H-balance)",
+     "frozen TUNE-1 record; describes TUNE-1's own Q3 condition on the gate "
+     "records of the model, not GR's T_Q (owner decision on PR #1237, "
+     "2026-11-12)"),
+]
+_RULES = {why: rx for rx, why in CLAIMS + OI_CLAIMS}
+for _path, _phrase, _rule, _reason in EXEMPTIONS:
+    # A misnamed rule or a phrase the rule does not match would be a vacuous
+    # exemption; fail loudly rather than exempt nothing or the wrong thing.
+    assert _rule in _RULES and _RULES[_rule].search(_phrase) and _reason, _path
+
+
+def first_unexempt(rx, why, para, rel):
+    """First match of rx in para not covered by an exemption for (rel, why)."""
+    spans = []
+    for path, phrase, rule, _ in EXEMPTIONS:
+        if path == rel and rule == why:
+            i = para.find(phrase)
+            while i >= 0:
+                spans.append((i, i + len(phrase)))
+                i = para.find(phrase, i + 1)
+    for m in rx.finditer(para):
+        if not any(a <= m.start() and m.end() <= b for a, b in spans):
+            return m
+    return None
+
 
 def main():
     root = '.'
@@ -105,12 +141,13 @@ def main():
             if not f.endswith('.md'):
                 continue
             p = os.path.join(dp, f)
+            rel = os.path.relpath(p, root).replace(os.sep, '/')
             text = open(p, encoding='utf-8', errors='replace').read()
             pos = 0
             for para in text.split('\n\n'):
                 for rx, why, marks in ([(a, b, MARKERS) for a, b in CLAIMS]
                                       + [(a, b, OI_MARKERS) for a, b in OI_CLAIMS]):
-                    m = rx.search(para)
+                    m = first_unexempt(rx, why, para, rel)
                     if m and not any(k in para for k in marks):
                         ln = text.count('\n', 0, pos + m.start()) + 1
                         print(f"  CLAIM {p}:{ln}  {why}")
