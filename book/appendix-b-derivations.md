@@ -168,7 +168,7 @@ extracting the semisimple part, encoding it via magnitudes rather than orders, a
 
 *Main-text reference: Chapter 7 §7.3.*
 
-The framework derives the relation $\hbar = c^3\epsilon^2/(4G\sigma)$ between Planck's constant and the discreteness scale by matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory, conditional on H-slope with the horizon and frame conditions of Chapter 7 §7.3; with $\epsilon$ not independently known, it fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$ (Chapter 7 §7.4), not the value of $\hbar$. The derivation has four steps; each step is presented with its full content. Step 4 fixes the relation and does not use Steps 1–3: Steps 1–2 assume a spatially local classical Hamiltonian, and Step 3 is a dimensional check on the result of Step 4.
+The framework derives the relation $\hbar = c^3\epsilon^2/(4G\sigma)$ between Planck's constant and the discreteness scale by matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory, conditional on H-slope with H-count and the horizon and frame conditions of Chapter 7 §7.3; with $\epsilon$ not independently known, it fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$ (Chapter 7 §7.4), not the value of $\hbar$. The derivation has four steps; each step is presented with its full content. Step 4 fixes the relation and does not use Steps 1–3: Steps 1–2 assume a spatially local classical Hamiltonian, and Step 3 is a dimensional check on the result of Step 4.
 
 **Step 1: Spatial locality.** The classical Hamiltonian of the substratum is spatially local. The interaction decomposes as
 $$H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}$$
