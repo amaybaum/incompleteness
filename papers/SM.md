@@ -31,7 +31,7 @@ The status of these results admits a useful three-tier classification.
 
 **Tier 2 — Conditional physical-carrier chain.** The observer-level isotropy theorem and the geometric six-link decomposition are proved. The physical identification then has named bridges: observer-level center-freedom for the exact normalized $A/(2d)$ Markov part; H-link for identifying the physical carrier with $V_{\rm link}\otimes\mathbb C^m$; the single-copy clause $m=1$ for $K=6$; H-cust for the custodial condensate-stabilizer route; H-blind for the component-blind trace-out, which the symmetric-point rule supplies for the branch's component-complete site observer and which names the condition under which the universal cone of §4.4 extends to other observer classes and to inter-component hidden couplings; and the previously named H-spin'/H-χ' for physical-generation and weak-chirality readings. Downstream Standard-Model and numerical calculations are results *on that branch*, not unconditional consequences of finite observation alone.
 
-**Tier 3 — Redundant confirmations.** The minimal chiral-group constraint and the Jordan–Chevalley projection (Appendix A) provide additional checks with their stated hypotheses. Asymptotic freedom depends on the gauge and matter contributions to the beta function: the Standard Model's $SU(2)$ factor has $b_2=-19/6$ and is asymptotically free (§6.2). Thus asymptotic freedom does not require $N_c\geq3$ and does not by itself select the color group; the dimensionless-coupling result of §4.10 is separate.
+**Tier 3 — Redundant confirmations.** The minimal chiral-group constraint and the period formula and Jordan–Chevalley decomposition of the ring evolution (Appendix A) provide additional checks with their stated hypotheses. Asymptotic freedom depends on the gauge and matter contributions to the beta function: the Standard Model's $SU(2)$ factor has $b_2=-19/6$ and is asymptotically free (§6.2). Thus asymptotic freedom does not require $N_c\geq3$ and does not by itself select the color group; the dimensionless-coupling result of §4.10 is separate.
 
 The paper is organized as follows. §2 sets out the minimal structure on which the framework's results depend. §3 studies the continuum-gravity branch and selects $d = 3$ within A4's periodic-lattice class under E5–E7 and the continuum conditions of §3.1–§3.2. §4 develops the emergent quantum field theory through the bottom-up, gauge-emergence, and top-down chains. §5 shows that $T$-invariance and detailed balance give $\theta\in\{0,\pi\}$ and reciprocal transition counts but not $\bar\theta = 0$, leaving strong CP open under two named conditions (H-top, H-det); §5.5 sets out what is and is not established, and records a reported, unverified tension in the octahedral-equivariant reconstruction — reciprocity itself leaves the Jarlskog invariant free. §6 extends the chain quantitatively through the gauge coupling prediction. §7 collects the quantitative predictions for the CKM matrix, the lepton sector, the fermion mass chain, the PMNS angles, and the Higgs mass. §8 discusses structural realism, observer genericity, the structural-vs-bijection-level distinction, and the neutrino sector. §9 concludes — including a synthesis with the cosmological application developed in [GR] and the substratum-level reconstruction theorem developed in [Substratum].
 
@@ -1593,9 +1593,9 @@ The cosmological application of the same framework — including the horizon cal
 
 ***
 
-## Appendix A: The Trace-Out as a Jordan-Chevalley Projection
+## Appendix A: Jordan-Chevalley Structure of the Ring Evolution
 
-This appendix proves that the OI trace-out extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition, erasing the nilpotent monodromy. Results are stated for the scalar wave equation on a ring of L sites over $\mathbb{F}_q$; the multi-component extension incorporates the gauge group.
+This appendix derives the period and the Jordan-Chevalley decomposition of the evolution matrix and states which of the decomposition's data the visible laws retain. Results are stated for the scalar wave equation on a ring of L sites over $\mathbb{F}_q$; the multi-component extension incorporates the gauge group.
 
 ### Setup
 
@@ -1645,11 +1645,15 @@ $$\mathfrak{f}_{\mathrm{WD}}(M) = \sum_{i=1}^{r} n_i \cdot \mathfrak{f}_{\mathrm
 
 *Verified for all $(\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2$ at q = 3, 5, 7 with L = 4. Every case matches exactly.*
 
-### The projection
+### Spectral data and visible laws
 
-The OI trace-out (marginalization over the hidden sector) produces the reduced observable description — universally admitting the quantum representation — which depends on the coupling eigenvalues $\mu_k$ via the NM formula $\mathrm{NM}^2 = 3\langle\mu^4\rangle$ (a consequence of the stochastic-quantum correspondence applied to the wave equation's Fourier decomposition). These $\mu_k$ are properties of $F_{\mathrm{ss}}$ — the semisimple part of the dynamics. The nilpotent monodromy $N$ contributes nothing to the emergent description: it affects only the off-diagonal Jordan block entries, which are erased by the coarse-graining over the hidden sector.
+Let $q$ be prime with $\gcd(L, q) = 1$.
 
-The trace-out therefore performs the Jordan-Chevalley projection $(F_{\mathrm{ss}}, N) \mapsto F_{\mathrm{ss}} \mapsto \{\mu_k\} \mapsto \mathrm{NM}^2$: it extracts the semisimple part, encodes it via magnitudes rather than orders, and organizes it by the representation theory of the partition. The nilpotent monodromy — genuine mathematical structure present in the full dynamics — is invisible to the embedded observer. This is the precise sense in which physics is the semisimple shadow of mathematics: the observer sees only the diagonalizable spectral data, projected by the trace-out and organized by the gauge group's representation structure.
+*Spectral invariants.* $F_{\mathrm{ss}}$ and $F_u$ commute and $F_u$ is unipotent, so $F$ and $F_{\mathrm{ss}}$ have the same characteristic polynomial and the same eigenvalues with multiplicity. Every function of the eigenvalue multiset, $\mathfrak{f}_{\mathrm{ss}}$ among them, is therefore independent of $N$. $\mathrm{rank}(N)$ is not spectral data; $\mathfrak{f}_{\mathrm{WD}}$ carries it as a separate term.
+
+*Laws sampled at multiples of $q$.* Since $N^2 = 0$, $F^t = F_{\mathrm{ss}}^t (I + tN)$. For $t \in q\mathbb{Z}$ this is $F_{\mathrm{ss}}^t$, and for $q \nmid t$ it differs from $F_{\mathrm{ss}}^t$, since $tN \neq 0$. Every visible law sampled only at times in $q\mathbb{Z}$, for any partition and any hidden prior, rooted or multi-time, is therefore the same for $F$ and $F_{\mathrm{ss}}$. This is a coarse-graining in time at stride $q$, not a marginalization over the hidden sector.
+
+*Hidden-sector marginalization.* Marginalization over the hidden sector does not remove $N$. Take one site as the visible sector, with visible variable $(x(n, t-1), x(n, t))$, and a full-support hidden prior $\nu_H$ shared by every root, and let $\Gamma_t(a, j) = \nu_H\{h : \pi_V F^t(a, h) = j\}$ be the rooted visible law. For $L \geq 3$ the rule maps a constant configuration $(a, b)$ at every site to the constant configuration $(b, 2b - a)$, so $F^{mL}(0, 1) = (mL, mL + 1)$ on that mode, while $F_{\mathrm{ss}}$ is the identity on it. The constant hidden configuration compatible with the root $(0, 1)$ has positive prior probability ($q^{-2(L-1)}$ under the uniform prior), so $\Gamma_{mL}((0,1), (mL, mL+1)) > 0$ for $F$. For $F_{\mathrm{ss}}$, $F_{\mathrm{ss}}^{L} = I$ makes $\Gamma_{mL}$ the identity kernel. Whenever $q \nmid m$, $(mL, mL + 1) \neq (0, 1)$, since $\gcd(L, q) = 1$, and the two rooted laws differ; in particular they differ at $m = 1$. On the block-diagonal evolution of Theorem A.4 a component with $\mu_a = 1$ follows the scalar rule, so the same witness applies to it, and one such component separates the two laws.
 
 ***
 
