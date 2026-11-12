@@ -602,7 +602,7 @@ For $(E,J)\in S(U(3)\times U(2))$, the intrinsic representations $d_R=E$, $u_R=(
 
 **Theorem 16.** *The Yang-Mills coupling has mass dimension [g] = (3−d)/2; dimensionless iff d = 3.*
 
-*Proof.* The Yang-Mills action $S = \frac{1}{4g^2}\int d^{d+1}x\,F_{\mu\nu}^2$ requires $[g^{-2}][F^2] = [x]^{-(d+1)}$. With $[F] = [x]^{-2}$: $[g]^{-2} = [x]^{d-3}$, so $[g] = (3-d)/2$. $\square$ (kernel: `theorem_16` in `OIBridge/GaugeDimension.lean`)
+*Proof.* The Yang-Mills action $S = \frac{1}{4g^2}\int d^{d+1}x\,F_{\mu\nu}^2$ requires $[g^{-2}][F^2] = [x]^{-(d+1)}$. With $[F] = [x]^{-2}$: $[g^{-2}] = [x]^{3-d}$, so $g$ has length dimension $(d-3)/2$ and mass dimension $[g] = (3-d)/2$. $\square$ (kernel: `theorem_16` in `OIBridge/GaugeDimension.lean`)
 
 On the A4/E5–E7 branch, subject to the continuum conditions (§3.1–§3.2), $d = 3$ is selected and Theorem 16 gives $[g] = 0$ for the stated Yang–Mills sector. Asymptotic freedom additionally requires a negative beta function for the specified gauge factor and matter content; it does not follow from dimensionless coupling. The SM running used in §6.3 assumes the stated SM field content, with negative one-loop coefficients for the non-Abelian factors and a positive coefficient for U(1).
 

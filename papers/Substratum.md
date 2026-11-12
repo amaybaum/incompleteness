@@ -216,7 +216,7 @@ The framework's claim is that within the stated structural class, with the neare
 - A1 (finiteness) is supported by E3; alternative would be an effective-finiteness argument with continuum UV completion, which the framework does not develop.
 - A2 (determinism) is the key ontological commitment; stochastic alternatives would produce different reconstructions.
 - A3 (bounded coupling) is conventional for physical systems; long-range couplings would give different dimensional structure.
-- A4 (center independence) rules out preferred-frame theories.
+- A4 (center independence) rules out dynamics with a distinguished center site or an explicit self-term; it does not exclude a preferred lattice rest frame.
 - A5 (linearity) is the strongest restriction; amplitude-scale gauge invariance restricts the rule to an affine one (linearity-equivalence lemma, [SM §4.1]), so non-affine wave equations on finite lattices are the separate class one obtains exactly when that gauge principle is dropped.
 - A6 (background independence), as covariance under local internal-index transformations with the link coupling transformed alongside, is the standard gauge-theoretic requirement; the stronger fixed-background invariance, with the coupling held fixed, is a separate condition and is not what A6 asserts.
 
