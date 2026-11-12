@@ -1360,6 +1360,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Not superdeterminism.* Determinism alone does not establish..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework is therefore not a Bell-local hidden-variable ..."
     },
     {
@@ -1980,6 +1984,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **What the framework does not argue.** Two standard escapes ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Bell's theorem, conceded and then confronted.** Bell's mat..."
     },
     {
@@ -2085,6 +2093,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Common descriptions, separate premises.** A finite bijecti..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: This per-theorem verification is a genuine discipline, not a..."
     },
     {
       "ok": true,
