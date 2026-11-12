@@ -1472,6 +1472,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Step 1.* Under the canonical measure of Lemma 3 of Chapter ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Step 2.* Step 1's result concerns the transition probabilit..."
     },
     {
@@ -1621,6 +1625,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The conditions have distinct physical sources — C2 and C3 ar..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Lemma.** *Under the canonical measure of Lemma 3, the emer..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Different observers correspond to different partitions of th..."
     },
     {
       "ok": true,
