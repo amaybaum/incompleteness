@@ -286,7 +286,7 @@ unheralded, non-adaptive preparation, followed by a fixed continuation, is unifo
 subgroup that does not depend on the labels.
 
 | Case | Does (L-1) hold? | Applies? |
-|---|---|---|---|
+|---|---|---|
 | C-POS-1, on its protocol class at `ε = 0` | no: cosine-hemisphere response laws are not coset-uniform | no |
 | C-POS-2, separating menus | no: hemisphere-law sampling from fair bits through fixed tables is not coset-uniform | no |
 | Reversible deterministic rules, unread uniform environment, every member | no: it fails for nonlinear members (for example the one that hosts C-PROG's controller under `F_U`) | no |
