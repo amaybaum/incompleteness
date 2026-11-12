@@ -690,8 +690,9 @@ event `R`. Group (2) is added; group (3) content is supplied. P-R does not suppl
     prior non-uniform. The visible marginals are then generically not doubly stochastic, even for
     a bijection. So under P-R, observed departures from double stochasticity no longer witness a
     merge, and prong 1 loses its empirical input.
-  - Lemma 3's conclusion (bijectivity) survives through prong 2, which is structural:
-    finiteness and recurrence on the eventual image (Main:62).
+  - Lemma 3's conclusion (bijectivity) survives through prong 2, which is structural (finiteness),
+    for registered states in the eventual image (Main:62). Prong 2's restriction carries the
+    counting measure on that image, whose statistics need not match the uniform-prior ones.
   - **Verdict:** control (i) **fails as worded**. P-R removes prong 1's empirical input. It does
     not contradict Lemma 3's conclusion.
   - The same loss applies to any preparation datum that constrains hidden sites, whether it is

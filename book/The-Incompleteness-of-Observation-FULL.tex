@@ -3166,7 +3166,8 @@ Two further comparisons deserve separation from unresolved hidden-state
 facts. An independently prepared finite factor evolving exactly
 independently of the observed system changes the deep-sector cardinality
 while preserving the original fixed-interface coherent channel
-{[}Substratum Theorem 24(iii){]}. A slowly coupled deep sector preserves
+{[}Substratum Theorem 24(iii){]}. A deep sector coupled to the boundary
+layer under the posited influence bound H-BD of {[}GR §3.2{]} preserves
 only the leading-order accessible-time law, with the stated correction.
 Infinite extensions require specified normalized states or measures and
 dynamics. Alphabet change preserves observables only under the
@@ -3289,8 +3290,10 @@ are stated in {[}Main §1.2{]}, Remark (status of the early commitments).
 bijection --- deterministic and reversible. Its status is two-part
 (Chapter 1, Lemma 3): the bijective substratum is a representation
 choice --- the minimal recurrent bijective representative of the hidden
-dynamics --- and injectivity is anchored by a dilemma argument with one
-structural prong (finiteness and recurrence) and one empirical prong
+dynamics, which for a finite system is the dynamics restricted to its
+eventual image, the states lying on its cycles --- and injectivity is
+anchored by a dilemma argument with one structural prong (finiteness,
+for registered states in the eventual image) and one empirical prong
 (the observed statistics).
 
 \emph{(A3) Bounded coupling degree.} Each site of the substratum is
@@ -3604,9 +3607,9 @@ therefore every rooted population law {[}Substratum Theorem 24(iii){]}.
 This is stronger than a population-only assertion. Infinite factors
 require a separately specified normalized state or measure and
 well-defined dynamics; finite uniform counting does not supply that
-extension. Slowly coupled enlargements instead change the law by the
-correction stated in Chapter 7 and preserve only its leading-order
-accessible-time description.
+extension. Enlargements coupled under the influence bound H-BD instead
+change the law by the correction stated in Chapter 7 and preserve only
+its leading-order accessible-time description.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 gauge-sector qualification.} Two coupling graphs \(G_\varphi\) and
@@ -5418,8 +5421,9 @@ out that factor leaves the original visible channel unchanged
 time because the added dynamics remains exactly decoupled. It says
 nothing comparable about a sector that can later couple to the observed
 system, or about observations that directly access the added factor.
-Slow coupling gives only the separate approximation stated in {[}GR
-§3.2{]}, not exact observational equivalence.
+Coupling under the influence bound H-BD gives only the separate
+approximation stated in {[}GR §3.2{]}, not exact observational
+equivalence.
 
 This distinguishes redundancy between descriptions from unresolved facts
 within a model. Hidden degrees of freedom may store information that
@@ -9638,13 +9642,11 @@ relaxation timescale is the Hubble time,
 \(\tau_B \sim 1/H \sim 10^{17}\) s. The visible-sector dynamics
 timescale for any laboratory process is much faster: typical electroweak
 processes occur on timescales \(\tau_S \sim 10^{-15}\) s. The ratio
-\(\tau_S / \tau_B \sim 10^{-32}\) is extraordinarily small, making the
-corrections to the framework's leading-order results at scale
-\(\tau_S / \tau_B\) correspondingly small. C2's slow-bath realization is
-satisfied with enormous margin --- the cosmological horizon is among the
-slowest baths the framework's conditions admit. Corrections of order
-\(10^{-32}\) to the framework's leading results are well below current
-observational precision in all relevant sectors.
+\(\tau_S / \tau_B \sim 10^{-32}\) is extraordinarily small, so a
+correction that scales as \(\tau_S / \tau_B\) is correspondingly small.
+C2's slow-bath realization is satisfied with enormous margin --- the
+cosmological horizon is among the slowest baths the framework's
+conditions admit.
 
 \textbf{Verification of C3 (sufficient capacity).} The horizon's
 information-storage capacity scales with the horizon area: the number of
@@ -9764,17 +9766,23 @@ field equations remain open (Chapter 19 §19.2). The behaviour of the
 framework's small lattice corrections under the closure machinery
 remains an open consistency check.
 
-\textbf{Step 2: Boundary-only dependence.} If the classical Hamiltonian
-of the substratum is spatially local, the visible transition data from
-which the emergent quantum field theory on the horizon is reconstructed
-depend only on the boundary modes --- the degrees of freedom at the
-horizon itself --- and not on the deep content of the hidden sector,
-with corrections at order \(\tau_S / \tau_B \sim 10^{-32}\) for the
-cosmological partition ({[}GR §3.2{]}). The transition data fix the
-emergent dynamics in units of inverse time but not the action scale that
-converts it to energy, so this step does not bear on \(\hbar\): with
-Step 3 it is a consistency check, and the calibration of Step 4 fixes
-\(\hbar\).
+\textbf{Step 2: Boundary-only dependence.} The visible transition data
+from which the emergent quantum field theory on the horizon is
+reconstructed depend only on the hidden degrees of freedom within the
+visible sector's causal cone over the elapsed time, a layer whose depth
+grows with \(t\), and not on the deep content of the hidden sector
+beyond it (Appendix B.4). They depend at leading order only on the
+boundary modes --- the degrees of freedom at the horizon itself ---
+under a posited bound on the deep sector's influence on the boundary
+layer, H-BD, with influence time \(\tau_{BD}\): the corrections are then
+of order \(t/\tau_{BD}\), which is \(10^{-32}\) for laboratory processes
+when \(\tau_{BD} \gtrsim 1/H\), a value that is not derived, and for the
+framework's linear update the bound with an influence time longer than
+two update steps holds only if the deep sector does not act on the
+boundary at all ({[}GR §3.2{]}). The transition data fix the emergent
+dynamics in units of inverse time but not the action scale that converts
+it to energy, so this step does not bear on \(\hbar\): with Step 3 it is
+a consistency check, and the calibration of Step 4 fixes \(\hbar\).
 
 \textbf{Step 3: Dimensional analysis of \(\hbar\).} The emergent action
 scale \(\hbar\) depends only on local geometric quantities at the
@@ -9811,8 +9819,7 @@ temperature on the same boundary modes; it holds under the infrared
 detailed-balance condition H-slope and the hidden-sector condition
 H-count --- the energy-dependent entropy of the whole hidden-sector
 reservoir is its boundary count, the deep hidden sector contributing
-none --- neither of which partition geometry supplies, with corrections
-at order \(\tau_S / \tau_B \sim 10^{-32}\):
+none --- neither of which partition geometry supplies:
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}.\]
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
 the dimensional argument of Step 3, which excluded \(\kappa\) from
@@ -22747,17 +22754,19 @@ under the finiteness posit A1 (Chapter 2 §2.4) it is finite.
 
 A clarification is essential. The cardinality \(|\mathcal{C}_D|\) of the
 deep hidden sector is \emph{gauge} in the framework: different values of
-\(|\mathcal{C}_D|\) produce the same visible transition data at leading
-order on accessible timescales. The ``total information'' of the
-universe is therefore not fixed by those data. But the \emph{finiteness}
-of \(|\mathcal{C}_D|\) --- for the recurrence route specifically, that
-there exists some finite value, even if its specific magnitude is not
-observable --- is load-bearing. Infinite hidden sectors would break the
-recurrence argument that drives recurrence-scale P-indivisibility; that
-route would close. Accessible non-Markovianity would survive through
-readback, and the imported representation is gated by (T) rather than by
-recurrence, so an infinite substratum removes this route rather than the
-framework's quantum representation.
+\(|\mathcal{C}_D|\) produce the same visible transition data exactly for
+a deep sector beyond the reach of the dynamics over the times
+considered, and at leading order on accessible timescales under the
+posited influence bound H-BD of {[}GR §3.2{]}. The ``total information''
+of the universe is therefore not fixed by those data. But the
+\emph{finiteness} of \(|\mathcal{C}_D|\) --- for the recurrence route
+specifically, that there exists some finite value, even if its specific
+magnitude is not observable --- is load-bearing. Infinite hidden sectors
+would break the recurrence argument that drives recurrence-scale
+P-indivisibility; that route would close. Accessible non-Markovianity
+would survive through readback, and the imported representation is gated
+by (T) rather than by recurrence, so an infinite substratum removes this
+route rather than the framework's quantum representation.
 
 The framework's commitment to finite information is therefore neither a
 quantitative claim about the specific cardinality nor a metaphysical
@@ -26976,8 +26985,9 @@ independently known, it fixes only \(\epsilon/\sqrt{\sigma} = 2\,l_p\)
 (Chapter 7 §7.4), not the value of \(\hbar\). The derivation has four
 steps; each step is presented with its full content. Step 4 fixes the
 relation and does not use Steps 1--3: Steps 1--2 assume a spatially
-local classical Hamiltonian, and Step 3 is a dimensional check on the
-result of Step 4.
+local classical Hamiltonian and, for the one-layer boundary, the posited
+influence bound H-BD, and Step 3 is a dimensional check on the result of
+Step 4.
 
 \textbf{Step 1: Spatial locality.} The classical Hamiltonian of the
 substratum is spatially local. The interaction decomposes as
@@ -26989,57 +26999,103 @@ hidden-sector mode must propagate through the boundary layer \(B\)
 before influencing the visible sector. The coupling chain is
 \(V \leftrightarrow B \leftrightarrow D\), not \(V \leftrightarrow D\).
 
-\textbf{Lemma B.4.1 (Frozen deep sector).} \emph{Let \(\Delta_D\) be the
-spectral gap of \(H_D + H_{BD}\) restricted to the deep sector
-conditioned on a fixed boundary configuration. For times
-\(t \ll 1/\Delta_D \leq \tau_B\):}
-\[\|\varphi_t^D - \text{id}\| = \mathcal{O}(\Delta_D t) = \mathcal{O}(t/\tau_B)\]
+A deep-sector configuration that stays fixed still enters the boundary
+update, so a bound on the motion of \(D\) does not bound its effect on
+\(V\): for \(\varphi(v, b, d) = (v \oplus b, b \oplus d, d)\) on bits,
+\(d\) never changes, yet every entry of \(T(2\Delta t)\) is
+\(\tfrac12\), while clamping \(d\) at \(0\) or \(1\) gives the identity
+or the bit flip. The factorization below rests instead on a bound on
+\(D\)'s influence on \(B\), with \(\Delta t\) the update step:
 
-\emph{Proof.} The spectral gap gives the inverse relaxation time of the
-slowest mode, so \(\Delta_D \leq 1/\tau_B\) (with equality when the
-slowest mode dominates the relaxation). The deep-sector evolution over
-time \(t\) displaces any initial configuration by
-\(\mathcal{O}(\Delta_D t)\) in phase space. \(\square\)
+\textbf{H-BD} (deep-sector influence bound; posited). \emph{There is a
+map \(\varphi^{VB}\) of \(\mathcal{C}_V \times \mathcal{C}_B\) to itself
+such that, for every \((v, b)\), the \(V \times B\) component of
+\(\varphi(v, b, d)\) differs from \(\varphi^{VB}(v, b)\) for at most a
+fraction \(\Delta t/\tau_{BD}\) of \(d \in \mathcal{C}_D\).}
 
 \textbf{Lemma B.4.2 (Factorization of transition probabilities).}
-\emph{The transition probability factorizes as}
-\[T_{ij}(t) = T^{(B)}_{ij}(t) + \mathcal{O}(t/\tau_B)\] \emph{where
-\(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\) dynamics.}
+\emph{For a bijective update under H-BD, at \(t = n\,\Delta t\),}
+\[\sum_j \big|T_{ij}(t) - T^{(B)}_{ij}(t)\big| \leq \frac{2t}{\tau_{BD}}, \qquad T^{(B)}_{ij}(t) = \frac{1}{|\mathcal{C}_B|}\sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V((\varphi^{VB})^n(x_i, b))],\]
+\emph{where \(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\)
+dynamics.}
 
-\emph{Proof.} The transition probability is
-\[T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]\]
-By spatial locality, \(\pi_V(\varphi_t(x_i, b, d))\) depends on \(d\)
-only through the back-reaction \(B \leftarrow D\), which by Lemma B.4.1
-shifts \(b\) by \(\mathcal{O}(t/\tau_B)\). Expanding:
-\[\pi_V(\varphi_t(x_i, b, d)) = \pi_V(\varphi_t^{VB}(x_i, b)) + \mathcal{O}(t/\tau_B)\]
-where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
-\(D\) frozen. The \(d\)-sum then contributes \(|\mathcal{C}_D|\)
-identical terms at leading order:
-\[T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|}\sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square\]
+\emph{Proof.} Fix \(x_i\) and \(b\), and follow the reference path
+\((v_s, b_s) = (\varphi^{VB})^s(x_i, b)\). Let
+\(S_s \subseteq \mathcal{C}_D\) be the set of initial \(d\) whose
+trajectory under \(\varphi\) has \(V \times B\) component
+\((v_{s'}, b_{s'})\) at every step \(s' \leq s\). Elements of \(S_s\)
+share their \(V \times B\) components through step \(s\), so injectivity
+of \(\varphi\) makes their \(D\) components at step \(s\) distinct, and
+by H-BD at most a fraction \(\Delta t/\tau_{BD}\) of \(\mathcal{C}_D\)
+leaves \(S_s\) at step \(s+1\). Hence
+\(|\mathcal{C}_D \setminus S_n| \leq (t/\tau_{BD})\,|\mathcal{C}_D|\),
+and on \(S_n\),
+\(\pi_V(\varphi^n(x_i, b, d)) = \pi_V((\varphi^{VB})^n(x_i, b))\). The
+average over \(d\) therefore lies within \(\ell_1\) distance
+\(2t/\tau_{BD}\) of \(\delta_{x_j}[\pi_V((\varphi^{VB})^n(x_i, b))]\),
+and the average over \(b\) keeps the bound. \(\square\)
 
-The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
-processes. Since \(T_{ij}(t)\) determines the emergent quantum
-description up to its action scale, and \(T^{(B)}_{ij}(t)\) depends only
-on the \(V\)-\(B\) dynamics --- which are characterized by the boundary
-geometry (\(A\), \(\epsilon\), \(\kappa\)) and the constants \(c\),
-\(G\) appearing in the classical Hamiltonian --- the emergent dynamics,
-in units of inverse time, inherits \emph{boundary-only dependence}. The
-action scale does not: every value of it gives the same \(T_{ij}(t)\),
-so the lemma does not bear on \(\hbar\), which Step 4 fixes.
+Nothing in the framework fixes \(\tau_{BD}\). For a linear update on a
+finite abelian group with \(\mathcal{C}_D\) a direct summand, H-BD with
+\(\tau_{BD} > 2\Delta t\) holds if the deep sector does not enter the
+\(V \times B\) update and fails otherwise, and the linear lattice update
+of {[}Main §3.2{]} does not meet that condition at any cut where a
+boundary site has a deep neighbour ({[}GR §3.2{]}).
 
-\textbf{Step 2: Deep-sector gauge equivalence.} A corollary of the
-factorization lemma is that, to within \(\mathcal{O}(\tau_S/\tau_B)\),
-no quantity determined by the visible transition data depends on the
-cardinality \(|\mathcal{C}_D|\) of the deep hidden sector: systems with
-the same \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the
-same visible transition data, whether \(|\mathcal{C}_D|\) is finite,
-countably infinite, or uncountably infinite. Quantities that differ
-between Hamiltonians compatible with those data, such as individual
-eigenvalues and raw amplitudes, lie outside the corollary, and so does
-recurrence-scale content, which the recurrence argument establishes on a
-finite representative. Within the leading-order visible transition data
-on accessible timescales, a finite and an infinite deep sector are
-indistinguishable.
+\textbf{Lemma B.4.3 (Causal cone).} \emph{Let the bijective update act
+on a finite product of site configuration spaces, with the uniform
+hidden-sector prior, let \(B_n\) be the hidden sites within \(n\) update
+steps of the visible sector (the visible sector's causal cone over the
+elapsed time) and \(D_n\) the rest. At \(t = n\,\Delta t\),
+\(\pi_V(\varphi^n(x_i, b, d))\) does not depend on
+\(d \in \mathcal{C}_{D_n}\), and, for every
+\(d^* \in \mathcal{C}_{D_n}\), exactly}
+\[T_{ij}(t) = \frac{1}{|\mathcal{C}_{B_n}|}\sum_{b \in \mathcal{C}_{B_n}} \delta_{x_j}[\pi_V(\varphi^n(x_i, b, d^*))].\]
+
+\emph{Proof.} A component's value after \(n\) updates depends only on
+initial components within \(n\) steps of it ({[}Main §3.3{]}). Under the
+uniform prior the sum over \(\mathcal{C}_{D_n}\) contributes
+\(|\mathcal{C}_{D_n}|\) identical terms. \(\square\)
+
+Under H-BD the correction in Lemma B.4.2 is at most \(2t/\tau_{BD}\),
+which is of order \(10^{-32}\) for laboratory processes when
+\(\tau_{BD} \gtrsim 1/H\), a value that is not derived. Since
+\(T_{ij}(t)\) determines the emergent quantum description up to its
+action scale, and the transition data on \([0, n\,\Delta t]\) depend
+only on the update of \(V\) and of the hidden sites within \(n\) update
+steps of \(V\) and on the prior there (Lemma B.4.3), the emergent
+dynamics in units of inverse time, as far as those data fix it, depends
+only on that local update and its causal cone (\emph{boundary-only
+dependence}); under H-BD those data agree with the one-layer law
+\(T^{(B)}_{ij}(t)\) to within \(2t/\tau_{BD}\). That the local update is
+itself fixed by the boundary geometry (\(A\), \(\epsilon\), \(\kappa\))
+and the constants \(c\), \(G\) of the classical Hamiltonian is a further
+condition: two local bijective updates on the same geometry can give
+different transition probabilities. The action scale is not fixed by
+these data: every value of it gives the same \(T_{ij}(t)\), so the lemma
+does not bear on \(\hbar\), which Step 4 fixes.
+
+\textbf{Step 2: Deep-sector gauge equivalence.} A corollary of Lemmas
+B.4.2 and B.4.3 is that no quantity determined by the visible transition
+data on \([0, n\,\Delta t]\) depends on the cardinality of the hidden
+sector beyond the causal cone \(B_n\), and that, under H-BD, the
+transition probabilities do not depend on the cardinality
+\(|\mathcal{C}_D|\) of the deep hidden sector to within
+\(\mathcal{O}(t/\tau_{BD})\): systems with the same update on the
+visible sector and \(B_{n-1}\) produce the same visible transition data
+on \([0, n\,\Delta t]\), and under H-BD systems with the same
+\(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the same data to
+within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep sector; the
+first statement holds also for an infinite deep sector, given a
+normalized product prior on it, a locally finite coupling graph and
+well-defined dynamics in which each component's update depends on
+finitely many components. Quantities that differ between Hamiltonians
+compatible with those data, such as individual eigenvalues and raw
+amplitudes, lie outside the corollary, and so does recurrence-scale
+content, which the recurrence argument establishes on a finite
+representative. Within the visible transition data on
+\([0, n\,\Delta t]\), a finite deep sector beyond \(B_n\) and an
+infinite one with that prior and dynamics are indistinguishable.
 
 \textbf{Step 3: Dimensional determination.} The thermal matching of Step
 4 expresses \(\hbar\) through boundary quantities, the classical
@@ -27087,19 +27143,17 @@ from the classical substratum alone (no QM), \(T_Q\) from the emergent
 QFT alone (no classical substratum details) --- but they refer to the
 \emph{same physical degrees of freedom}: the boundary modes
 \(V \times B\) across which \(H_{\text{int}}\) couples the visible and
-hidden sectors. Under spatial locality, Step 1's boundary-only
-dependence shows that the visible transition data from which the
-emergent QFT is reconstructed are fixed (at leading order in
-\(\tau_S/\tau_B\)) by these same \(V \times B\) dynamics; the matching
-does not use it, the identification of the two descriptions' transitions
-being part of H-slope. Temperature is a state property; two complete
-descriptions of the same modes cannot assign different temperatures
-without logical contradiction. The matching \(T_{\text{cl}} = T_Q\)
-identifies the classical inverse-energy temperature with the emergent
-KMS period on the same boundary modes \(V \times B\); it holds under
-H-slope and H-count (Chapter 7 §7.3), which partition geometry does not
-supply, with corrections at
-\(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
+hidden sectors. Under H-BD, Step 1's boundary-only dependence shows that
+the visible transition data from which the emergent QFT is reconstructed
+are fixed, up to \(\mathcal{O}(t/\tau_{BD})\), by these same
+\(V \times B\) dynamics; the matching does not use it, the
+identification of the two descriptions' transitions being part of
+H-slope. Temperature is a state property; two complete descriptions of
+the same modes cannot assign different temperatures without logical
+contradiction. The matching \(T_{\text{cl}} = T_Q\) identifies the
+classical inverse-energy temperature with the emergent KMS period on the
+same boundary modes \(V \times B\); it holds under H-slope and H-count
+(Chapter 7 §7.3), which partition geometry does not supply:
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}\]
 
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
@@ -31113,4 +31167,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 1ede54ddd42123343dc0b0b089126968ce81fa9e8ac4258007125759653e9ceb
+% source-sha256: 61c4cbcabd19def11688d4c44962db0643118186c27a0e3e2014f47e9b643ccb
