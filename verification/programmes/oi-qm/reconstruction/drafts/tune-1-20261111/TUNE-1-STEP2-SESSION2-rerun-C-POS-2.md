@@ -55,7 +55,25 @@ menu-ideal quantum continuation.
   - Take a prefix of horizon at most `K − 2` ending at the nearest `R_w n` to `ψ`. Its credited
     mean is that pure state, at trace distance at most `δ_{K−2}` from `ψ`.
   - Its credited error on `𝒯_2` is at most `b + g ≤ b + δ_{K−2}`, since `g ≤ δ_{K−2}` by definition.
-  - Obtained at every `ε ≥ b + δ_{K−2}`, for `K ≥ 3`. For `K ≤ 2` it is not posed.
+  - **Heralded witnesses** (when `v` is a read eigen-direction). Final B1.2 admits a heralded
+    witness only with credit on `𝒯_K`. For a witness of length `ℓ`, the tests can then run to
+    `K − ℓ` rounds with up to `K − ℓ − 1` gates before a read, giving error up to
+    `b + (K − ℓ − 1) g`. The witness is therefore padded [W]:
+    - After the heralded read along `v`, repeat the same read `K − 2 − ℓ` times, heralding on
+      agreement, then apply the word `w`. The witness is still `R_w v`, now of length `ℓ = K − 2`.
+    - In the menu ideal, a Lüders read along `v` leaves `v` unchanged and agrees with probability 1.
+      In the world each repeat agrees with probability at least `1 − κ` (:205–215 [R]), so
+      `p_acc ≥ p⁰_acc (1 − Kκ) > 0` for `Kκ < 1`, where `p⁰_acc > 0` is the unpadded witness's acceptance. The value of `p_acc` and the trial count `1/p_acc` are
+      reported as final B4 requires.
+    - The per-history bound applies after the last fresh reset, whatever the herald. Each history's
+      continuation is therefore within (reads)`·κ ≤ hκ ≤ b` of the ideal continuation from `R_w v`,
+      so the credit holds at conditional error at most `b` against the menu ideal.
+    - At `ℓ = K − 2`, every test in `𝒯_K` that fits has at most 2 rounds. Only a gate followed by a
+      read lets a gate change the record law, so the target-against-menu cost is at most `g`.
+    - The credit on `𝒯_K` therefore holds at error at most `b + g ≤ b + δ_{K−2}`.
+  - Obtained at every `ε ≥ b + δ_{K−2}`, for `K ≥ 3`, with heralded and unheralded witnesses alike.
+    The stated constant is unchanged. For `K ≤ 2` it is not posed. At `K = 3` no padding is needed,
+    since `ℓ = 1 = K − 2`.
 - **Q1.**
   - Lower half: two antipodal prepared states, read along their axis. The ideal TV is 1, and each
     world law is within `b`, so the world TV is at least `1 − 2b`. This holds at `ε ≥ b + δ_1`,
@@ -168,4 +186,4 @@ ChatGPT review.
 - **Commands:** `git` (rev-parse, status, add, commit, push), `curl` (GitHub API reads of PR #1237
   comments), `cat`, `grep`, `sed`, `wc`, `sha256sum`. No interpreter was run, and all arithmetic was
   done by hand.
-- **Read:** the session-2 review (in full); owner comment 6822699905; the governing texts.
+- **Read:** the session-2 review (in full, including its r2 section on this rerun); owner comment 6822699905; the governing texts. Review G1 (credit on `𝒯_K` for heralded Q6′ witnesses) is closed in §2, and G2 in addendum 2.
