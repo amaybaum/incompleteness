@@ -466,9 +466,15 @@ the unique absolutely continuous invariant measure.
 \emph{Remark (the measure as a realization datum).} Lemma 3 fixes the
 canonical measure --- invariant, maximal-entropy --- and the framework's
 baseline transition matrices (§2.3) and the physical realization use it.
-It does not preclude structured preparations: a realization in the sense
-of §3.4 carries its own fixed hidden prior \(\mu_H\) as part of the
-realization datum, and the emergent law is a function of
+On the selected bijective carrier \(\mathcal{C}_V \times \mathcal{C}_H\)
+(Lemma 2) it is the uniform probability, with the uniform conditional
+law on \(\mathcal{C}_H\) in each visible fibre; the counting probability
+on the eventual image of a non-bijective description (status Remark
+below) belongs to a different representative choice and in general has
+neither equal-size visible fibres nor a product form. It does not
+preclude structured preparations: a realization in the sense of §3.4
+carries its own fixed hidden prior \(\mu_H\) as part of the realization
+datum, and the emergent law is a function of
 \((\varphi, \text{partition}, \mu_H)\) --- the same bijection and
 partition under different priors generally yield different visible laws
 (trivially: the two-state swap under uniform versus point-mass hidden
@@ -480,11 +486,19 @@ on representations.
 only finite visible resolution is a theorem (Lemma 1). The Definition
 and the two axioms do not fix the cardinality of \(S\). The bijective
 substratum is a representation choice --- the minimal recurrent
-bijective representative of the hidden dynamics; total finiteness of
-that representative is a premise of the results that use it, carried as
-item (ii) of the posit ledger (§4.5), the total-finiteness posit;
-observed near-unitarity is the empirical input motivating the choice.
-The physical reading of the characterization theorem --- the
+bijective representative of the hidden dynamics, defined here for a
+finite system only: for a map \(f\) on a finite set \(X\) it is the
+restriction of \(f\) to its eventual image
+\(E = \bigcap_{n \ge 0} f^n(X)\), the set of states lying on cycles of
+\(f\), on which \(f\) is a bijection of finite order,
+\(f^L = \text{id}\) on \(E\) for some \(L \ge 1\); no construction is
+given for an infinite \(S\). Total finiteness of that representative is
+a premise of the results that use it, carried as item (ii) of the posit
+ledger (§4.5), the total-finiteness posit; observed near-unitarity is
+the empirical input motivating the choice. The exact return
+\(\varphi^L = \text{id}\) is a property of the finite representative;
+Axiom 2 asserts that differentiation recurs, not that every microstate
+returns. The physical reading of the characterization theorem --- the
 identification of nature with a finite reversible substratum --- is
 accordingly conditional on that representation choice, an empirically
 motivated reconstruction rather than a pure derivation; the law-level
@@ -512,38 +526,58 @@ hidden prior that defines the baseline transition matrices, by the
 finite hidden space of the §3.2 setup, by the corner-occupancy claim of
 §3.1, by the coupling-graph causal cone of §3.3, and by §4.6; the
 obstructions stated in §3.4 for a fixed finite realization bear on
-nature through it. Determinism (injectivity) holds by a two-pronged
-argument. For states differing in registered content, injectivity is the
-requirement that the dynamics preserve the observer's records ---
-merging them would erase a distinction that has occurred. For states
-differing only in the hidden sector, a merge is either statistically
-observable or removable: a merge whose successor configurations differ
-visibly breaks the double stochasticity of the marginalized process at
-some step order (the marginal of a bijection under the uniform prior is
-doubly stochastic, since each set \(\{x_j\} \times \mathcal{C}_H\) has
-exactly \(|\mathcal{C}_H|\) preimages, §3.2, and unitary emergent
-statistics are unistochastic), so it is excluded wherever the observed
-statistics are of that doubly stochastic class under the uniform prior;
-a merge that leaves no statistical trace is removable, since any map on
-a finite set restricts to a bijection on its \emph{eventual image},
-where any recurrent registered history lives --- the non-injective
-description is then equivalent, for all registered history, to a
-bijective one. Either horn delivers a bijective substratum for the
-dynamics governing registered history; the two prongs use different
+nature through it. Determinism (injectivity) holds, in the scope stated
+for each prong, by a two-pronged argument. For states differing in
+registered content, injectivity is the requirement that the dynamics
+preserve the observer's records --- merging them would erase a
+distinction that has occurred. For states differing only in the hidden
+sector, a merge is either statistically observable or removable: a merge
+whose successor configurations differ visibly breaks the double
+stochasticity of the marginalized process at some step order (the
+marginal of a bijection under the uniform prior is doubly stochastic,
+since each set \(\{x_j\} \times \mathcal{C}_H\) has exactly
+\(|\mathcal{C}_H|\) preimages, §3.2, and unitary emergent statistics are
+unistochastic), so it is excluded wherever the observed statistics are
+of that doubly stochastic class under the uniform prior; a merge that
+leaves no statistical trace is removable for registered histories whose
+states lie in the \emph{eventual image} \(E\): any map on a finite set
+restricts to a bijection on \(E\), at most one of two merged states lies
+in \(E\), and on registered histories in \(E\) the non-injective
+description coincides with its restriction to \(E\). That representative
+is a restriction, not a factor, and the measure Lemma 3 assigns it is
+the counting measure on \(E\), which conditioned on the visible value is
+uniform on the fibre of \(E\) rather than on \(\mathcal{C}_H\) and need
+not reproduce the uniform-prior statistics of the original description:
+on \(\{0,1\} \times \{a,b,c\}\) with \(f(0,a) = f(0,c) = (0,a)\),
+\(f(0,b) = (1,a)\), \(f(1,a) = (0,b)\) and \((1,b)\), \((1,c)\) fixed,
+\(f\) has the visible process of the bijection that differs from it only
+in sending \((0,c)\) to itself, whose uniform-prior one-step matrix is
+\(\left(\begin{smallmatrix} 2/3 & 1/3 \\ 1/3 & 2/3 \end{smallmatrix}\right)\),
+while \(E\) omits \((0,c)\) and the counting measure on \(E\) gives
+\(\left(\begin{smallmatrix} 1/2 & 1/2 \\ 1/3 & 2/3 \end{smallmatrix}\right)\),
+which is not doubly stochastic. The uniform probability on the product
+carrier, used by Lemma 3, the baseline transition matrices and the §3.2
+setup, and the counting probability on \(E\) belong to different
+representative choices, and agreement of visible statistics under one
+does not transfer to the other without a separately verified
+measure-preserving correspondence. Either horn delivers a bijective
+substratum for the dynamics governing registered history in its scope,
+the second for registered states in \(E\); the two prongs use different
 inputs --- the first empirical (the observed statistics, in the
 uniform-prior doubly stochastic scope), the second structural
-(finiteness and recurrence). On a finite set, injectivity implies
-surjectivity, so \(\varphi\) is a bijection. As for the measure: on the
-orbit of the actual microstate, the uniform measure is the unique
-\(\varphi\)-invariant measure; the selection among orbits is fixed by
-maximal entropy compatible with the observer's records --- and the
-atypical short orbits of the idealized linear dynamics (fixed points,
-low-period cycles) are precisely observer-lacking substrata --- an orbit
-of period \(p\) makes at most \(p\) states dynamically accessible, so
-for small \(p\) no partition of it can satisfy the high-capacity
-condition C3 --- admitting no C1--C4 partition, hence outside the scope
-of every theorem below. The invariant counting measure, in the continuum
-limit, becomes the Liouville measure on \(\Gamma\):
+(finiteness, for registered states in the eventual image). On a finite
+set, injectivity implies surjectivity, so \(\varphi\) is a bijection. As
+for the measure: on the orbit of the actual microstate, the uniform
+measure is the unique \(\varphi\)-invariant measure; the selection among
+orbits is fixed by maximal entropy compatible with the observer's
+records --- and the atypical short orbits of the idealized linear
+dynamics (fixed points, low-period cycles) are precisely
+observer-lacking substrata --- an orbit of period \(p\) makes at most
+\(p\) states dynamically accessible, so for small \(p\) no partition of
+it can satisfy the high-capacity condition C3 --- admitting no C1--C4
+partition, hence outside the scope of every theorem below. The invariant
+counting measure, in the continuum limit, becomes the Liouville measure
+on \(\Gamma\):
 
 \[\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho\]
 
@@ -1889,7 +1923,13 @@ into Hilbert spaces \(\mathcal{H}_V = \mathbb{C}^n\) and
 \(\mathcal{H}_H = \mathbb{C}^m\) via \(|i\rangle \leftrightarrow x_i\)
 and \(|k\rangle \leftrightarrow h_k\). This introduces no quantum
 postulates: it is the canonical identification of probability
-distributions on a finite set with diagonal density matrices.
+distributions on a finite set with diagonal density matrices. The
+uniform hidden prior of this section is the uniform probability on the
+product carrier \(\mathcal{C}_V \times \mathcal{C}_H\) of a bijection;
+the counting probability on the eventual image of a non-bijective
+description (§1.2) is a different measure, to which statements made
+under this prior do not transfer without a separately verified
+measure-preserving correspondence.
 
 \textbf{Lemma (permutation unitarity).} \emph{Any bijection
 \(\varphi: \mathcal{C}_V \times \mathcal{C}_H \to \mathcal{C}_V \times \mathcal{C}_H\)
@@ -5246,38 +5286,40 @@ and the empirical motivation recorded for an item does not make that
 item logically necessary. The framework's substantive posits, beyond
 Axiom 1 (tokened differentiation, indubitable), are: (i) Axiom 2 ---
 recurrence --- owned as a posit with a non-derivability countermodel;
-(ii) finiteness of the \emph{total} state space \(S\) --- Lemma 1
-delivers finiteness of the observer's distinguishable states, and the
-extension to all of \(S\) is A1 of the companion substratum construction
---- there scoped as the gauge choice of the minimal finite
-representative, the cardinality of a deep sector being unobservable at
-the fixed visible/hidden interface when that sector is a finite factor
-prepared independently in a normalized state and evolved by its own
-permutation, with product dynamics, which leaves every reduced visible
-channel, and hence every transition probability, unchanged (deep-sector
-enlargement, developed there) --- consumed here by the recurrence step
-of §2.3 and by §4.6, whose conclusions hold on the finite
-representative; their transfer, where expressible through the transition
-probabilities, to every representative reached from it by relabelling
-the hidden states, by such a finite decoupled enlargement or, under the
-alphabet-size hypothesis that systems with the same coupling structure
-and dynamics class differing only in alphabet size have the same
-emergent transition probabilities, by a change of alphabet that keeps
-the coupling structure and dynamics class is stated and proved in the
-companion substratum construction, as is the corollary that across
-extensions whose deep sector couples to the boundary layer with slow
-dynamics, under the hypothesis that the transition law then equals that
-of the visible and boundary sectors alone up to
-\(\mathcal{O}(t/\tau_B)\) for \(t \ll \tau_B\), only conclusions
-insensitive to that correction transfer, while the recurrence-scale
-conclusion of §2.3 is a statement about finite representatives, the
-remaining uses of the posit being listed in the status Remark of §1.2;
-(iii) the record-preservation and eventual-image arguments that ground
-determinism (Lemma 3) close the hidden-sector margin using one
-\emph{empirical} input --- the observed statistics, in the uniform-prior
-doubly stochastic scope --- and one structural principle, so bijectivity
-is part-empirical rather than a pure lemma (a reader who declines the
-recovery may instead adopt reversibility as the standard
+(ii) total finiteness of the bijective representative of the status
+Remark of §1.2 --- Lemma 1 delivers finiteness of the observer's
+distinguishable states, and the extension to the whole representative is
+A1 of the companion substratum construction --- there scoped as the
+gauge choice of the minimal finite representative, the cardinality of a
+deep sector being unobservable at the fixed visible/hidden interface
+when that sector is a finite factor prepared independently in a
+normalized state and evolved by its own permutation, with product
+dynamics, which leaves every reduced visible channel, and hence every
+transition probability, unchanged (deep-sector enlargement, developed
+there) --- consumed here by the recurrence step of §2.3 and by §4.6,
+whose conclusions hold on the finite representative; their transfer,
+where expressible through the transition probabilities, to every
+representative reached from it by relabelling the hidden states, by such
+a finite decoupled enlargement or, under the alphabet-size hypothesis
+that systems with the same coupling structure and dynamics class
+differing only in alphabet size have the same emergent transition
+probabilities, by a change of alphabet that keeps the coupling structure
+and dynamics class is stated and proved in the companion substratum
+construction, as is the corollary that across extensions whose deep
+sector couples to the boundary layer with slow dynamics, under the
+hypothesis that the transition law then equals that of the visible and
+boundary sectors alone up to \(\mathcal{O}(t/\tau_B)\) for
+\(t \ll \tau_B\), only conclusions insensitive to that correction
+transfer, while the recurrence-scale conclusion of §2.3 is a statement
+about finite representatives, the remaining uses of the posit being
+listed in the status Remark of §1.2; (iii) the record-preservation and
+eventual-image arguments that ground determinism (Lemma 3) close the
+hidden-sector margin using one \emph{empirical} input --- the observed
+statistics, in the uniform-prior doubly stochastic scope --- and one
+structural principle, the restriction of a finite map to its eventual
+image, which covers registered histories whose states lie in that image,
+so bijectivity is part-empirical rather than a pure lemma (a reader who
+declines the recovery may instead adopt reversibility as the standard
 information-conservation postulate of unitary quantum mechanics and
 classical Hamiltonian flow {[}42, 43{]}, at no cost to the downstream
 results --- see the remark following Lemma 3); (iv) the measure
@@ -5351,12 +5393,12 @@ companion methodology paper gives the complementary view: an eight-rung
 analysis of the primitive that recovers the proper part, the existence
 of a dynamics (conditionally), bijectivity and per-moment finiteness as
 lemmas of the two-axiom base and isolates recurrence (Axiom 2) as the
-one irreducible non-lemma; the finiteness of the total state space and
-items (iv)--(xiv) lie outside the layer it treats. The two accounts
-describe one structure --- the rung analysis counts what is
-\emph{recovered}, this ledger counts what is \emph{assumed} --- and
-agree on the substance, including that the determinism recovery closes
-its hidden-sector margin with an empirical input and that finiteness is
+one irreducible non-lemma; the total finiteness of item (ii) and items
+(iv)--(xiv) lie outside the layer it treats. The two accounts describe
+one structure --- the rung analysis counts what is \emph{recovered},
+this ledger counts what is \emph{assumed} --- and agree on the
+substance, including that the determinism recovery closes its
+hidden-sector margin with an empirical input and that finiteness is
 delivered only per-moment. The two-axiom statement remains correct about
 what is \emph{primitive}; this ledger states what is \emph{assumed}, and
 the framework's claims are conditional on the full list.
@@ -5995,4 +6037,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: 0ffc6c4de52f156091cf5ee937dda74ae38a43038e4ef7c1ecfb91221050f2e5
+% source-sha256: 10ce9becf9951169e8b2b259d180e22ad5574e5ec046d40e1b6661ff1cc3e288
