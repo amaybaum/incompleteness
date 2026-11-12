@@ -411,7 +411,7 @@ With the definition, the lemmas, and the conditions in place, the chapter's cent
 
 The marginalized transition probabilities of the previous section depend on three inputs: the dynamics, the partition, and the measure. The framework's lemmas fix the dynamics. The measure is fixed only by adding a selection principle: Lemma 3 takes the invariant measure of maximal entropy as the canonical one. Under the canonical measure only the partition remains as a free input, and the following result establishes that this is the entire freedom: the emergent description is determined by the partition alone.
 
-**Lemma.** *Under the canonical measure of Lemma 3, the emergent description is uniquely determined by the partition. Any parameters of the emergent theory depend only on the geometric and thermodynamic properties of the partition boundary.*
+**Lemma.** *Under the canonical measure of Lemma 3, the emergent description is uniquely determined by the partition.*
 
 *Proof.* By Lemma 3 the Hamiltonian flow $\phi_t$ is unique. By Lemma 2 the partition is fixed. An embedded observer with incomplete knowledge of the total energy averages over energies with a smooth prior, recovering the Liouville measure $\mu$ on a phase-space band — the continuum form of Lemma 3's maximal-entropy selection. Letting $\pi_V$ project onto the visible sector, the marginalized transition probabilities are
 $$T_{ij}(t_2, t_1) = \int_{\Gamma_H} \delta_{x_j}\!\bigl[\pi_V\bigl(\phi_{t_2-t_1}(x_i, h)\bigr)\bigr] \, d\mu(h),$$
