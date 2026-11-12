@@ -241,9 +241,9 @@ A specific technical objection concerns the framework's gap equation in Chapter 
 
 **The framework's response.** The logical chain in Chapter 7 §7.3 has four steps that show the derivation is *not* circular.
 
-*Step 1.* Under the canonical measure of Lemma 3 of Chapter 1, the framework's partition-relativity result proves that $\hbar$ is determined by the partition geometry. This is a structural claim about the framework's setup, not a quantum assumption.
+*Step 1.* Under the canonical measure of Lemma 3 of Chapter 1, the framework's partition-relativity result proves that the emergent description is determined by the partition. This is a structural claim about the framework's setup, not a quantum assumption.
 
-*Step 2.* Boundary-only dependence proves that $\hbar$ depends only on $c$, $G$, and the discreteness scale $\epsilon$. This follows from the framework's substratum being a finite-area boundary system, again a structural claim.
+*Step 2.* Step 1's result concerns the transition probabilities, which determine frequencies, not the action scale: converting a frequency to an energy requires $\hbar$ itself (Appendix B.7), so no value of $\hbar$ follows from the transition data alone.
 
 *Step 3.* Dimensional analysis gives $\hbar = \beta \cdot c^3 \epsilon^2 / G$ with unknown dimensionless coefficient $\beta$. The framework's structural setup determines the functional form; $\beta$ remains to be fixed.
 
