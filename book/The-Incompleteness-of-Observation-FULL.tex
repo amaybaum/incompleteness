@@ -589,10 +589,10 @@ read sequentially.
 
 \textbf{Appendix B (Mathematical Derivations).} Complete derivations for
 the framework's key technical results: the Stinespring construction, the
-Jordan-Chevalley projection, the gap equation relating \(\hbar\) to the
-discreteness scale, the anomaly cancellation calculation, the
-gauge-theoretic derivations, and the lemma chain for the
-characterization theorem. Use when the main-text derivations are too
+Jordan-Chevalley decomposition of the ring evolution, the gap equation
+relating \(\hbar\) to the discreteness scale, the anomaly cancellation
+calculation, the gauge-theoretic derivations, and the lemma chain for
+the characterization theorem. Use when the main-text derivations are too
 compressed for the reader's purposes. The appendix is designed for
 readers requiring full technical content; readers without that
 requirement can rely on the main-chapter derivations.
@@ -652,9 +652,10 @@ within the complete reading path.
   commentary; readers without interest in consciousness questions can
   skim.
 \item
-  \textbf{Appendix B §B.3} (Jordan-Chevalley projection) is the most
-  technical of the appendix sections; readers without background in
-  algebraic geometry can rely on the main-text §5.4-5.5 treatment.
+  \textbf{Appendix B §B.3} (Jordan-Chevalley structure of the ring
+  evolution) is the most technical of the appendix sections; readers
+  without background in algebraic geometry can rely on the main-text
+  §5.4-5.5 treatment.
 \end{itemize}
 
 These sections add depth to the framework's content but are not
@@ -26366,15 +26367,13 @@ structure, Born-form representation of the transition probabilities,
 emergent coherence theorem, and CP-indivisibility theorem. The
 construction uses only textbook operator algebra from the 1950s.
 
-\emph{B.3 The trace-out as a Jordan-Chevalley projection.} The
-framework's content on the Standard Model gauge structure relies on a
-structural property of the trace-out operation: it extracts the
-semisimple part of the evolution matrix's Jordan-Chevalley decomposition
-and discards the nilpotent monodromy. This appendix gives the full
-algebraic derivation: period formula, Jordan-Chevalley decomposition,
-\(q\)-independence of the Weil-Deligne conductor, additive decomposition
-over gauge irreps, and the precise sense in which the trace-out is a
-projection.
+\emph{B.3 Jordan-Chevalley structure of the ring evolution.} The
+evolution matrix of the wave equation on a ring over \(\mathbb{F}_q\)
+decomposes into commuting semisimple and unipotent parts. This appendix
+gives the full algebraic derivation: period formula, Jordan-Chevalley
+decomposition, \(q\)-independence of the Weil-Deligne conductor,
+additive decomposition over gauge irreps, and which of the
+decomposition's data the visible laws retain.
 
 \emph{B.4 The gap equation for \(\hbar\).} The framework relates
 Planck's constant \(\hbar\) to the discreteness scale through a thermal
@@ -26798,19 +26797,18 @@ coherent operational lift still to be established ({[}Main §3.4{]}) ---
 with leading-order Schrödinger evolution and structurally non-Markovian
 corrections at \(\mathcal{O}(\tau_S/\tau_B)\).
 
-\hypertarget{b.3-the-trace-out-as-a-jordan-chevalley-projection}{%
-\subsection{B.3 The trace-out as a Jordan-Chevalley
-projection}\label{b.3-the-trace-out-as-a-jordan-chevalley-projection}}
+\hypertarget{b.3-jordan-chevalley-structure-of-the-ring-evolution}{%
+\subsection{B.3 Jordan-Chevalley structure of the ring
+evolution}\label{b.3-jordan-chevalley-structure-of-the-ring-evolution}}
 
 \emph{Main-text reference: Chapter 5 §5.4-5.6.}
 
-The framework's content on the Standard Model gauge structure relies on
-a precise algebraic property of the trace-out operation: it extracts the
-semisimple part of the evolution matrix's Jordan-Chevalley decomposition
-and erases the nilpotent monodromy. This appendix gives the full
-derivation for the scalar wave equation on a ring of \(L\) sites over
-\(\mathbb{F}_q\); the multi-component extension incorporating the gauge
-group follows by additive decomposition.
+This appendix derives the period and the Jordan-Chevalley decomposition
+of the evolution matrix and states which of the decomposition's data the
+visible laws retain. The derivation is given for the scalar wave
+equation on a ring of \(L\) sites over \(\mathbb{F}_q\); the
+multi-component extension incorporating the gauge group follows by
+additive decomposition.
 
 \textbf{Setup.} The discrete wave equation
 \(x(n, t+1) = x(n-1, t) + x(n+1, t) - x(n, t-1) \pmod q\) has phase
@@ -26946,29 +26944,39 @@ additively. \(\square\)
 Verified for all \((\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2\) at
 \(q \in \{3, 5, 7\}\) with \(L = 4\).
 
-\textbf{The projection.} The framework's trace-out operation
-(marginalization over the hidden sector) produces the reduced observable
-description --- universally admitting the quantum representation ---
-which depends on the coupling eigenvalues \(\mu_k\) via the NM formula
-\(\text{NM}^2 = 3\langle\mu^4\rangle\) --- a consequence of the
-stochastic-quantum correspondence applied to the wave equation's Fourier
-decomposition. These \(\mu_k\) are properties of \(F_{\text{ss}}\), the
-semisimple part of the dynamics. The nilpotent monodromy \(N\)
-contributes nothing to the emergent description: it affects only the
-off-diagonal Jordan block entries, which are erased by the
-coarse-graining over the hidden sector.
+\textbf{Spectral data and visible laws.} Let \(q\) be prime with
+\(\gcd(L, q) = 1\). \(F_{\text{ss}}\) and \(F_u\) commute and \(F_u\) is
+unipotent, so \(F\) and \(F_{\text{ss}}\) have the same characteristic
+polynomial and the same eigenvalues with multiplicity. Every spectral
+invariant --- \(\mathfrak{f}_{\text{ss}}\) and the eigenvalue moments
+--- is therefore independent of \(N\). \(\text{rank}(N)\) is not
+spectral data; \(\mathfrak{f}_{\text{WD}}\) carries it as a separate
+term.
 
-The trace-out therefore performs the Jordan-Chevalley projection
-\[(F_{\text{ss}}, N) \mapsto F_{\text{ss}} \mapsto \{\mu_k\} \mapsto \text{NM}^2\]
-extracting the semisimple part, encoding it via magnitudes rather than
-orders, and organizing it by the representation theory of the partition.
-The nilpotent monodromy --- genuine mathematical structure present in
-the full dynamics --- is invisible to the embedded observer. This is the
-precise sense in which the framework's content holds that the observable
-physics is the \emph{semisimple shadow} of the underlying mathematics:
-the observer sees only the diagonalizable spectral data, projected by
-the trace-out and organized by the gauge group's representation
-structure.
+Since \(N^2 = 0\), \(F^t = F_{\text{ss}}^t (I + tN)\). For
+\(t \in q\mathbb{Z}\) this is \(F_{\text{ss}}^t\), and for \(q \nmid t\)
+it differs from \(F_{\text{ss}}^t\), since \(tN \neq 0\). Every visible
+law sampled only at times in \(q\mathbb{Z}\), for any partition and any
+hidden prior, rooted or multi-time, is therefore the same for \(F\) and
+\(F_{\text{ss}}\). This is a coarse-graining in time at stride \(q\),
+not a marginalization over the hidden sector.
+
+Marginalization over the hidden sector does not remove \(N\). Take one
+site as the visible sector, with visible variable
+\((x(n, t-1), x(n, t))\), and a full-support hidden prior \(\mu_H\)
+shared by every root, and let
+\(\Gamma_t(a, j) = \mu_H\{h : \pi_V F^t(a, h) = j\}\) be the rooted
+visible law. For \(L \geq 3\) the rule maps a constant configuration
+\((a, b)\) at every site to the constant configuration \((b, 2b - a)\),
+so \(F^{mL}(0, 1) = (mL, mL + 1)\) on that mode, while \(F_{\text{ss}}\)
+is the identity on it. The constant hidden configuration compatible with
+the root \((0, 1)\) has positive prior probability (\(q^{-2(L-1)}\)
+under the uniform prior), so \(\Gamma_{mL}((0,1), (mL, mL+1)) > 0\) for
+\(F\). For \(F_{\text{ss}}\), \(F_{\text{ss}}^{L} = I\) makes
+\(\Gamma_{mL}\) the identity kernel. Whenever \(q \nmid m\),
+\((mL, mL + 1) \neq (0, 1)\), and the two rooted laws differ; \(m = 1\)
+always qualifies, since \(\gcd(L, q) = 1\). On the block-diagonal
+evolution of Theorem B.3.4 the same witness applies in each component.
 
 \hypertarget{b.4-the-gap-equation-for-hbar}{%
 \subsection{\texorpdfstring{B.4 The gap equation for
@@ -28134,9 +28142,10 @@ derivations of this appendix:
   B.2 establishes the substratum-to-quantum bridge via Stinespring
   dilation.
 \item
-  B.3 establishes the algebraic structure of the trace-out as
-  Jordan-Chevalley projection, organizing the framework's content on
-  gauge structure.
+  B.3 establishes the period and the Jordan-Chevalley decomposition of
+  the ring evolution: spectral invariants are independent of the
+  nilpotent part \(N\), and hidden-sector marginalization does not
+  remove \(N\) from the visible laws.
 \item
   B.4 establishes the gap equation relating \(\hbar\) to the
   discreteness scale through horizon thermodynamics, producing the
@@ -30033,12 +30042,13 @@ past--future dependence that history readback (C4) supplies on
 accessible windows, which does not by itself produce backflow ({[}Main
 §2.3{]}). Discussed in Chapter 1 §1.5.
 
-\textbf{Jordan-Chevalley projection.} The algebraic decomposition of an
-operator into commuting semisimple and nilpotent parts:
-\(F = F_{ss} \cdot F_u\) with \(F_u = I + N\) and \(N^2 = 0\). The
-framework's content: the trace-out operation extracts \(F_{ss}\) and
-discards \(N\), organizing the emergent description by the
-representation theory of the partition. Developed in Appendix B §B.3.
+\textbf{Jordan-Chevalley decomposition.} The algebraic decomposition of
+an operator into commuting semisimple and nilpotent parts:
+\(F = F_{ss} \cdot F_u\) with \(F_u = I + N\) and \(N^2 = 0\). For the
+ring wave equation, \(F\) and \(F_{ss}\) have the same eigenvalues, so
+spectral invariants are independent of \(N\); hidden-sector
+marginalization does not remove \(N\) from the visible laws. Developed
+in Appendix B §B.3.
 
 \textbf{JUNO (Jiangmen Underground Neutrino Observatory).} A reactor
 neutrino experiment that in November 2025 reported the first
@@ -31167,4 +31177,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 61c4cbcabd19def11688d4c44962db0643118186c27a0e3e2014f47e9b643ccb
+% source-sha256: c83f8208bfb6b07dcd34503b920b0ee88760380e708205e95d5432ee36e8f99d
