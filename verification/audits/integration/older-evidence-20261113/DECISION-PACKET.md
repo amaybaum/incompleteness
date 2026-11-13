@@ -1,6 +1,6 @@
 # Older accepted-evidence preservation and integration decision packet
 
-**Writer complete; WIP pending separate non-author review and ChatGPT exact-head review. No landing, retirement or merge decision is made.** Accountable home: #1226. Guiding proposal: [#1280](https://github.com/amaybaum/incompleteness/pull/1280).
+**Writer complete; WIP pending separate non-author review and ChatGPT exact-head review. No landing, retirement or merge decision is made.** Accountable home: Issue #1169. Source handoff and one audited source PR: #1226. Guiding proposal: [#1280](https://github.com/amaybaum/incompleteness/pull/1280).
 
 Audit cut: `main` **`c3b5f37a354bb26437e2e0165c576a347a63c153`**, inspected 2026-11-13. Repository instructions: `AGENTS.md` blob `8900fe1ff55e45a64732e6751c2601a91367dcfd`. Authority: [#1226 c.6863602829](https://github.com/amaybaum/incompleteness/pull/1226#issuecomment-6863602829) and [#1169 c.6863608722](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6863608722). This audit is read-only paper/provenance work; all findings retain research **[R]** standing. Existing kernel theorems cited as support keep their actual hypotheses and evidence layer.
 

@@ -13,10 +13,11 @@
     1219,
     1082
   ],
-  "provenance_only": [
+  "source_reference_prs_outside_landing_scope": [
     1214,
     1270
   ],
+  "source_reference_scope_note": "Task-scope classification only, not a blanket A.42 provenance-only classification. Claim-specific consumed OICORE/QPHEN content remains support with the existing off-main obligations; no landing authority is granted.",
   "pr_snapshots": [
     {
       "pr": 1226,
