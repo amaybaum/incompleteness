@@ -33,10 +33,12 @@ change that file, whose text is the accepted text.
 - Not established: a physical derivation selecting either sign, or an exhaustive inventory of
   affected passages.
 
-**Claim kept (proposed, for owner decision):** "Bijectivity of the second-order update
+**Claim supported by this record:** "Bijectivity of the second-order update
 `(p,c) -> (c, F(c) + Dp)` holds for every invertible `D`, so reversibility does not force
-`D = -I_K`; the four downstream passages that infer it are documentary errors, and their
-replacement wording is proposed, not adopted (exact hand algebra, independently reviewed)."
+`D = -I_K`; the four downstream surfaces of the record's §3 (SM:312; ch05:99 with its FULL:1417
+mirror; `SecondOrderCircuit.lean:6–10`; `bohr_frequency_probe.py:10008–10009`) that infer it are
+documentary errors, and their replacement wording is proposed, not adopted (exact hand algebra,
+independently reviewed)."
 
 ## Dependencies
 
@@ -44,13 +46,15 @@ replacement wording is proposed, not adopted (exact hand algebra, independently 
 | --- | --- |
 | #1193 and comment 6739175078 | Provenance: authorization only. |
 | Source blobs and lines cited at `fd539e15` (SM, ch05, FULL, Main, `SecondOrderCircuit.lean`, `bohr_frequency_probe.py`, `OI_Time_Reversal.lean`, `DESIGN.md`, `continuous-time-audit.md`, `a6-instantiation/result.md`) and `ASSESSMENT.md` | Support on `main`: `fd539e15` is an ancestor of `main` and every cited blob resolves there. |
-| Review comment 6739544160 | Support on `main` through `REVIEW-6739544160.md`. The commit it names becomes reachable from `main` only by a non-squash merge. |
+| Review comment 6739544160 | Support on `main` through `REVIEW-6739544160.md`. The commit it names becomes reachable from `main` only through a merge commit (neither squash nor rebase), which keeps it an ancestor of `main`. |
 | CI run 42612953149 (named in the review) | Provenance: repository validation only. |
+| References inside the review bodies (sandbox paths, CI run ids, the reviewers' own authorization statements, GitHub links pinned at PR commits) | Provenance. Each verdict rests on the record blob named in the header. |
 
 ## Source drift from `fd539e15` to `main` (`911a5cb6`)
 
 - `papers/Main.md`: the binary-display paragraph cited at :294 is unchanged at :292. Posit-ledger
-  item (xiii), cited at :726, is unchanged at :724; the ledger now also lists item (xiv).
+  item (xiii), cited at :726, is verbatim at :724; elsewhere the ledger paragraph was revised
+  (items (ii), (iii), (v), (x) and the closing count) and adds item (xiv).
 - The false inference is still present on `main` at `papers/SM.md:312`,
   `book/ch05-gauge-structure.md:99`, `book/The-Incompleteness-of-Observation-FULL.md:1417`,
   `verification/lean-mathlib/OIBridge/SecondOrderCircuit.lean:6-10` (blob `4eacbb09`, unchanged),
@@ -72,9 +76,8 @@ replacement wording is proposed, not adopted (exact hand algebra, independently 
 
 ## Landing
 
-- **Mode.** A non-squash merge is required, so that `d3e23dca`, the commit the review names, is
-  reachable from `main`.
-- **Basis.** An established claim needs the record: the claim above, if the owner's merge decision
-  adopts it. No record on `main` currently depends on this one.
-- **Gate.** Owner decision (`amaybaum`, 2026-11-13T02:14:35Z, #1169 comment 6841795465): "Merging
-  needs a separate owner decision, which names the claim each landing keeps."
+- **Mode.** Merge commit (neither squash nor rebase), so that `d3e23dca`, the commit the review
+  names, remains an ancestor of `main`.
+- **Basis.** An established claim needs the record (§A.46 item 2): the claim above. No record on
+  `main` depends on this one at `911a5cb6`.
+- **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).
