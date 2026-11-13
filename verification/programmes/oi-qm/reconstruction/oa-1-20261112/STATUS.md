@@ -40,7 +40,7 @@ that file or any other file here; r5 is the accepted text.
 
   Emphasis is removed from the quotations.
 
-## What the record establishes
+## What the record supports, and at what strength
 
 - **Paper-level research findings, independently agent-reviewed, not adopted.** They are hand
   derivations ([W]) on manuscript statements ([P]), Lean statements on `main` ([K]) and research
@@ -76,6 +76,31 @@ open, not shown impossible (paper-level research findings: hand derivations, par
 records not independently established, with independent AI-agent reviews; Lean statements read on `main`, not rebuilt; not adopted; no manuscript claim
 affected)."
 
+## Verification status and remediation (§A.46 item 4)
+
+The accountable Issue is #1169. Under the owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), "Model acceptance is evidence of review, not independent mathematical
+verification", and "A remediation plan does not authorize new work. It may state that the obligation
+remains open." This plan authorizes no work. Each gap below remains open until the evidence or
+decision named for it is recorded on `main`.
+
+- **Independently verified:** none of the record's own results. Its [K] items are Lean statements
+  kernel-checked on `main`, read by the record and not rebuilt.
+- **Known-invalid:** none stated.
+
+| Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
+| --- | --- | --- | --- | --- |
+| Gap 2, classical control (D5, D7) | partially verified | Paper proof [W], re-derived twice, with independent AI-agent reviews | Independent mathematical verification of D5 and D7 | An independent mathematical verification recorded on `main` (for example a kernel formalization or a human review) |
+| Gap 1, preparation under μ-G (D2 applied to N1-S) | partially verified; conditional on μ-G, posited through ledger item (iv) | Paper derivation [W] with independent AI-agent reviews | Independent mathematical verification of D2 and its application to N1-S | As for gap 2; the posit stays a named premise |
+| Gap 3, the configuration-level cap [K] | partially verified | Lean statements kernel-checked on `main`, read and not rebuilt; their reading as this cap is reviewed paper text | An independent check that the cited Lean statements give the cap as stated | A kernel theorem stating the cap in the record's terms, or a human review recorded on `main` |
+| The owner's key test | partially verified | Gaps 1–3 above | As for gaps 1–3 | As for gaps 1–3 |
+| N3, fixed read and backaction | partially verified; conditional on half-known meters (apparatus-1 SA-1(c), P2) | Paper derivation [W] with independent AI-agent reviews | Independent mathematical verification | As for gap 2; the posit stays a named premise |
+| Statements resting on [R] records (MECH-1, MECH-2, minacc-1, apparatus-1, obsmu, mathcon1-polc, operational-quotient v3, TUNE-1) | partially verified | Research records not independently established | Independent validation of each [R] premise used (§A.46 item 7) | A recorded validation of that premise on `main`, or the statement narrowed to carry it as a named condition |
+| D8 | exploratory | An unreviewed candidate | Review and verification | A review and an independent verification recorded on `main` |
+
+The items listed as not established (N1-S under μ-O and μ-R, R-nl, sufficiency of MP-0 to MP-2)
+are open questions, not results of the record; they remain under #1169.
+
 ## Dependencies
 
 | Reference | Classification |
@@ -85,6 +110,7 @@ affected)."
 | TUNE-1, cited from `research/tune-1-20261111` at `d47a6377` (:30) | Support on `main`, as [R]. `d47a6377` is an ancestor of `main` (#1237), and `drafts/tune-1-20261111/` is byte-identical on `main`. |
 | #1169 comments 6829742537, 6829898892, 6841795465, 6842046488 | Governance provenance, quoted above. |
 | #1169 comment 6829596317 (the FH→SOURCE-1 trace, §8) | Provenance. It is the object §8 checks; each verdict there rests on Lean and manuscript lines on `main`. |
+| #1265 comment 6848447181; #1169 comment 6865680499 | Governance provenance, quoted under Verification status and Landing. |
 | #1169 comment 6831588323 (§10A, the owner's next question) | Governance provenance. §10A is not part of OA-1's results. |
 | Commits `066be3b1`, `815d6a8e`, `5fec0966` and `09240c92` on this PR's branch, named in the reviews | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
 | Working-copy blob ids in `DELTA-REVIEW-OA-1-r4.md` (:279 and :389, `29af1419`; :388, `602fe3af`) | Named by their first 8 characters in the committed file, which closes the §A.42 item 3 gap by abbreviation: the abbreviated ids name session working copies that were not kept. `602fe3af` is reproduced as stated above; `29af1419` (r5 before R1–R7) was not retained. No verdict rests on these objects beyond the committed blob. |
@@ -120,8 +146,15 @@ affected)."
 - **Mode.** Merge commit (neither squash nor rebase), so that `09240c92` and the other commits the
   reviews name remain ancestors of `main`. The branch commits carry "(WIP, not for merge)" in their
   messages; those were labels on the working checkpoints.
-- **Basis.** §A.46 item 2: the record supports the claim above, at the strength stated. No record on
-  `main` depends on it at `62bdc2cf`. The accountable Issue is #1169.
+- **Basis.** Landed by the owner's merge decision, #1265 comment 6848447181 (`amaybaum`,
+  2026-11-13T08:54:09Z): "Merge now (Recommended)"; "What landed: OA-1 r5, OA-2 r4, OA-3 r4 and W1-1
+  r4, as research records on their stated scope. No claim is promoted." No established claim needs
+  the record, it carries no computation, and no record on `main` depended on it at `62bdc2cf`; the
+  decision names no §A.46 item 2 condition and no owner exception. The record's §A.46 basis is being
+  reconciled under the owner's ruling, #1169 comment 6865680499 (`amaybaum`, 2026-11-13T21:44:54Z):
+  until the §A.46 amendment it calls for is adopted, "a landing that meets none of the existing
+  conditions needs an explicit, recorded owner exception." The record is preserved on `main`, not
+  established (§A.46 item 1); any removal is governed by item 6. The accountable Issue is #1169.
 - **Owner record.** Landing package: #1265 comment 6846206075 (`amaybaum`, 2026-11-13T06:44:20Z):
   "Prepare after sequence (Recommended)"; the PR "then lands only after a separate owner merge
   decision, as a merge commit."

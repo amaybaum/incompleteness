@@ -19,7 +19,7 @@ whose text is the accepted text.
   "Explicit owner reply in the current Codex session (2026-11-10): “Authorize the bounded 1% paper
   proof.”" It adopts the contract of the scoping proposal, #1216 comment 6769621038.
 
-## What the record establishes
+## What the record supports, and at what strength
 
 - **Conditional mathematical theorem, paper proof, independently reviewed.** On the PREP-MIN model
   (selected binary SM ring, L >= 9, original observer, uniform reference `U_c`) with the complete
@@ -43,6 +43,24 @@ M = 2^(2L-13), over uniform conditionings, each attained explicitly (conditional
 theorem, paper proof, independently reviewed; target-fitted; 1% tolerance only; physical-source
 gate not passed)."
 
+## Verification status and remediation (§A.46 item 4)
+
+The accountable Issue is #1216. Under the owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), "Model acceptance is evidence of review, not independent mathematical
+verification", and "A remediation plan does not authorize new work. It may state that the obligation
+remains open." This plan authorizes no work. Each gap below remains open until the evidence or
+decision named for it is recorded on `main`.
+
+- **Independently verified:** none; no result is kernel-checked.
+- **Known-invalid:** none stated.
+
+| Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
+| --- | --- | --- | --- | --- |
+| `C_A` (class A) and `C_B(L)` (class B) at total-variation error at most 1/100, each attained | partially verified; conditional on the fixed PREP-MIN model; target-fitted; 1% tolerance only | Paper proof, with one AI-agent paper, algebra and source review | Independent mathematical verification | A kernel formalization, an exact computation reproducible from `main`, or a human review, recorded on `main` |
+| Zero-error endpoint, 15/2 and 8 bits, re-derived in §6 | partially verified | As above | Independent mathematical verification | As above |
+
+The items listed as not established are not results of the record; they remain under #1216.
+
 ## Dependencies
 
 | Reference | Classification |
@@ -51,6 +69,7 @@ gate not passed)."
 | #1216 comments 6772851768 and 6769621038 | Governance provenance: authorization and contract, quoted above. |
 | PR #1227 review 5843234635 and commit `076b8e6f` (lines 69-71, 325-330, 422-423) | Support for the statement that the zero-error endpoint was accepted. It is on `main` only once PR #1227 lands by merge commit (neither squash nor rebase), so that `076b8e6f` remains an ancestor of `main`, with `PROOF.md` and `REVIEW-5843234635.md` in `prep-min-exact-t2-20261110/`. The 15/2 and 8 values themselves are re-derived in §6. |
 | #866, #1220, #1226, #1227, #1228 (scope and ownership) | Provenance and stated nondependencies. |
+| #1229 comment 6846556140; #1169 comment 6865680499 | Governance provenance, quoted under Verification status and Landing. |
 | Review 5845916465 | Support on `main` through `REVIEW-5845916465.md`. The commit it reviews becomes reachable from `main` only through a merge commit (neither squash nor rebase), which keeps it an ancestor of `main`. |
 | References inside the review bodies (sandbox paths, CI run ids, the reviewers' own authorization statements, GitHub links pinned at PR commits) | Provenance. Each verdict rests on the record blob named in the header. |
 
@@ -77,6 +96,15 @@ sentence and several later §3.1 passages not used here were revised, and SM als
   (`amaybaum`, 2026-11-13T02:14:35Z): "#1229 lands with or after #1227."
 - **Mode.** Merge commit (neither squash nor rebase), so that `ca6c07f8`, the commit the review
   names, remains an ancestor of `main`.
-- **Basis.** An established claim needs the record (§A.46 item 2): the claim above. No record on
-  `main` depends on this one at `911a5cb6`.
+- **Basis.** Landed by the owner's merge decision, #1229 comment 6846556140 (`amaybaum`,
+  2026-11-13T07:06:14Z): "merge #1229 with its named claim". §A.46 item 2's condition that an
+  established claim needs the record holds only for a claim that meets item 1's verification
+  standard. The claim above rests on a paper proof with one AI-agent review, and under the owner's
+  ruling, #1169 comment 6865680499 (`amaybaum`, 2026-11-13T21:44:54Z), "Model acceptance is evidence
+  of review, not independent mathematical verification." The record's §A.46 basis is being
+  reconciled under that ruling: until the §A.46 amendment it calls for is adopted, "a landing that
+  meets none of the existing conditions needs an explicit, recorded owner exception", and the merge
+  decision names none. The record is preserved on `main`, not established (§A.46 item 1); any
+  removal is governed by item 6. No record on `main` depends on this one at `911a5cb6`. The
+  accountable Issue is #1216.
 - **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).

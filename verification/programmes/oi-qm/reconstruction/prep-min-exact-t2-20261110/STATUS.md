@@ -20,7 +20,7 @@ whose text is the accepted text.
   choices and authorizes one bounded paper-only mathematical proof with a separate non-author
   independent review". The same comment fixes the target, the two classes and the cost.
 
-## What the record establishes
+## What the record supports, and at what strength
 
 - **Conditional mathematical theorem, paper proof, independently reviewed.** For the selected binary
   SM ring with L >= 9, the original two-site, two-slice observer, the fixed visible root and the
@@ -42,6 +42,23 @@ uniform conditionings, each attained explicitly (conditional mathematical theore
 independently reviewed; target-fitted; not a physical resource bound; physical-source gate not
 passed)."
 
+## Verification status and remediation (§A.46 item 4)
+
+The accountable Issue is #1169. Under the owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), "Model acceptance is evidence of review, not independent mathematical
+verification", and "A remediation plan does not authorize new work. It may state that the obligation
+remains open." This plan authorizes no work. Each gap below remains open until the evidence or
+decision named for it is recorded on `main`.
+
+- **Independently verified:** none; no result is kernel-checked.
+- **Known-invalid:** none stated.
+
+| Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
+| --- | --- | --- | --- | --- |
+| Minima 15/2 bits (class A) and 8 bits (class B), each attained, with the t = 0 and t = 1 checks | partially verified; conditional on the fixed PREP-MIN contract; target-fitted | Paper proof and exact algebra, with one AI-agent review | Independent mathematical verification | A kernel formalization, an exact computation reproducible from `main`, or a human review, recorded on `main` |
+
+The items listed as not established are not results of the record; they remain under #1169.
+
 ## Dependencies
 
 | Reference | Classification |
@@ -50,6 +67,7 @@ passed)."
 | #1169 comment 6768774955 | Governance provenance: authorization and the chosen contract, quoted above. |
 | #1169 comment 6767228389 (preliminary calculation) | Revision provenance; its numbers are re-derived in the record. |
 | #1226, #1220, #1049/QPHEN | Stated nondependencies. |
+| #1227 comment 6846372273; #1169 comment 6865680499 | Governance provenance, quoted under Verification status and Landing. |
 | Review 5843234635 | Support on `main` through `REVIEW-5843234635.md`. The commit it reviews becomes reachable from `main` only through a merge commit (neither squash nor rebase), which keeps it an ancestor of `main`. |
 | References inside the review bodies (sandbox paths, CI run ids, the reviewers' own authorization statements, GitHub links pinned at PR commits) | Provenance. Each verdict rests on the record blob named in the header. |
 
@@ -73,6 +91,15 @@ sentence and several later §3.1 passages not used here were revised, and SM als
 - **Mode.** Merge commit (neither squash nor rebase), so that `076b8e6f`, the commit the review
   names, remains an ancestor of `main`. PR #1229's record also cites that commit.
 - **Order.** PR #1229 lands with or after this PR.
-- **Basis.** An established claim needs the record (§A.46 item 2): the claim above. No record on
-  `main` depends on this one at `911a5cb6`. Once #1229 lands, its record also cites this one.
+- **Basis.** Landed by the owner's merge decision, #1227 comment 6846372273 (`amaybaum`,
+  2026-11-13T06:54:51Z): "merge #1227 with its named claim". §A.46 item 2's condition that an
+  established claim needs the record holds only for a claim that meets item 1's verification
+  standard. The claim above rests on a paper proof with one AI-agent review, and under the owner's
+  ruling, #1169 comment 6865680499 (`amaybaum`, 2026-11-13T21:44:54Z), "Model acceptance is evidence
+  of review, not independent mathematical verification." The record's §A.46 basis is being
+  reconciled under that ruling: until the §A.46 amendment it calls for is adopted, "a landing that
+  meets none of the existing conditions needs an explicit, recorded owner exception", and the merge
+  decision names none. The record is preserved on `main`, not established (§A.46 item 1); any
+  removal is governed by item 6. No record on `main` depended on this one at `911a5cb6`; the
+  PREP-MIN-ROB-1 record, landed by #1229, cites it. The accountable Issue is #1169.
 - **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).

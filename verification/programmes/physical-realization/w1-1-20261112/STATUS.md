@@ -39,7 +39,7 @@ separate from this note.
 
   Emphasis is removed from the quotations.
 
-## What the record establishes
+## What the record supports, and at what strength
 
 - **Paper-level research findings, not adopted.** They are hand derivations, independently
   agent-reviewed, on manuscript statements and one Lean statement read on `main`. The reviews place
@@ -83,6 +83,29 @@ is therefore an additional physical assumption, not a derived result (paper-leve
 derivations with independent AI-agent reviews, not machine-checked; the candidate list is not
 proven exhaustive; consistency axis only; no manuscript claim affected)."
 
+## Verification status and remediation (§A.46 item 4)
+
+The accountable Issue is #1245. Under the owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), "Model acceptance is evidence of review, not independent mathematical
+verification", and "A remediation plan does not authorize new work. It may state that the obligation
+remains open." This plan authorizes no work. Each gap below remains open until the evidence or
+decision named for it is recorded on `main`.
+
+- **Independently verified:** none of the record's own results. `counting_passive` is kernel-checked
+  on `main`; the record reads its statement and does not rebuild it.
+- **Known-invalid:** none stated.
+
+| Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
+| --- | --- | --- | --- | --- |
+| Verdict: none of the tested mechanisms establishes W1 | partially verified; the candidate list is not proven exhaustive; consistency axis only | Paper-level hand derivation with independent AI-agent reviews, not machine-checked | Independent mathematical verification of each candidate's exclusion | An independent mathematical verification recorded on `main` (for example a kernel formalization or a human review) |
+| C6(a) fails in the real lift of the linear rule (CE-RL) | partially verified | Paper-level hand derivation with independent AI-agent reviews, not machine-checked | Independent verification of CE-RL and its value of r | As for the verdict |
+| N2, the lattice identity and its equivalences; CE-F, CE-M | partially verified; conditional on the hypotheses the record lists | Paper-level hand derivation with independent AI-agent reviews, not machine-checked | Independent mathematical verification | As for the verdict |
+| Comparison with H-count (reading L) | partially verified | Paper-level hand derivation with independent AI-agent reviews, not machine-checked | Independent mathematical verification of both directions | As for the verdict |
+| §A.29 calibration findings | partially verified | Paper-level hand derivation with independent AI-agent reviews, not machine-checked | Independent mathematical verification | As for the verdict |
+| Findings on the manuscript surfaces (W1-0, W1-add) | partially verified; recorded, not applied | Reading of manuscript lines, AI-agent reviewed | An independent check of the cited lines | A human review recorded on `main`; any manuscript change needs its own owner authorization |
+
+C6(a) for the finite substratum is open; it is not a result of the record and remains under #1245.
+
 ## Dependencies
 
 | Reference | Classification |
@@ -93,6 +116,7 @@ proven exhaustive; consistency axis only; no manuscript claim affected)."
 | #1244 comment 6817396025 and #1245 comment 6818970549 (the statement of W1) | Provenance. §3 states W1 from GR:98 and GR:100. |
 | #1245 comment 6818702013 (L ≠ 0 at site-local cuts, C6(b)) | Provenance. GR:128 on `main` states that L ≠ 0 at every cut where a boundary site has a deep neighbour. |
 | #1245 comments 6829744096, 6828106610, 6841976574; #1169 comment 6841795465 | Governance provenance, quoted above. |
+| #1265 comment 6848447181; #1169 comment 6865680499 | Governance provenance, quoted under Verification status and Landing. |
 | Commits `5fec0966` and `6ca96562` on this PR's branch, named in the review | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
 | Working-copy blob id `72800573` in `DELTA-REVIEW-W1-1-r3.md` (:228, :270) | Named by its first 8 characters in the committed file, which closes the §A.42 item 3 gap by abbreviation: the abbreviated id names a session working copy that was not kept. Reverting exactly the four hunks the confirmation names in the reviewed r4 (`34b1a16f`, committed at `6ca96562`) reproduces it byte for byte; the package writer made this check. The confirmation itself names the reviewed blob `34b1a16f`, as committed at `6ca96562`. |
 | Other references inside the reviews (session paths, `origin/main` commits) | Provenance. Each verdict rests on the blobs `OBJECTS.md` records. |
@@ -122,8 +146,15 @@ proven exhaustive; consistency axis only; no manuscript claim affected)."
 - **Mode.** Merge commit (neither squash nor rebase), so that `6ca96562` and the other commits the
   review names remain ancestors of `main`. The branch commits carry "(WIP, not for merge)" in their
   messages; those were labels on the working checkpoints.
-- **Basis.** §A.46 item 2: the record supports the claim above, at the strength stated. No record on
-  `main` depends on it at `62bdc2cf`. The accountable Issue is #1245.
+- **Basis.** Landed by the owner's merge decision, #1265 comment 6848447181 (`amaybaum`,
+  2026-11-13T08:54:09Z): "Merge now (Recommended)"; "What landed: OA-1 r5, OA-2 r4, OA-3 r4 and W1-1
+  r4, as research records on their stated scope. No claim is promoted." No established claim needs
+  the record, it carries no computation, and no record on `main` depended on it at `62bdc2cf`; the
+  decision names no §A.46 item 2 condition and no owner exception. The record's §A.46 basis is being
+  reconciled under the owner's ruling, #1169 comment 6865680499 (`amaybaum`, 2026-11-13T21:44:54Z):
+  until the §A.46 amendment it calls for is adopted, "a landing that meets none of the existing
+  conditions needs an explicit, recorded owner exception." The record is preserved on `main`, not
+  established (§A.46 item 1); any removal is governed by item 6. The accountable Issue is #1245.
 - **Owner record.** Landing package: #1265 comment 6846206075 (`amaybaum`, 2026-11-13T06:44:20Z):
   "Prepare after sequence (Recommended)"; the PR "then lands only after a separate owner merge
   decision, as a merge commit."
