@@ -1,6 +1,7 @@
 # Q-868-H unit 1: heralds on native two-wing U′ preparations — validity, closure, quantum compatibility
 
-**WIP / UNVERIFIED. Model-written (Claude Code subagent, 2026-11-09), revision r2. Pending fresh independent review.** Nothing here
+**WIP / UNVERIFIED. Model-written (Claude Code subagent, 2026-11-09), revision r3 (2026-11-13; changes in
+`DISPOSITIONS-r3.md`). Pending focused confirmation review.** Nothing here
 is adopted, promoted or proposed for the manuscripts. No premise is adopted and no new assumption is introduced. A
 review ACCEPT, if reached, authorizes nothing further.
 
@@ -14,10 +15,11 @@ review ACCEPT, if reached, authorizes nothing further.
   > "a drive that can generate the phase is not a derivation of that drive from OI, and the phase-vs-layer-flow
   > independence keeps its Lean-proved scope."
 
-  "No computation" means no computation on an OI mechanism; exact checks of paper claims on generic mathematical
-  objects are allowed if labelled (#1210 c.6739250392; #1211 c.6739843458). The native preparations below are
-  enumerated **by hand**. The two probes (§10) check only Pauli-matrix and table facts; they encode no OI rule,
-  encoding, coupling or preparation. The drive and the layer flow play no part in this unit.
+  The authorization says "No computation". Owner decision (amaybaum, 2026-11-13, #868 c.6853568040): "r3; ratify the
+  probes", recorded there as "The owner retroactively ratifies the unit's generic linear-algebra probe scripts as
+  covered." The unit's probe scripts are the two of §10. The same record authorizes no other computation. The native
+  preparations below are enumerated **by hand**. The two probes (§10) check only Pauli-matrix and table facts; they
+  encode no OI rule, encoding, coupling or preparation. The drive and the layer flow play no part in this unit.
 - **Inputs:** `reassess/868/ASSESS-868.md` r3a (sha256 `d97c4b6b17bea9675d02a697e5164862471dad840dfbe9b54532baacd6788e1b`),
   which defines Q-868-H (§7 there), Lemma H (§4.1), witness w3 and the J-labels; its review `review/REVIEW-868-r3.md`
   (`2a5014a526399437754ecba4a8d8496ead456c33f10483c1b723acd170f0fd1d`, ACCEPT WITH NITS).
@@ -47,14 +49,14 @@ with the pre-read configuration as the hidden variable (§4). So every permitted
 remote herald lies in the cube cone. This includes heralded, postselected, repeated and sequentially composed
 branches. The proof uses only that a read registers a linear functional of the current configuration (SA-1(a)),
 wing-local kicks (E-iso, WL) and two-wing setting independence. The last is Main §3.3 hypothesis (iv), retained there
-as a posit, not derived (Main:406-407), and supplied here through P3's external controller. The premises of (V) are
-therefore SA-1(a), P3 with (iv), E-iso and WL, and NNB for the Y read. It does not use P1, P2, N2, Lemma 3 or
-Lemma Q. All reachable tables also lie in `maxCone(eball 3)`, but full-ball tests are not supplied (stop S2), so that
-is a fact about tables, not an operational validity.
+as a posit, not derived (Main:406-407), and carried here as a posit; the settings enter through P3's external
+controller. The premises of (V) are therefore SA-1(a), P3 with (iv), E-iso and WL, and NNB for the Y read. It does
+not use P1, P2, N2, Lemma 3 or Lemma Q. All reachable tables also lie in `maxCone(eball 3)`, but full-ball tests are
+not supplied (stop S2), so that is a fact about tables, not an operational validity.
 
 **Closure (C): PASS, conditional and scoped** [A from AP1 Lemma 3 and QP Lemma Q, W]. Under P1, P2, N2, A4 at `q = 2`,
-E-iso, WL and H-PREP, every remote herald, after any native read on one wing in any branch, leaves the other wing in
-the octahedron. The single-wing dictionary is sound relative to the encoded subtheory: the wing's law on
+E-iso, WL, H-PREP and (iv) via P3, every remote herald, after any native read on one wing in any branch, leaves the
+other wing in the octahedron. The single-wing dictionary is sound relative to the encoded subtheory: the wing's law on
 `(f_x, f_y, f_z)` is fixed by its Bloch vector. The class is closed under repetition and under sequential
 composition with every native operation, adaptive ones included (§5). Countercontrols that must break it do break
 it while (V) survives: with P1 removed, or SA-1(c) removed, a remote herald puts B at Bloch `(±1, 0, ±1)`, outside
@@ -62,20 +64,23 @@ the octahedron and inside the cube. This is a native witness of (V) ⇏ (C) (§5
 point is not a complete single-wing description under the full native access (QP node 8: parity-cell reads), and
 the product table is not a complete two-wing description (§6.3).
 
-**Quantum compatibility (QC): FAIL** [A + X]. The comparison map is the fixed U′ identification with the Pauli-table
-map `ρ_T = ¼ Σ T_ab σ_a ⊗ σ_b`, with joint reads mapped to Lüders reads of `σ_a ⊗ σ_b` (§6.1). The Φ⁺ table is
-natively reachable on some branches: Lemma P (§2.3) determines `pp` with carrier-only cross-wing couplings, and
-`H_A; CNOT` then gives Φ⁺ (E3); so does E4 with `τ_Y`. A failure scoped to one status of `pp` therefore does not
-carry the verdict on its own. The verdict rests on QC-2, which holds for every status of `pp` at the coupling. Under
-the stated access E2 (QC-1) and E4 without `τ_Y` (SWAP/2) are also native non-quantum tables. Four scoped failures,
-all from native preparations, none from a supplied quantum state:
+**Quantum compatibility (QC): FAIL** (with NNB carried) [A + X]. The comparison map is the fixed U′ identification
+with the Pauli-table map `ρ_T = ¼ Σ T_ab σ_a ⊗ σ_b`, with joint reads mapped to Lüders reads of `σ_a ⊗ σ_b` (§6.1).
+The Φ⁺ table is natively reachable on some branches, as a product-test table only: Lemma P (§2.3) determines `pp`
+with carrier-only cross-wing couplings, and `H_A; CNOT` then gives Φ⁺ (E3); so does E4 with `τ_Y`. Under joint reads
+these preparations have row sum `pp = 1` with certainty, where QM gives 0 (QC-4), and `τ_Y` takes their table to
+SWAP/2 (QC-3). A failure scoped to one status of `pp` therefore does not by itself exclude a restriction of the
+preparations to the other status. Under the stated access, which reaches both, E2 (QC-1, `pp` undetermined) and E4
+without `τ_Y` (SWAP/2, `pp` determined) are each native non-quantum tables. QC-2 (product tests) and QC-4 (joint
+reads) hold for every status of `pp` at the coupling, so no restriction of the preparations by the status of `pp`
+restores QC. Four scoped failures, all from native preparations, none from a supplied quantum state:
 - **QC-1** (branches with `pp` undetermined at the coupling): QP node 10's table `(I + XX + ZZ)/4`, eigenvalue −1/4.
   On such branches every table with two determined correlators is type 2, with eigenvalue −1/4. The zero completion
   is derived here (N2 with Lemma 3), not chosen.
 - **QC-2** (any parity supply, independent or correlated, any value): from encoded `Z₊Z₊`, the native sequences
   `H_A; CNOT` and `S_A; H_A; CNOT` give opposite ⟨YY⟩. The comparator gives Φ⁺ for both, so at least one native
-  outcome is non-quantum, with eigenvalue −1/2 or −1/4. This uses only whole encoded Cliffords and the graded
-  coupling, so it survives QP's premise I.
+  outcome is non-quantum, with eigenvalue −1/2 or −1/4 per branch, and at most −1/4 for mixtures. This uses only
+  whole encoded Cliffords and the graded coupling, so it survives QP's premise I.
 - **QC-3** (lone parity translation): the native translation `z₂^A += 1` (P2 via H-PREP, no NNB) acts on two-wing
   tables as the partial transpose. It takes the natively reachable Φ⁺ table to SWAP/2, eigenvalue −1/2.
 - **QC-4** (joint two-wing reads, not product tests): on every native state the Mermin–Peres row and column outcome
@@ -87,8 +92,8 @@ non-selective pass and settles nothing about the U′ body (§6.5).
 **Directions (§A.34), each with its witness (§7).** (C) ⇒ (V): octahedron ⊂ cube. (V) ⇏ (C): the P1-removed remote
 herald. (V) ⇏ QC and (C) ⇏ QC: QC-1 and QC-2 states satisfy both. QC ⇏ (C), at property level: the product state
 `|0⟩ ⊗ (cos(π/8)|0⟩ + sin(π/8)|1⟩)` is quantum and leaves B at `(1/√2, 0, 1/√2)`, outside the octahedron, under every
-A herald. It is a non-native logical witness, not an input; no native witness exists among the classes considered
-(§7). QC ⇒ (V): PSD ⇒ block-positive (L).
+A herald. It is a non-native logical witness, not an input. No native class-level witness exists among the classes
+considered, since each contains SWAP/2 (§7). QC ⇒ (V): PSD ⇒ block-positive (L).
 
 **Stops.**
 - **S1:** without NNB, the Y read, `S` and `H` are not supplied. The U′ body's Pauli test set is then incomplete.
@@ -205,7 +210,7 @@ QP's own consequence ("the determined functionals are `f_x^A + f_x^B` and `f_z^A
 | N1, A4 (`k_ii = 0`), `q = 2` | yes | native (Substratum A4/A5; QP ledger) | n/a |
 | P1 = SA-1(b), P2 = SA-1(c) | yes | **no**: supplied physical posits (AP1:419-420, "New physical posit") | single-wing stabilizer scope; composite no (§6) |
 | P3, E-iso | yes | **no**: supplied posit and idealization (AP1:421) | n/a |
-| (iv) two-wing measurement independence | yes | **no**: Main §3.3 hypothesis (iv), a posit, not derived (Main:406-407); supplied here through P3's external controller | n/a |
+| (iv) two-wing measurement independence | yes | **no**: Main §3.3 hypothesis (iv), a posit, not derived (Main:406-407); carried as a posit; the settings enter through P3's external controller | n/a |
 | H-PREP | yes | **no**: open named hypothesis (AP1:418) | n/a |
 | N2 | yes | native counting measure applied through H-PREP; H-INF-μ for an infinite hidden sector (QP:777) | n/a |
 | NNB | yes | **no**: supplied conditional premise, not adopted (QP:783, 805-831) | gives `S`, `H`; also gives Lemma R's second reflection |
@@ -316,7 +321,7 @@ Remarks [A]:
 continuation the stated access builds, leaves the other wing in the octahedron with the single-wing dictionary
 sound. One explicit herald outside fails it. A missing preparation or read stops it.
 
-### 5.2 Verdict: PASS, conditional on P1, P2, N2 (+ H-INF-μ), A4 at `q = 2`, E-iso, WL, H-PREP; NNB for the Y read
+### 5.2 Verdict: PASS, conditional on P1, P2, N2 (+ H-INF-μ), A4 at `q = 2`, E-iso, WL, H-PREP, (iv) via P3; NNB for the Y read
 
 - *Octahedron.* The remote herald identity (§3): per branch, B's Bloch vector lies in {0, ±e_a}. A remote herald by
   any record event (coarse-grained, failure-flagged, adaptive) is a nonnegative combination of branch heralds, so it
@@ -374,7 +379,11 @@ joint record is `(f_a^A(s), f_b^B(s))` with `s` drawn from the branch law. The t
 Pauli sharp effects (probe I3). So:
 - every permitted product test, and every coarse-graining or randomized mixture of them, is nonnegative;
 - every remote herald is a nonnegative combination of `(1, v)` with `v` a cube vertex, i.e. it lies in the cube cone,
-  the dual of the native tests (ASSESS r3 W1).
+  the dual of the native tests (ASSESS r3 W1);
+- this includes remote heralds by native reads on A that are not encoded Pauli reads (raw slot reads of A's parity
+  cell, reads of ancillas and mediators, multi-record reads): their kicks change only A's slots (E-iso, WL), so B's
+  later read still records `f_b^B(s)`, and conditioning on A's records reweights the law of `s`, giving a mixture of
+  the cube vertices `v_B(s)`.
 
 The same holds for any conditioned or postselected sub-ensemble, since a conditional of a mixture is a mixture. Main
 §3.3 and Main:564 [P] state the same structure for Bell locality ("a measurement-independent deterministic
@@ -517,10 +526,10 @@ on these four and + on every other (R6a–c).
 | QC ⇒ (C) | **fails** (property level) | non-native: the product state `\|0⟩ ⊗ (cos(π/8)\|0⟩ + sin(π/8)\|1⟩)` is quantum, and every A herald leaves B at `(1/√2, 0, 1/√2)`, outside the octahedron (r2 R2a–e) |
 | QC ⇒ (V) | holds (L) | PSD ⇒ block-positive; on Pauli tests directly |
 
-*The QC ⇏ (C) witness.* It is a logical witness only, not an input to any construction. No native witness exists
-among the classes considered here. The stated access and each §5.4 countercontrol class contain E4 without `τ_Y`,
-whose determined entries are `XX = YY = ZZ = +1`. No quantum state has these, whatever its other entries, since
-`⟨SWAP⟩ ≤ 1` bounds their sum by 1 (r2 R1d). So each of these classes fails QC.
+*The QC ⇏ (C) witness.* It is a logical witness only, not an input to any construction. No native class-level
+witness exists among the classes considered here. The stated access and each §5.4 countercontrol class contain E4
+without `τ_Y`, whose determined entries are `XX = YY = ZZ = +1`. No quantum state has these, whatever its other
+entries, since `⟨SWAP⟩ ≤ 1` bounds their sum by 1 (r2 R1d). So each of these classes fails QC.
 At the P1-removed herald that breaks (C), QC fails as well: `(±1, 0, ±1)` lies outside the Bloch ball (r2 R3a), and
 the comparator's herald for the same reads on Φ⁺ is `±e_x` (R3b). What the native P1-removed continuation of E4 with
 `τ_Y` shows is the weaker statement that a PSD prepared table does not imply (C) for its continuations.
@@ -654,5 +663,5 @@ No NEW finding is claimed.
    (§2.3). The answer fixes only the wording of the access in later #868 work.
 3. **Recording.** After fresh review, should #868's planning block record the scoped result? That result is: (V)
    holds on native Pauli product tests under SA-1(a), P3 with (iv), E-iso and WL; (C) holds conditionally on supplied
-   posits; and QC fails for U′ composites (including under premise I).
+   posits; and QC fails for U′ composites with NNB carried (including under premise I).
    Recording it would be a planning change only, with no status change.

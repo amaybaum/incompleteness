@@ -36,7 +36,7 @@ commit is not reachable from `main`.
 
 ## Status
 
-- **r2** (`Q868H-UNIT1.md`) is **not yet independently reviewed.** Its header reads "revision r2.
+- **r2** (now `r2/Q868H-UNIT1.md`; at `Q868H-UNIT1.md` until r3) was **independently reviewed** after preservation: verdict ACCEPT WITH CHANGES (`review/REVIEW-Q868H-UNIT1-r2.md`). At preservation time it was **not yet independently reviewed.** Its header reads "revision r2.
   Pending fresh independent review." The snapshot's handoff index records the fresh r2 review as
   interrupted at handoff, with next step "Re-run fresh independent review of r2"; no output of that
   review is in the snapshot or here.
@@ -48,7 +48,7 @@ commit is not reachable from `main`.
 
 | File | Blob | SHA-256 | Status as recorded |
 |---|---|---|---|
-| `Q868H-UNIT1.md` | `4d96a563d5a6f9c097ebb812b9f465c2f7d3a711` | `1e128f286b14be3294cb8411e21f0b4b4516cbc9985fc2589fb6362a752179e6` | r2; not yet independently reviewed |
+| `r2/Q868H-UNIT1.md` | `4d96a563d5a6f9c097ebb812b9f465c2f7d3a711` | `1e128f286b14be3294cb8411e21f0b4b4516cbc9985fc2589fb6362a752179e6` | r2 (moved from `Q868H-UNIT1.md`, bytes unchanged); review ACCEPT WITH CHANGES; superseded by r3 |
 | `DISPOSITIONS-r2.md` | `a87d9351eb59bfd30cf8a643d3a285b16885d7f4` | `2916fa33c008205af1458695c6287b38ba87c805506649e8da95b0cce14bcaf4` | r1 → r2 change note; unreviewed |
 | `r1/Q868H-UNIT1.md` | `6d2eb2454a0369302e6a155d67dcd34736f1ba28` | `428cc283087657377fe0329a1e07b6f1b01b98e7a733df82e56e163bd3651d49` | r1; review REVISE (narrow); superseded by r2 |
 | `review/REVIEW-Q868H-UNIT1.md` | `a07c0f1e6575b72922cb677232b56a0920abfa16` | `bd82f3fc469348945a838183f052c28c527ee6f43e7fc91c4157abd1a8cfb520` | model-written independent review of r1; verdict REVISE (narrow) |
@@ -175,3 +175,13 @@ directory of the session that wrote the file; the bytes are kept unchanged.
 | `assess-868-r3a/ASSESS-868.md` | 142 | local path (session-storage directory name in a draft-input citation) |
 | `assess-868-r3a/ASSESS-868.md` | 151 | local path (session-storage directory name in a draft-input citation) |
 | `assess-868-r3a/review/REVIEW-868-r3.md` | 67 | local path (session-storage directory name) |
+
+## r3 and the review of r2 (added 2026-11-13)
+
+| File | Blob | SHA-256 | Status |
+|---|---|---|---|
+| `Q868H-UNIT1.md` | `e4d91694aea35c28c1989d34f20273589d9a64bd` | `40e36e3cb4b6cc57eaa09fdaff6e9f104d8a9318243d86f6e35a46dfe8826015` | r3; applies RC1–RC5 of the r2 review; pending focused confirmation |
+| `DISPOSITIONS-r3.md` | `7ccbdeb8da37153965377348e101fdb5883da284` | `e29fb502939e119b7f885d812601f6fa9090a8e836b3ad19cf238345c0a5f2e9` | r2→r3 change note |
+| `review/REVIEW-Q868H-UNIT1-r2.md` | `144cc7db4586fc108a06a6e94b09b666322950ea` | `651612e89c964c05bbc31d7b47c67cbb855456622b8eaee98bf3c79d9865268e` | fresh non-author model review of r2 at `82f592db`; verdict ACCEPT WITH CHANGES (RC1–RC5) |
+
+Owner decision for r3 (amaybaum, 2026-11-13; #868 c.6853568040): "r3; ratify the probes". The owner retroactively ratifies the unit's generic linear-algebra probe scripts as covered.
