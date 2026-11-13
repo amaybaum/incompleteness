@@ -5,7 +5,7 @@
 - **Owner decision** (amaybaum, 2026-11-13), as relayed by the coordinator: repair "(a) Explicit
   hypothesis (Recommended)".
 - **Base:** r4 starts from `REC-1-r3.md` at `1fd0c241`, checked byte-identical to the writer's r3.
-- **The change:** `r3-r4.diff` shows it in full. No other text changed.
+- **The change:** `git diff 1fd0c241 c73e855f` shows the whole change. No other text changed.
 
 | Item | Disposition | Where in r4 and source check |
 |---|---|---|
