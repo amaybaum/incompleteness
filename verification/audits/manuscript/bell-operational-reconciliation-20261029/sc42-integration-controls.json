@@ -48,7 +48,7 @@
       "exit_code": 1,
       "expected_failed_predicate": "kinematics mention counts match the site table",
       "failed_predicates": [
-        "kinematics mention counts match the site table (60)"
+        "kinematics mention counts match the site table (61)"
       ],
       "passed": true
     },
@@ -81,6 +81,6 @@
     }
   ],
   "schema": "sc42-integration-controls-v1",
-  "site_table_sha256": "eb0b586699684ce23ad9cb8e2c0929c7387d3f5463fcb31d30fc1b6b84a5eee4",
+  "site_table_sha256": "75994c8f3967720f4e86709c35f3b5794c5c9f49ecd8494970c948b06a916a89",
   "verdict": "PASS"
 }
