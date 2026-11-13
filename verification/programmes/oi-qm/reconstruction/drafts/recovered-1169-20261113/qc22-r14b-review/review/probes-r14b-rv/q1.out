@@ -1,0 +1,2 @@
+NOF1 cases 19 mismatches 0
+job A present, A1/A2 success, A3 and A3b absent -> True

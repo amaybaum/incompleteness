@@ -1,0 +1,104 @@
+> # ARP-3, Q-C2-2: the access and noncontextuality of P★'s `G_SM` fragment, with attributed completions. Native round ARP-3-QC22 — PREREGISTRATION (draft r14b)
+>     with three blockers (Rb1–Rb3) and nits N1–N11. r14a applies them, reusing Q-C2-1 r14a's wording
+>     (`1dd595d3…`) where the machinery is shared. Tags `R14-Rb…` and `R14-N…` below name that review's findings.
+>     The dispositions are in `DISPOSITIONS-r14a.md`.
+>   - r14a (`d751a127…`, kept in `r14a/`) had an independent review, REVISE (`review/REVIEW-QC22-r14a.md`,
+>     `c63ca1cc…`), with one blocker (Rc1) and nits N1–N9. r14b applies them, reusing Q-C2-1 r14b's wording
+>     (`57053e08…`) where the machinery is shared. Tags `R14a-Rc1` and `R14a-N…` below name that review's findings.
+>     The dispositions are in `DISPOSITIONS-r14b.md`. r14b is not yet reviewed.
+>   - **Authorization of the revisions.** c.6740747027 authorized r14 and a further independent review. That it also
+>     covers r14a, r14b and their reviews, as fix-and-review iterations until this file is ready, is the coordinating
+>     session's reading, not the owner's words (R14a-N1).
+> | owner comments on #1169, cited as `c.<id>` | *Authority*; wherever a `c.<id>` is cited | the owner's directions, decisions and authorizations | support on `main`: each is quoted with author and time in *Authority* (§A.42 item 7). c.6740747027, which authorized r14 and a further review, is provenance; that it covers the later revisions is the coordinator's reading (R14a-N1) |
+> | the scratch drafts r1–r14a and their review notes and probes under `review/`; `DISPOSITIONS-r14.md`, `DISPOSITIONS-r14a.md`, `DISPOSITIONS-r14b.md`, `PLAN.md` | *Status* (review history) | the drafting history | provenance |
+> | Q-C2-1's drafts r14 (`ae6f0e26…`), r14a (`1dd595d3…`) and r14b (`57053e08…`) | "Q-C2-1 r14's wording", "Q-C2-1 r14a's wording", "Q-C2-1 r14b's wording", "Q-C2-1's D19 (0)(c)" | the origin of shared wording | provenance: the wording used is stated here in full |
+> | `ACCESS.md` §5 and §6 (the paper predictions for F1) | conditions (a)–(c) and their *Consequence*; *Expected bounds on paper*; *What infeasibility licenses* (R14a-N4) | L1 and EXP hold in F1; `r_S ≤ 6`; the bounds on `d` | gap, closed by narrowing: stated as predictions, which the round measures. No control or verdict rests on them |
+> | the `E` run's other records, read by `verdict` | `verdict` | the conditions on the run at `E` | support re-established from `main` by a dispatch at `E` (§A.42 item 7). Its route: after Q-C2-2 closes, the owner adds a branch at `E` to the Environment's deployment-branch policy, dispatches on it with `arp3qc22_decisive` true and `arp3qc22_sha` `E`, and approves its deployment review (*After merging to `main`*; R14a-N5) |
+> | S1's measurements artifact, `arp3-qc22-measurements` of S1's run (R14a-N4) | `verdict`'s S1 binding; *Retention* | the committed measurements are S1's output | support when it is read, provenance after it expires; the enduring support is `E`'s committed measurements, the binding's record at `E` and a dispatch at `E` (§A.42 item 7; *Retention*) |
+> - **Consequence (predicted).** If (a) holds in F1, as the paper analysis predicts, the conjunction there reduces to
+>   (c). The round's discriminating content is then the attribution, and the per-herald-block location of the
+>   conjunction (R14a-N4).
+> | **G** (re-review r3, O-1) | H3's block B alone: the rectangle of carrier laws at fixed `P(g = 0) = ¾`, `η = 1`; point reads on H3's eight configurations `(z, x, η)` (R14a §4) | infeasible; R-U′ and R-Uc infeasible (both are the centroid); R-Y feasible; `g_specific` true, `g_eta` false; `decide` gives `CONTEXTUAL-RY` | a `g`-specific cause reported as not specific |
+>   removal multiplier altered; and, separately, an extreme row removed under a fabricated certificate (Q-C2-1
+>   r14b's wording; R14a-N6). Each must fail C-CERT. The same two mutations of C-SYM's effect-side removals on GX+R-Y,
+>   each with an extreme effect row, must each fail C-SYM's certificate check;
+>   a `digest` that differs from the archive's sha256; a `workflow_run.id` or `head_sha` of another run; no artifact
+>   (for an expired or deleted artifact, draft default, pending the owner's ruling in precondition 2; R14a §2);
+> - **NOF1** (R14a-Rc1). The no-unapproved-F1 rule, in `order` and `verdict`, on synthetic non-dispatch attempt records
+>   with job B and B4 `skipped`: A3 absent, and A3 `skipped` with A3b `failure`, must each hold; A3 `failure` with A3b
+>   `success` must hold; A3 `failure`, `cancelled` or with no conclusion, each with A3b `failure`, must fail; A3
+>   `success` with A3b `failure` must fail; and B4 `success` must fail whatever A3 and A3b record.
+>   (`r_S ≤ 6` against 36 reads, as the paper analysis predicts; the round measures `r_S`; R14a-N4), so a CONTEXTUAL
+>   token carries its information in `{S}`. No text reads it as non-imitability beyond F1, or as a nonclassicality
+>   witness.
+> classically imitable by an explicit model (decided in this round as CC-F0, with its model verified), which closes
+>   {g_eta}. `g` is {L1}, and {EXP}. An F1 read equal to `g` on `Ω_reach`: {cert_X3}.
+>   Per herald block: {block fields}. These are measured conjunctions. A classical configuration model (fixture H3)
+>   produces the same kinds of conjunction through independent sectors, and M2D's Proposition B names the structure, a
+>   fixed conditional law. Nothing here is a nonclassicality witness, and nothing here establishes that a missing read
+>   or preparation is physically absent." + common clause.
+>     for example, still gives A3b `success`; a missing or non-fixture output gives `failure`. When A3 is `skipped`,
+>     A3b fails on the missing file, and the no-unapproved-F1 rule reads A3's own conclusion (R14a-Rc1).
+>   same gate, needs its own recorded owner approval, lies outside this round, and changes no token. Its ref is a
+>   branch at `E` that the owner adds to the deployment-branch policy after Q-C2-2 closes, since the policy admits only
+>   the round and gate-test branches and the Environment is unchanged until then (precondition 2a; R14a-N5).
+>       (2). This round does not check whether such a draft exists (R14-Rb2; R14a-N7).
+>   - A3 is absent or `skipped`, or A3b's conclusion is `success`, so A3's output had `mode: "fixture"` with the
+>     synthetic placeholders (R14a-Rc1).
+>   An A3 that is absent or `skipped` started no checker process in job A: A1 and A2 run none, and every later step
+>   whose `if:` has no status function, which implies `success()`, is skipped with it, A5, A8, A10 and A11 included,
+>   while A3b, the one `always()` step, runs `controls.py` only. So a failure before A3, of the checkout, of
+>   `setup-python` or of the runner, and a job A that never started, are not violations. Nor is a red A3 whose output
+>   is complete fixture-mode output, such as a design-branch fixture mismatch (A3b runs `always()`; R14-N10). A
+>   non-dispatch checker-bearing attempt at a recorded-branch commit whose A3 ran, or was cancelled, and whose A3b is
+>   not `success`, because A3's output is missing, incomplete or not fixture mode, is a violation: an A3 timeout or
+>   crash, for example.
+>   - **Residual (stated; R14a-Rc1).** Such an attempt cannot be told from one whose A3 computed F1, so it stays a
+>     violation, which voids the round with no retake. Its mitigation is the executor precondition below. What remains
+>     is a runner-side timeout, crash or cancellation of an A3 whose command completed locally.
+>   - **Executor precondition: no push without a local fixture run (R14a-Rc1; §A.41).** No commit carrying the checker
+>     is pushed to a recorded branch, as that branch's head, unless A3's command, run locally on that commit's tree with
+>     Python 3.11, has completed within `timeout-minutes` and `controls.py fixture-mode-check` exits 0 on its output.
+>     The executor cancels no run on a recorded branch while its job A runs.
+> - at `E`, a failed control, a checker outcome, a replay mismatch, a failed S1 binding (for an expired or deleted
+>   artifact, draft default, pending the owner's ruling in precondition 2; R14a §2), or a `verdict` VOID arising
+> | a recorded-branch attempt whose A3 ran leaves fixture-mode output, so that the no-unapproved-F1 rule does not void the round on a run that computed nothing (R14a-Rc1) | the no-unapproved-F1 rule's A3 and A3b conclusions, read from the jobs API, a failure being a violation; the NOF1 self-test; mitigation: the executor precondition *No push without a local fixture run*; residual named (a runner-side timeout, crash or cancellation) |
+> | designations and approvals precede what they govern | the approval entries (`approvals.json`, and the entries `verdict` builds, one per `E`-stage approval comment id; R14a §2) and `F`'s designation, each read through `issues/comments/{DEC}` and checked against the run's `created_at`, with the edited-comment rule; `order`; `verdict`; the APPROVALS self-test (R13-B4) |
+>      Alternative: the binding is reported as not checkable, and the token stands with that limitation printed; the
+>      committed measurements are then bound to the approved computation by B6's replay at `E` only, not to S1's output
+>      (Q-C2-1 r14b's wording; R14a-N2). No frozen text renders that limitation, so the alternative is applied by a
+>      reviewed revision of this file before `F` (item 4). Record id: PENDING.
+>    - **§A.42 item 8 dispositions** (R14-Rb2; R14a-N3). The final capture's record, the `E`-stage Environment reads
+>      and the approval entries `verdict` builds for the dispatches at `E` are host-time records that no round tree can
+>      hold (*Off-`main` references*). The options are:
+>      - **a recorded owner exception** for each, naming the claim it leaves unsupported (§A.42 item 8). Such a claim
+>        is not established (§A.46 item 1);
+>      - **narrowing.** The landed record states those checks only as conditions of landing: the round lands only if
+>        they pass. It does not state that they passed, and their records are provenance.
+> 
+>      **What each option leaves of the token.** Under either option, the token's scientific content, F1's verdict as
+>      replay-matched at `E`, is re-established from `main` by a dispatch at `E` (§A.42 item 7). The governance claims,
+>      that the dispatches at `E` were approved, that the Environment at `E` was as frozen, and that no unapproved
+>      checker-bearing run occurred between `E`'s capture and landing, are left not established under an exception,
+>      and are not claimed under narrowing.
+> 
+>      **Applying the choice.** Filling the record id changes no text. The chosen option is applied before `F` by a
+>      reviewed revision of this file (item 4), which revises every passage that states these properties: control
+>      N's stage reads (*Scripts*); *Its record* (*The window between `E`'s capture and `Q`'s push*); *Where the
+>      entries are* (*Approval entries*); the invariant rows on F1's computation, on owner requirements 1 to 3, on the
+>      Environment at S1 and `E`, and on designations and approvals; and the row on these records in *Off-`main`
+>      references*. Record id: PENDING.
+>      identity and its permissions, recorded so that the record shows which identity dispatches and whether it can
+>      edit the Environment. No condition reads it: under (iv), B3b and the approval entries' `review` use `amaybaum`,
+>      authorship requires `amaybaum`, and `prevent_self_review` enforces the dispatcher rule on the host (R14a-N8).
+>      Under (ii) and (iii), none. Recorded with E-ID: PENDING.
+>    - **A frozen fixture the design run cannot decide (R14a-Rc1).** The design run uses no budget, so a fixture
+>      undecided within the job timeout is an A3 timeout, which the no-unapproved-F1 rule makes a violation. Its run
+>      time is therefore established locally first: the executor precondition *No push without a local fixture run*
+>      (*Runs, evidence, approvals*) applies to the design branch, so such a fixture is found before the design run.
+>      - A fixture found undecided there, or a design run whose A3 exits 3 with complete fixture-mode output, leads
+>        to the fixture set being revised before `F` and reviewed under item 4.
+>      - A design-run A3 that times out, crashes or is cancelled despite the local run is a violation (the rule's
+>        stated residual). It is known before `F` from the design run's record, and `F` is then not requested, since
+>        `check --stage S1`'s capture would halt the round VOID.
+>      - No fixture is dropped after `F`.
