@@ -12,7 +12,7 @@ whose text is the accepted text.
 - **Review.** ACCEPT, no blockers or nits, at `ca6c07f8aa149a847a544c02454c04aefada3c87`:
   `REVIEW-5845916465.md`. Its stated report digest `f7ff2033...` is reproduced from the body.
 - **Nature of the review.** A separate non-author Codex agent review
-  (`/root/review_prep_min_rob_1pct`), relayed verbatim from the `amaybaum` account. It is an
+  (`review_prep_min_rob_1pct`), relayed verbatim from the `amaybaum` account. It is an
   AI-agent paper, algebra and source review, not a human review, a GitHub approval or an owner
   integration decision. No result is kernel-checked.
 - **Authority.** #1216 comment 6772851768 (`amaybaum`, 2026-11-10T16:25:36Z), emphasis removed:
@@ -35,7 +35,7 @@ whose text is the accepted text.
 - Not established: an error-cost curve, a physical memory, energy or resource bound, a sourced
   preparation, or any quantum-mechanical result. The physical-source gate is not passed.
 
-**Claim kept (proposed, for owner decision):** "On the fixed PREP-MIN model and complete raw
+**Claim supported by this record:** "On the fixed PREP-MIN model and complete raw
 t = 2 history target, allowing total-variation error at most 1/100 in each setting, the minimum
 relative-entropy cost of one common law is the exact algebraic value C_A of (4.4) over all
 normalized laws, between 7 and 184/25 bits, and C_B(L) = log2(512M / floor(100M/49)),
@@ -49,15 +49,16 @@ gate not passed)."
 | --- | --- |
 | The three source rows of §1, at D | Support on `main`. |
 | #1216 comments 6772851768 and 6769621038 | Governance provenance: authorization and contract, quoted above. |
-| PR #1227 review 5843234635 and commit `076b8e6f` (lines 69-71, 325-330, 422-423) | Support for the statement that the zero-error endpoint was accepted. It is on `main` only once PR #1227 lands by non-squash merge, with `PROOF.md` and `REVIEW-5843234635.md` in `prep-min-exact-t2-20261110/`. The 15/2 and 8 values themselves are re-derived in §6. |
+| PR #1227 review 5843234635 and commit `076b8e6f` (lines 69-71, 325-330, 422-423) | Support for the statement that the zero-error endpoint was accepted. It is on `main` only once PR #1227 lands by merge commit (neither squash nor rebase), so that `076b8e6f` remains an ancestor of `main`, with `PROOF.md` and `REVIEW-5843234635.md` in `prep-min-exact-t2-20261110/`. The 15/2 and 8 values themselves are re-derived in §6. |
 | #866, #1220, #1226, #1227, #1228 (scope and ownership) | Provenance and stated nondependencies. |
-| Review 5845916465 | Support on `main` through `REVIEW-5845916465.md`. The commit it reviews becomes reachable from `main` only by a non-squash merge. |
+| Review 5845916465 | Support on `main` through `REVIEW-5845916465.md`. The commit it reviews becomes reachable from `main` only through a merge commit (neither squash nor rebase), which keeps it an ancestor of `main`. |
+| References inside the review bodies (sandbox paths, CI run ids, the reviewers' own authorization statements, GitHub links pinned at PR commits) | Provenance. Each verdict rests on the record blob named in the header. |
 
 ## Source drift from D to `main` (`911a5cb6`)
 
-`preparation-loading.md` and `physical-interface.md` are unchanged. `papers/SM.md` changed in §3.1
-(first sentence; Bisognano-Wichmann and discrete-Einstein passages). The ring rule used here is
-unchanged. The record's links pin SM at D.
+`preparation-loading.md` and `physical-interface.md` are unchanged. In `papers/SM.md`, §3.1's first
+sentence and several later §3.1 passages not used here were revised, and SM also changed outside
+§3.1; the ring construction (:112) is unchanged. The record's links pin SM at D.
 
 ## Superseded lines in the accepted text
 
@@ -67,14 +68,15 @@ unchanged. The record's links pin SM at D.
   are off-main historical calibration": once PR #1227 lands, they are on `main`.
 - Lines 427-428, "This new proof and its required fresh non-author full paper/algebra review are
   currently off main": the landing puts the proof and its review record on `main`.
+- Line 10, "… or merge is authorized": the merge is the owner's separate decision.
 
 ## Landing
 
-- **Order.** PR #1227 must be merged without squash first, or together with this PR.
-- **Mode.** A non-squash merge is required, so that `ca6c07f8`, the commit the review names, is
-  reachable from `main`.
-- **Basis.** An established claim needs the record: the claim above, if the owner's merge decision
-  adopts it. No record on `main` currently depends on this one.
-- **Gate.** Owner decision (`amaybaum`, 2026-11-13T02:14:35Z, #1169 comment 6841795465): "Merging
-  needs a separate owner decision, which names the claim each landing keeps. #1229 lands with or
-  after #1227."
+- **Order.** PR #1227 lands first by merge commit (neither squash nor rebase), so that `076b8e6f`
+  remains an ancestor of `main`, or together with this PR. Owner record #1169 comment 6841795465
+  (`amaybaum`, 2026-11-13T02:14:35Z): "#1229 lands with or after #1227."
+- **Mode.** Merge commit (neither squash nor rebase), so that `ca6c07f8`, the commit the review
+  names, remains an ancestor of `main`.
+- **Basis.** An established claim needs the record (§A.46 item 2): the claim above. No record on
+  `main` depends on this one at `911a5cb6`.
+- **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).
