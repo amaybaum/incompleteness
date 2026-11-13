@@ -1,0 +1,25 @@
+PASS K1 closed form: dU/dth = -i X_ab U and U(0) = 1 (so it is exp(-i th X_ab))
+PASS K2 W10 identity holds for generic th
+PASS K2 mutations fail: conjugate phase / gate time th/pi / missing prefactor
+PASS K3 isolation identity on 4 states, tau = (01)(23): lhs = exp(-i pi t X_01), generic t
+PASS K3 control: without the sign conjugation the (23) block does not cancel
+PASS K3 on 3 states, tau = (01): kernel lhs equals the W10 right side at th = pi t
+PASS K4 drive(pi/2) * swap_ab = -i phaseGate(c)
+PASS K4 as channels: (drive swap) rho (drive swap)^H = phaseGate rho phaseGate^H, generic Hermitian rho
+PASS K4 drive at the quarter turn is monomial and non-real (non-monomiality needs generic times)
+PASS K4 control: the real rotation at the quarter turn times the swap is real, so not the phase channel
+PASS K5 e^{i phi} R is a non-real matrix but keeps real states real (definition must be operational)
+PASS K5 real Kraus on system + uniform ancilla, partial trace: output real, <Y> = 0
+PASS K6 layer flow on Fin 2: <Y>(unit(X,t) z+) = -sin(pi t)
+PASS K6 unit(X,1/3) non-real, non-monomial
+PASS N3 <a b|X|a b> = <b|sigma_a|b>, generic complex X, a, b (real and imaginary parts explicit)
+PASS N3 sigma_a Hermitian for Hermitian X
+PASS N3 control: X = diag(1,-1,1,1): sigma_e0 = diag(1,-1) not PSD and <e0 e1|X|e0 e1> = -1
+PASS N3 transposition: h_a(w) = (ahat^T w)^T = toOp(w^T) ahat, and pairVal(w,a,b) = pairVal(w^T,b,a)
+PASS N3 orientation matters: w3 herald by +x on A is (1,1,1,0), on B is (1,1,0,0)
+PASS N7 W1 on 125 grid points of the cube cone (t = 1): lambda_s >= 0, reconstruction exact, all effects >= 0
+PASS N7 W1 control: six points with one |v_i| = 11/10 each violate some effect
+PASS N7 W3 SOS: 2(1 + a1 b1 + a3 b3) equals the certificate
+PASS N7 W3 eigenvalues of T are {3/4, 1/4, 1/4, -1/4}
+PASS N7 W3 mutation: T with c = 11/10 gives a negative product probability at (+x, -x); T itself gives 0
+24 checks, 0 failures

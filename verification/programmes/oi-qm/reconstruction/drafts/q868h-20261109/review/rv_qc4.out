@@ -1,0 +1,11 @@
+PASS M4a row product (XZ)(ZX)(YY) = +I
+PASS M4b column product (XX)(ZZ)(YY) = -I
+PASS M4c each line pairwise commutes
+PASS M4d control: the non-line pair X(x)Z, Z(x)Z anticommutes
+PASS M4e QM: on every joint eigenvector the row's outcome bits sum to 0 mod 2
+PASS M4f QM: on every joint eigenvector the column's outcome bits sum to 1 mod 2
+PASS M4g formal: (fxA+fzB)+(fzA+fxB)+(fyA+fyB) = pA+pB over F2
+PASS M4h formal: (fxA+fxB)+(fzA+fzB)+(fyA+fyB) = pA+pB over F2
+PASS M4i control: a non-line triple (fxA+fxB)+(fzA+fzB)+(fxA+fzB) != pA+pB
+
+9 checks, 0 failures
