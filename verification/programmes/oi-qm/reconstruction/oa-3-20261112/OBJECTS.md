@@ -14,3 +14,5 @@ committed blob shows the reviewed working copy and the committed file are the sa
 | 2026-11-12T19:44:15Z | `RECHECK-OA-3-r2.md` | `0ed4d04a12e65e6b4732de8757b7839cff6c630e` | `68e679be002df9b2ad52a064c65d6cd5190c42732e36bf6513be679d00df4cb3` |
 | 2026-11-12T20:10:17Z | `OA-3-REPORT-r3.md` | `ad0756caf01f48bd4f16ca522d75f0d66a6e0c12` | `3aafffc0e0c750152edce7c984d9f57fb907d9cd4548eeea2da044ce1b3078c1` |
 | 2026-11-12T20:10:34Z | `DELTA-REVIEW-OA-3-r3.md` | `d6d0f481fb462ef3abf931fd13850aab73a67be1` | `2b6613ebe308a1ef8918f16c3e38ddc66ecdd3d532acd235cde9bc042620fef6` |
+| 2026-11-13T02:42:15Z | `DELTA-REVIEW-OA-3-r4.md` | `4de308546e3283b9c3f5ce285fc38cd4b34f34ca` | `80d0cc777313ad5b0bfb2085e25a4ee55d3e986f7d965acbb580ebb1158cf9fb` |
+| 2026-11-13T02:42:32Z | `OA-3-REPORT-r4.md` | `0a36fd05ba6931705ecdbb1de9962d58a307c1cb` | `4b847d72bceae6e6eacdffae14e00d801d086826e04f176fde2d20ea26e5c973` |
