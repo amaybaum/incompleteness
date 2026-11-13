@@ -2,13 +2,13 @@
 
 **Standing:** AUTHOR-SIDE / UNVERIFIED paper-only proof-dependency audit (ChatGPT, 2026-11-13). This is **not** an independent review, a counterexample to either theorem, a proof of a native quantum mechanism, or an instruction to revise the manuscripts. Requires a separate non-author review and then an owner decision before any integration. No computation, Lean, experiment, frozen-record change, physical premise, board change, or merge.
 
-**Question (SQ4, #1169 SYNTHESIS-r3 `7):** Do OA-2 E(b) step 4 and OA-3 N4.3 step 4 use a label-free-retention or effect-separation hypothesis that is not stated in their conditional classicality claims? If so, what is the weakest proof obligation, and what does not follow?
+**Question (SQ4, #1169 SYNTHESIS-r3 §7):** Do OA-2 E(b) step 4 and OA-3 N4.3 step 4 use a label-free-retention or effect-separation hypothesis that is not stated in their conditional classicality claims? If so, what is the weakest proof obligation, and what does not follow?
 
 **Pinned references.**
-- `OA2: `verification/programmes/oi-qm/reconstruction/oa-2-20261112/OA-2-REPORT-r4.md` on `main` at `c3b5f37a354bb26437e2e0165c576a347a63c153`. Relevant lines OA2:95–118 (C-PM), 128–157 (E3, G3), 224–227 (closure), 242–278 (Proposition B), 483–504 (H1, H4, SP), 519–546 (E(b)), 577–605 (E1).
-- `OA3: `verification/programmes/oi-qm/reconstruction/oa-3-20261112/OA-3-REPORT-r4.md` at the same main snapshot. Relevant OA3:99–126 (C-PM and V-ii effect classes), 405–416 (held-at-use vs ensemble heralds), 460–495 (N4.3, N4.4).
-- `P0: `verification/programmes/oi-qm/reconstruction/drafts/rec-1-20261113/REC-1-P0-r3.md` on draft PR #1268 at `2a9f10bab2b7047f8bcc7b03bf8744f22efb066e`. Relevant N5/N6 (C3/C4), N8.2(b), `6 and AW-P0-2 (off main; accepted as O-U by ChatGPT review 5892912758, not established under `A.46 item 7).
-- `Synthesis: `#1276 SYNTHESIS-r3.md` at `9eeee392fcfe7489fab3e007d95488ecf4a3eb13`, `6 T5 and `7 SQ4 (off main; model-reviewed ACCEPT 5896999231).
+- OA2: `verification/programmes/oi-qm/reconstruction/oa-2-20261112/OA-2-REPORT-r4.md` on `main` at `c3b5f37a354bb26437e2e0165c576a347a63c153`. Relevant lines OA2:95–118 (C-PM), 128–157 (E3, G3), 224–227 (closure), 242–278 (Proposition B), 483–504 (H1, H4, SP), 519–546 (E(b)), 577–605 (E1).
+- OA3: `verification/programmes/oi-qm/reconstruction/oa-3-20261112/OA-3-REPORT-r4.md` at the same main snapshot. Relevant OA3:99–126 (C-PM and V-ii effect classes), 405–416 (held-at-use vs ensemble heralds), 460–495 (N4.3, N4.4).
+- P0: `verification/programmes/oi-qm/reconstruction/drafts/rec-1-20261113/REC-1-P0-r3.md` on draft PR #1268 at `2a9f10bab2b7047f8bcc7b03bf8744f22efb066e`. Relevant N5/N6 (C3/C4), N8.2(b), §6 and AW-P0-2 (off main; accepted as O-U by ChatGPT review 5892912758, not established under §A.46 item 7).
+- Synthesis: `#1276 SYNTHESIS-r3.md` at `9eeee392fcfe7489fab3e007d95488ecf4a3eb13`, §6 T5 and §7 SQ4 (off main; model-reviewed ACCEPT 5896999231).
 - This audit does not assume the ongoing Claude C3 test's result and does not change its preregistration.
 
 ## 1. Exact proof interface
@@ -61,7 +61,7 @@ The narrowest next paper question: **Does the original C-PM/H4 or C-PM/V-ii-H de
 
 (A) exhibit a complete allowed-effect separation proof, with preparation/measurement timing and label exclusion; or
 
-(B) identify a missing independent access condition, specifying whether it is already derived, an explicit conditional theorem hypothesis, or an added physical premise under `A.29; or
+(B) identify a missing independent access condition, specifying whether it is already derived, an explicit conditional theorem hypothesis, or an added physical premise under §A.29; or
 
 (C) give a precise unresolved proof gap.
 
@@ -69,11 +69,11 @@ No new OI computation is necessary for this audit. Claude's separate R-lin/(xiii
 
 **Independent non-author review checklist:** verify C-PM label typing at OA2:103–118 and OA3:101–126; independently rederive the implication SEP ⇒ prep NC for the **specific** `ι` model; check that SP does not imply SEP; inspect whether (V-ii-H) already entails the required indicators without label leakage; separate within-horizon composition from postselection over disallowed labels; inspect the exact downstream use of N4.4/E1 and the finite-ring scope of OA3; check all source pins, and return ACCEPT / ACCEPT-WITH-CHANGES / REVISE. The author of this draft cannot count as its independent reviewer.
 
-## 6. Off-main support and source status (`A.42)
+## 6. Off-main support and source status (§A.42)
 
 | Source | Use | Classification |
 |---|---|---|
-| OA2 r4 and OA3 r4 on `main` at `c3b5f37a` | primary source text and proof claims | research records [R] on main, **not** established theorems (`A.46 item 7) |
+| OA2 r4 and OA3 r4 on `main` at `c3b5f37a` | primary source text and proof claims | research records [R] on main, **not** established theorems (§A.46 item 7) |
 | P0 r3 at PR #1268 `2a9f10ba`, ChatGPT review 5892912758 | nearest prior evidence for C3/LF and AW-P0-2 | **support off main**, review-scoped; this audit's abstract separation lemma is independently argued and does not promote P0 |
 | SYNTHESIS-r3 on #1276 `9eeee392` | provenance of SQ4 and T5 | **provenance off main**; not a premise for the argument |
 | Claude's running C3 unit | none used | **not used**; results unavailable here |
