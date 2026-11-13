@@ -1,8 +1,9 @@
 # Recovered #1169 evidence (2026-11-13)
 
 **WIP / UNVERIFIED preservation record, not for merge.** This directory preserves, byte for byte,
-research files that existed only in the session storage of one coordinating Claude Code session or
-only on a disposable session branch, so that they are not lost when that storage is discarded.
+research files that existed only in the session storage of one coordinating Claude Code session,
+so that they are not lost when that storage is discarded. It holds the minimal set the owner
+approved (section "Authority"); the other recovered items are pointers to existing remote copies.
 Everything here is **recovered, not accepted**: preservation adopts no premise, promotes no claim
 and changes no status (§A.42 item 6; §A.46 item 3). Where a file records an owner acceptance or a
 review verdict, that status is quoted below as recorded, and every review named here is a
@@ -27,10 +28,19 @@ decision "Authorize all (Recommended)", item 2, verbatim:
 
 The same record lists as not authorized "new experiments, priority changes or merges".
 
+Minimal set (owner `amaybaum`, 2026-11-13, as relayed to this session by the coordinating
+session; no GitHub record of it was read here): the owner answered **"Proceed (Recommended)"** to
+the proposal to rewrite this README and `FILES.tsv` to the minimal set, to remove the
+`assess-1059/` copy, which duplicates an existing remote copy (item 3), and to exclude the 573
+qc21/qc22 session-history files (item 5) under §A.42 item 5: only what surviving claims or
+owner-accepted records need is retained. The minimal set is `eoi-package/` (16 files),
+`qc22-r14b-review/` (11) and `qphen-review-chain/` (46).
+
 Reporting gate (owner, 2026-11-13, as relayed to this session by the coordinating session; no
 GitHub record of it was read here): each item is reported as **FOUND**, **VERIFIED** (hash
 matches) and **PRESERVED** (committed and on a remote branch), separately. In the tables below,
-PRESERVED reads "pending push" until this branch is on the remote.
+PRESERVED reads "pending verification after push" until this branch's commit is confirmed on the
+remote.
 
 The QPHEN review-chain texts (item 6) are not named in item 2. They were added at the coordinating
 session's direction after an independent review of #1219 (item 4 of the same record) found that
@@ -44,7 +54,7 @@ them is for the owner to confirm.
 - **Original location** is a path relative to the session-storage root of session `57e93868…`,
   unless a commit is named.
 - `FILES.tsv` lists every file in this directory with sha256, git blob id, size and original
-  location. Every file except the two redacted copies (section "Exclusions and redactions") is
+  location. Every file except the redacted copy (section "Exclusions and redactions") is
   byte-identical to its original location; this was checked with `cmp` against the source on
   2026-11-13, and every hash was recomputed before committing.
 - Full 40-hex ids name objects in this repository; other ids are abbreviated to 8 characters.
@@ -53,15 +63,15 @@ them is for the owner to confirm.
 
 | Item | Directory | Files | FOUND | VERIFIED | PRESERVED |
 |---|---|---|---|---|---|
-| 1. EOI PACKAGE r3, inputs and review trail | `eoi-package/` | 16 | yes | yes (full 64-hex) | pending push |
-| 2. Q-C2-2 r14b review and its probes | `qc22-r14b-review/` | 11 | yes | yes (`88a4ec2d…1d45`) | pending push |
-| 3. ASSESS-1059 r6a, DISPOSITIONS-r6, REVIEW-1059-r6 | `assess-1059/` | 3 | yes | yes (`d08faa81`, `e01e3097`) | pending push |
-| 4. ASSESS-868 r3a, REVIEW-868-r3, DISPOSITIONS-r3a, probes | not here: branch `research/q868h-868-20261113`, `drafts/q868h-20261109/assess-868-r3a/` | 28 | yes | yes (`d97c4b6b…`, `2a5014a5…`) | pending push of that branch |
-| 5. qc21/qc22 session drafts | `qc-session/` | 573 | yes | no hash recorded; byte-identical to source | pending push |
-| 6. QPHEN review chain cited by #1219 | `qphen-review-chain/` | 46 | yes | yes, 46 of 46 against #1219's cited hashes | pending push |
+| 1. EOI PACKAGE r3, inputs and review trail | `eoi-package/` | 16 | yes | yes (full 64-hex) | pending verification after push |
+| 2. Q-C2-2 r14b review and its probes | `qc22-r14b-review/` | 11 | yes | yes (`88a4ec2d…1d45`) | pending verification after push |
+| 3. ASSESS-1059 r6a, DISPOSITIONS-r6, REVIEW-1059-r6 | not here: branch `ccr-9c2ecca4-vkb666`, `handoff-20261109/1059-assess/` | 3 | yes | yes (`d08faa81`, `e01e3097`; blob ids match) | remote branch present (see item 3) |
+| 4. ASSESS-868 r3a, REVIEW-868-r3, DISPOSITIONS-r3a, probes | not here: branch `research/q868h-868-20261113`, `drafts/q868h-20261109/assess-868-r3a/` | 28 | yes | yes (`d97c4b6b…`, `2a5014a5…`) | remote branch present (see item 4) |
+| 5. qc21/qc22 session drafts | not preserved (see item 5) | 573 excluded | yes | not applicable | no: excluded by owner decision; published outcomes on remote branches |
+| 6. QPHEN review chain cited by #1219 | `qphen-review-chain/` | 46 | yes | yes, 46 of 46 against #1219's cited hashes | pending verification after push |
 | 7. Local commits `a59a965a` … `d87547a4` | not files: git ref | 4 commits | yes | yes (commit ids) | remote ref present (see item 7) |
 
-Total in this directory: 649 files (23,236,550 bytes) plus this README and `FILES.tsv`.
+Total in this directory: 73 files (2,276,262 bytes) plus this README and `FILES.tsv`.
 
 ***
 
@@ -74,7 +84,7 @@ Total in this directory: 649 files (23,236,550 bytes) plus this README and `FILE
 | sha256 / blob | `33075f9f2e4df52cf87536ebcb8c8c931f89960e3a067af30c182587f3109b74` / `8e5808e559cf03fd22b1beb5293902741ba148e4` |
 | Status as recorded | The owner's words in c.6726546702: "accept the consolidated audit package (PACKAGE r3, 33075f9f) as the reconciled findings without adopting any correction". Model-written and model-reviewed: r2 reviewed ACCEPT (`REVIEW-PACKAGE-r2.md`); r3 applies that review's non-blocking items |
 | Cited on `main` (`c3b5f37a`) | `verification/programmes/oi-qm/reconstruction/round-arp1-marc-20261108/preregistration.md` lines 124 and 885; `.../round-arp1-marc-20261108/evidence/order.json`; `verification/receipts/ARP-1-MARC.json` line 46 |
-| FOUND / VERIFIED / PRESERVED | yes / yes / pending push |
+| FOUND / VERIFIED / PRESERVED | yes / yes / pending verification after push |
 
 Inputs and review trail. PACKAGE r3 records the sha256 of its inputs and earlier revisions; each
 matches. The reviews are not hashed in the package.
@@ -107,7 +117,7 @@ matches. The reviews are not hashed in the package.
 | sha256 / blob | `88a4ec2db88b48795f0d7a1740fc383c3fc24031a6adf22578a16f0f3bfd1d45` / `a74c0c1cecb0bf0bd89b087a763263b3df2fe300` |
 | Status as recorded | c.6793400283: "a fresh non-author Claude review of preregistration draft r14b (sha256 `e8f5fcfb…`) returned **REVISE** with three blockers"; "Q-C2-2 stays parked. Nothing here authorizes a revision pass, run, freeze, F/E designation or dispatch." Q-C2-2 r14c is listed as parked in c.6852816462 |
 | Cited on `main` | nothing |
-| FOUND / VERIFIED / PRESERVED | yes / yes / pending push |
+| FOUND / VERIFIED / PRESERVED | yes / yes / pending verification after push |
 
 The reviewed draft r14b itself is on branch `ccr-9c2ecca4-vkb666` at
 `handoff-20261109/qc22/preregistration.draft.md`, and its rebuilt copy is here as
@@ -129,23 +139,23 @@ The reviewed draft r14b itself is on branch `ccr-9c2ecca4-vkb666` at
 
 ## 3. ASSESS-1059 r6a (#1059 Born re-assessment)
 
-| Field | Value |
-|---|---|
-| Recorded hash, where | `d08faa81` (r6a): #1169 c.6743475622 (`amaybaum`, 2026-11-09T15:09:48Z), session handoff table; and `handoff-20261109/HANDOFF.md` line 21 at `820519cf011c09b37690213a758106ed3aa15cc2`, which also records the review as `e01e3097` |
-| Original location | branch `ccr-9c2ecca4-vkb666` at `820519cf011c09b37690213a758106ed3aa15cc2`, `handoff-20261109/1059-assess/` (the three blobs are identical there); session copies at `reassess/1059/` |
-| sha256 / blob | `d08faa8174e526f05c085051727ffd53096f688e933977b198b1d66f500da2b8` / `31d0de4698142373aa4b30a9eb6b8d29f459a33a` |
-| Status as recorded | c.6743475622: "**Accepted**: r6 review ACCEPT WITH NITS; nits applied (r6a `d08faa81`)", role "Input to the dependency matrix". REVIEW-1059-r6 is a model-written review of r6 (sha256 `ccedea2f…`), not of r6a; the r6 → r6a nit edits have no separate review |
-| Cited on `main` | nothing |
-| FOUND / VERIFIED / PRESERVED | yes / yes / pending push |
+Not duplicated here. The existing copy is on branch `ccr-9c2ecca4-vkb666` at
+`820519cf011c09b37690213a758106ed3aa15cc2`, directory `handoff-20261109/1059-assess/`, a session
+snapshot whose commit message says "WIP, not for merge". On 2026-11-13 `git ls-remote` showed that
+branch at `820519cf`, and the blob ids there were checked against the bytes recovered from session
+storage (`reassess/1059/`):
 
-The source branch is a session snapshot whose commit message says "WIP, not for merge"; its
-risk is that the branch is disposable.
+| File (under `handoff-20261109/1059-assess/`) | sha256 | Blob | Matched against |
+|---|---|---|---|
+| `ASSESS-1059.md` | `d08faa8174e526f05c085051727ffd53096f688e933977b198b1d66f500da2b8` | `31d0de4698142373aa4b30a9eb6b8d29f459a33a` | the recorded `d08faa81` |
+| `DISPOSITIONS-r6.md` | `528cd5c39b50f3e8ee79c7f6a41c046439dfa5acce87c0c53a0d4b773f4348fd` | `945ca25de8a0f345c7c2e8c810413cffe615dbc2` | REVIEW-1059-r6.md:9 (`528cd5c3…48fd`) |
+| `review/REVIEW-1059-r6.md` | `e01e309758c0b8f884b11cc92c00891e58bc640a4a2e0605155a04e009c6b017` | `9e44094cb7c2277267c96efcd2fe9eda78129bef` | the recorded `e01e3097` (`handoff-20261109/HANDOFF.md` line 21) |
 
-| File | sha256 | Blob | Size | Matched against |
-|---|---|---|---|---|
-| `ASSESS-1059.md` | `d08faa8174e526f05c085051727ffd53096f688e933977b198b1d66f500da2b8` | `31d0de46` | 74736 | the recorded `d08faa81` |
-| `DISPOSITIONS-r6.md` | `528cd5c39b50f3e8ee79c7f6a41c046439dfa5acce87c0c53a0d4b773f4348fd` | `945ca25d` | 9969 | REVIEW-1059-r6.md:9 (`528cd5c3…48fd`) |
-| `review/REVIEW-1059-r6.md` | `e01e309758c0b8f884b11cc92c00891e58bc640a4a2e0605155a04e009c6b017` | `9e44094c` | 12007 | the recorded `e01e3097` (HANDOFF.md; also ASSESS-1059.md:9 in full) |
+Recorded hash: `d08faa81` (r6a) in #1169 c.6743475622 (`amaybaum`, 2026-11-09T15:09:48Z). Status
+as recorded there: "**Accepted**: r6 review ACCEPT WITH NITS; nits applied (r6a `d08faa81`)", role
+"Input to the dependency matrix". REVIEW-1059-r6 is a model-written review of r6 (sha256
+`ccedea2f…`), not of r6a; the r6 → r6a nit edits have no separate review. Cited on `main`:
+nothing. FOUND yes; VERIFIED yes (blob ids); PRESERVED yes (remote branch present).
 
 ## 4. ASSESS-868 r3a (#868 joint-systems re-assessment)
 
@@ -162,34 +172,31 @@ carries the hash table, the recorded status and the off-`main` references.
 | sha256 / blob | `d97c4b6b17bea9675d02a697e5164862471dad840dfbe9b54532baacd6788e1b` / `7196beebd6d4c5811132a2bf0fba33386566780b`; review `2a5014a526399437754ecba4a8d8496ead456c33f10483c1b723acd170f0fd1d` / `18681975a022f2bde51c2365da4c4bb11b2529dd` |
 | Status as recorded | #868 c.6742050189: "Independent review of r3: ACCEPT WITH NITS (REVIEW-868-r3.md, `2a5014a5…`)", "Nits: applied in r3a (`d97c4b6b…`)", findings "model-written, model-reviewed; not human verification" |
 | Cited on `main` | nothing |
-| FOUND / VERIFIED / PRESERVED | yes / yes / pending push of `research/q868h-868-20261113` |
+| FOUND / VERIFIED / PRESERVED | yes / yes / yes: on 2026-11-13 `git ls-remote` showed `research/q868h-868-20261113` at `c9d14e1135a23b73f61f62be33ffdca5b642fe67`, a descendant of `44f7c328` with that directory unchanged |
 
 ## 5. qc21 / qc22 session drafts (Q-C2-1 = ARP-2, Q-C2-2 = ARP-3)
 
-No hash is recorded for this item; "session drafts" is read as the qc21/qc22 working directories
-in session storage. VERIFIED here means byte-identical to the source (`cmp`), with the hashes in
-`FILES.tsv`.
+The session history is not preserved. The 573 qc21/qc22 session-history files (570 in the
+session-storage working directories `arp/qc21/`, `arp/qc22/`, `qc21w/`, `qc21b2/` and
+`qc21b2r2/`, and two script files of commit `d87547a4`) are excluded by the owner decision quoted in section
+"Authority" ("Proceed (Recommended)"), under §A.42 item 5: only what surviving claims or
+owner-accepted records need is retained. FOUND yes; VERIFIED not applicable; PRESERVED no.
 
-| Subdirectory | Files | Original location |
-|---|---|---|
-| `qc-session/arp/qc21/` | 342 | `arp/qc21/`, without `wt-impl/` (a git worktree of this repository; see item 7), `__pycache__/` and `pycc/*.pyc` |
-| `qc-session/arp/qc22/` | 210 | `arp/qc22/`, without `__pycache__/`; one file redacted (below) |
-| `qc-session/qc21w/` | 8 | `qc21w/` |
-| `qc-session/qc21b2/` | 7 | `qc21b2/` (the 2026-11-11 qc21 B2 diagnosis `DIAG-QMP.md` with its self-test outputs) |
-| `qc-session/qc21b2r2/` | 4 | `qc21b2r2/` |
-| `qc-session/unpushed-d87547a4/` | 2 | git objects: `controls.py` and `qc21_check.py` of `round-arp2-qc21-20261108/` at commit `d87547a4a1ba000b512076a1f3036bcea7fb816b` (blobs `b1d4bea484fbe40d7f84fe4ad8d4fe55d3d6d9d5`, `aa9cd82ed98c6c8239a0e984bbfd172c78320812`) |
+Their published outcomes are on remote branches:
 
-Contents: the qc21 preregistration revisions r1–r14b and PLAN/DESIGN-DS r1–r13; qc22 r1–r14a with
-ACCESS r1–r13; the review trail (REVIEW-QC21-r14/-r14a/-REACHABLE, REVIEW-ACCESS r1–r13,
-REVIEW-QC22-r13-full, REVIEW-QC22-r14b); dispositions; IMPL-DELTA r14/r14a; probes and controls.
+- qc21 r14c and its review REVIEW-QC21-r14c, and qc22 r14b with DECISIONS-QC22-preF and
+  REVIEW-QC22-r14a: branch `ccr-9c2ecca4-vkb666` at `820519cf011c09b37690213a758106ed3aa15cc2`,
+  under `handoff-20261109/qc21/` and `handoff-20261109/qc22/`;
+- qc21 r14d and its preregistration draft: branch `research/arp2-qc21-prep-20261109` at
+  `f1336264aad9e548e7b8e233130878a44ba766d8`, under
+  `verification/programmes/oi-qm/reconstruction/drafts/arp2-qc21/`;
+- the r14b review and its probes: item 2; the four local qc21 commits: item 7.
 
-| Field | Value |
-|---|---|
-| Recorded hash, where | none recorded for the item; #1169 c.6852816462 names "the qc21/qc22 session drafts" |
-| Status as recorded | WIP / UNVERIFIED drafts. qc21 r14c was reviewed REVISE (minor); the qc21 r14d checkpoint `f634f8e3f2115ef28d11616e0d195221d3ce9cb3` carries an owner decision (#1169 c.6778994857); qc22 r14b was reviewed REVISE (item 2). Q-C2-1 execution and Q-C2-2 r14c are parked (c.6852816462) |
-| Already on a branch | qc21 r14c and REVIEW-QC21-r14c, and qc22 r14b, DECISIONS-QC22-preF and REVIEW-QC22-r14a, on `ccr-9c2ecca4-vkb666` under `handoff-20261109/`; qc21 r14d on `research/arp2-qc21-prep-20261109` under `drafts/arp2-qc21/` |
-| Cited on `main` | nothing (`main` names ARP-2 only in the ARP-1-MARC preregistration, line 841) |
-| FOUND / VERIFIED / PRESERVED | yes / byte-identical to source / pending push |
+Status as recorded: WIP / UNVERIFIED drafts. qc21 r14c was reviewed REVISE (minor); the qc21 r14d
+checkpoint `f634f8e3f2115ef28d11616e0d195221d3ce9cb3`, an ancestor of `f1336264`, carries an owner
+decision (#1169 c.6778994857); qc22 r14b was reviewed REVISE (item 2). Q-C2-1 execution and Q-C2-2
+r14c are parked (c.6852816462). Cited on `main`: nothing (`main` names ARP-2 only in the
+ARP-1-MARC preregistration, line 841).
 
 ## 6. QPHEN Phase 1 review chain cited by #1219
 
@@ -258,7 +265,7 @@ REVIEW-PHASE1-r4.md:18 hashes.
 Status as recorded: the QPHEN Phase 1 design was frozen by the owner at r7c (#1210 c.6743200254,
 as quoted in the #1219 commit message); r1–r7b are the superseded revisions its reviews examined.
 Each review in the chain is model-written. Cited on `main`: nothing. FOUND yes; VERIFIED yes
-(46 of 46); PRESERVED pending push.
+(46 of 46); PRESERVED pending verification after push.
 
 Not found, or not included:
 
@@ -289,96 +296,41 @@ exist in the local object store and were on no remote ref when the recovery mani
 
 They are preserved by the ref `research/recovered-qc21-local-d87547a4` pointing at `d87547a4`,
 pushed by the coordinating session; the commits themselves are not modified. `git ls-remote` on
-2026-11-13 showed that ref on the remote at `d87547a4a1ba000b512076a1f3036bcea7fb816b`. Their two
-script files at `d87547a4` are also under `qc-session/unpushed-d87547a4/`. FOUND yes; VERIFIED yes
+2026-11-13 showed that ref on the remote at `d87547a4a1ba000b512076a1f3036bcea7fb816b`. FOUND yes; VERIFIED yes
 (commit ids); PRESERVED yes (remote ref present). The worktree must not be pruned (§A.40).
 
 ***
 
 ## Exclusions and redactions
 
-- **Compiled Python.** All `.pyc` files and `__pycache__/` directories: `arp/qc21/pycc/0.pyc` …
-  `11.pyc` (12 files) and the `__pycache__/` directories of `arp/qc21/` and `arp/qc22/`.
-- **Worktree.** `arp/qc21/wt-impl/`, a git worktree of this repository; its unpushed commits are
-  item 7.
+- **Session history.** The 573 qc21/qc22 session-history files (item 5), by owner decision.
 - **Redaction (§A.42 item 4).** `probes-r14b-rv/q2_paged_obj.raw`, a raw GitHub Actions API
   response saved by the r14b reviewer, carries a GitHub noreply e-mail address twice on line 1.
-  Both copies (`qc22-r14b-review/review/probes-r14b-rv/` and
-  `qc-session/arp/qc22/review/probes-r14b-rv/`) are stored redacted: each occurrence of the address
-  is replaced by `[redacted-email]`, and no other byte changes.
+  The copy here (`qc22-r14b-review/review/probes-r14b-rv/`) is stored redacted: each occurrence
+  of the address is replaced by `[redacted-email]`, and no other byte changes.
 
   | | sha256 | Size |
   |---|---|---|
   | original (not committed) | `d676db8f5419d2116d77fa6de08e3126fc943c3ee035e6e924f61dcdc097951c` | 13215 |
-  | redacted (committed, both paths; blob `3b6f710feedee44758f2d834df015c01910cc2d3`) | `3326133f89c08a2ba0c1c193ab936a15ff14a9bd2b39680b2dc40b0085707aaf` | 13181 |
+  | redacted (committed; blob `3b6f710feedee44758f2d834df015c01910cc2d3`) | `3326133f89c08a2ba0c1c193ab936a15ff14a9bd2b39680b2dc40b0085707aaf` | 13181 |
 
   The file also carries run ids, node ids and branch names, which were kept.
-- **Archive.** `qc-session/arp/qc22/review/probes-full/artifact-dl/a.zip` (933 bytes, sha256
-  `1ecf12cb918bb886b260ad1b7c22f85733f751bf5821986163f95da2b360b3ec`, blob
-  `66dfecec344c77e001b16f53599c13693d2b4646`) is included. Its listing (`unzip -l`; not extracted)
-  holds one member, `measurements.json` (2983 bytes, 2026-11-09 05:06, sha256 `77e2254d…`), a JSON
-  object with schema `arp1-marc-measurements` version 1: counts and flags only, no code.
 - **Scan.** All files were scanned for tokens, keys, signed URLs, IPv4 and e-mail addresses after
-  redaction; the only remaining matches are the two code false positives listed below.
+  redaction; no match remains.
 
 ## Known SC-42 hits (bytes preserved unchanged)
 
 The SC-42 integration check's added-text scan (`check_sc42_integration.py`, `*.md` and `*.py`)
-flags the lines below. The local-path hits name session-storage paths or the session-storage
-directory word; the two secret-pattern hits are code (a matrix product with the `@` operator and `np.linalg.inv`, and the
-regular-expression source of a copy of the SC-42 check), not secrets. The bytes are preserved
-unchanged; 82 hits in 49 files.
+flags the lines below. Each hit names a session-storage path or the session-storage directory
+word. The bytes are preserved unchanged; 8 hits in 6 files.
 
 | File | Lines |
 |---|---|
-| `assess-1059/ASSESS-1059.md` | local path at lines 57, 58, 61, 62, 64, 65, 66, 68, 69, 638 |
 | `eoi-package/eoi-audit/PACKAGE-r2.md` | local path at lines 394, 399 |
 | `eoi-package/eoi-audit/PACKAGE.md` | local path at lines 409, 414 |
 | `eoi-package/eoi-audit/REVIEW-PACKAGE.md` | local path at line 106 |
 | `eoi-package/gate/GATE-DRAFT.md` | local path at line 234 |
 | `eoi-package/gate/REVIEW-GATE-r3.md` | local path at line 6 |
-| `qc-session/arp/qc21/DISPOSITIONS-r14a.md` | local path at line 53 |
-| `qc-session/arp/qc21/preregistration.draft.md` | local path at lines 665, 1814 |
-| `qc-session/arp/qc21/r10/preregistration-r10.draft.md` | local path at lines 362, 1088 |
-| `qc-session/arp/qc21/r10parts/appendixC.md` | local path at line 3 |
-| `qc-session/arp/qc21/r10parts/c_head.md` | local path at line 3 |
-| `qc-session/arp/qc21/r11/preregistration-r11.draft.md` | local path at lines 381, 1259 |
-| `qc-session/arp/qc21/r11a/preregistration-r11a.draft.md` | local path at lines 383, 1281 |
-| `qc-session/arp/qc21/r11b/preregistration-r11b.draft.md` | local path at lines 385, 1283 |
-| `qc-session/arp/qc21/r11parts/appendixC.md` | local path at line 3 |
-| `qc-session/arp/qc21/r11parts/c_head.md` | local path at line 3 |
-| `qc-session/arp/qc21/r12/preregistration-r12.draft.md` | local path at lines 389, 1310 |
-| `qc-session/arp/qc21/r12a/preregistration-r12a.draft.md` | local path at lines 390, 1311 |
-| `qc-session/arp/qc21/r13/preregistration-r13.draft.md` | local path at lines 579, 1554 |
-| `qc-session/arp/qc21/r13a/preregistration.draft.md` | local path at lines 610, 1585 |
-| `qc-session/arp/qc21/r14/preregistration.draft.md` | local path at lines 642, 1655 |
-| `qc-session/arp/qc21/r14a/DISPOSITIONS-r14a.md` | local path at line 53 |
-| `qc-session/arp/qc21/r14a/preregistration.draft.md` | local path at lines 652, 1715 |
-| `qc-session/arp/qc21/r14awork/make_r14a.py` | local path at line 6 |
-| `qc-session/arp/qc21/r14b/preregistration.draft.md` | local path at lines 659, 1767 |
-| `qc-session/arp/qc21/r14bwork/make_impl_r14b.py` | local path at line 4 |
-| `qc-session/arp/qc21/r14bwork/make_r14b.py` | local path at lines 8, 59, 60 |
-| `qc-session/arp/qc21/r14c/preregistration.draft.md` | local path at lines 665, 1814 |
-| `qc-session/arp/qc21/r14cwork/make_r14c.py` | local path at line 10 |
-| `qc-session/arp/qc21/r14cwork/preregistration.r14c.md` | local path at lines 665, 1814 |
-| `qc-session/arp/qc21/r14work/make_r14.py` | local path at line 5 |
-| `qc-session/arp/qc21/review/REVIEW-QC21-r14.md` | local path at line 132 |
-| `qc-session/arp/qc21/review/REVIEW-QC21-r14a.md` | local path at line 103 |
-| `qc-session/arp/qc21/review/REVIEW-REACHABLE.md` | local path at line 3 |
-| `qc-session/arp/qc21/review/probes-r11/prereg_appC.md` | local path at line 3 |
-| `qc-session/arp/qc21/review/probes-r11/run/build_c_local.py` | local path at line 2 |
-| `qc-session/arp/qc21/review/probes-r14/make_r14_redirected.py` | local path at line 5 |
-| `qc-session/arp/qc21/review/probes-r14/rebuild-r14.md` | local path at lines 642, 1655 |
-| `qc-session/arp/qc21/review/probes-r14a/make_r14a_redirected.py` | local path at lines 6, 596 |
-| `qc-session/arp/qc21/review/probes-r14a/rebuild-r14a.md` | local path at lines 652, 1715 |
-| `qc-session/arp/qc21/review/probes-r14b/rebuild-r14b.md` | local path at lines 659, 1767 |
-| `qc-session/arp/qc21/review/probes-r14c/base/preregistration.draft.md` | local path at lines 659, 1767 |
-| `qc-session/arp/qc21/review/probes-r14c/make_r14c.rebased.py` | local path at line 10 |
-| `qc-session/arp/qc21/review/probes-r14c/rebuild-r14c.md` | local path at lines 665, 1814 |
-| `qc-session/arp/qc21/review/proofs/search_k1_candidates.py` | secret pattern at line 40 |
-| `qc-session/arp/qc21/sc42.main.py` | secret pattern at line 310 |
-| `qc-session/arp/qc22/IMPL-DELTA-r14.md` | local path at line 10 |
-| `qc-session/arp/qc22/r14/IMPL-DELTA-r14.md` | local path at line 10 |
 | `qphen-review-chain/review/REVIEW-PHASE1-r4.md` | local path at line 20 |
 
 ## Known claims_check hit (bytes preserved unchanged)
@@ -395,13 +347,14 @@ exemption for this paragraph would need its own owner decision.
 These are recovered records, not claims; nothing here is offered as support for a claim on
 `main`. The references the files make were not each traced. Known classes:
 
-- Session-storage companions cited by path or hash: the ASSESS files cite `bridge/` and `qphen/`
-  files (the cited QPHEN r5 texts are now in `qphen-review-chain/r5/`; the BRIDGE-UNIT1 files are
-  on `ccr-9c2ecca4-vkb666` under `handoff-20261109/1211-bridge/`); REVIEW-QC22-r14b cites its
-  probes (here); the EOI package cites its inputs (here) and is classified on `main`
-  (preregistration.md:124) as provenance with its inputs "none of them on `main`".
-- Commits off `main`: `820519cf` (session snapshot), `4c7f3f86` (#1219), `f634f8e3` (qc21 r14d),
-  and `d87547a4` with its ancestors (item 7).
+- Session-storage companions cited by path or hash: REVIEW-QC22-r14b cites its probes (here);
+  the EOI package cites its inputs (here) and is classified on `main` (preregistration.md:124) as
+  provenance with its inputs "none of them on `main`".
+- Commits off `main`: cited by the EOI package and gate draft, `7d707bb5`, `83eca7cd` and
+  `cc453774` (FHE-SEL-1 preregistration heads on the `research/fhesel1-p-*-20261108` branches);
+  cited by this README, `820519cf` (session snapshot), `4c7f3f86` (#1219), `44f7c328` and
+  `c9d14e11` (#1269), `f1336264` and its ancestor `f634f8e3` (qc21 r14d), and `d87547a4` with its
+  ancestors (item 7).
 - Issues, comments and pull requests (#868, #914, #1059, #1169, #1208, #1210, #1219 and others),
   cited as authorization, status or planning records.
 
