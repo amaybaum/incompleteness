@@ -140,15 +140,13 @@ $$\mathfrak{f}_{\text{WD}} = \mathfrak{f}_{\text{ss}}(L) + \text{rank}(N)$$
 
 *Proof.* $F_{\text{ss}}$ has order $L$; its eigenvalues are $L$-th roots of unity. For $\gcd(L, q) = 1$, the $L$-th roots in $\bar{\mathbb{F}}_q$ are isomorphic to those in $\mathbb{C}$, so their orders match. $\square$
 
-| $L$ | $\mathfrak{f}_{\text{ss}}(L)$ | $\mathfrak{f}_{\text{WD}}$ | $\text{NM}^2 = 3L/4$ |
-|-----|---|---|---|
-| 4 | 14 | 16 | 3.00 |
-| 6 | 30 | 32 | 4.50 |
-| 8 | 70 | 72 | 6.00 |
-| 10 | 106 | 108 | 7.50 |
-| 12 | 130 | 132 | 9.00 |
-
-Both $\mathfrak{f}_{\text{ss}}$ and $\text{NM}^2$ are $q$-independent encodings of the same semisimple eigenvalue data — one via multiplicative orders (integers), one via fourth moments of magnitudes (reals).
+| $L$ | $\mathfrak{f}_{\text{ss}}(L)$ | $\mathfrak{f}_{\text{WD}}$ |
+|-----|---|---|
+| 4 | 14 | 16 |
+| 6 | 30 | 32 |
+| 8 | 70 | 72 |
+| 10 | 106 | 108 |
+| 12 | 130 | 132 |
 
 **Theorem B.3.4 (Additive decomposition over gauge irreps).** *For the $K$-component wave equation with coupling matrix $M = \text{diag}(\mu_1 I_{n_1}, \ldots, \mu_r I_{n_r})$:*
 $$\mathfrak{f}_{\text{WD}}(M) = \sum_{i=1}^r n_i \cdot \mathfrak{f}_{\text{WD}}(\mu_i)$$
@@ -168,7 +166,7 @@ Marginalization over the hidden sector does not remove $N$. Take one site as the
 
 *Main-text reference: Chapter 7 §7.3.*
 
-The framework derives the relation $\hbar = c^3\epsilon^2/(4G\sigma)$ between Planck's constant and the discreteness scale by matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory, conditional on H-slope with H-count and the horizon and frame conditions of Chapter 7 §7.3; with $\epsilon$ not independently known, it fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$ (Chapter 7 §7.4), not the value of $\hbar$. The derivation has four steps; each step is presented with its full content. Step 4 fixes the relation and does not use Steps 1–3: Steps 1–2 assume a spatially local classical Hamiltonian and, for the one-layer boundary, the posited influence bound H-BD, and Step 3 is a dimensional check on the result of Step 4.
+The framework derives the relation $\hbar = c^3\epsilon^2/(4G\sigma)$ between Planck's constant and the discreteness scale by matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory, conditional on H-slope and the further conditions of [GR §8.5(b)]; with $\epsilon$ not independently known, it fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$ (Chapter 7 §7.4), not the value of $\hbar$. The derivation has four steps; each step is presented with its full content. Step 4 fixes the relation and does not use Steps 1–3: Steps 1–2 assume a spatially local classical Hamiltonian and, for the one-layer boundary, the posited influence bound H-BD, and Step 3 is a dimensional check on the result of Step 4.
 
 **Step 1: Spatial locality.** The classical Hamiltonian of the substratum is spatially local. The interaction decomposes as
 $$H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}$$
