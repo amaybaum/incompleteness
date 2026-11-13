@@ -523,3 +523,275 @@ exactly the four stated changes, and nothing else:
 
 The wording is accurate. Lemma F's hypothesis list opens at S3:241, and its finite-configuration-set
 bullet is at S3:242. Main:758 carries the quoted words.
+
+**Commit confirmation (PR #1267 at `b923fa7f`): CONFIRMED.** Against base `62bdc2cf`, the commit adds exactly four files under the TUNE-1 directory: Step 3A, its r2, the review and OBJECTS. Each committed record differs from its reviewed working copy (blobs `4a6c1127`, `17076ef7`, `65217dc0`) only by replacing "working" with "working", on r1:697, r2:832 and review lines 3, 396, 403 and 508; this changes no meaning. Every blob and SHA-256 value in the OBJECTS table matches what I recomputed.
+
+***
+
+## Review of r3 (§2A)
+
+**Record.** `TUNE-1-STEP3A-r3.md` (1,082 lines). The base is r2 (blob `17076ef7`, accepted after
+the recheck). Line numbers below are r3's (`r3:n`).
+
+**Method.** I diffed r2 against r3. I checked every §2A citation with `git show` at `origin/main`
+`62bdc2cf` (`papers/Main.md` is byte-identical to the copy at `080cd2be`; `papers/SM.md` was read
+directly). The off-`main` citations were checked at `2d064a71`. I read #1236 c.6847314661 through the
+GitHub API. Read-only and paper-only throughout.
+
+**Verdict: ACCEPT WITH CHANGES.**
+- **Fine as written.** The diff is confined to the stated additions. Most citations are exact. Main
+  §3.4 is quoted with its hypotheses and both directions. The reformulated question is recorded
+  beside the existing one, not in place of it. No classification or verdict moves.
+- **Needs correcting.** Seven items need correction (E1–E7):
+  - the governing record is not cited;
+  - two statements apply the embedded standard as if it held in exchange mode;
+  - one [O] sentence reads NL-C's scope favourably;
+  - the countermodel list of §2A.5 mislabels three of its supports;
+  - Level A's open task inverts TUNE-1's structure;
+  - two Main §3.4 statements drop a scope qualifier.
+
+### 1. Diff scope (check 1)
+
+`diff` shows five hunks and nothing else:
+- the Standing line (r3:3–7);
+- the reformulated question in §1 (r3:160–165);
+- the table-preamble pointer (r3:198–200);
+- §2A (r3:238–413);
+- §11 (r3:1061–1082).
+
+The r2 text, including §1's existing central question and every table entry, is unchanged.
+
+**Nit n1.** The Standing line says "change-map rows in §10", but they are in a new §11.
+
+### 2. Citations (check 2)
+
+**Exact and at the right strength:**
+
+| Cited | What it supports |
+|---|---|
+| Main:42 | the Definition, quoted |
+| Main:26 | "cannot access the complete state … incompleteness is derived" |
+| Main:60 | Lemma 1, "only finite visible resolution is a theorem" |
+| Main:58 | realization datum `μ_H`, quoted |
+| Main:28, :562 | `S ⇔ D ⇔ Q_fb` |
+| Main:554 | "representability alone is not the framework's discriminating content" |
+| Main:562 | the characterization, quoted with its carrier, kinematics and rules (a)–(f), the five conditions, "each independent … `five_way_minimality`, `oi_alone_not_qm`", and both directions named, as §A.34 requires |
+| Main:66, :554 | "none supplied by bare finite OI" |
+| Main:360 | PR-box sentence |
+| Main:427 | "Removing the screened local-intervention restrictions admits … the PR negative control" |
+| Main:431 | converse process dilation |
+| Main:580 | "Quantum mechanics enters as the instrument data …" |
+| SM:104 | the principle `s(t+1) = φ_{s(t)}(s(t))`, "each `φ_s` is a bijection but `G_{φ_s}` varies with `s`", required by background independence if space is the coupling graph |
+| OA3:138–141 | the "not derived or selected by OI" quotation from MECH-2 |
+| P:40–42, :147–148, :237–241, :278–280, :422–423 | as cited |
+| P:675–676 | C-POS rows |
+| AF:316–326 | C-POS rows |
+
+Main §3.4 is not overstated. The characterization is presented as Level A, within complex matrix
+kinematics taken as given, and r3:316–318 says what it does not give. Two Main citations lose a
+qualifier (E7).
+
+- **E1 (required). The governing record is not cited.** c.6847314661 is on #1236 (`amaybaum`,
+  `OWNER`, 2026-11-13T07:51:30Z). It records the decision "Add to Step 3A as r3 (Recommended)" and
+  the owner's question verbatim, and its question matches r3's quotation. It also lists §2A's seven
+  items, including "Main §3.4 is the nearest existing bridge" and the re-reading of "lacks a sourced
+  apparatus".
+  - r3 says the decision "is not on #1236 at the time of writing and stands on the relay" (r3:240–245,
+    :1077–1082) and cites it as relayed (r3:3, :1063).
+  - The comment's paraphrase of the reformulated central question differs in wording from the
+    relayed quotation r3 gives at r3:160–165 and :404–409. The comment reads: "what observable
+    operational theories emerge from interactions among embedded observers and apparatus, and under
+    what intrinsic conditions quantum mechanics emerges rather than classical or supra-quantum
+    behaviour".
+  - Edit: cite c.6847314661 (author, association and time) as the governing record at §2A's Source
+    paragraph, the Standing line, the §11 title and the §11 disclosure. Delete "not on #1236 … stands
+    on the relay". At r3:160–165 and §2A.7, give the comment's wording as the record, keep the relayed
+    wording as context, and state that the comment governs where they differ.
+
+### 3. The re-reading in §2A.6 (check 3)
+
+- **"Lacks a sourced apparatus" = "not shown derivable from the joint dynamics".** This is faithful
+  to c.6847314661 ("will be read as 'not shown derivable from the joint dynamics'").
+- **"No classification changes".** This is correct for every candidate's primary, secondary and
+  conditional groups, for the stop condition and for the Step 3B answer. Under the re-reading every
+  candidate still has `r_O`, the program blocks, run repetition and the growth of `|C_n|` not derived
+  (§3.0, F-3A-2).
+
+The edits below concern two statements that apply the embedded standard as if it held in exchange
+mode, and one [O] sentence.
+
+- **E2 (required; r3:264–267).** "This is the standard Step 2 already applies to TUNE-1's interface:
+  D2 lets only `Φ_F` act and D5 admits no access by declaration" holds only in initial-condition
+  mode.
+  - D2 also admits "the label exchanges of section 1.2, through the register and write access of
+    H-write" (P:237–239).
+  - The proposal states that "only an `init` token is a result about the rule alone; an `exch`
+    token assumes the observer's writes" (P:563–565).
+  - Edit: "This is the standard Step 2 applies in initial-condition mode (D2, D5; P:197–198
+    'the strictly rule-only target'). Exchange mode supplies (iii) as the named hypothesis H-write
+    (P:155–167, :563–565)."
+- **E3 (required; r3:198–200 and the first bullet of §2A.6).** "It does not mean that a separate
+  machine is missing … under (i) the apparatus is part of `S` by premise" is false for exchange-mode
+  rows.
+  - There the register, its reset and the exchange are "a classical write access to `C` that `Φ_F`
+    does not supply" (P:157–159).
+  - A pass would be "a result about the rule plus an external writer" (r2 B.7; P:563–565).
+  - So for B and for the exchange rows of C and D, the apparatus includes an operation not
+    implemented by `F`, contrary to (i).
+  - Edit: add "For exchange-mode rows (B, and the exchange rows of C and D), the apparatus includes
+    the write access H-write, an operation not implemented by `Φ_F`; there the group also records
+    that statement (i) itself fails for the apparatus as specified. No classification changes."
+- **E4 (required; r3:397–400).** The [O] question, whether NL-C's hypotheses capture "a control
+  region that is itself an emergent structure of `F` rather than a designated set of cells", reads
+  NL-C's scope favourably.
+  - NL-C's proof uses only the finite menu of one-round gate labels and the declared target. It
+    uses no rule, law, carrier or designation (S4:441–466; "what it does not use", S4:458–462).
+  - Any control whose per-round gate setting is a configuration of a bounded set of cells, whether
+    designated or emergent, has a finite menu, so the counting argument applies to it.
+  - What NL-C does not cover is outside TUNE-1's schema:
+    - gates realized as multi-round sequences, which TUNE-1 excludes by definition ("A gate cannot
+      be a sequence of rounds", S4:697; final B1.1);
+    - settings not encoded as configurations of a cell set.
+  - Edit: "NL-C applies to any control whose per-round gate setting is a configuration of a bounded
+    set of cells, whether that set is designated or emergent (S4:441–466). What is open [O] is
+    whether interfaces outside TUNE-1's schema, such as gates realized over several rounds
+    (excluded by definition, S4:697) or settings not encoded as cell configurations, escape it.
+    Whether OA-3's observer model captures other observers is open as OA-3 states (OA3:383–386)."
+
+### 4. Reachable versus definable (check 4)
+
+- **Accurate as written.**
+  - The TUNE-1 label menu claim is right (P:147–148), as is its placement by initial condition or
+    H-write (P:155–167, :184–199).
+  - The SM reading is right: one global map `s ↦ φ_s(s)`, tagged [W].
+  - "Which rule operates is … open [O]" is correct. SM:104 states the principle as a requirement
+    under the reading that space is the coupling graph, and MECH-2 says its ring example is "not
+    derived or selected by OI" (OA3:138–141).
+- **Nit n2 (r3:279–280).** "Nothing makes it the world's dynamics" is a reading of Main:580, not
+  Main's text. Main:580 says the construction "uses no property of the substratum beyond finiteness
+  and reversibility". Tag the clause [W].
+
+### 5. The reformulated central question (check 5)
+
+It is recorded beside the existing question, not in place of it (r3:160–165, :402–409). The
+c.6846442383 question at r3:151–155 is unchanged. The governing wording is addressed in E1.
+
+### 6. Overreach and layer tags (check 6)
+
+- **E5 (required; r3:351–377, §2A.5).** The headline is supported: "OI's assumptions … admit
+  classical countermodels and supra-quantum constructions". The supra-quantum part is Main:360 and
+  :427. The classical part is the Bell-local reference graph (Main:414), the classical
+  prepare–measure fragment of the affine class under E(b) [R-off], and Markov laws (Main:431, :554).
+  Three of the listed supports are mislabelled:
+  - (a) **C-POS-1 and C-POS-2** (r3:368–369) are not constructions under OI's premises. C-POS-1 is
+    "Not a lattice interface", its D7 fails and its carrier is a continuum (P:675). Both reproduce
+    *quantum* one-qubit statistics with supplied access, which is a different point from a classical
+    countermodel. Move them to a separate bullet: "Classical hidden-variable models reproduce
+    one-qubit statistics under supplied access (C-POS-1, C-POS-2; not constructions under OI's
+    premises, P:675–676; AF:316–326) [R]". That shows quantum statistics do not by themselves
+    certify a non-classical substratum.
+  - (b) **`𝔊_K`'s** observer sees a contextual gbit, which is neither classical nor quantum. Label it
+    "non-quantum (gbit) operational theory from a classical reversible substratum". Note that its
+    rule is a "designed non-affine `φ` (posit)" (OA2:769), admitted by Main's Definition but not by
+    ledger item (vii).
+  - (c) **"Classical, at the level of observable laws"** (r3:361–364): `oi_alone_not_qm` witnesses
+    *non-standard*, not necessarily classical, theories. Rewrite as: "Every finite stochastic law,
+    Markov laws included, has a finite OI realization (Main:431), and at that level representability
+    does not discriminate (Main:554). The same reversible machinery realizes non-quantum finite
+    instrument families (Main:582). The five conditions are independent of a fixed C1–C4 process,
+    witnessed on the qubit by non-standard theories (`oi_alone_not_qm`, as Main:562 cites it)."
+  - (d) **The Bell bullet** (r3:370–372) should carry all of the Corollary's hypotheses (Main:414):
+    - the Bell-relevant degrees of freedom are governed entirely by the nearest-neighbour update;
+    - one-step interventions on disjoint wings;
+    - a ±1 outcome recorded in every run, read outside the other wing's cone;
+    - measurement independence and a response-complete deterministic completion.
+- **E6 (required; r3:322–324).** "TUNE-1's Q-conditions are one attempt to state such a class
+  operationally for one qubit; D6 is what keeps the class from being defined in quantum terms"
+  inverts TUNE-1's structure.
+  - The Q-conditions are the quantum target, stated against a qubit comparator (P:425–469).
+  - The class defined without quantum terms is the derived-family criterion D1–D7, with D6
+    excluding quantum vocabulary and compilation.
+  - Edit: "TUNE-1's derived-family criterion D1–D7 (P:224–423), with D6 excluding quantum vocabulary
+    and compilation (P:281–289), is one attempt to state such a class for one qubit; the
+    Q-conditions are the quantum target the class is tested against (P:445–469; AF:80–197)."
+- **E7 (required; r3:318–319 and :376).** Two statements drop a scope qualifier.
+  - At r3:318–319, "(iv), full reversible control, as not supplied under the substratum's stated
+    interventions" omits Main's kernel scope. Add "(kernel `substratumGen_not_control`, on the
+    two-state carrier, as Main:80 and :582 cite it)".
+  - At r3:376, "which is what §3.4's (i)–(v) name at Level A" should add "within complex matrix
+    kinematics taken as given (Main:562)".
+- **Nit n3 (r3:340–341).** The mapping "MP-0a is the boundary-condition route, and MP-0b is the
+  retained-correlations route" is the writer's reading. Tag it [W].
+- **Nit n4 (r3:1077–1079).** The §11 disclosure lists AF:316–319, but §2A.5 cites AF:317–326.
+  Align the two to AF:316–326.
+
+**Layer tags otherwise correct.**
+- Main is tagged [P], with kernel names "as Main cites them; no Lean was run".
+- TUNE-1 records are tagged [R], OA results [R-off], the writer's readings [W], and open questions [O].
+
+### 7. Required edits (summary)
+
+| ID | Location (r3) | Edit |
+|---|---|---|
+| E1 | :3–7, :240–245, :160–165, :402–409, :1063, :1077–1082 | Cite #1236 c.6847314661 as the governing record. Give its wording of the reformulated question and state that it governs. Delete "not on #1236" |
+| E2 | :264–267 | The embedded standard holds in initial-condition mode only. Exchange mode supplies (iii) as H-write (P:155–167, :237–239, :563–565) |
+| E3 | :198–200; §2A.6 first bullet | For exchange-mode rows the apparatus includes H-write, not implemented by `Φ_F`, so (i) fails there. Classification unchanged |
+| E4 | :397–400 | NL-C covers any one-round gate setting on a bounded cell set, designated or emergent. What is open is multi-round gates or non-configuration settings outside TUNE-1's schema (S4:441–466, :697) |
+| E5 | :351–377 | Relabel the supports: C-POS-1/2 as quantum-matching classical models under supplied access (not OI constructions); `𝔊_K` as non-quantum (gbit), with a posited non-affine rule (OA2:769); `oi_alone_not_qm` as non-standard theories; add Main:582; carry all of Main:414's hypotheses |
+| E6 | :322–324 | The class without quantum terms is D1–D7 with D6. The Q-conditions are the quantum target |
+| E7 | :318–319, :376 | Add "on the two-state carrier" (Main:80, :582) and "within complex matrix kinematics taken as given" (Main:562) |
+
+Nits: n1 (the §10 → §11 reference), n2 ([W] tag on Main:580's reading), n3 ([W] tag on the
+MP-0a/MP-0b mapping), n4 (AF:316–326).
+
+**What r3 adds, and at which layer.** r3 adds owner-directed framing only, with no new result. Its
+added claims are readings [W] of Main [P], Step 2 records [R] and OA reports [R-off], plus questions
+marked [O]. It changes no classification, verdict or Step 3B answer. After E1–E7 its §2A is
+accurately sourced and scoped.
+
+***
+
+## Confirmation of r3
+
+**Record.** `TUNE-1-STEP3A-r3.md` (1,157 lines), compared with `.r3-pre-review.md` (1,082 lines).
+**Verdict: ACCEPT.** Read-only.
+
+1. **Edits applied at every listed site.**
+
+   | Edit | Applied at | Content |
+   |---|---|---|
+   | E1 | Standing line, §1 reformulated question, §2A Source, §2A.7, §11 title and disclosure | c.6847314661 cited with author, association and time; "not on #1236 … relay" deleted; comment wording given as the record, relayed wording as context, comment governs |
+   | E2 | §2A.1 | standard stated for initial-condition mode only; exchange mode supplies (iii) as H-write |
+   | E3 | §1 preamble; §2A.6 first and secondary-group bullets | exchange-mode rows include H-write, outside `Φ_F`; (i) fails there; no classification change |
+   | E4 | §2A.6 last bullet | NL-C covers any per-round gate setting on a bounded cell set, designated or emergent; open only outside TUNE-1's schema |
+   | E5 | §2A.5 | five relabelled bullets; Main:582 added; Main:414 carried with all its hypotheses; matches the Corollary's text |
+   | E6 | §2A.3 | open task restated with D1–D7 as the class and the Q-conditions as the target |
+   | E7 | §2A.3, §2A.5 | both qualifiers added |
+
+   The nits are also applied: n1 (§11 reference), n2 (Main:580 clause quoted, [W] tag), n3 ([W]
+   tag) and n4 (AF:316–326 in §2A.5 and the disclosure).
+2. **Citation adjustments: both correct.**
+   - "This mode does not use H-write and is the strictly rule-only target" begins at P:198 and ends
+     at :199. My P:197–198 was off by one.
+   - NL-C runs from S4:423 to :462. "What it does not use" is S4:457–458. S4:697 is the
+     multi-round exclusion.
+3. **Added quotations of c.6847314661: verbatim** against the GitHub comment. The two bullets
+   joined at §2A.1 keep the comment's own semicolon. The quoted passages are:
+   - the decision and question in §2A Source;
+   - "observational access, which must be derived … likewise be derived from the joint dynamics";
+   - "a configuration being mathematically present …";
+   - "Main §3.4 is the nearest existing bridge between the two";
+   - "deriving a distribution or ensemble … not building a separate machine";
+   - "OI's assumptions still admit classical and supra-quantum models";
+   - "will be read as "not shown derivable from the joint dynamics"";
+   - the reformulated question.
+
+   No quotation overstates. Each is attributed to the owner record and sits beside the Main or TUNE-1
+   source that supports the claim. Main §3.4 is still quoted from Main itself, and the comment is
+   cited only for the framing.
+4. **Nothing else changed.** Every diff hunk maps to E1–E7, n1–n4 or the §11 disposition and
+   disclosure. No primary, secondary or conditional group moves. The stop condition, the Step 3B
+   answer and every INCONCLUSIVE label are unchanged.
+
+**Optional note, not required.** "Admitted by Main's Definition (Main:42) but not by ledger item
+(vii)" for `𝔊_K` is the writer's reading. It could carry [W].
