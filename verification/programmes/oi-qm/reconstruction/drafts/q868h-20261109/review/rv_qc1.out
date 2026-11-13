@@ -1,0 +1,8 @@
+PASS Q1a eigenvalues of (I+XX+ZZ+tYY)/4 are (1+t)/4 (x2), (3-t)/4, (-1-t)/4 :: {t/4 + 1/4: 2, 3/4 - t/4: 1, -t/4 - 1/4: 1}
+PASS Q1b at t=0 (node-10 zero completion) minimum eigenvalue is exactly -1/4
+PASS Q1c on t in [-1,1] the table is PSD iff t = -1 (all eigenvalues >= 0 at t=-1; (-1-t)/4 < 0 for t > -1)
+PASS Q1d (X(x)X)(Z(x)Z) = -(Y(x)Y)
+PASS Q1e control: (X(x)X)(Z(x)Z) != +(Y(x)Y)
+PASS Q1f every table with zero marginals and exactly two commuting Pauli-product correlators has min eigenvalue -1/4 :: 72 tables
+
+6 checks, 0 failures

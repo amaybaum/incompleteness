@@ -1,0 +1,8 @@
+PASS B5a the four Bell states (stabilizer) with Pauli-only settings: max |CHSH| = 2 :: 2
+PASS B5b but the Pauli-settings CHSH operator XX+XZ+ZX-ZZ has eigenvalue 2*sqrt2 (a non-stabilizer state violates with Pauli settings)
+PASS B5c control: Phi+ with B at (X+-Z)/sqrt2 reaches 2*sqrt2
+PASS B5d comparator: Phi+, A reads X then Z: B's conditional Bloch vector is +-e_x (inside the octahedron) :: [(1, 0, 0), (1, 0, 0), (-1, 0, 0), (-1, 0, 0)]
+PASS B5e Bloch (1,0,1) is no qubit state: (I+X+Z)/2 has eigenvalue (1-sqrt2)/2 < 0
+PASS B5f |0>(x)(cos(pi/8)|0>+sin(pi/8)|1>) is PSD with B Bloch (1/sqrt2,0,1/sqrt2): unit norm, L1 norm sqrt2 > 1
+
+6 checks, 0 failures
