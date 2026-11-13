@@ -2,7 +2,8 @@
 
 Writer pass under #1169 c.6865177667 OQ-1 (`amaybaum`, 2026-11-13T21:19:31Z): prepare a `STATUS.md`
 for #1274 only; reviewed files unchanged; no merge. Scope kept narrow per #1274 c.6863419164.
-Nothing committed, pushed or posted. No file other than `STATUS.md` and this note written.
+At drafting, nothing was committed, pushed or posted, and no file other than `STATUS.md` and this
+note was written.
 
 ## Sources read
 
@@ -68,3 +69,72 @@ Nothing committed, pushed or posted. No file other than `STATUS.md` and this not
 4. The REC-1 head (row H) is re-measured at landing; STATUS.md records `3a3aa146`.
 5. The package REVIEW-r1 should-fix count inconsistency (ten vs eleven) is in a reviewed
    file and is left unchanged.
+
+## r2: response to the focused check (review/CONFIRM-STATUS.md)
+
+Object: `research/optc-1230-1232-20261113` fetched by name at `f17020af` (adds
+`review/CONFIRM-STATUS.md`; parent `f4c300bc` adds `STATUS.md` and `review/NOTES-STATUS.md`). The
+committed `STATUS.md` and `review/NOTES-STATUS.md` at `f4c300bc` are byte-identical to the drafts of
+r1. The working-area copy of CONFIRM-STATUS.md is byte-identical to the committed file. Only
+`STATUS-r2.md`, this note and `RESPONSE-STATUS.md` were written; nothing was committed, pushed or
+posted in this pass.
+
+### Finding 1 checked independently before any change
+
+Definitions used (`NEW-RESULTS.md` §0.3, copied from I:123, I:143): spanning is
+`Span(L(encoded states)) = ℝ^{Ω_enc}`; a frame matrix of E is any T with `L∘E = T∘L`; without
+spanning the test is "E has a nonnegative frame representative" (S:290, the existential reading of
+R3:44).
+
+1. Non-spanning. With L(ρ)(5) = 0 for every ρ, every vector of L(states) has fifth coordinate 0, so
+   the span lies in {x₅ = 0} and is not ℝ⁵. The image spans that 4-dimensional subspace, because the
+   tetrahedral images span ℝ⁴ (`NEW-RESULTS.md`:312–313). Non-spanning in the record's sense: yes.
+   Nothing in §0.3 or I:123/I:143 requires every point of Ω_enc to have positive probability.
+2. Representatives. T is fixed on the span, so its first four columns are fixed: rows 1–4 are the
+   tetrahedral frame matrix F of E, row 5 is 0; column 5 is free.
+3. The entry. F_kj = 1/4 + r_k·(R r_j) (`NEW-RESULTS.md`:312–313), r = σ/2, σ of even sign product.
+   R(x,y,z) = (z,−y,x). σ_j = (1,1,1) gives Rσ_j = (1,−1,1); σ_k = (−1,1,−1) (sign product +1) gives
+   σ_k·Rσ_j = −3, so F_kj = 1/4 − 3/4 = −1/2. This is also the X5 value the reconciliation records
+   for the Hadamard on a spanning frame (R3:44, "Hadamard minimum −1/2").
+4. Separation. Every representative of the Hadamard has the −1/2 entry; the identity has the
+   nonnegative representative I₅. On this frame the test agrees with the tetrahedral (spanning) test
+   for every E, since column 5 can always be chosen as a probability vector.
+5. The zero-probability point is not essential. Split tetrahedral point 1 into two points of
+   probability p₁/2 each. The frame is non-spanning (x₁ = x₅ on the image) and every point has
+   positive probability for some state. With C (merge 1 and 5) and S (split 1 in half), both
+   nonnegative, C∘T∘S is a representative on the spanning tetrahedral frame, hence equals F; so no
+   representative T is nonnegative. Every representative also has the entry −1/2 directly (row 2,
+   column 2).
+
+Exact check, outside this task's paper-only scope and not relied on (the hand check above is the
+support; the script is a working file, not landed) (my own script, sympy rationals, no OI rule encoded): ranks of the image 4/4
+(tetrahedral), 4/5 (zero point), 4/5 (split), 4/6 (octahedral); the tetrahedral Hadamard frame
+matrix is unique with minimum −1/2; for the zero-point frame the general solution has columns 1–4
+fixed as above and column 5 free; for the split frame C·T·S − F = 0 identically. Control: on the
+octahedral frame the general solution contains the permutation matrix of S2c (setting the free
+parameters), reproducing the record's witness.
+
+Verdict: finding 1 is correct. The counterexample is valid against `NEW-RESULTS.md`:322–323 as
+written ("separates only on spanning frames"; "on non-spanning frames … does not separate"). The
+supported statement is "need not separate" (octahedral, Husimi). `STATUS.md` row 3.1 and the claim
+sentence repeated the universal form. The copied draft sentence at `NEW-RESULTS.md`:290–292 ("without
+spanning … does not separate") is true on its "need not" reading only. `NEW-RESULTS.md`:97–99
+("Without spanning the frame matrix of a map is not unique") holds for every non-spanning L.
+
+### Dispositions
+
+- Finding 1: applied with the reviewer's text (row 3.1, claim sentence, scope paragraph, the
+  "known to be invalid" sentence). The extra no-zero-point variant (item 5) is kept here, not in
+  `STATUS.md`.
+- Finding 2: applied with the reviewer's text.
+- Finding 3: applied with the reviewer's text; PR-body lines re-read through the REST API (#1231
+  "Accountable Issue: #868."; #1232 "Accountable Issue: #1169.").
+- Nit 1: applied with the reviewer's text.
+- Nit 2: applied at both places.
+- Nit 3: applied at line 5 of this note ("At drafting, …"). Whether a drafting log lands on `main`
+  is left to the landing step (§A.28).
+
+### Open owner points added
+
+6. Whether to correct `NEW-RESULTS.md`:322–323 (and, on its universal reading, the copied draft
+   sentence at :290–292) is an owner question: OQ-1 keeps the reviewed files unchanged.
