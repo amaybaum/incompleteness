@@ -14,3 +14,4 @@ Working copies written and reviewed on 2026-11-13 before this commit. Where a fi
 | `REC-1-P0-r3.md` | `b346e46d8aad354cc035984c2e788bd15fde229f509de93e78b6b30c4280ab47` | `b346e46d8aad354cc035984c2e788bd15fde229f509de93e78b6b30c4280ab47` | none |
 | `REC-1-P0-RESPONSE-r1-corrected.md` | `da1f53aabcd237df9fa29d47b1e8c6c6ca0a3649cbe55d62c426d095f755299d` | `da1f53aabcd237df9fa29d47b1e8c6c6ca0a3649cbe55d62c426d095f755299d` | none |
 | `REC-1-P0-RESPONSE-r2.md` | `416c3c21a803bdc89e3a0f7ebbde032685d91a0d0046455089975e1692b7383f` | `416c3c21a803bdc89e3a0f7ebbde032685d91a0d0046455089975e1692b7383f` | none |
+| `REC-1-P0-CONFIRM-r3.md` | `b2e93e4ca2a37c602d338537e519686620445b634812feefde8e1fa860fa730d` | `b2e93e4ca2a37c602d338537e519686620445b634812feefde8e1fa860fa730d` | none |
