@@ -18,7 +18,7 @@ that file or any other file here; r5 is the accepted text.
     WITH CHANGES (R1–R7); "Re-check of R1–R7", ACCEPT after two mechanical edits.
   - `OBJECTS.md` ties each reviewed working copy to its committed blob.
 - **The accepted blob and the re-checked text.** The re-check names working-copy blob
-  `602fe3af4d340da613985c22281445964950e0ab` and specifies two final edits: digit-only changes to the
+  `602fe3af` and specifies two final edits: digit-only changes to the
   §13 change map, and a replacement for the sentence at :5. Undoing exactly those edits in the
   committed r5 reproduces `602fe3af` byte for byte. This check was made by the package writer; it is
   not a review.

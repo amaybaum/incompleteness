@@ -87,7 +87,7 @@ proven exhaustive; consistency axis only; no manuscript claim affected)."
 | #1245 comment 6818702013 (L ≠ 0 at site-local cuts, C6(b)) | Provenance. GR:128 on `main` states that L ≠ 0 at every cut where a boundary site has a deep neighbour. |
 | #1245 comments 6829744096, 6828106610, 6841976574; #1169 comment 6841795465 | Governance provenance, quoted above. |
 | Commits `5fec0966` and `6ca96562` on this PR's branch, named in the review | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
-| Working-copy blob id `72800573868837a93ede067ea4e99504e9ed9bc0` in `DELTA-REVIEW-W1-1-r3.md` (:228, :270) | Not an object in the repository, so §A.42 item 3 is not met for this id. Reverting exactly the four hunks the confirmation names in the committed r4 reproduces it byte for byte; the package writer made this check. The confirmation itself names the committed blob. |
+| Working-copy blob id `72800573` in `DELTA-REVIEW-W1-1-r3.md` (:228, :270) | Not an object in the repository, so §A.42 item 3 is not met for this id. Reverting exactly the four hunks the confirmation names in the committed r4 reproduces it byte for byte; the package writer made this check. The confirmation itself names the committed blob. |
 | Other references inside the reviews (session paths, `origin/main` commits) | Provenance. Each verdict rests on the blobs `OBJECTS.md` records. |
 
 ## Source drift from `fb733b4a` to `main` (`62bdc2cf`)

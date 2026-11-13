@@ -21,7 +21,7 @@ that file or any other file here; r4 is the accepted text.
   - `OBJECTS.md` ties each reviewed working copy to its committed blob.
 - **The accepted blob and the confirmed text.** The confirmation names working-copy blob `b65e6d9c`
   and specifies the Standing replacement. Undoing exactly that replacement in the committed r4
-  reproduces blob `b65e6d9c0847f37616b0733614435262633d2a86` byte for byte. This check was made by
+  reproduces blob `b65e6d9c` byte for byte. This check was made by
   the package writer; it is not a review.
 - **Nature of the reviews.** Separate read-only, paper-only AI-agent reviews; not human reviews,
   GitHub approvals or owner decisions. The record's [W] items are hand derivations; its [RW] steps

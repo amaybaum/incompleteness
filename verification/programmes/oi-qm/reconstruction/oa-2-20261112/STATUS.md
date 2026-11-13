@@ -18,7 +18,7 @@ that file or any other file here; r4 is the accepted text.
     ACCEPT WITH NITS (R1–R12); "Confirmation of r4", ACCEPT after one bookkeeping edit (C1).
   - `OBJECTS.md` ties each reviewed working copy to its committed blob.
 - **The accepted blob and the confirmed text.** The confirmation names working-copy blob
-  `655480e97eb48225d84dd5506dfd096bfb14e281` and requires C1, a 28-line block replacing r4:1040–1067.
+  `655480e9` and requires C1, a 28-line block replacing r4:1040–1067.
   That working copy was not retained. In the committed r4, lines 1040–1067 equal the C1 block byte
   for byte. Lines 1–1034 equal the committed r3 with the E- and R-edits applied by the session's
   exact-substitution scripts, which the confirmation found to be the review's exact text. These
