@@ -5,7 +5,7 @@ adopted. No git or GitHub write was made, and no probe was run.
 
 - **r2:** `Q868H-UNIT1.md` at `82f592db3a0a36f118bf693805be5d1322e32b1e` (branch `research/q868h-868-20261113`),
   sha256 `1e128f286b14be3294cb8411e21f0b4b4516cbc9985fc2589fb6362a752179e6` (verified).
-- **r3:** `Q868H-UNIT1.md`, sha256 `2d900ccc87101b540ceaf80269884d1b85d6a8fd1f44cab6b77318e404a53932`. The change is the diff of
+- **r3:** `Q868H-UNIT1.md`, sha256 `bf04ea952c2837c392e1af042207d490f45ebe9ba9fd93b8fe87461d1a862c38`. The change is the diff of
   `r2/Q868H-UNIT1.md` against `Q868H-UNIT1.md`.
 - **Review:** the fresh independent review of r2 at `82f592db` (model-written, 2026-11-13; `review/REVIEW-Q868H-UNIT1-r2.md`, sha256
   `651612e89c964c05bbc31d7b47c67cbb855456622b8eaee98bf3c79d9865268e`). Verdict ACCEPT WITH CHANGES; required changes

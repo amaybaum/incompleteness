@@ -180,7 +180,7 @@ directory of the session that wrote the file; the bytes are kept unchanged.
 
 | File | Blob | SHA-256 | Status |
 |---|---|---|---|
-| `Q868H-UNIT1.md` | `53eb911e0f904e1967db85aee3bb1779e092400c` | `2d900ccc87101b540ceaf80269884d1b85d6a8fd1f44cab6b77318e404a53932` | r3; applies RC1–RC5 and O1, O2, O3, O7 of the r2 review; pending focused confirmation |
+| `Q868H-UNIT1.md` | `ebf5215b13e3a7efb2274f0069b175925bcdff79` | `bf04ea952c2837c392e1af042207d490f45ebe9ba9fd93b8fe87461d1a862c38` | r3; applies RC1–RC5 and O1, O2, O3, O7 of the r2 review; focused confirmation ACCEPT; ChatGPT ACCEPT WITH DOCUMENTATION NITS (review 5891666660), nits applied |
 | `DISPOSITIONS-r3.md` | `406ddfb96c0ac73bca1432ca27fc61fc8341a636` | `fd75e7c68fd738128120dcd302248fa2b047a40521d9015b59cf60d5e0fecbd5` | r2→r3 change note |
 | `review/REVIEW-Q868H-UNIT1-r2.md` | `144cc7db4586fc108a06a6e94b09b666322950ea` | `651612e89c964c05bbc31d7b47c67cbb855456622b8eaee98bf3c79d9865268e` | fresh non-author model review of r2 at `82f592db`; verdict ACCEPT WITH CHANGES (RC1–RC5) |
 
