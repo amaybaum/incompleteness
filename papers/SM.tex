@@ -376,7 +376,7 @@ periodic-lattice class, E5--E7 select \(d=3\) on the continuum branch of
 concordance, \(\rho_s/\rho_{\text{crit}}=2/(d-1)\), is redundant for the
 selection once the first two hold, but not logically dependent on them:
 it independently excludes \(d\geq4\) (§3.2); its coefficient inherits
-the horizon conditions of {[}GR §2, §8.5{]} through
+H-count and the horizon conditions of {[}GR §2, §8.5{]} through
 \(\epsilon=2\sqrt{\sigma}\,l_P\). Renormalizability of the specified
 Yang--Mills coupling is a downstream consequence. The dimensional
 selection has the self-consistency status specified in §3.2 and §8.3.
@@ -398,13 +398,14 @@ results \emph{on that branch}, not unconditional consequences of finite
 observation alone.
 
 \textbf{Tier 3 --- Redundant confirmations.} The minimal chiral-group
-constraint and the Jordan--Chevalley projection (Appendix A) provide
-additional checks with their stated hypotheses. Asymptotic freedom
-depends on the gauge and matter contributions to the beta function: the
-Standard Model's \(SU(2)\) factor has \(b_2=-19/6\) and is
-asymptotically free (§6.2). Thus asymptotic freedom does not require
-\(N_c\geq3\) and does not by itself select the color group; the
-dimensionless-coupling result of §4.10 is separate.
+constraint and the period formula and Jordan--Chevalley decomposition of
+the ring evolution (Appendix A) provide additional checks with their
+stated hypotheses. Asymptotic freedom depends on the gauge and matter
+contributions to the beta function: the Standard Model's \(SU(2)\)
+factor has \(b_2=-19/6\) and is asymptotically free (§6.2). Thus
+asymptotic freedom does not require \(N_c\geq3\) and does not by itself
+select the color group; the dimensionless-coupling result of §4.10 is
+separate.
 
 The paper is organized as follows. §2 sets out the minimal structure on
 which the framework's results depend. §3 studies the continuum-gravity
@@ -731,18 +732,22 @@ the Selection of d =
 \subsubsection{3.1 Background
 independence}\label{background-independence}}
 
-The companion paper {[}Main{]} treats the coupling graph as fixed. In
-general relativity, the spacetime geometry is dynamical. If space is the
-coupling graph, background independence in the geometric sense --- the
-state-dependent-geometry principle of this section --- requires the
-graph to evolve with the state: s(t+1) = φ\_\{s(t)\}(s(t)), where each
-φ\_s is a bijection but G\_\{φ\_s\} varies with s. This principle is not
-the structural assumption (A6) of {[}Substratum §3.1{]}, which is
-covariance of the dynamics under site-dependent internal-index
-transformations with the link coupling transformed alongside (below);
-the two share a name and are different requirements, a coupling that
-depends on the state and a coupling that transforms under a gauge group
-being different objects.
+The companion paper {[}Main{]} defines the coupling graph \(G_\varphi\)
+as one graph collecting the dependences at all states, and posits its
+nearest-neighbour form on the reference state class {[}Main §3.3,
+§4.5{]}; under linearity (A5) the dependences are the same at every
+state, so a coupling graph that varies with the state requires an update
+outside A5. In general relativity, the spacetime geometry is dynamical.
+If space is the coupling graph, background independence in the geometric
+sense --- the state-dependent-geometry principle of this section ---
+requires the graph to evolve with the state: s(t+1) = φ\_\{s(t)\}(s(t)),
+where each φ\_s is a bijection but G\_\{φ\_s\} varies with s. This
+principle is not the structural assumption (A6) of {[}Substratum
+§3.1{]}, which is covariance of the dynamics under site-dependent
+internal-index transformations with the link coupling transformed
+alongside (below); the two share a name and are different requirements,
+a coupling that depends on the state and a coupling that transforms
+under a gauge group being different objects.
 
 \textbf{Bijectivity is automatic.} The wave equation is second-order:
 x\_i(t+1) = f(neighbors of i at time t) − x\_i(t−1) mod q. The
@@ -1262,25 +1267,35 @@ no claim to derive this identification, but records that the preferred
 frame, if physical, is not an additional tunable structure but the
 cosmological rest frame already present in the data.
 
-\textbf{Lemma} (Lattice Bisognano-Wichmann). \emph{For the wave
-equation, whose low-energy effective theory is Lorentz-invariant, the
+\textbf{Lemma} (Lattice Bisognano-Wichmann, conditional). \emph{Let the
+wave equation over \(\mathbb{R}\), whose low-energy effective theory is
+Lorentz-invariant, be in its ground state, and assume that its
 entanglement Hamiltonian for a half-space bipartition has the
-Bisognano-Wichmann form. The reduced state for a Rindler observer is
-thermal at \(T_U = \hbar\kappa/(2\pi c k_B)\), with corrections at
-\(O(\varepsilon^2\kappa^2/c^2)\).}
+Bisognano-Wichmann form at low energies (an open hypothesis for the
+lattice system). Then the reduced state for a Rindler observer is
+thermal at \(T_U = \hbar\kappa/(2\pi c k_B)\) at leading order, and
+under the H-Hawking conditions of {[}GR §8.5{]} the corrections are
+\(O(\varepsilon^2\kappa^2/c^4)\). No statement is made for the mod-q
+dynamics.}
 
-\emph{Proof.} The mod-q wave equation is a coupled harmonic oscillator
-system --- the class for which the lattice BW theorem is proved
-analytically {[}6{]}. Its low-energy dispersion is relativistic (the
-preceding lemma). Thermality of the Unruh effect is robust against UV
-modifications of the dispersion relation, with corrections scaling as
-\(O(\varepsilon^2\kappa^2/c^2)\). \(\square\)
+\emph{Proof.} Over \(\mathbb{R}\) the wave equation is a coupled
+harmonic oscillator system, and its low-energy dispersion is
+relativistic (the preceding lemma). Given the Bisognano-Wichmann form,
+the half-space reduced state is the Gibbs state of the boost generator,
+which is thermal at \(T_U\) for the Rindler observer. Under the
+H-Hawking conditions of {[}GR §8.5{]}, the Schützhold--Unruh
+dispersive-robustness result bounds the shift of the horizon temperature
+caused by the lattice dispersion at \(O(\varepsilon^2\kappa^2/c^4)\). No
+cited source derives the Bisognano-Wichmann form for this lattice:
+{[}6{]} treats it for free nonrelativistic fermions, a class that does
+not include this system. \(\square\)
 
 \textbf{Discrete Einstein equation} (target form; the curvature step is
 open, see step (iv) of the proof). \emph{For the state-dependent wave
 equation on a bounded-degree graph G(x) satisfying constraints
 (i)--(iii), the Jacobson thermodynamic argument would produce, were its
-curvature step supplied:}
+curvature step supplied and the hypotheses of the lattice
+Bisognano-Wichmann lemma granted:}
 
 \[\kappa_{OR}(i, j;\, G(x)) = \alpha \cdot \mathcal{T}_{ij}(x,\, G(x))\]
 
@@ -1296,12 +1311,15 @@ statement, with its own ground-state/regularity hypotheses. The graph
 boundary is evaluated in the state-dependent \(G(x)\), so
 preparation-indexed edges contribute to \(|\partial V|\) rather than
 invalidating the graph-level form by definition. (ii) \emph{Unruh
-temperature.} The lattice Bisognano-Wichmann lemma gives
-\(T=\hbar\kappa/(2\pi c k_B)\) at local causal horizons. (iii)
-\emph{Clausius relation.} Graph deformation is measured by the
-MESOSCOPIC Ollivier curvature \(\kappa^{(\delta_N)}_{OR}(x,y)\) at
-separation \(d(x,y)\le\delta_N\) with measures of radius \(\delta_N\),
-giving \(\delta A/A=-\kappa^{(\delta_N)}_{OR}\,\delta\lambda\) and hence
+temperature.} Under its Bisognano-Wichmann hypothesis and H-Hawking, the
+lattice Bisognano-Wichmann lemma gives \(T=\hbar\kappa/(2\pi c k_B)\) at
+local causal horizons for the real-valued wave equation in its ground
+state; no corresponding statement is supplied for the mod-\(q\)
+dynamics. (iii) \emph{Clausius relation.} Graph deformation is measured
+by the MESOSCOPIC Ollivier curvature \(\kappa^{(\delta_N)}_{OR}(x,y)\)
+at separation \(d(x,y)\le\delta_N\) with measures of radius
+\(\delta_N\), giving
+\(\delta A/A=-\kappa^{(\delta_N)}_{OR}\,\delta\lambda\) and hence
 \(\kappa^{(\delta_N)}_{OR}=\alpha\cdot\mathcal{T}_{xy}\). The scale is
 not cosmetic: the convergence result of (iv) is stated for the
 mesoscopic generalization, and one-link Ollivier curvature on sparse
@@ -1397,47 +1415,56 @@ extend step (iv) while being available to the prepared entangled pairs.
 
 Every orbit is self-consistent by construction: the state determines the
 graph, which determines the entropy and temperature, and the Clausius
-relation constrains the graph's response to energy flux --- paralleling
-continuum GR where the Einstein equations are the equations of motion,
-not constraints on separate dynamics. The mathematical framework is
-unchanged: the full dynamics F(u, v) = (v, WE\_\{G(v)\}(v) − u) is a
-single bijection on the finite phase space. The ontological object is
-still (S, F, V).
+relation would constrain the graph's response to energy flux, were the
+curvature step (iv) supplied --- paralleling continuum GR where the
+Einstein equations are the equations of motion, not constraints on
+separate dynamics. The mathematical framework is unchanged: the full
+dynamics F(u, v) = (v, WE\_\{G(v)\}(v) − u) is a single bijection on the
+finite phase space. The ontological object is still (S, F, V).
 
-\textbf{Lattice corrections to Einstein's equations.} The derivation
-invokes continuum results in the final step (Jacobson). Decomposing
-Jacobson's argument into its four inputs and checking each
-independently: (i) \(\delta S = \eta\,\delta A/\varepsilon^2\) (area-law
-entropy) --- proved for Gaussian systems over \(\mathbb{R}\) {[}3{]};
-for nearest-neighbor dynamics over \(\mathbb{Z}/q\mathbb{Z}\) the
-spatial Markov property gives the boundary bound of the area-law lemma
-above, not the proportional form. No Lorentz invariance enters.
-\textbf{Exact on the lattice.} (ii) \(T = \hbar\kappa/(2\pi c k_B)\)
-(Unruh temperature) --- requires the Bisognano-Wichmann theorem. On the
-lattice, the BW form is proved analytically for coupled harmonic
-oscillator systems {[}6{]} and shown robust against UV modifications of
-the dispersion relation with corrections at
-\(O(\varepsilon^2\kappa^2/c^2)\). \textbf{Approximate.} (iii)
-\(\delta Q = \int T_{\mu\nu} k^\mu d\Sigma^\nu\) (energy flux) --- a
-definition on the emergent manifold. No Lorentz invariance required.
-\textbf{Exact.} (iv) The Raychaudhuri equation --- kinematic: it holds
-on any pseudo-Riemannian manifold as a consequence of the definition of
-curvature. \textbf{Exact.} Since inputs (i), (iii), and (iv) are
-lattice-exact, corrections enter only through input (ii):
+\textbf{Lattice corrections to Einstein's equations (conditional).}
+Jacobson's argument {[}5{]} uses four inputs on a smooth Lorentzian
+manifold with local Rindler horizons: (i) a proportional entropy law
+\(\delta S = \eta\,\delta A\); (ii) the Unruh temperature
+\(T = \hbar\kappa/(2\pi c k_B)\); (iii) the energy flux
+\(\delta Q = \int T_{\mu\nu} k^\mu d\Sigma^\nu\); (iv) the Raychaudhuri
+equation. Given the manifold, (iii) is a definition and (iv) an
+identity, holding on any pseudo-Riemannian manifold; neither the
+manifold nor its curvature is supplied by the cited chain (step (iv) of
+the proof above). Input (i) is proved in the proportional form for
+Gaussian systems over \(\mathbb{R}\) {[}3{]}; over
+\(\mathbb{Z}/q\mathbb{Z}\) the spatial Markov property gives the
+boundary bound \(I(V;V^c)\le|\partial V|\log_2 q\) of the area-law lemma
+above, not the proportional form, and the identification of
+\(|\partial V|\) with geometric area belongs to the same open
+construction. Input (ii) requires the Bisognano-Wichmann theorem; for
+the real-valued wave equation in its ground state the BW form is the
+open hypothesis of the lattice Bisognano-Wichmann lemma above, and given
+it, thermality at a local horizon holds at leading order, with
+dispersive corrections at \(O(\varepsilon^2\kappa^2/c^4)\), under the
+H-Hawking conditions of {[}GR §8.5{]}, of which (i) and (ii) are open;
+over \(\mathbb{Z}/q\mathbb{Z}\) no corresponding statement is supplied.
+Conditional on the geometric construction, on the proportional entropy
+law with \(\eta = \sigma/\varepsilon^2\), on the Bisognano-Wichmann
+hypothesis of that lemma, on H-Hawking and on the source coupling of
+{[}GR §6.2{]}, open at G3, Jacobson's argument gives
 
-\[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]\]
+\[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^4}\right)\right]\]
 
-For the cosmological horizon,
+where the displayed correction is the thermality correction of input
+(ii) alone. For the cosmological horizon,
 \(\varepsilon\kappa/c^2 = 2\sqrt{\sigma}\,l_P \cdot H/c \sim 10^{-61}\)
 at \(\sigma = 1\), giving corrections of order \(10^{-122}\). For
 solar-mass black holes, \(\varepsilon\kappa/c^2 \sim 10^{-38}\) at
-\(\sigma = 1\), giving corrections of order \(10^{-76}\). The
-corrections are negligible for any horizon much larger than the Planck
-scale.
+\(\sigma = 1\), giving corrections of order \(10^{-76}\). These
+thermality corrections are negligible for any horizon much larger than
+the Planck scale; corrections from the geometric construction and the
+entropy identification are not estimated.
 
 \textbf{The \(\eta = 1/4\) coefficient.} The Bekenstein-Hawking formula
 \(S = A/(4l_P^2)\) follows from \(\varepsilon = 2\sqrt{\sigma}\,l_P\)
-(the gap equation {[}GR, §3{]}): an entropy \(\sigma\) per cell of area
+(the gap equation {[}GR, §3{]}, conditional on H-slope and the further
+conditions of {[}GR §8.5(b){]}): an entropy \(\sigma\) per cell of area
 \(\varepsilon^2 = 4\sigma l_P^2\), giving
 \(S = \sigma A/\varepsilon^2 = A/(4l_P^2)\) for every \(\sigma\). This
 cannot be confirmed via entanglement entropy because of the species
@@ -1556,15 +1583,16 @@ computed from the gravitational dynamics and the holographic mode count,
 which is why this filter is independent of the stable-matter filter and
 answers the circularity objection. \emph{What is imported from
 {[}GR{]}:} the horizon-mode counting is derived in {[}GR §3{]} and the
-area-law coefficient in {[}GR §5{]}, the latter conditional on the
-horizon conditions H-slope, H-frame and H-Hawking of {[}GR §2, §8.5{]};
-this paragraph states the structure of the ratio and its
-observer-independence but relies on {[}GR{]} for the coefficient
-derivation, which a referee checking the concordance filter would verify
-there. The qualitative result --- that the ratio depends only on \(d\)
-and equals unity solely at \(d=3\) --- does not depend on the
-coefficient details, only on the scaling \(\rho_s \sim H^2\) and
-\(\rho_{\text{crit}}\sim H^2\) with the stated \(d\)-dependence.
+area-law coefficient in {[}GR §5{]}, the latter conditional on H-slope,
+the further conditions of {[}GR §8.5(b){]} and the symmetric
+detailed-balance rate ratio ({[}GR §8.5{]}); this paragraph states the
+structure of the ratio and its observer-independence but relies on
+{[}GR{]} for the coefficient derivation, which a referee checking the
+concordance filter would verify there. The qualitative result --- that
+the ratio depends only on \(d\) and equals unity solely at \(d=3\) ---
+does not depend on the coefficient details, only on the scaling
+\(\rho_s \sim H^2\) and \(\rho_{\text{crit}}\sim H^2\) with the stated
+\(d\)-dependence.
 
 \textbf{Downstream consequence on the H-link gauge branch:
 renormalizability at \(d=3\).} If the H-link/H-cust construction yields
@@ -3590,7 +3618,8 @@ chiral spectra.}
 \emph{Proof.} The Yang-Mills action
 \(S = \frac{1}{4g^2}\int d^{d+1}x\,F_{\mu\nu}^2\) requires
 \([g^{-2}][F^2] = [x]^{-(d+1)}\). With \([F] = [x]^{-2}\):
-\([g]^{-2} = [x]^{d-3}\), so \([g] = (3-d)/2\). \(\square\) (kernel:
+\([g^{-2}] = [x]^{3-d}\), so \(g\) has length dimension \((d-3)/2\) and
+mass dimension \([g] = (3-d)/2\). \(\square\) (kernel:
 \texttt{theorem\_16} in \texttt{OIBridge/GaugeDimension.lean})
 
 On the A4/E5--E7 branch, subject to the continuum conditions
@@ -6164,11 +6193,12 @@ field theory, where quantum mechanics is taken as fundamental, the
 \(U\)-even and dominant \(U\)-odd second-order coefficients
 \(b_{12}+b_{13}\) and \(b_{23}\) are independent Wilson coefficients of
 distinct cubic-invariant operators. No EFT-level symmetry relates them.
-In the OI framework, where quantum mechanics is itself emergent --- a
-tool for describing the marginal statistics of an embedded observer over
-a deterministic substrate (companion paper {[}Main{]}) --- EFT Wilson
-coefficients are not independent inputs but derived quantities arising
-from substrate-level mode counting, and constraints among them are
+In the OI framework, where quantum mechanics is proposed to be a
+representation of the marginal statistics of an embedded observer over a
+deterministic substrate (companion paper {[}Main{]}, which proves the
+representation for every finite-horizon law), EFT Wilson coefficients
+are not independent inputs but derived quantities arising from
+substrate-level mode counting, and constraints among them are
 \emph{expected} whenever multiple EFT operators share a common
 substrate-level origin. This places OI in the broader research program
 of emergent QM developed by 't Hooft {[}30{]} (cellular automaton
@@ -8769,22 +8799,23 @@ H-link branch forbids such states; the cross-charged gauge bosons of
 The cosmological application of the same framework --- including the
 horizon calibration \(\hbar = c^3\epsilon^2/(4G\sigma)\) and the
 Bekenstein-Hawking area law with its \(1/4\) coefficient (consistency
-relations, both conditional on the horizon conditions recorded there),
-the dissolution of the cosmological constant problem at the descriptive
-level, and dark energy in running-vacuum form (the functional form the
-local expansion shared by every smooth model; the content the Type II
-channel, with magnitude not derived at theorem level but consistent with
-the Bertini et al.~2025 direct DESI-DR2-era fit at \(2\sigma\)) --- is
-developed in {[}GR{]}. The substratum-level reconstruction theorem, the
-substratum gauge group, and the synthesis claim that quantum mechanics
-and general relativity descend as projections of the same
-\((S, \varphi)\), with a third projection bearing on the arrow of time,
-are developed in {[}Substratum{]}. Together, this four-paper synthesis
-({[}Main{]}, {[}SM{]}, {[}GR{]}, {[}Substratum{]}) makes a single claim:
-the Standard Model and general relativity are projections of one finite
-deterministic construction --- the visible-sector projection developed
-here and the boundary-level thermodynamic limit developed in {[}GR{]} ;
-the horizon-clock-plus-observer-selection projection is developed in
+relations, both conditional on H-count and the horizon conditions
+recorded there), the dissolution of the cosmological constant problem at
+the descriptive level, and dark energy in running-vacuum form (the
+functional form the local expansion shared by every smooth model; the
+content the Type II channel, with magnitude not derived at theorem level
+but consistent with the Bertini et al.~2025 direct DESI-DR2-era fit at
+\(2\sigma\)) --- is developed in {[}GR{]}. The substratum-level
+reconstruction theorem, the substratum gauge group, and the synthesis
+claim that quantum mechanics and general relativity descend as
+projections of the same \((S, \varphi)\), with a third projection
+bearing on the arrow of time, are developed in {[}Substratum{]}.
+Together, this four-paper synthesis ({[}Main{]}, {[}SM{]}, {[}GR{]},
+{[}Substratum{]}) makes a single claim: the Standard Model and general
+relativity are projections of one finite deterministic construction ---
+the visible-sector projection developed here and the boundary-level
+thermodynamic limit developed in {[}GR{]} ; the
+horizon-clock-plus-observer-selection projection is developed in
 {[}Substratum §5.4{]}, where the alignment of the arrows of time is
 open. The fifth core paper {[}Structure{]} articulates the framework's
 two-dimensional hierarchical structural realism and develops its
@@ -8793,13 +8824,13 @@ of embedded observers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{appendix-a-the-trace-out-as-a-jordan-chevalley-projection}{%
-\subsection{Appendix A: The Trace-Out as a Jordan-Chevalley
-Projection}\label{appendix-a-the-trace-out-as-a-jordan-chevalley-projection}}
+\hypertarget{appendix-a-jordan-chevalley-structure-of-the-ring-evolution}{%
+\subsection{Appendix A: Jordan-Chevalley Structure of the Ring
+Evolution}\label{appendix-a-jordan-chevalley-structure-of-the-ring-evolution}}
 
-This appendix proves that the OI trace-out extracts the semisimple part
-of the evolution matrix's Jordan-Chevalley decomposition, erasing the
-nilpotent monodromy. Results are stated for the scalar wave equation on
+This appendix derives the period and the Jordan-Chevalley decomposition
+of the evolution matrix and states which of the decomposition's data the
+visible laws retain. Results are stated for the scalar wave equation on
 a ring of L sites over \(\mathbb{F}_q\); the multi-component extension
 incorporates the gauge group.
 
@@ -8887,36 +8918,20 @@ roots of unity. For \(\gcd(L, q) = 1\), the L-th roots in
 \(\bar{\mathbb{F}}_q\) are isomorphic to those in \(\mathbb{C}\), so
 their orders match. \(\square\)
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3571}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}@{}}
+\begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\(L\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(\mathfrak{f}_{\mathrm{ss}}(L)\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(\mathfrak{f}_{\mathrm{WD}}\)
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(\mathrm{NM}^2 = 3L/4\)
-\end{minipage} \\
+\(L\) & \(\mathfrak{f}_{\mathrm{ss}}(L)\) &
+\(\mathfrak{f}_{\mathrm{WD}}\) \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-4 & 14 & 16 & 3.00 \\
-6 & 30 & 32 & 4.50 \\
-8 & 70 & 72 & 6.00 \\
-10 & 106 & 108 & 7.50 \\
-12 & 130 & 132 & 9.00 \\
+4 & 14 & 16 \\
+6 & 30 & 32 \\
+8 & 70 & 72 \\
+10 & 106 & 108 \\
+12 & 130 & 132 \\
 \end{longtable}
-
-Both \(\mathfrak{f}_{\mathrm{ss}}\) and \(\mathrm{NM}^2\) are
-q-independent encodings of the same semisimple eigenvalue data --- one
-via multiplicative orders (integers), one via fourth moments of
-magnitudes (reals).
 
 \hypertarget{theorem-a.4-additive-decomposition-over-gauge-irreps}{%
 \subsubsection{Theorem A.4 (Additive decomposition over gauge
@@ -8945,30 +8960,48 @@ and \(N\) inherit the block-diagonal structure, so
 \emph{Verified for all \((\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2\) at q
 = 3, 5, 7 with L = 4. Every case matches exactly.}
 
-\hypertarget{the-projection}{%
-\subsubsection{The projection}\label{the-projection}}
+\hypertarget{spectral-data-and-visible-laws}{%
+\subsubsection{Spectral data and visible
+laws}\label{spectral-data-and-visible-laws}}
 
-The OI trace-out (marginalization over the hidden sector) produces the
-reduced observable description --- universally admitting the quantum
-representation --- which depends on the coupling eigenvalues \(\mu_k\)
-via the NM formula \(\mathrm{NM}^2 = 3\langle\mu^4\rangle\) (a
-consequence of the stochastic-quantum correspondence applied to the wave
-equation's Fourier decomposition). These \(\mu_k\) are properties of
-\(F_{\mathrm{ss}}\) --- the semisimple part of the dynamics. The
-nilpotent monodromy \(N\) contributes nothing to the emergent
-description: it affects only the off-diagonal Jordan block entries,
-which are erased by the coarse-graining over the hidden sector.
+Let \(q\) be prime with \(\gcd(L, q) = 1\).
 
-The trace-out therefore performs the Jordan-Chevalley projection
-\((F_{\mathrm{ss}}, N) \mapsto F_{\mathrm{ss}} \mapsto \{\mu_k\} \mapsto \mathrm{NM}^2\):
-it extracts the semisimple part, encodes it via magnitudes rather than
-orders, and organizes it by the representation theory of the partition.
-The nilpotent monodromy --- genuine mathematical structure present in
-the full dynamics --- is invisible to the embedded observer. This is the
-precise sense in which physics is the semisimple shadow of mathematics:
-the observer sees only the diagonalizable spectral data, projected by
-the trace-out and organized by the gauge group's representation
-structure.
+\emph{Spectral invariants.} \(F_{\mathrm{ss}}\) and \(F_u\) commute and
+\(F_u\) is unipotent, so \(F\) and \(F_{\mathrm{ss}}\) have the same
+characteristic polynomial and the same eigenvalues with multiplicity.
+Every function of the eigenvalue multiset,
+\(\mathfrak{f}_{\mathrm{ss}}\) among them, is therefore independent of
+\(N\). \(\mathrm{rank}(N)\) is not spectral data;
+\(\mathfrak{f}_{\mathrm{WD}}\) carries it as a separate term.
+
+\emph{Laws sampled at multiples of \(q\).} Since \(N^2 = 0\),
+\(F^t = F_{\mathrm{ss}}^t (I + tN)\). For \(t \in q\mathbb{Z}\) this is
+\(F_{\mathrm{ss}}^t\), and for \(q \nmid t\) it differs from
+\(F_{\mathrm{ss}}^t\), since \(tN \neq 0\). Every visible law sampled
+only at times in \(q\mathbb{Z}\), for any partition and any hidden
+prior, rooted or multi-time, is therefore the same for \(F\) and
+\(F_{\mathrm{ss}}\). This is a coarse-graining in time at stride \(q\),
+not a marginalization over the hidden sector.
+
+\emph{Hidden-sector marginalization.} Marginalization over the hidden
+sector does not remove \(N\). Take one site as the visible sector, with
+visible variable \((x(n, t-1), x(n, t))\), and a full-support hidden
+prior \(\nu_H\) shared by every root, and let
+\(\Gamma_t(a, j) = \nu_H\{h : \pi_V F^t(a, h) = j\}\) be the rooted
+visible law. For \(L \geq 3\) the rule maps a constant configuration
+\((a, b)\) at every site to the constant configuration \((b, 2b - a)\),
+so \(F^{mL}(0, 1) = (mL, mL + 1)\) on that mode, while
+\(F_{\mathrm{ss}}\) is the identity on it. The constant hidden
+configuration compatible with the root \((0, 1)\) has positive prior
+probability (\(q^{-2(L-1)}\) under the uniform prior), so
+\(\Gamma_{mL}((0,1), (mL, mL+1)) > 0\) for \(F\). For
+\(F_{\mathrm{ss}}\), \(F_{\mathrm{ss}}^{L} = I\) makes \(\Gamma_{mL}\)
+the identity kernel. Whenever \(q \nmid m\),
+\((mL, mL + 1) \neq (0, 1)\), since \(\gcd(L, q) = 1\), and the two
+rooted laws differ; in particular they differ at \(m = 1\). On the
+block-diagonal evolution of Theorem A.4 a component with \(\mu_a = 1\)
+follows the scalar rule, so the same witness applies to it, and one such
+component separates the two laws.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -9192,4 +9225,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: c36d2887e49219227eb61d15ea5207e9240fc65409ff6a0fc6ffb83680002c2f
+% source-sha256: 2b90784d6ef3cbc534b96f350432aab63c5534950426e8a58611cbcd42bb2a7e

@@ -353,9 +353,10 @@ exclude some integer-coefficient affine families. *Pressure test:*
 **Undetermined. Its premise is open and its correspondence unconstructed. At cycle-type level it
 overshoots.**
 
-**N11 — Recurrence (Axiom 2), maximal-entropy measure (Main:726 (iv)), isotropy (E4).** Recurrence
-is automatic for any bijection of a finite set. The uniform measure on G is invariant under both Φ
-and L. A uniform b𝟙 is cubic-invariant. **Not selectors.** [D, immediate]
+**N11 — Recurrence (Axiom 2), maximal-entropy measure (Main:726 (iv)), isotropy (E4).** Exact return
+of every state is automatic for any bijection of a finite set; Axiom 2 asserts only that
+differentiation recurs. The uniform measure on G is invariant under both Φ and L.
+A uniform b𝟙 is cubic-invariant. **Not selectors.** [D, immediate]
 
 **Criterion 1 is not reached.** No candidate meets (b), (c), (e) and (g) together. The two that
 select b = 0 relocate the assumption:
