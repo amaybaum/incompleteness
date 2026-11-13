@@ -1,7 +1,8 @@
 # Status note: W1-1, can existing physics supply W1?
 
 This note gives the current standing of `W1-1-REPORT-r4.md` in this directory. It does not change
-that file or any other file here; r4 is the accepted text.
+that file or any other file here; r4 is the accepted text. The substitutions `OBJECTS.md` records are
+separate from this note.
 
 ## Accepted record and reviews
 
@@ -93,7 +94,7 @@ proven exhaustive; consistency axis only; no manuscript claim affected)."
 | #1245 comment 6818702013 (L ≠ 0 at site-local cuts, C6(b)) | Provenance. GR:128 on `main` states that L ≠ 0 at every cut where a boundary site has a deep neighbour. |
 | #1245 comments 6829744096, 6828106610, 6841976574; #1169 comment 6841795465 | Governance provenance, quoted above. |
 | Commits `5fec0966` and `6ca96562` on this PR's branch, named in the review | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
-| Working-copy blob id `72800573` in `DELTA-REVIEW-W1-1-r3.md` (:228, :270) | Named by its first 8 characters in the committed file, which closes the §A.42 item 3 gap by abbreviation: the abbreviated id names a session working copy that was not kept. Reverting exactly the four hunks the confirmation names in the committed r4 reproduces it byte for byte; the package writer made this check. The confirmation itself names the reviewed blob `34b1a16f`, as committed at `6ca96562`. |
+| Working-copy blob id `72800573` in `DELTA-REVIEW-W1-1-r3.md` (:228, :270) | Named by its first 8 characters in the committed file, which closes the §A.42 item 3 gap by abbreviation: the abbreviated id names a session working copy that was not kept. Reverting exactly the four hunks the confirmation names in the reviewed r4 (`34b1a16f`, committed at `6ca96562`) reproduces it byte for byte; the package writer made this check. The confirmation itself names the reviewed blob `34b1a16f`, as committed at `6ca96562`. |
 | Other references inside the reviews (session paths, `origin/main` commits) | Provenance. Each verdict rests on the blobs `OBJECTS.md` records. |
 
 ## Source drift from `fb733b4a` to `main` (`62bdc2cf`)
@@ -104,7 +105,7 @@ proven exhaustive; consistency axis only; no manuscript claim affected)."
   energy shell or a real-valued energy, so the W1-0 finding stands. GR:316 also changed and is not
   cited. Every other cited GR line is unchanged.
 - In `papers/Main.md`, Main:60 adds the source of visible finiteness. The Main:724 ledger rewords
-  item (iii) and its closing paragraph. Neither change adds a real-energy posit.
+  items (ii) and (iii) and its closing paragraph. Neither change adds a real-energy posit.
 - The cited `papers/SM.md` (:292–296, :811, :1227) and `papers/Substratum.md` (:257, :268) lines are
   unchanged.
 - `papers/Structure.md` :205/:305 are at :206/:306 on `main`, as the record notes (:356).

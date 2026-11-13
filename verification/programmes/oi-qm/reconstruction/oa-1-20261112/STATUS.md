@@ -72,8 +72,8 @@ counting measure, with held records a function of the present visible configurat
 hidden carrier cannot be held together with its choice record (a classical, measure-relative
 preparation gap that a ready-cell supply or a history-record convention resolves); the
 configuration-level interface is capped for every rule, and quantum operations beyond it remain
-open, not shown impossible (paper-level research findings: hand derivations with independent
-AI-agent reviews; Lean statements read on `main`, not rebuilt; not adopted; no manuscript claim
+open, not shown impossible (paper-level research findings: hand derivations, partly on research
+records not independently established, with independent AI-agent reviews; Lean statements read on `main`, not rebuilt; not adopted; no manuscript claim
 affected)."
 
 ## Dependencies
@@ -95,9 +95,11 @@ affected)."
 - `verification/lean-mathlib/` and every cited record are unchanged.
 - In `papers/Main.md`, Main:60 adds the source of visible finiteness ("from the finite-capacity
   clause of the Definition"); `S` finite still holds.
-- In the Main:724 posit ledger, items (i), (ii) and (iv)–(xiv) are verbatim. Item (iii) and the
-  paragraph after (xiv) are reworded (determinism → injectivity; visible finiteness "stipulated per
-  moment rather than derived"). The record cites items (ii), (iv), (vii), (xiii) and (xiv).
+- In the Main:724 posit ledger, items (i) and (iv)–(xiv) are verbatim. Item (ii) adds the source of
+  the observer's finiteness ("from the finite-capacity clause of the Definition"); its total-finiteness
+  posit is unchanged. Item (iii) and the paragraph after (xiv) are reworded (determinism →
+  injectivity; visible finiteness "stipulated per moment rather than derived"). The record cites
+  items (ii), (iv), (vii), (xiii) and (xiv).
 - Main also changed at :36, :90, :151 and :700. Every other cited Main line is unchanged.
 
 ## Superseded lines in the accepted text

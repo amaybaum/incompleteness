@@ -2,7 +2,7 @@
 
 Each file in this directory was written and reviewed as a session working copy before it was
 committed. The table records, for each working copy, its last-modification time (UTC), its git
-blob id and its SHA-256, read on 2026-11-12 from the working copies. Reviews in this directory
+blob id and its SHA-256, read on 2026-11-12 and 2026-11-13 from the working copies. Reviews in this directory
 identify the text they read by file name, line numbers and time; a blob id here that equals the
 committed blob shows the reviewed working copy and the committed file are the same bytes.
 

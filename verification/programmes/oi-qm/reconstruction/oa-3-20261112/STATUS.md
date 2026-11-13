@@ -76,7 +76,8 @@ is therefore a simplex, so neither the gbit nor the dual-gbit shape occurs; for 
 Theorem E(b) holds with nested records replaced by the heralded-composite effect class; `G_SM`
 for small observers, short horizons, infinite windows, the single-tick-read record class and
 initial laws outside (PT) remains open (paper-level research findings: hand derivations with
-reviewer re-derived steps, not kernel-checked or computed; not an impossibility result for
+reviewer re-derived steps, partly on research records not independently established, not
+kernel-checked or computed; not an impossibility result for
 `G_SM`; not adopted; no manuscript claim affected)."
 
 ## Dependencies
@@ -108,7 +109,7 @@ reviewer re-derived steps, not kernel-checked or computed; not an impossibility 
 - Lines 31–33, "`origin/main` is now `911a5cb6`. `git diff 615cc119 911a5cb6` touches, under
   `papers/` and `verification/programmes/oi-qm/`, only `papers/Main.md` … and `papers/SM.md`": that
   diff also changes other papers (`GR`, `Substratum`, `Structure`, `Complexity`, `Computation`,
-  `Medicine`, `Methodology`), none of which the record cites. `main` is now `62bdc2cf`.
+  `Medicine`, `Methodology`), none of which the record cites. No paper changed from `911a5cb6` to `62bdc2cf`.
 
 ## Landing
 

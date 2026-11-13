@@ -1,7 +1,8 @@
 # Status note: OA-2, operations on emergent observer states richer than permutations
 
 This note gives the current standing of `OA-2-REPORT-r4.md` in this directory. It does not change
-that file or any other file here; r4 is the accepted text.
+that file or any other file here; r4 is the accepted text. The substitutions `OBJECTS.md` records are
+separate from this note.
 
 ## Accepted record and reviews
 
@@ -55,7 +56,8 @@ that file or any other file here; r4 is the accepted text.
 - **Theorem C.** At a fixed finite carrier, reversible trace-preserving emergent operations form a
   finite group, for every rule.
 - **Designed control (N2.3).** A reversible classical computer `𝔊_K` shows an exact,
-  preparation-contextual gbit at each bounded horizon, under C-PM′ and C-PM. At bounded horizons G0,
+  preparation-contextual gbit at each bounded horizon, under C-PM′ and C-PM, with its uniform bath
+  under μ-G (not established under μ-R or μ-O). At bounded horizons G0,
   G1 and G3 do not separate classical from quantum.
 - **Theorem E(b), affine class.** Under (H1), H-AR (additive, cell-aligned observers), (H3) no
   supplied control, (H4) nested records, (SP) spanning and ledger item (xiv), the prepare–measure
@@ -70,10 +72,12 @@ that file or any other file here; r4 is the accepted text.
 additive cell-aligned observers, no supplied control, nested records, spanning and ledger item
 (xiv), the prepare–measure fragment of the emergent operational theory is simplex-embeddable;
 at any fixed finite carrier, reversible trace-preserving emergent operations form a finite group
-for every rule; a designed reversible classical computer shows an exact preparation-contextual
-gbit at each bounded horizon, so the criteria G0, G1 and G3 do not separate classical from quantum
+for every rule; a designed reversible classical computer, with a uniform bath under the global
+counting measure and the C-PM′/C-PM label conventions, shows an exact preparation-contextual gbit
+at each bounded horizon, so the criteria G0, G1 and G3 do not separate classical from quantum
 at bounded horizons; admissible non-affine rules remain open (paper-level research findings: hand derivations
-that the record labels unreviewed, not kernel-checked, with independent AI-agent reviews of the
+that the record labels unreviewed, partly on research records not independently established,
+not kernel-checked, with independent AI-agent reviews of the
 report; not adopted; no manuscript claim affected)."
 
 ## Dependencies
@@ -95,8 +99,9 @@ report; not adopted; no manuscript claim affected)."
 - `verification/lean-mathlib/` and every cited record are unchanged. `main` changed no paper after
   `911a5cb6`.
 - In `papers/Main.md`, :36, :60, :90, :151, :700 and :724 changed. The record re-checked its Main:60
-  and Main:724 quotations at `911a5cb6`. Ledger items (ii), (iv), (vii), (xiii) and (xiv) are
-  verbatim.
+  and Main:724 quotations at `911a5cb6`. Ledger items (iv), (vii), (xiii) and (xiv) are verbatim;
+  item (ii) adds the source of the observer's finiteness ("from the finite-capacity clause of the
+  Definition"), and its total-finiteness posit is unchanged.
 - Main:90 now says that the visible law, which any emergent quantum description must reproduce,
   depends only on the partition, and does not by itself fix the quantum representation. The record
   cites Main:82–92 only for "does not fix cell alignment" (:192), which the change leaves as it was.
@@ -107,8 +112,8 @@ report; not adopted; no manuscript claim affected)."
   standing is as stated in this note.
 - Lines 18–19, "Nothing committed, pushed or posted" (Standing r2, retained): the record is
   committed and lands with this PR.
-- Line 29, "`main` is now `615cc119…`", and line 36, "`origin/main` moved to `911a5cb6`": `main` is
-  now `62bdc2cf`, with no further change to the cited sources.
+- Line 29, "`main` is now `615cc119…`", and line 36, "`origin/main` moved to `911a5cb6`": `main` at
+  `62bdc2cf` has no further change to the cited sources.
 - Lines 40–41, "OA-1: branch `research/oa1-w1-1-20261112` at `066be3b1…`": once this PR lands, that
   file is on `main` in `../oa-1-20261112/`.
 
