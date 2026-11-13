@@ -52,7 +52,7 @@ The report's negative conclusion is limited to its proved weak-model countercont
 - UTF-8 size: 25,988 bytes. Exact retained text: `evidence/SEL-EXCL-1-accepted.md`; metadata: `SEL-EXCL-1-accepted-metadata.json`.
 - Full review: `evidence/review-1228-full.json`, [review 5845436861](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5845436861), ACCEPT WITH NITS at `4813bc0b04548248581a137c88d43a64d73bd1a9`; original blob `50e77005e23dde490906fbdb0b848a6eeb6a497c`; original SHA in receipt `ff9805e6b1dae4b7d7404457e8a67ae547291c2c3cbe703e78e3e828bbc3f573`.
 - Focused correction review: `evidence/review-1228-focused.json`, [review 5848321039](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5848321039), COMMENTED 2026-11-10T19:48:26Z, ACCEPT exact scientific head. Non-author reviewer `/root/review_sel_excl_p3`; relayed report SHA `76da2795ceb5ef0557852b571b70af8bacb12fcdc33b72e3cd34fcf56e2a081e`. Closes complete-history/controller typing and single-marginal versus record-pair same-source diagnostics.
-- Current recovered documentary descendant: head `756811051bbc0670714f4d77d62339c12adaba34`, blob `7811e4493ab471b9e968483c9d18de4a5756de43`; text `evidence/SEL-EXCL-1-documentary.md` and accompanying metadata. The static diff changes review/antecedent/status descriptions, not the displayed map or identities. Its separately requested narrow review was **not recovered as complete**. No ACCEPT is attributed to this descendant.
+- Current recovered documentary descendant: head `756811051bbc0670714f4d77d62339c12adaba34`, blob `7811e4493ab471b9e968483c9d18de4a5756de43`; text `evidence/SEL-EXCL-1-documentary.md` and accompanying metadata. [Independent Claude focused review, comment 6846240488](https://github.com/amaybaum/incompleteness/pull/1228#issuecomment-6846240488), created and unchanged at 2026-11-13T06:46:27Z, records **ACCEPT at this exact head** (parent `0ecfddeb`). It verifies six textual line changes (+6/−6), the off-main/non-reliance antecedent and review-status corrections, with the PR map, CHSH result, fresh-cell induction and same-source identities unchanged. This conversation-comment receipt is distinct from the two earlier formal scientific reviews; the PR description's pending wording was stale. Physical-source, landing-package, ChatGPT exact-head, CI and owner-merge gates remain separate.
 - [Immutable documentary source](https://github.com/amaybaum/incompleteness/blob/756811051bbc0670714f4d77d62339c12adaba34/verification/programmes/oi-qm/reconstruction/oiqmsel-exclusion-20261110/SEL-EXCL-1.md); not substituted for the accepted source above.
 - Mathematical premise consumed: specified finite globally coupled PR control and exact fresh/reuse grammar. D1–D3 are also rechecked directly in this report; D5 is a new application requiring its own review.
 
@@ -66,23 +66,23 @@ The report's negative conclusion is limited to its proved weak-model countercont
 - [ChatGPT exact-head review 5896999231](https://github.com/amaybaum/incompleteness/pull/1276#pullrequestreview-5896999231): `evidence/review-1276.json`, COMMENTED 2026-11-13T19:41:54Z, ACCEPT at the full head above. It explicitly limits itself to synthesis/provenance and disclaims independent rederivation of every input.
 - `evidence/files-1276.json` retains the API file inventory. MM-2/MM-3/MM-7/MM-8 are consumed as **scoped dependency classifications**, not as proofs of every off-main source behind them. The full synthesis is off-main input; its dependency table still marks that support gap.
 
-## 4. Independent references and missing artifacts
+## 4. Independent references and evidence boundaries
 
 The report attributes IC₂ to the standard information-causality research direction: M. Pawłowski et al., *Information causality as a physical principle*, Nature **461**, 1101–1104 (2009), [doi:10.1038/nature08400](https://doi.org/10.1038/nature08400). The special-case PR/classical/quantum arguments are written out in the report; no conclusion is borrowed from an unexamined full-set characterization theorem. The reference's complete text and later literature were not retrieved in this unit. In particular no claim about all quantum correlations, general information-causality sufficiency, or the unreviewed 2026 link in comment `6779166594` is consumed.
 
-Missing or deliberately unconsumed:
+Source/review boundaries and outstanding obligations:
 
 1. The original full C0/C1 Page assessment, its complete proof/access contract and independent review artifacts. The report does not depend on them beyond accurately recording their status in accepted SEL-ACCESS-1.
-2. A completed exact-head documentary review at #1228 head `75681105`; earlier acceptance is not substituted.
+2. **R1 disposition:** the documentary review at #1228 head `75681105` is completed, not missing; its separate primary receipt is linked in §3. This corrects the writer's missed review-status evidence without changing the scientific source `0ecfddeb` or any argument. The new citation supports a historical review-status assertion and remains off-main retention material for eventual integration.
 3. A native executing input/controller/message/readout/renewal certificate and independently sourced native information-budget principle. These are missing scientific/source obligations, not evidence satisfied by a GitHub acceptance.
-4. An independent non-author review of **this** report and a later ChatGPT exact-head review. Both remain pending at the writer stage.
+4. This report's initial independent non-author review required the R1 documentary correction recorded above. A focused exact-head check of that correction and a later ChatGPT exact-head review remain pending; no acceptance of this changed report is inferred.
 5. A main integration/retention decision. Immutable off-main links and local evidence copies make this draft reviewable; they do not themselves make every support item reachable from main or authorize a merge.
 
 ## 5. Verification actually performed
 
 - Exact-ref read-only GitHub file/API retrievals, supplied snapshot reads and source inspection.
 - Static Git blob hashes of retained text agree with the source tree or connector identities. SHA-256 of #1224 and #1228 accepted files also agrees with the independent correction receipts.
-- Static identity check confirms synthesis r3's reviewed earlier text equals the final-head r3 blob. Static accepted-to-documentary #1228 diff inspected only for provenance; it is not represented as an independently completed review.
+- Static identity check confirms synthesis r3's reviewed earlier text equals the final-head r3 blob. The writer's static accepted-to-documentary #1228 diff is a provenance check; the separately completed independent documentary review is established by the primary receipt in §3, not by that writer check.
 - Local cache JSON syntax checked with `jq empty`. The two public Markdown artifact digests are in `ARTIFACTS.sha256`; the larger evidence-cache inventory is retained locally and excluded from publication.
 - All scientific arguments are hand derivations. No script evaluates a model, entropy, Bell statistic, random-access success rate, state space or proof search. No simulation, Lean/kernel run, numerical approximation, source screen, experiment, fixture solve, workflow dispatch/rerun, branch rewrite or remote mutation occurred.
 
