@@ -3,7 +3,7 @@
 ## r2 re-check
 
 The r2 files were confirmed byte-identical to `REC-1-r2.md` and `REC-1-NOTES-r2.md` at `b39e40ff`.
-r3 is r2 with only the edits below; `r2-r3.diff` shows the whole change. Each source line was re-read
+r3 is r2 with only the edits below; `git diff b39e40ff 94816172` shows the whole change. Each source line was re-read
 at `c3b5f37a` before the edit.
 
 | Item | Disposition | Source check |
@@ -16,5 +16,4 @@ at `c3b5f37a` before the edit.
 | Optional 1 | applied | OA2:75 names the preparation and read sides of N2.1 but not AW-OA2-1, so the tag "[W, REC-1]" is correct. |
 | Optional 2 | applied | NOTES item 8 now quotes OA3:474–475, "Under held-at-use herald typing that class is itself retention-type". |
 
-Not changed, because the instruction was to apply only these edits: r3 keeps r2's title "(r2)" and
-its revision line, which describes r2. Whether to update both to r3 is left to the coordinator.
+The title and revision line were updated to r3 by the coordinator.
