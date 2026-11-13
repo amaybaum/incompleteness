@@ -11,14 +11,17 @@ that file or any other file here; r4 is the accepted text.
   `615cc1190ec1bda69093be1eac49c839744008a5`, an ancestor of `main`. The record checks its cited
   lines at `911a5cb6`.
 - **Review trail.** `OA-3-REPORT.md` (r1) to `OA-3-REPORT-r3.md` are the earlier revisions. They stay
-  unchanged because the reviews cite their lines.
+  unchanged, apart from the substitutions `OBJECTS.md` records, which keep every line number,
+  because the reviews cite their lines.
   - `REVIEW-OA-3.md`: r1, ACCEPT WITH CHANGES (F1–F7).
   - `RECHECK-OA-3-r2.md`: r2, ACCEPT WITH CHANGES (E1, E2; m1–m3 optional).
   - `DELTA-REVIEW-OA-3-r3.md`: the r2 → r3 delta at `469ecee9`, ACCEPT WITH CHANGES (R1–R4); "Recheck
     of a55f0588", ACCEPT WITH CHANGES (D1); "Confirmation of b13cbe01", ACCEPT.
   - `DELTA-REVIEW-OA-3-r4.md`: the r3 → r4 delta, ACCEPT WITH CHANGES (R1–R4, O1); "Confirmation of
     r4", ACCEPT, with one replacement in the Standing block.
-  - `OBJECTS.md` ties each reviewed working copy to its committed blob.
+  - `OBJECTS.md` ties each reviewed working copy to its committed blob. Its section
+    "Committed bytes differ from the reviewed working copies" gives the reviewed and committed bytes of
+    each file committed with a substitution. r4 is committed with its reviewed bytes.
 - **The accepted blob and the confirmed text.** The confirmation names working-copy blob `b65e6d9c`
   and specifies the Standing replacement. Undoing exactly that replacement in the committed r4
   reproduces blob `b65e6d9c` byte for byte. This check was made by
@@ -82,7 +85,7 @@ reviewer re-derived steps, not kernel-checked or computed; not an impossibility 
 | --- | --- |
 | `papers/SM.md` and `papers/Main.md` lines at `615cc119` | Support on `main`; see source drift. |
 | Records under `reconstruction/` (MECH-1, MECH-2, minacc-1, apparatus-1, obsmu) and the L3b round under `interface/` | Support on `main`, unchanged since `615cc119`. They are [R] records, so statements resting on them carry [R] (§A.46 item 7). |
-| OA-2 r3 at `815d6a8e` (`OA2:n`), its reviews (`Rv2`, `Rv2b`), OA-2 r4 at `4b087b1e` (`OA2r4:n`), OA-1 r4 at `815d6a8e` (`OA1:n`) | In this PR, at the same blobs, and they land with this record. Theorem S uses OA-2 Proposition B, [W]/[RW]. OA-2 r4 changed some r3 lines OA-3 cites. `DELTA-REVIEW-OA-2-r3.md` §2.5 and §3.4 and `DELTA-REVIEW-OA-3-r4.md` cover the bearing of B(ii)(⇒) and of class N at `q = 2`; r4 carries (CVX) where (⇒) is used. The other changed lines it cites are r4's qualifiers at r3:150, :396, :401, :440, :785, :798 and :805; the package writer checked them against the citing sentences, outside any review. OA-1's r4 → r5 changes touch only r4:267–268 among the lines cited (inside :236–270, cited for the typing of measures). |
+| OA-2 r3 at `815d6a8e` (`OA2:n`), its reviews (`Rv2`, `Rv2b`), OA-2 r4 at `4b087b1e` (`OA2r4:n`), OA-1 r4 at `815d6a8e` (`OA1:n`) | In this PR, at the same blobs apart from the substitutions `../oa-2-20261112/OBJECTS.md` records, which keep every line number and change no line OA-3 cites, and they land with this record. Theorem S uses OA-2 Proposition B, [W]/[RW]. OA-2 r4 changed some r3 lines OA-3 cites. `DELTA-REVIEW-OA-2-r3.md` §2.5 and §3.4 and `DELTA-REVIEW-OA-3-r4.md` cover the bearing of B(ii)(⇒) and of class N at `q = 2`; r4 carries (CVX) where (⇒) is used. The other changed lines it cites are r4's qualifiers at r3:150, :396, :401, :440, :785, :798 and :805; the package writer checked them against the citing sentences, outside any review. OA-1's r4 → r5 changes touch only r4:267–268 among the lines cited (inside :236–270, cited for the typing of measures). |
 | #1169 comments 6833027576, 6841795465, 6842225937 | Governance provenance, quoted above. The record cites c.6833027576 "as relayed by the coordinator; not re-fetched" (:21–22); its text is as quoted above. |
 | Literature [L] (Hedlund 1969; Schmid et al. 2021) | Context only. The record states that no verdict rests on it. |
 | Commits `469ecee9`, `a55f0588`, `b13cbe01`, `815d6a8e`, `4b087b1e` and `2d064a71` on this PR's branch, named in the reviews | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |

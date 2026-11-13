@@ -46,7 +46,7 @@ moved.
 - **Commands.** `git fetch`, `git show`, `git diff --stat`, `git ls-tree`, `git grep`, `grep`, `sed`,
   `wc`, `cut`, `ls`, `cat -n`.
 - **No script.** No script was written or run.
-- **No copies.** No copy of any source was written at the scratchpad root in r2. r1's disclosure of a
+- **No copies.** No copy of any source was written at the working root in r2. r1's disclosure of a
   temporary copy and local ref, both removed, stands.
 
 ***
@@ -803,7 +803,7 @@ are unchanged between them.
 **At OA-1 `066be3b1`.** `OA-1-REPORT-r4.md` (whole); `REVIEW-OA-1-r3.md` (whole); `REVIEW-OA-1.md`
 (grep and :205–230); `REVIEW-OA-1-r2.md` (grep).
 
-**Review.** `scratchpad/oa2/REVIEW-OA-2.md` (whole).
+**Review.** `working/oa2/REVIEW-OA-2.md` (whole).
 
 **Not read.** TUNE-1; AP1 outside the lines above; MECH-1 outside the lines above; the QA body;
 `two-mode-drive.md`; `whole-model-bridge.md`; the literature [L]. Negative claims are limited to these

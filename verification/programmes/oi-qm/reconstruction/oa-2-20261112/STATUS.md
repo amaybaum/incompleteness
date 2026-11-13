@@ -5,18 +5,24 @@ that file or any other file here; r4 is the accepted text.
 
 ## Accepted record and reviews
 
-- **Record.** `OA-2-REPORT-r4.md`, blob `9a6e368235d573e99fc24711850aa3930b4a313f`, SHA-256
-  `0fd7c0874c6908a1278750379f3124e0012e9abba48436c97e50de410a22e5a7`, 1067 lines. Committed at
-  `4b087b1ebab49992bc0c6b0b307581f42e41f9b1` (PR #1265). Source snapshots `main` at `fb733b4a`
+- **Record.** `OA-2-REPORT-r4.md`, blob `8f8ddf73366deb1a2caa13d8c826744d1ba87607`, SHA-256
+  `970935762ed94386726147f874b87fcab7666d392f117b0f00b2d3e0b90de0d3`, 1067 lines. The reviewed and
+  accepted bytes, committed at `4b087b1ebab49992bc0c6b0b307581f42e41f9b1` (PR #1265), differ from
+  these on lines 65 and 958 only; `OBJECTS.md`, section "Committed bytes differ from the reviewed working copies",
+  gives their blob and SHA-256 and how to restore them. The checks stated below were made on the
+  reviewed bytes. Source snapshots `main` at `fb733b4a`
   (r1), `ec257bee` (r2) and `615cc119` (r3, r4), each an ancestor of `main`. The record re-checks
   its Main:60 and Main:724 quotations at `911a5cb6`.
 - **Review trail.** `OA-2-REPORT.md` (r1) to `OA-2-REPORT-r3.md` are the earlier revisions. They stay
-  unchanged because the reviews and `OA-3-REPORT-*.md` cite their lines.
+  unchanged, apart from the substitutions `OBJECTS.md` records, which keep every line number,
+  because the reviews and `OA-3-REPORT-*.md` cite their lines.
   - `REVIEW-OA-2.md`: r1, REVISE (F1–F9).
   - `REVIEW-OA-2-r2.md`: r2, ACCEPT WITH NITS (N1–N7).
   - `DELTA-REVIEW-OA-2-r3.md`: the r2 → r3 delta, ACCEPT WITH CHANGES (E1–E11); "Recheck of r4",
     ACCEPT WITH NITS (R1–R12); "Confirmation of r4", ACCEPT after one bookkeeping edit (C1).
-  - `OBJECTS.md` ties each reviewed working copy to its committed blob.
+  - `OBJECTS.md` ties each reviewed working copy to its committed blob. Its section
+    "Committed bytes differ from the reviewed working copies" gives the reviewed and committed bytes of
+    each file committed with a substitution.
 - **The accepted blob and the confirmed text.** The confirmation names working-copy blob
   `655480e9` and requires C1, a 28-line block replacing r4:1040–1067.
   That working copy was not retained. In the committed r4, lines 1040–1067 equal the C1 block byte
@@ -81,7 +87,7 @@ report; not adopted; no manuscript claim affected)."
 | #1169 comments 6831588323, 6841795465, 6842174066 | Governance provenance, quoted above. |
 | #1237, #1255 | Provenance for the snapshot notes. |
 | Commits `815d6a8e`, `5fec0966` and `4b087b1e` on this PR's branch, named in the reviews | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
-| Working-copy blob ids in `DELTA-REVIEW-OA-2-r3.md` (:473, `1b282d9ad3a5…`; :671, `655480e97eb4…`) | Not objects in the repository, so §A.42 item 3 is not met for these two ids. Neither working copy was retained. The committed blob is tied to the confirmed text as stated above. |
+| Working-copy blob ids in `DELTA-REVIEW-OA-2-r3.md` (:473, `1b282d9a`; :671, `655480e9`) | Named by their first 8 characters in the committed file, which closes the §A.42 item 3 gap by abbreviation: the abbreviated ids name session working copies that were not kept. Neither working copy was retained. The committed blob is tied to the confirmed text as stated above. |
 | Other references inside the reviews (session paths, the reviewers' authorization statements, `origin/main` commits) | Provenance. Each verdict rests on the blobs `OBJECTS.md` records. |
 
 ## Source drift from `615cc119` to `main` (`62bdc2cf`)

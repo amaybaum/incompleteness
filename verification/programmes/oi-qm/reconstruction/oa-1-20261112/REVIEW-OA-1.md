@@ -16,9 +16,9 @@ it is not NEW. Several statements need their kernel/paper scope or their search 
 
 ***
 
-## 0. Coordinator check: the scratchpad-root `Main.md` and `GR.md`
+## 0. Coordinator check: the working-root `Main.md` and `GR.md`
 
-- The report cites neither root file. `grep` finds no reference to the scratchpad root, and `GR.md` appears only in
+- The report cites neither root file. `grep` finds no reference to the working root, and `GR.md` appears only in
   the "Not read" list (`OA-1-REPORT.md:583`). Every `Main:n` citation is to `papers/Main.md` at `fb733b4a`
   (`OA-1-REPORT.md:11`, :540).
 - OA-1 made its own copy at `oa1/src/main/Main.md` (mtime 16:42:04, after the root overwrite at 16:41:57). It is

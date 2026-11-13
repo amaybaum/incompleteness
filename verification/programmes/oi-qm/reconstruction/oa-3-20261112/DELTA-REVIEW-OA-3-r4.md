@@ -8,7 +8,7 @@ commit or push, no GitHub write.
 | Short form | What it names |
 |---|---|
 | r3 | `OA-3-REPORT-r3.md`, blob `ad0756ca` (committed on `research/oa1-w1-1-20261112`) |
-| r4 | scratchpad `oa3/OA-3-REPORT-r4.md`, blob `b6164dd6` (checked with `git hash-object`) |
+| r4 | working `oa3/OA-3-REPORT-r4.md`, blob `b6164dd6` (checked with `git hash-object`) |
 | `OA2:n` | OA-2 r3 at `815d6a8e`, as in OA-3's citation forms |
 | `OA2r4:n` | `OA-2-REPORT-r4.md` at `4b087b1e` |
 | `DR2` | `DELTA-REVIEW-OA-2-r3.md` at `4b087b1e` |

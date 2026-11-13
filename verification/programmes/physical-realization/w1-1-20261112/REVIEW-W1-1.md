@@ -208,7 +208,7 @@ splitting does not change the count (SM:292). It bears only on whether one orbit
 *Required change:* add these sites to §10 and scope R:98 and R:196 accordingly.
 
 **F11 (required, process; not a content blocker): provenance incident (R:226).** The author overwrote `GR.md` and
-`Main.md` at the shared scratchpad root. The files were of unknown origin, and the earlier content is unrecoverable.
+`Main.md` at the shared working root. The files were of unknown origin, and the earlier content is unrecoverable.
 That is the case §A.26 covers (sweep, then quarantine, never delete). Both root files now equal `fb733b4a` (checked).
 The unit's own sources are unaffected (`w1-1/src/` is byte-identical to `fb733b4a`). However, OA-1 (#1169) runs in
 parallel, and the root holds files from many sessions.

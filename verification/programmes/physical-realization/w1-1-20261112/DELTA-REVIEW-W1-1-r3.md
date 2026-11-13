@@ -225,7 +225,7 @@ Owner checkpoint still required before any use.
 ## Diff check of r4
 
 **Object.**
-- r4: `w1-1/W1-1-REPORT-r4.md`, blob `72800573868837a93ede067ea4e99504e9ed9bc0`, SHA-256 `34c0097d…dd1313a`, 403 lines.
+- r4: `w1-1/W1-1-REPORT-r4.md`, blob `72800573`, SHA-256 `34c0097d…dd1313a`, 403 lines.
 - Compared with `diff` against r3, blob `890429362bc2…`.
 - Read-only. The application record `W1-1-r4-APPLY.md` was read, but nothing in this check relies on it.
 
@@ -267,4 +267,4 @@ Once they are applied verbatim, no further review is needed beyond a diff check.
 `| Diff check D1–D2 | :363 (inventory base); :255 (W1-0 parenthetical) |`. Then change the r4:390 sentence to "Each edit
 is applied with the review's exact replacement text, including the diff check's D1–D2." Nothing else changes.
 
-Confirmation of r4 blob 34b1a16fc84ed38b19aec482b555fe8876815959: ACCEPT. Reverting exactly four hunks reproduces the previous r4 blob 72800573868837a93ede067ea4e99504e9ed9bc0 byte for byte. The four hunks are r4:255 (D2), :363 (D1), :390 (the §13 sentence) and the new §13 row at :404. Each is verbatim the text given in "Diff check of r4", and nothing else changed.
+Confirmation of r4 blob 34b1a16fc84ed38b19aec482b555fe8876815959: ACCEPT. Reverting exactly four hunks reproduces the previous r4 blob 72800573 byte for byte. The four hunks are r4:255 (D2), :363 (D1), :390 (the §13 sentence) and the new §13 row at :404. Each is verbatim the text given in "Diff check of r4", and nothing else changed.

@@ -276,9 +276,9 @@ accurate as history. Adding "; further refined in r4/r5, §12" would stop it bei
 ## Recheck of r5
 
 **Text rechecked.**
-- `scratchpad/oa1/OA-1-REPORT-r5.md`: blob `29af14191b6f4707225e321db0aa387e4a78c8e5` (verified by
+- `working/oa1/OA-1-REPORT-r5.md`: blob `29af1419` (verified by
   `git hash-object`), 731 lines, uncommitted.
-- Against r4: `scratchpad/oa1/OA-1-REPORT-r4.md`, blob `41a1fb79…` (verified unchanged).
+- Against r4: `working/oa1/OA-1-REPORT-r4.md`, blob `41a1fb79…` (verified unchanged).
 - With the writer's record `OA-1-r5-APPLY.md`.
 - Read-only and paper-only, as before.
 
@@ -385,9 +385,9 @@ statement of the re-check's outcome before r5 is committed.
 ## Re-check of R1–R7
 
 **Text re-checked.**
-- `scratchpad/oa1/OA-1-REPORT-r5.md`: blob `602fe3af4d340da613985c22281445964950e0ab`, 730 lines.
-- Pre-R copy: `scratchpad/oa1/.r5-pre-R.md`, blob `29af14191b6f4707225e321db0aa387e4a78c8e5`.
-- r4: `scratchpad/oa1/OA-1-REPORT-r4.md`, blob `41a1fb79…`, still unchanged.
+- `working/oa1/OA-1-REPORT-r5.md`: blob `602fe3af`, 730 lines.
+- Pre-R copy: `working/oa1/.r5-pre-R.md`, blob `29af1419`.
+- r4: `working/oa1/OA-1-REPORT-r4.md`, blob `41a1fb79…`, still unchanged.
 - All blobs verified with `git hash-object`. Read-only.
 
 ### Verdict: ACCEPT, after two mechanical edits

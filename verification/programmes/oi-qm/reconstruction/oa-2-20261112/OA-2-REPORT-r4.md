@@ -62,7 +62,7 @@ REVISE). Section 9 maps each finding to its change.
 - **Commands.** `git fetch`, `git show`, `git diff --stat`, `git ls-tree`, `git grep`, `grep`, `sed`,
   `wc`, `cut`, `ls`, `cat -n`.
 - **No script.** No script was written or run.
-- **No copies.** No copy of any source was written at the scratchpad root in r2 or r3. r1's disclosure of a
+- **No copies.** No copy of any source was written at the working root in r2 or r3. r1's disclosure of a
   temporary copy and local ref, both removed, stands.
 
 ***
@@ -955,7 +955,7 @@ The cited paths are unchanged across the three. The only change on them is the T
 **At OA-1 `066be3b1`.** `OA-1-REPORT-r4.md` (whole); `REVIEW-OA-1-r3.md` (whole); `REVIEW-OA-1.md`
 (grep and :205–230); `REVIEW-OA-1-r2.md` (grep).
 
-**Review.** `scratchpad/oa2/REVIEW-OA-2.md` (whole); `scratchpad/oa2/REVIEW-OA-2-r2.md` (whole).
+**Review.** `working/oa2/REVIEW-OA-2.md` (whole); `working/oa2/REVIEW-OA-2-r2.md` (whole).
 
 **At `main` `615cc119` (r3).** `reconstruction/drafts/tune-1-20261111/TUNE-1-STEP2-SESSION3.md`:28–100
 (Lemma 0, Lemma A-T). Directory listing of `drafts/tune-1-20261111/`. `git diff --stat ec257bee 615cc119`

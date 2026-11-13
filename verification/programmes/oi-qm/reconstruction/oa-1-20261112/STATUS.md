@@ -16,7 +16,9 @@ that file or any other file here; r5 is the accepted text.
   - `REVIEW-OA-1-r3.md`: r3, ACCEPT WITH NITS.
   - `DELTA-REVIEW-OA-1-r4.md`: the r3 → r4 delta, ACCEPT WITH CHANGES (E1–E9); "Recheck of r5", ACCEPT
     WITH CHANGES (R1–R7); "Re-check of R1–R7", ACCEPT after two mechanical edits.
-  - `OBJECTS.md` ties each reviewed working copy to its committed blob.
+  - `OBJECTS.md` ties each reviewed working copy to its committed blob. Its section
+    "Committed bytes differ from the reviewed working copies" gives the reviewed and committed bytes of
+    `REVIEW-OA-1.md` and `DELTA-REVIEW-OA-1-r4.md`. r5 is committed with its reviewed bytes.
 - **The accepted blob and the re-checked text.** The re-check names working-copy blob
   `602fe3af` and specifies two final edits: digit-only changes to the
   §13 change map, and a replacement for the sentence at :5. Undoing exactly those edits in the
@@ -85,7 +87,7 @@ affected)."
 | #1169 comment 6829596317 (the FH→SOURCE-1 trace, §8) | Provenance. It is the object §8 checks; each verdict there rests on Lean and manuscript lines on `main`. |
 | #1169 comment 6831588323 (§10A, the owner's next question) | Governance provenance. §10A is not part of OA-1's results. |
 | Commits `066be3b1`, `815d6a8e`, `5fec0966` and `09240c92` on this PR's branch, named in the reviews | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
-| Working-copy blob ids in `DELTA-REVIEW-OA-1-r4.md` (:279 and :389, `29af14191b6f…`; :388, `602fe3af4d34…`) | Not objects in the repository, so §A.42 item 3 is not met for these two ids. `602fe3af` is reproduced as stated above; `29af1419` (r5 before R1–R7) was not retained. No verdict rests on these objects beyond the committed blob. |
+| Working-copy blob ids in `DELTA-REVIEW-OA-1-r4.md` (:279 and :389, `29af1419`; :388, `602fe3af`) | Named by their first 8 characters in the committed file, which closes the §A.42 item 3 gap by abbreviation: the abbreviated ids name session working copies that were not kept. `602fe3af` is reproduced as stated above; `29af1419` (r5 before R1–R7) was not retained. No verdict rests on these objects beyond the committed blob. |
 | Other references inside the reviews (session paths, the reviewers' authorization statements, `origin/main` commits) | Provenance. Each verdict rests on the blobs `OBJECTS.md` records. |
 
 ## Source drift from `fb733b4a` to `main` (`62bdc2cf`)

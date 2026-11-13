@@ -8,7 +8,7 @@ pin is current for everything cited. The authorization was re-fetched read-only:
 c.6831588323 (account amaybaum, 2026-11-12T17:55Z) records the owner's question verbatim and
 "Authorize paper-only unit … no computation, no Lean or manuscript changes, and no premise
 adoption". OA-2 stays inside that scope. During the review I wrote a temporary byte copy of
-`Main.md` inside `scratchpad/oa2/` to grep it; it has been deleted.
+`Main.md` inside `working/oa2/` to grep it; it has been deleted.
 
 Citation form: `R:n` = line `n` of `OA-2-REPORT.md`; `OA1:n` = `OA-1-REPORT-r4.md` at `066be3b1`;
 `MECH-2:n` = `mechanism-2-20261108/DESIGN.md`; `MECH-1:n` = `mechanism-1-20261107/DESIGN.md`;

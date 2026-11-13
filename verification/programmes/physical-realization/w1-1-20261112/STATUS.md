@@ -5,18 +5,24 @@ that file or any other file here; r4 is the accepted text.
 
 ## Accepted record and reviews
 
-- **Record.** `W1-1-REPORT-r4.md`, blob `34b1a16fc84ed38b19aec482b555fe8876815959`, SHA-256
-  `ee9fe1d7759dbb7c27d1814f61493b0ebac07b2dd87db0c91e4338587a6a186c`, 404 lines. Committed at
-  `6ca9656216effa9413da4075debbb7ca708360aa` (PR #1265). Source snapshot `main` at
+- **Record.** `W1-1-REPORT-r4.md`, blob `8bf646292f54c649a2927a579675d04ad8d21462`, SHA-256
+  `2436f5d127484dee1d5c9bf6d95f6417b6d60eef27598f1e48e214f2491313b2`, 404 lines. The reviewed and
+  accepted bytes, committed at `6ca9656216effa9413da4075debbb7ca708360aa` (PR #1265), differ from
+  these on line 383 only; `OBJECTS.md`, section "Committed bytes differ from the reviewed working copies", gives
+  their blob and SHA-256 and how to restore them. The checks stated below were made on the
+  reviewed bytes. Source snapshot `main` at
   `fb733b4a58558ef64bd7c3585712c76e9f2dfb42`, an ancestor of `main`.
 - **Review trail.** `W1-1-REPORT.md` (r1) to `W1-1-REPORT-r3.md` are the earlier revisions. They stay
-  unchanged because the reviews cite their lines.
+  unchanged, apart from the substitutions `OBJECTS.md` records, which keep every line number,
+  because the reviews cite their lines.
   - `REVIEW-W1-1.md`: r1, ACCEPT WITH CHANGES (F1–F12).
   - `REVIEW-W1-1-r2.md`: r2, ACCEPT WITH NITS (N1–N7).
   - `DELTA-REVIEW-W1-1-r3.md`: the r2 → r3 delta, ACCEPT WITH CHANGES (E1–E10); "Diff check of r4",
     ACCEPT WITH CHANGES (D1, D2); confirmation of r4 blob `34b1a16f`, ACCEPT. The confirmation names
-    the committed blob.
-  - `OBJECTS.md` ties each reviewed working copy to its committed blob.
+    the reviewed blob, as committed at `6ca96562`.
+  - `OBJECTS.md` ties each reviewed working copy to its committed blob. Its section
+    "Committed bytes differ from the reviewed working copies" gives the reviewed and committed bytes of
+    each file committed with a substitution.
 - **Nature of the reviews.** Separate read-only, paper-only AI-agent reviews; not human reviews,
   GitHub approvals or owner decisions. The record's derivations are by hand and not machine-checked.
   Its literature is recalled from memory, and the record states that no verdict rests on it.
@@ -87,7 +93,7 @@ proven exhaustive; consistency axis only; no manuscript claim affected)."
 | #1245 comment 6818702013 (L ≠ 0 at site-local cuts, C6(b)) | Provenance. GR:128 on `main` states that L ≠ 0 at every cut where a boundary site has a deep neighbour. |
 | #1245 comments 6829744096, 6828106610, 6841976574; #1169 comment 6841795465 | Governance provenance, quoted above. |
 | Commits `5fec0966` and `6ca96562` on this PR's branch, named in the review | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
-| Working-copy blob id `72800573` in `DELTA-REVIEW-W1-1-r3.md` (:228, :270) | Not an object in the repository, so §A.42 item 3 is not met for this id. Reverting exactly the four hunks the confirmation names in the committed r4 reproduces it byte for byte; the package writer made this check. The confirmation itself names the committed blob. |
+| Working-copy blob id `72800573` in `DELTA-REVIEW-W1-1-r3.md` (:228, :270) | Named by its first 8 characters in the committed file, which closes the §A.42 item 3 gap by abbreviation: the abbreviated id names a session working copy that was not kept. Reverting exactly the four hunks the confirmation names in the committed r4 reproduces it byte for byte; the package writer made this check. The confirmation itself names the reviewed blob `34b1a16f`, as committed at `6ca96562`. |
 | Other references inside the reviews (session paths, `origin/main` commits) | Provenance. Each verdict rests on the blobs `OBJECTS.md` records. |
 
 ## Source drift from `fb733b4a` to `main` (`62bdc2cf`)

@@ -35,7 +35,7 @@ independent review `REVIEW-OA-3.md` (ACCEPT WITH CHANGES, F1–F7). r2 is itself
 `M1:n` = `mechanism-1-20261107/DESIGN.md`; `obsmu:n` = `observer-interface-obsmu-20261104/ANALYSIS.md`;
 `L3b` = `verification/programmes/oi-qm/interface/round-l3b-orthogonal-rule-controls/`; all of `M2`,
 `MA`, `MAR`, `AP1`, `M1`, `obsmu` under `verification/programmes/oi-qm/reconstruction/` at
-`main@615cc119`. `Rv3:n` = line `n` of the scratchpad review `oa3/REVIEW-OA-3.md`; `r1:n` = line `n`
+`main@615cc119`. `Rv3:n` = line `n` of the working review `oa3/REVIEW-OA-3.md`; `r1:n` = line `n`
 of `oa3/OA-3-REPORT.md`.
 
 **Support labels** as in OA2:43–51: [K] Lean statement read, [P] manuscript, [R] research record,

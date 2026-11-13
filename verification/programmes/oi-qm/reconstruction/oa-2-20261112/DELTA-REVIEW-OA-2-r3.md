@@ -328,7 +328,7 @@ ACCEPT of r2 (`REVIEW-OA-2-r2.md`) does not cover the r3 edits.
 - **Status text.**
   - r3 does not call itself reviewed. The Standing (r3:3–10) says "WIP / UNVERIFIED".
   - Stale item, **D10**: the Disclosure (r3:58) still says "No copy of any source was written at the
-    scratchpad root **in r2**". State it for r3.
+    working root **in r2**". State it for r3.
 - **OA-1 r4-only dependence.** Of the OA-1 citations the delta adds or retains, only one range touches
   r4-only text.
   - OA1r4:556–572 (MP-1, r3:575) includes the r4 nit-2 sub-bullets at :563–572.
@@ -458,8 +458,8 @@ None of E1–E11 moves a verdict. After E1–E3, r3 can be treated as final at t
 
 **Disclosure.** Commands: `git fetch`, `git show`, `git diff`, `git ls-tree`, `git rev-parse`,
 `git grep`, `git log`, `diff -u`, `grep`, `sed`, `cat -n`, `wc`. No script, no computation on OI
-rules. Working copies of the six OA-2 files and the r2→r3 diff were written under `scratchpad/oa2/src/`
-and `scratchpad/oa2/r2r3.diff`. Nothing was written at the scratchpad root.
+rules. Working copies of the six OA-2 files and the r2→r3 diff were written under `working/oa2/src/`
+and `working/oa2/r2r3.diff`. Nothing was written at the working root.
 
 ***
 ***
@@ -467,12 +467,12 @@ and `scratchpad/oa2/r2r3.diff`. Nothing was written at the scratchpad root.
 # Recheck of r4 (`OA-2-REPORT-r4.md`)
 
 **Standing.** Same reviewer and the same rules as above: read-only, paper-only, no commit, push or
-GitHub write, and no file at the scratchpad root.
+GitHub write, and no file at the working root.
 
 **Text checked.**
-- `scratchpad/oa2/OA-2-REPORT-r4.md`, 1058 lines, git blob **`1b282d9ad3a5f6c3c1dfdedc012659153dcfb0a1`**.
+- `working/oa2/OA-2-REPORT-r4.md`, 1058 lines, git blob **`1b282d9a`**.
 - Against r3, blob `f7ca0968…` (confirmed unchanged).
-- Also read: `OA-2-r4-APPLY.md` and `scratchpad/oa2-r4-tools/apply.py`.
+- Also read: `OA-2-r4-APPLY.md` and `working/oa2-r4-tools/apply.py`.
 - `r4:n` is a line of the r4 blob.
 
 ## Verdict: **ACCEPT WITH NITS**
@@ -668,7 +668,7 @@ changes.**
 # Confirmation of r4
 
 **Text checked.**
-- `scratchpad/oa2/OA-2-REPORT-r4.md`, 1067 lines, blob **`655480e97eb48225d84dd5506dfd096bfb14e281`**.
+- `working/oa2/OA-2-REPORT-r4.md`, 1067 lines, blob **`655480e9`**.
 - Against the pre-recheck copy `.r4-pre-recheck.md`, blob `1b282d9a…`, which equals the r4 checked in
   "Recheck of r4".
 - Read-only, as before.

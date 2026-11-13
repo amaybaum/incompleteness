@@ -380,7 +380,7 @@ that additivity clause is load-bearing via GR:70. This is recorded, not resolved
 - The numerical orientation values use the calibrated ħ for scale only.
 - The candidate list is not proven exhaustive.
 - **Provenance (F11, for the owner checkpoint).**
-  - During r1 this session overwrote two pre-existing files, `GR.md` and `Main.md`, in the **shared scratchpad root** (not in `w1-1/`) with `origin/main` copies of the papers. The files were of unknown origin, and their earlier content is unrecoverable.
+  - During r1 this session overwrote two pre-existing files, `GR.md` and `Main.md`, in the **shared working root** (not in `w1-1/`) with `origin/main` copies of the papers. The files were of unknown origin, and their earlier content is unrecoverable.
   - The reviewer checked that both root files now equal `fb733b4a`. This unit's sources (`w1-1/src/`) are byte-identical to `fb733b4a`.
   - This is the situation §A.26 covers. OA-1 (#1169) runs in parallel, and the root holds files from many sessions. Any concurrent unit that relied on root-level `GR.md` or `Main.md` should re-source from `git show`.
   - Recommendation: each unit writes only inside its own subdirectory. r2 was written only inside `w1-1/`.

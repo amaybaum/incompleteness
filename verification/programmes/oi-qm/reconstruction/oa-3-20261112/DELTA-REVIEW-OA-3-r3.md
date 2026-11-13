@@ -9,7 +9,7 @@ directory `verification/programmes/oi-qm/reconstruction/oa-3-20261112/`. `r2:n` 
 of `OA-3-REPORT-r2.md` / `OA-3-REPORT-r3.md` there; `Rc:n` = line `n` of `RECHECK-OA-3-r2.md` there.
 The delta is `diff OA-3-REPORT-r2.md OA-3-REPORT-r3.md` on the committed blobs (16 hunks). The committed
 `REVIEW-OA-3.md`, `OA-3-REPORT.md`, `OA-3-REPORT-r2.md` and `RECHECK-OA-3-r2.md` are byte-identical
-(`cmp`) to the scratchpad copies r1–r3 previously cited, so `Rv3:n` and `r1:n` resolve unchanged;
+(`cmp`) to the working copies r1–r3 previously cited, so `Rv3:n` and `r1:n` resolve unchanged;
 spot-checked Rv3:99, :105–111, :159–170. OA2:767–770 and :800–801 read at `815d6a8e`.
 
 ## Verdict: **ACCEPT WITH CHANGES**
@@ -103,7 +103,7 @@ overstates review status.
 |---|---|---|---|
 | 1 | 1 → 1 | Title "(r2)" → "(r3)" | ✓ |
 | 2 | 3–4 → 3–6 | Standing note | Recheck verdict, "E1, E2 required; m1–m3 optional" (Rc:24–25), re-derivation and acceptance of (PT), (PT-a), (PT-b) (Rc §2) and the concession of D1 (Rc:22–23) are accurately reported. "r3's own edits are unreviewed" ✓. "All applied" is not yet true (R1–R4). |
-| 3 | 38–39 → 40–41 | `Rv3`, `r1` cite sibling files in this directory | Committed blobs are byte-identical to the scratchpad copies, so line numbers are unchanged ✓ |
+| 3 | 38–39 → 40–41 | `Rv3`, `r1` cite sibling files in this directory | Committed blobs are byte-identical to the working copies, so line numbers are unchanged ✓ |
 | 4 | 65 → 67 | m2, §0 item 4 | ✓ (§1 m2). The line is 165 characters, against about 100 elsewhere; reflow is optional (O4). |
 | 5 | 114–115 → 116–118 | m1, §1 | ✓ (§1 m1) |
 | 6 | 267–269 → 270–272 | m3 | R4 |
@@ -215,4 +215,4 @@ None of these changes alters an assumption, quantifier, effect class or conclusi
 **Layout (O4 class, optional).** a55:544, :639 and :716 exceed the file's line width. The O2 edit
 leaves a short line at a55:653 ("OA2:800–801). Under the").
 
-Confirmation of b13cbe01: ACCEPT. D1 is applied verbatim at a55:317 (now `ν(F^{−t_h} ω) = |S|^{−1} = q^{−2L}`). The R2 locator now reads "N4.1 herald-typing bullet, second sub-bullet". One change-map row was added (Recheck D1 → N3 proof step 1). There are no other changes to OA-3-REPORT-r3.md, and DELTA-REVIEW-OA-3-r3.md at b13cbe01 is byte-identical to the scratchpad copy as it stood before this line.
+Confirmation of b13cbe01: ACCEPT. D1 is applied verbatim at a55:317 (now `ν(F^{−t_h} ω) = |S|^{−1} = q^{−2L}`). The R2 locator now reads "N4.1 herald-typing bullet, second sub-bullet". One change-map row was added (Recheck D1 → N3 proof step 1). There are no other changes to OA-3-REPORT-r3.md, and DELTA-REVIEW-OA-3-r3.md at b13cbe01 is byte-identical to the working copy as it stood before this line.

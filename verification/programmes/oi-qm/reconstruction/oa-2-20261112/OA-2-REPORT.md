@@ -27,7 +27,7 @@ context only, no verdict rests on it. [O] open.
 
 **Disclosure.** Commands used: `git fetch`, `git show`, `git ls-tree`, `git grep`, `grep`, `sed`,
 `wc`, `cut`, `mkdir`. Early in the session I wrote a byte copy of `Main.md` (from `git show` at
-`fb733b4a`) into the scratchpad root and created a local ref `refs/oa2/oa1`; both were removed,
+`fb733b4a`) into the working root and created a local ref `refs/oa2/oa1`; both were removed,
 and every Main line cited below was re-read with `git show fb733b4a:papers/Main.md`. No script was
 written or run.
 
