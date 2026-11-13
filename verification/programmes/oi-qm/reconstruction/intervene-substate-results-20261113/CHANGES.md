@@ -2,10 +2,12 @@
 
 Every change that `NEW-RESULTS.md` makes to text copied from INTERVENE-1 r2 (`ea12fde1`, I:n) or
 SUBSTATE-BRIDGE-1 r2 (`86a413c8`, S:n) is listed here with its reason. None changes a statement's
-mathematics or a proof's steps. Reasons cite the four recorded inconsistencies (owner decision #1169
-c.6854728636, step 2; RECONCILE-r3 §5, R3:152–156) as **INC-1** to **INC-4**, the ChatGPT review nits
-by review id and number, the package's own exact-head review (`review/REVIEW-r1.md`) as "review r1"
-with its finding or nit number, and §A.42 item 8 narrowing by `DEPENDENCIES.md` row.
+mathematics or a proof's steps; Δ30 narrows a sentence written for this record (Δ26), which
+overstated G1, and changes no copied text. Reasons cite the four recorded inconsistencies (owner
+decision #1169 c.6854728636, step 2; RECONCILE-r3 §5, R3:152–156) as **INC-1** to **INC-4**, the
+ChatGPT review nits by review id and number, the package's own exact-head review
+(`review/REVIEW-r1.md`) as "review r1" with its finding or nit number, and §A.42 item 8 narrowing by
+`DEPENDENCIES.md` row.
 
 | Inconsistency | Content | Where it touches the carried text |
 |---|---|---|
@@ -47,7 +49,7 @@ with its finding or nit number, and §A.42 item 8 narrowing by `DEPENDENCIES.md`
 | Δ27 | §4.2 heading | S:155: "L4 (an additive update has a state-independent graph)" | "L4 (the graph of an additive update does not depend on the state)" | Same meaning. The repository's claims check matches the hyphenated word for a withdrawn GR claim (T_Q state-independence, H-balance), which L4 does not concern; the heading is reworded so that check does not flag it. The statement and proof below the heading are unchanged. |
 | Δ28 | §0.3, NX-1 | I:123: "**NX-1** (APPROX r2 §4.2 [D, under review]): some valid native procedure induces a transformation at an ε-independent positive distance from the route's classical class. On route C that class is `PreservesDiag` (OB/DiagonalTheory.lean:68). On E_f it is the maps with an entrywise nonnegative frame matrix." | "**NX-1** (I:123): "some valid native procedure induces a transformation at an ε-independent positive distance from the route's classical class"; on E_f the class is the one above" | Review r1 finding 8: §3.1 and G1's marker use NX-1, which §0.3 did not state. The defining clause is copied; the E_f clause is replaced by the spanning class of §0.3 (INC-1, as Δ5), and the route-C clause is not carried, since no carried result uses route C's class. |
 | Δ29 | §1, proof of (c), `op` case | I:173: "K is CM and an isometry, so K is monomial by (b)." | The same sentence followed by "[(b) is (T5b) above; Δ29]" | Review r1 nit 2: the draft's (b) is not carried; the bracket names the hypothesis of this record that takes its place. |
-| Δ30 | §3.1, "What it adds" (package text, Δ26) | "The E_f verdict separates only on spanning frames (T3); on non-spanning frames the nonnegativity test does not separate (R3:59)." | "The E_f verdict separates on spanning frames (T3); without spanning the nonnegativity test need not separate, as on the octahedral and Husimi frames (S2c, S2; R3:59)." | The earlier sentence stated non-separation for every non-spanning frame; the record shows it for two frames. A non-spanning frame on which the test separates (tetrahedral frame plus a point of probability zero; Hadamard entry −1/2) is in `review/CONFIRM-STATUS.md` finding 1 and `review/NOTES-STATUS.md`. Owner decision #1274 c.6865575359. The package's own summary sentence is narrowed; no copied statement or proof changes. |
+| Δ30 | §3.1, "What it adds" (package text, Δ26) | "The E_f verdict separates only on spanning frames (T3); on non-spanning frames the nonnegativity test does not separate (R3:59)." | "On spanning frames the frame matrix is unique, so the E_f class is fixed by the map (T3); on the tetrahedral frame it excludes a rational rotation (S2b). Without spanning the test need not separate: on the octahedral and Husimi frames non-diagonal-preserving unitaries have nonnegative frame representatives (S2c, S2; R3:59), and on the Husimi frame every unitary does." | The earlier sentence stated non-separation for every non-spanning frame; the record shows it for two frames. A non-spanning frame on which the test separates (tetrahedral frame plus a point of probability zero; Hadamard entry −1/2) is in `review/CONFIRM-STATUS.md` finding 1 and `review/NOTES-STATUS.md`. Owner decision #1274 c.6865575359. The package's own summary sentence is narrowed; no copied statement or proof changes. |
 
 ## Review nits checked against the carried text
 

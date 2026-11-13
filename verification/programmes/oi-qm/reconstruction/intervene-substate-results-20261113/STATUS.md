@@ -72,7 +72,7 @@ hypotheses stated with it. Its evidence tags (`NEW-RESULTS.md`:33–36) are the 
 |---|---|---|
 | 1 | T5(c): given (T5b), `InstAvail CM ↔ InstAvail substratumClass`; given (T5a) and (T5b), `genTheory CM = substratumTheory` | [A], conditional on (T5a), (T5b), open on `main`; the FI-1 headline also needs (T5d) and is not asserted |
 | 2 | E1: the induced sub-Markov kernel, with no measure invariance, no finiteness of the hidden carrier, adaptive stopping and a ⊥ outcome | [A]; measurability step hand-checked from Dynkin's π–λ theorem [L]; an upper bound, no operation exhibited |
-| 3.1 | G1: on route E_f the nonnegative-frame test is separating under T3's spanning hypothesis; without spanning it need not separate: on the octahedral and Husimi frames, non-diagonal-preserving unitaries have nonnegative frame representatives, so the E_f classical class is frame-relative | [A]; each [X] number hand-checked in the record |
+| 3.1 | G1: on route E_f, under T3's spanning hypothesis the frame matrix is unique and the class is fixed by the map; without spanning the test need not separate: on the octahedral and Husimi frames non-diagonal-preserving unitaries have nonnegative frame representatives, and on the Husimi frame every unitary does | [A]; each [X] number hand-checked in the record |
 | 3.2 | E2: under one linear encoding of every density matrix shared by all procedures, native procedures are jointly measurable, and sharp ones commute | [A]; scope as stated (no context-dependent, non-linear or restricted-domain encoding); an upper bound |
 | 4.1 | L1: tower locality for a finite site set with arbitrary site alphabets | [A] on Main:362 [P] |
 | 4.2 | L4: the dependency relation of an affine update on abelian site groups is the same for every non-empty state set | [A], one line of algebra |
@@ -90,9 +90,9 @@ SUBSTATE-BRIDGE-1, each under the hypotheses stated with it: given (T5b),
 `genTheory CM = substratumTheory`; for a procedure kernel independent of the input law (H-IND) on a
 measurable hidden carrier, the law of (output, outcome) is given by a sub-Markov kernel, without
 measure invariance or finiteness and with adaptive stopping and a ⊥ outcome; on route E_f the
-nonnegative-frame test is separating under spanning and need not separate without it (octahedral
-and Husimi frames), and under one full-domain linear encoding
-shared by all procedures the native procedures are jointly measurable; L1 and L4 hold for arbitrary
+nonnegative-frame test has a unique frame matrix under spanning and need not separate without it
+(octahedral and Husimi frames), and under one full-domain linear encoding shared by all procedures
+the native procedures are jointly measurable; L1 and L4 hold for arbitrary
 site alphabets and abelian site groups at their stencil and affine scope; with measurement
 independence kept, routes A, B and C classify how parameter dependence can be carried, with N1–N4
 not supplied and SLL an open obligation; and (PAD) gives (NS_A) for the law and triple it is
@@ -107,10 +107,10 @@ mechanism or OI↔QM result; the #1230 and #1232 drafts themselves.
 
 ## Verification status (§A.46 item 4)
 
-No result in the record is independently verified. No carried statement is known to be invalid at the scope of its witnesses; see the scope line on
-`NEW-RESULTS.md`:322–323 and `CHANGES.md` Δ30. `review/REVIEW-r1.md`
-and `review/CONFIRM-r2.md` report no mathematical error in a carried statement or proof. N1–N4 and
-SLL are open.
+No result in the record is independently verified. No carried statement is known to be invalid at
+the scope of its witnesses; see the scope line on `NEW-RESULTS.md`:322–325 and `CHANGES.md` Δ30.
+`review/REVIEW-r1.md` and `review/CONFIRM-r2.md` report no mathematical error in a carried statement
+or proof. N1–N4 and SLL are open.
 Whether hand checks in model-written reviews make a result partially verified in §A.46 item 4's
 sense is not decided here; it is part of the question before the owner (OQ-10). [A] items are paper
 arguments, hand-checked and model-reviewed, not independently verified; [L] items are imported
@@ -131,7 +131,7 @@ standard mathematics; [K] items are Lean statements on `main`, read and not rebu
 reconciliation's `REVIEW-r1.md` at `703ae20e` (#1271), off `main`; it is provenance
 (`DEPENDENCIES.md` row I).
 
-**Scope of `NEW-RESULTS.md`:322–323.** The sentence states that without spanning the test need not
+**Scope of `NEW-RESULTS.md`:322–325.** The sentence states that without spanning the test need not
 separate, as on the octahedral and Husimi frames (S2c, S2). Non-separation does not hold for every
 non-spanning frame: the tetrahedral frame extended by a point of probability zero is non-spanning,
 and every frame representative of the Hadamard on it has the entry −1/2 (`CHANGES.md` Δ30; owner

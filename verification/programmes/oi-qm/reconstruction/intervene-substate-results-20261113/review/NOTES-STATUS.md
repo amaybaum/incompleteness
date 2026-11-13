@@ -138,3 +138,51 @@ spanning … does not separate") is true on its "need not" reading only. `NEW-RE
 
 6. Whether to correct `NEW-RESULTS.md`:322–323 (and, on its universal reading, the copied draft
    sentence at :290–292) is an owner question: OQ-1 keeps the reviewed files unchanged.
+
+## r3: response to the check of the :322–323 correction (review CONFIRM-CORR322, REVISE)
+
+Object: `research/optc-1230-1232-20261113` at `040d929e` (fast-forward pull; HEAD unchanged). Owner
+exception: #1274 c.6865575359 (`amaybaum`, 2026-11-13T21:39:25Z), "Correct it forward
+(Recommended)", for :322–323 with a CHANGES Δ row and STATUS alignment only. The edits below are
+left uncommitted.
+
+### Hand check before editing (no script run)
+
+1. Rotation counterexample on the spanning tetrahedral frame. C(x,y,z) = (y,z,x) is a cyclic
+   coordinate permutation with determinant +1, so it is the Bloch action of a unitary. On the
+   even-sign vectors it fixes (1,1,1) and cycles (1,−1,−1) → (−1,−1,1) → (−1,1,−1) → (1,−1,−1).
+   With r = σ/2, r_k·r_m is 3/4 for equal points and −1/4 for distinct ones (two signs differ), so
+   F_kj = 1/4 + r_k·(C r_j) is 1 when r_k = C r_j and 0 otherwise: a permutation matrix, unique by
+   spanning. C sends the diagonal state with Bloch vector (0,0,1) to (0,1,0), which is not diagonal.
+   So on a spanning frame a non-diagonal-preserving unitary passes the test, and "the E_f verdict
+   separates on spanning frames" is false in the sense G1 uses. Verdict: the counterexample is valid.
+2. What T3 gives. I:143: the frame matrix is "unique by injectivity and spanning", and an induced
+   map lies in the class. It gives no exclusion. Exclusion on a spanning frame is shown in the record
+   only for S2b (minimum entry −2/5 for the rotation about z with cos 3/5, `NEW-RESULTS.md`:309–316).
+3. Octahedral versus Husimi. Octahedral, p_{±e_i}(r) = (1 ± r_i)/6: a row of a representative for
+   the point m = ±e_a, written as entries α_i ± β_i on ±e_i, gives Σ_i α_i/3 + Σ_i β_i r_i/3, which
+   must equal (1 + (Rᵀm)·r)/6. So Σ_i α_i = 1/2 and β_i = ±R_ai/2. Nonnegativity needs
+   α_i ≥ |β_i|, hence Σ_i |R_ai| ≤ 1; for a unit row this forces a single nonzero entry ±1. Only
+   signed-permutation rotations pass: the octahedral frame excludes every other rotation, and admits
+   the Hadamard (S2c). Husimi: every unitary acts by the point map n ↦ Rn (S2), a measurable
+   bijection, so every unitary has a nonnegative representative. Hence "on the Husimi frame every
+   unitary does" is correct, and it does not hold for the octahedral frame.
+
+### Edits (reviewer's text)
+
+- `NEW-RESULTS.md`, "What it adds" of §3.1: the reviewer's sentence replaces the corrected one; the
+  paragraph is re-wrapped to the file's width (no other words change).
+- `CHANGES.md`: Δ30's new-text cell matches; the header's second sentence takes the reviewer's
+  clause on Δ30; the header paragraph is re-wrapped.
+- `STATUS.md`: row 3.1 and the claim sentence take the reviewer's text; the verification-status
+  paragraph is re-wrapped.
+
+### Open points for the owner
+
+- The optional scope line for the copied sentences at `NEW-RESULTS.md`:275–276 and :290–292 (the
+  rotation (x,y,z) ↦ (y,z,x) on the tetrahedral frame; a Hadamard-invariant tetrahedron) is not
+  added. It states a fact the record does not carry.
+- Δ30's reason cell describes only the non-spanning clause; the narrowing of the spanning clause is
+  recorded in its new-text cell and in the header clause.
+- The claim sentence reads "the nonnegative-frame test has a unique frame matrix under spanning",
+  as the reviewer gives it; its subject is the test, not the map.
