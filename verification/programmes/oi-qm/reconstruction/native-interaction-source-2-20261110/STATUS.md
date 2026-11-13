@@ -15,7 +15,7 @@ that file, whose text is the accepted text.
 - **Focused review.** ACCEPT at `862a493d4a22d42a3b123a53af5bdb778603d5d7`: `REVIEW-5840019359.md`.
   It checks that the +4/-3 diff from `9f046595` closes the three notes and changes nothing else.
 - **Nature of the reviews.** Both are by the same separate non-author Codex agent
-  (`/root/review_native_int_src_2`), relayed verbatim from the `amaybaum` account. They are AI-agent
+  (`review_native_int_src_2`), relayed verbatim from the `amaybaum` account. They are AI-agent
   reviews, not human reviews, GitHub approvals or owner integration decisions.
 - **Authority.** #866 comment 6763916830 (`amaybaum`, 2026-11-10T09:33:50Z): one paper-only native
   interaction source assessment with Codex as writer and a separate non-author reviewer.
@@ -29,12 +29,12 @@ that file, whose text is the accepted text.
 - Within the selected rule, the boundary coupling and one-tick retention in the previous-time field
   are derived on paper; the conditional history and the whole outgoing state follow from the
   existing preparation-loading and physical-interface records.
-- Layer: source inspection and bounded exact hand algebra, conditional on the selected rule, the
+- Evidence: source inspection and bounded exact hand algebra, conditional on the selected rule, the
   supplied source law and the declared projection.
 - Not established: a universal impossibility, the absence of other native processes, or any
   physical source. The physical-source gate is not passed.
 
-**Claim kept (proposed, for owner decision):** "For the selected binary SM ring and its declared
+**Claim supported by this record:** "For the selected binary SM ring and its declared
 two-site, two-slice observer, the existing boundary-write-and-retention process is unsourced: the
 inspected sources supply no native producer of its selectable request and common ready precursor
 (negative, bounded to this process and source packet; not a no-go; physical-source gate not
@@ -48,14 +48,17 @@ passed)."
 | NATIVE-PRED-1 and NATIVE-FACTOR-SRC-1 reviews | Provenance, each separately; no result is used. |
 | The six source rows of §2, at D | Support on `main`. |
 | Fredkin and Toffoli (1982) | External primary source for the comparator description only. |
-| Reviews 5840000380 and 5840019359 | Support on `main` through the two review records. The commits they review become reachable from `main` only by a non-squash merge. |
+| Reviews 5840000380 and 5840019359 | Support on `main` through the two review records. The commits they review become reachable from `main` only through a merge commit (neither squash nor rebase), which keeps them ancestors of `main`. |
+| References inside the review bodies (sandbox paths, CI run ids, the reviewers' own authorization statements, GitHub links pinned at PR commits) | Provenance. Each verdict rests on the record blob named in the header. |
 
 ## Source drift from D to `main` (`911a5cb6`)
 
-Five of the six cited sources are byte-identical on `main`. `papers/SM.md` changed: the first
-sentence of §3.1 was reworded, and the lattice Bisognano-Wichmann lemma and the discrete Einstein
-equation later in §3.1 were revised. The explicit ring construction and the bijectivity paragraph,
-which are what the record uses, are unchanged (`git diff` from D to `911a5cb6`).
+Five of the six cited sources are byte-identical on `main`. `papers/SM.md` changed. In §3.1 the
+first sentence was reworded: Main defines one coupling graph `G_φ` over all states, and a state-varying graph needs an update outside linearity (A5). Later §3.1
+passages not used here were also revised: the lattice Bisognano–Wichmann lemma and its proof, the
+discrete Einstein equation and its proof, and the self-consistency, lattice-correction and η = 1/4
+paragraphs. SM also changed outside §3.1. The bijectivity paragraph (:106) and the explicit ring
+construction (:112), which are what the record uses, are byte-identical at D and on `main`.
 
 ## Superseded lines in the accepted text
 
@@ -66,12 +69,13 @@ which are what the record uses, are unchanged (`git diff` from D to `911a5cb6`).
   versions cited.
 - Line 160, "this draft itself establishes nothing on main": the landing makes the record and its
   reviews verifiable from `main`.
+- In `REVIEW-5840000380.md`, the relay preamble's "a focused diff-only check is pending": that check
+  is `REVIEW-5840019359.md`.
 
 ## Landing
 
-- **Mode.** A non-squash merge is required, so that `9f046595` and `862a493d`, the commits the
-  reviews name, are reachable from `main`.
-- **Basis.** An established claim needs the record: the claim above, if the owner's merge decision
-  adopts it. No record on `main` currently depends on this one.
-- **Gate.** Owner decision (`amaybaum`, 2026-11-13T02:14:35Z, #1169 comment 6841795465): "Merging
-  needs a separate owner decision, which names the claim each landing keeps."
+- **Mode.** Merge commit (neither squash nor rebase), so that `9f046595` and `862a493d`, the commits
+  the reviews name, remain ancestors of `main`.
+- **Basis.** An established claim needs the record (§A.46 item 2): the claim above. No record on
+  `main` depends on this one at `911a5cb6`.
+- **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).
