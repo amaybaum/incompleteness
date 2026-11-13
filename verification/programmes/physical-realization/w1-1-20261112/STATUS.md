@@ -93,7 +93,8 @@ the evidence or decision named for it is recorded on `main`.
 
 Here "partially verified" means reviewed by at least one separate AI-agent reviewer, or resting in
 part on kernel-checked statements, without independent mathematical verification of the result;
-"exploratory" means not reviewed by anyone but its writer.
+"exploratory" means a result not reviewed by anyone but its writer, or a proposal that
+claims no result.
 
 - **Independently verified:** none of the record's own results. `counting_passive`
   (`verification/lean-mathlib/OIBridge/ThermalOrientation.lean:256`, imported by `OIBridge.lean`) is

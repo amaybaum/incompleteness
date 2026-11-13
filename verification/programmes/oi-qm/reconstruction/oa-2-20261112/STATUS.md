@@ -90,7 +90,8 @@ the evidence or decision named for it is recorded on `main`.
 
 Here "partially verified" means reviewed by at least one separate AI-agent reviewer, or resting in
 part on kernel-checked statements, without independent mathematical verification of the result;
-"exploratory" means not reviewed by anyone but its writer.
+"exploratory" means a result not reviewed by anyone but its writer, or a proposal that
+claims no result.
 
 - **Independently verified:** none of the record's own results. Its [K] items are Lean statements
   on `main`, read by the record and not rebuilt (r4:52).
@@ -99,10 +100,11 @@ part on kernel-checked statements, without independent mathematical verification
   :24–25 names the clause as Proposition B's measurement-noncontextuality clause), and "The class-N
   single-cell result (R:408–416) rests on the false clause", its conclusion surviving "on a
   corrected reason [RW]" (`REVIEW-OA-2.md`:94–95). r4's corrected Proposition B and class-N
-  statement replace them; the r1 statements are not results of the record. OA-3's N4
-  (`../oa-3-20261112/OA-3-REPORT-r4.md`:401–407, partially verified) finds the gap paragraph's
-  statement "only the marginals are available statistics" (r3:550–551, unchanged at r4:566–567)
-  inconsistent with OA-2's own Lemma 1.
+  statement replace them; the r1 statements are not results of the record.
+- **Contested, not graded known-invalid:** OA-3's N4 (`../oa-3-20261112/OA-3-REPORT-r4.md`:401–407,
+  partially verified) finds that OA-2's gap paragraph, "only the marginals are available statistics"
+  (r3:550–551, unchanged at r4:566–567), "assumed an effect class under which OA-2's own Lemma 1 is
+  false (N4.2)" (`OA-3-REPORT-r4.md`:405–406).
 
 | Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
 | --- | --- | --- | --- | --- |
