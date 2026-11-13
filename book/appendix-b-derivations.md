@@ -11,7 +11,7 @@ The appendix's content is organized by mathematical structure rather than by cha
 
 *B.2 The Stinespring construction.* The framework's emergent quantum description is constructed from a deterministic substratum bijection through the Stinespring dilation theorem applied to a partial trace over the hidden sector. This appendix gives the full construction: Hilbert-space embedding, permutation unitarity lemma, CPTP channel structure, Born-form representation of the transition probabilities, emergent coherence theorem, and CP-indivisibility theorem. The construction uses only textbook operator algebra from the 1950s.
 
-*B.3 The trace-out as a Jordan-Chevalley projection.* The framework's content on the Standard Model gauge structure relies on a structural property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and discards the nilpotent monodromy. This appendix gives the full algebraic derivation: period formula, Jordan-Chevalley decomposition, $q$-independence of the Weil-Deligne conductor, additive decomposition over gauge irreps, and the precise sense in which the trace-out is a projection.
+*B.3 Jordan-Chevalley structure of the ring evolution.* The evolution matrix of the wave equation on a ring over $\mathbb{F}_q$ decomposes into commuting semisimple and unipotent parts. This appendix gives the full algebraic derivation: period formula, Jordan-Chevalley decomposition, $q$-independence of the Weil-Deligne conductor, additive decomposition over gauge irreps, and which of the decomposition's data the visible laws retain.
 
 *B.4 The gap equation for $\hbar$.* The framework relates Planck's constant $\hbar$ to the discreteness scale through a thermal self-consistency argument between the classical horizon temperature (substratum-level) and the KMS temperature (emergent QFT-level). This appendix gives the full four-step derivation: spatial locality and boundary dependence, deep-sector gauge equivalence, dimensional determination, and thermal self-consistency producing $\hbar = c^3 \epsilon^2 / (4G\sigma)$.
 
@@ -101,11 +101,11 @@ with $\hat{H}_{\text{eff}} = H_V + \mathrm{Tr}_H[V_{\text{int}}(\mathbb{1}\otime
 
 The construction is complete: the substratum's deterministic bijection produces the memory-bearing visible-sector description — its unitary quantum representation supplied through the Stinespring dilation, the coherent operational lift still to be established ([Main §3.4]) — with leading-order Schrödinger evolution and structurally non-Markovian corrections at $\mathcal{O}(\tau_S/\tau_B)$.
 
-## B.3 The trace-out as a Jordan-Chevalley projection
+## B.3 Jordan-Chevalley structure of the ring evolution
 
 *Main-text reference: Chapter 5 §5.4-5.6.*
 
-The framework's content on the Standard Model gauge structure relies on a precise algebraic property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and erases the nilpotent monodromy. This appendix gives the full derivation for the scalar wave equation on a ring of $L$ sites over $\mathbb{F}_q$; the multi-component extension incorporating the gauge group follows by additive decomposition.
+This appendix derives the period and the Jordan-Chevalley decomposition of the evolution matrix and states which of the decomposition's data the visible laws retain. The derivation is given for the scalar wave equation on a ring of $L$ sites over $\mathbb{F}_q$; the multi-component extension incorporating the gauge group follows by additive decomposition.
 
 **Setup.** The discrete wave equation $x(n, t+1) = x(n-1, t) + x(n+1, t) - x(n, t-1) \pmod q$ has phase space $(\mathbb{Z}/q\mathbb{Z})^{2L}$ and evolution matrix
 $$F = \begin{pmatrix} 0 & I \\ -I & A \end{pmatrix}$$
@@ -140,15 +140,13 @@ $$\mathfrak{f}_{\text{WD}} = \mathfrak{f}_{\text{ss}}(L) + \text{rank}(N)$$
 
 *Proof.* $F_{\text{ss}}$ has order $L$; its eigenvalues are $L$-th roots of unity. For $\gcd(L, q) = 1$, the $L$-th roots in $\bar{\mathbb{F}}_q$ are isomorphic to those in $\mathbb{C}$, so their orders match. $\square$
 
-| $L$ | $\mathfrak{f}_{\text{ss}}(L)$ | $\mathfrak{f}_{\text{WD}}$ | $\text{NM}^2 = 3L/4$ |
-|-----|---|---|---|
-| 4 | 14 | 16 | 3.00 |
-| 6 | 30 | 32 | 4.50 |
-| 8 | 70 | 72 | 6.00 |
-| 10 | 106 | 108 | 7.50 |
-| 12 | 130 | 132 | 9.00 |
-
-Both $\mathfrak{f}_{\text{ss}}$ and $\text{NM}^2$ are $q$-independent encodings of the same semisimple eigenvalue data — one via multiplicative orders (integers), one via fourth moments of magnitudes (reals).
+| $L$ | $\mathfrak{f}_{\text{ss}}(L)$ | $\mathfrak{f}_{\text{WD}}$ |
+|-----|---|---|
+| 4 | 14 | 16 |
+| 6 | 30 | 32 |
+| 8 | 70 | 72 |
+| 10 | 106 | 108 |
+| 12 | 130 | 132 |
 
 **Theorem B.3.4 (Additive decomposition over gauge irreps).** *For the $K$-component wave equation with coupling matrix $M = \text{diag}(\mu_1 I_{n_1}, \ldots, \mu_r I_{n_r})$:*
 $$\mathfrak{f}_{\text{WD}}(M) = \sum_{i=1}^r n_i \cdot \mathfrak{f}_{\text{WD}}(\mu_i)$$
@@ -158,43 +156,44 @@ $$\mathfrak{f}_{\text{WD}}(M) = \sum_{i=1}^r n_i \cdot \mathfrak{f}_{\text{WD}}(
 
 Verified for all $(\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2$ at $q \in \{3, 5, 7\}$ with $L = 4$.
 
-**The projection.** The framework's trace-out operation (marginalization over the hidden sector) produces the reduced observable description — universally admitting the quantum representation — which depends on the coupling eigenvalues $\mu_k$ via the NM formula $\text{NM}^2 = 3\langle\mu^4\rangle$ — a consequence of the stochastic-quantum correspondence applied to the wave equation's Fourier decomposition. These $\mu_k$ are properties of $F_{\text{ss}}$, the semisimple part of the dynamics. The nilpotent monodromy $N$ contributes nothing to the emergent description: it affects only the off-diagonal Jordan block entries, which are erased by the coarse-graining over the hidden sector.
+**Spectral data and visible laws.** Let $q$ be prime with $\gcd(L, q) = 1$. $F_{\text{ss}}$ and $F_u$ commute and $F_u$ is unipotent, so $F$ and $F_{\text{ss}}$ have the same characteristic polynomial and the same eigenvalues with multiplicity. Every function of the eigenvalue multiset, $\mathfrak{f}_{\text{ss}}$ among them, is therefore independent of $N$. $\text{rank}(N)$ is not spectral data; $\mathfrak{f}_{\text{WD}}$ carries it as a separate term.
 
-The trace-out therefore performs the Jordan-Chevalley projection
-$$(F_{\text{ss}}, N) \mapsto F_{\text{ss}} \mapsto \{\mu_k\} \mapsto \text{NM}^2$$
-extracting the semisimple part, encoding it via magnitudes rather than orders, and organizing it by the representation theory of the partition. The nilpotent monodromy — genuine mathematical structure present in the full dynamics — is invisible to the embedded observer. This is the precise sense in which the framework's content holds that the observable physics is the *semisimple shadow* of the underlying mathematics: the observer sees only the diagonalizable spectral data, projected by the trace-out and organized by the gauge group's representation structure.
+Since $N^2 = 0$, $F^t = F_{\text{ss}}^t (I + tN)$. For $t \in q\mathbb{Z}$ this is $F_{\text{ss}}^t$, and for $q \nmid t$ it differs from $F_{\text{ss}}^t$, since $tN \neq 0$. Every visible law sampled only at times in $q\mathbb{Z}$, for any partition and any hidden prior, rooted or multi-time, is therefore the same for $F$ and $F_{\text{ss}}$. This is a coarse-graining in time at stride $q$, not a marginalization over the hidden sector.
+
+Marginalization over the hidden sector does not remove $N$. Take one site as the visible sector, with visible variable $(x(n, t-1), x(n, t))$, and a full-support hidden prior $\nu_H$ shared by every root, and let $\Gamma_t(a, j) = \nu_H\{h : \pi_V F^t(a, h) = j\}$ be the rooted visible law. For $L \geq 3$ the rule maps a constant configuration $(a, b)$ at every site to the constant configuration $(b, 2b - a)$, so $F^{mL}(0, 1) = (mL, mL + 1)$ on that mode, while $F_{\text{ss}}$ is the identity on it. The constant hidden configuration compatible with the root $(0, 1)$ has positive prior probability ($q^{-2(L-1)}$ under the uniform prior), so $\Gamma_{mL}((0,1), (mL, mL+1)) > 0$ for $F$. For $F_{\text{ss}}$, $F_{\text{ss}}^{L} = I$ makes $\Gamma_{mL}$ the identity kernel. Whenever $q \nmid m$, $(mL, mL + 1) \neq (0, 1)$, since $\gcd(L, q) = 1$, and the two rooted laws differ; in particular they differ at $m = 1$. On the block-diagonal evolution of Theorem B.3.4 a component with $\mu_a = 1$ follows the scalar rule, so the same witness applies to it, and one such component separates the two laws.
 
 ## B.4 The gap equation for $\hbar$
 
 *Main-text reference: Chapter 7 §7.3.*
 
-The framework derives the relation $\hbar = c^3\epsilon^2/(4G\sigma)$ between Planck's constant and the discreteness scale by matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory, conditional on H-slope with the horizon and frame conditions of Chapter 7 §7.3; with $\epsilon$ not independently known, it fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$ (Chapter 7 §7.4), not the value of $\hbar$. The derivation has four steps; each step is presented with its full content.
+The framework derives the relation $\hbar = c^3\epsilon^2/(4G\sigma)$ between Planck's constant and the discreteness scale by matching the classical horizon temperature to the KMS temperature of the emergent quantum field theory, conditional on H-slope and the further conditions of [GR §8.5(b)]; with $\epsilon$ not independently known, it fixes only $\epsilon/\sqrt{\sigma} = 2\,l_p$ (Chapter 7 §7.4), not the value of $\hbar$. The derivation has four steps; each step is presented with its full content. Step 4 fixes the relation and does not use Steps 1–3: Steps 1–2 assume a spatially local classical Hamiltonian and, for the one-layer boundary, the posited influence bound H-BD, and Step 3 is a dimensional check on the result of Step 4.
 
 **Step 1: Spatial locality.** The classical Hamiltonian of the substratum is spatially local. The interaction decomposes as
 $$H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}$$
 where $V$ is the visible sector, $B$ is the boundary layer (surface modes near the horizon), and $D$ is the deep hidden sector (volumetric modes far from the horizon). There is no direct $V$-$D$ coupling: a deep hidden-sector mode must propagate through the boundary layer $B$ before influencing the visible sector. The coupling chain is $V \leftrightarrow B \leftrightarrow D$, not $V \leftrightarrow D$.
 
-**Lemma B.4.1 (Frozen deep sector).** *Let $\Delta_D$ be the spectral gap of $H_D + H_{BD}$ restricted to the deep sector conditioned on a fixed boundary configuration. For times $t \ll 1/\Delta_D \leq \tau_B$:*
-$$\|\varphi_t^D - \text{id}\| = \mathcal{O}(\Delta_D t) = \mathcal{O}(t/\tau_B)$$
+A deep-sector configuration that stays fixed still enters the boundary update, so a bound on the motion of $D$ does not bound its effect on $V$: for $\varphi(v, b, d) = (v \oplus b, b \oplus d, d)$ on bits, $d$ never changes, yet every entry of $T(2\Delta t)$ is $\tfrac12$, while clamping $d$ at $0$ or $1$ gives the identity or the bit flip. The factorization below rests instead on a bound on $D$'s influence on $B$, with $\Delta t$ the update step:
 
-*Proof.* The spectral gap gives the inverse relaxation time of the slowest mode, so $\Delta_D \leq 1/\tau_B$ (with equality when the slowest mode dominates the relaxation). The deep-sector evolution over time $t$ displaces any initial configuration by $\mathcal{O}(\Delta_D t)$ in phase space. $\square$
+**H-BD** (deep-sector influence bound; posited). *There is a map $\varphi^{VB}$ of $\mathcal{C}_V \times \mathcal{C}_B$ to itself such that, for every $(v, b)$, the $V \times B$ component of $\varphi(v, b, d)$ differs from $\varphi^{VB}(v, b)$ for at most a fraction $\Delta t/\tau_{BD}$ of $d \in \mathcal{C}_D$.*
 
-**Lemma B.4.2 (Factorization of transition probabilities).** *The transition probability factorizes as*
-$$T_{ij}(t) = T^{(B)}_{ij}(t) + \mathcal{O}(t/\tau_B)$$
+**Lemma B.4.2 (Factorization of transition probabilities).** *For a bijective update under H-BD, at $t = n\,\Delta t$,*
+$$\sum_j \big|T_{ij}(t) - T^{(B)}_{ij}(t)\big| \leq \frac{2t}{\tau_{BD}}, \qquad T^{(B)}_{ij}(t) = \frac{1}{|\mathcal{C}_B|}\sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V((\varphi^{VB})^n(x_i, b))],$$
 *where $T^{(B)}_{ij}(t)$ depends only on the $V$-$B$ dynamics.*
 
-*Proof.* The transition probability is
-$$T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]$$
-By spatial locality, $\pi_V(\varphi_t(x_i, b, d))$ depends on $d$ only through the back-reaction $B \leftarrow D$, which by Lemma B.4.1 shifts $b$ by $\mathcal{O}(t/\tau_B)$. Expanding:
-$$\pi_V(\varphi_t(x_i, b, d)) = \pi_V(\varphi_t^{VB}(x_i, b)) + \mathcal{O}(t/\tau_B)$$
-where $\varphi_t^{VB}$ is the flow restricted to $V \times B$ with $D$ frozen. The $d$-sum then contributes $|\mathcal{C}_D|$ identical terms at leading order:
-$$T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|}\sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square$$
+*Proof.* Fix $x_i$ and $b$, and follow the reference path $(v_s, b_s) = (\varphi^{VB})^s(x_i, b)$. Let $S_s \subseteq \mathcal{C}_D$ be the set of initial $d$ whose trajectory under $\varphi$ has $V \times B$ component $(v_{s'}, b_{s'})$ at every step $s' \leq s$. Elements of $S_s$ share their $V \times B$ components through step $s$, so injectivity of $\varphi$ makes their $D$ components at step $s$ distinct, and by H-BD at most a fraction $\Delta t/\tau_{BD}$ of $\mathcal{C}_D$ leaves $S_s$ at step $s+1$. Hence $|\mathcal{C}_D \setminus S_n| \leq (t/\tau_{BD})\,|\mathcal{C}_D|$, and on $S_n$, $\pi_V(\varphi^n(x_i, b, d)) = \pi_V((\varphi^{VB})^n(x_i, b))$. The average over $d$ therefore lies within $\ell_1$ distance $2t/\tau_{BD}$ of $\delta_{x_j}[\pi_V((\varphi^{VB})^n(x_i, b))]$, and the average over $b$ keeps the bound. $\square$
 
-The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes. Since $T_{ij}(t)$ determines the emergent quantum description, and $T^{(B)}_{ij}(t)$ depends only on the $V$-$B$ dynamics — which are characterized by the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$ appearing in the classical Hamiltonian — the emergent action scale $\hbar$ inherits *boundary-only dependence*.
+Nothing in the framework fixes $\tau_{BD}$. For a linear update on a finite abelian group with $\mathcal{C}_D$ a direct summand, H-BD with $\tau_{BD} > 2\Delta t$ holds if the deep sector does not enter the $V \times B$ update and fails otherwise, and the linear lattice update of [Main §3.2] does not meet that condition at any cut where a boundary site has a deep neighbour ([GR §3.2]).
 
-**Step 2: Deep-sector gauge equivalence.** A corollary of the factorization lemma is that, to within $\mathcal{O}(\tau_S/\tau_B)$, no quantity determined by the visible transition data depends on the cardinality $|\mathcal{C}_D|$ of the deep hidden sector: systems with the same $\mathcal{C}_V \times \mathcal{C}_B$ dynamics produce the same visible transition data, whether $|\mathcal{C}_D|$ is finite, countably infinite, or uncountably infinite. Quantities that differ between Hamiltonians compatible with those data, such as individual eigenvalues and raw amplitudes, lie outside the corollary, and so does recurrence-scale content, which the recurrence argument establishes on a finite representative. Within the leading-order visible transition data on accessible timescales, a finite and an infinite deep sector are indistinguishable.
+**Lemma B.4.3 (Causal cone).** *Let the bijective update act on a finite product of site configuration spaces, with the uniform hidden-sector prior, let $B_n$ be the hidden sites within $n$ update steps of the visible sector (the visible sector's causal cone over the elapsed time) and $D_n$ the rest. At $t = n\,\Delta t$, $\pi_V(\varphi^n(x_i, b, d))$ does not depend on $d \in \mathcal{C}_{D_n}$, and, for every $d^* \in \mathcal{C}_{D_n}$, exactly*
+$$T_{ij}(t) = \frac{1}{|\mathcal{C}_{B_n}|}\sum_{b \in \mathcal{C}_{B_n}} \delta_{x_j}[\pi_V(\varphi^n(x_i, b, d^*))].$$
 
-**Step 3: Dimensional determination.** Step 2 excludes volumetric (deep-sector) quantities, leaving boundary quantities. The boundary carries both *local* geometric data ($\epsilon$, $\kappa$, and the constants $c$, $G$ of the classical Hamiltonian) and a *global* quantity: the total area $A$, which forms the dimensionless ratio $A/\epsilon^2 = S_{\text{dS}}/\sigma$. If $\hbar$ depended on $S_{\text{dS}}$, it would be observer-dependent — different observers have different horizon areas — contradicting the universality of the emergent action scale. The surface gravity $\kappa$ is excluded because it varies between observers and epochs while $\hbar$ is observed to be universal across observers and constant in time.
+*Proof.* A component's value after $n$ updates depends only on initial components within $n$ steps of it ([Main §3.3]). Under the uniform prior the sum over $\mathcal{C}_{D_n}$ contributes $|\mathcal{C}_{D_n}|$ identical terms. $\square$
+
+Under H-BD the correction in Lemma B.4.2 is at most $2t/\tau_{BD}$, which is of order $10^{-32}$ for laboratory processes when $\tau_{BD} \gtrsim 1/H$, a value that is not derived. Since $T_{ij}(t)$ determines the emergent quantum description up to its action scale, and the transition data on $[0, n\,\Delta t]$ depend only on the update of $V$ and of the hidden sites within $n$ update steps of $V$ and on the prior there (Lemma B.4.3), the emergent dynamics in units of inverse time, as far as those data fix it, depends only on that local update and its causal cone (*boundary-only dependence*); under H-BD those data agree with the one-layer law $T^{(B)}_{ij}(t)$ to within $2t/\tau_{BD}$. That the local update is itself fixed by the boundary geometry ($A$, $\epsilon$, $\kappa$) and the constants $c$, $G$ of the classical Hamiltonian is a further condition: two local bijective updates on the same geometry can give different transition probabilities. The action scale is not fixed by these data: every value of it gives the same $T_{ij}(t)$, so the lemma does not bear on $\hbar$, which Step 4 fixes.
+
+**Step 2: Deep-sector gauge equivalence.** A corollary of Lemmas B.4.2 and B.4.3 is that no quantity determined by the visible transition data on $[0, n\,\Delta t]$ depends on the cardinality of the hidden sector beyond the causal cone $B_n$, and that, under H-BD, the transition probabilities do not depend on the cardinality $|\mathcal{C}_D|$ of the deep hidden sector to within $\mathcal{O}(t/\tau_{BD})$: systems with the same update on the visible sector and $B_{n-1}$ produce the same visible transition data on $[0, n\,\Delta t]$, and under H-BD systems with the same $\mathcal{C}_V \times \mathcal{C}_B$ dynamics produce the same data to within $\mathcal{O}(t/\tau_{BD})$, for every finite deep sector; the first statement holds also for an infinite deep sector, given a normalized product prior on it, a locally finite coupling graph and well-defined dynamics in which each component's update depends on finitely many components. Quantities that differ between Hamiltonians compatible with those data, such as individual eigenvalues and raw amplitudes, lie outside the corollary, and so does recurrence-scale content, which the recurrence argument establishes on a finite representative. Within the visible transition data on $[0, n\,\Delta t]$, a finite deep sector beyond $B_n$ and an infinite one with that prior and dynamics are indistinguishable.
+
+**Step 3: Dimensional determination.** The thermal matching of Step 4 expresses $\hbar$ through boundary quantities, the classical temperature under H-count (Chapter 7 §7.3); the dimensional argument checks the form of that result. The boundary carries both *local* geometric data ($\epsilon$, $\kappa$, and the constants $c$, $G$ of the classical Hamiltonian) and a *global* quantity: the total area $A$, which forms the dimensionless ratio $A/\epsilon^2 = S_{\text{dS}}/\sigma$. If $\hbar$ depended on $S_{\text{dS}}$, it would be observer-dependent — different observers have different horizon areas — contradicting the universality of the emergent action scale. The surface gravity $\kappa$ is excluded because it varies between observers and epochs while $\hbar$ is observed to be universal across observers and constant in time.
 
 The unique combination of $c$, $G$, $\epsilon$ with dimensions of action is
 $$\hbar = \beta \frac{c^3 \epsilon^2}{G}$$
@@ -208,7 +207,7 @@ On the exact de Sitter calibration, the emergent QFT of the framework's Part I c
 $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
 with $\hbar$ unknown. The periodicity holds under the H-Hawking conditions and the KMS identification requires the emergent state to belong to that class (H-spectrum), so the matching below is a conditional infrared calibration, not a theorem within the derived QFT ([GR §3.2]).
 
-The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they refer to the *same physical degrees of freedom*: the boundary modes $V \times B$ across which $H_{\text{int}}$ couples the visible and hidden sectors. Step 1's boundary-only dependence shows that the visible transition data from which the emergent QFT is reconstructed are fixed (at leading order in $\tau_S/\tau_B$) by these same $V \times B$ dynamics. Temperature is a state property; two complete descriptions of the same modes cannot assign different temperatures without logical contradiction. The matching $T_{\text{cl}} = T_Q$ identifies the classical inverse-energy temperature with the emergent KMS period on the same boundary modes $V \times B$; it holds under H-slope (Chapter 7 §7.3), which partition geometry does not supply, with corrections at $\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}$:
+The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they refer to the *same physical degrees of freedom*: the boundary modes $V \times B$ across which $H_{\text{int}}$ couples the visible and hidden sectors. Under H-BD, Step 1's boundary-only dependence shows that the visible transition data from which the emergent QFT is reconstructed are fixed, up to $\mathcal{O}(t/\tau_{BD})$, by these same $V \times B$ dynamics; the matching does not use it, the identification of the two descriptions' transitions being part of H-slope. Temperature is a state property; two complete descriptions of the same modes cannot assign different temperatures without logical contradiction. The matching $T_{\text{cl}} = T_Q$ identifies the classical inverse-energy temperature with the emergent KMS period on the same boundary modes $V \times B$; it holds under H-slope and H-count (Chapter 7 §7.3), which partition geometry does not supply:
 $$\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}$$
 
 The surface gravity $\kappa$ cancels — a non-trivial cross-check on Step 3, which excluded $\kappa$ from $\hbar$ on observer-universality grounds. Solving:
@@ -465,7 +464,7 @@ The biconditional is the framework's main characterization result. $\square$
 **The framework's full mathematical content.** Combining the derivations of this appendix:
 
 - B.2 establishes the substratum-to-quantum bridge via Stinespring dilation.
-- B.3 establishes the algebraic structure of the trace-out as Jordan-Chevalley projection, organizing the framework's content on gauge structure.
+- B.3 establishes the period and the Jordan-Chevalley decomposition of the ring evolution: spectral invariants are independent of the nilpotent part $N$, and hidden-sector marginalization does not remove $N$ from the visible laws.
 - B.4 establishes the gap equation relating $\hbar$ to the discreteness scale through horizon thermodynamics, producing the framework's content on gravitational physics.
 - B.5 establishes the unique anomaly-free hypercharge assignment on the nonzero-$Y_Q$ branch, fixing the framework's content on Standard Model matter.
 - B.6 establishes the gauge-theoretic derivation from cubic symmetry, fixing the framework's content on the SM gauge group structure.

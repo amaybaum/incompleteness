@@ -1,7 +1,7 @@
 {
   "schema": "sc42-integration-sites-v1",
   "historical_checker_blob": "fe433673a6c007b9436a0796d496c7f34c893362",
-  "basis": "Original SC42 scope-restatement table, with two intentionally added Methodology premises: the concrete Bell/completion comparison and its separate-assumption conclusion. Every counted paragraph is anchored explicitly.",
+  "basis": "Original SC42 scope-restatement table, with two intentionally added Methodology premises, the concrete Bell/completion comparison and its separate-assumption conclusion, and the status sentence of Main §1.2. Every counted paragraph is anchored explicitly.",
   "files": {
     "papers/GR.md": {
       "expected_mentions": 3,
@@ -24,8 +24,13 @@
       ]
     },
     "papers/Main.md": {
-      "expected_mentions": 17,
+      "expected_mentions": 18,
       "sites": [
+        {
+          "anchor": "These properties contain no quantum postulates. The framework proposes that quantum mechanics emerges for an embedded observer under the conditions below. What is established is th",
+          "mentions": 1,
+          "role": "Status sentence of §1.2: restates the operational-completion characterization with its assumed matrix setting."
+        },
         {
           "anchor": "**Theorem statement.** The claims divide into three exact layers and one explicitly conditional extension. **(1) Representation equivalence:** on every finite accessible horizon, t",
           "mentions": 1,
@@ -52,7 +57,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "**An independent necessity statement.** Both routes above are constructive: they exhibit quantum mechanics as a description of the marginalized process. **Operational-reconstructio",
+          "anchor": "**Operational-reconstruction route: target conditions and the outstanding bridge.** Both routes above are constructive: they exhibit quantum mechanics as a description of the margi",
           "mentions": 2,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
