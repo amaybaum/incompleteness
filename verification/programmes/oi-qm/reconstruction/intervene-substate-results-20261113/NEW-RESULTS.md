@@ -396,7 +396,7 @@ finite model, untested (R3:129; Main:414).
 
 **Support layer.** [A] on Main:362's argument [P] (R3:63).
 
-### 4.2 L4 (an additive update has a state-independent graph)
+### 4.2 L4 (the graph of an additive update does not depend on the state)
 
 **Statement and proof (copied; S:155; no mathematical change).** "*Let `S = ∏_{i∈V} S_i` with each
 `S_i` an abelian group (finite, `R/Z`, `Z_p` or any other), and let `φ(s) = c + Λ(s)` with `Λ`
