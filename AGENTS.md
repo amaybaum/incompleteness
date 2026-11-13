@@ -1310,7 +1310,8 @@ distinct from the queue labels P0–P3 of the frozen `verification/ROADMAP.md`.
 
 ## §A.46 Research records on `main` and established claims
 
-`main` is the authoritative research record. An incomplete scientific programme is distinct from an
+`main` is the authoritative research record, not a collection of proved theorems only. An
+incomplete scientific programme is distinct from an
 incomplete verification of a specific claim: the first may have records on `main`; the second is a
 gap to be fixed. Presence on `main`, or a citation to a file on it, never by itself certifies a
 premise for future research.
@@ -1321,18 +1322,23 @@ premise for future research.
    item 2 (§A.42 item 8) is not established.
 2. **What lands.** Research evidence may land on `main` when an established claim needs it, or when
    it is needed for reproducibility or to support records already on `main`, even if its programme
-   is unfinished; its provenance, assumptions, status and limitations are stated accurately. Work
+   is unfinished, or when it is preserved under item 8; its provenance, assumptions, status and
+   limitations are stated accurately. Work
    that meets none of these conditions stays on its branch, tracked by its guiding pull request or
    Issue (§A.43). §A.42 item 5 and §A.28 govern what is added; item 6 governs removal.
 3. **Results that are not established.** Incomplete, negative and inconclusive results that do not
    meet item 1's standard are not presented as established conclusions. Keeping or landing a record
    strengthens no claim (§A.42 item 6).
-4. **Unverified claims on `main`.** A claim on `main` whose verification is incomplete has a stated
+4. **Unverified claims on `main`.** A claim on `main` whose verification is incomplete, including
+   one in a paper-only research record, has a stated
    status, an accountable Issue and a remediation plan; a status label alone does not resolve a
    verification gap. Its record distinguishes independently verified, partially verified,
    exploratory and known-invalid results, in the record or, for a frozen record, in a mutable record
    on `main` that cites it; a status that contradicts the frozen record's own conclusion is a
-   correction under item 5 (§A.42 item 6; §A.45 rule 1).
+   correction under item 5 (§A.42 item 6; §A.45 rule 1). A remediation plan states the current
+   evidence level, the verification that is missing, the accountable Issue, and the evidence or
+   decision that would resolve the gap. It authorizes no work (§A.45 rule 3) and may state that the
+   obligation remains open.
 5. **Remediation.** A gap is fixed by meeting item 1's standard, for example by landing the missing
    evidence, re-running the computation or recording an independent review on `main`. A conclusion
    that cannot be verified is narrowed or withdrawn where it is stated (§A.27, §A.30) or, in a
@@ -1371,8 +1377,32 @@ premise for future research.
    frozen record states one, a mutable record on `main` that cites it names the refutation and its
    evidence (item 4; item 5 where it is that record's own conclusion). Verified conditional and
    negative results are eligible on their actual proved scope.
+8. **Preserved research records.** A research record may also be preserved on `main` when all of
+   the following hold:
+   - it contains a substantive, nonredundant result, which may be conditional, negative or
+     inconclusive;
+   - its precise scope and the limits of its evidence are documented;
+   - it has had an independent non-author review and a ChatGPT review at its exact head, and the
+     checks required for its landing are complete (§A.42);
+   - it has an accountable Issue, a verification status and, for each verification gap still open,
+     a remediation plan (item 4);
+   - its preservation has an explicit rationale, and a separate recorded owner decision authorizes
+     its merge (§A.45 rule 7).
+
+   Preservation establishes no claim (item 1). A model's acceptance is evidence of review, not
+   independent verification, and landing a record does not change its evidence layer.
+   Records that landed on `main` on the basis this item states, before it was adopted, are
+   reconciled with it retrospectively: a landing-basis statement is corrected where needed, and
+   missing verification and remediation information is added, keeping the scientific record, its
+   review provenance and its evidence layers.
+   Reconciliation removes nothing; removal is governed by item 6, and a record that supports an
+   established claim keeps that basis.
 
 Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
 records from `main` was found to break records on `main` that depend on them. Amended the same day
 by owner decision, to make removal the proposed disposition of unverified evidence an audit shows
-unnecessary and to bar unverified and refuted premises from established claims.
+unnecessary and to bar unverified and refuted premises from established claims. Amended 2026-11-13
+by owner decision, to state the conditions on which a research record is preserved on `main`, what
+a remediation plan states, and the reconciliation of records already on `main`: the owner's ruling
+on OQ-10 (`amaybaum`, #1169 comment 6865680499, 2026-11-13T21:44:54Z), "A narrow amendment to
+§A.46 is to be drafted."
