@@ -1,0 +1,28 @@
+PASS W1 dual subset cube cone: (t, v) = sum_s lambda_s (1, s), lambda_s = prod_i (t + s_i v_i) / (8 t^2)
+PASS W1 cube cone subset dual: every cube vertex is nonnegative on all six effects
+PASS W1c control: (1, 101/100, 0, 0) violates one effect and gets a negative lambda
+PASS W2 octahedron generators (1, +-e_i) in the cube cone; (1,1,1,1) outside octahedron and Lor
+PASS W3 herald of T by a is (1, a1, 0, a3)
+PASS W3 1 - a1^2 - a3^2 = (1 - |a|^2) + a2^2 (so the herald is in Lor for |a| <= 1)
+PASS W3 product value 1 + a1 b1 + a3 b3, and 2 * value = sum of terms each >= 0 on the ball
+PASS W3 T singlet = -1/4 singlet
+PASS W4 swap on products: <u v|SW|u v> = |<u|v>|^2 (real and imaginary parts explicit)
+PASS W4 swap singlet = -singlet
+PASS W5 <a b|X|a b> = <b|sigma_a|b> for generic complex X
+PASS W5 ahat^T w bhat = bhat^T w^T ahat (maxCone(eball d) x maxCone(eball d) is transpose-invariant)
+PASS W6 real Kraus pair: output real symmetric and <Y> = 0; real Lueders branches also
+PASS W6 y+ is not real (<Y> = 1)
+PASS W7 unit(X,1/2): unitary, non-real, non-monomial, fixes (1,1)
+PASS W7 unit(X,t) commutes with X (so <X> is conserved under it)
+PASS W7 unit(X,t) z+ has Bloch vector (0, -sin pi t, cos pi t); at t = 1/2 this is y-
+PASS W7c controls: quarter phase S takes (1,1) off its ray; real H gives <Y> = 0 from z+
+PASS W8c closed form of exp(-i t X_ab) at t = pi/4 equals the matrix exponential
+PASS W8c drive at pi/4: unitary, non-real, non-monomial, moves the all-ones ray
+PASS W8 one drive, |10> -> y+ (x) z+ (no separate phase gate; the drive is complex)
+PASS W8 two drives and one exchange, |10> -> x+ (x) z+ (no separate phase gate; the drive is complex)
+PASS W10 exp(-i th X_ab) = exp(-i th) G_(ab)(2 th/pi) diag(1,1,exp(i th)) on three states
+PASS W10 quarter turn: drive(pi/2) * swap(a b) = -i diag(1, 1, i)
+PASS W10c real rotation exp(th(E_ab - E_ba)) at pi/4: real, non-monomial, moves the all-ones ray
+PASS W9 Python 3: 1/2 is a float 0.5 (true division); 1//2 == 0 (integer division)
+PASS W9 sympy: (Rational(1,2) == 0.5) is False; exact Rational(1,2) == Rational(1,2)
+27 checks, 0 failures
