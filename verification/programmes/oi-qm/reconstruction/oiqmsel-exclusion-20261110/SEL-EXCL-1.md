@@ -4,7 +4,7 @@
 **Owner authorization:** [#1143 comment 6769748021](https://github.com/amaybaum/incompleteness/issues/1143#issuecomment-6769748021).  
 **Writer:** ChatGPT, separate from Codex's PREP-MIN and physical-source work.  
 **Date:** 2026-11-10.  
-**Standing:** **INDEPENDENT NON-AUTHOR FULL PAPER REVIEW: ACCEPT WITH NITS** at immutable `4813bc0b04548248581a137c88d43a64d73bd1a9` ([review](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5845436861)); two P3 explanatory corrections are applied in the subsequent author checkpoint, **focused independent diff check pending**. That prior review does not automatically certify the changed head. No kernel proof, numerical/scientific execution, source-qualified apparatus, or integration to `main` is claimed.
+**Standing:** Non-author full paper review **ACCEPT WITH NITS** at `4813bc0b04548248581a137c88d43a64d73bd1a9` ([full review](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5845436861)); P3 corrections at `0ecfddeb89540aedf1e2dc3ae7c377516641066c` received **ACCEPT** in the [focused non-author review](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5848321039). The later documentary antecedent/status correction requires its own exact-head check; the earlier verdicts do not automatically extend to new edits. No kernel proof, numerical/scientific execution, source-qualified apparatus, or integration to `main` is claimed.
 
 ## 0. Research decision, prior evidence, and exact novelty boundary
 
@@ -23,7 +23,7 @@ This paper checks a **specific weak selection package** R:
 
 **What is NOT new:** PR-box correlations, the algebraic CHSH 4, no-signalling of a PR box, reversibility of XOR-controlled maps, and the Bell-local bound are standard. #1169 already records that globally coupled response tables can admit PR-box behavior while screened separated local examples stay at CHSH ≤ 2 (see its “Operational success criterion and current coverage”). The bounded contribution here is the **fully typed finite reversible micro-map, same source for all settings, calibrated record/readback interface, finite repeated-use/local-adaptive no-signalling proof, and exact missing-locality diagnosis** within the #1143 selection question. This is a countercontrol to an *insufficient criterion*, not a new physical discovery or an OI-native impossibility theorem.
 
-**Separate antecedent:** [SEL-ACCESS-1 draft #1224](https://github.com/amaybaum/incompleteness/pull/1224) establishes a conditional menu-restriction limitation: passive-record properties cannot force the existence of unselected executable operations. SEL-EXCL-1 instead checks the **soundness** of a nonpassive, explicitly available finite operation grammar. Its prior accepted paper/reviews are NOT inherited by this draft.
+**Separate antecedent (off-main, not a premise):** [SEL-ACCESS-1 draft #1224](https://github.com/amaybaum/incompleteness/pull/1224) proposes a conditional menu-restriction limitation: passive-record properties alone need not ensure access to executable operations outside a restricted menu. #1224 is unmerged, and its review/support record is not fully reachable from `main`; this paper neither establishes nor relies on that draft result. SEL-EXCL-1 instead checks the **soundness** of its own explicitly restricted, nonpassive finite operation grammar.
 
 ## 1. A single deterministic reversible global update
 
@@ -129,7 +129,7 @@ A source-qualified OI programme must identify which of these follows from its na
 | Proper local embedded partial access | **CONSTRUCTED BY ASSUMED INTERFACE** | No instantaneous full-state access; interface itself UNSOURCED |
 | Same hidden source for all four settings | **CONSTRUCTED** | One fair r independent of x,y, no postselection |
 | Complete calibrated records for admitted local grammar | **CONSTRUCTED (bounded)** | Records, clocks, success and rereads retained; not arbitrary physical access |
-| Operational no-signalling for finite local adaptive reuse | **AUTHOR HAND PROOF; REVIEW PENDING** | Holds only under fresh-source, isolation, and declared-menu conditions |
+| Operational no-signalling for finite local adaptive reuse | **AUTHOR HAND PROOF; FULL AND P3 FOCUSED AGENT REVIEWS COMPLETE** | Holds only under fresh-source, isolation, and declared-menu conditions; physical source not established |
 | Classical-compatible context | **CONSTRUCTED** | x=0 preserves shared classical-bit measurements |
 | Full quantum soundness | **DISPROVED for R**, conditional on accepted algebra | S=4 is outside standard QM; R is insufficient |
 | Exclusion of PR by Bell-local factorization | **STANDARD CONDITIONAL LEMMA** | S≤2 also blocks quantum Bell witness |
@@ -142,7 +142,7 @@ A follow-up paper question may compare this countercontrol with #868's local CHS
 
 ## 6. Independent reviewer requests
 
-The separate non-author full paper review of immutable `4813bc0b` returned **ACCEPT WITH NITS** ([review](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5845436861)). The checklist below documents its original full-review scope, without borrowing acceptance from #1224. The two P3 clarifications on history/controller typing and same-seed leakage diagnostics are incorporated in this author's subsequent checkpoint; a **focused independent diff check** remains pending:
+The separate non-author full paper review of immutable `4813bc0b` returned **ACCEPT WITH NITS** ([full review](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5845436861)). Both P3 clarifications in the `0ecfddeb` author checkpoint were subsequently independently **ACCEPTED** ([focused review](https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5848321039)). This checklist records the reviewed scientific scope without importing any result or acceptance from #1224; a new focused check is required only for the present documentary correction:
 
 1. Recheck T is bijective/involutive on all five bits, and that all settings use one identical map and one setting-independent r law.
 2. Independently enumerate the four (x,y) observable joint tables by hand and verify both local marginals, CHSH signs, and the quantum comparator's assumptions.
@@ -156,7 +156,7 @@ The separate non-author full paper review of immutable `4813bc0b` returned **ACC
 **Governance:** One new safe research file only; existing #1143 issue and other #1224/#1226 draft heads untouched. No changed physical law of the selected SM ring, source screen, external numerical/Lean/scientific runs, F/E, workflow dispatch, manuscript edit, merge or scientific claim promotion. **Physical-source gate #866 remains NOT PASSED.**
 
 
-## 7. Same-source reuse stress test: a stronger admissible-menu distinction (author addendum; REVIEW PENDING)
+## 7. Same-source reuse stress test: a stronger admissible-menu distinction (author addendum; independently reviewed at `0ecfddeb`)
 
 **Status and relation to §§2–3.** This **author-side additional check** leaves the original model R, its fresh-independent-cell protocol grammar, and its conditional counterexample unchanged. It explicitly **enlarges** the protocol grammar to test whether a *single hidden source bit* may be reused over two ticks with Bob retaining calibrated raw records. It must **not** be represented as a counterexample within the original fresh-source grammar or as an OI-native physical operation.
 
@@ -189,6 +189,6 @@ A candidate OI selection principle requiring no-signalling of **all physically a
 - If future exclusion rules prohibit free unlimited freshness, independently derive the finite-resource or renewal bound. A ban chosen solely to prohibit PR would be circular; even a scarcity bound must be checked against valid quantum-composite use.
 - Keep ordinary classical contexts: the first \(y_1=0\) observation is a legitimate shared-bit record, not a behavior that must be excluded just because the broader global model has a supraquantum menu.
 
-**Reviewer disposition and focused follow-up:** The independent non-author review of immutable `4813bc0b` assessed both the fresh-cell lemma and this two-use addendum as **ACCEPT WITH NITS**, with no P0–P2 blockers. It requested a P3 distinction between the same-register second-tick marginal and the fresh-output full-history diagnostic, now clarified above; the separate P3 complete-history/controller clarification is in §3. The author's revised checkpoint is **NOT YET INDEPENDENTLY DIFF-CHECKED** and does not inherit a fresh ACCEPT verdict. The original checks remain: rederive both two-use identities, verify independent remote choice of \(x_2\), retain §3's distinct fresh-cell grammar, and avoid claiming a sourced OI setting writer, clock, reset or source.
+**Reviewer disposition and focused follow-up:** The independent non-author full review at `4813bc0b` assessed both the fresh-cell lemma and this two-use addendum as **ACCEPT WITH NITS**, with no P0–P2 blockers. The independent focused review at `0ecfddeb` then **ACCEPTED** the P3 correction: same-register reuse has a signalling second-tick marginal, while the fresh-output/old-source case signals through the retained record pair; §3 explicitly types the complete local histories and controller seeds. Those findings remain bounded to the declared grammars. The present documentary changes require a separate exact-head focused check, not a new physical-source or scientific-execution authorization.
 
 **No new authority:** This addendum stays within the owner-authorized bounded paper-only selection countercontrol; no numerical/scientific/Lean execution, changed SM rule, physical-source experiment, new premise, F/E, dispatch, manuscript change, merge or main integration. The physical-source gate remains **NOT PASSED**.
