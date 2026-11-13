@@ -42,11 +42,15 @@ passed)."
 
 ## Verification status and remediation (§A.46 item 4)
 
-The accountable Issue is #866. Under the owner's ruling, #1169 comment 6865680499 (`amaybaum`,
-2026-11-13T21:44:54Z), "Model acceptance is evidence of review, not independent mathematical
-verification", and "A remediation plan does not authorize new work. It may state that the obligation
-remains open." This plan authorizes no work. Each gap below remains open until the evidence or
-decision named for it is recorded on `main`.
+The accountable Issue is #866. The owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), states that "Model acceptance is evidence of review, not independent
+mathematical verification", and that "A remediation plan does not authorize new work. It may state
+that the obligation remains open." This plan authorizes no work. Each gap below remains open until
+the evidence or decision named for it is recorded on `main`.
+
+Here "partially verified" means reviewed by at least one separate AI-agent reviewer, or resting in
+part on kernel-checked statements, without independent mathematical verification of the result;
+"exploratory" means not reviewed by anyone but its writer.
 
 - **Independently verified:** none.
 - **Known-invalid:** none stated.
@@ -57,6 +61,8 @@ decision named for it is recorded on `main`.
 | Boundary coupling and one-tick retention, within the selected rule | partially verified; conditional on the selected rule, the supplied source law and the declared projection | Bounded exact hand algebra, with two AI-agent reviews | Independent mathematical verification | An independent mathematical verification recorded on `main` (for example a kernel formalization or a human review) |
 | Conditional history and outgoing state | partially verified | Follow from the preparation-loading and physical-interface records | Independent validation of those records as premises (§A.46 item 7) | A recorded validation of each premise on `main` |
 
+Where a gap cannot be closed, the result is narrowed or withdrawn where it is stated (§A.46 item 5).
+
 The items listed as not established are not results of the record; they remain under #866.
 
 ## Dependencies
@@ -64,7 +70,7 @@ The items listed as not established are not results of the record; they remain u
 | Reference | Classification |
 | --- | --- |
 | #866, #1169 and comments 6763916830, 6763928950 | Provenance: accountability and authorization. |
-| #1223 comment 6846037655; #1169 comment 6865680499 | Governance provenance, quoted under Verification status and Landing. |
+| #1223 comment 6846037655 (merge record; quoted under Landing); #1169 comment 6865680499 (the ruling; quoted under Verification status and Landing) | Governance provenance. No scientific result uses either; the Basis line uses only the quoted words, which are on `main` in this note (§A.42 item 7). |
 | NATIVE-PRED-1 and NATIVE-FACTOR-SRC-1 reviews | Provenance, each separately; no result is used. |
 | The six source rows of §2, at D | Support on `main`. |
 | Fredkin and Toffoli (1982) | External primary source for the comparator description only. |
@@ -96,15 +102,17 @@ construction (:112), which are what the record uses, are byte-identical at D and
 
 - **Mode.** Merge commit (neither squash nor rebase), so that `9f046595` and `862a493d`, the commits
   the reviews name, remain ancestors of `main`.
-- **Basis.** Landed by the owner's merge decision, #1223 comment 6846037655 (`amaybaum`,
-  2026-11-13T06:34:24Z): "merge #1223 with its named claim". §A.46 item 2's condition that an
-  established claim needs the record holds only for a claim that meets item 1's verification
-  standard. The claim above rests on source inspection and bounded exact hand algebra with two
-  AI-agent reviews, and under the owner's ruling, #1169 comment 6865680499 (`amaybaum`,
-  2026-11-13T21:44:54Z), "Model acceptance is evidence of review, not independent mathematical
-  verification." The record's §A.46 basis is being reconciled under that ruling: until the §A.46
-  amendment it calls for is adopted, "a landing that meets none of the existing conditions needs an
-  explicit, recorded owner exception", and the merge decision names none. The record is preserved on
-  `main`, not established (§A.46 item 1); any removal is governed by item 6. No record on `main`
-  depends on this one at `911a5cb6`. The accountable Issue is #866.
+- **Basis.** Landed by the owner's merge decision, recorded in the merge record #1223 comment
+  6846037655 (`amaybaum`, 2026-11-13T06:34:24Z): "merge #1223 with its named claim". §A.46 item 2's
+  first condition, that an established claim needs the record, holds only for a claim that meets
+  item 1's verification standard. The claim above rests on source inspection and bounded exact hand
+  algebra with two AI-agent reviews. The owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+  2026-11-13T21:44:54Z), states "Model acceptance is evidence of review, not independent
+  mathematical verification." The record carries no computation, and no record on `main` depended on
+  it at `911a5cb6`, so the landing meets none of item 2's conditions. The merge record names no
+  owner exception. Under the ruling, until the §A.46 amendment it calls for is adopted, "a landing
+  that meets none of the existing conditions needs an explicit, recorded owner exception". The
+  record's landing basis is therefore open until that amendment is adopted or such an exception is
+  recorded. The record is preserved on `main`, not established (§A.46 item 1). Its removal is not
+  automatic and is governed by item 6. The accountable Issue is #866.
 - **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).

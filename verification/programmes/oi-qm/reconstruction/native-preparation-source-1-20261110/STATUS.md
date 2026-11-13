@@ -43,11 +43,15 @@ reviewed; physical-source gate not passed)."
 
 ## Verification status and remediation (§A.46 item 4)
 
-The accountable Issue is #866. Under the owner's ruling, #1169 comment 6865680499 (`amaybaum`,
-2026-11-13T21:44:54Z), "Model acceptance is evidence of review, not independent mathematical
-verification", and "A remediation plan does not authorize new work. It may state that the obligation
-remains open." This plan authorizes no work. Each gap below remains open until the evidence or
-decision named for it is recorded on `main`.
+The accountable Issue is #866. The owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), states that "Model acceptance is evidence of review, not independent
+mathematical verification", and that "A remediation plan does not authorize new work. It may state
+that the obligation remains open." This plan authorizes no work. Each gap below remains open until
+the evidence or decision named for it is recorded on `main`.
+
+Here "partially verified" means reviewed by at least one separate AI-agent reviewer, or resting in
+part on kernel-checked statements, without independent mathematical verification of the result;
+"exploratory" means not reviewed by anyone but its writer.
 
 - **Independently verified:** none.
 - **Known-invalid:** none stated.
@@ -55,7 +59,9 @@ decision named for it is recorded on `main`.
 | Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
 | --- | --- | --- | --- | --- |
 | Stopped / unsourced: no producer of the bank, its common law or the selectable request in the inspected sources | partially verified; bounded to this proposal | Source inspection of the six source rows of §4, with one AI-agent review | An independent check of the source inspection | A human review of the inspected sources recorded on `main` |
-| Conditional count under `beta_c` (`2m - 5` ordered bits) | partially verified; conditional on the stipulated bank law | Exact hand counting, with one AI-agent review | Independent mathematical verification | A kernel formalization, an exhaustive finite computation reproducible from `main`, or a human review |
+| Conditional properties under `beta_c` (the eight precursor constraints, strict subensemble of `eta`, `2m − 5` additional ordered bits) | partially verified; conditional on the stipulated bank law | Exact hand counting, with one AI-agent review | Independent mathematical verification | A kernel formalization, an exhaustive finite computation reproducible from `main`, or a human review |
+
+Where a gap cannot be closed, the result is narrowed or withdrawn where it is stated (§A.46 item 5).
 
 The items listed as not established are not results of the record; they remain under #866.
 
@@ -64,7 +70,7 @@ The items listed as not established are not results of the record; they remain u
 | Reference | Classification |
 | --- | --- |
 | #866, #1169 and comment 6765161496 | Provenance: accountability and authorization. |
-| #1225 comment 6846216798; #1169 comment 6865680499 | Governance provenance, quoted under Verification status and Landing. |
+| #1225 comment 6846216798 (merge record; quoted under Landing); #1169 comment 6865680499 (the ruling; quoted under Verification status and Landing) | Governance provenance. No scientific result uses either; the Basis line uses only the quoted words, which are on `main` in this note (§A.42 item 7). |
 | "Earlier stopped reports" and "the concurrent selection review" (line 133) | Provenance. The review confirms that no SEL-ACCESS-1 result is used. |
 | The six source rows of §4, at D | Support on `main`. |
 | Review 5840760894 | Support on `main` through `REVIEW-5840760894.md`. The commit it reviews becomes reachable from `main` only through a merge commit (neither squash nor rebase), which keeps it an ancestor of `main`. |
@@ -103,15 +109,17 @@ The items listed as not established are not results of the record; they remain u
 
 - **Mode.** Merge commit (neither squash nor rebase), so that `dbb57b6d`, the commit the review
   names, remains an ancestor of `main`.
-- **Basis.** Landed by the owner's merge decision, #1225 comment 6846216798 (`amaybaum`,
-  2026-11-13T06:44:59Z): "merge #1225 with its named claim". §A.46 item 2's condition that an
-  established claim needs the record holds only for a claim that meets item 1's verification
-  standard. The claim above rests on source inspection and exact hand counting with one AI-agent
-  review, and under the owner's ruling, #1169 comment 6865680499 (`amaybaum`, 2026-11-13T21:44:54Z),
-  "Model acceptance is evidence of review, not independent mathematical verification." The record's
-  §A.46 basis is being reconciled under that ruling: until the §A.46 amendment it calls for is
-  adopted, "a landing that meets none of the existing conditions needs an explicit, recorded owner
-  exception", and the merge decision names none. The record is preserved on `main`, not established
-  (§A.46 item 1); any removal is governed by item 6. No record on `main` depends on this one at
-  `911a5cb6`. The accountable Issue is #866.
+- **Basis.** Landed by the owner's merge decision, recorded in the merge record #1225 comment
+  6846216798 (`amaybaum`, 2026-11-13T06:44:59Z): "merge #1225 with its named claim". §A.46 item 2's
+  first condition, that an established claim needs the record, holds only for a claim that meets
+  item 1's verification standard. The claim above rests on source inspection and exact hand counting
+  with one AI-agent review. The owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+  2026-11-13T21:44:54Z), states "Model acceptance is evidence of review, not independent
+  mathematical verification." The record carries no computation, and no record on `main` depended on
+  it at `911a5cb6`, so the landing meets none of item 2's conditions. The merge record names no
+  owner exception. Under the ruling, until the §A.46 amendment it calls for is adopted, "a landing
+  that meets none of the existing conditions needs an explicit, recorded owner exception". The
+  record's landing basis is therefore open until that amendment is adopted or such an exception is
+  recorded. The record is preserved on `main`, not established (§A.46 item 1). Its removal is not
+  automatic and is governed by item 6. The accountable Issue is #866.
 - **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).
