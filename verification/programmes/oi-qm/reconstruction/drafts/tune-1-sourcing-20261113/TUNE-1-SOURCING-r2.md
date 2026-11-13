@@ -1,9 +1,9 @@
 # TUNE-1 sourcing unit (r2): one candidate for embedded-observer tunable mixing, sourced part by part
 
 **Revision.** r2 applies the required changes R1–R6 and the minor items m1–m10 of the independent
-review of r1 (`REVIEW.md`, ACCEPT WITH CHANGES), with one disposition per item in `RESPONSE-r1.md`.
-Each cited source line was re-read before the change was made. Nothing else differs from r1
-(`TUNE-1-SOURCING.md`).
+review of r1 (`REVIEW-r1.md`, ACCEPT WITH CHANGES), with one disposition per item in `RESPONSE-r1.md`.
+Each cited source line was re-read before the change was made. Beyond these, r2 differs from r1
+(`TUNE-1-SOURCING-r1.md`) only in the edits listed under 'Other edits' in `RESPONSE-r1.md`.
 
 **Standing.** WIP / UNVERIFIED author record. Paper and source reading with hand reasoning only:
 no computation on any OI rule, no script, no Lean, no manuscript or record edit, no premise

@@ -10,3 +10,7 @@ Working copies written and reviewed on 2026-11-13 before this commit. Where a fi
 | `TUNE-1-SOURCING-r2.md` | `01264c0328aadcab30cf9ad4c5e9a58d82d813ed91b4b0a30bf5371bc2ba3c68` | `20ee9b04` | `01264c0328aadcab30cf9ad4c5e9a58d82d813ed91b4b0a30bf5371bc2ba3c68` | none |
 | `NOTES-r2.md` | `49f6531833c3da79fb3a35e659144abf5b96eea53e9e2d89056a0b79145bae75` | `a1af11fe` | `49f6531833c3da79fb3a35e659144abf5b96eea53e9e2d89056a0b79145bae75` | none |
 | `RESPONSE-r1.md` | `2638d9715f3ceca80be4a4072a267f6ecbfe5917a3b9734617ba26a660743a88` | `3f25dd28` | `2638d9715f3ceca80be4a4072a267f6ecbfe5917a3b9734617ba26a660743a88` | none |
+
+## After the r2 confirmation
+
+`CONFIRM-r2.md` (sha256 `2071bcbf287c049b6ea3f6d028912913a46730e684639f1ec88544f012857ab5`) is the focused confirmation of r2 at `890fe3dd`: no blocking finding. Its cosmetic nit is applied here: stale file names in the r2 revision line and `RESPONSE-r1.md` now carry the `-r1` suffix, and the r2 sentence "Nothing else differs from r1" is replaced by a pointer to the extra edits that `RESPONSE-r1.md` lists. The reviewed-sha256 column above refers to the files before this change.

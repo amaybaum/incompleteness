@@ -1,7 +1,7 @@
 # RESPONSE to the independent review of r1 (TUNE-1 sourcing unit)
 
-Review: `REVIEW.md`, ACCEPT WITH CHANGES (R1–R6 required, m1–m10 minor). Revision: `TUNE-1-SOURCING-r2.md`
-and `NOTES-r2.md`; r1 (`TUNE-1-SOURCING.md`, `NOTES.md`) unchanged. Each item was checked against
+Review: `REVIEW-r1.md`, ACCEPT WITH CHANGES (R1–R6 required, m1–m10 minor). Revision: `TUNE-1-SOURCING-r2.md`
+and `NOTES-r2.md`; r1 (`TUNE-1-SOURCING-r1.md`, `NOTES-r1.md`) unchanged. Each item was checked against
 its cited source before it was applied. **Disagreements: none.** The stop location, the candidate
 and the verdict are unchanged.
 
