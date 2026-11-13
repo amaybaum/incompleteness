@@ -3,8 +3,12 @@
 **Standing.** This record carries the results of the INTERVENE-1 (#1230) and SUBSTATE-BRIDGE-1
 (#1232) drafts that are not already on `main`, in the set fixed by the owner decision #1169
 c.6855167580 (`PROVENANCE.md`). They are research records, not established claims (§A.46 items 1
-and 3). Each is a paper argument [A]: hand-checked in the drafts' reviews and in the reconciliation,
-not kernel-checked, and conditional on the hypotheses stated with it. None supplies an operation
+and 3). Each is a paper argument [A], not kernel-checked, and conditional on the hypotheses stated
+with it. Model-written reviews read every result (`PROVENANCE.md` §2–3); the steps hand-checked
+there, and those hand-checked in this record, are cited at each result. None of these reviews is
+verification (§A.46 item 7). The accountable Issue is #1169. The open gaps are listed in
+`DEPENDENCIES.md`, and verification would be an independent non-model review or a kernel
+formalization; T5(c), E1, E2 item 4 and L1 are named kernel targets (I:294, S:347). None supplies an operation
 that is physically reachable under the currently demonstrated OI premises (REC-1 Q2-F or Q2-P);
 the constructive items are definable or representable (Q2-A), and the remainder are upper bounds,
 classifications, a definition with a countercontrol, and an open obligation. Correctness bands are
@@ -37,6 +41,8 @@ hand-checked, not kernel-checked. [X] a generic exact check of the drafts, off `
 *Arithmetic* are written for this record from the sources they cite; they are not draft text. Copied text that cites
 "Main:n" carries the line at `c3b5f37a` (re-pin Δ1); copied cross-references to draft sections name
 the section of this record where the target is carried, or the draft line where it is not (Δ19).
+Inside a quotation, words inserted or replaced by this record are in square brackets, apart from
+re-pinned Main lines (Δ1) and the SM anchor of Δ2.
 
 ***
 
@@ -58,8 +64,8 @@ access or control family (dynamics and conditions both sourced in OI).
 | H3 | "Physical states are probability laws μ ∈ Δ(Ω); there are no amplitudes." (I:68). On a general carrier: "Physical states are probability measures on `Ω_S × R`." (S:80) | posited (part of P-CONF) | the state-space premise (laws on configurations, route C's identification) is Q1-I, as REC-1 r7 classes the same kind of result (its rows 9 and 18) | Main:58 (the measure as a realization datum); Main:718 |
 | H4 | "The observer is a proper subsystem. Its records are coordinates of the configuration: Ω = Ω_V × Ω_H, extended by registers as needed." (I:69) | justified | not typed by REC-1 r7 or by the reconciliation | Main:42 (Definition), Main:48 (Lemma 2) |
 | H6 | "Readout conditions on a value of a configuration coordinate: μ ↦ 1_{r=k}·μ." (I:71) | justified | not typed | Main:42; Main:590 (record projections) |
-| H-IND (H11) | "A procedure fixes a kernel κ(r ∣ s): the conditional law of all degrees of freedom r outside the identified carrier (apparatus, registers, environment, the observer's own state), given the carrier configuration s at the procedure's start. κ is the same for every input law." (I:76) | posited; the defining condition of route C. Where it fails, the route is C-dyn (I:31). | Q1-I/Q1-μ is the reconciliation's reading (R3:43, R3:83); REC-1 r7 has no row for H-IND | I:76. Analogous to MECH-2's H-LIFT (`verification/programmes/oi-qm/reconstruction/mechanism-2-20261108/DESIGN.md`:318–321 [W]); the exact relation is not audited (I:299; R3:83). |
-| P-CONF∞ | "`(Ω_S, 𝒮)` and `(R, ℛ)` are measurable spaces; `Ω_S` is the identified carrier (finite with the discrete σ-algebra in the case of the brief), `R` collects every other degree of freedom and may be infinite, a continuum or an inverse limit. `φ : Ω_S × R → Ω_S × R` is measurable for the product σ-algebra. Physical states are probability measures on `Ω_S × R`. Records are measurable coordinates (H4, H6)." (S:80) | posited; measurability is a hypothesis | its state-space clause is Q1-I, as for H3. The finite clauses H1–H2 of P-CONF (finite Ω; φ a bijection) are Q1-D (ledger (ii), Main:724); no carried result uses them | S:80 |
+| H-IND (H11) | "A procedure fixes a kernel κ(r ∣ s): the conditional law of all degrees of freedom r outside the identified carrier (apparatus, registers, environment, the observer's own state), given the carrier configuration s at the procedure's start. κ is the same for every input law." (I:76) | posited; the defining condition of route C. Where it fails, the route is C-dyn (I:31). | Q1-I/Q1-μ is the reconciliation's reading (R3:43, R3:83); REC-1 r7 has no row for H-IND | I:76. Analogous to MECH-2's H-LIFT (`verification/programmes/oi-qm/reconstruction/mechanism-2-20261108/DESIGN.md`:319–321 [W]); the exact relation is not audited (I:299; R3:83). |
+| P-CONF∞ | "`(Ω_S, 𝒮)` and `(R, ℛ)` are measurable spaces; `Ω_S` is the identified carrier (finite with the discrete σ-algebra in the case of the brief), `R` collects every other degree of freedom and may be infinite, a continuum or an inverse limit. `φ : Ω_S × R → Ω_S × R` is measurable for the product σ-algebra. Physical states are probability measures on `Ω_S × R`. Records are measurable coordinates (H4, H6)." (S:80) | posited; measurability is a hypothesis | its state-space clause is Q1-I, as for H3. The finite clauses H1–H2 of P-CONF (finite Ω; φ a bijection) are Q1-D (ledger (ii), Main:724); no carried result uses them (RV:153) | S:80 |
 
 **Scope of results stated under these hypotheses [Δ4].** A result stated under P-CONF∞ (or H3), H4
 and H-IND holds for every observer protocol within the named route: it does not depend on which
@@ -91,6 +97,8 @@ types above, and it is not a consequence of the two OI axioms of Main §1.2.
   identifications; I:123). Spanning makes the frame matrix unique (I:143). Without spanning the
   frame matrix of a map is not unique, and the class is not fixed by the map (R3:44); G1 (§3) is the
   statement for that case.
+- **NX-1** (I:123): "some valid native procedure induces a transformation at an ε-independent
+  positive distance from the route's classical class"; on E_f the class is the one above [Δ28].
 - **T3** (context; not carried, §7). "Let L be linear and injective with Span(L(encoded states)) =
   ℝ^{Ω_enc} (informationally complete), and let H-LIFT hold. If a branch T of a family in 𝒦 induces
   the encoded map E by L∘E = T∘L, then the frame matrix of E is T, which is unique by injectivity
@@ -108,16 +116,20 @@ types above, and it is not a consequence of the two OI axioms of Main §1.2.
   remote setting" (S:175).
 - **(Sep)** (Bell-scope r2, #1231 @ `e1534b08`, §3.1 [D]): "For every `t ∈ [t_s, T_A]`:
   `d_{G_φ}(G_B, R_A^t) > t − t_s`. Symmetrically for B." Main's Corollary (Main:414) states the
-  corresponding separation for its wings.
+  corresponding separation for its wings. Here `G_A, G_B ⊂ V` are the disjoint generator regions
+  whose content at the setting time `t_s` fixes the settings, `R_A^t` is the region from which wing
+  A's complete record reads at time `t` of its record window `[t_s, T_A]`, and `d_{G_φ}` is graph
+  distance in Main's coupling graph (Main:362) (Bell-scope r2 (Gen), (Rec), [D]).
 - **Two unrelated routes named C.** "Route C" of INTERVENE-1 is the commutant route for operations
   (diagonal identification); route C of §5 below is within-cone propagation. "The two are unrelated
   and are always named with their source." (S:30)
 
 ***
 
-## 1. INTERVENE-1 T5, part (c): `genTheory CM = substratumTheory`
+## 1. INTERVENE-1 T5, part (c), given (T5a) and (T5b): `InstAvail CM ↔ InstAvail substratumClass` and `genTheory CM = substratumTheory`
 
-**Statement (copied; I:157, I:170, I:177).** "**T5 (FI-1 is not theory-invariant).** Let CM be the
+**Draft statement (copied; I:157, I:170, I:177); the record carries it only in the conditional
+form below.** "**T5 (FI-1 is not theory-invariant).** Let CM be the
 column-monomial class: at most one nonzero entry in each column." "(c) **`InstAvail CM T O F ↔
 InstAvail substratumClass T O F`, by induction on the constructors**
 (OB/ImplementationLocality.lean:268–289)." "The `genTheory` fields `avail`, `availExt`,
@@ -130,12 +142,15 @@ extensionality."
 `APPROX-UNIT1.md`:471–483 [D]). Part (c) uses two of them, and the headline uses the third:
 
 - **(T5a)** CM is an `Architecture` (I:159–166; APPROX r4a C1). Needed for `genTheory CM` to be
-  defined. Status: argued in two drafts off `main` [D]; hand-checked in RV:48–49.
+  defined. Status: open on `main`; paper proof off `main` (I:159–166 [D]; APPROX r4a C1 [D]);
+  hand-checked in RV:48–49.
 - **(T5b)** A square CM matrix K with Kᴴ K = 1 is monomial (I:168; APPROX r4a, "CM's isometries are
-  exactly the monomial ones"). Needed in the `op` case. Status: as (T5a); hand-checked in RV:50–52.
-- **(T5d)** K = |0⟩(⟨0|+⟨1|)/√2 on S×Fin 1 is CM and not monomial, and every member of
-  `substratumClass` is monomial by definition (I:179; APPROX r4a C3; OB/StructuralClosure.lean:180).
-  Used only for the headline. Status: as (T5a); hand-checked in RV:60.
+  exactly the monomial ones"). Needed in the `op` case. Status: open on `main`; paper proof off
+  `main` (I:168 [D]; APPROX r4a [D]); hand-checked in RV:50–52.
+- **(T5d)** K = |0⟩(⟨0|+⟨1|)/√2 on S×Fin 1 (for |S| ≥ 2) is CM and not monomial, and every member
+  of `substratumClass` is monomial by definition (I:179; APPROX r4a C3; OB/StructuralClosure.lean:180).
+  Used only for the headline. Status: open on `main`; paper proof off `main` (I:179 [D]; APPROX r4a
+  C3 [D]); hand-checked in RV:60.
 
 **Carried form.** Given (T5b): for every carrier T, outcome type O and family F,
 `InstAvail CM T O F ↔ InstAvail substratumClass T O F`. Given (T5a) and (T5b):
@@ -146,7 +161,7 @@ an invariant of the generated theory.
 **Proof (copied; I:171–177; no mathematical change).**
 - "From substratumClass to CM: `instAvail_mono`, since monomial matrices are CM."
 - "From CM to substratumClass, constructor by constructor:
-  - `op`: K is CM and an isometry, so K is monomial by (b).
+  - `op`: K is CM and an isometry, so K is monomial by (b). [(b) is (T5b) above; Δ29]
   - `readout`: the reindexed `readProj` is a 0/1 diagonal transported by a bijection. It lies in
     substratumClass by `substratumClass_arch.proj` and `substratumClass_labelInvariant`.
   - `coarse`, `bind`, `discard`: structural."
@@ -197,6 +212,17 @@ standard). The initial state is `μ ⊗ κ` by H3 and H-IND, the trajectory is a
 and the law of `(f,g)` is the pushforward of `μ ⊗ κ`, which is the displayed integral. Values of a
 measure are nonnegative, and the total mass is `κ(s, R) = 1`. ∎"
 
+*Hand check of the measurability step (this record).* Let 𝒟 be the class of E ∈ 𝒮 ⊗ ℛ such that
+every section E_s = {r : (s, r) ∈ E} lies in ℛ and s ↦ κ(s, E_s) is 𝒮-measurable. A rectangle
+A × B (A ∈ 𝒮, B ∈ ℛ) has section B for s ∈ A and ∅ otherwise, so it gives 1_A(s)·κ(s, B), which is
+measurable because κ is a kernel; in particular Ω_S × R ∈ 𝒟. 𝒟 is closed under proper differences:
+for F ⊆ E in 𝒟, (E ∖ F)_s = E_s ∖ F_s and κ(s, E_s ∖ F_s) = κ(s, E_s) − κ(s, F_s), since κ(s, ·) is
+finite and additive. 𝒟 is closed under increasing unions: (⋃_n E_n)_s = ⋃_n (E_n)_s, and
+κ(s, ⋃_n (E_n)_s) = lim_n κ(s, (E_n)_s) by countable additivity, a pointwise limit of measurable
+functions. So 𝒟 is a λ-system. Rectangles form a π-system, since
+(A × B) ∩ (A′ × B′) = (A ∩ A′) × (B ∩ B′), and they generate 𝒮 ⊗ ℛ, so 𝒟 = 𝒮 ⊗ ℛ by Dynkin's π–λ
+theorem [L].
+
 **What it uses (copied; S:92).** "The proof uses no finiteness, no bijectivity, no invariance of any
 measure, and no topology. It also holds verbatim for finitely additive states with `κ` a finitely
 additive kernel, provided the sets involved are in the algebra: positivity does not rest on
@@ -218,15 +244,15 @@ same statement without measure preservation and for adaptive procedures. So the 
 already on `main` in operator form for the invariant-measure case." On a finite carrier, OA-2 Lemma 0
 (`verification/programmes/oi-qm/reconstruction/oa-2-20261112/OA-2-REPORT-r4.md`:201 [W]) states
 the nonnegative-matrix form for protocols with fixed-law attachment, discard, heralds and feedback,
-with a fixed lift in the role of H-IND; it does not treat adaptive stopping or a κ correlated with
+with a fixed lift, analogous to H-IND (the exact relation is not audited; I:299, R3:83); it does not treat adaptive stopping or a κ correlated with
 s (RV:158–160; R3:41) [Δ8].
 
 **What it adds.** The removal of measure invariance and of finiteness of the hidden carrier, the
 coverage of adaptive stopping, and the ⊥ outcome (R3:57, R3:143). It is an upper bound on induced
 maps (Q2 "UB"); it exhibits no operation.
 
-**Support layer.** [A]; not kernel-checked (S:347). The monotone-class step is standard measure
-theory (`DEPENDENCIES.md` row L).
+**Support layer.** [A]; not kernel-checked (S:347). The monotone-class step is hand-checked above
+from Dynkin's π–λ theorem, a standard theorem [L] (`DEPENDENCIES.md` row L).
 
 **Provenance.** Draft `86a413c8`, S:78–98.
 
@@ -280,16 +306,18 @@ linearity (RV:66–67; R3:59).
   six entries. It sends the diagonal state (0, 0, 1) to (1, 0, 0), which is not diagonal.
 - *S2, Husimi frame.* With U σ_j U† = Σ_i R_ij σ_i and R orthogonal, U† σ_i U = Σ_j R_ij σ_j, so
   tr(UρU† (1 + n·σ)) = tr(ρ (1 + (Rᵀn)·σ)), that is Q_{UρU†}(n) = Q_ρ(Rᵀn).
-- *S2b, tetrahedral frame, the rotation about z with cos = 3/5, sin = 4/5.* With r_k = σ_k/2,
-  σ_k ∈ {±1}³ of even sign product, the frame matrix is F_kj = 1/4 + r_k·(R r_j) (probe lines
-  137–142). Write p = σ_k1σ_j1, q = σ_k2σ_j2; the even-sign constraint gives σ_k3σ_j3 = pq, and
+- *S2b, tetrahedral frame, the rotation about z with cos = 3/5, sin = 4/5.* The tetrahedral frame is
+  p_k(r) = (1 + r_k·r)/4, that is E_k = (1 + r_k·σ)/4, with r_k = σ_k/2 and σ_k ∈ {±1}³ of even sign
+  product. Then Σ_k r_k r_kᵀ = I and Σ_k r_k = 0, so Σ_k p_k = 1, Σ_k p_k r_k = r/4 and
+  p_k(Rr) = 1/4 + (1/4) r_k·R(4 Σ_j p_j r_j) = Σ_j p_j (1/4 + r_k·(R r_j)): the frame matrix is
+  F_kj = 1/4 + r_k·(R r_j), unique because the vectors p(r) span ℝ⁴. Write p = σ_k1σ_j1, q = σ_k2σ_j2; the even-sign constraint gives σ_k3σ_j3 = pq, and
   4 r_k·(R r_j) = (3/5)(p + q) + (4/5)(σ_k2σ_j1 − σ_k1σ_j2) + pq. This is 11/5 for p = q = 1,
   −1/5 for p = q = −1, and ±8/5 − 1 for p = −q. The minimum is −13/5, so min F_kj = 1/4 − 13/20 =
   −2/5.
 
 **Hypotheses.** Counter-structures 1 and 2 are statements about linear identifications of qubit
-density matrices with laws; they use no OI hypothesis. The verdict they qualify, NX-1 on route E_f,
-is the one of §0.3, under H-LIFT and the hypotheses of §0.1.
+density matrices with laws; they use no OI hypothesis. The verdict they qualify is NX-1 on route
+E_f as defined in §0.3, under H-LIFT and the hypotheses of §0.1.
 
 **What it adds.** The E_f verdict separates only on spanning frames (T3); on non-spanning frames the
 nonnegativity test does not separate (R3:59). This bears on REC-1 r7 rows 35 and 40 only as a scope
@@ -352,8 +380,7 @@ statement about every ontological model of the system. E2 does not apply when th
 by measurement context (a family `L_c`, one per context), and it does not apply to non-linear or
 history-dependent realizations, in which an amplitude or ψ-register is itself a hidden coordinate
 (routes E_r and C-dyn)." It also does not apply to an encoding that is positive only on a restricted
-preparation set, such as the epistricted and stabilizer-type encodings used by MECH-1, QP/U′ and
-Q-868-H: its hypothesis requires L to take every density matrix to a probability measure (R3:60)
+preparation set: its hypothesis requires L to take every density matrix to a probability measure (R3:60)
 [Δ9].
 
 **What it adds.** E2 is finiteness-free and needs no spanning-read certification; it concludes
@@ -394,9 +421,10 @@ stencil therefore adds no edge and leaves the cone unchanged."
 **Scope.** L1 adds no edge and leaves the within-cone (O2) window of the unchanged stencil as in the
 finite model, untested (R3:129; Main:414).
 
-**Support layer.** [A] on Main:362's argument [P] (R3:63).
+**Support layer.** [A] on Main:362's argument [P] (R3:63); hand-checked against Main:362 in
+RV:70–71.
 
-### 4.2 L4 (the graph of an additive update does not depend on the state)
+### 4.2 L4 (the graph of an additive update does not depend on the state) [Δ27]
 
 **Statement and proof (copied; S:155; no mathematical change).** "*Let `S = ∏_{i∈V} S_i` with each
 `S_i` an abelian group (finite, `R/Z`, `Z_p` or any other), and let `φ(s) = c + Λ(s)` with `Λ`
@@ -411,8 +439,9 @@ vacuum/uniform state class. Main:362 states that for a linear update (ledger ite
 `G_φ^K = G_φ` for every non-empty `K`, and that a graph that differs between state classes requires
 an update outside (vii). L4 is the same statement for arbitrary abelian site groups, with no
 finiteness hypothesis on the `S_i`, proved here from its own definition. Item (vii) is "linearity of
-the substratum update (A5)", in the form that "every first difference of the update is independent
-of its base point" (Main:724).
+the substratum update (A5)", which Main:724 states as stronger than the affine restriction "that
+every first difference of the update is independent of its base point"; L4 needs only the affine
+form.
 
 **Consequences (copied; S:160, S:161, S:163) [Δ11, Δ23].**
 - (1) "The per-site lifts of SUBSTATE-1 and NATIVE-PADIC-1 are additive on the lifted alphabets. No
@@ -428,10 +457,10 @@ of its base point" (Main:724).
    abelian site groups: scoping (x) to a state class does not by itself open route B while (vii)
    stands. [Δ11]
 
-**Hypotheses.** Product of abelian groups over a finite site set V; an affine update with additive
+**Hypotheses.** Product of abelian groups over a site set V (finite in Main's `G_φ^K`); an affine update with additive
 part Λ. The relation `∼_K` is directed; Main's `G_φ^K` is its symmetrization.
 
-**Support layer.** [A], one line of algebra (R3:64).
+**Support layer.** [A], one line of algebra (R3:64); hand-checked against Main:362 in RV:70–71.
 
 **Provenance.** Draft `86a413c8`, S:141–163.
 
@@ -444,7 +473,7 @@ exceeds the Bell bound only through parameter dependence: at a fixed pre-setting
 of one wing depends on the remote setting. Three structurally different routes can carry that
 dependence. They are not exclusive, and only the first needs a new substate object."
 
-| Route | What carries the remote-setting dependence | Non-site-fibred hidden factor needed? | What the draft argues (copied from S:177–181; heading Δ12; cells Δ1, Δ12) |
+| Route | What carries the remote-setting dependence | Non-site-fibred hidden factor needed? | What the draft argues (from S:177–181, with the changes of Δ1 and Δ12) |
 |---|---|---|---|
 | **A** shared factor | a hidden factor `M`, not site-fibred, written by one wing's setting and read by the other wing's record | yes (N1) | requirements N1–N4 below; none supplied by `main` |
 | **B** prepared long edges | preparation-indexed edges between ordinary site-fibred sites (Main §3.3(a), Main:412, Main:414; Bell-scope O1) | no | needs an update outside (vii) (L4; for finite `S_i`, Main:362 and Main:414); H-Bell (i)–(iii) (`papers/Substratum.md`:131–133) open on `main`; N3–N4 apply; not otherwise assessed |
@@ -458,21 +487,22 @@ or as a pad (§3.4), subject to the quotient restriction of §3.1." [the pad rea
 S:213–221, not carried, and its (NS_A) and (PAD) are §6 here; the quotient restriction of §3.1 is
 draft S:165, not carried; Δ19]
 
-| # | Applies to | Property | Why it is needed | Status on `main` (copied from S:187–190; Δ1, Δ13, Δ14, Δ20) |
+| # | Applies to | Property | Why it is needed | Status on `main` (from S:187–190, with the changes of Δ1, Δ13, Δ14 and Δ20) |
 |---|---|---|---|---|
 | **N1** | route A only | A hidden factor `M` that is not site-fibred: one substate object adjacent to both wings, for example a level-`n` variable belonging to a block of `2^n` sites (hierarchical or ultrametric adjacency), or a deep mode common to a prepared pair | L1: for wings outside the stencil's graph cone, site-fibred factors add no edge | not defined anywhere; conflicts with ledger (viii) as stated (Main:724) unless `M` is counted as a site. Counted as a site, its edges must be absent on the reference class, where (x) fixes `G_φ^ref` as the simple-cubic graph (Main:724); they would then have to be preparation-indexed (H-Bell (i), `papers/Substratum.md`:131–133, open), which no update within (vii) allows (L4; Main:362 for finite `S_i`) |
 | **N2** | route A only | A directed path `G_B → M → R_A` inside the record window: the remote setting *writes* `M` and the near wing *reads* it | L3 (draft S:167–171, not carried: a shared factor that both wings read and no setting writes is a common cause); conditional on L3 | not supplied; the only level-mixing coupling on record is the explicitly non-native mutant (RS/README.md:196–199), and it is single-cell |
-| **N3** | every route | Masking: complete-history no-signalling to each wing, for every law in the physically preparable family 𝒫, with measurement independence or the conditional-law form of §6 | parameter dependence is a signal-capable ontic channel | not supplied. By the preparation-span diagnostic (`verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/prepared-pair-source.md` §5 [W], finite Λ), 𝒫 cannot have full affine span; the restriction needs a reason independent of the target table |
+| **N3** | every route | Masking: complete-history no-signalling to each wing, for every law in the physically preparable family 𝒫, with measurement independence or the conditional-law form of §3.4 [§6 here] | parameter dependence is a signal-capable ontic channel | not supplied. By the preparation-span diagnostic (`verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/prepared-pair-source.md` §5 [W], finite Λ), 𝒫 cannot have full affine span; the restriction needs a reason independent of the target table |
 | **N4** | every route, for agreement with the quantum set | A selector: the mechanism yields CHSH in `(2, 2√2]` and not more | channel + pad alone is the PR box [X S4] | not supplied; Main:360 records the same over-generation for the unrestricted construction |
 
-Hand check for the [X S4] cell of N4 (this record; no script run). With a fair pad bit p, wing A
-outputs p and wing B outputs p ⊕ ab, the channel carrying a to B. Each wing's output is uniform for
+Hand check for the [X S4] cell of N4 (this record; no script run). With a fair pad bit p, wing B
+outputs p and wing A outputs p ⊕ ab, the channel carrying b to A. Each wing's output is uniform for
 every pair of settings, so no-signalling holds exactly, and E(a, b) = (−1)^{ab} gives
 CHSH = E(0,0) + E(0,1) + E(1,0) − E(1,1) = 4: the PR box.
 
 N1–N4 are requirements; none is supplied, and stating them sources no Bell or quantum mechanism. No
-one of them meets §A.29's demand for an independent prediction and independent controls (S:309)
-[Δ15].
+one of them meets all three §A.29 requirements (controls preserved, an independent prediction, not
+adjustable to fit any outcome; S:309), and none supplies the independent controls a Bell or quantum
+mechanism would need [Δ15].
 
 **Which Bell hypothesis (copied; S:192; Δ1).** "On each of the routes A, B and C, with measurement
 independence kept, the failed hypothesis is parameter independence — Main's adopted option (a)
@@ -496,19 +526,21 @@ carried, and is conditional on Theorem N of Bell-scope r2 (#1231 @ `e1534b08`, [
 theorem for a measurable λ [L]; class (a)3 is draft S:263: site-fibred towers under a
 stencil-respecting rule, for Bell protocols whose wings satisfy (Sep). The exclusion branch's
 consequence is stated conditional on both. Δ16] "That would close route A and leave open route B (an
-update outside (vii), with (x) scoped to `G_φ^ref`, Main:724), route C (the window of Main:414;
-Bell-scope's O2) and O3 (measurement independence, ledger item (xiv), Main:724). The text of (viii)
+update outside (vii), with (x) scoped [to `G_φ^ref`, Main:724]), route C ([the window of Main:414;]
+Bell-scope's O2) and O3 [(measurement independence, ledger item (xiv), Main:724)]. The text of (viii)
 ("the configuration space is identified with a product of local configuration spaces over a set of
 sites", Main:724) reads as the exclusion; Main §3.3(a)'s preparation-indexed long edges are
 compatible with it only as edges between sites. Whether (viii) is meant to bind a deep hidden sector
-is an owner question, of the same kind as the scoping of (x) that Main:724 states (Bell-scope's
-finding F1)." [Δ16]
+is an owner question, [of the same kind as the scoping of (x) that Main:724 states (Bell-scope's
+finding F1)]." [Δ16]
 
 **Status [Δ17].** SLL is open: neither branch is supplied on `main` or in this record. It is kept as
 an open obligation (owner decision c.6855167580), and the Bell ladder (#868) takes the A/B/C
 classification and SLL as inputs (owner decision c.6854728636).
 
-**Hypotheses carried.** MI throughout; determinism of the completion; the routes are classified for
+**Hypotheses carried.** The opening statement is Bell's theorem under determinism and MI:
+Main:366–381, :401–404 [P] for finite Ω; for a measurable λ it is the standard extension [L]
+(`DEPENDENCIES.md` row L(iii)). MI throughout; determinism of the completion; the routes are classified for
 the coupling-graph cone of Main:362 with its finite site set V; route A's N2 is conditional on L3;
 SLL's exclusion consequence is conditional on L2 and Theorem N.
 

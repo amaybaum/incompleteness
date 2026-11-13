@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | INTERVENE-1 unit 1, draft r2 | #1230 (open, draft) | `research/intervene-1-20261111` @ `ea12fde1bbc4b546f4690bf89817971796aeb501` (2026-11-11T10:35:27Z) | parent `592fede0` (r1); base `cac5d264` | `verification/programmes/oi-qm/reconstruction/drafts/intervene-1-20261111/INTERVENE-UNIT1.md` (blob `06f148e0b3d529659608a1bf6150a7ce6b124cb0`, sha256 `5edb4ad3c0489163af8ab2e017ec6c651611506f4f7633d411137d2de4edd7fd`) |
 | SUBSTATE-BRIDGE-1 unit 1, draft r2 | #1232 (open, draft) | `research/substate-bridge-1-20261111` @ `86a413c88cd14d344aa41b6f47885aeb24da6910` (2026-11-11T11:43:47Z) | parent `b94b283a` (r1); base `cac5d264` | `verification/programmes/oi-qm/reconstruction/drafts/substate-bridge-1-20261111/SUBSTATE-BRIDGE-UNIT1.md` (blob `9ff0f0774e403ed782354c0b10986a0fe5dc5ed8`, sha256 `662b9cbaab4237a357174b675c7ee7734c4d4512ef68d530555111230bde48fd`); `probes/generic_substate_checks.py` (blob `fa434cd4`, sha256 `d269224f…bbb99`), `.out` (blob `3861f1b0`, sha256 `9845ed1e…644ee`) |
-| Reconciliation r3 with its review records | #1271 (open, draft) | `research/reconcile-1230-1232-20261113` @ `703ae20e57f9ffeb0eb458ec688883b3fc64a632` (2026-11-13T13:56:24Z) | parents `1d3c4599` (r3), `b36bba60` (r1, review, r2); base `main` `c3b5f37a` | `verification/programmes/oi-qm/reconstruction/drafts/reconcile-1230-1232-20261113/RECONCILE-r3.md` (blob `1dc565f3`, sha256 `1b68c7c5…fd839`), `REVIEW-r1.md` (blob `7f391a9d`, sha256 `4fbcf865…13373`), `CONFIRM-r2.md` (blob `11a4d663`, sha256 `bf6a3828…0277b`) |
+| Reconciliation r3 with its review records | #1271 (open, draft) | `research/reconcile-1230-1232-20261113` @ `703ae20e57f9ffeb0eb458ec688883b3fc64a632` (2026-11-13T13:56:24Z) | parent `1d3c4599` (r3); ancestor `b36bba60` (r1, review, r2); base `main` `c3b5f37a` | `verification/programmes/oi-qm/reconstruction/drafts/reconcile-1230-1232-20261113/RECONCILE-r3.md` (blob `1dc565f3`, sha256 `1b68c7c5…fd839`), `REVIEW-r1.md` (blob `7f391a9d`, sha256 `4fbcf865…13373`), `CONFIRM-r2.md` (blob `11a4d663`, sha256 `bf6a3828…0277b`) |
 | `main` (reference corpus) | — | `c3b5f37a354bb26437e2e0165c576a347a63c153` (merge of #1265, 2026-11-13) | — | everything cited as "on `main`" |
 
 Each branch was fetched by name and read only. The heads above equal the heads of #1230, #1232 and
@@ -14,7 +14,8 @@ Each branch was fetched by name and read only. The heads above equal the heads o
 
 Read for cross-checks only: APPROX r4a (#1221, `e41cf613`), BRIDGE-UNIT1 and APPROX r2
 (`ccr-9c2ecca4-vkb666` @ `820519cf`), Bell-scope r2 (#1231, `e1534b08`), REC-1 r7
-(`research/rec-1-1169-20261113` @ `9f7d2612`; that branch's head is `7f465d56` at writing).
+(`research/rec-1-1169-20261113` @ `9f7d2612`; that branch's head is `cd38655c` at writing, and
+`REC-1-r7.md` is unchanged between them).
 
 ## 2. Review trail of the drafts
 
@@ -77,8 +78,9 @@ c.6855167580.
 
 **Authorization of the drafts themselves.** The PR bodies of #1230 and #1232 cite owner approvals of
 2026-11-11 that the reconciliation could not locate (R3:107); c.6854728636 step 5 asks for a current
-owner decision to replace them. c.6855167580 is the recorded authorization of this writer pass. It
-does not authorize a merge.
+owner decision to replace them. No such decision is recorded on #1169 up to c.6855167580.
+c.6855167580 is the recorded authorization of this writer pass, not of those drafts, and it does
+not authorize a merge.
 
 ## 5. The reconciliation's drafting-history wording
 
