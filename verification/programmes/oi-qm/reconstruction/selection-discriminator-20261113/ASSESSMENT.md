@@ -12,7 +12,7 @@ A more discriminating, target-neutral **conditional test** is available: two ind
 
 This is the smallest binary random-access test considered here, **not a proved smallest physical restriction**. The information inequality is a standard information-causality condition, not a new OI theorem. Neither its derivation from OI nor the physical availability of its message/input/control protocol is supplied by the recovered sources. The one-bit message budget is an **operational communication budget**: it does not bound ontic information transfer through the globally coupled PR update. No new premise is adopted.
 
-**Verdict:** conditional exclusion plus a precise unresolved source/discriminator gap. No OI-sourced selector is established. This is not a proof that no such selector exists, that information causality characterizes the full quantum set, or that the source gate has passed. The next obligation is a native availability-and-information argument independent of the PR or quantum target table.
+**Verdict:** conditional exclusion plus a precise unresolved source/discriminator gap. This unit establishes no OI-sourced selector. This is not a proof that no such selector exists, that information causality characterizes the full quantum set, or that the source gate has passed. The next obligation is a native availability-and-information argument independent of the PR or quantum target table.
 
 ## 1. Exact accepted evidence and status boundaries
 
@@ -33,9 +33,11 @@ The old C0/C1 Page assessment and apparatus contract remain off-main external su
 
 Write a candidate realization as `(S, φ, μ, E, Γ, R, C)`: microscopic state space and fixed dynamics; common initialization/source law; embedded observer/readout map; actually executable preparation, setting, intervention and continuation programs; typed complete records; and resource/renewal contract. A mathematical response map is not a physical availability certificate.
 
+SEL-ACCESS-1's conditional SEL-MENU result applies when a selector depends only on passive-law data, the candidate class contains a full/restricted-menu pair with identical such data, and a required operation has no alternative implementation in the restricted menu. Then the selector cannot guarantee coverage. It does not prove that all physical OI classes permit arbitrary menu deletion. The new tests here inspect operational continuations and therefore address different data; their actual availability still needs sourcing.
+
 For isolated wings, complete local histories include raw calibrated outcomes, locally retained setting/controller information, local workspaces admitted as readable, heralds, failures, clocks and stopping status. Compare the law of **Bob's own** history under different Alice policies, fixing Bob's policy and preparation contract; likewise with the wings exchanged. Do not require invariance of the later **joined** history, which is expected to carry correlations. A setting-selected terminal read is not a substitute for the whole specified local history.
 
-**Measurement independence:** in the one-shot PR and Bell tests, the same hidden source is independent of exogenous settings. In adaptive fresh-cell use, the current unused source is independent of earlier records and the settings chosen before that use; the complete adaptive setting sequence need not be independent of old source bits it has already observed.
+**Measurement independence:** in the one-shot PR and Bell tests, the same hidden source is independent of exogenous settings. This is a common pre-setting source/intervention condition, not independence of the entire closed-world state from setting bits that are themselves part of that state. In adaptive fresh-cell use, the current unused source is independent of earlier records and the settings chosen before that use; the complete adaptive setting sequence need not be independent of old source bits it has already observed.
 
 **Parameter independence:** pointwise local responses do not depend on the remote setting, at a fixed response-complete latent state. The PR gate violates this for Bob at `y=1` while retaining one-shot measurement independence and operational no-signalling. Averaged no-signalling is weaker than pointwise parameter independence. A microscopic causal-speed constraint and Bell-local factorization must also not be identified without a proof for the particular source/interface.
 
@@ -74,6 +76,8 @@ For settings `00,01,10`, the possible outcomes are `00,11` with equal weight; at
 
 These are conditional failures of an **enlarged** menu. The accepted fresh-cell model survives P1 for any predeclared finite `m` by using `m` independent cells and keeping used cells, records and garbage. Requiring merely finite repeatability or resource accounting does not turn these old-seed failures into a universal PR exclusion.
 
+**Why a finite entropy cap alone does not discriminate.** For a closed finite deterministic world with a fixed nonadaptive setting program and no new random inputs, a local length-`m` record is a deterministic function of the initial world state `W0`. Therefore `H(A^m)≤H(W0)≤log₂|S|`. Exact independent fair outputs need `H(A^m)=m`. This resource bound applies to PR's local fair outputs, ordinary classical fair records and any deterministic realization of the corresponding independent quantum fair records. External inputs, refreshed banks and environmental couplings must be counted instead of being silently excluded or treated as free. This elementary argument does not select a native resource budget or initiate a preparation-cost investigation.
+
 ## 5. A conditional discriminator that also detects fresh one-use PR
 
 ### 5.1 Two-bit information test: precise operational contract
@@ -86,7 +90,7 @@ The compared informations are measured on the **unconditional, all-trial** proba
 
 Define candidate condition **IC₂** by `J ≤ 1 bit` for every allowed protocol meeting that contract. A failure symbol may be retained as an extra output value; no successful subensemble is silently renormalized. Complete histories establish that there was no extra communication or hidden rejection. The scalar `J` is a falsifying witness extracted from those histories, not their replacement as the scientific evidence domain.
 
-This is the two-input, one-message-bit instance of information causality. It concerns ordinary classical input recovery and a communication budget, not agreement with a quantum outcome table. One input bit could never violate the one-bit bound because `I(Z:G)≤H(Z)=1`; two inputs provide the first such binary test within this family. No minimality among all conceivable target-neutral restrictions is asserted.
+This is the two-input, one-message-bit instance of information causality, a standard proposed physical principle: M. Pawłowski et al., *Information causality as a physical principle*, Nature **461**, 1101–1104 (2009), [doi:10.1038/nature08400](https://doi.org/10.1038/nature08400). The publication is identified for attribution; no new literature-wide survey or review of its full generalizations was performed. The special-case proofs consumed here are supplied below. IC₂ concerns ordinary classical input recovery and a communication budget, not agreement with a quantum outcome table. One input bit could never violate the one-bit bound because `I(Z:G)≤H(Z)=1`; two inputs provide the first such binary test within this family. No minimality among all conceivable target-neutral restrictions is asserted.
 
 **Availability is an additional hypothesis.** The original isolated-wing #1228 grammar does not itself supply a physical Alice-to-Bob message channel, a native source of `Z0,Z1,K`, or a clock implementing this test. The appended channel is a mathematical operational extension, to be source-certified if tested physically. Local XOR computations can be represented reversibly with blank targets and retained inputs, but that representation does not source their apparatus. Later joining **all** records would transmit more than the budget and would be a different test.
 
@@ -106,7 +110,7 @@ For each index the guess is exact. Both requested bits remain unbiased, so each 
 
 ### 6.1 Classical local reference
 
-Let `B0` contain all Bob's preshared classical information, independent of `Z=(Z0,Z1)`; it may be correlated with Alice's initial resource. Apart from the one-bit message, Alice and Bob use only local classical computations. Before Bob's index-dependent decoding, write `R=(B0,M)`. Shared randomness is allowed, and all local records may be retained. Shannon's chain rule gives
+Let `B0` contain all Bob's preshared classical information and independent private seed, independent of `Z=(Z0,Z1)` and `K`; it may be correlated with Alice's initial resource. Apart from the one-bit message, Alice and Bob use only local classical computations. Any earlier `K`-dependent Bob computation can be deferred to decoding because it does not affect Alice. Before that decoding, write `R=(B0,M)`, a common resource independent of `K`. Shared randomness is allowed, and all local records may be retained. Shannon's chain rule gives
 
 `I(Z:R)=I(Z:B0)+I(Z:M|B0) ≤ H(M) ≤ 1`.
 
@@ -114,7 +118,7 @@ Independence of `Z0,Z1` and nonnegativity of conditional mutual information impl
 
 `I(Z0:R)+I(Z1:R) ≤ I(Z:R)`.
 
-For each query, Bob's guess is a local function or stochastic postprocessing of `R` and his private seed; include that independent seed in `B0`. Data processing yields `I(Zj:G|K=j)≤I(Zj:R)` for `j=0,1`. Thus `J≤1`.
+For each query, Bob's guess is a local function or stochastic postprocessing of `R`. Since `K` is independent of `(Z,R)`, data processing yields `I(Zj:G|K=j)≤I(Zj:R)` for `j=0,1`. Thus `J≤1`.
 
 A nontrivial saturating reference sends `M=Z0`. Bob answers `Z0` when `K=0` and a constant when `K=1`: the two informations are `1` and `0`. Raw classical records can be reread and copied with initialized memory. A shared fair bit measured in the same basis is also a retained classical context. The condition does not exclude ordinary classical observation.
 
@@ -134,6 +138,8 @@ For independent classical `Z0,Z1`, strong subadditivity gives
 
 `I(Z0:BM)+I(Z1:BM) ≤ I(Z:BM)`.
 
+Explicitly, the left side minus the right side is `I(Z0:Z1)−I(Z0:Z1|BM)=−I(Z0:Z1|BM)≤0`. The same identity proves the classical inequality above. Independence of `K` from this common pre-decoding state is what permits using its same two mutual informations for the two query-conditioned decoders.
+
 Apply data processing to each index-specific local decoder to obtain `J≤1`. Local histories and readable local workspace can be included in the decoder output, so hiding an extra quantum record is not needed. Postselecting a heralded success subset would change the all-trial contract; this proof does not claim the conditional successful-branch value stays below one.
 
 ### 6.3 Explicit quantum Bell and classical contexts retained
@@ -146,7 +152,7 @@ This is one common **quantum reference** with classical and Bell contexts, not o
 
 ## 7. Why this does not yet supply an OI selection principle
 
-IC₂ is independently intelligible and gives a checkable target-neutral separation. The recovered native premises do not justify its crucial information-access law. Reversible microscopic evolution conserves global information; finite momentary observer capacity restricts available records. Neither statement implies the chain/data-processing structure used in the classical-local or quantum-local proofs for a globally interacting hidden-variable theory. The accepted PR counterprotocol demonstrates that operational no-signalling alone does not imply the inequality.
+IC₂ is independently intelligible and gives a checkable target-neutral separation. The recovered native premises do not justify its crucial information-access law. Reversible microscopic evolution conserves global information; finite momentary observer capacity restricts available records. Neither statement implies the chain/data-processing structure used in the classical-local or quantum-local proofs for a globally interacting hidden-variable theory. The accepted PR counterprotocol demonstrates that operational no-signalling alone does not imply the inequality. This countercontrol concerns the accepted weak class R; no claim is made that its stipulated interface satisfies every stronger native OI observer condition.
 
 The sum `J` concerns two different choices of query, not recovery of both input bits in the same physical run. A finite observer can store the records of either run without exceeding its finite capacity. Thus “the observer is finite” or “only one explicit bit was sent” is not a proof of IC₂. An additional non-circular native principle relating actual interventions, accessible records and classical communication is missing.
 
@@ -199,4 +205,4 @@ The next paper obligation is to connect **one independently source-qualified nat
 
 Review D5–D7 in particular: the one-bit budget is operational rather than an ontic locality assertion; the PR message extension is explicitly additional; the two query-conditioned mutual informations refer to one common input-independent resource and one-bit contract; quantum preservation assumes local instruments/deferrable Bob operations and does not justify OI. Verify all failure/clock records are counted, and that no old-seed exclusion is applied to the accepted fresh-cell grammar.
 
-This is a scoped hand-proof/source audit, not a full manuscript review, a complete corpus rederivation, a literature-wide search for the weakest axiom, a kernel proof, simulation, numerical estimate or physical implementation. The baseline source pins and review receipts are retained under `evidence/`; exact local-source hashes and further provenance are being finalized at this writer checkpoint. No earlier accepted document was changed.
+This is a scoped hand-proof/source audit, not a full manuscript review, a complete corpus rederivation, a literature-wide search for the weakest axiom, a kernel proof, simulation, numerical estimate or physical implementation. The baseline source pins and review receipts are retained in the writer's local `evidence/` cache; that cache is not part of the proposed public package. [SOURCES.md](SOURCES.md) links the immutable original sources and identifies exact main blobs, off-main receipts, missing artifacts and reproduction limits. No earlier accepted document was changed.
