@@ -319,8 +319,8 @@ linearity (RV:66–67; R3:59).
 density matrices with laws; they use no OI hypothesis. The verdict they qualify is NX-1 on route
 E_f as defined in §0.3, under H-LIFT and the hypotheses of §0.1.
 
-**What it adds.** The E_f verdict separates only on spanning frames (T3); on non-spanning frames the
-nonnegativity test does not separate (R3:59). This bears on REC-1 r7 rows 35 and 40 only as a scope
+**What it adds.** The E_f verdict separates on spanning frames (T3); without spanning the nonnegativity test need not
+separate, as on the octahedral and Husimi frames (S2c, S2; R3:59). This bears on REC-1 r7 rows 35 and 40 only as a scope
 note: their frames are orthogonal or spanning. The relation to OBL-SP's (SP) condition is an analogy
 only: G1's non-spanning concerns an encoding frame on route E_f; OBL-SP's (SP) concerns the
 reachable record laws of the native affine class under `D_0`; no map between them is given (R3:85).
