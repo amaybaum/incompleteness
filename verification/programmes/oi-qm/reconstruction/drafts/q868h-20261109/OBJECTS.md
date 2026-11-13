@@ -180,8 +180,8 @@ directory of the session that wrote the file; the bytes are kept unchanged.
 
 | File | Blob | SHA-256 | Status |
 |---|---|---|---|
-| `Q868H-UNIT1.md` | `e4d91694aea35c28c1989d34f20273589d9a64bd` | `40e36e3cb4b6cc57eaa09fdaff6e9f104d8a9318243d86f6e35a46dfe8826015` | r3; applies RC1–RC5 of the r2 review; pending focused confirmation |
-| `DISPOSITIONS-r3.md` | `7ccbdeb8da37153965377348e101fdb5883da284` | `e29fb502939e119b7f885d812601f6fa9090a8e836b3ad19cf238345c0a5f2e9` | r2→r3 change note |
+| `Q868H-UNIT1.md` | `53eb911e0f904e1967db85aee3bb1779e092400c` | `2d900ccc87101b540ceaf80269884d1b85d6a8fd1f44cab6b77318e404a53932` | r3; applies RC1–RC5 and O1, O2, O3, O7 of the r2 review; pending focused confirmation |
+| `DISPOSITIONS-r3.md` | `406ddfb96c0ac73bca1432ca27fc61fc8341a636` | `fd75e7c68fd738128120dcd302248fa2b047a40521d9015b59cf60d5e0fecbd5` | r2→r3 change note |
 | `review/REVIEW-Q868H-UNIT1-r2.md` | `144cc7db4586fc108a06a6e94b09b666322950ea` | `651612e89c964c05bbc31d7b47c67cbb855456622b8eaee98bf3c79d9865268e` | fresh non-author model review of r2 at `82f592db`; verdict ACCEPT WITH CHANGES (RC1–RC5) |
 
 Owner decision for r3 (amaybaum, 2026-11-13; #868 c.6853568040): "r3; ratify the probes". The owner retroactively ratifies the unit's generic linear-algebra probe scripts as covered.

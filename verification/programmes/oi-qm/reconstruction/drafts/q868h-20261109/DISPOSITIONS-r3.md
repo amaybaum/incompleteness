@@ -5,9 +5,9 @@ adopted. No git or GitHub write was made, and no probe was run.
 
 - **r2:** `Q868H-UNIT1.md` at `82f592db3a0a36f118bf693805be5d1322e32b1e` (branch `research/q868h-868-20261113`),
   sha256 `1e128f286b14be3294cb8411e21f0b4b4516cbc9985fc2589fb6362a752179e6` (verified).
-- **r3:** `Q868H-UNIT1.md`, sha256 `40e36e3cb4b6cc57eaa09fdaff6e9f104d8a9318243d86f6e35a46dfe8826015`. The unified diff
-  is `r2-r3.diff`.
-- **Review:** the fresh independent review of r2 at `82f592db` (model-written, 2026-11-13; `REVIEW-r2.md`, sha256
+- **r3:** `Q868H-UNIT1.md`, sha256 `2d900ccc87101b540ceaf80269884d1b85d6a8fd1f44cab6b77318e404a53932`. The change is the diff of
+  `r2/Q868H-UNIT1.md` against `Q868H-UNIT1.md`.
+- **Review:** the fresh independent review of r2 at `82f592db` (model-written, 2026-11-13; `review/REVIEW-Q868H-UNIT1-r2.md`, sha256
   `651612e89c964c05bbc31d7b47c67cbb855456622b8eaee98bf3c79d9865268e`). Verdict ACCEPT WITH CHANGES; required changes
   RC1–RC5; optional suggestions O1–O7. Line numbers below are r2's, as the review cites them.
 - **Owner decision:** amaybaum, 2026-11-13, #868 c.6853568040 (posted 2026-11-13T12:55:08Z): "r3; ratify the probes",
@@ -117,6 +117,6 @@ r1 review confirmed the same point. It uses no premise beyond those (V) already 
 
 ## Unchanged
 
-- The preserved files (`r1/`, `review/`, `probes/`, `DISPOSITIONS-r2.md`, `OBJECTS.md`) are not touched.
+- The preserved files (`r1/`, `probes/`, `DISPOSITIONS-r2.md`) are not touched. The review of r2 is added under `review/`, r2 moves to `r2/` with its bytes unchanged, and `OBJECTS.md` gains the r3 rows.
 - §A.42 item 8: the two off-`main` support gaps the review lists (ASSESS-868 r3a; the [D] framing behind §8's last
   bullet) are unchanged by this revision. r3 adds one reference, #868 c.6853568040, an authority record.

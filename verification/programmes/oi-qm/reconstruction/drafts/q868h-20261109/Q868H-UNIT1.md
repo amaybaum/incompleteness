@@ -15,9 +15,9 @@ review ACCEPT, if reached, authorizes nothing further.
   > "a drive that can generate the phase is not a derivation of that drive from OI, and the phase-vs-layer-flow
   > independence keeps its Lean-proved scope."
 
-  The authorization says "No computation". Owner decision (amaybaum, 2026-11-13, #868 c.6853568040): "r3; ratify the
+  The authorization says "No computation". Owner decision (amaybaum, 2026-11-13T12:55:08Z, #868 c.6853568040): "r3; ratify the
   probes", recorded there as "The owner retroactively ratifies the unit's generic linear-algebra probe scripts as
-  covered." The unit's probe scripts are the two of §10. The same record authorizes no other computation. The native
+  covered …". The unit's probe scripts are the two of §10. The same record authorizes no other computation. The native
   preparations below are enumerated **by hand**. The two probes (§10) check only Pauli-matrix and table facts; they
   encode no OI rule, encoding, coupling or preparation. The drive and the layer flow play no part in this unit.
 - **Inputs:** `reassess/868/ASSESS-868.md` r3a (sha256 `d97c4b6b17bea9675d02a697e5164862471dad840dfbe9b54532baacd6788e1b`),
