@@ -1,0 +1,14 @@
+PASS  W1 window = [l1, sqrt3*l2) ; empty iff body diagonal  2196 vectors
+PASS  W2 ||n||_1 = max_diag |n.s| (so ratio cone/wave = 1/cos theta)  
+PASS  W3 axis windows  {1: [1], 2: [2, 3], 3: [3, 4, 5], 4: [4, 5, 6], 5: [5, 6, 7, 8], 6: [6, 7, 8, 9, 10]}
+PASS  W3b face diagonal (2,2,0): window  k=4 only
+PASS  W4 cap fraction at m=21/20  
+PASS  L1 NS at a wing <=> remote-setting column in pad image (400 random Z_q-linear models)  {'cases': 400, 'ns': 346, 'sig': 54, 'nodep': 37, 'masked_dep': 309}
+PASS  L2 NS at both wings => table equals an explicit local model with uniform Omega'  346 NS cases, 309 with pointwise remote dependence
+PASS  L3 non-vacuity: signalling cases and masked-dependence cases both occur  
+PASS  X1a non-coset example is no-signalling  
+PASS  X1b exactly one support-compatible deterministic strategy, so the table (uniform marginals) is not Bell-local  [(2, 0, 2, 0)]
+PASS  X1c max CHSH over binary coarse-grainings exceeds 2  max = 3
+PASS  X1d countercontrol: coset prior (sigma=id) table is the uniform mixture of its compatible strategies  
+PASS  P1 uniform prior: equal history laws <=> a relabelling bijection exists  
+ALL PASS
