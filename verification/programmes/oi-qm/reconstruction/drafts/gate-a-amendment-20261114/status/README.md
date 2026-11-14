@@ -7,7 +7,10 @@ the Gate A contract, no CI dispatch and no merge.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `STATUS-r3.md` | The current draft; applies the confirmation of r2 and the owner-approved accountable Issues; unreviewed | `3258dbe231923f7c1604803ecb630a8790e58741951d48020bd600a05d5861ba` |
+| `STATUS-r4.md` | The current draft; applies the focused review of r3; unreviewed | `c55797bd19c6aea3b1540469f7ef9800b76f6d7ef716900730e8d06e87ba8725` |
+| `RESPONSE-CONFIRM-STATUS-r3.md` | Dispositions of the focused review's changes | |
+| `CONFIRM-STATUS-r3.md` | Focused review of r3 at `acfdbd0f`: ACCEPT WITH CHANGES | |
+| `STATUS-r3.md` | The draft the focused review read | `3258dbe231923f7c1604803ecb630a8790e58741951d48020bd600a05d5861ba` |
 | `RESPONSE-CONFIRM-STATUS-r2.md` | Dispositions of the confirmation's changes | |
 | `STATUS-r2.md` | The draft the confirmation read; applies the review's sixteen findings, two in modified form | `48a7efe32a1faa99114d462f4dc3bdc530e00388625c4ab4e659dd04972921dc` |
 | `RESPONSE-STATUS-r1.md` | Dispositions of the review's findings | `482b9eafb4a721f38350d246b7d3b4ffce20fb8daedf52dd71418ecdb9a37a2d` |
@@ -18,5 +21,8 @@ the Gate A contract, no CI dispatch and no merge.
 The note was written from scratch; an earlier draft that was stopped partway is not preserved here
 and was not relied on. The owner authorized preservation of r2 and an independent confirmation of
 it in the coordinating session on 2026-11-14. The confirmation is added here; r3 applies
-its changes and the accountable-Issue entries the owner approved (#1169, comment 6877532844), and is
-itself unreviewed. The note remains a draft until r3 is reviewed.
+its changes and the accountable-Issue entries the owner approved (#1169, comment 6877532844). A
+focused review of r3 asked for three changes, which r4 applies; r4 states that §A.46 item 8's own
+condition is met and that, under §A.45 rule 6, one obligation (excluding correlations outside the
+quantum set beyond the Tsirelson bound) has no accountable Issue. r4 is itself unreviewed, and the
+note remains a draft until it is.
