@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO1-DEPS-r4.md` | Dependency assessment r4: applies the focused review of r3 (C1: interface ceilings and the preparation limit exclude quantum operations only; C2: separated-wing soundness on the finite carrier under global P-vii, at the cost of Bell coverage; X5 flagged); verdict UNDETERMINED; unreviewed | `02340bf2fb3d07ef68ad355f8b559723d219890c16feae57d9163b349d71c87e` |
+| `RESPONSE-DEPS-r3.md` | Dispositions of that review | |
 | `RO1-DEPS-r3.md` | Dependency assessment r3: applies the independent review of r2 (first steps reordered on all four tracks; cross-track conflicts X1–X4 flagged; reuse with retention as the one partial discriminator); verdict UNDETERMINED; reviewed (ACCEPT WITH CHANGES) | `aee284f2d9f51df8a698aff0f08c64f5db922f9495f39fdb31c4bcc76d65451d` |
 | `RESPONSE-DEPS-r2.md` | Dispositions of that review | |
 | `RO1-DEPS-r2.md` | Dependency assessment r2: applies the independent review of r1 and the reviewer's additions; four tracks; verdict UNDETERMINED; reviewed (REVISE) | `01809afbba839b3fcc6aada8d54ddf17f6c2d463a16568659346d871f1d6545e` |
