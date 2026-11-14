@@ -1,0 +1,454 @@
+# RO-3: carrier and exactness inventory, r1
+
+**UNREVIEWED.** This is the writer's first draft. It has had no independent review, and none of its
+readings is confirmed until a review records that it is.
+
+## Standing
+
+- **Authorization.** #1055 comment 6881390849 (`amaybaum`, 2026-11-14T17:23:23Z), quoted verbatim:
+  "Yes, I authorize RO-3 on these terms". Writer: Claude Code. Reviewer: ChatGPT, at the exact
+  commit, after an independent review.
+- **Scope.** The owner's Q5 text, #1055 comment 6880024537 (2026-11-14T15:46:34Z), quoted verbatim:
+  "Inventory recurrence, recurrence-based P-indivisibility and A.8 cycle averages for each candidate
+  carrier. Preserve their finite-carrier scopes and identify what extra hypotheses or replacement
+  proofs a completion would require. Include finite stages as an intermediate case and countable or
+  infinite completions as candidates. The ultimate test remains one fixed underlying model
+  supporting arbitrarily large finite quantum carriers with explicit encodings and resources."
+- **Target this serves.** EXACT, #1169 comment 6877981234 ("exact operational law-equality across
+  the agreed interface, with carrier, encoding, resources and any completion policy explicit"),
+  with its prerequisite set in #1169 comment 6880022363. The target theorem (#914 comment
+  6875046763): "the target cannot assume one fixed finite total carrier. An infinite or completed
+  carrier is an admissible candidate, but its sufficiency is not established. Finite access by an
+  embedded observer must remain distinct from finiteness of the underlying dynamics." Gate A
+  answer 3 (#1169 comment 6876591512): "One fixed model, with one common extension E, must support
+  subsystems realizing every quantum carrier in the agreed scope. ... The ultimate model must
+  accommodate arbitrarily large finite carriers, with the permitted encodings and resource
+  requirements stated explicitly."
+- **Limits.** Paper-only. Reading, analysis and writing. No computation on OI rules, no Lean, no
+  simulation, no repository edit. This record adopts no premise, completion, sector condition C or
+  extension E, changes no scientific status and no planning entry, and decides nothing on RO-1 or
+  #1143. EXACT stays open.
+- **Base.** Corpus read at `main` `dfeec843bec08443b25cffe34d33dc8401c3b604`. The ledger was read
+  at `records/unified-ledger-914-20261114` `9ff3b8d913abfe720273ff162f6340054cb69437`, file
+  `verification/programmes/oi-qm/reconstruction/drafts/unified-ledger-20261114/LEDGER-r8.md`
+  (cited below as "ledger"). Its own header reads UNREVIEWED; the directory's README on that branch
+  lists it as "reviewed (ACCEPT)" by `REVIEW-r8.md`. The ledger is not on `main`; §6 traces its use.
+- **Citations.** `path:line` refers to physical lines at the base. `papers/*.md` paragraphs are
+  single long lines, so one line number can cover a whole theorem. Lean modules are under
+  `verification/lean-mathlib/OIBridge/`; they were not rebuilt here. Census family numbers are the
+  indices of `families` in `verification/lean-manuscript-census.json`.
+
+### Status labels
+
+- **established**: proved at the cited layer for the statement as made, at its stated scope. The
+  layer is given: K (kernel on `main`), P (paper proof in a manuscript), EX (exhaustive or exact
+  finite computation on `main`).
+- **conditional[...]**: proved given the bracketed hypotheses, each with its status at source
+  (posited, open, or a named hypothesis).
+- **refuted within <class>**: a result on `main` shows that the property fails for every member, or
+  for a stated member, of that class.
+- **open**: no proof and no refutation on `main` at the stated scope.
+- **RR**: a research record on `main` whose own status note says its proofs are paper-level and not
+  independently reviewed (`verification/programmes/substratum/continuous-substates/README.md:3`,
+  :23–32). Under AGENTS.md §A.46 items 1 and 7 an RR item is not established and is not used here as
+  a premise. Where an RR item bears on a cell, the cell keeps its status and the RR item is listed as
+  context.
+- **[IR]**: a reading made by this inventory, not stated on `main`, not reviewed. An [IR] item is a
+  candidate for a later obligation; no cell's status rests on it.
+
+## 0. Three carriers, and the classes compared
+
+The question involves three different carriers, and the inventory keeps them apart.
+
+1. **The total substratum carrier** `S`, with its bijection `φ`. A1 says `S` is finite
+   (`papers/Substratum.md:92`). A1 is a posit: item (ii) of the posit ledger
+   (`papers/Main.md:724`), "the total-finiteness posit" (`papers/Main.md:60`). This inventory keeps
+   it so.
+2. **The accessible visible carrier** `C_V`. It is finite by Lemma 1 (`papers/Main.md:46`), a theorem
+   from the finite-capacity clause, with its physical premise exposed in the kernel as a finite set
+   of boundary modes (`Finiteness.lean:66`); finitely many settings per mode is not enough
+   (`Finiteness.lean:104`). Lemma 1 does not supply finiteness of `S` (`papers/GR.md:138`;
+   `papers/Main.md:60`).
+3. **The operational quantum carrier**: the finite index set of the complex matrices on which an
+   operational theory acts (`papers/Main.md:562`, `FiniteOperationalTheory` in
+   `OperationalAssembly.lean`). "Arbitrarily large finite quantum carriers" in the target refers to
+   this carrier.
+
+Recurrence and the A.8 cycle decomposition are properties of carrier 1 (or of a finite invariant
+part of it). P-indivisibility is a property of the rooted visible maps on carrier 2 that carrier 1
+induces. Exactness is a property of the operational theory on carrier 3. A statement about one of
+them does not transfer to another without a stated map.
+
+**Classes compared.**
+
+| Class | What it is | One fixed model? |
+|---|---|---|
+| **F** finite carrier | one fixed finite `S`, `φ` a bijection, A1 as a hypothesis | yes |
+| **G-fam** growing finite stages, as a family | finite models of increasing size, each its own model: the side-`L` torus over `Z/q` (`papers/SM.md:296`, :1606), alphabet change (`papers/Substratum.md:255`), the per-accuracy realizations `R_n` (`papers/Main.md:596–598`), the per-horizon dilations (`papers/Main.md:516–520`) | no: a family of models |
+| **G-nest** growing finite stages inside one model | finite regions, or finite invariant sub-carriers, of one fixed model: the finite regions of the fixed-spacing lattice (`papers/Main.md:588`), a finite `φ`-invariant representative of a constraint surface (`papers/GR.md:587`) | yes |
+| **I-deep** infinite deep sector | finite visible sector and finite causal cone, with an infinite deep sector carrying a normalized product prior, a locally finite coupling graph and updates that depend on finitely many components (`papers/GR.md:132–134`) | yes |
+| **I-qloc** infinite-region completion | the quasilocal algebra at fixed spacing, with the finite-range update as a `*`-automorphism (`papers/Main.md:588`; `verification/audits/operational/quasilocal-completion-audit.md`) | yes |
+| **I-meas** general infinite probability-preserving carriers | countable or continuous sub-states, or other infinite carriers with a normalized invariant measure and a measurable bijection; also continuous-time flows (`papers/Main.md:155`; #1007 options (b), (c)) | yes |
+| **I-nonorm** infinite carriers without a normalized invariant prior | for example an infinite invariant measure | yes, but no rooted law is defined |
+
+Class I-nonorm is listed so that it is not silently merged with I-meas. Every rooted map below is a
+probability under a normalized prior, and the corpus states that an infinite extension needs "its
+own normalized measure or trace-class state and a well-defined evolution"
+(`papers/Substratum.md:262`; also :52, :92; `book/ch02-substratum.md:32`).
+
+## 1. Source-pinned comparison table
+
+Rows are result × class. "Hyp." names the hypotheses each cell needs beyond the class definition.
+
+### 1.1 Exact recurrence (`φ^L = id` on the carrier)
+
+| Class | Status | Hyp. | Source |
+|---|---|---|---|
+| F | established (P; K) | A1 (posit); `φ` bijective (A2) | `papers/Main.md:121` (Step 1), :60 (the representative is "defined here for a finite system only"); K: `rootedMap_periodic` (`RootedClassification.lean:135`, census family 40, current), `iterate_return_at_order` (`RootedRecurrenceBridge.lean:47`, census 114, kernel-only) |
+| G-fam | established for each member; no common period across members | each member finite and bijective | side-`L` ring, prime `q ∤ L`: order `qL` (`papers/SM.md:1606`, Theorem A.1); `d`-dimensional torus, prime `p ∤ L`: `F^{p(p^{2m}−1)} = I` with `m = ord_L(p) ≤ L−1` (`papers/SM.md:296`) |
+| G-nest | conditional[the stage is a finite `φ`-invariant sub-carrier] | invariance of the stage; finiteness of the stage | `papers/GR.md:587` (a finite representative of the constraint surface, invariant under `φ`, has finite order `L`). A finite region of an interacting model is not invariant: after `n` steps a visible site depends on the radius-`n` cone (`papers/GR.md:112–114`), so the region alone has no recurrence. No statement on `main` gives finite invariant stages for the OI lattice model (search in §5). |
+| I-deep | open; not inherited | — | "The recurrence proof ([Main, §2.3]) requires S finite, which Lemma 1 does not supply" (`papers/GR.md:138`); the transfer corollary "does not imply recurrence of every unobserved sector" (`papers/Substratum.md:268`) |
+| I-qloc | open | — | no recurrence statement for the quasilocal automorphism (`papers/Main.md:588`; search in §5) |
+| I-meas | refuted within mixing flows, as a common-time return; open otherwise | — | Poincaré recurrence returns almost every state at a time that depends on the point; for a mixing flow `T_ii(t)` tends to the cell measure, so near-total common return fails at every sufficiently late time (`papers/Main.md:155`, P). RR context: `continuous-substates/README.md:85–91` |
+| I-nonorm | no statement possible | — | no normalized prior (`papers/Substratum.md:262`); #1055 body lists the infinite-measure case as a test case |
+
+### 1.2 Exact common visible return (`Γ_L = I` for the rooted maps, under one root-shared normalized prior)
+
+This is the hypothesis the P-indivisibility proofs actually consume (`papers/Main.md:137`, :141).
+
+| Class | Status | Hyp. | Source |
+|---|---|---|---|
+| F | established (P) | as 1.1, plus the product carrier `C_V × C_H` with `π` the first projection and a root-shared `μ_H` (H-product) | `papers/Main.md:137` (`Γ_L = I`); H-product as a named assumption: `verification/audits/manuscript/observer-relative-finiteness-20261030/DEPENDENCY-AUDIT.md:290` (audit record; its review independence is not established, :17–19) |
+| G-fam | established for each member, at that member's period | as F | as 1.1 |
+| G-nest | conditional[invariant finite stage; prior on each root's fibre] | as F, on the stage | `papers/GR.md:587` (`K_{mL} = I`) |
+| I-deep | open | — | none on `main`. For a deep factor that no dynamics couples to the boundary, the finite identity (`papers/Substratum.md:257–262`) would carry the finite visible return over, but its infinite form needs "its own normalized measure or trace-class state and a well-defined evolution, and is not established" (:262) |
+| I-qloc | open | — | none on `main` |
+| I-meas | conditional[`π ∘ T^L = π` almost everywhere]; refuted within mixing systems [IR, see note] | normalized `μ`; finite visible partition with positive-measure cells | the equivalence `Γ_L = I ⟺ π ∘ T^L = π` a.e. is K in an ENNReal form (`measuredGamma_eq_one_iff`, `ObservableMeasureReturn.lean:83`; census 120, kernel-only) and P in RR (`continuous-substates/observable-recurrence.md:23–36`). RR instances: difference readouts of the free 1-D torus wave map and lowest-digit `p`-adic readouts return exactly; the single-site real readout does not (`continuous-substates/README.md:85–121`, :125–144) |
+| I-nonorm | no statement possible | — | as 1.1 |
+
+Note [IR]. In discrete time, `Γ_n = I` for one `n > 0` makes each visible cell `T^n`-invariant up to
+null sets, hence `Γ_{kn} = I` for every `k`. A mixing system sends `μ(C_a ∩ T^{-kn} C_a)` to
+`μ(C_a)^2`, which differs from `μ(C_a)` for a cell of measure strictly between 0 and 1. So a mixing
+system with a nontrivial finite partition has no positive-time exact visible return. This sharpens
+`papers/Main.md:155` (late times, continuous time) and is not on record.
+
+### 1.3 Recurrence-based P-indivisibility
+
+The results: the one-step theorem (`papers/Main.md:113–127`); history readback with finite recurrence
+(:135–139); overlap and return (:141–143); the constraint-surface form (`papers/GR.md:587`); and the
+CP-indivisibility theorem that rests on them for the permutation-dilation family
+(`papers/Main.md:330`; listed among the uses of the finite representative at :60). Book mirrors:
+`book/ch01-observation.md:95–109`; `book/appendix-b-derivations.md:92`, :413.
+
+| Class | Status | Hyp. | Source |
+|---|---|---|---|
+| F | established (P; K for the final steps) at recurrence-cycle scope only | A1 (posit); A2; H-product; some rooted map not a permutation (under the uniform prior for :113; any root-shared prior, full support not needed, for :141) | P: `papers/Main.md:113–127`, :135–139; K: `pIndivisible_of_rooted_identity_return_of_overlap` (`RecurrenceHorizon.lean:148`, census 34, current), `isPermMatrix_of_stochastic_inverse` (`EquivalenceChain.lean`), `pIndivisible_at_order_of_nonperm` (`RootedRecurrenceBridge.lean:104`, kernel-only). Paper-only steps are listed at `papers/Main.md:137`. Scope: "a global recurrence-cycle result", not a statement about accessible windows (:139, :157; `papers/GR.md:587`) |
+| G-fam | established for each member at that member's recurrence scale | as F, per member | as F. The recurrence time grows with the member (1.1); a statement on a window `t ≪ t_R` is a different claim (`papers/Main.md:139`, :536; `book/appendix-b-derivations.md:417`) |
+| G-nest | conditional[finite `φ`-invariant stage; prior on each root's fibre; a non-permutation rooted map] | as F, on the stage | `papers/GR.md:587` (P; ledger B-QM-27, CD). Non-invariant regions: open |
+| I-deep | open | — | "P-indivisibility at the recurrence scale is proved on a finite representative, while for an infinite deep sector the readback lemma ... gives the weaker accessible-window property, conditional memory" (`papers/GR.md:138`; also :585; `papers/Substratum.md:268`) |
+| I-qloc | open | — | none on `main` |
+| I-meas | conditional[exact common visible return `Γ_L = I` (1.2); a real row-stochastic rooted family with a root-shared normalized prior; an earlier non-permutation `Γ_s`]. Without the return hypothesis: open | as stated | the matrix-level theorems need only row-stochastic rooted matrices and an identity return: `pIndivisible_of_identity_return_of_overlap` (`RecurrenceHorizon.lean:119`, census 34, current; "the matrix form ... assumes only that Γ_s is row-stochastic", `papers/Main.md:143`), `pIndivisible_of_visible_identity_return_nonperm` (`ObservableFactorRecurrence.lean:68`, census 120, kernel-only). Gap: "Neither module supplies a measurable, real row-stochastic rooted law or composes the measure-based identity with the P-indivisibility result" (`ObservableFactorRecurrence.lean:20–22`; `ObservableMeasureReturn.lean:17`). Continuous time: "Continuous-time P-indivisibility for general Hamiltonian flows is open" (`papers/Main.md:155`). RR context: on infinite reversible carriers with normalized invariant measures, rooted families that are P-divisible at every finite time, one of them with an order-1 C4 gap (`continuous-substates/infinite-xor-counterexample.md:25–27`; `continuous-substates/solenoid-countercontrol.md:41`) |
+| I-nonorm | no statement possible | — | rooted maps undefined |
+
+### 1.4 All-time rooted classification (`C_OI(V) = P_per(V)`)
+
+Included because it is the finite-carrier result whose necessity half rests directly on recurrence,
+and so it shows what a completion changes.
+
+| Class | Status | Hyp. | Source |
+|---|---|---|---|
+| F | established (K) | finite `V` and `H`; one bijection; one root-shared prior | `finiteRootedRealizable_iff_pper` (`RootedClassificationAllTime.lean:192`, census 40, current); `papers/Main.md:638` |
+| G-fam | established per member (each periodic) | as F | as F |
+| G-nest | conditional[invariant finite stage] | as F | follows from F on the stage; not stated separately |
+| I-deep, I-qloc, I-meas | necessity half not inherited; open whether the realizable class is larger | — | the forward (necessity) direction is "`pper_of_finiteRootedRealizable`, resting on finiteness of `V × H` and reversibility" (`RootedClassificationAllTime.lean:182`); the visible period it asserts comes from the finite order of the microscopic permutation (:186–191). With `H` infinite, that step is unavailable. RR context: nonperiodic rooted families on infinite hidden carriers (`continuous-substates/infinite-xor-counterexample.md:21–25`; `solenoid-countercontrol.md:41`; `README.md:85–88`) |
+| I-nonorm | no statement possible | — | — |
+
+### 1.5 A.8 cycle typicality and the A.9 cycle-averaged Page curve
+
+| Class | Status | Hyp. | Source |
+|---|---|---|---|
+| F | conditional[H-scramble; the full product energy shell on `B ∪ R`]. Refuted within the counted setting: for definite initial configurations at bipartitions aligned with the configuration coordinates, H-scramble fails for every bijection and "the theorem as stated has no instance". Open outside that setting | `B ∪ R` closed under `φ` as one shell; A.9 also H-decouple | `papers/GR.md:797–821` (the finite cycle decomposition is used at :807); no instance: :805, :813, :823 (P; ledger B-BH-3, DM NEG). Established for every bijection at aligned bipartitions: `S(ρ_R(t)) ≤ H(p_0)` (:823–827). Not given: an ensemble restatement (:827). Open: proper shells (:829); single-trajectory entropy (:839). A.9: :831–837 |
+| G-fam | as F, at each stage | as F | A.9 already uses stages `d_B = q^{n_B(t)}` with the bipartition of each stage held fixed (`papers/GR.md:831`, :839) |
+| G-nest | as F, with the shell as the invariant finite stage | the shell's invariance is A.8's own hypothesis | `papers/GR.md:797`, :807 |
+| I-deep, I-qloc, I-meas | open; no counterpart of the cycle decomposition is stated | would need a normalized invariant measure, time averages in place of cycle averages, and the excluded fraction counted in that measure | `papers/GR.md:807` (finite `Σ_E`), :827 ("not given here"); ledger §9 row QM–BH and J-4 ("undetermined on a completion, where A.8's finite cycle decomposition would need a counterpart (not stated)"). The ledger reads the aligned-bipartition failure as coming from configurations being mapped to configurations, not from finiteness (ledger §8.5, citing `papers/GR.md:813`, :823); whether that failure carries to an infinite carrier is not stated |
+| I-nonorm | no statement possible | — | — |
+
+### 1.6 Results that do not use A1 (the preserved controls)
+
+| Result | F | G-fam | G-nest | I-deep / I-qloc / I-meas | Source |
+|---|---|---|---|---|---|
+| Lemma 1 (finite visible resolution) | established (P; K conditional on finite modes) | same | same | same; it bounds carrier 2, not carrier 1 | `papers/Main.md:46`; `Finiteness.lean:66`, :104 |
+| Readback lemma (accessible conditional memory) | established | same | same | uses only Lemma 1, per `papers/Main.md:60`; for I-deep stated at `papers/GR.md:138`, :585 | `papers/Main.md:60`, :157 |
+| `S ⟺ D ⟺ Q_fb` on every finite horizon, with the process and intervention dilations | established (K in part) | same | same | applies to finite visible laws whatever the carrier; the dilation constructs a finite hidden space | `papers/Main.md:60`, :552; ledger B-QM-1 |
+| Deep-sector cardinality on `[0, nΔt]` | established (P) | same | same | I-deep: exact, "given a normalized product prior on it, a locally finite coupling graph and well-defined dynamics ... in which each component's update depends on finitely many components" | `papers/GR.md:132–134`, :138 |
+| Theorem 24(iii), finite decoupled enlargement | established (P) | same | same | finite factors only; infinite form not established | `papers/Substratum.md:257–262`, :268 |
+
+These hold at their stated scope in every class, and nothing in this inventory narrows them. They
+carry the distinction between finite access and total finiteness: on a finite horizon the visible
+data do not fix the size of the carrier beyond the causal cone (`papers/GR.md:138`).
+
+### 1.7 Exactness and quantum carriers (context for the fixed-model test)
+
+| Class | Status | Source |
+|---|---|---|
+| F | refuted within one fixed finite realization under the ordinary factorization interface: no fixed finite realization is exactly operationally equivalent to a qubit's full theory (factorization half proved; unboundedness imported from [55]) | `papers/Main.md:558`; ledger B-QM-8, J-3 |
+| G-fam | established as approximation: for each `(d, m, K, ε)` one finite reversible realization is mutually `ε`-dense with operational QM at horizon `K`; density holds along `K_n → ∞`, `ε_n → 0` at fixed `(d, m)`; the union over `(d, m)` "is a further limit, not taken here"; "The exact continuum theory stays unreachable at any fixed stage". No fixed representation hosts generic intervention combs as the horizon grows | `papers/Main.md:596–598`, :574 (resources), :496, :556 |
+| G-nest, I-qloc | the kinematics is established (K): one quasilocal algebra contains the full matrix algebras of every finite region, the update is an isometric `*`-automorphism, and the completion is unique given its stages and dynamics; no state or representation is selected. Exact finite operational QM on every nonempty finite carrier is conditional[an added continuously tunable state-mixing operation, posited as an "empirical controllability resource"; complex matrix kinematics taken as given]. The substratum does not supply that operation. Exact equivalence on the completion is open | `papers/Main.md:588`; ledger B-QM-4, B-QM-5, B-QM-9, M2, M5 |
+| I-deep, I-meas | open | ledger M5, J-3, J-4 |
+
+## 2. Per class: what stays, what needs replacement, assumptions, and the first missing step
+
+### 2.1 F: one fixed finite carrier
+
+- **Stays established, at its stated scope.** 1.1–1.4 in full, at recurrence-cycle scope. 1.5 as
+  stated (conditional, with no instance in the counted setting). Every result of 1.6. These are the
+  #1055 controls and are preserved unchanged here.
+- **Needs replacement.** Nothing within the class.
+- **Encoding, resources, access.**
+  - Encoding: the product carrier `C_V × C_H` with `π` the projection and a root-shared prior
+    (H-product), which a finite-valued `π : S → V` does not by itself supply (DEPENDENCY-AUDIT.md:290).
+  - Resources: hidden capacity at least `2^{I*}` for conditional memory `I*`
+    (`papers/Main.md:512`).
+  - Access: the recurrence time `t_R` can exceed every accessible window. The observer's statistics
+    are the rooted law restricted to accessible windows, on which the recurrence-cycle verdict is
+    not witnessed (`papers/Main.md:139`).
+- **One fixed model.** Yes. The class is excluded for exactness by `papers/Main.md:558` and by the
+  target (#914 comment 6875046763).
+- **First missing proof step.** None for 1.1–1.4 at their scope. For 1.5, the first missing step is
+  a preparation or a non-aligned bipartition that the model supplies, under which a scrambling
+  statement holds (`papers/GR.md:815`; ledger §8.4). With respect to the target, no proof step
+  inside this class reaches exactness, because of the obstruction above.
+
+### 2.2 G-fam: a family of finite models of growing size
+
+- **Stays established.** Every F result, for each member separately, at that member's scope.
+- **Needs replacement.** Any statement about the family as one object. The family is not one fixed
+  model, and this inventory does not treat it as one (binding control). Gate A answer 3 requires
+  one fixed model.
+- **Encoding, resources, access.**
+  - Encoding: each member has its own carrier. The side-`L` torus has `q^{2L^d}` pair
+    configurations (`papers/SM.md:296`). The `R_n` have their own instrument nets, register
+    precision `b` and branch registers (`papers/Main.md:574`, :596).
+  - Resources: hidden capacity grows with the horizon, the dimension and the accuracy
+    (`papers/Main.md:574`). The instrument net adds `O(m d^4 log(2K/ε))` visible bits per step
+    (:596). The recurrence bound grows with `L` (`papers/SM.md:296`).
+  - Access: each member is used at a bounded horizon.
+  - Maps between members: only alphabet change, under the alphabet-size hypothesis
+    (`papers/Substratum.md:255`), and only for observables expressed through transition
+    probabilities.
+- **One fixed model.** No.
+- **First missing proof step.** An embedding of the members into one fixed model that intertwines
+  the dynamics, the observation map and the prior: an injective map of stage `n` into stage `n+1`,
+  or into one completion, under which each member's rooted law is the restriction of the completed
+  model's rooted law. No such map is on `main` for the three inventoried results. The quasilocal
+  directed system (`papers/Main.md:588`) supplies embeddings of finite regions as algebras. Its
+  finite regions are not invariant under the update, so it is not that map for recurrence (2.3).
+
+### 2.3 G-nest: finite stages inside one fixed model
+
+- **Stays established.** On a finite `φ`-invariant stage, every F result holds verbatim, provided the
+  prior is supported on the stage (`papers/GR.md:587` for 1.3; A.8's own hypothesis for 1.5).
+- **Needs replacement.** On a finite region that is not invariant, none of 1.1–1.5 applies. The
+  region's visible law after `n` steps depends on the radius-`n` cone (`papers/GR.md:112–114`). The
+  leading-order closure on `C_V × C_B` needs H-BD (posited; `papers/GR.md:122`). Under the linear
+  update (ledger item (vii)), H-BD holds only if the deep sector does not enter the `V × B` update,
+  and it fails for the update of `papers/Main.md` §3.2 at every cut where a boundary site has a deep
+  neighbour (`papers/GR.md:128`).
+- **Encoding, resources, access.**
+  - Encoding: the stage is a sub-carrier of the fixed model.
+  - Resources: as F for the stage.
+  - Access: the preparation must give the stage full measure. Why preparations would be confined
+    to a stage is a physical assumption that no source supplies. It touches the confinement question
+    of RO-1 (S-J). This inventory does not decide that question (§4, Q2).
+- **One fixed model.** Yes.
+- **First missing proof step.** A statement, for the OI lattice update, that the fixed model has
+  finite `φ`-invariant sub-carriers of every size, with the observer interface and a normalized
+  prior supported on each. None is on `main` (§5). [IR] For a translation-invariant reversible
+  finite-range update on `Z^d` over `Z/q`, the configurations periodic under the translations by
+  `L e_j` form a finite set mapped onto itself by `φ` and `φ^{-1}`. For nearest-neighbour coupling
+  and `L ≥ 3`, the restriction is the side-`L` torus model. If this holds, the G-fam tori of
+  `papers/SM.md:296` are the periodic sectors of one fixed model. §3 proposes this as the obligation.
+
+### 2.4 I-deep: an infinite deep sector beyond a finite causal cone
+
+- **Stays established.** 1.6 in full. In particular, the visible transition data on `[0, nΔt]` are
+  exactly independent of the deep sector, given the stated prior and dynamics
+  (`papers/GR.md:132–134`).
+- **Needs replacement.** 1.1–1.5 at recurrence scale. The source says recurrence-scale content lies
+  outside this class and that the accessible-window property carried there is conditional memory
+  (`papers/GR.md:138`).
+- **Encoding, resources, access.**
+  - Encoding: a normalized product prior on the deep sector; a locally finite coupling graph;
+    updates that depend on finitely many components (`papers/GR.md:132`).
+  - Access: finite, through the causal cone.
+- **One fixed model.** Yes.
+- **First missing proof step.** For a deep sector coupled to the boundary: either an exact common
+  visible return (1.2) for the coupled model under that prior, or a replacement for recurrence. For a
+  deep sector that no dynamics couples: the infinite form of `papers/Substratum.md:257–262`, with a
+  normalized state and a well-defined evolution on the infinite factor (:262). [IR] That identity
+  uses only `Tr σ_A = 1` and product dynamics, so its infinite form looks short, but no source
+  states it.
+
+### 2.5 I-qloc: the infinite-region completion
+
+- **Stays established.** The completion's kinematics (1.7) and 1.6.
+- **Needs replacement.** 1.1–1.5. The completion selects no state, so no rooted law is defined until
+  a normalized invariant state or configuration measure is supplied (`papers/Main.md:588`;
+  `papers/Substratum.md:262`).
+- **Encoding, resources, access.**
+  - Encoding: finite regions as full matrix algebras, with complex matrix kinematics taken as given
+    (#914 comment 6875046763, decision 4).
+  - Resources: the added control operation, for operations; it is posited (`papers/Main.md:588`).
+  - Access: finite regions.
+- **One fixed model.** Yes, at the level of the algebra and the discrete dynamics.
+- **First missing proof step.** A normalized invariant state, or a configuration measure, for the
+  OI update on the infinite lattice, stated so that rooted maps are defined. Then the questions of
+  1.2. Lead for a later literature step, not checked here: a surjective cellular automaton on a full
+  shift is known to preserve the uniform Bernoulli measure (Hedlund). Whether that covers the OI
+  second-order update on pairs, and under which reading, is unverified. The corpus does not cite it.
+
+### 2.6 I-meas: general infinite probability-preserving carriers, and continuous time
+
+- **Stays established.** 1.6; the matrix-level P-indivisibility theorems as matrix statements
+  (1.3). The set identity `changeEvent_eq_iUnion` and the measured-return equivalence are K for
+  their statements (`ObservableFactorRecurrence.lean:48`; `ObservableMeasureReturn.lean:63`, :83;
+  kernel-only).
+- **Needs replacement.**
+  - 1.1, as an unconditional property: refuted for mixing flows as a common-time return
+    (`papers/Main.md:155`).
+  - 1.3: conditional on 1.2's return hypothesis.
+  - 1.4: the necessity half.
+  - 1.5: the whole cycle-average argument.
+- **Encoding, resources, access.**
+  - Encoding: a normalized invariant measure; a measurable bijection; a measurable finite-valued
+    observation with positive-measure cells. The rooted convention must be fixed explicitly: the
+    research note conditions on cells (`observable-recurrence.md:15–21`), while Main's rooted maps
+    use an independent root and a root-shared hidden prior (`papers/Main.md:135`, :141). These agree
+    under H-product.
+  - Resources: none stated.
+  - Access: finite.
+- **One fixed model.** Yes.
+- **First missing proof step.**
+  - For the actual OI update (not a free or illustrative map), with a stated normalized invariant
+    measure: whether some finite-access readout satisfies `π ∘ T^L = π` almost everywhere. Only the
+    free 1-D map is examined, in RR; "Whether an **interacting** map retains any such observable is
+    open" (`continuous-substates/README.md:143–144`).
+  - Separately, the formal composition from a measurable dynamics to a real row-stochastic rooted
+    family (`ObservableFactorRecurrence.lean:20–22`).
+  - For 1.5: the ensemble restatement of A.8 (`papers/GR.md:827`).
+
+### 2.7 I-nonorm
+
+No rooted law, no P-indivisibility statement and no cycle average is defined. Poincaré recurrence
+needs a finite invariant measure (#1055 body, test cases). The class is outside every inventoried
+result.
+
+## 3. Smallest discriminating next obligation (recommendation)
+
+**Recommendation, not a decision.** The fixed-model test separates two readings of "arbitrarily
+large finite carriers": a family of models (G-fam), or one model with stages (G-nest and the I
+classes). The cheapest step that decides between them for the three inventoried results is a
+paper-only lemma, with controls, on one fixed lattice model.
+
+**OBL-RO3-1 (proposed): finite invariant sectors of the fixed lattice model.**
+
+1. **Statement to prove on paper.** Take the reversible second-order finite-range
+   translation-invariant update `F(u, v) = (v, Av − u)` over `Z/q` (`papers/SM.md:296`), on the
+   infinite lattice `Z^d`.
+   - (a) For each `L`, the set `P_L` of configurations periodic under the translations by `L e_j` is
+     finite and `F`-invariant. For nearest-neighbour `A` and `L ≥ 3`, `F` restricted to `P_L` is
+     conjugate to the side-`L` torus model.
+   - (b) The union of the `P_L` is a countable invariant set on which every orbit is finite and no
+     common period exists.
+2. **Preregistered decision rule (no expected numbers).**
+   - If (a) holds: record that one fixed model contains finite invariant carriers of every size; that
+     on each, 1.1–1.5 hold as in F for priors supported on it; and that this is conditional on
+     sector-confined preparation, an assumption the lemma does not justify.
+   - If (a) fails: record which hypothesis fails, and the G-fam/G-nest gap of 2.2 stays open.
+   - In either case (b) is recorded as a countable completion on which exact recurrence holds only
+     orbitwise.
+3. **Preservation controls.** The torus results must come out unchanged on `P_L`: the period
+   formulas at `papers/SM.md:1606` and :296, and every F cell of §1.
+4. **Countercontrols.**
+   - A finite region that is not invariant must fail (2.3).
+   - The rule must not certify a common return on a carrier where one is known to fail. Known cases:
+     mixing flows (`papers/Main.md:155`); the RR cases of 1.3, cited as context only.
+5. **What it does not settle.** Three things, stated in advance:
+   - why preparations would be confined to a sector (RO-1 territory, not decided here);
+   - the rooted law under a normalized measure on the whole configuration space that gives the
+     sectors measure zero, for which 1.2's question stays open;
+   - anything about operational quantum carriers (carrier 3), whose operations remain conditional
+     on the posited control resource (1.7).
+
+**Why this one.**
+- It is the first missing step of G-nest (2.3).
+- It is the missing embedding of G-fam (2.2) for these results.
+- It needs no new premise, no completion choice and no comparison with quantum predictions.
+- It is elementary enough for one paper-only unit with independent review.
+
+**Secondary candidates, larger or outside paper-only scope.**
+- The infinite form of Theorem 24(iii) for a decoupled normalized factor (2.4).
+- The kernel composition from measurable dynamics to a real row-stochastic rooted family (2.6),
+  which needs Lean.
+- The ensemble restatement of A.8 (2.6).
+
+## 4. Open owner questions
+
+1. **Admissible completions.** Which of G-nest, I-deep, I-qloc and I-meas may serve as EXACT's
+   carrier class, or are all to be carried forward? The choice may not be made because a completion
+   reproduces quantum predictions.
+2. **Sector confinement.** If OBL-RO3-1 is pursued and (a) holds, is confinement of preparations to
+   a finite invariant sector an admissible assumption to be stated? Does stating it fall under RO-1's
+   specification of sector C, or is it separate? The RO-1 and #1143 matters are not decided here.
+3. **Which property must transfer.** On completions, must recurrence-scale P-indivisibility be a
+   preserved control, which would need a replacement proof under a stated return hypothesis? Or may
+   it remain scoped to finite representatives, with the readback lemma's accessible-window memory as
+   the property carried to completions (`papers/Main.md:139`; `papers/GR.md:138`)?
+4. **Accessibility.** For growing carriers the recurrence time grows (`papers/SM.md:296`). Is a
+   recurrence-scale property required at all for EXACT, which concerns operational law-equality on
+   performable experiments?
+5. **A.8 and A.9.** Must the cycle-averaged Page curve be restated on a completion (the ensemble form
+   of `papers/GR.md:827`), or does J-4 stay recorded as a finite-carrier statement? A.8 already has
+   no instance in its counted setting.
+6. **The prior on a completion.** Lemma 3's maximal-entropy selection is finite
+   (`CanonicalMeasure.lean:54`, `[Fintype S]`). Which normalized measure or state is the completion's
+   prior, and by what criterion, other than quantum reproduction?
+7. **Review of the RR items.** Should the SUBSTATE-1 paper proofs (`observable-recurrence.md`,
+   `infinite-xor-counterexample.md`, `solenoid-countercontrol.md`) receive independent review? If
+   validated, the I-meas cells of 1.3 and 1.4 would move from open to "refuted within" a stated class
+   for unconditional transfer.
+8. **Which carrier "arbitrarily large" quantifies.** Is "arbitrarily large finite quantum carriers"
+   read at the operational-carrier level only (carrier 3), leaving the size of carrier 1 free, or
+   must each quantum carrier of dimension `d` be encoded in a finite invariant sub-carrier of the
+   substratum?
+9. **§4.6.** #1055 names §4.6 (`papers/Main.md:758`) as the second consumer of A1. It is outside
+   RO-3's stated scope and is not inventoried here. Is it to be covered by a later unit?
+
+## 5. Searches behind the negative statements
+
+- No recurrence or period statement for the quasilocal completion: searched `recurr`, `period`,
+  `orderOf` and `finite order` in `QuasilocalAlgebra.lean`, `QuasilocalCharacterization.lean`,
+  `RegionLimit.lean` and `SecondOrderDrive.lean`, and `recurren` in
+  `verification/audits/operational/quasilocal-completion-audit.md` and
+  `verification/audits/physical-realization/continuous-time-audit.md`. No hits.
+- No finite invariant stage for the OI lattice model: searched `papers/`, `book/` and
+  `verification/` for "periodic configurations", "translation-periodic", "invariant sector",
+  "finite invariant subset", "invariant representative", "periodic boundary" and "torus". The only
+  invariant-representative statement is `papers/GR.md:587`, for a constraint surface. The torus
+  appears as the finite model itself (`papers/SM.md:294–296`), not as a sector of an infinite one.
+- No A.8 counterpart on a completion: `papers/GR.md:797–861` and ledger §8, §9.
+- These searches are bounded by the phrases listed. A paraphrase outside them could have been
+  missed.
+
+## 6. Off-`main` references (AGENTS.md §A.42 item 8)
+
+This inventory is not a record landing on `main`. The trace is given so that a later landing can
+check it.
+
+| Reference | Use here | Classification |
+|---|---|---|
+| Ledger r8 on `records/unified-ledger-914-20261114` at `9ff3b8d9` | cross-reference to B-QM-8, B-QM-27, B-BH-3, J-3, J-4, M2, M5, §8.4, §8.5 | provenance for the row identifiers. Every status above is traced to a source on `main`. The one ledger reading quoted as a reading (§8.5, the source of A.8's failure) is attributed to the ledger and to `papers/GR.md:813`, :823 on `main` |
+| #1055 comments 6881390849, 6880024537; #1055 body | authorization, scope, controls, test cases | governance; supports no scientific claim |
+| #1169 comments 6880022363, 6877981234, 6876591512; #914 comment 6875046763 | target and EXACT's wording | governance; supports no scientific claim |
+| #1007 body; #872 body | carrier foundations; completion sub-obligation | context; supports no scientific claim |
+| #1009 and its branch | not used | — |
