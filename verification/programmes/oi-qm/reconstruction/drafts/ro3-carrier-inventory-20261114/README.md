@@ -8,6 +8,9 @@ establishes no result, adopts no premise, and changes no planning entry; EXACT (
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `OBL-RO3-2-r2.md` | Proof unit r2: applies the independent review of r1 (recurrence consequence corrected; minor fixes); unreviewed | `bad122a2101889c59f534315c57595cbdeddddcbdb3e9510eaca9bf6910a1876` |
+| `RESPONSE-OBL-r1.md` | Dispositions of that review | |
+| `RO3-INVENTORY-r4.md` | Inventory r4: one wording fix from that review; unreviewed | `6b96e2956de37fc8a0915c1d3bf68db0abeaeef89e1b90268ff04f517cb22eed` |
 | `RO3-INVENTORY-r3.md` | Minimal r3: the three nonblocking wording fixes from ChatGPT's review of r2 (PR review 5906337933) and the adopted Q10–Q12; unreviewed | `d1227d2d1b7c110148d2204b116cff3417b73960943de7e0ba1d2aacc69157b7` |
 | `OBL-RO3-2-r1.md` | Bounded paper-only proof unit authorized on #914 (comment 6883249235): mixing of the prime-alphabet linear update on the infinite lattice under Haar measure; unreviewed | `397ae71bd246e02447dd71c1f1f17834e1a688a1f3fd807cac297e38192006c3` |
 | `RO3-INVENTORY-r2.md` | Applies the independent review of r1; unreviewed | `6db772d9f1d1242beb263f6777678133881f68d004a6894e4a6f9f6a95462bb8` |
