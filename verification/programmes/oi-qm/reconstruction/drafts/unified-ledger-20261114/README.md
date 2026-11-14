@@ -10,13 +10,14 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 | File | What it is | SHA-256 |
 | --- | --- | --- |
 | `LEDGER-r3.md` | The current draft; applies the review of r2 and the owner's expansion (levels A–C, evidence classes, Part 4 entries, QCD group); reviewed (ACCEPT WITH CHANGES) | `d8cad733813662eed0f59b9a2307f506ea01d7bc4bc9efce30fb2e239b50735e` |
-| `COVERAGE-AUDIT-r4.md` | Coverage audit r4: minimal revision of r3 (unresolved count 10; owner guidance quoted from #914 comment 6878781541); unreviewed | `ea4f133d74b1f502c149f22c9e14f5256c43d9c2cacb2da261d5ea11867f8bfb` |
+| `COVERAGE-AUDIT-r4.md` | Coverage audit r4: minimal revision of r3 (unresolved count 10; owner guidance quoted from #914 comment 6878781541); reviewed (ACCEPT) | `ea4f133d74b1f502c149f22c9e14f5256c43d9c2cacb2da261d5ea11867f8bfb` |
 | `RESPONSE-AUDIT-r3.md` | Dispositions of the focused confirmation of r3 | |
 | `COVERAGE-AUDIT-r3.md` | Coverage audit r3: applies the focused review of r2 (Cond 2 block read, label renamed, mapping fixed); reviewed (ACCEPT WITH CHANGES; all three owner points met) | `5b48d39593b2e058a1bbd89eae9db89888df2c1722411aaf41e1f4393fe5f47e` |
 | `RESPONSE-AUDIT-r2.md` | Dispositions of the focused review of r2 | |
 | `COVERAGE-AUDIT-r2.md` | Coverage audit r2: applies the audit review and the owner's guidance on coverage boundary, counting and contradiction classes; reviewed (ACCEPT WITH CHANGES; coverage boundary not met) | `10d6b4efe51b9d4c81f7acd77cce6f3772ccc4cf2b5d9096d4f3b9baa52050d9` |
 | `RESPONSE-AUDIT-r1.md` | Dispositions of the audit review | |
 | `COVERAGE-AUDIT-r1.md` | Coverage audit of Main, Substratum, SM, GR and Structure against r3, with book chapters 18–19 as controls; reviewed (ACCEPT WITH CHANGES) | `a029fc76510279882f076cf04262411adbe6ae034c1140113e3a639a6f1c1489` |
+| `REVIEW-AUDIT-r4.md` | Confirmation of audit r4: ACCEPT | `78ae3d5a8a03ebdb06355aceceabe0ebc2f3cb5809636c3b93490b411d16c14f` |
 | `REVIEW-AUDIT-r3.md` | Focused confirmation of audit r3: ACCEPT WITH CHANGES (coverage boundary, counting and contradictions all MET; one unresolved item missing from the count) | `6bb78c08a86b5686dce45eed7fbd86b8b54a0bf80e78a8820a45fa0a93107332` |
 | `REVIEW-AUDIT-r2.md` | Focused review of audit r2: ACCEPT WITH CHANGES (coverage boundary NOT MET; counting MET; contradictions MET) | `d2a09e12c57aa67f93ddc5430b1dc4476fc3df185a36c6305d4aafaf273b1d9c` |
 | `REVIEW-AUDIT-r1.md` | Independent review of the coverage audit: ACCEPT WITH CHANGES | `0bf8b8c391840b6a31c5fced7b7a8e4330bc8c3bc8a5094cd416325628be0293` |
