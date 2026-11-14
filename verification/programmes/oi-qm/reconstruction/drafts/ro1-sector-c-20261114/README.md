@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `S3-PLAN-r5.md` | S3 plan r5: the single fix from the confirmation of r4 (a (β) failure resting only on unsourced retention is reported as unsourced and does not count toward closing route M); plan for owner decision; unreviewed | `b61c5c497c70decb4f9777a290e1d19d824f30d689cdef33014287757ce17882` |
+| `RESPONSE-S3-PLAN-r4.md` | Disposition of that review | |
 | `S3-PLAN-r4.md` | S3 plan r4: local fixes from the focused confirmation of r3 (AC-1 limits what a unit may propose or report as passing; the reference-class sentence made conditional on OB-b0; marker coupling of (β) and (δ); resource wording); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `76f7a54b46b032e866ef5d0f459949704e81463881cad0a136862bb3bed8c183` |
 | `RESPONSE-S3-PLAN-r3.md` | Dispositions of that review | |
 | `S3-PLAN-r3.md` | S3 plan r3: applies the focused review of r2 (decisive test with the marker's preparation and an undecided outcome; U2 no longer classifies the closure rules) and three owner-confirmed additions (recording and renewal tested together as a hypothesis; coverage and soundness on one interface as a hard acceptance criterion; the which-path route kept open); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `1213c3568ddf3b9c1c800f4f7d36b6da9bb44f2bd57db2099e26a0bdb9d8034b` |
