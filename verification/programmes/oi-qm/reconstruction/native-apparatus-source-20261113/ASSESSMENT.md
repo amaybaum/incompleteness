@@ -1,6 +1,6 @@
 # NATIVE-APPARATUS-SRC-1 — Native apparatus source assessment
 
-**Writer r1 complete — WIP paper-only assessment, independent review pending, not for merge.**
+**Paper-only source assessment. Scientific/source reviews are complete at the pinned subject in [STATUS.md](STATUS.md); the documentary integration child remains draft and requires its own focused check and owner decision.**
 
 Accountable home: #866. Coordination: #1032 and #1169. Writer: Codex.
 Authority: owner handoff [#866 comment 6863601327](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-6863601327), 2026-11-13T20:07:00Z; allocation [#1169 comment 6863608722](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6863608722).
@@ -164,6 +164,6 @@ The companion ledger traces the exact support and review receipts. Main supports
 
 The source search is bounded to pinned manuscript/book/reconstruction/substratum records for native producers, ready-cell/blank supplies, H-PREP and the named source stops. Relevant hits were inspected at their stated scope. It does not establish absence throughout every possible model. No new physics computation, numerical probe, enumeration, theorem build or scientific replay was performed. Checks are text search, source/metadata reading, exact byte/hash comparison, hand substitution/counting and document/path/whitespace validation. No external physical experiment was re-verified. Ordinary future PR CI is repository validation only; this writer issues no CI attestation.
 
-Writer completion and integration are separate. The separate non-author reviewer must inspect the exact pushed checkpoint, the dependency ledger, the conditional status of G_SM, the first-stop logic, measure/held-history qualifiers, all failure/residual/renewal rows, the classical control and the NL-C hypotheses. A later ChatGPT exact-head review is another gate. Review receipts for this new assessment are **pending**; the writer does not accept its own work.
+Writer completion and integration are separate. The separate non-author reviewer must inspect the exact pushed checkpoint, the dependency ledger, the conditional status of G_SM, the first-stop logic, measure/held-history qualifiers, all failure/residual/renewal rows, the classical control and the NL-C hypotheses. A later ChatGPT exact-head review is another gate. The completed non-author and ChatGPT scientific/source review receipts are retained in [reviews/RECEIPTS.json](reviews/RECEIPTS.json). [STATUS.md](STATUS.md) separates their scope from the documentary integration check and owner merge decision.
 
 This unit changes no manuscript, frozen record, existing source/status text, Claude branch, board or assignment. No scientific run, Lean execution, premise adoption, workflow dispatch, F/E designation, publication of a frozen splice or merge is performed or authorized. The physical-source gate stays **NOT PASSED**.

@@ -1,6 +1,6 @@
 # Evidence and dependency ledger — NATIVE-APPARATUS-SRC-1
 
-**Writer r1; independent review of this unit pending.** This is the companion to [ASSESSMENT.md](ASSESSMENT.md). It records source identities and their actual use, not scientific adoption or a physical-source pass.
+**Writer r1 evidence ledger; completed source-review receipts and present integration status are in [STATUS.md](STATUS.md).** This is the companion to [ASSESSMENT.md](ASSESSMENT.md). It records source identities and their actual use, not scientific adoption or a physical-source pass.
 
 ## 1. Fixed snapshot, authority and publication trail
 
@@ -92,7 +92,7 @@ The multi-round proviso is `m+1<=ell`, where ell is the target separation length
 | Classical imposed-ready negative control | Author hand substitution in G; O1 comparator only | Independent reviewer checks substitution/invertibility; no native embedding claimed |
 | NL-C theorem statement | T1 retained [W] paper theorem, explicit hypotheses | This unit does not independently certify all target/schema development or create a new control no-go |
 | TC-A resource comparison | Exact confirmed off-main r2, attributed conditional bounds | Not a native producer, physical acceptance rate, or reason to relaunch TC-A |
-| New first-stop assessment | Writer source triage and claim-by-claim comparison | Fresh separate non-author review of final pushed head, then ChatGPT exact-head review pending |
+| New first-stop assessment | Writer source triage and claim-by-claim comparison | Completed source reviews are retained; focused integration review and separate merge decision remain |
 
 **Evidence not supplied:** a physical producer; a native request writer; native persistent complete log/read and failure mechanism; repeat-run renewal; new model/measure/adoption decision; scientific execution; a proof excluding all possible apparatus; a cost minimum; a new quantum derivation. None is inferred from source search, main reachability, old reviews, CI or this document's completion.
 
@@ -106,4 +106,8 @@ The writer cache retains primary remote JSON and exact off-main source text with
 
 Proposed new repository directory: `verification/programmes/oi-qm/reconstruction/native-apparatus-source-20261113/`. The current WIP publication allowlist is exactly `ASSESSMENT.md`, `EVIDENCE.md` and `source-objects.json`. Raw GitHub API responses, duplicate source copies and packaging helpers remain local; immutable URLs, blobs and digests above identify the sources for review. Any later integration retaining off-main support needs its own §A.42 evidence-reachability decision and the separate review/dispositions. No such integration decision is granted here. Existing research/status texts remain untouched.
 
-No manuscript/Lean edit, simulation, enumeration, scientific Python/Lean execution, dependency install, workflow dispatch, board/status change, physical-premise adoption, F/E designation, merge or change to Claude's ownership occurred. New independent acceptance, exact-head green CI and integration permission remain separate gates.
+No manuscript/Lean edit, simulation, enumeration, scientific Python/Lean execution, dependency install, workflow dispatch, board/status change, physical-premise adoption, F/E designation, merge or change to Claude's ownership occurred. Source-review acceptance is recorded in STATUS.md; the documentary child needs focused review, exact-head checks and a separate owner merge decision.
+
+## 7. Documentary support retention
+
+The exact consumed TUNE source copies and review text are retained under support/ and reviews/RECEIPTS.json. [RETENTION.md](RETENTION.md) classifies their actual uses and source limits; [RETENTION.json](RETENTION.json) records byte identities. The local cache names above remain historical workspace provenance, not additional promised repository files. No upstream PR or physical premise is adopted by these copies. Current review and landing status is in [STATUS.md](STATUS.md).

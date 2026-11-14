@@ -1,0 +1,137 @@
+{
+  "schema": "oi-documentary-retention-v1",
+  "pr": 1278,
+  "source_head": "d8b745274a0be4fba4fc8232c2ec5b6a85aeda99",
+  "main_at_preparation": "dfeec843bec08443b25cffe34d33dc8401c3b604",
+  "accountable_issue": 866,
+  "basis": "operative A46(8), proposed preservation; owner merge not authorized",
+  "scope": "Documentary support and review retention. No new scientific derivation or status promotion.",
+  "sources": [
+    {
+      "id": "tune-confirmed",
+      "path": "support/tune-confirmed/TUNE-1-SOURCING-r2.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/TUNE-1-SOURCING-r2.md",
+      "original_commit": "890fe3dd18287f72f48e7884ef5cc272fb60e661",
+      "git_blob": "20ee9b04844fa548a7845c7da655a7fd4a723196",
+      "sha256": "01264c0328aadcab30cf9ad4c5e9a58d82d813ed91b4b0a30bf5371bc2ba3c68",
+      "bytes": 38060,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/890fe3dd18287f72f48e7884ef5cc272fb60e661/verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/TUNE-1-SOURCING-r2.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "tune-current",
+      "path": "support/tune-published/TUNE-1-SOURCING-r2.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/TUNE-1-SOURCING-r2.md",
+      "original_commit": "c539a60c5081540be033e07aa4f141caa1d0014b",
+      "git_blob": "35c5c116c017ed03a2eacfbeccfed457bae4649b",
+      "sha256": "c0e53684daedfa32e62bf6af26f8b778916c230baa4ac5d76a09e77ded9cb758",
+      "bytes": 38135,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/c539a60c5081540be033e07aa4f141caa1d0014b/verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/TUNE-1-SOURCING-r2.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "tune-confirm",
+      "path": "support/tune-published/CONFIRM-r2.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/CONFIRM-r2.md",
+      "original_commit": "c539a60c5081540be033e07aa4f141caa1d0014b",
+      "git_blob": "558ddc7776bc1d5115e86c449cf27f4ec1d8c8f8",
+      "sha256": "2071bcbf287c049b6ea3f6d028912913a46730e684639f1ec88544f012857ab5",
+      "bytes": 5348,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/c539a60c5081540be033e07aa4f141caa1d0014b/verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/CONFIRM-r2.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "tune-review",
+      "path": "support/tune-published/REVIEW-r1.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/REVIEW-r1.md",
+      "original_commit": "c539a60c5081540be033e07aa4f141caa1d0014b",
+      "git_blob": "723476883724472189a27c54364d7ddd94545375",
+      "sha256": "d9c9f7d22d4bcda20b30c8c9268dab30b4be191fb9d39831ff126b0fdd702bd2",
+      "bytes": 25204,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/c539a60c5081540be033e07aa4f141caa1d0014b/verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/REVIEW-r1.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "tune-objects",
+      "path": "support/tune-published/OBJECTS.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/OBJECTS.md",
+      "original_commit": "c539a60c5081540be033e07aa4f141caa1d0014b",
+      "git_blob": "233937b37f735416fce58525e1c7cc21d82fc0e7",
+      "sha256": "0503e94e60981adf5c2ee39396a41bb11bcf01441f2e470e77b7b5d59ed73954",
+      "bytes": 2044,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/c539a60c5081540be033e07aa4f141caa1d0014b/verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/OBJECTS.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    }
+  ],
+  "reviews": [
+    {
+      "key": "o5-full",
+      "id": 6692855851,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1177#issuecomment-6692855851",
+      "source_time": "2026-11-06T18:55:17Z",
+      "reviewed_commit": null,
+      "body_sha256": "2a7e94a68e009d4b8936cbeeb5ef41b17bba42ade288887126de1142864a78f3",
+      "body_utf8_bytes": 8173
+    },
+    {
+      "key": "o5-diff",
+      "id": 6692903227,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1177#issuecomment-6692903227",
+      "source_time": "2026-11-06T18:57:25Z",
+      "reviewed_commit": null,
+      "body_sha256": "d4d09b8625e40bf8973e85cc9a2e9ea8ea835b8aa6b2c13cc0c80c6ce7795fe1",
+      "body_utf8_bytes": 2668
+    },
+    {
+      "key": "classical-full",
+      "id": 5815049227,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1186#pullrequestreview-5815049227",
+      "source_time": "2026-11-07T21:14:20Z",
+      "reviewed_commit": "90a554902753187ef4033ad757f1f0da97258fa3",
+      "body_sha256": "55929dbaf18ce2f15982ebb7c3624c6cf03b241106865a8ed5942b866ba8c3e5",
+      "body_utf8_bytes": 8590
+    },
+    {
+      "key": "classical-diff",
+      "id": 6718496406,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1186#issuecomment-6718496406",
+      "source_time": "2026-11-08T06:59:54Z",
+      "reviewed_commit": null,
+      "body_sha256": "f0593156853a68cc896296e9e70aa6d660918f9ab44908e0b3640c0e134953a3",
+      "body_utf8_bytes": 2521
+    },
+    {
+      "key": "own-1278-5897621232",
+      "id": 5897621232,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1278#pullrequestreview-5897621232",
+      "source_time": "2026-11-13T20:30:19Z",
+      "reviewed_commit": "d8b745274a0be4fba4fc8232c2ec5b6a85aeda99",
+      "body_sha256": "e6364526893837ecbeee42cdb860fee5f82510bae835c65adb1a093c5fe37a34",
+      "body_utf8_bytes": 9250
+    },
+    {
+      "key": "own-1278-5898054706",
+      "id": 5898054706,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1278#pullrequestreview-5898054706",
+      "source_time": "2026-11-13T21:06:23Z",
+      "reviewed_commit": "d8b745274a0be4fba4fc8232c2ec5b6a85aeda99",
+      "body_sha256": "98deff8cce5ca826827e7fee63a7e02e05cd2a163ec6a4bd7d76980bff7aeece",
+      "body_utf8_bytes": 3115
+    }
+  ],
+  "scientific_claims_changed": false,
+  "physical_source": "NOT PASSED",
+  "upstream_prs_merged": false,
+  "history_reachability": "Original source-commit pins are provenance; copying their blobs does not retain commit ancestry."
+}
