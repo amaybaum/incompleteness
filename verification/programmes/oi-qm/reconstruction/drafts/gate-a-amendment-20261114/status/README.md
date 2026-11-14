@@ -11,8 +11,10 @@ the Gate A contract, no CI dispatch and no merge.
 | `RESPONSE-STATUS-r1.md` | Dispositions of the review's findings | `482b9eafb4a721f38350d246b7d3b4ffce20fb8daedf52dd71418ecdb9a37a2d` |
 | `REVIEW-STATUS-r1.md` | Non-author review of r1: ACCEPT WITH CHANGES (four medium, twelve low findings) | `8ceacc9d60999f11fe0e261d12a91e1db2222cc84964598c17a5ab36692054d9` |
 | `STATUS-r1.md`, `NOTES-STATUS-r1.md` | The first draft and the writer's reading list | |
+| `CONFIRM-STATUS-r2.md` | Independent confirmation of r2 at `120ecb97`: ACCEPT WITH CHANGES | |
 
 The note was written from scratch; an earlier draft that was stopped partway is not preserved here
 and was not relied on. The owner authorized preservation of r2 and an independent confirmation of
-it in the coordinating session on 2026-11-14. That confirmation, and any later correction of the
-note's accountable-Issue entries, will be added here; until then the note is a draft.
+it in the coordinating session on 2026-11-14. The confirmation is added here; its changes,
+with the accountable-Issue entries the owner approved, are to be applied in r3. Until then the
+note is a draft.
