@@ -2748,6 +2748,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Nuclear binding.** In standard QCD, SU(3) color confinemen..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For the framework, confinement and nuclear binding remain op..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework derives two independent gauge groups — SU(3) a..."
     },
     {
