@@ -1,0 +1,187 @@
+{
+  "schema": "oi-documentary-retention-v1",
+  "pr": 1281,
+  "source_head": "37e19f3d8cc43d227bd71ec6f4c1b7524386be39",
+  "main_at_preparation": "dfeec843bec08443b25cffe34d33dc8401c3b604",
+  "accountable_issue": 1143,
+  "basis": "operative A46(8), proposed preservation; owner merge not authorized",
+  "scope": "Documentary support and review retention. No new scientific derivation or status promotion.",
+  "sources": [
+    {
+      "id": "sel-access",
+      "path": "support/sel-access/SELECTION-ACCESS-1.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/oiqmsel-access-20261110/SELECTION-ACCESS-1.md",
+      "original_commit": "1b966a0383e1dabe867d41816ee9743e99502938",
+      "git_blob": "5c125be576fd9552acabe891ff851fa19046fc3a",
+      "sha256": "811fd989ed7a25cf14f614c20ea295f35fdad9b2feb2ac2e67a6995e884d43f1",
+      "bytes": 25499,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/1b966a0383e1dabe867d41816ee9743e99502938/verification/programmes/oi-qm/reconstruction/oiqmsel-access-20261110/SELECTION-ACCESS-1.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "sel-excl",
+      "path": "support/sel-excl/SEL-EXCL-1-scientific.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/oiqmsel-exclusion-20261110/SEL-EXCL-1.md",
+      "original_commit": "0ecfddeb89540aedf1e2dc3ae7c377516641066c",
+      "git_blob": "1e8892ff94a8f0dcf306e3f43cd57e951a446ca7",
+      "sha256": "9a99344998ea78f345df1a6362a622ea9a2e764dc70d0f75a79f1c2a1259f74f",
+      "bytes": 25988,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/0ecfddeb89540aedf1e2dc3ae7c377516641066c/verification/programmes/oi-qm/reconstruction/oiqmsel-exclusion-20261110/SEL-EXCL-1.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "sel-excl-doc",
+      "path": "support/sel-excl/SEL-EXCL-1-documentary.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/oiqmsel-exclusion-20261110/SEL-EXCL-1.md",
+      "original_commit": "756811051bbc0670714f4d77d62339c12adaba34",
+      "git_blob": "7811e4493ab471b9e968483c9d18de4a5756de43",
+      "sha256": "a69dd0dc5aae0ba031f80c992934b9a3df305f1369e93fa239703b8fe078cce6",
+      "bytes": 26369,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/756811051bbc0670714f4d77d62339c12adaba34/verification/programmes/oi-qm/reconstruction/oiqmsel-exclusion-20261110/SEL-EXCL-1.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "synthesis",
+      "path": "support/synthesis/SYNTHESIS-r3.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/drafts/synthesis-1169-20261113/SYNTHESIS-r3.md",
+      "original_commit": "9eeee392fcfe7489fab3e007d95488ecf4a3eb13",
+      "git_blob": "e68295098577f4ec28cdc52726e83395deee915f",
+      "sha256": "00421b3338384891277234b2fe15f396b2c673472c83e952f5aba30ed55a5f53",
+      "bytes": 61135,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/9eeee392fcfe7489fab3e007d95488ecf4a3eb13/verification/programmes/oi-qm/reconstruction/drafts/synthesis-1169-20261113/SYNTHESIS-r3.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    },
+    {
+      "id": "synthesis-confirm",
+      "path": "support/synthesis/CONFIRM-r3.md",
+      "original_path": "verification/programmes/oi-qm/reconstruction/drafts/synthesis-1169-20261113/CONFIRM-r3.md",
+      "original_commit": "9eeee392fcfe7489fab3e007d95488ecf4a3eb13",
+      "git_blob": "e420539ac312c6a4ebefa44d2cb31112fc6ce2c5",
+      "sha256": "ff1e7c4a6515c4838e64838c9e8693e525e3e80cb8d7cf7c7fd638b47affed7f",
+      "bytes": 5479,
+      "source_url": "https://github.com/amaybaum/incompleteness/blob/9eeee392fcfe7489fab3e007d95488ecf4a3eb13/verification/programmes/oi-qm/reconstruction/drafts/synthesis-1169-20261113/CONFIRM-r3.md",
+      "byte_changes": "none",
+      "usage": "See RETENTION.md; exact source copy does not establish all claims in the copied source."
+    }
+  ],
+  "reviews": [
+    {
+      "key": "selection-access-full",
+      "id": 5840425454,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1224#pullrequestreview-5840425454",
+      "source_time": "2026-11-10T10:36:00Z",
+      "reviewed_commit": "ea8827ff6b4c3e405310216c75bcc32157d069bb",
+      "body_sha256": "77dffe9bf5ce3c0d0673133604b4489259c9c4733a9e884bca390f1c718b7d39",
+      "body_utf8_bytes": 24913
+    },
+    {
+      "key": "selection-access-diff",
+      "id": 5840851253,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1224#pullrequestreview-5840851253",
+      "source_time": "2026-11-10T11:07:22Z",
+      "reviewed_commit": "1b966a0383e1dabe867d41816ee9743e99502938",
+      "body_sha256": "b9eabf891a84e94f15c49ad8dec60701e85292db9f657971ee4449c3ee0debeb",
+      "body_utf8_bytes": 8442
+    },
+    {
+      "key": "selection-excl-full",
+      "id": 5845436861,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5845436861",
+      "source_time": "2026-11-10T16:25:22Z",
+      "reviewed_commit": "4813bc0b04548248581a137c88d43a64d73bd1a9",
+      "body_sha256": "bbf483ef23b6471438ac84f03b7a65b505cad71048c280efa49a36591d883f2c",
+      "body_utf8_bytes": 27313
+    },
+    {
+      "key": "selection-excl-diff",
+      "id": 5848321039,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5848321039",
+      "source_time": "2026-11-10T19:48:26Z",
+      "reviewed_commit": "0ecfddeb89540aedf1e2dc3ae7c377516641066c",
+      "body_sha256": "f4f7b8cdd19a592a690612a51779c420d30d9b3a9fa52acda69e373a78c42abd",
+      "body_utf8_bytes": 8339
+    },
+    {
+      "key": "selection-excl-doc",
+      "id": 6846240488,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1228#issuecomment-6846240488",
+      "source_time": "2026-11-13T06:46:27Z",
+      "reviewed_commit": null,
+      "body_sha256": "6250492674a5f355882db180b509b12680dae8b9e7ac68a88bfd2df35f92a58e",
+      "body_utf8_bytes": 2336
+    },
+    {
+      "key": "synthesis-review",
+      "id": 5896999231,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1276#pullrequestreview-5896999231",
+      "source_time": "2026-11-13T19:41:54Z",
+      "reviewed_commit": "9eeee392fcfe7489fab3e007d95488ecf4a3eb13",
+      "body_sha256": "6c516cc972c5b642c319bb375b880428b53dda218257546c34a85736de61b808",
+      "body_utf8_bytes": 2047
+    },
+    {
+      "key": "own-1281-5897663327",
+      "id": 5897663327,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1281#pullrequestreview-5897663327",
+      "source_time": "2026-11-13T20:33:23Z",
+      "reviewed_commit": "329878be6fda4737a489f89a3cf6cfceefcb3bf1",
+      "body_sha256": "60248901e66253de6da010b3dd10058f07610e3dc094a6c0d40a3b7ae31bfb33",
+      "body_utf8_bytes": 15154
+    },
+    {
+      "key": "own-1281-5897727347",
+      "id": 5897727347,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1281#pullrequestreview-5897727347",
+      "source_time": "2026-11-13T20:37:51Z",
+      "reviewed_commit": "445b17f7f808c0b8b5ff82da34fb3a0f474ceaaa",
+      "body_sha256": "400f7c406d37afed31325fa1ad42c52e3b3f24162d1a56883ae6258390924a80",
+      "body_utf8_bytes": 6960
+    },
+    {
+      "key": "own-1281-5898055055",
+      "id": 5898055055,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1281#pullrequestreview-5898055055",
+      "source_time": "2026-11-13T21:06:25Z",
+      "reviewed_commit": "445b17f7f808c0b8b5ff82da34fb3a0f474ceaaa",
+      "body_sha256": "57a281053dbcbd7fac1eca8e7373cb7090c6a2f62b3559feb16242205c719926",
+      "body_utf8_bytes": 3162
+    },
+    {
+      "key": "own-1281-5898298958",
+      "id": 5898298958,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1281#pullrequestreview-5898298958",
+      "source_time": "2026-11-13T21:28:54Z",
+      "reviewed_commit": "37e19f3d8cc43d227bd71ec6f4c1b7524386be39",
+      "body_sha256": "251a6b3c9220e76edf76d722164b4e31f081f8d7b036fe56fc2533b97f4ccd11",
+      "body_utf8_bytes": 5658
+    },
+    {
+      "key": "own-1281-5901719219",
+      "id": 5901719219,
+      "retained_in": "reviews/RECEIPTS.json",
+      "source_url": "https://github.com/amaybaum/incompleteness/pull/1281#pullrequestreview-5901719219",
+      "source_time": "2026-11-14T04:46:28Z",
+      "reviewed_commit": "37e19f3d8cc43d227bd71ec6f4c1b7524386be39",
+      "body_sha256": "c9375dc407d75d7d1cd563bd45097cd1de665c2a44021594ad249d5a9f2c6721",
+      "body_utf8_bytes": 3079
+    }
+  ],
+  "scientific_claims_changed": false,
+  "physical_source": "NOT PASSED",
+  "upstream_prs_merged": false,
+  "history_reachability": "Original source-commit pins are provenance; copying their blobs does not retain commit ancestry."
+}
