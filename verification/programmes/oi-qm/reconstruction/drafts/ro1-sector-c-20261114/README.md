@@ -8,7 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `RO1-DEPS-r4.md` | Dependency assessment r4: applies the focused review of r3 (C1: interface ceilings and the preparation limit exclude quantum operations only; C2: separated-wing soundness on the finite carrier under global P-vii, at the cost of Bell coverage; X5 flagged); verdict UNDETERMINED; independently reviewed (ACCEPT) | `02340bf2fb3d07ef68ad355f8b559723d219890c16feae57d9163b349d71c87e` |
+| `S3-PLAN-r1.md` | Paper-only plan for S3, physical executability of embedded-observer operations (accountable to #866 and #913), including the owner-suggested which-path recording route; plan for owner decision; unreviewed | `582cb1413f683bfbabda523eaaa49707020f0629b6b3f55ce31037e9d6c19ac4` |
+| `RO1-DEPS-r4.md` | Dependency assessment r4: applies the focused review of r3 (C1: interface ceilings and the preparation limit exclude quantum operations only; C2: separated-wing soundness on the finite carrier under global P-vii, at the cost of Bell coverage; X5 flagged); verdict UNDETERMINED; independently reviewed (ACCEPT); accepted by the owner at `549b1056` (#1169 c.6884568026) | `02340bf2fb3d07ef68ad355f8b559723d219890c16feae57d9163b349d71c87e` |
 | `RESPONSE-DEPS-r3.md` | Dispositions of that review | |
 | `RO1-DEPS-r3.md` | Dependency assessment r3: applies the independent review of r2 (first steps reordered on all four tracks; cross-track conflicts X1–X4 flagged; reuse with retention as the one partial discriminator); verdict UNDETERMINED; reviewed (ACCEPT WITH CHANGES) | `aee284f2d9f51df8a698aff0f08c64f5db922f9495f39fdb31c4bcc76d65451d` |
 | `RESPONSE-DEPS-r2.md` | Dispositions of that review | |
