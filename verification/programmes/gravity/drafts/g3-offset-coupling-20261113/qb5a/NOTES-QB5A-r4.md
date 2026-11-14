@@ -59,3 +59,87 @@ The references of NOTES-QB5A-r3 §6 carry over. The following are added.
 |---|---|---|
 | `qb5a/G3-QB5A-PREREG-r3.md` at `4a157f19` (branch) | the base of r4 | support off `main`; lands with #1275 |
 | `qb5a/CONFIRM-QB5A-PREREG-r3.md` (branch) | CF3-1 and CF3-2, and their replacement texts | support off `main`; lands with #1275 |
+
+## 7. Marker resolution in r4, in place
+
+**Authority.**
+
+- The owner's answers to OQ-1 to OQ-7 are recorded at #873 c.6872827835 (`amaybaum`, 2026-11-14T06:05:54Z),
+  with the OQ-2 and OQ-7 qualifications and the owner's confirmation.
+- The writer read the comment first-hand with the GitHub MCP tool (`issue_read`, `get_comments` on #873).
+- The coordinator's request for this edit is a session message. It asks for one marker-resolution edit to
+  r4, in place, so that the freeze can designate an r4 commit.
+
+**Base.** `G3-QB5A-PREREG-r4.md` at `2afc1c33`. It is byte-identical to the writer's copy before the edit
+(checked by `git show 2afc1c33:<path> | cmp`). After the edit the file has 1332 lines.
+
+**Lines changed.** "old" is r4 at `2afc1c33`; "new" is r4 after the edit. Nothing else changed.
+
+| Old | New | Change |
+|---|---|---|
+| 36–38 | 36–39 | Revision history: the answers are recorded at c.6872827835 and cited at each point of use; §15 keeps the alternatives as a record only |
+| 88 | 89–90 | §0 summary: OQ-1 to OQ-5 and OQ-7 answered at c.6872827835 |
+| 195 | 197 | §2.2, running-vacuum bullet: marker → "(owner decision OQ-1, #873 c.6872827835)" |
+| 227 | 229 | §3, "Sorting at Stage 3": marker → OQ-3 citation |
+| 615 | 617 | §5.4, grounding status: marker → OQ-7 citation |
+| 658 | 660 | §6.3, `Com`: marker → OQ-7 citation |
+| 732–733 | 734–735 | §7.2, closure: marker → OQ-2 citation, re-wrapped |
+| 772–775 | 774–777 | §8.2, QB7(a) sensitivity line: marker → OQ-1 citation, re-wrapped |
+| 837–838 | 839–840 | §8.5 (ii): marker → OQ-2 citation |
+| 842–843 | 844–845 | §8.5 (v): marker → OQ-3 citation, re-wrapped |
+| 983 | 985 | §10.3, X11: marker → OQ-7 citation; the fallback is marked "not adopted" |
+| 1184–1185 | 1186–1188 | §14.1, freeze bullet: the OQ-5 citation; the owner designates F on #873 after independent acceptance; the owner's confirmation requires r4 to have CF3-1 and CF3-2 applied and independently confirmed first |
+| 1215–1266 | 1218–1315 | §15, rewritten |
+
+**What the §15 rewrite contains.**
+
+- Every question is recorded as answered.
+- Each decision is quoted verbatim from c.6872827835, and so is the owner's confirmation sentence.
+- The OQ-2 and OQ-7 qualifications are quoted, each with a "where the text meets it" list.
+- The OQ-5 confirmation is quoted.
+- Each alternative is kept, marked "not adopted; record only".
+- The applied texts are kept as they were.
+
+**Not changed.**
+
+- r4:1182 (new :1184): "An owner answer to a pending OQ is applied by the alternative text of §15." It is
+  now vacuous, because no OQ is pending and no alternative is adopted. It was left as it stands, under the
+  instruction to change nothing else.
+- r4:257 (new :259) contains "pending" only inside a quoted corpus phrase. It is not a marker.
+
+**Checks.**
+
+- `grep` for "pending owner decision": none remains.
+- `grep` for the barred path strings: no hits.
+
+**Qualifications checked against the existing text.** No rewrite was made to close a gap.
+
+- **OQ-2: met.**
+  - Δ1–Δ8 are predicates on §5 attributes (§7.2).
+  - Δ9.k are enumerated and translated at Q-1b, by two independent readers, and committed before any row
+    is classified (X-19). That is before any grounding test.
+  - An unresolved or unclassifiable reason goes to the deviation procedure and never changes the frozen rule
+    (Q-1b; §14.2; I-BLIND item 1).
+  - The negatives are relative to the frozen list (§7.2).
+  - **Possible gap, noted.** The decision says "mechanically defined predicates". Δ9.k predicates, once
+    committed, are applied mechanically. Writing them at Q-1b is a translation by two independent readers,
+    reconciled once, with any disagreement sent to deviations. Whether that writing step counts as
+    "mechanically defined" is for the owner or the reviewer to judge.
+- **OQ-7: met.**
+  - As and As|cond are commitments on both sides under the same tests (§5.3; §5.4; `Com`).
+  - Verdicts resting only on them are labelled (§6.3).
+  - Ps, D|cond and In stay distinct values, and per-row statuses are kept (§5.3).
+  - A plain claim is As, never Ns.
+  - **Minor, noted.** The decision's sentence "This is not independent physical verification of the
+    assertion" is quoted in §15. The rule text itself conveys it only through the "rests on unqualified
+    assertion" label.
+- **Other decisions, checked for completeness.**
+  - **OQ-1: possible gap.** The decision asks that sensitivity be reported "whenever their treatment
+    changes the verdict". §8.2's sensitivity line flips only the A3 cells of the running-vacuum rows
+    (to non-committal). It does not flip their role or definiens cells.
+  - **OQ-3: met.** It is met by §3 and §8.5 (v), and in general by §8.3 item 3. §8.5 (v) states the
+    mirror rule for a metric-defined W0 quantity.
+  - **OQ-4: met.** The search methodology and omissions are recorded in NOTES-QB5A-r2 §5, as updated by
+    NOTES-QB5A-r3 D-25.
+  - **OQ-5.** The decision's wording names "the complete r2 rule". The confirmation supersedes this with the
+    r4 requirement. Both are quoted.

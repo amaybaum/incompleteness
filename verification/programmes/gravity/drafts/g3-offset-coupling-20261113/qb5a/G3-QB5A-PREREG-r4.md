@@ -33,9 +33,10 @@ passage, renders no cell of the audit table, and states no expected outcome.
     at `847d6a87` (ACCEPT WITH CHANGES).
   - r4 applies CF3-1 and CF3-2, using the edit check's replacement text. The dispositions are in
     `qb5a/RESPONSE-QB5A-r3.md`. r3 is not edited.
-  - Owner answers to OQ-1 to OQ-5 and OQ-7 are pending. At each point of use, r4 carries the reviewer's
-    recommended answer, marked "(pending owner decision OQ-n)". §15 gives the alternative text for each,
-    so that an answer can be applied by a minimal amendment before freeze.
+  - The owner's answers to OQ-1 to OQ-5 and OQ-7 are recorded at #873 c.6872827835 (`amaybaum`,
+    2026-11-14). Each point of use cites "(owner decision OQ-n, #873 c.6872827835)" in place of the
+    pending marker. §15 quotes each decision and keeps the alternative texts as a record only, not
+    adopted.
 - **Inputs** on branch `research/g3-offset-873-20261113`, directory
   `verification/programmes/gravity/drafts/g3-offset-coupling-20261113/`:
   - `G3-UNIT2B-BG-r5.md` ("r5:n"), with `CONFIRM-BG-r3.md` and `CONFIRM-BG-r4.md`;
@@ -85,7 +86,8 @@ Reading G, case β, the witness, B_G, F3, F4, F4-null, F4-c, F5, Lemma U, K1–K
   - X-18, a blind second reading of every attribute cell.
 
   All rule-level controls are on constructed or external examples.
-- **Owner questions (§15).** OQ-1 to OQ-5 and OQ-7 are pending. OQ-6 is answered by #873 c.6872277416.
+- **Owner questions (§15).** OQ-1 to OQ-5 and OQ-7 are answered at #873 c.6872827835. OQ-6 is answered
+  by #873 c.6872277416.
 
 ***
 
@@ -192,7 +194,7 @@ whose own passage is on this list has A3x = yes (§5.3).
 - **Added.**
   - **Running-vacuum sourcing (QB7(a)).** It is not adopted by owner decision and not imported from the
     running-vacuum literature. Its corpus status is read from the text by §5.3's test, as for every row
-    (pending owner decision OQ-1). §8.2 carries the QB7(a) sensitivity line.
+    (owner decision OQ-1, #873 c.6872827835). §8.2 carries the QB7(a) sensitivity line.
   - **F4, F5, F4-dia and every variant.** These are assessed, never used as premises.
   - **Prior verdicts.**
     - r5's outcome (C) and its residual.
@@ -224,7 +226,7 @@ realized metric at that slice.
 verdict is reported beside F5's. It does not enter the Stage-2 summary class. It is sorted at Stage 3 like
 any formalization.
 
-**Sorting at Stage 3 (pending owner decision OQ-3).**
+**Sorting at Stage 3 (owner decision OQ-3, #873 c.6872827835).**
 
 - F4-c, in r5's sense, is any admissible F4[Δ] whose class does not contain the witness's term.
 - An admissible F4[Δ] whose class contains the witness's term is CoC-content with respect to it. This is
@@ -612,7 +614,7 @@ In, ND and Op.
 - Justificatory use, where a claim or identity is "grounded in" an argument, is not counted.
 - Und if ⊳_G vocabulary occurs but its relata are not both quantities.
 - The status of a Yes is read by §5.3, with "grounding" in place of "source role". The same commitment and
-  hedge sets apply, As included (pending owner decision OQ-7).
+  hedge sets apply, As included (owner decision OQ-7, #873 c.6872827835).
 
 **Examples outside the inventory.**
 
@@ -655,7 +657,7 @@ premises.
 
 ### 6.3 Rejecting predicates
 
-Commitment set: `Com` = {D, D|cond, Rq, As, As|cond} (pending owner decision OQ-7).
+Commitment set: `Com` = {D, D|cond, Rq, As, As|cond} (owner decision OQ-7, #873 c.6872827835).
 
 - **Rejecting for an F4 variant v (b2)**, in branch b (and route, where §6.1 applies), iff all of:
   - A3 ∈ `Com`;
@@ -729,8 +731,8 @@ Undetermined (§8.1).
   Its candidacy rests on F4's statement alone, and GRT decides it.
 - **Closure, both ways.** Two negatives are used: "no carve passes GRT" (for R) and "no co-constraint
   formalization survives" (for (A)). Both are relative to the frozen inventory and to Δ1–Δ8 with the
-  committed Δ9.k (pending owner decision OQ-2). Every verdict that uses either negative states that
-  relativity.
+  committed Δ9.k (owner decision OQ-2, #873 c.6872827835). Every verdict that uses either negative
+  states that relativity.
 
 ***
 
@@ -769,10 +771,10 @@ F4-null included). F4-dia and F5 are reported beside it.
   - the conditions of any D|cond row it rests on;
   - the "rests on unqualified assertion" label, where it applies;
   - the relativity of §7.2's closure.
-- **QB7(a) sensitivity line (pending owner decision OQ-1).** If a Stage-2 verdict would differ were the
-  A3 cells of the rows that the same-quantity table identifies with GR:376's `Λ_eff(H)`, or with GR:400
-  Reading 1's quantity, non-committal, the verdict is reported with that sensitivity line, labelled "rests
-  on the corpus text's commitment to running-vacuum sourcing (QB7(a))".
+- **QB7(a) sensitivity line (owner decision OQ-1, #873 c.6872827835).** If a Stage-2 verdict would
+  differ were the A3 cells of the rows that the same-quantity table identifies with GR:376's `Λ_eff(H)`,
+  or with GR:400 Reading 1's quantity, non-committal, the verdict is reported with that sensitivity line,
+  labelled "rests on the corpus text's commitment to running-vacuum sourcing (QB7(a))".
 
 ### 8.3 Stage 3: B_G's outcome
 
@@ -834,13 +836,13 @@ this preregistration.
 - **(i)** (A) requires F5 to be Rejected: by a row with A5g = Yes and a grounding status in `Com`, or by a
   failed F5 control.
 - **(ii)** A scope or carve variant with no stated reason is Rejected by GRT-1. This applies to F4-law and
-  F4-null alike, and changes r5's treatment of F4-null, whose controls r5 left unassessed (pending owner
-  decision OQ-2).
+  F4-null alike, and changes r5's treatment of F4-null, whose controls r5 left unassessed (owner decision
+  OQ-2, #873 c.6872827835).
 - **(iii)** F4 is Admissible only if no committed row in its domain has an Und decisive cell. Otherwise
   the class is at best U.
 - **(iv)** (C) is the outcome in each case so listed in §8.3's table, and wherever §8.4's grid disagrees.
-- **(v)** Sorting carves by the W0 quantity's membership (§3; pending owner decision OQ-3) has two mirror
-  consequences:
+- **(v)** Sorting carves by the W0 quantity's membership (§3; owner decision OQ-3, #873 c.6872827835)
+  has two mirror consequences:
   - if a carve whose class contains every metric-defined quantity passes GRT and is Admissible, (A) is
     unreachable for a metric-defined W0 quantity;
   - if a carve whose class excludes a metric-defined W0 quantity passes GRT and is Admissible, it is
@@ -980,7 +982,7 @@ Each flip changes one input. The class must change as stated, or, where stated, 
 | X8: TC-R, p1's A3 D → Conflict | R | U |
 | X9: TC-C, Ax-κ replaced by a toy axiom on the toy's excluded list | Cc | R (GRT-2) |
 | X10: TC-C, Ax-κ replaced by "c1's value covaries with the toy curvature" | Cc | R (GRT-3) |
-| X11: TC-N, n2's A3 Ps → As | C | R (pending owner decision OQ-7; under the fallback, U) |
+| X11: TC-N, n2's A3 Ps → As | C | R (owner decision OQ-7, #873 c.6872827835; under the fallback, not adopted, U) |
 | X12: TC-C, a toy row c3 that Ax-κ's reason covers (M-pure, T, Ps) is placed outside `class(Δκ)` | Cc | R (GRT-5) |
 
 A rule that returns the same class on both sides of a flip that requires a change is insensitive to the
@@ -1181,8 +1183,9 @@ POSITIVE, ELABORATING, CONFIRMING or BORDERLINE.
 - A reviewer may propose rule text but must not state an expected outcome for the inventory.
 - An owner answer to a pending OQ is applied by the alternative text of §15. It is reviewed by a check of
   that edit alone, unless it changes text outside the marked points of use.
-- **Freeze F (pending owner decision OQ-5).** The owner designates F on #873, after the reviewer's
-  acceptance is recorded. F is the commit containing the accepted revision.
+- **Freeze F (owner decision OQ-5, #873 c.6872827835).** The owner designates F on #873, after independent
+  acceptance. The owner's confirmation adds that r4 must first have CF3-1 and CF3-2 applied and
+  independently confirmed. F is the commit containing the accepted revision.
 - No inventory row is classified before F.
 
 ### 14.2 Deviations after freeze
@@ -1212,15 +1215,21 @@ POSITIVE, ELABORATING, CONFIRMING or BORDERLINE.
 
 ## 15. Owner questions
 
-The reviewer's recommended answers are applied in the text, marked "(pending owner decision OQ-n)". Each
-alternative below can be applied as a minimal edit before freeze.
+The owner's answers are recorded at #873 c.6872827835 (`amaybaum`, 2026-11-14), relayed in the
+coordinating session and confirmed by the owner: "Confirmed: I reaffirm my OQ-1–OQ-7 decisions for G3
+QB5(a), including the previously answered OQ-6, and #1283 C2 option (a), exactly as stated." Each point of
+use cites "(owner decision OQ-n, #873 c.6872827835)". Each decision is quoted below. The alternative texts
+are kept as a record only; none is adopted.
 
-- **OQ-1. QB7(a)'s scope.**
-  - **Applied (recommended).**
+- **OQ-1. QB7(a)'s scope. Answered.**
+  - **Decision (quoted):** "Accept. Classify the running-vacuum rows with the same tests as every other
+    row. Report sensitivity whenever their treatment changes the verdict. This does not adopt their
+    sourcing as a physical premise."
+  - **Text applied.**
     - "Adopt" is read as taking the running-vacuum sourcing on by decision or by import.
     - The running-channel rows are classified from the corpus text by §5.3's test, as every row is.
     - §8.2's QB7(a) sensitivity line shows whether a verdict reaches QB7(a)'s subject through the text.
-  - **Alternative.**
+  - **Alternative (not adopted; record only).**
     - In §2.2, replace the running-vacuum bullet with: "The rows that the same-quantity table identifies
       with GR:376's `Λ_eff(H)` or with GR:400 Reading 1's quantity are not rejecting and not potentially
       rejecting for any F4 variant, whatever their A3."
@@ -1228,42 +1237,82 @@ alternative below can be applied as a minimal edit before freeze.
     - Delete X-10's last sentence.
     - Add to I-SYM's "None names a row": "except the QB7(a) exemption of §2.2, adopted by owner decision".
     - Note that this is a row-identity exemption in the form W-c rejects, and it departs from I-SYM.
-- **OQ-2. GRT, Δ1–Δ8 with Δ9.k, and the relativity of both negatives.**
-  - **Applied (recommended).**
+- **OQ-2. GRT, Δ1–Δ8 with Δ9.k, and the relativity of both negatives. Answered.**
+  - **Decision (quoted):** "Accept conditionally. Freeze Δ1–Δ9 with mechanically defined predicates and
+    no open-ended carve-out selection during verdict assessment. Any Δ9 instances must be enumerated and
+    committed before applying the grounding tests. All universal-negative conclusions remain relative to
+    the frozen list."
+  - **Qualification (quoted):** "For OQ-2, the important safeguard is that Δ9 cannot become a way to
+    invent a favourable exception after seeing the result. A genuinely new, unclassifiable reason must
+    trigger the recorded deviation procedure rather than silently changing the frozen rule."
+  - **Where the text meets it.**
+    - Δ1–Δ8 are predicates on §5 attributes (§7.2).
+    - Δ9.k are enumerated and translated at Q-1b, by the executor and the second reader independently,
+      and committed before any row is classified (Q-1b; X-19), and so before any grounding test.
+    - A reason that stays in disagreement, or cannot be written on §5's attributes, is a deviation and
+      never changes the frozen rule (Q-1b; §14.2). A carve found otherwise is a deviation (I-BLIND item
+      1).
+    - Both universal negatives are relative to the frozen inventory and list (§7.2).
+  - **Text applied.**
     - GRT-1 to GRT-5 and the candidate list are accepted.
     - Both negatives are relative to the frozen inventory and list.
     - A scope variant with no stated reason is Rejected (§8.5 (ii)), which treats F4-law and F4-null alike
       and differs from r5.
-  - **Alternative.**
+  - **Alternative (not adopted; record only).**
     - Replace §8.5 (ii) with: "F4-law and F4-null are assessed without GRT-1, as restatements of F4's
       scope, and are Rejected only by a rejecting row or by K1–K5."
     - In §3, mark their domains "not subject to GRT".
     - In §8.2, add: "F4-law and F4-null count as carve variants for R and U only, not for Cc".
     - In §9 (the preamble, TC-N and TC-A), delete "Rejected by GRT-1" for F4-law and F4-null, and give the
       verdicts their rows yield. The toy outcomes are unchanged: (C) for TC-N and (A) for TC-A.
-  - No alternative to the finite-list relativity is offered: an open schema makes R and (A) unreachable
+  - No alternative to the finite-list relativity was offered: an open schema makes R and (A) unreachable
     (CONFIRM-BG-r4 DF-2).
-- **OQ-3. Counting carves that contain the witness's term.**
-  - **Applied (recommended).** Such an admissible carve is CoC-content (§3). Both mirror consequences are
-    stated (§8.5 (v)).
-  - **Alternative.** In §3, replace the sorting bullets with: "Carve variants F4[Δ] are reported at Stage 3
-    and counted on neither side." In §8.5 (v), delete both consequences.
-- **OQ-4. The inventory.**
-  - **Applied (recommended).** Groups S, V, Q, C and K, with QR-15's additions (C-GR418, E-GR571,
-    G-GR701, G-GR693 and T-GR695), the search recorded in NOTES-QB5A-r2 §5, and R2-10's additions
-    (C-GR416, and Group P as non-decisive rows).
-  - **Alternative.** Delete the rows the owner names. Each deletion is recorded as an exclusion, with its
-    reason, in NOTES.
-- **OQ-5. Freeze designation.**
-  - **Applied (recommended).** The owner designates F on #873 after the reviewer's acceptance is recorded
-    (§14.1).
-  - **Alternative.** Replace §14.1's freeze bullet with: "F is the commit containing the accepted
-    revision; the reviewer's recorded acceptance designates it."
-- **OQ-6.** Answered by #873 c.6872277416 (`amaybaum`, 2026-11-14T05:17:28Z).
-- **OQ-7. Does an unqualified assertion in the corpus's own voice count as a commitment?**
-  - **Applied (recommended).** Yes, on both the sourcing side (F4) and the grounding side (F5). `Com`
-    includes As (§6.3), and a verdict resting only on As rows is labelled.
-  - **Alternative (fallback).** As and As|cond make a row potentially rejecting, never non-rejecting.
+- **OQ-3. Counting carves that contain the witness's term. Answered.**
+  - **Decision (quoted):** "Accept. A carve-out that also covers the witness is co-constraint for that
+    witness. State the mirror rule: an admissible grounding carve-out excluding the witness blocks outcome
+    (B)."
+  - **Text applied.** Such an admissible carve is CoC-content (§3). Both mirror consequences are stated
+    (§8.5 (v)).
+  - **Alternative (not adopted; record only).** In §3, replace the sorting bullets with: "Carve variants
+    F4[Δ] are reported at Stage 3 and counted on neither side." In §8.5 (v), delete both consequences.
+- **OQ-4. The inventory. Answered.**
+  - **Decision (quoted):** "Accept. Add GR:418, :571 and :701, incorporate the other review-identified
+    inventory groups, and record the search methodology and any justified omissions."
+  - **Text applied.** Groups S, V, Q, C and K, with QR-15's additions (C-GR418, E-GR571, G-GR701, G-GR693
+    and T-GR695), the search recorded in NOTES-QB5A-r2 §5, and R2-10's additions (C-GR416, and Group P as
+    non-decisive rows).
+  - **Alternative (not adopted; record only).** Delete the rows the owner names. Each deletion is recorded
+    as an exclusion, with its reason, in NOTES.
+- **OQ-5. Freeze designation. Answered.**
+  - **Decision (quoted):** "I designate the freeze, on #873, only after independent acceptance of the
+    complete r2 rule and its controls."
+  - **The owner's confirmation adds (quoted):** "Freeze designation F is not yet granted. The
+    preregistration must first reach r4, with CF3-1 and CF3-2 applied and independently confirmed."
+  - **Text applied.** The owner designates F on #873 after independent acceptance, and r4 must first have
+    CF3-1 and CF3-2 applied and independently confirmed (§14.1).
+  - **Alternative (not adopted; record only).** Replace §14.1's freeze bullet with: "F is the commit
+    containing the accepted revision; the reviewer's recorded acceptance designates it."
+- **OQ-6.** Answered by #873 c.6872277416 (`amaybaum`, 2026-11-14T05:17:28Z). The owner's #873 c.6872827835
+  records "Already answered; no new decision."
+- **OQ-7. Does an unqualified assertion in the corpus's own voice count as a commitment? Answered.**
+  - **Decision (quoted):** "Yes. An unqualified sourcing or grounding assertion in the corpus's own voice
+    counts as a textual commitment on either side, under identical tests. Label conclusions resting solely
+    on such assertions. This is not independent physical verification of the assertion."
+  - **Qualification (quoted):** "For OQ-7, hedged statements, conditional derivations and explicitly
+    imported assumptions must still retain their distinct statuses. The rule should never silently treat a
+    plain claim as no claim at all."
+  - **Where the text meets it.**
+    - As and As|cond are commitment values on the sourcing side (§5.3; `Com`, §6.3) and the grounding side
+      (§5.4), under the same tests.
+    - Verdicts resting only on As or As|cond rows are labelled "rests on unqualified assertion" (§6.3).
+    - Ps (hedges), D|cond (conditional derivations, with their conditions) and In (imported inputs) are
+      distinct values (§5.3). Each row's own status stays in the table and in the verdict's citations;
+      Conflict is the per-quantity aggregate only (§5.3).
+    - A plain claim is As, never Ns (§5.3).
+  - **Text applied.** Yes, on both the sourcing side (F4) and the grounding side (F5). `Com` includes As
+    (§6.3), and a verdict resting only on As rows is labelled.
+  - **Alternative (fallback; not adopted; record only).** As and As|cond make a row potentially rejecting,
+    never non-rejecting.
     - In §6.3, set `Com` = {D, D|cond, Rq}.
     - Add to both potentially rejecting predicates: "or A3 (respectively the grounding status) ∈ {As,
       As|cond} and U[v, b] ∈ {Y, Und} (respectively, the other conditions hold)".
