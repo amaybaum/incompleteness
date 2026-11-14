@@ -7,7 +7,9 @@ the Gate A contract, no CI dispatch and no merge.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `STATUS-r4.md` | The current draft; applies the focused review of r3; unreviewed | `c55797bd19c6aea3b1540469f7ef9800b76f6d7ef716900730e8d06e87ba8725` |
+| `STATUS-r5.md` | The current draft; names #1291 as the accountable Issue for one obligation; unreviewed | `082749cdb745c3b1bb9e5697a6f3a98ab489d7fe9d8bf5be7fe1af1a5a6a0f93` |
+| `RESPONSE-STATUS-r5.md` | What r5 changes from r4, and why | |
+| `STATUS-r4.md` | The draft r5 revises; applies the focused review of r3; unreviewed | `c55797bd19c6aea3b1540469f7ef9800b76f6d7ef716900730e8d06e87ba8725` |
 | `RESPONSE-CONFIRM-STATUS-r3.md` | Dispositions of the focused review's changes | |
 | `CONFIRM-STATUS-r3.md` | Focused review of r3 at `acfdbd0f`: ACCEPT WITH CHANGES | |
 | `STATUS-r3.md` | The draft the focused review read | `3258dbe231923f7c1604803ecb630a8790e58741951d48020bd600a05d5861ba` |
@@ -24,5 +26,6 @@ it in the coordinating session on 2026-11-14. The confirmation is added here; r3
 its changes and the accountable-Issue entries the owner approved (#1169, comment 6877532844). A
 focused review of r3 asked for three changes, which r4 applies; r4 states that §A.46 item 8's own
 condition is met and that, under §A.45 rule 6, one obligation (excluding correlations outside the
-quantum set beyond the Tsirelson bound) has no accountable Issue. r4 is itself unreviewed, and the
-note remains a draft until it is.
+quantum set beyond the Tsirelson bound) has no accountable Issue. The owner then opened that obligation's accountable
+Issue, #1291 (2026-11-14: "I adopt all three"); r5 names it and leaves r4 unchanged. r4 and r5 are
+unreviewed, and the note remains a draft until a focused review of r5 accepts it.
