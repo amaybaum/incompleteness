@@ -20,7 +20,7 @@ change that file, whose text is the accepted text.
   inspection and a disposition packet; "No automatic correction, manuscript/Lean/probe edits, issue
   closure or merge."
 
-## What the record establishes
+## What the record supports, and at what strength
 
 - **Negative, documentary, exact hand algebra.** For `T_D(p,c) = (c, F(c) + Dp)` with `D`
   invertible, the explicit inverse `(a,b) -> (D^-1(b - F(a)), a)` gives a bijection for every such
@@ -40,6 +40,33 @@ mirror; `SecondOrderCircuit.lean:6–10`; `bohr_frequency_probe.py:10008–10009
 documentary errors, and their replacement wording is proposed, not adopted (exact hand algebra,
 independently reviewed)."
 
+## Verification status and remediation (§A.46 item 4)
+
+The accountable Issue is #1193. The owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+2026-11-13T21:44:54Z), states that "Model acceptance is evidence of review, not independent
+mathematical verification", and that "A remediation plan does not authorize new work. It may state
+that the obligation remains open." This plan authorizes no work. Each gap below remains open until
+the evidence or decision named for it is recorded on `main`.
+
+Here "partially verified" means reviewed by at least one separate AI-agent reviewer, or resting in
+part on kernel-checked statements, without independent mathematical verification of the result;
+"exploratory" means a result not reviewed by anyone but its writer, or a proposal that
+claims no result.
+
+- **Independently verified:** none.
+- **Known-invalid:** none stated.
+
+| Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
+| --- | --- | --- | --- | --- |
+| Bijectivity of `T_D` for every invertible `D`, so reversibility does not force `D = -I_K` | partially verified | Exact hand algebra (an explicit inverse), with one AI-agent review recorded as the coordinating writer's summary | Independent mathematical verification | An independent mathematical verification recorded on `main` (for example a kernel formalization or a human review) |
+| Slot-reversal conditions `D^2 = I` and `(D + I)A = 0` | partially verified | Exact hand algebra (comparison of the slot-reversed map with the inverse), with the same AI-agent review | Independent mathematical verification | As above |
+| The four surfaces of §3 are documentary errors | partially verified; the inventory is not exhaustive (see source drift) | Source inspection, with one AI-agent review | An independent check of the cited surfaces | A human review recorded on `main`; any correction of the surfaces needs its own owner authorization |
+| The four replacement wordings of §3 | exploratory | Proposals, not adopted | Not applicable; nothing is claimed | An owner decision on any correction |
+
+Where a gap cannot be closed, the result is narrowed or withdrawn where it is stated (§A.46 item 5).
+
+A physical derivation selecting either sign is not a result of the record; it remains under #1193.
+
 ## Dependencies
 
 | Reference | Classification |
@@ -47,6 +74,7 @@ independently reviewed)."
 | #1193 and comment 6739175078 | Provenance: authorization only. |
 | Source blobs and lines cited at `fd539e15` (SM, ch05, FULL, Main, `SecondOrderCircuit.lean`, `bohr_frequency_probe.py`, `OI_Time_Reversal.lean`, `DESIGN.md`, `continuous-time-audit.md`, `a6-instantiation/result.md`) and `ASSESSMENT.md` | Support on `main`: `fd539e15` is an ancestor of `main` and every cited blob resolves there. |
 | Review comment 6739544160 | Support on `main` through `REVIEW-6739544160.md`. The commit it names becomes reachable from `main` only through a merge commit (neither squash nor rebase), which keeps it an ancestor of `main`. |
+| #1213 comment 6845504404 (merge record; quoted under Landing); #1169 comment 6865680499 (the ruling; quoted under Verification status and Landing) | Governance provenance. No scientific result uses either; the Basis line uses only the quoted words, which are on `main` in this note (§A.42 item 7). |
 | CI run 42612953149 (named in the review) | Provenance: repository validation only. |
 | References inside the review bodies (sandbox paths, CI run ids, the reviewers' own authorization statements, GitHub links pinned at PR commits) | Provenance. Each verdict rests on the record blob named in the header. |
 
@@ -78,6 +106,17 @@ independently reviewed)."
 
 - **Mode.** Merge commit (neither squash nor rebase), so that `d3e23dca`, the commit the review
   names, remains an ancestor of `main`.
-- **Basis.** An established claim needs the record (§A.46 item 2): the claim above. No record on
-  `main` depends on this one at `911a5cb6`.
+- **Basis.** Landed by the owner's merge decision, recorded in the merge record #1213 comment
+  6845504404 (`amaybaum`, 2026-11-13T06:01:16Z): "merge #1213 with its named claim". §A.46 item 2's
+  first condition, that an established claim needs the record, holds only for a claim that meets
+  item 1's verification standard. The claim above rests on exact hand algebra and source inspection
+  with one AI-agent review. The owner's ruling, #1169 comment 6865680499 (`amaybaum`,
+  2026-11-13T21:44:54Z), states "Model acceptance is evidence of review, not independent
+  mathematical verification." The record carries no computation, and no record on `main` depended on
+  it at `911a5cb6`, so the landing meets none of item 2's conditions. The merge record names no
+  owner exception. Under the ruling, until the §A.46 amendment it calls for is adopted, "a landing
+  that meets none of the existing conditions needs an explicit, recorded owner exception". The
+  record's landing basis is therefore open until that amendment is adopted or such an exception is
+  recorded. The record is preserved on `main`, not established (§A.46 item 1). Its removal is not
+  automatic and is governed by item 6. The accountable Issue is #1193.
 - **Owner record.** Landing package: #1169 comment 6841795465 (`amaybaum`, 2026-11-13T02:14:35Z).
