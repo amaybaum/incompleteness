@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `S3-PLAN-r6.md` | S3 plan r6: the fix from the confirmation of r5 and its root cause (a negative outcome counts toward any negative closure only if every capability it relies on is sourced); plan for owner decision; unreviewed | `664f0c1ddf1b665e2803238568175d78fff9f1df42d127738627863a63accbb6` |
+| `S3-PLAN-r6.md` | S3 plan r6: the fix from the confirmation of r5 and its root cause (a negative outcome counts toward any negative closure only if every capability it relies on is sourced); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `664f0c1ddf1b665e2803238568175d78fff9f1df42d127738627863a63accbb6` |
 | `RESPONSE-S3-PLAN-r5.md` | Disposition of that review, with the sites checked | |
 | `S3-PLAN-r5.md` | S3 plan r5: the single fix from the confirmation of r4 (a (β) failure resting only on unsourced retention is reported as unsourced and does not count toward closing route M); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `b61c5c497c70decb4f9777a290e1d19d824f30d689cdef33014287757ce17882` |
 | `RESPONSE-S3-PLAN-r4.md` | Disposition of that review | |
@@ -47,3 +47,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-S3-PLAN-r3.md` | Focused confirmation of S3-PLAN-r3 at `9c65c22e`: ACCEPT WITH CHANGES (R3: AC-1's per-unit wording conflicts with H-RR's refutation route; R4: a claim at l. 500 rests on the open OB-b0) | `498c58c1e71d895a43b27851b0adc2d9c6d88498f607eb566d958dda852e16bf` |
 | `REVIEW-S3-PLAN-r4.md` | Focused confirmation of S3-PLAN-r4 at `5001331a`: ACCEPT WITH CHANGES (R5: a (β) failure resting only on unsourced retention of the marker record is reported as unsourced, not as empty on K1) | `1d98fd8b9c2d2afd478b4a5538339b246aa466a987db3a5254edfcddfc9bbe5a` |
 | `REVIEW-S3-PLAN-r5.md` | Focused confirmation of S3-PLAN-r5 at `ac70c70a`: ACCEPT WITH CHANGES (R6: the native-marker miss branch counts toward closure only with sourced retention of the marker record) | `0b6c05e5439ce8362f01978743a4bce2ec9fb8355f3161e9e9ad5162e75637ce` |
+| `REVIEW-S3-PLAN-r6.md` | Focused confirmation of S3-PLAN-r6 at `a756262d`: ACCEPT WITH CHANGES (R7: rename the rule; R8: a disproved capability counts as a sourced negative; R9: H-RR refutation routes require a sourced renewal limit, not sourced references) | `341e838e71d1e11d010ae3df63b51f09e401370341d5b8c10267bef84d91e7d6` |
