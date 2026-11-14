@@ -69,6 +69,8 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
 | `RESPONSE-r1.md` | Dispositions of the review's findings and of the confirmation review's changes |
 | `CONFIRM-r2.md` | Confirmation review of r2: ACCEPT WITH CHANGES (changes C1–C5), with the reviewer's own section 6 |
 | `CHECK-RULEFREE.md` | Independent check of section 6 of `CONFIRM-r2.md` |
+| `L54-r4.md`, `SUMMARY-r4.md` | r3 with the independent check's eight corrections (§9 of `CHECK-RULEFREE.md`), and its summary |
+| `RESPONSE-CHECK.md` | One row per correction: source passage, change made in r4, corrected scope |
 
 **Review status, exactly.**
 
@@ -106,6 +108,15 @@ The check's own additions (its Proposition M, an initial-condition-mode construc
 the others listed in its §8) have one derivation each and no check. Its §9 proposes eight
 replacement texts; they are not applied to r3. None of this is independent verification in the
 sense of AGENTS.md §A.46, and r3's theorem does not rest on it.
+
+**Revision r4 (owner authorization: PR #1288, comment 6875725169).** `L54-r4.md` incorporates
+the eight replacement texts of `CHECK-RULEFREE.md` §9 where r3 states or refers to the
+reviewer-authored results; five are applied as worded and three are adapted because r3 does not
+reproduce the passages they correct (`RESPONSE-CHECK.md` rows 3, 5 and 6). `CONFIRM-r2.md`, r3 and
+`SUMMARY-r3.md` are unchanged. In r4 the results of `CONFIRM-r2.md` §6 that the check confirmed are
+marked "one author, one independent check" and the checker's own additions "one derivation, not
+checked"; none enters the proof of Theorem 1. r4 is unreviewed until its own exact-head
+confirmation, which will be added here.
 
 ## Names used in the files
 
