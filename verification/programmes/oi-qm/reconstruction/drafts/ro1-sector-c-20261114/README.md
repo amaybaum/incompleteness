@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `RO1-DEPS-r3.md` | Dependency assessment r3: applies the independent review of r2 (first steps reordered on all four tracks; cross-track conflicts X1–X4 flagged; reuse with retention as the one partial discriminator); verdict UNDETERMINED; unreviewed | `aee284f2d9f51df8a698aff0f08c64f5db922f9495f39fdb31c4bcc76d65451d` |
+| `RO1-DEPS-r3.md` | Dependency assessment r3: applies the independent review of r2 (first steps reordered on all four tracks; cross-track conflicts X1–X4 flagged; reuse with retention as the one partial discriminator); verdict UNDETERMINED; reviewed (ACCEPT WITH CHANGES) | `aee284f2d9f51df8a698aff0f08c64f5db922f9495f39fdb31c4bcc76d65451d` |
 | `RESPONSE-DEPS-r2.md` | Dispositions of that review | |
 | `RO1-DEPS-r2.md` | Dependency assessment r2: applies the independent review of r1 and the reviewer's additions; four tracks; verdict UNDETERMINED; reviewed (REVISE) | `01809afbba839b3fcc6aada8d54ddf17f6c2d463a16568659346d871f1d6545e` |
 | `RESPONSE-DEPS-r1.md` | Dispositions of that review | |
@@ -27,3 +27,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-SPEC-r3.md` | Focused confirmation of RO1-SPEC-r3 at `a407ff90`: ACCEPT (one nonblocking nit) | `ab6e12ef29d876b0c7f4a85d11fd4429937db839ef03dfd53a8619283fac7db3` |
 | `REVIEW-DEPS-r1.md` | Independent review of RO1-DEPS-r1 at `9504385a`: REVISE (verdict label right; four blocking findings on its support) | `8536e21297b527b3294f61cf4f2d300c339c6b513be57b6739c4f7a6bf7f14a1` |
 | `REVIEW-DEPS-r2.md` | Independent review of RO1-DEPS-r2 at `3b7d5aac`: REVISE (criteria 1, 3, 4 met; 2 not met: first steps not first on tracks (c), (d) and partly (a); four cross-track conflicts unflagged) | `e3dcd01306596b5892367fd8bf1b9354f348ecc3a23c043bcdf5243fdbbf7cda` |
+| `REVIEW-DEPS-r3.md` | Focused review of RO1-DEPS-r3 at `4fc3f4aa`: ACCEPT WITH CHANGES (C1: the interface ceilings and D-A8 exclude quantum behaviour only, not both; C2: D-ceil gives separated-wing soundness on F under global P-vii) | `17a40f1857065bf89f48ecada65040dc18744037d057c873fec595ac5639989f` |
