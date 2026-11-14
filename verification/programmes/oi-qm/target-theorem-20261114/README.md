@@ -66,3 +66,26 @@ Neither direction is proved, and no extension E that is independently physically
 identified. In the terms of r3 the decision takes the extension form (T3) as the formal target and
 the native form (T5) as the sourcing programme, with the Bell clause as a separate obligation that
 the full equivalence requires.
+
+## Amendment of the same day: OI as a superset
+
+Recorded on #914, comment 6875548603. The owner (`amaybaum`, 2026-11-14, in the coordinating
+session) wrote: "To be more precise, OI should actually be a superset of QM.  OI should include QM
+and GR." and, of the coordinator's three-part proposal, "Yes proceed as suggested." The sentence
+above that the extended model's experiment family is equivalent "in both directions" to
+finite-system quantum mechanics is replaced by three parts:
+
+1. Inclusion: every finite quantum experiment is realized by one common OI model.
+2. Sector: a stated, physically justified condition picks out a part of OI that is exactly QM.
+3. Gravity: the same substratum and observer yield GR, consistently with parts 1 and 2.
+
+It is not required that every OI model behave quantum-mechanically. The five decisions and the
+other requirements above stand. In the terms of r3: part 1 is the (⇐) direction; part 2 is an
+equivalence for a sector, with two directions each needing its own witness; the class-level (⇒)
+obligation recorded in r3 as needing a selection principle is replaced by the obligation to state
+and justify the sector condition. Part 3 is outside r3, which treats the quantum side only; on
+`main` the Einstein equations are used through Jacobson's relation and not derived
+(`papers/GR.md`:162).
+
+No part is proved. r3 and the owner brief were written before this amendment and are not edited.
+
