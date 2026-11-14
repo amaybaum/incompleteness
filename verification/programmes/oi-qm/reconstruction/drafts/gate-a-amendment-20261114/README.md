@@ -8,8 +8,7 @@ record on PR #1287.
 
 **Authorization.** #1169, comment 6875724719 (posted from the owner's account, 2026-11-14T10:12:11Z),
 which records the owner's approval of a paper-only forward amendment reconciling Gate A with the
-three-part target recorded on #914, comment 6875548603. The owner confirmed in the coordinating
-session that both paper-only units of that day were authorized and may continue.
+three-part target recorded on #914, comment 6875548603.
 
 ## Contents
 
@@ -23,6 +22,7 @@ session that both paper-only units of that day were authorized and may continue.
 | `REVIEW-r1.md` | Non-author review of r1: REVISE (one blocking, sixteen should-fix findings) |
 | `RESPONSE-r1.md` | Dispositions of the review's findings and of the confirmation review's changes |
 | `CONFIRM-r2.md` | Confirmation review of r2: ACCEPT WITH CHANGES (one blocking change K1, K2–K5, nits N1–N4) |
+| `CONFIRM-r3.md` | Focused confirmation of r3 at `65b0a929`: ACCEPT WITH CHANGES (required changes RC1–RC4 and one owner-questions wording) |
 
 ## Review status, exactly
 
@@ -34,8 +34,14 @@ session that both paper-only units of that day were authorized and may continue.
   statements compare only the quantum-labelled protocols, so that an access-closure obligation is
   needed.
 - r3 applies K1–K5 and N1–N4, two in modified form (`RESPONSE-r1.md`). The trace changes only in the
-  row for EP:51. r3 itself has not been reviewed. The reviews are non-author model reviews, not
-  independent verification.
+  row for EP:51.
+- `CONFIRM-r3.md` confirmed r3 at `65b0a929`: preservation of the accepted contract is met and
+  K1–K5 are applied. It requires four changes: one defined meaning of "a model inside C" and of
+  the comparator's full operational equivalence (RC1); the necessity statement made conditional
+  on C being invariant under that equivalence (RC2); four remaining anti-fitting openings closed
+  (RC3); and the Bell coverage clause restricted to admitted two-wing models (RC4). It also finds
+  "question 2 answers itself" in `OWNER-QUESTIONS-r3.md` too strong. These are to be applied in r4.
+- The reviews are non-author model reviews, not independent verification.
 
 ## What the amendment states
 
