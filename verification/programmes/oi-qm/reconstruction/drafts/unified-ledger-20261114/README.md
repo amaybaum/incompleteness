@@ -9,7 +9,8 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `LEDGER-r4.md` | The current draft; applies the review of r3 and the reviewed coverage audit (confirmed findings incorporated, ten unresolved kept, work kinds separated); unreviewed | `02169b59c9b26c1769c5e753613e8e0b7e5932705c467602d9baff360ae50e5f` |
+| `LEDGER-r4.md` | The current draft; applies the review of r3 and the reviewed coverage audit (confirmed findings incorporated, ten unresolved kept, work kinds separated); reviewed (ACCEPT WITH CHANGES) | `02169b59c9b26c1769c5e753613e8e0b7e5932705c467602d9baff360ae50e5f` |
+| `REVIEW-r4.md` | Independent review of r4: ACCEPT WITH CHANGES (four should-fix, seven nits) | `cc80fdd7e5e6fe91dd6797d004b7001e98a3aeddab244cf03e3ac63ec6a94fd0` |
 | `RESPONSE-r3.md` | Dispositions of the review of r3 and of the audit findings | |
 | `LEDGER-r3.md` | The current draft; applies the review of r2 and the owner's expansion (levels A–C, evidence classes, Part 4 entries, QCD group); reviewed (ACCEPT WITH CHANGES) | `d8cad733813662eed0f59b9a2307f506ea01d7bc4bc9efce30fb2e239b50735e` |
 | `COVERAGE-AUDIT-r4.md` | Coverage audit r4: minimal revision of r3 (unresolved count 10; owner guidance quoted from #914 comment 6878781541); reviewed (ACCEPT) | `ea4f133d74b1f502c149f22c9e14f5256c43d9c2cacb2da261d5ea11867f8bfb` |
