@@ -71,6 +71,7 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
 | `CHECK-RULEFREE.md` | Independent check of section 6 of `CONFIRM-r2.md` |
 | `L54-r4.md`, `SUMMARY-r4.md` | r3 with the independent check's eight corrections (§9 of `CHECK-RULEFREE.md`), and its summary |
 | `RESPONSE-CHECK.md` | One row per correction: source passage, change made in r4, corrected scope |
+| `CONFIRM-r4.md` | Exact-head confirmation of r4 at `de22ceab`: ACCEPT WITH CHANGES (one medium, eight low findings) |
 
 **Review status, exactly.**
 
@@ -115,8 +116,10 @@ reviewer-authored results; five are applied as worded and three are adapted beca
 reproduce the passages they correct (`RESPONSE-CHECK.md` rows 3, 5 and 6). `CONFIRM-r2.md`, r3 and
 `SUMMARY-r3.md` are unchanged. In r4 the results of `CONFIRM-r2.md` §6 that the check confirmed are
 marked "one author, one independent check" and the checker's own additions "one derivation, not
-checked"; none enters the proof of Theorem 1. r4 is unreviewed until its own exact-head
-confirmation, which will be added here.
+checked"; none enters the proof of Theorem 1. `CONFIRM-r4.md` confirmed r4 at
+`de22ceab` with changes: Theorem 1, its proof and its constants are untouched and the eight
+corrections are faithful; one medium finding (a narrowed hypothesis of the rule-free lemma) and
+eight low findings remain, to be applied in a further revision.
 
 ## Names used in the files
 
