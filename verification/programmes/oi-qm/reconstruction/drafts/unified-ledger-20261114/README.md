@@ -9,7 +9,8 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `LEDGER-r5.md` | The current draft; minimal revision of r4 applying its review (four should-fix, seven nits); unreviewed | `c3897e42b57e3a5052f29828935e2e30bf4270ffafaf349a9c4b4eadfe83c299` |
+| `LEDGER-r5.md` | The current draft; minimal revision of r4 applying its review (four should-fix, seven nits); reviewed (ACCEPT) | `c3897e42b57e3a5052f29828935e2e30bf4270ffafaf349a9c4b4eadfe83c299` |
+| `REVIEW-r5.md` | Focused confirmation of r5: ACCEPT (owner checks on J-3/J-4, Q13, audit citation and the ten unresolved findings all met) | `0f0e119e0a4a48eb68bff3e3314bf6b3d5289129f6a478576d5e60ccf5de2ee2` |
 | `RESPONSE-r4.md` | Dispositions of the review of r4 | |
 | `LEDGER-r4.md` | applies the review of r3 and the reviewed coverage audit (confirmed findings incorporated, ten unresolved kept, work kinds separated); reviewed (ACCEPT WITH CHANGES) | `02169b59c9b26c1769c5e753613e8e0b7e5932705c467602d9baff360ae50e5f` |
 | `REVIEW-r4.md` | Independent review of r4: ACCEPT WITH CHANGES (four should-fix, seven nits) | `cc80fdd7e5e6fe91dd6797d004b7001e98a3aeddab244cf03e3ac63ec6a94fd0` |
