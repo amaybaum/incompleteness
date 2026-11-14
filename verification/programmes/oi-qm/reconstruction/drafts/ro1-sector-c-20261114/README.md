@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `RO1-SPEC-r3.md` | Minimal r3: applies the review of r2 (no prejudging of S5 or S9; O11 answers narrowed to "not excluded"); unreviewed | `90a4e47ed84eabdeee715525ad81f2e63151078534d390458af77278c7cf8146` |
+| `RO1-SPEC-r3.md` | Minimal r3: applies the review of r2 (no prejudging of S5 or S9; O11 answers narrowed to "not excluded"); reviewed (ACCEPT) | `90a4e47ed84eabdeee715525ad81f2e63151078534d390458af77278c7cf8146` |
 | `RESPONSE-SPEC-r2.md` | Dispositions of that review | |
 | `RO1-SPEC-r2.md` | Sector-C specification r2: applies the independent review of r1 and three reviewer checks (PR countermodel clause by clause, missing restriction, identity-relation analysis); stops S1–S3, S5–S9; reviewed (ACCEPT WITH CHANGES) | `5ea19f790120499b4d6325459f8153d1c5fc831fee07877f4603cc5132fb3528` |
 | `RESPONSE-SPEC-r1.md` | Dispositions of that review | |
@@ -19,3 +19,4 @@ premise, or changes any Issue's planning or scope.
 | `RO1-OVERLAP-r1.md` | Scope comparison of RO-1 and #1143, with a proposed split and owner questions; proposal for owner decision; unreviewed | `6aa7b08ea6f0f4f9f7d94e43c232e9fa938d50dc97679c8db2e807a10609a501` |
 | `REVIEW-SPEC-r1.md` | Independent review of RO1-SPEC-r1 at `7156d761`: REVISE (three blocking, seven major, twelve minor) | `f3e19cf8e78e5832a0ac944e32587146af2462de4de7fc4f8932591feac758cd` |
 | `REVIEW-SPEC-r2.md` | Independent review of RO1-SPEC-r2 at `551b2f18`: ACCEPT WITH CHANGES (three new major findings) | `a920b934bce674e32b8a916cc2af815036fb1882838a0b091cd09a4d544ca99f` |
+| `REVIEW-SPEC-r3.md` | Focused confirmation of RO1-SPEC-r3 at `a407ff90`: ACCEPT (one nonblocking nit) | `ab6e12ef29d876b0c7f4a85d11fd4429937db839ef03dfd53a8619283fac7db3` |
