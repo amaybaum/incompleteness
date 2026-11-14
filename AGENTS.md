@@ -1400,10 +1400,10 @@ citation to a file on it, never by itself certifies a premise for future researc
    for a frozen record, in a mutable record on `main` that cites it (item 4), keeping the
    scientific record, its review provenance and its evidence layers. A pre-adoption record
    reconciled under this item counts as preserved under it for the surviving-claim rule, provided
-   its applicable preservation conditions and historical authorization are documented.
-   Reconciliation does not retroactively certify unmet verification or review requirements.
-   Reconciliation removes nothing; removal is governed by item 6, and a record that supports an
-   established claim keeps that basis.
+   record-specific verification shows its applicable preservation conditions met and these and
+   its historical authorization are documented. Reconciliation does not retroactively certify
+   unmet verification or review requirements. Reconciliation removes nothing; removal is governed
+   by item 6, and a record that supports an established claim keeps that basis.
 
 Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
 records from `main` was found to break records on `main` that depend on them. Amended the same day
@@ -1413,4 +1413,4 @@ unnecessary and to bar unverified and refuted premises from established claims. 
 conditions on which a research record is preserved on `main`, what a remediation plan states,
 that a preserved record's scoped result is a surviving claim, and the reconciliation of records
 already on `main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments
-6865680499, 6872005186 and 6872344927).
+6865680499, 6872005186, 6872344927 and 6872828604).
