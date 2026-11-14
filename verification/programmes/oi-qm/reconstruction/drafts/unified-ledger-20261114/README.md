@@ -20,6 +20,8 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 | `REVIEW-QUEUE-r3.md` | Confirmation of queue proposal r3: ACCEPT WITH CHANGES | `36d1b1916fbe77f1d968edef8bb39839a7dbcb18f82726a40262b2457bf8716c` |
 | `REVIEW-QUEUE-r2.md` | Focused confirmation of queue proposal r2: ACCEPT | `0d7c8f27627e07fedd0edceaf551ee2a54a517dfe2b5f5f6e89bcfae845b7def` |
 | `REVIEW-QUEUE-r1.md` | Independent review of the queue proposal: ACCEPT WITH CHANGES | `94a44806700cf224a413d1818335575a29bee04d323893a4f8bf307b0fdd9a76` |
+| `LEDGER-r8.md` | Minimal revision of r7 applying its review (LC-3 reconciliation, citations); unreviewed | `2bfcb99d03f843ce17d5a6c864a18d77bcc5e3fa9c971f67e282c345a2dce8c1` |
+| `RESPONSE-r7.md` | Dispositions of the review of r7 | |
 | `LEDGER-r7.md` | Applies the review of r6 and completes LC-2 to LC-6 of the bounded follow-up (LC-5 partly; the remainder is listed); reviewed (ACCEPT WITH CHANGES) | `ce93aba28f2c8f9fba6a9c1a23555ef51e3ad788d1856635e57aab12a9be1a90` |
 | `REVIEW-r7.md` | Independent review of r7: ACCEPT WITH CHANGES (one should-fix, one nit) | `219ad121d1a30c52aff7add094950478572011e1b13a5fc464384304b115faf4` |
 | `RESPONSE-LC-2.md` | Dispositions and results of LC-2 to LC-6 | |
