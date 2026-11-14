@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `RO1-DEPS-r4.md` | Dependency assessment r4: applies the focused review of r3 (C1: interface ceilings and the preparation limit exclude quantum operations only; C2: separated-wing soundness on the finite carrier under global P-vii, at the cost of Bell coverage; X5 flagged); verdict UNDETERMINED; unreviewed | `02340bf2fb3d07ef68ad355f8b559723d219890c16feae57d9163b349d71c87e` |
+| `RO1-DEPS-r4.md` | Dependency assessment r4: applies the focused review of r3 (C1: interface ceilings and the preparation limit exclude quantum operations only; C2: separated-wing soundness on the finite carrier under global P-vii, at the cost of Bell coverage; X5 flagged); verdict UNDETERMINED; independently reviewed (ACCEPT) | `02340bf2fb3d07ef68ad355f8b559723d219890c16feae57d9163b349d71c87e` |
 | `RESPONSE-DEPS-r3.md` | Dispositions of that review | |
 | `RO1-DEPS-r3.md` | Dependency assessment r3: applies the independent review of r2 (first steps reordered on all four tracks; cross-track conflicts X1–X4 flagged; reuse with retention as the one partial discriminator); verdict UNDETERMINED; reviewed (ACCEPT WITH CHANGES) | `aee284f2d9f51df8a698aff0f08c64f5db922f9495f39fdb31c4bcc76d65451d` |
 | `RESPONSE-DEPS-r2.md` | Dispositions of that review | |
@@ -30,3 +30,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-DEPS-r1.md` | Independent review of RO1-DEPS-r1 at `9504385a`: REVISE (verdict label right; four blocking findings on its support) | `8536e21297b527b3294f61cf4f2d300c339c6b513be57b6739c4f7a6bf7f14a1` |
 | `REVIEW-DEPS-r2.md` | Independent review of RO1-DEPS-r2 at `3b7d5aac`: REVISE (criteria 1, 3, 4 met; 2 not met: first steps not first on tracks (c), (d) and partly (a); four cross-track conflicts unflagged) | `e3dcd01306596b5892367fd8bf1b9354f348ecc3a23c043bcdf5243fdbbf7cda` |
 | `REVIEW-DEPS-r3.md` | Focused review of RO1-DEPS-r3 at `4fc3f4aa`: ACCEPT WITH CHANGES (C1: the interface ceilings and D-A8 exclude quantum behaviour only, not both; C2: D-ceil gives separated-wing soundness on F under global P-vii) | `17a40f1857065bf89f48ecada65040dc18744037d057c873fec595ac5639989f` |
+| `REVIEW-DEPS-r4.md` | Focused confirmation of RO1-DEPS-r4 at `dab18525`: ACCEPT (C1 and C2 resolved; two optional nits) | `8622bd2962a2b4663caba48b9f7c76ab206c11b7993acdcc8a50757711b8dd07` |
