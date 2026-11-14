@@ -219,16 +219,16 @@ is re-measured at the package head.
     hypothesis was found on `main`, NOTES-r3:70–74; and the ladder classification);
   - scope and limits documented: met (LD §0, §4 scope limits, §5; this note);
   - independent non-author review and ChatGPT exact-head review: met for the record (REVIEW-r1,
-    CONFIRM-r2, CONFIRM-r3; ChatGPT 5892919040 at `d8e4f80e`); at the package head `<sha>`, no
+    CONFIRM-r2, CONFIRM-r3; ChatGPT 5892919040 at `d8e4f80e`); in this note as landed, no
     package-level review of this note is recorded;
   - accountable Issue, verification status, remediation plan: #868, this note;
   - explicit rationale: the owner's stated preference, #868 c.6873193841: "I prefer preserving the
     complete accepted Bell ladder rather than weakening its native result or leaving valid research
-    indefinitely off `main`"; at the package head `<sha>`, no merge decision is recorded, and the
+    indefinitely off `main`"; in this note as landed, no merge decision is recorded, and the
     merge decision is quoted in the forward note added after landing.
 
   The record is preserved, not established (§A.46 item 1). Its removal is not automatic and is
   governed by §A.46 item 6.
-- **Owner record.** #868 comment 6873193841, option (1). At the package head `<sha>`, no
-  package-level review or merge decision is recorded; the merge decision is quoted in the forward
-  note added after landing.
+- **Owner record.** #868 comment 6873193841, option (1). In this note as landed, no package-level
+  review or merge decision is recorded; the merge decision and the package's reviews are quoted,
+  with their commits, in the forward note added after landing.

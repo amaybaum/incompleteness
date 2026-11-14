@@ -126,7 +126,7 @@ Where the gap cannot be closed, the result is narrowed or withdrawn where it is 
 | `papers/Main.md`:362 at `c3b5f37a` | Support on `main`. |
 | `SUBSTATE-BRIDGE-UNIT1.md` at `86a413c8` | Provenance: the copied content is in `SB-L3.md`. |
 | S5 in `generic_substate_checks.py` at `86a413c8` (S:167's "[X S5]" and S:169's "S5 checks 300 random response tables") | Provenance (see Limitations); the script does not land. |
-| "B1's static bit" (S:171) | Support on `main`: Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23. B1's hidden sequence is infinite, so the consequence applies to it only within the finite-depth limit stated above. |
+| "B1's static bit" (S:171) | Support on `main`: Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23. B1 reads and writes only `b_0` and `b_m` for one fixed finite `m` (README.md:23); the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor. |
 | SB §6 (S:171) | Provenance; not carried. |
 | #1271 reconciliation, R3:66 at `703ae20e` | Provenance: it reads L3 as the standard Bell argument; no claim rests on it. |
 | Reviews 5858000929, 5859960068, 5857981727 | Review provenance. |
@@ -162,12 +162,12 @@ S:3 ("pending focused re-review") and S:356 ("r2 has not been re-reviewed"): r2 
   - scope and limits documented: in this note; `SB-L3.md` is to state them;
   - independent non-author review and ChatGPT exact-head review: not met for the carried text; the
     source has two ChatGPT reviews and no separate non-author review, and an owner decision on
-    whether a ChatGPT exact-head review also meets the non-author-review condition is required; at
-    the package head `<sha>`, no package-level review is recorded;
+    whether a ChatGPT exact-head review also meets the non-author-review condition is required; in
+    this note as landed, no package-level review is recorded;
   - accountable Issue, verification status, remediation plan: #1169, this note;
   - explicit rationale: the Bell ladder's directed (Sep) in its controlling condition and stage 5;
     the record puts on `main` the argument on which #1274's narrowed row D2 (N2's necessity) is
-    conditioned, and #1274's statements stay conditional as written; at the package head `<sha>`,
+    conditioned, and #1274's statements stay conditional as written; in this note as landed,
     no merge decision is recorded, and the merge decision is quoted in the forward note added after
     landing.
 
@@ -177,6 +177,6 @@ S:3 ("pending focused re-review") and S:356 ("r2 has not been re-reviewed"): r2 
 
   The record is preserved, not established (§A.46 item 1). Its removal is not automatic and is
   governed by §A.46 item 6.
-- **Owner record.** #868 comment 6873193841 names "SB L3 (#1232)" in the package. At the package head
-  `<sha>`, no package-level review or merge decision is recorded; the merge decision is quoted in the
-  forward note added after landing.
+- **Owner record.** #868 comment 6873193841 names "SB L3 (#1232)" in the package. In this note as
+  landed, no package-level review or merge decision is recorded; the merge decision and the
+  package's reviews are quoted, with their commits, in the forward note added after landing.

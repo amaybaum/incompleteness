@@ -67,7 +67,8 @@ setting-independent pre-setting variable factorizes the complete local histories
 finite menu, so CHSH ≤ 2; without generator isolation the same holds under measurement independence
 for λ* = (Ω, ρ_A, ρ_B); for any measurement-independent Bell-local family the mean and worst-setting
 joint-output total-variation error to the Tsirelson box is at least (√2−1)/4, also on full
-histories (one product extractor with the Tsirelson box as the target's pushforward), and the constant is optimal over Bell-local tables and attained by an abstract member of
+histories (one product extractor with the Tsirelson box as the target's pushforward), and the
+constant is optimal over Bell-local tables and attained by an abstract member of
 the class; for OI itself the verdict is indeterminate, the native Bell-availability lemma is open,
 and no native escape is established (paper arguments [A] on Main's cone lemma [P], with exact
 generic checks [X]; model-reviewed, not independently verified; not adopted; no manuscript claim
@@ -185,9 +186,10 @@ BS's own §A.42 item 8 table (BS:419–441) classifies its references. At the pa
   under "Source drift".
 - Lines 436–437 describe ASSESS-868 r3a and Q868H r2a as session files. ASSESS-868 r3a and Q868H r3 are
   now committed on #1269's branch, off `main`; both remain provenance.
-- Lines 21–24 ("**D** draft off `main`"; "**A** derivation in this file, unreviewed"): this record is
-  on `main` as a research record, model-reviewed and not verified (§A.46 item 7); its [A] items have
-  been reviewed as listed above.
+- Line 23 ("**A** derivation in this file, unreviewed"): the record's [A] items have been reviewed
+  as listed above; the record is on `main` as a research record, model-reviewed and not verified
+  (§A.46 item 7). Line 22's "**D** draft off `main`" still describes its one [D] item, A6.1 of
+  #1210 (BS:183), which stays off `main`.
 - Lines 421–422 ("Nothing in this file lands; if it ever does, the gaps marked here must close
   first"): the record lands, and its one gap, the probe, lands with it.
 
@@ -208,12 +210,12 @@ BS's own §A.42 item 8 table (BS:419–441) classifies its references. At the pa
   - scope and limits documented: met (BS §0, §1, §4.4, §8; this note);
   - independent non-author review and ChatGPT exact-head review: the ChatGPT exact-head review is
     5857981727 at `e1534b08`; no separate non-author review is recorded, and an owner decision on
-    whether a ChatGPT exact-head review also meets the non-author-review condition is required; at
-    the package head `<sha>`, no package-level review is recorded;
+    whether a ChatGPT exact-head review also meets the non-author-review condition is required; in
+    this note as landed, no package-level review is recorded;
   - accountable Issue, verification status, remediation plan: #868, this note;
   - explicit rationale: the Bell ladder r3 rests on Theorem N/N′ and §4 for stages 5 and 6 and for its
     controlling condition, and this record puts on `main` the Theorem N on which #1274's narrowed row
-    E2 is conditioned; #1274's statements stay conditional as written; at the package head `<sha>`,
+    E2 is conditioned; #1274's statements stay conditional as written; in this note as landed,
     no merge decision is recorded, and the merge decision is quoted in the forward note added after
     landing.
 
@@ -221,6 +223,6 @@ BS's own §A.42 item 8 table (BS:419–441) classifies its references. At the pa
   governed by §A.46 item 6.
 - **Owner record.** #868 comment 6873193841: option (1), "land the supporting evidence first", with
   the package "BS Theorem N and N′ (#1231), SB L3 (#1232) and the ladder r3 (#1273). Each component
-  has its own record-by-record STATUS notes." At the package head `<sha>`, no package-level review
-  or merge decision is recorded; the merge decision is quoted in the forward note added after
-  landing.
+  has its own record-by-record STATUS notes." In this note as landed, no package-level review or
+  merge decision is recorded; the merge decision and the package's reviews are quoted, with their
+  commits, in the forward note added after landing.
