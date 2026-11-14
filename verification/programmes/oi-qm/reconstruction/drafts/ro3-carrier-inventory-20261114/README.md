@@ -19,3 +19,4 @@ establishes no result, adopts no premise, and changes no planning entry; EXACT (
 | `REVIEW-r1.md` | Independent review of r1 at `0d6d8812`: ACCEPT WITH CHANGES (three major, several medium findings) | `657fb377212d3f49dbaab81f77f81fb6d27fcfecff74dd7280fc8553698b256a` |
 | `REVIEW-OBL-r1.md` | Independent review of OBL-RO3-2-r1 and RO3-INVENTORY-r3 at `76ca4c3d`: ACCEPT WITH CHANGES (one required, eight minor) | `5cad69e3b991d35230ea2a6a1b8b9bea31d22202336c9d3e3eb8c9a2a8c24885` |
 | `REVIEW-OBL-r2.md` | Focused confirmation of OBL-RO3-2-r2 and RO3-INVENTORY-r4 at `ef8d353e`: ACCEPT (two optional fixes) | `df5096f381cffce4f0760c54fcd5d025c6a5684c04bbf8bea72bf45dacc34872` |
+| `REVIEW-OBL-r2-ADDENDUM.md` | Addendum to the confirmation at `ef8d353e`: recurrence a.e., common exact visible return and P-indivisibility kept distinct (CONFIRMED; four optional fixes) | `6533a2a138d42680ee57635d78437a9f0dec00a75b5db5c72e4b4f0437e542cc` |
