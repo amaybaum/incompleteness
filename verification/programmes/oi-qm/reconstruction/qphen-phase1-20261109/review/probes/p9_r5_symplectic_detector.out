@@ -1,0 +1,18 @@
+     |GL(4,F2)| = 20160 ; |Sp(4,F2)| = 720
+     affine bijections: 322560 ; affine-symplectic: 11520
+     identity on c=0 and records occupation: affine 6 ; affine-symplectic 0
+     affine-symplectic maps that are the identity on c=0: 2
+PASS |GL(4,F2)| = 20160
+PASS |Sp(4,F2)| = 720
+PASS affine-symplectic maps = 720 x 16 = 11520
+PASS affine maps (not necessarily symplectic) that are identity on c=0 and record occupation: 6
+PASS affine-symplectic maps that are identity on c=0 and record occupation: 0
+PASS identity on c=0 forces b = 0 (affine-symplectic)
+PASS symplectic and identity on c=0: d in span(e_x), i.e. d in {0, e_x}
+PASS the 6 affine maps are M = I + d e_c^T, d_c = 0, with a meter component in d
+PASS copy coupling m <- m + c is a linear bijection
+PASS copy coupling is not symplectic for (c, x), (m, m')
+PASS copy coupling is identity on c=0 and records occupation
+PASS reciprocal coupling (copy and x <- x + m') is symplectic
+PASS reciprocal coupling records occupation and is not the identity on c=0
+ALL PASS

@@ -1,0 +1,13 @@
+(1) copy affine: True | reciprocal affine: True | occupation-conditional kick affine: False
+(2) CNOT from ancilla cos t|0>+sin t|1>: C12 = cos(2*t) ; equals cos 2t: True
+(3) two-mode Clifford G (G^dag Zc G = Za, G^dag Za G = Xc) = (I x H).SWAP.CNOT_{m->c} [asserted]: [[sqrt(2)/2, 0, sqrt(2)/2, 0], [sqrt(2)/2, 0, -sqrt(2)/2, 0], [0, sqrt(2)/2, 0, sqrt(2)/2], [0, -sqrt(2)/2, 0, sqrt(2)/2]]
+    carrier Bloch (sin b, 0, cos b), ancilla |0>: (C12, C23, C13) = (cos(b), sin(b), 0) ; K3 = sqrt(2)*sin(b + pi/4)
+    K3(b = pi/4) = sqrt(2) ; K3(cos b = 4/5, sin b = 3/5) = 7/5
+(3') G = (I x H).CNOT_{m->c} [asserted]; G^dag Zc G = Zc Zm, G^dag (Zc Zm) G = -Yc Ym: [[sqrt(2)/2, 0, 0, sqrt(2)/2], [sqrt(2)/2, 0, 0, -sqrt(2)/2], [0, sqrt(2)/2, sqrt(2)/2, 0], [0, -sqrt(2)/2, sqrt(2)/2, 0]]
+    carrier |+>, ancilla Bloch (sin b, 0, cos b): (C12, C23, C13) = (cos(b), sin(b), 0) ; K3 = sqrt(2)*sin(b + pi/4) ; at b = pi/4: sqrt(2)
+    enumeration over 11520 two-qubit Cliffords: stabilizer product preps -> correlators in {0,+-1}: True , max K3 = 1.0
+    stabilizer carrier x ancilla on a 7x6 Bloch grid: grid max K3 (lower bound) = 1.366025404
+(4) flip instrument (read Z, reprepare the other eigenstate), G = X, prep |0>: (C12, C23, C13) = (1, 1, -1) -> K3 = 3
+    small search for K3 = 2 among {X, sqrtX, I} x {flip, reset0, Lueders} x {|0>, |1>}: []
+    mixture (flip with weight w, else reprepare the read eigenstate), G = X, prep |0>: (C12, C23, C13) = (2*w - 1, 2*w - 1, 1 - 2*w) -> K3 = 6*w - 3 ; K3 = 2 at w = [5/6]
+(5) Lueders reads, random search + hill-climb (numeric evidence only): {2: np.float64(1.4999931988675936), 4: np.float64(1.4950960953871766)}

@@ -1,0 +1,76 @@
+== 1. symplectic linear parts, built by filtering M^T J M = J
+PASS 1a |Sp(4,F_2)| = 720  -- 720
+PASS 1b location-preserving symplectic linear parts over F_3 = 648 (= 51,840 / 80)  -- 648
+PASS 1c every enumerated symplectic M satisfies M J^-1 M^T = J^-1 (bracket preservation)
+PASS 1d affine-symplectic maps of F_2^4 = 11,520  -- 11520
+PASS 1e location-preserving ones over F_2 = 384  -- 384
+PASS 1f location-preserving affine-symplectic maps over F_3 = 17,496  -- 17496
+== 2. Q4-P20: under every SA-1(c) meter law, every readable recorder has K_null != id
+   F_2, all affine-symplectic   sharp(0, 0)            readable  7488 ; with K_null = id  1728
+   F_2, all affine-symplectic   sharp(0, 1)            readable  7488 ; with K_null = id  1728
+   F_2, all affine-symplectic   sharp(1, 0)            readable  7488 ; with K_null = id  1728
+   F_2, all affine-symplectic   sharp(1, 1)            readable  7488 ; with K_null = id  1728
+   F_2, all affine-symplectic   SA1c l=(0, 1) k=0      readable  4608 ; with K_null = id     0
+   F_2, all affine-symplectic   SA1c l=(0, 1) k=1      readable  4608 ; with K_null = id     0
+   F_2, all affine-symplectic   SA1c l=(1, 0) k=0      readable  4608 ; with K_null = id     0
+   F_2, all affine-symplectic   SA1c l=(1, 0) k=1      readable  4608 ; with K_null = id     0
+   F_2, all affine-symplectic   SA1c l=(1, 1) k=0      readable  4608 ; with K_null = id     0
+   F_2, all affine-symplectic   SA1c l=(1, 1) k=1      readable  4608 ; with K_null = id     0
+   F_2, all affine-symplectic   unknown                readable  2304 ; with K_null = id     0
+PASS 2 [F_2, all affine-symplectic] SA-1(c): readable recorders exist under every law (non-vacuous)
+PASS 2 [F_2, all affine-symplectic] SA-1(c): no readable recorder has K_null = id
+PASS 2 [F_2, all affine-symplectic] sharp meters: some readable recorder has K_null = id under every sharp law (countercontrol)
+   F_2, location-preserving     sharp(0, 0)            readable   288 ; with K_null = id   144
+   F_2, location-preserving     sharp(0, 1)            readable   288 ; with K_null = id   144
+   F_2, location-preserving     sharp(1, 0)            readable   288 ; with K_null = id   144
+   F_2, location-preserving     sharp(1, 1)            readable   288 ; with K_null = id   144
+   F_2, location-preserving     SA1c l=(0, 1) k=0      readable   192 ; with K_null = id     0
+   F_2, location-preserving     SA1c l=(0, 1) k=1      readable   192 ; with K_null = id     0
+   F_2, location-preserving     SA1c l=(1, 0) k=0      readable   192 ; with K_null = id     0
+   F_2, location-preserving     SA1c l=(1, 0) k=1      readable   192 ; with K_null = id     0
+   F_2, location-preserving     SA1c l=(1, 1) k=0      readable   192 ; with K_null = id     0
+   F_2, location-preserving     SA1c l=(1, 1) k=1      readable   192 ; with K_null = id     0
+   F_2, location-preserving     unknown                readable     0 ; with K_null = id     0
+PASS 2 [F_2, location-preserving] SA-1(c): readable recorders exist under every law (non-vacuous)
+PASS 2 [F_2, location-preserving] SA-1(c): no readable recorder has K_null = id
+PASS 2 [F_2, location-preserving] sharp meters: some readable recorder has K_null = id under every sharp law (countercontrol)
+   F_3, location-preserving     sharp(0, 0)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(0, 1)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(0, 2)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(1, 0)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(1, 1)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(1, 2)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(2, 0)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(2, 1)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     sharp(2, 2)            readable 15552 ; with K_null = id  5184
+   F_3, location-preserving     SA1c l=(0, 1) k=0      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(0, 1) k=1      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(0, 1) k=2      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 0) k=0      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 0) k=1      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 0) k=2      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 1) k=0      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 1) k=1      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 1) k=2      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 2) k=0      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 2) k=1      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     SA1c l=(1, 2) k=2      readable 11664 ; with K_null = id     0
+   F_3, location-preserving     unknown                readable     0 ; with K_null = id     0
+PASS 2 [F_3, location-preserving] SA-1(c): readable recorders exist under every law (non-vacuous)
+PASS 2 [F_3, location-preserving] SA-1(c): no readable recorder has K_null = id
+PASS 2 [F_3, location-preserving] sharp meters: some readable recorder has K_null = id under every sharp law (countercontrol)
+PASS 2x F_2 location-preserving, sharp (0, 0): 288 readable, 144 with K_null = id  -- (288, 144)
+PASS 2y location-preserving: with both meter slots unknown no map records readably (F_2 and F_3)
+== 3. Q4-D8: the reciprocal coupling (c, x, m, m') -> (c, x - m', m + c, m')
+PASS 3a q=2: linear, symplectic, location-preserving
+PASS 3b q=2: meter write depends on c (records occupation)
+PASS 3c q=2: sharp meter (0, 0): records readably and K_null = id
+PASS 3d q=2: SA-1(c) meter (m known 0, m' uniform): records readably and K_null != id
+PASS 3a q=3: linear, symplectic, location-preserving
+PASS 3b q=3: meter write depends on c (records occupation)
+PASS 3c q=3: sharp meter (0, 0): records readably and K_null = id
+PASS 3d q=3: SA-1(c) meter (m known 0, m' uniform): records readably and K_null != id
+== 4. countercontrol on the symplectic hypothesis: the copy coupling m <- m + c
+PASS 4a the copy coupling is not symplectic
+PASS 4b with an SA-1(c) meter it records readably and has K_null = id (symplecticity is load-bearing)
+== 27 of 27 checks pass
