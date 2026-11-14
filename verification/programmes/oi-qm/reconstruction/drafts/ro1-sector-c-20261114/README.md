@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `S3-PLAN-r5.md` | S3 plan r5: the single fix from the confirmation of r4 (a (β) failure resting only on unsourced retention is reported as unsourced and does not count toward closing route M); plan for owner decision; unreviewed | `b61c5c497c70decb4f9777a290e1d19d824f30d689cdef33014287757ce17882` |
+| `S3-PLAN-r5.md` | S3 plan r5: the single fix from the confirmation of r4 (a (β) failure resting only on unsourced retention is reported as unsourced and does not count toward closing route M); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `b61c5c497c70decb4f9777a290e1d19d824f30d689cdef33014287757ce17882` |
 | `RESPONSE-S3-PLAN-r4.md` | Disposition of that review | |
 | `S3-PLAN-r4.md` | S3 plan r4: local fixes from the focused confirmation of r3 (AC-1 limits what a unit may propose or report as passing; the reference-class sentence made conditional on OB-b0; marker coupling of (β) and (δ); resource wording); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `76f7a54b46b032e866ef5d0f459949704e81463881cad0a136862bb3bed8c183` |
 | `RESPONSE-S3-PLAN-r3.md` | Dispositions of that review | |
@@ -44,3 +44,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-S3-PLAN-r2.md` | Focused review of S3-PLAN-r2 at `413af128`: ACCEPT WITH CHANGES (R1: the decisive test needs the marker's preparation and a third, undecided outcome; R2: U2 still overlaps access-closure work) | `3cafd38fc3fdadd0240ad275d2b8ce8cd0378b3db6687d22394766fcecde8291` |
 | `REVIEW-S3-PLAN-r3.md` | Focused confirmation of S3-PLAN-r3 at `9c65c22e`: ACCEPT WITH CHANGES (R3: AC-1's per-unit wording conflicts with H-RR's refutation route; R4: a claim at l. 500 rests on the open OB-b0) | `498c58c1e71d895a43b27851b0adc2d9c6d88498f607eb566d958dda852e16bf` |
 | `REVIEW-S3-PLAN-r4.md` | Focused confirmation of S3-PLAN-r4 at `5001331a`: ACCEPT WITH CHANGES (R5: a (β) failure resting only on unsourced retention of the marker record is reported as unsourced, not as empty on K1) | `1d98fd8b9c2d2afd478b4a5538339b246aa466a987db3a5254edfcddfc9bbe5a` |
+| `REVIEW-S3-PLAN-r5.md` | Focused confirmation of S3-PLAN-r5 at `ac70c70a`: ACCEPT WITH CHANGES (R6: the native-marker miss branch counts toward closure only with sourced retention of the marker record) | `0b6c05e5439ce8362f01978743a4bce2ec9fb8355f3161e9e9ad5162e75637ce` |
