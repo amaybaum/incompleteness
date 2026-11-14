@@ -1,6 +1,7 @@
 # Status note: the Bell debugging ladder r3
 
-**Draft for the Bell landing package (`LANDING-PLAN.md` §5).** At landing this note becomes
+**Draft for the Bell landing package (the Bell support and ladder package, #868 comment 6873193841,
+option (1)).** At landing this note becomes
 `verification/programmes/oi-qm/reconstruction/drafts/bell-ladder-20261113/STATUS.md`. It gives the
 standing of the records in that directory and changes none of them; r3 is the accepted text.
 
@@ -49,7 +50,7 @@ OI-wide no-go.
 |---|---|---|
 | 1 | stages 0–4: NOT FORCED (designed witness); for OI's native rule undetermined | [A], designed toy maps that are not OI rules, on [K] and [P] |
 | 1 | stages 5–6: OBSTRUCTION under the stated conjunction | [A] on Bell-scope Theorem N/N′ and §4 [A], SB L3 [A] and Main:362, :364–389 [P] |
-| 1 | stage 7: UNDETERMINED | no selector supplied (Main:360 [P]; N4, carried by #1274) |
+| 1 | stage 7: UNDETERMINED | no selector supplied (N4, carried by #1274, for the measurement-independent routes; for the measurement-dependent branch, check 2 [A] with Main:360's general sentence and Main:416 [P]) |
 | 2 | hand checks 1–5 of the toy maps | [A] |
 | 3 | six controls, one condition changed at a time | [A] |
 | 4 | Proposition AL: affine update, coset-uniform run law, cell-valued settings, fixed regions, complete histories and complete-history NS ⇒ a Bell-local record law; NS failure ⇒ TV 1 between two remote settings at a fixed own setting | [A] on OA1 D5 and T1 Lemma A-T [W] |
@@ -59,9 +60,13 @@ OI-wide no-go.
 one carrier show that one deterministic map, site factorization, separation in the actual coupling
 graph and observer access do not by themselves force Bell-local behaviour; directed separation in the
 actual coupling graph together with measurement independence for the response-complete pre-setting
-variable forces it for the whole finite menu and complete local histories (Bell-scope Theorem N/N′,
-with SB L3 for the directed form); within ledger class (vii), taken as a conditional ledger posit, for
-coset-uniform run laws, cell-valued settings and complete fixed-region histories, complete-history
+variable forces it for the whole finite menu and complete local histories, given one deterministic
+map on a finite site-factorized space, settings read from disjoint generator regions, complete local
+record windows, every-run outputs with a fixed local failure rule, a finite menu with every pair
+jointly admissible and no postselection (Bell-scope Theorem N/N′, with SB L3 for the directed form);
+within ledger class (vii), taken as a conditional ledger posit, for finite abelian site groups,
+coset-uniform run laws, cell-valued settings with every setting pair of positive probability and
+complete fixed-region histories, complete-history
 no-signalling alone forces a Bell-local record law, and its failure makes two remote settings
 perfectly distinguishable at a fixed own setting; quantum selection is undetermined (hand
 derivations [A] on manuscript [P], kernel [K] and research-record [W] inputs, with stage 5 resting on
@@ -100,7 +105,8 @@ affected)."
 ## Verification status and remediation (§A.46 item 4)
 
 The accountable Issue is #868. Model acceptance is evidence of review, not independent mathematical
-verification (#1169 comment 6865680499). This plan authorizes no work. Each gap below remains open
+verification, and "A remediation plan does not authorize new work" (#1169 comment 6865680499). Each
+gap below remains open
 until the evidence or decision named for it is recorded on `main`.
 
 Here "independently verified" means verified from `main` to the standard for its kind, for example
@@ -121,7 +127,7 @@ on `main` by a counterexample or disproof.
 | --- | --- | --- | --- | --- |
 | Stages 0–4, designed witnesses | partially verified; designed maps, not OI rules | [A] hand checks, re-checked in REVIEW-r1; [K], [P] | independent mathematical verification | an independent mathematical verification recorded on `main` (for example a human review) |
 | Stages 5–6 | partially verified; conditional on the controlling condition | [A] on Bell-scope Theorem N/N′ and §4 [A] and SB L3 [A] | as for stages 0–4, and the same for Bell-scope and SB L3 | as for stages 0–4; the Bell-scope and SB L3 remediations |
-| Stage 7 | classification; undetermined | Main:360 [P]; N4 (#1274) | — | an OI-sourced selector (LD:271); remains open under #868 |
+| Stage 7 | classification; undetermined | N4 (#1274); check 2 [A]; Main:360, :416 [P] | — | an OI-sourced selector (LD:271); remains open under #868 |
 | Proposition AL | partially verified; conditional on (AL1)–(AL4), (NS) | [A]; steps re-derived in REVIEW-r1; ChatGPT check | independent mathematical verification | an independent mathematical verification recorded on `main` (for example a kernel formalization over finite abelian groups, or a human review); a further §A.31 pass on the (AL4) convention |
 | **Histories** witness | partially verified | [A], reviewer's witness, re-checked by the writer | as for AL | as for AL |
 | Controls §3 | partially verified | [A] | as for stages 0–4 | as for stages 0–4 |
@@ -136,11 +142,11 @@ package landing, after #1274 has landed:
 | Reference | Classification at landing |
 | --- | --- |
 | Bell-scope r2 at `e1534b08` (Theorem N, N′, (Rec), §4, §3.5 item 5, NBA) | Support on `main`: lands in the same merge. Lemma G, listed at LD:298, is not used. |
-| SB L3 (S:167–171 at `86a413c8`) | Support on `main` in `SB-L3.md`, landed in the same merge. Its extension to Theorem N′, used by the (MI\*) branch of LD:57–60, is a marked addition there. |
+| SB L3 (S:167–171 at `86a413c8`) | Support on `main` in `SB-L3.md`, landed in the same merge. L3 is load-bearing only for the controlling condition (LD:56–62) and stage 5, which uses it (LD:102); at stage 3 (LD:100) and check 4 (LD:155–156) it is cited, but those verdicts also hold with symmetrized (Sep). Its extension to Theorem N′, used by the (MI\*) branch of LD:57–60, is a marked addition there: Theorem N′'s proof uses only step 1 and steps 3–4 (BS:190), so step 1's directed reading (S:169) carries to it. |
 | SB routes A/B/C (S:177–181), N3 (S:189), N4 (S:190) at `86a413c8` | Support on `main` in #1274's `NEW-RESULTS.md` at `fef94857`: :490–494, :508, :509, with the re-pins and wording changes stated there. |
 | SB:220 | Provenance: an example of a prediction an escape would need (LD:283); no verdict uses it. |
 | QH at `ffc9cda4`, QH:213–214 | Provenance. |
-| QH at `ffc9cda4`, QH:68–97 | Support off `main`, closed by narrowing: see "Superseded lines". |
+| QH at `ffc9cda4`, QH:68–97 | Support off `main`, landed as owner-identified non-load-bearing context (#868 comment 6873193841): see "Superseded lines". |
 | RC at `9f7d2612` | Provenance (LD:301); the Q1/Q2 vocabulary is restated on `main` in #1274's `NEW-RESULTS.md` §0.1. |
 | Reviews 5857227567, 5857981727, 5858000929, 5859960068, 5891666660, 5897397957, 5891524305, 5892919040 | Review provenance. |
 | #868 c.6854708572, c.6794392080, c.6873193841; #1273 c.6860580909 | Governance provenance, quoted above. |
@@ -148,32 +154,48 @@ package landing, after #1274 has landed:
 | #1283 at `f57e576a` | Provenance until adopted (see Landing). |
 
 **N4 at its carried scope.** #1274 carries N4 (OC:509) for routes A, B and C with measurement
-independence kept. Two uses in the record reach beyond that scope:
+independence kept: N4 is stated "for agreement with the quantum set" as "A selector: the mechanism
+yields CHSH in `(2, 2√2]` and not more", with status "not supplied" (`NEW-RESULTS.md`:509 at
+`fef94857`, copied from S:190 with Main:362 re-pinned to Main:360), for routes classified "with
+measurement independence kept" (`NEW-RESULTS.md`:485). The record uses N4 at four places:
+- LD:284: "and supply a selector. None is supplied." This is an unattributed N4 statement for an
+  update outside (vii), route B with measurement independence kept. It matches the carried N4.
+- LD:299: the item-8 gap row for N4, closed for the measurement-independent routes by the carried
+  N4.
 - LD:104: "In the relaxed class PR (CHSH 4) is reachable (Main:360) and no selector is supplied (SB
   N4, SB:190)." The relaxed class includes the measurement-dependent branch, which N4 does not cover
-  at `86a413c8` or at `fef94857`. For that branch the statement rests on Main:360 [P] ("Bare finite
-  OI representability is too broad to select the quantum Bell set").
+  at `86a413c8` or at `fef94857`. For that branch, PR reachability is the record's own check 2
+  (LD:150–153) [A], and the absence of a selector rests on Main:360's general statement that bare
+  finite OI representability does not select the quantum Bell set and on Main:416, which records
+  measurement dependence as not adopted [P]; neither N4 nor Main:360's construction, which keeps
+  measurement independence, addresses that branch.
 - LD:271: "an OI-sourced principle, independent of the target table, that bounds CHSH by `2√2` and
   reaches it (SB N4)". N4 requires CHSH in `(2, 2√2]`; "and reaches it" is the record's own
   settlement criterion, not part of N4.
 
-Neither changes a classification.
+Neither of the last two changes a classification.
 
-## Source drift from `c3b5f37a` to `main` (`c3b5f37a`)
+## Source drift (pin `c3b5f37a`; re-measured at the package head)
 
 None at this writing: the record's pin is the `main` commit against which this note is measured. It
-is re-measured when the package is assembled (`LANDING-PLAN.md` §1, G2).
+is re-measured at the package head.
 
 ## Superseded lines in the accepted text
 
 - Lines 3–6, "WIP / UNVERIFIED … pending ChatGPT review at the exact head", and line 273, "ChatGPT
   review pending": the ChatGPT review at the exact head is 5892919040, quoted above.
 - Line 104, "The native encoded U′ composite reaches the non-quantum table SWAP/2 (QH:68–97) [D]",
-  and line 300's "**support off `main`: gap** for the stage-7 illustration": QH stays off `main`. The
-  sentence is context, not a result of the record; stage 7's classification rests on Main:360 and N4
-  and does not use it. The clause "which is Bell-local over Pauli-axis product tests [A]" is the
-  record's own observation about the SWAP/2 table.
+  reports a result of Q-868-H r3 (#1269 at `ffc9cda4`), which is off `main`. That result is
+  conditional there on NNB and on the supplied posits P2 and H-PREP, is model-reviewed and is not
+  verified from `main`. It is non-load-bearing context (#868 comment 6873193841): stage 7's
+  classification rests on Main:360, Main:416, check 2 and N4, and does not use it. The clause "which
+  is Bell-local over Pauli-axis product tests [A]" is the record's own observation about the SWAP/2
+  table. Line 300's "**support off `main`: gap** for the stage-7 illustration" stands: the reference
+  remains support off `main`.
 - Lines 298–299: the gaps for Bell-scope, L3 and N4 close as stated under "Dependencies".
+- Lines 37–39: [D] items that land with this package (Bell-scope, SB L3) and the carried #1274 items
+  read as research records on `main`, model-reviewed and not verified (§A.46 item 7); [A] items have
+  been reviewed as listed above. QH remains [D].
 - Line 304 lists QH's ChatGPT review 5891666660 at `acf28d3a`; the later ChatGPT recheck 5897397957
   at `ffc9cda4` is ACCEPT with no change to QH's scientific verdicts.
 - `NOTES-r3.md` line 1 calls the notes "not for landing"; they land as part of the review trail,
@@ -183,23 +205,30 @@ is re-measured when the package is assembled (`LANDING-PLAN.md` §1, G2).
 
 ## Landing
 
-- **Together.** In one merge with Bell-scope r2 and `SB-L3.md`, after #1274 has landed
-  (`LANDING-PLAN.md` §1).
+- **Together.** In one merge with Bell-scope r2 and `SB-L3.md`, after #1274 has landed; source drift
+  is re-measured at the package head.
 - **Mode.** Merge commit of `d8e4f80e`, so that `b8096c79`, `c4781c93` and `d8e4f80e`, which the
   reviews name, remain ancestors of `main`.
 - **Basis.** The proposed basis is §A.46 item 8 as drafted in #1283 at `f57e576a`, which is not
-  adopted; the basis is open until #1283 is adopted. Record-specific check of the draft's conditions:
+  adopted; the basis is open until #1283 is adopted. Until then reading R-b is in force: the record
+  can land only under an explicit, recorded owner exception (#1169 comment 6865680499), and the
+  owner's order (#868 comment 6873193841) defers landing until adoption. For a record landed after
+  adoption, #1283 item 8 requires every one of its five conditions; each is checked here for this
+  record:
   - substantive, nonredundant result: met (Proposition AL; no two-wing coset result with an NS
     hypothesis was found on `main`, NOTES-r3:70–74; and the ladder classification);
   - scope and limits documented: met (LD §0, §4 scope limits, §5; this note);
   - independent non-author review and ChatGPT exact-head review: met for the record (REVIEW-r1,
-    CONFIRM-r2, CONFIRM-r3; ChatGPT 5892919040 at `d8e4f80e`); this note and the package head need the
-    package's checks and ChatGPT exact-head review;
+    CONFIRM-r2, CONFIRM-r3; ChatGPT 5892919040 at `d8e4f80e`); at the package head `<sha>`, no
+    package-level review of this note is recorded;
   - accountable Issue, verification status, remediation plan: #868, this note;
   - explicit rationale: the owner's stated preference, #868 c.6873193841: "I prefer preserving the
     complete accepted Bell ladder rather than weakening its native result or leaving valid research
-    indefinitely off `main`"; owner merge decision: not recorded.
+    indefinitely off `main`"; at the package head `<sha>`, no merge decision is recorded, and the
+    merge decision is quoted in the forward note added after landing.
 
   The record is preserved, not established (§A.46 item 1). Its removal is not automatic and is
   governed by §A.46 item 6.
-- **Owner record.** #868 comment 6873193841, option (1). No merge decision is recorded.
+- **Owner record.** #868 comment 6873193841, option (1). At the package head `<sha>`, no
+  package-level review or merge decision is recorded; the merge decision is quoted in the forward
+  note added after landing.

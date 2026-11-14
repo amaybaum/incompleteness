@@ -48,12 +48,14 @@ support and ladder package" (c.6873193841).
 
 | Step | Object | Gate (each needs its own recorded owner decision where marked) | Why it comes here |
 |---|---|---|---|
-| G0 | #1283, §A.46 item 8 | Owner adoption decision; the adoption line's placeholders filled from it; merge (owner). Until then reading R-b stays in force and no record in this plan has a landing basis. | Item 8 is the landing basis used below. If the adopted text differs from `f57e576a`, the per-record condition tables (§7) are re-checked against the adopted text. |
-| G1 | #1274 (option-(c) package) | (i) its `STATUS.md` "Landing" section brought into line with the adopted §A.46 basis (review 5901837851: "must be explicitly brought into line with any **adopted** §A.46 basis at integration"); (ii) a current-status note appended to the PR description (same review); (iii) exact-head CI and mergeability; (iv) owner merge decision; (v) merge commit, so the reviewed commits stay ancestors of `main` (OC `STATUS.md`, "Landing"). | The ladder's citations of SB's routes A/B/C (S:177–181), N3 (S:189) and N4 (S:190) resolve on `main` only through OC:490–494, :508 and :509. #1274 does not depend on this package: its gaps D2 (L3) and E2 (Theorem N) are carried as named conditions (OC `DEPENDENCIES.md`:23, :26). |
+| G0 | #1283, §A.46 item 8 | Owner adoption decision; the adoption line's placeholders filled from it; merge (owner). Until then reading R-b stays in force: a record in this plan can land only under an explicit, recorded owner exception, and the owner's order (c.6873193841) defers landing until adoption. | Item 8 is the landing basis used below. If the adopted text differs from `f57e576a`, the per-record condition tables (§7) are re-checked against the adopted text. |
+| G1 | #1274 (option-(c) package) | (i) its `STATUS.md` "Landing" section brought into line with the adopted §A.46 basis (review 5901837851: "must be explicitly brought into line with any **adopted** §A.46 basis at integration"); (i′) a focused exact-head review of the edited head, since review 5901837851 accepted `fef94857`; (ii) a current-status note appended to the PR description (same review); (iii) exact-head CI and mergeability; (iv) owner merge decision; (v) merge commit, so the reviewed commits stay ancestors of `main` (OC `STATUS.md`, "Landing"). | The ladder's citations of SB's routes A/B/C (S:177–181), N3 (S:189) and N4 (S:190) resolve on `main` only through OC:490–494, :508 and :509. #1274 does not depend on this package: its gaps D2 (L3) and E2 (Theorem N) are carried as named conditions (OC `DEPENDENCIES.md`:23, :26). |
 | G2 | Bell package (§5) | (i) branch from `main` after G1; (ii) merge commits of `e1534b08` (BS) and `d8e4f80e` (LD); (iii) the L3 carried record and the three STATUS notes added; (iv) source drift re-measured against the `main` of that day and the notes re-pinned; (v) checks (§5.4); (vi) reviews: a non-author review of the new text (L3 record, STATUS notes), the review question of NOTES-PLAN OQ-2 for BS and L3, then a ChatGPT exact-head review of the package head; (vii) owner merge decision; (viii) merge commit. | Inside the package BS precedes L3 (L3 reuses Theorem N's step 1, S:169) and both precede LD (LD §0 and stages 3, 5, 6 cite them). One merge lands all three, so every cross-reference resolves at once. |
-| G3 | After G2 | Planning-status updates on #868 and #1169 under §A.45 rule 3 maintenance, citing the owner's merge record. | Records the landed state; changes no scientific status. |
+| G3 | After G2 | A forward note in each STATUS.md quoting the owner's merge record with its author and time (§A.42 item 7), followed by a focused exact-head check, as for #1269 (review 5897397957); planning-status updates on #868 and #1169 under §A.45 rule 3 maintenance, citing the owner's merge record. | Records the landed state; changes no scientific status. The STATUS notes state their own package review and merge decision at the package head only, so the reviewed head is not moved to record them. |
 
-**Inside G2, by record.** BS lands whole and byte-identical; L3 lands as a carried extract (§5.2);
+**Inside G2, by record.** BS lands whole and byte-identical if the owner so chooses (NOTES-PLAN
+OQ-5): the whole record also lands Lemma G, NBA, §5 and §6, beyond the components named in
+c.6873193841; L3 lands as a carried extract (§5.2);
 LD lands whole and byte-identical. No accepted text is edited. Each STATUS note states the record's
 standing, its superseded lines and its source drift, as in OC `STATUS.md` and the nine notes
 reconciled in #1284 (`records/reconcile-1265-oq10-20261113` @ `6e2d1ee8`).
@@ -99,7 +101,7 @@ G2; **context** = cited, not used by any verdict (provenance under §A.42 item 8
 | | NS for a full-span family forces pointwise locality, `…/oi-qm-ext-1/prepared-pair-source.md`:134–145 (blob `9123157c`) | W | main |
 | Stage 7, UNDETERMINED | PR reachable in the relaxed class, Main:360 | P | main |
 | | no selector supplied, MI-kept routes: N4, S:190 → OC:509 | A (classification; requirement not supplied) | OC |
-| | no selector supplied, measurement-dependent branch: not covered by N4 at either head (§2.5) | P (Main:360) | main |
+| | measurement-dependent branch, not covered by N4 at either head (§2.5): PR reachability, LD:150–153 (check 2); no selector supplied, Main:360 (general sentence), :416 | A; P | package (LD); main |
 | | SWAP/2 reached by the native encoded U′ composite, QH:68–97 | D | context (§4) |
 | | SWAP/2 Bell-local over Pauli-axis product tests (LD:104) | A | package (LD) |
 
@@ -110,7 +112,7 @@ G2; **context** = cited, not used by any verdict (provenance under §A.42 item 8
 | §0 controlling condition (LD:53–62) | Theorem N/N′ (BS:159–196); Main:364–389; directed (Sep) via L3 (S:167–171) | A on P | package (BS, L3); main |
 | §0 "for OI under the ledger" (LD:78–83) | Proposition AL; Theorem N with (GI) and (xiv), or N′ under MI* (BS:159–196); Main:414 (outside (vii)) | A; P | package; main |
 | AL step 1 (LD:216) | OA1 D5, `OA-1-REPORT-r5.md`:176–195 | W | main |
-| AL (AL2) coverage (LD:192–195) | OA1:556–558 (MP-0a), :103–105 (μ-G); "RC's `D_0`" is a name only | W | main; RC context |
+| AL (AL2) coverage (LD:192–195) | OA1:556–558 (MP-0a), :103–105 (μ-G); "RC's `D_0`" is a name only, and OA1:556–558 is the support | W | main; RC context |
 | AL (AL4) "complete in the sense of BS (Rec)" (LD:198–201) | BS:146–149 | A | package (BS) |
 | AL conclusion, ε bound (LD:209–210) | BS §4.1 bound, BS:323–327 (needs Bell locality only) | A | package (BS) |
 | AL dichotomy (LD:210–213) | T1 Lemma A-T (d), `…/drafts/tune-1-20261111/TUNE-1-STEP2-SESSION3.md`:73–76 (blob `a9cbc675`) | W | main |
@@ -124,10 +126,14 @@ G2; **context** = cited, not used by any verdict (provenance under §A.42 item 8
 | §5 run law under (iv) (LD:275) | RC C9, C10 (pointer to an open item); OA1:176–195 | D; W | context; main |
 | §4 hypotheses (vii), (xiii), (ii), (viii) | Main:724 | P | main |
 
-### 2.3 What each landing closes
+### 2.3 What each landing addresses
 
-- **BS** closes the ladder's item-8 gap at LD:298 and OC's gap E2 (OC `DEPENDENCIES.md`:26).
-- **L3** closes the ladder's L3 gap at LD:299 and OC's gap D2 (OC `DEPENDENCIES.md`:23).
+- **BS** closes the ladder's item-8 gap at LD:298. **BS** puts on `main` the Theorem N on which OC's
+  narrowed row E2 is conditioned (OC `DEPENDENCIES.md`:26).
+- **L3** closes the ladder's L3 gap at LD:299. **L3** puts on `main` the argument on which OC's
+  narrowed row D2 (N2's necessity) is conditioned (OC `DEPENDENCIES.md`:23).
+- OC's statements stay conditional as written, and SLL's exclusion consequence still needs SB L2
+  (gap D3).
 - **OC (#1274)** closes the ladder's N4 gap at LD:299 at N4's own scope (N4 at OC:509; the parts of
   LD:104 and LD:271 outside that scope are stated in §2.5), and supplies routes A/B/C
   (OC:490–494) and N3 (OC:508).
@@ -140,9 +146,10 @@ G2; **context** = cited, not used by any verdict (provenance under §A.42 item 8
   distance" (S:169). L3 cannot land before BS; it lands with it.
 - **The ladder's (Sep) is the directed form.** LD:57–59 states (Sep) by directed paths and cites BS
   for the symmetrized form, "which is sufficient". Without L3 on `main`, stage 5 holds for the
-  symmetrized (Sep) only (BS:150), a narrower condition. L3 is load-bearing for the directed form
-  and is cited at stage 3 (LD:100) and check 4 (LD:155–156). The control row at LD:176 does not cite
-  L3: (Sep) fails there in both forms.
+  symmetrized (Sep) only (BS:150), a narrower condition. L3 is load-bearing only for the controlling
+  condition (LD:56–62) and stage 5, which uses it (LD:102). At stage 3 (LD:100) and check 4
+  (LD:155–156) it is cited, but those verdicts also hold with symmetrized (Sep). The control row at
+  LD:176 does not cite L3: (Sep) fails there in both forms.
 - **S5 does not test L3's step.** `generic_substate_checks.py`:241–259 @ `86a413c8` draws response
   tables `h_A(m, l_A, a)`, `h_B(m, l_B, b)` that already factorize through the shared mode, with
   setting-independent weights; the check is the standard CHSH bound for local models and cannot
@@ -169,28 +176,34 @@ Carried at `fef94857`, OC:509: the same row, with "Main:360" for "Main:362" (Δ1
 `c3b5f37a`), S4's arithmetic hand-checked at OC:511–514. Scope of the carried row: routes A, B and
 C, which OC §5 classifies "with measurement independence kept" (OC:485) and for "the coupling-graph
 cone of Main:362 with its finite site set V" (OC:555–559); N4 is a requirement, and OC:516 states
-"N1–N4 are requirements; none is supplied". The ladder uses N4 three times:
+"N1–N4 are requirements; none is supplied". The ladder uses N4 four times, once without
+attribution:
 
 | Ladder use (quoted) | Carried text | Hypotheses and scope | Result |
 |---|---|---|---|
-| LD:104 (stage 7): "In the relaxed class PR (CHSH 4) is reachable (Main:360) and no selector is supplied (SB N4, SB:190) [D]." | OC:509, status "not supplied"; OC:511–514 (channel + fair pad gives CHSH 4) | N4's "not supplied" is stated for the routes of OC §5, all with MI kept. The ladder's "relaxed class" also contains the measurement-dependent branch (stage 5 relaxed; `φ_0` with `μ_MD`), which no route of OC §5 covers, at either head. | **Narrower at both heads.** For the MI-kept part the use matches OC:509. For the measurement-dependent part the support is Main:360 [P], on `main` ("Bare finite OI representability is too broad to select the quantum Bell set"), not N4. Landing SB's own row would not widen the scope (S:175 has the same MI-kept restriction), so nothing further needs to land; `STATUS-LADDER.md` records the split. |
+| LD:104 (stage 7): "In the relaxed class PR (CHSH 4) is reachable (Main:360) and no selector is supplied (SB N4, SB:190) [D]." | OC:509, status "not supplied"; OC:511–514 (channel + fair pad gives CHSH 4) | N4's "not supplied" is stated for the routes of OC §5, all with MI kept. The ladder's "relaxed class" also contains the measurement-dependent branch (stage 5 relaxed; `φ_0` with `μ_MD`), which no route of OC §5 covers, at either head. | **Narrower at both heads.** For the MI-kept part the use matches OC:509. For the measurement-dependent part, PR reachability is the record's own check 2 (LD:150–153) [A], and the absence of a selector rests on Main:360's general statement that bare finite OI representability does not select the quantum Bell set and on Main:416, which records measurement dependence as not adopted [P]; neither N4 nor Main:360's construction, which keeps measurement independence, addresses that branch. Landing SB's own row would not widen the scope (S:175 has the same MI-kept restriction), so nothing further needs to land; `STATUS-LADDER.md` records the split. |
 | LD:271 (§5, what would settle stage 7): "an OI-sourced principle, independent of the target table, that bounds CHSH by `2√2` and reaches it (SB N4)" | OC:509: "yields CHSH in `(2, 2√2]` and not more" | N4 requires the bound, not attainment of `2√2`. "and reaches it" is not in N4 at either head. | **Partly carried.** The bound matches OC:509. The attainment clause is the ladder's own addition, attributed to N4; it lands with the ladder as ladder text and is not supported by N4. `STATUS-LADDER.md` records it. It is a settlement criterion, not a result, so no classification changes. |
+| LD:284 (§5, escape requirements): "and supply a selector. None is supplied." | OC:509 "not supplied" | route B, measurement independence kept | Matches. |
 | LD:299 (item 8 table): "**support off `main`: gap** for L3 and N4 if this record lands" | — | — | Closed for the MI-kept part by OC:509 once #1274 lands; see the first row for the rest. |
 
 **L3.** Source at `86a413c8`, S:169: "If there is no directed path from `G_B` to `R_A^t` of length at
 most `t − t_s`, then step 1 of Theorem N goes through with directed distance, `M`'s content at `t_s`
-is part of Ω, and the conclusion is unchanged: `M` is a common cause." Review 5858000929 accepted
-the point "under MI"; review 5857981727 (on BS) records it as not weakening Theorem N/N′. Not carried
-by #1274 (OC:641); OC:507 carries N2 "conditional on L3".
+is part of Ω, and the conclusion is unchanged: `M` is a common cause." Review 5858000929 records
+that "The classical common-cause observation is also correct under MI"; review 5857981727 (on BS)
+records the directed point as not weakening Theorem N/N′. S:167–170 are unchanged from r1
+(`b94b283a`, lines 153–156), and S:171 differs from r1:157 only by an appended sentence citing
+review 5857981727, so the r1 review's remark applies to L3's statement and argument as accepted; the
+r2 re-review 5859960068 does not address L3. Not carried by #1274 (OC:641); OC:507 carries N2
+"conditional on L3".
 
 | Ladder use (quoted) | Hypotheses and scope at `86a413c8` | Result |
 |---|---|---|
-| LD:57–59 (§0): "(Sep) no directed `G_φ` path from either generator region to the other wing's record region within the record window (BS states (Sep) with the symmetrized distance, which is sufficient; the directed form is SB L3)" with "(MI\*) … (or (GI) with MI for Ω)" | L3 names Theorem N, which needs (GI) and MI for Ω. The (MI\*) branch uses Theorem N′. N′'s proof reuses step 1 unchanged (BS:190, "Step 1 does not use (GI)"), so the directed reading carries to N′; that composition is not written in SB. | **Matches for the (GI)+MI branch. Wider for the (MI\*) branch:** the extension of L3 to Theorem N′ must be stated in `SB-L3.md` as a marked addition with its one-line justification from BS:190, and reviewed with it. |
+| LD:57–59 (§0): "(Sep) no directed `G_φ` path from either generator region to the other wing's record region within the record window (BS states (Sep) with the symmetrized distance, which is sufficient; the directed form is SB L3)" with "(MI\*) … (or (GI) with MI for Ω)" | L3 names Theorem N, which needs (GI) and MI for Ω. The (MI\*) branch uses Theorem N′. N′'s proof reuses step 1 unchanged (BS:190, "Step 1 does not use (GI)"), so the directed reading carries to N′; that composition is not written in SB. | **Matches for the (GI)+MI branch. Wider for the (MI\*) branch:** the extension of L3 to Theorem N′ must be stated in `SB-L3.md` as a marked addition with its one-line justification from BS:190, and reviewed with it. The addition derives nothing beyond S:169 combined with BS:190: N′'s proof consists of step 1 plus steps 3–4, so it is a composition of two cited statements, not a new argument. |
 | LD:100 (stage 3): "directed form SB L3 (SB:167–171) [D]" | as above | Matches (with the same N′ note). |
 | LD:155–156 (check 4): "The edge `λ_A0 → r_B` leaves both forms of (Sep) intact at the one-tick window …; `λ_A0` is a common cause (SB L3)." | `λ_A0` is written by no setting; no directed path from a generator into the remote record region | Matches; the check also holds under symmetrized (Sep) (`d(g_B, R_A) = 2` > 1), so it does not depend on L3. |
 
-**Theorem N and N′.** Source at `e1534b08`, BS:159–196. The REVISE review 5857227567 required:
-NBA's antecedent to name (GI) or replace it (answered by Theorem N′ with λ* and the stronger (MI\*));
+**Theorem N and N′.** Source at `e1534b08`, BS:159–196. The REVISE review 5857227567 required,
+among others (CF⇒MI one direction; the O2 window): NBA's antecedent to name (GI) or replace it (answered by Theorem N′ with λ* and the stronger (MI\*));
 optimality of (√2−1)/4 scoped to Bell-local tables and attainment shown only in 𝒞_sep as an abstract
 class; the rationality aside tied to (M). The re-review 5857981727 kept the result "restricted,
 conditional", the OI-wide verdict indeterminate, the symmetrized (Sep) "a conservative sufficient
@@ -207,8 +220,10 @@ screening test", and the six-site witness "logical sharpness only".
 | LD:209–210 (AL): "`ε ≥ (√2−1)/4` to the Tsirelson box (BS §4.1 bound, which needs only Bell locality)" | BS:321 states the bound for an "MI Bell-local family"; AL's conclusion gives λ uniform on `M` and independent of the settings, which is that case | Matches. |
 
 **Consequences for the package.** (1) N4: #1274 carries every N4 statement the ladder uses at the
-scope N4 has at `86a413c8`; the ladder's stage-7 sentence is wider than N4 in its measurement-dependent
-part, which rests on Main:360 on `main`, and its §5 settlement criterion adds an attainment clause N4
+scope N4 has at `86a413c8`, including the unattributed use at LD:284; the ladder's stage-7 sentence
+is wider than N4 in its measurement-dependent part, whose PR reachability is the ladder's check 2
+and whose absence of a selector rests on Main:360's general sentence and Main:416 on `main`, and its
+§5 settlement criterion adds an attainment clause N4
 does not contain. Neither needs further landing; both are recorded in `STATUS-LADDER.md`. (2) L3: its
 extension to Theorem N′ is load-bearing for the (MI\*) branch of the ladder's §0 and must be written
 into `SB-L3.md` as a marked, reviewed addition. (3) Theorem N/N′: every use is within the accepted
@@ -314,8 +329,8 @@ mechanism, a native escape or an OI-wide no-go, and nothing in this plan states 
   correction-delta package"; earlier reviews listed in OC `STATUS.md`:28–49.
 - **Remaining gates.** G1 above.
 - **Relation to this package.** OC lands first and carries no Bell-package file. After G2, OC's
-  `STATUS.md` remediation rows D2 and E2 (OC `STATUS.md`:162, :164) name records then on `main`
-  (NOTES-PLAN OQ-13).
+  `STATUS.md` remediation rows D2 and E2 (OC `STATUS.md`:162, :164) name records then on `main`;
+  OC's statements stay conditional as written (NOTES-PLAN OQ-13).
 
 ***
 
@@ -330,7 +345,8 @@ Reasons:
    illustration for stage 7 "on which no verdict rests".
 2. **Stage 7 does not use it.** UNDETERMINED needs no positive witness. Its support is that quantum
    Bell tables are unreachable under stages 0–6 (stage 5, BS), that the relaxed class reaches PR
-   (Main:360) and that no selector is supplied (N4, OC:509). Deleting the QH sentence at LD:104
+   (Main:360; check 2 for the measurement-dependent branch) and that no selector is supplied (N4,
+   OC:509; Main:360's general sentence and Main:416 for the measurement-dependent branch). Deleting the QH sentence at LD:104
    leaves the classification and its support unchanged.
 3. **Stage 4 does not use it.** NOT FORCED rests on `φ_0` with `μ_MD` (LD:150–153). That settings
    are configuration content rests on Main:42 and OA1:111–112 on `main`; QH:213–214 illustrates a
@@ -342,13 +358,17 @@ Reasons:
    byte-preserved ASSESS-868 files with three SC-42 added-text hits and an off-`main` support chain,
    for a sentence no verdict uses.
 
-**How the gap at LD:300 is closed.** The stage-7 sentence "The native encoded U′ composite reaches the
-non-quantum table SWAP/2 (QH:68–97) [D]" is a statement that uses QH's result, so §A.42 item 8
-classifies it as support off `main`. `STATUS-LADDER.md` narrows it: the sentence is context, not a
-result of the record, and no classification rests on it. This is closure by narrowing in a mutable
-record on `main` (§A.42 item 8, item 6), with the accepted text unchanged, as OC `STATUS.md` treats
-its superseded lines. NOTES-PLAN OQ-6 puts the alternative (revise the ladder text, or preserve QH)
-to the owner.
+**How LD:300's reference is classified.** The stage-7 sentence "The native encoded U′ composite
+reaches the non-quantum table SWAP/2 (QH:68–97) [D]" is a statement that uses QH's result, so §A.42
+item 8 classifies it as support off `main`; relabelling it does not make it provenance. It remains
+support off `main`, landed as owner-identified non-load-bearing context (#868 c.6873193841).
+`STATUS-LADDER.md` states it with QH's own conditions: the result is conditional in QH on NNB and on
+the supplied posits P2 and H-PREP (QH:68, :85–86, :212, :215), is model-reviewed and is not verified
+from `main`; stage 7's classification rests on Main:360, Main:416, check 2 and N4 and does not use
+it. The accepted text is unchanged, and no ladder r4 is written (#1169 c.6865177667: "Do not write
+narrowing revisions just to unblock integration"). NOTES-PLAN OQ-6 asks the owner whether the merge
+decision should also record it under §A.42 item 8's final sentence as a named claim left
+unsupported.
 
 QH keeps its own PR (#1269) and its own landing question under #868. Nothing in this plan prejudges it.
 
@@ -394,13 +414,14 @@ cites NOTES (LD:240, :274).
 
 | Planned path | Content | Source |
 |---|---|---|
-| `…/substate-bridge-l3-<date>/SB-L3.md` | SB L3 carried: S:167–171 copied verbatim, with a pin block, its hypotheses stated from BS §3.1–3.2, the line conventions of OC, and a support-layer paragraph; Main:364 re-pinned to Main:362 as a marked change; one marked addition stating that the directed reading also holds for Theorem N′, whose proof reuses step 1 unchanged (BS:190) (§2.5) | `SUBSTATE-BRIDGE-UNIT1.md` @ `86a413c8` (blob `9ff0f0774e403ed782354c0b10986a0fe5dc5ed8`, SHA-256 `662b9cbaab4237a357174b675c7ee7734c4d4512ef68d530555111230bde48fd`), lines 167–171 |
+| `…/substate-bridge-l3-<date>/SB-L3.md` | S:167–171 copied verbatim and fenced as a quotation. Every non-verbatim line is marked as an addition: the pin block; hypotheses from BS §3.1–3.2; a resolution table for the in-text references (Main:364 → Main:362; Theorem N and (Sep) → BS @ `e1534b08`; B1 → its record on `main`; SB §6 → provenance; S5 → provenance, not support, because S5's response tables already factorize and its check cannot fail); the N′ composition (BS:190); the support-layer paragraph. | `SUBSTATE-BRIDGE-UNIT1.md` @ `86a413c8` (blob `9ff0f0774e403ed782354c0b10986a0fe5dc5ed8`, SHA-256 `662b9cbaab4237a357174b675c7ee7734c4d4512ef68d530555111230bde48fd`), lines 167–171 |
 | `…/substate-bridge-l3-<date>/STATUS.md` | from `STATUS-SB-L3.md` here | this plan |
 | `…/drafts/bell-scope-868-20261111/STATUS.md` | from `STATUS-BS.md` here | this plan |
 | `…/drafts/bell-ladder-20261113/STATUS.md` | from `STATUS-LADDER.md` here | this plan |
 
 Optional, by owner decision (NOTES-PLAN OQ-13): a forward note in OC's `STATUS.md` (then on `main`)
-naming the landed records for its rows D2 and E2.
+naming the landed records for its rows D2 and E2, keeping OC's "conditional on L3" and "conditional
+on L2 and Theorem N" wording and changing no status of OC.
 
 ### 5.3 Not in the package
 
@@ -436,11 +457,11 @@ content lands in the same merge.
 | SB @ `86a413c8`, L3 (S:167–171) | §0 (directed (Sep)), stage 3, check 4 | **support on `main`** in `SB-L3.md` (package); difference: Main:364 re-pinned to Main:362 |
 | SB routes A/B/C, route C (S:177–181) | §0 (LD:75–76), §4 consequence (ii) | **support on `main`** in OC:490–494; difference: OC Δ1, Δ12 (routes anchored on Main:412, :414) |
 | SB N3 (S:189) | §2 check 1, §5 NBA row | **support on `main`** in OC:508; difference: Δ1, Δ13/Δ14/Δ20 wording |
-| SB N4 (S:190) | stage 7 (LD:104), §5 (LD:271) | **support on `main`** in OC:509 at N4's scope (MI-kept routes); difference: Main:362 → Main:360 (Δ1). The measurement-dependent part of LD:104 rests on Main:360; the attainment clause of LD:271 is ladder text not supported by N4 (§2.5) |
+| SB N4 (S:190) | stage 7 (LD:104), §5 (LD:271, :284) | **support on `main`** in OC:509 at N4's scope (MI-kept routes); difference: Main:362 → Main:360 (Δ1). The measurement-dependent part of LD:104 rests on check 2 (LD:150–153), Main:360's general sentence and Main:416; the attainment clause of LD:271 is ladder text not supported by N4 (§2.5) |
 | SB L4 | not cited (LD:299) | its content for (vii) is Main:362: support on `main` |
 | SB:220 (resolution at which masking fails) | §5, example of a prediction an escape would need | provenance (example; no verdict uses it) |
 | QH @ `ffc9cda4`, QH:213–214 | stage 4, §5 row | provenance |
-| QH @ `ffc9cda4`, QH:68–97 | stage 7 sentence | support off `main`: **gap closed by narrowing** in `STATUS-LADDER.md` (§4 above) |
+| QH @ `ffc9cda4`, QH:68–97 | stage 7 sentence | **support off `main`, landed as owner-identified non-load-bearing context**, stated with QH's conditions in `STATUS-LADDER.md` (§4 above; OQ-6) |
 | RC @ `9f7d2612` (vocabulary, C9, C10, H-xiv, `D_0`) | vocabulary, §5 pointers, a name | provenance (LD:301); the Q1/Q2 vocabulary is also restated on `main` in OC §0.1 |
 | ladder commits `b8096c79`, `c4781c93`, `d8e4f80e` | review objects | on `main` once merged by merge commit |
 | #868 c.6854708572, c.6794392080; #1273 c.6860580909 | authority; mixed-path unit; owner Q1–Q4 | governance provenance |
@@ -456,7 +477,7 @@ content lands in the same merge.
 | `prepared-pair-source.md`, `two-system-interface.md`, `NO-SIGNALLING.md`, h-bell preregistration @ `cac5d264` | C9, §0, §2 | support on `main`; unchanged from `cac5d264` to `c3b5f37a` |
 | #1210 QX-6 r7c @ `4c7f3f86` | A6.1, A6.4 comparisons | provenance (BS:435) |
 | session copies of ASSESS-868 r3a, Q868H r2a, LIT-SURVEY | context | provenance (BS:436–438); ASSESS-868 r3a is byte-preserved on #1269's branch, still off `main` |
-| `probes/generic_bell_checks.py` | X tags G1–G7 | **support on `main`** (package) |
+| `probes/generic_bell_checks.py` | X tags G1–G7 | lands in the package; **support on `main`** once the owner ratifies the run as covered (OQ-8(a)), otherwise provenance, with the tagged results resting on their arguments [A] |
 | r1 at `7abf59d7` | review object | on `main` once merged |
 | #868, #1169, #914, #866, #1216 comments; review 5857227567 | authority, scope | provenance |
 | [L] Wharton–Argaman, Barrett–Collins–Hardy–Kent–Popescu, de Broglie–Bohm | context in §2, §3.5, §6 | provenance; no claim rests on them |
@@ -471,8 +492,13 @@ content lands in the same merge.
 | #1283 @ `f57e576a` | provenance until adopted; the basis then cites the adopted §A.46 on `main` |
 | owner comments (#868 c.6873193841, c.6854708572, c.6791565399, c.6791606126; #1169 c.6854728636, c.6855167580, c.6865177667; #1273 c.6860580909) | governance provenance, quoted in the notes |
 | #1284 @ `6e2d1ee8` | provenance (format precedent) |
+| `LANDING-PLAN.md`, `NOTES-PLAN.md` (this branch) | none after the replacements of review B1: the STATUS notes cite neither file; provenance |
+| BS-tagged items in `SB-L3.md` (Theorem N, (Sep)) | support on `main` (package) |
+| "B1's static bit" (S:171) | Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23 on `main`; support on `main`, resolved in `SB-L3.md`'s reference table (B1's hidden sequence is infinite, so it falls under the finite-depth limit of `STATUS-SB-L3.md`) |
+| SB §6 (S:171) | provenance; not carried |
 
-No reference other than LD:300's stage-7 sentence is a gap at landing, provided G1 has landed OC.
+No reference other than LD:300's stage-7 sentence, which lands as owner-identified non-load-bearing
+context (§4), is support off `main` at landing, provided G1 has landed OC.
 If G1 does not land, the ladder's routes, N3 and N4 references become gaps and the package cannot
 land as composed.
 
@@ -480,9 +506,9 @@ land as composed.
 
 ## 7. #1283 item 8 conditions, record by record
 
-The draft's reconciliation sentence, as amended under C2 (#1169 c.6872828604), requires
-"record-specific verification shows its applicable preservation conditions met". The same standard
-is applied here to each new record individually.
+For records landed after adoption, #1283 item 8 requires every one of its five conditions. The table
+checks each condition record by record. The historical-authorization row is recorded as provenance;
+it is a condition only for pre-adoption records under the reconciliation sentence.
 
 | Condition (#1283 item 8) | BS | SB L3 (carried) | LD |
 |---|---|---|---|
@@ -491,9 +517,9 @@ is applied here to each new record individually.
 | non-author review; ChatGPT exact-head review | ChatGPT exact-head 5857981727 at `e1534b08`; a separate non-author review: **not recorded** (OQ-2) | ChatGPT reviews of SB at `b94b283a` and `86a413c8`; the carried text and its N′ addition (§2.5): **not yet reviewed** | met: `REVIEW-r1.md`, `CONFIRM-r2.md`, `CONFIRM-r3.md`; ChatGPT 5892919040 at `d8e4f80e` |
 | landing checks and §A.42 item 8 tracing | tracing: §6; checks: pending at the package head | as BS | as BS; the STATUS note itself needs the package's ChatGPT exact-head review |
 | accountable Issue, verification status, remediation plan | #868; `STATUS-BS.md` | #1169; `STATUS-SB-L3.md` | #868; `STATUS-LADDER.md` |
-| explicit rationale | support for the ladder; closes OC gap E2 | support for the ladder's directed (Sep); closes OC gap D2 | the owner's stated preference in c.6873193841 |
+| explicit rationale | support for the ladder; puts on `main` the Theorem N on which OC's narrowed row E2 is conditioned | support for the ladder's directed (Sep); puts on `main` the argument on which OC's narrowed row D2 is conditioned | the owner's stated preference in c.6873193841 |
 | separate owner merge decision | **not recorded** | **not recorded** | **not recorded** |
-| historical authorization | #868 c.6791565399, c.6791606126 | the 2026-11-11 SB approval not located (OQ-7) | #868 c.6854708572 |
+| historical authorization (provenance, not an item-8 condition for a new landing) | #868 c.6791565399, c.6791606126 | the 2026-11-11 SB approval not located (OQ-7) | #868 c.6854708572 |
 
 ***
 
