@@ -7,7 +7,9 @@ the Gate A contract, no CI dispatch and no merge.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `STATUS-r2.md` | The current draft; applies the review's sixteen findings, two in modified form; unreviewed | `48a7efe32a1faa99114d462f4dc3bdc530e00388625c4ab4e659dd04972921dc` |
+| `STATUS-r3.md` | The current draft; applies the confirmation of r2 and the owner-approved accountable Issues; unreviewed | `3258dbe231923f7c1604803ecb630a8790e58741951d48020bd600a05d5861ba` |
+| `RESPONSE-CONFIRM-STATUS-r2.md` | Dispositions of the confirmation's changes | |
+| `STATUS-r2.md` | The draft the confirmation read; applies the review's sixteen findings, two in modified form | `48a7efe32a1faa99114d462f4dc3bdc530e00388625c4ab4e659dd04972921dc` |
 | `RESPONSE-STATUS-r1.md` | Dispositions of the review's findings | `482b9eafb4a721f38350d246b7d3b4ffce20fb8daedf52dd71418ecdb9a37a2d` |
 | `REVIEW-STATUS-r1.md` | Non-author review of r1: ACCEPT WITH CHANGES (four medium, twelve low findings) | `8ceacc9d60999f11fe0e261d12a91e1db2222cc84964598c17a5ab36692054d9` |
 | `STATUS-r1.md`, `NOTES-STATUS-r1.md` | The first draft and the writer's reading list | |
@@ -15,6 +17,6 @@ the Gate A contract, no CI dispatch and no merge.
 
 The note was written from scratch; an earlier draft that was stopped partway is not preserved here
 and was not relied on. The owner authorized preservation of r2 and an independent confirmation of
-it in the coordinating session on 2026-11-14. The confirmation is added here; its changes,
-with the accountable-Issue entries the owner approved, are to be applied in r3. Until then the
-note is a draft.
+it in the coordinating session on 2026-11-14. The confirmation is added here; r3 applies
+its changes and the accountable-Issue entries the owner approved (#1169, comment 6877532844), and is
+itself unreviewed. The note remains a draft until r3 is reviewed.
