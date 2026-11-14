@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `S3-PLAN-r7.md` | S3 plan r7: local changes from the confirmation of r6 (rule renamed SNR-1; a disproved capability counts at its recorded scope and status; H-RR refutation routes require a sourced renewal limit; the gating of a negative closure of route M stated); plan for owner decision; unreviewed | `bc07875fbc5dfa7f0ea269df90986d19d406e5ef9299a7f89023c2c88b2c61b6` |
+| `RESPONSE-S3-PLAN-r6.md` | Dispositions of that review | |
 | `S3-PLAN-r6.md` | S3 plan r6: the fix from the confirmation of r5 and its root cause (a negative outcome counts toward any negative closure only if every capability it relies on is sourced); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `664f0c1ddf1b665e2803238568175d78fff9f1df42d127738627863a63accbb6` |
 | `RESPONSE-S3-PLAN-r5.md` | Disposition of that review, with the sites checked | |
 | `S3-PLAN-r5.md` | S3 plan r5: the single fix from the confirmation of r4 (a (β) failure resting only on unsourced retention is reported as unsourced and does not count toward closing route M); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `b61c5c497c70decb4f9777a290e1d19d824f30d689cdef33014287757ce17882` |
