@@ -75,7 +75,7 @@ Source/review boundaries and outstanding obligations:
 1. The original full C0/C1 Page assessment, its complete proof/access contract and independent review artifacts. The report does not depend on them beyond accurately recording their status in accepted SEL-ACCESS-1.
 2. **R1 disposition:** the documentary review at #1228 head `75681105` is completed, not missing; its separate primary receipt is linked in §3. This corrects the writer's missed review-status evidence without changing the scientific source `0ecfddeb` or any argument. The new citation supports a historical review-status assertion and remains off-main retention material for eventual integration.
 3. A native executing input/controller/message/readout/renewal certificate and independently sourced native information-budget principle. These are missing scientific/source obligations, not evidence satisfied by a GitHub acceptance.
-4. This report's initial independent non-author review required the R1 documentary correction recorded above. A focused exact-head check of that correction and a later ChatGPT exact-head review remain pending; no acceptance of this changed report is inferred.
+4. This report's initial independent non-author review required the R1 documentary correction recorded above. The focused and ChatGPT scientific/publication reviews are complete at the subjects listed in [STATUS.md](STATUS.md), with verbatim bodies retained in reviews/RECEIPTS.json. The new documentary integration delta requires its own focused check; no scientific acceptance is invented by the writer.
 5. A main integration/retention decision. Immutable off-main links and local evidence copies make this draft reviewable; they do not themselves make every support item reachable from main or authorize a merge.
 
 ## 5. Verification actually performed
@@ -87,3 +87,7 @@ Source/review boundaries and outstanding obligations:
 - All scientific arguments are hand derivations. No script evaluates a model, entropy, Bell statistic, random-access success rate, state space or proof search. No simulation, Lean/kernel run, numerical approximation, source screen, experiment, fixture solve, workflow dispatch/rerun, branch rewrite or remote mutation occurred.
 
 No CI result for this new report is claimed here. Publication, exact-head CI, independent review and eventual integration remain the coordinator's separate steps.
+
+## 6. Documentary support retention
+
+The exact source copies used above are retained under support/, and the primary review bodies are in reviews/RECEIPTS.json. [RETENTION.md](RETENTION.md) states each material use and its limits; [RETENTION.json](RETENTION.json) records the original source pins and retained byte identities. The evidence/ cache names above remain historical local-copy names; full API dumps and unrelated cache inputs are not retained. Source history references identify the original review subjects and are not a new certificate of their Git ancestry. [STATUS.md](STATUS.md) separates accepted science/publication scopes from the present integration check.

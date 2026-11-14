@@ -1,6 +1,6 @@
 # SEL-DISC-1 — A target-neutral information test, and the remaining native selection gap
 
-**Status:** WRITER CHECKPOINT / WIP / NOT INDEPENDENTLY REVIEWED. Paper-only hand argument and source audit; no scientific execution or adopted physical premise.
+**Status:** Accepted at the bounded paper-review scope recorded in [STATUS.md](STATUS.md); documentary integration remains draft. Paper-only hand argument and source audit; no scientific execution or adopted physical premise.
 
 **Writer:** Codex, 2026-11-13. **Accountable issue:** [#1143](https://github.com/amaybaum/incompleteness/issues/1143). **Authority:** [owner handoff 6863602000](https://github.com/amaybaum/incompleteness/issues/1143#issuecomment-6863602000), coordinated by [#1169 comment 6863608722](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6863608722). **Main source pin:** `c3b5f37a354bb26437e2e0165c576a347a63c153`. Proposed new repository directory: `verification/programmes/oi-qm/reconstruction/selection-discriminator-20261113/`.
 
