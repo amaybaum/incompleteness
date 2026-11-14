@@ -1212,11 +1212,11 @@
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: | N5 | Normal mass ordering | structural (branch of SM §8.4)..."
+      "predicate": "chapter line mirrored in FULL: | N5 | Normal mass ordering | heuristic (branch of SM §8.4) ..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 0 S + 2 C + 5 L. Total: 7. N..."
+      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 0 S + 1 C + 5 L + 1 heuristi..."
     },
     {
       "ok": true,
