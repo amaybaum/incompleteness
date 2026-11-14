@@ -100,11 +100,17 @@ $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xri
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{assuming confinement}} \text{hadrons} \xrightarrow{\text{assuming residual force}} \text{nuclei possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{\text{coupling values, } m_e} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
+$$\begin{aligned}
+&\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent}\\
+&\qquad \xrightarrow{\text{coupling values, } m_e} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}
+\end{aligned}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional; coupling values, } m_e} \text{scale hierarchy + orbital structure} \xrightarrow{\text{activation energies, solvent}} \text{thermal window exists}$$
+$$\begin{aligned}
+&\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional; coupling values, } m_e} \text{scale hierarchy + orbital structure}\\
+&\qquad \xrightarrow{\text{activation energies, solvent}} \text{thermal window exists}
+\end{aligned}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
 
@@ -321,7 +327,11 @@ The complete chain:
 
 $$(S, \varphi) \text{ exists (mathematical structure)}$$
 $$\xrightarrow{\text{conditional}} \text{contains embedded observers seeing QM, GR, SM}$$
-$$\xrightarrow{\text{conditional; coupling values, masses}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal-window conditions, chirality (H-}\chi\text{)}$$
+$$\xrightarrow{\text{conditional; coupling values, masses}} \begin{gathered}
+\text{orbitals, periodic table, carbon,}\\
+\text{scale hierarchy, water, thermal-window}\\
+\text{conditions, chirality (H-}\chi\text{)}
+\end{gathered}$$
 $$\xrightarrow{\text{statistical}} \text{autocatalytic networks (nominal }N \times p \sim 10^{56}\text{)}$$
 $$\xrightarrow{\text{conditional; constructor, copier, cycling}} \text{self-reproducing configurations}$$
 $$\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{conditional; differential reproductive success}} \text{Darwinian evolution}$$

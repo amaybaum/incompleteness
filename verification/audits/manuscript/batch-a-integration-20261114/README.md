@@ -31,9 +31,17 @@ shown above. Original reviews and reviewed commits remain unchanged.
 ## Reconciliation and preservation
 
 The integration retains all nine reviewed commits in its ancestry. Its six changed
-manuscript Markdown files contain the union of the accepted source edits. Shared TeX/PDF
+manuscript Markdown files preserve the union of the accepted source edits. The only
+additional manuscript changes are the display-math line breaks described below; their
+formula text and mathematical tokens are unchanged. Shared TeX/PDF
 artifacts and the SC-42 result are regenerated for the combined source. Individual green
 PRs do not certify a combined publication artifact.
+
+The combined PDF check identified three already-clipped display-chain endings on
+Complexity baseline pages 6 and 19. Three math environments are wrapped across lines
+using aligned/gathered layout. Removing only those layout commands and joining the split
+text fragments recovers each original formula exactly; every term, arrow and hypothesis
+is retained. No build script, font, global geometry or scientific statement changes.
 
 The 49 files under
 `verification/programmes/oi-qm/reconstruction/drafts/unified-ledger-20261114/`
