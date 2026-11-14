@@ -13,13 +13,15 @@ and the repository's check scripts: no computation on OI rules was run.
 The candidate is the ring rule of `papers/SM.md` §3.1 as written, completed with a law, an observer,
 labels and setting generators, and analysed by hand against three requirements: control, Bell
 parameter dependence without signalling, and supply of known-value cells. The hypothesis that the
-world's rule is this ring rule is written H-ring in r3 and is unadopted. It is not TUNE-1's H-nl,
-which names the rounded rule of `papers/SM.md`:294.
+world's rule is this ring rule is written H-ring and is unadopted. It is not TUNE-1's H-nl, the
+hypothesis that the world's rule is R-nl, the rounded rule of `papers/SM.md`:294.
 
 | File | What it is |
 | --- | --- |
-| `SUMMARY-r3.md` | Plain-language summary of r3 |
-| `NLCAND-r3.md` | The final text |
+| `NLCAND-r4.md`, `SUMMARY-r4.md` | The current text and its summary |
+| `RESPONSE-CONFIRM-r3.md` | Dispositions of the r3 confirmation's changes |
+| `CONFIRM-r3.md` | Exact-head confirmation of r3 at `485f9a2d`: ACCEPT WITH CHANGES (four minor changes, R1–R4) |
+| `NLCAND-r3.md`, `SUMMARY-r3.md` | The revision the exact-head confirmation read, and its summary |
 | `NLCAND-r2.md` | The revision the confirmation review read |
 | `NLCAND-r1.md` | The first draft, which the review read |
 | `NOTES-r1.md` | The writer's reading list and what was not checked |
@@ -38,7 +40,15 @@ which names the rounded rule of `papers/SM.md`:294.
   from r2 in the title and status paragraph, the review row of the reference table, one sentence in
   §8 and a closing "Not included" line. `diff NLCAND-r2.md NLCAND-r3.md` shows every change (13
   hunks).
-- r3 itself has not been reviewed. Neither review is independent verification, a human review or an
+- `CONFIRM-r3.md`, a non-author confirmation of r3 at `485f9a2d`, found N1–N5 applied exactly,
+  every verdict at the strength its nodes support for this one candidate, each Bell effect labelled
+  by its record convention, and H-ring kept apart from H-nl. It required four minor changes: the
+  status paragraph (r3 itself unreviewed), the H-nl wording (H-nl is the hypothesis, R-nl the rule),
+  and two in the summary (its review status, and the measurement-independence hypothesis dropped
+  from "Bell-local there"). r4 applies them, with no change of verdict, plus two of the optional
+  suggestions (a Lean line range, 295–299, and one word); the other optional suggestions are not
+  applied. r4 is itself unreviewed.
+- None of these reviews is independent verification, a human review or an
   owner decision.
 
 **Scope.** Every verdict is for the one candidate analysed. Nothing here is a statement about the
