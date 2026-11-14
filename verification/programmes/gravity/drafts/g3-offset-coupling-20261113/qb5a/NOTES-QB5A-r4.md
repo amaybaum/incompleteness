@@ -143,3 +143,42 @@ The references of NOTES-QB5A-r3 §6 carry over. The following are added.
     NOTES-QB5A-r3 D-25.
   - **OQ-5.** The decision's wording names "the complete r2 rule". The confirmation supersedes this with the
     r4 requirement. Both are quoted.
+
+## 8. CF4 edits in r4, in place
+
+**Authority.** The edits apply `qb5a/CONFIRM-QB5A-PREREG-r4.md` (ACCEPT WITH CHANGES, a check of r4 at
+`3607d5f9`), CF4-1 to CF4-5, using its replacement text verbatim. The coordinator's request is a session
+message.
+
+**Base.** `G3-QB5A-PREREG-r4.md` at `3607d5f9`. It is byte-identical to the writer's copy before the edit
+(`git show 3607d5f9:<path> | cmp`). After the edit the file has 1351 lines.
+
+**Lines changed.** "old" is r4 at `3607d5f9`; "new" is r4 after the edit. Nothing else changed. OQ-2 needed
+no change.
+
+| Old | New | CF4 item | Change |
+|---|---|---|---|
+| 37 | 37 | CF4-5 | the owner-record time is written "2026-11-14T06:05:54Z" |
+| 197 | 197 | CF4-1 (2) | §2.2: "§8.2 carries the QB7(a) sensitivity." |
+| (after 678) | 679–680 | CF4-2 (1) | §6.3: label bullet "The label reports a textual commitment of the corpus. It is not independent physical verification …" |
+| 774–777 | 776–788 | CF4-1 (1) | §8.2: the QB7(a) sensitivity, three recomputations (i)–(iii) over RV, with labels; (ii) is a counterfactual, never the rendered verdict |
+| 848–849 | 859–861 | CF4-5 | §8.5 (v): the OQ-3 mirror rule, stated generally, citing §8.3 item 3 |
+| 1073 | 1085 | CF4-1 (4) | Q-7 row: "the QB7(a) sensitivity" |
+| 1160 | 1172 | CF4-1 (3) | X-10 cell: the three computations are recorded, with the label wherever one differs; the reviewer recomputes them (X-21) |
+| 1184–1185 | 1196–1197 | CF4-3 | §14.1: the stale procedural line is replaced by "The owner's answers to OQ-1 to OQ-7 are applied as §15 records … A change to an applied answer before F is a new revision, reviewed under this section." |
+| 1186–1188 | 1198–1204 | CF4-4 | §14.1: the freeze bullet names the acceptance chain (REVIEW-QB5A-PREREG-r2, CONFIRM-QB5A-PREREG-r3, and the r4 check returning ACCEPT FOR FREEZE); F is that head, by its full SHA |
+| 1218 | 1234 | CF4-5 | §15 intro: the owner-record time is written "2026-11-14T06:05:54Z" |
+| 1231 | 1247–1248 | CF4-1 (5) | §15 OQ-1, text applied: the sensitivity is reported in both directions and with the rows removed |
+| (after 1330) | 1348–1349 | CF4-2 (2) | §16: "A verdict resting on As or As|cond rows reports what the corpus asserts. It is not independent physical verification of the assertion (OQ-7)." |
+
+**Not changed.**
+
+- The OQ-1 alternative in §15 still says "Delete §8.2's sensitivity line". That alternative is a record only
+  and is not adopted, so it was left as it stands.
+
+**Checks.**
+
+- Each replacement was asserted to match exactly once.
+- `diff` against `3607d5f9` gives 11 hunks, matching the table above.
+- `grep` for the barred path strings: no hits.
+- No passage was classified, and no outcome is stated or predicted.

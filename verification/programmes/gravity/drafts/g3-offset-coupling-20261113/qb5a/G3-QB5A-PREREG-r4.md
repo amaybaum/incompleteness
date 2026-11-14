@@ -34,7 +34,7 @@ passage, renders no cell of the audit table, and states no expected outcome.
   - r4 applies CF3-1 and CF3-2, using the edit check's replacement text. The dispositions are in
     `qb5a/RESPONSE-QB5A-r3.md`. r3 is not edited.
   - The owner's answers to OQ-1 to OQ-5 and OQ-7 are recorded at #873 c.6872827835 (`amaybaum`,
-    2026-11-14). Each point of use cites "(owner decision OQ-n, #873 c.6872827835)" in place of the
+    2026-11-14T06:05:54Z). Each point of use cites "(owner decision OQ-n, #873 c.6872827835)" in place of the
     pending marker. §15 quotes each decision and keeps the alternative texts as a record only, not
     adopted.
 - **Inputs** on branch `research/g3-offset-873-20261113`, directory
@@ -194,7 +194,7 @@ whose own passage is on this list has A3x = yes (§5.3).
 - **Added.**
   - **Running-vacuum sourcing (QB7(a)).** It is not adopted by owner decision and not imported from the
     running-vacuum literature. Its corpus status is read from the text by §5.3's test, as for every row
-    (owner decision OQ-1, #873 c.6872827835). §8.2 carries the QB7(a) sensitivity line.
+    (owner decision OQ-1, #873 c.6872827835). §8.2 carries the QB7(a) sensitivity.
   - **F4, F5, F4-dia and every variant.** These are assessed, never used as premises.
   - **Prior verdicts.**
     - r5's outcome (C) and its residual.
@@ -676,6 +676,8 @@ Commitment set: `Com` = {D, D|cond, Rq, As, As|cond} (owner decision OQ-7, #873 
 - **Labels.**
   - A verdict whose only rejecting rows have A3 ∈ {As, As|cond}, or a grounding status of As or As|cond,
     is labelled "rests on unqualified assertion".
+  - The label reports a textual commitment of the corpus. It is not independent physical verification of
+    the assertion (owner decision OQ-7, #873 c.6872827835).
   - A rejection resting on a D|cond or As|cond row is conditional on that row's named conditions. They are
     carried into the verdict and into Stage 3. A rejection resting on an As|cond row carries both its
     conditions and the "rests on unqualified assertion" label.
@@ -771,10 +773,19 @@ F4-null included). F4-dia and F5 are reported beside it.
   - the conditions of any D|cond row it rests on;
   - the "rests on unqualified assertion" label, where it applies;
   - the relativity of §7.2's closure.
-- **QB7(a) sensitivity line (owner decision OQ-1, #873 c.6872827835).** If a Stage-2 verdict would
-  differ were the A3 cells of the rows that the same-quantity table identifies with GR:376's `Λ_eff(H)`,
-  or with GR:400 Reading 1's quantity, non-committal, the verdict is reported with that sensitivity line,
-  labelled "rests on the corpus text's commitment to running-vacuum sourcing (QB7(a))".
+- **QB7(a) sensitivity (owner decision OQ-1, #873 c.6872827835).** Let RV be the rows that the
+  same-quantity table identifies with GR:376's `Λ_eff(H)` or with GR:400 Reading 1's quantity. Each
+  Stage-2 verdict, and each cell of the Stage-3 grid, is recomputed three ways, with every other row as
+  rendered:
+  - (i) every A3 cell of RV non-committal (Ns);
+  - (ii) RV taken as committed sources, with role T and A3 = D, and their other cells as rendered. This
+    is a counterfactual, never the rendered verdict: running-vacuum sourcing is not adopted (QB7(a));
+  - (iii) RV removed from every decisive step: the rejecting predicates, the aggregations of §5.1 and
+    §5.3, GRT-4, and any Δ9.k drawn only from RV's sentences.
+
+  Wherever any of the three differs from the rendered result, the verdict is reported with the differing
+  results beside it, labelled "sensitive to the running-vacuum rows (QB7(a))". Where (i) differs, it is
+  also labelled "rests on the corpus text's commitment to running-vacuum sourcing (QB7(a))".
 
 ### 8.3 Stage 3: B_G's outcome
 
@@ -845,8 +856,9 @@ this preregistration.
   has two mirror consequences:
   - if a carve whose class contains every metric-defined quantity passes GRT and is Admissible, (A) is
     unreachable for a metric-defined W0 quantity;
-  - if a carve whose class excludes a metric-defined W0 quantity passes GRT and is Admissible, it is
-    grounding-content and blocks (B) in the same way.
+  - if a carve whose class excludes the W0 quantity passes GRT and is Admissible, it is grounding-content
+    with respect to that quantity and blocks (B) (§8.3 item 3). This holds for a metric-defined W0
+    quantity in particular.
 
 ***
 
@@ -1070,7 +1082,7 @@ the unit as a rule defect.
 | Q-5 | Q4, §8.3: GR:577's scope clause; A2§ for every relative or epoch-differential quantity | the clause's scope; the counterpart per quantity |
 | Q-6b | Q6: Δ1's predicate applied to every row; where T-GR384's quantity falls | the induced class, and T-GR384's position |
 | Q-6c | GRT for Δ1–Δ8 and every Δ9.k; re-run W-e | pass, fail or Und per carve, with reasons |
-| Q-7 | Stage 2: §6, §8.1 and §8.2; K1–K5 per formalization; the skeptical nodes; the QB7(a) sensitivity line; **commit** | verdicts and summary class per coordinate |
+| Q-7 | Stage 2: §6, §8.1 and §8.2; K1–K5 per formalization; the skeptical nodes; the QB7(a) sensitivity; **commit** | verdicts and summary class per coordinate |
 | Q-8 | Classify W0-Z0, W0-ZI and W0-ZII by §5–§6, per route; the second reader classifies them independently (X-18) | W0 rows |
 | Q-9 | Stage 3 (§8.3) and the headline (§8.4) | the B_G grid and the headline |
 | Q-10 | Fixed-point passes | NEW count per pass |
@@ -1157,7 +1169,7 @@ POSITIVE, ELABORATING, CONFIRMING or BORDERLINE.
 | X-7 | Stage 2 precedes Stage 3 | The Stage-2 table and verdicts land in a commit in which the unit's record files contain no W0 classification and no Stage-3 text. Stage 3 lands in a descendant. Checked from the history |
 | X-8 | Controls are green before any verdict | The Q-0 record precedes the table in the record and in the history |
 | X-9 | No excluded premise in a decisive step (K4) | Each decisive step lists its premises; the reviewer checks each against §2.2 |
-| X-10 | Running-vacuum sourcing is not adopted (QB7(a)) | The running-channel rows have A3 rendered from cited corpus text. No decisive step cites the running-vacuum literature or an owner adoption. The §8.2 sensitivity line is present wherever it applies |
+| X-10 | Running-vacuum sourcing is not adopted (QB7(a)) | The running-channel rows have A3 rendered from cited corpus text. No decisive step cites the running-vacuum literature or an owner adoption. The three §8.2 sensitivity computations are recorded for every verdict, and the label is present wherever one differs. The reviewer recomputes them (X-21). |
 | X-11 | Status scope (§5.3) | The reviewer checks every A3 cell that decides a verdict, whatever its value, and every D, D|cond, Rq and As cell |
 | X-12 | Conditions are carried | Every verdict line names Reading G, case β, N5-G, the coordinate, its D|cond conditions, any As label and the closure relativity |
 | X-13 | Prior readings are not anchors | No cell cites r5's §2.4 reading column or node verdicts as its ground. Agreement with r5 is recorded in a separate column after rendering |
@@ -1181,11 +1193,15 @@ POSITIVE, ELABORATING, CONFIRMING or BORDERLINE.
   trigger. Each is independently reviewed (QB6), in a full round wherever the tests or the decision rule
   change.
 - A reviewer may propose rule text but must not state an expected outcome for the inventory.
-- An owner answer to a pending OQ is applied by the alternative text of §15. It is reviewed by a check of
-  that edit alone, unless it changes text outside the marked points of use.
-- **Freeze F (owner decision OQ-5, #873 c.6872827835).** The owner designates F on #873, after independent
-  acceptance. The owner's confirmation adds that r4 must first have CF3-1 and CF3-2 applied and
-  independently confirmed. F is the commit containing the accepted revision.
+- The owner's answers to OQ-1 to OQ-7 are applied as §15 records (#873 c.6872827835). A change to an
+  applied answer before F is a new revision, reviewed under this section.
+- **Freeze F (owner decision OQ-5, #873 c.6872827835).** The owner designates F on #873 after
+  independent acceptance.
+  - The decision names "the complete r2 rule and its controls".
+  - The owner's confirmation requires r4, with CF3-1 and CF3-2 applied and independently confirmed.
+  - The acceptance consists of REVIEW-QB5A-PREREG-r2 (the full round on the rule and its controls),
+    CONFIRM-QB5A-PREREG-r3, and the check of r4 that returns ACCEPT FOR FREEZE on the head it names.
+  - F is that head, by its full SHA.
 - No inventory row is classified before F.
 
 ### 14.2 Deviations after freeze
@@ -1215,7 +1231,7 @@ POSITIVE, ELABORATING, CONFIRMING or BORDERLINE.
 
 ## 15. Owner questions
 
-The owner's answers are recorded at #873 c.6872827835 (`amaybaum`, 2026-11-14), relayed in the
+The owner's answers are recorded at #873 c.6872827835 (`amaybaum`, 2026-11-14T06:05:54Z), relayed in the
 coordinating session and confirmed by the owner: "Confirmed: I reaffirm my OQ-1–OQ-7 decisions for G3
 QB5(a), including the previously answered OQ-6, and #1283 C2 option (a), exactly as stated." Each point of
 use cites "(owner decision OQ-n, #873 c.6872827835)". Each decision is quoted below. The alternative texts
@@ -1228,7 +1244,8 @@ are kept as a record only; none is adopted.
   - **Text applied.**
     - "Adopt" is read as taking the running-vacuum sourcing on by decision or by import.
     - The running-channel rows are classified from the corpus text by §5.3's test, as every row is.
-    - §8.2's QB7(a) sensitivity line shows whether a verdict reaches QB7(a)'s subject through the text.
+    - §8.2's QB7(a) sensitivity reports, in both directions and with the rows removed, whenever their
+      treatment changes the verdict.
   - **Alternative (not adopted; record only).**
     - In §2.2, replace the running-vacuum bullet with: "The rows that the same-quantity table identifies
       with GR:376's `Λ_eff(H)` or with GR:400 Reading 1's quantity are not rejecting and not potentially
@@ -1328,5 +1345,7 @@ are kept as a record only; none is adopted.
 - The §8.3 branch rests on the geometry-first identification (U1r5:504–505).
 - The negatives used by R and (A) are relative to the frozen inventory and the candidate list.
 - (A) requires an explicit grounding commitment or a failed F5 control (§8.5 (i)).
+- A verdict resting on As or As|cond rows reports what the corpus asserts. It is not independent
+  physical verification of the assertion (OQ-7).
 - The witness keeps unit 2(a)'s scope: exact de Sitter and M1.
 - No claim is made about K_cpl^conv's admissibility under G3, or about Λ.
