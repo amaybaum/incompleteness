@@ -108,7 +108,7 @@ mechanism or OI↔QM result; the #1230 and #1232 drafts themselves.
 ## Verification status (§A.46 item 4)
 
 No result in the record is independently verified. No carried statement is known to be invalid at
-the scope of its witnesses; see the scope line on `NEW-RESULTS.md`:322–325 and `CHANGES.md` Δ30.
+the scope of its witnesses; see the scope line on `NEW-RESULTS.md`:332–335 and `CHANGES.md` Δ30.
 `review/REVIEW-r1.md` and `review/CONFIRM-r2.md` report no mathematical error in a carried statement
 or proof. N1–N4 and SLL are open.
 Whether hand checks in model-written reviews make a result partially verified in §A.46 item 4's
@@ -131,11 +131,13 @@ standard mathematics; [K] items are Lean statements on `main`, read and not rebu
 reconciliation's `REVIEW-r1.md` at `703ae20e` (#1271), off `main`; it is provenance
 (`DEPENDENCIES.md` row I).
 
-**Scope of `NEW-RESULTS.md`:322–325.** The sentence states that without spanning the test need not
+**Scope of `NEW-RESULTS.md`:332–335.** The sentence states that without spanning the test need not
 separate, as on the octahedral and Husimi frames (S2c, S2). Non-separation does not hold for every
 non-spanning frame: the tetrahedral frame extended by a point of probability zero is non-spanning,
 and every frame representative of the Hadamard on it has the entry −1/2 (`CHANGES.md` Δ30; owner
-decision #1274 c.6865575359).
+decision #1274 c.6865575359). The copied Finding and Argument of §3.1 carry the same scope, stated
+in the scope line at `NEW-RESULTS.md`:302–310 (`CHANGES.md` Δ31; owner decision 2026-11-14, #1169
+c.6872005186).
 
 **Remediation, one line per gap** (`DEPENDENCIES.md` rows A1, D2, D3, E2):
 
