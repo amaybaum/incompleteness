@@ -44,8 +44,8 @@ from that commit. `NEW-RESULTS.md` and `CHANGES.md` differ from it only by `CHAN
     for the scope line that Δ31 adds.
   - The reviews of the drafts and of the reconciliation (#1271) are listed in `PROVENANCE.md` §2–§3.
 - **Nature of the reviews.** All are model-written. REVIEW-r1 and CONFIRM-r2 are exact-head reviews
-  separate from the writer pass; review 5895564670 is a model review posted under the owner's
-  account. None is a human review, a GitHub approval or an owner decision, and none is verification
+  separate from the writer pass; reviews 5895564670 and 5900794367 are model reviews posted under
+  the owner's account. None is a human review, a GitHub approval or an owner decision, and none is verification
   (§A.46 item 7).
 
 ## Owner records
@@ -176,7 +176,7 @@ item 8. The references this note adds:
 
 | Reference | Classification |
 | --- | --- |
-| Commits `bac44eeb8562afe12142124c2df6a5192c3c5c67`, `1ef60d92`, `3f56d543`, `4b40dcdc` and `d015131d`, and `f4c300bc` to `bb80e420` and their successors carrying Δ30 and Δ31, on this PR's branch, named in the reviews, in reviews 5895564670 and 5900794367 and in Δ30 and Δ31 | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
+| Commits `bac44eeb8562afe12142124c2df6a5192c3c5c67`, `1ef60d92`, `3f56d543`, `4b40dcdc` and `d015131d`, and `f4c300bc` to `bb80e420` and their successors carrying Δ30 and Δ31, on this PR's branch, named in the reviews, in reviews 5895564670 and 5900794367 and in this note's review trail | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
 | #1169 comments 6854728636, 6855167580, 6863414487, 6865177667; #1274 comments 6863419164 and 6865575359; #1169 comment 6872005186; #1265 comment 6846206075 | Governance provenance, quoted above and under "Landing". |
 | ChatGPT reviews 5895564670 and 5900794367 | Provenance: the first's integration requirements are quoted below, and the second required the scope line of Δ31; no claim rests on either. |
 | Integration assessment r2, `verification/audits/integration/integration-assess-20261113/INTEGRATION-ASSESS-r2.md` on `research/integration-assess-20261113` at `c7ce4f2852cb90883b7a7c8ed645ba09db19f7ca` (#1279), with its `REVIEW-r1.md` and `CONFIRM-r2.md` | Provenance: it specifies the contents of this note; no claim rests on it. |
