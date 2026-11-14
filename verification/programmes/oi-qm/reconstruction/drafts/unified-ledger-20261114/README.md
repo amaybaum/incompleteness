@@ -20,6 +20,8 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 | `REVIEW-QUEUE-r3.md` | Confirmation of queue proposal r3: ACCEPT WITH CHANGES | `36d1b1916fbe77f1d968edef8bb39839a7dbcb18f82726a40262b2457bf8716c` |
 | `REVIEW-QUEUE-r2.md` | Focused confirmation of queue proposal r2: ACCEPT | `0d7c8f27627e07fedd0edceaf551ee2a54a517dfe2b5f5f6e89bcfae845b7def` |
 | `REVIEW-QUEUE-r1.md` | Independent review of the queue proposal: ACCEPT WITH CHANGES | `94a44806700cf224a413d1818335575a29bee04d323893a4f8bf307b0fdd9a76` |
+| `LEDGER-r6.md` | Bounded follow-up to the accepted r5 (#914 comment 6880010243): LC-1 (T-6 rows), LC-7 (D8 mirror) and the record of Issue homes; unreviewed | `d9549dd75ed7a4dc19be9c0f5e142a44b1bfb5ec392ec16d02c9818090bfc173` |
+| `RESPONSE-LC-1.md` | What r6 changes from r5 | |
 | `LEDGER-r5.md` | The owner-accepted ledger (#914 comment 6879158095); minimal revision of r4 applying its review (four should-fix, seven nits); reviewed (ACCEPT) | `c3897e42b57e3a5052f29828935e2e30bf4270ffafaf349a9c4b4eadfe83c299` |
 | `REVIEW-r5.md` | Focused confirmation of r5: ACCEPT (owner checks on J-3/J-4, Q13, audit citation and the ten unresolved findings all met) | `0f0e119e0a4a48eb68bff3e3314bf6b3d5289129f6a478576d5e60ccf5de2ee2` |
 | `RESPONSE-r4.md` | Dispositions of the review of r4 | |
