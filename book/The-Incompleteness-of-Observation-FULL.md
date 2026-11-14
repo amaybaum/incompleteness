@@ -5647,7 +5647,7 @@ The horizon and radiation entries inherit H-slope and the horizon/frame/state co
 The neutrino sector provides the framework's sharpest parameter-free retrodiction. The JUNO measurement of $\sin^2\theta_{12}$ at 0.07$\sigma$ against the framework's structural value is a retrodictive match whose exact form converts JUNO's design-lifetime precision into the framework's cleanest pre-registered forward test.
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
-|---|-----------|---------|-------|-------|-----------------|---------|
+|---|-----------|-----------|------------|-------|-----------------|---------|
 | N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
 | N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | 2.6% (1.0$\sigma$) | Ch 8 |
 | N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
@@ -5665,7 +5665,7 @@ The neutrino sector provides the framework's sharpest parameter-free retrodictio
 The framework's empirical content in biology and medicine is concentrated in the wider therapeutic window for reader-writer disorders (consistent with the Rett-syndrome reversibility of Guy et al. 2007) and the cancer methylome classification paradigm — structural organization of, and consistency with, established clinical biology. Entries marked *conjectural* have no established structural classification; their empirical matches are consistency comparisons with earlier observations, rather than tests establishing the proposed OI explanation (Chapters 16 and 17).
 
 | # | Prediction | Quantitative content | Class | Layer | Empirical match | Chapter |
-|---|-----------|---------------------|-------|-------|-----------------|---------|
+|---|-----------|---------------------|----------------|-------|-----------------|---------|
 | B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | conjectural | 1 | Retrodiction (Guy et al. 2007) | Ch 16 §16.12 |
 | B2 | Cancer methylome classifier accuracy | Substratum preserved during tumorigenesis | conjectural | 1 | DKFZ 95%+ accuracy | Ch 17 §17.7 |
 | B3 | Non-Markovian enzyme kinetics | Stretched-exponential waiting times | S | 1 | Multiple enzyme systems | Ch 13 §13.6 |

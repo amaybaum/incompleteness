@@ -32,8 +32,8 @@ shown above. Original reviews and reviewed commits remain unchanged.
 
 The integration retains all nine reviewed commits in its ancestry. Its six changed
 manuscript Markdown files preserve the union of the accepted source edits. The only
-additional manuscript changes are the display-math line breaks described below; their
-formula text and mathematical tokens are unchanged. Shared TeX/PDF
+additional manuscript changes are the display-math line breaks and two table-width
+specifications described below; their formula tokens and table contents are unchanged. Shared TeX/PDF
 artifacts and the SC-42 result are regenerated for the combined source. Individual green
 PRs do not certify a combined publication artifact.
 
@@ -42,6 +42,12 @@ Complexity baseline pages 6 and 19. Three math environments are wrapped across l
 using aligned/gathered layout. Removing only those layout commands and joining the split
 text fragments recovers each original formula exactly; every term, arrow and hypothesis
 is retained. No build script, font, global geometry or scientific statement changes.
+
+Full-resolution inspection also found that the longer heuristic/conjectural Class labels
+crowded or overlapped the Layer column. Only the two affected Markdown table-width
+rulers and their FULL mirrors are adjusted. Their Pandoc syntax trees differ only in
+the two column-width specifications; every cell, caption and scientific classification
+is unchanged. No table wording or prediction class is added.
 
 The 49 files under
 `verification/programmes/oi-qm/reconstruction/drafts/unified-ledger-20261114/`
