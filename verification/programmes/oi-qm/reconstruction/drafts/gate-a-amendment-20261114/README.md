@@ -14,9 +14,12 @@ three-part target recorded on #914, comment 6875548603.
 
 | File | What it is |
 | --- | --- |
-| `GATE-A-AMEND-r3.md` | The current text of the amendment |
-| `GATE-A-AMEND-r3-TRACE.md` | One disposition (kept, superseded or replaced) for each of the 113 nonblank lines of `endpoints.md` at `c3b5f37a`, and the status table |
-| `OWNER-QUESTIONS-r3.md` | The four open owner questions, with options and what each commits to |
+| `GATE-A-AMEND-r4.md` | The current text of the amendment |
+| `OWNER-QUESTIONS-r4.md` | The four open owner questions as they now read |
+| `RESPONSE-CONFIRM-r3.md` | Dispositions of the r3 confirmation's required changes |
+| `GATE-A-AMEND-r3.md` | The revision the focused confirmation read |
+| `GATE-A-AMEND-r3-TRACE.md` | Stands for r4 (no disposition changed). One disposition (kept, superseded or replaced) for each of the 113 nonblank lines of `endpoints.md` at `c3b5f37a`, and the status table |
+| `OWNER-QUESTIONS-r3.md` | The owner questions as they read at r3 |
 | `GATE-A-AMEND-r2.md`, `GATE-A-AMEND-r2-TRACE.md` | The revision the confirmation review read |
 | `GATE-A-AMEND-r1.md`, `NOTES-r1.md` | The first draft and the writer's reading list |
 | `REVIEW-r1.md` | Non-author review of r1: REVISE (one blocking, sixteen should-fix findings) |
@@ -40,7 +43,12 @@ three-part target recorded on #914, comment 6875548603.
   the comparator's full operational equivalence (RC1); the necessity statement made conditional
   on C being invariant under that equivalence (RC2); four remaining anti-fitting openings closed
   (RC3); and the Bell coverage clause restricted to admitted two-wing models (RC4). It also finds
-  "question 2 answers itself" in `OWNER-QUESTIONS-r3.md` too strong. These are to be applied in r4.
+  "question 2 answers itself" in `OWNER-QUESTIONS-r3.md` too strong.
+- r4 applies RC1–RC4 and the owner-questions correction, RC1(c) in modified form
+  (`RESPONSE-CONFIRM-r3.md`). No trace disposition changes, and every earlier file is unchanged. Of
+  the confirmation's eight optional suggestions, the two on attribution in the owner-questions
+  file (O6, O7) are applied in `OWNER-QUESTIONS-r4.md` by the coordinator; the other six are not
+  applied. r4 itself has not been reviewed.
 - The reviews are non-author model reviews, not independent verification.
 
 ## What the amendment states
