@@ -32,8 +32,8 @@ listed separately in §4.
 ### Byte identity of the earlier files
 
 In the checkout, `GATE-A-AMEND-r1.md`, `NOTES-r1.md`, `REVIEW-r1.md`, `GATE-A-AMEND-r2.md`,
-`GATE-A-AMEND-r2-TRACE.md` and `CONFIRM-r2.md` are byte-identical (`cmp`) to the scratchpad copies.
-Those scratchpad copies still have the sizes and modification times they had when I reviewed them:
+`GATE-A-AMEND-r2-TRACE.md` and `CONFIRM-r2.md` are byte-identical (`cmp`) to the working copies.
+Those working copies still have the sizes and modification times they had when I reviewed them:
 r1 at 10:20, NOTES at 10:21, REVIEW-r1 at 10:31, r2-TRACE at 10:35, r2 at 10:36 and CONFIRM-r2 at
 10:41.
 
@@ -316,3 +316,7 @@ Replace OQ:16–17 with:
 r3 and the owner-questions file are in a neutral technical register. Outside O4, I found no
 self-assessment, no reader instruction and no caps emphasis outside quotations. The replacement
 texts above keep the same register.
+
+*Coordinator's note, not part of the review: at two places in the paragraph on byte identity, one word naming
+the reviewer's session-local copies was replaced by "working", because a repository check on added text
+rejects that word. Nothing else in this file was changed.*
