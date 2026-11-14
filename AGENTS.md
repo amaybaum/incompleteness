@@ -1408,9 +1408,9 @@ citation to a file on it, never by itself certifies a premise for future researc
 Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
 records from `main` was found to break records on `main` that depend on them. Amended the same day
 by owner decision, to make removal the proposed disposition of unverified evidence an audit shows
-unnecessary and to bar unverified and refuted premises from established claims. Amended
-<YYYY-MM-DD> by owner decision (`amaybaum`, <issue> comment <id>, <timestamp>), to state the
-conditions on which a research record is preserved on `main`, what a remediation plan states,
-that a preserved record's scoped result is a surviving claim, and the reconciliation of records
-already on `main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments
-6865680499, 6872005186, 6872344927 and 6872828604).
+unnecessary and to bar unverified and refuted premises from established claims. Amended 2026-11-14
+by owner decision (`amaybaum`, #1169 comment 6874035457, 2026-11-14T07:45:39Z), to state the
+conditions on which a research record is preserved on `main`, what a remediation plan states, that a
+preserved record's scoped result is a surviving claim, and the reconciliation of records already on
+`main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments 6865680499,
+6872005186, 6872344927 and 6872828604).
