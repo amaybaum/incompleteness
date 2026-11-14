@@ -1390,9 +1390,10 @@ citation to a file on it, never by itself certifies a premise for future researc
 
    Preservation establishes no claim (item 1). A model's acceptance is evidence of review, not
    independent mathematical verification, and landing a record does not change its evidence layer.
-   For §A.42 item 5 and item 6, a preserved record's own scoped result is a surviving claim that
-   needs the record while that result stands. This does not make the result established (item 1)
-   and does not bar a separately authorized necessity or removal audit under item 6.
+   For item 6 and §A.42 item 5, the scoped result of a record preserved under this item is a
+   surviving claim that needs the record while that result remains applicable. This does not make
+   the result established (item 1) or raise its verification status, and does not bar a separately
+   authorized necessity or removal audit under item 6, which may examine whether it still applies.
    Research records that landed on `main` before this item's adoption with the support of their own
    scoped claim as their basis are reconciled with it: a landing-basis statement is corrected where
    needed, and missing verification and remediation information is added, in the record or, for a
@@ -1405,6 +1406,7 @@ records from `main` was found to break records on `main` that depend on them. Am
 by owner decision, to make removal the proposed disposition of unverified evidence an audit shows
 unnecessary and to bar unverified and refuted premises from established claims. Amended
 <YYYY-MM-DD> by owner decision (`amaybaum`, <issue> comment <id>, <timestamp>), to state the
-conditions on which a research record is preserved on `main`, what a remediation plan states, and
-the reconciliation of records already on `main`, as directed by the ruling of 2026-11-13 (#1169
-comment 6865680499).
+conditions on which a research record is preserved on `main`, what a remediation plan states,
+that a preserved record's scoped result is a surviving claim, and the reconciliation of records
+already on `main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments
+6865680499 and 6872005186).
