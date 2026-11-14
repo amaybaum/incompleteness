@@ -66,3 +66,23 @@ At the revised working tree: `tools/claims_check.py`, `tools/staleness_check.py`
 and `tools/artifact_placement_check.py` report OK; `tools/legacy_records_check.py` reports 303 records
 intact; the SC-42 integration check matches `sc42-integration-result.json` byte for byte with the
 revised files included. No barred path term appears in this directory.
+
+## Confirmation r2
+
+Dispositions of `CONFIRM-TUNE1-PLAN-r2.md` (ACCEPT WITH CHANGES (minor), of the plan at `7c34657d`).
+Each item is applied in place with the confirmation's replacement text verbatim, except where noted.
+Line numbers are those of r3, the revision these dispositions produce. Nothing else changes.
+
+| Item | Disposition | Where (r3) | Diff summary |
+|---|---|---|---|
+| C1 | Applied verbatim; the objects-file row is reworded to record the decision. | S3A:182, :186; SSRC:200; LP:68 (v′) | The #1283/#1284 Dependencies rows read "Landing requires #1283's adoption and #1284's landing first (gates G0 and G1); at packaging this row and the Basis line are restated against the adopted text and the landed notes." The confirmation gives no text for the objects-file row; it now states that the row records the owner's §A.42 item 3 decision taken at packaging (old and new blob where abbreviated, or the exception record), in place of the two options. G2 (v′) restates all three rows, with the confirmation's text. |
+| C2 | Applied verbatim. | LP:438, :439 | The plan's non-author review cell names `REVIEW-TUNE1-PLAN-r1.md`, the response and this confirmation; the ChatGPT cell reads "**pending**: ChatGPT exact-head review of the plan; the package head needs its own at G2". |
+| C3 | Applied verbatim. | NP:56, :63–66, :67–70, :73 | Decisions 1, 4, 5 and 6 restated to r2's content: #1284 required first; the C6 and C9 anchors; grades or nearest graded result, with OA3:323–326 and :415–416; #1278 "neither closes nor narrows Gap P". |
+| C4 | Applied verbatim. | S3A:183; LP:389; NP:143–145 | The second-message passages are listed as T2(d) (3A:866), §5 item 5 (3A:921–922), §3.0's reading (3A:519–522), T1's reported item (3A:819–823) and Nodes A.5–D.5 (3A:583–588, :658, :696, :751); NP's reviewer line adds the parenthesis on r1's wording. |
+| C5 | Applied verbatim. | SSRC:158–159 | "within the searches the record states, the corpus names it only as …". |
+| C6 | Applied verbatim. | S3A:244; SSRC:248 | The third condition bullet adds "the landing checks are run at the package head (G2 (vi))" before "In this note as landed". |
+| C7 | Applied verbatim. | S3A:3; SSRC:3; LP:68 (iii) | Headers read "Status note for the TUNE-1 preservation package (#1236 comment 6873565446)"; G2 (iii) adds "with the headers stated as landed". |
+| C8 | Applied verbatim. | LP:421 | The §6.3 #1278 row names reviews 5897621232 and 5898054706. |
+
+Checks at the revised working tree: claims, staleness, voice and artifact placement OK; legacy records
+303 intact; SC-42 byte-equal to `sc42-integration-result.json`; no barred path term in this directory.

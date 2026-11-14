@@ -1,6 +1,6 @@
 # Status note: TUNE-1 Step 3A r3
 
-**Draft for the TUNE-1 package (the TUNE-1 preservation package, #1236 comment 6873565446).** At landing this note becomes
+**Status note for the TUNE-1 preservation package (#1236 comment 6873565446).** At landing this note becomes
 `verification/programmes/oi-qm/reconstruction/drafts/tune-1-20261111/TUNE-1-STEP3A-STATUS.md`. It
 covers the five `TUNE-1-STEP3A*` files in that directory and no other file there; the TUNE-1 Step 1–2
 records in the same directory are outside it. It changes none of the five files; r3 is the accepted
@@ -179,11 +179,11 @@ At the package landing:
 | Commits `b923fa7f`, `8228b3c2` | On `main` once the package lands by merge commit. |
 | `221754fc…` (`TUNE-1-STEP3A-OBJECTS.md`:13), the earlier committed review blob | Resolves from `main` only through `b923fa7f`, so the landing must be a merge commit (§A.42 item 3). |
 | `.r3-pre-review.md` (3A:8, :1125) | Provenance: not retained. The r3 confirmation's verdict rests on the committed r3 and its diff map; ChatGPT reviewed the committed blob. |
-| Reviewed working copies in `TUNE-1-STEP3A-OBJECTS.md` | Provenance. Their five full ids (`4a6c1127`, `17076ef7`, `65217dc0`, `4a9c9aa6`, `3910f411`, given here abbreviated) name no object in the repository, as §A.42 item 3 requires of a full id. Treatment is an owner decision: (a) abbreviate the five ids to 8 characters at packaging as a recorded substitution, with the old and new blob of the objects file stated here, the reviewed SHA-256 values kept in full and no line of r1, r2, r3 or the review changed; or (b) land the file unchanged under a recorded owner exception for those ids. |
-| Second guidance message, relay only (3A:139–150) | Provenance: not on #1236. T2(d) (3A:866), §5 item 5 (3A:921–922), which cites T2(d), and the interference-versus-tables entries (Nodes A.5–D.5; 3A:819–824) draw on it; no classification does. |
+| Reviewed working copies in `TUNE-1-STEP3A-OBJECTS.md` | Provenance. Their five full ids (`4a6c1127`, `17076ef7`, `65217dc0`, `4a9c9aa6`, `3910f411`, given here abbreviated) name no object in the repository, as §A.42 item 3 requires of a full id. Their treatment is the owner's §A.42 item 3 decision on the objects file; at packaging this row records the decision taken, with the old and new blob of the objects file where the ids are abbreviated, or the owner's exception record where they are not; the reviewed SHA-256 values stay in full, and no line of r1, r2, r3 or the review changes. |
+| Second guidance message, relay only (3A:139–150) | Provenance: not on #1236. T2(d) (3A:866), §5 item 5 (3A:921–922), which cites T2(d), §3.0's persistent-incompleteness reading (3A:519–522), T1's reported interference-versus-tables item (3A:819–823) and Nodes A.5–D.5 (3A:583–588, :658, :696, :751) draw on it; no classification does. |
 | #1236 c.6816189419, c.6817129920, c.6828822665, c.6846408321, c.6846442383, c.6847314661, c.6847882040, c.6873565446 | Governance provenance, quoted. |
 | Review 5887947616 | Review provenance. |
-| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | #1283 is adopted and #1284 is landed before this note lands; their texts are then on `main`. |
+| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | Landing requires #1283's adoption and #1284's landing first (gates G0 and G1); at packaging this row and the Basis line are restated against the adopted text and the landed notes. |
 
 ## Source drift from `080cd2be` to `main` (`c3b5f37a`)
 
@@ -241,8 +241,8 @@ onto `main` as stated under Dependencies. Re-measured when the package is assemb
     tracing: ChatGPT 5887947616 at `8228b3c2`. `TUNE-1-STEP3A-REVIEW.md` names its reviewer only as
     "Independent internal review (same model family)" (REVIEW:6), and the record does not establish
     which agent wrote r1–r3 and which reviewed them; an owner decision is required on whether that
-    review meets item 8's non-author condition. Tracing is in this note's Dependencies table. In this
-    note as landed, no package-level review is recorded;
+    review meets item 8's non-author condition. Tracing is in this note's Dependencies table; the landing checks are run at the package head (G2 (vi)).
+    In this note as landed, no package-level review is recorded;
   - accountable Issue, verification status, remediation plan: #1236, this note;
   - explicit rationale and a separate owner merge decision: #1236 c.6873565446, "This preserves
     accepted research without falsely treating preservation as progress toward a native mechanism";

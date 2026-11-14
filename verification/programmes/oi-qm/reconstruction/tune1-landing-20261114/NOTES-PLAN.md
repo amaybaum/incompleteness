@@ -53,8 +53,7 @@ Reachability of the five full working-copy ids in `TUNE-1-STEP3A-OBJECTS.md` was
 
 ## Decisions taken in the plan
 
-1. **Order.** #1283 adoption first; #1284 recommended next, so that the status notes cite the OA grades
-   on `main`; then one TUNE-1 package with Step 3A before the sourcing unit (`LANDING-PLAN.md` §1).
+1. **Order.** #1283 adoption first; #1284 next, required before the package for the notes as drafted; then one TUNE-1 package with Step 3A before the sourcing unit (`LANDING-PLAN.md` §1).
    #1274 and #1285 are not upstream; REC-1 and #1278 are downstream.
 2. **One package, two records, both whole and byte-identical.** Both are small, every review cites
    their earlier revisions by line, and the sourcing unit cites Step 3A as support.
@@ -62,15 +61,16 @@ Reachability of the five full working-copy ids in `TUNE-1-STEP3A-OBJECTS.md` was
    the Step 1–2 records, which the note does not cover. The sourcing unit's note is `STATUS.md` in its
    own directory.
 4. **REC-1 rows narrowed, not landed.** SRC uses REC-1 r7 as support off `main` in two rows (C6, C9).
-   Each is narrowed in `STATUS-SOURCING.md` to the content on `main` (OA1:563–564; NPS1:85) with the REC
+   Each is narrowed in `STATUS-SOURCING.md` to the content on `main` (OA1:563–564 for C6; OA1:106–107, :522 and :603 for C9, with NPS1:85 as a related
+   concern) with the REC
    wording as context; no SRC verdict changes.
-5. **OA grades.** Each OA statement the records use is graded as #1284 grades it. None is
-   known-invalid. Two cited OA-3 ranges contain one line each that #1284 grades exploratory (OA3:323,
-   :415); neither carries a TUNE-1 conclusion, and the notes say so.
+5. **OA grades.** Each OA statement the records use is graded as #1284 grades it or, where #1284 gives no
+   grade, by the nearest graded result, marked as the plan's inference. None is known-invalid. Two cited
+   OA-3 ranges contain delta-review text graded exploratory (OA3:323–326, :415–416); neither carries a
+   TUNE-1 conclusion, and the notes say so.
 6. **Two gaps.** Gap S (no specified member) and Gap P (O-RDY) are stated side by side with their scope,
    kind, closing evidence and accountable Issue; L5.4 is recorded as a third, mathematical, open item.
-   #1278 is cited for Gap P with its scope: it concerns the binary SM ring and leaves Gap P open for
-   TC-A.
+   #1278 is cited for Gap P with its scope: it concerns the binary SM ring and neither closes nor narrows Gap P for TC-A.
 7. **Known-invalid in the review trails.** Step 3A r1:546 (C-POS-1 "passes T1") is graded known-invalid
    under T1's own definition, as the Bell precedent grades r1 statements a review shows false. The
    other r1 corrections of both records are recorded as overstatements, not refutations.
@@ -141,7 +141,8 @@ review (`REVIEW-TUNE1-PLAN-r1.md`, "Owner questions OQ-1 to OQ-11").
   - *Writer:* leave it as provenance; the Step 3A note states which passages draw on it (T2(d),
     3A:866; §5 item 5, 3A:921–922; the interference-versus-tables entries).
   - *Reviewer:* agree; have the note state that T2(d) (3A:866) and the seventh-item wording draw on
-    it, and that no classification does.
+    it, and that no classification does (r1's 'seventh-item wording' was an error; the
+    confirmation accepts the writer's list).
 - **OQ-10. This plan directory.**
   - *Writer:* it stays on its branch as a planning record; the status notes move into their record
     directories at packaging and cite neither plan file.

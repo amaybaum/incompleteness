@@ -1,6 +1,6 @@
 # Status note: TUNE-1 sourcing unit r2
 
-**Draft for the TUNE-1 package (the TUNE-1 preservation package, #1236 comment 6873565446).** At landing this note becomes
+**Status note for the TUNE-1 preservation package (#1236 comment 6873565446).** At landing this note becomes
 `verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/STATUS.md`. It gives the
 standing of the records in that directory and changes none of them; r2 is the accepted text.
 
@@ -155,8 +155,8 @@ Where a gap cannot be closed, the result is narrowed or withdrawn where it is st
 
 **The physical sourcing gap (O-RDY).** The first missing physical ingredient is a native producer,
 inside the joint dynamics, of known-value cells for the ready configuration and the program blocks,
-renewed for every run (SRC:374–379). The stated premises are not shown to supply it, and the corpus
-names it only as the unadopted MP-0a, the open H-PREP and the open obligation O-RDY.
+renewed for every run (SRC:374–379). The stated premises are not shown to supply it, and within the
+searches the record states, the corpus names it only as the unadopted MP-0a, the open H-PREP and the open obligation O-RDY.
 - **Current evidence:** this record's stop, with OA-1 gap 1 (OA1:522), OBS:100, :121 and the first stops
   of NPS1 and NIS2 for the binary SM ring (F-S3).
 - **Related governance record (provenance, not evidence for this stop):** the owner accepted #1278's
@@ -197,7 +197,7 @@ package landing:
 | #1169 c.6848268369, c.6854241002, c.6854774010; #1236 c.6817129920, c.6828822665, c.6873565446; #866 c.6765161496; #1147 body; #914 c.6563412926 | Governance and planning provenance, quoted. |
 | #1278 at `d8b74527`; reviews 5897621232 and 5898054706 | Governance provenance for the statement that physical source is not passed. #1278 cites this record as off-`main` support for its attributed comparison and resource statements; that obligation is #1278's. |
 | Review 5892912253 | Review provenance. |
-| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | #1283 is adopted and #1284 is landed before this note lands; their texts are then on `main`. |
+| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | Landing requires #1283's adoption and #1284's landing first (gates G0 and G1); at packaging this row and the Basis line are restated against the adopted text and the landed notes. |
 
 REC-1 rows C4, C6, C9, C11 and C12 are byte-identical at REC-1 r9 (`3a3aa146`, lines 223, 225, 228,
 230, 231). If REC-1 lands, the two narrowed rows may be re-pointed to it as a correction in place.
@@ -245,7 +245,8 @@ is re-measured at packaging.
   - independent non-author review, ChatGPT exact-head review, and the landing checks with §A.42 item 8
     tracing: met for the record (`REVIEW-r1.md`, `CONFIRM-r2.md` at `890fe3dd`; ChatGPT 5892912253 at
     `c539a60c`, which covers the cosmetic delta); tracing is in this note's Dependencies table, with
-    the two REC-1 rows narrowed there. In this note as landed, no package-level review is recorded;
+    the two REC-1 rows narrowed there; the landing checks are run at the package head (G2 (vi)).
+    In this note as landed, no package-level review is recorded;
   - accountable Issue, verification status, remediation plan: #1236 (O-RDY under #1147), this note;
   - explicit rationale and a separate owner merge decision: #1236 c.6873565446, "This preserves
     accepted research without falsely treating preservation as progress toward a native mechanism";
