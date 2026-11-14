@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `S3-PLAN-r8.md` | S3 plan r8: changes from the confirmation of r7 (S-L3 enters as a named premise with its full scope, its contribution conditional on re-checking and independent verification; the gating names the observer-level lift); plan for owner decision; unreviewed | `8af6893a57199c94e6449b33abdd2acdd60785ddde41c637fd64293148038885` |
+| `RESPONSE-S3-PLAN-r7.md` | Dispositions of that review | |
 | `S3-PLAN-r7.md` | S3 plan r7: local changes from the confirmation of r6 (rule renamed SNR-1; a disproved capability counts at its recorded scope and status; H-RR refutation routes require a sourced renewal limit; the gating of a negative closure of route M stated); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `bc07875fbc5dfa7f0ea269df90986d19d406e5ef9299a7f89023c2c88b2c61b6` |
 | `RESPONSE-S3-PLAN-r6.md` | Dispositions of that review | |
 | `S3-PLAN-r6.md` | S3 plan r6: the fix from the confirmation of r5 and its root cause (a negative outcome counts toward any negative closure only if every capability it relies on is sourced); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `664f0c1ddf1b665e2803238568175d78fff9f1df42d127738627863a63accbb6` |
