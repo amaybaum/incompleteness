@@ -8,4 +8,5 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO1-OVERLAP-r2.md` | The comparison in the owner's requested format: one allocation table, the six assessment items, statements labelled as result, proposed obligation or unproved assumption; recommendation not adopted; unreviewed | `d4617d155ee4d8f593ec1bbbf350d72c4016c2fa4008e0803cfd13506848f615` |
 | `RO1-OVERLAP-r1.md` | Scope comparison of RO-1 and #1143, with a proposed split and owner questions; proposal for owner decision; unreviewed | `6aa7b08ea6f0f4f9f7d94e43c232e9fa938d50dc97679c8db2e807a10609a501` |
