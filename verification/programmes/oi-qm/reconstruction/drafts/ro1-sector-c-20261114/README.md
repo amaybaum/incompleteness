@@ -8,6 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO1-DEPS-r1.md` | RO-1 step 2 dependency assessment r1, authorized on #914 (comment 6883931412): premises bearing on sector C; verdict UNDETERMINED; downstream premises listed as remaining; unreviewed | `2d3ce3676d50c829d4684e6d0218d8ad6d307f07aa4b3b99d624bb45de593390` |
 | `RO1-SPEC-r3.md` | Minimal r3: applies the review of r2 (no prejudging of S5 or S9; O11 answers narrowed to "not excluded"); reviewed (ACCEPT) | `90a4e47ed84eabdeee715525ad81f2e63151078534d390458af77278c7cf8146` |
 | `RESPONSE-SPEC-r2.md` | Dispositions of that review | |
 | `RO1-SPEC-r2.md` | Sector-C specification r2: applies the independent review of r1 and three reviewer checks (PR countermodel clause by clause, missing restriction, identity-relation analysis); stops S1–S3, S5–S9; reviewed (ACCEPT WITH CHANGES) | `5ea19f790120499b4d6325459f8153d1c5fc831fee07877f4603cc5132fb3528` |
