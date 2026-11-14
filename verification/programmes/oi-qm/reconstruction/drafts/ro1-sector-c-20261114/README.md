@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `RO1-DEPS-r1.md` | RO-1 step 2 dependency assessment r1, authorized on #914 (comment 6883931412): premises bearing on sector C; verdict UNDETERMINED; downstream premises listed as remaining; unreviewed | `2d3ce3676d50c829d4684e6d0218d8ad6d307f07aa4b3b99d624bb45de593390` |
+| `RO1-DEPS-r1.md` | RO-1 step 2 dependency assessment r1, authorized on #914 (comment 6883931412): premises bearing on sector C; verdict UNDETERMINED; downstream premises listed as remaining; reviewed (REVISE) | `2d3ce3676d50c829d4684e6d0218d8ad6d307f07aa4b3b99d624bb45de593390` |
 | `RO1-SPEC-r3.md` | Minimal r3: applies the review of r2 (no prejudging of S5 or S9; O11 answers narrowed to "not excluded"); reviewed (ACCEPT) | `90a4e47ed84eabdeee715525ad81f2e63151078534d390458af77278c7cf8146` |
 | `RESPONSE-SPEC-r2.md` | Dispositions of that review | |
 | `RO1-SPEC-r2.md` | Sector-C specification r2: applies the independent review of r1 and three reviewer checks (PR countermodel clause by clause, missing restriction, identity-relation analysis); stops S1–S3, S5–S9; reviewed (ACCEPT WITH CHANGES) | `5ea19f790120499b4d6325459f8153d1c5fc831fee07877f4603cc5132fb3528` |
@@ -21,3 +21,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-SPEC-r1.md` | Independent review of RO1-SPEC-r1 at `7156d761`: REVISE (three blocking, seven major, twelve minor) | `f3e19cf8e78e5832a0ac944e32587146af2462de4de7fc4f8932591feac758cd` |
 | `REVIEW-SPEC-r2.md` | Independent review of RO1-SPEC-r2 at `551b2f18`: ACCEPT WITH CHANGES (three new major findings) | `a920b934bce674e32b8a916cc2af815036fb1882838a0b091cd09a4d544ca99f` |
 | `REVIEW-SPEC-r3.md` | Focused confirmation of RO1-SPEC-r3 at `a407ff90`: ACCEPT (one nonblocking nit) | `ab6e12ef29d876b0c7f4a85d11fd4429937db839ef03dfd53a8619283fac7db3` |
+| `REVIEW-DEPS-r1.md` | Independent review of RO1-DEPS-r1 at `9504385a`: REVISE (verdict label right; four blocking findings on its support) | `8536e21297b527b3294f61cf4f2d300c339c6b513be57b6739c4f7a6bf7f14a1` |
