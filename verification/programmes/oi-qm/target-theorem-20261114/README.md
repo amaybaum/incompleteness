@@ -7,13 +7,16 @@ status; where a statement here and its cited source differ, the source governs.
 
 | File | What it is |
 | --- | --- |
-| `TARGET-THEOREM-r3.md` | The reviewed text: the two sides defined, the candidate target theorems with each direction's status and witness, the proved obstructions, what the records already decide, the residual obligations and the open questions |
-| `OWNER-BRIEF-r3.md` | Plain-language summary of r3 for the owner's choice |
+| `TARGET-THEOREM-r4.md`, `OWNER-BRIEF-r4.md` | The current text and its plain-language summary; r4 applies the two changes of the exact-head confirmation of r3 that concern them and has no review of its own |
+| `CONFIRM-r3.md` | Exact-head confirmation of r3 at `755f9bff`: ACCEPT WITH CHANGES |
+| `RESPONSE-CONFIRM-r3.md` | Dispositions of that confirmation's changes |
+| `TARGET-THEOREM-r3.md` | The revision the exact-head confirmation read, which applies the r2 confirmation's six changes: the two sides defined, the candidate target theorems with each direction's status and witness, the proved obstructions, what the records already decide, the residual obligations and the open questions |
+| `OWNER-BRIEF-r3.md` | Plain-language summary of r3, the version the owner chose from |
 | `TARGET-THEOREM-r1.md`, `TARGET-THEOREM-r2.md` | Earlier revisions, kept because the reviews cite their text |
 | `NOTES-r1.md` | The writer's reading list and what was not checked |
 | `REVIEW-r1.md` | Non-author review of r1: REVISE |
 | `RESPONSE-r1.md` | Dispositions of the review's findings and of the confirmation review's changes |
-| `CONFIRM-r2.md` | Confirmation review of r2: ACCEPT WITH CHANGES; its six changes are applied in r3 |
+| `CONFIRM-r2.md` | Confirmation review of r2: ACCEPT WITH CHANGES; r3 applies its six changes as `RESPONSE-r1.md` records |
 
 The files are the texts as written and reviewed, unedited.
 
@@ -22,8 +25,15 @@ The files are the texts as written and reviewed, unedited.
 - Paper-only: reading and hand reasoning. No computation was run and no Lean was built; Lean
   statements were read with their hypotheses.
 - The reviews are model reviews by a non-author. They are not independent verification, not a human
-  review and not an owner decision. r3 itself, which applies the confirmation review's six changes,
-  has no review of its own.
+  review and not an owner decision.
+- `CONFIRM-r3.md`, a non-author confirmation of r3 at `755f9bff`, found the six changes applied as
+  recorded and every changed status and witness correct at source, with no status stronger than its
+  source and no candidate recommended. It required one documentation entry in the text (the C4
+  reading differs from the docstring of `denseFiniteQM_of_denseControl` and from an audit line), one
+  rewording in the owner brief (question 15), and four corrections to this README, which are
+  applied here. r4 applies the first two; its closing line lists the confirmation's forward-note
+  items, which concern the later amendment of the target and are not addressed in r4. r4 is itself
+  unreviewed.
 - Statements about research records off `main` carry those records' own status (model-reviewed,
   not independently verified).
 
@@ -60,12 +70,10 @@ substratum–observer realization such that the complete operational experiment 
 extended model is equivalent, in both directions, to finite-system quantum mechanics." The two
 directions are (⇒) OI + E ⟹ QM_fin and (⇐) QM_fin ⟹ OI + E, and "The two directions must use a
 compatible model and operational interface, not unrelated constructions selected separately for
-each experiment."
+each experiment." The adopted text continues: "Exactness requires special care. Under the stated finite-system obstruction, the target cannot assume one fixed finite total carrier. An infinite or completed carrier is an admissible candidate, but its sufficiency is not established. Finite access by an embedded observer must remain distinct from finiteness of the underlying dynamics." and "Likewise, the existing configuration-level no-go result must not be mistaken for a no-go covering every possible observer interface."
 
 Neither direction is proved, and no extension E that is independently physically justified has been
-identified. In the terms of r3 the decision takes the extension form (T3) as the formal target and
-the native form (T5) as the sourcing programme, with the Bell clause as a separate obligation that
-the full equivalence requires.
+identified. In the terms of r3 (a reading, not part of the decision): decision 1's "extension form" is the form of r3's T3 and its "native form" that of T5, and the Bell clause is a separate obligation that the full equivalence requires. The target theorem itself is not T3. T3 relates predicates of an operational theory with the kinematics given, and both its directions are proved in the kernel. The target asks for an independently justified extension E and a single common substratum–observer realization, a model-level statement of the kind of r3's T5b with a stated E, and neither of its directions is proved.
 
 ## Amendment of the same day: OI as a superset
 
@@ -86,6 +94,8 @@ obligation recorded in r3 as needing a selection principle is replaced by the ob
 and justify the sector condition. Part 3 is outside r3, which treats the quantum side only; on
 `main` the Einstein equations are used through Jacobson's relation and not derived
 (`papers/GR.md`:162).
+
+Four questions on the amended target were answered later the same day on #1169, comment 6876591512 (`amaybaum`, 2026-11-14): C is a condition on the underlying model, physically stated, with its consequences for experiment families defined explicitly, which "refines the earlier wording on #914"; coverage and soundness are required and "Necessity remains an optional future theorem"; one single model with one common extension E is the ultimate target, one common architecture an intermediate milestone; and every physically performable experiment within C must be quantum, with access closure. Neither r3, the owner brief nor the account of part 2 above reflects these answers.
 
 No part is proved. r3 and the owner brief were written before this amendment and are not edited.
 

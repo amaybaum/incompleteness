@@ -1,0 +1,14 @@
+# Response to CONFIRM-r3 (TARGET-THEOREM-r3 → r4; OWNER-BRIEF-r3 → r4)
+
+`CONFIRM-r3.md` confirmed r3 at `755f9bff` (ACCEPT WITH CHANGES). r4 and the r4 brief apply the changes below and are unreviewed. Each change was checked at its source on `main` at `c3b5f37a` (read, not rebuilt). `TARGET-THEOREM-r3.md`, `OWNER-BRIEF-r3.md`, `RESPONSE-r1.md` and all earlier files are byte-for-byte unchanged. R2–R5 concern the README and are left to the coordinator. No computation was run and nothing was posted.
+
+| # | Disposition | Where applied | Check made; reason if modified |
+|---|---|---|---|
+| R1 | Applied; one pin widened | `TARGET-THEOREM-r4.md` §4, new entry D5 after D4 | Docstring confirmed verbatim at OB/DenseInstrumentBridge.lean:492–494. The audit's sentence runs over `verification/audits/operational/dense-instrument-bridge-audit.md`:306–307, and the implication it is said of is displayed at :304, so the pin reads :304–307 instead of :306. `DenseFiniteQM` confirmed as `KrausSoundExt T ∧ KrausDense T` at OB/DiscreteCompletion.lean:59; `KrausDense` quantifies over levels `k + 1` (:52–56) and `KrausSoundExt` over `n + 1` (OB/CompositeSoundness.lean:123). The three composed statements are named in D5 (OB/RouteB.lean:146, OB/MicroscopicReversibility.lean:223, OB/ImplementationLocality.lean:963). The entry is kept as a reading. |
+| Status line | Applied | `TARGET-THEOREM-r4.md` line 3; title "(r4)" | As the coordinator specified: r3 confirmed at `755f9bff` (ACCEPT WITH CHANGES); r4 applies R1 (and the brief R6) and is unreviewed. |
+| Forward notes | Not applied, as instructed | `TARGET-THEOREM-r4.md`, closing line | `CONFIRM-r3.md` §5 items 1–8 are listed there as "not addressed here". |
+| Wording | Applied | `TARGET-THEOREM-r4.md` §2 clause B, reference rule, Hypotheses cell; §4 O4, last column | Done under the coordinator's wording instruction, which bars two hyphenated words. r3 used one of them twice: once in a quotation from M:414 and once in this document's own phrase. Both are replaced by paraphrases of M:414 (a coupling graph $G(x)$ that varies with the configuration, as [SM §3.1] permits; preparation-indexed adjacency). No status or scope changes. |
+| R6 | Applied as given | `OWNER-BRIEF-r4.md` question 15 | Confirmed against r3 question 15, which asks only whether the standard is sufficient. No independent review of the T0 or T2 proofs was located in the records read. T2's finite-precision bound is open (M:566, :576). |
+| Brief header | Applied | `OWNER-BRIEF-r4.md`, title and first paragraph | The brief now points to `TARGET-THEOREM-r4.md` and says that r4 keeps r3's statuses. r4's changes are D5, the wording change and the status line, none of which alters a candidate status in the brief. |
+
+Optional suggestions O1–O6 of `CONFIRM-r3.md` were not requested and are not applied.
