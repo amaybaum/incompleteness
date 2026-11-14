@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `S3-PLAN-r9.md` | S3 plan r9: the fix from the confirmation of r8 (CC4, CC5 and CC7 are fully specified on main and enter as named premises; the stop and the gating restated accordingly); plan for owner decision; unreviewed | `bcf778e5dc01dd8003a354cd9ad3a397b4759529cc737cb2ea8dc872402a428b` |
+| `S3-PLAN-r9.md` | S3 plan r9: the fix from the confirmation of r8 (CC4, CC5 and CC7 are fully specified on main and enter as named premises; the stop and the gating restated accordingly); plan for owner decision; independently reviewed (ACCEPT) | `bcf778e5dc01dd8003a354cd9ad3a397b4759529cc737cb2ea8dc872402a428b` |
 | `RESPONSE-S3-PLAN-r8.md` | Disposition of that review | |
 | `S3-PLAN-r8.md` | S3 plan r8: changes from the confirmation of r7 (S-L3 enters as a named premise with its full scope, its contribution conditional on re-checking and independent verification; the gating names the observer-level lift); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `8af6893a57199c94e6449b33abdd2acdd60785ddde41c637fd64293148038885` |
 | `RESPONSE-S3-PLAN-r7.md` | Dispositions of that review | |
@@ -56,3 +56,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-S3-PLAN-r6.md` | Focused confirmation of S3-PLAN-r6 at `a756262d`: ACCEPT WITH CHANGES (R7: rename the rule; R8: a disproved capability counts as a sourced negative; R9: H-RR refutation routes require a sourced renewal limit, not sourced references) | `341e838e71d1e11d010ae3df63b51f09e401370341d5b8c10267bef84d91e7d6` |
 | `REVIEW-S3-PLAN-r7.md` | Focused confirmation of S3-PLAN-r7 at `f3cf7994`: ACCEPT WITH CHANGES (R10: S-L3 enters as a named premise with its full scope, its contribution conditional on re-checking under U1's criterion; R11: the gating names the observer-level lift) | `ad99d6d119c78b57fcec76f7a017b15f652d3b88e7c858ee42df0f4fca98ce88` |
 | `REVIEW-S3-PLAN-r8.md` | Focused confirmation of S3-PLAN-r8 at `02ca83a5`: ACCEPT WITH CHANGES (R12: the controls CC4, CC5 and CC7 are already fully specified on main as named premises, not class-level only) | `7f88474e36728da578365817e3d604f54af4e5bb42a4811d1e3236df54e66ffe` |
+| `REVIEW-S3-PLAN-r9.md` | Focused confirmation of S3-PLAN-r9 at `72afca6a`: ACCEPT (three nonblocking nits) | `d1da8040d4dcac25ce079ed46f3545a26690597a64fb856c8e23adbd6906da80` |
