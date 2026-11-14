@@ -68,6 +68,7 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
 | `REVIEW-r1.md` | Non-author review of r1: ACCEPT WITH CHANGES (findings F1–F9) |
 | `RESPONSE-r1.md` | Dispositions of the review's findings and of the confirmation review's changes |
 | `CONFIRM-r2.md` | Confirmation review of r2: ACCEPT WITH CHANGES (changes C1–C5), with the reviewer's own section 6 |
+| `CHECK-RULEFREE.md` | Independent check of section 6 of `CONFIRM-r2.md` |
 
 **Review status, exactly.**
 
@@ -81,13 +82,30 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
   `diff L54-r2.md L54-r3.md` shows every change.
 - Neither review is independent verification, a human review or an owner decision.
 
-**Reviewer-authored results, not part of the theorem.** Section 6 of `CONFIRM-r2.md` is the
+**Reviewer-authored results and their independent check.** Section 6 of `CONFIRM-r2.md` is the
 reviewer's own derivation on whether the obstruction belongs to the rule or to the record
-convention: a rule-free lemma on the shared record slice, a non-additive example that meets Q5′
-under complete-history records in exchange mode, and the dependence of Theorem 1 on the target
-having no persistent memory. These are **not independently checked**. An independent check is in
-progress and its report will be added here with its verdict. r3 lists them in its §9 and does not
-rest on them.
+convention. `CHECK-RULEFREE.md` is an independent check of that section by a second non-author,
+by hand, with these verdicts:
+
+| Claim of `CONFIRM-r2.md` §6 | Verdict of the check |
+| --- | --- |
+| Q5′ compares complete records; the class only states the target | confirmed |
+| Consecutive round records share a slice of the observer's state | confirmed with correction: it is a copy present in both records, already stated on `main` |
+| Rule-free lemma: the shared slice must sit on one configuration with probability at least 1 − 17ε; in initial-condition mode with τ = 1 this fails every rule (ε ≥ 1/288) | confirmed, constants included; it holds for every pair-form rule and law and survives heralds and adaptivity; a definitional corner of the schema, not evidence about dynamics |
+| A non-additive rule meets Q5′ at ε = 0 under complete-history records (exchange mode, under H-write, τ = 4) | confirmed by independent hand time-stepping, for Q5′ only; the example fails Q3′, Q6′ and Q2, is not in class D, and has no bearing on the linear or ring rule beyond showing that the interface alone does not force failure |
+| Theorem 1 depends on the target having no persistent memory | corrected: Theorem 1's failure comes from the dynamics (additivity) under a comparison with no decoder, not from the shared slice or from a lack of memory |
+| A memory-tolerant target readmits post-hoc selection | corrected: unrestricted memory tolerance does; memory can be admitted with the selection requirement kept, by a label-independent split of each record into a retained part and an outcome part, and Theorem 1 then holds unchanged |
+
+Headline supported by the check, after it re-derived Theorem 1 and Corollary 1a: classes A, B and C
+fail Q5′ under its specified target and record conventions, answering L5.4–L5.6 within that scope
+and no wider. A universal interface obstruction is refuted; the question stays open for the rounded
+non-linear rule.
+
+Status of these results: the reviewer's section 6 has one author and this one independent check.
+The check's own additions (its Proposition M, an initial-condition-mode construction at τ = 14 and
+the others listed in its §8) have one derivation each and no check. Its §9 proposes eight
+replacement texts; they are not applied to r3. None of this is independent verification in the
+sense of AGENTS.md §A.46, and r3's theorem does not rest on it.
 
 ## Names used in the files
 
