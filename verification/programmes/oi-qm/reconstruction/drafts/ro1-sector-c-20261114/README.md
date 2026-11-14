@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO1-SPEC-r3.md` | Minimal r3: applies the review of r2 (no prejudging of S5 or S9; O11 answers narrowed to "not excluded"); unreviewed | `90a4e47ed84eabdeee715525ad81f2e63151078534d390458af77278c7cf8146` |
+| `RESPONSE-SPEC-r2.md` | Dispositions of that review | |
 | `RO1-SPEC-r2.md` | Sector-C specification r2: applies the independent review of r1 and three reviewer checks (PR countermodel clause by clause, missing restriction, identity-relation analysis); stops S1–S3, S5–S9; reviewed (ACCEPT WITH CHANGES) | `5ea19f790120499b4d6325459f8153d1c5fc831fee07877f4603cc5132fb3528` |
 | `RESPONSE-SPEC-r1.md` | Dispositions of that review | |
 | `RO1-SPEC-r1.md` | Sector-C specification r1, authorized on #914 (comment 6883249235) after the owner adopted the r3 split; stops at six owner decisions; reviewed (REVISE) | `d7f4380d2c2786a30f68b2d1776f5212ca11750192778e2fed3e2bde7e6a4341` |
