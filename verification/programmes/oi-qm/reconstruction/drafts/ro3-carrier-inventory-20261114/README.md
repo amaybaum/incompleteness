@@ -8,5 +8,7 @@ establishes no result, adopts no premise, and changes no planning entry; EXACT (
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO3-INVENTORY-r2.md` | Applies the independent review of r1; unreviewed | `6db772d9f1d1242beb263f6777678133881f68d004a6894e4a6f9f6a95462bb8` |
+| `RESPONSE-r1.md` | Dispositions of that review | |
 | `RO3-INVENTORY-r1.md` | Inventory over finite carriers, growing finite stages and infinite completions; reviewed (ACCEPT WITH CHANGES) | `7bb64895b2e29cd1025392b973f7348ad8cd5e630809e2f2ebca1088e60f55f9` |
 | `REVIEW-r1.md` | Independent review of r1 at `0d6d8812`: ACCEPT WITH CHANGES (three major, several medium findings) | `657fb377212d3f49dbaab81f77f81fb6d27fcfecff74dd7280fc8553698b256a` |
