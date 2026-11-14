@@ -1,0 +1,4 @@
+Add to the r4 reviewer prompt:
+- Owner (2026-11-09): "verify that every conclusion in the executive summary and dependency table has the same scope and status as its supporting proof or counterexample."
+- Also verify the owner's three r4 requirements (c.6739286623).
+- Re-read the complete r4, including all 17 nits.
