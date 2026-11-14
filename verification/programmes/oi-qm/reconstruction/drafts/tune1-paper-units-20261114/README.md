@@ -46,18 +46,56 @@ non-linear class, about H-ring or H-nl as hypotheses, or about H-Bell. Several r
 (complete-history records against the single-time readout of `papers/Main.md`:369–372); r3 states
 which hold under which.
 
+## `l54/`: gap L5.4 (step 2)
+
+The question (TUNE-1 Step 3): for the linear rule under a coset-uniform law, can a family whose
+Q6′ witnesses are heralded meet Q3′, Q5′ and Q6′ together at every ε?
+
+**Headline of r3.** Classes A, B and C fail Q5′ under its specified target and record conventions.
+That gives L5.4, L5.5 and L5.6 a definite answer within that scope, and no answer outside it. The
+theorem's hypotheses are an additive rule, complete-history records and the Lüders product-form
+target as the source record defines it; the full list is in r3. Class D is untouched, the gate
+question stays open, and nothing follows for a non-additive rule. Relative to `main` the result is
+an elaboration of a mechanism already recorded there; r3 states what it adds.
+
+| File | What it is |
+| --- | --- |
+| `SUMMARY-r3.md` | Plain-language summary of r3 |
+| `L54-r3.md` | The final text |
+| `L54-r2.md` | The revision the confirmation review read |
+| `L54-r1.md` | The first draft, which the review read |
+| `NOTES-r1.md` | The writer's reading list and what was not checked |
+| `REVIEW-r1.md` | Non-author review of r1: ACCEPT WITH CHANGES (findings F1–F9) |
+| `RESPONSE-r1.md` | Dispositions of the review's findings and of the confirmation review's changes |
+| `CONFIRM-r2.md` | Confirmation review of r2: ACCEPT WITH CHANGES (changes C1–C5), with the reviewer's own section 6 |
+
+**Review status, exactly.**
+
+- `REVIEW-r1.md` re-derived the lemmas, Theorem 1, Corollary 1a, Proposition 2 and the constants by
+  hand, found no counterexample, and asked for changes to controls, scope and wording. r2 applies
+  them (`RESPONSE-r1.md`).
+- `CONFIRM-r2.md` confirmed r2 and asked for five wording and scope changes, C1–C5, with exact text;
+  no proof is touched.
+- r3 applies C1, C3, C4 and C5 as given and C2 with one modification (its closing pointer goes to
+  r3's §9), adds that closing section and the scoped headline, and has no review of its own.
+  `diff L54-r2.md L54-r3.md` shows every change.
+- Neither review is independent verification, a human review or an owner decision.
+
+**Reviewer-authored results, not part of the theorem.** Section 6 of `CONFIRM-r2.md` is the
+reviewer's own derivation on whether the obstruction belongs to the rule or to the record
+convention: a rule-free lemma on the shared record slice, a non-additive example that meets Q5′
+under complete-history records in exchange mode, and the dependence of Theorem 1 on the target
+having no persistent memory. These are **not independently checked**. An independent check is in
+progress and its report will be added here with its verdict. r3 lists them in its §9 and does not
+rest on them.
+
 ## Names used in the files
 
-The reviews name the checkouts they read. They resolve as follows.
+The files name the checkouts they read. They resolve as follows.
 
 | Name in the files | Content |
 | --- | --- |
 | `wt-mainread` | `main` at `c3b5f37a354bb26437e2e0165c576a347a63c153` |
-| `wt-3a` | branch `research/tune1-step3a-1236-20261113` at `8228b3c24e17a17f324b6779b53b04ad296b4308` (off `main`) |
+| `wt-3a` | branch `research/tune1-step3a-1236-20261113` at `8228b3c24e17a17f324b6779b53b04ad296b4308` (off `main`; written `8228b3c2` in `l54/`) |
 | `wt-tune1plan` | branch `records/tune1-landing-plan-1236-20261114` at `ea9bff9c2f2f0f238db66690073868e281e43501` (off `main`) |
 | `wt-bell` | branch `research/bell-ladder-868-20261113` at `d8e4f80e71b64972ee3e87a874544c8bd358d5c2` (off `main`) |
-
-## To be added
-
-The L5.4 unit (step 2) joins this directory as `l54/` when its confirmation review returns, with
-its own review trail and scope.
