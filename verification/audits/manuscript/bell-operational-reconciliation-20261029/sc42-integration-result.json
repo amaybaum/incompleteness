@@ -2704,6 +2704,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 10.3 develops four additional topics: matter-antimat..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 10.4 develops the scale hierarchy that makes chemist..."
     },
     {
@@ -2745,6 +2749,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The dimensional selection consumes the physical inputs E5–E7..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Nuclear binding.** In standard QCD, SU(3) color confinemen..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For the framework, confinement and nuclear binding remain op..."
     },
     {
       "ok": true,
