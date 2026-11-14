@@ -1,6 +1,6 @@
 # Status note: TUNE-1 Step 3A r3
 
-**Draft for the TUNE-1 package (`LANDING-PLAN.md` §5).** At landing this note becomes
+**Draft for the TUNE-1 package (the TUNE-1 preservation package, #1236 comment 6873565446).** At landing this note becomes
 `verification/programmes/oi-qm/reconstruction/drafts/tune-1-20261111/TUNE-1-STEP3A-STATUS.md`. It
 covers the five `TUNE-1-STEP3A*` files in that directory and no other file there; the TUNE-1 Step 1–2
 records in the same directory are outside it. It changes none of the five files; r3 is the accepted
@@ -50,22 +50,38 @@ scientifically (#1236 c.6873565446).
 | 5 | No candidate qualifies for Step 3B; the seven items a qualifying candidate must contain | [W] |
 | 1, 3 | Each class primarily **underspecified**, secondarily **lacks a sourced apparatus** (read as "not shown derivable from the joint dynamics", §2A.6); H-write adds to the second group for B and the exchange rows of C and D | [W] on [R] and [P] |
 | 3 | Conditional: specified initial-condition members of A and C, with (SP), have a simplex-embeddable prepare–measure fragment; without (SP), preparation-noncontextual, and whether that excludes T1 is open at [L] level; B and exchange rows outside OA-2 Theorem E(b); D classified by no result | [W] hypothesis match on OA-2 Theorem E(b) [R] |
-| 3 | For R-lin, labels act only by translation under every law on the list | [R] (Lemma A-T; OA-2 E(a); OA-1 D5) |
+| 3 | For R-lin, labels act only by translation under every law on the list | [R] (Lemma A-T (a), (b); OA-2 E(a); OA-1 D5); the L5.6 reading [W], 3A:692 |
 | 7 | F-3A-1 (ELABORATING), F-3A-2 run repetition used but not stated (ELABORATING), F-3A-3 to F-3A-6 | [W] on [R], [P] |
 | 4 | T1, the approximate single-qubit test with the L4 escape audit | restatement of Step 2's conditions [R] |
 | 4 | T2, a classical-reduction test | a proposal for the owner; claims no result |
 | 2A | Inclusion, access and control distinguished; reachable versus definable; Level A and Level B; preparation as a derivation question; embeddedness plus incomplete observation does not by itself select quantum mechanics; no classification changes | framing; [W] reading of [P] and [R] |
 
-**Claim supported by this record:** "None of the classes TUNE-1 Step 2 left INCONCLUSIVE (L5.4, L5.5,
-L5.6 with unbounded control regions, and NL-A/NL-P) has an exhibited member with fully specified
-dynamics, preparation and readout, so none qualifies for Step 3B; this is a specification gap, not a
-quantum failure, and every class stays INCONCLUSIVE; each class also relies on unsourced ingredients
-(ready configuration and program blocks, run repetition, the law of the unread world, the growth of
-the control region); for R-lin, a specified initial-condition member meeting OA-2 Theorem E(b)'s
-hypotheses would have a simplex-embeddable prepare–measure fragment with (SP) and a
-preparation-noncontextual one without it (paper derivations and readings on research records not
-independently established, model-reviewed by an internal same-family reviewer and by ChatGPT, not
-independently verified; not adopted; no manuscript claim affected)."
+**Claim supported by this record:** "None of the four classes TUNE-1 Step 2 left INCONCLUSIVE, each
+with `sup_n |C_n| = ∞`, has an exhibited member with fully specified dynamics, preparation and readout
+in the records read, which are the Step 2 records that define the classes. The four classes are:
+- A, L5.4 in initial-condition mode;
+- B, L5.4 and L5.5 in exchange mode under the named, unadopted H-write;
+- C, L5.6;
+- D, NL-A/NL-P for R-nl under the named, unadopted H-nl.
+
+So none qualifies for Step 3B and none remains viable. This is a specification gap, not a quantum
+failure and not a negative result about any class, and every class stays INCONCLUSIVE. Each class is
+primarily underspecified. It is secondarily lacking a sourced apparatus, in the sense that its
+preparation, control or readout is not shown derivable from the joint dynamics: the ready
+configuration and program blocks, run repetition, the law of the unread world (H-μ) and the growth
+of the control region have no physical source. H-write adds to this for B and for the exchange rows
+of C and D, and for D the rule itself is unsourced. For R-lin, consider a specified
+initial-condition member of A or C that meets OA-2 Theorem E(b)'s hypotheses (H1), H-AR, (H3),
+(H4) and (xiv). If Theorem E(b) holds, that member has a simplex-embeddable prepare–measure fragment
+under (SP), and a preparation-noncontextual one without (SP). In that reading H-μ plays (xiv), and
+D4's complete history is the imported MP-0b-type convention. The match of TUNE-1's interface to
+those hypotheses is the record's own reading. (SP) is undecided for TUNE-1 interfaces. Whether a
+preparation-noncontextual model can meet T1 at small ε is open at literature level. B and the
+exchange rows lie outside Theorem E(b), and no result classifies D. (Paper derivations and readings
+on Step 2 results, which are paper derivations reviewed under Step 2's gates and not kernel-checked,
+and on OA-1, OA-2 and OA-3 research records not independently established; model-reviewed by an
+internal same-family reviewer and by ChatGPT; not independently verified; not adopted; no
+manuscript claim affected.)"
 
 ## Hypotheses
 
@@ -74,10 +90,19 @@ independently verified; not adopted; no manuscript claim affected)."
 - **Ledger posits used as premises:** items (ii), (iv), (vii), (xiii), (xiv) of Main:724.
 - **Conditional groups of A and C:** OA-2 Theorem E(b)'s (H1), H-AR, (H3), (H4), (xiv) and (SP), with
   the match of TUNE-1's interface to them a [W] reading (3A:595–598); (SP) undecided for TUNE-1.
-- **Used but not stated in TUNE-1's governing texts:** run repetition (F-3A-2); MP-0a-type ready
-  supply and MP-0b-type complete history (3A:1014–1016).
+- **Typed in the record's ledger (3A:1014–1016):**
+  - run repetition, used but not stated in TUNE-1's governing texts (F-3A-2);
+  - the MP-0a-type ready supply (`r_O` and the program blocks), unsourced;
+  - the MP-0b-type complete history, an imported convention (3A:501). With it, R-lin
+    initial-condition members meet Theorem E(b)'s hypotheses except (SP) (F-3A-3).
+
+  The TUNE-1 sourcing unit types MP-0b as a named hypothesis, an interface convention (its part
+  (e)). Each typing is that record's own.
 - **Step 2 results** (Lemma A-T, FC-1, FC-2, Lemma I, NL-C, NL-C′, W-nl, Lemma F, exact U2(ii)): paper
   derivations reviewed under Step 2's gates, not kernel-checked (3A:1022).
+- **[R] premises:** OA-2 Theorem E(a) and OA-1 D5 (translation-only control); the interface
+  definitions D1–D7 of the Step 2 proposal (P:224–423); carried as named conditions, not verified
+  premises (§A.46 item 7).
 
 ## Limitations
 
@@ -120,7 +145,7 @@ on `main` by a counterexample or disproof.
 
 | Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
 | --- | --- | --- | --- | --- |
-| Stop condition and specification gap | partially verified | [W] reading; reviewer's search confirmation; ChatGPT review | An independent check of the record search | A human review of the Step 2 records' class definitions recorded on `main`, or an exhibited member (not authorized, c.6873565446) |
+| Stop condition and specification gap | partially verified | [W] reading; reviewer's search confirmation; ChatGPT review | An independent check of the record search | A human review of the Step 2 records' class definitions recorded on `main` |
 | Step 3B gate answer and the seven qualifying items | partially verified | [W]; internal and ChatGPT reviews | Independent review | As for the stop condition |
 | Classification A–D, primary and secondary groups | partially verified | [W] on [R] Step 2 records and [P] | Independent verification; validation of the Step 2 premises used (§A.46 item 7) | A recorded validation of those premises on `main`, or the statements narrowed to carry them as named conditions |
 | Conditional groups of A and C | partially verified; conditional on OA-2 Theorem E(b)'s hypotheses and on (SP), and on a [W] hypothesis match | [W] match on OA-2 Theorem E(b), itself partially verified (OA-2 `STATUS.md`) | Independent verification of the match and of Theorem E(b) | An independent mathematical verification of Theorem E(b) and of the match recorded on `main`; (SP) for TUNE-1 interfaces stays open under #1236 |
@@ -134,9 +159,11 @@ Where a gap cannot be closed, the result is narrowed or withdrawn where it is st
 
 **The candidate-specification gap.** No member of any INCONCLUSIVE class is exhibited (3A:896–908).
 This gap is distinct from the physical sourcing gap of the TUNE-1 sourcing unit (O-RDY, #1147), which
-concerns the ready resource of one candidate and is recorded in that unit's status note. Neither gap
-closes the other (`LANDING-PLAN.md` §4). A new candidate search is not authorized (#1236
-c.6873565446); the gap remains open under #1236.
+concerns the ready resource of one candidate. Supplying that resource would exhibit no member, and a
+member exhibited inside TUNE-1's initial-condition schema would still need it, at least at the
+sourcing unit's F-S2 rate. Neither gap closes the other. An exhibited member would close this gap; it
+would not verify the scoped finding that no member is exhibited in the records read. A new candidate
+search is not authorized (#1236 c.6873565446); the gap remains open under #1236.
 
 ## Dependencies
 
@@ -144,18 +171,19 @@ At the package landing:
 
 | Reference | Classification at landing |
 | --- | --- |
-| OA-1 r5, OA-2 r4, OA-3 r4, cited at `2d064a71` as off `main` (3A:29–33, each [R-off] tag) | Support on `main`. `2d064a71` is an ancestor of `main`. OA-1 r5 (`5a16b213`) and OA-3 r4 (`0a36fd05`) are the same blobs; OA-2 r4 is `8f8ddf73` on `main` and differs from `2d064a71` only on lines 65 and 958, neither cited here. Each OA statement used is a research record, partially verified (the OA `STATUS.md` notes), with its hypotheses. |
-| OA-3 Theorem S (OA3:294–347) and N4.1 (OA3:394–416) | Support on `main`. Each range contains one line of delta-review text graded exploratory in the OA-3 status note (OA3:323, :415). 3A uses Theorem S as context and as a T2 control expectation, and N4.1's held-at-use branch; neither line carries a conclusion here. |
+| OA-1 r5, OA-2 r4, OA-3 r4, cited at `2d064a71` as off `main` (3A:29–33, each [R-off] tag) | Support on `main`. `2d064a71` is an ancestor of `main`. OA-1 r5 (`5a16b213`) and OA-3 r4 (`0a36fd05`) are the same blobs; OA-2 r4 is `8f8ddf73` on `main` and differs from `2d064a71` only on lines 65 and 958, neither cited here. Each OA statement used is a research record, partially verified where the OA `STATUS.md` notes grade it, or else part of a partially verified record (Corollary E1, setup and definitions), with its hypotheses. |
+| OA-3 Theorem S (OA3:294–347) and N4.1 (OA3:394–416) | Support on `main`. Each range contains delta-review text that the OA-3 status note grades exploratory: OA3:323–326 (N3 proof step 1, the weight bullet: R1, O5 and the D1 recheck of `DELTA-REVIEW-OA-3-r3.md`, OA3:813, :820, :823) and OA3:415–416 (N4.1, the ensemble-conditioning sub-bullet: R2, OA3:814). The status note grades R1–R4, O1–O3 and O5 exploratory; the D1 recheck edit is listed in the same change map (OA3:809–823). 3A uses Theorem S as context and as a T2 control expectation, and N4.1's held-at-use branch; neither range carries a conclusion here. |
 | TUNE-1 Steps 1–2 (P, AF, AF1, S3, S4, T1) at `080cd2be` | Support on `main`; byte-identical at `c3b5f37a`. [R] records with no status note on `main`. |
-| W1-1 r4 at `2d064a71` | Provenance ("no bearing found", 3A:1047–1049). |
+| W1-1 r4 at `2d064a71` | Provenance ("no bearing found", 3A:1047–1049). Its blob differs between `2d064a71` and `main` by #1265's recorded substitution; nothing turns on this. |
 | Commits `080cd2be`, `62bdc2cf`, `59557ee8` | On `main`. |
 | Commits `b923fa7f`, `8228b3c2` | On `main` once the package lands by merge commit. |
+| `221754fc…` (`TUNE-1-STEP3A-OBJECTS.md`:13), the earlier committed review blob | Resolves from `main` only through `b923fa7f`, so the landing must be a merge commit (§A.42 item 3). |
 | `.r3-pre-review.md` (3A:8, :1125) | Provenance: not retained. The r3 confirmation's verdict rests on the committed r3 and its diff map; ChatGPT reviewed the committed blob. |
-| Reviewed working copies in `TUNE-1-STEP3A-OBJECTS.md` | Provenance. Their full ids name no object in the repository; the package's §A.42 item 3 treatment is recorded under Landing. |
-| Second guidance message, relay only (3A:139–150) | Provenance: not on #1236; no classification rests on it. |
+| Reviewed working copies in `TUNE-1-STEP3A-OBJECTS.md` | Provenance. Their five full ids (`4a6c1127`, `17076ef7`, `65217dc0`, `4a9c9aa6`, `3910f411`, given here abbreviated) name no object in the repository, as §A.42 item 3 requires of a full id. Treatment is an owner decision: (a) abbreviate the five ids to 8 characters at packaging as a recorded substitution, with the old and new blob of the objects file stated here, the reviewed SHA-256 values kept in full and no line of r1, r2, r3 or the review changed; or (b) land the file unchanged under a recorded owner exception for those ids. |
+| Second guidance message, relay only (3A:139–150) | Provenance: not on #1236. T2(d) (3A:866), §5 item 5 (3A:921–922), which cites T2(d), and the interference-versus-tables entries (Nodes A.5–D.5; 3A:819–824) draw on it; no classification does. |
 | #1236 c.6816189419, c.6817129920, c.6828822665, c.6846408321, c.6846442383, c.6847314661, c.6847882040, c.6873565446 | Governance provenance, quoted. |
 | Review 5887947616 | Review provenance. |
-| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | Provenance until adopted or landed (see Landing). |
+| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | #1283 is adopted and #1284 is landed before this note lands; their texts are then on `main`. |
 
 ## Source drift from `080cd2be` to `main` (`c3b5f37a`)
 
@@ -178,39 +206,56 @@ onto `main` as stated under Dependencies. Re-measured when the package is assemb
   E(b) is a research record on `main`, partially verified, not established. The classification stays
   conditional as stated.
 - Line 1041, "Read, off `main`": the branch commit `2d064a71` is an ancestor of `main`.
+- Line 43, "[W] this writer's derivation or reading, unreviewed": the [W] items have since been reviewed
+  as listed under Accepted record and reviews; the tag keeps its meaning of a derivation or reading
+  made in this record.
+- Line 186, "an off-`main` result (OA-2 Theorem E(b))": OA-2 Theorem E(b) is a research record on
+  `main`.
+- Lines 7, 10, 1052, 1076, 1106 and 1154 cite `REVIEW-STEP3A.md`: the committed file is
+  `TUNE-1-STEP3A-REVIEW.md` (`TUNE-1-STEP3A-OBJECTS.md`:13, :22).
+- Line 5 gives r2's blob as `17076ef7`, and lines 8–9 give r1's sha256 prefix as `914f2339…`: both
+  identify the reviewed working copies, not the committed `313a76e3` and `ef63ccb9…`
+  (`TUNE-1-STEP3A-OBJECTS.md`:11–12).
 - The headers of r1 (lines 3–8) and r2 carry the writer-stage standing of those revisions; they are
   review trail.
 
 ## Landing
 
-- **Together.** In one merge with the TUNE-1 sourcing unit, which cites this record (`LANDING-PLAN.md`
-  §1).
+- **Together.** In one merge with the TUNE-1 sourcing unit, which cites this record.
 - **Mode.** Merge commit of `8228b3c2`, so that `b923fa7f` and `8228b3c2` remain ancestors of `main`.
 - **§A.42 item 3.** `TUNE-1-STEP3A-OBJECTS.md` names five reviewed working copies by full id, and none
-  is in the repository. The planned treatment is an owner decision (`NOTES-PLAN.md` OQ-2); under
+  is in the repository. The planned treatment is an owner decision recorded under Dependencies; under
   option (a) the five ids are abbreviated to 8 characters, the reviewed SHA-256 values stay in full,
   and no line of r1, r2, r3 or the review changes.
 - **Basis.** The proposed basis is §A.46 item 8 as drafted in #1283 at `f57e576a`, which is not
-  adopted; the basis is open until #1283 is adopted. Record-specific check of the draft's conditions:
+  adopted; the basis is open until #1283 is adopted. Until then reading R-b is in force: the record
+  can land only under an explicit, recorded owner exception (#1169 comment 6865680499), and the
+  owner's authorization makes the integration requirements conditional on #1283's adoption (#1236
+  comment 6873565446). For a record landed after adoption, item 8 requires every one of its five
+  conditions; each is checked here for this record:
   - substantive, nonredundant result: met (the conditional classification with both (SP) halves,
-    F-3A-2, T1 with the L4 audit, the Step 3B gate answer and §2A; the record's productivity verdict
-    is "gem, BORDERLINE", 3A:999–1002);
+    F-3A-1 to F-3A-3, T1 with the L4 audit, the Step 3B gate answer and its seven qualifying items,
+    and §2A; the record's productivity verdict is "gem, BORDERLINE", 3A:999–1002);
   - scope and limits documented: met (3A §§5–8; this note);
-  - independent non-author review and ChatGPT exact-head review: ChatGPT 5887947616 at `8228b3c2`;
-    the internal review names itself "Independent internal review (same model family)", and whether
-    that is the non-author review item 8 asks for is an owner question (`NOTES-PLAN.md` OQ-1); this
-    note and the package head need the package's non-author and ChatGPT exact-head reviews;
-  - landing checks and §A.42 item 8 tracing: tracing in `LANDING-PLAN.md` §6; item 3 decision and
-    package checks pending;
+  - independent non-author review, ChatGPT exact-head review, and the landing checks with §A.42 item 8
+    tracing: ChatGPT 5887947616 at `8228b3c2`. `TUNE-1-STEP3A-REVIEW.md` names its reviewer only as
+    "Independent internal review (same model family)" (REVIEW:6), and the record does not establish
+    which agent wrote r1–r3 and which reviewed them; an owner decision is required on whether that
+    review meets item 8's non-author condition. Tracing is in this note's Dependencies table. In this
+    note as landed, no package-level review is recorded;
   - accountable Issue, verification status, remediation plan: #1236, this note;
-  - explicit rationale: #1236 c.6873565446, "This preserves accepted research without falsely
-    treating preservation as progress toward a native mechanism"; the sourcing unit and REC-1 cite
-    this record;
-  - separate owner merge decision: not recorded;
-  - historical authorization: #1236 c.6846408321, c.6846442383, c.6847314661.
+  - explicit rationale and a separate owner merge decision: #1236 c.6873565446, "This preserves
+    accepted research without falsely treating preservation as progress toward a native mechanism";
+    the sourcing unit and REC-1 cite this record. In this note as landed, no merge decision is
+    recorded, and the merge decision is quoted in the forward note added after landing.
+
+  Authority (provenance): #1236 c.6846408321, c.6846442383, c.6847314661.
 
   The record is preserved, not established (§A.46 item 1). Its removal is not automatic and is
   governed by §A.46 item 6.
+- **Owner record.** #1236 comment 6873565446. In this note as landed, no package-level review or
+  merge decision is recorded; they are quoted, with their commits, in the forward note added after
+  landing.
 - **Scientific standing.** TUNE-1 stays paused. Step 3B, a new candidate search and a `G_SM`
   computation are not authorized "until a physically justified O-RDY resource exists and the relevant
   candidate class is adequately specified" (#1236 c.6873565446). Preserving this record is not progress

@@ -1,11 +1,12 @@
 # Status note: TUNE-1 sourcing unit r2
 
-**Draft for the TUNE-1 package (`LANDING-PLAN.md` §5).** At landing this note becomes
+**Draft for the TUNE-1 package (the TUNE-1 preservation package, #1236 comment 6873565446).** At landing this note becomes
 `verification/programmes/oi-qm/reconstruction/drafts/tune-1-sourcing-20261113/STATUS.md`. It gives the
 standing of the records in that directory and changes none of them; r2 is the accepted text.
 
-The unit is a bounded sourcing assessment of one candidate. Its stop is not an OI-wide no-go, not a
-minimum-cost proof and not a native mechanism. TUNE-1 is paused scientifically (#1236 c.6873565446).
+The unit is a bounded sourcing assessment of one candidate. Its stop is a sourcing stop, not an OI-wide
+no-go; its resource bound is necessary inside TUNE-1's initial-condition schema, not a universal
+resource lower bound and not a sufficient apparatus construction; it is not a native mechanism. TUNE-1 is paused scientifically (#1236 c.6873565446).
 
 ## Accepted record and reviews
 
@@ -39,30 +40,48 @@ minimum-cost proof and not a native mechanism. TUNE-1 is paused scientifically (
 |---|---|---|
 | 1, N0 | Candidate TC-A: R-lin on finite tori, initial-condition mode, `D_0`-form initial law, heralded witnesses, unbounded control region; every other surviving class adds an unadopted hypothesis first | [W] selection on [R] and [P] |
 | N1 | No hypothesis of NL-C fails for any interface of TC-A; the bound applies and is reported (NL-C′); the FAIL-CLASS family condition is not met because `|C_n|` grows; this is not an escape | [W] on [R] (S4) |
-| 2, N3, 5 | **Stop at part (b), the ready resource:** no stated premise is shown to supply known-value cells for `r_{O,n}` and the program blocks, renewed per run; excluded under μ-G (Lemma P-1); not supplied unconditionally under μ-O, conditional route open; undecided under μ-R; covered only by the unadopted MP-0a, the open H-PREP and the open obligation O-RDY | [W] reading of [R] and [P]; N3.2 [W, here] |
+| 2, N3, 5 | **Stop at part (b), the ready resource:** no stated premise is shown to supply known-value cells for `r_{O,n}` and the program blocks, renewed per run; an unconditional supply excluded under μ-G (Lemma P-1), heralding the only route there, at F-S2's cost for `r_O` and unavailable for the program blocks before use (SRC:244–246); not supplied unconditionally under μ-O, conditional route open; undecided under μ-R; covered only by the unadopted MP-0a, the open H-PREP and the open obligation O-RDY | [W] reading of [R] and [P]; N3.2 [W, here] |
 | 2 | (a) premise-relative (ledger posits); (c) the form of the action derived (translation), its content blocked with (b), its adequacy L5.4; (d) the read rule imported; (e) the named convention MP-0b only; (f) the growth of the control region unsourced | [W] on [R], [P] |
 | 4 | F-S1: NL-C's counting covers gates of `m` rounds with `m + 1 ≤ L`, giving `m|C| ≥ ½ log_q((1−4ε)/(4ε))`; gates of `L` or more rounds open | [W, here], reviewed |
 | 4 | F-S2: within the initial-condition schema, at least `(K + 1) log_q((1−4ε)/(4ε))` known `q`-ary cells per run; under μ-G any event fixing every designated site has probability at most `(4ε/(1−4ε))^{K+1}`; with `D` known cells per run, `ε ≥ 1/(4(1 + q^{D/(K+1)}))`; necessity only | [W, here] arithmetic on NL-C′, reviewed |
 | 4 | F-S3 (CONFIRMING), F-S4 (BORDERLINE), F-S5 (CONFIRMING; spatial copies give independent runs given a supply per copy) | [W] on [R]; [W, here] |
 
-**Claim supported by this record:** "For candidate TC-A (R-lin on finite tori, initial-condition
-mode, a designated-cell initial law, heralded witnesses, an unbounded control region), NL-C applies at
-every interface and is not escaped, and the first part not shown to follow from OI's stated premises
-is the ready resource: a native producer of known-value cells for the ready configuration and program
-content, renewed each run, which is excluded under the global counting measure, not supplied
-unconditionally under the orbit measure, undecided under the record-compatible measure, and named in
-the corpus only as the unadopted MP-0a, the open H-PREP and the open obligation O-RDY; within TUNE-1's
-initial-condition schema the needed supply is at least `(K + 1) log_q((1−4ε)/(4ε))` known `q`-ary cells
-per run (paper readings and hand arithmetic on research records not independently established,
-model-reviewed by a non-author reviewer and by ChatGPT, not independently verified; a bounded
-sourcing stop, not an OI-wide no-go; not adopted; no manuscript claim affected)."
+**Claim supported by this record:** "Take candidate TC-A, defined as follows:
+- R-lin, `Φ_F(y, x) = (x, Ax − y)` over `ℤ/q` with `q` fixed;
+- finite tori, one torus per precision;
+- initial-condition mode, with no write outside `Φ_F`;
+- a `D_0`-form initial law: designated known cells, and every other cell uniform and independent;
+- heralded Q6′ witnesses;
+- `sup_n |C_n| = ∞`.
+
+Part (a) is taken relative to ledger items (ii) and (vii)–(xi) and (xiii) of Main:724. For TC-A,
+NL-C, a Step 2 paper derivation, applies at every interface and is not escaped: TC-A meets NL-C′ by
+letting `|C_n|` grow. In the order (a)–(f), the first part not shown to follow from OI's stated
+premises is (b), the ready resource: a native producer of known-value cells for the ready
+configuration and the program blocks, renewed for every run.
+- Under the global counting measure, an unconditional supply of it is excluded.
+- Under the orbit measure, no unconditional supply is given: only orbit-constant cells are
+  unconditionally known, and the conditional route through held records is open.
+- Under the record-compatible measure, the question is undecided.
+
+Within the searches the record states, the corpus names this resource only as the unadopted MP-0a,
+the open H-PREP and the open obligation O-RDY. Memory (e) rests on the same ingredient or on the
+convention MP-0b. TUNE-1's initial-condition schema here has a finite alphabet, program blocks that
+are translates of `C`, and `r_O` fixed on all of `O`. Within it, at least `(K + 1)
+log_q((1−4ε)/(4ε))` known `q`-ary cells are necessary per run. That is a necessary condition only,
+not a universal resource lower bound and not a sufficient apparatus construction. NL-C's counting
+also covers gates of `m` rounds with `m + 1 ≤ L`; longer gates are open. TC-A's member
+specification and L5.4 remain open. (Paper readings and hand derivations on research records not
+independently established, model-reviewed by a non-author reviewer and by ChatGPT, not
+independently verified; a bounded sourcing stop, not an OI-wide no-go; not adopted; no manuscript
+claim affected.)"
 
 ## Hypotheses
 
 - **Ledger posits for part (a):** items (ii), (vii), (viii), (ix), (x), (xi), (xiii) of Main:724; the
   alphabet `q` fixed (imported convention); one world per precision on `𝓛_fin` (SRC:139).
 - **Named, unadopted:** MP-0a (the `D_0`-form law, as a realization datum Main:58 admits; selecting it
-  is a new premise), MP-0b (records held outside the observer), H-μ (independence of the unread world
+  is a new premise), MP-0b (the visible history counts as held, outside `V`; an interface convention, OA1:563–564; Step 3A types the same complete history as an imported convention, 3A:501), H-μ (independence of the unread world
   from the labels), H-PREP (open).
 - **Measures:** each statement about (b) is relative to μ-G, μ-O or μ-R as stated (SRC:282–287).
 - **Schema:** F-S1 and F-S2 hold within TUNE-1's schema with a finite alphabet; F-S1 within the proviso
@@ -70,6 +89,8 @@ sourcing stop, not an OI-wide no-go; not adopted; no manuscript claim affected).
   `O` (SRC:342–345).
 - **Step 2 results** (NL-C, NL-C′, Lemma A-T, the class definitions): paper derivations reviewed under
   Step 2's gates, not kernel-checked.
+- **[R] premises:** OBS Lemma P-1; OA-1 D1–D5 and D7; carried as named conditions, not verified
+  premises (§A.46 item 7).
 
 ## Limitations
 
@@ -84,6 +105,10 @@ sourcing stop, not an OI-wide no-go; not adopted; no manuscript claim affected).
 - Gates of `L` or more rounds are open (SRC:209).
 - The member specification of TC-A (encoder, layout, `O_n`, `C_n`, `τ`) and L5.4 remain open and are
   not the stop (SRC:383–384).
+- Memory (e) is not sourced: it rests on the ready resource or on the convention MP-0b (SRC:143,
+  :380–381; 5892912253).
+- Spatial copies give independent runs only given an independent ready region per copy
+  (SRC:276–281; 5892912253).
 
 ## Accountable Issue
 
@@ -118,12 +143,13 @@ on `main` by a counterexample or disproof.
 | NL-C applies at every interface (N1) | partially verified; conditional on NL-C (Step 2 [W]) | [W] on S4; non-author review; ChatGPT review | Independent verification of NL-C and of its application | An independent mathematical verification recorded on `main` (for example a kernel formalization or a human review) |
 | Stop at (b) under μ-G (N3.1) | partially verified; conditional on μ-G | Lemma P-1 and OA-1 D2–D3 [R]; reviews | Independent verification of Lemma P-1 and D2–D3 as premises (§A.46 item 7) | A recorded validation of those premises on `main` |
 | (b) under μ-O (N3.2) | partially verified | [W, here]; reviews | Independent verification | As for N1 |
-| (b) under μ-R (N3.3) | open; no verdict | — | Not applicable | Remains open under #1147 |
 | Coverage only by MP-0a, H-PREP, O-RDY (N3.4–N3.5) | partially verified; scoped to the searches made | Source reading; reviews | An independent check of the searches | A human review of the cited sources recorded on `main` |
 | F-S1 | partially verified; within `m + 1 ≤ L` | [W, here]; non-author review (R3), confirmation, ChatGPT | Independent verification | As for N1 |
 | F-S2 | partially verified; necessity only, within the initial-condition schema | [W, here] hand arithmetic; checked by the non-author reviewer (REVIEW-r1 §2) and ChatGPT | Independent verification | As for N1 |
 | F-S3 to F-S5 | partially verified | [W] on [R]; [W, here]; reviews | Independent verification; validation of the [R] premises | As for N1 and N3.1 |
 | Statements resting on [R] records (TUNE-1 Steps 1–2; OA-1; OA-2; OBS; NPS1; NIS2) | partially verified | Research records not independently established | Independent validation of each [R] premise used (§A.46 item 7) | A recorded validation of that premise on `main`, or the statement narrowed to carry it as a named condition |
+
+N3.3 (μ-R) reaches no verdict and is not a result of the record; it remains open under #1147.
 
 Where a gap cannot be closed, the result is narrowed or withdrawn where it is stated (§A.46 item 5).
 
@@ -132,12 +158,15 @@ inside the joint dynamics, of known-value cells for the ready configuration and 
 renewed for every run (SRC:374–379). The stated premises are not shown to supply it, and the corpus
 names it only as the unadopted MP-0a, the open H-PREP and the open obligation O-RDY.
 - **Current evidence:** this record's stop, with OA-1 gap 1 (OA1:522), OBS:100, :121 and the first stops
-  of NPS1 and NIS2 for the binary SM ring (F-S3). The owner accepted #1278's bounded source assessment
-  (#1236 c.6873565446: "It found no physically supplied O-RDY mechanism. Physical source remains NOT
-  PASSED."); ChatGPT review 5898054706 at `d8b74527`: "**Physical source NOT PASSED**. No new
-  apparatus candidate, quantum operation, OI→QM equivalence, impossibility theorem, or native producer
-  follows." That assessment concerns the binary SM ring branch, not R-lin, and reads this record only
-  as off-`main` context; it leaves this gap open for TC-A.
+  of NPS1 and NIS2 for the binary SM ring (F-S3).
+- **Related governance record (provenance, not evidence for this stop):** the owner accepted #1278's
+  bounded source assessment (#1236 c.6873565446: "It found no physically supplied O-RDY mechanism.
+  Physical source remains NOT PASSED."); ChatGPT review 5898054706 at `d8b74527`: "**Physical source
+  NOT PASSED**. No new apparatus candidate, quantum operation, OI→QM equivalence, impossibility
+  theorem, or native producer follows." #1278 uses this record as off-`main` support only for its
+  attributed comparison and conditional resource statements; its own source stop rests on its `main`
+  source packet (#1278 `ASSESSMENT.md`:163; review 5897621232). It concerns the binary SM ring
+  branch, not R-lin, and neither closes nor narrows this gap for TC-A.
 - **Missing:** a physically justified ready resource.
 - **Accountable Issue:** #1147 (`not authorized`), under the owner's priority #866.
 - **Resolving evidence or decision:** a physically sourced producer recorded on `main`, or an owner
@@ -145,8 +174,9 @@ names it only as the unadopted MP-0a, the open H-PREP and the open obligation O-
 
 This gap is distinct from Step 3A's candidate-specification gap (no member of any INCONCLUSIVE class
 is exhibited), which this record leaves open as "not the stop" (SRC:383–384). Supplying O-RDY would not
-specify a member, and a specified member inside the schema would inherit O-RDY at least at the F-S2
-rate (`LANDING-PLAN.md` §4). L5.4 is a third open item, mathematical, and neither gap.
+specify a member, and a specified member inside TUNE-1's initial-condition schema (program blocks
+translates of `C`, `r_O` fixed on all of `O`) would inherit O-RDY at least at the F-S2 rate (F-S2;
+AW-SRC-2, SRC:342–345). L5.4 is a third open item, mathematical, and neither gap.
 
 ## Dependencies
 
@@ -158,15 +188,16 @@ package landing:
 | Step 3A r3 at `8228b3c2` (candidate A; statement (i); "no member is exhibited", 3A:896–905) | Support on `main`: lands in the same merge, blob `7bbec04d` unchanged. |
 | 3A:493, :501, :505, :794–805, :436–439, :969–986 | Provenance, as the record classifies them; the content used is on `main`. |
 | REC-1 r7 at `9f7d2612` (§0 safeguards; REC:215 C4; REC:222 C11; REC:223 C12) | Provenance, or support on `main` through OA1:111–114, :556–562, Main:42, :58, P:145 and Main:724, as the record states. |
-| REC:217 (C6), "status undetermined" for MP-0b (part (e)) | Support off `main`, closed by narrowing: part (e)'s marking "named hypothesis MP-0b only" rests on OA1:563–564 on `main`; "status undetermined" is REC-1's classification and context, not a result of this record. |
-| REC:220 (C9), μ-R presupposes the observer's records (N3.3) | Support off `main`, closed by narrowing: N3.3 reaches no verdict ("Undecided; no source"); the same concern is on `main` at NPS1:85; the REC quotation is context. |
+| REC:217 (C6), "status undetermined" for MP-0b (part (e)) | Support off `main`, closed by narrowing: part (e)'s marking "named hypothesis MP-0b only" rests on OA1:563–564 on `main`; "status undetermined" is REC-1's classification and context, not a result of this record. Step 3A types the same complete history as an imported convention (3A:501); each typing is that record's own. |
+| REC:220 (C9), μ-R presupposes the observer's records (N3.3) | Support off `main`, closed by narrowing. N3.3 reaches no verdict ("Undecided; no source"). On `main`, μ-R is posited through (iv) as maximal entropy compatible with the observer's records (OA1:106–107), and conditional preparation under it is open (OA1:522, :603). NPS1:85 records a related circularity concern for record-supplied readiness. REC C9's reading is context. |
 | REC-1 P0 (SRC:297; `NOTES-r2.md` item 7) | Provenance. |
+| Commit `9f7d2612` (SRC:82, full id) | Exists on #1268's branch only; after the two narrowings above it supports no claim (§A.42 items 3, 5). Its existence is checked at packaging. |
 | OA-1 r5, OA-2 r4, OBS, NPS1, NIS2, P, AF, S3, S4, T1, Main, SUB, `LA-EQUAL-REVIEW.md` at `c3b5f37a` | Support on `main`. OA-1, OA-2, NPS1 and NIS2 are research records graded partially verified in their status notes; NPS1 and NIS2 concern the binary SM ring and are used as confirming context only (F-S3). |
 | Commits `890fe3dd`, `c539a60c` | On `main` once the package lands by merge commit. |
 | #1169 c.6848268369, c.6854241002, c.6854774010; #1236 c.6817129920, c.6828822665, c.6873565446; #866 c.6765161496; #1147 body; #914 c.6563412926 | Governance and planning provenance, quoted. |
-| #1278 at `d8b74527`; review 5898054706 | Governance provenance for the statement that physical source is not passed. |
+| #1278 at `d8b74527`; reviews 5897621232 and 5898054706 | Governance provenance for the statement that physical source is not passed. #1278 cites this record as off-`main` support for its attributed comparison and resource statements; that obligation is #1278's. |
 | Review 5892912253 | Review provenance. |
-| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | Provenance until adopted or landed (see Landing). |
+| #1283 at `f57e576a`; #1284 at `6e2d1ee8` | #1283 is adopted and #1284 is landed before this note lands; their texts are then on `main`. |
 
 REC-1 rows C4, C6, C9, C11 and C12 are byte-identical at REC-1 r9 (`3a3aa146`, lines 223, 225, 228,
 230, 231). If REC-1 lands, the two narrowed rows may be re-pointed to it as a correction in place.
@@ -174,7 +205,7 @@ REC-1 rows C4, C6, C9, C11 and C12 are byte-identical at REC-1 r9 (`3a3aa146`, l
 ## Source drift from `c3b5f37a` to `main` (`c3b5f37a`)
 
 None at this writing: the record's pin is the `main` commit against which this note is measured. It
-is re-measured when the package is assembled (`LANDING-PLAN.md` §1, G2).
+is re-measured at packaging.
 
 ## Superseded lines in the accepted text
 
@@ -183,6 +214,12 @@ is re-measured when the package is assembled (`LANDING-PLAN.md` §1, G2).
   `CONFIRM-r2.md`, and the ChatGPT exact-head review is 5892912253.
 - Lines 78–85, Step 3A "Off `main`" and "Neither branch head is an ancestor of `c3b5f37a`": Step 3A
   lands in the same merge. REC-1 stays off `main`.
+- Lines 88–90, the tags [R-off] ("research record off `main`, context only") and [W, here] ("a
+  reading or derivation made in this file, unreviewed"): [R-off] no longer fits Step 3A, which lands
+  in the same merge, and the [W, here] items have since been reviewed as listed under Accepted record
+  and reviews.
+- Every [R-off] tag on a Step 3A citation, at lines 101, 123, 129, 143, 157, 174, 280, 294, 326 and
+  340: these read as [R] after landing.
 - Line 359, "Both are unreviewed [W, here]": F-S1 and F-S2 were reviewed by `REVIEW-r1.md` (R3, R4),
   confirmed in `CONFIRM-r2.md`, and covered by 5892912253. The tag [W, here] keeps its meaning of a
   derivation made in this file.
@@ -194,26 +231,34 @@ is re-measured when the package is assembled (`LANDING-PLAN.md` §1, G2).
 
 ## Landing
 
-- **Together.** In one merge with Step 3A, after it (`LANDING-PLAN.md` §1).
+- **Together.** In one merge with Step 3A, after it.
 - **Mode.** Merge commit of `c539a60c`, so that `890fe3dd` and `c539a60c` remain ancestors of `main`.
 - **Basis.** The proposed basis is §A.46 item 8 as drafted in #1283 at `f57e576a`, which is not
-  adopted; the basis is open until #1283 is adopted. Record-specific check of the draft's conditions:
+  adopted; the basis is open until #1283 is adopted. Until then reading R-b is in force: the record
+  can land only under an explicit, recorded owner exception (#1169 comment 6865680499), and the
+  owner's authorization makes the integration requirements conditional on #1283's adoption (#1236
+  comment 6873565446). For a record landed after adoption, item 8 requires every one of its five
+  conditions; each is checked here for this record:
   - substantive, nonredundant result: met (the TC-A stop, F-S1 and F-S2; productivity "gem
     (ELABORATING)", SRC:355–360);
   - scope and limits documented: met (SRC §§4–5; this note);
-  - independent non-author review and ChatGPT exact-head review: met for the record (`REVIEW-r1.md`,
-    `CONFIRM-r2.md` at `890fe3dd`; ChatGPT 5892912253 at `c539a60c`, which covers the cosmetic delta);
-    this note and the package head need the package's non-author and ChatGPT exact-head reviews;
-  - landing checks and §A.42 item 8 tracing: tracing in `LANDING-PLAN.md` §6, with the two REC-1 rows
-    narrowed above; package checks pending;
+  - independent non-author review, ChatGPT exact-head review, and the landing checks with §A.42 item 8
+    tracing: met for the record (`REVIEW-r1.md`, `CONFIRM-r2.md` at `890fe3dd`; ChatGPT 5892912253 at
+    `c539a60c`, which covers the cosmetic delta); tracing is in this note's Dependencies table, with
+    the two REC-1 rows narrowed there. In this note as landed, no package-level review is recorded;
   - accountable Issue, verification status, remediation plan: #1236 (O-RDY under #1147), this note;
-  - explicit rationale: #1236 c.6873565446, "This preserves accepted research without falsely
-    treating preservation as progress toward a native mechanism"; #1278 cites this record;
-  - separate owner merge decision: not recorded;
-  - historical authorization: #1169 c.6854241002, item 1.
+  - explicit rationale and a separate owner merge decision: #1236 c.6873565446, "This preserves
+    accepted research without falsely treating preservation as progress toward a native mechanism";
+    #1278 cites this record. In this note as landed, no merge decision is recorded, and the merge
+    decision is quoted in the forward note added after landing.
+
+  Authority (provenance): #1169 c.6854241002, item 1.
 
   The record is preserved, not established (§A.46 item 1). Its removal is not automatic and is
   governed by §A.46 item 6.
+- **Owner record.** #1236 comment 6873565446. In this note as landed, no package-level review or
+  merge decision is recorded; they are quoted, with their commits, in the forward note added after
+  landing.
 - **Scientific standing.** TUNE-1 stays paused. Step 3B, a new candidate search and a `G_SM`
   computation are not authorized "until a physically justified O-RDY resource exists and the relevant
   candidate class is adequately specified" (#1236 c.6873565446). Preserving this record is not progress

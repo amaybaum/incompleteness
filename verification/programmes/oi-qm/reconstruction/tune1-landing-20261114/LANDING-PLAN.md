@@ -36,7 +36,7 @@ this plan; `NOTES-PLAN.md` records sources, decisions and open owner questions.
   | NA | #1278 | `research/codex-native-apparatus-20261113` | `d8b745274a0be4fba4fc8232c2ec5b6a85aeda99` | `ASSESSMENT.md` (`a6661de9`) |
   | REC | #1268 | `research/rec-1-1169-20261113` | `3a3aa1465244565b9645e234e300d6ec191717a0` | `REC-1-r7.md` (`f1ffac0e`), as SRC cites it at `9f7d2612` |
   | OC | #1274 | `research/optc-1230-1232-20261113` | `fef9485712fe0b2c72416bfc900654ff64e7453d` | not cited by 3A or SRC |
-  | BL | #1285 | `records/bell-landing-plan-868-20261114` | `ed61696db174c7e0a17be2fd8359c9fa8cb2c983` | format precedent |
+  | BL | #1285 | `records/bell-landing-plan-868-20261114` | `3859c3efc075ab2720ac1d3cebeab6d7fb6f4c8e` | format precedent, with `REVIEW-BELL-PLAN-r1.md` and `CONFIRM-BELL-PLAN-r2.md` |
 
   "3A:n" and "SRC:n" are lines of the principal files at those heads. "…" is
   `verification/programmes/oi-qm/reconstruction`. OA1, OA2, OA3 are `…/oa-1-20261112/OA-1-REPORT-r5.md`
@@ -64,16 +64,16 @@ O-RDY resource exists, and nothing in this plan changes either.
 | Step | Object | Gate (each needs its own recorded owner decision where marked) | Why it comes here |
 |---|---|---|---|
 | G0 | #1283, §A.46 item 8 | Owner adoption decision; the adoption line's placeholders filled from it; merge (owner). Until then reading R-b stays in force, and neither record has a landing basis (§8). | Item 8 is the landing basis used below. If the adopted text differs from `f57e576a`, the condition tables of §8 are re-checked against it. |
-| G1 | #1284, reconciliation of OA-1/OA-2/OA-3 and six other notes | (i) the Basis lines restated after G0 (#1284 open question 6); (ii) record-specific verification of each applicable item 8 condition, record by record, as C2 requires (#1283 c.6872828604); (iii) exact-head CI; (iv) owner merge decision; (v) merge commit. | Recommended before G2, not strictly required: both TUNE-1 status notes grade the OA statements they rely on by #1284's grades (§3). If G2 lands first, those grades are provenance on a branch and the notes cite the OA records' own labels instead (§3.4; NOTES-PLAN OQ-4). No TUNE-1 statement changes either way. |
-| G2 | TUNE-1 package (§5) | (i) branch from `main` after G1 (or after G0 if G1 has not landed); (ii) merge commits of `8228b3c2` (3A) then `c539a60c` (SRC); (iii) one commit adding the two status notes; (iv) the §A.42 item 3 decision on `TUNE-1-STEP3A-OBJECTS.md` (§5.5); (v) source drift re-measured against the `main` of that day and the notes re-pinned; (vi) checks (§5.6); (vii) reviews: a non-author review of the two status notes, then a ChatGPT exact-head review of the package head; (viii) owner merge decision; (ix) merge commit. | SRC cites 3A as support off `main` (SRC:429, :434); landing both in one merge closes those rows. 3A cites nothing in SRC. |
-| G3 | After G2 | Planning-status updates on #1236 and #1147 under §A.45 rule 3 maintenance, citing the owner's merge record. | Records the landed state; changes no scientific status and no readiness or authorization. |
+| G1 | #1284, reconciliation of OA-1/OA-2/OA-3 and six other notes | (i) the Basis lines restated after G0 (#1284 open question 6); (ii) record-specific verification of each applicable item 8 condition, record by record, as C2 requires (#1283 c.6872828604); (iii) exact-head CI; (iv) owner merge decision; (v) merge commit. | Required before G2 for the notes as drafted: both TUNE-1 status notes grade the OA statements they rely on by #1284's grades (§3), which exist only in #1284's notes until G1 lands. If the owner orders G2 first, the notes are rewritten per §3.4, and that version is reviewed before G2 (NOTES-PLAN OQ-4). No TUNE-1 statement changes either way. |
+| G2 | TUNE-1 package (§5) | (i) branch from `main` after G1; (ii) merge commits of `8228b3c2` (3A) then `c539a60c` (SRC); (iii) one commit adding the two status notes; (iv) the §A.42 item 3 decision on `TUNE-1-STEP3A-OBJECTS.md`, and the check that `9f7d2612` exists (§5.5); (v) source drift re-measured against the `main` of that day and the notes re-pinned; (v′) each Basis line restated against the adopted item 8, quoting the adoption record; (vi) checks (§5.6); (vii) reviews: a non-author review of the two status notes, then a ChatGPT exact-head review of the package head; (viii) owner merge decision; (ix) merge commit. | SRC cites 3A as support off `main` (SRC:429, :434); landing both in one merge closes those rows. 3A cites nothing in SRC. |
+| G3 | After G2 | A forward note in each STATUS note naming the reviewed package head, its reviews and the merge commit, and quoting the owner's merge record with its author and time (§A.42 item 7), as a correction in place; planning-status updates on #1236 and #1147 under §A.45 rule 3 maintenance, citing the owner's merge record. Project board changes remain unauthorized (c.6873565446) unless the owner authorizes them. | Records the landed state; changes no scientific status and no readiness or authorization. The STATUS notes state their own package review and merge decision at the package head only, so the reviewed head is not moved to record them. |
 
 **Not upstream.** #1274 and #1285: neither record cites them, and neither cites 3A or SRC (searched
 both diffs and `main` for the PR numbers, branch names and file names). REC-1 (#1268): SRC cites
 REC-1 r7 in six rows; the two rows that use REC content as support are closed by narrowing (§6.2), so
 REC-1 need not land first (NOTES-PLAN OQ-5).
 
-**Downstream.** REC-1 r7 cites 3A (REC r7:215, :217, as `3A:279–282, :413–420`, `3A:501` [R-off]);
+**Downstream.** REC-1 cites 3A as [R-off] throughout: 19 lines carry `3A:` citations at its current head r9 (`3a3aa146`), for example r7:215 (`3A:279–282, :413–420`) and r7:217 (`3A:501`);
 #1278's assessment cites SRC at `c539a60c` and `890fe3dd` for its comparison and resource statements
 (NA `ASSESSMENT.md`:61, :112–116, :163). Their integration obligations for those references close
 when G2 lands. Neither is a gate for G2.
@@ -105,7 +105,7 @@ Every 3A line below is at `8228b3c2` and every SRC line at `c539a60c`.
 | | OA-2 Theorem E(b) and verdict N2.4, OA2:522–560; (SP) halves OA2:534, :542–544; measure table OA2:746, :750 | [R], partially verified (§3) | main |
 | B and exchange rows outside Theorem E(b) | 3A:660–668; OA2:173, :501 | [W] reading on [R] | package; main |
 | D: no result excludes or classicalizes it | 3A:753–774; OA2:674, :765, :775–779; Corollary E1 OA2:577–600 | [W] on [R] | package; main |
-| Control is translation-only for R-lin under every law | 3A:566–571, :690–694; Lemma A-T S3:62–68, :79–85; OA2:525–527; OA1:523 | [R] | main |
+| Control is translation-only for R-lin under every law | 3A:566–571, :690–694; Lemma A-T S3:62–68, :79–85; OA2:525–527; OA1:523 | [R] (Lemma A-T (a), (b); OA-2 E(a); OA-1 D5); the L5.6 reading [W], 3A:692 | main; package |
 | F-3A-1 (ELABORATING): law change leaves R-lin control translation-only | 3A:963–968 | [W]; [R] | package |
 | F-3A-2 (ELABORATING): run repetition used but not stated | 3A:969–986, :494 | [W] | package |
 | | AF:283–287; P:174–175; T1:249, :1625, :1696; OA1:556–562; Main:443–449, :498, :742–758 | [R]; [P] | main |
@@ -131,10 +131,10 @@ Every 3A line below is at `8228b3c2` and every SRC line at `c539a60c`.
 | NL-C applies at every interface of TC-A; the FAIL-CLASS family condition is not met; this is compliance, not escape | SRC:185–224 (N1) | [W] on [R] | package |
 | | S4:423–474, :641–650, :697–698; OA1:111–114, :176–208 | [R] | main |
 | Part (a) premise-relative; (c) mechanism derived (translation form only), content blocked with (b); (d) read rule imported; (e) MP-0b convention only; (f) growth unsourced | SRC:137–149 | [W] on [R], [P] | package; main |
-| (b) excluded under μ-G (Lemma P-1) | SRC:239–246 (N3.1); OBS:529–545; OA1:145–160, :147, :522 | [R] | main |
+| (b): an unconditional supply excluded under μ-G (Lemma P-1); heralding is the only route there, at F-S2's cost for `r_O` and unavailable for the program blocks before use (SRC:244–246) | SRC:239–246 (N3.1); OBS:529–545; OA1:145–160, :147, :522 | [W] reading on [R] | package; main |
 | (b) not supplied unconditionally under μ-O; conditional route open | SRC:247–251 (N3.2) | [W, here] | package |
-| (b) under μ-R undecided | SRC:252–255 (N3.3); NPS1:85; REC r7:220 (C9) | [W]; [R]; [R-off] (narrowed, §6.2) | package; main; off |
-| (b) covered only by unadopted MP-0a or open H-PREP | SRC:256–263 (N3.4); Main:58; OA1:556–562; OBS:893–901 | [R]; [P] | main |
+| (b) under μ-R undecided | SRC:252–255 (N3.3); μ-R posited through (iv) as maximal entropy compatible with the observer's records, OA1:106–107; N1-S open under μ-R, OA1:522, :603; NPS1:85, a related circularity concern; REC r7:220 (C9), context | [W]; [R]; [R-off] context (narrowed, §6.2) | package; main; off |
+| (b) covered only by unadopted MP-0a or open H-PREP | SRC:256–263 (N3.4); Main:58; OA1:556–562; OBS:893–901 | [W] reading on [R]; [P] | package; main |
 | No native producer on `main` for R-lin, within the searches made | SRC:264–275 (N3.5), :403–407; OBS:100, :121; NPS1:14, :88; NIS2:132; Main:443–449, :742 | [R] (NPS1, NIS2: partially verified, binary ring, §3.3); [P] | main |
 | N3.6 / F-S5: spatial copies give independent runs, given a supply per copy | SRC:276–281, :352–353 | [W, here] | package |
 | F-S1: NL-C's counting covers gates of `m` rounds with `m + 1 ≤ L`; gates of `L` or more rounds open | SRC:200–210, :321–329 | [W, here] | package |
@@ -152,14 +152,18 @@ Every 3A line below is at `8228b3c2` and every SRC line at `c539a60c`.
   lines 65 and 958 only (#1265's recorded substitution, `…/oa-2-20261112/OBJECTS.md`), neither of
   which 3A or SRC cites. Every OA line both records cite resolves on `main` unchanged.
 - **Cited ranges that contain text graded exploratory.** 3A cites OA3:294–347 (Theorem S) and
-  OA3:394–416 (N4.1). OA3:323 (N3 proof step 1, the C-PM coin weight) and OA3:415 (N4.1, the
-  ensemble-conditioning sub-bullet) are delta-review text that #1284 grades exploratory
-  (`…/oa-3-20261112/STATUS.md` at RCN, results table; OA3:801, :809–823). 3A uses Theorem S as
+  OA3:394–416 (N4.1). OA3:323–326 (N3 proof step 1, the weight bullet: R1, O5 and the D1 recheck of
+  `DELTA-REVIEW-OA-3-r3.md`, OA3:813, :820, :823) and OA3:415–416 (N4.1, the ensemble-conditioning
+  sub-bullet: R2, OA3:814) are delta-review text. #1284 grades R1–R4, O1–O3 and O5 of that review
+  exploratory (`…/oa-3-20261112/STATUS.md` at RCN, results table); the D1 recheck edit is listed in
+  the same change map (OA3:809–823). 3A uses Theorem S as
   context and as a T2 control expectation (3A:618–623, :879–880), and uses N4.1's held-at-use
   branch (3A:607–610), not the ensemble branch. No 3A classification rests on either line.
 - **TUNE-1 Steps 1–2 carry no status note on `main`.** Both records rest on Step 2 results (Lemma A-T,
   FC-1, Lemma I, NL-C, NL-C′, the class definitions) as [R]. Those records landed by #1237's merge
-  (`c03a5764`) before §A.46 item 8 was drafted and are not in #1284's batch 1 (NOTES-PLAN OQ-3).
+  (`c03a5764`) before §A.46 item 8 was drafted and are not in #1284's batch 1 (NOTES-PLAN OQ-3). OBS
+  (`observer-interface-obsmu-20261104/`), whose Lemma P-1 SRC uses, likewise has no `STATUS.md` on
+  `main`.
 - **SRC's [R] inputs in #1284's batch.** NPS1 and NIS2 (`native-preparation-source-1-20261110`,
   `native-interaction-source-2-20261110`) are graded partially verified in #1284, bounded to the
   selected binary SM ring. SRC uses their stop lines only as confirming context for another rule
@@ -196,20 +200,23 @@ Every 3A line below is at `8228b3c2` and every SRC line at `c539a60c`.
 
 ### 3.2 Each OA statement the TUNE-1 records use
 
-| OA statement | Used by | Grade after #1284 | Known-invalid, contested or exploratory part? | Effect on the TUNE-1 use |
+| OA statement | Used by | Grade after #1284, or nearest graded result | Known-invalid, contested or exploratory part? | Effect on the TUNE-1 use |
 |---|---|---|---|---|
 | OA-2 Theorem E(b) and verdict N2.4 (OA2:522–560) | 3A conditional groups of A and C; §2A.5; F-3A-1, F-3A-3; SRC N4 (context) | partially verified; conditional on (H1), H-AR, (H3), (H4), (SP), (xiv) | No. It uses Proposition B(ii) (⇐), which holds for every law (OA2:746); the r1 false clause is the measurement-noncontextuality clause that r4 replaces | None. The groups stay conditional on E(b)'s hypotheses and on 3A's [W] hypothesis match; "WIP, off `main`" (3A:956, :1002) reads as "research record on `main`, partially verified, not established" |
 | OA-2 Theorem E(a), measure table (OA2:525–527, :746, :750) | 3A A.4, C.4, C.6 | partially verified | No | None |
-| OA-2 Corollary E1 (OA2:577–604) | 3A D.6; §6 | partially verified (as E(b)) | No. The contested gap paragraph lies in OA2:562–575 (r4:566–567), outside the cited range | None |
+| OA-2 Corollary E1 (OA2:577–604) | 3A D.6; §6 | not graded separately in #1284; reviewed text of r4 (OA2:577, F6, N4), so partially verified under #1284's definition (the plan's inference) | No. The contested gap paragraph lies in OA2:562–575 (r4:566–567), outside the cited range | None |
 | OA-2 `𝔊_K` (OA2:381–490, :769) | 3A §2A.5, D.6, T2 controls | partially verified; conditional on C-PM′, C-PM and a uniform bath under μ-G | No | None |
-| OA-2 setup (OA2:102–104, :173, :499, :501) | 3A A.6, B.6, C.6 | partially verified | No | None |
+| OA-2 setup (OA2:102–104, :173, :499, :501) | 3A A.6, B.6, C.6 | definitions; not graded results | No | None |
 | OA-1 gap 1, MP-0a, MP-0b (OA1:522, :556–566) | 3A §3.0, §2A.4, F-3A-2; SRC (b), (e), N3.4, F-S3 | partially verified; gap 1 conditional on μ-G; [W] items reviewed only by a model of the author's family (OA1:656) | No | None. MP-0a and MP-0b stay named, unadopted |
 | OA-1 gap 2, D5, D7 (OA1:176–208, :523) | 3A A.4, C.4; SRC (c), N1.4, N1.5 | partially verified | No | None |
-| OA-1 D1–D4 (OA1:141–175) | SRC N3.1, N3.2, (e) | partially verified | No. D8 (exploratory) is outside the cited range; OA1:174 names it only | None |
-| OA-1 typing of measures, §4.2 target, R5 (OA1:96–110, :437–446, :488–512) | 3A §3.0, A.6 | partially verified | No | None |
-| OA-3 Lemma OBS, Theorem S, scope (OA3:223–268, :294–347, :383–386) | 3A A.4, A.6, §2A.6, T2 control row | partially verified; Theorem S conditional on MP-0b or (V-ii-H), heralds, a stage of at least `2(L−2)` and (PT) | Yes: OA3:323 lies in Theorem S's proof and is exploratory | None on a classification: 3A states that Lemma OBS and Theorem S do not apply to its candidates as stated; the T2 control row "classical-reducible [R-off]" rests on Theorem S, a partially verified result whose proof step 1 includes exploratory text, and T2 is an unadopted proposal |
-| OA-3 N4.1, N4.3 (OA3:120–127, :394–416, :455–476) | 3A A.6 (herald typing; (H4) replaceable) | partially verified; conditional on (H1), H-AR, (H3), (xiv), (SP) | Yes: OA3:415 is exploratory | None: 3A uses the held-at-use branch, met by D4/MP-0b "by convention [W reading]" |
+| OA-1 D1–D4 (OA1:141–175) | SRC N3.1, N3.2, (e) | D2 within gap 1, partially verified, conditional on μ-G; D1, D3 and D4 not graded separately (reviewed r5 text; the plan's inference) | No. D8 (exploratory) is outside the cited range; OA1:174 names it only | None |
+| OA-1 typing of measures, §4.2 target, R5 (OA1:96–110, :437–446, :488–512) | 3A §3.0, A.6 | definitions; not graded results | No | None |
+| OA-3 Lemma OBS, Theorem S, scope (OA3:223–268, :294–347, :383–386) | 3A A.4, A.6, §2A.6, T2 control row | partially verified; Theorem S conditional on MP-0b or (V-ii-H), heralds, a stage of at least `2(L−2)` and (PT) | Yes: OA3:323–326 lies in Theorem S's proof and is delta-review text graded exploratory | None on a classification: 3A states that Lemma OBS and Theorem S do not apply to its candidates as stated; the T2 control row "classical-reducible [R-off]" rests on Theorem S, a partially verified result whose proof step 1 includes exploratory text, and T2 is an unadopted proposal |
+| OA-3 N4.1, N4.3 (OA3:120–127, :394–416, :455–476) | 3A A.6 (herald typing; (H4) replaceable) | partially verified; conditional on (H1), H-AR, (H3), (xiv), (SP) | Yes: OA3:415–416 is delta-review text graded exploratory | None: 3A uses the held-at-use branch, met by D4/MP-0b "by convention [W reading]" |
 | OA-3 quotation of MECH-2 (OA3:138–141) | 3A §2A.2 | partially verified ([R] record) | No | None |
+
+Entries marked "the plan's inference", "not graded separately" or "definitions" are not grades #1284
+gives; they are this plan's reading of #1284's definitions.
 
 **Result.** No statement either record uses is graded known-invalid in #1284. Two cited ranges contain
 lines graded exploratory, and neither line carries a TUNE-1 conclusion. #1284 changes the label of
@@ -238,8 +245,8 @@ landed notes as a correction in place.
 | What is missing | A concrete member of any INCONCLUSIVE class: the generating rule `n ↦ (O_n, C_n, τ_n, r_{O,n}, layout_n)`, `n(ε, K)`, the target with `L` and `c₀`, the encoder with its D6(b) classes and `G(ε, K)` (3A:913–931) | A native producer, inside the joint dynamics, of known-value cells for `r_{O,n}` and the program blocks, renewed every run, at least `(K + 1) log_q((1−4ε)/(4ε))` `q`-ary cells per run within TUNE-1's initial-condition schema (SRC:374–379, F-S2) |
 | Kind | Definitional: the classes are existentially quantified in every Step 2 record and no member is exhibited (3A:902–905) | Physical: the first part of TC-A not shown to follow from OI's stated premises (SRC:146–149) |
 | Scope | All four classes A–D | TC-A (R-lin, init mode, `𝓛_fin`, `D_0` law); by AW-SRC-2, any candidate inside the initial-condition schema inherits it at least at the F-S2 rate |
-| Measure dependence | None | Excluded under μ-G; not supplied unconditionally under μ-O, conditional route open; undecided under μ-R (SRC:282–287) |
-| What it is not | Not a quantum failure; not an exclusion (3A:907–908) | Not an OI-wide no-go; not a minimum-cost proof (review 5892912253: "a sourcing stop, not an OI-wide no-go") |
+| Measure dependence | None | An unconditional supply excluded under μ-G, heralding the only route there, at F-S2's cost for `r_O` and unavailable for the program blocks before use (SRC:244–246); not supplied unconditionally under μ-O, conditional route open; undecided under μ-R (SRC:282–287) |
+| What it is not | Not a quantum failure; not an exclusion (3A:907–908) | Not an OI-wide no-go; not a universal resource lower bound or a sufficient apparatus construction (review 5892912253: "a sourcing stop, not an OI-wide no-go"; the bound is "necessary inside TUNE-1's initial-condition apparatus schema, not universal resource lower bounds or a sufficient apparatus construction") |
 | Would close it | A submission meeting 3A §5's seven items | A physically justified ready resource; the corpus names only the unadopted MP-0a, the open H-PREP and the open obligation O-RDY |
 | Accountable Issue | #1236 | #1147 (O-RDY); #866 (native apparatus sourcing) |
 | Authorization | A new candidate search is not authorized (c.6873565446) | Not authorized under #1147 (`not authorized`); #866 is the owner's first priority |
@@ -247,7 +254,8 @@ landed notes as a correction in place.
 **Why they are distinct.** SRC places the member specification and L5.4 outside its stop:
 "Not physical ingredients, and still open. The member specification (encoder, layout, `O_n`, `C_n`,
 `τ`) and L5.4. Neither is the stop." (SRC:383–384). Supplying O-RDY would leave Gap S open, since no
-member would yet be exhibited; exhibiting a member inside the schema would leave Gap P open, since by
+member would yet be exhibited; exhibiting a member inside TUNE-1's initial-condition schema (program
+blocks translates of `C`, `r_O` fixed on all of `O`) would leave Gap P open, since by
 F-S2 and AW-SRC-2 it inherits the ready resource. 3A's secondary group **lacks a sourced apparatus**
 (3A:493, :505, :628) lists unsourced ingredients of every class; SRC identifies the first of them for
 one candidate as a precise physical stop and links two of 3A's listed items by necessity (F-S2). That
@@ -261,8 +269,9 @@ meet Q3′, Q4, Q5′, Q6′ with heralded witnesses, is a mathematical question
 physically supplied O-RDY mechanism. Physical source remains NOT PASSED."). ChatGPT review 5898054706
 at `d8b74527`: "**Physical source NOT PASSED**. No new apparatus candidate, quantum operation, OI→QM
 equivalence, impossibility theorem, or native producer follows." NA's assessment concerns the binary
-SM ring branch (G_SM/SMR), not R-lin (NA `ASSESSMENT.md`:38), and reads SRC only as off-`main`
-context (NA `ASSESSMENT.md`:61, :116). Its bearing on Gap P is that no physically supplied ready
+SM ring branch (G_SM/SMR), not R-lin (NA `ASSESSMENT.md`:38), and uses SRC as off-`main` support
+only for its attributed comparison and conditional resource statements; its own source stop rests on
+its `main` source packet (NA `ASSESSMENT.md`:163; review 5897621232). Its bearing on Gap P is that no physically supplied ready
 producer is identified in the corpus for either rule; it does not close or narrow Gap P for TC-A. Both
 owner conditions for resuming TUNE-1 stay unmet: no physically justified O-RDY resource exists, and
 no candidate class is adequately specified.
@@ -326,9 +335,10 @@ planning record (NOTES-PLAN OQ-10); a status note for TUNE-1 Steps 1–2 (OQ-3).
 ### 5.5 `TUNE-1-STEP3A-OBJECTS.md` and §A.42 item 3
 
 The five full working-copy ids (§2.3) name no object in the repository. #1265 met the same rule by a
-recorded substitution: the reviewed blobs were in that PR's history, and the committed review files
-abbreviated the full ids to 8 characters (`739595fa`, recorded in each directory's `OBJECTS.md`).
-Here the reviewed copies were never committed, and the ids sit in the objects file itself. Options
+recorded substitution: five full ids of working copies that were never committed, and so name no
+object in the repository, were abbreviated to 8 characters in the committed review files (`739595fa`;
+OA-2 `STATUS.md` at RCN, row "Working-copy blob ids"), and each directory's `OBJECTS.md` records the
+substitution. Here the ids sit in the objects file itself. Options
 for the owner (NOTES-PLAN OQ-2):
 - **(a)** at packaging, abbreviate the five ids in `TUNE-1-STEP3A-OBJECTS.md` to 8 characters as a
   recorded substitution, stated in `TUNE-1-STEP3A-STATUS.md` with the old and new blob of the objects
@@ -337,6 +347,11 @@ for the owner (NOTES-PLAN OQ-2):
 - **(b)** land the objects file unchanged under a recorded owner exception to §A.42 item 3 for those
   five ids.
 Recommendation: (a). It changes a bookkeeping file only, keeps every line number, and follows #1265.
+
+Two further full ids. SRC:82 names `9f7d2612f39960a41188eae8f3753d9def8019e8`, which is on #1268's
+branch only. At G2, check that it exists. After the narrowings of §6.2 it supports no claim (§A.42
+items 3, 5). `221754fc…` (`TUNE-1-STEP3A-OBJECTS.md`:13, the earlier committed review blob) resolves
+through `b923fa7f`, so the landing must be a merge commit.
 
 ### 5.6 Mode and checks
 
@@ -368,6 +383,7 @@ Classification after G2. "Package" means the content lands in the same merge.
 | commits `b923fa7f`, `8228b3c2` | review objects | on `main` once merged by merge commit |
 | `.r3-pre-review.md` (3A:8, :1125) | the pre-review text the r3 confirmation compared against | provenance: not retained; the confirmation's verdict rests on the committed r3 and its diff map (REVIEW:754–797); the ChatGPT review is of the committed blob |
 | reviewed working copies, by full id in `TUNE-1-STEP3A-OBJECTS.md` | identity of reviewed bytes | provenance; their full ids are a §A.42 item 3 gap (§5.5) |
+| `221754fc…` (`TUNE-1-STEP3A-OBJECTS.md`:13), the earlier committed review blob | record of commit `b923fa7f` | on `main` through `b923fa7f` once the package lands by merge commit (§A.42 item 3) |
 | session paths written `working/…` (REVIEW:3, :396, :403, :508, :527; 3A:1068) | reviewer and writer disclosure | provenance |
 | #1236 c.6846408321, c.6846442383, c.6847314661, c.6828822665, c.6816189419, c.6817129920 | authority, guidance, framing | governance provenance, quoted in 3A |
 | second guidance message, relay only (3A:139–150) | T2(d); interference versus tables (A.5 and the like) | provenance: not on #1236; no classification rests on it (A.5, B.5, C.5, D.5 read "not shown either way"); T2 is a proposal (NOTES-PLAN OQ-9) |
@@ -383,10 +399,11 @@ Classification after G2. "Package" means the content lands in the same merge.
 | REC r7 at `9f7d2612` (§0 safeguards, three-way separation) | §0 | governance and scope provenance; the separation is the owner's safeguard (#1169 c.6848268369) |
 | REC:215 (C4) | N1.4 | support on `main`: OA1:111–114, Main:42 |
 | REC:217 (C6), the status word "undetermined" for MP-0b | (e) | **support off `main`: gap closed by narrowing** in `STATUS-SOURCING.md`: (e)'s marking "named hypothesis MP-0b only" rests on OA1:563–564 ("MP-0b … interface convention"); the parenthesis "status undetermined" is REC-1's classification, context, not a result of SRC |
-| REC:220 (C9) | N3.3 | **support off `main`: gap closed by narrowing**: N3.3 reaches no verdict ("Undecided; no source"); the circularity concern is also on `main` at NPS1:85; the REC quotation is context |
+| REC:220 (C9) | N3.3 | **support off `main`: gap closed by narrowing**: N3.3 reaches no verdict ("Undecided; no source"). On `main`, μ-R is posited through (iv) as maximal entropy compatible with the observer's records (OA1:106–107), and conditional preparation under it is open (OA1:522, :603). NPS1:85 records a related circularity concern for record-supplied readiness. REC C9's reading is context |
 | REC:222 (C11) | (b), N3.4 | support on `main`: OA1:556–562 ("Missing premises", MP-0a, "Hard to vary? No"), Main:58, and §A.45 rule 5 (a new premise is judged under §A.29); the wording "new §A.29 premise if selected" is REC-1's |
 | REC:223 (C12), H-xiv | (c) | provenance for the name; the hypothesis used is H-μ (P:145) and (xiv) (Main:724) |
 | REC-1 P0 (SRC:297; NOTES-r2 item 7) | N4 context | provenance |
+| commit `9f7d2612` (SRC:82, full id) | REC pin | exists on #1268's branch only; after the two narrowings it supports no claim; existence checked at G2 (§5.5) |
 | commits `890fe3dd`, `c539a60c` | review objects | on `main` once merged by merge commit |
 | #1169 c.6854241002, c.6848268369, c.6854774010; #1236 c.6817129920, c.6828822665; #866 c.6765161496; #1147 body; #914 c.6563412926 (NOTES-r2) | authority, safeguards, obligation name | governance and planning provenance, quoted |
 | reviews 5892912253 | ChatGPT exact-head review | review provenance |
@@ -400,13 +417,15 @@ re-pointed to it as a correction in place.
 | Reference | Classification at landing |
 |---|---|
 | #1283 at `f57e576a` | provenance until adopted; the Basis then cites the adopted §A.46 on `main` |
-| #1284 at `6e2d1ee8` | provenance until G1 lands; then support on `main` for the grades quoted |
+| #1284 at `6e2d1ee8` | support on `main` for the grades quoted, since G1 lands before G2 |
 | #1278 at `d8b74527`, review 5898054706, the owner's acceptance in c.6873565446 | governance provenance for the statement that physical source is not passed; Gap P's open status rests on OBS:100, :121, NPS1:14, NIS2:132 and SRC itself on `main` |
 | #1236 c.6873565446, c.6847882040 | governance provenance, quoted |
 | reviews 5887947616, 5892912253 | review provenance |
 | owner comments quoted in the notes | governance provenance |
+| `LANDING-PLAN.md`, `NOTES-PLAN.md` (this branch) | none after the replacements of review B1: the STATUS notes cite neither file; provenance |
 
-No reference is a gap at landing once the two REC rows are narrowed and §5.5 is decided.
+No reference is a gap at landing once the two REC rows are narrowed, §5.5 is decided and the
+`9f7d2612` existence check is made.
 
 ***
 
@@ -416,7 +435,7 @@ No reference is a gap at landing once the two REC rows are narrowed and §5.5 is
 
 | | 3A | SRC | The two status notes and this plan |
 |---|---|---|---|
-| Non-author review | `TUNE-1-STEP3A-REVIEW.md`: review of r1, ACCEPT WITH CHANGES (R1–R7, m1–m4, R8); recheck of r2, ACCEPT; review of r3 (§2A), ACCEPT WITH CHANGES (E1–E7, n1–n4); confirmation of r3, ACCEPT. The file names its reviewer "Independent internal review (same model family)" (REVIEW:6) and does not state non-authorship in those words (NOTES-PLAN OQ-1) | `REVIEW-r1.md`: "Fresh non-author reviewer (not the writer of this unit, Step 3A, or REC-1)", ACCEPT WITH CHANGES (R1–R6, m1–m10); `CONFIRM-r2.md` at `890fe3dd`: CONFIRMED, one cosmetic nit | **pending**: one independent non-author review of the complete plan (c.6873565446) |
+| Non-author review | `TUNE-1-STEP3A-REVIEW.md`: review of r1, ACCEPT WITH CHANGES (R1–R7, m1–m4, R8); recheck of r2, ACCEPT; review of r3 (§2A), ACCEPT WITH CHANGES (E1–E7, n1–n4); confirmation of r3, ACCEPT. The file names its reviewer only as "Independent internal review (same model family)" (REVIEW:6); the r2 recheck nits were "applied by the coordinator" (3A:1106), and the r3 review and its confirmation name no reviewer, so non-authorship is not established on the record (NOTES-PLAN OQ-1) | `REVIEW-r1.md`: "Fresh non-author reviewer (not the writer of this unit, Step 3A, or REC-1)", ACCEPT WITH CHANGES (R1–R6, m1–m10); `CONFIRM-r2.md` at `890fe3dd`: CONFIRMED, one cosmetic nit | **pending**: one independent non-author review of the complete plan (c.6873565446) |
 | ChatGPT exact-head review | 5887947616 at `8228b3c2`: "ACCEPT WITH SCOPE QUALIFICATIONS"; nonblocking: the r3 header "awaiting confirmation" | 5892912253 at `c539a60c`: "ACCEPT (bounded paper-only sourcing result)" | **pending**: after the non-author review; the package head needs its own at G2 |
 | Bytes reviewed versus bytes landed | ChatGPT reviewed the committed blobs; the non-author reviews read working copies that differ only by the recorded `working` substitution (OBJECTS) | the non-author confirmation covers `890fe3dd`; the delta to `c539a60c` is the cosmetic nit, covered by the ChatGPT exact-head review | — |
 
@@ -435,19 +454,19 @@ text.
    needed by a record on `main` (searched: no file on `main` cites #1267, #1272 or their file names).
    The only basis is "when item 8 preserves it". Before adoption no basis exists; under reading R-b a
    landing would need a recorded owner exception (#1169 c.6865680499).
-2. **Item 8 conditions, record by record** (record-specific verification, as C2 requires of the
-   reconciliation and as this plan applies to new records):
+2. **Item 8's five conditions (all apply in full to a new landing)**, record by record, applied
+   here condition by condition; the reconciliation sentence does not govern new landings:
 
    | Condition | 3A | SRC |
    |---|---|---|
    | substantive, nonredundant result (may be conditional, negative or inconclusive) | met: the conditional classification under OA-2 Theorem E(b) with both (SP) halves, F-3A-2 (run repetition), T1 with the L4 audit, the Step 3B gate answer and §2A; its own productivity verdict is "gem, BORDERLINE" (3A:999–1002), and the specification gap restates S3:206–211 and S4:485–497 (OQ-1) | met: the TC-A stop, F-S1 and F-S2 (no equivalent on `main`; productivity "gem (ELABORATING)", SRC:355–360) |
    | scope and evidence limits documented | met in 3A §§5–8 and `STATUS-STEP3A.md` | met in SRC §§4–5 and `STATUS-SOURCING.md` |
-   | non-author review and ChatGPT exact-head review | ChatGPT met; non-author met subject to OQ-1 | met |
-   | landing checks and §A.42 item 8 tracing | tracing: §6; item 3: §5.5 pending; checks pending at the package head | tracing: §6 (two rows narrowed); checks pending |
+   | non-author review, ChatGPT exact-head review, landing checks and §A.42 item 8 tracing | ChatGPT met; non-author not established on the record (OQ-1); tracing: §6; item 3: §5.5 pending; checks pending at the package head | reviews met; tracing: §6 (two rows narrowed); checks pending |
    | accountable Issue, verification status, remediation plan | #1236; `STATUS-STEP3A.md` | #1236 (O-RDY under #1147); `STATUS-SOURCING.md` |
-   | explicit rationale | c.6873565446: "This preserves accepted research without falsely treating preservation as progress toward a native mechanism."; SRC and REC-1 cite it | as 3A; #1278 cites it |
-   | separate owner merge decision | **not recorded** | **not recorded** |
-   | historical authorization | #1236 c.6846408321, c.6846442383, c.6847314661 | #1169 c.6854241002, item 1 |
+   | explicit rationale; separate owner merge decision | c.6873565446: "This preserves accepted research without falsely treating preservation as progress toward a native mechanism."; SRC and REC-1 cite it; merge decision **not recorded** | as 3A; #1278 cites it; merge decision **not recorded** |
+
+   Authority (provenance): 3A, #1236 c.6846408321, c.6846442383, c.6847314661; SRC, #1169
+   c.6854241002, item 1.
 3. **Item 1.** Neither record presents an established claim, and landing establishes none. Each note
    states "preserved, not established".
 4. **Item 4.** Each note states the verification status of every result (independently verified,
@@ -460,7 +479,7 @@ text.
 6. **Item 6.** After landing, the scoped results become surviving claims for item 6 and §A.42 item 5,
    and they add incoming citations to OA-1, OA-2, OA-3 and the Step 1–2 records that any later
    removal audit must check.
-7. **§A.42.** Item 2: every reviewed commit lands as an ancestor (merge commit). Item 3: §5.5. Item 5:
+7. **§A.42.** Item 2: every reviewed commit lands as an ancestor (merge commit). Item 3: §5.5, including `9f7d2612` and `221754fc`, the latter requiring a merge commit. Item 5:
    necessity is the owner's preservation decision and item 8's surviving-claim rule. Item 8: §6.
 8. **§A.28.** The package adds two status notes and no other new file; this plan directory does not
    land (OQ-10).
