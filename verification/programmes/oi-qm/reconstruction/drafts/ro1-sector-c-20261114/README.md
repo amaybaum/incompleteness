@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `S3-PLAN-r6.md` | S3 plan r6: the fix from the confirmation of r5 and its root cause (a negative outcome counts toward any negative closure only if every capability it relies on is sourced); plan for owner decision; unreviewed | `664f0c1ddf1b665e2803238568175d78fff9f1df42d127738627863a63accbb6` |
+| `RESPONSE-S3-PLAN-r5.md` | Disposition of that review, with the sites checked | |
 | `S3-PLAN-r5.md` | S3 plan r5: the single fix from the confirmation of r4 (a (β) failure resting only on unsourced retention is reported as unsourced and does not count toward closing route M); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `b61c5c497c70decb4f9777a290e1d19d824f30d689cdef33014287757ce17882` |
 | `RESPONSE-S3-PLAN-r4.md` | Disposition of that review | |
 | `S3-PLAN-r4.md` | S3 plan r4: local fixes from the focused confirmation of r3 (AC-1 limits what a unit may propose or report as passing; the reference-class sentence made conditional on OB-b0; marker coupling of (β) and (δ); resource wording); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `76f7a54b46b032e866ef5d0f459949704e81463881cad0a136862bb3bed8c183` |
