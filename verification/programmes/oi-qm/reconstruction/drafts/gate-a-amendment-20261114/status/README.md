@@ -1,13 +1,14 @@
-# Landing-status note for this record: UNREVIEWED drafts
+# Landing-status note for this record
 
-**UNREVIEWED — NOT AUTHORITATIVE.** These files are drafts of a factual landing-status note for the
+**r6 is owner-accepted; earlier revisions are superseded drafts.** These files are the revisions
+of a factual landing-status note for the
 Gate A amendment record in the parent directory. They are preserved here so that they are not held
 only in a session checkout. They authorize nothing: no adoption of the amendment text, no change to
 the Gate A contract, no CI dispatch and no merge.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `STATUS-r6.md` | The current draft; applies the focused review of r5 and names #1060 (BELL-QSET) as the accountable Issue; reviewed (ACCEPT) | `e3c756b1432d2ee83c07fcdb17bbb500dce9bd1e698ee980765a0976f4606d0b` |
+| `STATUS-r6.md` | The accepted note (owner, #1169 comment 6877981234); applies the focused review of r5 and names #1060 (BELL-QSET) as the accountable Issue; reviewed (ACCEPT) | `e3c756b1432d2ee83c07fcdb17bbb500dce9bd1e698ee980765a0976f4606d0b` |
 | `CONFIRM-STATUS-r6.md` | Focused review of r6 at `582ebc26`: ACCEPT (four optional low findings, not applied) | |
 | `RESPONSE-STATUS-r6.md` | Dispositions of the focused review of r5, and the #1060 change | |
 | `STATUS-r5.md` | Names #1291 as the accountable Issue for one obligation; reviewed (ACCEPT WITH CHANGES) | `082749cdb745c3b1bb9e5697a6f3a98ab489d7fe9d8bf5be7fe1af1a5a6a0f93` |
@@ -39,5 +40,7 @@ r5 at `f6698a9a` returned ACCEPT WITH CHANGES. The owner then approved moving th
 into #1060 as BELL-QSET, and #1291 was closed as a duplicate of #1060; r6 applies the review's
 findings and names #1060. A focused review of r6 at `582ebc26` returned ACCEPT, and the
 `pull_request` CI run on that head (run 43599039650) completed with 26 jobs successful and 1
-skipped. The owner's acceptance condition names r4; whether it applies to r6 is an open owner
-question, so the note is not yet accepted.
+skipped. The owner then accepted r6 (#1169, comment 6877981234: "Yes, I accept r6 and adopt both
+mappings"). The acceptance covers r6's text at `582ebc26`; it does not adopt the Gate A amendment,
+change the Gate A contract, or authorize a merge or dispatch. The same decision made #1169
+accountable for S-J (confinement) and for exactness; both obligations are open.
