@@ -497,7 +497,7 @@ content lands in the same merge.
 | #1284 @ `6e2d1ee8` | provenance (format precedent) |
 | `LANDING-PLAN.md`, `NOTES-PLAN.md` (this branch) | after the replacements of review B1 the STATUS notes cite neither file; `SB-L3.md` cites `LANDING-PLAN.md` (§2.5, §6.3), pinned at `3859c3ef`, for attribution only; provenance |
 | BS-tagged items in `SB-L3.md` (Theorem N, (Sep)) | support on `main` (package) |
-| "B1's static bit" (S:171) | Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23 on `main`; support on `main`, resolved in `SB-L3.md`'s reference table (B1 reads `b_m` and writes only `b_0` for one fixed finite `m`, README.md:23; the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor) |
+| "B1's static bit" (S:171) | Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23 on `main`; support on `main`, resolved in `SB-L3.md`'s reference table (B1 reads `b_0` and `b_m` and writes only `b_0` for one fixed finite `m`, README.md:23; the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor) |
 | SB §6 (S:171) | provenance; not carried |
 
 No reference other than LD:300's stage-7 sentence, which lands as owner-identified non-load-bearing

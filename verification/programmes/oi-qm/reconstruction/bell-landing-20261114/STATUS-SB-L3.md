@@ -13,20 +13,23 @@ have.
   `cac5d264`), blob `9ff0f0774e403ed782354c0b10986a0fe5dc5ed8`, SHA-256
   `662b9cbaab4237a357174b675c7ee7734c4d4512ef68d530555111230bde48fd`, 356 lines. "S:n" is line n of
   that file. L3 is §3.2, S:167–171.
-- **The carried record `SB-L3.md`** (to be written): S:167–171 copied verbatim and fenced as a
-  quotation. Every non-verbatim line is marked as an addition: the pin block; hypotheses from
-  Bell-scope §3.1–3.2 (BS:139–196, landed in the same package); a resolution table for the in-text
-  references (Main:364 → Main:362, the same line at `c3b5f37a`; Theorem N and (Sep) → Bell-scope at
-  `e1534b08`; B1 → Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23 on
-  `main`; SB §6 → provenance; S5 → provenance, not support, because S5's response tables already
-  factorize and its check cannot fail); the N′ composition (BS:190, below); the support-layer
-  paragraph. Its blob and SHA-256 are recorded here when it is written.
+- **The carried record `SB-L3.md`**: S:167–171 copied verbatim and fenced as a quotation. Every
+  non-verbatim line is marked as an addition: the pin block; hypotheses from Bell-scope §3.1–3.2
+  (BS:139–196, landed in the same package); a resolution table for the in-text references (Main:364
+  → Main:362, the same line at `c3b5f37a`; Theorem N and (Sep) → Bell-scope at `e1534b08`; B1 →
+  Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23 on `main`; SB §6 →
+  provenance; S5 → provenance, not support, because S5's response tables already factorize and its
+  check cannot fail); the N′ composition (BS:190, below); the support-layer paragraph. As reviewed
+  at `8177c917c6286c1e2d733b343096e2eabf7f5545` on `records/bell-landing-plan-868-20261114`
+  (provenance): blob `82b5a6a2b2e589142ca3749bb1b5d948cd2832fc`, SHA-256
+  `96a30df527efd4b0db84eaf53cbb0703157acf610f1356047fbc4a53472fb46f`, 221 lines.
 - **Scope at the accepted head.** S:169 names Theorem N only, whose hypotheses include (GI) and MI
   for Ω. The Bell ladder's controlling condition also uses the (MI\*) branch, Theorem N′
-  (BELL-LADDER-r3:57–60). Theorem N′'s proof uses only step 1 and steps 3–4 (BS:190), so step 1's
-  directed reading (S:169) carries to it. That composition of two cited statements derives nothing
-  beyond them; it is not in SB and enters `SB-L3.md` as a marked addition [A], reviewed with the
-  record.
+  (BELL-LADDER-r3:57–60). Theorem N′'s proof consists of step 1, the chart identification
+  `(x_{t_s}|_W, x_{t_s}|_{G_A}) = (Ω, ρ_A, a)` (BS:185, :190) and steps 3–4 (BS:190–191); only step
+  1 uses the distance, so step 1's directed reading (S:169) carries to it. That composition of two
+  cited statements derives nothing beyond them; it is not in SB and enters `SB-L3.md` as a marked
+  addition [A], reviewed with the record.
 - **Why an extract.** The owner's option (c) for #1232 lands "only the results not already on
   `main`" in a minimal package (#1169 c.6854728636), and the carried set of #1169 c.6855167580
   excludes L3; #1274 lists L3 as not carried (`intervene-substate-results-20261113/NEW-RESULTS.md`:641
@@ -52,20 +55,23 @@ have.
   decision, and none is verification (§A.46 item 7). No separate non-author review of L3 at the
   source is recorded. The carried text `SB-L3.md` has one non-author model review at `eac7692c`
   (`REVIEW-SB-L3-NONAUTHOR.md` on `records/bell-landing-plan-868-20261114` at `1bc55b29`,
-  provenance; ACCEPT WITH CHANGES), which re-derived the N′ addition; its ChatGPT exact-head review
-  is pending.
+  provenance; ACCEPT WITH CHANGES), which re-derived the N′ addition, and ChatGPT exact-head review
+  5903029353 (posted under `amaybaum`, 2026-11-14T08:11:19Z) at `8177c917`: ACCEPT WITH CHANGES,
+  documentation only. That review compared the quotation with the source byte for byte and checked
+  the composition [+3]; it states that it is not independent mathematical verification.
 
 ## What the record supports, and at what strength
 
 **Claim supported by this record:** "If no directed `G_φ` path of length at most `t − t_s` runs from
 the remote wing's generator region into a wing's record region at any tick `t` of the record window,
-step 1 of Theorem N holds with directed distance; a hidden factor that both wings read and no
-setting writes then belongs to Ω, and the conclusion of Theorem N is unchanged: the factor is a
-common cause, and (Sep) with the symmetrized distance is sufficient, not necessary, for parameter
-independence; by the marked addition, the same holds for Theorem N′ under (MI\*), whose proof reuses
-step 1 (paper argument [A] on Main's cone lemma [P] and Bell-scope Theorem N and N′ [A];
-model-reviewed for Theorem N, the N′ addition by one non-author model review; not independently
-verified; not adopted; no manuscript claim affected)."
+step 1 of Theorem N holds with directed distance; a hidden factor `M` that both wings read and no
+setting writes, whose content at `t_s` lies in `W = V ∖ (G_A ∪ G_B)` (`M ⊂ W`, `SB-L3.md` [+2]),
+then belongs to Ω = `x_{t_s}|_W`, and under the same directed no-path condition the conclusion of
+Theorem N is unchanged: the factor is a common cause, and (Sep) with the symmetrized distance is
+sufficient, not necessary, for parameter independence; by the marked addition, the same holds for
+Theorem N′ under (MI\*), whose proof reuses step 1 (paper argument [A] on Main's cone lemma [P] and
+Bell-scope Theorem N and N′ [A]; model-reviewed for Theorem N, the N′ addition by one non-author
+model review; not independently verified; not adopted; no manuscript claim affected)."
 
 Consequence stated with it (S:171), under the same hypotheses: with (MI) for Ω (or (MI\*)) and
 directed (Sep), a shared static or autonomously evolving substate of any finite depth cannot by
@@ -123,8 +129,8 @@ on `main` by a counterexample or disproof.
 
 | Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
 | --- | --- | --- | --- | --- |
-| L3 as written (Theorem N) | partially verified; conditional on Theorem N's hypotheses with directed (Sep) | [A] on Main:362 [P], directed induction `OIBridge/RegionTower.lean`:283 [K], and Bell-scope Theorem N [A]; ChatGPT reviews of SB; one non-author model review of `SB-L3.md`; S5 provenance | independent mathematical verification of L3 as stated (its instance of Main's dependency sets and Theorem N's steps 2–4 are paper arguments); the ChatGPT exact-head review of the carried text | an independent mathematical verification recorded on `main` (for example a kernel formalization of Theorem N with that instance, or a human review); the package's ChatGPT review of `SB-L3.md` |
-| Extension to Theorem N′ (marked addition) | partially verified (one non-author model review of `SB-L3.md` at `eac7692c`; not independent verification; ChatGPT exact-head review pending); conditional on Theorem N′'s hypotheses with directed (Sep), as listed in `SB-L3.md` [+3] | [A], the composition of S:169 and BS:190–191 | the ChatGPT exact-head review; then as for L3 | the package's ChatGPT review of `SB-L3.md`; then as for L3 |
+| L3 as written (Theorem N) | partially verified; conditional on Theorem N's hypotheses with directed (Sep) | [A] on Main:362 [P], directed induction `OIBridge/RegionTower.lean`:283 [K], and Bell-scope Theorem N [A]; ChatGPT reviews of SB; one non-author model review of `SB-L3.md`; ChatGPT exact-head review 5903029353 of `SB-L3.md` at `8177c917`; S5 provenance | independent mathematical verification of L3 as stated (its instance of Main's dependency sets and Theorem N's steps 2–4 are paper arguments) | an independent mathematical verification recorded on `main` (for example a kernel formalization of Theorem N with that instance, or a human review) |
+| Extension to Theorem N′ (marked addition) | partially verified (one non-author model review of `SB-L3.md` at `eac7692c`; and ChatGPT exact-head review 5903029353 at `8177c917`; neither is independent verification); conditional on Theorem N′'s hypotheses with directed (Sep), as listed in `SB-L3.md` [+3] | [A], the composition of S:169 and BS:190–191 | as for L3 | as for L3 |
 
 Where the gap cannot be closed, the result is narrowed or withdrawn where it is stated (§A.46 item 5).
 
@@ -136,7 +142,7 @@ Where the gap cannot be closed, the result is narrowed or withdrawn where it is 
 | `papers/Main.md`:362 at `c3b5f37a` | Support on `main`. |
 | `SUBSTATE-BRIDGE-UNIT1.md` at `86a413c8` | Provenance: the copied content is in `SB-L3.md`. |
 | S5 in `generic_substate_checks.py` at `86a413c8` (S:167's "[X S5]" and S:169's "S5 checks 300 random response tables") | Provenance (see Limitations); the script does not land. |
-| "B1's static bit" (S:171) | Support on `main`: Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23. B1 reads `b_m` and writes only `b_0` for one fixed finite `m` (README.md:23); the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor. |
+| "B1's static bit" (S:171) | Support on `main`: Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23. B1 reads `b_0` and `b_m` and writes only `b_0` for one fixed finite `m` (README.md:23); the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor. |
 | SB §6 (S:171) | Provenance; not carried. |
 | #1271 reconciliation, R3:66 at `703ae20e` | Provenance: it reads L3 as the standard Bell argument; no claim rests on it. |
 | Reviews 5858000929, 5859960068, 5857981727 | Review provenance. |
@@ -169,10 +175,13 @@ S:3 ("pending focused re-review") and S:356 ("r2 has not been re-reviewed"): r2 
   record:
   - substantive, nonredundant result: met (the directed form of (Sep), not on `main` and not carried
     by #1274);
-  - scope and limits documented: in this note; `SB-L3.md` is to state them;
-  - independent non-author review and ChatGPT exact-head review: not met for the carried text; the
-    source has two ChatGPT reviews and no separate non-author review, and an owner decision on
-    whether a ChatGPT exact-head review also meets the non-author-review condition is required; in
+  - scope and limits documented: in this note and in `SB-L3.md`;
+  - independent non-author review and ChatGPT exact-head review: recorded for `SB-L3.md` (non-author
+    model review at `eac7692c`, ACCEPT WITH CHANGES, R1–R14 applied; ChatGPT exact-head review
+    5903029353 at `8177c917`, ACCEPT WITH CHANGES, with `SB-L3.md` unchanged since); the two
+    documentation changes that review asks for are made in this note and the plan after `8177c917`
+    and have no exact-head review yet, and the final package head requires its own; the source has
+    two ChatGPT reviews and no separate non-author review; in
     this note as landed, no package-level review is recorded;
   - accountable Issue, verification status, remediation plan: #1169, this note;
   - explicit rationale: the Bell ladder's directed (Sep) in its controlling condition and stage 5;

@@ -40,11 +40,11 @@ are one-directional, so the review's reading holds.
 
 ## Not changed, for the coordinator
 
-- **R10 and R11 mirrors.** `STATUS-SB-L3.md`:139 (B1 dependency row) and `LANDING-PLAN.md`:500
-  (§6.3 B1 row) carried C3's "reads and writes only `b_0` and `b_m`"; `STATUS-SB-L3.md`:97 and
+- **R10 and R11 mirrors.** `STATUS-SB-L3.md`:139 (B1 dependency row) and `LANDING-PLAN.md`:500 (§6.3
+  B1 row) carried C3's "reads and writes only `b_0` and `b_m`"; `STATUS-SB-L3.md`:97 and
   `LANDING-PLAN.md`:153 cited S5 at `generic_substate_checks.py`:241–259. These rows were not named
-  for change. The coordinator propagated R10 ("reads `b_m` and writes only `b_0`") and R11 (:240–257)
-  to all four in the same commit.
+  for change. The coordinator propagated R10 ("reads `b_0` and `b_m` and writes only `b_0`") and R11
+  (:240–257) to all four in the same commit.
 - **Item-8 condition in `STATUS-SB-L3.md` "Landing".** It still reads "not met for the carried
   text". That remains true while the ChatGPT exact-head review is pending, so it was not edited.
 
@@ -60,3 +60,17 @@ are one-directional, so the review's reading holds.
 - `LANDING-PLAN.md`: the S5 bullet in §2.4 (R1); the plan-files row in §6.3 (R7).
 - `STATUS-BS.md`: "Independently verified" bullet (R14).
 - New: this file.
+
+## ChatGPT exact-head review 5903029353 at `8177c917`
+
+Posted under `amaybaum`, 2026-11-14T08:11:19Z: ACCEPT WITH CHANGES, documentation only. Its two
+changes are applied after `8177c917`; `SB-L3.md` is not changed.
+
+| Change | Disposition | Where |
+| --- | --- | --- |
+| 1. `STATUS-SB-L3.md`: replace the future-tense statements with the pin of the reviewed extract; name the chart-identification step in the N′ composition; keep `M ⊂ W` and the directed no-path condition explicit in the scoped claim; update the review gate | Applied. | `STATUS-SB-L3.md` Source, "What the record supports", Reviews, status table, Landing |
+| 2. R10 mirrors: B1 reads `b_0` and `b_m` and writes only `b_0` | Applied. | `STATUS-SB-L3.md` dependency row; `LANDING-PLAN.md` §6.3 B1 row |
+
+The same review records a separate gate for Bell-scope r2: findings 1–3 of
+`REVIEW-BS-r2-NONAUTHOR.md` need an owner-selected route (a corrected `STATUS-BS.md` or a
+Bell-scope r3). `STATUS-BS.md` is not changed for them here.
