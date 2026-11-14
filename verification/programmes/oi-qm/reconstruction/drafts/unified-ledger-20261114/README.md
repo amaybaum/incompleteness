@@ -9,9 +9,10 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `QUEUE-PROPOSAL-r2.md` | Proposal for owner decision, r2: applies the review of r1; unreviewed; changes no wording, tier or queue | `ed141fe56dd71079fd72d52a47f2172fa04f4b9726761893ea591eb3057f0df5` |
+| `QUEUE-PROPOSAL-r2.md` | Proposal for owner decision, r2: applies the review of r1; reviewed (ACCEPT); changes no wording, tier or queue | `ed141fe56dd71079fd72d52a47f2172fa04f4b9726761893ea591eb3057f0df5` |
 | `RESPONSE-QUEUE-r1.md` | Dispositions of the review of the queue proposal | |
 | `QUEUE-PROPOSAL-r1.md` | Proposal for owner decision, in three separate parts: manuscript corrections, missing ledger coverage, research obligations; reviewed (ACCEPT WITH CHANGES); changes no wording, tier or queue | `3f09d871e2ff4c06b804dcf550acabc3df087cd5a17b9a441d6b7d147dbdd253` |
+| `REVIEW-QUEUE-r2.md` | Focused confirmation of queue proposal r2: ACCEPT | `0d7c8f27627e07fedd0edceaf551ee2a54a517dfe2b5f5f6e89bcfae845b7def` |
 | `REVIEW-QUEUE-r1.md` | Independent review of the queue proposal: ACCEPT WITH CHANGES | `94a44806700cf224a413d1818335575a29bee04d323893a4f8bf307b0fdd9a76` |
 | `LEDGER-r5.md` | The owner-accepted ledger (#914 comment 6879158095); minimal revision of r4 applying its review (four should-fix, seven nits); reviewed (ACCEPT) | `c3897e42b57e3a5052f29828935e2e30bf4270ffafaf349a9c4b4eadfe83c299` |
 | `REVIEW-r5.md` | Focused confirmation of r5: ACCEPT (owner checks on J-3/J-4, Q13, audit citation and the ten unresolved findings all met) | `0f0e119e0a4a48eb68bff3e3314bf6b3d5289129f6a478576d5e60ccf5de2ee2` |
