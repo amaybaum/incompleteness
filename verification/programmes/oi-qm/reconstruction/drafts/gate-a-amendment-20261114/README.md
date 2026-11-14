@@ -14,9 +14,10 @@ three-part target recorded on #914, comment 6875548603.
 
 | File | What it is |
 | --- | --- |
-| `GATE-A-AMEND-r4.md` | The current text of the amendment |
+| `GATE-A-AMEND-r4.md` | The final text of the amendment cycle |
 | `OWNER-QUESTIONS-r4.md` | The four open owner questions as they now read |
 | `RESPONSE-CONFIRM-r3.md` | Dispositions of the r3 confirmation's required changes |
+| `CONFIRM-r4.md` | Closing confirmation of r4 at `eb515150`: ACCEPT |
 | `GATE-A-AMEND-r3.md` | The revision the focused confirmation read |
 | `GATE-A-AMEND-r3-TRACE.md` | Stands for r4 (no disposition changed). One disposition (kept, superseded or replaced) for each of the 113 nonblank lines of `endpoints.md` at `c3b5f37a`, and the status table |
 | `OWNER-QUESTIONS-r3.md` | The owner questions as they read at r3 |
@@ -46,9 +47,12 @@ three-part target recorded on #914, comment 6875548603.
   "question 2 answers itself" in `OWNER-QUESTIONS-r3.md` too strong.
 - r4 applies RC1–RC4 and the owner-questions correction, RC1(c) in modified form
   (`RESPONSE-CONFIRM-r3.md`). No trace disposition changes, and every earlier file is unchanged. Of
-  the confirmation's eight optional suggestions, the two on attribution in the owner-questions
-  file (O6, O7) are applied in `OWNER-QUESTIONS-r4.md` by the coordinator; the other six are not
-  applied. r4 itself has not been reviewed.
+  the confirmation's eight optional suggestions, three are acted on by the coordinator: the
+  unrecorded owner-confirmation sentence of this README is removed (O1), and the two on
+  attribution are applied in `OWNER-QUESTIONS-r4.md` (O6, O7). The other five are not applied.
+- `CONFIRM-r4.md` confirmed r4 at `eb515150`: ACCEPT. `GATE-A-AMEND-r4.md` and
+  `OWNER-QUESTIONS-r4.md` are accepted as the final text of this amendment cycle, with no change
+  to either.
 - The reviews are non-author model reviews, not independent verification.
 
 ## What the amendment states
