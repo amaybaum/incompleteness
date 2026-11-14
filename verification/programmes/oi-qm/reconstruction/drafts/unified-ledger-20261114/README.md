@@ -9,7 +9,8 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `LEDGER-r3.md` | The current draft; applies the review of r2 and the owner's expansion (levels A–C, evidence classes, Part 4 entries, QCD group); unreviewed | `d8cad733813662eed0f59b9a2307f506ea01d7bc4bc9efce30fb2e239b50735e` |
+| `LEDGER-r3.md` | The current draft; applies the review of r2 and the owner's expansion (levels A–C, evidence classes, Part 4 entries, QCD group); reviewed (ACCEPT WITH CHANGES) | `d8cad733813662eed0f59b9a2307f506ea01d7bc4bc9efce30fb2e239b50735e` |
+| `REVIEW-r3.md` | Independent review of r3: ACCEPT WITH CHANGES (six should-fix, eight nits) | `71f6c4213110b5f74eae627a43b509c9b78bb589ad953ed6cd404b6ce8c428dc` |
 | `RESPONSE-r2.md` | Dispositions of the review of r2, and how the expansion was applied | |
 | `REVIEW-r2.md` | Independent review of r2: ACCEPT WITH CHANGES (one should-fix, four nits) | `339a61294dc0d5ff73a1d71dba1960ed270de8939992a7ced8bd4581aa03e3a7` |
 | `LEDGER-r2.md` | Applies the review of r1; reviewed (ACCEPT WITH CHANGES); preserved unchanged | `ecc51e74b266360d17069c3cb9c2c76809aa1b07bb0ef0e698e4897f31bdfdef` |
@@ -20,7 +21,7 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 
 An independent review of r2 returned ACCEPT WITH CHANGES. By owner decision (#914, comments 6877871344 and
 6877908458), r2 and its review are preserved unchanged, and a revision r3 follows only after that
-review. r3 (unreviewed) adds coverage levels A, B and C, an evidence classification for every entry, named
+review. r3 (reviewed: ACCEPT WITH CHANGES, changes not yet applied) adds coverage levels A, B and C, an evidence classification for every entry, named
 Part 4 entries (the arrow of time, the measurement problem, the quantum–classical boundary and the
 Standard Model subquestions, including a QCD group), and a coverage audit of Main, Substratum, SM,
 GR and Structure. r3 and the audit each need independent review before acceptance.
