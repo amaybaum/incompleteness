@@ -1,0 +1,133 @@
+{
+  "schema": "oi-selected-evidence-preservation-v1",
+  "status": "WIP research-branch custody package; not a main landing or scientific verification",
+  "accountable_issue": "https://github.com/amaybaum/incompleteness/issues/1169",
+  "guiding_pr": "https://github.com/amaybaum/incompleteness/pull/1280",
+  "parent_audit_commit": "116d6e9092d9c2c802959c33d68a5b71c37f47a6",
+  "selection_manifest": {
+    "path": "PRESERVATION-MANIFEST.tsv",
+    "git_blob": "cc1127435422f1ab5efa18911637e1ae3c415728",
+    "selection": "Only the four archive members below; other proposed payloads are not included"
+  },
+  "archive": {
+    "path": "evidence/preserved-artifacts.zip",
+    "format": "ZIP_STORED",
+    "bytes": 148006,
+    "sha256": "604013567c9087f97a112ec140f64de91ec33c7d8ecd004c0bd4e9028f385be9",
+    "git_blob": "6e6424bc5523342ec027b94d1234aadd7164520f",
+    "member_count": 4,
+    "member_payload_bytes": 147390,
+    "container_metadata": "fixed 1980-01-01 timestamp, Unix regular-file mode 0644, fixed member order; dates are container metadata, not source dates",
+    "purpose": "verbatim historical evidence data; original member names and bytes are preserved"
+  },
+  "artifacts": [
+    {
+      "id": "R1",
+      "kind": "original focused model review",
+      "member": "review/REVIEW-APPROX-UNIT1.r4a-diff.md",
+      "original_filename": "REVIEW-APPROX-UNIT1.r4a-diff.md",
+      "bytes": 7367,
+      "sha256": "ceeab15fedcfd40e373b4c270df8af3d2d78a0960093727f2fc9878be0f72c49",
+      "redactions_or_edits": "none",
+      "source_status": "historical artifact; scientific claims retain their original evidence limits",
+      "provenance": {
+        "origin": "recovered local original identified in the parent audit; no original GitHub review submission was recovered",
+        "reviewer": "non-author Codex task review_approx_r4",
+        "review_date": "2026-11-09",
+        "recorded_verdict": "ACCEPT at the stated focused scope",
+        "reviewed_commit": "b1a17e01160f7dffde7ba63f7b7f69e8b95c1997",
+        "reviewed_assessment_path": "verification/programmes/oi-qm/approximation/unit1/APPROX-UNIT1.md",
+        "source_pr": "https://github.com/amaybaum/incompleteness/pull/1221",
+        "scope": "r4 to r4a N1-N3 corrections and necessary metadata; not a full scientific review"
+      }
+    },
+    {
+      "id": "R2",
+      "kind": "original final model-review supplement",
+      "member": "review/REVIEW-APPROX-UNIT1.r4a-final.md",
+      "original_filename": "REVIEW-APPROX-UNIT1.r4a-final.md",
+      "bytes": 6160,
+      "sha256": "f17ccc0e2f74f44ce03f41884668478823ce869c3df36623c9b595dfe28df32d",
+      "redactions_or_edits": "none",
+      "source_status": "historical artifact; scientific claims retain their original evidence limits",
+      "provenance": {
+        "origin": "recovered local original identified in the parent audit; no original GitHub review submission was recovered",
+        "reviewer": "non-author Codex task review_approx_r4",
+        "review_date": "2026-11-09",
+        "recorded_verdict": "ACCEPT at the stated focused scope",
+        "reviewed_commit": "e41cf6137be165add39c7e557e97d3dddf110239",
+        "reviewed_assessment_path": "verification/programmes/oi-qm/approximation/unit1/APPROX-UNIT1.md",
+        "source_pr": "https://github.com/amaybaum/incompleteness/pull/1221",
+        "scope": "final publication-metadata child; supplements R1 and records cumulative baseline-to-final acceptance"
+      }
+    },
+    {
+      "id": "M1",
+      "kind": "complete historical Page capture",
+      "member": "evidence/MATRIX-PAGE-SNAPSHOT.json",
+      "original_filename": "MATRIX-PAGE-SNAPSHOT.json",
+      "bytes": 76923,
+      "sha256": "41f1198fbf6d4b2412a2555b1ac7af77eef9b71f2f49c2344bb0adc49c188f9f",
+      "redactions_or_edits": "none",
+      "source_status": "historical artifact; scientific claims retain their original evidence limits",
+      "provenance": {
+        "origin": "complete read-only capture of the named Page",
+        "source_url": "https://chatgpt.com/space/page_9580d355639c81919a21ae4d8af34201",
+        "page_id": "page_9580d355639c81919a21ae4d8af34201",
+        "source_updated_at": "2026-11-10T13:23:20.179160Z",
+        "source_current_sequence": 1,
+        "capture_read_date": "2026-11-13",
+        "canonical_blocks": 84,
+        "projection_recipe": null,
+        "not_an_original_historical_markdown_file": true
+      }
+    },
+    {
+      "id": "M2",
+      "kind": "derived complete Markdown projection",
+      "member": "evidence/MATRIX-PAGE-PROJECTION.md",
+      "original_filename": "MATRIX-PAGE-PROJECTION.md",
+      "bytes": 56940,
+      "sha256": "c68b93555905b543b3c80c6029eb5d6678e0948c7033640d1035de121ce6b9ab",
+      "redactions_or_edits": "none",
+      "source_status": "historical artifact; scientific claims retain their original evidence limits",
+      "provenance": {
+        "origin": "deterministic projection of M1",
+        "source_url": "https://chatgpt.com/space/page_9580d355639c81919a21ae4d8af34201",
+        "page_id": "page_9580d355639c81919a21ae4d8af34201",
+        "source_updated_at": "2026-11-10T13:23:20.179160Z",
+        "source_current_sequence": 1,
+        "capture_read_date": "2026-11-13",
+        "canonical_blocks": 84,
+        "projection_recipe": "join the 84 content.blocks[].markdown strings with two LF characters; append one LF",
+        "not_an_original_historical_markdown_file": true
+      }
+    }
+  ],
+  "policy_at_preparation": {
+    "main_commit": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+    "AGENTS_blob": "8900fe1ff55e45a64732e6751c2601a91367dcfd",
+    "current_A46_applies": true,
+    "proposed_policy_PR": 1283,
+    "proposed_policy_observed_head": "599468a8d35d9f4da4fbf140d2c5178f5c933d7f",
+    "proposal_not_adopted": true,
+    "new_preservation_basis_relied_on": false,
+    "main_landing_basis_or_exception_selected": false
+  },
+  "verification_scope": [
+    "exact member bytes and hashes against the parent selection manifest",
+    "original review copies compared with recovered deliverable originals",
+    "complete 84-block capture and exact projection recipe",
+    "archive round trip and deterministic container identity",
+    "sensitive-data pattern inspection; no detected candidates"
+  ],
+  "scientific_verification": "No new scientific review, model execution, kernel proof or claim promotion",
+  "gaps_kept_open": [
+    "exact frozen-ledger review identity",
+    "OICORE historical-to-published version bridge",
+    "claim-specific off-main support and source-commit ancestry before landing",
+    "main landing basis and separate owner integration/merge decisions"
+  ],
+  "physical_source": "NOT PASSED",
+  "merge_authorization": false
+}

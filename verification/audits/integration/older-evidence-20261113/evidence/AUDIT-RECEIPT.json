@@ -1,0 +1,200 @@
+{
+  "schema": "oi-older-evidence-read-only-audit-v1",
+  "audit_date": "2026-11-13",
+  "main_sha": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+  "agents_blob": "8900fe1ff55e45a64732e6751c2601a91367dcfd",
+  "authority": [
+    "https://github.com/amaybaum/incompleteness/pull/1226#issuecomment-6863602829",
+    "https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6863608722"
+  ],
+  "scope": [
+    1226,
+    1221,
+    1219,
+    1082
+  ],
+  "source_reference_prs_outside_landing_scope": [
+    1214,
+    1270
+  ],
+  "source_reference_scope_note": "Task-scope classification only, not a blanket A.42 provenance-only classification. Claim-specific consumed OICORE/QPHEN content remains support with the existing off-main obligations; no landing authority is granted.",
+  "pr_snapshots": [
+    {
+      "pr": 1226,
+      "url": "https://github.com/amaybaum/incompleteness/pull/1226",
+      "head": "f1a8f1a55ff0da200edc6908f64f00f684911109",
+      "head_branch": "research/a5-reassessment-r5-1049-20261110",
+      "draft": true,
+      "state": "open",
+      "merged": false,
+      "host_mergeable": true,
+      "host_mergeable_state": "behind",
+      "historical_base": "cac5d26441dd33e9348151487e4df7b547195481",
+      "compare_to_pinned_main": {
+        "status": "diverged",
+        "ahead_by": 5,
+        "behind_by": 225
+      },
+      "merge_base_sha": "cac5d26441dd33e9348151487e4df7b547195481",
+      "changed_file_count": 3,
+      "whole_path_or_blob_overlap_with_current_main": false,
+      "workflow_runs": [
+        {
+          "id": 42822329052,
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/42822329052",
+          "head_sha": "f1a8f1a55ff0da200edc6908f64f00f684911109",
+          "run_attempt": 1,
+          "status": "completed",
+          "conclusion": "success",
+          "event": "pull_request",
+          "updated_at": "2026-11-10T13:17:07Z"
+        }
+      ],
+      "checks_count": 27,
+      "attempt1_jobs_count": 27,
+      "attempt1_conclusions": {
+        "success": 26,
+        "skipped": 1
+      },
+      "legacy_status_state": "pending",
+      "legacy_status_count": 0
+    },
+    {
+      "pr": 1221,
+      "url": "https://github.com/amaybaum/incompleteness/pull/1221",
+      "head": "e41cf6137be165add39c7e557e97d3dddf110239",
+      "head_branch": "research/approx-unit1-r4a-1216-20261109",
+      "draft": true,
+      "state": "open",
+      "merged": false,
+      "host_mergeable": true,
+      "host_mergeable_state": "behind",
+      "historical_base": "cac5d26441dd33e9348151487e4df7b547195481",
+      "compare_to_pinned_main": {
+        "status": "diverged",
+        "ahead_by": 4,
+        "behind_by": 225
+      },
+      "merge_base_sha": "cac5d26441dd33e9348151487e4df7b547195481",
+      "changed_file_count": 4,
+      "whole_path_or_blob_overlap_with_current_main": false,
+      "workflow_runs": [
+        {
+          "id": 42662313573,
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/42662313573",
+          "head_sha": "e41cf6137be165add39c7e557e97d3dddf110239",
+          "run_attempt": 1,
+          "status": "completed",
+          "conclusion": "success",
+          "event": "pull_request",
+          "updated_at": "2026-11-09T17:19:34Z"
+        }
+      ],
+      "checks_count": 27,
+      "attempt1_jobs_count": 27,
+      "attempt1_conclusions": {
+        "success": 26,
+        "skipped": 1
+      },
+      "legacy_status_state": "pending",
+      "legacy_status_count": 0
+    },
+    {
+      "pr": 1219,
+      "url": "https://github.com/amaybaum/incompleteness/pull/1219",
+      "head": "4c7f3f86191847592de18de55b364cc8cf591bb3",
+      "head_branch": "research/qphen-phase1-frozen-20261109",
+      "draft": true,
+      "state": "open",
+      "merged": false,
+      "host_mergeable": true,
+      "host_mergeable_state": "behind",
+      "historical_base": "cac5d26441dd33e9348151487e4df7b547195481",
+      "compare_to_pinned_main": {
+        "status": "diverged",
+        "ahead_by": 1,
+        "behind_by": 225
+      },
+      "merge_base_sha": "cac5d26441dd33e9348151487e4df7b547195481",
+      "changed_file_count": 48,
+      "whole_path_or_blob_overlap_with_current_main": false,
+      "workflow_runs": [
+        {
+          "id": 42640786616,
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/42640786616",
+          "head_sha": "4c7f3f86191847592de18de55b364cc8cf591bb3",
+          "run_attempt": 1,
+          "status": "completed",
+          "conclusion": "success",
+          "event": "pull_request",
+          "updated_at": "2026-11-09T15:10:12Z"
+        }
+      ],
+      "checks_count": 27,
+      "attempt1_jobs_count": 27,
+      "attempt1_conclusions": {
+        "success": 26,
+        "skipped": 1
+      },
+      "legacy_status_state": "pending",
+      "legacy_status_count": 0
+    },
+    {
+      "pr": 1082,
+      "url": "https://github.com/amaybaum/incompleteness/pull/1082",
+      "head": "29430f7b43a824c5d6f58c1233032c6d16861d79",
+      "head_branch": "research/born-sel-b-measure-20261104",
+      "draft": true,
+      "state": "open",
+      "merged": false,
+      "host_mergeable": true,
+      "host_mergeable_state": "behind",
+      "historical_base": "1609dc440f5a12d05b750f6d894bb91d09a099a3",
+      "compare_to_pinned_main": {
+        "status": "diverged",
+        "ahead_by": 21,
+        "behind_by": 998
+      },
+      "merge_base_sha": "1609dc440f5a12d05b750f6d894bb91d09a099a3",
+      "changed_file_count": 7,
+      "whole_path_or_blob_overlap_with_current_main": false,
+      "workflow_runs": [
+        {
+          "id": 42407065158,
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/42407065158",
+          "head_sha": "29430f7b43a824c5d6f58c1233032c6d16861d79",
+          "run_attempt": 1,
+          "status": "completed",
+          "conclusion": "success",
+          "event": "pull_request",
+          "updated_at": "2026-11-07T19:44:21Z"
+        }
+      ],
+      "checks_count": 26,
+      "attempt1_jobs_count": 26,
+      "attempt1_conclusions": {
+        "success": 25,
+        "skipped": 1
+      },
+      "legacy_status_state": "pending",
+      "legacy_status_count": 0
+    }
+  ],
+  "source_copies": 116,
+  "matrix_snapshot_sha256": "41f1198fbf6d4b2412a2555b1ac7af77eef9b71f2f49c2344bb0adc49c188f9f",
+  "matrix_projection_sha256": "c68b93555905b543b3c80c6029eb5d6678e0948c7033640d1035de121ce6b9ab",
+  "matrix_blocks": 84,
+  "scientific_execution": false,
+  "remote_mutations_by_writer": false,
+  "limitations": [
+    "Pinned current-main audit, not future-main compatibility",
+    "No scientific computation, Lean, tests or workflow execution",
+    "All findings research [R]; no established-physics promotion",
+    "A separate full predecessor packet and original 25-unit enumeration unavailable in inspected sources",
+    "Original frozen DISPOSITIONS-r7c 856fa... unavailable; owner froze d3adc...",
+    "OICORE original 9b82... and ec796... not recovered here; documentary independent bridge exists",
+    "#1221 focused review originals recovered locally and verified, absent from existing PR files/comments/review submissions",
+    "Off-main support remains off main until applicable owner/reviewed retention disposition",
+    "Issue-history queries are time-bounded; no global absence claims"
+  ]
+}

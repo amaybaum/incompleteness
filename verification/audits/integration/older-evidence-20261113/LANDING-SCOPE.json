@@ -1,0 +1,110 @@
+{
+  "schema": "oi-1280-selected-landing-scope-proposal-v1",
+  "status": "scope proposal only; not selected by owner, not a merge-ready package",
+  "accountable_issue": 1169,
+  "source_head": "584c757b949de7dc017373fa5e1d1f540e740a7c",
+  "policy_main": "dfeec843bec08443b25cffe34d33dc8401c3b604",
+  "proposed_landing_files": [
+    {
+      "path": "verification/audits/integration/older-evidence-20261113/evidence/preserved-artifacts.zip",
+      "action": "retain byte-identically",
+      "git_blob": "6e6424bc5523342ec027b94d1234aadd7164520f",
+      "sha256": "604013567c9087f97a112ec140f64de91ec33c7d8ecd004c0bd4e9028f385be9",
+      "bytes": 148006
+    },
+    {
+      "path": "verification/audits/integration/older-evidence-20261113/PRESERVED-ARTIFACTS.json",
+      "action": "documentary child: keep original member identities; point selection to four-row manifest; separate source-date metadata from current landing status"
+    },
+    {
+      "path": "verification/audits/integration/older-evidence-20261113/PRESERVATION-STATUS.md",
+      "action": "documentary child: current operative policy, completed custody reviews, bounded retained claims and named open discrepancies"
+    },
+    {
+      "path": "verification/audits/integration/older-evidence-20261113/SELECTED-ARTIFACTS.tsv",
+      "action": "new four-row selection manifest for R1/R2/M1/M2; no implicit selection of other 97 proposed rows"
+    },
+    {
+      "path": "verification/audits/integration/older-evidence-20261113/RETENTION-TRACE.md",
+      "action": "new claim-by-claim trace of selected custody/history assertions and remaining consumed-support gaps; not a blanket historical exemption"
+    },
+    {
+      "path": "verification/audits/integration/older-evidence-20261113/reviews/CUSTODY-REVIEWS.json",
+      "action": "new selected primary fields and verbatim body strings of custody reviews 5902077541 and 5902527446, with attribution, exact subject and digest"
+    }
+  ],
+  "retained_archive_members": [
+    {
+      "id": "R1",
+      "member": "review/REVIEW-APPROX-UNIT1.r4a-diff.md",
+      "bytes": 7367,
+      "sha256": "ceeab15fedcfd40e373b4c270df8af3d2d78a0960093727f2fc9878be0f72c49"
+    },
+    {
+      "id": "R2",
+      "member": "review/REVIEW-APPROX-UNIT1.r4a-final.md",
+      "bytes": 6160,
+      "sha256": "f17ccc0e2f74f44ce03f41884668478823ce869c3df36623c9b595dfe28df32d"
+    },
+    {
+      "id": "M1",
+      "member": "evidence/MATRIX-PAGE-SNAPSHOT.json",
+      "bytes": 76923,
+      "sha256": "41f1198fbf6d4b2412a2555b1ac7af77eef9b71f2f49c2344bb0adc49c188f9f"
+    },
+    {
+      "id": "M2",
+      "member": "evidence/MATRIX-PAGE-PROJECTION.md",
+      "bytes": 56940,
+      "sha256": "c68b93555905b543b3c80c6029eb5d6678e0948c7033640d1035de121ce6b9ab"
+    }
+  ],
+  "parent_audit_paths_not_automatically_selected": [
+    "verification/audits/integration/older-evidence-20261113/BORN-SEL-UNITS.md",
+    "verification/audits/integration/older-evidence-20261113/DECISION-PACKET.md",
+    "verification/audits/integration/older-evidence-20261113/PRESERVATION-MANIFEST.tsv",
+    "verification/audits/integration/older-evidence-20261113/PROVENANCE-RECEIPTS.md",
+    "verification/audits/integration/older-evidence-20261113/REVIEW-BRIEF.md",
+    "verification/audits/integration/older-evidence-20261113/SOURCE-MANIFEST.tsv",
+    "verification/audits/integration/older-evidence-20261113/SUPPORT-INVENTORY.tsv",
+    "verification/audits/integration/older-evidence-20261113/evidence/AUDIT-RECEIPT.json"
+  ],
+  "open_discrepancies": [
+    {
+      "id": "L1",
+      "home": 1210,
+      "actual_ledger": {
+        "commit": "4c7f3f86191847592de18de55b364cc8cf591bb3",
+        "path": "verification/programmes/oi-qm/reconstruction/qphen-phase1-20261109/DISPOSITIONS-r7c.md",
+        "git_blob": "54a0b1d28499188ec406d35ab00bd81b090a44c5",
+        "sha256": "d3adc82369b45c0a5fcb43cacf33a823a937984c2ee7f07d1028bd56f4c88045"
+      },
+      "historical_reviewed_sha256": "856fa01d7010855a2f6dad75ce41b5c4adbf81d6f8d917b2cd20314253c1b0ba",
+      "fresh_actual_byte_review": 5903131037,
+      "disposition": "Record fresh documentary review separately; historical reviewed bytes remain unrecovered, not substituted or reconstructed"
+    },
+    {
+      "id": "O1",
+      "home": 1169,
+      "source_pr": 1214,
+      "published": {
+        "commit": "7722612883f5fc694f3e4dafae84f00f4407073d",
+        "path": "verification/programmes/oi-qm/reconstruction/oicore-1-20261108/OICORE-1.md",
+        "git_blob": "831889526d81e5678660fb69a7be4873f02baca8",
+        "sha256": "a30d8d7969920334a0ad569ec85a47d6d417bb69674e3c81a272d861cba7371a"
+      },
+      "historical_sha256": [
+        "9b82ecc25dbf7ce4bfd5e40ed313d22af45a4bd175a31ff48b06955a5bda5970",
+        "ec7966c955a17043c85f85be3f2bbe178049ed3a0f4286e0b61e3bd1c4aa078b"
+      ],
+      "bridge_receipt": 6740618570,
+      "owner_dependency_restriction": 6742190639,
+      "disposition": "No transfer of historical acceptance; exact old-to-published bridge and consumed support remain open"
+    }
+  ],
+  "current_payload_mutated": false,
+  "merge_authorized": false,
+  "blanket_exception": false,
+  "source_discrepancies_are_dependencies_of_1278_or_1281": false,
+  "physical_source": "NOT PASSED"
+}
