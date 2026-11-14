@@ -299,15 +299,16 @@ RS/ANALYSIS.md:28–30 from the finite-depth theorem."
 HYH = −Y), has determinant +1 and permutes the six axis points; spanning forces |Ω_enc| ≤ d² by
 linearity (RV:66–67; R3:59).
 
-**Scope of the copied passages.** The Finding and the Argument's closing paragraph above are copied
-without change. They are supported for the frames they name: on the octahedral and Husimi frames
-non-diagonal-preserving unitaries have nonnegative frame representatives (S2c, S2). They do not
-state that the test fails to separate on every non-spanning frame: the tetrahedral frame extended
-by a point of probability zero does not span, and every frame representative of the Hadamard on it
-has the entry −1/2 (`CHANGES.md` Δ30, Δ31). Nor does T3 give exclusion on spanning frames: it gives
-uniqueness of the frame matrix, and the cyclic rotation `(x,y,z) ↦ (y,z,x)` permutes the
-tetrahedral points, so it passes the test although it is not diagonal-preserving
-(`review/NOTES-STATUS.md`, r3).
+**Scope of the copied passages.** The Finding, the Argument's sentence on X5 and the Argument's
+closing paragraph above are copied without change. The non-separation they state is shown for the
+frames they name: on the octahedral and Husimi frames non-diagonal-preserving unitaries have
+nonnegative frame representatives (S2c, S2). It does not hold on every non-spanning frame: the
+tetrahedral frame extended by a point of probability zero does not span, and every frame
+representative of the Hadamard on it has the entry −1/2 (`review/NOTES-STATUS.md`, r2, finding 1;
+`CHANGES.md` Δ30), so X5 is not confined to spanning frames. Nor does spanning make the test
+exclude every non-diagonal-preserving unitary: T3 gives uniqueness of the frame matrix, and the
+cyclic rotation `(x,y,z) ↦ (y,z,x)` permutes the tetrahedral points, so it passes the test
+although it is not diagonal-preserving (`review/NOTES-STATUS.md`, r3).
 
 **Hand checks for the [X] tags of this subsection (this record; paper arithmetic, no script run).**
 - *S2c, octahedral frame.* The six values (1 + r·n_k)/6 recover r, so L is injective; they satisfy

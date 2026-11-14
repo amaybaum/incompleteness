@@ -1,8 +1,9 @@
 # Status note: the option-(c) carried results of INTERVENE-1 and SUBSTATE-BRIDGE-1
 
-This note gives the standing of the records in this directory. It does not change `NEW-RESULTS.md`,
-`DEPENDENCIES.md`, `PROVENANCE.md`, `CHANGES.md` or any file in `review/`; their texts at
-`d015131d6aad4ab09f80a7a78eb123384430186d` are the accepted texts.
+This note gives the standing of the records in this directory. `DEPENDENCIES.md`, `PROVENANCE.md`
+and the files in `review/` present at `d015131d6aad4ab09f80a7a78eb123384430186d` are unchanged
+from that commit. `NEW-RESULTS.md` and `CHANGES.md` differ from it only by `CHANGES.md` Δ30 and
+Δ31 (owner decisions #1274 c.6865575359 and #1169 c.6872005186).
 
 ## Accepted record and reviews
 
@@ -17,6 +18,13 @@ This note gives the standing of the records in this directory. It does not chang
 
   The four files were last changed at `4b40dcdcb448815a7eb3aaee1c77a2317284f850` and are unchanged
   at `d015131d`. The record pins `main` at `c3b5f37a354bb26437e2e0165c576a347a63c153`.
+
+  The two files changed by Δ30 and Δ31 are, at the head that carries them:
+
+  | File | Blob | SHA-256 | Lines |
+  |---|---|---|---|
+  | `NEW-RESULTS.md` | `b0e930ab5792eb8173e74e3feb18b9262b651109` | `e26cef1cf8d99bdc39ffe3de3a6d663ed8c54af69de2afc98c935e839e4ba943` | 641 |
+  | `CHANGES.md` | `220c189b0426316f8ce23c2a25e439a0d7d5714a` | `dcd0e1470b34f68195ffe50ef2f5610b4fdbba36154423c92ae963dd1dfb77b1` | 74 |
 - **Review trail of this package (PR #1274).**
   - `review/REVIEW-r1.md` (blob `67e455ec`, committed at `3f56d543a0f15778c206e76cf82d1281ed02ef1f`):
     exact-head review of `1ef60d92d3484ae030bd186424066b579fd6a67c`, ACCEPT WITH CHANGES; findings
@@ -27,6 +35,13 @@ This note gives the standing of the records in this directory. It does not chang
     `4b40dcdc`, ACCEPT, with one optional nit (`DEPENDENCIES.md`:18), which is not applied.
   - ChatGPT review 5895564670 (posted under `amaybaum`, 2026-11-13T17:44:35Z) at the exact head
     `d015131d`: "ACCEPT as a scoped research-evidence package, with separate integration gates."
+  - `review/CONFIRM-STATUS.md` (committed at `f17020af`), `review/RESPONSE-STATUS.md` (`4cb2618d`),
+    `review/CONFIRM-STATUS-r2.md` (`040d929e`), `review/RESPONSE-CORR322.md` (`0b68c9e1`) and
+    `review/CONFIRM-CORR322.md` (blob `9375d5e6`, committed at `bb80e420`; the check of `040d929e`
+    that the r3 response answers): focused checks of `STATUS.md` and of Δ30, with the writer's
+    responses and hand checks in `review/NOTES-STATUS.md`.
+  - ChatGPT review 5900794367 (posted under `amaybaum`, 2026-11-14T02:17:05Z) at `0b68c9e1`: REVISE,
+    for the scope line that Δ31 adds.
   - The reviews of the drafts and of the reconciliation (#1271) are listed in `PROVENANCE.md` §2–§3.
 - **Nature of the reviews.** All are model-written. REVIEW-r1 and CONFIRM-r2 are exact-head reviews
   separate from the writer pass; review 5895564670 is a model review posted under the owner's
@@ -108,7 +123,7 @@ mechanism or OI↔QM result; the #1230 and #1232 drafts themselves.
 ## Verification status (§A.46 item 4)
 
 No result in the record is independently verified. No carried statement is known to be invalid at
-the scope of its witnesses; see the scope line on `NEW-RESULTS.md`:332–335 and `CHANGES.md` Δ30.
+the scope of its witnesses; see `NEW-RESULTS.md`:302–311 and :333–336 and `CHANGES.md` Δ30 and Δ31.
 `review/REVIEW-r1.md` and `review/CONFIRM-r2.md` report no mathematical error in a carried statement
 or proof. N1–N4 and SLL are open.
 Whether hand checks in model-written reviews make a result partially verified in §A.46 item 4's
@@ -120,24 +135,24 @@ standard mathematics; [K] items are Lean statements on `main`, read and not rebu
 |---|---|---|---|---|
 | 1 | T5(c) | not independently verified; conditional on (T5a), (T5b) (gap A1) | RV:47–62; `review/REVIEW-r1.md` against the Lean source | kernel target (I:294) or independent non-model review |
 | 2 | E1 | not independently verified | hand check in `NEW-RESULTS.md`:215–224; CONFIRM-r2 §3 | kernel target (S:347) or independent non-model review |
-| 3.1 | G1 | not independently verified | RV:66–67; hand checks in `NEW-RESULTS.md`:298–316 | independent non-model review |
-| 3.2 | E2 | not independently verified | item 4: RV:64–65; S3 and Husimi bound: `NEW-RESULTS.md`:358–365 | item 4 a kernel target (S:347); independent non-model review |
+| 3.1 | G1 | not independently verified | RV:66–67; hand checks in `NEW-RESULTS.md`:298–300 and :313–327 | independent non-model review |
+| 3.2 | E2 | not independently verified | item 4: RV:64–65; S3 and Husimi bound: `NEW-RESULTS.md`:372–379 | item 4 a kernel target (S:347); independent non-model review |
 | 4.1 | L1 | not independently verified | RV:70–71 | kernel target (S:347) or independent non-model review |
 | 4.2 | L4 | not independently verified | RV:70–71 | independent non-model review |
-| 5 | A/B/C, N1–N4, SLL | classification not independently verified; N1–N4 and SLL open; N2 and SLL's exclusion consequence conditional (gaps D2, D3, E2) | S4 arithmetic: `NEW-RESULTS.md`:497–500; consistency with Main:362, :412, :414 (R3:68) | independent non-model review; the gaps below |
-| 6 | (NS_A), (PAD), S7 | not independently verified | S7 arithmetic: `NEW-RESULTS.md`:591–595 | independent non-model review |
+| 5 | A/B/C, N1–N4, SLL | classification not independently verified; N1–N4 and SLL open; N2 and SLL's exclusion consequence conditional (gaps D2, D3, E2) | S4 arithmetic: `NEW-RESULTS.md`:511–514; consistency with Main:362, :412, :414 (R3:68) | independent non-model review; the gaps below |
+| 6 | (NS_A), (PAD), S7 | not independently verified | S7 arithmetic: `NEW-RESULTS.md`:605–609 | independent non-model review |
 
 "I:n", "S:n", "R3:n" and "RV:n" are the line conventions of `NEW-RESULTS.md` ("Pins"). RV is the
 reconciliation's `REVIEW-r1.md` at `703ae20e` (#1271), off `main`; it is provenance
 (`DEPENDENCIES.md` row I).
 
-**Scope of `NEW-RESULTS.md`:332–335.** The sentence states that without spanning the test need not
+**Scope of `NEW-RESULTS.md`:333–336.** The sentence states that without spanning the test need not
 separate, as on the octahedral and Husimi frames (S2c, S2). Non-separation does not hold for every
 non-spanning frame: the tetrahedral frame extended by a point of probability zero is non-spanning,
 and every frame representative of the Hadamard on it has the entry −1/2 (`CHANGES.md` Δ30; owner
-decision #1274 c.6865575359). The copied Finding and Argument of §3.1 carry the same scope, stated
-in the scope line at `NEW-RESULTS.md`:302–310 (`CHANGES.md` Δ31; owner decision 2026-11-14, #1169
-c.6872005186).
+decision #1274 c.6865575359). The copied Finding, X5 sentence and closing paragraph of §3.1 carry
+the same scope, stated in the scope line at `NEW-RESULTS.md`:302–311 (`CHANGES.md` Δ31; owner
+decision 2026-11-14, #1169 c.6872005186).
 
 **Remediation, one line per gap** (`DEPENDENCIES.md` rows A1, D2, D3, E2):
 
@@ -161,9 +176,9 @@ item 8. The references this note adds:
 
 | Reference | Classification |
 | --- | --- |
-| Commits `bac44eeb8562afe12142124c2df6a5192c3c5c67`, `1ef60d92`, `3f56d543`, `4b40dcdc` and `d015131d` on this PR's branch, named in the reviews and in review 5895564670 | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
-| #1169 comments 6854728636, 6855167580, 6863414487, 6865177667; #1274 comment 6863419164; #1265 comment 6846206075 | Governance provenance, quoted above and under "Landing". |
-| ChatGPT review 5895564670 | Provenance: its integration requirements are quoted below; no claim rests on it. |
+| Commits `bac44eeb8562afe12142124c2df6a5192c3c5c67`, `1ef60d92`, `3f56d543`, `4b40dcdc` and `d015131d`, and `f4c300bc` to `bb80e420` and their successors carrying Δ30 and Δ31, on this PR's branch, named in the reviews, in reviews 5895564670 and 5900794367 and in Δ30 and Δ31 | Support on `main` once this PR lands by merge commit, which keeps them ancestors of `main`. |
+| #1169 comments 6854728636, 6855167580, 6863414487, 6865177667; #1274 comments 6863419164 and 6865575359; #1169 comment 6872005186; #1265 comment 6846206075 | Governance provenance, quoted above and under "Landing". |
+| ChatGPT reviews 5895564670 and 5900794367 | Provenance: the first's integration requirements are quoted below, and the second required the scope line of Δ31; no claim rests on either. |
 | Integration assessment r2, `verification/audits/integration/integration-assess-20261113/INTEGRATION-ASSESS-r2.md` on `research/integration-assess-20261113` at `c7ce4f2852cb90883b7a7c8ed645ba09db19f7ca` (#1279), with its `REVIEW-r1.md` and `CONFIRM-r2.md` | Provenance: it specifies the contents of this note; no claim rests on it. |
 | #1221, #1231, #1232 in the remediation table | Provenance: remediation routes; no claim rests on them. |
 
