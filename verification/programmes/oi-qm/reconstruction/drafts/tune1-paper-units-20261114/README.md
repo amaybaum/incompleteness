@@ -61,7 +61,7 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
 | File | What it is |
 | --- | --- |
 | `SUMMARY-r3.md` | Plain-language summary of r3 |
-| `L54-r5.md`, `SUMMARY-r5.md` | The current text and its summary |
+| `L54-r5.md`, `SUMMARY-r5.md` | The final text of the correction cycle and its summary |
 | `L54-r3.md` | The revision before the independent check's corrections |
 | `L54-r2.md` | The revision the confirmation review read |
 | `L54-r1.md` | The first draft, which the review read |
@@ -74,6 +74,7 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
 | `RESPONSE-CHECK.md` | One row per correction: source passage, change made in r4, corrected scope |
 | `CONFIRM-r4.md` | Exact-head confirmation of r4 at `de22ceab`: ACCEPT WITH CHANGES (one medium, eight low findings) |
 | `RESPONSE-CONFIRM-r4.md` | Dispositions of the r4 confirmation's findings, including the response-table corrections it asked for |
+| `CONFIRM-r5.md` | Focused confirmation of r5 at `f4a54a20`: ACCEPT WITH CHANGES (one README count) |
 
 **Review status, exactly.**
 
@@ -121,11 +122,19 @@ marked "one author, one independent check" and the checker's own additions "one 
 checked"; none enters the proof of Theorem 1. `CONFIRM-r4.md` confirmed r4 at
 `de22ceab` with changes: Theorem 1, its proof and its constants are untouched and the eight
 corrections are faithful; one medium finding (a narrowed hypothesis of the rule-free lemma) and
-eight low findings. `L54-r5.md` applies the seven that concern the text (F1–F7, F9),
-restoring the rule-free lemma's hypothesis to "both cross tests"; the eighth concerns this README
-and is applied here. r4, `RESPONSE-CHECK.md` and all earlier files are unchanged; the corrections the
-confirmation asked for in `RESPONSE-CHECK.md` are recorded in `RESPONSE-CONFIRM-r4.md`. r5 is
-itself unreviewed.
+eight low findings. `L54-r5.md` applies the eight that concern the text (F1–F7, F9),
+restoring the rule-free lemma's hypothesis to both cross tests; the ninth, F8, concerns this
+README and is applied here, with the r4 row left as it was and a new row naming r5 as the current
+text. r4, `RESPONSE-CHECK.md` and all earlier files are unchanged; the corrections the
+confirmation asked for in `RESPONSE-CHECK.md` are recorded in `RESPONSE-CONFIRM-r4.md`.
+
+`CONFIRM-r5.md`, a focused non-author confirmation of r5 at `f4a54a20`, found that r5 implements
+those findings, including the rule-free lemma's hypotheses, that every earlier file is unchanged,
+and that r5 adds no claim and changes nothing in Theorem 1, the scoped verdict or the statuses. Its
+one required change was to this README's count of findings and is applied here; its five optional
+suggestions are recorded there and not applied. **`L54-r5.md` with `SUMMARY-r5.md` is the final text
+of this correction cycle.** It remains a model-reviewed paper derivation: no review here is
+independent verification of the mathematics.
 
 ## Names used in the files
 
