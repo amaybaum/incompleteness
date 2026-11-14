@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `S3-PLAN-r3.md` | S3 plan r3: applies the focused review of r2 (decisive test with the marker's preparation and an undecided outcome; U2 no longer classifies the closure rules) and three owner-confirmed additions (recording and renewal tested together as a hypothesis; coverage and soundness on one interface as a hard acceptance criterion; the which-path route kept open); plan for owner decision; unreviewed | `1213c3568ddf3b9c1c800f4f7d36b6da9bb44f2bd57db2099e26a0bdb9d8034b` |
+| `S3-PLAN-r3.md` | S3 plan r3: applies the focused review of r2 (decisive test with the marker's preparation and an undecided outcome; U2 no longer classifies the closure rules) and three owner-confirmed additions (recording and renewal tested together as a hypothesis; coverage and soundness on one interface as a hard acceptance criterion; the which-path route kept open); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `1213c3568ddf3b9c1c800f4f7d36b6da9bb44f2bd57db2099e26a0bdb9d8034b` |
 | `RESPONSE-S3-PLAN-r2.md` | Dispositions of that review and the owner additions | |
 | `S3-PLAN-r2.md` | S3 plan r2: applies the independent review of r1 (route M kept open with a decisive test; negative controls beyond those on record need separate authorization; U2 and U3 narrowed to avoid overlap with #866, #913 and #914); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `5be454bf2555b8c3269716ebd78685be024e85334021ddc0b12a61610e09e474` |
 | `RESPONSE-S3-PLAN-r1.md` | Dispositions of that review | |
@@ -38,3 +38,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-DEPS-r4.md` | Focused confirmation of RO1-DEPS-r4 at `dab18525`: ACCEPT (C1 and C2 resolved; two optional nits) | `8622bd2962a2b4663caba48b9f7c76ab206c11b7993acdcc8a50757711b8dd07` |
 | `REVIEW-S3-PLAN-r1.md` | Independent review of S3-PLAN-r1 at `38b5a460`: REVISE (route M closed prematurely; negative controls need unauthorized construction; U2 and U3 overlap existing work) | `6e33a05e3fabd3e9ff2daeff35d4b7e9db1dedd6e79467ac04d797363805ba2c` |
 | `REVIEW-S3-PLAN-r2.md` | Focused review of S3-PLAN-r2 at `413af128`: ACCEPT WITH CHANGES (R1: the decisive test needs the marker's preparation and a third, undecided outcome; R2: U2 still overlaps access-closure work) | `3cafd38fc3fdadd0240ad275d2b8ce8cd0378b3db6687d22394766fcecde8291` |
+| `REVIEW-S3-PLAN-r3.md` | Focused confirmation of S3-PLAN-r3 at `9c65c22e`: ACCEPT WITH CHANGES (R3: AC-1's per-unit wording conflicts with H-RR's refutation route; R4: a claim at l. 500 rests on the open OB-b0) | `498c58c1e71d895a43b27851b0adc2d9c6d88498f607eb566d958dda852e16bf` |
