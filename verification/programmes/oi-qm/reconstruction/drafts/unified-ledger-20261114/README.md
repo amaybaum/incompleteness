@@ -10,6 +10,8 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 | File | What it is | SHA-256 |
 | --- | --- | --- |
 | `LEDGER-r3.md` | The current draft; applies the review of r2 and the owner's expansion (levels A–C, evidence classes, Part 4 entries, QCD group); reviewed (ACCEPT WITH CHANGES) | `d8cad733813662eed0f59b9a2307f506ea01d7bc4bc9efce30fb2e239b50735e` |
+| `COVERAGE-AUDIT-r2.md` | Coverage audit r2: applies the audit review and the owner's guidance on coverage boundary, counting and contradiction classes; unreviewed | `10d6b4efe51b9d4c81f7acd77cce6f3772ccc4cf2b5d9096d4f3b9baa52050d9` |
+| `RESPONSE-AUDIT-r1.md` | Dispositions of the audit review | |
 | `COVERAGE-AUDIT-r1.md` | Coverage audit of Main, Substratum, SM, GR and Structure against r3, with book chapters 18–19 as controls; reviewed (ACCEPT WITH CHANGES) | `a029fc76510279882f076cf04262411adbe6ae034c1140113e3a639a6f1c1489` |
 | `REVIEW-AUDIT-r1.md` | Independent review of the coverage audit: ACCEPT WITH CHANGES | `0bf8b8c391840b6a31c5fced7b7a8e4330bc8c3bc8a5094cd416325628be0293` |
 | `REVIEW-r3.md` | Independent review of r3: ACCEPT WITH CHANGES (six should-fix, eight nits) | `71f6c4213110b5f74eae627a43b509c9b78bb589ad953ed6cd404b6ce8c428dc` |
