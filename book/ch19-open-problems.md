@@ -17,7 +17,7 @@ The chapter functions as a systematic reference resource. Readers wanting to und
 
 A note on tone. The inventory is honest about the framework's actual content. Where the framework resolves a problem, the inventory states the resolution and provides the cross-reference; where the framework only partially addresses a problem, the inventory marks the partial status and identifies what remains open; where the framework does not address a problem at all, the inventory acknowledges this rather than overstating the framework's reach. The closing summary table makes the distribution of statuses explicit.
 
-## 19.2 Problems resolved
+## 19.2 Resolutions and partial treatments
 
 This section develops the framework's claimed resolutions, dissolutions, and conditional constructions, with quantum gravity as a partially addressed entry, the black hole information paradox as an unresolved entry whose information conservation is a premise and whose Page curve is conditional, and the Born-rule origin and the strong CP problem alongside them as split-status entries. Gauge-group origin and generation structure are explicitly conditional on the carrier bridge rather than counted as closed results.
 
