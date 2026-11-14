@@ -7,7 +7,9 @@ the Gate A contract, no CI dispatch and no merge.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `STATUS-r5.md` | The current draft; names #1291 as the accountable Issue for one obligation; reviewed (ACCEPT WITH CHANGES), changes not yet applied | `082749cdb745c3b1bb9e5697a6f3a98ab489d7fe9d8bf5be7fe1af1a5a6a0f93` |
+| `STATUS-r6.md` | The current draft; applies the focused review of r5 and names #1060 (BELL-QSET) as the accountable Issue; unreviewed | `e3c756b1432d2ee83c07fcdb17bbb500dce9bd1e698ee980765a0976f4606d0b` |
+| `RESPONSE-STATUS-r6.md` | Dispositions of the focused review of r5, and the #1060 change | |
+| `STATUS-r5.md` | Names #1291 as the accountable Issue for one obligation; reviewed (ACCEPT WITH CHANGES) | `082749cdb745c3b1bb9e5697a6f3a98ab489d7fe9d8bf5be7fe1af1a5a6a0f93` |
 | `RESPONSE-STATUS-r5.md` | What r5 changes from r4, and why | |
 | `CONFIRM-STATUS-r5.md` | Focused review of r5 at `f6698a9a`: ACCEPT WITH CHANGES (one medium, eight low); the medium finding was in this README and is applied here | |
 | `STATUS-r4.md` | The draft r5 revises; applies the focused review of r3; unreviewed | `c55797bd19c6aea3b1540469f7ef9800b76f6d7ef716900730e8d06e87ba8725` |
@@ -32,4 +34,6 @@ quantum set beyond the Tsirelson bound) has no accountable Issue. That obligatio
 unchanged. r4 is unreviewed. The owner's acceptance condition (#1291) names r4 and
 requires confirmation of its corrections, a focused review returning ACCEPT on its exact head, and
 passing CI; whether it applies to r5 is an open owner question (r5 §6 item 4). A focused review of
-r5 at `f6698a9a` returned ACCEPT WITH CHANGES; its changes are not yet applied to r5.
+r5 at `f6698a9a` returned ACCEPT WITH CHANGES. The owner then approved moving that obligation
+into #1060 as BELL-QSET, and #1291 was closed as a duplicate of #1060; r6 applies the review's
+findings and names #1060. r6 is unreviewed.
