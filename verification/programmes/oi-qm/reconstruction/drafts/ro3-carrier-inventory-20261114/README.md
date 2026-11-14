@@ -14,3 +14,4 @@ establishes no result, adopts no premise, and changes no planning entry; EXACT (
 | `RESPONSE-r1.md` | Dispositions of that review | |
 | `RO3-INVENTORY-r1.md` | Inventory over finite carriers, growing finite stages and infinite completions; reviewed (ACCEPT WITH CHANGES) | `7bb64895b2e29cd1025392b973f7348ad8cd5e630809e2f2ebca1088e60f55f9` |
 | `REVIEW-r1.md` | Independent review of r1 at `0d6d8812`: ACCEPT WITH CHANGES (three major, several medium findings) | `657fb377212d3f49dbaab81f77f81fb6d27fcfecff74dd7280fc8553698b256a` |
+| `REVIEW-OBL-r1.md` | Independent review of OBL-RO3-2-r1 and RO3-INVENTORY-r3 at `76ca4c3d`: ACCEPT WITH CHANGES (one required, eight minor) | `5cad69e3b991d35230ea2a6a1b8b9bea31d22202336c9d3e3eb8c9a2a8c24885` |
