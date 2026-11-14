@@ -62,3 +62,15 @@ review. r3 (reviewed: ACCEPT WITH CHANGES, changes not yet applied) adds coverag
 Part 4 entries (the arrow of time, the measurement problem, the quantum–classical boundary and the
 Standard Model subquestions, including a QCD group), and a coverage audit of Main, Substratum, SM,
 GR and Structure. r3 and the audit each need independent review before acceptance.
+
+
+## Batch A: LC-5 successor r9
+
+The owner accepted r8 at `9ff3b8d9` (#914 c.6880700869). Codex is the designated LC-5 writer
+under c.6881174757; ChatGPT is the independent reviewer. r9 completes only the remaining
+reading/classification, preserves r8 and its reviews, and awaits review at its published SHA.
+
+| File | Status | SHA-256 |
+|---|---|---|
+| `LEDGER-r9.md` | Writer checkpoint; independent review pending | `8fc0e2c6eda3857abf87352044790e9b770ad9e79841090bfcef0fdec9ac1814` |
+| `NOTES-LC-5-r9.md` | Writer checkpoint; independent review pending | `991b3b8dba8943e797063ac8b9a41f6e9933591e63f56ae1efe166686f37d7a8` |
