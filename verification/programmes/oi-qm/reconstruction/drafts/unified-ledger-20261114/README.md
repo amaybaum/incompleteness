@@ -9,6 +9,8 @@ computation, CI dispatch or merge. A complete ledger is not a complete theory.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `QUEUE-PROPOSAL-r3.md` | Proposal for owner decision, r3: the same proposals grouped by Issue, per the owner's direction; unreviewed; changes no wording, tier or queue | `7227723f1277d94bd6ec16abc1067f7d71bf11f62726f444d27db0ac371e9477` |
+| `RESPONSE-QUEUE-r2.md` | How r3 regroups r2 | |
 | `QUEUE-PROPOSAL-r2.md` | Proposal for owner decision, r2: applies the review of r1; reviewed (ACCEPT); changes no wording, tier or queue | `ed141fe56dd71079fd72d52a47f2172fa04f4b9726761893ea591eb3057f0df5` |
 | `RESPONSE-QUEUE-r1.md` | Dispositions of the review of the queue proposal | |
 | `QUEUE-PROPOSAL-r1.md` | Proposal for owner decision, in three separate parts: manuscript corrections, missing ledger coverage, research obligations; reviewed (ACCEPT WITH CHANGES); changes no wording, tier or queue | `3f09d871e2ff4c06b804dcf550acabc3df087cd5a17b9a441d6b7d147dbdd253` |
