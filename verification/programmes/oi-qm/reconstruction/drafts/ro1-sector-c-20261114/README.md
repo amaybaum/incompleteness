@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO1-SPEC-r2.md` | Sector-C specification r2: applies the independent review of r1 and three reviewer checks (PR countermodel clause by clause, missing restriction, identity-relation analysis); stops S1–S3, S5–S9; unreviewed | `5ea19f790120499b4d6325459f8153d1c5fc831fee07877f4603cc5132fb3528` |
+| `RESPONSE-SPEC-r1.md` | Dispositions of that review | |
 | `RO1-SPEC-r1.md` | Sector-C specification r1, authorized on #914 (comment 6883249235) after the owner adopted the r3 split; stops at six owner decisions; reviewed (REVISE) | `d7f4380d2c2786a30f68b2d1776f5212ca11750192778e2fed3e2bde7e6a4341` |
 | `RO1-OVERLAP-r3.md` | Applies ChatGPT's review of r2 (PR review 5906070407, at `49d90f59`): coverage and soundness kept apart from necessity; necessity recorded as a settled scope decision; unreviewed | `51db9909321586d875c16c7f50c097b493c4ee2fd4cf63ea93324eeadbc34960` |
 | `RESPONSE-REVIEW-r2.md` | Dispositions of that review | |
