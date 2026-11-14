@@ -1394,12 +1394,16 @@ citation to a file on it, never by itself certifies a premise for future researc
    surviving claim that needs the record while that result remains applicable. This does not make
    the result established (item 1) or raise its verification status, and does not bar a separately
    authorized necessity or removal audit under item 6, which may examine whether it still applies.
-   Research records that landed on `main` before this item's adoption with the support of their own
-   scoped claim as their basis are reconciled with it: a landing-basis statement is corrected where
-   needed, and missing verification and remediation information is added, in the record or, for a
-   frozen record, in a mutable record on `main` that cites it (item 4), keeping the scientific
-   record, its review provenance and its evidence layers. Reconciliation removes nothing; removal
-   is governed by item 6, and a record that supports an established claim keeps that basis.
+   Research records that landed on `main` before this item's adoption with the support of their
+   own scoped claim as their basis are reconciled with it: a landing-basis statement is corrected
+   where needed, and missing verification and remediation information is added, in the record or,
+   for a frozen record, in a mutable record on `main` that cites it (item 4), keeping the
+   scientific record, its review provenance and its evidence layers. A pre-adoption record
+   reconciled under this item counts as preserved under it for the surviving-claim rule, provided
+   its applicable preservation conditions and historical authorization are documented.
+   Reconciliation does not retroactively certify unmet verification or review requirements.
+   Reconciliation removes nothing; removal is governed by item 6, and a record that supports an
+   established claim keeps that basis.
 
 Adopted 2026-11-04 by owner decision, after a proposed removal of partially verified research
 records from `main` was found to break records on `main` that depend on them. Amended the same day
