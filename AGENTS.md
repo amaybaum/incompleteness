@@ -1390,6 +1390,9 @@ citation to a file on it, never by itself certifies a premise for future researc
 
    Preservation establishes no claim (item 1). A model's acceptance is evidence of review, not
    independent mathematical verification, and landing a record does not change its evidence layer.
+   For §A.42 item 5 and item 6, a preserved record's own scoped result is a surviving claim that
+   needs the record while that result stands. This does not make the result established (item 1)
+   and does not bar a separately authorized necessity or removal audit under item 6.
    Research records that landed on `main` before this item's adoption with the support of their own
    scoped claim as their basis are reconciled with it: a landing-basis statement is corrected where
    needed, and missing verification and remediation information is added, in the record or, for a
