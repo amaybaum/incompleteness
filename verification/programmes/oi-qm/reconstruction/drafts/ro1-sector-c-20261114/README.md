@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `S3-PLAN-r8.md` | S3 plan r8: changes from the confirmation of r7 (S-L3 enters as a named premise with its full scope, its contribution conditional on re-checking and independent verification; the gating names the observer-level lift); plan for owner decision; unreviewed | `8af6893a57199c94e6449b33abdd2acdd60785ddde41c637fd64293148038885` |
+| `S3-PLAN-r8.md` | S3 plan r8: changes from the confirmation of r7 (S-L3 enters as a named premise with its full scope, its contribution conditional on re-checking and independent verification; the gating names the observer-level lift); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `8af6893a57199c94e6449b33abdd2acdd60785ddde41c637fd64293148038885` |
 | `RESPONSE-S3-PLAN-r7.md` | Dispositions of that review | |
 | `S3-PLAN-r7.md` | S3 plan r7: local changes from the confirmation of r6 (rule renamed SNR-1; a disproved capability counts at its recorded scope and status; H-RR refutation routes require a sourced renewal limit; the gating of a negative closure of route M stated); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `bc07875fbc5dfa7f0ea269df90986d19d406e5ef9299a7f89023c2c88b2c61b6` |
 | `RESPONSE-S3-PLAN-r6.md` | Dispositions of that review | |
@@ -53,3 +53,4 @@ premise, or changes any Issue's planning or scope.
 | `REVIEW-S3-PLAN-r5.md` | Focused confirmation of S3-PLAN-r5 at `ac70c70a`: ACCEPT WITH CHANGES (R6: the native-marker miss branch counts toward closure only with sourced retention of the marker record) | `0b6c05e5439ce8362f01978743a4bce2ec9fb8355f3161e9e9ad5162e75637ce` |
 | `REVIEW-S3-PLAN-r6.md` | Focused confirmation of S3-PLAN-r6 at `a756262d`: ACCEPT WITH CHANGES (R7: rename the rule; R8: a disproved capability counts as a sourced negative; R9: H-RR refutation routes require a sourced renewal limit, not sourced references) | `341e838e71d1e11d010ae3df63b51f09e401370341d5b8c10267bef84d91e7d6` |
 | `REVIEW-S3-PLAN-r7.md` | Focused confirmation of S3-PLAN-r7 at `f3cf7994`: ACCEPT WITH CHANGES (R10: S-L3 enters as a named premise with its full scope, its contribution conditional on re-checking under U1's criterion; R11: the gating names the observer-level lift) | `ad99d6d119c78b57fcec76f7a017b15f652d3b88e7c858ee42df0f4fca98ce88` |
+| `REVIEW-S3-PLAN-r8.md` | Focused confirmation of S3-PLAN-r8 at `02ca83a5`: ACCEPT WITH CHANGES (R12: the controls CC4, CC5 and CC7 are already fully specified on main as named premises, not class-level only) | `7f88474e36728da578365817e3d604f54af4e5bb42a4811d1e3236df54e66ffe` |
