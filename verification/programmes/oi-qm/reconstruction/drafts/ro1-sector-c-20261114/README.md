@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `S3-PLAN-r3.md` | S3 plan r3: applies the focused review of r2 (decisive test with the marker's preparation and an undecided outcome; U2 no longer classifies the closure rules) and three owner-confirmed additions (recording and renewal tested together as a hypothesis; coverage and soundness on one interface as a hard acceptance criterion; the which-path route kept open); plan for owner decision; unreviewed | `1213c3568ddf3b9c1c800f4f7d36b6da9bb44f2bd57db2099e26a0bdb9d8034b` |
+| `RESPONSE-S3-PLAN-r2.md` | Dispositions of that review and the owner additions | |
 | `S3-PLAN-r2.md` | S3 plan r2: applies the independent review of r1 (route M kept open with a decisive test; negative controls beyond those on record need separate authorization; U2 and U3 narrowed to avoid overlap with #866, #913 and #914); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `5be454bf2555b8c3269716ebd78685be024e85334021ddc0b12a61610e09e474` |
 | `RESPONSE-S3-PLAN-r1.md` | Dispositions of that review | |
 | `S3-PLAN-r1.md` | Paper-only plan for S3, physical executability of embedded-observer operations (accountable to #866 and #913), including the owner-suggested which-path recording route; plan for owner decision; reviewed (REVISE) | `582cb1413f683bfbabda523eaaa49707020f0629b6b3f55ce31037e9d6c19ac4` |
