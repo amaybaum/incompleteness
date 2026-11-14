@@ -61,7 +61,8 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
 | File | What it is |
 | --- | --- |
 | `SUMMARY-r3.md` | Plain-language summary of r3 |
-| `L54-r3.md` | The final text |
+| `L54-r5.md`, `SUMMARY-r5.md` | The current text and its summary |
+| `L54-r3.md` | The revision before the independent check's corrections |
 | `L54-r2.md` | The revision the confirmation review read |
 | `L54-r1.md` | The first draft, which the review read |
 | `NOTES-r1.md` | The writer's reading list and what was not checked |
@@ -72,6 +73,7 @@ an elaboration of a mechanism already recorded there; r3 states what it adds.
 | `L54-r4.md`, `SUMMARY-r4.md` | r3 with the independent check's eight corrections (§9 of `CHECK-RULEFREE.md`), and its summary |
 | `RESPONSE-CHECK.md` | One row per correction: source passage, change made in r4, corrected scope |
 | `CONFIRM-r4.md` | Exact-head confirmation of r4 at `de22ceab`: ACCEPT WITH CHANGES (one medium, eight low findings) |
+| `RESPONSE-CONFIRM-r4.md` | Dispositions of the r4 confirmation's findings, including the response-table corrections it asked for |
 
 **Review status, exactly.**
 
@@ -97,7 +99,7 @@ by hand, with these verdicts:
 | Rule-free lemma: the shared slice must sit on one configuration with probability at least 1 − 17ε; in initial-condition mode with τ = 1 this fails every rule (ε ≥ 1/288) | confirmed, constants included; it holds for every pair-form rule and law and survives heralds and adaptivity; a definitional corner of the schema, not evidence about dynamics |
 | A non-additive rule meets Q5′ at ε = 0 under complete-history records (exchange mode, under H-write, τ = 4) | confirmed by independent hand time-stepping, for Q5′ only; the example fails Q3′, Q6′ and Q2, is not in class D, and has no bearing on the linear or ring rule beyond showing that the interface alone does not force failure |
 | Theorem 1 depends on the target having no persistent memory | corrected: Theorem 1's failure comes from the dynamics (additivity) under a comparison with no decoder, not from the shared slice or from a lack of memory |
-| A memory-tolerant target readmits post-hoc selection | corrected: unrestricted memory tolerance does; memory can be admitted with the selection requirement kept, by a label-independent split of each record into a retained part and an outcome part, and Theorem 1 then holds unchanged |
+| A memory-tolerant target readmits post-hoc selection | corrected: unrestricted memory tolerance does; memory can be admitted with the selection requirement kept, by a label-independent split of each record into a retained part and an outcome part, and Theorem 1 then holds unchanged (the checker's Proposition M: one derivation, not checked) |
 
 Headline supported by the check, after it re-derived Theorem 1 and Corollary 1a: classes A, B and C
 fail Q5′ under its specified target and record conventions, answering L5.4–L5.6 within that scope
@@ -112,14 +114,18 @@ sense of AGENTS.md §A.46, and r3's theorem does not rest on it.
 
 **Revision r4 (owner authorization: PR #1288, comment 6875725169).** `L54-r4.md` incorporates
 the eight replacement texts of `CHECK-RULEFREE.md` §9 where r3 states or refers to the
-reviewer-authored results; five are applied as worded and three are adapted because r3 does not
+reviewer-authored results; five are applied as worded (K1 with one added cross-reference, K4 and K7 with status tags) and three are adapted because r3 does not
 reproduce the passages they correct (`RESPONSE-CHECK.md` rows 3, 5 and 6). `CONFIRM-r2.md`, r3 and
 `SUMMARY-r3.md` are unchanged. In r4 the results of `CONFIRM-r2.md` §6 that the check confirmed are
 marked "one author, one independent check" and the checker's own additions "one derivation, not
 checked"; none enters the proof of Theorem 1. `CONFIRM-r4.md` confirmed r4 at
 `de22ceab` with changes: Theorem 1, its proof and its constants are untouched and the eight
 corrections are faithful; one medium finding (a narrowed hypothesis of the rule-free lemma) and
-eight low findings remain, to be applied in a further revision.
+eight low findings. `L54-r5.md` applies the seven that concern the text (F1–F7, F9),
+restoring the rule-free lemma's hypothesis to "both cross tests"; the eighth concerns this README
+and is applied here. r4, `RESPONSE-CHECK.md` and all earlier files are unchanged; the corrections the
+confirmation asked for in `RESPONSE-CHECK.md` are recorded in `RESPONSE-CONFIRM-r4.md`. r5 is
+itself unreviewed.
 
 ## Names used in the files
 
