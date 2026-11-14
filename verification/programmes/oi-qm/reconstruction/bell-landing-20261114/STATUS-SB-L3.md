@@ -1,4 +1,4 @@
-# Status note: SUBSTATE-BRIDGE-1 L3, a shared factor that no setting writes is a common cause
+# Status note: SUBSTATE-BRIDGE-1 L3, a shared hidden factor with no directed remote-setting-to-record path is a common cause
 
 **Draft for the Bell landing package (the Bell support and ladder package, #868 comment 6873193841,
 option (1)).** At landing this note becomes
@@ -49,8 +49,11 @@ have.
 - The non-author review of the Bell ladder r1 (`drafts/bell-ladder-20261113/REVIEW-r1.md`:138, :279–286)
   checked the ladder's citations of L3 and its use in check 4; it did not re-derive L3.
 - **Nature of the reviews.** Model reviews; none is a human review, a GitHub approval or an owner
-  decision, and none is verification (§A.46 item 7). No separate non-author review of L3 is recorded,
-  and the carried text `SB-L3.md` is not yet reviewed.
+  decision, and none is verification (§A.46 item 7). No separate non-author review of L3 at the
+  source is recorded. The carried text `SB-L3.md` has one non-author model review at `eac7692c`
+  (`REVIEW-SB-L3-NONAUTHOR.md` on `records/bell-landing-plan-868-20261114` at `1bc55b29`,
+  provenance; ACCEPT WITH CHANGES), which re-derived the N′ addition; its ChatGPT exact-head review
+  is pending.
 
 ## What the record supports, and at what strength
 
@@ -61,14 +64,16 @@ setting writes then belongs to Ω, and the conclusion of Theorem N is unchanged:
 common cause, and (Sep) with the symmetrized distance is sufficient, not necessary, for parameter
 independence; by the marked addition, the same holds for Theorem N′ under (MI\*), whose proof reuses
 step 1 (paper argument [A] on Main's cone lemma [P] and Bell-scope Theorem N and N′ [A];
-model-reviewed for Theorem N, the N′ addition not yet reviewed; not independently verified; not
-adopted; no manuscript claim affected)."
+model-reviewed for Theorem N, the N′ addition by one non-author model review; not independently
+verified; not adopted; no manuscript claim affected)."
 
 Consequence stated with it (S:171), under the same hypotheses: with (MI) for Ω (or (MI\*)) and
 directed (Sep), a shared static or autonomously evolving substate of any finite depth cannot by
-itself produce a Bell violation; infinite towers need SB L2, which is not carried (#1274 gap D3).
-Parameter independence fails only through a directed path generator → factor → record (requirement
-N2 of route A, carried by #1274 conditional on L3).
+itself produce a Bell violation; an infinite-depth shared factor needs a measurable-λ form of
+Theorem N/N′, which SB L2 gives for site-fibred towers only and which is not carried (#1274 gap D3).
+Through a shared factor, parameter independence can fail only along a directed path generator →
+factor → record within the record window (requirement N2 of route A, carried by #1274 conditional
+on L3).
 
 ## Hypotheses
 
@@ -77,14 +82,19 @@ N2 of route A, carried by #1274 conditional on L3).
   Theorem N′ with (MI*) for λ*, with (Sep) read with the directed distance.
 - The directed reading of Main's cone lemma: `(φ^k(s))_i` depends only on components with a directed
   path into `i` of length at most `k`. Main:362 states the lemma for the symmetrized graph; the
-  directed form follows by the same induction and is part of L3's argument [A].
+  directed form follows by the same induction. That induction is kernel-checked for per-site
+  in-neighbourhoods (`verification/lean-mathlib/OIBridge/RegionTower.lean`:283); its instance for
+  Main's dependency sets is Main's first step [P].
 - The shared factor's content at the setting slice lies outside the generator regions, so it is part
   of Ω and (MI) or (MI*) applies to it.
 
 ## Limitations
 
-- L3 is a one-paragraph argument; its step is the directed cone induction, not written out at length.
-- The generic check S5 cited with it (`probes/generic_substate_checks.py`:241–259 at `86a413c8`) draws
+- L3 is a one-paragraph argument. Its step, the directed cone induction, is kernel-checked on `main`
+  for per-site in-neighbourhoods (`verification/lean-mathlib/OIBridge/RegionTower.lean`:283
+  `iterate_dependsOnlyOn_ball`, :304 `readout_unaffected_outside_ball`); that `nbhd i` may be taken
+  to be Main's one-step dependency set is Main's first step (Main:362, finite `V`), a paper proof.
+- The generic check S5 cited with it (`probes/generic_substate_checks.py`:240–257 at `86a413c8`) draws
   response tables that already factorize through the shared mode, with setting-independent weights;
   it checks the standard CHSH bound for local models and does not exercise the directed-cone step.
   It is provenance, not support.
@@ -113,8 +123,8 @@ on `main` by a counterexample or disproof.
 
 | Result | Status | Current evidence | Missing verification | Resolving evidence or decision |
 | --- | --- | --- | --- | --- |
-| L3 as written (Theorem N) | partially verified; conditional on Theorem N's hypotheses with directed (Sep) | [A] on Main:362 [P] and Bell-scope Theorem N [A]; ChatGPT reviews of SB; S5 provenance | independent mathematical verification of the directed-cone step and of L3 as stated; a review of the carried text | an independent mathematical verification recorded on `main` (for example a kernel formalization of the directed cone lemma, or a human review); the package's non-author and ChatGPT reviews of `SB-L3.md` |
-| Extension to Theorem N′ (marked addition) | exploratory until the package's reviews; conditional on Theorem N′'s hypotheses with directed (Sep) | [A], one line from BS:190 | any review; then as for L3 | the package's non-author and ChatGPT reviews of `SB-L3.md`; then as for L3 |
+| L3 as written (Theorem N) | partially verified; conditional on Theorem N's hypotheses with directed (Sep) | [A] on Main:362 [P], directed induction `OIBridge/RegionTower.lean`:283 [K], and Bell-scope Theorem N [A]; ChatGPT reviews of SB; one non-author model review of `SB-L3.md`; S5 provenance | independent mathematical verification of L3 as stated (its instance of Main's dependency sets and Theorem N's steps 2–4 are paper arguments); the ChatGPT exact-head review of the carried text | an independent mathematical verification recorded on `main` (for example a kernel formalization of Theorem N with that instance, or a human review); the package's ChatGPT review of `SB-L3.md` |
+| Extension to Theorem N′ (marked addition) | partially verified (one non-author model review of `SB-L3.md` at `eac7692c`; not independent verification; ChatGPT exact-head review pending); conditional on Theorem N′'s hypotheses with directed (Sep), as listed in `SB-L3.md` [+3] | [A], the composition of S:169 and BS:190–191 | the ChatGPT exact-head review; then as for L3 | the package's ChatGPT review of `SB-L3.md`; then as for L3 |
 
 Where the gap cannot be closed, the result is narrowed or withdrawn where it is stated (§A.46 item 5).
 
@@ -126,7 +136,7 @@ Where the gap cannot be closed, the result is narrowed or withdrawn where it is 
 | `papers/Main.md`:362 at `c3b5f37a` | Support on `main`. |
 | `SUBSTATE-BRIDGE-UNIT1.md` at `86a413c8` | Provenance: the copied content is in `SB-L3.md`. |
 | S5 in `generic_substate_checks.py` at `86a413c8` (S:167's "[X S5]" and S:169's "S5 checks 300 random response tables") | Provenance (see Limitations); the script does not land. |
-| "B1's static bit" (S:171) | Support on `main`: Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23. B1 reads and writes only `b_0` and `b_m` for one fixed finite `m` (README.md:23); the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor. |
+| "B1's static bit" (S:171) | Support on `main`: Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23. B1 reads `b_m` and writes only `b_0` for one fixed finite `m` (README.md:23); the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor. |
 | SB §6 (S:171) | Provenance; not carried. |
 | #1271 reconciliation, R3:66 at `703ae20e` | Provenance: it reads L3 as the standard Bell argument; no claim rests on it. |
 | Reviews 5858000929, 5859960068, 5857981727 | Review provenance. |

@@ -119,7 +119,11 @@ reviewed by anyone but its writer, or a proposal that claims no result; "known-i
 on `main` by a counterexample or disproof.
 
 - **Independently verified:** none of the record's own results. Main's cone lemma (Main:362) and
-  exogenous theorem (Main:364–389) are manuscript statements on `main`, cited, not re-proved.
+  exogenous theorem (Main:364–389) are manuscript statements on `main`, cited, not re-proved. BS's
+  claim table classifies C1, the cone lemma, as P (BS:96); its induction is also kernel-checked on
+  `main` for per-site in-neighbourhoods (`verification/lean-mathlib/OIBridge/RegionTower.lean`:283
+  `iterate_dependsOnlyOn_ball`, :304 `readout_unaffected_outside_ball`), and its instance for
+  Main's dependency sets is Main's first step [P]. BS lands unchanged.
 - **Known-invalid:** none in r2. In r1 (history of `7abf59d7`), §3.5 item 3 stated MI "equivalent" to
   CF; review 5857227567 gives the counterexample `r = w`, and r2 states one direction (BS:215–219).
   r1's O2 sentence ("inside the graph cone except along the body diagonals") overstated; r2 states the

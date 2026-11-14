@@ -150,11 +150,14 @@ G2; **context** = cited, not used by any verdict (provenance under §A.42 item 8
   condition (LD:56–62) and stage 5, which uses it (LD:102). At stage 3 (LD:100) and check 4
   (LD:155–156) it is cited, but those verdicts also hold with symmetrized (Sep). The control row at
   LD:176 does not cite L3: (Sep) fails there in both forms.
-- **S5 does not test L3's step.** `generic_substate_checks.py`:241–259 @ `86a413c8` draws response
+- **S5 does not test L3's step.** `generic_substate_checks.py`:240–257 @ `86a413c8` draws response
   tables `h_A(m, l_A, a)`, `h_B(m, l_B, b)` that already factorize through the shared mode, with
   setting-independent weights; the check is the standard CHSH bound for local models and cannot
   fail. It does not exercise the directed-cone step that is L3's content. L3's support is the
-  argument (S:169); S5 is provenance (as OC `DEPENDENCIES.md` row X treats SB's probe).
+  argument (S:169), whose directed induction is kernel-checked on `main` for per-site
+  in-neighbourhoods (`verification/lean-mathlib/OIBridge/RegionTower.lean`:283, :304), with its
+  instance for Main's dependency sets Main's first step (Main:362) [P]; S5 is provenance (as OC
+  `DEPENDENCIES.md` row X treats SB's probe).
 - **Lemma G is listed but unused.** LD:298 names Lemma G among the BS items; no ladder statement
   uses it.
 - **Two objects named L3.** S:28 and S:272 ("G★ / L3") refer to the L3 source on `main` for the
@@ -492,9 +495,9 @@ content lands in the same merge.
 | #1283 @ `f57e576a` | provenance until adopted; the basis then cites the adopted §A.46 on `main` |
 | owner comments (#868 c.6873193841, c.6854708572, c.6791565399, c.6791606126; #1169 c.6854728636, c.6855167580, c.6865177667; #1273 c.6860580909) | governance provenance, quoted in the notes |
 | #1284 @ `6e2d1ee8` | provenance (format precedent) |
-| `LANDING-PLAN.md`, `NOTES-PLAN.md` (this branch) | none after the replacements of review B1: the STATUS notes cite neither file; provenance |
+| `LANDING-PLAN.md`, `NOTES-PLAN.md` (this branch) | after the replacements of review B1 the STATUS notes cite neither file; `SB-L3.md` cites `LANDING-PLAN.md` (§2.5, §6.3), pinned at `3859c3ef`, for attribution only; provenance |
 | BS-tagged items in `SB-L3.md` (Theorem N, (Sep)) | support on `main` (package) |
-| "B1's static bit" (S:171) | Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23 on `main`; support on `main`, resolved in `SB-L3.md`'s reference table (B1 reads and writes only `b_0` and `b_m` for one fixed finite `m`, README.md:23; the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor) |
+| "B1's static bit" (S:171) | Model B1, `verification/programmes/substratum/recursive-substates/README.md`:23 on `main`; support on `main`, resolved in `SB-L3.md`'s reference table (B1 reads `b_m` and writes only `b_0` for one fixed finite `m`, README.md:23; the remainder of its sequence is fixed and unread, so the finite-depth consequence applies to B1 through that finite factor) |
 | SB §6 (S:171) | provenance; not carried |
 
 No reference other than LD:300's stage-7 sentence, which lands as owner-identified non-load-bearing

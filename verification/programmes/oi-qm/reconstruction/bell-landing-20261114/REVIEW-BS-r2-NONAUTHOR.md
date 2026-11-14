@@ -259,8 +259,8 @@ Replacement text:
 - BS:73–74: "Within its domain, which includes ledger (vii), NBA requires O2 to be resolved and O3 to be
   sourced or posited explicitly; O1 bears on NBA only if the domain drops (vii) (§3.4)."
 - BS:252–253, replace the last two sentences of the O1 bullet: "Under (vii) neither reading of (x) admits a
-  long edge: a state-dependent edge contradicts (vii), and a state-independent one is an edge of the reference
-  graph, contradicting (x). Within NBA's domain O1 is therefore closed and (Sep) reduces to graph separation on
+  long edge: an edge present at some states but not others contradicts (vii), and an edge present at every
+  state is an edge of the reference graph, contradicting (x). Within NBA's domain O1 is therefore closed and (Sep) reduces to graph separation on
   the simple-cubic graph; H-Bell (i) is open only for an update outside (vii)."
 - BS:410 (P-a disposition): "entailed by ledger (vii) with (x) on either reading; the conflict is between (vii)
   and Main §3.3(a)'s adopted branch, not a reading of (x)".
@@ -347,3 +347,5 @@ ratification is open, and until then its checks are provenance." (`STATUS-BS.md`
 - No primary literature was read first-hand; [L] attributions were checked from recall.
 - SB L3, the ladder's Proposition AL and the landing plan were read only for how they use BS; they are not
   reviewed here.
+
+*Wording note: at BS:252–253 in finding 1, "state-dependent" / "state-independent" edge became "edge present at some states but not others" / "edge present at every state", with the same meaning, because `tools/claims_check.py` matched the old words against an unrelated withdrawn GR claim.*
