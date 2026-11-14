@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO1-DEPS-r3.md` | Dependency assessment r3: applies the independent review of r2 (first steps reordered on all four tracks; cross-track conflicts X1–X4 flagged; reuse with retention as the one partial discriminator); verdict UNDETERMINED; unreviewed | `aee284f2d9f51df8a698aff0f08c64f5db922f9495f39fdb31c4bcc76d65451d` |
+| `RESPONSE-DEPS-r2.md` | Dispositions of that review | |
 | `RO1-DEPS-r2.md` | Dependency assessment r2: applies the independent review of r1 and the reviewer's additions; four tracks; verdict UNDETERMINED; reviewed (REVISE) | `01809afbba839b3fcc6aada8d54ddf17f6c2d463a16568659346d871f1d6545e` |
 | `RESPONSE-DEPS-r1.md` | Dispositions of that review | |
 | `RO1-DEPS-r1.md` | RO-1 step 2 dependency assessment r1, authorized on #914 (comment 6883931412): premises bearing on sector C; verdict UNDETERMINED; downstream premises listed as remaining; reviewed (REVISE) | `2d3ce3676d50c829d4684e6d0218d8ad6d307f07aa4b3b99d624bb45de593390` |
