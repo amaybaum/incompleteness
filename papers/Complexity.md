@@ -64,7 +64,7 @@ Four additional structural results extend the chain beyond orbital chemistry.
 
 **Mass hierarchy.** On the stated physical-carrier and matter branch, the Higgs mechanism [2, §4.7] gives fermion masses through Yukawa couplings. The taste-breaking construction permits generation-dependent couplings, but the existence of the observed light fermions also requires the stated mass and coupling inputs; it is not fixed by the Higgs field alone.
 
-**Nuclear binding.** SU(3) color confinement [2, §4.6] produces bound hadrons. The existence of multi-nucleon bound states (nuclei) requires specific parameter values (§3), but the *mechanism* — color confinement binding quarks into hadrons, residual strong force binding hadrons into nuclei — is structural.
+**Nuclear binding.** In standard QCD, SU(3) color confinement produces bound hadrons, and residual strong forces can bind hadrons into nuclei for suitable parameter values (§3). A derivation of these mechanisms for the framework's induced gauge measure is open [2, §6.5]; SU(3) symmetry alone does not establish them.
 
 **Chiral chemistry.** Chiral SU(2) — conditional in the framework on the taste-selectivity hypothesis H-χ' [2, §4.8], and realized in the observed electroweak sector — produces parity violation in all weak processes. This propagates to molecular physics as a parity-violating energy difference between mirror-image molecules (§4).
 
@@ -98,13 +98,19 @@ $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{3 generatio
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{confinement}} \text{hadrons} \xrightarrow{\text{residual force}} \text{nuclei possible}$$
+$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{assuming confinement}} \text{hadrons} \xrightarrow{\text{assuming residual force}} \text{nuclei possible}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent} \xrightarrow{\text{coupling values, } m_e} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}$$
+$$\begin{aligned}
+&\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3) + U(1) independent}\\
+&\qquad \xrightarrow{\text{coupling values, } m_e} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}
+\end{aligned}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}$$
 
-$$\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional; coupling values, } m_e} \text{scale hierarchy + orbital structure} \xrightarrow{\text{activation energies, solvent}} \text{thermal window exists}$$
+$$\begin{aligned}
+&\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional; coupling values, } m_e} \text{scale hierarchy + orbital structure}\\
+&\qquad \xrightarrow{\text{activation energies, solvent}} \text{thermal window exists}
+\end{aligned}$$
 
 $$\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}$$
 
@@ -321,7 +327,11 @@ The complete chain:
 
 $$(S, \varphi) \text{ exists (mathematical structure)}$$
 $$\xrightarrow{\text{conditional}} \text{contains embedded observers seeing QM, GR, SM}$$
-$$\xrightarrow{\text{conditional; coupling values, masses}} \text{orbitals, periodic table, carbon, scale hierarchy, water, thermal-window conditions, chirality (H-}\chi\text{)}$$
+$$\xrightarrow{\text{conditional; coupling values, masses}} \begin{gathered}
+\text{orbitals, periodic table, carbon,}\\
+\text{scale hierarchy, water, thermal-window}\\
+\text{conditions, chirality (H-}\chi\text{)}
+\end{gathered}$$
 $$\xrightarrow{\text{statistical}} \text{autocatalytic networks (nominal }N \times p \sim 10^{56}\text{)}$$
 $$\xrightarrow{\text{conditional; constructor, copier, cycling}} \text{self-reproducing configurations}$$
 $$\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{conditional; differential reproductive success}} \text{Darwinian evolution}$$

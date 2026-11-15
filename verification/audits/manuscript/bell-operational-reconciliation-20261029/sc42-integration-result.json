@@ -1208,19 +1208,83 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: |---|-----------|-----------|------------|-------|----------..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | N2 | $\\sin^2\\theta_{13}$ | $4/(18\\pi^2)$ | C | 1 | 2.6% (1..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: | N5 | Normal mass ordering | structural (branch of SM §8.4)..."
+      "predicate": "chapter line mirrored in FULL: | N5 | Normal mass ordering | heuristic (branch of SM §8.4) ..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 0 S + 2 C + 5 L. Total: 7. N..."
+      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Prediction-class counts: 0 S + 1 C +..."
     },
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **ᵍ** *Parameterization-level prediction (δ_CP).* The framew..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's empirical content in biology and medicine is..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: |---|--------------|---------------------|----------------|-..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B1 | Wider therapeutic window for Rett | Substratum-emerge..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B2 | Cancer methylome classifier accuracy | Substratum pre..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B6 | Molecular clock overdispersion | $R(t) \\approx 5$ for..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B7 | Universal rate autocorrelation | Across the tree of l..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B8 | LTEE power-law fitness | $\\beta \\approx 0.08$-$0.12$ ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B9 | Punctuated equilibrium | C1–C4 history readback | con..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B10 | Hsp90 evolutionary capacitance | C1–C4 buffering | c..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B11 | Chk1 + gemcitabine schedule dependence | Memory asym..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B12 | LIFU cognitive improvement in Alzheimer's | $\\tau_B$..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B13 | iPSC reprogramming residuals | Substratum-emergent d..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | B14 | Bivalent chromatin states | Multi-operator substratu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Summary statistics.** Counts: 1 S + 2 C + 11 conjectural. ..."
     },
     {
       "ok": true,
@@ -2704,6 +2768,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Section 10.3 develops four additional topics: matter-antimat..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: Section 10.4 develops the scale hierarchy that makes chemist..."
     },
     {
@@ -2745,6 +2813,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The dimensional selection consumes the physical inputs E5–E7..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Nuclear binding.** In standard QCD, SU(3) color confinemen..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: For the framework, confinement and nuclear binding remain op..."
     },
     {
       "ok": true,
@@ -3596,6 +3672,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Open question: non-orientability and chirality.** On Chapt..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Direction 1: Consciousness requires observation.* Any consc..."
     },
     {
@@ -3613,6 +3693,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The inventory has two parts. Section 19.2 develops the probl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: ## 19.2 Resolutions and partial treatments..."
     },
     {
       "ok": true,
@@ -3648,7 +3732,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Framework status.** Partially derived and carrier-conditio..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Framework status.** Conditional (total budget partly defin..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The specific $27/68$ split between dark matter and dark ener..."
     },
     {
       "ok": true,
@@ -3673,6 +3765,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **Assessment.** The flavor problem is the framework's larges..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The Higgs as inflaton.* The framework accommodates an input..."
     },
     {
       "ok": true,

@@ -123,41 +123,41 @@ The horizon and radiation entries inherit H-slope and the horizon/frame/state co
 The neutrino sector provides the framework's sharpest parameter-free retrodiction. The JUNO measurement of $\sin^2\theta_{12}$ at 0.07$\sigma$ against the framework's structural value is a retrodictive match whose exact form converts JUNO's design-lifetime precision into the framework's cleanest pre-registered forward test.
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
-|---|-----------|---------|-------|-------|-----------------|---------|
+|---|-----------|-----------|------------|-------|-----------------|---------|
 | N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
 | N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | 2.6% (1.0$\sigma$) | Ch 8 |
 | N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
 | N4 | $\Sigma m_\nu$ | ~0.059 eV (oscillation inputs) | L | 3 | Upper bounds only | Ch 8 |
-| N5 | Normal mass ordering | structural (branch of SM §8.4) | C | 1 | Preferred by DESI+CMB; not confirmed | Ch 8 |
+| N5 | Normal mass ordering | heuristic (branch of SM §8.4) | heuristic | 1 | Preferred by DESI+CMB; not confirmed | Ch 8 |
 | N6 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b) | $1.178 \pm 0.020$ confirmed | Ch 8 |
 | N7 | $\delta_{\text{CP}}$ | $b_{12} - b_{13}$ (sub-dominant U-odd) | L | 2(b)ᵍ | T2K/NOvA: bijection-constraining | Ch 8 |
 
-**Summary statistics.** Counts: 0 S + 2 C + 5 L. Total: 7. N2 inherits the Cabibbo $\lambda$ and is conditional with it; N5 holds on the branch where the singlet taste hosts the Higgs and no gauge-singlet fermion is present (SM §8.4), the ordering a heuristic consequence of taste-breaking rather than a theorem. The numerical mass sum uses measured oscillation splittings; the remaining L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale, the latter conditional on the Cabibbo identification's emergent dressing) holds and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(b) per the §7.3 routing computation (the second-order derivation route excluded; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
+**Summary statistics.** Prediction-class counts: 0 S + 1 C + 5 L; one additional entry has heuristic status. Total: 7. The *heuristic* marker is an epistemic status outside the seven-category scheme of §A.2, not an eighth prediction class; N5 is assigned none of those seven classes. N2 inherits the Cabibbo $\lambda$ and is conditional with it; N5 is a heuristic on the branch where the singlet taste hosts the Higgs and no gauge-singlet fermion is present (SM §8.4), the ordering a heuristic consequence of taste-breaking rather than a theorem. The numerical mass sum uses measured oscillation splittings; the remaining L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale, the latter conditional on the Cabibbo identification's emergent dressing) holds and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(b) per the §7.3 routing computation (the second-order derivation route excluded; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
 
 **ᵍ** *Parameterization-level prediction (δ_CP).* The framework identifies $\delta_{CP}$ with the sub-dominant U-odd combination $b_{12} - b_{13}$ in the $A_2$ second-order corrections to the charged-lepton sector (SM §7.3). This is a structural-form prediction: it specifies how $\delta_{CP}$ enters the framework's parameterization but does not predict its value. The value of $b_{12} - b_{13}$ is bijection-specific (Layer 2(b), property of the particular $\varphi$); the framework "makes no commitment to any specific value of $\delta_{PMNS}$" (SM §5.4). Future T2K/NOvA measurements constrain the bijection's $b_{12} - b_{13}$ value rather than testing a framework prediction of $\delta_{CP}$ itself. This is qualitatively different from N1/N3/N6, where specific numerical values are fixed with no freedom and the JUNO-era fit matches sin²θ_12 at 0.07σ (retrodictively).
 
 ### A.4.4 Biology and medicine predictions
 
-The framework's empirical content in biology and medicine is concentrated in the wider therapeutic window for reader-writer disorders (consistent with the Rett-syndrome reversibility of Guy et al. 2007) and the cancer methylome classification paradigm — structural organization of, and consistency with, established clinical biology.
+The framework's empirical content in biology and medicine is concentrated in the wider therapeutic window for reader-writer disorders (consistent with the Rett-syndrome reversibility of Guy et al. 2007) and the cancer methylome classification paradigm — structural organization of, and consistency with, established clinical biology. Entries marked *conjectural* have no established structural classification; their empirical matches are consistency comparisons with earlier observations, rather than tests establishing the proposed OI explanation (Chapters 16 and 17).
 
 | # | Prediction | Quantitative content | Class | Layer | Empirical match | Chapter |
-|---|-----------|---------------------|-------|-------|-----------------|---------|
-| B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | S | 1 | Retrodiction (Guy et al. 2007) | Ch 16 §16.12 |
-| B2 | Cancer methylome classifier accuracy | Substratum preserved during tumorigenesis | S | 1 | DKFZ 95%+ accuracy | Ch 17 §17.7 |
+|---|--------------|---------------------|----------------|-------|-----------------|---------|
+| B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | conjectural | 1 | Retrodiction (Guy et al. 2007) | Ch 16 §16.12 |
+| B2 | Cancer methylome classifier accuracy | Substratum preserved during tumorigenesis | conjectural | 1 | DKFZ 95%+ accuracy | Ch 17 §17.7 |
 | B3 | Non-Markovian enzyme kinetics | Stretched-exponential waiting times | S | 1 | Multiple enzyme systems | Ch 13 §13.6 |
 | B4 | Vibronic coherences in photosynthesis | Picosecond timescale | C | 1 | FMO observed; does not discriminate against standard vibronic accounts | Ch 13 §13.4 |
 | B5 | Millisecond radical-pair coherence in cryptochrome | Slow-bath C2 | C | 1 | Wiltschko 2019 | Ch 13 §13.5 |
-| B6 | Molecular clock overdispersion | $R(t) \approx 5$ for mammals | S | 1 | Gillespie 1989, Cutler 2000 | Ch 17 §17.9 |
-| B7 | Universal rate autocorrelation | Across the tree of life | S | 1 | Tao et al. 2019 confirmed | Ch 17 §17.9 |
-| B8 | LTEE power-law fitness | $\beta \approx 0.08$-$0.12$ | S | 1 | Wiser et al. 2013 confirmed | Ch 17 §17.9 |
-| B9 | Punctuated equilibrium | C1–C4 history readback | S | 1 | Eldredge-Gould 1972 | Ch 17 §17.9 |
-| B10 | Hsp90 evolutionary capacitance | C1–C4 buffering | S | 1 | Rutherford-Lindquist 1998 | Ch 17 §17.9 |
-| B11 | Chk1 + gemcitabine schedule dependence | Memory asymmetry | S | 1 | Clinical literature consistent | Ch 16 §16.3 |
-| B12 | LIFU cognitive improvement in Alzheimer's | $\tau_B$ normalization | S | 1 | Ye et al. 2025 confirmed | Ch 16 §16.4 |
-| B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | S | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
-| B14 | Bivalent chromatin states | Multi-operator substratum | S | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
+| B6 | Molecular clock overdispersion | $R(t) \approx 5$ for mammals | conjectural | 1 | Gillespie 1989, Cutler 2000 | Ch 17 §17.9 |
+| B7 | Universal rate autocorrelation | Across the tree of life | conjectural | 1 | Tao et al. 2019 confirmed | Ch 17 §17.9 |
+| B8 | LTEE power-law fitness | $\beta \approx 0.08$-$0.12$ | conjectural | 1 | Wiser et al. 2013 confirmed | Ch 17 §17.9 |
+| B9 | Punctuated equilibrium | C1–C4 history readback | conjectural | 1 | Eldredge-Gould 1972 | Ch 17 §17.9 |
+| B10 | Hsp90 evolutionary capacitance | C1–C4 buffering | conjectural | 1 | Rutherford-Lindquist 1998 | Ch 17 §17.9 |
+| B11 | Chk1 + gemcitabine schedule dependence | Memory asymmetry | conjectural | 1 | Clinical literature consistent | Ch 16 §16.3 |
+| B12 | LIFU cognitive improvement in Alzheimer's | $\tau_B$ normalization | conjectural | 1 | Ye et al. 2025 confirmed | Ch 16 §16.4 |
+| B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | conjectural | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
+| B14 | Bivalent chromatin states | Multi-operator substratum | conjectural | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
 
-**Summary statistics.** Counts: 12 S + 2 C. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 are C rather than S because coherence preservation is a property of the specific physical realization and is not implied by (C1)–(C4) (§13.4-13.5): the framework's content in those two rows is the non-Markovian accounting, not a derivation that coherence survives.
+**Summary statistics.** Counts: 1 S + 2 C + 11 conjectural. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 are C rather than S because coherence preservation is a property of the specific physical realization and is not implied by (C1)–(C4) (§13.4-13.5): the framework's content in those two rows is the non-Markovian accounting, not a derivation that coherence survives.
 
 ## A.5 Forward predictions and falsification targets
 
