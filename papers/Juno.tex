@@ -207,8 +207,9 @@ retrodiction, the derivation postdating JUNO's first results (November
 rule 2 sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²) with higher orders
 open (currently satisfied at 0.6σ), which discriminates this pattern
 from the TM1 and TM2 patterns at JUNO precision, and the exposure of the
-exact value sin²θ₁₂ = 0.30800 to JUNO's design-lifetime precision of
-±0.0014.
+leading-order value sin²θ₁₂ = 0.30800 to JUNO's design-lifetime
+precision of ±0.0014, which is smaller than its open higher-order terms
+(+0.0032 to +0.0044 in the minimal truncation, Sec. 3.5).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -399,13 +400,14 @@ This derivation was carried out in 2026, after the JUNO first results
 fitted to the measurement --- it is fixed by the cubic-group structure
 with no adjustable freedom --- but the match is retrodictive, and this
 paper makes no claim of temporal priority over the data. Its falsifiable
-forward content is threefold: (i) the exact value 0.30800 against JUNO's
-design-lifetime precision of ±0.0014 (§8 of the design report); (ii) the
-sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²), against the TM1
-and TM2 patterns analyzed in the post-JUNO literature {[}9, 10{]}; and
-(iii) the θ₁₃ and θ₂₃ values as global precision sharpens. This places
-the paper within the post-JUNO structural-interpretation literature
-{[}9, 10{]}, with its provenance stated explicitly.
+forward content is threefold: (i) the leading-order value 0.30800, with
+open higher-order terms (Sec. 3.5), against JUNO's design-lifetime
+precision of ±0.0014 (§8 of the design report); (ii) the sum rule
+2sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²), against the TM1 and TM2
+patterns analyzed in the post-JUNO literature {[}9, 10{]}; and (iii) the
+θ₁₃ and θ₂₃ values as global precision sharpens. This places the paper
+within the post-JUNO structural-interpretation literature {[}9, 10{]},
+with its provenance stated explicitly.
 
 \hypertarget{cubic-group-flavor-structure}{%
 \subsection{2. Cubic-group flavor
@@ -965,6 +967,11 @@ Substituting b₂₃ = 1, b₁₂ + b₁₃ = 3/4, and λ² = 1/(2π²):
 The first formula for sin²θ₁₃ follows from A² = 2/3 and λ² = 1/(2π²)
 together with the constraints on A₁; it does not use the normalization
 conditions on A₂. The other two additionally use Conditions 1 and 2.
+These are the O(λ²) values. Their higher-order terms are not determined,
+since the O(λ³) part of V\_ℓ is open; in the truncation V\_ℓ = exp(λA₁ +
+λ²A₂), with b₁₂ − b₁₃ between −0.5 and 1, they shift sin²θ₁₂ by +0.0032
+to +0.0044, two to three times the design-lifetime precision of ±0.0014
+(Sec. 7).
 
 \hypertarget{the-sinuxb2ux3b8ux2081ux2082-prediction}{%
 \subsection{4. The sin²θ₁₂
@@ -1126,7 +1133,8 @@ rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 ties this directly to sin²θ₁₂:
 \textbf{sin²θ₂₃ = 7/6 − 2sin²θ₁₂}
 
 A ±0.0014 ultimate JUNO error on sin²θ₁₂ then implies a ±0.0028 error on
-the predicted sin²θ₂₃, comparable to the current direct measurement.
+the predicted sin²θ₂₃, comparable to the current direct measurement, to
+which the open higher-order terms of the sum rule add.
 
 \hypertarget{summary}{%
 \subsubsection{5.3 Summary}\label{summary}}
@@ -1335,14 +1343,19 @@ input. Three experimental directions test it.
 lifetime, JUNO is projected to reach sin²θ₁₂ = 0.3092 ± 0.0014, a 6×
 improvement over the current first result. At that precision the
 prediction 0.30800 is tested at 0.86σ (using the JUNO 59-day central
-value) or 0.36σ (using the post-JUNO global central value). An ultimate
-JUNO 2σ disagreement with 0.30800 would falsify the prediction.
+value) or 0.36σ (using the post-JUNO global central value). These
+comparisons are to the O(λ²) value, whose open higher-order terms (Sec.
+3.5) are two to three times the design-lifetime error. An ultimate JUNO
+2σ disagreement with 0.30800 would refute the O(λ²) value as a complete
+prediction; whether it refutes the cubic-group structure or Condition 2
+depends on the undetermined O(λ³) terms.
 
 \textbf{The sum rule.} The prediction 2sin²θ₁₂ + sin²θ₂₃ = 7/6 is
 sharper than either angle alone: it ties JUNO's reactor measurement to
 the atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande. As
 both improve, the sum rule will be tested at the 0.005 level --- a
-sharper test than either side separately.
+sharper test than either side separately, and below λ³ ≈ 0.011, so at
+that precision it also tests the open O(λ³) terms.
 
 \textbf{δ\_CP.} The real ansatz carries no Dirac phase, and the CP-even
 parameter b₁₂ − b₁₃ of A₂ does not enter any angle prediction (Sec. 3.3
@@ -1492,4 +1505,4 @@ neutrino oscillation analysis from the T2K and NOvA experiments,''
 Nature 646, 818 (2025); arXiv:2510.19888.
 
 \end{document}
-% source-sha256: 82d21ef28a920cbfc05848bf66886f39394b3b8308080f895d7ad533f033690c
+% source-sha256: 927618c251001d2bd91147f7047cf74823db3d5a8104a61e01c6ebe54113fc28

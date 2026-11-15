@@ -7,7 +7,7 @@
 
 ## Abstract
 
-Discrete flavor symmetries yield characteristic correlations among the PMNS mixing angles, with the trimaximal TM1 and TM2 sum rules serving as benchmark targets for the current generation of reactor experiments. We present a distinct pattern arising from octahedral (cubic-group) flavor structure: tri-bimaximal mixing at zeroth order, corrected at O(λ²) by a perturbation whose scale λ = 1/(π√2) = 0.22508 is fixed by the Brillouin-zone geometry of an underlying lattice flavor construction [18] and coincides with the observed Cabibbo angle to 0.04%. The resulting angles are sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30800, sin²θ₁₃ = 4/(18π²) = 0.02252, and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066, with no parameter fitted to any mixing angle; the system is closed by a normalization condition and one Wilson-coefficient relation (Conditions 1 and 2), stated as explicit conditions whose derivation from the underlying construction remains open. The pattern agrees with the post-JUNO global fit sin²θ₁₂ = 0.3085 ± 0.0073 at 0.07σ — a retrodiction, the derivation postdating JUNO's first results (November 2025), with no claim of temporal priority — and with NuFIT 6.0 within 1.1σ on the remaining angles. The forward content is twofold: the sum rule 2 sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²) with higher orders open (currently satisfied at 0.6σ), which discriminates this pattern from the TM1 and TM2 patterns at JUNO precision, and the exposure of the exact value sin²θ₁₂ = 0.30800 to JUNO's design-lifetime precision of ±0.0014.
+Discrete flavor symmetries yield characteristic correlations among the PMNS mixing angles, with the trimaximal TM1 and TM2 sum rules serving as benchmark targets for the current generation of reactor experiments. We present a distinct pattern arising from octahedral (cubic-group) flavor structure: tri-bimaximal mixing at zeroth order, corrected at O(λ²) by a perturbation whose scale λ = 1/(π√2) = 0.22508 is fixed by the Brillouin-zone geometry of an underlying lattice flavor construction [18] and coincides with the observed Cabibbo angle to 0.04%. The resulting angles are sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30800, sin²θ₁₃ = 4/(18π²) = 0.02252, and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066, with no parameter fitted to any mixing angle; the system is closed by a normalization condition and one Wilson-coefficient relation (Conditions 1 and 2), stated as explicit conditions whose derivation from the underlying construction remains open. The pattern agrees with the post-JUNO global fit sin²θ₁₂ = 0.3085 ± 0.0073 at 0.07σ — a retrodiction, the derivation postdating JUNO's first results (November 2025), with no claim of temporal priority — and with NuFIT 6.0 within 1.1σ on the remaining angles. The forward content is twofold: the sum rule 2 sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²) with higher orders open (currently satisfied at 0.6σ), which discriminates this pattern from the TM1 and TM2 patterns at JUNO precision, and the exposure of the leading-order value sin²θ₁₂ = 0.30800 to JUNO's design-lifetime precision of ±0.0014, which is smaller than its open higher-order terms (+0.0032 to +0.0044 in the minimal truncation, Sec. 3.5).
 
 ***
 
@@ -74,7 +74,7 @@ This derivation was carried out in 2026, after the JUNO first results [7] and th
 global fit [8] appeared. The value was not fitted to the measurement — it is fixed by the
 cubic-group structure with no adjustable freedom — but the match is retrodictive, and this
 paper makes no claim of temporal priority over the data. Its falsifiable forward content is
-threefold: (i) the exact value 0.30800 against JUNO's design-lifetime precision of ±0.0014
+threefold: (i) the leading-order value 0.30800, with open higher-order terms (Sec. 3.5), against JUNO's design-lifetime precision of ±0.0014
 (§8 of the design report); (ii) the sum
 rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²), against the TM1 and TM2 patterns analyzed in the post-JUNO
 literature [9, 10]; and (iii) the θ₁₃ and θ₂₃ values as global precision sharpens. This places
@@ -286,7 +286,7 @@ Substituting b₂₃ = 1, b₁₂ + b₁₃ = 3/4, and λ² = 1/(2π²):
 - **sin²θ₁₃ = 4/(18π²) = 0.02252**
 - **sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066**
 
-The first formula for sin²θ₁₃ follows from A² = 2/3 and λ² = 1/(2π²) together with the constraints on A₁; it does not use the normalization conditions on A₂. The other two additionally use Conditions 1 and 2.
+The first formula for sin²θ₁₃ follows from A² = 2/3 and λ² = 1/(2π²) together with the constraints on A₁; it does not use the normalization conditions on A₂. The other two additionally use Conditions 1 and 2. These are the O(λ²) values. Their higher-order terms are not determined, since the O(λ³) part of V_ℓ is open; in the truncation V_ℓ = exp(λA₁ + λ²A₂), with b₁₂ − b₁₃ between −0.5 and 1, they shift sin²θ₁₂ by +0.0032 to +0.0044, two to three times the design-lifetime precision of ±0.0014 (Sec. 7).
 
 ## 4. The sin²θ₁₂ prediction
 
@@ -355,7 +355,7 @@ The formula gives sin²θ₂₃ = 1/2 + 1/(2π²) = 0.5507. NuFIT 6.0 (NO) gives
 
 **sin²θ₂₃ = 7/6 − 2sin²θ₁₂**
 
-A ±0.0014 ultimate JUNO error on sin²θ₁₂ then implies a ±0.0028 error on the predicted sin²θ₂₃, comparable to the current direct measurement.
+A ±0.0014 ultimate JUNO error on sin²θ₁₂ then implies a ±0.0028 error on the predicted sin²θ₂₃, comparable to the current direct measurement, to which the open higher-order terms of the sum rule add.
 
 ### 5.3 Summary
 
@@ -406,9 +406,9 @@ Condition 2 admits the structural decomposition into two parts established in Se
 
 The prediction is sharp: λ² = 1/(2π²) is fixed independently by the Cabibbo angle, and the coefficient 1/(4π²) in Δ₁₂ has no adjustable input. Three experimental directions test it.
 
-**Sub-percent precision on sin²θ₁₂.** Over its 30-year design lifetime, JUNO is projected to reach sin²θ₁₂ = 0.3092 ± 0.0014, a 6× improvement over the current first result. At that precision the prediction 0.30800 is tested at 0.86σ (using the JUNO 59-day central value) or 0.36σ (using the post-JUNO global central value). An ultimate JUNO 2σ disagreement with 0.30800 would falsify the prediction.
+**Sub-percent precision on sin²θ₁₂.** Over its 30-year design lifetime, JUNO is projected to reach sin²θ₁₂ = 0.3092 ± 0.0014, a 6× improvement over the current first result. At that precision the prediction 0.30800 is tested at 0.86σ (using the JUNO 59-day central value) or 0.36σ (using the post-JUNO global central value). These comparisons are to the O(λ²) value, whose open higher-order terms (Sec. 3.5) are two to three times the design-lifetime error. An ultimate JUNO 2σ disagreement with 0.30800 would refute the O(λ²) value as a complete prediction; whether it refutes the cubic-group structure or Condition 2 depends on the undetermined O(λ³) terms.
 
-**The sum rule.** The prediction 2sin²θ₁₂ + sin²θ₂₃ = 7/6 is sharper than either angle alone: it ties JUNO's reactor measurement to the atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande. As both improve, the sum rule will be tested at the 0.005 level — a sharper test than either side separately.
+**The sum rule.** The prediction 2sin²θ₁₂ + sin²θ₂₃ = 7/6 is sharper than either angle alone: it ties JUNO's reactor measurement to the atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande. As both improve, the sum rule will be tested at the 0.005 level — a sharper test than either side separately, and below λ³ ≈ 0.011, so at that precision it also tests the open O(λ³) terms.
 
 **δ_CP.** The real ansatz carries no Dirac phase, and the CP-even parameter b₁₂ − b₁₃ of A₂ does not enter any angle prediction (Sec. 3.3 (ii)). A measurement of δ_CP other than 0 or π at DUNE or Hyper-Kamiokande would require the complex extension of the ansatz, which is open.
 

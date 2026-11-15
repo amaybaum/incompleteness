@@ -1692,6 +1692,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: *What the framework predicts at the present time.* JUNO sola..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *What the framework predicts forward.* Specific predictions ..."
     },
     {
@@ -2729,6 +2733,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The framework's prediction at JUNO design-lifetime precisi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Class A falsification of the cubic-group lepton-sector stru..."
     },
     {
       "ok": true,
