@@ -1,0 +1,23 @@
+PASS C1 every monomial conjugation (all 6 permutations x symbolic phases) maps symbolic diagonals to diagonals
+PASS C1 partial trace of a symbolic diagonal over the ancilla is diagonal
+PASS C1 countercontrol: H|0><0|H is not diagonal
+PASS C2 x+ (x) z+: tr((rho - D)W) = 1 for symbolic diagonal D, ||W||_op = 1, so TD >= 1/2
+PASS C2 x+ (x) z+: attained, ||rho - diag(rho)||_1 = 1 exactly (TD = 1/2)
+PASS C2 y+ (x) z+: tr((rho - D)W) = 1 for symbolic diagonal D, ||W||_op = 1, so TD >= 1/2
+PASS C2 y+ (x) z+: attained, ||rho - diag(rho)||_1 = 1 exactly (TD = 1/2)
+PASS C2 countercontrol: with W = Z(x)Z the expression depends on D
+PASS C3 tr(R Y) = 0 for every real symmetric R
+PASS C3 a real Kraus operator maps real symmetric to real symmetric
+PASS C3 hence tr((|+i><+i| - R) Y) = 1 for every real symmetric R
+PASS C4 product of two symbolic CM matrices is CM (all 64^2 3x3 pattern pairs)
+PASS C4 conjugation by every symbolic 3x3 CM matrix maps symbolic diagonals to diagonals
+PASS C4 identity and ancilla projectors diag(r.2 = k) are CM; a scalar multiple of a CM matrix is CM
+PASS C4 every ancilla block (f,e) of every symbolic 4x4 CM matrix on S x Fin 2 is CM (625 patterns)
+PASS C4 K = |0>(<0|+<1|)/sqrt2 is CM, not monomial, and K^dag K <= I (eigenvalues 0, 1)
+PASS C4 every CM matrix with orthonormal columns has the monomial pattern (n = 2, 3)
+PASS C4 countercontrol: Hadamard is not CM
+PASS C5 1 - p^2 - q(1-p) - p(1-p) = (1-q)(1-p) >= 0 on [0,1]^2
+PASS C5 1/4 - g^2 = g for g = (sqrt2-1)/2, so the two TVs cannot both be < g
+PASS C5 attained: p = 1/sqrt2, q = 1 gives both TVs equal to g
+PASS C5 countercontrol: the coherent Hadamard gives exactly 1/2 and 1 (gap 0)
+RESULT ALL PASS

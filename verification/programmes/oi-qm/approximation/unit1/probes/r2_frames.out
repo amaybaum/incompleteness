@@ -1,0 +1,37 @@
+PASS F1 R1: sum_l F_l = I and tr(F_l A_k) = delta_lk
+PASS F1 SIC: sum_l F_l = I and tr(F_l A_k) = delta_lk
+PASS F1 R1 reconstruction frame is orthogonal: tr(A_k A_l) = 2 delta_kl
+PASS F1 SIC reconstruction frame is not orthogonal: tr(D_0 D_1) = -1
+PASS F1 R1 coordinate functional F_0 has eigenvalue (1 - sqrt3)/4 < 0 (not PSD)
+PASS F1 SIC coordinate functionals E_l are PSD (eigenvalues 0 and 1/2)
+PASS F2 the single-qubit Clifford group modulo phase has 24 elements
+PASS F2 every single-qubit Clifford: frame matrix identical in R1 and SIC
+PASS F2 12 Cliffords give permutation matrices; the other 12 have minimum entry exactly -1/2
+PASS F2 Hadamard and S are among the 12 with a -1/2 entry
+     CNOT(1->2): min entry R1 = -1/4 ~ -0.2500000000; SIC = 1/4 - sqrt(3)/3 ~ -0.3273502692
+PASS F3 CNOT(1->2), R1 frame: minimum entry is exactly -1/4
+PASS F3 CNOT(1->2), SIC frame: minimum entry is exactly 1/4 - sqrt3/3
+PASS F3 CNOT(1->2): R1 and SIC frame matrices differ
+     CNOT(2->1): min entry R1 = -1/4 ~ -0.2500000000; SIC = 1/4 - sqrt(3)/3 ~ -0.3273502692
+PASS F3 CNOT(2->1), R1 frame: minimum entry is exactly -1/4
+PASS F3 CNOT(2->1), SIC frame: minimum entry is exactly 1/4 - sqrt3/3
+PASS F3 CNOT(2->1): R1 and SIC frame matrices differ
+PASS F3 countercontrol: SWAP has the same frame matrix in both frames (a permutation)
+PASS F4 control: rho(-v_0/sqrt3) is a pure state (trace 1, det 0)
+     R1 coordinate mu_0 = 1/4 - sqrt(3)/4; SIC coordinate p_0 = 0
+PASS F4 that pure state has R1 coordinate (1 - sqrt3)/4 < 0 and SIC coordinate 0
+     Phi+ R1 product-frame coordinates: min = -1/8; sum = 1
+PASS F4 Phi+: minimum R1 product-frame coordinate is exactly -1/8
+     Phi+ SIC product-frame coordinates: min = 0; sum = 1
+PASS F4 Phi+: every SIC product-frame coordinate is >= 0, minimum 0
+     ||F_0||_op = 1/4 + sqrt(3)/4; ||F_0 (x) F_0||_op = sqrt(3)/8 + 1/4; trace-norm bounds 2 - sqrt(3), 2 - sqrt(3)
+PASS F5 ||F_0||_op = (1 + sqrt3)/4 and ||F_0 (x) F_0||_op = (2 + sqrt3)/8
+PASS F5 every R1 product functional F_l (x) F_m has operator norm (2 + sqrt3)/8
+PASS F5 both bounds equal 2 - sqrt3 > 0: ||sigma - rho||_1 >= 2 - sqrt3 (TD >= (2 - sqrt3)/2) for every R1-represented sigma, for rho = rho(-v_0/sqrt3) and for rho = Phi+
+PASS control R1: identity channel -> 16x16 identity frame matrix
+PASS control R1: (A4 3-cycle rotation) (x) I -> permutation frame matrix
+PASS control R1: a point mass reconstructs a non-PSD operator (A_0 (x) A_0 has det < 0 factor)
+PASS control SIC: identity channel -> 16x16 identity frame matrix
+PASS control SIC: (A4 3-cycle rotation) (x) I -> permutation frame matrix
+PASS control SIC: a point mass reconstructs a non-PSD operator (A_0 (x) A_0 has det < 0 factor)
+RESULT ALL PASS
