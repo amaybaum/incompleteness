@@ -8,6 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `S3-U1-r5.md` | S3 unit U1 r5: value writes classified by the explicit partition test (owner-confirmed fix after a separable non-affine counterexample over Z/3), with the two nits from the confirmation of r4; delivered with one named stop (typing into `Obs`); unreviewed | `03d9f20e7163b1f789c9aeafff600cb4b6622f35c66b40d386e14fd997fe7793` |
+| `RESPONSE-S3-U1-r4.md` | Dispositions | |
 | `S3-U1-r4.md` | S3 unit U1 r4: fixes from the focused review of r3 (setting-selected quantified over the model's declared factors; value-write claim limited to affine or single-factor records; the informational label withholds only); delivered with one named stop (typing into `Obs`); independently reviewed (ACCEPT) | `5c8c091da04e8d89201f2ee79291e6b23c12fa04fa887c9b112d2cb5eae7aca8` |
 | `RESPONSE-S3-U1-r3.md` | Dispositions of that review | |
 | `S3-U1-r3.md` | S3 unit U1 r3: applies the focused review of r2 (operational setting-selected label without Q1; Q1 applied only to a separate informational label; adaptivity split); delivered with one named stop (typing into `Obs`); reviewed (ACCEPT WITH CHANGES) | `d24b1a653f6926343c65c02e6c344ffcbbbc9a7811c5fe2798862669a196587d` |
