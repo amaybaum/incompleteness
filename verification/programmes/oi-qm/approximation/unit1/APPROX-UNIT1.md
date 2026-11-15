@@ -886,7 +886,7 @@ r4a returned ACCEPT; the review status of r4b is in `STATUS.md`.
   `polarizedTheory`; the statements of `obs_availExt_le_substratum` and `gateFlow_unitary`; the other
   identifiers were confirmed to exist only). #1210, #1211: planning heads. Drafts [D]: BRIDGE §0, §5.1
   (parts), §5.3 row; SHM §§1–4; A868 §§0, 4; A1059 §0. No kernel build was run.
-- **Checks.** Run `python3 -I -B` from `/tmp`; exact sympy and `Fraction` arithmetic on generic matrices,
+- **Checks.** Run `python3 -I -B` from an empty working directory; exact sympy and `Fraction` arithmetic on generic matrices,
   permutations and zero patterns; no OI mechanism. Each group has a control or countercontrol.
   - `probes/approx_generic_checks.py` (r1, unchanged): groups G1–G5, ALL PASS (25 checks).
     Implementation failures, all in the checking code and none in a checked statement: r0 failed G1a
