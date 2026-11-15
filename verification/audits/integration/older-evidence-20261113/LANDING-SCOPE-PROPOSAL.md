@@ -1,21 +1,21 @@
 # #1280: exact proposed preservation scope
 
-**Owner decision proposed, not executed.** Accountable Issue: #1169. The accepted custody checkpoint is 584c757b949de7dc017373fa5e1d1f540e740a7c. Main dfeec843… has made §A.46(8) operative. This proposal does not change any of the eleven existing files or archive members.
+**Owner decision proposed, not executed.** Accountable Issue: #1169. The accepted custody checkpoint is 584c757b949de7dc017373fa5e1d1f540e740a7c. Main dfeec843… has made §A.46(8) operative. Owner decision Q2(a) ([#1169 comment 6892224647](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6892224647), amaybaum, 2026-11-15T09:17:55Z) requires the archive's machine-local paths to be removed, each redaction recorded with new digests, and the original evidence and provenance preserved; its Q4 keeps #1280 a reviewed custody draft with landing deferred. The Q2(a) redaction changes the archive, PRESERVED-ARTIFACTS.json, PRESERVATION-STATUS.md and this scope pair; the other eight existing files are unchanged.
 
 ## Recommended selected payload
 
-Retain the four actual historical artifacts in their existing byte-identical archive, with exactly these six proposed repository paths under verification/audits/integration/older-evidence-20261113/:
+Retain the four actual historical artifacts in the archive redacted per Q2(a), with exactly these six proposed repository paths under verification/audits/integration/older-evidence-20261113/:
 
 | File | Intended content/change |
 | --- | --- |
-| evidence/preserved-artifacts.zip | Unchanged 148,006-byte ZIP; four original members totaling 147,390 bytes |
-| PRESERVED-ARTIFACTS.json | Keep exact member identities and source-date metadata; update only selected-manifest linkage and current landing status |
+| evidence/preserved-artifacts.zip | Redact per Q2(a): rebuilt 147,998-byte ZIP; four members totaling 147,382 bytes. The original 148,006-byte archive (147,390 member bytes) stays in history at 584c757b |
+| PRESERVED-ARTIFACTS.json | Keep the redacted and original member identities, the per-site redaction record and source-date metadata; update only selected-manifest linkage and current landing status |
 | PRESERVATION-STATUS.md | Scope, current policy/review state, rationale, accountability and explicit unresolved evidence limits |
 | SELECTED-ARTIFACTS.tsv | Four rows: R1, R2, M1, M2, with exact paths, sizes and digests |
 | RETENTION-TRACE.md | Each retained custody/history/scientific use and its actual support/disposition |
-| reviews/CUSTODY-REVIEWS.json | Full verbatim bodies of non-author custody review 5902077541 and ChatGPT custody review 5902527446, selected identity fields and body hashes |
+| reviews/CUSTODY-REVIEWS.json | Full verbatim bodies of non-author custody review 5902077541 and ChatGPT custody review 5902527446, selected identity fields and body hashes. The 5902077541 body carries one machine-local task-id prefix (review §4.1), redacted per Q2(a) with the digests of the original and redacted bodies |
 
-[LANDING-SCOPE.json](LANDING-SCOPE.json) gives the full paths and exact original byte identities. For the five mutable/new metadata files this is an exact path/content contract, not a claim that their eventual bytes already exist or have been reviewed. The ZIP is the fixed existing artifact.
+[LANDING-SCOPE.json](LANDING-SCOPE.json) gives the full paths and the exact redacted and original byte identities. For the five mutable/new metadata files this is an exact path/content contract, not a claim that their eventual bytes already exist or have been reviewed. The ZIP is the redacted archive. Its redaction inventory is the five sites P1–P5 of the focused documentary review of #1280 at b56d9271 (§4), recorded site by site in PRESERVED-ARTIFACTS.json. The new digests are the archive's `bytes`, `sha256`, `git_blob` and `member_payload_bytes` and each artifact's `bytes` and `sha256`; the originals are kept as the archive's `original_bytes`, `original_sha256`, `original_git_blob`, `original_member_payload_bytes` and `original_commit`, and each artifact's `original_bytes` and `original_sha256`.
 
 The eight parent audit files are **not automatically selected** by this recommendation. They remain unchanged and reachable at the accepted research checkpoint; their complete paths are in the JSON. Their 101-row preservation proposal and 116-copy audit do not become an authorization to retain that entire corpus. This scoped preparation does not delete those files, re-cut a branch, or move any source checkpoint.
 
@@ -27,7 +27,7 @@ Merging the current PR would still land its full eleven-file proposal (plus thes
 - M1 is the captured 84-block Page; M2 is its exact Markdown projection. Both bytes are already present. The deterministic verification recipe checks all four members, their digests and the projection; it executes no scientific content.
 - Custody reviews 5902077541 and 5902527446 support the independently checked research-branch custody status. Retain their actual bodies when that status is asserted on main.
 - Source URLs, original source dates, capture sequence and historical commit pins identify provenance. They do not replace proof/check/review content consumed by a scientific assertion in the matrix.
-- No current scientific claim is strengthened by preserving the originals. A historical wrapper is not a blanket §A.42 exception.
+- No current scientific claim is strengthened by preserving these artifacts or their originals. A historical wrapper is not a blanket §A.42 exception.
 
 The six-path scope is therefore **not yet certified sufficient for every scientific assertion in M1/M2**. Before a final landing, RETENTION-TRACE must identify every assertion actually retained as a supported result, its needed content/history, and any unresolved use. Close such a use by retaining its content, permissible narrowing, or a separately recorded owner exception naming that precise unsupported claim. This proposal selects no exception and does not claim the unresolved trace complete.
 
