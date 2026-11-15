@@ -132,3 +132,37 @@ Apart from C1–C6 and the inferences listed in O1, every attributed quote and n
 the primary text. Choi 2020 is described only by the abstract sentence it quotes, which matches
 OpenAlex. Nothing in the note reads as summarized from memory. The mapping rows are labelled as the
 writer's, as the method says.
+
+## Confirmation (r2)
+
+**Objects:** `LIT-REUSE-r2.md` and `RESPONSE-LIT-REUSE-r1.md` (same directory and branch as above),
+read against `LIT-REUSE-r1.md` by a full line diff. Primary sources were re-opened wherever a
+correction depends on them. **Verdict on r2: ACCEPT.** Every required change is resolved. One small
+unlisted edit is noted below. It is accurate and needs no change.
+
+| Item | Status | Check made |
+|---|---|---|
+| C1 | RESOLVED | arXiv:1706.07370v2 §VIII: "The complete raw dataset is publicly available"; purged real-time data excluded; 54.5 million measured, about 1 million ignored, "almost 53.5 million" evaluated. Main text: "between two and five subsequences containing more than 55 dark measurements in a row" per million, attributed to "off-resonant leakage" into long-lived dark states, purged and restarted "from the same v0". The table row, R-5 and the §2 table agree with it. The outcome-triggered purge is labelled as the writer's reading |
+| C2 | RESOLVED | Zhu Eqs. (7), (9)–(10) and the "chosen to be opposite" quote re-read. The overreaching sentence is removed, R-2 is restated, and the Bell-test combinations are said to be not stated. The k = l reading of Eq. (10) assumes one direction set for both pairs, and it is labelled as the writer's reading |
+| C3 | RESOLVED | G3 and G4 match `S3-U3-r3.md` (k3) (ll. 652–656) and (k3′) (ll. 737–739) verbatim in content. The §10.3 headline fragment is unchanged in r3. Moving the citation from U3 r2 to r3 is a consequence of this item, and the response records it. Zhu, White and Xiao are re-mapped consistently |
+| C4 | RESOLVED | arXiv:1504.02707v2: at φ = π/2 the operation "becomes a control-NOT gate and implements a projective measurement", and the text reports data "For projective angles φ ≈ π/2". The uses row, bearing row, §2 cell and R-6 are corrected |
+| C5 | RESOLVED | Crossref doi:10.1103/PhysRevResearch.5.013104: title, volume, article number and the nine authors in order, as stated. The OpenAlex abstract contains the quoted added sentence. It also differs from the arXiv abstract in small wording ("realize … three-branch", "Einstein-Podolsky-Rosen"), so "repeats … with one added sentence" is close but not exact (optional: "with one added sentence and minor rewording"). Identity is not claimed |
+| C6 | RESOLVED | arXiv:0904.1655v2: the state, the σ_y/σ_z exchange and ⟨X_KS⟩ = 5.22(10) are as stated. R-3 now says "non-singlet two-ion state" |
+| O1 | RESOLVED | The *[writer's reading]* label is defined and applied to Mao, Xiao, Zhu and Leupold |
+| O2 | RESOLVED | Author, time and quote match #1169 c.6892563291 |
+| O3 | RESOLVED | ABSTRACT and LOCATED labels are applied. Crossref PRA 104, L060201: title and authors Cheng, Liu, Baker, Hall confirmed. The LOCATED items are described only at search-result level, attributed to this review |
+| O4 | RESOLVED | Both quoted phrases are in the NJP abstract on Crossref |
+| O5 | RESOLVED | Restated as "reports space-like separation"; White's "cannot be ruled out here" is quoted correctly |
+
+**Diff scope.** Every hunk of the r1→r2 diff maps to C1–C6 or O1–O5 or to a necessary consequence: the
+header and review line, the method lines on abstract sources, G5's completeness clause, the Xiao and
+Mao bearing rows, the §4 source list and the U3 citation. One hunk is not listed in the response: R-4
+replaces Padovan's short quote with the fuller sentence "since we are scanning the measurements one
+by one, we are effectively using different states for each measurement". It is verbatim in
+arXiv:2309.12286v2 apart from the case of its first letter, it changes no finding, and listing it in
+the response is optional.
+
+**Central conclusion.** R-6 is stated at the papers-read scope ("On the papers read …"; "This is a
+finding about the papers read, not about the literature as a whole"), and Choi et al. 2020 is still
+excluded as not read in full. Its reasons now rest on C2–C4: neither two-sided experiment realizes
+the (k3) or (k3′) pattern, and the only raw dataset and the repeatability data are single-system.
