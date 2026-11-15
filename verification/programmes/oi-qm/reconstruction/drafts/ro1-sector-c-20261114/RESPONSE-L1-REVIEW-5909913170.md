@@ -139,3 +139,24 @@ replacement, and in the non-atomic example, where (h1)–(h4) hold and (h5) fail
 **Checks.** r4 is built from r3 by exact-string replacements, each occurring once. The new §4.1 block
 replaces r3:492–550 whole. The forbidden words, local paths and closing keywords were checked with
 grep in both files, with no match.
+
+## Response to the focused review of r4 (`REVIEW-S3-U2-r4.md`)
+
+**Review.** `REVIEW-S3-U2-r4.md`, on the r4 object at `022ed5ab`: ACCEPT WITH CHANGES, with one
+required change, R1, and optional items O1–O6. The edits are made in place in `S3-U2-r4.md`, and
+nothing else changes. Line numbers below are those of r4 after these edits (943 lines). The anchors
+given earlier in this file refer to r4 before them; L-1 is now at r4:528–663.
+
+| # | Finding | Disposition | Where in r4 |
+|---|---|---|---|
+| R1 | The open-case lists do not match the complements of (h5) and (h7) | **Accepted; wording only.** "Non-atomic hidden states" becomes "hidden states that are not finite-valued (non-atomic, countably infinite or mixed laws)". "Statistics conditioned on a setting-dependent event" becomes "statistics conditioned on any event (a herald or success flag, setting-dependent or not)". §8.3's forms not attempted get the same two phrases. L-1 is not extended to these cases. This also extends the list wording of §2 ("Necessary consequences") and of the §3 postselection row above | 38–39 (revision note); 705 (§6.1); 744 (§6.2); 828–829 (§8.3); 906–907 (§11.2) |
+| O1 | (h1)'s bijectivity is not used | **Applied.** (h1) states that the proof uses only the functional dependence, not bijectivity | 546–547 |
+| O2 | `α`, `β` could be read as the wings' response functions | **Applied.** One sentence: they decompose the parity and are not the wings' response functions | 594 |
+| O3 | "The statement fails at this scope" | **Applied.** It now reads "L-1's conclusion fails without (h5)" | 623 |
+| O4 | Factor-by-factor reading of U1's positivity qualifier | **Applied.** "on the rest alone, factor by factor, or on the whole configuration" | 576–577 |
+| O5 | Write the flag factors as XOR-written by `φ` | **Not applied.** This is more than a one-line precision fix. The example's outcome and flag functions are stated, and the review checked them as stated | — |
+| O6 | (h7) is a condition on the statistic | **Applied.** §6.2's row reads "realized by programs meeting (h1)–(h6) and scored on full-attempt statistics (h7)" | 744 |
+
+**Changed line ranges** (`diff` of r4 before and after these edits; before → after): 38 → 38–39;
+545 → 546–547; 574 → 576–577; 591 → 594; 620 → 623; 702 → 705; 741 → 744; 825 → 828–829;
+902 → 906–907.
