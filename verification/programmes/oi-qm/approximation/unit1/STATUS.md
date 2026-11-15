@@ -126,9 +126,10 @@ three review reports and the r4a ledger record for it. It is the historical writ
 its opening status line, "WIP / UNVERIFIED", and its re-review request describe r4 before the
 full-text review above, which returned ACCEPT WITH NITS. The r4b digests are not self-recorded.
 
+`SYNTHESIS-r3.md` (selection-discriminator support, line 734) classifies this record at `e41cf613` as support off `main` for the E_f classical-class definition. `e41cf613` is an ancestor of `main` through merge `ef62afb4`, so under §A.42 item 8 that row's support is on `main`; this record reclassifies it (§A.46 item 4). `SYNTHESIS-r3.md` itself is a digest-pinned retention copy and is unchanged.
+
 ## Remaining obligations
 
 | Obligation | Home |
 | --- | --- |
-| `SYNTHESIS-r3.md` (selection-discriminator support, line 734) classifies this record at `e41cf613` as support off `main` for the E_f classical-class definition. Once `e41cf613` is an ancestor of `main`, that row is reclassified in a mutable record that cites it (§A.46 item 4) | #1169 |
 | The per-parent step, the candidate repair F945-R and the Rounding Lemma's complex-entry constant | #945 |
