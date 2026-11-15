@@ -163,7 +163,7 @@ The two hierarchies are orthogonal. The observation axis is about scope; the gau
 
 What is real differs at each level:
 
-- *Level G4 × Level C:* the algebra-channel structure of partial-trace observation — Born rule, channel-level unitarity, non-Markovian marginal, commutant gauge-invariance pattern. Universal across observer-admitting substrata.
+- *Level G4 × Level C:* the algebra-channel structure of partial-trace observation — Born rule, channel-level unitarity, commutant gauge-invariance pattern — together with the presence of a non-Markovian marginal where the hidden sector reads back its record (C4), whose multi-time statistics are fixed by the realization rather than by the class (§9.5). Universal across observer-admitting substrata.
 - *Level G3 × Level D:* the equivalence class $[(S, \varphi)]/\mathcal{G}_{\rm sub}$ — OI's specific substratum modulo $\mathcal{G}_{\rm sub}$. Class-specific to OI.
 - *Level G2 × Level D:* the emergent QFT structure — SM gauge group, matter content, gauge invariances. Forced uniquely in OI, conditionally on H-link and H-cust [SM §4.5–§4.6]; shared with any SM-reproducing universality class.
 - *Level G1 × Level D:* the emergent Hamiltonian's transition-probability content — dynamical structure modulo D-gauge.
@@ -869,7 +869,7 @@ The provisional characterization is that OI and string theory are likely in the 
 
 The universality-class framework refines OI's structural-realism stance. OI's claim is that what's real is the reconstructed local residue modulo $\mathcal{G}_{\rm sub}$; the universality-class refinement is that there is structure at multiple levels: partial-trace observational features (most universal, shared across structural classes), specific gauge group (intermediate, depends on substratum-symmetry but realizable by multiple substrata), specific predictions (most class-specific, features of the specific universality-class representative).
 
-What is "real" at each level differs. At the most universal level, the structural features of partial-trace observation are real — Born rule, unitarity, non-Markovian marginal are features of any embedded-observer system, not specific to OI or string theory. At the gauge-group level, $SU(3) \times SU(2) \times U(1)$ is real — features any SM-reproducing universality class produces. At the specific-predictions level, OI's Cabibbo angle $1/(\pi\sqrt{2})$ is real *for OI's universality class* but not necessarily for other classes.
+What is "real" at each level differs. At the most universal level, the structural features of partial-trace observation are real — Born rule and unitarity are features of any embedded-observer system, not specific to OI or string theory, and a non-Markovian marginal is present wherever the hidden sector reads back its record (C4), with multi-time statistics fixed by the realization rather than by the class (§9.5). At the gauge-group level, $SU(3) \times SU(2) \times U(1)$ is real — features any SM-reproducing universality class produces. At the specific-predictions level, OI's Cabibbo angle $1/(\pi\sqrt{2})$ is real *for OI's universality class* but not necessarily for other classes.
 
 This is a hierarchical structural realism: realism at multiple levels, with class-specificity decreasing as level becomes more universal. It is consistent with OI's structural-realism stance while extending it to characterize what is shared with other unification programs and what is class-specific.
 
