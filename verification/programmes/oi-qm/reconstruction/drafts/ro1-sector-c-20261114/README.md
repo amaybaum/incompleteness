@@ -8,7 +8,8 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `S3-PLAN-r9.md` | S3 plan r9: the fix from the confirmation of r8 (CC4, CC5 and CC7 are fully specified on main and enter as named premises; the stop and the gating restated accordingly); plan for owner decision; independently reviewed (ACCEPT) | `bcf778e5dc01dd8003a354cd9ad3a397b4759529cc737cb2ea8dc872402a428b` |
+| `S3-U1-r1.md` | S3 unit U1 r1: the native availability criterion for the seven actions, with the frozen access declaration; delivered with one named stop (S7(a)); unreviewed | `30de72419d0536678101342ba5d2401897070a22ccf3591e5511b61f23dd63c9` |
+| `S3-PLAN-r9.md` | S3 plan r9: the fix from the confirmation of r8 (CC4, CC5 and CC7 are fully specified on main and enter as named premises; the stop and the gating restated accordingly); independently reviewed (ACCEPT); accepted by the owner, with U1–U4 authorized as paper-only units (#1169 c.6890079967) | `bcf778e5dc01dd8003a354cd9ad3a397b4759529cc737cb2ea8dc872402a428b` |
 | `RESPONSE-S3-PLAN-r8.md` | Disposition of that review | |
 | `S3-PLAN-r8.md` | S3 plan r8: changes from the confirmation of r7 (S-L3 enters as a named premise with its full scope, its contribution conditional on re-checking and independent verification; the gating names the observer-level lift); plan for owner decision; reviewed (ACCEPT WITH CHANGES) | `8af6893a57199c94e6449b33abdd2acdd60785ddde41c637fd64293148038885` |
 | `RESPONSE-S3-PLAN-r7.md` | Dispositions of that review | |
