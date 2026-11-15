@@ -173,3 +173,24 @@ U4 pointer.
 - Other U4 r3 sections.
 - VER2.
 - External sources.
+
+## Confirmation (fixes at `4c1a6963`)
+
+Reviewed the diff of the G1 r4 file from `c3353dc5` to `4c1a6963` (51 insertions, 24 deletions in
+total, mostly in this file). Every hunk is one of the changes below, and nothing else in the file
+changed.
+
+| Item | Status | Where in the r4 file at `4c1a6963` |
+|---|---|---|
+| m1, read switch under all-E-set | **RESOLVED** | 318–320: on R-lin the switch is not available at D5's scope, on the factor-set condition. Encoding 2 avoids it |
+| m2, stability conditions | **RESOLVED** | 727–739: `d ≥ a` for check 4. For check 2 the shift bound `δ < π − x_ν` is given as about 0.81, 1.12 and 1.54 rad, so check 2 is stable over `𝒮` for shifts up to about 0.8 rad. The closing sentence carries both conditions. Matches my derivation |
+| m3, per-pair masking | **RESOLVED** | 441: unsourced only where the declared pair satisfies `M_t(x_L − x_R) ∈ K_t` (CALC Theorem 1(b)). This always holds when `K_t = R_A` and is possible otherwise. The "every path variable iff `K_t = R_A`" clause is kept, correctly |
+| U4 r3 re-pointing | **RESOLVED** | 54–58, 88–93, 1089, 1094. U4 r3 is blob `54ee9629` at `c3353dc5`, and its owner acceptance is quoted accurately. The items remain PROVISIONAL. Section-by-section differences are declared |
+| §2.3, Case Pk note | **correct** | 206–208. U4 r3 §5.4 makes the typing conditional on how an unread in-flight photon is classified under U1 G4. G1 defines none of the three cases, so no content change follows |
+| E-prep row annotation (438) | **correct** | U4 r3 §2.1's "Beyond H-μ" supports the row and changes none of it |
+| PK-2 narrowing | **correct; the only content change** | 854–855, 864–865, 1005, 1010. It is a pure scope restriction, which only narrows. It matches U4 r3, whose §6.1 scope gives fixed geometry and tick under H-μ, notes that a change of preparation changes the background, and states the exact phrase at §6.3 (661, 709) and U4-F3 (772) |
+
+**Citation precision (cosmetic, no change needed).** The phrase "fixed geometry, tick and background"
+is worded at U4 r3 §6.3 and U4-F3; §6.1 carries the substance. Citing "§6.1, §6.3" would be exact.
+
+Verdict on G1 r4 with these fixes: **ACCEPT**.
