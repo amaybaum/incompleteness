@@ -2,7 +2,7 @@
 
 **Main pin:** `c3b5f37a354bb26437e2e0165c576a347a63c153`. **Writer recovery:** 2026-11-13. This ledger supports [ASSESSMENT.md](ASSESSMENT.md); it does not promote draft inputs to established-on-main results.
 
-**Public package:** `ASSESSMENT.md`, `SOURCES.md`, `ARTIFACTS.sha256`. The `evidence/` names below identify **local writer audit caches**, not files proposed for publication. Immutable GitHub sources and receipts linked here are the public review inputs. Local capture and off-main URLs do not themselves satisfy a later main-retention or integration decision.
+**Public package:** `ASSESSMENT.md`, `SOURCES.md`, `STATUS.md`, `RETENTION.md`, `RETENTION.json`, `ARTIFACTS.sha256`, `reviews/RECEIPTS.json` and the five source copies under `support/` (§6). The `evidence/` names below identify **local writer audit caches**, not files proposed for publication. Immutable GitHub sources and receipts linked here are the public review inputs. Local capture and off-main URLs do not themselves satisfy a later main-retention or integration decision.
 
 ## 1. Authority and exact metadata retained
 

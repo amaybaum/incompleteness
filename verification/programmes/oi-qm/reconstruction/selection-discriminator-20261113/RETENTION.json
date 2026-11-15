@@ -6,6 +6,22 @@
   "accountable_issue": 1143,
   "basis": "operative A46(8), proposed preservation; owner merge not authorized",
   "scope": "Documentary support and review retention. No new scientific derivation or status promotion.",
+  "review_body_redaction": {
+    "decision": "#1169 comment 6892224647, Q2(a)",
+    "unredacted_source": {
+      "commit": "3c445e6c20e832a338749c20faee5620d2b7ced5",
+      "path": "verification/programmes/oi-qm/reconstruction/selection-discriminator-20261113/reviews/RECEIPTS.json",
+      "git_blob": "9307e1edeba4b07214ece9b7dac1929cf670d76a"
+    },
+    "affected_reviews": [
+      5840425454,
+      5840851253,
+      5845436861,
+      5848321039,
+      5897663327,
+      5897727347
+    ]
+  },
   "sources": [
     {
       "id": "sel-access",
@@ -76,8 +92,20 @@
       "source_url": "https://github.com/amaybaum/incompleteness/pull/1224#pullrequestreview-5840425454",
       "source_time": "2026-11-10T10:36:00Z",
       "reviewed_commit": "ea8827ff6b4c3e405310216c75bcc32157d069bb",
-      "body_sha256": "77dffe9bf5ce3c0d0673133604b4489259c9c4733a9e884bca390f1c718b7d39",
-      "body_utf8_bytes": 24913
+      "body_sha256": "03752bee04e27e2494bbb618d17a9fe246aa91b033fd728a66bbf9af762f4a96",
+      "body_utf8_bytes": 24895,
+      "original_body_sha256": "77dffe9bf5ce3c0d0673133604b4489259c9c4733a9e884bca390f1c718b7d39",
+      "original_body_utf8_bytes": 24913,
+      "redaction": {
+        "rule": "Q2(a); see the redaction field of this receipt in reviews/RECEIPTS.json",
+        "body_lines": [
+          1,
+          7,
+          116,
+          120
+        ],
+        "occurrences": 4
+      }
     },
     {
       "key": "selection-access-diff",
@@ -86,8 +114,21 @@
       "source_url": "https://github.com/amaybaum/incompleteness/pull/1224#pullrequestreview-5840851253",
       "source_time": "2026-11-10T11:07:22Z",
       "reviewed_commit": "1b966a0383e1dabe867d41816ee9743e99502938",
-      "body_sha256": "b9eabf891a84e94f15c49ad8dec60701e85292db9f657971ee4449c3ee0debeb",
-      "body_utf8_bytes": 8442
+      "body_sha256": "5ed1e97fa3a8970c49e171627e718425674ec781457f6cdb228d74463a01999a",
+      "body_utf8_bytes": 8418,
+      "original_body_sha256": "b9eabf891a84e94f15c49ad8dec60701e85292db9f657971ee4449c3ee0debeb",
+      "original_body_utf8_bytes": 8442,
+      "redaction": {
+        "rule": "Q2(a); see the redaction field of this receipt in reviews/RECEIPTS.json",
+        "body_lines": [
+          1,
+          7,
+          31,
+          37,
+          57
+        ],
+        "occurrences": 5
+      }
     },
     {
       "key": "selection-excl-full",
@@ -96,8 +137,20 @@
       "source_url": "https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5845436861",
       "source_time": "2026-11-10T16:25:22Z",
       "reviewed_commit": "4813bc0b04548248581a137c88d43a64d73bd1a9",
-      "body_sha256": "bbf483ef23b6471438ac84f03b7a65b505cad71048c280efa49a36591d883f2c",
-      "body_utf8_bytes": 27313
+      "body_sha256": "902117b2613acdb4e8236fb9ff046fe73eb13f2741fb854ba22e30c31d67e3dd",
+      "body_utf8_bytes": 27295,
+      "original_body_sha256": "bbf483ef23b6471438ac84f03b7a65b505cad71048c280efa49a36591d883f2c",
+      "original_body_utf8_bytes": 27313,
+      "redaction": {
+        "rule": "Q2(a); see the redaction field of this receipt in reviews/RECEIPTS.json",
+        "body_lines": [
+          1,
+          11,
+          140,
+          144
+        ],
+        "occurrences": 4
+      }
     },
     {
       "key": "selection-excl-diff",
@@ -106,8 +159,20 @@
       "source_url": "https://github.com/amaybaum/incompleteness/pull/1228#pullrequestreview-5848321039",
       "source_time": "2026-11-10T19:48:26Z",
       "reviewed_commit": "0ecfddeb89540aedf1e2dc3ae7c377516641066c",
-      "body_sha256": "f4f7b8cdd19a592a690612a51779c420d30d9b3a9fa52acda69e373a78c42abd",
-      "body_utf8_bytes": 8339
+      "body_sha256": "d7971da52ea76a4b4ff32262d3274efd1f7a2878a6650082b8bb1440792e4fa8",
+      "body_utf8_bytes": 8321,
+      "original_body_sha256": "f4f7b8cdd19a592a690612a51779c420d30d9b3a9fa52acda69e373a78c42abd",
+      "original_body_utf8_bytes": 8339,
+      "redaction": {
+        "rule": "Q2(a); see the redaction field of this receipt in reviews/RECEIPTS.json",
+        "body_lines": [
+          1,
+          7,
+          22,
+          46
+        ],
+        "occurrences": 4
+      }
     },
     {
       "key": "selection-excl-doc",
@@ -136,8 +201,18 @@
       "source_url": "https://github.com/amaybaum/incompleteness/pull/1281#pullrequestreview-5897663327",
       "source_time": "2026-11-13T20:33:23Z",
       "reviewed_commit": "329878be6fda4737a489f89a3cf6cfceefcb3bf1",
-      "body_sha256": "60248901e66253de6da010b3dd10058f07610e3dc094a6c0d40a3b7ae31bfb33",
-      "body_utf8_bytes": 15154
+      "body_sha256": "784794b8deb01b3629d8e01315b88f823e97cc356e474fe40e25054638475960",
+      "body_utf8_bytes": 15142,
+      "original_body_sha256": "60248901e66253de6da010b3dd10058f07610e3dc094a6c0d40a3b7ae31bfb33",
+      "original_body_utf8_bytes": 15154,
+      "redaction": {
+        "rule": "Q2(a); see the redaction field of this receipt in reviews/RECEIPTS.json",
+        "body_lines": [
+          1,
+          7
+        ],
+        "occurrences": 2
+      }
     },
     {
       "key": "own-1281-5897727347",
@@ -146,8 +221,18 @@
       "source_url": "https://github.com/amaybaum/incompleteness/pull/1281#pullrequestreview-5897727347",
       "source_time": "2026-11-13T20:37:51Z",
       "reviewed_commit": "445b17f7f808c0b8b5ff82da34fb3a0f474ceaaa",
-      "body_sha256": "400f7c406d37afed31325fa1ad42c52e3b3f24162d1a56883ae6258390924a80",
-      "body_utf8_bytes": 6960
+      "body_sha256": "6bccce30ca6f19cd7a5fc8516b6f45781d06089647f25ec2e5c8d5e7eef30b57",
+      "body_utf8_bytes": 6948,
+      "original_body_sha256": "400f7c406d37afed31325fa1ad42c52e3b3f24162d1a56883ae6258390924a80",
+      "original_body_utf8_bytes": 6960,
+      "redaction": {
+        "rule": "Q2(a); see the redaction field of this receipt in reviews/RECEIPTS.json",
+        "body_lines": [
+          1,
+          7
+        ],
+        "occurrences": 2
+      }
     },
     {
       "key": "own-1281-5898055055",
