@@ -157,8 +157,8 @@ does not touch S-L3's verified content (see O5).
 
 ## 5. Repository text rules
 
-A grep of both files for "scratchpad", "state-dependent", "state-independent", `/tmp/`, `/home/`,
-`/root/`, `/Users/` and "close(s/d)/fix(es/ed)/resolve(s/d) #N" returned **no hits**. r1's
+A grep of both files for the repository's banned words, machine-local paths and closing keywords
+returned **no hits**. r1's
 "state-varying" (r1:274) is correctly rephrased at r2:389.
 
 ## 6. Findings
