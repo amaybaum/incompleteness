@@ -51,9 +51,11 @@ premises."
     c.6891241282;
   - `S3-U2-r3.md`, blob `2711c168a65c0ae4397195593528fcf0ee6a4cba` (U2, by section); accepted with
     its recorded limits, #1169 c.6891710167;
-  - `S3-U4-r2.md`, blob `d8cced4cce5aea9707cff187921375a904ba6d75` (U4, by section), unreviewed at
-    `20cdb9e5`. **Every classification below that rests on U4 is PROVISIONAL.** The branch later
-    gained a review of U4 r2 (commit `fbde6485`); it is not used here;
+  - `S3-U4-r3.md`, blob `54ee962919ab17d04f430b2847ab677cbc444829` (U4, by section), at `c3353dc5`;
+    accepted by the owner, #1169 c.6892563291: "D-1 stays undecided at γ. No experimental
+    contradiction is established". **Every classification below that rests on U4 is PROVISIONAL**
+    ("Results that depend on U4 … stay conditional", same record). r1–r3 of this note cited U4 r2
+    (blob `d8cced4c`); the section numbers are the same in r3;
   - `U4-CALC-r2.md`, blob `bef634e2100979d499b87f7139440dd6cff4fc64` (CALC, by theorem), reviewed
     ACCEPT in `REVIEW-U4-CALC-r2.md`, blob `70eddf2dad303b31c9691ad8ac1dcd3ee4576f8f`; accepted by
     the owner, #1169 c.6892224647 (`amaybaum`, 2026-11-15T09:17:55Z): "2b r2 (`U4-CALC-r2.md`, blob
@@ -83,11 +85,12 @@ premises."
 **Labels** (as U1, U2): **[M]** on `main` at its own layer; **[M-r]** verification record on `main`
 with its review on `main`; **[NP]** named premise (§A.46 item 7); **[OFF]** off `main`, with its review
 state; **[EXT]** external literature, with LIT's read status (FULL, ABSTRACT, SECONDARY, NOT READ);
-**[P]** proposed definition; **[A-inf]** author-side inference; **PROVISIONAL** rests on U4 r2. U4 r3 is
-accepted in the same owner record (c.6892563291: "D-1 stays undecided at γ. No experimental
-contradiction is established"). Re-pointing the PROVISIONAL citations from U4 r2 to U4 r3 needs a
-check of each cited section against r3 and is not part of r4, so every entry resting on U4 stays
-PROVISIONAL, as the acceptance of G1 r3 states for "Results that depend on U4".
+**[P]** proposed definition; **[A-inf]** author-side inference; **PROVISIONAL** rests on U4 r3. The U4 citations
+point to U4 r3, section for section. Where r3's text differs from r2's in a cited section, the item
+says so: U4 r3 §2.1 adds a "Beyond H-μ" extension (§4.2, E-prep row); U4 r3 §3.2 adds that masking is
+pair-relative (§4.2, marker row, which rests on CALC directly); U4 r3 §6.1 and §6.3 restrict PK-2 to
+"fixed geometry, tick and background" (§7.1, §8); U4 r3 §5.4 makes the Case Pk typing of the
+delayed-choice erasers conditional (§2.3).
 
 ***
 
@@ -200,7 +203,9 @@ A change of graph per protocol is a change of model (§9, O11).
 - **Three eraser cases kept apart** (#1169 c.6891710167): a6 is *sorting* on marker outcomes.
   *Physical reversal of the marker interaction* and *recovery of a record after a period of
   inaccessibility* (the parked record) are not among the six protocols; each would be its own
-  protocol, and none is defined here (PROVISIONAL on U4 §§4.2, 5.3–5.4, 6).
+  protocol, and none is defined here (PROVISIONAL on U4 §§4.2, 5.3–5.4, 6). U4 r3 §5.4 makes the
+  typing of the delayed-choice erasers as Case Pk conditional on how an unread in-flight photon is
+  classified under U1 G4; this note defines none of the three cases, so its content is unchanged.
 
 ### 2.4 Auxiliary protocols that the measured quantities require, adopted (G1-A1)
 
@@ -310,6 +315,9 @@ on the condition that U1's factor-set reading is verified (U2 §11.1; §4.2). A 
 then a change of graph, hence of model (MR★:471–472 [NP]). So on K1, under the global reading, a2P,
 a3P, a2C and a3C are programs of other geometries. They are compared with a4–a6 within one instance
 only through the O11 stop, which is not resolved; they are reported per model and never combined.
+Under the all-E-set encoding, the switch between a2P and a2C (and between a3P and a3C) is also an
+E-set read switch, which on R-lin is not available at D5's scope on the same factor-set condition, as
+for a5 and a6 (§4.2); the second encoding, with the read by E-read, avoids it.
 `K_P` itself combines the laws of the `L`-blocked and `R`-blocked programs, two geometries, so on K1
 it too is defined within one instance only through that stop. "Marker coupling as in a4" on K1 is a
 property of the declared region and the fixed graph (U4 §2.1, PROVISIONAL). Under the scoped reading
@@ -427,10 +435,10 @@ is a negative under SNR-1.
 | Blocking by a different graph per protocol | a different model (MR★:471–472 [NP]); not comparable within `I` | §9, O11 |
 | Blocking by a prepared content (E-prep) | a prepared content enters the screen only through an offset (S-L5); an offset correlated with the carrier under `μ` is not excluded by S-L5's C-9 wording (MR★:1433–1437). Whether such a correlation, as a datum of the one `μ` of `I` conditioned on an attempt, could stand in for blocking: **not classified** | S-L5 [NP]; U4 §2.1 (PROVISIONAL); no ground on record to exclude it without reference to outcomes |
 | Marker coupling switch a1 vs a4 (E-set) | **not available** at D5's scope (same class as blocking: the linear part `Φ_{AΣ}` would depend on the setting). The verdict rests on D5 and U1's factor-set reading alone | as for blocking; U4 §2.1 adds that on K1 a region "records" whenever `Φ_{AΣ} ≠ 0`, "a property of the declared region and the fixed graph" (PROVISIONAL), which bears on §9's O11 stop, not on this verdict |
-| Marker preparation a1 vs a4 (E-prep) | changes the marker's prepared law only; the marker still records (`Φ_{AΣ} s_Σ` does not depend on `s_A`), so E-prep realizes a4 with another marker preparation, **not a1** "no marker" (OCP:19); the screen changes only through the offset `Φ_{DA} s_A` | S-L5, MR★:584–593 [NP]; U4 §2.1 (PROVISIONAL); CALC Theorem 1′: a marker law `ν` with `ν_t` invariant under translation by `M_t δ` masks the path completely, so such an attempt gives `K_P = P` with the coupling present, which under G1-A4 is still a4, not a1 |
+| Marker preparation a1 vs a4 (E-prep) | changes the marker's prepared law only; the marker still records (`Φ_{AΣ} s_Σ` does not depend on `s_A`), so E-prep realizes a4 with another marker preparation, **not a1** "no marker" (OCP:19); the screen changes only through the offset `Φ_{DA} s_A` | S-L5, MR★:584–593 [NP]; U4 §2.1 (PROVISIONAL); CALC Theorem 1′: a marker law `ν` with `ν_t` invariant under translation by `M_t δ` masks the path completely, so such an attempt gives `K_P = P` with the coupling present, which under G1-A4 is still a4, not a1. U4 r3 §2.1 ("Beyond H-μ", [A-inf]) adds that a change of marker preparation changes `D`'s law through the background, while a declaration does not; this supports the row and changes none of it |
 | Read switch a5 vs a6 (E-read) | no operation; both are projections of one full law | S-C1(b), MR★:504–507 [NP]; OCP:49 |
 | Read switch a5 vs a6 (E-set, φ-effected) | **not available** on R-lin at D5's scope (I-sel) | D5 [M-r]; U1:487; factor-set condition as above |
-| Marker as which-path record (C-REC for `A`) | under K1 and μ-G the native marker holds exactly the class `q_t(s_Σ) ∈ R_A/K_t`; masking complete for every path variable iff `K_t = R_A`; complete at `t ≤ 1` in every geometry; at `t = 2` it fails on a ring (A-reg) and on the native cubic torus with `5 \| q`; where it fails, a single-tick R1 record for the partition by `q_t`, with persistence, R3 and R4 open; **unsourced at (β)–(δ)** only where `K_t = R_A`; quiet marker: assumed apparatus | CALC Theorem 1, Prop. 1.4, Instances 1.1–1.2, §1.7, R-7 ([OFF], reviewed ACCEPT); U4 §3.2 (PROVISIONAL) |
+| Marker as which-path record (C-REC for `A`) | under K1 and μ-G the native marker holds exactly the class `q_t(s_Σ) ∈ R_A/K_t`; masking complete for every path variable iff `K_t = R_A`; complete at `t ≤ 1` in every geometry; at `t = 2` it fails on a ring (A-reg) and on the native cubic torus with `5 \| q`; where it fails, a single-tick R1 record for the partition by `q_t`, with persistence, R3 and R4 open; **unsourced at (β)–(δ)** only where the declared point-path pair is masked, `M_t(x_L − x_R) ∈ K_t` (CALC Theorem 1(b); always when `K_t = R_A`, and possible with `K_t ≠ R_A`, as U4 r3 §3.2 records for Instance 1.2's mirror-related pairs); quiet marker: assumed apparatus | CALC Theorem 1, Prop. 1.4, Instances 1.1–1.2, §1.7, R-7 ([OFF], reviewed ACCEPT); U4 §3.2 (PROVISIONAL) |
 | Screen record R1 | the screen's law given carrier `x` is uniform on `M^D_t x + K^D_t` under μ-G and does not depend on any marker declaration; a single-tick dependence on the carrier exists where `K^D_t ≠ R_D`; whether it does for a declared two-path geometry is G2's (H-1); persistence and the trace route **undecided** (C-4), blocked at C-3 | CALC Prop. 2.8(i) ([OFF], reviewed ACCEPT); MR★:1373–1380 via U1:532 [NP] |
 | Process-produced marks (`⊥`, attempt and failure marks) | no executing process on K1; listed with mass 0 | MR★:639 [NP] |
 | Retention to `t_c` | **unsourced** (no bounded readable register; O-RET) | U1 C-RET (U1:590–599); S-C4a [NP] |
@@ -716,13 +724,19 @@ target.
 - *What the analysis does not do.* It never replaces the primary verdict, selects no point and counts
   no miss at a point other than the primary. A counted miss (above) is a primary-verdict miss, reported
   with its stability. Every report states the size of `𝒮` beside the trial count (NC-γ5).
-- *The hand checks over `𝒮`* [A-inf, by hand]. Checks 1, 3 and 4 have `V_u ∈ {0, 1}`, and their `J`
-  either has a constant normalizer or contains a fringe period at every `ν` in the set, so they are
-  stable. Check 2: `u = 1/2` gives `V_u = 0`, absent at every `v_−`; for the shifted partner, at
-  `ν = 0.05` the support still excludes the first side lobe, so `u` stays monotone: stable. Check 5:
+- *The hand checks over `𝒮`* [A-inf, by hand], with two stated conditions. Checks 1 and 3 have
+  `V_u ∈ {0, 1}` and a support that does not change with `ν`: stable. Check 4 has `V_u = 1`; at
+  `ν = 0.2` its support is where `sinc² ≥ 0.2`, `|x| ≤ 2.02` on the slit scale, a width of about
+  `1.29 λf/a`, against a fringe period `λf/d`. So it holds `1.29 d/a` periods, enough for an interior
+  extremum, **when the slit separation is at least the slit width**, `d ≥ a`: stable under that
+  condition, with four cells per fringe period. Check 2: `u = 1/2` gives `V_u = 0`, absent at every
+  `v_−`. For the shifted partner, `u` stays monotone only while the support lies inside both main
+  lobes, which holds for a shift `δ < π − x_ν` in the sinc argument, with `sinc²(x_ν) = 2ν`: about
+  `0.81` rad at `ν = 0.05`, `1.12` at `0.1` and `1.54` at `0.2`. So check 2 is stable over `𝒮`
+  **for a shift of at most about 0.8 rad**. Check 5:
   the quarter-period total has `V_u = √2/2 ≈ 0.71 ≥ 0.6`, present at every `v_+`, and the C0 and
   in-phase images have `V_u = 0`, absent at every `v_−`: stable. So every hand check keeps its
-  classification over `𝒮`.
+  classification over `𝒮`, under the two conditions stated for checks 4 and 2.
 
 ### 5.8 `κ_scale`: lattice cells to physical positions
 
@@ -837,7 +851,8 @@ Every control law is passed through the same `κ` (§5.1). Per incident particle
   its own path, so `K_P = 1` (§2.4, check 5). *Required result:* reproduced as a law with `K_P² + V² >
   1`, hence outside `D² + V² ≤ 1` (since `K ≤ D`); it separates record formation from visibility loss.
   On K1, by S-L5 [NP], every marking is of this kind (MR★:592–593, "marking is non-invasive, which is
-  the CC1 kind") (PROVISIONAL, U4 §2.1, PK-2). [A-inf, for G2] For two point-prepared paths the K1
+  the CC1 kind") (PROVISIONAL, U4 §2.1; PK-2, which U4 r3 §6.1 states at fixed geometry, tick and background, so the
+  statement carries that scope). [A-inf, for G2] For two point-prepared paths the K1
   marker's marginal is all-or-nothing (CALC Theorem 1(c)); whether `K_P` on K1 is then 1 or `P` also
   depends on the conditioning on a screen detection, which couples the background images at `A` and
   at `D`, and is G2's.
@@ -846,7 +861,8 @@ Every control law is passed through the same `κ` (§5.1). Per incident particle
   equal detected masses, §2.4 check 3). Under S-L5's C-9 wording the offset is from content that is
   not a function of the carrier's content and may be correlated with it under `μ` (MR★:1433–1437; RU4
   finding 11). *Required result:* distinguished from record-tied loss by `K_P` on the auxiliary
-  protocols; on `𝒜_6` alone the two are not separated. (PROVISIONAL, U4 §4.2, PK-2.)
+  protocols; on `𝒜_6` alone the two are not separated. (PROVISIONAL, U4 §4.2; PK-2 at fixed geometry,
+  tick and background, U4 r3 §6.1.)
 - **Deletion** (PREREG T8). Remove in turn the second path's transfer, the marker, the setting and
   the herald. *Required result:* the attributed effect vanishes. On K1 a removed transfer or a removed
   marker coupling is a change of geometry, hence of model (§4.2; PROVISIONAL on U4 §2.1); its deletion
@@ -986,12 +1002,12 @@ pure-marker equality (LIT 1.12, §3, FULL). For X-5: OCP:23–24.
 | `𝓡`, `𝓡^full`, `L_a`, incident events, masses (§3) | — | — | — | per `f` | per `μ` | κ-ens object only |
 | Encodings E-set/E-prep/E-read (§2.2) | marker coupling not a setting on K1 (U4 §2.1) | — | which rule | — | — | — |
 | `K_P`, `K_C` (§2.4) | — | — | — | — | — | per reading |
-| §4.2 outcomes on K1 | (β), PK-2, T0 (U4 §§2.1, 3.2); CALC Theorem 1, Prop. 2.8 ([OFF], reviewed ACCEPT) | Obs typing of extension operations | global vs scoped | AD-1(b) per form | μ-G, or declared `μ`-data (§4.2) | C-REN only under κ-orb |
+| §4.2 outcomes on K1 | (β), PK-2 at fixed geometry, tick and background, T0 (U4 §§2.1, 3.2, 6.1); CALC Theorem 1, Prop. 2.8 ([OFF], reviewed ACCEPT) | Obs typing of extension operations | global vs scoped | AD-1(b) per form | μ-G, or declared `μ`-data (§4.2) | C-REN only under κ-orb |
 | `κ_det` (§5.2) | — | a detector typed into `Obs` | — | which slice `D_j` reads | ready screen as a `μ`-datum or visible herald | — |
 | `κ_freq` (§5.6) | — | — | — | — | H-ens; the weight of κ-orb's verdict *some* | both carried |
 | `κ_cmp` constants (§5.7) | — | — | — | — | — | per reading |
 | `κ_scale`, phase scans (§5.8) | U4 §2.1 | — | — | — | — | — |
-| NC-rep, NC-copy, NC-noise, Deletion on K1 (§7.1) | §6.3, S-L5 consequences, PK-2, §4.2, §2.1 | — | global | — | — | — |
+| NC-rep, NC-copy, NC-noise, Deletion on K1 (§7.1) | §6.3, S-L5 consequences, PK-2 (at fixed geometry, tick and background), §4.2, §2.1 | — | global | — | — | — |
 | Three eraser cases (§2.3) | U4 §§4.2, 5.3–5.4, 6 | — | — | — | — | — |
 
 ## 9. Stops
@@ -1070,13 +1086,12 @@ then bounded by CC4/CC5's reach is a candidate check.
 | PLAN-G at `20cdb9e5` | the objects G1 fixes, H-1 to H-10, routes, X-list | support off `main` (gap); plan not reviewed |
 | U1 at `20cdb9e5` | criterion, AD-1, outcomes, C-INT classes, levels under declared `μ` | support off `main` (gap); accepted, c.6891241282 |
 | U2 at `20cdb9e5` | counting conditions for the factor-set reading; CP-4 step class | support off `main` (gap); accepted, c.6891710167 |
-| U4 r2 at `20cdb9e5` | every PROVISIONAL entry | support off `main`, unreviewed at that commit |
+| U4 r3 at `c3353dc5` | every PROVISIONAL entry | support off `main` (gap); accepted, c.6892563291; U4-dependent results stay conditional |
 | U4-CALC r2 and its review at `20cdb9e5` | marker masking condition; the screen's coset law (§4.2); NC-copy's G2 slot; E-prep masking remark | support off `main` (gap); reviewed ACCEPT; accepted by the owner, c.6892224647 |
 | LIT at `20cdb9e5` | target typing, read status, `K` and `D` definitions, G1-F1, G1-F6, G1-F7 | support off `main` (gap); reviewed |
 | VER2 at `20cdb9e5` | CC4, CC5, CC7 scopes; ceiling set (§7.2) | support off `main`; accepted at its scopes, c.6891511297 |
 | G1 r1 and its review at `20cdb9e5`; G1 r2 and its review at `0300c8437`; G1 r3 and its review at `b3c79f60` | the findings r2 and r3 apply; the text r4 revises | provenance |
-| U4 r3 and its review (commit `0300c8437`) | not used | provenance |
-| Review of U4 r2 (commit `fbde6485`) | not used | provenance |
+| U4 r2 (cited by r1–r3 of this note) and the reviews of U4 r2 and r3 | superseded citations; not used | provenance |
 | #1169 c.6891808569, c.6891338304, c.6891710167, c.6892224647, c.6892563291; #1305 | authorization, target, three cases, CALC's acceptance, G1 r3's acceptance and answers G1-A1 to G1-A6 | provenance and governance |
 
 Every statement resting on an [OFF], [NP] or PROVISIONAL row carries that gap. This note is itself

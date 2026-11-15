@@ -19,3 +19,15 @@ consequences and nothing else. Paper-only: no computation, Lean, manuscript, Iss
 same record accepts U4 r3. Re-pointing the citations needs a check of each cited section against r3,
 and that is not among these answers (r4, labels paragraph). §12 now lists the questions as answered,
 with the citation.
+
+## Dispositions for the focused review of r4
+
+`REVIEW-GAMMA-G1-r4.md` (PR #1294 commit `c3353dc5`), verdict ACCEPT WITH CHANGES (minor only). The fixes
+are made in place in `GAMMA-G1-r4.md`, and nothing else is changed.
+
+| # | Finding | Disposition | Where and how |
+|---|---|---|---|
+| 1 (m2) | State the conditions for the stability of the §5.7 hand checks | **applied** | §5.7, sensitivity analysis: check 4 is stable when the slit separation is at least the slit width, `d ≥ a`, since the `ν = 0.2` support holds `1.29 d/a` fringe periods. Check 2 is stable for a shift of at most about 0.8 rad, from `δ < π − x_ν` with `sinc²(x_ν) = 2ν` at `ν = 0.05`. Both were re-derived by hand, and the closing sentence carries the two conditions |
+| 2 (m3) | The marker row must use the per-pair masking condition | **applied** | §4.2, marker row: "unsourced at (β)–(δ)" holds only where the declared point-path pair is masked, `M_t(x_L − x_R) ∈ K_t` (CALC Theorem 1(b)). That always holds when `K_t = R_A`, and it can hold with `K_t ≠ R_A` (U4 r3 §3.2) |
+| 3 (m1) | Under the all-E-set encoding the read switch is also unavailable | **applied** | §2.4, O11 paragraph: the switch between a2P and a2C (and between a3P and a3C) is an E-set read switch. It is not available on R-lin at D5's scope, on the factor-set condition, as for a5 and a6. The second encoding avoids it |
+| 4 | Re-point U4 citations to U4 r3, keeping them PROVISIONAL, and say where content changes | **applied** | Inputs, the labels paragraph and §11 now cite U4 r3 (blob `54ee9629`, accepted, c.6892563291), section for section. Every U4-dependent item stays PROVISIONAL. Changes from re-pointing are stated where they occur. **U4 r3 §2.1** ("Beyond H-μ") supports the E-prep row and changes none of it (§4.2). **U4 r3 §3.2**'s per-pair masking is carried in the marker row (item 2). **U4 r3 §§6.1, 6.3** restrict PK-2 to fixed geometry, tick and background, and that scope is now attached to every PK-2 citation: NC-copy and NC-noise (§7.1), and §8's two rows. This narrows the scope stated for those items. **U4 r3 §5.4** makes the Case Pk typing of the delayed-choice erasers conditional; G1 defines none of the three eraser cases, so §2.3's content is unchanged. The NC-rep item's reading of U4 §6.3 (AV-t, and Schwindt's polarization taken as unheld) is unchanged in r3 |
