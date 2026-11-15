@@ -208,7 +208,8 @@ rests on `main`, on the scripts and outputs beside it, or on its own stated argu
 | #1216 body, #945 body | F0: pre-shift line numbers | Provenance; the shift is supported on `main` by `7c6ceaaa` and `02009693`, both ancestors of `main` |
 | #945 c.6567863298 | F0's "moved … at `02009693`" | Provenance (checked on `main`'s history) |
 | #945 c.6567879503 §1 "No Lean module formalizes gluing, rounding or clipping" | §2.1 A2 evidence row | Support on `main`: this unit's grep of OB/ at `fd539e15` |
-| #945 c.6567879503 §6 (owner question 6) and c.6657435508 (F945-R planning status) | §0 item 1, §2.2, D4a, D4b, D5, §8: the per-parent step, the candidate repair and the complex-entry constant are #945's questions, not assessed here | Provenance (open questions and planning home); no claim here uses the assessment's content |
+| #945 c.6657435508 (F945-R planning status) | §0 item 1, §2.2, D4a, D4b, §8: the per-parent step and the candidate repair are #945's questions, not assessed here | Provenance (open questions and planning home); no claim here uses the assessment's content |
+| #945 c.6893586675 (amaybaum, posted 2026-11-15T11:24:07Z), answer Q6: "'Proved' at Main:576 (cited as :578 at the assessment's base) is scoped to real entries. The complex-entry constant stays open until its derivation is independently verified." | D5: real-entry and complex-entry statuses | Provenance (owner decision, quoted with author and time); it narrows the scope of Main:578's status and asserts no result |
 | #945 body and comments (§11 read list) | Verification scope | Provenance |
 | BRIDGE, SHM, A868, A1059 (off-main drafts, [D]) | Labels (J-, M-, Q-labels), definitions restated from `main` (FI-1, §4.2), open statuses (D16, D20, D22, D23, D25) and convention sources (§1) | Provenance: an open status asserts no result, and each definition used is restated from a kernel identifier on `main`. Where this unit re-derived a [D] item from `main` or by [G], the row cites that (QP node 10's non-quantumness, §5.1, C7); the node-10 cells that rested on A868 are not assessed here |
 | `probes/*.py`, `probes/*.out`, `review/rv_*.py`, `review/rv_*.out` ([G], [RV]), at `820519cf` | Every computation-supported result: F1–F5, C1–C7, N5 (D4c), G1–G5 and their [RV] co-citations | Support on `main`: the eight scripts and eight outputs are beside this record, byte-identical to their `820519cf` versions (§12, `STATUS.md`) |
@@ -248,8 +249,9 @@ Level A (#1216): "Any specified finite quantum experiment's observable law is re
 - *Precision regime.* Exact (A1) or within ε in **exact-ring arithmetic** (A2, A3). In fixed-point
   b-bit registers the realized-law bound is open: Main:568 ("a bound on the realized outcome law of the
   clipped and normalized simulator at finite b is open"), :578, :580, :598, :602 item 4. On `main` the
-  exact-arithmetic theorems (Main:566, :598) and the density Corollary (Main:600) are stated as proved;
-  the finite-b constants are unproved. On `main` the per-parent clip-and-normalize step is stated as
+  exact-arithmetic theorems (Main:566, :598) and the density Corollary (Main:600) are stated as proved,
+  and at finite b the realized-law bound (Main:568) and the classical-marginal rounding term
+  (Main:578) are stated as open. On `main` the per-parent clip-and-normalize step is stated as
   not established: Main:578 says "the Corollary's estimate is not established for the simulator's
   Hermitian branches". The per-parent negativity-ledger step of pre-shift Main:556 (F0) is not in
   `main`'s text. Its assessment and any repair (F945-R) belong to #945; this unit does not assess
@@ -667,12 +669,12 @@ here or a score.
 | --- | --- | --- | --- | --- | --- | --- |
 | D1 | S ⇔ D ⇔ Q_fb at every finite horizon (Main:548) | proved | [K] `finite_horizon_equivalence`, OB/Equivalence.lean:462 | C-dyn | finite alphabet and horizon; fixed-basis readout | #1169 (baseline), #1211 (frontier) |
 | D2 | Exact Level A by comb + response-table prior (Main:482, :520, :602) | proved | [P], [X] `intervention_probes.py`; passive half [K] `S_imp_D` | C-dyn | target conditionals loaded as product prior; per family and horizon | #1169 (intervention dilation, classical rung) |
-| D3 | ε-Level A by gluing, exact ring (Main:566–:580) | proved | [P], [X] `opglue_probes.py` (d = 2); no Lean | C-dyn dynamics, E_r system | exact-ring registers; supplied instrument data and initial state; finite Kraus; fixed K, G | #945 (survives) |
+| D3 | ε-Level A by gluing, exact ring (Main:566–:580) | proved | [P], [X] `opglue_probes.py` (d = 2); no Lean | C-dyn dynamics, E_r system | exact-ring registers; supplied instrument data and initial state; finite Kraus; fixed K, G | #945 |
 | D4 | Clipped/normalized finite-b **complete-law** TV bound and capacity–accuracy | open | Main:568, :578, :580, :602 [P] | E_r | fixed-point b bits; window rule; valid clipped decoder probabilities do not prove closeness or PSD register | #945 only |
-| D4a | Old per-parent negativity estimate | not established on `main` (Main:578); its assessment belongs to #945 and is not made here | [P] Main:578 | E_r | — | #945 only |
+| D4a | Per-parent clip-and-normalize estimate for Hermitian branches | not established (Main:578); the pre-shift negativity-ledger step is not in `main`'s text (F0); its assessment belongs to #945 and is not made here | [P] Main:578 | E_r | — | #945 only |
 | D4b | Candidate finite-b repair (F945-R) | not assessed here | — (#945 holds the candidate) | E_r | — | #945 only |
 | D4c | One-step failure of **exact internal PSD closure** in finite b | counterexample at b=12 only; **asymptotic approximate closure open** | [G] r2 N5; [RV] rv_finiteb; no realized-law counterexample | E_r | specified digitization/rounding, K=1, exact initial register | #945 (scope only) |
-| D5 | Rounding Lemma, instrument level (Main:578) | stated proved on `main` (Main:578: "the instrument-level inequality is proved"); this unit does not assess its constant, whose complex-entry case is #945 owner question 6 (open) | [P] | E_r | fixed-point dyadic model | #945 only |
+| D5 | Rounding Lemma, instrument level (Main:578) | proved for real entries (Main:578: "the instrument-level inequality is proved", scoped to real entries by #945 c.6893586675); complex-entry constant open | [P] for real entries | E_r | fixed-point dyadic model | #945 only |
 | D6 | Uniform continuum, exact budget (Main:598) | proved; \|N\|-independent capacity open | [P]; [N] `opglue_probes.py` checks 8–9 (floating-point instances, tolerance 1e−12) | E_r | fixed (d, m, K, ε); δ-net rounding as dictionary | #945 (capacity), #1169 |
 | D7 | Finite-test density at fixed (d, m) (Main:600) | proved; union over (d, m) open | [P] | E_r | exact ring | #1169 |
 | D8 | Classical-dimension obstruction to exact equivalence (Main:560) | proved (factorization half); unboundedness imported [55] | [P], [X] `nogo_probes.py` | any finite ontic carrier | ordinary prepare–ontic–measure interface | #1169 |

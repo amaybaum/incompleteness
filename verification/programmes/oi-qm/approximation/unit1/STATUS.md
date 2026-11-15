@@ -14,9 +14,8 @@ for the manuscripts. Each result carries the evidence layer stated in its §1. R
 r4b was written under the owner decision of #1169 c.6893687398 (amaybaum, posted
 2026-11-15T11:33:23Z): "Write a fix commit, followed by an independent review. Each claim is
 narrowed to its evidence, and the evidence an accepted Level-A result needs is kept; no valid result
-is dropped only because its support is off `main`." The independent review of r4b is required by
-that decision and is not recorded here. The reviews below cover r4 and the r4 → r4a diff; they do
-not cover r4b. Integration requires a separate owner decision.
+is dropped only because its support is off `main`." The same decision requires an independent
+review of r4b. The three reports below cover r4 and the r4 → r4a diff, not r4b.
 
 ## Review record
 
@@ -35,7 +34,8 @@ All three reports are by the same non-author reviewer, Codex task `review_approx
   paragraph, and the r4a-final report accepts it.
 - **Focused r4a-diff report.** Original SHA-256
   `ceeab15fedcfd40e373b4c270df8af3d2d78a0960093727f2fc9878be0f72c49` (blob `7cd18a7f`, 7,367
-  bytes). The copy here is the original with three machine-local paths replaced, under owner
+  bytes); that blob id is recorded in #1280's manifests and is not an object in this repository.
+  The copy here is the original with three machine-local paths replaced, under owner
   decision Q2(a) (#1169 c.6892224647, amaybaum, posted 2026-11-15T09:17:55Z): "remove
   machine-local paths, record the redactions, generate new digests, preserve the original evidence
   and provenance". The original literals are not recorded. Offsets refer to the original bytes.
@@ -48,14 +48,14 @@ All three reports are by the same non-author reviewer, Codex task `review_approx
 
 - **Focused r4a-final report.** Byte-identical to the original.
 
-Both focused reports are copied from the custody archive of draft PR #1280
+Both focused reports are copied from the custody archive of #1280
 (`verification/audits/integration/older-evidence-20261113/evidence/preserved-artifacts.zip` at
 `7d4ab40aea3398f43552636cc2eea311da1d10ee`, members R1 and R2), where the redaction above is
 recorded. That archive is provenance: the copies here carry their own digests, and no claim needs
 the archive.
 
-The reviewed commits `4e526de5`, `b1a17e01` and `e41cf613` are commits of #1221. They are
-reachable from `main` only if #1221 lands with its commits.
+The reviewed commits `4e526de5`, `b1a17e01` and `e41cf613` are ancestors of the commit that adds
+this file, so they are reachable wherever this file is.
 
 Ordinary pull-request CI at `e41cf613`, run 42662313573, attempt 1, completed with 26 successful
 checks and one expected skip. It is provenance (§A.42 item 2), and it is not a run at r4b.
@@ -88,7 +88,8 @@ co-citations).
 | `review/rv_routeC.out` | `bded494419ac8dbee719519ee6c4ec478c208338ff31ed6d3460408002ef1a01` | `65d1436e` |
 
 **Recipe.** From this directory, `python3 -I -B probes/<name>.py > <name>.out.new`, and likewise
-for `review/rv_<name>.py`; each script needs `sympy` and imports nothing from the repository. The
+for `review/rv_<name>.py`; each script imports nothing from the repository, and every script except `review/rv_Er.py`,
+which uses only the standard library, needs `sympy`. The
 expected result is exit status 0 and output identical to the recorded `.out`. §11 of the assessment
 records the r2 writer's two byte-identical regenerations and the reviewer's byte-identical re-runs;
 no sympy version is recorded. The scripts were not re-run for r4b, which is a paper-only revision.
@@ -104,7 +105,8 @@ no sympy version is recorded. The scripts were not re-run for r4b, which is a pa
 | Passage | Finding | Change |
 | --- | --- | --- |
 | Header, authorization | Status wording that becomes false on landing; r4a's authority cited without a comment id | Status pointer to this file; r4a and r4b authorities cited with comment id, author and time |
-| §0 item 1, §2.2, D4a, D4b, D5, §8 initial-register row | Claims resting on the #945 assessment comments and the proof review at `6d494e30`, held only off `main` | Narrowed to Main:578 on `main`; the assessment, the candidate repair and the complex-entry constant are recorded as #945's questions, not assessed here |
+| §0 item 1, §2.2, D4a, D4b, D5, §8 initial-register row | Claims resting on the #945 assessment comments and the proof review at `6d494e30`, held only off `main` | Narrowed to Main:568 and Main:578 on `main`; D4a names the estimate Main:578 states as not established; the assessment and the candidate repair are recorded as #945's questions, not assessed here; D5 separates real entries (proved) from the complex-entry constant (open), per #945 c.6893586675 |
+| D3 "Shared with" | Wording that echoed the #945 assessment | "#945" |
 | §1 evidence key | "nothing here lands"; [D] stated as hypothesis input | [OFF] key removed; [D] cited for labels, open questions and provenance only; [G] and [RV] located |
 | §1.1 | Incomplete list | Lead sentence restated; rows added for the [G]/[RV] files, the §7.1 preregistrations, the r4a/r4b authorities, D-SUP/D-CQ, the r1 review and the r3 records |
 | §5.1 QP node-10 row; "Independence and limits" | Validity, closure and coverage cells resting on A868 [D] | Not assessed here; the quantum-compatibility cell ([W], [G] C7) is unchanged |
@@ -118,15 +120,15 @@ No other passage changes. The r4a texts are in commit `e41cf6137be165add39c7e557
 `APPROX-UNIT1.md` SHA-256 `3b2d0db54ac0cab078d668ba906f1a1d84577d5df9052ec0a76071664e08b280`
 (blob `2cbaab43`), `DISPOSITIONS-APPROX-UNIT1.r4a.md` SHA-256
 `25494b099a6894661bb11dc844d7d72d1b31edcd522c6e7f00d4fc5536825b50` (blob `3a67f1f1`).
-`DISPOSITIONS-APPROX-UNIT1.r4.md` (`ef669e30e72c71e17db058081c05934abab098d4561aa60c4599a43fd982897a`)
-and `REVIEW-APPROX-UNIT1.r4.md` are unchanged; their status lines describe r4 when they were
-written. The r4b digests are not self-recorded.
+`REVIEW-APPROX-UNIT1.r4.md` is unchanged. `DISPOSITIONS-APPROX-UNIT1.r4.md` is unchanged, with
+SHA-256 `ef669e30e72c71e17db058081c05934abab098d4561aa60c4599a43fd982897a`, the digest that the
+three review reports and the r4a ledger record for it. It is the historical writer ledger of r4:
+its opening status line, "WIP / UNVERIFIED", and its re-review request describe r4 before the
+full-text review above, which returned ACCEPT WITH NITS. The r4b digests are not self-recorded.
 
 ## Remaining obligations
 
 | Obligation | Home |
 | --- | --- |
-| Independent non-author review of r4b, and ordinary CI at its head | #1216 |
-| Separate owner integration decision | #1216, #1169 |
-| `SYNTHESIS-r3.md` (selection-discriminator support, line 734) classifies #1221 at `e41cf613` as support off `main` for the E_f classical-class definition; its row is to be reclassified if #1221 lands | #1169 |
+| `SYNTHESIS-r3.md` (selection-discriminator support, line 734) classifies this record at `e41cf613` as support off `main` for the E_f classical-class definition. Once `e41cf613` is an ancestor of `main`, that row is reclassified in a mutable record that cites it (§A.46 item 4) | #1169 |
 | The per-parent step, the candidate repair F945-R and the Rounding Lemma's complex-entry constant | #945 |
