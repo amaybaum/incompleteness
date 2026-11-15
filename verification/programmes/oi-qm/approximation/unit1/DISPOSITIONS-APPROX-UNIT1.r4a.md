@@ -1,6 +1,6 @@
 # APPROX-UNIT1 r4a — dispositions of independent r4 nits
 
-**Status: WIP; focused diff-only review and green ordinary CI required.** Accountable issue [#1216](https://github.com/amaybaum/incompleteness/issues/1216). Integration requires a separate owner decision.
+**Status: historical writer ledger of r4a, retained with its reviewed text; current status in `STATUS.md`.** Accountable issue [#1216](https://github.com/amaybaum/incompleteness/issues/1216).
 
 Owner (amaybaum), current Codex instruction, 2026-11-09: apply the three editorial corrections, preserve the accepted scientific scope, require a focused diff-only check and green CI, and return the corrected artifact for integration approval. No scientific execution, freeze or merge is authorized. No new physical premise, designation or special workflow dispatch is included.
 

@@ -1,6 +1,6 @@
 # OI-QM-APPROX-1, unit 1: operational equivalence at finite precision, assessed against Main §3.4
 
-**WIP. Revision r4a: editorial cleanup of independently reviewed r4 (ACCEPT WITH NITS); focused diff check and green ordinary CI required. Integration requires separate owner approval.** Only N1–N3 from `REVIEW-APPROX-UNIT1.r4.md` and revision/publication metadata are changed; see `DISPOSITIONS-APPROX-UNIT1.r4a.md`. The r4 source revises the immutable r3 source (`APPROX-UNIT1.r3.md`, SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`) against the fresh independent r3 review (`REVIEW-APPROX-UNIT1.r3.md`, verdict **REVISE**, R1–R6). See `DISPOSITIONS-APPROX-UNIT1.r4.md` for those writer dispositions. Claude Code wrote r1 and r2; Codex wrote r3. The [immutable r2 draft](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/1216-approx/APPROX-UNIT1.md) has SHA-256 `5ea3f0e4b2fcb20117b9d7d58b8156aae27a526299c3c0ada02e349ff2e4ffd5`. Nothing here is adopted, promoted, or proposed for the manuscripts. Independent acceptance authorizes no computation, new physical premise, manuscript change or merge (#1216 body, "Unit 1").
+**Revision r4b.** r4 received an independent full-text review (ACCEPT WITH NITS); r4a applied its three editorial corrections and received a focused independent diff review (ACCEPT); r4b narrows the claims that used content held only off `main`, completes §1.1 and adds a scope note to §7.1. Current status, review record, landed support and the r4b change map: `STATUS.md`. r4a's changes are mapped in `DISPOSITIONS-APPROX-UNIT1.r4a.md`. The r4 source revises the immutable r3 source (`APPROX-UNIT1.r3.md`, SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`) against the fresh independent r3 review (`REVIEW-APPROX-UNIT1.r3.md`, verdict **REVISE**, R1–R6). See `DISPOSITIONS-APPROX-UNIT1.r4.md` for those writer dispositions. Claude Code wrote r1, r2 and r4b; Codex wrote r3, r4 and r4a. The [immutable r2 draft](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/1216-approx/APPROX-UNIT1.md) has SHA-256 `5ea3f0e4b2fcb20117b9d7d58b8156aae27a526299c3c0ada02e349ff2e4ffd5`. Nothing here is adopted, promoted, or proposed for the manuscripts. Independent acceptance authorizes no computation, new physical premise, manuscript change or merge (#1216 body, "Unit 1").
 
 - **Accountable home:** #1216 (OI-QM-APPROX-1). Parent programme #1169.
 - **Authorization.** Owner (amaybaum), 2026-11-09, #1216 c.6741763726 (posted 2026-11-09T13:53:51Z),
@@ -8,10 +8,13 @@
   existing approximation result meet Level A? What prevents Level B? Is continuous coherent mixing
   still necessary? It ends with a fresh independent review. No new computation beyond labelled exact
   generic checks, no physical premises, no manuscript change, no merge." The original coordinator's
-  no-git/GitHub-write boundary describes the paper-only r4 source. Owner (amaybaum), current Codex
-  instruction, 2026-11-09: r4a is limited to the three editorial corrections, a focused diff-only
-  check and green CI, followed by integration approval. Ordinary draft-PR publication and CI do not
-  authorize scientific execution, a new physical premise, freeze, designation, dispatch or merge.
+  no-git/GitHub-write boundary describes the paper-only r4 source. r4a's scope, three editorial
+  corrections and a focused independent diff-only check, is recorded at #1216 c.6748670299
+  (amaybaum, posted 2026-11-09T18:57:58Z). r4b's scope is recorded at #1169 c.6893687398
+  (amaybaum, posted 2026-11-15T11:33:23Z): "Each claim is narrowed to its evidence, and the
+  evidence an accepted Level-A result needs is kept; no valid result is dropped only because its
+  support is off `main`." Neither authorizes scientific execution, a new physical premise, freeze,
+  designation, dispatch or merge.
 - **Inherited requirements.** Owner (amaybaum), #1216 c.6742051100 (posted 2026-11-09T14:07:19Z),
   three distinctions from #868, "each … reported separately, and none implies another without proof":
   validity ("every permitted product test gives a valid result"), closure ("every permitted
@@ -57,8 +60,8 @@
    writes instrument labels into the visible record and reads visible outcome registers; the quantum
    state is held in hidden registers. Paper proofs with probe certification; no kernel module
    formalizes gluing or rounding. **At finite b (fixed-point registers) the realized-law bound is open**
-   (Main:568, :578, :580, :602); #945's per-parent negativity ledger is refuted by a record off `main`
-   (support off `main`, §1.1); on `main` that step is stated as not established (Main:578).
+   (Main:568, :578, :580, :602); on `main` the per-parent clip-and-normalize step is stated as not
+   established (Main:578), and its assessment belongs to #945 (§2.2).
 2. **Level B: NOT MET as the accountable OI-derived target.** #1216's central question already
    requires a reusable mechanism derived from OI, independently justified observer access and no
    quantum-prediction-selected premise. Main's gluing/uniform construction has Level B's *reusable
@@ -123,21 +126,20 @@
 - [N] numerical floating-point instance check recorded on `main`; not an exact certificate.
 - [G] this unit's labelled exact generic checks (`probes/approx_generic_checks.py`, groups G1–G5, and
   `probes/r2_frames.py`, `r2_routeC.py`, `r2_finiteb.py`, groups F, C, N5; §11); a result supported
-  only by [G] is *computation-supported*.
-- [RV] an exact check by the reviewer of r1 (`review/rv_*.py`), re-run here with byte-identical
+  only by [G] is *computation-supported*. The scripts and their recorded outputs are beside this
+  record (§12).
+- [RV] an exact check by the reviewer of r1 (`review/rv_*.py`, beside this record), re-run here with byte-identical
   output; cited beside a [G] check of this unit, or (rv_Er, §5.2) as an instance corroborating a [P]
   statement, never as the sole support of a claim.
 - [A] this unit's own hand argument, unreviewed.
 - [L] external literature, recalled, not re-read here; bibliographic details to be checked by the
   reviewer.
 - [W] model-written research record on `main`, not established under §A.46 item 1.
-- [D] unreviewed or in-revision off-main working draft, used as a hypothesis only
-  (§A.46 item 7): BRIDGE = `bridge/BRIDGE-UNIT1.md` (r5, sha256 `78f1098e…`, reviewed ACCEPT WITH
+- [D] unreviewed or in-revision off-main working draft, cited only for labels, open questions and
+  provenance; no claim here uses its content (§1.1): BRIDGE = `bridge/BRIDGE-UNIT1.md` (r5, sha256 `78f1098e…`, reviewed ACCEPT WITH
   NITS per the coordinator); SHM = `qphen/SHARED-MECHANISM.md` (#1210 r7); A868 =
   `reassess/868/ASSESS-868.md` (r3a, `d97c4b6b…`, reviewed ACCEPT WITH NITS per the coordinator);
   A1059 = `reassess/1059/ASSESS-1059.md`.
-- [OFF] support off `main`: a claim that uses content held only off `main` (§1.1). Each such use is a
-  gap under §A.42 item 8 if this record lands; nothing here lands.
 
 **Carriers.**
 - **Configuration (C).** The finite configuration set S, read as the quantum carrier ℂ^S under Main:564's
@@ -192,26 +194,28 @@ another without a proof stated at the place (A868 §4.1, r3a).
 
 Each reference to content not on `main` is classified by the claim it is attached to: *provenance*
 (the claim does not use the content), *support on `main`* (what the claim uses is on `main`), or
-*support off `main`* (a gap if this record lands). Nothing here lands, so no gap is closed; the
-classification is recorded.
+*support off `main`* (a gap). No reference below is support off `main`: every claim in this record
+rests on `main`, on the scripts and outputs beside it, or on its own stated argument.
 
 | Reference | Attached claim | Classification |
 | --- | --- | --- |
 | #1216 c.6741763726 | Authorization and scope of this unit (header) | Provenance (owner designation, quoted with author and time) |
+| #1216 c.6748670299; #1169 c.6893687398 | Scope of r4a and of r4b (header) | Provenance (owner designations, quoted with author and time) |
 | #1216 c.6742051100 | The three outcomes and the shuffle-only question (§1, §5) | Provenance (owner requirement, quoted); the outcomes' content in each row rests on the row's own evidence |
 | #1169 c.6742190154, decisions 4 and 8 | Scoping of §6's drive sentence and of D26; §7's later use | Provenance (owner decisions, quoted) |
 | #1169 c.6740778880, as quoted in A1059 | The three distinctions (§1) | Provenance (working conventions) |
+| #914 c.6875548603 (D-SUP); #1169 c.6891338304 (D-CQ) | §7.1 scope note | Provenance (owner target decisions, quoted with author and time); they state the target, not a result |
 | #1216 body, #945 body | F0: pre-shift line numbers | Provenance; the shift is supported on `main` by `7c6ceaaa` and `02009693`, both ancestors of `main` |
-| #945 c.6567863298; c.6567879503 §6 | F0's "moved … at `02009693`"; D5's "complex-entry constant only estimated" (#945 owner question 6, undecided) | F0: provenance (checked on `main`'s history). D5 qualifier: support off `main` |
-| #945 c.6567879503 §2 (assessment/comment with exact checks R-1, R-2) | D4a and §2.2: two-outcome per-parent ledger step refuted (d = 4, b = 24, 6.9063 against 4.0000); the *earlier* `6d494e30` proof review has distinct instances (including 8.0022 against 4.0016), not this number | Support off `main` |
-| #945 c.6567879503 §2 (i)–(ii) | §2.2: "the counterexample refutes a proof step, not the final TV bound; reachability … not shown" | Support off `main` (a limitation of the refutation) |
-| #945 c.6567879503 §3(b) | D4b: stopping-time repair, Kη ≤ 1/64, 14K²C_{d,R}2^{−b}, graded Motivated | Support off `main` |
-| #945 c.6567887681 | Final check of the #945 assessment, ACCEPT-WITH-NITS (D4a, D4b grading) | Support off `main` |
-| `proofs/eps-realization/` on `audit/intro-corpus-20261026` at `6d494e30` (head `16fc745d` per #945 c.6657435508; neither is an ancestor of `main`) | Earlier proof-review refutations, including its *different* d=4 witness; not the specific 6.9063/4.0000 assessment figure | Support off `main` |
-| #945 c.6657435508 | F945-R "not authorized"; readiness "blocked: owner questions" (§2.2, D4b, D5) | Provenance (planning status) |
+| #945 c.6567863298 | F0's "moved … at `02009693`" | Provenance (checked on `main`'s history) |
 | #945 c.6567879503 §1 "No Lean module formalizes gluing, rounding or clipping" | §2.1 A2 evidence row | Support on `main`: this unit's grep of OB/ at `fd539e15` |
-| `7c6ceaaa:papers/Main.md` (line 556 states two other exact failures of the per-parent estimate, d = 3 and d = 4) | None: removed by `4cef4200` the same day ("the instance numbers and the undefined estimate are gone") | On `main`'s history, superseded; not used |
-| BRIDGE, SHM, A868, A1059 (off-main drafts, [D]) | Rows marked [D] | Support off `main`; used as hypotheses only (§A.46 item 7). Where this unit re-derived a [D] item from `main` or by [G], the row cites that and the [D] use becomes provenance (QP node 10's non-quantumness, §5.1, C7) |
+| #945 c.6567879503 §6 (owner question 6) and c.6657435508 (F945-R planning status) | §0 item 1, §2.2, D4a, D4b, D5, §8: the per-parent step, the candidate repair and the complex-entry constant are #945's questions, not assessed here | Provenance (open questions and planning home); no claim here uses the assessment's content |
+| #945 body and comments (§11 read list) | Verification scope | Provenance |
+| BRIDGE, SHM, A868, A1059 (off-main drafts, [D]) | Labels (J-, M-, Q-labels), definitions restated from `main` (FI-1, §4.2), open statuses (D16, D20, D22, D23, D25) and convention sources (§1) | Provenance: an open status asserts no result, and each definition used is restated from a kernel identifier on `main`. Where this unit re-derived a [D] item from `main` or by [G], the row cites that (QP node 10's non-quantumness, §5.1, C7); the node-10 cells that rested on A868 are not assessed here |
+| `probes/*.py`, `probes/*.out`, `review/rv_*.py`, `review/rv_*.out` ([G], [RV]), at `820519cf` | Every computation-supported result: F1–F5, C1–C7, N5 (D4c), G1–G5 and their [RV] co-citations | Support on `main`: the eight scripts and eight outputs are beside this record, byte-identical to their `820519cf` versions (§12, `STATUS.md`) |
+| `review/REVIEW-APPROX-UNIT1.md` and probe versions r0, r1 at `820519cf` | Origin of F7 and F8 (§9); implementation history (§11) | Provenance |
+| r2 draft at `820519cf` (header link) | None | Provenance |
+| r3 source `ee432c1b…` and r3 review `fa80604b…` (not in this repository) | R1–R6 dispositions (`DISPOSITIONS-APPROX-UNIT1.r4.md`) | Provenance (revision history; r4 was reviewed on its own) |
+| Q-C2-1 r14c and Q-C2-2 r14b at `820519cf`; MATH-CON-1 control plane at `a44c0206` | §7.1 "Design provenance" | Provenance: §7.1 names these rounds and does not restate their content |
 | #868 (J1–J13), #1210 (M-labels), #1211, #1059 | Labels for requirements and planning homes (§4.2, §7 "Shared with") | Provenance |
 | Literature [L] | §2, §6, D19 | External sources outside item 8's list; recalled, not re-read |
 
@@ -243,16 +247,13 @@ Level A (#1216): "Any specified finite quantum experiment's observable law is re
   continuous outcome sets are outside every construction above.
 - *Precision regime.* Exact (A1) or within ε in **exact-ring arithmetic** (A2, A3). In fixed-point
   b-bit registers the realized-law bound is open: Main:568 ("a bound on the realized outcome law of the
-  clipped and normalized simulator at finite b is open"), :578, :580, :598, :602 item 4. #945's finding
-  agrees: the exact-arithmetic theorems (Main:566, :598) and the density Corollary (Main:600) survive;
-  the finite-b constants are unproved. The former negativity-ledger step (pre-shift Main:556) is
-  refuted per parent by a dyadic two-outcome instance at d = 4, b = 24, error 6.9063 against the old
-  bound 4.0000 [OFF: #945 c.6567879503 §2, assessment-review checks R-1/R-2]. The counterexample refutes a proof
-  step, not the final TV bound; reachability of a negativity-dominated register from an exact initial
-  register is not shown [OFF]. These **two-outcome numbers are from the #945 assessment comment**;
-  the earlier proof review at `6d494e30` records different witnesses (one d=4 case gives 8.0022
-  against 4.0016), and must not be cited for the quoted pair. A stopping-time repair is graded
-  Motivated and is not authorized (F945-R). This unit does not duplicate it.
+  clipped and normalized simulator at finite b is open"), :578, :580, :598, :602 item 4. On `main` the
+  exact-arithmetic theorems (Main:566, :598) and the density Corollary (Main:600) are stated as proved;
+  the finite-b constants are unproved. On `main` the per-parent clip-and-normalize step is stated as
+  not established: Main:578 says "the Corollary's estimate is not established for the simulator's
+  Hermitian branches". The per-parent negativity-ledger step of pre-shift Main:556 (F0) is not in
+  `main`'s text. Its assessment and any repair (F945-R) belong to #945; this unit does not assess
+  them, and no claim here depends on them.
 - *Precision distinction.* Arbitrary finite accuracy of finite observable histories (A1 with a
   real prior, A2/A3 with exact-ring branch entries and a finite seed grid) does not require a
   proved error bound for the clipped/normalized fixed-point E_r implementation. The latter is
@@ -548,14 +549,13 @@ laws of accessible complete records are different comparisons (§4.2, §7.1).
 | A3 uniform, exact ring (Main:598) | PSD E_r net-register branches | **Holds** as exact A2 for each legal net instrument [P] | **Holds** as exact A2 for positive-probability histories [P] | **Observable laws within ε** for fixed (d,m,K), supplied net dictionary [P] | All ≤m-outcome protocols at horizon ≤K for fixed d, exact ring [P]; no all-d claim |
 | A3/A4 density (Main:600) | Fixed-(d,m) finite-test topology of operational law sets | Holds in each construction R^Q_n [P] | Holds in each exact-ring quantum-shadow register [P] | Each shadow is within its declared error of QM laws [P] | **Density** at fixed (d,m); closure of the larger finite-deterministic class also includes non-quantum theories [P] |
 | Route C, stated substratum and access | Diagonal density matrices on directly identified ℂ^S; native configuration read and permitted instrument families | **Holds for specified native legal instruments**: positive branches **and aggregate trace preservation**, plus diagonal reads; not inferred from CP alone [A from K-lemmas, instrument normalization] | **Holds exactly** inside the diagonal quantum subset under permitted preparation, read, coarse-graining and positive-mass heralding [A from K-lemmas] | **Each generated, legal diagonal-preserving instrument** is a quantum instrument in this interface; no claim of all quantum instruments [A]; complete record laws quantum-compatible within this restricted class | **State/instrument coverage fails** for coherent states at trace distance ≥1/2 in directly identified C; **accessible-law floor proved only** for fixed two-config H/H,Z interface, g=(√2−1)/2. Neither floor automatically transfers to growing carriers or coarser reads |
-| Route E_f(U′), QP node 10 composite | Recorded native Pauli table versus candidate joint quantum state | **Pauli-fragment validity only** for the specified zero-completion table, per A868 [D]; unrestricted product-test validity unassessed | **Unassessed** for the node-10 table; positivity on a limited set of reads does not imply closure [D] | **Fails for specified table:** XX=ZZ=1 demands Φ⁺ and YY=−1, while table gives YY=0 [W; G r2 C7] | Claimed table-CNOT action fails on (x+, z+) per A868 [D]; other instruments unassessed |
+| Route E_f(U′), QP node 10 composite | Recorded native Pauli table versus candidate joint quantum state | **Not assessed here** | **Not assessed here** | **Fails for specified table:** XX=ZZ=1 demands Φ⁺ and YY=−1, while table gives YY=0 [W; G r2 C7] | **Not assessed here** |
 | Route E_f(R1), MECH-2 P★ one cell | Native record probabilities versus R1-decoded quantum Bloch ball | **Native recorded read frequencies** 5/8 and 3/8 are valid [W]; **all permitted product-test validity unassessed**; no inference of CP or positivity from frequencies | **Decoded quantum closure fails** for record-1 non-PSD r=(1/3,−1/3,−1), \|r\|²=11/9 [W]; other cuts unassessed | **Fails in R1 decoder on record 1** by direct state calculation [W]; a stated Y read is needed to distinguish by the relevant diagnostic, so observable compatibility has its own access condition | R1 excludes certain target states at fixed-frame trace-norm distance; U2 excludes specified encoded unitary permutations under its hypotheses [W]; no general accessible-law/entangling-channel no-go |
 
 **Independence and limits.** The finite-b example separates **validity of decoded record
 probabilities** from **exact internal PSD closure**; it does not decide approximate closure,
-finite-b law accuracy, or arbitrary product-test validity. QP node 10 separates reported
-Pauli-fragment validity from quantum completion of that same table, not validity of an unrestricted
-menu. P★ has valid native recorded frequencies but a non-PSD decoded branch, with broader
+finite-b law accuracy, or arbitrary product-test validity. QP node 10's specified table has
+no quantum completion; its test validity and closure are not assessed here. P★ has valid native recorded frequencies but a non-PSD decoded branch, with broader
 product-test validity open. A1 posterior closure is in its classical model, not an asserted
 quantum-state-space closure. On route C, legal normalized instruments are required; diagonal
 CP alone is not enough. Even where all three owner-defined outcomes hold for a restricted
@@ -669,10 +669,10 @@ here or a score.
 | D2 | Exact Level A by comb + response-table prior (Main:482, :520, :602) | proved | [P], [X] `intervention_probes.py`; passive half [K] `S_imp_D` | C-dyn | target conditionals loaded as product prior; per family and horizon | #1169 (intervention dilation, classical rung) |
 | D3 | ε-Level A by gluing, exact ring (Main:566–:580) | proved | [P], [X] `opglue_probes.py` (d = 2); no Lean | C-dyn dynamics, E_r system | exact-ring registers; supplied instrument data and initial state; finite Kraus; fixed K, G | #945 (survives) |
 | D4 | Clipped/normalized finite-b **complete-law** TV bound and capacity–accuracy | open | Main:568, :578, :580, :602 [P] | E_r | fixed-point b bits; window rule; valid clipped decoder probabilities do not prove closeness or PSD register | #945 only |
-| D4a | Old per-parent negativity estimate | disproved **off `main`**; Main:578 now explicitly not established | [OFF] two-outcome assessment instance 6.9063 vs 4.0000, #945 c.6567879503; earlier **different** proof-review instances at `6d494e30` (one 8.0022 vs 4.0016) | E_r | d=4, b=24 for assessment pair; reachability of negativity-dominated parent not demonstrated | #945 only |
-| D4b | Stopping-time repair, TV ≤ K(\|O\|−1)/G + 14K²C_{d,R}2^{−b} | conditional (**Motivated**, unreviewed, unauthorized) | [OFF] #945 c.6567879503 §3(b) | E_r | Kη ≤ 1/64; exact initial register; Rounding-Lemma constant | #945 only |
+| D4a | Old per-parent negativity estimate | not established on `main` (Main:578); its assessment belongs to #945 and is not made here | [P] Main:578 | E_r | — | #945 only |
+| D4b | Candidate finite-b repair (F945-R) | not assessed here | — (#945 holds the candidate) | E_r | — | #945 only |
 | D4c | One-step failure of **exact internal PSD closure** in finite b | counterexample at b=12 only; **asymptotic approximate closure open** | [G] r2 N5; [RV] rv_finiteb; no realized-law counterexample | E_r | specified digitization/rounding, K=1, exact initial register | #945 (scope only) |
-| D5 | Rounding Lemma, instrument level (Main:578) | stated proved on `main` (Main:578: "the instrument-level inequality is proved"); the complex-entry constant is contested off `main` (#945 owner question 6, undecided) | [P]; [OFF] for the qualifier (support off `main`, §1.1) | E_r | fixed-point dyadic model | #945 only |
+| D5 | Rounding Lemma, instrument level (Main:578) | stated proved on `main` (Main:578: "the instrument-level inequality is proved"); this unit does not assess its constant, whose complex-entry case is #945 owner question 6 (open) | [P] | E_r | fixed-point dyadic model | #945 only |
 | D6 | Uniform continuum, exact budget (Main:598) | proved; \|N\|-independent capacity open | [P]; [N] `opglue_probes.py` checks 8–9 (floating-point instances, tolerance 1e−12) | E_r | fixed (d, m, K, ε); δ-net rounding as dictionary | #945 (capacity), #1169 |
 | D7 | Finite-test density at fixed (d, m) (Main:600) | proved; union over (d, m) open | [P] | E_r | exact ring | #1169 |
 | D8 | Classical-dimension obstruction to exact equivalence (Main:560) | proved (factorization half); unboundedness imported [55] | [P], [X] `nogo_probes.py` | any finite ontic carrier | ordinary prepare–ontic–measure interface | #1169 |
@@ -708,17 +708,18 @@ rounds are kept in #1169, with no new measurement or change to their gates. Fini
 must not be silently promoted into resource-uniform error floors, quantum coverage or sourced
 physical explanations. Every test retains its own preparation, access and record alphabet.
 
-| Existing work | Bounded question actually tested | What a Level-B result still needs |
+| Existing work | Bounded question | What a Level-B result still needs |
 | --- | --- | --- |
-| **Q-C2-1 P**, with sham controls; secondary B/C | **Primary P is detector-OFF versus detector-ON interference contrast**, with separately validated marker attribution. The two shams are **controls**, not the primary comparison; if a sham also suppresses interference, the marker-attribution verdict must reflect that independently. B concerns the specified fragment-relative noncontextuality question; C concerns a bounded encoded operation and stated compositions on **owner-typed records**. Validation-only variables do not automatically become accessible records. | One predeclared native/quantum comparison for the **complete admitted records** on the same source and chosen access; controlled ablations and contrasts do not themselves bound the worst-case errors of an entire target class. Uniform-in-resource witness required to infer an obstruction. |
-| **Q-C2-2 F1**, with separately supplied completions | Exact LP feasibility/infeasibility of the **specified prepare–measure fragment**, with one read per run, stated herald and finite sizes/equivalences. Each completion changes a declared supply/access and must be compared **separately**. The larger-supply F1+R-S case is included only if authorized under its own decision. One-read samples expose herald–read joint distributions, not arbitrary longitudinal record histories. | A robust law-level margin under the common full-record alphabet, controlled slack for any varying operational equivalences, and a fixed decoder/resource family. Exact infeasibility in one fragment is neither a margin nor an all-depth obstruction. Report herald masses and joint herald–read laws; conditional-only gaps need a herald probability floor or joint inequality. |
-| **MATH-CON-1 Stage 1B, first stage** | O-1, O-2 and O-3a–e only, on the specified polarized construction, under its declared assumptions. It may establish fixed finite-depth availability for that **witness**. | Circularity/source test (excluded O-8), spectator-form composition (excluded O-9), uniform approximation errors and native source of generators remain separate. This stage cannot by itself establish continuous/discrete dense control or Level B. |
-| **#1211 bridge and #868 joint-system assessment** | The bridge isolates the direct configuration-carrier mixing gap. The joint assessment separates permitted-test validity, joint-state closure and quantum compatibility. | Transport only within the same declared carrier, source and read menu. Separately demonstrate quantum coverage and soundness, and do not infer complete-history no-signalling or compositionality from a single wing or single fragment. |
+| **Q-C2-1 P**, with sham controls; secondary B/C | As defined by the round's preregistration draft (Design provenance below); not restated here. Validation-only variables do not automatically become accessible records. | One predeclared native/quantum comparison for the **complete admitted records** on the same source and chosen access; controlled ablations and contrasts do not themselves bound the worst-case errors of an entire target class. Uniform-in-resource witness required to infer an obstruction. |
+| **Q-C2-2 F1**, with separately supplied completions | As defined by the round's preregistration draft (Design provenance below); not restated here. A completion that changes a declared supply or access is compared **separately**. One-read samples expose herald–read joint distributions, not arbitrary longitudinal record histories. | A robust law-level margin under the common full-record alphabet, controlled slack for any varying operational equivalences, and a fixed decoder/resource family. Exact infeasibility in one fragment is neither a margin nor an all-depth obstruction. Report herald masses and joint herald–read laws; conditional-only gaps need a herald probability floor or joint inequality. |
+| **MATH-CON-1 Stage 1B, first stage** | As defined by the round's control plane (Design provenance below); not restated here. | A circularity/source test, spectator-form composition, uniform approximation errors and a native source of generators are separate obligations. A fixed finite-depth availability result for one witness cannot by itself establish continuous/discrete dense control or Level B. |
+| **#1211 bridge and #868 joint-system assessment** | As defined by the drafts BRIDGE and A868 ([D]); not restated here. | Transport only within the same declared carrier, source and read menu. Separately demonstrate quantum coverage and soundness, and do not infer complete-history no-signalling or compositionality from a single wing or single fragment. |
 
 Design provenance: [Q-C2-1 r14c](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/qc21/preregistration.draft.md),
 [Q-C2-2 r14b](https://github.com/amaybaum/incompleteness/blob/820519cf/handoff-20261109/qc22/preregistration.draft.md),
 and the [MATH-CON-1 control plane at a44c0206](https://github.com/amaybaum/incompleteness/blob/a44c0206f2c3519944eb31a5eca361eeff2c4be8/verification/programmes/oi-qm/reconstruction/round-mathcon1-s1b-1/preregistration.md).
-These are off-`main` planning records, not independent scientific results.
+These are off-`main` planning records, not independent scientific results; this section names them
+and does not restate their content.
 
 **Common comparison recipe (a proposed *test obligation*, not a new OI physical premise).**
 For each declared envelope (system dimension/subsystems, measurement outcomes and depth T),
@@ -749,6 +750,18 @@ precision **OI-derived** Level B demands a coherent family of physically sourced
 for each fixed envelope and ε>0, a resource budget with **both** errors ≤ε, with explicit
 resource scaling and complete history. This is a proposed quantified assessment of the existing
 target, not a claim proved by the current rounds or an additional premise about OI.
+
+**Scope under the owner's target decisions.** D-SUP (#914 c.6875548603, amaybaum, posted
+2026-11-14T09:56:47Z) requires that every finite quantum experiment be realized by one common OI
+model and does not require that every OI model behave quantum-mechanically. D-CQ (#1169
+c.6891338304, amaybaum, posted 2026-11-15T07:54:33Z) keeps coverage and agreement with performed
+experiments as requirements and makes the relation between the physical sector C and the quantum
+zone Q open: "C may lie inside Q (soundness), or C may intersect other subsets of OI with
+different properties." Under those decisions the soundness supremum above is a quantity reported
+as a finding, not a condition of OI-derived Level B; a native use with no quantum comparator is a
+finding, not a failure, unless it contradicts a performed experiment. Coverage keeps the role
+stated above. This scope applies wherever this record treats soundness as a Level-B requirement
+(§0 items 2 and 5, §7.1, §10 OQ3).
 
 **Observable inequalities.** For a statistic 0≤f≤1 on the **complete accessible record**,
 |E_P f−E_Q f|≤TV(P,Q). A baseline class with a bound separated from the quantum statistic by
@@ -782,7 +795,7 @@ and the uniformity required to extend a matrix or fixed-size result across resou
 | Declared horizon K and accuracy ε per realization | yes | required by #1216's test scope; a **rich all-horizon target** cannot be uniformly approximated at a fixed finite carrier under D10's fixed-repeat hypotheses, but **finiteness alone** imposes neither horizon cutoff nor ε-dependence for every restricted model | scope/accounting rule, not quantum reproduction |
 | Exact-ring registers | yes | no; an idealization of the simulator | yes within the grid (D3) |
 | Fixed-point b-bit registers | yes | no; a hardware choice | open (D4) |
-| Exactly stored initial register (#945 repair (b)) | yes | no | conditional (D4b) |
+| Exactly stored initial register (a hypothesis of #945's candidate repair, D4b) | yes | no | not assessed here (D4b) |
 | δ-net rounding of instruments (dictionary) | yes | **none identified**; supplied to the machine | yes (D6) |
 | Product prior carrying quantum conditionals | yes | **none**; chosen from QM | yes, by construction — column (iii) supports nothing in (ii) |
 | Monomial (configuration-level) substratum operations | yes | yes for the stated access [K] | no (D17, D18) |
@@ -829,8 +842,8 @@ Passes/status: r1's independent review introduced F7 and F8; r2's writer checks 
 r3's fresh independent full-text review returned REVISE (R1–R6) and narrowed several interpretations.
 The r4 writer corrections above are **not** an independent verification or a new kernel result.
 The independent full-text review of r4 returned **ACCEPT WITH NITS**; r4a addresses N1–N3.
-§A.31's fixed-point criterion is not declared satisfied. The r4a gate is a focused diff-only
-check and green ordinary CI, with separate owner approval required for integration.
+§A.31's fixed-point criterion is not declared satisfied. The focused independent diff review of
+r4a returned ACCEPT; the review status of r4b is in `STATUS.md`.
 
 ***
 
@@ -878,8 +891,8 @@ check and green ordinary CI, with separate owner approval required for integrati
     because sympy did not simplify `Abs` of symbolic eigenvalues (replaced by a determinant test); r1 is
     a passing run of G1–G3 only; two intermediate G4–G5 versions were not retained (the first used
     `simplify` on 512 matrix traces and was stopped unfinished; the second stopped on an assertion
-    because one trace was not expanded to ±1, fixed with `expand`). Only r0, r1 and the final version
-    are kept, with their outputs.
+    because one trace was not expanded to ±1, fixed with `expand`). r0, r1 and the final version are
+    kept, with their outputs, at `820519cf`; the final version and its output are beside this record.
   - `probes/r2_frames.py`: F1–F5 and controls, ALL PASS (30 checks).
   - `probes/r2_routeC.py`: C1–C7, ALL PASS (24 checks).
   - `probes/r2_finiteb.py`: N5a–c, ALL PASS (3 checks). An instance check of one digitized step of
@@ -902,9 +915,15 @@ check and green ordinary CI, with separate owner approval required for integrati
 - **r4a writer pass:** only N1's citation, N2's numerical/exact evidence labels, N3's
   admissibility/availability wording and revision/publication metadata change. No scientific computation,
   simulation or Lean was run; inherited probe outputs and scientific source pins are unchanged.
-  Focused diff-only review and green ordinary CI precede the separate integration decision.
+  The focused independent diff review returned ACCEPT (`REVIEW-APPROX-UNIT1.r4a-diff.md`,
+  `REVIEW-APPROX-UNIT1.r4a-final.md`).
+- **r4b writer pass:** narrows §0 item 1, §2.2, §5.1's QP node-10 row, §7.1's table, D4a, D4b, D5
+  and §8's initial-register row to support on `main`; completes §1.1; adds §7.1's scope note; and
+  places the [G] and [RV] scripts and outputs beside this record, byte-identical to their
+  `820519cf` versions. No scientific computation, simulation or Lean was run, and the scripts were
+  not re-run.
 - **Not done:** the inherited r2 N5 digitized step and earlier reviewer re-runs are identified
-  above, not rerun in r4 or r4a. No scientific execution, new physical premise, freeze, dispatch,
+  above, not rerun in r4, r4a or r4b. No scientific execution, new physical premise, freeze, dispatch,
   scientific designation, manuscript change or merge is authorized by this cleanup.
 
 ## 12. Hashes
@@ -918,5 +937,7 @@ check and green ordinary CI, with separate owner approval required for integrati
 - `probes/r2_finiteb.py`: sha256 `383c21567671c73e9565b65c8846dfdc4ab385bf285321cd22b83b72c9b6e07c`
 - `probes/r2_finiteb.out`: sha256 `6350b5c11822166bff80b9eacde330a14513390cbda0dc117cc45f26ed4df7b1`
 - r3 source: SHA-256 `ee432c1b7db91c8e3e0aa3a1e11de68818c8090fa6e1eb34cca478d8be01c659`.
-- r3 independent review (separate local file): SHA-256 to be reported with the handoff.
+- r3 independent review: SHA-256 `fa80604b8a99b190545a37d0f72530bb105ec383b10b906ea83f482cbc7b0424`
+  (recorded in `DISPOSITIONS-APPROX-UNIT1.r4.md`); the file is not in this repository.
+- `review/rv_*.py` and `review/rv_*.out`: SHA-256s in `STATUS.md`.
 - The reviewed r4 and r4a SHA-256 digests are reported in `DISPOSITIONS-APPROX-UNIT1.r4a.md`, not self-recorded.

@@ -1,0 +1,25 @@
+PASS C1 identity is CM; scalar multiple of a CM matrix is CM
+PASS C1 product of two symbolic CM matrices is CM (64^2 pattern pairs, n = 3)
+PASS C1 ancilla projectors diag(r.2 = k) on S x Fin 2 are CM
+PASS C1 every ancilla block (f, e) of every symbolic CM matrix on S x Fin 2 is CM (625 patterns)
+PASS C2 conjugation by every symbolic 3x3 CM matrix maps a symbolic diagonal to a diagonal
+PASS C2 countercontrol: the Hadamard is not CM and H|0><0|H is not diagonal
+PASS C3 K = |0>(<0|+<1|)/sqrt2 is CM and not monomial; K^dag K has eigenvalues {0, 1}
+PASS C3 a CM matrix with K^dag K = I has a permutation pattern (n = 2, 3): CM isometries are monomial
+PASS C4 gate flow at t = 1/2 (swap): unitary, entries (1+i)/2 diagonal and (1-i)/2 off-diagonal
+PASS C4 its conjugation of |0><0| has off-diagonal entry i/2 (does not preserve diagonals)
+PASS C5 TV2 - p(1-p) = (1-q)(1-p) >= 0 on [0,1]^2
+PASS C5 g solves g = 1/4 - g^2, so p(1-p) >= g whenever |p - 1/2| <= g
+PASS C5 attained: p = 1/sqrt2, q = 1 gives TV1 = TV2 = g
+PASS C5 rational-grid control: no grid map beats g (minimum of the max over a 41x41 grid >= g)
+PASS C5 countercontrol: the coherent Hadamard gives P(0) = 1/2 and 1 exactly (gap 0)
+PASS C6 x+ (x) z+: tr((rho - D) W) = 1 for every symbolic diagonal D, ||W||_op = 1, so TD >= 1/2
+PASS C6 x+ (x) z+: attained, ||rho - diag(rho)||_1 = 1 (TD = 1/2)
+PASS C6 y+ (x) z+: tr((rho - D) W) = 1 for every symbolic diagonal D, ||W||_op = 1, so TD >= 1/2
+PASS C6 y+ (x) z+: attained, ||rho - diag(rho)||_1 = 1 (TD = 1/2)
+PASS C6 compatibility control: a diagonal unit-trace matrix with nonnegative entries is PSD (a quantum state)
+PASS C7 operator identity Y(x)Y = -(X(x)X)(Z(x)Z)
+PASS C7 the joint +1 eigenprojector of XX and ZZ is |Phi+><Phi+| (rank one)
+PASS C7 hence <YY> = -1 on every state with <XX> = <ZZ> = 1; a table with <YY> = 0 has no quantum completion
+PASS C7 countercontrol: Phi- = (|00> - |11>)/sqrt2 has <XX> = -1 (excluded by <XX> = 1)
+RESULT ALL PASS
