@@ -8,6 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `VERIFY-SL3-CC-r1.md` | Independent paper verification of MR-1's S-L3 and MR★ §M.6's CC4, CC5 and CC7 (#1169 c.6891189024): S-L3 verified at stated scope with a narrower reading for S3; CC4, CC5, CC7 verified at narrower scope; unreviewed, so all four stay named premises | `ea8f17aec91e9bee3f49e1ca75259ff0b2dd2f59d042e1705750359308f384c4` |
 | `S3-U1-r5.md` | S3 unit U1 r5: value writes classified by the explicit partition test (owner-confirmed fix after a separable non-affine counterexample over Z/3), with the two nits from the confirmation of r4; delivered with one named stop (typing into `Obs`); independently reviewed (ACCEPT) | `03d9f20e7163b1f789c9aeafff600cb4b6622f35c66b40d386e14fd997fe7793` |
 | `RESPONSE-S3-U1-r4.md` | Dispositions | |
 | `S3-U1-r4.md` | S3 unit U1 r4: fixes from the focused review of r3 (setting-selected quantified over the model's declared factors; value-write claim limited to affine or single-factor records; the informational label withholds only); delivered with one named stop (typing into `Obs`); independently reviewed (ACCEPT) | `5c8c091da04e8d89201f2ee79291e6b23c12fa04fa887c9b112d2cb5eae7aca8` |
