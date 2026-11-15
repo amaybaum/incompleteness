@@ -1,0 +1,318 @@
+{
+  "repository": "amaybaum/incompleteness",
+  "base": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+  "inspected_at": "2026-11-13T20:21:51.238187+00:00",
+  "source": "Parent-downloaded exact main snapshot; manifest/blob identities rechecked by writer",
+  "objects": [
+    {
+      "group": "governance",
+      "path": "AGENTS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "8900fe1ff55e45a64732e6751c2601a91367dcfd",
+      "sha256": "ceb4eadb6f1eab4a3a7f7befd8ac2a8ed61dbb9fd743fc70dd2d56d8a465682d",
+      "bytes": 91168,
+      "lines": 1378,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/AGENTS.md"
+    },
+    {
+      "group": "model-and-prior",
+      "path": "papers/SM.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "a5202371550e644ed45496d8f37ba46b273173e8",
+      "sha256": "2b90784d6ef3cbc534b96f350432aab63c5534950426e8a58611cbcd42bb2a7e",
+      "bytes": 488397,
+      "lines": 1771,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/papers/SM.md"
+    },
+    {
+      "group": "model-and-prior",
+      "path": "papers/Main.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "0db1759754bfaa85d1f5271f03dc6e0ca55d2209",
+      "sha256": "f282d84a1ca92c63f2e70e783df337d82a874116ffb91bbb76f4d57302f9e9c8",
+      "bytes": 341796,
+      "lines": 919,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/papers/Main.md"
+    },
+    {
+      "group": "model-and-prior",
+      "path": "book/ch18-beyond.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "90ae3800a177c12d12227d7626fdb747ba0b2174",
+      "sha256": "ab680c2244548e84c22f460a610b616e2b68230afcc0fc821a414147ed440306",
+      "bytes": 102315,
+      "lines": 340,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/book/ch18-beyond.md"
+    },
+    {
+      "group": "conditional-component",
+      "path": "verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/preparation-loading.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "1802ea3c335eb7457739fa5af13b3aefd0c603af",
+      "sha256": "01dac9a64788dd0671a701e916177695010af64c39fdc448704df9eeb873aed8",
+      "bytes": 24925,
+      "lines": 431,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/preparation-loading.md"
+    },
+    {
+      "group": "conditional-component",
+      "path": "verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/physical-interface.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "3229ef3cd234e613a4b0cb63bab548e0fec666a9",
+      "sha256": "3b07037a767a39af0919ee6622d1d9923f9c99229ca44df90f41788db1cc5652",
+      "bytes": 21905,
+      "lines": 368,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oi-qm-ext-1/physical-interface.md"
+    },
+    {
+      "group": "interface-source",
+      "path": "verification/programmes/oi-qm/reconstruction/observer-interface-obsmu-20261104/ANALYSIS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "e657732bbf580e9598a3024f9f1b17ec591a67a1",
+      "sha256": "c0ee224978320172dfe6150ab6b3ed6883269c04c07309d625010d36e4d2b04c",
+      "bytes": 102472,
+      "lines": 1283,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/observer-interface-obsmu-20261104/ANALYSIS.md"
+    },
+    {
+      "group": "accepted-boundary-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/SOURCE-SCREEN.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "1daf3861642ceb96c5f3564acdb6a1670209f516",
+      "sha256": "ab92a7403861b72a787fb04a18c67af4c81f89b4e4ffc3cb2a061d8f5932865e",
+      "bytes": 17250,
+      "lines": 162,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/SOURCE-SCREEN.md"
+    },
+    {
+      "group": "accepted-boundary-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/STATUS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "67763ae9255eb1dea565733d726f4bf979417217",
+      "sha256": "3eec82778043e22c00eaa50f297430f4188df89fae1b07da2227f60bfacd539e",
+      "bytes": 5373,
+      "lines": 81,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/STATUS.md"
+    },
+    {
+      "group": "accepted-boundary-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/REVIEW-5840000380.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "454549305f2e8126fc88d2a5edae4d39361489f5",
+      "sha256": "4969d3f754c1afdae32ceb3f73c6ada4338cc10e7a05b2cc67512c24a3f57f4b",
+      "bytes": 19324,
+      "lines": 105,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/REVIEW-5840000380.md"
+    },
+    {
+      "group": "accepted-boundary-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/REVIEW-5840019359.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "8b48490fb68315018046f36b7e229c486694c1eb",
+      "sha256": "b320f60566a37870035d3451b821bba09b86bdca4776e33fe1da18e6c43f5c51",
+      "bytes": 6362,
+      "lines": 52,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/native-interaction-source-2-20261110/REVIEW-5840019359.md"
+    },
+    {
+      "group": "accepted-bank-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/native-preparation-source-1-20261110/PREPARATION-SCREEN.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "8f1edce39bec7069608d9dc2e34f281a81caa47a",
+      "sha256": "2bce44d2df08fbf2aff213279dd64d041730553ed92a1c9b5c573ec81a5e4239",
+      "bytes": 15947,
+      "lines": 135,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/native-preparation-source-1-20261110/PREPARATION-SCREEN.md"
+    },
+    {
+      "group": "accepted-bank-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/native-preparation-source-1-20261110/STATUS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "4afff3fea4d783a01bbb83c8cb5795906d5df15b",
+      "sha256": "b242dcd5d620e85824f066d7e2f86708e9ae2de7b1045091c08a6cb39a93fbfb",
+      "bytes": 6091,
+      "lines": 89,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/native-preparation-source-1-20261110/STATUS.md"
+    },
+    {
+      "group": "accepted-bank-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/native-preparation-source-1-20261110/REVIEW-5840760894.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "d3cd4202635db8cbbdfd83b8f7b80288a05a52cc",
+      "sha256": "a0923ff92bf163278ef5d90d621ebd635dfe1cb53b7030dcaed62917bda6eb09",
+      "bytes": 18778,
+      "lines": 141,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/native-preparation-source-1-20261110/REVIEW-5840760894.md"
+    },
+    {
+      "group": "oa1",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-1-20261112/OA-1-REPORT-r5.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "5a16b213ebe96846e53072bf1cac226e455f9f72",
+      "sha256": "75a0e997446a9c0167a95ce3ed81da22155ecd0966359d494791ee6353d33fd1",
+      "bytes": 51313,
+      "lines": 730,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-1-20261112/OA-1-REPORT-r5.md"
+    },
+    {
+      "group": "oa1",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-1-20261112/STATUS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "39222596faaf05d245d8116a65547502171e4343",
+      "sha256": "e0de68b0a0563f71da1d54c271c2c4485fbeeae1d0ba4f8507dd8a46badc6c9b",
+      "bytes": 9760,
+      "lines": 127,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-1-20261112/STATUS.md"
+    },
+    {
+      "group": "oa1",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-1-20261112/OBJECTS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "a9bcbaca0a585be59ddbea8c75c8d901a6686b70",
+      "sha256": "ec6d91640ae64100c5fe38f3236d7eb4868a65c39b8d91dbc68b50b37db46e9f",
+      "bytes": 3931,
+      "lines": 42,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-1-20261112/OBJECTS.md"
+    },
+    {
+      "group": "oa1",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-1-20261112/DELTA-REVIEW-OA-1-r4.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "bdced6024579bf428a4d9fb91964fc1f4da2c620",
+      "sha256": "38ad9d88a11729f763da1311aed88e1dae773e7e4604d54cd75445c42934320c",
+      "bytes": 27186,
+      "lines": 442,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-1-20261112/DELTA-REVIEW-OA-1-r4.md"
+    },
+    {
+      "group": "oa2",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-2-20261112/OA-2-REPORT-r4.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "8f8ddf73366deb1a2caa13d8c826744d1ba87607",
+      "sha256": "970935762ed94386726147f874b87fcab7666d392f117b0f00b2d3e0b90de0d3",
+      "bytes": 72807,
+      "lines": 1067,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-2-20261112/OA-2-REPORT-r4.md"
+    },
+    {
+      "group": "oa2",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-2-20261112/STATUS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "7945ac8acaaae40fca6ec754498456153da9f280",
+      "sha256": "c6ded1b9dc75eaf42910cd47ddf48f7013623851df726c8a967d1e91d77374c9",
+      "bytes": 9970,
+      "lines": 131,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-2-20261112/STATUS.md"
+    },
+    {
+      "group": "oa2",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-2-20261112/OBJECTS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "1d739ab99a353e2ffbc62c10c800407a9b630aa1",
+      "sha256": "eca0d6e36783d016d59da2673fb781e8ecad9069c28e107bd6576fa233d91cbe",
+      "bytes": 4684,
+      "lines": 44,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-2-20261112/OBJECTS.md"
+    },
+    {
+      "group": "oa2",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-2-20261112/DELTA-REVIEW-OA-2-r3.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "afbe3ca8213c974dc41913fc51e65f8b2cd16baf",
+      "sha256": "12792e7614a57901be05f4039c3a20c2225709c0f73701391a30c6e7d3f43d07",
+      "bytes": 45090,
+      "lines": 750,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-2-20261112/DELTA-REVIEW-OA-2-r3.md"
+    },
+    {
+      "group": "oa3",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-3-20261112/OA-3-REPORT-r4.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "0a36fd05ba6931705ecdbb1de9962d58a307c1cb",
+      "sha256": "4b847d72bceae6e6eacdffae14e00d801d086826e04f176fde2d20ea26e5c973",
+      "bytes": 60628,
+      "lines": 841,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-3-20261112/OA-3-REPORT-r4.md"
+    },
+    {
+      "group": "oa3",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-3-20261112/STATUS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "9b1f6f5aee806d3f97c38b241f5467169e7bb779",
+      "sha256": "d76ba291666470e19f2b41f8c6dddbf35542090f8777bbbf97ef12e1428c93da",
+      "bytes": 10023,
+      "lines": 125,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-3-20261112/STATUS.md"
+    },
+    {
+      "group": "oa3",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-3-20261112/OBJECTS.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "3871e284bdd42629aee757c8e985fabe805fbd80",
+      "sha256": "67a3ae6c183a69ff42ee16acc61d64d75c1e3272e4b5a3603bc10d1b89bdec4d",
+      "bytes": 4011,
+      "lines": 42,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-3-20261112/OBJECTS.md"
+    },
+    {
+      "group": "oa3",
+      "path": "verification/programmes/oi-qm/reconstruction/oa-3-20261112/DELTA-REVIEW-OA-3-r4.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "cfa2055d8c1500b24ce02f2214bc58e64204d364",
+      "sha256": "b16d3c22a999c194caecc431470984cb7cb7b0674a3c507587d6c738a3a064c8",
+      "bytes": 10068,
+      "lines": 186,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/oa-3-20261112/DELTA-REVIEW-OA-3-r4.md"
+    },
+    {
+      "group": "retention-negative",
+      "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseB-negative/THEOREM-N.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "8c266a8b2b82e46e91c70ead73f6ca60db01325f",
+      "sha256": "b1b129eafa768bc164ddee2e6c8b9aa01b240412315445390362af1361b547c1",
+      "bytes": 44872,
+      "lines": 552,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseB-negative/THEOREM-N.md"
+    },
+    {
+      "group": "retention-negative",
+      "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseB-negative/REVIEW.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "2afb1907470c98ed189c90ef42f89b911be6f76c",
+      "sha256": "c7929810954c6f5013fee56edb819ccf75dd1edaee3d25f70d32e44cb1a317b7",
+      "bytes": 17603,
+      "lines": 290,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseB-negative/REVIEW.md"
+    },
+    {
+      "group": "retention-o5-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phase-b-o5-20261106/DESIGN.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "e20c045860c4fb1e21427a7e5dd951a95877763e",
+      "sha256": "5e90c429591366ded13dfb2ff4bf237a59d52dfb8198571a4eaeca71556a1fd3",
+      "bytes": 16424,
+      "lines": 242,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phase-b-o5-20261106/DESIGN.md"
+    },
+    {
+      "group": "retention-external-stop",
+      "path": "verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/classical-retention-20261107/LEAD.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "d9125e918e5e8f024a0b1b40dc3e450c65f94564",
+      "sha256": "7ee2112785ccf4d0542a1a5b1d8dc6660efaabe41928b6240b998c4f3c21f278",
+      "bytes": 15769,
+      "lines": 164,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/classical-retention-20261107/LEAD.md"
+    },
+    {
+      "group": "bounded-control-paper",
+      "path": "verification/programmes/oi-qm/reconstruction/drafts/tune-1-20261111/TUNE-1-STEP2-SESSION4.md",
+      "ref": "c3b5f37a354bb26437e2e0165c576a347a63c153",
+      "blob": "17ca08f849e77905c96e103d6de34f68c60a4328",
+      "sha256": "7202c2d5fb830c96df4303df7c6fbeb3635805de274972eeca2db9da27c28a74",
+      "bytes": 49698,
+      "lines": 767,
+      "url": "https://github.com/amaybaum/incompleteness/blob/c3b5f37a354bb26437e2e0165c576a347a63c153/verification/programmes/oi-qm/reconstruction/drafts/tune-1-20261111/TUNE-1-STEP2-SESSION4.md"
+    }
+  ]
+}
