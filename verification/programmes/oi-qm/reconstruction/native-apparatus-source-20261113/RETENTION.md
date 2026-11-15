@@ -4,7 +4,7 @@ The operative preservation rule is §A.46(8) in AGENTS.md on main at dfeec843bec
 
 The source copies are ordinary UTF-8 files with the same Git blob identities as the cited originals. Thus their actual contents, not just identifiers, would be reachable when this child lands. The original upstream commits are not made ancestors by copying their files. No original-commit ordering or ancestry is a scientific premise of this unit. A retained review body records what its identified reviewer concluded about its stated object; it does not reproduce every underlying review event.
 
-Review bodies are in a structured data file, reviews/RECEIPTS.json, with their source URL, time, attribution, exact UTF-8 byte count and digest. Body strings are verbatim; no identifier substitutions or redactions were applied. This is selected review evidence, not a raw API dump. The ordinary prose scanner does not scan JSON string contents; the separate byte/source inspection and focused reviewer must examine them. No checker or workflow was changed.
+Review bodies are in a structured data file, reviews/RECEIPTS.json, with their source URL, time, attribution, exact UTF-8 byte count and digest. Body strings are verbatim except for two recorded redactions under owner decision Q2(a) (#1169 comment 6892224647): in issue comment 6718496406 (body line 5) and review 5897621232 (body lines 1 and 7), the runtime home-directory prefix before a reviewer handle is deleted and the handle kept. Each affected receipt records the removed occurrences and the original and redacted digests and byte counts; re-inserting the prefix reproduces the API body. The unredacted bodies remain reachable as blob 0bf5cad9af32d8f55063d467c69504fff2821718 of reviews/RECEIPTS.json at 7086bd3079b16a0340a553ca9f089d50c5591fc7 when this child lands by merge commit, and on GitHub at each receipt's source URL. This is selected review evidence, not a raw API dump. The ordinary prose scanner does not scan JSON string contents; the separate byte/source inspection and focused reviewer must examine them. No checker or workflow was changed.
 
 ## Material uses in the citing report
 
@@ -20,7 +20,7 @@ Review bodies are in a structured data file, reviews/RECEIPTS.json, with their s
 
 ## Upstream references and limits
 
-The copied TUNE files are input records, not a wholesale integration or independent verification of #1272. Their statements are used only as N2–N4 specify. Their own §7 distinguishes further references; reading the attached claims gives the following boundaries:
+The copied TUNE files are input records, not a wholesale integration or independent verification of #1272. The five support/ files duplicate files on #1272's branch, which is open, draft and unmerged at c539a60c5081540be033e07aa4f141caa1d0014b; if #1272 lands, the same blobs exist on main at both paths, and these copies remain the support #1278 rests on, not a landing of #1272 (owner decision Q3). Their statements are used only as N2–N4 specify. Their own §7 distinguishes further references; reading the attached claims gives the following boundaries:
 
 - The TC-A schema, control bound and F-S2 arithmetic use the on-main P/AF/S4/OA1 sources and the derivation in the retained r2. The source name “TC-A” is a name, not proof supplied by a missing commit.
 - The report's retained claim about mu-R is that the source assessment reaches no physical-source verdict. It does not adopt REC-1 C9 as an established physical theorem.
