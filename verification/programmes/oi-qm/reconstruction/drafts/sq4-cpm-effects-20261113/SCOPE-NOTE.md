@@ -6,7 +6,10 @@ record. The note states the scope at which their statements are supported. Autho
 amaybaum, #1169 comment 6894115930 (2026-11-15T12:11:24Z), "Confirmed, proceed as suggested", for
 the scope correction; and #1277 comment 6894228476 (2026-11-15T12:21:00Z), "Confirmed, proceed as
 suggested", for one citing note on `main` naming CX-1 and stating the narrower scope. The
-statements below are hand derivations [W] and await independent review.
+statements below are hand derivations [W]. Separate non-author reviews of the correction, not in the
+repository, are cited as provenance, not approval: r1 (2026-11-15, ACCEPT WITH CHANGES) re-derived
+CX-1 by hand and checked the scopes, blobs and quotations of this note; r2 (2026-11-15, ACCEPT WITH
+CHANGES) checked the changes r1 required and the static-label route.
 
 SQ4 is a proof-dependency audit. It is not a refutation of OA-2 or OA-3 at the scope stated here,
 and not a physical no-go. No manuscript or book text cites E(b), E1, C-PM or OA-2, so no manuscript
@@ -23,8 +26,10 @@ label cell `ℓ`, which C-PM excludes from effects. It is classical under ensemb
 under MP-0b retention of the non-label record, under C-PM′ and under role-typed labels. Its gbit is
 imposed by the cell-typed label convention; it is not a nonclassicality witness. Literal (H4) is
 also met with no label routing, through static held label cells alone (`AUDIT.md` §2.1, Bearing):
-when held label cells determine the initial configuration, literal (H4) holds at every horizon, and
-the same gbit arises under cell-typed and role-typed labels alike. Role-typed labels therefore do
+when label cells that `φ` leaves unchanged determine the initial configuration, literal (H4) holds
+at every horizon, since the initial configuration determines every later read, and the witness's
+gbit (`AUDIT.md` §2.1) arises under cell-typed and role-typed labels alike. Only the witness is
+shown to yield a gbit. Role-typed labels therefore do
 not restore literal (H4) in general.
 
 **Supported scope** (`AUDIT.md` §2.2). Write `Z^{lf}` for the held records restricted to cells outside one
