@@ -8,7 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
-| `S3-U1-r5.md` | S3 unit U1 r5: value writes classified by the explicit partition test (owner-confirmed fix after a separable non-affine counterexample over Z/3), with the two nits from the confirmation of r4; delivered with one named stop (typing into `Obs`); unreviewed | `03d9f20e7163b1f789c9aeafff600cb4b6622f35c66b40d386e14fd997fe7793` |
+| `S3-U1-r5.md` | S3 unit U1 r5: value writes classified by the explicit partition test (owner-confirmed fix after a separable non-affine counterexample over Z/3), with the two nits from the confirmation of r4; delivered with one named stop (typing into `Obs`); independently reviewed (ACCEPT) | `03d9f20e7163b1f789c9aeafff600cb4b6622f35c66b40d386e14fd997fe7793` |
 | `RESPONSE-S3-U1-r4.md` | Dispositions | |
 | `S3-U1-r4.md` | S3 unit U1 r4: fixes from the focused review of r3 (setting-selected quantified over the model's declared factors; value-write claim limited to affine or single-factor records; the informational label withholds only); delivered with one named stop (typing into `Obs`); independently reviewed (ACCEPT) | `5c8c091da04e8d89201f2ee79291e6b23c12fa04fa887c9b112d2cb5eae7aca8` |
 | `RESPONSE-S3-U1-r3.md` | Dispositions of that review | |
@@ -17,6 +17,7 @@ premise, or changes any Issue's planning or scope.
 | `S3-U1-r2.md` | S3 unit U1 r2: applies the independent review of r1 (setting-selected label under the plan's Q1 working definition, with the alternatives; jointly compared records held at a declared comparison tick; required fixes); delivered with one named stop, narrowed to typing into `Obs`; reviewed (ACCEPT WITH CHANGES) | `985f681e9df3653403c3c3793a752f9e275d29070a24d75022359f9b9be79783` |
 | `RESPONSE-S3-U1-r1.md` | Dispositions of that review | |
 | `S3-U1-r1.md` | S3 unit U1 r1: the native availability criterion for the seven actions, with the frozen access declaration; delivered with one named stop (S7(a)); reviewed (REVISE) | `30de72419d0536678101342ba5d2401897070a22ccf3591e5511b61f23dd63c9` |
+| `REVIEW-S3-U1-r5.md` | Focused confirmation of S3-U1-r5 at `7791c640`: ACCEPT (three optional nits) | `0882d5c13bcba519cf0cbd64b3b569b7ffeb93a1fe2cb5bb49825ff773a239f5` |
 | `REVIEW-S3-U1-r4.md` | Focused confirmation of S3-U1-r4 at `7887d33f`: ACCEPT (two nonblocking nits) | `339d5b096e5d7f35b1fc8545f497cfde60b8c3198696979a89df322caa4ffce7` |
 | `REVIEW-S3-U1-r3.md` | Focused review of S3-U1-r3 at `7ee0ed9a`: ACCEPT WITH CHANGES (P1: quantify selector and carrier over the model's declared factors, and limit the value-write claim; P2: the informational label is used only to withhold) | `7b8b5f8fd1828651d4348a48e3af905f8623a789057471d767adb81109a3cf1e` |
 | `REVIEW-S3-U1-r2.md` | Focused review of S3-U1-r2 at `134dcc97`: ACCEPT WITH CHANGES (N1: keep the operational setting-selected label without Q1 and apply Q1 only to a separate informational label; N2, N3: consequent corrections) | `3bca87647b1ee392fd13ca4fa2c34e9590a966e06b3e6d141aea0de3d2490279` |
