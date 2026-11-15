@@ -2581,12 +2581,16 @@ not be read as applying to it directly.
 
 \textbf{Definition 9.3} (Observational equivalence). \emph{Two embedded
 observers \((\mathcal{H}_V^{(1)}, \mathcal{A}_V^{(1)}, \Phi^{(1)})\) and
-\((\mathcal{H}_V^{(2)}, \mathcal{A}_V^{(2)}, \Phi^{(2)})\) are
+\((\mathcal{H}_V^{(2)}, \mathcal{A}_V^{(2)}, \Phi^{(2)})\) whose
+algebras are invariant under the Heisenberg-picture adjoints,
+\(\Phi^{(a)\dagger}(\mathcal{A}_V^{(a)}) \subseteq \mathcal{A}_V^{(a)}\)
+for \(a = 1, 2\), where
+\(\mathrm{Tr}[\Phi^\dagger(A)\,\rho] = \mathrm{Tr}[A\,\Phi(\rho)]\), are
 observationally equivalent, written
 \((\mathcal{H}_V^{(1)}, \mathcal{A}_V^{(1)}, \Phi^{(1)}) \sim_{\mathrm{obs}} (\mathcal{H}_V^{(2)}, \mathcal{A}_V^{(2)}, \Phi^{(2)})\),
 if there exists a }-isomorphism
 \(\theta: \mathcal{A}_V^{(1)} \to \mathcal{A}_V^{(2)}\) such that*
-\[\theta \circ \Phi^{(1)}|_{\mathcal{A}_V^{(1)}} = \Phi^{(2)}|_{\mathcal{A}_V^{(2)}} \circ \theta.\]
+\[\theta \circ \Phi^{(1)\dagger}|_{\mathcal{A}_V^{(1)}} = \Phi^{(2)\dagger}|_{\mathcal{A}_V^{(2)}} \circ \theta.\]
 
 \textbf{Definition 9.4} (Universality class). \emph{A universality class
 is an equivalence class of embedded observers under
@@ -2618,12 +2622,14 @@ a hidden-sector permutation applied identically in every visible fibre
 or by a deep-sector enlargement ({[}Substratum{]} Theorem 24(i), (iii)).
 Let \((\mathcal{H}_V^{(i)}, \mathcal{A}_V^{(i)}, \Phi^{(i)})\) be the
 embedded observer derived from \((S_i, \varphi_i)\) via the Main paper's
-trace-out construction. Then
+trace-out construction, and let \(\mathcal{A}_V^{(1)}\) satisfy the
+invariance condition of Definition 9.3. Then
 \((\mathcal{H}_V^{(1)}, \mathcal{A}_V^{(1)}, \Phi^{(1)}) \sim_{\mathrm{obs}} (\mathcal{H}_V^{(2)}, \mathcal{A}_V^{(2)}, \Phi^{(2)})\).}
 
 \emph{Proof sketch.} Both transformations leave every visible channel
 \(\Phi_t\) unchanged {[}Substratum §4{]}, so the trace-out construction
-yields the same visible-sector algebra and channel, and
+yields the same visible-sector algebra and channel; the invariance
+condition therefore holds for both observers, and
 \(\theta = \mathrm{id}\) satisfies Definition 9.3. \(\square\)
 
 The converse --- that all observationally-equivalent OI-class substrata
@@ -2633,10 +2639,12 @@ completeness statement of {[}Substratum{]} Theorem 24, which is open
 
 \textbf{Corollary 9.6} (Universality classes are coarser). \emph{Let
 \(\mathcal{C}\) be the universality class containing an OI-class
-substratum \((S, \varphi)\). Then \(\mathcal{C}\) contains every
-OI-class substratum related to \((S, \varphi)\) by the transformations
-of Proposition 9.5, and possibly substrata not in OI's structural class
-that produce observationally-equivalent embedded observers.}
+substratum \((S, \varphi)\) whose embedded observer satisfies the
+invariance condition of Definition 9.3. Then \(\mathcal{C}\) contains
+every OI-class substratum related to \((S, \varphi)\) by the
+transformations of Proposition 9.5, and possibly substrata not in OI's
+structural class that produce observationally-equivalent embedded
+observers.}
 
 The corollary makes precise the ``universality classes are coarser than
 generators (i) and (iii) of \(\mathcal{G}_{\rm sub}\)'' claim: the
@@ -2754,7 +2762,9 @@ interface).} The second piece is gauge only because Definition 9.2
 always prepares the same \(\rho_H\). The off-reference action of \(U\)
 is invisible to \(\Phi\) for that reason and no other. If the hidden
 sector became independently preparable, that action would become
-observable and would cease to be gauge. The claim is therefore not that
+observable and would cease to be gauge. It is likewise observable in
+multi-time statistics when the hidden sector is carried from one use to
+the next rather than re-prepared (§9.5). The claim is therefore not that
 the substratum has less structure than the channel, but that the
 channel, at a fixed reference preparation, does not see it.
 
@@ -2800,12 +2810,21 @@ Three structural features:
 
 \textbf{Sub-classes by structural features.} Two embedded observers in
 the same universality class produce the same algebra-channel pair, hence
-the same observational features (Born rule, unitarity, non-Markovian
-marginal, commutant gauge-invariance pattern). They may differ on which
-structural features the substratum producing them respects --- OI's
-substratum satisfies A1-A6, string-theoretic substrata may not.
-Sub-classes within a universality class can be characterized by the
-structural conditions the substratum representatives satisfy.
+the same single-use observational features (Born rule, unitarity,
+commutant gauge-invariance pattern). They may differ on which structural
+features the substratum producing them respects --- OI's substratum
+satisfies A1-A6, string-theoretic substrata may not. Sub-classes within
+a universality class can be characterized by the structural conditions
+the substratum representatives satisfy. Definition 9.3 compares one use
+of the channel and does not fix multi-time statistics. With
+\(\mathcal{H}_V = \mathcal{H}_H = \mathbb{C}^2\) and reference
+\(|0\rangle\), the realizations \(\mathrm{CNOT}\) and
+\(\mathrm{CNOT}\,(\mathbb{1} \otimes Z)\) of §9.3 give the same channel,
+hence the same embedded observer; with the hidden sector carried between
+uses and visible input \(|+\rangle\), the visible states after two uses
+are \(|+\rangle\langle +|\) and \(|-\rangle\langle -|\). The multi-time
+statistics of the marginal, including its non-Markovian structure, are
+fixed by the realization, not by the universality class.
 
 \textbf{Sub-classes by gauge content.} Two observers in the same
 universality class produce the same gauge-invariance pattern (commutant
@@ -2958,12 +2977,13 @@ visible-sector CPTP channel (Definition 9.2), with a mixed reference
 state; the visible-sector algebra is the emergent QFT operator algebra.
 The universality class containing OI's substratum is the class of
 substrata producing the same algebra-channel pair --- by Proposition
-9.5, this includes the substrata related to it by hidden-sector
-relabelings applied identically in every visible fibre and by
-deep-sector enlargements. Whether the class extends beyond
-\(\mathcal{G}_{\rm sub}\) depends on whether non-OI-class substrata
-produce the same algebra-channel pair. All members of this class are
-observer-admitting per §9.6.
+9.5, when the pair satisfies the invariance condition of Definition 9.3,
+this includes the substrata related to it by hidden-sector relabelings
+applied identically in every visible fibre and by deep-sector
+enlargements. Whether the class extends beyond \(\mathcal{G}_{\rm sub}\)
+depends on whether non-OI-class substrata produce the same
+algebra-channel pair. All members of this class are observer-admitting
+per §9.6.
 
 \textbf{Example 2: String-theoretic class.} A string-theoretic
 substratum (e.g., type IIA on a specific Calabi-Yau threefold with
@@ -3216,8 +3236,11 @@ EFT scale, \(\Phi^{\rm OI}\) encodes:
   their stated conditions ({[}SM §7{]}).
 \end{itemize}
 
-\textbf{The pair as universality-class invariant.} The algebra-channel
-pair \((\mathcal{A}_V^{\rm OI}, \Phi^{\rm OI})\) is invariant under
+\textbf{The pair as universality-class invariant.} Subject to the
+invariance condition
+\(\Phi^{\rm OI\dagger}(\mathcal{A}_V^{\rm OI}) \subseteq \mathcal{A}_V^{\rm OI}\)
+of Definition 9.3, which is open, the algebra-channel pair
+\((\mathcal{A}_V^{\rm OI}, \Phi^{\rm OI})\) is invariant under
 generators (i) and (iii) of \(\mathcal{G}_{\rm sub}\): by Proposition
 9.5, each induces a *-isomorphism on the algebra commuting with the
 channel up to conjugacy. The pair is therefore a universality-class
@@ -3277,11 +3300,12 @@ and are deferred to follow-up work:
   the compactification's specific topology and flux choices.
 \item
   \emph{Step 4.} Test channel conjugacy
-  \(\theta \circ \Phi^{\rm OI} = \Phi^{\rm string} \circ \theta\) for
-  the \emph{-isomorphism \(\theta\) (if Step 3 succeeds). Even if the
-  algebras are }-isomorphic, the channels may differ on specific RG
-  flow, anomaly content, or instanton effects, placing the two systems
-  in the same algebra class but different channel class.
+  \(\theta \circ \Phi^{\rm OI\dagger} = \Phi^{\rm string\dagger} \circ \theta\)
+  on \(\mathcal{A}_V^{\rm OI}\) for the \emph{-isomorphism \(\theta\)
+  (if Step 3 succeeds), with both algebras invariant as in Definition
+  9.3. Even if the algebras are }-isomorphic, the channels may differ on
+  specific RG flow, anomaly content, or instanton effects, placing the
+  two systems in the same algebra class but different channel class.
 \end{itemize}
 
 Steps 2-4 require detailed comparison with a chosen compactification and
@@ -3875,10 +3899,12 @@ dynamics including instantons, threshold corrections, RG running); (3)
 check }-isomorphism (whether algebraic relations agree on gauge-coupling
 structure, Yukawa-coupling structure, anomaly content, topological terms
 --- both renormalizable and higher-dimensional operators); (4) check
-channel conjugacy (\(\theta \circ \Phi^{(1)} = \Phi^{(2)} \circ \theta\)
-for the *-isomorphism \(\theta\)). \textbf{Status:} Step 1 is executed
-in §10.4 (construction of \((\mathcal{A}_V^{\rm OI}, \Phi^{\rm OI})\));
-Steps 2-4 remain open and require a specified compactification.
+channel conjugacy
+(\(\theta \circ \Phi^{(1)\dagger} = \Phi^{(2)\dagger} \circ \theta\) on
+invariant algebras as in Definition 9.3, for the *-isomorphism
+\(\theta\)). \textbf{Status:} Step 1 is executed in §10.4 (construction
+of \((\mathcal{A}_V^{\rm OI}, \Phi^{\rm OI})\)); Steps 2-4 remain open
+and require a specified compactification.
 
 Three possible outcomes: (a) full isomorphism + conjugacy --- same
 universality class, OI's specific predictions transport to the
@@ -5924,4 +5950,4 @@ Press (1979), 790-831.
 quantum gravity'', Phys. Rev.~D 57, 971 (1998). arXiv:hep-th/9605030.
 
 \end{document}
-% source-sha256: 2e0b0bb819113bf9751e9c8dd5423fb656a818c6dfe4c84e8394165c337bfbc4
+% source-sha256: b867217652e0a02e0179e7123c4b6f1f2f2c9ff33bc27258d2c12f820700ef5c
