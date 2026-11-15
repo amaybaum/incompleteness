@@ -1414,3 +1414,29 @@ conditions on which a research record is preserved on `main`, what a remediation
 preserved record's scoped result is a surviving claim, and the reconciliation of records already on
 `main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments 6865680499,
 6872005186, 6872344927 and 6872828604).
+
+***
+
+## §A.47 Goal link for research decisions
+
+Every research decision is checked against the programme's goal before it is made. The question
+is: *what is the ultimate goal, and which of the highest-priority items needed to reach it does
+this serve?* The goal is the one the owner has adopted and recorded in the planning record
+(§A.45). Its highest-priority items are the named requirements of that goal and the blockers on
+the path to it, ranked in the same record.
+
+1. **Where it is recorded.** Each owner-decision record, planning-status block, unit plan or
+   preregistration, and review recommendation carries a *Goal link*. The link names the
+   requirement or blocker the work serves and says how. Work that serves none, such as
+   housekeeping, says so in those words.
+2. **What it decides.** Work with a weaker goal link does not displace work with a stronger one
+   without a recorded owner reason. Opening a new supporting or housekeeping unit while a
+   higher-priority item is ready and unstaffed needs that reason.
+3. **What it does not decide.** A goal link is planning, not evidence. It confers no scientific
+   status (§A.45 rule 1), grants no authorization (§A.45 rule 3) and moves no claim's valence
+   (§A.22). It never licenses a weaker standard of proof, or a conclusion the framework "needs"
+   (§A.29). A route closed by controlled computation serves the goal as fully as a route opened.
+4. **Gaps.** When the ranking shows a requirement of the goal that no active item serves, that
+   gap is itself a finding and is reported to the owner.
+
+Adopted 2026-11-15 by owner decision.
