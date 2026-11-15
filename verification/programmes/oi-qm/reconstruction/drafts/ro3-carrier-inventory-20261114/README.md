@@ -1,10 +1,10 @@
-# RO-3: carrier and exactness inventory (#1055), UNREVIEWED drafts
+# RO-3: carrier and exactness inventory (#1055)
 
-**UNREVIEWED — NOT AUTHORITATIVE.** RO-3 is a paper-only inventory authorized by the owner (#1055
+**Inventory r9 is owner-accepted at its reviewed scope** (amaybaum, 2026-11-15, #1169 c.6894553525): the A1-dependency map is complete relative to its rerunnable search recipe at `7ac74a4b`, with the 33 unread Lean modules as an explicit scope limit. This is not an exhaustive verification of mathematical dependencies, and it establishes no A1-free recovery theorem. Earlier revisions keep their own review labels below. RO-3 is a paper-only inventory authorized by the owner (#1055
 comment 6881390849), with the scope of #1055 comment 6880024537. Writer: Claude Code; reviewer:
 ChatGPT at the exact commit, after an independent review. It asks whether one fixed OI substratum can
 support arbitrarily large finite quantum carriers without a finite total configuration space. It
-establishes no result, adopts no premise, and changes no planning entry; EXACT (#1169) stays open.
+establishes no recovery theorem, adopts no premise, and changes no planning entry; EXACT (#1169) stays open.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
