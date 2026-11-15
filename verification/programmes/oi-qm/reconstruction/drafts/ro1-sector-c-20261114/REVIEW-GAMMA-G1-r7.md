@@ -68,3 +68,33 @@ Two ways to correct this:
 - Bring those two rows in line with the response. Optionally retitle the §13 status column, which
   still reads "Under r5".
 - Alternatively, state in the response that those two status changes are recorded there only.
+
+***
+
+## r8 addendum
+
+**Object.** The addendum covers `GAMMA-G1-r8.md` and `RESPONSE-GAMMA-G1-r7.md`, read from the local
+folder. The reviewer read the full r7→r8 diff.
+
+**Verdict: ACCEPT.**
+
+**Nothing else changed.** The diff has three parts:
+- the title line;
+- the r8 revision note;
+- the §13 rows for §6.1 ("One characterization") and G2-F7.
+
+**The two rows now match `RESPONSE-OWNER-G2Q1.md` and the owner record:**
+- they mark the item owner-adopted under c.6894553525;
+- they give the three conditions;
+- they carry the dark-process clause;
+- they say that the "disagree" clause describes r4 only;
+- they say that no control result follows.
+
+**The "Under r5" column title.** It is now somewhat misleading, though not wrong in substance:
+- at least four rows record states after r5, including the §6.1, G2-F7, question-1 and condition-6
+  rows;
+- these states include the owner decision, which postdates r6;
+- so a reader could take an owner-adopted status as r5's.
+
+Retitling the column "Under r8" or "Status in this revision" is recommended. It does not block
+acceptance.
