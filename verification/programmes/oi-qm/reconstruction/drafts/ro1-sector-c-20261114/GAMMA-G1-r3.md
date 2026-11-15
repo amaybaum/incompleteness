@@ -803,8 +803,9 @@ An unknown result does not separate. `S(K)` is the set of observables that separ
 [P] **Credit.** `L` has nonempty coverage credit iff `S(K) ≠ ∅` for **every** `K ∈ 𝒦`: for each
 classical control, some listed observable separates it. The observables may differ from member to
 member. Every report lists `S(K)` for each member, with each element's kind (s1 or s2). Whether
-separation by scope suffices for CC4 and CC5 is owner question 6; until it is answered, a credit that
-needs (s2) for a member is reported as credited "with CC4/CC5 separated by scope only".
+separation by scope suffices for CC4 and CC5 is owner question 6. Until it is answered, a result
+whose credit needs (s2) for some member is reported as **credit conditional on owner question 6**, not
+as credited.
 
 **Constructions for X-2** [P; A-inf, by hand]. The anticorrelation parameter is
 `α := P(both outputs) / (P(transmitted) · P(reflected))`.
@@ -815,12 +816,16 @@ needs (s2) for a member is reported as credited "with CC4/CC5 separated by scope
   and `rI`; square-law stochastic detectors, conditionally independent given the field, click with
   probabilities `ηtI` and `ηrI` (low-click regime). Then
   `P(both) = η² t r E[I²] ≥ η² t r E[I]² = P(transmitted) P(reflected)`, so `α ≥ 1`, with equality
-  iff `I` is constant.
+  iff `I` is constant. The bound does not need the low-click regime: for any click probabilities
+  `f(I)`, `g(I)` both increasing in `I` (for example `1 − e^{−ηtI}`, `1 − e^{−ηrI}`), Chebyshev's
+  inequality for comonotone functions of one variable gives `E[fg] ≥ E[f] E[g]`, so `α ≥ 1`.
 
 **X-3 separates no member** [A-inf, by hand]. C0's three-path probability is the sum of the
 subnormalized one-path terms, so `I_3 = P_ABC − P_AB − P_AC − P_BC + P_A + P_B + P_C = 0`;
-`|f_A + f_B + f_C|²` has only pairwise cross terms, so PC-wave's `I_3 = 0`; and the Born reference
-also has `I_3 = 0`. X-3 bears on the exponent (#1059), not on the ceiling.
+`|f_A + f_B + f_C|²` has only pairwise cross terms, so PC-wave's `I_3 = 0` when its click probability
+is linear in intensity (the low-click regime); with saturating detection, for example
+`1 − e^{−ηI}`, `I_3 ≠ 0` in general, and the statement is made in the linear regime only. The Born
+reference also has `I_3 = 0`. X-3 bears on the exponent (#1059), not on the ceiling.
 
 [P] **Reporting.** If `S(PC-wave) = ∅`: "interference compatible with classical coherent waves; no
 quantum completion" (OCP:45). If `S(C0) = ∅`: compatible with fixed-path classical particles. If
@@ -854,7 +859,7 @@ further member or a joint observable (OCP:51), and G1 adds neither.
 | NC-γ3: one `M`, `μ`, AD-1 instance for all of `𝒜`; no combination across instances | every report carries `I`; §2.1's single observer family |
 | NC-γ4: complete masses, no postselection | per encoding: `L_a`'s total mass equals `μ(z = a)` (E-set), `μ(𝔄_a)` with the `(a, ¬E)` mass inside (E-prep), `μ(𝔈_*)` for each protocol E-read encodes, with the shared runs entered once in `L^full`; distinct incident events are disjoint; `κ_norm` divides only by incident mass (§5.3); `K_P` is reported with `f_∅` and the undetected mass |
 | NC-γ5: no C adjusted after results are known | a change of `I` after evaluation creates a new instance, committed and reported beside the old one and not replacing it; every report states how many instances were declared after the first evaluation, so that a search over `π_C`, `κ_det` or `κ` variants is visible as a trial count |
-| NC-γ6: the definition of (γ←), with §7.2, is satisfiable by quantum mechanics, and no ceiling member is credited | the declared quantum reference below, used for the structure of the definition only (NC-γ2), is put in place of `Γ_exe(M)`, and each member of `𝒦` in turn; a reviewer checks each clause of (γ←) and §7.2 against them. **Status at G1: open.** Met for (γ←)'s clauses, and for §7.2 at the level of the reference and control laws (below); not met on the data side until G3 reads the X-1 and X-2 sources |
+| NC-γ6: the definition of (γ←), with §7.2, is satisfiable by quantum mechanics, and no ceiling member is credited | the declared quantum reference below, used for the structure of the definition only (NC-γ2), is put in place of `Γ_exe(M)`, and each member of `𝒦` in turn; a reviewer checks each clause of (γ←) and §7.2 against them. **Status at G1: open.** Met for (γ←)'s clauses; for §7.2 at the level of the reference and control laws, conditional on owner question 6 (CC4 and CC5 are separated by scope only, below); not met on the data side until G3 reads the sources for C0's separation (`Δ` or X-1) and for X-2 |
 
 **The declared quantum reference** [EXT, standard theory, structure only]. For `𝒜_6` and X-1: OCP's
 benchmark table (OCP:17–24) and the standard two-slit law. For X-2: a single excitation at a beam
@@ -869,21 +874,29 @@ pure-marker equality (LIT 1.12, §3, FULL). For X-5: OCP:23–24.
 - *§7.2 for the reference, at the level of laws.*
   - C0: separated (s1) by the two-port fringes and X-1: the reference has `Δ = (+1/2, −1/2)` and C0
     has `Δ ≡ 0` (OCP:28, :35; §7.1); under §5.7, C0's a1 image is "fringes absent" (§5.7 check 5).
-    It is also separated by X-4, since C0 has no fringes at any marking setting. X-2 does not separate
-    it (`α = 0` for both), nor does X-3.
+    X-4 is not counted for C0: "no fringes at any marking setting" needs C0's per-path response `r_π`
+    to be independent of the phase setting of a phase scan, which C0's definition (§7.1; OCP:35, "Fix
+    the screen response per path") does not state, and G1 does not add that clause (see the data side
+    below). X-2 does not separate C0 (`α = 0` for both), nor does X-3.
   - PC-wave: separated (s1) by X-2, `α ≥ 1` against `0`. X-1 and X-3 do not separate it; X-4 and X-5
     are unknown.
   - CC4, CC5: within their scopes they reproduce the reference's marker-protocol laws at VER2's
     scopes, so there is no (s1); X-1 and X-2 lie outside their scopes, so they are separated by scope
     (s2).
-  - So `S(K) ≠ ∅` for every member: the reference is creditable, with CC4 and CC5 separated by scope
-    only.
-- *The data side.* Each separating observable also needs the reference's agreement with the data. For
-  C0, X-4 has it at the qualitative level: Schwindt reports "V > 4.4% even though
-  L > 99.9%", and `V² + K²` averages 0.976 ± 0.017 over all settings (LIT 1.12, FULL), so fringes are
-  present at the settings of partial marking, where C0 has none. For PC-wave, the
-  only separating observable is X-2, whose source is NOT READ. So credit for the reference on the
-  declared list waits on G3's X-2 read.
+  - So `S(K) ≠ ∅` for every member, with CC4 and CC5 separated by scope only: at the level of laws
+    the reference's credit is **conditional on owner question 6**. Under (s1) alone the reference is
+    not creditable on the present list (owner question 6).
+- *The data side.* Each separating observable also needs the reference's agreement with the data.
+  - C0: its data-side separation **waits on G3**. The observable C0 is defined to fail is the
+    additivity defect `Δ`, which needs one-path counts at the same settings as the two-path counts;
+    LIT records none for Schwindt's phase scan, and the X-1 sources are NOT READ. A clause making
+    `r_π` independent of the phase setting would let Schwindt's `V` separate C0, but it would do so
+    by narrowing the control's own definition beyond OCP:35, not by the test OCP fixes for C0; an
+    additive C0 whose per-path response varies with arm length gives `V > 0` in a phase scan and is
+    separated only by `Δ`. G1 therefore does not add the clause.
+  - PC-wave: its only separating observable is X-2, whose source is NOT READ (G3).
+  - So credit for the reference on the declared list waits on G3's reads for C0 (`Δ` or X-1) and for
+    PC-wave (X-2), and stays conditional on owner question 6 for CC4 and CC5.
 - *No member is credited.* Put any `K ∈ 𝒦` in place of `L`. On `o ∈ dom(K)`, `K` agrees with itself,
   so there is no (s1) for `K`; on `o ∉ dom(K)`, `K` gives no law, so it cannot agree with the data, and
   there is no (s2). Hence `S(K) = ∅` and `K` is not credited. For example, C0 in place of `L` separates
@@ -952,7 +965,7 @@ by definition, and G1-F5 was re-tested for κ-ens's hidden premise (H-ens).
 | G1-F5 | Within AD-1(f)'s budget the orbit-frequency reading's object is a finite-run frequency `F_N`, not the orbit-uniform law. κ-orb needs C-REN explicitly; κ-ens needs no renewal action only because H-ens identifies the runs of one history with independent draws from `μ`. A κ-orb verdict *some* needs a law over configurations | §5.6; QB3:60–61; U1:232 | ELABORATING; assumption-watch markers H-ens and κ-orb's weight, for G4 (sharpens H-4) |
 | G1-F6 | The only FULL-read singles datum with an unread marker is a phase-scan datum, background subtracted; on K1 a phase scan is a family of geometries (PROVISIONAL), while a spatial screen needs one program | LIT 1.12; U4 §2.1 | BORDERLINE: it bears on which targets one instance can be compared with |
 | G1-F7 | No target in the sources read exists for the unsorted singles of a delayed arrangement; `κ` may not substitute coincidence data | LIT C2, C4, C5 | CONFIRMING (LIT's finding carried into `κ`) |
-| G1-F8 | Credit is a conjunction across observables: under the member-by-member rule the quantum reference is creditable at the level of laws, with C0 separated by the additivity defect (and X-4), PC-wave only by X-2's anticorrelation (`α ≥ 1` against 0, by hand), and CC4, CC5 by scope only; X-3 separates no member; no member is credited. On the data side the credit waits on G3's X-2 read | §7.2; §7.4 NC-γ6; OCP:28, :38, :51; VER2; RG2 N1 | ELABORATING: fixes which single observable on the list carries the separation from classical waves |
+| G1-F8 | Credit is a conjunction across observables: under the member-by-member rule the quantum reference's credit at the level of laws is conditional on owner question 6, with C0 separated by the additivity defect, PC-wave only by X-2's anticorrelation (`α ≥ 1` against 0, by hand), and CC4, CC5 by scope only; X-3 separates no member in the linear detection regime; no member is credited. On the data side the credit waits on G3's reads for C0 (`Δ` or X-1) and PC-wave (X-2) | §7.2; §7.4 NC-γ6; OCP:28, :38, :51; VER2; RG2 N1 | ELABORATING: fixes which single observable on the list carries the separation from classical waves |
 | AW-hyb | The ceiling rule does not exclude a classical model outside `𝒦` that is particle-like on X-2 and wave-like on the fringes; no member-by-member rule can, without excluding the quantum reference | §7.2 | assumption-watch marker; bears on AC-1's coverage half and on any C/Q finding |
 | AW-det | `κ_det` is a choice with a verdict-level effect: under `κ_det^rdy` a uniform screen law is unsourced; under `κ_det^part` it is comparable, with a dark law fixed by the declared partition | §5.2 | assumption-watch marker; owner question 2 |
 | AW-ens | H-ens, the hypothesis of κ-ens | §5.6 | assumption-watch marker (H-4) |

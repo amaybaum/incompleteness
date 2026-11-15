@@ -142,3 +142,25 @@ provenance for the examples and proof re-checked here.
   (h1)–(h7)" can be checked line by line.
 - **O6.** §6.2 (741): (h7) is a condition on the statistic, not the program; "realized by programs
   meeting (h1)–(h6) and scored on full-attempt statistics" is more exact.
+
+## Confirmation (fix commit `85bfd162`)
+
+Checked `git diff 75dd0600..85bfd162`. In that range `73f843a4` (GAMMA-G1-r3 review and its README
+rows) is a separate unit, not part of this fix. `85bfd162` touches only `S3-U2-r4.md`, the U2 row of
+`README.md` (digest `9b800abd…` matches the file at `85bfd162`) and an appended section of
+`RESPONSE-L1-REVIEW-5909913170.md`.
+
+- **R1 resolved.** The revision note (38–39), §6.1 (705), §6.2 (744), §8.3 (828–829) and §11.2
+  (906–907) now name "hidden states that are not finite-valued (non-atomic, countably infinite or
+  mixed laws)" and "statistics conditioned on any event (a herald or success flag, setting-dependent
+  or not)". Together with the other listed exclusions, these are the complements of (h5) and (h7).
+  L-1 is not extended to them.
+- **Optional edits correct.** O1 (546–547): the proof does use only the functional dependence. O2
+  (594): accurate. O3 (623): accurate. O4 (576–577): accurate, since a joint positive-mass value has
+  positive marginals. O6 (744): "(h1)–(h6) and scored on full-attempt statistics (h7)" is exact.
+  O5 is not applied, and the reason given is acceptable.
+- **Nothing else changed** in `S3-U2-r4.md`: nine hunks, exactly the ranges listed. The anchor
+  r4:528–663 for L-1 checks. Added lines have no local paths and no closing keywords.
+- Cosmetic, optional: lines 38 and 828 now run past the file's usual wrap width.
+
+**Verdict on the fix: R1 resolved; ACCEPT.**

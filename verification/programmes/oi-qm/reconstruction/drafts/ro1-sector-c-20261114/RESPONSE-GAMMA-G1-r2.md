@@ -41,3 +41,15 @@ with the reason. Paper-only; hand checks only; no computation, Lean, manuscript 
 - In r3 §10, G1-F8 is restated, its class moves from CONFIRMING to ELABORATING, and AW-hyb is added.
 - In r3 §12, owner question 5 adds the support floor `ν` and the normalizers, owner question 6 is new,
   and G3's list gains the reference sources and the data side of the separations.
+
+## Dispositions for the focused review of r3
+
+`REVIEW-GAMMA-G1-r3.md` (PR #1294 commit `73f843a44`), verdict ACCEPT WITH CHANGES. The fixes are
+made in place in `GAMMA-G1-r3.md`, and nothing else is changed.
+
+| # | Finding | Disposition | Where and how |
+|---|---|---|---|
+| R-1 | Separation by scope must not be the default before owner question 6 is answered | **applied** | §7.2: a result whose credit needs (s2) for some member is reported as credit conditional on owner question 6, not as credited. Propagated to NC-γ6's hand evaluation and its checkpoint row (§7.4), and to G1-F8 (§10) |
+| R-2 | C0's data-side separation on X-4 assumes a phase-independent C0 response | **applied**, second option: C0's data side waits on G3 | §7.4: X-4 is not counted for C0, and the quotation from Schwindt is removed. Reason: a phase-independence clause would separate C0 by narrowing the control's own definition beyond OCP:35, not by the additivity test `Δ` that OCP fixes for C0. An additive C0 whose per-path response varies with arm length gives `V > 0` in a phase scan and is separated only by `Δ`, which needs one-path counts at the same settings. LIT records none for Schwindt, and the X-1 sources are NOT READ. At the level of laws, C0 stays separated by `Δ` |
+| M-1 | PC-wave's `I_3 = 0` holds only for linear (low-click) detection | **applied** | §7.2: the scope is stated, together with the saturating counter-case; G1-F8 carries "in the linear detection regime" |
+| Advisory | `α ≥ 1` for any click probability increasing in `I` | **applied** | §7.2: recorded, by Chebyshev's inequality for comonotone functions of one variable |
