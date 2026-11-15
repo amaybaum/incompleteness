@@ -169,8 +169,8 @@ theorem conjChannel_one {S : Type*} [Fintype S] [DecidableEq S] :
   rw [Matrix.conjTranspose_one, Matrix.one_mul, Matrix.mul_one]
 
 /-- **COMPOSITE IDENTITY FROM CONTROL.** Composite unitary control at `U = 1` supplies the
-identity at every level `n`. At level `1` the structure's own rules also supply it: the single
-readout branch, coarse-grained, is the identity. At `n ≥ 2` the branches sum to the dephasing. -/
+identity at every level `n`. Checked by hand, not proved here: at level `1` the structure's rules
+also give it (the single readout branch); at `n ≥ 2` the branches sum to the ancilla dephasing. -/
 theorem availExt_id_of_control (T : FiniteOperationalTheory A)
     (hctrl : HasCompositeUnitaryControl T) (n : ℕ) :
     T.availExt n Unit (fun _ => LinearMap.id) := by
