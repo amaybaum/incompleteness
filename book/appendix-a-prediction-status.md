@@ -120,7 +120,7 @@ The horizon and radiation entries inherit H-slope and the horizon/frame/state co
 
 ### A.4.3 Neutrino-sector observables
 
-The neutrino sector provides the framework's sharpest parameter-free retrodiction. The post-JUNO global fit of $\sin^2\theta_{12}$, at 0.07$\sigma$ from the framework's structural value, is a retrodictive match whose leading-order form, with open higher-order terms larger than the design-lifetime error (Ch 8 §8.8), converts JUNO's design-lifetime precision into the framework's cleanest pre-registered forward test.
+The neutrino sector provides the framework's sharpest parameter-free retrodiction. The post-JUNO global fit of $\sin^2\theta_{12}$, at 0.07$\sigma$ from the framework's structural value, is a retrodictive match whose leading-order form, with open higher-order terms larger than the design-lifetime error in the minimal truncation (Ch 8 §8.8), converts JUNO's design-lifetime precision into the framework's cleanest pre-registered forward test.
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|-----------|------------|-------|-----------------|---------|

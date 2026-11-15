@@ -937,7 +937,7 @@ Level 3 confirmations are confirmations of OI's universality class but not of OI
 |---|---|---|
 | Cabibbo angle $\sin\theta_C = 1/(\pi\sqrt{2}) \approx 0.2251$ | Confirmed at $0.12\sigma$ ($0.04\%$) | [SM §7.1] |
 | Koide ratio $Q = 2/3$ | Confirmed to better than $0.001\%$ | [SM §7.2] |
-| JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Retrodictive match at $0.07\sigma$; the leading-order value, whose open higher-order terms exceed the design-lifetime precision of $\pm 0.0014$, gives a pre-registered forward test at that precision | [Juno] |
+| JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | Retrodictive match at $0.07\sigma$; the leading-order value, whose open higher-order terms exceed the design-lifetime precision of $\pm 0.0014$ in the minimal truncation, gives a pre-registered forward test at that precision | [Juno] |
 | Wolfenstein parameter $A = \sqrt{2/3}$ | Consistent with current data | [SM §7.1] |
 | Higgs quartic $\lambda(M_{\text{Pl}}) = 0$ (composite-scalar prediction) | Consistent at $0.6\sigma$ | [SM §7.4] |
 | 22 SM observables, classified (two parameter-free structural and five conditional structural on the empirically selected cubic substratum) | Sharpest entries sub-percent; classes per [SM §7.6] | [SM §7.6] |
