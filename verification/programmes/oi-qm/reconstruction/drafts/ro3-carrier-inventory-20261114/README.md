@@ -8,6 +8,21 @@ establishes no result, adopts no premise, and changes no planning entry; EXACT (
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `RO3-INVENTORY-r9.md` | Inventory r9: applies the r8 review (N1–N3) and records the classification of the "finite deterministic" sites (papers 15 correct as stated, 0 overstated, 11 ambiguous; book 16, 0, 14); the A1 map complete relative to the rerunnable search recipe of §7.0, with 33 unread Lean modules as a stated scope limit; reviewed (ACCEPT, r9 addendum to the r8 review) | `35f7631c7a1960d424fcab4084f6cbcdd98602eddbab64b5a9b6ded07ff6aa98` |
+| `REVIEW-1303-INVENTORY-r8.md` | Focused review of r8: ACCEPT WITH CHANGES (N1–N3) with the site classification; r9 addendum: ACCEPT, map condition met | `8f8e78547dbc1c6663aac4534b1e56eb0df94467370cd63753dbd9439693dc09` |
+| `RESPONSE-r8.md` | Dispositions of that review | |
+| `RO3-INVENTORY-r8.md` | Inventory r8: "finite deterministic" added to the search; GR:613 recorded as a finding; seven quotient modules read; no completeness claim | `13c74f4fc8199148180e8bea6cc45c16a32e6e66b8a67061eb6e7d49f00f8a9a` |
+| `REVIEW-1303-INVENTORY-r7.md` | Focused review of r7: REVISE (search phrase missing; unread-module classification unsound) | `8e153d8d66bd9743797ec7cc61f081fda9fb4e032e9cd23a97be1c77ad0b1402` |
+| `RESPONSE-r7.md` | Dispositions of that review | |
+| `RO3-INVENTORY-r7.md` | Inventory r7: added consumers AM-27 to AM-35 and the rerunnable search recipe | `ae29f7d37a7ff0f70c2e1223ed3fcc6c5c4c5de53b048f8a688afc5d8dd83bd8` |
+| `REVIEW-1303-INVENTORY-r6.md` | Focused review of r6: REVISE (map completion only); AM-3 first missing step and controls | `dfaaab898368ad8a9a661cbb54d2581f25e494173155759e2a56c5c0555ca672` |
+| `RESPONSE-r6.md` | Dispositions of that review | |
+| `RO3-INVENTORY-r6.md` | Inventory r6: Main:716 routes corrected, seven consumer rows, D-CQ quotation, causal cone traced to posits (xiii) and (viii) | `7318dafef6af77deea3e481713ecd4b9ebac7f2cda2ae434476efccadef37017` |
+| `REVIEW-1303-INVENTORY-r5.md` | Independent review of r5: ACCEPT WITH CHANGES (missing consumers; causal cone needs the coupling-graph hypothesis; first recovery target recommended: bijectivity, AM-3) | `16b5d919d9a1b44cad60c55eaead6d258db8676bdc6316184f5de23445faa8d1` |
+| `RESPONSE-r5.md` | Dispositions of that review | |
+| `RO3-INVENTORY-r5.md` | Inventory r5: applies the 17 findings of the r4 review; A1-consumer map across the corpus | `dd7bb6e863b58e6f294c2cd6a95aee1fe9f9c5e91ed46a7db4f1bd18f7520d3e` |
+| `REVIEW-1303-INVENTORY-r4.md` | Independent review of the inventory r4 at `78089e5e`, cited in r5 as `REVIEW-r4.md`: ACCEPT WITH CHANGES (17 findings; no label refuted at its stated scope) | `f06d9f16b0ba3e5bdb928166d4a9b57278810aeb78b35726eecaf7c2a7d14e20` |
+| `RESPONSE-r4.md` | Dispositions of that review | |
 | `OBL-RO3-2-r2.md` | Proof unit r2: applies the independent review of r1 (recurrence consequence corrected; minor fixes); reviewed (ACCEPT) | `bad122a2101889c59f534315c57595cbdeddddcbdb3e9510eaca9bf6910a1876` |
 | `RESPONSE-OBL-r1.md` | Dispositions of that review | |
 | `RO3-INVENTORY-r4.md` | Inventory r4: one wording fix from that review; reviewed (ACCEPT) | `6b96e2956de37fc8a0915c1d3bf68db0abeaeef89e1b90268ff04f517cb22eed` |
