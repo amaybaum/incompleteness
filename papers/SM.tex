@@ -5994,7 +5994,8 @@ via the structural identity \(A^2 = C_2/d = (d-1)/d\) for vector
 representations (§7.1). The result
 \(\sin^2\theta_{13} = A^4\lambda^2 = (4/9)\lambda^2\) is Layer 1
 structural; the ratio \(\Delta_{13}/\Delta_{23} = A^4\) follows
-immediately with \(\Delta_{23} = \lambda^2\) by convention.
+immediately with \(\Delta_{23} = \lambda^2\) under the normalization
+\(b_{23} = 1\).
 
 \textbf{Determination of \(A_1\) and second-order structure.} The
 charged-lepton rotation in the AF basis admits the expansion
@@ -6024,13 +6025,15 @@ cos\(^2\theta_{13}\) correction included), the deviations are:
 Three points: (i) \(\Delta_{13}\) is independent of \(A_2\) --- the
 structural identity \(\sin\theta_{13} = A^2\lambda\) is exact at
 \(O(\lambda^2)\); (ii) \(b_{12} - b_{13}\) does not enter any of the
-three angles, and is identified with \(\delta_{CP}\); (iii) under
-\(U\)-parity, \((b_{12}+b_{13})\) is the \(U\)-even and \(b_{23}\) the
-dominant \(U\)-odd coefficient of \(A_2\), with \((b_{12}-b_{13})\) the
-sub-dominant \(U\)-odd combination.
+three angles; since \(A_1\) and \(A_2\) are real, \(V_\ell\) is real
+orthogonal, the combination is CP-even, and the ansatz carries no Dirac
+phase (\(\delta_{CP} \in \{0, \pi\}\)), a CP phase requiring a complex
+extension, which is open; (iii) under \(U\)-parity, \((b_{12}+b_{13})\)
+is the \(U\)-even and \(b_{23}\) the dominant \(U\)-odd coefficient of
+\(A_2\), with \((b_{12}-b_{13})\) the sub-dominant \(U\)-odd
+combination.
 
-The absolute normalization is fixed by the cubic-lattice realization of
-the charged-lepton mass matrix. The natural-normalization choice
+The absolute normalization is an input: the natural-normalization choice
 \(b_{23} = 1\) --- corresponding to \(A_2\) entering the perturbation
 series at unit strength relative to \(\lambda^2\) --- combined with the
 structural relation
@@ -6038,14 +6041,14 @@ structural relation
 \[b_{23} = \tfrac{4}{3}(b_{12}+b_{13})\]
 
 This condition has a direct experiment-facing form: it is equivalent to
-the exact sum rule \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\),
-since
+the sum rule \(2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6\) at
+\(O(\lambda^2)\), since
 \(2\Delta_{12} + \Delta_{23} = \lambda^2\,[\,b_{23} - \tfrac{4}{3}(b_{12}+b_{13})\,]\)
 vanishes precisely when the condition holds --- the \(O(\lambda^2)\)
 deviations cancel in that combination and in no simpler one. The sum
 rule is therefore the observable statement of the Condition-2 ratio
 (companion sum-rule paper, §3): a measured violation of \(7/6\) beyond
-\(O(\lambda^4)\) falsifies the ratio directly, independently of how the
+\(O(\lambda^3)\) falsifies the ratio directly, independently of how the
 individual angles are attributed.
 
 between the dominant \(U\)-odd coefficient and the \(U\)-even
@@ -7234,12 +7237,12 @@ Footnotes:
   Layer 2(b).} The Layer 0 component (TBM zeroth-order value) and Layer
   1 component (\(\lambda^2\) scale) are structural, the \(\lambda^2\)
   scale conditional on the emergent dressing of §7.1. The values follow
-  given Condition 2 of §7.3 (the relation
-  \(b_{23} = (4/3)(b_{12}+b_{13})\) among \(A_2\) Wilson coefficients).
-  The §7.3 structural decomposition closes the \(A_1\) component at
-  Layer 1 (the TBM sum rule is structurally protected against the
-  \(A_1\) perturbation by the \(\cos^2\theta_{13}\) dressing alone) and
-  reduces the \(A_2\) component to the substrate ratio
+  given the normalization \(b_{23} = 1\) and Condition 2 of §7.3 (the
+  relation \(b_{23} = (4/3)(b_{12}+b_{13})\) among \(A_2\) Wilson
+  coefficients). The §7.3 structural decomposition closes the \(A_1\)
+  component at Layer 1 (the TBM sum rule is structurally protected
+  against the \(A_1\) perturbation by the \(\cos^2\theta_{13}\) dressing
+  alone) and reduces the \(A_2\) component to the substrate ratio
   \(b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)\) for \(d=3\), with the
   structural reading from the squared off-democratic projection of
   vector representations. This ratio was Layer 2(a)-tractable until its
@@ -7515,9 +7518,10 @@ before the measurements that will test them:
   at \(0.6\sigma\) but at the precision of present atmospheric-angle
   data. A direct measurement of the combination at the \(0.005\) level
   --- within reach of DUNE and T2HK --- tests this at a precision that
-  no current fit reaches. The framework commits to \(7/6\) exactly; a
-  measured value displaced from \(7/6\) by more than experimental error
-  falsifies the structural relation.
+  no current fit reaches. The framework commits to \(7/6\) at
+  \(O(\lambda^2)\), with higher orders open; a measured value displaced
+  from \(7/6\) by more than experimental error and the \(O(\lambda^3)\)
+  terms falsifies the structural relation.
 \item
   \emph{The atmospheric angle}
   \(\sin^2\theta_{23} = 1/2 + 1/(2\pi^2) = 0.5507\). The framework
@@ -7535,7 +7539,7 @@ before the measurements that will test them:
   \emph{Continued JUNO precision on} \(\sin^2\theta_{12}\). JUNO's
   30-year design lifetime projects \(\pm 0.0014\) on
   \(\sin^2\theta_{12}\), a \(6\times\) improvement. The framework's
-  \(0.30798\) is tested at sub-percent precision against a value it
+  \(0.30800\) is tested at sub-percent precision against a value it
   committed to before this precision exists; a \(2\sigma\) ultimate
   disagreement falsifies it.
 \end{enumerate}
@@ -8049,10 +8053,10 @@ of the framework's methodology.
 on the particular bijection φ. Examples: absolute fermion mass scales
 (e.g., \(m_\tau\), \(m_t\), \(m_s\) as input scales in the M-chain),
 basis-alignment unitaries, CP-violating phases (\(\delta_{CKM}\) via
-empirical \(\eta\), \(\delta_{PMNS}\) identified with
-\(b_{12} - b_{13}\) in §7.3), the block values \((a, b, c)\) of the
-equivariant condensate \(\Sigma\) (Theorem 5), which set the block
-splittings and the decoupling thresholds.
+empirical \(\eta\), \(\delta_{PMNS}\), which the real ansatz of §7.3
+does not carry), the block values \((a, b, c)\) of the equivariant
+condensate \(\Sigma\) (Theorem 5), which set the block splittings and
+the decoupling thresholds.
 
 The §7.6 summary table classifies each prediction by its layered status:
 items marked \textbf{S} are structural with no open link specific to the
@@ -8187,13 +8191,13 @@ compared to CKM angles, as expected.
 (set by \(\Lambda_{\text{seesaw}}\)), the ratio
 \(\Delta m^2_{32}/\Delta m^2_{21} \approx 33\) (set by the relative
 magnitudes of the \(E\)-component parameters \(a/b\)), and the
-CP-violating phase \(\delta_{CP}\) (which corresponds to the
-unconstrained free parameter \(b_{12} - b_{13}\) in the \(O(\lambda^2)\)
-charged-lepton structure of §7.3) are properties of the particular
-\(\varphi\). The PMNS \emph{angles} themselves are structural (§7.3):
-TBM from cubic-group representation theory plus \(U\)-parity-graded
-corrections from the charged-lepton sector, with the Cabibbo angle
-\(\lambda\) as the structural scale.
+CP-violating phase \(\delta_{CP}\) (absent from the real
+\(O(\lambda^2)\) charged-lepton ansatz of §7.3; a complex extension is
+open) are properties of the particular \(\varphi\). The PMNS
+\emph{angles} themselves are structural (§7.3): TBM from cubic-group
+representation theory plus \(U\)-parity-graded corrections from the
+charged-lepton sector, with the Cabibbo angle \(\lambda\) as the
+structural scale.
 
 \hypertarget{position-relative-to-mainstream-observer-essentiality-programs}{%
 \subsubsection{8.5 Position relative to mainstream observer-essentiality
@@ -9225,4 +9229,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: 2b90784d6ef3cbc534b96f350432aab63c5534950426e8a58611cbcd42bb2a7e
+% source-sha256: 2c6e140b3450096a45254a3e15cb57111db2d9c496cb0184c123678e798ced35

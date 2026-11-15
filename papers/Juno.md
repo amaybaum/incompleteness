@@ -7,7 +7,7 @@
 
 ## Abstract
 
-Discrete flavor symmetries yield characteristic correlations among the PMNS mixing angles, with the trimaximal TM1 and TM2 sum rules serving as benchmark targets for the current generation of reactor experiments. We present a distinct pattern arising from octahedral (cubic-group) flavor structure: tri-bimaximal mixing at zeroth order, corrected at O(λ²) by a perturbation whose scale λ = 1/(π√2) = 0.22508 is fixed by the Brillouin-zone geometry of an underlying lattice flavor construction [18] and coincides with the observed Cabibbo angle to 0.04%. The resulting angles are sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30798, sin²θ₁₃ = 4/(18π²) = 0.02252, and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066, with no parameter fitted to any mixing angle; the system is closed by one Wilson-coefficient relation (Condition 2), stated as an explicit condition whose derivation from the underlying construction remains open. The pattern agrees with the post-JUNO global fit sin²θ₁₂ = 0.3085 ± 0.0073 at 0.07σ — a retrodiction, the derivation postdating JUNO's first results (November 2025), with no claim of temporal priority — and with NuFIT 6.0 within 1.1σ on the remaining angles. The forward content is twofold: the exact sum rule 2 sin²θ₁₂ + sin²θ₂₃ = 7/6 (currently satisfied at 0.6σ), which discriminates this pattern from the TM1 and TM2 patterns at JUNO precision, and the exposure of the exact value sin²θ₁₂ = 0.30798 to JUNO's design-lifetime precision of ±0.0014 — a ~4σ discriminator if the current central value holds.
+Discrete flavor symmetries yield characteristic correlations among the PMNS mixing angles, with the trimaximal TM1 and TM2 sum rules serving as benchmark targets for the current generation of reactor experiments. We present a distinct pattern arising from octahedral (cubic-group) flavor structure: tri-bimaximal mixing at zeroth order, corrected at O(λ²) by a perturbation whose scale λ = 1/(π√2) = 0.22508 is fixed by the Brillouin-zone geometry of an underlying lattice flavor construction [18] and coincides with the observed Cabibbo angle to 0.04%. The resulting angles are sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30800, sin²θ₁₃ = 4/(18π²) = 0.02252, and sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066, with no parameter fitted to any mixing angle; the system is closed by a normalization condition and one Wilson-coefficient relation (Conditions 1 and 2), stated as explicit conditions whose derivation from the underlying construction remains open. The pattern agrees with the post-JUNO global fit sin²θ₁₂ = 0.3085 ± 0.0073 at 0.07σ — a retrodiction, the derivation postdating JUNO's first results (November 2025), with no claim of temporal priority — and with NuFIT 6.0 within 1.1σ on the remaining angles. The forward content is twofold: the sum rule 2 sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²) with higher orders open (currently satisfied at 0.6σ), which discriminates this pattern from the TM1 and TM2 patterns at JUNO precision, and the exposure of the exact value sin²θ₁₂ = 0.30800 to JUNO's design-lifetime precision of ±0.0014.
 
 ***
 
@@ -25,25 +25,25 @@ from 59.1 days of data. The post-JUNO global fit of Capozzi *et al.* [8] tighten
 
 **sin²θ₁₂ = 0.3085 ± 0.0073**.
 
-We show that taking the cubic point group O — the rotation symmetry group of three-dimensional space — as the underlying flavor structure of the lepton sector yields the prediction
+We show that taking the cubic point group O — the rotation symmetry group of three-dimensional space — as the underlying flavor structure of the lepton sector yields, under Conditions 1 and 2 (Sec. 3.4), the prediction
 
-**sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30798**
+**sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30800**
 
-matching the post-JUNO global fit at **0.07σ** with no parameter fit to sin²θ₁₂. The same construction predicts sin²θ₁₃ and sin²θ₂₃ within 1.1σ of the NuFIT 6.0 best fits [14] and forces the exact sum rule
+matching the post-JUNO global fit at **0.07σ** with no parameter fit to sin²θ₁₂. The same construction predicts sin²θ₁₃ and sin²θ₂₃ within 1.1σ of the NuFIT 6.0 best fits [14] and forces, to O(λ²), the sum rule
 
 **2sin²θ₁₂ + sin²θ₂₃ = 7/6**
 
-which distinguishes the present prediction from the TM1, TM2, and TM3 column-preservation patterns at JUNO precision. Both inputs to sin²θ₁₂ are independently motivated: the zeroth-order value 1/3 is the A₄ TBM result, and the perturbation scale λ² = 1/(2π²) is the squared Cabibbo angle, fixed independently by the cubic Brillouin geometry (matching the observed λ to 0.04%).
+which distinguishes the present prediction from the TM1, TM2, and TM3 column-preservation patterns at JUNO precision. Beyond Conditions 1 and 2, the inputs to sin²θ₁₂ are independently motivated: the zeroth-order value 1/3 is the A₄ TBM result, and the perturbation scale λ² = 1/(2π²) is the squared Cabibbo angle, fixed independently by the cubic Brillouin geometry (matching the observed λ to 0.04%).
 
 ### 1.2 Where the prediction comes from
 
-The structure is constrained by two ingredients. First, the perturbation scale λ² = 1/(2π²) is not a fitted parameter: it is the squared Cabibbo angle, fixed by a single cubic Brillouin-zone distance (Sec. 2.2). Numerically λ = 1/(π√2) = 0.22508, agreeing with the observed Cabibbo value 0.22500 ± 0.00067 [13] to 0.04%. Second, the deviations from tribimaximal (TBM) mixing at O(λ²) are controlled by a discrete μ-τ parity (the U-parity of S₄ ⊃ A₄) together with one Wilson-coefficient relation between the U-even and U-odd components of the second-order perturbation — *Condition 2*, with the specific value b₂₃ = (4/3)(b₁₂+b₁₃) admitting the structural reading 4/3 = 2A² = 4(d−1)/(2d) for d = 3 (Sec. 3.4). Condition 2 fixes the coefficient of the 1/(4π²) correction; without further inputs, the angle predictions are
+The structure is constrained by two ingredients. First, the perturbation scale λ² = 1/(2π²) is not a fitted parameter: it is the squared Cabibbo angle, fixed by a single cubic Brillouin-zone distance (Sec. 2.2). Numerically λ = 1/(π√2) = 0.22508, agreeing with the observed Cabibbo value 0.22500 ± 0.00067 [13] to 0.04%. Second, the deviations from tribimaximal (TBM) mixing at O(λ²) are controlled by a discrete μ-τ parity (the U-parity of S₄ ⊃ A₄) together with one Wilson-coefficient relation between the U-even and U-odd components of the second-order perturbation — *Condition 2*, with the specific value b₂₃ = (4/3)(b₁₂+b₁₃) admitting the structural reading 4/3 = 2A² = 4(d−1)/(2d) for d = 3 (Sec. 3.4). Condition 2, with the normalization b₂₃ = 1 (Condition 1, Sec. 3.4), fixes the coefficient of the 1/(4π²) correction; the angle predictions are
 
-- **sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30798**
+- **sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30800**
 - **sin²θ₁₃ = 4/(18π²) = 0.02252**
 - **sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066**
 
-The 0.07σ match with the post-JUNO global fit therefore tests Condition 2 — a sharply specified structural relation — rather than fitted parameters.
+The 0.07σ match with the post-JUNO global fit therefore tests Conditions 1 and 2 — a normalization and a sharply specified structural relation — rather than fitted parameters.
 
 ### 1.3 The empirical context
 
@@ -53,7 +53,7 @@ The cubic-group structure used here is not a postulated flavor symmetry. It is t
 |---|---|---|---|
 | Cabibbo angle λ | 1/(π√2) = 0.22508 | 0.22500 ± 0.00067 [13] | 0.04% |
 | Koide angle θ₀ (charged leptons) | C₂/d² = 2/9 | 0.222225 ± 0.000006 [13] | 0.001% |
-| Solar mixing sin²θ₁₂ (this work) | 1/3 − 1/(4π²) = 0.30798 | 0.3085 ± 0.0073 [8] | 0.07σ |
+| Solar mixing sin²θ₁₂ (this work) | 1/3 − 1/(4π²) = 0.30800 | 0.3085 ± 0.0073 [8] | 0.07σ |
 | PMNS sum rule | 2sin²θ₁₂ + sin²θ₂₃ = 7/6 | 1.178 ± 0.020 | 0.6σ |
 
 The first two entries are derived in [18, §§7.1–7.2]; the Cabibbo geometry and the chirality-forced 1/|q| power are unconditional structural (the chirality structure of the taste-changing vertex is established in the staggered fermion literature [18, §7.1, citing Mason et al.]), while the identification of the mixing-matrix element with the unit-normalized propagator is a stated structural hypothesis whose resolving computation is specified in [18, §7.1], and the empirical match to 0.04% supports this status. The Koide angle is structural with its per-axis normalization forced by cubic symmetry; the overall amplitude prefactor and the representation carrier of the mass-splitting operator are stated inputs whose resolving computations are specified in [18, §7.2, §4.7]. The third and fourth entries are the present work, classified at the layered level (Layer 1 form combined with the Layer 2(b) Condition 2 coefficient) per the operational definitions in §3.4; see Sec. 6.3 for full discussion. This cumulative empirical track record is what distinguishes the cubic-group structure from postulated flavor symmetries: the same parameter λ² = 1/(2π²) and the same projection factor A² = 2/3 enter multiple observables at sub-percent precision, which is testable structure rather than symmetry assumption.
@@ -74,9 +74,9 @@ This derivation was carried out in 2026, after the JUNO first results [7] and th
 global fit [8] appeared. The value was not fitted to the measurement — it is fixed by the
 cubic-group structure with no adjustable freedom — but the match is retrodictive, and this
 paper makes no claim of temporal priority over the data. Its falsifiable forward content is
-threefold: (i) the exact value 0.30798 against JUNO's design-lifetime precision of ±0.0014
-(§8 of the design report; a ~4σ discriminator if the central value holds); (ii) the exact sum
-rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 against the TM1 and TM2 patterns analyzed in the post-JUNO
+threefold: (i) the exact value 0.30800 against JUNO's design-lifetime precision of ±0.0014
+(§8 of the design report); (ii) the sum
+rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6, which holds to O(λ²), against the TM1 and TM2 patterns analyzed in the post-JUNO
 literature [9, 10]; and (iii) the θ₁₃ and θ₂₃ values as global precision sharpens. This places
 the paper within the post-JUNO structural-interpretation literature [9, 10], with its
 provenance stated explicitly.
@@ -214,7 +214,7 @@ Three observations follow.
 
 **(i) Δ₁₃ is fully determined by A₁ alone.** The A₂ parameters cancel from |U_e3|² at O(λ²), so sin²θ₁₃ = (4/9)λ² is fixed without reference to A₂. Equivalently, the structural identity sinθ₁₃ = A²λ is exact at O(λ) and receives no O(λ²) correction.
 
-**(ii) The combination b₁₂ − b₁₃ does not enter any of the three angles.** It is naturally identified with the CP-violating Dirac phase δ_CP, since it is the only remaining free parameter at O(λ²) that does not enter the angles. The present analysis leaves δ_CP undetermined.
+**(ii) The combination b₁₂ − b₁₃ does not enter any of the three angles.** With A₁ and A₂ real antisymmetric, V_ℓ is real orthogonal, so the mixing matrix is real and carries no CP-violating Dirac phase (δ_CP ∈ {0, π}); b₁₂ − b₁₃ is a CP-even free parameter. A Dirac phase requires a complex extension of the ansatz, which is open; the present analysis does not determine δ_CP.
 
 **(iii) Δ₂₃ depends only on b₂₃, not on the U-even combination.** The explicit calculation gives |U_μ3|² = ½ + λ²(b₂₃ − 2/9) before the cos²θ₁₃ dressing; after dressing, sin²θ₂₃ = ½ + λ² b₂₃ exactly. The U-even combination (b₁₂+b₁₃) does not contribute to Δ₂₃ at O(λ²): the contributions that would enter through the (V_ℓ^T)₂ν matrix elements all arise at O(λ³) or higher in the calculation of |U_μ3|².
 
@@ -222,13 +222,13 @@ Three observations follow.
 
 The deviations depend on two scalar combinations of A₂: (b₁₂ + b₁₃) controlling Δ₁₂, and b₂₃ controlling Δ₂₃. We fix the normalization with two conditions.
 
-**Condition 1 (natural normalization).** Take b₂₃ = 1. This sets A₂ to enter the perturbation series at unit strength relative to λ². It is a labeling convention rather than a physical input — fixing the normalization of the O(λ²) expansion before b₁₂ + b₁₃ is determined.
+**Condition 1 (natural normalization).** Take b₂₃ = 1. This sets A₂ to enter the perturbation series at unit strength relative to λ². It is a physical input: with λ fixed independently, it sets the absolute size Δ₂₃ = λ² of the O(λ²) correction and, with Condition 2, the predicted values of sin²θ₁₂ and sin²θ₂₃. The sum rule 2Δ₁₂ + Δ₂₃ = 0 of Condition 2 does not depend on it.
 
 **Condition 2 (cubic-group structural relation).** Take
 
 **b₂₃ = (4/3)(b₁₂ + b₁₃)**
 
-which with Condition 1 gives b₁₂ + b₁₃ = 3/4. Unlike Condition 1, this is a substantive physical input: it relates the dominant U-odd coefficient of A₂ to the U-even combination through a fixed numerical factor 4/3.
+which with Condition 1 gives b₁₂ + b₁₃ = 3/4. This is a second substantive physical input: it relates the dominant U-odd coefficient of A₂ to the U-even combination through a fixed numerical factor 4/3.
 
 **Equivalence with TBM sum rule preservation.** Combining the explicit results Δ₁₂ = −(2/3)(b₁₂+b₁₃)λ² and Δ₂₃ = b₂₃λ² from §3.3:
 
@@ -276,13 +276,13 @@ At the angle level, Condition 2 is equivalent to
 
 **2Δ₁₂ + Δ₂₃ = 0**
 
-which is testable directly against data (Sec. 4.3). The combination b₁₂ − b₁₃ remains free; we identify it in Sec. 4.2 with δ_CP (the natural identification, since it is the only remaining O(λ²) free parameter that does not enter any of the three angles). The present analysis therefore predicts all three angles but not δ_CP.
+which is testable directly against data (Sec. 4.3). The combination b₁₂ − b₁₃ remains free and is CP-even (Sec. 3.3 (ii)); the real ansatz carries no Dirac phase, and a complex extension is open. The present analysis therefore predicts all three angles but not δ_CP.
 
 ### 3.5 Numerical predictions
 
 Substituting b₂₃ = 1, b₁₂ + b₁₃ = 3/4, and λ² = 1/(2π²):
 
-- **sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30798**
+- **sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30800**
 - **sin²θ₁₃ = 4/(18π²) = 0.02252**
 - **sin²θ₂₃ = 1/2 + 1/(2π²) = 0.55066**
 
@@ -294,17 +294,17 @@ The first formula for sin²θ₁₃ follows from A² = 2/3 and λ² = 1/(2π²) 
 
 The headline prediction is
 
-> **sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30798**
+> **sin²θ₁₂ = 1/3 − 1/(4π²) = 0.30800**
 
 Comparison with current measurements:
 
 | Source | sin²θ₁₂ | σ from prediction |
 |---|---|---|
-| This work | 0.30798 | --- |
+| This work | 0.30800 | --- |
 | JUNO direct | 0.3092 ± 0.0087 | 0.14σ |
 | Post-JUNO global | 0.3085 ± 0.0073 | 0.07σ |
 
-The prediction agrees with the post-JUNO global fit at 0.07σ. Both inputs entering the prediction are independently motivated: 1/3 is the A₄ TBM zeroth-order value, and λ² = 1/(2π²) is the squared Cabibbo angle, fixed independently by the cubic Brillouin geometry (matching the observed λ = 0.22508 to 0.04%).
+The prediction agrees with the post-JUNO global fit at 0.07σ. Beyond Conditions 1 and 2, the inputs entering the prediction are independently motivated: 1/3 is the A₄ TBM zeroth-order value, and λ² = 1/(2π²) is the squared Cabibbo angle, fixed independently by the cubic Brillouin geometry (matching the observed λ = 0.22508 to 0.04%).
 
 ### 4.2 Comparison with column-preservation patterns
 
@@ -327,7 +327,7 @@ Three differences distinguish the present prediction from TM_n:
 
 **(ii) Independence of predictions.** TM1 gives a one-parameter correlation, sin²θ₁₂ = 1 − (2/3)/cos²θ₁₃, fixing θ₁₂ given θ₁₃ but predicting neither separately. The cubic-group analysis predicts all three angles as fixed numerical values, with no parameter common to them (Sec. 3.5).
 
-**(iii) CP violation.** He's surviving pattern predicts sin δ_CP = ±0.998, close to maximal. Here, δ_CP is identified with the only remaining free parameter at O(λ²), namely b₁₂ − b₁₃, which does not enter any of the three angles. The angle predictions therefore stand independently of any value of δ_CP, and the present paper makes no prediction for it.
+**(iii) CP violation.** He's surviving pattern predicts sin δ_CP = ±0.998, close to maximal. Here, the real ansatz of Sec. 2.3 carries no Dirac phase (Sec. 3.3 (ii)); a CP-violating phase requires a complex extension of the ansatz, and whether the angle predictions hold unchanged under such an extension is open. The present paper makes no prediction for δ_CP.
 
 The bottom line: the cubic-group prediction is closer to the post-JUNO global fit by a factor of about 20 in σ-distance than the best surviving column-preservation pattern, and at the same time makes more falsifiable claims (three independent angles plus the sum rule below).
 
@@ -377,7 +377,7 @@ The 0.07σ match for sin²θ₁₂ does not stand alone. It sits within a set of
 |---|---|---|---|---|
 | Cabibbo angle | Brillouin distance π√2; chirality 1/\|q\| | λ = 1/(π√2) = 0.22508 | 0.22500 ± 0.00067 | 0.04% |
 | Koide angle (charged leptons) | C₂/d² for cubic group | θ₀ = 2/9 = 0.22222 | 0.222225 ± 0.000006 | 0.001% |
-| Solar mixing sin²θ₁₂ (this work) | A₄ representation 1/3 + Cond 2 cubic relation | 1/3 − 1/(4π²) = 0.30798 | 0.3085 ± 0.0073 | 0.07σ |
+| Solar mixing sin²θ₁₂ (this work) | A₄ representation 1/3 + Cond 2 cubic relation | 1/3 − 1/(4π²) = 0.30800 | 0.3085 ± 0.0073 | 0.07σ |
 | PMNS sum rule (this work) | Cond 2 cubic relation | 2sin²θ₁₂ + sin²θ₂₃ = 7/6 | 1.178 ± 0.020 | 0.6σ |
 | Reactor mixing sin²θ₁₃ (this work) | A² λ projection geometry | 4/(18π²) = 0.02252 | 0.02195 ± 0.00056 | 1.01σ |
 | Atmospheric mixing sin²θ₂₃ (this work) | Cond 2 + sum rule | 1/2 + 1/(2π²) = 0.55066 | 0.561⁺⁰·⁰¹²₋₀.₀₁₅ | 0.74σ |
@@ -386,7 +386,7 @@ Two structural parameters appear repeatedly: λ² = 1/(2π²), the squared Cabib
 
 ### 6.2 Sensitivity to Condition 2
 
-The factor 4/3 in Condition 2 (Sec. 3.4) is the one substantive structural input. It is *not* a free parameter fitted to sin²θ₁₂: the identity 4/3 = 2A² with A² = (d−1)/d = C₂(T₁)/d for d = 3 fixes 4/3 as a representation-theoretic quantity — the squared off-democratic projection of the vector representation of the cubic group, equivalently the quadratic Casimir of T₁ over the lattice dimension. Both A² = 2/3 and the resulting 4/3 are determined by cubic-group representation theory independently of any measurement of θ₁₂. The same A² = 2/3 enters the Cabibbo derivation through the Wolfenstein A (§2.2) and is independently fixed there by the cubic-group projection geometry. The 0.07σ match at sin²θ₁₂ therefore tests a representation-theoretic identity, not a fitted coefficient.
+The factor 4/3 in Condition 2 (Sec. 3.4) is, with the normalization of Condition 1, a substantive input. It is not fitted to sin²θ₁₂. Its identification with 2A², where A² = (d−1)/d = C₂(T₁)/d for d = 3 is the squared off-democratic projection of the vector representation of the cubic group, equivalently the quadratic Casimir of T₁ over the lattice dimension, is conjectured; its derivation from the substrate is open (Sec. 3.4, 6.3). The same A² = 2/3 enters the Cabibbo derivation through the Wolfenstein A (§2.2) and is independently fixed there by the cubic-group projection geometry. The 0.07σ match at sin²θ₁₂ therefore tests the conjectured identification 4/3 = 2A², not a fitted coefficient.
 
 The observable consequences of Condition 2 enter the sum rule 2Δ₁₂ + Δ₂₃ = 0 and, through Conditions 1 and 2 jointly, the absolute predictions for sin²θ₁₂ and sin²θ₂₃. A hypothetical shift to 4/3 → (4/3)(1 + ε) propagates to Δ₁₂ → Δ₁₂ + (1/2)·ε·Δ₂₃ at first order in ε. With Δ₂₃ ≈ 1/(2π²) ≈ 0.05, a fractional shift ε = 0.10 (a 10% shift in Cond 2's structural coefficient) gives a shift in sin²θ₁₂ of ~0.0025 — comparable to JUNO's ultimate-precision uncertainty of ±0.0014 and roughly half of JUNO's first-result uncertainty of ±0.0087. The current 0.07σ agreement therefore tests Cond 2 at the few-percent level on its structural coefficient. The substantive content of this test is that 4/3 is precisely 2A² where A² = 2/3 is the projection factor independently fixed by the cubic representation geometry — a falsifiable structural relation rather than a fitted parameter.
 
@@ -406,15 +406,15 @@ Condition 2 admits the structural decomposition into two parts established in Se
 
 The prediction is sharp: λ² = 1/(2π²) is fixed independently by the Cabibbo angle, and the coefficient 1/(4π²) in Δ₁₂ has no adjustable input. Three experimental directions test it.
 
-**Sub-percent precision on sin²θ₁₂.** Over its 30-year design lifetime, JUNO is projected to reach sin²θ₁₂ = 0.3092 ± 0.0014, a 6× improvement over the current first result. At that precision the prediction 0.30798 is tested at 0.86σ (using the JUNO 59-day central value) or 0.36σ (using the post-JUNO global central value). An ultimate JUNO 2σ disagreement with 0.30798 would falsify the prediction.
+**Sub-percent precision on sin²θ₁₂.** Over its 30-year design lifetime, JUNO is projected to reach sin²θ₁₂ = 0.3092 ± 0.0014, a 6× improvement over the current first result. At that precision the prediction 0.30800 is tested at 0.86σ (using the JUNO 59-day central value) or 0.36σ (using the post-JUNO global central value). An ultimate JUNO 2σ disagreement with 0.30800 would falsify the prediction.
 
 **The sum rule.** The prediction 2sin²θ₁₂ + sin²θ₂₃ = 7/6 is sharper than either angle alone: it ties JUNO's reactor measurement to the atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande. As both improve, the sum rule will be tested at the 0.005 level — a sharper test than either side separately.
 
-**δ_CP.** The free parameter b₁₂ − b₁₃ of A₂ does not enter any angle prediction, so the framework is consistent with any δ_CP. Long-baseline measurements at DUNE and Hyper-Kamiokande will determine this remaining parameter directly.
+**δ_CP.** The real ansatz carries no Dirac phase, and the CP-even parameter b₁₂ − b₁₃ of A₂ does not enter any angle prediction (Sec. 3.3 (ii)). A measurement of δ_CP other than 0 or π at DUNE or Hyper-Kamiokande would require the complex extension of the ansatz, which is open.
 
 ## 8. Conclusion
 
-We have derived sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 from cubic-group flavor structure, matching the post-JUNO global fit at 0.07σ with no parameter fit to sin²θ₁₂. The same construction predicts sin²θ₁₃ and sin²θ₂₃ within 1.1σ of the NuFIT 6.0 best fits [14], and forces the exact sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6, which distinguishes the prediction from the TM1, TM2, and TM3 column-preservation patterns. The reactor angle sin²θ₁₃ = 4/(18π²) is conditional structural (Layer 1 per the classification of §3.4): its form rests on the representation-theoretic identity A² = (d−1)/d = C₂(T₁)/d for vector reps, and it is conditional through the Cabibbo λ it inherits, whose identification leaves the emergent-theory dressing open ([18, §7.1]). The solar and atmospheric angle predictions are layered: their structural form is forced by cubic-group representation theory and the Layer 1 closure of the A₁ component (Sec. 3.4), while the specific 4/3 coefficient in Condition 2 (b₂₃ = (4/3)(b₁₂+b₁₃)) is bijection-specific content — Layer 2(b), its sharply specified verification path since executed with a negative outcome for the second-order route ([18, §7.3]) — with the substrate ratio b₂₃^sub/(b₁₂^sub+b₁₃^sub) constrained directly by the 7/6 sum rule. The empirical match at 0.07σ on sin²θ₁₂ and at 0.6σ on the sum rule indicates the framework's bijection has the alignment property required by Condition 2; the predictions are therefore tests of the bijection's specific structure as much as of the underlying cubic-group framework. The Cabibbo scale λ² = 1/(2π²) entering the prediction is set independently by cubic Brillouin-zone geometry and matches the observed Cabibbo angle to 0.04%.
+We have derived sin²θ₁₂ = 1/3 − 1/(4π²) = 0.3080 from cubic-group flavor structure under Conditions 1 and 2, matching the post-JUNO global fit at 0.07σ with no parameter fit to sin²θ₁₂. The same construction predicts sin²θ₁₃ and sin²θ₂₃ within 1.1σ of the NuFIT 6.0 best fits [14], and forces the sum rule 2sin²θ₁₂ + sin²θ₂₃ = 7/6 to O(λ²), which distinguishes the prediction from the TM1, TM2, and TM3 column-preservation patterns. The reactor angle sin²θ₁₃ = 4/(18π²) is conditional structural (Layer 1 per the classification of §3.4): its form rests on the representation-theoretic identity A² = (d−1)/d = C₂(T₁)/d for vector reps, and it is conditional through the Cabibbo λ it inherits, whose identification leaves the emergent-theory dressing open ([18, §7.1]). The solar and atmospheric angle predictions are layered: their structural form is forced by cubic-group representation theory and the Layer 1 closure of the A₁ component (Sec. 3.4), while the specific 4/3 coefficient in Condition 2 (b₂₃ = (4/3)(b₁₂+b₁₃)) is bijection-specific content — Layer 2(b), its sharply specified verification path since executed with a negative outcome for the second-order route ([18, §7.3]) — with the substrate ratio b₂₃^sub/(b₁₂^sub+b₁₃^sub) constrained directly by the 7/6 sum rule. The empirical match at 0.07σ on sin²θ₁₂ and at 0.6σ on the sum rule indicates the framework's bijection has the alignment property required by Condition 2; the predictions are therefore tests of the bijection's specific structure as much as of the underlying cubic-group framework. The Cabibbo scale λ² = 1/(2π²) entering the prediction is set independently by cubic Brillouin-zone geometry and matches the observed Cabibbo angle to 0.04%.
 
 JUNO's projected long-term precision will test the prediction at sub-percent level over the next decade. Combined with atmospheric measurements at DUNE, T2HK, and Hyper-Kamiokande, this will sharply test the sum rule. A confirmed result at JUNO's ultimate precision would support cubic-group flavor structure as a viable origin of the lepton mixing pattern.
 
