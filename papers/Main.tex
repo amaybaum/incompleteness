@@ -2564,7 +2564,18 @@ graph for the reference vacuum/uniform state class. For a linear update
 (ledger item (vii), §4.5) the difference
 \((\varphi(s'))_i-(\varphi(s))_i\) depends only on \(s'-s\), so
 \(G_\varphi^K=G_\varphi\) for every non-empty \(K\); a graph that
-differs between state classes requires an update outside (vii).
+differs between state classes requires an update outside (vii). On a
+site set \(V\) of any cardinality the same induction holds when each
+output component is given as a function of the components in a finite
+reading set \(N_i\subseteq V\): with \(N^0(R)=R\) and
+\(N^{k+1}(R)=\bigcup_{x\in N^k(R)}N_x\), finite when \(R\) is, two
+states that agree on \(N^k(R)\) have \(k\)-step images that agree on
+\(R\) (induction on \(k\): \(N^{k+1}(R)=N^k(N^1(R))\), so agreement
+there gives agreement of the \(k\)-step images on \(N^1(R)\), and the
+\((k+1)\)-step image on \(R\) is a function of the \(k\)-step image on
+\(N^1(R)\)); and if every \(j\in N_i\) other than \(i\) is adjacent to
+\(i\) in a graph \(\Gamma\), every site of \(N^k(R)\) lies within
+\(\Gamma\)-distance \(k\) of \(R\), by the same induction.
 
 The causal-cone statement is pointwise in the pre-setting microstate. It
 must be distinguished from \textbf{operational setting screening}. In a
@@ -2640,32 +2651,75 @@ vacuum/uniform reference graph and bounded-degree long edges or an
 equivalent nonlocal response map supplied by a Bell preparation.
 
 \textbf{Corollary (Bell--lattice obstruction and state-dependent
-escape).} \emph{If the Bell-relevant degrees of freedom are governed
-entirely by the nearest-neighbor cubic wave-equation update used in
-{[}SM{]}, the setting interventions are applied at one step to disjoint
-wing regions, each reading and writing only its own, and each wing's
-\(\pm1\) outcome, recorded in every run, is read from a region whose
-graph distance from the other wing's setting region exceeds the number
-of updates from setting to readout, then (ii) and (iii) hold, the
+escape).} \emph{Let the Bell-relevant degrees of freedom be governed
+entirely by the nearest-neighbor cubic wave-equation update, the
+second-order update of ledger item (xiii) (§4.5) with each \(F_i\)
+reading the current values at the nearest neighbors of \(i\) in the
+cubic lattice; let the setting interventions be applied at one step to
+disjoint wing regions, each reading and writing only its own; and let
+each wing's \(\pm1\) outcome, recorded in every run, be read from a
+region whose distance in the nearest-neighbor graph from the other
+wing's setting region exceeds the number of updates from setting to
+readout. Then (ii) and (iii) hold, and: (1) on a finite site set, the
 theorem above applies to every measurement-independent response-complete
-deterministic completion and \(|S_{\rm CHSH}|\le2\).} Hence the
-\textbf{reference nearest-neighbor graph alone} cannot supply option (a)
-for such wings. The graph cone advances one edge per update, a Euclidean
-reach of \(1/\lVert\hat n\rVert_1\) lattice spacings per update in
-direction \(\hat n\) (from \(1\) along the axes to \(1/\sqrt3\) along
-the body diagonals), while the long-wavelength wave speed derived in
-{[}SM §4.1{]} for its isotropic lift is \(1/\sqrt3\) lattice spacings
-per update in every direction. A clock and length calibration rescales
-both speeds by the same factor, so it does not make them equal off the
-body diagonals; which of the two, if either, is the physical \(c\)
-depends on which propagation sets the emergent light cone and is not
-derived here. Wings separated by less than the graph cone over the
-experiment's duration fall outside the Corollary, including any that are
-spacelike with respect to an emergent light cone lying strictly inside
-the graph cone in some direction. If \(c\) is the wave speed, these
-include wings that are spacelike with respect to \(c\): a setting site
-and a remote readout site at Euclidean distance \(d\) lattice spacings
-along \(\hat n\), \(\Delta t\) updates apart, with
+deterministic completion and \(|S_{\rm CHSH}|\le2\); (2) on a site set
+of any cardinality, when the setting regions \(A\), \(B\) and the
+readout regions \(R_A\), \(R_B\) are finite sets of sites, a condition
+not contained in (i)--(iv), \(|S_{\rm CHSH}|\le2\) for every
+deterministic completion that satisfies (iv) with \(\Omega\) the table
+\((q_0,q_1,r_0,r_1)\) of the four responses, and the correlations take
+the form of the theorem's display with that \(\Omega\).}
+
+\emph{Proof.} The update sends the pair \((p_i,c_i)\) at site \(i\) to
+\((c_i,F_i(c)-p_i)\), a function of the components at \(i\) and at its
+nearest neighbors, which therefore form a finite reading set \(N_i\) in
+the sense of the coupling-graph causal cone above. An output component
+that depends on a component \(j\neq i\) has \(j\in N_i\), so every edge
+of \(G_\varphi\) is a nearest-neighbor edge, distances in \(G_\varphi\)
+are at least nearest-neighbor distances, and (iii) holds; (ii) is the
+hypothesis on the interventions. On a finite site set, (1) is then the
+theorem. For (2), write \(\omega_{ab}\) for the law of the pre-setting
+microstate in the runs with the pair \((a,b)\), a probability measure on
+the product \(\sigma\)-algebra of lattice states; \(P(q,r\mid a,b)\) and
+\(p(\Omega\mid a,b)\) are taken under \(\omega_{ab}\). Put
+\(W_A=N^{k_A}(R_A)\) and \(W_B=N^{k_B}(R_B)\), finite because \(R_A\)
+and \(R_B\) are; by the distance bound of the cone,
+\(B\cap W_A=\emptyset\) and \(A\cap W_B=\emptyset\). Under the pair
+\((a,b)\) the post-setting state is \(u^A_a(s|_A)\) on \(A\) and the
+pre-setting state \(s\) on \(W_A\setminus A\), so by the cone wing
+\(A\)'s outcome is \(q_a(s|_{W_A\cup A})\) for a function \(q_a\) that
+does not involve \(b\); likewise wing \(B\)'s outcome is
+\(r_b(s|_{W_B\cup B})\). The table \(\rho=(q_0,q_1,r_0,r_1)\) is thus a
+function of the components on the finite set
+\(W_A\cup W_B\cup A\cup B\), each with a finite alphabet, hence
+measurable, so that its law under each \(\omega_{ab}\) is defined, and
+under \((a,b)\) the outcomes are \((q_a,r_b)\). (iv) for \(\rho\), which
+follows from (iv) for any pre-setting variable of which \(\rho\) is a
+measurable function, makes the law \(\pi\) of \(\rho\) the same under
+the four \(\omega_{ab}\), and
+\(P(q,r\mid a,b)=\sum_t\pi(t)\,\mathbf 1[q=t_{A,a}]\,\mathbf 1[r=t_{B,b}]\),
+summed over the sixteen tables \(t=(t_{A,0},t_{A,1},t_{B,0},t_{B,1})\).
+This is the theorem's display with \(\Omega\) replaced by \(\rho\), and
+the pointwise bound \(q_0(r_0+r_1)+q_1(r_0-r_1)\in\{-2,+2\}\), averaged
+over \(\pi\), gives \(|S_{\rm CHSH}|\le2\). \(\square\)
+
+Hence the \textbf{reference nearest-neighbor graph alone} cannot supply
+option (a) for such wings. The graph cone advances one edge per update,
+a Euclidean reach of \(1/\lVert\hat n\rVert_1\) lattice spacings per
+update in direction \(\hat n\) (from \(1\) along the axes to
+\(1/\sqrt3\) along the body diagonals), while the long-wavelength wave
+speed derived in {[}SM §4.1{]} for its isotropic lift is \(1/\sqrt3\)
+lattice spacings per update in every direction. A clock and length
+calibration rescales both speeds by the same factor, so it does not make
+them equal off the body diagonals; which of the two, if either, is the
+physical \(c\) depends on which propagation sets the emergent light cone
+and is not derived here. Wings separated by less than the graph cone
+over the experiment's duration fall outside the Corollary, including any
+that are spacelike with respect to an emergent light cone lying strictly
+inside the graph cone in some direction. If \(c\) is the wave speed,
+these include wings that are spacelike with respect to \(c\): a setting
+site and a remote readout site at Euclidean distance \(d\) lattice
+spacings along \(\hat n\), \(\Delta t\) updates apart, with
 \(\Delta t/\sqrt3 < d \le \Delta t/\lVert\hat n\rVert_1\); the Corollary
 covers wings outside the graph cone, which contains the wave cone in
 every direction. This is not a no-go for the state-dependent-graph
@@ -6042,4 +6096,4 @@ of probabilities, probability on trajectories, and the
 stochastic-quantum correspondence,'' arXiv:2602.23491v1 (2026).
 
 \end{document}
-% source-sha256: f282d84a1ca92c63f2e70e783df337d82a874116ffb91bbb76f4d57302f9e9c8
+% source-sha256: 6917b172d0b0ebf43192232dd46371621a3b8057d331c34758b6f050689977fe
