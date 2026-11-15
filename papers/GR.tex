@@ -831,38 +831,47 @@ unavailable for a single mode with \(q = 2\).
 \emph{Reconciliation with the internal component count.} The counting
 \(\eta = \sigma/\epsilon^2\) is one boundary mode per cell, whereas the
 substratum carries \(K = 2d = 6\) internal components per site ({[}SM
-§4.5{]}). These are consistent, and the consistency is forced rather
-than assumed, once the components are read as what {[}SM §4.5{]} now
+§4.5{]}). These are consistent on boundary cuts aligned with a lattice
+plane once the components are read as what {[}SM §4.5{]} now
 conditionally identifies them as, under H-link: the \(K = 2d\)
 components are the \(2d\) link directions from a cell, with component
 \(a\) assigned to link direction
 \(\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}\) and coupling only
 across that one link (the minimal-coupling factorization
-\(\delta = 1\)). A boundary cell on the horizon has exactly one
-outward-normal link crossing the partition; the other \(2d - 1 = 5\)
-link directions are tangential to the boundary surface or inward, and
-carry no cross-partition coupling. The number of components whose
-coupling crosses the horizon per cell is therefore exactly one --- the
-normal link --- so \(\kappa_m = 1\) and \(\eta = \sigma/\epsilon^2\)
-follows from the link-direction structure, not from a separate
-mode-counting postulate. (The entropy per mode, \(\sigma\) above, is a
-separate question: one mode per cell does not establish one nat per
-mode. The component count is settled here by which links are normal.)
-With \(\kappa_m = 1\) the relation
+\(\delta = 1\)). On a cut aligned with a lattice plane, a boundary cell
+has exactly one outward-normal link crossing the partition; the other
+\(2d - 1 = 5\) link directions are tangential to the boundary surface or
+inward, and carry no cross-partition coupling. The number of components
+whose coupling crosses the cut per cell is then exactly one --- the
+normal link --- so \(\kappa_m = 1\) and the link-direction structure
+agrees with the count \(\eta = \sigma/\epsilon^2\) of Lemma 1. On a cut
+with unit normal \(\mathbf n\) the crossing links number
+\(\|\mathbf n\|_1/\epsilon^2 = \sum_i |n_i|/\epsilon^2\) per unit area,
+which is \(\sqrt 2/\epsilon^2\) on a \((1,1,0)\) cut and
+\(\sqrt 3/\epsilon^2\) on a \((1,1,1)\) cut, so the component count
+depends on the orientation, \(1 \le \kappa_m \le \sqrt 3\); whether a
+coarse-grained or orientation-averaged identification of boundary modes
+with crossing components gives \(\kappa_m = 1\) on a curved horizon is
+open. (The entropy per mode, \(\sigma\) above, is a separate question:
+one mode per cell does not establish one nat per mode.) With
+\(\kappa_m = 1\) the relation
 \(\epsilon = 2\sqrt{\kappa_m \sigma}\,l_p\) gives
 \(\epsilon = 2\sqrt{\sigma}\,l_p\), which is \(\epsilon = 2\,l_p\) at
-\(\sigma = 1\). The matching scale \(\mu = M_{\text{Pl}}\) of {[}SM
-§6.2{]} is a convention into which this factor does not enter; matching
-at \(1/\epsilon\) instead shifts the fitted threshold parameters there
-({[}SM §6.2{]}). The Bekenstein-Hawking coefficient is independent of
-\(\kappa_m\) in any case --- writing
-\(\eta = \kappa_m\sigma/\epsilon^2\), the gap equation gives
-\(\hbar = c^3/(4G\eta)\) and \(S = \eta A = A/(4l_p^2)\) with
+\(\sigma = 1\); this is the discreteness scale for \(\sigma\) the
+entropy per mode of the Lemma 1 count, and if \(\sigma\) is instead
+assigned per crossing component the scale is
+\(\epsilon = 2\sqrt{\kappa_m \sigma}\,l_p\). The matching scale
+\(\mu = M_{\text{Pl}}\) of {[}SM §6.2{]} is a convention into which this
+factor does not enter; matching at \(1/\epsilon\) instead shifts the
+fitted threshold parameters there ({[}SM §6.2{]}). The
+Bekenstein-Hawking coefficient is independent of \(\kappa_m\) in any
+case --- writing \(\eta = \kappa_m\sigma/\epsilon^2\), the gap equation
+gives \(\hbar = c^3/(4G\eta)\) and \(S = \eta A = A/(4l_p^2)\) with
 \(\kappa_m\) and \(\sigma\) cancelling, while the mode count is
 \(N_{\rm modes} = \kappa_m A/\epsilon^2 = S/\sigma\) --- so the entropy
 law is a fixed point of the construction regardless, and the component
 count enters only the discreteness scale, where the link-direction
-structure fixes it at unity.
+structure fixes it at unity on lattice-plane-aligned cuts.
 
 \hypertarget{the-emergent-action-scale}{%
 \subsubsection{3.2 The emergent action
@@ -5571,4 +5580,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: a14245574a58abd2cd3ed2a3c0ba447cdc1693bcdabfb96b88cf7e1b0b232607
+% source-sha256: 25cc1789e790786d594b89c8e0aa6ad82dd71727e17ab6412163d11fbfb034c8
