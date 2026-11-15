@@ -8,6 +8,7 @@ premise, or changes any Issue's planning or scope.
 
 | File | What it is | SHA-256 |
 | --- | --- | --- |
+| `U4-SOURCES-r1.md` | Read-only source inventory for S3 unit U4 (#1169 c.6891189024): 194 items with status labels, external literature marked for first-hand reading, and seven named gaps; no conclusions | `59c33008d673dd8450668e06ab3edcab1aeadd97fe8d56048983fcc83676f185` |
 | `VERIFY-SL3-CC-r1.md` | Independent paper verification of MR-1's S-L3 and MR★ §M.6's CC4, CC5 and CC7 (#1169 c.6891189024): S-L3 verified at stated scope with a narrower reading for S3; CC4, CC5, CC7 verified at narrower scope; unreviewed, so all four stay named premises | `ea8f17aec91e9bee3f49e1ca75259ff0b2dd2f59d042e1705750359308f384c4` |
 | `S3-U1-r5.md` | S3 unit U1 r5: value writes classified by the explicit partition test (owner-confirmed fix after a separable non-affine counterexample over Z/3), with the two nits from the confirmation of r4; delivered with one named stop (typing into `Obs`); independently reviewed (ACCEPT) | `03d9f20e7163b1f789c9aeafff600cb4b6622f35c66b40d386e14fd997fe7793` |
 | `RESPONSE-S3-U1-r4.md` | Dispositions | |
