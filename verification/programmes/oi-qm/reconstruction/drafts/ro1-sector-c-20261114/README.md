@@ -10,6 +10,8 @@ premise, or changes any Issue's planning or scope.
 | --- | --- | --- |
 | `REVIEW-VERIFY-SL3-CC-r1.md` | Independent review of VERIFY-SL3-CC-r1: ACCEPT WITH CHANGES (the erasure gloss of S-L3 holds at narrower scope; CC5's verdict-level separation is conditional; corrections to the side-2 case, CC7 and the `separated` gap) | `67ef91bd92871b6004ec15cabfb2f1d11462d067bbdc7c3fbe4dba952fc9104d` |
 | `REVIEW-VERIFY-SL3-CC-r2.md` | Focused confirmation of VERIFY-SL3-CC-r2: ACCEPT (three optional nits) | `d66f203f23b5cbce2931119d01d6039a863ed25ec9b03a947c2e6ffc1940d5b1` |
+| `LIT-ERASER-r3.md` | Literature note r3: the one wording fix from the confirmation of r2 (Dürr 1998's read status); otherwise identical to r2 | `3f29e55ca8a124c176d8a6f4c972ac5e2e9e93d27ea58fbece8073485fb4dcdc` |
+| `RESPONSE-LIT-ERASER-r2.md` | Disposition | |
 | `LIT-ERASER-r2.md` | Literature note r2: applies the independent review of r1 (equality for pure markers, inequality for mixed; one inference labelled; scope of the unsorted-singles statement; unread candidates listed); reviewed (ACCEPT WITH CHANGES) | `224c3d5b40056945f1d116a7d29757265e299b3f5cc3909f80d23c1fca5a7644` |
 | `RESPONSE-LIT-ERASER-r1.md` | Dispositions of that review | |
 | `LIT-ERASER-r1.md` | First-hand literature note for item 2a (#1169 c.6891511297): what performed eraser and which-path experiments measured, with read status per paper and a check of U4's literature attributions; reviewed (ACCEPT WITH CHANGES) | `4d943f7ba623d3626ce3085e87180d6497f8813190973f20ed552e168ee7c82f` |
