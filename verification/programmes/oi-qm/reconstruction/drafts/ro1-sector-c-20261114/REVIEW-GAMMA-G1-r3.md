@@ -188,3 +188,17 @@ without `κ_scale`, closes the r2 envelope problem on the quantitative side as w
 - VER2's CC4 and CC5 scopes and its T7 entry.
 - The external X-2 and X-3 sources, which are NOT READ and G3's to read.
 - U4 r2 and r3.
+
+## Confirmation (fixes at `2ffd68ef`)
+
+The G1 r3 file was diffed from `85bfd162` to `2ffd68ef`; it is the only G1 file changed. Every hunk
+maps to R-1, R-2, M-1 or the advisory, and nothing else in the file changed.
+
+| Item | Status | Where in the r3 file at `2ffd68ef` |
+|---|---|---|
+| R-1 | **RESOLVED** | 806–808 report scope-only credit as "credit conditional on owner question 6, not as credited". The same is carried into the NC-γ6 row (862), into the hand evaluation (886–888) and into G1-F8 (968). No unconditional "creditable" remains. Line 888 correctly states that under (s1) alone the reference is not creditable |
+| R-2 | **RESOLVED**, by the second option | 877–880 no longer count X-4 for C0, and give the reason. 889–899 make C0's data side wait on G3 (`Δ` or X-1), give the ground for not adding the phase clause, and drop the Schwindt quotation. C0's law-level separation by `Δ` is kept |
+| M-1 | **RESOLVED** | 825–828 restrict PC-wave's `I_3 = 0` to linear detection and note that saturating detection gives `I_3 ≠ 0` in general. G1-F8 carries "in the linear detection regime" |
+| Advisory | **RESOLVED** | 819–821 state the comonotone Chebyshev bound, with exact Poisson clicks given as an example. It is correct |
+
+No remaining findings. Verdict on G1 r3 with these fixes: **ACCEPT**.
