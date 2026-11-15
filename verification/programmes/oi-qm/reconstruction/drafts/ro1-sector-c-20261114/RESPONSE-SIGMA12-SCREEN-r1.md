@@ -26,3 +26,5 @@ nothing new counts under SNR-1.
 
 Text rules: no banned word or machine-local path in r2 or in this note. The MR★ σ12 quotation keeps its
 marked paraphrase.
+
+**Post-review label fix** (focused review of r2, ACCEPT WITH CHANGES): in §4, the J-return row's cells for native-Y and G-ring now begin "**Requires assumed apparatus** (carrier preparation assumed): no return before …" instead of "**Not available** before …", matching U1's outcome for an uncounted negative; content unchanged. r2 is not yet accepted, and the committed copy will be replaced by a new commit.
