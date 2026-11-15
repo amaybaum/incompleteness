@@ -21,10 +21,16 @@ is affected.
 preparation-noncontextual model: the earlier record value is held at the latest read only in the
 label cell `ℓ`, which C-PM excludes from effects. It is classical under ensemble-conditioned heralds,
 under MP-0b retention of the non-label record, under C-PM′ and under role-typed labels. Its gbit is
-imposed by the cell-typed label convention; it is not a nonclassicality witness.
+imposed by the cell-typed label convention; it is not a nonclassicality witness. Literal (H4) is
+also met with no label routing, through static held label cells alone (`AUDIT.md` §2.1, Bearing):
+when held label cells determine the initial configuration, literal (H4) holds at every horizon, and
+the same gbit arises under cell-typed and role-typed labels alike. Role-typed labels therefore do
+not restore literal (H4) in general.
 
-**Supported scope** (`AUDIT.md` §2.2). Write `Z^{lf}` for the held records restricted to cells other
-than the preparation's label cells, and `Z₀ := Z^{lf} − H_c^{lf} c`.
+**Supported scope** (`AUDIT.md` §2.2). Write `Z^{lf}` for the held records restricted to cells outside one
+fixed label-cell set for the whole fragment, the union of the label cells of its admitted
+preparations (as OA2:451–454), and `Z₀ := Z^{lf} − H_c^{lf} c`; `Z^{lf}`, the effect class and `ι`
+then do not depend on the preparation.
 
 - **(H4′).** Within the horizon, the C-PM-available part of the held record at the latest read
   determines every earlier available read. MP-0b retention of the non-label record realizes it;
@@ -38,9 +44,8 @@ than the preparation's label cells, and `Z₀ := Z^{lf} − H_c^{lf} c`.
 - **E1.** Its generalized form and contrapositive hold with (H4′) for (H4) and `Z₀` label-free. Literal
   (H4) without (H4′), under held-at-use or single-tick typing, is an exit within (H1) ∧ (H3).
 - **Status.** (H4′) is a named hypothesis, not derived from OI's rules. Which herald typing E3 uses is
-  open (OA3:124–128), so neither form is established as the theorem. Until a reviewed decision on
-  propagation, the statements below are not used as established premises at their unqualified scope
-  (§A.46 items 4 and 7).
+  open (OA3:124–128), so neither form is established as the theorem. The statements below are used as
+  premises only at the scope stated here (§A.46 item 7).
 
 ## The eight records
 
