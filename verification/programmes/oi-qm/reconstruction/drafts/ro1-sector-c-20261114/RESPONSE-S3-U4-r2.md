@@ -34,9 +34,8 @@ Every item is accepted and none is rejected.
    refinement that does not change the clause.
 4. *PK-6 caveat:* restored (R4).
 5. *Other drops in r2*, with their r3 disposition:
-   - PK-1's scrambled-return sentence: superseded. PK-1 now states that Sup-3's zero-neighbour
-     condition is the condition under which the parked value is not mixed with neighbour content.
-     Elsewhere it returns mixed, which is scrambled in C-RET's sense.
+   - PK-1's scrambled-return sentence (r1): dropped in r2 and not restored. It was not replaced by any
+     other statement.
    - §3.1's "S-L5 applies only on the reference class": restored.
    - The c.6890079967 decision-A quotation and its "Not authorized" list: restored in the header.
    - The OCP input: dropped, because r2 and r3 rely on nothing from it.
