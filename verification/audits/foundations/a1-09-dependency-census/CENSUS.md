@@ -3,7 +3,7 @@
 **Status: PARTIAL SOURCE AUDIT / UNCLASSIFIED COVERAGE — NOT A1-C01 COMPLETION OR G2 SIGN-OFF.** First pass independently reviewed (ACCEPT WITH CHANGES); the review's three required changes are applied in this revision by the coordinating session as writer (owner decision #1169 c.6922450446).
 Scientific source claims remain governed by their own evidence and reviews. A1 is OPEN / UNADOPTED; physical source is NOT PASSED. This file changes no manuscript, Lean declaration, hypothesis, grade or completion-register entry.
 
-**Accountable Issue:** [#1334](https://github.com/amaybaum/incompleteness/issues/1334); [owner activation](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6918420877), [in-session execution clarification](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6919384575); **coordination:** [#1169, A1-C00–C11 checklist](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6916312927). Writer of this revision: **ChatGPT in the owner-directed current session**, not Codex. Independent review and all existing review/CI/integration gates remain separate. No independent review is claimed here.
+**Accountable Issue:** [#1334](https://github.com/amaybaum/incompleteness/issues/1334); [owner activation](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6918420877), [in-session execution clarification](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6919384575); **coordination:** [#1169, A1-C00–C11 checklist](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6916312927). Writer of the first pass (to `a64e2528`): **ChatGPT in the owner-directed session**, not Codex. Writer of the later revisions: the coordinating Claude Code session (owner decision #1169 c.6922450446). The first pass was independently reviewed; later revisions are checked by their own delta reviews. Integration gates remain separate.
 
 **Immutable source snapshot:** `6eac91ee25a1afaea4ed148b0c54967a08b12ac3` (GitHub `main` at preparation). The reader must distinguish this from later `main`. Source positions below refer to this exact commit, not to a moving branch.
 
@@ -102,7 +102,7 @@ Source citations are `path:line` at the pinned commit; short Lean references are
 | D40 / C02,C11 | `book/ch14-quantum-computing.md:105` | Finite substratum ⇒ finite-dimensional representation for that selected finite model **F**; the theorem's own finite hypothesis prevents universal inference | Retain condition and distinguish per-horizon Hilbert space from fixed global physical Hilbert space |
 | D41 / C11 | `papers/Structure.md:47,80,134–140,646,718,1138–1177` | Multiple cross-theory summaries reimport A1–A6 and recurrence-scale indivisibility; **F** where local structural class/cycle is stated, **X** where broad physics or another programme inherits an OI theorem | Audit every such target sentence, not only the term A1; cross-program partial-trace analogy is not a physical carrier identification |
 | D42 / C01 | `verification/lean-manuscript-census.json:479–516,733–756,1697–1717`; `verification/coverage/LEDGER.json:454–502,923–930,1381–1420` | Registry includes scope notes but is not a complete full-source A1 proof audit. Rooted recurrence, axioms and observer selection have distinct premises. **X** for the remaining 123-family/133-entry comparison | Reconcile each claim, grade and live theorem anchor on pinned main; no grade move on search alone |
-| D43 / C01 | `book/The-Incompleteness-of-Observation-FULL.md`, `FULL.tex`, `FULL.pdf` | FULL mirrors were **not text-readable** with current connector and may differ from chapter sources: **X** | Obtain complete text/rendered artifact, compare to source chapters with checksum/provenance; until then no corpus-wide closure |
+| D43 / C01 | `book/The-Incompleteness-of-Observation-FULL.md`, `FULL.tex`, `FULL.pdf` | FULL Markdown resolved for claim coverage by batch 1 (§7); `FULL.tex` stamped; `FULL.pdf` not stamped | PDF rendering parity not checked by this census |
 | D44 / C01 | Remaining `OIBridge`, six legacy Lean modules, `verification/programmes` and nested proof and probe evidence | Enumerated but not fully premise-traced: **X** | Declaration/import-level audit, identify every nonobvious implicit finite-state dependency, verify ledger anchors and negative controls |
 
 ### 3.1 Distinct A1-free controls already on `main`
@@ -123,7 +123,7 @@ The declarations were inspected as repository source. Kernel-check status is inh
 | Closure item | First-pass status and next gate |
 |---|---|
 | C00 | #1313 public A1 qualification retained; D26/D39 corrected by #1341, D09 withdrawn (§5.1) |
-| C01 | **OPEN / X**: FULL mirrors, 232 Lean modules, registry entry-by-entry, other verification and indirect paper chains not exhaustive |
+| C01 | **OPEN / X**: 232 Lean modules, registry entry-by-entry, other verification and indirect paper chains not exhaustive (FULL Markdown resolved by §7) |
 | C02 | **Scoped** finite-window equivalence; common physical world/continuity of carriers unresolved (D02/D03/D12/D13) |
 | C03 | **Finite-class only**; A4 torus finite alphabet still finite. Matrix-model "finite rank = finite carrier" wording check (D36/D37) |
 | C04 | **A** conditional local link algebra; physical gauge/representation selection open and A1-11 separately assigned |
@@ -141,25 +141,27 @@ These are source-review referrals, **not** accepted textual corrections or indep
 
 | Priority | Site | Minimum required decision |
 |---|---|---|
-| P0 | `papers/Structure.md:230`, `book/ch09-universality.md:194` | Distinguish continuous finite-dimensional matrix models from finite-cardinality carrier; require finite-valued cutoff *as a separate input* for the latter. Inspect `Structure.md:272,320` for propagation |
-| P0 | `papers/GR.md:665–669` | Remove/justify the bare "A1 implies finite ε/mode-unit S3" inference; it needs spatial/metric/mode-count premises, not set cardinality alone |
+| P0 | `papers/Structure.md:230`, `book/ch09-universality.md:194` | Distinguish continuous finite-dimensional matrix models from finite-cardinality carrier; require finite-valued cutoff *as a separate input* for the latter. Inspect `Structure.md:272,320` for propagation. **Corrected by #1341 (§5.1); Structure:270 is #1342 R1** |
+| P0 | `papers/GR.md:665–669` | Remove/justify the bare "A1 implies finite ε/mode-unit S3" inference; it needs spatial/metric/mode-count premises, not set cardinality alone. **Corrected by #1341 (§5.1)** |
 | — | `papers/Main.md:439–441` | Withdrawn as a candidate: see D09 |
-| P1 | `papers/Medicine.md:35–39`, downstream biological predictions | Do not conflate conditional readback memory, measured P-indivisibility and verified natural biological realization of C1–C4 |
-| P1 | `book/appendix-c-objections.md:128–132` | Keep "QFT infinity is an artifact" expressly conditional on a physically supported finite underlying model |
+| P1 | `papers/Medicine.md:35–39`, downstream biological predictions | Do not conflate conditional readback memory, measured P-indivisibility and verified natural biological realization of C1–C4. **A1 part corrected by #1341; Medicine:37 is #1342 R4** |
+| P1 | `book/appendix-c-objections.md:128–132` | Keep "QFT infinity is an artifact" expressly conditional on a physically supported finite underlying model. **Corrected by #1341 (§5.1)** |
 | — | `papers/Main.md:746–762` and downstream arrow / anti-BB claims | Not assessed in this pass and not counted as a candidate; deferred to A1-05 (#1332) |
 
 ### 5.1 Disposition after the first-pass review
 
-The independent first-pass review ([#1340 review at `a64e2528`](https://github.com/amaybaum/incompleteness/pull/1340)) checked each candidate against CHANGEMAP-A1C-r6-min (#1313's reviewed minimum-change map, `verification/audits/foundations/a1-foundations-20261115/change-map/` on branch `research/a1-foundations-1169-20261115`). That map asked only whether a sentence presents finiteness as a fact about nature.
+The independent first-pass review ([#1340 review at `a64e2528`](https://github.com/amaybaum/incompleteness/pull/1340)) checked each candidate against CHANGEMAP-A1C-r6-min, #1313's minimum-change map (`verification/audits/foundations/a1-foundations-20261115/change-map/` on branch `research/a1-foundations-1169-20261115` at `c6e85058`). That map asked only whether a sentence presents finiteness as a fact about nature.
+
+**Reference classification (§A.42 item 8).** The map is not on `main`, so its rulings below are **provenance only**. Each disposition rests on `main` text: D09 on Main:437, Main §2.3 and Lemma B.7.3 (`book/appendix-b-derivations.md:413`); D26 on GR:665 and :669; D34a on Main:137–139; D36 on Structure:226, :230 and :270; D37 on Structure:226; D39 on appendix-c:128 and :130.
 
 | Candidate | #1313 ruling | Why this is a different defect, or none | Disposition |
 |---|---|---|---|
-| D09 Main:439–441 | M-30: lemma in the finite-realization setting | Same question; no defect | Withdrawn |
+| D09 Main:439–441 | M-30: "lemma in the finite-realization setting" | Same question; no defect | Withdrawn |
 | D26 GR:669 | G-17: label kept | Internal-logic defect: A1 is a cardinality condition and does not imply S3's discreteness scale or its mode-count identification, which S3 itself calls an additional requirement | Corrected by #1341 |
 | D34a Medicine:35 | not in the map | Recurrence-scale P-indivisibility stated for a common window | Corrected by #1341 |
 | D34b Medicine:37 | not in the map | Empirical assertion, not A1 | #1342 R4 |
 | D36 Structure:230 | T-07: label and class membership kept | Internal inconsistency with Structure:270's entry-discretization proviso | Corrected by #1341; Structure:270's description of lattice techniques is #1342 R1 |
-| D37 ch09:194 | not in the map at this line | Finite N leaves matrix entries continuous | Corrected by #1341, with FULL |
+| D37 ch09:194 | K-ch09-184/190/194: only :184 edited; :194 kept as a model/class/conditional statement | Different question: finite N leaves the matrix entries continuous, so the sentence was false as stated | Corrected by #1341, with FULL; #1342 R1 also bears on it |
 | D39 appendix-c:130 | N-Kappc-C6 changed this paragraph's opening | Residue: the "artifact" clause stayed unconditional | Corrected by #1341, with FULL |
 
 The review's further findings outside these candidates are tracked in #1342 (R1–R4).
@@ -172,7 +174,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
 - CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced.
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
-- CENSUS-X4: recursively maintained verification files, programmes, probes, archival/branch-only evidence, remain unscanned (published .tex/.pdf mirrors: resolved for claim content by batch 1, §7) as complete corpora.
+- CENSUS-X4: recursively maintained verification files, programmes, probes and archival or branch-only evidence remain unscanned as complete corpora. Published `.tex` mirrors are resolved for claim content by batch 1 (§7); PDFs are not stamped and are not checked.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
 - CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization.
 
@@ -185,11 +187,11 @@ To close A1-C01, obtain full text/source parity for X1–X4; review and classify
 **Recipe.** For each of the 29 Markdown files under `book/` other than the FULL file, list its non-blank lines; check each is present verbatim in `book/The-Incompleteness-of-Observation-FULL.md`; then list the FULL file's non-blank lines that occur in no chapter file. Run `python3 -I tools/staleness_check.py`.
 
 **Result.**
-- Every non-blank line of the 28 chapter and back-matter files occurs verbatim in FULL. `book/README.md` (61 lines) is the directory's landing page and is not mirrored.
+- Every non-blank line of the 28 chapter and back-matter files occurs verbatim in FULL. `book/README.md` (65 non-blank lines) is the directory's landing page and is not mirrored.
 - FULL has 31 non-blank lines found in no chapter file: the LaTeX title page, the table-of-contents commands, page breaks and the copyright page. None states a mathematical or physical claim.
-- `staleness_check` reports 13 stamped artifacts matched (the 12 papers and FULL) and none unstamped: every generated `.tex`/`.pdf` carries the `source-sha256` of its current Markdown source.
+- `staleness_check` reports 13 stamped artifacts matched (the 12 papers and FULL) and none unstamped: every generated `.tex` carries the `source-sha256` of its current Markdown source. PDFs carry no stamp and are not checked.
 - `book/README.md`, read in full: lines 15, 17, 50, 82 and 100 summarize the finite-horizon equivalence (observable scope, **A**), the finite-model BQP hypothesis (**F**, conditional) and the appendix-C contents. No U candidate.
 
-**Disposition.** X1 is resolved for claim coverage: FULL contains no claim line absent from the chapters, so the chapter classifications in §3 apply to FULL line for line. For published mirrors (part of X4), the `.tex`/`.pdf` files are generated from stamped sources, so their claim content is that of the `.md` files. A line-level presence check does not test ordering or duplication; those are covered by the build and by `tools/duplicate_check.py`, not by this census.
+**Disposition.** X1 is resolved for claim coverage: FULL contains no claim line absent from the chapters, so the chapter classifications in §3 apply to FULL line for line. (§3 is pinned at `6eac91ee`, this check at `5ea8672f`; the only book change between them is #1341, which mirrored both of its book edits into FULL.) For published `.tex` mirrors (part of X4), the files are generated from stamped sources, so their claim content is that of the `.md` files; PDFs are outside this check. A line-level presence check does not test ordering or duplication; those are covered by the build and by `tools/duplicate_check.py`, not by this census.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
