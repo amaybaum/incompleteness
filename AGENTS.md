@@ -1250,6 +1250,8 @@ rules below govern that record (owner, 2026-11-03).
    stated in the entry. It is not `ready`, it is not an authorization, and it grants no permission
    to start work. An Issue that carries several obligations lists them as rows of one table in its
    block, each with its own identifier and attributes.
+   A block written after §A.47's adoption also carries that section's *Goal link*, which is planning
+   only and is not a fifth attribute of the item's status.
 
    **Labels** summarize the block for filtering and never replace it: `tier: foundational`,
    `tier: high`, `tier: supporting` or `tier: exploratory`; `tier: provisional`; and
@@ -1414,3 +1416,34 @@ conditions on which a research record is preserved on `main`, what a remediation
 preserved record's scoped result is a surviving claim, and the reconciliation of records already on
 `main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments 6865680499,
 6872005186, 6872344927 and 6872828604).
+
+***
+
+## §A.47 Goal link for research decisions
+
+Every decision made during research evaluation is checked against the question: *what is the
+ultimate goal, and what are the highest-priority items needed to achieve it?* The ultimate goal is
+§A.29's. The programme's target, adopted by the owner and recorded in the planning record (§A.45),
+serves that goal and never outranks it. The highest-priority items are the obligations the owner
+has ranked highest under §A.45; a provisional tier is not such a ranking.
+
+1. **Where it is recorded.** Each owner-decision record, planning-status block, unit plan or
+   preregistration, and review recommendation made after this section's adoption carries a
+   *Goal link*. The link names the item the work serves and what the work would decide for it, not
+   the outcome expected, and it is not revised once results are in. Work that serves none, such as
+   housekeeping, says so. A record frozen before adoption, or at `F`, keeps the form it froze
+   (§A.39), and a Goal link is added to an existing block only by the owner.
+2. **What it decides.** In addition to §A.45 rule 3, and authorizing nothing itself, work on a
+   lower-tier item does not displace work on a higher-tier one without a recorded owner reason;
+   opening a supporting or housekeeping unit while a higher-tier item is ready and unstaffed needs
+   that reason. This never delays the correction of a refuted or unsupported claim, its
+   propagation (§A.25, §A.27), an integrity sweep (§A.26) or a resource limit (§A.40).
+3. **What it does not decide.** A goal link is planning, not evidence. It confers no scientific
+   status (§A.45 rule 1), grants no authorization (§A.45 rule 3) and moves no claim's valence
+   (§A.22). It never licenses a weaker standard of proof, or a conclusion the framework "needs"
+   (§A.29). A route closed by controlled computation serves the goal as fully as a route opened.
+4. **Gaps.** When the ranking shows an item needed to achieve the goal that no active item serves,
+   that gap is itself a finding and is reported to the owner, with its accountable Issue
+   (§A.45 rule 6).
+
+Adopted 2026-11-15 by owner decision (owner `amaybaum`, 2026-11-15).

@@ -161,7 +161,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -173,9 +173,8 @@
 
 \begin{document}
 
-\hypertarget{the-standard-model-from-a-cubic-lattice}{%
 \section{The Standard Model from a Cubic
-Lattice}\label{the-standard-model-from-a-cubic-lattice}}
+Lattice}\label{the-standard-model-from-a-cubic-lattice}
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
@@ -184,8 +183,7 @@ Lattice}\label{the-standard-model-from-a-cubic-lattice}}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 \textbf{Observer geometry and physical carrier.} SM §4.1 distinguishes
 two claims. First, finite equivariant projection is classical and exact:
@@ -214,8 +212,8 @@ named bridge conditions unless it is explicitly referring only to the
 six geometric links.
 
 The Standard Model arises as a distinguished low-freedom representation
-of a finite bijection on a \(d = 3\) simple-cubic lattice governed by
-the lattice wave equation. Two qualifications are stated at the outset
+of a bijection on a \(d = 3\) simple-cubic lattice governed by the
+lattice wave equation. Two qualifications are stated at the outset
 because they bound every claim below. First, the cubic lattice is not
 itself derived: among the fourteen Bravais lattices, simple cubic is
 selected, under the nearest-neighbor commutant construction, as the one
@@ -301,8 +299,7 @@ rather than as a derivation of the Standard Model from first principles
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
 The Standard Model contains approximately nineteen free parameters:
 three gauge couplings, nine fermion masses, four CKM angles, two Higgs
@@ -413,15 +410,16 @@ branch and selects \(d = 3\) within A4's periodic-lattice class under
 E5--E7 and the continuum conditions of §3.1--§3.2. §4 develops the
 emergent quantum field theory through the bottom-up, gauge-emergence,
 and top-down chains. §5 shows that \(T\)-invariance and detailed balance
-give \(\theta\in\{0,\pi\}\) and reciprocal transition counts but not
-\(\bar\theta = 0\), leaving strong CP open under two named conditions
-(H-top, H-det); §5.5 sets out what is and is not established, and
-records a reported, unverified tension in the octahedral-equivariant
-reconstruction --- reciprocity itself leaves the Jarlskog invariant
-free. §6 extends the chain quantitatively through the gauge coupling
-prediction. §7 collects the quantitative predictions for the CKM matrix,
-the lepton sector, the fermion mass chain, the PMNS angles, and the
-Higgs mass. §8 discusses structural realism, observer genericity, the
+give \(\theta\in\{0,\pi\}\) and reciprocal transition counts under the
+counting hidden prior of a finite model but not \(\bar\theta = 0\),
+leaving strong CP open under two named conditions (H-top, H-det); §5.5
+sets out what is and is not established, and records a reported,
+unverified tension in the octahedral-equivariant reconstruction ---
+reciprocity itself leaves the Jarlskog invariant free. §6 extends the
+chain quantitatively through the gauge coupling prediction. §7 collects
+the quantitative predictions for the CKM matrix, the lepton sector, the
+fermion mass chain, the PMNS angles, and the Higgs mass. §8 discusses
+structural realism, observer genericity, the
 structural-vs-bijection-level distinction, and the neutrino sector. §9
 concludes --- including a synthesis with the cosmological application
 developed in {[}GR{]} and the substratum-level reconstruction theorem
@@ -429,11 +427,9 @@ developed in {[}Substratum{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-minimal-structure}{%
-\subsection{2. The Minimal Structure}\label{the-minimal-structure}}
+\subsection{2. The Minimal Structure}\label{the-minimal-structure}
 
-\hypertarget{assumptions-by-result}{%
-\subsubsection{2.1 Assumptions by result}\label{assumptions-by-result}}
+\subsubsection{2.1 Assumptions by result}\label{assumptions-by-result}
 
 \textbf{Deterministic bijectivity.} The P-indivisibility result used
 below (see Prerequisites) requires a bijection on a finite set:
@@ -502,9 +498,8 @@ explicit hypotheses: energy conservation does not imply that a written
 record survives \emph{accessible} to readback, and readback is a routing
 claim that storage, persistence and capacity do not supply.
 
-\hypertarget{assumptions-not-universally-required}{%
 \subsubsection{2.2 Assumptions not universally
-required}\label{assumptions-not-universally-required}}
+required}\label{assumptions-not-universally-required}
 
 A \emph{regular lattice}. The general finite-law correspondence does not
 require a regular lattice {[}Main §3.4{]}; dimensional and gravitational
@@ -533,8 +528,7 @@ nearest-neighbour class; A4, A5 and the nearest-neighbour range are
 structural assumptions ({[}Substratum §3.1{]}; §4.1, Remark (scope)),
 not consequences of the properties listed above.
 
-\hypertarget{the-minimal-object}{%
-\subsubsection{2.3 The minimal object}\label{the-minimal-object}}
+\subsubsection{2.3 The minimal object}\label{the-minimal-object}
 
 The assumptions depend on the result. The universal finite-horizon
 correspondence {[}Main §3.4{]} concerns finite visible laws and their
@@ -558,9 +552,8 @@ separately requires H-Bell {[}Substratum §3.3{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{definition-and-the-factorization-problem}{%
 \subsubsection{2.4 Definition and the factorization
-problem}\label{definition-and-the-factorization-problem}}
+problem}\label{definition-and-the-factorization-problem}
 
 Let S = S₁ × S₂ × \ldots{} × S\_N be a product of finite sets (the local
 state spaces), and let φ: S → S be a bijection. The \emph{coupling
@@ -613,9 +606,8 @@ unavailable. The exact link representation and H-link are presently
 specific to the simple-cubic branch; a broader universality-class
 carrier theorem would require a separate construction.
 
-\hypertarget{space-as-coupling-structure}{%
 \subsubsection{2.5 Space as coupling
-structure}\label{space-as-coupling-structure}}
+structure}\label{space-as-coupling-structure}
 
 Every ``spatial'' property used in the derivation chain is a property of
 G\_φ. The \emph{graph boundary} \(|\partial V|\) of a region V --- the
@@ -629,9 +621,8 @@ the spatial Markov property on any graph with range-1 dynamics. The
 cubic lattice is one graph with these properties; it is not the only
 one.
 
-\hypertarget{the-dissolution-of-the-container-problem}{%
 \subsubsection{2.6 The dissolution of the container
-problem}\label{the-dissolution-of-the-container-problem}}
+problem}\label{the-dissolution-of-the-container-problem}
 
 The coupling graph is not embedded in a pre-existing space. There is no
 ambient manifold in which the graph ``lives.'' The vertices are labels
@@ -659,8 +650,7 @@ the interactions, not by geography.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-alphabet-size}{%
-\subsubsection{2.7 The alphabet size}\label{the-alphabet-size}}
+\subsubsection{2.7 The alphabet size}\label{the-alphabet-size}
 
 Several results of the derivation chain hold for every alphabet size
 \(q \geq 2\) and contain no \(q\). The P-indivisibility theorem {[}Main
@@ -723,14 +713,12 @@ identified open structural question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{background-independence-as-state-dependent-geometry-and-the-selection-of-d-3}{%
 \subsection{3. Background Independence as State-Dependent Geometry, and
 the Selection of d =
-3}\label{background-independence-as-state-dependent-geometry-and-the-selection-of-d-3}}
+3}\label{background-independence-as-state-dependent-geometry-and-the-selection-of-d-3}
 
-\hypertarget{background-independence}{%
 \subsubsection{3.1 Background
-independence}\label{background-independence}}
+independence}\label{background-independence}
 
 The companion paper {[}Main{]} defines the coupling graph \(G_\varphi\)
 as one graph collecting the dependences at all states, and posits its
@@ -1477,8 +1465,7 @@ particular field's vacuum entanglement.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{why-d-3}{%
-\subsubsection{3.2 Why d = 3}\label{why-d-3}}
+\subsubsection{3.2 Why d = 3}\label{why-d-3}
 
 The dimensional filters are evaluated for candidate integer
 periodic-lattice ranks \(d \geq 1\). Within A4's assumed lattice class,
@@ -1662,9 +1649,8 @@ structural prerequisite for the definition to have content.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-emergent-quantum-field-theory}{%
 \subsection{4. The Emergent Quantum Field
-Theory}\label{the-emergent-quantum-field-theory}}
+Theory}\label{the-emergent-quantum-field-theory}
 
 This section studies the observer-level field-theory branch associated
 with the \(d=3\) cubic substratum. The new projection theorem below
@@ -1677,10 +1663,9 @@ H-link bridge. The subsequent Standard-Model calculations are therefore
 layered: exact representation-theoretic statements are separated from
 the physical-carrier assumptions they use.
 
-\hypertarget{observer-level-propagation-and-the-lattice-kleingordon-branch}{%
 \subsubsection{4.1 Observer-level propagation and the lattice
 Klein--Gordon
-branch}\label{observer-level-propagation-and-the-lattice-kleingordon-branch}}
+branch}\label{observer-level-propagation-and-the-lattice-kleingordon-branch}
 
 The OI substratum is represented here by a \(d\)-dimensional hypercubic
 coupling graph \(\Lambda=\mathbb Z^d\) with microscopic spacing
@@ -1975,9 +1960,8 @@ dispersion is \(\cos\omega=(1/d)\sum_j\cos(k_ja)\), so
 \(\omega^2=(a^2/d)|\mathbf k|_2^2+O(a^4|\mathbf k|^4)\) after the
 corresponding clock calibration.}
 
-\hypertarget{factorization-into-dirac-operators}{%
 \subsubsection{4.2 Factorization into Dirac
-operators}\label{factorization-into-dirac-operators}}
+operators}\label{factorization-into-dirac-operators}
 
 \textbf{Theorem 2} (Susskind {[}12{]}, conditional branch).
 \emph{\(D_{\text{st}}^2 = -\frac{1}{4}\Box_{\text{lat}}\). On the
@@ -2172,9 +2156,8 @@ remains open. The mixing bound used for the slow-bath form of C2 in
 {[}Main §3.4{]} and measurement independence in {[}Main §3.3{]} retain
 their own hypotheses.
 
-\hypertarget{center-independence-and-chiral-symmetry}{%
 \subsubsection{4.3 Center independence and chiral
-symmetry}\label{center-independence-and-chiral-symmetry}}
+symmetry}\label{center-independence-and-chiral-symmetry}
 
 \textbf{Theorem 3.} \emph{For onsite center terms \(m\varepsilon+p_0\)
 added to opposite-parity hopping, with site-independent coefficients in
@@ -2208,14 +2191,14 @@ physical carrier is H-link (§4.5--4.6).
 \textbf{Scope in the chain.} Center independence gives, through Theorem
 2, the massless staggered operator, whose onsite terms vanish, so it is
 chirally symmetric by Theorem 3; it is not derived here from
-P-indivisibility. Main's readback lemma supplies the memory content, and
-its recurrence-cycle theorem the P-indivisibility content, independently
-of center independence. Any claim that one algebraic CI condition
-simultaneously forces memory and chirality is therefore unavailable.
+P-indivisibility. Main's readback lemma supplies the memory content,
+and, on finite reversible representatives, its recurrence-cycle theorem
+the P-indivisibility content, independently of center independence. Any
+claim that one algebraic CI condition simultaneously forces memory and
+chirality is therefore unavailable.
 
-\hypertarget{multi-component-dynamics-and-gauge-structure}{%
 \subsubsection{4.4 Multi-component dynamics and gauge
-structure}\label{multi-component-dynamics-and-gauge-structure}}
+structure}\label{multi-component-dynamics-and-gauge-structure}
 
 Each site carries a K-component vector
 \(\boldsymbol{\phi}(\mathbf{n}, t)\); the update below is stated on the
@@ -2344,9 +2327,8 @@ stabilizer to the Standard-Model group carries the separate
 amplitude-scale-gauge/background-independence premises discussed in §4.6
 and a specified charged matter action.
 
-\hypertarget{the-six-link-carrier-exact-geometry-open-physical-identification}{%
 \subsubsection{4.5 The six-link carrier: exact geometry, open physical
-identification}\label{the-six-link-carrier-exact-geometry-open-physical-identification}}
+identification}\label{the-six-link-carrier-exact-geometry-open-physical-identification}
 
 The cubic lattice, in its spatial site factorization with the
 nearest-neighbour coupling graph (items (viii) and (x) of the posit
@@ -2399,9 +2381,8 @@ Statements identifying those six directions with all physical
 gauge/matter components inherit H-link, and statements selecting a
 single copy inherit its \(m=1\) clause.
 
-\hypertarget{cubic-decomposition-multiplicities-3-2-1}{%
 \subsubsection{4.6 Cubic decomposition: multiplicities (3, 2,
-1)}\label{cubic-decomposition-multiplicities-3-2-1}}
+1)}\label{cubic-decomposition-multiplicities-3-2-1}
 
 \textbf{Theorem 7 (exact link representation; physical reading
 conditional).} \emph{The \(2d=6\) nearest-neighbor signed link
@@ -2662,9 +2643,8 @@ being to fix \(N_f = 6\) and \(T(R) = 1/2\) structurally). The same
 split clarifies the asymmetry noted in §4.7.1.1 between gauge bosons
 (substratum objects) and fermions (observer-level objects).
 
-\hypertarget{staggered-species-generations-and-the-higgs}{%
 \subsubsection{4.7 Staggered species, generations, and the
-Higgs}\label{staggered-species-generations-and-the-higgs}}
+Higgs}\label{staggered-species-generations-and-the-higgs}
 
 The Nielsen-Ninomiya theorem {[}15{]} requires \(2^{d+1}\) Weyl species.
 Staggered reduction gives
@@ -2861,9 +2841,8 @@ to accommodate it.
 \emph{Consequences.} The framework accommodates exactly one Higgs
 doublet via the singlet taste, consistent with the SM.
 
-\hypertarget{the-fermion-embedding-question-diagnosis-and-closure}{%
 \paragraph{4.7.1 The fermion embedding question: diagnosis and
-closure}\label{the-fermion-embedding-question-diagnosis-and-closure}}
+closure}\label{the-fermion-embedding-question-diagnosis-and-closure}
 
 The framework as written derives, conditionally on H-link, the gauge
 group \(SU(3) \times SU(2) \times U(1)\) from the commutant construction
@@ -2908,10 +2887,9 @@ consequence of coupling-degree minimization, the absolute generation
 count is correspondingly conditional on H-link single-copy; the exact
 taste decomposition itself remains unchanged.
 
-\hypertarget{gauge-bosons-from-the-schur-complement-and-the-level-confusion-diagnosis}{%
 \paragraph{4.7.1.1 Gauge bosons from the Schur complement, and the
 level-confusion
-diagnosis}\label{gauge-bosons-from-the-schur-complement-and-the-level-confusion-diagnosis}}
+diagnosis}\label{gauge-bosons-from-the-schur-complement-and-the-level-confusion-diagnosis}
 
 The Schur-complement trace-out used in Theorem 13 to establish chirality
 contains more structural information than that theorem extracts.
@@ -3088,9 +3066,8 @@ single-fermion Hilbert space \(\mathcal{H}_{\text{obs}}\) such that the
 induced gauge action realizes exactly one SM generation per \(T_1\)
 taste --- is answered in §4.7.1.2 via the link-carrier construction.
 
-\hypertarget{closure-matter-on-links}{%
 \paragraph{4.7.1.2 Closure: Matter on
-Links}\label{closure-matter-on-links}}
+Links}\label{closure-matter-on-links}
 
 The closure is a two-step corollary of theorems already proved, using
 constructions distributed across §3.1 and §4.4.
@@ -3237,9 +3214,8 @@ lattice variables --- it follows from the bipartite structure of the
 dynamics, not from a choice of which sites to trace out; spin chirality
 proper is a further question (Theorem 13).
 
-\hypertarget{the-trace-out-grading-and-chirality-as-a-conditional-identification}{%
 \subsubsection{4.8 The trace-out grading, and chirality as a conditional
-identification}\label{the-trace-out-grading-and-chirality-as-a-conditional-identification}}
+identification}\label{the-trace-out-grading-and-chirality-as-a-conditional-identification}
 
 \textbf{Theorem 13} (Chirality --- conditional identification; minimal
 embedding certified vector-like; H-χ' sharpened, open). \emph{On the
@@ -3372,9 +3348,8 @@ broader pattern that time enters OI's emergent 4D structure as
 bookkeeping rather than as fundamental Clifford structure (cf.~§7.5
 \emph{Implication for the framework's \(d = 3\) commitment}).
 
-\hypertarget{evasion-of-nielsenninomiya}{%
 \subsubsection{4.8.1 Evasion of
-Nielsen--Ninomiya}\label{evasion-of-nielsenninomiya}}
+Nielsen--Ninomiya}\label{evasion-of-nielsenninomiya}
 
 The Nielsen--Ninomiya theorem forbids a single Weyl fermion on the
 lattice under four hypotheses: (NN1) \textbf{locality} of the action
@@ -3494,9 +3469,8 @@ this section, while the latter leaves the radiative-stability protection
 of §3.1 (\emph{Scope of the emergent-Lorentz claim}) as the open item it
 is stated to be there.
 
-\hypertarget{anomaly-cancellation-and-hypercharges}{%
 \subsubsection{4.9 Anomaly cancellation and
-hypercharges}\label{anomaly-cancellation-and-hypercharges}}
+hypercharges}\label{anomaly-cancellation-and-hypercharges}
 
 \textbf{Theorem 14} (U(1)\_Y automaticity). \emph{The existence of a
 U(1) gauge factor is automatic in the multi-component framework.}
@@ -3609,8 +3583,7 @@ identification, \(q_p=2Y_u+Y_d=6Y_Q\) and \(q_e=Y_e=-6Y_Q\), so
 electromagnetic identification; it is not a classification of arbitrary
 chiral spectra.}
 
-\hypertarget{renormalizability}{%
-\subsubsection{4.10 Renormalizability}\label{renormalizability}}
+\subsubsection{4.10 Renormalizability}\label{renormalizability}
 
 \textbf{Theorem 16.} \emph{The Yang-Mills coupling has mass dimension
 {[}g{]} = (3−d)/2; dimensionless iff d = 3.}
@@ -3631,9 +3604,8 @@ used in §6.3 assumes the stated SM field content, with negative one-loop
 coefficients for the non-Abelian factors and a positive coefficient for
 U(1).
 
-\hypertarget{spontaneous-symmetry-breaking-and-the-hierarchy}{%
 \subsubsection{4.11 Spontaneous symmetry breaking and the
-hierarchy}\label{spontaneous-symmetry-breaking-and-the-hierarchy}}
+hierarchy}\label{spontaneous-symmetry-breaking-and-the-hierarchy}
 
 Chiral symmetry (Theorem 3) combined with the center-independent gauge
 sector forbids explicit masses. The unique renormalizable
@@ -3649,8 +3621,7 @@ there): the QFT is emergent, and the mass scales are properties of the
 condensate \(\Sigma\) (of \(\varphi\)) rather than radiative
 corrections. The origin of \(v \ll f\) is open (§8.8).
 
-\hypertarget{the-filter-chain}{%
-\subsubsection{4.12 The filter chain}\label{the-filter-chain}}
+\subsubsection{4.12 The filter chain}\label{the-filter-chain}
 
 The §4--§5 construction is now a conditional chain rather than a
 complete derivation from \((S,\varphi)\) alone. The exact pieces are the
@@ -3665,12 +3636,10 @@ sharpened branch and do not discharge those bridges.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-strong-cp-problem}{%
-\subsection{5. The Strong CP Problem}\label{the-strong-cp-problem}}
+\subsection{5. The Strong CP Problem}\label{the-strong-cp-problem}
 
-\hypertarget{t-invariance-of-the-wave-equation}{%
 \subsubsection{5.1 T-invariance of the wave
-equation}\label{t-invariance-of-the-wave-equation}}
+equation}\label{t-invariance-of-the-wave-equation}
 
 \textbf{Theorem 17.} \emph{The discrete wave equation is invariant under
 time reversal T: φ(n, t) → φ(n, −t).}
@@ -3682,9 +3651,8 @@ time reversal T: φ(n, t) → φ(n, −t).}
 The checkerboard partition marginalizes over spatial sites, not temporal
 data. It preserves T while breaking P (§4.8).
 
-\hypertarget{what-time-reversal-fixes-about-ux3b8}{%
 \subsubsection{5.2 What time reversal fixes about
-θ}\label{what-time-reversal-fixes-about-ux3b8}}
+θ}\label{what-time-reversal-fixes-about-ux3b8}
 
 \textbf{Theorem 18.} \emph{A time-reversal-invariant point of the
 \(\theta\)-vacuum satisfies \(\theta\in\{0,\pi\}\pmod{2\pi}\).}
@@ -3703,9 +3671,8 @@ has T-invariant points at both. \(\square\)
 Selecting the \(\theta = 0\) branch over \(\theta=\pi\) is a separate
 condition, \textbf{H-top}, which \(T\) symmetry does not supply.
 
-\hypertarget{detailed-balance-and-what-it-does-not-give}{%
 \subsubsection{5.3 Detailed balance, and what it does not
-give}\label{detailed-balance-and-what-it-does-not-give}}
+give}\label{detailed-balance-and-what-it-does-not-give}
 
 \textbf{Theorem 19} (Reciprocity of visible transition counts).
 \emph{Let the partition be preserved by an involutive time reversal
@@ -3818,10 +3785,9 @@ Falsification control for any proposed mechanism: if it makes \(Y_u\)
 and \(Y_d\) simultaneously real it has solved too much, since it also
 predicts \(J_{\rm CKM}=0\) (Theorem 21).
 
-\hypertarget{scope-flavor-sector-cp-violation-as-solution-specific-input}{%
 \subsubsection{5.4 Scope: flavor-sector CP violation as
 solution-specific
-input}\label{scope-flavor-sector-cp-violation-as-solution-specific-input}}
+input}\label{scope-flavor-sector-cp-violation-as-solution-specific-input}
 
 The CKM and PMNS CP-violating phases are treated as solution-specific
 inputs rather than framework-level predictions. \(\bar\theta\) is a
@@ -3878,9 +3844,8 @@ commitment to any specific value of \(\delta_{\text{CKM}}\),
 parameters \((\rho, \eta)\), and the measurement of these quantities
 does not bear on the framework's structural status.
 
-\hypertarget{scope-what-is-established-and-what-is-not}{%
 \subsubsection{5.5 Scope: what is established and what is
-not}\label{scope-what-is-established-and-what-is-not}}
+not}\label{scope-what-is-established-and-what-is-not}
 
 \emph{What is established.} T-invariance of the wave equation (Theorem
 17); \(\theta\in\{0,\pi\}\) for a T-invariant emergent Lagrangian
@@ -3922,9 +3887,8 @@ it is recorded here as such, not as a result of this paper.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{gauge-coupling-prediction}{%
 \subsection{6. Gauge Coupling
-Prediction}\label{gauge-coupling-prediction}}
+Prediction}\label{gauge-coupling-prediction}
 
 The derivation chain of §§3--5 determines, on its stated branch, the
 gauge group
@@ -3935,8 +3899,7 @@ of \(\alpha_1\), \(\alpha_2\), \(\alpha_3\) at the \(Z\) boson mass ---
 which are reproduced through one computed input and three matched
 threshold parameters (§6.3).
 
-\hypertarget{the-induced-coupling}{%
-\subsubsection{6.1 The induced coupling}\label{the-induced-coupling}}
+\subsubsection{6.1 The induced coupling}\label{the-induced-coupling}
 
 The gauge field is not an independent degree of freedom --- it is the
 state-dependent coupling matrix \(M(\mathbf{n}, \hat{e}_j)\) of §3.1,
@@ -3993,9 +3956,8 @@ rather than derived (§6.2). A proof that this hybrid form is a
 consistent perturbative scheme --- closing at 1-loop and giving the
 observed asymptotic behavior at higher loops --- is open work.
 
-\hypertarget{the-threshold-and-logarithmic-resummation}{%
 \subsubsection{6.2 The threshold and logarithmic
-resummation}\label{the-threshold-and-logarithmic-resummation}}
+resummation}\label{the-threshold-and-logarithmic-resummation}
 
 The universal induced coupling \(\alpha_0\) is matched at
 \(\mu = M_{\text{Pl}}\). This matching scale is a convention, not the
@@ -4164,9 +4126,8 @@ The four components:
   \(\ln(M_{\text{Pl}}/M_Z) = 39.4\).
 \end{itemize}
 
-\hypertarget{finite-lattice-computation-of-a-cdot-b}{%
 \subsubsection{\texorpdfstring{6.2.1 Finite-lattice computation of
-\(A \cdot B\)}{6.2.1 Finite-lattice computation of A \textbackslash cdot B}}\label{finite-lattice-computation-of-a-cdot-b}}
+\(A \cdot B\)}{6.2.1 Finite-lattice computation of A \textbackslash cdot B}}\label{finite-lattice-computation-of-a-cdot-b}
 
 The leading coefficient of the \(C_2\)-dependent threshold in the
 expansion of \(A \ln(1 + B \cdot C_2 g_0^2)\) --- namely the product
@@ -4418,8 +4379,7 @@ the tadpole integral in the present \(\Pi_s\)-normalized scheme (a
 finite, well-defined task). The value \(A \cdot B \approx 48\) refers to
 the uncorrected \(1/N^2\) extrapolation.
 
-\hypertarget{the-prediction}{%
-\subsubsection{6.3 The prediction}\label{the-prediction}}
+\subsubsection{6.3 The prediction}\label{the-prediction}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}
@@ -4530,9 +4490,8 @@ gauge theory, giving \(A \cdot B \approx 48\) under the \(1/N^2\)
 leading-power assumption (inconclusive across finite-size models,
 §6.2.1) against the fit \(46.4\).
 
-\hypertarget{what-is-structural-and-what-is-solution-specific}{%
 \subsubsection{6.4 What is structural and what is
-solution-specific}\label{what-is-structural-and-what-is-solution-specific}}
+solution-specific}\label{what-is-structural-and-what-is-solution-specific}
 
 §8.3 distinguishes structural predictions (properties of the equivalence
 class) from solution-specific properties (determined by the particular
@@ -4567,9 +4526,8 @@ failure of unification --- it is the correct structure of an induced
 gauge theory, where all factors share the same fermion-induced coupling
 but have different gauge self-energies.
 
-\hypertarget{the-confinement-question}{%
 \subsubsection{6.5 The confinement
-question}\label{the-confinement-question}}
+question}\label{the-confinement-question}
 
 A natural question is whether the purely induced theory --- with no
 fundamental gauge action --- is in the deconfined phase required for the
@@ -4923,9 +4881,8 @@ production parameters (\(m \approx 0.12\), \(L = 32\)--\(64\)) is
 inferred rather than demonstrated; and the located \(q\) is contingent
 on the field-amplitude normalization of §4.2.
 
-\hypertarget{status-of-the-calculation}{%
 \subsubsection{6.6 Status of the
-calculation}\label{status-of-the-calculation}}
+calculation}\label{status-of-the-calculation}
 
 The chain in §6.3 reproduces all three SM gauge couplings at \(M_Z\)
 through the structural input \(1/\alpha_0 = 23.25\) (computed
@@ -4945,9 +4902,8 @@ extrapolated value is \(\approx 48\)--\(62\) across leading-power
 assumptions and is inconclusive pending larger lattices (§6.2.1).
 Separating \(A\) from \(B\) individually is open.
 
-\hypertarget{no-gut-structural-prediction-a-three-layer-synthesis}{%
 \subsubsection{6.7 No-GUT structural prediction: a three-layer
-synthesis}\label{no-gut-structural-prediction-a-three-layer-synthesis}}
+synthesis}\label{no-gut-structural-prediction-a-three-layer-synthesis}
 
 §§4.6 and 6.4 individually establish components of a unified structural
 prediction that the framework makes against grand-unified scenarios.
@@ -5071,9 +5027,7 @@ content. Refutation of any of (i)-(iv) would be evidence against OI;
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{quantitative-predictions}{%
-\subsection{7. Quantitative
-Predictions}\label{quantitative-predictions}}
+\subsection{7. Quantitative Predictions}\label{quantitative-predictions}
 
 The derivation chain of §§4--6 fixes, on its stated branch, the
 structural content of the Standard Model --- gauge group, discrete
@@ -5094,8 +5048,7 @@ have the form ``structural relations among observables, with a small
 number of empirical inputs setting the overall scales.'' Subsection 7.6
 collects the full prediction table.
 
-\hypertarget{the-ckm-matrix}{%
-\subsubsection{7.1 The CKM matrix}\label{the-ckm-matrix}}
+\subsubsection{7.1 The CKM matrix}\label{the-ckm-matrix}
 
 \textbf{The Cabibbo angle.}
 
@@ -5321,9 +5274,8 @@ entries. On the OI lattice, complex phases arise from the specific
 bijection \(\varphi\) and are likely solution-specific rather than
 structural.
 
-\hypertarget{charged-lepton-masses-and-the-fermion-mass-chain}{%
 \subsubsection{7.2 Charged lepton masses and the fermion mass
-chain}\label{charged-lepton-masses-and-the-fermion-mass-chain}}
+chain}\label{charged-lepton-masses-and-the-fermion-mass-chain}
 
 \textbf{Structural and bijection-level content.} The three lepton
 generations come from the three triplet (\(T_1\)) staggered tastes,
@@ -5890,8 +5842,7 @@ does not enter any other quantitative prediction:
 
 \[\boxed{m_t = \frac{v}{\sqrt{2}} = 174.1 \text{ GeV} \quad (\text{obs: } 172.5 \pm 0.3, \; 0.9\%)}\]
 
-\hypertarget{pmns-mixing-angles}{%
-\subsubsection{7.3 PMNS mixing angles}\label{pmns-mixing-angles}}
+\subsubsection{7.3 PMNS mixing angles}\label{pmns-mixing-angles}
 
 Tribimaximal (TBM) mixing --- \(\sin^2\theta_{12} = 1/3\),
 \(\sin^2\theta_{23} = 1/2\), \(\sin^2\theta_{13} = 0\) --- arises from
@@ -6341,8 +6292,7 @@ combination is \(\approx 1.07\), roughly \(5\sigma\) below \(7/6\), and
 the natural-form alternative discussed below fails in the opposite
 direction. A lower-octant determination excludes the prediction.
 
-\hypertarget{the-higgs-mass}{%
-\subsubsection{7.4 The Higgs mass}\label{the-higgs-mass}}
+\subsubsection{7.4 The Higgs mass}\label{the-higgs-mass}
 
 The Higgs is the \(A_1\) taste --- a composite scalar. Its quartic
 self-coupling at the compositeness scale has no tree-level contribution:
@@ -6442,9 +6392,8 @@ is fitted to the U(1) row (§6.3), \(y_t(M_{\mathrm{Pl}}) = 1\) does not
 reproduce \(m_t\) (§7.2), and §8.8 states cutoff insensitivity of
 \(m_H^2\) rather than a bare-mass condition.
 
-\hypertarget{the-bottom-to-tau-mass-ratio}{%
 \subsubsection{7.5 The bottom-to-tau mass
-ratio}\label{the-bottom-to-tau-mass-ratio}}
+ratio}\label{the-bottom-to-tau-mass-ratio}
 
 \textbf{Tree-level result.}
 
@@ -7044,9 +6993,8 @@ framework primitives entering the leading-order CW potential. The scalar
 prefactor (the \(K\) coefficient) is the separate Layer 2 question
 addressed by Arguments 1--3 above and the Residual gap subsection.
 
-\hypertarget{summary-table-of-all-predictions}{%
 \subsubsection{7.6 Summary table of all
-predictions}\label{summary-table-of-all-predictions}}
+predictions}\label{summary-table-of-all-predictions}
 
 Twenty-two quantitative observables from a \(d = 3\) cubic lattice with
 spacing \(\epsilon = 2\sqrt{\sigma}\,l_P\), classified by input status:
@@ -7343,8 +7291,7 @@ backreaction); (iii) CP-violating phases (solution-specific); (iv)
 neutrino masses (solution-specific; Majorana with normal ordering on the
 branch of §8.4, the mechanism otherwise open, §4.7.1).
 
-\hypertarget{the-coincidence-bound}{%
-\subsubsection{7.7 The coincidence bound}\label{the-coincidence-bound}}
+\subsubsection{7.7 The coincidence bound}\label{the-coincidence-bound}
 
 The structural (\textbf{S}), conditional structural (\textbf{C}) and
 layered (\textbf{L}) retrodictions of §7.6 --- thirteen observable
@@ -7472,10 +7419,9 @@ Model's flavor structure is expressible in cubic-lattice invariants to
 the stated precisions) and reserve confirmation-strength language for
 the forward set.
 
-\hypertarget{forward-predictions-and-the-retrodiction-vs-prediction-distinction}{%
 \subsubsection{7.8 Forward predictions and the
 retrodiction-vs-prediction
-distinction}\label{forward-predictions-and-the-retrodiction-vs-prediction-distinction}}
+distinction}\label{forward-predictions-and-the-retrodiction-vs-prediction-distinction}
 
 The coincidence bound of §7.7 quantifies how concentrated the
 framework's \emph{retrodictive} content is. It does not, and cannot,
@@ -7568,8 +7514,7 @@ advance and carry fixed values.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{discussion}{%
-\subsection{8. Discussion}\label{discussion}}
+\subsection{8. Discussion}\label{discussion}
 
 The cosmological application --- including the horizon calibration
 \(\hbar = c^3\epsilon^2/(4G\sigma)\), the Bekenstein-Hawking area law,
@@ -7580,8 +7525,7 @@ claim that quantum mechanics and general relativity descend as
 projections of the same \((S, \varphi)\), with a third projection
 bearing on the arrow of time, are developed in {[}Substratum{]}.
 
-\hypertarget{structural-realism}{%
-\subsubsection{8.1 Structural realism}\label{structural-realism}}
+\subsubsection{8.1 Structural realism}\label{structural-realism}
 
 The structural reading is compatible with ontic structural realism but
 does not require it. The reconstruction result identifies a local
@@ -7608,8 +7552,7 @@ universality class, \((S, \varphi)\) modulo \(\mathcal{G}_{\text{sub}}\)
 is the complete description. The full multi-level articulation is in
 {[}Structure §2.3{]}.
 
-\hypertarget{observer-genericity}{%
-\subsubsection{8.2 Observer genericity}\label{observer-genericity}}
+\subsubsection{8.2 Observer genericity}\label{observer-genericity}
 
 \textbf{Theorem 22} (Genericity of observers). \emph{Let φ be the wave
 equation (or any energy-conserving dynamics) on a connected
@@ -7685,10 +7628,9 @@ non-Markovian phenomenology follows. The coupled, capacious partition is
 a mathematical consequence; the memory-bearing observer requires the
 persistence and readback hypotheses.
 
-\hypertarget{what-the-framework-determines-and-what-the-specific-bijection-determines}{%
 \subsubsection{8.3 What the framework determines and what the specific
 bijection
-determines}\label{what-the-framework-determines-and-what-the-specific-bijection-determines}}
+determines}\label{what-the-framework-determines-and-what-the-specific-bijection-determines}
 
 The framework's predictions fall into two categories, and the
 distinction matters for assessing their status.
@@ -8130,9 +8072,8 @@ pre-registered as Class A in {[}Substratum, §6.4{]}; the amplitude
 measurement of it would constrain \(\sigma\), and its protection in the
 interacting theory is open (§3.1).
 
-\hypertarget{neutrino-masses-from-taste-breaking}{%
 \subsubsection{8.4 Neutrino masses from
-taste-breaking}\label{neutrino-masses-from-taste-breaking}}
+taste-breaking}\label{neutrino-masses-from-taste-breaking}
 
 The staggered fermion construction gives 4 tastes decomposing as
 \(1(A_1) + 3(T_1)\) under the cubic group \(O\) (§4.7). On the branch
@@ -8208,9 +8149,8 @@ representation theory plus \(U\)-parity-graded corrections from the
 charged-lepton sector, with the Cabibbo angle \(\lambda\) as the
 structural scale.
 
-\hypertarget{position-relative-to-mainstream-observer-essentiality-programs}{%
 \subsubsection{8.5 Position relative to mainstream observer-essentiality
-programs}\label{position-relative-to-mainstream-observer-essentiality-programs}}
+programs}\label{position-relative-to-mainstream-observer-essentiality-programs}
 
 The Standard Model derivation chain developed in this paper sits within
 a broader framework whose foundational claim --- that observation cannot
@@ -8240,10 +8180,9 @@ physics; the SM derivation chain provides the specific empirical content
 that distinguishes it. The full positioning relative to this body of
 work is developed in {[}Main, §4.4{]}.
 
-\hypertarget{pattern-vs.-output-what-transports-across-sm-reproducing-classes}{%
 \subsubsection{8.6 Pattern vs.~output: what transports across
 SM-reproducing
-classes}\label{pattern-vs.-output-what-transports-across-sm-reproducing-classes}}
+classes}\label{pattern-vs.-output-what-transports-across-sm-reproducing-classes}
 
 The §4 construction separates an exact geometric theorem from a
 conditional physical reading. The six simple-cubic signed links
@@ -8283,10 +8222,9 @@ leaving the observer-isotropy theorem and the geometric \((3,2,1)\)
 result intact. Downstream numerical claims that consume \(K=6\) are
 therefore conditional tests of the single-copy H-link branch.
 
-\hypertarget{substratum-level-baryon-number-conservation-and-the-substratum-emergent-operator-distinction}{%
 \subsubsection{8.7 Substratum-level baryon-number conservation and the
 substratum-emergent operator
-distinction}\label{substratum-level-baryon-number-conservation-and-the-substratum-emergent-operator-distinction}}
+distinction}\label{substratum-level-baryon-number-conservation-and-the-substratum-emergent-operator-distinction}
 
 The framework's matter sector (§4.7) places fermions on links with
 carrier \(V_K \otimes V_K^*\), where the \(V_3\) factor distinguishes
@@ -8428,11 +8366,12 @@ Standard mechanism (open derivation in framework) \\
 
 The framework's treatment of the strong CP problem (§5) is not yet an
 instance of this pattern --- substratum T-invariance narrows \(\theta\)
-to \(\{0,\pi\}\) and gives reciprocal transition counts, but does not
-fix \(\bar\theta\); it would become one if H-top and H-det were
-supplied. The pattern is: substratum-level symmetry forces a value of an
-emergent parameter that would otherwise be free. The substratum-level
-\(B\) conservation derived above is another instance: substratum-level
+to \(\{0,\pi\}\) and gives reciprocal transition counts under the
+counting hidden prior of a finite model, but does not fix
+\(\bar\theta\); it would become one if H-top and H-det were supplied.
+The pattern is: substratum-level symmetry forces a value of an emergent
+parameter that would otherwise be free. The substratum-level \(B\)
+conservation derived above is another instance: substratum-level
 structural feature provides exact conservation that maps to
 bilinear-renormalizable conservation at the emergent level, with
 non-perturbative violations through emergent processes only.
@@ -8501,10 +8440,9 @@ the bilinear level; the emergent operators inherit the conservation
 modulo non-perturbative violations that follow from standard QFT
 mechanisms operating in the emergent EFT.
 
-\hypertarget{composite-higgs-chiral-protection-and-the-unified-naturalness-pattern}{%
 \subsubsection{8.8 Composite-Higgs chiral protection and the unified
 naturalness
-pattern}\label{composite-higgs-chiral-protection-and-the-unified-naturalness-pattern}}
+pattern}\label{composite-higgs-chiral-protection-and-the-unified-naturalness-pattern}
 
 The framework's treatment of three open problems of the Standard Model
 --- strong CP, the hierarchy problem, the cosmological constant --- is
@@ -8542,12 +8480,12 @@ is one instance per problem:
 \item
   \emph{Strong CP} (§5, Theorems 17--21): substratum-level T-invariance
   of the wave equation narrows \(\theta\) to \(\{0,\pi\}\) and gives
-  reciprocal visible transition counts at every scale, but reciprocity
-  does not make the emergent Hamiltonian T-invariant, so
-  \(\arg\det(Y_uY_d)\) and hence \(\bar\theta\) are not fixed. The
-  structural feature is T-invariance; the parameter it would protect is
-  \(\bar\theta\); the instance is open under H-top and H-det, and is the
-  weakest of the three.
+  reciprocal visible transition counts under the counting hidden prior
+  of a finite model at every scale, but reciprocity does not make the
+  emergent Hamiltonian T-invariant, so \(\arg\det(Y_uY_d)\) and hence
+  \(\bar\theta\) are not fixed. The structural feature is T-invariance;
+  the parameter it would protect is \(\bar\theta\); the instance is open
+  under H-top and H-det, and is the weakest of the three.
 \item
   \emph{Hierarchy problem} (developed below): the staggered-taste chiral
   symmetry pairing \(\mu = +1\) singlet with \(\mu = -1\) singlet
@@ -8765,12 +8703,11 @@ tested experimentally over the next 20 years.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{conclusion}{%
-\subsection{9. Conclusion}\label{conclusion}}
+\subsection{9. Conclusion}\label{conclusion}
 
 This paper has shown that the Standard Model's gauge group, matter
-content, and discrete symmetries are determined by a finite bijection on
-a \(d = 3\) cubic lattice --- itself empirically anchored (the dimension
+content, and discrete symmetries are determined by a bijection on a
+\(d = 3\) cubic lattice --- itself empirically anchored (the dimension
 fixed by the §3.2 filters and the cubic Bravais structure forced by the
 observed gauge group, §4.6; classified as Tier-2 input in §8.3, not
 derived) --- through the lattice wave equation and a chain of theorems
@@ -8789,9 +8726,10 @@ and the SM gauge couplings at \(M_Z\) to \(0.1\%\) and \(0.3\%\) (the
 SU(2) and SU(3) values being retrodictions matched through the threshold
 parameters, not first-principles predictions; §6.3). For strong CP the
 paper shows that substratum T-invariance gives \(\theta\in\{0,\pi\}\)
-and reciprocal transition counts but not a T-invariant emergent
-Hamiltonian, so \(\bar\theta\) is not fixed by the construction; the
-problem is open under two named conditions, H-top and H-det (§5).
+and reciprocal transition counts under the counting hidden prior of a
+finite model but not a T-invariant emergent Hamiltonian, so
+\(\bar\theta\) is not fixed by the construction; the problem is open
+under two named conditions, H-top and H-det (§5).
 
 The framework is sharply falsifiable by experiments now in progress or
 under construction. JUNO's first results (November 2025) are matched at
@@ -8825,8 +8763,8 @@ projections of the same \((S, \varphi)\), with a third projection
 bearing on the arrow of time, are developed in {[}Substratum{]}.
 Together, this four-paper synthesis ({[}Main{]}, {[}SM{]}, {[}GR{]},
 {[}Substratum{]}) makes a single claim: the Standard Model and general
-relativity are projections of one finite deterministic construction ---
-the visible-sector projection developed here and the boundary-level
+relativity are projections of one deterministic construction --- the
+visible-sector projection developed here and the boundary-level
 thermodynamic limit developed in {[}GR{]} ; the
 horizon-clock-plus-observer-selection projection is developed in
 {[}Substratum §5.4{]}, where the alignment of the arrows of time is
@@ -8837,9 +8775,8 @@ of embedded observers.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{appendix-a-jordan-chevalley-structure-of-the-ring-evolution}{%
 \subsection{Appendix A: Jordan-Chevalley Structure of the Ring
-Evolution}\label{appendix-a-jordan-chevalley-structure-of-the-ring-evolution}}
+Evolution}\label{appendix-a-jordan-chevalley-structure-of-the-ring-evolution}
 
 This appendix derives the period and the Jordan-Chevalley decomposition
 of the evolution matrix and states which of the decomposition's data the
@@ -8847,8 +8784,7 @@ visible laws retain. Results are stated for the scalar wave equation on
 a ring of L sites over \(\mathbb{F}_q\); the multi-component extension
 incorporates the gauge group.
 
-\hypertarget{setup}{%
-\subsubsection{Setup}\label{setup}}
+\subsubsection{Setup}\label{setup}
 
 The wave equation
 \(x(n, t+1) = x(n-1, t) + x(n+1, t) - x(n, t-1) \pmod{q}\) has phase
@@ -8856,9 +8792,8 @@ space \((\mathbb{Z}/q\mathbb{Z})^{2L}\) and evolution matrix
 \(F = \left(\begin{smallmatrix} 0 & I \\ -I & A \end{smallmatrix}\right)\)
 where A is the circulant adjacency matrix.
 
-\hypertarget{theorem-a.1-period-formula}{%
 \subsubsection{Theorem A.1 (Period
-formula)}\label{theorem-a.1-period-formula}}
+formula)}\label{theorem-a.1-period-formula}
 
 \emph{For q prime with \(\gcd(L, q) = 1\) --- q = 2 included:
 \(\mathrm{ord}(F \bmod q) = qL\).}
@@ -8885,9 +8820,8 @@ order exactly 2, while \(\gcd(L, 2) = 1\) forces L odd; hence
 
 \emph{Verified computationally for q = 2, 3, 5, 7, 11, 13 and L ≤ 12.}
 
-\hypertarget{theorem-a.2-jordan-chevalley-decomposition}{%
 \subsubsection{Theorem A.2 (Jordan-Chevalley
-decomposition)}\label{theorem-a.2-jordan-chevalley-decomposition}}
+decomposition)}\label{theorem-a.2-jordan-chevalley-decomposition}
 
 \emph{Define \(N = (F^L - I)/L \bmod q\). Then: (i) N is nilpotent with
 N² = 0, and rank(N) is the number of parabolic modes: 2 for even L,
@@ -8914,9 +8848,8 @@ eigenspaces, which are \(F\)-invariant. \(\square\)
 \emph{Verified computationally for L = 4, 6, 8, 10, 12 and q = 3, 5, 7,
 11, 13.}
 
-\hypertarget{theorem-a.3-q-independence-of-the-weil-deligne-conductor}{%
 \subsubsection{Theorem A.3 (q-independence of the Weil-Deligne
-conductor)}\label{theorem-a.3-q-independence-of-the-weil-deligne-conductor}}
+conductor)}\label{theorem-a.3-q-independence-of-the-weil-deligne-conductor}
 
 \emph{The Weil-Deligne conductor
 \(\mathfrak{f}_{\mathrm{WD}} = \mathfrak{f}_{\mathrm{ss}}(L) + \mathrm{rank}(N)\)
@@ -8946,9 +8879,8 @@ their orders match. \(\square\)
 12 & 130 & 132 \\
 \end{longtable}
 
-\hypertarget{theorem-a.4-additive-decomposition-over-gauge-irreps}{%
 \subsubsection{Theorem A.4 (Additive decomposition over gauge
-irreps)}\label{theorem-a.4-additive-decomposition-over-gauge-irreps}}
+irreps)}\label{theorem-a.4-additive-decomposition-over-gauge-irreps}
 
 \emph{For the K-component wave equation with coupling matrix
 \(M = \mathrm{diag}(\mu_1 I_{n_1}, \ldots, \mu_r I_{n_r})\):}
@@ -8973,9 +8905,8 @@ and \(N\) inherit the block-diagonal structure, so
 \emph{Verified for all \((\mu_c, \mu_w) \in \{1, \ldots, q-1\}^2\) at q
 = 3, 5, 7 with L = 4. Every case matches exactly.}
 
-\hypertarget{spectral-data-and-visible-laws}{%
 \subsubsection{Spectral data and visible
-laws}\label{spectral-data-and-visible-laws}}
+laws}\label{spectral-data-and-visible-laws}
 
 Let \(q\) be prime with \(\gcd(L, q) = 1\).
 
@@ -9018,9 +8949,8 @@ component separates the two laws.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{code-and-data-availability}{%
 \subsection{Code and Data
-Availability}\label{code-and-data-availability}}
+Availability}\label{code-and-data-availability}
 
 The lattice Monte Carlo computations reported in this paper were
 performed using a custom C implementation. Specifically:
@@ -9053,16 +8983,14 @@ the §7.5 prediction are available from the author on request.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{acknowledgments}{%
-\subsection{Acknowledgments}\label{acknowledgments}}
+\subsection{Acknowledgments}\label{acknowledgments}
 
 AI assistance in preparing this work is disclosed at\\
 \url{https://github.com/amaybaum/incompleteness\#ai-assistance}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 \textbf{Companion papers (cited inline by short name):}
 
@@ -9238,4 +9166,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: f7921f780f3ad14d9fbf550faba715b5da93c064d86f9506cf104e9b2751aac1
+% source-sha256: 9204d8051b65a69d8d19db05e3e3984bc6ccbaa254369b6476b9cbbf35679a20

@@ -1,0 +1,27 @@
+PASS G1a |+><+| - diag(a,1-a) is traceless with -det = (a-1/2)^2 + 1/4, so trace norm = 2*sqrt((a-1/2)^2+1/4)
+PASS G1b minimum over a is 1, attained at a = 1/2
+PASS G1c -det(|+i><+i| - R) = (a-1/2)^2 + r^2 + 1/4 >= 1/4, so trace norm >= 1
+PASS G1d countercontrol: the non-diagonal candidate |+><+| itself is at distance 0
+PASS G2a every random bijection on |S|<=7 gives an L-periodic law, L = lcm(1..|S|)
+PASS G2b qubit law cos^2(K pi/(2L)) at L=2: p_L = 0, p_2L = 1
+PASS G2b qubit law cos^2(K pi/(2L)) at L=6: p_L = 0, p_2L = 1
+PASS G2b qubit law cos^2(K pi/(2L)) at L=60: p_L = 0, p_2L = 1
+PASS G2b qubit law cos^2(K pi/(2L)) at L=420: p_L = 0, p_2L = 1
+PASS G2c countercontrol: a non-bijective stochastic map gives a law with no period <= 2 (L=lcm(1,2))
+PASS G3a there are 24 signed-permutation rotations (octahedral group)
+PASS G3b exactly 12 rotations (A4) give nonnegative frame matrices, each a permutation matrix
+PASS G3c each of the other 12 octahedral (Clifford) rotations has a frame entry -1/2
+PASS G3d the Hadamard rotation and the S rotation are among the negative ones
+PASS G3e control: identity rotation gives the identity frame matrix
+PASS G4 tr((rho - D) W) = 1 for x+ (x) z+ and every diagonal D (so trace distance >= 1/2)
+PASS G4 tr((rho - D) W) = 1 for y+ (x) z+ and every diagonal D (so trace distance >= 1/2)
+PASS G4 control: z+ (x) z+ is itself diagonal
+PASS G5 frame identities: sum E_i = I and tr(E_i D_k) = delta_ik
+PASS G5a every joint frame coordinate of Phi+ is >= 0 (and they sum to 1)
+PASS G5 control: identity's frame matrix is the 16x16 identity
+     CNOT frame matrix: minimum entry = 1/4 - sqrt(3)/3 ~ -0.32735027
+PASS G5b the CNOT frame matrix has a negative entry
+PASS G5 control prerequisite: (I - i(X+Y+Z))/2 is unitary
+PASS G5c control: frame matrix of (3-cycle rotation) (x) I is a nonnegative permutation matrix
+PASS G5d point mass on one ontic pair reconstructs D_0 (x) D_0, which has a negative eigenvalue
+RESULT ALL PASS

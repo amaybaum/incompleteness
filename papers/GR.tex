@@ -161,7 +161,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -173,10 +173,9 @@
 
 \begin{document}
 
-\hypertarget{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}{%
 \section{ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form
 of Dark Energy from the Cosmological
-Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}}
+Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}
 
 \textbf{Author:} Alex Maybaum\\
 \textbf{Date:} April 2026\\
@@ -185,8 +184,7 @@ Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 Applied to the cosmological horizon as a causal partition, the
 embedded-observation framework of {[}Main{]} determines the emergent
@@ -255,8 +253,7 @@ the specific substratum dynamics, treated in a separate companion paper
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
 The cosmological observables that most resist explanation within
 standard physics --- the origin of the action scale \(\hbar\), the
@@ -292,21 +289,21 @@ hidden-sector mixing hypothesis, which the eigenstate thermalization
 hypothesis motivates, its persistence form holding without it, and full
 operational quantum theory approached at every finite test with its
 unique selection open; (ii) under the canonical measure of {[}Main{]}
-Lemma 3 --- the invariant measure selected by maximal entropy, which the
-physical realization uses --- the emergent description is uniquely
-determined by the partition (partition-relativity); (iii) the emergent
-transition probabilities \(T_{ij}(t)\) determine the Bohr-frequency set
-of the emergent Hamiltonian and, under the genericity hypotheses
-(G1)--(G4) of the phase-locking lemma or, without (G4), conditional on
-the classification hypothesis H-BG of §3.3, the emergent Hamiltonian
-itself up to a diagonal-unitary D-gauge, an energy origin, and one
-global antiunitary conjugation --- the two-branch form of §3.3 --- via
-the phase-locking lemma applied to continuous-time sampling. The
-technical bridge from P-indivisible classical stochastic processes on
-finite configuration spaces to unitary quantum evolution on finite
-Hilbert spaces is Barandes' stochastic-quantum correspondence {[}35,
-36{]}, used by the companion paper for compression and interpretation
---- the fixed-basis representation itself is supplied internally there
+Lemma 3 --- the invariant measure selected by maximal entropy --- the
+emergent description is uniquely determined by the partition
+(partition-relativity); (iii) the emergent transition probabilities
+\(T_{ij}(t)\) determine the Bohr-frequency set of the emergent
+Hamiltonian and, under the genericity hypotheses (G1)--(G4) of the
+phase-locking lemma or, without (G4), conditional on the classification
+hypothesis H-BG of §3.3, the emergent Hamiltonian itself up to a
+diagonal-unitary D-gauge, an energy origin, and one global antiunitary
+conjugation --- the two-branch form of §3.3 --- via the phase-locking
+lemma applied to continuous-time sampling. The technical bridge from
+P-indivisible classical stochastic processes on finite configuration
+spaces to unitary quantum evolution on finite Hilbert spaces is
+Barandes' stochastic-quantum correspondence {[}35, 36{]}, used by the
+companion paper for compression and interpretation --- the fixed-basis
+representation itself is supplied internally there
 (\(S \iff D \iff Q_{\mathrm{fb}}\)). We treat these results as inputs
 and apply them to the cosmological horizon. The cosmological horizon
 independently verifies C1--C3: causal coupling via the Einstein
@@ -466,12 +463,10 @@ are developed in {[}Substratum{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-cosmological-horizon-as-causal-partition}{%
 \subsection{2. The Cosmological Horizon as Causal
-Partition}\label{the-cosmological-horizon-as-causal-partition}}
+Partition}\label{the-cosmological-horizon-as-causal-partition}
 
-\hypertarget{the-partition}{%
-\subsubsection{2.1 The partition}\label{the-partition}}
+\subsubsection{2.1 The partition}\label{the-partition}
 
 The cosmological horizon --- the boundary beyond which no signal
 propagating at or below \(c\) can reach the observer --- implements the
@@ -486,9 +481,8 @@ only on local geometric quantities --- not on the observer's worldline
 or horizon area --- so all observers share the same emergent action
 scale.
 
-\hypertarget{verification-of-the-conditions}{%
 \subsubsection{2.2 Verification of the
-conditions}\label{verification-of-the-conditions}}
+conditions}\label{verification-of-the-conditions}
 
 \textbf{(C1)} In the ADM formulation, the bulk Hamiltonian is a sum of
 constraints that vanish on-shell; physical time evolution is generated
@@ -525,8 +519,7 @@ cosmological cut. \textbf{Not presently discharged.} Nothing in §3
 consumes it: the \(\hbar\) calibration is carried by H-slope together
 with the horizon and frame conditions and H-count.
 
-\hypertarget{application}{%
-\subsubsection{2.3 Application}\label{application}}
+\subsubsection{2.3 Application}\label{application}
 
 \textbf{Which horizon, and why the calibration is stated on exact de
 Sitter.} Two distinct surfaces are in play and they coincide only in
@@ -554,22 +547,22 @@ the same factor enters both the classical and emergent thermal
 descriptions and cancels; that is not established here.
 
 \textbf{The classical horizon temperature as a counting derivative,
-under H-count.} Restrict the finite total system to a conserved energy
-shell and let visible configuration \(i\) carry energy \(e_i\). If the
-boundary interaction is negligible at the shell scale, uniform counting
-gives \(P(i)=\Omega_H(E-e_i)/\sum_j\Omega_H(E-e_j)\), so with
-\(s_H=\ln\Omega_H\) and \(\beta=s_H'(E)\),
+under H-count.} Under A1, restrict the finite total system to a
+conserved energy shell and let visible configuration \(i\) carry energy
+\(e_i\). If the boundary interaction is negligible at the shell scale,
+uniform counting gives \(P(i)=\Omega_H(E-e_i)/\sum_j\Omega_H(E-e_j)\),
+so with \(s_H=\ln\Omega_H\) and \(\beta=s_H'(E)\),
 \(P(i)\propto\exp[-\beta e_i+\tfrac12 s_H''(E)e_i^2+O(e_i^3)]\). Gibbs
 is the leading finite-bath marginal of uniform counting, classically.
-Under the hidden-sector condition \textbf{H-count} --- the
-energy-dependent entropy of the whole hidden sector at the shell scale
-is the boundary count, \(s_H=\sigma A/\epsilon^2\) up to an
-energy-independent constant, the shell energy \(E\) being the energy of
-the horizon first law and the deep hidden sector contributing no
-energy-dependent multiplicity and, by the choice of energy zero, no
-energy; S1--S4 do not supply it, their hidden capacity
-\(\sim S_{\rm dS}\) fixing no entropy--energy slope --- feeding in
-\(dE=c^2\kappa\,dA/(8\pi G)\) gives
+Under the hidden-sector condition \textbf{H-count} --- that the total
+system is finite (A1) and that the energy-dependent entropy of the whole
+hidden sector at the shell scale is the boundary count,
+\(s_H=\sigma A/\epsilon^2\) up to an energy-independent constant, the
+shell energy \(E\) being the energy of the horizon first law and the
+deep hidden sector contributing no energy-dependent multiplicity and, by
+the choice of energy zero, no energy; S1--S4 do not supply it, their
+hidden capacity \(\sim S_{\rm dS}\) fixing no entropy--energy slope ---
+feeding in \(dE=c^2\kappa\,dA/(8\pi G)\) gives
 \(\partial s_H/\partial E=8\pi G\sigma/(c^2\kappa\epsilon^2)\) and hence
 \(k_BT_{\rm micro}=(\partial s_H/\partial E)^{-1}=c^2\kappa\epsilon^2/(8\pi G\sigma)=k_BT_{\rm cl}\)
 --- with no quantum mechanics, no KMS condition, no vacuum choice and no
@@ -793,13 +786,11 @@ conditional on its named conditions.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-emergent-action-scale-hbar}{%
 \subsection{\texorpdfstring{3. The Emergent Action Scale
-\(\hbar\)}{3. The Emergent Action Scale \textbackslash hbar}}\label{the-emergent-action-scale-hbar}}
+\(\hbar\)}{3. The Emergent Action Scale \textbackslash hbar}}\label{the-emergent-action-scale-hbar}
 
-\hypertarget{the-classical-horizon-temperature}{%
 \subsubsection{3.1 The classical horizon
-temperature}\label{the-classical-horizon-temperature}}
+temperature}\label{the-classical-horizon-temperature}
 
 Jacobson {[}1{]} showed \(dE = T\,dS\) applied to local causal horizons
 yields Einstein's equations, with \(dE = (c^2 \kappa / 8\pi G)\,dA\),
@@ -873,9 +864,8 @@ law is a fixed point of the construction regardless, and the component
 count enters only the discreteness scale, where the link-direction
 structure fixes it at unity on lattice-plane-aligned cuts.
 
-\hypertarget{the-emergent-action-scale}{%
 \subsubsection{3.2 The emergent action
-scale}\label{the-emergent-action-scale}}
+scale}\label{the-emergent-action-scale}
 
 \textbf{Step 1: Uniqueness.} \(\hbar\) is derived, not free, conditional
 on the calibration \(a_*=\tau_K/\beta_E\) (§2.3; Step 4) and its named
@@ -1014,23 +1004,35 @@ stability bound not derived here. Systems with the same update on the
 sites of \(V \cup B_{n-1}\) produce the same visible transition data on
 \([0, n\,\Delta t]\), and under H-BD systems with the same
 \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the same data to
-within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep sector; the
-first statement holds also for an infinite deep sector, given a
-normalized product prior on it, a locally finite coupling graph and
-well-defined dynamics ({[}Substratum §4{]}) in which each component's
-update depends on finitely many components.}
+within \(\mathcal{O}(t/\tau_{BD})\), for every finite deep sector. A
+second system has the same update on the sites of \(V \cup B_{n-1}\)
+when those sites and the sites on which their updates depend are
+identified with sites of the second system by an injection \(e\) that is
+the identity on \(V\) and preserves alphabets, such that for each site
+\(i\) of \(V \cup B_{n-1}\) the update at \(e(i)\) depends exactly on
+the images of the sites on which the update at \(i\) depends, through
+the same local rule. The statements that do not use H-BD hold also for a
+deep sector of any cardinality under hypotheses (D1)--(D5) of Appendix
+B: \(V\) is a finite set of sites; the update is defined on every
+configuration, and each component's update is a function of finitely
+many components; the coupling graph is locally finite; the alphabets on
+\(V \cup B_n\) are finite; and the hidden prior is the product of the
+uniform distribution on \(\mathcal{C}_{B_n}\) and a normalized prior on
+\(\mathcal{C}_{D_n}\).}
 
-\emph{Proof.} \(T^{(B_n)}_{ij}(t)\) and \(T^{(B)}_{ij}(t)\) are defined
-by sums over \(\mathcal{C}_{B_n}\) and \(\mathcal{C}_B\) alone, and by
-the causal cone \(T^{(B_n)}_{ij}(m\,\Delta t)\), \(m \leq n\), involves
-only the update on \(V \cup B_{n-1}\). By the lemma,
-\(\mathcal{C}_{D_n}\) does not enter \(T_{ij}(t)\) for
-\(t \leq n\,\Delta t\), and under H-BD \(\mathcal{C}_D\) enters only
-through a correction of at most \(2t/\tau_{BD}\). For an infinite deep
-sector with a normalized product prior, each visible component after
-\(n\) updates is a function of finitely many initial components in
-\(B_{G_\varphi}(V, n)\), so the integrand is again independent of the
-components beyond \(B_n\). The set of emergent Hamiltonians compatible
+\emph{Proof.} \(T^{(B)}_{ij}(t)\) is defined by a sum over
+\(\mathcal{C}_B\) alone, and under H-BD \(\mathcal{C}_D\) enters
+\(T_{ij}(t)\) only through a correction of at most \(2t/\tau_{BD}\)
+(part (b) of the lemma). The statements that do not use H-BD are proved
+in Appendix B under (D1)--(D5), which a finite system with the uniform
+hidden prior satisfies, the uniform distribution on
+\(\mathcal{C}_{B_n} \times \mathcal{C}_{D_n}\) being the product of the
+uniform distributions: for \(m \leq n\),
+\(T_{ij}(m\,\Delta t) = T^{(B_n)}_{ij}(m\,\Delta t)\) is a count over
+the configurations of the dependency patch \(W_n \subseteq B_n\) of the
+visible sector, which involves neither \(\mathcal{C}_{D_n}\) nor the
+prior on it and is the same for two systems with the same update on the
+sites of \(V \cup B_{n-1}\). The set of emergent Hamiltonians compatible
 with \(\{T_{ij}(m\,\Delta t) : m \leq n\}\) is fixed by those data
 alone, so it inherits their exact independence of \(\mathcal{C}_{D_n}\),
 and so does every quantity that takes the same value on all its members.
@@ -1243,9 +1245,8 @@ of the principal polynomial, and its comparison against the closure of
 weakly birefringent electrodynamics {[}arXiv:1708.03870{]}, is an open
 consistency check.
 
-\hypertarget{gauge-fixing-and-the-dimensional-obstruction}{%
 \subsubsection{3.3 Gauge-fixing and the dimensional
-obstruction}\label{gauge-fixing-and-the-dimensional-obstruction}}
+obstruction}\label{gauge-fixing-and-the-dimensional-obstruction}
 
 Step 4 fixes \(\hbar\) in terms of \(\epsilon\) via thermal matching. A
 prior question must be addressed: does the transition-probability data
@@ -1901,20 +1902,21 @@ mechanics on every nonempty finite carrier, and that quantum mechanics
 is generated by one (kernel:
 \texttt{genTheory\_qm\_of\_quantumArchitecture},
 \texttt{qm\_generated\_by\_quantumArchitecture} in
-\texttt{OIBridge/SubstratumSource.lean}). The concrete OI substratum ---
-finite states and bijective microscopic dynamics --- together with one
-further intervention principle, that a relative phase on a single state
-is a selectable intervention at every level, supplies the structural
-part in full. The phase intervention enters as an assumption on the
-substratum class, not as a consequence of the finite states with the
-bijective read-write dynamics: every isometry that dynamics and the
-stated observer access supply carries the all-ones vector to a multiple
-of itself; on every finite carrier with two or more states, the theory
-generated by an architecture whose admissible isometries do so fails the
-requirement of a quarter phase on every state at every level, the
-failure being exhibited at level one, with no claim that the quarter
-phase is unavailable at each composite level; and the quarter phase
-carries that vector off its ray (kernel: \texttt{permClass\_onesFixing},
+\texttt{OIBridge/SubstratumSource.lean}). The concrete OI substratum
+under A1 --- finite states and bijective microscopic dynamics ---
+together with one further intervention principle, that a relative phase
+on a single state is a selectable intervention at every level, supplies
+the structural part in full. The phase intervention enters as an
+assumption on the substratum class, not as a consequence of the finite
+states with the bijective read-write dynamics: every isometry that
+dynamics and the stated observer access supply carries the all-ones
+vector to a multiple of itself; on every finite carrier with two or more
+states, the theory generated by an architecture whose admissible
+isometries do so fails the requirement of a quarter phase on every state
+at every level, the failure being exhibited at level one, with no claim
+that the quarter phase is unavailable at each composite level; and the
+quarter phase carries that vector off its ray (kernel:
+\texttt{permClass\_onesFixing},
 \texttt{onesFixing\_not\_phasesAvailable},
 \texttt{substratumClass\_not\_onesFixing} in
 \texttt{OIBridge/PhaseSource.lean}). An operator carrying the all-ones
@@ -2250,9 +2252,8 @@ lie outside the emergent QFT's domain.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{self-consistency-and-the-discreteness-scale}{%
 \subsection{4. Self-Consistency and the Discreteness
-Scale}\label{self-consistency-and-the-discreteness-scale}}
+Scale}\label{self-consistency-and-the-discreteness-scale}
 
 Rearranging \(\hbar = c^3 \epsilon^2 / (4G\sigma)\):
 
@@ -2278,9 +2279,8 @@ and the consequences that follow.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-bekenstein-hawking-entropy}{%
 \subsection{5. The Bekenstein-Hawking
-Entropy}\label{the-bekenstein-hawking-entropy}}
+Entropy}\label{the-bekenstein-hawking-entropy}
 
 With \(\epsilon = 2\sqrt{\sigma}\,l_p\), the number of independent modes
 on the cosmological horizon is:
@@ -2356,13 +2356,11 @@ masses and spins.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{dissolution-of-the-cosmological-constant-problem}{%
 \subsection{6. Dissolution of the Cosmological Constant
-Problem}\label{dissolution-of-the-cosmological-constant-problem}}
+Problem}\label{dissolution-of-the-cosmological-constant-problem}
 
-\hypertarget{the-two-levels-of-description}{%
 \subsubsection{6.1 The two levels of
-description}\label{the-two-levels-of-description}}
+description}\label{the-two-levels-of-description}
 
 \textbf{From finite-dimensional QM to QFT.} Part I delivers an exact
 fixed-basis unitary/Born representation of the observer's finite-horizon
@@ -2445,9 +2443,8 @@ Zero-point energy \(\frac{1}{2}\hbar\omega\) per mode summed to the
 Planck cutoff gives \(\rho_{\text{QFT}} \sim 10^{113}\) J/m\(^3\) --- a
 \(\sim 10^{122}\) discrepancy with the observed value {[}6, 7, 8{]}.
 
-\hypertarget{why-gravity-sees-the-classical-value}{%
 \subsubsection{6.2 Why gravity sees the classical
-value}\label{why-gravity-sees-the-classical-value}}
+value}\label{why-gravity-sees-the-classical-value}
 
 Spacetime geometry is part of the classical substratum (Lemma 2): the
 metric evolves via Einstein's equations \emph{before} the trace-out. The
@@ -2465,11 +2462,11 @@ substance-level primitives, and under the reconstruction theorem,
 spacetime emerges from \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) given
 the framework's irreducible starting commitments (the fact that
 observation occurs, the empirical inputs E1--E7, and the structural
-assumptions A1--A6). It is a claim about the direction of the derivation
-chain --- that the trace-out producing QM presupposes the classical
-geometric structure, not the reverse. This ordering is forced by the
-logical structure of the derivation through three independent
-requirements:
+assumptions A1--A6, of which A1 enters as an open hypothesis rather than
+a commitment). It is a claim about the direction of the derivation chain
+--- that the trace-out producing QM presupposes the classical geometric
+structure, not the reverse. This ordering is forced by the logical
+structure of the derivation through three independent requirements:
 
 \emph{(i) Definiteness.} The trace-out that produces the
 quantum-representable reduced description is defined by a
@@ -2647,10 +2644,9 @@ vacuum energy (volumetric, state-dependent, a property of
 \(H_{\text{tot}}\)) does, but at the classical scale \(\rho \sim H^2/G\)
 rather than \(\rho \sim M_{\text{Pl}}^4\).
 
-\hypertarget{the-structural-origin-of-the-10122-discrepancy}{%
 \subsubsection{\texorpdfstring{6.3 The structural origin of the
 \(10^{122}\)
-discrepancy}{6.3 The structural origin of the 10\^{}\{122\} discrepancy}}\label{the-structural-origin-of-the-10122-discrepancy}}
+discrepancy}{6.3 The structural origin of the 10\^{}\{122\} discrepancy}}\label{the-structural-origin-of-the-10122-discrepancy}
 
 \(\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) \sim S_{\text{dS}} = A/(4\,l_p^2)\)
 --- a dimensional identity for any theory with a Planck cutoff and a
@@ -2728,8 +2724,7 @@ mechanism.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{predictions-and-tests}{%
-\subsection{7. Predictions and Tests}\label{predictions-and-tests}}
+\subsection{7. Predictions and Tests}\label{predictions-and-tests}
 
 \textbf{What the classical tests test.} A scope observation frames this
 section. The classic precision tests of general relativity ---
@@ -2759,9 +2754,8 @@ where the predictions of this section live. The classical record's
 silence about the equations is therefore not a loophole the framework
 hides in but the reason its forward tests are cosmological.
 
-\hypertarget{dark-energy-evolution-in-running-vacuum-form}{%
 \subsubsection{7.1 Dark energy evolution in running vacuum
-form}\label{dark-energy-evolution-in-running-vacuum-form}}
+form}\label{dark-energy-evolution-in-running-vacuum-form}
 
 \(\hbar\) is \(H\)-independent (§3.2), but the emergent vacuum energy is
 a state-level quantity depending on the hidden sector's volume.
@@ -3009,9 +3003,8 @@ therefore the kind of healthy empirical exposure --- a falsification
 gradient with concrete decisive test scheduled --- that distinguishes a
 framework engaged with data from one tuned to fit it.
 
-\hypertarget{the-dark-sector-corollary}{%
 \subsubsection{7.2 The dark-sector
-corollary}\label{the-dark-sector-corollary}}
+corollary}\label{the-dark-sector-corollary}
 
 The trace-out that produces the quantum-representable reduced
 description has an automatic gravitational consequence.
@@ -3192,9 +3185,8 @@ of dark matter particles accounting for the full \textasciitilde27\%
 structured dark sector, or by evidence that the dark sector's
 gravitational effects are unrelated to the boundary geometry.
 
-\hypertarget{dark-matter-from-entropy-displacement}{%
 \subsubsection{7.3 Dark matter from entropy
-displacement}\label{dark-matter-from-entropy-displacement}}
+displacement}\label{dark-matter-from-entropy-displacement}
 
 The total dark sector budget is established by §7.2. This section
 derives the structured component from the entropy displacement induced
@@ -3603,9 +3595,8 @@ the relaxation rate, required for a full mode-by-mode kernel.
 (temporal reconciliation verified numerically,
 relaxation\_kernel\_check.py 2026-06-29; \(k\)-dependence deferred).}
 
-\hypertarget{summary-of-gr-side-predictions}{%
 \subsubsection{7.4 Summary of GR-side
-predictions}\label{summary-of-gr-side-predictions}}
+predictions}\label{summary-of-gr-side-predictions}
 
 The GR-side quantitative predictions of the framework are collected in
 the table below. Each follows from partition geometry at the
@@ -3767,8 +3758,7 @@ only, not the fork. The remaining residual is the interacting
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{discussion}{%
-\subsection{8. Discussion}\label{discussion}}
+\subsection{8. Discussion}\label{discussion}
 
 The foundational emergent QM result is treated as established in
 {[}Main{]} and not re-derived here. The cubic-lattice realization of the
@@ -3780,8 +3770,7 @@ relativity descend as projections of the same \((S, \varphi)\), with a
 third projection bearing on the arrow of time, are developed in
 {[}Substratum{]}.
 
-\hypertarget{scope}{%
-\subsubsection{8.1 Scope}\label{scope}}
+\subsubsection{8.1 Scope}\label{scope}
 
 The characterization theorem's equivalence is (ii) \(\iff\) (iii), with
 (iii) carrying (C1), (C3) and (C4) --- both directions proved in the
@@ -3802,9 +3791,8 @@ nor derive \(\hbar\) for specific systems (requires Part II).
 Universality in our universe rests on the shared causal partition
 defined by null geodesics, conditional on (C4) at the cosmological cut.
 
-\hypertarget{the-status-of-the-discreteness-scale}{%
 \subsubsection{8.2 The status of the discreteness
-scale}\label{the-status-of-the-discreteness-scale}}
+scale}\label{the-status-of-the-discreteness-scale}
 
 \(\epsilon\) does not smuggle in a quantum assumption. Lemma 1 requires
 finite-dimensionality, motivated by the classical fact that finite-area
@@ -3813,9 +3801,8 @@ boundaries admit finitely many modes. The result
 self-consistency (§4). Holographic entropy bounds {[}26{]} provide
 independent, non-quantum motivation.
 
-\hypertarget{vacuum-energy-relative-effects-and-the-higgs-potential}{%
 \subsubsection{8.3 Vacuum energy: relative effects and the Higgs
-potential}\label{vacuum-energy-relative-effects-and-the-higgs-potential}}
+potential}\label{vacuum-energy-relative-effects-and-the-higgs-potential}
 
 \textbf{Relative effects.} Casimir forces and Lamb shifts are
 predictions \emph{within} the emergent QFT --- relative effects
@@ -3891,9 +3878,8 @@ a property of the partition geometry, not of the dynamics, and
 therefore, on the geometry-first proposal of §6.2 and conditional on its
 open coupling step, does not source curvature.
 
-\hypertarget{assumptions-limitations-and-falsifiability}{%
 \subsubsection{8.4 Assumptions, limitations, and
-falsifiability}\label{assumptions-limitations-and-falsifiability}}
+falsifiability}\label{assumptions-limitations-and-falsifiability}
 
 \textbf{The theorem} requires Lemma 1 (independent in Part I;
 consequence of geometry in Part II), the stochastic-quantum bridge
@@ -4109,10 +4095,9 @@ solution-specific.
 Laboratory tests of the characterization theorem may be possible in
 analogue gravity systems where the hidden sector capacity is tunable.
 
-\hypertarget{universality-class-character-of-the-partition-geometry-results}{%
 \subsubsection{8.5 Universality-class character of the
 partition-geometry
-results}\label{universality-class-character-of-the-partition-geometry-results}}
+results}\label{universality-class-character-of-the-partition-geometry-results}
 
 §1 separates what follows from partition geometry alone --- the
 classical horizon temperature of the boundary count, the finite horizon
@@ -4463,9 +4448,8 @@ stratified accordingly.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{relation-to-other-entropic-and-emergent-gravity-programs}{%
 \subsubsection{8.6 Relation to other entropic and emergent-gravity
-programs}\label{relation-to-other-entropic-and-emergent-gravity-programs}}
+programs}\label{relation-to-other-entropic-and-emergent-gravity-programs}
 
 The thermodynamic derivation of §3--§5 places this framework within a
 broader program that treats gravity as entropic or emergent rather than
@@ -4503,9 +4487,8 @@ the running-vacuum coefficient predicted here (§7.1) are specific to
 this construction --- not corroborated by, nor inherited from, the
 neighbouring programs.
 
-\hypertarget{kinematic-emergence-of-geometry-from-the-substratum}{%
 \subsubsection{8.7 Kinematic emergence of geometry from the
-substratum}\label{kinematic-emergence-of-geometry-from-the-substratum}}
+substratum}\label{kinematic-emergence-of-geometry-from-the-substratum}
 
 The derivations of §3--§5 and the necessity routes of §3.2 (\emph{An
 independent necessity statement}; gravitational closure, Lovelock,
@@ -4581,8 +4564,7 @@ continuum description into a computation that reaches the Newtonian
 checkpoint with the remaining steps explicitly marked --- not a claim to
 have derived general relativity from the substratum.
 
-\hypertarget{conclusion}{%
-\subsection{9. Conclusion}\label{conclusion}}
+\subsection{9. Conclusion}\label{conclusion}
 
 The cosmological horizon realizes the embedded-observation framework of
 {[}Main{]}, and the consequences for the gravitational sector are sharp.
@@ -4665,9 +4647,8 @@ other unification programs are developed in the fifth core paper
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{appendix-a-nested-partitions}{%
 \subsection{Appendix A: Nested
-Partitions}\label{appendix-a-nested-partitions}}
+Partitions}\label{appendix-a-nested-partitions}
 
 This appendix develops the nested-partition formalism for the framework,
 establishing the self-consistency of multiple coexisting causal
@@ -4680,8 +4661,7 @@ aligned to the configuration coordinates, the setting the derivation
 counts), and stating the entropy inequality the formalism supplies
 toward the generalized second law.
 
-\hypertarget{a.1-setup}{%
-\subsubsection{A.1 Setup}\label{a.1-setup}}
+\subsubsection{A.1 Setup}\label{a.1-setup}
 
 Let \(\mathcal{C}_V\), \(\mathcal{C}_B\), \(\mathcal{C}_D\) be finite
 configuration spaces with \(|\mathcal{C}_V|, |\mathcal{C}_B| \geq 2\),
@@ -4701,9 +4681,8 @@ Two procedures produce a quantum description on \(V\):
 \(W\). (Stage 2) Within the emergent QM on \(W\), trace out \(B\),
 producing a further-reduced description on \(V\).
 
-\hypertarget{a.2-classical-associativity}{%
 \subsubsection{A.2 Classical
-Associativity}\label{a.2-classical-associativity}}
+Associativity}\label{a.2-classical-associativity}
 
 \textbf{Theorem A.1.} \emph{The direct and sequential procedures produce
 the same transition probabilities on \(\mathcal{C}_V\).}
@@ -4719,9 +4698,8 @@ The sequential procedure marginalizes over \(D\) (Stage 1) then over
 
 The sums commute (Fubini on a finite product). \(\square\)
 
-\hypertarget{a.3-quantum-classical-consistency}{%
 \subsubsection{A.3 Quantum-Classical
-Consistency}\label{a.3-quantum-classical-consistency}}
+Consistency}\label{a.3-quantum-classical-consistency}
 
 \textbf{Theorem A.2} (Quantum-classical consistency of nested
 trace-outs). \emph{Let \(\Phi_V^{\text{dir}}\) and
@@ -4740,9 +4718,8 @@ On finite-dimensional tensor products,
 \(\text{Tr}_B \circ \text{Tr}_D = \text{Tr}_{BD}\), giving
 \(\Phi_V^{\text{seq}} = \Phi_V^{\text{dir}}\). \(\square\)
 
-\hypertarget{a.4-hamiltonian-and-hbar-consistency}{%
 \subsubsection{\texorpdfstring{A.4 Hamiltonian and \(\hbar\)
-Consistency}{A.4 Hamiltonian and \textbackslash hbar Consistency}}\label{a.4-hamiltonian-and-hbar-consistency}}
+Consistency}{A.4 Hamiltonian and \textbackslash hbar Consistency}}\label{a.4-hamiltonian-and-hbar-consistency}
 
 \textbf{Corollary A.3} (Hamiltonian consistency). \emph{The direct and
 sequential procedures yield the same emergent dynamics in two regimes.
@@ -4791,9 +4768,7 @@ which contains no area and from which \(\kappa\) cancels, so \(\hbar\)
 does not depend on which horizon defines the partition or on how many
 trace-outs are performed. \(\square\)
 
-\hypertarget{a.5-additive-dissipators}{%
-\subsubsection{A.5 Additive
-Dissipators}\label{a.5-additive-dissipators}}
+\subsubsection{A.5 Additive Dissipators}\label{a.5-additive-dissipators}
 
 \textbf{Theorem A.5} (Frozen deep sector: mixture of boundary channels).
 \emph{Let \(\varphi\) be a bijection of
@@ -4850,9 +4825,8 @@ second; spatial locality there gives the chain
 and not to \(B\). For the chain of §A.1, where \(D\)'s correction
 reaches \(V\) directly, the decomposition is not derived here.
 
-\hypertarget{a.6-the-generalized-second-law}{%
 \subsubsection{A.6 The Generalized Second
-Law}\label{a.6-the-generalized-second-law}}
+Law}\label{a.6-the-generalized-second-law}
 
 The Bekenstein-Hawking entropy of a horizon is the information content
 of the corresponding partition boundary (§5, under the conditions of the
@@ -4903,8 +4877,7 @@ terms. Deriving the generalized second law requires a relation between
 horizon area and the hidden sectors' coarse-grained entropy along the
 evaporation, which is not established here.
 
-\hypertarget{a.7-the-page-curve}{%
-\subsubsection{A.7 The Page Curve}\label{a.7-the-page-curve}}
+\subsubsection{A.7 The Page Curve}\label{a.7-the-page-curve}
 
 \textbf{Setup.} A black hole with initial horizon area \(A_0\)
 evaporates. The partition boundary at the black hole horizon moves:
@@ -5319,16 +5292,230 @@ initial distribution over configurations (§A.7).
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{acknowledgments}{%
-\subsection{Acknowledgments}\label{acknowledgments}}
+\subsection{Appendix B: The deep-sector corollary for a deep sector of
+any
+cardinality}\label{appendix-b-the-deep-sector-corollary-for-a-deep-sector-of-any-cardinality}
+
+This appendix proves the statements of the corollary of §3.2
+(deep-sector cardinality is gauge) that do not use H-BD, for a deep
+sector of any cardinality.
+
+\textbf{Setting.} The sites form a set \(\iota\) of any cardinality;
+site \(i\) carries a nonempty alphabet \(Q_i\), and
+\(\mathcal{C} = \prod_{i \in \iota} Q_i\). For \(A \subseteq \iota\),
+\(\mathcal{C}_A = \prod_{i \in A} Q_i\), and \(s|_A\) is the restriction
+of \(s \in \mathcal{C}\) to \(A\). The update is a map
+\(\varphi : \mathcal{C} \to \mathcal{C}\) with components \(\varphi_i\).
+The visible sites form \(V \subseteq \iota\), and
+\(\mathcal{C}_H = \mathcal{C}_{\iota \setminus V}\). The dependence set
+\(\mathrm{Dep}(i)\) is the set of sites \(j\) for which some
+\(s, s' \in \mathcal{C}\) differing only at \(j\) have
+\(\varphi_i(s) \neq \varphi_i(s')\); the coupling graph \(G_\varphi\)
+joins \(i \neq j\) when \(j \in \mathrm{Dep}(i)\) or
+\(i \in \mathrm{Dep}(j)\), as in {[}Main §3.3{]}, and
+\(B_n = B_{G_\varphi}(V, n) \setminus V\) and
+\(D_n = \iota \setminus B_{G_\varphi}(V, n)\), as in part (a) of the
+lemma of §3.2. For a hidden prior \(\mu_H\), the same for every visible
+initial configuration,
+\(T_{ij}(m\,\Delta t) = \mu_H(\{h \in \mathcal{C}_H : \pi_V(\varphi^m(x_i, h)) = x_j\})\);
+for the uniform prior on a finite \(\mathcal{C}_H\) this is the count of
+§3.2. \(T^{(B_n)}_{ij}(m\,\Delta t)\) is the sum of part (a) of the
+lemma with \(\varphi^m\) in place of \(\varphi^n\), at a given
+\(d^* \in \mathcal{C}_{D_n}\).
+
+\textbf{Hypotheses.}
+
+\begin{itemize}
+\tightlist
+\item
+  (D1) \(V\) is a finite set of sites.
+\item
+  (D2) \(\varphi\) is defined on every configuration, and each
+  component's update is a function of finitely many components: for
+  every site \(i\) there is a finite set \(R(i) \subseteq \iota\) with
+  \(\varphi_i(s) = \varphi_i(s')\) whenever \(s|_{R(i)} = s'|_{R(i)}\).
+\item
+  (D3) \(G_\varphi\) is locally finite.
+\item
+  (D4) \(Q_i\) is finite for every \(i \in V \cup B_n\).
+\item
+  (D5) The hidden prior is \(\mu_H = u_{B_n} \otimes \nu\) on
+  \(\mathcal{C}_H = \mathcal{C}_{B_n} \times \mathcal{C}_{D_n}\), where
+  \(u_{B_n}\) is the uniform distribution on \(\mathcal{C}_{B_n}\) and
+  \(\nu\) is a probability measure on a \(\sigma\)-algebra
+  \(\mathcal{D}\) on \(\mathcal{C}_{D_n}\): a set
+  \(E \subseteq \mathcal{C}_H\) is measurable when each section
+  \(E_b = \{d : (b, d) \in E\}\) lies in \(\mathcal{D}\), and then
+  \(\mu_H(E) = |\mathcal{C}_{B_n}|^{-1} \sum_{b} \nu(E_b)\).
+\end{itemize}
+
+On a finite site set (D1)--(D4) hold, and the uniform prior on
+\(\mathcal{C}_H\) is (D5) with \(\nu\) uniform. (D2) and (D3) are
+hypotheses on the dynamics, which hold on every finite site set; for the
+second-order update of ledger item (xiii) of {[}Main §4.5{]} they follow
+from that item's clauses that each \(F_i\) reads finitely many sites and
+each site is read by finitely many \(F_i\), since the update at \(i\)
+reads only the pair at \(i\) and the current values that \(F_i\) reads
+(with Lemma B.1 for (D3)), and (D4) holds there because each site
+carries a pair of values in a finite abelian group. (D1) is a condition
+on the choice of the visible sector, which item (xiii) does not fix.
+(D5) is a hypothesis on the prior of the model, not a statement about
+nature's prior; \(\nu\) need not be a product over the sites of \(D_n\).
+
+\textbf{The dependency patch.} With \(N_i = \mathrm{Dep}(i)\), put
+\(N^0(V) = V\), \(N^{k+1}(V) = \bigcup_{i \in N^k(V)} N_i\),
+\(U_n = \bigcup_{k \leq n} N^k(V)\) and \(W_n = U_n \setminus V\):
+\(U_n\) is the set of sites from which a chain of at most \(n\)
+dependences leads to \(V\). The cone \(B_n\) is defined by distance in
+the symmetrized graph \(G_\varphi\), so it can also contain sites whose
+updates depend on sites of \(V \cup B_{n-1}\) while no site of
+\(V \cup B_{n-1}\) depends on them. By Lemma B.2, \(W_n \subseteq B_n\),
+and the inclusion can be strict for a bijection: on bits at sites
+\(v, b, k\) with \(V = \{v\}\) and
+\(\varphi(v, b, k) = (b, v, k \oplus v)\), \(W_n = \{b\}\) while
+\(B_n = \{b, k\}\) for every \(n \geq 1\). With \(n = 1\), deleting the
+site \(k\) leaves the update at the site of \(V \cup B_0 = V\) unchanged
+and changes \(B_1\) to \(\{b\}\), so \(B_n\) is not in general
+determined by the update on \(V \cup B_{n-1}\). The proofs below use
+\(W_n\).
+
+\textbf{Lemma B.1} (dependence sets). \emph{Under (D2), for every site
+\(i\): \(\mathrm{Dep}(i) \subseteq R(i)\), so \(\mathrm{Dep}(i)\) is
+finite; \(\varphi_i(s) = \varphi_i(s')\) whenever
+\(s|_{\mathrm{Dep}(i)} = s'|_{\mathrm{Dep}(i)}\), so that
+\(\varphi_i(s) = \hat\varphi_i(s|_{\mathrm{Dep}(i)})\) for a unique
+local rule \(\hat\varphi_i : \mathcal{C}_{\mathrm{Dep}(i)} \to Q_i\);
+and every \(j \in \mathrm{Dep}(i)\) other than \(i\) is adjacent to
+\(i\) in \(G_\varphi\).}
+
+\emph{Proof.} If \(j \notin R(i)\), two configurations differing only at
+\(j\) agree on \(R(i)\), so \(j \notin \mathrm{Dep}(i)\). Let \(s, s'\)
+agree on \(\mathrm{Dep}(i)\), list the finite set
+\(R(i) \setminus \mathrm{Dep}(i)\) as \(j_1, \ldots, j_r\), and let
+\(s^0 = s\) and \(s^l\) be \(s^{l-1}\) with its \(j_l\)th component
+replaced by \(s'_{j_l}\). Consecutive terms differ at most at
+\(j_l \notin \mathrm{Dep}(i)\), so
+\(\varphi_i(s^l) = \varphi_i(s^{l-1})\), and \(s^r\) agrees with \(s'\)
+on \(R(i)\), so \(\varphi_i(s) = \varphi_i(s^r) = \varphi_i(s')\). Every
+\(u \in \mathcal{C}_{\mathrm{Dep}(i)}\) extends to a configuration, the
+alphabets being nonempty, which defines \(\hat\varphi_i\). The last
+clause is the definition of \(G_\varphi\). \(\square\)
+
+\textbf{Lemma B.2} (dependency patch). \emph{Assume (D1) and (D2), and
+let \(n \geq 1\). (a) \(U_n\) is finite and
+\(U_n \subseteq B_{G_\varphi}(V, n)\); hence \(W_n \subseteq B_n\) and
+\(U_{n-1} \subseteq V \cup B_{n-1}\). Under (D3), \(B_n\) is finite. (b)
+There is a map \(G_n : \mathcal{C}_{U_n} \to (\mathcal{C}_V)^{n+1}\)
+with \(\pi_V(\varphi^m(s)) = G_n(s|_{U_n})_m\) for every
+\(s \in \mathcal{C}\) and \(m \leq n\). (c) \(G_n\) is determined by the
+set \(U_n\) with its alphabets and by \(\mathrm{Dep}(i)\) and
+\(\hat\varphi_i\) for \(i \in U_{n-1}\). Let a second system
+\((\iota', Q', \varphi')\) with the same \(V\) and visible alphabets
+satisfy (D2), and let \(e : U_n \to \iota'\) be an injection that is the
+identity on \(V\), with \(Q'_{e(k)} = Q_k\) for \(k \in U_n\), and with
+\(\mathrm{Dep}'(e(i)) = e(\mathrm{Dep}(i))\) and
+\(\hat\varphi'_{e(i)}(u \circ e^{-1}) = \hat\varphi_i(u)\) for
+\(i \in U_{n-1}\) and \(u \in \mathcal{C}_{\mathrm{Dep}(i)}\). Then
+\(e(U_n) = U'_n\), and \(\pi_V(\varphi'^m(s')) = G_n(s' \circ e)_m\) for
+every \(s' \in \mathcal{C}'\) and \(m \leq n\), where
+\((s' \circ e)_k = s'_{e(k)}\).}
+
+\emph{Proof.} (a) By Lemma B.1, each \(\varphi_i\) is a function of the
+components in the finite set \(N_i\), and every \(j \in N_i\) other than
+\(i\) is adjacent to \(i\) in \(G_\varphi\). The coupling-graph causal
+cone of {[}Main §3.3{]} for a site set of any cardinality, applied with
+these reading sets, with \(R = V\), finite by (D1), and with
+\(\Gamma = G_\varphi\), gives that each \(N^k(V)\) is finite and lies
+within \(G_\varphi\)-distance \(k\) of \(V\); its argument uses no
+finiteness of the alphabets. Hence \(U_n\) is finite and
+\(U_n \subseteq B_{G_\varphi}(V, n)\), which gives the inclusions. Under
+(D3), \(B_{G_\varphi}(V, k+1)\) is \(B_{G_\varphi}(V, k)\) together with
+the finitely many neighbours of its sites, so it is finite. (b) By the
+same result, for \(m \leq n\) two configurations that agree on
+\(N^m(V) \subseteq U_n\) have \(m\)-step images that agree on \(V\);
+since every element of \(\mathcal{C}_{U_n}\) extends to a configuration,
+the alphabets being nonempty, this defines \(G_n\). (c) For
+\(0 \leq k \leq n\) there are maps
+\(g_k : \mathcal{C}_{U_n} \to \mathcal{C}_{U_{n-k}}\) with
+\((\varphi^k s)|_{U_{n-k}} = g_k(s|_{U_n})\), obtained recursively from
+the local rules. Take \(g_0\) the identity. Given \(g_k\) with
+\(k < n\), let \(i \in U_{n-k-1}\); then \(i \in N^l(V)\) for some
+\(l \leq n-k-1\), so
+\(\mathrm{Dep}(i) \subseteq N^{l+1}(V) \subseteq U_{n-k}\), and
+\((\varphi^{k+1} s)_i = \hat\varphi_i((\varphi^k s)|_{\mathrm{Dep}(i)}) = \hat\varphi_i(g_k(s|_{U_n})|_{\mathrm{Dep}(i)})\),
+which defines \(g_{k+1}\). Since \(V \subseteq U_{n-k}\),
+\(G_n = (g_m(\cdot)|_V)_{m \leq n}\), and the recursion uses only the
+data listed, at the sites of \(U_{n-k-1} \subseteq U_{n-1}\). Write
+\(N'^m(V)\) for the sets formed from \(\mathrm{Dep}'\) in the second
+system. By induction on \(m\), \(e(N^m(V)) = N'^m(V)\) for \(m \leq n\):
+for \(m < n\), \(N^m(V) \subseteq U_{n-1}\), so
+\(N'^{m+1}(V) = \bigcup_{i \in N^m(V)} \mathrm{Dep}'(e(i)) = e(N^{m+1}(V))\).
+Hence \(e(U_n) = U'_n\), and the recursion in the second system, carried
+out on \(e(U_n)\) with the transported data, produces the maps of the
+first system composed with \(s' \mapsto s' \circ e\). \(\square\)
+
+\textbf{Lemma B.3} (marginal on a sub-patch). \emph{Let \(B\) be a
+finite set of sites with finite alphabets, \(W \subseteq B\),
+\((\mathcal{C}_D, \mathcal{D}, \nu)\) a probability space and
+\(\mu = u_B \otimes \nu\) on \(\mathcal{C}_B \times \mathcal{C}_D\), as
+in (D5). For every \(F \subseteq \mathcal{C}_W\) the set
+\(\{(b, d) : b|_W \in F\}\) is measurable and has \(\mu\)-measure
+\(|F|/|\mathcal{C}_W|\).}
+
+\emph{Proof.} The set is \(E \times \mathcal{C}_D\) with
+\(E = \{b \in \mathcal{C}_B : b|_W \in F\}\); each section is
+\(\mathcal{C}_D\) or empty, and
+\(\mu(E \times \mathcal{C}_D) = |E|\,\nu(\mathcal{C}_D)/|\mathcal{C}_B| = |E|/|\mathcal{C}_B|\).
+Since \(|E| = |F|\,|\mathcal{C}_{B \setminus W}|\) and
+\(|\mathcal{C}_B| = |\mathcal{C}_W|\,|\mathcal{C}_{B \setminus W}|\),
+the measure is \(|F|/|\mathcal{C}_W|\). \(\square\)
+
+\emph{Proof of the statements of the corollary that do not use H-BD.}
+Assume (D1)--(D5) and \(n \geq 1\). By (D3), (D4) and Lemma B.2 (a),
+\(B_n\) and \(W_n \subseteq B_n\) are finite sets of sites with finite
+alphabets. Fix \(x_i, x_j \in \mathcal{C}_V\) and \(m \leq n\), and put
+\(F = \{w \in \mathcal{C}_{W_n} : G_n(x_i, w)_m = x_j\}\). Since
+\(U_n \subseteq V \cup B_n\), Lemma B.2 (b) gives
+\(\pi_V(\varphi^m(x_i, b, d)) = G_n(x_i, b|_{W_n})_m\) for
+\(b \in \mathcal{C}_{B_n}\) and \(d \in \mathcal{C}_{D_n}\), so the
+event defining \(T_{ij}(m\,\Delta t)\) is
+\(\{(b, d) : b|_{W_n} \in F\}\), and Lemma B.3 with \(B = B_n\) and
+\(W = W_n\) gives
+
+\[T_{ij}(m\,\Delta t) = \frac{|F|}{|\mathcal{C}_{W_n}|}.\]
+
+For each \(d^* \in \mathcal{C}_{D_n}\) the number of
+\(b \in \mathcal{C}_{B_n}\) with \(b|_{W_n} \in F\) is
+\(|F|\,|\mathcal{C}_{B_n \setminus W_n}|\), so
+\(T^{(B_n)}_{ij}(m\,\Delta t)\) has the same value. Neither
+\(|\mathcal{C}_{D_n}|\) nor \(\nu\) enters, and the update enters only
+through \(G_n\), which by Lemma B.2 (c) is fixed by the update on
+\(U_{n-1} \subseteq V \cup B_{n-1}\). Let a second system satisfy
+(D1)--(D5), with the same \(V\) and visible alphabets, and have the same
+update on the sites of \(V \cup B_{n-1}\) in the sense of the corollary.
+Since \(U_{n-1} \subseteq V \cup B_{n-1}\) and
+\(U_n = V \cup \bigcup_{i \in U_{n-1}} \mathrm{Dep}(i)\), the
+restriction of the identification to \(U_n\) is a map \(e\) as in Lemma
+B.2 (c). Hence \(W'_n = e(W_n) \subseteq B'_n\), the second system's
+event is \(\{(b', d') : (b' \circ e)|_{W_n} \in F\}\) with the same
+\(F\), and Lemma B.3 in the second system, with \(B = B'_n\) and
+\(W = W'_n\), gives
+\(T'_{ij}(m\,\Delta t) = |F|/|\mathcal{C}_{W_n}| = T_{ij}(m\,\Delta t)\).
+The two systems may differ in the cardinalities, alphabets and updates
+of their hidden sites outside the patch, in their cones \(B_n\) and
+\(B'_n\), and in their priors on \(\mathcal{C}_{D_n}\) and
+\(\mathcal{C}'_{D_n}\). \(\square\)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Acknowledgments}\label{acknowledgments}
 
 AI assistance in preparing this work is disclosed at\\
 \url{https://github.com/amaybaum/incompleteness\#ai-assistance}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 \textbf{Companion papers (cited inline by short name):}
 
@@ -5580,4 +5767,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 25cc1789e790786d594b89c8e0aa6ad82dd71727e17ab6412163d11fbfb034c8
+% source-sha256: ce713bd24076995cb0eee25d6945481a825137fe9bad59695f7fb18e1a34a630

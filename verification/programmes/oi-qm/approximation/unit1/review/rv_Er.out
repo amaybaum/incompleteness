@@ -1,0 +1,17 @@
+PASS E3 the per-measuring-step bound is no weaker than Main's K(|O_max|-1)/G
+     fixed: quantum law {(0, 0): Fraction(8, 25), (0, 1): Fraction(9, 50), (1, 0): Fraction(9, 50), (1, 1): Fraction(8, 25)}; TV = 1/24 (bound 1/6)
+PASS E3 fixed: realized law is a probability law
+PASS E3 fixed: 0 < TV(realized, quantum) <= (#measuring steps)(|O|-1)/G (non-dyadic law, grid error present)
+PASS E3 countercontrol fixed: a wrong target law violates the bound
+     adaptive: quantum law {(0, 0): Fraction(49, 100), (0, 1): Fraction(1, 100), (1, 0): Fraction(1, 4), (1, 1): Fraction(1, 4)}; TV = 1/100 (bound 1/6)
+PASS E3 adaptive: realized law is a probability law
+PASS E3 adaptive: 0 < TV(realized, quantum) <= (#measuring steps)(|O|-1)/G (non-dyadic law, grid error present)
+PASS E3 countercontrol adaptive: a wrong target law violates the bound
+PASS E1 each of the 8 step maps is injective on all 1008 reachable pre-horizon configurations
+PASS E1 the CX step map extends to an explicit bijection of the finite set D u phi(D)
+PASS E2 all 16 distinct reachable registers are Hermitian PSD
+PASS E4 some reachable register has an entry with nonzero imaginary part
+PASS E2 countercontrol: a partial-transpose step (positive, not CP) yields a non-PSD register
+PASS E1 countercontrol: without the predecessor stack the Z1 step map is not injective (caught)
+PASS E1 control: with the stack the same Z1 map is injective on that domain
+RESULT ALL PASS
