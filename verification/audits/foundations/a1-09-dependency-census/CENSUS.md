@@ -172,7 +172,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced.
+- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 52 modules for the semantic check; it classifies none.
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
 - CENSUS-X4: recursively maintained verification files, programmes, probes and archival or branch-only evidence remain unscanned as complete corpora. Published `.tex` mirrors are resolved for claim content by batch 1 (§7); PDFs are not stamped and are not checked.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
@@ -193,5 +193,70 @@ To close A1-C01, obtain full text/source parity for X1–X4; review and classify
 - `book/README.md`, read in full: lines 15, 17, 50, 82 and 100 summarize the finite-horizon equivalence (observable scope, **A**), the finite-model BQP hypothesis (**F**, conditional) and the appendix-C contents. No U candidate.
 
 **Disposition.** X1 is resolved for claim coverage: FULL contains no claim line absent from the chapters, so the chapter classifications in §3 apply to FULL line for line. (§3 is pinned at `6eac91ee`, this check at `5ea8672f`; the only book change between them is #1341, which mirrored both of its book edits into FULL.) For published `.tex` mirrors (part of X4), the files are generated from stamped sources, so their claim content is that of the `.md` files; PDFs are outside this check. A line-level presence check does not test ordering or duplication; those are covered by the build and by `tools/duplicate_check.py`, not by this census.
+
+## 8. Coverage batch 2a — Lean triage inventory (X2, first step)
+
+**Pin:** `main` at `5ea8672f`. **This is a triage list, not a classification.** It narrows which Lean modules need a semantic check; it classifies none of them.
+
+**Recipe.** For every `.lean` file under `verification/lean-mathlib/OIBridge/` and `verification/lean/` (247 files), collect the type arguments of `[Fintype _]`, `[Finite _]` and `: Fintype _` / `: Finite _` occurrences, and map each module to its families in `verification/lean-manuscript-census.json`. Flag a module when any finiteness assumption falls on a type whose name the corpus uses for a hidden, total, site, history, ancilla or carrier type: `H`, `ι`, `𝒮.ι`, `𝒮.V`, `Conf`, `Ω`, `X`, `Hist`, `Anc`, `W`, `C`.
+
+**Result.** 74 files carry no finiteness typeclass. 52 modules are flagged. Type names are a heuristic: `ι` is often a finite index of a family rather than a site set, and finiteness of `V` (visible) is not flagged because a finite visible alphabet is not a total-finiteness premise (§2.2). A module that names its carrier differently is missed by this filter; the unflagged modules remain under X2 until checked.
+
+| Module | Flagged finite types | Census families |
+|---|---|---|
+| `BarandesTuple.lean` | W, C, H | tuple instantiation and the Source-A branch test |
+| `C3Necessity.lean` | Hist, H | equivalence chain and memory |
+| `CandidateSelection.lean` | Anc | candidate selection: the representation does not determine the candidate intermediate |
+| `CausalReadback.lean` | H | causal readback: the candidate forms and the divisibility no-go |
+| `ClosureObstruction.lean` | ι, C | completion classification and the primitive-source chain |
+| `CoherentLift.lean` | ι, W | coherent completions |
+| `ContinuousExtension.lean` | X | the continuous-extension round (act 8, Track I layer 0 and Track B layers 1-2) |
+| `DimensionalCountermodel.lean` | ι | instruments, dilation and assembly |
+| `EquivalenceChain.lean` | H | equivalence chain and memory |
+| `ExecSource.lean` | 𝒮.ι, 𝒮.V | executability source: the stated access and the layer flows |
+| `FrozenSourcing.lean` | 𝒮.ι, 𝒮.V, ι | frozen substratum sourcing: the ceilings of the stated architecture |
+| `FullFutureMemory.lean` | H | entire visible future as an exact finite-image trajectory random variable |
+| `HexLatticeGas.lean` | ι | hydrodynamics round H-B: the reversible streaming-and-collision substratum |
+| `HiddenMemory.lean` | Hist, H | equivalence chain and memory |
+| `HydroClosureBridge.lean` | ι | hydrodynamics round H-E: H3 as a candidate bridge condition toward closure |
+| `HydroSourceAudit.lean` | ι | hydrodynamics round H-A: source audit of the concrete wave representative |
+| `InstrumentDilation.lean` | ι | instruments, dilation and assembly |
+| `InstrumentRealization.lean` | ι | instrument realization: one-instrument provenance |
+| `KInfFoundations.lean` | ι | the corrected field-neutral vocabulary of the pre-quantum completion — proper effects, boundary states read in the body, relative strict convexity, group-flow drivability — with Lemma C and its converse, the semantic controls, Lemmas B and D and the finite-exposure bounds (round KINF-2, reconstruction) |
+| `KTokenMaxCone.lean` | ι | conditional k-token cone theorem: products, cone closure, the k-fold maxCone bound and CNOT plus rotation/cyclic invariance give the PSD cone of the k-fold Pauli dictionary (round KTOKEN-MAXCONE-1, reconstruction) |
+| `LiftSource.lean` | 𝒮.ι, 𝒮.V | lift source: the observer-level lift in the operational interface |
+| `MeasuredReciprocity.lean` | H | P6 measured reciprocity |
+| `MicroscopicReversibility.lean` | C, ι | completion classification and the primitive-source chain |
+| `OperationalSourcing.lean` | Anc, H, W | operational sourcing at the Arc C boundary: what representation supplies, what the canonical witness supplies, and what the access verdict is stable against |
+| `OrbitGeometryIsometries.lean` | W | the orbit-geometry isometries — the normalized realizable quotient, the finite family that acts on it, the internal description of its classes at the single carrier, a gated classification of its surjective isometries, and the prefix-constrained corollary (act 25, Track B) |
+| `OrbitGeometrySelector.lean` | W | the orbit-geometry selector audit — the mixed-triple invariants, their metric, its controls, the twelve families against it and the rigidity cells, at act 12's and act 21's configurations (act 24, Track B) |
+| `PhysicalC4Discharge.lean` | H, 𝒮.ι, 𝒮.V | physical C4 discharge: the realization clause as a rooted predicate, its controls, and the lattice residual |
+| `PhysicalC4StorageReadback.lean` | H | physical C4 round 2: the storage-time reading of the store clause, and the two readings' relation |
+| `PhysicalCharacterization.lean` | ι | completion classification and the primitive-source chain |
+| `Purification.lean` | ι | instruments, dilation and assembly |
+| `QuantumRepresentationT3.lean` | H | quantum representation: the all-time translation layer of the representation boundary |
+| `RankGapTheory.lean` | ι | completion classification and the primitive-source chain |
+| `Reciprocity.lean` | H | equivalence chain and memory |
+| `RecurrenceHorizon.lean` | H | recurrence horizon: an identity return with an earlier overlap forbids divisibility |
+| `ReferenceSufficiency.lean` | C | completion classification and the primitive-source chain |
+| `RootedClassification.lean` | H | rooted classification: the finite-visible intrinsic characterization of the realizable class |
+| `RootedClassificationAllTime.lean` | H | rooted classification: the finite-visible intrinsic characterization of the realizable class |
+| `RootedRecurrenceBridge.lean` | H | exact microscopic iterate return to actual rooted identity and horizon indivisibility |
+| `SemigroupTransfer.lean` | H | Substratum Lemma 24.1 — the semigroup-transfer step (reconstruction) |
+| `Separability.lean` | ι | equivalence chain and memory |
+| `ShellAssignment.lean` | H | Hamiltonian reconstruction |
+| `StochasticInterface.lean` | 𝒮.ι, 𝒮.V | stochastic observer interface: the determination gap of the stated architecture |
+| `SubstantiveCensus.lean` | ι | completion classification and the primitive-source chain |
+| `SubstratumInterfaceAudit.lean` | 𝒮.ι, 𝒮.V, ι | substratum interface: sourced observer theory |
+| `TrackBQfbBridge.lean` | W | the fixed-basis image of a single-time lift: trajectory laws determined by the visible law, stable under contractively scaled partial permutations, equal exactly when the visible laws are equal (act 45, Track B) |
+| `TrajectoryMemory.lean` | C, H | actual finite-permutation trajectory bridge for hidden memory and C3 capacity |
+| `TransposeBridge.lean` | H | transpose bridge: the two orientations of P-divisibility are the same predicate |
+| `TurnpikeScopeTransfer.lean` | ι | Hamiltonian reconstruction |
+| `TypedCompletion.lean` | X, ι, C | typed completion |
+| `UhlmannUniqueness.lean` | ι | completion classification and the primitive-source chain |
+| `WeylLift.lean` | ι | equivalence chain and memory |
+| `WordTraceSufficiency.lean` | H | Substratum Lemma 24.1A — ST5 sufficiency, the word-trace kernel (reconstruction) |
+
+**Next steps (batches 2b onward).** For each flagged module: read the declarations that carry the flagged assumption; decide whether the assumption is a finite visible or index type (no A1 relevance), a finite hidden or total carrier stated as a hypothesis (**F**, valid in its finite scope), or a finiteness used to support a claim stated more generally; then check the manuscript anchors of its families against that scope. Only the last case is a correction candidate.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
