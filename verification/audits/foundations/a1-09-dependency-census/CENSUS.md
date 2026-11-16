@@ -322,12 +322,12 @@ Only the last case is a correction candidate.
   - GR:214 is the theorem statement: "For every nonempty finite visible system".
   - GR:216 cites the minimality witnesses `five_way_minimality` and `countermodel`, which are finite qubit countermodels; a finite witness suffices.
   - GR:230, 242, 244, 246 and 252–254 ("holds on every nonempty finite carrier") concern finite quantum systems, at observable scope.
-  - Main:356 cites `physical_of_exactAll` for "every fixed finite representative".
+  - Main:356 says "every fixed finite representative", and states the characterization, citing `physical_of_exactAll`, "for every nonempty finite visible system".
   - Main:566 "What no fixed finite carrier can do" is scoped.
   - The substratum-source sentence in Main:592 and its mirror FULL:500 reads "the concrete OI substratum, in its finite model (ledger item (ii))", and GR:256 states the GR counterpart as a condition: "The concrete OI substratum under A1 — finite states and bijective microscopic dynamics" (A1 is defined at GR:669). GR:260 adds that the controllability resource "is not entailed by A1–A6". **F**, stated.
-  - The same phrases recur at ch01:165, ch19:126 and FULL:522, 5271 and 5430, with the same scope.
+  - The same phrases recur at ch01:165, ch19:126 and FULL:5271, with the same scope.
 - **Typed completion (GR:272):** a classification "between any two nonempty finite carriers", meaning quantum registers. Observable scope.
-- **Operational sourcing and the fixed-basis image of a single-time lift.** Main:648, ch01:187 and ch19:285 concern lifts and ancillas of finite visible laws. Main:554 defines Q_fb as "finite-dimensional unitary systems", so a tensor-factor ancilla of a Q_fb datum is finite by definition, even where the sentence ("an ancilla attached as a tensor factor … leaves the rooted family unchanged (kernel: `padData_rooted`)") does not say "finite". Finite-horizon representation layer; no total-finiteness claim.
+- **Operational sourcing and the fixed-basis image of a single-time lift.** Main:648, ch01:187 and ch19:285 (mirrored at FULL:522 and FULL:5430) concern lifts and ancillas of finite visible laws. Main:554 defines Q_fb as "finite-dimensional unitary systems", so a tensor-factor ancilla of a Q_fb datum is finite by definition, even where the sentence ("an ancilla attached as a tensor factor … leaves the rooted family unchanged (kernel: `padData_rooted`)") does not say "finite". Finite-horizon representation layer; no total-finiteness claim.
 - **Main:314** (WeylLift, Separability) is covered in §9.
 
 **Result.** No correction candidate in this batch. All 25 modules are classified: kinds 1 and 2 carry no A1 relevance, and kinds 3 and 4 are **F**, stated or used within their finite scope.
