@@ -286,9 +286,8 @@ Only the last case is a correction candidate.
   - Main:508–518 (`c3_necessity`, `card_hidden_ge_two_pow_Istar`): "Let m = |𝒞_H|" and the corollary "requires m ≥ 2^{I*}" (with the conditional m ≳ 2^{K I₀}). m appears only as a lower bound, so the statement holds trivially for an infinite hidden carrier and makes no A1-dependent claim; "m = 2 < n = 3" is an example, not a premise.
   - Main:612 (`capacity_floor`, M_t ≤ log₂|𝒞_H|): likewise vacuous for an infinite carrier; no A1-dependent claim.
   - SM:641–643 (`theorem_19`): the statement (SM:641) assumes "let the hidden prior be the counting measure", which presupposes a finite hidden carrier, and the proof (SM:643) divides by |𝒞_H|. **F**, correctly scoped; the measured generalization is kernel-only (`MeasuredReciprocity`).
-
   - Further registry anchors of the same family: Main:524 constructs a finite 𝒞_H (**F**, stated); Main:556 is the (S⇒D) proof within class (D) (**F**, stated); Main:596 "every finite stochastic law" (**A**, observable scope); Main:616 "every deterministic completion … capacity at least M_t", where completions are finite faithful realizations in class (D) (Main:97), and the capacity bound is in any case vacuous for an infinite carrier; Main:782 is a list of verification code (no claim).
-  - A citation outside the registry: Main:618 (`c3_necessity_via_hidden`) is a data-processing step for bijective realizations and does not use finiteness. Main:97 also cites `pushforward_identity` and `distinguishability_floor` within class (D).
+  - A citation outside the registry: Main:618 (`c3_necessity_via_hidden`) is a data-processing step and does not use finiteness; the kernel covers bijective realizations, and the manuscript states that the non-injective and staged cases are proved on paper. Main:97 also cites `pushforward_identity` and `distinguishability_floor` within class (D).
   - No book chapter cites an identifier from these 16 modules.
 
 **Result.** No correction candidate in this batch. All 16 modules are classified: the finite-carrier results are **F** and stated within their finite scope wherever a manuscript carries them, and the exceptions above are **A**.
