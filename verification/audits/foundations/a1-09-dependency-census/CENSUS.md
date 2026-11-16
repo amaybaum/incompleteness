@@ -169,13 +169,27 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 ## 6. UNCLASSIFIED blockers and completion decision
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
-- CENSUS-X1: FULL .md/.tex/.pdf unavailable for a claim-by-claim parity check.
+- CENSUS-X1: resolved for claim coverage by batch 1 (§7).
 - CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced.
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
-- CENSUS-X4: recursively maintained verification files, programmes, probes, archival/branch-only evidence, and published .tex/.pdf mirrors remain unscanned as complete corpora.
+- CENSUS-X4: recursively maintained verification files, programmes, probes, archival/branch-only evidence, remain unscanned (published .tex/.pdf mirrors: resolved for claim content by batch 1, §7) as complete corpora.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
 - CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization.
 
 To close A1-C01, obtain full text/source parity for X1–X4; review and classify every site and theorem in X2–X5, including implicit dependencies; resolve or explicitly narrow X6 by separately approved evidence; and reconcile against the existing closure register with a reviewed exact-head audit. Only an independent final G2/owner sign-off on reviewed manuscript propagation can change the foundational completion label.
+
+## 7. Coverage batch 1 — book mirror and generated artifacts (X1, part of X4)
+
+**Pin:** `main` at `5ea8672f67f3fd44498c7aa65e2eac22ed14a315` (after #1341). Read from a local checkout.
+
+**Recipe.** For each of the 29 Markdown files under `book/` other than the FULL file, list its non-blank lines; check each is present verbatim in `book/The-Incompleteness-of-Observation-FULL.md`; then list the FULL file's non-blank lines that occur in no chapter file. Run `python3 -I tools/staleness_check.py`.
+
+**Result.**
+- Every non-blank line of the 28 chapter and back-matter files occurs verbatim in FULL. `book/README.md` (61 lines) is the directory's landing page and is not mirrored.
+- FULL has 31 non-blank lines found in no chapter file: the LaTeX title page, the table-of-contents commands, page breaks and the copyright page. None states a mathematical or physical claim.
+- `staleness_check` reports 13 stamped artifacts matched (the 12 papers and FULL) and none unstamped: every generated `.tex`/`.pdf` carries the `source-sha256` of its current Markdown source.
+- `book/README.md`, read in full: lines 15, 17, 50, 82 and 100 summarize the finite-horizon equivalence (observable scope, **A**), the finite-model BQP hypothesis (**F**, conditional) and the appendix-C contents. No U candidate.
+
+**Disposition.** X1 is resolved for claim coverage: FULL contains no claim line absent from the chapters, so the chapter classifications in §3 apply to FULL line for line. For published mirrors (part of X4), the `.tex`/`.pdf` files are generated from stamped sources, so their claim content is that of the `.md` files. A line-level presence check does not test ordering or duplication; those are covered by the build and by `tools/duplicate_check.py`, not by this census.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
