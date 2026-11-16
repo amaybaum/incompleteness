@@ -2160,6 +2160,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Level G3 differs from G1 and G2 in an important structural r..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: At Level G2 × Level D — a narrower intersection in the gauge..."
     },
     {
@@ -3345,6 +3349,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *\"What about hypercomputation?\"* Hypercomputation refers to ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *\"What about exotic physics?\"* Various proposed exotic physi..."
     },
     {
       "ok": true,
