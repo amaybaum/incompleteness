@@ -1,0 +1,78 @@
+# OI master coordination map — eight research tracks (2026-11-16)
+
+**Classification:** planning / programme handoff only. This document is not a proof, experimental result, authority to activate research, or permission to merge. The controlling planning record is [Issue #1169](https://github.com/amaybaum/incompleteness/issues/1169), with [#914](https://github.com/amaybaum/incompleteness/issues/914) the OI–QM dependency index. Source and proof status come from reviewed records, not this map.
+
+**Owner instruction:** on 2026-11-16 the owner replied "Proceed as suggested" to the proposal to **retain the five-session A1-free plan in draft PR #1320** and add a **separate master multi-session coordination plan** for all eight original scientific tracks. This authorizes documenting the hierarchy only, not activating additional scientific work, replacing unit-specific owner decisions, changing priorities, or integrating a PR.
+
+**Relationship to the focused plan:** [PR #1320](https://github.com/amaybaum/incompleteness/pull/1320), at its [2026-11-16 plan document](https://github.com/amaybaum/incompleteness/blob/bac3ede153ffd3eafb542ade8b3be6383c302220/verification/audits/foundations/a1-free-session-plan-20261116/WORKER-SESSIONS.md), remains the **immediate A1-free operational roster**. The eight tracks below are a **long-range portfolio map**, not a competing immediate roster or eight activated worker sessions. Neither document supersedes the other's scope. The original S0–S7 labels are retained for traceability; their earlier Claude/Codex split is historical, not the operative future writer proposal.
+
+## 1. Scientific baseline and non-promotions
+
+- **Total finiteness (A1)** is open and unadopted. Observer-relative finiteness, a finite representative and a finite actual substratum are distinct. A4 continues to name the specified finite periodic lattice; it is not permission for arbitrary-carrier physical claims.
+- **P1** finite-dilation weighted-channel application is integrated; do not redo it merely to generate a workstream.
+- **P6** has an accepted *conditional paper* reciprocity proof on [#1318](https://github.com/amaybaum/incompleteness/pull/1318), head 9ca4a168d7aacaa3d542f862181c9eb49fc584f3. Its one-law joint-flux result does not derive the law's physical selection. Independent and ChatGPT exact-head reviews are recorded; landing is separate.
+- **P7** has an accepted decoupled mathematical reference on [#1319](https://github.com/amaybaum/incompleteness/pull/1319), head 971ac0366d4077549ef6bc1755d8b0a5a2208662. A physical coupled shell, its relative energy weights, horizon slope and detector match remain unsourced/conditional.
+- **P12(a)** local gauge-representation algebra is conditional given its inputs; it does not complete the physically sourced gauge sector. **P12(b)** observer-level and continuum reconstruction is incomplete. Its P6 Stage 2(f), P7 Stage 3 and A4/ledger conditions are separate inputs.
+- **Native quantum preparation, settings, readout and records** have no accepted physical producer. The observer–apparatus source gate is **NOT PASSED**. Operational quantum coverage, Bell composition and OI–QM reconstruction remain open.
+- **Gravity, Yang–Mills/QCD and Standard Model phenomenology** are not promoted by finite-observation results, conditional algebra, or existing derivation ledgers. In the C/Q framing, C is defined from embedded-observation constraints independently of quantum outcomes; Q is defined operationally. Agreement with performed experiments is required, while C reaching beyond Q in unperformed tests is a potential prediction to report rather than silently exclude.
+- The review and integration history is not an activation list. At this planning check, [#1317](https://github.com/amaybaum/incompleteness/pull/1317) and #1318 were still draft/unmerged, with separate ChatGPT exact-head ACCEPT records on #1169; an authorized conditional merge order, **#1317 then #1318**, still requires the recorded checks and coordinating execution. Do not infer merge from review, CI, or a PR flag alone.
+
+## 2. Two levels of work
+
+**Level A: strategic portfolio (this file, S0–S7).** One bounded *scientific area* per track. Proposed future writer for newly activated units: **Codex**. Claude/ChatGPT are *optional review-only* participants unless an existing or future unit-specific gate requires a particular independent/exact-head reviewer. This is a proposed staffing convention for future work; previously recorded individual authorizations and assignments continue to govern their own units until expressly changed.
+
+**Level B: executable unit briefs.** Each scientific unit must have a specific accountable Issue, recorded owner activation, readiness and one writer before beginning; it receives its own branch/worktree and, once substantively active, a guiding draft PR. The currently operative A1-free unit names and boundaries are **A1-01 … A1-05 from #1320**, not S1 … S7. A strategic track must never launch a worker, create a placeholder scientific PR, grant a science-level authorization or reuse another unit's permission.
+
+| Portfolio track | Original remit (strategic, not activated by this map) | Existing home and immediate constraint | Proposed output **after separate activation** |
+| --- | --- | --- | --- |
+| **S0 — coordinating session** | Maintain the master dependency/decision view; reconcile unit statuses, reviewers, CI and proposed merge order without doing their science | #1169 is the central coordinating Issue; #914 indexes the QM obligations. No implicit authority to merge | A source-linked status/decision packet and explicit owner requests |
+| **S1 — P12(b) observer reconstruction** | Fixed-lag projection, scalar local kernel, memory/wave closure and continuum trace; keep local P12(a) algebra separate | #1169; A1-01 on #1320 and [#1321](https://github.com/amaybaum/incompleteness/pull/1321). P6/Stage 2(f), P7/Stage 3 and A4 remain independent gates | First unsupported forward step, proof dependency map, cheapest falsifiable check |
+| **S2 — P7 coupled horizon shell** | Invariant shell-state sourcing, cross-energy reservoir weights, positive reciprocal rates, controlled gap and same detector transitions | #1169; A1-03 on #1320 and [#1322](https://github.com/amaybaum/incompleteness/pull/1322); decoupled #1319 is only a reference | Independently specified source test or a named SOURCE GAP, with negative controls |
+| **S3 — native quantum physical source** | One fixed deterministic substratum supplying non-imported preparation, settings/intervention, readout and complete retained records | [#866](https://github.com/amaybaum/incompleteness/issues/866), #1169; ready/request producer and retention source unsolved; IC₂ [#1316](https://github.com/amaybaum/incompleteness/pull/1316) stopped | Sourced mechanism decision packet, explicit counterexamples/failed controls, no imported quantum controller |
+| **S4 — Bell and empirical coverage** | Two-wing experiments, measurement independence, settings and outcomes with complete histories; map performed quantum experiments and remaining coverage | [#868](https://github.com/amaybaum/incompleteness/issues/868), [#1060](https://github.com/amaybaum/incompleteness/issues/1060), [#1291](https://github.com/amaybaum/incompleteness/issues/1291), #914; no unsourced apparatus can be treated as ready | Preregistered observable coverage/experiment matrix and source-gap classification |
+| **S5 — observer selection and arrow** | Compare P8-M/P8-S, memory persistence, local typicality, channel decay and claimed arrow/observer consequences | #1169, [#1112](https://github.com/amaybaum/incompleteness/issues/1112); A1-05 is queued on #1320 | Distinct implication/evidence matrix and lowest-cost falsifying test |
+| **S6 — gravity equations and matter** | G3 gravitational field equations, source/offset coupling and limits of GR reconstruction | [#873](https://github.com/amaybaum/incompleteness/issues/873), #1169; existing conditional B_G and offset results cannot be promoted to native sourcing | Premise-to-conclusion source audit, with GR/coupling negative controls |
+| **S7 — Standard Model and QCD** | Audit the chain from conditional gauge algebra to Yang–Mills/QCD dynamics and downstream particles, flavour and phenomenology | [#1211](https://github.com/amaybaum/incompleteness/issues/1211), [#1063](https://github.com/amaybaum/incompleteness/issues/1063), [#1293](https://github.com/amaybaum/incompleteness/issues/1293), [#1066](https://github.com/amaybaum/incompleteness/issues/1066); reuse dedicated homes, resolve any unmapped obligation via #914/#1169 before activation | Corpus-wide derivation ledger: proved vs conditional vs fitted vs proposed; smallest missing premise and test |
+
+The S7 audit does **not** equate the existence of an SU(3) representation with a derivation of QCD, running, confinement, spectrum or measurements. S4 must preserve the C/Q framing and cannot assume that excluding all not-yet-measured nonquantum behaviours is the target. S3 is upstream of claims requiring physically realized apparatus.
+
+## 3. Mapping from the five executable A1-free units
+
+| Immediate roster / scope | Strategic home | Record at this planning check | Next independent gate |
+| --- | --- | --- | --- |
+| **A1-01** P12(b) source trace | S1 | Owner activated; [#1321](https://github.com/amaybaum/incompleteness/pull/1321) paper-only trace produced at c4adda7240c39d9a739995d48311acaf32e95d48, CI green; first source gap reported | Any extension beyond the completed trace requires its own owner decision |
+| **A1-02** P6 Lean formalization | S1 support; not a second S1 writer | Separately authorized on [#1169](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6914517462), but **BLOCKED until #1318 is on main** and census/write-collision checks pass | Verify #1317/#1318 integrations; only then begin scoped Lean work |
+| **A1-03** P7 coupled source assessment | S2 | Owner activated; [#1322](https://github.com/amaybaum/incompleteness/pull/1322) SOURCE GAP record produced at c481829136e54ff8a6c0b6b5e50dcaefabdfbad3, CI green | New physical source/construction beyond the bounded assessment needs separate owner decision |
+| **A1-04** accessible finite-vs-infinite discriminator | Cross-cutting A1 test; coordinate via S0, not silently append to S1 | Queued; not activated by this master plan | Explicit model classes, finite protocol/precision and owner authorization |
+| **A1-05** P8 observer/arrow trace | S5 | Queued; not activated by this master plan | Separate owner activation; preserve P8-M vs P8-S alternatives and #1112 |
+
+The #1320 document records the initial activation state at its filing; later owner decisions and scoped A1-01/A1-03 completions live on #1169. This table is a **dated snapshot**, not a replacement for those source records. Do not run A1-01/A1-03 anew because a master planning table lists them.
+
+## 4. Dependency order and non-overlap
+
+**Wave 0 — coordinating/landing gates.** S0 records what is already authorized, checks actual main commit ancestry and CI; it does **not** infer that this plan grants merge authority. Conditional #1317 → #1318 integration is a separate pre-existing gate. #1320 remains independently draft, and this master document is independently draft.
+
+**Wave 1 — A1-free bounded work.** Reuse A1-01 and A1-03 completed assessments as source evidence; A1-02 starts only after its landing/census gates. A1-04/A1-05 remain queued unless separately activated. Work in one unit is not permission to start another.
+
+**Wave 2 — physical-source decision.** S3 may investigate a *separately authorized* physical producer. Without one, S4 may audit empirical constraints, not claim a native Bell instrument; S6/S7 may audit conditional premises but must not infer physical emergence.
+
+**Wave 3 — downstream derivations and tests.** S4, S6 and S7 only advance from their own accountable Issues and source-dependent approvals. Mathematical admissibility, physical sourcing, formal verification and agreement with performed experiments are four different kinds of evidence. Each output identifies the first failed or unsupported dependency.
+
+**Collision rule:** only one writer may edit a given branch, mutable record, Lean census or manuscript path at a time. A scientific unit gets its own scoped branch and record; overlapping S0 reporting does not create a second editing authority. If two tracks target the same proof or file, S0 records a handoff/dependency, not parallel edits.
+
+## 5. Governance and evidence handoff
+
+1. **Issues govern planning:** #1169 coordinates the portfolio; #914 is the QM index; use existing accountable Issues above, or obtain a new dedicated Issue only when a genuinely unmapped obligation requires one. Follow AGENTS.md §§A.43, A.45 and A.47. The historical verification/ROADMAP.md is not an editable task board.
+2. **Activation is granular:** before each unit, record objective, exact source pins, tier, prerequisites, readiness, owner authorization, designated sole writer, goal link, allowed actions, exclusions, deliverable and stop rule. Proposed assignments and waves grant nothing by themselves.
+3. **Writer/reviewer roles:** Codex writes only newly owner-authorized candidates. Claude and/or ChatGPT can independently review without co-writing when elected; an independent review required by AGENTS.md, a recorded unit authorization, or an older exact-head merge gate is **not waived** by making these reviewers generally optional. In particular preserve the recorded #1317/#1318 ChatGPT gates. Reviews identify the exact commit and evidence inspected; a changed head needs a fresh applicable review.
+4. **Publish and verify:** reuse a guiding draft PR for existing active work, preserve prior reviewed heads, and run ordinary checks appropriate to the actual code paths. No force-push, rebase, specialized workflow dispatch, scientific computation outside scope, manuscript rewrite or merge merely on the strength of this plan.
+5. **S0 handoff packet:** each unit reports its accountable Issue, branch/PR, exact commit, source snapshot, claim/evidence level, assumed premises, controls and failures, negative outcomes, independent review if required, CI result, first missing physical ingredient, and *next separate owner decision*. Do not mark scientific gates passed merely because CI is green.
+6. **Integration:** acceptance of a paper result, preservation of a research record, adoption of a new premise, PR integration, and a publication claim are separate decisions. Follow AGENTS.md §§A.29, A.42 and A.46. Incomplete or negative work can be preserved with explicit scope, without being promoted to a native theory.
+
+## 6. Decision boundary
+
+**Authorized by the latest owner message:** create and cross-link this separate master documentation, retain #1320 as the focused A1-free plan, and distinguish the strategic S0–S7 map from executable A1-01…05.
+
+**Not authorized here:** start any new S0–S7 worker, reactivate an already completed A1 assessment, change previously recorded individual work assignments, waive required reviews or CI, adopt a physical source, rerun IC₂, perform QCD/GR/QM science, merge this or other PRs, or assert full OI–QM equivalence.
+
+**Current invariant:** physical source **NOT PASSED**; A1 unadopted; unresolved quantum/GR/QCD reconstruction obligations remain open.
