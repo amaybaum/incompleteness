@@ -1,6 +1,6 @@
 # A1-09 — A1 dependency census (A1-C01)
 
-**Status: PARTIAL SOURCE AUDIT / UNCLASSIFIED COVERAGE — NOT A1-C01 COMPLETION OR G2 SIGN-OFF.**
+**Status: PARTIAL SOURCE AUDIT / UNCLASSIFIED COVERAGE — NOT A1-C01 COMPLETION OR G2 SIGN-OFF.** First pass independently reviewed (ACCEPT WITH CHANGES); the review's three required changes are applied in this revision by the coordinating session as writer (owner decision #1169 c.6922450446).
 Scientific source claims remain governed by their own evidence and reviews. A1 is OPEN / UNADOPTED; physical source is NOT PASSED. This file changes no manuscript, Lean declaration, hypothesis, grade or completion-register entry.
 
 **Accountable Issue:** [#1334](https://github.com/amaybaum/incompleteness/issues/1334); [owner activation](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6918420877), [in-session execution clarification](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6919384575); **coordination:** [#1169, A1-C00–C11 checklist](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6916312927). Writer of this revision: **ChatGPT in the owner-directed current session**, not Codex. Independent review and all existing review/CI/integration gates remain separate. No independent review is claimed here.
@@ -67,7 +67,7 @@ Source citations are `path:line` at the pinned commit; short Lean references are
 | D06 / C10 | `papers/Main.md:109–127`; `book/ch01-observation.md:93–119`; `book/ch18-beyond.md:174–192` | Exact `φ^N=id` uses finite global carrier **F**; neither one visible return nor an arbitrary infinite measure-preserving system implies it | Preserve finite theorem; A1-10/#1335 controls exact return, visible return and accessible-history return separately |
 | D07 / C10 | `papers/Main.md:135–139,178`; `RecurrenceHorizon.lean:104–148` | Identity return plus earlier overlapping rooted rows implies recurrence-scale P-indivisibility; algebraic horizon theorem **A** given identity return, **F** for native finite-cycle supply | State identity-return hypothesis explicitly; conditional result is not universal infinite-time indivisibility |
 | D08 / C10 | `ObservableFactorRecurrence.lean:48,68`, `ObservableMeasureReturn.lean:63,83` | **A** set/change-event and ENNReal measured-return identities with finite visible alphabet, specified measure and positive finite cell masses; no total finite carrier. **W** as physical rooted stochastic law | Do not count as a universal return theorem; source/normalize a real row-stochastic law separately |
-| D09 / C10 | `papers/Main.md:439–441`; `book/appendix-b-derivations.md:413–417` | Nonpermutation-one-step ⇒ indivisible uses **F** finite-cycle return, despite unqualified if-clause in Main's lemma (it cites `2.3) | **U candidate wording**: make finite reversible representative/return premise visible in lemma itself and propagation mirrors; correction owner #1029/#1015 |
+| D09 / C10 | `papers/Main.md:439–441` | Nonpermutation-one-step ⇒ indivisible uses **F** finite-cycle return. The lemma concerns the marginalized dilation of Main:437, a finite construction, and its proof cites §2.3's finite recurrence theorem | **No defect; optional precision at most.** #1313 row M-30 ruled it "a lemma in the finite-realization setting of §2.3/§3.2". `book/appendix-b-derivations.md:413` (Lemma B.7.3) already states finiteness and the recurrence scale, so no book change |
 | D10 / C10 | `papers/Main.md:330–336`; `book/appendix-b-derivations.md:92–96` | CP-indivisibility consequence **F** for diagonal-preserving finite permutation-dilation family; does not hold for arbitrary CPTP processes | Preserve existing scope and ancilla distinction; no independent universal quantum conclusion |
 | D11 / C02,C10 | `papers/Introduction.md:87–95,178`; `book/ch18-beyond.md:166–192` | Recurrence and repeated forecasting examples **F** when derived from finite recurrence; same-world extension beyond fixed horizons **W** | Check all-time language against exact carrier premises; preserve limitation on gluing independent horizon models |
 | D12 / C02 | `papers/Main.md:433–441,457–463`; `Equivalence.lean:60–90,422` | Uniform-prior finite permutation construction/counting and specific doubly stochastic marginal **F**; an arbitrary normalized prior or infinite hidden carrier changes it | Keep correlated-law vs common-prior forms distinct, and no physical uniform-prior selection |
@@ -92,7 +92,8 @@ Source citations are `path:line` at the pinned commit; short Lean references are
 | D31 / C11 | `GeneralCarrier.lean:97–113,160–170`; `papers/Main.md:646–660` | Operational QM characterization **A** on given nonempty *finite observable* systems under five physical-completion conditions; bare OI has a countermodel. Native sources for the conditions **W** | Do not identify fixed-basis representation with physical full OI↔QM, coherent instruments/composites or quantum-set exclusion |
 | D32 / C11 | `papers/SM.md:835,1416`; `papers/Structure.md:929–968` | QCD, strong CP, couplings, mass predictions and no-GUT claims inherit selected carrier, gauge/representation, dynamics, state and native observer gaps. **W** wherever physical reconstruction is claimed; local algebra is narrower **A** | Trace individual downstream predictions against #914/#1063 and retained SM assumptions in later full pass; **X** for unaudited per-claim dependency chains |
 | D33 / C11 | `papers/Computation.md:176–180`; `book/ch14-quantum-computing.md:96–110,268` | BQP characterization explicitly assumes *finite* OI model plus operational closure, gate and efficiency postulates: **F / conditional**, not a theorem about nature. Finite-system exclusion of infinite-time resources **F** | Retain model-conditioned claim, no unconditional ceiling for all physical technologies |
-| D34 / C11 | `papers/Medicine.md:35–39` | Language can read as C1–C4 imply P-indivisibility and actual biological systems satisfy all four automatically. Readback implies conditional memory, not P-indivisibility at arbitrary accessible window. **U candidate physical transfer** | Review scope against Main `2.3 and `3.4; distinguish conditional history memory, measured P-indivisibility and experimentally justified physical coupling |
+| D34a / C11 | `papers/Medicine.md:35` | **A1 part.** "Proves … P-indivisibility, on a common window" conflicts with Main:137–139: the full-support coincidence is a global recurrence-cycle result on a finite representative, and C4 does not force P-indivisibility on accessible windows. **U** | Corrected on `main` by #1341 (`5ea8672f`), using Medicine:13's wording |
+| D34b / C11 | `papers/Medicine.md:37` | **Not an A1 matter.** "At every scale, C1–C4 are satisfied" is an unsourced empirical assertion | Tracked separately as #1342 R4 |
 | D35 / C11 | `papers/Complexity.md:372–376,484–486` | Enzyme analogy itself acknowledges non-closed/non-bijective biology; quantum backflow and P-indivisibility should not be silently read as finite-substratum proofs. **F** for finite theory; experimental biological extrapolation **W** | Preserve enzyme scope note; inspect individual computational predictions before propagating recurrence |
 | D36 / C03,C11 | `papers/Structure.md:224–230,264–272` | Document correctly states finite-rank BFSS has continuous matrix entries, then asserts lattice spacing plus fixed rank gives finite-cardinality configuration space. This inference is **U candidate / internal inconsistency** absent a *separate finite-valued matrix-entry discretization* | Separately correct the fixed-N/fixed-spacing ⇒ finite-cardinality claim or supply a genuinely finite alphabet/constrained phase space. No bridge established |
 | D37 / C03,C11 | `book/ch09-universality.md:190–196` | "For any finite N the bridge is consistent" uses finite matrix rank as if it resolves A1; finite rank alone does not give finite-cardinality `S`. **U candidate** | Narrow to hypothetical discretized finite-state representation with separately verified A2–A6, or withdraw bridge consistency |
@@ -121,7 +122,7 @@ The declarations were inspected as repository source. Kernel-check status is inh
 
 | Closure item | First-pass status and next gate |
 |---|---|
-| C00 | #1313 public A1 qualification retained; D09/D26/D39 candidate propagation checks |
+| C00 | #1313 public A1 qualification retained; D26/D39 corrected by #1341, D09 withdrawn (§5.1) |
 | C01 | **OPEN / X**: FULL mirrors, 232 Lean modules, registry entry-by-entry, other verification and indirect paper chains not exhaustive |
 | C02 | **Scoped** finite-window equivalence; common physical world/continuity of carriers unresolved (D02/D03/D12/D13) |
 | C03 | **Finite-class only**; A4 torus finite alphabet still finite. Matrix-model "finite rank = finite carrier" wording check (D36/D37) |
@@ -142,10 +143,26 @@ These are source-review referrals, **not** accepted textual corrections or indep
 |---|---|---|
 | P0 | `papers/Structure.md:230`, `book/ch09-universality.md:194` | Distinguish continuous finite-dimensional matrix models from finite-cardinality carrier; require finite-valued cutoff *as a separate input* for the latter. Inspect `Structure.md:272,320` for propagation |
 | P0 | `papers/GR.md:665–669` | Remove/justify the bare "A1 implies finite ε/mode-unit S3" inference; it needs spatial/metric/mode-count premises, not set cardinality alone |
-| P1 | `papers/Main.md:439–441`, `book/appendix-b-derivations.md:413–417` | Surface finite carrier or exact return in the lemma itself, not only upstream `2.3`; A1-10 may provide a weaker alternative later |
+| — | `papers/Main.md:439–441` | Withdrawn as a candidate: see D09 |
 | P1 | `papers/Medicine.md:35–39`, downstream biological predictions | Do not conflate conditional readback memory, measured P-indivisibility and verified natural biological realization of C1–C4 |
 | P1 | `book/appendix-c-objections.md:128–132` | Keep "QFT infinity is an artifact" expressly conditional on a physically supported finite underlying model |
-| P1 | `papers/Main.md:746–762` and downstream arrow / anti-BB claims | Carry P8-M/P8-S selected law, fast-mixing rate, erosion, record law and local-equilibrium quantifier; accepted A1-05 record may already capture the required scope |
+| — | `papers/Main.md:746–762` and downstream arrow / anti-BB claims | Not assessed in this pass and not counted as a candidate; deferred to A1-05 (#1332) |
+
+### 5.1 Disposition after the first-pass review
+
+The independent first-pass review ([#1340 review at `a64e2528`](https://github.com/amaybaum/incompleteness/pull/1340)) checked each candidate against CHANGEMAP-A1C-r6-min (#1313's reviewed minimum-change map, `verification/audits/foundations/a1-foundations-20261115/change-map/` on branch `research/a1-foundations-1169-20261115`). That map asked only whether a sentence presents finiteness as a fact about nature.
+
+| Candidate | #1313 ruling | Why this is a different defect, or none | Disposition |
+|---|---|---|---|
+| D09 Main:439–441 | M-30: lemma in the finite-realization setting | Same question; no defect | Withdrawn |
+| D26 GR:669 | G-17: label kept | Internal-logic defect: A1 is a cardinality condition and does not imply S3's discreteness scale or its mode-count identification, which S3 itself calls an additional requirement | Corrected by #1341 |
+| D34a Medicine:35 | not in the map | Recurrence-scale P-indivisibility stated for a common window | Corrected by #1341 |
+| D34b Medicine:37 | not in the map | Empirical assertion, not A1 | #1342 R4 |
+| D36 Structure:230 | T-07: label and class membership kept | Internal inconsistency with Structure:270's entry-discretization proviso | Corrected by #1341; Structure:270's description of lattice techniques is #1342 R1 |
+| D37 ch09:194 | not in the map at this line | Finite N leaves matrix entries continuous | Corrected by #1341, with FULL |
+| D39 appendix-c:130 | N-Kappc-C6 changed this paragraph's opening | Residue: the "artifact" clause stayed unconditional | Corrected by #1341, with FULL |
+
+The review's further findings outside these candidates are tracked in #1342 (R1–R4).
 
 Manuscript corrections must use the separately designated #1015/#1029 or other accountable issue with owner approval, review, generated mirror update and registry consistency. A1-09 does not edit the source or overwrite #1317.
 
@@ -157,7 +174,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
 - CENSUS-X4: recursively maintained verification files, programmes, probes, archival/branch-only evidence, and published .tex/.pdf mirrors remain unscanned as complete corpora.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
-- CENSUS-X6: D09/D26/D34/D36/D37/D39 are **review candidates** awaiting exact-head independent source/proof review; a manuscript fix requires separate owner authorization.
+- CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization.
 
 To close A1-C01, obtain full text/source parity for X1–X4; review and classify every site and theorem in X2–X5, including implicit dependencies; resolve or explicitly narrow X6 by separately approved evidence; and reconcile against the existing closure register with a reviewed exact-head audit. Only an independent final G2/owner sign-off on reviewed manuscript propagation can change the foundational completion label.
 
