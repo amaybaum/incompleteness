@@ -68,7 +68,7 @@ Taking $E=E_{\theta j,\theta i}^{(n)}$ gives
 $$
 J_{ij}(n)=J_{\theta j,\theta i}(n).
 $$
-This is reciprocal flux, with no restriction on the conditioning masses. Invariance makes the set bijection preserve probability mass, the property that must replace finite cardinality.
+This is reciprocal flux, with no restriction on the conditioning masses. Reversal invariance also gives $p_{\theta j}=p_j$, since $\Theta^{-1}(A_{\theta j})=A_j$. It does not equate the masses of arbitrary distinct visible cells. Invariance makes the set bijection preserve probability mass, the property that must replace finite cardinality.
 
 **Conditional transitions.** With both roots positive, let $J$ denote the common paired flux. Then
 $$
@@ -93,7 +93,7 @@ The fibre map therefore preserves $\nu$-mass on the entire transition fibre and 
 |---|---|
 | Reverse the trajectory and construct the inverse fibre map. | No counting is used. Reciprocity.lean:67–74 (`key`) and :79–103 (`count_reciprocity`) use the algebra above. The measurable proof checks the same map and both directions. |
 | Count each hidden fibre and use its bijection to equate cardinalities. | `N` at Reciprocity.lean:50–53 counts a subset of `Finset.univ` using `Fintype H` (:40), and `count_reciprocity` uses `Finset.card_bij` (:82). The replacement is the measurable event mass comparison and the restricted-fibre equality above. |
-| Divide by $|\mathcal C_H|$ to obtain transition probabilities. | `theorem_19` at Reciprocity.lean:129–137 divides the counts by the common finite cardinality. Here the flux is normalized by the root mass in the one law. For the specified product, this gives $T_{ij}(n)=\nu(H_{ij}^{(n)})$. With a nonempty finite $H$ and uniform $\nu$, this is exactly $|H_{ij}^{(n)}|/|H|$. The uniform product on finite $V\times H$ is invariant under both permutations. Multiplying the equality by $|H|$ recovers count equality in this finite case. The Lean count theorem does not require a finite visible type. Its denominator has a probability interpretation for nonempty $H$. |
+| Divide by $\lvert\mathcal C_H\rvert$ to obtain transition probabilities. | `theorem_19` at Reciprocity.lean:129–137 divides the counts by the common finite cardinality. Here the flux is normalized by the root mass in the one law. For the specified product, this gives $T_{ij}(n)=\nu(H_{ij}^{(n)})$. With a nonempty finite $H$ and uniform $\nu$, this is exactly $\lvert H_{ij}^{(n)}\rvert/\lvert H\rvert$. The uniform product on finite $V\times H$ is invariant under both permutations. Multiplying the equality by $\lvert H\rvert$ recovers count equality in this finite case. The Lean count theorem does not require a finite visible type. Its denominator has a probability interpretation for nonempty $H$. |
 | Apply the argument to every power and specialize to time-even cells. | `hT_pow` (Reciprocity.lean:105–124) needs no finite hidden type. Powers also preserve the same $\mu$. `detailed_balance` (:142–145) states the finite count equality when $\theta=\mathrm{id}$. The paper proof gives the corresponding probability equality under the stated root condition. |
 
 ## 5. One infinite model with an explicit law
