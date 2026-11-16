@@ -172,7 +172,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 53 modules by type name and 5 by concrete finite types for the semantic check; it classifies none. Batch 2b (§9) classifies 16 of the flagged modules; no correction candidate.
+- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 53 modules by type name and 5 by concrete finite types for the semantic check; it classifies none. Batches 2b (§9) and 2c (§10) classify 41 of the flagged modules; no correction candidate.
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
 - CENSUS-X4: recursively maintained verification files, programmes, probes and archival or branch-only evidence remain unscanned as complete corpora. Published `.tex` mirrors are resolved for claim content by batch 1 (§7); PDFs are not stamped and are not checked.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
@@ -291,5 +291,27 @@ Only the last case is a correction candidate.
   - No book chapter cites an identifier from these 16 modules.
 
 **Result.** No correction candidate in this batch. All 16 modules are classified: the finite-carrier results are **F** and stated within their finite scope wherever a manuscript carries them, and the exceptions above are **A**.
+
+## 10. Coverage batch 2c — quantum completion, instrument and lift modules (X2)
+
+**Pin:** `main` at `5ea8672f`. **Modules (25):** ClosureObstruction, CoherentLift, DimensionalCountermodel, InstrumentDilation, InstrumentRealization, KInfFoundations, KTokenMaxCone, MicroscopicReversibility, PhysicalCharacterization, Purification, RankGapTheory, ReferenceSufficiency, SubstantiveCensus, TypedCompletion, UhlmannUniqueness, WeylLift, Separability, ImplementationLocality, BarandesTuple, OperationalSourcing, CandidateSelection, TrackBQfbBridge, OrbitGeometryIsometries, OrbitGeometrySelector, ContinuousExtension.
+
+**Recipe.** As for §9: read every line carrying a flagged finiteness, map the module to its registry families, and read the paragraph of each manuscript anchor.
+
+**Lean side.** The flagged types fall into three kinds:
+1. **A finite index of a family.** `ι` is a Kraus or outcome index, or the index of a finite family of points or channels, in ClosureObstruction, DimensionalCountermodel, InstrumentDilation, InstrumentRealization, KInfFoundations, KTokenMaxCone, MicroscopicReversibility (:189), PhysicalCharacterization, Purification, RankGapTheory, SubstantiveCensus, UhlmannUniqueness, WeylLift, Separability and ImplementationLocality. No A1 relevance.
+2. **The dimension of a finite quantum system or register.** This covers `C` in ClosureObstruction (:343), MicroscopicReversibility (:142) and ReferenceSufficiency; `W` as a readout outcome set in CoherentLift; `X`/`Y` in TypedCompletion; `X` in ContinuousExtension; and `W` as the lift dimension in TrackBQfbBridge and the OrbitGeometry modules. This is finiteness of an observable system or of a representation, not of the substratum. No A1 relevance.
+3. **A hidden or ancilla carrier of a realization.** `H` and `Anc` in OperationalSourcing (:209, :259); `C`, `W` and `H` in BarandesTuple (:100, :282, :416); `Anc` in CandidateSelection. These are finite carriers stated as hypotheses (**F**).
+
+**Manuscript side.**
+- **Kernel-only or verification-only families, with no manuscript anchor:** instruments, dilation and assembly; instrument realization; the K∞ vocabulary; the k-token cone; tuple instantiation; candidate selection; both orbit-geometry families; the continuous-extension round. No manuscript claim rests on them through the registry.
+- **Completion classification and the primitive-source chain:**
+  - GR:216, 242 and 252, Main:592 and FULL:500 state the operational characterization "on every nonempty finite carrier", that is, on finite quantum systems. That is finiteness of the observable system, not total finiteness (**A** at observable scope; cf. D31).
+  - GR:216's minimality witnesses are finite qubit countermodels, for which a finite witness suffices.
+  - The substratum-source sentence in Main:592 and FULL:500 is scoped explicitly: "the concrete OI substratum, in its finite model (ledger item (ii))". **F**, stated.
+- **Coherent completions (GR:188) and typed completion (GR:272):** classification on "nonempty finite carriers", meaning quantum registers; observable scope.
+- **Operational sourcing (Main:648) and the fixed-basis image of a single-time lift (Main:648, ch01:187, ch19:285):** finite lifts and ancillas of finite visible laws, within the finite-horizon representation layer. Observable scope; no total-finiteness claim.
+
+**Result.** No correction candidate in this batch. All 25 modules are classified: kinds 1 and 2 carry no A1 relevance, and kind 3 is **F**, stated, or kernel-only.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
