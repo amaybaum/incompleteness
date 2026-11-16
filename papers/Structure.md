@@ -227,7 +227,7 @@ Whether matrix models can be candidate representatives of OI's equivalence class
 
 Candidate (a) is structurally suggestive — both $q$ and $N$ parametrize the size of the basic representation space. The disanalogy is that OI's alphabet-size hypothesis asserts $q$-independence of observables; the analogous claim for $N$ would be $N$-independence of matrix-model observables, which is *not* a feature of matrix models. Different $N$ values give different theories (BFSS at $N=2$ differs from BFSS at $N=10^9$), and the conjectured M-theory limit is specifically $N \to \infty$ at fixed coupling. The $N$-dependence of matrix-model dynamics is structural, not gauge.
 
-Candidate (b) is technically tractable through lattice-discretized BFSS [BFSS-Lattice2015]. At fixed lattice spacing and matrix rank, the configuration space is finite-cardinality and OI's A1 holds. The remaining structural conditions A2 (deterministic bijection) and A5 (linearity) still fail per §6's analysis — lattice Monte Carlo is stochastic, and the Yang-Mills commutator-squared interaction remains nonlinear at the lattice level.
+Candidate (b) is technically tractable through lattice-discretized BFSS [BFSS-Lattice2015]. At fixed lattice spacing and matrix rank, with the matrix-entry values also discretized and bounded (§6.1), the configuration space is finite-cardinality and OI's A1 holds. The remaining structural conditions A2 (deterministic bijection) and A5 (linearity) still fail per §6's analysis — lattice Monte Carlo is stochastic, and the Yang-Mills commutator-squared interaction remains nonlinear at the lattice level.
 
 ### 4.3 Possible bridges and their status
 

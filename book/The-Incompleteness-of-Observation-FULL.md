@@ -2658,7 +2658,7 @@ The apparent overlap between the two programs — both predict the Standard Mode
 
 The bridge would be: identify the framework's finite-bijection structure with a specific matrix model whose continuum limit produces a string-theoretic spacetime. Six structural axioms must be checked for compatibility under such a bridge.
 
-*A1 (finiteness).* The framework's representative has finite $|S|$. Matrix models with $N \to \infty$ limits violate this strictly, but for any finite $N$ the bridge is consistent. Since the extension of finiteness beyond the observer's distinguishable states is a choice of representative rather than a further fact (Chapter 2), the bridge requires a finite-$N$ representative — the matrix model not taken to its continuum limit — without asserting that $N$ is physically finite. This distinguishes the framework's bridge from standard matrix-model interpretations.
+*A1 (finiteness).* The framework's representative has finite $|S|$. Matrix models with $N \to \infty$ limits violate this strictly; at finite $N$ the matrix entries remain continuous, so the bridge is consistent only for finite $N$ with discretized, bounded entries. Since the extension of finiteness beyond the observer's distinguishable states is a choice of representative rather than a further fact (Chapter 2), the bridge requires a finite-$N$ representative — the matrix model not taken to its continuum limit — without asserting that $N$ is physically finite. This distinguishes the framework's bridge from standard matrix-model interpretations.
 
 *A2 (determinism / bijection).* The framework requires deterministic bijection dynamics. Matrix models with deterministic Hamiltonian evolution satisfy this; matrix models with quantum-mechanical evolution on the matrix degrees of freedom do not, unless the quantum mechanics is interpreted as emergent from the substratum (consistent with the framework's content but not with standard matrix-model interpretations).
 
@@ -6354,7 +6354,7 @@ A referee who rejects posit A1 for the universe as a whole does not thereby reje
 
 The framework's content is therefore that the continuum QFT description is the *emergent* description — finite at the substratum level under A1 but *appearing* infinite-dimensional when described in the continuum limit. This is structurally analogous to how condensed matter systems with finite lattice spacing exhibit effective continuum descriptions: the underlying physics is finite, but the long-wavelength effective description involves continuous fields.
 
-A1 is therefore *compatible with* the standard QFT description as an effective continuum theory while making specific structural claims about the substratum level. The two levels of description coexist; the apparent infinite-dimensionality of QFT is an artifact of the continuum limit rather than a property of the underlying physics.
+A1 is therefore *compatible with* the standard QFT description as an effective continuum theory while making specific structural claims about the substratum level. The two levels of description coexist; if A1 holds, the apparent infinite-dimensionality of QFT is an artifact of the continuum limit rather than a property of the underlying physics.
 
 A1 is therefore not just a mathematical convenience but a structurally consequential hypothesis, motivated by the Bekenstein bound and compatible with continuum QFT.
 
