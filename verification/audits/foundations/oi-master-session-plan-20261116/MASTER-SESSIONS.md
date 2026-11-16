@@ -15,7 +15,7 @@
 - **P12(a)** local gauge-representation algebra is conditional given its inputs; it does not complete the physically sourced gauge sector. **P12(b)** observer-level and continuum reconstruction is incomplete. Its P6 Stage 2(f), P7 Stage 3 and A4/ledger conditions are separate inputs.
 - **Native quantum preparation, settings, readout and records** have no accepted physical producer. The observer–apparatus source gate is **NOT PASSED**. Operational quantum coverage, Bell composition and OI–QM reconstruction remain open.
 - **Gravity, Yang–Mills/QCD and Standard Model phenomenology** are not promoted by finite-observation results, conditional algebra, or existing derivation ledgers. In the C/Q framing, C is defined from embedded-observation constraints independently of quantum outcomes; Q is defined operationally. Agreement with performed experiments is required, while C reaching beyond Q in unperformed tests is a potential prediction to report rather than silently exclude.
-- The review and integration history is not an activation list. At this planning check, [#1317](https://github.com/amaybaum/incompleteness/pull/1317) and #1318 were still draft/unmerged, with separate ChatGPT exact-head ACCEPT records on #1169; an authorized conditional merge order, **#1317 then #1318**, still requires the recorded checks and coordinating execution. Do not infer merge from review, CI, or a PR flag alone.
+- The review and integration history is not an activation list. At the post-drafting check, [#1317](https://github.com/amaybaum/incompleteness/pull/1317) had **merged** after its recorded exact-head review and gates; [#1318](https://github.com/amaybaum/incompleteness/pull/1318) remained draft/unmerged despite its separate ChatGPT exact-head ACCEPT on #1169. The previously authorized order was **#1317 then #1318**; #1318 still needs its own landing and post-merge verification. Check fresh status before taking action. Do not infer merge from review, CI, or a PR flag alone.
 
 ## 2. Two levels of work
 
@@ -41,7 +41,7 @@ The S7 audit does **not** equate the existence of an SU(3) representation with a
 | Immediate roster / scope | Strategic home | Record at this planning check | Next independent gate |
 | --- | --- | --- | --- |
 | **A1-01** P12(b) source trace | S1 | Owner activated; [#1321](https://github.com/amaybaum/incompleteness/pull/1321) paper-only trace produced at c4adda7240c39d9a739995d48311acaf32e95d48, CI green; first source gap reported | Any extension beyond the completed trace requires its own owner decision |
-| **A1-02** P6 Lean formalization | S1 support; not a second S1 writer | Separately authorized on [#1169](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6914517462), but **BLOCKED until #1318 is on main** and census/write-collision checks pass | Verify #1317/#1318 integrations; only then begin scoped Lean work |
+| **A1-02** P6 Lean formalization | S1 support; not a second S1 writer | Separately authorized on [#1169](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-6914517462), but **BLOCKED until #1318 is on main** and census/write-collision checks pass | Verify #1318 integration and the existing census/write-collision checks; only then begin scoped Lean work |
 | **A1-03** P7 coupled source assessment | S2 | Owner activated; [#1322](https://github.com/amaybaum/incompleteness/pull/1322) SOURCE GAP record produced at c481829136e54ff8a6c0b6b5e50dcaefabdfbad3, CI green | New physical source/construction beyond the bounded assessment needs separate owner decision |
 | **A1-04** accessible finite-vs-infinite discriminator | Cross-cutting A1 test; coordinate via S0, not silently append to S1 | Queued; not activated by this master plan | Explicit model classes, finite protocol/precision and owner authorization |
 | **A1-05** P8 observer/arrow trace | S5 | Queued; not activated by this master plan | Separate owner activation; preserve P8-M vs P8-S alternatives and #1112 |
@@ -50,7 +50,7 @@ The #1320 document records the initial activation state at its filing; later own
 
 ## 4. Dependency order and non-overlap
 
-**Wave 0 — coordinating/landing gates.** S0 records what is already authorized, checks actual main commit ancestry and CI; it does **not** infer that this plan grants merge authority. Conditional #1317 → #1318 integration is a separate pre-existing gate. #1320 remains independently draft, and this master document is independently draft.
+**Wave 0 — coordinating/landing gates.** S0 records what is already authorized, checks actual main commit ancestry and CI; it does **not** infer that this plan grants merge authority. #1317 has now landed; #1318's separately authorized conditional integration remains a distinct pending gate. #1320 remains independently draft, and this master document is independently draft.
 
 **Wave 1 — A1-free bounded work.** Reuse A1-01 and A1-03 completed assessments as source evidence; A1-02 starts only after its landing/census gates. A1-04/A1-05 remain queued unless separately activated. Work in one unit is not permission to start another.
 
