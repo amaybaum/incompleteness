@@ -292,21 +292,21 @@ hidden-sector mixing hypothesis, which the eigenstate thermalization
 hypothesis motivates, its persistence form holding without it, and full
 operational quantum theory approached at every finite test with its
 unique selection open; (ii) under the canonical measure of {[}Main{]}
-Lemma 3 --- the invariant measure selected by maximal entropy, which the
-physical realization uses --- the emergent description is uniquely
-determined by the partition (partition-relativity); (iii) the emergent
-transition probabilities \(T_{ij}(t)\) determine the Bohr-frequency set
-of the emergent Hamiltonian and, under the genericity hypotheses
-(G1)--(G4) of the phase-locking lemma or, without (G4), conditional on
-the classification hypothesis H-BG of §3.3, the emergent Hamiltonian
-itself up to a diagonal-unitary D-gauge, an energy origin, and one
-global antiunitary conjugation --- the two-branch form of §3.3 --- via
-the phase-locking lemma applied to continuous-time sampling. The
-technical bridge from P-indivisible classical stochastic processes on
-finite configuration spaces to unitary quantum evolution on finite
-Hilbert spaces is Barandes' stochastic-quantum correspondence {[}35,
-36{]}, used by the companion paper for compression and interpretation
---- the fixed-basis representation itself is supplied internally there
+Lemma 3 --- the invariant measure selected by maximal entropy --- the
+emergent description is uniquely determined by the partition
+(partition-relativity); (iii) the emergent transition probabilities
+\(T_{ij}(t)\) determine the Bohr-frequency set of the emergent
+Hamiltonian and, under the genericity hypotheses (G1)--(G4) of the
+phase-locking lemma or, without (G4), conditional on the classification
+hypothesis H-BG of §3.3, the emergent Hamiltonian itself up to a
+diagonal-unitary D-gauge, an energy origin, and one global antiunitary
+conjugation --- the two-branch form of §3.3 --- via the phase-locking
+lemma applied to continuous-time sampling. The technical bridge from
+P-indivisible classical stochastic processes on finite configuration
+spaces to unitary quantum evolution on finite Hilbert spaces is
+Barandes' stochastic-quantum correspondence {[}35, 36{]}, used by the
+companion paper for compression and interpretation --- the fixed-basis
+representation itself is supplied internally there
 (\(S \iff D \iff Q_{\mathrm{fb}}\)). We treat these results as inputs
 and apply them to the cosmological horizon. The cosmological horizon
 independently verifies C1--C3: causal coupling via the Einstein
@@ -554,22 +554,22 @@ the same factor enters both the classical and emergent thermal
 descriptions and cancels; that is not established here.
 
 \textbf{The classical horizon temperature as a counting derivative,
-under H-count.} Restrict the finite total system to a conserved energy
-shell and let visible configuration \(i\) carry energy \(e_i\). If the
-boundary interaction is negligible at the shell scale, uniform counting
-gives \(P(i)=\Omega_H(E-e_i)/\sum_j\Omega_H(E-e_j)\), so with
-\(s_H=\ln\Omega_H\) and \(\beta=s_H'(E)\),
+under H-count.} Under A1, restrict the finite total system to a
+conserved energy shell and let visible configuration \(i\) carry energy
+\(e_i\). If the boundary interaction is negligible at the shell scale,
+uniform counting gives \(P(i)=\Omega_H(E-e_i)/\sum_j\Omega_H(E-e_j)\),
+so with \(s_H=\ln\Omega_H\) and \(\beta=s_H'(E)\),
 \(P(i)\propto\exp[-\beta e_i+\tfrac12 s_H''(E)e_i^2+O(e_i^3)]\). Gibbs
 is the leading finite-bath marginal of uniform counting, classically.
-Under the hidden-sector condition \textbf{H-count} --- the
-energy-dependent entropy of the whole hidden sector at the shell scale
-is the boundary count, \(s_H=\sigma A/\epsilon^2\) up to an
-energy-independent constant, the shell energy \(E\) being the energy of
-the horizon first law and the deep hidden sector contributing no
-energy-dependent multiplicity and, by the choice of energy zero, no
-energy; S1--S4 do not supply it, their hidden capacity
-\(\sim S_{\rm dS}\) fixing no entropy--energy slope --- feeding in
-\(dE=c^2\kappa\,dA/(8\pi G)\) gives
+Under the hidden-sector condition \textbf{H-count} --- that the total
+system is finite (A1) and that the energy-dependent entropy of the whole
+hidden sector at the shell scale is the boundary count,
+\(s_H=\sigma A/\epsilon^2\) up to an energy-independent constant, the
+shell energy \(E\) being the energy of the horizon first law and the
+deep hidden sector contributing no energy-dependent multiplicity and, by
+the choice of energy zero, no energy; S1--S4 do not supply it, their
+hidden capacity \(\sim S_{\rm dS}\) fixing no entropy--energy slope ---
+feeding in \(dE=c^2\kappa\,dA/(8\pi G)\) gives
 \(\partial s_H/\partial E=8\pi G\sigma/(c^2\kappa\epsilon^2)\) and hence
 \(k_BT_{\rm micro}=(\partial s_H/\partial E)^{-1}=c^2\kappa\epsilon^2/(8\pi G\sigma)=k_BT_{\rm cl}\)
 --- with no quantum mechanics, no KMS condition, no vacuum choice and no
@@ -1904,20 +1904,21 @@ mechanics on every nonempty finite carrier, and that quantum mechanics
 is generated by one (kernel:
 \texttt{genTheory\_qm\_of\_quantumArchitecture},
 \texttt{qm\_generated\_by\_quantumArchitecture} in
-\texttt{OIBridge/SubstratumSource.lean}). The concrete OI substratum ---
-finite states and bijective microscopic dynamics --- together with one
-further intervention principle, that a relative phase on a single state
-is a selectable intervention at every level, supplies the structural
-part in full. The phase intervention enters as an assumption on the
-substratum class, not as a consequence of the finite states with the
-bijective read-write dynamics: every isometry that dynamics and the
-stated observer access supply carries the all-ones vector to a multiple
-of itself; on every finite carrier with two or more states, the theory
-generated by an architecture whose admissible isometries do so fails the
-requirement of a quarter phase on every state at every level, the
-failure being exhibited at level one, with no claim that the quarter
-phase is unavailable at each composite level; and the quarter phase
-carries that vector off its ray (kernel: \texttt{permClass\_onesFixing},
+\texttt{OIBridge/SubstratumSource.lean}). The concrete OI substratum
+under A1 --- finite states and bijective microscopic dynamics ---
+together with one further intervention principle, that a relative phase
+on a single state is a selectable intervention at every level, supplies
+the structural part in full. The phase intervention enters as an
+assumption on the substratum class, not as a consequence of the finite
+states with the bijective read-write dynamics: every isometry that
+dynamics and the stated observer access supply carries the all-ones
+vector to a multiple of itself; on every finite carrier with two or more
+states, the theory generated by an architecture whose admissible
+isometries do so fails the requirement of a quarter phase on every state
+at every level, the failure being exhibited at level one, with no claim
+that the quarter phase is unavailable at each composite level; and the
+quarter phase carries that vector off its ray (kernel:
+\texttt{permClass\_onesFixing},
 \texttt{onesFixing\_not\_phasesAvailable},
 \texttt{substratumClass\_not\_onesFixing} in
 \texttt{OIBridge/PhaseSource.lean}). An operator carrying the all-ones
@@ -2468,11 +2469,11 @@ substance-level primitives, and under the reconstruction theorem,
 spacetime emerges from \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) given
 the framework's irreducible starting commitments (the fact that
 observation occurs, the empirical inputs E1--E7, and the structural
-assumptions A1--A6). It is a claim about the direction of the derivation
-chain --- that the trace-out producing QM presupposes the classical
-geometric structure, not the reverse. This ordering is forced by the
-logical structure of the derivation through three independent
-requirements:
+assumptions A1--A6, of which A1 enters as an open hypothesis rather than
+a commitment). It is a claim about the direction of the derivation chain
+--- that the trace-out producing QM presupposes the classical geometric
+structure, not the reverse. This ordering is forced by the logical
+structure of the derivation through three independent requirements:
 
 \emph{(i) Definiteness.} The trace-out that produces the
 quantum-representable reduced description is defined by a
@@ -5800,4 +5801,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: 06cc68b6c6fa564af57f641c3d00c6b69ae59ce8bfab6e436f3f91257d8d5ad9
+% source-sha256: 09ab83534537344383e9a1350db916e9ea3ffa4bedd94b24764a7aab236fbb0d

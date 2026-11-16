@@ -45,7 +45,7 @@ The framework classifies each prediction by its structural status, using a seven
 
 The framework's predictions are organized at four levels of descriptive abstraction, with each level having specific evidential content and specific dependencies on the framework's structural commitments.
 
-**Layer 0 — Substratum.** Predictions at the substratum level: properties of the underlying bijection $\varphi$ on $S$, the substratum's dimensionality, the substratum's discreteness scale. Examples: dimensionality $d = 3$, finite cardinality, deterministic bijection structure. These predictions have *foundational* evidential weight — they are the framework's substratum-level commitments themselves.
+**Layer 0 — Substratum.** Predictions at the substratum level: properties of the underlying bijection $\varphi$ on $S$, the substratum's dimensionality, the substratum's discreteness scale. Examples: dimensionality $d = 3$, deterministic bijection structure. These predictions have *foundational* evidential weight — they are the framework's substratum-level commitments themselves.
 
 **Layer 1 — Substratum-level structural.** Predictions derived from the substratum's structural properties through dimensional analysis, group theory, or other framework-level structural mechanisms. Examples: gauge group $SU(3) \times SU(2) \times U(1)$ from substratum dimensionality (Chapter 5) and generation count from the matter content theorem (Chapter 6), both conditional on H-link with its single-copy clause, which supplies $K = 2d = 6$ (Chapter 5 §5.4), the gauge group also on an octahedrally equivariant condensate (Chapter 5 §5.5), Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ from cubic-group symmetry. Layer 1 predictions are *structural derivations* from foundational commitments.
 
@@ -178,7 +178,6 @@ Beyond the predictions with current empirical match, the framework makes specifi
 |---|-----------|---------------------|-------------|---------|
 | F6 | Running vacuum DESI test | $w(z) = -1 + O(\nu)$ with $|\nu| \sim 10^{-32}$ (Type II channel; no phantom crossing) | DESI Year 5 (2-3 years) | Ch 7 §7.8 |
 | F7 | Born rule transient violations (conditional prospect: source dynamics, initial-deviation family and observable map not fixed) | primordial power spectrum or non-Gaussianity; form not derived | LiteBIRD, future CMB-S4, once the response is derived | Ch 18 §18.2 |
-| F8 | Cosmic recurrence | period at most $g(|S|)$; $|S|$ not fixed | Logically falsifiable only | Ch 18 §18.7 |
 
 **Biology and medicine.**
 

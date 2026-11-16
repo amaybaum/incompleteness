@@ -1500,12 +1500,14 @@ history readback identifies the nontrivial sector: it forces hidden
 predictive memory in every faithful completion.
 
 This chapter proves those statements, then adds their spatial scope. The
-coupling graph of the underlying dynamics gives exact causal cones. At
-the response-complete deterministic level, setting interventions,
-applied at one step, that each read and write only their own wing,
-readouts outside the other wing's graph cone, a \(\pm1\) outcome
-recorded in every run, and one setting-independent pre-setting ensemble
-give a Bell-local model and \(|S_{\rm CHSH}|\le2\). The adopted
+coupling graph of the underlying dynamics gives exact causal cones for
+finite-range couplings. At the response-complete deterministic level, on
+a finite site set and for the nearest-neighbour cubic update with finite
+wing and readout regions on a site set of any cardinality, setting
+interventions, applied at one step, that each read and write only their
+own wing, readouts outside the other wing's graph cone, a \(\pm1\)
+outcome recorded in every run, and one setting-independent pre-setting
+ensemble give a Bell-local model and \(|S_{\rm CHSH}|\le2\). The adopted
 quantum-Bell branch therefore retains measurement independence and
 relinquishes ontic parameter independence, with operational no-signaling
 required. The one boundary not folded into the theorem is the full
@@ -1591,8 +1593,9 @@ state-transition picture is not a special assumption but a consequence
 of time evolution being consistent. What \emph{is} distinctive here is
 not that such a map exists, but finiteness: the observer distinguishes
 finitely many visible configurations (Lemma 1), and the map acts on a
-finite system under the finiteness posit A1 (Chapter 2 §2.4);
-finiteness, not the dynamics, is the load-bearing commitment.
+finite system under the finiteness posit A1 (Chapter 2 §2.4); finiteness
+of the visible sector (Lemma 1), not the dynamics, is the load-bearing
+commitment.
 
 \textbf{Lemma 1 (Finiteness).} \emph{The visible configuration space
 \(\mathcal{C}_V\) is finite, with a discreteness scale \(\epsilon\)
@@ -1623,23 +1626,25 @@ as the one of maximal entropy, becoming the Liouville measure on
 \(\Gamma\) in the continuum limit:}
 \[\frac{\partial \rho}{\partial t} = \{H_{\text{tot}}, \rho\} \equiv \mathcal{L}\rho.\]
 
-The observer uses standard Kolmogorov probability. The bijection
-requirement is structural: non-injective dynamics would merge distinct
-total states, erasing the observer's records of past outcomes ---
-contrary to what observation is. On a finite set, injectivity implies
-surjectivity. This is worth putting in context: the reversibility of
-\(\varphi\) --- equivalently, that the substratum conserves information
---- is not a peculiar demand of this framework but the standard
-assumption of mainstream physics. Unitary evolution in quantum mechanics
-\emph{is} information conservation, and its classical shadow is
-Liouville's theorem, the conservation of phase-space volume recovered
-here. Physics treats this principle as effectively non-negotiable: the
-black-hole information paradox is called a \emph{paradox} precisely
-because the apparent loss of information under Hawking evaporation would
-violate it, and the no-hiding theorem (Braunstein \& Pati, 2007) makes
-the conservation statement rigorous. The framework assumes no more than
-standard physics already does; what is distinctive, developed below, is
-not the assumption but what emerges from it.
+The observer uses standard Kolmogorov probability. The injectivity
+requirement is structural: dynamics that merged states differing in
+registered content would erase the observer's records of past outcomes
+--- contrary to what observation is. On a finite set, injectivity
+implies surjectivity. This is worth putting in context: the
+reversibility of the constructed realizations --- equivalently, that
+they conserve information --- mirrors the standard assumption of
+mainstream physics rather than a peculiar demand of this framework.
+Unitary evolution in quantum mechanics \emph{is} information
+conservation, and its classical shadow is Liouville's theorem, the
+conservation of phase-space volume recovered here. Physics treats this
+principle as effectively non-negotiable: the black-hole information
+paradox is called a \emph{paradox} precisely because the apparent loss
+of information under Hawking evaporation would violate it, and the
+no-hiding theorem (Braunstein \& Pati, 2007) makes the conservation
+statement rigorous. The framework's realizations are bijective by
+construction, and reversibility of nature's dynamics is not adopted as a
+postulate; what is distinctive, developed below, is what emerges from
+them.
 
 These lemmas contain no quantum postulates. The memory-bearing
 description --- with its admitted quantum representation --- emerges
@@ -1843,19 +1848,19 @@ by itself does not fix the measure. \emph{Canonical selection.} Among
 the invariant measures, Lemma 3 selects the counting measure as the one
 of maximal entropy compatible with the observer's records; its continuum
 form is the Liouville measure. The selection is a principle the
-framework adopts --- a standard but substantive epistemic postulate,
-carried in the posit ledger of {[}Main §4.5{]} --- not a consequence of
-invariance. \emph{Realization datum.} The canonical measure is the
-default, not a constraint on representations. A particular realization
-may carry its own fixed hidden prior \(\mu_H\) as part of the
-realization datum --- a structured preparation --- and the emergent law
-is then a function of the dynamics, the partition and \(\mu_H\). The
-same bijection and partition under different priors generally give
-different visible laws; the two-state swap under a uniform and under a
-point-mass hidden prior is the simplest case ({[}Main §1.2{]}).
-Partition-relativity is therefore relative to the declared measure, and
-the framework's baseline transition matrices and its physical
-realization use the canonical one.
+framework adopts for constructed realizations --- a standard but
+substantive epistemic postulate, carried in the posit ledger of {[}Main
+§4.5{]} --- not a consequence of invariance. \emph{Realization datum.}
+The canonical measure is the default, not a constraint on
+representations. A particular realization may carry its own fixed hidden
+prior \(\mu_H\) as part of the realization datum --- a structured
+preparation --- and the emergent law is then a function of the dynamics,
+the partition and \(\mu_H\). The same bijection and partition under
+different priors generally give different visible laws; the two-state
+swap under a uniform and under a point-mass hidden prior is the simplest
+case ({[}Main §1.2{]}). Partition-relativity is therefore relative to
+the declared measure, and the framework's baseline transition matrices
+and its physical realization use the canonical one.
 
 Different observers correspond to different partitions of the same
 \((S, \varphi)\); different partitions produce different emergent
@@ -1888,13 +1893,14 @@ multi-time content of (C4).
 \hypertarget{p-indivisibility}{%
 \subsection{1.5 P-indivisibility}\label{p-indivisibility}}
 
-The central technical result of the chapter is that the marginalized
-process is P-indivisible across the recurrence cycle whenever, under the
-uniform hidden prior, its one-step visible matrix is not a permutation,
-as non-trivial coupling acting at the first step makes it. On accessible
-windows the proved statement is conditional memory: a (C4) readback gap
-forces \(I(X_{<k}; X_{k+1} \mid X_k) > 0\), which does not by itself
-make the process P-indivisible there ({[}Main §2.3{]}).
+The central technical result of the chapter is that, on a finite
+reversible representative, the marginalized process is P-indivisible
+across the recurrence cycle whenever, under the uniform hidden prior,
+its one-step visible matrix is not a permutation, as non-trivial
+coupling acting at the first step makes it. On accessible windows the
+proved statement is conditional memory: a (C4) readback gap forces
+\(I(X_{<k}; X_{k+1} \mid X_k) > 0\), which does not by itself make the
+process P-indivisible there ({[}Main §2.3{]}).
 
 \textbf{Theorem (P-indivisibility).} \emph{Let \(\mathcal{C}_V\) and
 \(\mathcal{C}_H\) be finite sets with \(|\mathcal{C}_V| \geq 2\), and
@@ -2223,62 +2229,62 @@ closure of the implementations under the adjoint and no inverse
 accessibility assumed --- equivalent to the same operational quantum
 mechanics on every nonempty finite carrier ({[}GR §3.3{]}). A
 substratum-source form completes that refinement: the concrete OI
-substratum supplies the structural architecture --- closure under
-composition and coarse-graining, stability under an uncoupled spectator,
-relabelling invariance, reversibility, the exchanges of distinguishable
-states, and, as a stated intervention principle rather than a
-consequence of its finite states and bijective dynamics, the phases ---
-but, under finite bijective read-write dynamics, not the continuously
-tunable state-mixing operation; with that one operation added as an
-empirical controllability resource it is equivalent to the same
-operational quantum mechanics on every nonempty finite carrier, while
-finite reversible read-write dynamics, even with genuine hidden-memory
-and readback behavior, does not itself generate quantum state mixing
-({[}GR §3.3{]}). Its typed form removes the endomorphic qualifier: under
-the carrier-general typed operational interface --- identity,
-composition, coarse-graining, relabelling, uniform finite attachment,
-discard, and factor readout, an interface that itself carries no quantum
-content --- the same equivalence holds with exact finite-dimensional
-typed operational quantum mechanics, operations between any two nonempty
-finite carriers included, so the remaining qualifier is
-finite-dimensional rather than endomorphic ({[}GR §3.3{]}). The finite
-theory admits a canonical infinite-region completion without a continuum
-limit: the finite regions of the fixed-spacing lattice carry full matrix
-algebras joined by compatible injective unital embeddings with
-observables of disjoint regions commuting, the norm completion of their
-union is a quasilocal \(C^{*}\)-algebra on which every consistent family
-of finite-region density matrices is a state and the reversible
-finite-range substratum update is an isometric \(*\)-automorphism, and
-any system carrying the same local stages is canonically and uniquely
-\(*\)-isomorphic to it, intertwining the dynamics; this removes the
-finite-region cutoff for the algebra, the state space, and the
-OI-induced discrete dynamics rather than characterizing all
-infinite-dimensional quantum instruments or all locality-preserving
-quantum dynamics; the lattice spacing stays fundamental, no
-Hilbert-space representation and no superselection sector is selected at
-the level of the laws, the restriction to the substratum-induced
-dynamics is a theorem rather than a convention --- a phase automorphism
-at one site preserves locality without arising from any reversible
-finite-range bijection --- and, while the update is joined to the
-identity by an exact strongly continuous path of \(*\)-automorphisms of
-that algebra, with no one-parameter-group law established and no
-generator exhibited, a continuous-time Hamiltonian law remains
-additional structure ({[}GR §3.3{]}). Within the structural architecture
-the substratum supplies, with the phase intervention stated, exact
-finite endomorphic operational quantum mechanics holds exactly when one
-continuous layer flow of an involution of the configuration space moving
-some configuration is an available operation at every level and every
-intermediate time, the executability of that flow being an assumption
-not derived by configuration-level generation, as the phase intervention
-is an assumption on the substratum class and not a consequence of the
-finite states with the bijective dynamics ({[}GR §3.3{]}). The stated
-substratum dynamics with the observer's read and write access do not
-source that executability, the layers being available at time one and
-not at intermediate times, and the observer-level lift, in every
-formulation stated that lands in the operational interface, derives
-neither a non-monomial admissible operator nor the layer flow, the
-site-space wave-operator formulation being unresolved rather than
-excluded ({[}GR §3.3{]}).
+substratum, in its finite model (ledger item (ii)), supplies the
+structural architecture --- closure under composition and
+coarse-graining, stability under an uncoupled spectator, relabelling
+invariance, reversibility, the exchanges of distinguishable states, and,
+as a stated intervention principle rather than a consequence of its
+finite states and bijective dynamics, the phases --- but, under finite
+bijective read-write dynamics, not the continuously tunable state-mixing
+operation; with that one operation added as an empirical controllability
+resource it is equivalent to the same operational quantum mechanics on
+every nonempty finite carrier, while finite reversible read-write
+dynamics, even with genuine hidden-memory and readback behavior, does
+not itself generate quantum state mixing ({[}GR §3.3{]}). Its typed form
+removes the endomorphic qualifier: under the carrier-general typed
+operational interface --- identity, composition, coarse-graining,
+relabelling, uniform finite attachment, discard, and factor readout, an
+interface that itself carries no quantum content --- the same
+equivalence holds with exact finite-dimensional typed operational
+quantum mechanics, operations between any two nonempty finite carriers
+included, so the remaining qualifier is finite-dimensional rather than
+endomorphic ({[}GR §3.3{]}). The finite theory admits a canonical
+infinite-region completion without a continuum limit: the finite regions
+of the fixed-spacing lattice carry full matrix algebras joined by
+compatible injective unital embeddings with observables of disjoint
+regions commuting, the norm completion of their union is a quasilocal
+\(C^{*}\)-algebra on which every consistent family of finite-region
+density matrices is a state and the reversible finite-range substratum
+update is an isometric \(*\)-automorphism, and any system carrying the
+same local stages is canonically and uniquely \(*\)-isomorphic to it,
+intertwining the dynamics; this removes the finite-region cutoff for the
+algebra, the state space, and the OI-induced discrete dynamics rather
+than characterizing all infinite-dimensional quantum instruments or all
+locality-preserving quantum dynamics; the lattice spacing stays
+fundamental, no Hilbert-space representation and no superselection
+sector is selected at the level of the laws, the restriction to the
+substratum-induced dynamics is a theorem rather than a convention --- a
+phase automorphism at one site preserves locality without arising from
+any reversible finite-range bijection --- and, while the update is
+joined to the identity by an exact strongly continuous path of
+\(*\)-automorphisms of that algebra, with no one-parameter-group law
+established and no generator exhibited, a continuous-time Hamiltonian
+law remains additional structure ({[}GR §3.3{]}). Within the structural
+architecture the substratum supplies, with the phase intervention
+stated, exact finite endomorphic operational quantum mechanics holds
+exactly when one continuous layer flow of an involution of the
+configuration space moving some configuration is an available operation
+at every level and every intermediate time, the executability of that
+flow being an assumption not derived by configuration-level generation,
+as the phase intervention is an assumption on the substratum class and
+not a consequence of the finite states with the bijective dynamics
+({[}GR §3.3{]}). The stated substratum dynamics with the observer's read
+and write access do not source that executability, the layers being
+available at time one and not at intermediate times, and the
+observer-level lift, in every formulation stated that lands in the
+operational interface, derives neither a non-monomial admissible
+operator nor the layer flow, the site-space wave-operator formulation
+being unresolved rather than excluded ({[}GR §3.3{]}).
 
 \hypertarget{bell-inequality-violations}{%
 \subsection{1.7 Bell-inequality
@@ -2347,16 +2353,17 @@ directions of the finite observable-law equivalence.
 memory-bearing. It forces different hidden posteriors for visible
 histories that share a current state but have different future laws, a
 persistence/readback requirement, and the capacity lower bound of C3.
-Because the physical representative is finite and reversible, it also
-recurs: its rooted visible maps, defined for every root under one hidden
-prior, return to the identity, and a non-permutation stochastic matrix
-has no stochastic inverse, so any non-permutation rooted map makes the
-rooted law indivisible somewhere in the recurrence cycle. A C4 gap
-supplies such a map, and so does every non-deterministic visible step,
-including in laws that are Markov on every accessible window. With a
-full-support visible prior, that indivisibility is equivalent to memory
-at some order below the recurrence time; an observer sees the memory
-only when it appears at an accessible order, which is what C4 asserts.
+Because the physical representative is, under A1, finite and reversible,
+it also recurs: its rooted visible maps, defined for every root under
+one hidden prior, return to the identity, and a non-permutation
+stochastic matrix has no stochastic inverse, so any non-permutation
+rooted map makes the rooted law indivisible somewhere in the recurrence
+cycle. A C4 gap supplies such a map, and so does every non-deterministic
+visible step, including in laws that are Markov on every accessible
+window. With a full-support visible prior, that indivisibility is
+equivalent to memory at some order below the recurrence time; an
+observer sees the memory only when it appears at an accessible order,
+which is what C4 asserts.
 
 \textbf{Spatial extension.} The dependency graph supplies finite causal
 cones exactly for finite-range substrata. Bell adds a separate
@@ -2662,8 +2669,8 @@ The traditional theological framing imagines an observer who stands
 outside the universe and sees everything at once with no uncertainty.
 The framework's C3 limit is similar in eliminating quantum
 indeterminism, but it differs structurally: there is no ``outside'' in a
-finite deterministic universe. Such an observer would be coextensive
-with the universe, not transcendent of it. They would not be viewing the
+deterministic universe. Such an observer would be coextensive with the
+universe, not transcendent of it. They would not be viewing the
 universe; they would be the universe describing itself.
 
 Three structural features of this regime are worth noting.
@@ -3027,10 +3034,10 @@ empirical input or a named modeling premise.
 \subsection{2.2 The substratum as a finite lossless
 memory}\label{the-substratum-as-a-finite-lossless-memory}}
 
-The framework's central object is a triple. \(S\) is a finite set (posit
-A1, §2.4) whose elements are the distinguishable total states.
-\(\varphi: S \to S\) is a bijection --- a deterministic, reversible
-transition rule that maps each state to its unique successor.
+The framework's central object is a triple. \(S\) is a set, finite under
+the open hypothesis A1 (§2.4), whose elements are the distinguishable
+total states. \(\varphi: S \to S\) is a bijection --- a deterministic,
+reversible transition rule that maps each state to its unique successor.
 \(V \subsetneq S\) is the visible sector, the observer's window into
 \(S\); the complement \(H = S \setminus V\) is the hidden sector. These
 three together --- \((S, \varphi, V)\) --- fix everything: the dynamics,
@@ -3283,10 +3290,11 @@ to candidate substrates satisfying six properties:
 
 \emph{(A1) Finiteness.} The configuration space \(S\) is finite. Lemma 1
 of Chapter 1 delivers finiteness of the observer's distinguishable
-states; the extension to all of \(S\) is a posit, read as the choice of
-the minimal finite representative and supported by E3 (the holographic
-bound read as a dimension cutoff). Its scope, and which results use it,
-are stated in {[}Main §1.2{]}, Remark (status of the early commitments).
+states; the extension to all of \(S\) is an open hypothesis, not
+adopted, read as the choice of the minimal finite representative and
+motivated by E3 (the holographic bound read as a dimension cutoff). Its
+scope, and which results use it, are stated in {[}Main §1.2{]}, Remark
+(status of the early commitments).
 
 \emph{(A2) Determinism.} The dynamics \(\varphi: S \to S\) is a
 bijection --- deterministic and reversible. Its status is two-part
@@ -3563,13 +3571,13 @@ retains its separate hypothesis. This is not a classification over all
 partitions of a structural class.
 
 The gauge group is not a symmetry of a Lagrangian or an action. There is
-no Lagrangian at the substratum level; the substratum is a finite set
-with a bijection on it. \(\mathcal{G}_{\text{sub}}\) is a symmetry of
-the \emph{equivalence class of substrata} defined by the observability
-condition. The emergent gauge symmetries (the Standard Model gauge
-group, the diagonal phase ambiguity in the emergent Hamiltonian) are
-Lagrangian symmetries in the standard sense, derived from the substratum
-through the trace-out.
+no Lagrangian at the substratum level; the substratum is a set (finite
+under A1) with a bijection on it. \(\mathcal{G}_{\text{sub}}\) is a
+symmetry of the \emph{equivalence class of substrata} defined by the
+observability condition. The emergent gauge symmetries (the Standard
+Model gauge group, the diagonal phase ambiguity in the emergent
+Hamiltonian) are Lagrangian symmetries in the standard sense, derived
+from the substratum through the trace-out.
 
 \textbf{Theorem (Generators).} \emph{\(\mathcal{G}_{\text{sub}}\)
 contains the independent families of transformations (i) and (iii)
@@ -3772,7 +3780,7 @@ arrow of time.
 
 The framework's claim is that quantum mechanics and general relativity
 are not two independent theories. Conditional on H-Bell at the
-Bell/local-lattice interface, they are projections of the same finite
+Bell/local-lattice interface, they are projections of the same
 deterministic construction, and a third projection bears on the arrow of
 time. Each projection applies the same trace-out machinery to the same
 \((S, \varphi)\) along a different axis, and each produces a distinct
@@ -3857,17 +3865,17 @@ sector's past to persist to readback, and the coarse-grained mixing time
 it constrains is the same in the two directions; the direction in which
 records are written and read is fixed by a preparation and the
 observer's orientation convention. The structural observer-selection
-theorem developed in Chapter 1's appendix material --- under the
-effective-mixing hypothesis, for sufficiently fast-mixing equilibria
-(\(\tau_{\rm mix} \ll \tau_S\)), and in the coarse-grained description
-generated by iterating the one-step effective channel ({[}Main §4.6{]})
---- restricts observers satisfying C1--C4, with C2 read in its timescale
-form (record persistence and readback there being suppressed, not
-excluded), to the non-equilibrium phase of \((S, \varphi)\); the
-restriction is time-symmetric and selects where observers can exist, not
-a direction. On an expanding cosmological background satisfying the null
-energy condition --- inputs, not derived --- the area \(A(t)\) of the
-apparent horizon, and the horizon entropy
+theorem developed in Chapter 1's appendix material for a finite
+bijective model --- under the effective-mixing hypothesis, for
+sufficiently fast-mixing equilibria (\(\tau_{\rm mix} \ll \tau_S\)), and
+in the coarse-grained description generated by iterating the one-step
+effective channel ({[}Main §4.6{]}) --- restricts observers satisfying
+C1--C4, with C2 read in its timescale form (record persistence and
+readback there being suppressed, not excluded), to the non-equilibrium
+phase of \((S, \varphi)\); the restriction is time-symmetric and selects
+where observers can exist, not a direction. On an expanding cosmological
+background satisfying the null energy condition --- inputs, not derived
+--- the area \(A(t)\) of the apparent horizon, and the horizon entropy
 \(S_{\text{dS}}(t) = A(t)/(4\ell_P^2)\) assigned to it at the de Sitter
 calibration, is non-decreasing, strictly increasing while
 \(\rho + p/c^2 > 0\) and constant in exact de Sitter. That the selected
@@ -4022,8 +4030,8 @@ This is not the same as saying that quantum mechanics is more
 fundamental than general relativity, or vice versa. Both are emergent.
 Both depend on the trace-out and the partition. Both are derived
 structures rather than features of the underlying reality. The
-fundamental object is \((S, \varphi)\) --- a finite set with a
-deterministic bijection on it --- and neither quantum mechanics nor
+fundamental object is \((S, \varphi)\) --- a set (finite under A1) with
+a deterministic bijection on it --- and neither quantum mechanics nor
 general relativity is a feature of \((S, \varphi)\) itself. They are
 features of how an embedded observer or a horizon-bounded thermodynamic
 regime sees \((S, \varphi)\) from inside. (Nor is the ranking question
@@ -4242,9 +4250,9 @@ cosmological partition functions (2024), and Harlow, Usatyuk, and Zhao
 on observer-dependent Hilbert spaces in closed universes (2025) all
 start from analogous commitments. The framework's distinguishing feature
 at Level A is not the commitment itself but what is derived from it: a
-finite deterministic substratum without extra dimensions, without
-intrinsic stochasticity, and without additional postulates beyond those
-identified in Chapter 1's structural lemmas and posit A1 of Chapter 2.
+deterministic substratum without extra dimensions, without intrinsic
+stochasticity, and without additional postulates beyond those identified
+in Chapter 1's structural lemmas and posit A1 of Chapter 2.
 
 \textbf{Level B: observer admission.} Not every conceivable substratum
 admits embedded observation. Chapter 1 identified four conditions --- C1
@@ -4358,12 +4366,13 @@ qualifications developed in the technical chapters. The reconstruction
 theorem establishes that the stated observed and structural inputs fix
 this \textbf{local residue} under Theorem 23's conditions. It does not
 uniquely determine a Bell-inclusive full representative. With one-step
-own-wing setting interventions, readouts outside the other wing's graph
-cone and a \(\pm1\) outcome in every run, the reference cubic graph is
-Bell-local under measurement independence; the adopted branch proposes
-preparation-indexed state-dependent adjacency under the open hypothesis
-H-Bell (operational no-signaling and the metric/Ollivier--Ricci
-continuum limit), with its uniqueness left open.
+own-wing setting interventions on finite regions, readouts in finite
+regions outside the other wing's graph cone and a \(\pm1\) outcome in
+every run, the reference cubic graph is Bell-local under measurement
+independence; the adopted branch proposes preparation-indexed
+state-dependent adjacency under the open hypothesis H-Bell (operational
+no-signaling and the metric/Ollivier--Ricci continuum limit), with its
+uniqueness left open.
 
 Level D is where the framework's twenty-two classified quantitative
 predictions live (two parameter-free structural and five conditional
@@ -4468,27 +4477,27 @@ This structural distinction has implications for several conceptual
 problems. The Boltzmann brain problem --- the worry that a sufficiently
 large statistical-mechanical system at equilibrium would produce
 observers as random fluctuations more often than through evolutionary
-processes --- is dissolved at Level B for C2 read in its timescale form.
-Under the effective-mixing hypothesis, for sufficiently fast-mixing
-equilibria (\(\tau_{\rm mix} \ll \tau_S\)), and in the coarse-grained
-description generated by iterating the one-step effective channel
-({[}Main §4.6{]}), equilibrium states are not observer-admitting in the
-sense of C1--C4 with C2 read in its timescale form, because that form,
-\(\tau_S \ll \tau_B\), fails at equilibrium --- its slow-bath route
-gone, no slow modes under that condition --- and a bath that thermalizes
-between steps erodes the stored record before readback without
-establishing that none persists, suppressing the readback gap C4
-requires exponentially in \(\tau_S/\tau_B\) at every order \(k \geq 2\)
-({[}Main §2.3{]}). Boltzmann brains are not generic outcomes of
-long-time evolution that just happen to be rare; they are structurally
-excluded from the observer-admitting subset by C2 in that timescale
-form. The framework's treatment of the arrow of time, developed in
-Chapter 2 §2.6, starts from this exclusion: observers are restricted to
-the non-equilibrium phase of the substratum's dynamics. The exclusion is
-time-symmetric; on an expanding homogeneous general-relativistic
-background satisfying the null energy condition, the apparent-horizon
-area supplies a non-decreasing clock, and whether the observer's other
-arrows align with it is not established.
+processes --- is dissolved at Level B for a finite bijective model for
+C2 read in its timescale form. Under the effective-mixing hypothesis,
+for sufficiently fast-mixing equilibria (\(\tau_{\rm mix} \ll \tau_S\)),
+and in the coarse-grained description generated by iterating the
+one-step effective channel ({[}Main §4.6{]}), equilibrium states are not
+observer-admitting in the sense of C1--C4 with C2 read in its timescale
+form, because that form, \(\tau_S \ll \tau_B\), fails at equilibrium ---
+its slow-bath route gone, no slow modes under that condition --- and a
+bath that thermalizes between steps erodes the stored record before
+readback without establishing that none persists, suppressing the
+readback gap C4 requires exponentially in \(\tau_S/\tau_B\) at every
+order \(k \geq 2\) ({[}Main §2.3{]}). Boltzmann brains are not generic
+outcomes of long-time evolution that just happen to be rare; they are
+structurally excluded from the observer-admitting subset by C2 in that
+timescale form. The framework's treatment of the arrow of time,
+developed in Chapter 2 §2.6, starts from this exclusion: observers are
+restricted to the non-equilibrium phase of the substratum's dynamics.
+The exclusion is time-symmetric; on an expanding homogeneous
+general-relativistic background satisfying the null energy condition,
+the apparent-horizon area supplies a non-decreasing clock, and whether
+the observer's other arrows align with it is not established.
 
 The string-theory landscape problem looks different under the Level B
 reading as well. The conventional landscape picture posits roughly
@@ -4938,10 +4947,12 @@ not because the same property simply holds above and fails below in
 every case.
 
 \textbf{Bell's theorem.} Bell's theorem binds directly on the
-deterministic hidden-variable completion. If the setting interventions,
-applied at one step, each read and write only their own wing, the
-Bell-relevant coupling range does not connect the wings before readout,
-every run records a \(\pm1\) outcome, and one setting-independent
+deterministic hidden-variable completion. On a finite site set and for
+the nearest-neighbour cubic update with finite wing and readout regions
+on a site set of any cardinality, if the setting interventions, applied
+at one step, each read and write only their own wing, the Bell-relevant
+coupling range does not connect the wings before readout, every run
+records a \(\pm1\) outcome, and one setting-independent
 response-complete ensemble is used, the model factorizes and obeys
 \(|S_{\mathrm{CHSH}}|\le2\). The framework therefore cannot use graph
 locality, screening, outcome dependence, or indivisibility to explain
@@ -5076,11 +5087,13 @@ declined (Main §3.3).
 
 \textbf{Bell's theorem, conceded and then confronted.} Bell's
 mathematics binds on the framework because the substratum is a
-response-complete hidden-variable completion. If the setting
-interventions, applied at one step, each read and write only their own
-wing, the Bell-relevant graph does not connect the wings before readout,
-every run records a \(\pm1\) outcome, and the pre-setting ensemble is
-independent of the settings, determinism gives Bell factorization and
+response-complete hidden-variable completion. On a finite site set and
+for the nearest-neighbour cubic update with finite wing and readout
+regions on a site set of any cardinality, if the setting interventions,
+applied at one step, each read and write only their own wing, the
+Bell-relevant graph does not connect the wings before readout, every run
+records a \(\pm1\) outcome, and the pre-setting ensemble is independent
+of the settings, determinism gives Bell factorization and
 \(|S_{\mathrm{CHSH}}|\le2\). The framework therefore cannot explain
 quantum Bell violation by combining pointwise graph locality and
 indivisibility. It declines the measurement-dependent/superdeterministic
@@ -5250,12 +5263,11 @@ and the minimum coincide. The structural form of this claim --- that two
 seemingly irreconcilable descriptions can both be correct when both are
 projections of a common underlying reality --- anticipates the
 framework's claim that quantum mechanics and general relativity are not
-incompatible but are projections of the same finite deterministic
-substratum along different axes. The conventional formulation treats the
-two as competing theories requiring reconciliation; Cusa's framework
-would suggest that the contradiction is at the level of the projections
-rather than the substratum, and the framework formalizes this
-suggestion.
+incompatible but are projections of the same deterministic substratum
+along different axes. The conventional formulation treats the two as
+competing theories requiring reconciliation; Cusa's framework would
+suggest that the contradiction is at the level of the projections rather
+than the substratum, and the framework formalizes this suggestion.
 
 Cusa is not the framework's source. The framework derives its claims
 from explicit mathematical theorems, not from medieval theology. But the
@@ -5672,7 +5684,7 @@ the class defined by A1--A6 and the nearest-neighbor restriction, not
 absolute. Alternatives outside this class would require separate
 derivations. The framework's defense of A1--A6 is an argument from the
 empirical inputs of physics, not a derivation from the foundational
-premise --- A1 is supported by the holographic entropy bound, A2 by the
+premise --- A1 is motivated by the holographic entropy bound, A2 by the
 structural requirement that observer records not be erasable, A3--A6 by
 the empirical content of the observed gauge structure --- and empirical
 motivation does not make an assumption logically necessary. The same
@@ -5764,26 +5776,26 @@ lives \emph{downstream} of the foundational commitment, not at it. The
 emergent description is gauge: it depends on the partition, with the
 substratum gauge group identifying which structure is observable; and
 the partition that supports an observer is then selected, by the
-structural observer-selection theorem of Chapter 1, conditional on the
-effective-mixing hypothesis (EM) and its rate condition ({[}Main
-§4.6{]}), as one of those meeting the embedding conditions. This is the
-framework's counterpart of ``general law, particular vacuum,'' and
-unlike the landscape it is derived --- a constructively generated gauge
-structure and a selection theorem, rather than a posited space of vacua
-and an anthropic measure that has resisted rigorous definition. What
-this structure does \emph{not} reach is the foundational commitment
-itself. The commitment, distilled, is two axioms: that tokened
-differentiation occurs, and that it recurs (Chapter 1). Neither can be a
-landscape variable, because a landscape is a space of differentiated,
-temporally-extended worlds --- it presupposes both axioms in order to
-have points at all. Anthropic selection picks among worlds; it cannot
-pick whether there is a world of the relevant kind, since the selection
-apparatus, a measure over possibilities, already requires the temporal
-domain it would be invoked to explain. The ``gauge in general, specific
-in our case'' intuition is therefore correct and is realized in the
-framework --- at the level of partitions and emergent descriptions, one
-level below the two axioms, which are what must hold for there to be a
-space of possibilities to select within.
+structural observer-selection theorem of Chapter 1 for a finite
+bijective model, conditional on the effective-mixing hypothesis (EM) and
+its rate condition ({[}Main §4.6{]}), as one of those meeting the
+embedding conditions. This is the framework's counterpart of ``general
+law, particular vacuum,'' and unlike the landscape it is derived --- a
+constructively generated gauge structure and a selection theorem, rather
+than a posited space of vacua and an anthropic measure that has resisted
+rigorous definition. What this structure does \emph{not} reach is the
+foundational commitment itself. The commitment, distilled, is two
+axioms: that tokened differentiation occurs, and that it recurs (Chapter
+1). Neither can be a landscape variable, because a landscape is a space
+of differentiated, temporally-extended worlds --- it presupposes both
+axioms in order to have points at all. Anthropic selection picks among
+worlds; it cannot pick whether there is a world of the relevant kind,
+since the selection apparatus, a measure over possibilities, already
+requires the temporal domain it would be invoked to explain. The ``gauge
+in general, specific in our case'' intuition is therefore correct and is
+realized in the framework --- at the level of partitions and emergent
+descriptions, one level below the two axioms, which are what must hold
+for there to be a space of possibilities to select within.
 
 \hypertarget{classification-of-claims-by-derivational-rigor}{%
 \subsection{4.3 Classification of claims by derivational
@@ -6167,12 +6179,13 @@ target if violated.
 
 \emph{The strong-CP phase, not fixed.} T-invariance of the substratum
 bijection combined with detailed balance narrows the QCD angle to
-\(\theta\in\{0,\pi\}\) and gives reciprocal transition counts, but does
-not make the emergent Hamiltonian T-invariant, so \(\bar\theta\) is not
-fixed by the construction (SM §5). The framework makes no commitment on
-the neutron electric dipole moment; a measured \(\bar\theta\neq0\) would
-constrain mechanisms proposed for the named condition H-det, not the
-T-symmetry of the substratum.
+\(\theta\in\{0,\pi\}\) and gives reciprocal transition counts under the
+counting hidden prior of a finite model, but does not make the emergent
+Hamiltonian T-invariant, so \(\bar\theta\) is not fixed by the
+construction (SM §5). The framework makes no commitment on the neutron
+electric dipole moment; a measured \(\bar\theta\neq0\) would constrain
+mechanisms proposed for the named condition H-det, not the T-symmetry of
+the substratum.
 
 \emph{The gauge group
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) exactly.}
@@ -6483,19 +6496,19 @@ itself.
 
 The CP-violating phases in CKM and PMNS are solution-specific. The
 construction does not fix \(\bar\theta\) (§6.3): T-invariance narrows
-\(\theta\) to \(\{0,\pi\}\) and gives reciprocal transition counts,
-which leave the Yukawa determinant phase free. The flavor-basis CP
-phases --- the Jarlskog parameter, the Wolfenstein \((\rho, \eta)\), the
-PMNS Dirac and Majorana phases --- are features of the basis mismatch
-between up-type and down-type Yukawa mass eigenstates, not consequences
-of any structural feature of the substratum, and reciprocity does not
-force them to vanish {[}SM §5.4{]}. A reported computation on the
-staggered reconstruction, whose driver and output are not available for
-verification, found that an octahedral-equivariant emergent operator
-gives a vanishing Jarlskog invariant and that restoring the observed
-value requires octahedral breaking far above the rotational bounds; if
-it stands, it is a tension for the flavor sector, recorded as unverified
-{[}SM §5.5{]}.
+\(\theta\) to \(\{0,\pi\}\) and gives reciprocal transition counts under
+the counting hidden prior of a finite model, which leave the Yukawa
+determinant phase free. The flavor-basis CP phases --- the Jarlskog
+parameter, the Wolfenstein \((\rho, \eta)\), the PMNS Dirac and Majorana
+phases --- are features of the basis mismatch between up-type and
+down-type Yukawa mass eigenstates, not consequences of any structural
+feature of the substratum, and reciprocity does not force them to vanish
+{[}SM §5.4{]}. A reported computation on the staggered reconstruction,
+whose driver and output are not available for verification, found that
+an octahedral-equivariant emergent operator gives a vanishing Jarlskog
+invariant and that restoring the observed value requires octahedral
+breaking far above the rotational bounds; if it stands, it is a tension
+for the flavor sector, recorded as unverified {[}SM §5.5{]}.
 
 The numerical value of the Type II running-vacuum coefficient \(\nu\)
 within the stratified falsification band is solution-specific. The
@@ -6570,16 +6583,16 @@ no slow modes to provide the timescale separation that sustains
 accessible memory. Under the effective-mixing hypothesis, with C2 read
 in that timescale form, and in the coarse-grained description generated
 by iterating the one-step effective channel, the structural
-observer-selection theorem developed at Main §4.6 restricts observers to
-the non-equilibrium phase of the substratum's dynamics. In that
-formulation a fast-mixing equilibrium phase is observer-free by
-structural argument, and the framework makes no prediction for what
-happens in this regime --- there is no observer to whom a prediction
-could be addressed. This is the framework's account of why Boltzmann
-brains do not appear in observed physics: not because they are rare
-random fluctuations that happen not to occur, but because, in that
-formulation, the fast-mixing equilibrium phase that would produce them
-is structurally observer-free.
+observer-selection theorem developed at Main §4.6 for a finite bijective
+model restricts observers to the non-equilibrium phase of the
+substratum's dynamics. In that formulation a fast-mixing equilibrium
+phase is observer-free by structural argument, and the framework makes
+no prediction for what happens in this regime --- there is no observer
+to whom a prediction could be addressed. This is the framework's account
+of why Boltzmann brains do not appear in observed physics: not because
+they are rare random fluctuations that happen not to occur, but because,
+in that formulation, the fast-mixing equilibrium phase that would
+produce them is structurally observer-free.
 
 \emph{Regions beyond the observer's causal horizon.} For any observer
 with a finite cosmological horizon, regions beyond that horizon are part
@@ -6602,16 +6615,16 @@ non-Markovian observation with embedded observation under C1, C3 and C4
 (quantum for the source's finite-configuration class; the slow-bath form
 of C2's necessity for physical hidden sectors conditional on the mixing
 hypothesis), and from the observer-selection theorem's restriction of
-observers to the non-equilibrium phase (under its effective-mixing
-hypothesis, with C2 read in its timescale form (record persistence and
-readback there being suppressed, not excluded), for sufficiently
-fast-mixing equilibria (\(\tau_{\rm mix} \ll \tau_S\)), and in the
-coarse-grained description generated by iterating the one-step effective
-channel {[}Main §4.6{]}). The framework's silence on these regimes is
-not a gap in its content but a feature of its structural commitments: it
-is committed to the regime where embedded observers exist and the regime
-is non-equilibrium; it is not committed to regimes where these
-conditions fail.
+observers to the non-equilibrium phase for a finite bijective model
+(under its effective-mixing hypothesis, with C2 read in its timescale
+form (record persistence and readback there being suppressed, not
+excluded), for sufficiently fast-mixing equilibria
+(\(\tau_{\rm mix} \ll \tau_S\)), and in the coarse-grained description
+generated by iterating the one-step effective channel {[}Main §4.6{]}).
+The framework's silence on these regimes is not a gap in its content but
+a feature of its structural commitments: it is committed to the regime
+where embedded observers exist and the regime is non-equilibrium; it is
+not committed to regimes where these conditions fail.
 
 \textbf{What this section is not.} The articulation of what does not
 falsify is not a list of escape routes. The framework's structural
@@ -6921,15 +6934,15 @@ gauge symmetries it has.
 \subsection{5.2 The minimal substratum and the wave
 equation}\label{the-minimal-substratum-and-the-wave-equation}}
 
-The framework's content rests on a minimal mathematical structure: a
-finite set \(S\) (posit A1, Chapter 2 §2.4), a deterministic bijection
-\(\varphi: S \to S\), and a partition of \(S\) into visible and hidden
-sectors. The lemmas of Chapter 1 extracted three structural features
-from this minimal object --- visible finiteness, causal partition,
-determinism --- and the conditions C1--C4 identified when an embedded
-observer can exist. This section develops two further structural
-features of the minimal object that the Standard Model derivation
-requires.
+The framework's content rests on a minimal mathematical structure: a set
+\(S\) (finite under the open hypothesis A1, Chapter 2 §2.4), a
+deterministic bijection \(\varphi: S \to S\), and a partition of \(S\)
+into visible and hidden sectors. The lemmas of Chapter 1 extracted three
+structural features from this minimal object --- visible finiteness,
+causal partition, determinism --- and the conditions C1--C4 identified
+when an embedded observer can exist. This section develops two further
+structural features of the minimal object that the Standard Model
+derivation requires.
 
 \textbf{The factorization problem.} Let \(S\) be a finite set with
 \(|S| = q^N\) for some \(q \geq 2\) and integer \(N\). There are many
@@ -7256,11 +7269,11 @@ breaks chiral symmetry. Identifying these first-order terms with center
 dependence of the second-order substratum dynamics is a separate bridge
 (SM §4.3). The memory-bearing sector whose phenomenology Chapter 1
 develops does not come from center independence: Main's readback lemma
-supplies that memory, and its recurrence-cycle theorem the
-P-indivisibility, independently of center independence (SM §4.3). The
-Higgs mechanism developed in Chapter 6, which gives masses to fermions
-in the emergent description, operates on the chiral fermions of the
-center-free branch.
+supplies that memory, and, on finite reversible representatives, its
+recurrence-cycle theorem the P-indivisibility, independently of center
+independence (SM §4.3). The Higgs mechanism developed in Chapter 6,
+which gives masses to fermions in the emergent description, operates on
+the chiral fermions of the center-free branch.
 
 \textbf{Multi-component dynamics with \(K\) internal components.} The
 wave equation as written above is a single-component dynamics --- one
@@ -7748,10 +7761,11 @@ under H-spin', SM §4.7); the framework does not presently derive the
 copy number \(m=1\). The strong-CP problem is treated structurally in
 Section 6.3, which states what T-invariance of the substratum bijection
 combined with detailed balance fixes (\(\theta\in\{0,\pi\}\) and
-reciprocal transition counts) and what it does not (\(\bar\theta\), open
-under two named conditions). The gauge couplings at the \(Z\) pole are
-reproduced by a chain with one structurally computed input, the analytic
-one-loop staggered vacuum polarization \(1/\alpha_0 = 23.25\), and three
+reciprocal transition counts under the counting hidden prior of a finite
+model) and what it does not (\(\bar\theta\), open under two named
+conditions). The gauge couplings at the \(Z\) pole are reproduced by a
+chain with one structurally computed input, the analytic one-loop
+staggered vacuum polarization \(1/\alpha_0 = 23.25\), and three
 threshold parameters fitted to the three observed couplings (SM §6.3).
 The twenty-two classified quantitative retrodictions developed there
 (two parameter-free structural and five conditional structural; Appendix
@@ -7815,13 +7829,14 @@ physical generations only under H-spin', SM §4.7) --- the link count
 under H-link jointly with the condensate-stabilizer accounting. Section
 6.3 treats the strong-CP problem structurally: T-invariance of the
 substratum bijection combined with detailed balance narrows the QCD
-angle to \(\theta\in\{0,\pi\}\) and gives reciprocal transition counts,
-but does not fix \(\bar\theta\), which is open under two named
-conditions stated at the end of that section. Section 6.4 develops the
-gauge-coupling derivation and the framework's structural no-GUT
-prediction, with the analytic one-loop staggered vacuum polarization
-producing the structural input \(1/\alpha_0 = 23.25\) and the RG running
-to \(M_Z\) matching the three observed gauge couplings.
+angle to \(\theta\in\{0,\pi\}\) and gives reciprocal transition counts
+under the counting hidden prior of a finite model, but does not fix
+\(\bar\theta\), which is open under two named conditions stated at the
+end of that section. Section 6.4 develops the gauge-coupling derivation
+and the framework's structural no-GUT prediction, with the analytic
+one-loop staggered vacuum polarization producing the structural input
+\(1/\alpha_0 = 23.25\) and the RG running to \(M_Z\) matching the three
+observed gauge couplings.
 
 The remaining sections develop the framework's parameter-free
 quantitative retrodictions, in the two categories of Section 6.8 ---
@@ -9513,13 +9528,13 @@ LIGO/Virgo/KAGRA observation of GW250114 confirms the area theorem at
 \(99.999\%\) confidence (the \(1/4\) coefficient itself has no direct
 test). Section 7.6 treats the black hole information paradox, which the
 framework does not resolve: information is never lost from the
-substratum bijection \(\varphi\), bijectivity being a premise; a
-cycle-averaged Page curve follows under the scrambling condition
-H-scramble and the decoupling condition H-decouple, taking the energy
-shell of the black hole and its radiation to be their full product
-space, by a mechanism substantially different from that of the
-quantum-extremal-surface and entanglement-island programs, with a Page
-time that, for a mass-independent emission coefficient, is a fixed
+substratum bijection \(\varphi\), bijectivity being a premise of the
+framework's models; a cycle-averaged Page curve follows under the
+scrambling condition H-scramble and the decoupling condition H-decouple,
+taking the energy shell of the black hole and its radiation to be their
+full product space, by a mechanism substantially different from that of
+the quantum-extremal-surface and entanglement-island programs, with a
+Page time that, for a mass-independent emission coefficient, is a fixed
 fraction of the evaporation time set by the entropy the radiation
 carries per unit of horizon entropy lost ---
 \(t_P \approx 0.646\, t_{\text{evap}}\) when the two are equal;
@@ -9584,24 +9599,24 @@ The tier system clarifies what each result claims. A conditional result
 like ``\(\hbar = c^3 \epsilon^2 / (4G\sigma)\)'' is not ``the framework
 predicts the value of Planck's constant uniquely'' but ``any
 horizon-bounded embedded-observer system with the framework's structural
-conditions, and satisfying H-slope at its horizon, gets this functional
-form for the emergent action scale.'' The Tier 1 results, and the
-conditional results built on them, are robust to the substratum's
-specific dynamics; only the discreteness scale \(\epsilon\) remains as a
-free parameter, and self-consistency with the Planck length definition
-fixes it for a given entropy \(\sigma\) per boundary mode,
-\(\epsilon = 2\sqrt{\sigma}\, l_p\) (\(2\,l_p\) at \(\sigma = 1\), one
-nat per boundary mode). A Tier 2 result like ``\(a_0 = cH/6\)'' depends
-on the geometric factors of de Sitter space but not on the substratum's
-gauge structure; it would hold for any framework where the dark-sector
-phenomenology arose from entropy displacement at the cosmological
-boundary --- with the dimensional factor taken from Verlinde's analysis
-rather than derived here. A Tier 3 result depends on the specific
-bijection and varies across realizations within the universality class.
-The empirical record of the gravitational sector --- concentrated at
-Tiers 1 and 2 --- is therefore not a record of the cubic-lattice
-substratum but a record of the framework's broader structural
-commitments at the boundary scale.
+conditions, and satisfying H-slope and H-count (Section 7.3) at its
+horizon, gets this functional form for the emergent action scale.'' The
+Tier 1 results, and the conditional results built on them, are robust to
+the substratum's specific dynamics; only the discreteness scale
+\(\epsilon\) remains as a free parameter, and self-consistency with the
+Planck length definition fixes it for a given entropy \(\sigma\) per
+boundary mode, \(\epsilon = 2\sqrt{\sigma}\, l_p\) (\(2\,l_p\) at
+\(\sigma = 1\), one nat per boundary mode). A Tier 2 result like
+``\(a_0 = cH/6\)'' depends on the geometric factors of de Sitter space
+but not on the substratum's gauge structure; it would hold for any
+framework where the dark-sector phenomenology arose from entropy
+displacement at the cosmological boundary --- with the dimensional
+factor taken from Verlinde's analysis rather than derived here. A Tier 3
+result depends on the specific bijection and varies across realizations
+within the universality class. The empirical record of the gravitational
+sector --- concentrated at Tiers 1 and 2 --- is therefore not a record
+of the cubic-lattice substratum but a record of the framework's broader
+structural commitments at the boundary scale.
 
 \hypertarget{the-cosmological-horizon-as-causal-partition}{%
 \subsection{7.2 The cosmological horizon as causal
@@ -9823,9 +9838,10 @@ without logical contradiction. The matching \(T_{\text{cl}} = T_Q\)
 identifies the classical horizon temperature with the emergent KMS
 temperature on the same boundary modes; it holds under the infrared
 detailed-balance condition H-slope and the hidden-sector condition
-H-count --- the energy-dependent entropy of the whole hidden-sector
-reservoir is its boundary count, the deep hidden sector contributing
-none --- neither of which partition geometry supplies:
+H-count --- the total system is finite (A1) and the energy-dependent
+entropy of the whole hidden-sector reservoir is its boundary count, the
+deep hidden sector contributing none --- neither of which partition
+geometry supplies:
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}.\]
 The surface gravity \(\kappa\) cancels --- a non-trivial cross-check on
 the dimensional argument of Step 3, which excluded \(\kappa\) from
@@ -10149,17 +10165,17 @@ information, in tension with quantum mechanics' commitment to unitarity
 --- is one of the canonical hard problems of theoretical physics. The
 framework does not resolve the paradox. Information is never lost from
 the substratum bijection \(\varphi\) because \(\varphi\) is bijective,
-and bijectivity is a premise of the framework (Chapter 1), not a result;
-how much of that information an observer can recover from the radiation
-is a separate question, which bijectivity alone does not settle. The
-Page-curve derivation below bears on it under two conditions, H-scramble
-and H-decouple, neither of which is established, and H-scramble fails
-for every bijection acting on an initial configuration with the
-bipartition aligned to the configuration coordinates. On the framework's
-reading the apparent information loss is an artifact of the trace-out
---- the same mechanism that underlies the conditional cosmological
-constant dissolution in §7.7 below and the dark sector concordance in
-§7.9.
+and bijectivity is a premise of the framework's models (Chapter 1), not
+a result; how much of that information an observer can recover from the
+radiation is a separate question, which bijectivity alone does not
+settle. The Page-curve derivation below bears on it under two
+conditions, H-scramble and H-decouple, neither of which is established,
+and H-scramble fails for every bijection acting on an initial
+configuration with the bipartition aligned to the configuration
+coordinates. On the framework's reading the apparent information loss is
+an artifact of the trace-out --- the same mechanism that underlies the
+conditional cosmological constant dissolution in §7.7 below and the dark
+sector concordance in §7.9.
 
 \textbf{The paradox in its conventional form.} Hawking's calculation of
 the spectrum of radiation emitted by an evaporating black hole produced
@@ -10203,12 +10219,12 @@ time depends on the entropy each assigns to the radiation, as set out
 below.
 
 \textbf{The observer's description: nested trace-out.} The framework's
-substratum is a deterministic bijection \(\varphi\) acting on a finite
-configuration space \(S\). Information is never lost from \(\varphi\)
---- bijectivity is the framework's structural commitment to unitarity at
-the substratum level. The apparent information loss in Hawking radiation
-is an artifact of the \emph{observer's} description, not of the
-underlying dynamics.
+substratum is a deterministic bijection \(\varphi\) acting on a
+configuration space \(S\), finite under A1. Information is never lost
+from \(\varphi\) in the framework's bijective models --- bijectivity is
+the framework's structural commitment to unitarity in those models. The
+apparent information loss in Hawking radiation is an artifact of the
+\emph{observer's} description, not of the underlying dynamics.
 
 The mechanism is the nested-partition formalism. When a black hole forms
 within the cosmological horizon, the framework's partition structure has
@@ -10453,10 +10469,11 @@ it constrains \(S_{\text{matter}}\) alone, not the horizon terms. A
 derivation of the generalized second law from the substratum needs a
 relation between horizon area and the hidden sectors' coarse-grained
 entropy that holds along the evaporation, and that relation is open.
-Conservation of information at the substratum level rests on bijectivity
-alone and does not wait on the generalized second law; how much of that
-information the observer can recover from the radiation is the separate
-question the Page-curve derivation addresses, under its own conditions.
+Conservation of information at the substratum level rests, in the
+framework's models, on bijectivity alone and does not wait on the
+generalized second law; how much of that information the observer can
+recover from the radiation is the separate question the Page-curve
+derivation addresses, under its own conditions.
 
 \textbf{Empirical status and falsification.} The framework's account of
 the information paradox has no direct empirical signature accessible at
@@ -10466,20 +10483,20 @@ Page time for a stellar-mass black hole would not occur within any
 conceivable observational program. The empirical content is therefore
 conceptual rather than quantitative: the framework's structural
 commitment to bijectivity entails that information is never lost from
-the substratum, with the apparent information loss being an artifact of
-the observer's trace-out.
+the substratum in those models, with the apparent information loss being
+an artifact of the observer's trace-out.
 
 Bijective dynamics is compatible with radiation that carries less
 information than the matter that formed it, the remainder being held in
 sectors the observer does not read, and the nested trace-out is
 consistent for every dynamics; a measurement of the radiation alone
 therefore does not test the conservation claim, which rests on
-bijectivity as a premise (Chapter 1). The QES + islands computations,
-which obtain a unitary Page curve from semiclassical gravity by an
-independent route, support unitary evaporation without depending on the
-framework. The framework's content is therefore consistent with the
-current theoretical and (limited) empirical picture. Its quantitative
-target is the Page-time relation
+bijectivity as a premise of the framework's models (Chapter 1). The QES
++ islands computations, which obtain a unitary Page curve from
+semiclassical gravity by an independent route, support unitary
+evaporation without depending on the framework. The framework's content
+is therefore consistent with the current theoretical and (limited)
+empirical picture. Its quantitative target is the Page-time relation
 \(t_P/t_{\text{evap}} = 1 - [\beta/(1+\beta)]^{3/2}\), which becomes a
 sharp prediction once the radiation's entropy per boundary mode lost is
 derived; at the mode-counting value \(\beta = 1\) it gives \(0.646\).
@@ -12453,13 +12470,14 @@ content and clarifies which empirical predictions test which level.
 Section 9.5 develops the framework's relationship to string theory at
 the substratum level. The two programs operate at different levels and
 answer different questions. The framework's specific commitments to a
-finite deterministic bijection are not equivalent to string theory's
-commitments to a continuum quantum gravity with extra dimensions; the
-apparent overlap in their predictions reflects shared universality-class
-content rather than substratum-level equivalence. Section 9.6 develops
-the string-landscape multiplicity problem: the framework's gauge-group
-derivation does not dissolve the landscape problem because the framework
-operates at a structurally different level than string compactification.
+deterministic bijection (finite under A1) are not equivalent to string
+theory's commitments to a continuum quantum gravity with extra
+dimensions; the apparent overlap in their predictions reflects shared
+universality-class content rather than substratum-level equivalence.
+Section 9.6 develops the string-landscape multiplicity problem: the
+framework's gauge-group derivation does not dissolve the landscape
+problem because the framework operates at a structurally different level
+than string compactification.
 
 Section 9.7 develops the Danielson-Satishchandran-Wald (DSW) external
 convergence --- the recent mainstream-physics literature on horizon
@@ -12521,12 +12539,12 @@ both levels: O1 is where predictions are tested, O2 is where the
 structural commitments live.
 
 The second axis is \emph{gauge level}. Level G1 is the framework's
-general structural axioms (finite substratum, deterministic bijection,
-classical probability, causal partition). Level G2 is the structural
-properties of the substratum (the six properties developed in Chapter 5:
-isotropy, sublattice structure, link content, anomaly cancellation,
-taste content, generation count). Level G3 is the specific bijection
-within the equivalence class
+general structural axioms (deterministic bijection, classical
+probability, causal partition) with the open hypothesis A1 (finite
+substratum). Level G2 is the structural properties of the substratum
+(the six properties developed in Chapter 5: isotropy, sublattice
+structure, link content, anomaly cancellation, taste content, generation
+count). Level G3 is the specific bijection within the equivalence class
 \([(S, \varphi)] / \mathcal{G}_{\text{sub}}\). Level G4 is the
 universality class to which any specific bijection belongs --- multiple
 bijections within \(\mathcal{G}_{\text{sub}}\) produce identical
@@ -12813,7 +12831,8 @@ The framework's universality-class commitments --- the conditions that
 define membership in the framework's universality class --- are six
 structural properties of the substratum, organized as follows.
 
-\emph{Finiteness.} The substratum \(S\) has finite cardinality. This is
+\emph{Finiteness.} The substratum \(S\) has finite cardinality --- as a
+claim about nature, the open hypothesis A1, not adopted. This is
 load-bearing for the recurrence route specifically: the recurrence
 theorem (Chapter 18 §18.7) requires finiteness for the exact recurrence
 of a finite bijection, which supplies recurrence-scale P-indivisibility.
@@ -12898,13 +12917,13 @@ Four universality-class entries tested against current empirical
 evidence: one confirmed at high precision (the area law) and the
 remainder consistent with the empirical record at concordance level
 (dark sector budget, no DM particle, no proton decay). Information
-conservation follows from the bijectivity premise and is not an
-empirical entry: a measurement of the radiation alone does not test it,
-and the Page curve is conditional (Chapter 7 §7.6). The
-Bekenstein-Hawking coefficient and the descriptive vacuum-energy
-distinction are consistency relations (Chapter 7 §7.10) and are not
-tabulated. The Type II running-vacuum form is not in the table: its
-local expansion is shared by every smooth model, so it is
+conservation follows from the bijectivity premise of the framework's
+models and is not an empirical entry: a measurement of the radiation
+alone does not test it, and the Page curve is conditional (Chapter 7
+§7.6). The Bekenstein-Hawking coefficient and the descriptive
+vacuum-energy distinction are consistency relations (Chapter 7 §7.10)
+and are not tabulated. The Type II running-vacuum form is not in the
+table: its local expansion is shared by every smooth model, so it is
 non-discriminating (Chapter 7 §7.8), and the falsifiable content is the
 magnitude \(|\nu| \sim 10^{-32}\) at Tier 2. The framework's
 universality-class content is therefore consistent with observation
@@ -13082,9 +13101,10 @@ continuum quantum-gravity program: it postulates a Lorentzian ten- or
 eleven-dimensional spacetime with quantum fields, with the Standard
 Model emerging from compactification of the extra dimensions on a
 specific Calabi-Yau manifold. The framework is a finite
-deterministic-substratum program: it postulates a finite configuration
-space with a deterministic bijection, with quantum mechanics and general
-relativity both emerging as projections of the same structure.
+deterministic-substratum program: it takes, under the open hypothesis
+A1, a finite configuration space with a deterministic bijection, with
+quantum mechanics and general relativity both emerging as projections of
+the same structure.
 
 The two programs are \emph{not} operating at the same level. String
 theory is itself an emergent description in the framework's hierarchy
@@ -16320,16 +16340,16 @@ structure, with different specific instantiations (formal systems,
 computational systems, embedded observers in finite deterministic
 substrata) producing different specific limits.
 
-The unification is not just analogy. The framework's substratum is a
-finite deterministic system; embedded observers within the substratum
-are themselves substructures of the substratum; their observations are
-operations on the substratum; their reasoning about their observations
-is computation on the substratum. The Gödel, Turing, and OI limits
-therefore \emph{coincide} in the framework: the limit on what an
-embedded observer can determine about its hidden sector is the same as
-the limit on what a formal system can prove about itself, the same as
-the limit on what a computational system can determine about its own
-execution.
+The unification is not just analogy. The framework's substratum is,
+under A1, a finite deterministic system; embedded observers within the
+substratum are themselves substructures of the substratum; their
+observations are operations on the substratum; their reasoning about
+their observations is computation on the substratum. The Gödel, Turing,
+and OI limits therefore \emph{coincide} in the framework: the limit on
+what an embedded observer can determine about its hidden sector is the
+same as the limit on what a formal system can prove about itself, the
+same as the limit on what a computational system can determine about its
+own execution.
 
 \textbf{A fourth family member: Deutsch's \emph{Beginning of Infinity}.}
 David Deutsch's 2011 argument {[}Deutsch{]} extends the incompleteness
@@ -17747,14 +17767,14 @@ infinite-time computation, oracle access to undecidable problems, analog
 computation with arbitrary-precision continuous quantities. The
 exclusions come from two different layers: infinite-time computation
 requires actual infinity, which the framework's finite substratum
-precludes (a structural exclusion); arbitrary-precision continuous
-computation requires sub-Planck-scale resolution, which the lattice
-precludes (structural); oracle access, by contrast, is excluded by the
-operational-closure hypothesis --- an oracle need not arrive through
-hidden-sector information, so this exclusion is the model's, not a
-framework derivation. Hypercomputation is therefore excluded
-structurally in its infinite-resource forms and by the model in its
-oracle form.
+precludes under A1 (a structural exclusion conditional on A1);
+arbitrary-precision continuous computation requires sub-Planck-scale
+resolution, which the lattice precludes (structural); oracle access, by
+contrast, is excluded by the operational-closure hypothesis --- an
+oracle need not arrive through hidden-sector information, so this
+exclusion is the model's, not a framework derivation. Hypercomputation
+is therefore excluded structurally in its infinite-resource forms and by
+the model in its oracle form.
 
 \emph{``What about exotic physics?''} Various proposed exotic physics
 scenarios --- closed timelike curves, naked singularities, quantum
@@ -18052,9 +18072,9 @@ with classical computation being a restricted special case. The
 framework's content rejects this interpretive position. Under the
 framework's reading, physical reality is \emph{deterministic and
 classical} at the substratum level (the bijection \(\varphi\) acts on a
-finite state space with classical probability for the observer's
-outcomes), with quantum mechanics being the \emph{emergent} description
-that embedded observers use.
+state space, finite under A1, with classical probability for the
+observer's outcomes), with quantum mechanics being the \emph{emergent}
+description that embedded observers use.
 
 The conjectured BPP--BQP separation is therefore read not as evidence
 that physical reality is fundamentally quantum but as evidence that
@@ -18067,9 +18087,9 @@ rather than of the substratum's fundamental nature.
 
 This reading has substantive consequences for foundational questions.
 The framework's content is compatible with classical substrate
-metaphysics --- the universe is a deterministic finite system at the
-substratum level --- while preserving the empirical content of quantum
-mechanics and quantum computing. The framework's proposal is not
+metaphysics --- the universe is, under A1, a deterministic finite system
+at the substratum level --- while preserving the empirical content of
+quantum mechanics and quantum computing. The framework's proposal is not
 ``quantum mechanics is wrong'' but ``quantum mechanics is the correct
 description of what embedded observers see in classical substrata.''
 
@@ -18586,11 +18606,11 @@ itself.
 
 \emph{Hypercomputation is excluded --- structurally in its
 infinite-resource forms, by the model in its oracle form.} The
-framework's finite substratum and bounded-coupling-degree commitments
-preclude infinite-time and arbitrary-precision-continuous computation;
-oracle access is excluded by the operational-closure hypothesis, not
-derived from the framework. Any apparent demonstration of
-hypercomputation would either be reducible to standard computation or
+framework's finite substratum (under A1) and bounded-coupling-degree
+commitments preclude infinite-time and arbitrary-precision-continuous
+computation; oracle access is excluded by the operational-closure
+hypothesis, not derived from the framework. Any apparent demonstration
+of hypercomputation would either be reducible to standard computation or
 constitute a falsification of the framework-plus-model conjunction, at
 whichever layer the demonstration exceeds.
 
@@ -21956,14 +21976,12 @@ OI-specific echo is expected and ringdowns follow general relativity; no
 echo amplitude is derived.
 
 The middle of the chapter takes up the framework's foundational
-commitments and their consequences. Section 18.7 develops the
+commitments and their consequences. Section 18.7 develops, under A1, the
 finite-information character of the substratum and its consequence of
 exact recurrence, at a period no larger than the largest order of a
 permutation of \(S\) (Landau's function \(g(|S|)\)), which the framework
-does not compute since \(|S|\) is not fixed by visible data --- a
-definite structural prediction with real conceptual content, and without
-practical consequences at periods of astronomical size. Section 18.8
-develops the arrow of time as emergent from the partition's initial
+does not compute since \(|S|\) is not fixed by visible data. Section
+18.8 develops the arrow of time as emergent from the partition's initial
 conditions rather than from a fundamental temporal asymmetry --- the
 substratum is T-symmetric, and the thermodynamic and cosmological arrows
 trace to the partition's low-entropy initial state.
@@ -22009,13 +22027,12 @@ biological systems and the BQP computational ceiling (developed in
 Chapter 14) are \emph{testable}. The Born rule's dynamical equilibrium
 is a \emph{conditional prospect}: a proposed mechanism that would bear
 on the CMB's primordial statistics, without yet a specified observable
-response (§18.2). Predictions like cosmic recurrence, at a period at
-most \(g(|S|)\), and the asymmetric position on consciousness are
-\emph{structural commitments with limited empirical access}. The chapter
-is honest about which is which. The framework's value here is not the
-empirical record (which is what Chapters 5-17 developed) but the
-structural commitments --- what the framework says about the world
-beyond what current physics tests.
+response (§18.2). Predictions like the asymmetric position on
+consciousness are \emph{structural commitments with limited empirical
+access}. The chapter is honest about which is which. The framework's
+value here is not the empirical record (which is what Chapters 5-17
+developed) but the structural commitments --- what the framework says
+about the world beyond what current physics tests.
 
 \hypertarget{the-born-rule-as-dynamical-equilibrium}{%
 \subsection{18.2 The Born rule as dynamical
@@ -22105,11 +22122,11 @@ departures. Their decay would require an additional effective relaxation
 law, such as the closed law considered above, applicable over a
 specified finite epoch. Neither asymptotic convergence to zero nor a
 universal decay rate follows from the finite reversible substratum
-dynamics, which is recurrent (§18.7); microscopic recurrence and a
-possible effective relaxation over a finite epoch are distinct. (Status:
-the expansion is the proposal's \emph{parametrization} of the deviation
---- the form an eventual derivation would have to fill in --- not a
-derived spectral decomposition.)
+dynamics, which is recurrent under A1 (§18.7); microscopic recurrence
+and a possible effective relaxation over a finite epoch are distinct.
+(Status: the expansion is the proposal's \emph{parametrization} of the
+deviation --- the form an eventual derivation would have to fill in ---
+not a derived spectral decomposition.)
 
 The structural source of any transient violations is the hidden sector's
 initial state. In the framework's substratum dynamics, the hidden sector
@@ -22571,13 +22588,13 @@ distinction. The three are framework-level interpretations and
 conditional results --- the cosmological-constant dissolution is
 established at the descriptive level with its dynamical form conditional
 on the covariant coupling theorem, the information account, in which
-information is conserved by the bijectivity premise and the Page curve
-is conditional, and the non-renormalizability reading is conditional on
-the open covariant rung G3, continuum-limit consistency included --- not
-a completed theory of quantum gravity, and the information paradox is
-not resolved. This section pulls the three readings together as a
-cumulative case for the framework's structural treatment of quantum
-gravity.
+information is conserved by the bijectivity premise of the framework's
+models and the Page curve is conditional, and the non-renormalizability
+reading is conditional on the open covariant rung G3, continuum-limit
+consistency included --- not a completed theory of quantum gravity, and
+the information paradox is not resolved. This section pulls the three
+readings together as a cumulative case for the framework's structural
+treatment of quantum gravity.
 
 \textbf{The conventional formulation.} Standard treatments of quantum
 gravity attempt to quantize the gravitational field by analogy with the
@@ -22640,18 +22657,18 @@ description, with no cancellation required if the coupling step holds.
 
 \textbf{The second component: the black hole information paradox.}
 Chapter 7 §7.6 developed the framework's account of the information
-paradox. Information is never lost from the substratum bijection
-\(\varphi\) because \(\varphi\) is bijective; whether the radiation
-carries it is a separate question, which bijectivity alone does not
-settle. The apparent information loss in Hawking radiation is an
-artifact of the trace-out --- the same mechanism that underlies the
-conditional cosmological constant dissolution. The framework's
-nested-partition formalism (two coexisting causal boundaries:
-cosmological horizon plus black hole horizon) provides a self-consistent
-emergent quantum description when the two boundaries coexist; the Page
-curve at the emergent level is a conditional result, on a scrambling
-condition that no bijection meets from an initial configuration with the
-bipartition aligned to the configuration coordinates (Chapter 7 §7.6).
+paradox. Information is never lost from a bijective model of the
+substratum; whether the radiation carries it is a separate question,
+which bijectivity alone does not settle. The apparent information loss
+in Hawking radiation is an artifact of the trace-out --- the same
+mechanism that underlies the conditional cosmological constant
+dissolution. The framework's nested-partition formalism (two coexisting
+causal boundaries: cosmological horizon plus black hole horizon)
+provides a self-consistent emergent quantum description when the two
+boundaries coexist; the Page curve at the emergent level is a
+conditional result, on a scrambling condition that no bijection meets
+from an initial configuration with the bipartition aligned to the
+configuration coordinates (Chapter 7 §7.6).
 
 The derivation runs through a mechanism substantially different from the
 quantum-extremal-surface and entanglement-island computations --- cycle
@@ -22766,22 +22783,22 @@ theorem, not the \(1/4\) coefficient). For black-hole ringdowns the
 framework's commitment is the general-relativistic one.
 
 The chapter's broader content on forward predictions continues with the
-framework's substratum commitments --- finite information, recurrence,
-the arrow of time, cosmic topology, and consciousness --- that test the
-framework at scales and levels distinct from the direct empirical
-exposure of the gravitational and quantum sectors.
+framework's substratum commitments --- finite information under A1,
+recurrence, the arrow of time, cosmic topology, and consciousness ---
+that test the framework at scales and levels distinct from the direct
+empirical exposure of the gravitational and quantum sectors.
 
 \hypertarget{finite-information-and-exact-finite-recurrence}{%
 \subsection{18.7 Finite information and exact finite
 recurrence}\label{finite-information-and-exact-finite-recurrence}}
 
-The framework's commitment to a finite substratum has structural
-consequences that extend beyond the empirical predictions of fundamental
-physics. The universe is described by a finite configuration space \(S\)
+The hypothesis A1 of a finite substratum has structural consequences
+that extend beyond the empirical predictions of fundamental physics.
+Under A1 the universe is described by a finite configuration space \(S\)
 with bijection dynamics \(\varphi: S \to S\). Finiteness is not a
-calculational convenience but a load-bearing commitment: it guarantees
-exact recurrence of the substratum dynamics --- the finite-bijection
-form of recurrence, stronger than what Poincaré's theorem gives for a
+calculational convenience but load-bearing under A1: it guarantees exact
+recurrence of the substratum dynamics --- the finite-bijection form of
+recurrence, stronger than what Poincaré's theorem gives for a
 finite-measure system --- which, together with a non-permutation rooted
 map, produces P-indivisibility at the embedded-observer level; a
 fixed-basis unitary quantum representation is internal and universal
@@ -22816,7 +22833,7 @@ would survive through readback, and the imported representation is gated
 by (T) rather than by recurrence, so an infinite substratum removes this
 route rather than the framework's quantum representation.
 
-The framework's commitment to finite information is therefore neither a
+The hypothesis of finite information (A1) is therefore neither a
 quantitative claim about the specific cardinality nor a metaphysical
 preference for finitism. It is a structural requirement for one
 particular route --- the recurrence-based P-indivisibility result, which
@@ -22832,9 +22849,9 @@ is what makes this particular route to P-indivisibility available.
 finite set \(S\) is a permutation. Every permutation on a finite set has
 finite order: there exists a smallest positive integer \(N\) such that
 \(\varphi^N = \mathrm{id}\), the identity map. After \(N\) time steps,
-the substratum returns to its exact initial state. The framework's
-substratum dynamics is therefore strictly periodic, with period \(N\)
-determined by the bijection's cycle structure.
+it returns to its exact initial state. A bijection of a finite set is
+therefore strictly periodic, with period \(N\) determined by the
+bijection's cycle structure.
 
 The recurrence period can be astronomically large. For an arbitrary
 bijection of \(S\), two upper bounds with different growth rates bear on
@@ -22885,60 +22902,31 @@ sampling, are bijections but not linear maps, and for them only
 period of the three-dimensional rule at cosmological size is not
 computed in the corpus.
 
-The return itself is definite: the universe returns to its exact initial
-state after \(N\) substratum time steps, where \(N\) is fixed by the
-cycle structure of \(\varphi\). It is at most \(g(|S|)\) for any
+The return itself is definite: a finite model returns to its exact
+initial state after \(N\) substratum time steps, where \(N\) is fixed by
+the cycle structure of \(\varphi\). It is at most \(g(|S|)\) for any
 bijection and below \(|S|\) for the exactly linear rule. The framework
 bounds \(N\) rather than computing it, and it supplies no lower bound on
-\(N\). Translating to physical units with the substratum time step
-\(\tau_{\text{sub}} \sim t_{\text{Pl}} \sim 10^{-43}\) seconds
-multiplies the recurrence time by \(\tau_{\text{sub}}\), which changes
-its logarithm by about \(10^2\), negligible at these magnitudes. A
-period of astronomical size is vastly longer than the age of the
-universe, vastly longer than the lifetime of the proton, vastly longer
-than any timescale physics conventionally treats, and at such a period
-the recurrence has no practical empirical consequences.
+\(N\).
 
-\textbf{Falsifiability.} The recurrence prediction is falsifiable only
-in the logical sense. For a substratum of given \(|S|\) and \(\varphi\),
-failure to recur within \(g(|S|)\) steps would contradict a finite \(S\)
-with bijection dynamics, and failure to recur within \(|S| - 1\) steps
-would contradict only exact linearity (A5). But \(|S|\) is not fixed by
-visible data: for any finite observation time \(T\), a substratum with
-\(|S| > T + 1\) is admissible, so no finite observation falsifies the
-framework as a whole, which would require an infinite observation time.
-An embedded observer's records are, moreover, part of \(S\) and return
-with it. The recurrence is therefore a prediction at the structural
-level rather than at the empirical level: it follows necessarily from
-the framework's other commitments (finite substratum, bijection
-dynamics), and any framework consistent with those commitments must
-predict exact recurrence with a period at most \(g(|S|)\) that divides
-\(\mathrm{lcm}(1, \ldots, |S|)\), and below \(|S|\) for the exactly
-linear rule.
-
-The conceptual content is significant. The framework predicts that the
-universe is \emph{cyclic at the substratum level} --- periodic with
-period \(N\), the least common multiple of the bijection's cycle
-lengths. For a rule fixing the zero configuration on a nontrivial state
-space, no single cycle passes through every configuration. The exact
-linear rule of {[}SM §4.2{]} has this property and therefore at least
-two cycles. The cycle-ergodicity question that {[}SM §4.2{]} treats
-concerns sampling within an energy shell. Within a single cycle no state
-function increases throughout; a direction of the observer's experience
-is fixed by boundary conditions on a stretch of the cycle (the arrow of
-time discussed in the next section), and at the substratum level the
-dynamics has no preferred direction. The framework's commitment to
-substratum cyclicity is one of the structural commitments that
-distinguishes it from frameworks treating the universe as either
-fundamentally non-cyclic (most cosmological models) or fundamentally
-infinite (most quantum gravity programs).
+A finite model is periodic with period \(N\), the least common multiple
+of the bijection's cycle lengths. For a rule fixing the zero
+configuration on a nontrivial state space, no single cycle passes
+through every configuration. The exact linear rule of {[}SM §4.2{]} has
+this property and therefore at least two cycles. The cycle-ergodicity
+question that {[}SM §4.2{]} treats concerns sampling within an energy
+shell. Within a single cycle no state function increases throughout; a
+direction of the observer's experience is fixed by boundary conditions
+on a stretch of the cycle (the arrow of time discussed in the next
+section), and at the substratum level the dynamics has no preferred
+direction.
 
 \textbf{Implications for the framework's logical structure.} The
 recurrence theorem connects three structural features of the framework:
-substratum finiteness (the framework's commitment to \(|S| < \infty\)),
-bijection dynamics (the framework's commitment to \(\varphi\) as a
-bijection), and P-indivisibility at the recurrence scale. The connection
-runs in three steps. Finiteness of \(S\) guarantees exact recurrence
+substratum finiteness (the hypothesis A1, \(|S| < \infty\)), bijection
+dynamics (the framework's commitment to \(\varphi\) as a bijection), and
+P-indivisibility at the recurrence scale. The connection runs in three
+steps. Finiteness of \(S\) guarantees exact recurrence
 (\(\varphi^N = \mathrm{id}\)). Recurrence together with C1 acting at the
 first step --- which makes the one-step matrix a non-permutation under
 the uniform hidden prior, the cheapest non-permutation rooted map ---
@@ -22954,16 +22942,16 @@ at some order below the recurrence time; the memory-bearing sector is
 the one in which C4 places that memory at an accessible order, and every
 finite law, memory-bearing or not, admits the quantum representation.
 
-The framework's commitment to finite information is therefore
-load-bearing for the recurrence route specifically, not for
-representability or for accessible non-Markovianity: readback at order
-\(k\) has its own finite-horizon route, and the imported representation
-is gated by (T) rather than by recurrence, so those routes do not
-exclude an infinite deep hidden sector, which would need its own
-normalized state or measure and well-defined dynamics ({[}Main §2.3{]},
-§3.1; Chapter 2 §2.3). Removing finiteness --- replacing
-\(|S| < \infty\) with \(|S| = \infty\) --- would remove the recurrence
-route rather than the framework's quantum representation.
+The hypothesis of finite information (A1) is therefore load-bearing for
+the recurrence route specifically, not for representability or for
+accessible non-Markovianity: readback at order \(k\) has its own
+finite-horizon route, and the imported representation is gated by (T)
+rather than by recurrence, so those routes do not exclude an infinite
+deep hidden sector, which would need its own normalized state or measure
+and well-defined dynamics ({[}Main §2.3{]}, §3.1; Chapter 2 §2.3).
+Removing finiteness --- replacing \(|S| < \infty\) with \(|S| = \infty\)
+--- would remove the recurrence route rather than the framework's
+quantum representation.
 
 \hypertarget{the-arrow-of-time}{%
 \subsection{18.8 The arrow of time}\label{the-arrow-of-time}}
@@ -22974,10 +22962,11 @@ The framework's substratum dynamics is given by the bijection
 the configuration space, and the substratum dynamics is unchanged under
 the exchange \(\varphi \leftrightarrow \varphi^{-1}\). The framework's
 commitment to T-symmetric substratum dynamics is the same commitment
-that gives reciprocal transition counts in Chapter 6 §6.3 (and narrows
-\(\theta\) to \(\{0,\pi\}\) without fixing \(\bar\theta\)) ---
-T-invariance at the substratum level is a structural feature that
-propagates through the framework's emergent descriptions.
+that gives reciprocal transition counts under the counting hidden prior
+of a finite model in Chapter 6 §6.3 (and narrows \(\theta\) to
+\(\{0,\pi\}\) without fixing \(\bar\theta\)) --- T-invariance at the
+substratum level is a structural feature that propagates through the
+framework's emergent descriptions.
 
 This raises an obvious question. The universe we observe has an
 unambiguous arrow of time: entropy increases, biological systems age,
@@ -23192,19 +23181,19 @@ data.
 compact-universe proposal is \emph{consistent with} but \emph{not
 predicted by} the framework. Three structural points clarify this.
 
-First, the framework's substratum finiteness (developed in §18.7) is
-\emph{compatible with} compact spatial topology. A finite substratum
-could be realized as a cubic lattice with compact global identification
-at some scale beyond the cosmological horizon, where the total number of
-lattice cells is finite. Levin's proposal provides one specific
-realization of this --- the Klein-bottle quotient or 3-torus
-identification at some cosmological scale.
+First, substratum finiteness under A1 (§18.7) is \emph{compatible with}
+compact spatial topology. A finite substratum could be realized as a
+cubic lattice with compact global identification at some scale beyond
+the cosmological horizon, where the total number of lattice cells is
+finite. Levin's proposal provides one specific realization of this ---
+the Klein-bottle quotient or 3-torus identification at some cosmological
+scale.
 
-Second, the framework's finiteness \emph{does not require} compact
-spatial topology. The substratum's finiteness could also be realized as
-a cubic lattice with trivial \(\mathbb{R}^3\) topology but with a finite
-extent set by other structural features. Levin's compactness is
-sufficient but not necessary for the framework's finiteness.
+Second, A1 \emph{does not require} compact spatial topology. The
+substratum's finiteness could also be realized as a cubic lattice with
+trivial \(\mathbb{R}^3\) topology but with a finite extent set by other
+structural features. Levin's compactness is sufficient but not necessary
+for A1.
 
 Third, the framework's predictions in Chapters 5 through 17 are
 \emph{independent} of global topology choices. Nothing in the
@@ -23271,10 +23260,10 @@ pre-registered as an open theoretical task.
 The framework's content on cosmic spatial topology is therefore: silent
 at the framework level (no commitment beyond local cubic structure),
 consistent with Levin's compact-universe proposals (as one realization
-of the framework's finiteness), with an open question on
-non-orientability-chirality interaction that requires further
-calculation. The framework's structural unity does not extend to global
-topology, and the framework is honest about this scope.
+of A1), with an open question on non-orientability-chirality interaction
+that requires further calculation. The framework's structural unity does
+not extend to global topology, and the framework is honest about this
+scope.
 
 \hypertarget{the-frameworks-position-on-consciousness}{%
 \subsection{18.10 The framework's position on
@@ -23397,11 +23386,12 @@ framework's account of how cognitively non-trivial information
 processing must work. Strict feed-forward computational accounts of
 consciousness face this constraint.
 
-\emph{The substratum is finite.} The framework's finite substratum
-(§18.7) constrains theories of consciousness that posit infinite
-information content for conscious experience. Theories requiring
-genuinely infinite degrees of freedom (some forms of mathematical
-Platonism applied to consciousness, for instance) face this constraint.
+\emph{The substratum is finite under A1.} Under A1 the framework's
+finite substratum (§18.7) would constrain theories of consciousness that
+posit infinite information content for conscious experience. Theories
+requiring genuinely infinite degrees of freedom (some forms of
+mathematical Platonism applied to consciousness, for instance) face this
+constraint.
 
 These are real constraints rather than vacuous ones. The framework rules
 out a substantial class of physics-based consciousness theories while
@@ -23565,16 +23555,12 @@ foundations but has no consequence observed at current experimental
 precision. The cumulative case on quantum gravity (§18.5) reframes three
 problems but has no direct empirical signature beyond the predictions
 already developed in the cosmological constant, BH information paradox,
-and renormalization treatments. Finite information and exact finite
-recurrence (§18.7) are falsifiable only in the logical sense --- for a
-substratum of given \(|S|\) a test would require observation over up to
-\(g(|S|)\) steps, and since \(|S|\) is not fixed by visible data, no
-finite observation falsifies the framework as a whole. The arrow of time
-(§18.8) is observationally manifest but is not directly testable as a
-framework prediction because all physics-based accounts of the arrow
-generate the same empirical signature. The framework's content in this
-category is structurally consequential without producing additional
-empirical handles beyond those already developed in Chapters 5-17.
+and renormalization treatments. The arrow of time (§18.8) is
+observationally manifest but is not directly testable as a framework
+prediction because all physics-based accounts of the arrow generate the
+same empirical signature. The framework's content in this category is
+structurally consequential without producing additional empirical
+handles beyond those already developed in Chapters 5-17.
 
 \emph{Framework's scope limits.} Cosmic spatial topology (§18.9) is not
 predicted by the framework; the framework is consistent with Levin's
@@ -23751,11 +23737,11 @@ treatments}\label{resolutions-and-partial-treatments}}
 This section develops the framework's claimed resolutions, dissolutions,
 and conditional constructions, with quantum gravity as a partially
 addressed entry, the black hole information paradox as an unresolved
-entry whose information conservation is a premise and whose Page curve
-is conditional, and the Born-rule origin and the strong CP problem
-alongside them as split-status entries. Gauge-group origin and
-generation structure are explicitly conditional on the carrier bridge
-rather than counted as closed results.
+entry whose information conservation is a premise of the framework's
+models and whose Page curve is conditional, and the Born-rule origin and
+the strong CP problem alongside them as split-status entries.
+Gauge-group origin and generation structure are explicitly conditional
+on the carrier bridge rather than counted as closed results.
 
 \hypertarget{the-quantum-gravity-problem}{%
 \subsubsection{19.2.1 The quantum gravity
@@ -23803,15 +23789,15 @@ cumulative case in Chapter 18 §18.5: the cosmological-constant
 dissolution, established at the descriptive level with its dynamical
 form conditional on the covariant coupling theorem (§19.2.2); the
 black-hole information account, in which information is conserved by the
-bijectivity premise and the Page curve is conditional; and the
-non-renormalizability reading, which takes the lattice as the
-fundamental description and is conditional on G3. All three follow from
-the same structural commitment to the geometry-first ordering and the
-substratum-emergent operator distinction, and on the framework's reading
-the cosmological-constant and non-renormalizability obstacles are
-artifacts of the quantum-first ordering rather than genuine physical
-difficulties. They are framework-level interpretations and conditional
-results, not a completed resolution of quantum gravity.
+bijectivity premise of the framework's models and the Page curve is
+conditional; and the non-renormalizability reading, which takes the
+lattice as the fundamental description and is conditional on G3. All
+three follow from the same structural commitment to the geometry-first
+ordering and the substratum-emergent operator distinction, and on the
+framework's reading the cosmological-constant and non-renormalizability
+obstacles are artifacts of the quantum-first ordering rather than
+genuine physical difficulties. They are framework-level interpretations
+and conditional results, not a completed resolution of quantum gravity.
 
 \emph{Developed in:} Chapters 1, 7, and 18. The three components are
 developed in Chapter 7 §7.7 (cosmological constant), Chapter 7 §7.6
@@ -23972,19 +23958,20 @@ suggest information is preserved, but the mechanism in the bulk has been
 unclear.
 
 \textbf{Framework status.} Information is conserved by the bijectivity
-premise; the paradox is not resolved, and the Page curve is conditional.
-The substratum map \(\varphi\) is bijective by premise (Chapter 1), so
-information is never lost from it; how much of it the radiation carries,
-bijectivity does not settle. The Page curve follows, as an average over
-the cycles of the dynamics, under the scrambling condition H-scramble
-and the decoupling condition H-decouple ({[}GR Appendix A{]}), neither
-of which is established: H-scramble carries Popescu-Short-Winter measure
-concentration to the orbit of the deterministic substratum dynamics on
-the full product space of the black hole and its radiation, whose cycle
-structure supplies exact time averages; it fails for every bijection
-acting on an initial configuration with the bipartition aligned to the
-configuration coordinates, the setting the derivation counts, so the
-Page value requires an initial superposition over at least about
+premise of the framework's models; the paradox is not resolved, and the
+Page curve is conditional. In the framework's models \(\varphi\) is
+bijective by premise (Chapter 1), so information is never lost from it;
+how much of it the radiation carries, bijectivity does not settle. The
+Page curve follows, as an average over the cycles of the dynamics, under
+the scrambling condition H-scramble and the decoupling condition
+H-decouple ({[}GR Appendix A{]}), neither of which is established:
+H-scramble carries Popescu-Short-Winter measure concentration to the
+orbit of the deterministic substratum dynamics on the full product space
+of the black hole and its radiation, whose cycle structure supplies
+exact time averages; it fails for every bijection acting on an initial
+configuration with the bipartition aligned to the configuration
+coordinates, the setting the derivation counts, so the Page value
+requires an initial superposition over at least about
 \(e^{S_{\text{Page}}}\) configurations (\(S_{\text{Page}}\) the Page
 entropy) or a non-aligned bipartition; on a proper energy shell the
 value is open. The Page time is
@@ -24024,7 +24011,8 @@ the axion has not been detected despite extensive searches.
 gives \(\theta\in\{0,\pi\}\), not \(\theta=0\): \(\theta\) is periodic
 and \(T\) sends \(\theta\to-\theta\), so both are T-invariant points,
 and selecting the \(\theta=0\) branch is a separate condition
-(\textbf{H-top}). Reciprocity of the visible transition counts,
+(\textbf{H-top}). Under the counting hidden prior of a finite model,
+reciprocity of the visible transition counts,
 \(T_{ij}=T_{\theta j,\theta i}\), holds exactly at every time scale, but
 it does not give a T-invariant emergent Hamiltonian: a bipartite \(C_4\)
 ring with complex hopping \(z\) has \(|U_{ij}(t)|^2=|U_{ji}(t)|^2\) at
@@ -24237,65 +24225,66 @@ closure of the implementations under the adjoint and no inverse
 accessibility assumed --- equivalent to the same operational quantum
 mechanics on every nonempty finite carrier ({[}GR §3.3{]}). A
 substratum-source form completes that refinement: the concrete OI
-substratum supplies the structural architecture --- closure under
-composition and coarse-graining, stability under an uncoupled spectator,
-relabelling invariance, reversibility, the exchanges of distinguishable
-states, and, as a stated intervention principle rather than a
-consequence of its finite states and bijective dynamics, the phases ---
-but, under finite bijective read-write dynamics, not the continuously
-tunable state-mixing operation; with that one operation added as an
-empirical controllability resource it is equivalent to the same
-operational quantum mechanics on every nonempty finite carrier, while
-finite reversible read-write dynamics, even with genuine hidden-memory
-and readback behavior, does not itself generate quantum state mixing
-({[}GR §3.3{]}). Its typed form removes the endomorphic qualifier: under
-the carrier-general typed operational interface --- identity,
-composition, coarse-graining, relabelling, uniform finite attachment,
-discard, and factor readout, an interface that itself carries no quantum
-content --- the same equivalence holds with exact finite-dimensional
-typed operational quantum mechanics, operations between any two nonempty
-finite carriers included, so the remaining qualifier is
-finite-dimensional rather than endomorphic ({[}GR §3.3{]}). The finite
-theory admits a canonical infinite-region completion without a continuum
-limit: the finite regions of the fixed-spacing lattice carry full matrix
-algebras joined by compatible injective unital embeddings with
-observables of disjoint regions commuting, the norm completion of their
-union is a quasilocal \(C^{*}\)-algebra on which every consistent family
-of finite-region density matrices is a state and the reversible
-finite-range substratum update is an isometric \(*\)-automorphism, and
-any system carrying the same local stages is canonically and uniquely
-\(*\)-isomorphic to it, intertwining the dynamics; this removes the
-finite-region cutoff for the algebra, the state space, and the
-OI-induced discrete dynamics rather than characterizing all
-infinite-dimensional quantum instruments or all locality-preserving
-quantum dynamics; the lattice spacing stays fundamental, no
-Hilbert-space representation and no superselection sector is selected at
-the level of the laws, the restriction to the substratum-induced
-dynamics is a theorem rather than a convention --- a phase automorphism
-at one site preserves locality without arising from any reversible
-finite-range bijection --- and, while the update is joined to the
-identity by an exact strongly continuous path of \(*\)-automorphisms of
-that algebra, with no one-parameter-group law established and no
-generator exhibited, a continuous-time Hamiltonian law remains
-additional structure ({[}GR §3.3{]}). Within the structural architecture
-the substratum supplies, with the phase intervention stated, exact
-finite endomorphic operational quantum mechanics holds exactly when one
-continuous layer flow of an involution of the configuration space moving
-some configuration is an available operation at every level and every
-intermediate time, the executability of that flow being an assumption
-not derived by configuration-level generation, as the phase intervention
-is an assumption on the substratum class and not a consequence of the
-finite states with the bijective dynamics ({[}GR §3.3{]}). The stated
-substratum dynamics with the observer's read and write access do not
-source that executability, the layers being available at time one and
-not at intermediate times, and the observer-level lift, in every
-formulation stated that lands in the operational interface, derives
-neither a non-monomial admissible operator nor the layer flow, the
-site-space wave-operator formulation being unresolved rather than
-excluded ({[}GR §3.3{]}). The cosmological realization adds a mechanism
-proposal --- the equilibrium reading of the read-write cycle (Chapter 18
-§18.2) --- whose stationary-distribution step is a structural commitment
-rather than a premise of the representation theorem.
+substratum, in its finite model (ledger item (ii)), supplies the
+structural architecture --- closure under composition and
+coarse-graining, stability under an uncoupled spectator, relabelling
+invariance, reversibility, the exchanges of distinguishable states, and,
+as a stated intervention principle rather than a consequence of its
+finite states and bijective dynamics, the phases --- but, under finite
+bijective read-write dynamics, not the continuously tunable state-mixing
+operation; with that one operation added as an empirical controllability
+resource it is equivalent to the same operational quantum mechanics on
+every nonempty finite carrier, while finite reversible read-write
+dynamics, even with genuine hidden-memory and readback behavior, does
+not itself generate quantum state mixing ({[}GR §3.3{]}). Its typed form
+removes the endomorphic qualifier: under the carrier-general typed
+operational interface --- identity, composition, coarse-graining,
+relabelling, uniform finite attachment, discard, and factor readout, an
+interface that itself carries no quantum content --- the same
+equivalence holds with exact finite-dimensional typed operational
+quantum mechanics, operations between any two nonempty finite carriers
+included, so the remaining qualifier is finite-dimensional rather than
+endomorphic ({[}GR §3.3{]}). The finite theory admits a canonical
+infinite-region completion without a continuum limit: the finite regions
+of the fixed-spacing lattice carry full matrix algebras joined by
+compatible injective unital embeddings with observables of disjoint
+regions commuting, the norm completion of their union is a quasilocal
+\(C^{*}\)-algebra on which every consistent family of finite-region
+density matrices is a state and the reversible finite-range substratum
+update is an isometric \(*\)-automorphism, and any system carrying the
+same local stages is canonically and uniquely \(*\)-isomorphic to it,
+intertwining the dynamics; this removes the finite-region cutoff for the
+algebra, the state space, and the OI-induced discrete dynamics rather
+than characterizing all infinite-dimensional quantum instruments or all
+locality-preserving quantum dynamics; the lattice spacing stays
+fundamental, no Hilbert-space representation and no superselection
+sector is selected at the level of the laws, the restriction to the
+substratum-induced dynamics is a theorem rather than a convention --- a
+phase automorphism at one site preserves locality without arising from
+any reversible finite-range bijection --- and, while the update is
+joined to the identity by an exact strongly continuous path of
+\(*\)-automorphisms of that algebra, with no one-parameter-group law
+established and no generator exhibited, a continuous-time Hamiltonian
+law remains additional structure ({[}GR §3.3{]}). Within the structural
+architecture the substratum supplies, with the phase intervention
+stated, exact finite endomorphic operational quantum mechanics holds
+exactly when one continuous layer flow of an involution of the
+configuration space moving some configuration is an available operation
+at every level and every intermediate time, the executability of that
+flow being an assumption not derived by configuration-level generation,
+as the phase intervention is an assumption on the substratum class and
+not a consequence of the finite states with the bijective dynamics
+({[}GR §3.3{]}). The stated substratum dynamics with the observer's read
+and write access do not source that executability, the layers being
+available at time one and not at intermediate times, and the
+observer-level lift, in every formulation stated that lands in the
+operational interface, derives neither a non-monomial admissible
+operator nor the layer flow, the site-space wave-operator formulation
+being unresolved rather than excluded ({[}GR §3.3{]}). The cosmological
+realization adds a mechanism proposal --- the equilibrium reading of the
+read-write cycle (Chapter 18 §18.2) --- whose stationary-distribution
+step is a structural commitment rather than a premise of the
+representation theorem.
 
 The mechanism proposal of Chapter 18 §18.2 implies transient deviations
 from the Born rule in the very early universe if the hidden sector began
@@ -24674,11 +24663,11 @@ identifies as observably equivalent. This statement does not identify
 all Bell-inclusive completions with one another.
 
 \emph{Why this equivalence class rather than another.} The framework's
-axioms --- deterministic bijectivity, finiteness, causal partition,
-classical probability --- constrain the class. The framework's six
-structural properties of the bijection (developed across Chapters 5-7)
-further narrow it. But the axioms themselves are not derived from
-anything deeper.
+axioms --- deterministic bijectivity, causal partition, classical
+probability --- together with the open hypothesis A1 of finiteness
+constrain the class. The framework's six structural properties of the
+bijection (developed across Chapters 5-7) further narrow it. But the
+axioms themselves are not derived from anything deeper.
 
 The existence question --- ``why does \((S, \varphi)\) exist at all?''
 --- is the framework's irreducible mystery. The framework's structural
@@ -24686,18 +24675,19 @@ account: \((S, \varphi)\) is a mathematical structure that cannot fail
 to be well-defined; existence is the default for logically consistent
 structures. Whether one finds this answer satisfying is a philosophical
 question rather than a physical one. The framework's commitment is that
-the existence of \emph{some} finite deterministic bijection structure is
-not a question physics can answer, while the existence of \emph{this
-particular} structure (as determined by the empirical record) is a
-constraint on which bijections are compatible with observation.
+the existence of \emph{some} deterministic bijection structure (finite
+under A1) is not a question physics can answer, while the existence of
+\emph{this particular} structure (as determined by the empirical record)
+is a constraint on which bijections are compatible with observation.
 
 \textbf{Assessment.} The framework identifies this question as the only
 genuinely irreducible mystery --- not a gap in the framework's reach but
 the boundary of all possible frameworks. Any framework must take some
 structural axioms as given; the framework's content is to make those
 axioms as minimal and as structural as possible (deterministic
-bijectivity on a finite set, no further commitments), leaving the
-existence question as an explicit acknowledgment of where physics ends.
+bijectivity, on a finite set under A1, no further commitments), leaving
+the existence question as an explicit acknowledgment of where physics
+ends.
 
 \hypertarget{is-the-discrete-structural-residue-genuinely-non-tautological}{%
 \subsubsection{19.3.6 Is the discrete structural residue genuinely
@@ -25369,9 +25359,8 @@ and phenomenal experience.
 \emph{Mathematics and logical foundations.} The framework presupposes
 standard mathematics (ZFC set theory, the integers, finite
 combinatorics) without addressing the foundations of mathematics.
-Whether the framework's commitment to finiteness has implications for
-mathematical foundations (constructivism, finitism, ultrafinitism) is
-not addressed.
+Whether the finiteness hypothesis A1 has implications for mathematical
+foundations (constructivism, finitism, ultrafinitism) is not addressed.
 
 \textbf{The framework's epistemic position.} The cumulative record
 across Chapters 5 through 18 is substantial: twenty-two classified
@@ -25586,10 +25575,9 @@ specific dependencies on the framework's structural commitments.
 \textbf{Layer 0 --- Substratum.} Predictions at the substratum level:
 properties of the underlying bijection \(\varphi\) on \(S\), the
 substratum's dimensionality, the substratum's discreteness scale.
-Examples: dimensionality \(d = 3\), finite cardinality, deterministic
-bijection structure. These predictions have \emph{foundational}
-evidential weight --- they are the framework's substratum-level
-commitments themselves.
+Examples: dimensionality \(d = 3\), deterministic bijection structure.
+These predictions have \emph{foundational} evidential weight --- they
+are the framework's substratum-level commitments themselves.
 
 \textbf{Layer 1 --- Substratum-level structural.} Predictions derived
 from the substratum's structural properties through dimensional
@@ -26150,8 +26138,6 @@ F7 & Born rule transient violations (conditional prospect: source
 dynamics, initial-deviation family and observable map not fixed) &
 primordial power spectrum or non-Gaussianity; form not derived &
 LiteBIRD, future CMB-S4, once the response is derived & Ch 18 §18.2 \\
-F8 & Cosmic recurrence & period at most \(g(|S|)\); \(|S|\) not fixed &
-Logically falsifiable only & Ch 18 §18.7 \\
 \end{longtable}
 
 \textbf{Biology and medicine.}
@@ -26467,10 +26453,11 @@ realization per accessible horizon, with the quantum representation
 internal and universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main
 §3.4{]}) --- relies on a chain of intermediate lemmas:
 partition-relativity, emergent stochasticity, P-indivisibility from a
-non-permutation witness, accessible-timescale conditional memory, and
-phase-locking, together with the results on which phase-locking rests:
-Bohr-frequency completeness and the identification of level pairs under
-the triangle-genericity condition, and, without that condition, the
+non-permutation witness (on finite reversible realizations),
+accessible-timescale conditional memory, and phase-locking, together
+with the results on which phase-locking rests: Bohr-frequency
+completeness and the identification of level pairs under the
+triangle-genericity condition, and, without that condition, the
 real-to-integer transfer and the two-branch classification conditional
 on H-BG. This appendix collects these lemmas with their proofs in
 compact form, providing the reader a self-contained reference for the
@@ -28322,25 +28309,28 @@ substratum looks suspiciously like a hidden-variable theory; therefore
 the framework should be ruled out by Bell's theorem in the same way.
 
 \textbf{The framework's response.} Bell applies directly to the
-response-complete deterministic substratum. If the Bell-relevant
-coupling range is finite at the wings' separation, the setting
-interventions, applied at one step, each read and write only their own
-wing and each wing's readout lies outside the other wing's graph cone,
-every run records a \(\pm1\) outcome, and one setting-independent
-pre-setting ensemble is used, then the hidden responses factorize and
-\(|S_{\rm CHSH}|\le2\). OI therefore cannot combine deterministic
-response completeness, a \(\pm1\) outcome in every run, measurement
-independence, and ontic parameter independence and still reproduce
-quantum Bell violation. The framework keeps measurement independence and
-takes the remaining horn: \textbf{ontic parameter dependence} for
-Bell-violating substrata, with operational no-signaling retained
-(Chapter 1 §1.7; Main §3.3).
+response-complete deterministic substratum. On a finite site set and for
+the nearest-neighbour cubic update with finite wing and readout regions
+on a site set of any cardinality, if the Bell-relevant coupling range is
+finite at the wings' separation, the setting interventions, applied at
+one step, each read and write only their own wing and each wing's
+readout lies outside the other wing's graph cone, every run records a
+\(\pm1\) outcome, and one setting-independent pre-setting ensemble is
+used, then the hidden responses factorize and \(|S_{\rm CHSH}|\le2\). OI
+therefore cannot combine deterministic response completeness, a \(\pm1\)
+outcome in every run, measurement independence, and ontic parameter
+independence and still reproduce quantum Bell violation. The framework
+keeps measurement independence and takes the remaining horn:
+\textbf{ontic parameter dependence} for Bell-violating substrata, with
+operational no-signaling retained (Chapter 1 §1.7; Main §3.3).
 
 The cited causal-local \textbf{stochastic} indivisible construction
 separately obeys the Tsirelson bound \(2\sqrt2\). By the Bell ceiling
-theorem (Main §3.3), a response-complete deterministic completion with
-one-step own-wing setting interventions, each wing's readout outside the
-other wing's graph cone, a \(\pm1\) outcome in every run, and one
+theorem (Main §3.3), on a finite site set and for the nearest-neighbour
+cubic update with finite wing and readout regions on a site set of any
+cardinality, a response-complete deterministic completion with one-step
+own-wing setting interventions, each wing's readout outside the other
+wing's graph cone, a \(\pm1\) outcome in every run, and one
 setting-independent pre-setting ensemble is a local hidden-variable
 model, so \(|S_{\rm CHSH}|\le2\). The framework therefore adopts ontic
 \textbf{parameter dependence}, targeted in the SM/GR branch through
@@ -28691,12 +28681,12 @@ tests directly.
 \subsection{C.6 Finiteness: is posit A1 too
 strong?}\label{c.6-finiteness-is-posit-a1-too-strong}}
 
-A third foundational objection concerns the framework's commitment to
-finiteness --- posit A1 (Chapter 2 §2.4) takes the substratum to be a
-finite set \(S\). Critics object that this is incompatible with standard
-physics' commitment to infinite-dimensional Hilbert spaces in quantum
-field theory and to the universe being potentially infinite in spatial
-extent.
+A third foundational objection concerns the framework's finiteness
+hypothesis --- posit A1 (Chapter 2 §2.4), an open hypothesis, not
+adopted, takes the substratum to be a finite set \(S\). Critics object
+that this is incompatible with standard physics' commitment to
+infinite-dimensional Hilbert spaces in quantum field theory and to the
+universe being potentially infinite in spatial extent.
 
 \textbf{The objection.} ``The universe has infinitely many degrees of
 freedom. Quantum field theory requires infinite-dimensional Hilbert
@@ -28723,9 +28713,9 @@ horizon to at most \(e^{S_{\text{dS}}}\) effectively distinguishable
 states, with \(S_{\text{dS}} \sim 10^{122}\). This is an entropy-based
 bound that holds under the physical assumptions of E3, not a count of
 microscopic configurations. It does not establish finiteness of the
-total configuration space \(S\). That extension is posited (A1 of
-Chapter 2 §2.4), read as the choice of the minimal finite
-representative: the cardinality of an independently prepared,
+total configuration space \(S\). That extension is posit A1 of Chapter 2
+§2.4, an open hypothesis, not adopted, read as the choice of the minimal
+finite representative: the cardinality of an independently prepared,
 normalized, exactly decoupled finite deep-sector factor is not fixed by
 the data at the observation interface (Chapter 2 §2.3). The discreteness
 scale \(\epsilon\) does not smuggle in a quantum assumption --- it is
@@ -28741,9 +28731,9 @@ in semiclassical gravity and string theory across multiple programs
 (Hawking 1976, Bekenstein 1981, `t Hooft 1993, Susskind 1995, Bousso
 1999, and many subsequent developments): the bound constrains the
 observationally accessible sector and does not establish finiteness of
-the whole of \(S\), which is posited. The framework's finiteness
-commitment agrees with mainstream physics' commitment to the Bekenstein
-bound on the accessible sector, and extends beyond it by posit.
+the whole of \(S\), which is the open hypothesis A1. A1 agrees with
+mainstream physics' commitment to the Bekenstein bound on the accessible
+sector, and would extend beyond it.
 
 \textbf{The ``finite degrees of freedom'' framing.} The standard
 intuition that ``the universe has infinitely many degrees of freedom''
@@ -28758,33 +28748,21 @@ posits a discrete lattice, with the horizon self-consistency relation
 
 The framework's content is therefore that the continuum QFT description
 is the \emph{emergent} description --- finite at the substratum level
-but \emph{appearing} infinite-dimensional when described in the
+under A1 but \emph{appearing} infinite-dimensional when described in the
 continuum limit. This is structurally analogous to how condensed matter
 systems with finite lattice spacing exhibit effective continuum
 descriptions: the underlying physics is finite, but the long-wavelength
 effective description involves continuous fields.
 
-The framework's commitment to finiteness is therefore \emph{compatible
-with} the standard QFT description as an effective continuum theory
-while making specific structural claims about the substratum level. The
-two levels of description coexist; the apparent infinite-dimensionality
-of QFT is an artifact of the continuum limit rather than a property of
-the underlying physics.
+A1 is therefore \emph{compatible with} the standard QFT description as
+an effective continuum theory while making specific structural claims
+about the substratum level. The two levels of description coexist; the
+apparent infinite-dimensionality of QFT is an artifact of the continuum
+limit rather than a property of the underlying physics.
 
-\textbf{The structural signatures.} Finiteness has specific structural
-signatures developed in Chapter 18 §18.7: exact cosmic recurrence, at a
-period at most Landau's \(g(|S|)\), with \(|S|\) not fixed by visible
-data (falsifiable only in the logical sense, and without practical
-empirical consequences at periods of astronomical size) and constraints
-on cosmic information content (compatible with the Bekenstein bound).
-
-The framework's finiteness commitment is therefore not just a
-mathematical convenience but a structurally consequential commitment.
-The commitment is supported by the Bekenstein bound (established
-physics), compatible with continuum QFT (the framework's emergent
-description), and has specific structural signatures (Chapter 18). A
-referee rejecting finiteness must engage these supports and signatures
-specifically rather than dismissing the commitment in general.
+A1 is therefore not just a mathematical convenience but a structurally
+consequential hypothesis, motivated by the Bekenstein bound and
+compatible with continuum QFT.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -28847,9 +28825,9 @@ concern is whether the framework's substratum-level dynamics is
 \emph{computable in principle} --- whether there exists any algorithm
 that, given the substratum's current state, can compute its future
 state. The framework's content is that \(\varphi\) is a bijection on a
-finite set, which is trivially computable: any finite bijection can be
-specified as a lookup table or as an algorithm that implements the
-specific bijection.
+finite set (under A1), which is trivially computable: any finite
+bijection can be specified as a lookup table or as an algorithm that
+implements the specific bijection.
 
 The framework does not claim that the bijection's specific form is
 \emph{efficiently} computable --- its computation might require time
@@ -29633,14 +29611,14 @@ anomaly conditions of
 nonzero-\(Y_Q\) branch, with no free parameters. Developed in Chapter 6
 §6.7 and Appendix B §B.5.
 
-\textbf{A1 (Finiteness).} The posit that the substratum has finitely
-many degrees of freedom (Chapter 2 §2.4), read there as the choice of
-the minimal finite representative. Motivated physically by the
-Bekenstein bound at the cosmological horizon (an entropy-based bound,
-under the physical assumptions of input E3, of at most
-\(e^{S_{\text{dS}}}\) effectively distinguishable states of the visible
-sector and boundary layer, \(S_{\text{dS}} \sim 10^{122}\)). Discussed
-in Chapter 2 §2.4, with defense in Appendix C §C.6.
+\textbf{A1 (Finiteness).} The open hypothesis, not adopted, that the
+substratum has finitely many degrees of freedom (Chapter 2 §2.4), read
+there as the choice of the minimal finite representative. Motivated
+physically by the Bekenstein bound at the cosmological horizon (an
+entropy-based bound, under the physical assumptions of input E3, of at
+most \(e^{S_{\text{dS}}}\) effectively distinguishable states of the
+visible sector and boundary layer, \(S_{\text{dS}} \sim 10^{122}\)).
+Discussed in Chapter 2 §2.4, with defense in Appendix C §C.6.
 
 \textbf{Background independence (A6).} The sixth of the framework's
 structural assumptions A1--A6: the substratum dynamics is covariant
@@ -31224,4 +31202,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 24c6e3efec9df7e659fb2c4cfd904c6703b981f1a39993710efecd470bbba0f7
+% source-sha256: a1159ceb7d3bc4b942d8d3e9b1be9ea8d92389fcd281fb81bf8248751e145b65
