@@ -172,7 +172,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 52 modules for the semantic check; it classifies none.
+- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 53 modules by type name and 5 by concrete finite types for the semantic check; it classifies none.
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
 - CENSUS-X4: recursively maintained verification files, programmes, probes and archival or branch-only evidence remain unscanned as complete corpora. Published `.tex` mirrors are resolved for claim content by batch 1 (§7); PDFs are not stamped and are not checked.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
@@ -198,9 +198,11 @@ To close A1-C01, obtain full text/source parity for X1–X4; review and classify
 
 **Pin:** `main` at `5ea8672f`. **This is a triage list, not a classification.** It narrows which Lean modules need a semantic check; it classifies none of them.
 
-**Recipe.** For every `.lean` file under `verification/lean-mathlib/OIBridge/` and `verification/lean/` (247 files), collect the type arguments of `[Fintype _]`, `[Finite _]` and `: Fintype _` / `: Finite _` occurrences, and map each module to its families in `verification/lean-manuscript-census.json`. Flag a module when any finiteness assumption falls on a type whose name the corpus uses for a hidden, total, site, history, ancilla or carrier type: `H`, `ι`, `𝒮.ι`, `𝒮.V`, `Conf`, `Ω`, `X`, `Hist`, `Anc`, `W`, `C`.
+**Recipe.** For every `.lean` file under `verification/lean-mathlib/OIBridge/` and `verification/lean/` (247 files), collect the first type token after every `Fintype` or `Finite` that follows `[` or `:`. This covers instance arguments, binders such as `(_ : Fintype ι)`, `have … : Finite …` and `instance … : Fintype …`. Map each module to its families in `verification/lean-manuscript-census.json`. Flag a module when any such occurrence falls on a type whose name the corpus uses for a hidden, total, site, history, ancilla or carrier type: `H`, `ι`, `𝒮.ι`, `𝒮.V`, `Conf`, `Ω`, `X`, `Hist`, `Anc`, `W`, `C`. Separately, list modules that assert finiteness of a concrete type built from `Fin` or `ZMod` (`Fintype (Fin …` / `Finite ((Fin …`).
 
-**Result.** 74 files carry no finiteness typeclass. 52 modules are flagged. Type names are a heuristic: `ι` is often a finite index of a family rather than a site set, and finiteness of `V` (visible) is not flagged because a finite visible alphabet is not a total-finiteness premise (§2.2). A module that names its carrier differently is missed by this filter; the unflagged modules remain under X2 until checked.
+**Result.** 72 files contain no `Fintype`/`Finite` occurrence of these forms. 53 modules are flagged by type name. 5 modules assert finiteness of a concrete `Fin`/`ZMod` type: `A6Instantiation.lean`, `ExecSource.lean`, `HexLatticeGas.lean`, `KTokenMaxCone.lean`, `SubstratumInterfaceAudit.lean`.
+
+**Limits of the heuristic.** Type names are not semantics. `ι` and `X` are often generic indices (a family index, a Kraus index, a matrix index) rather than a site set or carrier, so many flags will be cleared on reading. Finiteness of `V` (visible) is not flagged, because a finite visible alphabet is not a total-finiteness premise (§2.2). Finiteness that enters through concrete types, such as a configuration space `(Fin d → ZMod L) → …`, escapes the name filter; the concrete-type list above catches the explicit cases, and an implicit case can still be missed. All unflagged modules remain under X2 until checked.
 
 | Module | Flagged finite types | Census families |
 |---|---|---|
@@ -220,6 +222,7 @@ To close A1-C01, obtain full text/source parity for X1–X4; review and classify
 | `HiddenMemory.lean` | Hist, H | equivalence chain and memory |
 | `HydroClosureBridge.lean` | ι | hydrodynamics round H-E: H3 as a candidate bridge condition toward closure |
 | `HydroSourceAudit.lean` | ι | hydrodynamics round H-A: source audit of the concrete wave representative |
+| `ImplementationLocality.lean` | ι | completion classification and the primitive-source chain |
 | `InstrumentDilation.lean` | ι | instruments, dilation and assembly |
 | `InstrumentRealization.lean` | ι | instrument realization: one-instrument provenance |
 | `KInfFoundations.lean` | ι | the corrected field-neutral vocabulary of the pre-quantum completion — proper effects, boundary states read in the body, relative strict convexity, group-flow drivability — with Lemma C and its converse, the semantic controls, Lemmas B and D and the finite-exposure bounds (round KINF-2, reconstruction) |
@@ -257,6 +260,11 @@ To close A1-C01, obtain full text/source parity for X1–X4; review and classify
 | `WeylLift.lean` | ι | equivalence chain and memory |
 | `WordTraceSufficiency.lean` | H | Substratum Lemma 24.1A — ST5 sufficiency, the word-trace kernel (reconstruction) |
 
-**Next steps (batches 2b onward).** For each flagged module: read the declarations that carry the flagged assumption; decide whether the assumption is a finite visible or index type (no A1 relevance), a finite hidden or total carrier stated as a hypothesis (**F**, valid in its finite scope), or a finiteness used to support a claim stated more generally; then check the manuscript anchors of its families against that scope. Only the last case is a correction candidate.
+**Next steps (batches 2b onward).** For each flagged module, and each module on the concrete-type list:
+- read the declarations that carry the assumption;
+- decide whether it is a finite visible or index type (no A1 relevance), a finite hidden or total carrier stated as a hypothesis (**F**, valid in its finite scope), or a finiteness used to support a claim stated more generally;
+- check the manuscript anchors of its families against that scope.
+
+Only the last case is a correction candidate.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
