@@ -273,7 +273,7 @@ Only the last case is a correction candidate.
 
 **Recipe.** For each module, locate the declarations or `variable` lines that carry the flagged finiteness. Map the module to its families in `verification/lean-manuscript-census.json`. For every manuscript anchor of those families, read the paragraph containing the anchor and decide whether the manuscript states the result within its finite scope.
 
-**Lean side.** In all 16 modules the flagged finiteness is a finite hidden carrier `H` (with `Hist` or `C` alongside in C3Necessity, HiddenMemory and TrajectoryMemory), stated as an explicit typeclass hypothesis on `variable` lines or on the `RootedRealization` structure (CausalReadback.lean:178). Each such result is **F**, valid in its finite scope. Exceptions:
+**Lean side.** In all 16 modules the flagged finiteness is a finite hidden carrier `H` (with `Hist` alongside in C3Necessity and HiddenMemory), stated as an explicit typeclass hypothesis on `variable` lines, on theorem binders or on the `RootedRealization` structure (CausalReadback.lean:178). In RootedClassification.lean:116 the finiteness sits inside the existential that defines the realizable class (`∃ (H) (hH : Fintype H)`), so it is part of that class's definition rather than a hypothesis. TrajectoryMemory's flagged `C` is a generic type in `cmi_marg`/`cmiBits_marg` (:45–54), not a carrier. Each such result is **F**, valid in its finite scope. Exceptions:
 - CausalReadback's Section A (`c4r_implies_pIndivisible` and its companions) assumes only a finite visible alphabet; it is **A**.
 - MeasuredReciprocity's general theorems assume a measurable carrier; `[Fintype H]` enters only at :276, for the finite counting specialization. They are **A**, with an **F** specialization.
 
@@ -281,11 +281,15 @@ Only the last case is a correction candidate.
 - **Kernel-only families, no manuscript anchor (7 modules):** P6 measured reciprocity, causal readback, quantum representation T3, transpose bridge, finite-permutation trajectory bridge, entire visible future, microscopic iterate return. None of the seven module names occurs in `papers/*.md` or the book chapters. No manuscript claim rests on them through the registry.
 - **Recurrence horizon, physical C4 discharge and storage readback, rooted classification:** the anchors are Main:137–145 and Main:642. Each paragraph states its finite setting: Main:137 "Because φ is a permutation of a finite set"; Main:141 "finite sets"; Main:145 derives periodicity within §2.3's finite-carrier setting; Main:642 "on a finite 𝒞_V", "one fixed finite substratum". **F**, correctly scoped.
 - **Equivalence chain and memory:**
-  - Main:95 and Main:552: the finite-horizon equivalence, finite scope stated. **A** at observable scope.
+  - Main:97 and Main:550–554: the finite-horizon equivalence; Main:550 "Fix a finite visible alphabet", Main:553 "finite reversible". **A** at observable scope.
   - Main:312 and Main:314: the separability threshold for abelian Weyl subgroups on s qubits. A finite qubit register, not total finiteness; no A1 relevance.
-  - Main:518 (`c3_necessity`, `card_hidden_ge_two_pow_Istar`): a lower bound on the hidden capacity |𝒞_H| ≥ 2^{I*}. It holds trivially for an infinite hidden carrier, so stating it without a finiteness qualifier makes no A1-dependent claim.
+  - Main:508–518 (`c3_necessity`, `card_hidden_ge_two_pow_Istar`): "Let m = |𝒞_H|" and the corollary "requires m ≥ 2^{I*}" (with the conditional m ≳ 2^{K I₀}). m appears only as a lower bound, so the statement holds trivially for an infinite hidden carrier and makes no A1-dependent claim; "m = 2 < n = 3" is an example, not a premise.
   - Main:612 (`capacity_floor`, M_t ≤ log₂|𝒞_H|): likewise vacuous for an infinite carrier; no A1-dependent claim.
-  - SM:643 (`theorem_19`): states its hypothesis, "let the hidden prior be the counting measure", which presupposes a finite hidden carrier. **F**, correctly scoped; the measured generalization is kernel-only (`MeasuredReciprocity`).
+  - SM:641–643 (`theorem_19`): the statement (SM:641) assumes "let the hidden prior be the counting measure", which presupposes a finite hidden carrier, and the proof (SM:643) divides by |𝒞_H|. **F**, correctly scoped; the measured generalization is kernel-only (`MeasuredReciprocity`).
+
+  - Further registry anchors of the same family: Main:524 constructs a finite 𝒞_H (**F**, stated); Main:556 is the (S⇒D) proof within class (D) (**F**, stated); Main:596 "every finite stochastic law" (**A**, observable scope); Main:616 "every deterministic completion … capacity at least M_t", where completions are finite faithful realizations in class (D) (Main:97), and the capacity bound is in any case vacuous for an infinite carrier; Main:782 is a list of verification code (no claim).
+  - A citation outside the registry: Main:618 (`c3_necessity_via_hidden`) is a data-processing step for bijective realizations and does not use finiteness. Main:97 also cites `pushforward_identity` and `distinguishability_floor` within class (D).
+  - No book chapter cites an identifier from these 16 modules.
 
 **Result.** No correction candidate in this batch. All 16 modules are classified: the finite-carrier results are **F** and stated within their finite scope wherever a manuscript carries them, and the exceptions above are **A**.
 
