@@ -127,7 +127,7 @@ A referee who rejects posit A1 for the universe as a whole does not thereby reje
 
 The framework's content is therefore that the continuum QFT description is the *emergent* description — finite at the substratum level under A1 but *appearing* infinite-dimensional when described in the continuum limit. This is structurally analogous to how condensed matter systems with finite lattice spacing exhibit effective continuum descriptions: the underlying physics is finite, but the long-wavelength effective description involves continuous fields.
 
-A1 is therefore *compatible with* the standard QFT description as an effective continuum theory while making specific structural claims about the substratum level. The two levels of description coexist; the apparent infinite-dimensionality of QFT is an artifact of the continuum limit rather than a property of the underlying physics.
+A1 is therefore *compatible with* the standard QFT description as an effective continuum theory while making specific structural claims about the substratum level. The two levels of description coexist; if A1 holds, the apparent infinite-dimensionality of QFT is an artifact of the continuum limit rather than a property of the underlying physics.
 
 A1 is therefore not just a mathematical convenience but a structurally consequential hypothesis, motivated by the Bekenstein bound and compatible with continuum QFT.
 
