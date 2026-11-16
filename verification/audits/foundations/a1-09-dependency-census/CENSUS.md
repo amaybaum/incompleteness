@@ -172,7 +172,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 53 modules by type name and 5 by concrete finite types for the semantic check; it classifies none. Batches 2b (§9) and 2c (§10) classify 41 of the flagged modules; no correction candidate.
+- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 53 modules by type name and 5 by concrete finite types for the semantic check; it classifies none. Batches 2b–2d (§9–§11) classify all 53 flagged modules and the 5 concrete-type modules: no correction candidate, one optional precision (GR:268). The 72 files without a finiteness occurrence and the six legacy modules' declarations are not semantically read.
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
 - CENSUS-X4: recursively maintained verification files, programmes, probes and archival or branch-only evidence remain unscanned as complete corpora. Published `.tex` mirrors are resolved for claim content by batch 1 (§7); PDFs are not stamped and are not checked.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
@@ -331,5 +331,32 @@ Only the last case is a correction candidate.
 - **Main:314** (WeylLift, Separability) is covered in §9.
 
 **Result.** No correction candidate in this batch. All 25 modules are classified: kinds 1 and 2 carry no A1 relevance, and kinds 3 and 4 are **F**, stated or used within their finite scope.
+
+## 11. Coverage batch 2d — substratum-interface, hydrodynamics and Hamiltonian modules (X2)
+
+**Pin:** `main` at `5ea8672f`. **Modules (13):** ExecSource, FrozenSourcing, LiftSource, StochasticInterface, SubstratumInterfaceAudit, HexLatticeGas, HydroClosureBridge, HydroSourceAudit, ShellAssignment, TurnpikeScopeTransfer, SemigroupTransfer, WordTraceSufficiency, A6Instantiation. A6Instantiation is the last module on the §8 concrete-type list; the other four are classified in §10 (KTokenMaxCone) and here.
+
+**Recipe.** As for §10: every `Fintype`/`Finite` line, the registry families, and every manuscript citation of a declaration name defined in these modules.
+
+**Lean side.** This group works directly with the substratum, and its finiteness is mostly substratum finiteness stated as a hypothesis (**F**):
+- **Finite sites and alphabet:** `[Fintype 𝒮.ι] [Fintype 𝒮.V]` on a `Substratum`, in ExecSource (:125), FrozenSourcing (:84), StochasticInterface (:111, :182) and SubstratumInterfaceAudit. SubstratumInterfaceAudit also defines A1 itself (`def A1 : Prop := Finite 𝒮.Conf`, :84) and proves `a1_of_finite`, finite sites and alphabet ⇒ A1 (:109).
+- **Finite configuration sets** `S` of a reversible realization: ExecSource (:47, :84), LiftSource (:65, :88), StochasticInterface (:27, :140).
+- **Concrete finite tori:** ExecSource (:161, `Fin d → ZMod L`), HexLatticeGas (:313), and A6Instantiation (:279, :517). A6Instantiation:499 records that A1 *fails* for the complex lift (`Fin 6 → ℂ` is infinite).
+- **Finite hidden carriers `H`:** ShellAssignment (:61), SemigroupTransfer (:78), WordTraceSufficiency (:85).
+- **Finite family or matrix indices**, with no A1 relevance: FrozenSourcing (`m`, `n`, `A`), LiftSource `O` (:71), HexLatticeGas `ι` (:364), HydroClosureBridge `ι`, HydroSourceAudit `ι` and `M`, TurnpikeScopeTransfer `ι`, `σ` and `κ` (integer rulers and rational points), and SemigroupTransfer `D`.
+
+**Manuscript side.**
+- **Kernel-only families:** frozen sourcing, stochastic interface, substratum interface audit, the three hydrodynamics rounds, semigroup transfer, word-trace sufficiency and A6 instantiation. No declaration from these modules is cited in `papers/*.md`, `book/ch*.md` or `book/appendix*.md`. Their manuscript counterpart, Substratum Proposition 24.2 (Substratum:280), opens "Let V,H be finite index sets". **F**, stated.
+- **Executability source and lift source** (ExecSource, LiftSource):
+  - Main:592 states the negative results, `obs_not_layerFlowExecutable` and `coherentLiftClass_eq_substratumClass`, inside the substratum-source sentence, "the concrete OI substratum, in its finite model (ledger item (ii))", with "under finite bijective read-write dynamics". **F**, stated.
+  - GR:266 states the same negative results for "the substratum's own dynamics with the observer's stated access", and the display at GR:268 reads "stated substratum dynamics with observer access ⇏ one nontrivial layer flow executable". Both sit inside GR §3.3's substratum-source subsection, which opens at GR:256 with "The concrete OI substratum under A1 — finite states and bijective microscopic dynamics". So they are scoped by context, and "stated substratum" names that model. The display itself does not repeat the finiteness condition.
+  - **Optional precision (not a correction candidate):** naming A1 in or beside the GR:268 display would make the negative result's class explicit, as the claim/evidence rule on negative results asks; the context already supplies it.
+- **Hamiltonian reconstruction** (ShellAssignment, TurnpikeScopeTransfer):
+  - Main:242, GR:174–184 and appendix-b:443 (with FULL:6194) concern reconstructing a finite-dimensional visible Hamiltonian, conditional on H-BG or (G4). This is observable scope.
+  - The citations at GR:178 and appendix-b:445 (`BGIntegerClassification`, `real_to_integer_surrogate`, `twoBranch_of_BGClassification`) concern integer rulers, a finite index.
+  - `ShellRepresentationConsistency` (GR:190, :202) is a stated premise.
+  - ShellAssignment's finite shell is the counting route of P7: GR:58 carries A1 explicitly as a conjunct of H-count, through #1313.
+
+**Result.** No correction candidate in this batch. One optional precision is noted at GR:268. All 13 modules are classified. **This completes the Lean triage list of §8**: all 53 flagged modules and the 5 concrete-type modules are classified. The 72 files with no finiteness occurrence remain outside this check, as stated in §8.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
