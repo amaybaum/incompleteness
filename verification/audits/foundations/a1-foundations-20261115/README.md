@@ -13,3 +13,8 @@ status and limits. Writer and reviewer were separate agents.
 | `gauge-trace/` | `GAUGE-A1-TRACE-r3.md`: where total finiteness enters Substratum Theorem 23's lattice and gauge derivation | r1 REVISE; r2 CONFIRMED WITH NITS; r3 applies the nits |
 
 Owner authorizations and decisions are recorded on #1169 (2026-11-15).
+
+Also kept here as inputs for later work: `audit/` (the A1 impact audit r9 and its confirmation of r8), `ef1/` (the
+fixed-horizon draft EF-1 r7, a reviewed draft not on `main`, and the recheck of r5), and in `change-map/` the
+Stage 2a records: addendum 1 and 2 with their reviews (`REVIEW-ADDENDUM-1.md`, `CONFIRM-ADDENDUM-2.md`), the
+implementation records, and the independent review of PR #1313's diff (`REVIEW-PR1313-r1.md`).
