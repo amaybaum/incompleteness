@@ -1,7 +1,8 @@
 # NR-1 — Near-return and distinguishability revival for the selected OI update without total finiteness
 
 **Status:** Paper-only check. Independent review ACCEPT WITH CHANGES at
-`4b0c1b8fb5c3f9965a931676ffae540cfeb3fef8`; changes applied in this revision; delta review pending.
+`4b0c1b8fb5c3f9965a931676ffae540cfeb3fef8`; delta review CONFIRMED WITH NITS at
+`164e77de8166e15ffe92cc563d04078220ff6dd5`; nits applied in this revision.
 Paper proofs, exact finite computations
 (inline script and expected output, §7) and citations only; no Lean module, simulation of a physical
 system, manuscript edit or physical premise is added. A1 is neither assumed nor asserted; finite tori
@@ -21,7 +22,7 @@ that commit.
 
 **Off-`main` references (§A.42 item 8).** The authority comment on #1169 is provenance: no claim below
 uses its content beyond the authorization quoted above. The scope note in §0 is the coordinating
-session's note on #1169, comment 6926358446 (posted 2026-11-16T19:11:32Z, titled "NR-1 scope note"),
+session's note on #1169, comment 6926358446 (posted 2026-11-16T19:11:32Z, titled "NR-1 scope note"; written and posted by the coordinating session through the owner's GitHub account; it is not an owner decision),
 which is provenance: it orders and generalizes the question within the same authorization and adds no
 premise. The RO-3 inventory and its mixing unit, which the premise ladder cites from the unmerged
 branch of PR #1303, are not used: every statement below about the prime-alphabet linear update on an
@@ -81,7 +82,7 @@ coordinates. The torus version replaces $\mathbb Z^d$ by $(\mathbb Z/L)^d$.
 $\pi(u,v)=(u,v)|_W\in V:=(\mathbb Z_q^2)^W$, $n=2|W|$; the hidden coordinates are all others,
 $H=\{x\in \Omega:\pi x=0\}$, so $\Omega=V\times H$. With a hidden prior $\rho$ shared by every root, Main's rooted
 maps are $\Gamma_t(a,b)=\rho\{h:\pi F^t(a,h)=b\}$ (Main.md:135). Total variation $d$, P-divisibility on
-$\{0,\dots,n\}$, C4r and C4e are as in Main.md:119, :135 and CausalReadback.lean:53–68. Write
+$\{0,\dots,n\}$, C4r and C4e are as in Main.md:119, :135 and CausalReadback.lean:54–68. Write
 $d_t(a,b)=d(\Gamma_t(a,\cdot),\Gamma_t(b,\cdot))$.
 
 **Notation.** $L_t:V\to V$, $L_t\delta=\pi F^t(\delta,0)$; $K_t=\pi F^t(H)\subset V$ (a subgroup);
@@ -97,7 +98,7 @@ $W=\operatorname{conv}(W)\cap\mathbb Z^d$ (boxes and single sites are).
 |---|---|---|
 | (U) | The update is $x(t+1)=\alpha Sx(t)-x(t-1)$ over $\mathbb Z_q$ with $S$ the nearest-neighbour sum | On `main`: Main.md:728 item (xiii) (second-order form, finite abelian group per site; kernel `ruleDynamics`), SM.md:224–228 (form lemma: center-free, cubic-isotropic, linear, "for one coefficient $\alpha$"), Substratum.md:159; the instance $q=2$, $\alpha=1$ at Main.md:292. Linearity (A5) is ledger item (vii), Main.md:728. Posit of the selected lattice model, not derived (Main.md:728 (xiii)) |
 | (Λ) | Carrier $\mathbb Z^d$ (infinite) in place of A4's finite periodic lattice | Posited for this check (the A1-free carrier of the question). A4 (Substratum.md:98) states a finite periodic lattice; SM.md:222 represents the substratum by $\mathbb Z^d$. Not adopted here as physics |
-| (Q) | $q$ prime and $\alpha\ne0$ | Used only where marked (node 3). Main.md:292 ($q=2$), Main.md:324 and Main.md:728 item (v) work at prime $q$; main does not fix $q$ or $\alpha$ for the substratum (SM.md:230, coefficient's reading) |
+| (Q) | $q$ prime and $\alpha\ne0$ | Used only where marked (nodes 3, 4, 6 and §4). Main.md:292 ($q=2$), Main.md:324 and Main.md:728 item (v) work at prime $q$; main does not fix $q$ or $\alpha$ for the substratum (SM.md:230, coefficient's reading) |
 | (NN) | $\alpha$ is not nilpotent in $\mathbb Z_q$ ($\alpha^t\not\equiv0$ for all $t$; for prime $q$: $\alpha\ne0$) | Used where marked; its negation is the branch of node 5 |
 | (Haar) | Hidden prior $\rho$ = uniform product law on hidden coordinates; equivalently the invariant law is Haar measure $\mu$ on $\Omega$ | Posited for this check as the natural infinite-volume law; justified as the weak limit of the uniform laws on cubic tori $(\mathbb Z/L)^d$, a subclass of A4's periodic lattices (Prop. 4.3) and as the counterpart of Main Lemma 3's counting measure (Main.md:54, :58). Non-product invariant laws are not treated (§5) |
 | (R) | Window readout $\pi=(u,v)\vert_W$, $W$ finite | On `main` as the readout of Main §3.2 ("the visible sector being the sites of a region $R$", Main.md:292, with $s=2\lvert R\rvert$). Other readouts: §5 |
@@ -198,7 +199,7 @@ is C4e; `c4e_implies_pIndivisible` (CausalReadback.lean:148) gives P-indivisibil
 and `c4e_implies_c4r` (CausalReadback.lean:126) gives C4r. The last sentence is Lemma 2.2. $\square$
 
 **Node 2 verdict.** For the selected update under Haar, rooted distinguishability takes only the
-values $0$ and $1$, near-total return never occurs, and every revival is a collision-then-separation
+values $0$ and $1$, near-total return never occurs under (NN) (node 5 treats nilpotent $\alpha$), and every revival is a collision-then-separation
 detected by the subgroups $N_t$. Class: NEW for F11 and (RIG) on the selected update (decided negative
 for every finite window and every non-nilpotent $\alpha$), ELABORATING for Lemma 2.4.
 
@@ -692,7 +693,7 @@ if __name__ == '__main__':
         diag, vals, first = study(q, a, [(0,)], T)
         print(f"q={q} alpha={a} W={{0}}: min_c Gamma_t(c,c) t=0..{T} = {[str(x) for x in diag]}; "
               f"TV values {[str(v) for v in vals]}; first strict TV increase {first}")
-    # W = {0,1}, q = 12, alpha = 2: root pair (delta, 0) with delta = (u0,v0,u1,v1) = (6,0,0,0)
+    # W = {0,1}, q = 12, alpha = 2: root pair (delta, 0) with delta = (u0,v0,u1,v1) = (0,6,0,0)
     delta = (0, 6, 0, 0); zero = (0, 0, 0, 0)
     diag, vals, first = study(12, 2, [(0,), (1,)], 3, all_pairs=False, pairs=[(zero, delta)])
     print(f"q=12 alpha=2 W={{0,1}} roots 0 and {delta}: TV values {[str(v) for v in vals]}; first strict TV increase {first}")
@@ -788,8 +789,8 @@ failed control.
    $t\approx L$ in $d=1$, before the exact return at the order of $F$. No witness survives at a fixed
    time as $L\to\infty$.
 5. **A1-free positive branches.** When $\alpha$ is a nonzero nilpotent in some primary component of
-   $\mathbb Z_q$ (some prime $p$ with $p^2\mid q$, $p\mid\alpha$; e.g. $q=4,\alpha=2$, or
-   $q=12,\alpha=2$), a C4e witness occurs on $\mathbb Z^d$ at a lattice-independent time; when every
+   $\mathbb Z_q$ (some prime $p$ with $p^{k}\,\Vert\,q$, $k\ge2$, $p\mid\alpha$ and $p^{k}\nmid\alpha$; e.g. $q=4,\alpha=2$, or
+   $q=12,\alpha=2$; not $q=12,\alpha=4$, whose $\mathbb Z_4$ component is zero), a C4e witness occurs on $\mathbb Z^d$ at a lattice-independent time; when every
    component is nilpotent or zero, $F^N=\mathrm{id}$ (Prop. 5.1). The witness lives in a component with
    bounded causal support; these branches lie outside the explicit instance and the prime-$q$
    statements on `main`, and are not credited.
