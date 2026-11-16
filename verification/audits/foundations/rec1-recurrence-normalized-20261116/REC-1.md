@@ -1,7 +1,7 @@
 # REC-1 — Recurrence under a normalized invariant hidden law
 
-**Status:** Paper-only check. Independent review ACCEPT WITH CHANGES at `8aec80e9`; changes applied in
-this revision; delta review pending. Paper proofs and explicit constructions only; no Lean module, simulation, manuscript edit or physical premise is added.
+**Status:** Paper-only check. Independent review ACCEPT WITH CHANGES at `8aec80e9`; changes applied at
+`b50ee7bc4a85da09563a9c35b0cbae7d036eb737`; delta review CONFIRMED WITH NITS there; nits applied in this revision. Paper proofs and explicit constructions only; no Lean module, simulation, manuscript edit or physical premise is added.
 Every statement below is conditional on the hypotheses named with it (§2). A1 is neither assumed
 nor asserted; it appears only as the comparison premise of the controls in node 6.
 
@@ -107,10 +107,10 @@ accessible range.
 | Use | Site on `main` | What the use consumes | Category |
 |---|---|---|---|
 | U1 One-step theorem, Step 1 | Main.md:121, :129; mirrors SM.md:44, GR.md:90, book/ch01-observation.md:111 (FULL:446), book/appendix-b-derivations.md:413–417 (FULL:6164) | $T^{(N)}=I$ under the uniform hidden prior, from $\varphi^N=\mathrm{id}$ | (i) ⇒ (i\*) |
-| U2 History readback + finite recurrence | Main.md:135–139; mirrors book/ch01-observation.md:181, book/glossary.md:117 | $\Gamma_L=I$; periodicity $\Gamma_{t+L}=\Gamma_t$ to place a non-permutation map at $1\le s\le\min(k,L-1)$; the full-support equivalence over $\{0,\dots,L\}$ | (i) ⇒ (i\*), (ii) |
+| U2 History readback + finite recurrence | Main.md:135–139; mirrors book/ch01-observation.md:181 (FULL:516), book/glossary.md:117 | $\Gamma_L=I$; periodicity $\Gamma_{t+L}=\Gamma_t$ to place a non-permutation map at $1\le s\le\min(k,L-1)$; the full-support equivalence over $\{0,\dots,L\}$ | (i) ⇒ (i\*), (ii) |
 | U3 Overlap and return | Main.md:141–143 | $\Gamma_n=I$ taken as a hypothesis; nothing derived from recurrence | (i\*) as input |
 | U4 Continuous-time extension | Main.md:155; mirror book/ch01-observation.md:119 | One common near-total return at some $t_R>t_1$; states that Poincaré recurrence does not supply it | weakened (i\*): one common near-return (ladder F11) |
-| U5 Summary and scope statements of U1–U2 | Main.md:18, :80, :157, :178, :180, :338, :630, :720, :728, :735, :737; Introduction.md:12; Substratum.md:44, :137, :268; Structure.md:1024, :1140–1177, :1189, :1255; GR.md:138, :585; SM.md:112, :236, :308; Complexity.md:430, :474; Methodology.md:156; Medicine.md:13, :25, :35; Bioinformatics.md:14; book/ch00-introduction.md:53; book/ch02-substratum.md:32; book/ch03-structural-realism.md:36, :102, :114, :240; book/ch05-gauge-structure.md:95; book/ch09-universality.md:106; book/ch15-quantum-engineering.md:114; book/preface.md:3; book/appendix-c-objections.md:120 | Inherit U1/U2 | (i\*) |
+| U5 Summary and scope statements of U1–U2 | Main.md:18, :80, :157, :178, :180, :338, :630, :720, :728, :735, :737; Introduction.md:12; Substratum.md:44, :137, :268; Structure.md:1024, :1140–1177, :1189, :1255; GR.md:138, :585; SM.md:112, :236, :308; Complexity.md:430, :474; Methodology.md:156; Medicine.md:13, :25, :35; Bioinformatics.md:14; book/ch00-introduction.md:53; book/ch02-substratum.md:32; book/ch03-structural-realism.md:36, :102, :114, :240; book/ch05-gauge-structure.md:95; book/ch09-universality.md:106; book/ch15-quantum-engineering.md:114; book/preface.md:3; book/appendix-c-objections.md:120; further sites inheriting U1/U2 or U11: book/ch01-observation.md:89, :93, :133, :139, :201; book/ch18-beyond.md:20, :190, :192; book/appendix-b-derivations.md:194, :421, :451, :454; book/glossary.md:105 | Inherit U1/U2 | (i\*) |
 | U6 Non-permutation witness lemma | Main.md:439–441 | "The indivisibility is §2.3's recurrence theorem" | (i\*) |
 | U7 CP-indivisibility | Main.md:330; book/appendix-b-derivations.md:92 (FULL:5843) | P-indivisibility of U1/U2, then a conditional implication for diagonal-preserving channels | inherits (i\*) |
 | U8 Consolidation and rooted all-time classification | Main.md:642; `pper_of_finiteRootedRealizable`, RootedClassification.lean:339 | Finite order $L$ ⇒ $L$-periodic multi-time law; forward direction of the classification | (i) ⇒ (ii) |
@@ -121,8 +121,8 @@ accessible range.
 | U13 Axiom 2 | Main.md:36, :60; Methodology.md:227; Substratum.md:403 | "Differentiation recurs": more than one moment. Main.md:60: "not that every microstate returns" | not dynamical recurrence; out of scope |
 | U14 Routed readback | Main.md:145 | "not P-divisible on $\{0,\ldots,n\}$ for every $n>s$ with $\Gamma_n=I$" ($\Gamma_n=I$ an input), "and so for some $n$, because $(\Gamma_t)$ is periodic and $\Gamma_0=I$" | (i\*) as input; (ii) ⇒ (i\*) |
 | U15 Constraint surface | GR.md:587 | Finite $\varphi$-invariant representative of the constraint surface, order $L$, $K_{mL}=I$; hidden prior on each root's fibre, not one shared prior | (i) on a specified finite subsystem |
-| U16 Cumulative backflow | book/ch18-beyond.md:74 | Periodic rooted laws: a revival in one period recurs in every later one, so the cumulative backflow is unbounded | (ii) |
-| U17 No asymptotic decay | book/ch18-beyond.md:40 | Recurrence under A1 excludes asymptotic convergence to zero of the history-dependent departures | (i); sibling of U10 |
+| U16 Cumulative backflow | book/ch18-beyond.md:74 (FULL:4880) | Periodic rooted laws: a revival in one period recurs in every later one, so the cumulative backflow is unbounded | (ii) |
+| U17 No asymptotic decay | book/ch18-beyond.md:40 (FULL:4846) | Recurrence under A1 excludes asymptotic convergence to zero of the history-dependent departures | (i); sibling of U10 |
 | U18 The finite-recurrence route | book/ch18-beyond.md:166–172 (FULL:4972–4978) | "needs every root's visible law to return to certainty at a common time, $\Gamma_n = I$"; "Infinite hidden sectors would break the recurrence argument that drives recurrence-scale P-indivisibility; that route would close" | (i\*) |
 
 **Node 1 verdict.** Every dynamical use (U1–U12, U14–U18) consumes (i), (i\*) or (ii), or uses $t_R$ as a scope
@@ -371,10 +371,10 @@ Class: ELABORATING.
 $n_k$: (a) $\mu([w]\triangle F^{-n_k}[w])\to0$ for every visible word $w$; (b)
 $\Gamma_{n_k+t}\to\Gamma_t$ entrywise for every $t\ge0$.
 
-*Proof.* (a) $[w]=\bigcap_{j<k}F^{-j}C_{w_j}$ and $F^{-n}[w]=\bigcap_{j<k}F^{-j}F^{-n}C_{w_j}$. A
+*Proof.* (a) For a word $w=(w_0,\dots,w_{\ell-1})$, $[w]=\bigcap_{j<\ell}F^{-j}C_{w_j}$ and $F^{-n}[w]=\bigcap_{j<\ell}F^{-j}F^{-n}C_{w_j}$. A
 symmetric difference of two intersections lies in the union of the termwise symmetric differences,
 and $\mu(F^{-j}A\triangle F^{-j}B)=\mu(A\triangle B)$ by (I), so
-$\mu([w]\triangle F^{-n_k}[w])\le\sum_{j<k}\mu(C_{w_j}\triangle F^{-n_k}C_{w_j})\to0$. (b) By
+$\mu([w]\triangle F^{-n_k}[w])\le\sum_{j<\ell}\mu(C_{w_j}\triangle F^{-n_k}C_{w_j})\to0$. (b) By
 Lemma 3.1, $|\Gamma_{n+t}(a,b)-\Gamma_t(a,b)|=|\mu(C_a\cap F^{-t}F^{-n}C_b)-\mu(C_a\cap
 F^{-t}C_b)|/\nu(a)\le\mu(F^{-t}(F^{-n}C_b\triangle C_b))/\nu(a)=\mu(C_b\triangle
 F^{-n}C_b)/\nu(a)$, which tends to $0$ along $n_k$. $\square$
@@ -394,7 +394,7 @@ increase entropy, so $H(X_0\mid X_{-1},\dots,X_{-n_k})\le h_2(p_{n_k})+p_{n_k}\l
 non-increasing limit $h$ is $0$. $\square$
 
 So Proposition 3.4's hypothesis can hold only where the visible process has zero entropy rate under
-$\mu$: its present is determined by its infinite past. On a finite carrier the visible process is
+$\mu$: its present is determined by its infinite past ($H(X_0\mid X_{-\infty}^{-1})=h=0$ by martingale convergence). On a finite carrier the visible process is
 periodic and the same holds. Proposition 3.8 does not bear on ladder F11's single near-return.
 Class: BORDERLINE (the standard fact that rigid systems have zero entropy, proved here directly for
 the visible process; it narrows the scope of Proposition 3.4).
@@ -557,9 +557,9 @@ hypothesis the contract does not supply.
 | U13 Axiom 2 | Out of scope | Not dynamical recurrence |
 | U14 Routed readback | Split | "For every $n>s$ with $\Gamma_n=I$": recovered under the contract, since both proofs use only the store clause's two positivity conditions (Main.md:145), which is the overlap-and-return matrix form (RecurrenceHorizon.lean:119) with $\Gamma_s$ row-stochastic by Lemma 3.1; the cited routed kernel theorems themselves are stated for finite $H$. "For some $n$": needs (RET); weaker form under (RIG) or a single F11 near-return (Prop. 3.4). The write clause's seed with $\mu_H(h)>0$ has no counterpart under a nonatomic prior unless restated for a positive-measure seed set; it is not consumed by the P-indivisibility conclusion |
 | U15 GR constraint surface | Different convention; not addressed | Priors sit on each root's fibre, so (P) does not apply. The A1-free analogue is the cell-conditioned family of an invariant law (ladder §3.3, F10), whose exact identity return is F10's condition $\pi F^N=\pi$ a.e.; GR supplies it through a specified finite invariant subsystem |
-| U16 Cumulative backflow | Not recovered; recovered under (RET), weaker form under (RIG) | Under (RET) the rooted laws are $N$-periodic (Prop. 3.6′) and the argument of ch18:74 applies. Under (RIG), a revival $d_t>d_s$ ($s<t$) gives $d_{n_k+t}-d_{n_k+s}\ge(d_t-d_s)/2$ for large $k$ (Prop. 3.7(b)); passing to $n_k$ with $n_{k+1}>n_k+t$ gives disjoint windows, each contributing at least $(d_t-d_s)/2$ to the cumulative increase, which is therefore unbounded. Under the contract alone: XOR and Bernoulli have no revival; Prop. 3.5 has one revival and $\Gamma_t=J_2$ for $t\ge3$, so a bounded cumulative increase |
+| U16 Cumulative backflow | Not recovered; recovered under (RET) or (RIG), given one revival | Under (RET) the rooted laws are $N$-periodic (Prop. 3.6′) and the argument of ch18:74 applies. Under (RIG), a revival $d_t>d_s$ ($s<t$) gives $d_{n_k+t}-d_{n_k+s}\ge(d_t-d_s)/2$ for large $k$ (Prop. 3.7(b)); passing to $n_k$ with $n_{k+1}>n_k+t$ gives disjoint windows, each contributing at least $(d_t-d_s)/2$ to the cumulative increase, which is therefore unbounded. Under the contract alone: XOR and Bernoulli have no revival; Prop. 3.5 has one revival and $\Gamma_t=J_2$ for $t\ge3$, so a bounded cumulative increase |
 | U17 No asymptotic decay | Correct in its A1 scope; the reason does not transfer | Under the contract correlations may decay (Bernoulli, U10) or not (rotation). The sentence's "neither … follows" remains true under the contract, but the A1 reason, exclusion of decay by recurrence, does not. Assumption-watch sibling of U10 |
-| U18 Finite-recurrence route | Finding for the coordinator; no manuscript edit | Read as a statement about deriving the return from finiteness, ch18:170 holds. Read as saying that recurrence-scale P-indivisibility has no route on an infinite hidden sector, it is stronger than the record on `main` supports: ladder F11 gives P-indivisibility on any carrier from one common near-return with margin, Prop. 3.4 gives it from (RIG), and the rotation (Prop. 3.3) is an infinite hidden sector satisfying both with no identity return. Likewise ch18:172's "needs … $\Gamma_n = I$" is what the exact route uses, not what P-indivisibility at that scale requires. The conditional routes keep their premises posited |
+| U18 Finite-recurrence route | Finding for the coordinator; no manuscript edit | Read as a statement about deriving the return from finiteness, ch18:170 holds. Read as saying that recurrence-scale P-indivisibility has no route on an infinite hidden sector, it is stronger than the record on `main` supports: ladder F11 gives P-indivisibility on any carrier from one common near-return with margin, Prop. 3.4 gives it from (RIG), and the rotation (Prop. 3.3) is an infinite hidden sector on which P-indivisibility holds by both, with no identity return. Likewise ch18:172's "needs … $\Gamma_n = I$" is what the exact route uses, not what P-indivisibility at that scale requires. The conditional routes keep their premises posited. ch18:170 ("this route") and ch18:172 ("one particular route") favour the route-specific reading, under which the passage is correct; the note concerns only the unrestricted reading |
 
 **A1-preserved controls.** Take $\Omega$ finite, $F$ a bijection and $\mu$ the uniform law
 (Main Lemma 3), so that every existing A1 result applies; check each statement of this record
@@ -611,7 +611,9 @@ the return input is supplied by finiteness through (PER).
    The §4.6 theorem is unaffected. The same holds for book/ch18-beyond.md:40 (U17).
 8. Cross-document finding (U18): book/ch18-beyond.md:170, read as closing every route to
    recurrence-scale P-indivisibility on an infinite hidden sector, is stronger than ladder F11 on
-   `main` supports. Flagged; no manuscript edit is made.
+   `main` supports. ch18:170 ("this route") and ch18:172 ("one particular route") favour the
+   route-specific reading, under which the passage is correct; the note concerns only the unrestricted
+   reading. Flagged; no manuscript edit is made.
 9. A1 remains open and unadopted. Whether nature supplies (I), (P) or (RIG) is open. No physical
    recovery is claimed.
 
