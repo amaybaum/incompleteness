@@ -1104,6 +1104,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Standard Model and gravitational physics.** The framework'..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: AI assistance in preparing this work is disclosed at\\..."
     },
     {
@@ -1164,6 +1168,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | 12 | $\\sin^2\\theta_{12}$ | $1/3 - 1/(4\\pi^2)$ | L | 1+2(b)..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: | 13 | $\\sin^2\\theta_{13}$ | $4/(18\\pi^2)$ | C | 1 | 2.6% (1..."
     },
     {
@@ -1212,7 +1220,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The neutrino sector provides the framework's sharpest parame..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: |---|-----------|-----------|------------|-------|----------..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: | N1 | $\\sin^2\\theta_{12}$ | $1/3 - 1/(4\\pi^2)$ | L | 1+2(b)..."
     },
     {
       "ok": true,
@@ -1224,11 +1240,15 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: | N7 | $\\delta_{\\text{CP}}$ | complex extension of the real ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Summary statistics.** Prediction-class counts: 0 S + 1 C +..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: **ᵍ** *Parameterization-level prediction (δ_CP).* The framew..."
+      "predicate": "chapter line mirrored in FULL: **ᵍ** *Parameterization-level entry (δ_CP).* The $A_1$, $A_2..."
     },
     {
       "ok": true,
@@ -1301,6 +1321,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The *rotational* Lorentz sector is deliberately **not** list..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Strongest current evidence.** The framework currently has ..."
     },
     {
       "ok": true,
@@ -1673,6 +1697,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *What the framework retrodicts.* Twenty-two classified Stand..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *What the framework predicts at the present time.* JUNO sola..."
     },
     {
       "ok": true,
@@ -2132,6 +2160,14 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Universality classes have internal sub-structure at three le..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Level C commits to a structural realism at the class level: ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **Level D: OI's specific local structural residue.** The fra..."
     },
     {
@@ -2564,6 +2600,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's prediction structure compared to alternati..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's lepton-sector content has more structural co..."
     },
     {
@@ -2577,6 +2617,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: - **Category B — parameter-free predictions conditional on e..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The Wolfenstein parameter $A^2 = 2/3$ from off-democratic pr..."
     },
     {
       "ok": true,
@@ -2625,6 +2669,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The derivation has the structure of a gap equation: $\\epsilo..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The counting of one mode per cell, $\\eta = \\sigma/\\epsilon..."
     },
     {
       "ok": true,
@@ -2724,11 +2772,23 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: Three structural properties of these deviations deserve expl..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Condition 1 — natural normalization.* The overall scale of ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *Condition 2 — cubic-group structural relation.* The relatio..."
     },
     {
       "ok": true,
-      "predicate": "chapter line mirrored in FULL: With Condition 1, this gives $b_{12} + b_{13} = 3/4$. Unlike..."
+      "predicate": "chapter line mirrored in FULL: With Condition 1, this gives $b_{12} + b_{13} = 3/4$. This i..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The factor $4/3$ and its cubic-group reading.** Condition ..."
     },
     {
       "ok": true,
@@ -2737,6 +2797,42 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The open derivational task is correctly scoped: it asks whet..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The reactor angle $\\sin^2\\theta_{13}$ uses only $A^2 = 2/3$ ..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The solar mixing angle as the cleanest test.** The $\\sin^2..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *CP violation.* He's surviving TM1 pattern predicts $\\sin\\de..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's prediction at JUNO design-lifetime precisi..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The discrimination this provides is severe. The TM1 pattern'..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Class A falsification of the cubic-group lepton-sector stru..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Class A falsification of the sum rule.* Any precision measu..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's empirical exposure at JUNO is therefore subs..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The cross-sector parameter-free status.** The framework's ..."
     },
     {
       "ok": true,
