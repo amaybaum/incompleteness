@@ -172,7 +172,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 53 modules by type name and 5 by concrete finite types for the semantic check; it classifies none.
+- CENSUS-X2: the 232 other OIBridge modules, root import, six legacy Lean sources, and theorem declarations/imported hypotheses are not individually traced. Batch 2a (§8) is a triage inventory that flags 53 modules by type name and 5 by concrete finite types for the semantic check; it classifies none. Batch 2b (§9) classifies 16 of the flagged modules; no correction candidate.
 - CENSUS-X3: 123 proof-census families, 133 coverage entries and 20 unattached items are parsed/inventoried but not independently linked one-by-one to source statements.
 - CENSUS-X4: recursively maintained verification files, programmes, probes and archival or branch-only evidence remain unscanned as complete corpora. Published `.tex` mirrors are resolved for claim content by batch 1 (§7); PDFs are not stamped and are not checked.
 - CENSUS-X5: all 12 primary papers and 29 accessible chapter/back-matter Markdown files received a textual search pass, but not full manual negative-proof semantic review of every theorem and implicit inheritance; zero lexical hits cannot discharge this.
@@ -266,5 +266,27 @@ To close A1-C01, obtain full text/source parity for X1–X4; review and classify
 - check the manuscript anchors of its families against that scope.
 
 Only the last case is a correction candidate.
+
+## 9. Coverage batch 2b — recurrence, memory and rooted-family modules (X2)
+
+**Pin:** `main` at `5ea8672f`. **Modules (16):** CausalReadback, C3Necessity, EquivalenceChain, FullFutureMemory, HiddenMemory, MeasuredReciprocity, PhysicalC4Discharge, PhysicalC4StorageReadback, QuantumRepresentationT3, Reciprocity, RecurrenceHorizon, RootedClassification, RootedClassificationAllTime, RootedRecurrenceBridge, TrajectoryMemory, TransposeBridge.
+
+**Recipe.** For each module, locate the declarations or `variable` lines that carry the flagged finiteness. Map the module to its families in `verification/lean-manuscript-census.json`. For every manuscript anchor of those families, read the paragraph containing the anchor and decide whether the manuscript states the result within its finite scope.
+
+**Lean side.** In all 16 modules the flagged finiteness is a finite hidden carrier `H` (with `Hist` or `C` alongside in C3Necessity, HiddenMemory and TrajectoryMemory), stated as an explicit typeclass hypothesis on `variable` lines or on the `RootedRealization` structure (CausalReadback.lean:178). Each such result is **F**, valid in its finite scope. Exceptions:
+- CausalReadback's Section A (`c4r_implies_pIndivisible` and its companions) assumes only a finite visible alphabet; it is **A**.
+- MeasuredReciprocity's general theorems assume a measurable carrier; `[Fintype H]` enters only at :276, for the finite counting specialization. They are **A**, with an **F** specialization.
+
+**Manuscript side.**
+- **Kernel-only families, no manuscript anchor (7 modules):** P6 measured reciprocity, causal readback, quantum representation T3, transpose bridge, finite-permutation trajectory bridge, entire visible future, microscopic iterate return. None of the seven module names occurs in `papers/*.md` or the book chapters. No manuscript claim rests on them through the registry.
+- **Recurrence horizon, physical C4 discharge and storage readback, rooted classification:** the anchors are Main:137–145 and Main:642. Each paragraph states its finite setting: Main:137 "Because φ is a permutation of a finite set"; Main:141 "finite sets"; Main:145 derives periodicity within §2.3's finite-carrier setting; Main:642 "on a finite 𝒞_V", "one fixed finite substratum". **F**, correctly scoped.
+- **Equivalence chain and memory:**
+  - Main:95 and Main:552: the finite-horizon equivalence, finite scope stated. **A** at observable scope.
+  - Main:312 and Main:314: the separability threshold for abelian Weyl subgroups on s qubits. A finite qubit register, not total finiteness; no A1 relevance.
+  - Main:518 (`c3_necessity`, `card_hidden_ge_two_pow_Istar`): a lower bound on the hidden capacity |𝒞_H| ≥ 2^{I*}. It holds trivially for an infinite hidden carrier, so stating it without a finiteness qualifier makes no A1-dependent claim.
+  - Main:612 (`capacity_floor`, M_t ≤ log₂|𝒞_H|): likewise vacuous for an infinite carrier; no A1-dependent claim.
+  - SM:643 (`theorem_19`): states its hypothesis, "let the hidden prior be the counting measure", which presupposes a finite hidden carrier. **F**, correctly scoped; the measured generalization is kernel-only (`MeasuredReciprocity`).
+
+**Result.** No correction candidate in this batch. All 16 modules are classified: the finite-carrier results are **F** and stated within their finite scope wherever a manuscript carries them, and the exceptions above are **A**.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
