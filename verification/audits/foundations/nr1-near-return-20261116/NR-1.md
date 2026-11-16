@@ -1,6 +1,8 @@
 # NR-1 — Near-return and distinguishability revival for the selected OI update without total finiteness
 
-**Status:** Paper-only check, not yet independently reviewed. Paper proofs, exact finite computations
+**Status:** Paper-only check. Independent review ACCEPT WITH CHANGES at
+`4b0c1b8fb5c3f9965a931676ffae540cfeb3fef8`; changes applied in this revision; delta review pending.
+Paper proofs, exact finite computations
 (inline script and expected output, §7) and citations only; no Lean module, simulation of a physical
 system, manuscript edit or physical premise is added. A1 is neither assumed nor asserted; finite tori
 appear only as the comparison carrier of node 4 and as controls. No physical-recovery credit is taken.
@@ -18,9 +20,10 @@ manuscript, Lean or registry edits, A1 open and unadopted, and A4 unchanged.
 that commit.
 
 **Off-`main` references (§A.42 item 8).** The authority comment on #1169 is provenance: no claim below
-uses its content beyond the authorization quoted above. The scope note in §0 comes from the
-coordinating session's message to the writer (provenance; it changes the order of the questions, not
-any premise). The RO-3 inventory and its mixing unit, which the premise ladder cites from the unmerged
+uses its content beyond the authorization quoted above. The scope note in §0 is the coordinating
+session's note on #1169, comment 6926358446 (posted 2026-11-16T19:11:32Z, titled "NR-1 scope note"),
+which is provenance: it orders and generalizes the question within the same authorization and adds no
+premise. The RO-3 inventory and its mixing unit, which the premise ladder cites from the unmerged
 branch of PR #1303, are not used: every statement below about the prime-alphabet linear update on an
 infinite lattice is proved here or computed by the inline script. No other off-`main` content is used.
 
@@ -38,7 +41,10 @@ non-permutation time (PREMISE-LADDER.md:59, :93–105) without total finiteness,
 $\mathbb Z^d$ with a finite local alphabet and a natural invariant law? If so, P-indivisibility at
 recurrence scale would hold without A1 for OI's actual dynamics.
 
-**Scope note (coordinating session, 2026-11-16, under the same authorization).** The primary target is
+**Scope note (coordinating session, 2026-11-16, under the same authorization; posted on #1169 as
+comment 6926358446, "NR-1 scope note").** The C4r/C4e question below is the general form of the
+authorized question, P-indivisibility at recurrence scale without A1 for the selected update, and stays
+within that authorization; F11 is one sufficient case of it. The primary target is
 a distinguishability revival for the selected update, not only F11's near-return:
 `c4r_implies_pIndivisible` (CausalReadback.lean:134) gives P-indivisibility from any strict later
 increase of rooted total-variation distinguishability (C4r, CausalReadback.lean:67), and
@@ -67,19 +73,19 @@ $(Sf)(z)=\sum_{j=1}^d\bigl(f(z+e_j)+f(z-e_j)\bigr)$,
 $$
 F(u,v)=(\alpha Su-v,\ u),\qquad F^{-1}(u,v)=(v,\ \alpha Sv-u),
 $$
-i.e. $x(t+1)=\alpha Sx(t)-x(t-1)$. On $X=(\mathbb Z_q^2)^{\mathbb Z^d}$ (product topology) $F$ is a
+i.e. $x(t+1)=\alpha Sx(t)-x(t-1)$. On $\Omega=(\mathbb Z_q^2)^{\mathbb Z^d}$ (product topology) $F$ is a
 group automorphism, and each output coordinate of $F^{\pm1}$ is a finite linear combination of input
 coordinates. The torus version replaces $\mathbb Z^d$ by $(\mathbb Z/L)^d$.
 
 **Readout and rooted maps.** A window is a finite nonempty $W\subset\mathbb Z^d$. The visible value is
 $\pi(u,v)=(u,v)|_W\in V:=(\mathbb Z_q^2)^W$, $n=2|W|$; the hidden coordinates are all others,
-$H=\{x\in X:\pi x=0\}$, so $X=V\times H$. With a hidden prior $\rho$ shared by every root, Main's rooted
+$H=\{x\in \Omega:\pi x=0\}$, so $\Omega=V\times H$. With a hidden prior $\rho$ shared by every root, Main's rooted
 maps are $\Gamma_t(a,b)=\rho\{h:\pi F^t(a,h)=b\}$ (Main.md:135). Total variation $d$, P-divisibility on
-$\{0,\dots,n\}$, C4r and C4e are as in Main.md:119, :135 and CausalReadback.lean:58–68. Write
+$\{0,\dots,n\}$, C4r and C4e are as in Main.md:119, :135 and CausalReadback.lean:53–68. Write
 $d_t(a,b)=d(\Gamma_t(a,\cdot),\Gamma_t(b,\cdot))$.
 
 **Notation.** $L_t:V\to V$, $L_t\delta=\pi F^t(\delta,0)$; $K_t=\pi F^t(H)\subset V$ (a subgroup);
-$N_t=L_t^{-1}(K_t)$. $\Pi_W$ is the group of characters of $X$ supported on window coordinates
+$N_t=L_t^{-1}(K_t)$. $\Pi_W$ is the group of characters of $\Omega$ supported on window coordinates
 ($\Pi_W\cong\widehat V$). For $\ell\in\mathbb Z^d$, $\deg_\ell$ of a nonzero Laurent polynomial
 $f\in\mathbb Z_q[x_1^{\pm1},\dots,x_d^{\pm1}]$ is $\max\{\ell\cdot z: f_z\ne0\}$, and
 $\deg_\ell 0=-\infty$. $\operatorname{ext}_j(W)=\max_W z_j-\min_W z_j$. $W$ is **lattice-convex** if
@@ -93,7 +99,7 @@ $W=\operatorname{conv}(W)\cap\mathbb Z^d$ (boxes and single sites are).
 | (Λ) | Carrier $\mathbb Z^d$ (infinite) in place of A4's finite periodic lattice | Posited for this check (the A1-free carrier of the question). A4 (Substratum.md:98) states a finite periodic lattice; SM.md:222 represents the substratum by $\mathbb Z^d$. Not adopted here as physics |
 | (Q) | $q$ prime and $\alpha\ne0$ | Used only where marked (node 3). Main.md:292 ($q=2$), Main.md:324 and Main.md:728 item (v) work at prime $q$; main does not fix $q$ or $\alpha$ for the substratum (SM.md:230, coefficient's reading) |
 | (NN) | $\alpha$ is not nilpotent in $\mathbb Z_q$ ($\alpha^t\not\equiv0$ for all $t$; for prime $q$: $\alpha\ne0$) | Used where marked; its negation is the branch of node 5 |
-| (Haar) | Hidden prior $\rho$ = uniform product law on hidden coordinates; equivalently the invariant law is Haar measure $\mu$ on $X$ | Posited for this check as the natural infinite-volume law; justified as the weak limit of A4's uniform laws (Prop. 4.2) and as the counterpart of Main Lemma 3's counting measure (Main.md:54, :58). Non-product invariant laws are not treated (§5) |
+| (Haar) | Hidden prior $\rho$ = uniform product law on hidden coordinates; equivalently the invariant law is Haar measure $\mu$ on $\Omega$ | Posited for this check as the natural infinite-volume law; justified as the weak limit of the uniform laws on cubic tori $(\mathbb Z/L)^d$, a subclass of A4's periodic lattices (Prop. 4.3) and as the counterpart of Main Lemma 3's counting measure (Main.md:54, :58). Non-product invariant laws are not treated (§5) |
 | (R) | Window readout $\pi=(u,v)\vert_W$, $W$ finite | On `main` as the readout of Main §3.2 ("the visible sector being the sites of a region $R$", Main.md:292, with $s=2\lvert R\rvert$). Other readouts: §5 |
 | (LC) | $W$ lattice-convex | Used only in Theorem 3.3 |
 
@@ -118,7 +124,7 @@ outside a polytope with integer vertices is separated from it by an integer line
 
 1. *Form.* Main.md:728 item (xiii): "each site of (viii) carries a previous and a current value in a
    finite abelian group, and one step is $x(t+1)=F(x(t))-x(t-1)$ … the update displayed in §3.2 being its
-   instance with $q=2$ and $F$ the nearest-neighbour sum". SM.md:224–228 fixes $F=\alpha\sum_{\rm nn}$
+   instance with $q=2$ and $F$ the nearest-neighbour sum". SM.md:224–228 selects $F=\alpha\sum_{\rm nn}$
    under center independence, cubic isotropy and linearity, "for one coefficient $\alpha$", and
    Substratum.md:159 repeats it. Main.md:292 displays $u'_x=\sum_{z\sim x}u_z+v_x$, $v'_x=u_x$ over
    $\mathbb F_2$, which is (U) with $q=2$, $\alpha=1$ (signs coincide mod 2).
@@ -141,7 +147,7 @@ assumption-watch marker: **main does not exclude nilpotent $\alpha$** (node 5).
 **Lemma 2.1 (contract).** Under (U), (Λ), (Haar): $F$ is a bimeasurable bijection preserving Haar
 measure $\mu$, and $\mu=\mathrm{Unif}(V)\otimes\rho$. So REC-1's (V)(M)(I)(P), hence (D), hold.
 
-*Proof.* $F$ is an automorphism with continuous inverse (displayed in §2). For a translation by $g\in X$,
+*Proof.* $F$ is an automorphism with continuous inverse (displayed in §2). For a translation by $g\in \Omega$,
 $F_*\mu(A+g)=\mu(F^{-1}A+F^{-1}g)=\mu(F^{-1}A)$, so $F_*\mu$ is translation invariant and equals $\mu$ by
 (S1). The product form is (S1) applied coordinatewise. $\square$
 
@@ -162,7 +168,7 @@ $\Gamma_n(c,c)\ge1-\varepsilon$ with $2\varepsilon<m\le1$ fails at every $n\ge1$
 (RIG) fails along every sequence.
 
 *Proof.* The $u$-component at time $t$ is $u_t=A_tu_0+B_tv_0$ with $A_t=p_t(\alpha S)$,
-$B_t=-p_{t-1}(\alpha S)$, where $p_{-1}=0$, $p_0=1$, $p_{k+1}=Xp_k-p_{k-1}$ (check: $A_1=\alpha S$,
+$B_t=-p_{t-1}(\alpha S)$, where, with $X:=\alpha S$, $p_{-1}=0$, $p_0=1$, $p_{k+1}=Xp_k-p_{k-1}$ (check: $A_1=\alpha S$,
 $B_1=-1$, and both sequences satisfy the update's recursion). $p_t$ is monic of degree $t$ in $X$. As a
 Laurent polynomial in the shifts, $S^k$ contains only monomials of $\ell^1$-length $\le k$, and in $S^t$
 the monomial $x_1^t$ has coefficient $1$ (one nearest-neighbour walk of length $t$ from $0$ to $te_1$).
@@ -283,7 +289,7 @@ lemma, reproduces the predicted TV values $\{0,1\}$, the monotone segment and th
 revival detector fires on tori (part B), so the absence of revivals on $\mathbb Z^d$ is not a detector
 artefact.
 
-### Node 4 — Comparison with the finite periodic tori of A4
+### Node 4 — Comparison with cubic tori $(\mathbb Z/L)^d$ (a subclass of A4's periodic lattices)
 
 **Proposition 4.1 (light-cone agreement).** Let the torus side $L$ satisfy
 $\operatorname{ext}_j(W)+2t<L$ for every $j$. Then the rooted maps $\Gamma_r$, $0\le r\le t$, of the
@@ -294,7 +300,7 @@ $\ell^1$-ball). Its coordinate extents are $\operatorname{ext}_j(W)+2t<L$, so it
 torus; the torus coefficients, which are sums of the $\mathbb Z^d$ coefficients over preimages, equal
 them, and the coordinates involved are independent and uniform under both priors. $\square$
 
-**Corollary 4.2 (where recurrence-scale witnesses live).** On the torus: (a) under (NN), any $n\ge1$ with
+**Corollary 4.2 (where recurrence-scale witnesses live).** On the cubic torus $(\mathbb Z/L)^d$: (a) under (NN), any $n\ge1$ with
 F11's near-return (in particular $\Gamma_n=I$) satisfies $n\ge(L-\max_j\operatorname{ext}_j(W))/2$; (b)
 under (Q) and (LC), any C4r or C4e witness $(s,t)$ has $t\ge(L-\max_j\operatorname{ext}_j(W))/2$. Both
 bounds diverge as $L\to\infty$: no near-return and no revival survives at a fixed time.
@@ -303,7 +309,7 @@ bounds diverge as $L\to\infty$: no near-return and no revival survives at a fixe
 Prop. 2.3 excludes (a) and Theorem 3.3 excludes (b) (a witness $(s,t)$ involves only times $\le t$).
 $\square$
 
-**Proposition 4.3 (Haar is the infinite-volume limit of the A4 laws).** For every finite box
+**Proposition 4.3 (Haar is the infinite-volume limit of the cubic-torus laws).** For every finite box
 $B\subset\mathbb Z^d$ and every $L$ exceeding its coordinate extents, the uniform law on torus states,
 lifted to $L$-periodic configurations of $\mathbb Z^d$, has uniform marginal on $B$. Hence these laws
 converge to $\mu$ on every cylinder.
@@ -315,16 +321,17 @@ converge to $\mu$ on every cylinder.
 the first identity return; the first revival is at $(1,L)$ for odd $L$ and $(1,L-1)$ for even $L$, a
 wave circumnavigating the torus, earlier than the order. $d=3$, $q=2$: orders $6,4,30$ at $L=3,4,5$,
 first revivals at $t=3,3,15$. $d=3$, $q=3$, $\alpha=1$: orders $12,120$ at $L=4,5$, first revivals at
-$t=11,40$. Every first revival respects Cor. 4.2, and the torus and $\mathbb Z^d$ families agree for
-$t\le(L-1)/2$ in every case.
+$t=11,40$. Every first revival respects Cor. 4.2, and $\dim K_t$ and $\dim N_t$ of the torus and
+$\mathbb Z^d$ families agree for $t\le(L-1)/2$ in every case (equality of the families is Prop. 4.1).
 
-**Node 4 verdict.** On A4 tori the selected update reaches P-indivisibility through revivals and exact
-return, but never before the light-crossing scale $(L-\operatorname{ext}W)/2$; as $L\to\infty$ the
-witnesses recede to infinity and the $\mathbb Z^d$ limit has none (for convex windows). The recurrence
+**Node 4 verdict.** On cubic tori $(\mathbb Z/L)^d$ (a subclass of A4's periodic lattices) the selected
+update reaches P-indivisibility through revivals and exact return, but never before the light-crossing
+scale $(L-\operatorname{ext}W)/2$ (revivals: under (Q) and (LC)); as $L\to\infty$ the witnesses recede to
+infinity and the $\mathbb Z^d$ limit has none (prime $q$, convex windows). The recurrence
 route of Main.md:121, :135 is therefore genuinely a finite-$L$ effect for this dynamics. Class: NEW
 (lower bound on the time of every recurrence-scale witness, for the selected update).
 
-### Node 5 — Counterexample-first, and the one favourable branch: nilpotent coefficient
+### Node 5 — Counterexample-first, and the favourable branches: nilpotent coefficient components
 
 **Proposition 5.1 (exact global period on $\mathbb Z^d$).** If $\alpha\not\equiv0$ but $\alpha$ is
 nilpotent in $\mathbb Z_q$ (every prime factor of $q$ divides $\alpha$; requires $q$ not squarefree,
@@ -333,12 +340,13 @@ $N\ge1$. Under (Haar) and (R), $\Gamma_1$ is not a permutation and $\Gamma_N=I$:
 $\varepsilon=0$, and P-indivisibility on $\{0,\dots,N\}$ (overlap-and-return, RecurrenceHorizon.lean:119)
 hold with no finiteness of the carrier.
 
-*Proof.* Let $\alpha^r\equiv0$. Then $X^r=\alpha^rS^r=0$, so $F$ acts on $X$ through the matrix
+*Proof.* Let $\alpha^r\equiv0$. Then $X^r=\alpha^rS^r=0$, so $F$ acts on $\Omega$ through the matrix
 $M=\bigl(\begin{smallmatrix}X&-1\\1&0\end{smallmatrix}\bigr)$ with entries in the ring
 $\mathbb Z_q[X]$, which has at most $q^r$ elements. $\det M=1$, so $M$ lies in the finite group
 $GL_2(\mathbb Z_q[X])$ and has finite order $N$. For $\Gamma_1$: a hidden neighbour $z$ of $w\in W$
 contributes $\alpha u_0(z)$ to $u_1(w)$, uniform on the nonzero subgroup $\alpha\mathbb Z_q$, so
-$K_1\ne\{0\}$ and rows of $\Gamma_1$ overlap. $\square$
+$K_1\ne\{0\}$. Since $|V/K_1|<|V|$, two distinct roots share a coset of $K_1$ (Lemma 2.2, which does not
+use (Q)), so two rows of $\Gamma_1$ coincide and $\Gamma_1$ is not a permutation. $\square$
 
 Computed (§7, part D) on $\mathbb Z^3$: $N=4$ for $(q,\alpha)=(4,2),(8,4),(12,6)$; $N=8$ for $(8,2)$;
 $N=12$ for $(9,3)$.
@@ -350,19 +358,33 @@ cannot carry the wave propagation and dispersion that SM §4.1 attaches to the s
 (SM.md:230; Theorem 1, SM.md:278). (2) The period is a small constant independent of the lattice, so this is a
 recurrence at accessible order rather than at a recurrence scale; it is finitely realizable in the sense
 of Main.md:642. (3) The instance on `main` ($q=2$, $\alpha=1$) and the prime-$q$ statements
-(Main.md:324; Main.md:728 item (v)) exclude it; nothing on `main` excludes it explicitly
-(assumption-watch: the form lemma, SM.md:224, admits every $\alpha$). (4) For composite $q$ with some
-primes dividing $\alpha$ and some not (e.g. $q=12$, $\alpha=2$), $\mathbb Z_q$ splits by the Chinese
-remainder theorem into a nilpotent-coefficient part (exact period) and a unit-coefficient part; the
-full window readout sees the latter, so Prop. 2.3 applies to it and F11 fails. **Verdict: the branch is
-formally A1-free but physically degenerate; it is not credited as a recovery.**
+(Main.md:324; Main.md:728 item (v)) do not cover it (Main.md:324 states that composite $q$ "is not
+covered"); nothing on `main` excludes it explicitly (assumption-watch: the form lemma, SM.md:224, admits
+every $\alpha$). (4) For composite $q$, $\mathbb Z_q\cong\prod_p\mathbb Z_{p^{k_p}}$ and $F$, (Haar) and
+(R) split over the primary components: $\Gamma_t=\bigotimes_p\Gamma^{(p)}_t$, $N_t=\prod_pN^{(p)}_t$. In
+each component $\alpha$ is a unit, zero, or a nonzero nilpotent (needs $k_p\ge2$, $p\mid\alpha$). If it is
+a nonzero nilpotent in some component, Prop. 5.1 applies there, $N^{(p)}_1\ne0=N^{(p)}_N$, and the full
+family has a C4e witness at a lattice-independent time although $\alpha$ need not be nilpotent in
+$\mathbb Z_q$ (computed, §7 part E: $q=12$, $\alpha=2$, $W=\{0\}$ and $W=\{0,1\}$ in $d=1$, witness
+$(1,3)$); F11 still fails by Prop. 2.3. The witness is carried entirely by the bounded-support
+component, dynamically decoupled from the propagating unit component. *Proof of the splitting.* The
+Chinese remainder isomorphism acts sitewise and commutes with $F$ (integer coefficients), carries Haar
+measure to the product of the components' Haar measures and the window readout to the product of the
+components' readouts; so the rooted law of a root is the product of the components' rooted laws, two
+rows coincide iff they coincide in every component, and $N_t=\prod_pN^{(p)}_t$. A $\delta$ whose
+$p$-component lies in $N^{(p)}_1\setminus\{0\}$ and whose other components vanish lies in
+$N_1\setminus N_N$ (since $\Gamma^{(p)}_N=I$ gives $N^{(p)}_N=0$), which is C4e by Lemma 2.4 (which does
+not use (Q)). Controls (part E): $q=4$ and $q=8$ with $\alpha=2$ show the witness $(1,3)$, before the
+exact return; $q=6$, $\alpha=2$ (components: zero and unit) shows none. **Verdict: these branches are
+formally A1-free but carried by a non-propagating component; they are not credited as a recovery.**
 
 The coupled case $\alpha=0$ is excluded: then $F(u,v)=(-v,u)$, every $\Gamma_t$ is a permutation, and
 there is no (C1).
 
-**Node 5 verdict.** Counterexample-first succeeds: OI's own rule with a non-nilpotent coefficient is the
-counterexample (Prop. 2.3, Theorem 3.3, Cor. 3.4). The only A1-free positive branch is the nilpotent
-coefficient, which removes propagation. Class: NEW (assumption-watch marker: the selected-model posit
+**Node 5 verdict.** Counterexample-first succeeds for prime $q$, $\alpha\ne0$ (Prop. 2.3, Thm 3.3,
+Cor. 3.4). The A1-free positive branches are those in which $\alpha$ is a nonzero nilpotent in some
+primary component of $\mathbb Z_q$ (Prop. 5.1, remark (4)); each witness is carried by a
+non-propagating component. Class: NEW (assumption-watch marker: the selected-model posit
 does not state that $\alpha$ is a unit or that $q$ is prime, and the A1-free recurrence verdict depends
 on it).
 
@@ -370,34 +392,37 @@ on it).
 
 | Route | Verdict on $\mathbb Z^d$ under (Haar), window readout | Exact obstruction / scope |
 |---|---|---|
-| C4r / C4e revival (primary) | **Fails** for prime $q$, $\alpha\ne0$, every lattice-convex window, every horizon (Thm 3.3); no revival found for the listed non-convex windows (computed) | Monotone $N_t$ from the convexity of the dual wave recursion (Lemma 3.2). General non-convex windows: open |
+| C4r / C4e revival (primary) | **Fails** for prime $q$, $\alpha\ne0$, every lattice-convex window, every horizon (Thm 3.3); no revival found for the listed non-convex windows (computed). **Holds** at a lattice-independent time when $\alpha$ is a nonzero nilpotent in some primary component of $\mathbb Z_q$, even if $\alpha$ is not nilpotent in $\mathbb Z_q$ (node 5 remark (4); computed $q=12$, $\alpha=2$) | Monotone $N_t$ from the convexity of the dual wave recursion (Lemma 3.2). General non-convex windows and composite $q$ with unit components of prime-power order: open. Mixed-case witnesses are carried by a non-propagating component; not credited |
 | F11 near-return with margin | **Fails** for every non-nilpotent $\alpha$, every $q$, every finite window, every $t\ge1$ (Prop. 2.3) | $\Gamma_t(c,c)\le1/2$ because hidden data always reach the window ($K_t\ne0$) |
-| Exact return (RET), (PER) | Fail under (NN) (Prop. 2.3); **hold** for nilpotent $\alpha\ne0$ (Prop. 5.1) | Nilpotent branch has bounded causal support; not credited |
+| Exact return (RET), (PER) | Fail under (NN) (Prop. 2.3); **hold** when $\alpha$ is nilpotent or zero in every primary component and nonzero nilpotent in one (Prop. 5.1) | Nilpotent components have bounded causal support; not credited. In the mixed case (some unit component) they fail by Prop. 2.3 |
 | Rigidity (RIG) | **Fails** under (NN) (Prop. 2.3); so REC-1 Prop. 3.4 is unavailable. REC-1 Prop. 3.8's zero-entropy constraint is not needed for this verdict | — |
-| A4 torus, accessible time | Witnesses exist (exact return at the order; earlier revivals) but all at $t\ge(L-\operatorname{ext}W)/2$ (Cor. 4.2) | Diverges with $L$; no fixed accessible time survives |
+| Cubic torus $(\mathbb Z/L)^d$, accessible time | Witnesses exist (exact return at the order; earlier revivals) but all at $t\ge(L-\operatorname{ext}W)/2$ (Cor. 4.2; revivals under (Q), (LC)) | Diverges with $L$; no fixed accessible time survives |
 
 *Main.md:121, :129, :135–:145.* The finite-carrier theorems are unaffected (the torus computations
-reproduce them). Their A1-free analogues fail for the selected update under Haar: on $\mathbb Z^d$,
-Main.md:139's equivalence loses (b)⇒(c), since $\Gamma_1$ is a non-permutation and the family is
-P-divisible at every horizon (Thm 3.3). Whether (a), a readback gap, holds there was not computed.
+reproduce them). On $\mathbb Z^d$, for prime $q$, $\alpha\ne0$ and lattice-convex windows, the infinite-carrier
+analogue of Main.md:139's equivalence (REC-1 Prop. 6.2, labels (a)–(c) there) loses (b)⇒(c), since
+$\Gamma_1$ is a non-permutation and the family is P-divisible at every horizon (Thm 3.3); Main.md:139,
+stated for a finite representative of order $L$, is not contradicted, and the new content is that OI's
+own update is such an instance. Whether REC-1's (a), a readback gap, holds there was not computed.
 
 *Main.md:155 ($t_R$).* The continuous-time paragraph conditions on a common near-total return at
 $t_R$ and notes that Poincaré recurrence does not supply it. For the discrete selected update on
-$\mathbb Z^d$ under Haar there is no common near-total return at any $t\ge1$ (Prop. 2.3), a fact
-stronger than "not supplied". On tori, $t_R$ in the sense of $\Gamma_{t_R}=I$ equals the order of $F$ in
+$\mathbb Z^d$ under Haar with $\alpha$ non-nilpotent there is no common near-total return at any $t\ge1$
+(Prop. 2.3); Main.md:155's Hamiltonian statement itself is not tested. On tori, $t_R$ in the sense of $\Gamma_{t_R}=I$ equals the order of $F$ in
 every computed case and is at least $(L-\operatorname{ext}W)/2$ (Cor. 4.2).
 
 *Main.md:540–544 (accessible order, $k\tau_S\ll t_R$).* Condition (ii) concerns conditional memory, not
 revival, and is not tested here. The revival route of this record has no witness of accessible order:
-on $\mathbb Z^d$ none at all (convex windows), on tori none before $(L-\operatorname{ext}W)/2$ steps.
+on $\mathbb Z^d$ none at all (prime $q$, $\alpha\ne0$, convex windows), on cubic tori none before $(L-\operatorname{ext}W)/2$ steps.
 
 *book/ch18-beyond.md:170–172.* REC-1 (verdict U18) flagged that ch18:170, read as closing every route to
 recurrence-scale P-indivisibility on an infinite hidden sector, was stronger than the record then
-supported. For the selected update with $\alpha$ non-nilpotent, prime $q$, Haar prior and lattice-convex
-windows, that unrestricted reading is now supported: on $\mathbb Z^d$ no rooted route (exact return,
-near-return, rigidity or any revival) gives P-indivisibility. For the nilpotent branch the sentence
-"Infinite hidden sectors would break the recurrence argument" does not hold as stated for the form
-class (Prop. 5.1), though only for a non-propagating coefficient. Finding for the coordinator; no
+supported. For the selected update with prime $q$, $\alpha\ne0$, Haar prior and lattice-convex
+windows, ch18:170's sentence holds in its strong form: on $\mathbb Z^d$ no rooted route (exact return,
+near-return, rigidity or any revival) gives P-indivisibility. This supports the sentence for that class
+only. It does not hold as stated when $\alpha$ is a nonzero nilpotent in some primary component of
+$\mathbb Z_q$ (Prop. 5.1; node 5 remark (4)), nor for infinite carriers in general (REC-1 Prop. 3.4
+under (RIG)). Finding for the coordinator; no
 manuscript edit is made.
 
 ### Node 7 — Reproducible computation and controls
@@ -405,7 +430,7 @@ manuscript edit is made.
 The script below uses only the Python standard library and exact integer arithmetic modulo $q$ (rank
 computations over the prime field). On $\mathbb Z^d$ it is exact, because the visible values at time
 $t$ depend on finitely many initial coordinates (those within graph distance $t$ of $W$), and it
-enumerates exactly those. Run: `python3 nr1_probe.py` (about one second).
+enumerates exactly those. Run: `python3 nr1_probe.py` (about ten seconds).
 
 - **Part A** prints, for each window, $\dim K_t$ and $\dim N_t$ for $t=0,\dots,T$ and the first pair
   $(s,t)$ with $N_s\not\subseteq N_t$ (a C4e witness by Lemma 2.4); "none" means none up to $T$.
@@ -418,12 +443,18 @@ enumerates exactly those. Run: `python3 nr1_probe.py` (about one second).
   the first identity time. Predicted by Lemma 2.2, Prop. 4.1 and Cor. 3.4: $\{0,1\}$, monotone, $7$,
   $14$ (part B's $(1,7)$ and order $14$).
 - **Part D** (node 5): least $N$ with $F^N=\mathrm{id}$ on $\mathbb Z^3$ for nilpotent $\alpha$.
+- **Part E** (node 5 remark (4)): composite $q$ in $d=1$, computed by direct convolution of the uniform
+  hidden coordinates through the linear forms (no coset, subgroup or splitting lemma used), in exact
+  rationals: $\min_c\Gamma_t(c,c)$ for $t=0,\dots,6$, the set of TV values and the first strict TV
+  increase over all pairs of roots for $W=\{0\}$; for $W=\{0,1\}$ the pair of roots $0$ and
+  $(u(0),v(0),u(1),v(1))=(0,6,0,0)$ up to $t=3$. Run time about ten seconds.
 
 ```python
 # NR-1 exact probe: second-order rule x(t+1) = alpha*S x(t) - x(t-1) mod q,
 # S = nearest-neighbour sum on Z^d (or the torus (Z/L)^d), window readout
 # (current and previous value at every window site), Haar (uniform product) prior.
-# Exact arithmetic over the prime field F_q; no floating point.
+# Exact arithmetic: ranks over the prime field F_q (parts A, B); exact integer and rational
+# arithmetic modulo composite q (parts D, E); no floating point.
 import itertools, sys
 
 def add(a, b, q, c=1):
@@ -561,6 +592,46 @@ def brute_torus_1d(L, q, alpha, T):
     ident = [all(G[r][t].get(r, 0) == tot for r in roots) for t in range(T + 1)]
     return D, ident
 
+from fractions import Fraction
+from itertools import product
+
+def pushforward(rows, W, q, root):
+    """Exact law of the visible vector at time t for a given root: direct convolution over the
+    independent uniform hidden coordinates (no coset or subgroup lemma used)."""
+    Wset = set(W); vis = [(w, c) for w in W for c in ('u', 'v')]
+    n = len(rows)
+    base = tuple(sum(r.get(vk, 0) * root[i] for i, vk in enumerate(vis)) % q for r in rows)
+    dist = {base: 1}
+    hidden = sorted({k for r in rows for k in r if k[0] not in Wset})
+    for k in hidden:
+        col = [r.get(k, 0) for r in rows]
+        nd = {}
+        for y, m in dist.items():
+            for h in range(q):
+                z = tuple((y[i] + h * col[i]) % q for i in range(n))
+                nd[z] = nd.get(z, 0) + m
+        dist = nd
+    tot = sum(dist.values())
+    return {y: Fraction(m, tot) for y, m in dist.items()}
+
+def tv(p, r):
+    return sum(abs(p.get(k, 0) - r.get(k, 0)) for k in set(p) | set(r)) / 2
+
+def study(q, alpha, W, T, all_pairs=True, pairs=None):
+    d = len(W[0]); P = plist(T, q, d, alpha)
+    roots = list(product(range(q), repeat=2 * len(W)))
+    use = roots if all_pairs else sorted({x for pr in pairs for x in pr})
+    G = []
+    for t in range(T + 1):
+        rows = rowsys(P, t, W, q)
+        G.append({a: pushforward(rows, W, q, a) for a in use})
+    diag = [min(G[t][c].get(c, 0) for c in use) for t in range(T + 1)]
+    prs = [(a, b) for i, a in enumerate(use) for b in use[i + 1:]] if all_pairs else pairs
+    D = [{pr: tv(G[t][pr[0]], G[t][pr[1]]) for pr in prs} for t in range(T + 1)]
+    vals = sorted({v for t in range(T + 1) for v in D[t].values()})
+    first = min(((s, t) for t in range(T + 1) for s in range(t) for pr in prs if D[t][pr] > D[s][pr]), default=None)
+    return diag, vals, first
+
 if __name__ == '__main__':
     print("== A. Z^d, Haar prior, window readout: dims of K_t and N_t; first collision-then-separation ==")
     cases = [
@@ -616,6 +687,15 @@ if __name__ == '__main__':
                 order = t; break
             P.append(add(mulS(P[-1], q, 3, a), P[-2], q, -1)); t += 1
         print(f"q={q} alpha={a}: F^N = id on Z^3 at N={order}")
+    print("== E. Composite q, d = 1, Haar prior, direct pushforward (exact rationals) ==")
+    for q, a, T in [(12, 2, 6), (6, 2, 6), (4, 2, 6), (8, 2, 6)]:
+        diag, vals, first = study(q, a, [(0,)], T)
+        print(f"q={q} alpha={a} W={{0}}: min_c Gamma_t(c,c) t=0..{T} = {[str(x) for x in diag]}; "
+              f"TV values {[str(v) for v in vals]}; first strict TV increase {first}")
+    # W = {0,1}, q = 12, alpha = 2: root pair (delta, 0) with delta = (u0,v0,u1,v1) = (6,0,0,0)
+    delta = (0, 6, 0, 0); zero = (0, 0, 0, 0)
+    diag, vals, first = study(12, 2, [(0,), (1,)], 3, all_pairs=False, pairs=[(zero, delta)])
+    print(f"q=12 alpha=2 W={{0,1}} roots 0 and {delta}: TV values {[str(v) for v in vals]}; first strict TV increase {first}")
 ```
 
 Expected output:
@@ -670,9 +750,16 @@ q=8 alpha=2: F^N = id on Z^3 at N=8
 q=8 alpha=4: F^N = id on Z^3 at N=4
 q=9 alpha=3: F^N = id on Z^3 at N=12
 q=12 alpha=6: F^N = id on Z^3 at N=4
+== E. Composite q, d = 1, Haar prior, direct pushforward (exact rationals) ==
+q=12 alpha=2 W={0}: min_c Gamma_t(c,c) t=0..6 = ['1', '0', '1/36', '0', '1/9', '0', '1/36']; TV values ['0', '1']; first strict TV increase (1, 3)
+q=6 alpha=2 W={0}: min_c Gamma_t(c,c) t=0..6 = ['1', '0', '1/9', '0', '1/9', '0', '1/9']; TV values ['0', '1']; first strict TV increase None
+q=4 alpha=2 W={0}: min_c Gamma_t(c,c) t=0..6 = ['1', '0', '1/4', '0', '1', '0', '1/4']; TV values ['0', '1']; first strict TV increase (1, 3)
+q=8 alpha=2 W={0}: min_c Gamma_t(c,c) t=0..6 = ['1', '0', '1/16', '0', '1/4', '0', '1/16']; TV values ['0', '1']; first strict TV increase (1, 3)
+q=12 alpha=2 W={0,1} roots 0 and (0, 6, 0, 0): TV values ['0', '1']; first strict TV increase (1, 3)
 ```
 
-Control verdicts: part B's detector finds a revival on every torus (positive control); part C agrees
+Control verdicts: part B's detector finds a revival on every torus (positive control); part E finds
+the predicted witness $(1,3)$ for $q=4,8,12$ with $\alpha=2$ and none for $q=6$, $\alpha=2$; part C agrees
 with the linear-algebra predictions in every printed quantity (independent control); part A's
 convex-window rows agree with Theorem 3.3 (no revival), and its $\dim K_t\ge1$ for $t\ge1$ agrees with
 Prop. 2.3. The verdicts above are stated from these measurements and the proofs; none is rendered over a
@@ -684,7 +771,7 @@ failed control.
    $\mathbb Z_q$ with $S$ the nearest-neighbour sum (Main.md:728 (xiii), SM.md:224–228), explicit at
    $q=2$, $\alpha=1$ (Main.md:292); $q$, $\alpha$ and an infinite-lattice law are not fixed on `main`.
 2. **F11 fails without A1.** On $\mathbb Z^d$ with the Haar (uniform product) law, the infinite-volume
-   limit of A4's uniform laws, and any finite window readout, for every non-nilpotent $\alpha$: every
+   limit of the uniform laws on cubic tori, and any finite window readout, for every non-nilpotent $\alpha$: every
    rooted row at every $t\ge1$ is uniform on a coset of a nonzero subgroup, so
    $\Gamma_t(c,c)\le1/2$; F11's near-return with margin, exact return and rigidity all fail
    (Prop. 2.3).
@@ -695,17 +782,22 @@ failed control.
    although $\Gamma_1$ is a non-permutation (Thm 3.3; single site explicit in Cor. 3.4). OI's own rule
    is therefore a counterexample to the revival route on an infinite lattice under the natural law.
    Non-convex windows: no revival in the exact computations listed; general case open.
-4. **Tori.** On A4 tori every near-return and every revival (convex windows) occurs at
+4. **Tori.** On cubic tori $(\mathbb Z/L)^d$ (a subclass of A4's periodic lattices) every near-return
+   and every revival (prime $q$, convex windows) occurs at
    $t\ge(L-\operatorname{ext}W)/2$ (Cor. 4.2); computed first revivals are wave circumnavigations at
    $t\approx L$ in $d=1$, before the exact return at the order of $F$. No witness survives at a fixed
    time as $L\to\infty$.
-5. **Only A1-free positive branch.** For a nonzero nilpotent coefficient (non-squarefree $q$),
-   $F^N=\mathrm{id}$ on the infinite lattice and P-indivisibility holds exactly (Prop. 5.1); that branch
-   has bounded causal support and no propagation, is excluded by the explicit instance and the prime-$q$
-   statements on `main`, and is not credited.
-6. **Consequence.** For OI's actual linear dynamics with a non-nilpotent coefficient, recurrence-scale
-   P-indivisibility does not hold A1-free under the natural infinite-volume law with a window readout;
-   for convex windows no rooted P-indivisibility holds at all. Total finiteness (or another source of a
+5. **A1-free positive branches.** When $\alpha$ is a nonzero nilpotent in some primary component of
+   $\mathbb Z_q$ (some prime $p$ with $p^2\mid q$, $p\mid\alpha$; e.g. $q=4,\alpha=2$, or
+   $q=12,\alpha=2$), a C4e witness occurs on $\mathbb Z^d$ at a lattice-independent time; when every
+   component is nilpotent or zero, $F^N=\mathrm{id}$ (Prop. 5.1). The witness lives in a component with
+   bounded causal support; these branches lie outside the explicit instance and the prime-$q$
+   statements on `main`, and are not credited.
+6. **Consequence.** For prime $q$ and $\alpha\ne0$ (the class of the explicit instance),
+   recurrence-scale P-indivisibility does not hold A1-free under (Haar) with a window readout, and for
+   lattice-convex windows no rooted P-indivisibility holds at all. For every $q$ and non-nilpotent
+   $\alpha$, near-return, exact return and rigidity fail (Prop. 2.3), but a revival can occur
+   (Result 5). Total finiteness (or another source of a
    common return) remains load-bearing for this conclusion, as Main.md:113–129 and ch18:170 state.
 7. A1 remains open and unadopted; A4 is unchanged; physical source NOT PASSED. No manuscript, Lean or
    registry edit.
@@ -713,21 +805,24 @@ failed control.
 **Hypothesis ledger.** (U): on `main` (Main.md:728 (xiii); SM.md:224–228; Substratum.md:159; instance
 Main.md:292), a posit of the selected model. (Λ): posited for this check. (Q), (NN), (LC): conditions of
 the stated propositions; (Q) holds in the instance on `main`. (Haar): posited; proved to be the
-cylinder limit of the A4 uniform laws (Prop. 4.3) and invariant (Lemma 2.1). (R): on `main` as Main
+cylinder limit of the cubic-torus uniform laws (Prop. 4.3) and invariant (Lemma 2.1). (R): on `main` as Main
 §3.2's region readout. (S1)–(S5): standard, short proofs or textbook linear algebra; (S4) is the
 integral-domain property of Laurent polynomial rings over a field. Kernel theorems:
 `c4r_implies_pIndivisible` (CausalReadback.lean:134), `c4e_implies_pIndivisible` (:148),
 `c4e_implies_c4r` (:126), overlap-and-return (RecurrenceHorizon.lean:119), on `main`. New statements
-(Lemmas 2.1–2.4, 3.1–3.2, Thm 3.3, Cor. 3.4, Props. 4.1–4.3, Cor. 4.2, Prop. 5.1): proved here on paper,
+(Lemmas 2.1–2.4, 3.1–3.2, Thm 3.3, Cor. 3.4, Props. 4.1–4.3, Cor. 4.2, Prop. 5.1 with the primary-component splitting of node 5 remark (4)): proved here on paper,
 not kernel-certified. Supply of (Λ) or (Haar) by nature: open.
 
 **Productivity outcome (§A.31).** NEW: Prop. 2.3 (F11, exact return and rigidity decided negative for
 the selected update), Thm 3.3 with Cor. 3.4 (revival route decided negative for convex windows; the
 selected update's own counterexample), Cor. 4.2 (light-crossing lower bound on every torus witness),
-Prop. 5.1 (assumption-watch: nilpotent coefficient). ELABORATING: Lemma 2.4, Lemma 3.1, Props. 4.1,
+Prop. 5.1 with node 5 remark (4) (assumption-watch: a nonzero nilpotent coefficient in some primary
+component of $\mathbb Z_q$ gives a revival on $\mathbb Z^d$ even when $\alpha$ is not nilpotent).
+ELABORATING: Lemma 2.4, Lemma 3.1, Props. 4.1,
 4.3. CONFIRMING: node 1. One depth-first pass was made; the fixed-point criterion of 3–4 passes without
 NEW findings is not claimed. Cross-propagation marker: any A1-free claim about the selected update must
-state its law, its readout geometry and whether $\alpha$ is a unit.
+state its law, its readout geometry, whether $q$ is prime, and how $\alpha$ reduces in each primary
+component of $\mathbb Z_q$.
 
 ## 5. Open questions
 
@@ -739,9 +834,13 @@ state its law, its readout geometry and whether $\alpha$ is a unit.
 3. Other invariant laws on $\mathbb Z^d$: non-product translation-invariant laws, and laws concentrated
    on spatially periodic configurations (which reproduce a finite torus and so reintroduce total
    finiteness under another name).
-4. Composite $q$ with a unit coefficient: Prop. 2.3 holds; Theorem 3.3's proof uses (S4) over a field
-   and is not claimed there.
+4. Composite $q$: Prop. 2.3 holds for non-nilpotent $\alpha$, and the mixed case has revivals (node 5
+   remark (4)). Whether Theorem 3.3 extends to unit components of prime-power order is open: its proof
+   uses (S4) over a field, and the expected route (McCoy's theorem in place of (S4) and finite-group
+   duality in place of (S3)) is not written out here. An exact characterization of the windows with
+   monotone $N_t$ is likewise open.
 5. Whether a readback gap (C4 memory) holds on $\mathbb Z^d$ for the selected update; it would give
    accessible conditional memory with a P-divisible rooted family, as in Main's XOR control.
-6. Whether the selected-model posit (Main.md:728 (xiii)) should state that $\alpha$ is a unit of
-   $\mathbb Z_q$, or $q$ prime; this decides whether Prop. 5.1's branch belongs to the selected class.
+6. Whether the selected-model posit (Main.md:728 (xiii)) should state that $q$ is prime, or that
+   $\alpha$ is a unit in every primary component of $\mathbb Z_q$; this decides whether the branches of
+   Prop. 5.1 and node 5 remark (4) belong to the selected class.
