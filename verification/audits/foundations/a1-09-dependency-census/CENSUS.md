@@ -296,22 +296,40 @@ Only the last case is a correction candidate.
 
 **Pin:** `main` at `5ea8672f`. **Modules (25):** ClosureObstruction, CoherentLift, DimensionalCountermodel, InstrumentDilation, InstrumentRealization, KInfFoundations, KTokenMaxCone, MicroscopicReversibility, PhysicalCharacterization, Purification, RankGapTheory, ReferenceSufficiency, SubstantiveCensus, TypedCompletion, UhlmannUniqueness, WeylLift, Separability, ImplementationLocality, BarandesTuple, OperationalSourcing, CandidateSelection, TrackBQfbBridge, OrbitGeometryIsometries, OrbitGeometrySelector, ContinuousExtension.
 
-**Recipe.** As for §9: read every line carrying a flagged finiteness, map the module to its registry families, and read the paragraph of each manuscript anchor.
+**Recipe.** As for §9, with one addition. Besides the anchors in the registry, search the manuscripts for every declaration name defined in these modules, and read each citing paragraph.
 
-**Lean side.** The flagged types fall into three kinds:
-1. **A finite index of a family.** `ι` is a Kraus or outcome index, or the index of a finite family of points or channels, in ClosureObstruction, DimensionalCountermodel, InstrumentDilation, InstrumentRealization, KInfFoundations, KTokenMaxCone, MicroscopicReversibility (:189), PhysicalCharacterization, Purification, RankGapTheory, SubstantiveCensus, UhlmannUniqueness, WeylLift, Separability and ImplementationLocality. No A1 relevance.
-2. **The dimension of a finite quantum system or register.** This covers `C` in ClosureObstruction (:343), MicroscopicReversibility (:142) and ReferenceSufficiency; `W` as a readout outcome set in CoherentLift; `X`/`Y` in TypedCompletion; `X` in ContinuousExtension; and `W` as the lift dimension in TrackBQfbBridge and the OrbitGeometry modules. This is finiteness of an observable system or of a representation, not of the substratum. No A1 relevance.
-3. **A hidden or ancilla carrier of a realization.** `H` and `Anc` in OperationalSourcing (:209, :259); `C`, `W` and `H` in BarandesTuple (:100, :282, :416); `Anc` in CandidateSelection. These are finite carriers stated as hypotheses (**F**).
+**Lean side.** The finite types fall into four kinds.
+1. **Finite family index.** No A1 relevance. This is `ι` as a Kraus, outcome or projector-family index, or as the index of a finite family of points or channels, in:
+   - ClosureObstruction, DimensionalCountermodel, InstrumentDilation, InstrumentRealization, KInfFoundations, KTokenMaxCone, MicroscopicReversibility (:189), PhysicalCharacterization, Purification, RankGapTheory;
+   - SubstantiveCensus, UhlmannUniqueness, WeylLift, Separability, ImplementationLocality, CoherentLift (:482) and TypedCompletion (:455, :480).
+2. **Dimension of a finite quantum system, register or visible alphabet.** This is finiteness of an observable system or representation, not of the substratum, so it has no A1 relevance. It covers:
+   - `C` as a span-lemma vector type in ClosureObstruction (:343), MicroscopicReversibility (:142) and ReferenceSufficiency (:101);
+   - `C` as a register in TypedCompletion (:479), and `X`/`Y` in TypedCompletion;
+   - `X` in ContinuousExtension, and `W` as a readout outcome set in CoherentLift;
+   - `W` as the visible alphabet of a rooted family `Γ : ℕ → Matrix W W ℝ`, in TrackBQfbBridge, both OrbitGeometry modules, BarandesTuple (:282, :479, :487) and OperationalSourcing (:820);
+   - `C` in BarandesTuple (:100), which is the visible alphabet ("The declaration is `C := V`", :377);
+   - KTokenMaxCone's concrete `instance carrierFintype` (:63), a Pauli-label register.
+3. **Hidden or ancilla carrier of a realization, stated as a hypothesis (F).** It covers:
+   - `H` and `Anc` in OperationalSourcing (:209, :259 and following);
+   - `H` in BarandesTuple (:416), the hidden carrier of `RootedRealization V H`;
+   - `Anc` in CandidateSelection (:343);
+   - the ancilla `A` (`[Fintype A]`) of the OrbitGeometry lifts on `W × A`, which the name filter does not flag.
+4. **Finite configuration set of a realization, stated as a hypothesis (F).** In CoherentLift, `S` (:87, `[Fintype S]`) is the domain of `permMatrix (g : S ≃ S)`: the configuration set of the finite realization in the D ⇒ Q_fb step. The name filter does not flag it either.
 
-**Manuscript side.**
-- **Kernel-only or verification-only families, with no manuscript anchor:** instruments, dilation and assembly; instrument realization; the K∞ vocabulary; the k-token cone; tuple instantiation; candidate selection; both orbit-geometry families; the continuous-extension round. No manuscript claim rests on them through the registry.
-- **Completion classification and the primitive-source chain:**
-  - GR:216, 242 and 252, Main:592 and FULL:500 state the operational characterization "on every nonempty finite carrier", that is, on finite quantum systems. That is finiteness of the observable system, not total finiteness (**A** at observable scope; cf. D31).
-  - GR:216's minimality witnesses are finite qubit countermodels, for which a finite witness suffices.
-  - The substratum-source sentence in Main:592 and FULL:500 is scoped explicitly: "the concrete OI substratum, in its finite model (ledger item (ii))". **F**, stated.
-- **Coherent completions (GR:188) and typed completion (GR:272):** classification on "nonempty finite carriers", meaning quantum registers; observable scope.
-- **Operational sourcing (Main:648) and the fixed-basis image of a single-time lift (Main:648, ch01:187, ch19:285):** finite lifts and ancillas of finite visible laws, within the finite-horizon representation layer. Observable scope; no total-finiteness claim.
+**Manuscript side.** None of the kernel-only or verification-only families (instruments, dilation and assembly; instrument realization; the K∞ vocabulary; the k-token cone; tuple instantiation; candidate selection; both orbit-geometry families; the continuous-extension round) is named in `papers/*.md`, `book/ch*.md` or `book/appendix*.md`. Of their declarations, only `countermodel` (DimensionalCountermodel.lean:621) is cited, at GR:216. Every citing paragraph read:
+- **Coherent completions.** GR:188 is the heading; GR:190–192 give "an explicit finite carrier" and "the same finite visible dimension", citing `shell_representation_from_comb`, `comb_mixture_of_shell_representation` and `uniform_overlap_obstruction`. The setting is a finite class (D)/Q_fb realization (Main:554), so CoherentLift's kind-4 `S` is used within its finite scope. **F**, stated.
+- **Completion classification and the primitive-source chain.**
+  - GR:214 is the theorem statement: "For every nonempty finite visible system".
+  - GR:216 cites the minimality witnesses `five_way_minimality` and `countermodel`, which are finite qubit countermodels; a finite witness suffices.
+  - GR:230, 242, 244, 246 and 252–254 ("holds on every nonempty finite carrier") concern finite quantum systems, at observable scope.
+  - Main:356 cites `physical_of_exactAll` for "every fixed finite representative".
+  - Main:566 "What no fixed finite carrier can do" is scoped.
+  - The substratum-source sentence in Main:592 and its mirror FULL:500 reads "the concrete OI substratum, in its finite model (ledger item (ii))", and GR:256 states the GR counterpart as a condition: "The concrete OI substratum under A1 — finite states and bijective microscopic dynamics" (A1 is defined at GR:669). GR:260 adds that the controllability resource "is not entailed by A1–A6". **F**, stated.
+  - The same phrases recur at ch01:165, ch19:126 and FULL:522, 5271 and 5430, with the same scope.
+- **Typed completion (GR:272):** a classification "between any two nonempty finite carriers", meaning quantum registers. Observable scope.
+- **Operational sourcing and the fixed-basis image of a single-time lift.** Main:648, ch01:187 and ch19:285 concern lifts and ancillas of finite visible laws. Main:554 defines Q_fb as "finite-dimensional unitary systems", so a tensor-factor ancilla of a Q_fb datum is finite by definition, even where the sentence ("an ancilla attached as a tensor factor … leaves the rooted family unchanged (kernel: `padData_rooted`)") does not say "finite". Finite-horizon representation layer; no total-finiteness claim.
+- **Main:314** (WeylLift, Separability) is covered in §9.
 
-**Result.** No correction candidate in this batch. All 25 modules are classified: kinds 1 and 2 carry no A1 relevance, and kind 3 is **F**, stated, or kernel-only.
+**Result.** No correction candidate in this batch. All 25 modules are classified: kinds 1 and 2 carry no A1 relevance, and kinds 3 and 4 are **F**, stated or used within their finite scope.
 
 **No new physics premise, scientific computation, proof, manuscript revision, Lean revision, evidence deletion, status promotion, or merge occurred in this audit.**
