@@ -82,6 +82,7 @@ import OIBridge.WeylTwirl
 import OIBridge.WeylLift
 import OIBridge.BoundaryRank
 import OIBridge.Reciprocity
+import OIBridge.MeasuredReciprocity
 import OIBridge.GaugeDimension
 import OIBridge.BohrFrequency
 import OIBridge.FrequencyMatching
