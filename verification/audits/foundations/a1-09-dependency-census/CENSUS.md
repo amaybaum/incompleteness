@@ -152,7 +152,7 @@ These are source-review referrals, **not** accepted textual corrections or indep
 
 The independent first-pass review ([#1340 review at `a64e2528`](https://github.com/amaybaum/incompleteness/pull/1340)) checked each candidate against CHANGEMAP-A1C-r6-min, #1313's minimum-change map (`verification/audits/foundations/a1-foundations-20261115/change-map/` on branch `research/a1-foundations-1169-20261115` at `c6e85058`). That map asked only whether a sentence presents finiteness as a fact about nature.
 
-**Reference classification (§A.42 item 8).** The map is not on `main`, so its rulings below are **provenance only**. Each disposition rests on `main` text: D09 on Main:437, Main §2.3 and Lemma B.7.3 (`book/appendix-b-derivations.md:413`); D26 on GR:665 and :669; D34a on Main:137–139; D36 on Structure:226, :230 and :270; D37 on Structure:226; D39 on appendix-c:128 and :130.
+**Reference classification (§A.42 item 8).** The map is not on `main`, so its rulings below are **provenance only**. Each disposition rests on `main` text: D09 on Main:437, Main §2.3 and Lemma B.7.3 (`book/appendix-b-derivations.md:413`); D26 on GR:665 and :669; D34a on Main:137–139; D36 on Structure:224, :230 and :270; D37 on Structure:224; D39 on appendix-c:128 and :130.
 
 | Candidate | #1313 ruling | Why this is a different defect, or none | Disposition |
 |---|---|---|---|
