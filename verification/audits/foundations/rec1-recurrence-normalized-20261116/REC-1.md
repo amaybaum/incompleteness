@@ -1,11 +1,12 @@
 # REC-1 — Recurrence under a normalized invariant hidden law
 
-**Status:** Paper-only check, not yet independently reviewed. Paper proofs and explicit
-constructions only; no Lean module, simulation, manuscript edit or physical premise is added.
+**Status:** Paper-only check. Independent review ACCEPT WITH CHANGES at `8aec80e9`; changes applied in
+this revision; delta review pending. Paper proofs and explicit constructions only; no Lean module, simulation, manuscript edit or physical premise is added.
 Every statement below is conditional on the hypotheses named with it (§2). A1 is neither assumed
 nor asserted; it appears only as the comparison premise of the controls in node 6.
 
-**Authority.** Owner decision on #1169, comment 6923725531, by `amaybaum`, 2026-11-16T17:21:37Z.
+**Authority.** Owner decision recorded on #1169 in comment 6923725531 by `amaybaum`,
+2026-11-16T17:21:37Z.
 The owner's words: "Proceed as suggested". Item 2 of that decision reads: "**REC-1 (recurrence).**
 Recurrence under a normalized invariant hidden law, which A1 implies (the uniform law), in place of
 total finiteness. It covers the Poincaré recurrence statement, its relation to the infinite-XOR
@@ -22,7 +23,7 @@ The RO-3 material that the premise ladder cites from an unmerged branch is not u
 
 **Starting record.** `verification/audits/foundations/a1-10-recurrence-premises/PREMISE-LADDER.md`
 (cited as "the ladder", with its row labels F1–F17 and controls C+, C−1, C−2). This check extends
-the ladder's rows F8, F11, F16 and its §5; it does not restate them.
+the ladder's rows F8, F10, F11, F16 and its §§3.3–3.4 and 5; it does not restate them.
 
 ## 0. Question
 
@@ -64,7 +65,7 @@ the distance from $x\in\mathbb R$ to the nearest integer.
 | (D) | Domination: $\delta_a\otimes\rho\ll\mu$ for every $a$, for some $\mu$ satisfying (I) | Implied by (P) (Lemma 2.4). On a finite carrier holds for every $\rho$ with $\mu$ uniform |
 | (RET) | Common rooted identity return: $\Gamma_N=I$ for some $N\ge1$ | Not implied by (V)(M)(I)(P) (node 3). On a finite carrier: on `main`, Main.md:121, :137 |
 | (PER) | Exact common period: $F^N x=x$ for $\mu$-a.e. $x$, some $N\ge1$ | Not implied by (V)(M)(I)(P) (node 3). On a finite carrier: on `main`, Main.md:121 |
-| (RIG) | Visible-partition rigidity: some $n_k\to\infty$ has $\mu(C_a\,\triangle\,F^{-n_k}C_a)\to0$ for every $a$ | Posited where used; not implied by (V)(M)(I)(P) (node 3); implied by (PER) |
+| (RIG) | Visible-partition rigidity: some $n_k\to\infty$ has $\mu(C_a\,\triangle\,F^{-n_k}C_a)\to0$ for every $a$ | Posited where used; not implied by (V)(M)(I)(P) (node 3); implied by (RET) under (I)(P) (Prop. 3.6′) and by (PER) |
 | (FS) | Full-support visible prior for the history law (root drawn from it independently of $\rho$) | Main's own hypothesis at Main.md:139 |
 | Nature | That the actual OI update carries a law satisfying (I)/(P), or (RIG) | Open. Not addressed here; no physical-recovery credit is taken |
 
@@ -83,11 +84,13 @@ the distance from $x\in\mathbb R$ to the nearest integer.
 |---|---|---|
 | Stochastic-inverse lemma | Main.md:131–133; `isPermMatrix_of_stochastic_inverse`, EquivalenceChain.lean:110 | Kernel |
 | Revival no-go: a strict increase of $d$ between two rooted rows (C4r) forbids P-divisibility within the horizon | `c4r_implies_pIndivisible`, CausalReadback.lean:134 (Section A: finite $V$, real matrices, no carrier, prior or reversibility) | Kernel |
-| Collision–revival no-go (C4e) | `c4e_implies_pIndivisible`, CausalReadback.lean | Kernel |
+| Collision–revival no-go (C4e) | `c4e_implies_pIndivisible`, CausalReadback.lean:148 | Kernel |
 | Identity return plus overlap forbids P-divisibility | `pIndivisible_of_identity_return_of_overlap`, RecurrenceHorizon.lean:119; `pIndivisible_of_visible_identity_return_nonperm`, ObservableFactorRecurrence.lean:68 | Kernel |
 | The matrix family $\Gamma_0=I$, $\Gamma_t=J_2$ ($t\ge1$) is P-divisible at every horizon | `pdFamily_pDivisible`, CausalReadback.lean:256 | Kernel |
 | A non-permutation square row-stochastic matrix has two distinct rows sharing positive mass | Main.md:137 (kernel note); ladder §3.1 | Paper |
 | Markov with full-support initial law implies P-divisible; no readback gap below $n$ implies Markov on $\{0,\dots,n\}$ | Main.md:630, Main.md:139 | Paper |
+| One common near-return with margin after an overlap gives P-indivisibility, on any carrier (ladder F11) | PREMISE-LADDER.md:59, :93–105, through `c4r_implies_pIndivisible` | Paper bound plus kernel |
+| Cell-conditioned identity return equals $\pi F^N=\pi$ a.e. (ladder F10) | PREMISE-LADDER.md:58, :83–91 | Paper plus kernel (ENNReal form) |
 | Infinite-XOR construction and its all-time rooted family | `verification/programmes/substratum/continuous-substates/infinite-xor-counterexample.md`:7–34 | Paper; bounded regression by its probe |
 
 ## 3. Nodes
@@ -95,7 +98,8 @@ the distance from $x\in\mathbb R$ to the nearest integer.
 ### Node 1 — Inventory of uses
 
 Categories: **(i)** exact periodicity of the global map, $F^N=\mathrm{id}$; **(i\*)** common rooted
-identity return $\Gamma_N=I$ (implied by (i), and by (ii) since $\Gamma_0=I$); **(ii)** periodicity
+identity return $\Gamma_N=I$ (implied by (i), and by (ii) since $\Gamma_0=I$; under (I)(P) it
+implies visible (ii), Prop. 3.6′); **(ii)** periodicity
 of time-indexed visible laws (rooted maps or multi-time laws); **(iii)** almost-every-point
 recurrence; **(iv)** return of a visible event or cylinder; **(v)** a return time within an
 accessible range.
@@ -103,20 +107,25 @@ accessible range.
 | Use | Site on `main` | What the use consumes | Category |
 |---|---|---|---|
 | U1 One-step theorem, Step 1 | Main.md:121, :129; mirrors SM.md:44, GR.md:90, book/ch01-observation.md:111 (FULL:446), book/appendix-b-derivations.md:413–417 (FULL:6164) | $T^{(N)}=I$ under the uniform hidden prior, from $\varphi^N=\mathrm{id}$ | (i) ⇒ (i\*) |
-| U2 History readback + finite recurrence | Main.md:135–139 | $\Gamma_L=I$; periodicity $\Gamma_{t+L}=\Gamma_t$ to place a non-permutation map at $1\le s\le\min(k,L-1)$; the full-support equivalence over $\{0,\dots,L\}$ | (i) ⇒ (i\*), (ii) |
+| U2 History readback + finite recurrence | Main.md:135–139; mirrors book/ch01-observation.md:181, book/glossary.md:117 | $\Gamma_L=I$; periodicity $\Gamma_{t+L}=\Gamma_t$ to place a non-permutation map at $1\le s\le\min(k,L-1)$; the full-support equivalence over $\{0,\dots,L\}$ | (i) ⇒ (i\*), (ii) |
 | U3 Overlap and return | Main.md:141–143 | $\Gamma_n=I$ taken as a hypothesis; nothing derived from recurrence | (i\*) as input |
-| U4 Continuous-time extension | Main.md:155 | Common near-total return at some $t_R>t_1$; states that Poincaré recurrence does not supply it | weakened (i\*) |
-| U5 Summary and scope statements of U1–U2 | Main.md:18, :80, :157, :178, :180, :338, :630, :720, :737; SM.md:308; Complexity.md:474; Structure.md:1140–1177 | Inherit U1/U2 | (i\*) |
+| U4 Continuous-time extension | Main.md:155; mirror book/ch01-observation.md:119 | One common near-total return at some $t_R>t_1$; states that Poincaré recurrence does not supply it | weakened (i\*): one common near-return (ladder F11) |
+| U5 Summary and scope statements of U1–U2 | Main.md:18, :80, :157, :178, :180, :338, :630, :720, :728, :735, :737; Introduction.md:12; Substratum.md:44, :137, :268; Structure.md:1024, :1140–1177, :1189, :1255; GR.md:138, :585; SM.md:112, :236, :308; Complexity.md:430, :474; Methodology.md:156; Medicine.md:13, :25, :35; Bioinformatics.md:14; book/ch00-introduction.md:53; book/ch02-substratum.md:32; book/ch03-structural-realism.md:36, :102, :114, :240; book/ch05-gauge-structure.md:95; book/ch09-universality.md:106; book/ch15-quantum-engineering.md:114; book/preface.md:3; book/appendix-c-objections.md:120 | Inherit U1/U2 | (i\*) |
 | U6 Non-permutation witness lemma | Main.md:439–441 | "The indivisibility is §2.3's recurrence theorem" | (i\*) |
 | U7 CP-indivisibility | Main.md:330; book/appendix-b-derivations.md:92 (FULL:5843) | P-indivisibility of U1/U2, then a conditional implication for diagonal-preserving channels | inherits (i\*) |
 | U8 Consolidation and rooted all-time classification | Main.md:642; `pper_of_finiteRootedRealizable`, RootedClassification.lean:339 | Finite order $L$ ⇒ $L$-periodic multi-time law; forward direction of the classification | (i) ⇒ (ii) |
 | U9 Finite representative | Main.md:60 | $f^L=\mathrm{id}$ on the eventual image; "no construction is given for an infinite $S$" | (i), definitional |
-| U10 §4.6 Setup and Scope (ii) | Main.md:748, :764 | Exact Koopman recurrence of a finite permutation ⇒ "exponential mixing cannot hold for it"; exact compressions recur | (i) |
-| U11 Recurrence time as a scale | Main.md:139 ($k\tau_S\ll t_R$), :449, :453, :540; Structure.md:718; book/ch01-observation.md:121 (FULL:456); book/ch18-beyond.md:174–188 (FULL:4980) | $t_R$ as the scale beyond accessible windows; upper bounds $N\le g(\lvert S\rvert)$, $N\mid\operatorname{lcm}(1,\dots,\lvert S\rvert)$ | (v) as scope |
+| U10 §4.6 Setup and Scope (ii) | Main.md:746, :748, :762 | §4.6 is scoped to "a finite bijective $(S, \varphi)$" (Main.md:746). The exact Koopman operator is "unitary, with modulus-one spectrum and exact recurrence. It has no dissipative gap; exponential mixing cannot hold for it" (Main.md:748); exact compressions recur (Main.md:762) | (i) |
+| U11 Recurrence time as a scale | Main.md:139 ($k\tau_S\ll t_R$), :449, :453, :540, :544 (condition (ii): accessible order $k\tau_S\ll t_R$), :642 (open question (b): windows $t\ll t_R$); Structure.md:718; book/ch01-observation.md:121 (FULL:456); book/ch18-beyond.md:174–188 (FULL:4980) | $t_R$ as the scale beyond accessible windows; upper bounds $N\le g(\lvert S\rvert)$, $N\mid\operatorname{lcm}(1,\dots,\lvert S\rvert)$ | (v) as scope |
 | U12 Cycle averages | GR.md:807–839 (Theorems A.8, A.9) | Cycle decomposition of a bijection of a specified finite shell $\Sigma_E$; exact cycle time averages | (i) on a specified finite subsystem |
 | U13 Axiom 2 | Main.md:36, :60; Methodology.md:227; Substratum.md:403 | "Differentiation recurs": more than one moment. Main.md:60: "not that every microstate returns" | not dynamical recurrence; out of scope |
+| U14 Routed readback | Main.md:145 | "not P-divisible on $\{0,\ldots,n\}$ for every $n>s$ with $\Gamma_n=I$" ($\Gamma_n=I$ an input), "and so for some $n$, because $(\Gamma_t)$ is periodic and $\Gamma_0=I$" | (i\*) as input; (ii) ⇒ (i\*) |
+| U15 Constraint surface | GR.md:587 | Finite $\varphi$-invariant representative of the constraint surface, order $L$, $K_{mL}=I$; hidden prior on each root's fibre, not one shared prior | (i) on a specified finite subsystem |
+| U16 Cumulative backflow | book/ch18-beyond.md:74 | Periodic rooted laws: a revival in one period recurs in every later one, so the cumulative backflow is unbounded | (ii) |
+| U17 No asymptotic decay | book/ch18-beyond.md:40 | Recurrence under A1 excludes asymptotic convergence to zero of the history-dependent departures | (i); sibling of U10 |
+| U18 The finite-recurrence route | book/ch18-beyond.md:166–172 (FULL:4972–4978) | "needs every root's visible law to return to certainty at a common time, $\Gamma_n = I$"; "Infinite hidden sectors would break the recurrence argument that drives recurrence-scale P-indivisibility; that route would close" | (i\*) |
 
-**Node 1 verdict.** Every dynamical use (U1–U12) consumes (i), (i\*) or (ii), or uses $t_R$ as a scope
+**Node 1 verdict.** Every dynamical use (U1–U12, U14–U18) consumes (i), (i\*) or (ii), or uses $t_R$ as a scope
 scale. No use consumes (iii) or (iv). Class: CONFIRMING (inventory).
 
 ### Node 2 — Poincaré recurrence and Kac's lemma under the contract
@@ -157,14 +166,19 @@ C_a)$. Under (D), every $\mu$-a.e. statement holds $(\delta_a\otimes\rho)$-a.s. 
 the product measure, so $(\delta_a\otimes\rho)(E)=\mu(E\cap C_a)/\nu(a)\le\mu(E)/\nu(a)$. The second
 sentence is the definition of absolute continuity. $\square$
 
-**Hidden-assumption finding 2.4′.** Main's overlap theorem and rooted classification allow any
+**Remark 2.4′ (domination).** Main's overlap theorem and rooted classification allow any
 hidden prior, full support not required (Main.md:141, :642). On a finite carrier the uniform
 invariant probability dominates every such prior, so a.e. statements always transfer. Without total
 finiteness this transfer is a separate hypothesis, (D): a point-mass prior $\rho=\delta_{h_0}$
 makes every $\mu$-a.e. statement silent about the rooted laws whenever $\{(a,h_0)\}$ is $\mu$-null.
 Poincaré recurrence of $\mu$ says nothing about a rooted family whose prior is singular to every
-invariant probability. Class: NEW (assumption-watch marker: "a.e. under the invariant law" is
-"a.s. under the rooted law" only under domination).
+invariant probability. Ladder §3.3 (PREMISE-LADDER.md:91) already states that the invariant-law and
+rooted conventions agree only under a product disintegration; this remark isolates (D) as the
+weaker sufficient condition for transferring a.e. statements. Among the Poincaré sites of node 1
+(Main.md:155, :449; book/ch01-observation.md:119; book/ch18-beyond.md:166–172), none transfers a
+$\mu$-a.e. statement to an undominated rooted law; Main.md:155 takes the invariant Liouville
+measure itself as the hidden prior. Class: ELABORATING (assumption-watch marker: "a.e. under the
+invariant law" is "a.s. under the rooted law" only under domination).
 
 **Corollary 2.5 (visible cylinders).** For a visible word $w=(w_0,\dots,w_{k-1})\in V^k$ let
 $[w]=\{x:\ \pi F^jx=w_j,\ 0\le j<k\}$, a measurable set. Under (M), (I) and (D): for every root
@@ -207,8 +221,7 @@ $(\delta_a\otimes\rho)(\tau_{C_a}\ge n)\le 1/(n\,\nu(a))$.
 **Node 2 verdict.** Under (V)(M)(I)(D): (iii) holds in measurable and, on separable metric
 carriers, topological form; exact microscopic return does not follow. (iv) holds for every visible
 event and cylinder of positive measure. The only time bound is Kac's, a bound on the conditional
-mean of a point-dependent first return of one event. Class: ELABORATING, with the NEW
-assumption-watch 2.4′.
+mean of a point-dependent first return of one event. Class: ELABORATING (2.4′ included).
 
 ### Node 3 — Which of (i)–(v) the contract gives
 
@@ -227,7 +240,7 @@ $\mu(F^{-t}C_a\setminus C_a)=\mu(C_a)-\mu(C_a\cap F^{-t}C_a)=\nu(a)(1-\Gamma_t(a
 
 So under (P) Main's rooted family coincides with the ladder's cell-conditioned family (ladder §3.3).
 
-**Proposition 3.2 (rigidity characterizes common near-return).** Under (M), (I), (P), for a
+**Proposition 3.2 (rigidity characterizes convergence to the identity).** Under (M), (I), (P), for a
 sequence $n_k$:
 
 - (a) if $\mu(C_a\triangle F^{-n_k}C_a)\to0$ for every $a$, then $\Gamma_{n_k}\to I$ entrywise;
@@ -239,7 +252,10 @@ $\square$
 
 The two directions are stated separately (§A.34); both rest on the one exact identity of Lemma 3.1.
 The same identity with one fixed $n$ gives the exact form: $\Gamma_n=I$ iff
-$\mu(C_a\triangle F^{-n}C_a)=0$ for all $a$, i.e. $\pi F^n=\pi$ $\mu$-a.e.
+$\mu(C_a\triangle F^{-n}C_a)=0$ for all $a$, i.e. $\pi F^n=\pi$ $\mu$-a.e.; that is ladder F10 in
+the rooted convention under (P). A single common near-return $\Gamma_n(c,c)\ge1-\varepsilon$ at one
+time (Main.md:155; ladder F11) is weaker than (RIG), which asks for arbitrarily accurate return
+along unbounded times. Class: ELABORATING.
 
 **Proposition 3.3 (the contract does not give (i), (i\*) or (ii)).** There is a model satisfying
 (V), (M), (I), (P), hence Theorems 2.1–2.7, with a non-permutation $\Gamma_1$, in which
@@ -292,18 +308,18 @@ d(\Gamma_n(a),\Gamma_n(b))\ge\Gamma_n(a,a)-\Gamma_n(b,a)\ge1-\delta_n(a)-\delta_
 $$
 Choose $k$ with $n_k>s$ and $\delta_{n_k}(a)+\delta_{n_k}(b)<m$. Then
 $d(\Gamma_{n_k}(a),\Gamma_{n_k}(b))>1-m\ge d(\Gamma_s(a),\Gamma_s(b))$, which is C4r on horizon
-$n_k$, and `c4r_implies_pIndivisible` (CausalReadback.lean:134) gives the conclusion. $\square$
+$n_k$, and `c4r_implies_pIndivisible` (CausalReadback.lean:134) gives the conclusion. This is
+ladder F11 / §3.4 (PREMISE-LADDER.md:59, :93–105), one common near-return with margin, at a time
+$n_k$ supplied by (RIG). $\square$
 
 *Skeptical pressure on this branch.* (1) Poincaré recurrence contributes nothing to the proof: the
 input is (RIG), a common-time property that Theorem 2.1 does not give (Bernoulli, XOR). (2) (RIG)
 is posited; the contract does not supply it (Proposition 3.3's companions). (3) The times $n_k$ are
 unbounded and not located (node 5). (4) For the golden rotation $\alpha=(\sqrt5-1)/2$ the
 revival is early: $\|2\alpha\|_{\mathbb Z}=\sqrt5-2$, $\|3\alpha\|_{\mathbb Z}=(7-3\sqrt5)/2$, so
-$d_2=4\sqrt5-9$ and $d_3=6\sqrt5-13$, and $d_3>d_2$ iff $\sqrt5>2$: P-indivisible on $\{0,1,2,3\}$.
+$d_2=9-4\sqrt5$ and $d_3=6\sqrt5-13$, and $d_3>d_2$ iff $\sqrt5>11/5$: P-indivisible on $\{0,1,2,3\}$.
 That early revival comes from the rotation's almost periodicity, not from any recurrence time.
-Class: NEW (a sufficient A1-free condition for the recurrence-route conclusion, with exact identity
-return replaced by rigidity of the visible partition, and the exact characterization 3.2 of common
-near-return).
+Class: ELABORATING (an instance of ladder F11, with the near-return time supplied by (RIG)).
 
 **Proposition 3.5 (the converse of 3.4 fails).** There is a model of (V)(M)(I)(P) that is not
 rigid, has $\Gamma_t=J_2$ for all $t\ge3$, and is P-indivisible on $\{0,1,2\}$.
@@ -328,8 +344,7 @@ $x\mapsto1-x$, $\Gamma_2=\begin{pmatrix}3/8&5/8\\5/8&3/8\end{pmatrix}$. For $t\g
 $X_t$ depend on disjoint coordinates, so $\Gamma_t=J_2$. The rows of $\Gamma_1$ coincide and those
 of $\Gamma_2$ differ: C4e, and `c4e_implies_pIndivisible` gives P-indivisibility on $\{0,1,2\}$.
 By Lemma 3.1, $\mu(C_a\triangle F^{-t}C_a)=2\cdot\tfrac12\cdot\tfrac12=\tfrac12$ for $t\ge3$: not
-rigid. (Exact enumeration of all coordinate patterns through $t=5$ reproduces these matrices.)
-$\square$
+rigid. $\square$
 
 **Proposition 3.6 ((PER) gives (ii)).** Under (M), (I), (D) and (PER) with period $N$, every rooted
 map and every multi-time law of the rooted process is $N$-periodic in time.
@@ -337,17 +352,64 @@ map and every multi-time law of the rooted process is $N$-periodic in time.
 *Proof.* Let $E=\{x:F^Nx\ne x\}$, $\mu(E)=0$. For $x\notin E$ and $t\ge0$,
 $F^{t+N}x=F^t(F^Nx)=F^tx$. By (D), $E$ is null for each $\delta_a\otimes\rho$. $\square$
 
+**Proposition 3.6′ ((RET) gives visible periodicity).** Under (M), (I), (P) and (RET) with
+$\Gamma_N=I$: for every root $a$, $(\delta_a\otimes\rho)$-a.s. the visible path satisfies
+$X_{t+N}=X_t$ for all $t\ge0$, where $X_t=\pi F^t$. Hence $\Gamma_{t+N}=\Gamma_t$ for all $t$, every
+visible multi-time law of the rooted process is $N$-periodic, and (RIG) holds with $n_k=kN$.
+
+*Proof.* By Lemma 3.1, $\mu(C_a\triangle F^{-N}C_a)=0$ for every $a$, so
+$E=\{x:\pi F^Nx\ne\pi x\}$ is $\mu$-null. For $t\ge0$, $\pi F^{t+N}x\ne\pi F^tx$ only if
+$F^tx\in E$, i.e. $x\in F^{-t}E$, which is $\mu$-null by (I). The countable union
+$\bigcup_{t\ge0}F^{-t}E$ is $\mu$-null, hence null for each $\delta_a\otimes\rho$ by Lemma 2.4. Off
+it the visible path is $N$-periodic, which gives the periodicity of every visible law, and
+$X_{kN}=X_0$ gives $\Gamma_{kN}=I$. $\square$
+
+The hidden state need not return: (RET) gives visible, not microscopic, periodicity (ladder §5).
+Class: ELABORATING.
+
+**Proposition 3.7 (rigidity extends to cylinders and lags).** Under (M), (I), (P) and (RIG) along
+$n_k$: (a) $\mu([w]\triangle F^{-n_k}[w])\to0$ for every visible word $w$; (b)
+$\Gamma_{n_k+t}\to\Gamma_t$ entrywise for every $t\ge0$.
+
+*Proof.* (a) $[w]=\bigcap_{j<k}F^{-j}C_{w_j}$ and $F^{-n}[w]=\bigcap_{j<k}F^{-j}F^{-n}C_{w_j}$. A
+symmetric difference of two intersections lies in the union of the termwise symmetric differences,
+and $\mu(F^{-j}A\triangle F^{-j}B)=\mu(A\triangle B)$ by (I), so
+$\mu([w]\triangle F^{-n_k}[w])\le\sum_{j<k}\mu(C_{w_j}\triangle F^{-n_k}C_{w_j})\to0$. (b) By
+Lemma 3.1, $|\Gamma_{n+t}(a,b)-\Gamma_t(a,b)|=|\mu(C_a\cap F^{-t}F^{-n}C_b)-\mu(C_a\cap
+F^{-t}C_b)|/\nu(a)\le\mu(F^{-t}(F^{-n}C_b\triangle C_b))/\nu(a)=\mu(C_b\triangle
+F^{-n}C_b)/\nu(a)$, which tends to $0$ along $n_k$. $\square$
+
+**Proposition 3.8 (rigidity forces zero visible entropy rate).** Assume (M), (I) and (RIG) along
+$n_k$. Let $X_t=\pi F^t$, $t\in\mathbb Z$, a stationary process under $\mu$ (since $F$ is
+invertible and preserves $\mu$), and $h=\lim_{n\to\infty}H(X_0\mid X_{-1},\dots,X_{-n})$, a
+non-increasing limit. Then $h=0$.
+
+*Proof.* Put $p_n=\mu(X_0\ne X_{-n})$. Applying the measure-preserving $F^n$,
+$p_n=\mu(X_n\ne X_0)=\sum_a\mu(C_a\setminus F^{-n}C_a)=\tfrac12\sum_a\mu(C_a\triangle F^{-n}C_a)$,
+the last step by invariance as in Lemma 3.1, so $p_{n_k}\to0$. With
+$E=\mathbf 1\{X_0\ne X_{-n}\}$,
+$H(X_0\mid X_{-n})\le H(X_0,E\mid X_{-n})=H(E\mid X_{-n})+H(X_0\mid E,X_{-n})\le
+h_2(p_n)+p_n\log|V|$, because $X_0=X_{-n}$ on $\{E=0\}$. Conditioning on more variables does not
+increase entropy, so $H(X_0\mid X_{-1},\dots,X_{-n_k})\le h_2(p_{n_k})+p_{n_k}\log|V|\to0$, and the
+non-increasing limit $h$ is $0$. $\square$
+
+So Proposition 3.4's hypothesis can hold only where the visible process has zero entropy rate under
+$\mu$: its present is determined by its infinite past. On a finite carrier the visible process is
+periodic and the same holds. Proposition 3.8 does not bear on ladder F11's single near-return.
+Class: BORDERLINE (the standard fact that rigid systems have zero entropy, proved here directly for
+the visible process; it narrows the scope of Proposition 3.4).
+
 **Node 3 summary.**
 
 | Category | Given by (V)(M)(I)(P)? | Evidence |
 |---|---|---|
 | (i) $F^N=\mathrm{id}$ | No | Remark 2.3; Prop. 3.3 |
 | (i\*) $\Gamma_N=I$ | No | Prop. 3.3; ladder C−1; node 4 |
-| (ii) periodic visible laws | No; given by (PER) | Prop. 3.3, 3.6 |
+| (ii) periodic visible laws | No; given by (RET) under (I)(P), and by (PER) | Prop. 3.3, 3.6, 3.6′ |
 | (iii) a.e. recurrence | Yes, measurable/topological; not exact | Thm 2.1, Cor. 2.2, Rem. 2.3 |
 | (iv) visible event/cylinder return | Yes, point-dependent times | Cor. 2.5 |
 | (v) accessible return time | Only Kac's event-mean bound | Thm 2.6–2.7; node 5 |
-| P-indivisibility of the rooted family | Undecided: both outcomes occur | XOR and Bernoulli P-divisible at every horizon; rotation and Prop. 3.5 P-indivisible |
+| P-indivisibility of the rooted family | Not determined by the contract: both outcomes occur | XOR and Bernoulli P-divisible at every horizon; rotation and Prop. 3.5 P-indivisible |
 
 ### Node 4 — Relation to the infinite-XOR counterexample
 
@@ -366,8 +428,9 @@ fails (RET) and (RIG).
    $\mathbb E[\tau_{C_a}]\le 2$.
 2. *No common return.* The record proves $\Gamma_0=I$, $\Gamma_t=J_2$ for every $t\ge1$
    (ibid.:20–25); the matrix family is P-divisible at every horizon
-   (`pdFamily_pDivisible`, CausalReadback.lean:256). By Lemma 3.1,
-   $\mu(C_a\triangle T^{-n}C_a)=2\cdot\tfrac12\cdot\tfrac12=\tfrac12$ for every $n\ge1$: (RET) and
+   (`pdFamily_pDivisible`, CausalReadback.lean:256). By Lemma 3.1, for the conjugated update
+   $F=\Psi^{-1}T\Psi$ on $V\times H$,
+   $\mu(C_a\triangle F^{-n}C_a)=2\cdot\tfrac12\cdot\tfrac12=\tfrac12$ for every $n\ge1$: (RET) and
    (RIG) fail, and the rooted family is not periodic.
 3. *Not a mixing artefact.* The model is not weakly mixing: $g(p,\cdot)=e^{2\pi ip/3}$ satisfies
    $g\circ T=e^{2\pi i/3}g$. The failure of return is a property of the visible partition: the
@@ -406,7 +469,7 @@ $1-2q=(1-2p_t)/(1-2p_s)\in(0,1]$ is stochastic and satisfies $\Gamma_t=\Gamma_s\
 symmetric parameters compose as $1-2p\mapsto(1-2p)(1-2q)$): P-divisible on $\{0,\dots,K\}$.
 $F^m(v,k)=(1-v,k)$, so $\Gamma_m$ is the swap, $\Gamma_n(a,a)=\Gamma_{n-m}(1-a,a)=(n-m)/m<1$ for
 $m<n<2m$, and $\Gamma_{2m}=I=\Gamma_0$; the least identity time is $2m>K$, which is also the order
-of $F$. Exact enumeration for $m=6$ reproduces $\Gamma_0,\dots,\Gamma_{13}$. $\square$
+of $F$. $\square$
 
 The first P-indivisibility witness of this model lies after $m/2$: $d_n=|1-2n/m|$ decreases on
 $[0,m/2]$ and increases on $[m/2,m]$.
@@ -439,8 +502,8 @@ witness for every $K$.
 
 ### Node 6 — Downstream verdicts and A1-preserved controls
 
-**Proposition 6.1 (readback gives a non-permutation map without recurrence).** Under (M) and a
-hidden prior $\rho$, with roots drawn from any visible prior independently of $\rho$: if two distinct
+**Proposition 6.1 (readback gives a non-permutation map without recurrence).** With $F$
+measurable and a hidden prior $\rho$, with roots drawn from any visible prior independently of $\rho$: if two distinct
 positive-probability visible histories $(x_0,\dots,x_k)$, $(x_0',\dots,x_k')$ have $x_k=x_k'$, then
 some $\Gamma_s$ with $1\le s\le k$ is not a permutation. The same holds if some visible step up to
 time $k$ is non-deterministic.
@@ -470,27 +533,33 @@ stochastic factors (Main.md:630), contradicting (c). $\square$
 
 Without (RIG), (b)⇒(c) fails: the infinite-XOR model has (a) and (b) and is P-divisible at every
 horizon (node 4). Under total finiteness the equivalence is Main.md:139, which additionally places
-the gap below $L$. Class: NEW (the recurrence-cycle equivalence survives the replacement of total
-finiteness by (RIG), with "some finite order/horizon" in place of "below $L$/on $\{0,\dots,L\}$").
+the gap below $L$. Step (b)⇒(c) is ladder F11 at a time supplied by (RIG) (Prop. 3.4); it holds
+equally whenever a single common near-return with F11's margin follows the non-permutation time.
+Class: ELABORATING.
 
 **Verdict table.** "Recovered" means: recovered under (V)(M)(I)(P) alone. The named gap is always a
 hypothesis the contract does not supply.
 
 | Use | Verdict | Precise statement / gap |
 |---|---|---|
-| U1 One-step theorem | Not recovered; recovered in weaker form under (RIG) | Counterexample under the contract: XOR and Bernoulli (non-permutation $\Gamma_1$, P-divisible at every horizon). Under (RIG): P-indivisible on $\{0,\dots,n_k\}$ for large $k$ (Prop. 3.4). Under (RET): Main's conclusion verbatim (`pIndivisible_of_visible_identity_return_nonperm`). Gap: (RIG) or (RET) |
-| U2 Readback + recurrence | Split | Non-permutation $\Gamma_s$, $1\le s\le k$, recovered without recurrence (Prop. 6.1). P-indivisibility and the equivalence: not recovered; recovered in weaker form under (RIG)+(FS) (Prop. 6.2). The bound $s\le L-1$ and the horizon $\{0,\dots,L\}$ need (PER) |
+| U1 One-step theorem | Not recovered; recovered in weaker form under (RIG) | Counterexample under the contract: XOR and Bernoulli (non-permutation $\Gamma_1$, P-divisible at every horizon). Under (RIG): P-indivisible on $\{0,\dots,n_k\}$ for large $k$ (Prop. 3.4, an instance of ladder F11). Under (RET): Main's conclusion verbatim (`pIndivisible_of_visible_identity_return_nonperm`). Gap: (RIG) or (RET) |
+| U2 Readback + recurrence | Split | Non-permutation $\Gamma_s$, $1\le s\le k$, recovered without recurrence (Prop. 6.1). P-indivisibility and the equivalence: not recovered; recovered in weaker form under (RIG)+(FS) (Prop. 6.2). The bound $s\le L-1$ and the horizon $\{0,\dots,L\}$ need (RET) at $L$ (Prop. 3.6′) |
 | U3 Overlap and return | Recovered as stated | Its hypothesis $\Gamma_n=I$ is an input; the matrix form needs only row-stochastic $\Gamma_s$ (RecurrenceHorizon.lean:119), which Lemma 3.1 supplies. The contract does not supply $\Gamma_n=I$ |
-| U4 Continuous time | Unchanged; condition identified | Main already conditions on common near-total return. Prop. 3.2 identifies its discrete-time form as rigidity of the visible partition; a flow version is not proved here |
-| U5 Summary statements | Inherit U1/U2 | "Recurrence-scale" conclusions are finite-carrier statements; A1-free analogues hold only under (RIG) or (RET) |
+| U4 Continuous time | Unchanged; condition identified | Main already conditions on one common near-total return. Its discrete-time form is ladder F11's single near-return with margin; (RIG) (Prop. 3.2) is the stronger condition of arbitrarily accurate return at unbounded times. A flow version is not proved here |
+| U5 Summary statements | Inherit U1/U2 | "Recurrence-scale" conclusions are finite-carrier statements; A1-free analogues hold only under (RET), (RIG) or a single near-return with the margin of ladder F11 |
 | U6 Non-permutation witness lemma | Not recovered; weaker form under (RIG) | As U1 |
 | U7 CP-indivisibility | Inherits U1/U2 | The conditional implication from population P-indivisibility to CP-indivisibility is carrier-independent for a diagonal-preserving channel family; such a family on an infinite carrier is not constructed here (ladder F15) |
-| U8 Consolidation and classification | Not recovered; the A1-free class is larger | Non-periodic rooted families occur under the contract (Prop. 3.3, node 4); (ii) needs (PER) (Prop. 3.6). The finite theorem is unchanged |
+| U8 Consolidation and classification | Not recovered; the A1-free class is larger | Non-periodic rooted families occur under the contract (Prop. 3.3, node 4); (ii) for visible laws needs (RET) (Prop. 3.6′), microscopic periodicity needs (PER) (Prop. 3.6). The finite theorem is unchanged |
 | U9 Finite representative | Not applicable | Definitional for finite carriers; no infinite construction is supplied here |
-| U10 §4.6 Setup | Theorem unaffected; the stated reason does not transfer | Under the contract the exact dynamics can mix: for the Bernoulli shift, functions $f,g$ of coordinates in $[-r,r]$ satisfy $\int f\cdot g\circ F^n\,d\mu=\int f\,d\mu\int g\,d\mu$ for $n>2r$ (independence of disjoint coordinates). "Unitary, hence cannot mix" is a consequence of a finite permutation's pure point spectrum, not of unitarity. The theorem's conclusion is conditional on (EM) for the compression and does not consume recurrence; its finiteness use through canonical typicality is outside REC-1 |
-| U11 $t_R$ as scale | Scope label; no common $t_R$ under the contract | No common recurrence time exists in general (Prop. 3.3, node 4); only Kac means per event (Prop. 5.3). In Main §3.4, $t_R$ occurs only in the statement at Main.md:540; the per-horizon results do not consume it |
+| U10 §4.6 Setup | Theorem unaffected; the reason is correct in its own scope and does not transfer | §4.6 is scoped to a finite bijective $(S,\varphi)$ (Main.md:746), where its reason holds. Modulus-one spectrum and the absence of a dissipative gap hold for every unitary Koopman operator, including mixing ones (Bernoulli shift: functions $f,g$ of coordinates in $[-r,r]$ satisfy $\int f\cdot g\circ F^n\,d\mu=\int f\,d\mu\int g\,d\mu$ for $n>2r$, by independence of disjoint coordinates); the exclusion of mixing at Main.md:748, :762 rests on exact recurrence of a finite permutation. Assumption-watch: an A1-free transfer of §4.6 would have to re-derive where (EM) is placed. The theorem's conclusion is conditional on (EM) for the compression and does not consume recurrence; its finiteness use through canonical typicality is outside REC-1 |
+| U11 $t_R$ as scale | Scope label; no common $t_R$ under the contract | No common recurrence time exists in general (Prop. 3.3, node 4); only Kac means per event (Prop. 5.3). In Main §3.4, $t_R$ occurs at Main.md:540, :544 (the accessible-order clause of condition (ii)) and :642; under the contract no common $t_R$ exists, so condition (ii) needs an accessibility scale stated independently of recurrence |
 | U12 Cycle averages | Not recovered; not addressed | Exact cycle averages need a finite invariant shell (a hypothesis of GR Theorem A.8); an invariant law gives ergodic-theorem limits, a different object (ladder F17) |
 | U13 Axiom 2 | Out of scope | Not dynamical recurrence |
+| U14 Routed readback | Split | "For every $n>s$ with $\Gamma_n=I$": recovered under the contract, since both proofs use only the store clause's two positivity conditions (Main.md:145), which is the overlap-and-return matrix form (RecurrenceHorizon.lean:119) with $\Gamma_s$ row-stochastic by Lemma 3.1; the cited routed kernel theorems themselves are stated for finite $H$. "For some $n$": needs (RET); weaker form under (RIG) or a single F11 near-return (Prop. 3.4). The write clause's seed with $\mu_H(h)>0$ has no counterpart under a nonatomic prior unless restated for a positive-measure seed set; it is not consumed by the P-indivisibility conclusion |
+| U15 GR constraint surface | Different convention; not addressed | Priors sit on each root's fibre, so (P) does not apply. The A1-free analogue is the cell-conditioned family of an invariant law (ladder §3.3, F10), whose exact identity return is F10's condition $\pi F^N=\pi$ a.e.; GR supplies it through a specified finite invariant subsystem |
+| U16 Cumulative backflow | Not recovered; recovered under (RET), weaker form under (RIG) | Under (RET) the rooted laws are $N$-periodic (Prop. 3.6′) and the argument of ch18:74 applies. Under (RIG), a revival $d_t>d_s$ ($s<t$) gives $d_{n_k+t}-d_{n_k+s}\ge(d_t-d_s)/2$ for large $k$ (Prop. 3.7(b)); passing to $n_k$ with $n_{k+1}>n_k+t$ gives disjoint windows, each contributing at least $(d_t-d_s)/2$ to the cumulative increase, which is therefore unbounded. Under the contract alone: XOR and Bernoulli have no revival; Prop. 3.5 has one revival and $\Gamma_t=J_2$ for $t\ge3$, so a bounded cumulative increase |
+| U17 No asymptotic decay | Correct in its A1 scope; the reason does not transfer | Under the contract correlations may decay (Bernoulli, U10) or not (rotation). The sentence's "neither … follows" remains true under the contract, but the A1 reason, exclusion of decay by recurrence, does not. Assumption-watch sibling of U10 |
+| U18 Finite-recurrence route | Finding for the coordinator; no manuscript edit | Read as a statement about deriving the return from finiteness, ch18:170 holds. Read as saying that recurrence-scale P-indivisibility has no route on an infinite hidden sector, it is stronger than the record on `main` supports: ladder F11 gives P-indivisibility on any carrier from one common near-return with margin, Prop. 3.4 gives it from (RIG), and the rotation (Prop. 3.3) is an infinite hidden sector satisfying both with no identity return. Likewise ch18:172's "needs … $\Gamma_n = I$" is what the exact route uses, not what P-indivisibility at that scale requires. The conditional routes keep their premises posited |
 
 **A1-preserved controls.** Take $\Omega$ finite, $F$ a bijection and $\mu$ the uniform law
 (Main Lemma 3), so that every existing A1 result applies; check each statement of this record
@@ -499,13 +568,14 @@ against it.
 | Control | Check | Result |
 |---|---|---|
 | K1 Contract | (M) automatic; counting measure invariant; (P) with $\nu$ and $\rho$ uniform; (D) for every prior $\rho$, since only $\emptyset$ is $\mu$-null | Holds |
-| K2 Extra conditions | Finite order $N$ gives (PER), hence (RET) and (RIG) with $n_k=kN$ | Holds; the controls pass because finiteness supplies (PER), not because the contract does |
+| K2 Extra conditions | Finite order $N$ gives (PER), hence (RET), and (RIG) with $n_k=kN$ (Prop. 3.6′) | Holds; the controls pass because finiteness supplies (PER), not because the contract does |
 | K3 Prop. 3.4 | With $n_k=kN$, $\delta_{n_k}=0$, giving P-indivisibility on $\{0,\dots,N\}$ | Reduces to Main.md:121–127 and :135 |
 | K4 Prop. 6.2 | Reduces to Main.md:139 with the gap localized below $L$ by finiteness | Consistent |
-| K5 Prop. 3.6 | $\Gamma_{t+N}=\Gamma_t$ | Reduces to Main.md:137 and the forward classification (RootedClassification.lean:339) |
+| K5 Prop. 3.6, 3.6′ | $\Gamma_{t+N}=\Gamma_t$ | Reduces to Main.md:137 and the forward classification (RootedClassification.lean:339) |
 | K6 Kac | $\mathbb E[\tau_A\mid A]\le\lvert\Omega\rvert/\lvert A\rvert$; for $A=\{x\}$, cycle length $\le\lvert\Omega\rvert$; for $A=C_a$, $\le\lvert V\rvert$ | Consistent |
 | K7 Counterexamples | Rotation, Bernoulli, XOR and Prop. 3.5 have uncountable carriers; none contradicts a finite-carrier theorem. Prop. 5.1 is finite and satisfies Main's one-step theorem: $d_1=1-2/m<1=d_{2m}$ | Consistent |
 | K8 Overlap theorem | Hypotheses and proof unchanged | Unchanged |
+| K9 Prop. 3.7, 3.8 | $\Gamma_{kN+t}=\Gamma_t$ exactly; the visible process is periodic, so its entropy rate is $0$ | Consistent |
 
 Every existing A1 result is recovered when $\mu$ is the uniform law on a finite set. In each case
 the return input is supplied by finiteness through (PER).
@@ -521,32 +591,42 @@ the return input is supplied by finiteness through (PER).
    (i\*) or (ii), which the contract does not give: the irrational rotation, the Bernoulli shift
    and the infinite-XOR model satisfy the contract with no common return and non-periodic rooted
    laws (Prop. 3.3, node 4).
-3. Under the contract, P-indivisibility of the rooted family is undecided: the XOR and Bernoulli
+3. P-indivisibility of the rooted family is not determined by the contract: the XOR and Bernoulli
    models are P-divisible at every horizon; the rotation and Prop. 3.5 are P-indivisible.
-4. Common near-return of the rooted maps is exactly rigidity of the visible partition (Prop. 3.2).
-   Rigidity plus a non-permutation rooted map gives P-indivisibility without any exact return
-   (Prop. 3.4), and the recurrence-cycle equivalence of Main.md:139 survives with (RIG) in place of
-   total finiteness (Prop. 6.2). The converse of Prop. 3.4 fails (Prop. 3.5). (RIG) is posited.
+4. Convergence $\Gamma_{n_k}\to I$ along $n_k\to\infty$ is exactly rigidity of the visible partition
+   (Prop. 3.2); a single common near-return (Main.md:155, ladder F11) is weaker and already suffices
+   for P-indivisibility. Rigidity supplies such near-returns, so it gives P-indivisibility without
+   any exact return (Prop. 3.4), and the recurrence-cycle equivalence of Main.md:139 survives with
+   (RIG) in place of total finiteness (Prop. 6.2); both are instances of ladder F11. The converse of
+   Prop. 3.4 fails (Prop. 3.5). (RIG) is posited, extends to all visible cylinders (Prop. 3.7) and
+   forces zero visible entropy rate (Prop. 3.8). (RET) alone gives periodic visible laws under
+   (I)(P) (Prop. 3.6′).
 5. The infinite-XOR model satisfies the contract; it fails (RET) and (RIG), and no invariant law
    dominating its rooted laws changes that.
 6. Neither total finiteness nor the normalized law bounds any common return time into an accessible
    range (Prop. 5.1–5.3).
-7. §4.6's reason for placing (EM) on a compression, that the exact dynamics cannot mix, holds for a
-   finite permutation and fails under the contract (Bernoulli shift). The §4.6 theorem is unaffected.
-8. A1 remains open and unadopted. Whether nature supplies (I), (P) or (RIG) is open. No physical
+7. §4.6's exclusion of mixing for the exact dynamics holds in its stated scope, a finite bijective
+   $(S,\varphi)$, where it rests on exact recurrence. Under the contract the exact dynamics can mix
+   (Bernoulli shift), so an A1-free transfer of §4.6 would have to re-derive where (EM) is placed.
+   The §4.6 theorem is unaffected. The same holds for book/ch18-beyond.md:40 (U17).
+8. Cross-document finding (U18): book/ch18-beyond.md:170, read as closing every route to
+   recurrence-scale P-indivisibility on an infinite hidden sector, is stronger than ladder F11 on
+   `main` supports. Flagged; no manuscript edit is made.
+9. A1 remains open and unadopted. Whether nature supplies (I), (P) or (RIG) is open. No physical
    recovery is claimed.
 
 **Hypothesis ledger.** (V): on `main` (Main.md:46). (M), (I), (P): posited contract; the uniform
 law on a finite carrier satisfies them (Main.md:54, :58). (D): proved from (P) (Lemma 2.4).
 (RET), (PER): not implied by the contract; on `main` for finite carriers. (RIG): posited where used;
-not implied by the contract. (FS): Main's hypothesis (Main.md:139). Poincaré, Kac (inequality),
+not implied by the contract; implied by (RET) under (I)(P) (Prop. 3.6′). (FS): Main's hypothesis (Main.md:139). Poincaré, Kac (inequality),
 Dirichlet: standard, proved here. Ornstein–Weiss: standard, cited in a remark only. Kernel results:
 on `main` as listed in §2. Supply of (I), (P), (RIG) by nature: open.
 
-**Productivity outcome (§A.31).** NEW: 2.4′ (domination as a hidden transfer assumption), 3.2/3.4
-(rigidity as the exact common near-return condition and an A1-free sufficient route), 6.2
-(equivalence under rigidity), U10 (§4.6's no-mixing reason is finite-carrier). ELABORATING: node 2,
-Prop. 3.5, node 4. CONFIRMING: nodes 1 and 5. One depth-first pass was made; the fixed-point
+**Productivity outcome (§A.31).** No NEW finding remains after review. ELABORATING: node 2 and
+Remark 2.4′ (credited to ladder §3.3), Prop. 3.2 (ladder F10), Prop. 3.4 and 6.2 (instances of
+ladder F11), Prop. 3.5, Prop. 3.6′, node 4, U10/U17 (assumption-watch for any A1-free transfer of
+§4.6), U18 (cross-document finding). BORDERLINE: Prop. 3.8 (zero visible entropy rate under
+rigidity). CONFIRMING: nodes 1 and 5. One depth-first pass was made; the fixed-point
 criterion of 3–4 passes without NEW findings is not claimed.
 
 ## 5. Open questions
@@ -555,10 +635,10 @@ criterion of 3–4 passes without NEW findings is not claimed.
    rigid for the visible partition, or has one common near-return with the margin of ladder F11.
    Open, class by class.
 2. Whether nature supplies a normalized invariant law with (P) for the OI carrier. Open.
-3. A continuous-time form of Propositions 3.2 and 3.4 for measure-preserving flows (common
-   near-total return as rigidity along real times $t_k\to\infty$). Not proved here.
-4. Whether Proposition 6.2's step (b)⇒(c) holds under a condition strictly weaker than (RIG),
-   for example a single common near-return with the margin of ladder F11 after each
-   non-permutation time. Open.
+3. A continuous-time form of Propositions 3.2 and 3.7 for measure-preserving flows (rigidity along
+   real times $t_k\to\infty$). Not proved here. For Main.md:155 a single common near-return with
+   the margin of ladder F11 already suffices.
+4. Whether some condition weaker than (RIG) holds for the selected OI update; under one common
+   near-return with the margin of ladder F11 after a non-permutation time, (b)⇒(c) holds by F11.
 5. Any bound placing a rigidity time or a near-return time in an accessible window. Open; neither
    total finiteness nor the contract supplies one.
