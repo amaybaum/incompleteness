@@ -1,6 +1,6 @@
 # NATIVE-PRODUCER-2: admission screen for one non-ring source lead
 
-**WIP / UNREVIEWED. Author disposition: NO QUALIFYING CANDIDATE in this bounded screen.**
+**Source/scope review: ACCEPT ([REVIEW-r1.md](REVIEW-r1.md)). Disposition: NO QUALIFYING CANDIDATE in this bounded screen.**
 This is a source-selection checkpoint, not a new obstruction theorem or a
 qualified apparatus preregistration. No derivation follows the source stop.
 
@@ -8,7 +8,7 @@ Accountable Issue: [#1358](https://github.com/amaybaum/incompleteness/issues/135
 Parent source obligation: [#866](https://github.com/amaybaum/incompleteness/issues/866).
 Related: [#914](https://github.com/amaybaum/incompleteness/issues/914) and
 [#1169](https://github.com/amaybaum/incompleteness/issues/1169).
-Writer: Codex worker `c_1358`; independent non-author review is pending.
+Writer: Codex worker `c_1358`; independent non-author reviewer: Codex worker `a_1188`.
 Source snapshot D: main `d4d0a07091926641dd3ee844807f41dae8a51d89`.
 All source paths and line references below refer to that snapshot.
 
@@ -169,10 +169,10 @@ line audit nor a new literature survey. Issue/comment numbers in this record
 supply accountability or authority provenance; none is the sole support of a
 physical or mathematical claim. All source contracts consumed here are on D.
 
-Independent non-author review must verify the exact checkpoint's source passages,
+The [independent non-author review](REVIEW-r1.md) checked the exact checkpoint's source passages,
 the one-lead boundary, the distinction between a legitimate posit and an
 unjustified candidate input, and the absence of a universal negative inference.
-Until then this remains the writer's unreviewed admission disposition. Its
+The source/scope review returned ACCEPT at `e1e5bd9520b82210f8286fdcb975b881a62509b7`. The checkpoint's
 evidence layer is documentary source inspection. Any eventual preservation or
 merge has its own owner gate; this checkpoint grants none.
 
