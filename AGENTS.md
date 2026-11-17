@@ -26,32 +26,6 @@ The framework's survival is subordinate to it. A route closed by controlled comp
 progress of the same kind as a route opened, and is recorded with the same care; sunk cost
 confers no protection, and "the framework needs this to be true" is never an argument.
 
-**OI-specific research target (hypothesis, not a premise or established conclusion).**
-OI investigates whether quantum mechanics is the effective description of a deeper physical
-reality projected through an embedded observer's *finite spacetime measurements*. A measurement
-includes finite preparations, interventions, evolution and recorded outcomes, not only an
-instantaneous readout. The underlying dynamics is not assumed to be exactly quantum mechanical
-or to have a finite total state space (A1). The test is whether **one independently specified
-substratum and observer interface** derive the quantum operational predictions we actually
-measure, consistently across settings, composites and finite observation horizons, while
-allowing independently derived, testable departures beyond the experimentally established
-quantum domain. The existing finite-horizon stochastic/reversible/fixed-basis Born
-equivalence establishes **representability**, not selection of the physical measurement
-instruments, Born exponent, coherent evolution or a common physical model across experiments.
-Failure to recover these structures is a finding, not permission to insert quantum rules.
-
-**Cosmological-constant target (proposed explanation, not a completed physical solution).**
-OI proposes that identifying effective quantum vacuum energy with the underlying
-*gravitating* vacuum source conflates the observational projection with fundamental
-dynamics. Its explanatory aim is to derive the relevant vacuum/gravity coupling and test
-whether that distinction resolves the cosmological-constant problem without an adjusted
-cancellation, while reproducing gravity and cosmological measurements. The current
-distinct-descriptions/horizon-normalization argument is at GR's conditional **G1**
-level. The covariant, conserved stress-energy coupling and continuum equations of **G3**
-remain open; neither the cosmological-constant problem nor dark-energy phenomenology is
-recorded as fully explained until those dependencies and quantitative tests are met.
-These programme targets neither establish A1 nor replace the truth-seeking rule above.
-
 - **Computational verdicts print only over green controls.** Preregister the decision *rule*,
   not the expected numbers; generate verdict text from the measurements. A verdict rendered
   over a failed control is void.
@@ -59,6 +33,15 @@ These programme targets neither establish A1 nor replace the truth-seeking rule 
   revision preserves (these become its controls); deliver at least one independent prediction
   or postdiction beyond the problem it was built to fix; reject any variant that can be
   adjusted to fit any outcome.
+
+**OI's research target (a hypothesis, not a premise or a result).** OI tests whether quantum
+mechanics and gravity, including how vacuum energy gravitates, are the effective descriptions an
+embedded observer obtains through finite measurements of a deeper dynamics that need not be
+quantum or finite. The test is whether one independently specified substratum and observer
+interface derive what is actually measured, consistently across experiments. Representing
+quantum statistics is not deriving them; where a derivation fails, that is a finding, and
+quantum rules are not inserted to fill it. The status of each part is stated in the papers, not
+here.
 
 ---
 
@@ -1453,9 +1436,7 @@ naming specific models.
 Every decision made during research evaluation is checked against the question: *what is the
 ultimate goal, and what are the highest-priority items needed to achieve it?* The ultimate goal is
 §A.29's. The programme's target, adopted by the owner and recorded in the planning record (§A.45),
-serves that goal and never outranks it. For OI, the **testable projection and
-cosmological-constant research targets** are stated in §A.29; they are not established
-physical conclusions. The highest-priority items are the obligations the owner
+serves that goal and never outranks it. The highest-priority items are the obligations the owner
 has ranked highest under §A.45; a provisional tier is not such a ranking.
 
 1. **Where it is recorded.** Each owner-decision record, planning-status block, unit plan or
