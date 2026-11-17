@@ -1,7 +1,10 @@
 # O-ACC: previous-slice selection of a read region
 
-**Status:** Paper-only check, not yet independently reviewed. Conditional U1 result below;
-native source **UNSOURCED / NOT PASSED**. Accountable Issue: #914. Related: #1169 and #1032.
+**Status:** Paper-only check. Claude's independent non-author review of
+`624b899f6d7c31a0fa91f6bfab7ce26171aa45e2` returned **ACCEPT WITH CHANGES**;
+the R1 attribution correction is applied below, with focused confirmation of this revision pending
+(review provenance in section 6). Conditional U1 result; native source **UNSOURCED / NOT PASSED**.
+Accountable Issue: #914. Related: #1169 and #1032.
 Sole scientific writer: Codex. Designated independent non-author reviewer: Claude.
 
 ## Authority, source pin and Goal link
@@ -192,9 +195,9 @@ on an infinite configuration set. There is no new adopted premise in this table.
 | `verification/programmes/oi-qm/reconstruction/native-apparatus-source-20261113/ASSESSMENT.md:67-84,90-110` | Bounded source-history comparison: ready/input source, request writer, executing read and renewal are missing in that inspected packet; its fixed two-site result is not extended to all U1 |
 | `verification/programmes/oi-qm/reconstruction/oa-1-20261112/OA-1-REPORT-r5.md:335-349` | Prior R-lin diagnosis: the previous slot masks a write unless its relevant conditional value is controlled; contextual agreement, not a premise of the proof below |
 | `verification/programmes/oi-qm/reconstruction/o-ret-routes-20261103/phaseA/run-1/RESULT.md:55-60` | Calibration PASS has no native physical-retention force; no prior execution is rerun or treated as new evidence |
-| Earlier O-ACC and P2-G comments linked above | Historical scope and the reason to select U1; neither comment supplies a mathematical premise unavailable on D |
+| Earlier O-ACC and P2-G comments linked above | Historical scope, the reason to select U1 and attribution of the known finite A-prime independence fact in section 3.2; neither comment supplies a mathematical premise unavailable on D |
 | Owner and planning comments linked above | Authorization and planning only; no scientific premise |
-| PR #1357 and its preregistration commit | Prospective workflow provenance only; section 3 supplies its own proof |
+| PR #1357, its preregistration commit and Claude's review linked in section 6 | Workflow and exact-head review provenance only; section 3 supplies its own proof |
 
 Discovery used text searches over Markdown and Lean under `papers/`, `book/` and `verification/`
 for `O-ACC`, `P2-G`, `selector`, `adaptive`, `previous slice`, `retarded`, `moving partition`
@@ -237,6 +240,11 @@ different j. Summing this constant conditional probability over y with `m(y)=m` 
 `g_s(y)=j` proves (1). The same argument shows the pair `(Y,Z)` has the independent uniform
 law; it does not establish that nature selects this law. No property of A beyond its being
 the fixed, defined map of H1 is needed for the subtraction argument. Q need not be a field.
+
+Proposition 1 is the joint-law form of the independence of consecutive slices under the product
+law (the A-prime observation recorded in the earlier O-ACC audit, section 3, for finite S).
+What this unit adds is the address/value decomposition and Proposition 2 for previous-slice
+selection, the infinite-cylinder form of section 3.3, and the false-positive control (3).
 
 **Proposition 2 (address recovery).** Under the same hypotheses, exact recovery of M from
 `(J,U)` is possible if and only if exact recovery from J alone is possible, for each fixed s.
@@ -362,7 +370,8 @@ The selected previous-slice policy additionally lacks an executing selector, hel
 read coupling. Nothing here establishes their impossibility. The inspected sources do not
 supply a single process satisfying write, hold, read and repeat on the chosen carrier.
 
-**Conditional mathematical result: ELABORATING, pending independent review.** For this U1
+**Conditional mathematical result: ELABORATING.** Independently reviewed at `624b899f` as
+ACCEPT WITH CHANGES; this revision awaits focused confirmation of R1 and the status wording. For this U1
 subclass under H1-H4, the next field values contribute no message information beyond the selected
 address; exact recovery from `(J,U)` is equivalent to recovery from J. This is a constraint on
 all fixed-size previous-slice selections satisfying the hypotheses, not just one declared fixed
@@ -398,12 +407,22 @@ A1 remains **OPEN / UNADOPTED**; G2 is **NOT COMPLETE**; physical source is **NO
 
 ## 6. Verification and remediation
 
-The scientific result requires Claude's independent non-author review of the exact pushed head.
+Claude's independent non-author
+[review of 2026-11-17](https://github.com/amaybaum/incompleteness/pull/1357#issuecomment-6943785884)
+returned **ACCEPT WITH CHANGES** on exact scientific head
+`624b899f6d7c31a0fa91f6bfab7ce26171aa45e2`. The review checked the propositions, both recovery
+directions, the infinite-cylinder argument, equation (3), time indices, H5, all nine controls,
+the source stop and the cited sources. Its required R1 is the attribution added in section 3.2;
+the proof, hypotheses, controls, ELABORATING grade and physical verdict are unchanged.
+Focused exact-head confirmation of this attribution/status revision remains pending; the earlier
+verdict is not presented as acceptance of an unreviewed revision. The optional scope extensions
+were not added, and no U3 unit is started.
+
 Ordinary draft-PR CI is document/repository validation, not scientific execution authorized by this
 unit, independent proof review or an exact-head native-round attestation. No special workflow is
 dispatched. The checked push triggers affect main or unrelated paths; this one-file research
 branch does not match a special launch. No source record, manuscript, Lean file or registry changes.
-The missing verification and any physical gaps remain accountable under #914, with retention/read
+The pending focused confirmation and physical gaps remain accountable under #914, with retention/read
 mechanisms under #1032 and upstream preparation/request sourcing under #866.
 
 Writer checks: direct symbolic proofs of (1)-(3), each direction of Proposition 2 separately,
@@ -420,8 +439,10 @@ Before publication of this analysis, the writer confirmed that section 1 equals 
 preregistration, only this file differs from D, citations still refer to D, and no prohibited
 source file changed. The preregistration head's automatic CI completed with 26 successes and
 one expected A42 exclusion skip; those results do not attest the later analysis head.
-Claude's independent exact-head review remains required. It should specifically challenge the
-time indices, all accessible-label accounting, the forward decoder argument, conditional-setting
-assumption, infinite-product argument, productivity versus P2-G, and the physical first stop.
-Its verdict and CI results are recorded on PR #1357 and #914 separately. Pending review is not
-acceptance, and automatic CI cannot substitute for it. No merge is authorized by this record.
+The reviewed scientific head's CI run
+[44048988184](https://github.com/amaybaum/incompleteness/actions/runs/44048988184) completed with
+26 successes and one expected A42 exclusion skip. This revision needs its own CI result and
+Claude's focused confirmation, recorded separately on PR #1357 and #914. The new confirmation
+must distinguish the inspected delta from the unchanged scientific evidence carried forward from
+the full review. Automatic CI cannot substitute for that confirmation. No merge is authorized
+by this record, and no physical source gap is discharged by the review.
