@@ -1,7 +1,7 @@
 # KERNEL-VAC-1 — read/write-source repair or retirement
 
 **DRAFT / NOT FROZEN / NOT EXECUTED.** Accountable Issue: #1188. Writer:
-Codex. Designated independent reviewer: Claude; its pre-F review (ACCEPT WITH CHANGES at `da4f2ca7`)
+Codex. Completed independent non-author pre-F reviewer: Claude (ACCEPT WITH CHANGES at `da4f2ca7`)
 and focused delta check are recorded on #1359. Drafting
 snapshot `D`: `d4d0a07091926641dd3ee844807f41dae8a51d89`. This document is
 the proposed control plane, not a kernel result or an owner designation.
@@ -266,12 +266,12 @@ review reference is provenance; the scientific source descriptions above
 are checked against the named files at D. The original reviewed commit and
 review are preserved. No author-side disposition is independent acceptance.
 
-Claude's independent pre-F review must check the availability derivation target,
+The independent pre-F review checks the availability derivation target,
 nonempty and zero-dimensional scope, satisfiability requirement, path and
 preservation inventory, repair/retire criteria, proposed budget and support
 tracing. The writer's source reading is not that review. Resolve blocking
-findings on this draft; keep every checkpoint reachable. No second model's
-acceptance is substituted for the assigned review without an owner decision.
+findings on this draft; keep every checkpoint reachable. An additional exact-head review by a further model is optional under §A.46(8);
+no author acceptance substitutes for the completed independent non-author review.
 
 After the focused acceptance, present the exact proposed F and execution
 design for the owner's own recorded decisions. Hold the branch at that commit
@@ -284,5 +284,5 @@ generate the receipt with `tools/v3_receipt.py`, and require
 
 The execution result will report the full commit, changed files, theorem and
 axiom identities, citation disposition, checks, attempts, limitations and
-unresolved obligations. Claude reviews the exact execution checkpoint before
-the owner considers landing. No merge approval is requested by this draft.
+unresolved obligations. An independent non-author reviewer checks the exact execution checkpoint before
+the owner considers landing; no particular model is required. No merge approval is requested by this draft.
