@@ -1,6 +1,6 @@
 # A1-NECESSITY — bounded dependency reconciliation
 
-**Status:** COMPLETE AUTHOR CANDIDATE / INDEPENDENT REVIEW PENDING. Paper-only reconciliation of five existing source chains. No new proof, physical-source result or general A1 census. A1 remains **OPEN / UNADOPTED**; physical source remains **NOT PASSED**.
+**Status:** PAPER-ONLY ASSESSMENT / INDEPENDENT NON-AUTHOR REVIEW: ACCEPT WITH SCOPE LIMITS at `9f55451b57621ced3b4ad00adfd85c574bcc20f5` ([review](REVIEW-r1.md)). Paper-only reconciliation of five existing source chains. No new proof, physical-source result or general A1 census. A1 remains **OPEN / UNADOPTED**; physical source remains **NOT PASSED**.
 
 **Accountability and authority.** [#1055](https://github.com/amaybaum/incompleteness/issues/1055), coordinated under [#1169](https://github.com/amaybaum/incompleteness/issues/1169), guiding draft [#1361](https://github.com/amaybaum/incompleteness/pull/1361). Owner amaybaum approved this existing five-family assessment in ChatGPT; [comment 6950009614](https://github.com/amaybaum/incompleteness/issues/1055#issuecomment-6950009614), posted 2026-11-17T13:52:21Z under amaybaum through the ChatGPT Codex Connector, relays “Approved”. It is an assistant-written relay, not an owner-authored GitHub comment. The [bounded assignment](https://github.com/amaybaum/incompleteness/issues/1055#issuecomment-6946199109) supplies the scope. Sole scientific writer: Codex Worker B; independent non-author reviewer: Worker C under the current three-worker arrangement.
 
@@ -52,7 +52,7 @@
 
 ## 4. Preservation and validation
 
-The initial substantive recurrence checkpoint was published on draft #1361 before completing the remaining rows. One new file is changed; all sources/reviews remain untouched. Independent non-author review of this complete candidate is pending and must cite its exact head; source reviews above cannot substitute for it.
+The initial substantive recurrence checkpoint was published on draft #1361 before completing the remaining rows. At the reviewed scientific head, only `ASSESSMENT.md` was added; the retention child also adds `REVIEW-r1.md` and otherwise changes only the three preapproved status/scope text substitutions. All pre-existing sources and reviews remain untouched. Independent non-author Worker C reviewed the complete scientific candidate at `9f55451b57621ced3b4ad00adfd85c574bcc20f5` and returned **ACCEPT WITH SCOPE LIMITS**; the retained [review](REVIEW-r1.md) states the direct checks, inherited evidence and outstanding landing gaps.
 
 Local non-scientific checks at the initial checkpoint: artifact placement and its self-test PASS; V3 self-test PASS; V3 corpus 137 expected / 3 UNDECIDABLE because the checkout is shallow; legacy-record self-test PASS and ancestry check UNDECIDABLE for the same reason. The three corpus fixtures were s8-landed-2c6a4373-56b25397, s8-landed-d3212b0e-50938dff and s8-landed-f9a99fdf-14b9d991. Final checkpoint: diff whitespace check and artifact placement PASS; structural inspection confirms five rows/eight columns, resolved reference labels, immutable repository source links, existing M paths and one-file scope. Full-history validation remains ordinary PR CI; no successful local full-history run is claimed.
 
