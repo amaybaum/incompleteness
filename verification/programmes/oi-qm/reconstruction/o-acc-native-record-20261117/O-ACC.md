@@ -2,7 +2,7 @@
 
 **Status:** Paper-only check. Claude's independent non-author review of
 `624b899f6d7c31a0fa91f6bfab7ce26171aa45e2` returned **ACCEPT WITH CHANGES**;
-the R1 attribution correction is applied below, with focused confirmation of this revision pending
+the R1 attribution correction is applied below, and confirmed at `fcaa070c4e11e30dc60f65ebad9b3a3e6e459f05`
 (review provenance in section 6). Conditional U1 result; native source **UNSOURCED / NOT PASSED**.
 Accountable Issue: #914. Related: #1169 and #1032.
 Sole scientific writer: Codex. Designated independent non-author reviewer: Claude.
@@ -371,7 +371,7 @@ read coupling. Nothing here establishes their impossibility. The inspected sourc
 supply a single process satisfying write, hold, read and repeat on the chosen carrier.
 
 **Conditional mathematical result: ELABORATING.** Independently reviewed at `624b899f` as
-ACCEPT WITH CHANGES; this revision awaits focused confirmation of R1 and the status wording. For this U1
+ACCEPT WITH CHANGES; R1 and the status wording were confirmed at `fcaa070c4e11e30dc60f65ebad9b3a3e6e459f05`. For this U1
 subclass under H1-H4, the next field values contribute no message information beyond the selected
 address; exact recovery from `(J,U)` is equivalent to recovery from J. This is a constraint on
 all fixed-size previous-slice selections satisfying the hypotheses, not just one declared fixed
@@ -414,15 +414,14 @@ returned **ACCEPT WITH CHANGES** on exact scientific head
 directions, the infinite-cylinder argument, equation (3), time indices, H5, all nine controls,
 the source stop and the cited sources. Its required R1 is the attribution added in section 3.2;
 the proof, hypotheses, controls, ELABORATING grade and physical verdict are unchanged.
-Focused exact-head confirmation of this attribution/status revision remains pending; the earlier
-verdict is not presented as acceptance of an unreviewed revision. The optional scope extensions
+Focused exact-head confirmation of this attribution/status revision at `fcaa070c4e11e30dc60f65ebad9b3a3e6e459f05` is recorded on PR #1357; it covers the delta only, and the scientific checks carry forward from the full review. The optional scope extensions
 were not added, and no U3 unit is started.
 
 Ordinary draft-PR CI is document/repository validation, not scientific execution authorized by this
 unit, independent proof review or an exact-head native-round attestation. No special workflow is
 dispatched. The checked push triggers affect main or unrelated paths; this one-file research
 branch does not match a special launch. No source record, manuscript, Lean file or registry changes.
-The pending focused confirmation and physical gaps remain accountable under #914, with retention/read
+The physical gaps remain accountable under #914, with retention/read
 mechanisms under #1032 and upstream preparation/request sourcing under #866.
 
 Writer checks: direct symbolic proofs of (1)-(3), each direction of Proposition 2 separately,
@@ -441,8 +440,5 @@ source file changed. The preregistration head's automatic CI completed with 26 s
 one expected A42 exclusion skip; those results do not attest the later analysis head.
 The reviewed scientific head's CI run
 [44048988184](https://github.com/amaybaum/incompleteness/actions/runs/44048988184) completed with
-26 successes and one expected A42 exclusion skip. This revision needs its own CI result and
-Claude's focused confirmation, recorded separately on PR #1357 and #914. The new confirmation
-must distinguish the inspected delta from the unchanged scientific evidence carried forward from
-the full review. Automatic CI cannot substitute for that confirmation. No merge is authorized
+26 successes and one expected A42 exclusion skip. CI results for later heads are recorded on PR #1357; automatic CI is not a substitute for review. No merge is authorized
 by this record, and no physical source gap is discharged by the review.
