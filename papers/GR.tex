@@ -804,13 +804,14 @@ temperature}\label{the-classical-horizon-temperature}}
 Jacobson {[}1{]} showed \(dE = T\,dS\) applied to local causal horizons
 yields Einstein's equations, with \(dE = (c^2 \kappa / 8\pi G)\,dA\),
 where \(\kappa\) is the surface gravity of the horizon. The entropy
-density is \(\eta = \sigma/\epsilon^2\) --- one coupled mode per minimal
-cell, each carrying the dimensionless entropy \(\sigma\), in nats. The
-count rests on Lemma 1: \(\epsilon\) is defined as the minimal
-distinguishable scale, so each cell of area \(\epsilon^2\) contributes
-exactly one boundary mode that couples across the partition. The count
-does not fix \(\sigma\): a mode with \(q\) internal states carries at
-most \(\ln q\), and the alphabet-size hypothesis of {[}SM §2.7{]} (two
+density is \(\eta = \sigma/\epsilon^2\), where \(\epsilon\), the
+discreteness scale of the boundary count, is defined by
+\(\epsilon^2 = A/N_{\rm modes}\): the horizon area per boundary mode
+that couples across the partition, each mode carrying the dimensionless
+entropy \(\sigma\), in nats. Its relation to the lattice spacing
+\(\epsilon_{\rm lat}\) is fixed by the link count below. The count does
+not fix \(\sigma\): a mode with \(q\) internal states carries at most
+\(\ln q\), and the alphabet-size hypothesis of {[}SM §2.7{]} (two
 systems with different \(q\) and the same coupling structure produce
 identical transition probabilities) does not fix it either. The
 Bekenstein-Hawking coefficient does not depend on \(\sigma\), which
@@ -829,40 +830,51 @@ measured in nats; under the bound \(\sigma \leq \ln q\) it is
 unavailable for a single mode with \(q = 2\).
 
 \emph{Reconciliation with the internal component count.} The counting
-\(\eta = \sigma/\epsilon^2\) is one boundary mode per cell, whereas the
-substratum carries \(K = 2d = 6\) internal components per site ({[}SM
-§4.5{]}). These are consistent, and the consistency is forced rather
-than assumed, once the components are read as what {[}SM §4.5{]} now
-conditionally identifies them as, under H-link: the \(K = 2d\)
-components are the \(2d\) link directions from a cell, with component
-\(a\) assigned to link direction
+\(\eta = \sigma/\epsilon^2\) is one boundary mode per area
+\(\epsilon^2\), whereas the substratum carries \(K = 2d = 6\) internal
+components per site ({[}SM §4.5{]}). Under H-link with the single-link
+reading --- component \(a\) assigned to link direction
 \(\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}\) and coupling only
-across that one link (the minimal-coupling factorization
-\(\delta = 1\)). A boundary cell on the horizon has exactly one
-outward-normal link crossing the partition; the other \(2d - 1 = 5\)
-link directions are tangential to the boundary surface or inward, and
-carry no cross-partition coupling. The number of components whose
-coupling crosses the horizon per cell is therefore exactly one --- the
-normal link --- so \(\kappa_m = 1\) and \(\eta = \sigma/\epsilon^2\)
-follows from the link-direction structure, not from a separate
-mode-counting postulate. (The entropy per mode, \(\sigma\) above, is a
-separate question: one mode per cell does not establish one nat per
-mode. The component count is settled here by which links are normal.)
-With \(\kappa_m = 1\) the relation
-\(\epsilon = 2\sqrt{\kappa_m \sigma}\,l_p\) gives
-\(\epsilon = 2\sqrt{\sigma}\,l_p\), which is \(\epsilon = 2\,l_p\) at
-\(\sigma = 1\). The matching scale \(\mu = M_{\text{Pl}}\) of {[}SM
-§6.2{]} is a convention into which this factor does not enter; matching
-at \(1/\epsilon\) instead shifts the fitted threshold parameters there
-({[}SM §6.2{]}). The Bekenstein-Hawking coefficient is independent of
-\(\kappa_m\) in any case --- writing
-\(\eta = \kappa_m\sigma/\epsilon^2\), the gap equation gives
-\(\hbar = c^3/(4G\eta)\) and \(S = \eta A = A/(4l_p^2)\) with
-\(\kappa_m\) and \(\sigma\) cancelling, while the mode count is
-\(N_{\rm modes} = \kappa_m A/\epsilon^2 = S/\sigma\) --- so the entropy
-law is a fixed point of the construction regardless, and the component
-count enters only the discreteness scale, where the link-direction
-structure fixes it at unity.
+across that one link (the factorization \(\delta = 1\), which {[}SM
+§4.5, Lemma 6a{]} records as not a consequence of {[}SM §4.4{]}) --- the
+components whose coupling crosses the horizon are one per
+nearest-neighbour link crossing it. On the cubic lattice of spacing
+\(\epsilon_{\rm lat}\) a planar patch with unit normal \(\mathbf n\) is
+crossed by
+\((\lvert n_1\rvert+\lvert n_2\rvert+\lvert n_3\rvert)/\epsilon_{\rm lat}^2\)
+links per unit area: \(1/\epsilon_{\rm lat}^2\) for a patch orthogonal
+to a lattice axis, \(\sqrt3/\epsilon_{\rm lat}^2\) for one orthogonal to
+a body diagonal. For the de Sitter horizon, a sphere of radius
+\(R \gg \epsilon_{\rm lat}\) in the lattice frame with the sites inside
+it on the visible side, the area average of \(\lvert n_j\rvert\) is
+\(\tfrac12\) for every orientation of the lattice, and, for a sphere
+centred on a site, the number of crossing links is exactly
+\(6N_2(R^2/\epsilon_{\rm lat}^2)\), with \(N_2(r^2)\) the number of
+integer points in a disc of radius \(r\), that is
+\(\tfrac32 A/\epsilon_{\rm lat}^2 + O(R/\epsilon_{\rm lat})\). Writing
+\(\eta = \kappa_m\sigma/\epsilon_{\rm lat}^2\), the spherical horizon
+has \(\kappa_m = \tfrac32\) and
+\(\epsilon^2 = \epsilon_{\rm lat}^2/\kappa_m = \tfrac23\epsilon_{\rm lat}^2\).
+The Bekenstein-Hawking coefficient is independent of \(\kappa_m\): the
+gap equation gives \(\hbar = c^3/(4G\eta)\) and
+\(S = \eta A = A/(4l_p^2)\) with \(\kappa_m\) and \(\sigma\) cancelling,
+and the mode count is \(N_{\rm modes} = A/\epsilon^2 = S/\sigma\). The
+component count enters only the lattice spacing: with
+\(\epsilon = 2\sqrt{\sigma}\,l_p\) (§4),
+\(\epsilon_{\rm lat} = 2\sqrt{\kappa_m\sigma}\,l_p = \sqrt{6\sigma}\,l_p\),
+which is \(\sqrt6\,l_p \approx 2.45\,l_p\) at \(\sigma = 1\). The
+density depends on orientation: a local patch with normal \(\mathbf n\)
+has
+\(\eta(\mathbf n) = \sigma(\lvert n_1\rvert+\lvert n_2\rvert+\lvert n_3\rvert)/\epsilon_{\rm lat}^2\),
+equal to the spherical value \(\sigma/\epsilon^2\) only where
+\(\lvert n_1\rvert+\lvert n_2\rvert+\lvert n_3\rvert = \tfrac32\);
+whether the emergent description carries an orientation-independent
+density is open. (The entropy per mode, \(\sigma\), is a separate
+question: one mode per area \(\epsilon^2\) does not establish one nat
+per mode.) The matching scale \(\mu = M_{\text{Pl}}\) of {[}SM §6.2{]}
+is a convention into which this factor does not enter; matching at
+\(1/\epsilon_{\rm lat}\) instead shifts the fitted threshold parameters
+there ({[}SM §6.2{]}).
 
 \hypertarget{the-emergent-action-scale}{%
 \subsubsection{3.2 The emergent action
@@ -1158,20 +1170,19 @@ with \emph{some} action scale \(\hbar\); §3 determines \emph{which}
 \(\hbar\), using the independent classical temperature that Part I
 neither requires nor produces.
 
-\textbf{The counting of one mode per cell is definitional.} Given that
-\(\epsilon\) is the minimal distinguishable scale (Lemma 1), ``one
-boundary mode per cell of area \(\epsilon^2\)'' is what ``minimal''
-means: a cell finer than \(\epsilon\) would subdivide the minimal scale,
-while counting fewer modes would require a distinction below
-\(\epsilon\) to group them. The number of internal states per cell
-bounds the entropy of its mode, \(\sigma \leq \ln q\), and does not
-change the count of one mode per cell; \(\sigma\) is the entropy per
-mode of §3.1, which neither the count nor the alphabet-size hypothesis
-of {[}SM §2.7{]} fixes. The mode density \(1/\epsilon^2\) in
-\(\eta = \sigma/\epsilon^2\) is therefore not an independent physical
-ansatz but a consequence of the definition of \(\epsilon\); \(\sigma\)
-is a separate input, and the Bekenstein-Hawking coefficient is
-independent of it (§3.1).
+\textbf{One boundary mode per area \(\epsilon^2\) fixes \(\epsilon\).}
+The boundary count fixes \(\epsilon\) through
+\(\epsilon^2 = A/N_{\rm modes}\) (§3.1); the substratum enters through
+the relation of \(\epsilon\) to the lattice spacing,
+\(\epsilon^2 = \tfrac23\epsilon_{\rm lat}^2\) on the spherical horizon
+under the single-link reading (§3.1). The number of internal states per
+mode bounds its entropy, \(\sigma \leq \ln q\), and does not change the
+mode count; \(\sigma\) is the entropy per mode of §3.1, which neither
+the count nor the alphabet-size hypothesis of {[}SM §2.7{]} fixes. The
+mode density \(1/\epsilon^2\) in \(\eta = \sigma/\epsilon^2\) is
+therefore not an independent physical ansatz but a consequence of the
+definition of \(\epsilon\); \(\sigma\) is a separate input, and the
+Bekenstein-Hawking coefficient is independent of it (§3.1).
 
 The specific relationship \(\hbar = c^3\epsilon^2/(4G\sigma)\) enters
 three later results: the Bekenstein-Hawking formula with the factor
@@ -1190,11 +1201,17 @@ this paper does not --- it uses the classical identity
 Jacobson's: his argument derives \(G\) from \(\eta\) and \(\hbar\); the
 present argument takes \(G\) as a parameter of the classical Hamiltonian
 (Lemma 3) and derives \(\hbar\) from \(G\) and \(\epsilon\). The two are
-consistent --- substituting \(\eta = \sigma/\epsilon^2\) and
-\(\hbar = c^3\epsilon^2/(4G\sigma)\) into Jacobson's relation
-\(G_{\text{eff}} = c^3/(4\eta\hbar)\) recovers \(G_{\text{eff}} = G\),
-with \(\sigma\) cancelling --- but the roles of input and output are
-reversed. The Gibbons-Hawking form {[}2{]}
+consistent on the spherical horizon --- substituting
+\(\eta = \sigma/\epsilon^2\) and \(\hbar = c^3\epsilon^2/(4G\sigma)\)
+into Jacobson's relation \(G_{\text{eff}} = c^3/(4\eta\hbar)\) recovers
+\(G_{\text{eff}} = G\), with \(\sigma\) cancelling --- but the roles of
+input and output are reversed. On a planar patch with unit normal
+\(\mathbf n\) the single-link density of §3.1 gives
+\(G_{\text{eff}}(\mathbf n) = 3G/\big(2(\lvert n_1\rvert+\lvert n_2\rvert+\lvert n_3\rvert)\big)\),
+between \(\tfrac{\sqrt3}{2}G\) and \(\tfrac32G\), so the relation holds
+for the area-averaged density of the spherical horizon (and on patches
+with \(\lvert n_1\rvert+\lvert n_2\rvert+\lvert n_3\rvert = \tfrac32\)),
+not patch by patch. The Gibbons-Hawking form {[}2{]}
 \(k_B T_{\text{GH}} = \hbar \kappa / (2\pi c)\) enters as the KMS
 temperature of Step 4; the calibration relates the \(\hbar\) in it to
 \(\epsilon\) and \(\sigma\) through
@@ -2296,23 +2313,23 @@ of the de Sitter horizon. The factor of \(1/4\) in the
 Bekenstein-Hawking formula --- introduced by Bekenstein (1973) with a
 coefficient he could estimate only heuristically, and fixed at \(1/4\)
 by the Hawking temperature and the first law (Hawking 1975) --- is here
-recovered, under the conditions of the §3 calibration: each minimal cell
-of area \(\epsilon^2 = 4\sigma\,l_p^2\) on the horizon contributes the
-entropy \(\sigma\) of one boundary mode, and
-\(\sigma A/\epsilon^2 = A / (4\,l_p^2)\) recovers the standard formula
-exactly, whatever \(\sigma\). The factor of \(4\) in
-\(\epsilon^2 = 4\sigma l_p^2\) traces directly to §3 Step 4's thermal
-matching: the ratio \(2\pi/8\pi = 1/4\) between the Euclidean KMS period
-(numerator: thermal periodicity of QFT on a Killing horizon) and
-Jacobson's Einstein-equation prefactor (denominator: gravity's coupling
-in \(dE = (c^2\kappa/8\pi G)dA\)). The Bekenstein-Hawking \(1/4\) is
-therefore not an arbitrary constant but the consistency condition
-between gravitational and quantum thermal physics, conditional on
-H-slope (§3.2), H-count (§2.3), H-frame (§2.3), the H-Hawking conditions
-of §8.5, local boost structure at the horizon and the symmetric
-detailed-balance rate ratio (§8.5). The same minimal-cell counting
-argument applies to any horizon with area \(A\), giving
-\(S = A/(4 l_p^2)\) for black-hole horizons as well; the recent
+recovered, under the conditions of the §3 calibration: each area
+\(\epsilon^2 = 4\sigma\,l_p^2\) of the horizon carries one boundary mode
+of entropy \(\sigma\), and \(\sigma A/\epsilon^2 = A / (4\,l_p^2)\)
+recovers the standard formula exactly, whatever \(\sigma\). The factor
+of \(4\) in \(\epsilon^2 = 4\sigma l_p^2\) traces directly to §3 Step
+4's thermal matching: the ratio \(2\pi/8\pi = 1/4\) between the
+Euclidean KMS period (numerator: thermal periodicity of QFT on a Killing
+horizon) and Jacobson's Einstein-equation prefactor (denominator:
+gravity's coupling in \(dE = (c^2\kappa/8\pi G)dA\)). The
+Bekenstein-Hawking \(1/4\) is therefore not an arbitrary constant but
+the consistency condition between gravitational and quantum thermal
+physics, conditional on H-slope (§3.2), H-count (§2.3), H-frame (§2.3),
+the H-Hawking conditions of §8.5, local boost structure at the horizon
+and the symmetric detailed-balance rate ratio (§8.5). The same counting
+applies to any horizon that is a sphere in the lattice frame, giving
+\(S = A/(4l_p^2)\) for such black-hole horizons as well; for other
+shapes the area-averaged link density of §3.1 can differ; the recent
 observational confirmation of the area law on GW250114 {[}5{]} is
 consistent with this extension.
 
@@ -2378,9 +2395,10 @@ completion conditions. The \(N = A/\epsilon^2\) cells discretize the
 visible sector; spatial locality of the classical substratum restricts
 which cells interact on any given timescale. The emergent Hilbert space
 decomposes as \(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) --- a
-lattice-regularized QFT with UV cutoff at
-\(\epsilon = 2\sqrt{\sigma}\,l_p\). The tensor product structure follows
-from the spatial product structure of the classical configuration space
+lattice-regularized QFT with UV cutoff at the lattice spacing
+\(\epsilon_{\rm lat} = \sqrt{6\sigma}\,l_p\) (§3.1). The tensor product
+structure follows from the spatial product structure of the classical
+configuration space
 \(\mathcal{C}_V = \mathcal{C}_1 \times \cdots \times \mathcal{C}_N\)
 (one factor per cell), which is not required by Lemma 1 but is a
 consequence of spatial locality in the classical substratum: each cell's
@@ -2425,12 +2443,13 @@ emergent Hamiltonian has the form
 
 \textbf{Scope of the emergent QFT.} The CC dissolution requires only
 that the emergent description assigns zero-point energy
-\(\sim \hbar\omega/2\) per mode with UV cutoff at \(\epsilon^{-1}\) ---
-a property shared by any lattice QFT with local couplings, regardless of
-gauge group or matter content. The framework's Part II results (the
-calibration \(\hbar = c^3\epsilon^2/(4G\sigma)\), \(S_{\text{dS}}\), the
-Type II RVM reading of the dark energy) depend on partition geometry,
-not on the emergent field content.
+\(\sim \hbar\omega/2\) per mode with UV cutoff at
+\(\epsilon_{\rm lat}^{-1}\) --- a property shared by any lattice QFT
+with local couplings, regardless of gauge group or matter content. The
+framework's Part II results (the calibration
+\(\hbar = c^3\epsilon^2/(4G\sigma)\), \(S_{\text{dS}}\), the Type II RVM
+reading of the dark energy) depend on partition geometry, not on the
+emergent field content.
 
 \textbf{Classical substratum} (what geometric measurements probe): The
 horizon carries the classical temperature \(T_{\text{cl}}\) of the
@@ -2663,9 +2682,9 @@ factor. With \(\rho_{\text{QFT}} = M_{\text{Pl}}^4\) and
 \(\rho_{\text{classical}} = H^2/G\) (\(\hbar = c = 1\),
 \(M_{\text{Pl}}^2 = 1/G\)) the ratio is exactly \(S_{\text{dS}}/\pi\);
 the mode sum \(k^4/(16\pi^2)\) cut off at
-\(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) (§4) against
-\(\rho_{\text{crit}} = 3H^2/(8\pi G)\) gives
-\(S_{\text{dS}}/(96\pi^2\sigma^2)\); and the same mode sum cut off at
+\(1/\epsilon_{\rm lat} = M_{\text{Pl}}/\sqrt{6\sigma}\) (§3.1, §4)
+against \(\rho_{\text{crit}} = 3H^2/(8\pi G)\) gives
+\(S_{\text{dS}}/(216\pi^2\sigma^2)\); and the same mode sum cut off at
 the reduced Planck mass \((8\pi G)^{-1/2}\) {[}7{]} against the observed
 dark-energy density \(\Omega_\Lambda \rho_{\text{crit}}\) gives
 \(S_{\text{dS}}/(384\pi^4\Omega_\Lambda) \approx 3.9 \times 10^{-5}\,S_{\text{dS}}\).
@@ -3676,17 +3695,18 @@ bookkeeping whose smooth late-time expansion contains an \(H^2 - H_0^2\)
 term --- the local form shared by every smooth model (§7.1) --- read in
 the Type II running-vacuum channel; the framework does not presently
 derive a distinctive Type II law, the channel being selected by
-architectural commitments: the UV cutoff \(1/\epsilon\) is set by the
-gap equation (§3.2, §4) and lies at the Planck scale when \(\sigma\) is
-of order one, and matter conservation plus Bianchi consistency fixes the
-coupled running of \(G(H)\) and \(\rho_{\rm vac}(H)\). To state the
-distinctiveness precisely: a \(c_0 + \nu H^2\) expansion at low energy
-is generic for any covariant analytic \(\rho_{\rm vac}(H)\); the
-framework-specific content is the Type II channel (matter conserved,
-compensation through \(G\)), the coefficient class, and the exclusion of
-phantom crossing. The \emph{magnitude} of \(\nu\) is bounded by the
-self-consistent emergent-QFT calculation (Reading 1 of the §7.1 remark;
-smaller still on Reading 2):
+architectural commitments: the UV cutoff \(1/\epsilon_{\rm lat}\) is set
+by the gap equation and the link count (§3.1, §3.2, §4) and lies at the
+Planck scale when \(\sigma\) is of order one, and matter conservation
+plus Bianchi consistency fixes the coupled running of \(G(H)\) and
+\(\rho_{\rm vac}(H)\). To state the distinctiveness precisely: a
+\(c_0 + \nu H^2\) expansion at low energy is generic for any covariant
+analytic \(\rho_{\rm vac}(H)\); the framework-specific content is the
+Type II channel (matter conserved, compensation through \(G\)), the
+coefficient class, and the exclusion of phantom crossing. The
+\emph{magnitude} of \(\nu\) is bounded by the self-consistent
+emergent-QFT calculation (Reading 1 of the §7.1 remark; smaller still on
+Reading 2):
 \(|\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\),
 indistinguishable from zero. Substratum contributions beyond this are
 constrained by the boundary mode count of §3.1 and §5, which catalogues
@@ -4269,7 +4289,7 @@ product of the low-energy phase and group velocities; writing
 \(v_{\rm ph}v_g/c^2=1+4q\,a^2k^2+O(a^4k^4)\) with
 \(q=\tfrac1{24}(\tfrac13-\sum_i n_i^4)\), hence
 \(-a^2k^2/9\le v_{\rm ph}v_g/c^2-1\le0\) and \[
-\Big|\frac{\Delta T_H}{T_H}\Big|\;\lesssim\;\frac19\Big(\frac{\epsilon\kappa}{c^2}\Big)^2 .
+\Big|\frac{\Delta T_H}{T_H}\Big|\;\lesssim\;\frac19\Big(\frac{\epsilon_{\rm lat}\kappa}{c^2}\Big)^2 .
 \] This holds under named conditions, not universally --- call them
 \textbf{H-Hawking}: (i) the preferred microscopic frame becomes the
 local freely falling horizon frame; (ii) cutoff-scale outgoing modes are
@@ -4384,12 +4404,14 @@ a partition \(V\) at a causal horizon with timescale
 coupling (C1), slow-bath structure (C2), and high capacity (C3), per
 {[}Main §3{]}.
 
-(\emph{S3}) \emph{Finite discreteness.} The substratum has a finite
-discreteness scale \(\epsilon\) that admits identification with the
-boundary's mode-counting unit. {[}Main §1.2{]}'s Lemma 1 establishes a
-finite visible configuration space with a finite discreteness scale
-\(\epsilon\); here we additionally require that the discreteness scale
-appears in the boundary mode count.
+(\emph{S3}) \emph{Finite discreteness.} The substratum fixes a finite
+discreteness scale \(\epsilon\) of the boundary count, the horizon area
+per counted mode being \(\epsilon^2\). {[}Main §1.2{]}'s Lemma 1
+establishes a finite visible configuration space with a finite
+discreteness scale; here we additionally require that the substratum fix
+the boundary mode count. For OI's cubic lattice under the single-link
+reading, \(\epsilon^2 = \tfrac23\epsilon_{\rm lat}^2\) on a spherical
+horizon (§3.1).
 
 (\emph{S4}) \emph{Stinespring/partial-trace structure.} The
 visible-sector dynamics is generated by partial trace of
@@ -4398,10 +4420,10 @@ producing a CPTP channel admitting Stinespring dilation {[}Main §3.2{]}.
 
 These conditions are weaker than OI's full structural conditions A1--A6
 except at S3: A1 (finiteness) makes the number of configurations finite
-but supplies neither the discreteness scale \(\epsilon\) nor its
-identification with the boundary mode-counting unit, which S3 requires;
-A6 (background independence) is required for the SM gauge-group
-derivation but not for the partition-geometry results; A2-A5
+but supplies neither the discreteness scale \(\epsilon\) of the boundary
+count nor its relation to the substratum's lattice structure, which S3
+requires; A6 (background independence) is required for the SM
+gauge-group derivation but not for the partition-geometry results; A2-A5
 (determinism, bounded coupling, center independence, linearity) are
 required for OI's specific universality-class representative but not for
 the universality-class-level claims. A substratum satisfying S1-S4 but
@@ -4573,8 +4595,8 @@ prediction. Three items remain genuinely open. (i) The equipartition
 degree-of-freedom normalization
 \(N_{\rm dof} = A/l_p^2 = 4\,S_{\rm BH}\) --- the standard relation in
 all entropic gravity --- is here \emph{adopted}, not derived from the
-substratum's microscopic component count (\(K = 2d = 6\) per site; one
-boundary-crossing component per cell,
+substratum's microscopic component count (\(K = 2d = 6\) per site;
+boundary-crossing components at the link density of §3.1,
 \(A/\epsilon^2 = S_{\rm BH}/\sigma\) modes); reconciling these counts is
 unsolved. (ii) The full nonlinear \(G_{\mu\nu} = 8\pi G\,T_{\mu\nu}\),
 and the Lorentzian/\(3{+}1\) generalization of the (Euclidean,
@@ -4788,7 +4810,10 @@ reconstruction-level clause claims none. \(\square\)
 
 \textbf{Corollary A.4} (\(\hbar\) universality). \emph{Under the
 conditions of §8.5(b) at each horizon, with the same entropy \(\sigma\)
-per boundary mode, both procedures yield the same emergent action scale
+per boundary mode and the same discreteness scale \(\epsilon\) of the
+boundary count at each horizon (under the single-link reading of §3.1,
+the same for horizons that are spheres in the lattice frame), both
+procedures yield the same emergent action scale
 \(\hbar = c^3 \epsilon^2 / (4G\sigma)\).}
 
 \emph{Proof.} At each horizon the calibration gives
@@ -5803,4 +5828,4 @@ entanglement,'' \emph{Commun. Math. Phys.} \textbf{265}, 95--117 (2006);
 arXiv:quant-ph/0407049.
 
 \end{document}
-% source-sha256: bef161cabce5b55bed110a097d77de159e67604553e163d88fcbbf944f145006
+% source-sha256: 38b4e6f44295a41fb449b9d0d369caa91152ab31362d8097f3ebf124efee2e30

@@ -1685,12 +1685,14 @@ branch}\label{observer-level-propagation-and-the-lattice-kleingordon-branch}}
 
 The OI substratum is represented here by a \(d\)-dimensional hypercubic
 coupling graph \(\Lambda=\mathbb Z^d\) with microscopic spacing
-\(\epsilon=2\sqrt{\sigma}\,l_p\). The finite bijection is fundamental; a
-real/complex wave operator is an observer-level lift whose derivation
-must be stated separately. The following selection statement therefore
-classifies the \emph{form} of a nearest-neighbor center-free linear
-rule, while Theorem 1a and its corollaries determine what finite
-equivariant observation forces at low momentum.
+\(\epsilon_{\rm lat}=\sqrt{6\sigma}\,l_p\), \(\sqrt{3/2}\) times the
+boundary counting length \(\epsilon=2\sqrt{\sigma}\,l_p\) of {[}GR §3.1,
+§4{]}. The finite bijection is fundamental; a real/complex wave operator
+is an observer-level lift whose derivation must be stated separately.
+The following selection statement therefore classifies the \emph{form}
+of a nearest-neighbor center-free linear rule, while Theorem 1a and its
+corollaries determine what finite equivariant observation forces at low
+momentum.
 
 \textbf{Lemma (form of the center-free isotropic linear rule).} \emph{At
 either the substratum-symbolic level or an observer-level linear lift, a
@@ -1716,7 +1718,7 @@ relative to another's unless the signed-permutation symmetry of the
 components is explicitly broken (§4.4, Proposition 4b). Nearest-neighbor
 is adopted as the minimal local branch used by the observer-level
 spectral calculation; the dispersion --- and the coefficient
-\(4\sigma/45\) of §6.4 (\(4/45\) at \(\sigma = 1\)) --- is conditional
+\(2\sigma/15\) of §6.4 (\(2/15\) at \(\sigma = 1\)) --- is conditional
 on that branch and on the coarse-graining bridge of §4.1.
 
 \emph{Proof.} The update function has the form
@@ -1767,7 +1769,7 @@ the map \(\varphi\to L_{\rm obs}\to\Delta_g\) is not proved anywhere in
 this framework.} {[}ch19{]} names preservation of low-energy locality,
 isotropy and spectral mode count under the substratum-to-observer
 coarse-graining as open, and that is precisely this bridge. Until it is
-supplied, §4's dispersion results --- including the \(4\sigma/45\)
+supplied, §4's dispersion results --- including the \(2\sigma/15\)
 coefficient, the Lorentz-invariance argument and Theorem 6's mode count
 --- rest on an operator whose relation to \(\varphi\) is assumed rather
 than derived, and the \(q\)-independence of the dispersion relation
@@ -3269,7 +3271,7 @@ selection --- and the physical reading additionally rides H-spin'
 \emph{Proof.} (i) \emph{The grading.} The staggered-to-Dirac
 reconstruction {[}17, 12{]} assigns spinor components to hypercube
 corners \(\eta \in \{0,1\}^{d+1}\) via
-\(\chi(y + \eta\epsilon) = \frac{1}{4}\Gamma(\eta)_{\alpha\beta}\psi_\beta(y)\),
+\(\chi(y + \eta\epsilon_{\rm lat}) = \frac{1}{4}\Gamma(\eta)_{\alpha\beta}\psi_\beta(y)\),
 where \(\Gamma(\eta) = \gamma_0^{\eta_0}\cdots\gamma_d^{\eta_d}\). Under
 \(\gamma_5\)-conjugation,
 \(\Gamma(\eta) \to (-1)^{|\eta|}\Gamma(\eta)\): the sublattice parity
@@ -3313,10 +3315,10 @@ lattice QCD, staggered chirality is a property of the regularization
 that maps to physical chirality only via the continuum limit \(a \to 0\)
 --- a procedure that requires the lattice to be a regulator
 approximating an underlying continuum theory. The OI lattice has no
-continuum limit because \(\epsilon = 2\sqrt{\sigma}\,l_p\) is the
-fundamental scale, not a regulator. This raises the question of how
-lattice chirality becomes physical chirality without the standard
-universality argument.
+continuum limit because the lattice spacing
+\(\epsilon_{\rm lat} = \sqrt{6\sigma}\,l_p\) is the fundamental scale,
+not a regulator. This raises the question of how lattice chirality
+becomes physical chirality without the standard universality argument.
 
 The resolution: physical observers don't take continuum limits either.
 Every experimentally probed scale satisfies \(\lambda \gg \epsilon\), so
@@ -3390,12 +3392,13 @@ is forced to contain equal numbers of left- and right-handed Weyl modes
 regulated on a lattice in the conventional sense.
 
 OI manifestly satisfies NN1--NN3. The wave equation is nearest-neighbor
-(NN1, range exactly \(\epsilon\)); the bijection \(\varphi\) is real and
-the dynamics is \(T\)-invariant, so the induced operator is hermitian
-(NN2); and \((S,\varphi)/\mathcal{G}_{\text{sub}}\) is invariant under
-the cubic translation group (NN3). Were NN4 also to apply, OI would
-inherit the no-go conclusion and chiral SU(2) would be impossible. It
-does not apply, and the reason is structural rather than evasive.
+(NN1, range exactly \(\epsilon_{\rm lat}\)); the bijection \(\varphi\)
+is real and the dynamics is \(T\)-invariant, so the induced operator is
+hermitian (NN2); and \((S,\varphi)/\mathcal{G}_{\text{sub}}\) is
+invariant under the cubic translation group (NN3). Were NN4 also to
+apply, OI would inherit the no-go conclusion and chiral SU(2) would be
+impossible. It does not apply, and the reason is structural rather than
+evasive.
 
 NN4 presupposes that the \textbf{fundamental} degrees of freedom are
 Grassmann fields \(\psi(x)\) entering the action bilinearly, with
@@ -4002,14 +4005,14 @@ resummation}\label{the-threshold-and-logarithmic-resummation}}
 The universal induced coupling \(\alpha_0\) is matched at
 \(\mu = M_{\text{Pl}}\). This matching scale is a convention, not the
 lattice cutoff: the lattice scale is
-\(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) for an entropy
+\(1/\epsilon_{\rm lat} = M_{\text{Pl}}/\sqrt{6\sigma}\) for an entropy
 \(\sigma\) per boundary mode {[}GR §3.1, §4{]}, and matching at
-\(1/\epsilon\) instead shifts the running term of row \(i\) below by
-\(-(b_i/2\pi)\ln(2\sqrt{\sigma})\). The fitted \(\delta_0\), \(A\) and
-\(B\) of §6.3 absorb that shift; the U(1)-row value of \(\delta_0\)
-moves by
-\((b_1/2\pi)\ln(2\sqrt{\sigma}) \approx 0.65\ln(2\sqrt{\sigma})\), to
-\(\delta_0 \approx 10.47\) at \(\sigma = 1\). The computed
+\(1/\epsilon_{\rm lat}\) instead shifts the running term of row \(i\)
+below by \(-(b_i/2\pi)\ln\sqrt{6\sigma}\). The fitted \(\delta_0\),
+\(A\) and \(B\) of §6.3 absorb that shift; the U(1)-row value of
+\(\delta_0\) moves by
+\((b_1/2\pi)\ln\sqrt{6\sigma} \approx 0.65\ln\sqrt{6\sigma}\), to
+\(\delta_0 \approx 10.60\) at \(\sigma = 1\). The computed
 \(1/\alpha_0\) is a dimensionless lattice quantity and does not depend
 on \(\sigma\). At this scale, gauge self-interactions --- which are
 proportional to the quadratic Casimir \(C_2\) --- generate a
@@ -4141,9 +4144,10 @@ The four components:
   currently-developed scope --- remains open and is treated as numerical
   pending such structural mechanisms. The coincidence holds in the
   matching convention \(\mu = M_{\text{Pl}}\) of §6.2 and not
-  independently of it: matching at the lattice scale \(1/\epsilon\)
-  moves \(\delta_0\) by \(0.65\ln(2\sqrt{\sigma})\), to
-  \(\delta_0 \approx 10.47\) at \(\sigma = 1\).
+  independently of it: matching at the lattice scale
+  \(1/\epsilon_{\rm lat}\) moves \(\delta_0\) by
+  \(0.65\ln\sqrt{6\sigma}\), to \(\delta_0 \approx 10.60\) at
+  \(\sigma = 1\).
 \item
   \(A \cdot \ln(1 + B \cdot C_2 g_0^2)\) with \((A, B) = (8.3, 5.59)\):
   the resummed gauge self-energy contribution. The logarithmic form is
@@ -6433,9 +6437,9 @@ composite-Higgs (singlet-taste) construction.
 \textbf{Boundary conditions at the compositeness scale.} Two boundary
 conditions are stated at the single matching scale
 \(\mu = M_{\mathrm{Pl}}\), the matching convention for the substratum's
-lattice scale \(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\) (§6.2):
-the Higgs quartic \(\lambda(M_{\mathrm{Pl}}) = 0\) (this section, on the
-composite-Higgs branch) and the ambient induced coupling
+lattice scale \(1/\epsilon_{\rm lat} = M_{\mathrm{Pl}}/\sqrt{6\sigma}\)
+(§6.2): the Higgs quartic \(\lambda(M_{\mathrm{Pl}}) = 0\) (this
+section, on the composite-Higgs branch) and the ambient induced coupling
 \(1/\alpha_0 = 23.25\) (computed, §6.1). The threshold \(\delta_0 = 10\)
 is fitted to the U(1) row (§6.3), \(y_t(M_{\mathrm{Pl}}) = 1\) does not
 reproduce \(m_t\) (§7.2), and §8.8 states cutoff insensitivity of
@@ -7048,15 +7052,16 @@ addressed by Arguments 1--3 above and the Residual gap subsection.
 predictions}\label{summary-table-of-all-predictions}}
 
 Twenty-two quantitative observables from a \(d = 3\) cubic lattice with
-spacing \(\epsilon = 2\sqrt{\sigma}\,l_P\), classified by input status:
-\textbf{S} = parameter-free structural (no fitted input and no open link
-specific to the entry; the cubic substratum itself is empirically
-selected, §8.3); \textbf{C} = conditional structural (no fitted input;
-one named link of the chain open); \textbf{L} = layered (structural form
-combined with a Layer-2(b) substrate-specific coefficient or Layer-3
-empirical input --- see §8.3 four-layer framing); \textbf{M} = one-input
-mass/parameter chain; \textbf{E} = uses explicit empirical input;
-\textbf{R} = retrodiction; \textbf{P} = phenomenological/ansatz input.
+spacing \(\epsilon_{\rm lat} = \sqrt{6\sigma}\,l_P\), classified by
+input status: \textbf{S} = parameter-free structural (no fitted input
+and no open link specific to the entry; the cubic substratum itself is
+empirically selected, §8.3); \textbf{C} = conditional structural (no
+fitted input; one named link of the chain open); \textbf{L} = layered
+(structural form combined with a Layer-2(b) substrate-specific
+coefficient or Layer-3 empirical input --- see §8.3 four-layer framing);
+\textbf{M} = one-input mass/parameter chain; \textbf{E} = uses explicit
+empirical input; \textbf{R} = retrodiction; \textbf{P} =
+phenomenological/ansatz input.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2308}}
@@ -8094,28 +8099,28 @@ origin of \(v \ll f\) is open (§8.8).
 \textbf{Remaining open problems.} (i) \emph{Lattice-continuum
 comparison} --- the structural predictions are exact theorems at the
 lattice level and do not require a continuum limit. The lattice is the
-fundamental description (the spacing \(\epsilon = 2\sqrt{\sigma}\,l_p\)
-{[}GR §4{]} is physical, not a regulator), so there is no
-\(\epsilon \to 0\) limit to take. The comparison to experiment --- which
-is interpreted through continuum perturbation theory --- introduces
-corrections of order \((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC
-energies, far below any foreseeable experimental sensitivity. The
-Yang-Mills mass gap problem (proving rigorous existence of the continuum
-limit for Yang-Mills theory) is a famous open problem in mathematics,
-but it does not affect any prediction of the OI framework: the lattice
-theory is complete as stated, and the lattice is the fundamental
-description, not a regularization. The same \((E/M_{\text{Pl}})^2\)
-suppression sets the framework's structural commitment on
-Lorentz-invariance violation: linear LIV is forbidden at the substrate
-level (the cubic-lattice dispersion relation admits no
-\(\mathcal{O}(k^3)\) term), and the gauge-invariant quadratic
-coefficient evaluates to
-\(\omega^2 = k^2[1 - (k\epsilon)^2/45 + \ldots] = k^2[1 - (4\sigma/45)(E/M_{\text{Pl}})^2 + \ldots]\)
+fundamental description (the spacing
+\(\epsilon_{\rm lat} = \sqrt{6\sigma}\,l_p\) {[}GR §3.1, §4{]} is
+physical, not a regulator), so there is no \(\epsilon_{\rm lat} \to 0\)
+limit to take. The comparison to experiment --- which is interpreted
+through continuum perturbation theory --- introduces corrections of
+order \((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC energies, far below
+any foreseeable experimental sensitivity. The Yang-Mills mass gap
+problem (proving rigorous existence of the continuum limit for
+Yang-Mills theory) is a famous open problem in mathematics, but it does
+not affect any prediction of the OI framework: the lattice theory is
+complete as stated, and the lattice is the fundamental description, not
+a regularization. The same \((E/M_{\text{Pl}})^2\) suppression sets the
+framework's structural commitment on Lorentz-invariance violation:
+linear LIV is forbidden at the substrate level (the cubic-lattice
+dispersion relation admits no \(\mathcal{O}(k^3)\) term), and the
+gauge-invariant quadratic coefficient evaluates to
+\(\omega^2 = k^2[1 - (k\epsilon_{\rm lat})^2/45 + \ldots] = k^2[1 - (2\sigma/15)(E/M_{\text{Pl}})^2 + \ldots]\)
 --- subluminal, with the \(1/45\) fixed by cubic coordination and the
-statistical-isotropy gauge average, and \(4\sigma/45 = 4/45\) at
+statistical-isotropy gauge average, and \(2\sigma/15 = 2/15\) at
 \(\sigma = 1\). The tree-level lattice coefficient \(1/45\) is
 pre-registered as Class A in {[}Substratum, §6.4{]}; the amplitude
-\(4\sigma/45\) is conditional on the undetermined \(\sigma\), so a
+\(2\sigma/15\) is conditional on the undetermined \(\sigma\), so a
 measurement of it would constrain \(\sigma\), and its protection in the
 interacting theory is open (§3.1).
 
@@ -8594,18 +8599,19 @@ the chiral pairing.
 By Goldstone's theorem, the Higgs mass is bounded by the \emph{explicit}
 breaking of the chiral symmetry --- that is, by gauge couplings and
 Yukawa couplings squared times the chiral-breaking scale, not by the
-lattice cutoff \(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\). The
-hierarchy problem is dissolved at the level of \emph{cutoff
-sensitivity}: the Higgs mass-squared does not receive
-\(O(M_{\mathrm{Pl}}^2)\) corrections, only \(O(g^2 f^2 / 16\pi^2)\)
-corrections where \(g\) is a gauge or Yukawa coupling and \(f\) is the
-chiral-symmetry-breaking scale.
+lattice cutoff
+\(1/\epsilon_{\rm lat} = M_{\mathrm{Pl}}/\sqrt{6\sigma}\). The hierarchy
+problem is dissolved at the level of \emph{cutoff sensitivity}: the
+Higgs mass-squared does not receive \(O(M_{\mathrm{Pl}}^2)\)
+corrections, only \(O(g^2 f^2 / 16\pi^2)\) corrections where \(g\) is a
+gauge or Yukawa coupling and \(f\) is the chiral-symmetry-breaking
+scale.
 
 \textbf{Scope and caveats.} Chiral protection bounds the Higgs mass by
 explicit breaking but does not automatically explain why the Higgs vev
 \(v\) sits 17 orders of magnitude below the compositeness scale \(f\).
 In OI, \(f\) is set by the substratum lattice scale
-\(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\), of order
+\(1/\epsilon_{\rm lat} = M_{\mathrm{Pl}}/\sqrt{6\sigma}\), of order
 \(M_{\mathrm{Pl}}\) when \(\sigma\) is of order one, so the ratio
 \(v/f \sim 10^{-17}\) remains. Standard composite-Higgs scenarios put
 \(f\) at \(\sim\) TeV to resolve this; OI does not have an analogous
@@ -9229,4 +9235,4 @@ Compact Family Cycle,'' arXiv:2605.10245 (2026).
 \textbf{07}, 104 (2017); arXiv:1705.01853.
 
 \end{document}
-% source-sha256: eed17c1aa6e88740f1258e81fea83ebb06b1997c95ea7366590b08aa6714381c
+% source-sha256: b0336aa7037accaf11d926db02620487c7cea93fb21b411e97b75d09605c177e

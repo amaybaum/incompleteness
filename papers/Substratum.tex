@@ -1439,12 +1439,13 @@ Quantitative observables (scattering amplitudes, mass ratios) are
 compared to experiment through continuum perturbation theory; the
 lattice-continuum discrepancy at any experimentally accessible energy
 \(E\) is suppressed by
-\((E\epsilon/\hbar c)^2 = 4\sigma(E/M_{\text{Pl}})^2\), which at
-\(\sigma = 1\) is \(\sim 10^{-32}\) at LHC energies. The rigorous proof
-that lattice Yang-Mills defines a continuum limit with a mass gap (a
-Clay Millennium Prize problem) is an open problem in mathematics, but it
-is not required by the OI framework: the lattice theory is complete, and
-its predictions are lattice-exact.
+\((E\epsilon_{\rm lat}/\hbar c)^2 = 6\sigma(E/M_{\text{Pl}})^2\) (with
+\(\epsilon_{\rm lat} = \sqrt{6\sigma}\,l_p\) the lattice spacing, {[}GR
+§3.1{]}), which at \(\sigma = 1\) is \(\sim 10^{-32}\) at LHC energies.
+The rigorous proof that lattice Yang-Mills defines a continuum limit
+with a mass gap (a Clay Millennium Prize problem) is an open problem in
+mathematics, but it is not required by the OI framework: the lattice
+theory is complete, and its predictions are lattice-exact.
 
 The epistemic structure is as follows. A reasonable objection is that
 the framework treats the lattice as fundamental (so the mass-gap problem
@@ -1456,17 +1457,17 @@ predictions are exact \emph{at the lattice level}. The comparison to
 experiment is then a comparison between two objects: the lattice
 theory's prediction extracted via continuum PT (a controlled
 approximation with error bounded by
-\((E\epsilon/\hbar c)^2 = 4\sigma(E/M_{\text{Pl}})^2 \sim 10^{-32}\) at
-\(\sigma = 1\)), and the continuum-QFT fit to the experimental data (the
-standard way the data is reported). The empirical agreement is therefore
-agreement between the lattice theory's continuum approximation and the
-continuum-QFT data fit, with the approximation error in the first object
-\(\sim 30\) orders of magnitude below the experimental precision of the
-second, so the lattice-vs-continuum gap is not the source of any
-observed agreement or disagreement at accessible energies. The mass-gap
-problem is not load-bearing for this: it concerns whether a continuum
-limit \emph{exists as a rigorous mathematical object}, whereas the
-framework requires only that continuum PT is an accurate
+\((E\epsilon_{\rm lat}/\hbar c)^2 = 6\sigma(E/M_{\text{Pl}})^2 \sim 10^{-32}\)
+at \(\sigma = 1\)), and the continuum-QFT fit to the experimental data
+(the standard way the data is reported). The empirical agreement is
+therefore agreement between the lattice theory's continuum approximation
+and the continuum-QFT data fit, with the approximation error in the
+first object \(\sim 30\) orders of magnitude below the experimental
+precision of the second, so the lattice-vs-continuum gap is not the
+source of any observed agreement or disagreement at accessible energies.
+The mass-gap problem is not load-bearing for this: it concerns whether a
+continuum limit \emph{exists as a rigorous mathematical object}, whereas
+the framework requires only that continuum PT is an accurate
 \emph{calculational approximation} to the lattice theory's predictions
 at low energy --- the standard status of lattice-to-continuum
 perturbative matching, which does not require the existence of the
@@ -2845,11 +2846,11 @@ reconstruction if violated.
   \emph{Leading Lorentz-invariance-violation coefficient.} The
   cubic-lattice dispersion relation ({[}SM, §4.4{]} Theorem 4,
   generalized to d = 3:
-  \(\cos(\omega\epsilon) = \frac{1}{3}\sum_{i=1}^3 \cos(k_i \epsilon)\)
+  \(\cos(\omega\epsilon_{\rm lat}) = \frac{1}{3}\sum_{i=1}^3 \cos(k_i \epsilon_{\rm lat})\)
   for a massless mode) yields standard emergent dispersion
   \(\omega = |k|\) at leading order. Series expansion gives the first
   correction as a direction-dependent quadratic term
-  \(\omega^2 = k^2[1 - 2\delta(\hat k)(k\epsilon)^2 + O((k\epsilon)^4)]\),
+  \(\omega^2 = k^2[1 - 2\delta(\hat k)(k\epsilon_{\rm lat})^2 + O((k\epsilon_{\rm lat})^4)]\),
   with \(\delta(\hat k) = \frac{1}{24}\sum_i \hat k_i^4 - \frac{1}{72}\)
   evaluated on the rigid \(\mathbb{Z}^3\) representative. The
   rigid-lattice anisotropy (values \(\delta_{[100]} = 1/36\),
@@ -2867,11 +2868,11 @@ reconstruction if violated.
   §4.5--4.6{]}). The orientation-averaged coefficient
   \(\langle\delta\rangle = 1/90\) is a direction-summary of this
   anisotropy, and the framework predicts the emergent dispersion
-  \[\omega^2 = k^2\left[1 - \frac{(k\epsilon)^2}{45} + O\left((k\epsilon)^4\right)\right] = k^2\left[1 - \frac{4\sigma}{45}\left(\frac{E}{M_{\text{Pl}}}\right)^2 + O\left(\left(\frac{E}{M_{\text{Pl}}}\right)^4\right)\right]\]
-  after using \(\epsilon = 2\sqrt{\sigma}\,l_p\) and
-  \(k\epsilon = 2\sqrt{\sigma}\,E/M_{\text{Pl}}\); the coefficient of
-  \((E/M_{\text{Pl}})^2\) is \(4/45\) at \(\sigma = 1\). Three
-  structural features: (i) \emph{subluminal}, since
+  \[\omega^2 = k^2\left[1 - \frac{(k\epsilon_{\rm lat})^2}{45} + O\left((k\epsilon_{\rm lat})^4\right)\right] = k^2\left[1 - \frac{2\sigma}{15}\left(\frac{E}{M_{\text{Pl}}}\right)^2 + O\left(\left(\frac{E}{M_{\text{Pl}}}\right)^4\right)\right]\]
+  after using \(\epsilon_{\rm lat} = \sqrt{6\sigma}\,l_p\) and
+  \(k\epsilon_{\rm lat} = \sqrt{6\sigma}\,E/M_{\text{Pl}}\); the
+  coefficient of \((E/M_{\text{Pl}})^2\) is \(2/15\) at \(\sigma = 1\).
+  Three structural features: (i) \emph{subluminal}, since
   \(\delta(\hat k) \geq 0\) everywhere on the sphere
   (\(\langle\delta\rangle > 0\) is invariant under
   orientation-averaging); (ii) \emph{no linear-in-\(E/M_{\text{Pl}}\)
@@ -2879,21 +2880,21 @@ reconstruction if violated.
   \(\mathcal{O}(k^3)\) contribution --- any demonstration of linear LIV
   at any scale therefore falsifies the framework's substrate-level
   commitment to the cubic-lattice wave equation; (iii) \emph{specific
-  lattice coefficient} \(1/45\) of \((k\epsilon)^2\), fixed by the
-  cubic-lattice coordination and isotropy-gauge average, not tunable.
-  Features (i)--(iii) and the anisotropy pattern are the Class A
-  content, at tree level under the stated assumptions; the directional
+  lattice coefficient} \(1/45\) of \((k\epsilon_{\rm lat})^2\), fixed by
+  the cubic-lattice coordination and isotropy-gauge average, not
+  tunable. Features (i)--(iii) and the anisotropy pattern are the Class
+  A content, at tree level under the stated assumptions; the directional
   ratios
   \(\delta_{[100]} : \delta_{[110]} : \delta_{[111]} = 4 : 1 : 0\) are
   independent of \(\sigma\). The physical amplitude, the coefficient
-  \(4\sigma/45\) of \((E/M_{\text{Pl}})^2\), carries the undetermined
+  \(2\sigma/15\) of \((E/M_{\text{Pl}})^2\), carries the undetermined
   entropy \(\sigma\) per boundary mode and is not a parameter-free
   numerical prediction: a measurement of it would constrain \(\sigma\)
   rather than falsify the coefficient independently. Protection of the
   tree-level coefficient in the interacting theory is open ({[}SM
   §3.1{]}). Current quadratic-LIV bounds from GRB time-of-flight reach
   only \(E_{\text{QG}} \gtrsim 10^6\) GeV (roughly thirteen orders of
-  magnitude below \(M_{\text{Pl}}\)), so the amplitude \(4\sigma/45\) is
+  magnitude below \(M_{\text{Pl}}\)), so the amplitude \(2\sigma/15\) is
   not yet near-term testable at the magnitude level; linear-LIV tests,
   by contrast, are already at sensitivities where any positive detection
   falsifies.
@@ -3133,13 +3134,13 @@ emergent-QFT calculation
 level), observationally indistinguishable from zero. Substratum
 contributions beyond this are constrained by the boundary mode count of
 §3-§5, which catalogues modes by spatial location alone (one mode per
-\(\epsilon^2\) cell, no inherent frequency assignment --- a count forced
-by the link-direction structure of the \(K = 2d\) components, {[}GR
-§3.1{]}); the natural 2D distribution concentrates them near the UV
-cutoff, contributing well below \(|\nu_{\rm QFT}|\). The framework's
-commitment is therefore the Type II reading, with magnitude
-\(|\nu| \approx |\nu_{\rm QFT}|\) (conditional, per GR §7.1), and the
-Bertini et al.~(2025) measurement
+area \(\epsilon^2\), no inherent frequency assignment, with \(\epsilon\)
+fixed by the link count of the \(K = 2d\) components under the
+single-link reading, {[}GR §3.1{]}); the natural 2D distribution
+concentrates them near the UV cutoff, contributing well below
+\(|\nu_{\rm QFT}|\). The framework's commitment is therefore the Type II
+reading, with magnitude \(|\nu| \approx |\nu_{\rm QFT}|\) (conditional,
+per GR §7.1), and the Bertini et al.~(2025) measurement
 \(\nu = -(2.5 \pm 1.3) \times 10^{-4}\) consistent with this expectation
 at \(2\sigma\), where Bertini is itself consistent with zero. The
 falsification band is correspondingly stratified: a DESI Year 5
@@ -3289,9 +3290,9 @@ value of the Type II RVM coefficient \(\nu\) beyond its dimensional
 order of magnitude and sign. These are properties of the particular
 bijection, analogous to the mass of the sun in general relativity.
 Second, the \emph{trans-Planckian regime} --- the regime in which the
-lattice spacing \(\epsilon = 2\sqrt{\sigma}\,l_p\) is not small compared
-to the relevant length scale --- lies outside the framework's
-leading-order results. The framework presents the lattice as
+lattice spacing \(\epsilon_{\rm lat} = \sqrt{6\sigma}\,l_p\) is not
+small compared to the relevant length scale --- lies outside the
+framework's leading-order results. The framework presents the lattice as
 fundamental, not as a regulator approximating a continuum theory, and so
 does not need a continuum limit in the standard sense; but the
 corrections to the leading-order results in the regime where the
@@ -3397,4 +3398,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 Universality Classes of Embedded Observers,'' (2026).
 
 \end{document}
-% source-sha256: 0b7a894b0cc6513b36827e5635065d73e215824b636b5e4771c906f31c08077e
+% source-sha256: 58b0198628fc91a0d9fd361ffc14ad41ae2e40a56371e3a11863c24d368b88da
