@@ -34,6 +34,14 @@ confers no protection, and "the framework needs this to be true" is never an arg
   or postdiction beyond the problem it was built to fix; reject any variant that can be
   adjusted to fit any outcome.
 
+**OI's research target (a hypothesis, not a premise or a result).** OI tests whether quantum
+mechanics is the effective description an embedded observer obtains through finite measurements
+of a deeper dynamics that need not be quantum or finite, and whether that distinction explains
+how vacuum energy gravitates. The test is whether one independently specified substratum and
+observer interface derive what is actually measured, consistently across experiments.
+Representing quantum statistics is not deriving them; where a derivation fails, that is a
+finding, and quantum rules are not inserted to fill it. Status is stated in the papers.
+
 ---
 
 ---
