@@ -1672,6 +1672,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The lattice-KMS concern.** A related concern is that the K..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: *What the framework retrodicts.* Twenty-two classified Stand..."
     },
     {
@@ -1793,6 +1797,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The definition is weaker than classical mechanics. A shuffle..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Any observer bounded by a finite-area surface couples to onl..."
     },
     {
       "ok": true,
@@ -2476,6 +2484,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework manifestly satisfies the first three hypothese..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The six anomaly conditions are four independent constraints ..."
     },
     {
@@ -2509,6 +2521,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The composite nature of the Higgs has implications for the h..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The induced coupling has a universal structural value. The D..."
     },
     {
       "ok": true,
@@ -2608,6 +2624,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Step 1: The classical horizon temperature.** The Jacobson ..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: **An independent route to Einstein's equations.** Einstein's..."
     },
     {
@@ -2625,6 +2645,26 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The derivation has the structure of a gap equation: $\\epsilo..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **One boundary mode per area $\\epsilon^2$, $\\eta = \\sigma/\\e..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's relation to Jacobson's original derivation d..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The result is, for a given $\\sigma$, the unique value of $\\e..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: Each area $\\epsilon^2 = 4\\sigma\\, l_p^2$ of the horizon carr..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Extension to black-hole horizons.** The counting argument ..."
     },
     {
       "ok": true,
@@ -2673,6 +2713,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: Bijective dynamics is compatible with radiation that carries..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *The emergent quantum field theory* assigns the universe a v..."
     },
     {
       "ok": true,
@@ -2853,6 +2897,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's content across Chapters 5 through 8 establis..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The framework's epistemic position.** The framework's cont..."
     },
     {
       "ok": true,
@@ -3592,6 +3640,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The latter sections engage two structural questions the fram..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The framework's content in this chapter has a particular epi..."
     },
     {
@@ -3681,6 +3733,14 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: **The second component: the black hole information paradox.*..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **The third dissolution: non-renormalizability.** Perturbati..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's content is that the lattice *is* the fundame..."
     },
     {
       "ok": true,
@@ -3788,6 +3848,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The framework's structural commitments determine the *local*..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: First, substratum finiteness under A1 (§18.7) is *compatible..."
     },
     {
@@ -3833,6 +3897,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: This section develops the framework's claimed resolutions, d..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: **Framework status.** Partially addressed; covariant unifica..."
     },
     {
       "ok": true,
