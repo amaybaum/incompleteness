@@ -1933,9 +1933,11 @@ ok6 &= 'does not compute a matrix exponential' in _sifflat
 ok6 &= 'theorem monomialSource_of_bijective' not in sif and 'theorem flow_monomial' not in sif
 ok6 &= 'theorem drivesElementary_of_substratum' not in sif
 ok6 &= 'structure FiniteOperationalTheory' not in sif and 'native_decide' not in sif
-# Round-63 guards: the substratum-level read-write primitive with no quantum-control vocabulary;
-# the induced monomial operator; the tangent-test no-go; the outcome (C); the countercontrol; no
-# control law postulated; frozen statements untouched.
+# Round-63 guards retain the primitive, induced operators, interpolation and memory-swap
+# controls, and the original implication declarations. Declaration presence is not evidence
+# that ReadWriteSourced is inhabited: KERNEL-VAC-1 separately checks its Fin 2 defect and the
+# sole MonomialSource witness. These unchanged guards do not certify either new proof or a
+# universal physical no-go; no control law is postulated and proof terms remain untouched.
 rwc = open(os.path.join(BRIDGE, 'OIBridge', 'ReadWriteControl.lean'), encoding='utf-8').read()
 _rwcflat = ' '.join(rwc.split())
 ok6 &= 'structure ReadWriteFamily' in rwc and 'def readWriteOperator' in rwc

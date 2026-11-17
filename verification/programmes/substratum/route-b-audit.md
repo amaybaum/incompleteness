@@ -24,11 +24,14 @@ conjunct added (`derivedOI_iff_sourcedOI_phases`; `audits/foundations/phase-sour
 ## The question
 
 The exact characterization on every nonempty finite carrier is `OIPlusMin`: implementation
-locality, phase-free richness, embedded observation (`carrier_general_oiPlusMin`). The concrete
-substratum supplies the structural part and, under finite bijective read-write dynamics, not the
-continuously driven off-diagonal transition (`substratum_residual`, `readWriteSourced_not_qm`).
-What remains between the substratum and quantum mechanics is that one resource. Route B asks
-whether it is independent:
+locality, phase-free richness, embedded observation (`carrier_general_oiPlusMin`). The specified
+monomial implementation class is structurally closed and does not drive the elementary
+transitions (`substratumClass_not_drivesElementary`); its specified generated theory has no
+composite unitary control on `Fin 2` (`substratumGen_not_control`). These independently proved
+class/theory results replace the empty original `ReadWriteSourced` antecedent as support here.
+They do not establish a universal physical no-go for read/write interaction or a uniquely
+necessary physical extension. Route B asks whether the drive is independent of its stated
+consequence closure:
 
 > Is there a finite operational theory satisfying every consequence the kernel derives from the
 > substratum and the OI core, and failing phase-free richness?

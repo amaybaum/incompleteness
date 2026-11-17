@@ -35,6 +35,15 @@
   },
   "families": [
     {
+      "name": "KERNEL-VAC-1 original source defect and sole monomial-source witness",
+      "modules": [
+        "ReadWriteNonvacuity"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "KERNEL-VAC-1 execution closeout candidate: readWriteSourced_fin2_impossible proves that the original exact-permutation representative predicate is empty for every Fin 2 FiniteOperationalTheory; level-one identity availability is derived from native readout and coarse-graining. permTheory_fin2_monomialSource targets the sole permitted witness, MonomialSource (permTheory (Fin 2)), for every n including zero and every matrix representative, via the unchanged genTheory/permClass_arch structure and matrix-unit row/column sparsity. Checkpoint 1 passed ordinary Mathlib Build, Release gate and all five standard-axiom reports; checkpoint 2 and this closeout require exact-head CI and independent review before an accepted REPAIRED disposition. Old predicates, implications and proof terms remain unchanged but the old antecedent is retired as substantive Fin 2 evidence. The surviving monomial-source implication is conditional on all available composite conjugations being monomial, on Fin 2; rot excludes composite unitary control, and the existing QM corollary excludes ExactAllFiniteEndomorphicQuantumOps for the same theory/hypothesis. One mathematical witness is not a native physical source or a general physical read/write impossibility. No manuscript promotion is made; the earlier F72 explanation remains a separately recorded out-of-inventory scope item."
+    },
+    {
       "name": "representation bridge and counting",
       "modules": [
         "Averaging",
@@ -330,7 +339,7 @@
           "anchor": "substratum_plus_control_qm"
         }
       ],
-      "note": "GR 3.3 substratum-source form and its boxed endpoint; the endpoint is unchanged by the primitive-source compressions."
+      "note": "GR 3.3 substratum-source form and its boxed endpoint; the endpoint is unchanged by the primitive-source compressions. KERNEL-VAC-1 preserves ReadWriteControl declarations and proof terms but retires the original ReadWriteSourced antecedent as substantive Fin 2 support: its phase-representative defect is proved in the separately classified ReadWriteNonvacuity module. The existing monomialSource_not_control and monomialSource_not_qm retain their explicit MonomialSource hypothesis and Fin 2 carrier; the sole generated-theory witness and its pending exact-head review are recorded in that kernel-only family. No universal physical no-go or new manuscript promotion follows from the historical readWriteSourced implications."
     },
     {
       "name": "typed completion",
