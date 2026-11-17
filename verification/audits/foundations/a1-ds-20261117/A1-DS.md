@@ -2,7 +2,7 @@
 
 ## Status
 
-**Paper-only check, not yet independently reviewed.** Complete author candidate: source assessment, exact countercontrols, geometry, reproducible scale estimates and class-scoped closure obstruction. Sole scientific writer: Codex in the owner-authorized session of 2026-11-17. A separate non-author reviewer must inspect the pushed exact head on [draft PR #1354](https://github.com/amaybaum/incompleteness/pull/1354). Paper proofs are not Lean certification or empirical verification. **A1 is OPEN / UNADOPTED; A4 is unchanged; physical source is NOT PASSED.**
+**Paper-only research record; scientific content independently reviewed and ACCEPTED by a non-author reviewer at `8889f80b42c748eca7558df39c5fd741e3a942e8`.** The reviewed paper-level result contains a source assessment, countercontrols, geometry, reproducible scale estimates and a scoped closure obstruction; one wording correction was independently checked at that head ([full review](https://github.com/amaybaum/incompleteness/pull/1354#issuecomment-6941120000), [exact-head confirmation](https://github.com/amaybaum/incompleteness/pull/1354#issuecomment-6941142474)). Sole scientific writer: Codex in the owner-authorized session of 2026-11-17. This is paper-level evidence, not Lean certification or empirical verification. **A1 is OPEN / UNADOPTED; A4 is unchanged; physical source is NOT PASSED.**
 
 ## Authority and goal link
 
