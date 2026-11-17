@@ -275,7 +275,7 @@ For a finite admissible subset Y rather than a quotient, one needs F(Y) = Y; the
 
 ### 3.4 NR-1 negative control: no boundary return imported from a torus
 
-For NR-1's declared rule, two-slice window W and uniform/Haar priors, Prop. 4.1 gives equality of rooted maps through t only if
+For NR-1's declared rule, two-slice window W and uniform/Haar priors, Prop. 4.1 gives equality of rooted maps through t whenever
 $$\operatorname{ext}_j(W)+2t<L\quad\text{for every coordinate }j.$$
 Cor. 4.2 then locates any F11 near-return, under **nonnilpotent α**, at n ≥ (L - max_j ext_j(W))/2. With **prime q, nonzero α and lattice-convex W**, Theorem 3.3 excludes revival on the infinite lattice; any torus C4r/C4e witness must have its later time at or beyond the same bound. These are boundary-sensitive times, and the lower bounds diverge as L grows. A prewrap finite-cone match cannot transfer torus recurrence to the infinite rule.
 
