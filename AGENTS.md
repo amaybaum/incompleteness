@@ -1383,8 +1383,8 @@ citation to a file on it, never by itself certifies a premise for future researc
    - it contains a substantive, nonredundant result, which may be conditional, negative or
      inconclusive;
    - its precise scope and the limits of its evidence are documented;
-   - it has had an independent non-author review and a ChatGPT exact-head review, and the checks
-     its landing requires, including §A.42 item 8's tracing, are complete;
+   - it has had an independent non-author review (a ChatGPT exact-head review is optional), and
+     the checks its landing requires, including §A.42 item 8's tracing, are complete;
    - it has an accountable Issue, a verification status and, for each verification gap still open,
      a remediation plan (item 4);
    - its preservation has an explicit rationale, and a separate recorded owner decision authorizes
@@ -1415,7 +1415,9 @@ by owner decision (`amaybaum`, #1169 comment 6874035457, 2026-11-14T07:45:39Z), 
 conditions on which a research record is preserved on `main`, what a remediation plan states, that a
 preserved record's scoped result is a surviving claim, and the reconciliation of records already on
 `main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments 6865680499,
-6872005186, 6872344927 and 6872828604).
+6872005186, 6872344927 and 6872828604). Amended 2026-11-17 by owner decision (`amaybaum`, in the
+coordinating session: "No need for ChatGPT reviews, they are optional only"; recorded at #1169
+comment 6939659793), to make the ChatGPT exact-head review optional.
 
 ***
 
