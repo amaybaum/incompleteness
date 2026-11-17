@@ -1,8 +1,8 @@
 # KERNEL-VAC-1 — read/write-source repair or retirement
 
 **DRAFT / NOT FROZEN / NOT EXECUTED.** Accountable Issue: #1188. Writer:
-Codex. Designated independent reviewer: Claude; the initial review is ACCEPT
-WITH CHANGES and this revision awaits its focused delta check. Drafting
+Codex. Designated independent reviewer: Claude; its pre-F review (ACCEPT WITH CHANGES at `da4f2ca7`)
+and focused delta check are recorded on #1359. Drafting
 snapshot `D`: `d4d0a07091926641dd3ee844807f41dae8a51d89`. This document is
 the proposed control plane, not a kernel result or an owner designation.
 
@@ -261,7 +261,7 @@ The independent non-author pre-F review by Claude at
 (#1359 comment 6946402519, 2026-11-17T11:12:22Z). Its R1 requires reuse of
 `MonomialSource` with the named `permTheory (Fin 2)` witness; R2 requires the
 explicit conditional `Fin 2` scope. This revision implements those changes
-in the proposed design and awaits the reviewer's focused delta check. That
+in the proposed design; the focused delta check is recorded on #1359. That
 review reference is provenance; the scientific source descriptions above
 are checked against the named files at D. The original reviewed commit and
 review are preserved. No author-side disposition is independent acceptance.
