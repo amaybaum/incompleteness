@@ -35,13 +35,13 @@
   },
   "families": [
     {
-      "name": "KERNEL-VAC-1 original read/write source defect control",
+      "name": "KERNEL-VAC-1 original source defect and sole monomial-source witness",
       "modules": [
         "ReadWriteNonvacuity"
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Execution checkpoint 1: readWriteSourced_fin2_impossible targets the original ReadWriteSourced on every Fin 2 FiniteOperationalTheory, deriving level-one identity availability from native readout and coarse-graining, then using its globally phased non-permutation representative. Ordinary pinned-toolchain CI and independent review are pending; this registry entry is not a verification claim. The sole preregistered MonomialSource (permTheory (Fin 2)) witness, including n = 0 and all matrix representatives, remains unestablished at this checkpoint. No manuscript promotion or general physical no-go is claimed. Original source declarations and proof terms remain unchanged."
+      "note": "Execution checkpoints 1 and 2: readWriteSourced_fin2_impossible targets the original ReadWriteSourced on every Fin 2 FiniteOperationalTheory, deriving level-one identity availability from native readout and coarse-graining, then using its globally phased non-permutation representative. permTheory_fin2_monomialSource targets the sole preregistered MonomialSource (permTheory (Fin 2)) witness for every n including zero and every matrix representative, using the unchanged genTheory/permClass_arch fields and row/column sparsity transferred through matrix-unit channel evaluation. Ordinary pinned-toolchain CI and independent review are pending; this entry is not a verification claim. No isometry or nonempty-carrier restriction is imposed on the quantified representatives. No manuscript promotion or physical realization is claimed. Original predicates, source declarations and proof terms remain unchanged."
     },
     {
       "name": "representation bridge and counting",

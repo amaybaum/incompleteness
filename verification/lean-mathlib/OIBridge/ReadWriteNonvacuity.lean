@@ -1,4 +1,5 @@
 import OIBridge.ReadWriteControl
+import OIBridge.SubstratumInterfaceAudit
 
 /-!
 # KERNEL-VAC-1: the original read/write source predicate is empty on `Fin 2`
@@ -9,8 +10,11 @@ coarse-graining fields. Its globally phased representative `I • 1` has the sam
 channel but is not an exact permutation matrix. This is a defect of that
 predicate, not a physical impossibility theorem about read/write interaction.
 
-Checkpoint 1 contains only the defect control. The sole preregistered
-`MonomialSource (permTheory (Fin 2))` witness remains a separate obligation.
+The sole preregistered witness uses the existing `permTheory (Fin 2)`.
+Its available branches are finite sums of conjugations by scaled partial
+permutations. Evaluating an equality of channels on matrix units transfers
+their row and column sparsity to every single-matrix representative. No
+isometry or nonempty-carrier assumption is imposed on that representative.
 -/
 
 namespace OIBridge
@@ -18,6 +22,8 @@ namespace ReadWriteNonvacuity
 
 open Complex Matrix MonoidalCompletion CoherentLift OperationalAssembly
 open ReadWriteControl
+open AncillaClosure InterventionLocality StructuralClosure SubstratumInterface
+open SubstratumInterfaceAudit
 
 variable {A : Type} [Fintype A] [DecidableEq A]
 
@@ -77,11 +83,85 @@ theorem readWriteSourced_fin2_impossible :
   obtain ⟨σ, hσ⟩ := h 1 _ hav
   exact quarterPhase_not_perm σ hσ
 
+section Witness
+
+variable {S : Type} [Fintype S] [DecidableEq S]
+
+/-- Matrix-unit evaluation exposes the coefficient of a single conjugation. -/
+theorem conjChannel_single_entry (K : Matrix S S ℂ) (a b c d : S) :
+    conjChannel K (Matrix.single b d 1) a c = K a b * star (K c d) := by
+  rw [conjChannel_apply, Matrix.mul_apply, Finset.sum_eq_single d]
+  · rw [Matrix.mul_single_apply_same, Matrix.conjTranspose_apply]
+    simp
+  · intro x _ hx
+    simp [Matrix.mul_apply, Matrix.single, Ne.symm hx]
+  · intro hd
+    exact absurd (Finset.mem_univ d) hd
+
+/-- A single-matrix representative of a branch realized by `permClass` is
+monomial. The proof uses all representatives, not just the chosen Kraus family;
+it also covers the zero matrix, rank-deficient matrices and the empty carrier. -/
+theorem monomial_of_realized_permClass {V : Matrix S S ℂ}
+    (h : Realized permClass S (conjChannel V)) : IsMonomial V := by
+  classical
+  obtain ⟨ι, inst, K, hEq, hK⟩ := h
+  letI : Fintype ι := inst
+  have he : ∀ a b c d : S,
+      V a b * star (V c d) = ∑ k, K k a b * star (K k c d) := by
+    intro a b c d
+    have hentry := congrArg
+      (fun Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ => Φ (Matrix.single b d 1) a c) hEq
+    simpa only [LinearMap.sum_apply, Matrix.sum_apply, conjChannel_single_entry] using hentry
+  apply submonomial_monomial
+  constructor
+  · intro i j j' hj hj'
+    by_contra hne
+    have hz : V i j * star (V i j') = 0 := by
+      rw [he]
+      apply Finset.sum_eq_zero
+      intro k _
+      by_cases hp : K k i j = 0
+      · simp [hp]
+      · have hq : K k i j' = 0 := by
+          by_contra hq
+          exact hne ((hK k).1.1 i j j' hp hq)
+        simp [hq]
+    exact (mul_ne_zero hj (star_ne_zero.mpr hj')) hz
+  · intro i i' j hi hi'
+    by_contra hne
+    have hz : V i j * star (V i' j) = 0 := by
+      rw [he]
+      apply Finset.sum_eq_zero
+      intro k _
+      by_cases hp : K k i j = 0
+      · simp [hp]
+      · have hq : K k i' j = 0 := by
+          by_contra hq
+          exact hne ((hK k).1.2 i i' j hp hq)
+        simp [hq]
+    exact (mul_ne_zero hi (star_ne_zero.mpr hi')) hz
+
+end Witness
+
+/-- **SOLE PREREGISTERED WITNESS.** The existing generated theory inhabits
+`MonomialSource` on `Fin 2`, at every extension level (including zero), for
+every matrix representative of an available conjugation. Its availability,
+coarse-graining, composition and preparation fields are the unchanged fields
+of `genTheory permClass permClass_arch`; this is a mathematical theory witness,
+not a derivation of native physical availability. -/
+theorem permTheory_fin2_monomialSource :
+    SubstratumInterface.MonomialSource (SubstratumInterfaceAudit.permTheory (Fin 2)) := by
+  intro n V hav
+  exact monomial_of_realized_permClass (realized_of_instAvail permClass_arch hav ())
+
 #print axioms localLuders_one_eq_id
 #print axioms levelOne_id_available
 #print axioms quarterPhase_conjChannel
 #print axioms quarterPhase_not_perm
 #print axioms readWriteSourced_fin2_impossible
+#print axioms conjChannel_single_entry
+#print axioms monomial_of_realized_permClass
+#print axioms permTheory_fin2_monomialSource
 
 end ReadWriteNonvacuity
 end OIBridge
