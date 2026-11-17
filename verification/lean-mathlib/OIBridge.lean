@@ -156,6 +156,7 @@ import OIBridge.LieRankSource
 import OIBridge.SubstratumSource
 import OIBridge.SubstratumInterface
 import OIBridge.ReadWriteControl
+import OIBridge.ReadWriteNonvacuity
 import OIBridge.StructuralClosure
 import OIBridge.TypedCompletion
 import OIBridge.RegionLimit
