@@ -72,7 +72,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "*Remark (what the gluing theorem does and does not deliver).* At finite resolution it crosses most of the gap between $Q_{\\mathrm{fb}}$ and operational quantum experiments: incompa",
+          "anchor": "*Remark (what the gluing theorem does and does not deliver).* For the supplied initial and instrument data, the construction represents incompatible measurements, adaptive interven",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
@@ -82,7 +82,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "*Corollary (finite-test density of deterministic realizations in operational quantum theory).* *Along any $K_n \\to \\infty$, $\\varepsilon_n \\to 0$, the quantum-shadow realizations $",
+          "anchor": "*Corollary (finite-test density of deterministic realizations in operational quantum theory).* *At fixed initial state, along any $K_n \\to \\infty$, $\\varepsilon_n \\to 0$, the quant",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
@@ -285,7 +285,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "**Operational gluing theorem.** The framework's finite-resolution operational result ([Main §3.4]): every finite adaptive quantum experiment — instrument family $\\mathcal{F}$, hori",
+          "anchor": "**Operational gluing theorem.** The framework's finite-resolution operational result ([Main §3.4]): for a fixed initial state, finite instrument family $\\mathcal{F}$, horizon $K$ a",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         }
@@ -382,7 +382,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "**Operational gluing theorem.** The framework's finite-resolution operational result ([Main §3.4]): every finite adaptive quantum experiment — instrument family $\\mathcal{F}$, hori",
+          "anchor": "**Operational gluing theorem.** The framework's finite-resolution operational result ([Main §3.4]): for a fixed initial state, finite instrument family $\\mathcal{F}$, horizon $K$ a",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         }

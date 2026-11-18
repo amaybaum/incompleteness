@@ -25,3 +25,38 @@ The neighboring claims about fixed-basis finite laws, real-prior response tables
 3. **Equivalence and mirrors.** Compare the finite-horizon theorem and real-prior response-table construction to the pinned source. Check the placement of every correction in the manuscript sources and the regenerated TeX/PDF mirrors. Claude reviews the exact scientific commit independently.
 
 The scientific question is an arithmetic qualification of one mathematical construction. Physical measurement sourcing remains **NOT PASSED**.
+
+## Correction against current main
+
+The source and artifact comparison base is `34c4b4847863db3c8efad3b0cf33d442d4c08973`, which includes #1350. The initial inventory at `9a1207cfba9b6c79f40de44ef4b0142ec3a49d73` remains in the draft's ancestry. The sampler has first use of its shared manuscript paths per the coordination on #1385. This correction supplies the source for the later release handoff. The later release build and F72 wording have their own scopes.
+
+| Location at the comparison base | Before | Correction and evidence |
+| --- | --- | --- |
+| Main:80, :558, :566 | The summaries refer to arbitrary finite accuracy without the supplied data in view. | State the fixed initial state and supplied data for the envelope and finite net. The law theorem and the separately stated operational-completion conditions keep their existing scope. |
+| Main:568–570 | The initial density matrix is arbitrary but the grid construction is assigned to the instruments' entry ring. | Require a conjugation-closed working ring with the initial and all Kraus entries, exact operations and exact real trace comparisons. The one-step irrational-state control above exposes the missing input. The positive grid bound keeps its magnitude and hypotheses. |
+| Main:578 | The capacity expression uses the instruments' ring and a reachable set without the initial state as an argument. | Index reachable matrix labels by the initial state and distinguish label capacity from arithmetic representation and comparison cost. The fixed-point capacity is separate from accuracy. Use a positive grid even for an instrument with a single outcome. |
+| Main:580 | The raw trace-norm estimate starts with zero initial error. | Sum the existing raw branch recurrence from its own initial error. Exact initial storage removes that term only. The positive-input clipping estimate stays restricted, and the bound for the actual sampled law on potentially indefinite registers remains open. #1307 and #945 track the respective proof obligations. |
+| Main:582 | The proof describes exact conditional arithmetic in the instruments' ring. Its repeated raw estimate suppresses the input norm. | State the cumulative comparison of cross-multiplied exact weights and the rational-basis control. No division in the ring is required. Repeat the raw step bound with its input norm and retain the separate clipped-law obligation. |
+| Main:584, :586 | The controlled program and gluing summary inherit the grid construction. | Carry the same initial data and accuracy regime into the program construction and the realization summary. The fixed instrument maps and separate memory charge for the program are preserved. |
+| Main:600, :602, :604 | The continuum net and its density summary inherit the sampler even for an arbitrary initial state in the net instruments' ring alone. | Carry the initial state and exact access conditions into the grid and label count. For supplied real net conditionals, the existing intervention dilation gives the existence route, with the slot replacement bound and no register cost guarantee. State fixed initial data at each density comparison. With no slots the instrument record is empty. |
+| Main:722, :776 | The application and concluding paragraphs invoke finite accuracy without saying what data the constructions consume. | State the finite response-table result with supplied conditionals and the finite-accuracy construction under its data conditions. |
+| Substratum:533 | The summary invokes the gluing and finite-net results for finite adaptive experiments. | State the supplied-conditional finite-table result and the fixed initial state for accuracy across the finite instrument net. |
+| Chapter 1:195, Chapter 4:146, Chapter 19:126 | Finite experimental envelopes are realizable at finite accuracy. | Specify supplied probabilities and scope instead of implying an unqualified sampler. Exact paragraph mirrors at FULL:530, :1254 and :5271. |
+| Book README:17 | The finite-accuracy claim does not state its fixed preparation or data. | State finite response-table existence with supplied probabilities and finite-net accuracy at fixed initial state. The book README is outside the consolidated chapter mirror. |
+| Glossary:107 | The gluing entry gives the grid and capacity estimates without the arithmetic conditions and describes the checks generically. | State both required data sets and exact comparison, distinguish labels and sampled-law error, and restrict the exact arithmetic checks to the finite examples. Exact paragraph mirror at FULL:6686. |
+
+The response-table proof and the finite-horizon equivalence statement and proof in Main match the base. In the grid proof the total branch mass is positive at a positive-mass history. The first strict cumulative threshold selects among the nonnegative branch weights without dividing in the working ring. The irrational-state control concerns the exact weights and comparisons used by that sampler. The uniformly weighted finite seed grid approximates even a supported irrational law. The real-prior table can represent that law exactly.
+
+The manuscript scan can be repeated from the repository root:
+
+```sh
+rg -ni 'entry[- ]ring|instruments?.{0,30}entr(y|ies) ring|exact ring ratios|true conditionals are computed exactly in the ring' README.md papers/*.md papers/*.tex book/*.md book/*.tex
+rg -ni -o 'operational gluing|uniform[- ]continuum|quantum[- ]shadow|finite-test density|opglue.probes|clipped and normalized|rounding lemma' README.md papers/*.md book/*.md
+python3 -B papers/oi_lattice_code/mirror_check.py
+```
+
+Read the resulting scope references in context. The previous unconditional entry-ring wording and the exact-ring ratios wording have no live source or TeX match. Historical research and review records retain their wording.
+
+`sh ./build.sh Main Substratum` and `sh ./build.sh --book` regenerated the three affected TeX/PDF pairs. The build reported zero dropped glyphs. The PDFs contain the corrected passages in extracted text. Page counts were Main 104 to 105, Substratum 56 to 56 and FULL 565 to 565, with stable median text per page. All three TeX source stamps match. The coverage ledger refreshes the three affected statement entries at their existing evidence levels. SC-42 tracks four updated passage prefixes and regenerated receipts with the existing predicates and controls.
+
+The independent review checks above apply to the pushed correction. A fresh review is required for a scientific change. Physical measurement sourcing remains **NOT PASSED**.
