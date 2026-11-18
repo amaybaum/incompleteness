@@ -124,9 +124,8 @@ These six commitments define the framework's universality class. Any finite dete
 | Area law $dA \geq 0$ | GW250114 area increase at $99.999\%$ | Ch 7 §7.5 |
 | Dark sector budget $\sim 95\%$ | $\Omega_{\text{dark}} \approx 0.95$ concordance | Ch 7 §7.9 |
 | No dark matter particle | XENON, LUX, etc. null | Ch 7 §7.9 |
-| No GUT-mediated proton decay | $\tau_p > 10^{34}$ yr | Ch 6 §6.4 |
 
-Four universality-class entries tested against current empirical evidence: one confirmed at high precision (the area law) and the remainder consistent with the empirical record at concordance level (dark sector budget, no DM particle, no proton decay). Information conservation follows from the bijectivity premise of the framework's models and is not an empirical entry: a measurement of the radiation alone does not test it, and the Page curve is conditional (Chapter 7 §7.6). The Bekenstein-Hawking coefficient and the descriptive vacuum-energy distinction are consistency relations (Chapter 7 §7.10) and are not tabulated. The Type II running-vacuum form is not in the table: its local expansion is shared by every smooth model, so it is non-discriminating (Chapter 7 §7.8), and the falsifiable content is the magnitude $|\nu| \sim 10^{-32}$ at Tier 2. The framework's universality-class content is therefore consistent with observation rather than sharply tested — the framework belongs to a universality class whose members must produce these results under the stated conditions, and the empirical record is consistent with the framework being in this class.
+The three Tier 1 entries compare with the area-law analysis and dark-sector empirical record. The modeled GUT gauge channel is a Tier 2 item (§9.4). Information conservation follows from the bijectivity premise of the framework's models and is not an empirical entry: a measurement of the radiation alone does not test it, and the Page curve is conditional (Chapter 7 §7.6). The Bekenstein-Hawking coefficient and the descriptive vacuum-energy distinction are consistency relations (Chapter 7 §7.10) and are not tabulated. The Type II running-vacuum form is not in the table: its local expansion is shared by every smooth model, so it is non-discriminating (Chapter 7 §7.8), and the falsifiable content is the magnitude $|\nu| \sim 10^{-32}$ at Tier 2. The framework's universality-class content is therefore consistent with observation rather than sharply tested — the framework belongs to a universality class whose members must produce these results under the stated conditions, and the empirical record is consistent with the framework being in this class.
 
 The next section develops the corresponding Tier 2 and Tier 3 content and traces the empirical record at the substratum-properties and bijection-specific levels.
 
@@ -146,7 +145,7 @@ The empirical record at Tier 2 summarizes as follows.
 |-------------------|-----------------|----------------|
 | $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$ gauge group | confirmed | Ch 5 |
 | Three generations of matter | confirmed | Ch 5, Ch 6 |
-| No grand unified theory | $\tau_p > 10^{34}$ yr consistent | Ch 6 §6.4 |
+| No modeled GUT gauge channel (single-copy H-link, H-cust and the specified charged action) | Consistent with $\tau_p > 10^{34}$ yr bounds. Other channels remain open. | Ch 6 §6.4 |
 | $a_0 = cH/6$ | $0.91$ of the observed scale at the Planck $H_0$, inside the systematic; factor $1/6$ imported | Ch 7 §7.9 |
 | Baryonic Tully-Fisher $v^4 = G M_B \cdot cH/6$ | confirmed empirical relation | Ch 7 §7.9 |
 | $r_M(z)$ shrinkage with redshift | in tension (Genzel et al., high-$z$) | Ch 7 §7.9 |
