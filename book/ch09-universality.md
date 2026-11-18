@@ -39,7 +39,7 @@ The framework's predictions stratify across these levels. Different chapters liv
 
 **Where each chapter's content lives.**
 
-*Chapter 1 (Quantum Mechanics from Embedded Observation).* The exact theorem represents a supplied law on a finite alphabet at a finite horizon by a reversible finite realization and its fixed-basis quantum form ($S\iff D\iff Q_{\mathrm{fb}}$). C1/C3/C4 characterize the accessible history-memory sector. C2 is record persistence, with a mixing hypothesis for its slow-bath implication. Phase locking uses its own hypotheses, and the coherent instrument algebra and native physical controls require separate inputs ([Main §3.4], [GR §3.3]).
+*Chapter 1 (Quantum Mechanics from Embedded Observation).* The exact theorem represents a supplied law on a finite alphabet at a finite horizon by a reversible finite realization and its fixed-basis quantum form ($S\iff D\iff Q_{\mathrm{fb}}$). C1/C3/C4 characterize the accessible history-memory sector. C2 is record persistence, with a mixing hypothesis for its slow-bath implication. Phase locking uses its own hypotheses. The five completion conditions characterize the coherent instrument algebra on a finite carrier within complex matrix kinematics taken as given. Native physical sourcing remains open ([Main §3.4], [GR §3.3]).
 
 *Chapter 5 (Gauge Structure).* The exact Level O2 × Level G2 content is the observer-isotropy theorem together with the six-link cubic representation; the latter decomposes as $(3,2,1)$. Identifying that representation with one physical Standard-Model carrier is H-link single-copy, with H-cust and the later matter hypotheses entering downstream. The geometric decomposition is therefore structural; the physical gauge-group reading is a conditional bridge construction rather than a consequence of a $K=2d$ minimization theorem.
 
@@ -47,7 +47,7 @@ The framework's predictions stratify across these levels. Different chapters liv
 
 *Chapter 7 (Gravitational Sector).* Predictions stratify across multiple levels. The classical horizon temperature of the boundary count, the finite boundary-mode count and the two-level distinction behind the cosmological constant dissolution are Tier 1 results at Level O2 × Level G4; the Bekenstein-Hawking $1/4$ coefficient and the action-scale relation $\hbar = c^3\epsilon^2/(4G\sigma)$, consistency relations, sit at the same level conditional on H-count and the horizon conditions of Chapter 7 §7.3, the dynamical form of the dissolution is conditional on the coupling theorem of [GR §6.2], and the Type II running-vacuum form is not derived (Chapter 7 §7.8). The MOND acceleration scale $a_0 = cH/6$ and the baryonic Tully-Fisher relation are Tier 2 results at Level G2, inheriting the conditions on the de Sitter temperature with the dimensional factor imported from Verlinde. The MOND interpolation steepness is Tier 3 at Level G3.
 
-*Chapter 8 (JUNO and Neutrino Sector).* The PMNS angle predictions test Level G3 content — the specific cubic-lattice bijection's $A_4 \subset O$ symmetry produces $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$. The sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ tests Level G3 structural commitments. The framework's coupled neutrino-mass and RVM dark-energy result tests Level G2 (mass ordering, $\Sigma m_\nu$ near oscillation minimum) and Level G4 (RVM functional form).
+*Chapter 8 (JUNO and Neutrino Sector).* The leading solar and atmospheric angles use Condition 2, the separate normalization $b_{23}=1$, the mass-label assignment and the Cabibbo dressing. Condition 2 cancels the $O(\lambda^2)$ term in the weighted sum. The exact $7/6$ target is the stated phenomenological model commitment (SM §7.8). The neutrino-mass comparison uses measured splittings and upper bounds. An OI Type II joint fit remains open.
 
 **Multi-level structural realism.** A single empirical prediction can carry content at multiple levels simultaneously. The GW250114 area-theorem result illustrates the level structure (noting that it tests classical horizon dynamics, not the $1/4$ coefficient, which has no direct empirical test):
 - Level G4: the universality-class commitment to thermal self-consistency at the partition boundary.
@@ -58,7 +58,7 @@ The same observation provides evidence at multiple levels. The empirical record 
 
 **Why the hierarchy matters.** The hierarchical structure clarifies what the framework's empirical case actually tests. Critics sometimes claim that frameworks like this one are too flexible — that any empirical result could be accommodated by adjusting the specific substratum bijection. The hierarchical structure shows this concern misplaced: most of the framework's strongest empirical predictions test Level G4 (universality-class) and Level G2 (structural-properties) content, which is *not* adjustable by varying the bijection.
 
-The Bekenstein-Hawking $1/4$ coefficient is determined at the universality-class level: any finite deterministic substratum satisfying C1–C4 at its cosmological horizon, with thermal self-consistency between classical horizon temperature and emergent KMS temperature, gives the $1/4$ factor. There is no bijection within the universality class that produces $1/3$ or $1/5$. A direct empirical test of the coefficient, if one becomes available, would test this universality-class commitment rather than any specific bijection's predictions; GW250114, which compares areas and does not measure entropy, does not provide such a test.
+The Bekenstein–Hawking $1/4$ follows for the stated horizon calibration with H-count, H-slope and the horizon conditions of Chapter 7 §7.3 and [GR §8.5(b)]. Thermal matching identifies the energy and frequency slopes of the same operational transitions. The GW250114 inferred-area comparison tests classical area increase.
 
 Similarly, the MOND acceleration scale $a_0 = cH/6$ is determined at the structural-properties level: the dimensional factor $1/6$ arises from the cubic-lattice geometry combined with the $d = 4$ spacetime structure, common to any substratum with these properties. The descriptive distinction behind the proposed cosmological constant dissolution is determined at the structural-properties level, regardless of the specific bijection; the dissolution itself is conditional on the coupling step that [GR §6.2] leaves open.
 
@@ -69,7 +69,7 @@ The framework's empirical case is therefore largely a case at the *structural* l
 | Hierarchy level | Predictions | Empirical match |
 |-----------------|-------------|-----------------|
 | Level G4 (universality class) | RVM reading (form shared by every smooth model) | non-discriminating; the consistency relations $S = A/(4l_p^2)$ and $\hbar = c^3\epsilon^2/(4G\sigma)$ and the descriptive CC distinction are stated in Chapter 7 §7.10 |
-| Level G2 (substratum properties) | conditional local SM gauge algebra and no modeled GUT gauge channel (single-copy H-link, H-cust and specified charged action), three candidate sectors (generations under H-spin′), $a_0 = cH/6$, no DM particle | Concordance |
+| Level G2 (substratum properties) | conditional local SM gauge algebra and no modeled GUT gauge channel (single-copy H-link, H-cust and specified charged action), three candidate sectors (generations under H-spin'), $a_0 = cH/6$, no DM particle | Concordance |
 | Level G3 (specific bijection) | Cabibbo angle, Koide relation, PMNS angles, sum rule, gauge couplings at $M_Z$ | $0.04\%$-$1.01\sigma$ for the measured comparisons (gauge couplings matched by construction) |
 | Level G3 (open) | Bottom-to-tau mass ratio, Koide angle's structural origin, $\delta_{\text{CP}}$ | Open research program |
 
@@ -121,7 +121,7 @@ These conditions specify the observer-admission criterion on the stated finite r
 
 | Tier 1 prediction | Empirical match | Source chapter |
 |-------------------|-----------------|----------------|
-| Area law $dA \geq 0$ | GW250114 area increase at $99.999\%$ | Ch 7 §7.5 |
+| Classical area increase $dA\geq0$ | GW250114 inferred Kerr areas, $4.4\sigma$ for the fiducial LVK analysis | Ch 7 §7.5 |
 | Dark sector budget $\sim 95\%$ | $\Omega_{\text{dark}} \approx 0.95$ concordance | Ch 7 §7.9 |
 | No dark matter particle | XENON, LUX, etc. null | Ch 7 §7.9 |
 
@@ -137,7 +137,7 @@ The framework's empirical content beyond Tier 1 stratifies into two further tier
 
 **Tier 2: substratum-properties content.** Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4. Tier 2 results are *not* universal across all members of the framework's universality class; they require the substratum to have the specific properties Chapter 5 develops, but they do *not* require the specific bijection.
 
-The Tier 2 gauge branch has the local Standard Model algebra and no modeled GUT gauge stage under single-copy H-link, H-cust and the specified charged action (Chapters 5–6). H-spin′, H-χ′ and light-spectrum selection enter the physical reading of the three taste sectors. The MOND scale, baryonic Tully–Fisher relation and redshift evolution of the crossover radius have their own conditions (Chapter 7 §7.9).
+The Tier 2 gauge branch has the local Standard Model algebra and no modeled GUT gauge stage under single-copy H-link, H-cust and the specified charged action (Chapters 5–6). H-spin', H-χ' and light-spectrum selection enter the physical reading of the three taste sectors. The MOND scale, baryonic Tully–Fisher relation and redshift evolution of the crossover radius have their own conditions (Chapter 7 §7.9).
 
 The empirical record at Tier 2 summarizes as follows.
 
@@ -149,13 +149,13 @@ The empirical record at Tier 2 summarizes as follows.
 | $a_0 = cH/6$ | $0.91$ of the observed scale at the Planck $H_0$, inside the systematic; factor $1/6$ imported | Ch 7 §7.9 |
 | Baryonic Tully-Fisher $v^4 = G M_B \cdot cH/6$ | confirmed empirical relation | Ch 7 §7.9 |
 | $r_M(z)$ shrinkage with redshift | in tension (Genzel et al., high-$z$) | Ch 7 §7.9 |
-| Mass ordering (normal) | DESI DR2 + CMB preference | Ch 8 §8.9 |
+| Normal mass ordering (heuristic, SM §8.4) | Preference in the stated fit using oscillation information | Ch 8 §8.9 |
 
 The seven Tier 2 entries combine observed structural features, conditional gravitational formulas and consistency with bounds. The acceleration formula carries the imported factor and the quoted systematic uncertainty; the redshift and mass-ordering comparisons retain their model dependence. Their evidential roles are assessed individually, rather than as seven independent confirmations.
 
 **Tier 3: bijection-specific content.** Tier 3 results require the *specific bijection* within the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ — not just the substratum's structural properties but the particular way the bijection breaks the cubic symmetry. Tier 3 results are *substratum-specific* in the strongest sense: alternative bijections within the framework's universality class with different taste-breaking patterns would produce different Tier 3 predictions.
 
-The framework's Tier 3 content includes the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$, the Koide relation $Q = 2/3$, the PMNS angle predictions with $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$, the sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$, the gauge couplings at $M_Z$, and the MOND interpolation function's specific transition steepness. Each of these requires the specific cubic-lattice bijection's properties beyond the general cubic-symmetry commitments.
+The Tier 3 comparisons include the Cabibbo angle, Koide relation, leading PMNS angles, fitted gauge couplings at $M_Z$ and the MOND interpolation steepness. Their separate conditions are given in Chapters 6–8. The weighted PMNS sum cancels through order $\lambda^2$ under Condition 2, while the exact $7/6$ value is the stated phenomenological target.
 
 The empirical record at Tier 3 summarizes as follows.
 
@@ -166,7 +166,7 @@ The empirical record at Tier 3 summarizes as follows.
 | $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)$ | $0.07\sigma$ from post-JUNO global fit | Ch 8 §8.6 |
 | $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.01\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ | $0.74\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
-| Sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ | $0.6\sigma$ | Ch 8 §8.6 |
+| Leading sum $2\sin^2\theta_{12}+\sin^2\theta_{23}=7/6+O(\lambda^3)$ on Condition 2 | Upper-octant combination, about $0.6\sigma$ | Ch 8 §8.6 |
 | Three gauge couplings at $M_Z$ | Fitted; zero residual by construction | Ch 6 §6.4 |
 | MOND interpolation "simple" function | Conditional comparison; transition kernel open | Ch 7 §7.9 |
 
@@ -216,7 +216,7 @@ Neither recovery is currently developed in detail; both are open theoretical tas
 
 The string landscape — the multiplicity of possible compactifications of string theory, each producing different low-energy physics — is the central interpretive problem of string theory as a unification program. Estimates of the landscape size vary from $10^{500}$ to much larger. The framework's gauge-group derivation in Chapter 5 does *not* dissolve the landscape problem, because the framework operates at a structurally different level than string compactification.
 
-**Why the landscape problem persists.** The local Standard Model gauge structure in Chapter 5 uses single-copy H-link, H-cust and the specified charged action. Its three candidate taste sectors have a physical reading under H-spin′, H-χ′ and light-spectrum selection. A string compactification reaching the same local target still requires an observer-admission check and a separate comparison of observable pairs.
+**Why the landscape problem persists.** The local Standard Model gauge structure in Chapter 5 uses single-copy H-link, H-cust and the specified charged action. Its three candidate taste sectors have a physical reading under H-spin', H-χ' and light-spectrum selection. A string compactification reaching the same local target still requires an observer-admission check and a separate comparison of observable pairs.
 
 Chiral matter, a long horizon timescale and sufficient capacity motivate candidate compactifications. Those inputs leave C4 open until a declared record is read back with an accessible conditional-history gap. Even admission under C1–C4 would leave the algebra and channel equivalence to be checked [Structure §§7.9, 9.1].
 
@@ -326,7 +326,7 @@ This epistemic position distinguishes the framework from frameworks operating at
 
 **External convergence and its scope.** The framework's universality-class commitments — observers as essential, horizons as causal partitions producing decoherence, reduced descriptions as observer-relative, finite entanglement entropy, quantum mechanics as emergent from classical dynamics — are converged-upon by multiple independent mainstream programs: DSW on horizon decoherence, CLPW on observer-relative operator algebras, Maldacena on observer-essentiality, HUZ on observer-dependent operator structure, Slagle-Preskill on quantum mechanics emerging from a classical lattice. The convergence is between independent theoretical derivations from different starting commitments; it is not empirical confirmation of the framework.
 
-The framework's distinctive content — the substratum picture, the cubic-lattice realization, the specific Tier 3 predictions — is not addressed by these convergences. Its empirical standing rests on the framework's own comparisons with data, classified in appendix A: the strongest are retrodictions (the JUNO $\sin^2\theta_{12}$ match at $0.07\sigma$, the Cabibbo angle at $0.04\%$), the Bekenstein-Hawking $1/4$ is a consistency relation of the horizon calibration with no direct test, the Milky Way comparison is qualitative, and none is yet a pre-registered forward confirmation. The framework's case therefore combines theoretical convergence on universality-class commitments with a retrodictive empirical record on framework-specific predictions.
+The framework's distinctive content — the substratum picture, the cubic-lattice realization, the specific Tier 3 predictions — is not addressed by these convergences. Its empirical standing rests on the framework's own comparisons with data, classified in appendix A: the strongest are retrodictions (the solar-angle residual of $0.07\sigma$ to the post-JUNO global fit and the Cabibbo comparison at $0.04\%$), the Bekenstein-Hawking $1/4$ is a consistency relation of the horizon calibration with no direct test, the Milky Way comparison is qualitative, and none is yet a pre-registered forward confirmation. The framework's case therefore combines theoretical convergence on universality-class commitments with a retrodictive empirical record on framework-specific predictions.
 
 **Where the framework stands relative to alternatives.** The framework's stance toward alternative unification programs is non-competitive at the universality-class level and distinctive at the substratum-specific level. String theory, loop quantum gravity, causal dynamical triangulations, asymptotic safety, and other programs may produce identical universality-class results in their respective limits, with the framework being one structural realization that produces the same results from a different starting point. The frameworks become distinguishable only at the substratum-specific level — where the framework's cubic-lattice realization produces specific Tier 3 predictions that competing programs do not match without additional substratum-specific assumptions.
 

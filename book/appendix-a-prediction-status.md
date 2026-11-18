@@ -47,7 +47,7 @@ The framework's predictions are organized at four levels of descriptive abstract
 
 **Layer 0 — Substratum.** Predictions at the substratum level: properties of the underlying bijection $\varphi$ on $S$, the substratum's dimensionality, the substratum's discreteness scale. Examples: dimensionality $d = 3$, deterministic bijection structure. These predictions have *foundational* evidential weight — they are the framework's substratum-level commitments themselves.
 
-**Layer 1 — Substratum-level structural.** Predictions derived from the substratum's structural properties through dimensional analysis, group theory, or other framework-level structural mechanisms. Examples: gauge group $SU(3) \times SU(2) \times U(1)$ from substratum dimensionality (Chapter 5) and generation count from the matter content theorem (Chapter 6), both conditional on H-link with its single-copy clause, which supplies $K = 2d = 6$ (Chapter 5 §5.4), the gauge group also on an octahedrally equivariant condensate (Chapter 5 §5.5), Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ from cubic-group symmetry. Layer 1 predictions are *structural derivations* from foundational commitments.
+**Layer 1 — Substratum-level structural.** Predictions derived from the substratum's structural properties through dimensional analysis, group theory, or other framework-level structural mechanisms. Examples include the six-link decomposition and the conditional Cabibbo relation $\lambda=1/(\pi\sqrt{2})$. Single-copy H-link gives $K=6$. The local gauge algebra uses H-cust, the equivariant condensate with distinct block values and the specified charged action (Chapter 5). Physical generations use H-spin', H-χ' and light-spectrum selection (Chapter 6). Layer 1 predictions are *structural derivations* from foundational commitments.
 
 **Layer 2(a) — Substratum-level mechanism-specific.** Predictions that require specific structural mechanism beyond Layer 1 generic structural content. Examples: $m_b/m_\tau$ requires the two-loop S$\chi$PT mechanism specialized to OI's 3D-slice cubic-group taste structure. Layer 2(a) predictions are *mechanism-specific* — they require more detailed structural content than Layer 1.
 
@@ -78,14 +78,14 @@ The reference table combines Standard Model observables, coupling-sector inputs 
 | 9 | Jarlskog $J$ | $\eta/(12\pi^6)$ | E | 2(b) | Empirical $\eta$ | Ch 6 §6.5 |
 | 10 | Koide $Q$ | $2/3$ | C | 1 | **<0.001%** | Ch 6 §6.6 |
 | 11 | Koide $\theta_0$ | $C_2/d^2 = 2/9$ | C | 1 | 0.001% | Ch 6 §6.6 |
-| 12 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b)ᶠ | **0.07$\sigma$ JUNO** | Ch 8 |
+| 12 | $\sin^2\theta_{12}$ | $1/3-1/(4\pi^2)\approx0.308003$ (leading order) | L | 1+2(b)ᶠ | $0.14\sigma$ direct JUNO, $0.07\sigma$ global fit including JUNO | Ch 8 |
 | 13 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | 2.6% (1.0$\sigma$) | Ch 8 |
 | 14 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b)ᶠ | Within 1$\sigma$ | Ch 8 |
 | 15 | $m_e, m_\mu$ via Koide | from $m_\tau$ | M | 3 | Mass-chain inheritance | Ch 6 §6.6 |
 | 16 | $m_b/m_\tau$ | $4.28/Z_S(\lambda g_0^2) = 2.361$ | L | 2(a) | 0.4% (0.5$\sigma$ at L=32) | Ch 6 §6.6 |
 | 17 | $m_u/m_d$ | $\sqrt{2/9}$ | L | 1+2(b) | Within 1$\sigma$ | Ch 6 §6.6 |
 | 18 | $\Sigma m_\nu$ | ~0.059 eV (oscillation inputs) | L | 3 | Upper bounds only | Ch 8 |
-| 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b)ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
+| 19 | Leading PMNS sum | $2\Delta_{12}+\Delta_{23}=O(\lambda^3)$ under Condition 2 | L | 1+2(b)ᶠ | Upper-octant fit combination $1.178\pm0.020$ | Ch 8 |
 | 20 | $m_t$ (weak-scale $y_t\approx1$) | $v/\sqrt{2}$ | R | 3 | 0.9\%; mechanism open | Ch 6 §6.6 |
 | 21 | $m_b$ via $Q_{\text{down}}$ | Koide($Q_{\text{down}}$), $Q_{\text{down}}$ phenomenological | L | 2(b) | 0.9% (1.2$\sigma$) | Ch 6 §6.6 |
 | 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.7 |
@@ -93,9 +93,9 @@ The reference table combines Standard Model observables, coupling-sector inputs 
 
 **Summary statistics.** Counts: 3 S + 7 C + 8 L + 1 M + 2 R + 2 E. Total: 23. This reference index is broader than the paper's Standard-Model table ([SM §7.6], 22 rows): it also carries coupling-sector cross-checks, neutrino entries and the gravitational result $a_0$. The headline count of *two* parameter-free structural and *five* conditional structural predictions among twenty-two Standard Model observables belongs to that paper's observable inventory, which counts the coupling-sector quantities $1/\alpha_0$ and $A\cdot B$ separately. The conditional entries here are the leading-power-dependent coupling product, the Cabibbo $\lambda$ with its inheritors $|V_{cb}|$ and $\sin^2\theta_{13}$ (emergent dressing open), the two Koide entries (dynamical closure of the amplitude open), and the MOND formula (coupling map open, factor imported). Empirical precision applies to the individual measured comparisons. The numerical mass sum is L at Layer 3: its near-minimum value combines the hierarchical normal-ordering expectation with measured solar and atmospheric mass-squared splittings, and is constrained by upper bounds.
 
-**ᶠ** *Layer 2(b) (sin²θ_12, sin²θ_23, PMNS sum rule).* The Layer 1 component is structurally protected against the $A_1$ perturbation by the cosines-dressing of the TBM sum rule (cubic geometry alone). The remaining Layer 2 component is the $A_2$ Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)$, equivalent to the substrate-level relation $b_{23}^\text{sub} = (4/3)(b_{12}^\text{sub}+b_{13}^\text{sub}) + 1/9$. The ratio's 2(a)-tractable period — the label meaning the residual question was sharply specified and admitted definite outcomes from substrate calculations — has ended: the calculation was performed. It does *not* mean the answer is forced by representation theory alone — SM §7.3 established that the natural Higgs-democratic spurion does not produce this ratio (instead giving $b_{12}:b_{13}:b_{23} \approx 17:1:1$ in the heavy-quark hierarchy, off by factor ~24 from the required 4/3), and the relation requires substrate amplitudes with the non-natural scaling $\delta M_{ij}^\text{sub} \propto m_{\max(i,j)}$ plus a channel-specific enhancement factor $K_{23}/K_{12} \approx 2.8$. The substantive content is bijection-specific — Layer 2(b) — and the sharply specified verification path has since been executed: the §7.3 routing computation excludes the second-order route (the two-hop operator is a pure spin-taste monomial, orthogonal to every mass channel), leaving the recorded $O(\lambda^3)$ construction as the one unpursued analytical route. The empirical match at 0.07$\sigma$ (JUNO) and 0.6$\sigma$ (sum rule) confirms the bijection has the required structure; the $7/6$ sum rule remains the direct experimental test.
+**ᶠ** *Layer 2(b) (sin²θ_12, sin²θ_23, PMNS sum).* The $A_1$-only contribution cancels in the angle sum at the stated order. Condition 2 sets $b_{23}/(b_{12}+b_{13})=4/3$ and cancels the $O(\lambda^2)$ term. The absolute angles additionally use $b_{23}=1$, the mass-label assignment and the Cabibbo dressing. The natural Higgs-democratic spurion misses the required ratio and the second-order substrate route is excluded (SM §7.3). The $7/6$ forward target is the stated phenomenological commitment, with higher-order corrections open in the calculation.
 
-**Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a parameter-free retrodiction; its exact, freedom-free form makes JUNO's design-lifetime precision ($\pm 0.0014$) a pre-registered forward test. (ii) the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$ at **0.04%** against the global fit — a retrodiction. (iii) Koide $Q = 2/3$ to better than **0.001%** — the sharpest framework prediction across all 23 in relative precision, matching observation at four-significant-figure precision.
+**Flavor comparisons.** The leading solar value $0.308003$ gives retrodictive residuals of $0.14\sigma$ to direct JUNO and $0.07\sigma$ to the global fit including JUNO. Future precision can test the stated value with higher orders open. The Cabibbo and Koide comparisons retain their $0.04\%$ and better than $0.001\%$ matches under their stated conditions.
 
 ### A.4.2 Gravitational-sector observables
 
@@ -106,7 +106,7 @@ The horizon and radiation entries inherit H-slope and the horizon/frame/state co
 | G2 | Bekenstein bound | $S_{\text{dS}} \sim 10^{122}$ | C | 0 | Order-of-magnitude estimate | Ch 7 §7.5 |
 | G5 | Hawking radiation | Thermal spectrum; greybody-dependent rate | C | 1 | Not observed astrophysically | Ch 7 §7.5 |
 | G6 | MOND acceleration $a_0 = cH/6$ | $cH/6$ (factor imported) | C | 0/1 | Within quoted systematics | Ch 7 §7.9 |
-| G8 | Running vacuum $\nu_{\text{OI}}$ | Type II interpretation not derived; conditional emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive; Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
+| G8 | Running-vacuum coefficient $\nu_{\text{OI}}$ | Structural Type II reading with conserved matter and running $G$. The conditional QFT estimate is $\lvert\nu_{\rm QFT}\rvert\sim(M_{\rm SM}/M_{\rm Pl})^2\sim10^{-32}$ | L | 2(a) | Bertini et al. report $\nu=-(2.5\pm1.3)\times10^{-4}$ in a separate RG fit, consistent with zero | Ch 7 §7.8 |
 | G9 | Dark sector budget | $\sim 95\%$ | C | 1 | Partly definitional budget | Ch 7 §7.9 |
 | G11 | Page curve | Nested trace-out, H-scramble (fails from configurations), H-decouple; full product space | Open | 1 | A non-vacuous version needs a specified initial ensemble or a non-aligned bipartition, a valid proof and independent verification; decoupling and proper-shell value open | Ch 7 §7.6 |
 | G12 | $\Sigma m_\nu \sim 0.059$ eV | Measured splittings | L | 3 | Upper bounds only | Ch 8 |
@@ -120,44 +120,46 @@ The horizon and radiation entries inherit H-slope and the horizon/frame/state co
 
 ### A.4.3 Neutrino-sector observables
 
-The neutrino sector provides the framework's sharpest parameter-free retrodiction. The JUNO measurement of $\sin^2\theta_{12}$ at 0.07$\sigma$ against the framework's structural value is a retrodictive match whose exact form converts JUNO's design-lifetime precision into the framework's cleanest pre-registered forward test.
+The leading solar value is $0.308003$. JUNO directly reports $\sin^2\theta_{12}=0.3092\pm0.0087$ and $\Delta m_{21}^2=(7.50\pm0.12)\times10^{-5}$ eV$^2$ for normal ordering. The Capozzi et al. global fit including JUNO and updated SNO+ gives $0.3085\pm0.0073$ and $(7.48\pm0.10)\times10^{-5}$ eV$^2$. The solar residuals $0.14\sigma$ and $0.07\sigma$ therefore use overlapping data. [JUNO Collaboration](https://arxiv.org/abs/2511.14593) · [Capozzi et al.](https://doi.org/10.1103/cxqw-1bty)
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|-----------|------------|-------|-----------------|---------|
-| N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
+| N1 | $\sin^2\theta_{12}$ | $1/3-1/(4\pi^2)\approx 0.308003$ (leading order) | L | 1+2(b)ᶠ | $0.14\sigma$ direct JUNO, $0.07\sigma$ global fit including JUNO | Ch 8 |
 | N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | C | 1 | 2.6% (1.0$\sigma$) | Ch 8 |
-| N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
+| N3 | $\sin^2\theta_{23}$ | $1/2+1/(2\pi^2)$ (leading order) | L | 1+2(b)ᶠ | Within $1\sigma$ of the stated upper-octant fit | Ch 8 |
 | N4 | $\Sigma m_\nu$ | ~0.059 eV (oscillation inputs) | L | 3 | Upper bounds only | Ch 8 |
-| N5 | Normal mass ordering | heuristic (branch of SM §8.4) | heuristic | 1 | Preferred by DESI+CMB; not confirmed | Ch 8 |
-| N6 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b) | $1.178 \pm 0.020$ confirmed | Ch 8 |
-| N7 | $\delta_{\text{CP}}$ | $b_{12} - b_{13}$ (sub-dominant U-odd) | L | 2(b)ᵍ | T2K/NOvA: bijection-constraining | Ch 8 |
+| N5 | Normal mass ordering | heuristic (branch of SM §8.4) | heuristic | 1 | Ordering preference in the stated fit with oscillation information | Ch 8 |
+| N6 | Leading PMNS sum | $2\Delta_{12}+\Delta_{23}=O(\lambda^3)$ under Condition 2 | L | 1+2(b)ᶠ | Upper-octant fit combination $1.178\pm0.020$ | Ch 8 |
+| N7 | Physical complex $\delta_{\text{CP}}$ | Source open. The displayed expansion is real through $O(\lambda^2)$ | Open | 2(b)ᵍ | CP fits test an extension with a complex phase | Ch 8 |
 
-**Summary statistics.** Prediction-class counts: 0 S + 1 C + 5 L; one additional entry has heuristic status. Total: 7. The *heuristic* marker is an epistemic status outside the seven-category scheme of §A.2, not an eighth prediction class; N5 is assigned none of those seven classes. N2 inherits the Cabibbo $\lambda$ and is conditional with it; N5 is a heuristic on the branch where the singlet taste hosts the Higgs and no gauge-singlet fermion is present (SM §8.4), the ordering a heuristic consequence of taste-breaking rather than a theorem. The numerical mass sum uses measured oscillation splittings; the remaining L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale, the latter conditional on the Cabibbo identification's emergent dressing) holds and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(b) per the §7.3 routing computation (the second-order derivation route excluded; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
+**Summary statistics.** The seven entries include one C, four L, one heuristic and one open target. N2 inherits the Cabibbo identification. N5 is a heuristic on the singlet-Higgs branch with no gauge-singlet fermion (SM §8.4). The mass sum near $0.059$ eV uses the measured splittings and a negligible lightest mass in normal ordering. The weaker published cosmological bound is for the $w_0w_a$CDM fit. An OI Type II joint fit remains open. The N6 fit value reuses the angle estimates and assumes the upper octant. Its approximate uncertainty is from quadrature with zero covariance (SM §7.3).
 
-**ᵍ** *Parameterization-level prediction (δ_CP).* The framework identifies $\delta_{CP}$ with the sub-dominant U-odd combination $b_{12} - b_{13}$ in the $A_2$ second-order corrections to the charged-lepton sector (SM §7.3). This is a structural-form prediction: it specifies how $\delta_{CP}$ enters the framework's parameterization but does not predict its value. The value of $b_{12} - b_{13}$ is bijection-specific (Layer 2(b), property of the particular $\varphi$); the framework "makes no commitment to any specific value of $\delta_{PMNS}$" (SM §5.4). Future T2K/NOvA measurements constrain the bijection's $b_{12} - b_{13}$ value rather than testing a framework prediction of $\delta_{CP}$ itself. This is qualitatively different from N1/N3/N6, where specific numerical values are fixed with no freedom and the JUNO-era fit matches sin²θ_12 at 0.07σ (retrodictively).
+**ᵍ** *Open CP source.* The $U$-odd difference $b_{12}-b_{13}$ is real in the computed expansion. It enters the unsquared reactor amplitude at order $\lambda^2$ and drops out of the squared angle through that order. The physical complex phase requires additional structure (SM §7.3).
 
 ### A.4.4 Biology and medicine predictions
 
-The framework's empirical content in biology and medicine is concentrated in the wider therapeutic window for reader-writer disorders (consistent with the Rett-syndrome reversibility of Guy et al. 2007) and the cancer methylome classification paradigm — structural organization of, and consistency with, established clinical biology. Entries marked *conjectural* have no established structural classification; their empirical matches are consistency comparisons with earlier observations, rather than tests establishing the proposed OI explanation (Chapters 16 and 17).
+The entries below pair empirical comparisons with specific biological or medical hypotheses. The Rett study establishes rescue in a mouse model under its intervention. The cancer classifier results use their reported datasets and validation designs.
 
 | # | Prediction | Quantitative content | Class | Layer | Empirical match | Chapter |
 |---|--------------|---------------------|----------------|-------|-----------------|---------|
-| B1 | Wider therapeutic window for Rett | Substratum-emergent operator dissociation | conjectural | 1 | Retrodiction (Guy et al. 2007) | Ch 16 §16.12 |
-| B2 | Cancer methylome classifier accuracy | Substratum preserved during tumorigenesis | conjectural | 1 | DKFZ 95%+ accuracy | Ch 17 §17.7 |
-| B3 | Non-Markovian enzyme kinetics | Stretched-exponential waiting times | S | 1 | Multiple enzyme systems | Ch 13 §13.6 |
-| B4 | Vibronic coherences in photosynthesis | Picosecond timescale | C | 1 | FMO observed; does not discriminate against standard vibronic accounts | Ch 13 §13.4 |
-| B5 | Millisecond radical-pair coherence in cryptochrome | Slow-bath C2 | C | 1 | Wiltschko 2019 | Ch 13 §13.5 |
-| B6 | Molecular clock overdispersion | $R(t) \approx 5$ for mammals | conjectural | 1 | Gillespie 1989, Cutler 2000 | Ch 17 §17.9 |
-| B7 | Universal rate autocorrelation | Across the tree of life | conjectural | 1 | Tao et al. 2019 confirmed | Ch 17 §17.9 |
-| B8 | LTEE power-law fitness | $\beta \approx 0.08$-$0.12$ | conjectural | 1 | Wiser et al. 2013 confirmed | Ch 17 §17.9 |
-| B9 | Punctuated equilibrium | C1–C4 history readback | conjectural | 1 | Eldredge-Gould 1972 | Ch 17 §17.9 |
-| B10 | Hsp90 evolutionary capacitance | C1–C4 buffering | conjectural | 1 | Rutherford-Lindquist 1998 | Ch 17 §17.9 |
-| B11 | Chk1 + gemcitabine schedule dependence | Memory asymmetry | conjectural | 1 | Clinical literature consistent | Ch 16 §16.3 |
-| B12 | LIFU cognitive improvement in Alzheimer's | $\tau_B$ normalization | conjectural | 1 | Ye et al. 2025 confirmed | Ch 16 §16.4 |
-| B13 | iPSC reprogramming residuals | Substratum-emergent dissociation | conjectural | 1 | Lin et al. 2024 confirmed | Ch 16 §16.10 |
-| B14 | Bivalent chromatin states | Multi-operator substratum | conjectural | 1 | Bernstein et al. 2006 confirmed | Ch 16 §16.10 |
+| B1 | Comparative therapeutic window after function restoration | Matched treatment ages and declared outcomes | conjectural | 1 | Guy et al. 2007 observed adult mouse reversal | Ch 16 §16.12 |
+| B2 | Molecular basis of tumor methylation classification | Benchmark and matched assay comparisons | conjectural | 1 | Heidelberg v12.8 reports 95% subclass accuracy in nested cross-validation | Ch 17 §17.7 |
+| B3 | Candidate conditional memory in enzyme kinetics | Matched-present history contrast | conjectural | 1 | Prior waiting-time and turnover correlations motivate the test | Ch 13 §13.6 |
+| B4 | Exciton–vibration dynamics in photosynthesis | Separate contributions from spectroscopy and modeling | conjectural | 1 | FMO spectra and vibronic simulations | Ch 13 §13.4 |
+| B5 | Radical-pair mechanism for avian magnetoreception | In vivo receptor identification and lifetime open | conjectural | 1 | Robin cryptochrome 4 magnetic sensitivity in vitro | Ch 13 §13.5 |
+| B6 | Molecular clock overdispersion | Reported $R(t)$ varies by dataset and assay | conjectural | 1 | Gillespie 1989, Cutler 2000, Bedford and Hartl 2008 | Ch 17 §17.9 |
+| B7 | Phylogenetic rate autocorrelation | Fitted rate dependence in sampled phylogenies | conjectural | 1 | Tao et al. 2019 | Ch 17 §17.9 |
+| B8 | LTEE mean fitness trend | Power-law fit to mean fitness | conjectural | 1 | Wiser et al. 2013 | Ch 17 §17.9 |
+| B9 | Stasis and rapid change | Candidate slow-variable models | conjectural | 1 | Eldredge and Gould 1972 | Ch 17 §17.9 |
+| B10 | Hsp90 evolutionary capacitance | Buffering in a specified system | conjectural | 1 | Rutherford and Lindquist 1998 | Ch 17 §17.9 |
+| B11 | Chk1 and gemcitabine scheduling | Candidate schedule and readback effects | conjectural | 1 | Preclinical sensitization and scheduling evidence | Ch 16 §16.3 |
+| B12 | Focused-ultrasound molecular mechanism | Measured kinase relaxation and controlled clinical endpoint | conjectural | 1 | Exploratory six-person BBB-opening study, no kinase measurement | Ch 16 §16.4 |
+| B13 | iPSC reprogramming residuals | Protocol-dependent comparison of residual marks | conjectural | 1 | Lin et al. 2024 and Buckberry et al. 2023 | Ch 16 §16.10 |
+| B14 | Bivalent chromatin states | Coexisting marks and low or poised expression | conjectural | 1 | Bernstein et al. 2006 | Ch 16 §16.10 |
 
-**Summary statistics.** Counts: 1 S + 2 C + 11 conjectural. B1 (Rett syndrome wider therapeutic window, Guy et al. 2007) is a retrodiction, in the same category as B6-B10 — the framework accounts for phenomena established before it. None is a forward confirmation. B4 and B5 are C rather than S because coherence preservation is a property of the specific physical realization and is not implied by (C1)–(C4) (§13.4-13.5): the framework's content in those two rows is the non-Markovian accounting, not a derivation that coherence survives.
+**Summary statistics.** The 14 application mechanisms above remain conjectural. Existing measurements have the design-specific scopes given in the table. In B3, positive conditional memory follows mathematically from a matched-present readback contrast. The enzyme's realization of that premise needs evidence.
+
+**F12 (retrospective comparison).** The value $0.79\pm0.03$ summarizes selected single-entity kinetic and spectral inputs after the conversions in [Complexity §8.11]. A relation between independent stochastic memory scaling and accessible capacity remains open.
 
 ## A.5 Forward predictions and falsification targets
 
@@ -167,26 +169,25 @@ Beyond the predictions with current empirical match, the framework makes specifi
 
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
-| F1 | BEC analogue-gravity $\mathcal{F}(r) = 2r - r^2$ (proposed model form; derivation unpackaged) | Capacity-controlled revival | Steinhauer group, 2-3 years | Ch 15 §15.8 |
-| F2 | Correlation-aware error correction | correlated errors over $\sim\tau_B/\tau_S$ gates; gain not quantified | Current quantum hardware | Ch 15 §15.4 |
-| F3 | Backflow-aware NV magnetometry | sensitivity gain in direction only; factor not quantified | Current NV platforms | Ch 15 §15.6 |
-| F4 | Engineered-bath coherence extension | coherence beyond the Markovian estimate; factor not quantified | Spin chain / NV / trapped ion platforms | Ch 15 §15.5 |
+| F1 | BEC analogue-gravity mechanism test $\mathcal F(r)=2r-r^2$ | Proposed capacity factor with timing and amplitude calibration | Two-preparation revival estimator and matched controls needed | Ch 15 §15.8 |
+| F2 | Correlation-aware error correction | Model- and device-specific gain if present | Matched decoder and resource comparison | Ch 15 §15.4 |
+| F3 | Backflow-aware NV magnetometry | Sensitivity comparison at fixed resources | Requires phase-sensitive readout and control | Ch 15 §15.6 |
+| F4 | Engineered-bath coherence recovery | Proposed recovery of the relevant coherent signal | Matched bath and readout test | Ch 15 §15.5 |
 
 **Cosmology and gravity.**
 
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
-| F6 | Running vacuum DESI test | $w(z) = -1 + O(\nu)$ with $|\nu| \sim 10^{-32}$ (Type II channel; no phantom crossing) | DESI Year 5 (2-3 years) | Ch 7 §7.8 |
+| F6 | Running-vacuum comparison | $w(z)=-1+O(\nu)$ with $\lvert\nu\rvert\sim10^{-32}$ on the near-null Type II branch with conserved matter and running $G$ | DESI Year 5 comparison under the stated model assumptions | Ch 7 §7.8 |
 | F7 | Born rule transient violations (conditional prospect: source dynamics, initial-deviation family and observable map not fixed) | primordial power spectrum or non-Gaussianity; form not derived | LiteBIRD, future CMB-S4, once the response is derived | Ch 18 §18.2 |
 
 **Biology and medicine.**
 
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
-| F9 | Variant pathogenicity stratification for reader/writer/eraser | AlphaMissense miscalibration for machinery genes | Reanalysis of existing benchmarks | Ch 17 §17.8 |
-| F10 | $\tau_B$-matched cancer chemotherapy schedules | Memory-priming protocols | Animal models, clinical trials | Ch 16 §16.3 |
+| F9 | Variant-effect stratification by gene role | Comparative discrimination and calibration | Held-out evaluation with independent evidence | Ch 17 §17.8 |
+| F10 | Cancer scheduling hypothesis | Test measured relaxation times against preclinical schedule effects | Matched present, exposure and comparator | Ch 16 §16.3 |
 | F11 | Anti-persister antibiotic class | Memory-erasing drugs | Drug screening with regulatory dynamics | Ch 16 §16.5 |
-| F12 | Hurst exponent of substitution rates | $H \approx 0.79 \pm 0.03$ for typical taxa — *retrodiction, not a forward bet: $H$ is read off existing data, and $H \approx 0.7$–$0.8$ is the generic broad-relaxation value (§8.11 of [Complexity]), so it does not discriminate the framework from a mundane superposition null; only the **derived** capacity-dependence $H(C3)$ would be a genuine test, and that relationship is not yet derived* | Existing phylogenetic data (consistency, not exposure) | Ch 17 §17.9 |
 
 **Foundations (Lorentz sector).**
 
@@ -198,18 +199,18 @@ The *rotational* Lorentz sector is deliberately **not** listed as a forward pred
 
 **Falsification conditions.** Each forward prediction has specific falsification conditions developed in the relevant chapter. The framework's content is most distinctively at risk in:
 
-- F1 (BEC analogue-gravity): null result with functional form different from $2r - r^2$ would falsify the proposed functional form — a model prediction, not theorem-derived (Ch 15 §15.8).
-- F6 (DESI running vacuum): DESI Year 5 confirmation of phantom-crossing dark energy would contradict the framework's Type II running-vacuum reading — the strongest available disconfirmation of its dark-energy account; the framework supplies the smooth $H^2-H_0^2$ bookkeeping but does not derive a distinctive Type II law.
-- F9 (variant pathogenicity stratification): demonstration that AlphaMissense performance is uniform across reader/writer/eraser and substrate genes would falsify the substratum-emergent operator distinction at the variant-prediction level.
+- F1 (BEC analogue gravity) tests the model’s capacity dependence using the two-preparation revival estimator with calibrated capacity, timing and amplitude and matched controls.
+- F6 (DESI running vacuum) tests the stated near-null Type II implementation. A crossing or detectable running tests its near-null and spectral assumptions. A null result is compatible with both that implementation and $\Lambda$CDM. The DESI DR2 model-comparison significance concerns $w_0w_a$CDM, and Bertini et al. report a separate near-null RG fit.
+- F9 (variant-effect stratification) tests comparative discrimination and calibration by gene role in a held-out evaluation with independent evidence.
 - F13 (cross-charged decoupling): observation of an inter-species boost-Lorentz-violation that does *not* decouple with the heavy cross-charged mass — i.e. a non-decoupling (constant or pure-logarithmic) sector-differential limiting-speed difference — would falsify the framework's condensate-stabilizer mechanism for gauge content (Theorem 5, revised), under which, conditional on the symmetric-point matching under H-blind ([SM §4.4]), the differential is suppressed as $(M_X/M_{\text{Pl}})^2$ up to a logarithm. The *form* of this suppression and the coefficient $c_L \simeq -9.4 \pm 0.3$ were reported by a one-loop calculation whose driver and numerical output are not available for verification; on them the illustrative consistency window is $M_X \lesssim 3.9\times10^{9}$ GeV. The overall normalization $\Delta C_2$ is not fixed, and the window carries no weight as a prediction or bound until the calculation is independently reproduced.
 
 ## A.6 Framework's epistemic position summary
 
 The framework's cumulative empirical record can be summarized as follows.
 
-**Strongest current evidence.** The framework currently has no pre-registered forward confirmation. Its strongest empirical content is retrodictive: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1; the derivation postdates the November-2025 first results), Koide $Q$ to better than 0.001%, and Cabibbo at 0.04%. The genuinely pre-registered content is forward-looking — DESI Y5 ($\nu$), BTFR at $z > 1$, the A2 lattice thresholds, and JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value — documented in dated artifacts preceding their future data. The Bekenstein-Hawking coefficient is a consistency relation with no direct empirical test (A.4.2) — GW250114 constrains the classical area theorem, not the coefficient. The Rett wider-window result (entry B1) is a retrodiction, not counted among the forward confirmations.
+**Current empirical comparisons.** The leading solar value gives a $0.14\sigma$ retrodictive residual to direct JUNO and $0.07\sigma$ to the global fit including JUNO. The calculation postdates the first results. The Koide and Cabibbo comparisons also use pre-existing observations. Future solar precision tests the stated value, with the theory remainder open. The Rett result is rescue in a mouse model. The comparative treatment window remains open.
 
-**Most distinctive content.** Two predictions distinguish the framework from standard accounts most sharply: the substratum-emergent operator distinction (with empirical signatures in B1, B2, B13, B14) and the proposed capacity-controlled origin of partial revival, $\mathcal{F}(r) = 2r - r^2$ (proposed model form; empirical exposure in F1). Partial revival itself is standard open-systems phenomenology; the capacity-controlled origin and the scaling form are the proposal's own.
+**Proposed mechanism tests.** The chromatin studies motivate the biological comparisons above. F1 tests a proposed capacity-controlled contribution to revival, $\mathcal F(r)=2r-r^2$, with calibrated capacity and timing and the two-preparation statistic.
 
 **Sharpest single match.** Koide $Q = 2/3$ to better than 0.001% (entry 10) — the framework's sharpest individual empirical match in relative precision.
 
@@ -217,11 +218,11 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Most consequential forward exposure.** BEC analogue-gravity test (F1) and DESI Year 5 running vacuum test (F6) provide the framework's most consequential near-term empirical exposure. Both have specific falsification conditions that would substantially constrain the framework's content if not confirmed.
 
-**Domains where framework has substantial content but no current empirical match.** The framework's content in computational complexity (BQP theorem, Chapter 14), evolutionary biology Hurst exponent (F12), and the broader reader-writer disorder class beyond Rett (F9, F10, F11) has not yet been specifically tested against the framework's predictions. These are testable predictions awaiting empirical engagement rather than predictions matching established data.
+**Open application tests.** The physical coverage of the scalable BQP model, comparative therapeutic windows and a model connecting accessible capacity to independently estimated stochastic memory remain open.
 
 **Where the framework has no current content.** Five fundamental physics problems are scope limits from the framework's perspective — places where it does not provide a derived value: the fermion mass hierarchy in detail (flavor problem), baryogenesis (solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases, §19.3.3), inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly characterized in Chapter 19.
 
-**Cumulative assessment.** The framework's empirical record spans multiple domains, and its entries are of unequal evidential weight, classified explicitly above: of the twenty-two Standard Model observables, two are parameter-free structural retrodictions, five are conditional structural retrodictions (the Cabibbo $\lambda$ with its two inheritors and the two Koide entries), and the remainder are layered, chained, or fitted; the seven gravitational-sector entries comprise five conditional results and two layered estimates, with the Page curve (G11), an open research target, and four consistency or descriptive relations stated beside them, while the seven neutrino-sector entries include retrodictions and bound-only comparisons, with the $0.07\sigma$ JUNO match the sharpest (a retrodiction — the derivation postdates the November 2025 measurement); the fourteen biology/medicine entries are retrodictions and consistency results. Genuinely pre-registered forward content is the smaller set awaiting data (DESI Y5 $\nu$, BTFR at $z>1$, the A2 lattice thresholds, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value). The framework's empirical case is therefore a broad retrodictive compression across domains, with its forward-test exposure concentrated in that smaller pre-registered set, rather than a single decisive confirmation.
+**Cumulative assessment.** The twenty-two Standard Model observables include two parameter-free structural entries and five conditional structural entries. The remaining entries have the layering and empirical inputs given above. The gravitational ledger includes conditional and layered results, separate consistency relations and an open Page target. The neutrino ledger includes retrodictive and upper-bound comparisons and an open CP source. The fourteen biological or medical mechanisms are conjectural, with the evidence and design scope stated in their rows. The proposed forward tests have separate model and measurement conditions.
 
 The exact representation theorem concerns supplied finite-alphabet laws on finite horizons. The physical quantum interface remains open. The local Standard Model and gravitational branches give the conditional results and empirical comparisons stated above, with the native field and source coupling for gravity still open.
 
