@@ -51,7 +51,7 @@ above.
 | --- | --- |
 | [SM §4.2, rounded update](../../../../../papers/SM.md#L284-L298) | A periodic symbol dynamics and mathematical test preparations. No chamber-region temperature assignment or physical initial or boundary law supplying hot and cold regions is specified. The periodic torus allows internal regions in principle. |
 | [SM §4.1, scope of the observer-level lift](../../../../../papers/SM.md#L220-L236) | A separate observer-level wave branch. The identification with the microscopic finite map is open. The wave branch supplies no sourced driving temperature difference for the rounded map. |
-| [Main §2.2, realization datum](../../../../../papers/Main.md#L52-L60) | A distinction between the canonical invariant law and conditioned physical realization laws. It does not select a chamber resource history or a local thermal boundary law. |
+| [Main §1.2, realization datum](../../../../../papers/Main.md#L52-L60) | A distinction between the canonical invariant law and conditioned physical realization laws. It does not select a chamber resource history or a local thermal boundary law. |
 | [Main §4.6, effective mixing](../../../../../papers/Main.md#L744-L762) | Conditional observer-selection results for the effective channel under a mixing hypothesis. They do not specify where a temperature gradient comes from for this model. |
 | [Book Ch. 18, cosmological boundary](../../../../../book/ch18-beyond.md#L200-L214) | An initial low-entropy condition at cosmological scale. It is stated as an input. A map from that condition to the local hot and cold regions and their resource history is absent from the inspected account. |
 
