@@ -132,13 +132,13 @@ The leading solar value is $0.308003$. JUNO directly reports $\sin^2\theta_{12}=
 | N6 | Leading PMNS sum | $2\Delta_{12}+\Delta_{23}=O(\lambda^3)$ under Condition 2 | L | 1+2(b)ᶠ | Upper-octant fit combination $1.178\pm0.020$ | Ch 8 |
 | N7 | Physical complex $\delta_{\text{CP}}$ | Source open. The displayed expansion is real through $O(\lambda^2)$ | Open | 2(b)ᵍ | CP fits test an extension with a complex phase | Ch 8 |
 
-**Summary statistics.** The seven entries include one C, four L, one heuristic and one open target. N2 inherits the Cabibbo identification. N5 is a heuristic on the singlet-Higgs branch with no gauge-singlet fermion (SM §8.4). The mass sum near $0.059$ eV uses the measured splittings and a negligible lightest mass in normal ordering. The weaker published cosmological bound is for the $w_0w_a$CDM fit. An OI Type II joint fit remains open. The N6 fit value reuses the angle estimates and assumes the upper octant. Its approximate uncertainty is from quadrature with zero covariance (SM §7.3).
+**Summary statistics.** Five entries have a §A.2 prediction class, comprising one C and four L. The other two entries carry epistemic statuses outside the seven prediction classes (*heuristic* for N5 and *open* for N7). N2 inherits the Cabibbo identification. N5 is a heuristic on the singlet-Higgs branch with no gauge-singlet fermion (SM §8.4). The mass sum near $0.059$ eV uses the measured splittings and a negligible lightest mass in normal ordering. The weaker published cosmological bound is for the $w_0w_a$CDM fit. An OI Type II joint fit remains open. The N6 fit value reuses the angle estimates and assumes the upper octant. Its approximate uncertainty is from quadrature with zero covariance (SM §7.3).
 
 **ᵍ** *Open CP source.* The $U$-odd difference $b_{12}-b_{13}$ is real in the computed expansion. It enters the unsquared reactor amplitude at order $\lambda^2$ and drops out of the squared angle through that order. The physical complex phase requires additional structure (SM §7.3).
 
 ### A.4.4 Biology and medicine predictions
 
-The entries below pair empirical comparisons with specific biological or medical hypotheses. The Rett study establishes rescue in a mouse model under its intervention. The cancer classifier results use their reported datasets and validation designs.
+The entries below pair empirical comparisons with specific biological or medical hypotheses. The *conjectural* marker gives an epistemic status outside the prediction classes of §A.2. The Rett study establishes rescue in a mouse model under its intervention. The cancer classifier results use their reported datasets and validation designs.
 
 | # | Prediction | Quantitative content | Class | Layer | Empirical match | Chapter |
 |---|--------------|---------------------|----------------|-------|-----------------|---------|
