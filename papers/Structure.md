@@ -267,7 +267,7 @@ We address each condition in turn, taking the BFSS matrix model as the principal
 
 **BFSS status.** The BFSS matrix model at finite $N$ has nine bosonic matrices $X^i$ (with $i \in \{1, \ldots, 9\}$) and sixteen fermionic matrices $\psi_\alpha$, each of size $N \times N$ with continuous (real-valued bosonic; Grassmann-valued fermionic) entries [BFSS1996, see also [HigherPointBFSS2025]]. The configuration space is $\mathbb{R}^{9N^2}$ for the bosonic sector at fixed $N$, augmented by a Grassmann algebra for fermions. This is not finite.
 
-**Possible repair: a separate finite-value regulator.** Lattice BFSS discretizes time by a link-covariant finite difference, keeps the bosonic matrices continuous and incorporates the fermions through a Pfaffian [CatterallWiseman2008, Eq. (3)]. Even at fixed rank and spacing with a finite number of time slices, a bounded continuous range of matrix entries still allows infinitely many configurations. Achieving A1 would require a separate finite-value regulator for the retained variables.
+**Possible repair: a separate finite-value regulator.** BFSS on a temporal lattice uses a link-covariant finite difference, keeps the bosonic matrices continuous and incorporates the fermions through a Pfaffian [CatterallWiseman2008, Eq. (3)]. Even at fixed rank and spacing with a finite number of time slices, a bounded continuous range of matrix entries still allows infinitely many configurations. Achieving A1 would require a separate finite-value regulator for the retained variables.
 
 **Status.** A1 fails for continuum BFSS and its standard temporal lattice. A finite-volume, finite-value representative would meet the cardinality condition. Whether an appropriate removal of that regulator preserves the proposed equivalence is open.
 
@@ -1103,7 +1103,7 @@ The shared-invariants reading is therefore representation-theoretic rather than 
 
 ### 14.2 Channel-level unitarity
 
-**OI framework.** The finite permutation and fixed hidden state give a unitary realization of the visible CPTP channel [Main §3.4]. For a pure reference the corresponding Stinespring dilation is the isometry of Definition 9.2. A mixed reference can be purified to obtain such an isometry. The reduced channel is generally nonunitary.
+**OI framework.** The finite permutation and fixed hidden state give a unitary realization of the completely positive, trace-preserving channel on the visible sector [Main §3.4]. For a pure reference the corresponding Stinespring dilation is the isometry of Definition 9.2. A mixed reference can be purified to obtain such an isometry. The reduced channel is generally nonunitary.
 
 **String-theoretic analog.** AdS/CFT bulk reconstruction has a closely analogous structure. Boundary CFT operators are encoded in bulk operators with redundancy, and the encoding is a quantum error correcting code [HarlowBulkReconstruction2018, AlmheiriDongHarlow2014]. Bulk reconstruction from boundary subregions ("entanglement wedge reconstruction") shows that bulk operators in the entanglement wedge of a boundary subregion can be reconstructed from operators on that subregion. The reconstruction is unitary at the level of the full bulk-boundary system, with effective non-unitarity arising when restricting to a subregion.
 
