@@ -29,7 +29,7 @@ The definition is weaker than classical mechanics. A shuffled deck of cards sati
 
 **Lemma 1 (Finiteness).** *The visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.*
 
-Any observer bounded by a finite-area surface couples to only finitely many modes across that boundary; independent support comes from holographic entropy bounds (Bao, Carroll, and Singh 2017). The scale $\epsilon$ is left unspecified here; Chapter 7 relates it to the Planck length: the horizon area per boundary mode is $4\ell_P^2$ at one nat of entropy per boundary mode, and on the single-link reading of Chapter 7 the lattice spacing is $\sqrt6\,\ell_P$.
+Any observer bounded by a finite-area surface couples to only finitely many modes across that boundary; independent support comes from holographic entropy bounds (Bao, Carroll, and Singh 2017). The scale $\epsilon$ is left unspecified here; Chapter 7 relates it to the Planck length: the horizon area per boundary mode is $4\ell_P^2$ and, on the single-link reading there, the lattice spacing is $\sqrt6\,\ell_P$, both at one nat of entropy per boundary mode.
 
 **Lemma 2 (Causal partition).** *The phase space decomposes as $\Gamma = \Gamma_V \times \Gamma_H$, with $H_{\text{tot}} = H_V + H_H + H_{\text{int}}$. Cross-partition correlations enter only through $H_{\text{int}}$.*
 
