@@ -66,11 +66,14 @@ implementations or of the observer architecture, none is a Lie-algebraic, reacha
 availability condition, and both directions are kernel-witnessed. The substratum-source audit
 then collapses the three conjuncts to one object, a quantum architecture — an implementation
 class closed under the theory operations, context-, label- and dagger-stable, and driving the
-elementary transitions — and shows the current OI substratum supplies the four stabilities and
-not the drivability (`substratum_residual`): `current OI substratum + continuous off-diagonal
-controllability ⟺ finite operational quantum mechanics` (`substratum_plus_control_qm`,
-`qm_generated_by_substratum_extension`). Level II shows "endomorphic" is a typing artifact
-(`typed_determined_iff`).
+elementary transitions. The specified monomial class has all four structural closures and fails
+elementary drivability (`substratum_residual`). Its generated theory on `Fin 2` fails exact
+completeness for finite endomorphic quantum operations. A structurally closed extension that
+drives the elementary transitions generates a theory with that completeness on any nonempty
+finite carrier (`substratum_plus_control_qm`), and every theory with that completeness admits
+such an extension as a generating class (`qm_generated_by_substratum_extension`). Native
+physical sourcing of the off-diagonal control remains open. Level II shows "endomorphic" is a
+typing artifact (`typed_determined_iff`).
 
 ## What remains open
 
