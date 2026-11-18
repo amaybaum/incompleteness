@@ -70,7 +70,7 @@ The reference table combines Standard Model observables, coupling-sector inputs 
 | 1 | $1/\alpha_0$ universal induced coupling | 23.25 | S | 0 | Structural input; no direct comparison | Ch 6 §6.4 |
 | 2 | $A \cdot B$ gauge coupling product | $\approx 48$–$62$ (leading-power dependent) | C | 0 | Inconclusive | Ch 6 §6.4 |
 | 3 | $\delta_0$ from $U(1)$ row | 10.02 | E | 0 | Empirical input | Ch 6 §6.4 |
-| 4 | $\alpha_2(M_Z), \alpha_3(M_Z)$ | 29.57, 8.47 | R | 0 | Retrodictions | Ch 6 §6.4 |
+| 4 | $\alpha_2^{-1}(M_Z), \alpha_3^{-1}(M_Z)$ | 29.57, 8.47 | R | 0 | Retrodictions | Ch 6 §6.4 |
 | 5 | Cabibbo $\lambda$ | $1/(\pi\sqrt{2})$ | C | 1 | 0.04% (global fit; retrodiction) | Ch 6 §6.5 |
 | 6 | Wolfenstein $A$ | $\sqrt{2/3}$ | S | 1 | 1.2% (0.8$\sigma$) | Ch 6 §6.5 |
 | 7 | $|V_{cb}|$ | $A\lambda^2$ | C | 1 | Conditional on 5,6 | Ch 6 §6.5 |
