@@ -363,10 +363,10 @@
     {
       "id": "MAIN:T-statement",
       "paper": "papers/Main.md",
-      "line": 82,
+      "line": 80,
       "kind": "Theorem",
       "label": "statement",
-      "fingerprint": "ee28128e08134e74",
+      "fingerprint": "3c67cf474feca971",
       "area": "oi-foundations",
       "assumptions": "see the constituent rows",
       "checks": [],
@@ -1241,12 +1241,12 @@
     {
       "id": "MAIN:T-finite-operational-realization-gluing-form",
       "paper": "papers/Main.md",
-      "line": 560,
+      "line": 568,
       "kind": "Theorem",
       "label": "(finite operational realization and gluing — ε-form)",
-      "fingerprint": "769289a21d84cc02",
+      "fingerprint": "63d633237a5ff991",
       "area": "equivalence-chain",
-      "assumptions": "fixed d, finite instrument family, horizon K, tolerance epsilon",
+      "assumptions": "fixed d, initial density matrix, finite instrument family, finite horizon, positive grid; exact arithmetic and comparisons in a conjugation-closed working ring containing the initial and Kraus entries",
       "checks": [
         {
           "kind": "probe",
@@ -1257,17 +1257,17 @@
       ],
       "kernel": "P",
       "delta": "no Lean statement",
-      "note": "Exact arithmetic over Q(sqrt 2) + i Q(sqrt 2) at d = 2, K = 2 and 3."
+      "note": "Exact arithmetic over Q(sqrt 2) + i Q(sqrt 2) at d = 2, K = 2 and 3 for the stated inputs. The raw rounding lemma and the open bound on the sampled law at finite precision are separate."
     },
     {
       "id": "MAIN:T-uniform-continuum-realization-mutual-density",
       "paper": "papers/Main.md",
-      "line": 592,
+      "line": 600,
       "kind": "Theorem",
       "label": "(uniform continuum realization — mutual ε-density)",
-      "fingerprint": "8c37fc59f7715b2f",
+      "fingerprint": "05c2ed3556fe962c",
       "area": "equivalence-chain",
-      "assumptions": "a delta-net in diamond norm on the compact set of <= m-outcome instruments",
+      "assumptions": "fixed initial density matrix, positive horizon, bounded outcomes, diamond-norm net; exact initial and net-instrument arithmetic and comparisons for the grid construction",
       "checks": [
         {
           "kind": "probe",
@@ -1278,7 +1278,7 @@
       ],
       "kernel": "P",
       "delta": "no Lean statement",
-      "note": "The net argument is the analytic step and the probe does not reach it; only the finite instance is certified."
+      "note": "The net argument is analytic. The probe covers the stated finite instance. The finite-table existence route uses supplied real conditionals and has no grid-register resource certificate."
     },
     {
       "id": "MAIN:T-unavoidable-hidden-predictive-memory",

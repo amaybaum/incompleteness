@@ -1904,6 +1904,10 @@
     },
     {
       "ok": true,
+      "predicate": "chapter line mirrored in FULL: The converse is equally important: every finite quantum reco..."
+    },
+    {
+      "ok": true,
       "predicate": "chapter line mirrored in FULL: The remaining qualification is localized. To identify the co..."
     },
     {
@@ -2405,6 +2409,10 @@
     {
       "ok": true,
       "predicate": "chapter line mirrored in FULL: *Leading Lorentz-invariance-violation coefficient.* The fram..."
+    },
+    {
+      "ok": true,
+      "predicate": "chapter line mirrored in FULL: *Finite classical realizability of quantum processes.* The c..."
     },
     {
       "ok": true,
@@ -4392,6 +4400,6 @@
   },
   "mode": "source",
   "schema": "sc42-integration-result-v1",
-  "site_table_sha256": "75994c8f3967720f4e86709c35f3b5794c5c9f49ecd8494970c948b06a916a89",
+  "site_table_sha256": "c9876fd04c3590dfced97295f1fc05c4846ccb651910ffdee6fd3b8639448696",
   "verdict": "PASS"
 }

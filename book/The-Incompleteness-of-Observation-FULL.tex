@@ -2446,11 +2446,11 @@ trivial Markov member of that representation class and the
 memory-bearing sector characteristic of OI.
 
 The converse is equally important: every finite quantum record has a
-finite reversible OI realization, and one sufficiently large finite
-construction can cover an entire bounded finite quantum experiment menu
-to any specified accuracy. The exact continuum operational theory is a
-mathematical idealization rather than a requirement that the physical
-carrier itself be infinite.
+finite reversible OI realization. Given the quantum conditional
+probabilities for a fixed preparation and finite instrument menu, one
+finite response table serves all protocols through the chosen horizon.
+The exact continuum operational theory is a mathematical idealization
+rather than a requirement that the physical carrier itself be infinite.
 
 The remaining qualification is localized. To identify the complete local
 operational theory of complex quantum mechanics, rather than its exact
@@ -6386,17 +6386,18 @@ would contradict it.
 characterization theorem developed in Chapter 1 §1.8 establishes that
 the memory-bearing description admitted by an embedded observer
 satisfying C1--C4 lives on a deterministic substratum with bounded
-classical hidden-sector memory. At finite accuracy, every finite
-adaptive quantum experiment has a deterministic ε-shadow, while the
-exact continuum theory at any fixed finite carrier is excluded by the
-classical-dimension obstruction ({[}Main §3.4{]}). Non-Markovian models
-are permitted and expected (they are how the hidden-sector correlation
-persistence manifests). No finite-accuracy experiment contradicts this
-commitment by itself. A memory-witness experiment would contradict the
-ontology only given the coherent-preparation and instrument bridge, an
-outcome-independent rule identifying fundamental open-system processes,
-and a constraint derived from the completed model on what those
-processes must show; the last is not established ({[}Main §4.5{]}).
+classical hidden-sector memory. With its quantum conditional
+probabilities supplied, each finite adaptive quantum experiment has a
+finite deterministic realization. The exact continuum theory at any
+fixed finite carrier is excluded by the classical-dimension obstruction
+({[}Main §3.4{]}). Non-Markovian models are permitted and expected (they
+are how the hidden-sector correlation persistence manifests). No
+finite-accuracy experiment contradicts this commitment by itself. A
+memory-witness experiment would contradict the ontology only given the
+coherent-preparation and instrument bridge, an outcome-independent rule
+identifying fundamental open-system processes, and a constraint derived
+from the completed model on what those processes must show; the last is
+not established ({[}Main §4.5{]}).
 
 \emph{The dark sector as entropy-displacement, not as a novel particle
 content.} The framework's account of dark energy as boundary-entropy
@@ -24213,12 +24214,14 @@ unitary/Born representation (\(S\iff D\iff Q_{\mathrm{fb}}\), {[}Main
 equivalent representation, not a separate exponent-selection problem.
 The further question begins when one asks for \textbf{one common
 operational theory} covering arbitrary coherent preparations,
-noncommuting effects/instruments, and composites. Main's finite gluing
-theorem realizes every bounded quantum experiment to arbitrary requested
-finite accuracy, but the same machinery can also realize non-quantum
-finite behaviors; the operational-completion characterization ({[}GR
-§3.3{]}) states exactly which conditions select the quantum ones ---
-valid probabilities, trivial-ancilla consistency, inert spectators, full
+noncommuting effects/instruments, and composites. Main's finite response
+table realizes the supplied quantum probabilities for a fixed
+preparation, instrument menu and horizon. The finite instrument net
+extends coverage to arbitrary finite accuracy at fixed initial state.
+The same response-table machinery can also realize non-quantum finite
+behaviors. The operational-completion characterization ({[}GR §3.3{]})
+states exactly which conditions select the quantum ones --- valid
+probabilities, trivial-ancilla consistency, inert spectators, full
 reversible control, and iterated composition --- each independent of the
 others and of the observation process, so that embedded observation by
 itself does not select quantum mechanics and the physical question is
@@ -30151,23 +30154,27 @@ quantum divisibility or backflow criterion adopted, and it is not what
 either of the first two asserts.
 
 \textbf{Operational gluing theorem.} The framework's finite-resolution
-operational result ({[}Main §3.4{]}): every finite adaptive quantum
-experiment --- instrument family \(\mathcal{F}\), horizon \(K\), grid
-\(G\) --- has a finite reversible deterministic embedded realization
-whose adaptive outcome statistics lie within the stated \(O(K/G)\)
-bound, with one fixed mechanism per instrument, gluing by restriction
-across overlapping families, sequential and parallel composition, and
-explicit hidden-capacity bounds. The theorem establishes finite
-operational \textbf{realizability} and, together with the
-uniform-continuum theorem, finite-test density. It does not by itself
-prove that the standard local quantum instrument category is the unique
-coherent operational completion, because the same finite reversible
-machinery can realize non-quantum instrument families. Which further
-conditions select the quantum instrument category on a finite carrier is
-stated by the operational-completion characterization ({[}GR §3.3{]}):
-five completion conditions, none supplied by bare finite OI, within
-complex matrix kinematics taken as given. Certified in exact arithmetic
-(\texttt{opglue\_probes.py}).
+operational result ({[}Main §3.4{]}): for a fixed initial state, finite
+instrument family \(\mathcal{F}\), horizon \(K\) and grid \(G\), the
+exact arithmetic construction requires both the initial state and
+instrument data in the working ring, with exact trace comparisons. At
+fixed outcome count the adaptive law has grid error \(O(K/G)\), with one
+fixed mechanism per instrument, gluing by restriction across overlapping
+families, sequential and parallel composition, and a count of reachable
+hidden labels. The response-table construction uses supplied real
+probabilities. At fixed-point precision the initial rounding error and
+the open error bound for the clipped and normalized outcome law are
+separate. The theorem establishes finite operational
+\textbf{realizability} and, together with the uniform-continuum theorem,
+finite-test density. It does not by itself prove that the standard local
+quantum instrument category is the unique coherent operational
+completion, because the same finite reversible machinery can realize
+non-quantum instrument families. Which further conditions select the
+quantum instrument category on a finite carrier is stated by the
+operational-completion characterization ({[}GR §3.3{]}): five completion
+conditions, none supplied by bare finite OI, within complex matrix
+kinematics taken as given. Exact arithmetic checks in
+\texttt{opglue\_probes.py} cover the stated finite examples.
 
 \textbf{NV (Nitrogen-vacancy) center.} A point defect in diamond where a
 nitrogen atom replaces a carbon atom adjacent to a lattice vacancy. The
@@ -31217,4 +31224,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 9c8e62062f1c80f4cf1bb953f486d4cd243bef67e82b57549a4411a48955c75c
+% source-sha256: 9707f4ba111ec30211edbb3d79a5b47aaa537833233fd9f79365e0f3615516ea
