@@ -25,7 +25,7 @@ Framed this way, a question about interpretation becomes three mathematical ques
 
 ## 2. The simple idea: a hidden deterministic world can look random
 
-Start with a world whose rule is *reversible*: each complete configuration has exactly one successor, and no two configurations have the same successor. Such a rule loses no information, so the whole present determines the whole past. In the formal papers this rule is a *bijection* of the world's configurations.
+Start with a world whose rule is *reversible*: each complete configuration has exactly one successor and exactly one predecessor. Such a rule loses no information, so the whole present determines the whole past. In the formal papers this rule is a *bijection* of the world's configurations.
 
 Now put an observer inside that world. The observer registers only part of each configuration, the *visible* part; the rest is *hidden*. Two configurations that look the same to the observer can differ in their hidden parts and so lead to different visible futures. The visible part therefore changes in a way that looks random to the observer, although the whole world changes without any randomness. What the observer sees depends on three things: the rule, the division into visible and hidden parts, and how the hidden part is prepared at the start [Main §1.2].
 
