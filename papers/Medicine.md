@@ -12,7 +12,7 @@
 
 The finite-horizon result of the Observational Incompleteness (OI) framework [1] identifies accessible memory when two histories ending at the same measured present give different next-step laws through the hidden record (C4). Coupling, persistence and capacity can enable this contrast. The molecular examples below are applications to specified observables. Their readback mechanisms and any accessible-window P-indivisibility need separate evidence.
 
-We develop applications in seven areas: cancer pharmacology, neurodegeneration and reconsolidation, antibiotic responses, immunotherapy, cardiac pharmacology, autoimmune disease, and management of genetic disorders. We propose testing for differences in the retention and readback of regulatory states between disease and comparison tissues. The layered-memory hypotheses include chromatin, synaptic and slower records. A role for focused ultrasound in modifying a molecular timescale is a proposed mechanism. We give twenty-six numbered predictions and three layer-specific PTSD and ultrasound sub-predictions. Section 11 distinguishes comparisons with earlier evidence and proposed tests.
+We develop applications in seven areas: cancer pharmacology, neurodegeneration and reconsolidation, antibiotic responses, immunotherapy, cardiac pharmacology, autoimmune disease, and management of genetic disorders. We propose testing for differences in the retention and readback of regulatory states between disease and comparison tissues. The layered-memory hypotheses include chromatin, synaptic and slower records. A role for focused ultrasound in modifying a molecular timescale is a proposed mechanism. We give twenty-six numbered predictions and three layer-specific sub-predictions on reconsolidation and ultrasound. Section 11 distinguishes comparisons with earlier evidence and proposed tests.
 
 ---
 
@@ -89,7 +89,7 @@ C1–C4 do not by themselves make memory access disturb the stored record. Readb
 
 This conditional connects the architecture to the *reconstructive nature of recall*, a phenomenon long established in cognitive science, without deriving it: pure address-store memory, where access leaves the substrate unchanged, is compatible with C1–C4, as the example above shows. That biological recall is reconstructive is an empirical finding, and the bidirectional coupling it presupposes is a premise about the biological realization.
 
-**Clinical comparison: reconsolidation.** Recall can make some memory traces susceptible to change. In trials of propranolol with trauma reactivation, Brunet et al. reported a symptomatic benefit, while Roullet et al. found no overall PTSD symptom advantage over reactivation with placebo [21, 22]. The model proposes that intervention during re-storage could affect a specific trace, with the mediator requiring direct evidence.
+**Clinical comparison: reconsolidation.** Recall can make some memory traces susceptible to change. In trials of propranolol with trauma reactivation, Brunet et al. reported a symptomatic benefit, while Roullet et al. found no overall advantage in post-traumatic stress symptoms over reactivation with placebo [21, 22]. The model proposes that intervention during re-storage could affect a specific trace, with the mediator requiring direct evidence.
 
 The framework predicts that this approach generalizes: any memory layer with a measurable $\tau_B$ should have a corresponding "reconsolidation window" during which targeted intervention can rewrite the memory at that layer without affecting memories already consolidated to slower layers. The selectivity is not coincidental — it follows from the layered architecture of §2.2.
 
@@ -607,15 +607,15 @@ AI assistance in preparing this work is disclosed at\
 
 [19] J. Guy et al., “Reversal of neurological defects in a mouse model of Rett syndrome,” *Science* **315**, 1143–1147 (2007). doi:10.1126/science.1138389.
 
-[20] U.S. prescribing information for DAYBUE (trofinetide), [§12.1 Mechanism of Action](https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=67e6f2d9-21f6-466f-9def-826c6a4b8257).
+[20] U.S. prescribing information for trofinetide, [§12.1 Mechanism of Action](https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=67e6f2d9-21f6-466f-9def-826c6a4b8257).
 
-[21] A. Brunet et al., “Reduction of PTSD symptoms with pre-reactivation propranolol therapy: a randomized controlled trial,” [PubMed 29325446](https://pubmed.ncbi.nlm.nih.gov/29325446/).
+[21] A. Brunet et al., randomized trial of propranolol with trauma reactivation (2018), [PubMed 29325446](https://pubmed.ncbi.nlm.nih.gov/29325446/).
 
-[22] P. Roullet et al., “Traumatic memory reactivation with or without propranolol for PTSD and comorbid MD symptoms: a randomised clinical trial,” [PubMed 33612830](https://pubmed.ncbi.nlm.nih.gov/33612830/).
+[22] P. Roullet et al., randomized trial of trauma reactivation with or without propranolol (2021), [PubMed 33612830](https://pubmed.ncbi.nlm.nih.gov/33612830/).
 
 [23] C. H. van Dyck et al., “Lecanemab in early Alzheimer's disease,” [PubMed 36449413](https://pubmed.ncbi.nlm.nih.gov/36449413/).
 
-[24] J. R. Sims et al., “Donanemab in early symptomatic Alzheimer disease: the TRAILBLAZER-ALZ 2 randomized clinical trial,” [PubMed 37459141](https://pubmed.ncbi.nlm.nih.gov/37459141/).
+[24] J. R. Sims et al., randomized trial of donanemab in early symptomatic Alzheimer disease (2023), [PubMed 37459141](https://pubmed.ncbi.nlm.nih.gov/37459141/).
 
 [25] Ye et al., focused ultrasound blood–brain barrier opening in Alzheimer's disease, [PubMed 39793012](https://pubmed.ncbi.nlm.nih.gov/39793012/).
 

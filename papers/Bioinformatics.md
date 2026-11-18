@@ -165,7 +165,7 @@ This task has attracted substantial methodological investment. Generative models
 
 ### 4.2 The empirical failure of deep learning on perturbation prediction
 
-Ahlmann-Eltze et al. [6] evaluated deep-learning methods including GEARS against mean and linear baselines on the reported perturbation tasks. The evaluated methods did not consistently outperform the simple baselines on those datasets and metrics.
+Ahlmann-Eltze et al. [6] evaluated deep-learning methods, including a graph-based model [32], against mean and linear baselines on the reported perturbation tasks. The evaluated methods did not consistently outperform the simple baselines on those datasets and metrics.
 
 The benchmark of Fernandez-de-Retana et al. [5] addresses GRN inference. Kedzierska et al. [7] evaluate separate zero-shot tasks, and Kendiukhov [27] examines attention and regulatory signals in specific foundation models.
 
@@ -181,7 +181,7 @@ For squared loss, the Bayes predictor from T is the conditional mean. The observ
 
 ### 4.4 Knowledge-graph methods as the predicted improvement
 
-GEARS [32] uses biological graphs as priors, while PerturbNet [35] uses its own data, training and evaluation setup. Their reported results concern the specific benchmarks. GEARS was also included in the mean and linear baseline comparison of [6].
+GEARS [32] uses biological graphs as priors, while PerturbNet [35] uses its own data, training and evaluation setup. Their reported results concern the specific benchmarks. The study in [6] also evaluated the graph-based model.
 
 A relevant graph can supply assumptions or additional evidence for a particular target. Performance relative to other methods remains a benchmark question.
 
@@ -358,7 +358,7 @@ These comparisons can use existing public variant data. A positive result would 
 
 ### 7.4 Implications for clinical variant interpretation
 
-AlphaMissense supplies computational predictions [52]. Clinical variant classification under ACMG/AMP [57] uses multiple evidence types. A benchmark can test whether performance differs by gene role.
+AlphaMissense supplies computational predictions [52]. Clinical variant classification under professional standards [57] uses multiple evidence types. A benchmark can test whether performance differs by gene role.
 
 A detected difference could motivate follow-up analyses with independent functional and clinical evidence. Computational scores alone do not establish clinical significance.
 
@@ -380,7 +380,7 @@ The third prediction has direct clinical implications and is testable through re
 
 ### 8.1 The framework's reader-writer disorder class
 
-The proposed comparisons span distinct mechanisms: MECP2 binding to methylated DNA, FMR1 RNA binding, UBE3A ubiquitin ligase activity, KMT2D methyltransferase activity, KDM6A H3K27 demethylation and ATRX chromatin remodeling. A shared pattern of retained and altered molecular features is a hypothesis.
+The proposed comparisons span distinct mechanisms: MECP2 binding to methylated DNA, FMR1 RNA binding, UBE3A ubiquitin ligase activity, KMT2D methyltransferase activity, KDM6A H3K27 demethylation and chromatin remodeling in ATR-X syndrome. A shared pattern of retained and altered molecular features is a hypothesis.
 
 ### 8.2 Bioinformatic patterns in Rett syndrome
 
@@ -685,4 +685,4 @@ AI assistance in preparing this work is disclosed at\
 
 [66] G. Goldberg et al., "Distinct factors control histone variant H3.3 localization at specific genomic regions," *Cell* 140, 678–691 (2010).
 
-[67] U.S. prescribing information for DAYBUE (trofinetide), [§12.1 Mechanism of Action](https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=67e6f2d9-21f6-466f-9def-826c6a4b8257).
+[67] U.S. prescribing information for trofinetide, [§12.1 Mechanism of Action](https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=67e6f2d9-21f6-466f-9def-826c6a4b8257).

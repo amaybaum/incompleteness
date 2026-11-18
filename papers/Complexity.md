@@ -112,7 +112,7 @@ $$\begin{aligned}
 &\qquad \xrightarrow{\text{molecules, rates, solvent, temperature}} \text{possible thermal window}
 \end{aligned}$$
 
-$$\text{observed weak chirality (H-}\chi'\text{ in OI)} \xrightarrow{\text{molecular calculation}} \text{molecule-specific PVED}$$
+$$\text{observed weak chirality (H-}\chi'\text{ in OI)} \xrightarrow{\text{molecular calculation}} \text{molecular energy difference}$$
 
 These chains combine results of [1, 2] with textbook relations on the selected three-dimensional continuum branch, conditional on A4's lattice class, E5–E7, the continuum conditions, and the stated spin, statistics and atomic assumptions. Each downstream link retains its own hypotheses; the chiral-SU(2) arrow additionally assumes H-χ' [2, §4.8]. The conclusions about atoms, nuclei, the periodic table, organic chemistry, matter-antimatter asymmetry and chirally selected molecules inherit these conditions.
 

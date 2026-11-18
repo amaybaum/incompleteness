@@ -75,7 +75,7 @@ The empirical confirmation of this chain is *concordance*: the framework's deriv
 
 The framework's chemistry derivation extends beyond carbon's bonding geometry to four additional structural results that propagate the substratum's commitments through to chemistry-relevant features.
 
-**Matter-antimatter asymmetry.** With H-link and H-spin′, the three-generation branch permits a physical CKM phase (Chapter 5 §5.7 and [SM §§4.7, 5.4]). A nonzero value of this phase, supplied by the flavor parameters, gives a source of CP violation.
+**Matter-antimatter asymmetry.** With H-link and H-spin', the three-generation branch permits a physical CKM phase (Chapter 5 §5.7 and [SM §§4.7, 5.4]). A nonzero value of this phase, supplied by the flavor parameters, gives a source of CP violation.
 
 CP violation is one Sakharov condition. Baryon-number violation and departure from thermal equilibrium require their own dynamical account. Producing the observed $\eta \simeq 6.1\times10^{-10}$ remains open (Chapter 19 §19.3.3).
 
@@ -87,7 +87,7 @@ Chemistry uses the light electron and the mass and coupling values that permit s
 
 For the framework, confinement and nuclear binding remain open derivation obligations: the SU(3) gauge symmetry alone establishes neither, and the phase of the induced gauge theory depends on its dynamics and measure (SM §6.5). The specific parameter values are properties of the bijection (Tier 3 in Chapter 9's hierarchy); calculating binding energies additionally requires the nonperturbative strong dynamics.
 
-**Chiral chemistry.** The chiral weak interaction gives parity-violating contributions to molecular energies. Identifying the weak coupling with the physical chiral interaction in OI requires H-χ′ (Chapter 5 §5.6 and [SM §4.8]).
+**Chiral chemistry.** The chiral weak interaction gives parity-violating contributions to molecular energies. Identifying the weak coupling with the physical chiral interaction in OI requires H-χ' (Chapter 5 §5.6 and [SM §4.8]).
 
 The energy difference for a particular enantiomer pair is small and its sign depends on the molecule and conformation ([Complexity §4]). The origin of biological handedness needs an additional mechanism.
 
@@ -155,7 +155,7 @@ The selected orbital branch supplies a starting point for the chemistry. Water's
 
 A chiral weak interaction can bias molecular energies. Connecting that effect to biological homochirality requires both a molecule-specific sign calculation and a mechanism that amplifies the bias in the relevant chemistry.
 
-**Step 1: Weak parity violation.** The staggered construction supplies the grading and conditional spin–taste identity of [SM §4.8]. The physical chiral weak coupling is a further identification under H-χ′. The molecular discussion uses the observed chiral weak interaction.
+**Step 1: Weak parity violation.** The staggered construction supplies the grading and conditional spin–taste identity of [SM §4.8]. The physical chiral weak coupling is a further identification under H-χ'. The molecular discussion uses the observed chiral weak interaction.
 
 **Step 2: Molecular parity violation.** The weak interaction contributes to the electromagnetic-binding Hamiltonian of any atom or molecule with chiral structure. For a molecule with one or more chiral centers (carbon atoms bonded to four different substituents, producing a non-superimposable mirror image), the weak contribution to the molecular energy depends on which of the two mirror-image enantiomers is considered. The result is a parity-violating energy difference:
 $$\Delta E_{\text{PV}} = E_{\text{L}} - E_{\text{D}},$$

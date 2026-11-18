@@ -123,7 +123,7 @@ Enzyme catalysis is the framework's most direct empirical test bed in quantum bi
 
 **A conditional readback test.** The readback result identifies memory when histories of the same measured present have different subsequent laws. A biochemical model is required to identify which retained variable accounts for the contrast.
 
-The individual findings motivate tests across formerly hidden conformations and histories. The existence, time window and magnitude of accessible memory depend on the given enzyme, perturbation and measurement.
+The individual findings motivate tests across specific conformations and histories. The existence, time window and magnitude of accessible memory depend on the given enzyme, perturbation and measurement.
 
 **Quantitative testability.** A parameterized kinetic model could predict waiting-time distributions and correlation functions. The finite-horizon result specifies the conditional contrast without fixing those forms. A separate revival test could address the mechanism proposal in §13.7.
 
