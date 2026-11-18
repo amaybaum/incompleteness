@@ -67,11 +67,11 @@ Selection can favor information processing when an informative response improves
 
 Chemotaxis, photoperception, hormonal signaling and neural processing are observed examples of information use. The fitness effect of each depends on the organism and environment.
 
-The prediction sets a *floor* on the universality of information processing in biology: any framework-compatible biology should have *some* information processing. The prediction does not set a ceiling: it does not specify how sophisticated the information processing can become, what specific computational capabilities evolve, or whether evolution reaches general-purpose reasoning.
+The possible forms and benefits of information processing depend on the organism and environment. Whether general-purpose reasoning evolves remains open.
 
 ## 12.4 Major evolutionary transitions
 
-Beyond the structural account of evolution at the molecular and population level, evolutionary biology has identified a small number of *major transitions* in which the unit of selection itself changes — independent replicators combining into higher-level integrated entities. John Maynard Smith and Eörs Szathmáry's 1995 inventory identified eight major transitions; subsequent work has refined the list and the criteria. The framework's content provides a structural reading of these transitions as repeated applications of the same C1–C4 architecture at progressively higher organizational levels.
+Major evolutionary transitions change the unit of selection as interacting organisms or replicators form higher-level entities. Maynard Smith and Szathmáry inventoried examples. Persistent records offer one way to analyze the dynamics of a proposed higher-level unit.
 
 **The transitions.** The conventional inventory includes:
 

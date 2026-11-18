@@ -25,11 +25,11 @@ The chapter closes with a discussion of the relationship between the framework's
 
 Standard quantum engineering treats the environment as an adversary: decoherence destroys quantum information, and the goal is to isolate qubits from their surroundings as completely as possible. Better materials, deeper cryogenics, more careful shielding — the implicit design philosophy is that quantum systems should approach the closed-system limit, with the environment as an unavoidable nuisance to be minimized.
 
-The framework's content suggests a fundamentally different design philosophy. Instead of isolating a qubit from all environmental coupling, *engineer* the C1–C4 memory architecture and realize the target quantum process as its finite-test shadow ([Main §3.4]) — the conditions do not by themselves select the operational mechanism. The hidden sector is not noise but *programmable quantum memory* — a resource that stores correlations written during one gate operation and returns them during subsequent operations. The bath becomes a design variable rather than a constraint.
+The design proposal is to control the dynamics of a coupled environment and test whether it can retain and return a useful record. A finite-test representation of an experiment leaves implementation of the operations open ([Main §3.4]).
 
 A controllable environment could retain records that affect later gates. Its usefulness depends on the type of returned information, available controls and the task.
 
-The implications are concrete. A qubit isolated from all environmental coupling has $\tau_S/\tau_B \to 0$ and behaves as an ideal closed quantum system at the qubit's own timescale, with decoherence eventually limiting performance through residual coupling. A qubit deliberately coupled to an engineered slow, high-capacity hidden sector — a built realization of C1–C4's persistence and capacity — with $\tau_S/\tau_B \sim 10^{-1}$ exhibits qualitatively different dynamics: memory of earlier gates where the bath's record is read back (C4), partial coherence revivals at the bath's correlation timescale where that return also revives distinguishability, and a non-Markovian noise structure that correlation-aware error correction can exploit.
+For a coupled qubit, $\tau_B/\tau_S$ suggests a duration to look for a retained record. C4 requires a matched-present effect of that record. The type of information returned determines whether a phase-sensitive measurement or a decoder can use it.
 
 **Engineering conditions.** A record carried by a bath must persist and affect the next-step visible law at fixed present. The ratio $\tau_B/\tau_S$ is a timescale estimate for candidate retention windows. Coupling, readback and measured signal determine the size of a correction.
 
@@ -109,7 +109,7 @@ How long the recovered signal persists depends on amplitude, coupling and other 
 By tuning the chain length $L$ — the lengths below are illustrative estimates from $\tau_B \sim L^z$, not derived critical lengths — the framework's prediction is:
 
 - Short chain ($L \lesssim 5$, $\tau_B \sim \tau_S$): how far the dynamics departs from the Markov benchmark, and whether any record survives to readback, depends on the coupling, the chain's conditional mixing and its readback; the ratio $\tau_B/\tau_S$ alone establishes neither memorylessness nor record survival.
-- Long chain ($L \gtrsim 20$, $\tau_B \gg \tau_S$): memory-bearing regime where the chain retains its record and reads it back (C4). Correlations written at gate $k$ can then return at later gates, within a retention time of order $\tau_B/\tau_S$ gates under uniform erosion, partially restoring coherence. P-indivisibility of the qubit's population law on such windows is a further property, certified only by a divisibility witness.
+- Long chain ($L\gtrsim20$, $\tau_B\gg\tau_S$): a longer retention window in the illustrative model can allow readback if the retained state affects later visible laws at fixed present. Coherent recovery and population indivisibility require their respective measurements.
 Whether a record survives to readback depends on the chain's conditional mixing, not on a threshold in $\tau_B/\tau_S$; where a record survives and the chain reads it back (C4), the visible law carries accessible finite-horizon memory. On a fixed finite reversible representative, where recurrence returns the visible map to the identity and a readback gap forces a non-permutation rooted map, that memory also shows up as stochastic indivisibility of the visible population law across the recurrence cycle. Neither statement is a claim about generic open-system non-Markovianity of a quantum channel, which is a different notion and does not follow from either.
 
 Spin chains, controllable nuclear spin baths and phonon modes offer candidate platforms. A platform test must verify that the returned record affects the chosen coherent signal and compare it with the appropriate control.
@@ -126,15 +126,15 @@ The relevant timescale separations are: NV electron-spin dynamics at $\tau_S \si
 
 **The proposed sensing mechanism.** An NV-center bath can affect the time dependence of the measured signal. A population revival or a slow bath mode leaves open whether the phase-sensitive signal used by the protocol recovers.
 
-Sensing protocols that exploit the revival — measuring at the backflow time rather than during the initial decay — could push sensitivity beyond the Markovian-assumed $T_2$ limit.
+The sensing proposal is to look for recovered phase sensitivity and choose a readout time on the basis of that signal. Performance depends on the reference protocol and available resources.
 
-**Sensitivity.** Standard NV magnetometry sensitivity is $\delta B \sim 1/(\gamma \sqrt{T_2 \cdot T_{\text{meas}}})$, where $\gamma$ is the gyromagnetic ratio and $T_{\text{meas}}$ is the total measurement time. Where the bath's return at $\tau_B$ revives distinguishability (information backflow), each measurement recovers information that Markovian protocols assume is lost.
+**Sensitivity.** In a simplified fixed-visibility benchmark, $\delta B\sim 1/(\gamma\sqrt{T_2T_{\text{meas}}})$, where $\gamma$ is the gyromagnetic ratio and $T_{\text{meas}}$ is total measurement time. Using a different interrogation time requires measuring visibility and noise under the actual readout.
 
 Sensitivity depends on interrogation time, visibility, noise and readout under the same resource budget. A measured revival is relevant if it improves the signal-to-noise comparison with a specified reference protocol.
 
 **Empirical test.** Characterize the bath and measure the phase-sensitive signal across candidate interrogation times. Compare the resulting sensitivity at matched total resources with the reference protocol. A gain then has the scope of that device and protocol.
 
-A large improvement in NV sensitivity at room temperature would be transformative for biological imaging, medical diagnostics, and geophysical sensing applications. The framework's prediction is therefore not isolated theoretical content but a specific commercial design target with empirical accessibility on existing hardware. Falsification would come from demonstration that backflow-aware protocols do not improve integrated sensitivity over the Markovian protocol on the same hardware across multiple NV platforms — suggesting that backflow in these baths, where present, is too small or too thermally averaged to be exploited.
+The comparison would estimate any change in integrated sensitivity for the tested device and protocol. A null result would constrain the proposed sensing benefit in that regime.
 
 ## 15.7 The restricted quantum-statistical regime in engineered systems
 
