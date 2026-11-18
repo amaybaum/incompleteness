@@ -206,57 +206,37 @@ mass hierarchy also requires the stated Yukawa and taste-breaking
 assumptions. Chiral SU(2), conditional on H-χ' {[}2, §4.8{]}, supplies a
 parity-violating interaction whose molecular energy difference and
 preferred sign require the stated molecular and observed weak-sector
-inputs. The viable fraction of the chosen 18-dimensional parameter space
-is estimated at \textasciitilde16\%.
+inputs. An illustrative four-parameter estimate uses independent
+log-uniform weights over the stated ranges.
 
-Counting every possible peptide of length 50 (\(\sim 20^{50}\)),
-Kauffman's random-catalysis model gives a nominal margin
-\(Np \sim 10^{56}\) over its autocatalytic threshold; the model's \(N\)
-counts co-present species, so the margin holds only to the extent that
-such diversity is available. Template replication requires three
-independently structural capabilities (linear polymers, complementary
-pairing, catalysis). A template replicator can realize C1--C4, its
-sequence the persistent record that copying reads back; C1--C4 do not
-imply replication, growth or catalytic closure. RNA's dual role as
-template and catalyst is empirical support for the RNA-world hypothesis.
-Given a replicator with sufficient copying fidelity in a feedstock-rich
-environment, population dynamics gives exponential growth while
-resources last; where its heritable variants also differ in reproductive
-success, Darwinian evolution can occur. The chain has a natural terminus
-at biological evolution; the continuation from evolution through general
-intelligence, AI, the BQP characterization theorem for embedded
-observers, and the framework's position on the P vs NP question is the
-subject of the companion paper \emph{Embedded Computation in the
-Incompleteness of Observation Framework} {[}38{]}.
+The nominal sequence space for peptides of length 50 is \(20^{50}\).
+Autocatalytic-set models require co-present species, a reaction network
+and a food set. The available chemistry must also supply a template
+copier for the replication scenario. In an existing template replicator,
+a sequence can supply a persistent record for copying. Given net growth
+and heritable differences in reproductive success, Darwinian evolution
+can occur. The companion paper {[}38{]} examines conditional routes from
+evolution to artificial computation and gives the assumptions of the BQP
+model.
 
-The same C1--C4 conditions that diagnose an accessible non-Markovian
-realization cosmologically --- finite-horizon memory in the visible law,
-not generic quantum non-Markovianity --- are satisfied in proteins
-(\(\tau_S / \tau_B \sim 10^{-9}\) to \(10^{-12}\)), predicting
-non-Markovian enzyme kinetics consistent with single-molecule
-experiments. The ratio \(\tau_S / \tau_B\) sets the bath's retention
-window, of order \(\tau_B / \tau_S\) events, not the size of the
-correction; in quantum computing (\(10^{-3}\)) and quantum sensing
-(\(10^{-6}\)) that window falls within device run lengths, where
-memory-bearing noise is predicted to be engineering-relevant. The
-framework identifies a new design space --- engineered C1--C4
-architectures --- in which the environment is programmable quantum
-memory rather than noise.
+The finite-horizon readback result applies when the chosen observable
+has a next-step dependence on history at fixed present state. Enzyme
+turnover and engineered quantum devices motivate tests with that
+diagnostic. For example, protein scaffold motion can be slow compared
+with electronic transitions. With the retention model specified,
+\(\tau_B/\tau_S\) estimates a window for possible readback. The
+amplitude, observability and utility of any return depend on the
+coupling and the experiment.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \begin{quote}
-\textbf{Status --- conjectural extension.} This paper applies the core
-framework to quantum computation and complexity, and is offered as a
-\emph{conjecture}, not an established result: the central claim --- that
-the framework's emergent dynamics realizes the complexity class BQP ---
-is a theoretical conjecture rather than a proven correspondence; it
-would be supported by a rigorous derivation from the finite substratum
-to BQP and undercut if that dynamics proves efficiently classically
-simulable or fails to reproduce known quantum-complexity separations. It
-carries no evidential weight for the core framework --- which stands or
-falls independently on its physics --- and should be read as a
-structural possibility to be tested, not as support for the framework.
+\textbf{Status --- conditional application.} The chemistry discussion
+uses the lattice, continuum, spin, statistics and matter assumptions
+specified below. The biological and engineering sections use additional
+material, environmental and dynamical models. They include comparisons
+with prior observations and proposed tests of the application
+mechanisms.
 \end{quote}
 
 \hypertarget{introduction}{%
@@ -326,22 +306,25 @@ dumbbell, 3 orientations), d (\(l = 2\), 5 orientations), f (\(l = 3\),
 7 orientations).
 
 On this selected three-dimensional continuum branch, rotational symmetry
-supplies the SO(3) orbital algebra. In \(d = 2\), angular momentum has a
-single component --- only circular harmonics exist, with no
-three-dimensional bonding geometry. In \(d \geq 4\), the Coulomb
-potential \(V(r) \sim r^{2-d}\) does not support stable bound states
-{[}3, 4{]}: classical orbits spiral into the nucleus, and the quantum
-Hamiltonian is unbounded below.
+supplies the SO(3) orbital algebra. In \(d=2\), angular momentum has a
+single component and there is no three-dimensional bonding geometry. For
+an unregularized point-Coulomb potential \(V(r)\sim-r^{2-d}\) with
+\(d>4\), the singular potential scales faster than the kinetic term near
+the origin and the Hamiltonian is unbounded below. In \(d=4\) the
+inverse-square term has the same scaling as the kinetic term. Hardy's
+inequality bounds the quadratic form below at subcritical coupling,
+while supercritical coupling permits fall to the center. The subcritical
+scale-free model also lacks the ordinary hydrogenic bound-state series
+{[}3, 4, 45{]}.
 
 \hypertarget{from-orbitals-to-the-periodic-table}{%
 \subsubsection{2.2 From orbitals to the periodic
 table}\label{from-orbitals-to-the-periodic-table}}
 
-The framework derives spin-1/2 fermions from the staggered structure on
-the d = 3 lattice {[}2, §4.2{]}. The spin-statistics theorem --- a
-consequence of the emergent QFT's Lorentz invariance {[}2, §3.1{]} ---
-gives the Pauli exclusion principle: each orbital holds at most 2
-electrons (spin up and spin down). The shell capacities follow:
+The orbital calculation assumes a branch describing physical spin-1/2
+fermions and the continuum conditions needed for the spin-statistics
+theorem {[}2, §§3.1, 4.2{]}. Pauli exclusion then allows two electrons
+per spatial orbital. The shell capacities follow:
 
 \[s: 2, \quad p: 6, \quad d: 10, \quad f: 14\]
 
@@ -400,11 +383,10 @@ nuclei for suitable parameter values (§3). A derivation of these
 mechanisms for the framework's induced gauge measure is open {[}2,
 §6.5{]}; SU(3) symmetry alone does not establish them.
 
-\textbf{Chiral chemistry.} Chiral SU(2) --- conditional in the framework
-on the taste-selectivity hypothesis H-χ' {[}2, §4.8{]}, and realized in
-the observed electroweak sector --- produces parity violation in all
-weak processes. This propagates to molecular physics as a
-parity-violating energy difference between mirror-image molecules (§4).
+\textbf{Chiral chemistry.} Given the physical weak interaction, carried
+in the framework under H-χ' {[}2, §4.8{]}, molecular energy calculations
+can distinguish mirror-image molecules. The sign depends on the molecule
+and its conformation (§4).
 
 \hypertarget{the-scale-hierarchy}{%
 \subsubsection{2.5 The scale hierarchy}\label{the-scale-hierarchy}}
@@ -459,19 +441,15 @@ temperatures is parametric.
 \hypertarget{the-thermal-window}{%
 \subsubsection{2.7 The thermal window}\label{the-thermal-window}}
 
-For chemistry to support complexity, a thermal window must exist where
-bond energies (\textasciitilde1--5 eV) \(\gg kT\) (bonds are stable),
-\(kT > E_{\text{activation}}\) (reactions proceed), and a liquid solvent
-exists. The first condition, \(E_{\text{bond}} \gg kT\), is a statement
-about the selected molecules at the selected temperature: the coupling
-values and masses (§2.5) set the atomic scale of bond energies, but the
-nuclear--atomic scale separation does not itself establish the
-inequality. The second and third --- activation energies low enough for
-reactions to proceed at such a temperature, and a solvent that is liquid
-there --- are further conditions, set by the molecules available rather
-than by the scale separation, and the separation does not establish that
-the three overlap. Where they do, chemistry is \emph{stable but
-dynamic}.
+A thermal window for the chemistry considered here requires stable bonds
+at the selected temperature, reactions at useful rates and a liquid
+solvent. For an Arrhenius reaction with prefactor \(A\) and barrier
+\(E_a\), the characteristic rate is \(A e^{-E_a/kT}\). To proceed on a
+target timescale \(t\), the rate must satisfy
+\(A e^{-E_a/kT}t\gtrsim 1\), which can hold for \(E_a>kT\). The coupling
+values and masses set the atomic scale (§2.5). The bonds, barriers,
+prefactors, solvent and operating temperature determine whether the
+conditions overlap.
 
 \hypertarget{summary-of-the-structural-chain}{%
 \subsubsection{2.8 Summary of the structural
@@ -483,9 +461,9 @@ retain the field-theory and atomic assumptions cited above.
 
 \[\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} d = 3 \xrightarrow{\text{SO(3)}} \text{orbitals} \xrightarrow{\text{Pauli}} \text{periodic table} \xrightarrow{\text{element 6}} \text{tetrahedral carbon}\]
 
-\[\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{3 generations} \xrightarrow{\text{CKM}} \text{CP violation} \xrightarrow{\text{Sakharov}} \text{baryogenesis possible}\]
+\[\text{(S, } \varphi\text{)} \xrightarrow{\text{H-link, H-spin'}} \text{3 generations} \xrightarrow{\text{nonzero CKM phase}} \text{one Sakharov condition}\]
 
-\[\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs} \xrightarrow{\text{taste-breaking}} \text{mass hierarchy} \xrightarrow{} \text{light fermions} \xrightarrow{} \text{stable atoms}\]
+\[\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{Higgs and taste-breaking branch} \xrightarrow{\text{Yukawa and mass inputs}} \text{light fermions}\]
 
 \[\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{SU(3)} \xrightarrow{\text{assuming confinement}} \text{hadrons} \xrightarrow{\text{assuming residual force}} \text{nuclei possible}\]
 
@@ -494,14 +472,14 @@ retain the field-theory and atomic assumptions cited above.
 &\qquad \xrightarrow{\text{coupling values, } m_e} \text{scale hierarchy} \xrightarrow{} \text{atoms are permanent building blocks}
 \end{aligned}\]
 
-\[\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional}} \text{element 8 in d = 3} \xrightarrow{} \text{bent H}_2\text{O} \xrightarrow{\text{H-bonding}} \text{anomalous solvent}\]
+\[\text{oxygen and hydrogen chemistry} \xrightarrow{\text{molecular interactions}} \text{water as an example solvent}\]
 
 \[\begin{aligned}
 &\text{(S, } \varphi\text{)} \xrightarrow{\text{conditional; coupling values, } m_e} \text{scale hierarchy + orbital structure}\\
-&\qquad \xrightarrow{\text{activation energies, solvent}} \text{thermal window exists}
+&\qquad \xrightarrow{\text{molecules, rates, solvent, temperature}} \text{possible thermal window}
 \end{aligned}\]
 
-\[\text{(S, } \varphi\text{)} \xrightarrow{\text{H-χ'}} \text{chiral SU(2)} \xrightarrow{\text{PVED}} \text{L-amino acid preference}\]
+\[\text{observed weak chirality (H-}\chi'\text{ in OI)} \xrightarrow{\text{molecular calculation}} \text{molecule-specific PVED}\]
 
 These chains combine results of {[}1, 2{]} with textbook relations on
 the selected three-dimensional continuum branch, conditional on A4's
@@ -588,37 +566,32 @@ Parameter & Viable range (orders of magnitude) & Log-fraction \\
 \bottomrule\noalign{}
 \endlastfoot
 α & \textasciitilde2 orders within \textasciitilde3 available &
-\textasciitilde60\% \\
+\textasciitilde67\% \\
 \(m_e / m_p\) & \textasciitilde4 orders within \textasciitilde6
-available & \textasciitilde65\% \\
+available & \textasciitilde67\% \\
 \(m_d - m_u\) & factor of \textasciitilde5 within \textasciitilde10
-available & \textasciitilde50\% \\
+available & \textasciitilde70\% \\
 \(\alpha_s\) & factor of \textasciitilde1.6 within \textasciitilde2
-available & \textasciitilde80\% \\
+available & \textasciitilde68\% \\
 \end{longtable}
 
-The joint viable fraction, treating the parameters as independent (a
-conservative assumption --- correlations generally enlarge the viable
-region), is roughly:
+For an illustration, take the product of the four log-width fractions,
+assigning independent log-uniform weights to the stated ranges and
+holding other parameters fixed.
 
-\[f_{\text{viable}} \sim 0.6 \times 0.65 \times 0.5 \times 0.8 \approx 16\%\]
+\[f_{\text{illustrative}} \sim \frac{2}{3}\frac{4}{6}\frac{\log 5}{\log 10}\frac{\log 1.6}{\log 2} \approx 21\%.\]
 
-This is a rough estimate, but the order of magnitude is robust: the
-viable fraction is \(\mathcal{O}(10\%)\), not \(\mathcal{O}(10^{-50})\).
-The remaining 14 SM parameters (heavy quark masses, lepton masses,
-mixing angles) are less constrained --- they affect the details of
-nuclear and atomic physics but not the existence of carbon chemistry.
+The estimate depends on the chosen ranges, viability criteria and
+measure. Correlations can change the joint fraction. This calculation
+varies four parameters.
 
 \hypertarget{comparison-to-fine-tuning-claims}{%
 \subsubsection{3.4 Comparison to fine-tuning
 claims}\label{comparison-to-fine-tuning-claims}}
 
-Comparisons of fine-tuning depend on which structural choices and
-parameters are varied. The estimate here holds the selected
-three-dimensional lattice/gauge branch fixed and varies the chosen
-parameter subspace. It does not exclude other dimensions or gauge
-structures using embedded observation alone. The \textasciitilde16\%
-estimate applies only to the stated ranges and weighting assumptions.
+The estimate holds the selected three-dimensional lattice/gauge branch
+fixed. It describes the specified four-parameter variation and
+weighting, with the other parameters fixed.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -630,41 +603,28 @@ estimate applies only to the stated ranges and weighting assumptions.
 conditional first
 link}\label{from-the-partition-to-parity-violation-the-conditional-first-link}}
 
-The OI partition supplies the grading; the chirality of the weak force
-enters conditionally. The trace-out over the hidden sector leaves an
-ε-graded visible sector on which spin- and taste-chirality coincide,
-with the kinetic operator coupling only across sublattices
-(\(D_{ee} = 0\), \(D_{oo} = 0\)) {[}2, §4.8, Theorem 13{]}. Whether the
-weak coupling is chiral on that sector reduces to the taste-chirality
-selectivity of the SU(2) embedding --- hypothesis H-χ', stated as open
-in {[}2, §4.8{]}. The observed electroweak sector realizes it: the W
-couples only to left-handed fermions, and parity is maximally violated
-in weak processes. The chain below therefore runs from the
-\emph{observed} chiral weak force --- carried in the framework as H-χ'
---- through molecular parity violation to biological homochirality; the
-framework's structural contribution is the grading and the
-visible-sector identity, not a derivation of parity violation.
+The visible-sector construction supplies a grading and the spin--taste
+identity under the conditions of {[}2, §4.8, Theorem 13{]}. Physical
+identification of the weak chiral coupling requires the open
+taste-selectivity hypothesis H-χ'. The following molecular discussion
+uses the observed chiral weak interaction.
 
 \hypertarget{molecular-parity-violation}{%
 \subsubsection{4.2 Molecular parity
 violation}\label{molecular-parity-violation}}
 
-The weak neutral current (Z boson exchange between electrons and nuclei)
-produces a parity-violating potential in atoms and molecules. For chiral
-molecules --- molecules that are not superimposable on their mirror
-image --- this creates an energy difference between left-handed (L) and
-right-handed (D) enantiomers {[}11, 12{]}:
+The weak neutral current contributes a parity-violating term to the
+molecular Hamiltonian. In chiral molecules this term can give different
+energies to the two enantiomers {[}11, 12{]}:
 
 \[\Delta E_{\text{PV}} \sim G_F \alpha Z^5 m_e c^2 \left(\frac{a_0}{R}\right)^3\]
 
-where \(G_F\) is the Fermi constant, \(Z\) the nuclear charge, and \(R\)
-the bond length. For amino acids: \(\Delta E_{\text{PV}} \sim 10^{-19}\)
-eV \(\sim 10^{-17} \, kT\) at 300 K {[}11{]}. The sign is universal ---
-it favors L-amino acids --- and is fixed by the observed left-handedness
-of the weak coupling: given SU(2)\(_L\), L-amino acids are lower in
-energy. In the framework that left-handedness is carried as the open
-hypothesis H-χ' {[}2, §4.8{]}, so the sign is inherited from the
-observed electroweak sector rather than derived from the partition.
+Here \(G_F\) denotes the Fermi constant, \(Z\) a nuclear charge and
+\(R\) a bond length in the scaling estimate. A representative order
+estimate for amino acids is \(|\Delta E_{\text{PV}}|\sim 10^{-19}\) eV
+{[}11{]}. The sign depends on molecular structure and conformation.
+Alanine calculations illustrate why the observed handedness of the weak
+force alone does not imply universal L stabilization {[}44{]}.
 
 \hypertarget{the-amplification-argument}{%
 \subsubsection{4.3 The amplification
@@ -682,44 +642,21 @@ crystal mixtures to homochirality from small initial biases. Chiral
 polymerization with cross-inhibition {[}15{]} amplifies small monomer
 \(ee\) to polymer homochirality.
 
-The gap between \(10^{-17}\) (PVED) and \(10^{-5}\) (Soai threshold) is
-12 orders of magnitude, and bridging it from PVED alone is non-trivial.
-In a small prebiotic pool of \(N\) chiral molecules, random statistical
-fluctuations produce \(ee \sim 1/\sqrt{N}\). For \(N \sim 10^6\) (a
-microdroplet), statistical \(ee \sim 10^{-3}\) --- within the Viedma
-threshold. The PVED's structural role is to fix the \emph{sign} of the
-energy difference between L and D enantiomers; how this sign propagates
-to biological homochirality through the amplification mechanisms cited
-above is an active research question in origins-of-life. With current
-PVED magnitude (\(\sim 10^{-17}\) ee) versus statistical fluctuations in
-prebiotic pools (\(\sim 10^{-3}\) ee for \(N \sim 10^6\) monomers), a
-single-pool calculation gives an L-preference probability of only
-\(\sim 10^{-14}\) above 50\%. Delivering global biological homochirality
-from this requires either (i) cross-pool selection mechanisms that
-propagate small per-pool L-biases globally, or (ii) extended timescales
-of prebiotic chemistry with cumulative bias amplification, or (iii)
-other mechanisms not yet fully characterized in the literature {[}13,
-14, 15{]}. The framework's input to this chain is the PVED sign ---
-structural only conditional on H-χ' {[}2, §4.8{]}, otherwise inherited
-from the observed weak sector; the bridge to biological homochirality
-requires additional empirical mechanisms that remain partially open.
+The illustrative thermal excess of order \(10^{-17}\) lies well below
+the biases amplified in the cited Soai experiments. In a pool of \(N\)
+monomers the statistical excess can be of order \(N^{-1/2}\). For
+\(N\sim 10^6\) this is about \(10^{-3}\). Whether a molecule-specific
+parity-violating bias can survive sampling fluctuations and influence
+amplification across pools is an open origin-of-life question.
 
 \hypertarget{the-structural-conclusion}{%
 \subsubsection{4.4 The structural
 conclusion}\label{the-structural-conclusion}}
 
-If the amplification chain is robust --- every step being known physics
-or experimentally demonstrated, with the first link carried as the open
-hypothesis H-χ' --- then the \emph{sign} of the molecular
-parity-violating energy difference is fixed by the observed chirality of
-the weak coupling (conditional identification: Theorem 13 of {[}SM
-§4.8{]}); biological homochirality plausibly inherits this sign through
-amplification mechanisms whose details remain partially open in
-origins-of-life research (§4.3). The handedness of every amino acid in
-every protein in every organism is \emph{consistent} with this sign
-result; whether it is \emph{uniquely traceable} to (S, φ) depends on
-H-χ' and on which amplification mechanism actually operated in Earth's
-prebiotic chemistry.
+Amplification is established in particular chemical systems. Its
+relation to the origin and direction of biological homochirality
+requires a molecular parity-violation calculation and a demonstrated
+prebiotic selection and amplification mechanism.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2609}}
@@ -741,9 +678,10 @@ Status
 §4.8{]} \\
 2 & SU(2)\(_L\) → electroweak PV & Standard consequence \\
 3 & Electroweak PV → PVED & Known physics {[}11, 12{]} \\
-4 & Statistical fluctuation + directional bias → homochirality &
-Demonstrated mechanisms {[}13, 14, 15{]}; sign from Step 1 \\
-5 & Biological homochirality & Observed \\
+4 & Amplification of enantiomeric excess & Demonstrated in particular
+chemistries {[}13, 14, 15{]} \\
+5 & Origin and direction of biological homochirality & Observed
+handedness, open causal bridge \\
 \end{longtable}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -755,14 +693,10 @@ Demonstrated mechanisms {[}13, 14, 15{]}; sign from Step 1 \\
 \subsubsection{5.1 The dissolution of
 fine-tuning}\label{the-dissolution-of-fine-tuning}}
 
-The fine-tuning problem assumes two freedoms: the laws could have been
-different, and the parameters could have been different. On the selected
-branch the OI framework removes the first: the structure is fixed by the
-stated hypotheses rather than varied. §3 shows the second is not as
-constrained as traditionally claimed: the viable parameter fraction is
-\(\mathcal{O}(10\%)\), not \(\mathcal{O}(10^{-50})\). The apparent
-fine-tuning was dominated by structural variation that the selected
-branch excludes; embedded observation alone does not exclude it (§3.4).
+The selected branch fixes structural relations given its stated
+hypotheses. Section 3 illustrates parameter sensitivity with particular
+ranges and independent log-uniform weights. No ensemble measure or
+general viable fraction follows from the branch.
 
 The representative freedoms in {[}33, §4, Theorem 24{]} preserve
 specified data at a fixed visible/hidden interface, not every observable
@@ -841,10 +775,9 @@ gauge-classification theorem.
 \subsubsection{5.3 The autocatalytic
 argument}\label{the-autocatalytic-argument}}
 
-On the selected branch, the structural chain supplies the preconditions
-for life. This section argues that autocatalytic sets are statistically
-expected within Kauffman's random-catalysis model, given that structure
-and the model's inputs.
+This section uses Kauffman's random-catalysis model to illustrate how
+chemical diversity can affect prospects for autocatalytic sets. The
+model needs its own chemistry, co-presence and catalysis inputs.
 
 \textbf{Combinatorial diversity is structural.} Carbon's sp³
 hybridization in d = 3 (§2.3) produces chain-forming chemistry with four
@@ -859,36 +792,26 @@ comparable diversity: silicon has similar valence but weaker bonds
 (\(\sim 2.3\) eV for Si-Si vs.~\(\sim 3.6\) eV for C-C), insufficient
 for stable long chains at thermal window temperatures.
 
-\textbf{The autocatalytic threshold.} Kauffman's theorem {[}16{]}: in a
-network of \(N\) molecule types where each molecule has probability
-\(p\) of catalyzing any given reaction, autocatalytic sets --- closed
-networks that collectively catalyze their own production from simple
-feedstocks --- emerge with probability approaching 1 when \(N \times p\)
-exceeds a critical threshold of \(\mathcal{O}(1)\). The framework's
-chemistry permits \(N \sim 10^{65}\) possible 50-mers; the model's \(N\)
-counts co-present species. The question reduces to whether
-\(p > 10^{-65}\) --- whether catalysis is not astronomically rare among
-organic molecules.
+\textbf{Autocatalytic sets in a specified model.} The set must be
+collectively catalyzed and generated from its supplied food set {[}16,
+46{]}. In an independent-pair illustration with \(N\) co-present species
+and catalysis probability \(p\) for a specified reaction, \(Np\) is the
+expected number of possible catalysts for that reaction. Even in the
+independent-edge graph analogy, mean degree near one is a
+giant-component scale and leaves isolated vertices. Reaction and food
+closure depend on the specified network.
 
-\textbf{Catalysis is not rare.} Empirically, short random peptides show
-catalytic activity at rates suggesting \(p \sim 10^{-9}\) to \(10^{-7}\)
-per pair {[}17{]}. RNA fragments catalyze their own splicing and
-polymerization {[}18, 19{]}. Simple amino acids catalyze aldol reactions
-(the Hajos-Parrish reaction). Even individual metal ions in aqueous
-solution show catalytic activity for a range of organic reactions. With
-\(p \sim 10^{-9}\) and \(N \sim 10^{65}\): \(N \times p \sim 10^{56}\),
-a nominal margin of 56 orders of magnitude that counts every possible
-50-mer as present.
+\textbf{Nominal illustration.} Counting all \(20^{50}\sim 10^{65}\)
+peptide sequences as co-present and stipulating \(p\sim 10^{-9}\) gives
+\(Np\sim 10^{56}\). Both inputs are illustrative. Peptide nanotube
+self-assembly {[}17{]}, RNA catalysis {[}18, 19{]} and other particular
+catalytic reactions show what specific molecules can do. The pair
+probability for an uncharacterized network remains open.
 
-\textbf{The role of chirality.} The PVED (§4) selects L-amino acids,
-halving the combinatorial space and --- critically --- eliminating
-cross-chiral parasitic reactions. In a racemic mixture, L-monomers can
-be incorporated into D-chains and vice versa, poisoning both.
-Homochirality, driven by the PVED's directional bias (§4.3), ensures
-that the combinatorial exploration proceeds within a self-consistent
-chemical subspace. This is not a minor refinement --- it may be the
-difference between a productive autocatalytic network and a parasitized
-one {[}15{]}.
+\textbf{The role of chirality.} Chiral cross-inhibition can affect the
+rates and products of template synthesis in particular chemistries
+{[}15{]}. The presence, magnitude and sign of any molecular
+parity-violating bias need separate inputs (§4).
 
 \textbf{What's structural vs.~parametric.}
 
@@ -905,66 +828,46 @@ Status
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Combinatorial diversity (\(N \sim 20^L\)) & Structural (carbon in d =
-3) \\
+Nominal sequence diversity & \(20^L\) in a peptide alphabet with 20
+monomers \\
 Energy-driven exploration & Conditional (thermal window, given the
 inputs of §2.7) \\
-Chirality eliminates cross-inhibition & Conditional on H-χ' (PVED sign,
-§4) \\
+Chiral cross-inhibition & Reaction- and template-dependent \\
 Catalytic probability \(p\) & Parametric (depends on bond energies,
 activation barriers) \\
-\(p > 1/N\) & Nominally satisfied by \textasciitilde56 orders (all
-possible 50-mers counted) \\
+Food generation and catalytic closure & Conditions on the specified
+reaction network \\
 \end{longtable}
 
-The framework derives the nominal \(N\) (structural), the conditions for
-a thermal window (whose existence depends on the coupling values,
-masses, activation energies and solvent of §2.7), and the chiral bias
-(conditional on H-χ', §4). The catalytic probability \(p\) is parametric
-but empirically enormous relative to the threshold. Within Kauffman's
-model, autocatalytic sets are therefore statistically expected wherever
-enough of that diversity is co-present; template self-replication needs
-the further premises of §5.4 and §5.6.
+The nominal sequence count illustrates a model input. Assessing a
+prebiotic mixture requires its co-present species, food set, reaction
+and catalysis data. Whether a closed set forms and whether it contains a
+template copier are separate chemical questions.
 
 \hypertarget{self-replication-as-read-write-cycling}{%
 \subsubsection{5.4 Self-replication as read-write
 cycling}\label{self-replication-as-read-write-cycling}}
 
-\textbf{The structural parallel.} The framework attributes the
-memory-bearing observable statistics to read-write cycling: the observer
-reads the visible sector and writes correlations into the hidden sector
-through the coupling \(H_{VB}\); the hidden sector stores those writes
-and returns them on subsequent reads; the resulting statistics are the
-ones quantum mechanics represents {[}33, §2{]}. Template replication is
-the same structural pattern at the molecular level: a polymer reads its
-own sequence (through complementary hydrogen bond pairing) and writes a
-copy (through catalytic polymerization). Self-replication is not a
-special biological capability --- it is molecular read-write cycling,
-the chemical instantiation of the same information-theoretic pattern
-that produces the memory-bearing dynamics quantum mechanics represents.
+The finite-horizon result concerns the information that returns to an
+observable through a persistent record {[}1, §2.3{]}. A template that
+influences its later use provides a possible chemical realization of
+that structure. Template-directed copying is an additional chemical
+capability.
 
-\textbf{Von Neumann's threshold.} Von Neumann's self-reproducing
-automaton theorem {[}20{]} establishes that in any computational system
-above a complexity threshold, self-reproducing configurations must
-exist. The threshold requires three capabilities: (a) a universal
-constructor --- a subsystem that reads instructions and assembles a
-product; (b) a copying mechanism --- that duplicates the instructions;
-(c) a control mechanism --- that sequences construction and copying.
+\textbf{Von Neumann's construction.} Von Neumann exhibited
+self-reproduction in a specific automaton architecture {[}20{]}. It uses
+a constructor, a mechanism to copy the instructions and a controller
+that sequences their use.
 
-The derived chemistry provides (a) and (b); (c) is an environmental
-condition:
+A chemical counterpart would need the following specific functions.
 
-\emph{(a) Universal construction.} Any catalytic polymer that reads a
-template sequence and assembles a corresponding product from a monomer
-alphabet. The autocatalytic argument (§5.3) establishes that catalysis
-is statistically abundant (\(N \times p \sim 10^{56}\)).
-Template-directed assembly follows from complementary pairing
-(structural, §2.6) combined with catalytic activity.
+\emph{(a) Construction.} A template-directed reaction could assemble a
+product from monomers. Its selectivity and catalytic rate are properties
+of the proposed chemistry.
 
-\emph{(b) Instruction copying.} Template replication --- a polymer
-directing the synthesis of its complement through complementary pairing.
-Three independently structural capabilities whose intersection is
-template replication (§5.5, below).
+\emph{(b) Instruction copying.} Complementary pairing can guide
+synthesis of a complementary strand. Completing a repeatable copying
+cycle needs the additional chemical functions discussed in §5.5.
 
 \emph{(c) Control.} Environmental cycling --- temperature fluctuations,
 wet-dry cycles, concentration gradients --- drives alternation between
@@ -973,34 +876,25 @@ condition: the thermal window (§2.7) allows chemistry at the prevailing
 temperature but does not by itself supply fluctuations on timescales
 relevant to chemistry.
 
-The combinatorial margin of §5.3 is Kauffman's \(Np\), not a measure of
-von Neumann's requirements: it bears on the abundance of catalysis in
-(a), not on whether a constructor, a copier and a controller are
-realized together. Given environmental cycling of the kind in (c) and a
-chemistry that realizes (a) and (b), self-reproducing molecular
-configurations are possible; that they arise is a chemical premise of
-the argument, not a consequence of the margin.
+A candidate molecular system needs compatible construction, copying and
+control. Environmental cycles could supply some control functions where
+the chemistry responds on the required timescales. The autocatalytic-set
+model alone leaves the existence of such a system open.
 
 \hypertarget{from-template-replication-to-evolution}{%
 \subsubsection{5.5 From template replication to
 evolution}\label{from-template-replication-to-evolution}}
 
-Template replication requires three capabilities, each independently
-structural: (i) \emph{Linear information-carrying polymers} --- carbon's
-sp³ hybridization allows chain formation carrying \(N\) units of
-sequence information (structural). (ii) \emph{Complementary pairing} ---
-hydrogen bonding in d = 3 is directional, enabling selective
-donor-acceptor pairing between complementary sequences --- the
-structural basis of Watson-Crick pairing (structural). (iii)
-\emph{Catalytic copying} --- template-directed catalysis is a subset of
-the statistically abundant catalysis established in §5.3, with
-selectivity provided by complementary pairing.
+A candidate template system requires an information-carrying polymer,
+selective complementary pairing and reactions with sufficient catalytic
+activity and fidelity for a completed copying cycle. The selected
+chemistry permits candidate molecules. Compatibility of the functions in
+a single replicator is a further premise.
 
-\textbf{The RNA precedent.} RNA is simultaneously a linear polymer, a
-substrate for complementary pairing, and a catalyst (ribozymes
-{[}18{]}). RNA-catalyzed RNA polymerization has been demonstrated
-{[}19{]}. This dual capability is the natural intersection of the three
-structural capabilities in a single molecular family.
+\textbf{The RNA precedent.} RNA can serve as a template, pair with
+complementary bases and act as a catalyst {[}18{]}. Demonstrated
+RNA-templated primer extension {[}19{]} motivates a replication model,
+whose full autonomous cycle requires additional chemistry.
 
 \textbf{Heritable variation is automatic.} Template copying with finite
 fidelity produces errors. Errors in a self-replicating polymer are
@@ -1028,7 +922,8 @@ Status
 \endlastfoot
 Linear polymers & Structural (carbon sp³ in d = 3) \\
 Complementary pairing & Structural (H-bonding geometry in d = 3) \\
-Catalytic activity & Statistically expected (§5.3) \\
+Catalytic activity & Input at the rates and selectivities required by
+the reaction network \\
 Template replication & Intersection of the above three \\
 Copying errors & Inevitable (finite-fidelity copying) \\
 Selection & Conditional (differential reproductive success of
@@ -1072,45 +967,29 @@ satisfying them does not mark the transition to life, since
 non-replicating molecules such as single proteins also satisfy them
 (§7.2).
 
-\textbf{Before life: Markovian chemistry.} Ordinary chemical reactions
-are Markovian --- the reaction rate depends on current concentrations
-alone, not on the history of the mixture. Products do not remember how
-they were made. Each reaction cycle is statistically independent of the
-previous one. No memory, no heredity, no evolution.
+\textbf{Chemistry before replication.} A reaction model can be Markovian
+when its current state includes all variables needed to determine the
+next-step law. A concentration-only projection can omit conformations,
+intermediates or environmental variables and can exhibit history
+dependence.
 
-\textbf{The transition: molecular C1--C4 in a replicator.} In a template
-replicator the four conditions take chemistry-level forms: (C1)
-coupling, realized as catalytic feedback --- the template directs
-synthesis and synthesis maintains the template; (C2) persistence --- the
-template outlives individual reaction cycles (RNA half-life of
-hours--days vs.~reaction times of seconds--minutes); (C3) capacity ---
-the template's sequence space is large enough to encode catalytic
-function (\(4^{20} \sim 10^{12}\) for a 20-mer RNA, vastly exceeding the
-\(\sim 10\)--100 reactions in a minimal metabolism); (C4) history
-readback --- copying reads the stored sequence back, so the system's
-next state depends on its history beyond its present coarse composition.
-Catalytic feedback, template copying and growth are properties of the
-replicator, not consequences of C1--C4.
+\textbf{A template replicator can realize C1--C4.} A specified template
+can persist across cycles, distinguish records and influence later
+chemistry. C4 requires a different next-step law for different histories
+of the same measured present. The comparison depends on which part of
+the replicator is visible, since the template itself can be part of the
+present state.
 
-\textbf{After life: non-Markovian chemistry.} The system's future
-depends on its history, stored in the template. This is heredity --- the
-defining property of life --- derived from the same C1--C4 conditions
-that diagnose an accessible non-Markovian realization at the
-cosmological horizon.
+\textbf{Template-mediated heredity.} In the specified replicator,
+copying can preserve a record in the molecular sequence. Where the
+chosen observable meets C4, the visible statistics carry accessible
+conditional memory. This argument consumes the copying mechanism and the
+population premises of §5.6.
 
-\textbf{RNA as a single-molecule template and catalyst.} RNA is the
-natural polymer known to serve as both template (persistent; 4-letter
-alphabet with arbitrary length) and catalyst (ribozymes catalyze RNA
-polymerization {[}18, 19{]}) in a single molecular species. DNA stores
-information but cannot catalyze; proteins catalyze but cannot easily
-template. The distinction concerns that dual role, not C1--C4: single
-proteins satisfy C1--C4 as memory conditions (§7.2) without templating.
-The RNA world hypothesis rests on this chemical evidence; it is an
-empirical hypothesis, not a consequence of C1--C4, and §5.5 leaves open
-whether RNA, PNA or another polymer replicated first. DNA and proteins
-are later optimizations: DNA improves C2 (greater chemical stability),
-proteins improve C1 (more diverse catalysis). The RNA → DNA+protein
-transition refines C1--C4 without changing the qualitative architecture.
+\textbf{RNA as template and catalyst.} Sequence storage, complementary
+pairing and the primer-extension activity of some ribozymes motivate the
+RNA-world scenario {[}18, 19{]}. A heritable replicator needs an entire
+repeatable copying cycle at adequate fidelity.
 
 \textbf{Replicators under population dynamics.} C1--C4 do not by
 themselves imply copying or growth: the finite bijections that realize
@@ -1165,10 +1044,10 @@ and the companion reflects the qualitative shift from
 \hypertarget{the-last-question}{%
 \subsubsection{6.1 The last question}\label{the-last-question}}
 
-The structural chain derives everything from (S, φ) --- physics,
-chemistry, life, intelligence, AI. But it does not derive (S, φ) itself.
-The reconstruction theorem {[}33, §3{]} establishes, under its stated
-inputs within the nearest-neighbor class:
+The preceding sections trace conditional links from \((S, \varphi)\) to
+chemistry and possible biological and computational systems. The
+reconstruction theorem {[}33, §3{]} establishes, under its stated inputs
+within the nearest-neighbor class:
 
 \[\text{Observed physics} \quad \longleftrightarrow \quad [(S, \varphi)] / \sim\]
 
@@ -1230,21 +1109,21 @@ The complete chain:
 \[\xrightarrow{\text{conditional}} \text{contains embedded observers seeing QM, GR, SM}\]
 \[\xrightarrow{\text{conditional; coupling values, masses}} \begin{gathered}
 \text{orbitals, periodic table, carbon,}\\
-\text{scale hierarchy, water, thermal-window}\\
-\text{conditions, chirality (H-}\chi\text{)}
+\text{scale hierarchy and possible thermal windows,}
+\text{water as an example, conditional weak chirality}
 \end{gathered}\]
-\[\xrightarrow{\text{statistical}} \text{autocatalytic networks (nominal }N \times p \sim 10^{56}\text{)}\]
+\[\xrightarrow{\text{reaction network and food set}} \text{possible autocatalytic sets}\]
 \[\xrightarrow{\text{conditional; constructor, copier, cycling}} \text{self-reproducing configurations}\]
-\[\xrightarrow{\text{structural}} \text{template replication} \xrightarrow{\text{conditional; differential reproductive success}} \text{Darwinian evolution}\]
-\[\xrightarrow{\text{generic}} \text{information processing} \xrightarrow{\text{contingent}} \text{general intelligence}\]
-\[\xrightarrow{\text{material with suitable gap}} \text{semiconductors} \xrightarrow{\text{theorem}} \text{universal computation} \xrightarrow{\text{structural}} \text{AI}\]
+\[\xrightarrow{\text{copying and variation}} \text{template inheritance} \xrightarrow{\text{differential reproductive success}} \text{Darwinian evolution}\]
+\[\xrightarrow{\text{net fitness benefit}} \text{selection for information processing} \xrightarrow{\text{contingent}} \text{general intelligence}\]
+\[\xrightarrow{\text{materials, fabrication and control}} \text{possible semiconductor devices} \xrightarrow{\text{scalable circuits and memory}} \text{universal computation}\]
 \[\xrightarrow{} \text{observers ask: ``why does } (S, \varphi) \text{ exist?''}\]
 
 The chain combines conditional physical results, statistical models and
 contingent biological or computational steps. Its chemical starting
 point inherits the selected lattice/continuum branch and the stated
-matter assumptions; later conclusions retain their own premises. General
-intelligence is one of the contingent steps.
+matter assumptions. Later steps use the copying, ecology, evolution and
+device premises stated above.
 
 \hypertarget{what-cannot-be-answered}{%
 \subsubsection{6.5 What cannot be
@@ -1276,20 +1155,11 @@ Systems}\label{quantum-biology-c1c4-inside-living-systems}}
 \hypertarget{the-reframing}{%
 \subsubsection{7.1 The reframing}\label{the-reframing}}
 
-Quantum biology --- the study of quantum coherence in biological systems
---- is an active and contested field. The central question is usually
-framed as: ``How do biological systems maintain quantum coherence at
-warm, wet, noisy conditions?'' The framework reframes this. QM is not a
-fragile state that biology must protect from decoherence. The
-memory-bearing non-Markovian dynamics --- universally
-quantum-representable --- is the necessary form for any subsystem whose
-hidden-sector coupling realizes C1--C4 (the characterization theorem
-{[}1, §3.4{]}). If biological subsystems realize C1--C4 internally,
-their dynamics is memory-bearing --- accessibly non-Markovian, with
-P-indivisibility the stronger diagnostic requiring a measured witness,
-not automatic (\texttt{review4\_probes.py}) --- not because evolution
-engineered quantum coherence, but because the coupling architecture
-mandates it.
+Biological experiments can test whether particular degrees of freedom
+retain information that affects later observations. For a declared
+visible process, the finite-horizon implication uses a matched-present
+history contrast (C4). The existence and source of that contrast must be
+assessed in each candidate biological system.
 
 \hypertarget{c1c4-in-proteins}{%
 \subsubsection{7.2 C1--C4 in proteins}\label{c1c4-in-proteins}}
@@ -1319,47 +1189,35 @@ conformational state space is exponentially large:
 exceeds the active site's electronic state space (\(\sim 10\) to \(100\)
 relevant states) by tens of orders of magnitude.
 
-\textbf{C4 (history readback).} The stored conformational strain
-modulates subsequent active-site transitions --- the coupling reads back
-what it wrote; readback, not storage alone, is the load-bearing memory
-condition (\texttt{review4\_probes.py}).
+\textbf{C4 (history readback).} A conformational record would satisfy C4
+if two histories of the same current visible state gave different
+next-step laws through that record. Allostery motivates this comparison.
+The matched-present contrast is an experimental condition.
 
-All four conditions are realized. What the characterization theorem
-licenses: the active site's reduced dynamics is accessibly non-Markovian
---- memory-bearing --- with P-indivisibility the stronger diagnostic
-requiring a measured witness.
+The protein model motivates coupling, persistence and capacity. Those
+features can coexist with zero accessible memory. A positive C4 contrast
+would yield accessible conditional memory on the tested window, and
+P-indivisibility would require a separate witness.
 
-A scope note is essential here. The characterization theorem is proved
-for a \emph{closed, reversible} substratum (a bijection on a finite
-configuration space; {[}Main{]} §2.3). An enzyme and its scaffold are
-neither closed nor reversible --- the scaffold thermalizes with solvent,
-and phase-space volume contracts as heat leaves --- so the
-enzyme-over-scaffold trace-out is not itself an instance of the theorem.
-What transfers rigorously is the model-independent consequence (below):
-coupling that writes to, and reads back from, a persistent high-capacity
-sector yields non-Markovian, history-dependent dynamics. Genuine
-P-indivisibility is, under A1, a property of the \emph{closed
-substratum} of which the enzyme is a partition; its observable magnitude
-at the molecular scale is not established here. The predictions of
-§7.3--§7.4 should therefore be read as tests of molecular \emph{memory},
-consistent with the framework, rather than as isolating P-indivisibility
-from classical conformational memory.
+The finite reversible-substratum construction in {[}1, §2.3{]} has its
+own closure premises. The enzyme and scaffold exchange energy and matter
+with their surroundings. The observable-law implication of a measured
+readback gap transfers to that application. The mechanism and accessible
+P-indivisibility remain separate tests from recurrence of a closed
+finite model.
 
 \hypertarget{the-prediction}{%
 \subsubsection{7.3 The prediction}\label{the-prediction}}
 
-The protein scaffold is a slow bath. Correlations written into the
-scaffold during one catalytic event persist through subsequent events.
-The active site's transition probabilities are history-dependent. This
-produces:
+If a conformational record persists and influences later turnovers at
+fixed present visible state, the protein scaffold is a candidate source
+of accessible memory.
 
-\emph{History readback.} The scaffold returns correlations to the active
-site on conformational timescales (μs to ms), modulating catalytic rates
-in a way that depends on the enzyme's recent history. Standard rate
-theory predicts exponential kinetics; this memory predicts
-non-exponential kinetics with a specific signature: the rate
-``constant'' oscillates or shows memory effects on the conformational
-timescale.
+\textbf{History readback.} Compare later catalytic transition laws for
+histories with matched measured present states and different prior
+treatments or events. Nonexponential waiting times and unconditioned
+rate correlations can motivate that experiment. They also occur in
+Markov models of a sufficiently detailed current state.
 
 \emph{Non-Markovian signatures.} The mutual information
 \(I(X_{<t}; X_{>t} | X_t)\) between past and future catalytic events,
@@ -1373,57 +1231,37 @@ past--future quantity is at least as large. Its lower bound is set by
 \hypertarget{existing-evidence}{%
 \subsubsection{7.4 Existing evidence}\label{existing-evidence}}
 
-\textbf{Single-molecule enzyme kinetics.} Individual enzyme molecules
-show fluctuating catalytic rates with correlations persisting for
-milliseconds to seconds (English et al.~2006 {[}21{]}; Lu et al.~1998
-{[}22{]}) --- precisely the signature of a slow bath modulating active
-site dynamics. The multi-timescale structure has been characterized at
-single-molecule resolution for T4 Lysozyme {[}34{]}, where three
-distinct conformational states with ns-to-ms exchange times have been
-resolved, each playing a different role in the catalytic cycle.
+\textbf{Single-molecule enzyme kinetics.} The cited studies report
+fluctuating catalytic rates and turnover correlations {[}21, 22{]}, and
+the T4 lysozyme study resolves conformations at several exchange times
+{[}34{]}. These results motivate tests of scaffold-mediated readback for
+a declared present state.
 
-\textbf{Dispersed kinetics.} Many enzymes show stretched-exponential
-waiting-time distributions rather than the single-exponential predicted
-by Markovian theory --- generic in memory-bearing systems. The trace-out
-structure has been formalized within the single-molecule biophysics
-literature {[}35{]}: low-dimensional projections of high-dimensional
-molecular dynamics generically exhibit memory effects and produce
-non-Markov processes, independent of the specific dynamical model.
+\textbf{Dispersed kinetics.} Stretched-exponential waits and lag
+correlations can arise by projection or mixing of Markov states with
+different rates {[}35{]}. Establishing C4 for a specified readout
+requires the conditional contrast of §7.3.
 
-\textbf{Photosynthetic energy transfer.} Long-lived coherences in the
-FMO complex were first reported by Engel et al.~{[}23{]}. Subsequent
-work (Duan et al.~2017 {[}36{]}; Cao-Plenio 2025 {[}37{]}) has refined
-the interpretation: the long-lived coherences are vibronic ---
-superpositions of electronic exciton states with the protein's
-vibrational environment --- rather than purely electronic. Purely
-electronic coherences dephase within \textasciitilde240 fs; the
-picosecond-scale coherences observed in 2D spectra arise from coupling
-between the electronic states and the slow vibrational protein scaffold.
-This is the C1--C4 structure operating: the protein scaffold (slow bath,
-C2) mixes with the electronic transitions at FMO chromophores (fast,
-visible) to produce coherences that persist for \(\sim \tau_B\) rather
-than \(\tau_S\). The picosecond coherence timescales correspond to
-vibrational mode periods of the protein scaffold, consistent with the
-framework's prediction that protein-scale C1--C4 systems exhibit
-dynamics on the slow-bath timescale.
+\textbf{Photosynthetic energy transfer.} Engel et al.~{[}23{]} reported
+oscillations in two-dimensional spectra of the FMO complex. Duan et
+al.~{[}36{]} reported short electronic coherence in their spectroscopy.
+Cao and Plenio {[}37{]} study vibronic effects in a model. These results
+motivate separating electronic and vibrational contributions to the
+signals. The matched-present history contrast and its role in transport
+remain open.
 
-\textbf{Cryptochrome radical-pair magnetoreception.} Avian magnetic
-compass orientation operates through cryptochrome radical pairs in the
-retinal photoreceptors. Radiofrequency fields at the electron Larmor
-frequency disrupt magnetic orientation in migratory birds
-(Wiltschko-Wiltschko 2019 {[}39{]}), diagnostically confirming radical
-pair mechanism. The crucial radical pairs have millisecond lifetimes
-{[}40{]}. Millisecond coherence in a protein-embedded quantum system at
-warm physiological conditions sits at the upper end of the protein
-conformational \(\tau_B\) range identified in §7.2. The avian compass is
-therefore an operating biological quantum sensor with coherence times
-the framework predicts as structurally required by C1--C4 inside protein
-scaffolds.
+\textbf{Cryptochrome radical-pair magnetoreception.} Behavioral
+responses to radiofrequency fields and long-lived radical pairs in
+cryptochrome preparations motivate a radical-pair mechanism {[}39,
+40{]}. The measurements of Xu et al.~{[}43{]} show magnetic sensitivity
+in vitro for European robin cryptochrome 4. The responsible receptor in
+vivo, the relevant coherence lifetime and a matched-present readback
+witness remain separate questions.
 
-\textbf{Conformationally gated tunneling.} Hydrogen tunneling in enzymes
-shows temperature-independent kinetic isotope effects {[}24{]} ---
-inconsistent with transition state theory but consistent with quantum
-tunneling modulated by slow conformational dynamics (C2).
+\textbf{Conformationally gated tunneling.} The isotope effects reviewed
+in {[}24{]} motivate models of tunneling coupled to conformational
+motion. A test of C4 would compare histories at the same measured
+present.
 
 \hypertarget{implications-for-drug-design}{%
 \subsubsection{7.5 Implications for drug
@@ -1506,11 +1344,11 @@ the scale where OI corrections matter?
 \hypertarget{quantum-computing}{%
 \subsubsection{8.2 Quantum computing}\label{quantum-computing}}
 
-\textbf{The Markovian assumption in error correction.} Standard quantum
-error correction (surface codes, stabilizer codes) assumes Markovian
-noise --- each error is statistically independent of previous errors.
-The framework predicts this is wrong whenever the qubit's environment
-satisfies C2 (memory persistence).
+\textbf{Noise assumptions in error correction.} Independent errors are a
+common benchmark. A persistent bath can contribute temporal correlations
+when its records affect later error probabilities at fixed measured
+present. The circuit, noise model and decoder determine whether
+accounting for correlations improves correction.
 
 \textbf{The physical system.} Superconducting qubits (transmons) are
 coupled to two-level systems (TLS) in the substrate --- structural
@@ -1520,48 +1358,28 @@ defects in the amorphous oxide layer. TLS dynamics is slow
 \(\tau_S / \tau_B \sim 10^{-3}\). This is 29 orders of magnitude larger
 than the cosmological case.
 
-\textbf{The prediction.} The noise is memory-bearing: error
-probabilities at gate \(k\) depend on the error history at gates
-\(k-1, k-2, \ldots\) through correlations stored in the TLS bath.
-Standard Markovian error correction sees these correlated errors as an
-anomalously high uncorrectable error rate. Non-Markovian error
-correction protocols --- designed for the actual correlated noise
-structure --- could exploit the correlations rather than treating them
-as random, improving logical error rates.
+\textbf{The proposed test.} Compare error predictions for matched
+present records after different histories. A TLS bath can contribute
+temporal correlations, as can leakage, drift and other carriers. A
+history-aware decoder could improve logical error rates if it uses
+reliable information left out of the comparison decoder.
 
-\textbf{The scale.} The ratio fixes the correlation length, of order
-\(\tau_B / \tau_S \sim 10^3\) gates, not the per-gate size of the
-correction, which depends on the qubit--TLS coupling and is not derived
-here. Circuits of \(10^3\) gates or more span the bath's correlation
-time; how much the correlated component adds to the error budget over
-\(10^4\) to \(10^6\) gates depends on that size and on whether the
-correlated errors add coherently.
+\textbf{The scale.} For the illustrative bath timescales the ratio
+estimates a retention length, of order \(\tau_B / \tau_S \sim 10^3\)
+gates, not the per-gate size of the correction, which depends on the
+qubit--TLS coupling and is not derived here. Circuits of \(10^3\) gates
+or more span the bath's correlation time; how much the correlated
+component adds to the error budget over \(10^4\) to \(10^6\) gates
+depends on that size and on whether the correlated errors add
+coherently.
 
-\textbf{A decoder-level test on existing data.} P-indivisibility has a
-syndrome-level signature. Three grades of temporal structure are
-distinguished: (i) non-stationarity (parameter drift --- classical and
-divisible), (ii) correlated noise that is non-Markovian while its
-population law stays divisible (leakage, cosmic-ray events), and (iii)
-P-indivisible noise, witnessed by information backflow in the population
-law or by a negative divisor --- non-monotonic conditional error-rate
-relaxation and negative canonical decay rates in the per-round channel
-reconstructed from syndrome history. Readback (C4) at an accessible
-order places the noise in grade (ii) or (iii); it does not select grade
-(iii), since a readback gap is compatible with a population law that is
-P-divisible on every window short of recurrence {[}1, §2.3{]}. Grade
-(iii) is a further property, testable on the same records by a
-divisibility witness. The prediction is directional and falsifiable at
-device level: after conditioning on drift and known
-classically-correlated artifacts, a history-conditioned error predictor
-should retain an exploitable residual kernel, and decoders conditioned
-on syndrome history should outperform memoryless decoders by a margin
-set by that kernel. This is testable on already-public surface-code
-memory-experiment datasets (distance-3/5/7 with full detection-event
-records). The claim at device scale concerns the universality of C3
-memory in the engineered bath (two-level systems and slow modes); the
-bath-motion part of the cosmological residue \(\mathcal{D}\), of order
-\(10^{-64}\) {[}1, §3.2{]}, lies some sixty orders below device noise
-and is not at issue in this test.
+\textbf{A decoder-level test on existing data.} Compare a
+history-conditioned error model with a drift- and measurement-matched
+baseline. Evidence of accessible history dependence concerns C4. A
+divisibility witness requires a specified family of preparations and
+reconstructed maps, such as a revival of distinguishability in a rooted
+population law {[}1, §2.3{]}. A decoder benefit would be a separate
+comparison at fixed code, noise and operating point.
 
 \textbf{Status of the syndrome-level test (carried out).} This test has
 been run against Google's Willow surface-code detection-event streams
@@ -1575,43 +1393,27 @@ stringent empirical null built from each experiment's own detector error
 model, none survive multiple-comparison control --- the nominal
 per-experiment significances were overdispersed at the real geometries
 and are not calibrated, so \emph{no individual-experiment detection is
-defensible}. What does survive is a population-level trend: a temporal
-memory beyond the detector error model whose lag-\(\geq 2\)
-exploitability rises systematically with cycle depth (mean Spearman
-\(\rho = +0.74\) across 28 series --- imperfectly independent given the
-shared device --- with per-series permutation
+defensible}. The analysis reports an aggregate trend beyond the matched
+detector-error model: lag-\(\geq 2\) predictability rising with cycle
+depth (mean Spearman \(\rho = +0.74\) across 28 series --- imperfectly
+independent given the shared device --- with per-series permutation
 \(p \approx 5\times10^{-5}\)) and, more weakly across the three code
 distances, with distance; auxiliary long-memory (non-saturating
 windowed-rate variance) and shot-scale non-stationarity corroborate it.
-This establishes that beyond-model history dependence exists and
-accumulates with depth --- the \emph{syndrome-testable} half of the
-prediction --- but not its attribution. No information-backflow
-signature is present anywhere; however, the projective measurement cycle
-is, by the framework's own \(\tau_S/\tau_B\) relation, structurally
-insensitive to coherent revival at the dominant bath timescale, so this
-null neither supports nor excludes the P-indivisibility mechanism ---
-the syndrome venue cannot decide it, and the timescale constraint, which
-was in hand before the test, should have located the informative venue
-(free evolution, §8.3) in advance. The attribution of the surviving
-memory between benign carriers (heating and leakage accumulation,
-\(1/f\) rate modulation --- divisible, grade-ii) and any genuine
-P-indivisible component is undecidable from syndrome streams and remains
-open.
+The result is relative to that detector-error model and comparison. No
+information-backflow signature is present anywhere; however, this
+syndrome test leaves coherent revival at the proposed bath timescale
+unresolved. Free evolution gives a separate test (§8.3). The attribution
+of the surviving memory between benign carriers (heating and leakage
+accumulation, \(1/f\) rate modulation --- divisible, grade-ii) and any
+genuine P-indivisible component is undecidable from syndrome streams and
+remains open.
 
-The net device-level status is therefore: the framework's
-syndrome-testable prediction --- that error probabilities carry
-exploitable history dependence beyond the detector model, growing
-precisely in the large-code, long-run regime fault-tolerant hardware is
-now entering --- is supported and is engineering-relevant; the
-framework-distinctive prediction, conditional on A1, that this memory is
-specifically P-indivisible, is not decided by this venue and its
-backflow proxy returned null. The claim is consistent with the data,
-unfalsified, and at the phenomenology level evidentially inert: the
-observed memory is degenerate with standard non-Markovian open-systems
-physics. The framework's distinctive exposure lies not in this
-phenomenology but in cross-platform kernel-class universality --- and in
-the free-evolution sensing venue of §8.3, not the projective syndrome
-venue tested here.
+The reported device-level result is an aggregate syndrome trend in the
+stated comparison. Individual detections, a mechanism attribution and a
+measured decoder gain remain open. The backflow proxy gave a null result
+in this venue. The cross-platform kernel hypothesis and free-evolution
+test of §8.3 are proposed follow-ups.
 
 \hypertarget{quantum-sensing}{%
 \subsubsection{8.3 Quantum sensing}\label{quantum-sensing}}
@@ -1621,22 +1423,19 @@ magnetic fields with sensitivity approaching the standard quantum limit,
 bounded by the coherence time \(T_2\). Standard models assume Markovian
 decoherence --- coherence decays exponentially and is gone.
 
-\textbf{The OI prediction.} The diamond lattice's phonon bath has slow
-modes (paramagnetic impurities, strain fields with relaxation times
-\textasciitilde ms--s). C2 is satisfied: \(\tau_S\) (electronic spin
-dynamics, \textasciitilde ns) \(\ll \tau_B\) (bath relaxation,
-\textasciitilde ms). The decoherence is non-Markovian; where the bath
-returns its stored correlations, coherence partially revives at times
-set by the bath's correlation time. That revival is information
-backflow: correlations written into the lattice during one measurement
-are returned during a later measurement.
+\textbf{The OI proposal.} Slow environments in diamond, including
+paramagnetic impurities, can provide modes that persist beyond the
+electronic spin dynamics. A bath record returning to the measured
+observable would create accessible memory. Coherent revival needs a
+separate witness at the sensing readout.
 
 \textbf{The application.} Sensing protocols that exploit the revival ---
-measuring at the backflow time rather than during the initial decay ---
-could push sensitivity beyond the Markovian-assumed \(T_2\) limit. The
-size of the improvement is not fixed by \(\tau_S / \tau_B\): it depends
-on the revival amplitude, which requires an NV-specific model of the
-bath, readout and control (§8.9).
+choosing a readout time with demonstrated signal recovery --- could
+improve sensitivity relative to a specified control protocol if the
+returned signal and resulting variance yield a larger sensitivity at
+equal resources. The size of the improvement is not fixed by
+\(\tau_S / \tau_B\): it depends on the revival amplitude, which requires
+an NV-specific model of the bath, readout and control (§8.9).
 
 \hypertarget{precision-metrology-and-atomic-clocks}{%
 \subsubsection{8.4 Precision metrology and atomic
@@ -1649,13 +1448,11 @@ precision, the atoms' interaction with the lattice light field may
 satisfy C1--C4: the lattice photons provide coupling (C1), the optical
 cavity has slow modes (C2), and the photon field has high capacity (C3).
 
-\textbf{The prediction.} If the atom-cavity system satisfies C2 with
-sufficient separation, the atomic transition dynamics is non-Markovian.
-Clock instability would show correlations at the cavity correlation time
---- not the white frequency noise assumed by standard Allan variance
-analysis. Whether the correction is measurable at \(10^{-18}\)
-fractional uncertainty depends on the specific cavity parameters, but
-the framework predicts its existence as a structural consequence.
+\textbf{The proposed clock test.} A cavity record that changes the
+transition law at fixed present data could produce measurable
+correlations. The lifetime separation informs the experiment design. The
+coupling, conditional contrast and comparison with other noise
+mechanisms determine what it detects.
 
 \hypertarget{the-pattern}{%
 \subsubsection{8.5 The pattern}\label{the-pattern}}
@@ -1748,9 +1545,10 @@ not derived critical lengths):
   regime where the chain retains its record and reads it back (C4).
   Correlations written at gate \(k\) can then return at later gates,
   within a retention time of order \(\tau_B / \tau_S\) gates under
-  uniform erosion, partially restoring coherence. P-indivisibility of
-  the qubit's population law on such windows is a further property,
-  certified only by a divisibility witness.
+  uniform erosion. Coherent recovery depends on the identified readout
+  dynamics. P-indivisibility of the qubit's population law on such
+  windows is a further property, certified only by a divisibility
+  witness.
 \item
   Whether a record survives to readback depends on the chain's
   conditional mixing, not on a threshold in \(\tau_B / \tau_S\); where a
@@ -1768,44 +1566,34 @@ to engineered spin chains {[}25{]}, NV centers in diamond with
 controllable nuclear spin baths, or trapped ions with engineered phonon
 modes. The prediction: where the chain retains and reads back its record
 (C4), the qubit's dynamics acquires accessible conditional memory,
-visible in history-dependent multi-time statistics; partial revivals of
-\(T_2\) coherence at multiples of \(\tau_B\) are a further signature,
-present only where the chain's return also revives distinguishability.
+visible in history-dependent multi-time statistics; revival of a
+coherence-sensitive signal is a separate test using specified
+preparations and readout.
 
 \hypertarget{non-markovian-quantum-computation}{%
 \subsubsection{8.7 Non-Markovian quantum
 computation}\label{non-markovian-quantum-computation}}
 
-\textbf{The standard assumption.} Quantum circuits are sequences of
-unitary gates, each assumed to act independently of past gates. Error
-correction adds redundancy to protect against independent errors. The
-entire architecture assumes Markovian noise.
+\textbf{The independent-noise benchmark.} The ideal gates specify a
+circuit. Fault-tolerance models allow different forms of noise, with
+guarantees depending on the stated assumptions.
 
-\textbf{The OI alternative.} If gates share a slow bath (a common hidden
-sector with \(\tau_B\) longer than the circuit depth
-\(\times \, \tau_S\)), the gates carry temporal correlations. Gate
-\(k\)'s effect depends on what gates \(k-1, k-2, \ldots\) did, through
-correlations stored in the bath.
+\textbf{Candidate correlated dynamics.} If a common bath retains and
+returns information about earlier gates, the effect of gate \(k\) can
+depend on the gate history at fixed present observable state. A long
+bath timescale provides an opportunity for that comparison.
 
-\textbf{Built-in error correction.} Dynamics with information backflow
-\emph{increase} the distinguishability of quantum states over some
-intervals, which certifies P-indivisibility, and so reverse some
-decoherence without requiring additional overhead. In Markovian
-evolution, distinguishability only decreases (data processing
-inequality). Where the evolution shows backflow, the bath returns
-information that was temporarily inaccessible. This is a form of
-dynamical error correction built into the physics rather than added as a
-computational layer.
+\textbf{Distinguishability revival.} An increase in distinguishability
+for a specified pair of preparations certifies failure of positive
+divisibility for the relevant map family. A population revival can occur
+without returning the coherent signal used by a computation. Error
+correction or sensing benefit requires a logical or signal-level
+comparison for the specified controls, noise and readout.
 
-\textbf{The open question.} Whether P-indivisible gate sequences can
-perform computations that no Markovian circuit of equal depth can is a
-well-posed mathematical question. The framework provides the tools ---
-P-indivisible stochastic processes, the readback lemma {[}1, §2.3{]} ---
-but the computational complexity implications are unexplored. If the
-answer is yes, it would constitute a new model of quantum computation
-beyond the standard circuit model, with the bath playing the role of a
-shared temporal resource analogous to entanglement as a spatial
-resource.
+\textbf{The open question.} Whether a specified bath and control model
+improves a computation over an equal-resource baseline depends on its
+operational dynamics and resource accounting. The readback result and a
+divisibility witness identify different properties of the model.
 
 \hypertarget{quantum-materials-by-design}{%
 \subsubsection{8.8 Quantum materials by
@@ -1845,12 +1633,12 @@ with partial revivals.
 \subsubsection{8.9 Quantitative performance
 estimates}\label{quantitative-performance-estimates}}
 
-The error-correction and materials cases rest on hidden-sector memory,
-which C4 supplies on accessible windows; the coherence and sensing cases
-rest additionally on a revival of distinguishability, which certifies
-P-indivisibility on the window and which C1--C4 do not supply ({[}1,
-§2.3{]}; §8.8). Each is organized by the ratio \(\tau_B / \tau_S\),
-which the framework treats as the design parameter.
+Device applications require a measured or modeled C4 contrast for
+accessible memory. Distinguishability revival tests divisibility on a
+specified window. Coherence recovery and metrological benefit need
+separate tests of the relevant signal or logical channel. The ratio
+\(\tau_B/\tau_S\) informs the choice of windows under the retention
+assumptions.
 
 \textbf{Quantum error correction: a structural correlation, not a
 quantified gain.} Standard surface codes assume independent (Markovian)
@@ -1937,95 +1725,50 @@ at strong coupling & Requires metamaterial fabrication \\
 \subsubsection{8.10 Existing experimental
 evidence}\label{existing-experimental-evidence}}
 
-The framework's predictions about non-Markovian effects are not
-speculative --- they are corroborated by existing experimental data
-across multiple domains. The literature has been documenting these
-effects for over two decades without a unifying structural explanation.
-The OI framework provides one: wherever C1--C4 are satisfied, accessible
-non-Markovianity is mandatory --- the readback gap forces positive
-conditional mutual information on the accessible window {[}1, §2.3{]}.
+The cited device and enzyme experiments report system-specific
+observations about temporal correlations. The conditional implication is
+that a matched-present readback gap gives positive conditional mutual
+information on the accessible window {[}1, §2.3{]}. The observed
+correlations motivate this diagnostic and an attribution test.
 
-\textbf{Superconducting qubits.} Agarwal et al.~{[}26{]} found that
-purely Markovian noise models cannot reproduce experimental data from
-driven superconducting qubits. The non-Markovian dynamics arises from
-two-level system (TLS) interactions in the substrate --- precisely the
-slow bath (C2) the framework identifies. White et al.~{[}27{]} performed
-the first full multi-time quantum process tomography on superconducting
-processors and found non-Markovian noise present in all cases measured,
-with a significant fraction originating from genuine quantum
-correlations across time. Notably, Burkard and collaborators {[}28{]}
-found that QAOA algorithm performance \emph{improves} as the noise
-correlation time increases at fixed local error probability --- direct
-evidence that correlated noise is a resource, not merely an obstacle,
-exactly as §8.7 predicts. More recent work has begun to operationalize
-this resource: Puviani et al.~(Phys. Rev.~Lett. 2025) {[}41{]} used
-reinforcement learning to train recurrent neural networks providing
-quantum error correction schemes based on memory --- responding to the
-full history of measurement outcomes rather than only the most recent
-one --- and demonstrated that these non-Markovian feedback schemes
-significantly outperform standard Markovian strategies. Mandayam and
-collaborators {[}42{]} developed Petz-recovery-map QEC schemes adapted
-to non-Markovian noise, with the non-Markovian-adapted Petz map
-outperforming standard stabilizer codes. The transition from documenting
-non-Markovian noise as a problem (Agarwal, White) to engineering it as a
-resource (Burkard, Puviani, Mandayam) is the empirical realization of
-§8.7's structural prediction.
+\textbf{Superconducting qubits.} Agarwal et al.~{[}26{]} compare a TLS
+model with Markovian noise models for driven devices. White et
+al.~{[}27{]} studied multi-time processes on superconducting processors.
+The cited QAOA and recovery studies {[}28, 41, 42{]} assess particular
+noise models, controls or recovery methods. Their comparisons support
+studying those methods under the reported conditions. The carrier and
+expected device gain need independent characterization in each
+application.
 
-\textbf{Single-molecule enzymology.} Edman and Rigler {[}29{]} directly
-measured ``memory landscapes'' of single horseradish peroxidase
-molecules, extracting non-Markovian behavior from the catalytic cycle.
-The enzyme's activity fluctuates over timescales from milliseconds to
-seconds --- the signature of a slow conformational bath (C2) modulating
-the active site's electronic dynamics. Kou and Xie {[}30{]} showed that
-slow conformational interconversion produces memory effects in
-successive enzymatic turnover times: the waiting time for turnover
-\(k+1\) is correlated with the waiting time for turnover \(k\), with
-correlation strength decaying on the conformational timescale. This is
-precisely the conditional memory predicted by the readback lemma {[}1,
-§2.3{]} applied to the protein system.
+\textbf{Single-molecule enzymology.} Edman and Rigler {[}29{]} report
+temporal structure in individual horseradish peroxidase molecules. Kou
+and Xie {[}30{]} describe turnover correlations in a model with slow
+conformational interconversion. This evidence motivates a conditional
+readback test at fixed present measured state.
 
-\textbf{The unifying explanation.} These experimental results --- from
-quantum computing hardware and from single-enzyme biophysics --- are
-conventionally treated as unrelated phenomena requiring separate
-theoretical frameworks. The OI framework unifies them: both are
-instances of memory-bearing dynamics arising from a slow, high-capacity
-hidden sector coupled to a fast observable subsystem. The TLS bath in a
-superconducting chip and the conformational bath in a protein scaffold
-play the same structural role --- they satisfy C2 (persistent --- slow
-in both realizations) and C3 (sufficient capacity), and where their
-records are read back (C4) they produce the same qualitative phenomenon
-(memory effects, non-exponential dynamics) at different scales.
+\textbf{A shared modeling question.} A TLS bath or protein scaffold can
+be proposed as a persistent record in an explicit model. Whether each
+has sufficient accessible capacity and returns a record can be tested by
+the appropriate matched-present comparisons.
 
-\hypertarget{cross-domain-observation-universal-memory-strength-in-single-entity-systems}{%
-\subsubsection{8.11 Cross-domain observation: universal memory strength
-in single-entity
-systems}\label{cross-domain-observation-universal-memory-strength-in-single-entity-systems}}
+\hypertarget{cross-domain-comparison-of-memory-summaries}{%
+\subsubsection{8.11 Cross-domain comparison of memory
+summaries}\label{cross-domain-comparison-of-memory-summaries}}
 
-The non-Markovian dynamics documented in §8.10 is conventionally
-quantified by domain-specific measures. These can be converted to the
-Hurst exponent \(H\) (\(H = 0.5\): Markovian; \(H > 0.5\): persistent
-memory) via \(H \approx 1 - \beta/2\) for stretched exponential
-processes and \(H = (1 + \alpha)/2\) for \(1/f^\alpha\) noise.
+The domain-specific measures in §8.10 summarize different processes. The
+table below uses \(1-\beta/2\) as a descriptive rescaling of selected
+stretched-exponential fits, and \((1+\alpha)/2\) for the selected
+spectral slope. A Hurst interpretation of a spectral exponent requires a
+process model with the corresponding long-range scaling. Applying the
+stretched-exponential rescaling alone does not measure a Hurst exponent
+or diagnose C4.
 
-A known objection to universality claims is that any ensemble of many
-independent exponentially relaxing modes with a broad rate distribution
-generically produces \(H \approx 0.7\)--\(0.8\) {[}31{]}. This
-superposition argument applies to bulk/aggregate measurements (glasses,
-financial markets, river flows, EEG) where many components are averaged.
-It does \emph{not} apply to single-molecule and single-system
-measurements, where there is no ensemble to superpose. But the
-single-entity restriction excludes only the \emph{superposition}
-explanation: non-exponential single-molecule kinetics still arises from
-coupling to slow internal degrees of freedom --- and classical dynamic
-disorder (the fluctuating-enzyme picture; Zwanzig 1990; Lu et al.~1998)
-is exactly such a single-entity, intrinsic mechanism, one the
-framework's own §7.4 notes is model-independent. This is the C1--C4
-architecture in the weak (grade-ii, memory) sense of the §7.2 scope
-note; it is consistent with --- but does not isolate --- the framework's
-distinctive P-indivisibility.
+A distribution of relaxation rates can yield complex aggregate kinetics
+{[}31{]}. A single observed entity can also involve multiple internal
+modes or classical dynamic disorder. Each mechanism requires its own
+controls.
 
-Restricting to single-entity measurements where superposition is
-excluded by construction:
+Selected single-entity summaries from the cited comparisons:
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1739}}
@@ -2039,9 +1782,9 @@ System
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Measurement
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Memory depth
+Reported or estimated memory depth
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\(H\)
+Descriptive exponent summary
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Source
 \end{minipage} \\
@@ -2065,39 +1808,17 @@ Ion channel (membrane-coupled) & Single-channel recording &
 \(\sim 10^3\) & 0.80 & Dwell-time autocorrelation \\
 \end{longtable}
 
-For the four enzymes and the qubit --- all with ``typical'' C3 capacity
-(conformational state spaces of \(\sim 10^2\)--\(10^4\) states) ---
-\(H = 0.79 \pm 0.03\). Two qualifications keep this honest. First, \(H\)
-here is not an independent measurement: it is the measured stretched/1-f
-exponent rescaled by the conversions stated above (\(H = 1 - \beta/2\),
-\(H = (1+\alpha)/2\)), so ``universal \(H = 0.79 \pm 0.03\)'' is
-equivalent to ``these selected systems have \(\beta \approx 0.42\),'' a
-known range for single-molecule dispersed kinetics --- the regularity is
-inherited from the selection, not discovered across it. Second, the
-superposition objection is excluded, but the classical dynamic-disorder
-mechanism is not: the memory is intrinsic to each single entity, and
-arises from coupling to a slow internal hidden sector (protein scaffold
-conformational dynamics for enzymes, TLS bath for the qubit), which is a
-grade-ii signature reproduced by classical (divisible) fluctuating-rate
-models. It is therefore a consistency observation, not a distinguishing
-test of P-indivisibility.
+The four selected enzyme entries and the qubit entry give a
+retrospective summary of about \(0.79\pm 0.03\) under these conversions.
+This is a descriptive comparison of the chosen inputs. Their agreement
+does not establish a common stochastic law, readback at fixed present,
+or P-indivisibility.
 
-The myoglobin outlier (\(H = 0.95\)) has an anomalously deep
-conformational hierarchy --- Frauenfelder's ``protein energy landscape''
-involves \(\sim 10^6\)--\(10^9\) conformational substates organized in a
-fractal-like tier structure, far exceeding typical enzyme C3 capacity.
-This suggests \(H\) increases with C3: typical capacity gives
-\(H \approx 0.8\); deep capacity gives \(H \to 1\). The genuinely
-distinctive content of this section is not the single-system value
-(degenerate, above) but this \emph{cross-substrate} law \(H(C3)\) ---
-the claim that one memory-strength relation holds across an enzyme, a
-qubit, and an ion channel, which per-system classical models do not
-unify. As stated, however, it is derived only ``in principle'' from the
-characterization theorem's dependence on hidden-sector dimension, and it
-is fit in-sample (the single deep point, myoglobin, motivates it). The
-operative test is therefore out-of-sample: measure \(H\) on systems of
-independently known hidden-sector dimension and check the predicted
-\(H(C3)\).
+The selected myoglobin value motivates asking whether independently
+measured memory scaling varies with usable hidden-sector capacity. A
+relation \(H(C3)\) remains open. An out-of-sample test would need a
+declared process model, a specified estimator and independently assessed
+capacity.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -2270,5 +1991,23 @@ radical-pairs,'' \emph{PLoS ONE} \textbf{2}, e1106 (2007).
 {[}42{]} D. Biswas, S. Utagi, and P. Mandayam, ``Noise-adapted quantum
 error correction for non-Markovian noise,'' arXiv:2411.09637 (2024).
 
+{[}43{]} J. Xu et al., ``Magnetic sensitivity of cryptochrome 4 from a
+migratory songbird,'' \emph{Nature} \textbf{594}, 535--540 (2021).
+doi:10.1038/s41586-021-03618-9.
+
+{[}44{]} R. Berger and M. Quack, ``Electroweak quantum chemistry of
+alanine: parity violation in gas and condensed phases,''
+\href{https://pubmed.ncbi.nlm.nih.gov/23696262/}{PubMed 23696262}.
+
+{[}45{]} M. Bureš and P. Siegl, ``Hydrogen atom in space with a
+compactified extra dimension and potential defined by Gauss' law,''
+\emph{Annals of Physics} (2015),
+\href{https://www.sciencedirect.com/science/article/abs/pii/S0003491615003681}{article}.
+
+{[}46{]} W. Hordijk, S. A. Kauffman, and M. Steel, ``Required levels of
+catalysis for emergence of autocatalytic sets in models of chemical
+reaction systems,''
+\href{https://www.math.canterbury.ac.nz/~m.steel/Non_UC/files/research/hordijk_kauffman_steel.pdf}{article}.
+
 \end{document}
-% source-sha256: 8190694e5cff56390488f1ac5205dbf018ff55f91e98ecb92465f9f8d2d74265
+% source-sha256: 91f4f94d7f397093f35b8e6fc6a9a1438c32f1072984764581914d90b52a0cc6

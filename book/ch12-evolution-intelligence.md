@@ -5,29 +5,29 @@
 
 ## 12.1 What this chapter develops
 
-Chapter 11 established the framework's structural account of the origin of life: Darwinian evolution as possible wherever sustained template replication has heritable variants differing in reproductive success, a template replicator's heredity as a realization of the framework's structural conditions C1–C4 at the molecular scale, in the same structural sense that C1–C4 at the cosmological scale produces the memory-bearing dynamics quantum mechanics represents, and RNA-like architecture as an empirically supported hypothesis for the first replicators. The framework's content from origin-of-life onward is concentrated at the *cascade* level: how the framework's structural commitments at one level produce structural consequences at the next.
+Chapter 11 considered sustained template copying and the conditions for selection. A replicator's sequence can act as a persistent record, and Darwinian evolution can occur where heritable variants differ in reproductive success.
 
-This chapter develops the next stages of the cascade: evolution, intelligence, and the framework's own self-reference. The framework's content here is structural at multiple scales — evolution operates at the genetic and ecological level, intelligence at the neural level, and the framework's self-discovery at the level of the framework's own observers reasoning about the substratum that produced them. Each stage involves the same structural pattern (C1–C4 partition with non-Markovian emergent dynamics) instantiated at progressively higher levels of organizational complexity.
+This chapter examines conditional links from heredity to information processing and computation. Protein conformations, gene regulation and modified environments are candidate sources of memory. Later links depend on their ecological, material and engineering premises.
 
 Eight pieces occupy the chapter.
 
-Section 12.2 develops evolution as a multi-scale C1–C4 system. The framework's structural account of evolution identifies three distinct C1–C4 partitions operating at different scales: the protein conformational landscape (the fast subsystem is the protein's active configuration, the slow subsystem is the broader conformational landscape), the epigenome (the fast subsystem is gene expression, the slow subsystem is chromatin state), and the constructed ecological niche (the fast subsystem is organism behavior, the slow subsystem is the modified environment passed to descendants). Each scale produces non-Markovian dynamics in the corresponding emergent description.
+Section 12.2 examines protein conformation, the epigenome and the constructed ecological niche as possible memory-bearing partitions. Each application needs its own observable and readback test.
 
-Section 12.3 develops information processing as fitness-enhancing in environments with useful gradients and cycling. Selection generically favors organisms that respond to environmental information; where environmental gradients and cycling are present — a further environmental condition, not established by thermal fluctuations alone — information processing has selective value. Section 12.4 develops major evolutionary transitions — the moments where previously independent units become integrated into higher-level entities — as repeated applications of the same C1–C4 structural mechanism that, at the cosmological scale, selects the memory-bearing sector whose laws admit the quantum representation.
+Section 12.3 considers selection for information processing where responses to informative cues improve net fitness. Section 12.4 discusses whether major evolutionary transitions involve new sources of persistent memory.
 
-Section 12.5 develops the structural possibility of neural computation: fast electrochemical signaling using ions in lipid membranes, with the scale hierarchy from Chapter 10 separating signaling energies ($\sim$meV) from chemical bond energies ($\sim$eV) so information processing does not destroy the substrate.
+Section 12.5 discusses the materials, structure and energy regime for electrochemical signaling. Section 12.6 considers the ecological and historical conditions for general intelligence.
 
 Section 12.6 develops the framework's most honest scope limit in the cascade: general intelligence is *structurally unconstrained* (the framework's commitments permit arbitrarily complex neural circuits) but *not guaranteed* (whether evolution reaches general-purpose reasoning depends on specific fitness landscapes the framework's commitments do not constrain). On Earth, general intelligence arose once in approximately 4 billion years. The framework cannot determine whether this is typical or rare.
 
-Section 12.7 develops the structural chain from intelligence to artificial intelligence: given general intelligence exists, the framework's chemistry produces the candidate materials (Group IV semiconductors, whose suitable band gaps at an operating temperature are material-dependent inputs), and standard semiconductor physics produces transistors and universal computation. The chain is structural given suitable materials and operating conditions — once general intelligence exists and such materials are available, AI follows from the selected structure.
+Section 12.7 traces a conditional route from suitable materials and fabrication to universal computation. Boolean universality is a mathematical result, and its implementation uses scalable circuit and memory resources.
 
 Section 12.8 develops the framework's self-referential structure. The framework is itself an embedded observer (or a description embedded observers produce); the framework's content includes structural limits that apply to all embedded observers including any AI built by intelligent beings; the framework's self-discovery is the framework recognizing its own embeddedness. The chapter closes by tracing the Gödel-Turing-OI incompleteness family — three mathematical results about the limits of self-referential systems that the framework's substratum picture unifies under a single structural commitment.
 
-The framework's content in this chapter is therefore the cascade *closure*: the framework's structural commitments at the substratum level produce, through the cascade developed in Chapters 10-11, the conditions for evolution, intelligence, and the framework's own self-discovery. The framework's reach is therefore not just to physics, chemistry, and biology but to the conditions for any embedded observer to discover the structural content of its own embedding.
+These links use the physical and chemical branch of Chapters 10–11 and additional inputs for the target system. Evolution, intelligence and technological realization each have their own conditions.
 
 ## 12.2 Evolution as a multi-scale C1–C4 system
 
-Chapter 11 established that a template replicator's heredity can realize C1–C4 at the molecular scale, and that this heredity makes evolution possible. The framework's content extends beyond molecular heredity to identify multiple distinct C1–C4 partitions operating simultaneously at different biological scales. Evolution is therefore not a single C1–C4 system but a *cascade* of nested partitions, each producing non-Markovian dynamics in the corresponding emergent description.
+In a template copier, a copied sequence can provide a persistent record for heredity. Three other candidate memory architectures are considered here at protein, cellular and ecological scales.
 
 **The three scales.**
 
@@ -37,35 +37,35 @@ Chapter 11 established that a template replicator's heredity can realize C1–C4
 
 *Scale 3: The constructed ecological niche.* Organism behavior is the fast subsystem; the environment that organisms modify and pass to descendants — burrows, mounds, beaver dams, the chemical composition of the atmosphere, the soil microbiome shaped by plant communities — is the slow subsystem. The visible-sector observables are the organisms' current adaptations; the hidden-sector content is the niche-construction memory stored in the modified environment. The framework's prediction is that ecological dynamics shows non-Markovian dynamics over evolutionary timescales — history-dependent fitness landscapes shaped by previous generations' niche construction. The empirical record from niche construction theory (Odling-Smee, Laland, Feldman 2003 and subsequent work) is consistent with this prediction.
 
-**The structural pattern.** Each of the three scales satisfies the framework's structural conditions C1–C4 at the corresponding level.
+**The structural pattern.** At each scale a proposed partition is assessed using C1–C4 for its particular measurements and timescale.
 
 *C1 (coupling).* At each scale, the fast subsystem is non-trivially coupled to the slow subsystem. Protein activity depends on the conformational landscape's current state; gene expression depends on the chromatin's current state; organism behavior depends on the constructed niche's current state. The couplings are catalytic (protein-substrate, chromatin-gene, organism-environment), with feedback between fast and slow subsystems.
 
-*C2 (memory persistence).* At each scale, the slow subsystem retains its record across the fast subsystem's window — here realized, as it commonly is in biology, by slow evolution. Conformational landscapes evolve on timescales of microseconds to milliseconds; the catalytic cycle of a typical enzyme is in nanoseconds. Chromatin modifications evolve on cell-division timescales; gene expression cycles are in minutes. Niche-construction features evolve on generation timescales; behavioral responses are in hours to days. Each scale has $\tau_S/\tau_B \sim 10^{-3}$ to $10^{-6}$ — substantial timescale separation.
+*C2 (memory persistence).* The respective records must persist across the observation window. Slow motion, stable marks and enduring environmental changes can motivate that premise.
 
-*C3 (sufficient capacity).* At each scale, the hidden sector has information capacity enough for the stored history. Conformational landscapes have $\sim 10^{N}$ states for $N$ amino acids (vastly larger than the protein's active configuration). Chromatin states have $\sim 10^{6}$ regulatory elements per genome. Niche-construction features have arbitrarily large environmental complexity. Each scale exceeds C3 by many orders of magnitude.
+*C3 (sufficient capacity).* The hidden description needs enough distinguishable and accessible record states for the proposed history test. Counts of possible conformations or regulatory elements illustrate possible carriers.
 
-**Multi-scale C1–C4 and the cascade.** The three scales are not independent — they are nested in a cascade that reflects the framework's emergence hierarchy from substratum to ecology. The protein conformational landscape (Scale 1) is the fastest; the epigenome (Scale 2) is intermediate; the constructed niche (Scale 3) is the slowest. Each scale's slow subsystem provides constraints on the dynamics of subsequent scales.
+**C4 (history readback).** Compare histories with the same visible present. The record is read back if the histories yield different next-step laws. Different partition choices can lead to different results.
 
-Conformational memory at the protein scale produces catalytic memory affecting metabolic pathways. Metabolic memory affects gene expression patterns (regulatory feedback). Gene expression memory affects epigenetic states. Epigenetic memory affects cell behavior and organism-level traits. Organism-level traits modify the environment. The modified environment selects on subsequent generations. The cascade runs from molecular scale ($\sim 10^{-9}$ meters, nanoseconds) to ecological scale ($\sim 10^{6}$ meters, generations), with C1–C4 satisfied at each step.
+Catalytic state can affect metabolism and gene expression. Chromatin can influence cell behavior, and organisms can modify the environment experienced by later populations. This sequence suggests possible links between scales, whose causal effects have to be established individually.
 
-The framework's structural reading is that wherever such nested architectures arise, each scale at which C1–C4 hold has non-Markovian dynamics; that a given biology develops them is an empirical matter, not a consequence of C1–C4. The empirical record across enzymology (non-Markovian kinetics), epigenetics (chromatin memory), and evolutionary biology (history-dependent fitness landscapes) is consistent with this structural prediction. Chapters 13, 16, and 17 develop the empirical content at each scale.
+At each scale a positive matched-present C4 contrast establishes accessible conditional memory for the tested observable. Chapters 13, 16 and 17 discuss specific observations and candidate comparisons.
 
 ## 12.3 Information processing as fitness-enhancing
 
-The framework's structural content produces a specific prediction about the relationship between information processing and selection. In any environment with the framework's thermal window (Chapter 10 §10.5) — where temperature fluctuations, concentration gradients, and chemical signals provide environmental information that varies on biologically relevant timescales — organisms that respond to environmental information outcompete those that do not. Selection generically favors information processing.
+Selection can favor information processing when an informative response improves net reproductive success in an environment with useful cues.
 
-**The structural argument.** Three structural features make information processing selectively favored.
+**The structural argument.** Three conditions describe when information processing could be favored.
 
 *Environmental information exists.* $kT > 0$ produces thermal fluctuations at any temperature, but thermal fluctuations do not by themselves establish the gradients in concentration, temperature and chemical composition, or the environmental cycling, that this argument uses; those are further environmental conditions. Where they hold, together with the environmental memory at multiple timescales that the cascade of C1–C4 systems from §12.2 produces, environmental information is available at biological scales.
 
-*Internal models can exploit environmental information.* The framework's molecular C1–C4 (Chapter 11) provides the basic mechanism — a system that maintains internal state correlated with environmental state can adjust its behavior accordingly. A cell that detects a nutrient gradient and moves toward it has an internal model (the gradient sensor + the motility apparatus) that exploits the environmental information.
+*Internal state can guide a response.* Organisms can use sensory information or retained records to change behavior. The ability to act on available information depends on the specified sensing and control mechanisms.
 
-*Better models outcompete worse models.* Where resources are finite and heritable variants differ in reproductive success, selection acts (Chapter 11 §11.5). An organism with a better internal model of environmental conditions allocates resources more effectively — gathering more nutrients, avoiding more dangers, finding more mates — and therefore leaves more offspring. The competitive advantage compounds across generations.
+*Benefits need to exceed costs.* More informative internal states can improve foraging or reduce risk. Selection acts on net reproductive success, which also reflects the costs of acquiring, storing and using the information.
 
-**The structural conclusion.** Information processing is therefore *generically fitness-enhancing* in any universe with the framework's structural commitments and environments carrying useful gradients and cycling. Given such environments, it follows from the conditions for selection (heritable variation and differential reproductive success under finite resources) combined with the environmental information they carry.
+**The conditional conclusion.** Selection can favor heritable information-processing traits when their net fitness effect is positive in the relevant environment.
 
-The empirical record supports this prediction. Information processing capabilities are widespread in biology: chemotaxis in bacteria, photoperception in plants, hormonal signaling in multicellular organisms, neural processing in animals. The framework's prediction is that this distribution is not historically contingent — any biology with the framework's chemistry should develop information processing capabilities as a structural consequence of selection.
+Chemotaxis, photoperception, hormonal signaling and neural processing are observed examples of information use. The fitness effect of each depends on the organism and environment.
 
 The prediction sets a *floor* on the universality of information processing in biology: any framework-compatible biology should have *some* information processing. The prediction does not set a ceiling: it does not specify how sophisticated the information processing can become, what specific computational capabilities evolve, or whether evolution reaches general-purpose reasoning.
 
@@ -99,11 +99,11 @@ Beyond the structural account of evolution at the molecular and population level
 
 *Hidden-sector capacity grows.* The higher-level entity has substantially more internal degrees of freedom than its constituents. A eukaryotic cell has $\sim 10^{10}$ atoms vs. a prokaryotic cell's $\sim 10^9$; a multicellular organism has $\sim 10^{14}$ cells vs. one. The new level satisfies C3 with a hidden sector orders of magnitude larger than the lower level's.
 
-**Why the same pattern repeats.** The framework's reading is that the major evolutionary transitions are not coincidental but are *repeated applications of the same structural mechanism*: whenever a collection of lower-level units satisfies the framework's C1–C4 conditions when viewed as components of a higher-level entity, the higher-level entity becomes a structurally distinct unit of selection. The transitions are the framework's structural commitments at one level producing the structural conditions for the next level.
+**The role of memory.** Lower-level units can participate in a larger system with persistent records that affect its observable dynamics. A transition to a new unit of selection also requires heritable variation and differences in reproductive success at that level.
 
-This pattern is the same one that operates at the cosmological scale (where it produces the memory-bearing dynamics whose representation is emergent quantum mechanics, from a deterministic substratum) and at the molecular scale (where it produces heredity from autocatalytic chemistry). The framework's structural content unifies these scales under a single mechanism: C1–C4 producing emergent non-Markovian dynamics at any scale where the structural conditions are satisfied.
+The finite-horizon memory implication applies to a declared partition if C4 holds. It leaves the origin and stability of the higher-level unit to the relevant ecological and population mechanisms.
 
-**Empirical implications.** The framework's structural reading predicts that *all* biological levels satisfying C1–C4 should exhibit non-Markovian dynamics in their emergent description. The empirical record across biology supports this prediction: protein dynamics is non-Markovian (single-molecule enzymology), gene expression is non-Markovian (transcriptional bursting, history-dependent regulation), developmental dynamics is non-Markovian (cellular memory across cell divisions), ecological dynamics is non-Markovian (priority effects, hysteresis in community composition). The pattern is repeated at every biological scale; the framework's structural content predicts this as a generic feature of any biology with the framework's commitments.
+**Empirical implications.** A new unit of selection with a proposed slow record can be tested by comparing histories at the same measured present. The contributions of that record to fitness and inheritance require their own tests.
 
 **Limits of the framework's content.** The framework's structural reading does not predict *which* major transitions occur or *when* they occur in any specific biology. The transition from prokaryotes to eukaryotes occurred approximately 2 billion years ago on Earth; the transition from protists to multicellular organisms occurred multiple independent times across different lineages; the transition from primate societies to human societies occurred once. The framework's structural commitments are compatible with very different timelines and trajectories. The framework predicts the *pattern* (C1–C4 repeating at each level) but not the *specific instances*.
 
@@ -111,41 +111,41 @@ This is consistent with the framework's content throughout Part III: structural 
 
 ## 12.5 Neural computation as structurally possible
 
-The framework's commitments produce the materials and energetic conditions for neural computation. Three structural features are responsible: the periodic table provides ions (Na$^+$, K$^+$, Ca$^{2+}$) for electrochemical signaling, carbon chemistry provides amphiphilic molecules for lipid membranes, and the scale hierarchy separates neural signaling energies from chemical bond energies.
+The selected chemistry permits candidate ions and membrane constituents for electrochemical signaling. A functional neural system also requires membrane organization, channels, energy supply and a suitable operating regime.
 
 **Ions for electrochemical signaling.** Fast neural signaling uses ion flow across membranes — Na$^+$ depolarizing axonal membranes (action potentials), K$^+$ repolarizing, Ca$^{2+}$ triggering neurotransmitter release at synapses. The framework's derivation of the periodic table (Chapter 10 §10.2) produces these specific elements as structural consequences of the orbital algebra in $d = 3$. Na$^+$ (Group I) and K$^+$ (Group I) have a single valence electron that ionizes readily; Ca$^{2+}$ (Group II) has two valence electrons producing a doubly-charged ion. The chemistry of these ions — their hydration shells, their selectivities through ion channels, their roles in cellular signaling — is structurally determined by the framework's chemistry.
 
 **Lipid membranes for compartmentalization.** Cellular compartments require membranes that separate aqueous interiors from aqueous exteriors. Lipid bilayers — amphiphilic molecules with hydrophilic phosphate heads and hydrophobic hydrocarbon tails — self-assemble from the framework's carbon chemistry into bilayer membranes. The structural prediction is that amphiphilic molecules exist in any chemistry with carbon's $sp^3$ hybridization (Chapter 10 §10.2) and the polar/non-polar functional groups available in the periodic table (Chapter 10 §10.2). The framework's chemistry guarantees the materials for lipid membranes.
 
-**Scale hierarchy for energetic separation.** Neural signaling operates at energies of $\sim$meV ($kT$ at room temperature). Chemical bonds operate at energies of $\sim$eV. The ratio $E_{\text{neural}}/E_{\text{chemical}} \sim 10^{-3}$ ensures that information processing through ionic gradients and conformational changes in proteins does not break the chemical bonds that maintain the cell's structural integrity. The framework's scale hierarchy from Chapter 10 §10.4 guarantees this separation in any universe with the framework's two independent gauge groups.
+**Energetic separation.** In suitable systems, electrochemical signaling can occur on energy scales below covalent bond energies. At room temperature $kT$ is about 25 meV. The signal and bond energies depend on the driving voltage, molecular architecture and environment.
 
-**The structural conclusion.** Neural computation is therefore *structurally possible* in any biology with the framework's chemistry. The materials exist (ions, lipids, proteins), the energetic separation exists (scale hierarchy), and the C1–C4 architecture exists (proteins satisfy C1–C4 in their conformational landscapes, providing the molecular basis for fast information processing).
+**The feasibility claim.** With suitable chemistry and molecular machinery, signaling can occur without breaking the covalent framework of the cell. The same conditions can support circuits of interacting cells.
 
-The empirical record on Earth confirms this prediction: neural computation evolved at least twice independently (in cnidarians and bilaterians, by some accounts), and analogous information-processing systems evolved in plants (action potentials in Venus flytraps and mimosas), in single-celled organisms (chemotaxis), and in fungi (mycelial signaling networks). The framework's prediction is that this is not historically contingent — neural-computation-like systems should appear repeatedly in any biology with the framework's chemistry.
+Nervous systems and signaling in plants provide empirical examples of such organization. Their evolutionary history depends on the lineage and environment.
 
-The framework's content here is *capability* structural rather than *complexity* structural. The framework predicts that neural-like information processing should be available in any framework-compatible biology; it does not predict how complex such information processing becomes. The next section addresses this — the structural prediction of *general intelligence* is much weaker than the structural prediction of neural computation.
+The argument identifies materials and energy regimes that permit electrochemical signaling. Whether and how they are used for neural computation depends on biological organization.
 
-## 12.6 General intelligence as structurally unconstrained but not guaranteed
+## 12.6 Conditions for general intelligence
 
-The framework's content on general intelligence is the chapter's clearest scope limit. The framework's structural commitments produce the materials and energetic conditions for arbitrarily complex neural circuits — the periodic table provides the chemistry, the scale hierarchy provides the energetic separation, and the C1–C4 architecture at the protein level provides the information-processing primitives. But whether evolution *reaches* general-purpose reasoning — the capacity for abstraction, planning, language, mathematical thought, modeling oneself, and reasoning about reasoning — depends on the specific fitness landscape, which is parametric rather than structural.
+The chemistry and energetic separation allow complex neural circuits in suitable organisms. Evolution also has to supply their organization, maintenance and behavioral uses.
 
-**The structural status of intelligence-relevant capabilities.**
+**Intelligence-relevant capabilities.**
 
-*Neural computation.* Structural — the framework's chemistry produces the materials and energetic conditions (§12.4).
+*Neural computation.* The candidate materials and energy conditions are discussed in §12.5.
 
-*Sensory processing.* Structural — the framework's chemistry produces the molecular machinery for sensory transduction (rhodopsin for vision, mechanosensitive ion channels for hearing and touch, chemosensors for smell and taste, all derivable from the framework's chemistry).
+*Sensory processing.* The chemistry permits candidate transduction mechanisms such as light-sensitive proteins and mechanosensitive channels.
 
-*Memory.* Structural — the framework's C1–C4 architecture at multiple scales (§12.2) produces the substrate for memory at the molecular (protein conformations), cellular (chromatin states), and circuit (synaptic weights) levels.
+*Memory.* Conformations, chromatin and synaptic weights can provide persistent records if they influence a later readout.
 
-*Pattern recognition.* Structural — neural circuits with appropriate connectivity perform pattern recognition naturally; the materials and architecture follow from the framework's chemistry.
+*Pattern recognition.* Appropriately organized circuits can discriminate patterns.
 
-*Learning.* Structural — synaptic plasticity is a C1–C4 dynamic, with synaptic weights as the slow subsystem and neural activity as the fast subsystem. The framework's structural conditions guarantee learning is possible in neural systems.
+*Learning.* Synaptic plasticity can encode previous activity. The circuit and its training or selection conditions determine which capabilities result.
 
-*Goal-directed behavior.* Likely structural — any selection-driven biological system develops goal-directed behavior as a consequence of internal models (§12.3) coupled to effectors.
+*Goal-directed behavior.* Coupled sensing and control can support actions that improve outcomes under suitable environmental conditions.
 
 *General-purpose reasoning.* **Not structurally guaranteed.** Whether evolution produces systems capable of abstract reasoning, language with recursive syntax, formal mathematics, and self-modeling depends on specific selection pressures the framework's commitments do not determine.
 
-**Why general intelligence is structurally weaker.** The framework's predictions for fundamental physics (Chapters 5-8) and for the cascade through chemistry and origin of life (Chapters 10-11) operate at the *structural* level: the relevant capabilities follow from the framework's commitments, and whether they combine into a replicator is a chemical premise (Chapter 11 §11.6). The prediction for general intelligence is *weaker* because it requires not just the structural capability (which is present) but also a specific evolutionary trajectory (which is contingent).
+General-purpose reasoning is a particular outcome of evolution. It requires additional ecological and developmental premises beyond the material possibility of neural signaling.
 
 The fitness advantages of general intelligence depend on the specific environment. In environments where pattern recognition and learning provide sufficient adaptive advantage, evolution may stop at sophisticated learning systems without developing general reasoning. In environments where social complexity, tool use, or environmental unpredictability place premium on abstract reasoning, evolution may proceed to general-intelligence-like systems. The framework does not determine which environments select for general intelligence.
 
@@ -153,44 +153,44 @@ The fitness advantages of general intelligence depend on the specific environmen
 
 The framework cannot determine which interpretation is correct. The framework's structural commitments are compatible with both. The empirical record on Earth is consistent with both. Determining which interpretation holds requires evidence from astrobiology — the discovery of multiple independent occurrences of general intelligence in independent biological systems — which is not currently available.
 
-**The framework's honest scope.** The framework's content on general intelligence is therefore: *capability* structural, *occurrence* uncertain. The framework predicts that general-intelligence-capable systems are structurally possible in any framework-compatible biology; it does not predict whether such systems will actually evolve in any specific biological context. This is the chapter's clearest example of a place where the framework's reach stops.
+**The scope.** The materials argument allows neural systems capable of complex behavior. The occurrence of general-purpose reasoning and the conditions sufficient to evolve it remain open.
 
 This is honest content. Frameworks claiming to predict general intelligence as a structural inevitability would be overreaching given the available evidence; frameworks claiming general intelligence is impossible or extraordinarily rare would also be overreaching. The framework's stance — capability structural, occurrence uncertain — is the position most consistent with the framework's structural commitments and the available evidence.
 
 ## 12.7 The chain from intelligence to AI
 
-If general intelligence exists — for whatever contingent or structural reason — then artificial intelligence follows from the selected structure through a specific chain whose links are structural consequences, material-dependent inputs, or a mathematical theorem. This section traces the chain from the framework's chemistry to universal computation, establishing AI as a structural consequence of intelligence's existence, given a material with a suitable gap at its operating temperature, rather than as an independent technological development.
+Given suitable materials, fabrication, controls and memory, a generally intelligent observer could implement universal computation. The following links describe one such route.
 
-**Step 1: Band theory.** The framework's emergent quantum mechanics (Chapter 1) applied to electrons in a periodic crystal potential gives Bloch's theorem: energy bands separated by gaps. The relevant crystal — a $sp^3$ diamond-cubic lattice of a Group IV element — is itself a structural consequence of the framework's chemistry (Chapter 10 §10.2). Band structure is therefore a consequence of the framework's emergent quantum mechanics applied to derived crystal geometry, with no parametric inputs entering the structural argument.
+**Step 1: Band theory.** Standard quantum mechanics in a periodic crystal potential gives Bloch states and energy bands. A particular crystal structure and a useful band gap are material inputs. The proposed OI application uses the physical quantum correspondence as an additional premise.
 
-**Step 2: Semiconductors.** For Group IV elements with four valence electrons per atom, the Pauli exclusion principle (derived from spin-statistics, Chapter 5 §5.7) exactly fills the valence band and leaves the conduction band empty. The band gap for silicon ($\sim 1.1$ eV) sits in the thermal sweet spot: $E_{\text{gap}}/kT \sim 40$ at room temperature. The gap is large enough that thermal excitation does not flood the conduction band (the material is not always conducting); small enough that a modest voltage can promote electrons across the gap (the material can be switched).
+**Step 2: Semiconductors.** Crystalline silicon has a filled valence band at zero temperature and a gap of about 1.1 eV. At room temperature its gap satisfies $E_{\text{gap}}/kT\sim40$. Suitable doping and device geometry permit controllable conduction.
 
 Whether a material has a gap in that range at its operating temperature is a material-dependent input. The atomic energy scale ($\alpha^2 m_e c^2 \approx 27$ eV, set by the coupling values and masses of Chapter 10 §10.4) sets the eV scale of electronic energies, and the thermal scale at biological temperatures is $kT \sim 0.025$ eV; the gap of a particular material and the operating temperature are inputs, and silicon's place in the regime where it can be used as a voltage-controlled switch is a fact about that material.
 
-**Step 3: Doping.** Replacing a silicon atom (Group IV) with phosphorus (Group V, five valence electrons) adds one free electron — n-type semiconductor. Replacing with boron (Group III, three valence electrons) removes one electron — p-type semiconductor. Both dopant types exist in the derived periodic table (Chapter 10 §10.2): the Group III and Group V elements are structurally guaranteed by the framework's chemistry. The ability to create n-type and p-type regions is therefore a structural consequence of the periodic table architecture.
+**Step 3: Doping.** In silicon, substitutional phosphorus acts as a donor and boron as an acceptor. Controlled incorporation can produce n-type and p-type regions.
 
-**Step 4: From transistors to universal computation.** A p-n junction rectifies current (electrons flow easily in one direction, not the other). A transistor — two p-n junctions arranged as a sandwich with a control electrode — amplifies and switches current. Transistors in combination implement logic gates: a NAND gate (NOT-AND) can be built from two p-n junctions plus appropriate biasing. A NAND gate is functionally complete: any Boolean function can be built from NAND gates alone. Sufficient NAND gates implement a universal Turing machine.
+**Step 4: From transistors to universal computation.** Suitable semiconductor junctions and transistors enable switching. NAND is functionally complete for Boolean functions. Circuits based on NAND, joined to memory and resources that can scale with the task, support Turing computation.
 
-Each step is either semiconductor physics applied to a material with a suitable gap (transistors, logic gates) or a mathematical theorem about computation (NAND completeness, Turing universality).
+The device links consume semiconductor physics, suitable fabrication and control. The universality link uses the mathematical result about circuits and memory.
 
 **The structural chain summarized.**
 
 | Step | Content | Status |
 |------|---------|--------|
-| Band theory | QM + periodic crystal potential | Structural |
-| Band gap for Group IV | Exactly filled valence band (4 electrons + Pauli) | Structural |
+| Band theory | Standard QM in a specified periodic potential | Bloch theorem |
+| Band gap | Material-specific band structure | Material input |
 | Semiconductor behavior | Gap in thermal sweet spot ($E_{\text{gap}}/kT \sim 40$) | Material-dependent input (gap and operating temperature) |
-| Doping | Group III / V substitution | Structural (periodic table) |
+| Doping | Donor and acceptor substitutions in silicon | Material-specific mechanism |
 | p-n junctions | Interface between p-type and n-type | Structural consequence |
 | Transistors | Voltage-controlled p-n junctions | Structural |
 | Logic gates | Transistors in series / parallel | Structural |
-| Universal computation | NAND is functionally complete | Mathematical theorem |
+| Universal computation | NAND completeness with scalable memory for sequential computation | Mathematical realizability |
 
-The cumulative chain from $(S, \varphi)$ to a universal computer is structural given a material with a suitable gap at its operating temperature — *and given someone to build it*. The contingent step is general intelligence (§12.5) capable of recognizing the structural possibility and assembling the chemistry into a functional computational substrate. Once that contingent step has occurred and such a material is available, the chain to AI follows.
+The chain uses a material with a suitable gap at operating temperature, accessible fabrication and control, and scalable circuit and memory resources.
 
 **The reconstruction theorem and self-discovery.** The framework's reconstruction theorem (developed in Chapter 2) implies that a sufficiently sophisticated embedded observer can discover the local invariants of $(S, \varphi)$ from observations. An observer that understands its own substrate can build computational devices exploiting it. The trajectory is therefore: general intelligence (contingent) → understanding of physics (reconstruction theorem) → computational engineering (structural chain above) → AI.
 
-The framework's content here is that AI is *not* an independent technological achievement but the natural consequence of general intelligence applied to the framework's structural commitments. Any framework-compatible biology with general intelligence and suitable materials will, given sufficient time, develop AI through the structural chain. The specific timing and trajectory depend on contingent factors (cultural development, scientific institutions, engineering choices), but the *existence* of AI as an outcome is structurally determined once general intelligence exists and a suitable material is available.
+This route makes artificial computation feasible where those technological conditions are met. Whether a society realizes it or builds artificial intelligence depends on its choices and history.
 
 ## 12.8 The self-referential loop and structural limits
 
@@ -230,7 +230,7 @@ One feature of Deutsch's broader program is read differently by the framework, a
 | Observe beyond the cosmological horizon | Provably impossible (causal partition) |
 | Build faster computers | Structurally possible (derived physics permits it) |
 | Replace a visible process with nonzero conditional memory by a faithful memoryless (Markov) model at the same horizon | Provably impossible ([Main §3.4]) |
-| Solve problems outside BQP | Impossible under global coverage of Ch 14's computational model (a conditional theorem) |
+| Decide a language outside BQP with bounded error and polynomial resources | Excluded under global coverage of Chapter 14's operational-closure and efficient simulation hypotheses |
 | Achieve consciousness in the phenomenal sense | Not addressed (Ch 18 §18.10) |
 
 The framework's content places several capabilities in the impossible column — the structural entries as mathematical impossibilities that no level of AI sophistication, computational resources, or theoretical insight can overcome; the BQP entry as a conditional one, impossible under global coverage of Chapter 14's computational model, with a device outside that model falsifying coverage first. The framework's substratum picture provides a unified mathematical basis for understanding what AI can and cannot achieve.
@@ -239,8 +239,8 @@ The framework's content places several capabilities in the impossible column —
 
 The framework's self-reference is therefore not paradoxical but consistent. The framework's commitments are *closed under self-application*: applying the framework's content to the framework itself produces predictions about what the framework can and cannot establish, and those predictions are consistent with the framework's structural commitments. The framework is an embedded observer's account of embedded observation, with the account itself subject to the structural limits the account identifies.
 
-**Forward pointers.** Chapter 13 develops the framework's content in quantum biology — applications of C1–C4 at the molecular scale to specific biological systems with substantial empirical content. The framework's structural account of biology developed in this chapter (multi-scale C1–C4, evolution as cascade, neural computation as structurally possible) provides the foundation. Chapter 14 develops the BQP theorem — the framework's specific structural limit on computational complexity, with the falsification hierarchy that any super-BQP demonstration would falsify the global-coverage premise of Chapter 14's computational model first, the framework only through further argument. The framework's content from this chapter on the structural limits of embedded observers (the Gödel-Turing-OI family) connects naturally to Chapter 14's content on the computational limits specifically.
+**Forward pointers.** Chapter 13 discusses possible implementations of conditional memory in biology. Chapter 14 characterizes BQP under a scalable model that supplies quantum control, efficient simulation and charged conditioning. A super-BQP result on physical hardware would test global coverage of that model.
 
-The framework's reach in this chapter spans from molecular biology to AI to the framework's own self-discovery. The cumulative structural account — Darwinian evolution as possible wherever sustained template replication has heritable variants differing in reproductive success, information processing as fitness-enhancing, neural computation as structurally possible, general intelligence as structurally unconstrained but not guaranteed, AI as structural consequence of intelligence, and the framework's self-referential limits as mathematical constraints — provides the framework's content on emergence beyond fundamental physics. The remaining chapters apply this content to specific empirical domains: quantum biology (Chapter 13), quantum computing (Chapter 14), quantum engineering (Chapter 15), medicine (Chapter 16), and bioinformatics (Chapter 17).
+The preceding links describe replication and selection under stated premises, the possible net benefits of information processing, and materials and control for neural and artificial computation. Chapters 13–17 discuss specific applications and tests.
 
 ***
