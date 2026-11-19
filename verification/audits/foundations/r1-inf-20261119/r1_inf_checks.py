@@ -15,6 +15,12 @@ Parts
      with positive controls (identity, rule 184), and the d = 1 mover identities for alpha^2 = 1
      (Proposition 6)
   F  finitely supported seeds do not return (illustration of Lemma 4; the proof is algebraic)
+  G  U without translation invariance (Proposition 9): dim(Gamma ∩ R_Lambda_n) = 2n+2 for the
+     closed subgroup H = {x : x_t(0) = 0 for all t}, d = 1, 2, stable in the horizon T; the
+     site functionals are cross-checked against direct evolution; countercontrol alpha = 0;
+     u(e_1) is not in Gamma (H is not translation invariant)
+  H  d = 2: the two-plane trajectory is onto and determining (Proposition 5.2), countercontrol
+     alpha = 0
 Run:  python3 -I r1_inf_checks.py
 """
 from fractions import Fraction
@@ -310,6 +316,160 @@ def part_F():
         print(f"d=1 q={q} alpha={alpha}: single-site seed returns within {T} steps: {ret is not None}; final support {len(u)+len(v)}")
 
 
+# ---------------------------------------------------------------- site functionals x_t(0) (any d)
+def site_functionals(q, alpha, d, tmin, tmax):
+    """P[t] = (U, V): sparse dicts site -> coefficient with x_t(0) = sum U(z) u(z) + V(z) v(z),
+    x_t the first component of F^t.  Recurrences x_{t+1}(0) = alpha*sum_nb x_t(nb) - x_{t-1}(0) and
+    x_{t-1}(0) = alpha*sum_nb x_t(nb) - x_{t+1}(0); x_t(nb) is the translate of x_t(0) by nb."""
+    units = [tuple((1 if k == j else 0) * sgn for k in range(d)) for j in range(d) for sgn in (1, -1)]
+    o = tuple([0] * d)
+    def comb(Pt, Pother):
+        out = []
+        for part in range(2):
+            acc = {}
+            for z, c in Pt[part].items():
+                for e in units:
+                    w = tuple(a + b for a, b in zip(z, e))
+                    acc[w] = (acc.get(w, 0) + alpha * c) % q
+            for z, c in Pother[part].items():
+                acc[z] = (acc.get(z, 0) - c) % q
+            out.append({z: c for z, c in acc.items() if c})
+        return tuple(out)
+    P = {0: ({o: 1}, {}), -1: ({}, {o: 1})}
+    for t in range(1, tmax + 1):
+        P[t] = comb(P[t - 1], P[t - 2])
+    for t in range(-2, tmin - 1, -1):
+        P[t] = comb(P[t + 1], P[t + 2])
+    return P
+
+
+def eval_functional(Pt, u, v):
+    s = 0
+    for z, c in Pt[0].items():
+        s += c * u.get(z, 0)
+    for z, c in Pt[1].items():
+        s += c * v.get(z, 0)
+    return s
+
+
+def vec(Pt, coords, q, shift=None):
+    shift = shift or tuple([0] * len(next(iter(coords))[1]))
+    r = [0] * len(coords)
+    for part in range(2):
+        for z, c in Pt[part].items():
+            r[coords[(part, tuple(a + b for a, b in zip(z, shift)))]] = c % q
+    return r
+
+
+def box(d, R):
+    return list(product(range(-R, R + 1), repeat=d))
+
+
+def cross_check_functionals():
+    """Evaluate x_t(0) from the functionals and by direct evolution on a torus (light cone inside)."""
+    rnd = random.Random(11)
+    ok = True
+    for q, alpha, d, T in [(2, 1, 2, 4), (3, 2, 2, 3), (5, 3, 1, 6)]:
+        P = site_functionals(q, alpha, d, -T - 1, T)
+        L = 2 * T + 5
+        sites = list(product(range(L), repeat=d))
+        u = {z: rnd.randrange(q) for z in sites}; v = {z: rnd.randrange(q) for z in sites}
+        def F(u, v, inv=False):
+            nu = {}
+            src = v if inv else u
+            for z in sites:
+                acc = 0
+                for j in range(d):
+                    for sgn in (1, -1):
+                        w = list(z); w[j] = (w[j] + sgn) % L; acc += src[tuple(w)]
+                nu[z] = (alpha * acc - (u if inv else v)[z]) % q
+            return (src, nu) if inv else (nu, u)
+        cen = lambda z: tuple(((a + L // 2) % L) for a in z)
+        uc = {zz: u[cen(zz)] for zz in box(d, T + 1)}; vc = {zz: v[cen(zz)] for zz in box(d, T + 1)}
+        fu, fv = dict(u), dict(v)
+        for t in range(0, T + 1):
+            ok &= eval_functional(P[t], uc, vc) % q == fu[cen(tuple([0] * d))]
+            fu, fv = F(fu, fv)
+        bu, bv = dict(u), dict(v)
+        for t in range(-1, -T - 2, -1):
+            bu, bv = F(bu, bv, inv=True)
+            ok &= eval_functional(P[t], uc, vc) % q == bu[cen(tuple([0] * d))]
+    return ok
+
+
+def part_G():
+    print("== G. U without translation invariance: H = {x : x_t(0) = 0 for all t} ==")
+    print(f"functionals x_t(0) agree with direct evolution on tori: {cross_check_functionals()}")
+    for d, nmax in [(1, 5), (2, 3)]:
+        for q, alpha in [(2, 1), (3, 1), (3, 2), (0, 0)]:
+            if q == 0:
+                q, alpha, tag = 3, 0, " [countercontrol alpha=0]"
+            else:
+                tag = ""
+            res = []
+            for n in range(1, nmax + 1):
+                defs = []
+                for T in (n + 1, n + 3, n + 5):
+                    P = site_functionals(q, alpha, d, -T - 1, T)
+                    R = T + 2
+                    coords = {}
+                    for part in range(2):
+                        for z in box(d, R):
+                            coords[(part, z)] = len(coords)
+                    rows = [vec(P[t], coords, q) for t in range(-T - 1, T + 1)]
+                    outside = [i for (part, z), i in coords.items() if max(abs(a) for a in z) > n]
+                    r_all = rank_mod_p(rows, q)
+                    r_out = rank_mod_p([[r[i] for i in outside] for r in rows], q)
+                    defs.append(r_all - r_out)  # dim(Gamma_T intersect R_{Lambda_n})
+                res.append(defs[0] if len(set(defs)) == 1 else defs)
+            target = [2 * n + 2 for n in range(1, nmax + 1)]
+            print(f"d={d} q={q} alpha={alpha}{tag}: deficit dim(Gamma ∩ R_Lambda_n), n=1..{nmax}: {res};"
+                  f" equals 2n+2: {res == target}")
+    # translation non-invariance: u(e_1) is not in Gamma (d = 2, q = 2, alpha = 1; T = 6)
+    q, alpha, d, T = 2, 1, 2, 6
+    P = site_functionals(q, alpha, d, -T - 1, T)
+    coords = {}
+    for part in range(2):
+        for z in box(d, T + 2):
+            coords[(part, z)] = len(coords)
+    rows = [vec(P[t], coords, q) for t in range(-T - 1, T + 1)]
+    e = [0] * len(coords); e[coords[(0, (1, 0))]] = 1
+    print(f"d=2 q=2 alpha=1: u(e_1) in span{{x_t(0): |t|<=7}}: {rank_mod_p(rows + [e], q) == rank_mod_p(rows, q)}")
+
+
+def part_H():
+    print("== H. d = 2: two-plane trajectory {z_1 in {0,1}} x [-m,m] is onto and determining ==")
+    for q, alpha in [(2, 1), (3, 1), (3, 2), (5, 3)]:
+        T, m = 3, 3
+        P = site_functionals(q, alpha, 2, -T - 1, T + 1)
+        R = T + m + 4
+        coords = {}
+        for part in range(2):
+            for z in box(2, R):
+                coords[(part, z)] = len(coords)
+        plane = [(z1, y) for z1 in (0, 1) for y in range(-m, m + 1)]
+        fwd = [vec(P[t], coords, q, shift=s) for t in range(0, T + 1) for s in plane]
+        rows = [vec(P[t], coords, q, shift=s) for t in range(-T, T + 1) for s in plane]
+        r0 = rank_mod_p(rows, q)
+        det = []
+        for key in ((0, (2, 0)), (1, (2, 0)), (0, (-1, 0)), (1, (-1, 1))):
+            e = [0] * len(coords); e[coords[key]] = 1
+            det.append(rank_mod_p(rows + [e], q) == r0)
+        print(f"q={q} alpha={alpha}: forward rank {rank_mod_p(fwd, q)}/{len(fwd)};"
+              f" u0,v0 at (2,0), u0 at (-1,0), v0 at (-1,1) determined: {all(det)}")
+    # countercontrol alpha = 0: the planes do not determine the neighbouring plane
+    q, alpha, T, m = 3, 0, 3, 3
+    P = site_functionals(q, alpha, 2, -T - 1, T + 1)
+    coords = {}
+    for part in range(2):
+        for z in box(2, T + m + 4):
+            coords[(part, z)] = len(coords)
+    plane = [(z1, y) for z1 in (0, 1) for y in range(-m, m + 1)]
+    rows = [vec(P[t], coords, q, shift=s) for t in range(-T, T + 1) for s in plane]
+    e = [0] * len(coords); e[coords[(0, (2, 0))]] = 1
+    print(f"countercontrol q=3 alpha=0: u0 at (2,0) determined: {rank_mod_p(rows + [e], q) == rank_mod_p(rows, q)}")
+
+
 if __name__ == "__main__":
     random.seed(0)
-    part_A(); part_B(); part_C(); part_D(); part_E(); part_F()
+    part_A(); part_B(); part_C(); part_D(); part_E(); part_F(); part_G(); part_H()
