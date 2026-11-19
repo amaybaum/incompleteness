@@ -958,18 +958,18 @@ The source roster has 132 authored top-level commands across the ten files below
 | `CombRealization` | 9 | 9 |
 | `DomainGlue` | 11 | 11 |
 | `ObservabilityQuotient` | 19 | 19 |
-| `CycleFibreHull` | 23 | 0 |
-| `DynamicsGlue` | 12 | 0 |
+| `CycleFibreHull` | 23 | 23 |
+| `DynamicsGlue` | 12 | 12 |
 | `CausalReadback` | 31 | 0 |
 | `RootedRecurrenceBridge` | 9 | 0 |
 | `ObservableFactorRecurrence` | 4 | 0 |
 | `ObservableMeasureReturn` | 5 | 0 |
 | `RecurrenceHorizon` | 9 | 0 |
-| **Total** | **132** | **39** |
+| **Total** | **132** | **74** |
 
-**Work in progress.** This checkpoint traces the first three files. Each row reports the finite object, the operative proof step, or a named dependency. A matrix indexed by the full realizing state type `S` belongs to the finite representation. Treating `S` as the whole physical carrier is a further identification. `I` and `V` index visible labels. A finite horizon bounds the time indices. Source inference here uses signatures, enclosing instance binders, explicit `omit` commands and proof terms. The closure of tactic-generated and imported dependencies beyond the named sources remains **X**.
+**Work in progress.** This checkpoint traces the first five files. Each row reports the finite object, the operative proof step, or a named dependency. A matrix indexed by the full realizing state type `S` belongs to the finite representation. Treating `S` as the whole physical carrier is a further identification. `I` and `V` index visible labels. A finite horizon bounds the time indices. Source inference here uses signatures, enclosing instance binders, explicit `omit` commands and proof terms. The closure of tactic-generated and imported dependencies beyond the named sources remains **X**.
 
-The package specifies Mathlib `v4.33.0` in `verification/lean-mathlib/lakefile.toml:4–8`. The tag resolves to `db584cd6d46c92f209a44c0f1c829460d327499d`. The local uses of `orderOf_pos` below obtain positivity from finiteness of the permutation type. Mathlib gives a finite type of equivalences from finite domain and codomain, then makes every element of a finite cancellative monoid have finite order. `pow_orderOf_eq_one` and `pow_mod_orderOf` already hold for a monoid, with `orderOf = 0` for infinite order. A positive-order proof supplies a different premise. [Finite permutation type](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Perm.lean#L134-L145) · [Order, zero convention and identity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L175-L210) · [Residues](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L263-L268) · [Finite-monoid positivity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L957-L989)
+The package specifies Mathlib `v4.33.0` in `verification/lean-mathlib/lakefile.toml:4–8`. The tag resolves to `db584cd6d46c92f209a44c0f1c829460d327499d`. The local uses of `orderOf_pos` below obtain `Finite (Equiv.Perm S)` from finite `S` via the equivalence-type instances. Those instances require finiteness of one endpoint and use no decidable state equality. `orderOf_pos` then takes `LeftCancelMonoid` and `Finite` on the monoid. `pow_orderOf_eq_one` and `pow_mod_orderOf` already hold for a monoid, with `orderOf = 0` for infinite order. A positive-order proof supplies a different premise. [Finite equivalence type](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Finite/Prod.lean#L56-L68) · [Order, zero convention and identity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L175-L210) · [Residues](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L263-L268) · [Finite-monoid positivity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L957-L989)
 
 ### 24.1 The entering state in `CombRealization`
 
@@ -981,7 +981,7 @@ The package specifies Mathlib `v4.33.0` in `verification/lean-mathlib/lakefile.t
 | `orbit_cancel:64–74` | Induction on the common tail uses only injectivity of the chosen action map. **A**. |
 | `exists_return:79–91` | `[Finite S]` supplies the codomain instance to `Finite.exists_ne_map_eq_of_infinite (orbit g t)`. The domain of that map is `ℕ`. `orbit_cancel` yields a positive return to this `t` from a collision at distinct times. **F**. |
 | `saturated_class_obstruction:103–117` | Induction propagates readout `b` to all positive iterates. `exists_return` supplies the contradiction with `π t ≠ b`. This is a return of an individual state under the one chosen action. **F** through the imported collision step. |
-| `workspace_state_forced:129–139` | Assuming all readout-`b) states are supported makes the restricted closure hypothesis usable in `saturated_class_obstruction`. The proof retains the supported entering witness in its statement and uses its readout sequence in the deduction. **F** through the obstruction. |
+| `workspace_state_forced:129–139` | Assuming all states with readout `b` are supported makes the restricted closure hypothesis usable in `saturated_class_obstruction`. Its input about the entering state is the readout sequence. The statement retains `hts : supp t` for the supported-witness interpretation at :119–122. **F** through the obstruction. |
 | `class_card_ge_five:146–163` | `workspace_state_forced` gives a point outside the given supported `Finset`. Inserting that point increases its cardinality. The larger set compared against is `Finset.univ.filter` of the full readout class. `Fintype S` enumerates `S` and supplies the finite instance to the workspace lemma. **F**. |
 | `card_ge_ten:172–206` | Apply `class_card_ge_five` with opposite entering witnesses, once per Boolean class. `Finset.card_filter_add_card_filter_not` adds complementary counts on `Finset.univ`. **F** by both state return and carrier cardinality. |
 
@@ -1030,3 +1030,54 @@ The imported pigeonhole lemma requires an infinite domain and finite codomain. I
 | `glue_column_support:422–455` | Uses the forward classifier on one class indicator. `itiRelInf_iff_orderOf` makes the transported diagonal entry zero outside the image of that class. `DynamicsGlue.conj_diag_entry` and `CoherentLift.permMatrix_conj_diagonal` turn this into a finite sum of nonnegative terms, whose term at the named column must vanish. **F** for this support statement. This use of the forward classifier does not consume its reverse spanning proof. |
 
 The proof targets are now directional. The fixed-horizon and all-time span equalities each have a carrier-independent soundness direction. Their converse directions need the stated spanning proof, and the all-time converse also needs horizon stabilization. The unitarity conclusion uses the shell generator alone in the finite matrix representation. The column support conclusion consumes stabilization and the matrix calculation, with no use of the converse class spanning argument.
+
+### 24.4 Orbit frequencies and shell counting in `CycleFibreHull`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `fiberProj:73–74` | A diagonal matrix of pointwise indicators. State equality locates the diagonal and label equality tests the fibre. This definition uses no trace or state sum. **A** for the pointwise representation. |
+| `freq:78–80` | Sums over `Finset.range (orderOf φ)` and divides by that order. The definition works for an arbitrary state type. It is zero at infinite order by Mathlib's order and division conventions. Its use as a normalized frequency needs positive order. **A** for the formula, **F** for the supplied normalization below. |
+| `countMarginal:83–84` | Counts one fibre by filtering all of `S` and divides by `Fintype.card S`. **F** for this full-shell counting formula. |
+| `sum_range_shift:88–93` | Cancellation between finite time sums uses only agreement of endpoints in an additive commutative group. All four state and label instances are omitted. **A**. |
+| `freq_shift:97–106` | Applies the shift lemma with the endpoints identified by `pow_orderOf_eq_one`. State and label finiteness are explicitly omitted. **A** for the identity, which includes the zero-order case. |
+| `freq_pow:110–116` | Induction on the exponent propagates `freq_shift`. **A** for the orbit identity. |
+| `freq_sum_one:120–128` | Enumerates the visible labels to make the indicator sum one at each time. The final division uses `orderOf_pos φ` from finite `S`. **F** for this normalization proof, with both types of finiteness identified. |
+| `freq_sum_card:133–141` | Reindexes a sum over every state by each permutation power, then divides using positive order. Visible label finiteness is omitted. **F** for the normalized whole-shell sum. |
+| `fiberProj_trace:145–149` | Expands the finite trace and uses diagonal multiplication to retain entries with the chosen label. **F** on the represented matrix carrier. |
+| `stationary_diag_pow:153–162` | From stationarity, `CoherentLift.permMatrix_conj_apply` gives the equality of the diagonal at successive states. Iterating it needs induction on time. **F** in the finite-matrix representation, with no positive-order step. |
+| `stationary_freq_readout:169–200` | Reindexes the full-state sum by each permutation power, uses `stationary_diag_pow` to keep the weight fixed and exchanges the two finite sums. `orderOf_pos φ` justifies the final division. **F**. |
+| `psd_diag_real:204–207` | Positive semidefiniteness gives a nonnegative diagonal entry, whose imaginary part is zero. The code omits `Fintype S`, `DecidableEq S` and `Fintype I`. **A** for the entry implication. |
+| `stationary_readout_hull:215–239` | The real diagonal supplies nonnegative weights by positivity. The finite trace makes them sum to one and `stationary_freq_readout` relates those weights to each visible fibre. **F** for the necessity direction. |
+| `hull_readout_achieved:246–328` | Averages the weights along inverse iterates over positive order. Reindexing the full-state sum preserves the supplied normalization. Permutation conjugation translates diagonal invariance into stationarity, then the reindexed finite sum gives the desired readout. **F** for the construction. |
+| `no_representation_outside_hull:334–344` | Any proposed stationary PSD trace-one matrix yields the forbidden weights by `stationary_readout_hull`. **F** inherited from the necessity direction. |
+| `transitive_freq_const:350–354` | Forward reachability moves any one state to any chosen other and `freq_pow` equates their frequencies. The lemma omits `Fintype S`. On a nonempty permutation carrier the reachability condition already forces a finite cycle, as shown below. **F** in that inhabited transitive setting. |
+| `transitive_freq_eq_countMarginal:359–366` | Replaces the terms in `freq_sum_card` by a constant and divides by positive `card S`, using `Nonempty S`. **F** for equality with the counting marginal. |
+| `ergodicShell_readout_unique:371–384` | All orbit frequencies in `stationary_readout_hull` are the same counting marginal by transitivity and finite count. Summing the normalized weights leaves that marginal. **F**. |
+| `ergodicShell_SRC:394–417` | The existence branch constructs the constant diagonal `1 / card S`, checks its finite trace and reads out the fibre count. The uniqueness branch invokes `ergodicShell_readout_unique` using transitivity. **F**. |
+| `cycle_eigenvector_overlap:425–462` | Reindexes the normalized vector norm over `S` to obtain a unit-modulus eigenvalue. The eigenvector dyad is stationary and PSD trace-one. Its readout inherits `ergodicShell_readout_unique`. **F** for this finite transitive-shell calculation. |
+| `commutant_entry_zero:469–477` | Evaluates the finite-matrix commutation at a single entry. The injected labels force the difference of the two diagonal values to be nonzero for unequal indices. **F** for the stated matrix equality, with an entrywise argument. |
+| `simple_spectrum_column_moduli:483–529` | Uses `mul_eq_one_comm` for a square matrix to reverse `Vᴴ * V = 1`. The commutant lemma makes `Vᴴ * W` diagonal and unitarity makes each diagonal entry a phase. **F** for finite square-matrix algebra. The simple-spectrum assumption supplies injection of eigenvalue labels. |
+| `permLogBranch_projOverlap_invariant:538–544` | Substitutes the column-modulus equality in the finite overlap sum. The hypotheses are two unitary diagonalizations of the same represented matrix with the same injective label function. **F** at that scope. |
+
+For the transitivity premise at :350–351, :359–360, :371–372, :394–395 and :425–426, take a state `s` in a nonempty carrier. Applying forward reachability from `φ s` to `s` gives a positive return `k + 1` at `s`. Applying it from `s` to each `t` puts every state on that finite cycle. Thus the literal all-pairs premise already entails finiteness in the nonempty case, even where the source binder is omitted. An extension in which the shell itself is infinite needs a different dynamical premise as well as a normalized law and a readout uniqueness argument.
+
+`CoherentLift.permMatrix_conj_apply:837–858` reduces both finite matrix sums to the unique preimages of the two indices. For the separate one-sided inverse step, Mathlib transfers the Dedekind-finite instance on `Fin n` matrices to the finite index type. Its commutative-semiring instance proves stable finiteness by a finite determinant and adjugate calculation. This identifies the matrix premise behind the use of `mul_eq_one_comm` on complex matrices and, in the stochastic-inverse argument below, on real matrices. [Finite matrix instance](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Matrix/Mul.lean#L1234-L1241) · [Commutative-semiring instance](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Matrix/SemiringInverse.lean#L388-L403)
+
+### 24.5 Phased dynamics and stationary readout in `DynamicsGlue`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `DiagonalSectorGlue:84–86` | Full diagonal-sector agreement uses products of square matrices on `S`. **F** for the finite represented algebra. |
+| `conj_diag_entry:90–94` | Expands conjugation into one sum over the entire matrix index using `Matrix.mul_diagonal`. **F** for that matrix entry formula. |
+| `diagonalGlue_forces_monomial:101–152` | Tests the full-sector hypothesis on each singleton weight. The diagonal sum collapses to one term, fixing its magnitude and eliminating the rest of each column. Uses `CoherentLift.permMatrix_conj_diagonal`. **F** on the finite matrix representation. |
+| `monomial_conj_apply:156–167` | Reassociates the two diagonal phase multipliers and uses `CoherentLift.permMatrix_conj_apply` to reindex the entries. **F**. |
+| `glue_of_monomial:172–183` | Substitutes the two conjugation formulas and uses the unit norm of each phase on the diagonal. **F** for the represented converse. |
+| `diagonalGlue_iff_monomial:188–195` | Combines the forward singleton test and the converse entry calculation. **F**. |
+| `monomial_unitary:199–212` | Uses the finite permutation matrix identity `CoherentLift.permMatrix_unitary`, then multiplies diagonal conjugate phases. **F** for the displayed product identity. |
+| `diag_invariant_pow:218–224` | Inducts on the number of iterates from a pointwise one-step invariance premise, with all state and label instances omitted. **A**. |
+| `diag_invariant_freq_readout:229–262` | Uses `diag_invariant_pow` to reindex the full-state sweep without changing its weights, exchanges finite sums and divides by positive order. Stationarity of the full matrix is unnecessary for this step once diagonal invariance is supplied. **F**. |
+| `monomial_ergodic_readout_unique:269–304` | The entry formula cancels unimodular phases on the stationary diagonal. The finite frequency identity and `CycleFibreHull.transitive_freq_eq_countMarginal` give the count, using the PSD and trace-one premises to normalize the weights. **F**. |
+| `phasedCycle_columnModuli:311–362` | Finite reindexing of the normalized eigenvector and unit phases give a unit-modulus eigenvalue. The dyad turns it into a stationary matrix, so the preceding uniqueness calculation pins the readout. **F**, without a simple-spectrum assumption in this declaration. |
+| `ergodicShell_SRC_of_dynamicsGlue:372–405` | The monomial form comes from singleton tests. The existence branch constructs the constant diagonal on the nonempty finite shell. The uniqueness branch uses phased shell readout with transitivity. **F** through both the finite matrix and counting steps. |
+
+In both shell capstones, the existence branch uses a nonempty finite carrier and its uniform state. The transitivity premise is consumed by the uniqueness branch, which fixes the visible marginal of every stationary state in the stated class. Keeping this distinction matters for any replacement of the finite counting law.
