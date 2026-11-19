@@ -1,3 +1,4 @@
+import Mathlib.LinearAlgebra.Matrix.Permutation
 import Mathlib.MeasureTheory.Function.L2Space
 import Mathlib.Topology.MetricSpace.Pseudo.Pi
 import OIBridge.MeasuredReciprocity
@@ -18,7 +19,7 @@ measurable realizations and physical selection of a preparation law are separate
 -/
 
 open Filter Finset Matrix MeasureTheory Set
-open scoped BigOperators ENNReal Topology RealInnerProductSpace
+open scoped BigOperators ENNReal Topology
 
 namespace OIBridge.ObservableRigidity
 
@@ -33,11 +34,15 @@ private theorem bounded_gap_return {E : Type*} [PseudoMetricSpace E]
     (hcompact : IsCompact (closure (Set.range fun m : ℕ => (f^[m]) x)))
     {ε : ℝ} (hε : 0 < ε) :
     ∃ M : ℕ, ∀ q : ℕ, ∃ n : ℕ, q ≤ n ∧ n ≤ q + M ∧ dist ((f^[n]) x) x < ε := by
+  have hcancel (k : ℕ) (p q : E) : dist ((f^[k]) p) ((f^[k]) q) = dist p q := by
+    induction k with
+    | zero => rfl
+    | succ k ih => simp only [Function.iterate_succ_apply', hf.dist_eq, ih]
   obtain ⟨centres, hsubset, hfinite, hcover⟩ :=
     exists_finite_cover_balls_of_isCompact_closure hcompact hε
   have hindex : ∀ y : centres, ∃ m : ℕ, (f^[m]) x = (y : E) := fun y => hsubset y.property
   choose index hindex using hindex
-  letI : Fintype centres := hfinite.fintype
+  let _ : Fintype centres := hfinite.fintype
   let M := (Finset.univ : Finset centres).sup index
   refine ⟨M, fun q => ?_⟩
   obtain ⟨y, hy⟩ := Set.mem_iUnion.mp (hcover (Set.mem_range_self (q + M)))
@@ -46,14 +51,16 @@ private theorem bounded_gap_return {E : Type*} [PseudoMetricSpace E]
   let n := q + M - m
   have hm : m ≤ M := Finset.le_sup (f := index) (Finset.mem_univ (⟨y, hyc⟩ : centres))
   have htime : q + M = m + n := by dsimp [n]; omega
+  have hcenter : (f^[m]) x = y := hindex ⟨y, hyc⟩
   have hdist : dist ((f^[q + M]) x) y < ε := Metric.mem_ball.mp hball
-  rw [← hindex ⟨y, hyc⟩, htime, Function.iterate_add_apply, (hf.iterate m).dist_eq] at hdist
+  rw [← hcenter, htime, Function.iterate_add_apply, hcancel] at hdist
   exact ⟨n, by dsimp [n]; omega, Nat.sub_le _ _, hdist⟩
 
 section Matrix
 
 variable {V : Type*} [Fintype V] [DecidableEq V]
 
+omit [DecidableEq V] in
 private theorem entry_le_one {M : Matrix V V ℝ} (hM : IsRowStochastic M) (a b : V) :
     M a b ≤ 1 := by
   rw [← hM.2 a]
@@ -86,6 +93,19 @@ theorem tv_revives_of_nearReturn {Γ : ℕ → Matrix V V ℝ} {s n : ℕ} {a b 
   have hlate := tv_ge_coordinate_difference (hsto_n.2 a) (hsto_n.2 b) a
   have hoff := offDiagonal_le_deficit hsto_n hab.symm
   linarith
+
+/-- Along a growing return sequence the same earlier overlapping roots eventually revive. -/
+theorem eventually_tv_revives_on_returns {Γ : ℕ → Matrix V V ℝ} {ns : ℕ → ℕ}
+    (hstoch : ∀ n, IsRowStochastic (Γ n)) (hmono : StrictMono ns)
+    (hreturn : ∀ a : V, Tendsto (fun k => Γ (ns k) a a) atTop (𝓝 1))
+    {s : ℕ} {a b x : V} (hab : a ≠ b) (ha : 0 < Γ s a x) (hb : 0 < Γ s b x) :
+    ∀ᶠ k in atTop, s < ns k ∧ tv (Γ s a) (Γ s b) < tv (Γ (ns k) a) (Γ (ns k) b) := by
+  have hconst : Tendsto (fun _ : ℕ => (1 : ℝ)) atTop (𝓝 1) := tendsto_const_nhds
+  have hsum : Tendsto (fun k => (1 - Γ (ns k) a a) + (1 - Γ (ns k) b b)) atTop (𝓝 0) := by
+    simpa only [sub_self, zero_add] using (hconst.sub (hreturn a)).add (hconst.sub (hreturn b))
+  filter_upwards [hmono.tendsto_atTop.eventually (eventually_gt_atTop s),
+    hsum.eventually (eventually_lt_nhds (lt_min ha hb))] with k htime hmargin
+  exact ⟨htime, tv_revives_of_nearReturn (hstoch s) (hstoch (ns k)) hab hmargin⟩
 
 /-- A non-permutation among finite square stochastic matrices has two overlapping rows. -/
 theorem overlap_of_nonPermutation {A : Matrix V V ℝ} (hA : IsRowStochastic A)
@@ -140,10 +160,12 @@ variable (μ : ProbabilityMeasure S) (X : S → V) (T : S ≃ᵐ S)
 variable (hX : Measurable X) (hT : MeasurePreserving T (μ : Measure S) (μ : Measure S))
 variable (hpos : ∀ a, 0 < rootMass μ X a)
 
+include hT in
 private theorem preserving_pow (n : ℕ) :
     MeasurePreserving (⇑(T.toEquiv ^ n)) (μ : Measure S) (μ : Measure S) := by
-  simpa only [Equiv.Perm.coe_pow] using hT.iterate n
+  simpa only [Equiv.Perm.coe_pow, MeasurableEquiv.coe_toEquiv] using hT.iterate n
 
+include hX hT in
 /-- Finite additivity across the endpoint cells gives the row normalization. -/
 theorem rootedFamily_isRowStochastic [Fintype V] (n : ℕ) :
     IsRowStochastic (rootedFamily μ X T hpos n) := by
@@ -155,7 +177,7 @@ theorem rootedFamily_isRowStochastic [Fintype V] (n : ℕ) :
       Disjoint (endpointEvent X T.toEquiv n a b) (endpointEvent X T.toEquiv n a c)) := by
     intro b c hbc
     exact Set.disjoint_left.mpr fun _ hb hc => hbc (hb.2.symm.trans hc.2)
-  have hunion : ⋃ b, endpointEvent X T.toEquiv n a b = X ⁻¹' {a} := by
+  have hunion : (⋃ b, endpointEvent X T.toEquiv n a b) = X ⁻¹' {a} := by
     ext s
     constructor
     · intro hs
@@ -170,6 +192,7 @@ theorem rootedFamily_isRowStochastic [Fintype V] (n : ℕ) :
   change (∑ b, flux μ X T.toEquiv n a b / rootMass μ X a) = 1
   rw [← Finset.sum_div, hsum, div_self (hpos a).ne']
 
+omit [MeasurableSpace V] [MeasurableSingletonClass V] in
 /-- The measured rooted family starts at the identity. -/
 theorem rootedFamily_zero [DecidableEq V] : rootedFamily μ X T hpos 0 = 1 := by
   ext a b
@@ -180,7 +203,7 @@ theorem rootedFamily_zero [DecidableEq V] : rootedFamily μ X T hpos 0 = 1 := by
     have hevent : endpointEvent X T.toEquiv 0 a a = X ⁻¹' {a} := by simp [endpointEvent]
     have hflux : flux μ X T.toEquiv 0 a a = rootMass μ X a := by
       rw [flux, hevent, rootMass]
-    exact hflux ▸ div_self (hpos a).ne'
+    rw [hflux, div_self (hpos a).ne']
   · have hevent : endpointEvent X T.toEquiv 0 a b = ∅ := by
       ext s
       simp only [endpointEvent, pow_zero, Equiv.Perm.one_apply, Set.mem_inter_iff,
@@ -199,6 +222,7 @@ private def indicatorStep (f : V → Lp ℝ 2 (μ : Measure S)) (a : V) : Lp ℝ
 def jointIndicatorOrbit (n : ℕ) : V → Lp ℝ 2 (μ : Measure S) :=
   ((indicatorStep μ T hT)^[n]) (visibleIndicator μ X hX)
 
+omit [MeasurableSpace V] [MeasurableSingletonClass V] in
 private theorem indicatorStep_isometry [Fintype V] : Isometry (indicatorStep (V := V) μ T hT) := by
   refine Isometry.of_dist_eq fun f g => ?_
   simp only [dist_pi_def, indicatorStep, (Lp.isometry_compMeasurePreserving (E := ℝ) (p := 2) hT).nndist_eq]
@@ -209,9 +233,15 @@ private theorem jointIndicatorOrbit_apply (n : ℕ) (a : V) :
         (preserving_pow μ T hT n).measurable) (measure_ne_top _ _) 1 := by
   have hproj : Function.Semiconj (fun f : V → Lp ℝ 2 (μ : Measure S) => f a)
       (indicatorStep μ T hT) (Lp.compMeasurePreserving T hT) := fun _ => rfl
-  change ((indicatorStep μ T hT)^[n]) (visibleIndicator μ X hX) a = _
-  rw [hproj.iterate_right n (visibleIndicator μ X hX), Lp.compMeasurePreserving_iterate]
-  simp only [visibleIndicator, indicatorConstLp_compMeasurePreserving, Equiv.Perm.coe_pow]
+  calc
+    jointIndicatorOrbit μ X T hX hT n a =
+        ((Lp.compMeasurePreserving T hT : Lp ℝ 2 (μ : Measure S) → _)^[n])
+          (visibleIndicator μ X hX a) :=
+      hproj.iterate_right n (visibleIndicator μ X hX)
+    _ = _ := by
+      rw [Lp.compMeasurePreserving_iterate]
+      simp only [visibleIndicator, Lp.indicatorConstLp_compMeasurePreserving,
+        Equiv.Perm.coe_pow, MeasurableEquiv.coe_toEquiv]
 
 /-- Invariance gives the exact squared L² norm formula for a diagonal deficit. -/
 theorem sq_norm_indicator_sub_eq_deficit (n : ℕ) (a : V) :
@@ -230,24 +260,27 @@ theorem sq_norm_indicator_sub_eq_deficit (n : ℕ) (a : V) :
     change ((μ : Measure S) ((⇑(T.toEquiv ^ n)) ⁻¹' (X ⁻¹' {a}))).toReal =
       ((μ : Measure S) (X ⁻¹' {a})).toReal
     rw [(preserving_pow μ T hT n).measure_preimage hA.nullMeasurableSet]
-  have hcross : ⟪jointIndicatorOrbit μ X T hX hT n a, visibleIndicator μ X hX a⟫_ℝ =
+  have hcross : inner ℝ (jointIndicatorOrbit μ X T hX hT n a) (visibleIndicator μ X hX a) =
       flux μ X T.toEquiv n a a := by
     rw [jointIndicatorOrbit_apply, visibleIndicator,
-      L2.real_inner_indicatorConstLp_one_indicatorConstLp_one, Set.inter_comm]
-    rfl
+      L2.real_inner_indicatorConstLp_one_indicatorConstLp_one, Set.inter_comm, flux, measureReal_def,
+      endpointEvent, Set.preimage_preimage]
   rw [norm_sub_sq_real, hnow, hcross, hbase]
   change _ = 2 * rootMass μ X a * (1 - flux μ X T.toEquiv n a a / rootMass μ X a)
-  field_simp [(hpos a).ne'] <;> ring
+  field_simp [(hpos a).ne']
+  ring
 
 variable [Fintype V]
 variable (hcard : 2 ≤ Fintype.card V)
 variable (hcompact : IsCompact (closure (Set.range (jointIndicatorOrbit μ X T hX hT))))
 
+include hX hT hcard hcompact
+
 /-- At each positive tolerance one gap bound works for every starting time and every root. -/
 theorem exists_bounded_gap_nearReturn {ε : ℝ} (hε : 0 < ε) :
     ∃ M : ℕ, ∀ q : ℕ, 1 ≤ q → ∃ n : ℕ, q ≤ n ∧ n ≤ q + M ∧
       ∀ a : V, 1 - rootedFamily μ X T hpos n a a < ε := by
-  letI : Nonempty V := Fintype.card_pos_iff.mp (by omega)
+  let _ : Nonempty V := Fintype.card_pos_iff.mp (by omega)
   obtain ⟨a₀, _, hmin⟩ := Finset.exists_min_image Finset.univ (rootMass μ X)
     Finset.univ_nonempty
   let δ := Real.sqrt (2 * rootMass μ X a₀ * ε)
@@ -263,11 +296,12 @@ theorem exists_bounded_gap_nearReturn {ε : ℝ} (hε : 0 < ε) :
     apply (dist_pi_lt_iff hδ).mp at hn
     simpa only [dist_eq_norm, jointIndicatorOrbit] using hn a
   have hsq := (sq_lt_sq₀ (norm_nonneg _) hδ.le).mpr hnorm
-  rw [sq_norm_indicator_sub_eq_deficit, hδ_sq] at hsq
+  rw [sq_norm_indicator_sub_eq_deficit μ X T hX hT hpos, hδ_sq] at hsq
   have hscale : 2 * rootMass μ X a₀ * ε ≤ 2 * rootMass μ X a * ε :=
     mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left (hmin a (Finset.mem_univ a)) (by norm_num))
       hε.le
-  exact (mul_lt_mul_left₀ (mul_pos (by norm_num) (hpos a))).mp (hsq.trans_le hscale)
+  have hp : 0 < 2 * rootMass μ X a := mul_pos (by norm_num) (hpos a)
+  exact (mul_lt_mul_iff_right₀ hp).mp (hsq.trans_le hscale)
 
 variable [DecidableEq V]
 
@@ -348,8 +382,7 @@ theorem rootMass_productLaw (ν : ProbabilityMeasure V) (ρ : ProbabilityMeasure
     ext p
     simp
   change (((ν : Measure V).prod (ρ : Measure H)) (Prod.fst ⁻¹' ({a} : Set V))).toReal = _
-  rw [hroot, Measure.prod_prod, measure_univ, mul_one]
-  rfl
+  rw [hroot, Measure.prod_prod, measure_univ, mul_one, measureReal_def]
 
 /-- The common hidden-prior formula allows arbitrary strictly positive visible weights. -/
 theorem rootedFamily_productLaw (ν : ProbabilityMeasure V) (ρ : ProbabilityMeasure H)
@@ -363,14 +396,16 @@ theorem rootedFamily_productLaw (ν : ProbabilityMeasure V) (ρ : ProbabilityMea
   have hrect : endpointEvent Prod.fst T.toEquiv n a b = {a} ×ˢ B := by
     ext ⟨v, h⟩
     simp only [endpointEvent, Set.mem_inter_iff, Set.mem_preimage, Set.mem_singleton_iff,
-      Set.mem_prod, Set.mem_setOf_eq, B]
+      Set.mem_prod, Set.mem_ofPred_eq, B]
     exact ⟨fun ⟨hv, hh⟩ => ⟨hv, hv ▸ hh⟩, fun ⟨hv, hh⟩ => ⟨hv, hv.symm ▸ hh⟩⟩
   change flux (productLaw ν ρ) Prod.fst T.toEquiv n a b /
     rootMass (productLaw ν ρ) Prod.fst a = (ρ : Measure H).real B
   rw [rootMass_productLaw, flux, hrect]
   change (((ν : Measure V).prod (ρ : Measure H)) ({a} ×ˢ B)).toReal /
     (ν : Measure V).real {a} = (ρ : Measure H).real B
-  rw [Measure.prod_prod, ENNReal.toReal_mul, mul_div_cancel_left₀ _ (hpos a).ne']
+  have hroot : ((ν : Measure V) {a}).toReal ≠ 0 := by
+    simpa only [measureReal_def] using (hpos a).ne'
+  simp only [Measure.prod_prod, ENNReal.toReal_mul, measureReal_def, mul_div_cancel_left₀ _ hroot]
 
 end Product
 
@@ -396,33 +431,40 @@ private def rotationControl (n : ℕ) : Matrix (Fin 2) (Fin 2) ℝ :=
 /-- The paper's rotation matrices at 1 and 4 give the positive revival control. -/
 theorem rotation_matrix_control :
     C4r 4 rotationControl ∧ PIndivisibleWithin 4 rotationControl := by
-  have hη0 : 0 ≤ Real.sqrt 2 / 100 := by positivity
-  have hη : Real.sqrt 2 / 100 < 1 / 50 := by
+  let η := Real.sqrt 2 / 100
+  have hη0 : 0 ≤ η := by dsimp [η]; positivity
+  have hη : η < 1 / 50 := by
     have hs : Real.sqrt 2 < 2 := (Real.sqrt_lt (by norm_num) (by norm_num)).2 (by norm_num)
+    dsimp [η]
     linarith
   have hs : IsRowStochastic (rotationControl 1) := by
-    norm_num [rotationControl]
+    change IsRowStochastic (rotationRows (1 / 2 + 2 * η))
     exact rotationRows_isRowStochastic (by linarith) (by linarith)
   have hn : IsRowStochastic (rotationControl 4) := by
-    norm_num [rotationControl]
+    change IsRowStochastic (rotationRows (8 * η))
     exact rotationRows_isRowStochastic (by linarith) (by linarith)
   have hmargin :
       (1 - rotationControl 4 0 0) + (1 - rotationControl 4 1 1) <
         min (rotationControl 1 0 0) (rotationControl 1 1 0) := by
-    norm_num [rotationControl, rotationRows]
+    change (1 - (1 - 8 * η)) + (1 - (1 - 8 * η)) <
+      min (1 - (1 / 2 + 2 * η)) (1 / 2 + 2 * η)
     exact lt_min (by linarith) (by linarith)
   have hr : C4r 4 rotationControl :=
     ⟨0, 1, 1, 4, by decide, by decide, le_rfl, tv_revives_of_nearReturn hs hn (by decide) hmargin⟩
   exact ⟨hr, c4r_implies_pIndivisible _ _ hr⟩
 
-/-- The paper's Bernoulli matrix family mixes at every positive time and admits every divisor. -/
+/-- The paper's Bernoulli matrix family is P-divisible on every horizon and has no small return. -/
 theorem bernoulli_matrix_control :
     (∀ K, PDivisible K pdFamily) ∧
-      ∀ n : ℕ, 1 ≤ n → ∀ a : Fin 2, 1 - pdFamily n a a = 1 / 2 := by
-  refine ⟨pdFamily_pDivisible, fun n hn a => ?_⟩
-  cases n with
-  | zero => omega
-  | succ n => norm_num [pdFamily, J2]
+      (∀ n : ℕ, 1 ≤ n → ∀ a : Fin 2, 1 - pdFamily n a a = 1 / 2) ∧
+      ¬ ∃ n : ℕ, 1 ≤ n ∧ ∀ a : Fin 2, 1 - pdFamily n a a < 1 / 2 := by
+  have hdeficit (n : ℕ) (hn : 1 ≤ n) (a : Fin 2) : 1 - pdFamily n a a = 1 / 2 := by
+    cases n with
+    | zero => omega
+    | succ n => norm_num [pdFamily, J2]
+  refine ⟨pdFamily_pDivisible, hdeficit, ?_⟩
+  rintro ⟨n, hn, hreturn⟩
+  exact (lt_irrefl (1 / 2 : ℝ)) (by simpa only [hdeficit n hn 0] using hreturn 0)
 
 end Controls
 
@@ -432,6 +474,7 @@ end Controls
 #print axioms exists_bounded_gap_nearReturn
 #print axioms exists_strictMono_rootedFamily_tendsto_one
 #print axioms tv_revives_of_nearReturn
+#print axioms eventually_tv_revives_on_returns
 #print axioms overlap_of_nonPermutation
 #print axioms exists_reviving_return_of_overlap
 #print axioms exists_pIndivisibleWithin_of_nonPermutation
@@ -439,5 +482,7 @@ end Controls
 #print axioms rootedFamily_productLaw
 #print axioms rotation_matrix_control
 #print axioms bernoulli_matrix_control
+
+end
 
 end OIBridge.ObservableRigidity
