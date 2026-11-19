@@ -946,3 +946,87 @@ Each row follows the displayed claim back to its printed proof or nearest declar
 | `verification/programmes/oi-qm/reconstruction/mechanical-latch-source-20261119/ASSESSMENT.md:5–7,15–24,32–33` at `5809c6c7537f9844f643a94ba1a65b281b47bc1a` | The additional recursive verification record screens a fixed finite rounded lattice candidate and cites an external latch experiment. The source trace stops at physical identification of the support acceleration and proof-mass displacement, with their calibration on the lattice histories. The write, held latch state and observer readout are further unsupplied steps (**U** for this source candidate). Its independent review accepts the documentary stop. |
 
 The lexical inventory in §14.2 contains 10,169 candidate declaration starts. A reviewed per-declaration denominator remains open. Declarations beyond the traced paths and their cited premises, the remaining unnumbered consumer sites, and other untraced recursive evidence are **X**. A1-C01 remains incomplete.
+
+## 24. Declaration audit of the five priority proof chains
+
+This continuation starts from the independently reviewed [`de193180`](https://github.com/amaybaum/incompleteness/commit/de193180e452754bed3fa048771b556f43a0ee5f). The audited Lean text and package configuration use `baeb7723743e99b137ae3d0a1694e99ff97e2a73`. The comparison with `main` at `5809c6c7537f9844f643a94ba1a65b281b47bc1a` again finds one added latch assessment and identical audited sources.
+
+The source roster has 132 authored top-level commands across the ten files below. It includes inline attributes on proofs, and treats each inductive or structure header and its constructors or fields as one entry. The count concerns this roster. Generated declarations and unresolved elaborated dependency paths are **X**. For reproducibility, enumerate the listed files at the pin, strip line and nested block comments while retaining line numbers, and match definition, theorem, lemma, inductive and structure headers, including attributed and noncomputable forms. Compare the exact declaration names and start lines with the rows.
+
+| Lean file | Authored declarations | Traced in §24 |
+|---|---:|---:|
+| `CombRealization` | 9 | 9 |
+| `DomainGlue` | 11 | 11 |
+| `ObservabilityQuotient` | 19 | 19 |
+| `CycleFibreHull` | 23 | 0 |
+| `DynamicsGlue` | 12 | 0 |
+| `CausalReadback` | 31 | 0 |
+| `RootedRecurrenceBridge` | 9 | 0 |
+| `ObservableFactorRecurrence` | 4 | 0 |
+| `ObservableMeasureReturn` | 5 | 0 |
+| `RecurrenceHorizon` | 9 | 0 |
+| **Total** | **132** | **39** |
+
+**Work in progress.** This checkpoint traces the first three files. Each row reports the finite object, the operative proof step, or a named dependency. A matrix indexed by the full realizing state type `S` belongs to the finite representation. Treating `S` as the whole physical carrier is a further identification. `I` and `V` index visible labels. A finite horizon bounds the time indices. Source inference here uses signatures, enclosing instance binders, explicit `omit` commands and proof terms. The closure of tactic-generated and imported dependencies beyond the named sources remains **X**.
+
+The package specifies Mathlib `v4.33.0` in `verification/lean-mathlib/lakefile.toml:4–8`. The tag resolves to `db584cd6d46c92f209a44c0f1c829460d327499d`. The local uses of `orderOf_pos` below obtain positivity from finiteness of the permutation type. Mathlib gives a finite type of equivalences from finite domain and codomain, then makes every element of a finite cancellative monoid have finite order. `pow_orderOf_eq_one` and `pow_mod_orderOf` already hold for a monoid, with `orderOf = 0` for infinite order. A positive-order proof supplies a different premise. [Finite permutation type](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Perm.lean#L134-L145) · [Order, zero convention and identity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L175-L210) · [Residues](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L263-L268) · [Finite-monoid positivity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L957-L989)
+
+### 24.1 The entering state in `CombRealization`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `orbit:53–55` | Natural-number recursion on an arbitrary state type. **A**. |
+| `orbit_zero:57` | Definitional initial state. **A**. |
+| `orbit_succ:59–60` | Definitional one-step recursion. **A**. |
+| `orbit_cancel:64–74` | Induction on the common tail uses only injectivity of the chosen action map. **A**. |
+| `exists_return:79–91` | `[Finite S]` supplies the codomain instance to `Finite.exists_ne_map_eq_of_infinite (orbit g t)`. The domain of that map is `ℕ`. `orbit_cancel` yields a positive return to this `t` from a collision at distinct times. **F**. |
+| `saturated_class_obstruction:103–117` | Induction propagates readout `b` to all positive iterates. `exists_return` supplies the contradiction with `π t ≠ b`. This is a return of an individual state under the one chosen action. **F** through the imported collision step. |
+| `workspace_state_forced:129–139` | Assuming all readout-`b) states are supported makes the restricted closure hypothesis usable in `saturated_class_obstruction`. The proof retains the supported entering witness in its statement and uses its readout sequence in the deduction. **F** through the obstruction. |
+| `class_card_ge_five:146–163` | `workspace_state_forced` gives a point outside the given supported `Finset`. Inserting that point increases its cardinality. The larger set compared against is `Finset.univ.filter` of the full readout class. `Fintype S` enumerates `S` and supplies the finite instance to the workspace lemma. **F**. |
+| `card_ge_ten:172–206` | Apply `class_card_ge_five` with opposite entering witnesses, once per Boolean class. `Finset.card_filter_add_card_filter_not` adds complementary counts on `Finset.univ`. **F** by both state return and carrier cardinality. |
+
+The imported pigeonhole lemma requires an infinite domain and finite codomain. In the checked proof, the two readout labels play no role in supplying that codomain finiteness. The replacement obligation at `saturated_class_obstruction` is a return of the named entering state, and the two cardinality theorems separately count the entire finite classes. [Mathlib pigeonhole statement](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Fintype/Pigeonhole.lean#L69-L76)
+
+### 24.2 Separating preparations in `DomainGlue`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `CompatibilityDomainGlue:82–85` | Quantifies over supplied diagonal weights. Products of `S × S` matrices use `Fintype S`, and the diagonal and permutation entries use state equality. **F** for this matrix representation. |
+| `spanning_domain_glue_implies_G1:91–124` | Uses `Submodule.span_induction` and finite-matrix distributivity, with spanning supplied. `Fintype I` and label equality are omitted. **F** in that representation, with no construction of a spanning family in this lemma. |
+| `ClassicalBranchDomain:134–139` | The all-one function, pullback by `φ`, and multiplication by a visible-cell indicator define the three constructors. The branch tests label equality. Arbitrary state and label carriers are allowed. **A**. |
+| `ItinerarySeparating:144–145` | Quantifies over pairs of states and all natural times. It supplies a separating time per unequal pair through classical negation in its consumer. **A** for the predicate. |
+| `itiIndicator:149–151` | Pointwise test of the finite time word, under classical decidability. No sum over states or labels. **A**. |
+| `itiIndicator_mem:156–194` | Induction on word length uses the three constructors. The local statement omits state finiteness, state equality and label finiteness. **A**. |
+| `separating_singleton_mem:199–227` | Choose a separating time against each alternative to the chosen state. `Finset.univ.sup K + 1` bounds all chosen times for that state, using the whole realizing carrier. The finite-word construction supplies the resulting indicator. **F**. |
+| `separating_domain_span_top:232–244` | Expands an arbitrary real weight as `∑ s, w s • singleton(s)` over `Finset.univ`, then calls `separating_singleton_mem`. The bounded distinguishing time and the full-carrier expansion are separate steps. **F**. |
+| `classicalBranch_glue_forces_G1:252–256` | Combines the preceding spanning result with the linearity lemma. **F** by both global steps and the represented matrix algebra. |
+| `classicalBranch_glue_forces_monomial:262–267` | Passes that full-sector identity to `DynamicsGlue.diagonalGlue_forces_monomial`. This inherits both steps and the finite basis calculation in the callee. **F**. |
+| `ergodicShell_SRC_of_domainGlue:275–286` | Passes the full-sector identity to `DynamicsGlue.ergodicShell_SRC_of_dynamicsGlue`, with a nonempty transitive shell as an input. The callee supplies the existence and uniqueness of the counting marginal for stationary readout. **F**. |
+
+`CoherentLift.permMatrix:92–93` defines an entry by equality alone and `permMatrix_conjTranspose:96–101` explicitly omits `Fintype S`. `permMatrix_unitary:104–117` collapses a sum over the matrix index to the one preimage, and `permMatrix_conj_diagonal:120–130` inherits that unitary calculation. This is where the pointwise permutation action becomes a finite-matrix identity used by the glue results.
+
+### 24.3 Graded and all-time quotients in `ObservabilityQuotient`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `itiRelK:79–80` | Pointwise agreement of visible labels for `k < K`. Only the time bound is finite. **A**. |
+| `itiRelInf:83–84` | Agreement at all natural times. **A** for the relation, with no stabilization input. |
+| `ItineraryInvariantK:87–94` | Pointwise closure of real class-constant functions under zero, addition and scaling for `itiRelK`. **A**. |
+| `ItineraryInvariant:97–103` | The same pointwise submodule construction for `itiRelInf`. **A**. |
+| `BranchDomainK:108–115` | Starts at grade zero, permits grade increase and evolves at the cost of one grade. Branching at current readout uses decidable label equality within a positive grade. **A**. |
+| `classIndicator:119–121` | Tests membership of the horizon class pointwise with classical decidability. **A**. |
+| `branchDomainK_invariant:127–146` | Inducts on the constructors. Evolution shifts the matching index by one and branching uses matching time-zero observations. `Fintype S`, `DecidableEq S` and `Fintype I` are omitted. **A**. |
+| `classIndicator_eq_itiIndicator:150–156` | Unfolds `DomainGlue.itiIndicator` and identifies the two pointwise tests at a given representative. **A**. |
+| `itiIndicator_mem_BDK:161–199` | Inducts on word length using shell and branch after evolve. The proof consumes one grade per symbol, with arbitrary state type. **A**. |
+| `classIndicator_mem_BDK:203–206` | Rewrites by the class-indicator equality, then uses the graded word construction. **A**. |
+| `invariant_le_span_classIndicators:210–263` | Uses `Fintype S` to sum over every state representative, dividing each term by the cardinality of that representative's full class. Reflexivity gives positive cardinality at each evaluation point. Label finiteness is omitted. **F** for the shipped reverse inclusion. |
+| `branchDomain_span_eq_itineraryInvariant:270–277` | Forward inclusion is graded soundness plus `Submodule.span_le`. Reverse inclusion uses the whole-carrier class sum and graded availability of indicators. **F** for the equality as proved. |
+| `classicalBranchDomain_iff_horizon:281–299` | The two constructor inductions convert a finite derivation to a sufficiently large grade and back. State and label finiteness are omitted. **A**. |
+| `itiRelInf_iff_orderOf:304–311` | All-time equality restricts to the displayed window. The converse reduces arbitrary times modulo `orderOf φ` and uses `orderOf_pos φ` to place the residue inside it. **F** for the proven equality on the finite realizing carrier. |
+| `classicalBranch_span_eq_invariant:316–328` | Forward inclusion uses the graded construction. The reverse moves an all-time invariant to the order horizon by the positive-order lemma and then invokes finite class spanning. **F** with both proof steps. |
+| `glueEq_span:335–368` | Span induction extends the equation to a supplied member of the span using matrix linearity. Both visible typeclasses are omitted. **F** for the represented matrix operation, independent of any proof that the preparations span. |
+| `domainGlue_classification_mod_itineraryFibres:377–402` | The forward direction tests on the available class indicators at the order horizon. The reverse uses `glueEq_span` after converting a graded preparation to an order-horizon invariant and invoking the whole-carrier class spanning result. **F** with both finite-carrier steps in that direction. |
+| `domainGlue_unitary:407–416` | Tests `CompatibilityDomainGlue` on the all-one shell preparation and applies `CoherentLift.permMatrix_unitary` to get `U * Uᴴ = 1`. **F** for the matrix identity. Its proof consumes neither the class sum nor the positive-order lemma. |
+| `glue_column_support:422–455` | Uses the forward classifier on one class indicator. `itiRelInf_iff_orderOf` makes the transported diagonal entry zero outside the image of that class. `DynamicsGlue.conj_diag_entry` and `CoherentLift.permMatrix_conj_diagonal` turn this into a finite sum of nonnegative terms, whose term at the named column must vanish. **F** for this support statement. This use of the forward classifier does not consume its reverse spanning proof. |
+
+The proof targets are now directional. The fixed-horizon and all-time span equalities each have a carrier-independent soundness direction. Their converse directions need the stated spanning proof, and the all-time converse also needs horizon stabilization. The unitarity conclusion uses the shell generator alone in the finite matrix representation. The column support conclusion consumes stabilization and the matrix calculation, with no use of the converse class spanning argument.
