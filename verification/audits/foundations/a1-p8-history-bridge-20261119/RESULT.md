@@ -1,8 +1,8 @@
 # A1-P8-HIST-1 · Full-history bounds from a positive read/write operation
 
-**Author outcome — PROVED A1-FREE CONDITIONAL.** A finite active register with a positive outcome-labelled read/write table gives an explicit total variation bound for next reads conditioned on complete histories. The bound improves with the length of a common suffix. A stationary reversible register exhibits both an attributable write and a strictly positive gap below the bound. A stationary reversible countercontrol has identical exact and iterated endpoint operators at every lag and still has a gap of $1/3$.
+**Author outcome — PROVED A1-FREE CONDITIONAL.** A finite active register with a positive outcome-labelled read/write table gives an explicit total variation bound for next reads conditioned on complete histories. The upper bound is nonincreasing in the length of a common suffix. A stationary reversible register exhibits both an attributable write and a strictly positive gap below the bound. A stationary reversible countercontrol has identical exact and iterated endpoint operators at every lag and still has a gap of $1/3$.
 
-**Scope and evidence.** Codex N, 2026-11-19. Paper-only result for [#1397][issue] under the [owner direction recorded in #1169][authority]. The drafting and source pin is `baeb7723743e99b137ae3d0a1694e99ff97e2a73`, with [AGENTS.md][policy] at blob `81a26ba552d6096da8d097fc0289c0f1163df949`. The issue and direction identify the obligation and authority. The proof and exact controls below supply its mathematical evidence. Independent non-author review of the proof, arithmetic and scope is pending on the guiding draft.
+**Scope and evidence.** Codex N, 2026-11-19. Paper-only result for [#1397][issue] under the [owner direction recorded in #1169][authority]. The drafting and source pin is `baeb7723743e99b137ae3d0a1694e99ff97e2a73`, with [AGENTS.md][policy] at blob `81a26ba552d6096da8d097fc0289c0f1163df949`. The issue and direction identify the obligation and authority. The proof and exact controls below supply its mathematical evidence. Independent non-author model review returned [ACCEPT WITH NITS][math-review] on the proof, arithmetic and scope at `62edb8168ceeaa1cb5c5e6e779217aed069d63b1`.
 
 **Goal link (§A.47).** Decide whether a structural property of one fixed record operation suffices to bound exact next reads on the declared histories without total finiteness. This addresses the history-law comparison left open by [A1-05][matrix].
 
@@ -152,7 +152,7 @@ Any two distinct positions in a block have independent fair labels. Different bl
 $$
  \mu(X_2=1\mid h)=1/3,\qquad \mu(X_2=1\mid h')=2/3 .
 $$
-The TV gap is $1/3$ at equal, positive history mass and with identical exact and iterated endpoint operators. The protected register and deterministic read in the parity phase show why this wiring fails the positive-table condition for the register containing phase and memory. Any positive-table realization of this same record law would need $\delta_1\ge 1/3$ by (2).
+The TV gap is $1/3$ at equal, positive history mass and with identical exact and iterated endpoint operators. The protected register and deterministic read in the parity phase show why this wiring fails the positive-table condition for the register containing phase and memory. Any positive-table realization of this same record law would need $\delta_1\ge 1/3$ by (2). This stationary control gives an all-lag counterpart to [Main §3.4's finite-window XOR example][main-xor].
 
 There is a separate way to generate a gap by correlated preparation alone. Keep a hidden fair bit $R$ fixed under a shift of an independent two-sided noise tape with independent flips of probability $1/4$. Display $X_t=R$ flipped by noise at tick $t$ and write it only to the declared rolling log. This is one invariant product law with the same $H=5$ and protocol recording all binary outcomes. Here $\mu(R=1\mid 00)=1/10$ and $\mu(R=1\mid 10)=1/2$, at word masses $5/16$ and $3/16$. Both end in $0$. Since the next read has conditional probability $1/4+R/2$ of being $1$, their TV gap is $1/5$. The different root-conditioned memory was present before the log wrote either history. The hidden bit is conserved and the operation table for $R$ has zero off-diagonal entries. Its $Q$ has diagonal $5/8$, so the centred eigenvalue of $\mathcal K$ is $1/4$, whereas the same exact endpoint diagonal $5/8$ persists at every positive lag. This control keeps the update and prior fixed and attributes the gap to the hidden preparation selected by the histories.
 
@@ -164,14 +164,16 @@ The root rows here are the stationary conditionals at positive cells. Main §2.3
 
 The positive example keeps the log and exhibits readback. The bound controls the difference in the declared next observable, with the hidden mechanism and accessible register distinguished. Physical erasure or exclusion would require separately identified writes, reads and candidate preparations with a verified conditional law and operational threshold. For the reverse microscopic update using the same $P$, the compression is $PU^{-1}P=\mathcal K^*$ and has the same centred power norms. The orientation in (1) is the declared order of writes and reads. Symmetric power decay supplies no physical arrow of time.
 
-The first unsupported physical step is identifying a normalized invariant $\mu$ and a matching native write/store/read operation with the stated input independence and positivity for an actual candidate observer. A1-05 already stops at state selection, before such a transfer. Full physical P8 and OI–QM remain open. A1 remains OPEN/UNADOPTED and physical measurement sourcing remains NOT PASSED. The outstanding mathematical verification is independent review of the exact draft head. [A1-05 source decision][matrix]
+The first unsupported physical step is identifying a normalized invariant $\mu$ and a matching native write/store/read operation with the stated input independence and positivity for an actual candidate observer. A1-05 already stops at state selection, before such a transfer. Full physical P8 and OI–QM remain open. A1 remains OPEN/UNADOPTED and physical measurement sourcing remains NOT PASSED. [A1-05 source decision][matrix]
 
 [issue]: https://github.com/amaybaum/incompleteness/issues/1397
 [authority]: https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7005796462
+[math-review]: https://github.com/amaybaum/incompleteness/pull/1400#pullrequestreview-5973102338
 [policy]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/AGENTS.md
 [matrix]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/verification/audits/foundations/a1-05-p8-observer-selection/SOURCE-MATRIX.md
 [main-recurrence]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L131-L157
 [main-erasure]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L159-L178
 [main-filter]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L457-L473
+[main-xor]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L477
 [main-p8]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L746-L764
 [main-control]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L764
