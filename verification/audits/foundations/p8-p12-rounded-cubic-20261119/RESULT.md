@@ -6,6 +6,7 @@ cannot use the retained symbol itself to change a newly updated
 response at the same site on that tick when the other inputs are held
 fixed. The result follows from the center-free stencil. Both first
 responses occur at positive mass under the stipulated product law.
+The guiding draft linked from [#1407][issue] records the [independent mathematical review](https://github.com/amaybaum/incompleteness/pull/1408#pullrequestreview-5974677165) of the immutable checkpoint `c7109d93099f8aa0c24f1d8885c0c10702bd1d87` and the [focused review](https://github.com/amaybaum/incompleteness/pull/1408#issuecomment-7020303464) of its refresh onto `main`.
 
 **Goal link (§A.47).** Decide whether the rounded-cubic evolution
 supplies the local consecutive-request, retained-write mechanism
