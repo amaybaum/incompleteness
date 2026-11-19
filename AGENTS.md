@@ -34,6 +34,14 @@ confers no protection, and "the framework needs this to be true" is never an arg
   or postdiction beyond the problem it was built to fix; reject any variant that can be
   adjusted to fit any outcome.
 
+**OI's research target (a hypothesis, not a premise or a result).** OI tests whether quantum
+mechanics is the effective description an embedded observer obtains through finite measurements
+of a deeper dynamics that need not be quantum or finite, and whether that distinction explains
+how vacuum energy gravitates. The test is whether one independently specified substratum and
+observer interface derive what is actually measured, consistently across experiments.
+Representing quantum statistics is not deriving them; where a derivation fails, that is a
+finding, and quantum rules are not inserted to fill it. Status is stated in the papers.
+
 ---
 
 ---
@@ -495,8 +503,8 @@ pandoc papers/<NAME>.md -s --pdf-engine=xelatex \
 pandoc papers/<NAME>.md -s --pdf-engine=xelatex \
   --include-in-header=tools/unicode-fix.tex -o papers/<NAME>.pdf
 
-# Book (adds a table of contents):
-pandoc book/The-Incompleteness-of-Observation-FULL.md -s --toc --toc-depth=3 \
+# Book (populates the manuscript's Contents after the cover):
+pandoc book/The-Incompleteness-of-Observation-FULL.md -s --toc --metadata=toc:false \
   --pdf-engine=xelatex --include-in-header=tools/unicode-fix.tex \
   -o book/The-Incompleteness-of-Observation-FULL.tex   # and .pdf
 ```
@@ -1383,8 +1391,8 @@ citation to a file on it, never by itself certifies a premise for future researc
    - it contains a substantive, nonredundant result, which may be conditional, negative or
      inconclusive;
    - its precise scope and the limits of its evidence are documented;
-   - it has had an independent non-author review and a ChatGPT exact-head review, and the checks
-     its landing requires, including §A.42 item 8's tracing, are complete;
+   - it has had an independent non-author review (an exact-head review by a further model is
+     optional), and the checks its landing requires, including §A.42 item 8's tracing, are complete;
    - it has an accountable Issue, a verification status and, for each verification gap still open,
      a remediation plan (item 4);
    - its preservation has an explicit rationale, and a separate recorded owner decision authorizes
@@ -1415,7 +1423,10 @@ by owner decision (`amaybaum`, #1169 comment 6874035457, 2026-11-14T07:45:39Z), 
 conditions on which a research record is preserved on `main`, what a remediation plan states, that a
 preserved record's scoped result is a surviving claim, and the reconciliation of records already on
 `main`, as directed by the rulings of 2026-11-13 and 2026-11-14 (#1169 comments 6865680499,
-6872005186, 6872344927 and 6872828604).
+6872005186, 6872344927 and 6872828604). Amended 2026-11-17 by owner decision (`amaybaum`,
+recorded at #1169 comment 6939659793), to make an exact-head review by a further model optional,
+and the same day by owner decision (`amaybaum`, coordinating session) to state the rules without
+naming specific models.
 
 ***
 

@@ -26,6 +26,7 @@ import OIBridge.RecursiveFiniteFactor
 import OIBridge.NativePadicReduction
 import OIBridge.ObservableFactorRecurrence
 import OIBridge.ObservableMeasureReturn
+import OIBridge.ObservableRigidity
 import OIBridge.GradientLinkFlatness
 import OIBridge.ChiralCenterRecovery
 import Mathlib.RepresentationTheory.Invariants
@@ -82,6 +83,7 @@ import OIBridge.WeylTwirl
 import OIBridge.WeylLift
 import OIBridge.BoundaryRank
 import OIBridge.Reciprocity
+import OIBridge.MeasuredReciprocity
 import OIBridge.GaugeDimension
 import OIBridge.BohrFrequency
 import OIBridge.FrequencyMatching
@@ -155,6 +157,7 @@ import OIBridge.LieRankSource
 import OIBridge.SubstratumSource
 import OIBridge.SubstratumInterface
 import OIBridge.ReadWriteControl
+import OIBridge.ReadWriteNonvacuity
 import OIBridge.StructuralClosure
 import OIBridge.TypedCompletion
 import OIBridge.RegionLimit

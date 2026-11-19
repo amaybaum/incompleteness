@@ -35,6 +35,15 @@
   },
   "families": [
     {
+      "name": "KERNEL-VAC-1 original source defect and sole monomial-source witness",
+      "modules": [
+        "ReadWriteNonvacuity"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "KERNEL-VAC-1 execution closeout candidate: readWriteSourced_fin2_impossible proves that the original exact-permutation representative predicate is empty for every Fin 2 FiniteOperationalTheory; level-one identity availability is derived from native readout and coarse-graining. permTheory_fin2_monomialSource targets the sole permitted witness, MonomialSource (permTheory (Fin 2)), for every n including zero and every matrix representative, via the unchanged genTheory/permClass_arch structure and matrix-unit row/column sparsity. Checkpoint 1 passed ordinary Mathlib Build, Release gate and all five standard-axiom reports; checkpoint 2 and this closeout require exact-head CI and independent review before an accepted REPAIRED disposition. Old predicates, implications and proof terms remain unchanged but the old antecedent is retired as substantive Fin 2 evidence. The surviving monomial-source implication is conditional on all available composite conjugations being monomial, on Fin 2; rot excludes composite unitary control, and the existing QM corollary excludes ExactAllFiniteEndomorphicQuantumOps for the same theory/hypothesis. One mathematical witness is not a native physical source or a general physical read/write impossibility. No manuscript promotion is made; the earlier F72 explanation remains a separately recorded out-of-inventory scope item."
+    },
+    {
       "name": "representation bridge and counting",
       "modules": [
         "Averaging",
@@ -139,6 +148,15 @@
         }
       ],
       "note": "Main 3.4 with kernel pointers at the proof or list paragraphs that follow the statements, the statement lines untouched: the finite-horizon stochastic-reversible-unitary equivalence (finite_horizon_equivalence, S_imp_D; permMatrix_mem_unitaryGroup, isDiag_Phi of EquivalenceChain), the process dilation (S_imp_D, for the realization from an initial law that may correlate the hidden and visible coordinates; the independence of the hidden prior from the visible initial state is not formalized), C3 necessity and the per-process capacity bound (c3_necessity, card_hidden_ge_two_pow_Istar, c3_necessity_and_capacity), unavoidable hidden predictive memory (unavoidable_hidden_predictive_memory, distinguishability_floor, capacity_floor), the C3 and memory results (memory clauses (a)–(c)) kernel-checked for the joint-law form; a time-t trajectory form (finite V × H, bijective step, any initial law, Nonempty H) is formalized in an unreviewed Lean module (TrajectoryMemory; for hidden predictive memory, capacity-floor clause (c) only), pending independent confirmation that the theorem statement and its assumptions establish the intended realization interpretation, and is otherwise on paper; the separability threshold in Main 3.2 (entanglementBreaking_twirl, not_entanglementBreaking_twirl, exists_lagrangian_tuple, isotropic_iff_commute, separable_imp_ppt); SM Theorem 19 (theorem_19). Main 1.5's Layer-1 summary carries its pointers inline, in the summary paragraph itself (S_imp_D, D_imp_Qfb, Qfb_imp_S, finite_horizon_equivalence; pushforward_identity, distinguishability_floor). Lemma 1 and Lemma 3 of Main 1.2 (Finiteness, CanonicalMeasure), FactorUniqueness, IdempotentTrace, Irreducibility, KrausUniqueness, StinespringUniqueness and BoundaryRank are supporting results of the same family, stated in the papers' own derivations without pointers. Structure Proposition 9.7b now explicitly states the nonzero finite-dimensional scope of StinespringUniqueness.proposition_9_7b; the general separable dense-span proof is preserved separately as Proposition 9.7c and is not claimed kernel-proved. The fixed-channel scope does not classify full unitary extensions or OI multi-time dynamics."
+    },
+    {
+      "name": "P6 measured reciprocity",
+      "modules": [
+        "MeasuredReciprocity"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "The accepted P6 paper result uses one normalized probability law and explicit invariance under the dynamics and reversal. It checks all-lag endpoint flux, the weighted conditional identity, equal-positive-root reciprocity, and the separate zero-flux case. The common hidden law gives the conditional product specialization. Finite uniform counting recovers the transition-fibre counts of Reciprocity.theorem_19, whose declaration and manuscript anchor are retained. The law is a conditional input and its physical selection is open (Q6)."
     },
     {
       "name": "Hamiltonian reconstruction",
@@ -321,7 +339,7 @@
           "anchor": "substratum_plus_control_qm"
         }
       ],
-      "note": "GR 3.3 substratum-source form and its boxed endpoint; the endpoint is unchanged by the primitive-source compressions."
+      "note": "GR 3.3 substratum-source form and its boxed endpoint; the endpoint is unchanged by the primitive-source compressions. KERNEL-VAC-1 preserves ReadWriteControl declarations and proof terms but retires the original ReadWriteSourced antecedent as substantive Fin 2 support: its phase-representative defect is proved in the separately classified ReadWriteNonvacuity module. The existing monomialSource_not_control and monomialSource_not_qm retain their explicit MonomialSource hypothesis and Fin 2 carrier; the sole generated-theory witness and its pending exact-head review are recorded in that kernel-only family. No universal physical no-go or new manuscript promotion follows from the historical readWriteSourced implications."
     },
     {
       "name": "typed completion",
@@ -1693,6 +1711,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Research-only mathematical bridge: arbitrary hidden carrier, event partition identity, measured conditional transition as off-diagonal joint-cell mass / positive finite initial-cell mass, identity rooted return iff zero measure of observable changes, and finite visible stochastic-inverse obstruction. Proof-level statuses depend on exact-head Mathlib build. Does not establish all-L Fourier result, complete operational QM, gauge action or physics. PR #1009, issue #1007."
+    },
+    {
+      "name": "A1-RIGID-1 measured observable recurrence and rooted P-indivisibility",
+      "modules": [
+        "ObservableRigidity"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research formalization of the conditional paper proof preserved by #1396. A bimeasurable bijection preserving one probability, a finite positive-mass readout and compact closure of its joint L² indicator orbit give simultaneous near-returns with model- and tolerance-dependent bounded gaps. Earlier rooted overlap and the strict diagonal-deficit bound give total-variation revival and P-indivisibility on a later finite horizon. Includes the shared product-prior identity and matrix controls. Physical law selection and laboratory access to the witness horizon require separate evidence."
     },
     {
       "name": "SUBSTATE-1 pure-gradient gauge link negative control and two-slice inverse",

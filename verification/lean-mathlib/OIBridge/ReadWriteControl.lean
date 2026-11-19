@@ -1,60 +1,34 @@
 /-
-  OIBridge/ReadWriteControl.lean — the substratum-source audit, third entry: read-write
-  controllability, and the no-go for the decisive route.
+  OIBridge/ReadWriteControl.lean — restricted read/write operators and retained historical
+  source implications (round 63; evidential scope corrected by KERNEL-VAC-1).
 
-  ROUND SIXTY-THREE. Round 61 named elementary drivability as the decisive property a quantum
-  architecture needs, and round 62 showed the substratum's direct interventions — bijective
-  and phase — supply only monomial operators, which cannot be the continuously driven
-  off-diagonal transition. The remaining candidate escape route was read-write coupling: local
-  modification of the visible/hidden interaction, offered as a source of a tunable off-diagonal
-  two-state generator. This file audits that route and returns the honest answer for the
-  current axioms.
+  THE PRIMITIVE. A ReadWriteFamily is a selectable local coupling: at each real parameter
+  its map is a bijection of the finite state set, with a reference and local support.
+  Through this specified interface its induced operator is a permutation and therefore
+  monomial. The strict interpolation between identity and a pair swap is not monomial.
+  These are statements about these operators and this interpolation. The definition does
+  not assume continuity, so local constancy of an arbitrary parameterized family does not
+  follow from it. The memory-swap example and its proofs are preserved unchanged.
 
-  THE SUBSTRATUM PRIMITIVE. A read-write family (`ReadWriteFamily`) is a selectable local
-  coupling: for each value `λ` of an external parameter, a bijection of the finite state set
-  (the reversible substratum evolution under A2), with `λ = 0` the reference interaction, and
-  the modification local — every state outside the chosen pair `{a, b}` is left fixed. The
-  definition names states, bijections, a selectable parameter, a reference point, and locality,
-  and NOTHING of the quantum-control vocabulary (`transition`, `flow`, `conjChannel`,
-  `HControl`, `DrivesElementary`): it is a genuine substratum object, not a renamed quantum
-  control.
+  THE ORIGINAL SOURCE PREDICATE. ReadWriteSourced requires every matrix representative of
+  an available conjugation to be an exact permutation. ReadWriteNonvacuity proves that this
+  predicate is empty on Fin 2: native level-one readout and coarse-graining make identity
+  available, while its representative Complex.I • 1 is not a permutation. The three
+  readWriteSourced implications below retain their original statements and proof terms for
+  historical and guard compatibility; their antecedent supplies no substantive Fin 2 evidence.
 
-  THE INDUCED OPERATOR. Through the round-62 interface, the observable operator of a read-write
-  intervention at parameter `λ` is the permutation matrix `permMatrix (F.couple λ)`
-  (`readWriteOperator`), which is monomial (`readWriteOperator_monomial`).
+  THE SURVIVING CONDITIONAL. A theory whose available composite conjugations are all monomial
+  has no composite unitary control on `Fin 2`, because control would make the non-monomial
+  `rot` available. This is SubstratumInterface.monomialSource_not_control. Its existing
+  monomialSource_not_qm corollary excludes ExactAllFiniteEndomorphicQuantumOps for that same
+  theory under that same MonomialSource hypothesis. ReadWriteNonvacuity's sole witness is
+  the existing permTheory (Fin 2), for every extension level and every representative.
+  It is one mathematical theory, not a derivation of a native physical source or a universal
+  impossibility theorem for read/write interaction.
 
-  THE TANGENT TEST FAILS. A continuously tunable off-diagonal direction would require the
-  operator family to pass through operators strictly between the reference and the swap. It
-  cannot: a strict interpolation `(1−λ)·I + λ·P_{ab}` has two nonzero entries in row `a` and is
-  not monomial (`offDiagonal_interp_not_monomial`), so no bijection realizes it. A
-  permutation-valued family is therefore locally constant — its off-diagonal derivative is
-  zero — and the tunable coupling produces no off-diagonal generator.
-
-  THE OUTCOME (C). A theory whose available composite conjugations are all read-write operators
-  is a monomial source (`readWriteSourced_monomialSource`), hence has no composite unitary
-  control and is not finite operational quantum mechanics (`readWriteSourced_not_qm`). Under
-  the current axioms — finite bijective read-write dynamics — read-write controllability does
-  not supply elementary controllability:
-
-      ┌──────────────────────────────────────────────────────────────────────────────┐
-      │  OI substratum structure (A2 read-write) ⇏ elementary controllability.          │
-      └──────────────────────────────────────────────────────────────────────────────┘
-
-  A continuously tunable off-diagonal coupling is an irreducible empirical addition; no control
-  law is introduced here to force it.
-
-  THE COUNTERCONTROL. Read-write interaction is not read-write controllability. The memory-swap
-  family (`memorySwap`) is a genuine nontrivial reversible read-write dynamics — it exchanges
-  two states, moving information bidirectionally — yet its induced operators are all monomial
-  (`memorySwap_operator_monomial`) and never off-diagonal generators. Bidirectional hidden
-  memory (C4/readback) exists without an experimental agent varying a coupling into a
-  continuous off-diagonal generator (`readWriteControl_independent`).
-
-  WHAT IS NOT CLAIMED. No off-diagonal generator is derived; no matrix exponential is computed;
-  no control law is postulated. The result is the no-go for the current axioms. Whether an
-  extended substratum with a genuinely continuous (non-bijective-valued) coupling supplies the
-  generator is exactly the irreducible empirical question left open in
-  `SUBSTRATUM-SOURCE-AUDIT.md`. Nothing here modifies the frozen OI⁺ statements.
+  No generator or control law is added here; no control law is postulated. Neither the
+  memory-swap example nor the chosen interpolation proves that a particular additional
+  physical law is uniquely necessary. All existing declarations and proof terms remain.
 -/
 
 import OIBridge.SubstratumInterface
@@ -147,14 +121,14 @@ theorem offDiagonal_interp_not_monomial (a b : S) (hab : a ≠ b) (l : ℝ) (h0 
 
 end Tangent
 
-/-! ### Section C — the outcome: read-write control does not escape the obstruction -/
+/-! ### Section C — historical implications with an empty `Fin 2` source antecedent -/
 
 section Outcome
 
 variable {A : Type} [Fintype A] [DecidableEq A]
 
-/-- **A READ-WRITE-SOURCED THEORY**: every available composite conjugation is a bijective
-(permutation) read-write operator. -/
+/-- **ORIGINAL READ-WRITE SOURCE PREDICATE**, retained unchanged. It quantifies over exact
+matrix representatives and is empty on `Fin 2`, as proved in `ReadWriteNonvacuity`. -/
 def ReadWriteSourced (T : FiniteOperationalTheory A) : Prop :=
   ∀ (n : ℕ) (V : Matrix (A × Fin n) (A × Fin n) ℂ),
     T.availExt n Unit (fun _ => conjChannel V) → ∃ σ : Equiv.Perm (A × Fin n), V = permMatrix σ
@@ -165,12 +139,12 @@ theorem readWriteSourced_monomialSource (T : FiniteOperationalTheory A)
   obtain ⟨σ, rfl⟩ := h n V hV
   exact monomial_permMatrix σ
 
-/-- **THE OUTCOME (C)**: a read-write-sourced theory has no composite unitary control. -/
+/-- Historical implication, retained unchanged; its original antecedent is empty on `Fin 2`. -/
 theorem readWriteSourced_not_control (T : FiniteOperationalTheory (Fin 2))
     (h : ReadWriteSourced T) : ¬ HasCompositeUnitaryControl T :=
   monomialSource_not_control T (readWriteSourced_monomialSource T h)
 
-/-- **READ-WRITE CONTROL DOES NOT SUPPLY OPERATIONAL QM** under finite bijective dynamics. -/
+/-- Historical QM implication, retained unchanged; not substantive evidence on `Fin 2`. -/
 theorem readWriteSourced_not_qm (T : FiniteOperationalTheory (Fin 2))
     (h : ReadWriteSourced T) : ¬ ExactAllFiniteEndomorphicQuantumOps T :=
   monomialSource_not_qm T (readWriteSourced_monomialSource T h)
