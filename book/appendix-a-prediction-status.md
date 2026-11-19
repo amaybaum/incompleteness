@@ -141,7 +141,7 @@ The leading solar value is $0.308003$. JUNO directly reports $\sin^2\theta_{12}=
 The entries below pair empirical comparisons with specific biological or medical hypotheses. The *conjectural* marker gives an epistemic status outside the prediction classes of §A.2. The Rett study establishes rescue in a mouse model under its intervention. The cancer classifier results use their reported datasets and validation designs.
 
 | # | Prediction | Quantitative content | Class | Layer | Empirical match | Chapter |
-|---|--------------|---------------------|----------------|-------|-----------------|---------|
+|---|----------------|-------------------|----------------|-------|-----------------|---------|
 | B1 | Comparative therapeutic window after function restoration | Matched treatment ages and declared outcomes | conjectural | 1 | Guy et al. 2007 observed adult mouse reversal | Ch 16 §16.12 |
 | B2 | Molecular basis of tumor methylation classification | Benchmark and matched assay comparisons | conjectural | 1 | Heidelberg v12.8 reports 95% subclass accuracy in nested cross-validation | Ch 17 §17.7 |
 | B3 | Candidate conditional memory in enzyme kinetics | Matched-present history contrast | conjectural | 1 | Prior waiting-time and turnover correlations motivate the test | Ch 13 §13.6 |

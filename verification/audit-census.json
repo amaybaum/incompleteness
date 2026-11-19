@@ -43,8 +43,11 @@
           "id": "A1-upstream-ch01",
           "pattern": "and condition C1",
           "disposition": "clean",
-          "expect": {},
-          "why": "The previously recorded literal drops out of Chapter 1 and FULL. The book keeps the rooted non-permutation witness, the specified finite representative with common uniform hidden prior, and return obstruction."
+          "expect": {
+            "book/The-Incompleteness-of-Observation-FULL.md": 1,
+            "book/ch01-observation.md": 1
+          },
+          "why": "Chapter 1 and FULL state that recurrence and condition C1 alone do not guarantee the required first-step witness, and retain the later-witness route."
         },
         {
           "id": "A-raw-carrier",
@@ -249,9 +252,11 @@
           "pattern": "a property to be demonstrated there rather than assumed",
           "disposition": "repaired",
           "expect": {
+            "book/The-Incompleteness-of-Observation-FULL.md": 1,
+            "book/ch01-observation.md": 1,
             "papers/SM.md": 1
           },
-          "why": "SM retains the literal qualifier. Chapter 1 and FULL now state the required matched-seed write and later readback explicitly."
+          "why": "SM and Chapter 1 with its FULL mirror retain the qualifier. The book names the matched-seed write and later boundary readback rather than inferring them from coupling."
         },
         {
           "id": "B-SM-theorem22-clean",
@@ -280,8 +285,11 @@
           "id": "B5-required",
           "pattern": "sufficiently capacious, and read back sustains",
           "disposition": "repaired",
-          "expect": {},
-          "why": "Chapter 1 and FULL replace the literal summary with the distinct C1/C2/C3/C4 conditions and the open physical readback obligation at the concrete cuts."
+          "expect": {
+            "book/The-Incompleteness-of-Observation-FULL.md": 1,
+            "book/ch01-observation.md": 1
+          },
+          "why": "Chapter 1 and FULL name coupling, persistence, capacity and readback in a model whose readback carries the C4 contrast. They keep the two cut-specific realization requirements explicit."
         },
         {
           "id": "B6-forbidden-intro-margins",
