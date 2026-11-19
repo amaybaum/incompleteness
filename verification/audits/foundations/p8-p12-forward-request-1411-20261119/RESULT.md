@@ -6,10 +6,20 @@ time-independent transition with inputs independent of the complete prior
 record and active-register history. Every observed word in the three-tick
 window has positive mass. Each outcome-labelled matrix nonetheless has zero
 columns. Strict matrix support is the first failed hypothesis for this
-register.
+register. For this schedule and gated readout, it fails for every finite
+register, of any encoding, whose tick-2 native inputs are independent of
+the register, the complete accessible past and the two frontier bits
+\((m_1,a_1)\): such a register determines the displayed label.
 
 **Scope and evidence.** Worker P, 2026-11-19. Paper-only proof for
-[Issue #1411][issue], pending independent review. Alex Maybaum's “Approved”
+[Issue #1411][issue]. The [separate non-author mathematical
+review][review] returned ACCEPT on Worker P's sections at
+0cd60a76e1f8d6832a51e73f7ea31f6e1a3be69f. The sections “Every
+native-fresh register determines its label” and “Exact arithmetic
+check” were added afterwards by the Main thread, the writer under the
+[2026-11-19 staffing record][staffing], against main at
+0d02d8d3b6a53a43168eabead12e1ff675a4d048; they are pending independent
+review. Alex Maybaum's “Approved”
 is relayed in the [2026-11-19 owner decision][authority]. The
 [Codex PRs assessment][readiness] records readiness and the disposition
 of the off-main P8 attribution. The drafting and published-rule source
@@ -17,7 +27,9 @@ pin is adf41d3f833692e33628008d3c82ce3779f343e0. The reviewed
 [neighboring-site proof][predecessor] locates the comparison reproduced
 below. The [P8 draft][p8] records the origin of the structural test, and
 its [preservation candidate][p8-preservation] carries the same condition.
-These off-main research records provide provenance. The recurrence, law,
+The P8 record and its structural condition are on main as
+[landed][p8-main]; the neighboring-site proof is off main and provides
+provenance. The recurrence, law,
 control and matrix condition used in the argument are given explicitly here.
 
 **Goal link (§A.47).** Test whether the neighboring response from #1409 can
@@ -233,12 +245,152 @@ active state alone. The label then restricts the target to the states
 decoding to that label. Since the stationary law gives positive mass
 to all three labels, each nonzero label matrix must exclude some
 target states. This obstruction is scoped to the displayed native
-register and such refinements. The full observed word support leaves
-open a different encoding in which the target active state does not
-itself determine the label. Physical preparation, request production
+register and such refinements. The next section extends it to every
+finite register whose tick-2 native inputs are fresh in the sense (N)
+stated there. Physical preparation, request production
 and executing read coupling remain open under [#866][physical].
 
+## Every native-fresh register determines its label
+
+This section concerns an arbitrary finite register, not only
+\((m_t,a_t)\). Let \(Z_0,Z_1,Z_2\) be random variables with values in a
+finite set \(\mathcal Z\), defined on the same probability space as the
+field pair \((x_{-1},x_0)\) under \(\mu\). Assume the P8 structural
+condition on the window: one map \(\Phi\) and inputs \(\eta_1,\eta_2\)
+of one law \(\nu\) give \((L_s,Z_s)=\Phi(Z_{s-1},\eta_s)\) for
+\(s=1,2\), with \(\eta_s\) independent of
+\((Z_0,\ldots,Z_{s-1},L_0,\ldots,L_{s-1})\). Write
+\(M_\ell(i,j)=\nu\{\eta:\Phi(i,\eta)=(\ell,j)\}\) and
+\(B(i,\ell)=\sum_j M_\ell(i,j)\). The abstract inputs \(\eta_s\) need
+not be native bits.
+
+Let \(\xi_2\) be the five native inputs of tick 2: the bits of \(x_1\)
+at \(3e\), \(2e\pm e_2\) and \(2e\pm e_3\). The first of them is the
+request \(m_2\). The hypothesis is
+
+**(N)** \(\xi_2\) is independent of \((Z_1,L_0,L_1,m_1,a_1)\).
+
+(N) holds whenever \(Z_1\) is a function of \((x_0,x_1)\) that does not
+read the five coordinates of \(\xi_2\). Indeed \(L_0,L_1,m_1,a_1\) are
+\(\mathcal F_1\)-measurable by the freshness section, \(\mathcal F_1\)
+does not contain those five coordinates, and the pair law of
+\((x_0,x_1)\) is the product law. In particular (N) holds for every
+\(\mathcal F_1\)-measurable register, including the declared one.
+
+**Claim.** Under the structural condition and (N), there is a function
+\(\lambda\) on the states of positive mass with \(L_1=\lambda(Z_1)\)
+almost surely. For each \(\ell\in\{0,1,\bot\}\), the table \(M_\ell\)
+has a zero entry and is not identically zero. Hence no finite register
+satisfying (N) meets the P8 strict support condition on this schedule
+and readout.
+
+**Proof.** The next label is a fixed function of \((m_1,a_1,\xi_2)\):
+\(L_2=\bot\) if \(m_2=0\), and otherwise
+\(L_2=g_{2e}(x_1)\oplus m_1\), whose stencil is
+\(a_1+m_2\) plus the four transverse bits. Let
+\(\beta(m,a)=\Pr(L_2=1\mid m_1=m,a_1=a)=K((m,a),(1,1))\). From the
+last column of \(K\),
+\[
+\beta(0,0)=\tfrac{14}{32},\quad \beta(0,1)=\tfrac{11}{32},\quad
+\beta(1,0)=\tfrac{2}{32},\quad \beta(1,1)=\tfrac{5}{32}.
+\]
+By (N),
+\(\Pr(L_2=1\mid Z_1,L_0,L_1,m_1,a_1)=\beta(m_1,a_1)\), so
+\[
+\Pr(L_2=1\mid Z_1,L_0,L_1)=\mathbb E[\beta(m_1,a_1)\mid Z_1,L_0,L_1].
+\]
+By the structural condition at \(s=2\), the left side equals
+\(B(Z_1,1)\). Fix \(z\) with \(\Pr(Z_1=z)>0\) and consider the atoms
+\(\{Z_1=z,L_0=\ell_0,L_1=\ell_1\}\) of positive mass. On an atom with
+\(\ell_1=\bot\), \(m_1=0\), and the conditional expectation is a convex
+combination of \(14/32\) and \(11/32\), hence at least \(11/32\). On an
+atom with real \(\ell_1\), \(m_1=1\) and \(a_1=\ell_1\), and the value is
+\(\beta(1,\ell_1)\in\{2/32,5/32\}\). Every atom with the same \(z\) has
+the common value \(B(z,1)\). Since \(11/32>5/32\) and
+\(2/32\ne5/32\), all positive-mass atoms with \(Z_1=z\) share one
+\(\ell_1\), which defines \(\lambda(z)\).
+
+Take \(i\) with \(\Pr(Z_0=i)>0\). The structural condition at \(s=1\)
+gives \(M_\ell(i,j)=\Pr(L_1=\ell,Z_1=j\mid Z_0=i)\). This vanishes when
+\(\Pr(Z_1=j)=0\), and when \(\Pr(Z_1=j)>0\) with \(\lambda(j)\ne\ell\).
+The labels of tick 1 have marginal \((1/4,1/4,1/2)\), obtained by
+averaging the second-label rows above against the first-label marginal.
+Hence \(\sum_i\Pr(Z_0=i)\,M_\ell(i,\cdot)\mathbf 1=\Pr(L_1=\ell)>0\), so
+\(M_\ell\ne0\). A different label also has positive mass, so some \(j\)
+of positive mass has \(\lambda(j)\ne\ell\), and \(M_\ell(i,j)=0\).
+\(\square\)
+
+**Mechanism and scope.** The proof uses the gated readout and the
+three-tick window, and does not use the stationarity of the moving
+frame. The request bit of tick 1 is the older bit that the tick-2
+receiver subtracts. The label reveals it, through \(\bot\), and after a
+request it also reveals the written bit that enters the next stencil.
+Both change the next real-label probability, so a register that screens
+the next label from the present label must determine the present
+label. The matched-input control exhibits the same two roles at
+\(A\to B\): \(u(B)\) is both the first request and the bit subtracted
+at \(B\), and the written \(v(A)\) enters the stencil at \(B\).
+
+The argument does not apply to a register that violates (N), that is,
+one correlated with the tick-2 native inputs given the complete
+accessible past and \((m_1,a_1)\); a register that reads the next
+request bit is an example. Whether some such register has strictly
+positive operation tables for this schedule is not decided here.
+Other read schedules and readouts are outside this test.
+
+## Exact arithmetic check
+
+The following script recomputes \(K\) from the binary rule over all
+\(4\times32\) register and input values, the column \(\beta\), the two
+separations used in the proof, and the second- and third-label rows.
+It uses exact rational arithmetic.
+
+```python
+from fractions import Fraction as Fr
+from itertools import product
+S = [(0, 0), (0, 1), (1, 0), (1, 1)]           # register (m, a)
+g = lambda s: ((1 + s) // 3) % 2               # binary rounded-cubic stencil value
+lab = lambda z: 'bot' if z[0] == 0 else z[1]   # displayed label of a target state
+K = {z: {w: Fr(0) for w in S} for z in S}
+for (m, a) in S:                               # all 32 fresh inputs (r, transverse bits)
+    for r, *tr in product((0, 1), repeat=5):
+        K[(m, a)][(r, g(a + r + sum(tr)) ^ m)] += Fr(1, 32)
+print("32K:", [[int(32 * K[z][w]) for w in S] for z in S])
+beta = {z: K[z][(1, 1)] for z in S}            # Pr(next label = 1 | m, a)
+print("beta:", [str(beta[z]) for z in S])
+lo_bot = min(beta[(0, 0)], beta[(0, 1)])
+hi_real = max(beta[(1, 0)], beta[(1, 1)])
+print("min beta(0,.) > max beta(1,.):", lo_bot > hi_real,
+      "| beta(1,0) != beta(1,1):", beta[(1, 0)] != beta[(1, 1)])
+def step(v, l):                                # row vector times M_l = K D_l
+    return {w: (sum(v[z] * K[z][w] for z in S) if lab(w) == l else Fr(0)) for w in S}
+labels = (0, 1, 'bot')
+def nxt(v):
+    tot = sum(v.values())
+    return [str(sum(step(v, l).values()) / tot) for l in labels]
+for l0 in labels:
+    v0 = {z: (Fr(1, 4) if lab(z) == l0 else Fr(0)) for z in S}
+    print("L0 =", l0, "| L1 row:", nxt(v0), "| L2 row after L1=bot:", nxt(step(v0, 'bot')))
+```
+
+Output under Python 3:
+
+```text
+32K: [[5, 11, 2, 14], [2, 14, 5, 11], [11, 5, 14, 2], [14, 2, 11, 5]]
+beta: ['7/16', '11/32', '1/16', '5/32']
+min beta(0,.) > max beta(1,.): True | beta(1,0) != beta(1,1): True
+L0 = 0 | L1 row: ['7/16', '1/16', '1/2'] | L2 row after L1=bot: ['47/512', '209/512', '1/2']
+L0 = 1 | L1 row: ['11/32', '5/32', '1/2'] | L2 row after L1=bot: ['19/256', '109/256', '1/2']
+L0 = bot | L1 row: ['7/64', '25/64', '1/2'] | L2 row after L1=bot: ['139/1024', '373/1024', '1/2']
+```
+
+The values agree with \(K\), the two history tables and the column
+\(\beta\) above (\(19/256=38/512\), \(109/256=218/512\)).
+
 [issue]: https://github.com/amaybaum/incompleteness/issues/1411
+[review]: https://github.com/amaybaum/incompleteness/pull/1412#pullrequestreview-5981021883
+[staffing]: https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7019013461
+[p8-main]: https://github.com/amaybaum/incompleteness/blob/0d02d8d3b6a53a43168eabead12e1ff675a4d048/verification/audits/foundations/a1-p8-history-bridge-20261119/RESULT.md#L13-L19
 [authority]: https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7014855892
 [readiness]: https://github.com/amaybaum/incompleteness/pull/1410#issuecomment-7017201143
 [rule]: https://github.com/amaybaum/incompleteness/blob/adf41d3f833692e33628008d3c82ce3779f343e0/papers/SM.md#L294
