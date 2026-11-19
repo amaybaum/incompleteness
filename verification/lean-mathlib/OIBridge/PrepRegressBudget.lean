@@ -68,7 +68,9 @@ section Conservation
 
 variable {S : Type*} [Fintype S] [DecidableEq S]
 
-/-- Relative entropy `D(p‖μ) = Σ_s p(s) log (p(s)/μ(s))`, in nats. -/
+/-- Relative entropy `D(p‖μ) = Σ_s p(s) log (p(s)/μ(s))`, in nats. The sum equals the relative
+entropy only when `p ≪ μ` (`μ s = 0 → p s = 0`); otherwise `D(p‖μ) = ∞`, while Lean's
+`Real.log 0 = 0` gives the sum a finite value. For `μ = u` the condition always holds. -/
 def relEnt (p μ : S → ℝ) : ℝ := ∑ s, p s * Real.log (p s / μ s)
 
 /-- The pushforward of a law along a bijection: `(τ_* p)(s) = p(τ⁻¹ s)`. -/
@@ -111,9 +113,7 @@ theorem sum_evolve (φ : Equiv.Perm S) (t : ℤ) (p : S → ℝ) :
 
 /-- `τ (τ⁻¹ s) = s` for a permutation. -/
 theorem perm_apply_inv (τ : Equiv.Perm S) (s : S) : τ (τ⁻¹ s) = s := by
-  first
-    | rw [← Equiv.Perm.mul_apply, mul_inv_cancel, Equiv.Perm.one_apply]
-    | simp
+  rw [← Equiv.Perm.mul_apply, mul_inv_cancel, Equiv.Perm.one_apply]
 
 /-- Relative entropy to a `τ`-invariant reference is unchanged by pushing forward along `τ`. -/
 theorem relEnt_push (p μ : S → ℝ) (τ : Equiv.Perm S) (hμ : ∀ s, μ (τ s) = μ s) :
@@ -144,7 +144,9 @@ theorem invariant_zpow (μ : S → ℝ) (φ : Equiv.Perm S) (hμ : ∀ s, μ (φ
     exact hs.symm
 
 /-- **Record 2.1, conservation.** For a bijection `φ` of a finite set and a `φ`-invariant
-reference `μ`, `D(p_t‖μ) = D(p₀‖μ)` for every `t ∈ ℤ`. -/
+reference `μ`, `D(p_t‖μ) = D(p₀‖μ)` for every `t ∈ ℤ`. The identity holds for the sum
+`relEnt` with no further hypothesis; it is the record's statement when `p₀ ≪ μ`, which the record
+assumes and which is then preserved by `φ`, since `μ` is invariant. -/
 theorem relEnt_evolve (φ : Equiv.Perm S) (μ p : S → ℝ) (hμ : ∀ s, μ (φ s) = μ s) (t : ℤ) :
     relEnt (evolve φ t p) μ = relEnt p μ :=
   relEnt_push p μ (φ ^ t) (invariant_zpow μ φ hμ t)
