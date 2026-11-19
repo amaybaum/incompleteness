@@ -208,15 +208,15 @@ updates, and has the finite-input restrictions quantified above.
 Main's $S\iff D\iff Q_{\mathrm{fb}}$ applies per finite horizon.
 [Main §3.4 equivalence][equivalence]
 
-The independently reviewed A1-RIGID-1 draft #1396 concerns compactness
+The independently reviewed A1-RIGID-1 record (#1396, on `main`) concerns compactness
 of the visible indicator orbits and the rooted near-return route to
 P-indivisibility. In the positive flip chain the squared $L^2(\mu)$
 distance between indicator iterates at distinct times $s,t$ is
 $\Pr(X_s\ne X_t)=(1-2^{-|t-s|})/2\ge1/4$, so the orbit has noncompact
 closure. The matrices $M_{1/4}^t$ admit the stochastic divisors
-$M_{1/4}^{t-s}$ for $s<t$. The off-main draft and its review document the
+$M_{1/4}^{t-s}$ for $s<t$. That record and its review document the
 comparison of scopes. The result here follows from the explicit local
-construction and cylinder counts. [#1396 draft][rigid] · [Independent review][rigid-review]
+construction and cylinder counts. [#1396 record][rigid] · [Independent review][rigid-review]
 
 The theorem concerns passive integer-time readout for the declared
 first-order Markov class. Physical preparation, the readout mechanism
