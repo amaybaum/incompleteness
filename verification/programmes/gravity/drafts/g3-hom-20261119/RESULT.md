@@ -3,7 +3,10 @@
 **Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
 WIP / UNVERIFIED. Independent non-author review: REVISE (text only) at `46056261`
 ([#1430 c.7025180852](https://github.com/amaybaum/incompleteness/pull/1430#issuecomment-7025180852)).
-This revision answers F1–F7, F2b and the nits. It adopts no premise and edits no manuscript, Lean
+The revision at `75a170d3` answers F1–F7, F2b and the nits. Re-review: ACCEPT WITH NITS at
+`75a170d3`
+([#1430 c.7025309840](https://github.com/amaybaum/incompleteness/pull/1430#issuecomment-7025309840)).
+This revision makes its required g† correction (3.4) and its §1.2 wording nit. It adopts no premise and edits no manuscript, Lean
 module or registry. Three small check scripts under `checks/` are controls and probes (§7).
 
 - **Authorization.** Owner `amaybaum`, P3 row of
@@ -101,12 +104,13 @@ recomputation found that at w = 4 the count depends on L, from wrap-around at sm
 | 3 | 0 (L = 3–6) | 4 (L = 4–6) | not run |
 
 *Identification (derived, then checked).* In d = 1 with α = 1 the update is the discrete
-d'Alembert equation x(t+1, i) + x(t−1, i) = x(t, i−1) + x(t, i+1). Its solutions are
-x(t, i) = f(i+t) + g(i−t). Over 𝔽₂ this decomposition into two travelling-wave directions is
-already proved on `main` as Lemma 1 of
-`verification/audits/physical-realization/ct3-r2b-q2-period-and-cycles.md` (:32). Over ℤ/q the
-same substitution checks it directly. Hence a_i = v_{i+1} − u_i is transported rigidly to the left
-(a ↦ a shifted by one site per step), and b_i = u_{i+1} − v_i is transported to the right. Any
+d'Alembert equation x(t+1, i) + x(t−1, i) = x(t, i−1) + x(t, i+1). Substitution shows that every
+x(t, i) = f(i+t) + g(i−t) over ℤ/q is a solution. Over 𝔽₂ the converse, that every solution has
+this form, is proved on `main` as Lemma 1 of
+`verification/audits/physical-realization/ct3-r2b-q2-period-and-cycles.md` (:32); over ℤ/q with
+q > 2 this record does not claim it. Nothing below uses the converse. Directly from the update,
+a_i = v_{i+1} − u_i satisfies a′_i = a_{i+1}, so it is transported rigidly to the left. Likewise
+b_i = u_{i+1} − v_i satisfies b′_i = b_{i−1}, so it is transported to the right. Any
 additive function of the a-pattern or of the b-pattern is conserved. At q = 2, w = 2 these are
 N_L = Σ_i [u_i ⊕ v_{i+1}] and N_R = Σ_i [u_{i+1} ⊕ v_i]. They are independent, which accounts for
 the count of 2. Window-2 functions of the a- and b-patterns account for the 4 at w = 3. At q = 3,
@@ -283,9 +287,13 @@ a_0 ∝ 1/R_E. Its z = 0 value then moves as well:
   at Ω_de0 = 0.69;
 - by T_A/(H/2π) = 0.7675 under R2's temperature (ΛCDM, Ω_m = 0.31): −0.115 dex.
 
-The independent review notes that these offsets lie within a ±0.24 dex systematic on g†; this
-record has not checked that figure. The offsets do not affect the counterexample, which is stated
-off de Sitter. Normalized at z = 0, the Hubble and event-horizon scalings differ by +0.17 dex
+The systematic uncertainty on the empirical acceleration scale is g† = (1.20 ± 0.24) × 10⁻¹⁰ m/s²
+(McGaugh, Lelli and Schombert, PRL 117, 201101 (2016)). That is about +0.08/−0.10 dex. The two
+event-horizon shifts (−0.059 and −0.081 dex) lie within it. The T_A shift (−0.115 dex) lies outside
+it. So under R2's temperature, §7.3's a₀ = cH₀/6 at z = 0 would be displaced beyond the systematic
+of the empirical scale, at the scope of §7.3's other inputs (Q = M_Bc², the imported factor 1/6).
+This is a consequence for the a₀ retrodiction only. It does not affect the counterexample, which is
+stated for w(z) off de Sitter. Normalized at z = 0, the Hubble and event-horizon scalings differ by +0.17 dex
 at z = 1 and +0.31 dex at z = 2 in the same ΛCDM background. The latter is comparable to
 G3-SCOPE's 0.48 dex sensitivity scale for BTFR-z (U2), whose preregistration would need to state
 which temperature it tests. Related unreviewed work: the BTFR-z record on draft PR #1429 (head
@@ -382,6 +390,6 @@ illustrations at supplied Ω values.
 | G3-CF, A1-07 and the node 1.1 records; GR, SM lines at the snapshot | Support on `main` at the snapshot |
 | #1379, #1328 | Provenance; their records are on `main` |
 | `verification/audits/physical-realization/ct3-r2b-q2-period-and-cycles.md` Lemma 1 | Support on `main` for the mover structure in 1.2 |
-| Review [#1430 c.7025180852](https://github.com/amaybaum/incompleteness/pull/1430#issuecomment-7025180852) | Provenance for the w = 4 observation and the a₀ offset figures, both recomputed here |
+| Reviews [#1430 c.7025180852](https://github.com/amaybaum/incompleteness/pull/1430#issuecomment-7025180852) and [c.7025309840](https://github.com/amaybaum/incompleteness/pull/1430#issuecomment-7025309840) | Provenance for the w = 4 observation, the a₀ offset figures (recomputed here) and the g† systematic comparison |
 | PR #1429 (BTFR-z, head `9b1d609f`, draft, off `main`) | Provenance only: related unreviewed work cited in 3.4; no conclusion here uses it |
 | External literature (Gibbons and Hawking, PRD 15, 2738 (1977); Jacobson; Cai–Kim; Akbar–Cai; Hayward; Misner–Sharp; Padmanabhan; Cohen–Kaplan–Nelson; Li; Hsu; Wang–Gong–Abdalla; Hattori–Takesue) | Cited for the forms of imported rules and their reported properties; each use is stated where it is made |
