@@ -1,7 +1,9 @@
 # A1-P12-GLUE-1 — Stationary Markov laws on one local reversible carrier
 
-**A1-FREE CONDITIONAL THEOREM.** Paper proof by Codex O, pending independent
-review. The source pin is `baeb7723743e99b137ae3d0a1694e99ff97e2a73`. The goal
+**A1-FREE CONDITIONAL THEOREM.** Paper proof by Codex O. Independent
+non-author model review returned [ACCEPT][math-review] at
+`4212e600752b77d4095cd8191915493c584cacb8`.
+The source pin is `baeb7723743e99b137ae3d0a1694e99ff97e2a73`. The goal
 is to determine when a fixed local update, spatial readout and common hidden
 law can reproduce one family of passive observations at every integer
 horizon. [#1398][issue] · [Owner direction relayed in #1169][authority]
@@ -230,6 +232,7 @@ and unadopted, and physical measurement sourcing remains NOT PASSED.
 
 [issue]: https://github.com/amaybaum/incompleteness/issues/1398
 [authority]: https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7005796462
+[math-review]: https://github.com/amaybaum/incompleteness/pull/1399#pullrequestreview-5973094703
 [one-step]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L274-L278
 [dilation]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L520-L526
 [equivalence]: https://github.com/amaybaum/incompleteness/blob/baeb7723743e99b137ae3d0a1694e99ff97e2a73/papers/Main.md#L550-L558
