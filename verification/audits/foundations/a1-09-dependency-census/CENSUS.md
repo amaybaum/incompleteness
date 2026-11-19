@@ -176,7 +176,7 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: §§8–11 cover the original 53 name-flagged modules and five concrete-type modules. §14 adds the root Lean file, all six legacy modules and selected omitted signatures, including a finite-orbit step under `S` and a finite-stage step with no `[Finite S]` binder. §19 reconciles the file changes since batch 2. §§20–22 extend named source tracing to all 242 indexed bridge modules. §23.1 follows five selected chains through named prerequisites and consumers. Corpus-wide declaration inspection and dependency closure are still open. The counts through §21 record earlier checkpoints.
+- CENSUS-X2: §§8–11 cover the original 53 name-flagged modules and five concrete-type modules. §14 adds the root Lean file, all six legacy modules and selected omitted signatures, including a finite-orbit step under `S` and a finite-stage step with no `[Finite S]` binder. §19 reconciles the file changes since batch 2. §§20–22 extend named source tracing to all 242 indexed bridge modules. §23.1 follows five selected chains through named prerequisites and consumers. §24 adds a source trace for each of the 132 authored declarations in the ten priority files, with the named external proof obligations identified there. Corpus-wide declaration inspection and elaborated dependency closure are still open. The counts through §21 record earlier checkpoints.
 - CENSUS-X3: §12 resolves the mechanical source crosswalk at the new pin (124 families, 132 coverage entries and 20 unattached items). §13 records source scopes for all 20 unattached items. Proof scope and dependencies outside the specific backward traces remain open.
 - CENSUS-X4: §16 inventories the recursive verification and paper-supplement tree and runs a focused text search. §23.3 follows the named finite-shell and comb records and the mechanical-latch addition to `main`. Untraced evidence chains and archive or branch-only content are still **X**. Published `.tex` mirrors are resolved for claim content by batch 1 (§7). PDFs are not stamped and are not checked in this census.
 - CENSUS-X5: the original textual pass covers 12 primary papers and 29 chapter/back-matter Markdown files. §15 adds backward traces for selected observer, GR and SM statements. §17 assigns a first-pass input scope to each of the 132 registered paper statements. §18 visits major downstream transfers in the six papers outside that register. §23.2 adds five selected unnumbered claim chains with publication locators. Other implicit inheritance and untraced claims remain **X**.
@@ -922,7 +922,7 @@ This pass follows five proof chains from their first finite-carrier step to name
 | **Return of the entering state.** `CombRealization:53–95,103–142,146–206` | `orbit` and `orbit_cancel` use iteration and injectivity on an arbitrary type. In `exists_return`, `Finite.exists_ne_map_eq_of_infinite` supplies a collision on the full realizing carrier and cancellation turns it into a positive return to the specific state `t`. In `saturated_class_obstruction`, forward induction from the two visits propagates class membership to every positive iterate. Its only use of carrier finiteness is the call to `exists_return`. `workspace_state_forced` inherits that call by contradiction, while `class_card_ge_five` and `card_ge_ten` also count entire finite readout classes. **F** for the shipped obstruction and cardinality chain. A replacement of the return step must concern the particular entering witness. A visible identity matrix for a differently prepared ensemble is insufficient for this proof. |
 | **Spanning from finite itineraries.** `DomainGlue:75–117,127–145,149–193,199–245,252–288` | `itiIndicator_mem` explicitly omits carrier and label finiteness and uses induction on the chosen finite word. `separating_singleton_mem` uses `Finset.univ.sup K + 1` over the whole carrier so that all alternatives to the chosen state are excluded in one finite horizon. `separating_domain_span_top` expands every weight as a sum over all states. `spanning_domain_glue_implies_G1` uses algebraic span induction once spanning is supplied in its finite-matrix setting. `classicalBranch_glue_forces_G1` and `classicalBranch_glue_forces_monomial` inherit both global uses. **A** for the finite-word construction, **F** for the proven saturation route. An extension needs a suitable spanning or closure result for the declared weight space as well as any claim about finite distinguishability of individual states. |
 | **The all-time itinerary algebra.** `ObservabilityQuotient:125–165,201–242,270–328,377–401` | `branchDomainK_invariant` and `classIndicator_mem_BDK` work at a fixed horizon on arbitrary carrier types. `invariant_le_span_classIndicators` sums over all states and divides the summand by the size of its class. `branchDomain_span_eq_itineraryInvariant` inherits that step even at a fixed horizon. `classicalBranchDomain_iff_horizon` needs only the finite derivations of its constructors. `itiRelInf_iff_orderOf` uses `orderOf_pos φ` to bound residues, so that one finite horizon captures the whole forward itinerary. `classicalBranch_span_eq_invariant` and `domainGlue_classification_mod_itineraryFibres` inherit both this positive-period step and class spanning. **A** for the stated graded construction and **F** for the shipped saturation and all-time quotient proofs. Weaker finite-quotient premises would need their own spanning and stabilization arguments. |
-| **Finite shell frequency and stationary count.** `CycleFibreHull:73–143,348–366`, `DynamicsGlue:84–152,216–307,372–405`, `DomainGlue:275–288` | `freq_shift` and `transitive_freq_const` omit finite-carrier binders. The first uses `pow_orderOf_eq_one`. Neither proves that the denominator in `freq` is positive. `freq_sum_one` and `freq_sum_card` use `orderOf_pos φ`, and the second also reindexes a sum over the whole carrier. `transitive_freq_eq_countMarginal` then divides by the number of states. `diagonalGlue_forces_monomial` needs singleton basis weights and finite matrix sums. `diag_invariant_pow` is ordinary induction. The stationary readout uses `diag_invariant_freq_readout` and the count marginal, and `ergodicShell_SRC_of_dynamicsGlue` constructs a trace-one stationary state using `1 / card S`. `ergodicShell_SRC_of_domainGlue` imports this existence and marginal-uniqueness result after its own spanning step. **A** for orbit constancy as an identity, **F** for normalized cycle counting on the chosen shell. A replacement must separately supply a normalized invariant law and specify the conditions that fix its visible marginal. |
+| **Finite shell frequency and stationary count.** `CycleFibreHull:73–143,348–366`, `DynamicsGlue:84–152,216–307,372–405`, `DomainGlue:275–288` | `freq_shift` and `transitive_freq_const` omit finite-carrier binders. The first uses `pow_orderOf_eq_one`. Neither proves that the denominator in `freq` is positive. `freq_sum_one` and `freq_sum_card` use `orderOf_pos φ`, and the second also reindexes a sum over the whole carrier. `transitive_freq_eq_countMarginal` then divides by the number of states. `diagonalGlue_forces_monomial` needs singleton basis weights and finite matrix sums. `diag_invariant_pow` is ordinary induction. The stationary readout uses `diag_invariant_freq_readout` and the count marginal, and `ergodicShell_SRC_of_dynamicsGlue` constructs a trace-one stationary state using `1 / card S`. `ergodicShell_SRC_of_domainGlue` imports this existence and marginal-uniqueness result after its own spanning step. **A** for the orbit-wise identities `freq_shift` and `freq_pow`, **F** for normalized cycle counting and the inhabited all-pairs transitive setting in §24.4. A replacement must separately supply a normalized invariant law and specify the conditions that fix its visible marginal. |
 | **Rooted return and stochastic obstruction.** `CausalReadback:178–207`, `RootedRecurrenceBridge:22–107`, `ObservableFactorRecurrence:35–91`, `ObservableMeasureReturn:35–108`, `EquivalenceChain:110–150` | The finite-chain model builds `rootedMap` by summing over one shared hidden prior. `rootedMap_eq_one_of_iterate_return` consumes a supplied microscopic return. `exists_positive_rooted_period` obtains a common positive period from the finite total permutation, inherited by the order-based horizon comparison. For measured ratios, `measure_change_zero_iff` resolves change into off-diagonal cells and `measuredGamma_eq_one_iff` equates exact visible return almost everywhere with an identity matrix when each initial cell has positive finite mass. The matrix theorem `pIndivisible_of_visible_identity_return_nonperm` takes a real row-stochastic nonpermutation matrix at `s < L` and an exact identity at `L`. It applies `isPermMatrix_of_stochastic_inverse` on the finite visible type. **F** for deriving a common return by finite order, **A** for the measured equivalence and the matrix obstruction with its own inputs. Using them together needs a compatible real stochastic family and the earlier nonpermutation step. |
 
 ### 23.2 Unnumbered manuscript and book consumers
@@ -960,14 +960,14 @@ The source roster has 132 authored top-level commands across the ten files below
 | `ObservabilityQuotient` | 19 | 19 |
 | `CycleFibreHull` | 23 | 23 |
 | `DynamicsGlue` | 12 | 12 |
-| `CausalReadback` | 31 | 0 |
-| `RootedRecurrenceBridge` | 9 | 0 |
-| `ObservableFactorRecurrence` | 4 | 0 |
-| `ObservableMeasureReturn` | 5 | 0 |
-| `RecurrenceHorizon` | 9 | 0 |
-| **Total** | **132** | **74** |
+| `CausalReadback` | 31 | 31 |
+| `RootedRecurrenceBridge` | 9 | 9 |
+| `ObservableFactorRecurrence` | 4 | 4 |
+| `ObservableMeasureReturn` | 5 | 5 |
+| `RecurrenceHorizon` | 9 | 9 |
+| **Total** | **132** | **132** |
 
-**Work in progress.** This checkpoint traces the first five files. Each row reports the finite object, the operative proof step, or a named dependency. A matrix indexed by the full realizing state type `S` belongs to the finite representation. Treating `S` as the whole physical carrier is a further identification. `I` and `V` index visible labels. A finite horizon bounds the time indices. Source inference here uses signatures, enclosing instance binders, explicit `omit` commands and proof terms. The closure of tactic-generated and imported dependencies beyond the named sources remains **X**.
+Each row reports a finite object and its proof use, or the operative assumptions when the carrier is arbitrary. A matrix indexed by the full realizing state type `S` belongs to the finite representation. Treating `S` as the whole physical carrier is a further identification. `I` and `V` index visible labels. A finite horizon bounds the time indices. Source inference here uses signatures, enclosing instance binders, explicit `omit` commands and proof terms. The closure of tactic-generated and imported dependencies beyond the named sources remains **X**.
 
 The package specifies Mathlib `v4.33.0` in `verification/lean-mathlib/lakefile.toml:4–8`. The tag resolves to `db584cd6d46c92f209a44c0f1c829460d327499d`. The local uses of `orderOf_pos` below obtain `Finite (Equiv.Perm S)` from finite `S` via the equivalence-type instances. Those instances require finiteness of one endpoint and use no decidable state equality. `orderOf_pos` then takes `LeftCancelMonoid` and `Finite` on the monoid. `pow_orderOf_eq_one` and `pow_mod_orderOf` already hold for a monoid, with `orderOf = 0` for infinite order. A positive-order proof supplies a different premise. [Finite equivalence type](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Data/Finite/Prod.lean#L56-L68) · [Order, zero convention and identity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L175-L210) · [Residues](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L263-L268) · [Finite-monoid positivity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L957-L989)
 
@@ -1069,7 +1069,7 @@ For the transitivity premise at :350–351, :359–360, :371–372, :394–395 a
 |---|---|
 | `DiagonalSectorGlue:84–86` | Full diagonal-sector agreement uses products of square matrices on `S`. **F** for the finite represented algebra. |
 | `conj_diag_entry:90–94` | Expands conjugation into one sum over the entire matrix index using `Matrix.mul_diagonal`. **F** for that matrix entry formula. |
-| `diagonalGlue_forces_monomial:101–152` | Tests the full-sector hypothesis on each singleton weight. The diagonal sum collapses to one term, fixing its magnitude and eliminating the rest of each column. Uses `CoherentLift.permMatrix_conj_diagonal`. **F** on the finite matrix representation. |
+| `diagonalGlue_forces_monomial:101–152` | Tests the full-sector hypothesis on each singleton weight. Each conjugation entry sum collapses to one term, fixing the supported entry's magnitude and eliminating the rest of its column. Uses `CoherentLift.permMatrix_conj_diagonal`. **F** on the finite matrix representation. |
 | `monomial_conj_apply:156–167` | Reassociates the two diagonal phase multipliers and uses `CoherentLift.permMatrix_conj_apply` to reindex the entries. **F**. |
 | `glue_of_monomial:172–183` | Substitutes the two conjugation formulas and uses the unit norm of each phase on the diagonal. **F** for the represented converse. |
 | `diagonalGlue_iff_monomial:188–195` | Combines the forward singleton test and the converse entry calculation. **F**. |
@@ -1081,3 +1081,98 @@ For the transitivity premise at :350–351, :359–360, :371–372, :394–395 a
 | `ergodicShell_SRC_of_dynamicsGlue:372–405` | The monomial form comes from singleton tests. The existence branch constructs the constant diagonal on the nonempty finite shell. The uniqueness branch uses phased shell readout with transitivity. **F** through both the finite matrix and counting steps. |
 
 In both shell capstones, the existence branch uses a nonempty finite carrier and its uniform state. The transitivity premise is consumed by the uniqueness branch, which fixes the visible marginal of every stationary state in the stated class. Keeping this distinction matters for any replacement of the finite counting law.
+
+### 24.6 Rooted marginals and divisibility in `CausalReadback`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `IsRowStochastic:48–49` | Each row has nonnegative entries and a unit sum over the finite visible labels. **A** at visible scope. |
+| `PDivisible:54–55` | Requires a right stochastic factor for every ordered pair of times in the given horizon. The factorization uses finite visible-index matrix multiplication. **A**. |
+| `PIndivisibleWithin:58` | Negates the preceding predicate on the same finite visible matrices. **A**. |
+| `C4e:62–63` | Uses only distinct roots, ordered times, equality of two earlier rows and inequality of two later rows. The pointwise predicate can name arbitrary visible labels. **A**. |
+| `C4r:67–68` | Replaces row equality and inequality by strict increase of finite-visible total variation. **A**. |
+| `tv_nonneg:71–73` | Unfolds `HiddenMemory.tv` as a positive multiple of a finite sum of nonnegative values. **A**. |
+| `tv_eq_zero_iff:76–88` | A zero sum of the nonnegative terms gives a zero difference at each visible coordinate. Equal rows give the converse by direct substitution. **A**. |
+| `tv_pos_of_ne:91–92` | Uses nonnegativity and the preceding equality criterion. **A**. |
+| `tv_mul_le:96–113` | The triangle inequality applies to the finite visible sums. Exchanging the sums and using each propagator row's normalization proves contractivity. The two input rows can be real vectors as stated. **A**. |
+| `rows_eq_of_factor:118–122` | Equality of earlier rows makes the corresponding finite products equal term by term. The consequent row equality holds for the given matrix factor, with no probability premise on it in this declaration. **A**. |
+| `c4e_implies_c4r:126–130` | The earlier distance is zero by `tv_eq_zero_iff`. The later distance is positive by `tv_pos_of_ne`. **A**. |
+| `c4r_implies_pIndivisible:134–144` | A candidate right factor constrains later rows by `tv_mul_le`, contradicting strict increase. **A** for the stochastic contraction route. |
+| `c4e_implies_pIndivisible:148–153` | Applies `rows_eq_of_factor` to the one implicated pair of times. It discards the stochasticity witness of the factor supplied by divisibility. **A** for the exact collision route. |
+| `c4e_implies_pIndivisible_via_c4r:157–159` | Composes strict revival with the contraction no-go. **A**. |
+| `not_c4e_and_not_c4r_of_pDivisible:162–164` | Applies both no-go implications to divisibility. **A**. |
+| `RootedRealization:178–186` | A bijection on `V × H` and a shared hidden prior. `Fintype H` is used in the prior sum. This structure header takes arbitrary `V` and so by itself guarantees only finite `H`. **F** for that hidden representation. |
+| `rootedMap:190–192` | Sums the common prior over the finite hidden type at any fixed root and time. Decidable equality on `V` implements the outcome test. **F** for the finite hidden realization. |
+| `rootedMap_isRowStochastic:196–207` | Uses both finite `V` and finite `H`. Exchanging the sums selects exactly one visible outcome at each hidden state, then the shared prior sums to one. Here `V × H` is finite. **F** for the constructed family. |
+| `J2:216` | A constant one-half entry on `Fin 2` visible rows and columns. **A** as a matrix control. |
+| `pdFamily:221–223` | Identity at time zero and the two-visible mixing matrix at positive times. **A** as a matrix control. |
+| `peFamily:227–229` | The mixing matrix at time two, identity otherwise. **A** as a matrix control. |
+| `j2_isRowStochastic:232–233` | The two visible terms in each row sum to one. **A**. |
+| `one_isRowStochastic:236–241` | Identity entries are nonnegative and there is a single unit entry in each finite visible row. **A**. |
+| `j2_rows_eq:244` | The two visible rows agree definitionally by constant entries. **A**. |
+| `one_rows_ne:247–252` | Tests both identity rows at the first root's column. Its values there are one and zero by root inequality. **A**. |
+| `pdFamily_pDivisible:256–272` | Selects the mixing matrix for steps out of time zero and the identity between positive times. Uses the two stochasticity lemmas on the visible control. **A**. |
+| `pdFamily_not_c4e_not_c4r:276–277` | Uses divisibility of the control and the two negations proved above. **A**. |
+| `peFamily_c4e:281–286` | The two roots collide at time two and separate at time three, by definition of the mixing rows and the identity row test. **A**. |
+| `peFamily_pIndivisible:289–290` | Applies the exact collision obstruction to that visible control. **A**. |
+| `control_separation:295–299` | Assembles the two finite-visible control results. The fields concern rooted matrices. **A**. |
+| `causal_readback_verdict:314–317` | Bundles the three abstract implications. The finite hypothesis is on the observed matrix index. **A**. |
+
+`HiddenMemory.tv:92–93` is a single absolute-difference sum over its `Fintype` parameter. The uses here instantiate that parameter by the visible label type. They import the distance formula without importing the hidden-state representation of `HiddenMemory`.
+
+### 24.7 Microscopic returns in `RootedRecurrenceBridge`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `rootedMap_eq_one_of_iterate_return:25–32` | Takes an identity iterate on every product state as a premise. The outcome comparison simplifies each prior summand, and the row's diagonal entry is the finite normalized hidden prior. This proof consumes a fixed iterate. **F** for the finite-prior conversion. |
+| `pIndivisible_of_iterate_return_of_overlap:36–43` | Uses the conversion and the overlap result in `RecurrenceHorizon` on a later positive horizon `n > s`. **F** in the stated rooted representation, with return and overlap supplied. |
+| `iterate_return_at_order:47–52` | Rewrites the iteration as a permutation power and applies `pow_orderOf_eq_one`. This proof makes no positivity inference. **F** for the asserted rooted model, with an order identity that is available on arbitrary permutation types. |
+| `rootedMap_at_order:55–57` | Instantiates the finite-prior conversion at the preceding iterate equality. Positivity is supplied separately when required. **F** in the rooted representation. |
+| `rootedMap_add_order:60–67` | Uses the power identity and then unfolds the finite hidden-prior sum. Its time-shift equation at `t + orderOf R.step` by itself includes the zero-order convention. **F** for the stated rooted family. |
+| `exists_positive_rooted_period:70–74` | Uses `orderOf_pos` on the permutation of `V × H`, with its finite instance from finite `V` and `H`. Then supplies the two preceding rooted identities. **F** for the whole-realization positive period. |
+| `no_stochastic_divisor_of_return_nonperm:78–90` | Finite-rooted construction supplies the earlier row-stochastic matrix and turns the given microscopic return into the visible identity. The imported stochastic-inverse lemma applies only to the visible matrices. **F** for this wrapper with a supplied return. |
+| `pIndivisible_of_return_nonperm:93–100` | Uses `s < n` when extracting a candidate `(s,n)` factor. The no-divisor theorem supplies the contradiction from its own premises. **F** in the stated rooted model. |
+| `pIndivisible_at_order_of_nonperm:104–108` | Supplies the iterate equation at the order and takes the earlier witness time strictly below that order. The inequality already entails positive order. The body never calls `exists_positive_rooted_period`. **F** for the finite model lifting the matrix obstruction. |
+
+This file imports `ObservabilityQuotient`. Its displayed return and factorization proofs invoke no named quotient or spanning lemma from that import. Positivity of the shared period comes from the finite permutation instance. The stochastic inverse and overlap branches use the named visibility results in their statements and bodies.
+
+### 24.8 Visible events and the stochastic inverse in `ObservableFactorRecurrence`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `ChangeEvent:38–39` | Pointwise inequality of the initial and advanced visible labels on arbitrary `X`. **A**. |
+| `OffDiagonalEvent:42–44` | Joint cell membership for any two labels, including equal ones. The off-diagonal restriction is applied in its consumer. **A**. |
+| `changeEvent_eq_iUnion:48–58` | The union identifies the two observed labels of each point and the inequality between them. The set identity works for arbitrary label type and has no measure premise. **A**. |
+| `pIndivisible_of_visible_identity_return_nonperm:68–84` | Given an earlier row-stochastic nonpermutation and later exact identity, a stochastic right factor would be an inverse. Applies `EquivalenceChain.isPermMatrix_of_stochastic_inverse`. Only `V` is finite. **A** for the supplied-matrix implication. |
+
+`EquivalenceChain.row_eq_basis_of_mem_support:75–100` uses finite nonnegative sums at off-diagonal entries of `A * B = 1`. A positive entry of a row of `A` forces the corresponding row of `B` to be the relevant basis row. `EquivalenceChain.isPermMatrix_of_stochastic_inverse:110–169` uses one-sided inversion for square matrices to orient the product, computes `det B ≠ 0` via the product determinant, and uses `det_zero_of_row_eq` to prevent repeated basis rows. After extracting the injective map of occupied columns, it applies `Finite.injective_iff_bijective` on the visible label type. The particular return call passes a right inverse directly and still consumes the determinant and finite bijection steps of the imported proof. `Matrix.mem_rowStochastic_iff_sum` is the equivalence with nonnegative entries and unit row sums. [Mathlib stochastic matrix criterion](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/LinearAlgebra/Matrix/Stochastic.lean#L57-L65)
+
+### 24.9 Measured visible return in `ObservableMeasureReturn`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `VisibleCell:39` | Pointwise membership by observation equality. **A** on an arbitrary carrier. |
+| `diagonalEvent_eq_diff:42–58` | Rewrites a joint cell with equal labels as the initial cell with the change event removed. This is set extensionality and equality logic. **A**. |
+| `measure_change_zero_iff:63–68` | Uses the set union from `ObservableFactorRecurrence` and `measure_iUnion_null_iff`. The measurable carrier is arbitrary. Finite visible labels supply countability of the two outer union indices and the inner proposition is subsingleton. **A**. |
+| `measuredGamma:74–76` | Forms each extended nonnegative real ratio of a joint-cell mass to the initial-cell mass. The pointwise definition has no summation over the carrier or visible labels. **A** as a ratio of measures. |
+| `measuredGamma_eq_one_iff:83–109` | Forward, each off-diagonal ratio is zero and the finite denominator gives a null numerator. Reverse, removing a null set leaves the diagonal mass unchanged, and its positive finite denominator makes the ratio one. Combines this with the null union check for off-diagonal entries. **A** for an arbitrary measured `X` and finite visible `V`. |
+
+`measure_iUnion_null_iff` requires countability of the index set. `measure_sdiff_null` uses outer-measure monotonicity and subadditivity under the displayed null hypothesis. These facts explain why the measured-return lemma can use the supplied advance without reversibility or invariance of the measure. An application to a normalized real row-stochastic family must still supply that family and identify it with the measured ratios on the requisite times. [Mathlib null set and union lemmas](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/MeasureTheory/OuterMeasure/Basic.lean#L93-L122)
+
+### 24.10 Distance revival with a supplied return in `RecurrenceHorizon`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `tv_eq_one_sub_sum_min:48–60` | Sums the pointwise absolute-value identity over finite visible labels and uses the two unit-sum hypotheses. **A**. |
+| `tv_le_one_sub_min:64–71` | Bounds the overlap sum from below by one coordinate using nonnegativity. Uses the preceding unit-sum identity. **A**. |
+| `tv_lt_one_of_overlap:76–81` | A positive shared coordinate makes that minimum positive, giving strict distance below one. **A**. |
+| `tv_one_rows:87–96` | Uses `CausalReadback.one_isRowStochastic` and zero overlap of two distinct identity rows. **A**. |
+| `c4r_of_identity_return_of_overlap:104–113` | The two earlier rows are positive at a common coordinate and row-stochastic. A supplied later identity gives distance exactly one there, producing `C4r`. **A** on finite visible matrices. |
+| `pIndivisible_of_identity_return_of_overlap:119–124` | Applies the abstract revival no-go to the preceding overlap-to-revival argument. **A**. |
+| `c4r_of_rooted_identity_return_of_overlap:140–144` | Reuses the visible-matrix theorem and imports `rootedMap_isRowStochastic` for the already constructed finite-hidden family. **F** for the wrapper, with the visible return supplied. |
+| `pIndivisible_of_rooted_identity_return_of_overlap:148–152` | The same finite-prior normalization supplies the earlier matrix. The stipulated visible return and common-coordinate overlap give the horizon verdict. **F** in the stated representation. |
+| `horizon_verdict:171–176` | Packages the abstract revival and indivisibility implications. Its time comparison and exact return are premises on matrices over finite visible labels. **A**. |
+
+### 24.11 Disposition
+
+All 132 names and start lines in the bounded roster match pinned source headers once each. The 232 other indexed bridge modules have the module traces in §§2–22 and selected proof traces such as those in §23. A reviewed corpus-wide declaration roster, generated definitions and complete elaborated dependencies, the rest of the manuscript's unnumbered propagation, and the remaining recursive evidence carry **X** status. The source audit leaves A1-C01 **INCOMPLETE**.
