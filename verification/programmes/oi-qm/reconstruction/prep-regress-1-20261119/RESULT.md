@@ -1,7 +1,13 @@
 # PREP-REGRESS-1: the preparation regress, stationarity, and the held-predictability budget
 
-**Standing.** WIP / UNVERIFIED author record of a paper-only gem-finding unit (AGENTS.md §A.31,
-depth-first form). One independent non-author review is a separate gate. This record adopts no
+**Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
+Independent non-author review: REVISE at `eef4d3ab`
+([#1417 c.7019920749](https://github.com/amaybaum/incompleteness/pull/1417#issuecomment-7019920749));
+ACCEPT WITH NITS at `865026dc`
+([#1417 c.7020146628](https://github.com/amaybaum/incompleteness/pull/1417#issuecomment-7020146628));
+CONFIRMED at `bbf66b65`
+([#1417 c.7020227507](https://github.com/amaybaum/incompleteness/pull/1417#issuecomment-7020227507)).
+This record adopts no
 premise, edits no manuscript, Lean module or registry, and runs no simulation. Small exact checks
 are included as controls (§9).
 
