@@ -1,0 +1,53 @@
+== 1. Q4-P19 on F_2^4 (Sp(4,2) from symplectic bases)
+PASS 1a |Sp(4,F_2)| from symplectic bases = 720  -- 720
+PASS 1b every basis-built matrix satisfies omega(Mu,Mv)=omega(u,v) for all 256 pairs
+PASS 1c brute-force count over all 65,536 matrices equals 720 and matches the basis set
+PASS 1d affine-symplectic maps = 11,520
+PASS 1e Q4-P19 (i): no affine-symplectic map is the identity on c=0 and changes a meter slot on c=1  -- 0 exceptions
+PASS 1f |GL(4,F_2)| = 20,160
+PASS 1g affine bijections that are identity on c=0 and change a meter slot on c=1 = 6  -- 6
+PASS 1h location-preserving affine-symplectic maps = 384  -- 384
+PASS 1i of these, meter write depends on c: 288  -- 288
+PASS 1j Q4-P19 (ii): every one of the 288 changes x on some state with c=0
+PASS 1k weak reading: m <- m+1 changes a meter slot on c=1 and never changes x
+== 2. K_null on the silent branch's support, by meter ready law
+   sharp(0,0)                   readable recorders 288 ; of them with K_null = id on the silent support 144
+   sharp(0,1)                   readable recorders 288 ; of them with K_null = id on the silent support 144
+   sharp(1,0)                   readable recorders 288 ; of them with K_null = id on the silent support 144
+   sharp(1,1)                   readable recorders 288 ; of them with K_null = id on the silent support 144
+   SA1c m known=0, m' uniform   readable recorders 192 ; of them with K_null = id on the silent support   0
+   SA1c m' known=0, m uniform   readable recorders 192 ; of them with K_null = id on the silent support   0
+   SA1c m known=1, m' uniform   readable recorders 192 ; of them with K_null = id on the silent support   0
+   SA1c m' known=1, m uniform   readable recorders 192 ; of them with K_null = id on the silent support   0
+   both unknown                 readable recorders   0 ; of them with K_null = id on the silent support   0
+PASS 2a the reciprocal coupling (m<-m+c, x<-x+m') is symplectic
+PASS 2b with a sharp meter (0,0) it records readably and has K_null = id on its silent branch
+PASS 2c with an SA-1(c) meter (m known 0, m' uniform) it records readably and K_null != id
+PASS 2d sharp meter laws admit readable recorders with K_null = id (gloss needs the meter law)  -- sharp(0,0): 144
+PASS 2e under every SA-1(c) meter law, every readable recorder has K_null != id
+PASS 2f with both meter slots unknown no map records readably
+== 3. Q4-P19 (ii) over F_3^4 (sanity, beyond the stated scope)
+PASS 3a |Sp(4,F_3)| from symplectic bases = 51,840
+PASS 3b location-preserving linear parts = 648  -- 648
+PASS 3c over F_3: every location-preserving symplectic recorder changes x on some c=0 state  -- 1728 checked, 0 violations
+== 4. Q6-P12 on deterministic response tables
+PASS 4a 256 deterministic tables
+PASS 4b local tables = 16
+PASS 4c bullet 1: every local table has |S| <= 2
+PASS 4d bullet 1 (contrapositive): every table with |S| > 2 has remote-setting dependence
+PASS 4e control non-vacuous: some non-local table reaches |S| = 4
+PASS 4f MI mixtures supported on local tables (pairs, weights k/8) stay at |S| <= 2
+PASS 4g bullet 3: a point mass is no-signalling iff its table is local (256)
+PASS 4h countercontrol: the two components signal, the equal mixture is no-signalling with S = 4  -- S=4
+PASS 4i bullet 3, small universe: in every no-signalling class (1-3 laws, weights in {0,1/2,1}) with a member of |S|>2, some support point mass lies outside the affine hull  -- 14 NS classes, 7 members with |S|>2
+== 4'. Q6-P12 bullet 2 on all graphs with 4 vertices
+PASS 4j bullet 2: whenever d_GB <= T < d_Gref, every G_B path of length <= T leaves G_ref  -- 2620 cases
+== 5. (a,b) -> (b, F b - a): symplectic iff F = F^T
+PASS 5 (q,n)=(2,2) [pairs]: symplectic iff symmetric; counts 8 = 8
+PASS 5 (q,n)=(3,2) [pairs]: symplectic iff symmetric; counts 27 = 27
+PASS 5 (q,n)=(2,3) [pairs]: symplectic iff symmetric; counts 64 = 64
+PASS 5 (q,n)=(3,3) [basis]: symplectic iff symmetric; counts 729 = 729
+PASS 5 (q,n)=(5,2) [basis]: symplectic iff symmetric; counts 125 = 125
+PASS 5t an affine step with symmetric F has a symplectic linear part (translation does not matter)
+PASS 5r ring of 5 sites over Z_3: translation-invariant NN rule symmetric iff reflection-symmetric
+== 37 of 37 checks pass

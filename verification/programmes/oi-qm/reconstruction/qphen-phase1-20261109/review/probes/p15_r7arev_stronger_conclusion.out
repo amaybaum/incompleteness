@@ -1,0 +1,47 @@
+== (1) Sp(4, F_q) by symplectic-basis enumeration
+PASS (1a) q=2: |Sp| = q^4 (q^2-1)(q^4-1) = 720  -- 720
+PASS (1b) q=2: every element preserves omega on the basis
+PASS (1a) q=3: |Sp| = q^4 (q^2-1)(q^4-1) = 51840  -- 51840
+PASS (1b) q=3: every element preserves omega on the basis
+PASS (1c) q=2: brute-force filter of 65,536 matrices gives 720  -- 720
+== (2) Q4-P20 stronger conclusion under SA-1(c) (product support): readable => x'-x non-constant on c=0
+PASS (2a) q=2, all 720x16 affine-symplectic maps, 6 SA-1(c) laws: readable count 4,608 per law  -- [4608, 4608, 4608, 4608, 4608, 4608]
+PASS (2b) q=2, all maps: no readable map has x'-x constant on the c=0 support  -- (0, 0)
+PASS (2c) q=2, location-preserving (384 maps): readable count 192 per law, no constant x'-x  -- ([192, 192, 192, 192, 192, 192], 0)
+PASS (2d) q=3: 17,496 location-preserving affine-symplectic maps  -- 17496
+PASS (2e) q=3, location-preserving, 12 SA-1(c) laws: readable 11,664 per law, no constant x'-x  -- ([11664, 11664, 11664, 11664, 11664, 11664, 11664, 11664, 11664, 11664, 11664, 11664], 0)
+PASS (2f) q=3, location-preserving, x restricted to each pair of values: no constant x'-x  -- 0
+PASS (2g) q=3: readability and constancy of x'-x independent of b (300 random M x 10 b)  -- 0
+PASS (2h) q=3, all 51,840 linear parts, 12 laws: no readable part has constant x'-x  -- ([15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552], 0)
+PASS (2i) q=3, readable linear parts per law = 15,552 (matches p14 (3))  -- [15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552, 15552]
+== (3) proof steps on every readable map (q=2 all; q=3 LP): f o M in span{c, l} with alpha != 0
+PASS (3a) every readable (M, f): f o M = alpha c + lambda l, alpha != 0, and {x o M, f o M} = 0  -- (6912, 0)
+== (4) sharp meters: every readable LP recorder acts on x by a known displacement on each branch
+PASS (4a) q=2: per sharp state, readable LP recorders / K_null = id = (288, 144)  -- [(288, 144), (288, 144), (288, 144), (288, 144)]
+PASS (4b) q=2: every readable LP recorder: x'-x constant on each branch (known displacement)
+PASS (4c) q=2: the rest (144) have K_null != id by a nonzero known displacement
+PASS (4a) q=3: per sharp state, readable LP recorders / K_null = id = (15552, 5184)  -- [(15552, 5184), (15552, 5184), (15552, 5184), (15552, 5184), (15552, 5184), (15552, 5184), (15552, 5184), (15552, 5184), (15552, 5184)]
+PASS (4b) q=3: every readable LP recorder: x'-x constant on each branch (known displacement)
+PASS (4c) q=3: the rest (10368) have K_null != id by a nonzero known displacement
+PASS (4d) every LP symplectic linear part (q=2,3) has (x o M)_x = 1
+== (5) N1: the reciprocal coupling with a sharp meter; identity iff the conjugate slot m' is 0
+PASS (5a) q=2: reciprocal coupling symplectic and location-preserving
+PASS (5b) q=2: every sharp state records readably, displacement known, identity iff m' = 0
+PASS (5a) q=3: reciprocal coupling symplectic and location-preserving
+PASS (5b) q=3: every sharp state records readably, displacement known, identity iff m' = 0
+PASS (5c) the r7 sentence 'sharp meter => K_null = id' is false: meter (0,1) readable, x -> x+1 on c=0
+PASS (5d) reciprocal coupling under SA-1(c) (m known): readable, x'-x non-constant on c=0
+== (6) N2: independence is load-bearing (a correlated family different from p14 (5e))
+PASS (6a) q=2: with the correlated meter some readable symplectic part has constant x'-x (Q4-P20 fails without independence)  -- [216, 216]
+     q=2: location-preserving parts among them: 0
+PASS (6b) q=2: control, product law on the same line: no readable part with constant x'-x  -- 0
+PASS (6a) q=3: with the correlated meter some readable symplectic part has constant x'-x (Q4-P20 fails without independence)  -- [12096, 12096, 12096, 12096, 12096, 12096]
+     q=3: location-preserving parts among them: 0
+PASS (6b) q=3: control, product law on the same line: no readable part with constant x'-x  -- 0
+== (7) countercontrol: copy coupling (not symplectic) under SA-1(c) records with K_null = id
+PASS (7a) copy coupling not symplectic; readable; x'-x = 0 on c=0
+== (8) assumption-watch: non-LP readable recorders under SA-1(c) whose x'-x depends only on x
+     q=2, first law: readable parts 288; x'-x independent of the meter point at fixed x: 96
+     q=3, first law: readable parts 15552; x'-x independent of the meter point at fixed x: 3888
+
+TOTAL: 33 passed, 0 failed

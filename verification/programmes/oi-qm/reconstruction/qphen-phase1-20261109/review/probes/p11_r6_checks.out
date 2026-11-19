@@ -1,0 +1,15 @@
+PASS (1a) |Sp(4,F_2)| = 720 by brute force over 65536 matrices
+     (1) location-preserving affine-symplectic maps: 384 ; with meter write depending on c: 288
+PASS (1b) strong-form recorders number 288
+PASS (1c) every strong-form recorder changes x on some c = 0 state
+PASS (1d) weak 'records' admits maps that never change x on c = 0 (e.g. the translation m <- m + 1)
+PASS (1e) affine-symplectic maps that are the identity on c = 0 change no meter slot on c = 1 (0 of 11520)
+     (2) symplectic second-order steps (q, n, count): [(2, 2, 8), (2, 3, 64), (3, 2, 27), (5, 2, 125)]
+PASS (2a) the step (a,b) -> (b, F b - a) is symplectic iff F = F^T (q in {2,3,5}, n <= 3, exhaustive)
+PASS (2b) translation (a,b) -> (a,b) + k has linear part I, which is symplectic
+PASS (3a) 256 tables; every local table has |CHSH| <= 2
+PASS (3b) every table with |CHSH| > 2 has a remote-setting dependence
+PASS (4a) a point mass is no-signalling iff its table is local (256 tables)
+PASS (4b) countercontrol: uniform mixture of two signalling point masses is no-signalling with S = 4
+
+11 of 11 checks pass

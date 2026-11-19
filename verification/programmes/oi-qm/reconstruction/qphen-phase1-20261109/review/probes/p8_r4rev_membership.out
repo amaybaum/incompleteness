@@ -1,0 +1,59 @@
+     (1a) G1=(I(x)H)CNOT_{m->c}, carrier |+>, mediator (sin b,0,cos b) : (C12,C23,C13) = (cos(b), sin(b), 0)  K3 = sqrt(2)*sin(b + pi/4)
+PASS (1a) G1=(I(x)H)CNOT_{m->c}, carrier |+>, mediator (sin b,0,cos b): Lueders = Heisenberg
+PASS (1a) G1=(I(x)H)CNOT_{m->c}, carrier |+>, mediator (sin b,0,cos b): K3 as stated
+PASS (1a) G1=(I(x)H)CNOT_{m->c}, carrier |+>, mediator (sin b,0,cos b): K3(pi/4) = sqrt2
+PASS (1a) G1=(I(x)H)CNOT_{m->c}, carrier |+>, mediator (sin b,0,cos b): K3 at (4/5,3/5) = 7/5
+     (1b) G2=(I(x)H)SWAP CNOT_{m->c}, carrier (sin b,0,cos b), mediator |0> : (C12,C23,C13) = (cos(b), sin(b), 0)  K3 = sqrt(2)*sin(b + pi/4)
+PASS (1b) G2=(I(x)H)SWAP CNOT_{m->c}, carrier (sin b,0,cos b), mediator |0>: Lueders = Heisenberg
+PASS (1b) G2=(I(x)H)SWAP CNOT_{m->c}, carrier (sin b,0,cos b), mediator |0>: K3 as stated
+PASS (1b) G2=(I(x)H)SWAP CNOT_{m->c}, carrier (sin b,0,cos b), mediator |0>: K3(pi/4) = sqrt2
+PASS (1b) G2=(I(x)H)SWAP CNOT_{m->c}, carrier (sin b,0,cos b), mediator |0>: K3 at (4/5,3/5) = 7/5
+     (1c) H on carrier: (H(x)I)CNOT_{m->c} : (C12,C23,C13) = (0, 0, cos(b))  K3 = -cos(b)
+PASS (1c) H on carrier: (H(x)I)CNOT_{m->c}: Lueders = Heisenberg
+PASS (1c) H on carrier: (H(x)I)CNOT_{m->c}: K3 as stated
+     (1d) H on carrier: (H(x)I)SWAP CNOT_{m->c} : (C12,C23,C13) = (0, 0, 0)  K3 = 0
+PASS (1d) H on carrier: (H(x)I)SWAP CNOT_{m->c}: Lueders = Heisenberg
+PASS (1d) H on carrier: (H(x)I)SWAP CNOT_{m->c}: K3 as stated
+PASS (1) G1, G2 unitary
+PASS (1) G1, G2 Clifford
+PASS (1e) mediator(x)carrier reading gives K3 = -cos b (so the stated order is needed)
+PASS (2) Q4-D5: CNOT ancilla->carrier gives C12 = cos 2theta
+PASS (3) Q4-D4: weight-w instrument trace preserving
+PASS (3) Q4-D4: outcome effects are the Z projectors (dichotomic Z read)
+PASS (3) Q4-D4: K3 = 6w - 3 (so 3 at w = 1 and 2 at w = 5/6)
+PASS (4) Q4-D7: P(z3=+1) = 1/2 with and without a Lueders X read (G = I)
+PASS (4) Q4-D7: X does not commute with Z
+PASS (5) Q4-D2: witness invertible over F_2
+PASS (5) Q4-D2: witness symplectic for (z,x),(v,w)
+     (5) sharp : C12,C23,C13 = 1 1 0  K3 = 2  P(z3=0) with/without t2 read = 1/2 1/2
+     (5) environment : C12,C23,C13 = 0 0 0  K3 = 0  P(z3=0) with/without t2 read = 1/2 1/2
+     (5) mixture 3/4 : C12,C23,C13 = 3/4 3/4 0  K3 = 3/2  P(z3=0) with/without t2 read = 1/2 1/2
+PASS (5) Q4-D2: sharp mediator K3 = 2
+PASS (5) Q4-P7: environment mediator K3 = 0
+PASS (5) Q4-D1: mixture K3 = 3/2
+PASS (5) Q4-D1: t2 read leaves P(z3) unchanged in each branch and in the mixture
+PASS (5) Q4-D1: z-row of G has zero x coefficient (t2 kick never enters z3)
+PASS (6) Q4-D3: copy coupling m <- m + c is linear and invertible
+PASS (6) Q4-D3: copy coupling is NOT symplectic
+PASS (6) R4.9: reciprocal coupling (copy + x <- x + m') is symplectic
+     (6) |Sp(4,F2)| = 720 ; affine bijections, identity on c=0, meter changes on c=1: 6 ; of which affine-symplectic: 0
+PASS (6) |Sp(4,F2)| = 720
+PASS (6) affine maps acting only when occupied exist (Q4-D3 holds for affine maps)
+PASS (6) no affine-SYMPLECTIC map acts only when occupied and changes the meter
+     (7) |C_2 / U(1)| = 11520 ; pure stabilizer states = 60 ; max K3 = 1.0 ; non-integer correlators = 0
+PASS (7) Q4-P3 (numerical): 11,520 Cliffords x 60 states: integer correlators and K3 <= 1
+PASS (8) Q3-D1: L bijective on F_2^3
+PASS (8) Q3-D1: ready support -> (0,1,0), (1,0,1)
+PASS (8) Q3-D1: field weight 1 after, own-cell clicks exclusive, alpha = 0
+PASS (8) Q3-D1: total weight conserved on ready support
+     (8) affine bijections: 1344 ; global-weight affine: 6 ; affine routers: 48 ; global-weight routers: 8 (affine: 0 ); field-weight routers: 64 (affine: 0 )
+PASS (8) 6 / 48 / 8 (0 affine) / 64 (0 affine)
+PASS (8) Q3-P11: cells 9,151,71,25 valid law; P_A=5/8, P_B=5/16, alpha=9/50
+     (9) edges: [(0, 1), (0, 3), (1, 3)] ; d_G(B,R_A) = 1 ; d_G(A,R_B) = inf ; S = 4
+PASS (9) Q6-D1: (D) bijective for every setting
+PASS (9) Q6-D1: single-graph (R): d_G(B,R_A) = 1 > 0 and d_G(A,R_B) > 0
+PASS (9) Q6-D1: (L') fails
+PASS (9) Q6-D1: S = 4 with lam uniform and setting independent (MI)
+PASS (10) Q6-D2: triangle state gives +1,+1,+1,-1 (value 4); local max 2
+PASS (10) Q6-D3: GHZ-1 nonzero X/Z strings are XXX, ZZI, IZZ, ZIZ, all +1
+ALL PASS (47 checks)
