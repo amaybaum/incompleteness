@@ -263,13 +263,18 @@ for E in ([s for s in S3 if s[0] == 0 and s[1] == 0], [(0, 0, 0), (0, 0, 1), (1,
           D_unif(uE, 3) == L(3) - log2_rational(len(E)))
 
 # C8  flux balance for every bijection of a 4-set and every event.
-ok = True
-for perm in permutations(range(4)):
-    for mask in range(16):
-        E = {i for i in range(4) if mask >> i & 1}
-        inflow = sum(1 for s in range(4) if s not in E and perm[s] in E)
-        outflow = sum(1 for s in range(4) if s in E and perm[s] not in E)
-        ok &= inflow == outflow
+def flux_balanced(phi, size):
+    """True iff inflow == outflow for every event E of a map phi on range(size)."""
+    for mask in range(2 ** size):
+        E = {i for i in range(size) if mask >> i & 1}
+        inflow = sum(1 for s in range(size) if s not in E and phi[s] in E)
+        outflow = sum(1 for s in range(size) if s in E and phi[s] not in E)
+        if inflow != outflow:
+            return False
+    return True
+
+
+ok = all(flux_balanced(perm, 4) for perm in permutations(range(4)))
 check("C8 flux balance |{s notin E: phi s in E}| = |{s in E: phi s notin E}| (24 x 16 cases)", ok)
 
 # C9  readiness ceiling P_t(E) * M * log2 q <= D0 + 1 on the C4d trajectory (E = r,l1,l2 all 0).
@@ -283,19 +288,32 @@ for st in [None, cnot(0, 2), swap(2, 3), cnot(1, 2), swap(2, 4)]:
 check("C9 readiness ceiling P_t(E) <= (D0+1)/(M log2 q) at every step", ok)
 
 
-# C10 collision model: F_j non-increasing with fresh cells; reuse breaks it (C1).
-p = product_law(UNIF, bern(q), bern(q))  # (r, C1, C2)
-F = []
-F.append(D_unif(marginal(p, [0]), 1) + D_unif(marginal(p, [1]), 1) + D_unif(marginal(p, [2]), 1))
-p = push(p, swap(0, 1))
-F.append(D_unif(marginal(p, [0]), 1) + D_unif(marginal(p, [2]), 1))
-p = push(p, swap(0, 2))
-F.append(D_unif(marginal(p, [0]), 1))
-one_minus_h = L(1) - h2(Fr(1, 4))
-check("C10a fresh cells: F = 2(1-h), 2(1-h), (1-h): non-increasing",
-      F[0] == one_minus_h.scale(2) and F[1] == one_minus_h.scale(2) and F[2] == one_minus_h
-      and (F[0] - F[1]).sign() >= 0 and (F[1] - F[2]).sign() > 0)
-check("C10b reuse (C1): F = 1, 0, 1 rises at the reuse step", [str(x) for x in D_marg][:3] == ["1", "0", "1"])
+# C10 collision model (2.7). Bits (r, C1, C2); A = r uniform, C_j ~ Bern(3/4) fresh.
+#     Step j: CNOT(r -> C_j), which creates I(A; C_j) > 0. F_j = D(a_j) + sum_{i>j} D(C_i).
+def Dm(p, i):
+    return D_unif(marginal(p, [i]), 1)
+
+
+def I2(p, i, j):
+    return H(marginal(p, [i])) + H(marginal(p, [j])) - H(marginal(p, [i, j]))
+
+
+p = product_law(UNIF, bern(q), bern(q))
+F = [Dm(p, 0) + Dm(p, 1) + Dm(p, 2)]
+ok_dec, ok_I = True, True
+for j, unused in ((1, [2]), (2, [])):
+    p = push(p, cnot(0, j))
+    F.append(Dm(p, 0) + sum((Dm(p, i) for i in unused), L()))
+    dec = F[-2] - F[-1]
+    ok_I &= I2(p, 0, j).sign() > 0
+    ok_dec &= dec == I2(p, 0, j) + Dm(p, j)
+check("C10a fresh CNOT steps: I(A;C_j) > 0, decrement = I + D(outgoing), F non-increasing",
+      ok_I and ok_dec and all((F[k] - F[k + 1]).sign() >= 0 for k in range(2)))
+# reuse of C1 by CNOT(C1 -> r) on the same trajectory: F (no unused cells left) = D(a) rises.
+F_before = Dm(p, 0)
+p = push(p, cnot(1, 0))
+check("C10b reuse of a used cell: D(a) rises from 0 to 1-h(1/4)",
+      F_before == L(0) and Dm(p, 0) == L(1) - h2(Fr(1, 4)))
 
 # C12 orbit-selection weight for an unstructured bijection: over all permutations of
 #     n = 5 points, the cycle through a fixed point has each length 1..n equally often,
@@ -310,12 +328,66 @@ for perm in permutations(range(n5)):
 check("C12 cycle length through a fixed point is uniform on 1..5 (24 each of 120)",
       counts[1:] == [24] * n5)
 
-# C11 countercontrols: the exact sign test and the flux test can fail.
+# C13 moving block under mu-O (1.3 scope). phi(0,b) = (0,1-b), phi(1,b) = (1,b); orbit {00, 01}.
+def phi13(s):
+    return (0, 1 - s[1]) if s[0] == 0 else s
+
+
+muO13 = {(0, 0): Fr(1, 2), (0, 1): Fr(1, 2)}
+check("C13 mu-O invariant; moving block K: cell1 at t0 = 0 -> cell0 at t1 = 1 <= D(mu-O||u) = 1",
+      push(muO13, phi13) == muO13 and K(muO13, [1], 2) == L(0)
+      and K(push(muO13, phi13), [0], 2) == L(1) and D_unif(muO13, 2) == L(1))
+
+
+# C14 2.5 away from equality: every law on 3 bits with p(s) in {0,1,2,3,4,6}/16 whose
+#     quantities stay in the {2,3} field; A = bit0, B = (bit1, bit2), g = id (jointly balanced),
+#     f in {(a,a), (a,1-a), (a,0), (1-a,a)}. Checks D(p||u) >= 2 - h(eps1) - h(eps2).
+def compositions(total, parts, allowed):
+    if parts == 1:
+        if total in allowed:
+            yield (total,)
+        return
+    for v in allowed:
+        if v <= total:
+            for rest in compositions(total - v, parts - 1, allowed):
+                yield (v,) + rest
+
+
+S3 = list(product((0, 1), repeat=3))
+preds = [lambda a: (a, a), lambda a: (a, 1 - a), lambda a: (a, 0), lambda a: (1 - a, a)]
+n_checked = n_strict = 0
+ok = True
+for comp in compositions(16, 8, (0, 1, 2, 3, 4, 6)):
+    law = {s: Fr(c, 16) for s, c in zip(S3, comp) if c}
+    for f in preds:
+        try:
+            e1 = sum(x for s, x in law.items() if f(s[0])[0] != s[1])
+            e2 = sum(x for s, x in law.items() if f(s[0])[1] != s[2])
+            slack = D_unif(law, 3) - (L(2) - h2(e1) - h2(e2))
+        except AssertionError:  # a probability outside the {2,3} field: skipped, not checked
+            continue
+        sg = slack.sign()
+        ok &= sg >= 0
+        n_checked += 1
+        n_strict += sg > 0
+check(f"C14 2.5 holds on {n_checked} exact (law, predictor) cases, {n_strict} strictly",
+      ok and n_checked > 1000 and n_strict > 0)
+
+# C15 countercontrols for 2.5's hypotheses: the inequality must FAIL in both.
+u2b = product_law(UNIF, UNIF)
+eps_and = sum(x for s, x in u2b.items() if (s[0] & s[1]) != 0)  # f = 0 predicts AND
+check("C15a no joint balancedness (g = AND, f = 0): eps = 1/4 and D = 0 < 1 - h(1/4)",
+      eps_and == Fr(1, 4) and (D_unif(u2b, 2) - (L(1) - h2(eps_and))).sign() < 0)
+copy = {(0, 0): Fr(1, 2), (1, 1): Fr(1, 2)}
+e_xy = sum(x for s, x in copy.items() if s[0] != s[1])
+check("C15b no disjointness (x predicts y, y predicts x): N - sum h = 2 > D = 1",
+      e_xy == 0 and (D_unif(copy, 2) - (L(2) - h2(e_xy) - h2(e_xy))).sign() < 0)
+
+# C11 countercontrols: the exact sign test and C8's flux routine can fail.
 check("C11a sign test: 1.58 < log2(3) < 1.59 decided by integer powers",
       (L(0, 1) - Fr(158, 100)).sign() > 0 and (L(0, 1) - Fr(159, 100)).sign() < 0)
-const = (0, 0, 0, 0)  # a non-bijective map
-check("C11b flux balance fails for a non-bijection (E = {0})",
-      sum(1 for s in range(4) if s != 0 and const[s] == 0) != sum(1 for s in [0] if const[s] != 0))
+check("C11b C8's flux routine reports failure on a non-bijection (constant map)",
+      flux_balanced((0, 0, 0, 0), 4) is False)
 
 failed = [n for n, ok in RESULTS if not ok]
 print(f"{len(RESULTS) - len(failed)}/{len(RESULTS)} checks hold")

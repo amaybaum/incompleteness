@@ -1,6 +1,10 @@
 # PREP-REGRESS-1: the preparation regress, stationarity, and the held-predictability budget
 
-**Standing.** WIP / UNVERIFIED author record of a paper-only gem-finding unit (AGENTS.md §A.31,
+**Standing.** Revision r2 applies the required and recommended findings of the independent review
+at `eef4d3ab` ([#1417 c.7019920749](https://github.com/amaybaum/incompleteness/pull/1417#issuecomment-7019920749),
+REVISE; §4 proofs accepted) and the owner's OI Review requirements relayed with it (scope of the
+conclusion; no irreversible-consumption reading; the reading of item 2). No §4 theorem changes.
+WIP / UNVERIFIED author record of a paper-only gem-finding unit (AGENTS.md §A.31,
 depth-first form). One independent non-author review is a separate gate. This record adopts no
 premise, edits no manuscript, Lean module or registry, and runs no simulation. Small exact checks
 are included as controls (§9).
@@ -47,20 +51,34 @@ Units: all information quantities are in bits; `h₂(ε) = −ε log₂ ε − (
    block in law. The "native autonomous history" disjunct is therefore never a source distinct
    from the law it starts from. Escapes at law level remain: conditioning (cost exactly
    `log₂ 1/μ(E)`), a boundary law, the per-orbit law μ-O (static budget `log₂(|S|/ℓ)` fixed by the
-   orbit length ℓ), and, without total finiteness, a stationary incoming low-entropy stream.
+   orbit length ℓ), the record-compatible law μ-R (static budget `log₂(|S|/|U|)` on the orbit
+   union `U`), and, without total finiteness, a stationary incoming low-entropy stream.
 3. **Node 2 (budget) [W, EC].** Relative entropy to the counting measure is conserved exactly.
    Its coarse-grained part is not monotone (ARROW-1 C.4 is a counterexample). The correct
    statements are an exact transfer identity, a fresh-cell monotonicity under stated hypotheses,
-   and a single-time budget: `N` binary functionals held ε-predictably at one time require
-   `D(p₀‖u) ≥ Σ_k (1 − h₂(ε_k))`, with equality attained. The owner's per-cycle form
+   and a single-time budget: `N` binary target functionals held ε-predictably at one time require
+   `D(p₀‖u) ≥ Σ_k (1 − h₂(ε_k))`, with equality attained, provided the targets are jointly balanced
+   under `u` (uniform on `{0,1}^N`; the AND of two bits gives `ε = 1/4` at `D = 0`) and the
+   predictor block is disjoint from the target block (a copy pair `x = y` predicting each other
+   gives two bits at `D = 1`), both blocks fixed. The owner's per-cycle form
    `N(1−h₂(ε))` holds exactly when the `N` results are still held, and still predictable, at the
    time of evaluation; without retention, reversible copy/uncopy cycles run without limit at a
-   fixed budget of 1 bit.
-4. **Node 3 (productivity test).** Items 1 and 2 are proved in the forms stated in §4, the
-   owner's monotonicity clause is refuted by an exhibited counterexample, and the controls hold.
-   By the fixed test the unit is a gem. Classification: ELABORATING overall, with one NEW
-   candidate (the orbit-selection budget hidden in the "derived" typing of μ-O).
-5. **Node 4 (proposal only).** Two boundary-posit forms, NEQ-T (time-slice law) and NEQ-O
+   fixed budget of 1 bit, and exchange records cost 0 bits. The budget is not consumed irreversibly: retained, inert results keep it committed (2.3), and it
+   is released when the results are uncomputed (C5).
+4. **Conclusion (§6).** Reversible autonomous dynamics cannot create a net statistical supply of
+   preparation resources in a fixed block under an invariant law; it can redistribute resources supplied by the
+   law or by the boundary conditions. A physical measurement source therefore needs both an
+   admissible resource supply and a native mechanism that makes the resource operationally
+   available. The result does not exclude measurement interactions, individual trajectories that
+   create records, conditioning on observations, or the redistribution of an available resource,
+   and it does not remove the need to investigate apparatus mechanisms.
+5. **Node 3 (productivity test).** Item 1 is proved; item 2 is resolved partly by proof (§4 forms)
+   and partly by counterexample (the owner's monotonicity clause); the controls hold. On the author's
+   reading of the fixed test this is a gem, classification ELABORATING, with no NEW item. On the
+   owner's reading (relayed for this revision), a rigorous counterexample to the proposed
+   monotonicity clause completes that obligation provided the corrected replacement statements are
+   proved and all controls pass; it does not count as a proof of the original clause.
+6. **Node 4 (proposal only).** Two boundary-posit forms, NEQ-T (time-slice law) and NEQ-O
    (orbit-level), with candidate independent consequences and falsifiers. Neither is hard to vary
    as stated. Nothing is adopted.
 
@@ -88,7 +106,9 @@ Units: all information quantities are in bits; `h₂(ε) = −ε log₂ ε − (
 | `o-ret-routes-20261103/SOURCES.md:96–106` | Landauer (1961), Bennett (1982), Wolpert (1992) as background, "not re-read" | [LIT2] in [R] |
 | Main:54 (Lemma 3) | invariant measure unique and uniform on each cycle; counting measure "a selection principle, not uniqueness from invariance alone" | [P] |
 | Main:58 | structured priors permitted as "part of the realization datum" | [P] |
-| Main:60 | "on the orbit of the actual microstate, the uniform measure is the unique φ-invariant measure; the selection among orbits is fixed by maximal entropy compatible with the observer's records" | [P] |
+| Main:60 | "on the orbit of the actual microstate, the uniform measure is the unique φ-invariant measure; the selection among orbits is fixed by maximal entropy compatible with the observer's records — and an orbit of period p makes at most p states dynamically accessible"; a realization "requiring more than log₂ p bits of predictive memory exceeds its capacity" | [P] |
+| `observer-interface-obsmu-20261104/ANALYSIS.md:183–185`, :863–867 (H-OC_orb) | the measure is "the maximal-entropy *invariant* measure compatible with the observer's records"; the rule "does not produce a law at a time slice" | [R] |
+| `physical-source-hypotheses-20261118/LEDGER.md:244`, :381 (B20) | H-OC_orb "selects the uniform law on the union of orbits meeting the record event"; "Orbit selection does not identify a prepared laboratory ensemble." | [R] |
 | Main:486, :534 (§3.4) | the action-ledger dilation writes "into the action ledger's next blank slot — injective on blank-bearing states"; the structured prior with "the ancilla prepared uniform on the initial register slice" | [P] |
 | Main:516 | sustained memory over `K` events needs `m ≳ 2^{K I₀}` only "under the additional hypothesis that the per-event contributions accumulate without hidden-state reuse" | [P] |
 | Main:730 (ledger (ii), (iv), (xiv)) | total finiteness open; measure selection "the maximal-entropy invariant measure compatible with the observer's records … not derived"; measurement independence "a posit about the initial condition" | [P] |
@@ -122,12 +142,22 @@ The screens applied the following contract. Each clause is quoted or cited.
 - **NSC-2 (regress endpoint).** "Trace the proposed preparation/request dependency backward to an
   **already declared and independently justified initial distribution or physical boundary rule**
   or to native autonomous history. … If the allowed law is an existing posit, report the
-  conclusion **conditional on that posit**" (#1358, "Regress boundary", rule 1).
+  conclusion **conditional on that posit**" (#1358, "Regress boundary", rule 1; Issue text,
+  provenance). Support on `main`: `native-producer-2-20261117/SOURCE-SCREEN.md:29–34` ("independent
+  physical motivation and an eligible initial/boundary-law or autonomous history source. An already
+  posited, independently justified boundary law may support a conditional result."). The on-`main`
+  text says "initial/boundary-law or autonomous history source" where #1358 says "initial
+  distribution or physical boundary rule or … native autonomous history", and it does not repeat the
+  proved/standard/posited/open labelling.
 - **NSC-3 (exclusions).** "Do **not** add a newly tuned prepared producer state, a herald outside
   the stated physical model, postselection, a special hidden distribution, a fresh memory cell or
   a secondary controller" (#1358 rule 2; also `SOURCE-SCREEN.md:132–135`).
 - **NSC-4 (stop).** "stop at that first unsupported step. A regress cannot be declared solved by
-  renaming the producer's initialization" (#1358 rule 3).
+  renaming the producer's initialization" (#1358 rule 3; provenance). Support on `main`:
+  `SOURCE-SCREEN.md:84–86` applies the rule ("No source in this bounded packet identifies their
+  physical production or licenses them as the regress endpoint required by #1358") and the record
+  stops there (:5, "No derivation follows the source stop"). The on-`main` text states the stop as
+  applied; it does not state the renaming clause.
 - **NSC-5 (what "independently justified" requires).** "An initial law is not rejected merely
   because it is an assumption: the missing qualification is independent physical justification
   for this particular resource/preparation law" (`SOURCE-SCREEN.md:89–92`); "An arbitrary
@@ -198,6 +228,11 @@ requires `K_{t₁}(H) > K_{t₀}(H)` for a fixed block `H` (a log that is uninfo
 predictable records at `t₁`; a register unready in law becomes ready in law) cannot run under any
 invariant law. Under an invariant law, held predictable content present at the end of a protocol
 was present in law, in the same block, at its start.
+*Scope: fixed blocks.* 1.3 covers blocks fixed in time (or selected by a fixed functional of the
+state). A block indexed by time is not covered: with `φ(0,b) = (0,1−b)`, `φ(1,b) = (1,b)` and μ-O on
+`{00, 01}`, the block `H₀ = cell 1`, `H₁ = cell 0` has `K` rising from 0 to 1 in law (C13). Such a
+block is still bounded at every `t` by 2.3: `K_t(H_t) ≤ D(μ‖u)`, which is 0 under μ-G for every
+block (obsmu Lemma P-1) and is the static budget of 1.5(b), 1.5(b′) under μ-O and μ-R.
 
 **1.4 Formulation and verdict for the contract.** Define *native autonomous history producing
 readiness* (NAH) as: a law admissible under NSC-6 without a further posit, a fixed block `H`, and
@@ -222,16 +257,26 @@ does not create it in law.
 - **(b) Per-orbit law μ-O.** μ-O is invariant, so 1.3 holds: nothing is produced in law. Its static
   content is not zero: `D(μ-O ‖ u) = log₂(|S|/ℓ)` for an orbit of length `ℓ` (C2: the swap 2-cycle,
   `ℓ = 2`, `|S| = 4`, carries 1 bit, all of it held predictability `K(V) = 1`, which is the native
-  N1-K of OA-1 r5 :316–328). Under OA-1's typing (NSC-6) μ-O is derived, so this budget enters the
-  contract as native. Its size is set by the actual state's orbit. For a uniformly random bijection the
+  N1-K of OA-1 r5 :316–328). In general, by 2.3, `K_t(H) ≤ D(μ-O‖u)` for every block. Main:60 already
+  types the orbit selection as fixed by posit (iv) and bounds the predictive memory of a period-`p`
+  orbit by `log₂ p`; OA-1 types μ-O as derived given "the orbit of the actual microstate"
+  (r5 :101). Under that typing (NSC-6) this budget enters the contract as native. Its size is set by the actual state's orbit. For a uniformly random bijection the
   cycle through a fixed state has length uniform on `1..|S|` (C12, exhaustive for `|S| = 5`), so an
   orbit carrying `b` bits has weight `≤ 2^{−b}`: the orbit selection is a boundary datum of the same
   weight as the budget it carries. For a structured φ with many short cycles (Main:730 (v) records
   that the exact linear rule splits its largest energy shell into exponentially many cycles) the
   budget can be typical, supplied by conserved quantities. Whether that budget can be converted into
   held predictability for an embedded observer, rather than predictability from the whole of `Rest`,
-  is open. Verdict: a genuine escape at the level of the law, static in time, quantified here; it is
-  the open μ-O route of OA-1 (N1-S open under μ-O), not a forward producer. Recorded as AW-PR1-1 (§5).
+  is open. Verdict: μ-O is a possible carrier of a static budget, quantified here; it is not a
+  physically sourced preparation. It is the open μ-O route of OA-1 (N1-S open under μ-O), not a
+  forward producer. Recorded as AW-PR1-1 (§5).
+- **(b′) Record-compatible law μ-R.** μ-R is invariant, so 1.3 holds for it. On the H-OC_orb
+  reading (obsmu :183–185; PSH B20, `LEDGER.md:244`) it is the uniform law on the union `U` of orbits
+  compatible with the records, so `D(μ-R‖u) = log₂(|S|/|U|)`, a static budget with
+  `K_t(H) ≤ log₂(|S|/|U|)` for every block (2.3). OA-1 r5 N1-K states that knowing can be native
+  "under μ-R … once the records exclude the fixed points". Verdict: μ-R is a second possible
+  carrier of a static budget, posited under ledger (iv), not a physically sourced preparation; its
+  size is the information the records carry about the orbit.
 - **(c) A non-stationary preparation under NSC-2's first clause.** This is the boundary-law route
   itself (ARROW-1 A5; MP-0a; book ch18:212, :218). The screens did not deny it; they found no map
   from it to local ready cells (NSC-5). Not an escape from the conclusion; it is the alternative.
@@ -245,10 +290,11 @@ does not create it in law.
   (1.2 says the flux is two-way). The contract's objects are laws (NSC-2, NSC-5); a trajectory
   selected as the law is `δ_s`, with `D(δ_s‖u) = log₂|S|`, the maximal boundary datum.
 
-**1.6 Node 1 verdict.** Proved [W]: 1.1, 1.2, 1.3, E3. The NAH disjunct is empty for every law the
-contract treats as native. The contract is not thereby unsatisfiable: every surviving endpoint is a
-law whose budget node 2 measures, namely a declared boundary law, a conditioning event of mass
-`2^{−b}`, an orbit selection under μ-O, or (without A1) an incoming stream at infinity.
+**1.6 Node 1 verdict.** Proved [W]: 1.1, 1.2, 1.3, E3. The NAH disjunct is empty, for fixed blocks,
+for every law the contract treats as native. The contract is not thereby unsatisfiable: every
+surviving endpoint is a law whose budget node 2 measures, namely a declared boundary law, a
+conditioning event of mass `2^{−b}`, an orbit selection under μ-O, an orbit-union selection under
+μ-R, or (without A1) an incoming stream at infinity.
 
 ### Node 2 — budget theorem
 
@@ -296,6 +342,10 @@ so `(F, G)` has law `f_* u_A ⊗ unif_N`. Data processing and the chain rule giv
 `D(p_T‖u) ≥ D(q_F ‖ f_*u_A) + Σ_x q_F(x) D(q_{G|F=x} ‖ unif_N) ≥ N − H(G|F)`. Subadditivity and
 Fano's inequality for binary variables give `H(G|F) ≤ Σ_k H(G_k|F_k) ≤ Σ_k h₂(ε_k)`. ∎
 
+Both hypotheses are needed. Without joint balancedness: `g = x₁ AND x₂` with `f ≡ 0` gives
+`ε = 1/4` at `D = 0 < 1 − h₂(1/4)` (C15a). Without disjointness: a copy pair `x = y`, each cell
+predicting the other, gives `N = 2`, `ε = 0` at `D = 1` (C15b).
+
 The statement covers each item of NSC-7 that is evaluated at one time:
 
 | Requirement at time `T` | `A` | `B`, `g` | Cost per bit |
@@ -314,9 +364,11 @@ attained at `ε = 0` and at `ε = 1/4`.
 **Per-cycle form (the owner's formula) [W].** For `N` prepare/write/re-arm cycles whose `N` results
 are still held at time `T`, each ε-predictable from a disjoint block, with the register re-armed at
 `T` to reliability `1 − ε`, 2.5 gives `D(p₀‖u) ≥ (N+1)(1 − h₂(ε)) ≥ N(1 − h₂(ε))`. If in addition the
-observer's block starts with `K₀(H) = 0` (no supplied blanks or correlations in it), 2.3 turns this
-into consumption: the rest's non-equilibrium `D(p_Rest‖u)` falls between `0` and `T` by at least
-`(N+1)(1 − h₂(ε))`. The quantity consumed is `D(p_Rest‖u)`, not `D(p₀‖u)`, which is conserved.
+observer's block starts with `K₀(H) = 0` (no supplied blanks or correlations in it), 2.3 gives a
+transfer: the rest's non-equilibrium `D(p_Rest‖u)` is lower at `T` than at `0` by at least
+`(N+1)(1 − h₂(ε))`, while `D(p₀‖u)` is conserved. The transfer is not irreversible: it stays
+committed while the results are retained inert (2.3), and reversible dynamics that uncomputes the
+results returns it to the rest (C5).
 
 **2.6 Local form; infinite volume [W].** *Let ν be a `T`-invariant reference probability and `A` a
 finite region with `ν_A = u_H ⊗ ν_{A∖H}`. Suppose the state on `A` at time `t` is a measurable
@@ -335,16 +387,16 @@ used once). With `a_j` the law of `A` after step `j`,
 `F_{j−1} − F_j = I(A; C_j) + D(p'_{C_j} ‖ u)` evaluated just after step `j`.* Proof: before step `j`
 the joint law of `(A, C_j)` is `a_{j−1} ⊗ p_{C_j}`, since `A` depends only on `A₀, C₁, …, C_{j−1}`.
 Its relative entropy to `u` is `D(a_{j−1}‖u) + D(p_{C_j}‖u)`, conserved by step `j`, and after the step
-it equals `I(A;C_j) + D(a_j‖u) + D(p'_{C_j}‖u)`. ∎ Check: fresh cells `F = 2(1−h₂(1/4)),
-2(1−h₂(1/4)), 1−h₂(1/4)` (C10a); reuse of a cell (the C1 example) gives `1, 0, 1` (C10b). Finite
+it equals `I(A;C_j) + D(a_j‖u) + D(p'_{C_j}‖u)`. ∎ Check: CNOT steps on fresh cells, with `I(A; C_j) > 0`, satisfy the decrement identity and
+`F` is non-increasing (C10a); reusing a cell makes `F` rise (C10b, computed on its own trajectory). Finite
 recurrence forces eventual reuse, so this monotonicity holds only on windows without reuse; this is
 the hypothesis Main:516 states for accumulated memory ("without hidden-state reuse").
 
 **2.8 Necessity of the hypotheses [EC].**
 - **No retention, no bound on the number of cycles (C5).** One register, `N = 5` uniform carriers,
   cycle `k` = CNOT(c_k→r) then CNOT(c_k→r). Mid-cycle `I(r; c_k) = 1` bit (the register knows the
-  carrier), after the cycle `r = 0` exactly; `D₀ = 1` bit for every `N`. The per-cycle consumption
-  claim fails without retention.
+  carrier), after the cycle `r = 0` exactly; `D₀ = 1` bit for every `N`. The per-cycle bound
+  fails without retention.
 - **Exchange records cost nothing and give no predictability (C6).** Under `u`, SWAP(c, l) makes the
   log equal the carrier's past value with probability 1, with `D₀ = 0` and `K(l) = 0`. This is the
   write the o-ret owner decision lets count as transfer, subject to a distinct readable register and
@@ -359,7 +411,8 @@ counterexample: monotonicity of the coarse-grained part (2.2). The owner's `N(1 
 holds under explicit hypotheses — the `N` results are held at the evaluation time and are
 ε-predictable from a disjoint block (or the cells are ready), with a reference measure that is
 invariant and uniform on the held block — and fails without retention (C5) or without
-predictability (C6). Its consumption form needs `K₀(H) = 0` in addition.
+predictability (C6). Its transfer form needs `K₀(H) = 0` in addition and describes a reversible
+transfer, not an irreversible consumption.
 
 ### Node 3 — productivity test (fixed in advance by the authorization)
 
@@ -381,27 +434,35 @@ at its own scope.
    inequality. Its content lies in the contract-level consequences (1.4, the table in 2.5, 2.8), not
    in new mathematics.
 2. Item 2 as written was partly false (2.2) and needs hypotheses (2.9). It is resolved by proof of
-   the corrected form and by counterexample, which the authorization allows ("Prove this, or find
-   the exact obstruction or counterexample").
-3. 1.5(b) shows that "boundary input rather than mechanism" is not forced in the μ-O typing: the
-   orbit structure of φ can carry the budget, typically for a structured φ. The answer in §6 is
-   stated with that exception.
+   the corrected forms and by counterexample to the monotonicity clause; the counterexample is not a
+   proof of that clause.
+3. The results do not make the source a boundary input instead of a mechanism. 1.5(b), (b′) show
+   that μ-O and μ-R can carry static budgets, and a supplied budget still needs a native mechanism
+   that makes it operationally available. §6 states the conclusion at that scope.
 4. The results concern laws. Per-trajectory production exists (1.5(e)); the contract's objects are
    laws, so this does not reach it.
 
-**Verdict.** Items 1 and 2 have complete proofs in the stated forms, and every control holds. The
-unit passes the fixed productivity test: **gem**. Against §A.31's productivity test: the facts are
-stronger than D1's restatement (1.3, E3, 2.3–2.5 are quantitative and tight), they constrain the
-contract (the NAH disjunct is empty, every endpoint carries a computable budget), and they expose a
-hidden assumption (AW-PR1-1).
+**Verdict.** Item 1 has a complete proof. Item 2 is resolved partly by proof of the corrected forms
+(2.1, 2.3–2.7) and partly by counterexample (2.2); every control holds. On the author's reading,
+which takes item 2's own wording ("Prove this, or find the exact obstruction or counterexample") to
+admit a counterexample, the unit passes the fixed test: **gem, ELABORATING**, with no NEW item.
+The owner's reading, relayed for this revision: a rigorous counterexample to the proposed
+monotonicity clause completes that obligation provided the corrected replacement statements are
+proved and all controls pass; it does not count as a proof of the original clause. Against §A.31's productivity test: the facts are stronger than D1's restatement (1.3, E3,
+2.3–2.5 are quantitative and tight) and they constrain the contract (the NAH disjunct is empty for
+fixed blocks; every endpoint carries a computable budget). The orbit-selection datum they quantify
+is already stated (Main:60; H-OC_orb), so no hidden assumption is newly exposed.
 
 ### Node 4 — the boundary-posit option (proposal only; nothing adopted)
 
 **What node 1–2 force.** Under NSC-2 as screened, the regress endpoint for any protocol that holds
 `N` ε-predictable binary results at one time (plus a re-armed register) is a law with
-`D(p₀‖u) ≥ (N+1)(1 − h₂(ε))`, located in the causal-cone base of the protocol (2.6). No forward
-mechanism changes that quantity (2.1); mechanisms only move it between `K(H)` and `D(p_Rest‖u)`
-(2.3). Two named forms of the supplying input are possible.
+`D(p₀‖u) ≥ (N+1)(1 − h₂(ε))` (under 2.5's hypotheses: fixed blocks, predictors disjoint from
+targets, targets jointly balanced), located in the causal-cone base of the protocol (2.6).
+Reversible dynamics does not change that quantity (2.1); it redistributes it between `K(H)` and
+`D(p_Rest‖u)` (2.3). A physical source needs both such a supply and a native mechanism that makes it
+operationally available; Node 4 addresses only the supply, and the mechanism question stays open.
+Two named forms of the supply are possible.
 
 - **NEQ-T (time-slice boundary law; proposal).** The realized law is the counting measure
   conditioned on a boundary event `B₀` at one time, `p₀ = u(·|B₀)`, with budget
@@ -410,9 +471,11 @@ mechanism changes that quantity (2.1); mechanisms only move it between `K(H)` an
   `log₂(|S|/ℓ) ≥ (N+1)(1 − h₂(ε))`. It carries no time-slice and is stationary in law (1.3).
 
 **Candidate independent consequences** (beyond "the observer has finite data"):
-1. *Finite total holding capacity (under A1).* At every time, summed over all disjoint held blocks
-   and their predictors, `Σ_k (1 − h₂(ε_k)) ≤ D₀ ≤ log₂|S|` (2.5 applied to the union of blocks).
-   Under NEQ-T this is `log₂(|S|/|B₀|)`, the entropy gap of the boundary macrostate.
+1. *Finite total holding capacity (under A1).* At every time, for any family of predictor/target
+   pairs whose predictor blocks together are disjoint from their target blocks together, and whose
+   targets are jointly balanced under `u`, `Σ_k (1 − h₂(ε_k)) ≤ D₀ ≤ log₂|S|` (2.5 applied to the two
+   unions). Without disjointness it fails: mutual records `x = y` give 2 at `D₀ = 1` (C15b). Under
+   NEQ-T the bound is `log₂(|S|/|B₀|)`, the entropy gap of the boundary macrostate.
 2. *No accumulation in law under NEQ-O.* By 1.3, under any invariant law the held predictable content
    of every fixed block is constant in law. NEQ-O therefore predicts no ensemble-level growth of
    records, and no record arrow, which ARROW-1 C.3 also states for the invariant measure. NEQ-T
@@ -454,19 +517,21 @@ attempted here.
 | E3 conditioning cost; 2.4 readiness ceiling | ELABORATING (OA-1 D3) |
 | 2.2 non-monotonicity | CONFIRMING (ARROW-1 C.4) |
 | 2.3 transfer identity; 2.5 budget with tightness; 2.6; 2.7; 2.8 necessity examples | ELABORATING (o-ret Lemma C; Landauer–Bennett accounting) |
-| AW-PR1-1 (below) | NEW (candidate, pending review) |
+| AW-PR1-1 (below) | ELABORATING (Main:60; OA-1 r5 §1; H-OC_orb; PSH B20) |
 
-- **AW-PR1-1 (assumption-watch marker; NEW candidate).** The "derived" typing of μ-O (OA-1 r5 §1,
-  §2A; Main:54, :60) carries a boundary datum: `D(μ-O‖u) = log₂(|S|/ℓ)`. A result that holds natively
-  under μ-O spends exactly that budget (C2). For a uniformly random bijection the orbit carrying `b`
-  bits has weight `≤ 2^{−b}`; for a structured φ it is supplied by conserved quantities. Any claim of
-  native knowing or preparation under μ-O should state ℓ or the conserved quantities that fix it.
+- **AW-PR1-1 (assumption-watch marker; ELABORATING).** The orbit selection behind μ-O is stated as
+  a datum (Main:60, posit (iv); OA-1 r5 :101, "the orbit of the actual microstate"; H-OC_orb, obsmu
+  :183–185; PSH B20). This record quantifies it: `D(μ-O‖u) = log₂(|S|/ℓ)` and, for μ-R,
+  `D(μ-R‖u) = log₂(|S|/|U|)`; every block satisfies `K_t(H) ≤ D(μ‖u)` (2.3), with equality in the
+  swap 2-cycle (C2). For a uniformly random bijection the orbit carrying `b` bits has weight
+  `≤ 2^{−b}`; for a structured φ it is supplied by conserved quantities. Any claim of native knowing
+  or preparation under μ-O or μ-R should state ℓ (or `U`) or the conserved quantities that fix it.
 - **AW-PR1-2.** Single-time held predictability (readiness, knowing, selectable preparation with the
   choice held, repeatable records) is budget-bearing; multi-time memory, exchange records and
   unretained reversible cycles are budget-free. A screen or protocol requirement should be sorted
   into one class before its source is sought.
-- **Fixed point.** One pass; one NEW candidate. The §A.31 fixed point (3–4 passes without NEW) is
-  not reached.
+- **Fixed point.** One pass; no NEW item. The §A.31 fixed point (3–4 passes without NEW) is not
+  reached.
 
 ***
 
@@ -475,19 +540,33 @@ attempted here.
 *Is the native-source contract unsatisfiable in the form it was screened, so that the missing input
 is a non-equilibrium boundary condition rather than a mechanism?*
 
+**Answer at the proved scope.** Neither alternative alone. Reversible autonomous dynamics cannot
+create a net statistical supply of preparation resources in a fixed block under an invariant law; it can redistribute resources supplied by the
+law or by the boundary conditions. A physical measurement source therefore needs both an
+admissible resource supply and a native mechanism that makes the resource operationally
+available. The result does not exclude measurement interactions, individual trajectories that
+create records, conditioning on observations, or the redistribution of an available resource,
+and it does not remove the need to investigate apparatus mechanisms.
+
 - **Not unsatisfiable.** The contract can be met through its first clause, an independently
   justified law (NSC-2).
 - **Its third disjunct is empty.** Under every law the contract treats as native, no history raises
-  readiness or held predictability of any block in law (1.3, 1.4).
-- **The endpoint carries a computable budget.** Every protocol that holds `N` ε-predictable results
-  and a re-armed register at one time needs `D(p₀‖u) ≥ (N+1)(1 − h₂(ε))` in its causal-cone base
-  (2.5, 2.6). No mechanism changes `D(p₀‖u)` (2.1); a mechanism can only move non-equilibrium from
-  the rest into held content (2.3).
-- **Hence, with one exception, the missing input is a non-equilibrium property of the law, not a
-  producer mechanism.** The exception is NEQ-O: under the μ-O typing the orbit structure of φ can
-  carry the budget (1.5(b)). A conversion mechanism, transporting a posited budget into local ready
-  cells (NSC-5's "map into local addressable blanks"), remains a separate, searchable question; it
-  is what the screens' later gates (coupling, record, read) would test once a law is fixed.
+  readiness or held predictability of any fixed block in law (1.3, 1.4); a moving block stays below
+  the law's static budget (1.3, scope).
+- **The endpoint carries a computable budget.** Every protocol that, at one time and on fixed blocks,
+  holds `N` ε-predictable results and a re-armed register, with predictors disjoint from targets and
+  targets jointly balanced under `u`, needs `D(p₀‖u) ≥ (N+1)(1 − h₂(ε))` in its causal-cone base
+  (2.5, 2.6). Reversible dynamics does not change `D(p₀‖u)` (2.1); it redistributes non-equilibrium
+  between the rest and held content (2.3), and the redistribution is reversible (C5).
+- **Supply.** The supply side is a property of the law: a time-slice boundary law (NEQ-T), or a
+  static budget carried by μ-O (the orbit structure of φ, 1.5(b)) or by μ-R (the orbit union
+  compatible with the records, posited under ledger (iv), 1.5(b′)). μ-O and μ-R are possible carriers
+  of static budgets, not physically sourced preparation.
+- **Mechanism.** A native mechanism that makes a supplied budget operationally available (NSC-5's
+  "map into local addressable blanks"; the screens' coupling, record and read gates) is required in
+  addition and remains open. Apparatus mechanisms still need investigation.
+- **Not excluded.** Measurement interactions; individual trajectories that create records (1.5(e));
+  conditioning on observations (1.5(a), E3); redistribution of an available resource (2.3).
 
 ***
 
@@ -502,6 +581,7 @@ is a non-equilibrium boundary condition rather than a mechanism?*
   invariant nor a conditioning nor a declared boundary law.
 - The control table of Node 3, in particular the P8 and A1-P8 rows.
 - That the exact checks test what §4 claims of them (§9 maps each check to its statement).
+- Whether item 2's resolution partly by counterexample meets the fixed test (owner decision).
 - Not done: no literature re-read; no statement about R-lin's orbit lengths; no conversion
   mechanism; no infinite-volume model beyond the Bernoulli shift remark; no Lean.
 
@@ -526,7 +606,7 @@ No result in §4 depends on these; they place the mathematics as standard.
 
 `checks/prep_regress_checks.py` uses exact rational arithmetic; entropies are exact elements
 `a + b·log₂3`, and signs are decided by comparing integer powers `3^q` and `2^p`. Command, from this
-directory: `python3 -I checks/prep_regress_checks.py`. Exit status 0 iff every check holds.
+directory: `python3 -I checks/prep_regress_checks.py` (about one minute, dominated by C14). Exit status 0 iff every check holds.
 
 | Check | Statement tested |
 |---|---|
@@ -539,9 +619,12 @@ directory: `python3 -I checks/prep_regress_checks.py`. Exit status 0 iff every c
 | C7 | E3 for a cylinder event and a non-cylinder event |
 | C8 | 1.2 for all bijections of a 4-set and all events |
 | C9 | 2.4 along the C4d trajectory |
-| C10a–b | 2.7 with fresh cells; failure under reuse |
+| C10a–b | 2.7 with fresh CNOT steps (nonzero `I(A;C_j)`, decrement identity); rise under reuse on its own trajectory |
+| C13 | 1.3 scope: a moving block gains `K` under μ-O, bounded by `D(μ-O‖u)` |
+| C14 | 2.5 inequality away from equality: every law on 3 bits with point masses in `{0,1,2,3,4,6}/16` whose quantities stay in the `{2,3}` field (others skipped, not counted), four predictor maps; 20,500 cases, 20,432 strict |
+| C15a–b | 2.5 countercontrols: the bound fails without joint balancedness (AND) and without disjointness (copy pair) |
 | C12 | 1.5(b) cycle-length distribution for all 120 permutations of 5 points |
-| C11a–b | countercontrols: the sign test separates `1.58 < log₂3 < 1.59`; flux balance fails for a non-bijection |
+| C11a–b | countercontrols: the sign test separates `1.58 < log₂3 < 1.59`; C8's flux routine reports failure on a non-bijection |
 
 Output at this record's commit:
 
@@ -565,10 +648,14 @@ CHECK C7 |E|=2: D(u_E||u) = log2(8/|E|): PASS
 CHECK C7 |E|=3: D(u_E||u) = log2(8/|E|): PASS
 CHECK C8 flux balance |{s notin E: phi s in E}| = |{s in E: phi s notin E}| (24 x 16 cases): PASS
 CHECK C9 readiness ceiling P_t(E) <= (D0+1)/(M log2 q) at every step: PASS
-CHECK C10a fresh cells: F = 2(1-h), 2(1-h), (1-h): non-increasing: PASS
-CHECK C10b reuse (C1): F = 1, 0, 1 rises at the reuse step: PASS
+CHECK C10a fresh CNOT steps: I(A;C_j) > 0, decrement = I + D(outgoing), F non-increasing: PASS
+CHECK C10b reuse of a used cell: D(a) rises from 0 to 1-h(1/4): PASS
 CHECK C12 cycle length through a fixed point is uniform on 1..5 (24 each of 120): PASS
+CHECK C13 mu-O invariant; moving block K: cell1 at t0 = 0 -> cell0 at t1 = 1 <= D(mu-O||u) = 1: PASS
+CHECK C14 2.5 holds on 20500 exact (law, predictor) cases, 20432 strictly: PASS
+CHECK C15a no joint balancedness (g = AND, f = 0): eps = 1/4 and D = 0 < 1 - h(1/4): PASS
+CHECK C15b no disjointness (x predicts y, y predicts x): N - sum h = 2 > D = 1: PASS
 CHECK C11a sign test: 1.58 < log2(3) < 1.59 decided by integer powers: PASS
-CHECK C11b flux balance fails for a non-bijection (E = {0}): PASS
-24/24 checks hold
+CHECK C11b C8's flux routine reports failure on a non-bijection (constant map): PASS
+28/28 checks hold
 ```
