@@ -77,7 +77,7 @@ Additional candidate records in nervous tissue span synaptic to cortical scales.
 | Systems | Hippocampal–cortical consolidation dialogue | months–years |
 | Cortical | Distributed semantic representation | years–decades |
 
-The hierarchical structure means that a perturbation at one layer (a drug, a disease process) can have effects propagating upward through layers with progressively longer $\tau_B$. The clinical timecourse of memory-related diseases — and the schedule-dependence of memory-targeted drugs — reflects this layered architecture.
+A perturbation at one layer could affect a longer-lived state in another. Attributing a clinical time course or drug-schedule effect to this mechanism requires evidence for the proposed links between layers and their effect on the outcome.
 
 ### 2.3 The core therapeutic principle
 
