@@ -1722,6 +1722,15 @@
       "note": "Research formalization of the conditional paper proof preserved by #1396. A bimeasurable bijection preserving one probability, a finite positive-mass readout and compact closure of its joint L² indicator orbit give simultaneous near-returns with model- and tolerance-dependent bounded gaps. Earlier rooted overlap and the strict diagonal-deficit bound give total-variation revival and P-indivisibility on a later finite horizon. Includes the shared product-prior identity and matrix controls. Physical law selection and laboratory access to the witness horizon require separate evidence."
     },
     {
+      "name": "PREP-REGRESS-1 conservation, transfer identity and held-predictability budget",
+      "modules": [
+        "PrepRegressBudget"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Research formalization of three results of the paper-only record preserved by #1417 (prep-regress-1-20261119/RESULT.md, node 2), on finite sets with laws as real functions. 2.1: relative entropy to an invariant reference, in particular the counting measure, is conserved along every integer power of a bijection. 2.3: on H x Rest, D(p||u) = K(H) + D(p_Rest||u_Rest) with K(H) = log|H| - H(H|Rest), at every time. 2.5: with predictors read from block A, jointly balanced targets read from the disjoint block B and all error rates evaluated for one law, D(p||u) >= sum_k (1 - h2(eps_k)) in bits, and >= N(1 - h2(eps)) when every eps_k <= eps <= 1/2; the proof applies Gibbs' inequality once against a product binary-symmetric-channel comparison law and carries no Fano or data-processing hypothesis. Not formalized: the per-cycle (N+1) form, 2.4, 2.6, 2.7 and the necessity countercontrols. No physical sourcing of preparation, no boundary posit and no manuscript statement."
+    },
+    {
       "name": "SUBSTATE-1 pure-gradient gauge link negative control and two-slice inverse",
       "modules": [
         "GradientLinkFlatness"
