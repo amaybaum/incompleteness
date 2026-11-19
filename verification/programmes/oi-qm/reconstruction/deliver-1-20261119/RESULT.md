@@ -3,7 +3,9 @@
 **Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
 Independent non-author review: REVISE at `95e7d764`
 ([#1425 c.7023337287](https://github.com/amaybaum/incompleteness/pull/1425#issuecomment-7023337287));
-this revision answers it (B1–B3, N1–N6). It adopts
+re-review: REVISE at `457d1976`
+([#1425 c.7023506974](https://github.com/amaybaum/incompleteness/pull/1425#issuecomment-7023506974));
+this revision answers both (B1–B3, N1–N6; C1, C2, N7, N8). It adopts
 no premise, edits no manuscript, Lean module or registry, and runs no simulation. Small exact
 checks are included as controls (§10).
 
@@ -57,11 +59,13 @@ checks are included as controls (§10).
    outside that component (PR1 2.6 counts them); a carrier affects the block only if it was in
    closure contact with it at `t = 0`, so no carrier approaches; a finite component returns to its
    initial content at every multiple of its period, so every record is erased by then; a
-   parity-uniform slab of width ≥ 2 is never entered. With carriers outside the block's initial
-   component (DT clause A), no use occurs. Inside one component, delivery with a held record is
-   possible from a designed pattern: the review's five-site example (2.3(f)). Open: bounded ready
-   regions inside noise (the closure is then the whole lattice) and alphabets `q ≥ 3`, including
-   the published `q = 2^16`.
+   parity-uniform slab of width ≥ 2 is never entered. So only carriers initially in the block's
+   component are ever used. Repetition on such pre-placed carriers occurs, bounded by (2.4) and by
+   their number: the reviews' five-site examples deliver once (2.3(f)) and twice on two distinct
+   carriers (2.3(h)), both from designed patterns, which NSC-3 and NSC-5 exclude. Open: bounded
+   ready regions inside noise (the closure is then the whole lattice), alphabets `q ≥ 3`, including
+   the published `q = 2^16`, and a pure parity-uniform supply with carriers inside the block's
+   component beyond the boxes searched (2.3(g)).
 4. **Node 3 (§4) [W, EC].** Under any invariant law, an externally scheduled moving block gains
    nothing that the target block lacked at the earlier time (relabelling). A natively pointed block
    has a time-independent law and costs exactly what a fixed block costs. Under μ-O every block has
@@ -69,10 +73,11 @@ checks are included as controls (§10).
    off through the orbit length ℓ.
 5. **Node 4 (§5).** What dropping A1 would require, without investigation.
 6. **Node 5 (§6).** Controls hold.
-7. **Productivity (§7).** Test (ii) is met at the scope of Theorem 2.2. Test (i) is not met: the
-   one native delivery found (2.3(f)) runs on U₂ but draws on a designed initial pattern with a
-   carrier pre-placed in the block's component (NSC-3, NSC-5), and it cannot repeat on fresh
-   carriers. Classification: gem, NEW at that scope (the review agrees); Node 3 ELABORATING.
+7. **Productivity (§7).** Test (ii) is met at the scope of Theorem 2.2, by its clause-free
+   consequences. Test (i) is not met: the native deliveries found (2.3(f), (h)) run on U₂ but draw
+   on designed initial patterns (NSC-3, NSC-5), and no carrier from outside the block's initial
+   component is ever used. Classification: gem, NEW at that scope (the review agrees); Node 3
+   ELABORATING.
 
 ***
 
@@ -129,6 +134,12 @@ The reference law is the product-uniform law μ₂ on both slices (#1408).
   between consecutive τ's. Each `τ_{k+1}` after a use is a delivery.
 - *Retention (budget form).* At `T`, each used carrier's bit is ε-predictable from a log block
   disjoint from the carriers.
+- *Record formation (R).* The log block for `c_k` carries no information about `c_k` at any time
+  before the first use of `c_k`: `I(W_t(L_k); c_k) = 0` for `t < min s_k`. Justification: NSC-7
+  asks for a record of a result, and #1358 for "a second measurement retaining the first result";
+  information that reached the log before the use is not a result of that use. (R) is necessary,
+  not sufficient, for a record caused by the use. Without (R), retention can be met by information
+  that reaches the log by another path (2.3(h)).
 - *Exclusions (NSC-1..7 as constraints).* One fixed update, U₂ (NSC-1); the supply is a declared
   initial law, and every conclusion is conditional on it as a regress endpoint, with its standing
   stated (NSC-2, NSC-5); a construction that works only because its initial pattern was chosen for
@@ -137,13 +148,10 @@ The reference law is the product-uniform law μ₂ on both slices (#1408).
   the model (NSC-3); every statement is about laws, with no conditioning on success (NSC-3); the
   initial law is a declared supply, the carriers, and μ₂ elsewhere, with every low-entropy cell
   inside the declared supply (no hidden fresh cell, NSC-3, NSC-5); the measures are those of
-  NSC-6 (supply types below); ready means the known value `w*` (NSC-7); carriers lie outside a
-  declared apparatus region `A ⊇ H` (no pre-placed producer state, NSC-3).
-- *Clause A (component exclusion).* Under U₂, `A` contains `H`'s component of `cl₂(A_0)` at
-  `t = 0`; equivalently, no carrier is in closure contact with `H`'s apparatus at `t = 0`.
-  Justification: by Theorem 2.2 the component is fixed at `t = 0`, so a carrier inside it has been
-  positioned for the apparatus by the initial law (NSC-3). The node-2 verdict uses clause A; §3,
-  2.3, also states what holds without it.
+  NSC-6 (supply types below); ready means the known value `w*` (NSC-7); carriers are the systems
+  measured and lie outside a declared apparatus region `A ⊇ H`. NSC-3 constrains the apparatus and
+  supply (tuning, heralds, postselection, hidden distributions, fresh cells, controllers), not where
+  a carrier sits.
 - *Supply types.* NEQ-T, a time-slice law with a declared low-entropy region; μ-O and μ-R, the
   invariant laws of PR1 1.5(b), (b′); inflow, with A1 dropped (PR1 1.5(d)).
 
@@ -254,20 +262,35 @@ distance 2]
   or postselection, and readiness is a known value (NSC-1, NSC-3 as to controllers, NSC-7); the
   supply is a designed initial pattern `(·, 0, 1, 0, 1)` chosen so that this delivery occurs,
   which is a newly tuned prepared producer state (NSC-3) with no independent justification as a
-  regress endpoint (NSC-2, NSC-4, NSC-5); the carrier is in closure contact with `H` at `t = 0`,
-  which clause A excludes; and the component holds one carrier, so no second delivery on a fresh
-  carrier follows (c). It is a native delivery mechanism on U₂ conditional on a tuned structured
-  supply, not a native delivery under NSC-1..7.
-- **(g) Negative evidence, not proof.** The review ran an exhaustive exact (`ε = 0`) search with a
-  pure vacuum supply and 1–3 carriers on every box of at most 9 sites (lines up to length 7,
-  `2×2` through `3×3`; `2×5` with at most 2 carriers; `2×2×2` not searched), with horizon 30, and
-  found no delivery with a held record. This is evidence about those boxes only.
+  regress endpoint (NSC-2, NSC-4, NSC-5). The log at site 3 carries no information about `c` at
+  `t = 0`, so (R) holds [EC E12b]. It is a native delivery mechanism on U₂ conditional on a tuned
+  structured supply, not a native delivery under NSC-1..7; the exclusion rests on the tuned
+  pattern, not on where the carrier sits.
+- **(g) Negative evidence, not proof [EC E14].** An exhaustive exact (`ε = 0`) search with a pure
+  vacuum supply (by Lemma 2.1, the same as any parity-uniform supply) and carriers placed on the
+  current slice, the previous slice or both, on lines of length 3–7 and boxes `2×2`, `2×3`,
+  `3×3` with 1–2 carriers, and on lines of length 4–6 and `2×3` with 3 carriers, horizon 30,
+  finds no delivery whose log determines the carrier. The same routine finds the delivery of (f)
+  when given its designed pattern [EC E14b]. A carrier counts as used when the law of `W_s(H)`
+  depends on it, which is DT's definition. The review reports a wider search of the same kind,
+  cited as provenance. This is evidence about those boxes only.
+- **(h) Two deliveries on two pre-placed carriers (the re-review's example) [EC E13, E13b].** On
+  the same segment, take two-slice initial contents site 0 `(a, a)`, site 1 `(1, 1)`, site 2
+  `(1, 1)`, site 3 `(b, 0)`, site 4 `(1, 1)`, with independent fair bits `a`, `b`, `H` = site 1 and
+  `w* = (1,1)` (a parity-uniform value). The orbit lengths are 4, 6, 6 and 12. `H` is ready at
+  `t = 0, 4, 16` for all four `(a, b)`; `W_t(H)` depends on `a` at `t = 1, 2, 3` and on `b` exactly
+  at `t = 5..10`, so the second use is of a carrier not used before `τ_2 = 4`; at `t = 16` the
+  two-slice content of sites 2 and 4 determines `(a, b)`. This meets DT's arithmetic with two
+  deliveries on distinct carriers. Under (R) it does not: the record of `a` meets (R), but every
+  log block that determines `b` at `t = 16` already depends on `b` before `t = 5` (the state at
+  `t = 16` equals the state at `t = 4`). Its classification against NSC-1..7 is that of (f): a
+  designed pattern (NSC-3, NSC-2, NSC-4, NSC-5).
 
-**Without clause A**, Theorem 2.2 gives: only carriers in `H`'s initial component are ever used;
-no carrier approaches; the budget is (2.4); every record is erased by the next multiple of `P`;
-and (f) shows that one delivery with a held record is then attainable from a designed pattern.
-**With clause A**, carriers lie outside `H`'s component and at distance at least 3 from it, and
-(c) gives no use at all.
+**Consequence of Theorem 2.2 for carriers.** Only carriers in `H`'s initial closure component
+are ever used, and no carrier approaches; repetition on carriers pre-placed in that component is
+possible ((h)), bounded by (2.4) and by their number, and every record is erased by the next
+multiple of `P`. Restated as a convention: if the apparatus region contains `H`'s initial
+component, no carrier is ever used. This follows at once from (c) and decides nothing further.
 
 **2.4 Escape checks (maximum skepticism on the branches that would favour a positive answer).**
 
@@ -291,17 +314,17 @@ and (f) shows that one delivery with a held record is then attainable from a des
   connects them at `t = 0`; an unbounded supply needs an infinite component (§5).
 
 **2.5 Refresh count.** Under (I), the number of deliveries whose results are all still held is
-at most `D(p_{Ω*,0} ‖ u_{Ω*})/(1 − h₂(ε)) − 1` by (2.4). In a parity-uniform supply with finite
-components this bound is not the binding constraint: (c) excludes any carrier from outside the
-initial component.
+at most `D(p_{Ω*,0} ‖ u_{Ω*})/(1 − h₂(ε)) − 1` by (2.4), and at most the number of carriers
+initially in `Ω*` by (c).
 
-**Verdict, node 2.** For U₂ with a parity-uniform NEQ-T supply under (I) and DT's clause A, no use
-and hence no delivery occurs. Without clause A: the background outside the closed component is
-inert; the deliverable budget is that of the closed component (2.4); carriers cannot approach;
-every record is erased by the next multiple of the component's period; and one delivery with a
-held record is attainable inside a component from a tuned pattern (f), which NSC-3 and NSC-5
-exclude. This is a scoped obstruction [W, EC]. Open: bounded ready regions in noise, `q ≥ 3`
-including `q = 2^16`, and infinite components.
+**Verdict, node 2.** For U₂ with a parity-uniform NEQ-T supply under (I): the background outside
+the closed component is inert; the deliverable budget is that of the closed component (2.4); no
+carrier from outside the block's initial component is ever used, and none approaches; every record
+is erased by the next multiple of the component's period. Inside one component, deliveries with
+held records on pre-placed carriers are attainable from tuned patterns ((f), (h)), which NSC-3 and
+NSC-5 exclude. This is a scoped obstruction [W, EC]. Open: bounded ready regions in noise; `q ≥ 3`
+including `q = 2^16`; infinite components; and a pure parity-uniform supply with carriers inside
+the block's component beyond the boxes of (g).
 
 ***
 
@@ -375,11 +398,12 @@ data.
 
 ## 7. Productivity verdict and classification
 
-**Test (i)** is not met. The one native delivery found, 2.3(f) (from the review), runs on U₂
-without controller or postselection, but its supply is a designed initial pattern with the carrier
-pre-placed in the block's component (NSC-3, NSC-5, clause A), and its component holds one carrier,
-so it does not repeat on fresh carriers. It is recorded as a native mechanism conditional on a
-tuned supply. For the other supply types examined no native construction meets DT.
+**Test (i)** is not met. The native deliveries found, 2.3(f) and (h) (from the reviews), run on
+U₂ without controller or postselection, but their supplies are designed initial patterns with no
+independent justification (NSC-3, NSC-5). They are recorded as native mechanisms conditional on
+tuned supplies. No carrier from outside the block's initial component is ever used (2.3(c)); the
+carriers used are those placed in the component at `t = 0`. For the other supply types examined
+no native construction meets DT.
 **Test (ii)** is met at the scope of Theorem 2.2: U₂ with `q = 2`, a parity-uniform supply and
 hypothesis (I). There (2.4) replaces PR1 2.6's cone-base budget by the budget of the closed
 component, which excludes every background bit outside it, and 2.3(c) adds a mechanism exclusion
@@ -399,7 +423,7 @@ period) that PR1 does not contain. Verdict: gem.
 |---|---|
 | Node 1: DT; CR and bath countercontrols | CONFIRMING (PR1 2.5, C4) |
 | Lemma 2.1; Theorem 2.2; Lemma 2.3; 2.3(a)–(e); (2.4) | NEW at its scope (author; the review agrees) |
-| 2.3(f) example and 2.3(g) search (from the review) | ELABORATING (scope of 2.3(c) without clause A) |
+| 2.3(f), (h) examples (from the reviews); 2.3(g) search | ELABORATING (scope of 2.3(c)) |
 | Theorems 3.1–3.3 | ELABORATING (PR1 1.3, 1.5(b), AW-PR1-1) |
 
 - **AW-DL1-1 (supplied versus deliverable).** For U₂, and for any update with an analogue of
@@ -422,9 +446,10 @@ period) that PR1 does not contain. Verdict: gem.
 For the declared update U₂ (`q = 2`), the supplied resource of the most symmetric NEQ-T form, a
 parity-uniform region, cannot be delivered to a ready block from outside its closed component: it
 is never moved, carriers cannot approach through it, and every record inside a finite component is
-erased by the next multiple of its period. Inside one component, a designed pattern can deliver
-once with a held record (2.3(f)), which NSC-3 and NSC-5 exclude. A measurement source on U₂ would
-have to work at a ready/noise interface, which this record leaves open. Under μ-O and
+erased by the next multiple of its period. Inside one component, designed patterns can deliver
+with held records on pre-placed carriers (2.3(f), (h)), which NSC-3 and NSC-5 exclude. A
+measurement source on U₂ would have to work at a ready/noise interface, or on carriers placed in
+the block's component by an independently justified law; both are open here. Under μ-O and
 μ-R the static budget is usable only as a fixed-block resource. Physical measurement sourcing is
 not affected beyond this: it remains "NOT PASSED", and A1 remains "OPEN/UNADOPTED", as recorded by
 the owner.
@@ -438,7 +463,8 @@ the owner.
 - Hypothesis (I): that independence of `Ω*` from `Ω′` is preserved, so that `K_t(H)` relative to
   the whole world equals its value relative to `Ω*∖H`, and that (2.4) excludes the background bits.
 - 2.3(c): the step from periodicity of Ψ to "every record is erased by the next multiple of `P`".
-- DT clause A and its NSC-3 justification; the classification of 2.3(f) against NSC-1..7.
+- DT's record-formation clause (R) and its NSC-7 justification; the classification of 2.3(f) and
+  (h) against NSC-1..7.
 - The DT exclusions and their mapping to NSC-1..7, and whether the CR countercontrol's failure is
   correctly placed at NSC-1 and NSC-3.
 - Theorem 3.2's `u`-mass computation and the role of disjointness (M2c).
@@ -459,9 +485,9 @@ the final infected set of 2-neighbour bootstrap percolation. T. Toffoli and N. M
 ## 10. Exact checks
 
 `checks/deliver_checks.py`. Command, from this directory: `python3 -I checks/deliver_checks.py`
-(about seven seconds). Exit status 0 iff every check holds. The review's own scripts (full-orbit
-invariance for the `2×2×2` box, random-torus invariance, mutation countercontrols, the 2.3(g)
-search) were run by the reviewer and are not part of this record.
+(about ten seconds). Exit status 0 iff every check holds. The reviews' own scripts (full-orbit
+invariance for the `2×2×2` box, random-torus invariance, mutation countercontrols, a wider search)
+were run by the reviewer and are provenance only; no claim here rests on them.
 
 | Check | Statement tested |
 |---|---|
@@ -473,7 +499,9 @@ search) were run by the reviewer and are not part of this record.
 | E5, E5b | Theorem 2.2 along three trajectories of 60 ticks (`n = 10`); countercontrol: the support itself moves |
 | E6 | Lemma 2.3(c): independence at distance 3; interaction at distance 2 (countercontrol) |
 | E7, E7b | 2.3(c) on the closed box `{−e_1, 0, e_1}`: bijection, orbit lengths dividing 4; in this box readiness returns by un-writing |
-| E12 | 2.3(f): the review's five-site example embedded in the `n = 8` torus |
+| E12, E12b | 2.3(f): the review's five-site example embedded in the `n = 8` torus; clause (R) holds |
+| E13, E13b | 2.3(h): the re-review's two-carrier example; (R) holds for `a` and fails for `b` |
+| E14, E14b | 2.3(g): reduced exhaustive search with a pure vacuum supply; positive control on the (f) pattern |
 | E8, E8b | countercontrols: `q = 3` and `q = 2^16` leak; the SM §3.1 ring vacuum conducts |
 | E9 | 2.4: survival 7/32 in noise; erosion probabilities 0, 1/4, 1/2 |
 | E10 | Lemma 2.3(b): width-2 slab insulates; width 1 does not (countercontrol) |
@@ -500,6 +528,11 @@ CHECK E6 two clusters at l1-distance 3 evolve exactly as if alone (40 ticks); at
 CHECK E7 apparatus box {-e1,0,e1} is closed; its dynamics is a bijection of 64 states with every orbit length dividing 4: PASS
 CHECK E7b centre readiness 1,3/4,9/16,3/4,1 at t=0..4 while K(centre)=2=D0 at every t (in this box readiness returns when the record is un-written): ['1', '3/4', '9/16', '3/4', '1']: PASS
 CHECK E12 review example on the n=8 torus: segment closed; orbit lengths 4 (c=0) and 6 (c=1), common period 12; H ready at t=0, depends on c at t=1..4, ready at t=5 for both c, while site 3 holds not-c at t=5: PASS
+CHECK E12b clause (R) for E12: site 3 carries no information about c before the first use (t=0): PASS
+CHECK E13 re-review example: segment closed; orbit lengths [4, 6, 6, 12]; H ready at [0, 4, 16]; H depends on a at t=[1, 2, 3], on b exactly at t=[5, 6, 7, 8, 9, 10]; sites 2,4 at t=16 determine (a,b): PASS
+CHECK E13b clause (R) at t=16: holds for carrier a (first use t=1); fails for carrier b (first use t=5): every log block determining b at t=16 already depends on b before t=5: PASS
+CHECK E14 reduced exact search, pure vacuum supply: no delivery with a determined log in lines 3..7 and boxes 2x2, 2x3, 3x3 with 1-2 carriers, lines 4..6 and 2x3 with 3 carriers (horizon 30); evidence only: PASS
+CHECK E14b positive control: the same search routine finds the E12 delivery when given its designed pattern: PASS
 CHECK E8 countercontrol q=3 and q=2^16: a single symbol 2 in the vacuum reaches all six neighbours in one step (no box confinement): PASS
 CHECK E8b countercontrol SM 3.1 ring (L=9): a single excitation reaches sites [-2, -1, 1] in one step (insulation is specific to the binary rounded-cubic rule): PASS
 CHECK E9 a ready site in product-uniform noise stays 0 w.p. 7/32 (= 1 - 25/32); a vacuum site with 1/2/3 noisy neighbours is perturbed w.p. 0/1/4/1/2: PASS
@@ -509,5 +542,5 @@ CHECK M1 external schedule cell1@t0 -> cell0@t1 'gains' 0 -> 1, but K_t0(cell0) 
 CHECK M2 mu-O invariant (orbit length 3); pointer-selected cell ready w.p. 1; each fixed cell and the external schedule w.p. 1/3 / ['1/3', '1/3', '1/3']; u(H_Q=0) = 1/2; cost d(1||1/2)=1 <= D(muO||u) = 3: PASS
 CHECK M2c countercontrol: selection by the cells' own content has u-mass 7/8 (= 7/8), so disjointness of pointer and cells is needed: PASS
 CHECK M3 single excitation in the vacuum (n=4) has orbit length 2, so D(mu-O||u) = 127 bits and every block has entropy <= log2(2) = 1 bit under mu-O: PASS
-24/24 checks hold
+29/29 checks hold
 ```

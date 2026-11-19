@@ -397,6 +397,139 @@ def node2():
           f"(c=0) and {orbit_len[1]} (c=1), common period 12; H ready at t=0, depends on c at "
           "t=1..4, ready at t=5 for both c, while site 3 holds not-c at t=5",
           closed12 and orbit_len == {0: 4, 1: 6} and ready0 and dep and ready5 and rec)
+    site3_t0 = {cv: (int((3, 0, 0) in traj[cv][0][0]), int((3, 0, 0) in traj[cv][0][1]))
+                for cv in (0, 1)}
+    check("E12b clause (R) for E12: site 3 carries no information about c before the first use "
+          "(t=0)", site3_t0[0] == site3_t0[1])
+
+    # E13: the re-review's example (#1425 c.7023506974): segment {0..4}e1, n=8 torus;
+    # (x_{-1}, x_0) per site: 0:(a,a) 1:(1,1) 2:(1,1) 3:(b,0) 4:(1,1); H = site 1, w* = (1,1).
+    n = 8
+    init = lambda a, b: [(a, a), (1, 1), (1, 1), (b, 0), (1, 1)]
+    TR, OL, closed13 = {}, {}, True
+    for a, b in product((0, 1), repeat=2):
+        p = {s for s, v in zip(seg, init(a, b)) if v[0]}
+        c = {s for s, v in zip(seg, init(a, b)) if v[1]}
+        start = (frozenset(p), frozenset(c))
+        tr = [(set(p), set(c))]
+        for t in range(1, 25):
+            p, c = c, step_sets(p, c, n)
+            if not (p | c) <= set(seg):
+                closed13 = False
+            tr.append((set(p), set(c)))
+        OL[(a, b)] = next(t for t in range(1, 25)
+                          if (frozenset(tr[t][0]), frozenset(tr[t][1])) == start)
+        TR[(a, b)] = tr
+
+    def content(k, t, sites_):
+        return tuple((int(s in TR[k][t][0]), int(s in TR[k][t][1])) for s in sites_)
+
+    def depends(t, var, sites_):
+        """exact I(content; var) > 0 for uniform independent (a, b)."""
+        d = [sorted(content(k, t, sites_) for k in TR if k[var] == v) for v in (0, 1)]
+        return d[0] != d[1]
+
+    Hs = [(1, 0, 0)]
+    ready13 = [t for t in range(17) if all(content(k, t, Hs) == ((1, 1),) for k in TR)]
+    use_a = [t for t in range(17) if depends(t, 0, Hs)]
+    use_b = [t for t in range(17) if depends(t, 1, Hs)]
+    logs = [(2, 0, 0), (4, 0, 0)]
+    det16 = len({content(k, 16, logs) for k in TR}) == 4
+    check(f"E13 re-review example: segment closed; orbit lengths {sorted(OL.values())}; H ready "
+          f"at {[t for t in ready13 if t in (0, 4, 16)]}; H depends on a at t={use_a[:3]}, on b exactly "
+          f"at t={use_b}; sites 2,4 at t=16 determine (a,b)",
+          closed13 and sorted(OL.values()) == [4, 6, 6, 12] and {0, 4, 16} <= set(ready13)
+          and use_a[:3] == [1, 2, 3] and use_b == [5, 6, 7, 8, 9, 10] and det16)
+    # clause (R): a log block that determines the carrier at t=16 and carries no information
+    # about it at any time before the carrier's first use
+    def R_ok(var, first_use):
+        for L_ in ([logs[0]], [logs[1]], logs):
+            det = all(len({content(k, 16, L_) for k in TR if k[var] == v}
+                          & {content(k, 16, L_) for k in TR if k[var] == 1 - v}) == 0
+                      for v in (0, 1))
+            if det and not any(depends(t, var, L_) for t in range(first_use)):
+                return True
+        return False
+    check("E13b clause (R) at t=16: holds for carrier a (first use t=1); fails for carrier b "
+          "(first use t=5): every log block determining b at t=16 already depends on b before t=5",
+          R_ok(0, use_a[0]) and not R_ok(1, use_b[0]))
+
+    # E14: reduced exact search (pure vacuum supply, carriers in the box, eps = 0, horizon 30).
+    # A delivery: t1 < s < t2 with H at (0,0) at t1 and t2 for all carrier values, I(W_s(H); c_k) > 0,
+    # and the non-carrier, non-H sites at t2 determining c_k. In-box dynamics is exact (Lemma 2.3(a)).
+    def boxsites(dims):
+        S_ = list(product(*[range(d) for d in dims]))
+        ix = {s: i for i, s in enumerate(S_)}
+        NB_ = []
+        for s_ in S_:
+            nb = []
+            for ax in range(len(dims)):
+                for d in (1, -1):
+                    t_ = list(s_)
+                    t_[ax] += d
+                    if tuple(t_) in ix:
+                        nb.append(ix[tuple(t_)])
+            NB_.append(nb)
+        return S_, NB_
+
+    def found(dims, ncar, T=30, base=None, only=None):
+        from itertools import combinations
+        S_, NB_ = boxsites(dims)
+        k_ = len(S_)
+        bp, bc = base if base else ([0] * k_, [0] * k_)
+        for cs in (combinations(range(k_), ncar) if only is None else [only]):
+            for modes in product((0, 1, 2), repeat=ncar):
+                trs = []
+                for cv in product((0, 1), repeat=ncar):
+                    p_, c_ = list(bp), list(bc)
+                    for s_, m_, v_ in zip(cs, modes, cv):
+                        if m_ in (0, 2):
+                            c_[s_] = v_
+                        if m_ in (1, 2):
+                            p_[s_] = v_
+                    tr = [(tuple(p_), tuple(c_))]
+                    for _ in range(T):
+                        p_, c_ = c_, [g2(sum(c_[j] for j in NB_[i])) ^ p_[i] for i in range(k_)]
+                        tr.append((tuple(p_), tuple(c_)))
+                    trs.append((cv, tr))
+                for H_ in range(k_):
+                    if H_ in cs:
+                        continue
+                    logs_ = [s_ for s_ in range(k_) if s_ not in cs and s_ != H_]
+                    ready_ = [all(tr[t][0][H_] == 0 and tr[t][1][H_] == 0 for _, tr in trs)
+                              for t in range(T + 1)]
+                    for kk in range(ncar):
+                        dep_ = [sorted((tr[t][0][H_], tr[t][1][H_]) for cv, tr in trs if cv[kk] == 0)
+                                != sorted((tr[t][0][H_], tr[t][1][H_]) for cv, tr in trs if cv[kk] == 1)
+                                for t in range(T + 1)]
+                        for t1 in range(T + 1):
+                            if not ready_[t1]:
+                                continue
+                            for t2 in range(t1 + 2, T + 1):
+                                if not ready_[t2] or not any(dep_[t1 + 1:t2]):
+                                    continue
+                                m_ = {}
+                                ok_ = True
+                                for cv, tr in trs:
+                                    key = tuple(tr[t2][0][s_] for s_ in logs_) + \
+                                        tuple(tr[t2][1][s_] for s_ in logs_)
+                                    if m_.setdefault(key, cv[kk]) != cv[kk]:
+                                        ok_ = False
+                                        break
+                                if ok_:
+                                    return True
+        return False
+
+    cases = [((3,), 1), ((4,), 1), ((4,), 2), ((5,), 1), ((5,), 2), ((6,), 1), ((6,), 2),
+             ((7,), 1), ((7,), 2), ((2, 2), 1), ((2, 2), 2), ((2, 3), 1), ((2, 3), 2),
+             ((3, 3), 1), ((3, 3), 2), ((4,), 3), ((5,), 3), ((6,), 3), ((2, 3), 3)]
+    none = all(not found(d, k) for d, k in cases)
+    positive = found((5,), 1, base=([0] * 5, [0, 0, 1, 0, 1]), only=(0,))
+    check("E14 reduced exact search, pure vacuum supply: no delivery with a determined log in lines "
+          "3..7 and boxes 2x2, 2x3, 3x3 with 1-2 carriers, lines 4..6 and 2x3 with 3 carriers "
+          "(horizon 30); evidence only", none)
+    check("E14b positive control: the same search routine finds the E12 delivery when given its "
+          "designed pattern", positive)
 
     # E8: q >= 3 countercontrol (insulation fails): single value 2 at the origin
     ok8 = True
