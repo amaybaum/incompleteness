@@ -353,17 +353,24 @@ def compositions(total, parts, allowed):
                 yield (v,) + rest
 
 
+def slack_25(law, nbits, pairs):
+    """D(p||u) - (N - sum_k h2(eps_k)) for predictor/target pairs (f_k, g_k) on states."""
+    eps = [sum(x for s, x in law.items() if f(s) != g(s)) for f, g in pairs]
+    return D_unif(law, nbits) - (L(len(pairs)) - sum((h2(e) for e in eps), L())), eps
+
+
 S3 = list(product((0, 1), repeat=3))
+# A = bit0 predicts B = (bit1, bit2) with g = id (jointly balanced, disjoint).
 preds = [lambda a: (a, a), lambda a: (a, 1 - a), lambda a: (a, 0), lambda a: (1 - a, a)]
 n_checked = n_strict = 0
 ok = True
 for comp in compositions(16, 8, (0, 1, 2, 3, 4, 6)):
     law = {s: Fr(c, 16) for s, c in zip(S3, comp) if c}
     for f in preds:
+        pairs = [(lambda s, f=f: f(s[0])[0], lambda s: s[1]),
+                 (lambda s, f=f: f(s[0])[1], lambda s: s[2])]
         try:
-            e1 = sum(x for s, x in law.items() if f(s[0])[0] != s[1])
-            e2 = sum(x for s, x in law.items() if f(s[0])[1] != s[2])
-            slack = D_unif(law, 3) - (L(2) - h2(e1) - h2(e2))
+            slack, _ = slack_25(law, 3, pairs)
         except AssertionError:  # a probability outside the {2,3} field: skipped, not checked
             continue
         sg = slack.sign()
@@ -373,15 +380,14 @@ for comp in compositions(16, 8, (0, 1, 2, 3, 4, 6)):
 check(f"C14 2.5 holds on {n_checked} exact (law, predictor) cases, {n_strict} strictly",
       ok and n_checked > 1000 and n_strict > 0)
 
-# C15 countercontrols for 2.5's hypotheses: the inequality must FAIL in both.
-u2b = product_law(UNIF, UNIF)
-eps_and = sum(x for s, x in u2b.items() if (s[0] & s[1]) != 0)  # f = 0 predicts AND
+# C15 countercontrols for 2.5's hypotheses, through C14's slack_25: the inequality must FAIL.
+slack_and, eps_and = slack_25(product_law(UNIF, UNIF), 2, [(lambda s: 0, lambda s: s[0] & s[1])])
 check("C15a no joint balancedness (g = AND, f = 0): eps = 1/4 and D = 0 < 1 - h(1/4)",
-      eps_and == Fr(1, 4) and (D_unif(u2b, 2) - (L(1) - h2(eps_and))).sign() < 0)
+      eps_and == [Fr(1, 4)] and slack_and.sign() < 0)
 copy = {(0, 0): Fr(1, 2), (1, 1): Fr(1, 2)}
-e_xy = sum(x for s, x in copy.items() if s[0] != s[1])
+slack_cp, eps_cp = slack_25(copy, 2, [(lambda s: s[0], lambda s: s[1]), (lambda s: s[1], lambda s: s[0])])
 check("C15b no disjointness (x predicts y, y predicts x): N - sum h = 2 > D = 1",
-      e_xy == 0 and (D_unif(copy, 2) - (L(2) - h2(e_xy) - h2(e_xy))).sign() < 0)
+      eps_cp == [0, 0] and slack_cp == L(-1))
 
 # C11 countercontrols: the exact sign test and C8's flux routine can fail.
 check("C11a sign test: 1.58 < log2(3) < 1.59 decided by integer powers",

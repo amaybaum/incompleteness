@@ -1,10 +1,6 @@
 # PREP-REGRESS-1: the preparation regress, stationarity, and the held-predictability budget
 
-**Standing.** Revision r2 applies the required and recommended findings of the independent review
-at `eef4d3ab` ([#1417 c.7019920749](https://github.com/amaybaum/incompleteness/pull/1417#issuecomment-7019920749),
-REVISE; §4 proofs accepted) and the owner's OI Review requirements relayed with it (scope of the
-conclusion; no irreversible-consumption reading; the reading of item 2). No §4 theorem changes.
-WIP / UNVERIFIED author record of a paper-only gem-finding unit (AGENTS.md §A.31,
+**Standing.** WIP / UNVERIFIED author record of a paper-only gem-finding unit (AGENTS.md §A.31,
 depth-first form). One independent non-author review is a separate gate. This record adopts no
 premise, edits no manuscript, Lean module or registry, and runs no simulation. Small exact checks
 are included as controls (§9).
@@ -74,8 +70,8 @@ Units: all information quantities are in bits; `h₂(ε) = −ε log₂ ε − (
    and it does not remove the need to investigate apparatus mechanisms.
 5. **Node 3 (productivity test).** Item 1 is proved; item 2 is resolved partly by proof (§4 forms)
    and partly by counterexample (the owner's monotonicity clause); the controls hold. On the author's
-   reading of the fixed test this is a gem, classification ELABORATING, with no NEW item. On the
-   owner's reading (relayed for this revision), a rigorous counterexample to the proposed
+   reading of the fixed test this is a gem, classification ELABORATING, with no NEW item. Owner ruling
+   (owner `amaybaum`, [#866 c.7020034618](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-7020034618), 2026-11-19T19:34:44Z): a rigorous counterexample to the proposed
    monotonicity clause completes that obligation provided the corrected replacement statements are
    proved and all controls pass; it does not count as a proof of the original clause.
 6. **Node 4 (proposal only).** Two boundary-posit forms, NEQ-T (time-slice law) and NEQ-O
@@ -446,7 +442,7 @@ at its own scope.
 (2.1, 2.3–2.7) and partly by counterexample (2.2); every control holds. On the author's reading,
 which takes item 2's own wording ("Prove this, or find the exact obstruction or counterexample") to
 admit a counterexample, the unit passes the fixed test: **gem, ELABORATING**, with no NEW item.
-The owner's reading, relayed for this revision: a rigorous counterexample to the proposed
+Owner ruling (owner `amaybaum`, [#866 c.7020034618](https://github.com/amaybaum/incompleteness/issues/866#issuecomment-7020034618), 2026-11-19T19:34:44Z): a rigorous counterexample to the proposed
 monotonicity clause completes that obligation provided the corrected replacement statements are
 proved and all controls pass; it does not count as a proof of the original clause. Against §A.31's productivity test: the facts are stronger than D1's restatement (1.3, E3,
 2.3–2.5 are quantitative and tight) and they constrain the contract (the NAH disjunct is empty for
@@ -557,7 +553,8 @@ and it does not remove the need to investigate apparatus mechanisms.
   holds `N` ε-predictable results and a re-armed register, with predictors disjoint from targets and
   targets jointly balanced under `u`, needs `D(p₀‖u) ≥ (N+1)(1 − h₂(ε))` in its causal-cone base
   (2.5, 2.6). Reversible dynamics does not change `D(p₀‖u)` (2.1); it redistributes non-equilibrium
-  between the rest and held content (2.3), and the redistribution is reversible (C5).
+  between the rest and held content (2.3); since φ is a bijection, every such redistribution is
+  undone by `φ^{−1}`, and C5 exhibits one undone within the forward dynamics.
 - **Supply.** The supply side is a property of the law: a time-slice boundary law (NEQ-T), or a
   static budget carried by μ-O (the orbit structure of φ, 1.5(b)) or by μ-R (the orbit union
   compatible with the records, posited under ledger (iv), 1.5(b′)). μ-O and μ-R are possible carriers
@@ -581,7 +578,6 @@ and it does not remove the need to investigate apparatus mechanisms.
   invariant nor a conditioning nor a declared boundary law.
 - The control table of Node 3, in particular the P8 and A1-P8 rows.
 - That the exact checks test what §4 claims of them (§9 maps each check to its statement).
-- Whether item 2's resolution partly by counterexample meets the fixed test (owner decision).
 - Not done: no literature re-read; no statement about R-lin's orbit lengths; no conversion
   mechanism; no infinite-volume model beyond the Bernoulli shift remark; no Lean.
 
@@ -622,7 +618,7 @@ directory: `python3 -I checks/prep_regress_checks.py` (about one minute, dominat
 | C10a–b | 2.7 with fresh CNOT steps (nonzero `I(A;C_j)`, decrement identity); rise under reuse on its own trajectory |
 | C13 | 1.3 scope: a moving block gains `K` under μ-O, bounded by `D(μ-O‖u)` |
 | C14 | 2.5 inequality away from equality: every law on 3 bits with point masses in `{0,1,2,3,4,6}/16` whose quantities stay in the `{2,3}` field (others skipped, not counted), four predictor maps; 20,500 cases, 20,432 strict |
-| C15a–b | 2.5 countercontrols: the bound fails without joint balancedness (AND) and without disjointness (copy pair) |
+| C15a–b | 2.5 countercontrols, run through C14's routine: the bound fails without joint balancedness (AND) and without disjointness (copy pair) |
 | C12 | 1.5(b) cycle-length distribution for all 120 permutations of 5 points |
 | C11a–b | countercontrols: the sign test separates `1.58 < log₂3 < 1.59`; C8's flux routine reports failure on a non-bijection |
 
