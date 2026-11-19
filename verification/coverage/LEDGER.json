@@ -70,20 +70,6 @@
       "note": ""
     },
     {
-      "id": "GR:C-invisible-gravitational-budget",
-      "paper": "papers/GR.md",
-      "line": 422,
-      "kind": "Corollary",
-      "label": "(Invisible gravitational budget)",
-      "fingerprint": "ea5d16ff902c196d",
-      "area": "gr",
-      "assumptions": "see the statement",
-      "checks": [],
-      "kernel": "GAP",
-      "delta": "not formalized",
-      "note": ""
-    },
-    {
       "id": "GR:T-unnamed-b09a495a",
       "paper": "papers/GR.md",
       "line": 675,
@@ -295,12 +281,12 @@
     {
       "id": "MAIN:L-1",
       "paper": "papers/Main.md",
-      "line": 48,
+      "line": 46,
       "kind": "Lemma",
       "label": "1",
-      "fingerprint": "3f78a6038b1ad02f",
+      "fingerprint": "2f0552ed7e727e5a",
       "area": "oi-foundations",
-      "assumptions": "finite-area observer boundary; holographic entropy bound [2] cited as independent support",
+      "assumptions": "Finite capacity is a clause of the observer definition. The mode-count specialization takes finitely many modes with finitely many settings per mode and internal states determined by those settings. A positive minimum cell volume is a separate physical counting hypothesis.",
       "checks": [
         {
           "kind": "lean",
@@ -317,7 +303,7 @@
       ],
       "kernel": "K3",
       "delta": "",
-      "note": "Kernel-proved AS A CONDITIONAL, with the physical input carried as a named premise in every signature and argued for nowhere: finitely many boundary modes, finitely many distinguishable settings each, and an observer whose internal state is determined by them give Finite C_V with the explicit bound Nat.card C_V <= prod of the per-mode counts, and d^N in uniform form. The finite-area boundary and the holographic entropy bound enter as the [Finite Mode] instance and NOTHING derives them; the file deliberately does not encode finite area as a bare real number, which would smuggle the physics into an axiom with a reassuring name. Both halves of the premise are shown load-bearing rather than assumed to be: modes_must_be_finite exhibits an observer with infinitely many two-setting modes and an infinite configuration space, and cells_need_positive_floor shows a bounded region with no positive floor admits any number of cells. The discreteness-scale clause is card_cells_le, at most V/eps cells."
+      "note": "Kernel-proved AS A CONDITIONAL, with the physical input carried as a named premise in every signature and argued for nowhere: finitely many boundary modes, finitely many distinguishable settings each, and an observer whose internal state is determined by them give Finite C_V with the explicit bound Nat.card C_V <= prod of the per-mode counts, and d^N in uniform form. Finitely many boundary modes enter as a separate [Finite Mode] input; the file deliberately does not encode finite area as a bare real number, which would smuggle the physics into an axiom with a reassuring name. Both halves of the premise are shown load-bearing rather than assumed to be: modes_must_be_finite exhibits an observer with infinitely many two-setting modes and an infinite configuration space, and cells_need_positive_floor shows a bounded region with no positive floor admits any number of cells. The discreteness-scale clause is card_cells_le, at most V/eps cells."
     },
     {
       "id": "MAIN:L-2",
@@ -336,12 +322,12 @@
     {
       "id": "MAIN:L-3",
       "paper": "papers/Main.md",
-      "line": 56,
+      "line": 54,
       "kind": "Lemma",
       "label": "3",
-      "fingerprint": "d89d76543f1fffac",
+      "fingerprint": "5c04b07980b2be97",
       "area": "oi-foundations",
-      "assumptions": "determinism; reversibility of the selected representative; finiteness of S (total-finiteness posit, §1.2 Remark, §4.5); maximal-entropy SELECTION of the counting measure among invariant measures — not uniqueness from invariance",
+      "assumptions": "Determinism and bijectivity on the specified finite representative. Maximal-entropy selection picks the counting measure among invariant measures without inferring uniqueness from invariance. Physical total finiteness (A1) remains open and unadopted.",
       "checks": [
         {
           "kind": "lean",
@@ -377,12 +363,12 @@
     {
       "id": "MAIN:L-partition-relativity-under-canonical-invariant",
       "paper": "papers/Main.md",
-      "line": 86,
+      "line": 84,
       "kind": "Lemma",
       "label": "(partition-relativity under the canonical invariant measure)",
-      "fingerprint": "c20d766bd7433a65",
+      "fingerprint": "e30ad837c0f9b34d",
       "area": "oi-foundations",
-      "assumptions": "the canonical measure of Lemma 3",
+      "assumptions": "Specified dynamics, partition and joint preparation. The canonical choice from Lemma 3 is one case.",
       "checks": [],
       "kernel": "GAP",
       "delta": "not formalized",
@@ -957,12 +943,12 @@
     {
       "id": "MAIN:L-non-permutation-witness",
       "paper": "papers/Main.md",
-      "line": 431,
+      "line": 439,
       "kind": "Lemma",
       "label": "(non-permutation witness)",
-      "fingerprint": "3a87e714d4b89b3d",
+      "fingerprint": "03fb0792a2de9627",
       "area": "memory-conditions",
-      "assumptions": "T not a permutation",
+      "assumptions": "Finite bijective model with common uniform hidden prior and rooted transition matrix T not a permutation.",
       "checks": [
         {
           "kind": "probe",
@@ -1167,10 +1153,10 @@
     {
       "id": "MAIN:D-unitarily-evolving-qm",
       "paper": "papers/Main.md",
-      "line": 520,
+      "line": 528,
       "kind": "Definition",
       "label": "(unitarily evolving QM)",
-      "fingerprint": "139a68c2f2c5c3d1",
+      "fingerprint": "af4bd6ab0aee86ab",
       "area": "equivalence-chain",
       "assumptions": "none — a definition",
       "checks": [],
@@ -1408,10 +1394,10 @@
     {
       "id": "MAIN:C-observer-selection-rule-rate-condition",
       "paper": "papers/Main.md",
-      "line": 752,
+      "line": 762,
       "kind": "Corollary",
       "label": "(observer-selection rule, with its rate condition)",
-      "fingerprint": "38127d106435567a",
+      "fingerprint": "99ffb12c63ad9c8a",
       "area": "oi-foundations",
       "assumptions": "the observer-selection theorem plus its rate condition — the manuscript is explicit that the two bounds do NOT compose without it; stated for the coarse-grained description generated by iterating the effective channel",
       "checks": [],
@@ -1481,7 +1467,7 @@
       "line": 224,
       "kind": "Lemma",
       "label": "(form of the center-free isotropic linear rule)",
-      "fingerprint": "6671da6a71ecada9",
+      "fingerprint": "6ac0fb261a585259",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -1599,9 +1585,9 @@
       "line": 286,
       "kind": "Theorem",
       "label": "2",
-      "fingerprint": "f430eea59c91601c",
+      "fingerprint": "a5e534dbd5ef0356",
       "area": "sm",
-      "assumptions": "the observer-level lattice-wave branch of Theorem 1 (CONDITIONAL); the sign convention box_lat := -sum_mu (T_mu - T_mu^{-1})^2",
+      "assumptions": "Centered staggered differences and the associated blocked, two-step lattice operator. The observer-to-wave identification is separate.",
       "checks": [
         {
           "kind": "probe",
@@ -1640,7 +1626,7 @@
         }
       ],
       "kernel": "K2",
-      "delta": "the manuscript does not display the box_lat sign convention beside the theorem, so the formal statement fixes a convention the text leaves implicit (ROADMAP §D); and the periodic realization needs an even-extent hypothesis the text does not carry",
+      "delta": "Centered two-step stencil is now explicit. The kernel uses the sign convention box_lat := -sum_mu (T_mu - T_mu^{-1})^2 and the periodic realization needs even extent, with the manuscript convention and its relation to the periodic formal model retaining their separate scope.",
       "note": "Section C of the ROADMAP is closed: the factorization holds for every n by induction over a list of pairwise-anticommuting summands, not just at three and four axes."
     },
     {
@@ -1693,10 +1679,10 @@
     {
       "id": "SM:T-4-conditional-observer-level-mass-spectrum",
       "paper": "papers/SM.md",
-      "line": 316,
+      "line": 318,
       "kind": "Theorem",
       "label": "4 (conditional observer-level mass spectrum)",
-      "fingerprint": "429df1ffcd675a9f",
+      "fingerprint": "04ec54617221ddeb",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -1707,10 +1693,10 @@
     {
       "id": "SM:L-4a-one-cone-branch",
       "paper": "papers/SM.md",
-      "line": 326,
+      "line": 328,
       "kind": "Lemma",
       "label": "4a (one cone on the branch)",
-      "fingerprint": "1c3f7025195892e5",
+      "fingerprint": "a416aa077ae5560b",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -1762,10 +1748,10 @@
     {
       "id": "SM:L-6a-operator-substitution-control",
       "paper": "papers/SM.md",
-      "line": 352,
+      "line": 354,
       "kind": "Lemma",
       "label": "6a (operator-substitution control)",
-      "fingerprint": "d526588a6904040b",
+      "fingerprint": "5ab3090c6e07b225",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -1881,10 +1867,10 @@
     {
       "id": "SM:T-7b",
       "paper": "papers/SM.md",
-      "line": 388,
+      "line": 390,
       "kind": "Theorem",
       "label": "7b",
-      "fingerprint": "9aa910406c56c135",
+      "fingerprint": "65e3fc77740e5557",
       "area": "sm",
       "assumptions": "see the statement; the specified nearest-neighbor link carrier",
       "checks": [],
@@ -2079,10 +2065,10 @@
     {
       "id": "SM:T-14",
       "paper": "papers/SM.md",
-      "line": 573,
+      "line": 575,
       "kind": "Theorem",
       "label": "14",
-      "fingerprint": "5030ef7770eb2884",
+      "fingerprint": "959d3efbfb7341d9",
       "area": "sm",
       "assumptions": "see the statement",
       "checks": [],
@@ -2304,10 +2290,10 @@
     {
       "id": "STRUCTURE:D-9.1",
       "paper": "papers/Structure.md",
-      "line": 623,
+      "line": 624,
       "kind": "Definition",
       "label": "9.1",
-      "fingerprint": "e0499da112de1b28",
+      "fingerprint": "859bb4f3167b06c1",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
@@ -2332,10 +2318,10 @@
     {
       "id": "STRUCTURE:D-9.3",
       "paper": "papers/Structure.md",
-      "line": 634,
+      "line": 635,
       "kind": "Definition",
       "label": "9.3",
-      "fingerprint": "ab7171f54fbcb738",
+      "fingerprint": "45e3efa9b2e1987d",
       "area": "reconstruction",
       "assumptions": "see the statement",
       "checks": [],
@@ -2562,7 +2548,7 @@
       "line": 189,
       "kind": "Lemma",
       "label": "23.0",
-      "fingerprint": "1a683c8617936260",
+      "fingerprint": "cf606fc3bea9ba6f",
       "area": "reconstruction",
       "assumptions": "see the statement; the nearest-neighbor premise of Stage 2(b); gauge relation between realizations not asserted (generator completeness open)",
       "checks": [],
@@ -2576,7 +2562,7 @@
       "line": 193,
       "kind": "Theorem",
       "label": "23",
-      "fingerprint": "9b17bf94a3783f46",
+      "fingerprint": "f17ba583880145b2",
       "area": "reconstruction",
       "assumptions": "see the statement; the nearest-neighbor premise of Stage 2(b); gauge relation between realizations not asserted (generator completeness open)",
       "checks": [],
