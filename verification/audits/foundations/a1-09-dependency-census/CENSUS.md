@@ -176,10 +176,10 @@ Manuscript corrections must use the separately designated #1015/#1029 or other a
 
 **Current A1-C01 verdict: INCOMPLETE — UNCLASSIFIED**, not "all A1 claims classified". Specifically:
 - CENSUS-X1: resolved for claim coverage by batch 1 (§7).
-- CENSUS-X2: §§8–11 cover the original 53 name-flagged modules and five concrete-type modules. §14 adds the root Lean file, all six legacy modules and selected omitted signatures, including a finite-orbit step under `S` and a finite-stage step with no `[Finite S]` binder. §19 reconciles the file changes since batch 2. §§20–22 extend named source tracing to all 242 indexed bridge modules. §23.1 follows five selected chains through named prerequisites and consumers. §24 traces 132 authored declarations in ten priority files. §§25.2–25.7 trace 86 additional authored declarations in six files, and §25.8 follows selected paths in five further files. Corpus-wide declaration inspection and elaborated dependency closure remain open. The module counts through §21 record earlier checkpoints.
+- CENSUS-X2: §§8–11 cover the original 53 name-flagged modules and five concrete-type modules. §14 adds the root Lean file, all six legacy modules and selected omitted signatures, including a finite-orbit step under `S` and a finite-stage step with no `[Finite S]` binder. §19 reconciles the file changes since batch 2. §§20–22 extend named source tracing to all 242 indexed bridge modules. §23.1 follows five selected chains through named prerequisites and consumers. §24 traces 132 authored declarations in ten priority files. §§25.2–25.7 trace 86 additional authored declarations in six files, and §25.8 follows selected paths in five further files. §27 traces 120 authored declarations in the six files behind Main's R1–R3 kernel citations. Corpus-wide declaration inspection and elaborated dependency closure remain open. The module counts through §21 record earlier checkpoints.
 - CENSUS-X3: §12 resolves the mechanical source crosswalk at the new pin (124 families, 132 coverage entries and 20 unattached items). §13 records source scopes for all 20 unattached items. Proof scope and dependencies outside the specific backward traces remain open.
 - CENSUS-X4: §16 inventories the recursive verification and paper-supplement tree and runs a focused text search. §23.3 follows the named finite-shell and comb records and the mechanical-latch addition to `main`. §25.10 follows eight additional chains for records, finite factors and operational completion. §26 reconciles the 106-path search queue and traces the landed recurrence proof at its newer source pin. Untraced evidence chains and archive or branch-only content are still **X**. Published `.tex` mirrors are resolved for claim content by batch 1 (§7). PDFs are not stamped and are not checked in this census.
-- CENSUS-X5: the original textual pass covers 12 primary papers and 29 chapter/back-matter Markdown files. §15 adds backward traces for selected observer, GR and SM statements. §17 assigns a first-pass input scope to each of the 132 registered paper statements. §18 visits major downstream transfers in the six papers outside that register. §§23.2 and 25.9 trace thirteen selected unnumbered claim chains with publication locators. Other implicit inheritance and untraced claims remain **X**.
+- CENSUS-X5: the original textual pass covers 12 primary papers and 29 chapter/back-matter Markdown files. §15 adds backward traces for selected observer, GR and SM statements. §17 assigns a first-pass input scope to each of the 132 registered paper statements. §18 visits major downstream transfers in the six papers outside that register. §§23.2 and 25.9 trace thirteen selected unnumbered claim chains with publication locators. §27.8 traces twelve Main sites to the §27 declarations. Other implicit inheritance and untraced claims remain **X**.
 - CENSUS-X6: resolved for the six first-pass candidates (§5.1): five corrected on `main` by #1341, D09 withdrawn, D34b moved to #1342. Further candidates found in later batches need their own review and owner authorization.
 
 To close A1-C01, obtain full text/source parity for X1–X4; review and classify every site and theorem in X2–X5, including implicit dependencies; resolve or explicitly narrow X6 by separately approved evidence; and reconcile against the existing closure register with a reviewed exact-head audit. Only an independent final G2/owner sign-off on reviewed manuscript propagation can change the foundational completion label.
@@ -1468,3 +1468,248 @@ These rows record the scope of the matching evidence or the claim that a status 
 ### 26.6 Coverage disposition
 
 All 106 paths from §16's lexical queue have an evidence-role or false-match disposition, with scoped source paths for the claims and controls named here. This includes 100 remaining matches after the word-boundary check and six false matches. There are 3,165 paths outside that original queue. The two additions in §26.1 and examples in §§23.3 and 25.10 demonstrate direct source traces outside the queue. Paths and claims beyond the recorded traces remain **X**. This census inspected text, proof dependencies and retained controls. Scientific replay, complete recursive link and claim validation across all snapshots, and the remaining declaration and manuscript audit have separate open coverage. A1-C01 remains **INCOMPLETE**.
+
+## 27. Declaration rosters for the kernel modules Main cites at its root theorems
+
+### 27.1 Scope, source pin and roster
+
+**Writer:** the Claude Foundations thread of the coordinating Claude Code session, under the [owner activation](https://github.com/amaybaum/incompleteness/issues/1334#issuecomment-6918420877) and the [owner record naming the thread](https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7019013461). This section is unreviewed author work. §26 is the pushed Codex Foundations head `170896401dee7842e571f937740227b4a14925c0`, carried forward unchanged by merge, and has no recorded review.
+
+**Source pin:** `main` at `0d02d8d3b6a53a43168eabead12e1ff675a4d048`. The six Lean files below and `papers/Main.md` are unchanged since the §§24–25 pin `baeb7723743e99b137ae3d0a1694e99ff97e2a73`: a `git log` over that range restricted to these seven paths lists no commit. M means `papers/Main.md` at the pin.
+
+**Selection.** Main names five bridge modules at the proofs of its R1–R3 roots (ROOTS.md R1–R3) that had no full declaration roster: `EquivalenceChain` (M137, M554), `RootedClassification` (M145, M644), `C3Necessity` (M518, M620), `Equivalence` (M524, M554, M596) and `HiddenMemory` (M614). `grep -n 'OIBridge/<Module>.lean' papers/Main.md` gives these lines. `RootedClassificationT2` is added because it holds the cycle-iteration lemmas the M644 converse imports through `RootedClassificationAllTime` (§25.5). The selection does not cover Main's other kernel citations, which include `PhysicalC4Discharge`, `PhysicalC4StorageReadback`, `GeneralCarrier` and the R4–R6 modules.
+
+**Roster method.** Lean comments are blanked with newlines kept, including nested block comments. Authored top-level headers are then matched:
+
+```python
+import re, sys
+H = re.compile(r"^(?:@\[[^\]\n]*\]\s*)?(?:(?:noncomputable|private|protected)\s+)*"
+               r"(theorem|lemma|def|abbrev|structure|inductive|instance|class)\s+([^\s:({\[]+)", re.M)
+def strip(src):
+    out, i, depth, n = [], 0, 0, len(src)
+    while i < n:
+        if src.startswith("/-", i): depth += 1; i += 2; continue
+        if depth and src.startswith("-/", i): depth -= 1; i += 2; continue
+        if depth: out.append("\n" if src[i] == "\n" else " "); i += 1; continue
+        if src.startswith("--", i):
+            j = src.find("\n", i); j = n if j < 0 else j; out.append(" " * (j - i)); i = j; continue
+        out.append(src[i]); i += 1
+    return "".join(out)
+for p in sys.argv[1:]:
+    s = strip(open(p, encoding="utf-8").read())
+    print(p, [(s.count("\n", 0, m.start()) + 1, m[2]) for m in H.finditer(s)])
+```
+
+**Control.** Run on the 16 files rostered in §§24–25, the same script returns their recorded counts, 9, 11, 19, 23, 12, 31, 9, 4, 5, 9, 11, 7, 7, 16, 15 and 30, a total of 218. Its counts and names for the six files below are as follows. The rows give each name with its start and end lines. An end line is the last nonblank line before the next header, docstring or command.
+
+| Lean file | Authored declarations | Traced in §27 |
+|---|---:|---:|
+| `Equivalence` | 34 | 34 |
+| `EquivalenceChain` | 16 | 16 |
+| `RootedClassification` | 34 | 34 |
+| `RootedClassificationT2` | 9 | 9 |
+| `HiddenMemory` | 18 | 18 |
+| `C3Necessity` | 9 | 9 |
+| **Total** | **120** | **120** |
+
+**Row grammar.** Each row ends with **A** or **F** in the sense of §1, followed by one finiteness tag.
+
+- **F3** means only a finite visible alphabet, history alphabet, outcome alphabet or horizon is used.
+- **R-supplied** means finiteness of the whole state type of a representative is a hypothesis of the declaration.
+- **R-constructed** means the declaration builds a finite representative as the witness of an existential claim.
+
+R is A1-FCLASS's total-configuration class applied to a mathematical representative. It is not a statement about nature. `grep -n -i -E '\bsite|lattice|cone|region|neighbo'` over the six files prints nothing, and no declaration uses a site set, local alphabet or causal support. F1, F2 and F4 therefore do not occur in this section.
+
+### 27.2 The finite-horizon equivalence in `Equivalence`
+
+The section variables at :141 make `V` finite with decidable equality. Every declaration after :141 takes a finite visible alphabet and a finite horizon `K`. Classes (D) and (Q_fb) carry their finite carrier as a structure field (:157–162, :190–196). Their membership predicates are therefore existential over finite representatives.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `exists_perm_extending:60–91` | The proof uses `[Fintype A]` three ways. It equates complement cardinalities with `card_compl`, matches the complements with `Fintype.equivOfCardEq`, and turns injectivity into bijectivity with `Finite.injective_iff_bijective` on all of `A`. **F**, R-supplied. Mathematically the conclusion also holds for infinite `A` when `s` is a finite set, because removing finitely many points leaves an infinite cardinal unchanged. That form is not in the kernel and is not used. |
+| `sum_chain:99–132` | Induction on the path length, splitting the last coordinate with `Fin.snocEquiv`. The sum ranges over all finite paths in the finite state type `S`. In the one call, at :249, `S` is the basis of the supplied (Q_fb) system. **F**, R-supplied. |
+| `Traj:144` | The type `Fin (K + 1) → V`. **A**, F3. |
+| `Stochastic:147–148` | Nonnegativity, with one sum over the finite trajectory type. **A**, F3. |
+| `RevReal:157–162` | Fields: a hidden type `Hid` with `Fintype` and `DecidableEq`, a bijection of `V × Hid` and an initial weight on `V × Hid`. The initial law may correlate the two coordinates (:150–156). **F**, R-supplied as a field of class (D). |
+| `RevReal.IsLaw:168–169` | Nonnegativity, with a sum over the finite type `V × Hid`. **F**, R-supplied. |
+| `RevReal.states:172–173` | Iterates the bijection for `k ≤ K` steps. The definition would make sense on any state type. **A**, F3. |
+| `RevReal.traj:176–177` | Projects each state to its visible coordinate. **A**, F3. |
+| `RevReal.law:180` | `FiniteEntropy.marg:130–131` sums the initial weights over each finite fibre of `V × Hid`. **F**, R-supplied. |
+| `RevRealizable:182–183` | Asks for some `RevReal` whose law is `P`. Class (D) therefore quantifies over finite hidden types only. **F**, R-supplied by the class definition. |
+| `QfbReal:190–196` | Fields: a finite basis type `Bas`, a complex matrix on it, initial weights and a readout to `V`. This class has no autonomous-generator clause (:28–34). **F**, R-supplied. |
+| `QfbReal.IsLaw:201–202` | Unitary group membership on the finite basis, and normalized weights. **F**, R-supplied. |
+| `QfbReal.born:205` | Squared modulus of one matrix entry. **A**. |
+| `QfbReal.chain:209–210` | Initial weight times a product of Born weights over `Fin K`. Only the horizon is finite. **A**, F3. |
+| `QfbReal.law:213–214` | Sums the chain weight over each fibre of the readout on the finite space of basis paths. **F**, R-supplied. |
+| `QfbRealizable:216–217` | Asks for some `QfbReal` whose law is `P`. **F**, R-supplied by the class definition. |
+| `QfbReal.born_nonneg:224–225` | `sq_nonneg`. **A**. |
+| `QfbReal.sum_born:227–239` | Reads one diagonal entry of `star U * U = 1` and rewrites each summand as a squared modulus. The column sum ranges over the finite basis. **F**, R-supplied. |
+| `QfbReal.chain_nonneg:241–243` | A product of nonnegative factors. **A**. |
+| `Qfb_imp_S:245–249` | The law is nonnegative by `marg_nonneg`. Its total mass is one by `sum_marg`, `sum_born` and `sum_chain`. The conclusion is a statement about the finite visible law. **F**, R-supplied: the finite basis is that of the given system. |
+| `marg_id:259–264` | The fibre of the identity map is a singleton. The lemma holds on any finite type, and is used at the trajectory type in `S_imp_D`. **A**, F3. |
+| `RevReal.states_iff:266–292` | Induction on the time index shows that a state path follows the bijection exactly when it is the generated orbit. No sum or cardinality is used. **A**. |
+| `D_imp_Qfb:294–342` | Takes the permutation matrix of `R.step.symm` on `V × Hid` and keeps the same initial weights and the visible readout. Born weights are indicators of the deterministic step, so the chain weight equals the orbit pushforward. Unitarity is `EquivalenceChain.permMatrix_mem_unitaryGroup`. The construction transfers the given finite carrier and adds no new finiteness. **F**, R-supplied. |
+| `Hid:365` | The hidden type `Fin (K + 1) × Traj V K`: a clock and a complete trajectory record. It is finite because `V` and `K` are finite. **A**, F3. It is the carrier of the witness built by `S_imp_D`. |
+| `emb:368` | Places the recorded value at the clock reading in the visible coordinate. **A**. |
+| `adv:372` | Advances the clock by one in `Fin (K + 1)` and keeps the record. Clock addition wraps from `K` to `0`. **A**. |
+| `coh:375–377` | Image of `emb` taken over `Finset.univ` of the finite hidden type. **F**, R-constructed. |
+| `mem_coh:379–381` | Membership of an image point. **A**. |
+| `adv_emb:383` | Holds by `rfl`. **A**. |
+| `injOn_adv:387–396` | Cancellation in `Fin (K + 1)` and equality of the records. No cardinality is used. **A**. |
+| `iterate_emb:399–406` | For a permutation `σ` that agrees with `adv` on the coherent set, induction gives `σ^[j] (emb (c, τ)) = emb (c + j, τ)` for every `j`, with the clock added in `Fin (K + 1)`. **A**. |
+| `clock_iterate:409–418` | Below the horizon, adding `j` to the clock starting from `0` reads `j`. **A**. |
+| `S_imp_D:422–446` | Calls `exists_perm_extending` on the finite type `V × Hid V K`. The initial law is the pushforward of `P` along `τ ↦ emb (0, τ)`. Reading the orbit returns `τ`, so the law is `P`. **F**, R-constructed. The witness depends on `P` and `K`. |
+| `finite_horizon_equivalence:462–468` | Composes the three constructions. The physical carrier never enters. The finiteness used is F3 on `V` and `K`, together with finite witness carriers inside (D) and (Q_fb). **F**, R-constructed. This agrees with ROOTS.md R1 and AUDIT.md R1, which mark the equivalence **A1-FREE**. |
+
+**A recurrence of the kernel witness.** Instantiate `iterate_emb:399–406` at `j = K + 1`. In `Fin (K + 1)` the clock returns to its starting value, so the extended permutation satisfies `σ^[K+1] = id` on every coherent state. The initial law of `S_imp_D` is supported on coherent states `emb (0, τ)`. Every prior-supported microstate of the kernel's (D) witness for horizon `K` therefore returns after a number of steps dividing `K + 1`. This is a paper corollary of a kernel lemma, and no named theorem states it. It does not affect the equivalence, which reads only the first `K` steps. The paper construction at M524 assigns its clock-`K` and ill-formed states through the permutation completion, which the text leaves unspecified, so the text does not fix its recurrence time. §27.8 uses this corollary at M540.
+
+### 27.3 Stochastic inverse, permutation unitary and one-step dilation in `EquivalenceChain`
+
+The section variables at :67, :195 and :285 supply finite index types. In Main's uses at M131–137 and M554 the index of the stochastic-inverse lemma is `C_V`, and the unitary and partial-trace lemmas act on the full product `V × H`.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `row_eq_basis_of_mem_support:75–100` | An off-diagonal entry of `A * B = 1` is a finite sum of nonnegative terms. Every term vanishes, and the unit row sum puts the row of `B` on column `i`. **A**, F3 at its use on visible rows. |
+| `isPermMatrix_of_stochastic_inverse:110–169` | Three steps use the finite index. `mul_eq_one_comm` turns one-sided inverses into two-sided ones, which needs a finite square index. `det_mul` and `det_zero_of_row_eq` exclude repeated rows. `Finite.injective_iff_bijective` turns the occupied columns into a permutation. **A**, F3. In Main's rooted use the index is `C_V`, finite by Lemma 1, so this step uses no hidden or total finiteness. The one-sided form fails on `ℕ`. Let `A(i, i+1) = 1`, `B(0, 0) = 1` and `B(k, k−1) = 1` for `k ≥ 1`. Both are row-stochastic and `AB = I`, but column 0 of `A` is empty, so `A` is not a permutation. The finiteness of the visible index is therefore essential to the form of the lemma Main uses. |
+| `permMatrix_mem_unitaryGroup:179–185` | `conjTranspose_permMatrix` and permutation-matrix multiplication on the finite index `V × H`. **F**, R-supplied. Main's D→Q_fb step consumes it with the carrier of the given (D) witness. |
+| `IsDiag:198` | A pointwise predicate on any index type. **A**. |
+| `ptraceH:201–202` | Sums over the hidden index. **F**, R-supplied. |
+| `tensorH:205–206` | A pointwise product. **A**. |
+| `priorState:211` | `Matrix.diagonal` of the weights. It needs decidable equality only. **A**. |
+| `permMatrix_pow:215–220` | Induction with permutation-matrix multiplication on a finite index. **F**, R-supplied at its uses on `V × H`. |
+| `permMatrix_mul_inv:224–229` | Products of finite permutation matrices. **F**, R-supplied. |
+| `permConj_apply:233–238` | Conjugation by a finite permutation matrix is relabelling, by the `PEquiv` matrix identities. **F**, R-supplied. |
+| `Phi:242–243` | The partial trace of the conjugated tensor on `V × H`. **F**, R-supplied. |
+| `isDiag_Phi:253–272` | Each summand of the partial trace vanishes by `permConj_apply` and injectivity of `φ ^ t`. The weights `μ` need not be normalized. **F**, R-supplied, through the finite representation. The diagonality argument itself is injectivity. |
+| `dilation:289–290` | A matrix with entries `√T(i, j)` on the diagonal ancilla copy. **A**, F3 at its use with `n = |C_V|`. |
+| `dilation_isometry:293–320` | Finite sums, `Real.mul_self_sqrt` and the unit row sums. **A**, F3. |
+| `dilation_marginal:323–331` | Sums over the ancilla index collapse to one term. **A**, F3. |
+| `dilation_extends:336–381` | `exists_orthonormalBasis_extension_of_card_eq` with `finrank_euclideanSpace` on `n × n`. A finite-dimensional extension. **A**, F3, with `n` the visible alphabet of M §3.1. |
+
+### 27.4 The periodic rooted class in `RootedClassification`
+
+The section variables at :24 make `V` finite. `RootedRealization` (`CausalReadback:178–186`, §24.6) requires `Fintype H`.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `PeriodicFamily:27–28` | A positive `M` with `Γ (t + M) = Γ t` for all `t`. **A**, F3. |
+| `PPer:32–33` | Root identity, row-stochasticity at every time and `PeriodicFamily`. A visible predicate. **A**, F3. |
+| `responseWeight:42–43` | A product over the coordinate type `I`. Its section variables at :39 make `I` finite. **A**, F3 at its use, where `I` is a set of visible roots and nonzero phases. |
+| `responseWeight_nonneg:46–49` | `Finset.prod_nonneg`. **A**, F3. |
+| `responseWeight_sum:54–58` | `Fintype.prod_sum` for the finite product of row sums. **A**, F3. |
+| `responseWeight_marginal:62–98` | Changes the weight at one coordinate, then uses `Fintype.prod_sum` and `Fintype.prod_eq_mul_prod_subtype_ne`. **A**, F3. |
+| `FiniteRootedRealizable:115–117` | There exist a type `H` in `V`'s universe with `Fintype H` and a `RootedRealization` whose rooted maps equal `Γ` at every `t`. The class quantifies over finite hidden carriers only. **F**, R-supplied by the class definition. |
+| `rootedMap_zero:123–130` | At time zero the sum of the prior over the finite `H` gives `1` on the diagonal. Off the diagonal it gives `0`. The identity uses normalization only. **F**, R-supplied, through the finite prior sum. |
+| `rootedMap_periodic:135–153` | Sets `M = Fintype.card (Equiv.Perm (V × H))`, which is positive by `Fintype.card_pos`. It uses `pow_card_eq_one` on that finite group and rewrites every iterate. This is where the finiteness of the whole carrier `V × H` enters the M644 forward direction and the periodicity clause of M145. **F**, R-supplied. The infinite-XOR record shows that the conclusion can fail for an infinite hidden carrier, through a reversible normalized root-shared realization with `Γ₀ = I` and `Γₜ = J` for all `t ≥ 1` (`verification/programmes/substratum/continuous-substates/infinite-xor-counterexample.md`, as used in AUDIT.md R1). |
+| `rootedMap_mem_PPer:159–161` | Pairs `rootedMap_zero`, `CausalReadback.rootedMap_isRowStochastic` and `rootedMap_periodic`. **F**, R-supplied. |
+| `NonzeroPhase:173` | The subtype of `Fin M` with nonzero value. **A**. |
+| `ResponseIndex:176` | `V × NonzeroPhase M`. **A**, F3. |
+| `ResponseTable:179` | Functions from `ResponseIndex V M` to `V`. The type is finite. **A**, F3. |
+| `PadIndex:182` | `ResponseTable × (V × NonzeroPhase M)`. **A**, F3. |
+| `ResponseHidden:185` | The sum of table states and padding states. It is the hidden carrier of the converse witness. **A**, F3. |
+| `CycleIndex:188` | `ResponseTable × (V × Fin M)`. **A**, F3. |
+| `cycleState:192–196` | Case split on the phase value. **A**. |
+| `cycleState_val_zero:199–202` | Unfolds the case at value zero. **A**. |
+| `cycleState_nonzero:205–209` | Unfolds the case at a nonzero value. **A**. |
+| `cycleState_injective:214–249` | Four cases, comparing the visible and hidden components. **A**. |
+| `cycleEmbedding:252–254` | Packages the injection. **A**. |
+| `cyclePerm:257–258` | `finRotate M` on the phase coordinate only. **A**. |
+| `cyclePerm_apply:260–261` | Holds by `rfl`. **A**. |
+| `responseStep:266–268` | `Equiv.Perm.viaFintypeEmbedding` extends the cycle permutation along the embedding and fixes the complement. The extension needs a finite source type, here `CycleIndex V M`, and decidable equality on `V × ResponseHidden V M`. **F**, R-constructed. |
+| `responseStep_cycle:271–277` | `viaFintypeEmbedding_apply_image`. **F**, R-constructed. |
+| `responseLocalWeight:282–283` | Reads one entry of `Γ`. **A**. |
+| `tableWeight:286–287` | `responseWeight` of the local weights over the finite table index. **A**, F3. |
+| `tableWeight_nonneg:290–295` | Nonnegativity of each row of `Γ`. **A**, F3. |
+| `tableWeight_sum:299–304` | Unit row sums and `responseWeight_sum`. **A**, F3. |
+| `responsePrior:307–309` | Table weight on the table states and zero on the padding states. **A**. |
+| `responsePrior_nonneg:312–318` | Case split. **A**. |
+| `responsePrior_sum:321–326` | `Fintype.sum_sum_type` over the finite hidden sum type. **F**, R-constructed. |
+| `responseRealization:330–335` | Assembles `responseStep` and `responsePrior` into a `RootedRealization` on the finite `ResponseHidden V M`. **F**, R-constructed. |
+| `pper_of_finiteRootedRealizable:339–344` | Unpacks the existential and applies `rootedMap_mem_PPer`. **F**, R-supplied. It is the M644 forward direction. |
+
+### 27.5 The cycle-iteration seam in `RootedClassificationT2`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `cyclePerm_iterate:21–28` | Induction. Only the phase rotates. **A**. |
+| `responseStep_iterate_cycle:32–39` | Induction with `responseStep_cycle`. **F**, R-constructed, inherited from `viaFintypeEmbedding`. |
+| `phaseZero:43` | `⟨0, hM⟩ : Fin M`. Positivity of the period is a premise. **A**. |
+| `phaseZero_val:45` | Holds by `rfl`. **A**. |
+| `cycleState_phaseZero:49–51` | `cycleState_val_zero`. **A**. |
+| `finRotate_iterate_phaseZero_of_lt:54–61` | `finCycle_eq_finRotate_iterate` for `t < M`. **A**. |
+| `cyclePerm_iterate_phaseZero_of_lt:64–68` | Composes the two preceding lemmas. **A**. |
+| `responseStep_iterate_phaseZero_of_lt:72–77` | Moves the phase-zero table state through the embedded cycle. **F**, R-constructed. |
+| `responseStep_visible_of_pos_lt:81–86` | Reads the table entry at a positive phase. **F**, R-constructed. |
+
+### 27.6 Hidden memory in `HiddenMemory`
+
+The section variables at :45–46 make `Hist`, `V` and `H` finite with decidable equality. `Realization:54–58` holds a bijection of `V × H` and a normalized weight on `Hist × V × H`. No field ties the weight to the bijection or to an earlier initial law. M614 states that this reading of a realization's time-`t` law is not formalized. The proof bodies use only the forward map of `step`. `grep -n -E 'symm|injective|Injective|bijective|surjective|⁻¹|\.invFun' HiddenMemory.lean C3Necessity.lean` prints nothing. The only uses of `step` are at `HiddenMemory:63` and `C3Necessity:61`.
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `Realization:54–58` | The fields named above. **F**, R-supplied (`Fintype H`). `Fintype Hist` and `Fintype V` are F3. |
+| `nextVis:63` | The visible coordinate of `step (x, h)`. **A**. |
+| `histProb:66` | Sums the weight over the finite `H`. **F**, R-supplied. |
+| `post:69–70` | Pointwise quotient by `histProb`. At zero-mass histories the quotient is `0` by Lean's division convention. **A**. |
+| `nextLaw:73–74` | Sums over the filter of `H` on which the next visible value is `v`. **F**, R-supplied. |
+| `pushforward_identity:83–87` | `Finset.sum_mul` on the finite fibre sums. **F**, R-supplied, through the finite-sum representation. The identity itself is pointwise algebra and does not use bijectivity. |
+| `tv:92–93` | Half the sum of absolute differences on any finite type. **A** for the definition. It is used on `V` (F3) and on `H` (R-supplied). |
+| `tv_marg_le:97–109` | Fibrewise triangle inequality and `Finset.sum_fiberwise_of_maps_to`. **A** for the generic lemma on finite types. |
+| `distinguishability_floor:114–117` | `pushforward_identity` twice, then `tv_marg_le` on the posteriors over `H`. **F**, R-supplied. The kernel has no counterpart for a non-finite hidden carrier, which would need a conditional law in place of `post`. |
+| `varHist:122` | Projection. **A**. |
+| `varNow:124` | Projection. **A**. |
+| `varHid:126` | Projection. **A**. |
+| `varNext:129` | `nextVis` of the current pair. **A**. |
+| `cmiBits:132–135` | `FiniteEntropy.cmi:352–353` divided by `log 2`. It takes finite types for all four variables. **F**, R-supplied at its uses with `H` in the sample space. |
+| `memory:138` | `cmiBits` of history, present and next value. The sample space `Hist × V × H` includes the finite `H`. **F**, R-supplied. |
+| `capacity_floor_of_fun:150–163` | The first inequality is `FiniteEntropy.cmi_le_of_deterministic:383` for any readout `d` of the pair. The second is `cmi_le_log_card:457–475`, which uses `entropy_le_log_card` on `H` and `Nonempty H`. **F**, R-supplied. The cardinality of `H` enters as the value of the bound. |
+| `capacity_floor:170–173` | `capacity_floor_of_fun` at the next visible value. **F**, R-supplied. |
+| `unavoidable_hidden_predictive_memory:185–193` | Bundles clauses (a)–(c). It quantifies over realizations with finite `H` and finite `Hist`. **F**, R-supplied. |
+
+### 27.7 C3 necessity in `C3Necessity`
+
+| Declaration and source | Finiteness dependency |
+|---|---|
+| `futureOf:60–61` | Iterates `step` forward `j + 1` times and projects. **A**. |
+| `varFuture:64–65` | `futureOf` of the current pair. **A**. |
+| `varFuture_zero:69–71` | `simp` identifies the first future entry with `varNext`. **A**. |
+| `c3_necessity:80–83` | `capacity_floor_of_fun` at the readout `futureOf R L`, valued in the finite type `Fin L → V`. **F**, R-supplied. |
+| `c3_necessity_via_hidden:88–92` | The same call, keeping the intermediate term. **F**, R-supplied. |
+| `Istar:103–105` | `Finset.sup'` over a finite nonempty index set of realizations. Each realization has its own `step` and weight, and all share the type `H`. They also share the history type `Hist`, although the docstring at :100–102 says that each slice carries its own history alphabet. The difference does not affect the bound, since a family of finite history alphabets embeds in their disjoint sum and zero-mass outcomes leave every entropy unchanged. **F**, R-supplied. |
+| `Istar_le_log_card:107–110` | `Finset.sup'_le` with `c3_necessity` on each slice. **F**, R-supplied. |
+| `card_hidden_ge_two_pow_Istar:117–125` | Monotonicity of `rpow` and `Real.rpow_logb`, with `Fintype.card H > 0` from `Nonempty H`. **F**, R-supplied. |
+| `c3_necessity_and_capacity:130–135` | Pairs the two preceding results. **F**, R-supplied. |
+
+Two extensions of these signatures follow on paper and are not kernel statements. M516 takes a supremum over all times. If every slice is bounded by `log₂ m`, so is the supremum, and a finite family is not needed. Separately, the proof bodies never use bijectivity, so the bounds hold for a deterministic map of `V × H` once `Realization.step` is generalized to a function. M620 describes the kernel statement as bijective and proves the non-injective step on paper, which agrees with the source. For an infinite hidden carrier the bound `log₂ |C_H|` places no constraint.
+
+### 27.8 Main sites that consume these declarations
+
+| Main site | Backward trace and finiteness scope |
+|---|---|
+| M111, M113–129 (§2.3 theorem) | The statement takes finite `C_V`, `C_H` and a bijection. Step 1 at M121 derives `φ^N = id` from a bijection on a finite set. M111 and M129 attribute finiteness of `C_H` to the total-finiteness posit. The total-finiteness step is explicit. **F**, R-supplied. The kernel counterparts are `RootedRecurrenceBridge` (§24.7) and `rootedMap_periodic` (§27.4). |
+| M131–133 (stochastic-inverse lemma) | `isPermMatrix_of_stochastic_inverse` (§27.3). The finiteness used is that of the square index. In M137 the index is `C_V`. **A**, F3. The countable shift in §27.3 shows that the F3 premise cannot be dropped from the one-sided form. |
+| M135–139 (readback and finite recurrence) | The statement takes a bijection of order `L`. The proof at M137 says that `φ` permutes a finite set. M137 notes that the steps from histories to a non-permutation and to overlapping rows, and the step `Γ_L = I`, are proved on paper. The lemma call is F3, and the return step is R-supplied and stated. **F**. |
+| M145 (routed readback, "so for some `n`") | The clause "for some `n`" uses `rootedMap_periodic` (R-supplied, period `|Perm(C_V × C_H)|`) and `rootedMap_zero` (finite prior sum). The clause "for every `n > s` with `Γ_n = I`" needs only the supplied return, through `RecurrenceHorizon` (§24.10). The rooted maps are those of M135, on finite `C_V × C_H`. **F** for the existential clause, explicit through M135. |
+| M508–518 (C3 and corollary) | `m = |C_H|` presupposes a finite hidden set. The kernel source is §27.7. The paper's supremum over `t` and its single realization are covered by the kernel's finite family with per-slice dynamics, after the paper step in §27.7. **F**, R-supplied. Bijectivity is named in the statement but not consumed. |
+| M520–524 (finite-horizon process dilation) | The theorem asserts that a finite `C_H` exists. The kernel citation `exists_perm_extending` uses the finiteness of the constructed product (R-constructed). The product-prior form of M522 is a paper construction (AUDIT.md R1). Physical total finiteness does not enter. **F**, R-constructed. |
+| M540–546 (characterization theorem) | The hypothesis restricts to timescales `t ≪ t_R`, where `t_R` is "the Poincaré recurrence time of any realizing substrate". Clause (iii) asks for a bijection at every finite accessible horizon `K`. By §27.2, the kernel's realization for horizon `K` returns every prior-supported state after a divisor of `K + 1` steps, so `K` is never `≪` that realization's own recurrence time. `t_R` therefore cannot refer to the per-horizon realizations of (iii). The proof at M634 uses a witness order and finite horizons, and never uses `t_R`. **W**: the statement does not fix what `t_R` refers to, and the proof does not consume it. This is a wording candidate only, and any correction needs the separate authorization of §5. Reading `t_R` as the recurrence time of one separately given substrate is consistent with the proof. Under A1 that time is finite. Without a recurrence premise it can be infinite, and the window condition is then vacuous. |
+| M550–556 (S ⇔ D ⇔ Q_fb) | `finite_horizon_equivalence` (§27.2). (S) uses only F3. (D) and (Q_fb) include finite carriers in their definitions. The cited `permMatrix_mem_unitaryGroup` and `isDiag_Phi` act on the given finite product. `U_φ = e^{-iĤ}` at M556 is not formalized (Equivalence:28–34). **A** about physical A1, with R-supplied and R-constructed representatives. This agrees with AUDIT.md R1. |
+| M596 ("every faithful deterministic completion") | The universal phrase is the M608 theorem. There a realization is a bijection on `C_V × C_H`, and the kernel requires `Fintype H`. The quantifier therefore ranges over finite-hidden completions, which agrees with AUDIT.md R2 ("over class D"). **W** only if the phrase is read as covering completions with infinite hidden carriers. For those, clauses (a)–(b) would need conditional laws, and clause (c) places no constraint. Neither form is in the corpus traced here. |
+| M606–618 (universal memory theorem and biconditional) | Clauses (a)–(c) are kernel results for a finite joint law on `Hist × V × H` (§27.6). The time-`t` reading and the CMI vanishing criterion are disclosed as unformalized at M606 and M614. Bijectivity is not consumed. **F**, R-supplied. The converse cites `S_imp_D`, which is R-constructed. |
+| M620 (`c3_necessity_via_hidden`) | M620 describes the kernel statement as bijective and proves the non-injective form on paper. That agrees with the signature at §27.7. The proof body would also fit the non-injective form. **F**, R-supplied. |
+| M644 (all-time rooted classification) | The forward direction is `pper_of_finiteRootedRealizable`, whose finiteness enters at `rootedMap_periodic` (R-supplied). M644 states "from finiteness and bijectivity" and "a bijection on a finite set". The converse is R-constructed (§25.5, §27.4–27.5). M644 attributes the open physical form to A1 by name. **F**, explicit. |
+
+The table covers twelve Main sites. In each of them, every proof step that uses the finiteness of a whole hidden or total carrier is stated in the theorem, its proof or the §2.3 context M111 and M129. No silent use was found in this scope. The two **W** rows concern the referent of a quantifier. In each case the proof is unaffected. The `.tex`, book and FULL mirrors of these sites were not re-read in this section.
+
+### 27.9 Disposition
+
+Across §§24, 25 and 27, 338 authored declarations in 22 bridge modules have individual source rows (218 + 120). Among the 120 rows of §§27.2–27.7, 69 end in **A** and 51 in **F**. Of the 51 **F** rows, 41 are R-supplied and 10 are R-constructed. The tallies can be recounted from the committed file:
+
+```bash
+awk '/^## 27\./,/^### 27\.8/' verification/audits/foundations/a1-09-dependency-census/CENSUS.md \
+  | grep -E '^\| `[^|]+:[0-9]' > /tmp/rows27   # 120 rows
+grep -c '\*\*A\*\*' /tmp/rows27; grep -c '\*\*F\*\*' /tmp/rows27
+grep '\*\*F\*\*' /tmp/rows27 | grep -c 'R-supplied'; grep '\*\*F\*\*' /tmp/rows27 | grep -c 'R-constructed'
+```
+
+The other 220 indexed bridge modules have module-level traces but no full roster. Main's remaining kernel citations, generated declarations, elaborated dependencies beyond the named imports, and the mirrors of the §27.8 sites remain **X**. A1-C01 remains **INCOMPLETE**. A1 remains OPEN / UNADOPTED, and physical measurement sourcing remains NOT PASSED.
