@@ -1,6 +1,6 @@
 # A1-RIGID-1 — Observable recurrence and rooted P-indivisibility
 
-**Status.** Conditional paper proof by Codex M, pending independent review.
+**Status.** Conditional paper proof by Codex M. Independent non-author review returned [ACCEPT](https://github.com/amaybaum/incompleteness/pull/1396#pullrequestreview-5972282779) at `a932a1f6398bdd3f9a1e46b3fecba2bf3145a344`.
 The source base is `416f546d076299ab70d0c12df55808f930accddc` (`3.1.7`). The
 issue and coordination comment identify the scope of this attempt. [#1394][scope]
 · [#1169][coordination]
