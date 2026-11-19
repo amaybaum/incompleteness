@@ -454,6 +454,47 @@ def node2():
           "(first use t=5): every log block determining b at t=16 already depends on b before t=5",
           R_ok(0, use_a[0]) and not R_ok(1, use_b[0]))
 
+    # E15: the third review's example (#1425 c.7023645987): segment {0..5}e1, n=8 torus;
+    # (x_{-1}, x_0) per site: 0:(0,1) 1:(0,a) 2:(0,b) 3:(1,1) 4:(0,0) 5:(1,1); H = site 3, w* = (1,1).
+    seg6 = [(k, 0, 0) for k in range(6)]
+    init6 = lambda a, b: [(0, 1), (0, a), (0, b), (1, 1), (0, 0), (1, 1)]
+    TR6, closed15 = {}, True
+    for a, b in product((0, 1), repeat=2):
+        p = {s_ for s_, v in zip(seg6, init6(a, b)) if v[0]}
+        c = {s_ for s_, v in zip(seg6, init6(a, b)) if v[1]}
+        tr = [(set(p), set(c))]
+        for t in range(1, 21):
+            p, c = c, step_sets(p, c, n)
+            if not (p | c) <= set(seg6):
+                closed15 = False
+            tr.append((set(p), set(c)))
+        TR6[(a, b)] = tr
+
+    def content6(k, t, sites_):
+        return tuple((int(s_ in TR6[k][t][0]), int(s_ in TR6[k][t][1])) for s_ in sites_)
+
+    def dep6(t, var, sites_):
+        d = [sorted(content6(k, t, sites_) for k in TR6 if k[var] == v) for v in (0, 1)]
+        return d[0] != d[1]
+
+    H6, L6 = [(3, 0, 0)], [(4, 0, 0)]
+    ready15 = [t for t in range(17) if all(content6(k, t, H6) == ((1, 1),) for k in TR6)]
+    ua = [t for t in range(21) if dep6(t, 0, H6)]
+    ub = [t for t in range(21) if dep6(t, 1, H6)]
+
+    def determines(t, var, sites_):
+        return all(not ({content6(k, t, sites_) for k in TR6 if k[var] == v}
+                        & {content6(k, t, sites_) for k in TR6 if k[var] == 1 - v}) for v in (0, 1))
+
+    detA, detB = determines(16, 0, L6), determines(16, 1, L6)
+    Ra = not any(dep6(t, 0, L6) for t in range(ua[0]))
+    Rb = not any(dep6(t, 1, L6) for t in range(ub[0]))
+    check(f"E15 third review's example: segment closed; H ready at {[t for t in ready15 if t in (0, 4, 16)]}; "
+          f"H depends on a at t={ua}, on b at t={ub}; site 4 at t=16 determines a and b; "
+          "(R) holds for both records",
+          closed15 and {0, 4, 16} <= set(ready15) and ua == [2, 3, 8, 9, 14, 15, 20]
+          and ub == [7, 8, 17, 18] and detA and detB and Ra and Rb)
+
     # E14: reduced exact search (pure vacuum supply, carriers in the box, eps = 0, horizon 30).
     # A delivery: t1 < s < t2 with H at (0,0) at t1 and t2 for all carrier values, I(W_s(H); c_k) > 0,
     # and the non-carrier, non-H sites at t2 determining c_k. In-box dynamics is exact (Lemma 2.3(a)).
