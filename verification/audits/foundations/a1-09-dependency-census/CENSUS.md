@@ -1176,3 +1176,99 @@ This file imports `ObservabilityQuotient`. Its displayed return and factorizatio
 ### 24.11 Disposition
 
 All 132 names and start lines in the bounded roster match pinned source headers once each. Each of the other 232 indexed bridge modules has a module-level trace. The earlier sections also trace selected proof paths and consumers across the corpus. A reviewed corpus-wide declaration roster, generated definitions and complete elaborated dependencies, the rest of the manuscript's unnumbered propagation, and the remaining recursive evidence carry **X** status. The source audit leaves A1-C01 **INCOMPLETE**.
+
+## 25. State-carrier assumptions in records, finite factors, and operational theories
+
+This continuation starts from the independently reviewed [`68dcb23d`](https://github.com/amaybaum/incompleteness/commit/68dcb23d41d5e579064d1c38ff27080b741bdee2). The Lean, manuscript and registry source pin is `baeb7723743e99b137ae3d0a1694e99ff97e2a73`. The visible `main` at `5809c6c7537f9844f643a94ba1a65b281b47bc1a` adds the latch assessment already covered in §23.3.
+
+### 25.1 Corpus screen and bounded source roster
+
+Use the §14.2 inventory for the source dependency graph. The following additional screen, run from the pinned checkout, finds wording that can make the carrier scope easy to misread:
+
+```bash
+rg -ilU '(arbitrary|infinite)[[:space:][:punct:]\w]{0,25}(carrier|substratum|state type|state space|hidden|type `?S\b)|without[[:space:][:punct:]\w]{0,24}(total finiteness|finite carrier|finite substratum)|\bA1.free\b|\bA1.independent\b' \
+    verification/lean-mathlib/OIBridge -g '*.lean'
+```
+
+This returns 10 source files. `ObservableFactorRecurrence` is in §24.8. `RecordFibreIdentification`, `RootedClassificationAllTime`, `CarrierGeneralOIPlus` and `EmbeddedObservation` are in the six-file roster below. The hits in `CoherentLift`, `ImplementationLocality`, `OrbitGeometryIsometries`, `PassiveQuotient` and `ReferenceExtension` are entry points for selected proof traces. Include `RecursiveFiniteFactor` and `NativePadicReduction` because their claims concern arbitrary state or site types. Hits are search locations. Other proof bodies, including those with no search hit, remain **X** where they lack a verified trace.
+
+| Lean file | Authored declaration starts | Traced here |
+|---|---:|---:|
+| `RecordFibreIdentification` | 11 | 11 |
+| `RecursiveFiniteFactor` | 7 | 7 |
+| `NativePadicReduction` | 7 | 7 |
+| `RootedClassificationAllTime` | 16 | 16 |
+| `CarrierGeneralOIPlus` | 15 | 0 |
+| `EmbeddedObservation` | 30 | 0 |
+| **Total** | **86** | **41** |
+
+The roster follows the line-preserving source method in §24 and counts authored top-level headers. This checkpoint covers four full files and selected imports. Exact names and source start lines can be compared with the rows. Remaining files in the roster, generated declarations and elaborated dependencies beyond the traced imports remain **X**.
+
+### 25.2 Known-model records in `RecordFibreIdentification`
+
+| Declaration and source | Dependency on a finite object or other input |
+|---|---|
+| `record:21–22` | A word indexed by `Fin k` records the visible image of the actual iterate at each index. Finiteness is in the record length. **A**. |
+| `recordFibre:25–27` | Set membership requires support membership in the supplied set `A` and equality with the given word. **A**. |
+| `Determined:30–31` | Existence of one quantity value on the compatible set. This definition by itself admits an empty compatible set if the quantity type has a value. **A**. |
+| `determined_iff_constant:35–42` | A supplied member of the nonempty fibre provides the representative value in the reverse direction. **A**. |
+| `initial_determined_iff_subsingleton:46–49` | The constant fibre criterion applied to the identity. The nonempty fibre is assumed and the conclusion uses `Set.Subsingleton`. **A**. |
+| `determined_injective_iff:52–60` | Injectivity of the given quantity map turns equality of its values into equality of compatible states. **A**. |
+| `current_determined_iff:63–66` | Instantiates that injectivity with the actual power of the supplied permutation. **A** on arbitrary `S`. |
+| `current_visible_eq:69–73` | Evaluates word equality at the last index `n` of `Fin (n + 1)`. **A**. |
+| `current_hidden_determined_iff:78–91` | The last visible value and the common hidden value give equality in `V × H`, then injectivity of the iterate identifies the initial state. The reverse uses constancy on a subsingleton. **A** on arbitrary component types for this product readout. |
+| `swap_two_records_injective:95–102` | Time zero reads the first coordinate and time one reads the second after the swap. The two coordinate tests reconstruct the whole pair on any alphabet `V`. **A**. |
+| `empty_record_counterexample:106–115` | Two distinct Boolean pairs give equal empty words because `Fin 0` has no element. **A** for this finite-word boundary control. |
+
+The file imports `ObservabilityQuotient`. The proof bodies use no named class-spanning or order-stabilization lemma from it. No finiteness instance on `S`, `V`, or `H` appears in the declarations. Substratum P24.5(i) supplies the probability and support premise for a recorded outcome. Its distinct refinement bound in P24.5(ii) uses the number of states in the finite realizing carrier, as recorded in §14.1.
+
+### 25.3 Finite stage indices in `RecursiveFiniteFactor`
+
+| Declaration and source | Dependency on a finite object or other input |
+|---|---|
+| `FactorsAt:34–35` | Equal stage values force equal observation values. The predicate puts no size bound on `X`, `C`, or `V`. **A**. |
+| `Refines:38–39` | Equality at a larger natural depth implies equality at a smaller depth. This compares supplied stage maps. **A**. |
+| `factorsAt_mono:42–46` | Applies refinement before applying the previous observation's fibre condition. **A**. |
+| `finite_horizon_depth_bound:52–77` | Inducts on the length of the observed prefix and takes the maximum of the previous uniform depth and the newly supplied depth. Only the family of times below `L` is finite. **A** conditional on the supplied factorization predicates. |
+| `all_time_depth_bound_of_exact_period:83–93` | Uses finite-prefix aggregation at the stated positive period and rewrites each entire observation map to its residue-time map. **A** conditional on the pointwise common-period premise. |
+| `feedbackStep:97–98` | Uses a static hidden predicate to flip the visible Boolean and leaves the hidden coordinate fixed in the update formula. **A** on arbitrary `H`. |
+| `feedbackStep_involution:100–105` | Splits on the two Boolean values involved and verifies two applications return the pair. There is no enumeration of `H`. **A**. |
+
+The bound is on depth. Finiteness of the stage image and any theorem supplying a stage for each observation are separate inputs to a finite-resolution application. An all-time use requires equality of the observation functions at each time and its residue. The measured zero-change statement in §24.9 concerns one supplied advance and has different hypotheses.
+
+### 25.4 Finite stencils in `NativePadicReduction`
+
+| Declaration and source | Dependency on a finite object or other input |
+|---|---|
+| `neighborSum:28–29` | Sums over the direction type `D`, with a possibly repeated neighbor map into arbitrary sites `I`. **A** at finite-stencil scope. |
+| `waveStep:32–34` | Evaluates that sum pointwise and subtracts the old slice in the additive group. **A**. |
+| `waveUnstep:38–40` | Defines the backward formula by reversing the slice roles and performing the same pointwise operation. **A** for this formula. |
+| `projectState:45–47` | Applies an additive homomorphism to the two slices pointwise. **A**. |
+| `neighborSum_map:49–53` | Moves the additive homomorphism through one finite sum over `D` using `map_sum`. **A**. |
+| `project_waveStep:56–63` | Uses `map_sum` and `map_sub` at each site and pointwise equality of the copied slice. **A**. |
+| `project_waveUnstep:66–74` | The same check on the backward formula and copied slice. The proof concerns commutation with the formula, while the inverse identity is a separate statement. **A**. |
+
+The declaration-level premises support a congruence-readout calculation on one fixed stencil. A physical sourcing claim also needs a native alphabet, admissible projection and preparation. The module does not supply those premises.
+
+### 25.5 One finite realization at all times in `RootedClassificationAllTime`
+
+| Declaration and source | Dependency on a finite object or other input |
+|---|---|
+| `finRotate_iterate_phaseZero_period:21–31` | The explicit `Fin M` rotation reaches its final phase and returns to zero. Positivity supplies phase zero and excludes `M = 0`. **A** for this finite phase calculation. |
+| `cyclePerm_iterate_phaseZero_period:34–38` | The imported `cyclePerm_iterate` holds the table and root coordinate fixed while the phase rotates. **A** for the stated cycle identity. |
+| `responseStep_iterate_phaseZero_period:42–46` | Moves the phase-zero state through the embedded cycle using `responseStep_iterate_cycle`, then uses its phase return. **F** for the implemented response carrier. |
+| `responseLocalWeight_sum:49–53` | The local weight is a row of `Γ` at the table index's phase and root. Row-stochasticity supplies its unit visible sum. **A**. |
+| `responseRealization_pad_sum:59–65` | Enumerates the pad states and uses their assigned zero prior at every state, independent of their observed output. **F** for the constructed family. |
+| `rootedMap_responseRealization_of_pos_lt:69–94` | Splits the finite hidden sum into tables and padding, uses the positive-phase trajectory to select one table entry, and applies the finite product-law marginal. **F**. |
+| `rootedMap_responseRealization_first_period:97–107` | At time zero uses `rootedMap_zero` and the target identity premise. Positive times use the table marginal theorem. **F**. |
+| `rootedMap_responseRealization_add_period:112–132` | For a table state at phase zero, rewrites the microscopic iterate using the explicit return. The padding terms vanish by their prior, so this argument needs the return only on the table states it sums. **F**. |
+| `responseRealization_agrees_all:136–157` | Strong induction subtracts the positive period using both the realized and supplied target equalities. It compares one constructed system with the whole family. **F**. |
+| `pper_has_responseRealization:162–167` | Extracts a positive period and the stochasticity and identity premises, then packages the same finite response construction for every time. **F**. |
+| `finiteRootedRealizable_iff_pper:192–196` | Forward uses `pper_of_finiteRootedRealizable`, which derives periodicity by finite permutation cardinality. Reverse constructs one finite hidden carrier using the supplied visible period. **F** with different inputs in its two directions. |
+| `finiteRootedRealizable_of_realization:202–209` | Accepts a finite hidden carrier in any universe, proves `PPer` via `rootedMap_mem_PPer`, then constructs a finite hidden carrier in the visible type's universe. **F**. Universe-polymorphism here preserves the finiteness requirement. |
+| `pdFamily_not_periodicFamily:220–224` | A positive period would repeat the identity entry at time zero, but each positive-time entry is one half in this control. **A** on the finite visible test. |
+| `peFamily_not_periodicFamily:228–232` | A positive period would repeat the one-half entry at time two, but every later value at that entry is one. **A** on the finite visible test. |
+| `pdFamily_not_finiteRootedRealizable:239–241` | Necessity of periodicity for a complete finite realization contradicts the first control. **F** for the exclusion of that class. |
+| `peFamily_not_finiteRootedRealizable:245–247` | The same necessity argument with the other control. **F** for the all-time class. |
+
+The imported chain is explicit. `RootedClassification.rootedMap_periodic:135–153` chooses the positive cardinal of `Equiv.Perm (V × H)` and uses `pow_card_eq_one`. This is a group-cardinality witness, independent of the order-based proof in §24.7. The `responseRealization:330–335` construction uses a finite function type of visible responses on `V × NonzeroPhase M`. `responseWeight_sum:54–58` and `responseWeight_marginal:62–107` use finite products and sums over all tables. `responseStep:266–268` uses Mathlib's `viaFintypeEmbedding`, which assumes a finite source of the embedding and decidable equality on its target. The complement is fixed. `RootedClassificationT2.responseStep_iterate_cycle:32–39` propagates that embedding equality by induction. [Finite-group cardinality identity](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/GroupTheory/OrderOfElement.lean#L1185-L1192) · [Finite-domain permutation extension](https://github.com/leanprover-community/mathlib4/blob/db584cd6d46c92f209a44c0f1c829460d327499d/Mathlib/Logic/Equiv/Fintype.lean#L33-L86)
