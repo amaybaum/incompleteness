@@ -1,0 +1,16 @@
+(1) dim span(QA family) = 4 ; strict growth of W_j stops by j <= 16 - 4 + 1 = 13
+(2) K = 1 counterexample: herald constant q = 261/640 ; CONS(1) on all 7 QA laws: True ; VAL(1): True
+    char poly factors of beta: [(4*lam + 1, 1), (5*lam**2 - 6*lam + 5, 1)]
+    contains lam^2 - 6/5 lam + 1 (unit pair, not a root of unity): True
+    dim W_1 = 4  dim W_2 = dim span(O_1) = 8  -> window span not invariant: True
+    herald one step later on pi(QA): 7 distinct values -> HC(2) holds: False
+(2b) window certificate cone_window_K2_certificate.json: K = 2, q = 502/577 ; HC(2) True ; CONS(2) True ; VAL(2) True ; irrational unit pair True ; rank span O_{K-1} = 8, rank span O_K = 12 (STAB False)
+     chi_beta factors: [(32*lam - 5, 1), (5*lam**2 - 6*lam + 5, 1)]
+(2b) window certificate cone_window_K3_certificate.json: K = 3, q = 126/187 ; HC(3) True ; CONS(3) True ; VAL(3) False ; irrational unit pair True ; rank span O_{K-1} = 12, rank span O_K = 16 (STAB False)
+     chi_beta factors: [(87*lam - 5, 1), (5*lam**2 - 6*lam + 5, 1)]
+(3) stabilized instance: Krylov span stabilizes, dim W = 4 ; CONS on QA: True
+    (lam-1) p_beta divides p_{A|W}: True ; p_beta = (4*lam - 3)**2*(4*lam + 3)/64
+    unit factors of p_{A|W}: [lam - 1, 4*lam + 3, 4*lam - 3]
+(4) herald 1: c_x.(1,-1,0) = 7/5 vs E|v_x - v_y| = 1 ; violated: True
+    any constant herald: needs P(v_x != v_y) >= 7/10 and P(v_x = v_y) >= 7/10: impossible
+ALL CONE PROBES GREEN
