@@ -389,9 +389,9 @@ These compensatory responses are non-Markovian: their current strength depends o
 
 For genetic disorders, the framework's contribution is not to the genetic defect itself but to three categories of treatment challenge:
 
-| Treatment challenge | C1–C4 system | OI prediction |
+| Treatment challenge | Candidate mechanism | Proposed test or outcome |
 |---|---|---|
-| Replacement therapy scheduling | Coagulation cascade / metabolic pathway | Timing relative to cascade memory state improves efficacy |
+| Replacement therapy scheduling | Carryover from prior activation of the coagulation cascade | Compare different activation histories at the same measured present, including factor level. The proposed benefit is fewer breakthrough bleeds than with pharmacokinetic-based scheduling at equivalent total factor consumption. |
 | Immune reactions to therapy | TCR/BCR signaling cascades | Inhibitor risk depends on exposure *schedule*, not just dose |
 | Gene therapy durability | Chromatin at expressed integrated copies | Test an integration-site effect where those copies contribute to expression |
 | Compensatory pathway optimization | Epigenetic regulation of backup genes | Compensation strength depends on developmental history |
