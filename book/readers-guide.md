@@ -16,13 +16,13 @@ Readers primarily interested in the framework's foundational claim should focus 
 
 **Recommended.** Chapter 3 (structural realism). Appendix C (engagement with no-go theorems and standard-interpretation objections). Chapter 18 §18.5 (the cumulative case on quantum gravity).
 
-**Optional for this path.** The applied chapters (13-17) develop empirical content that supports the framework but is not load-bearing for the foundational claim. Chapter 19 provides systematic positioning against open problems.
+**Optional for this path.** The applied chapters (13-17) present scoped empirical comparisons and proposed tests, with their conditions stated in those chapters. Chapter 19 provides systematic positioning against open problems.
 
 This reading path takes approximately 15-25 hours for technical readers.
 
 ## Reading path for empirical content evaluation
 
-Readers approaching the framework with primary interest in evaluating its empirical record — the JUNO retrodictive match (0.07$\sigma$ against the post-JUNO global fit, 0.14$\sigma$ against the direct measurement), the Standard Model retrodictions, the GW250114 area-theorem consistency, the prior adult-mouse Rett rescue — should focus on the framework's specific quantitative content.
+Readers approaching the framework with primary interest in evaluating its empirical record — the leading JUNO retrodictive comparison ($0.14\sigma$ from the direct measurement and $0.07\sigma$ from the overlapping global fit), the Standard Model retrodictions, the GW250114 area-theorem consistency, the prior adult-mouse Rett rescue — should focus on the framework's specific quantitative content.
 
 **Essential.** Chapter 0 (framing, particularly §0.5 on the empirical record). Chapter 6 (twenty-two classified Standard Model predictions). Chapter 7 (gravitational sector predictions, particularly §§7.5, 7.9 on Bekenstein-Hawking and MOND). Chapter 8 (JUNO neutrino sector). Chapter 16 (medical predictions, particularly §16.12 on Rett syndrome). Appendix A (prediction status table for systematic reference).
 
@@ -48,7 +48,7 @@ This reading path takes approximately 15-25 hours.
 
 Readers approaching the framework from biology, medicine, or applied biological sciences can begin with the applied content and consult the technical chapters as needed.
 
-**Essential.** Chapter 0 (framing). Chapter 13 (quantum biology). Chapter 16 (medicine, particularly §§16.9-16.13 on epigenetics and adult-mouse Rett rescue, with the comparative therapeutic window open). Chapter 17 (bioinformatics, particularly §17.9 on evolutionary biology empirical confirmations).
+**Essential.** Chapter 0 (framing). Chapter 13 (quantum biology). Chapter 16 (medicine, particularly §§16.9-16.13 on epigenetics and adult-mouse Rett rescue, with the comparative therapeutic window open). Chapter 17 (bioinformatics, particularly §17.9 on evolutionary statistics and the open memory interpretation).
 
 **Recommended.** Chapter 10 (chemistry derivation, providing the foundations). Chapter 11 (origin of life). Chapter 12 (evolution and intelligence). Chapter 15 §§15.5-15.7 (the restricted quantum-statistical regime, which connects engineering to biology).
 
@@ -72,7 +72,7 @@ This reading path takes approximately 10-15 hours.
 
 The three appendices serve different purposes and can be consulted independently.
 
-**Appendix A (Prediction Status Table).** A systematic reference resource organizing the framework's predictions by classification (Structural / Computational / Linked / Refined / Pending / Mechanism / Empirical), confidence level, current empirical match, and open issues. Use as a lookup table when evaluating specific claims or planning empirical work against the framework. The appendix does not need to be read sequentially.
+**Appendix A (Prediction Status Table).** A systematic reference resource organizing the framework's predictions by structural classification, empirical standing and open inputs. Use as a lookup table when evaluating specific claims or planning empirical work against the framework. The appendix does not need to be read sequentially.
 
 **Appendix B (Mathematical Derivations).** Complete derivations for the framework's key technical results: the Stinespring construction, the Jordan-Chevalley decomposition of the ring evolution, the gap equation relating $\hbar$ to the discreteness scale, the anomaly cancellation calculation, the gauge-theoretic derivations, and the lemma chain for the characterization theorem. Use when the main-text derivations are too compressed for the reader's purposes. The appendix is designed for readers requiring full technical content; readers without that requirement can rely on the main-chapter derivations.
 

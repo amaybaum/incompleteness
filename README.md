@@ -77,17 +77,17 @@ Each extension should be judged on its own test-or-break conditions.
 | [`Substratum`](papers/Substratum.md) | Reconstruction and substratum gauge structure; the proved converse is scoped to the local propagating lattice/gauge residue under its stated hypotheses. Bell-inclusive existence is conditional on H-Bell; its uniqueness is open. |
 | [`Structure`](papers/Structure.md) | Observation/gauge hierarchies, universality classes of embedded observers, and comparison with other unification programmes. |
 | [`Methodology`](papers/Methodology.md) | **Developmental draft** on the framework's foundations, methodology, and axiom structure. |
-| [`Juno`](papers/Juno.md) | Focused presentation of the parameter-free solar-mixing value and its retrodictive/forward-test status. |
+| [`Juno`](papers/Juno.md) | Leading solar-mixing calculation on the stated flavor branch and its empirical tests. |
 
 ## A focused empirical example: JUNO
 
-`Juno` presents
+On the stated flavor branch, `Juno` obtains the leading solar value
 
 $$
-\sin^2\theta_{12}=\frac13-\frac{1}{4\pi^2}=0.3080.
+\sin^2\theta_{12}=\frac13-\frac{1}{4\pi^2}\approx0.308003.
 $$
 
-The value was derived after JUNO's first measurement, so the existing agreement is a **retrodiction**, not a prediction made in advance. The paper treats JUNO's design-lifetime precision as the forward test. Full numerical and classification details are in the `Juno` paper and the relevant physics papers rather than being duplicated here.
+The value was derived after JUNO's first measurement, so the existing agreement is a **retrodiction**, not a prediction made in advance. Future measurements can test specified flavor models with their higher-order remainder accounted for. Full numerical and classification details are in the `Juno` paper and the relevant physics papers rather than being duplicated here.
 
 ## Verification
 
