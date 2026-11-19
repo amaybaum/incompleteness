@@ -42,8 +42,9 @@ translation invariant (G3) and the selection functional is entropy per site (G4)
 "P-ED"). Under (G3) the rule plays no role in the selection: P-ED selects the same law for every
 surjective cellular automaton, so it restates A1's uniform choice in per-site form rather than
 deriving it. Without (G3), the selected update itself selects `β_A` in `d = 1` (Proposition 9 (a)).
-In `d ≥ 2`, including the physical `d = 3`, it does not: a second rule-invariant law has full
-entropy density (Proposition 9 (b)), so P-ED's uniqueness there rests entirely on (G3).
+In `d ≥ 2`, including the physical `d = 3`, with `q` prime and `α ≠ 0`, it does not: a second
+rule-invariant law has full centred upper entropy density `h̄` (Proposition 9 (b)), so P-ED's
+uniqueness there rests entirely on (G3).
 
 ## 1. Productivity test (fixed before the nodes, §A.31)
 
@@ -194,9 +195,9 @@ branch and was not used (NR-1:27–29). Mixing is proved here.
    symmetrically towards `z_1 − 1`. Every pair of plane sequences extends to a space-time solution,
    and `Ψ` is continuous because each `x_t(z)` depends on finitely many coordinates. `□` Haar is
    carried to Haar on `B^Z`, the product of Haar measures on `B`: `(Ω, F, β_A)` is a Bernoulli shift
-   with non-atomic base. For any finite set `Y` of transverse sites, the time-zero partition by the
-   coordinates on `{0, 1} × Y` has independent shift iterates, so `h_{β_A}(F) ≥ 4|Y| log q` for all
-   `Y`: `h_{β_A}(F) = h_top(F) = ∞`. Then `β_A` and `(β_A + δ_0)/2` (affinity of entropy, Walters
+   with non-atomic base. For any finite set `Y` of transverse sites, the time-zero partition by
+   `u = x_0` on `{0, 1} × Y` has i.i.d. uniform shift iterates (`x_t` on the planes for `t ∈ Z`), so
+   `h_{β_A}(F) ≥ 2|Y| log q` for all `Y`: `h_{β_A}(F) = h_top(F) = ∞`. Then `β_A` and `(β_A + δ_0)/2` (affinity of entropy, Walters
    1982, Ch. 8) are two distinct measures of maximal entropy. Items 1 and 2 also show that `β_A` is
    Bernoulli, hence mixing of all orders, for every `q` with `α` a unit and every `d`.
 3. *Zero entropy: U fails maximally.* If `α` is a nonzero nilpotent in every primary component in
@@ -440,8 +441,10 @@ candidate measure.
 - **NEW** — Prop. 9: in `d ≥ 2` the selected update does not select its law without (G3), and in
   `d = 1` it does. The argument originates in the independent review and is verified here.
 - **NEW** — the `d = 1` mover conservation laws and generalized Gibbs family of the selected update
-  (Prop. 6); the collapse of μ-O and μ-R to μ-G (Prop. 7); the Bernoulli conjugacy for unit `α`
-  (Prop. 5.2), which gives infinite Haar entropy for `d ≥ 2` and mixing for composite `q`.
+  (Prop. 6).
+- **ELABORATING** — the collapse of μ-O and μ-R to μ-G (Prop. 7), immediate from ergodicity; the
+  Bernoulli conjugacy for unit `α` (Prop. 5.2), which gives infinite Haar entropy for `d ≥ 2` and
+  mixing for composite `q` by a standard reconstruction.
 - **POSITIVE** — L3 is immediate from invariance (Lemma 8), as the A1-REMAINDER record expected.
 
 **Assumption-watch markers.**
