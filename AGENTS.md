@@ -503,8 +503,8 @@ pandoc papers/<NAME>.md -s --pdf-engine=xelatex \
 pandoc papers/<NAME>.md -s --pdf-engine=xelatex \
   --include-in-header=tools/unicode-fix.tex -o papers/<NAME>.pdf
 
-# Book (adds a table of contents):
-pandoc book/The-Incompleteness-of-Observation-FULL.md -s --toc --toc-depth=3 \
+# Book (populates the manuscript's Contents after the cover):
+pandoc book/The-Incompleteness-of-Observation-FULL.md -s --toc --metadata=toc:false \
   --pdf-engine=xelatex --include-in-header=tools/unicode-fix.tex \
   -o book/The-Incompleteness-of-Observation-FULL.tex   # and .pdf
 ```

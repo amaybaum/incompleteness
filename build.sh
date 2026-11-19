@@ -67,12 +67,14 @@ build_paper() {
 
 build_book() {
     printf '  %-15s' "book"
-    pandoc "$BOOK_MD" -s --toc --toc-depth=3 --pdf-engine=xelatex \
+    # Keep the extra LaTeX pass for the manuscript's Contents after the cover.
+    # Suppress the copy normally inserted before the manuscript by the template.
+    pandoc "$BOOK_MD" -s --toc --metadata=toc:false --pdf-engine=xelatex \
         --include-in-header="$BOOK_HDR" -o "${BOOK_OUT}.tex" >"$tmplog" 2>&1 \
         || { echo "TEX FAILED"; status=1; return; }
     printf '%% source-sha256: %s\n' \
         "$(sha256sum "$BOOK_MD" | cut -d" " -f1)" >> "${BOOK_OUT}.tex"
-    pandoc "$BOOK_MD" -s --toc --toc-depth=3 --pdf-engine=xelatex \
+    pandoc "$BOOK_MD" -s --toc --metadata=toc:false --pdf-engine=xelatex \
         --include-in-header="$BOOK_HDR" -o "${BOOK_OUT}.pdf" >"$tmplog" 2>&1 \
         || { echo "PDF FAILED"; status=1; return; }
     pages=$(pdfinfo "${BOOK_OUT}.pdf" 2>/dev/null | awk '/^Pages/{print $2}')

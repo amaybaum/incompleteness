@@ -22,7 +22,7 @@ This reading path takes approximately 15-25 hours for technical readers.
 
 ## Reading path for empirical content evaluation
 
-Readers approaching the framework with primary interest in evaluating its empirical record — the JUNO retrodictive match (0.07$\sigma$ against the post-JUNO global fit, 0.14$\sigma$ against the direct measurement), the Standard Model retrodictions, the GW250114 area-theorem consistency, the Rett syndrome retrodiction — should focus on the framework's specific quantitative content.
+Readers approaching the framework with primary interest in evaluating its empirical record — the JUNO retrodictive match (0.07$\sigma$ against the post-JUNO global fit, 0.14$\sigma$ against the direct measurement), the Standard Model retrodictions, the GW250114 area-theorem consistency, the prior adult-mouse Rett rescue — should focus on the framework's specific quantitative content.
 
 **Essential.** Chapter 0 (framing, particularly §0.5 on the empirical record). Chapter 6 (twenty-two classified Standard Model predictions). Chapter 7 (gravitational sector predictions, particularly §§7.5, 7.9 on Bekenstein-Hawking and MOND). Chapter 8 (JUNO neutrino sector). Chapter 16 (medical predictions, particularly §16.12 on Rett syndrome). Appendix A (prediction status table for systematic reference).
 
@@ -48,7 +48,7 @@ This reading path takes approximately 15-25 hours.
 
 Readers approaching the framework from biology, medicine, or applied biological sciences can begin with the applied content and consult the technical chapters as needed.
 
-**Essential.** Chapter 0 (framing). Chapter 13 (quantum biology). Chapter 16 (medicine, particularly §§16.9-16.13 on epigenetics and the Rett syndrome confirmation). Chapter 17 (bioinformatics, particularly §17.9 on evolutionary biology empirical confirmations).
+**Essential.** Chapter 0 (framing). Chapter 13 (quantum biology). Chapter 16 (medicine, particularly §§16.9-16.13 on epigenetics and adult-mouse Rett rescue, with the comparative therapeutic window open). Chapter 17 (bioinformatics, particularly §17.9 on evolutionary biology empirical confirmations).
 
 **Recommended.** Chapter 10 (chemistry derivation, providing the foundations). Chapter 11 (origin of life). Chapter 12 (evolution and intelligence). Chapter 15 §§15.5-15.7 (the restricted quantum-statistical regime, which connects engineering to biology).
 

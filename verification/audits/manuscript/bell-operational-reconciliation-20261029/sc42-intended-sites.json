@@ -142,7 +142,7 @@
       "expected_mentions": 2,
       "sites": [
         {
-          "anchor": "Quantum mechanics and general relativity are conventionally treated as two fundamental theories awaiting unification. This paper develops the alternative that they are two projecti",
+          "anchor": "Quantum mechanics and general relativity are conventionally treated as two fundamental theories awaiting unification. This paper develops the alternative that a finite deterministi",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
@@ -206,7 +206,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "The observer-level statistics of this read-write cycle have an exact finite quantum representation. The structural form of C2 is persistence: information written into the hidden se",
+          "anchor": "On a finite alphabet and horizon, a supplied observer-level law has an exact fixed-basis quantum representation. The structural form of C2 requires the hidden record to persist unt",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         }
@@ -241,7 +241,7 @@
       "expected_mentions": 1,
       "sites": [
         {
-          "anchor": "*Chapter 1 (Quantum Mechanics from Embedded Observation).* The derivation lives at Level O2 × Level G1: the framework's most general structural commitments produce accessible non-M",
+          "anchor": "*Chapter 1 (Quantum Mechanics from Embedded Observation).* The exact theorem represents a supplied law on a finite alphabet at a finite horizon by a reversible finite realization a",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         }
@@ -337,7 +337,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "The observer-level statistics of this read-write cycle have an exact finite quantum representation. The structural form of C2 is persistence: information written into the hidden se",
+          "anchor": "On a finite alphabet and horizon, a supplied observer-level law has an exact fixed-basis quantum representation. The structural form of C2 requires the hidden record to persist unt",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
@@ -357,7 +357,7 @@
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },
         {
-          "anchor": "*Chapter 1 (Quantum Mechanics from Embedded Observation).* The derivation lives at Level O2 × Level G1: the framework's most general structural commitments produce accessible non-M",
+          "anchor": "*Chapter 1 (Quantum Mechanics from Embedded Observation).* The exact theorem represents a supplied law on a finite alphabet at a finite horizon by a reversible finite realization a",
           "mentions": 1,
           "role": "SC42 restatement explicitly scopes the operational theory to its assumed matrix setting."
         },

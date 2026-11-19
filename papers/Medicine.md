@@ -10,13 +10,13 @@
 
 ## Abstract
 
-The Observational Incompleteness (OI) framework [1] proves that any fast subsystem coupled to a hidden sector realizing conditions C1–C4 — non-trivial coupling, record persistence (slowness one realization), sufficient capacity, and history readback (C1–C4) — exhibits, in the memory-bearing sector those conditions characterize, non-Markovian dynamics (P-indivisibility, which holds at the recurrence scale from a non-permutation rooted map and finiteness, is a distinct property — on a common window, with a full-support visible prior, the stronger one; as an accessible diagnostic it requires a measured witness) — history-dependent transition probabilities arising from information stored in the hidden sector and returned on subsequent interactions. Originally developed for fundamental physics, the theorem's architectural conditions (C1–C4) are scale-independent; although biological subsystems are open and dissipative rather than the closed, reversible substratum the full theorem assumes, the model-independent consequence — that tracing out a persistent, high-capacity sector whose coupling reads back its own record yields history-dependent (non-Markovian) dynamics — applies to them directly. We identify biological systems — from single enzymes through signaling cascades to the epigenome — as natural instantiations of this architecture. The fast catalytic process (enzyme active site, ion channel gating, kinase phosphorylation) is coupled (C1) to slow conformational or post-translational modification dynamics (C2) with exponentially large state spaces (C3), producing history-dependent behavior that standard Markovian models cannot capture.
+The finite-horizon result of the Observational Incompleteness (OI) framework [1] identifies accessible memory when two histories ending at the same measured present give different next-step laws through the hidden record (C4). Coupling, persistence and capacity can enable this contrast. The molecular examples below are applications to specified observables. Their readback mechanisms and any accessible-window P-indivisibility need separate evidence.
 
-We develop this structural observation into a unified framework for seven medical domains: cancer pharmacology (checkpoint kinase memory and schedule-dependent sensitization), neurodegeneration (Alzheimer's, Parkinson's, and PTSD as disorders of molecular memory timescale, with reconsolidation paradigms and low-intensity focused ultrasound as the first directly $\tau_B$-targeted therapeutic modality), antibiotic resistance (persister cells as SOS memory accumulation), immunotherapy (T cell exhaustion as accumulated TCR signaling memory), cardiac pharmacology (use-dependent ion channel block as gating memory), and autoimmune disease (disproportionate efficacy of partial JAK inhibition as memory disruption), and the treatment management of genetic disorders (replacement therapy scheduling, inhibitor prevention, gene therapy durability). In each case, the framework identifies a specific therapeutic axis — **memory asymmetry** between disease and normal tissue — that is pharmacologically distinct from standard catalytic inhibition and predicts wider therapeutic windows. We extend the analysis to epigenetic regulation, identifying the chromatin state as the biological hidden sector with a hierarchical memory architecture spanning minutes (histone acetylation) to generations (DNA methylation), and further upward through synaptic, circuit, systems, and cortical layers in the nervous system. The layered architecture also organizes reconstructive memory access, layer-matched finite $\tau_B$ and layer-specific reconsolidation windows; these are biological hypotheses resting on their own evidence, not consequences of C1–C4, which neither require nor forbid read-induced disturbance or finite forgetting. Twenty-nine main testable predictions (with three additional layer-specific PTSD/LIFU sub-predictions in neurodegeneration) are presented, each distinguishing the non-Markovian framework from standard Markovian pharmacology. Several predictions are already supported by existing data; the remainder are experimentally accessible with current techniques.
+We develop applications in seven areas: cancer pharmacology, neurodegeneration and reconsolidation, antibiotic responses, immunotherapy, cardiac pharmacology, autoimmune disease, and management of genetic disorders. We propose testing for differences in the retention and readback of regulatory states between disease and comparison tissues. The layered-memory hypotheses include chromatin, synaptic and slower records. A role for focused ultrasound in modifying a molecular timescale is a proposed mechanism. We give twenty-six numbered predictions and three layer-specific sub-predictions on reconsolidation and ultrasound. Section 11 distinguishes comparisons with earlier evidence and proposed tests.
 
 ---
 
-> **Status — conjectural extension.** This paper applies the core framework to medicine, and is offered as a *conjecture*, not an established result: its retrodictions — notably the Rett-syndrome reversibility (Guy et al. 2007), which predates the framework — are consistency checks rather than confirmations, while its forward content (wider therapeutic windows across as-yet-untested reader-writer disorders, and specific schedule-dependence predictions) is what future clinical data would confirm or break. It carries no evidential weight for the core framework — which stands or falls independently on its physics — and should be read as a structural possibility to be tested, not as support for the framework.
+> **Status — conjectural extension.** Prior observations, including reversal after Mecp2 reactivation in a mouse model of Rett syndrome (Guy et al. 2007), motivate the applications. The comparative therapeutic window, the proposed mechanism and the clinical intervention effects remain open.
 
 ## 1. Introduction
 
@@ -34,9 +34,9 @@ The Observational Incompleteness (OI) framework [1] provides such a principle. I
 
 When C1–C4 are satisfied, the characterization theorem [1, §3.4] proves that the fast subsystem's dynamics is memory-bearing — non-Markovian (P-indivisibility, which holds at the recurrence scale from a non-permutation rooted map and finiteness, is a distinct property — on a common window, with a full-support visible prior, the stronger one) — so that transition probabilities at time $t$ depend on the system's history, stored in the hidden sector's state and returned through the coupling. The ratio $\tau_S / \tau_B$ of fast to slow timescales sets how long the record is retained, not how large the history-dependence is (§2.2).
 
-The biological relevance is immediate. Enzymes, kinases, ion channels, and receptors are composed of a fast catalytic domain coupled to slow regulatory domains, post-translational modification (PTM) sites, and conformational degrees of freedom. The catalytic cycle operates on nanosecond-to-microsecond timescales; the regulatory domain's conformational changes persist for microseconds to milliseconds; PTM patterns persist for minutes to hours; chromatin modifications persist for days to generations. At every scale, C1–C4 are satisfied, and the theorem predicts non-Markovian dynamics.
+Enzymes, kinases, ion channels and receptors provide candidate systems with fast and slow degrees of freedom. The rate, accessible state and persistence of the proposed record depend on the system. Testing memory requires the history comparison in C4.
 
-This paper develops the medical implications of this observation across seven domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-nine testable predictions that distinguish the non-Markovian framework from standard Markovian pharmacology.
+This paper develops the medical implications of this observation across seven domains, identifies a unifying therapeutic principle (memory asymmetry), and presents twenty-six numbered predictions and three sub-predictions, including retrospective comparisons and proposed discriminating tests.
 
 ---
 
@@ -48,7 +48,7 @@ The OI prediction requires that an enzyme's activity history is physically encod
 
 **Multisite post-translational modification.** PTMs — phosphorylation, acetylation, ubiquitination, methylation — covalently alter specific residues, changing the protein's conformational landscape and activity. A protein with $N$ modifiable sites, each with $k$ possible states, has $k^N$ distinct modification patterns. For Chk1 (with $\sim 10$ regulatory phosphorylation sites): $2^{10} \approx 1{,}000$ distinct states — a physical memory register encoding the enzyme's recent history. Gunawardena (2012) explicitly describes this as "history-based encoding" — the same cellular condition can produce different modification patterns depending on the prior history.
 
-**Sequential phosphorylation.** For Chk1 specifically, phosphorylation at S317 must precede phosphorylation at S345 — the second event is conditional on the first (Wilsker et al. 2008). This is a direct non-Markovian signature: the probability of the second modification depends on history, not just the current state.
+**Sequential phosphorylation.** Wilsker et al. [17] found S317-dependent S345 phosphorylation for Chk1 in the DNA-damage response and distinguished a mitotic mode of S345 phosphorylation that is independent of S317. A sequential mechanism documented in an enlarged biochemical state does not by itself measure the C4 contrast at fixed present.
 
 **Conformational hysteresis.** Proteins occupy multiple distinct conformational states, with transitions depending on the protein's history. For kinases, the autoinhibited vs. active conformation persists on timescales much longer than individual phosphorylation events. The Chk1-S splice variant acts as an endogenous repressor whose binding/unbinding is the slow process (C2) storing the history.
 
@@ -68,7 +68,7 @@ The memory hierarchy spans many decades of timescale. At the molecular level:
 | Chromatin marks | $\gamma$H2AX, methylation | Histone modification state | Hrs–days | C2 + C3 |
 | DNA methylation | Methyltransferase activity | CpG state | Months–generations | C2 + C3 |
 
-In multicellular tissues — particularly the nervous system — the same C1–C4 architecture extends upward through additional layers, each treating the layer below as its hidden sector:
+Additional candidate records in nervous tissue span synaptic to cortical scales. For each proposed partition, C4 requires histories with the same measured present and different next-step laws.
 
 | Memory layer | Substrate | $\tau_B$ |
 |---|---|---|
@@ -77,7 +77,7 @@ In multicellular tissues — particularly the nervous system — the same C1–C
 | Systems | Hippocampal–cortical consolidation dialogue | months–years |
 | Cortical | Distributed semantic representation | years–decades |
 
-The hierarchical structure means that a perturbation at one layer (a drug, a disease process) can have effects propagating upward through layers with progressively longer $\tau_B$. The clinical timecourse of memory-related diseases — and the schedule-dependence of memory-targeted drugs — reflects this layered architecture.
+A perturbation at one layer could affect a longer-lived state in another. Attributing a clinical time course or drug-schedule effect to this mechanism requires evidence for the proposed links between layers and their effect on the outcome.
 
 ### 2.3 The core therapeutic principle
 
@@ -89,7 +89,7 @@ C1–C4 do not by themselves make memory access disturb the stored record. Readb
 
 This conditional connects the architecture to the *reconstructive nature of recall*, a phenomenon long established in cognitive science, without deriving it: pure address-store memory, where access leaves the substrate unchanged, is compatible with C1–C4, as the example above shows. That biological recall is reconstructive is an empirical finding, and the bidirectional coupling it presupposes is a premise about the biological realization.
 
-**Clinical consequence: the reconsolidation paradigm.** When a memory is recalled, the recalled trace becomes labile and must be re-stored. The window during which it is labile provides a therapeutic opportunity. A drug given during the recall window writes into the re-storage process, modifying the future content of the memory. Propranolol given during recall of a traumatic memory selectively blocks the noradrenergic component of re-encoding, reducing the emotional valence of subsequent retrievals — a result well-established in PTSD trials (Brunet et al., reviewed extensively).
+**Clinical comparison: reconsolidation.** Recall can make some memory traces susceptible to change. In trials of propranolol with trauma reactivation, Brunet et al. reported a symptomatic benefit, while Roullet et al. found no overall advantage in post-traumatic stress symptoms over reactivation with placebo [21, 22]. The model proposes that intervention during re-storage could affect a specific trace, with the mediator requiring direct evidence.
 
 The framework predicts that this approach generalizes: any memory layer with a measurable $\tau_B$ should have a corresponding "reconsolidation window" during which targeted intervention can rewrite the memory at that layer without affecting memories already consolidated to slower layers. The selectivity is not coincidental — it follows from the layered architecture of §2.2.
 
@@ -115,25 +115,25 @@ The therapeutic axis follows directly: $\tau_B$-normalizing interventions target
 
 ### 3.1 Checkpoint kinase inhibitors and selective tumor sensitization
 
-Chk1 inhibitors combined with gemcitabine and/or radiation selectively sensitize tumor cells — particularly pancreatic cancer — while sparing normal cells. Chk1 is a serine/threonine kinase whose catalytic domain (fast subsystem) is regulated by its SQ/TQ domain and C-terminal regulatory region (slow hidden sector). C1–C4 are satisfied: catalytic and regulatory domains are allosterically coupled (C1); regulatory conformational changes ($\mu$s–ms) $\gg$ phosphorylation events (ns–$\mu$s), with PTM persistence extending to minutes–hours (C2); the regulatory domain has $\sim 2^{10}$ modification states plus continuous conformational degrees of freedom (C3).
+Chk1 inhibition has sensitized pancreatic cancer cells to gemcitabine in preclinical work [4]. Chk1's catalytic and regulatory regions suggest a candidate partition for follow-up. Measuring conditional memory would require specifying the present observable and comparing different histories at its fixed value.
 
-**The prediction.** Chk1's checkpoint signaling is non-Markovian: its response to a DNA damage signal depends on its recent activation history — specifically, on the PTM pattern and conformational state written by previous damage events. A Chk1 inhibitor that binds the regulatory domain disrupts the *memory structure* of the kinase, altering the history-dependence of future checkpoint responses.
+**The prediction.** Previous damage could alter the next checkpoint response through retained phosphorylation or conformational states. This proposal concerns history beyond a declared present measurement. A perturbation of the candidate regulatory record could help test its contribution.
 
-**Why selectivity emerges.** In tumor cells (defective G1, relying on Chk1), the non-Markovian memory is the primary mechanism maintaining genomic stability through repeated replication cycles. Disrupting this memory is catastrophic. In normal cells (intact G1), the Chk1 memory is redundant — the G1 checkpoint provides an independent, Markovian damage response. The selectivity is not just about checkpoint redundancy — it is about the differential role of non-Markovian dynamics.
+**A selectivity hypothesis.** Sensitization could differ between tumor and normal cells if they rely differently on the checkpoint. The contribution of regulatory memory to that difference remains to be tested.
 
-**Why schedule matters.** The finding that the *order and timing* of gemcitabine + Chk1 inhibitor administration is critical for efficacy is a direct signature of non-Markovian dynamics. In a Markovian system, only concentrations matter. In a non-Markovian system, the first drug writes information into the enzyme's memory, and the second drug's effect depends on what was written.
+**Why schedule matters.** Preclinical schedule dependence motivates a history test. A Markov model including current damage, phosphorylation and cell-cycle state can also respond differently to two drug sequences. A matched-present comparison is needed to identify C4 for the chosen observables.
 
 ### 3.2 Radiation adaptive response
 
-A small priming dose of radiation ($\sim 0.01$–$0.1$ Gy) makes cells more resistant to a subsequent larger dose ($\sim 2$ Gy), with the effect lasting hours to days. The OI framework identifies this as history readback from the chromatin hidden sector: dose 1 writes modification marks into histones, which persist and are read by the DDR when dose 2 arrives. The "adaptation" is the DDR network reading the memory of the previous damage event.
+Radiation-adaptive responses have been reported in particular experimental systems. Retained chromatin changes are a candidate mediator. Testing that account requires a contrast at fixed measured present and controls for other damage-response states.
 
 ### 3.3 Therapeutic strategies from memory asymmetry
 
-**Memory-selective scheduling.** The optimal dose interval depends on $\tau_B$ of the tumor's checkpoint kinases. The second dose should arrive when the memory written by the first dose is maximally sensitizing — a timing that differs between tumor cells (deregulated Chk1, altered $\tau_B$) and normal cells (normal $\tau_B$). Current schedules are empirically optimized from a few discrete intervals. The framework says the optimal interval is *calculable* from the measured $\tau_B$ and is tumor-specific.
+**Memory-selective scheduling.** A hypothesis is that timing affects sensitization through a retained checkpoint state. Compare schedules in a controlled model with measured retention and matched comparator exposure. The interval and magnitude of any benefit remain open.
 
-**Low-dose memory priming.** Instead of a single high dose, give repeated low "priming" doses that write sensitizing memory into the tumor's checkpoint system, followed by a moderate treatment dose. The predicted protocol: Days 1, 3, 5 — gemcitabine at $\sim 20\%$ MTD (priming phase); Day 7 — gemcitabine at $\sim 50\%$ MTD + Chk1 inhibitor (kill phase). Total drug exposure: $\sim 70\%$ of standard protocol. Predicted toxicity: substantially lower, because normal cells' Markovian G1 backup is unaffected by priming.
+**Low-dose memory priming.** A controlled preclinical comparison could test whether a priming history affects subsequent sensitization at matched present and exposure. Effects on total exposure and toxicity would require a specified comparator regimen and direct measurements.
 
-**Memory-targeted drugs.** Drugs that specifically disrupt the *memory structure* without blocking catalysis: accelerating the regulatory domain's slowest conformational mode (decreasing $\tau_B$) to erase checkpoint memory without blocking checkpoint activation. Such a drug would be invisible to standard kinase inhibitor screens, which measure catalytic inhibition.
+**Memory-targeted drugs.** A candidate intervention would alter a slow regulatory mode while preserving acute catalysis. Its effects on later checkpoint response and matched controls would test the hypothesis.
 
 ---
 
@@ -141,29 +141,29 @@ A small priming dose of radiation ($\sim 0.01$–$0.1$ Gy) makes cells more resi
 
 ### 4.1 The failure of the amyloid hypothesis
 
-Alzheimer's disease has been attacked through the amyloid hypothesis for three decades. Drugs that successfully clear A$\beta$ plaques (aducanumab, lecanemab, donanemab) have failed to restore cognition. The central hypothesis appears to target a symptom rather than the mechanism.
+Anti-amyloid trials of lecanemab and donanemab reported slower decline in early Alzheimer’s disease without restoration of cognition [23, 24]. A proposed kinase mechanism and its causal contribution to clinical outcomes require separate tests.
 
 ### 4.2 CaMKII as the canonical C1–C4 system
 
-CaMKII — the canonical molecular memory device in neurons — satisfies C1–C4:
+CaMKII is involved in synaptic plasticity. The following features motivate a candidate partition for a readback test:
 
 - **C1:** The kinase domain is coupled to the regulatory/association domain through the autoinhibitory segment
 - **C2:** Autophosphorylation at T286 creates a bistable switch with persistence time of minutes to hours — far longer than individual calcium transients ($\sim$ms)
 - **C3:** CaMKII forms dodecameric holoenzymes with 12 subunits, each independently phosphorylatable — $2^{12} = 4{,}096$ distinct modification states
 
-CaMKII's memory function (long-term potentiation) is the *intended* biological use of non-Markovian dynamics. Neurodegeneration involves pathological perturbation of this memory system.
+CaMKII provides a candidate molecular record in synaptic plasticity. Showing a history-dependent response at fixed present and its role in neurodegeneration requires further evidence.
 
 ### 4.3 The OI prediction
 
-Neurodegenerative disease involves pathological alteration of $\tau_B$ in synaptic signaling kinases:
+The medical hypothesis is that changes in regulatory kinetics of synaptic kinases contribute to some neurodegenerative phenotypes. The following mechanisms are proposed.
 
 - **Normal aging:** Gradual increase in $\tau_B$ (slower conformational relaxation due to oxidative damage) $\to$ excessive memory retention $\to$ synaptic rigidity $\to$ reduced plasticity
-- **Alzheimer's:** A$\beta$ oligomers interact with CaMKII and alter its regulatory domain dynamics, shifting $\tau_B$ $\to$ pathological memory states that drive tau hyperphosphorylation through downstream cascades (including Chk1–CIP2A–PP2A)
+- **Alzheimer's:** A$\beta$ exposure could alter CaMKII regulatory dynamics and thereby affect synaptic function. Pathway effects, including proposed links to tau phosphorylation, need independent measurement.
 - **Parkinson's:** $\alpha$-synuclein aggregates alter the conformational dynamics of LRRK2 and other PD-associated kinases
 
 ### 4.4 Therapeutic implication
 
-**$\tau_B$-normalizing drugs.** Instead of targeting the misfolded proteins themselves (which has largely failed clinically), target the *altered memory timescale* of signaling kinases. A drug that restores $\tau_B$ to its normal value could preserve synaptic function without clearing aggregates.
+**Candidate $\tau_B$-normalizing interventions.** Test whether changing a measured kinase relaxation time preserves synaptic function and whether the effect can occur independently of changes in aggregate burden.
 
 **Testable prediction:** Measure CaMKII conformational dynamics (by FRET or HDX-MS) in neurons exposed to A$\beta$ oligomers vs. controls. The framework predicts that A$\beta$ shifts $\tau_B$ of CaMKII's regulatory domain. A compound that reverses this $\tau_B$ shift should rescue synaptic plasticity (measurable by LTP induction) independently of A$\beta$ clearance.
 
@@ -171,32 +171,32 @@ Neurodegenerative disease involves pathological alteration of $\tau_B$ in synapt
 
 PTSD involves abnormally persistent and intrusive memory of traumatic events. From the framework's perspective, this is a representative case of *failure of $\tau_B$ to be appropriately finite* at the relevant memory layer — the trauma-encoded trace persists at a layer where it should have decayed and continues to drive visible-sector dynamics (intrusive re-experiencing, hyperarousal).
 
-The clinical efficacy of the reconsolidation paradigm — recalling a traumatic memory under propranolol blockade reduces its later emotional valence — is consistent with the conditional of §2.4, given bidirectional coupling at recall; the evidence for it is clinical. The proposed mechanism: recall opens the memory to re-storage, and pharmacologically blocking the noradrenergic re-encoding selectively erases the emotional content while preserving the declarative trace.
+Brunet et al. reported a clinical benefit for propranolol with trauma reactivation. Roullet et al. found no overall symptom advantage over reactivation with placebo [21, 22]. The proposal attributes a possible effect to altered noradrenergic processing during recall. The clinical comparison does not identify that mediator.
 
 **Predictions for further development:**
 
 - The same approach should generalize to other layers. Targeting memory layers slower than noradrenergic emotional encoding (e.g., the cortical-layer trace itself) would require longer-acting interventions during longer reconsolidation windows.
 - The optimal interval between reconsolidation-and-blockade sessions should match the targeted layer's $\tau_B$. Single-session protocols are likely sub-optimal for memories that have consolidated to slower layers.
-- Layer-selective drugs (currently lacking) would substantially improve efficacy. Propranolol works because noradrenergic encoding has a specific molecular substrate; analogous compounds for other encoding modalities are not yet available.
+A layer-selective intervention would need to establish which timing window and memory component it affects.
 
 ### 4.6 Direct mechanical access via low-intensity focused ultrasound
 
-Standard pharmacology writes to *chemical* degrees of freedom (receptor occupancy, phosphorylation state). It cannot directly access the conformational and mechanical dynamics that constitute $\tau_B$ at the molecular layer. Low-intensity focused ultrasound (LIFU) is the first therapeutic modality that *directly* perturbs these mechanical degrees of freedom: acoustic radiation force acts on mechanosensitive ion channels (Piezo1, TRAAK, TRP family) and on membrane conformational states without requiring receptor binding.
+Focused ultrasound can perturb tissue mechanically and can be used in protocols that open the blood–brain barrier. Whether a particular protocol changes conformational dynamics of a target kinase is a separate molecular question.
 
-This makes LIFU structurally aligned with the framework in a way pharmacology is not. It is a *$\tau_B$-writer* rather than a catalytic inhibitor.
+The proposal is to test whether the intervention changes a specified molecular relaxation timescale $\tau_B$ and whether that change mediates a relevant response.
 
-**Clinical evidence consistent with the framework:**
+**Clinical comparison.**
 
-- The 2025 Korean trial (Ye et al., J. Neurosurgery) showed cognitive improvement in Alzheimer's patients from focused ultrasound BBB opening *without* concurrent drug administration. This is unexpected on the amyloid hypothesis but framework-consistent if ultrasound directly normalizes molecular-memory substrate dynamics (e.g., CaMKII regulatory-domain kinetics) independent of amyloid clearance.
-- LIFU has shown reversible neuromodulation effects in the anterior limb of the internal capsule (depression target), consistent with direct perturbation of axonal conduction via mechanosensitive K2P channels at the nodes of Ranvier.
+Ye et al. [25] reported an exploratory six-person open-label blood–brain barrier opening study in Alzheimer's disease. It measured clinical and imaging outcomes without an assay of CaMKII kinetics. A controlled study would be needed to estimate a treatment effect, with a molecular assay to test the proposed mediator.
+Reports of neuromodulation with focused ultrasound motivate separate tests of the cellular pathways involved.
 
-**Framework-specific predictions for LIFU (extension-level):**
+**Proposed mechanism tests for focused ultrasound.**
 
-- Pulse repetition frequency should match characteristic molecular $\tau_B$ values of the target substrate. CaMKII intervention should use minute-scale to hour-scale pulse trains, not continuous sonication.
-- Schedule dependence should follow the same $\tau_B$-matched-interval logic as drug scheduling (§3.3, §5.3). Current LIFU protocols use month-scale intervals, which the framework predicts is too slow for molecular-layer targeting.
-- Therapeutic window should be biphasic: low intensity for $\tau_B$ normalization, high intensity for non-specific mechanical damage. The window between is framework-predicted to be narrow.
+- Measure the target relaxation time and test whether effects vary with pulse timing under matched exposure and readout conditions.
+- Compare protocols at defined intervals and measure any persistence of the target response.
+- Separate any target response from nonspecific tissue effects and assess safety independently.
 
-These predictions are not currently how LIFU parameters are selected clinically (parameters are largely empirical). Framework-informed trials would systematically scan PRF and intensity against measured molecular $\tau_B$ values.
+A mechanistic comparison needs the target readout, a matched control and distinct molecular and clinical endpoints.
 
 ### 4.7 The brain memory hierarchy (extension)
 
@@ -216,11 +216,11 @@ These are *extensions* of the framework's primary content (molecular memory and 
 
 ### 5.1 Persister cells as memory accumulation
 
-Persister cells survive antibiotic treatment through transient phenotypic tolerance, not genetic resistance. The SOS response pathway — regulated by RecA — satisfies C1–C4: RecA's nucleotide binding (fast) is allosterically coupled to filament formation on ssDNA (slow, seconds to minutes), with filaments extending over hundreds of bases (exponentially large state space).
+Persister cells can survive antibiotic treatment through transient phenotypic tolerance. The SOS response is one candidate variable omitted by a coarse description. The proposed persistence mechanism and its matched-present history effect require independent evidence.
 
 ### 5.2 The OI prediction
 
-Persister formation is not random switching — it is the accumulation of SOS memory past a threshold. Each antibiotic exposure writes information into the RecA filament state, which persists and modulates subsequent responses.
+The proposal tests whether a persistent stress-response state contributes to phenotypic tolerance beyond what the measured present predicts. Switching models with additional state variables provide a relevant comparison.
 
 ### 5.3 Memory-optimized antibiotic scheduling
 
@@ -242,11 +242,11 @@ PD-1/PD-L1 checkpoint inhibitors work in only $\sim 20$–$30\%$ of patients. Th
 
 ### 6.2 TCR signaling as a C1–C4 system
 
-The TCR signaling cascade (Lck $\to$ ZAP-70 $\to$ LAT $\to$ downstream effectors) involves kinases with regulatory domains satisfying C1–C4, with multiple phosphorylation sites creating a combinatorial memory register.
+The TCR cascade contains kinases with multiple phosphorylation sites and regulatory domains. These provide candidate persistent states. Testing C4 requires specifying the measured present and assessing the effect of earlier histories.
 
 ### 6.3 The OI prediction
 
-T cell exhaustion begins as accumulated non-Markovian memory in the TCR signaling kinases. Each antigen encounter writes PTM/conformational information. In acute infection, this memory resets. In chronic stimulation (persistent tumor antigen), memory accumulates and progressively shifts the signaling dynamics toward exhaustion. The transcriptional changes (TOX upregulation) are *downstream consequences* of the accumulated kinase memory, not the primary cause.
+A proposed mechanism is that repeated stimulation leaves regulatory records which influence later T-cell responses. The relationship between those records, transcriptional changes and exhaustion needs a causal comparison at specified times and conditions.
 
 ### 6.4 Therapeutic implication
 
@@ -258,7 +258,7 @@ T cell exhaustion begins as accumulated non-Markovian memory in the TCR signalin
 
 ### 7.1 Use-dependent block as non-Markovian channel dynamics
 
-Antiarrhythmic drugs show use-dependent block — efficacy depends on heart rate, not just plasma concentration. Voltage-gated ion channels (hERG, Nav1.5, Cav1.2) satisfy C1–C4: the pore domain (fast gating, $\sim \mu$s) is coupled to voltage-sensing and regulatory domains with slow inactivation timescales ($\sim 100$ ms to seconds) and multiple inactivation states (C3).
+Use-dependent channel block provides a candidate history effect in a reduced readout. A kinetic model that includes current channel occupancy can also account for use dependence. A C4 test must specify the present measurements and compare histories at their fixed values.
 
 ### 7.2 Therapeutic implication
 
@@ -270,7 +270,7 @@ Antiarrhythmic drugs show use-dependent block — efficacy depends on heart rate
 
 ### 8.1 Disproportionate efficacy of partial JAK inhibition
 
-JAK inhibitors (tofacitinib, baricitinib) show a nonlinear dose-response: $50\%$ reduction in JAK activity produces $> 80\%$ reduction in disease activity. JAK kinases have a pseudokinase domain (JH2) that regulates the kinase domain (JH1), satisfying C1–C4.
+Partial JAK inhibition can have nonlinear effects on signaling. A proposed role for a persistent regulatory state would require a matched-present history comparison and a quantitative account of response.
 
 ### 8.2 The OI prediction
 
@@ -286,7 +286,7 @@ Partial inhibition disrupts the *memory structure* of JAK signaling without full
 
 ### 9.1 The C1–C4 architecture of chromatin
 
-Epigenetic regulation satisfies C1–C4 exactly. The transcriptional machinery (visible sector) is coupled (C1) to the chromatin state (hidden sector), which changes slowly relative to transcription (C2) and has astronomically large capacity (C3: $\sim 2^{28 \times 10^6}$ possible CpG methylation patterns).
+Chromatin marks can persist and influence later expression. Their presence and lifetime motivate a test of readback at fixed present expression or another declared observable.
 
 The chromatin hidden sector operates at multiple nested timescales:
 
@@ -310,22 +310,22 @@ The epigenetic clock (Horvath 2013) quantifies progressive accumulation of methy
 
 The companion paper's treatment of the Standard Model identifies a *substratum-emergent operator distinction* [SM §8.7]: operators that look identical at the emergent level can have distinct conservation properties depending on whether they act at the substratum (substrate) level or at the emergent (coarse-grained, observable) level. The canonical example: baryon number is exactly conserved at the OI substratum level (a property of the bilinear, block-diagonal lattice dynamics) but is violated at the emergent level through sphaleron processes that have no substratum analog.
 
-This distinction has a direct biological analog at the chromatin layer, which is empirically established by current biomedical literature. The two operators are:
+Chromatin provides a proposed biological analogy to the operator distinction. The measurable molecular marks and the downstream expression readouts can vary separately in particular systems.
 
 - **Substratum-level memory operator**: the molecular pattern of DNA methylation, histone modifications, and chromatin-state assignments. This is a directly measurable molecular substrate.
 - **Emergent-level memory operator**: the gene expression program, the transcriptional phenotype, the cellular function readout. This is what cells display and what clinical phenotypes measure.
 
-The two operators are related by the trace-out, which here is the cell's signal-transduction and transcription machinery integrating fast molecular fluctuations into slower cellular response. Critically, the operators can dissociate: **substrate-level memory can be preserved while the emergent-level operator is disrupted, and vice versa**.
+Cellular regulation relates the marks to downstream expression and function. The framework uses this relation as a coarse-graining analogy whose molecular inputs depend on the system.
 
-Three lines of empirical evidence confirm this distinction operates in biology:
+Three empirical examples motivate the analogy.
 
-(i) *iPSC reprogramming residuals* (Lin et al. 2024, doi:10.3389/fcell.2024.1306530). When somatic cells are reprogrammed to induced pluripotent stem cells, the cellular phenotype changes (now pluripotent) while substantial residual epigenetic memory of the source cell type persists. The substrate-level operator retains source-cell-type information; the emergent-level operator (cell identity) has flipped. The two operators are dissociated. The framework predicts this should be a structural feature of any reprogramming protocol, not a contingent reprogramming limitation.
+(i) *iPSC reprogramming residuals* (Lin et al. 2024). Some studied protocols retain source-cell epigenetic features despite a change in cell identity. Buckberry et al. [26] report different resetting with a different reprogramming protocol. Residual memory is protocol-dependent.
 
-(ii) *Bivalent chromatin states* (Bernstein et al. 2006; reviewed in Voigt-Tee-Reinberg 2013). Embryonic stem cells maintain "bivalent" chromatin at lineage-control genes — simultaneous presence of activating H3K4me3 and repressive H3K27me3 marks. The substrate-level operators (the two mark types) coexist with definite conservation properties at the molecular level; the emergent-level operator (gene expression) is held at zero by their balanced presence. This is a *multi-operator substratum* structure with poised emergent output — exactly the kind of substratum-emergent operator structure characterized in [SM §8.7], realized empirically at the chromatin level.
+(ii) *Bivalent chromatin states* (Bernstein et al. 2006). Marks associated with active and repressed transcription, H3K4me3 and H3K27me3, can coexist at lineage-control genes with low or poised expression. The measured state does not imply exact cancellation or an operator conservation law.
 
 (iii) *Multi-timescale chromatin dynamics* (Stasevich et al. 2014; Saxton et al. 2023). Single-molecule and single-cell measurements directly observe distinct dynamics on subsecond and minutes timescales for the same histone modifications on the same nucleosomes. Histone acetylation modulates transcriptional burst frequency rather than burst size (Nicolas-Phillips et al. 2018), a stochastic-emergent-output pattern consistent with the framework's prediction that emergent operators have specific functional relationships to substratum operators rather than being identical to them.
 
-These three phenomena instantiate a single structural pattern — the substratum-emergent operator distinction from [SM §8.7] — at the chromatin level. The pattern is the same one that organizes the SM's treatment of baryon number, sphalerons, and anomaly matching; at the chromatin layer it organizes methylation maintenance, bivalent poised states, and transcriptional burst dynamics.
+These studies motivate separating persistent molecular marks from measured expression. The correspondence with the formal operators of [SM §8.7] remains an analogy.
 
 ### 9.5 Reader, writer, and eraser pharmacology as the operational substratum-emergent axis
 
@@ -333,15 +333,15 @@ Current epigenetic therapeutics are organized along three axes — drugs targeti
 
 This three-axis organization follows structurally from the operator distinction: any therapeutic approach to a substratum-emergent operator pair must target the substratum maintenance machinery (writers and erasers, which establish and remove substrate marks) or the substratum-to-emergent translation machinery (readers, which couple substrate state to downstream function). The three axes correspond to the three distinct functional roles in maintaining a substratum-emergent operator pair.
 
-**Combination synergy with scheduling sensitivity.** The framework predicts that combinations across the reader/writer/eraser axes should show specific compositional advantages, with scheduling determined by the underlying substratum-level $\tau_B$ at each operator. Current clinical evidence:
+**Combination and scheduling hypothesis.** The proposal is to compare agents acting on different chromatin functions and test whether memory timescales predict their interactions. The existing evidence has several scopes:
 
-- *Writer + reader* combination (p300/CBP HAT inhibitor + BET inhibitor) shows synergistic anti-tumor effects in NUT carcinoma (Bauer et al. 2020; Marek et al. 2022, doi:10.1186/s40478-022-01373-0).
+- *Writer + reader.* The cited NUT carcinoma studies report preclinical evidence for combined targeting of p300/CBP and BET.
 - *Eraser + reader* combination (HDAC inhibitor + BET inhibitor) is under clinical investigation in NUT carcinoma and other contexts.
-- *Writer + eraser* combination (DNMT inhibitor + HDAC inhibitor) shows synergy preclinically and clinical activity in MDS/AML, with **scheduling as a critical variable** — multiple Phase II trials have addressed sequencing and timing as primary endpoints rather than dose-finding alone (Quintás-Cardama et al. 2011, doi:10.4155/fmc.11.13; Prebet et al. 2014).
+- *Writer + eraser.* DNMT and HDAC inhibitor combinations have shown preclinical synergy. The E1905 trial [27] compared azacitidine with and without entinostat in MDS/AML. The study did not measure a memory-matched optimum.
 
-The clinical pattern — synergy exists, scheduling matters substantially, global mark changes don't deterministically predict clinical response — is consistent with the framework's prediction that the *timing* of substratum modifications relative to read-back cycles determines emergent response, exactly as the reconsolidation-window paradigm of §2.4 implies. Within the framework, the open scheduling questions in the literature have a structural resolution: optimal combination scheduling should be set by the $\tau_B$ of each substratum operator (DNMT effects persist on the methylation timescale, $\tau_B \sim$ days; HDAC effects persist on the acetylation timescale, $\tau_B \sim$ minutes-hours; reader-targeted effects on the chromatin-binding timescale, $\tau_B \sim$ seconds-minutes). Optimal sequencing aligns the fast operator's modification with the slow operator's read-back window.
+The link from a measured mark relaxation time to a combination schedule remains a hypothesis. Comparing schedules requires matched exposure and appropriate response endpoints.
 
-This is a substantive prediction: empirical optimization of combination scheduling should converge on $\tau_B$-matched intervals between agents acting on different timescales, not on dose-response or maximum-tolerated-dose optimization alone.
+A proposed test is whether a measured $\tau_B$ predicts the response to intervals between agents targeting different chromatin functions.
 
 ---
 
@@ -355,11 +355,11 @@ However, the *management* of genetic disorders — replacement therapy schedulin
 
 ### 10.2 Coagulation cascade memory and factor replacement
 
-The clotting cascade (intrinsic and extrinsic pathways converging at Factor X $\to$ thrombin $\to$ fibrin) is a multi-kinase signaling cascade with C1–C4 architecture. Thrombin activates Factor V and Factor VIII (positive feedback), while antithrombin and TFPI provide negative feedback on different timescales. The cascade has memory: prior subthreshold activation primes it for faster response to subsequent triggers.
+The intrinsic and extrinsic clotting pathways converge at Factor X activation, followed by thrombin and fibrin formation. Thrombin activates Factor V and Factor VIII, while antithrombin and TFPI provide negative feedback. These interactions motivate a test of whether prior subthreshold activation changes the subsequent response at the same measured present.
 
-In hemophilia patients receiving replacement factor, the cascade operates in a partially-reconstituted state where the memory dynamics differ from normal. The framework predicts that the *timing* of replacement factor dosing relative to the cascade's memory state matters — not just the trough factor level. A patient who bleeds and partially activates the cascade before receiving factor concentrate is in a different memory state than a patient receiving prophylactic factor on schedule.
+For patients receiving replacement factor, recent bleeding or subthreshold activation could contribute to how the cascade responds. A history-dependent effect on dosing requires evidence that differences in activation history predict later response after matching the defined present, including factor level.
 
-**Prediction:** Non-Markovian dosing that accounts for the cascade memory state (recent bleeding events, prior subthreshold activation) should reduce breakthrough bleeding rates compared to standard pharmacokinetic-based dosing at equivalent total factor consumption. *Test:* Correlate breakthrough bleeding frequency with the interval between the most recent cascade activation event and the next scheduled prophylactic dose — OI predicts this interval matters; standard PK models predict only trough level matters.
+**Prediction.** The proposed benefit is a lower breakthrough bleeding rate for scheduling that accounts for activation history compared with pharmacokinetic-based scheduling at equivalent total factor consumption. An association with time since prior activation would motivate a matched-present test.
 
 ### 10.3 Inhibitor development as immune memory
 
@@ -373,11 +373,11 @@ Immune tolerance induction (ITI) — frequent high-dose factor infusion to overc
 
 ### 10.4 Gene therapy durability as epigenetic memory
 
-Gene therapies for hemophilia (Hemgenix for Factor IX, Roctavian for Factor VIII) deliver functional gene copies via AAV vectors. The clinical challenge is variable and sometimes declining transgene expression across patients. The framework's epigenetics analysis (§9) is directly relevant: the transgene's expression level is determined by the chromatin state at the integration site — which layer of the epigenetic hidden sector it occupies.
+Hemgenix and Roctavian use AAV vectors to deliver functional Factor IX and VIII transgenes respectively. The vector DNA is predominantly episomal [28, 29]. Expression durability for these products cannot be assigned generally to host integration-site chromatin.
 
-If the transgene integrates into a region with high-$\tau_B$ silencing marks (stable DNA methylation, compact heterochromatin), expression will be silenced over time. If it integrates into a region with low-$\tau_B$ activating marks (histone acetylation), expression will be maintained but variable.
+In a model where integrated copies measurably contribute to expression, chromatin at those loci could affect their expression and durability.
 
-**Prediction:** Transgene expression durability correlates with the epigenetic $\tau_B$ at the integration site — measurable by chromatin accessibility (ATAC-seq) and histone mark stability at the locus. Combining gene therapy with targeted epigenetic modifiers that stabilize activating marks at the transgene locus (increasing local $\tau_B$ of activating marks without affecting other loci) should improve long-term expression. *Test:* In animal models of hemophilia gene therapy, measure expression decline rate alongside integration-site-specific chromatin dynamics. Sites with higher $\tau_B$ of activating marks should show slower expression decline.
+**Prediction:** Where integrated transgenes measurably contribute to expression, test whether their expression persists differently across loci with distinct chromatin dynamics. The test requires separating integrated and episomal contributions and measuring chromatin at the integrated loci.
 
 ### 10.5 Compensatory pathway memory
 
@@ -389,11 +389,11 @@ These compensatory responses are non-Markovian: their current strength depends o
 
 For genetic disorders, the framework's contribution is not to the genetic defect itself but to three categories of treatment challenge:
 
-| Treatment challenge | C1–C4 system | OI prediction |
+| Treatment challenge | Candidate mechanism | Proposed test or outcome |
 |---|---|---|
-| Replacement therapy scheduling | Coagulation cascade / metabolic pathway | Timing relative to cascade memory state improves efficacy |
+| Replacement therapy scheduling | Carryover from prior activation of the coagulation cascade | Compare different activation histories at the same measured present, including factor level. The proposed benefit is fewer breakthrough bleeds than with pharmacokinetic-based scheduling at equivalent total factor consumption. |
 | Immune reactions to therapy | TCR/BCR signaling cascades | Inhibitor risk depends on exposure *schedule*, not just dose |
-| Gene therapy durability | Chromatin state at integration site | Expression correlates with local epigenetic $\tau_B$ |
+| Gene therapy durability | Chromatin at expressed integrated copies | Test an integration-site effect where those copies contribute to expression |
 | Compensatory pathway optimization | Epigenetic regulation of backup genes | Compensation strength depends on developmental history |
 | Enzyme replacement therapy tolerance | B cell memory compartment | Tolerance induction schedule matches immune $\tau_B$ |
 
@@ -403,38 +403,38 @@ The summary: genetic disorders are not memory diseases. But the treatments for g
 
 A specific class of genetic disorders falls within the framework's scope of memory diseases rather than the §10.1 surrounding-treatment category. These are disorders caused by loss-of-function mutations in the *readers, writers, or erasers* of epigenetic memory rather than disorders of the substrate itself. In framework language, these are disorders of the substratum-to-emergent translation machinery, not disorders of the substratum.
 
-**Rett syndrome as the paradigm.** Rett syndrome is caused by loss-of-function mutations in *MECP2*, a methyl-CpG-binding protein — a *reader* of DNA methylation. The DNA methylation substrate (the molecular memory substratum) is intact in Rett patients; what is lost is the protein that translates substrate state into downstream cellular function. Within the substratum-emergent operator framework of §9.4, Rett syndrome instantiates the dissociation: substratum-level memory operator preserved, emergent-level operator disrupted because the trace-out machinery (MECP2) is defective.
+**Rett syndrome as a case.** MECP2 encodes a methyl-CpG-binding protein, with loss-of-function variants a cause of Rett syndrome. The distinction between chromatin marks and the protein's functions motivates a proposed mechanism. The overall methylation landscape and its role in rescue are separate empirical questions.
 
-The framework predicts that phenotypes from such disorders should be reversible by restoration of the missing reader/writer, because the underlying substrate is preserved and the trace-out is what was broken. This is empirically confirmed for Rett by mouse genetic reactivation studies: Guy et al. (2007, *Science* 315:1143-1147) demonstrated that re-expression of endogenous *Mecp2* in adult mutant mice reverses neurological phenotype, even in animals with significant established pathology. Long-term potentiation in the hippocampus is restored; soma size normalizes; synaptic structures recover.
+Guy et al. [19] reactivated endogenous Mecp2 in a mouse model and observed reversal of neurological signs including in symptomatic adults, with recovery of hippocampal long-term potentiation. The result supplies prior evidence for reversibility in that model. A wider post-onset window than for other mechanisms needs a comparison of timing, dose and outcomes.
 
-**Generalization.** The same structural logic applies to other monogenic disorders affecting epigenetic reader/writer/eraser machinery, even though clinical convention typically treats them as developmental and irreversible:
+**Other disorders.** Effects of restoration must be tested separately for each affected function and developmental context.
 
-- *Fragile X syndrome* (FMR1 protein loss, mRNA-binding reader): substrate (RNA target landscape) is preserved; loss is in the reader. Reactivation strategies are now in clinical trials.
+- *Fragile X syndrome.* FMR1 loss affects an RNA-binding protein. The consequences of restoring that function depend on the model, age and outcomes.
 - *Angelman syndrome* (UBE3A ubiquitin ligase loss, a writer of degradation marks): paternal allele substrate is preserved; loss is in the writer of one parental imprint. UBE3A reactivation via antisense oligonucleotides is in clinical investigation.
-- *Kabuki syndrome* (KMT2D writer disruption, histone H3K4 methyltransferase): substrate landscape is preserved; loss is in the writer. Phenotypic plasticity in mouse models supports the reversibility prediction.
-- *ATR-X syndrome* (ATRX chromatin remodeler disruption): substrate is preserved; loss is in machinery that reads chromatin state. Variable severity correlates with residual ATRX function, consistent with emergent operator output being graded by reader/writer machinery function.
+- *Kabuki syndrome.* KMT2D is an H3K4 methyltransferase. KDM6A removes H3K27 methylation [30]. Model evidence of phenotypic plasticity motivates disorder-specific tests.
+- *ATR-X syndrome.* ATRX is a chromatin remodeler. Retained marks, residual function and effects of restoration are empirical questions.
 
-**Therapeutic principle.** For reader-writer disorders, the structural therapeutic axis is *restoration of the missing reader/writer* rather than substrate modification or symptomatic management. Gene therapy (AAV-based MECP2 replacement in Rett; UBE3A reactivation in Angelman) and direct pharmacological replacement (trofinetide for Rett, FDA-approved 2023) target this axis. The framework predicts that the therapeutic window is wider than for substrate-modifying interventions, and that response correlates with timing of intervention relative to substrate state at each affected locus. The Rett mouse model results — phenotypic reversal in adult animals, not just in juveniles — are consistent with this wide therapeutic window.
+**Therapeutic hypothesis.** Test whether targeted restoration of a disrupted function produces benefit at later treatment ages than a specified comparison, at measured levels of restored activity. MECP2 restoration is the example above. Trofinetide is an approved Rett treatment whose mechanism of therapeutic effect is unknown [20].
 
-Reader-writer disorders therefore are memory disorders in the framework's sense (substratum preserved, emergent operator disrupted), distinct from other genetic disorders where the defect interacts with memory systems only through treatment (§10.1–§10.6).
+The effect of restoring particular chromatin functions and any broader therapeutic-window pattern remain open across disorders.
 
 ---
 
 ## 11. Distinguishing Predictions
 
-The following predictions follow from the non-Markovian (memory) architecture. Two cautions frame them. First, the relevant comparison is not "Markovian pharmacology" — modern pharmacology already models use-dependence, hysteresis, priming, and chronotherapy — but *whether the framework's prediction is distinct from standard non-Markovian accounts*; several predictions below (positive autocorrelation of successive events, stretched-exponential single-molecule waiting times, history-dependent antiarrhythmic efficacy) are reproduced by classical dynamic-disorder models and are therefore consistency checks rather than distinguishing tests. Second, these are tests of *memory* (grade-ii); they do not test the framework's distinctive P-indivisibility (grade-iii), which — as §2 and [SM] note — is a substratum-level property. The genuinely distinguishing content is concentrated in the *quantitative* predictions that tie a clinical observable to an independently measurable molecular timescale or quantity: the LIFU pulse-repetition-frequency resonance at $1/\tau_B$ (Prediction 8b), the dependence of DNMT-inhibitor efficacy on methylation *entropy* rather than level (Prediction 16), $\tau_B$-resonant dosing (Prediction 9), and the decoupling predictions 7 and 12. In those cases the discriminating quantity is the measured $\tau_B$ (or entropy) value, not the resonance concept itself, which is generic.
+Alternative models of use-dependence, hysteresis, priming and chronotherapy provide comparators for these proposals. Classical dynamic-disorder models can reproduce positive event autocorrelation and stretched-exponential waiting times. A grade-ii memory test requires a matched-present contrast, and grade-iii P-indivisibility requires a separate map-family witness (§2). The quantitative proposals use independently measured quantities. Prediction 8b tests whether molecular relaxation predicts the pulse-timing dependence of a prespecified focused-ultrasound response. Other proposals concern $\tau_B$-matched dosing (Prediction 9), methylation entropy at controlled mean level (Prediction 16) and decoupling of specified effects (Predictions 7 and 12).
 
 ### 11.1 Cancer
 
-**Prediction 1:** Resistance mutations to regulatory-domain-targeting Chk1 inhibitors cluster in regions that alter the *slowest conformational modes* ($\tau_B$), not $k_{\text{cat}}$ or $K_m$. *Test:* Measure catalytic parameters and conformational dynamics for resistance mutants. Standard models predict correlated changes; OI predicts uncorrelated changes.
+**Prediction 1:** In a specified Chk1 inhibitor system, compare resistance-associated changes in slow conformational modes with changes in catalytic parameters. The proposed regulatory mechanism could show larger changes in $\tau_B$ than in $k_{\text{cat}}$ or $K_m$.
 
-**Prediction 2:** Checkpoint recovery times are temporally correlated across successive damage events in single cells, decaying on timescale $\tau_B$. *Test:* Time-lapse imaging with Chk1 FRET biosensor under repeated damage. Standard models predict zero autocorrelation; OI predicts positive autocorrelation.
+**Prediction 2:** Test whether checkpoint recovery at the same measured present depends on prior damage history. Correlations across successive damage events can guide the choice of timescale. They need not distinguish a retained mode from a model with a richer current state.
 
-**Prediction 3:** Cells with prior damage-and-recovery cycles are *more* sensitive to Chk1 inhibition than naive cells at identical current damage levels. *Test:* Compare clonogenic survival with and without prior low-dose cycling. Standard models predict identical survival; OI predicts greater kill in pre-treated cells.
+**Prediction 3:** Compare sensitization after prior damage-and-recovery cycles with matched present measures of damage, cell-cycle state and exposure. The proposed direction is greater sensitization after priming. The mechanism requires additional controls.
 
-**Prediction 4:** HDAC inhibitors between radiation fractions specifically abolish the adaptive response by erasing chromatin memory. *Test:* Three-arm experiment comparing inter-fraction vs. pre-treatment HDAC inhibitor. Standard models predict similar radiosensitization; OI predicts greater cell kill from inter-fraction administration.
+**Prediction 4:** Test whether a chromatin-targeted intervention between radiation fractions changes the adaptive response and whether the change tracks measured chromatin state. A timing effect could have other mediators.
 
-**Prediction 5:** Single-molecule Chk1 turnover waiting times follow a stretched-exponential distribution $P(t) \sim \exp(-(t/\tau)^\beta)$ with $\beta < 1$. *Test:* Single-molecule fluorescence assay. Standard models predict $\beta = 1$ (exponential); OI predicts $\beta < 1$; its value depends on how strongly the scaffold's record modulates turnover and is not derived here.
+**Prediction 5:** Test a stretched-exponential model $P(t)\sim\exp(-(t/\tau)^\beta)$ for single-molecule Chk1 turnover. The form is a model hypothesis. Distinguishing retained history from a mixture of rates requires the separate conditional test.
 
 ### 11.2 Neurodegeneration
 
@@ -444,11 +444,11 @@ The following predictions follow from the non-Markovian (memory) architecture. T
 
 **Prediction 8:** Normal aging shows gradual increase in CaMKII $\tau_B$, correlating with synaptic rigidity. *Test:* Measure CaMKII regulatory domain dynamics as a function of age in animal models.
 
-**Prediction 8a:** PTSD reconsolidation efficacy is layer-specific. Propranolol-during-recall blocks emotional re-encoding (noradrenergic substrate); analogous compounds for other encoding modalities should produce dissociable effects on different memory components. *Test:* Compare cognitive vs. emotional vs. sensory components of PTSD memory after layer-targeted reconsolidation interventions.
+**Prediction 8a:** Test whether a specified reconsolidation intervention has different effects on emotional, cognitive and sensory memory readouts. The cited propranolol trials give mixed clinical evidence. The layer-specific mechanism is proposed.
 
-**Prediction 8b:** LIFU pulse repetition frequency matched to molecular $\tau_B$ produces stronger neuromodulation than empirically-chosen PRF. *Test:* Systematically scan PRF in animal models against measured CaMKII (or other target) $\tau_B$; predict response peak at PRF matching 1/$\tau_B$.
+**Prediction 8b:** Test whether a measured molecular relaxation time predicts the pulse-timing dependence of a prespecified focused-ultrasound response in a controlled model.
 
-**Prediction 8c:** LIFU-only intervention (no antibody) in early Alzheimer's produces cognitive benefit proportional to $\tau_B$ normalization, measurable by post-LIFU CaMKII conformational dynamics. *Test:* The 2025 Korean trial design extended with mechanistic assays.
+**Prediction 8c:** Test in a controlled comparison whether focused ultrasound changes CaMKII conformational dynamics and whether that change predicts an independently measured cognitive outcome. Ye et al. [25] motivates the setting without measuring the proposed mediator.
 
 ### 11.3 Antibiotic resistance
 
@@ -500,21 +500,21 @@ The following predictions follow from the non-Markovian (memory) architecture. T
 
 **Prediction 25:** Inhibitor development rates in hemophilia A correlate with the *schedule* of initial Factor VIII exposure (which determines immune memory state), not just cumulative dose. *Test:* Compare inhibitor rates between daily low-dose vs. twice-weekly standard-dose prophylaxis at equivalent cumulative factor exposure.
 
-**Prediction 26:** Gene therapy transgene expression durability correlates with epigenetic $\tau_B$ at the integration site. *Test:* In animal models, correlate expression decline rate with integration-site chromatin dynamics measured by ATAC-seq and histone mark stability.
+**Prediction 26:** Where integrated transgene copies measurably contribute to expression, test whether their durability covaries with the chromatin dynamics at the integration sites after separating any episomal expression.
 
 ---
 
 ## 12. Existing Evidence
 
-Several predictions are already supported by published data:
+The following published results motivate specific tests. Their designs and measured endpoints determine what they establish.
 
 **Resistance through dynamics, not catalysis (Prediction 22).** Taldaev et al. (PNAS, 2021) identified an Abl kinase imatinib-resistance mutation that preserves drug binding affinity but increases conformational dynamics — altering $\tau_B$, not $K_d$. The BTK T316A mutation (Joseph et al., eLife, 2020) causes resistance by shifting the conformational ensemble, not by blocking drug binding. Deep mutational scanning of Src (Chakraborty et al. 2024) found that 25–45% of resistance mutations for each inhibitor were unique to that inhibitor's conformational binding mode.
 
 **Selectivity through dynamics, not sequence (Prediction 23).** RGS4 allosteric inhibitor selectivity does not correlate with B-site sequence conservation (Blazer et al. 2010). Five different BTK active-site inhibitors produce five qualitatively different effects on distant regulatory domains of the *same* protein (Joseph et al. 2020).
 
-**History-dependent checkpoint responses (Prediction 2).** Single-cell checkpoint tracking (Chao et al., Cell Systems, 2017) found that responses depend on the cell's exact cell cycle position, requiring "commitment points" modeled as additional Markov states — the OI interpretation is that these are continuous conformational memory, not discrete states.
+**Checkpoint responses (Prediction 2).** Chao et al. [15] reported phase-dependent checkpoint responses. Current cell-cycle state can account for some differences. A comparison at fixed present is needed to test the proposed Chk1 mechanism.
 
-**Non-exponential enzyme kinetics (Prediction 5).** Stretched-exponential waiting times have been observed for horseradish peroxidase (Edman & Rigler 2000) and cholesterol oxidase (Lu et al. 1998) — not yet for checkpoint kinases.
+**Nonexponential enzyme kinetics (Prediction 5).** The cited enzyme assays [7, 14] motivate testing comparable kinetics for Chk1. Waiting-time fits do not independently establish accessible conditional memory.
 
 ---
 
@@ -522,7 +522,7 @@ Several predictions are already supported by published data:
 
 ### 13.1 The unifying principle
 
-Every application follows the same logic: (1) a disease process involves a signaling molecule with C1–C4 architecture; (2) the disease state involves pathological accumulation or alteration of non-Markovian memory; (3) current drugs target catalytic function; (4) the framework identifies memory structure as a pharmacologically distinct target; (5) memory-targeted therapy predicts wider therapeutic windows because the memory asymmetry between disease and normal tissue is more specific than the catalytic asymmetry.
+Each application proposes a slow record, a readout and a possible asymmetry between disease and comparison states. Whether the record persists, influences matched-present response and can be targeted needs evidence for each case.
 
 | Disease | Memory mechanism | Current target | OI target |
 |---|---|---|---|
@@ -537,7 +537,7 @@ Every application follows the same logic: (1) a disease process involves a signa
 | Aging | Epigenetic clock accumulation | Symptom management | $\tau_B$-selective erasure |
 | Hemophilia (treatment) | Coagulation cascade memory | PK-based factor dosing | Cascade memory-state dosing |
 | Genetic disorders (immune) | B/T cell memory from replacement therapy | Dose reduction | Exposure schedule matching immune $\tau_B$ |
-| Gene therapy durability | Chromatin state at transgene locus | Dose escalation | Epigenetic $\tau_B$ stabilization at locus |
+| Gene therapy durability | Candidate chromatin effect where integrated copies are expressed | Measure integrated and episomal contributions | Test whether the local chromatin state predicts durability |
 
 ### 13.2 Implications for drug discovery
 
@@ -549,11 +549,11 @@ Two predictions are immediately testable with existing drugs and standard clinic
 
 ### 13.4 Connection to fundamental physics
 
-The mathematical structure underlying these predictions is identical to the theorem that identifies the quantum representation — and the memory sector that makes it nontrivial — with the statistics of embedded observation [1]. The C1–C4 conditions that produce non-Markovian enzyme dynamics are the same conditions that produce, at the cosmological scale, the memory-bearing dynamics quantum mechanics represents. The read-write cycle of a kinase interacting with its regulatory domain is structurally isomorphic to the read-write cycle of an observer interacting with the hidden sector across the cosmological horizon. This connection is not metaphorical — the characterization theorem applies to any system satisfying C1–C4, regardless of scale. The biological instantiations are classical (no quantum coherence is required or invoked), but the mathematical architecture is the same.
+The finite-horizon result supplies a conditional diagnostic for defined observables. Its implications apply if the molecular law satisfies the premises. The candidate regulatory records, treatment responses and mechanism attributions require independent empirical tests.
 
-The *substratum-emergent operator distinction* developed in the companion SM paper [SM §8.7] has a direct biological analog at the chromatin layer (§9.4). In the SM context, the distinction identifies operators that are exactly conserved at the substratum (bilinear lattice) level but violated at the emergent EFT level through non-perturbative mechanisms — the canonical example is baryon-number conservation. At the chromatin layer, the same structural distinction identifies operators that operate on the molecular substrate (DNA methylation, histone modifications, chromatin state) versus operators that operate on the emergent cellular phenotype (gene expression, cell identity, behavior). The two operators can dissociate, with iPSC reprogramming residuals, bivalent chromatin states, and Rett-class reader-writer disorders all being instances of this dissociation. The same mathematical pattern characterizes fundamental physics and chromatin biology — not by analogy, but as instances of the same structural feature of trace-out dynamics.
+The chromatin examples motivate an analogy between molecular marks and downstream function. The studies compare measured quantities without establishing the formal operator correspondence of [SM §8.7].
 
-The *unified naturalness pattern* developed in [SM §8.8] extends to biology in the form developed in §9.1: biological "fine-tuning" of $\tau_B / \tau_S$ ratios at memory layers is the persistence requirement (C2) in biological realization — the $\tau$ ratio one route — rather than evolutionarily contingent. The same mechanism that underlies the framework's treatment of the hierarchy problem and its conditional dissolution of the cosmological-constant problem in physics — substratum-level structural constraints forcing specific values of emergent parameters — operates at the biological memory layers.
+A timescale separation can allow persistence of a molecular record. Its magnitude, the loss of records and their accessibility to later readout depend on the particular system.
 
 The same structural picture applied to computational analysis methods is developed in the companion Bioinformatics paper [18], which addresses non-Markovian dynamics in single-cell trajectory inference, gene regulatory network inference, perturbation prediction, multi-omics integration, and cancer methylome classification. The framework's reader-writer disorder class (§10.7) extends into specific bioinformatic patterns there.
 
@@ -604,3 +604,27 @@ AI assistance in preparing this work is disclosed at\
 [17] D. Wilsker, E. Petermann, T. Helleday, F. Bunz, "Essential function of Chk1 can be uncoupled from DNA damage checkpoint and replication control," *PNAS* **105**, 20752 (2008).
 
 [18] A. Maybaum, "Non-Markovian Dynamics in Computational Biology," companion paper (2026).
+
+[19] J. Guy et al., “Reversal of neurological defects in a mouse model of Rett syndrome,” *Science* **315**, 1143–1147 (2007). doi:10.1126/science.1138389.
+
+[20] U.S. prescribing information for trofinetide, [§12.1 Mechanism of Action](https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=67e6f2d9-21f6-466f-9def-826c6a4b8257).
+
+[21] A. Brunet et al., randomized trial of propranolol with trauma reactivation (2018), [PubMed 29325446](https://pubmed.ncbi.nlm.nih.gov/29325446/).
+
+[22] P. Roullet et al., randomized trial of trauma reactivation with or without propranolol (2021), [PubMed 33612830](https://pubmed.ncbi.nlm.nih.gov/33612830/).
+
+[23] C. H. van Dyck et al., “Lecanemab in early Alzheimer's disease,” [PubMed 36449413](https://pubmed.ncbi.nlm.nih.gov/36449413/).
+
+[24] J. R. Sims et al., randomized trial of donanemab in early symptomatic Alzheimer disease (2023), [PubMed 37459141](https://pubmed.ncbi.nlm.nih.gov/37459141/).
+
+[25] Ye et al., focused ultrasound blood–brain barrier opening in Alzheimer's disease, [PubMed 39793012](https://pubmed.ncbi.nlm.nih.gov/39793012/).
+
+[26] S. Buckberry et al., “Transient naive reprogramming corrects hiPSC epigenetic memory,” [*Nature* (2023)](https://www.nature.com/articles/s41586-023-06424-7).
+
+[27] T. Prébet et al., US Leukemia Intergroup trial E1905, [PubMed 24663049](https://pubmed.ncbi.nlm.nih.gov/24663049/).
+
+[28] European Medicines Agency, [Hemgenix risk-management plan](https://www.ema.europa.eu/en/documents/rmp/hemgenix-epar-risk-management-plan_en.pdf).
+
+[29] U.S. Food and Drug Administration, [Roctavian prescribing information](https://www.fda.gov/media/169937/download).
+
+[30] M. Adam et al., “Kabuki syndrome,” [GeneReviews](https://www.ncbi.nlm.nih.gov/books/NBK62111/).
