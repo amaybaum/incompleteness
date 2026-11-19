@@ -19,18 +19,21 @@ review][review] returned ACCEPT on Worker P's sections at
 native-fresh register determines its label” and “Exact arithmetic
 check” were added afterwards by the Main thread, the writer under the
 [2026-11-19 staffing record][staffing], against main at
-0d02d8d3b6a53a43168eabead12e1ff675a4d048; they are pending independent
-review. Alex Maybaum's “Approved”
+0d02d8d3b6a53a43168eabead12e1ff675a4d048. The separate non-author
+[review of those sections][review-fresh] returned ACCEPT WITH NITS at
+8f90d1c0d10048cb31309c3f7171f2a478f7c6e3, and the
+[confirmation][confirm-fresh] returned CONFIRMED at
+b5351fcaf03dc2eb77b91921200132bc815d6210. Alex Maybaum's “Approved”
 is relayed in the [2026-11-19 owner decision][authority]. The
 [Codex PRs assessment][readiness] records readiness and the disposition
 of the off-main P8 attribution. The drafting and published-rule source
 pin is adf41d3f833692e33628008d3c82ce3779f343e0. The reviewed
 [neighboring-site proof][predecessor] locates the comparison reproduced
-below. The [P8 draft][p8] records the origin of the structural test, and
-its [preservation candidate][p8-preservation] carries the same condition.
-The P8 record and its structural condition are on main as
-[landed][p8-main]; the neighboring-site proof is off main and provides
-provenance. The recurrence, law,
+below. The [P8 record][p8] records the origin of the structural test, and
+its [preserved version][p8-preservation] carries the same condition.
+The P8 record and its structural condition are on main at
+d0415f47ae054b565d63e81c4530c70f64fba25e ([landed record][p8-main]); the
+neighboring-site proof is off main and provides provenance. The recurrence, law,
 control and matrix condition used in the argument are given explicitly here.
 
 **Goal link (§A.47).** Test whether the neighboring response from #1409 can
@@ -395,7 +398,9 @@ The values agree with \(K\), the two history tables and the column
 [issue]: https://github.com/amaybaum/incompleteness/issues/1411
 [review]: https://github.com/amaybaum/incompleteness/pull/1412#pullrequestreview-5981021883
 [staffing]: https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7019013461
-[p8-main]: https://github.com/amaybaum/incompleteness/blob/0d02d8d3b6a53a43168eabead12e1ff675a4d048/verification/audits/foundations/a1-p8-history-bridge-20261119/RESULT.md#L13-L19
+[p8-main]: https://github.com/amaybaum/incompleteness/blob/d0415f47ae054b565d63e81c4530c70f64fba25e/verification/audits/foundations/a1-p8-history-bridge-20261119/RESULT.md#L13-L19
+[review-fresh]: https://github.com/amaybaum/incompleteness/pull/1412#issuecomment-7019364737
+[confirm-fresh]: https://github.com/amaybaum/incompleteness/pull/1412#issuecomment-7019401303
 [authority]: https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7014855892
 [readiness]: https://github.com/amaybaum/incompleteness/pull/1410#issuecomment-7017201143
 [rule]: https://github.com/amaybaum/incompleteness/blob/adf41d3f833692e33628008d3c82ce3779f343e0/papers/SM.md#L294
