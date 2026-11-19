@@ -1,7 +1,9 @@
 # DELIVER-1: delivering a supplied preparation resource to a fixed ready block
 
 **Standing.** Author record of a paper-only gem-finding unit (AGENTS.md §A.31, depth-first form).
-It has not been independently reviewed; the authorization requires a non-author review. It adopts
+Independent non-author review: REVISE at `95e7d764`
+([#1425 c.7023337287](https://github.com/amaybaum/incompleteness/pull/1425#issuecomment-7023337287));
+this revision answers it (B1–B3, N1–N6). It adopts
 no premise, edits no manuscript, Lean module or registry, and runs no simulation. Small exact
 checks are included as controls (§10).
 
@@ -50,11 +52,14 @@ checks are included as controls (§10).
    native mechanism.
 3. **Node 2 (§3) [W, EC].** For U₂ and each of its sixteen parity-uniform backgrounds β, the
    2-neighbour closure of a perturbation's support is invariant in time (Theorem 2.2). Hence:
-   background sites outside that closure are never read, written or moved; the budget available to
-   a ready block is the relative entropy of its closed component, which excludes every background
-   bit that PR1 2.6 counts; a carrier affects the block only if it was in closure contact with it at
-   `t = 0`; a finite component returns to its initial content within its period, so no record
-   outlives that period; a parity-uniform slab of width ≥ 2 is never entered. Open: bounded ready
+   background sites outside that closure are never perturbed; the budget available to a ready
+   block is the relative entropy of its closed component, which excludes every background bit
+   outside that component (PR1 2.6 counts them); a carrier affects the block only if it was in
+   closure contact with it at `t = 0`, so no carrier approaches; a finite component returns to its
+   initial content at every multiple of its period, so every record is erased by then; a
+   parity-uniform slab of width ≥ 2 is never entered. With carriers outside the block's initial
+   component (DT clause A), no use occurs. Inside one component, delivery with a held record is
+   possible from a designed pattern: the review's five-site example (2.3(f)). Open: bounded ready
    regions inside noise (the closure is then the whole lattice) and alphabets `q ≥ 3`, including
    the published `q = 2^16`.
 4. **Node 3 (§4) [W, EC].** Under any invariant law, an externally scheduled moving block gains
@@ -64,8 +69,10 @@ checks are included as controls (§10).
    off through the orbit length ℓ.
 5. **Node 4 (§5).** What dropping A1 would require, without investigation.
 6. **Node 5 (§6).** Controls hold.
-7. **Productivity (§7).** Test (ii) is met at the scope of Theorem 2.2; test (i) is not met. Author
-   classification: gem, NEW at that scope; Node 3 ELABORATING.
+7. **Productivity (§7).** Test (ii) is met at the scope of Theorem 2.2. Test (i) is not met: the
+   one native delivery found (2.3(f)) runs on U₂ but draws on a designed initial pattern with a
+   carrier pre-placed in the block's component (NSC-3, NSC-5), and it cannot repeat on fresh
+   carriers. Classification: gem, NEW at that scope (the review agrees); Node 3 ELABORATING.
 
 ***
 
@@ -122,12 +129,21 @@ The reference law is the product-uniform law μ₂ on both slices (#1408).
   between consecutive τ's. Each `τ_{k+1}` after a use is a delivery.
 - *Retention (budget form).* At `T`, each used carrier's bit is ε-predictable from a log block
   disjoint from the carriers.
-- *Exclusions (NSC-1..7 as constraints).* One fixed update, U₂ (NSC-1); the schedule is fixed by
-  the update and the initial law, with no controller and no herald outside the model (NSC-3);
-  every statement is about laws, with no conditioning on success (NSC-3); the initial law is a
-  declared supply, the carriers, and μ₂ elsewhere, with every low-entropy cell inside the declared
-  supply (no hidden fresh cell, NSC-3, NSC-5); carriers lie outside a declared apparatus region
-  `A ⊇ H` (no pre-placed or tuned producer state, NSC-3).
+- *Exclusions (NSC-1..7 as constraints).* One fixed update, U₂ (NSC-1); the supply is a declared
+  initial law, and every conclusion is conditional on it as a regress endpoint, with its standing
+  stated (NSC-2, NSC-5); a construction that works only because its initial pattern was chosen for
+  it does not solve the regress (NSC-4; NSC-3, "a newly tuned prepared producer state"); the
+  schedule is fixed by the update and the initial law, with no controller and no herald outside
+  the model (NSC-3); every statement is about laws, with no conditioning on success (NSC-3); the
+  initial law is a declared supply, the carriers, and μ₂ elsewhere, with every low-entropy cell
+  inside the declared supply (no hidden fresh cell, NSC-3, NSC-5); the measures are those of
+  NSC-6 (supply types below); ready means the known value `w*` (NSC-7); carriers lie outside a
+  declared apparatus region `A ⊇ H` (no pre-placed producer state, NSC-3).
+- *Clause A (component exclusion).* Under U₂, `A` contains `H`'s component of `cl₂(A_0)` at
+  `t = 0`; equivalently, no carrier is in closure contact with `H`'s apparatus at `t = 0`.
+  Justification: by Theorem 2.2 the component is fixed at `t = 0`, so a carrier inside it has been
+  positioned for the apparatus by the initial law (NSC-3). The node-2 verdict uses clause A; §3,
+  2.3, also states what holds without it.
 - *Supply types.* NEQ-T, a time-slice law with a declared low-entropy region; μ-O and μ-R, the
   invariant laws of PR1 1.5(b), (b′); inflow, with A1 dropped (PR1 1.5(d)).
 
@@ -145,7 +161,8 @@ chosen gate, not U₂ (NSC-1); their ready belt is a set of fresh memory cells p
 reads them (NSC-3). The #1404 bath shift is a conveyor of this kind ("a chosen site gate",
 `foundations/p8-p12-bridge-20261119/RESULT.md:281`). Since the bound is attained by an
 importing countercontrol, the budget does not discriminate; the discriminating question is the
-native mechanism. CONFIRMING relative to PR1.
+native mechanism. NSC-1 alone excludes CR; reading its belt as fresh memory cells under NSC-3 is
+interpretive, since DT admits a declared low-entropy supply. CONFIRMING relative to PR1.
 
 ***
 
@@ -182,19 +199,22 @@ same form, so `cl₂(A_t) ⊆ cl₂(A_{t+1})`. ∎
 *Lemma 2.3 (closed sets).* (a) A box (product of intervals) is closed on `ℤ³`, and on `(ℤ/n)³`
 when each side is at most `n−2` or the full extent: a site outside it has at most one neighbour
 inside. (b) A slab of width `w ≥ 2` has a closed complement. (c) If `D_1, D_2` are closed and at
-ℓ1-distance at least 3, `D_1 ∪ D_2` is closed, and the content of `D_1` evolves as a function of
-the content of `D_1` alone: every neighbour of a site of `D_1` lies in `D_1` or outside
-`D_1 ∪ D_2`, where `y` vanishes. ∎ [EC E3, E6, E10; countercontrols: side `n−1`, width 1,
+ℓ1-distance at least 3, `D_1 ∪ D_2` is closed; if moreover `A_0 ⊆ D_1 ∪ D_2`, the content of `D_1`
+evolves as a function of the content of `D_1` alone: every neighbour of a site of `D_1` lies in
+`D_1` or outside `D_1 ∪ D_2`, where `y` vanishes at every time by Theorem 2.2. ∎ [EC E3, E6, E10; countercontrols: side `n−1`, width 1,
 distance 2]
 
 **2.3 Consequences for DT under a parity-uniform supply [W].**
 
 - **(a) Inert supply.** Outside `Ω := cl₂(A_0)` every site holds `β` at every time. Its readiness
-  is permanent and is never read, written or moved.
-- **(b) Deliverable budget.** *Hypothesis (I):* deterministic closed sets `Ω*` and `Ω′` at
-  ℓ1-distance at least 3 with `A_0 ⊆ Ω* ∪ Ω′` almost surely, and the initial content of `Ω*`
-  independent of that of `Ω′`. Under (I) the content of `Ω*` evolves by a fixed bijection Ψ of
-  `{0,1}^{2|Ω*|}`, independently of everything else, and the background is deterministic. PR1 2.1,
+  is permanent and is never written or moved. Sites next to `Ω` are read by the updates inside
+  `Ω`, but their fixed values do not affect the perturbation dynamics (Lemma 2.1).
+- **(b) Deliverable budget.** *Hypothesis (I):* deterministic closed sets `Ω*` (finite) and `Ω′`
+  at ℓ1-distance at least 3 with `A_0 ⊆ Ω* ∪ Ω′` almost surely, and the initial content of `Ω*`
+  independent of that of `Ω′`. Under (I) the perturbation content of `Ω*` evolves by a fixed
+  bijection Ψ of `{0,1}^{2|Ω*|}`, independently of everything else, and the background is
+  deterministic; in `x`-coordinates Ψ is composed with the known period-2 XOR by β, which changes
+  none of the quantities below. PR1 2.1,
   2.3 and 2.5 therefore apply on `{0,1}^{2|Ω*|}`: for `H ⊆ Ω*`,
   `K_t(H) + D(p_{Ω*∖H,t} ‖ u) = D(p_{Ω*,0} ‖ u)`, and a protocol holding `N` ε-predictable results
   inside `Ω*` with `H` ε-ready at one time needs
@@ -203,27 +223,51 @@ distance 2]
   ```
   under PR1 2.5's hypotheses (fixed blocks, balanced targets, disjoint predictors). PR1 2.6 bounds
   the same quantity by the relative entropy of the cone base, which counts 2 bits for every
-  background site in the cone. (2.4) counts none of them: the background, however large, adds
-  nothing to the budget deliverable at `H`.
+  background site in the cone. (2.4) counts none of those outside `Ω*`: the background outside the
+  closed component, however large, adds nothing to the budget deliverable at `H`. Sites of `Ω*`
+  that hold β at `t = 0` do count, 2 bits each; in E7 the budget `D₀ = 2` is exactly the centre's
+  background bits, and that is the resource redistributed there.
 - **(c) Carrier admission.** Under (I) the content of `Ω*` at every time is a function of its
   content at `t = 0`. A carrier located in `Ω′` never affects `H ⊆ Ω*`. The component structure
   is fixed at `t = 0`: no carrier approaches `H` over time, and every carrier that is ever used
   was in closure contact with `H`'s component at `t = 0`. If `Ω*` is finite, Ψ has a finite period
   `P`; at `t = P` the content of `Ω*` equals its initial content, at which `c_k` is held only by
-  its own cells, so no record of a carrier outlives `P` ticks and the number of usable carriers
-  is the number initially in `Ω*`. [EC E7: in the closed box `{−e_1, 0, e_1}` the centre is
-  written with the AND of the end bits; its readiness is `1, 3/4, 9/16, 3/4, 1` at `t = 0..4` while
-  `K(centre) = 2 = D₀` throughout, so readiness returns only when the record is un-written.]
+  its own cells, so every record of a carrier is erased by the next multiple of `P`, and the
+  number of usable carriers is the number initially in `Ω*`. Readiness of `H` can return before
+  `P` while a record is held elsewhere in `Ω*` (2.3(f)). [EC E7: in the closed box
+  `{−e_1, 0, e_1}` the centre is written with the AND of the end bits; its readiness is
+  `1, 3/4, 9/16, 3/4, 1` at `t = 0..4` while `K(centre) = 2 = D₀` throughout; in this box readiness
+  returns when the record is un-written.]
 - **(d) Insulating slab.** By Lemma 2.3(b) a parity-uniform slab of width at least 2 is never
   perturbed, whatever the law outside it; on `ℤ³` it separates the two half-spaces exactly.
 - **(e) Low-entropy world.** If the initial state is almost surely a finitely supported
   perturbation of β, every pattern stays in its bounding box (Lemma 2.3(a)) and every component is
   finite and periodic. A single excitation is a period-2 blinker [EC M3].
 
-Under DT, carriers lie outside the apparatus region. If the apparatus region contains `H`'s
-component and the carriers' closures are at distance at least 3 from it, (c) gives no use at all.
-A carrier that is used was placed in closure contact with the apparatus at `t = 0`, which DT
-excludes as a pre-placed producer state (NSC-3).
+- **(f) Delivery inside one component (the review's example) [EC E12].** On the closed segment
+  `{0,…,4}·e_1` in the vacuum, take `x_{−1} = 0` and `x_0 = (c, 0, 1, 0, 1)`, with a fair carrier
+  `c` at site 0, `H` = site 1 and `w* = (0,0)`. Then `H` is ready at `t = 0`, its content depends
+  on `c` at `t = 1..4`, and it is ready again at `t = 5` for both values of `c`, while site 3's
+  current slice equals `¬c` at `t = 5`. The orbit lengths are 4 (`c = 0`) and 6 (`c = 1`), with
+  common period 12, so the record survives the refresh. This meets DT's arithmetic for two ready
+  times with `ε = 0` and `A = {H}`. Against NSC-1..7: the update is U₂, with no controller, herald
+  or postselection, and readiness is a known value (NSC-1, NSC-3 as to controllers, NSC-7); the
+  supply is a designed initial pattern `(·, 0, 1, 0, 1)` chosen so that this delivery occurs,
+  which is a newly tuned prepared producer state (NSC-3) with no independent justification as a
+  regress endpoint (NSC-2, NSC-4, NSC-5); the carrier is in closure contact with `H` at `t = 0`,
+  which clause A excludes; and the component holds one carrier, so no second delivery on a fresh
+  carrier follows (c). It is a native delivery mechanism on U₂ conditional on a tuned structured
+  supply, not a native delivery under NSC-1..7.
+- **(g) Negative evidence, not proof.** The review ran an exhaustive exact (`ε = 0`) search with a
+  pure vacuum supply and 1–3 carriers on every box of at most 9 sites (lines up to length 7,
+  `2×2` through `3×3`; `2×5` with at most 2 carriers; `2×2×2` not searched), with horizon 30, and
+  found no delivery with a held record. This is evidence about those boxes only.
+
+**Without clause A**, Theorem 2.2 gives: only carriers in `H`'s initial component are ever used;
+no carrier approaches; the budget is (2.4); every record is erased by the next multiple of `P`;
+and (f) shows that one delivery with a held record is then attainable from a designed pattern.
+**With clause A**, carriers lie outside `H`'s component and at distance at least 3 from it, and
+(c) gives no use at all.
 
 **2.4 Escape checks (maximum skepticism on the branches that would favour a positive answer).**
 
@@ -251,11 +295,13 @@ at most `D(p_{Ω*,0} ‖ u_{Ω*})/(1 − h₂(ε)) − 1` by (2.4). In a parity-
 components this bound is not the binding constraint: (c) excludes any carrier from outside the
 initial component.
 
-**Verdict, node 2.** For U₂ with a parity-uniform NEQ-T supply under (I): no delivery construction
-meets DT. The supplied background is inert; the deliverable budget is that of the closed
-component; carriers cannot approach; a finite component un-writes every record within its period.
-This is a scoped obstruction [W, EC]. Open: bounded ready regions in noise, `q ≥ 3` including
-`q = 2^16`, and infinite components.
+**Verdict, node 2.** For U₂ with a parity-uniform NEQ-T supply under (I) and DT's clause A, no use
+and hence no delivery occurs. Without clause A: the background outside the closed component is
+inert; the deliverable budget is that of the closed component (2.4); carriers cannot approach;
+every record is erased by the next multiple of the component's period; and one delivery with a
+held record is attainable inside a component from a tuned pattern (f), which NSC-3 and NSC-5
+exclude. This is a scoped obstruction [W, EC]. Open: bounded ready regions in noise, `q ≥ 3`
+including `q = 2^16`, and infinite components.
 
 ***
 
@@ -273,7 +319,7 @@ already at `t_0`.
 *Theorem 3.2 (native pointer) [W, EC M2].* Let `Q` be a fixed block, `j` a map from its values to
 indices, and `H_0, …, H_{r−1}` blocks disjoint from `Q` whose contents each take `M` values (for
 two-slice blocks of `m` sites, `M = 2^{2m}`). Put `Y_t = W_t(H_{j(Q_t)})`. Then the joint law of
-`(Q_t, Y_t)` does not depend on `t`, and `P(Y = w*) ≥ 1 − ε` requires
+`(Q_t, Y_t)` does not depend on `t`, and, for `1 − ε ≥ 1/M`, `P(Y = w*) ≥ 1 − ε` requires
 `d(1−ε ‖ 1/M) ≤ D(μ ‖ u)`.
 *Proof.* Invariance gives the first claim. For the event `E′ = {Y = w*}`,
 `u(E′) = Σ_q u(Q=q) u(W(H_{j(q)}) = w*) = 1/M`, because under `u` each block is uniform and
@@ -284,9 +330,11 @@ example the pointed cell is ready with probability 1, each fixed cell and the ex
 scheduled cell with probability 1/3, at cost `d(1 ‖ 1/2) = 1 ≤ D(μ-O ‖ u) = 3` bits.
 
 *Theorem 3.3 (carrier entropy under μ-O) [W, EC M3].* Under μ-O on an orbit of length ℓ, every
-block has entropy at most `log₂ ℓ`. A protocol holding, at one time, `N` balanced carrier bits and
-`N` ε-predictable records of them, with `H` ε-ready, needs `N ≤ log₂ ℓ` and
-`(N+1)(1 − h₂(ε)) ≤ log₂(|S|/ℓ)`.
+block has entropy at most `log₂ ℓ`. A protocol holding, at one time, `N` jointly uniform carrier bits and
+`N` ε-predictable records of them, with `H` ε-ready, needs `N ≤ log₂ ℓ` and, under PR1 2.5's
+hypotheses (fixed blocks, targets balanced under `u`, disjoint predictors),
+`(N+1)(1 − h₂(ε)) ≤ log₂(|S|/ℓ)`. Joint uniformity is needed: with ℓ = 2, carriers all equal to
+the orbit bit give arbitrarily many balanced bits.
 *Proof.* Under μ-O the state is `φ^Θ(s_0)` with Θ uniform on `ℤ/ℓ`, so every block is a function
 of Θ. The second inequality is PR1 2.5 with `D(μ-O ‖ u) = log₂(|S|/ℓ)`. ∎
 A short orbit gives a large static budget and little carrier entropy: in M3 a single excitation of
@@ -327,12 +375,16 @@ data.
 
 ## 7. Productivity verdict and classification
 
-**Test (i)** is not met: no native construction meets DT for any supply type examined.
+**Test (i)** is not met. The one native delivery found, 2.3(f) (from the review), runs on U₂
+without controller or postselection, but its supply is a designed initial pattern with the carrier
+pre-placed in the block's component (NSC-3, NSC-5, clause A), and its component holds one carrier,
+so it does not repeat on fresh carriers. It is recorded as a native mechanism conditional on a
+tuned supply. For the other supply types examined no native construction meets DT.
 **Test (ii)** is met at the scope of Theorem 2.2: U₂ with `q = 2`, a parity-uniform supply and
 hypothesis (I). There (2.4) replaces PR1 2.6's cone-base budget by the budget of the closed
-component, which excludes every background bit, and 2.3(c) adds a mechanism exclusion (no carrier
-approaches; no record outlives a finite component's period) that PR1 does not contain. Verdict:
-gem.
+component, which excludes every background bit outside it, and 2.3(c) adds a mechanism exclusion
+(no carrier approaches; every record is erased by the next multiple of a finite component's
+period) that PR1 does not contain. Verdict: gem.
 
 **Pressure test.**
 1. The mathematics is elementary: a bootstrap-closure argument and the second-order reversible
@@ -346,17 +398,20 @@ gem.
 | Item | Class |
 |---|---|
 | Node 1: DT; CR and bath countercontrols | CONFIRMING (PR1 2.5, C4) |
-| Lemma 2.1; Theorem 2.2; Lemma 2.3; 2.3(a)–(e); (2.4) | NEW (author classification, at its scope; to be confirmed by review) |
+| Lemma 2.1; Theorem 2.2; Lemma 2.3; 2.3(a)–(e); (2.4) | NEW at its scope (author; the review agrees) |
+| 2.3(f) example and 2.3(g) search (from the review) | ELABORATING (scope of 2.3(c) without clause A) |
 | Theorems 3.1–3.3 | ELABORATING (PR1 1.3, 1.5(b), AW-PR1-1) |
 
-- **AW-DL1-1 (supplied versus deliverable).** A low-entropy region counts toward a delivery budget
-  only inside the active closure of the declared update. For U₂ a parity-uniform region counts
-  zero. A NEQ-T proposal (PR1 node 4) should state, for its update, which part of its boundary
-  event `B₀` is deliverable.
+- **AW-DL1-1 (supplied versus deliverable).** For U₂, and for any update with an analogue of
+  Theorem 2.2, a low-entropy region counts toward a delivery budget only inside the active
+  closure; for U₂ a parity-uniform region outside the closed component counts zero. A NEQ-T
+  proposal (PR1 node 4) on such an update should state which part of its boundary event `B₀` is
+  deliverable.
 - **AW-DL1-2 (fresh inputs versus ready cells).** The P8-type constructions (#1400, #1404, #1412)
   renew fresh uniform inputs, which cost no budget; ready cells cost budget. Under U₂, noise
-  conducts and destroys readiness within one tick (7/32), while parity-uniform backgrounds hold
-  readiness and conduct nothing. A measurement source on U₂ needs both in one region, which is the
+  conducts, and a ready site whose six neighbours are noisy stays ready one tick with probability
+  7/32 (face sites of a vacuum region hold at the first tick, E9); parity-uniform backgrounds hold
+  readiness and conduct no finite pattern. A measurement source on U₂ needs both in one region, which is the
   open interface case of 2.4.
 - **Fixed point.** One pass, one NEW item; the §A.31 fixed point is not reached.
 
@@ -365,9 +420,11 @@ gem.
 ## 8. What this decides for #866 and #1169
 
 For the declared update U₂ (`q = 2`), the supplied resource of the most symmetric NEQ-T form, a
-parity-uniform region, cannot be delivered to a ready block: it is never moved, carriers cannot
-approach through it, and refresh inside a finite component is un-writing. A measurement source on
-U₂ would have to work at a ready/noise interface, which this record leaves open. Under μ-O and
+parity-uniform region, cannot be delivered to a ready block from outside its closed component: it
+is never moved, carriers cannot approach through it, and every record inside a finite component is
+erased by the next multiple of its period. Inside one component, a designed pattern can deliver
+once with a held record (2.3(f)), which NSC-3 and NSC-5 exclude. A measurement source on U₂ would
+have to work at a ready/noise interface, which this record leaves open. Under μ-O and
 μ-R the static budget is usable only as a fixed-block resource. Physical measurement sourcing is
 not affected beyond this: it remains "NOT PASSED", and A1 remains "OPEN/UNADOPTED", as recorded by
 the owner.
@@ -380,7 +437,8 @@ the owner.
   every neighbourhood, and that `β_{t+1} = β_{t−1}` is needed.
 - Hypothesis (I): that independence of `Ω*` from `Ω′` is preserved, so that `K_t(H)` relative to
   the whole world equals its value relative to `Ω*∖H`, and that (2.4) excludes the background bits.
-- 2.3(c): the step from periodicity of Ψ to "no record outlives `P` ticks".
+- 2.3(c): the step from periodicity of Ψ to "every record is erased by the next multiple of `P`".
+- DT clause A and its NSC-3 justification; the classification of 2.3(f) against NSC-1..7.
 - The DT exclusions and their mapping to NSC-1..7, and whether the CR countercontrol's failure is
   correctly placed at NSC-1 and NSC-3.
 - Theorem 3.2's `u`-mass computation and the role of disjointness (M2c).
@@ -401,7 +459,9 @@ the final infected set of 2-neighbour bootstrap percolation. T. Toffoli and N. M
 ## 10. Exact checks
 
 `checks/deliver_checks.py`. Command, from this directory: `python3 -I checks/deliver_checks.py`
-(about seven seconds). Exit status 0 iff every check holds.
+(about seven seconds). Exit status 0 iff every check holds. The review's own scripts (full-orbit
+invariance for the `2×2×2` box, random-torus invariance, mutation countercontrols, the 2.3(g)
+search) were run by the reviewer and are not part of this record.
 
 | Check | Statement tested |
 |---|---|
@@ -412,7 +472,8 @@ the final infected set of 2-neighbour bootstrap percolation. T. Toffoli and N. M
 | E4, E4b | Theorem 2.2's step for all 65,536 two-slice perturbations of a `2×2×2` box, on the vacuum and on `(χ, 1⊕χ)`; identical perturbation dynamics (Lemma 2.1) |
 | E5, E5b | Theorem 2.2 along three trajectories of 60 ticks (`n = 10`); countercontrol: the support itself moves |
 | E6 | Lemma 2.3(c): independence at distance 3; interaction at distance 2 (countercontrol) |
-| E7, E7b | 2.3(c) on the closed box `{−e_1, 0, e_1}`: bijection, orbit lengths dividing 4, readiness by un-writing |
+| E7, E7b | 2.3(c) on the closed box `{−e_1, 0, e_1}`: bijection, orbit lengths dividing 4; in this box readiness returns by un-writing |
+| E12 | 2.3(f): the review's five-site example embedded in the `n = 8` torus |
 | E8, E8b | countercontrols: `q = 3` and `q = 2^16` leak; the SM §3.1 ring vacuum conducts |
 | E9 | 2.4: survival 7/32 in noise; erosion probabilities 0, 1/4, 1/2 |
 | E10 | Lemma 2.3(b): width-2 slab insulates; width 1 does not (countercontrol) |
@@ -437,7 +498,8 @@ CHECK E5 along three trajectories (60 ticks, n=10) the support stays in cl2(A0) 
 CHECK E5b countercontrol: the support itself is not invariant (it leaves A0): PASS
 CHECK E6 two clusters at l1-distance 3 evolve exactly as if alone (40 ticks); at distance 2 they interact (countercontrol): PASS
 CHECK E7 apparatus box {-e1,0,e1} is closed; its dynamics is a bijection of 64 states with every orbit length dividing 4: PASS
-CHECK E7b centre readiness 1,3/4,9/16,3/4,1 at t=0..4 while K(centre)=2=D0 at every t (readiness returns only by un-writing): ['1', '3/4', '9/16', '3/4', '1']: PASS
+CHECK E7b centre readiness 1,3/4,9/16,3/4,1 at t=0..4 while K(centre)=2=D0 at every t (in this box readiness returns when the record is un-written): ['1', '3/4', '9/16', '3/4', '1']: PASS
+CHECK E12 review example on the n=8 torus: segment closed; orbit lengths 4 (c=0) and 6 (c=1), common period 12; H ready at t=0, depends on c at t=1..4, ready at t=5 for both c, while site 3 holds not-c at t=5: PASS
 CHECK E8 countercontrol q=3 and q=2^16: a single symbol 2 in the vacuum reaches all six neighbours in one step (no box confinement): PASS
 CHECK E8b countercontrol SM 3.1 ring (L=9): a single excitation reaches sites [-2, -1, 1] in one step (insulation is specific to the binary rounded-cubic rule): PASS
 CHECK E9 a ready site in product-uniform noise stays 0 w.p. 7/32 (= 1 - 25/32); a vacuum site with 1/2/3 noisy neighbours is perturbed w.p. 0/1/4/1/2: PASS
@@ -447,5 +509,5 @@ CHECK M1 external schedule cell1@t0 -> cell0@t1 'gains' 0 -> 1, but K_t0(cell0) 
 CHECK M2 mu-O invariant (orbit length 3); pointer-selected cell ready w.p. 1; each fixed cell and the external schedule w.p. 1/3 / ['1/3', '1/3', '1/3']; u(H_Q=0) = 1/2; cost d(1||1/2)=1 <= D(muO||u) = 3: PASS
 CHECK M2c countercontrol: selection by the cells' own content has u-mass 7/8 (= 7/8), so disjointness of pointer and cells is needed: PASS
 CHECK M3 single excitation in the vacuum (n=4) has orbit length 2, so D(mu-O||u) = 127 bits and every block has entropy <= log2(2) = 1 bit under mu-O: PASS
-23/23 checks hold
+24/24 checks hold
 ```

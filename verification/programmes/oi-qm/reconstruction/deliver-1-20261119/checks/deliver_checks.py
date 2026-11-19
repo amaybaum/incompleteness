@@ -365,8 +365,38 @@ def node2():
     check("E7 apparatus box {-e1,0,e1} is closed; its dynamics is a bijection of 64 states with "
           "every orbit length dividing 4", closed_ok and bij and per_ok)
     check("E7b centre readiness 1,3/4,9/16,3/4,1 at t=0..4 while K(centre)=2=D0 at every t "
-          "(readiness returns only by un-writing): " + str([str(x) for x in ready]),
+          "(in this box readiness returns when the record is un-written): " + str([str(x) for x in ready]),
           ready == [1, Fr(3, 4), Fr(9, 16), Fr(3, 4), 1] and K_ok)
+
+    # E12: the review's example (#1425 c.7023337287): closed segment {0..4}e1 in the vacuum,
+    # x_{-1} = 0, x_0 = (c,0,1,0,1), carrier c at site 0, H = site 1, w* = (0,0).
+    n = 8
+    seg = [(k, 0, 0) for k in range(5)]
+    traj, orbit_len = {}, {}
+    closed12 = True
+    for cval in (0, 1):
+        p, c = set(), {s for s, b in zip(seg, (cval, 0, 1, 0, 1)) if b}
+        start = (frozenset(p), frozenset(c))
+        tr = [(set(p), set(c))]
+        for t in range(1, 13):
+            p, c = c, step_sets(p, c, n)
+            if not (p | c) <= set(seg):
+                closed12 = False
+            tr.append((set(p), set(c)))
+        orbit_len[cval] = next(t for t in range(1, 13)
+                               if (frozenset(tr[t][0]), frozenset(tr[t][1])) == start)
+        traj[cval] = tr
+    H1 = (1, 0, 0)
+    W = {cv: [(int(H1 in traj[cv][t][0]), int(H1 in traj[cv][t][1])) for t in range(13)]
+         for cv in (0, 1)}
+    ready0 = W[0][0] == W[1][0] == (0, 0)
+    dep = all(W[0][t] != W[1][t] for t in (1, 2, 3, 4))
+    ready5 = W[0][5] == W[1][5] == (0, 0)
+    rec = all(int((3, 0, 0) in traj[cv][5][1]) == 1 - cv for cv in (0, 1))
+    check(f"E12 review example on the n=8 torus: segment closed; orbit lengths {orbit_len[0]} "
+          f"(c=0) and {orbit_len[1]} (c=1), common period 12; H ready at t=0, depends on c at "
+          "t=1..4, ready at t=5 for both c, while site 3 holds not-c at t=5",
+          closed12 and orbit_len == {0: 4, 1: 6} and ready0 and dep and ready5 and rec)
 
     # E8: q >= 3 countercontrol (insulation fails): single value 2 at the origin
     ok8 = True
