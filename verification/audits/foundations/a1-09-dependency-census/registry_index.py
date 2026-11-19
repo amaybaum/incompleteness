@@ -23,6 +23,15 @@ DECLARATION = re.compile(
 )
 MANUSCRIPT_TOKEN = re.compile(r"(?<![\w'])\w[\w']*")
 BRIDGE = Path("verification/lean-mathlib/OIBridge")
+IMPORT = re.compile(r"^import\s+(OIBridge\.[\w.]+)", re.MULTILINE)
+LEAN_CUES = {
+    "carrier_or_type": re.compile(r"\b(?:Finite|Fintype|FiniteDimensional|Fin|ZMod)\b"),
+    "set_or_count": re.compile(r"\b(?:Finset|Nat\.card|Fintype\.card|Set\.Finite)\b"),
+    "iterate_or_return": re.compile(
+        r"\b(?:orderOf|exists_ne_map_eq_of_infinite|surjective_of_injective|"
+        r"iterate|FiniteOrderOn|[Ii]dentityReturn)\b"
+    ),
+}
 
 
 @cache
@@ -155,19 +164,44 @@ def coverage_index(root):
     return rows, sorted(statements.keys() - registered), unattached
 
 
+def lean_source_index(root):
+    bridge = root / BRIDGE
+    files = [bridge.with_suffix(".lean"), *sorted(bridge.rglob("*.lean"))]
+    files.extend(sorted((root / "verification/lean").rglob("*.lean")))
+    rows = []
+    for path in files:
+        source = read(path)
+        lines = source.splitlines()
+        rows.append({
+            "file": str(path.relative_to(root)),
+            "imports": IMPORT.findall(source),
+            "declaration_candidates": declare(path),
+            "cue_lines": {
+                label: [number for number, line in enumerate(lines, 1) if pattern.search(line)]
+                for label, pattern in LEAN_CUES.items()
+            },
+        })
+    return rows
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("checkout", nargs="?", type=Path, default=Path.cwd())
-    root = parser.parse_args().checkout.resolve()
+    parser.add_argument("--lean", action="store_true", help="also index Lean sources and finite-object cues")
+    args = parser.parse_args()
+    root = args.checkout.resolve()
     families, supersessions = registry_index(root)
     entries, unregistered, unattached = coverage_index(root)
-    print(json.dumps({
+    index = {
         "families": families,
         "supersessions": supersessions,
         "entries": entries,
         "unregistered_statements": unregistered,
         "unattached": unattached,
-    }, ensure_ascii=False, indent=2))
+    }
+    if args.lean:
+        index["lean_sources"] = lean_source_index(root)
+    print(json.dumps(index, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
